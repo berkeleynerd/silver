@@ -11,11 +11,11 @@ low identity range. -/
 namespace Silver.Predicate.ArrayFlow
 
 abbrev ranges (arrays : ArrayBindings.Metadata) (scalars : Integer.Ranges) : Integer.Ranges :=
-  ArrayBindings.ranges arrays [] false scalars
+  ArrayBindings.integerRanges arrays [] false scalars
 
 def analysis (arrays : ArrayBindings.Metadata) (scalars : Integer.Analysis) : Integer.Analysis :=
-  ⟨ranges arrays scalars.declared, ArrayBindings.mutability arrays scalars.mutable,
-    scalars.static, ArrayBindings.refinability arrays scalars.refinable⟩
+  ⟨ranges arrays scalars.declared, ArrayBindings.integerMutability arrays scalars.mutable,
+    scalars.static, ArrayBindings.integerRefinability arrays scalars.refinable⟩
 
 def flow (arrays : ArrayBindings.Metadata) (facts : ActiveFlow) : Flow :=
   ⟨facts.path, ranges arrays facts.model.scalars⟩
@@ -25,31 +25,31 @@ def flow (arrays : ArrayBindings.Metadata) (facts : ActiveFlow) : Flow :=
 
 theorem ranges_scalar (arrays : ArrayBindings.Metadata) (scalars : Integer.Ranges)
     {index : Nat} (low : index ≤ ArrayBindings.scalarLimit) : ranges arrays scalars index = scalars index :=
-  ArrayBindings.ranges_scalar arrays [] false scalars low
+  ArrayBindings.ranges_scalar (ArrayBindings.integerNames arrays) [] false scalars low
 
 theorem ranges_bounded (arrays : ArrayBindings.Metadata) {values : ArrayBindings.Initials}
     (initials : ArrayBindings.InitialsFit arrays values) {scalars : Integer.Ranges}
     (bounded : scalars.Bounded) : (ranges arrays scalars).Bounded := by
   intro cell bounds found
-  change (if ArrayBindings.covers arrays cell then some (ArrayBindings.componentRange arrays cell) else scalars cell) = some bounds at found
+  change (if ArrayBindings.covers (ArrayBindings.integerNames arrays) cell then some (ArrayBindings.componentRange (ArrayBindings.integerNames arrays) cell) else scalars cell) = some bounds at found
   split at found
   · cases found
-    exact ArrayBindings.componentRange_bounded initials cell
+    exact ArrayBindings.componentRange_bounded (ArrayBindings.integerNames_initialsFit initials) cell
   · exact bounded cell bounds found
 
 theorem ranges_put (arrays : ArrayBindings.Metadata) (scalars : Integer.Ranges)
     {index : Nat} (low : index ≤ ArrayBindings.scalarLimit) (bounds : Option Integer.Interval) :
     ranges arrays (Integer.put scalars index bounds) = Integer.put (ranges arrays scalars) index bounds :=
-  ArrayBindings.ranges_put arrays [] false scalars low bounds
+  ArrayBindings.ranges_put (ArrayBindings.integerNames arrays) [] false scalars low bounds
 
 theorem ranges_join (arrays : ArrayBindings.Metadata) (left right : Integer.Ranges) :
     ranges arrays (left.join right) = (ranges arrays left).join (ranges arrays right) := by
   funext cell
-  unfold ranges ArrayBindings.ranges Integer.Ranges.join
-  cases covered : ArrayBindings.covers arrays cell with
+  unfold ranges ArrayBindings.integerRanges ArrayBindings.ranges Integer.Ranges.join
+  cases covered : ArrayBindings.covers (ArrayBindings.integerNames arrays) cell with
   | true =>
       simp only [covered, ↓reduceIte, Bool.false_eq_true]
-      exact congrArg some (ArrayBindings.componentRange_join_self arrays cell).symm
+      exact congrArg some (ArrayBindings.componentRange_join_self (ArrayBindings.integerNames arrays) cell).symm
   | false => simp only [covered, Bool.false_eq_true, ↓reduceIte]
 
 theorem ranges_refine (arrays : ArrayBindings.Metadata) (scalars : Integer.Ranges)
@@ -67,21 +67,21 @@ theorem analysis_widen (arrays : ArrayBindings.Metadata) (base : Integer.Analysi
     (scalars : Integer.Ranges) :
     (analysis arrays base).widen (ranges arrays scalars) = ranges arrays (base.widen scalars) := by
   funext cell
-  by_cases covered : ArrayBindings.covers arrays cell = true
-  · simp only [Integer.Analysis.widen, analysis, ranges, ArrayBindings.ranges, covered, ↓reduceIte,
+  by_cases covered : ArrayBindings.covers (ArrayBindings.integerNames arrays) cell = true
+  · simp only [Integer.Analysis.widen, analysis, ranges, ArrayBindings.integerRanges, ArrayBindings.integerMutability, ArrayBindings.ranges, covered, ↓reduceIte,
       Bool.false_eq_true]
     split <;> rfl
-  · have absent : ArrayBindings.covers arrays cell = false := by simpa using covered
-    simp only [Integer.Analysis.widen, analysis, ranges, ArrayBindings.ranges, absent,
+  · have absent : ArrayBindings.covers (ArrayBindings.integerNames arrays) cell = false := by simpa using covered
+    simp only [Integer.Analysis.widen, analysis, ranges, ArrayBindings.integerRanges, ArrayBindings.integerMutability, ArrayBindings.ranges, absent,
       Bool.false_eq_true, ↓reduceIte, ArrayBindings.mutability_of_not_covered absent]
 
 theorem analysis_withIndex (arrays : ArrayBindings.Metadata) (base : Integer.Analysis)
     (index : Nat) (bounds : Integer.Interval) (low : index ≤ ArrayBindings.scalarLimit) :
     analysis arrays (base.withIndex index bounds) = (analysis arrays base).withIndex index bounds := by
-  simp only [analysis, Integer.Analysis.withIndex]
+  simp only [analysis, Integer.Analysis.withIndex, ArrayBindings.integerMutability, ArrayBindings.integerRefinability]
   rw [ranges_put arrays base.declared low,
-    ArrayBindings.mutability_put arrays base.mutable low,
-    ArrayBindings.refinability_put arrays base.refinable low]
+    ArrayBindings.mutability_put (ArrayBindings.integerNames arrays) base.mutable low,
+    ArrayBindings.refinability_put (ArrayBindings.integerNames arrays) base.refinable low]
 
 theorem flow_join (arrays : ArrayBindings.Metadata) (left right : ActiveFlow) :
     flow arrays (left.join right) = (flow arrays left).join (flow arrays right) := by

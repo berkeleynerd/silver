@@ -74,7 +74,7 @@ theorem emission_accounting {text : Source} {names : BindingEnvironment}
     (accepted : (expressionStep (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text names state).position ≠ 0)
     (bounded : state.operands ≤ maxExpressionOperands)
     (parsed : EmissionAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text names state emitted) :
-    ∃ summary, emitted.inferLength names.shape (ArrayBindings.ranges arrays initials elaborating (ScalarExpression.ranges scalarNames)) = some summary ∧
+    ∃ summary, emitted.inferLength names.shape (ArrayBindings.integerRanges arrays initials elaborating (ScalarExpression.ranges scalarNames)) = some summary ∧
       (expressionStep (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text names state).lengthSummary =
         state.lengthSummary.add summary ∧
       (expressionStep (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text names state).operands = state.operands + emitted.sourceOperands ∧
@@ -282,7 +282,7 @@ theorem expressionTail_summary {text : Source} {names : BindingEnvironment}
     {state : ExpressionState} {expression : Expression} {result : ExpressionResult}
     (normal : NamesNormal names) (bounded : state.operands ≤ maxExpressionOperands)
     (parsed : ExpressionTailAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text names state expression result) :
-    ∃ summary, expression.inferLength names.shape (ArrayBindings.ranges arrays initials elaborating (ScalarExpression.ranges scalarNames)) = some summary ∧
+    ∃ summary, expression.inferLength names.shape (ArrayBindings.integerRanges arrays initials elaborating (ScalarExpression.ranges scalarNames)) = some summary ∧
       result.lengthSummary = state.lengthSummary.add summary := by
   induction parsed with
   | done => exact ⟨{}, rfl, by simp [ExpressionState.result, ExpressionResult.lengthSummary, ExpressionState.lengthSummary]⟩
@@ -301,7 +301,7 @@ theorem expressionAt_inferLength {text : Source} {names : BindingEnvironment}
     {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating : Bool} {position : Nat}
     {expression : Expression} {result : ExpressionResult} (normal : NamesNormal names)
     (parsed : ExpressionAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text names position expression result) :
-    expression.inferLength names.shape (ArrayBindings.ranges arrays initials elaborating (ScalarExpression.ranges scalarNames)) = some result.lengthSummary := by
+    expression.inferLength names.shape (ArrayBindings.integerRanges arrays initials elaborating (ScalarExpression.ranges scalarNames)) = some result.lengthSummary := by
   obtain ⟨summary, inferred, same⟩ := expressionTail_summary normal (by simp) parsed
   have initial : (ExpressionState.lengthSummary {position := position}) = ({} : LengthSummary) := rfl
   rw [initial, LengthSummary.zero_add] at same
@@ -471,7 +471,7 @@ theorem expressionAt_grouped_semantics {text : Source} {names : BindingEnvironme
     (normal : NamesNormal names)
     (parsed : ExpressionAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text names position expression result)
     (fitsResult : fits result capacity = true) (state : Fits names.shape input values)
-    (scalarState : Integer.Fits (ArrayBindings.ranges arrays initials elaborating (ScalarExpression.ranges scalarNames)) integers)
+    (scalarState : Integer.Fits (ArrayBindings.integerRanges arrays initials elaborating (ScalarExpression.ranges scalarNames)) integers)
     (inputBound : input.length ≤ capacity) (ordered : whole.flatten = expression)
     (subexpression : GroupedExpression.Subexpression part whole) :
     whole.evaluate values input integers = expression.evaluate values input integers ∧
