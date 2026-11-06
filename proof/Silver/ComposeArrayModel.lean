@@ -23,6 +23,8 @@ theorem model_arrayValues_zero (text : Source) (source result : ParserState) (le
   rw [arrayValuesModel]
   simp only [↓reduceIte]
 
+attribute [local simp] model_arrayValues_zero booleanArrayValuesModel_zero
+
 private theorem reject_or (p q : Prop) [Decidable p] [Decidable q] (value : ParserState) :
     (if p ∨ q then invalidState else value) =
       (if p then invalidState else if q then invalidState else value) := by
@@ -38,19 +40,24 @@ theorem model_arrayDeclaration_equation (text : Source) (state : ParserState)
     simp only [arrayDeclarationAt, arrayDeclarationValues, Bool.decide_or, Bool.or_assoc, ite_self]
   all_goals
     generalize arrayDeclarationParts text state = parts
+    rcases Bool.eq_false_or_eq_true parts.isBoolean with kind | kind <;>
+      simp only [ArrayDeclarationParts.typeWord, kind, Bool.false_eq_true,
+        Bool.false_and, Bool.true_and, decide_false, false_and, true_and,
+        Bool.or_false, ↓reduceIte]
+  all_goals
     split
     · rfl
     · by_cases single : (parts.upper.bounds.lower - parts.lower.bounds.lower + 1).toNat = 1
       · simp [single, arrayAggregatePosition, Bool.or_eq_true]
         split
-        · simp_all [model_arrayValues_zero, booleanArrayValuesModel_zero, invalidState]
+        · simp_all [invalidState]
         · rename_i valid
           simp only [not_or] at valid
           rcases valid with ⟨nonzero, static, nonempty, low, high⟩
           simp_all [addArrayBinding, reject_or]
       · simp [single, arrayAggregatePosition, Bool.or_eq_true]
         by_cases zero : parts.position = 0
-        · simp [zero, model_arrayValues_zero, booleanArrayValuesModel_zero, invalidState]
+        · simp [zero, invalidState]
         · simp [zero, addArrayBinding, reject_or]
 
 end Silver.Compose.Expressions

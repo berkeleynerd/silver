@@ -206,6 +206,15 @@ theorem arrayValues_eval_lexical (calls : Calls) (text : Source) (source result 
   rw [arrayValues_denotation, arrayValues_denotation]
   rfl
 
+theorem booleanArrayValues_eval_lexical (calls : Calls) (text : Source) (source result : ParserState)
+    (position length parsed maskFirst maskAfter : Nat) :
+    booleanArrayValuesModelBody.eval (lexical calls)
+        (booleanArrayValuesLocals text source result position length parsed maskFirst maskAfter) =
+      booleanArrayValuesModelBody.eval calls
+        (booleanArrayValuesLocals text source result position length parsed maskFirst maskAfter) := by
+  rw [booleanArrayValues_denotation, booleanArrayValues_denotation]
+  rfl
+
 theorem arrayDeclaration_eval_lexical (calls : Calls) (executable : Bool)
     (text : Source) (state : ParserState) (arguments : Bool) :
     (arrayDeclarationBody executable).eval (lexical calls) (Context.locals {text,state,arguments}) =
