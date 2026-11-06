@@ -4,7 +4,7 @@ public import Silver.SourceDeclarations
 public import Silver.ComposeArrayDeclarationSource
 public import Silver.ComposeContracts
 public import Silver.ComposeBooleanDeclarationSource
-public import Silver.ComposeBooleanArraySource
+public import Silver.ComposeBooleanArraySourceCandidate
 public import Silver.ReviewedOutputShape
 import all Init.Data.Repr
 
@@ -176,9 +176,7 @@ theorem candidate_array_helpers : ArrayHelperTranslationFor Output.SourceShape.o
 array trees and their scope/precedence predicates. -/
 theorem candidate_boolean_array_helpers :
     BooleanArraySource.Checked Output.SourceShape.outputImplementation := by
-  constructor
-  · constructor <;> decide +kernel
-  all_goals decide +kernel
+  exact BooleanArraySource.candidate_checked
 
 /-- The complete ordinary declaration body, including scope, precedence and
 native contracts, independently matched against the reviewed complete source. -/
