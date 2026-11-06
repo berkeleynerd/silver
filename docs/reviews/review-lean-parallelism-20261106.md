@@ -116,3 +116,59 @@ inspection ended at 10:59 UTC. That observed interval includes coordination and
 waiting, and is not an active-compute measurement. The round achieved component
 preservation review and repaired the declaration-boundary concern; complete
 runtime validation remains the lead's separate work. No CLI recall was updated.
+
+## Integration and performance readiness — 12:18 UTC
+
+The integrated source commit is
+`3f5d575635106fe9c5ecc039d6111a5a31429e56`, retained at documentation head
+`fd29affd177e5025c6e78385a8e88bb98c942ecc`. Independent Git comparisons found
+the certificate/generator/runner/tests identical to reviewed `a179b4593d`,
+the predicate files identical to reviewed `9100bb2fca`, and no later change in
+`proof/`, `scripts/`, `src/` or `tests/`. The integrated inventory contains
+**634 Lean modules**: all 626 baseline modules plus exactly the eight intended
+leaves. None was removed. The final fresh audit must cover that actual complete
+inventory; a declaration count alone cannot establish coverage. No complete
+integrated audit success is claimed yet.
+
+The [focused packet](../evidence/lean-source-parallelism-20261106/lean-focused/README.md)
+now records successful checks of all four complete line chunks, Helpers/Flow,
+and Body. The line build took 2055.420 seconds with four workers; observed
+average sampled usage was 3.595 cores and peak sampled summed RSS was 5.239 GiB.
+This demonstrates useful concurrent work on the complete line set. Helpers/Flow
+and Body took 2002.216 and 1623.675 build seconds in their recorded schedules.
+The first NativeShape run failed at its 12 GiB allowance; the unchanged-source
+24 GiB retry is still active. Its failure remains visible and supplies no
+accepted module or fresh audit.
+
+Two historical successful module builds provide descriptive comparison points:
+`OutputBodyCertificate` took 11,061 seconds in run
+`20261105T133612-ecc276b25c57`, and `PredicateSourceCandidate` took 6,899 seconds
+in run `20261105T171116-aab6d635d383`. Both overall runs failed elsewhere; their
+successful module objects were subsequently reused in the accepted complete
+checkpoint `20261105T192530-524a4096ef8f`. Independent comparison of each
+historical start ledger found all 131 captured Ada files identical to current
+bytes, and the selected generator, lexer, witness helper, output-body binding
+and predicate candidate identical to the presplit baseline. Lean/Lake binary
+hashes also match current tools. The
+[historical output record](../evidence/interim-review-response-20261105/lean-cpu-restart/README.md)
+and [final reuse record](../evidence/interim-review-response-20261105/lean-final/README.md)
+retain the original outcomes. Different surrounding builds, load, worker
+allocation, memory settings and cache state prevent a controlled speedup claim.
+
+Proceed with the existing plan: finish Shape, record transfer of completed
+matching-source/tool objects between idle workspaces, and run the normal complete
+runner with its dependency checks and fresh source/module/axiom audit. No new
+matched expensive benchmark or repeated source review is needed before that
+run. The final reconstruction and assembler costs are still needed to judge
+production usefulness. Report them alongside the completed leaf work and the
+failed resource trial; the final cached completion time alone is not the cost
+of rebuilding the split package. The resulting evidence can support an adoption
+decision with descriptive performance claims, subject to the actual remaining
+results. It will not establish a cold whole-build speedup or safe simultaneous
+fresh builds of all four heavy predicate leaves on this host. A 24 GiB
+per-process allowance is not an aggregate memory bound.
+
+This bounded continuation inspected integration identities and existing evidence
+from 12:14 to 12:18 UTC. Selected reviewer remains GPT-6 Astra / Extra High;
+runtime confirmation and token/cost measurements remain unavailable. No source
+edit, validation process, new benchmark or GitHub write was performed.

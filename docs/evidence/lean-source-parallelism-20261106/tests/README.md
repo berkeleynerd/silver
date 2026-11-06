@@ -3,6 +3,10 @@
 The selected implementation is `a179b4593d5553494d00e425f0ee09b5f35ed01c`.
 Native Linux x86-64 results:
 
+[Final-input applicability](applicability.md) maps the 87 distinct selected
+methods and completed native evidence to integration `3f5d575635`, and records
+the remaining complete Lean/source-correspondence obligation.
+
 | Scope | Result | Time |
 | --- | --- | --- |
 | Source policy/parity and mocked runner/lease checks | 70 passed | 16.779 s |
