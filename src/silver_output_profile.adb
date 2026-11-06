@@ -1667,6 +1667,17 @@ is
      with Ghost => Static, Global => null,
        Annotate => (GNATprove, Logical_Equal);
 
+   procedure Lemma_Parser_State_Equality (Left, Right : Parser_State)
+     with Ghost => Static, Global => null,
+       Pre => Same_Parser_State (Left, Right),
+       Post => Left = Right
+   is
+   begin
+      --  Isolate Ada record equality from the declaration's branch context.
+      --  The checked Logical_Equal premise supplies logical state identity.
+      null;
+   end Lemma_Parser_State_Equality;
+
    --  A Boolean initializer is checked in the declaration's incoming state.
    --  This cursor-only interface deliberately stores neither truth nor facts.
    function Boolean_Initializer_Model
@@ -2166,6 +2177,8 @@ is
    begin
       pragma Assert (Static => Same_Parser_State
         (Result, Array_Declaration_Model (Text, State, Arguments)));
+      Lemma_Parser_State_Equality
+        (Result, Array_Declaration_Model (Text, State, Arguments));
       return Result;
    end Array_Declaration_At;
 
