@@ -1,5 +1,63 @@
 # Session memory
 
+## 2026-11-06 — Stacked Lean delivery merges authorized
+
+After validation and review of the stacked Lean deliveries, the owner instructed
+**“Let's commit the stacked PR and then proceed with the next regularly scheduled
+unit of work.”** This authorizes the reviewed
+[PR #326](https://github.com/berkeleynerd/silver/pull/326) merge followed by
+[PR #330](https://github.com/berkeleynerd/silver/pull/330), together with necessary
+documentation reconciliation and issue/milestone closeout. It supersedes the
+earlier implementation-merge holds for these two deliveries. Retain the exact
+review and validation targets and applicable successful evidence; documentation
+reconciliation does not claim a new native or Lean proof run.
+
+Preserve the [#327/#328 authorization](#2026-11-06--incremental-lean-throughput-work-authorized)
+and the original [#323/#324 delivery record](lean-line-chunks.md#completed-production-validation--2026-11-06).
+The next unit's issue and scope still require selection before implementation;
+this entry does not select #314, #297 or another queued item. No Oracle or
+language change is authorized by this merge instruction. No CLI recall was
+updated.
+
+## 2026-11-06 — Incremental Lean throughput work authorized
+
+After the completed four-chunk/predicate implementation and validation on
+[PR #326](https://github.com/berkeleynerd/silver/pull/326), the owner instructed
+**“Proceed”** with the recommended next work under
+[#8](https://github.com/berkeleynerd/silver/issues/8) and
+[milestone 17](https://github.com/berkeleynerd/silver/milestone/17):
+
+1. [#327](https://github.com/berkeleynerd/silver/issues/327): compare proportional
+   four- and eight-module output line partitions on the same complete 4,915-line
+   workload, then integrate eight chunks if useful.
+2. [#328](https://github.com/berkeleynerd/silver/issues/328): after that disposition,
+   use a bounded ordinary-edit pilot to select stable chunk identities and cache
+   reuse within the existing generator/module/Lake workflow, then integrate a
+   useful small design.
+
+Implementation stacks on the reviewed, open PR #326; its governed source remains
+`3f5d575635` and published completion head is `c062d5253e`. This instruction does
+not authorize merging or changing that delivery. Keep #8 and milestone 17 open
+for the new packages. Record this authorization on main before claiming either
+new issue; they remain Backlog until then. The
+[bounded record](lean-incremental-throughput.md) and
+[roadmap](../roadmap.md#lean-source-parallelism) state order and completion criteria.
+
+Preserve individual line checks, exact source/token/reconstruction statements,
+actual-source transport and complete obligation/module/axiom coverage. Retain
+managed reservations and automatic CPU/thread settings, except the explicit
+four/eight-worker comparison control or a documented current resource constraint;
+size concurrency and per-process memory for actual host headroom. Delivery needs
+complete integrated Lean/source/module/axiom validation, applicable native
+proof/build evidence or refresh, focused tests and independent critical review.
+A shared final checkpoint is permitted when exact integrated applicability holds.
+
+Reconstruction representation/subtree changes, reflection or broader proof/cache
+framework work, #314 guards and language/Oracle changes remain outside scope.
+This instruction authorizes routine planning records and their publication and
+planning-PR merge, plus scoped implementation through reviewable publication.
+Implementation merge remains a later owner decision. No CLI recall was updated.
+
 ## 2026-11-06 — Lean source parallelism validated for review
 
 The two packages authorized below are implemented together in
