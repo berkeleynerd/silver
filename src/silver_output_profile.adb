@@ -3137,7 +3137,8 @@ is
                    Context.Mask_First, Context.Mask_After);
               Close : constant Literal_Position := Take_Token (Text, Subscript.After, Right_Parenthesis);
       begin
-        (if Target = 0 or else not Context.Array_Names.Items (Target).Boolean_Elements
+        (if First = 0 or else After <= First
+           or else Target = 0 or else not Context.Array_Names.Items (Target).Boolean_Elements
            or else Scalar_Expressions.Lookup (Text, Context.Scalar_Names, First, After) /= 0
            or else (Context.Mask_First /= 0 and then Equal_Name
              (Text, Context.Mask_First, Context.Mask_After, First, After))
