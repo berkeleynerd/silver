@@ -9,6 +9,16 @@ open Compose Compose.Expressions
 
 set_option backward.dsimp.instances true
 
+theorem booleanArray_progress (text : Source) (context : ParseContext) (position : Nat) (facts : ActiveFlow)
+    (accepted : booleanArrayAfter text context position facts ≠ 0) :
+    position < booleanArrayAfter text context position facts := by
+  unfold booleanArrayAfter at accepted ⊢
+  dsimp only at accepted ⊢
+  split <;> (try simp only [*, ↓reduceIte] at accepted)
+  · contradiction
+  · rename_i allowed
+    omega
+
 theorem booleanAtom_progress (text : Source) (context : ParseContext) (position : Nat)
     (bounded : position ≤ text.length + 1) (accepted : booleanAtomAfter text context position ≠ 0) :
     position < booleanAtomAfter text context position := by
@@ -38,7 +48,7 @@ theorem primary_progress (text : Source) (context : ParseContext) (position : Na
       · have closed : fixedAfter text (readCondition text context (fixedAfter text position "(" false) facts initials).after ")" false ≠ 0 := by
           intro absent
           simp [readPrimary, zero, opening, advanced, absent, invalidCondition] at accepted
-        have innerPositive := fixedAfter_nonzero closed
+        have innerPositive := (model_fixed_input_nonzero _ _ _ _) closed
         have afterBound := model_fixed_valid text position "(" false bounded
         have start := model_fixed_advances text position "(" false bounded (by decide) opening
         have inner := condition_progress text context _ facts innerPositive
@@ -48,21 +58,25 @@ theorem primary_progress (text : Source) (context : ParseContext) (position : Na
         omega
       · simp [readPrimary, zero, opening, advanced, invalidCondition] at accepted
     · have noOpening : fixedAfter text position "(" false = 0 := by omega
-      by_cases atom : booleanAtomAfter text context position ≠ 0
-      · simpa only [readPrimary, zero, noOpening, atom, ne_eq, not_true_eq_false, not_false_eq_true, ↓reduceIte]
-          using booleanAtom_progress text context position bounded atom
-      · have noAtom : booleanAtomAfter text context position = 0 := by omega
-        have arguments : context.hasArguments = true := by
-          cases arguments : context.hasArguments with
-          | false => simp [readPrimary, zero, noOpening, noAtom, arguments, invalidCondition] at accepted
-          | true => rfl
-        have finalPositive : callAfter text context.names position .validity context.scalarNames context.arrayNames
-            (context.validityHidden text) context.booleanNames ≠ 0 := by
-          intro absent
-          simp [readPrimary, zero, noOpening, noAtom, arguments, absent, invalidCondition] at accepted
-        have progress := model_callAfter_advances text context.names position .validity bounded finalPositive
-        simpa only [readPrimary, zero, noOpening, noAtom, arguments, ne_eq, not_true_eq_false,
-          Bool.not_true, Bool.false_eq_true, finalPositive, ↓reduceIte] using progress
+      by_cases array : booleanArrayAfter text context position facts ≠ 0
+      · simpa only [readPrimary, zero, noOpening, array, ne_eq, not_true_eq_false, not_false_eq_true, ↓reduceIte]
+          using booleanArray_progress text context position facts array
+      · have noArray : booleanArrayAfter text context position facts = 0 := by omega
+        by_cases atom : booleanAtomAfter text context position ≠ 0
+        · simpa only [readPrimary, zero, noOpening, noArray, atom, ne_eq, not_true_eq_false, not_false_eq_true, ↓reduceIte]
+            using booleanAtom_progress text context position bounded atom
+        · have noAtom : booleanAtomAfter text context position = 0 := by omega
+          have arguments : context.hasArguments = true := by
+            cases arguments : context.hasArguments with
+            | false => simp [readPrimary, zero, noOpening, noArray, noAtom, arguments, invalidCondition] at accepted
+            | true => rfl
+          have finalPositive : callAfter text context.names position .validity context.scalarNames context.arrayNames
+              (context.validityHidden text) context.booleanNames ≠ 0 := by
+            intro absent
+            simp [readPrimary, zero, noOpening, noArray, noAtom, arguments, absent, invalidCondition] at accepted
+          have progress := model_callAfter_advances text context.names position .validity bounded finalPositive
+          simpa only [readPrimary, zero, noOpening, noArray, noAtom, arguments, ne_eq, not_true_eq_false,
+            Bool.not_true, Bool.false_eq_true, finalPositive, ↓reduceIte] using progress
 
 theorem booleanFactor_progress (text : Source) (context : ParseContext) (position : Nat) (facts : ActiveFlow)
     {initials : ArrayBindings.Initials}

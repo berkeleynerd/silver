@@ -37,6 +37,13 @@ structure HelperMeaning (calls : Calls) : Prop where
   arrayLookup : ∀ text, ValidText text → ∀ names first after,
     ArrayBindings.ValidMetadata text names → first ≤ text.length + 1 → after ≤ text.length + 1 →
     calls.arrayLookup text names first after = ArrayBindings.lookup text names first after
+  arrayContains : ∀ item indices, ArrayBindings.Native.BindingType item → indices.Bounded →
+    calls.arrayContains item indices = ArrayBindings.contains item indices
+  scalarIndex : ∀ text, ValidText text → ∀ position names maskFirst maskAfter,
+    position ≤ text.length + 1 → ScalarExpression.ValidEnvironment text names →
+    ScalarExpression.ValidMask text maskFirst maskAfter →
+    calls.scalarIndex text position names maskFirst maskAfter =
+      ScalarExpression.read text position names maskFirst maskAfter
   booleanLookup : ∀ text, ValidText text → ∀ names first after,
     BooleanBindings.ValidEnvironment text names → first ≤ text.length + 1 → after ≤ text.length + 1 →
     calls.booleanLookup text names first after = BooleanBindings.lookup text names first after
@@ -117,6 +124,10 @@ structure DefinitionEquations (calls : Calls) : Prop where
     calls.chainToken text position = chainTokenBody.eval calls ({text, position} : Inputs).locals
   chainAfter : ∀ text, ValidText text → ∀ position operator, position ≤ text.length + 1 → operator.isChain = true →
     calls.chainAfter text position operator = chainAfterBody.eval calls ({text, position, operator} : Inputs).locals
+  booleanArray : ∀ text, ValidText text → ∀ context, ValidContext text context → ∀ position,
+    position ≤ text.length + 1 → ∀ facts, ValidFlow context facts →
+    calls.booleanArray text context position facts =
+      booleanArrayBody.eval calls ({text, context, position, facts} : Inputs).locals
   booleanAtom : ∀ text, ValidText text → ∀ context, ValidContext text context → ∀ position,
     position ≤ text.length + 1 →
     calls.booleanAtom text context position = booleanAtomBody.eval calls ({text, context, position} : Inputs).locals
@@ -241,6 +252,73 @@ theorem chainAfter_meaning (text : Source) (tv : ValidText text) (position : Nat
     helpers.take text tv _ .elseKeyword (takeModel_valid text position .orKeyword bounded)]
   cases operator <;> rfl
 
+theorem booleanArray_meaning (text : Source) (tv : ValidText text)
+    (context : Context) (cv : ValidContext text context) (position : Nat) (bounded : position ≤ text.length + 1)
+    (facts : ActiveFlow) (fv : ValidFlow context facts) :
+    calls.booleanArray text context position facts = booleanArrayAfter text context.model position facts := by
+  rw [defs.booleanArray text tv context cv position bounded facts fv, booleanArray_denotation]
+  unfold booleanArrayEquation booleanArrayAfter
+  dsimp only
+  rw [helpers.skip text tv position bounded]
+  have firstBound := model_skip_valid text position bounded
+  rw [helpers.name text tv _ firstBound]
+  have afterBound := model_name_valid text (skipAt text position)
+  rw [helpers.arrayLookup text tv context.arrayNames _ _ cv.arrays firstBound afterBound,
+    helpers.take text tv _ .leftParenthesis afterBound,
+    helpers.readingNames text tv context cv facts fv]
+  rw [show takeModel text (nameAfter text (skipAt text position)) .leftParenthesis =
+    fixedAfter text (nameAfter text (skipAt text position)) "(" false from rfl]
+  have indexStart := model_fixed_valid text _ "(" false afterBound
+  have overlayValid : ScalarExpression.ValidEnvironment text (context.model.readingNames facts) :=
+    ScalarMetadata.readingNames_valid cv.2.2.1 fv.2.compatible.count fv.2.bounded
+  rw [helpers.scalarIndex text tv _ _ context.maskFirst context.maskAfter indexStart overlayValid cv.mask]
+  have indexType := ScalarExpression.Native.read_type tv (names := context.model.readingNames facts)
+    (maskFirst := context.maskFirst) (maskAfter := context.maskAfter)
+    (allowSign := true) (arrays := []) (initials := []) (elaborating := false) indexStart
+  have indexBound : (ScalarExpression.read text (fixedAfter text (nameAfter text (skipAt text position)) "(" false)
+      (context.model.readingNames facts) context.maskFirst context.maskAfter).after ≤ text.length + 1 := by
+    by_cases zero : (ScalarExpression.read text (fixedAfter text (nameAfter text (skipAt text position)) "(" false)
+      (context.model.readingNames facts) context.maskFirst context.maskAfter).after = 0
+    · simp [zero]
+    · exact (ScalarExpression.read_bounds indexStart zero).2.1
+  rw [helpers.take text tv _ .rightParenthesis indexBound]
+  dsimp only [Context.model, ParseContext.readingNames]
+  dsimp only [Context.model, ParseContext.readingNames] at indexType
+  by_cases targetZero : ArrayBindings.lookup text context.arrayNames (skipAt text position)
+      (nameAfter text (skipAt text position)) = 0
+  · simp [targetZero]
+  · have targetPositive : 0 < ArrayBindings.lookup text context.arrayNames (skipAt text position)
+        (nameAfter text (skipAt text position)) := by omega
+    have member := ArrayBindings.Native.binding_mem targetPositive
+      (ArrayBindings.Native.lookup_bound text context.arrayNames _ _)
+    have itemValid := (cv.arrays.2.1 _ member).2.2.2
+    have itemType : ArrayBindings.Native.BindingType
+        (ArrayBindings.binding context.arrayNames
+          (ArrayBindings.lookup text context.arrayNames (skipAt text position) (nameAfter text (skipAt text position)))) :=
+      ⟨itemValid.1, by have cap := itemValid.2.2.2.1; omega,
+        by have cap := itemValid.2.2.2.1; omega, itemValid.2.2.2.2.2.1⟩
+    rw [helpers.scalarLookup text tv context.scalarNames _ _ cv.2.2.1 firstBound afterBound,
+      helpers.arrayContains _ _ itemType indexType.2.1]
+    have nameValid : Compose.Expressions.ValidName text (skipAt text position) (nameAfter text (skipAt text position)) := by
+      have notBad : ¬(skipAt text position = 0 ∨ nameAfter text (skipAt text position) ≤ skipAt text position) := by
+        intro bad
+        apply targetZero
+        change ArrayBindings.lookupFrom text context.arrayNames (skipAt text position)
+          (nameAfter text (skipAt text position)) context.arrayNames.length = 0
+        cases context.arrayNames.length with
+        | zero => rfl
+        | succ length => exact ite_eq_left bad
+      exact ⟨by omega, by omega, afterBound⟩
+    by_cases maskZero : context.maskFirst = 0
+    · simp only [maskZero, ne_eq, not_true_eq_false, false_and]
+      rfl
+    · have maskValid : Compose.Expressions.ValidName text context.maskFirst context.maskAfter := by
+        rcases cv.mask with absent | present
+        · exact False.elim (maskZero absent.1)
+        · exact present
+      rw [helpers.equalName text tv _ _ _ _ maskValid nameValid]
+      rfl
+
 theorem booleanAtom_meaning (text : Source) (tv : ValidText text)
     (context : Context) (cv : ValidContext text context) (position : Nat) (bounded : position ≤ text.length + 1) :
     calls.booleanAtom text context position = booleanAtomAfter text context.model position := by
@@ -283,6 +361,7 @@ theorem primary_normalized (contracts : Contracts calls) (text : Source) (tv : V
   have openingBound := takeModel_valid text position .leftParenthesis bounded
   have innerBound := (contracts.model text tv context cv _ openingBound facts fv initials iv).1.1
   rw [helpers.take text tv _ .rightParenthesis innerBound,
+    booleanArray_meaning helpers defs text tv context cv position bounded facts fv,
     booleanAtom_meaning helpers defs text tv context cv position bounded]
   have masked : (decide (context.maskFirst ≠ 0) && calls.nameIs text context.maskFirst context.maskAfter "input_is_valid") =
       (decide (context.maskFirst ≠ 0) && Named.nameIs text context.maskFirst context.maskAfter ("input_is_valid".toList.map Char.toNat)) := by
@@ -439,6 +518,8 @@ theorem model_helper_meaning : HelperMeaning modelCalls where
   equalName := by intros; rfl
   nameIs := by intros; rfl
   arrayLookup := by intros; rfl
+  arrayContains := by intros; rfl
+  scalarIndex := by intros; rfl
   booleanLookup := by intros; rfl
   callAfter := by intros; rfl
   take := by intros; rfl
@@ -480,6 +561,9 @@ theorem model_definition_equations : DefinitionEquations modelCalls where
   chainAfter text _ position operator _ valid := by
     rw [chainAfter_denotation]
     exact model_chainAfter_equation text position operator valid
+  booleanArray text _ context _ position _ facts _ := by
+    rw [booleanArray_denotation]
+    exact model_booleanArray_equation text context position facts
   booleanAtom text _ context _ position _ := by
     rw [booleanAtom_denotation]
     exact model_booleanAtom_equation text context position

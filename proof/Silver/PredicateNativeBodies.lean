@@ -85,7 +85,7 @@ def booleanArrayBody : Expr .number :=
       (.callTake text (.field .scalarAfter subscript) (.token .rightParenthesis)) <|
     .group <| .ite
       (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse
-        (.eq target (.number 0)) (.not (.field .arrayBooleanElements item)))
+        (.orElse (.orElse (.eq first (.number 0)) (.le after first)) (.eq target (.number 0))) (.not (.field .arrayBooleanElements item)))
         (.ne (.callScalarLookup text (.field .contextScalarNames context) first after) (.number 0)))
         (.group (.andThen (.ne (.field .contextMaskFirst context) (.number 0))
           (.callEqualName text (.field .contextMaskFirst context) (.field .contextMaskAfter context) first after))))

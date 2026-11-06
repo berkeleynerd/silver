@@ -68,7 +68,8 @@ def booleanArrayEquation (calls : Calls) (text : Source) (context : Context)
   let subscript := calls.scalarIndex text (calls.take text after .leftParenthesis)
     (calls.readingNames context facts) context.maskFirst context.maskAfter
   let close := calls.take text subscript.after .rightParenthesis
-  if target = 0 ∨ (ArrayBindings.binding context.arrayNames target).isBoolean = false ∨
+  if first = 0 ∨ after ≤ first ∨ target = 0 ∨
+      (ArrayBindings.binding context.arrayNames target).isBoolean = false ∨
       calls.scalarLookup text context.scalarNames first after ≠ 0 ∨
       (context.maskFirst ≠ 0 ∧ calls.equalName text context.maskFirst context.maskAfter first after = true) ∨
       subscript.operands = ScalarExpression.maxOperands ∨

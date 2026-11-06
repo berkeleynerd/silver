@@ -14,6 +14,10 @@ structure Contracts (calls : Calls) : Prop where
   length : ∀ text, ValidText text → ∀ context, ValidContext text context →
     ∀ position, position ≤ text.length + 1 → ∀ literal,
     (calls.length text context position literal).after ≤ text.length + 1
+  booleanArray : ∀ text, ValidText text → ∀ context, ValidContext text context →
+    ∀ position, position ≤ text.length + 1 → ∀ facts, ValidFlow context facts →
+    calls.booleanArray text context position facts ≤ text.length + 1 ∧
+      (calls.booleanArray text context position facts = 0 ∨ position < calls.booleanArray text context position facts)
   booleanAtom : ∀ text, ValidText text → ∀ context, ValidContext text context →
     ∀ position, position ≤ text.length + 1 →
     calls.booleanAtom text context position ≤ text.length + 1 ∧
@@ -59,6 +63,11 @@ structure Contracts (calls : Calls) : Prop where
 theorem model_contracts : Contracts modelCalls where
   comparison text _ position bounded := comparison_bound text position bounded
   length text _ context _ position bounded literal := length_bound text context.model position literal bounded
+  booleanArray text _ context _ position bounded facts _ := by
+    change booleanArrayAfter text context.model position facts ≤ text.length + 1 ∧ _
+    by_cases zero : booleanArrayAfter text context.model position facts = 0
+    · exact ⟨by simp [zero], Or.inl zero⟩
+    · exact ⟨(booleanArray_sound zero).2, Or.inr (booleanArray_progress text context.model position facts zero)⟩
   booleanAtom text _ context _ position bounded := by
     change booleanAtomAfter text context.model position ≤ text.length + 1 ∧ _
     by_cases zero : booleanAtomAfter text context.model position = 0
