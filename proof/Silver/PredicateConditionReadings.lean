@@ -46,6 +46,23 @@ inductive BooleanAtomAt (text : Source) (context : ParseContext) (position : Nat
         ((if value then "true" else "false").toList.map Char.toNat) = true →
       BooleanAtomAt text context position (.booleanLiteral value) (nameAfter text (skipAt text position))
 
+/-- A stored Boolean component retains the raw scalar-only index and its
+complete incoming-flow checks. Every target remains the raw metadata index. -/
+inductive BooleanArrayAt (text : Source) (context : ParseContext) (position : Nat)
+    (facts : ActiveFlow) : Condition → Nat → Prop
+  | read {index : Integer.Expr} {subscript : ScalarExpression.Result} :
+      (ArrayBindings.lookup text context.arrayNames (skipAt text position) (nameAfter text (skipAt text position))) ≠ 0 → (ArrayBindings.binding context.arrayNames (ArrayBindings.lookup text context.arrayNames (skipAt text position) (nameAfter text (skipAt text position)))).isBoolean = true →
+      ScalarExpression.lookup text context.scalarNames (skipAt text position) (nameAfter text (skipAt text position)) = 0 →
+      ¬(context.maskFirst ≠ 0 ∧ Named.equalName text context.maskFirst context.maskAfter (skipAt text position) (nameAfter text (skipAt text position)) = true) →
+      ScalarExpression.At text (context.readingNames facts) (fixedAfter text (nameAfter text (skipAt text position)) "(" false) index subscript
+        context.maskFirst context.maskAfter →
+      subscript.operands ≠ ScalarExpression.maxOperands →
+      ArrayBindings.contains (ArrayBindings.binding context.arrayNames (ArrayBindings.lookup text context.arrayNames (skipAt text position) (nameAfter text (skipAt text position)))) subscript.bounds = true →
+      position < fixedAfter text subscript.after ")" false →
+      BooleanArrayAt text context position facts
+        (.booleanArrayRead (ArrayBindings.binding context.arrayNames (ArrayBindings.lookup text context.arrayNames (skipAt text position) (nameAfter text (skipAt text position)))).booleanDescriptor index)
+        (fixedAfter text subscript.after ")" false)
+
 mutual
   inductive PrimaryAtCore (text : Source) (context : ParseContext) (initials : ArrayBindings.Initials) :
       Nat → ActiveFlow → Condition → ConditionResult → Prop
@@ -56,11 +73,17 @@ mutual
         fixedAfter text result.after ")" false ≠ 0 →
         PrimaryAtCore text context initials position facts (.parenthesized inner)
           {result with after := fixedAfter text result.after ")" false}
+    | booleanArray {position facts atom after} : position ≠ 0 → fixedAfter text position "(" false = 0 →
+        booleanArrayAfter text context position facts = after → after ≠ 0 →
+        BooleanArrayAt text context position facts atom after →
+        PrimaryAtCore text context initials position facts atom ⟨after, facts, facts⟩
     | boolean {position facts atom after} : position ≠ 0 → fixedAfter text position "(" false = 0 →
+        booleanArrayAfter text context position facts = 0 →
         booleanAtomAfter text context position = after → after ≠ 0 →
         BooleanAtomAt text context position atom after →
         PrimaryAtCore text context initials position facts atom ⟨after, facts, facts⟩
     | valid {position facts} : position ≠ 0 → fixedAfter text position "(" false = 0 →
+        booleanArrayAfter text context position facts = 0 →
         booleanAtomAfter text context position = 0 → context.hasArguments = true →
         callAfter text context.names position .validity context.scalarNames context.arrayNames
           (context.validityHidden text) context.booleanNames ≠ 0 →
@@ -212,11 +235,14 @@ theorem primary_complete {text context position facts condition result initials}
   | group positive opening advanced inner closed =>
       rw [readPrimary]
       simp [positive, opening, advanced, condition_complete inner, closed]
-  | boolean positive noOpening afterEq nonzero atom =>
+  | booleanArray positive noOpening afterEq nonzero atom =>
       simp only [readPrimary, positive, noOpening, afterEq, nonzero, ne_eq,
         not_true_eq_false, not_false_eq_true, ↓reduceIte]
-  | valid positive noOpening noAtom arguments accepted =>
-      simp only [readPrimary, positive, noOpening, noAtom, arguments, Bool.not_true, Bool.false_eq_true,
+  | boolean positive noOpening noArray afterEq nonzero atom =>
+      simp only [readPrimary, positive, noOpening, noArray, afterEq, nonzero, ne_eq,
+        not_true_eq_false, not_false_eq_true, ↓reduceIte]
+  | valid positive noOpening noArray noAtom arguments accepted =>
+      simp only [readPrimary, positive, noOpening, noArray, noAtom, arguments, Bool.not_true, Bool.false_eq_true,
         ne_eq, not_true_eq_false, ↓reduceIte, accepted]
 
 theorem booleanFactor_complete {text context position facts condition result initials}

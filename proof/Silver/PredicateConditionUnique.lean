@@ -31,6 +31,16 @@ theorem booleanAtom_unique {text context position left right leftAfter rightAfte
           cases value <;> cases other <;> simp_all
 
 
+theorem booleanArray_unique {text context position facts left right leftAfter rightAfter}
+    (first : BooleanArrayAt text context position facts left leftAfter)
+    (second : BooleanArrayAt text context position facts right rightAfter) : left = right := by
+  cases first with
+  | read _ _ _ _ index _ _ _ =>
+      cases second with
+      | read _ _ _ _ other _ _ _ =>
+          exact congrArg (Condition.booleanArrayRead _) (ScalarExpression.at_unique index other).1
+
+
 mutual
   theorem primary_unique {text context position facts left right leftResult rightResult initials}
       (first : PrimaryAt text context position facts left leftResult initials)
@@ -39,16 +49,27 @@ mutual
     | group _ opening _ inner _ =>
         cases second with
         | group _ _ _ other _ => exact congrArg Condition.parenthesized (condition_unique inner other)
-        | valid _ noOpening | boolean _ noOpening => exact False.elim (opening noOpening)
-    | boolean _ noOpening atomAfter nonzero atom =>
+        | valid _ noOpening | boolean _ noOpening | booleanArray _ noOpening =>
+            exact False.elim (opening noOpening)
+    | booleanArray _ noOpening arrayAfter nonzero array =>
         cases second with
         | group _ opening => exact False.elim (opening noOpening)
-        | boolean _ _ _ _ other => exact booleanAtom_unique atom other
-        | valid _ _ noAtom => rw [atomAfter] at noAtom; exact False.elim (nonzero noAtom)
-    | valid _ noOpening noAtom _ _ =>
+        | booleanArray _ _ _ _ other => exact booleanArray_unique array other
+        | boolean _ _ noArray | valid _ _ noArray =>
+            rw [arrayAfter] at noArray; exact False.elim (nonzero noArray)
+    | boolean _ noOpening noArray atomAfter nonzero atom =>
         cases second with
         | group _ opening => exact False.elim (opening noOpening)
-        | boolean _ _ atomAfter nonzero => rw [atomAfter] at noAtom; exact False.elim (nonzero noAtom)
+        | booleanArray _ _ arrayAfter nonzero =>
+            rw [arrayAfter] at noArray; exact False.elim (nonzero noArray)
+        | boolean _ _ _ _ _ other => exact booleanAtom_unique atom other
+        | valid _ _ _ noAtom => rw [atomAfter] at noAtom; exact False.elim (nonzero noAtom)
+    | valid _ noOpening noArray noAtom _ _ =>
+        cases second with
+        | group _ opening => exact False.elim (opening noOpening)
+        | booleanArray _ _ arrayAfter nonzero =>
+            rw [arrayAfter] at noArray; exact False.elim (nonzero noArray)
+        | boolean _ _ _ atomAfter nonzero => rw [atomAfter] at noAtom; exact False.elim (nonzero noAtom)
         | valid => rfl
   termination_by (remainingAt text position, 1)
   decreasing_by all_goals exact Prod.Lex.left _ _ (by assumption)

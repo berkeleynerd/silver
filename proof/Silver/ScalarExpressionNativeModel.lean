@@ -120,7 +120,7 @@ def arrayAtomStep (recurse : Reader) (text : Source) (position : Nat) (names : E
     (maskFirst maskAfter target : Nat) (arrays : ArrayBindings.Metadata)
     (initials : ArrayBindings.Initials) (elaborating : Bool) : Result :=
   let opened := symbol text position 40
-  if opened = 0 then invalid else
+  if opened = 0 ∨ (ArrayBindings.binding arrays target).isBoolean = true then invalid else
     let subscript := recurse text opened names maskFirst maskAfter true
     let closed := symbol text subscript.after 41
     if closed ≤ position ∨ subscript.operands = maxOperands ∨
