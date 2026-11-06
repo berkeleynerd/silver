@@ -291,6 +291,8 @@ certificates. This is reviewed preparation, not complete source assurance.
 | Lean `20261106T225112-b305e0e70621` | `ComposeArrayEquations` and `ComposeEvaluation` passed: 151 modules / 21,354 declarations, 334.635 s build and 8.359 s fresh audit, exactly the approved foundations. [Manifest](shared-type-word/lean-focused-evidence.json), [log](shared-type-word/lean-focused.log). This source-independent run captured the earlier Ada bytes; it does not establish correspondence to the new constant. |
 | Cache transfer | From the idle successful focused workspace into the idle integration workspace: 23 rebuilt module families, 360 artifact files, 81 copied and 279 already identical. All 151 audited module sources matched integration; complete private/server/hash/trace families were retained without rewriting traces. [Inventory](shared-type-word/cache-import-fixed-word.json). Lake dependency checking and the complete fresh audit remain mandatory. |
 | Source policy `20261106T225857-e507df7ab57e` | All 16 tests passed in 93.985 s, including exact certificate regeneration and native kernel rejection controls. [Result](shared-type-word/source-policy-tests.json), [log](shared-type-word/source-policy-tests.log). This is not the complete project audit. |
+| Complete declaration `20261106T224836-6338c8d07171` | All 47 checks passed together: 45 proof and two flow records, 1,032.688 s. This includes the original assertion, equality-bridge precondition and both postcondition modes. [Result](shared-type-word/whole-declaration-result.json). |
+| Complete model `20261106T230639-d72d8edd5e80` | All 42 checks passed: 40 proof and two flow records, 910.136 s. [Result](shared-type-word/complete-model-result.json). Both scoped runs use the normal 30-second/1000-MiB proof settings; their scopes overlap and their counts are not a full-compiler total. |
 
 The [mechanical refresh](shared-type-word/refresh.json) changes only line buckets
 0, 1 and 6, their reconstruction and the complete output pin (53,290 to 53,297
@@ -300,5 +302,23 @@ The [failed 120-second trial](shared-type-word/original-assertion-timeout120-mem
 and [interrupted higher-memory trial](shared-type-word/original-assertion-timeout120-memory4096-interruption.json)
 retain their actual outcomes. Implementation selected GPT-6.1 Sol / Extra High;
 critical review selected GPT-6 Astra / Extra High. Runtime confirmation and
-token/cost measurements are unavailable. Complete integrated assurance,
-regressions and delivery still remain pending.
+token/cost measurements are unavailable.
+
+The installed native validation tree then switched, at its original path, to
+integration `943a97c8cf`; all 144 selected source/script/project/catalogue inputs
+matched the feature tree and Git target, with no extra source or script files:
+[comparison](shared-type-word/native-final-inputs.json). An ordinary cache
+transfer under managed leases copied 3,744 previously absent exact-key entries
+from the idle repair cache into the idle canonical cache; no existing entry was
+overwritten, and no response, trace or path was rewritten. The unchanged
+GNATprove cache matching decides whether each entry applies. The
+[transfer inventory](shared-type-word/native-cache-transfer.json.gz) records its
+paths and contents; managed run `20261106T232457-ecc6160ab56c` passed.
+
+Complete native run `20261106T232644-673fc5a9c06b` and complete Lean run
+`20261106T230229-b9a860723df5` are active at this checkpoint. A separate installed
+workspace rebuilt the same source in `20261106T230245-a19eaca75889` and is running
+the full 612-test inventory in `20261106T230401-5dde322e2782`. These active runs
+are not successful assurance evidence yet. Final regression applicability,
+Rosetta rendering, independent delivery confirmation and publication remain
+pending.
