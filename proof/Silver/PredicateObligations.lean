@@ -140,8 +140,7 @@ theorem Condition.obligations_exact (condition : Condition) (shape : Shape) (ana
   | booleanArrayRead array index =>
       simp only [obligations, discharged_append, scalar_discharged,
         Boolean.ArrayDescriptor.indexObligations_exact, checkBounds]
-      cases ready : array.initialized booleans <;>
-        simp [ready, discharged, Obligation.discharge]
+      cases array.initialized booleans <;> simp [discharged, Obligation.discharge]
   | parenthesized inner ih => exact ih flow
   | negated inner ih => exact ih flow
   | andThen left right ihl ihr => simp only [obligations, discharged_append, ihl, ihr, checkBounds]
