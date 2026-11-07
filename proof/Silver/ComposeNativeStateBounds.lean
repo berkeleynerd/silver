@@ -133,17 +133,20 @@ theorem model_declaration_bounds (text : Source) (valid : ValidText text)
   unfold declarationAt
   dsimp only
   split
-  · exact model_subtype_declaration_bounds text state arguments metadata
+  · rename_i accepted
+    rw [(functionDeclarationAt_preserves_outer _ _ _ accepted).names]
+    exact metadata
   · split
-    · exact model_scalar_declaration_bounds text state arguments metadata
+    · exact model_subtype_declaration_bounds text state arguments metadata
     · split
-      · exact model_array_declaration_bounds text state arguments metadata
+      · exact model_scalar_declaration_bounds text state arguments metadata
       · split
-        · exact model_boolean_declaration_bounds text state arguments metadata
+        · exact model_array_declaration_bounds text state arguments metadata
         · split
-          · exact model_character_declaration_bounds text state arguments metadata
-          · exact model_string_declaration_bounds text valid state arguments metadata
-
+          · exact model_boolean_declaration_bounds text state arguments metadata
+          · split
+            · exact model_character_declaration_bounds text state arguments metadata
+            · exact model_string_declaration_bounds text valid state arguments metadata
 theorem model_declarations_loop_bounds (text : Source) (valid : ValidText text)
     (arguments : Bool) (fuel : Nat) (state : ParserState) (metadata : NamesBoundsValid state.names) :
     NamesBoundsValid (declarationsLoop text arguments fuel state).names := by

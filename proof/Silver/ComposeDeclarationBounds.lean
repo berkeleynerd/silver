@@ -233,25 +233,30 @@ theorem declarations_bounds {text arguments state final declarations input value
       Fits final.names.shape input (executeDeclarations input declarations values) := by
   induction parsed generalizing values with
   | done => exact ⟨metadata, count, strings⟩
-  | next _ _ _ _ _ _ first _ ih =>
+  | next _ _ _ _ _ _ _ first _ ih =>
       have nextBounds := declaration_bounds textBound inputBound count metadata strings static first
       obtain ⟨bound, valid, same⟩ := declaration_shape metadata.normal static first
       have nextStrings := Bindings.declaration_preserves strings printable valid
       rw [← same] at nextStrings
       exact ih (declaration_count_bound count first) nextBounds nextStrings
         ((declaration_scalarNames first).symm ▸ static)
-  | scalar _ _ _ first _ ih =>
+  | scalar _ _ _ _ first _ ih =>
       have nextStatic := scalar_declaration_static static first
       cases first
       exact ih count metadata strings nextStatic
-  | array _ _ _ _ first _ ih =>
+  | array _ _ _ _ _ first _ ih =>
       rw [(array_declaration_preserves first).1, (array_declaration_preserves first).2] at ih
       exact ih count metadata strings static
-  | booleanArray _ _ _ _ first _ ih =>
+  | booleanArray _ _ _ _ _ first _ ih =>
       rw [(boolean_array_declaration_preserves first).1, (boolean_array_declaration_preserves first).2.1] at ih
       exact ih count metadata strings static
-  | subtype _ _ first _ ih => cases first; exact ih count metadata strings static
-  | boolean _ _ _ _ _ first _ ih => cases first; exact ih count metadata strings static
+  | subtype _ _ _ first _ ih => cases first; exact ih count metadata strings static
+  | boolean _ _ _ _ _ _ first _ ih => cases first; exact ih count metadata strings static
+
+  | function _ _ accepted _ ih =>
+      have kept := functionDeclarationAt_preserves_outer _ _ _ accepted
+      rw [kept.names, kept.scalarNames] at ih
+      exact ih count metadata strings static
 
 theorem declarations_bounds_from_empty {text arguments state final declarations input}
     (textBound : text.length ≤ maxSourceLength) (inputBound : input.length ≤ maxSourceLength)

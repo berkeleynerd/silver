@@ -29,12 +29,17 @@ def BooleanArrayDeclarationReady (text : Source) (state : ParserState) (argument
     ScalarExpression.lookup text state.scalarNames parts.typeFirst parts.typeAfter = 0 ∧
     ArrayBindings.lookup text state.arrayNames.names parts.typeFirst parts.typeAfter = 0 ∧
     BooleanBindings.lookup text state.booleanNames parts.typeFirst parts.typeAfter = 0 ∧
+    FunctionBindings.lookup text state.functions parts.typeFirst parts.typeAfter = 0 ∧
+    formalHides text state parts.typeFirst parts.typeAfter = false ∧
+    (state.hiding.integerHidden = true → Named.nameIs text parts.typeFirst parts.typeAfter ("integer".toList.map Char.toNat) = false) ∧
+    (state.hiding.booleanHidden = true → Named.nameIs text parts.typeFirst parts.typeAfter ("boolean".toList.map Char.toNat) = false) ∧
+    (state.hiding.characterHidden = true → Named.nameIs text parts.typeFirst parts.typeAfter ("character".toList.map Char.toNat) = false) ∧
     IntegerSubtypes.lookup text state.subtypeNames parts.typeFirst parts.typeAfter = 0 ∧
     parts.isBoolean = true
 
 theorem BooleanArrayDeclarationReady.kind {text state arguments parts}
     (ready : BooleanArrayDeclarationReady text state arguments parts) : parts.isBoolean = true := by
-  rcases ready with ⟨_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, kind⟩
+  rcases ready with ⟨_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, kind⟩
   exact kind
 
 theorem arrayParts_boolean_components {text state}
@@ -138,7 +143,7 @@ theorem boolean_array_declaration_complete {text arguments state final}
       · rename_i bad
         exfalso
         simp_all [BooleanArrayDeclarationReady, Bool.or_eq_true]
-        omega
+        rcases bad with numeric | hidden | hidden | hidden <;> (try simp_all) <;> omega
       · simp only [aggregateEq, start, valuesEq, positive, ↓reduceIte]
         rw [← followingEq, ite_eq_right (Nat.not_le.mpr advances)]
         simp only [ArrayDeclarationParts.binding, ArrayDeclarationParts.length, kind]

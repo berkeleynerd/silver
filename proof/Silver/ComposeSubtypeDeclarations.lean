@@ -299,6 +299,8 @@ theorem subtype_declaration_complete {text arguments state next}
   | declaration parts ready _ =>
       rcases ready with ⟨allowed, own, count, after, range, constraint, following, nonempty, strings, scalars, arrays, booleans, functions, formals, integer, boolean, character⟩
       simp_all [subtypeDeclarationAt, Nat.not_le.mpr following]
+      intro rejected
+      rcases rejected with hidden | hidden | hidden <;> simp_all
 
 theorem subtype_declaration_sound (text : Source) (state : ParserState) (arguments : Bool)
     (accepted : (subtypeDeclarationAt text state arguments).position ≠ 0) :

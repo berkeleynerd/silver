@@ -37,6 +37,9 @@ package body Silver_Library_Reports with SPARK_Mode => On is
    Atom_array_initialization : constant String := "array-initialization";
    Atom_array_initialization_message : constant String := "initialization of an array in FOR loop is handled imprecisely [array-initialization]";
    Atom_unknown : constant String := "unknown";
+   Unused_Formal_Prefix : constant String := """unused variable \""";
+   Unused_Formal_Suffix : constant String := "\""""";
+   Atom_UNUSED_VARIABLE : constant String := "UNUSED_VARIABLE";
    Atom_INEFFECTIVE : constant String := "INEFFECTIVE";
    Atom_DEAD_CODE : constant String := "DEAD_CODE";
    Atom_statement_no_effect : constant String := "statement has no effect";
@@ -1320,19 +1323,23 @@ package body Silver_Library_Reports with SPARK_Mode => On is
 
    --  This advisory describes an unused initialized value, not a failed safety
    --  obligation. Its exact GNAT message contains one Ada name.
-   function Initializer_Message (Text : String; Item : Span) return Boolean
+   function Initializer_Message (Text : String; Item : Span; Unused_Formal : Boolean := False) return Boolean
      with Global => null,
        Pre => Text'First = 1 and then Text'Length <= Max_Report_Length;
 
-   function Initializer_Message (Text : String; Item : Span) return Boolean is
-     (Valid (Text, Item)
-        and then (Item.Last - Item.First) + 1 > Initialization_Prefix'Length + Initialization_Suffix'Length
-        and then (Item.Last - Item.First) + 1 <= Initialization_Prefix'Length + Initialization_Suffix'Length + 4_096
-        and then Text (Item.First .. (Item.First + Initialization_Prefix'Length) - 1) = Initialization_Prefix
-        and then Text ((Item.Last - Initialization_Suffix'Length) + 1 .. Item.Last) = Initialization_Suffix
-        and then Text (Item.First + Initialization_Prefix'Length) in 'A' .. 'Z' | 'a' .. 'z'
-        and then Text (Item.Last - Initialization_Suffix'Length) /= '_'
-        and then (for all I in Item.First + Initialization_Prefix'Length .. Item.Last - Initialization_Suffix'Length =>
+   function Initializer_Message (Text : String; Item : Span; Unused_Formal : Boolean := False) return Boolean is
+     (declare Prefix : constant String :=
+        (if Unused_Formal then Unused_Formal_Prefix else Initialization_Prefix);
+              Suffix : constant String :=
+        (if Unused_Formal then Unused_Formal_Suffix else Initialization_Suffix);
+      begin Valid (Text, Item)
+        and then (Item.Last - Item.First) + 1 > Prefix'Length + Suffix'Length
+        and then (Item.Last - Item.First) + 1 <= Prefix'Length + Suffix'Length + 4_096
+        and then Text (Item.First .. (Item.First + Prefix'Length) - 1) = Prefix
+        and then Text ((Item.Last - Suffix'Length) + 1 .. Item.Last) = Suffix
+        and then Text (Item.First + Prefix'Length) in 'A' .. 'Z' | 'a' .. 'z'
+        and then Text (Item.Last - Suffix'Length) /= '_'
+        and then (for all I in Item.First + Prefix'Length .. Item.Last - Suffix'Length =>
           Text (I) in 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_'
           and then (if Text (I) = '_' then Text (I - 1) /= '_')));
 
@@ -1462,7 +1469,13 @@ package body Silver_Library_Reports with SPARK_Mode => On is
         and then Entity_Name_Spec (Text, Referenced_Entity_Spec
           (Text, Entities, Field_Spec (Text, Item, JSON_entity)), Source => Source, Functions => Functions) in Main_Entity .. Main_Entity + Functions.Count
         and then
-          ((String_Equal (Text, Field_Spec (Text, Item, JSON_rule), Atom_INEFFECTIVE)
+          ((String_Equal (Text, Field_Spec (Text, Item, JSON_rule), Atom_UNUSED_VARIABLE)
+            and then Entity_Name_Spec (Text, Referenced_Entity_Spec
+              (Text, Entities, Field_Spec (Text, Item, JSON_entity)), Source => Source, Functions => Functions)
+                in Main_Entity + 1 .. Main_Entity + Functions.Count
+            and then Initializer_Message (Text, Field_Spec
+              (Text, Field_Spec (Text, Item, JSON_message), JSON_text), True))
+           or else (String_Equal (Text, Field_Spec (Text, Item, JSON_rule), Atom_INEFFECTIVE)
             and then
               (Initializer_Message (Text, Field_Spec
                  (Text, Field_Spec (Text, Item, JSON_message), JSON_text))
@@ -1570,7 +1583,13 @@ package body Silver_Library_Reports with SPARK_Mode => On is
         and then Entity_Name (Text, Referenced_Entity
           (Text, Entities, Field (Text, Item, JSON_entity)), Source => Source, Functions => Functions) in Main_Entity .. Main_Entity + Functions.Count
         and then
-          ((String_Equal (Text, Field (Text, Item, JSON_rule), Atom_INEFFECTIVE)
+          ((String_Equal (Text, Field (Text, Item, JSON_rule), Atom_UNUSED_VARIABLE)
+            and then Entity_Name (Text, Referenced_Entity
+              (Text, Entities, Field (Text, Item, JSON_entity)), Source => Source, Functions => Functions)
+                in Main_Entity + 1 .. Main_Entity + Functions.Count
+            and then Initializer_Message (Text, Field
+              (Text, Field (Text, Item, JSON_message), JSON_text), True))
+           or else (String_Equal (Text, Field (Text, Item, JSON_rule), Atom_INEFFECTIVE)
             and then
               (Initializer_Message (Text, Field
                  (Text, Field (Text, Item, JSON_message), JSON_text))
@@ -2380,14 +2399,18 @@ package body Silver_Library_Reports with SPARK_Mode => On is
         Raw_Bytes.Get (Text, First + SPARK.Big_Integers.To_Big_Integer (I - Expected'First)) = Expected (I)))
      with Ghost => Static;
 
-   function Raw_Initializer_Message (Text : Raw_Bytes.Sequence; Item : Raw_Scan.Span) return Boolean is
-     (declare PL : constant Raw_Scan.Offset := SPARK.Big_Integers.To_Big_Integer (Initialization_Prefix'Length);
-              SL : constant Raw_Scan.Offset := SPARK.Big_Integers.To_Big_Integer (Initialization_Suffix'Length);
+   function Raw_Initializer_Message (Text : Raw_Bytes.Sequence; Item : Raw_Scan.Span; Unused_Formal : Boolean := False) return Boolean is
+     (declare Prefix : constant String :=
+        (if Unused_Formal then Unused_Formal_Prefix else Initialization_Prefix);
+              Suffix : constant String :=
+        (if Unused_Formal then Unused_Formal_Suffix else Initialization_Suffix);
+              PL : constant Raw_Scan.Offset := SPARK.Big_Integers.To_Big_Integer (Prefix'Length);
+              SL : constant Raw_Scan.Offset := SPARK.Big_Integers.To_Big_Integer (Suffix'Length);
       begin Raw_Scan.Valid (Text, Item)
         and then Item.Last - Item.First + 1 > PL + SL
         and then Item.Last - Item.First + 1 <= PL + SL + 4_096
-        and then Raw_Literal_At (Text, Item.First, Initialization_Prefix)
-        and then Raw_Literal_At (Text, Item.Last - SL + 1, Initialization_Suffix)
+        and then Raw_Literal_At (Text, Item.First, Prefix)
+        and then Raw_Literal_At (Text, Item.Last - SL + 1, Suffix)
         and then Raw_Bytes.Get (Text, Item.First + PL) in 'A' .. 'Z' | 'a' .. 'z'
         and then Raw_Bytes.Get (Text, Item.Last - SL) /= '_'
         and then (for all I in Text =>
@@ -2490,7 +2513,13 @@ package body Silver_Library_Reports with SPARK_Mode => On is
         and then Raw_Entity_Name (Text, Raw_Referenced_Entity
           (Text, Entities, Raw_Field (Text, Item, JSON_entity)), Source => Source, Functions => Functions) in Main_Entity .. Main_Entity + Functions.Count
         and then
-          ((Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_rule), Atom_INEFFECTIVE)
+          ((Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_rule), Atom_UNUSED_VARIABLE)
+            and then Raw_Entity_Name (Text, Raw_Referenced_Entity
+              (Text, Entities, Raw_Field (Text, Item, JSON_entity)), Source => Source, Functions => Functions)
+                in Main_Entity + 1 .. Main_Entity + Functions.Count
+            and then Raw_Initializer_Message (Text, Raw_Field
+              (Text, Raw_Field (Text, Item, JSON_message), JSON_text), True))
+           or else (Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_rule), Atom_INEFFECTIVE)
             and then
               (Raw_Initializer_Message (Text, Raw_Field
                  (Text, Raw_Field (Text, Item, JSON_message), JSON_text))
@@ -2881,21 +2910,25 @@ package body Silver_Library_Reports with SPARK_Mode => On is
    end Mixed_Output_Message;
 
    procedure Mixed_Initializer_Message
-     (Raw : Raw_Bytes.Sequence; L : Raw_Scan.Span; Text : String; R : Span)
+     (Raw : Raw_Bytes.Sequence; L : Raw_Scan.Span; Text : String; R : Span; Unused_Formal : Boolean := False)
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
          and then Mixed_Field (Raw, L, Text, R),
-       Post => Raw_Initializer_Message (Raw, L) = Initializer_Message (Text, R)
+       Post => Raw_Initializer_Message (Raw, L, Unused_Formal) = Initializer_Message (Text, R, Unused_Formal)
    is
+      Prefix : constant String :=
+        (if Unused_Formal then Unused_Formal_Prefix else Initialization_Prefix);
+      Suffix : constant String :=
+        (if Unused_Formal then Unused_Formal_Suffix else Initialization_Suffix);
    begin
       if Mixed_Content (Raw, L, Text, R) then
          Mixed_Byte_Correspondence (Raw, L, Text, R);
-         if (R.Last - R.First) + 1 > Initialization_Prefix'Length + Initialization_Suffix'Length then
+         if (R.Last - R.First) + 1 > Prefix'Length + Suffix'Length then
             Literal_Window_Congruence
-              (Raw, L.First, Text (R.First .. (R.First + Initialization_Prefix'Length) - 1), Initialization_Prefix);
+              (Raw, L.First, Text (R.First .. (R.First + Prefix'Length) - 1), Prefix);
             Literal_Window_Congruence
-              (Raw, L.Last - SPARK.Big_Integers.To_Big_Integer (Initialization_Suffix'Length) + 1,
-               Text ((R.Last - Initialization_Suffix'Length) + 1 .. R.Last), Initialization_Suffix);
+              (Raw, L.Last - SPARK.Big_Integers.To_Big_Integer (Suffix'Length) + 1,
+               Text ((R.Last - Suffix'Length) + 1 .. R.Last), Suffix);
          end if;
       end if;
    end Mixed_Initializer_Message;
@@ -2908,11 +2941,13 @@ package body Silver_Library_Reports with SPARK_Mode => On is
        Post => Raw_Positive_Number (Raw, L) = Positive_Number (Text, R)
          and then Raw_Nonempty_String (Raw, L) = Nonempty_String (Text, R)
          and then Raw_Initializer_Message (Raw, L) = Initializer_Message (Text, R)
+         and then Raw_Initializer_Message (Raw, L, True) = Initializer_Message (Text, R, True)
          and then Raw_Output_Message (Raw, L) = Output_Message (Text, R)
    is
    begin
       Mixed_Basic_Tests (Raw, L, Text, R);
       Mixed_Initializer_Message (Raw, L, Text, R);
+      Mixed_Initializer_Message (Raw, L, Text, R, True);
       Mixed_Output_Message (Raw, L, Text, R);
    end Mixed_Test_Congruence;
 
@@ -3788,6 +3823,9 @@ package body Silver_Library_Reports with SPARK_Mode => On is
        Post => Raw_Record_Policy (Raw, L, LE, Kind, Source => Source, Functions => Functions) = Record_Policy (Text, R, RE, Kind, Source => Source, Functions => Functions)
    is
    begin
+      Mixed_String_Congruence
+        (Raw, Raw_Field (Raw, L, JSON_rule),
+         Text, Field_Spec (Text, R, JSON_rule), Atom_UNUSED_VARIABLE);
       Mixed_String_Congruence
         (Raw, Raw_Field (Raw, L, JSON_rule),
          Text, Field_Spec (Text, R, JSON_rule), Atom_SUBPROGRAM_TERMINATION);

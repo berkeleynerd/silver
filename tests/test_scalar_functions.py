@@ -234,6 +234,26 @@ class ScalarFunctionTests(unittest.TestCase):
         self.check(padded)
         self.check(padded + b' ', 2)
 
+    def test_dense_locals_and_function_list(self) -> None:
+        locals_ = b''.join(b'L' + str(i).encode() + b':T:=0;' for i in range(250))
+        declaration = (b'subtype T is Integer range 0..9;'
+                       b'function F(X:in Integer)return Integer is ' + locals_ +
+                       b'begin return X;end F;')
+        self.assertLess(len(program(declaration, b'null;')), 4096)
+        self.check(program(declaration, b'null;'))
+        functions = b''
+        count = 0
+        while True:
+            name = b'F' + str(count).encode()
+            candidate = functions + (b'function ' + name + b'(X:in Integer)return Integer is '
+                                     b'begin return X;end ' + name + b';')
+            if len(program(candidate, b'null;')) > 4096:
+                break
+            functions = candidate
+            count += 1
+        self.assertGreater(count, 30)
+        self.check(program(functions, b'null;'))
+
     def test_native_ordered_calls_snapshot_and_full_unused_coverage(self) -> None:
         declarations = (b'subtype Small is Integer range 0..9;'
                         b'function Next_Value(X:in Small)return Integer is begin return (X+1);end Next_Value;'
@@ -241,10 +261,13 @@ class ScalarFunctionTests(unittest.TestCase):
                         b'begin if B then R:=Next_Value(X);end if;return R;end Wrapper;'
                         b'function Unused(X:in Integer)return Integer is R:Integer:=0;'
                         b'begin if X>0 then R:=(10/X);end if;return R;end Unused;'
+                        b'function Zero(X:in Integer;B:in Boolean)return Integer is Spare:Integer:=7;'
+                        b'C:constant Integer:=Spare;'
+                        b'begin return 0;end Zero;'
                         b'R:Integer:=0;')
         executable, report = self.compile(program(declarations,
             b'R:=wRAPPER(9,True);Silver_IO.Put_Line(Integer\'Image(R));'),
-            'assigned', functions=('Next_Value', 'Wrapper', 'Unused'))
+            'assigned', functions=('Next_Value', 'Wrapper', 'Unused', 'Zero'))
         self.run_program(executable, b' 10\n')
         self.assertTrue(any(item.get('rule') == 'SUBPROGRAM_TERMINATION'
                             for item in report['flow']))

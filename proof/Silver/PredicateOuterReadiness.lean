@@ -37,7 +37,8 @@ theorem initial_valid (text : Source) : ValidState text initialState := by
     Named.NameState.Valid, initialState, maxSourceLength, maxBindings,
     ScalarExpression.ValidEnvironment, ScalarExpression.maxBindings,
     ArrayBindings.ValidEnvironment, ArrayBindings.ValidMetadata, ArrayBindings.ValidInitials,
-    IntegerSubtypes.ValidEnvironment, BooleanBindings.ValidEnvironment, BooleanBindings.maxBindings]
+    IntegerSubtypes.ValidEnvironment, BooleanBindings.ValidEnvironment, BooleanBindings.maxBindings,
+    FunctionBindings.ValidMetadata, FunctionBindings.maxFormals, FunctionBindings.maxFunctions]
 
 theorem invalid_valid (text : Source) : ValidState text invalidState :=
   ⟨Compose.Expressions.model_invalid_state_valid text, ScalarMetadata.headerReady_empty, namesBoundsValid_empty⟩
@@ -117,19 +118,22 @@ theorem declaration_ready (text : Source) (state : ParserState) (arguments : Boo
   unfold declarationAt
   dsimp only
   split
-  · exact subtypeDeclaration_ready text state arguments ready
+  · rename_i accepted
+    rw [(functionDeclarationAt_preserves_outer _ _ _ accepted).scalarNames]
+    exact ready
   · split
-    · exact scalarDeclaration_ready text state arguments ready
+    · exact subtypeDeclaration_ready text state arguments ready
     · split
-      · rename_i accepted
-        rw [(arrayDeclarationAt_count accepted).2.1]
-        exact ready
+      · exact scalarDeclaration_ready text state arguments ready
       · split
-        · exact booleanDeclaration_ready text state arguments ready
+        · rename_i accepted
+          rw [(arrayDeclarationAt_count accepted).2.1]
+          exact ready
         · split
-          · exact characterDeclaration_ready text state arguments ready
-          · exact stringDeclaration_ready text state arguments ready
-
+          · exact booleanDeclaration_ready text state arguments ready
+          · split
+            · exact characterDeclaration_ready text state arguments ready
+            · exact stringDeclaration_ready text state arguments ready
 private theorem declarationsLoop_ready (text : Source) (arguments : Bool) (fuel : Nat) (state : ParserState)
     (ready : ScalarMetadata.HeaderReady state.scalarNames) :
     ScalarMetadata.HeaderReady (declarationsLoop text arguments fuel state).scalarNames := by
