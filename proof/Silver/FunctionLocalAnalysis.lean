@@ -7,7 +7,7 @@ public import Silver.PredicateScalarGuardMeaning
 @[expose] public section
 
 namespace Silver.Compose
-open Predicate ScalarFunctions Silver.Compose.Expressions
+open Predicate ScalarFunctions Silver.Compose.Expressions Bindings
 
 private theorem local_staticness_flags (names : ScalarExpression.Environment) :
     ScalarMetadata.staticness names = Integer.nameFlags (names.map (·.isStatic)) := by
@@ -92,5 +92,49 @@ theorem FunctionLocalsAt.local_boolean_analysis
   rw [source.preserves.arrayNames, arrays, empty, empty_local_boolean_analysis,
     empty_array_boolean_analysis] at known
   exact known
+
+
+structure FunctionInitializersChecked (integers : List Integer.Declaration)
+    (booleans : List BooleanDeclaration) (checks : List Integer.Obligation)
+    (booleanChecks : List Predicate.Obligation) : Prop where
+  integerDeclarations : ∃ constants, Integer.checkDeclarations [] integers = some constants
+  integerChecks : Integer.discharged checks = true
+  booleanChecks : Predicate.discharged booleanChecks = true
+  booleanDeclarations : BooleanDeclarationsWellFormed false emptyShape {} booleans
+  booleanCheck : checkBooleanDeclarations emptyShape (Integer.Analysis.ofDeclarations integers)
+    ⟨entryContext, (Integer.Analysis.ofDeclarations integers).declared⟩ {} booleans = true
+  scalarIntegers : integers.all (fun item => scalarExpression item.value) = true
+  scalarBooleans : booleans.all (fun item => scalarCondition item.value) = true
+
+theorem FunctionLocalsAt.initializers_checked
+    {text arguments state final integers booleans checks booleanChecks}
+    (source : FunctionLocalsAt text arguments state integers booleans checks booleanChecks final)
+    (valid : ValidState text state) (closed : ClosedFunctionState state)
+    (emptyIntegers : state.scalarNames = []) (emptyBooleans : state.booleanNames = []) :
+    FunctionInitializersChecked integers booleans checks booleanChecks := by
+  have normal : NamesNormal state.names := by
+    rw [closed.noNames]
+    constructor <;> simp [NamesWellTyped, BindingEnvironment.get]
+  have static : ScalarExpression.StaticEnvironment state.scalarNames := by
+    rw [emptyIntegers]
+    exact ScalarExpression.static_empty
+  have ready : ScalarMetadata.HeaderReady state.scalarNames := by
+    rw [emptyIntegers]
+    exact ScalarMetadata.headerReady_empty
+  have integersChecked := source.scalars_checked static valid.2.2.2.2.2.1.1 valid.2.2.2.2.2.2.2.1
+  have rawChecked := source.initializer_checks normal valid ready
+  have booleansChecked := source.booleans_valid normal valid ready static
+  have transported := (source.boolean_checks_independent closed state.names.shape emptyShape
+    Integer.Analysis.empty (Integer.Analysis.ofDeclarations integers)
+    ⟨(booleanDeclarationFacts state).path, Integer.emptyRanges⟩
+    ⟨entryContext, (Integer.Analysis.ofDeclarations integers).declared⟩
+    (ArrayBindings.booleanAnalysis state.arrayNames.names (BooleanBindings.analysis state.booleanNames))).symm.trans
+      booleansChecked.2
+  have scalar := source.scalar_only closed
+  refine ⟨⟨ScalarExpression.constants final.scalarNames, ?_⟩, rawChecked.1, rawChecked.2, ?_, ?_, scalar.1, scalar.2⟩
+  · simpa only [emptyIntegers, ScalarExpression.constants, List.map_nil] using integersChecked
+  · simpa [closed.noArguments, closed.noNames, emptyBooleans, closed.noArrays,
+      empty_local_boolean_analysis, empty_names_shape] using booleansChecked.1
+  · simpa only [emptyBooleans, closed.noArrays, empty_local_boolean_analysis] using transported
 
 end Silver.Compose

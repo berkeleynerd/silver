@@ -54,4 +54,54 @@ theorem FunctionLocalsAt.boolean_checks_independent
         leftAnalysis rightAnalysis leftFlow rightFlow before]
       rw [ih nextClosed]
 
+private theorem scalarExpression_noArray {expression : Integer.Expr}
+    (absent : expression.hasArray = false) : scalarExpression expression = true := by
+  induction expression <;> simp_all [Integer.Expr.hasArray, scalarExpression, Bool.or_eq_false_iff]
+
+private theorem scalarExpression_freezeArrays (expression : Integer.Expr) (snapshot : Integer.Store) :
+    scalarExpression (expression.freezeArrays snapshot) = true := by
+  unfold Integer.Expr.freezeArrays
+  split
+  · rfl
+  · rename_i absent
+    exact scalarExpression_noArray (Bool.of_not_eq_true absent)
+
+private theorem scalarCondition_freezeIntegers {condition : Condition}
+    (scalar : scalarCondition condition = true) (snapshot : Integer.Store) :
+    scalarCondition (condition.freezeIntegers snapshot) = true := by
+  induction condition with
+  | stringCompare | lengthCompare | characterCompare | inputValid | booleanArrayRead =>
+      simp only [ScalarFunctions.scalarCondition, Bool.false_eq_true] at scalar
+  | scalarCompare | booleanLiteral | booleanName => rfl
+  | parenthesized inner ih | negated inner ih => exact ih scalar
+  | andThen left right ihl ihr | orElse left right ihl ihr | eager operator left right ihl ihr | booleanCompare operator left right ihl ihr =>
+      simp only [ScalarFunctions.scalarCondition, Bool.and_eq_true] at scalar
+      exact Bool.and_eq_true_iff.mpr ⟨ihl scalar.1, ihr scalar.2⟩
+
+theorem FunctionLocalsAt.scalar_only {text arguments state final integers booleans checks booleanChecks}
+    (source : FunctionLocalsAt text arguments state integers booleans checks booleanChecks final)
+    (closed : ClosedFunctionState state) :
+    integers.all (fun item => scalarExpression item.value) = true ∧
+      booleans.all (fun item => scalarCondition item.value) = true := by
+  induction source with
+  | done => exact ⟨rfl, rfl⟩
+  | @integer before middle final declaration integers booleans firstChecks checks booleanChecks _ _ first _ _ _ ih =>
+      have nextClosed : ClosedFunctionState middle := by
+        cases first
+        exact ⟨closed.pure, closed.noArguments, closed.noNames, closed.noArrays⟩
+      have firstShape : scalarExpression declaration.value = true := by
+        cases first
+        exact scalarExpression_freezeArrays ..
+      have following := ih nextClosed
+      exact ⟨Bool.and_eq_true_iff.mpr ⟨firstShape, following.1⟩, following.2⟩
+  | @boolean before middle final declaration integers booleans checks firstChecks booleanChecks _ _ _ first raw _ _ ih =>
+      have nextClosed : ClosedFunctionState middle := by
+        cases first
+        exact ⟨closed.pure, closed.noArguments, closed.noNames, closed.noArrays⟩
+      have firstShape : scalarCondition declaration.value = true := by
+        obtain ⟨raw, reading, rfl, _⟩ := raw
+        exact scalarCondition_freezeIntegers (condition_source_scalar (closed.booleanContext _) reading) _
+      have following := ih nextClosed
+      exact ⟨following.1, Bool.and_eq_true_iff.mpr ⟨firstShape, following.2⟩⟩
+
 end Silver.Compose
