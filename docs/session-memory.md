@@ -1,5 +1,22 @@
 # Session memory
 
+## 2026-11-07 — Rosetta sample expansion merge authorized
+
+The owner instructed **“Merge it if you believe it is ready.”** This authorizes
+merging ready [PR #337](https://github.com/berkeleynerd/silver/pull/337) and its
+ordinary #300/board/milestone closeout. The
+[delivery record](rosetta-sample-expansion.md#delivery-and-validation--2026-11-07)
+retains independent acceptance of `d4aab1db5b`, applicable complete assurance
+and successful application/regression evidence. Published head `59f5ed534c`
+adds only the review and completion records; this merge-authorization update
+also changes documentation only. Successful evidence remains applicable
+without another proof, build, test or render run.
+
+This supersedes the earlier merge hold for #337. Issue #300 and milestone 15
+close with the merge; functions #298 and the expanded opportunity inventory
+remain unselected. Preserve unrelated root-checkout work and scratch files.
+No CLI recall entry was updated.
+
 ## 2026-11-07 — Rosetta sample expansion delivered for review
 
 The authorized original ten-program, eleven-task batch in

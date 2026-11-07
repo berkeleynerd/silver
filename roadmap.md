@@ -23,7 +23,7 @@ each delivery; the linked issues hold scope and completion criteria.
 | Delivered 2026-10-31 | [Boolean scalar objects and expressions #291](https://github.com/berkeleynerd/silver/issues/291), stacked on the named-subtype delivery [#286](https://github.com/berkeleynerd/silver/issues/286) | Sequence of primes by trial division; Square but not cube; Common list elements |
 | Complete 2026-11-06 | [Bounded String indexing and character operations #296](https://github.com/berkeleynerd/silver/issues/296) | Reverse a string; Palindrome detection; character replacement |
 | Complete 2026-11-07 | [Fixed-size Boolean arrays #297](https://github.com/berkeleynerd/silver/issues/297) | Sieve of Eratosthenes; elementary cellular automata |
-| Complete on Linux 2026-11-07; PR #337 open | [Sample-only expansion #300](https://github.com/berkeleynerd/silver/issues/300) | Ten programs covering eleven task mappings; [bounded plan](docs/rosetta-sample-expansion.md) |
+| Complete on Linux 2026-11-07; PR #337 | [Sample-only expansion #300](https://github.com/berkeleynerd/silver/issues/300) | Ten programs covering eleven task mappings; [bounded plan](docs/rosetta-sample-expansion.md) |
 | Later (1) | [Small nonrecursive functions #298](https://github.com/berkeleynerd/silver/issues/298) | Reusable primality tests, GCD and numeric search helpers |
 
 The bounded String increment has completed repaired Linux native and Lean
@@ -56,7 +56,7 @@ and deferred capacity work retain their scope.
 
 ### Rosetta sample expansion
 
-**Complete on Linux, 2026-11-07; PR #337 open pending merge.**
+**Complete on Linux, 2026-11-07, through owner-authorized PR #337.**
 The owner instructed **“Let's proceed to tackle 300 after determining if our
 tutorial is up-to-date. This may only live in a branch at this time.”** The
 [dated authorization](docs/session-memory.md#2026-11-07--tutorial-audit-and-rosetta-sample-expansion-selected)
@@ -75,8 +75,10 @@ its [delivery record](docs/rosetta-sample-expansion.md#delivery-and-validation--
 retains the successful complete manifest, fresh native provenance refresh,
 applicable complete Lean evidence, focused tests and final render. It adds nine
 Stage-1 mappings (61 to 70) without a language change. The independent review
-accepts final target `d4aab1db5b` with no unresolved finding. Implementation merge
-remains a later owner decision.
+accepts final target `d4aab1db5b` with no unresolved finding. The owner authorized
+its ready merge on 2026-11-07; the
+[dated decision](docs/session-memory.md#2026-11-07--rosetta-sample-expansion-merge-authorized)
+supersedes the earlier merge hold. Issue #300 and milestone 15 close with it.
 
 The [bounded record](docs/rosetta-sample-expansion.md) restores the missing #300
 scope link and retains ten programs with eleven mappings: FizzBuzz; Even or odd;
@@ -90,8 +92,8 @@ outputs; every sample passed admission/proof/build/execution. The independent
 review confirms final evidence applicability and the eleven reconciled assessments.
 FizzBuzz and Even or odd already qualified for Stage 1. No language, capacity or
 broad supported-identifier change is selected.
-Routine planning publication/merge and implementation through reviewable
-publication are authorized; implementation merge remains a later owner decision.
+The completed batch is authorized for merge; functions #298 and the expanded
+opportunity inventory retain their unselected scope.
 
 ### Fixed-size Boolean arrays
 

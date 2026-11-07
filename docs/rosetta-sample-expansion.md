@@ -208,11 +208,19 @@ applicability, including the Python patch change. The failed identity check is
 a resolved provenance refresh, not a repository defect. The subsequent report
 and completion text change documentation only; validated inputs are unchanged.
 
-[PR #337](https://github.com/berkeleynerd/silver/pull/337) publishes the completed
-work for review. #300 is In review; the issue and milestone remain open until
-merge. Implementation merge remains a later owner decision, and functions #298
-and the expanded opportunity inventory remain unselected. No expensive job is
-left running, and unrelated root-checkout work and scratch files are preserved.
+The owner subsequently instructed **“Merge it if you believe it is ready.”**
+on 2026-11-07, authorizing ready
+[PR #337](https://github.com/berkeleynerd/silver/pull/337) and routine closeout.
+The [dated authorization](session-memory.md#2026-11-07--rosetta-sample-expansion-merge-authorized)
+supersedes the earlier merge hold. Published head `59f5ed534c` adds only the
+review and completion records after the accepted target; this authorization
+reconciliation also changes documentation only. The validated inputs are
+unchanged, so successful evidence is retained without reruns.
+
+Issue #300 and milestone 15 close with the merge. The issue's completion comment
+records the resulting merge identity and board status. Functions #298 and the
+expanded opportunity inventory remain unselected. No expensive job is left
+running, and unrelated root-checkout work and scratch files are preserved.
 
 ## Delivery rounds
 
