@@ -115,6 +115,77 @@ class ProofEvidenceTests(unittest.TestCase):
         with self.assertRaisesRegex(EvidenceError, "coverage summary"):
             audit_reports(self.path, {"main"}, indexed_main=True)
 
+    def prepare_functions(self) -> None:
+        for key, name in ((" 2", "Main.MiXeD"), (" 3", "Main.Unused")):
+            self.report["entities"][key] = {
+                "name": name, "sloc": [{"file": "main.adb", "line": int(key), "column": 13}]}
+            self.report["spark"][key] = "all"
+            self.report["flow"].append({
+                "severity": "info", "how_proved": "flow", "entity": int(key),
+                "file": "main.adb", "line": int(key), "col": 13,
+                "rule": "SUBPROGRAM_TERMINATION", "message": {"text":
+                    f'implicit aspect Always_Terminates on "{name.split(".")[1]}" '
+                    "has been proved, subprogram will terminate"},
+                "check_tree": {}, "unproved_status": {"status": "unknown"}})
+        self.report["proof"] = [{
+            "severity": "info", "how_proved": "prover", "entity": 3,
+            "file": "main.adb", "line": 4, "col": 9, "rule": "VC_DIVISION_CHECK",
+            "message": {"text": "division check proved"}}]
+        self.report["assumptions"] = [{
+            "claim": {"arg": 1, "predicate": "CLAIM_AORTE"},
+            "assumptions": [{"arg": 2, "predicate": "CLAIM_AORTE"},
+                            {"arg": 2, "predicate": "CLAIM_EFFECTS"}]}]
+        self.sarif["runs"][0]["invocations"][0]["commandLine"] += " --no-inlining"
+
+    def audit_functions(self, names: tuple[str, ...] = ("mixed", "UNUSED")) -> dict[str, int]:
+        (self.path / "main.spark").write_text(json.dumps(self.report))
+        self.refresh_reports()
+        return audit_reports(self.path, {"main"}, application_kind="assigned",
+                             application_functions=names)
+
+    def test_functions_require_each_declared_entity_and_termination(self) -> None:
+        self.prepare_functions()
+        stats = self.audit_functions()
+        self.assertEqual(stats["entities"], 3)
+        self.assertEqual(stats["termination_checks"], 2)
+        self.assertEqual(stats["flow_checks"], 2)
+        self.assertEqual(stats["proof_checks"], 1)
+        saved = copy.deepcopy(self.report)
+        for mutate in (
+            lambda: self.report["spark"].pop(" 3"),
+            lambda: self.report["spark"].update({" 3": "spec"}),
+            lambda: self.report["entities"][" 3"].update(name="Main.Unknown"),
+            lambda: self.report["entities"][" 3"].update(name="Main.MIXED"),
+            lambda: self.report["entities"][" 3"]["sloc"][0].update(file="other.adb"),
+            lambda: self.report["flow"].pop(),
+            lambda: self.report["flow"].append(copy.deepcopy(self.report["flow"][0])),
+            lambda: self.report["flow"][0].update(entity=1),
+            lambda: self.report["flow"][0].update(severity="warning"),
+            lambda: self.report["flow"][0].update(how_proved="trivial"),
+            lambda: self.report["flow"][0].update(message={"text": "termination proved"}),
+            lambda: self.report["flow"][0].update(suppressed=""),
+            lambda: self.report["proof"][0].update(severity="medium"),
+            lambda: self.report["proof"][0].update(rule="VC_ASSERT"),
+            lambda: self.report["assumptions"][0]["assumptions"][0].update(predicate="CLAIM_POST"),
+        ):
+            self.report = copy.deepcopy(saved)
+            mutate()
+            with self.assertRaises(EvidenceError):
+                self.audit_functions()
+        self.report = saved
+        self.sarif["runs"][0]["invocations"][0]["commandLine"] = "gnatprove --mode=all --report=all"
+        with self.assertRaisesRegex(EvidenceError, "no-inlining"):
+            self.audit_functions()
+
+    def test_function_inventory_is_independent_of_report_entities(self) -> None:
+        self.prepare_functions()
+        for names in ((), ("MiXeD",), ("MiXeD", "Unused", "Absent"),
+                      ("MiXeD", "mixed"), ("Main.Unused",), ("Bad__Name",)):
+            with self.subTest(names=names), self.assertRaises(EvidenceError):
+                self.audit_functions(names)
+        with self.assertRaisesRegex(EvidenceError, "requires an application"):
+            audit_reports(self.path, {"main"}, application_functions=("MiXeD",))
+
     def prepare_assignment(self, **advisory_changes: object) -> None:
         self.report["assumptions"] = []
         self.report["flow"] = [{"severity": "warning", "how_proved": "flow", "entity": 1,

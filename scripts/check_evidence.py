@@ -298,6 +298,7 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                   trusted_import_units: set[str] | None = None, *,
                   effective_command: list[str] | None = None,
                   application_kind: str | None = None,
+                  application_functions: tuple[str, ...] = (),
                   indexed_main: bool = False,
                   proof_instance: tuple[int, int, int] | None = None,
                   proof_instances: dict[str, tuple[int, int, int]] | None = None,
@@ -333,10 +334,21 @@ def audit_reports(report_dir: Path, expected_units: set[str],
             signed_conversion_entities(signed_conversion_instance))
     require(application_kind in (None, "static", "argument", "assigned", "selected"),
             "unknown application report policy")
+    require(not application_functions or application_kind is not None,
+            "application function inventory requires an application policy")
+    require(len(application_functions) <= 4096 // 32
+            and all(isinstance(name, str) and re.fullmatch(
+                r"[A-Za-z]([A-Za-z0-9]|_[A-Za-z0-9])*", name) is not None
+                    for name in application_functions),
+            "application: invalid source function inventory")
+    function_names = {"main." + name.lower() for name in application_functions}
+    require(len(function_names) == len(application_functions),
+            "application: duplicate source function name")
     if application_kind is not None:
         require("main" in expected_units, "application audit requires Main")
         stats["assignment_advisories"] = 0
         stats["image_advisories"] = 0
+        stats["termination_checks"] = 0
     reports = {unit: read_json(report_dir / name) for unit, name in report_names.items()}
     owned_names: set[str] = set()
     owned_locations: dict[str, set[str]] = {}
@@ -374,28 +386,35 @@ def audit_reports(report_dir: Path, expected_units: set[str],
             # producer shape without inferring source membership from a report.
             main_entities = {key: value for key, value in entities.items()
                              if value.get("name", "").lower() == "main"}
+            local_entities = {key: value for key, value in entities.items()
+                              if value.get("name", "").lower() in function_names}
+            application_entities = main_entities | local_entities
+            require(len(local_entities) == len(function_names)
+                    and {item.get("name", "").lower() for item in local_entities.values()} == function_names,
+                    "application: missing or duplicate source function entity")
+            termination_entities: set[str] = set()
             output_callees = {"Silver_IO.Put_Line", "Silver_IO.Put"}
             callees = {name: "silver_io.ads" for name in output_callees}
             if application_kind in ("argument", "selected"):
                 callees.update({name: "silver_arguments.ads" for name in
                                 ("Silver_Arguments.First_Or_Default",
                                  "Silver_Arguments.Input_Is_Valid", "Silver_Arguments.Reject")})
-            bare = len(entities) == 1
+            bare = len(entities) == len(application_entities)
             expected_names = set() if bare else set(callees)
             actual_names = [value.get("name") for key, value in entities.items()
-                            if key not in main_entities]
+                            if key not in application_entities]
             if not bare:
                 expected_names.difference_update(output_callees - set(actual_names))
             if application_kind in ("argument", "selected") and not bare and "Silver_Arguments.Input_Is_Valid" not in actual_names:
                 expected_names.remove("Silver_Arguments.Input_Is_Valid")
             require(len(main_entities) == 1 and set(actual_names) == expected_names
                     and len(actual_names) == len(expected_names)
-                    and coverage.keys() == main_entities.keys()
+                    and coverage.keys() == application_entities.keys()
                     and all(value == "all" for value in coverage.values()),
-                    "application: unexpected entities or Main coverage")
+                    "application: unexpected entities or application coverage")
             main_key, main = next(iter(main_entities.items()))
             for key, item in entities.items():
-                filename = "main.adb" if key == main_key else callees[item["name"]]
+                filename = "main.adb" if key in application_entities else callees[item["name"]]
                 require(bool(item.get("sloc"))
                         and all(location.get("file") == filename
                                 and type(location.get("line")) is int and location["line"] > 0
@@ -451,6 +470,9 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                 entity = entities.get(f" {reference.get('arg')}", entities.get(str(reference.get("arg"))))
                 require(isinstance(entity, dict), f"{unit}: assumption references unknown entity")
                 name = entity.get("name")
+                if application and name.lower() in function_names:
+                    require(reference["predicate"] in {"CLAIM_AORTE", "CLAIM_EFFECTS"},
+                            "application: local function has an unapproved claim")
                 locations = entity.get("sloc", [])
                 trusted_runtime = name in TRUSTED_RUNTIME_CALLEES and bool(locations) and all(
                     Path(location["file"]).name == TRUSTED_RUNTIME_CALLEES[name]
@@ -503,7 +525,29 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                                         ("entity", "justification", "justified", "annot_kind", "justif_msg")),
                             "application: unexpected Image advisory")
                     stats["image_advisories"] += 1
-                advisory = application and key == "flow"
+                termination = (application and key == "flow"
+                               and record.get("rule") == "SUBPROGRAM_TERMINATION")
+                if termination:
+                    entity_key = f" {record.get('entity')}"
+                    if entity_key not in entities:
+                        entity_key = str(record.get("entity"))
+                    local = local_entities.get(entity_key)
+                    require(local is not None and entity_key not in termination_entities
+                            and record.get("severity") == "info"
+                            and record.get("how_proved") == "flow"
+                            and record.get("file") == "main.adb"
+                            and type(record.get("line")) is int and record["line"] > 0
+                            and type(record.get("col")) is int and record["col"] > 0
+                            and type(record.get("entity")) is int and record["entity"] > 0
+                            and record.get("message") == {"text":
+                                f'implicit aspect Always_Terminates on "{local["name"].split(".")[1]}" '
+                                "has been proved, subprogram will terminate"}
+                            and not any(field in record for field in
+                                        ("justification", "justified", "suppressed", "annot_kind", "justif_msg")),
+                            "application: unexpected function termination record")
+                    termination_entities.add(entity_key)
+                    stats["termination_checks"] += 1
+                advisory = application and key == "flow" and not termination
                 if advisory:
                     require(record.get("severity") == "warning"
                             and record.get("how_proved") == "flow"
@@ -511,7 +555,7 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                             and type(record.get("line")) is int and record["line"] > 0
                             and type(record.get("col")) is int and record["col"] > 0
                             and type(record.get("entity")) is int and record["entity"] > 0
-                            and entities.get(f" {record['entity']}", entities.get(str(record["entity"]))) == main
+                            and entities.get(f" {record['entity']}", entities.get(str(record["entity"]))) in application_entities.values()
                             and ((record.get("rule") == "INEFFECTIVE"
                                   and (re.fullmatch(r'initialization of "[A-Za-z]([A-Za-z0-9]|_[A-Za-z0-9])*" has no effect',
                                                     record.get("message", {}).get("text", "")) is not None
@@ -537,8 +581,8 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                             and type(record.get("line")) is int and record["line"] > 0
                             and type(record.get("col")) is int and record["col"] > 0
                             and type(record.get("entity")) is int and record["entity"] > 0
-                            and entities.get(f" {record['entity']}", entities.get(str(record["entity"]))) == main,
-                            "application: expected a proved Main range, length, overflow, division or index check")
+                            and entities.get(f" {record['entity']}", entities.get(str(record["entity"]))) in application_entities.values(),
+                            "application: expected a proved application range, length, overflow, division or index check")
                     require(not any(field in record for field in
                                     ("justification", "justified", "suppressed", "annot_kind", "justif_msg")),
                             "application: suppressed or justified safety check")
@@ -583,9 +627,12 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                     image_diagnostics[diagnostic] += 1
                 if array_note:
                     array_initialization_diagnostics[diagnostic] += 1
+        if application:
+            require(termination_entities == local_entities.keys(),
+                    "application: missing source function termination coverage")
         stats["units"] += 1
         stats["entities"] += len(own_entities)
-        stats["flow_checks"] += 0 if application else len(report["flow"])
+        stats["flow_checks"] += len(termination_entities) if application else len(report["flow"])
         stats["proof_checks"] += len(report["proof"])
 
     sarif = read_json(report_dir / "gnatprove.sarif")
@@ -620,6 +667,8 @@ def audit_reports(report_dir: Path, expected_units: set[str],
     for option, expected in (("--mode", "all"), ("--report", "all")):
         values = [argument.split("=", 1)[1] for argument in arguments if argument.startswith(option + "=")]
         require(values == [expected], f"conflicting/repeated {option} configuration")
+    require(not application_functions or "--no-inlining" in arguments,
+            "application: function proofs require modular no-inlining analysis")
     results = run.get("results")
     require(isinstance(results, list), "missing SARIF results")
     sarif_diagnostics: Counter = Counter()

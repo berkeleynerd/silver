@@ -1,7 +1,11 @@
+with Silver_Function_Bindings;
 with Silver_Report_Observations;
 with Silver_Report_Projection_Observations;
 
 package Silver_Library_Reports with SPARK_Mode => On is
+   package Function_Bindings renames Silver_Function_Bindings;
+   subtype Function_Metadata is Function_Bindings.Metadata;
+   Empty_Functions : constant Function_Metadata := Function_Bindings.Empty_Metadata;
    --  Source-bounded application sequences can produce many proved checks and
    --  exact ghost-output and repeated array-loop advisories. This capacity uses
    --  the documented pinned producer envelope; it is not an additional statement-count restriction.
@@ -17,7 +21,8 @@ package Silver_Library_Reports with SPARK_Mode => On is
    function Runtime_Report_Policy (Report : String; Kind : Report_Kind) return Boolean
      with Ghost => Static, Global => null;
    function Application_Report_Policy
-     (Report : String; Kind : Application_Kind := Argument_Output) return Boolean
+     (Report : String; Kind : Application_Kind := Argument_Output;
+      Source : String := ""; Functions : Function_Metadata := Empty_Functions) return Boolean
      with Ghost => Static, Global => null;
 
    --  The complete audit policy over mathematical original-report bytes.
@@ -27,7 +32,8 @@ package Silver_Library_Reports with SPARK_Mode => On is
      with Ghost => Static, Global => null;
    function Unbounded_Application_Report_Policy
      (Report : Silver_Report_Observations.Bytes.Sequence;
-      Kind : Application_Kind := Argument_Output) return Boolean
+      Kind : Application_Kind := Argument_Output;
+      Source : String := ""; Functions : Function_Metadata := Empty_Functions) return Boolean
      with Ghost => Static, Global => null;
 
    --  The original report is an unbounded mathematical byte sequence. Only
@@ -35,13 +41,14 @@ package Silver_Library_Reports with SPARK_Mode => On is
    --  actual scanner/member observations; it never assumes audit acceptance.
    procedure Application_Projection_Correspondence
      (Original : Silver_Report_Observations.Bytes.Sequence; Projected : String;
-      Kind : Application_Kind := Argument_Output)
+      Kind : Application_Kind := Argument_Output;
+      Source : String := ""; Functions : Function_Metadata := Empty_Functions)
      with Ghost => Static, Global => null,
        Pre => Projected'First = 1 and then Projected'Length <= Max_Report_Length
          and then Silver_Report_Projection_Observations.Audit_Projection_Observations
            (Original, Silver_Report_Observations.From_String (Projected)),
-       Post => Unbounded_Application_Report_Policy (Original, Kind) =
-         Application_Report_Policy (Projected, Kind);
+       Post => Unbounded_Application_Report_Policy (Original, Kind, Source, Functions) =
+         Application_Report_Policy (Projected, Kind, Source, Functions);
 
    procedure Runtime_Projection_Correspondence
      (Original : Silver_Report_Observations.Bytes.Sequence; Projected : String; Kind : Report_Kind)
@@ -66,9 +73,13 @@ package Silver_Library_Reports with SPARK_Mode => On is
      (Report : String; Kind : Report_Kind) return Boolean
      with Global => null,
        Post => (Static => Complete_Runtime_Proof'Result = Runtime_Report_Policy (Report, Kind));
-   --  Source membership selects the exact Main/callee entity set. Every emitted
-   --  safety check must be a proved range, length, overflow, nonzero-divisor or index
-   --  check for Main.
+   --  Source membership selects Main, every declared local function, and the
+   --  applicable runtime callees. Every local function has distinct all coverage,
+   --  even if unused, and exactly one successful implicit termination record.
+   --  Every emitted safety check must be a proved range, length, overflow,
+   --  nonzero-divisor or index check for Main or an identified local function.
+   --  Local dependency references permit only effects and absence-of-run-time-error
+   --  claims; no function postcondition is introduced by this report policy.
    --  All output forms permit exact ineffective-initialization advisories; assigned and
    --  selected results additionally permit the exact unused-assignment advisory.
    --  All sequence forms permit the exact ineffective/unreachable-statement
@@ -80,10 +91,11 @@ package Silver_Library_Reports with SPARK_Mode => On is
    --  Other diagnostics are rejected.
    --  These advisories do not remove safety checks or fixed object bounds.
    --  GNAT can omit callees after static elimination, including sequences with
-   --  no output. Main-only reports retain the same check/dependency audit;
+   --  no output. Reports without runtime callees retain the check/dependency audit;
    --  argument sequences may retain the three argument callees without IO.
    function Complete_Application_Proof
-     (Report : String; Kind : Application_Kind := Argument_Output) return Boolean
+     (Report : String; Kind : Application_Kind := Argument_Output;
+      Source : String := ""; Functions : Function_Metadata := Empty_Functions) return Boolean
      with Global => null,
-       Post => (Static => Complete_Application_Proof'Result = Application_Report_Policy (Report, Kind));
+       Post => (Static => Complete_Application_Proof'Result = Application_Report_Policy (Report, Kind, Source, Functions));
 end Silver_Library_Reports;

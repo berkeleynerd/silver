@@ -46,7 +46,7 @@ class SharedBindingsTests(unittest.TestCase):
         self.assertEqual(result.returncode, expected, result.stdout)
         self.assertEqual(self.source.read_bytes(), source)
 
-    def compile(self, source: bytes, kind: str) -> tuple[Path, dict]:
+    def compile(self, source: bytes, kind: str, *, functions: tuple[str, ...] = ()) -> tuple[Path, dict]:
         self.source.write_bytes(source)
         result = invoke('compile', self.source)
         self.assertEqual(result.returncode, 0, result.stdout)
@@ -62,7 +62,7 @@ class SharedBindingsTests(unittest.TestCase):
         reports = workspace / 'obj/gnatprove'
         audit_reports(reports, {'main', 'silver_io', 'silver_output_libc',
                                 'silver_arguments', 'silver_runtime'},
-                      {'silver_output_libc', 'silver_runtime'}, application_kind=kind, indexed_main=True)
+                      {'silver_output_libc', 'silver_runtime'}, application_kind=kind, application_functions=functions, indexed_main=True)
         return executable, json.loads((reports / 'main~1.spark').read_text())
 
     def run_program(self, executable: Path, expected: bytes,
