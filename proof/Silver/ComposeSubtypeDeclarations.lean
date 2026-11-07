@@ -344,10 +344,10 @@ theorem subtype_declaration_valid {text arguments state next}
         have nonempty := ready.2.2.2.2.2.2.2.1
         simpa only [Integer.Interval.isEmpty, decide_eq_false_iff_not, Int.not_lt] using nonempty
 
-theorem subtype_declaration_hiding {text arguments state next}
+theorem subtype_declaration_hiding {text arguments state next} {otherNames : List (Nat × Nat)}
     (reading : SubtypeDeclarationAt text arguments state next)
-    (correct : IntegerSubtypes.HidingCorrect text state.subtypeNames) :
-    IntegerSubtypes.HidingCorrect text next.subtypeNames := by
+    (correct : IntegerSubtypes.HidingCorrect text state.subtypeNames otherNames) :
+    IntegerSubtypes.HidingCorrect text next.subtypeNames otherNames := by
   cases reading
   exact IntegerSubtypes.hiding_append correct _
 
