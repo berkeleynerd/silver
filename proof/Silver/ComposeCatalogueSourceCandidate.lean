@@ -28,7 +28,8 @@ def wordTokenAlternatives : List ShellToken :=
    .word "and", .word "length", .word "or", .word "not", .word "null",
    .word "integer", .word "for", .word "in", .word "reverse", .word "loop", .word "range",
    .word "array", .word "of", .word "subtype",
-   .word "boolean", .word "true", .word "false", .word "xor", .word "character"]
+   .word "boolean", .word "true", .word "false", .word "xor", .word "character",
+   .word "function", .word "return"]
 
 def wordTokens : List ShellToken := allTokens.take 11 ++ wordTokenAlternatives
 
@@ -45,17 +46,19 @@ def quoted (text : String) : String :=
 an exact named representation in the native enumeration. -/
 def booleanTokens : List ShellToken := [.word "boolean", .word "true", .word "false", .word "xor", .word "character"]
 
-def earlierTokens : List ShellToken := allTokens.take (allTokens.length - booleanTokens.length)
+def functionTokens : List ShellToken := [.word "function", .word "return"]
+
+def earlierTokens : List ShellToken := allTokens.take (allTokens.length - booleanTokens.length - functionTokens.length)
 
 def nativeTokenNames : List String :=
   ((allTokens.take 50).map Expressions.tokenName) ++ ["statements", "context_clauses"] ++
     (((earlierTokens.drop 51).filter (· != ShellToken.word "subtype")).map Expressions.tokenName) ++
-    [Expressions.tokenName (.word "subtype")] ++ booleanTokens.map Expressions.tokenName
+    [Expressions.tokenName (.word "subtype")] ++ (booleanTokens ++ functionTokens).map Expressions.tokenName
 
 def spellingBody : List String := ["case", "token", "is"] ++
   List.flatten (((allTokens.take 41 ++ [ShellToken.word "null"] ++
       ((earlierTokens.drop 51).filter (· != ShellToken.word "subtype")).flatMap
-        (fun token => if token == ShellToken.word "of" then [ShellToken.word "subtype", ShellToken.word "character"] ++
+        (fun token => if token == ShellToken.word "of" then [ShellToken.word "subtype", ShellToken.word "character"] ++ functionTokens ++
           (booleanTokens.filter (· != ShellToken.word "character")) ++ [token] else [token])).map fun token =>
     ["when", Expressions.tokenName token, "=>", quoted (Expressions.spelling token)]).intersperse [","]) ++
   [",", "when"] ++
