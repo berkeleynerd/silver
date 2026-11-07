@@ -1,15 +1,15 @@
 # Small nonrecursive scalar functions
 
-**Owner-selected work, 2026-11-07; design and implementation pending.** Existing
+**Owner-selected work, 2026-11-07; implementation in progress.** Existing
 [#298](https://github.com/berkeleynerd/silver/issues/298), in
 [milestone 20](https://github.com/berkeleynerd/silver/milestone/20), **Small
 nonrecursive functions**, is one cohesive work package. The
 [dated authorization](session-memory.md#2026-11-07--small-nonrecursive-functions-selected)
 records the owner's **“Proceed”** after the recommendation to start with Integer
 and Boolean scalar parameters/results, acyclic calls and no caller-visible
-mutation. The current [language](../language.md) and
-[catalogue](../catalogue/silver.json) still exclude user-defined functions.
-This plan admits no syntax and records no completed function assurance.
+mutation. The working-branch [language](../language.md) and
+[catalogue](../catalogue/silver.json) now specify the selected fragment below.
+Function support remains pending complete implementation and assurance.
 
 Routine planning publication and merge, followed by implementation through
 reviewable publication, are authorized. Implementation merge remains a later
@@ -26,7 +26,7 @@ no caller-visible mutation. Reuse existing scalar bounds, Boolean expressions,
 guards, declaration visibility and finite control flow wherever their current
 rules suffice. Specify the exact admitted declaration, call and return forms
 during the native/Lean design, before representing any form as supported.
-The selected scope does not preselect a final grammar or a proof mechanism.
+The selected grammar and proof mechanism are recorded below.
 
 The first driver is a Boolean `Is_Prime` function for
 [Primality by trial division](../rosetta/p/primality-by-trial-division/task.wiki).
@@ -48,52 +48,93 @@ package. The Oracle and the existing trusted-tool boundary remain unchanged.
 Local implementation state may be considered within the selected no-mutation
 boundary; its exact permitted forms and observable effects must be explicit.
 
-## Design decisions to settle within #298
+## Selected grammar and mechanism — 2026-11-07
 
-These are ordinary bounded design work, not additional owner approval gates:
+The native/Lean design selected the following bounded fragment. Implementation
+and validation are in progress; these decisions are not a support claim.
 
-- Choose ordinary Ada/SPARK declaration placement and declaration ordering;
-  settle parameter grouping, explicit or implicit `in`, named subtype marks,
-  result marks, zero-parameter forms, and positional/named call associations.
-  Specify what is admitted and reject adjacent unsupported forms. No overloading,
-  forward declaration, default argument or extra nesting form is implied by
-  this list.
-- Specify scope, hiding and uniqueness for function names, formals, local
-  objects and existing loop binders. Determine permitted references to enclosing
-  declarations and earlier functions. Make the no-caller-visible-mutation rule
-  structural and account for all observable library effects, including output,
-  input acquisition and rejection; a scalar result alone does not establish
-  absence of effects.
-- Define the accepted body/control-flow and return forms, including total
-  return coverage, early returns if admitted, unreachable arms and static Ada
-  legality. Establish function and call-chain termination from the accepted
-  acyclic calls and existing finite constructs. Detect direct and indirect
-  recursion by explicit membership rules, independently of prover outcomes.
-- Define typed actual/formal binding, formal input domains, parameter subtype
-  checks, result subtype checks and caller consumption. Derive all range,
-  overflow, divisor and other safety facts from declarations and executable
-  control flow. Settle how a caller's interval/Boolean facts and a callee's
-  source-derived result facts compose without assuming unstated contracts or
-  inheriting unrelated caller-local facts.
-- Specify function calls in each admitted expression position, nested calls,
-  repeated calls, short-circuit evaluation, return expressions and local
-  initialization/assignment. Preserve Ada evaluation meaning. A native
-  feasibility probe must expose actual application-unit report entities,
-  obligation classes and producer elimination before report handling is chosen.
-- Account for source-derived function/formal/local storage, call depth and
-  repeated-call proof/report growth under the existing budgets. Preserve the
-  4,096-byte complete-source bound, 64-leaf expression policy, shared 63-operator
-  budget and current source-derived scalar/String/array storage limits. Explain
-  how calls and their arguments fit those policies. Do not silently reset a
-  source-wide budget per function or multiply tables per call. Any newly needed
-  bounded representation must have a documented source-derived capacity
-  argument; a general capacity rewrite stays deferred.
+- Ordinary Main-local function bodies appear in the ordered declaration list.
+  Each has a nonempty formal list, one name per formal and explicit `in`.
+  Types are visible predefined Integer/Boolean or earlier named Integer
+  subtypes. Actuals are positional. There are no defaults, overloads, forward
+  declarations or nested function declarations.
+- Calls are the whole RHS of assignments to existing mutable scalar Integer
+  or Boolean objects. Calls are absent from initializers, arithmetic, guards,
+  output/Image/indexing, returns, array-cell assignments and other actuals.
+  This scope keeps evaluation and return composition separate from the existing
+  expression grammar. Every actual uses the same incoming state: an earlier
+  Boolean actual cannot refine a later actual, because Ada does not require
+  left-to-right argument evaluation.
+- Integer actuals have nonempty inferred intervals contained in formal ranges.
+  Integer results contribute their declared result range, which must fit the
+  destination; they do not inherit a particular call's values. Boolean results
+  carry no argument, scalar, String-bound or input-validity facts.
+- Bodies are checked once over the full product of formal ranges, including
+  unused functions. They have initialized local Integer/Boolean scalar objects,
+  then zero or more local assignments, earlier-function calls, null statements,
+  conditions or counted loops, followed by one terminal typed return. Early
+  return and function-specific contracts are excluded. There is no outer-value
+  capture, caller mutation, I/O, input query, Reject, local String/Character/array
+  state or local subtype declaration.
+- Local initialization retains exact snapshots and staticness rules but cannot
+  read formals, captured objects or calls. Body frames place initialized locals
+  before immutable, nonstatic formals internally; the formal suffix permits
+  existing scalar guard refinement without making formals mutable. Scope checks
+  reject local/formal duplicates and collisions with earlier subtype names.
+  Outer name hiding survives the closed value environment. Local names and loop
+  binders can hide earlier functions.
+- Only completely accepted functions become callable. Earlier-only calls and
+  finite counted loops establish termination without recursion or assumed
+  function contracts. A typed evaluator must be constructed from this prefix
+  order; a separate model or assumed result oracle is not completion.
 
-Record the chosen native rules, Lean representation and their correspondence
-together here and in the authoritative language/catalogue changes. If design
-shows that a split is necessary, create its increment issues and record their
-order/completion criteria in the same planning step under
-[planning](planning.md); a partial result does not complete #298.
+One-name explicit-in formals preserve existing source-derived binding capacities:
+`X:in T;` (or the final `)`) costs at least seven bytes, and `X:in Boolean;`
+costs thirteen. Locals, formals and loop binders require disjoint source charging.
+Function metadata has a single source-wide pooled formal table outside recursive
+body/flow frames; no per-function copy of the whole formal pool is needed.
+The complete-source limit remains 4,096 bytes, each expression retains its
+64-operand limit, and all function and Main operators share the same 63-operator
+budget. The new signature capacity is source-derived: each accepted complete
+function consumes more than 32 bytes, so `4096 / 32` slots suffice. The source
+correspondence must establish this accounting before delivery.
+
+Native probes use the unchanged application source and production switches,
+adding `--no-inlining` for function-bearing programs only. This makes GNATprove
+analyze each local function over its formal domain, including unused functions,
+instead of repeated contextual inlining. Reports identify Main and individual
+`Main.F` entities. The auditor must require their exact source-derived coverage,
+classify successful `SUBPROGRAM_TERMINATION` flow records, retain every safety
+obligation, and account for local `CLAIM_EFFECTS`/`CLAIM_AORTE` dependencies.
+The native executable, bounded/unbounded models, projection and Lean source
+bridges must agree; accepting a generic Main prefix is insufficient.
+
+The exploratory run `20261107T172711-bb53bdee4857` had a successful GNATprove
+process but a failed managed outcome because its input capture included changing
+generated files. That failure is retained. Exact-file probe
+`20261107T172925-d1dec7c49eb6` passed seven checks with `--no-inlining`.
+The selected-grammar probe `20261107T173133-e00faebcc964` passed nine checks,
+including an unused function's guarded division, termination and full coverage.
+These are mechanism probes, not complete compiler or feature validation.
+The sources, reports and managed records currently reside in the planning
+worktree's `tmp/native-function-probes/`; retain the delivery-relevant evidence
+in the checked-in packet before support is claimed. The integration installation
+at `tmp/scalar-functions-298` copied the existing native tool release/cache from
+`tmp/empty-loop-repair` and ran bootstrap to create its own Alire settings,
+context, generated installation paths and Image overlay. No old native proof
+result is attributed to this new installation.
+
+## Work rounds
+
+| Date (UTC) | Selected model/effort | Intended result | Result and remaining work |
+| --- | --- | --- | --- |
+| 2026-11-07 | Planning: GPT-6.1 Sol / High; native and Lean design: GPT-6 Astra / Extra High | Record authorization and settle a coherent first function fragment | PR #338 merged the plan; native probes selected full-domain `--no-inlining`; grammar and interfaces chosen above. Implementation, correspondence and complete validation pending. |
+| 2026-11-07 | Native parser, Lean model and report integration: GPT-6 Astra / Extra High; lead runtime setting not independently exposed | Implement the selected rules, test boundaries and first driver | Three isolated implementation streams active; lead prepared typed call/domain/scope regressions and bounded `Is_Prime` driver. No completed feature assurance claimed. |
+
+Selected subthread settings are recorded from their launches; independent runtime
+confirmation, token/cost and total elapsed-work measurements are unavailable.
+Native probe time is retained by the managed records rather than inferred from
+agent runtime. Complete results and review targets will be recorded here.
 
 ## Required assurance chain
 

@@ -38,7 +38,8 @@ libraries remain outside this fragment.
 Boolean arrays reuse bounded array storage and scalar Boolean semantics.
 Functions start with Integer/Boolean scalar parameters/results, an acyclic call
 graph and no caller-visible mutation. The [bounded plan](docs/scalar-functions.md)
-records the selected scope; exact native/Lean rules remain to be settled.
+records the selected scope and chosen native/Lean mechanism; implementation
+and complete validation are in progress.
 
 #296 is [authorized for implementation on 2026-10-31](docs/session-memory.md#2026-10-31--bounded-string-indexing-and-character-operations-authorized).
 #297 is [selected next on 2026-11-06](docs/session-memory.md#2026-11-06--structural-guards-merged-boolean-arrays-selected-next),
@@ -58,7 +59,7 @@ and deferred capacity work retain their scope.
 
 ### Small nonrecursive scalar functions
 
-**Selected 2026-11-07; bounded design and implementation pending.** The owner's
+**Selected 2026-11-07; implementation in progress.** The owner's
 **“Proceed”** selects existing [#298](https://github.com/berkeleynerd/silver/issues/298)
 after the Integer/Boolean scalar recommendation.
 [Milestone 20](https://github.com/berkeleynerd/silver/milestone/20), **Small
@@ -71,11 +72,15 @@ Routine planning publication/merge and implementation through reviewable
 publication are authorized; implementation merge remains a later owner decision.
 
 The first driver is a Boolean `Is_Prime` function for Primality by trial division,
-whose task explicitly requires that function. Settle exact declaration/call/return
-syntax, scope and formal binding, result facts, acyclic composition, effects and
-source-derived capacity accounting during native/Lean design. Preserve existing
-4,096-byte complete-source, expression/operator and storage budgets. No function
-support, final grammar, assurance or Rosetta total is claimed by this plan.
+whose task explicitly requires that function. The chosen first fragment has
+explicit-in scalar formals, closed scalar bodies with one terminal return, and
+earlier-only calls as complete scalar assignment RHSs. Each body is checked over
+its full formal domain; native probes selected `--no-inlining` to preserve that
+coverage even for unused functions. The capability record specifies scope,
+hiding, result facts and source-derived capacity accounting. Existing
+4,096-byte complete-source, expression/operator and storage budgets remain.
+Complete native/Lean/source validation and Rosetta reconciliation are pending;
+no completed function support or coverage gain is claimed.
 Recursion, `out`/`in out`, array/String signatures, general package admission and
 capacity rewrites remain outside this package. No split is selected; if needed,
 record increment issues and their order together. No next feature is selected.

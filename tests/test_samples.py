@@ -15,7 +15,8 @@ from tests.test_silver import HOST, ROOT, SILVER, invoke
 
 
 class SupportedSampleTests(unittest.TestCase):
-    def assert_application_proof_policy(self, report: Path, *, output: bool) -> None:
+    def assert_application_proof_policy(self, report: Path, *, output: bool,
+                                        functions: bool = False) -> None:
         command = json.loads(report.read_text())["runs"][0]["invocations"][0]["commandLine"].split()
         options = {
             "mode": "all", "report": "all", "checks-as-errors": "on",
@@ -29,6 +30,7 @@ class SupportedSampleTests(unittest.TestCase):
         self.assertIn("-U", command)
         self.assertIn("-j0", command)
         self.assertIn("--no-loop-unrolling", command)
+        self.assertEqual("--no-inlining" in command, functions)
 
         # GNATprove normalizes --steps for each pinned solver; Why3 records
         # the resulting raw limits. Per-attempt overrides also take effect.
@@ -100,10 +102,12 @@ class SupportedSampleTests(unittest.TestCase):
                 # Every admitted write selects the existing assignment policy
                 # and its advisories, including Character and String elements.
                 assignment = bool({"string_assignment", "integer_assignment", "integer_array_assignment",
-                                   "boolean_assignment", "boolean_array_assignment", "character_assignment", "string_element_assignment"}
+                                   "boolean_assignment", "boolean_array_assignment", "character_assignment", "string_element_assignment",
+                                   "scalar_function_call"}
                                   & set(sample["capabilities"]))
                 output = "runtime_context" in sample["capabilities"]
-                self.assert_application_proof_policy(reports[0], output=output)
+                functions = tuple(sample.get("application_functions", []))
+                self.assert_application_proof_policy(reports[0], output=output, functions=bool(functions))
                 units = {snapshots[0].stem}
                 if output:
                     units |= {"silver_io", "silver_output_libc", "silver_arguments", "silver_runtime"}
@@ -112,7 +116,7 @@ class SupportedSampleTests(unittest.TestCase):
                                            application_kind=("selected" if assignment else "argument")
                                            if "argument_context" in sample["capabilities"]
                                            else ("assigned" if assignment else "static") if output else None,
-                                           indexed_main=True)
+                                           indexed_main=True, application_functions=functions)
                 self.assertEqual(statistics["units"], len(units))
                 if output:
                     self.assertGreater(statistics["proof_checks"], 0)
