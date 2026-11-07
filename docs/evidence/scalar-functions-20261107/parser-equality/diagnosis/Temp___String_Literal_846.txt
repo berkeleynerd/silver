@@ -1,0 +1,8 @@
+function temp___String_Literal_846 pre literal0
+post literal0
+body
+_
+temp___String_Literal_846__def_axiom :
+(forall __void_param. (=(Standard__character___rep.to_rep(Array__Int__Standard__character.get(temp___String_Literal_846(__void_param), 1)), 98) 5 =(Standard__character___rep.to_rep(Array__Int__Standard__character.get(temp___String_Literal_846(__void_param), 2)), 111) 5 =(Standard__character___rep.to_rep(Array__Int__Standard__character.get(temp___String_Literal_846(__void_param), 3)), 111) 5 =(Standard__character___rep.to_rep(Array__Int__Standard__character.get(temp___String_Literal_846(__void_param), 4)), 108) 5 =(Standard__character___rep.to_rep(Array__Int__Standard__character.get(temp___String_Literal_846(__void_param), 5)), 101) 5 =(Standard__character___rep.to_rep(Array__Int__Standard__character.get(temp___String_Literal_846(__void_param), 6)), 97) 5 =(Standard__character___rep.to_rep(Array__Int__Standard__character.get(temp___String_Literal_846(__void_param), 7)), 110)))
+temp___String_Literal_846__def_axiom__well_formed :
+Silver_output_profile__array_declaration_at__B455b__T457b.well_formed(temp___String_Literal_846(()))

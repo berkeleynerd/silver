@@ -1,0 +1,590 @@
+[
+  {
+    "run_id": "20261107T212602-9427c02d1099",
+    "outcome": "success",
+    "scope": [
+      "parser-repair:Same_Parser_State"
+    ],
+    "analyzed_subprograms": [
+      "Silver_Output_Profile.Same_Parser_State"
+    ],
+    "flow_checks": 2,
+    "proof_checks": [
+      {
+        "rule": "VC_INLINE_CHECK",
+        "file": "silver_output_profile.adb",
+        "line": 1747,
+        "col": 8,
+        "severity": "info",
+        "how_proved": "prover"
+      }
+    ],
+    "report": "20261107T212602-9427c02d1099/silver_output_profile.spark.gz"
+  },
+  {
+    "run_id": "20261107T212806-7ec67439cb0b",
+    "outcome": "failure",
+    "scope": [
+      "parser-repair:Array_Declaration_At"
+    ],
+    "analyzed_subprograms": [
+      "Silver_Output_Profile.Array_Declaration_At"
+    ],
+    "flow_checks": 2,
+    "proof_checks": [
+      {
+        "rule": "VC_PRECONDITION",
+        "file": "silver_output_profile.adb",
+        "line": 2264,
+        "col": 27,
+        "severity": "info",
+        "how_proved": "prover"
+      },
+      {
+        "rule": "VC_PRECONDITION",
+        "file": "silver_output_profile.adb",
+        "line": 2261,
+        "col": 36,
+        "severity": "info",
+        "how_proved": "prover"
+      },
+      {
+        "rule": "VC_PRECONDITION",
+        "file": "silver_output_profile.adb",
+        "line": 2260,
+        "col": 68,
+        "severity": "info",
+        "how_proved": "prover"
+      },
+      {
+        "rule": "VC_PRECONDITION",
+        "file": "silver_output_profile.adb",
+        "line": 2257,
+        "col": 47,
+        "severity": "info",
+        "how_proved": "prover"
+      },
+      {
+        "rule": "VC_PRECONDITION",
+        "file": "silver_output_profile.adb",
+        "line": 2259,
+        "col": 27,
+        "severity": "info",
+        "how_proved": "prover"
+      },
+      {
+        "rule": "VC_PRECONDITION",
+        "file": "silver_output_profile.adb",
+        "line": 2248,
+        "col": 43,
+        "severity": "info",
+        "how_proved": "prover"
+      },
+      {
+        "rule": "VC_PRECONDITION",
+        "file": "silver_output_profile.adb",
+        "line": 2243,
+        "col": 61,
+        "severity": "info",
+        "how_proved": "prover"
+      },
+      {
+        "rule": "VC_RANGE_CHECK",
+        "file": "silver_output_profile.adb",
+        "line": 2241,
+        "col": 85,
+        "severity": "info",
+        "how_proved": "prover"
+      },
+      {
+        "rule": "VC_PRECONDITION",
+        "file": "silver_output_profile.adb",
+        "line": 2216,
+        "col": 17,
+        "severity": "info",
+        "how_proved": "prover"
+      },
+      {
+        "rule": "VC_RANGE_CHECK",
+        "file": "silver_output_profile.adb",
+        "line": 2217,
+        "col": 61,
+        "severity": "info",
+        "how_proved": "prover"
+      },
+      {
+        "rule": "VC_RANGE_CHECK",
+        "file": "silver_output_profile.adb",
+        "line": 2217,
+        "col": 68,
+        "severity": "info",
+        "how_proved": "prover"
+      },
+      {
+        "rule": "VC_PRECONDITION",
+        "file": "silver_output_profile.adb",
+        "line": 2217,
+        "col": 46,
+        "severity": "info",
+        "how_proved": "prover"
+      },
+      {
+        "rule": "VC_RANGE_CHECK",
+        "file": "silver_output_profile.adb",
+        "line": 2218,
+        "col": 41,
+        "severity": "info",
+        "how_proved": "prover"
+      },
+      {
+        "rule": "VC_RANGE_CHECK",
+        "file": "silver_output_profile.adb",
+        "line": 2218,
+        "col": 48,
+        "severity": "info",
+        "how_proved": "prover"
+      },
+      {
+        "rule": "VC_PRECONDITION",
+        "file": "silver_output_profile.adb",
+        "line": 2218,
+        "col": 26,
+        "severity": "info",
+        "how_proved": "prover"
+      },
+      {
+        "rule": "VC_PRECONDITION",
+        "file": "silver_output_profile.adb",
+        "line": 2227,
+        "col": 20,
+        "severity": "info",
+        "how_proved": "prover"
+      },
+      {
+        "rule": "VC_PRECONDITION",
+        "file": "silver_output_profile.adb",
+        "line": 2228,
+        "col": 38,
+        "severity": "info",
+        "how_proved": "prover"
+      },
+      {
+        "rule": "VC_PRECONDITION",
+        "file": "silver_output_profile.adb",
+        "line": 2229,
+        "col": 34,
+        "severity": "info",
+        "how_proved": "prover"
+      },
+      {
+        "rule": "VC_PRECONDITION",
+        "file": "silver_output_profile.adb",
+        "line": 2230,
+        "col": 20,
+        "severity": "info",
+        "how_proved": "prover"
+      },
+      {
+        "rule": "VC_PRECONDITION",
+        "file": "silver_output_profile.adb",
+        "line": 2231,
+        "col": 29,
+        "severity": "info",
+        "how_proved": "prover"
+      },
+      {
+        "rule": "VC_PRECONDITION",
+        "file": "silver_output_profile.adb",
+        "line": 2232,
+        "col": 20,
+        "severity": "info",
+        "how_proved": "prover"
+      },
+      {
+        "rule": "VC_RANGE_CHECK",
+        "file": "silver_output_profile.adb",
+        "line": 2233,
+        "col": 73,
+        "severity": "info",
+        "how_proved": "prover"
+      },
+      {
+        "rule": "VC_RANGE_CHECK",
+        "file": "silver_output_profile.adb",
+        "line": 2233,
+        "col": 85,
+        "severity": "info",
+        "how_proved": "prover"
+      },
+      {
+        "rule": "VC_PRECONDITION",
+        "file": "silver_output_profile.adb",
+        "line": 2233,
+        "col": 58,
+        "severity": "info",
+        "how_proved": "prover"
+      },
+      {
+        "rule": "VC_RANGE_CHECK",
+        "file": "silver_output_profile.adb",
+        "line": 2234,
+        "col": 73,
+        "severity": "info",
+        "how_proved": "prover"
+      },
+      {
+        "rule": "VC_RANGE_CHECK",
+        "file": "silver_output_profile.adb",
+        "line": 2234,
+        "col": 85,
+        "severity": "info",
+        "how_proved": "prover"
+      },
+      {
+        "rule": "VC_PRECONDITION",
+        "file": "silver_output_profile.adb",
+        "line": 2234,
+        "col": 58,
+        "severity": "info",
+        "how_proved": "prover"
+      },
+      {
+        "rule": "VC_RANGE_CHECK",
+        "file": "silver_output_profile.adb",
+        "line": 2235,
+        "col": 75,
+        "severity": "info",
+        "how_proved": "prover"
+      },
+      {
+        "rule": "VC_RANGE_CHECK",
+        "file": "silver_output_profile.adb",
+        "line": 2235,
+        "col": 87,
+        "severity": "info",
+        "how_proved": "prover"
+      },
+      {
+        "rule": "VC_PRECONDITION",
+        "file": "silver_output_profile.adb",
+        "line": 2235,
+        "col": 60,
+        "severity": "info",
+        "how_proved": "prover"
+      },
+      {
+        "rule": "VC_PRECONDITION",
+        "file": "silver_output_profile.adb",
+        "line": 2237,
+        "col": 14,
+        "severity": "info",
+        "how_proved": "prover"
+      },
+      {
+        "rule": "VC_PRECONDITION",
+        "file": "silver_output_profile.adb",
+        "line": 2214,
+        "col": 17,
+        "severity": "info",
+        "how_proved": "prover"
+      },
+      {
+        "rule": "VC_PRECONDITION",
+        "file": "silver_output_profile.adb",
+        "line": 2213,
+        "col": 55,
+        "severity": "info",
+        "how_proved": "prover"
+      },
+      {
+        "rule": "VC_PRECONDITION",
+        "file": "silver_output_profile.adb",
+        "line": 2210,
+        "col": 44,
+        "severity": "info",
+        "how_proved": "prover"
+      },
+      {
+        "rule": "VC_PRECONDITION",
+        "file": "silver_output_profile.adb",
+        "line": 2208,
+        "col": 26,
+        "severity": "info",
+        "how_proved": "prover"
+      },
+      {
+        "rule": "VC_PRECONDITION",
+        "file": "silver_output_profile.adb",
+        "line": 2206,
+        "col": 67,
+        "severity": "info",
+        "how_proved": "prover"
+      },
+      {
+        "rule": "VC_PRECONDITION",
+        "file": "silver_output_profile.adb",
+        "line": 2205,
+        "col": 17,
+        "severity": "info",
+        "how_proved": "prover"
+      },
+      {
+        "rule": "VC_PRECONDITION",
+        "file": "silver_output_profile.adb",
+        "line": 2204,
+        "col": 72,
+        "severity": "info",
+        "how_proved": "prover"
+      },
+      {
+        "rule": "VC_PRECONDITION",
+        "file": "silver_output_profile.adb",
+        "line": 2204,
+        "col": 57,
+        "severity": "info",
+        "how_proved": "prover"
+      },
+      {
+        "rule": "VC_PRECONDITION",
+        "file": "silver_output_profile.adb",
+        "line": 2202,
+        "col": 24,
+        "severity": "info",
+        "how_proved": "prover"
+      },
+      {
+        "rule": "VC_PRECONDITION",
+        "file": "silver_output_profile.adb",
+        "line": 2201,
+        "col": 89,
+        "severity": "info",
+        "how_proved": "prover"
+      },
+      {
+        "rule": "VC_PRECONDITION",
+        "file": "silver_output_profile.adb",
+        "line": 2199,
+        "col": 24,
+        "severity": "info",
+        "how_proved": "prover"
+      },
+      {
+        "rule": "VC_PRECONDITION",
+        "file": "silver_output_profile.adb",
+        "line": 2198,
+        "col": 88,
+        "severity": "info",
+        "how_proved": "prover"
+      },
+      {
+        "rule": "VC_PRECONDITION",
+        "file": "silver_output_profile.adb",
+        "line": 2196,
+        "col": 58,
+        "severity": "info",
+        "how_proved": "prover"
+      },
+      {
+        "rule": "VC_PRECONDITION",
+        "file": "silver_output_profile.adb",
+        "line": 2195,
+        "col": 61,
+        "severity": "info",
+        "how_proved": "prover"
+      },
+      {
+        "rule": "VC_PRECONDITION",
+        "file": "silver_output_profile.adb",
+        "line": 2194,
+        "col": 58,
+        "severity": "info",
+        "how_proved": "prover"
+      },
+      {
+        "rule": "VC_PRECONDITION",
+        "file": "silver_output_profile.adb",
+        "line": 2193,
+        "col": 52,
+        "severity": "info",
+        "how_proved": "prover"
+      },
+      {
+        "rule": "VC_PRECONDITION",
+        "file": "silver_output_profile.adb",
+        "line": 2192,
+        "col": 52,
+        "severity": "info",
+        "how_proved": "prover"
+      },
+      {
+        "rule": "VC_PRECONDITION",
+        "file": "silver_output_profile.adb",
+        "line": 2269,
+        "col": 18,
+        "severity": "info",
+        "how_proved": "prover"
+      },
+      {
+        "rule": "VC_ASSERT",
+        "file": "silver_output_profile.adb",
+        "line": 2268,
+        "col": 32,
+        "severity": "medium",
+        "how_proved": "prover"
+      },
+      {
+        "rule": "VC_PRECONDITION",
+        "file": "silver_output_profile.adb",
+        "line": 2271,
+        "col": 18,
+        "severity": "info",
+        "how_proved": "prover"
+      },
+      {
+        "rule": "VC_PRECONDITION",
+        "file": "silver_output_profile.adb",
+        "line": 2270,
+        "col": 7,
+        "severity": "info",
+        "how_proved": "prover"
+      },
+      {
+        "rule": "VC_PRECONDITION",
+        "file": "silver_output_profile.adb",
+        "line": 2188,
+        "col": 50,
+        "severity": "info",
+        "how_proved": "prover"
+      },
+      {
+        "rule": "VC_PRECONDITION",
+        "file": "silver_output_profile.adb",
+        "line": 2185,
+        "col": 28,
+        "severity": "info",
+        "how_proved": "prover"
+      },
+      {
+        "rule": "VC_PRECONDITION",
+        "file": "silver_output_profile.adb",
+        "line": 2184,
+        "col": 19,
+        "severity": "info",
+        "how_proved": "prover"
+      },
+      {
+        "rule": "VC_POSTCONDITION",
+        "file": "silver_output_profile.adb",
+        "line": 2185,
+        "col": 28,
+        "severity": "info",
+        "how_proved": "prover"
+      }
+    ],
+    "report": "20261107T212806-7ec67439cb0b/silver_output_profile.spark.gz"
+  },
+  {
+    "run_id": "20261107T221115-a5b819bc3c92",
+    "outcome": "success",
+    "scope": [
+      "parser-repair:Boolean_Array_Values_At:postcondition"
+    ],
+    "analyzed_subprograms": [
+      "Silver_Output_Profile.Boolean_Array_Values_At"
+    ],
+    "flow_checks": 2,
+    "proof_checks": [
+      {
+        "rule": "VC_PRECONDITION",
+        "file": "silver_output_profile.adb",
+        "line": 2089,
+        "col": 28,
+        "severity": "info",
+        "how_proved": "prover"
+      },
+      {
+        "rule": "VC_POSTCONDITION",
+        "file": "silver_output_profile.adb",
+        "line": 2089,
+        "col": 28,
+        "severity": "info",
+        "how_proved": "prover"
+      }
+    ],
+    "report": "20261107T221115-a5b819bc3c92/silver_output_profile.spark.gz"
+  },
+  {
+    "run_id": "20261107T221844-106c3eae8695",
+    "outcome": "success",
+    "scope": [
+      "parser-repair:Array_Declaration_At:state-assertion"
+    ],
+    "analyzed_subprograms": [
+      "Silver_Output_Profile.Array_Declaration_At"
+    ],
+    "flow_checks": 2,
+    "proof_checks": [
+      {
+        "rule": "VC_ASSERT",
+        "file": "silver_output_profile.adb",
+        "line": 2269,
+        "col": 32,
+        "severity": "info",
+        "how_proved": "prover"
+      }
+    ],
+    "report": "20261107T221844-106c3eae8695/silver_output_profile.spark.gz"
+  },
+  {
+    "run_id": "20261107T222113-945ea27e618b",
+    "outcome": "success",
+    "scope": [
+      "parser-repair:Function_Body_At:postcondition"
+    ],
+    "analyzed_subprograms": [
+      "Silver_Output_Profile.Function_Body_At"
+    ],
+    "flow_checks": 2,
+    "proof_checks": [
+      {
+        "rule": "VC_PRECONDITION",
+        "file": "silver_output_profile.adb",
+        "line": 5757,
+        "col": 16,
+        "severity": "info",
+        "how_proved": "prover"
+      },
+      {
+        "rule": "VC_POSTCONDITION",
+        "file": "silver_output_profile.adb",
+        "line": 5757,
+        "col": 16,
+        "severity": "info",
+        "how_proved": "prover"
+      }
+    ],
+    "report": "20261107T222113-945ea27e618b/silver_output_profile.spark.gz"
+  },
+  {
+    "run_id": "20261107T222322-cb585b946ae2",
+    "outcome": "success",
+    "scope": [
+      "parser-repair:Function_Declaration_At:body-call-precondition"
+    ],
+    "analyzed_subprograms": [
+      "Silver_Output_Profile.Function_Declaration_At"
+    ],
+    "flow_checks": 2,
+    "proof_checks": [
+      {
+        "rule": "VC_PRECONDITION",
+        "file": "silver_output_profile.adb",
+        "line": 5834,
+        "col": 20,
+        "severity": "info",
+        "how_proved": "prover"
+      }
+    ],
+    "report": "20261107T222322-cb585b946ae2/silver_output_profile.spark.gz"
+  }
+]

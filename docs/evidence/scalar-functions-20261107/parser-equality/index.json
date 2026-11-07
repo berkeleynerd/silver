@@ -1,0 +1,691 @@
+{
+  "scope": "Focused native parser equality repair for #298; no complete assurance claim",
+  "host": "linux-x86_64",
+  "native_precondition_import": "bd46e051c2 (equivalent to e56af1b1a2)",
+  "source_commits": [
+    "1ddd3a21b5",
+    "f102afeeb0"
+  ],
+  "source": {
+    "artifact": "silver_output_profile.adb.gz",
+    "sha256": "4d89527f3f9449b818622cf77f64c57b2e4812b712a268f49cbc7a257aae92c0"
+  },
+  "runs": [
+    {
+      "run_id": "20261107T210802-62535ab82b11",
+      "scope": [
+        "parser-repair:metadata-equality"
+      ],
+      "outcome": "interrupted",
+      "workers": 2,
+      "command": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/bin/gnatprove",
+        "-P",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-parser-repairs-298/tmp/parser-proof-repair/probe.gpr",
+        "-u",
+        "silver_output_profile.adb",
+        "--mode=all",
+        "--report=all",
+        "--warnings=continue",
+        "--checks-as-errors=on",
+        "--level=2",
+        "--prover=cvc5,z3,altergo",
+        "--timeout=30",
+        "--subdirs=explore/parser-repair",
+        "--limit-region=silver_output_profile.adb:1706:1748",
+        "--memcached-server=file:/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-parser-repairs-298/tmp/parser-proof-repair/cache",
+        "-XSILVER_HOST=linux-x86_64",
+        "-j2"
+      ],
+      "reason": "Prove added signature/formal array Logical_Equal helpers and Same_Parser_State together in their narrow source region. Root saved failures identify nested metadata extensionality; unchanged level2/cvc5,z3,altergo/30sec, private output/cache, two workers preserve active root/native/report reservations.",
+      "events": {
+        "artifact": "20261107T210802-62535ab82b11/events.jsonl.gz",
+        "sha256": "8a359b28d67a24c4095615486c91721bd24fd27d77431788af39d217af5364a0"
+      },
+      "duration_seconds": 915.603636968,
+      "log": {
+        "artifact": "20261107T210802-62535ab82b11/native.log.gz",
+        "sha256": "2e5307fc051d32226f886de296d659bcbe5f8bd6896611a3de7e4938f07ab757"
+      }
+    },
+    {
+      "run_id": "20261107T212356-e9d9fa606dc6",
+      "scope": [
+        "parser-repair:Same_Parser_Function_Items"
+      ],
+      "outcome": "success",
+      "workers": 2,
+      "command": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/bin/gnatprove",
+        "-P",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-parser-repairs-298/tmp/parser-proof-repair/probe.gpr",
+        "-u",
+        "silver_output_profile.adb",
+        "--mode=all",
+        "--report=all",
+        "--warnings=continue",
+        "--checks-as-errors=on",
+        "--level=2",
+        "--prover=cvc5,z3,altergo",
+        "--timeout=30",
+        "--subdirs=explore/parser-repair",
+        "--limit-subp=silver_output_profile.adb:1706",
+        "--memcached-server=file:/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-parser-repairs-298/tmp/parser-proof-repair/cache",
+        "-XSILVER_HOST=linux-x86_64",
+        "-j2"
+      ],
+      "reason": "Correct prior limiter scope: prove only the new signature-array Logical_Equal helper via --limit-subp. Retain failed/interrupted region evidence and exact pinned source/tools; unchanged solver settings, two workers for concurrent native/source/report streams.",
+      "events": {
+        "artifact": "20261107T212356-e9d9fa606dc6/events.jsonl.gz",
+        "sha256": "eba520c7c922db312329c43dd7fa0be3fd9435ba95ff023e368b434a2f1086ba"
+      },
+      "duration_seconds": 23.070540175,
+      "log": {
+        "artifact": "20261107T212356-e9d9fa606dc6/native.log.gz",
+        "sha256": "38563751a102684ee5e4b15c689457b9741e4d1ca0934c9a296f36d44f7bb12f"
+      },
+      "successful_checks": 3,
+      "retained_entity_session": {
+        "artifact": "20261107T212356-e9d9fa606dc6/why3session.xml.gz",
+        "sha256": "14ac5a002ca67efb0ceb1bae01713649ebf6104b69c2b27a35bb8da8066141a4"
+      },
+      "session_leaf_count": 2,
+      "session_proved_leaf_count": 2
+    },
+    {
+      "run_id": "20261107T212454-2e87c9d6241b",
+      "scope": [
+        "parser-repair:Same_Parser_Formal_Items"
+      ],
+      "outcome": "success",
+      "workers": 2,
+      "command": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/bin/gnatprove",
+        "-P",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-parser-repairs-298/tmp/parser-proof-repair/probe.gpr",
+        "-u",
+        "silver_output_profile.adb",
+        "--mode=all",
+        "--report=all",
+        "--warnings=continue",
+        "--checks-as-errors=on",
+        "--level=2",
+        "--prover=cvc5,z3,altergo",
+        "--timeout=30",
+        "--subdirs=explore/parser-repair",
+        "--limit-subp=silver_output_profile.adb:1712",
+        "--memcached-server=file:/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-parser-repairs-298/tmp/parser-proof-repair/cache",
+        "-XSILVER_HOST=linux-x86_64",
+        "-j2"
+      ],
+      "reason": "Signature-array equality helper passed all3 checks. Prove only formal-array Logical_Equal helper next with --limit-subp, unchanged level2/cvc5,z3,altergo/30sec and two workers for active native/source/report streams.",
+      "events": {
+        "artifact": "20261107T212454-2e87c9d6241b/events.jsonl.gz",
+        "sha256": "7107c4182ffe67204efec84d942f0b26125cf57a2ad5bf18831b16cb57555292"
+      },
+      "duration_seconds": 15.758211486,
+      "log": {
+        "artifact": "20261107T212454-2e87c9d6241b/native.log.gz",
+        "sha256": "bb730d5a411fb5f2084c24ff36b83e103b9e8c697b0f8ee4300621aac7c37154"
+      },
+      "successful_checks": 3,
+      "retained_entity_session": {
+        "artifact": "20261107T212454-2e87c9d6241b/why3session.xml.gz",
+        "sha256": "3dc0edb1e2b0109b2584e995c4d6ba69435fbaf1a292494576eaacf8ba90cec7"
+      },
+      "session_leaf_count": 2,
+      "session_proved_leaf_count": 2
+    },
+    {
+      "run_id": "20261107T212602-9427c02d1099",
+      "scope": [
+        "parser-repair:Same_Parser_State"
+      ],
+      "outcome": "success",
+      "workers": 2,
+      "command": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/bin/gnatprove",
+        "-P",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-parser-repairs-298/tmp/parser-proof-repair/probe.gpr",
+        "-u",
+        "silver_output_profile.adb",
+        "--mode=all",
+        "--report=all",
+        "--warnings=continue",
+        "--checks-as-errors=on",
+        "--level=2",
+        "--prover=cvc5,z3,altergo",
+        "--timeout=30",
+        "--subdirs=explore/parser-repair",
+        "--limit-subp=silver_output_profile.adb:1718",
+        "--memcached-server=file:/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-parser-repairs-298/tmp/parser-proof-repair/cache",
+        "-XSILVER_HOST=linux-x86_64",
+        "-j2"
+      ],
+      "reason": "Both new metadata array Logical_Equal helpers passed all3 checks each. Check original failing parser-record equality implications alone against exact helper/count formulation; unchanged solver settings and two workers preserve concurrent native/source/report allocations.",
+      "events": {
+        "artifact": "20261107T212602-9427c02d1099/events.jsonl.gz",
+        "sha256": "898ec1afb80096046ea2cfcd991634b060216cd14d538ebf6d8809ec32271dce"
+      },
+      "duration_seconds": 43.497536998,
+      "log": {
+        "artifact": "20261107T212602-9427c02d1099/native.log.gz",
+        "sha256": "1b57ec12171cc4f5f12c17e372ba9a747ed7c83fbef064e6e41350c62d21dfe5"
+      },
+      "successful_checks": 3,
+      "reports": [
+        {
+          "artifact": "20261107T212602-9427c02d1099/gnatprove.out.gz",
+          "sha256": "a033a2c83aff8398a5f8eaa58b508d4d920cdc76d9f278293ff2699aca848963"
+        },
+        {
+          "artifact": "20261107T212602-9427c02d1099/silver_output_profile.adb.gz",
+          "sha256": "6cd94c08fbe6e20a3eea22d4f505bcac17a085227bf18a24973ab8b94c764d91"
+        },
+        {
+          "artifact": "20261107T212602-9427c02d1099/silver_output_profile.spark.gz",
+          "sha256": "f9e6e34379dccebad96815a76503bdccdc45dcf8104c4c3375eac2d4968a814f"
+        },
+        {
+          "artifact": "20261107T212602-9427c02d1099/why3session.xml.gz",
+          "sha256": "785dfaa2037367ee0d2690d187a4fb6b05534d1c662425256fb44b9ecb58f955"
+        },
+        {
+          "artifact": "20261107T212602-9427c02d1099/why3shapes.gz",
+          "sha256": "98ae8e44dcd18a43de567227e616fafcda620aefa59bf74c275fe90958149156"
+        }
+      ]
+    },
+    {
+      "run_id": "20261107T212806-7ec67439cb0b",
+      "scope": [
+        "parser-repair:Array_Declaration_At"
+      ],
+      "outcome": "failure",
+      "workers": 2,
+      "command": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/bin/gnatprove",
+        "-P",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-parser-repairs-298/tmp/parser-proof-repair/probe.gpr",
+        "-u",
+        "silver_output_profile.adb",
+        "--mode=all",
+        "--report=all",
+        "--warnings=continue",
+        "--checks-as-errors=on",
+        "--level=2",
+        "--prover=cvc5,z3,altergo",
+        "--timeout=30",
+        "--subdirs=explore/parser-repair",
+        "--limit-subp=silver_output_profile.adb:2180",
+        "--memcached-server=file:/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-parser-repairs-298/tmp/parser-proof-repair/cache",
+        "-XSILVER_HOST=linux-x86_64",
+        "-j2"
+      ],
+      "reason": "Signature, formal and full parser-state Logical_Equal helpers each passed all three checks. Check smallest saved failing full-state consumer; unchanged level 2, 30-second provers and two workers alongside active integration streams.",
+      "events": {
+        "artifact": "20261107T212806-7ec67439cb0b/events.jsonl.gz",
+        "sha256": "1e04a29ca61fc33e86937091f37a1316e711e988b568c72a6729c0f30cfac20f"
+      },
+      "duration_seconds": 2504.445092214,
+      "log": {
+        "artifact": "20261107T212806-7ec67439cb0b/native.log.gz",
+        "sha256": "524e6f05575659bdbc0f44f0d9c1b566e7620d259363ce0fe2a3a73126e69653"
+      },
+      "reports": [
+        {
+          "artifact": "20261107T212806-7ec67439cb0b/gnatprove.out.gz",
+          "sha256": "617b57bfb0d985f2597fda74a7608c7225ea754512d8bb3606ebdf5a08a00510"
+        },
+        {
+          "artifact": "20261107T212806-7ec67439cb0b/silver_output_profile.adb.gz",
+          "sha256": "6cd94c08fbe6e20a3eea22d4f505bcac17a085227bf18a24973ab8b94c764d91"
+        },
+        {
+          "artifact": "20261107T212806-7ec67439cb0b/silver_output_profile.spark.gz",
+          "sha256": "750ae0bf41a07e2dbcb7cccdda635bc4c274d9d790cf359387f733bef92e7732"
+        },
+        {
+          "artifact": "20261107T212806-7ec67439cb0b/why3session.xml.gz",
+          "sha256": "ebd366b757a02326221f29b6378fe780df48521ab590eaa80caa25e680816b91"
+        },
+        {
+          "artifact": "20261107T212806-7ec67439cb0b/why3shapes.gz",
+          "sha256": "5a7bbbaa40cac2aa966a9577f2eb7b63791d585f351326a58707933cd6a38199"
+        }
+      ]
+    },
+    {
+      "run_id": "20261107T221115-a5b819bc3c92",
+      "scope": [
+        "parser-repair:Boolean_Array_Values_At:postcondition"
+      ],
+      "outcome": "success",
+      "workers": 10,
+      "command": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/bin/gnatprove",
+        "-P",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-parser-repairs-298/tmp/parser-proof-repair/probe.gpr",
+        "-u",
+        "silver_output_profile.adb",
+        "--mode=all",
+        "--report=all",
+        "--warnings=continue",
+        "--checks-as-errors=on",
+        "--level=2",
+        "--prover=cvc5,z3,altergo",
+        "--timeout=30",
+        "--subdirs=explore/parser-repair",
+        "--limit-subp=silver_output_profile.adb:2077",
+        "--limit-line=silver_output_profile.adb:2089",
+        "--memcached-server=file:/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-parser-repairs-298/tmp/parser-proof-repair/cache",
+        "-XSILVER_HOST=linux-x86_64",
+        "-j10"
+      ],
+      "reason": "Array consumer retains one equality assertion timeout after all helper annotations proved. Check only the separately saved Boolean consumer postcondition, combining exact subprogram and source-line limits; retain all unselected obligations for final full audit. Ten available workers now that report/source streams finished.",
+      "events": {
+        "artifact": "20261107T221115-a5b819bc3c92/events.jsonl.gz",
+        "sha256": "2e12c37807edb2e484aade1640d88dd58bd9d513663bb4955a3c10fd0aabe7d1"
+      },
+      "duration_seconds": 379.623095279,
+      "log": {
+        "artifact": "20261107T221115-a5b819bc3c92/native.log.gz",
+        "sha256": "ae44f36034563a8885b24e2c6f164347e5037fa75601d866c6f942021aac7797"
+      },
+      "successful_checks": 4,
+      "reports": [
+        {
+          "artifact": "20261107T221115-a5b819bc3c92/gnatprove.out.gz",
+          "sha256": "72101f1fa3b64502d6585aecfd945813eb2183676433b263971a130733fd8d6e"
+        },
+        {
+          "artifact": "20261107T221115-a5b819bc3c92/silver_output_profile.adb.gz",
+          "sha256": "6cd94c08fbe6e20a3eea22d4f505bcac17a085227bf18a24973ab8b94c764d91"
+        },
+        {
+          "artifact": "20261107T221115-a5b819bc3c92/silver_output_profile.spark.gz",
+          "sha256": "b57aaa4d78fec80ae2bc15f419af002241371d16e6b24ef8f80ab4b1c0cf5909"
+        },
+        {
+          "artifact": "20261107T221115-a5b819bc3c92/why3session.xml.gz",
+          "sha256": "752a5cae81bd95cce090623019c0ae041f5d56d5ddcde71bfb5a1d8e3670f1ca"
+        },
+        {
+          "artifact": "20261107T221115-a5b819bc3c92/why3shapes.gz",
+          "sha256": "8bd6067cdd9de552e41f3b68475e9ad4d6b4cb74a0cdfb3969d214d1c14888fe"
+        }
+      ]
+    },
+    {
+      "run_id": "20261107T221844-106c3eae8695",
+      "scope": [
+        "parser-repair:Array_Declaration_At:state-assertion"
+      ],
+      "outcome": "success",
+      "workers": 10,
+      "command": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/bin/gnatprove",
+        "-P",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-parser-repairs-298/tmp/parser-proof-repair/probe.gpr",
+        "-u",
+        "silver_output_profile.adb",
+        "--mode=all",
+        "--report=all",
+        "--warnings=continue",
+        "--checks-as-errors=on",
+        "--level=2",
+        "--prover=cvc5,z3,altergo",
+        "--timeout=30",
+        "--subdirs=explore/parser-repair",
+        "--limit-subp=silver_output_profile.adb:2181",
+        "--limit-line=silver_output_profile.adb:2269",
+        "--memcached-server=file:/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-parser-repairs-298/tmp/parser-proof-repair/cache",
+        "-XSILVER_HOST=linux-x86_64",
+        "-j10"
+      ],
+      "reason": "Independent retained AST diagnosis isolated three distinct inline string-map symbols in paired model/runtime hiding guards. Reuse the existing Integer/Boolean words and one new Character word at exactly six paired sites; recheck only the original VC_ASSERT with unchanged contracts, domains and30-second settings. Prior full consumer57/58 remains retained.",
+      "events": {
+        "artifact": "20261107T221844-106c3eae8695/events.jsonl.gz",
+        "sha256": "cf8ce28f8843083df1cd30de666d932fa9d025b05f5ba2e949dc8224e5ef868f"
+      },
+      "duration_seconds": 97.422663891,
+      "log": {
+        "artifact": "20261107T221844-106c3eae8695/native.log.gz",
+        "sha256": "924bce1bf6922feff5d07895c8274727075a7d7de381d99649d702e1e4e566f0"
+      },
+      "successful_checks": 3,
+      "reports": [
+        {
+          "artifact": "20261107T221844-106c3eae8695/gnatprove.out.gz",
+          "sha256": "d947262324f148d2a764a1651078243b6e7c6edfb37f7bf0a70407ddd03d7b38"
+        },
+        {
+          "artifact": "20261107T221844-106c3eae8695/silver_output_profile.adb.gz",
+          "sha256": "4d89527f3f9449b818622cf77f64c57b2e4812b712a268f49cbc7a257aae92c0"
+        },
+        {
+          "artifact": "20261107T221844-106c3eae8695/silver_output_profile.spark.gz",
+          "sha256": "ff00bef3684b86837951ef719533267f57c9afe9fc4b24dd31a48e156f03b984"
+        },
+        {
+          "artifact": "20261107T221844-106c3eae8695/why3session.xml.gz",
+          "sha256": "bf0bf4fa55f509ccbb4e7b1893c9c70a2509bc3c66ebca2a9b265926704688c2"
+        },
+        {
+          "artifact": "20261107T221844-106c3eae8695/why3shapes.gz",
+          "sha256": "c41ac9d06c301f5b4c159b2b18b030f33a633ffa86e5bd804389bf3cea411c1b"
+        }
+      ]
+    },
+    {
+      "run_id": "20261107T222113-945ea27e618b",
+      "scope": [
+        "parser-repair:Function_Body_At:postcondition"
+      ],
+      "outcome": "success",
+      "workers": 10,
+      "command": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/bin/gnatprove",
+        "-P",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-parser-repairs-298/tmp/parser-proof-repair/probe.gpr",
+        "-u",
+        "silver_output_profile.adb",
+        "--mode=all",
+        "--report=all",
+        "--warnings=continue",
+        "--checks-as-errors=on",
+        "--level=2",
+        "--prover=cvc5,z3,altergo",
+        "--timeout=30",
+        "--subdirs=explore/parser-repair",
+        "--limit-subp=silver_output_profile.adb:5744",
+        "--limit-line=silver_output_profile.adb:5757",
+        "--memcached-server=file:/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-parser-repairs-298/tmp/parser-proof-repair/cache",
+        "-XSILVER_HOST=linux-x86_64",
+        "-j10"
+      ],
+      "reason": "Validate the postcondition affected by the reviewed private formal-pool growth Pre repair e56, on current parser source including proven equality helpers and shared array words. Exact subprogram plus postcondition line, unchanged level2/provers/30-second limit; final full audit retains all remaining obligations.",
+      "events": {
+        "artifact": "20261107T222113-945ea27e618b/events.jsonl.gz",
+        "sha256": "d82ae8fc2d48c70bffe4c7cb4da2a04759170b6a6f074f3015f033730be627fe"
+      },
+      "duration_seconds": 112.051623383,
+      "log": {
+        "artifact": "20261107T222113-945ea27e618b/native.log.gz",
+        "sha256": "2b8cafe649324a2b6795d588e9fc6209989aa14539d221f848916af3ce105de3"
+      },
+      "successful_checks": 4,
+      "reports": [
+        {
+          "artifact": "20261107T222113-945ea27e618b/gnatprove.out.gz",
+          "sha256": "e09fa8d02e20cd669bd44a76e7223ea7fe0e0c5a7b959c236d6a82a718ee0fc8"
+        },
+        {
+          "artifact": "20261107T222113-945ea27e618b/silver_output_profile.adb.gz",
+          "sha256": "4d89527f3f9449b818622cf77f64c57b2e4812b712a268f49cbc7a257aae92c0"
+        },
+        {
+          "artifact": "20261107T222113-945ea27e618b/silver_output_profile.spark.gz",
+          "sha256": "3babaff928c133f3b27248ebbb317707a9688e2db8600d1f7dc267b42addfd31"
+        },
+        {
+          "artifact": "20261107T222113-945ea27e618b/why3session.xml.gz",
+          "sha256": "434c9b7d223e5e14363df46056b7b556a33c6eb1f78d52ddabd6da1651b36c2f"
+        },
+        {
+          "artifact": "20261107T222113-945ea27e618b/why3shapes.gz",
+          "sha256": "1dbb5c9e7aac314b33d1ff57a0c3a948c3b792f60c14b0f14542ab4db79d35dc"
+        }
+      ]
+    },
+    {
+      "run_id": "20261107T222322-cb585b946ae2",
+      "scope": [
+        "parser-repair:Function_Declaration_At:body-call-precondition"
+      ],
+      "outcome": "success",
+      "workers": 10,
+      "command": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/bin/gnatprove",
+        "-P",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-parser-repairs-298/tmp/parser-proof-repair/probe.gpr",
+        "-u",
+        "silver_output_profile.adb",
+        "--mode=all",
+        "--report=all",
+        "--warnings=continue",
+        "--checks-as-errors=on",
+        "--level=2",
+        "--prover=cvc5,z3,altergo",
+        "--timeout=30",
+        "--subdirs=explore/parser-repair",
+        "--limit-subp=silver_output_profile.adb:2285",
+        "--limit-line=silver_output_profile.adb:5834",
+        "--memcached-server=file:/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-parser-repairs-298/tmp/parser-proof-repair/cache",
+        "-XSILVER_HOST=linux-x86_64",
+        "-j10"
+      ],
+      "reason": "Function_Body_At postcondition passed under reviewed formal-pool growth Pre. Validate its unique ordinary caller against every precondition conjunct at the exact call site, including the strengthened pool-growth requirement; unchanged current source and30-second settings, final full audit retains all other obligations.",
+      "events": {
+        "artifact": "20261107T222322-cb585b946ae2/events.jsonl.gz",
+        "sha256": "3a4c01408bd49f60bae27bf0d2d24bea2ed9222e3e0b3a4ea4a45b4e5edaa9a9"
+      },
+      "duration_seconds": 80.359738586,
+      "log": {
+        "artifact": "20261107T222322-cb585b946ae2/native.log.gz",
+        "sha256": "1ac01c19fad27a6649ba1883a1ca7ffff9d9f3f5eac0afab57309d86b72c9c9f"
+      },
+      "successful_checks": 3,
+      "reports": [
+        {
+          "artifact": "20261107T222322-cb585b946ae2/gnatprove.out.gz",
+          "sha256": "afee0f8318534adc3194174672cf36ddd5b69e01436b95311c8b216d04371723"
+        },
+        {
+          "artifact": "20261107T222322-cb585b946ae2/silver_output_profile.adb.gz",
+          "sha256": "4d89527f3f9449b818622cf77f64c57b2e4812b712a268f49cbc7a257aae92c0"
+        },
+        {
+          "artifact": "20261107T222322-cb585b946ae2/silver_output_profile.spark.gz",
+          "sha256": "1e15d6d503aa9e049b4913b7a765513411687bdc5f1f32e6daf0565ba31e8e8b"
+        },
+        {
+          "artifact": "20261107T222322-cb585b946ae2/why3session.xml.gz",
+          "sha256": "2788eedd0eada9f92a70eb0a310be9fc6c74033f4815975cc1fa9eaf935ebb4e"
+        },
+        {
+          "artifact": "20261107T222322-cb585b946ae2/why3shapes.gz",
+          "sha256": "51e680c7cacf58dceaf4b806c26efc033cadafcfe11d0cbed0c2b02d1d978ea7"
+        }
+      ]
+    }
+  ],
+  "original_failure_packet": [
+    {
+      "artifact": "original-failures/silver_output_profile.original.adb.gz",
+      "sha256": "117b2b03ec738aa5c2bc21e29565a1dca6e86f15614410925f75cab7a583c9ac"
+    },
+    {
+      "artifact": "original-failures/silver_output_profile__array_declaration_at-why3session.xml.gz",
+      "sha256": "44f90410eff1cf31b586c63aa73a1fc2fc94c9cfafbcdd7f0f071b61922b7785"
+    },
+    {
+      "artifact": "original-failures/silver_output_profile__array_declaration_at-why3shapes.gz",
+      "sha256": "fcdbe28fcc7a504e7224003bc33d6fdf31217a8603dabac2051b52ca201380cd"
+    },
+    {
+      "retained_local_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-parser-repairs-298/tmp/parser-proof-repair/saved/silver_output_profile__array_declaration_at.gnat-json",
+      "sha256": "3d8092a4b584fbc1a1a07bf174c86c02560db80d6f01b7aaf004ddb5c66c30db"
+    },
+    {
+      "artifact": "original-failures/silver_output_profile__boolean_array_values_at-why3session.xml.gz",
+      "sha256": "c438c0302552af16fe609a33709b0857f72352ed0092a73c2bd73dd4cec2885d"
+    },
+    {
+      "artifact": "original-failures/silver_output_profile__boolean_array_values_at-why3shapes.gz",
+      "sha256": "ebc3dfd40485cc9d0cb75685eb2af755648af04b07b5b56a9d4b9d52f2ca6508"
+    },
+    {
+      "retained_local_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-parser-repairs-298/tmp/parser-proof-repair/saved/silver_output_profile__boolean_array_values_at.gnat-json",
+      "sha256": "858d97d96f484a4d026bf7a3ec96059eaacf6a359c58e8c665bd29bebc587743"
+    },
+    {
+      "artifact": "original-failures/silver_output_profile__same_parser_state-why3session.xml.gz",
+      "sha256": "6acec42f819d040162c3b4de55c68aa52c5a61f6e0c4e63734f2376c6bff8e42"
+    },
+    {
+      "artifact": "original-failures/silver_output_profile__same_parser_state-why3shapes.gz",
+      "sha256": "f5f85970bbc3ad61b84a16dbc5a3dc1609c4b2db66c7d930e0aa5bfa35a5f87e"
+    },
+    {
+      "retained_local_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-parser-repairs-298/tmp/parser-proof-repair/saved/silver_output_profile__same_parser_state.gnat-json",
+      "sha256": "71ff737f414999f361f16254b3f38ac5e2c43e081501258f10b9ff05a07e8115"
+    }
+  ],
+  "after_helper_failure_packet": [
+    {
+      "artifact": "after-helper-failure/events.jsonl.gz",
+      "sha256": "1e04a29ca61fc33e86937091f37a1316e711e988b568c72a6729c0f30cfac20f"
+    },
+    {
+      "artifact": "after-helper-failure/index.json.gz",
+      "sha256": "260690fec21d38256421ccc21ff32b35212daa75ccd3cb3660e1f091b0aa65f6"
+    },
+    {
+      "artifact": "after-helper-failure/native.log.gz",
+      "sha256": "524e6f05575659bdbc0f44f0d9c1b566e7620d259363ce0fe2a3a73126e69653"
+    },
+    {
+      "artifact": "after-helper-failure/silver_output_profile.adb.gz",
+      "sha256": "6cd94c08fbe6e20a3eea22d4f505bcac17a085227bf18a24973ab8b94c764d91"
+    },
+    {
+      "artifact": "after-helper-failure/silver_output_profile.spark.gz",
+      "sha256": "750ae0bf41a07e2dbcb7cccdda635bc4c274d9d790cf359387f733bef92e7732"
+    },
+    {
+      "artifact": "after-helper-failure/silver_output_profile__array_declaration_at.gnat-json.gz",
+      "sha256": "6b2c8f3ea1ed20c2b0811f754e633a21d3ef89daf6e756b436293331f2237742"
+    },
+    {
+      "artifact": "after-helper-failure/why3session.xml.gz",
+      "sha256": "ebd366b757a02326221f29b6378fe780df48521ab590eaa80caa25e680816b91"
+    },
+    {
+      "artifact": "after-helper-failure/why3shapes.gz",
+      "sha256": "5a7bbbaa40cac2aa966a9577f2eb7b63791d585f351326a58707933cd6a38199"
+    }
+  ],
+  "earlier_helper_reports": [
+    {
+      "artifact": "earlier-helpers/Same_Parser_Formal_Items/gnatprove.out.gz",
+      "sha256": "44063fc1c4ad8dc20520cbdc9f08c792894eb5236bca3bf1a820bc121be9bd34"
+    },
+    {
+      "artifact": "earlier-helpers/Same_Parser_Formal_Items/run-id.txt.gz",
+      "sha256": "fb1aee001c029960338ba9e273203187bf2246fb6f5fece660e9d0f7f7598b0f"
+    },
+    {
+      "artifact": "earlier-helpers/Same_Parser_Formal_Items/silver_output_profile.spark.gz",
+      "sha256": "8cf36dae8afbe2d0f9e7f994c5664a4849055da43b803026535352788bb9ea8a"
+    },
+    {
+      "artifact": "earlier-helpers/Same_Parser_Formal_Items/why3session.xml.gz",
+      "sha256": "3dc0edb1e2b0109b2584e995c4d6ba69435fbaf1a292494576eaacf8ba90cec7"
+    },
+    {
+      "artifact": "earlier-helpers/Same_Parser_Formal_Items/why3shapes.gz",
+      "sha256": "435684781676bca96d2a7e4a638d86501f1dc79ddf7005db904eee416c2360ec"
+    },
+    {
+      "artifact": "earlier-helpers/Same_Parser_Function_Items/run-id.txt.gz",
+      "sha256": "551f903d1fe052d98c4e74a929f078cfc6827788b8d93556f50f11c8a6130b69"
+    },
+    {
+      "artifact": "earlier-helpers/Same_Parser_Function_Items/why3session.xml.gz",
+      "sha256": "14ac5a002ca67efb0ceb1bae01713649ebf6104b69c2b27a35bb8da8066141a4"
+    },
+    {
+      "artifact": "earlier-helpers/Same_Parser_Function_Items/why3shapes.gz",
+      "sha256": "448b7114fa0189e00b06a57d799c6eab89db465032d33e1730c095bbb3552c26"
+    }
+  ],
+  "diagnosis": [
+    {
+      "artifact": "diagnosis/Silver_output_profile__array_declaration_at__subprogram_def.txt",
+      "sha256": "26d1a86691e3f5136b954c5b41b51b82652c890794fa9d5c65d89cc4f2f6075b"
+    },
+    {
+      "artifact": "diagnosis/Silver_output_profile__array_declaration_model___def__axiom.txt",
+      "sha256": "c816bdf902cb09f224f3248a414c47add71269c3b549298feee4fc8d54028883"
+    },
+    {
+      "artifact": "diagnosis/Silver_output_profile__array_values_at___post__axiom.txt",
+      "sha256": "aa37149218f122a3e9d2a26de7e5d2cace0aec737c342051bb2d31b384af8acd"
+    },
+    {
+      "artifact": "diagnosis/Silver_output_profile__boolean_array_values_at___post__axiom.txt",
+      "sha256": "0f1e509954532c9c6130789a4377a185abfbcb6821acd3c523d3790c74fbff77"
+    },
+    {
+      "artifact": "diagnosis/Temp___String_Literal_842.txt",
+      "sha256": "ee4dbe1f0780f80aaa12669fa6190a2566f62185f07fcea36d5ee184c31980b8"
+    },
+    {
+      "artifact": "diagnosis/Temp___String_Literal_846.txt",
+      "sha256": "d1d85a744269173b1dc757925b723dbf96a934bea6d4074ab41c55b16204475b"
+    },
+    {
+      "artifact": "diagnosis/Temp___String_Literal_850.txt",
+      "sha256": "a73adc9a92a7d52a19adbc32593d8cb8f38c9fd8995e34ffce5314b59e28e663"
+    },
+    {
+      "artifact": "diagnosis/Temp___String_Literal_9365.txt",
+      "sha256": "560d94fee8e27e6a2f99f5eca91af9e4048b0359665dd31cbea1937864e5bfba"
+    },
+    {
+      "artifact": "diagnosis/Temp___String_Literal_9369.txt",
+      "sha256": "32035757a3beb0bf855c2adb00c7c66c97b8e3ba34049d1e592d77226ff17d3a"
+    },
+    {
+      "artifact": "diagnosis/Temp___String_Literal_9373.txt",
+      "sha256": "841011d7387e01e091cbeec90fe2899547ef6763fa8d9fe0cbc3ed046549a499"
+    },
+    {
+      "artifact": "diagnosis/compare_ast.py",
+      "sha256": "e341b9eecac0f5015c4e66243d08ddcf5a7a9c7556103cb6dfe963b026e9843e"
+    },
+    {
+      "artifact": "diagnosis/normalized-comparison.json",
+      "sha256": "5c55ca63b13be3a553fe10188dcb750079fba6f9ad7daee0c652aae6d2e8649a"
+    },
+    {
+      "artifact": "diagnosis/read_ast.py",
+      "sha256": "511a81246c9b3359269f4dbd788e61c8f7eed5d83862d5978891014c059ab92c"
+    },
+    {
+      "artifact": "diagnosis/review.md",
+      "sha256": "aca6f98870e49119b2275f3a8c5a5c0f37109e5ee933de85cb6a5ece7fb2ca37"
+    }
+  ],
+  "repaired_comparison": [
+    {
+      "artifact": "diagnosis/compare-array-after-words.py",
+      "sha256": "c67fd1e5fcaef4baa576b812709f0caea4e12d55e1b6dda506848039a58e0126"
+    },
+    {
+      "artifact": "diagnosis/array-word-normalized-comparison.json",
+      "sha256": "eecdc916798801742c38c85aa9924d88c3a244720b5be2e1cdddbff843fee37b"
+    }
+  ],
+  "wrappers": [
+    {
+      "artifact": "run-parser-proof-repair.py.gz",
+      "sha256": "e93a020453fc1b7bf12654cf07f69deff5115d844f85fec9ff2b1d6a1945fdc1"
+    },
+    {
+      "artifact": "run-parser-proof-consumers.py.gz",
+      "sha256": "632a5bafb14e34a9c0d1adc70ed9a8a493899238c9de6ec796020cd58ee784c5"
+    }
+  ]
+}
