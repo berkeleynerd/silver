@@ -75,7 +75,7 @@ theorem declaration_nameIs_integer (text : Source) (state : ParserState)
       decide (fixedAfter text first "integer" true = after) := by
   have domain : first ≠ 0 ∧ after > first := by
     simp only [newNameAllowed, Bool.and_eq_true, decide_eq_true_eq] at allowed
-    exact allowed.1.1.1
+    exact allowed.1.1.1.1.1
   have identifier : identifierEnd text first = after := by
     simpa only [nameAfter, domain.1, ↓reduceIte] using afterEq.symm
   obtain ⟨bytes, parsed⟩ := identifierEnd_sound text first (by rw [identifier]; omega)

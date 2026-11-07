@@ -29,12 +29,15 @@ structure Context where
   elaborating : Bool
   maskFirst : Nat
   maskAfter : Nat
+  pure : Bool := false
+  integerHidden : Bool := false
   deriving DecidableEq, Repr
 
 def Context.model (context : Context) : ParseContext :=
   ⟨context.names, decide (context.dynamicFirst ≠ 0), context.scalarNames,
     context.declarationCount, context.arrayNames, context.subtypeHiding, context.booleanNames,
-    context.trueHidden, context.falseHidden, context.elaborating, context.maskFirst, context.maskAfter⟩
+    context.trueHidden, context.falseHidden, context.elaborating, context.maskFirst, context.maskAfter,
+    context.pure, context.integerHidden⟩
 
 structure Scan where
   state : ParserState
@@ -46,7 +49,9 @@ def contextOf (scan : Scan) : Context :=
   ⟨scan.state.names, scan.state.dynamicFirst, scan.state.dynamicAfter,
     ScalarExpression.bodyEnvironment scan.state.scalarNames, scan.state.scalarNames.length,
     scan.state.arrayNames.names, scan.state.subtypeNames.hiddenCalls, scan.state.booleanNames,
-    scan.state.subtypeNames.trueHidden, scan.state.subtypeNames.falseHidden, false, 0, 0⟩
+    scan.state.subtypeNames.trueHidden || scan.state.hiding.trueHidden,
+    scan.state.subtypeNames.falseHidden || scan.state.hiding.falseHidden, false, 0, 0,
+    scan.state.pure, scan.state.hiding.integerHidden⟩
 
 def initialFlow (context : Context) : ActiveFlow :=
   ActiveFlow.initial context.scalarNames
@@ -64,7 +69,19 @@ def Token.shell : Token → ShellToken
   | .colon => .symbol ":" | .constantKeyword => .word "constant" | .booleanName => .word "boolean"
   | .assignment => .symbol ":=" | .semicolon => .symbol ";"
 
-inductive Lookup | string | scalar | array | subtype | boolean
+inductive Mark | integer | boolean | character
+  deriving DecidableEq, Repr
+
+def Mark.word : Mark → String
+  | .integer => "integer" | .boolean => "boolean" | .character => "character"
+
+def Mark.hidden (mark : Mark) (state : ParserState) : Bool :=
+  match mark with
+  | .integer => state.hiding.integerHidden
+  | .boolean => state.hiding.booleanHidden
+  | .character => state.hiding.characterHidden
+
+inductive Lookup | string | scalar | array | subtype | boolean | function
   deriving DecidableEq, Repr
 
 def lookup (kind : Lookup) (text : Source) (state : ParserState) (first after : Nat) : Nat :=
@@ -74,6 +91,7 @@ def lookup (kind : Lookup) (text : Source) (state : ParserState) (first after : 
   | .array => ArrayBindings.lookup text state.arrayNames.names first after
   | .subtype => IntegerSubtypes.lookup text state.subtypeNames first after
   | .boolean => BooleanBindings.lookup text state.booleanNames first after
+  | .function => FunctionBindings.lookup text state.functions first after
 
 @[ext] structure Imports where
   skip : Source → Nat → Nat
@@ -81,6 +99,8 @@ def lookup (kind : Lookup) (text : Source) (state : ParserState) (first after : 
   take : Source → Nat → Token → Nat
   newName : Source → ParserState → Nat → Nat → Bool → Bool
   nameIsBoolean : Source → Nat → Nat → Bool
+  nameIsMark : Mark → Source → Nat → Nat → Bool
+  formalHides : Source → ParserState → Nat → Nat → Bool
   lookup : Lookup → Source → ParserState → Nat → Nat → Nat
   contextOf : Scan → Context
   initialFlow : Context → ActiveFlow
@@ -93,6 +113,8 @@ def modelImports : Imports where
   take := fun text position token => tokenAfter text position token.shell
   newName := newNameAllowed
   nameIsBoolean := fun text first after => Named.nameIs text first after ("boolean".toList.map Char.toNat)
+  nameIsMark := fun mark text first after => Named.nameIs text first after (mark.word.toList.map Char.toNat)
+  formalHides := Compose.formalHides
   lookup := lookup
   contextOf := contextOf
   initialFlow := initialFlow
@@ -136,6 +158,9 @@ inductive Expr : Type → Type 1
   | take : Expr Nat → Token → Expr Nat
   | newName : Expr Nat → Expr Nat → Expr Bool → Expr Bool
   | nameIsBoolean : Expr Nat → Expr Nat → Expr Bool
+  | nameIsMark : Mark → Expr Nat → Expr Nat → Expr Bool
+  | formalHides : Expr Nat → Expr Nat → Expr Bool
+  | hiddenMark : Mark → Expr Bool
   | lookup : Lookup → Expr Nat → Expr Nat → Expr Nat
   | contextOf : Expr Context
   | initialFlow : Expr Context → Expr ActiveFlow
@@ -144,6 +169,7 @@ inductive Expr : Type → Type 1
   | le : Expr Nat → Expr Nat → Expr Bool
   | not : Expr Bool → Expr Bool
   | orElse : Expr Bool → Expr Bool → Expr Bool
+  | andThen : Expr Bool → Expr Bool → Expr Bool
   | choose : Expr Bool → Expr α → Expr α → Expr α
   | group : Expr α → Expr α
   | invalid : Expr ParserState
@@ -164,6 +190,9 @@ def Expr.eval (imports : Imports) (frame : Frame) : Expr α → α
   | .newName first after allowArguments => imports.newName frame.text frame.state
       (first.eval imports frame) (after.eval imports frame) (allowArguments.eval imports frame)
   | .nameIsBoolean first after => imports.nameIsBoolean frame.text (first.eval imports frame) (after.eval imports frame)
+  | .nameIsMark mark first after => imports.nameIsMark mark frame.text (first.eval imports frame) (after.eval imports frame)
+  | .formalHides first after => imports.formalHides frame.text frame.state (first.eval imports frame) (after.eval imports frame)
+  | .hiddenMark mark => mark.hidden frame.state
   | .lookup kind first after => imports.lookup kind frame.text frame.state (first.eval imports frame) (after.eval imports frame)
   | .contextOf => imports.contextOf ⟨frame.state, false, false⟩
   | .initialFlow ctx => imports.initialFlow (ctx.eval imports frame)
@@ -172,6 +201,7 @@ def Expr.eval (imports : Imports) (frame : Frame) : Expr α → α
   | .le left right => decide (left.eval imports frame ≤ right.eval imports frame)
   | .not value => !value.eval imports frame
   | .orElse left right => left.eval imports frame || right.eval imports frame
+  | .andThen left right => left.eval imports frame && right.eval imports frame
   | .choose test yes no => if test.eval imports frame then yes.eval imports frame else no.eval imports frame
   | .group value => value.eval imports frame
   | .invalid => imports.invalid
@@ -199,6 +229,9 @@ def Expr.render : Expr α → List String
   | .take position token => call ["take_token"] [["text"], position.render, [token.name]]
   | .newName first after allowArguments => call ["new_name_allowed"] [["text"], ["state"], first.render, after.render, allowArguments.render]
   | .nameIsBoolean first after => call ["name_is"] [["text"], first.render, after.render, ["\"boolean\""]]
+  | .nameIsMark mark first after => call ["name_is"] [["text"], first.render, after.render, ["\"" ++ mark.word ++ "\""]]
+  | .formalHides first after => call ["formal_hides"] [["text"], ["state"], first.render, after.render]
+  | .hiddenMark mark => ["state", ".", "hiding", ".", mark.word ++ "_hidden"]
   | .lookup kind first after =>
       let (name, names) := match kind with
         | .string => (["lookup_name"], ["names"])
@@ -206,6 +239,7 @@ def Expr.render : Expr α → List String
         | .array => (["array_bindings", ".", "lookup"], ["array_names", ".", "names"])
         | .subtype => (["lookup_subtype"], ["subtype_names"])
         | .boolean => (["lookup_boolean"], ["boolean_names"])
+        | .function => (["functions", ".", "lookup"], ["functions"])
       call name [["text"], ["state", "."] ++ names, first.render, after.render]
   | .contextOf => call ["context_of"] [["(", "state", ",", "false", ",", "false", ")"]]
   | .initialFlow ctx => call ["initial_flow"] [ctx.render]
@@ -214,6 +248,7 @@ def Expr.render : Expr α → List String
   | .le left right => left.render ++ ["<="] ++ right.render
   | .not value => ["not"] ++ value.render
   | .orElse left right => left.render ++ ["or", "else"] ++ right.render
+  | .andThen left right => left.render ++ ["and", "then"] ++ right.render
   | .choose test yes no => ["if"] ++ test.render ++ ["then"] ++ yes.render ++ ["else"] ++ no.render
   | .group value => ["("] ++ value.render ++ [")"]
   | .invalid => ["invalid_state"]
@@ -224,8 +259,12 @@ def Expr.render : Expr α → List String
       first.render ++ [","] ++ after.render ++ [","] ++ mutable.render ++ [")", ")", ")", ")"]
 
 def Expr.primary : Expr α → Bool
-  | .eq _ _ | .ne _ _ | .le _ _ | .not _ | .orElse _ _ | .choose _ _ _ => false
-  | _ => true
+  | .local _ | .statePosition | .booleanCount | .scalarCount | .maxBooleans |
+    .number _ | .truth _ | .arguments | .scalarNames | .initials | .context |
+    .valueAfter | .skip _ | .nameAfter _ | .take _ _ | .newName _ _ _ |
+    .nameIsBoolean _ _ | .nameIsMark _ _ _ | .formalHides _ _ | .hiddenMark _ |
+    .lookup _ _ _ | .contextOf | .initialFlow _ | .group _ | .invalid | .addBoolean _ _ _ _ => true
+  | .eq _ _ | .ne _ _ | .le _ _ | .not _ | .orElse _ _ | .andThen _ _ | .choose _ _ _ => false
 
 def Expr.relation : Expr α → Bool
   | .eq _ _ | .ne _ _ | .le _ _ | .not _ => true
@@ -235,15 +274,20 @@ def Expr.orHead : Expr α → Bool
   | .orElse _ _ => true
   | value => value.relation
 
+def Expr.andHead : Expr α → Bool
+  | .andThen _ _ => true
+  | value => value.relation
+
 def Expr.wellFormed : Expr α → Bool
   | .local _ | .statePosition | .booleanCount | .scalarCount | .maxBooleans | .number _ | .truth _ |
-      .arguments | .scalarNames | .initials | .context | .valueAfter | .contextOf | .invalid => true
+      .arguments | .scalarNames | .initials | .context | .valueAfter | .contextOf | .invalid | .hiddenMark _ => true
   | .skip value | .nameAfter value | .take value _ | .initialFlow value | .not value => value.primary && value.wellFormed
-  | .nameIsBoolean first after | .lookup _ first after | .eq first after | .ne first after | .le first after =>
+  | .nameIsBoolean first after | .nameIsMark _ first after | .formalHides first after | .lookup _ first after | .eq first after | .ne first after | .le first after =>
       first.primary && after.primary && first.wellFormed && after.wellFormed
   | .newName first after allowArguments => first.primary && after.primary && allowArguments.primary &&
       first.wellFormed && after.wellFormed && allowArguments.wellFormed
   | .orElse left right => left.orHead && right.relation && left.wellFormed && right.wellFormed
+  | .andThen left right => left.andHead && right.relation && left.wellFormed && right.wellFormed
   | .choose test yes no => test.orHead && yes.primary && no.primary && test.wellFormed && yes.wellFormed && no.wellFormed
   | .group value => value.wellFormed
   | .addBoolean position first after mutable => position.primary && first.primary && after.primary &&
@@ -259,10 +303,10 @@ def Expr.scoped (scope : Scope) : Expr α → Bool
   | .local name => scope.locals name
   | .context => scope.context | .valueAfter => scope.value
   | .statePosition | .booleanCount | .scalarCount | .maxBooleans | .number _ | .truth _ |
-      .arguments | .scalarNames | .initials | .contextOf | .invalid => true
+      .arguments | .scalarNames | .initials | .contextOf | .invalid | .hiddenMark _ => true
   | .skip value | .nameAfter value | .take value _ | .initialFlow value | .not value | .group value => value.scoped scope
-  | .nameIsBoolean first after | .lookup _ first after | .eq first after | .ne first after | .le first after |
-      .orElse first after => first.scoped scope && after.scoped scope
+  | .nameIsBoolean first after | .nameIsMark _ first after | .formalHides first after | .lookup _ first after | .eq first after | .ne first after | .le first after |
+      .orElse first after | .andThen first after => first.scoped scope && after.scoped scope
   | .newName first after allowArguments | .choose allowArguments first after =>
       first.scoped scope && after.scoped scope && allowArguments.scoped scope
   | .addBoolean position first after mutable =>
@@ -341,7 +385,7 @@ def Command.scoped (scope : Scope) : Command → Bool
   | .returned value => value.scoped scope
 
 def rejected : Expr Bool :=
-  .orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse
+  let base := Expr.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse
     (.not (.newName (.local .first) (.local .after) .arguments))
     (.eq (.local .typeAfter) (.number 0)))
     (.eq (.local .valueFirst) (.number 0)))
@@ -352,6 +396,12 @@ def rejected : Expr Bool :=
     (.ne (.lookup .array (.local .typeFirst) (.local .typeAfter)) (.number 0)))
     (.ne (.lookup .subtype (.local .typeFirst) (.local .typeAfter)) (.number 0)))
     (.ne (.lookup .boolean (.local .typeFirst) (.local .typeAfter)) (.number 0))
+  let hidden (mark : Mark) := Expr.group (.andThen (.hiddenMark mark)
+    (.nameIsMark mark (.local .typeFirst) (.local .typeAfter)))
+  .orElse (.orElse (.orElse (.orElse (.orElse base
+    (.ne (.lookup .function (.local .typeFirst) (.local .typeAfter)) (.number 0)))
+    (.formalHides (.local .typeFirst) (.local .typeAfter)))
+    (hidden .integer)) (hidden .boolean)) (hidden .character)
 
 def body : Command :=
   .letNat .first (.skip .statePosition) <|
@@ -398,7 +448,12 @@ def reject (imports : Imports) (text : Source) (state : ParserState) (arguments 
     decide (imports.lookup .scalar text state p.typeFirst p.typeAfter ≠ 0) ||
     decide (imports.lookup .array text state p.typeFirst p.typeAfter ≠ 0) ||
     decide (imports.lookup .subtype text state p.typeFirst p.typeAfter ≠ 0) ||
-    decide (imports.lookup .boolean text state p.typeFirst p.typeAfter ≠ 0)
+    decide (imports.lookup .boolean text state p.typeFirst p.typeAfter ≠ 0) ||
+    decide (imports.lookup .function text state p.typeFirst p.typeAfter ≠ 0) ||
+    imports.formalHides text state p.typeFirst p.typeAfter ||
+    (state.hiding.integerHidden && imports.nameIsMark .integer text p.typeFirst p.typeAfter) ||
+    (state.hiding.booleanHidden && imports.nameIsMark .boolean text p.typeFirst p.typeAfter) ||
+    (state.hiding.characterHidden && imports.nameIsMark .character text p.typeFirst p.typeAfter)
 
 def elaborationContext (imports : Imports) (state : ParserState) (p : BooleanDeclarationParts) : Context :=
   {imports.contextOf ⟨state, false, false⟩ with
@@ -420,7 +475,7 @@ def equation (imports : Imports) (text : Source) (state : ParserState) (argument
 theorem denotation (imports : Imports) (text : Source) (state : ParserState) (arguments : Bool) :
     body.eval imports {text, state, arguments} = equation imports text state arguments := by
   dsimp +instances only [body, Command.eval, Expr.eval, Frame.withLocal,
-    rejected, equation, parts, reject, elaborationContext]
+    rejected, equation, parts, reject, elaborationContext, Mark.hidden]
   simp only [reduceCtorEq, ↓reduceIte, decide_eq_true_eq]
 
 theorem model_parts (text : Source) (state : ParserState) :
@@ -434,7 +489,7 @@ theorem model_facts (state : ParserState) (p : BooleanDeclarationParts) :
 
 theorem model_reject (text : Source) (state : ParserState) (arguments : Bool) (p : BooleanDeclarationParts) :
     reject modelImports text state arguments p = !booleanDeclarationReady text state arguments p := by
-  simp [reject, modelImports, lookup, booleanDeclarationReady, Bool.decide_and,
+  simp [reject, modelImports, lookup, Mark.word, Mark.hidden, booleanDeclarationReady, Bool.decide_and,
     Bool.not_and, Bool.or_assoc]
 
 theorem model_meaning (text : Source) (state : ParserState) (arguments : Bool) :

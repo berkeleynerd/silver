@@ -392,7 +392,7 @@ def characterDeclarationBody : Body .state :=
         (.field .arrayNames (.field .stateArrayNames state)))
         (.field .arrayValues (.field .stateArrayNames state))) (.truth true)),
     constant .number "following" ["literal_position"] (take (.field .valueAfter value) (.symbol ";"))],
-    .list [guard (anyOf [
+    .list [guard (withFunctionTypeHiding (anyOf [
       .not (.app (.app (.app (.app (.app (.function .newName) text) state) first) after) (.variable "arguments")),
       .eq typeAfter (.number 0), .le following (.field .statePosition state), .eq (.count (.field .stateNames state)) .maxBindings,
       .app (.app (.app (.app (.function .nameIs) text) first) after) (.word "character"),
@@ -400,7 +400,8 @@ def characterDeclarationBody : Body .state :=
       lookup (.app (.app (.function .scalarLookup) text) (.field .stateScalarNames state)),
       lookup (.app (.app (.function .arrayLookup) text) (.field .arrayNames (.field .stateArrayNames state))),
       lookup (.app (.app (.function .subtypeLookup) text) (.field .stateSubtypeNames state)),
-      lookup (.app (.app (.function .booleanLookup) text) (.field .stateBooleanNames state))]) .invalid,
+      lookup (.app (.app (.function .booleanLookup) text) (.field .stateBooleanNames state))])
+      text state typeFirst typeAfter) .invalid,
       .returnNamedBoolean add "character_object" (.truth true)]⟩
 
 abbrev WellFormedTrees : Prop := indexedBody.wellFormed = true ∧ characterBody.wellFormed = true ∧

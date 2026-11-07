@@ -25,12 +25,16 @@ structure Links (imports : Imports) (composed : Compose.Expressions.Calls) (cond
   take : ∀ text position token, imports.take text position token = composed.function .takeToken text position token.shell
   newName : imports.newName = composed.function .newName
   nameIs : ∀ text first after, imports.nameIsBoolean text first after = composed.function .nameIs text first after "boolean"
+  nameIsMark : ∀ mark text first after, imports.nameIsMark mark text first after =
+    composed.function .nameIs text first after mark.word
+  formalHides : imports.formalHides = composed.function .formalHides
   lookup : ∀ kind text state first after, imports.lookup kind text state first after = match kind with
     | .string => composed.function .lookupName text state.names first after
     | .scalar => composed.function .scalarLookup text state.scalarNames first after
     | .array => composed.function .arrayLookup text state.arrayNames.names first after
     | .subtype => composed.function .subtypeLookup text state.subtypeNames first after
     | .boolean => composed.function .booleanLookup text state.booleanNames first after
+    | .function => composed.function .functionLookup text state.functions first after
   context : ∀ scan, scan.state.scalarNames.length ≤ ScalarExpression.maxBindings →
     imports.contextOf scan =
     fromNative (Adapter.contextExpr.eval BodyNative.modelCalls {scan := toScan scan})
@@ -65,8 +69,8 @@ theorem imports_meaning {imports composed condition}
     (valid : OuterReadiness.ValidState text state) : ImportsMeaning imports text state arguments := by
   have bounds := part_bounds text state valid.1.1
   have lexical := lexical_meaning equations links text tv
-  rcases valid.1 with ⟨position, names, dynamic, target, capacity, scalars, arrays, subtypes, booleans⟩
-  refine ⟨lexical, position, ?_, ?_, ?_, ?_, ?_, ?_, ?_, links.invalid⟩
+  rcases valid.1 with ⟨position, names, dynamic, target, capacity, scalars, arrays, subtypes, booleans, functions, firstParameter, firstParameterCapacity⟩
+  refine ⟨lexical, position, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, links.invalid⟩
   · rw [links.newName]
     exact interpreted_newName composed equations text tv state _ _ arguments valid.nativeState bounds.first bounds.after
   · dsimp only
@@ -74,6 +78,17 @@ theorem imports_meaning {imports composed condition}
     rw [links.nameIs]
     exact equations.nameIs text tv _ _ "boolean"
       (model_new_name_valid text state _ _ arguments bounds.after allowed) (by decide) (by decide)
+  · intro mark present
+    rw [links.nameIsMark]
+    have afterPositive : fixedAfter text (booleanDeclarationParts text state).typeFirst "boolean" true ≠ 0 := present
+    have firstPositive := model_fixed_input_nonzero text _ "boolean" true afterPositive
+    have advanced := model_fixed_advances text _ "boolean" true bounds.typeFirst (by decide) afterPositive
+    apply equations.nameIs text tv _ _ mark.word
+    · exact ⟨by omega, advanced, bounds.typeAfter⟩
+    · cases mark <;> decide
+    · cases mark <;> decide
+  · rw [links.formalHides]
+    exact equations.formalHides text tv state _ _ valid.nativeState bounds.typeFirst bounds.typeAfter
   · intro kind
     dsimp only
     rw [links.lookup]
@@ -83,6 +98,7 @@ theorem imports_meaning {imports composed condition}
     | array => exact equations.arrayLookup text tv state.arrayNames.names _ _ arrays.1 bounds.typeFirst bounds.typeAfter
     | subtype => exact interpreted_subtypeLookup composed equations text tv state.subtypeNames _ _ subtypes bounds.typeFirst bounds.typeAfter
     | boolean => exact equations.booleanLookup text tv state.booleanNames _ _ booleans bounds.typeFirst bounds.typeAfter
+    | function => exact equations.functionLookup text tv state.functions _ _ functions bounds.typeFirst bounds.typeAfter
   · rw [links.context _ scalars.1]
     rfl
   · dsimp only
@@ -119,6 +135,8 @@ theorem model_links : Links modelImports Compose.Expressions.modelCalls Native.m
   take text position token := by cases token <;> rfl
   newName := rfl
   nameIs := by intros; rfl
+  nameIsMark := by intros; rfl
+  formalHides := rfl
   lookup kind text state first after := by cases kind <;> rfl
   context := by intros; rfl
   initial := by
