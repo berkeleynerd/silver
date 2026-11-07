@@ -22,7 +22,7 @@ def ReadDomain (text : Source) (context : Native.Context) (position : Nat) (fact
 
 def AssignmentDomain (text : Source) (context : Native.Context) (scan : BodyScan) : Prop :=
   TargetDomain text context scan.position ∧
-    (scan.target ≤ context.names.length ∧ scan.capacity ≤ Expressions.maxSourceLength) ∧
+    (scan.target ≤ context.names.length ∧ scan.capacity ≤ maxSourceLength) ∧
     Native.ValidFlow context scan.facts
 
 def StringLookupDomain (text : Source) (names : BindingEnvironment) (first after : Nat) : Prop :=
@@ -263,6 +263,7 @@ variable {imports : Imports} {calls : Calls}
 theorem normalized_actual (meaning : ImportsMeaning imports)
     (defs : DefinitionEquations imports calls assignment) :
     (totalizeCalls calls).actual = modelCalls.actual := by
+  classical
   funext text context position facts parameter
   change (if ActualDomain text context position facts parameter then _ else _) = _
   split
@@ -275,6 +276,7 @@ theorem normalized_actual (meaning : ImportsMeaning imports)
 theorem normalized_callee (meaning : ImportsMeaning imports)
     (defs : DefinitionEquations imports calls assignment) :
     (totalizeCalls calls).callee = modelCalls.callee := by
+  classical
   funext text context position catalog
   change (if CalleeDomain text context position catalog then _ else _) = _
   split
@@ -287,6 +289,7 @@ theorem normalized_callee (meaning : ImportsMeaning imports)
 theorem normalized_result (meaning : ImportsMeaning imports)
     (defs : DefinitionEquations imports calls assignment) :
     (totalizeCalls calls).assignmentResult = modelCalls.assignmentResult := by
+  classical
   funext context scan scalar flag value
   change (if ResultDomain context scan scalar flag value then _ else _) = _
   split
@@ -304,19 +307,21 @@ theorem normalized_actuals_at (meaning : ImportsMeaning imports)
     (catalog : Metadata) (first last : Nat) :
     (totalizeCalls calls).actuals text context position facts catalog first last =
       modelCalls.actuals text context position facts catalog first last := by
+  classical
   change (if ActualsDomain text context position facts catalog first last then _ else _) = _
   split
   · rename_i valid
     rw [defs.actuals text context position facts catalog first last valid, totalizeImports_eq_model meaning]
     dsimp only [actualsBody, Expr.eval]
-    rw [normalized_actual meaning defs]
+    simp only [normalized_actual meaning defs]
     change (if decide (actualAfter text context.model position facts (parameter catalog first) = 0) then 0
       else if decide (first = last) then _ else _) = actualsAfter text context.model position facts catalog first last
     rw [actualsAfter]
     by_cases zero : actualAfter text context.model position facts (parameter catalog first) = 0
     · simp only [zero, decide_true, ↓reduceIte]
     · by_cases final : first = last
-      · simp only [zero, final, decide_false, decide_true, Bool.false_eq_true, ↓reduceIte]
+      · subst last
+        simp only [zero, decide_false, decide_true, Bool.false_eq_true, ↓reduceIte]
         rfl
       · have advancing : first < last := by have ordered := valid.2.2.2.1; omega
         simp only [zero, final, advancing, decide_false, Bool.false_eq_true, ↓reduceIte, ↓reduceDIte]
@@ -333,6 +338,7 @@ theorem normalized_actuals (meaning : ImportsMeaning imports)
 theorem normalized_callModel (meaning : ImportsMeaning imports)
     (defs : DefinitionEquations imports calls assignment) :
     (totalizeCalls calls).callModel = modelCalls.callModel := by
+  classical
   funext text context position facts catalog
   change (if CallDomain text context position facts catalog then _ else _) = _
   split
@@ -341,12 +347,14 @@ theorem normalized_callModel (meaning : ImportsMeaning imports)
     calc
       _ = callBody.eval modelImports modelCalls {text, context, position, facts, catalog} := by
         simp only [callBody, Expr.eval, normalized_callee meaning defs, normalized_actuals meaning defs]
+        rfl
       _ = _ := call_model text context position facts catalog
   · rfl
 
 theorem normalized_readCall (meaning : ImportsMeaning imports)
     (defs : DefinitionEquations imports calls assignment) :
     (totalizeCalls calls).readCall = modelCalls.readCall := by
+  classical
   funext text context position facts catalog
   change (if CallDomain text context position facts catalog then _ else _) = _
   split
@@ -354,7 +362,7 @@ theorem normalized_readCall (meaning : ImportsMeaning imports)
     rw [defs.readCall text context position facts catalog valid]
     have result := congrFun (congrFun (congrFun (congrFun (congrFun
       (normalized_callModel meaning defs) text) context) position) facts) catalog
-    simpa only [totalizeCalls, valid, ↓reduceIte] using result
+    simpa only [totalizeCalls, modelCalls, valid, ↓reduceIte] using result
   · rfl
 
 structure TargetsMeaning (calls : Calls) : Prop where
@@ -365,6 +373,7 @@ structure TargetsMeaning (calls : Calls) : Prop where
 
 theorem normalized_scalarTarget (meaning : TargetsMeaning calls) :
     (totalizeCalls calls).scalarTarget = modelCalls.scalarTarget := by
+  classical
   funext text context position
   change (if TargetDomain text context position then _ else _) = _
   split
@@ -373,6 +382,7 @@ theorem normalized_scalarTarget (meaning : TargetsMeaning calls) :
 
 theorem normalized_booleanTarget (meaning : TargetsMeaning calls) :
     (totalizeCalls calls).booleanTarget = modelCalls.booleanTarget := by
+  classical
   funext text context position
   change (if TargetDomain text context position then _ else _) = _
   split
