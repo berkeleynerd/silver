@@ -23,8 +23,8 @@ each delivery; the linked issues hold scope and completion criteria.
 | Delivered 2026-10-31 | [Boolean scalar objects and expressions #291](https://github.com/berkeleynerd/silver/issues/291), stacked on the named-subtype delivery [#286](https://github.com/berkeleynerd/silver/issues/286) | Sequence of primes by trial division; Square but not cube; Common list elements |
 | Complete 2026-11-06 | [Bounded String indexing and character operations #296](https://github.com/berkeleynerd/silver/issues/296) | Reverse a string; Palindrome detection; character replacement |
 | Complete 2026-11-07 | [Fixed-size Boolean arrays #297](https://github.com/berkeleynerd/silver/issues/297) | Sieve of Eratosthenes; elementary cellular automata |
-| Complete on Linux 2026-11-07; PR #337 | [Sample-only expansion #300](https://github.com/berkeleynerd/silver/issues/300) | Ten programs covering eleven task mappings; [bounded plan](docs/rosetta-sample-expansion.md) |
-| Later (1) | [Small nonrecursive functions #298](https://github.com/berkeleynerd/silver/issues/298) | Reusable primality tests, GCD and numeric search helpers |
+| Complete on Linux and merged 2026-11-07; PR #337 | [Sample-only expansion #300](https://github.com/berkeleynerd/silver/issues/300) | Ten programs covering eleven task mappings; [bounded plan](docs/rosetta-sample-expansion.md) |
+| Selected next 2026-11-07 | [Small nonrecursive functions #298](https://github.com/berkeleynerd/silver/issues/298) | Boolean `Is_Prime` for Primality by trial division first; GCD and numeric search helpers remain candidate uses |
 
 The bounded String increment has completed repaired Linux native and Lean
 assurance after the [interim review repairs](docs/interim-review-response-20261105.md).
@@ -36,41 +36,67 @@ General dynamic-length indexing, resizing, Unicode processing and general String
 libraries remain outside this fragment.
 
 Boolean arrays reuse bounded array storage and scalar Boolean semantics.
-Functions start with scalar parameters/results, an acyclic call graph and no
-caller-visible mutation. Their detailed design follows the preceding deliveries.
+Functions start with Integer/Boolean scalar parameters/results, an acyclic call
+graph and no caller-visible mutation. The [bounded plan](docs/scalar-functions.md)
+records the selected scope; exact native/Lean rules remain to be settled.
 
 #296 is [authorized for implementation on 2026-10-31](docs/session-memory.md#2026-10-31--bounded-string-indexing-and-character-operations-authorized).
 #297 is [selected next on 2026-11-06](docs/session-memory.md#2026-11-06--structural-guards-merged-boolean-arrays-selected-next),
 under the owner's instruction to proceed after merging the ready structural
 guards. Authorization reached main through PR #333; implementation is complete
-on Linux and merged through PR #335. #298 remains a
-**Backlog proposal**. Candidate samples need faithful implementations before
-any coverage gain is claimed. The owner now selects the separate sample-only
-[#300](https://github.com/berkeleynerd/silver/issues/300) after checking tutorial
-currency; its original ten-program scope precedes #298. The expanded opportunity
-inventory remains outside that commitment.
+on Linux and merged through PR #335. The separate sample-only
+[#300](https://github.com/berkeleynerd/silver/issues/300) has now completed and
+merged through PR #337 after its tutorial checkpoint. The owner
+[selects #298 next on 2026-11-07](docs/session-memory.md#2026-11-07--small-nonrecursive-functions-selected).
+Candidate samples need faithful implementations before any coverage gain is
+claimed. The expanded opportunity inventory remains outside this commitment;
+no feature after #298 is selected.
 Existing source and expression budgets, assurance requirements, broad stages
 and deferred capacity work retain their scope.
 
 ## Current development sequence
 
+### Small nonrecursive scalar functions
+
+**Selected 2026-11-07; bounded design and implementation pending.** The owner's
+**“Proceed”** selects existing [#298](https://github.com/berkeleynerd/silver/issues/298)
+after the Integer/Boolean scalar recommendation.
+[Milestone 20](https://github.com/berkeleynerd/silver/milestone/20), **Small
+nonrecursive functions**, contains #298 as its one cohesive package. The
+[dated authorization](docs/session-memory.md#2026-11-07--small-nonrecursive-functions-selected)
+and [bounded capability plan](docs/scalar-functions.md) retain one cohesive work
+package, exact-source/no-authored-contract guarantees, complete-call-chain
+assurance, actual native/Lean source correspondence and complete validation.
+Routine planning publication/merge and implementation through reviewable
+publication are authorized; implementation merge remains a later owner decision.
+
+The first driver is a Boolean `Is_Prime` function for Primality by trial division,
+whose task explicitly requires that function. Settle exact declaration/call/return
+syntax, scope and formal binding, result facts, acyclic composition, effects and
+source-derived capacity accounting during native/Lean design. Preserve existing
+4,096-byte complete-source, expression/operator and storage budgets. No function
+support, final grammar, assurance or Rosetta total is claimed by this plan.
+Recursion, `out`/`in out`, array/String signatures, general package admission and
+capacity rewrites remain outside this package. No split is selected; if needed,
+record increment issues and their order together. No next feature is selected.
+
 ### Rosetta sample expansion
 
-**Complete on Linux, 2026-11-07, through owner-authorized PR #337.**
+**Complete on Linux and merged, 2026-11-07, through owner-authorized PR #337.**
 The owner instructed **“Let's proceed to tackle 300 after determining if our
 tutorial is up-to-date. This may only live in a branch at this time.”** The
 [dated authorization](docs/session-memory.md#2026-11-07--tutorial-audit-and-rosetta-sample-expansion-selected)
 selects existing [#300](https://github.com/berkeleynerd/silver/issues/300) in
 [milestone 15](https://github.com/berkeleynerd/silver/milestone/15), after the
-completed String #296 and Boolean-array #297 deliveries and before unselected
-functions #298. The
+completed String #296 and Boolean-array #297 deliveries. Functions #298 are now
+selected above after this delivery. The
 [tutorial audit](docs/rosetta-sample-expansion.md#tutorial-audit--2026-11-07)
 finds the available README current after correcting its stale #314 status;
 its 31 referenced samples pass admission. No separate first-party tutorial was
 located in the searched history or branches. Revisit a specific tutorial if the
 owner supplies its pointer; no arbitrary replacement tutorial is selected.
 Guide/planning PR #336 merged as `fdbd6132ca`. The ten-program implementation
-is published in [PR #337](https://github.com/berkeleynerd/silver/pull/337);
+merged in [PR #337](https://github.com/berkeleynerd/silver/pull/337) as `219358339f`;
 its [delivery record](docs/rosetta-sample-expansion.md#delivery-and-validation--2026-11-07)
 retains the successful complete manifest, fresh native provenance refresh,
 applicable complete Lean evidence, focused tests and final render. It adds nine
@@ -78,7 +104,7 @@ Stage-1 mappings (61 to 70) without a language change. The independent review
 accepts final target `d4aab1db5b` with no unresolved finding. The owner authorized
 its ready merge on 2026-11-07; the
 [dated decision](docs/session-memory.md#2026-11-07--rosetta-sample-expansion-merge-authorized)
-supersedes the earlier merge hold. Issue #300 and milestone 15 close with it.
+supersedes the earlier merge hold. Issue #300 and milestone 15 are closed.
 
 The [bounded record](docs/rosetta-sample-expansion.md) restores the missing #300
 scope link and retains ten programs with eleven mappings: FizzBuzz; Even or odd;
@@ -92,8 +118,8 @@ outputs; every sample passed admission/proof/build/execution. The independent
 review confirms final evidence applicability and the eleven reconciled assessments.
 FizzBuzz and Even or odd already qualified for Stage 1. No language, capacity or
 broad supported-identifier change is selected.
-The completed batch is authorized for merge; functions #298 and the expanded
-opportunity inventory retain their unselected scope.
+The completed batch is merged. The subsequent function selection appears above;
+the expanded opportunity inventory remains unselected.
 
 ### Fixed-size Boolean arrays
 

@@ -1,5 +1,33 @@
 # Session memory
 
+## 2026-11-07 — Small nonrecursive functions selected
+
+The owner instructed **“Proceed”** after the recommendation to select existing
+[#298](https://github.com/berkeleynerd/silver/issues/298), in
+[milestone 20](https://github.com/berkeleynerd/silver/milestone/20), **Small
+nonrecursive functions**, starting with Integer and Boolean scalar
+parameters/results, acyclic calls and no caller-visible mutation. The
+[bounded plan](scalar-functions.md) records this one cohesive
+package and the native/Lean design decisions still to settle. Its first driver
+is a Boolean `Is_Prime` function for Rosetta's Primality by trial division,
+whose task explicitly requires a Boolean function. No grammar, assurance result,
+coverage gain or function support is claimed by this authorization record.
+
+Routine planning publication and merge, followed by implementation through
+reviewable publication, follow the proceed instruction. Implementation merge
+remains a later owner decision. Record this authorization on main before claiming
+#298 under the ordinary board workflow. Sample-only PR #337 has merged and #300
+and milestone 15 are closed; their earlier records remain historical. The
+expanded opportunity inventory and the feature after #298 remain unselected.
+
+Preserve the Oracle's exact-source/no-authored-contract and complete-call-chain
+guarantees, native/Lean actual-source assurance, existing 4,096-byte source and
+expression/storage budgets, and proportional validation/reuse. Recursion,
+`out`/`in out`, array/String signatures, general package admission and capacity
+rewrites are outside the selected package. Documentation preparation selected
+GPT-6.1 Sol / High; runtime confirmation and token/cost measurements are
+unavailable. No CLI recall entry was updated.
+
 ## 2026-11-07 — Rosetta sample expansion merge authorized
 
 The owner instructed **“Merge it if you believe it is ready.”** This authorizes
