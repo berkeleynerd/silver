@@ -7,6 +7,7 @@ public import Silver.PredicateFunctionCallNative
 namespace Silver.Predicate.FunctionCallNative
 open Compose FunctionBindings
 
+set_option backward.dsimp.instances true
 set_option maxRecDepth 4096
 set_option maxHeartbeats 1000000
 
@@ -40,49 +41,52 @@ theorem wrong_value_kind_guard :
 theorem included_model (left right : Integer.Interval) :
     includedBody.eval modelImports modelCalls {intervalValue := left, intervalBounds := right} =
       left.included right := by
-  simp [includedBody, Expr.eval, modelImports, Integer.Interval.included, Bool.decide_and,
-    Bool.and_assoc]
+  apply Bool.eq_iff_iff.mpr
+  simp +instances only [includedBody, Expr.eval, modelImports, Integer.Interval.included,
+    Integer.Interval.isEmpty, Bool.or_eq_true, Bool.and_eq_true, Bool.not_eq_true',
+    decide_eq_true_eq, decide_eq_false_iff_not]
+  omega
 
 theorem actual_model (text : Source) (context : Native.Context) (position : Nat)
     (facts : ActiveFlow) (parameter : Formal) :
     actualBody.eval modelImports modelCalls {text, context, position, facts, parameter} =
       actualAfter text context.model position facts parameter := by
-  simp only [actualBody, Expr.eval, modelImports, actualAfter,
-    Bool.or_eq_true, Bool.not_eq_true', decide_eq_true_eq]
+  simp +instances only [actualBody, Expr.eval, modelImports, actualAfter,
+    Bool.or_eq_true, Bool.not_eq_true', decide_eq_true_eq, or_assoc]
 
 theorem actuals_model (text : Source) (context : Native.Context) (position : Nat)
     (facts : ActiveFlow) (catalog : Metadata) (first last : Nat) (ordered : first ≤ last) :
     actualsBody.eval modelImports modelCalls {text, context, position, facts, catalog, first, last} =
       actualsAfter text context.model position facts catalog first last := by
   rw [actualsAfter]
-  dsimp only [actualsBody, Expr.eval, modelImports, modelCalls, tokenAfter, ShellToken.symbol]
+  dsimp +instances only [actualsBody, Expr.eval, modelImports, modelCalls, tokenAfter, ShellToken.symbol]
   by_cases zero : actualAfter text context.model position facts (parameter catalog first) = 0
-  · simp only [zero, decide_true, ↓reduceIte]
+  · simp_all +instances
   · by_cases final : first = last
-    · simp only [zero, final, decide_true, decide_false, Bool.false_eq_true, ↓reduceIte]
+    · simp_all +instances
     · have advancing : first < last := by omega
-      simp only [zero, final, advancing, decide_false, Bool.false_eq_true, ↓reduceIte, ↓reduceDIte]
+      simp_all +instances
 
 theorem callee_model (text : Source) (context : Native.Context) (position : Nat)
     (catalog : Metadata) :
     calleeBody.eval modelImports modelCalls {text, context, position, catalog} =
       calleeAt text context.model position catalog := by
-  simp only [calleeBody, Expr.eval, modelImports, calleeAt, Native.Context.model,
-    Bool.or_eq_true, decide_eq_true_eq]
+  simp +instances only [calleeBody, Expr.eval, modelImports, calleeAt, Native.Context.model,
+    Bool.or_eq_true, decide_eq_true_eq, or_assoc]
 
 theorem call_model (text : Source) (context : Native.Context) (position : Nat)
     (facts : ActiveFlow) (catalog : Metadata) :
     callBody.eval modelImports modelCalls {text, context, position, facts, catalog} =
       Predicate.readCall text context.model position facts catalog := by
-  simp only [callBody, Expr.eval, modelImports, modelCalls, Predicate.readCall,
+  simp +instances only [callBody, Expr.eval, modelImports, modelCalls, Predicate.readCall,
     tokenAfter, ShellToken.symbol, decide_eq_true_eq]
 
 theorem assignmentResult_model (context : Native.Context) (scan : BodyScan)
     (scalar flag : Nat) (called : CallResult) :
     assignmentResultBody.eval modelImports modelCalls {context, scan, scalar, flag, called} =
       callAssignmentResult context.model scan scalar flag called := by
-  simp only [assignmentResultBody, Expr.eval, modelImports, callAssignmentResult,
-    Native.Context.model, Bool.or_eq_true, Bool.and_eq_true, Bool.not_eq_true', decide_eq_true_eq]
+  simp +instances only [assignmentResultBody, Expr.eval, modelImports, callAssignmentResult,
+    Native.Context.model, Bool.or_eq_true, Bool.and_eq_true, Bool.not_eq_true', decide_eq_true_eq, and_assoc, or_assoc]
 
 theorem assignment_model (text : Source) (context : Native.Context) (scan : BodyScan)
     (catalog : Metadata) (native : Bool) :
