@@ -13,6 +13,7 @@ set_option maxHeartbeats 1000000
 def callScope : Scope := [("text", 5), ("context", 6), ("position", 0), ("facts", 7), ("catalog", 8)]
 
 abbrev CheckedTrees : Prop :=
+  includedBody.wellFormed = true ∧ includedBody.scoped [("value", 10), ("bounds", 10)] = true ∧
   actualBody.wellFormed = true ∧ actualBody.scoped (("parameter", 3) :: callScope) = true ∧
   actualsBody.wellFormed = true ∧ actualsBody.scoped (("first", 0) :: ("last", 0) :: callScope) = true ∧
   calleeBody.wellFormed = true ∧ calleeBody.scoped callScope = true ∧
@@ -35,6 +36,12 @@ theorem conditional_operand_guard :
 
 theorem wrong_value_kind_guard :
     (Expr.letValue (.readScalar .position) (.callAfter .called)).scoped callScope = false := by decide +kernel
+
+theorem included_model (left right : Integer.Interval) :
+    includedBody.eval modelImports modelCalls {intervalValue := left, intervalBounds := right} =
+      left.included right := by
+  simp [includedBody, Expr.eval, modelImports, Integer.Interval.included, Bool.decide_and,
+    Bool.and_assoc]
 
 theorem actual_model (text : Source) (context : Native.Context) (position : Nat)
     (facts : ActiveFlow) (parameter : Formal) :
