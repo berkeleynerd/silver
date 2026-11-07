@@ -1,19 +1,21 @@
 # Leap year
 
-**Candidate: proofs likely to discharge automatically.** Every check is a rem by a nonzero literal on a bounded integer inside a for loop with no loop-carried state, so all of them follow from types and static bounds. Only the scalar-image and string-building library operations are new, and the program needs no annotations.
+**Candidate: proofs likely to discharge automatically.** The inline Gregorian predicate covers ordinary leap/common years, common century years and century years divisible by 400. Only literal nonzero divisors are used; no function or computed String buffer is needed. The exact source passed admission, complete required application/library proof audit, build and manifest execution in integration run 20261107T164659-9f6192441d21; the linked assessment records the evidence scope. The linked delivery record carries the independent closing review status.
 
-Position 294 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 36 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 
-A subtype Year_Number range 1 .. 9999 and a side-effect-free function Is_Leap_Year (Year) returning (Year rem 4 = 0) and then ((Year rem 100 /= 0) or else (Year rem 400 = 0)). Main runs a for loop over a fixed sample range such as 1896 .. 2004 and prints each year's 'Image concatenated with a leap or common verdict through Silver_IO.Put_Line. Rem by non-zero literals cannot fail, and the loop index stays within Year_Number's range by declaration. About 22 lines.
+Main iterates over a constant Gregorian_Year array bounded 1 .. 2400, containing 1600, 1700, 1800, 1900, 1996, 1999, 2000, 2004, 2100, 2200, 2300 and 2400. An inline condition tests divisibility by 400 or divisibility by 4 but not 100, then prints leap or common. About 19 lines.
 
 ## Language surface recorded by this assessment
 
-Integers, integer division, ranged subtypes, Boolean objects, functions, for loops, 'Image of scalars and string building.
+Put without a newline, Integer image, interval-checked Integer division, fixed-size Integer arrays, constant Integer-array iteration and named Integer subtypes and bounded components.
 
 ## External effects
 
-- **console output** (allowed): Prints each sample year with its leap or common verdict via Silver_IO.Put_Line.
+- **console output** (allowed): Prints twelve labelled leap/common verdicts, including leap for 1600, 2000 and 2400 and common for the other demonstrated century years.
 
-Assessed on 2026-10-15 against page revision 415546 of the [task](https://rosettacode.org/wiki/Leap_year) by claude-sonnet-5-5 at medium effort; confidence high. The inclusion policy is in `rosetta/coverage.json`.
+Initially assessed on 2026-10-15 against page revision 415546 of the [task](https://rosettacode.org/wiki/Leap_year) by claude-sonnet-5-5 at medium effort; current confidence high. The inclusion policy is in `rosetta/coverage.json`.
+
+Revised on 2026-11-07 by Codex through targeted source review; see the [review record](../../assessment-sample-expansion-20261107.md).

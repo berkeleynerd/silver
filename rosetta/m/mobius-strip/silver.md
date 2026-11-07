@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task only asks for a picture, which text art satisfies, and all arithmetic is bounded integer math over table lookups with guarded grid indexes, so checks follow from types and guards but need careful shape for the nested loops and projection.
 
-Position 688 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 689 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

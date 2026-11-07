@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from range subtypes capping moduli at 10_000 and a bounded for loop with incremental modular multiplication, but nonlinear mod arithmetic and LCM overflow guards require careful shape, and no annotation is needed.
 
-Position 259 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 262 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks derive from digit and carry subtypes and array-range for loops, but nested carry arithmetic and nonlinear digit products need careful range shaping, and the modulus is fixed at 10^40 as a documented limit, so discharge is plausible rather than certain.
 
-Position 554 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 555 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

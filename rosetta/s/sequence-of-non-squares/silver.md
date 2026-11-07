@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Replacing sqrt with the integer interval identity keeps all arithmetic in small declared ranges inside for loops, so every check follows from types and static bounds with no invariant needed.
 
-Position 100 in the [progression](../../progression.md#stage-5), in stage 5.
+Position 106 in the [progression](../../progression.md#stage-5), in stage 5.
 
 ## Approach
 

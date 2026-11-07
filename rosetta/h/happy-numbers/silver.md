@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All arithmetic is bounded by declared ranges and the iteration uses for loops with fixed caps inside a procedure, so no annotation is needed; the new surface is just integers, division, loops, a procedure and integer-to-text.
 
-Position 193 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 197 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

@@ -1,0 +1,6 @@
+test_checked_in_certificates_equal_regeneration (test_lean_source.CompilerSourcePolicyTests.test_checked_in_certificates_equal_regeneration) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 10.264s
+
+OK

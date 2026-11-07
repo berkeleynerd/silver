@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Counting UTF-8 lead bytes with a for loop over the string's own range uses only types and a single counter guard, so the proofs should discharge without annotations; the grapheme count is optional and omitted.
 
-Position 539 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 540 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

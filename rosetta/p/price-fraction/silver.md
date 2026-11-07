@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every index and digit computation is bounded by the declared 0..100 subtype and the for-loop range, so range and index checks follow from types with no loop-carried state. The for loop needs no variant and the division is by a literal.
 
-Position 444 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 446 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

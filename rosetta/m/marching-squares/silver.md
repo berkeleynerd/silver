@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task is only "generate contours", so a fixed embedded grid with per-cell case lookup uses for loops over the array's own ranges and small ranged integers, so every check follows from types and bounds. No loop-carried state, recursion or annotation is needed.
 
-Position 774 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 775 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

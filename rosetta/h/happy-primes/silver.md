@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from ranged subtypes, for loops and guards placed before the arithmetic, and the stretch ratios beyond 1/8 are optional and omitted, so only careful shaping of loop-carried counters and the digit-sum is required.
 
-Position 395 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 397 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

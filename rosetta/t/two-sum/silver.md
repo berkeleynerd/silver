@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from declared value ranges that keep the sum of two elements within Integer, and from for-loop indexes over the array's own range, so no loop invariant is needed. The loops live in a procedure and terminate on their own, and the output uses only simple image conversion.
 
-Position 101 in the [progression](../../progression.md#stage-5), in stage 5.
+Position 107 in the [progression](../../progression.md#stage-5), in stage 5.
 
 ## Approach
 

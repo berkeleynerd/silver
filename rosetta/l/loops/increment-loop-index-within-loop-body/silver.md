@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is bounded by a declared 64-bit range and explicit guards, and the only unbounded loop sits in a procedure, so no annotation is needed. The nonlinear product, loop-carried buffer position and index doubling need careful guards, so discharge depends on program shape.
 
-Position 550 in the [progression](../../../progression.md#stage-10), in stage 10.
+Position 551 in the [progression](../../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

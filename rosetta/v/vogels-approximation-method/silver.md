@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is bounded by small declared ranges and the loops are for loops over array ranges or a while loop in a procedure, so no annotation is needed. The care needed is in keeping loop-carried indexes in range through initialised defaults and in bounding the running totals.
 
-Position 718 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 719 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

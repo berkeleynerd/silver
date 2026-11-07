@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The simple rule-based textual boids simulation uses only bounded integer coordinates, a fixed grid and for loops with explicit bounds guards before each array access, so every check follows from types and guards. The optional vector-based flocking with floating point is left out, and the task accepts the textual simulation.
 
-Position 789 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 790 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The closed-form series sum needs only bounded integer arithmetic on ranged subtypes and one fixed output line, so every check follows from declared types with no loops or annotations. The optional 1e20 extra credit is omitted, and the required n = 1000 case is covered faithfully.
 
-Position 296 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 298 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

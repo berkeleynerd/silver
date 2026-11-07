@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every arithmetic check is protected by a guard placed right before it (dividing by a nonzero base to bound the multiply, and comparing the counter with 'Last), and the only while loop is in a procedure. Because of this, no annotation is needed. The only check that is not purely linear is the standard Acc <= Last / N bound before Acc * N, which provers routinely discharge.
 
-Position 604 in the [progression](../../../progression.md#stage-11), in stage 11.
+Position 605 in the [progression](../../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

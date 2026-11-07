@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task allows describing an equivalent structure when inheritance is unavailable, and Silver already supports Put_Line with string literals, so there are no checks to prove beyond what Silver already discharges.
 
-Position 19 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 20 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

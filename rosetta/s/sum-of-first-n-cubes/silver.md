@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The product N*(N+1) lies in 0..2450 and quotient in 0..1225. The full declared-range square is at most 1500625, within Integer. Divisor 2 is nonzero and all assignments preserve the object-local range.
 
-Position 20 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 21 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

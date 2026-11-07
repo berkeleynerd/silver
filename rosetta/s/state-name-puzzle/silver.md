@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is bounded nested for-loop enumeration with per-letter counts over embedded data, so every check follows from declared ranges and local guards without annotations, though the amount of guarded buffer and counter handling needs careful program shape.
 
-Position 743 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 744 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

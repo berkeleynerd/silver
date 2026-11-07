@@ -1,0 +1,51 @@
+{
+  "recorded_utc": "2026-11-07T16:40:15.923874+00:00",
+  "baseline_commit": "fdbd6132ca7eef35fabcab64c811ce1f7674846b",
+  "native_implementation": "ce97ede446aad55520e59854ea8298e2a63d56eb",
+  "native_worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair",
+  "native_run": "20261107T065643-5c23478ef04b",
+  "build_run": "20261107T133600-c3cee7a3d07c",
+  "lean_run": "20261107T064815-9c9da56edf3d",
+  "governed_inventory_comparison": {
+    "src": {
+      "count": 131,
+      "native_mismatches": []
+    },
+    "proof": {
+      "count": 659,
+      "native_mismatches": []
+    },
+    "scripts": {
+      "count": 9,
+      "native_mismatches": []
+    },
+    "tests": {
+      "count": 57,
+      "native_mismatches": []
+    },
+    "catalogue": {
+      "count": 1,
+      "native_mismatches": []
+    }
+  },
+  "retained_lean_inputs": 762,
+  "lean_input_mismatches": [],
+  "binaries": {
+    "silver": {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/compiler/bin/silver",
+      "sha256": "9ed78adbe8fa172a7d4e8738127d2b67b42c00444fa8499e008cd65a4fc49b18",
+      "retained_build_sha256": "9ed78adbe8fa172a7d4e8738127d2b67b42c00444fa8499e008cd65a4fc49b18",
+      "matches": true
+    },
+    "silver_image_adapter": {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/compiler/bin/silver_image_adapter",
+      "sha256": "8ca0b182d58b4b9ac51e50f2906e10de3dc95d8b02e5868ff8ef019925e9e9fd",
+      "retained_build_sha256": "8ca0b182d58b4b9ac51e50f2906e10de3dc95d8b02e5868ff8ef019925e9e9fd",
+      "matches": true
+    }
+  },
+  "method": "SHA-256 of each tracked scoped file against native installation; all retained Lean inputs against delivery tree; binaries against retained build record. Native full-report audit is separately managed. No proof or build rerun.",
+  "current_native_run": "20261107T164210-abaf005c4a13",
+  "current_build_run": "20261107T164532-6f3da3076d4d",
+  "native_refresh_reason": "Fresh audit rejected historical Python3.14.4 provenance on migrated Python3.14.8. Ordinary complete forced analysis/audit refreshed provenance; all2586inputs and other11tool hashes unchanged. Historical failure retained."
+}

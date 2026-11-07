@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from integer ranges and guards, but the loop-carried accumulators in the bit-based fusc computation and the comma-formatting buffer need careful guards because no invariants are allowed. No recursion, heap or annotation is needed.
 
-Position 394 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 396 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

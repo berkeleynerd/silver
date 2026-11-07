@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from small bounded subtypes and bounds guards before each array access, with no recursion needed because the backtracking uses an explicit stack in a procedure, but the many loop-carried indices and counters need careful guard placement.
 
-Position 742 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 743 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

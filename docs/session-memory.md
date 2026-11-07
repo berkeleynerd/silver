@@ -1,5 +1,40 @@
 # Session memory
 
+## 2026-11-07 — Rosetta sample expansion merge authorized
+
+The owner instructed **“Merge it if you believe it is ready.”** This authorizes
+merging ready [PR #337](https://github.com/berkeleynerd/silver/pull/337) and its
+ordinary #300/board/milestone closeout. The
+[delivery record](rosetta-sample-expansion.md#delivery-and-validation--2026-11-07)
+retains independent acceptance of `d4aab1db5b`, applicable complete assurance
+and successful application/regression evidence. Published head `59f5ed534c`
+adds only the review and completion records; this merge-authorization update
+also changes documentation only. Successful evidence remains applicable
+without another proof, build, test or render run.
+
+This supersedes the earlier merge hold for #337. Issue #300 and milestone 15
+close with the merge; functions #298 and the expanded opportunity inventory
+remain unselected. Preserve unrelated root-checkout work and scratch files.
+No CLI recall entry was updated.
+
+## 2026-11-07 — Rosetta sample expansion delivered for review
+
+The authorized original ten-program, eleven-task batch in
+[#300](https://github.com/berkeleynerd/silver/issues/300) is complete through
+reviewable publication in [PR #337](https://github.com/berkeleynerd/silver/pull/337).
+The [delivery account](rosetta-sample-expansion.md#delivery-and-validation--2026-11-07)
+links successful application validation, current native provenance, retained
+complete Lean assurance, reviewed regression applicability, the narrow render
+and independent acceptance of `d4aab1db5b`. No unresolved finding remains.
+The available-guide correction and planning authorization already reached main
+through merged PR #336.
+
+This fulfills the selected batch without admitting a construct or changing a
+resource limit. Keep #300 In review and its issue/milestone open until the later
+owner merge instruction. The prior guide-merge authorization does not merge
+this implementation PR or select functions #298 or the expanded opportunity
+inventory. No CLI recall entry was updated.
+
 ## 2026-11-07 — Tutorial audit and Rosetta sample expansion selected
 
 The owner instructed **“Let's proceed to tackle 300 after determining if our
@@ -32,10 +67,14 @@ This current selection supersedes earlier statements leaving #300 unselected;
 it does not alter their historical scope. Routine planning publication and merge,
 followed by implementation through reviewable publication, follow the current
 proceed instruction. Implementation merge remains a later owner decision.
-Keep #300 Backlog until the authorization reaches main, then mark Ready and
-claim it through the ordinary routine. Planning PR #336 is open; sample
-implementation has not started. No new compiler/runtime assurance is claimed by
-this documentation increment. No CLI recall entry was updated.
+The initial planning checkpoint kept #300 Backlog until authorization reached
+main. PR #336 subsequently merged as `fdbd6132ca`; #300 was claimed through the
+ordinary routine and its ten-program implementation is now published in draft
+PR #337. The [delivery record](rosetta-sample-expansion.md#delivery-and-validation--2026-11-07)
+records current validation and closing review status. The initial guide/planning
+increment itself claimed no new compiler/runtime assurance. Implementation merge
+remains a later owner decision, and functions #298 is still unselected.
+No CLI recall entry was updated.
 
 ## 2026-11-07 — Boolean-array merge authorized
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task is satisfied by printing embedded instruction text, which uses only constructs Silver already has, so there are no run-time checks, loops or annotations to discharge.
 
-Position 46 in the [progression](../../../progression.md#stage-1), in stage 1.
+Position 50 in the [progression](../../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The incoming Survivor interval is 0..40, Survivor+K is 3..43 and the divisor I is 2..41. Modulo yields 0..40, preserving the declared range without guard or update refinement. The independently derived incident answer is zero-based 30.
 
-Position 22 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 23 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

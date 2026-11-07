@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The quadratic scan uses only for loops, bounded arrays and a guarded counter, so every index and range check follows from types and one explicit guard with no annotations needed.
 
-Position 200 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 204 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

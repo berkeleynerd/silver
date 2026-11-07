@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is integer arithmetic with fixed-size arrays and loops that can be capped without changing the required outcome, so no annotation is needed, but the loop-carried 62-bit coefficient updates need careful range guards to avoid overflow checks the provers cannot bound.
 
-Position 426 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 428 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

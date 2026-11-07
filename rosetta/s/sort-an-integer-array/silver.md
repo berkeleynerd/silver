@@ -1,24 +1,26 @@
 # Sort an integer array
 
-**Candidate: proofs likely to discharge automatically.** Sorting a fixed-size array by comparisons and swaps needs only for-loop indexes over the array range and no arithmetic on element values, so every check follows from types and bounds. The standard generic sort library is not available in Silver, so a hand-written O(n^2) sort in a procedure is used.
+**Candidate: proofs likely to discharge automatically.** Nine shrinking adjacent-swap passes suffice for ten elements, and early inactivity follows only a complete pass without swaps. The ascending result is (-100, -5, -5, 0, 0, 3, 7, 12, 12, 100), preserving duplicates. One source supplies both task mappings without a user procedure, while loop or generic sorting facility. The exact source passed admission, complete required application/library proof audit, build and manifest execution in integration run 20261107T164659-9f6192441d21; the linked assessment records the evidence scope. The linked delivery record carries the independent closing review status.
 
-Position 88 in the [progression](../../progression.md#stage-4), in stage 4.
+Position 65 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 
-The program embeds a constrained array of 9 integers (the example data) and sorts it in place with insertion sort or selection sort in a procedure using nested for loops over the index subtype. A swap uses a temporary Integer, and the inner step for insertion sort is written with explicit index guards, or as selection sort it uses only for-loop indexes. It then prints each element on its own line using 'Image and Put_Line. About 45 lines.
+Main initializes ten Element values (-5, 0, 12, -5, 7, 100, -100, 12, 0, 3), with Element range -100 .. 100. For Pass in 1 .. 9, a Boolean Changed enables adjacent comparisons over 1 .. (10 - Pass), swapping through a bounded temporary. A pass without swaps disables later pass bodies. Before and after arrays are displayed. About 39 lines.
 
 ## Proof obligations to watch
 
-- **overflow**: Integer elements are only compared and swapped, never added, so no arithmetic can overflow.
-- **index**: Insertion sort uses for loops over the array's own index range, with the inner index guarded just before each use, so the index checks follow from types and guards.
+- **index**: Pass is 1 .. 9, so each comparison index I lies in 1 .. 9 and I + 1 lies in 2 .. 10; the shrinking upper bound is captured on loop entry.
+- **range**: Swaps copy only Element values into the same -100 .. 100 component and temporary ranges; element arithmetic is unnecessary.
 
 ## Language surface recorded by this assessment
 
-Integers, ranged subtypes, arrays, for loops, procedures, Put without a newline, 'Image of scalars and string building.
+Put without a newline, Integer range for loops, immutable Integer arithmetic, Integer image, bounded mutable Integer objects, fixed-size Integer arrays, named Integer subtypes and bounded components and scalar Boolean objects and expressions.
 
 ## External effects
 
-- **console output** (allowed): Print the sorted array so the result is visible.
+- **console output** (allowed): Prints the ten-element input and ascending result on labelled Before and After lines.
 
-Assessed on 2026-10-15 against page revision 414484 of the [task](https://rosettacode.org/wiki/Sort_an_integer_array) by claude-sonnet-5-5 at medium effort; confidence high. The inclusion policy is in `rosetta/coverage.json`.
+Initially assessed on 2026-10-15 against page revision 414484 of the [task](https://rosettacode.org/wiki/Sort_an_integer_array) by claude-sonnet-5-5 at medium effort; current confidence high. The inclusion policy is in `rosetta/coverage.json`.
+
+Revised on 2026-11-07 by Codex through targeted source review; see the [review record](../../assessment-sample-expansion-20261107.md).

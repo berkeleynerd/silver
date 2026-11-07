@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task is satisfied by text art, and every loop is a bounded for loop over ranged subtypes with a pure solid-voxel function, so all checks follow from declared ranges and no invariant or variant is needed. The only mild care is keeping the buffer indices statically within the row length.
 
-Position 452 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 454 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

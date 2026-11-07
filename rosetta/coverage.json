@@ -4085,23 +4085,36 @@
    "effects": [
     {
      "effect": "console-output",
-     "explanation": "The program prints the concatenated array elements to standard output."
+     "explanation": "Prints First, Second and Combined on three labelled lines, preserving order, the duplicate 5 and Ada Integer Image spaces."
     }
    ],
    "surface": [
-    "integers",
-    "ranged-subtypes",
-    "arrays",
-    "for-loops",
-    "scalar-image",
-    "put"
+    "put",
+    "integer-for-loops",
+    "immutable-integers",
+    "integer-image",
+    "fixed-integer-arrays",
+    "named-integer-subtypes"
    ],
    "outlook": "likely",
-   "risks": [],
-   "size": 30,
-   "approach": "Declare constrained Integer arrays A (1..3) and B (1..3) as constants with aggregates, plus a result array C (1..6). Two for loops over the arrays' own ranges copy A into C(I) and B into C(3 + I), then a final for loop prints each element with Integer'Image through Put and ends the line.",
-   "summary": "All indexes come from for loops over static ranges and the offset index 3 + I lies within 4..6, so every index and range check follows from static bounds, with no loop-carried values.",
-   "confidence": "high"
+   "risks": [
+    {
+     "obligation": "index",
+     "explanation": "The first copy uses indexes 1 .. 4; the second reads 1 .. 3 and writes 5 .. 7. Every display index is within its fixed array bounds."
+    }
+   ],
+   "size": 39,
+   "approach": "Main declares Element range -9 .. 9, First = (-3, 0, 5, 5), Second = (8, -1, 2) and an initialized seven-element Combined array. It copies First into indexes 1 .. 4 and Second into 4 + I for I in 1 .. 3, then displays all three arrays using Put and Integer Image.",
+   "summary": "The two fixed copy ranges cover every result index once, yielding (-3, 0, 5, 5, 8, -1, 2). The source uses indexed copies rather than a general whole-array concatenation operation. The exact source passed admission, complete required application/library proof audit, build and manifest execution in integration run 20261107T164659-9f6192441d21; the linked assessment records the evidence scope. The linked delivery record carries the independent closing review status.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-11-07",
+    "record": "assessment-sample-expansion-20261107.md",
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "setting_evidence": "Lead-selected GPT-6.1 Sol / High for metadata reconciliation; live runtime settings not independently exposed",
+    "method": "Targeted source, captured task, manifest and independent expected-output derivation review at ff4fdb9c8b; finalized against integration lead manifest validation run 20261107T164659-9f6192441d21, including application/library proof audits, build and exact execution; independent closing review status is recorded in the linked delivery record; metadata reconciliation is not an independent review"
+   }
   },
   "Array length": {
    "revision": 412655,
@@ -14656,37 +14669,35 @@
    "effects": [
     {
      "effect": "console-output",
-     "explanation": "Prints the two counts (242 and 13398445413854501) with Put_Line."
+     "explanation": "Prints only \"Ways to make 100 cents with 25, 10, 5 and 1: 242\" followed by LF; the optional $1000 result is not produced."
     }
    ],
    "surface": [
-    "integers",
-    "ranged-subtypes",
-    "arrays",
-    "for-loops",
-    "procedures",
-    "scalar-image",
-    "conditional-expressions"
+    "integer-for-loops",
+    "immutable-integers",
+    "integer-image",
+    "bounded-mutable-integers",
+    "scalar-guard-refinement"
    ],
-   "outlook": "plausible",
+   "outlook": "likely",
    "risks": [
     {
      "obligation": "overflow",
-     "explanation": "The loop-carried sum Cnt(A) + Cnt(A-Coin) is bounded only by the Counter type, so the program tests Cnt(A) <= Counter'Last - Cnt(A-Coin) just before the addition and otherwise rejects visibly, while the real maximum 13398445413854501 is well inside a 2**63-1 range."
-    },
-    {
-     "obligation": "index",
-     "explanation": "Index A - Coin is safe because the guard Coin <= A and the positive Coin constant lie just before the access, with A ranging over the array's own range."
-    },
-    {
-     "obligation": "range",
-     "explanation": "Goal and coin count are fixed constants within the 0 .. 100_000 array bound and the 6-element coin table, so every subscript follows from static bounds."
+     "explanation": "Total is at most 300 from the static loop ranges. Ways is bounded 0 .. 1155 and the immediate Ways < 1155 guard makes Ways + 1 fit; at most 1155 triples exist, so the guard is harmless to the required count."
     }
    ],
-   "size": 45,
-   "approach": "A ranged Counter type (0 .. 2**63-1) holds a ways-array Cnt over 0 .. 100_000 with Cnt(0)=1, and a constant coin table of 100, 50, 25, 10, 5, 1 is processed by a procedure taking the goal and the number of leading coins to use. Nested for loops over coins and amounts add Cnt(A - Coin) into Cnt(A) under a Coin <= A guard and an explicit overflow guard that rejects. Main calls it for goal 100 with the last four coins and goal 100_000 with all six, and prints each result via 'Image.",
-   "summary": "Every check is a static bound or a guard just before the operation, but the loop-carried Counter additions need explicit overflow guards, so discharge depends on program shape. The 64-bit range holds the optional answer, so no big-number support is needed and nothing needs an annotation.",
-   "confidence": "medium"
+   "size": 21,
+   "approach": "Main enumerates Quarters in 0 .. 4, Dimes in 0 .. 10 and Nickels in 0 .. 20. It computes Total := Quarters * 25 + Dimes * 10 + Nickels * 5 with explicit grouping. When Total <= 100 and Ways < 1155 it increments Ways; the remaining cents uniquely determine the number of pennies. It prints the resulting count for 100 cents.",
+   "summary": "The 5 * 11 * 21 = 1155 triples include every affordable quarter/dime/nickel choice exactly once, so the counter guard cannot skip an iteration that should count. The independently derived required result is 242. The optional $1000 case with two additional denominations is excluded. The exact source passed admission, complete required application/library proof audit, build and manifest execution in integration run 20261107T164659-9f6192441d21; the linked assessment records the evidence scope. The linked delivery record carries the independent closing review status.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-11-07",
+    "record": "assessment-sample-expansion-20261107.md",
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "setting_evidence": "Lead-selected GPT-6.1 Sol / High for metadata reconciliation; live runtime settings not independently exposed",
+    "method": "Targeted source, captured task, manifest and independent expected-output derivation review at ff4fdb9c8b; finalized against integration lead manifest validation run 20261107T164659-9f6192441d21, including application/library proof audits, build and exact execution; independent closing review status is recorded in the linked delivery record; metadata reconciliation is not an independent review"
+   }
   },
   "Count the coins/0-1": {
    "revision": 397924,
@@ -20410,18 +20421,32 @@
    "effects": [
     {
      "effect": "console-output",
-     "explanation": "The program prints a line for each demonstrated check so the result is visible."
+     "explanation": "For valid input, prints the empty-variable and nonempty-variable checks and one argument emptiness verdict; rejection prints nothing."
+    },
+    {
+     "effect": "arguments",
+     "explanation": "Reads the optional first printable-ASCII argument, with the existing 4096-byte bound and input-validity check."
+    },
+    {
+     "effect": "exit-status",
+     "explanation": "Rejects an extra argument, an overlong argument or a tab with status 1; valid cases have status 0."
     }
    ],
-   "surface": [
-    "booleans"
-   ],
+   "surface": [],
    "outlook": "likely",
    "risks": [],
-   "size": 30,
-   "approach": "The program declares a String constant \"\" and a non-empty String constant, then tests emptiness with 'Length = 0 and non-emptiness with 'Length > 0 (or equality with \"\"), printing one Put_Line result per case. The checks run in plain if/else statements, and a Boolean variable can hold each result. There are no loops or arithmetic, and no input beyond the embedded data.",
-   "summary": "The task needs only String constants, length comparisons and if statements, which Silver already largely has, so no proof obligation exists beyond trivial ones.",
-   "confidence": "high"
+   "size": 25,
+   "approach": "Main declares mutable String variables Empty := \"\" and Nonempty := \"Silver\", assigns \"\" to Empty, and tests Empty = \"\" and Nonempty /= \"\". It initializes Input with First_Or_Default (\"\"), checks Input_Is_Valid, then prints whether Input'Length = 0; invalid input calls Reject.",
+   "summary": "Mutable empty and nonempty String variables demonstrate the required assignment and checks using baseline String/argument operations. Manifest cases cover no argument, an explicit empty argument, Silver, one space, the 4096-byte limit, and rejection of extra arguments, 4097 bytes or a tab. The exact source passed admission, complete required application/library proof audit, build and manifest execution in integration run 20261107T164659-9f6192441d21; the linked assessment records the evidence scope. The linked delivery record carries the independent closing review status.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-11-07",
+    "record": "assessment-sample-expansion-20261107.md",
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "setting_evidence": "Lead-selected GPT-6.1 Sol / High for metadata reconciliation; live runtime settings not independently exposed",
+    "method": "Targeted source, captured task, manifest and independent expected-output derivation review at ff4fdb9c8b; finalized against integration lead manifest validation run 20261107T164659-9f6192441d21, including application/library proof audits, build and exact execution; independent closing review status is recorded in the linked delivery record; metadata reconciliation is not an independent review"
+   }
   },
   "Endless maze": {
    "revision": 414181,
@@ -21585,7 +21610,7 @@
    "effects": [
     {
      "effect": "console-output",
-     "explanation": "Prints whether each sample integer is even or odd."
+     "explanation": "Prints seven labelled parity verdicts, one for each integer from -3 through 3."
     }
    ],
    "surface": [
@@ -21595,15 +21620,17 @@
    ],
    "outlook": "likely",
    "risks": [],
-   "size": 16,
-   "approach": "Main loops directly over the Integer range -1000 .. 1000. For each immutable index N, an if statement tests (N rem 2) = 0 and prints Integer'Image (N) concatenated with the literal even or odd verdict through Put_Line. The bounded literal range includes negative values and zero. No declared subtype, user-defined procedure or separate Put call is needed.",
-   "summary": "Remainder by literal 2 and the static loop range -1000 through 1000 fit the delivered interval-integer-division rules, including negative dividends and zero. The external review confirmed admission of this approach. This is a current-language assessment, not a delivered manifest sample or a new proof/build/execution record.",
+   "size": 12,
+   "approach": "Main loops over -3 .. 3 and tests (Number rem 2) = 0, printing Integer'Image (Number) followed by \": even\" or \": odd\". The seven actual integer values include negatives, zero and positives of both parities.",
+   "summary": "The seven-value demonstration classifies the required integer inputs by remainder, including negative odd values. The literal divisor 2 excludes division by zero. The exact source passed admission, complete required application/library proof audit, build and manifest execution in integration run 20261107T164659-9f6192441d21; the linked assessment records the evidence scope. The linked delivery record carries the independent closing review status.",
    "confidence": "high",
    "review": {
-    "date": "2026-10-27",
-    "record": "assessment-arrays-20261027.md",
-    "setting_evidence": "Integration lead; live model and effort not independently exposed",
-    "method": "Targeted task/specification/sample review and retained external admission evidence; no new complete validation claim"
+    "date": "2026-11-07",
+    "record": "assessment-sample-expansion-20261107.md",
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "setting_evidence": "Lead-selected GPT-6.1 Sol / High for metadata reconciliation; live runtime settings not independently exposed",
+    "method": "Targeted source, captured task, manifest and independent expected-output derivation review at ff4fdb9c8b; finalized against integration lead manifest validation run 20261107T164659-9f6192441d21, including application/library proof audits, build and exact execution; independent closing review status is recorded in the linked delivery record; metadata reconciliation is not an independent review"
    }
   },
   "Events": {
@@ -23390,34 +23417,37 @@
    "effects": [
     {
      "effect": "console-output",
-     "explanation": "Prints each example number's factors as text lines."
+     "explanation": "Prints nine labelled complete positive-divisor lists, including 1 and the input itself."
     }
    ],
    "surface": [
-    "integers",
-    "integer-division",
-    "ranged-subtypes",
-    "arrays",
-    "for-loops",
-    "scalar-image",
     "put",
-    "procedures"
+    "integer-for-loops",
+    "integer-image",
+    "interval-integer-division",
+    "fixed-integer-arrays",
+    "constant-integer-array-iteration",
+    "named-integer-subtypes"
    ],
    "outlook": "likely",
    "risks": [
     {
      "obligation": "division",
-     "explanation": "The divisor is the for-loop index over 1 .. N with N of subtype Positive, so it is never zero and the mod check discharges from the loop range."
-    },
-    {
-     "obligation": "overflow",
-     "explanation": "Numbers are declared in a bounded Positive subtype and the loop only uses the index and mod, so no loop-carried arithmetic can overflow."
+     "explanation": "The captured divisor range begins at 1 and ends at a positive value at most 100, so modulo never uses zero."
     }
    ],
-   "size": 30,
-   "approach": "Embed a constant array of example positive integers (e.g. 45, 53, 64, 360) and a procedure that, for each, runs a for loop over divisors 1 .. N, testing N mod D = 0 and printing each divisor with Put/Put_Line using 'Image. Input is not read, so no validation is needed; the loop index is the only loop-carried value and its bounds come from the range.",
-   "summary": "Trial division with a for loop over a declared Positive range needs no loop-carried state, so division and range checks follow from types and loop bounds and no annotation is needed.",
-   "confidence": "high"
+   "size": 18,
+   "approach": "Main iterates over the constant Positive_Input array (1, 2, 6, 12, 13, 28, 36, 97, 100), with component range 1 .. 100. For each Number it tests every Divisor in 1 .. Number and prints Divisor when (Number mod Divisor) = 0, forming one labelled divisor-list line per input.",
+   "summary": "Every positive divisor is at most the positive input, so exhaustive counted trial division produces the complete ascending list. Cases include 1, primes and composites; zero and negative inputs are outside the task requirement. The exact source passed admission, complete required application/library proof audit, build and manifest execution in integration run 20261107T164659-9f6192441d21; the linked assessment records the evidence scope. The linked delivery record carries the independent closing review status.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-11-07",
+    "record": "assessment-sample-expansion-20261107.md",
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "setting_evidence": "Lead-selected GPT-6.1 Sol / High for metadata reconciliation; live runtime settings not independently exposed",
+    "method": "Targeted source, captured task, manifest and independent expected-output derivation review at ff4fdb9c8b; finalized against integration lead manifest validation run 20261107T164659-9f6192441d21, including application/library proof audits, build and exact execution; independent closing review status is recorded in the linked delivery record; metadata reconciliation is not an independent review"
+   }
   },
   "Fairshare between two and more": {
    "revision": 411962,
@@ -25962,7 +25992,7 @@
    "effects": [
     {
      "effect": "console-output",
-     "explanation": "Prints 100 lines, one per integer, to standard output via Put_Line."
+     "explanation": "Prints exactly 100 lines for 1 through 100, with the required substitutions and ordinary Integer Image for other values."
     }
    ],
    "surface": [
@@ -25973,14 +26003,16 @@
    "outlook": "likely",
    "risks": [],
    "size": 16,
-   "approach": "A parameterless Main uses a for loop over the static Integer range 1 .. 100 and tests (I mod 15), (I mod 5) and (I mod 3) in an if/elsif/else chain. The branches call Silver_IO.Put_Line with FizzBuzz, Buzz or Fizz respectively; the else branch prints ordinary Integer'Image (I), including Ada's leading space. The task does not require trimming that space. No computed-length string buffer or trimming operation is used.",
-   "summary": "The static 1 through 100 loop and literal nonzero divisors 15, 5 and 3 fit the delivered interval-integer-division rules. The branch order distinguishes multiples of both before either individual divisor. The external review confirmed admission of this approach. This is a current-language assessment, not a delivered manifest sample or a new proof/build/execution record.",
+   "approach": "Main loops over 1 .. 100, testing Number mod 15, then mod 3, then mod 5. It prints FizzBuzz, Fizz or Buzz for the matching branch, otherwise Integer'Image (Number), retaining Ada's leading space for positive numbers.",
+   "summary": "The source computes the complete required sequence, including the multiples of both three and five. Static loop bounds and literal nonzero divisors use the existing narrow Integer-loop, division and Image rules. The exact source passed admission, complete required application/library proof audit, build and manifest execution in integration run 20261107T164659-9f6192441d21; the linked assessment records the evidence scope. The linked delivery record carries the independent closing review status.",
    "confidence": "high",
    "review": {
-    "date": "2026-10-27",
-    "record": "assessment-arrays-20261027.md",
-    "setting_evidence": "Integration lead; live model and effort not independently exposed",
-    "method": "Targeted task/specification/sample review and retained external admission evidence; no new complete validation claim"
+    "date": "2026-11-07",
+    "record": "assessment-sample-expansion-20261107.md",
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "setting_evidence": "Lead-selected GPT-6.1 Sol / High for metadata reconciliation; live runtime settings not independently exposed",
+    "method": "Targeted source, captured task, manifest and independent expected-output derivation review at ff4fdb9c8b; finalized against integration lead manifest validation run 20261107T164659-9f6192441d21, including application/library proof audits, build and exact execution; independent closing review status is recorded in the linked delivery record; metadata reconciliation is not an independent review"
    }
   },
   "Flatten a list": {
@@ -28917,33 +28949,46 @@
    "effects": [
     {
      "effect": "console-output",
-     "explanation": "Prints the GCD results for embedded example pairs with Put_Line."
+     "explanation": "Prints eight labelled GCD results: 6, 42, 42, 0, 6, 1, 1 and 1 for the source pairs."
     }
    ],
    "surface": [
-    "integers",
-    "integer-division",
-    "ranged-subtypes",
-    "while-loops",
-    "procedures",
-    "scalar-image",
-    "string-building"
+    "integer-for-loops",
+    "immutable-integers",
+    "integer-image",
+    "bounded-mutable-integers",
+    "interval-integer-division",
+    "scalar-guard-refinement",
+    "fixed-integer-arrays",
+    "named-integer-subtypes"
    ],
    "outlook": "likely",
    "risks": [
     {
-     "obligation": "termination",
-     "explanation": "The Euclid while loop is in a procedure, which gets no termination check, so no variant is needed."
+     "obligation": "division",
+     "explanation": "B > 0 narrows the modulo divisor to 1 .. 1000, giving remainder 0 .. 999 even under conservative declared-range body reads."
     },
     {
-     "obligation": "division",
-     "explanation": "The loop condition N /= 0 immediately guards the mod, so the division check discharges."
+     "obligation": "range",
+     "explanation": "The -1000 .. 1000 input range makes sign normalization safe, and each Euclidean assignment fits its declared scalar range."
+    },
+    {
+     "obligation": "termination",
+     "explanation": "All loops are counted; sufficiency of the fixed 20-update bound for the declared magnitudes is a separate algorithm argument, not merely loop termination."
     }
    ],
-   "size": 28,
-   "approach": "A procedure Gcd takes two Natural values and returns a Natural out parameter, running Euclid's algorithm with a while loop on Natural-typed copies M and N, where N is nonzero inside the loop body. Main calls it on embedded pairs such as (100,5), (5,100) and (7,23) and prints each result with Integer'Image concatenated into a bounded String line.",
-   "summary": "Euclid's algorithm needs only Natural-typed loop variables, and since T mod N with N nonzero yields a value below N, every range and division check follows from types and the loop guard without an invariant. Putting the loop in a procedure avoids the function termination obligation.",
-   "confidence": "high"
+   "size": 35,
+   "approach": "Main reads eight embedded pairs from fixed Input_Value arrays bounded -1000 .. 1000, normalizes each scalar copy by guarded unary negation, then performs up to 20 Euclidean updates under B > 0. Each update sets Remainder := (A mod B), A := B and B := Remainder. It prints the original pair and A. The source explicitly adopts gcd (0, 0) = 0.",
+   "summary": "For nonnegative magnitudes at most 1000, two Euclidean updates at least halve the second operand; 20 updates suffice since 2**10 exceeds 1000. Cases include ordinary, zero, both-zero, signed and coprime pairs, including (610, 987). This bounded demonstration does not claim an unrestricted GCD API. The exact source passed admission, complete required application/library proof audit, build and manifest execution in integration run 20261107T164659-9f6192441d21; the linked assessment records the evidence scope. The linked delivery record carries the independent closing review status.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-11-07",
+    "record": "assessment-sample-expansion-20261107.md",
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "setting_evidence": "Lead-selected GPT-6.1 Sol / High for metadata reconciliation; live runtime settings not independently exposed",
+    "method": "Targeted source, captured task, manifest and independent expected-output derivation review at ff4fdb9c8b; finalized against integration lead manifest validation run 20261107T164659-9f6192441d21, including application/library proof audits, build and exact execution; independent closing review status is recorded in the linked delivery record; metadata reconciliation is not an independent review"
+   }
   },
   "Greatest element of a list": {
    "revision": 415509,
@@ -36462,25 +36507,31 @@
    "effects": [
     {
      "effect": "console-output",
-     "explanation": "Prints each sample year with its leap or common verdict via Silver_IO.Put_Line."
+     "explanation": "Prints twelve labelled leap/common verdicts, including leap for 1600, 2000 and 2400 and common for the other demonstrated century years."
     }
    ],
    "surface": [
-    "integers",
-    "integer-division",
-    "ranged-subtypes",
-    "booleans",
-    "functions",
-    "for-loops",
-    "scalar-image",
-    "string-building"
+    "put",
+    "integer-image",
+    "interval-integer-division",
+    "fixed-integer-arrays",
+    "constant-integer-array-iteration",
+    "named-integer-subtypes"
    ],
    "outlook": "likely",
    "risks": [],
-   "size": 22,
-   "approach": "A subtype Year_Number range 1 .. 9999 and a side-effect-free function Is_Leap_Year (Year) returning (Year rem 4 = 0) and then ((Year rem 100 /= 0) or else (Year rem 400 = 0)). Main runs a for loop over a fixed sample range such as 1896 .. 2004 and prints each year's 'Image concatenated with a leap or common verdict through Silver_IO.Put_Line. Rem by non-zero literals cannot fail, and the loop index stays within Year_Number's range by declaration.",
-   "summary": "Every check is a rem by a nonzero literal on a bounded integer inside a for loop with no loop-carried state, so all of them follow from types and static bounds. Only the scalar-image and string-building library operations are new, and the program needs no annotations.",
-   "confidence": "high"
+   "size": 19,
+   "approach": "Main iterates over a constant Gregorian_Year array bounded 1 .. 2400, containing 1600, 1700, 1800, 1900, 1996, 1999, 2000, 2004, 2100, 2200, 2300 and 2400. An inline condition tests divisibility by 400 or divisibility by 4 but not 100, then prints leap or common.",
+   "summary": "The inline Gregorian predicate covers ordinary leap/common years, common century years and century years divisible by 400. Only literal nonzero divisors are used; no function or computed String buffer is needed. The exact source passed admission, complete required application/library proof audit, build and manifest execution in integration run 20261107T164659-9f6192441d21; the linked assessment records the evidence scope. The linked delivery record carries the independent closing review status.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-11-07",
+    "record": "assessment-sample-expansion-20261107.md",
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "setting_evidence": "Lead-selected GPT-6.1 Sol / High for metadata reconciliation; live runtime settings not independently exposed",
+    "method": "Targeted source, captured task, manifest and independent expected-output derivation review at ff4fdb9c8b; finalized against integration lead manifest validation run 20261107T164659-9f6192441d21, including application/library proof audits, build and exact execution; independent closing review status is recorded in the linked delivery record; metadata reconciliation is not an independent review"
+   }
   },
   "Least common multiple": {
    "revision": 412881,
@@ -43002,26 +43053,36 @@
    "effects": [
     {
      "effect": "console-output",
-     "explanation": "The table is printed to standard output line by line."
+     "explanation": "Prints a header and twelve aligned upper-triangle table rows, each 52 characters wide before its line terminator."
     }
    ],
    "surface": [
-    "integers",
-    "integer-division",
-    "ranged-subtypes",
-    "characters",
-    "string-indexing",
-    "string-building",
-    "for-loops",
-    "procedures",
-    "put"
+    "put",
+    "integer-for-loops",
+    "immutable-integers",
+    "integer-image",
+    "bounded-mutable-integers",
+    "scalar-guard-refinement"
    ],
    "outlook": "likely",
-   "risks": [],
-   "size": 45,
-   "approach": "Nested for loops over 1..12 compute Row * Column in a subtype range 1..144 and print each cell right-aligned in a width-4 field, using spaces for cells left of the diagonal. A small procedure fills a fixed 4-character String buffer by digit extraction with / and mod, and Put emits it without a line terminator; the header row and dashed separator are built from literals.",
-   "summary": "Loop indexes are statically bounded 1..12, so the product is at most 144 and every overflow, range and index check follows from types, with no loop-carried state.",
-   "confidence": "high"
+   "risks": [
+    {
+     "obligation": "range",
+     "explanation": "Both product operands are in 1 .. 12, so the assignment fits Product range 1 .. 144; scalar guards select padding without changing the computed product."
+    }
+   ],
+   "size": 38,
+   "approach": "Main prints twelve column headings and then rows 1 .. 12. Nested counted loops print four spaces when Column < Row, otherwise compute Product := (Row * Column) in range 1 .. 144. Conditional literal padding and Integer Image give each heading and product a four-character field.",
+   "summary": "The source computes the complete 12-by-12 upper triangle, including its diagonal, with a header and aligned row labels. The manifest specifies 13 lines of 52 bytes before LF; no Character operations, digit buffer, helper procedure or general string building is used. The exact source passed admission, complete required application/library proof audit, build and manifest execution in integration run 20261107T164659-9f6192441d21; the linked assessment records the evidence scope. The linked delivery record carries the independent closing review status.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-11-07",
+    "record": "assessment-sample-expansion-20261107.md",
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "setting_evidence": "Lead-selected GPT-6.1 Sol / High for metadata reconciliation; live runtime settings not independently exposed",
+    "method": "Targeted source, captured task, manifest and independent expected-output derivation review at ff4fdb9c8b; finalized against integration lead manifest validation run 20261107T164659-9f6192441d21, including application/library proof audits, build and exact execution; independent closing review status is recorded in the linked delivery record; metadata reconciliation is not an independent review"
+   }
   },
   "Multiplicative order": {
    "revision": 413798,
@@ -65036,34 +65097,42 @@
    "effects": [
     {
      "effect": "console-output",
-     "explanation": "Print the sorted array so the result is visible."
+     "explanation": "Prints the ten-element input and ascending result on labelled Before and After lines."
     }
    ],
    "surface": [
-    "integers",
-    "ranged-subtypes",
-    "arrays",
-    "for-loops",
-    "procedures",
     "put",
-    "scalar-image",
-    "string-building"
+    "integer-for-loops",
+    "immutable-integers",
+    "integer-image",
+    "bounded-mutable-integers",
+    "fixed-integer-arrays",
+    "named-integer-subtypes",
+    "scalar-boolean-objects"
    ],
    "outlook": "likely",
    "risks": [
     {
-     "obligation": "overflow",
-     "explanation": "Integer elements are only compared and swapped, never added, so no arithmetic can overflow."
+     "obligation": "index",
+     "explanation": "Pass is 1 .. 9, so each comparison index I lies in 1 .. 9 and I + 1 lies in 2 .. 10; the shrinking upper bound is captured on loop entry."
     },
     {
-     "obligation": "index",
-     "explanation": "Insertion sort uses for loops over the array's own index range, with the inner index guarded just before each use, so the index checks follow from types and guards."
+     "obligation": "range",
+     "explanation": "Swaps copy only Element values into the same -100 .. 100 component and temporary ranges; element arithmetic is unnecessary."
     }
    ],
-   "size": 45,
-   "approach": "The program embeds a constrained array of 9 integers (the example data) and sorts it in place with insertion sort or selection sort in a procedure using nested for loops over the index subtype. A swap uses a temporary Integer, and the inner step for insertion sort is written with explicit index guards, or as selection sort it uses only for-loop indexes. It then prints each element on its own line using 'Image and Put_Line.",
-   "summary": "Sorting a fixed-size array by comparisons and swaps needs only for-loop indexes over the array range and no arithmetic on element values, so every check follows from types and bounds. The standard generic sort library is not available in Silver, so a hand-written O(n^2) sort in a procedure is used.",
-   "confidence": "high"
+   "size": 39,
+   "approach": "Main initializes ten Element values (-5, 0, 12, -5, 7, 100, -100, 12, 0, 3), with Element range -100 .. 100. For Pass in 1 .. 9, a Boolean Changed enables adjacent comparisons over 1 .. (10 - Pass), swapping through a bounded temporary. A pass without swaps disables later pass bodies. Before and after arrays are displayed.",
+   "summary": "Nine shrinking adjacent-swap passes suffice for ten elements, and early inactivity follows only a complete pass without swaps. The ascending result is (-100, -5, -5, 0, 0, 3, 7, 12, 12, 100), preserving duplicates. One source supplies both task mappings without a user procedure, while loop or generic sorting facility. The exact source passed admission, complete required application/library proof audit, build and manifest execution in integration run 20261107T164659-9f6192441d21; the linked assessment records the evidence scope. The linked delivery record carries the independent closing review status.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-11-07",
+    "record": "assessment-sample-expansion-20261107.md",
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "setting_evidence": "Lead-selected GPT-6.1 Sol / High for metadata reconciliation; live runtime settings not independently exposed",
+    "method": "Targeted source, captured task, manifest and independent expected-output derivation review at ff4fdb9c8b; finalized against integration lead manifest validation run 20261107T164659-9f6192441d21, including application/library proof audits, build and exact execution; independent closing review status is recorded in the linked delivery record; metadata reconciliation is not an independent review"
+   }
   },
   "Sort an outline at every level": {
    "revision": 414485,
@@ -65467,40 +65536,42 @@
    "effects": [
     {
      "effect": "console-output",
-     "explanation": "The sorted integers are printed as text lines."
+     "explanation": "Prints the ten-element input and ascending result on labelled Before and After lines."
     }
    ],
    "surface": [
-    "integers",
-    "ranged-subtypes",
-    "booleans",
-    "arrays",
-    "for-loops",
-    "while-loops",
-    "procedures",
-    "scalar-image",
-    "string-building",
-    "put"
+    "put",
+    "integer-for-loops",
+    "immutable-integers",
+    "integer-image",
+    "bounded-mutable-integers",
+    "fixed-integer-arrays",
+    "named-integer-subtypes",
+    "scalar-boolean-objects"
    ],
    "outlook": "likely",
    "risks": [
     {
-     "obligation": "termination",
-     "explanation": "The outer repeat-until-no-swap loop is a while/exit loop inside a procedure, so it gets no termination check, and the inner for loop terminates by construction."
-    },
-    {
      "obligation": "index",
-     "explanation": "The inner loop runs J over a subtype range ending one before the array's last index so J + 1 stays in bounds by static range, with no loop-carried index."
+     "explanation": "Pass is 1 .. 9, so each comparison index I lies in 1 .. 9 and I + 1 lies in 2 .. 10; the shrinking upper bound is captured on loop entry."
     },
     {
-     "obligation": "overflow",
-     "explanation": "Element values are a bounded integer subtype and only compared and swapped, never added, and the only arithmetic is J + 1 on a small index subtype."
+     "obligation": "range",
+     "explanation": "Swaps copy only Element values into the same -100 .. 100 component and temporary ranges; element arithmetic is unnecessary."
     }
    ],
-   "size": 45,
-   "approach": "The program embeds a constant 9-element Integer array (5,4,6,3,7,2,8,1,9) in a fixed-bounds array type, and a Sort procedure copies it in place using a swap with a temporary and a Boolean Changed flag. An outer loop with exit when not Changed wraps an inner for loop over Index range First .. Last - 1 comparing A(J) and A(J + 1) and swapping, and Main prints each element with Put_Line of its 'Image after sorting. All indices come from the array's static bounds, so no guards beyond the comparison are required.",
-   "summary": "Every check follows from static array bounds and for-loop ranges, the swap involves no arithmetic on elements, and the unannotated while-style outer loop sits in a procedure where no termination proof is demanded, so it should discharge automatically.",
-   "confidence": "high"
+   "size": 39,
+   "approach": "Main initializes ten Element values (-5, 0, 12, -5, 7, 100, -100, 12, 0, 3), with Element range -100 .. 100. For Pass in 1 .. 9, a Boolean Changed enables adjacent comparisons over 1 .. (10 - Pass), swapping through a bounded temporary. A pass without swaps disables later pass bodies. Before and after arrays are displayed.",
+   "summary": "Nine shrinking adjacent-swap passes suffice for ten elements, and early inactivity follows only a complete pass without swaps. The ascending result is (-100, -5, -5, 0, 0, 3, 7, 12, 12, 100), preserving duplicates. One source supplies both task mappings without a user procedure, while loop or generic sorting facility. The exact source passed admission, complete required application/library proof audit, build and manifest execution in integration run 20261107T164659-9f6192441d21; the linked assessment records the evidence scope. The linked delivery record carries the independent closing review status.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-11-07",
+    "record": "assessment-sample-expansion-20261107.md",
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "setting_evidence": "Lead-selected GPT-6.1 Sol / High for metadata reconciliation; live runtime settings not independently exposed",
+    "method": "Targeted source, captured task, manifest and independent expected-output derivation review at ff4fdb9c8b; finalized against integration lead manifest validation run 20261107T164659-9f6192441d21, including application/library proof audits, build and exact execution; independent closing review status is recorded in the linked delivery record; metadata reconciliation is not an independent review"
+   }
   },
   "Sorting algorithms/Circle sort": {
    "revision": 414492,

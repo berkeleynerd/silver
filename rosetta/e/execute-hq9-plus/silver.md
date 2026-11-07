@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every loop is a for loop over a static range and all values are bounded by types, so the checks follow from declarations, with only the verse string building needing careful buffer sizing. No recursion, annotations or non-trivial effects are involved.
 
-Position 770 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 771 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

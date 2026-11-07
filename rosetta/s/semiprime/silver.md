@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every loop is a for loop over a static range, so the functions terminate without variants, and all arithmetic is bounded by a small declared subtype so overflow, range and division checks follow from types and loop ranges. No loop-carried value feeds a later check, so no invariant is required.
 
-Position 332 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 334 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

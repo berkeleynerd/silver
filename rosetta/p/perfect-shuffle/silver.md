@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from subtype ranges, for-loop indexes and one guard on the loop-carried counter, and the open-ended loop lives in a procedure so no variant is needed.
 
-Position 207 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 210 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

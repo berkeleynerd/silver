@@ -1,0 +1,11 @@
+test_pending_design_has_no_stage_and_is_not_an_oracle_exclusion (test_rosetta.RosettaRenderTests.test_pending_design_has_no_stage_and_is_not_an_oracle_exclusion)
+An unsettled design must not silently become a zero-construct candidate. ... ok
+test_render_is_identical_across_hash_seeds (test_rosetta.RosettaRenderTests.test_render_is_identical_across_hash_seeds)
+Exercise the real CLI and all current assessments without downloaded pages. ... ok
+test_risk_counts_are_per_sample_and_ties_are_alphabetical (test_rosetta.RosettaRenderTests.test_risk_counts_are_per_sample_and_ties_are_alphabetical)
+A duplicated risk cannot crowd a tied risk out of the four-item summary. ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 3.476s
+
+OK

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The algorithm is pure bounded integer arithmetic with a while loop inside a procedure, so termination is not checked and range and division checks follow from subtypes plus local guards; only careful guard placement in the loop-carried a, n values keeps it from being routine.
 
-Position 388 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 390 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

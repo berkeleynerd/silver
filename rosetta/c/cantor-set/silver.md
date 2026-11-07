@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops with static bounds and the only loop-carried value has a declared range that the update provably stays within, so every check follows from types and no annotation or recursion is needed.
 
-Position 480 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 482 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops over static or parameter-bounded ranges inside procedures, and the only loop-carried value is the window sum, which the wider accumulator type and a visible guard before storage make safe without an invariant. No recursion, heap or annotations are needed, so only careful shape around the sum and text buffer matters.
 
-Position 450 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 452 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
