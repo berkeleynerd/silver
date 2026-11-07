@@ -448,3 +448,12 @@ full-pin, reconstruction and single-bucket refresh, plus successful run
 Complete Relation helper run `20261107T040619-48e6ccbe10c9` is active; the
 original full audit continues collecting diagnostics on its unchanged source.
 Final complete native/build/Lean assurance remains outstanding.
+
+Complete Relation helper run `20261107T040619-48e6ccbe10c9` subsequently passed
+all 152 checks (150 proof and two flow) in 2,625.834 seconds at the same normal
+configured limits. The [complete-helper packet](native-primary-failure/relation-complete-helper/record.json)
+retains exact candidate `7d39745bd9`, all helper reports/tasks/session, inputs,
+tools and managed outcome. This includes the original postcondition and both
+local/merged assertions. The original full audit is still running on its frozen
+source. Both known failures now have complete helper repair evidence; final
+complete native verification/build and Lean/source assurance remain required.

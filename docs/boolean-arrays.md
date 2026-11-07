@@ -61,6 +61,13 @@ subthread settings are unavailable. Complete native/build/Lean/regression
 checkpoints, independent critical review, publication and delivery records
 remain outstanding.
 
+The subsequent complete Relation helper run `20261107T040619-48e6ccbe10c9`
+passed all 152 checks at normal limits in 2,625.834 seconds. Both known native
+failures therefore have complete helper repair evidence. The
+[evidence overview](evidence/boolean-arrays-20261106/README.md#complete-primary-helper-and-relation-diagnosis--2026-11-07)
+retains the exact source and outcomes separately from the still-required final
+complete native and Lean/source checkpoints.
+
 ## Authorization and bounded scope
 
 The owner instructed **“Please merge it if it is ready and proceed to the next
