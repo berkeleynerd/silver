@@ -5503,7 +5503,11 @@ is
          and then Valid_State (Text, State),
        Post => Valid_State (Text, Parameters_At'Result)
          and then (Parameters_At'Result.Position = 0
-           or else Parameters_At'Result.Position > State.Position),
+           or else (Parameters_At'Result.Position > State.Position
+             and then Parameters_At'Result.Functions.Count = State.Functions.Count
+             and then Parameters_At'Result.Functions.Parameter_Count > State.Functions.Parameter_Count
+             and then Parameters_At'Result.First_Parameter = State.First_Parameter
+             and then Parameters_At'Result.Pure = State.Pure)),
        Subprogram_Variant => (Decreases => (Text'Last + 1) - State.Position);
    function Parameters_At
      (Text : String; State : Parser_State; Arguments : Boolean) return Parser_State is
@@ -5530,7 +5534,12 @@ is
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
          and then Valid_State (Text, State),
-       Post => Valid_State (Text, Function_Locals'Result),
+       Post => Valid_State (Text, Function_Locals'Result)
+         and then (Function_Locals'Result.Position = 0
+           or else (Function_Locals'Result.Position >= State.Position
+             and then Function_Locals'Result.Functions = State.Functions
+             and then Function_Locals'Result.First_Parameter = State.First_Parameter
+             and then Function_Locals'Result.Pure = State.Pure)),
        Subprogram_Variant => (Decreases => (Text'Last + 1) - State.Position);
    function Function_Locals
      (Text : String; State : Parser_State; Arguments : Boolean) return Parser_State is
@@ -5570,7 +5579,12 @@ is
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
          and then Valid_State (Text, Frame) and then Frame.First_Parameter > 0,
-       Post => (Runtime => Valid_State (Text, Parameter_Frame'Result),
+       Post => (Runtime => Valid_State (Text, Parameter_Frame'Result)
+         and then (Parameter_Frame'Result.Position = 0
+           or else (Parameter_Frame'Result.Position = Frame.Position
+             and then Parameter_Frame'Result.Functions = Frame.Functions
+             and then Parameter_Frame'Result.Scalar_Names.Count >= Frame.Scalar_Names.Count
+             and then Parameter_Frame'Result.Boolean_Names.Count >= Frame.Boolean_Names.Count)),
          Static => Parameter_Frame'Result = Parameter_Frame_Model (Frame, Frame.First_Parameter));
    function Parameter_Frame (Text : String; Frame : Parser_State) return Parser_State is
       Result : Parser_State := Frame;
@@ -5579,6 +5593,9 @@ is
       while Index <= Frame.Functions.Parameter_Count loop
          pragma Loop_Invariant (Index in Frame.First_Parameter .. Frame.Functions.Parameter_Count + 1);
          pragma Loop_Invariant (Result.Functions = Frame.Functions);
+         pragma Loop_Invariant (Result.Position = Frame.Position);
+         pragma Loop_Invariant (Result.Scalar_Names.Count >= Frame.Scalar_Names.Count);
+         pragma Loop_Invariant (Result.Boolean_Names.Count >= Frame.Boolean_Names.Count);
          pragma Loop_Invariant (Valid_State (Text, Result));
          pragma Loop_Invariant (Static => Parameter_Frame_Model (Frame, Frame.First_Parameter) =
            Parameter_Frame_Model (Result, Index));
