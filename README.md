@@ -186,7 +186,7 @@ passed; the owner authorized delivery through
 The response records exact input scopes, reviewed regression reuse and retained
 failed attempts. The external review remains interim. The separate
 [structural-guard follow-up is complete and merged](docs/source-tree-structural-guards.md#merged-delivery--2026-11-06).
-It adds indexed reads and element writes on Strings with statically known bounds,
+The String increment adds indexed reads and element writes on Strings with statically known bounds,
 printable Character objects and comparisons, and bounded slices. Copies retain
 their bounds and values; whole-String assignment preserves destination bounds.
 The drivers cover [reversal](samples/rosetta_reverse_a_string.adb),

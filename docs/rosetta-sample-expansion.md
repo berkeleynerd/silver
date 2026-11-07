@@ -42,7 +42,12 @@ stale statement treated #314 as remaining work; this planning update links its
 [merged delivery](source-tree-structural-guards.md#merged-delivery--2026-11-06)
 while preserving the external review's interim status. Sample admission is the
 new executable check here; the audit claims no new sample compilation, proof or
-execution and no new compiler/runtime assurance. No new tutorial is selected.
+execution and no new compiler/runtime assurance.
+
+The inventory/admission subthread selected GPT-6.1 Sol / Extra High; planning
+and documentation selected GPT-6.1 Sol / High. The lead inspected their results
+and the correction. Independent runtime-setting confirmation, elapsed effort
+and token/cost measurements were unavailable.
 
 ## Ten programs, eleven task mappings
 
