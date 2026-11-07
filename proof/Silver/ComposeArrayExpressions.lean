@@ -184,11 +184,11 @@ def arrayDeclarationBody (executable : Bool) : Expr .state :=
      .app (.app (.app (.app (.function .formalHides) text) state)
        (.variable "type_first")) (.variable "type_after"),
      .group (.andThen (.field .hiddenInteger (.field .stateHiding state))
-       (.app (.app (.app (.app (.function .nameIs) text) (.variable "type_first")) (.variable "type_after")) (.word "integer"))),
+       (.app (.app (.app (.app (.function .nameIs) text) (.variable "type_first")) (.variable "type_after")) .integerTypeWord)),
      .group (.andThen (.field .hiddenBoolean (.field .stateHiding state))
-       (.app (.app (.app (.app (.function .nameIs) text) (.variable "type_first")) (.variable "type_after")) (.word "boolean"))),
+       (.app (.app (.app (.app (.function .nameIs) text) (.variable "type_first")) (.variable "type_after")) .booleanTypeWord)),
      .group (.andThen (.field .hiddenCharacter (.field .stateHiding state))
-       (.app (.app (.app (.app (.function .nameIs) text) (.variable "type_first")) (.variable "type_after")) (.word "character"))),
+       (.app (.app (.app (.app (.function .nameIs) text) (.variable "type_first")) (.variable "type_after")) .characterTypeWord)),
      .group (.andThen isBoolean (.ne hiddenSubtype (.number 0)))]
   let rejected := conditions.tail.foldl Expr.orElse (conditions.headD (.truth false))
   .locals <|
