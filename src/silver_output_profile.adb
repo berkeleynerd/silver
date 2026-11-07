@@ -1878,6 +1878,7 @@ is
 
    Integer_Type_Word : constant String := "integer";
    Boolean_Type_Word : constant String := "boolean";
+   Character_Type_Word : constant String := "character";
    Validity_Call_Word : constant String := "input_is_valid";
 
    function Array_Declaration_Model
@@ -1931,9 +1932,9 @@ is
            or else Lookup_Boolean (Text, State.Boolean_Names, Type_First, Type_After) /= 0
            or else Functions.Lookup (Text, State.Functions, Type_First, Type_After) /= 0
            or else Formal_Hides (Text, State, Type_First, Type_After)
-           or else (State.Hiding.Integer_Hidden and then Name_Is (Text, Type_First, Type_After, "integer"))
-           or else (State.Hiding.Boolean_Hidden and then Name_Is (Text, Type_First, Type_After, "boolean"))
-           or else (State.Hiding.Character_Hidden and then Name_Is (Text, Type_First, Type_After, "character"))
+           or else (State.Hiding.Integer_Hidden and then Name_Is (Text, Type_First, Type_After, Integer_Type_Word))
+           or else (State.Hiding.Boolean_Hidden and then Name_Is (Text, Type_First, Type_After, Boolean_Type_Word))
+           or else (State.Hiding.Character_Hidden and then Name_Is (Text, Type_First, Type_After, Character_Type_Word))
            or else (Boolean_Elements and then
              Lookup_Subtype (Text, State.Subtype_Names, Type_First, Type_After) /= 0)
          then Invalid_State
@@ -2230,9 +2231,9 @@ is
            or else Lookup_Boolean (Text, State.Boolean_Names, Type_First, Type_After) /= 0
            or else Functions.Lookup (Text, State.Functions, Type_First, Type_After) /= 0
            or else Formal_Hides (Text, State, Type_First, Type_After)
-           or else (State.Hiding.Integer_Hidden and then Name_Is (Text, Type_First, Type_After, "integer"))
-           or else (State.Hiding.Boolean_Hidden and then Name_Is (Text, Type_First, Type_After, "boolean"))
-           or else (State.Hiding.Character_Hidden and then Name_Is (Text, Type_First, Type_After, "character"))
+           or else (State.Hiding.Integer_Hidden and then Name_Is (Text, Type_First, Type_After, Integer_Type_Word))
+           or else (State.Hiding.Boolean_Hidden and then Name_Is (Text, Type_First, Type_After, Boolean_Type_Word))
+           or else (State.Hiding.Character_Hidden and then Name_Is (Text, Type_First, Type_After, Character_Type_Word))
            or else (Boolean_Elements and then
              Lookup_Subtype (Text, State.Subtype_Names, Type_First, Type_After) /= 0)
          then Invalid_State
