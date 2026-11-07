@@ -2,6 +2,7 @@ module
 
 public import Silver.ComposeDeclarationAdmission
 public import Silver.PredicateConditionAdmission
+public import Silver.PredicateBodyFacts
 public import Silver.PredicateCallAdmission
 public import Silver.PredicateFlowWidening
 public import Silver.PredicateCountedBoundModel
@@ -77,8 +78,9 @@ def callAssignmentResult (context : ParseContext) (scan : BodyScan)
     let binding := ScalarExpression.binding context.scalarNames scalar
     if value.kind ≠ .integer ∨ !binding.mutable ∨ value.bounds.isEmpty ∨
         !value.bounds.included binding.declaredBounds then invalidBody scan
-    else {scan with position := value.after, assigned := true,
-      facts := scan.facts.replace scalar value.bounds}
+    else
+      {scan with position := value.after, assigned := true,
+        facts := scan.facts.replace scalar value.bounds}
   else if flag ≠ 0 ∧ (BooleanBindings.binding context.booleanNames flag).mutable ∧
       value.kind = .boolean then {scan with position := value.after, assigned := true}
   else invalidBody scan
