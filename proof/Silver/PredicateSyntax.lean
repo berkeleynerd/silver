@@ -5,6 +5,7 @@ public import Silver.IntegerChecks
 public import Silver.IntegerComparisons
 public import Silver.StringExecution
 public import Silver.BooleanModel
+public import Silver.BooleanArrays
 
 @[expose] public section
 
@@ -32,6 +33,7 @@ inductive Condition
   | inputValid
   | booleanLiteral (value : Bool)
   | booleanName (index : Nat)
+  | booleanArrayRead (array : Boolean.ArrayDescriptor) (index : Integer.Expr)
   | parenthesized (inner : Condition)
   | negated (inner : Condition)
   | andThen (left right : Condition)
@@ -41,7 +43,7 @@ inductive Condition
   deriving DecidableEq, Repr
 
 def Condition.isPrimary : Condition → Bool
-  | .inputValid | .booleanLiteral _ | .booleanName _ | .parenthesized _ => true
+  | .inputValid | .booleanLiteral _ | .booleanName _ | .booleanArrayRead _ _ | .parenthesized _ => true
   | _ => false
 
 def Condition.isFactor : Condition → Bool
@@ -69,7 +71,7 @@ def Condition.isEagerHead (operator : Boolean.Operator) : Condition → Bool
 start a fresh condition. Ada's `not` applies to one primary, not a relation. -/
 def Condition.Grammatical : Condition → Prop
   | .stringCompare _ _ _ | .lengthCompare _ _ _ | .scalarCompare _ _ _ | .characterCompare _ _ _ | .inputValid |
-      .booleanLiteral _ | .booleanName _ => True
+      .booleanLiteral _ | .booleanName _ | .booleanArrayRead _ _ => True
   | .parenthesized inner => inner.Grammatical
   | .negated inner => inner.isPrimary = true ∧ inner.Grammatical
   | .andThen left right =>
@@ -106,6 +108,7 @@ def Condition.Readable (hasArguments : Bool) (shape : Shape) (condition : Condit
   | .inputValid => hasArguments = true
   | .booleanLiteral _ => True
   | .booleanName index => booleans.initialized index = true
+  | .booleanArrayRead array _ => array.initialized booleans = true
   | .parenthesized inner | .negated inner => inner.Readable hasArguments shape booleans
   | .andThen left right | .orElse left right | .eager _ left right | .booleanCompare _ left right =>
       left.Readable hasArguments shape booleans ∧ right.Readable hasArguments shape booleans

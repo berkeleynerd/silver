@@ -1,0 +1,22 @@
+{
+  "candidate": "0b9a3554940098b624a08409b42d41da109f29fd",
+  "integrated_commit": "21a60979b89a2651f8773fbd277033c90a7e4396",
+  "groups": {
+    "critical_inputs_sha256": {
+      "matched": 9,
+      "total": 9,
+      "mismatches": []
+    },
+    "all_rendered_outputs_sha256": {
+      "matched": 1784,
+      "total": 1784,
+      "mismatches": []
+    },
+    "changed_source_and_generated_sha256": {
+      "matched": 471,
+      "total": 471,
+      "mismatches": []
+    }
+  },
+  "governed_delta": []
+}

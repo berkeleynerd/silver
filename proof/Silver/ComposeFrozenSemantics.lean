@@ -11,12 +11,12 @@ open Bindings
 
 def frozenIntegers (names : ScalarExpression.Environment)
     (arrays : ArrayBindings.Metadata := []) (initials : ArrayBindings.Initials := []) : Integer.Store :=
-  ArrayBindings.store arrays initials (Integer.Constants.store (ScalarExpression.constants names))
+  ArrayBindings.integerStore arrays initials (Integer.Constants.store (ScalarExpression.constants names))
 
 theorem frozenIntegers_fits {names : ScalarExpression.Environment}
     {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials}
     (static : ScalarExpression.StaticEnvironment names) :
-    Integer.Fits (ArrayBindings.ranges arrays initials true (ScalarExpression.ranges names))
+    Integer.Fits (ArrayBindings.integerRanges arrays initials true (ScalarExpression.ranges names))
       (frozenIntegers names arrays initials) := by
   apply ArrayBindings.initial_ranges_fits
   rw [ScalarExpression.static_ranges static]

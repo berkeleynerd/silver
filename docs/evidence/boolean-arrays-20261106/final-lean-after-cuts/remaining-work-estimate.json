@@ -1,0 +1,35 @@
+{
+  "recorded_at": "2026-11-07T10:18:36.243012+00:00",
+  "authorization": "Root requested bounded read-only remaining-work estimate; no jobs or broad cache investigation",
+  "current_module": "Silver.PredicateNativeShapeCandidate",
+  "current_sample": "2026-11-07T10:17:47.942117+00:00",
+  "current_elapsed_seconds": 2173,
+  "current_rss_kib": 6204256,
+  "current_available_kib": 20961556,
+  "potential_additional_expensive_leaf": "Silver.PredicateBodySourceCandidate",
+  "historical_body_reported_seconds": 3407,
+  "historical_body_recorded_suspension_seconds": 1023.169453,
+  "historical_body_elapsed_excluding_recorded_suspension_seconds": 2383.830547,
+  "historical_context": "Original full run had four Lake workers and resource interventions; elapsed excluding suspension is not isolated CPU time or an ETA",
+  "history_log": "../final-lean/failed-lean-proof.log.gz",
+  "history_suspension_events": "../final-lean/resource-events.jsonl.gz",
+  "body_cache": "Existing olean/sidecars/trace remain. Public source requirements and reviewed body token pin changed; no cache-validity claim is made; normal Lake checking decides reuse. No cache was changed or copied.",
+  "native_shape_historical_completions": "None in either retained full run; remaining duration cannot be bounded from these records",
+  "downstream_chain": [
+    "Silver.PredicateSourceCandidate",
+    "Silver.PredicateSourceChecks",
+    "Silver.PredicateSourceBridge",
+    "Silver.PredicateCorrespondence",
+    "Silver",
+    "Silver.Audit"
+  ],
+  "after_build": [
+    "Fresh whole-project module/axiom audit",
+    "Detailed captured-input, generated-workspace, tool, object and log provenance verification"
+  ],
+  "timing_limitations": "Downstream modules mainly assemble/transport existing proofs; no directly comparable successful #297 whole audit timing. Cannot substantiate overall 2\u20134 hour owner-facing range, predict NativeShape remaining time, guarantee Body cache reuse or predict unseen failures.",
+  "selected_model": "GPT-6.1 Sol",
+  "selected_effort": "High",
+  "runtime_confirmation": "unavailable",
+  "token_cost_evidence": "unavailable"
+}

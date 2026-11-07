@@ -1,0 +1,23 @@
+{
+  "recorded_utc": "2026-11-07T06:52:16.978772+00:00",
+  "run_id": "20261106T232644-673fc5a9c06b",
+  "original_source_sha256": "1686b0b61da8c684ce185995621fb08bc5a6932893d2cc859a82ced9922ce4e8",
+  "original_outcome": "failure",
+  "archive": {
+    "path": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261106T232644-673fc5a9c06b/original-native-tasks-and-sessions/all-native-tasks-and-sessions.tar.gz",
+    "bytes": 220520254,
+    "sha256": "74e5bd692a876905228b76d03d7c4b35afd24b370335cf57b1ea12f604d72e9e"
+  },
+  "member_inventory": {
+    "path": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261106T232644-673fc5a9c06b/original-native-tasks-and-sessions/all-native-tasks-and-sessions.inventory.json",
+    "bytes": 857895,
+    "sha256": "8a209426f97b71277469a4153d9bb252bf87fcb0bae8e49184bb6d83382e6fd6"
+  },
+  "archive_summary": {
+    "members": 2263,
+    "source_bytes": 2199702407,
+    "scope": "All available original generated task/session/shape/configuration files before same-path refresh; not only unresolved helpers."
+  },
+  "verification": "Original terminal collector checked every archive member hash and inventory. This ledger copy was verified by exact whole-file SHA-256 against the preserved native scratch original. No tasks were regenerated.",
+  "publication_scope": "The complete generated task/session/shape/configuration archive remains local in the existing managed run ledger, including successful helpers. The checked-in terminal packet retains complete native reports, exact input/tool/source identities, logs/events/census, and only the two unresolved helpers generated tasks/sessions/shapes plus their shared configuration. No publication chunking or new storage format."
+}

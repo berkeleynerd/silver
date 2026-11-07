@@ -1,0 +1,487 @@
+{
+  "registry": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1",
+  "host": "linux-x86_64",
+  "machine": "codex-silver",
+  "runs": [
+    {
+      "run_id": "20261107T040619-48e6ccbe10c9",
+      "task": "#297 complete Read_Relation_Into candidate helper",
+      "kind": "tool-gnatprove",
+      "scope": [
+        "mode:all",
+        "project:../../../silver.gpr",
+        "--limit-subp=silver_output_profile.adb:3574"
+      ],
+      "state": "success",
+      "active": false,
+      "workers": 2,
+      "directory": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261107T040619-48e6ccbe10c9",
+      "fingerprint": "b813756bc2c6680e377f505caece6eacda5abcaa4478c561aa80f79d62d6fd30",
+      "command": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.tools/linux-x86_64/alr/bin/alr",
+        "-s",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.tools/linux-x86_64/alire/settings",
+        "-C",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/toolchain",
+        "-n",
+        "--no-tty",
+        "exec",
+        "--",
+        "gnatprove",
+        "-P",
+        "../../../silver.gpr",
+        "--mode=all",
+        "--report=all",
+        "--warnings=error",
+        "--checks-as-errors=on",
+        "--level=2",
+        "--prover=cvc5,z3,altergo",
+        "--timeout=30",
+        "--memlimit=1000",
+        "--memcached-server=file:/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/tmp/primary-branch-cut/cache",
+        "--subdirs=explore/relation-false-flow-cut",
+        "--limit-subp=silver_output_profile.adb:3574",
+        "--debug-save-vcs",
+        "-XSILVER_HOST=linux-x86_64",
+        "-j2"
+      ],
+      "reason": "Root-authorized complete affected-helper check after the local3934 assertion plus call precondition and retained original merged3948 assertion plus call precondition all passed at normal limits and both exact packets were retained. Check every Read_Relation_Into obligation on unchanged7d39745 candidate with2workers, no line limiter. Original canonical full audit remains untouched and failed; no full compiler run or build.",
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair",
+      "resources": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/toolchain",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/tmp/primary-branch-cut/cache",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/compiler/obj/explore/relation-false-flow-cut",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/compiler/bin/explore/relation-false-flow-cut",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/proof-containers/obj/explore/relation-false-flow-cut",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/tmp/primary-branch-cut/cache"
+      ],
+      "started_at": "2026-11-07T04:06:24.422463+00:00",
+      "finished_at": "2026-11-07T04:50:10.254248+00:00",
+      "duration_seconds": 2625.833500306,
+      "returncode": null,
+      "error": null,
+      "failure_keys": [],
+      "evidence": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/compiler/obj/explore/relation-false-flow-cut/gnatprove",
+        "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261107T040619-48e6ccbe10c9/native.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261107T040619-48e6ccbe10c9/previous-reports",
+        "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261107T040619-48e6ccbe10c9/exploratory-evidence"
+      ],
+      "retained_report_count": 0
+    },
+    {
+      "run_id": "20261107T040620-63bb90cecba1",
+      "task": "#297 source certificate refresh after Relation cut",
+      "kind": "test",
+      "scope": [
+        "-p",
+        "test_lean_source.py",
+        "-k",
+        "checked_in_certificates_equal_regeneration",
+        "-k",
+        "output_body_split_preserves_every_line_proof_and_ordered_reconstruction"
+      ],
+      "state": "success",
+      "active": false,
+      "workers": 1,
+      "directory": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261107T040620-63bb90cecba1",
+      "fingerprint": "b40f1c1074729c59a172c23671472c8bba578a3f1f2e60aab00f7a20c3090b8e",
+      "command": [
+        "/usr/bin/python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v",
+        "-p",
+        "test_lean_source.py",
+        "-k",
+        "checked_in_certificates_equal_regeneration",
+        "-k",
+        "output_body_split_preserves_every_line_proof_and_ordered_reconstruction"
+      ],
+      "reason": "Recheck the two certificate policy methods affected by the independently reviewed Static assertion and exact pin/line/reconstruction refresh; native proof runs use separate workspaces",
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays",
+      "resources": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays/.silver/linux-x86_64"
+      ],
+      "started_at": "2026-11-07T04:06:28.772099+00:00",
+      "finished_at": "2026-11-07T04:06:45.710511+00:00",
+      "duration_seconds": 16.938146868,
+      "returncode": null,
+      "error": null,
+      "failure_keys": [],
+      "evidence": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261107T040620-63bb90cecba1/native.log"
+      ],
+      "retained_report_count": 0
+    },
+    {
+      "run_id": "20261107T045523-be282a369adf",
+      "task": "#297 Relation cut certificate leaf and pin",
+      "kind": "lean",
+      "scope": [
+        "Silver.OutputBodyLines5",
+        "Silver.ReviewedOutputShape"
+      ],
+      "state": "success",
+      "active": false,
+      "workers": 1,
+      "directory": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261107T045523-be282a369adf",
+      "fingerprint": "fb085e6aaddcb5f771b9d98dc769a1a7e6c33c881df52b38bd3484f950982577",
+      "command": [
+        "/usr/bin/python3",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays/scripts/check_lean.py",
+        "--target",
+        "Silver.OutputBodyLines5",
+        "--target",
+        "Silver.ReviewedOutputShape",
+        "--workers",
+        "1",
+        "--threads",
+        "0",
+        "--memory-mb",
+        "24576",
+        "--task",
+        "#297 Relation cut certificate leaf and pin",
+        "--reason",
+        "Focused kernel check of the reviewed changed line bucket and full token pin after both repaired native helpers pass; preserve expensive complete source checkpoint for stable native inputs; one worker for host memory headroom"
+      ],
+      "reason": "Focused kernel check of the reviewed changed line bucket and full token pin after both repaired native helpers pass; preserve expensive complete source checkpoint for stable native inputs; one worker for host memory headroom",
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays",
+      "resources": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays/.silver/linux-x86_64/proof",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays/.silver/linux-x86_64/lean-focused.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays/.silver/linux-x86_64/lean-focused-evidence.json"
+      ],
+      "started_at": "2026-11-07T04:55:28.541856+00:00",
+      "finished_at": "2026-11-07T05:19:29.470222+00:00",
+      "duration_seconds": 1440.927741652,
+      "returncode": null,
+      "error": null,
+      "failure_keys": [],
+      "evidence": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays/.silver/linux-x86_64/lean-focused.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays/.silver/linux-x86_64/lean-focused-evidence.json",
+        "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261107T045523-be282a369adf/previous-evidence/lean-focused.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261107T045523-be282a369adf/previous-evidence/lean-focused-evidence.json",
+        "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261107T045523-be282a369adf/lean-focused.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261107T045523-be282a369adf/lean-focused-evidence.json"
+      ],
+      "retained_report_count": 0
+    },
+    {
+      "run_id": "20261106T232644-673fc5a9c06b",
+      "task": "#297 final native audit",
+      "kind": "prove",
+      "scope": [
+        "compiler"
+      ],
+      "state": "active",
+      "active": true,
+      "workers": 4,
+      "directory": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261106T232644-673fc5a9c06b",
+      "fingerprint": "55df997962a1ff5f4f7c2e43b3e39e9f84f94d4172ce3f6517979d3afcc91992",
+      "command": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.tools/linux-x86_64/alr/bin/alr",
+        "-s",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.tools/linux-x86_64/alire/settings",
+        "-C",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/toolchain",
+        "-n",
+        "--no-tty",
+        "exec",
+        "--",
+        "gnatprove",
+        "-P",
+        "../../../silver.gpr",
+        "-U",
+        "--mode=all",
+        "--report=all",
+        "--warnings=error",
+        "--checks-as-errors=on",
+        "--level=2",
+        "--prover=cvc5,z3,altergo",
+        "--timeout=30",
+        "-j",
+        "4",
+        "--memcached-server=file:/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/proof-cache/gnatprove/ea6aba21eca447a9c8473fc1c3ea0300b03a95ce919d8a326f68a67989029329",
+        "-f",
+        "--subdirs=review-final",
+        "-XSILVER_HOST=linux-x86_64"
+      ],
+      "reason": "Required complete native compiler/runtime audit after the minimal shared Boolean type word repair passed original assertion plus complete declaration47/model42 checks at normal settings. Installed final943a97c8cf snapshot exactly matches all144 root src/scripts/project/catalogue inputs, same original tool paths. Preserve prior failed/interrupted runs. Root-authorized3744 missing exact-key cache entries transferred without overwrite/conflict; ordinary GNATprove matching and complete audit/provenance remain unchanged. This is the first complete canonical audit of the final governed repair, alongside root Lean4 and separate regressions4.",
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair",
+      "resources": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/toolchain",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/compiler/obj/review-final",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/compiler/bin/review-final",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/proof-containers/obj/review-final",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/proof-cache/gnatprove"
+      ],
+      "started_at": "2026-11-06T23:26:49.208837+00:00",
+      "finished_at": null,
+      "duration_seconds": null,
+      "returncode": null,
+      "error": null,
+      "failure_keys": [],
+      "evidence": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/compiler/obj/review-final/gnatprove"
+      ],
+      "retained_report_count": 0
+    }
+  ],
+  "notes": [
+    {
+      "event": "diagnostic",
+      "kind": "lean",
+      "monotonic_ns": 28658530914293,
+      "next_step": "Use a direct cell-equals-target split and explicit Boolean disjunction/BEq lemmas without eq_comm rewriting; retry only the same focused BooleanDeclarations+ArrayBindings closure.",
+      "run_id": "20261106T181830-7880fdd3bdb9",
+      "scope": [
+        "Silver.ArrayBindings",
+        "Silver.BooleanDeclarations"
+      ],
+      "summary": "Uniform-analysis fold proof failed twice due to over-broad equality simplification: first recursion-depth loop, then incomplete Bool BEq simplification. All new metadata overlay lemmas and scalar append analysis now compile; snapshot and WF/check helpers have no reported errors.",
+      "task": "#297-semantics",
+      "utc": "2026-11-06T18:19:44.117807+00:00"
+    },
+    {
+      "event": "diagnostic",
+      "kind": "lean",
+      "monotonic_ns": 28732932633463,
+      "next_step": "Normalize binding/length/kind only at constructor application and use an explicitly laid out record update for congrArg. Check this parser plus new storage invariants; no admission change or weakened theorem.",
+      "run_id": "20261106T181941-824c9d7029ef",
+      "scope": [
+        "Silver.ComposeArrayDenotations",
+        "Silver.ComposeBooleanArrayElaboration"
+      ],
+      "summary": "Boolean parser soundness repeats a constructor type mismatch: model simplifies isBoolean to true while source relation retains parts.isBoolean. Fields proof also used a malformed multiline record update. Earlier Integer/Boolean helper and typed Character dependencies now build; all failed logs retained.",
+      "task": "#297 declaration proof integration",
+      "utc": "2026-11-06T18:20:58.519568+00:00"
+    },
+    {
+      "event": "diagnostic",
+      "kind": "lean",
+      "monotonic_ns": 30584824106286,
+      "next_step": "Normalize component kind explicitly before splitting the rejection condition; reuse completed shared String/scalar objects and check ArrayModel plus recursive equations only.",
+      "run_id": "20261106T184418-114b21f667cc",
+      "scope": [
+        "Silver.ComposeArrayEquations",
+        "Silver.ComposeModelHelperEquations",
+        "Silver.ComposeNativeStateBounds"
+      ],
+      "summary": "Typed model declaration proof split the Boolean tag before normalizing typeWord and the shared rejection condition, producing mismatched branches. Native cursor and name-bound repairs passed; no native/domain change is proposed. Earlier failed run concerned a different NativeBounds branch selection.",
+      "task": "#297 typed array equations",
+      "utc": "2026-11-06T18:51:50.411023+00:00"
+    },
+    {
+      "event": "diagnostic",
+      "kind": "lean",
+      "monotonic_ns": 32113839974033,
+      "next_step": "Recheck ArrayEquations, Equations and Evaluation after exact Boolean reduction and narrowed traversal repair; retain compiled initializer and region dependencies.",
+      "run_id": "20261106T191458-e3f929707302",
+      "scope": [
+        "Silver.ComposeArrayEquations",
+        "Silver.ComposeEquations",
+        "Silver.ComposeEvaluation"
+      ],
+      "summary": "Typed helper integration reached structural proof repairs: Boolean/Integer aggregate field reduction and ninth arrayAppend operand traversal. No semantic/domain weakening.",
+      "task": "#297 typed helper integration",
+      "utc": "2026-11-06T19:17:19.426884+00:00"
+    },
+    {
+      "event": "checkpoint",
+      "monotonic_ns": 32845181353932,
+      "next_check": "Synchronize validation guards and equality bridge after all native children stop; precise exploratory repaired-helper and declaration-post checks, then build/admission/raw probes. Root owns final integrated audit.",
+      "summary": "Parent-directed interruption of retained run20261106T174859-3c4e45f871bc after~6014s; Declaration_At active for~374s and not completed. String_Declaration_At last complete19:23. Preserved review-final sessions/cache; two completed failures Boolean_Array_After masked bounds and Array_Declaration_At Ada record equality. Editing25e6fe06a3 contains repairs; frozen4091a00a39 was old run input.",
+      "task": "#297 native parser proof",
+      "utc": "2026-11-06T19:29:30.768231+00:00",
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair"
+    },
+    {
+      "event": "checkpoint",
+      "monotonic_ns": 33178230338374,
+      "next_check": "Combine exact declaration body --limit-subp2104 with --limit-line2103 to bound entity traversal and target failed post.",
+      "summary": "Interrupted exploratory20261106T193310-5815fc79b0fe after103s: --limit-line alone still traversed unrelated output-profile helper tasks (Scalar_Type_At observed). No proof failure observed; preserve exploration/cache. Guard21checks and equality-bridge2checks passed separately.",
+      "task": "#297 repaired declaration equality post",
+      "utc": "2026-11-06T19:35:03.817270+00:00",
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair"
+    },
+    {
+      "event": "checkpoint",
+      "monotonic_ns": 34031106197066,
+      "next_check": "Root integrate1c30ff9185 plus source71c68/dae60f and Header0e0f, then complete final capability native and source-correspondence checks on integration bytes.",
+      "summary": "Two-file String trace integration1c30ff9185 compiled through unchanged ActualAssurance endpoint; focused run20261106T194718-c5f570887ac0 fresh audit21,418declarations/203modules passed. Source71c68 execution coverage and checked Header/Grammar/Flow prerequisites included in inputs; no full native/source checkpoint claimed.",
+      "task": "#297 String initializer trace integration",
+      "utc": "2026-11-06T19:49:16.693132+00:00",
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays-string-traces"
+    },
+    {
+      "event": "diagnostic",
+      "kind": "lean",
+      "monotonic_ns": 37813006189340,
+      "next_step": "Isolate only the new Boolean-array Checked field proofs into one candidate leaf with named checks. Bridge long model/executable expectedTokens headers to literal token lists through kernel equalities; preserve every Checked field, public helper statement and authoritative route. Focus-check this leaf before rebuilding the whole helper candidate; native full audit continues unchanged.",
+      "run_id": "20261106T200514-093a13a9b4dc",
+      "scope": [
+        "Silver.ComposeHelperSourceCandidate"
+      ],
+      "summary": "First integrated helper candidate built the current reviewed output pin, then failed two kernel decisions at the shared BooleanArraySource.Checked all_goals command (line181), excessive memory at24576MiB; no native mismatch diagnostic. Full build2661.426s; completed objects and failed log retained.",
+      "task": "#297 integrated declaration source candidate",
+      "utc": "2026-11-06T20:52:18.643252+00:00"
+    },
+    {
+      "event": "diagnostic",
+      "kind": "lean",
+      "monotonic_ns": 39575961150086,
+      "next_step": "Replace only modelSpec/executableSpec data definitions by the exact independently checked247/289 token literals, using prior24452b335a header-literal precedent; retain complete actual-source header checks and every Checked field. Remove old lexer bridges and restore import all Init.Data.Repr for body rendering. Recheck named leaf before complete helper/source checkpoint.",
+      "run_id": "20261106T205410-9ce5cebd89e1",
+      "scope": [
+        "Silver.ComposeBooleanArraySourceCandidate"
+      ],
+      "summary": "Named Boolean-array leaf failed only the two expectedTokens-to-literal bridges at lines45/84 with kernel excessive memory, plus body_source lacked original helper import-all Repr and could not reduce Nat.repr0. Complete literal source-header checks had no reported failure. Build1548.251s; native inputs unchanged.",
+      "task": "#297 source header memory repair",
+      "utc": "2026-11-06T21:21:41.598205+00:00"
+    },
+    {
+      "event": "checkpoint",
+      "monotonic_ns": 40874287460581,
+      "next_check": "Keep complete run frozen to terminal; prepare only ghost fieldwise-equality intermediate facts in separate native editing tree. After terminal focus original2178, then whole Array_Declaration_At, before another complete checkpoint; parent refreshes source pins/certificates for any changed native bytes.",
+      "summary": "Complete frozen run20261106T201636-d09ed16a345c is still active. Completed Array_Declaration_At gnatwhy3 result in audited cache62598e8689824769a01164d95659378b53d65997 confirms id1145 VC_ASSERT false at2178:32, Same_Parser_State assertion; three30s solver timeouts and giant-step RAC timelimit, no semantic counterexample established. Focused193707 genuinely proved2100post but did not cover2178. Exact current check and raw cached result retained in tmp/boolean-array-producer/declaration-session-diagnosis; no validation inputs changed.",
+      "task": "#297 native declaration assertion diagnosis",
+      "utc": "2026-11-06T21:43:19.924552+00:00",
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair"
+    },
+    {
+      "event": "checkpoint",
+      "monotonic_ns": 41317162817483,
+      "next_check": "Apply ghost-only d05d2bb379 to idle installed validation tree; focus Array_Declaration_At body2104 and new ghost region2178-2208, inspect all current assertion/precondition results, then entire Array_Declaration_At before complete native restart.",
+      "summary": "Parent-directed clean SIGINT interruption of run20261106T201636-d09ed16a345c after5605.352s due confirmed required assertion failure at silver_output_profile.adb2178:32 (id1145 VC_ASSERT). Completed sessions/cache/reports/log and raw failed gnatwhy3 result retained; Declaration_At completed before interruption during Declarations_At. Native process group135990 is empty, leases released normally, no lock deletion. Not full success.",
+      "task": "#297 complete frozen native audit",
+      "utc": "2026-11-06T21:50:42.799910+00:00",
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair"
+    },
+    {
+      "event": "diagnostic",
+      "kind": "tool-gnatprove",
+      "monotonic_ns": 41837751877360,
+      "next_step": "Wait bounded independent exact-VC analysis; inspect model-body availability/branch structure and choose one justified minimal proof-only experiment. Do not rerun2100 or whole-routine on knownbad candidate, and do not weakenpreconditions or required equality.",
+      "run_id": "20261106T215058-ebdafecd6a1b",
+      "scope": [
+        "mode:all",
+        "project:../../../silver.gpr",
+        "silver_output_profile.adb",
+        "--limit-subp=silver_output_profile.adb:2104",
+        "--limit-region=silver_output_profile.adb:2178:2208"
+      ],
+      "summary": "Fieldwise ghost-only d05candidate failed exact new VC_ASSERT2185:12 Result.Position=Completed.Position after326.418s, three30s timeouts. Model/runtime expressions match after replacing only verified reader calls bymodels. Modelpre2180, originalSameParserState2207 and bridgepre2208 passed, but depend on assumed failed assertion and do not establish candidate. No semantic counterexample; source/runtime/contracts unchanged. Reports/sessions/cache retained; parent-sponsored AstraXHigh independent review now inspecting congruence/unfolding/domain versus branch complexity.",
+      "task": "#297 fieldwise declaration ghost assertion",
+      "utc": "2026-11-06T21:59:23.388920+00:00"
+    },
+    {
+      "event": "checkpoint",
+      "monotonic_ns": 42106582437505,
+      "next_check": "Use separate managed singular-line assertion2179 and post2101 checks, each bounded to body2105; then model1812 and wholecaller. Retain rejected command as CLI-only failure.",
+      "summary": "Run220243-d802a6c187ac stopped at GNATprove option validation before proof execution: --limit-lines cannot combine with --limit-subp in this pinned CLI. Sourceannotation candidate unchanged, no semantic/nativeproof failure. Existing successful singular --limit-line+--limit-subp combination remains supported.",
+      "task": "#297 inline model assertion and post",
+      "utc": "2026-11-06T22:03:52.219524+00:00",
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair"
+    },
+    {
+      "event": "diagnostic",
+      "kind": "tool-gnatprove",
+      "monotonic_ns": 42275276636056,
+      "next_step": "Wait exact tool eligibility/placement analysis before another source experiment. Preserve all original contracts and model/runtime bodies; no ordinary-post weakening to fit annotation. No repeated proof on rejected candidate.",
+      "run_id": "20261106T220352-f4b0e62d076e",
+      "scope": [
+        "mode:all",
+        "project:../../../silver.gpr",
+        "silver_output_profile.adb",
+        "--limit-subp=silver_output_profile.adb:2105",
+        "--limit-line=silver_output_profile.adb:2179"
+      ],
+      "summary": "Single Inline_For_Proof annotation af553 at Array_Declaration_Model separate spec was rejected by actual pinnedGNATprove at1803:13: function must have sole Result=Expr postcondition. No assertion/post VC result. This supersedes inferred eligibility from general expressionfunction documentation; all bodies/contracts unchanged and source/runtime proof candidate remains unintegrated. Reviewer rechecking exact implementation/spec-versus-completion placement.",
+      "task": "#297 inline model original assertion",
+      "utc": "2026-11-06T22:06:40.913717+00:00"
+    },
+    {
+      "event": "diagnostic",
+      "kind": "tool-gnatprove",
+      "monotonic_ns": 43155822988852,
+      "next_step": "Parent-directed bounded computationalbudget experiment on ORIGINAL25e6/a224source: exact2178assert/body2104 at timeout120 with samelevel/provers/memory, no source change. This is supportedexploration; retain30sfailures and require complete finalnative evidence separately.",
+      "run_id": "20261106T221315-d935921d7570",
+      "scope": [
+        "mode:all",
+        "project:../../../silver.gpr",
+        "silver_output_profile.adb",
+        "--limit-subp=silver_output_profile.adb:1961"
+      ],
+      "summary": "Isolated exact-copy expansion bridge13026/d50 failed VC_POSTCONDITION1966:16 SameParserState(Model,Expansion) after271.395s, solver timelimits. New noPost expressionhelper Inline annotationaccepted; model/runtime/caller/contracts unchanged, no callerintegration. Dependencies and preconditionspassed. Expansion safety notrun because requiredbridgefailed; preserve reports/sessions/candidatebranches.",
+      "task": "#297 isolated declaration expansion bridge",
+      "utc": "2026-11-06T22:21:21.460034+00:00"
+    },
+    {
+      "event": "diagnostic",
+      "kind": "tool-gnatprove",
+      "monotonic_ns": 43967318890737,
+      "next_step": "After root-authorized application window, keep exact original source/assertion2178/body2104, same timeout120/level2/provers, change only memlimit1000 to4096; four workers, at most three solver processes within32GiB host. If this bounded resource trial fails, stop resource escalation and diagnose exact SMT encoding. Any pass still needs complete canonical native/provenance applicability.",
+      "run_id": "20261106T222202-7dc3d8242c59",
+      "scope": [
+        "mode:all",
+        "project:../../../silver.gpr",
+        "silver_output_profile.adb",
+        "--limit-subp=silver_output_profile.adb:2104",
+        "--limit-line=silver_output_profile.adb:2178"
+      ],
+      "summary": "Original required assertion2178:32 failed after697.911s at timeout120/memory1000 on unchanged a224source. .spark maps Alt-Ergo and CVC5 timeout120, Z3 out-of-memory with reported372.177s, CE timeout10. No counterexample or repair established. Exact reports and session snapshot retained under tmp/boolean-array-producer/original-assertion-timeout120-memory1000.",
+      "task": "#297 original declaration assertion timeout120",
+      "utc": "2026-11-06T22:34:52.955982+00:00"
+    },
+    {
+      "event": "checkpoint",
+      "monotonic_ns": 48738951778323,
+      "next_check": "Monitor availableRAM and smaller candidate completion; explicitly SIGCONT validated PID218676 when headroom permits, append resume timestamp/pause duration, and finish complete whole-project audit. Do not leave reconstruction suspended at handoff.",
+      "summary": "At23:53:45UTC temporarily SIGSTOP OutputBodyCertificate PID218676 (starttime4702848) after concurrent dense candidate peak reduced availableRAM to5.47GiB. The same complete run230229-b9a860723df5 remains active; no proof/source/options/artifact change, no failed proof. Three smaller candidates continue. Pause events in tmp/complete-lean-resource-events.jsonl; elapsed build time includes suspension.",
+      "task": "#297 complete Boolean-array source checkpoint",
+      "utc": "2026-11-06T23:54:24.638999+00:00",
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays"
+    },
+    {
+      "event": "diagnostic",
+      "kind": "lean",
+      "monotonic_ns": 49703640806193,
+      "next_step": "Finish surviving Scalar/Flow candidates, then explicitly resume preserved Helpers/Shape sequentially with actual headroom monitoring. After the failed run terminates, retry the complete cached Lean/source/module/axiom checkpoint on unchanged inputs with one Lake worker, automatic per-process threads and the unchanged 24576 MiB threshold; preserve existing objects and all failed records. No proof or source weakening.",
+      "run_id": "20261106T230229-b9a860723df5",
+      "scope": "complete",
+      "summary": "OutputBodyCertificate terminated with exit 137 after 2556 seconds; kernel confirms global OOM at 2026-11-07 00:08:27. Stopped reconstruction retained about 14 GiB while dense candidate growth exhausted the 32 GiB host. Pausing preserved processes but did not free memory; transient GC headroom was insufficient for safe resumption. Original run remains failed; same inputs/options preserved, surviving candidate objects are being harvested. Resource/kernel evidence retained under docs/evidence/boolean-arrays-20261106/final-lean/.",
+      "task": "#297 complete Boolean-array source checkpoint",
+      "utc": "2026-11-07T00:10:29.341824+00:00"
+    },
+    {
+      "event": "diagnostic",
+      "kind": "lean",
+      "monotonic_ns": 55455070958688,
+      "next_step": "Complete incremental Lean retry on committed repair with one Lake worker, automatic 12 per-process threads and unchanged 24576 MiB threshold. Preserve all objects, no clean build or replay. Scan full appended diagnostics, monitor available memory, and require complete fresh module/axiom audit.",
+      "run_id": "20261106T230229-b9a860723df5",
+      "scope": "complete",
+      "summary": "Complete run terminated failed after 9229.662 s build: OutputBodyCertificate global OOM exit137, PredicateNativeShapeCandidate deliberately terminated to recover RAM, and omitted Boolean-array cases in PredicateFlags. Retained 175 successful module builds and all failed evidence. PredicateFlags and direct consumer PredicateSelectors are now repaired and independently reviewed; focused builds and fresh audits passed on both. Native source and other captured inputs are unchanged.",
+      "task": "#297 complete Boolean-array source checkpoint",
+      "utc": "2026-11-07T01:46:20.777858+00:00"
+    },
+    {
+      "event": "checkpoint",
+      "monotonic_ns": 64226650804009,
+      "next_check": "Finish Relation helper and harvest original native audit; only after retaining terminal evidence and confirming no new failures, switch original installation to ce97ede446 for complete native audit/build. Run complete cached Lean/source checkpoint when final native inputs and memory headroom are stable.",
+      "summary": "Integrated reviewed Primary and Relation Static proof cuts at ce97ede446; both Relation focus checks and refreshed source-policy methods pass. Original frozen full native audit and isolated complete Relation helper remain active. No Lean process or paused group remains.",
+      "task": "#297 Boolean-array final validation",
+      "utc": "2026-11-07T04:12:32.408064+00:00",
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays"
+    }
+  ],
+  "available_cpus": 12,
+  "reserved_workers": 4,
+  "diagnostics_required": [],
+  "total_runs": 2264,
+  "omitted_completed_runs": 2260
+}

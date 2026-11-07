@@ -8,6 +8,7 @@ public import Silver.ScalarExpressionSourceBridge
 public import Silver.ComposeEvaluation
 public import Silver.IntegerImageNativeSource
 public import Silver.ComposeBooleanDeclarationLibraries
+public import Silver.ComposeBooleanInitializerLibraries
 
 @[expose] public section
 
@@ -32,6 +33,7 @@ structure CheckedSource : Prop where
   stringHelpers : StringHelperTranslation
   arrayHelpers : ArrayHelperTranslation
   booleanDeclaration : BooleanDeclarationNative.SourceChecks.Checked Source.outputBodyTokens
+  booleanArrayHelpers : BooleanArraySource.Checked Source.outputBodyTokens
   catalogue : HelperCatalogueTranslation
   tokens : TokenMapping
   declarations : Declarations
@@ -53,6 +55,7 @@ theorem checked_source : CheckedSource where
   stringHelpers := actual_string_helpers
   arrayHelpers := actual_array_helpers
   booleanDeclaration := actual_boolean_declaration
+  booleanArrayHelpers := actual_boolean_array_helpers
   catalogue := actual_catalogue
   tokens := finite_mapping
   declarations := actual_declarations
@@ -77,6 +80,19 @@ structure BooleanDeclarationInterpretation (calls : Expressions.Calls) : Prop wh
       calls.function .booleanDeclaration text state arguments =
         BooleanDeclarationNative.body.eval imports {text, state, arguments}
 
+/-- The initializer wrapper is interpreted from its checked typed tree and
+native context/initial-flow/condition callees, without assuming parser equality. -/
+structure BooleanInitializerInterpretation (calls : Expressions.Calls) : Prop where
+  source : ∃ (imports : BooleanInitializerNative.Imports) (predicate : Predicate.Native.Calls),
+    Predicate.Native.HelperMeaning predicate ∧
+    Predicate.Native.DefinitionEquations predicate ∧ Predicate.Native.Contracts predicate ∧
+    BooleanInitializerNative.Libraries.Links imports predicate ∧
+    ∀ text, Expressions.ValidText text → ∀ state position first after,
+      Predicate.OuterReadiness.ValidState text state → Expressions.ValidCursor text position →
+      (⟨first, after⟩ : Named.NameState).Valid text →
+      calls.function .booleanInitializer text state position first after =
+        BooleanInitializerNative.body.eval imports ⟨text, state, position, first, after⟩
+
 /-- Helper definitions and executed lexical-call domains, with Step restricted
 to the two shell tags actually declared by the native implementation. -/
 structure InterpretedSource (calls : Expressions.Calls) : Prop where
@@ -91,6 +107,7 @@ structure InterpretedSource (calls : Expressions.Calls) : Prop where
       Lexical.InterpretedSource helpers token
   definitions : Expressions.RawHelperEquations calls calls Predicate.OuterReadiness.domain
   booleanDeclaration : BooleanDeclarationInterpretation calls
+  booleanInitializer : BooleanInitializerInterpretation calls
   legal : Expressions.LegalHelpers calls Predicate.OuterReadiness.domain
   step : ∀ text, Expressions.ValidText text → ∀ form token state,
     NativeForm form → Expressions.ValidToken token → Predicate.OuterReadiness.ValidState text state →
@@ -125,14 +142,23 @@ theorem interpreted_equations (calls : Expressions.Calls)
     split <;> rfl
   let raw := Expressions.normalized_rawHelpers calls (interpreted_primitives calls source)
     {source.definitions with imageMinimum := minimum, imageMaximum := maximum} source.legal
-  refine { toRawHelperEquations := raw, booleanDeclaration := ?_ }
-  obtain ⟨imports, predicate, helpers, definitions, contracts, links, equation⟩ :=
-    source.booleanDeclaration.source
-  intro text valid state arguments ready
-  exact (equation text valid state arguments ready.base).trans
-    (BooleanDeclarationNative.imports_meaning imports text state arguments
-      (BooleanDeclarationNative.Libraries.imports_meaning raw helpers definitions contracts links
-        text valid state arguments ready.base))
+  exact {
+    toRawHelperEquations := raw
+    booleanDeclaration := by
+      obtain ⟨imports, predicate, helpers, definitions, contracts, links, equation⟩ :=
+        source.booleanDeclaration.source
+      intro text valid state arguments ready
+      exact (equation text valid state arguments ready.base).trans
+        (BooleanDeclarationNative.imports_meaning imports text state arguments
+          (BooleanDeclarationNative.Libraries.imports_meaning raw helpers definitions contracts links
+            text valid state arguments ready.base))
+    booleanInitializer := by
+      obtain ⟨imports, predicate, helpers, definitions, contracts, links, equation⟩ :=
+        source.booleanInitializer.source
+      intro text valid state position first after ready bounded mask
+      exact (equation text valid state position first after ready.base bounded mask).trans
+        (BooleanInitializerNative.Libraries.imports_meaning helpers definitions contracts links
+          text valid state position first after ready.base bounded mask) }
 
 theorem interpreted_step (calls : Expressions.Calls) (source : InterpretedSource calls)
     (text : Source) (valid : Expressions.ValidText text) (form : Form) (token : ShellToken)

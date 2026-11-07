@@ -1,0 +1,58 @@
+{
+  "recorded_at": "2026-11-07T00:10:28.621781+00:00",
+  "run_id": "20261106T230229-b9a860723df5",
+  "status": "terminal failure; all scheduled surviving work harvested and no stopped original children remain",
+  "failed_module": "Silver.OutputBodyCertificate",
+  "failed_module_elapsed_seconds": 2556,
+  "lean_exit_code": 137,
+  "failure_kind": "external global OOM termination",
+  "kernel_oom_utc": "2026-11-07T00:08:27.499546+00:00",
+  "kernel_pid_namespace": "host; local process monitoring uses container PIDs",
+  "kernel_killed_host_pid": 26541,
+  "container_reconstruction_pid": 218676,
+  "container_reconstruction_starttime": "4702848",
+  "kernel_anon_rss_kib": 14225856,
+  "source_or_proof_options_changed": false,
+  "successful_complete_checkpoint": false,
+  "fresh_whole_project_module_axiom_audit_executed": false,
+  "independent_kernel_replay_executed": false,
+  "preserved_work": "175 unique module builds visibly completed in this log, including all surviving dense candidates, queued examples/models, and ComposeBooleanDeclarationCandidate. Their ordinary Lake objects remain for subsequent dependency validation. All parked original processes were resumed to success, except the separately authorized NativeShape termination and external reconstruction OOM. No process remains stopped.",
+  "diagnosis": "Four independent dense Lean jobs plus native and application streams exceeded the 32 GiB host. SIGSTOP preserved allocated RSS and halted growth; it did not release memory. Transient GC lows were insufficient evidence for concurrent dense resumption.",
+  "next_smallest_check": "Repair and focused-check only PredicateFlags model coverage, then root-authorized one-worker complete incremental checkpoint preserving -j12/-M24576, completed objects, exact source bytes and existing trusted-cache assumptions.",
+  "updated_at": "2026-11-07T01:39:15.883766+00:00",
+  "expected_project_modules": 655,
+  "additional_intentional_failure": {
+    "module": "Silver.PredicateNativeShapeCandidate",
+    "utc": "2026-11-07T00:21:17.485621+00:00",
+    "signal": "SIGKILL",
+    "authorizer": "root coordinator",
+    "reason": "All surviving candidates parked with about 5 GiB available prevented meaningful forward progress; release largest stopped 8.54 GiB heap."
+  },
+  "harvested_candidate_reported_build_time": {
+    "PredicateScalarBodyCandidate": "1311s",
+    "PredicateFlowSourceCandidate": "1656s",
+    "PredicateBodySourceCandidate": "3407s",
+    "PredicateNativeHelpersCandidate": "5126s",
+    "ComposeModelHelperEquations": "3339s",
+    "ComposeModelLegal": "2574s",
+    "PredicateExamples": "766s",
+    "NamedExamples": "427s",
+    "ArgumentsExamples": "391s",
+    "ConcatExamples": "239s",
+    "BranchingExamples": "238s",
+    "SequenceNativeEquations": "161s"
+  },
+  "timing_note": "Lake reported elapsed times include recorded process pauses; resource events distinguish suspension time from CPU/active work.",
+  "coverage_failure": {
+    "module": "Silver.PredicateFlags",
+    "diagnostics": [
+      "24:4 Flag.source does not cover SourceStatement.booleanArrayAssign",
+      "55:2 basic_flags case split does not cover booleanArrayAssignment"
+    ],
+    "next_smallest_hypothesis": "Add Boolean-array assignment to assignment-flag semantics and prove its BasicAt payload case by the existing scalar/array/Boolean assignment pattern; focused-check before a complete one-worker retry.",
+    "monitoring_note": "These diagnostics appeared during the earlier PredicateFlags build. The monitoring subthread missed them while reading changing log tails and reported them on terminal full-log scan."
+  },
+  "terminal_event_utc": "2026-11-07T01:36:31.875219+00:00",
+  "build_phase_elapsed_seconds": 9229.662,
+  "managed_elapsed_seconds": 9238.583973006
+}

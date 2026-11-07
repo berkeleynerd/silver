@@ -1,0 +1,72 @@
+{
+  "all_captured_inputs_tracked_and_unchanged_from_implementation": true,
+  "authoritative_source_link": "/home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays/src",
+  "build_and_fresh_audit_module_sets_exact": true,
+  "build_audit_module_count": 655,
+  "candidate_count": 36,
+  "checks": {
+    "artifacts": {
+      "count": 3922,
+      "mismatches": []
+    },
+    "inputs": {
+      "count": 762,
+      "mismatches": []
+    },
+    "tools": {
+      "count": 2,
+      "mismatches": []
+    },
+    "workspace_inputs": {
+      "count": 657,
+      "mismatches": []
+    }
+  },
+  "current_head": "502bd871f97567072ac19e554de02fa2f198489f",
+  "declarations": 132101,
+  "exec_exit_code": 0,
+  "foundations": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "implementation_commit": "ce97ede446aad55520e59854ea8298e2a63d56eb",
+  "inventory_checks": {
+    "captured_shared_inputs_exact": true,
+    "compiled_artifacts_exact": true,
+    "shared_workspace_evidence_expected_actual_module_sets_exact": true,
+    "workspace_inputs_exact": true
+  },
+  "lake_jobs_as_reported": 690,
+  "managed_elapsed_seconds": 15046.75135641,
+  "module_count": 655,
+  "phases": [
+    {
+      "elapsed_seconds": 15008.84,
+      "exit_code": 0,
+      "finished_at": "2026-11-07T10:58:37.413727+00:00",
+      "phase": "build",
+      "started_at": "2026-11-07T06:48:28.523693+00:00"
+    },
+    {
+      "elapsed_seconds": 14.94,
+      "exit_code": 0,
+      "finished_at": "2026-11-07T10:58:57.465976+00:00",
+      "phase": "audit",
+      "started_at": "2026-11-07T10:58:42.525676+00:00"
+    }
+  ],
+  "rebuilt_module_count": 35,
+  "recorded_at": "2026-11-07T11:00:17.051279+00:00",
+  "retained_files_sha256": {
+    "events.jsonl": "86b8036bcc8874320f845aaf980a8bed92585cb46b46a3acdd7ac3d20932fb66",
+    "lean-evidence.json": "b0c9b1f60e0482c27db1ced52a4920e60d5a34f337634fd806a53e0c0b74b167",
+    "lean-proof.log": "465afcea9760bbf342ca44f60506b462840d72392f22cbdc4f9b5c4f047cac5b"
+  },
+  "retained_module_count": 620,
+  "run_id": "20261107T064815-9c9da56edf3d",
+  "runner_elapsed_seconds": 15051.065,
+  "status_terminal_state": "success",
+  "terminal_outcome": "success",
+  "verification_elapsed_seconds": 3.241
+}

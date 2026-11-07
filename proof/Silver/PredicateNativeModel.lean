@@ -48,6 +48,9 @@ def modelCalls : Calls where
   equalName := Named.equalName
   nameIs := fun text first after word => Named.nameIs text first after (word.toList.map Char.toNat)
   arrayLookup := ArrayBindings.lookup
+  arrayContains := ArrayBindings.contains
+  scalarIndex := fun text position names first after => ScalarExpression.read text position names first after
+  booleanArray := fun text context position facts => booleanArrayAfter text context.model position facts
   booleanLookup := BooleanBindings.lookup
   booleanAtom := fun text context position => booleanAtomAfter text context.model position
   booleanFactor := fun text context position facts initials => readBooleanFactor text context.model position facts initials
@@ -132,6 +135,10 @@ theorem model_chainAfter_equation (text : Source) (position : Nat) (operator : C
     (valid : operator.isChain = true) :
     modelCalls.chainAfter text position operator = chainAfterEquation modelCalls text position operator := by
   cases operator <;> rfl
+
+theorem model_booleanArray_equation (text : Source) (context : Context) (position : Nat) (facts : ActiveFlow) :
+    modelCalls.booleanArray text context position facts = booleanArrayEquation modelCalls text context position facts := by
+  rfl
 
 theorem model_booleanAtom_equation (text : Source) (context : Context) (position : Nat) :
     modelCalls.booleanAtom text context position = booleanAtomEquation modelCalls text context position := rfl
@@ -223,7 +230,7 @@ theorem chainAfter_progress (text : Source) (position : Nat) (operator : Predica
     position < Predicate.chainAfter text position operator := by
   cases operator with
   | shortAnd | shortOr =>
-    have firstPositive := Compose.fixedAfter_nonzero accepted
+    have firstPositive := (model_fixed_input_nonzero _ _ _ _) accepted
     have first := model_fixed_advances text position _ true bounded (by decide) firstPositive
     have last := model_fixed_advances text _ _ true
       (model_fixed_valid text position _ _ bounded) (by decide) accepted

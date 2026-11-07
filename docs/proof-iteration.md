@@ -160,6 +160,18 @@ and existing managed modes; this matrix adds no hash exclusions or replay gate.
 
 ## Recurring failures and handoff
 
+Apply the [model policy](../AGENTS.md#models-effort-and-delegation) as soon as
+proof work leaves an established approach. Uncertain solver encoding, Lean
+reduction or memory behavior, and cross-system integration decisions belong with
+Astra Extra High; a named difficult problem can temporarily escalate to Astra
+Max. Repeated unsuccessful repairs require this reassessment before another
+expensive complete run, without waiting for the diagnostic threshold below.
+Keep the question, retained evidence and next focused check in the existing
+diagnostic/task record. Use available focused checks to resolve known integration
+failures before the next complete checkpoint. Preserve applicable successes and
+productive running jobs; a slow tool computation alone does not require a stronger
+monitoring agent. Complete native and Lean assurance remains mandatory.
+
 After three retained attempts report the same failed obligation for the same
 task, run kind and target, the next relevant attempt needs a diagnostic checkpoint:
 

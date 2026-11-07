@@ -94,14 +94,14 @@ private theorem model_definition_arrayPut : ∀ state value,
   rfl
 
 private theorem model_definition_arrayAdd : ∀ text, ValidText text →
-    ∀ state first after bounds offset length mutable following componentBounds,
+    ∀ state first after bounds offset length mutable following componentBounds isBoolean,
     NativeState .basic text state → ValidName text first after →
-    ArrayBindings.ValidBinding ⟨first, after, bounds, offset, length, mutable, componentBounds⟩ →
+    ArrayBindings.ValidBinding ⟨first, after, bounds, offset, length, mutable, componentBounds, isBoolean⟩ →
     state.arrayNames.names.length < ArrayBindings.maxBindings →
     offset + length ≤ state.arrayNames.used → ArrayAddDomain state.arrayNames.names offset →
     ValidCursor text following →
-    modelCalls.function .arrayAdd text state first after bounds offset length mutable following componentBounds =
-      arrayAddBody.eval modelCalls (arrayAddLocals text state first after bounds offset length mutable following componentBounds) := by
+    modelCalls.function .arrayAdd text state first after bounds offset length mutable following componentBounds isBoolean =
+      arrayAddBody.eval modelCalls (arrayAddLocals text state first after bounds offset length mutable following componentBounds isBoolean) := by
   intros
   rw [arrayAdd_denotation]
   rfl
@@ -413,10 +413,17 @@ theorem model_helpers (ranges : RangeContracts modelCalls) :
   booleanLookup := by intros; rfl
   booleanHidesInteger := by intros; rfl
   booleanDeclaration := by intros; rfl
+  booleanInitializer := by intros; rfl
   arrayPut := model_definition_arrayPut
   arrayAdd := model_definition_arrayAdd
   arrayValuesModel := model_definition_arrayValuesModel
   arrayValues := model_definition_arrayValues
+  booleanArrayValuesModel := by
+    intro text _ source result position length parsed maskFirst maskAfter _ context
+    rw [booleanArrayValues_denotation,
+      model_booleanArrayValues_equation text source result position length parsed maskFirst maskAfter context.parsedBound]
+    rfl
+  booleanArrayValues := by intros; rfl
   arrayDeclaration := model_definition_arrayDeclaration
   scalarLiteral := model_definition_scalarLiteral
   scalarAppend := model_definition_scalarAppend

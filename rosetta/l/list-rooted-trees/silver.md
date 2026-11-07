@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is plain deterministic enumeration with small fixed bounds and no annotations are needed since loops live in procedures, but the successor algorithm's loop-carried indexes and levels need careful guards to prove automatically.
 
-Position 460 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 461 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

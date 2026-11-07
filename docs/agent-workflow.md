@@ -7,6 +7,15 @@ workload choices and applies even when an agent has no matching global policy.
 Personal global guidance can carry the same principles across repositories.
 These are starting points, not measured guarantees about model quality.
 
+The owner's 2026-11-07 clarification assigns uncertain proof diagnosis,
+proof-memory strategy and cross-system integration decisions to Astra Extra High.
+Established implementation stays Sol Extra High; routine monitoring and evidence
+collection stay Sol High. Apply the project's escalation triggers before another
+expensive complete run when repairs or resource strategy remain unresolved.
+Escalate a named difficult problem to Astra Max when needed, then return to its
+baseline. Tool execution time alone does not call for a stronger monitoring agent
+or restarting a productive run.
+
 ## Host defaults and profiles
 
 Store actual client settings in the host's Codex home, not in the Silver proof
@@ -41,16 +50,19 @@ Named profiles live beside `config.toml` as `<name>.config.toml`:
 
 | Profile | Model | Model and Plan effort | Intended use |
 | --- | --- | --- | --- |
-| `proof` | `gpt-6-astra` | `xhigh` | Difficult proof/research and critical review |
+| `proof` | `gpt-6-astra` | `xhigh` | Uncertain proof diagnosis, memory strategy, integration decisions and critical review |
 | `implementation` | `gpt-6.1-sol` | `xhigh` | Established implementation, debugging, proof or checkable extraction |
-| `routine` | `gpt-6.1-sol` | `high` | Routine implementation, documentation and coordination |
+| `routine` | `gpt-6.1-sol` | `high` | Routine implementation, documentation, monitoring, evidence collection and coordination |
 
 Each profile sets `model`, `model_reasoning_effort` and
 `plan_mode_reasoning_effort`; for example `codex --profile implementation`.
 The conservative subagent defaults remain in the base configuration. Choose
 each bounded worker's model and effort explicitly under the project policy;
 the profile does not turn every future delegated task into routine work.
-Max remains an explicit escalation for a named problem, not a persistent default.
+Select Astra Max explicitly for a named escalation; it is temporary and needs no
+persistent profile or global effort increase. These role assignments preserve the
+documented host defaults and native worker/memory controls. A guidance edit does
+not change a running agent's model or a proof process's resource allocation.
 
 Custom role files are optional. They must follow the same policy and ownership
 rules. Project `.codex/` configuration requires a trusted checkout, and role
@@ -75,9 +87,12 @@ whole-team cost, and an agent count or document count is not a success measure.
 When a child receives a focused brief, include the governing requirements and
 relevant decision/evidence excerpts; widen its reading when those are insufficient.
 
-Official guidance checked on 2026-10-18:
+Model guidance rechecked on 2026-11-07:
 
-- [Models and reasoning](https://learn.chatgpt.com/docs/models)
+- [Models and reasoning](https://developers.openai.com/codex/models/)
+
+Configuration and instruction guidance checked on 2026-10-18:
+
 - [Configuration and profile files](https://learn.chatgpt.com/docs/config-file/config-reference)
 - [Subagents and custom roles](https://learn.chatgpt.com/docs/agent-configuration/subagents)
 - [Global and project instruction discovery](https://learn.chatgpt.com/docs/agent-configuration/agents-md)

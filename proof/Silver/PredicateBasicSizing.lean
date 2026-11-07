@@ -37,6 +37,8 @@ private theorem model_update_count (frame : Frame) (value : Update) :
     split <;> rfl
   · dsimp only [Update.eval, modelPrimitives, arrayAssignmentBody]
     split <;> rfl
+  · dsimp only [Update.eval, modelPrimitives, booleanArrayAssignmentBody]
+    split <;> rfl
 
 private theorem model_command_sized (command : Command) (frame : Frame)
     (same : frame.result.count = frame.scan.count) (next : Frame → Prop)

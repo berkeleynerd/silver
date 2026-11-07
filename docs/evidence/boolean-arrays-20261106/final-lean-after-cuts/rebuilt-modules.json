@@ -1,0 +1,142 @@
+[
+  {
+    "module": "Silver.OutputProfileBodySource",
+    "seconds_as_reported": "1.2s"
+  },
+  {
+    "module": "Silver.AuthoritativeSource",
+    "seconds_as_reported": "1.2s"
+  },
+  {
+    "module": "Silver.OutputBodyCertificate",
+    "seconds_as_reported": "2709s"
+  },
+  {
+    "module": "Silver.SourceCertificates",
+    "seconds_as_reported": "3.8s"
+  },
+  {
+    "module": "Silver.Source",
+    "seconds_as_reported": "2.0s"
+  },
+  {
+    "module": "Silver.ComposeExpressionSourceCandidate",
+    "seconds_as_reported": "410s"
+  },
+  {
+    "module": "Silver.ComposeCatalogueSourceCandidate",
+    "seconds_as_reported": "48s"
+  },
+  {
+    "module": "Silver.ComposeDeclarationSourceCandidate",
+    "seconds_as_reported": "1305s"
+  },
+  {
+    "module": "Silver.ComposeContractSourceCandidate",
+    "seconds_as_reported": "691s"
+  },
+  {
+    "module": "Silver.ComposeBooleanArraySourceCandidate",
+    "seconds_as_reported": "221s"
+  },
+  {
+    "module": "Silver.ComposeHelperSourceCandidate",
+    "seconds_as_reported": "738s"
+  },
+  {
+    "module": "Silver.ComposeSourceCandidate",
+    "seconds_as_reported": "2.4s"
+  },
+  {
+    "module": "Silver.OutputSourceBridge",
+    "seconds_as_reported": "180s"
+  },
+  {
+    "module": "Silver.ComposeSourceChecks",
+    "seconds_as_reported": "3.1s"
+  },
+  {
+    "module": "Silver.NamedSourceBridge",
+    "seconds_as_reported": "34s"
+  },
+  {
+    "module": "Silver.ArgumentsSourceBridge",
+    "seconds_as_reported": "97s"
+  },
+  {
+    "module": "Silver.LexicalSourceBridge",
+    "seconds_as_reported": "63s"
+  },
+  {
+    "module": "Silver.ComposeSourceBridge",
+    "seconds_as_reported": "4.8s"
+  },
+  {
+    "module": "Silver.PredicateSourceShape",
+    "seconds_as_reported": "1.5s"
+  },
+  {
+    "module": "Silver.PredicateCharacterSourceCandidate",
+    "seconds_as_reported": "219s"
+  },
+  {
+    "module": "Silver.PredicateSourceRequirements",
+    "seconds_as_reported": "4.9s"
+  },
+  {
+    "module": "Silver.PredicateScalarBodyCandidate",
+    "seconds_as_reported": "1063s"
+  },
+  {
+    "module": "Silver.PredicateFlowSourceCandidate",
+    "seconds_as_reported": "1347s"
+  },
+  {
+    "module": "Silver.PredicateNativeHelpersCandidate",
+    "seconds_as_reported": "1216s"
+  },
+  {
+    "module": "Silver.PredicateNativeShapeCandidate",
+    "seconds_as_reported": "2346s"
+  },
+  {
+    "module": "Silver.PredicateBodySourceCandidate",
+    "seconds_as_reported": "2219s"
+  },
+  {
+    "module": "Silver.PredicateSourceCandidate",
+    "seconds_as_reported": "4.2s"
+  },
+  {
+    "module": "Silver.PredicateSourceChecks",
+    "seconds_as_reported": "3.6s"
+  },
+  {
+    "module": "Silver.PredicateInheritedReady",
+    "seconds_as_reported": "5.1s"
+  },
+  {
+    "module": "Silver.PredicateOuterModel",
+    "seconds_as_reported": "5.8s"
+  },
+  {
+    "module": "Silver.PredicateEquations",
+    "seconds_as_reported": "3.0s"
+  },
+  {
+    "module": "Silver.PredicateSourceBridge",
+    "seconds_as_reported": "3.4s"
+  },
+  {
+    "module": "Silver.PredicateCorrespondence",
+    "seconds_as_reported": "3.9s"
+  },
+  {
+    "module": "Silver",
+    "seconds_as_reported": "3.6s"
+  },
+  {
+    "module": "Silver.Audit",
+    "seconds_as_reported": "17s"
+  }
+]

@@ -1,0 +1,82 @@
+{
+  "recorded_utc": "2026-11-07T04:03:44.758720+00:00",
+  "base_source_sha256": "c1ce845a597605c152119bedc6b07f1aa3bccece5d2870addb86cd18077fffaa",
+  "candidate_source_sha256": "7d39745bd9e2d57c573a1c398f9e0f07e486a9d482b60f1cd21fc436e48543f3",
+  "patch_sha256": "6f88d7bc16fc00e846a89f04d6c10966fc1f71dffa3f0ec9a1f1a1603861b86b",
+  "only_source_change": "Exactly the two-line Static assertion after false-flow selected-cell assignment",
+  "old_pin_matches_base_source": true,
+  "base_token_count": 53320,
+  "candidate_token_count": 53343,
+  "added_unique_source_lines": [
+    "                    Result.When_False = Refined_Flow (Facts, Target, Selected, Threshold, False));"
+  ],
+  "removed_unique_source_lines": [],
+  "generated_modules": [
+    {
+      "module": "OutputBodyLines0",
+      "base_sha256": "a19c6784f9e185414047453465d9ebe3e53e5f6aeebc0993604b387ffb073b4f",
+      "candidate_sha256": "a19c6784f9e185414047453465d9ebe3e53e5f6aeebc0993604b387ffb073b4f",
+      "changed": false,
+      "base_matches_checked_in_file": true
+    },
+    {
+      "module": "OutputBodyLines1",
+      "base_sha256": "9d7313b2f8f4ac9458ffd004e033d56ba9046bd63bdfeaaa28b0af67bd1c9187",
+      "candidate_sha256": "9d7313b2f8f4ac9458ffd004e033d56ba9046bd63bdfeaaa28b0af67bd1c9187",
+      "changed": false,
+      "base_matches_checked_in_file": true
+    },
+    {
+      "module": "OutputBodyLines2",
+      "base_sha256": "67527dda17e75e2b069c65efc81765a26f86ed4838d8beab037692a984e336e4",
+      "candidate_sha256": "67527dda17e75e2b069c65efc81765a26f86ed4838d8beab037692a984e336e4",
+      "changed": false,
+      "base_matches_checked_in_file": true
+    },
+    {
+      "module": "OutputBodyLines3",
+      "base_sha256": "b08fb26eeeb373b7b62e49a40aeb05509380a6bdd1e1c114afce56f919423799",
+      "candidate_sha256": "b08fb26eeeb373b7b62e49a40aeb05509380a6bdd1e1c114afce56f919423799",
+      "changed": false,
+      "base_matches_checked_in_file": true
+    },
+    {
+      "module": "OutputBodyLines4",
+      "base_sha256": "40cd518865a782d23980c564e76fea367cf28c2505b182a4da8b204b39937d9a",
+      "candidate_sha256": "40cd518865a782d23980c564e76fea367cf28c2505b182a4da8b204b39937d9a",
+      "changed": false,
+      "base_matches_checked_in_file": true
+    },
+    {
+      "module": "OutputBodyLines5",
+      "base_sha256": "c52ffaec611b67077f70f3648097d402e69094350488d478ac2d5278eb066708",
+      "candidate_sha256": "b0c8c4371731cb3f779f8402a2e5ccc157ece1318354bcbf628a5708eca8d7b2",
+      "changed": true,
+      "base_matches_checked_in_file": true
+    },
+    {
+      "module": "OutputBodyLines6",
+      "base_sha256": "cf3dae13c5ad6f865a14c29343f405ef228236c8f80b62f8f63a56f32cff5743",
+      "candidate_sha256": "cf3dae13c5ad6f865a14c29343f405ef228236c8f80b62f8f63a56f32cff5743",
+      "changed": false,
+      "base_matches_checked_in_file": true
+    },
+    {
+      "module": "OutputBodyLines7",
+      "base_sha256": "16c99a52e9769131946b1cb4ef024fd3ef2f388be46153513cc5678b9c598cc3",
+      "candidate_sha256": "16c99a52e9769131946b1cb4ef024fd3ef2f388be46153513cc5678b9c598cc3",
+      "changed": false,
+      "base_matches_checked_in_file": true
+    },
+    {
+      "module": "OutputBodyCertificate",
+      "base_sha256": "71b92953d8b0bb645d03a1418f55fd5a1b7d52de4bbe837480749f647989edd1",
+      "candidate_sha256": "dbf48fbbf186b92aaaed942a952faa9af24fa0f72fc625d833091b5f6fd0d8cd",
+      "changed": true,
+      "base_matches_checked_in_file": true
+    }
+  ],
+  "source_generator_sha256": "633655f041976bf2641a69e21ef333bd34ae913559cdc2d5ec572c20a19bece6",
+  "generation_in_memory_only": true,
+  "native_or_lean_or_test_jobs_started": false
+}

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every operation is plain integer arithmetic on declared ranges, and the only non-routine checks are the loop-carried doubling and sum, which an explicit rejecting guard against a documented limit makes dischargeable without annotations.
 
-Position 364 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 365 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

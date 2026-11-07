@@ -1,0 +1,32 @@
+{
+  "recorded_at": "2026-11-07T04:55:18.408636+00:00",
+  "commit": "7f04fc060fc3fa48b2264e2893faf7464faec400",
+  "platform": "Linux 7.0.14 x86_64",
+  "selected_model": "GPT-6.1 Sol",
+  "selected_effort": "High",
+  "runtime_model_confirmation": "unavailable",
+  "token_cost_evidence": "unavailable",
+  "targets": [
+    "Silver.OutputBodyLines5",
+    "Silver.ReviewedOutputShape"
+  ],
+  "import_closure": [
+    "Lean.Elab.ElabRules",
+    "Lean.Elab.Tactic.ElabTerm",
+    "Lean.Meta.Tactic.AuxLemma",
+    "Silver.Admission",
+    "Silver.CertificateWitness",
+    "Silver.Cursor",
+    "Silver.Lexical",
+    "Silver.OutputBodyLines5",
+    "Silver.ReviewedOutputShape",
+    "Silver.SourceLexer",
+    "Std"
+  ],
+  "hashes": {
+    "src/silver_output_profile.adb": "7d39745bd9e2d57c573a1c398f9e0f07e486a9d482b60f1cd21fc436e48543f3",
+    "proof/Silver/ReviewedOutputShape.lean": "ae62bd0ba9d4e831657d53342228c0875bb24c84c7029bdd9e344bc5800c6575",
+    "proof/Silver/OutputBodyLines5.lean": "b0c8c4371731cb3f779f8402a2e5ccc157ece1318354bcbf628a5708eca8d7b2",
+    "proof/Silver/OutputBodyCertificate.lean": "dbf48fbbf186b92aaaed942a952faa9af24fa0f72fc625d833091b5f6fd0d8cd"
+  }
+}

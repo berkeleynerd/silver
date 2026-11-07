@@ -10,9 +10,9 @@ open Compose Bindings PathFacts
 structure ConditionMeaning (context : ParseContext) (facts : ActiveFlow)
     (condition : Condition) (result : ConditionResult) (initials : ArrayBindings.Initials := []) : Prop where
   grammatical : condition.Grammatical
-  readable : condition.Readable context.hasArguments context.names.shape (BooleanBindings.analysis context.booleanNames)
+  readable : condition.Readable context.hasArguments context.names.shape (ArrayBindings.booleanAnalysis context.arrayNames (BooleanBindings.analysis context.booleanNames))
   checked : condition.checkBounds context.names.shape context.analysis (context.flow facts initials)
-    (BooleanBindings.analysis context.booleanNames) = true
+    (ArrayBindings.booleanAnalysis context.arrayNames (BooleanBindings.analysis context.booleanNames)) = true
   whenTrue : (context.flow result.whenTrue initials) = condition.refine context.names.shape context.analysis (context.flow facts initials) true
   whenFalse : (context.flow result.whenFalse initials) = condition.refine context.names.shape context.analysis (context.flow facts initials) false
 

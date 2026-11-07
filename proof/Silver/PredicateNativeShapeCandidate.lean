@@ -66,6 +66,9 @@ structure Checked : Prop where
   condition_model_impl_header : functionHeader "condition_model" "is" SourceShape.bodyTokens = some condition_model_impl_header
   comparison_result_declaration : Lexical.SourceBridge.recordDeclaration "comparison_result" SourceShape.bodyTokens = some comparison_result_declaration
   length_result_declaration : Lexical.SourceBridge.recordDeclaration "length_result" SourceShape.bodyTokens = some length_result_declaration
+  boolean_array_after_body : Source.expressionBody "boolean_array_after" SourceShape.bodyTokens = some booleanArrayBody.render
+  boolean_array_after_spec_header : functionHeader "boolean_array_after" ";" SourceShape.bodyTokens = some boolean_array_after_spec_header
+  boolean_array_after_impl_header : functionHeader "boolean_array_after" "is" SourceShape.bodyTokens = some boolean_array_after_impl_header
   boolean_atom_after_body : Source.expressionBody "boolean_atom_after" SourceShape.bodyTokens = some (booleanAtomBody.render)
   boolean_atom_after_spec_header : functionHeader "boolean_atom_after" ";" SourceShape.bodyTokens = some boolean_atom_after_spec_header
   boolean_atom_after_impl_header : functionHeader "boolean_atom_after" "is" SourceShape.bodyTokens = some boolean_atom_after_impl_header
@@ -231,6 +234,16 @@ private theorem native_comparison_result_declaration : Lexical.SourceBridge.reco
 private theorem native_length_result_declaration : Lexical.SourceBridge.recordDeclaration "length_result" SourceShape.bodyTokens = some length_result_declaration := by
   decide +kernel
 
+private theorem native_boolean_array_after_body : Source.expressionBody "boolean_array_after" SourceShape.bodyTokens = some booleanArrayBody.render := by
+  simp only [booleanArrayBody, Expr.render]
+  decide +kernel
+
+private theorem native_boolean_array_after_spec_header : functionHeader "boolean_array_after" ";" SourceShape.bodyTokens = some boolean_array_after_spec_header := by
+  decide +kernel
+
+private theorem native_boolean_array_after_impl_header : functionHeader "boolean_array_after" "is" SourceShape.bodyTokens = some boolean_array_after_impl_header := by
+  decide +kernel
+
 private theorem native_boolean_atom_after_body : Source.expressionBody "boolean_atom_after" SourceShape.bodyTokens = some (booleanAtomBody.render) := by
   simp only [booleanAtomBody, Expr.render]
   decide +kernel
@@ -316,6 +329,9 @@ theorem checked : Checked where
   condition_model_impl_header := native_condition_model_impl_header
   comparison_result_declaration := native_comparison_result_declaration
   length_result_declaration := native_length_result_declaration
+  boolean_array_after_body := native_boolean_array_after_body
+  boolean_array_after_spec_header := native_boolean_array_after_spec_header
+  boolean_array_after_impl_header := native_boolean_array_after_impl_header
   boolean_atom_after_body := native_boolean_atom_after_body
   boolean_atom_after_spec_header := native_boolean_atom_after_spec_header
   boolean_atom_after_impl_header := native_boolean_atom_after_impl_header

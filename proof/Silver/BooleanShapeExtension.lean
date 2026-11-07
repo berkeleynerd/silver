@@ -126,7 +126,7 @@ theorem Condition.readable_extends {condition : Condition} {before after : Shape
   | characterCompare =>
       exact ⟨character_readable_extends extension readable.1,
         character_readable_extends extension readable.2.1, readable.2.2⟩
-  | scalarCompare | inputValid | booleanLiteral | booleanName => exact readable
+  | scalarCompare | inputValid | booleanLiteral | booleanName | booleanArrayRead => exact readable
   | parenthesized _ ih | negated _ ih => exact ih readable
   | andThen _ _ left right | orElse _ _ left right | eager _ _ _ left right | booleanCompare _ _ _ left right => exact ⟨left readable.1, right readable.2⟩
 
@@ -144,7 +144,7 @@ theorem Condition.refine_extends {condition : Condition} {before after : Shape}
       obtain ⟨⟨info, present⟩, rightReadable⟩ := readable
       simp only [Condition.refine, refineLength, present, extension left info present,
         lengthOperand_bound_extends extension rightReadable]
-  | scalarCompare | characterCompare | inputValid | booleanLiteral | booleanName | eager | booleanCompare => rfl
+  | scalarCompare | characterCompare | inputValid | booleanLiteral | booleanName | booleanArrayRead | eager | booleanCompare => rfl
   | parenthesized _ ih => exact ih readable flow truth
   | negated _ ih => exact ih readable flow (!truth)
   | andThen left right leftIH rightIH | orElse left right leftIH rightIH =>
@@ -163,7 +163,7 @@ theorem Condition.checkBounds_extends {condition : Condition} {before after : Sh
       obtain ⟨⟨info, present⟩, rightReadable⟩ := readable
       simp only [Condition.checkBounds, present, extension left info present,
         lengthOperand_bound_extends extension rightReadable]
-  | scalarCompare | inputValid | booleanLiteral | booleanName => rfl
+  | scalarCompare | inputValid | booleanLiteral | booleanName | booleanArrayRead => rfl
   | characterCompare =>
       simp only [Condition.checkBounds, character_check_extends extension readable.1,
         character_check_extends extension readable.2.1]

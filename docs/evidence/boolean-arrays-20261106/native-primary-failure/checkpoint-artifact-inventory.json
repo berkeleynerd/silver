@@ -1,0 +1,163 @@
+{
+  "frozen_utc": "2026-11-07T03:39:21.112887+00:00",
+  "integration_commit": "e0d2521d5d9681cec445c1153ae67b2565e5620a",
+  "file_count": 31,
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 3957,
+      "sha256": "d16de59abf49818608cc91fc00b3b0ab70ecc2ddfd67205565382e85caa90396"
+    },
+    {
+      "path": "candidate-integration-input-comparison.json",
+      "bytes": 37188,
+      "sha256": "bf57ee9ef92a2fd2953b1f51e907a0d2a2d9977c585fd588b60be58c3a2143ca"
+    },
+    {
+      "path": "focused-assertion/artifact-inventory.json",
+      "bytes": 1477,
+      "sha256": "2491fb4738be810a92a43e57c8d71059e2510bae8c27c3f07f5802742ad6f6a5"
+    },
+    {
+      "path": "focused-assertion/candidate.patch",
+      "bytes": 655,
+      "sha256": "4da3f436c9b2c4f5e711a5a99a4c457c019f18c5452f77dae9e695213cc2d438"
+    },
+    {
+      "path": "focused-assertion/managed-run.inventory.json",
+      "bytes": 594,
+      "sha256": "d9eb25ed81990cc2c6456913db439d38b88b860b727dcfcb4d06e408c42579f7"
+    },
+    {
+      "path": "focused-assertion/managed-run.tar.gz",
+      "bytes": 127669,
+      "sha256": "1660d6f02e52448aa217b98b58b22fcbe37e60da9d8a3b9d48a83b5c1b31d214"
+    },
+    {
+      "path": "focused-assertion/native-inputs-and-tools.json.gz",
+      "bytes": 125962,
+      "sha256": "7807966739b40e339b8a4a082960e1a71022411950ce04c0f4135bae6b38e941"
+    },
+    {
+      "path": "focused-assertion/pre-edit.json",
+      "bytes": 772,
+      "sha256": "927726462d0bc3d6779db009e1043213cd51f42e73c8a2193b0158379eb779b6"
+    },
+    {
+      "path": "focused-assertion/record.json",
+      "bytes": 9548,
+      "sha256": "f9dd9bbe4f15deca523629d330418e6564cd3ddecc0fadf966cc3ba3ed68fd42"
+    },
+    {
+      "path": "focused-assertion/reports-and-solver-inputs.inventory.json",
+      "bytes": 25053,
+      "sha256": "95dbad3ae7e7ef7d1aa0fe0f231818818072c638a9846e6937a308c63f769a7b"
+    },
+    {
+      "path": "focused-assertion/reports-and-solver-inputs.tar.gz",
+      "bytes": 3256828,
+      "sha256": "88e68a71cf3ab61c3a34d7276243ad3a96b58c4dde29998b1cb21fe6aaccb403"
+    },
+    {
+      "path": "focused-assertion/retention-helper.py",
+      "bytes": 7223,
+      "sha256": "cb486298ffa780b1cdcb812bcc4c38f2088ae2b8d7337fa3a3d368ad6bdd9aad"
+    },
+    {
+      "path": "focused-assertion/source.adb.gz",
+      "bytes": 35452,
+      "sha256": "3866ad8f447e5300fa4e78f88046df95b59603cfb8aa175df09ccaec57320a35"
+    },
+    {
+      "path": "focused-original-postcondition/artifact-inventory.json",
+      "bytes": 1477,
+      "sha256": "5bcea987bb487e1a3a806a3c273c2509366ad91fccc68f551bb7ae1a96973155"
+    },
+    {
+      "path": "focused-original-postcondition/candidate.patch",
+      "bytes": 655,
+      "sha256": "4da3f436c9b2c4f5e711a5a99a4c457c019f18c5452f77dae9e695213cc2d438"
+    },
+    {
+      "path": "focused-original-postcondition/managed-run.inventory.json",
+      "bytes": 594,
+      "sha256": "761ca717048c72a99ae7f9753fcf2dd9cc385e41883ea34eec93156059c3bc5b"
+    },
+    {
+      "path": "focused-original-postcondition/managed-run.tar.gz",
+      "bytes": 127660,
+      "sha256": "9eba2f3bb3353d937ba6b4cc54a09f0942691f498c816c794cfd8839985eb423"
+    },
+    {
+      "path": "focused-original-postcondition/native-inputs-and-tools.json.gz",
+      "bytes": 125957,
+      "sha256": "1988096e37d9b30d457fa9a608cd3f886ef8cf21e7e85dca9f9cd62ac0c1848e"
+    },
+    {
+      "path": "focused-original-postcondition/pre-edit.json",
+      "bytes": 772,
+      "sha256": "927726462d0bc3d6779db009e1043213cd51f42e73c8a2193b0158379eb779b6"
+    },
+    {
+      "path": "focused-original-postcondition/record.json",
+      "bytes": 11777,
+      "sha256": "a5d7a9419ca67b2f649da1018b9d9706127ab5572fd7d6899a301da51b4c356b"
+    },
+    {
+      "path": "focused-original-postcondition/reports-and-solver-inputs.inventory.json",
+      "bytes": 7237,
+      "sha256": "04616cdcd3da2d023a5f9bfb79545abc17d831fd98c01b23d77ca8abf874dfa8"
+    },
+    {
+      "path": "focused-original-postcondition/reports-and-solver-inputs.tar.gz",
+      "bytes": 2683283,
+      "sha256": "955178920d30c53f1308105ec2591c358281c15fc0420995697d2cb870b270a7"
+    },
+    {
+      "path": "focused-original-postcondition/retention-helper.py",
+      "bytes": 7867,
+      "sha256": "3eef3a5bea33528b208adfbbdcd23702ca5057ea8e379f36e4fa40192055c48f"
+    },
+    {
+      "path": "focused-original-postcondition/source.adb.gz",
+      "bytes": 35452,
+      "sha256": "d8f4414b57e8297349f36816dbc27c72d0098b9e2a00e0e9c4971b77f72d3a8c"
+    },
+    {
+      "path": "input-comparison.json",
+      "bytes": 49462,
+      "sha256": "2a57d0d6ec4e95f42e7180c93ab13f2d92d6b76ba869370541c95a4679d574e8"
+    },
+    {
+      "path": "managed-start-and-preflight.json.gz",
+      "bytes": 127299,
+      "sha256": "ce64d0a7bbbd77bc6ce9f9ecc6c2bfb1492d54d0d0641a9aadd2aa34107e462a"
+    },
+    {
+      "path": "read-primary-task.gnat-json.gz",
+      "bytes": 1642953,
+      "sha256": "7e2708f2b49d4dd6fae91d2de0e38a858afa905850a87b673634eb063a7939b2"
+    },
+    {
+      "path": "read-primary-why3session.xml.gz",
+      "bytes": 5990,
+      "sha256": "d7536a60c9dc906e7457d34b644875a1cd369278f384264038b49ad7ce17ea55"
+    },
+    {
+      "path": "read-primary-why3shapes.gz",
+      "bytes": 32755,
+      "sha256": "5029c54c1f5fba45c5fba0b61d776a330daaa4d6799cc8a4a3b1e638d69ac882"
+    },
+    {
+      "path": "record.json",
+      "bytes": 6232,
+      "sha256": "41921f76f69cd75f024f1dcc792b10f6408e712553e9600027094dadfa1442da"
+    },
+    {
+      "path": "silver_output_profile.adb.gz",
+      "bytes": 35457,
+      "sha256": "98e608be816322b3039fe630459a66aaf909898e4d952a7e071a254f8071fe2d"
+    }
+  ],
+  "scope": "Stable existing packet bytes for the lead commit. This inventory excludes itself and future terminal/complete-helper additions."
+}

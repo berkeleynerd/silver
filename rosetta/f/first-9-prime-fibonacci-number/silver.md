@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from declared ranges, a guard before the addition and a static for-loop range, and the while loop lives in a procedure so no variant is needed. The only extra surface is integer arithmetic, mod, 'Image and loops.
 
-Position 197 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 198 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

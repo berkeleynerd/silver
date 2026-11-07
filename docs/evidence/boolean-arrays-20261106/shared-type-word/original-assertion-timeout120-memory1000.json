@@ -1,0 +1,76 @@
+{
+  "run_id": "20261106T222202-7dc3d8242c59",
+  "source_sha256": "d82f6880924196f6fccc2077ed86b71c6a31683d72b8e2a935d494b7d62296f4",
+  "spark_report": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261106T222202-7dc3d8242c59/reports/0/silver_output_profile.spark",
+  "spark_sha256": "9d44376b3565a141d9c45e531d85f3ac74352dddf9d4565ffc6c9d54a9c6e623",
+  "session_snapshot": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/original-assertion-timeout120-memory1000/why3session.xml",
+  "session_sha256": "fe2d2088fb52584d587f63e37b4282ac81f5801def906df64483967e9b395527",
+  "duration_seconds": 697.910501485,
+  "outcome": "failure",
+  "failure_keys": [
+    "silver_output_profile.adb:2178:32:VC_ASSERT"
+  ],
+  "checks": [
+    {
+      "check_col": 32,
+      "check_file": "silver_output_profile.adb",
+      "check_line": 2178,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Timeout",
+              "steps": 1,
+              "time": 120
+            },
+            "Z3": {
+              "result": "Out of\nmemory",
+              "steps": 1,
+              "time": 372.177
+            },
+            "altergo": {
+              "result": "Timeout",
+              "steps": 1,
+              "time": 120
+            }
+          },
+          "transformations": {
+            "introduce_premises": [
+              {
+                "proof_attempts": {
+                  "CVC5_CE": {
+                    "result": "Timeout",
+                    "steps": 1,
+                    "time": 10
+                  }
+                },
+                "transformations": {}
+              }
+            ]
+          }
+        }
+      ],
+      "col": 32,
+      "entity": 1,
+      "file": "silver_output_profile.adb",
+      "how_proved": "prover",
+      "line": 2178,
+      "message": {
+        "text": "assertion might fail"
+      },
+      "msg_id": 0,
+      "rule": "VC_ASSERT",
+      "severity": "medium",
+      "unproved_status": {
+        "memory": true,
+        "status": "limit",
+        "steps": false,
+        "time": true
+      }
+    }
+  ],
+  "scope": "Original source a224e481b2 exact required assertion2178/body2104; timeout120, memlimit1000, level2, cvc5/z3/altergo, 4workers. No source/contract/domain change. No complete native success.",
+  "next_experiment": "Owner/root-directed single resource trial: keep source, assertion, timeout, level and provers fixed; only explicit memory1000 to4096 after authorized application window; stop resource escalation if it fails.",
+  "model_effort": "Inherited session; runtime selector/telemetry unavailable in this continuation.",
+  "token_cost": "Unavailable."
+}

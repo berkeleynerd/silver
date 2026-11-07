@@ -1,0 +1,102 @@
+✖ [378/381] Building Silver.ComposeSourceBridge (5.9s)
+trace: .> LEAN_PATH=/home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays/.silver/linux-x86_64/proof/.lake/build/lib/lean /home/canto/src/github.com/berkeleynerd/silver/tmp/lean-chunk-reuse/.tools/linux-x86_64/lean/bin/lean -j12 -M24576 -DwarningAsError=true /home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays/.silver/linux-x86_64/proof/Silver/ComposeSourceBridge.lean -o /home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays/.silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/ComposeSourceBridge.olean -i /home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays/.silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/ComposeSourceBridge.ilean -c /home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays/.silver/linux-x86_64/proof/.lake/build/ir/Silver/ComposeSourceBridge.c --setup /home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays/.silver/linux-x86_64/proof/.lake/build/ir/Silver/ComposeSourceBridge.setup.json --json
+error: Silver/ComposeSourceBridge.lean:149:37: Application type mismatch: The argument
+  arguments
+has type
+  Nat
+but is expected to have type
+  Ty.truth.meaning
+in the application
+  equation text valid state arguments
+error: Silver/ComposeSourceBridge.lean:149:53: Invalid field `base`: The environment does not contain `Nat.base`, so it is not possible to project the field `base` from an expression
+  ready
+of type `Nat`
+error: Silver/ComposeSourceBridge.lean:150:67: Application type mismatch: The argument
+  arguments
+has type
+  Nat
+but is expected to have type
+  Bool
+in the application
+  BooleanDeclarationNative.imports_meaning imports text state arguments
+error: Silver/ComposeSourceBridge.lean:152:27: Application type mismatch: The argument
+  arguments
+has type
+  Nat
+but is expected to have type
+  Bool
+in the application
+  BooleanDeclarationNative.Libraries.imports_meaning raw helpers definitions contracts links text valid state arguments
+error: Silver/ComposeSourceBridge.lean:152:43: Invalid field `base`: The environment does not contain `Nat.base`, so it is not possible to project the field `base` from an expression
+  ready
+of type `Nat`
+error: Silver/ComposeSourceBridge.lean:155:42: Tactic `introN` failed: There are no additional binders or `let` bindings in the goal to introduce
+
+case refine_2
+calls : Calls
+source : InterpretedSource calls
+imageCalls : Integer.Image.Native.Calls
+scalarCalls : Integer.Native.Calls
+imageSource : Integer.Image.NativeSource.InterpretedSource imageCalls scalarCalls
+linked :
+  ∀ (bounds : Ty.interval.meaning),
+    Integer.Interval.Bounded bounds →
+      calls.function Function.imageMinimum bounds = imageCalls.minimumLength bounds ∧
+        calls.function Function.imageMaximum bounds = imageCalls.maximumLength bounds
+minimum :
+  ∀ (bounds : Ty.interval.meaning),
+    Integer.Interval.Bounded bounds →
+      calls.function Function.imageMinimum bounds = (LengthSummary.ofImage bounds).minimumLength
+maximum :
+  ∀ (bounds : Ty.interval.meaning),
+    Integer.Interval.Bounded bounds →
+      calls.function Function.imageMaximum bounds = (LengthSummary.ofImage bounds).staticLength
+raw : RawHelperEquations calls (lexical calls) Predicate.OuterReadiness.domain :=
+  normalized_rawHelpers calls (interpreted_primitives calls source)
+    (let __src := source.definitions;
+    { ranges := __src.ranges, names := __src.names, fixedBounds := __src.fixedBounds,
+      characterLiteral := __src.characterLiteral, guardedAt := __src.guardedAt, indexed := __src.indexed,
+      characterValue := __src.characterValue, concatenatedFirst := __src.concatenatedFirst,
+      concatenatedLast := __src.concatenatedLast, addBindingWithCharacter := __src.addBindingWithCharacter,
+      characterDeclaration := __src.characterDeclaration, scalarLookup := __src.scalarLookup,
+      scalarRead := __src.scalarRead, booleanHidesInteger := __src.booleanHidesInteger,
+      booleanLookup := __src.booleanLookup, arrayLookup := __src.arrayLookup, scalarLiteral := __src.scalarLiteral,
+      scalarAppend := __src.scalarAppend, scalarEmpty := __src.scalarEmpty, imageMinimum := minimum,
+      imageMaximum := maximum, nameIs := __src.nameIs, callAfter := __src.callAfter, skip := __src.skip,
+      name := __src.name, fixed := __src.fixed, take := __src.take, lookupFrom := __src.lookupFrom,
+      lookup := __src.lookup, literal := __src.literal, workTail := __src.workTail, workBudget := __src.workBudget,
+      image := __src.image, value := __src.value, newName := __src.newName, addBinding := __src.addBinding,
+      stringDeclaration := __src.stringDeclaration, scalarConstraint := __src.scalarConstraint,
+      subtypeLookupModel := __src.subtypeLookupModel, subtypeLookup := __src.subtypeLookup,
+      scalarType := __src.scalarType, subtypeDeclaration := __src.subtypeDeclaration,
+      scalarDeclaration := __src.scalarDeclaration, arrayAdd := __src.arrayAdd, arrayPut := __src.arrayPut,
+      arrayValuesModel := __src.arrayValuesModel, arrayValues := __src.arrayValues,
+      booleanArrayValuesModel := __src.booleanArrayValuesModel, booleanArrayValues := __src.booleanArrayValues,
+      arrayDeclaration := __src.arrayDeclaration, declaration := __src.declaration, argument := __src.argument,
+      declarations := __src.declarations, expressionStep := __src.expressionStep, tail := __src.tail,
+      fits := __src.fits, comparison := __src.comparison, expression := __src.expression, target := __src.target,
+      dynamic := __src.dynamic, assignmentValue := __src.assignmentValue, output := __src.output,
+      capacity := __src.capacity, readDeclarations := __src.readDeclarations })
+    source.legal
+imports : BooleanInitializerNative.Imports
+predicate : Predicate.Native.Calls
+helpers : Predicate.Native.HelperMeaning predicate
+definitions : Predicate.Native.DefinitionEquations predicate
+contracts : Predicate.Native.Contracts predicate
+links : BooleanInitializerNative.Libraries.Links imports predicate
+equation :
+  ∀ (text : Source),
+    ValidText text →
+      ∀ (state : ParserState) (position first after : Nat),
+        Predicate.OuterReadiness.ValidState text state →
+          ValidCursor text position →
+            Named.NameState.Valid text { first := first, after := after } →
+              calls.function Function.booleanInitializer text state position first after =
+                BooleanInitializerNative.body.eval imports
+                  { text := text, state := state, position := position, maskFirst := first, maskAfter := after }
+text : Source
+valid : ValidText text
+state : ParserState
+position : Ty.truth.meaning
+first : NativeState Predicate.OuterReadiness.domain text state
+⊢ calls.function Function.booleanDeclaration text state position = booleanDeclarationAt text state position

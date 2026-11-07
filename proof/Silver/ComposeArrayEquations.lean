@@ -101,6 +101,66 @@ theorem interpreted_arrayValues (calls : Calls)
   (equations.arrayValues text valid source result position length parsed componentBounds componentsBounded context).trans
     (interpreted_arrayValuesModel calls equations text valid source result position length parsed componentBounds componentsBounded context)
 
+theorem interpreted_booleanArrayValuesModel (calls : Calls)
+    (equations : HelperEquations calls (domain := domain))
+    (text : Source) (valid : ValidText text) (source result : ParserState)
+    (position length parsed maskFirst maskAfter : Nat)
+    (mask : (⟨maskFirst, maskAfter⟩ : NameState).Valid text)
+    (context : ArrayValuesDomain text source result position length parsed domain) :
+    calls.function .booleanArrayValuesModel text source result position length parsed maskFirst maskAfter =
+      booleanArrayValuesModel text source result position length parsed maskFirst maskAfter := by
+  rw [equations.booleanArrayValuesModel text valid source result position length parsed maskFirst maskAfter mask context,
+    booleanArrayValues_denotation]
+  conv => rhs; rw [booleanArrayValuesModel]
+  unfold booleanArrayValuesEquation
+  dsimp only [lexical]
+  simp only [decide_eq_true_eq]
+  by_cases zero : position = 0
+  · simp only [zero, ↓reduceIte]
+  · simp only [zero, ↓reduceIte]
+    by_cases done : parsed = length
+    · subst parsed
+      simp only [Nat.lt_irrefl, ↓reduceDIte, ↓reduceIte]
+    · have remaining : parsed < length := by have bound := context.parsedBound; omega
+      simp only [done, remaining, ↓reduceIte, ↓reduceDIte]
+      rw [equations.booleanInitializer text valid source position maskFirst maskAfter
+        context.sourceContext context.positionValid mask]
+      by_cases failed : booleanInitializerAfter text source position maskFirst maskAfter = 0
+      · simp only [failed, ↓reduceIte]
+      · simp only [failed, ↓reduceIte]
+        have written := equations.arrayPut result 0 (context.room remaining) (by decide +kernel)
+        rw [arrayPut_denotation] at written
+        rw [written]
+        have bound := model_booleanInitializer_bound text valid source position maskFirst maskAfter
+          context.sourceValid.2.1 context.positionValid
+        have comma := interpreted_take calls equations.toRawHelperEquations text valid _ (.symbol ",")
+          bound (by unfold ValidToken; decide)
+        rw [comma]
+        let following := if parsed + 1 < length then fixedAfter text
+          (booleanInitializerAfter text source position maskFirst maskAfter) "," false
+          else booleanInitializerAfter text source position maskFirst maskAfter
+        have nextPosition : ValidCursor text following := by
+          dsimp only [following]
+          split
+          · exact model_fixed_valid text _ "," false bound
+          · exact bound
+        exact interpreted_booleanArrayValuesModel calls equations text valid source (putArrayValue result 0)
+          following length (parsed + 1) maskFirst maskAfter mask
+          (context.next remaining (by decide +kernel) nextPosition)
+termination_by length - parsed
+decreasing_by omega
+
+theorem interpreted_booleanArrayValues (calls : Calls)
+    (equations : HelperEquations calls (domain := domain))
+    (text : Source) (valid : ValidText text) (source result : ParserState)
+    (position length parsed maskFirst maskAfter : Nat)
+    (mask : (⟨maskFirst, maskAfter⟩ : NameState).Valid text)
+    (context : ArrayValuesDomain text source result position length parsed domain) :
+    calls.function .booleanArrayValues text source result position length parsed maskFirst maskAfter =
+      booleanArrayValuesModel text source result position length parsed maskFirst maskAfter :=
+  (equations.booleanArrayValues text valid source result position length parsed maskFirst maskAfter mask context).trans
+    (interpreted_booleanArrayValuesModel calls equations text valid source result position length parsed maskFirst maskAfter mask context)
+
 theorem interpreted_arrayParts (calls : Calls) (equations : RawHelperEquations calls (domain := domain))
     (text : Source) (valid : ValidText text) (state : ParserState)
     (stateValid : NativeState domain text state) :
@@ -119,7 +179,9 @@ theorem interpreted_arrayParts (calls : Calls) (equations : RawHelperEquations c
   let close := fixedAfter text high.after ")" false
   let ofAfter := fixedAfter text close "of" true
   let typeFirst := skipAt text ofAfter
-  let typeMark := scalarTypeAt text state typeFirst
+  let integerType := scalarTypeAt text state typeFirst
+  let isBoolean := decide (integerType.after = 0) && decide (fixedAfter text typeFirst "boolean" true ≠ 0)
+  let typeMark := if isBoolean then (⟨fixedAfter text typeFirst "boolean" true, Integer.Interval.full⟩ : ScalarConstraintResult) else integerType
   let typeAfter := typeMark.after
   let assigned := fixedAfter text typeAfter ":=" false
   let position := fixedAfter text assigned "(" false
@@ -136,7 +198,11 @@ theorem interpreted_arrayParts (calls : Calls) (equations : RawHelperEquations c
   have bclose : ValidCursor text close := model_fixed_valid text high.after ")" false bhigh.1
   have bof : ValidCursor text ofAfter := model_fixed_valid text close "of" true bclose
   have btypeFirst : ValidCursor text typeFirst := model_skip_valid text ofAfter bof
-  have btypeAfter : ValidCursor text typeAfter := scalarTypeAt_position_valid text state typeFirst
+  have btypeAfter : ValidCursor text typeAfter := by
+    dsimp only [typeAfter, typeMark]
+    split
+    · exact model_fixed_valid text typeFirst "boolean" true btypeFirst
+    · exact scalarTypeAt_position_valid text state typeFirst
   have bassigned : ValidCursor text assigned := model_fixed_valid text typeAfter ":=" false btypeAfter
   have efirst : calls.function .skip text state.position = first := interpreted_skip calls equations text valid state.position stateValid.valid.1
   have eafter : calls.function .nameAfter text first = after := interpreted_name calls equations text valid first bfirst
@@ -150,19 +216,23 @@ theorem interpreted_arrayParts (calls : Calls) (equations : RawHelperEquations c
   have eclose : calls.function .takeToken text high.after (.symbol ")") = close := interpreted_take calls equations text valid high.after (.symbol ")") bhigh.1 (by unfold ValidToken; decide)
   have eof : calls.function .takeToken text close (.word "of") = ofAfter := interpreted_take calls equations text valid close (.word "of") bclose (by unfold ValidToken; decide)
   have etypeFirst : calls.function .skip text ofAfter = typeFirst := interpreted_skip calls equations text valid ofAfter bof
-  have etypeMark : calls.function .scalarType text state typeFirst = typeMark :=
+  have etypeMark : calls.function .scalarType text state typeFirst = integerType :=
     interpreted_scalarType calls equations text valid state typeFirst stateValid btypeFirst
+  have eboolean : calls.function .takeToken text typeFirst (.word "boolean") = fixedAfter text typeFirst "boolean" true :=
+    interpreted_take calls equations text valid typeFirst (.word "boolean") btypeFirst (by unfold ValidToken; decide)
   have eassigned : calls.function .takeToken text typeMark.after (.symbol ":=") = assigned := interpreted_take calls equations text valid typeAfter (.symbol ":=") btypeAfter (by unfold ValidToken; decide)
   have eposition : calls.function .takeToken text assigned (.symbol "(") = position := interpreted_take calls equations text valid assigned (.symbol "(") bassigned (by unfold ValidToken; decide)
   simp only [arrayPartsEquation, decideIf, efirst, eafter, ecolon, econstant, earray,
-    elowStart, elow, ehighStart, ehigh, eclose, eof, etypeFirst, etypeMark, eassigned, eposition]
+    elowStart, elow, ehighStart, ehigh, eclose, eof, etypeFirst, etypeMark, eboolean]
+  rw [eassigned, eposition]
   rfl
 
 
-theorem interpreted_arrayDeclaration (calls : Calls) (equations : RawHelperEquations calls (domain := domain))
+theorem interpreted_arrayDeclaration (calls : Calls) (laws : HelperEquations calls (domain := domain))
     (text : Source) (valid : ValidText text) (state : ParserState) (arguments : Bool)
     (stateValid : NativeState domain text state) :
     calls.function .arrayDeclaration text state arguments = arrayDeclarationAt text state arguments := by
+  let equations := laws.toRawHelperEquations
   have vstate := stateValid.valid
   rw [equations.arrayDeclaration text valid state arguments stateValid, arrayDeclaration_denotation,
     ← model_arrayDeclaration_equation text state arguments true]
@@ -184,37 +254,64 @@ theorem interpreted_arrayDeclaration (calls : Calls) (equations : RawHelperEquat
     vstate.2.2.2.2.2.1 positions.typeFirst positions.typeAfter
   have earray := equations.arrayLookup text valid state.arrayNames.names parts.typeFirst parts.typeAfter
     (state_array_metadata vstate) positions.typeFirst positions.typeAfter
+  have eboolean := equations.booleanLookup text valid state.booleanNames parts.typeFirst parts.typeAfter
+    vstate.2.2.2.2.2.2.2.2 positions.typeFirst positions.typeAfter
+  have esubtype := interpreted_subtypeLookup calls equations text valid state.subtypeNames parts.typeFirst parts.typeAfter
+    vstate.2.2.2.2.2.2.2.1 positions.typeFirst positions.typeAfter
   rw [ename]
   by_cases allowed : newNameAllowed text state parts.first parts.after arguments = true
   · have nameValid := model_new_name_valid text state parts.first parts.after arguments positions.after allowed
     rw [equations.nameIs text valid parts.first parts.after "integer" nameValid (by decide) (by decide),
+      equations.nameIs text valid parts.first parts.after "boolean" nameValid (by decide) (by decide),
       equations.scalarEmpty parts.lower.bounds positions.lowerBounds,
       equations.scalarEmpty parts.upper.bounds positions.upperBounds,
-      estring, escalar, earray]
-    simp only [allowed, Bool.not_true, Bool.false_or]
+      estring, escalar, earray, eboolean, esubtype]
+    have typeName : (if parts.isBoolean then
+        Named.nameIs text parts.first parts.after ("boolean".toList.map Char.toNat)
+        else Named.nameIs text parts.first parts.after ("integer".toList.map Char.toNat)) =
+        Named.nameIs text parts.first parts.after parts.typeWord := by
+      unfold ArrayDeclarationParts.typeWord
+      split <;> rfl
+    simp only [allowed, Bool.not_true, Bool.false_or, typeName]
     split
     · rfl
     · rename_i good
-      have ready : ArrayDeclarationReady text state arguments parts := by
-        simpa [ArrayDeclarationReady, allowed, Bool.or_eq_true, not_or, Nat.not_le,
-          Int.not_lt, Int.not_le, and_assoc] using good
-      have typePositive : (scalarTypeAt text state parts.typeFirst).after ≠ 0 := by
-        have pos := ready.2.2.2.1
-        rw [← partsEq] at pos ⊢
-        exact model_fixed_input_nonzero text _ ":=" false
-          (model_fixed_input_nonzero text _ "(" false pos)
-      have typeEq : scalarTypeAt text state parts.typeFirst = ⟨parts.typeAfter, parts.componentBounds⟩ := by
-        rw [← partsEq]
-        rfl
-      have typeReading : ScalarTypeAt text state parts.typeFirst ⟨parts.typeAfter, parts.componentBounds⟩ :=
-        typeEq ▸ scalarTypeAt_sound text state _ typePositive
+      have common : parts.lower.bounds.lower ≤ parts.upper.bounds.lower ∧
+          parts.upper.bounds.lower - parts.lower.bounds.lower < (ArrayBindings.maxElements - state.arrayNames.used : Nat) ∧
+          state.arrayNames.names.length ≠ ArrayBindings.maxBindings ∧ parts.position ≠ 0 := by
+        simp only [Bool.or_eq_true, decide_eq_true_eq, not_or] at good
+        omega
+      have componentsNonempty : parts.componentBounds.lower ≤ parts.componentBounds.upper := by
+        cases kind : parts.isBoolean with
+        | true =>
+          have originalKind : (arrayDeclarationParts text state).isBoolean = true := by rw [partsEq]; exact kind
+          have same := arrayParts_boolean_components originalKind
+          rw [partsEq] at same
+          rw [same]
+          decide +kernel
+        | false =>
+          have typeEq : scalarTypeAt text state parts.typeFirst = ⟨parts.typeAfter, parts.componentBounds⟩ := by
+            rw [← partsEq]
+            exact arrayParts_integer_type (partsEq.symm ▸ kind)
+          have typePositive : (scalarTypeAt text state parts.typeFirst).after ≠ 0 := by
+            have pos := common.2.2.2
+            rw [typeEq]
+            have positionEq : parts.position = fixedAfter text
+                (fixedAfter text parts.typeAfter ":=" false) "(" false := by rw [← partsEq]; rfl
+            rw [positionEq] at pos
+            exact model_fixed_input_nonzero text _ ":=" false
+              (model_fixed_input_nonzero text _ "(" false pos)
+          have typeReading : ScalarTypeAt text state parts.typeFirst ⟨parts.typeAfter, parts.componentBounds⟩ :=
+            typeEq ▸ scalarTypeAt_sound text state _ typePositive
+          exact typeReading.nonempty vstate.2.2.2.2.2.2.2.1
       have bindingValid : ArrayBindings.ValidBinding (parts.binding state) := by
-        rcases ready with ⟨_, _, _, _, _, _, _, _, _, _, _, _, _, ordered, capacity, _, _, _⟩
         have lowSafe := positions.lowerBounds.1
         have highSafe := positions.upperBounds.1
+        have ordered := common.1
+        have capacity := common.2.1
         simp only [ArrayBindings.ValidBinding, ArrayDeclarationParts.binding, ArrayDeclarationParts.length]
         exact ⟨⟨lowSafe, highSafe⟩, ordered, by omega, by omega, by omega,
-          positions.componentBounds, typeReading.nonempty vstate.2.2.2.2.2.2.2.1⟩
+          positions.componentBounds, componentsNonempty⟩
       have capacity : state.arrayNames.used + parts.length ≤ ArrayBindings.maxElements := bindingValid.2.2.2.1
       have initialContext (position : Nat) (bounded : ValidCursor text position) :
           ArrayValuesDomain text state state position parts.length 0 domain :=
@@ -245,11 +342,25 @@ theorem interpreted_arrayDeclaration (calls : Calls) (equations : RawHelperEquat
         · exact model_fixed_valid text choice.after "=>" false choiceValid.1
         · exact positions.position
       have context := initialContext position positionValid
-      have evalues := interpreted_arrayValues calls equations text valid state state position parts.length 0 parts.componentBounds positions.componentBounds context
+      let values := if parts.isBoolean then
+        booleanArrayValuesModel text state state position parts.length 0 parts.first parts.after
+        else arrayValuesModel text state state position parts.length 0 parts.componentBounds
+      have mask : (⟨parts.first, parts.after⟩ : NameState).Valid text := Or.inr nameValid
+      have evalues : (if parts.isBoolean then
+          calls.function .booleanArrayValues text state state position parts.length 0 parts.first parts.after
+          else calls.function .arrayValues text state state position parts.length 0 parts.componentBounds) = values := by
+        dsimp only [values]
+        split
+        · exact interpreted_booleanArrayValues calls laws text valid state state position parts.length 0 parts.first parts.after mask context
+        · exact interpreted_arrayValues calls equations text valid state state position parts.length 0 parts.componentBounds positions.componentBounds context
       dsimp only [position, choice, ArrayDeclarationParts.length] at evalues
       rw [evalues]
-      let values := arrayValuesModel text state state position parts.length 0 parts.componentBounds
-      have valuesValid := model_arrayValues_valid text state state position parts.length 0 parts.componentBounds context
+      dsimp only [values, position, choice, ArrayDeclarationParts.length]
+      have valuesValid : ValidState text values := by
+        dsimp only [values]
+        split
+        · exact model_booleanArrayValues_valid text valid state state position parts.length 0 parts.first parts.after context
+        · exact model_arrayValues_valid text state state position parts.length 0 parts.componentBounds context
       have closeValid := model_fixed_valid text values.position ")" false valuesValid.1
       have eclose := interpreted_take calls equations text valid values.position (.symbol ")") valuesValid.1
         (by unfold ValidToken; decide)
@@ -260,24 +371,35 @@ theorem interpreted_arrayDeclaration (calls : Calls) (equations : RawHelperEquat
       by_cases absent : values.position = 0
       · dsimp only [values, position, choice, ArrayDeclarationParts.length] at absent
         simp only [absent, decide_true, Bool.true_or, ↓reduceIte, ite_self]
-      · have preserved := arrayValuesModel_preserves text state state position parts.length 0 absent
-        have valuesContext := NativeState.transportScalar stateValid valuesValid preserved.2.1 preserved.1
-        obtain ⟨expressions, reading⟩ := arrayValues_sound text state state position parts.length 0 positionValid absent
-        have used : values.arrayNames.used = state.arrayNames.used + parts.length := by
-          simpa only [Nat.sub_zero] using arrayValues_used reading
+      · have fields : values.names = state.names ∧ values.scalarNames = state.scalarNames ∧
+            values.arrayNames.names = state.arrayNames.names ∧
+            values.arrayNames.used = state.arrayNames.used + parts.length := by
+          dsimp only [values] at absent ⊢
+          by_cases kind : parts.isBoolean = true
+          · simp only [kind, ↓reduceIte] at absent ⊢
+            have preserved := booleanArrayValuesModel_fields text state state position parts.length 0 parts.first parts.after absent
+            have used := booleanArrayValuesModel_used text state state position parts.length 0 parts.first parts.after absent
+            refine ⟨?_, ?_, ?_, by simpa only [Nat.sub_zero] using used⟩ <;> rw [preserved]
+          · have kindFalse := Bool.eq_false_iff.mpr kind
+            simp only [kindFalse, Bool.false_eq_true, ↓reduceIte] at absent ⊢
+            have preserved := arrayValuesModel_preserves text state state position parts.length 0 absent
+            obtain ⟨expressions, reading⟩ := arrayValues_sound text state state position parts.length 0 positionValid absent
+            exact ⟨preserved.1, preserved.2.1, preserved.2.2.1, by simpa only [Nat.sub_zero] using arrayValues_used reading⟩
+        have valuesContext := NativeState.transportScalar stateValid valuesValid fields.2.1 fields.1
+        have used := fields.2.2.2
         have room : values.arrayNames.names.length < ArrayBindings.maxBindings := by
           have oldBound := (state_array_metadata vstate).1
-          have available := ready.2.2.2.2.1
-          rw [preserved.2.2.1]
+          have available := common.2.2.1
+          rw [fields.2.2.1]
           omega
         have appendOrder : ArrayAddDomain values.arrayNames.names state.arrayNames.used := by
           intro last isLast
-          rw [preserved.2.2.1] at isLast
+          rw [fields.2.2.1] at isLast
           exact vstate.2.2.2.2.2.2.1.2.2.2 last (List.mem_of_getLast? isLast)
         have ending := model_fixed_valid text (fixedAfter text values.position ")" false) ";" false closeValid
         have added := equations.arrayAdd text valid values parts.first parts.after
           ⟨parts.lower.bounds.lower, parts.upper.bounds.lower⟩ state.arrayNames.used parts.length
-          (decide (parts.constantAfter = 0)) _ parts.componentBounds
+          (decide (parts.constantAfter = 0)) _ parts.componentBounds parts.isBoolean
           valuesContext nameValid bindingValid room (by omega) appendOrder ending
         rw [arrayAdd_denotation] at added
         dsimp only [values, position, choice, ArrayDeclarationParts.length] at added

@@ -14,7 +14,7 @@ open Expressions
 attribute [local irreducible] ScalarExpression.read
 
 def declarationRanges (state : ParserState) : Integer.Ranges :=
-  ArrayBindings.ranges state.arrayNames.names state.arrayNames.values true
+  ArrayBindings.integerRanges state.arrayNames.names state.arrayNames.values true
     (ScalarExpression.ranges state.scalarNames)
 
 def ArrayDeclarationParts.length (parts : ArrayDeclarationParts) : Nat :=
@@ -23,7 +23,7 @@ def ArrayDeclarationParts.length (parts : ArrayDeclarationParts) : Nat :=
 def ArrayDeclarationParts.binding (parts : ArrayDeclarationParts) (state : ParserState) :
     ArrayBindings.Binding :=
   ⟨parts.first, parts.after, ⟨parts.lower.bounds.lower, parts.upper.bounds.lower⟩,
-    state.arrayNames.used, parts.length, decide (parts.constantAfter = 0), parts.componentBounds⟩
+    state.arrayNames.used, parts.length, decide (parts.constantAfter = 0), parts.componentBounds, parts.isBoolean⟩
 
 def ArrayDeclarationReady (text : Source) (state : ParserState) (arguments : Bool)
     (parts : ArrayDeclarationParts) : Prop :=
@@ -41,7 +41,22 @@ def ArrayDeclarationReady (text : Source) (state : ParserState) (arguments : Boo
       (ArrayBindings.maxElements - state.arrayNames.used : Nat) ∧
     lookupName text state.names parts.typeFirst parts.typeAfter = 0 ∧
     ScalarExpression.lookup text state.scalarNames parts.typeFirst parts.typeAfter = 0 ∧
-    ArrayBindings.lookup text state.arrayNames.names parts.typeFirst parts.typeAfter = 0
+    ArrayBindings.lookup text state.arrayNames.names parts.typeFirst parts.typeAfter = 0 ∧
+    BooleanBindings.lookup text state.booleanNames parts.typeFirst parts.typeAfter = 0 ∧
+    parts.isBoolean = false
+
+theorem ArrayDeclarationReady.integer {text state arguments parts}
+    (ready : ArrayDeclarationReady text state arguments parts) : parts.isBoolean = false := by
+  rcases ready with ⟨_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, kind⟩
+  exact kind
+
+theorem arrayParts_integer_type {text state}
+    (kind : (arrayDeclarationParts text state).isBoolean = false) :
+    scalarTypeAt text state (arrayDeclarationParts text state).typeFirst =
+      ⟨(arrayDeclarationParts text state).typeAfter, (arrayDeclarationParts text state).componentBounds⟩ := by
+  unfold arrayDeclarationParts at kind ⊢
+  dsimp only at kind ⊢
+  simp only [kind, Bool.false_eq_true, ↓reduceIte]
 
 /-- This grammar records the singleton aggregate's required named association;
 its choice is Ada-static and denotes the declared sole index. -/
@@ -266,8 +281,10 @@ theorem array_declaration_complete {text arguments state declaration final}
       have positive := arrayValues_positive valuesRead
       have aggregateEq := arrayAggregate_complete aggregate
       have valuesEq := arrayValues_complete valuesRead
+      have kind := ready.integer
       simp only [ArrayDeclarationParts.length] at aggregateEq valuesEq
-      simp only [arrayDeclarationAt, partsEq]
+      simp only [arrayDeclarationAt, partsEq, ArrayDeclarationParts.typeWord, kind,
+        Bool.false_eq_true, ↓reduceIte, false_and, or_false, arrayDeclarationValues]
       split
       · rename_i bad
         exfalso
@@ -275,21 +292,25 @@ theorem array_declaration_complete {text arguments state declaration final}
         omega
       · simp only [aggregateEq, start, valuesEq, positive, ↓reduceIte]
         rw [← followingEq, ite_eq_right (Nat.not_le.mpr advances)]
-        rfl
+        simp only [ArrayDeclarationParts.binding, ArrayDeclarationParts.length, kind]
 
 theorem array_declaration_sound (text : Source) (state : ParserState) (arguments : Bool)
+    (integerKind : (arrayDeclarationParts text state).isBoolean = false)
     (accepted : (arrayDeclarationAt text state arguments).position ≠ 0) :
     ∃ declaration, ArrayDeclarationAt text arguments state declaration (arrayDeclarationAt text state arguments) := by
   unfold arrayDeclarationAt at accepted ⊢
   generalize partsEq : arrayDeclarationParts text state = parts at accepted ⊢
+  have kind : parts.isBoolean = false := by rw [← partsEq]; exact integerKind
   dsimp only at accepted ⊢
+  simp only [arrayDeclarationValues, ArrayDeclarationParts.typeWord, kind,
+    Bool.false_eq_true, ↓reduceIte, false_and, or_false] at accepted ⊢
   split at accepted
   · simp only [invalidState] at accepted
     contradiction
   · rename_i good
     simp only [good, Bool.false_eq_true, ↓reduceIte]
     have ready : ArrayDeclarationReady text state arguments parts := by
-      simpa [ArrayDeclarationReady, Bool.or_eq_true, not_or, Nat.not_le, Int.not_lt,
+      simpa [ArrayDeclarationReady, kind, Bool.or_eq_true, not_or, Nat.not_le, Int.not_lt,
         Int.not_le, and_assoc] using good
     split at accepted
     · simp only [invalidState] at accepted
@@ -335,16 +356,21 @@ theorem array_declaration_sound (text : Source) (state : ParserState) (arguments
           obtain ⟨expressions, valuesRead⟩ := arrayValues_sound text state state _ parts.length 0
             aggregateBound positive
           refine ⟨⟨(parts.binding state).descriptor, expressions⟩, ?_⟩
-          have typePositive : (scalarTypeAt text state parts.typeFirst).after ≠ 0 := by
-            have pos := ready.2.2.2.1
-            rw [← partsEq] at pos ⊢
-            exact model_fixed_input_nonzero text _ ":=" false
-              (model_fixed_input_nonzero text _ "(" false pos)
           have typeEq : scalarTypeAt text state parts.typeFirst = ⟨parts.typeAfter, parts.componentBounds⟩ := by
             rw [← partsEq]
-            rfl
-          exact .declaration partsEq ready (typeEq ▸ scalarTypeAt_sound text state _ typePositive)
+            exact arrayParts_integer_type integerKind
+          have typePositive : (scalarTypeAt text state parts.typeFirst).after ≠ 0 := by
+            have pos := ready.2.2.2.1
+            rw [typeEq]
+            have positionEq : parts.position = fixedAfter text
+                (fixedAfter text parts.typeAfter ":=" false) "(" false := by rw [← partsEq]; rfl
+            rw [positionEq] at pos
+            exact model_fixed_input_nonzero text _ ":=" false
+              (model_fixed_input_nonzero text _ "(" false pos)
+          have reading := ArrayDeclarationAt.declaration (state := state) (parts := parts)
+            partsEq ready (typeEq ▸ scalarTypeAt_sound text state _ typePositive)
             (lowerEq.symm ▸ lowerRead) (upperEq.symm ▸ upperRead)
-            aggregate valuesRead rfl (by omega)
+            aggregate valuesRead rfl (Nat.lt_of_not_ge advances)
+          simpa only [ArrayDeclarationParts.binding, ArrayDeclarationParts.length, kind] using reading
 
 end Silver.Compose

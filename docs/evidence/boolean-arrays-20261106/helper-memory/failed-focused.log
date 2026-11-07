@@ -1,0 +1,16 @@
+Lean phase build started at 2026-11-06T20:05:25.084763+00:00
++ /home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays/.tools/linux-x86_64/lean/bin/lake --rehash --reconfigure -K silverThreads=8 -K silverMemoryMb=24576 build +Silver.ComposeHelperSourceCandidate +Silver.AxiomAudit
+✔ [84/85] Built Silver.ReviewedOutputShape (191s)
+✖ [85/85] Building Silver.ComposeHelperSourceCandidate (2463s)
+trace: .> LEAN_PATH=/home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays/.silver/linux-x86_64/proof/.lake/build/lib/lean /home/canto/src/github.com/berkeleynerd/silver/tmp/lean-chunk-reuse/.tools/linux-x86_64/lean/bin/lean -j8 -M24576 -DwarningAsError=true /home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays/.silver/linux-x86_64/proof/Silver/ComposeHelperSourceCandidate.lean -o /home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays/.silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/ComposeHelperSourceCandidate.olean -i /home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays/.silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/ComposeHelperSourceCandidate.ilean -c /home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays/.silver/linux-x86_64/proof/.lake/build/ir/Silver/ComposeHelperSourceCandidate.c --setup /home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays/.silver/linux-x86_64/proof/.lake/build/ir/Silver/ComposeHelperSourceCandidate.setup.json --json
+error: Silver/ComposeHelperSourceCandidate.lean:181:12: Tactic `decide` failed. The elaborator is able to reduce the `Decidable` instance, but the kernel fails with:
+
+  (kernel) excessive memory consumption detected
+error: Silver/ComposeHelperSourceCandidate.lean:181:12: Tactic `decide` failed. The elaborator is able to reduce the `Decidable` instance, but the kernel fails with:
+
+  (kernel) excessive memory consumption detected
+Some required targets logged failures:
+- Silver.ComposeHelperSourceCandidate
+error: build failed
+
+Lean phase build finished at 2026-11-06T20:49:46.560715+00:00; elapsed 2661.426s; exit 1

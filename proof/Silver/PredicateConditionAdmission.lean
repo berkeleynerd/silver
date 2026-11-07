@@ -37,7 +37,7 @@ def ParseContext.analysis (context : ParseContext) : Integer.Analysis :=
 
 def ParseContext.flow (context : ParseContext) (facts : ActiveFlow)
     (initials : ArrayBindings.Initials := []) : Flow :=
-  ⟨facts.path, ArrayBindings.ranges context.arrayNames initials context.elaborating facts.model.scalars⟩
+  ⟨facts.path, ArrayBindings.integerRanges context.arrayNames initials context.elaborating facts.model.scalars⟩
 
 def ParseContext.readingNames (context : ParseContext) (facts : ActiveFlow) : ScalarExpression.Environment :=
   ScalarMetadata.readingNames context.scalarNames context.declarationCount facts
@@ -49,7 +49,7 @@ def ParseContext.ArraysReady (context : ParseContext) (text : Source) : Prop :=
 theorem ParseContext.reading_ranges {context : ParseContext} {facts : ActiveFlow}
     (compatible : ScalarMetadata.OverlayCompatible context.scalarNames context.declarationCount facts)
     (initials : ArrayBindings.Initials := []) :
-    ArrayBindings.ranges context.arrayNames initials context.elaborating
+    ArrayBindings.integerRanges context.arrayNames initials context.elaborating
         (ScalarExpression.ranges (context.readingNames facts)) =
       (context.flow facts initials).scalars := by
   unfold ParseContext.readingNames
@@ -64,7 +64,7 @@ theorem ParseContext.flow_scalar (context : ParseContext) (facts : ActiveFlow)
     {index : Nat} (low : index ≤ ArrayBindings.scalarLimit)
     (initials : ArrayBindings.Initials := []) :
     (context.flow facts initials).scalars index = facts.model.scalars index :=
-  ArrayBindings.ranges_scalar context.arrayNames initials context.elaborating facts.model.scalars low
+  ArrayBindings.ranges_scalar (ArrayBindings.integerNames context.arrayNames) initials context.elaborating facts.model.scalars low
 
 theorem ParseContext.flow_join (context : ParseContext) (left right : ActiveFlow)
     (initials : ArrayBindings.Initials := []) :
@@ -76,12 +76,12 @@ theorem ParseContext.flow_join (context : ParseContext) (left right : ActiveFlow
   congr 1
   rw [scalars]
   funext cell
-  unfold ArrayBindings.ranges Integer.Ranges.join
-  cases covered : ArrayBindings.covers context.arrayNames cell with
+  unfold ArrayBindings.integerRanges ArrayBindings.ranges Integer.Ranges.join
+  cases covered : ArrayBindings.covers (ArrayBindings.integerNames context.arrayNames) cell with
   | true =>
     simp only [covered, ↓reduceIte]
     cases context.elaborating
-    · exact congrArg some (ArrayBindings.componentRange_join_self context.arrayNames cell).symm
+    · exact congrArg some (ArrayBindings.componentRange_join_self (ArrayBindings.integerNames context.arrayNames) cell).symm
     · simp [Integer.Interval.join, Integer.Interval.singleton, Integer.Interval.isEmpty]
   | false => simp only [covered, Bool.false_eq_true, ↓reduceIte]
 
@@ -95,11 +95,11 @@ theorem ParseContext.flow_refine (context : ParseContext) (facts : ActiveFlow)
   simp only [ParseContext.flow, ActiveFlow.refine_path]
   congr 1
   rw [scalars]
-  unfold Integer.Ranges.refineName
-  rw [ArrayBindings.ranges_scalar context.arrayNames initials context.elaborating facts.model.scalars low]
+  unfold Integer.Ranges.refineName ArrayBindings.integerRanges
+  rw [ArrayBindings.ranges_scalar (ArrayBindings.integerNames context.arrayNames) initials context.elaborating facts.model.scalars low]
   cases facts.model.scalars index with
   | none => rfl
-  | some bounds => exact ArrayBindings.ranges_put context.arrayNames initials context.elaborating _ low _
+  | some bounds => exact ArrayBindings.ranges_put (ArrayBindings.integerNames context.arrayNames) initials context.elaborating _ low _
 
 @[simp] theorem ParseContext.flow_withPath (context : ParseContext) (facts : ActiveFlow)
     (path : Context) (initials : ArrayBindings.Initials := []) :
@@ -238,6 +238,25 @@ def chainJoin (left right : ConditionResult) (operator : ChainKind) (incoming : 
   | .shortOr => ⟨right.after, left.whenTrue.join right.whenTrue, right.whenFalse⟩
   | _ => ⟨right.after, incoming, incoming⟩
 
+/-- Boolean component reads use the scalar-only index grammar and preserve both
+outcome flows. Reserved Integer initial-value slots carry no Boolean meaning. -/
+def booleanArrayAfter (text : Source) (context : ParseContext) (position : Nat)
+    (facts : ActiveFlow) : Nat :=
+  let first := skipAt text position
+  let after := nameAfter text first
+  let target := ArrayBindings.lookup text context.arrayNames first after
+  let subscript := ScalarExpression.read text (fixedAfter text after "(" false)
+    (context.readingNames facts) context.maskFirst context.maskAfter
+  let close := fixedAfter text subscript.after ")" false
+  if first = 0 ∨ after ≤ first ∨ target = 0 ∨
+      (ArrayBindings.binding context.arrayNames target).isBoolean = false ∨
+      ScalarExpression.lookup text context.scalarNames first after ≠ 0 ∨
+      (context.maskFirst ≠ 0 ∧ Named.equalName text context.maskFirst context.maskAfter first after = true) ∨
+      subscript.operands = ScalarExpression.maxOperands ∨
+      ArrayBindings.contains (ArrayBindings.binding context.arrayNames target) subscript.bounds = false ∨
+      close ≤ position
+  then 0 else close
+
 def booleanAtomAfter (text : Source) (context : ParseContext) (position : Nat) : Nat :=
   let first := skipAt text position
   let after := nameAfter text first
@@ -262,6 +281,8 @@ mutual
         let close := fixedAfter text result.after ")" false
         if close = 0 then invalidCondition facts else {result with after := close}
       else invalidCondition facts
+    else if booleanArrayAfter text context position facts ≠ 0 then
+      ⟨booleanArrayAfter text context position facts, facts, facts⟩
     else if booleanAtomAfter text context position ≠ 0 then
       ⟨booleanAtomAfter text context position, facts, facts⟩
     else if !context.hasArguments then invalidCondition facts

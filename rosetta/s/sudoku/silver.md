@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Replacing the exception and recursion of the existing solution with an explicit-position backtracking loop in a procedure keeps every check tied to ranged subtypes or an immediate guard, so no annotation is needed. The nonlinear grid indexing and the loop-carried position need careful typing and guards, hence plausible rather than likely.
 
-Position 462 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 463 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

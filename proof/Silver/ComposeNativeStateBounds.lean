@@ -105,10 +105,16 @@ theorem model_array_declaration_bounds (text : Source) (state : ParserState)
           have accepted : (arrayDeclarationAt text state arguments).position ≠ 0 := by
             simp only [arrayDeclarationAt, good, start, positive, advances, Bool.false_eq_true, ↓reduceIte]
             omega
-          obtain ⟨declaration, reading⟩ := array_declaration_sound text state arguments accepted
           have preserved : NamesBoundsValid (arrayDeclarationAt text state arguments).names := by
-            rw [(array_declaration_preserves reading).1]
-            exact metadata
+            cases kind : (arrayDeclarationParts text state).isBoolean with
+            | false =>
+              obtain ⟨declaration, reading⟩ := array_declaration_sound text state arguments kind accepted
+              rw [(array_declaration_preserves reading).1]
+              exact metadata
+            | true =>
+              have reading := boolean_array_declaration_sound text state arguments kind accepted
+              rw [(boolean_array_declaration_preserves reading).1]
+              exact metadata
           simpa only [arrayDeclarationAt, good, start, positive, advances, Bool.false_eq_true, ↓reduceIte] using preserved
 
 theorem model_argument_bounds (text : Source) (state : ParserState)

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task is a small bounded recurrence on a fixed-size array where the values fit comfortably in a ranged subtype and a guard before each addition removes the only loop-carried overflow risk, so no annotation is needed.
 
-Position 69 in the [progression](../../progression.md#stage-3), in stage 3.
+Position 71 in the [progression](../../progression.md#stage-3), in stage 3.
 
 ## Approach
 

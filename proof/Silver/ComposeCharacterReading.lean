@@ -150,7 +150,7 @@ theorem character_check {text : Source} {names : BindingEnvironment}
     {expression : Character.Expr} {result : ValueResult} (normal : NamesNormal names)
     (parsed : CharacterAt text names scalarNames arrays initials elaborating position expression result) :
     expression.check names.shape.fixedLengths
-      (ArrayBindings.ranges arrays initials elaborating (ScalarExpression.ranges scalarNames)) = true := by
+      (ArrayBindings.integerRanges arrays initials elaborating (ScalarExpression.ranges scalarNames)) = true := by
   induction parsed with
   | literal _ source => exact source.printable
   | reference noParen noLiteral selected nonzero present typed unmasked =>

@@ -1,0 +1,13 @@
+--- a/src/silver_output_profile.adb
++++ b/src/silver_output_profile.adb
+@@ -3929,8 +3929,10 @@
+                     Result.When_True = Refined_Flow (Facts, Target, Selected, Threshold, True));
+                   Lemma_Flow_Equality
+                     (Result.When_True, Refined_Flow (Facts, Target, Selected, Threshold, True));
+                   Result.When_False.Values (Target) := Refine_Or_Keep (Facts.Values (Target), Selected, Threshold, False);
++                  pragma Assert (Static =>
++                    Result.When_False = Refined_Flow (Facts, Target, Selected, Threshold, False));
+                else
+                   pragma Assert (Static =>
+                     Result.When_True = Refined_Flow (Facts, Target, Selected, Threshold, True));
+                   Lemma_Flow_Equality

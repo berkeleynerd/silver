@@ -36,6 +36,31 @@ def analysis (names : Environment) : Boolean.Analysis :=
   { initialized := fun index => decide (0 < index ∧ index ≤ names.length)
     mutable := fun index => decide (0 < index ∧ index ≤ names.length) && (binding names index).mutable }
 
+theorem analysis_append (names : Environment) (item : Binding) :
+    analysis (names ++ [item]) = (analysis names).initialize (names.length + 1) item.mutable := by
+  unfold analysis Boolean.Analysis.initialize
+  congr 1
+  · funext index
+    simp only [List.length_append, List.length_singleton]
+    by_cases same : index = names.length + 1
+    · simp [same]
+    · simp only [same, ↓reduceIte]
+      apply Bool.eq_iff_iff.mpr
+      simp only [decide_eq_true_eq]
+      omega
+  · funext index
+    simp only [List.length_append, List.length_singleton]
+    by_cases same : index = names.length + 1
+    · simp [same, binding, List.getD_eq_getElem?_getD]
+    · simp only [same, ↓reduceIte]
+      by_cases old : 0 < index ∧ index ≤ names.length
+      · have remains : 0 < index ∧ index ≤ names.length + 1 := by omega
+        have inside : index - 1 < names.length := by omega
+        simp only [old, remains, binding,
+          List.getD_eq_getElem?_getD, List.getElem?_append_left inside]
+      · have outside : ¬ (0 < index ∧ index ≤ names.length + 1) := by omega
+        simp only [old, outside, decide_false, Bool.false_and]
+
 def hidesInteger (text : Source) (names : Environment) : Bool :=
   names.any fun item => Named.nameIs text item.first item.after ("integer".toList.map Char.toNat)
 

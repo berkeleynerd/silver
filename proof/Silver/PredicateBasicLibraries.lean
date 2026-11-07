@@ -1,6 +1,7 @@
 module
 
 public import Silver.PredicateBooleanBodyLibraries
+public import Silver.PredicateBooleanArrayBodyLibraries
 public import Silver.PredicateBasicHelpers
 public import Silver.PredicateNativeLibraries
 public import Silver.PredicateAdapterEnvironment
@@ -51,6 +52,10 @@ structure Links (primitive : Primitives) (inherited : Compose.Expressions.Calls)
     FlowReaders.Links inherited scalar primitive.expression ∧
     ArrayBodyNative.Links inherited scalar calls ∧
     primitive.arrayTarget = calls.target ∧ primitive.arrayAssignment = calls.assignment
+  booleanArrayBodies : ∃ body calls,
+    BodyWrappers.DefinitionEquations body ∧
+    BooleanArrayBodyNative.DefinitionEquations (BooleanArrayBodyNative.inheritedImports inherited predicate body) calls ∧
+    primitive.booleanArrayAssignment = calls.assignment
   bodyToken : ∃ models wrappers body,
     Adapter.Wrappers.ModelEquations models body (takeTokenCall := inherited.function .takeToken) ∧
     Adapter.Wrappers.Refinement models wrappers ∧
@@ -145,6 +150,12 @@ theorem HelperMeaning.of_inherited {primitive : Primitives} {inherited : Compose
     obtain ⟨scalar, calls, flow, arrays, _, observed⟩ := links.arrayBodies
     rw [observed]
     exact ArrayBodyNative.linked_assignment source flow arrays text context scan valid
+  booleanArrayAssignment text context scan valid := by
+    obtain ⟨body, calls, invalid, definitions, observed⟩ := links.booleanArrayBodies
+    rw [observed]
+    exact BooleanArrayBodyNative.assignment_meaning
+      (BooleanArrayBodyNative.inherited_meaning source predicateHelpers predicateDefinitions predicateContracts invalid)
+      definitions text context scan valid
   fits facts summary := by
     have equation := links.fits (Native.Libraries.reify facts) summary
     simpa only [LengthIntervals.Native.fitsBody_eval,
@@ -204,6 +215,8 @@ theorem model_links (source : Compose.Expressions.RawHelperEquations Compose.Exp
       Native.Libraries.model_links.readers.defaults
     exact ⟨(fun text context position facts => Native.modelCalls.scalarInFlow text context position facts []), ArrayBodyNative.modelCalls, flow,
       ArrayBodyNative.model_links source flow, rfl, rfl⟩
+  booleanArrayBodies := ⟨BodyWrappers.modelCalls, BooleanArrayBodyNative.modelCalls,
+    BodyWrappers.model_definitions, BooleanArrayBodyNative.inherited_model_definitions source, rfl⟩
   bodyToken := ⟨Adapter.Wrappers.modelCalls BodyNative.modelCalls,
     Adapter.Wrappers.modelCalls BodyNative.modelCalls, BodyNative.modelCalls,
     Adapter.Wrappers.model_raw_equations source BodyNative.modelCalls,

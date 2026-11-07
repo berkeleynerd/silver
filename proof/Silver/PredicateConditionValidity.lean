@@ -6,6 +6,7 @@ public import Silver.PathBounds
 public import Silver.PredicateFlowInvariant
 public import Silver.PredicateConditionFlow
 public import Silver.PredicateScalarGuardMeaning
+public import Silver.ArrayBindingsNativeEquations
 
 @[expose] public section
 
@@ -91,7 +92,7 @@ theorem ConditionMeaning.compatible {context facts condition result initials}
         (context.flow facts initials).scalars index := by
     intro index positive bounded mutable declared truth
     have readonly : context.analysis.refinable index = false := by
-      simp only [ParseContext.analysis, ArrayFlow.analysis,
+      simp only [ParseContext.analysis, ArrayFlow.analysis, ArrayBindings.integerRefinability,
         ArrayBindings.refinability_scalar _ _ (Nat.le_trans bounded base.size),
         ScalarMetadata.analysis, ScalarMetadata.refinable,
         mutable, Bool.false_or, show ¬context.declarationCount < index by omega,
@@ -113,41 +114,91 @@ theorem ConditionMeaning.compatible {context facts condition result initials}
       ← context.flow_scalar facts (Nat.le_trans bounded base.size) initials]
     exact preserved index positive bounded mutable declared false
 
+theorem booleanArray_reading_meaning {text context position facts condition after initials}
+    (base : ScalarMetadata.ContextReady context.scalarNames context.declarationCount context.elaborating)
+    (arraysReady : context.ArraysReady text)
+    (compatible : ScalarMetadata.OverlayCompatible context.scalarNames context.declarationCount facts)
+    (parsed : BooleanArrayAt text context position facts condition after) :
+    ConditionMeaning context facts condition ⟨after, facts, facts⟩ initials := by
+  cases parsed with
+  | @read index subscript target kind _ _ reading _ inside _ =>
+    have targetBound := ArrayBindings.Native.lookup_bound text context.arrayNames
+      (skipAt text position) (nameAfter text (skipAt text position))
+    have member := ArrayBindings.Native.binding_mem (Nat.pos_of_ne_zero target) targetBound
+    have valid := (arraysReady.1.2.1 _ member).2.2.2
+    have initialized := ArrayBindings.booleanAnalysis_initialized member kind
+      (BooleanBindings.analysis context.booleanNames)
+    have inferred : index.infer (context.flow facts initials).scalars = some subscript.bounds := by
+      rw [← context.reading_ranges compatible initials]
+      have same : index.infer (ArrayBindings.integerRanges context.arrayNames initials context.elaborating
+            (ScalarExpression.ranges (context.readingNames facts))) =
+          index.infer (ScalarExpression.ranges (context.readingNames facts)) := by
+        apply Integer.Expr.infer_readsOnly (ScalarExpression.syntax_readsOnly reading.grammar)
+        intro scalar allowed
+        exact ArrayBindings.ranges_scalar _ _ _ _ (by
+          have active : scalar ≤ context.scalarNames.length := by
+            simpa only [ParseContext.readingNames, ScalarMetadata.readingNames_length] using allowed.2
+          exact Nat.le_trans active base.size)
+      rw [same]
+      simpa only [ArrayBindings.integerRanges, ArrayBindings.integerNames, List.filter_nil, ArrayBindings.ranges_nil] using reading.inferred
+    refine ⟨trivial, initialized, ?_, rfl, rfl⟩
+    simp only [Condition.checkBounds, initialized, Bool.true_and,
+      Boolean.ArrayDescriptor.checkIndex, inferred]
+    have layoutValid : (ArrayBindings.binding context.arrayNames
+        (ArrayBindings.lookup text context.arrayNames (skipAt text position)
+          (nameAfter text (skipAt text position)))).booleanDescriptor.layout.Valid :=
+      ArrayBindings.binding_booleanDescriptor_valid valid
+    simp only [Integer.arrayIndexCheck, layoutValid, true_and]
+    exact inside
+
+
 mutual
   theorem primary_valid {text context position facts condition result initials}
       (normal : NamesNormal context.names) (namesValid : Compose.Expressions.ValidNames text context.names)
       (base : ScalarMetadata.ContextReady context.scalarNames context.declarationCount context.elaborating)
+      (arraysReady : context.ArraysReady text)
       (compatible : ScalarMetadata.OverlayCompatible context.scalarNames context.declarationCount facts)
       (bounded : facts.path.Bounded) (parsed : PrimaryAt text context position facts condition result initials) :
       ConditionMeaning context facts condition result initials ∧ condition.isPrimary = true := by
     cases parsed with
     | group _ _ _ inner _ =>
-        have meaning := condition_valid normal namesValid base compatible bounded inner
+        have meaning := condition_valid normal namesValid base arraysReady compatible bounded inner
         exact ⟨meaning.parenthesized _, rfl⟩
-    | boolean _ _ _ _ atom =>
+    | boolean _ _ _ _ _ atom =>
         cases atom with
         | name _ found =>
-            have initialized := BooleanBindings.lookup_initialized found
+            have initialized : (ArrayBindings.booleanAnalysis context.arrayNames
+                (BooleanBindings.analysis context.booleanNames)).initialized
+                (BooleanBindings.lookup text context.booleanNames (skipAt text position)
+                  (nameAfter text (skipAt text position))) = true := by
+              apply Bool.or_eq_true_iff.mpr
+              exact Or.inr (BooleanBindings.lookup_initialized found)
             exact ⟨⟨trivial, initialized, initialized, rfl, rfl⟩, rfl⟩
         | literal => exact ⟨⟨trivial, trivial, rfl, rfl, rfl⟩, rfl⟩
-    | valid _ _ _ arguments _ =>
+    | valid _ _ _ _ arguments _ =>
         exact ⟨⟨trivial, arguments, rfl, rfl, rfl⟩, rfl⟩
+    | booleanArray _ _ _ _ atom =>
+        refine ⟨booleanArray_reading_meaning base arraysReady compatible atom, ?_⟩
+        cases atom
+        rfl
+
   termination_by (remainingAt text position, 1)
   decreasing_by all_goals exact Prod.Lex.left _ _ (by assumption)
 
   theorem booleanFactor_valid {text context position facts condition result initials}
       (normal : NamesNormal context.names) (namesValid : Compose.Expressions.ValidNames text context.names)
       (base : ScalarMetadata.ContextReady context.scalarNames context.declarationCount context.elaborating)
+      (arraysReady : context.ArraysReady text)
       (compatible : ScalarMetadata.OverlayCompatible context.scalarNames context.declarationCount facts)
       (bounded : facts.path.Bounded) (parsed : BooleanFactorAt text context position facts condition result initials) :
       ConditionMeaning context facts condition result initials ∧ condition.isFactor = true := by
     cases parsed with
     | primary _ inner =>
-        have meaning := primary_valid normal namesValid base compatible bounded inner
+        have meaning := primary_valid normal namesValid base arraysReady compatible bounded inner
         refine ⟨meaning.1, ?_⟩
         cases condition <;> simp_all [Condition.isPrimary, Condition.isFactor]
     | negated _ _ inner =>
-        have meaning := primary_valid normal namesValid base compatible bounded inner
+        have meaning := primary_valid normal namesValid base arraysReady compatible bounded inner
         exact ⟨meaning.1.negated meaning.2, meaning.2⟩
   termination_by (remainingAt text position, 2)
   decreasing_by all_goals first | exact Prod.Lex.left _ _ (by assumption) | exact Prod.Lex.right _ (by decide)
@@ -155,17 +206,18 @@ mutual
   theorem booleanRelation_valid {text context position facts condition result initials}
       (normal : NamesNormal context.names) (namesValid : Compose.Expressions.ValidNames text context.names)
       (base : ScalarMetadata.ContextReady context.scalarNames context.declarationCount context.elaborating)
+      (arraysReady : context.ArraysReady text)
       (compatible : ScalarMetadata.OverlayCompatible context.scalarNames context.declarationCount facts)
       (bounded : facts.path.Bounded) (parsed : BooleanRelationAt text context position facts condition result initials) :
       ConditionMeaning context facts condition result initials ∧ condition.isRelation = true := by
     cases parsed with
     | factor inner _ _ =>
-        have meaning := booleanFactor_valid normal namesValid base compatible bounded inner
+        have meaning := booleanFactor_valid normal namesValid base arraysReady compatible bounded inner
         refine ⟨meaning.1, ?_⟩
         cases condition <;> simp_all [Condition.isPrimary, Condition.isFactor, Condition.isRelation]
     | comparison left _ _ _ _ right _ =>
-        have l := booleanFactor_valid normal namesValid base compatible bounded left
-        have r := booleanFactor_valid normal namesValid base compatible bounded right
+        have l := booleanFactor_valid normal namesValid base arraysReady compatible bounded left
+        have r := booleanFactor_valid normal namesValid base arraysReady compatible bounded right
         exact ⟨l.1.booleanCompare r.1 l.2 r.2 _, rfl⟩
   termination_by (remainingAt text position, 3)
   decreasing_by all_goals first | exact Prod.Lex.left _ _ (by assumption) | exact Prod.Lex.right _ (by decide)
@@ -173,11 +225,12 @@ mutual
   theorem relation_valid {text context position facts condition result initials}
       (normal : NamesNormal context.names) (namesValid : Compose.Expressions.ValidNames text context.names)
       (base : ScalarMetadata.ContextReady context.scalarNames context.declarationCount context.elaborating)
+      (arraysReady : context.ArraysReady text)
       (compatible : ScalarMetadata.OverlayCompatible context.scalarNames context.declarationCount facts)
       (bounded : facts.path.Bounded) (parsed : RelationAt text context position facts condition result initials) :
       ConditionMeaning context facts condition result initials ∧ condition.isRelation = true := by
     cases parsed with
-    | booleanNot _ _ inner => exact booleanRelation_valid normal namesValid base compatible bounded inner
+    | booleanNot _ _ inner => exact booleanRelation_valid normal namesValid base arraysReady compatible bounded inner
     | length _ _ _ left right _ => exact ⟨length_meaning namesValid bounded left right, rfl⟩
     | scalars _ _ _ _ left right _ =>
         have ranges := context.reading_ranges compatible initials
@@ -193,7 +246,7 @@ mutual
         refine ⟨⟨grammar, readable, checked, yes, no⟩, ?_⟩
         cases inner
         rfl
-    | primary _ _ _ _ _ _ inner => exact booleanRelation_valid normal namesValid base compatible bounded inner
+    | primary _ _ _ _ _ _ inner => exact booleanRelation_valid normal namesValid base arraysReady compatible bounded inner
 
   termination_by (remainingAt text position, 4)
   decreasing_by all_goals first | exact Prod.Lex.left _ _ (by assumption) | exact Prod.Lex.right _ (by decide)
@@ -201,6 +254,7 @@ mutual
   theorem chain_valid {text context condition result chained final finalResult facts initials originalStart}
       (normal : NamesNormal context.names) (namesValid : Compose.Expressions.ValidNames text context.names)
       (base : ScalarMetadata.ContextReady context.scalarNames context.declarationCount context.elaborating)
+      (arraysReady : context.ArraysReady text)
       (compatible : ScalarMetadata.OverlayCompatible context.scalarNames context.declarationCount facts)
       (bounded : facts.path.Bounded) (parsed : ChainAt text context condition result chained final finalResult facts initials originalStart)
       (meaning : ConditionMeaning context facts condition result initials) (shape : ChainShape chained condition)
@@ -227,14 +281,14 @@ mutual
               rw [meaning.whenFalse]
               exact Condition.refine_bounded bounded _ _ _ _
           | eagerAnd | eagerOr | eagerXor => exact bounded
-        have rightMeaning := relation_valid normal namesValid base reachedCompatible reachedBound rightRead
+        have rightMeaning := relation_valid normal namesValid base arraysReady reachedCompatible reachedBound rightRead
         have rightCounts : rightResult.Counts facts.count := by
           have counted := relation_counts text context (chainAfter text result.after operator)
             (chainContext result operator facts) initials
           rw [relation_complete rightRead] at counted
           simpa only [chainContext_count counts operator facts rfl] using counted
         have nextMeaning := meaning.chain rightMeaning.1 (chainShape_selected shape compatibleChain) rightMeaning.2
-        exact chain_valid normal namesValid base compatible bounded rest nextMeaning (chainShape_next _ _ _)
+        exact chain_valid normal namesValid base arraysReady compatible bounded rest nextMeaning (chainShape_next _ _ _)
           (chainJoin_counts counts rightCounts operator facts rfl)
   termination_by (remainingAt text result.after, 6)
   decreasing_by all_goals exact Prod.Lex.left _ _ (by assumption)
@@ -242,15 +296,16 @@ mutual
   theorem condition_valid {text context position facts condition result initials}
       (normal : NamesNormal context.names) (namesValid : Compose.Expressions.ValidNames text context.names)
       (base : ScalarMetadata.ContextReady context.scalarNames context.declarationCount context.elaborating)
+      (arraysReady : context.ArraysReady text)
       (compatible : ScalarMetadata.OverlayCompatible context.scalarNames context.declarationCount facts)
       (bounded : facts.path.Bounded) (parsed : ConditionAt text context position facts condition result initials) :
       ConditionMeaning context facts condition result initials := by
     cases parsed with
     | condition _ first _ _ tail =>
-        have meaning := relation_valid normal namesValid base compatible bounded first
+        have meaning := relation_valid normal namesValid base arraysReady compatible bounded first
         have counts := relation_counts text context position facts initials
         rw [relation_complete first] at counts
-        exact chain_valid normal namesValid base compatible bounded tail meaning.1 meaning.2 counts
+        exact chain_valid normal namesValid base arraysReady compatible bounded tail meaning.1 meaning.2 counts
   termination_by (remainingAt text position, 5)
   decreasing_by all_goals first | exact Prod.Lex.left _ _ (by assumption) | exact Prod.Lex.right _ (by decide)
 end

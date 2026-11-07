@@ -25,9 +25,12 @@ package Silver_Array_Bindings with SPARK_Mode => On is
       Offset, Length : Element_Count;
       Mutable : Boolean;
       Component_Bounds : Scalars.Interval;
+      --  Boolean arrays share the source-derived cell allocation, but their
+      --  reserved Integer value slots never represent Boolean truth values.
+      Boolean_Elements : Boolean := False;
    end record;
    Empty_Binding : constant Binding :=
-     (0, 0, Scalars.Empty, 0, 0, False, Scalars.Full);
+     (0, 0, Scalars.Empty, 0, 0, False, Scalars.Full, False);
    type Binding_Array is array (Binding_Index) of Binding;
    type Metadata is record
       Count : Binding_Count;

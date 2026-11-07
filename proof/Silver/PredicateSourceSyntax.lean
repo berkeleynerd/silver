@@ -16,6 +16,7 @@ mutual
     | scalarAssign (update : Integer.Assignment)
     | arrayAssign (update : Integer.ArrayAssignment)
     | booleanAssign (update : BooleanAssignment)
+    | booleanArrayAssign (update : BooleanArrayAssignment)
     | reject
     | choice (condition : Condition) (yes : List SourceStatement) (tail : SourceAlternative)
     | forLoop (index : Nat) (reverse : Bool) (lower upper : Integer.Expr) (body : List SourceStatement)
@@ -34,6 +35,7 @@ mutual
     | .scalarAssign update => .scalarAssign update
     | .arrayAssign update => .arrayAssign update
     | .booleanAssign update => .booleanAssign update
+    | .booleanArrayAssign update => .booleanArrayAssign update
     | .reject => .reject
     | .choice condition yes tail => .choice condition (lowerStatements yes) tail.lower
     | .forLoop index reverse lower upper body => .forLoop index reverse lower upper (lowerStatements body)
@@ -61,6 +63,8 @@ mutual
     | .booleanAssign update =>
         ⟨values, [], integers, Boolean.put booleans update.target
           (update.value.evaluate values input valid integers booleans)⟩
+    | .booleanArrayAssign update =>
+        ⟨values, [], integers, update.execute values input valid integers booleans⟩
     | .reject => ⟨values, [.reject], integers, booleans⟩
     | .choice condition yes tail =>
         if condition.evaluate values input valid integers booleans then executeSourceStatements input valid values yes integers booleans
@@ -107,7 +111,8 @@ mutual
     cases item with
     | simple item => simp only [SourceStatement.lower, Statement.execute, SourceStatement.execute]
     | scalarAssign update => simp only [SourceStatement.lower, Statement.execute, SourceStatement.execute]
-    | arrayAssign update | booleanAssign update => simp only [SourceStatement.lower, Statement.execute, SourceStatement.execute]
+    | arrayAssign update | booleanAssign update | booleanArrayAssign update =>
+        simp only [SourceStatement.lower, Statement.execute, SourceStatement.execute]
     | reject => simp only [SourceStatement.lower, Statement.execute, SourceStatement.execute]
     | choice condition yes tail =>
         have yesEq := lowerStatements_execute yes input valid values integers booleans
@@ -167,6 +172,8 @@ mutual
     | .arrayAssign _ => True
     | .booleanAssign update => booleans.canWrite update.target = true ∧
         update.value.Grammatical ∧ update.value.Readable hasArguments shape booleans
+    | .booleanArrayAssign update => update.array.writable booleans = true ∧
+        update.value.Grammatical ∧ update.value.Readable hasArguments shape booleans
     | .reject => hasArguments = true
     | .choice condition yes tail => condition.Grammatical ∧ condition.Readable hasArguments shape booleans ∧
         yes ≠ [] ∧ SourceStatementsWellFormed hasArguments shape yes booleans ∧ tail.WellFormed hasArguments shape booleans
@@ -196,7 +203,8 @@ mutual
     | simple item => simpa only [SourceStatement.lower, Statement.WellFormed, SourceStatement.WellFormed] using valid
     | scalarAssign update => simpa only [SourceStatement.lower, Statement.WellFormed, SourceStatement.WellFormed] using valid
     | arrayAssign update => simp only [SourceStatement.lower, Statement.WellFormed]
-    | booleanAssign update => simpa only [SourceStatement.lower, Statement.WellFormed, SourceStatement.WellFormed] using valid
+    | booleanAssign update | booleanArrayAssign update =>
+        simpa only [SourceStatement.lower, Statement.WellFormed, SourceStatement.WellFormed] using valid
     | reject => simpa only [SourceStatement.lower, Statement.WellFormed, SourceStatement.WellFormed] using valid
     | choice condition yes tail =>
         simp only [SourceStatement.WellFormed] at valid

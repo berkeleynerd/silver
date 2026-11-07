@@ -31,7 +31,7 @@ theorem unary_arrays_correspondence (names : Environment) (parsed : Option Parse
       · cases negative <;> simp [summarizeArrays, zero, unary, unaryResult, invalid]
       · by_cases tooMany : maxOperands < leaves value.expression
         · cases negative <;> simp [summarizeArrays, unary, leaves, tooMany, unaryResult, invalid]
-        · cases inferred : value.expression.infer (ArrayBindings.ranges arrays initials elaborating (ranges names)) with
+        · cases inferred : value.expression.infer (ArrayBindings.integerRanges arrays initials elaborating (ranges names)) with
           | none =>
               cases negative <;> simp [summarizeArrays, unary, leaves, zero, tooMany,
                 Integer.Expr.infer, inferred, unaryResult, invalid]
@@ -66,10 +66,10 @@ theorem binary_arrays_correspondence (names : Environment) (left right : Parsed)
         · have totalLarge : maxOperands < leaves left.expression + leaves right.expression := by omega
           simp [rightLarge, totalLarge, invalid]
         · simp only [leftPositive, rightPositive, leftLarge, rightLarge, false_or, ↓reduceIte]
-          cases leftInferred : left.expression.infer (ArrayBindings.ranges arrays initials elaborating (ranges names)) with
+          cases leftInferred : left.expression.infer (ArrayBindings.integerRanges arrays initials elaborating (ranges names)) with
           | none => simp [invalid]
           | some leftBounds =>
-              cases rightInferred : right.expression.infer (ArrayBindings.ranges arrays initials elaborating (ranges names)) with
+              cases rightInferred : right.expression.infer (ArrayBindings.integerRanges arrays initials elaborating (ranges names)) with
               | none => simp [invalid]
               | some rightBounds =>
                   simp only [leftPositive, rightPositive, false_or, Option.bind_some, Integer.accepted]
@@ -104,7 +104,7 @@ theorem close_arrays_correspondence (text : Source) (names : Environment) (parse
           change invalid = summarizeArrays names arrays initials elaborating (if symbol text value.after 41 = 0 then none
             else some {value with after := symbol text value.after 41})
           split <;> simp [summarizeArrays, many]
-        · cases inferred : value.expression.infer (ArrayBindings.ranges arrays initials elaborating (ranges names)) with
+        · cases inferred : value.expression.infer (ArrayBindings.integerRanges arrays initials elaborating (ranges names)) with
           | none =>
               simp only [summarizeArrays, zero, many, or_self, ↓reduceIte, inferred, close_invalid]
               change invalid = summarizeArrays names arrays initials elaborating (if symbol text value.after 41 = 0 then none
@@ -123,7 +123,7 @@ theorem summarizeArrays_after_update (names : Environment) (value : Parsed) (fin
   simp only [summarizeArrays, positive, finishPositive, false_or]
   split
   · simp [summarizeArrays, positive, * , invalid] at success
-  · cases found : value.expression.infer (ArrayBindings.ranges arrays initials elaborating (ranges names)) with
+  · cases found : value.expression.infer (ArrayBindings.integerRanges arrays initials elaborating (ranges names)) with
     | none => simp [summarizeArrays, found, * , invalid] at success
     | some bounds => rfl
 
@@ -136,7 +136,7 @@ theorem parenthesized_arrays_correspondence (names : Environment) (value : Parse
     isStatic, false_or]
   split
   · rfl
-  · cases found : value.expression.infer (ArrayBindings.ranges arrays initials elaborating (ranges names)) with
+  · cases found : value.expression.infer (ArrayBindings.integerRanges arrays initials elaborating (ranges names)) with
     | none => rfl
     | some bounds => simp [positive]
 
@@ -149,7 +149,7 @@ theorem summarizeArrays_zero {names : Environment} {parsed : Option Parsed}
       split
       · rfl
       · rename_i good
-        cases found : value.expression.infer (ArrayBindings.ranges arrays initials elaborating (ranges names)) with
+        cases found : value.expression.infer (ArrayBindings.integerRanges arrays initials elaborating (ranges names)) with
         | none => rfl
         | some bounds => simp only [ite_eq_right good, found] at zero; omega
 

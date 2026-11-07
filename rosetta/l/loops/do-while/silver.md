@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The bounded index avoids a loop-carried accumulator, and mod 6 has a nonzero literal divisor. The plan still needs conditional loop exit in addition to integer remainder; a counted-loop bound alone would not demonstrate the requested post-body condition.
 
-Position 177 in the [progression](../../../progression.md#stage-7), in stage 7.
+Position 178 in the [progression](../../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

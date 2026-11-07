@@ -1,0 +1,15 @@
+{
+  "run_id": "20261107T014623-e873505c3c30",
+  "sampling_seconds": 5,
+  "full_log_scan": true,
+  "resource_warning_available_gib": 8,
+  "urgent_coordinator_alert_available_gib": 3,
+  "intervention_authority": "Coordinator only. The automatic monitor does not signal processes. Explicitly authorized manual actions are retained in resource-events.jsonl.gz.",
+  "coordinator_instruction": "Continue unchanged while adequate memory remains; urgently alert below 3 GiB available RAM or on an unexpected second dense Lean process. An 8 GiB warning alone does not justify intervention, and pausing retains memory.",
+  "selected_monitor_model": "GPT-6.1 Sol",
+  "selected_monitor_effort": "High",
+  "settings_status": "Parent-selected monitoring settings; runtime model/effort confirmation unavailable to this subthread.",
+  "token_cost_evidence": "Unavailable; no measurements invented.",
+  "process_scope": "Children of the captured runner and build Lake PIDs; global MemAvailable is sampled. A later audit may use a different child hierarchy and requires separate process inspection.",
+  "source_policy": "Captured source/proof/tooling inputs remain frozen. No competing validation, clean/replay run, trace rewrite or cache transfer is authorized for this subthread."
+}

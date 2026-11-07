@@ -24,22 +24,33 @@ items whose owner authorization is recorded, or work the owner requests directly
 This project policy travels with the repository; it does not depend on another
 agent having the lead's global instructions. Favor more intelligence when the
 task's uncertainty or consequences are unclear. Use the following starting
-points when available (mapping reviewed 2026-10-18):
+points when available (mapping clarified by the owner on 2026-11-07):
 
 | Work | Model | Effort |
 | --- | --- | --- |
 | Lead or unclassified work; uncertain research, architecture, capacity, soundness or consequential judgment | GPT-6 Astra | Extra High |
+| Uncertain proof diagnosis, proof-memory strategy or cross-system integration decisions | GPT-6 Astra | Extra High |
+| Named difficult proof problem when Extra High is inadequate or clearly insufficient | GPT-6 Astra | Max, temporarily |
 | Independent review of a critical argument or high-consequence change | GPT-6 Astra | Extra High |
 | Substantial implementation, debugging or proof with an established approach | GPT-6.1 Sol | Extra High |
 | Directly checkable extraction, inventory or transformation | GPT-6.1 Sol | Extra High |
-| Routine implementation, documentation, evidence scripts or coordination | GPT-6.1 Sol | High |
+| Routine implementation, documentation, monitoring, evidence collection/scripts or coordination | GPT-6.1 Sol | High |
 
-Use Sol in place of Luna. Escalate to Max for a named unresolved problem when
-the baseline is inadequate or the difficulty warrants it, and return to the
-appropriate baseline when it is resolved. Effort cannot replace missing evidence
-or required validation. Honor explicit owner choices; consult current official
-guidance when model availability changes. Do not silently lower the tier when
-a model or usage allocation is unavailable.
+Use Sol in place of Luna. When implementation leaves an established approach,
+reclassify the task as uncertain diagnosis and use Astra Extra High. Repeated
+unsuccessful repairs, unclear solver/model behavior, or unresolved integration
+or memory strategy call for reassessment before another expensive complete run;
+do not wait for the runner's recurring-failure threshold. Escalate the named
+problem to Astra Max when Extra High is inadequate, or its difficulty clearly
+warrants Max from the outset. Record the question and next focused check in the
+existing task record, and return to the appropriate baseline when it is resolved.
+
+Elapsed compiler or prover time alone does not justify escalation. Keep routine
+monitoring at Sol High and preserve productive running jobs; additional agent
+reasoning does not accelerate an already-running proof computation. Effort cannot
+replace missing evidence or required validation. Honor explicit owner choices;
+consult current official guidance when model availability changes. Do not silently
+lower the tier when a model or usage allocation is unavailable.
 
 Before a fan-out, briefly state the expected subthreads, models/efforts and
 deliverables. Delegate only separable work with explicit ownership and review

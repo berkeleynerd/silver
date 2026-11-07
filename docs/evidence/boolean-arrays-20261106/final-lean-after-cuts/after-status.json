@@ -1,0 +1,60 @@
+{
+  "registry": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1",
+  "host": "linux-x86_64",
+  "machine": "codex-silver",
+  "runs": [
+    {
+      "run_id": "20261107T064815-9c9da56edf3d",
+      "task": "#297 complete source checkpoint after native cuts",
+      "kind": "lean",
+      "scope": "complete",
+      "state": "success",
+      "active": false,
+      "workers": 1,
+      "directory": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261107T064815-9c9da56edf3d",
+      "fingerprint": "b2a9a93a524d65c7760b59a15ac197688ccc3bdfc3650cef1a6006da093347b6",
+      "command": [
+        "/usr/bin/python3",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays/scripts/check_lean.py",
+        "--workers",
+        "1",
+        "--threads",
+        "0",
+        "--memory-mb",
+        "24576",
+        "--provenance",
+        "--task",
+        "#297 complete source checkpoint after native cuts",
+        "--reason",
+        "Both changed native helpers passed completely; original full audit completed with only their known failures. Complete final source reconstruction, native-shape transport and whole-project audit on stable ce97 inputs; retain prior successful objects and serialize dense Lean modules after observed concurrent OOM."
+      ],
+      "reason": "Both changed native helpers passed completely; original full audit completed with only their known failures. Complete final source reconstruction, native-shape transport and whole-project audit on stable ce97 inputs; retain prior successful objects and serialize dense Lean modules after observed concurrent OOM.",
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays",
+      "resources": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays/.silver/linux-x86_64/proof",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays/.silver/linux-x86_64/lean-proof.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays/.silver/linux-x86_64/lean-evidence.json"
+      ],
+      "started_at": "2026-11-07T06:48:19.907114+00:00",
+      "finished_at": "2026-11-07T10:59:06.709729+00:00",
+      "duration_seconds": 15046.75135641,
+      "returncode": null,
+      "error": null,
+      "failure_keys": [],
+      "evidence": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays/.silver/linux-x86_64/lean-proof.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays/.silver/linux-x86_64/lean-evidence.json",
+        "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261107T064815-9c9da56edf3d/previous-evidence/lean-proof.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261107T064815-9c9da56edf3d/lean-proof.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261107T064815-9c9da56edf3d/lean-evidence.json"
+      ],
+      "retained_report_count": 0
+    }
+  ],
+  "notes": [],
+  "available_cpus": 12,
+  "reserved_workers": 4,
+  "diagnostics_required": [],
+  "total_runs": 1,
+  "omitted_completed_runs": 0
+}

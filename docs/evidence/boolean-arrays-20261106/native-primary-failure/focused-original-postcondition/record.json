@@ -1,0 +1,300 @@
+{
+  "recorded_utc": "2026-11-07T03:24:48.233723+00:00",
+  "platform": "linux-x86_64",
+  "run_id": "20261107T032305-5aa13a4739f2",
+  "started": {
+    "available_cpus": 12,
+    "command": [
+      "gnatprove",
+      "-P",
+      "../../../silver.gpr",
+      "--mode=all",
+      "--report=all",
+      "--warnings=error",
+      "--checks-as-errors=on",
+      "--level=2",
+      "--prover=cvc5,z3,altergo",
+      "--timeout=30",
+      "--memlimit=1000",
+      "--memcached-server=file:/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/tmp/primary-branch-cut/cache",
+      "--subdirs=explore/primary-branch-cut",
+      "--limit-subp=silver_output_profile.adb:3562",
+      "--limit-line=silver_output_profile.adb:3570",
+      "--debug-save-vcs",
+      "-XSILVER_HOST=linux-x86_64"
+    ],
+    "event": "started",
+    "evidence": [
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/compiler/obj/explore/primary-branch-cut/gnatprove",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/compiler/obj/explore/primary-branch-cut/gnatprove"
+      }
+    ],
+    "expensive": false,
+    "fingerprint": "f70d48ce7c5f5ff9348148b85d42bdb16382ff168e4afb1b47776477396a95da",
+    "host": "linux-x86_64",
+    "inputs": {
+      "arguments": [
+        "gnatprove",
+        "-P",
+        "../../../silver.gpr",
+        "--mode=all",
+        "--report=all",
+        "--warnings=error",
+        "--checks-as-errors=on",
+        "--level=2",
+        "--prover=cvc5,z3,altergo",
+        "--timeout=30",
+        "--memlimit=1000",
+        "--memcached-server=file:/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/tmp/primary-branch-cut/cache",
+        "--subdirs=explore/primary-branch-cut",
+        "--limit-subp=silver_output_profile.adb:3562",
+        "--limit-line=silver_output_profile.adb:3570",
+        "--debug-save-vcs",
+        "-XSILVER_HOST=linux-x86_64"
+      ],
+      "mode": "tool",
+      "scope": [
+        "mode:all",
+        "project:../../../silver.gpr",
+        "--limit-subp=silver_output_profile.adb:3562",
+        "--limit-line=silver_output_profile.adb:3570"
+      ]
+    },
+    "kind": "tool-gnatprove",
+    "machine": "codex-silver",
+    "monotonic_ns": 61264464709599,
+    "pid": 402397,
+    "reason": "Root-authorized isolated second experiment: the new assertion3661 passed at ordinary limits and its exact evidence is retained. Check the original enclosing postcondition3570 with unchanged level2/30s/1000MiB/three-prover settings and2 workers. Original canonical full audit remains unchanged and failed; Shape remains explicitly paused under root ownership.",
+    "requested_workers": 2,
+    "resources": [
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/toolchain",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/toolchain"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/tmp/primary-branch-cut/cache",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/tmp/primary-branch-cut/cache"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/compiler/obj/explore/primary-branch-cut",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/compiler/obj/explore/primary-branch-cut"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/compiler/bin/explore/primary-branch-cut",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/compiler/bin/explore/primary-branch-cut"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/proof-containers/obj/explore/primary-branch-cut",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/proof-containers/obj/explore/primary-branch-cut"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/tmp/primary-branch-cut/cache",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/tmp/primary-branch-cut/cache"
+      }
+    ],
+    "run_id": "20261107T032305-5aa13a4739f2",
+    "schema": 1,
+    "scope": [
+      "mode:all",
+      "project:../../../silver.gpr",
+      "--limit-subp=silver_output_profile.adb:3562",
+      "--limit-line=silver_output_profile.adb:3570"
+    ],
+    "task": "#297 Read_Primary_Into original postcondition after branch cut",
+    "utc": "2026-11-07T03:23:10.222055+00:00",
+    "workers": 2,
+    "worktree": {
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair",
+      "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair"
+    }
+  },
+  "finished": {
+    "duration_seconds": 77.761105758,
+    "event": "finished",
+    "evidence": [
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/compiler/obj/explore/primary-branch-cut/gnatprove",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/compiler/obj/explore/primary-branch-cut/gnatprove"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261107T032305-5aa13a4739f2/native.log",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261107T032305-5aa13a4739f2/native.log"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261107T032305-5aa13a4739f2/previous-reports",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261107T032305-5aa13a4739f2/previous-reports"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261107T032305-5aa13a4739f2/exploratory-evidence",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261107T032305-5aa13a4739f2/exploratory-evidence"
+      }
+    ],
+    "failure_keys": [],
+    "monotonic_ns": 61342225690539,
+    "outcome": "success",
+    "retained_reports": [],
+    "returncode": null,
+    "run_id": "20261107T032305-5aa13a4739f2",
+    "utc": "2026-11-07T03:24:27.983063+00:00"
+  },
+  "command": [
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.tools/linux-x86_64/alr/bin/alr",
+    "-s",
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.tools/linux-x86_64/alire/settings",
+    "-C",
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/toolchain",
+    "-n",
+    "--no-tty",
+    "exec",
+    "--",
+    "gnatprove",
+    "-P",
+    "../../../silver.gpr",
+    "--mode=all",
+    "--report=all",
+    "--warnings=error",
+    "--checks-as-errors=on",
+    "--level=2",
+    "--prover=cvc5,z3,altergo",
+    "--timeout=30",
+    "--memlimit=1000",
+    "--memcached-server=file:/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/tmp/primary-branch-cut/cache",
+    "--subdirs=explore/primary-branch-cut",
+    "--limit-subp=silver_output_profile.adb:3562",
+    "--limit-line=silver_output_profile.adb:3570",
+    "--debug-save-vcs",
+    "-XSILVER_HOST=linux-x86_64",
+    "-j2"
+  ],
+  "source_sha256": "c1ce845a597605c152119bedc6b07f1aa3bccece5d2870addb86cd18077fffaa",
+  "target_line": 3570,
+  "target_rule": "VC_POSTCONDITION",
+  "actual_selected_records": [
+    {
+      "check_col": 28,
+      "check_file": "silver_output_profile.adb",
+      "check_line": 3570,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "High failure (signaled)",
+              "steps": 1,
+              "time": 0.01314
+            },
+            "Z3": {
+              "result": "Valid",
+              "steps": 50387,
+              "time": 16.1929
+            },
+            "altergo": {
+              "result": "High failure (signaled)",
+              "steps": 1,
+              "time": 1e-06
+            }
+          },
+          "transformations": {}
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 3350,
+              "time": 0.889909
+            },
+            "Z3": {
+              "result": "High failure (signaled)",
+              "steps": 1,
+              "time": 0.009451
+            },
+            "altergo": {
+              "result": "High failure (signaled)",
+              "steps": 1,
+              "time": 1e-06
+            }
+          },
+          "transformations": {}
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "High failure (signaled)",
+              "steps": 1,
+              "time": 0.009272
+            },
+            "Z3": {
+              "result": "Valid",
+              "steps": 810,
+              "time": 1.06662
+            },
+            "altergo": {
+              "result": "High failure (signaled)",
+              "steps": 1,
+              "time": 1e-06
+            }
+          },
+          "transformations": {}
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 5696,
+              "time": 2.97005
+            },
+            "Z3": {
+              "result": "Valid",
+              "steps": 810,
+              "time": 0.981072
+            },
+            "altergo": {
+              "result": "High failure (signaled)",
+              "steps": 1,
+              "time": 1e-06
+            }
+          },
+          "transformations": {}
+        }
+      ],
+      "col": 28,
+      "entity": 1,
+      "file": "silver_output_profile.adb",
+      "how_proved": "prover",
+      "line": 3570,
+      "message": {
+        "text": "postcondition proved"
+      },
+      "msg_id": 0,
+      "rule": "VC_POSTCONDITION",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 1,
+          "max_steps": 3350,
+          "max_time": 0.889909029006958
+        },
+        "Z3": {
+          "count": 3,
+          "max_steps": 50387,
+          "max_time": 16.1928558349609
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    }
+  ],
+  "proof_record_count": 1,
+  "flow_record_count": 2,
+  "saved_solver_input_count": 12,
+  "solver_input_selection": "Saved inputs for the exact selected source line, freshly written after this run began; earlier line-focused inputs are retained separately.",
+  "selected_input_count": 2586,
+  "original_binary_unchanged": true,
+  "original_binary_sha256": "c3f97c7f6477931ad01c76c3be658db06fc4c02f997a6475f921eee9a5362790",
+  "branch": "repair/boolean-primary-cut-20261107",
+  "head": "9d9c786dceac6160c6fff521ed273fddfdfa628b",
+  "tracked_status": " M src/silver_output_profile.adb\n",
+  "selected_model_effort": "GPT-6.1 Sol / Extra High per original assignment; runtime confirmation and token/cost unavailable",
+  "scope": "Isolated assertion or postcondition experiment only; not whole-helper or complete native assurance. Original canonical232644 remains failed and untouched. No source integration, rebuild, application execution, commit or publication."
+}

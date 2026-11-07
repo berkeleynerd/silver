@@ -1,24 +1,26 @@
 # Sieve of Eratosthenes
 
-**Candidate: proofs likely to discharge automatically.** All loops are for loops over static or computed ranges, so no loop-carried value needs an invariant, and the only nontrivial checks are the index and overflow of K * Base, which the Limit / Base loop bound makes dischargeable. The fixed limit is an allowed documented resource bound.
+**Candidate: proofs likely to discharge automatically.** The bounded sieve follows the cached task's marking algorithm, using only its allowed square-root and prime-square optimizations. K <= Limit / Base makes the Multiple guard true for every reached product, so it omits no required crossing. Expected output is independently derived by trial division. Native driver execution is retained separately from complete resulting-language assurance; the [mapping record](../../assessment-boolean-arrays-20261106.md) links the delivery evidence and preserves the original assessment provenance.
 
-Position 120 in the [progression](../../progression.md#stage-6), in stage 6.
+Position 56 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 
-Embed a fixed Limit constant (for example 100) and an array Prime of Boolean indexed 2 .. Limit, all initialised True by an aggregate. An outer for loop runs Base over 2 .. a constant square-root bound; if Prime (Base), an inner for loop runs K over Base .. Limit / Base and marks Prime (K * Base) False, then a final for loop prints each index still True with Put_Line of its Integer'Image. About 30 lines.
+Use samples/rosetta_sieve_of_eratosthenes.adb: explicitly initialize flags for 2 through 100, scan Base from 2 through 10, and for each surviving base cross out K * Base for K from Base through Limit / Base. Store the product in Multiple and guard Multiple <= Limit before the indexed write. Print every final surviving index with Integer'Image. No wheel, precomputed prime list or user subroutine is used. About 33 lines.
 
 ## Proof obligations to watch
 
-- **overflow**: The product K * Base in the inner loop is nonlinear, but K is bounded by Limit / Base so the product stays at most Limit, which provers handle with division reasoning and small subtype ranges.
-- **index**: Indexing Prime (K * Base) needs K * Base within 2 .. Limit, which follows from the for-loop bounds Base .. Limit / Base and Base >= 2.
+- **overflow**: The product is evaluated in the admitted static operand intervals: Base in 2..10 and K in 2..50 keep Multiple in 4..500.
+- **index**: The explicit bare-name guard Multiple <= Limit refines the declared 4..500 interval to 4..100 for Prime (Multiple), including within the nested loops.
 
 ## Language surface recorded by this assessment
 
-Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops and 'Image of scalars.
+Immutable Integer arithmetic, bounded mutable Integer objects, interval-checked Integer division, Integer range for loops, Integer image, scalar guard refinement and fixed-size Boolean arrays.
 
 ## External effects
 
 - **console output** (allowed): Prints each prime found, one per line, with Put_Line.
 
-Assessed on 2026-10-15 against page revision 415491 of the [task](https://rosettacode.org/wiki/Sieve_of_Eratosthenes) by claude-sonnet-5-5 at medium effort; confidence high. The inclusion policy is in `rosetta/coverage.json`.
+Initially assessed on 2026-10-15 against page revision 415491 of the [task](https://rosettacode.org/wiki/Sieve_of_Eratosthenes) by claude-sonnet-5-5 at medium effort; current confidence high. The inclusion policy is in `rosetta/coverage.json`.
+
+Revised on 2026-11-07 by Codex through targeted source review; see the [review record](../../assessment-boolean-arrays-20261106.md).

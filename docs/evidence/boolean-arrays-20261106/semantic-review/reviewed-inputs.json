@@ -1,0 +1,245 @@
+{
+  "scope": "Content read or searched in bounded review; not a claim every line was independently reverified. Final inventory identifies the live target, while start hashes preserve the initial target.",
+  "start_head": "12811ed4a06375ae878b4906003d67bbc2447e4c",
+  "end_head": "452465e3c308fb60e9de69df3d49601e796d28db",
+  "files": {
+    "proof/Silver/ComposeBooleanInitializerNative.lean": {
+      "start_sha256": "92732f55cf97931598de165d3678f4fef054a4b65b7e04db5d32ff156b61cec3",
+      "end_sha256": "92732f55cf97931598de165d3678f4fef054a4b65b7e04db5d32ff156b61cec3",
+      "changed_during_review": false
+    },
+    "proof/Silver/ComposeBooleanInitializerLibraries.lean": {
+      "start_sha256": "e2b2571d89e2decaa5a4a214abbf487cda2d6b1927f8fb67c07f7f26e166a405",
+      "end_sha256": "e2b2571d89e2decaa5a4a214abbf487cda2d6b1927f8fb67c07f7f26e166a405",
+      "changed_during_review": false
+    },
+    "proof/Silver/ComposeBooleanArraySource.lean": {
+      "start_sha256": "e0c10c8a63678957524a2e5797ecc455d83223e00d26d89894021e238a8664c9",
+      "end_sha256": "e0c10c8a63678957524a2e5797ecc455d83223e00d26d89894021e238a8664c9",
+      "changed_during_review": false
+    },
+    "proof/Silver/ComposeBooleanArrayTrace.lean": {
+      "start_sha256": "11a8b4e9e494d16d9cd21af961e87dbebd08c0d88255ed92ff0ca4d9753a69ea",
+      "end_sha256": "11a8b4e9e494d16d9cd21af961e87dbebd08c0d88255ed92ff0ca4d9753a69ea",
+      "changed_during_review": false
+    },
+    "proof/Silver/ComposeBooleanArrayElaboration.lean": {
+      "start_sha256": "61362a6e69b114eaf6bffe8e63518b3390590d370353d51129883f348c5be2b4",
+      "end_sha256": "61362a6e69b114eaf6bffe8e63518b3390590d370353d51129883f348c5be2b4",
+      "changed_during_review": false
+    },
+    "proof/Silver/ComposeBooleanArrayDeclarations.lean": {
+      "start_sha256": "6a1390e6d1920cdee639d484eb6b00ad7d27f94991dbc9dc59c02b733123a09b",
+      "end_sha256": "6a1390e6d1920cdee639d484eb6b00ad7d27f94991dbc9dc59c02b733123a09b",
+      "changed_during_review": false
+    },
+    "proof/Silver/ComposeBooleanArrayHeaderChecks.lean": {
+      "start_sha256": "1fa8d40f013d217a6abd518f42b1c2bd4ac7117c7be2164c7c42bb2d45c80237",
+      "end_sha256": "1fa8d40f013d217a6abd518f42b1c2bd4ac7117c7be2164c7c42bb2d45c80237",
+      "changed_during_review": false
+    },
+    "proof/Silver/ComposeBooleanRegionTrace.lean": {
+      "start_sha256": "48399a4f8ac4abb93c50fd8d11db4d5c3732d5346dbbe320a53504c72dad9338",
+      "end_sha256": "48399a4f8ac4abb93c50fd8d11db4d5c3732d5346dbbe320a53504c72dad9338",
+      "changed_during_review": false
+    },
+    "proof/Silver/ComposeBooleanDeclarations.lean": {
+      "start_sha256": "4bd72ea355e0359399e0cf18e8e0bace208faed2456fc69d57b0910676e6b44a",
+      "end_sha256": "4bd72ea355e0359399e0cf18e8e0bace208faed2456fc69d57b0910676e6b44a",
+      "changed_during_review": false
+    },
+    "proof/Silver/ComposeBooleanTrace.lean": {
+      "start_sha256": "ac5046d443cdb0c64c3e10506fb50c98e31d8e033b84834a2da76d6c706927c1",
+      "end_sha256": "ac5046d443cdb0c64c3e10506fb50c98e31d8e033b84834a2da76d6c706927c1",
+      "changed_during_review": false
+    },
+    "proof/Silver/BooleanDeclarations.lean": {
+      "start_sha256": "93caba18d27df386f7383a5411a12e75393f75e58add6b60b22596605670ae18",
+      "end_sha256": "93caba18d27df386f7383a5411a12e75393f75e58add6b60b22596605670ae18",
+      "changed_during_review": false
+    },
+    "proof/Silver/BooleanDeclarationObligations.lean": {
+      "start_sha256": "4936fb81cd9d79ae088a1a1bbfed737b4da6217a569e88941c4e7cb2b39abc0e",
+      "end_sha256": "4936fb81cd9d79ae088a1a1bbfed737b4da6217a569e88941c4e7cb2b39abc0e",
+      "changed_during_review": false
+    },
+    "proof/Silver/BooleanFreezing.lean": {
+      "start_sha256": "b8481a12db08dae75293ae2e30f8b0c91a07feed0893d24df47103b0afbf3e36",
+      "end_sha256": "b8481a12db08dae75293ae2e30f8b0c91a07feed0893d24df47103b0afbf3e36",
+      "changed_during_review": false
+    },
+    "proof/Silver/BooleanArrays.lean": {
+      "start_sha256": "c3d88434c123f2d448937e10a74075a82adeacee2bfd2121fc84c6216022e58b",
+      "end_sha256": "c3d88434c123f2d448937e10a74075a82adeacee2bfd2121fc84c6216022e58b",
+      "changed_during_review": false
+    },
+    "proof/Silver/ArrayBindings.lean": {
+      "start_sha256": "5071507ea997a610a3d10eb9796e7ec0040d79fd81cd41dc8aa5add2d0cb97bc",
+      "end_sha256": "5071507ea997a610a3d10eb9796e7ec0040d79fd81cd41dc8aa5add2d0cb97bc",
+      "changed_during_review": false
+    },
+    "proof/Silver/ComposeAdmission.lean": {
+      "start_sha256": "c9b3f42eec1b460a2972d53997e5ec0748bfca6125c40e7416c338c1ceab5610",
+      "end_sha256": "c9b3f42eec1b460a2972d53997e5ec0748bfca6125c40e7416c338c1ceab5610",
+      "changed_during_review": false
+    },
+    "proof/Silver/ComposeArrayExpressions.lean": {
+      "start_sha256": "24f8c654b5f13250dad2e8d5e4411acc3503d9d626f2a503ae076fc4c7fd3dc1",
+      "end_sha256": "24f8c654b5f13250dad2e8d5e4411acc3503d9d626f2a503ae076fc4c7fd3dc1",
+      "changed_during_review": false
+    },
+    "proof/Silver/ComposeArrayDenotations.lean": {
+      "start_sha256": "31f73c4e4c158823fd4fa94cef43cfa94f5a60af16b3d5ede2458b2cd9ab21c8",
+      "end_sha256": "31f73c4e4c158823fd4fa94cef43cfa94f5a60af16b3d5ede2458b2cd9ab21c8",
+      "changed_during_review": false
+    },
+    "proof/Silver/ComposeArrayEquations.lean": {
+      "start_sha256": "91aa59ebf8cacea7594acb703f894cbb4bd80c5f48a857226ba1071e22bf59e6",
+      "end_sha256": "709e67e196efcfb098057687ef2d3979dca57fb2d86fc021d83a5e5244d85681",
+      "changed_during_review": true
+    },
+    "proof/Silver/ComposeArrayDeclarationSource.lean": {
+      "start_sha256": "aa510284c427cd2c109e1c384390c19ad605859c325546cb7cdc28e3b53ab8cc",
+      "end_sha256": "b17f01f8511cf0f5e459d4fe779bb348cf0da9d43721b807f9439c368d9a67b8",
+      "changed_during_review": true
+    },
+    "proof/Silver/ComposeContracts.lean": {
+      "start_sha256": "dbf6b7780e150f65a8c712f96d32d9f0ea60490e78acc171b0cb01298bd75d82",
+      "end_sha256": "dbf6b7780e150f65a8c712f96d32d9f0ea60490e78acc171b0cb01298bd75d82",
+      "changed_during_review": false
+    },
+    "proof/Silver/ComposeEvaluation.lean": {
+      "start_sha256": "dbb89dc9d3d500c3cbe42f945e82f753bbaca9223cb8c7c98ee493b1d8928ee7",
+      "end_sha256": "2c8c3dcf53726065e83b02e2070eca18a6ec6ba00a4c00eafce85719cced01e2",
+      "changed_during_review": true
+    },
+    "proof/Silver/ComposeEquations.lean": {
+      "start_sha256": "73bf553ce42bf5ade7bf38d88121747b08276ff840377aa36672ae5902a7a73b",
+      "end_sha256": "73bf553ce42bf5ade7bf38d88121747b08276ff840377aa36672ae5902a7a73b",
+      "changed_during_review": false
+    },
+    "proof/Silver/ComposeHelperSourceCandidate.lean": {
+      "start_sha256": "10cf6a324c75f89f59e6bf1939d87c4deb5e7be95e0936f9d109220ec83188c2",
+      "end_sha256": "10cf6a324c75f89f59e6bf1939d87c4deb5e7be95e0936f9d109220ec83188c2",
+      "changed_during_review": false
+    },
+    "proof/Silver/ComposeSourceChecks.lean": {
+      "start_sha256": "b8dc070b41390fd345867638038df0c51550ed717106a24eac125830fb30ba9c",
+      "end_sha256": "b8dc070b41390fd345867638038df0c51550ed717106a24eac125830fb30ba9c",
+      "changed_during_review": false
+    },
+    "proof/Silver/ComposeSourceBridge.lean": {
+      "start_sha256": "350c87778672d88188ffa1db4e8b394812c3ac485826695a6c0e869cd4fc3de0",
+      "end_sha256": "350c87778672d88188ffa1db4e8b394812c3ac485826695a6c0e869cd4fc3de0",
+      "changed_during_review": false
+    },
+    "proof/Silver/ComposeInitializerTrace.lean": {
+      "start_sha256": "7ba815b2292119433e685cd2926e3355694ecce89c2f9efe22cd4431c7f39601",
+      "end_sha256": "7ba815b2292119433e685cd2926e3355694ecce89c2f9efe22cd4431c7f39601",
+      "changed_during_review": false
+    },
+    "proof/Silver/PredicateInheritedReady.lean": {
+      "start_sha256": "4da97acab5933c5073851be2836f2a36820723a9598fceddf4d3dd0d76d985e1",
+      "end_sha256": "4da97acab5933c5073851be2836f2a36820723a9598fceddf4d3dd0d76d985e1",
+      "changed_during_review": false
+    },
+    "proof/Silver/PredicateOuterReadiness.lean": {
+      "start_sha256": "418ee5d3457e56a3965a0fc757b15f1edd5fc5221dc50162edf09964d35f2f66",
+      "end_sha256": "418ee5d3457e56a3965a0fc757b15f1edd5fc5221dc50162edf09964d35f2f66",
+      "changed_during_review": false
+    },
+    "proof/Silver/PredicateInitialFlowValidity.lean": {
+      "start_sha256": "559c5a4557b179ef110f18913f2b0b055d35068e6cb4fecf7f66b9d0206955b3",
+      "end_sha256": "559c5a4557b179ef110f18913f2b0b055d35068e6cb4fecf7f66b9d0206955b3",
+      "changed_during_review": false
+    },
+    "proof/Silver/PredicateScalarHeaderReady.lean": {
+      "start_sha256": "e6724d47712ff8e23326e35a35862e7aefab65400216831f5cdc140faa281ad4",
+      "end_sha256": "e6724d47712ff8e23326e35a35862e7aefab65400216831f5cdc140faa281ad4",
+      "changed_during_review": false
+    },
+    "proof/Silver/PredicateBooleanHeader.lean": {
+      "start_sha256": "714f8fa676fd970b2221f377ce85d4d1095637b33d58d07025e1858360e4be11",
+      "end_sha256": "93a913dedfc1f1662e5ba733a011bb56be94f6a234386249c9d337c096174263",
+      "changed_during_review": true
+    },
+    "proof/Silver/PredicateGrammar.lean": {
+      "start_sha256": "c98130bd42118e07ad26bbb1d6134cdb47b2fc010b58dfabae28a4ac5aef835b",
+      "end_sha256": "c98130bd42118e07ad26bbb1d6134cdb47b2fc010b58dfabae28a4ac5aef835b",
+      "changed_during_review": false
+    },
+    "proof/Silver/PredicateHeaderDecode.lean": {
+      "start_sha256": "55eef1d8700d2a39879af62f5d086becd4bb2b3615777839cd2a6c60ef4a68ce",
+      "end_sha256": "55eef1d8700d2a39879af62f5d086becd4bb2b3615777839cd2a6c60ef4a68ce",
+      "changed_during_review": false
+    },
+    "proof/Silver/PredicateComposition.lean": {
+      "start_sha256": "ac227c0478e4005cb83e555da2d3b2a0b6dbaa72c79e78a1258bc011405e8459",
+      "end_sha256": "ac227c0478e4005cb83e555da2d3b2a0b6dbaa72c79e78a1258bc011405e8459",
+      "changed_during_review": false
+    },
+    "proof/Silver/PredicateChecks.lean": {
+      "start_sha256": "f11b4f42b0fcbf0f176804d9f81150097987d85607fbb9bfbfd0991191e4edc4",
+      "end_sha256": "f11b4f42b0fcbf0f176804d9f81150097987d85607fbb9bfbfd0991191e4edc4",
+      "changed_during_review": false
+    },
+    "proof/Silver/PredicateSourceBridge.lean": {
+      "start_sha256": "a4e004c2bab2ec9cf799dde9711c6def19f530d993df50bb18fec73ddd77124c",
+      "end_sha256": "a4e004c2bab2ec9cf799dde9711c6def19f530d993df50bb18fec73ddd77124c",
+      "changed_during_review": false
+    },
+    "proof/Silver/PredicateConditionReadings.lean": {
+      "start_sha256": "0f12fb0c31ed5df17dc586ce46ecb9d9ec167e05ca1eafbc4cf6071c6a07a524",
+      "end_sha256": "0f12fb0c31ed5df17dc586ce46ecb9d9ec167e05ca1eafbc4cf6071c6a07a524",
+      "changed_during_review": false
+    },
+    "proof/Silver/PredicateConditionAdmission.lean": {
+      "start_sha256": "76c105e34fcd2ec80c8c8ed19ca97341530b46b2012401e4aa59adb3fd8fd7d7",
+      "end_sha256": "76c105e34fcd2ec80c8c8ed19ca97341530b46b2012401e4aa59adb3fd8fd7d7",
+      "changed_during_review": false
+    },
+    "proof/Silver/PredicateConditionValidity.lean": {
+      "start_sha256": "adf7e2c244a1bbd5ad93630a483e9bec1ebb14def655c4eab8de5c2e766e1754",
+      "end_sha256": "adf7e2c244a1bbd5ad93630a483e9bec1ebb14def655c4eab8de5c2e766e1754",
+      "changed_during_review": false
+    },
+    "proof/Silver/PredicateNativeHelpers.lean": {
+      "start_sha256": "ed02066ede0d0b0cef08f1833a9ab9b551a03b6420b73b0c082ea5bedc345daa",
+      "end_sha256": "ed02066ede0d0b0cef08f1833a9ab9b551a03b6420b73b0c082ea5bedc345daa",
+      "changed_during_review": false
+    },
+    "proof/Silver/PredicateSemantics.lean": {
+      "start_sha256": "07fda4391fb7d503a5ead9cd145314fab2c734a1ca8447d13da6151ccc4f29ce",
+      "end_sha256": "07fda4391fb7d503a5ead9cd145314fab2c734a1ca8447d13da6151ccc4f29ce",
+      "changed_during_review": false
+    },
+    "proof/Silver/PredicateStringBoundsSources.lean": {
+      "start_sha256": "576aa28eca5760ab1c790c501509c71d8f13461a72caa35d8ed240c8ed6633f3",
+      "end_sha256": "576aa28eca5760ab1c790c501509c71d8f13461a72caa35d8ed240c8ed6633f3",
+      "changed_during_review": false
+    },
+    "proof/Silver/PredicateStringActualInitializers.lean": {
+      "start_sha256": "03c3821621964ed0d5fcc70dd8a4b1eed347d841f5cd4b5fb83e46c87cbdce82",
+      "end_sha256": "03c3821621964ed0d5fcc70dd8a4b1eed347d841f5cd4b5fb83e46c87cbdce82",
+      "changed_during_review": false
+    },
+    "proof/Silver/PredicateStringActualAssurance.lean": {
+      "start_sha256": "579e527e5d38e3db676bc9ce45e6b9f6e7bde531b885a5664c12f9e56f330314",
+      "end_sha256": "579e527e5d38e3db676bc9ce45e6b9f6e7bde531b885a5664c12f9e56f330314",
+      "changed_during_review": false
+    },
+    "src/silver_output_profile.adb": {
+      "start_sha256": "6d68761cd1ebc82d81f694b198513b4896754baa7bb628066590498b7a79f50c",
+      "end_sha256": "d82f6880924196f6fccc2077ed86b71c6a31683d72b8e2a935d494b7d62296f4",
+      "changed_during_review": true
+    }
+  },
+  "changed_inventory_files": [
+    "docs/boolean-arrays.md",
+    "proof/Silver/ComposeArrayDeclarationSource.lean",
+    "proof/Silver/ComposeArrayEquations.lean",
+    "proof/Silver/ComposeEvaluation.lean",
+    "proof/Silver/PredicateBooleanHeader.lean",
+    "src/silver_output_profile.adb"
+  ]
+}

@@ -156,7 +156,7 @@ theorem indexed_check {text : Source} {names : BindingEnvironment}
     (parsed : IndexedReading text names scalarNames arrays initials elaborating true position info lower upper) :
     (Character.Expr.indexed
       (indexedParts text position names scalarNames arrays initials elaborating true).target info.firstIndex lower).check
-      names.shape.fixedLengths (ArrayBindings.ranges arrays initials elaborating (ScalarExpression.ranges scalarNames)) = true := by
+      names.shape.fixedLengths (ArrayBindings.integerRanges arrays initials elaborating (ScalarExpression.ranges scalarNames)) = true := by
   have metadata := (normal.typed _ _ parsed.selected).2 parsed.fixed
   have bounds := parsed.elementBounds rfl
   have nonempty := parsed.lowerNonempty

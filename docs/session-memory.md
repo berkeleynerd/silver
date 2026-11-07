@@ -1,5 +1,58 @@
 # Session memory
 
+## 2026-11-07 — Boolean-array merge authorized
+
+The owner instructed **“If it is ready to merge please proceed.”** This
+authorizes merging ready [PR #335](https://github.com/berkeleynerd/silver/pull/335)
+and its routine issue/board/milestone closeout. Complete Linux native/build,
+Lean/source and reviewed regression assurance are retained in the
+[delivery record](boolean-arrays.md#delivery-assurance-and-validation--2026-11-07).
+The accepted integrated target is `2227a82686`, with separately inspected
+completion text published at `d17fb7b299`; governed implementation remains
+`ce97ede446`. The authorization/status reconciliation changes documentation
+only and retains that successful evidence without reruns.
+
+This supersedes the earlier merge hold for #335. Issues #297/#334 and milestone
+19 close with the merge; no functions #298 or separate sample batch #300 work
+is selected. No CLI recall entry was updated.
+
+## 2026-11-07 — Boolean-array delivery closeout
+
+Owner-directed implementation of existing #297 is complete through reviewable
+publication of [PR #335](https://github.com/berkeleynerd/silver/pull/335), under the recorded
+[authorization](#2026-11-06--structural-guards-merged-boolean-arrays-selected-next).
+The [delivery record](boolean-arrays.md#delivery-assurance-and-validation--2026-11-07)
+links successful Linux native/build and complete Lean/source checkpoints,
+retained behavioral regressions and the tested narrow Rosetta metadata. It
+records confirmed runtime applicability and closing review acceptance of
+`2227a82686`, with unchanged governed source `ce97ede446`. This closeout does
+not authorize implementation merge or another feature.
+
+Preserve earlier failed/interrupted outcomes and the original source/binary
+scope of producer and stack observations. Promote only `fixed-boolean-arrays`;
+broad arrays/booleans, Boolean iteration and `others` remain outside scope.
+Keep #297/#334 and milestone 19 open pending merge. Implementation merge and
+starting functions #298 or sample expansion #300 are not authorized by this
+closeout. No CLI recall entry was updated by this documentation round.
+
+## 2026-11-07 — Earlier proof diagnosis escalation authorized
+
+After discussing the Boolean-array validation delays, the owner instructed
+**“Please update guidance wherever necessary to match the new limits.”** The
+[model policy](../AGENTS.md#models-effort-and-delegation) now explicitly assigns
+uncertain proof diagnosis, memory strategy and cross-system integration decisions
+to Astra Extra High, with temporary Astra Max for a named difficult problem when
+needed. Established implementation remains Sol Extra High; routine monitoring,
+evidence collection and documentation remain Sol High. Reassess unsuccessful
+approaches before another expensive complete run, without waiting for a fixed
+retry count. Elapsed prover time alone is not an escalation trigger.
+
+The personal global guidance is aligned; existing host profiles already match
+the baseline settings. This updates guidance only, with no live model switch,
+proof restart, worker/memory-limit change or new feature authorization. Both
+current validation runs continue. Complete assurance is still required. No CLI
+recall entry was updated.
+
 ## 2026-11-06 — Structural guards merged; Boolean arrays selected next
 
 The owner instructed **“Please merge it if it is ready and proceed to the next

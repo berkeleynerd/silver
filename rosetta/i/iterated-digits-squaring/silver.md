@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from ranged subtypes, array bounds and non-loop-carried digit expressions, with the only loop-carried values being a 64-bit counter and a range-typed chain value inside a procedure, so no annotation is needed.
 
-Position 334 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 335 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

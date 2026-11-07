@@ -166,11 +166,13 @@ mutual
       · split
         · exact ⟨ready, ready⟩
         · split
-          · exact invalidCondition_flowReady ready
-          · try dsimp only
-            split
+          · exact ⟨ready, ready⟩
+          · split
             · exact invalidCondition_flowReady ready
-            · exact ⟨ready.withPath _, ready.withPath _⟩
+            · try dsimp only
+              split
+              · exact invalidCondition_flowReady ready
+              · exact ⟨ready.withPath _, ready.withPath _⟩
   termination_by (remainingAt text position, 1)
 
   theorem booleanFactor_flowReady (text : Source) (context : ParseContext) (position : Nat) (facts : ActiveFlow)

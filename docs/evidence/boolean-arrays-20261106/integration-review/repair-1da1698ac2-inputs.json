@@ -1,0 +1,33 @@
+{
+  "commit": "1da1698ac267d1d086bed3470b66874ee94327a4",
+  "captured_utc": "2026-11-06T19:58:38.034170+00:00",
+  "files": [
+    {
+      "path": "proof/Silver/PredicateBooleanArrayBodyNative.lean",
+      "bytes": 21842,
+      "sha256": "62c901977bd7f807535652fa9001f48c7db197e25d4103034e97e797ca7a610f",
+      "live_matches_commit": false
+    },
+    {
+      "path": "proof/Silver/PredicateBooleanArrayBodySource.lean",
+      "bytes": 3011,
+      "sha256": "63b6db1aa0ab729afde3829c5e7a560afc9f8db95eb80ece2b618005b8373ab3",
+      "live_matches_commit": true
+    }
+  ],
+  "unchanged_sections": [
+    {
+      "section": "typed_tree_and_render_eval",
+      "unchanged": true
+    },
+    {
+      "section": "scope_and_sizing",
+      "unchanged": true
+    },
+    {
+      "section": "current_trees_and_equations",
+      "unchanged": true
+    }
+  ],
+  "scope": "Read-only source/diff verification; no Lean run."
+}

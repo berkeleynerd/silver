@@ -53,7 +53,7 @@ theorem characterExpression_inferLength {text : Source} {names : BindingEnvironm
     {expression : Character.Expr} {result : ValueResult} (normal : NamesNormal names)
     (parsed : CharacterAt text names scalarNames arrays initials elaborating position expression result) :
     Expression.inferLength [Value.character expression] names.shape
-      (ArrayBindings.ranges arrays initials elaborating (ScalarExpression.ranges scalarNames)) = some ⟨1, 1, 0, false⟩ := by
+      (ArrayBindings.integerRanges arrays initials elaborating (ScalarExpression.ranges scalarNames)) = some ⟨1, 1, 0, false⟩ := by
   simp [Expression.inferLength, Operand.inferLength, Value.extraRange, character_check normal parsed,
     LengthSummary.add]
 
@@ -63,7 +63,7 @@ theorem characterExpression_frozen_safe {text : Source} {names : BindingEnvironm
     {expression : Character.Expr} {result : ValueResult} {integers : Integer.Store}
     (normal : NamesNormal names)
     (parsed : CharacterAt text names scalarNames arrays initials elaborating position expression result)
-    (scalars : Integer.Fits (ArrayBindings.ranges arrays initials elaborating (ScalarExpression.ranges scalarNames)) integers) :
+    (scalars : Integer.Fits (ArrayBindings.integerRanges arrays initials elaborating (ScalarExpression.ranges scalarNames)) integers) :
     SafeExpression (Expression.freezeImages [Value.character expression] integers) names.shape maxSourceLength := by
   apply Expression.freezeImages_safe (characterExpression_inferLength normal parsed) scalars
   · simp only [Expression.LiteralsPrintable, List.mem_singleton]

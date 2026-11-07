@@ -156,7 +156,7 @@ theorem Condition.refine_bounded {flow : Flow} (bounded : flow.path.Bounded)
   induction condition generalizing flow truth with
   | stringCompare unequal left right => exact refineString_bounded bounded _ _ _ _ _ flow.scalars
   | lengthCompare operator left right => exact refineLength_bounded bounded _ _ _ _ _
-  | scalarCompare | characterCompare | booleanLiteral | booleanName | eager | booleanCompare => exact bounded
+  | scalarCompare | characterCompare | booleanLiteral | booleanName | booleanArrayRead | eager | booleanCompare => exact bounded
   | inputValid =>
       cases truth
       · exact Context.assumeInvalid_bounded _

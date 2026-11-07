@@ -1580,18 +1580,18 @@ is
      (Text : String; State : Parser_State; First, After : Literal_Position;
       Bounds : Scalars.Interval; Offset, Length : Array_Bindings.Element_Count;
       Mutable : Boolean; Following : Literal_Position;
-      Component_Bounds : Scalars.Interval) return Parser_State is
+      Component_Bounds : Scalars.Interval; Boolean_Elements : Boolean := False) return Parser_State is
      (State with delta Position => Following,
        Array_Names => (State.Array_Names with delta Names =>
          (Count => State.Array_Names.Names.Count + 1,
           Items => (State.Array_Names.Names.Items with delta State.Array_Names.Names.Count + 1 =>
-            (First, After, Bounds, Offset, Length, Mutable, Component_Bounds)))))
+            (First, After, Bounds, Offset, Length, Mutable, Component_Bounds, Boolean_Elements)))))
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
          and then Valid_State (Text, State)
          and then State.Array_Names.Names.Count < Array_Bindings.Max_Bindings
          and then First > 0 and then Valid_Name_State (Text, First, After)
-         and then Array_Bindings.Valid_Binding ((First, After, Bounds, Offset, Length, Mutable, Component_Bounds))
+         and then Array_Bindings.Valid_Binding ((First, After, Bounds, Offset, Length, Mutable, Component_Bounds, Boolean_Elements))
          and then Offset + Length <= State.Array_Names.Used
          and then (if State.Array_Names.Names.Count > 0 then Offset >=
            State.Array_Names.Names.Items (State.Array_Names.Names.Count).Offset
@@ -1667,6 +1667,40 @@ is
      with Ghost => Static, Global => null,
        Annotate => (GNATprove, Logical_Equal);
 
+   procedure Lemma_Parser_State_Equality (Left, Right : Parser_State)
+     with Ghost => Static, Global => null,
+       Pre => Same_Parser_State (Left, Right),
+       Post => Left = Right
+   is
+   begin
+      --  Isolate Ada record equality from the declaration's branch context.
+      --  The checked Logical_Equal premise supplies logical state identity.
+      null;
+   end Lemma_Parser_State_Equality;
+
+   --  A Boolean initializer is checked in the declaration's incoming state.
+   --  This cursor-only interface deliberately stores neither truth nor facts.
+   function Boolean_Initializer_Model
+     (Text : String; State : Parser_State; Position, Mask_First, Mask_After : Literal_Position)
+      return Literal_Position
+     with Ghost => Static, Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_State (Text, State) and then Position <= Text'Last + 1
+         and then Valid_Name_State (Text, Mask_First, Mask_After),
+       Post => Boolean_Initializer_Model'Result = 0
+         or else Boolean_Initializer_Model'Result in Position + 1 .. Text'Last + 1;
+   function Boolean_Initializer_After
+     (Text : String; State : Parser_State; Position, Mask_First, Mask_After : Literal_Position)
+      return Literal_Position
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_State (Text, State) and then Position <= Text'Last + 1
+         and then Valid_Name_State (Text, Mask_First, Mask_After),
+       Post => (Runtime => Boolean_Initializer_After'Result = 0
+         or else Boolean_Initializer_After'Result in Position + 1 .. Text'Last + 1,
+         Static => Boolean_Initializer_After'Result = Boolean_Initializer_Model
+           (Text, State, Position, Mask_First, Mask_After));
+
    function Array_Values_Model
      (Text : String; Source_State, Result_State : Parser_State;
       Position : Literal_Position; Length, Parsed : Array_Bindings.Element_Count;
@@ -1718,7 +1752,53 @@ is
                begin Array_Values_Model
                  (Text, Source_State, Next_State, Next_Position, Length, Parsed + 1, Component_Bounds)))));
 
+   function Boolean_Array_Values_Model
+     (Text : String; Source_State, Result_State : Parser_State;
+      Position : Literal_Position; Length, Parsed : Array_Bindings.Element_Count;
+      Mask_First, Mask_After : Literal_Position)
+      return Parser_State
+     with Ghost => Static, Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_State (Text, Source_State) and then Valid_State (Text, Result_State)
+         and then Position <= Text'Last + 1 and then Parsed <= Length
+         and then Valid_Name_State (Text, Mask_First, Mask_After)
+         and then Length <= Array_Bindings.Max_Elements - Source_State.Array_Names.Used
+         and then Result_State.Array_Names.Used = Source_State.Array_Names.Used + Parsed,
+       Post => Valid_State (Text, Boolean_Array_Values_Model'Result)
+         and then (if Boolean_Array_Values_Model'Result.Position /= 0 then
+           Boolean_Array_Values_Model'Result.Position >= Position
+           and then Boolean_Array_Values_Model'Result =
+             (Result_State with delta Position => Boolean_Array_Values_Model'Result.Position,
+               Array_Names => (Result_State.Array_Names with delta
+                 Used => Source_State.Array_Names.Used + Length,
+                 Values => Boolean_Array_Values_Model'Result.Array_Names.Values))
+           and then (for all Slot in 1 .. Result_State.Array_Names.Used =>
+             Boolean_Array_Values_Model'Result.Array_Names.Values (Slot) =
+               Result_State.Array_Names.Values (Slot))),
+       Subprogram_Variant => (Decreases => Length - Parsed);
+   function Boolean_Array_Values_Model
+     (Text : String; Source_State, Result_State : Parser_State;
+      Position : Literal_Position; Length, Parsed : Array_Bindings.Element_Count;
+      Mask_First, Mask_After : Literal_Position)
+      return Parser_State is
+     (if Position = 0 then Invalid_State
+      elsif Parsed = Length then (Result_State with delta Position => Position)
+      else
+        (declare Value_After : constant Literal_Position := Boolean_Initializer_Model
+           (Text, Source_State, Position, Mask_First, Mask_After);
+         begin
+           (if Value_After = 0 then Invalid_State
+            else
+              (declare Next_State : constant Parser_State :=
+                 Put_Array_Value (Result_State, 0);
+                       Next_Position : constant Literal_Position :=
+                         (if Parsed + 1 < Length then Take_Token (Text, Value_After, Comma)
+                          else Value_After);
+               begin Boolean_Array_Values_Model
+                 (Text, Source_State, Next_State, Next_Position, Length, Parsed + 1, Mask_First, Mask_After)))));
+
    Integer_Type_Word : constant String := "integer";
+   Boolean_Type_Word : constant String := "boolean";
    Validity_Call_Word : constant String := "input_is_valid";
 
    function Array_Declaration_Model
@@ -1745,13 +1825,19 @@ is
                  Arrays => State.Array_Names.Names, Initials => State.Array_Names.Values, Elaborating => True);
               Type_First : constant Literal_Position := Skip_At (Text, Take_Token (Text,
                 Take_Token (Text, High.After, Right_Parenthesis), Of_Keyword));
-              Type_Mark : constant Scalar_Constraint_Result := Scalar_Type_At (Text, State, Type_First);
+              Integer_Type : constant Scalar_Constraint_Result := Scalar_Type_At (Text, State, Type_First);
+              Boolean_Elements : constant Boolean := Integer_Type.After = 0
+                and then Take_Token (Text, Type_First, Boolean_Name) /= 0;
+              Type_Mark : constant Scalar_Constraint_Result :=
+                (if Boolean_Elements then (Take_Token (Text, Type_First, Boolean_Name), Scalars.Full)
+                 else Integer_Type);
               Type_After : constant Literal_Position := Type_Mark.After;
               Position : constant Literal_Position := Take_Token (Text,
                 Take_Token (Text, Type_After, Assignment), Left_Parenthesis);
       begin
         (if not New_Name_Allowed (Text, State, First, After, Arguments)
-           or else Name_Is (Text, First, After, Integer_Type_Word)
+           or else (if Boolean_Elements then Name_Is (Text, First, After, Boolean_Type_Word)
+                    else Name_Is (Text, First, After, Integer_Type_Word))
            or else Array_After = 0 or else Position = 0
            or else State.Array_Names.Names.Count = Array_Bindings.Max_Bindings
            or else Low.After = 0 or else High.After = 0 or else not Low.Static or else not High.Static
@@ -1763,6 +1849,9 @@ is
            or else Lookup_Name (Text, State.Names, Type_First, Type_After) /= 0
            or else Scalar_Expressions.Lookup (Text, State.Scalar_Names, Type_First, Type_After) /= 0
            or else Array_Bindings.Lookup (Text, State.Array_Names.Names, Type_First, Type_After) /= 0
+           or else Lookup_Boolean (Text, State.Boolean_Names, Type_First, Type_After) /= 0
+           or else (Boolean_Elements and then
+             Lookup_Subtype (Text, State.Subtype_Names, Type_First, Type_After) /= 0)
          then Invalid_State
          else
            (declare Length : constant Array_Bindings.Element_Count := Array_Bindings.Element_Count
@@ -1782,14 +1871,16 @@ is
                then Invalid_State
                else
                  (declare Values : constant Parser_State :=
-                    Array_Values_Model (Text, State, State, Values_First, Length, 0, Type_Mark.Bounds);
+                    (if Boolean_Elements then Boolean_Array_Values_Model
+                       (Text, State, State, Values_First, Length, 0, First, After)
+                     else Array_Values_Model (Text, State, State, Values_First, Length, 0, Type_Mark.Bounds));
                           Following : constant Literal_Position := Take_Token
                             (Text, Take_Token (Text, Values.Position, Right_Parenthesis), Semicolon);
                   begin
                     (if Values.Position = 0 or else Following <= State.Position then Invalid_State
                      else Add_Array_Binding
                        (Text, Values, First, After, (Low.Bounds.Lower, High.Bounds.Lower),
-                        State.Array_Names.Used, Length, Constant_After = 0, Following, Type_Mark.Bounds)))))));
+                        State.Array_Names.Used, Length, Constant_After = 0, Following, Type_Mark.Bounds, Boolean_Elements)))))));
 
    function Array_Values_At
      (Text : String; Source_State, Result_State : Parser_State;
@@ -1899,6 +1990,109 @@ is
       return (Result with delta Position => Current);
    end Array_Values_At;
 
+   function Boolean_Array_Values_At
+     (Text : String; Source_State, Result_State : Parser_State;
+      Position : Literal_Position; Length, Parsed : Array_Bindings.Element_Count;
+      Mask_First, Mask_After : Literal_Position)
+      return Parser_State
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_State (Text, Source_State) and then Valid_State (Text, Result_State)
+         and then Position <= Text'Last + 1 and then Parsed <= Length
+         and then Valid_Name_State (Text, Mask_First, Mask_After)
+         and then Length <= Array_Bindings.Max_Elements - Source_State.Array_Names.Used
+         and then Result_State.Array_Names.Used = Source_State.Array_Names.Used + Parsed,
+       Post => (Runtime => Valid_State (Text, Boolean_Array_Values_At'Result)
+         and then (if Boolean_Array_Values_At'Result.Position /= 0 then
+           Boolean_Array_Values_At'Result.Position >= Position
+           and then Boolean_Array_Values_At'Result =
+             (Result_State with delta Position => Boolean_Array_Values_At'Result.Position,
+               Array_Names => (Result_State.Array_Names with delta
+                 Used => Source_State.Array_Names.Used + Length,
+                 Values => Boolean_Array_Values_At'Result.Array_Names.Values))
+           and then (for all Slot in 1 .. Result_State.Array_Names.Used =>
+             Boolean_Array_Values_At'Result.Array_Names.Values (Slot) =
+               Result_State.Array_Names.Values (Slot))),
+         Static => Boolean_Array_Values_At'Result = Boolean_Array_Values_Model
+           (Text, Source_State, Result_State, Position, Length, Parsed, Mask_First, Mask_After)
+         and then Same_Parser_State (Boolean_Array_Values_At'Result, Boolean_Array_Values_Model
+           (Text, Source_State, Result_State, Position, Length, Parsed, Mask_First, Mask_After)));
+   function Boolean_Array_Values_At
+     (Text : String; Source_State, Result_State : Parser_State;
+      Position : Literal_Position; Length, Parsed : Array_Bindings.Element_Count;
+      Mask_First, Mask_After : Literal_Position)
+      return Parser_State is
+      Result : Parser_State := Result_State;
+      Current : Literal_Position := Position;
+      Parsed_Count : Array_Bindings.Element_Count := Parsed;
+   begin
+      if Current = 0 then return Invalid_State; end if;
+      while Parsed_Count < Length loop
+         pragma Loop_Invariant (Parsed_Count in Parsed .. Length);
+         pragma Loop_Invariant (Length <= Array_Bindings.Max_Elements - Source_State.Array_Names.Used);
+         pragma Loop_Invariant (Result.Array_Names.Used = Source_State.Array_Names.Used + Parsed_Count);
+         pragma Loop_Invariant (Current in Position .. Text'Last + 1);
+         pragma Loop_Invariant (Valid_State (Text, Result));
+         pragma Loop_Invariant
+           (Result = (Result_State with delta Array_Names =>
+              (Result_State.Array_Names with delta Used => Result.Array_Names.Used,
+                Values => Result.Array_Names.Values)));
+         pragma Loop_Invariant
+           (for all Slot in 1 .. Result_State.Array_Names.Used =>
+             Result.Array_Names.Values (Slot) = Result_State.Array_Names.Values (Slot));
+         pragma Loop_Invariant (Static =>
+           Boolean_Array_Values_Model (Text, Source_State, Result_State, Position, Length, Parsed, Mask_First, Mask_After)
+             = Boolean_Array_Values_Model (Text, Source_State, Result, Current, Length, Parsed_Count, Mask_First, Mask_After));
+         pragma Loop_Invariant (Static => Same_Parser_State
+           (Boolean_Array_Values_Model (Text, Source_State, Result_State, Position, Length, Parsed, Mask_First, Mask_After),
+            Boolean_Array_Values_Model (Text, Source_State, Result, Current, Length, Parsed_Count, Mask_First, Mask_After)));
+         pragma Loop_Variant (Increases => Parsed_Count);
+         declare
+            Before : constant Parser_State := Result with Ghost => Static;
+            Value_After : constant Literal_Position := Boolean_Initializer_After
+              (Text, Source_State, Current, Mask_First, Mask_After);
+            Tail : constant Parser_State :=
+              Boolean_Array_Values_Model (Text, Source_State, Before, Current, Length, Parsed_Count, Mask_First, Mask_After)
+                with Ghost => Static;
+         begin
+            pragma Assert (Static => Same_Parser_State (Result, Before));
+            if Value_After = 0 then return Invalid_State; end if;
+            declare
+               Next_State : constant Parser_State :=
+                 Put_Array_Value (Before, 0) with Ghost => Static;
+               Next_Position : constant Literal_Position :=
+                 (if Parsed_Count + 1 < Length then Take_Token (Text, Value_After, Comma)
+                  else Value_After) with Ghost => Static;
+               Next_Parsed : constant Array_Bindings.Element_Count := Parsed_Count + 1
+                 with Ghost => Static;
+            begin
+               pragma Assert (Static => Tail =
+                 Boolean_Array_Values_Model (Text, Source_State, Next_State, Next_Position, Length, Next_Parsed, Mask_First, Mask_After));
+               Parsed_Count := Parsed_Count + 1;
+               Result := Put_Array_Value (Result, 0);
+               Current := Value_After;
+               if Parsed_Count < Length then
+                  Current := Take_Token (Text, Current, Comma);
+                  if Current = 0 then return Invalid_State; end if;
+               end if;
+               pragma Assert (Static => Result = Next_State
+                 and then Current = Next_Position and then Parsed_Count = Next_Parsed);
+               pragma Assert (Static => Same_Parser_State (Result, Next_State));
+               pragma Assert (Static => Tail =
+                 Boolean_Array_Values_Model (Text, Source_State, Result, Current, Length, Parsed_Count, Mask_First, Mask_After));
+            end;
+         end;
+      end loop;
+      declare
+         Completed : constant Parser_State :=
+           Boolean_Array_Values_Model (Text, Source_State, Result, Current, Length, Parsed_Count, Mask_First, Mask_After)
+             with Ghost => Static;
+      begin
+         pragma Assert (Static => Completed = (Result with delta Position => Current));
+      end;
+      return (Result with delta Position => Current);
+   end Boolean_Array_Values_At;
+
    function Array_Declaration_At
      (Text : String; State : Parser_State; Arguments : Boolean) return Parser_State
      with Global => null,
@@ -1925,13 +2119,19 @@ is
                  Arrays => State.Array_Names.Names, Initials => State.Array_Names.Values, Elaborating => True);
               Type_First : constant Literal_Position := Skip_At (Text, Take_Token (Text,
                 Take_Token (Text, High.After, Right_Parenthesis), Of_Keyword));
-              Type_Mark : constant Scalar_Constraint_Result := Scalar_Type_At (Text, State, Type_First);
+              Integer_Type : constant Scalar_Constraint_Result := Scalar_Type_At (Text, State, Type_First);
+              Boolean_Elements : constant Boolean := Integer_Type.After = 0
+                and then Take_Token (Text, Type_First, Boolean_Name) /= 0;
+              Type_Mark : constant Scalar_Constraint_Result :=
+                (if Boolean_Elements then (Take_Token (Text, Type_First, Boolean_Name), Scalars.Full)
+                 else Integer_Type);
               Type_After : constant Literal_Position := Type_Mark.After;
               Position : constant Literal_Position := Take_Token (Text,
                 Take_Token (Text, Type_After, Assignment), Left_Parenthesis);
       begin
         (if not New_Name_Allowed (Text, State, First, After, Arguments)
-           or else Name_Is (Text, First, After, Integer_Type_Word)
+           or else (if Boolean_Elements then Name_Is (Text, First, After, Boolean_Type_Word)
+                    else Name_Is (Text, First, After, Integer_Type_Word))
            or else Array_After = 0 or else Position = 0
            or else State.Array_Names.Names.Count = Array_Bindings.Max_Bindings
            or else Low.After = 0 or else High.After = 0 or else not Low.Static or else not High.Static
@@ -1943,6 +2143,9 @@ is
            or else Lookup_Name (Text, State.Names, Type_First, Type_After) /= 0
            or else Scalar_Expressions.Lookup (Text, State.Scalar_Names, Type_First, Type_After) /= 0
            or else Array_Bindings.Lookup (Text, State.Array_Names.Names, Type_First, Type_After) /= 0
+           or else Lookup_Boolean (Text, State.Boolean_Names, Type_First, Type_After) /= 0
+           or else (Boolean_Elements and then
+             Lookup_Subtype (Text, State.Subtype_Names, Type_First, Type_After) /= 0)
          then Invalid_State
          else
            (declare Length : constant Array_Bindings.Element_Count := Array_Bindings.Element_Count
@@ -1962,17 +2165,21 @@ is
                then Invalid_State
                else
                  (declare Values : constant Parser_State :=
-                    Array_Values_At (Text, State, State, Values_First, Length, 0, Type_Mark.Bounds);
+                    (if Boolean_Elements then Boolean_Array_Values_At
+                       (Text, State, State, Values_First, Length, 0, First, After)
+                     else Array_Values_At (Text, State, State, Values_First, Length, 0, Type_Mark.Bounds));
                           Following : constant Literal_Position := Take_Token
                             (Text, Take_Token (Text, Values.Position, Right_Parenthesis), Semicolon);
                   begin
                     (if Values.Position = 0 or else Following <= State.Position then Invalid_State
                      else Add_Array_Binding
                        (Text, Values, First, After, (Low.Bounds.Lower, High.Bounds.Lower),
-                        State.Array_Names.Used, Length, Constant_After = 0, Following, Type_Mark.Bounds)))))));
+                        State.Array_Names.Used, Length, Constant_After = 0, Following, Type_Mark.Bounds, Boolean_Elements)))))));
    begin
       pragma Assert (Static => Same_Parser_State
         (Result, Array_Declaration_Model (Text, State, Arguments)));
+      Lemma_Parser_State_Equality
+        (Result, Array_Declaration_Model (Text, State, Arguments));
       return Result;
    end Array_Declaration_At;
 
@@ -2922,6 +3129,38 @@ is
         (Count => Facts.Count, After => Right.After,
          When_True => Refined_Flow (Facts, Target, Selected, Threshold, True),
          When_False => Refined_Flow (Facts, Target, Selected, Threshold, False)));
+   function Boolean_Array_After
+     (Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow)
+      return Literal_Position
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Position <= Text'Last + 1 and then Valid_Context (Text, Context)
+         and then Valid_Flow (Context, Facts),
+       Post => Boolean_Array_After'Result = 0
+         or else Boolean_Array_After'Result in Position + 1 .. Text'Last + 1;
+   function Boolean_Array_After
+     (Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow)
+      return Literal_Position is
+     (declare First : constant Literal_Position := Skip_At (Text, Position);
+              After : constant Literal_Position := Name_After (Text, First);
+              Target : constant Array_Bindings.Binding_Count :=
+                Array_Bindings.Lookup (Text, Context.Array_Names, First, After);
+              Subscript : constant Scalar_Expressions.Expression_Result :=
+                Scalar_Expressions.Read_Expression
+                  (Text, Take_Token (Text, After, Left_Parenthesis), Reading_Names (Context, Facts),
+                   Context.Mask_First, Context.Mask_After);
+              Close : constant Literal_Position := Take_Token (Text, Subscript.After, Right_Parenthesis);
+      begin
+        (if First = 0 or else After <= First
+           or else Target = 0 or else not Context.Array_Names.Items (Target).Boolean_Elements
+           or else Scalar_Expressions.Lookup (Text, Context.Scalar_Names, First, After) /= 0
+           or else (Context.Mask_First /= 0 and then Equal_Name
+             (Text, Context.Mask_First, Context.Mask_After, First, After))
+           or else Subscript.Operands = Scalar_Expressions.Max_Operands
+           or else not Array_Bindings.Contains (Context.Array_Names.Items (Target), Subscript.Bounds)
+           or else Close <= Position
+         then 0 else Close));
+
    function Boolean_Atom_After
      (Text : String; Context : Body_Context; Position : Literal_Position)
       return Literal_Position
@@ -2998,6 +3237,8 @@ is
               (declare Result : constant Condition_Result (Facts.Count) := Condition_Model (Text, Context, After, Facts, Initials => Initials);
                Close : constant Literal_Position := Take_Token (Text, Result.After, Right_Parenthesis);
                begin (if Close = 0 then Invalid_Condition (Facts) else (Result with delta After => Close)))
+            elsif Boolean_Array_After (Text, Context, Position, Facts) /= 0 then
+              (Facts.Count, Boolean_Array_After (Text, Context, Position, Facts), Facts, Facts)
             elsif Boolean_Atom_After (Text, Context, Position) /= 0 then
               (Facts.Count, Boolean_Atom_After (Text, Context, Position), Facts, Facts)
             elsif Context.Dynamic_First = 0 then Invalid_Condition (Facts)
@@ -3413,6 +3654,11 @@ is
          --  Parenthesized condition.
          pragma Assert (Static => Valid_Flow (Context, Result.When_True));
          pragma Assert (Static => Valid_Flow (Context, Result.When_False));
+      elsif Boolean_Array_After (Text, Context, Position, Facts) /= 0 then
+         Result.After := Boolean_Array_After (Text, Context, Position, Facts);
+         Result.When_True := Facts;
+         Result.When_False := Facts;
+         pragma Assert (Static => Result = Primary_Model (Text, Context, Position, Facts, Initials => Initials));
       elsif Boolean_Atom_After (Text, Context, Position) /= 0 then
          Result.After := Boolean_Atom_After (Text, Context, Position);
          Result.When_True := Facts;
@@ -3684,6 +3930,8 @@ is
                   Lemma_Flow_Equality
                     (Result.When_True, Refined_Flow (Facts, Target, Selected, Threshold, True));
                   Result.When_False.Values (Target) := Refine_Or_Keep (Facts.Values (Target), Selected, Threshold, False);
+                  pragma Assert (Static =>
+                    Result.When_False = Refined_Flow (Facts, Target, Selected, Threshold, False));
                else
                   pragma Assert (Static =>
                     Result.When_True = Refined_Flow (Facts, Target, Selected, Threshold, True));
@@ -4071,6 +4319,28 @@ is
       pragma Assert (Static => Result = Condition_Model (Text, Context, Position, Facts, Initials => Initials));
    end Read_Condition_Into;
 
+   function Boolean_Initializer_Model
+     (Text : String; State : Parser_State; Position, Mask_First, Mask_After : Literal_Position)
+      return Literal_Position is
+     (declare Context : constant Body_Context :=
+        (Context_Of ((State, False, False)) with delta Scalar_Names => State.Scalar_Names,
+          Elaborating => True, Mask_First => Mask_First, Mask_After => Mask_After);
+      begin Condition_Model
+        (Text, Context, Position, Initial_Flow (Context), State.Array_Names.Values).After);
+
+   function Boolean_Initializer_After
+     (Text : String; State : Parser_State; Position, Mask_First, Mask_After : Literal_Position)
+      return Literal_Position is
+      Context : constant Body_Context :=
+        (Context_Of ((State, False, False)) with delta Scalar_Names => State.Scalar_Names,
+          Elaborating => True, Mask_First => Mask_First, Mask_After => Mask_After);
+      Value : Condition_Result (State.Scalar_Names.Count);
+   begin
+      Read_Condition_Into
+        (Text, Context, Position, Initial_Flow (Context), Value, State.Array_Names.Values);
+      return Value.After;
+   end Boolean_Initializer_After;
+
    function Boolean_Declaration_At
      (Text : String; State : Parser_State; Arguments : Boolean) return Parser_State is
       First : constant Literal_Position := Skip_At (Text, State.Position);
@@ -4296,6 +4566,7 @@ is
         (Text, Context, Take_Token (Text, Take_Token (Text, Subscript.After, Right_Parenthesis), Assignment), Scan.Facts);
    begin
       if Target = 0 or else not Context.Array_Names.Items (Target).Mutable
+        or else Context.Array_Names.Items (Target).Boolean_Elements
         or else not Array_Bindings.Contains (Context.Array_Names.Items (Target), Subscript.Bounds)
         or else Subscript.Operands = Scalar_Expressions.Max_Operands
         or else Value.After <= Scan.Position or else Scalars.Is_Empty (Value.Bounds)
@@ -4304,6 +4575,51 @@ is
       then return Invalid_Body (Scan); end if;
       return (Scan with delta Position => Value.After, Assigned => True);
    end Array_Assignment_Body;
+
+   function Boolean_Array_Assignment_Model
+     (Text : String; Context : Body_Context; Scan : Body_Scan) return Body_Scan
+     with Ghost => Static, Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_Context (Text, Context) and then Valid_Body (Text, Context, Scan),
+       Post => Valid_Body (Text, Context, Boolean_Array_Assignment_Model'Result)
+         and then (Boolean_Array_Assignment_Model'Result.Position = 0
+           or else Boolean_Array_Assignment_Model'Result.Position > Scan.Position);
+   function Boolean_Array_Assignment_Model
+     (Text : String; Context : Body_Context; Scan : Body_Scan) return Body_Scan is
+     (declare Target : constant Array_Bindings.Binding_Count := Array_Target (Text, Context, Scan.Position);
+              Target_After : constant Literal_Position :=
+                Boolean_Array_After (Text, Context, Scan.Position, Scan.Facts);
+              Value : constant Condition_Result (Scan.Count) := Condition_Model
+                (Text, Context, Take_Token (Text, Target_After, Assignment), Scan.Facts);
+      begin
+        (if Target = 0 or else not Context.Array_Names.Items (Target).Boolean_Elements
+           or else not Context.Array_Names.Items (Target).Mutable or else Target_After = 0
+           or else Value.After <= Scan.Position then Invalid_Body_Model (Scan)
+         else (Scan with delta Position => Value.After, Assigned => True)));
+
+   function Boolean_Array_Assignment_Body
+     (Text : String; Context : Body_Context; Scan : Body_Scan) return Body_Scan
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_Context (Text, Context) and then Valid_Body (Text, Context, Scan),
+       Post => (Runtime => Valid_Body (Text, Context, Boolean_Array_Assignment_Body'Result)
+         and then (Boolean_Array_Assignment_Body'Result.Position = 0
+           or else Boolean_Array_Assignment_Body'Result.Position > Scan.Position),
+         Static => Boolean_Array_Assignment_Body'Result = Boolean_Array_Assignment_Model (Text, Context, Scan));
+   function Boolean_Array_Assignment_Body
+     (Text : String; Context : Body_Context; Scan : Body_Scan) return Body_Scan is
+      Target : constant Array_Bindings.Binding_Count := Array_Target (Text, Context, Scan.Position);
+      Target_After : constant Literal_Position :=
+        Boolean_Array_After (Text, Context, Scan.Position, Scan.Facts);
+      Value : Condition_Result (Scan.Count);
+   begin
+      Read_Condition_Into
+        (Text, Context, Take_Token (Text, Target_After, Assignment), Scan.Facts, Value);
+      if Target = 0 or else not Context.Array_Names.Items (Target).Boolean_Elements
+        or else not Context.Array_Names.Items (Target).Mutable or else Target_After = 0
+        or else Value.After <= Scan.Position then return Invalid_Body (Scan); end if;
+      return (Scan with delta Position => Value.After, Assigned => True);
+   end Boolean_Array_Assignment_Body;
 
    function Basic_Body
      (Text : String; Context : Body_Context; Scan : Body_Scan) return Body_Scan
@@ -4353,7 +4669,11 @@ is
       elsif Scalar_Target (Text, Context, Result.Position) /= 0 then
          Result := Scalar_Assignment_Body (Text, Context, Result);
       elsif Array_Target (Text, Context, Result.Position) /= 0 then
-         Result := Array_Assignment_Body (Text, Context, Result);
+         if Context.Array_Names.Items (Array_Target (Text, Context, Result.Position)).Boolean_Elements then
+            Result := Boolean_Array_Assignment_Body (Text, Context, Result);
+         else
+            Result := Array_Assignment_Body (Text, Context, Result);
+         end if;
       elsif Boolean_Target (Text, Context, Result.Position) /= 0 then
          Result := Boolean_Assignment_Body (Text, Context, Result);
       else
@@ -4610,6 +4930,7 @@ is
             if Array_First = 0 or else Array_After <= Array_First
               or else Equal_Name (Text, First, After, Array_First, Array_After)
               or else Target = 0 or else Context.Array_Names.Items (Target).Mutable
+              or else Context.Array_Names.Items (Target).Boolean_Elements
             then return Invalid_Body (Scan); end if;
             Result.Position := Take_Token (Text, Array_After, Loop_Keyword);
             Index_Bounds := Context.Array_Names.Items (Target).Component_Bounds;

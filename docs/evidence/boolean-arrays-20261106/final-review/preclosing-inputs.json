@@ -1,0 +1,148 @@
+{
+  "state": "Pre-closing draft; complete native/Lean audits and final metadata pending",
+  "inspected_at_utc": "2026-11-07T01:53:25.971335+00:00",
+  "inspection_started_utc": "2026-11-07T01:49:49Z",
+  "reviewed_commit": "1b4ab33131afb1b7035a8489f6e699e1e63264cc",
+  "integration_review_base": "d3aafa4bafd6d94179eb74d883102f953b09afd7",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_confirmation": "unavailable",
+  "token_cost": "unavailable",
+  "prior_review_reports_sha256": {
+    "review-boolean-arrays-capacity-20261106.md": "28b36d7ca29b2a581bc5e1e15f361c888d1db69e240aa78abfb864a20e0fefc1",
+    "review-boolean-arrays-semantics-20261106.md": "f7bcca81644e60d9f0996ebfc30c362d9d74afa8c40848708e9ef5776ae75046",
+    "review-boolean-arrays-integration-20261106.md": "ad84de7ddd8ec3a35a1d5b6df71560ff0525a76867acb1621ffdc1d134fd1d4e",
+    "review-boolean-array-header-memory-20261106.md": "b00ecfd9cda4db80691817f0a2728acb517247febf79182392a3291c4302d4cf",
+    "review-boolean-array-type-word-20261106.md": "a4b279a249786792c125b72c1534a30fb40bbf0a1c581ca8aba1649434319bff",
+    "review-boolean-arrays-regression-applicability-20261107.md": "9c96cad8db7c62561e0cf439402f245a14f4cebb0d9df9bc90401d1837a96223",
+    "review-boolean-array-flags-20261107.md": "38f32139d608458117970c005f426934444ac2919e9d616495f7e9d6522ab252"
+  },
+  "governed_delta_since_integration_review": {
+    "proof/Silver/ArrayBindingsSpecCertificate.lean": "83b40f09621f00d1c34cfbd4efc4033a0fb077854dc302ad537f496ed3eba044",
+    "proof/Silver/ComposeArrayExpressions.lean": "eef639070cd5ef4230048f03eb683b8b857595e0b3aa77e59fc9feec50b69404",
+    "proof/Silver/ComposeBooleanArraySource.lean": "32f87dea1fdc938ad213a50f81d19b1404624680f7a436dc3ef6b1a900530e5c",
+    "proof/Silver/ComposeBooleanArraySourceCandidate.lean": "a85650cfad65216de0870ea5c8e3a8625a2c565fbc9fd7fb9432b9cd055bbf50",
+    "proof/Silver/ComposeEvaluation.lean": "a9a3220bb7230c414143e1d96715071bcdaab367d63a6950f85f3766a3037d76",
+    "proof/Silver/ComposeExpressions.lean": "10504bfd9577e8d72ae80d6e2c8cfb4894fa1e73c4f0f091d747048fdd638af4",
+    "proof/Silver/ComposeHelperSourceCandidate.lean": "dfa18e0c0b16ead32d05320106334d26acf01d2424308a4f1dece4b2e31fa6d3",
+    "proof/Silver/OutputBodyCertificate.lean": "67b7c0ba3d2db6367764371e3cdb31223afae61a941fbc3aecd835cb2311b090",
+    "proof/Silver/OutputBodyLines0.lean": "a19c6784f9e185414047453465d9ebe3e53e5f6aeebc0993604b387ffb073b4f",
+    "proof/Silver/OutputBodyLines1.lean": "9d7313b2f8f4ac9458ffd004e033d56ba9046bd63bdfeaaa28b0af67bd1c9187",
+    "proof/Silver/OutputBodyLines2.lean": "67527dda17e75e2b069c65efc81765a26f86ed4838d8beab037692a984e336e4",
+    "proof/Silver/OutputBodyLines3.lean": "b08fb26eeeb373b7b62e49a40aeb05509380a6bdd1e1c114afce56f919423799",
+    "proof/Silver/OutputBodyLines4.lean": "40cd518865a782d23980c564e76fea367cf28c2505b182a4da8b204b39937d9a",
+    "proof/Silver/OutputBodyLines5.lean": "c52ffaec611b67077f70f3648097d402e69094350488d478ac2d5278eb066708",
+    "proof/Silver/OutputBodyLines6.lean": "cf3dae13c5ad6f865a14c29343f405ef228236c8f80b62f8f63a56f32cff5743",
+    "proof/Silver/OutputBodyLines7.lean": "16c99a52e9769131946b1cb4ef024fd3ef2f388be46153513cc5678b9c598cc3",
+    "proof/Silver/PredicateBooleanArrayBodyNative.lean": "8436ff57a7d6245b0086c8e8c9df4b062fd89690477a0589571239149c1c984e",
+    "proof/Silver/PredicateBooleanArrayBodySource.lean": "63b6db1aa0ab729afde3829c5e7a560afc9f8db95eb80ece2b618005b8373ab3",
+    "proof/Silver/PredicateFlags.lean": "68abbc4300749bec2700c9e6875e3b3e741d68062af737bf3ca8240431855e42",
+    "proof/Silver/PredicateSelectors.lean": "997e39338371dbf5235c2dc2bdc34dd174b03df8cf0ea55418b792ab8d4c535c",
+    "proof/Silver/ReviewedOutputShape.lean": "b525f841699ea017f42bc3eb7ff0aaf74a55bd0981cca15eefa250c4cb4dc255",
+    "proof/Silver/ScalarExpressionBodyCertificate.lean": "6f9930b0e5acba4c1504b64619d4563f71e5fdb5ee7033e9823a80c2df96b686",
+    "src/silver_output_profile.adb": "1686b0b61da8c684ce185995621fb08bc5a6932893d2cc859a82ced9922ce4e8",
+    "tests/test_silver.py": "0ff4cddd24a05110eb53d22ba565c4c473d354065b37c4b6aa5c60622dbfb02c"
+  },
+  "unchanged_endpoint_source_routes_sha256": {
+    "proof/Silver/ComposeSourceBridge.lean": "350c87778672d88188ffa1db4e8b394812c3ac485826695a6c0e869cd4fc3de0",
+    "proof/Silver/ComposeSourceChecks.lean": "b8dc070b41390fd345867638038df0c51550ed717106a24eac125830fb30ba9c",
+    "proof/Silver/PredicateSourceRequirements.lean": "84d72f43375f02432e71ea016a8be7a0058832a6303d4b42ee3dbfe3798618ce",
+    "proof/Silver/PredicateSourceCandidate.lean": "de41733050d4c5bccde81d7bf895c665ebd3e4fcac56a3273a73edf0b115ff9a",
+    "proof/Silver/PredicateSourceChecks.lean": "e78f63f5a603b64fa5efb52dde9edd20d86021541471e8957731ff3194881ad0",
+    "proof/Silver/PredicateSourceBridge.lean": "a4e004c2bab2ec9cf799dde9711c6def19f530d993df50bb18fec73ddd77124c",
+    "proof/Silver/PredicateCorrespondence.lean": "705354f3fe49d9bee99705abf842bd4b66d6bccacd1766b52425ad8b1f541197",
+    "proof/Silver/PredicateNativeSourceBridge.lean": "3ce2e1aa38ceee65b88a3c4fe5b7934a32602ddb50eceefa3ebf21770d8da1f8",
+    "proof/Silver/Current.lean": "0f93f2dc93aa88d61a63dcea947f12175fbfb74b77d68080a6442118c3fc676c",
+    "proof/Silver.lean": "91804ec555e9382ac5884d5a0a69c1b30502e7287096539d680fae8adc107dad",
+    "proof/Silver/Audit.lean": "d9941743f00358a147c2fea7a974701e6916c2e8e4ded55c33fd3b1d2f28af49"
+  },
+  "governing_documents_sha256": {
+    "AGENTS.md": "ca6546bfb752045ab2e650e7748b026236ab585b94712b7e406bf31b073aef88",
+    "oracle.md": "ef1e182ab8eedd8d259f5a7cff49a597e8b7ccfe207bdf11d7456003e0b6603a",
+    "language.md": "b2808bcc4274f22778316c2f844f3db7b20370b75607719d1b708f7496ee792f",
+    "development.md": "b7b7b942b0aaf7610448c116698f26f6ba4ae711ca6d373e19371ddd849ee5c3",
+    "roadmap.md": "13b71fd318a9e7932f1dc4409723e75eec9d68c7c9b1f1f0839730276838a956",
+    "docs/assurance.md": "43a6d5d1fb967778993c4392e2d8bebb780d39812cd926cafee2f8c0afe53552",
+    "docs/trusted-boundary.md": "e5bec514df01e636186b2656ec25cae75ec6700c79e2c1e073ace2fdabceaba2",
+    "docs/boolean-arrays.md": "71252ef6c87b5ac7e39fb5bcf3b03c4533a2b3f958817f104aa015f4779ca5d7",
+    "docs/boolean-arrays-report-capacity.md": "5ceb33c30232cf8b04216c043d9f998ffd8d902cd767f9a82dde6d27838082a3",
+    "docs/planning.md": "139afa07a6fefd5b37241a83a16b730e4a54466948477efd1ede03160416f585"
+  },
+  "oracle_change_since_authorization": false,
+  "native_output_source_sha256": "1686b0b61da8c684ce185995621fb08bc5a6932893d2cc859a82ced9922ce4e8",
+  "expected_module_count": 655,
+  "expected_module_list_sha256": "a8ba28252aaa6044db049dba22f23d47ab7fea6b9c90c39624c86368bfec0332",
+  "static_audit_closure_covers_inventory": true,
+  "static_import_scan_is_kernel_audit": false,
+  "focused_flag_evidence": [
+    {
+      "run_id": "20261107T014016-1964d1c63b3f",
+      "targets": [
+        "Silver.PredicateFlags"
+      ],
+      "modules": 192,
+      "summary": [
+        "Silver axiom audit passed: 20688 declarations; foundations: [propext, Classical.choice, Quot.sound]"
+      ],
+      "source_capture_differences": [
+        "proof/Silver/PredicateSelectors.lean"
+      ],
+      "changed_files_within_audited_closure": [],
+      "kernel_recheck": null,
+      "events_sha256": "47546be0e785f3bef315a3fe9615f2ce3280b262eb9ac1d1561210c0a73cdafa",
+      "evidence_sha256": "7ed35d5804d8d9bcd83aa6b36398d03f8335bc378987ca875d65431d1469df3b",
+      "log_sha256": "afbb635bd1266075d0bacd9f9fb6b1bec8cc6eaa5e8619e3f167528dbdb9b50e"
+    },
+    {
+      "run_id": "20261107T014318-8cf0160fa37a",
+      "targets": [
+        "Silver.PredicateSelectors"
+      ],
+      "modules": 193,
+      "summary": [
+        "Silver axiom audit passed: 20753 declarations; foundations: [propext, Classical.choice, Quot.sound]"
+      ],
+      "source_capture_differences": [],
+      "changed_files_within_audited_closure": [],
+      "kernel_recheck": null,
+      "events_sha256": "6c963fcc239549d5facb545ed6f31f1d728af84391c3914d85a7ae19ad18ac4f",
+      "evidence_sha256": "312784d043c7cd37edd3604e439d9de5c01294a871b73d87e45d97ac4917fa3e",
+      "log_sha256": "83f34df148a5e81cb8a0cfc1d5fdf8cf4495c9206991de61d461ad48da69e2d5"
+    }
+  ],
+  "active_retry": {
+    "run_id": "20261107T014623-e873505c3c30",
+    "recorded_source_target": "ba23d2167c89ceb00c9493ff8eccbb3ea68b5fa4",
+    "input_count": 762,
+    "all_captured_sources_match_reviewed_commit_files": true,
+    "configuration": {
+      "clean": false,
+      "memory_mb": 24576,
+      "provenance": false,
+      "replay": false,
+      "threads": 12,
+      "workers": 1
+    },
+    "initial_correspondence_artifact_sha256": "c600bafca005f7537441fad218aa38142b239a6b31dda81b809e38e9bd6e3d27",
+    "terminal_success_claimed": false
+  },
+  "pending_native_run": "20261106T232644-673fc5a9c06b",
+  "pending_requirements": [
+    "Successful complete native audit with final-input/provenance/coverage inspection",
+    "Successful complete Lean/source/module/axiom audit with final-input correspondence",
+    "Final capability/assurance/boundary/capacity/Rosetta metadata and rendered output integration",
+    "Three existing Rosetta tests on final metadata and final delta applicability",
+    "Final committed review target and reviewable/unmerged issue/PR status"
+  ],
+  "proof_native_test_jobs_executed_by_reviewer": false,
+  "failed_complete_evidence_sha256": {
+    "failed-run-events.jsonl.gz": "16e4e7e91e53ca36f4c61615cea29d867cf4d88c2cf2ffc880671885076bd538",
+    "failed-lean-proof.log.gz": "13c7598626b97866822c0ed251f6b47bb502efb8224e08d2d7e14cf9f88eb3eb",
+    "failure-diagnostic.json": "09d675a8e0fdd4f16cee59d7d81b809b34698ed18aace3106313106861c81013"
+  },
+  "pending_final_rosetta_replacement_methods": [
+    "tests/test_rosetta.py:RosettaRenderTests.test_pending_design_has_no_stage_and_is_not_an_oracle_exclusion",
+    "tests/test_rosetta.py:RosettaRenderTests.test_render_is_identical_across_hash_seeds",
+    "tests/test_rosetta.py:RosettaRenderTests.test_risk_counts_are_per_sample_and_ties_are_alphabetical"
+  ]
+}

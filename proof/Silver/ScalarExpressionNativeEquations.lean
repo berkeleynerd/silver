@@ -247,7 +247,7 @@ theorem interpreted_arrayAtom (calls : Calls) (primitives : Primitives calls) (e
   split
   · rfl
   · rename_i opened
-    have opening := symbol_bounds bound opened
+    have opening := symbol_bounds bound (show symbol text position 40 ≠ 0 by omega)
     rw [recurse _ true opening.1 opening.2]
     have childType : ResultType (read text (symbol text position 40) names maskFirst maskAfter true) :=
       read_type valid opening.2

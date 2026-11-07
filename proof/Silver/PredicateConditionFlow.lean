@@ -67,11 +67,13 @@ mutual
       · split
         · exact ⟨rfl, rfl⟩
         · split
-          · exact invalidCondition_counts facts
-          · try dsimp only
-            split
+          · exact ⟨rfl, rfl⟩
+          · split
             · exact invalidCondition_counts facts
-            · exact ⟨rfl, rfl⟩
+            · try dsimp only
+              split
+              · exact invalidCondition_counts facts
+              · exact ⟨rfl, rfl⟩
   termination_by (remainingAt text position, 1)
 
   theorem booleanFactor_counts (text : Source) (context : ParseContext) (position : Nat) (facts : ActiveFlow)

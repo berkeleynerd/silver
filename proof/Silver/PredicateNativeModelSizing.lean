@@ -76,7 +76,7 @@ theorem model_sizedModels : SizedModels modelCalls where
   primary text _ context _ position _ facts _ initials _ := by
     simp only [primaryBody, Expr.Sized, Expr.declared, Expr.eval,
       Inputs.locals, Locals.set, Calls.get, Field.get, modelCalls,
-      Expr.callTake, Expr.callModel, Expr.callBooleanAtom, Expr.callNameIs, Expr.callOperation, Expr.callAssumeValid, Expr.callAssumeInvalid,
+      Expr.callTake, Expr.callModel, Expr.callBooleanArray, Expr.callBooleanAtom, Expr.callNameIs, Expr.callOperation, Expr.callAssumeValid, Expr.callAssumeInvalid,
       condition_counts, invalidCondition_counts, count_with_path]
     simp
   booleanFactor text _ context _ position _ facts _ initials _ := by

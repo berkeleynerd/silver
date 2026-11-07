@@ -64,7 +64,7 @@ theorem indexedReplacement_inferLength {text names scalarNames arrays initials e
     (source : CharacterAt text names scalarNames arrays initials elaborating rhsPosition rhs rhsResult) :
     Expression.inferLength
       [.replace (indexedParts text position names scalarNames arrays initials elaborating true).target info.firstIndex lower rhs]
-      names.shape (ArrayBindings.ranges arrays initials elaborating (ScalarExpression.ranges scalarNames)) =
+      names.shape (ArrayBindings.integerRanges arrays initials elaborating (ScalarExpression.ranges scalarNames)) =
         some ⟨info.staticLength, info.staticLength, 0, false⟩ := by
   have checked := indexed_check normal indexed
   have replacement := character_check normal source
@@ -101,7 +101,7 @@ theorem stringAssignment_meaning {text context scan update}
     SimpleWellFormed context.names.shape (.assign update) ∧
       checkAssignment context.names.shape scan.facts.path update (context.flow scan.facts).scalars = true := by
   have rangesEq := context.reading_ranges compatible
-  have characterRanges : ArrayBindings.ranges context.arrayNames [] false
+  have characterRanges : ArrayBindings.integerRanges context.arrayNames [] false
       (ScalarExpression.ranges (context.readingNames scan.facts)) = (context.flow scan.facts).scalars := by
     simpa only [bodyMode] using rangesEq
   cases reading with

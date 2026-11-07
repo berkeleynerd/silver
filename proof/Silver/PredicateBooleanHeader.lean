@@ -33,17 +33,17 @@ private theorem tokens_split {text form first rest state events final}
 
 private theorem step_boolean_preserved {text form token state next event}
     (ordinary : token ≠ ShellToken.declarations) (parsed : StepAt text form token state next event) :
-    next.booleanNames = state.booleanNames := by
+    next.booleanNames = state.booleanNames ∧ next.arrayNames = state.arrayNames := by
   have following := parsed.following
   cases token with
   | declarations => exact False.elim (ordinary rfl)
   | argumentDeclaration =>
       obtain ⟨fallback, reading, _⟩ := parsed.payload
       cases reading
-      rfl
+      exact ⟨rfl, rfl⟩
   | contextClauses | fixed | literal =>
       rw [← parsed.scanned]
-      simp only [step, parsed.positive, ↓reduceIte]
+      simp only [step, parsed.positive, ↓reduceIte, and_self]
   | capacity | dynamicReference | assignmentTarget | targetReference | assignmentValue |
       outputExpression | comparisonExpression =>
       rw [← parsed.scanned] at following ⊢
@@ -54,12 +54,13 @@ private theorem step_boolean_preserved {text form token state next event}
 private theorem tokens_boolean_preserved {text form tokens state events final}
     (ordinary : ∀ token ∈ tokens, token ≠ ShellToken.declarations)
     (parsed : Sequence.TokensAt text form tokens state events final) :
-    final.booleanNames = state.booleanNames := by
+    final.booleanNames = state.booleanNames ∧ final.arrayNames = state.arrayNames := by
   induction parsed with
-  | done => rfl
+  | done => exact ⟨rfl, rfl⟩
   | next head tail ih =>
-      rw [ih (fun token member => ordinary token (by simp [member]))]
-      exact step_boolean_preserved (ordinary _ (by simp)) head
+      have following := ih (fun token member => ordinary token (by simp [member]))
+      have first := step_boolean_preserved (ordinary _ (by simp)) head
+      exact ⟨following.1.trans first.1, following.2.trans first.2⟩
 
 private theorem tokens_header_ready {text form tokens state events final}
     (tv : Compose.Expressions.ValidText text)
@@ -107,38 +108,38 @@ theorem boolean_header_unique {source form first second left right}
   exact ⟨(boolean_declarations_unique trace otherTrace).1,
     (boolean_declarations_unique trace otherTrace).2.1⟩
 
-private theorem boolean_header_fields {source form declarations checks}
-    (trace : BooleanHeaderAt source form declarations checks) :
-    ∃ before after,
-      BooleanDeclarationsAt source form.helper.hasArguments before declarations checks after ∧
-      before.booleanNames = [] ∧
-      (prefixScan source form).state.names = after.names ∧
-      (prefixScan source form).state.booleanNames = after.booleanNames ∧
-      (prefixScan source form).state.dynamicFirst = before.dynamicFirst := by
-  obtain ⟨before, after, leading, event, leadingRead, reading, ending⟩ := trace
-  have empty := tokens_boolean_preserved (by cases form <;> simp [booleanHeaderLead, Form.hasArguments, ShellToken.word, ShellToken.symbol]) leadingRead
-  obtain ⟨strings, declarations⟩ := boolean_declarations_reading reading
-  have dynamic := (declarations_fields declarations).2.2.1
-  refine ⟨before, after, reading, empty, ?_, ?_, ?_⟩
-  all_goals rw [← ending.scanned]
-  all_goals simp only [step, ending.positive, ↓reduceIte, ShellToken.word]
-  exact dynamic
+private theorem empty_boolean_analysis :
+    ArrayBindings.booleanAnalysis [] (BooleanBindings.analysis []) = ({} : Boolean.Analysis) := by
+  unfold ArrayBindings.booleanAnalysis ArrayBindings.booleanNames BooleanBindings.analysis
+  congr 1 <;> funext index <;> simp <;> omega
 
 theorem prefix_boolean_analysis {source form declarations checks}
+    (tv : Compose.Expressions.ValidText source)
     (trace : BooleanHeaderAt source form declarations checks) :
-    BooleanBindings.analysis (contextOf (prefixScan source form)).booleanNames = booleanBodyAnalysis declarations := by
-  obtain ⟨before, after, reading, empty, _, names, _⟩ := boolean_header_fields trace
-  apply boolean_analysis_of_mutabilities
-  have mutable := boolean_declarations_mutabilities reading
-  simpa only [contextOf, names, empty, List.map_nil, List.nil_append] using mutable
+    ArrayBindings.booleanAnalysis (contextOf (prefixScan source form)).arrayNames
+      (BooleanBindings.analysis (contextOf (prefixScan source form)).booleanNames) =
+        booleanBodyAnalysis declarations := by
+  obtain ⟨before, after, leading, event, leadingRead, reading, ending⟩ := trace
+  have empty := tokens_boolean_preserved
+    (by cases form <;> simp [booleanHeaderLead, Form.hasArguments, ShellToken.word, ShellToken.symbol]) leadingRead
+  have valid := tokens_header_ready tv leadingRead (OuterReadiness.initial_valid source)
+  have analyzed := boolean_declarations_analysis tv valid.1 reading
+  have initial : ArrayBindings.booleanAnalysis before.arrayNames.names
+      (BooleanBindings.analysis before.booleanNames) = {} := by
+    rw [empty.1, empty.2]
+    exact empty_boolean_analysis
+  rw [initial] at analyzed
+  dsimp only [contextOf]
+  rw [← ending.scanned]
+  simpa only [step, ending.positive, ↓reduceIte, ShellToken.word, booleanBodyAnalysis] using analyzed
 
 theorem prefix_boolean_valid {source form events declarations checks}
     (tv : Compose.Expressions.ValidText source)
     (parsed : Sequence.TokensAt source form.helper form.prefix initialState events (prefixScan source form).state)
     (trace : BooleanHeaderAt source form declarations checks) :
-    BooleanDeclarationsWellFormed form.hasArguments (prefixScan source form).state.names.shape 0 declarations ∧
+    BooleanDeclarationsWellFormed form.hasArguments (prefixScan source form).state.names.shape {} declarations ∧
       checkBooleanDeclarations (prefixScan source form).state.names.shape Integer.Analysis.empty
-        ⟨initialFacts form.hasArguments, Integer.emptyRanges⟩ 0 declarations = true ∧
+        ⟨initialFacts form.hasArguments, Integer.emptyRanges⟩ {} declarations = true ∧
       discharged checks = true := by
   obtain ⟨before, after, leading, event, leadingRead, reading, ending⟩ := trace
   have empty := tokens_boolean_preserved (by cases form <;> simp [booleanHeaderLead, Form.hasArguments, ShellToken.word, ShellToken.symbol]) leadingRead
@@ -157,6 +158,10 @@ theorem prefix_boolean_valid {source form events declarations checks}
   have path : (booleanDeclarationFacts before).path = initialFacts form.hasArguments := by
     rw [← arguments]
     simp only [booleanDeclarationFacts, ActiveFlow.initial, initialFacts, decide_eq_true_eq]
-  simpa only [names, empty, initialState, List.length_nil, path, arguments] using checked
+  have initial : ArrayBindings.booleanAnalysis before.arrayNames.names
+      (BooleanBindings.analysis before.booleanNames) = {} := by
+    rw [empty.1, empty.2]
+    exact empty_boolean_analysis
+  simpa only [names, initial, path, arguments] using checked
 
 end Silver.Predicate

@@ -243,6 +243,7 @@ structure ArrayDeclarationParts where
   typeAfter : Nat
   componentBounds : Integer.Interval
   position : Nat
+  isBoolean : Bool := false
   deriving DecidableEq, Repr
 
 def arrayDeclarationParts (text : Source) (state : ParserState) : ArrayDeclarationParts :=
@@ -254,11 +255,15 @@ def arrayDeclarationParts (text : Source) (state : ParserState) : ArrayDeclarati
   let upper := ScalarExpression.read text (fixedAfter text lower.after ".." false) state.scalarNames
     (arrays := state.arrayNames.names) (initials := state.arrayNames.values) (elaborating := true)
   let typeFirst := skipAt text (fixedAfter text (fixedAfter text upper.after ")" false) "of" true)
-  let typeMark := scalarTypeAt text state typeFirst
+  let integerType := scalarTypeAt text state typeFirst
+  let isBoolean := decide (integerType.after = 0) && decide (fixedAfter text typeFirst "boolean" true ≠ 0)
+  let typeMark := if isBoolean then
+      ScalarConstraintResult.mk (fixedAfter text typeFirst "boolean" true) .full
+    else integerType
   let typeAfter := typeMark.after
   ⟨declarationFirst text state, declarationAfter text state, declarationConstantAfter text state,
     arrayAfter, lower, upper, typeFirst, typeAfter, typeMark.bounds,
-    fixedAfter text (fixedAfter text typeAfter ":=" false) "(" false⟩
+    fixedAfter text (fixedAfter text typeAfter ":=" false) "(" false, isBoolean⟩
 
 def arrayAggregatePosition (text : Source) (state : ParserState)
     (parts : ArrayDeclarationParts) (length : Nat) : Nat :=
@@ -292,10 +297,61 @@ def arrayValuesModel (text : Source) (source result : ParserState)
 termination_by length - parsed
 decreasing_by omega
 
+/-- Every Boolean aggregate component is read before the new array is visible.
+The parser retains only a cursor and reserves cells; the raw source reading and
+semantic declaration retain the Boolean expressions and their values. -/
+def booleanInitializerContext (state : ParserState) (maskFirst maskAfter : Nat) : Predicate.ParseContext :=
+  { names := state.names
+    hasArguments := decide (state.dynamicFirst ≠ 0)
+    scalarNames := state.scalarNames
+    declarationCount := state.scalarNames.length
+    arrayNames := state.arrayNames.names
+    subtypeHiding := state.subtypeNames.hiddenCalls
+    booleanNames := state.booleanNames
+    trueHidden := state.subtypeNames.trueHidden
+    falseHidden := state.subtypeNames.falseHidden
+    elaborating := true
+    maskFirst := maskFirst
+    maskAfter := maskAfter }
+
+def booleanInitializerFacts (state : ParserState) : Predicate.ActiveFlow :=
+  Predicate.ActiveFlow.initial state.scalarNames
+    (if state.dynamicFirst ≠ 0 then PathFacts.Context.initial maxSourceLength
+      else ⟨some ⟨0, 0⟩, false, false⟩)
+
+def booleanInitializerAfter (text : Source) (state : ParserState)
+    (position maskFirst maskAfter : Nat) : Nat :=
+  (Predicate.readCondition text (booleanInitializerContext state maskFirst maskAfter)
+    position (booleanInitializerFacts state) state.arrayNames.values).after
+
+def booleanArrayValuesModel (text : Source) (source result : ParserState)
+    (position length parsed maskFirst maskAfter : Nat) : ParserState :=
+  if position = 0 then invalidState else
+  if _remaining : parsed < length then
+    let valueAfter := booleanInitializerAfter text source position maskFirst maskAfter
+    if valueAfter = 0 then invalidState else
+      let next := {result with arrayNames := {result.arrayNames with
+        used := result.arrayNames.used + 1,
+        values := ArrayBindings.putInitial result.arrayNames.values (result.arrayNames.used + 1) 0}}
+      let following := if parsed + 1 < length then fixedAfter text valueAfter "," false else valueAfter
+      booleanArrayValuesModel text source next following length (parsed + 1) maskFirst maskAfter
+  else {result with position := position}
+termination_by length - parsed
+decreasing_by omega
+
+def arrayDeclarationValues (text : Source) (state : ParserState)
+    (parts : ArrayDeclarationParts) (position length : Nat) : ParserState :=
+  if parts.isBoolean then
+    booleanArrayValuesModel text state state position length 0 parts.first parts.after
+  else arrayValuesModel text state state position length 0 parts.componentBounds
+
+def ArrayDeclarationParts.typeWord (parts : ArrayDeclarationParts) : Source :=
+  (if parts.isBoolean then "boolean" else "integer").toList.map Char.toNat
+
 def arrayDeclarationAt (text : Source) (state : ParserState) (arguments : Bool) : ParserState :=
   let parts := arrayDeclarationParts text state
   if !newNameAllowed text state parts.first parts.after arguments ||
-      Named.nameIs text parts.first parts.after ("integer".toList.map Char.toNat) ||
+      Named.nameIs text parts.first parts.after parts.typeWord ||
       decide (parts.arrayAfter = 0 ∨ parts.position = 0 ∨
         state.arrayNames.names.length = ArrayBindings.maxBindings ∨
         parts.lower.after = 0 ∨ parts.upper.after = 0) ||
@@ -305,19 +361,22 @@ def arrayDeclarationAt (text : Source) (state : ParserState) (arguments : Bool) 
         parts.upper.bounds.lower - parts.lower.bounds.lower ≥ (ArrayBindings.maxElements - state.arrayNames.used : Nat)) ||
       decide (lookupName text state.names parts.typeFirst parts.typeAfter ≠ 0 ∨
         ScalarExpression.lookup text state.scalarNames parts.typeFirst parts.typeAfter ≠ 0 ∨
-        ArrayBindings.lookup text state.arrayNames.names parts.typeFirst parts.typeAfter ≠ 0)
+        ArrayBindings.lookup text state.arrayNames.names parts.typeFirst parts.typeAfter ≠ 0 ∨
+        BooleanBindings.lookup text state.booleanNames parts.typeFirst parts.typeAfter ≠ 0 ∨
+        (parts.isBoolean = true ∧ IntegerSubtypes.lookup text state.subtypeNames parts.typeFirst parts.typeAfter ≠ 0))
   then invalidState else
     let length := (parts.upper.bounds.lower - parts.lower.bounds.lower + 1).toNat
     let position := arrayAggregatePosition text state parts length
     if position = 0 then invalidState else
-      let result := arrayValuesModel text state state position length 0 parts.componentBounds
+      let result := arrayDeclarationValues text state parts position length
       if result.position = 0 then invalidState else
         let following := fixedAfter text (fixedAfter text result.position ")" false) ";" false
         if following ≤ state.position then invalidState else
           {result with position := following, arrayNames := {result.arrayNames with
             names := result.arrayNames.names ++ [⟨parts.first, parts.after,
               ⟨parts.lower.bounds.lower, parts.upper.bounds.lower⟩,
-              state.arrayNames.used, length, decide (parts.constantAfter = 0), parts.componentBounds⟩]}}
+              state.arrayNames.used, length, decide (parts.constantAfter = 0), parts.componentBounds,
+              parts.isBoolean⟩]}}
 
 structure BooleanDeclarationParts where
   first : Nat
@@ -641,6 +700,47 @@ theorem arrayValuesModel_booleanNames (text : Source) (source result : ParserSta
 termination_by length - parsed
 decreasing_by omega
 
+theorem booleanArrayValuesModel_preserves (text : Source) (source result : ParserState)
+    (position length parsed maskFirst maskAfter : Nat)
+    (accepted : (booleanArrayValuesModel text source result position length parsed maskFirst maskAfter).position ≠ 0) :
+    (booleanArrayValuesModel text source result position length parsed maskFirst maskAfter).names = result.names ∧
+      (booleanArrayValuesModel text source result position length parsed maskFirst maskAfter).scalarNames = result.scalarNames ∧
+      (booleanArrayValuesModel text source result position length parsed maskFirst maskAfter).arrayNames.names = result.arrayNames.names ∧
+      (booleanArrayValuesModel text source result position length parsed maskFirst maskAfter).subtypeNames = result.subtypeNames ∧
+      (booleanArrayValuesModel text source result position length parsed maskFirst maskAfter).booleanNames = result.booleanNames := by
+  rw [booleanArrayValuesModel] at accepted ⊢
+  by_cases zero : position = 0
+  · simp only [zero, ↓reduceIte, invalidState, ne_eq, not_true_eq_false] at accepted
+  · simp only [zero, ↓reduceIte] at accepted ⊢
+    by_cases remaining : parsed < length
+    · simp only [remaining, ↓reduceDIte] at accepted ⊢
+      by_cases bad : booleanInitializerAfter text source position maskFirst maskAfter = 0
+      · simp only [bad, ↓reduceIte, invalidState, ne_eq, not_true_eq_false] at accepted
+      · simp only [bad, ↓reduceIte] at accepted ⊢
+        exact booleanArrayValuesModel_preserves text source _ _ length (parsed + 1) maskFirst maskAfter accepted
+    · simp only [remaining, ↓reduceDIte]
+      trivial
+termination_by length - parsed
+decreasing_by omega
+
+theorem arrayDeclarationValues_preserves {text state parts position length}
+    (accepted : (arrayDeclarationValues text state parts position length).position ≠ 0) :
+    (arrayDeclarationValues text state parts position length).names = state.names ∧
+      (arrayDeclarationValues text state parts position length).scalarNames = state.scalarNames ∧
+      (arrayDeclarationValues text state parts position length).arrayNames.names = state.arrayNames.names ∧
+      (arrayDeclarationValues text state parts position length).subtypeNames = state.subtypeNames ∧
+      (arrayDeclarationValues text state parts position length).booleanNames = state.booleanNames := by
+  unfold arrayDeclarationValues at accepted ⊢
+  split at accepted
+  · rename_i kind
+    simp only [kind, ↓reduceIte]
+    exact booleanArrayValuesModel_preserves _ _ _ _ _ _ _ _ accepted
+  · rename_i kind
+    simp only [kind]
+    have same := arrayValuesModel_preserves _ _ _ _ _ _ accepted
+    exact ⟨same.1, same.2.1, same.2.2.1, same.2.2.2,
+      arrayValuesModel_booleanNames _ _ _ _ _ _ accepted⟩
+
 theorem arrayDeclarationAt_count {text : Source} {state : ParserState} {arguments : Bool}
     (accepted : (arrayDeclarationAt text state arguments).position ≠ 0) :
     (arrayDeclarationAt text state arguments).names = state.names ∧
@@ -669,8 +769,8 @@ theorem arrayDeclarationAt_count {text : Source} {state : ParserState} {argument
           contradiction
         · rename_i following
           simp only [following, ↓reduceIte, List.length_append, List.length_singleton]
-          have preserved := arrayValuesModel_preserves text state state _ _ 0 values
-          exact ⟨preserved.1, preserved.2.1, by rw [preserved.2.2.1], preserved.2.2.2⟩
+          have preserved := arrayDeclarationValues_preserves values
+          exact ⟨preserved.1, preserved.2.1, by rw [preserved.2.2.1], preserved.2.2.2.1⟩
 
 theorem arrayDeclarationAt_booleanNames {text : Source} {state : ParserState} {arguments : Bool}
     (accepted : (arrayDeclarationAt text state arguments).position ≠ 0) :
@@ -697,7 +797,7 @@ theorem arrayDeclarationAt_booleanNames {text : Source} {state : ParserState} {a
           contradiction
         · rename_i following
           simp only [following, ↓reduceIte]
-          exact arrayValuesModel_booleanNames text state state _ _ 0 values
+          exact (arrayDeclarationValues_preserves values).2.2.2.2
 
 theorem declarationAt_count {text : Source} {state : ParserState} {arguments : Bool}
     (accepted : (declarationAt text state arguments).position ≠ 0) :

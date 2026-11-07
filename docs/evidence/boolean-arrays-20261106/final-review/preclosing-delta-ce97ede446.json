@@ -1,0 +1,188 @@
+{
+  "state": "Current pre-closing delta; final native/build/Lean/Rosetta and document/evidence confirmation pending",
+  "recorded_utc": "2026-11-07T04:16:41.980211+00:00",
+  "first_explicit_round_checkpoint_utc": "2026-11-07T04:15:00Z",
+  "round_start_utc": "not independently timestamped",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_confirmation": "unavailable",
+  "token_cost": "unavailable",
+  "reviewed_commit": "ce97ede446aad55520e59854ea8298e2a63d56eb",
+  "historical_inventory": {
+    "path": "preclosing-inputs.json",
+    "sha256": "0866cf8a0692050d19fbae28c758559a66675c935d9b17e691b18397f0433bcf",
+    "reviewed_commit": "1b4ab33131afb1b7035a8489f6e699e1e63264cc",
+    "preserved_without_edits": true
+  },
+  "governed_delta_since_prior_capture_sha256": {
+    "proof/Silver/ComposeSourceBridge.lean": "3bb85bcd32810ecc243166b148c97b98fafb72227fe4cb17d021f2d82da9416a",
+    "proof/Silver/OutputBodyCertificate.lean": "dbf48fbbf186b92aaaed942a952faa9af24fa0f72fc625d833091b5f6fd0d8cd",
+    "proof/Silver/OutputBodyLines5.lean": "b0c8c4371731cb3f779f8402a2e5ccc157ece1318354bcbf628a5708eca8d7b2",
+    "proof/Silver/ReviewedOutputShape.lean": "ae62bd0ba9d4e831657d53342228c0875bb24c84c7029bdd9e344bc5800c6575",
+    "src/silver_output_profile.adb": "7d39745bd9e2d57c573a1c398f9e0f07e486a9d482b60f1cd21fc436e48543f3"
+  },
+  "governed_delta_scope": "Named-field proof construction plus the reviewed Primary/Relation Static assertions and exact corresponding source pin/reconstruction/line bucket. No other source/proof/test/script/sample/catalogue delta.",
+  "current_endpoint_source_routes_sha256": {
+    "proof/Silver/ComposeSourceBridge.lean": "3bb85bcd32810ecc243166b148c97b98fafb72227fe4cb17d021f2d82da9416a",
+    "proof/Silver/ComposeSourceChecks.lean": "b8dc070b41390fd345867638038df0c51550ed717106a24eac125830fb30ba9c",
+    "proof/Silver/PredicateSourceRequirements.lean": "84d72f43375f02432e71ea016a8be7a0058832a6303d4b42ee3dbfe3798618ce",
+    "proof/Silver/PredicateSourceCandidate.lean": "de41733050d4c5bccde81d7bf895c665ebd3e4fcac56a3273a73edf0b115ff9a",
+    "proof/Silver/PredicateSourceChecks.lean": "e78f63f5a603b64fa5efb52dde9edd20d86021541471e8957731ff3194881ad0",
+    "proof/Silver/PredicateSourceBridge.lean": "a4e004c2bab2ec9cf799dde9711c6def19f530d993df50bb18fec73ddd77124c",
+    "proof/Silver/PredicateCorrespondence.lean": "705354f3fe49d9bee99705abf842bd4b66d6bccacd1766b52425ad8b1f541197",
+    "proof/Silver/PredicateNativeSourceBridge.lean": "3ce2e1aa38ceee65b88a3c4fe5b7934a32602ddb50eceefa3ebf21770d8da1f8",
+    "proof/Silver/Current.lean": "0f93f2dc93aa88d61a63dcea947f12175fbfb74b77d68080a6442118c3fc676c",
+    "proof/Silver.lean": "91804ec555e9382ac5884d5a0a69c1b30502e7287096539d680fae8adc107dad",
+    "proof/Silver/Audit.lean": "d9941743f00358a147c2fea7a974701e6916c2e8e4ded55c33fd3b1d2f28af49"
+  },
+  "changed_prior_endpoint_routes": [
+    "proof/Silver/ComposeSourceBridge.lean"
+  ],
+  "prior_reports_unchanged": true,
+  "relied_on_review_reports_sha256": {
+    "review-boolean-arrays-capacity-20261106.md": "28b36d7ca29b2a581bc5e1e15f361c888d1db69e240aa78abfb864a20e0fefc1",
+    "review-boolean-arrays-semantics-20261106.md": "f7bcca81644e60d9f0996ebfc30c362d9d74afa8c40848708e9ef5776ae75046",
+    "review-boolean-arrays-integration-20261106.md": "ad84de7ddd8ec3a35a1d5b6df71560ff0525a76867acb1621ffdc1d134fd1d4e",
+    "review-boolean-array-header-memory-20261106.md": "b00ecfd9cda4db80691817f0a2728acb517247febf79182392a3291c4302d4cf",
+    "review-boolean-array-type-word-20261106.md": "a4b279a249786792c125b72c1534a30fb40bbf0a1c581ca8aba1649434319bff",
+    "review-boolean-arrays-regression-applicability-20261107.md": "9c96cad8db7c62561e0cf439402f245a14f4cebb0d9df9bc90401d1837a96223",
+    "review-boolean-array-flags-20261107.md": "38f32139d608458117970c005f426934444ac2919e9d616495f7e9d6522ab252",
+    "review-boolean-array-equation-fields-20261107.md": "37a64c67d245d8d243571df8f6f8bff6a1a9bb696d13feef84b58cd883060359",
+    "review-boolean-array-primary-cut-20261107.md": "a3a58947f9aa37ad6abcd69d9eecf985c3baf1c7291e037ea22565feec10d950",
+    "review-boolean-array-relation-cut-20261107.md": "10251d0b3f71bf427c62d03db747aefb9578627f7c6c01d92cb1d071b71ae8d9"
+  },
+  "current_documents_and_final_followup_readers_sha256": {
+    "AGENTS.md": "ca6546bfb752045ab2e650e7748b026236ab585b94712b7e406bf31b073aef88",
+    "oracle.md": "ef1e182ab8eedd8d259f5a7cff49a597e8b7ccfe207bdf11d7456003e0b6603a",
+    "language.md": "b2808bcc4274f22778316c2f844f3db7b20370b75607719d1b708f7496ee792f",
+    "development.md": "b7b7b942b0aaf7610448c116698f26f6ba4ae711ca6d373e19371ddd849ee5c3",
+    "roadmap.md": "13b71fd318a9e7932f1dc4409723e75eec9d68c7c9b1f1f0839730276838a956",
+    "docs/assurance.md": "43a6d5d1fb967778993c4392e2d8bebb780d39812cd926cafee2f8c0afe53552",
+    "docs/trusted-boundary.md": "e5bec514df01e636186b2656ec25cae75ec6700c79e2c1e073ace2fdabceaba2",
+    "docs/boolean-arrays.md": "28f1fb7f2478aae7092ae900f363646afdbf83fe89899ee6f864c4e9309527bb",
+    "docs/boolean-arrays-report-capacity.md": "5ceb33c30232cf8b04216c043d9f998ffd8d902cd767f9a82dde6d27838082a3",
+    "docs/planning.md": "139afa07a6fefd5b37241a83a16b730e4a54466948477efd1ede03160416f585",
+    "docs/session-memory.md": "9a0d33c675ebec2250b8c0115c923d494989bb4bfdcbbf4b6cb8519d2946c772",
+    "docs/evidence/boolean-arrays-20261106/README.md": "6d73b601bc553b9549fc1dd0bc613794c5ca8b4fd80a2d063a249ad973718350",
+    "tests/test_rosetta.py": "3a6349b7a1253d8d81fd618060d10ffb10b6213d19828c31b8f96d840c831c96",
+    "tests/test_lean_source.py": "5f77ec7653b6b7bc8807be3d4ef67612812903ffb5612106818253eeaff56b1f"
+  },
+  "documents_changed_since_prior_capture": [
+    "docs/boolean-arrays.md"
+  ],
+  "static_module_inventory": {
+    "count": 655,
+    "list": "expected-modules.txt",
+    "sha256": "a8ba28252aaa6044db049dba22f23d47ab7fea6b9c90c39624c86368bfec0332",
+    "inventory_unchanged": true,
+    "imports_in_changed_lean_modules_unchanged": true,
+    "retained_complete_Audit_static_closure_still_applicable": true,
+    "is_kernel_audit": false
+  },
+  "focused_flags_current_applicability": [
+    {
+      "run_id": "20261107T014016-1964d1c63b3f",
+      "modules": 192,
+      "current_captured_input_differences": [
+        "proof/Silver/ComposeSourceBridge.lean",
+        "proof/Silver/PredicateSelectors.lean",
+        "proof/Silver/ReviewedOutputShape.lean",
+        "src/silver_output_profile.adb"
+      ],
+      "changed_paths_in_focused_module_closure": []
+    },
+    {
+      "run_id": "20261107T014318-8cf0160fa37a",
+      "modules": 193,
+      "current_captured_input_differences": [
+        "proof/Silver/ComposeSourceBridge.lean",
+        "proof/Silver/ReviewedOutputShape.lean",
+        "src/silver_output_profile.adb"
+      ],
+      "changed_paths_in_focused_module_closure": []
+    }
+  ],
+  "named_field_focused_followup": {
+    "run_id": "20261107T032925-b6d64f6ff906",
+    "terminal_outcome": "success",
+    "terminal_utc": "2026-11-07T03:30:21.915059+00:00",
+    "managed_duration_seconds": 50.803623643,
+    "modules": 318,
+    "declarations": 92000,
+    "foundations": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "build_elapsed_seconds": 19.871,
+    "audit_elapsed_seconds": 15.088,
+    "source_repair_sha256": "3bb85bcd32810ecc243166b148c97b98fafb72227fe4cb17d021f2d82da9416a",
+    "current_captured_source_differences": [
+      "proof/Silver/ReviewedOutputShape.lean",
+      "src/silver_output_profile.adb"
+    ],
+    "changed_paths_in_focused_module_closure": [
+      "proof/Silver/ReviewedOutputShape.lean"
+    ],
+    "current_complete_source_audit": false,
+    "packet": "../equation-fields",
+    "packet_sha256sums_sha256": "eebfdc8807364e189515577d8cdfb248cfbbd6607b3b2dc3c73a667ab075e798"
+  },
+  "source_policy_refresh": {
+    "run_id": "20261107T040620-63bb90cecba1",
+    "terminal_outcome": "success",
+    "terminal_utc": "2026-11-07T04:06:45.710511+00:00",
+    "managed_duration_seconds": 16.938146868,
+    "unittest_duration_seconds": 7.854,
+    "methods": [
+      "CompilerSourcePolicyTests.test_checked_in_certificates_equal_regeneration",
+      "CompilerSourcePolicyTests.test_output_body_split_preserves_every_line_proof_and_ordered_reconstruction"
+    ],
+    "passed": 2,
+    "skipped": 0,
+    "captured_input_count": 925,
+    "all_captured_input_hashes_match_current_target": true,
+    "events_gz_sha256": "2a07025af366a955e1985b0ddeed4911de9b65ed6568eed0af0d099668f6e33e",
+    "log_gz_sha256": "317b8dcc563b9d9e45c52ee8b71ca246625975c18e02ebef762dd0f069afdf1d",
+    "refresh_json_sha256": "25185fdb3edbdd9b610694cfb3ea32413a6c7e966a75f7f2ffda43b7f6b72a57",
+    "packet_sha256sums_sha256": "ed3d73dc3afcae95b88967a386a88490398d3789798bf1a5d52f1c4ea3cdab02"
+  },
+  "regression_disjoint_partition": {
+    "retained_original": 588,
+    "catalogue": 1,
+    "manifest": 1,
+    "fresh_native_fixtures": 7,
+    "retained_certificate_fixture": 1,
+    "final_source_policy_040620": 2,
+    "future_final_rosetta": 3,
+    "total": 603,
+    "currently_pending_replacement_methods": 3,
+    "runtime_reuse_conditional_on_final_build_input_applicability": true,
+    "original_run_remains_failed": true
+  },
+  "latest_run_state_supplied_by_lead": {
+    "recorded_state_at_task_assignment": "2026-11-07; live state must be rechecked at handoff",
+    "original_native_run": "20261106T232644-673fc5a9c06b",
+    "original_source_sha256": "1686b0b61da8c684ce185995621fb08bc5a6932893d2cc859a82ced9922ce4e8",
+    "original_native_state": "Active Read_Chain_Into; two known completed helper failures; cannot be a final candidate success",
+    "complete_relation_run": "20261107T040619-48e6ccbe10c9",
+    "relation_source_sha256": "7d39745bd9e2d57c573a1c398f9e0f07e486a9d482b60f1cd21fc436e48543f3",
+    "complete_relation_state": "Active; no terminal review claimed",
+    "lean_state": "No running Lean job; prior retry interrupted with proof failure, fresh whole-project audit never started"
+  },
+  "remaining_checks": [
+    "Complete native Bronze/Silver audit and provenance on final governed bytes, retaining old failures and focused-only scope",
+    "Final build: binary and source identities, actual toolchain/options/generated runtime/routing inputs; compare to retained behavioral-run inputs under reviewed Static erasure",
+    "Complete Lean actual-source/module/axiom audit on final bytes and exact655-module inventory with approved foundations",
+    "Final status/document/capability/evidence reconciliation, fixed-boolean-arrays metadata/render and exact final commit review",
+    "Three final Rosetta methods and disjoint603-method reconciliation after final metadata inputs",
+    "Final source/document/evidence delta and publication/board confirmation; no merge or298 authorization"
+  ],
+  "jobs_launched_by_reviewer": false,
+  "complete_assurance_approved": false,
+  "round_completed_utc": "2026-11-07T04:18:15.099878+00:00",
+  "elapsed_seconds_since_first_explicit_checkpoint": 195.099878,
+  "round_elapsed_limit": "Exact round start unavailable; elapsed field is measured only from first explicit UTC checkpoint.",
+  "closing_draft_sha256": "12aa69d12cbc93936baeb532ae0f0028ede2460a4e54f618d4d991313c52de75",
+  "focused_flag_closures_have_no_native_output_body_include_str_reader": true
+}

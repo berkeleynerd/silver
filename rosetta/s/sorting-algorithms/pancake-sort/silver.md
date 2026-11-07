@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops over static ranges and every loop-carried index has a subtype that bounds it, so index and range checks follow from types and the program needs no annotations. The only nontrivial part is the swap index arithmetic, which is linear and bounded.
 
-Position 147 in the [progression](../../../progression.md#stage-6), in stage 6.
+Position 148 in the [progression](../../../progression.md#stage-6), in stage 6.
 
 ## Approach
 

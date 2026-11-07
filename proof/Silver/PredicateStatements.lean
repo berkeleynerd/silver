@@ -5,6 +5,7 @@ public import Silver.SequenceSyntax
 public import Silver.IntegerIteration
 public import Silver.IntegerMutable
 public import Silver.IntegerArrays
+public import Silver.BooleanArrayAssignments
 
 @[expose] public section
 
@@ -25,6 +26,7 @@ inductive Statement
   | scalarAssign (update : Integer.Assignment)
   | arrayAssign (update : Integer.ArrayAssignment)
   | booleanAssign (update : BooleanAssignment)
+  | booleanArrayAssign (update : BooleanArrayAssignment)
   | reject
   | choice (condition : Condition) (yes no : List Statement)
   | forLoop (index : Nat) (reverse : Bool) (lower upper : Integer.Expr) (body : List Statement)
@@ -36,7 +38,7 @@ Restoring a nested binder only at loop exit would not establish Ada's alias
 semantics during the nested body. This check covers both loop constructors. -/
 mutual
   def Statement.bindersApart (array : Integer.ArrayDescriptor) : Statement → Bool
-    | .simple _ | .scalarAssign _ | .arrayAssign _ | .booleanAssign _ | .reject => true
+    | .simple _ | .scalarAssign _ | .arrayAssign _ | .booleanAssign _ | .booleanArrayAssign _ | .reject => true
     | .choice _ yes no => statementsBindersApart array yes && statementsBindersApart array no
     | .forLoop index _ _ _ body | .arrayLoop index _ _ body =>
         decide (¬array.ContainsCell index) && statementsBindersApart array body
@@ -65,6 +67,8 @@ mutual
     | .scalarAssign update => update.target ≠ 0
     | .arrayAssign _ => True
     | .booleanAssign update => booleans.canWrite update.target = true ∧
+        update.value.Grammatical ∧ update.value.Readable hasArguments shape booleans
+    | .booleanArrayAssign update => update.array.writable booleans = true ∧
         update.value.Grammatical ∧ update.value.Readable hasArguments shape booleans
     | .reject => hasArguments = true
     | .choice condition yes no =>
@@ -224,6 +228,8 @@ mutual
     | .booleanAssign update =>
         if booleans.canWrite update.target && update.value.checkBounds shape analysis flow booleans
         then some flow else none
+    | .booleanArrayAssign update =>
+        if update.check shape analysis flow booleans then some flow else none
     | .reject => some {flow with path := flow.path.reject}
     | .choice condition yes no =>
         if condition.checkBounds shape analysis flow booleans then
@@ -272,7 +278,7 @@ mutual
           cases checked
           exact ⟨update.after_refines good refined, update.after_bounded bounded⟩
         · contradiction
-    | arrayAssign update | booleanAssign update =>
+    | arrayAssign update | booleanAssign update | booleanArrayAssign update =>
         simp only [Statement.check] at checked
         split at checked
         · cases checked; exact ⟨refined, bounded⟩
@@ -357,7 +363,7 @@ mutual
             contradiction
           simpa only [Integer.Assignment.after, Integer.put, distinct, ↓reduceIte] using incoming
         · contradiction
-    | arrayAssign update | booleanAssign update =>
+    | arrayAssign update | booleanAssign update | booleanArrayAssign update =>
         simp only [Statement.check] at checked
         split at checked
         · cases checked; exact incoming

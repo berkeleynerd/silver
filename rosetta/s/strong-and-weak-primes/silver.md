@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check is an index or addition on values bounded by the Limit constant, and all loops live in a procedure so no variants are needed, but sieve loop-carried indexes and the large fixed array make careful guarding necessary.
 
-Position 264 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 265 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

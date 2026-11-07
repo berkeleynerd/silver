@@ -312,7 +312,7 @@ theorem summarizeArrays_success {names : Environment} {arrays : ArrayBindings.Me
     {initials : ArrayBindings.Initials} {elaborating : Bool} {parsed : Option Parsed}
     (success : (summarizeArrays names arrays initials elaborating parsed).after ≠ 0) :
     ∃ value bounds, parsed = some value ∧ value.after ≠ 0 ∧ leaves value.expression ≤ maxOperands ∧
-      value.expression.infer (ArrayBindings.ranges arrays initials elaborating (ranges names)) = some bounds ∧
+      value.expression.infer (ArrayBindings.integerRanges arrays initials elaborating (ranges names)) = some bounds ∧
       summarizeArrays names arrays initials elaborating parsed =
         ⟨value.after, bounds, leaves value.expression, isStatic names value.expression⟩ := by
   cases parsed with
@@ -322,7 +322,7 @@ theorem summarizeArrays_success {names : Environment} {arrays : ArrayBindings.Me
       split at success
       · simp [invalid] at success
       · rename_i good
-        cases found : value.expression.infer (ArrayBindings.ranges arrays initials elaborating (ranges names)) with
+        cases found : value.expression.infer (ArrayBindings.integerRanges arrays initials elaborating (ranges names)) with
         | none => simp [found, invalid] at success
         | some bounds =>
             refine ⟨value, bounds, rfl, ?_, ?_, found, ?_⟩

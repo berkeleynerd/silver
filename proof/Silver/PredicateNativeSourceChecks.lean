@@ -77,6 +77,12 @@ def condition_model_spec_header : List String :=
 def condition_model_impl_header : List String :=
   (Source.lexLine "(Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow; Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values) return Condition_Result").getD []
 
+def boolean_array_after_impl_header : List String :=
+  (Source.lexLine "(Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow) return Literal_Position").getD []
+
+def boolean_array_after_spec_header : List String :=
+  boolean_array_after_impl_header ++ (Source.lexLine "with Global => null, Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length and then Position <= Text'Last + 1 and then Valid_Context (Text, Context) and then Valid_Flow (Context, Facts), Post => Boolean_Array_After'Result = 0 or else Boolean_Array_After'Result in Position + 1 .. Text'Last + 1").getD []
+
 def boolean_atom_after_spec_header : List String :=
   (Source.lexLine "(Text : String; Context : Body_Context; Position : Literal_Position) return Literal_Position with Global => null, Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length and then Position <= Text'Last + 1 and then Valid_Context (Text, Context), Post => Boolean_Atom_After'Result = 0 or else Boolean_Atom_After'Result in Position + 1 .. Text'Last + 1").getD []
 
@@ -181,6 +187,9 @@ structure Checked (tokens : List String) : Prop where
   scalar_comparison_at_body : Source.expressionBody "scalar_comparison_at" tokens = some (comparisonBody.render)
   character_condition_body : Source.expressionBody "character_condition" tokens = some (characterBody.render)
   length_at_body : Source.expressionBody "length_at" tokens = some (lengthBody.render)
+  boolean_array_after_body : Source.expressionBody "boolean_array_after" tokens = some booleanArrayBody.render
+  boolean_array_after_spec_header : functionHeader "boolean_array_after" ";" tokens = some boolean_array_after_spec_header
+  boolean_array_after_impl_header : functionHeader "boolean_array_after" "is" tokens = some boolean_array_after_impl_header
   boolean_atom_after_body : Source.expressionBody "boolean_atom_after" tokens = some (booleanAtomBody.render)
   boolean_factor_model_body : Source.expressionBody "boolean_factor_model" tokens = some (booleanFactorBody.render)
   boolean_relation_model_body : Source.expressionBody "boolean_relation_model" tokens = some (booleanRelationBody.render)

@@ -71,6 +71,8 @@ mutual
     | .booleanAssign update =>
         ⟨values, [], integers, Boolean.put booleans update.target
           (update.value.evaluate values input inputValid integers booleans)⟩
+    | .booleanArrayAssign update =>
+        ⟨values, [], integers, update.execute values input inputValid integers booleans⟩
     | .reject => ⟨values, [.reject], integers, booleans⟩
     | .choice condition yes no =>
         if condition.evaluate values input inputValid integers booleans
@@ -109,6 +111,9 @@ mutual
     | .booleanAssign update =>
         (update.value.checkedEvaluate values input inputValid integers booleans).map fun value =>
           ⟨values, [], integers, Boolean.put booleans update.target value⟩
+    | .booleanArrayAssign update =>
+        (update.checkedExecute values input inputValid integers booleans).map fun flags =>
+          ⟨values, [], integers, flags⟩
     | .reject => some ⟨values, [.reject], integers, booleans⟩
     | .choice condition yes no =>
         (condition.checkedEvaluate values input inputValid integers booleans).bind fun outcome =>
@@ -194,7 +199,7 @@ mutual
           simpa only [Statement.execute] using
             update.unchanged (values := integers) accepted readonly
         · contradiction
-    | booleanAssign _ | reject => simp only [Statement.execute]
+    | booleanAssign _ | booleanArrayAssign _ | reject => simp only [Statement.execute]
     | choice condition yes no =>
         simp only [Statement.check] at checked
         split at checked
@@ -294,6 +299,14 @@ mutual
           simpa only [Statement.execute] using Boolean.put_other booleans update.target
             (update.value.evaluate values input valid integers booleans) index different
         · contradiction
+    | booleanArrayAssign update =>
+        simp only [Statement.check] at checked
+        split at checked
+        · rename_i good
+          simpa only [Statement.execute] using update.unchanged
+            (values := values) (input := input) (valid := valid) (integers := integers)
+            (booleans := booleans) good readonly
+        · contradiction
     | choice condition yes no =>
         simp only [Statement.check] at checked
         split at checked
@@ -377,7 +390,7 @@ mutual
       array.project (item.execute input valid values integers booleans).integers component =
         array.project integers component) ∧
     match item with
-    | .simple _ | .scalarAssign _ | .arrayAssign _ | .booleanAssign _ | .reject => True
+    | .simple _ | .scalarAssign _ | .arrayAssign _ | .booleanAssign _ | .booleanArrayAssign _ | .reject => True
     | .choice _ yes no => StatementsComponentsStable array yes ∧ StatementsComponentsStable array no
     | .forLoop index _ _ _ body | .arrayLoop index _ _ body =>
         ¬array.ContainsCell index ∧ StatementsComponentsStable array body
@@ -398,7 +411,7 @@ mutual
     refine ⟨fun input valid values integers booleans component inside =>
       statement_unchanged checked (readonly _ (array.address_within inside)), ?_⟩
     cases item with
-    | simple | scalarAssign | arrayAssign | booleanAssign | reject => trivial
+    | simple | scalarAssign | arrayAssign | booleanAssign | booleanArrayAssign | reject => trivial
     | choice condition yes no =>
         simp only [Statement.check] at checked
         simp only [Statement.bindersApart, Bool.and_eq_true] at apart
@@ -665,6 +678,18 @@ mutual
           have agreement := update.value.checkedEvaluate_of_checkBounds (booleans := booleans)
             state wellFormed.2.2 allowed bounds
           simp only [Statement.execute, Statement.checkedExecute, agreement, Option.map_some]
+          exact ⟨state, by simp [EffectsValid], by simp [NoOutput],
+            by simpa [rejectedAfter] using allowed.1, rfl, allowed.2, declaredState⟩
+        · contradiction
+    | booleanArrayAssign update =>
+        simp only [Statement.WellFormed] at wellFormed
+        simp only [Statement.check] at checked
+        split at checked
+        · rename_i good
+          cases checked
+          have sound := update.check_sound (booleans := booleans)
+            good wellFormed.2.2 state allowed
+          simp only [Statement.execute, Statement.checkedExecute, sound.2.2.2, Option.map_some]
           exact ⟨state, by simp [EffectsValid], by simp [NoOutput],
             by simpa [rejectedAfter] using allowed.1, rfl, allowed.2, declaredState⟩
         · contradiction

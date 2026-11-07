@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arrays, indexes and counters have declared ranges and are guarded just before use, and the only non-for loop is a stepping while loop inside a procedure, so no annotation is needed; the loop-carried count increments and the text formatting require careful guard placement, hence plausible rather than likely.
 
-Position 382 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 383 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

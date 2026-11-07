@@ -1,0 +1,49 @@
+{
+  "scope": "Read-only observation of products from the ordinary final build; no additional compilation.",
+  "source_sha256": "7d39745bd9e2d57c573a1c398f9e0f07e486a9d482b60f1cd21fc436e48543f3",
+  "earlier_source_sha256": "d82f6880924196f6fccc2077ed86b71c6a31683d72b8e2a935d494b7d62296f4",
+  "object": {
+    "path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/compiler/obj/silver_output_profile.o",
+    "sha256": "03fbfa795959b51f2a6e9853f95116c4f50f4c7d446a50e2c8844570e8582769",
+    "mtime_ns": 1794058572690479987,
+    "fresh_for_build": true
+  },
+  "stack_usage_file": {
+    "path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/compiler/obj/silver_output_profile.su",
+    "exists": true,
+    "sha256": "a14c5ab56ab250c58688056d7ecd0a20b0eed1e5ad9029ea41747e5fbd7b2fa1",
+    "mtime_ns": 1793995567737859173,
+    "fresh_for_build": false
+  },
+  "record_sizes": {
+    "silver_array_bindings__binding": {
+      "earlier_bytes": 40,
+      "final_bytes": 40,
+      "delta_bytes": 0
+    },
+    "silver_array_bindings__metadata": {
+      "earlier_bytes": 6804,
+      "final_bytes": 6804,
+      "delta_bytes": 0
+    },
+    "silver_output_profile__body_context": {
+      "earlier_bytes": 38896,
+      "final_bytes": 38896,
+      "delta_bytes": 0
+    },
+    "silver_output_profile__parser_state": {
+      "earlier_bytes": 49140,
+      "final_bytes": 49140,
+      "delta_bytes": 0
+    }
+  },
+  "readelf": {
+    "path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/readelf",
+    "sha256": "601fdd194f2c4737678e34403b7404619a053bcaef271561f3bd014873a2fe71",
+    "version": "GNU readelf (GNU Binutils) 2.46.1\nCopyright (C) 2026 Free Software Foundation, Inc.\nThis program is free software; you may redistribute it under the terms of\nthe GNU General Public License version 3 or (at your option) any later version.\nThis program has absolutely no warranty.\n"
+  },
+  "loop_body_frames": {
+    "final_observation": "unavailable",
+    "reason": "Ordinary build did not regenerate the existing .su file; retained earlier d82 observation is historical."
+  }
+}

@@ -57,6 +57,9 @@ private theorem declarations_staticFlags {text arguments state final values}
   | array _ _ _ _ first _ ih =>
       rw [(array_declaration_preserves first).2] at ih
       exact ih
+  | booleanArray _ _ _ _ first _ ih =>
+      rw [(boolean_array_declaration_preserves first).2.1] at ih
+      exact ih
   | subtype _ _ first _ ih =>
       rw [(subtype_declaration_preserves first).2.1] at ih
       exact ih

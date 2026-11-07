@@ -1,0 +1,171 @@
+{
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_confirmation": "unavailable",
+  "token_cost": "unavailable",
+  "inspection_started_utc": "2026-11-07T03:26:17Z",
+  "integration_baseline": "1b4ab33131afb1b7035a8489f6e699e1e63264cc",
+  "candidate_branch": "repair/boolean-primary-cut-20261107",
+  "candidate_base": "9d9c786dceac6160c6fff521ed273fddfdfa628b",
+  "candidate_source_sha256": "c1ce845a597605c152119bedc6b07f1aa3bccece5d2870addb86cd18077fffaa",
+  "reviewed_baseline_inputs_sha256": {
+    "src/silver_output_profile.adb": "1686b0b61da8c684ce185995621fb08bc5a6932893d2cc859a82ced9922ce4e8",
+    "proof/Silver/PredicateNativeBodies.lean": "111d183a670330985b14f4920a6666e8a2994aae3411e91bde3f81f750ad57b8",
+    "proof/Silver/PredicateNativeEquations.lean": "e04eb2491d1d6e2513f709ad0c1326417c4344dcf0d0897a5d639980f88e1716",
+    "proof/Silver/PredicateNativeSourceChecks.lean": "5b7f3ce573bef9bb3ad953163fc18057654a2a229d8dc8703fa9d8a4413455ce",
+    "proof/Silver/PredicateNativeShapeCandidate.lean": "8017061d7b5e67529c9c75daf214dbe0c2f0bdfa8fd85413f935447a2e4dfec1",
+    "proof/Silver/PredicateNativeWorkers.lean": "5c737386697b33388534d45137e1ba33d1dda0d8fb949f4af07594b10e9217ac",
+    "proof/Silver/PredicateNativeHelpersCandidate.lean": "02da429c419824ac9a5430c30ca8ca6d9affaf3b6fe75c9143352504810d61e1",
+    "proof/Silver/PredicateSourceCandidate.lean": "de41733050d4c5bccde81d7bf895c665ebd3e4fcac56a3273a73edf0b115ff9a",
+    "proof/Silver/PredicateSourceChecks.lean": "e78f63f5a603b64fa5efb52dde9edd20d86021541471e8957731ff3194881ad0",
+    "proof/Silver/SourceDeclarations.lean": "8fa7137ece364ade168a57abb4532e4f108eb9794f287c8d7bc69e9e12cb4dee",
+    "proof/Silver/OutputProfileBodySource.lean": "35ef9119ab63f6e20483c936107241bc997f9f3378181beb45f7ed7bab72938f",
+    "proof/Silver/ReviewedOutputShape.lean": "b525f841699ea017f42bc3eb7ff0aaf74a55bd0981cca15eefa250c4cb4dc255",
+    "proof/Silver/OutputBodyCertificate.lean": "67b7c0ba3d2db6367764371e3cdb31223afae61a941fbc3aecd835cb2311b090",
+    "proof/generate_source_certificate.py": "633655f041976bf2641a69e21ef333bd34ae913559cdc2d5ec572c20a19bece6",
+    "silver.gpr": "487fb033a7f3d056f6032b67ff5b57abfc16ce8e65db39a53d24d1d961b152eb",
+    "scripts/bootstrap.py": "415b31960868345b9e81cba9e9ef4cc84c25b9904e707328eefa31d46e9ab3da",
+    "scripts/proof_provenance.py": "f2c531acfff00b2946fecac621fc1cfb38815004ae16b73e4085cda3d63173b9",
+    "tests/test_lean_source.py": "5f77ec7653b6b7bc8807be3d4ef67612812903ffb5612106818253eeaff56b1f",
+    "tests/test_lean_evidence.py": "78b6700e401cd9c08ca0b869bf32edab148cccf49aaecb0f681f7f90910b7bd3",
+    "tests/test_lean_modules.py": "cb287c6dc17b7955edeb701775cc04ca4f92ede68a4393d7d77acd6b5ee67657",
+    "references/spark/16.1/docs/lrm/source/exceptions.rst": "19a6103eaa87a082928c48d73c81b85be2106bfebaf38edb7bdce272bfd747f5",
+    "references/spark/16.1/docs/ug/en/source/specification_features.rst": "ced4ca54fd479e8d64911cd9acc12ed54d0b6fef44fffbc981d33c1d75395caa"
+  },
+  "focused_runs": [
+    {
+      "run_id": "20261107T031832-c8c7ca1eac6d",
+      "packet": "focused-assertion",
+      "artifact_inventory_sha256": "2491fb4738be810a92a43e57c8d71059e2510bae8c27c3f07f5802742ad6f6a5",
+      "verified_artifacts": 10,
+      "source_sha256": "c1ce845a597605c152119bedc6b07f1aa3bccece5d2870addb86cd18077fffaa",
+      "managed_terminal": {
+        "outcome": "success",
+        "utc": "2026-11-07T03:20:17.931643+00:00",
+        "duration_seconds": 99.713222893
+      },
+      "primary_spark_report_sha256": "9d2895d6d4a8c8b8d6e8f585df94985ad8754a151f702c2127e26c1f74e660af",
+      "native_log_sha256": "e8ed3593df272fb355cc91f2ee92051099d6980447076a829a1f85b20bb3b0fb",
+      "proof_checks": [
+        {
+          "rule": "VC_PRECONDITION",
+          "line": 3661,
+          "column": 44,
+          "message": "precondition proved",
+          "subgoals": 19,
+          "each_subgoal_has_valid_proof": true
+        },
+        {
+          "rule": "VC_ASSERT",
+          "line": 3661,
+          "column": 35,
+          "message": "assertion proved",
+          "subgoals": 1,
+          "each_subgoal_has_valid_proof": true
+        }
+      ],
+      "flow_record_count": 2,
+      "suppression_lists_empty": true,
+      "options": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.tools/linux-x86_64/alr/bin/alr",
+        "-s",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.tools/linux-x86_64/alire/settings",
+        "-C",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/toolchain",
+        "-n",
+        "--no-tty",
+        "exec",
+        "--",
+        "gnatprove",
+        "-P",
+        "../../../silver.gpr",
+        "--mode=all",
+        "--report=all",
+        "--warnings=error",
+        "--checks-as-errors=on",
+        "--level=2",
+        "--prover=cvc5,z3,altergo",
+        "--timeout=30",
+        "--memlimit=1000",
+        "--memcached-server=file:/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/tmp/primary-branch-cut/cache",
+        "--subdirs=explore/primary-branch-cut",
+        "--limit-subp=silver_output_profile.adb:3562",
+        "--limit-line=silver_output_profile.adb:3661",
+        "--debug-save-vcs",
+        "-XSILVER_HOST=linux-x86_64",
+        "-j2"
+      ]
+    },
+    {
+      "run_id": "20261107T032305-5aa13a4739f2",
+      "packet": "focused-original-postcondition",
+      "artifact_inventory_sha256": "5bcea987bb487e1a3a806a3c273c2509366ad91fccc68f551bb7ae1a96973155",
+      "verified_artifacts": 10,
+      "source_sha256": "c1ce845a597605c152119bedc6b07f1aa3bccece5d2870addb86cd18077fffaa",
+      "managed_terminal": {
+        "outcome": "success",
+        "utc": "2026-11-07T03:24:27.983063+00:00",
+        "duration_seconds": 77.761105758
+      },
+      "primary_spark_report_sha256": "0fb765c5ec17bca97c356b394bc254051d6bdc8ad94c72038fcf71d318a4a522",
+      "native_log_sha256": "ff81b16b8f7a32884de81736619f03a312167a8f72dc82e40ac5ba1cfce47032",
+      "proof_checks": [
+        {
+          "rule": "VC_POSTCONDITION",
+          "line": 3570,
+          "column": 28,
+          "message": "postcondition proved",
+          "subgoals": 4,
+          "each_subgoal_has_valid_proof": true
+        }
+      ],
+      "flow_record_count": 2,
+      "suppression_lists_empty": true,
+      "options": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.tools/linux-x86_64/alr/bin/alr",
+        "-s",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.tools/linux-x86_64/alire/settings",
+        "-C",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/toolchain",
+        "-n",
+        "--no-tty",
+        "exec",
+        "--",
+        "gnatprove",
+        "-P",
+        "../../../silver.gpr",
+        "--mode=all",
+        "--report=all",
+        "--warnings=error",
+        "--checks-as-errors=on",
+        "--level=2",
+        "--prover=cvc5,z3,altergo",
+        "--timeout=30",
+        "--memlimit=1000",
+        "--memcached-server=file:/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/tmp/primary-branch-cut/cache",
+        "--subdirs=explore/primary-branch-cut",
+        "--limit-subp=silver_output_profile.adb:3562",
+        "--limit-line=silver_output_profile.adb:3570",
+        "--debug-save-vcs",
+        "-XSILVER_HOST=linux-x86_64",
+        "-j2"
+      ]
+    }
+  ],
+  "source_generation_record": "primary-cut-generation.json",
+  "source_generation_record_sha256": "b3b3baf3939b31b107a058a6fb637c25883a1c9c8a7af19b10021c9939afc5c7",
+  "affected_regression_methods_requiring_rerun": [
+    "tests/test_lean_source.py:CompilerSourcePolicyTests.test_checked_in_certificates_equal_regeneration",
+    "tests/test_lean_source.py:CompilerSourcePolicyTests.test_output_body_split_preserves_every_line_proof_and_ordered_reconstruction"
+  ],
+  "other_required_validation": [
+    "Final complete native audit/provenance on changed native source",
+    "Final build with recorded binary and stable compiler/toolchain/generated runtime inputs",
+    "Refreshed full source pin/reconstruction and complete Lean/source/module/axiom audit",
+    "Previously pending final Rosetta three-method rerun and exact final integration/delta review"
+  ],
+  "retained_native_certificate_fixture": "Remains applicable by actual six-module/generator dependency; do not assert broad captured-input equality.",
+  "runtime_reuse_basis": "Single Static assertion never executes under pinned LRM; unchanged runtime statements, pre/postconditions, tool flags and runtime sources. Final build/correspondence verification still required.",
+  "native_or_lean_or_test_jobs_started_by_reviewer": false,
+  "complete_assurance_approved": false
+}

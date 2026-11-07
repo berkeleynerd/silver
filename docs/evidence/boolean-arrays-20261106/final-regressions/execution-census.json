@@ -1,0 +1,43 @@
+{
+  "execution_slots": 612,
+  "unique_underlying_source_methods": 603,
+  "duplicate_extra_executions": 9,
+  "duplicated_source_methods": {
+    "tests/test_shared_bindings.py:SharedBindingsTests.test_alias_occurrences_keep_expression_capacity_limits": [
+      "tests.test_shared_bindings.SharedBindingsTests.test_alias_occurrences_keep_expression_capacity_limits",
+      "test_shared_bindings.SharedBindingsTests.test_alias_occurrences_keep_expression_capacity_limits"
+    ],
+    "tests/test_shared_bindings.py:SharedBindingsTests.test_arbitrary_ordered_constant_and_mutable_bindings": [
+      "tests.test_shared_bindings.SharedBindingsTests.test_arbitrary_ordered_constant_and_mutable_bindings",
+      "test_shared_bindings.SharedBindingsTests.test_arbitrary_ordered_constant_and_mutable_bindings"
+    ],
+    "tests/test_shared_bindings.py:SharedBindingsTests.test_assignment_respects_mutability_and_fixed_length": [
+      "tests.test_shared_bindings.SharedBindingsTests.test_assignment_respects_mutability_and_fixed_length",
+      "test_shared_bindings.SharedBindingsTests.test_assignment_respects_mutability_and_fixed_length"
+    ],
+    "tests/test_shared_bindings.py:SharedBindingsTests.test_bindings_do_not_bypass_name_or_initialization_rules": [
+      "tests.test_shared_bindings.SharedBindingsTests.test_bindings_do_not_bypass_name_or_initialization_rules",
+      "test_shared_bindings.SharedBindingsTests.test_bindings_do_not_bypass_name_or_initialization_rules"
+    ],
+    "tests/test_shared_bindings.py:SharedBindingsTests.test_dense_copy_chain_and_exact_source_bound": [
+      "tests.test_shared_bindings.SharedBindingsTests.test_dense_copy_chain_and_exact_source_bound",
+      "test_shared_bindings.SharedBindingsTests.test_dense_copy_chain_and_exact_source_bound"
+    ],
+    "tests/test_shared_bindings.py:SharedBindingsTests.test_native_copy_snapshots_and_unused_assignment": [
+      "tests.test_shared_bindings.SharedBindingsTests.test_native_copy_snapshots_and_unused_assignment",
+      "test_shared_bindings.SharedBindingsTests.test_native_copy_snapshots_and_unused_assignment"
+    ],
+    "tests/test_shared_bindings.py:SharedBindingsTests.test_native_dynamic_copies_preserve_argument_domain": [
+      "tests.test_shared_bindings.SharedBindingsTests.test_native_dynamic_copies_preserve_argument_domain",
+      "test_shared_bindings.SharedBindingsTests.test_native_dynamic_copies_preserve_argument_domain"
+    ],
+    "tests/test_shared_bindings.py:SharedBindingsTests.test_native_unused_initializers_without_assignment": [
+      "tests.test_shared_bindings.SharedBindingsTests.test_native_unused_initializers_without_assignment",
+      "test_shared_bindings.SharedBindingsTests.test_native_unused_initializers_without_assignment"
+    ],
+    "tests/test_shared_bindings.py:SharedBindingsTests.test_static_and_dynamic_snapshots_in_guarded_bodies": [
+      "tests.test_shared_bindings.SharedBindingsTests.test_static_and_dynamic_snapshots_in_guarded_bodies",
+      "test_shared_bindings.SharedBindingsTests.test_static_and_dynamic_snapshots_in_guarded_bodies"
+    ]
+  }
+}

@@ -84,6 +84,7 @@ class SilverIntegrationTests(unittest.TestCase):
                          "named_boolean_constant", "named_boolean_variable", "boolean_expression",
                          "boolean_assignment", "boolean_comparison", "integer_range_constraint", "named_integer_subtype", "integer_assignment", "integer_expression",
                          "integer_array_object", "integer_array_read", "integer_array_assignment",
+                         "boolean_array_object", "boolean_array_read", "boolean_array_assignment",
                          "integer_comparison", "scalar_guard_refinement", "integer_image",
                          "for_loop", "character_literal", "named_character_constant",
                          "named_character_variable", "character_expression", "character_assignment",
@@ -133,7 +134,7 @@ class SilverIntegrationTests(unittest.TestCase):
         sequence = constructs["statement_sequence"]["conditions"]
         self.assertEqual(sequence["minimum"], 1)
         self.assertEqual(sequence["items"], ["null_statement", "character_assignment", "string_element_assignment",
-                                         "string_assignment", "integer_assignment", "boolean_assignment", "integer_array_assignment", "expression_output",
+                                         "string_assignment", "integer_assignment", "boolean_assignment", "integer_array_assignment", "boolean_array_assignment", "expression_output",
                                          "string_choice", "argument_rejection", "for_loop", "integer_array_iteration"])
         self.assertEqual(sequence["argument_rejection_context"], "argument-input shell only")
         self.assertFalse(sequence["output_required"])
@@ -157,12 +158,12 @@ class SilverIntegrationTests(unittest.TestCase):
             self.assertEqual(declarations["items"],
                              ["named_string_constant", "named_string_variable", "named_integer_constant",
                               "named_integer_variable", "named_boolean_constant", "named_boolean_variable",
-                              "named_integer_subtype", "integer_array_object",
+                              "named_integer_subtype", "integer_array_object", "boolean_array_object",
                               "named_character_constant", "named_character_variable"])
             self.assertEqual(declarations["minimum"], 0)
             self.assertEqual(declarations["count"], "finite_within_complete_source_bound")
             self.assertEqual(declarations["initializers"], [*initializers, "integer_expression", "boolean_expression",
-                                                          "explicit_integer_array_aggregate", "character_expression"])
+                                                          "explicit_integer_array_aggregate", "explicit_boolean_array_aggregate", "character_expression"])
             self.assertIn(composition["tokens"], catalogue)
         for key in ("dynamic_source", "mutable_source", "self_assignment", "snapshot_semantics",
                     "constant_to_constant_initialization"):
@@ -184,11 +185,11 @@ class SilverIntegrationTests(unittest.TestCase):
             self.assertIs(conditions["later_guards_justify_initializers"], False)
             self.assertEqual(conditions["initializer_image_length"],
                              "non-input minimum and maximum must agree; Image captures exact "
-                             "initial values of earlier Integer objects and array components")
+                             "initial values of earlier Integer objects and Integer-array components")
         for name in ("named_integer_constant", "named_integer_variable"):
             self.assertEqual(constructs[name]["conditions"]["initializer_visibility"],
                              "earlier initialized Integer constants or mutable objects, including "
-                             "array components; no self, forward or cyclic reference")
+                             "Integer-array components; no self, forward or cyclic reference")
         equality = constructs["string_equality"]["conditions"]
         self.assertEqual(equality["operands"], ["string_expression", "string_expression"])
         self.assertIs(equality["at_least_one_bound_name_or_image_across_operands"], True)
@@ -204,7 +205,7 @@ class SilverIntegrationTests(unittest.TestCase):
         self.assertEqual(boolean["chains"], ["and then", "or else", "and", "or", "xor"])
         self.assertTrue(boolean["mixed_operators_require_parentheses"])
         self.assertEqual(boolean["not_operand"],
-                         ["input_guard", "parenthesized_condition", "boolean_literal", "boolean_name"])
+                         ["input_guard", "parenthesized_condition", "boolean_literal", "boolean_name", "boolean_array_read"])
         self.assertTrue(boolean["boolean_literals"])
         self.assertTrue(boolean["eager_operators"])
         for identifier in ("boolean_expression", "boolean_predicate"):

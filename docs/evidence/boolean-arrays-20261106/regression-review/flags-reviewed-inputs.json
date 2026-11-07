@@ -1,0 +1,96 @@
+{
+  "inspection_started_utc": "2026-11-07T01:40:36Z",
+  "recorded_utc": "2026-11-07T01:43:09.729986+00:00",
+  "review_baseline": "689aef86bf9a0b33d0fcf13dee212e069d07cb64",
+  "selected_reviewer_model": "GPT-6 Astra",
+  "selected_reviewer_effort": "Extra High",
+  "runtime_confirmation": "unavailable",
+  "token_cost": "unavailable",
+  "changed_files": [
+    {
+      "path": "proof/Silver/PredicateFlags.lean",
+      "baseline_sha256": "72c0287d3da0364089fda9dd3228b6edf202b1276405639b87d594e8d55f2797",
+      "reviewed_sha256": "68abbc4300749bec2700c9e6875e3b3e741d68062af737bf3ca8240431855e42",
+      "structural_reader_projection": {
+        "module_lines": [
+          "module\n"
+        ],
+        "project_imports": [
+          "Silver.PredicateGrammar"
+        ],
+        "include_str_count": 0
+      }
+    },
+    {
+      "path": "proof/Silver/PredicateSelectors.lean",
+      "baseline_sha256": "cbc8dc36aa9660a6e1afc064a3011fa95bbe44215aba7de22063859a4bbdbfeb",
+      "reviewed_sha256": "997e39338371dbf5235c2dc2bdc34dd174b03df8cf0ea55418b792ab8d4c535c",
+      "structural_reader_projection": {
+        "module_lines": [
+          "module\n"
+        ],
+        "project_imports": [
+          "Silver.PredicateFlags"
+        ],
+        "include_str_count": 0
+      }
+    }
+  ],
+  "diff_sha256": "3fb58939c420c99ecb8cbf964ee7223ff566c01e0973cb696af5be566c63b723",
+  "reviewed_inputs_sha256": {
+    "proof/Silver/PredicateFlags.lean": "68abbc4300749bec2700c9e6875e3b3e741d68062af737bf3ca8240431855e42",
+    "proof/Silver/PredicateSelectors.lean": "997e39338371dbf5235c2dc2bdc34dd174b03df8cf0ea55418b792ab8d4c535c",
+    "proof/Silver/PredicateBodyAdmission.lean": "d154d6afc6bdb4cb98959c9346e82f52ac6c884417b0af1e9cfc3d3488641975",
+    "proof/Silver/PredicateBasicReadings.lean": "767d58adb748b6f58df30f395a37d1f2b434a0fbb4f88ad6bcc1cebce5f8a074",
+    "proof/Silver/PredicateSourceSyntax.lean": "0c7055b9815b7468bf48666f172e71814c7925f87087bd1932e6966e8ec4bc13",
+    "proof/Silver/PredicateStatements.lean": "5ba5be10db5d51ef8d68682b2d4ba22d0d12e1385ec60dbd0ad3aa7950601333",
+    "proof/Silver/PredicateBooleanArrayBodyNative.lean": "8436ff57a7d6245b0086c8e8c9df4b062fd89690477a0589571239149c1c984e",
+    "proof/Silver/PredicateBooleanArrayBodySource.lean": "63b6db1aa0ab729afde3829c5e7a560afc9f8db95eb80ece2b618005b8373ab3",
+    "proof/Silver/PredicateBooleanArrayBodyHelpers.lean": "02f0d3dfa32011d948c2ae68a29d4ef9b5486c513e44050d49c6dbd26b2910eb",
+    "proof/Silver/PredicateBooleanArrayBodyLibraries.lean": "fee6d97cb5ea5f8efab52b73930e448dd2a205b761c4ce4bf537f4ee13c25407",
+    "proof/Silver/PredicateBasicLibraries.lean": "3b2790f4729397996879c5ec63bf0580e6fe666346057097f6384e98af5c7a10",
+    "src/silver_output_profile.adb": "1686b0b61da8c684ce185995621fb08bc5a6932893d2cc859a82ced9922ce4e8",
+    "tests/test_lean_source.py": "5f77ec7653b6b7bc8807be3d4ef67612812903ffb5612106818253eeaff56b1f",
+    "tests/test_lean_evidence.py": "78b6700e401cd9c08ca0b869bf32edab148cccf49aaecb0f681f7f90910b7bd3",
+    "tests/test_lean_modules.py": "cb287c6dc17b7955edeb701775cc04ca4f92ede68a4393d7d77acd6b5ee67657",
+    "scripts/bootstrap_lean.py": "ae72d6967ebf458c4ccfccfd53d6a59da08767901f29e1ba1917dc2ad5623dff",
+    "scripts/check_lean.py": "92b2c8184eb79e7278b25e3bf95f54829b533462e593ef8c36facc0d52bb1c0a"
+  },
+  "original_regression_capture_delta": {
+    "proof/Silver/PredicateFlags.lean": {
+      "original": "72c0287d3da0364089fda9dd3228b6edf202b1276405639b87d594e8d55f2797",
+      "current": "68abbc4300749bec2700c9e6875e3b3e741d68062af737bf3ca8240431855e42"
+    },
+    "proof/Silver/PredicateSelectors.lean": {
+      "original": "cbc8dc36aa9660a6e1afc064a3011fa95bbe44215aba7de22063859a4bbdbfeb",
+      "current": "997e39338371dbf5235c2dc2bdc34dd174b03df8cf0ea55418b792ab8d4c535c"
+    },
+    "tests/test_silver.py": {
+      "original": "1b6fa3f2be48c645d99e3d75a46dc59832d62f7cf199cc37ab809c45ff5ef773",
+      "current": "0ff4cddd24a05110eb53d22ba565c4c473d354065b37c4b6aa5c60622dbfb02c"
+    }
+  },
+  "retained_certificate_selected_inputs_total": 802,
+  "retained_certificate_selected_inputs_changed": [
+    "proof/Silver/PredicateFlags.lean",
+    "proof/Silver/PredicateSelectors.lean"
+  ],
+  "retained_certificate_selected_inputs_unchanged": 800,
+  "retained_certificate_actual_proof_closure_sha256": {
+    "Silver.AxiomAudit": "47cb06e63dd120cf1db5ca14f39c3743500c6032d5f68d6e797106cb2903cb7b",
+    "Silver.CertificateWitness": "7f64ba1832d59532bdfcf56d06cfb3d9589fdb71c2e39e0bc88326b2d8757f2d",
+    "Silver.SourceLexer": "6c2824f4ed5b303b3a3f3ec94d8cdb650ffbd86103eef842a32a3c6f3755a8eb",
+    "Silver.Cursor": "c5316bac7eb2a733fcda3787d23ee16e8e3b963ef31f6b7e26d285eb7e517ac3",
+    "Silver.Admission": "7c756102bc689b108aa0d5b2c41a68868d07f21230282891d776ef0994f2faf2",
+    "Silver.Lexical": "bd6025d6dc26fd8d984de90bc4a00b63e30d76c27e3db086358aeaa5712ad372"
+  },
+  "structural_reader_projections_match_baseline": true,
+  "regression_reuse": "Applicable through reviewed dependencies; prior 802-input equality remains historical, not asserted for this delta.",
+  "finding": {
+    "path": "proof/Silver/PredicateSelectors.lean",
+    "baseline_sha256": "cbc8dc36aa9660a6e1afc064a3011fa95bbe44215aba7de22063859a4bbdbfeb",
+    "reviewed_sha256": "997e39338371dbf5235c2dc2bdc34dd174b03df8cf0ea55418b792ab8d4c535c",
+    "status": "Found missing booleanArrayAssign in Flag.statement/source_lower_flags; communicated to lead and repaired by lead during review. Source repair reviewed; focused/complete Lean validation remains required."
+  },
+  "proof_validation": "No proof or test jobs run by reviewer. Focused result and complete final Lean/source audit remain required."
+}

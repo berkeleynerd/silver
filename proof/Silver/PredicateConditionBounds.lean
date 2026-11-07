@@ -48,11 +48,13 @@ mutual
       · split
         · exact ⟨bounded, bounded⟩
         · split
-          · exact invalidCondition_bounded facts
-          · try dsimp only
-            split
+          · exact ⟨bounded, bounded⟩
+          · split
             · exact invalidCondition_bounded facts
-            · exact ⟨Context.assumeValid_bounded bounded, Context.assumeInvalid_bounded _⟩
+            · try dsimp only
+              split
+              · exact invalidCondition_bounded facts
+              · exact ⟨Context.assumeValid_bounded bounded, Context.assumeInvalid_bounded _⟩
   termination_by (remainingAt text position, 1)
 
   theorem readBooleanFactor_bounded (text : Source) (context : ParseContext) (position : Nat) (facts : ActiveFlow)

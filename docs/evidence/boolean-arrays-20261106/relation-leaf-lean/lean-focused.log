@@ -1,0 +1,20 @@
+Lean phase build started at 2026-11-07T04:55:38.989605+00:00
++ /home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays/.tools/linux-x86_64/lean/bin/lake --rehash --reconfigure -K silverThreads=12 -K silverMemoryMb=24576 build +Silver.OutputBodyLines5 +Silver.ReviewedOutputShape +Silver.AxiomAudit
+✔ [7/9] Built Silver.ReviewedOutputShape (338s)
+✔ [9/9] Built Silver.OutputBodyLines5 (1069s)
+Build completed successfully (9 jobs).
+
+Lean phase build finished at 2026-11-07T05:19:16.789540+00:00; elapsed 1417.800s; exit 0
+Lean phase audit started at 2026-11-07T05:19:18.801257+00:00
++ /home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays/.tools/linux-x86_64/lean/bin/lake -K silverThreads=12 -K silverMemoryMb=24576 env /home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays/.tools/linux-x86_64/lean/bin/lean -DwarningAsError=true -j12 -M24576 .lake/silver-focused-audit.lean
+SILVER_MODULE Silver.Lexical
+SILVER_MODULE Silver.Admission
+SILVER_MODULE Silver.Cursor
+SILVER_MODULE Silver.SourceLexer
+SILVER_MODULE Silver.CertificateWitness
+SILVER_MODULE Silver.OutputBodyLines5
+SILVER_MODULE Silver.ReviewedOutputShape
+SILVER_MODULE Silver.AxiomAudit
+Silver axiom audit passed: 2543 declarations; foundations: [propext, Classical.choice, Quot.sound]
+
+Lean phase audit finished at 2026-11-07T05:19:26.583094+00:00; elapsed 7.782s; exit 0

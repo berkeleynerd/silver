@@ -141,6 +141,12 @@ theorem basicRaw_flowReady (text : Source) (context : ParseContext) (scan : Body
       split
       · exact invalidBody_flowReady ready
       · exact ready
+  | booleanArrayAssignment =>
+      unfold booleanArrayAssignmentBody
+      dsimp only
+      split
+      · exact invalidBody_flowReady ready
+      · exact ready
   | assignment =>
       rcases stringAssignment_fields text context scan with failed | fields
       · rw [failed]

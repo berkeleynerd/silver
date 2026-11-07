@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every index and sum is bounded by ranged subtypes (the 100th term is 27219, so the 30000 limit is sufficient) and the loops run in a procedure, so no annotation is needed, though the loop-carried candidate and count depend on guards and the bounded output buffer needs careful shaping.
 
-Position 231 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 232 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

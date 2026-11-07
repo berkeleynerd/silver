@@ -1,0 +1,765 @@
+{
+  "run_id": "20261106T230229-b9a860723df5",
+  "outcome": "failure",
+  "managed_started_at": "2026-11-06T23:02:33.221675+00:00",
+  "finished_at": "2026-11-07T01:36:31.875219+00:00",
+  "managed_duration_seconds": 9238.583973006,
+  "returncode": 1,
+  "build_phase": {
+    "elapsed_seconds": 9229.662,
+    "event": "phase_finished",
+    "exit_code": 1,
+    "finished_at": "2026-11-07T01:36:31.840315+00:00",
+    "monotonic_ns": 54866136867987,
+    "phase": "build",
+    "run_id": "20261106T230229-b9a860723df5",
+    "started_at": "2026-11-06T23:02:42.108591+00:00",
+    "utc": "2026-11-07T01:36:31.843825+00:00"
+  },
+  "configuration": {
+    "clean": false,
+    "memory_mb": 24576,
+    "provenance": false,
+    "replay": false,
+    "threads": 12,
+    "workers": 4
+  },
+  "requested_scope": "complete",
+  "expected_module_inventory_count": 655,
+  "successful_visible_build_count": 175,
+  "successful_visible_builds": [
+    {
+      "module": "Silver.ScalarExpressionBodySource",
+      "lake_reported_elapsed": "1.4s"
+    },
+    {
+      "module": "Silver.ArrayBindingsSpecSource",
+      "lake_reported_elapsed": "1.7s"
+    },
+    {
+      "module": "Silver.OutputProfileBodySource",
+      "lake_reported_elapsed": "1.6s"
+    },
+    {
+      "module": "Silver.AuthoritativeSource",
+      "lake_reported_elapsed": "1.9s"
+    },
+    {
+      "module": "Silver.ArrayBindingsSpecCertificate",
+      "lake_reported_elapsed": "241s"
+    },
+    {
+      "module": "Silver.ReviewedOutputShape",
+      "lake_reported_elapsed": "328s"
+    },
+    {
+      "module": "Silver.ComposeArrayDeclarationSource",
+      "lake_reported_elapsed": "2.0s"
+    },
+    {
+      "module": "Silver.ComposeExpressionSourceCandidate",
+      "lake_reported_elapsed": "504s"
+    },
+    {
+      "module": "Silver.ComposeCatalogueSourceCandidate",
+      "lake_reported_elapsed": "57s"
+    },
+    {
+      "module": "Silver.OutputBodyLines1",
+      "lake_reported_elapsed": "1224s"
+    },
+    {
+      "module": "Silver.OutputBodyLines6",
+      "lake_reported_elapsed": "1358s"
+    },
+    {
+      "module": "Silver.ComposeBooleanArraySource",
+      "lake_reported_elapsed": "3.4s"
+    },
+    {
+      "module": "Silver.OutputBodyLines0",
+      "lake_reported_elapsed": "1384s"
+    },
+    {
+      "module": "Silver.ComposeBooleanArraySourceCandidate",
+      "lake_reported_elapsed": "242s"
+    },
+    {
+      "module": "Silver.ComposeContractSourceCandidate",
+      "lake_reported_elapsed": "780s"
+    },
+    {
+      "module": "Silver.ComposeEquations",
+      "lake_reported_elapsed": "281s"
+    },
+    {
+      "module": "Silver.ScalarExpressionNativeExpressions",
+      "lake_reported_elapsed": "16s"
+    },
+    {
+      "module": "Silver.ScalarExpressionNativeDenotations",
+      "lake_reported_elapsed": "27s"
+    },
+    {
+      "module": "Silver.ScalarExpressionNativeArrayAlgebra",
+      "lake_reported_elapsed": "13s"
+    },
+    {
+      "module": "Silver.ScalarExpressionNativeArrayAtoms",
+      "lake_reported_elapsed": "9.1s"
+    },
+    {
+      "module": "Silver.ScalarExpressionSourceShape",
+      "lake_reported_elapsed": "7.1s"
+    },
+    {
+      "module": "Silver.ScalarExpressionNativeArrayRecursion",
+      "lake_reported_elapsed": "14s"
+    },
+    {
+      "module": "Silver.ScalarExpressionNativeEquations",
+      "lake_reported_elapsed": "24s"
+    },
+    {
+      "module": "Silver.ArrayBindingsSourceChecks",
+      "lake_reported_elapsed": "36s"
+    },
+    {
+      "module": "Silver.ArrayBindingsSourceBridge",
+      "lake_reported_elapsed": "3.0s"
+    },
+    {
+      "module": "Silver.ScalarExpressionSourceBridge",
+      "lake_reported_elapsed": "4.3s"
+    },
+    {
+      "module": "Silver.PredicateNativeState",
+      "lake_reported_elapsed": "9.3s"
+    },
+    {
+      "module": "Silver.ComposeNativeStateBounds",
+      "lake_reported_elapsed": "12s"
+    },
+    {
+      "module": "Silver.PredicateNativeExpressions",
+      "lake_reported_elapsed": "13s"
+    },
+    {
+      "module": "Silver.PredicateNativeProgress",
+      "lake_reported_elapsed": "5.6s"
+    },
+    {
+      "module": "Silver.PredicateOuterReadiness",
+      "lake_reported_elapsed": "22s"
+    },
+    {
+      "module": "Silver.PredicateNativeBodies",
+      "lake_reported_elapsed": "6.5s"
+    },
+    {
+      "module": "Silver.ComposeHelperSourceCandidate",
+      "lake_reported_elapsed": "915s"
+    },
+    {
+      "module": "Silver.ComposeBooleanDeclarationDomain",
+      "lake_reported_elapsed": "16s"
+    },
+    {
+      "module": "Silver.PredicateNativePrecedence",
+      "lake_reported_elapsed": "13s"
+    },
+    {
+      "module": "Silver.PredicateBodyWrappers",
+      "lake_reported_elapsed": "10s"
+    },
+    {
+      "module": "Silver.PredicateLoopNative",
+      "lake_reported_elapsed": "80s"
+    },
+    {
+      "module": "Silver.PredicateNativeEquations",
+      "lake_reported_elapsed": "90s"
+    },
+    {
+      "module": "Silver.ComposeDeclarationSourceCandidate",
+      "lake_reported_elapsed": "1494s"
+    },
+    {
+      "module": "Silver.PredicateNativeSizing",
+      "lake_reported_elapsed": "3.5s"
+    },
+    {
+      "module": "Silver.PredicateBodyFlowValidity",
+      "lake_reported_elapsed": "5.3s"
+    },
+    {
+      "module": "Silver.PredicateBodyExpressions",
+      "lake_reported_elapsed": "13s"
+    },
+    {
+      "module": "Silver.PredicateNativeModel",
+      "lake_reported_elapsed": "13s"
+    },
+    {
+      "module": "Silver.PredicateLoopFlowValidity",
+      "lake_reported_elapsed": "9.1s"
+    },
+    {
+      "module": "Silver.PredicateNativeWorkers",
+      "lake_reported_elapsed": "11s"
+    },
+    {
+      "module": "Silver.ComposeSourceCandidate",
+      "lake_reported_elapsed": "6.3s"
+    },
+    {
+      "module": "Silver.PredicateBodyFlowPreservation",
+      "lake_reported_elapsed": "9.9s"
+    },
+    {
+      "module": "Silver.PredicateNativeCorrespondence",
+      "lake_reported_elapsed": "10s"
+    },
+    {
+      "module": "Silver.PredicateBodyEquations",
+      "lake_reported_elapsed": "23s"
+    },
+    {
+      "module": "Silver.PredicateNativeContracts",
+      "lake_reported_elapsed": "4.4s"
+    },
+    {
+      "module": "Silver.PredicateFlowReaders",
+      "lake_reported_elapsed": "14s"
+    },
+    {
+      "module": "Silver.PredicateBodyCorrespondence",
+      "lake_reported_elapsed": "8.6s"
+    },
+    {
+      "module": "Silver.PredicateAdapter",
+      "lake_reported_elapsed": "21s"
+    },
+    {
+      "module": "Silver.PredicateNativeScalarHelpers",
+      "lake_reported_elapsed": "53s"
+    },
+    {
+      "module": "Silver.PredicateBooleanBodyNative",
+      "lake_reported_elapsed": "16s"
+    },
+    {
+      "module": "Silver.PredicateAdapterEnvironment",
+      "lake_reported_elapsed": "7.2s"
+    },
+    {
+      "module": "Silver.PredicateNativeSourceChecks",
+      "lake_reported_elapsed": "13s"
+    },
+    {
+      "module": "Silver.PredicateScalarBodyNative",
+      "lake_reported_elapsed": "5.6s"
+    },
+    {
+      "module": "Silver.PredicateBooleanArrayBodyNative",
+      "lake_reported_elapsed": "24s"
+    },
+    {
+      "module": "Silver.PredicateArrayBodyNative",
+      "lake_reported_elapsed": "11s"
+    },
+    {
+      "module": "Silver.PathNativeExpressions",
+      "lake_reported_elapsed": "9.9s"
+    },
+    {
+      "module": "Silver.PredicateBooleanBodySource",
+      "lake_reported_elapsed": "4.8s"
+    },
+    {
+      "module": "Silver.PredicateNativeModelSizing",
+      "lake_reported_elapsed": "82s"
+    },
+    {
+      "module": "Silver.PredicateBooleanArrayBodySource",
+      "lake_reported_elapsed": "2.8s"
+    },
+    {
+      "module": "Silver.PredicateNativeHelpers",
+      "lake_reported_elapsed": "7.0s"
+    },
+    {
+      "module": "Silver.BooleanBindingsNative",
+      "lake_reported_elapsed": "6.1s"
+    },
+    {
+      "module": "Silver.PathNativeEquations",
+      "lake_reported_elapsed": "12s"
+    },
+    {
+      "module": "Silver.ComposeBooleanInitializerLibraries",
+      "lake_reported_elapsed": "4.5s"
+    },
+    {
+      "module": "Silver.PredicateScalarBodySource",
+      "lake_reported_elapsed": "2.0s"
+    },
+    {
+      "module": "Silver.BooleanBindingsSourceChecks",
+      "lake_reported_elapsed": "2.3s"
+    },
+    {
+      "module": "Silver.LengthIntervalModel",
+      "lake_reported_elapsed": "3.2s"
+    },
+    {
+      "module": "Silver.ComposeBooleanDeclarationCondition",
+      "lake_reported_elapsed": "15s"
+    },
+    {
+      "module": "Silver.PredicateXorNative",
+      "lake_reported_elapsed": "14s"
+    },
+    {
+      "module": "Silver.PredicateBasicExpressions",
+      "lake_reported_elapsed": "5.8s"
+    },
+    {
+      "module": "Silver.ComposeBooleanDeclarationLibraries",
+      "lake_reported_elapsed": "4.9s"
+    },
+    {
+      "module": "Silver.BooleanBindingsSourceBridge",
+      "lake_reported_elapsed": "3.0s"
+    },
+    {
+      "module": "Silver.PredicateXorSourceBridge",
+      "lake_reported_elapsed": "3.3s"
+    },
+    {
+      "module": "Silver.PredicateCountedBoundSource",
+      "lake_reported_elapsed": "4.5s"
+    },
+    {
+      "module": "Silver.PredicateBasicSourceCandidate",
+      "lake_reported_elapsed": "7.1s"
+    },
+    {
+      "module": "Silver.PredicateBodyCandidates",
+      "lake_reported_elapsed": "6.4s"
+    },
+    {
+      "module": "Silver.PredicateFlowReaderLibraries",
+      "lake_reported_elapsed": "3.5s"
+    },
+    {
+      "module": "Silver.PredicateScalarBodyHelpers",
+      "lake_reported_elapsed": "5.4s"
+    },
+    {
+      "module": "Silver.PredicateLoopCandidate",
+      "lake_reported_elapsed": "9.3s"
+    },
+    {
+      "module": "Silver.PredicateAdapterSourceCandidate",
+      "lake_reported_elapsed": "16s"
+    },
+    {
+      "module": "Silver.PredicateOuterExpressions",
+      "lake_reported_elapsed": "12s"
+    },
+    {
+      "module": "Silver.PredicateSourceShape",
+      "lake_reported_elapsed": "2.2s"
+    },
+    {
+      "module": "Silver.PredicateArrayBodySource",
+      "lake_reported_elapsed": "9.0s"
+    },
+    {
+      "module": "Silver.PredicateOuterCandidates",
+      "lake_reported_elapsed": "4.4s"
+    },
+    {
+      "module": "Silver.PredicateCharacterSourceCandidate",
+      "lake_reported_elapsed": "260s"
+    },
+    {
+      "module": "Silver.PredicateSourceRequirements",
+      "lake_reported_elapsed": "5.3s"
+    },
+    {
+      "module": "Silver.PredicateScalarBodyCandidate",
+      "lake_reported_elapsed": "1311s"
+    },
+    {
+      "module": "Silver.PredicateStructuralGuards",
+      "lake_reported_elapsed": "12s"
+    },
+    {
+      "module": "Silver.LengthIntervalExpressions",
+      "lake_reported_elapsed": "9.9s"
+    },
+    {
+      "module": "Silver.LengthIntervalPrecedence",
+      "lake_reported_elapsed": "5.1s"
+    },
+    {
+      "module": "Silver.PathNativePrecedence",
+      "lake_reported_elapsed": "5.7s"
+    },
+    {
+      "module": "Silver.PathFactsSourceChecks",
+      "lake_reported_elapsed": "69s"
+    },
+    {
+      "module": "Silver.PathFactsSourceBridge",
+      "lake_reported_elapsed": "3.6s"
+    },
+    {
+      "module": "Silver.LengthIntervalsSource",
+      "lake_reported_elapsed": "14s"
+    },
+    {
+      "module": "Silver.PredicateBodySizing",
+      "lake_reported_elapsed": "2.7s"
+    },
+    {
+      "module": "Silver.PredicateLoopImports",
+      "lake_reported_elapsed": "3.3s"
+    },
+    {
+      "module": "Silver.PredicateBodyModelSizing",
+      "lake_reported_elapsed": "3.3s"
+    },
+    {
+      "module": "Silver.PredicateBodyHelpers",
+      "lake_reported_elapsed": "3.8s"
+    },
+    {
+      "module": "Silver.PredicateBooleanBodyHelpers",
+      "lake_reported_elapsed": "3.6s"
+    },
+    {
+      "module": "Silver.PredicateBooleanBodyLibraries",
+      "lake_reported_elapsed": "3.3s"
+    },
+    {
+      "module": "Silver.PredicateBooleanArrayBodyHelpers",
+      "lake_reported_elapsed": "2.9s"
+    },
+    {
+      "module": "Silver.PredicateBooleanArrayBodyLibraries",
+      "lake_reported_elapsed": "3.7s"
+    },
+    {
+      "module": "Silver.PredicateBasicEquations",
+      "lake_reported_elapsed": "20s"
+    },
+    {
+      "module": "Silver.PredicateNativeLibraries",
+      "lake_reported_elapsed": "9.4s"
+    },
+    {
+      "module": "Silver.PredicateBasicSizing",
+      "lake_reported_elapsed": "4.5s"
+    },
+    {
+      "module": "Silver.PredicateLoopHelpers",
+      "lake_reported_elapsed": "5.2s"
+    },
+    {
+      "module": "Silver.PredicateBasicHelpers",
+      "lake_reported_elapsed": "5.8s"
+    },
+    {
+      "module": "Silver.PredicateLoopSizing",
+      "lake_reported_elapsed": "5.9s"
+    },
+    {
+      "module": "Silver.PredicateBasicLibraries",
+      "lake_reported_elapsed": "5.1s"
+    },
+    {
+      "module": "Silver.PredicateOuterEquations",
+      "lake_reported_elapsed": "6.1s"
+    },
+    {
+      "module": "Silver.ComposeModelRecursion",
+      "lake_reported_elapsed": "11s"
+    },
+    {
+      "module": "Silver.ComposeSubtypeModelEquations",
+      "lake_reported_elapsed": "27s"
+    },
+    {
+      "module": "Silver.ComposeStringDenotations",
+      "lake_reported_elapsed": "5.0s"
+    },
+    {
+      "module": "Silver.ComposeRecognitionEquations",
+      "lake_reported_elapsed": "7.6s"
+    },
+    {
+      "module": "Silver.PredicateFlowSourceCandidate",
+      "lake_reported_elapsed": "1656s"
+    },
+    {
+      "module": "Silver.ComposeModelRanges",
+      "lake_reported_elapsed": "3.8s"
+    },
+    {
+      "module": "Silver.ComposeSubtypeLookupLegal",
+      "lake_reported_elapsed": "4.1s"
+    },
+    {
+      "module": "Silver.PredicateBodySourceCandidate",
+      "lake_reported_elapsed": "3407s"
+    },
+    {
+      "module": "Silver.PredicateShell",
+      "lake_reported_elapsed": "3.1s"
+    },
+    {
+      "module": "Silver.PredicateHeader",
+      "lake_reported_elapsed": "3.5s"
+    },
+    {
+      "module": "Silver.PredicateHeaderFlow",
+      "lake_reported_elapsed": "3.3s"
+    },
+    {
+      "module": "Silver.ComposeBooleanTrace",
+      "lake_reported_elapsed": "7.9s"
+    },
+    {
+      "module": "Silver.ComposeBooleanArrayTrace",
+      "lake_reported_elapsed": "12s"
+    },
+    {
+      "module": "Silver.ComposeBooleanRegionTrace",
+      "lake_reported_elapsed": "26s"
+    },
+    {
+      "module": "Silver.PredicateBooleanHeader",
+      "lake_reported_elapsed": "9.5s"
+    },
+    {
+      "module": "Silver.PredicateGrammar",
+      "lake_reported_elapsed": "7.1s"
+    },
+    {
+      "module": "Silver.ComposeStringBoundEquivalence",
+      "lake_reported_elapsed": "4.0s"
+    },
+    {
+      "module": "Silver.PredicateNativeSourceBridge",
+      "lake_reported_elapsed": "3.7s"
+    },
+    {
+      "module": "Silver.PredicateStringBoundsSources",
+      "lake_reported_elapsed": "33s"
+    },
+    {
+      "module": "Silver.PredicateStringBoundsExecution",
+      "lake_reported_elapsed": "15s"
+    },
+    {
+      "module": "Silver.PredicateStringBoundsAssurance",
+      "lake_reported_elapsed": "2.8s"
+    },
+    {
+      "module": "Silver.PredicateStringActualBounds",
+      "lake_reported_elapsed": "2.5s"
+    },
+    {
+      "module": "Silver.PredicateStringActualExecution",
+      "lake_reported_elapsed": "6.1s"
+    },
+    {
+      "module": "Silver.PredicateStringActualInitializers",
+      "lake_reported_elapsed": "4.0s"
+    },
+    {
+      "module": "Silver.PredicateStringActualAssurance",
+      "lake_reported_elapsed": "3.5s"
+    },
+    {
+      "module": "Silver.Current",
+      "lake_reported_elapsed": "2.7s"
+    },
+    {
+      "module": "Silver.PredicateNativeHelpersCandidate",
+      "lake_reported_elapsed": "5126s"
+    },
+    {
+      "module": "Silver.ComposeModelLegal",
+      "lake_reported_elapsed": "2574s"
+    },
+    {
+      "module": "Silver.ComposeModelHelperEquations",
+      "lake_reported_elapsed": "3339s"
+    },
+    {
+      "module": "Silver.ComposeModelEquations",
+      "lake_reported_elapsed": "15s"
+    },
+    {
+      "module": "Silver.NamedExamples",
+      "lake_reported_elapsed": "427s"
+    },
+    {
+      "module": "Silver.ComposeModel",
+      "lake_reported_elapsed": "3.2s"
+    },
+    {
+      "module": "Silver.AssignmentExamples",
+      "lake_reported_elapsed": "34s"
+    },
+    {
+      "module": "Silver.PredicateExamples",
+      "lake_reported_elapsed": "766s"
+    },
+    {
+      "module": "Silver.ConcatExamples",
+      "lake_reported_elapsed": "239s"
+    },
+    {
+      "module": "Silver.SequenceHeader",
+      "lake_reported_elapsed": "2.4s"
+    },
+    {
+      "module": "Silver.SequenceShell",
+      "lake_reported_elapsed": "2.3s"
+    },
+    {
+      "module": "Silver.ArgumentsExamples",
+      "lake_reported_elapsed": "391s"
+    },
+    {
+      "module": "Silver.SequenceObligations",
+      "lake_reported_elapsed": "9.1s"
+    },
+    {
+      "module": "Silver.SequenceModelRanges",
+      "lake_reported_elapsed": "5.0s"
+    },
+    {
+      "module": "Silver.SequenceNativeState",
+      "lake_reported_elapsed": "3.6s"
+    },
+    {
+      "module": "Silver.SequenceNativeExpressions",
+      "lake_reported_elapsed": "8.9s"
+    },
+    {
+      "module": "Silver.SequenceConditionValidity",
+      "lake_reported_elapsed": "27s"
+    },
+    {
+      "module": "Silver.SequenceExpressions",
+      "lake_reported_elapsed": "7.3s"
+    },
+    {
+      "module": "Silver.SequenceGrammar",
+      "lake_reported_elapsed": "2.7s"
+    },
+    {
+      "module": "Silver.SequenceFormDisjoint",
+      "lake_reported_elapsed": "2.6s"
+    },
+    {
+      "module": "Silver.SequenceSelectors",
+      "lake_reported_elapsed": "5.5s"
+    },
+    {
+      "module": "Silver.SequenceMain",
+      "lake_reported_elapsed": "5.0s"
+    },
+    {
+      "module": "Silver.SequenceFullEquations",
+      "lake_reported_elapsed": "2.6s"
+    },
+    {
+      "module": "Silver.ComposeExecution",
+      "lake_reported_elapsed": "6.4s"
+    },
+    {
+      "module": "Silver.BranchingExamples",
+      "lake_reported_elapsed": "238s"
+    },
+    {
+      "module": "Silver.SequenceNativeEquations",
+      "lake_reported_elapsed": "161s"
+    },
+    {
+      "module": "Silver.SequenceNativeUnique",
+      "lake_reported_elapsed": "5.2s"
+    },
+    {
+      "module": "Silver.SequenceNativeModel",
+      "lake_reported_elapsed": "17s"
+    },
+    {
+      "module": "Silver.SequenceNativeProjection",
+      "lake_reported_elapsed": "2.7s"
+    },
+    {
+      "module": "Silver.SequenceNativeProjected",
+      "lake_reported_elapsed": "2.4s"
+    },
+    {
+      "module": "Silver.SequenceNativeCorrespondence",
+      "lake_reported_elapsed": "3.3s"
+    },
+    {
+      "module": "Silver.SequenceEquations",
+      "lake_reported_elapsed": "7.4s"
+    },
+    {
+      "module": "Silver.SequenceModel",
+      "lake_reported_elapsed": "4.8s"
+    },
+    {
+      "module": "Silver.ComposeExamples",
+      "lake_reported_elapsed": "771s"
+    },
+    {
+      "module": "Silver.ComposeBooleanDeclarationCandidate",
+      "lake_reported_elapsed": "590s"
+    }
+  ],
+  "failed_builds": [
+    {
+      "module": "Silver.OutputBodyCertificate",
+      "lake_reported_elapsed": "2556s"
+    },
+    {
+      "module": "Silver.PredicateNativeShapeCandidate",
+      "lake_reported_elapsed": "1632s"
+    },
+    {
+      "module": "Silver.PredicateFlags",
+      "lake_reported_elapsed": "17s"
+    }
+  ],
+  "failure_keys": [
+    "lean:build:Silver/PredicateFlags.lean:24:4:Missing cases:",
+    "lean:build:Silver/PredicateFlags.lean:55:2:Alternative `booleanArrayAssignment` has not been provided"
+  ],
+  "complete_module_axiom_audit_executed": false,
+  "audited_declaration_count": null,
+  "audited_axioms": null,
+  "independent_kernel_replay_executed": false,
+  "source_input_count": 762,
+  "all_captured_input_hashes_match_terminal_filesystem_and_head": true,
+  "all_workspace_input_hashes_unchanged": true,
+  "all_tools_hashes_unchanged": true,
+  "stopped_original_children_remaining": [],
+  "original_unified_session_id": 45540,
+  "session_retrieval": "Unavailable to subagent (Unknown process id); retained registry terminal event and log determine exact outcome.",
+  "next_step": "Repair PredicateFlags missing Boolean-array cases and focused-check that model-only repair; then root-authorized complete incremental one-worker run rebuilding failed/blocked source chain while retaining successful objects, -j12 and -M24576. No clean rebuild, proof weakening or independent replay required by this diagnosis.",
+  "workspace_inventory_baseline_utc": "2026-11-07T00:14:45.734349+00:00",
+  "terminal_workspace_inventory_checked_at": "2026-11-07T01:38:19.514047+00:00",
+  "workspace_inventory_correspondence_scope": "All workspace input hashes match the read-only inventory captured during the active run at workspace_inventory_baseline_utc; the runner internal pre-build inventory was not separately persisted by its non-provenance mode."
+}

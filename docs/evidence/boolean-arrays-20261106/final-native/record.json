@@ -1,0 +1,357 @@
+{
+  "recorded_utc": "2026-11-07T13:36:20.626096+00:00",
+  "platform": "linux-x86_64",
+  "selected_model_effort": "GPT-6.1 Sol / Extra High per original bounded assignment; runtime confirmation and token/cost evidence unavailable",
+  "audit_run_id": "20261107T065643-5c23478ef04b",
+  "audit_started": {
+    "available_cpus": 12,
+    "command": [
+      "gnatprove",
+      "--subdirs=review-final"
+    ],
+    "event": "started",
+    "evidence": [
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/compiler/obj/review-final/gnatprove",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/compiler/obj/review-final/gnatprove"
+      }
+    ],
+    "expensive": false,
+    "fingerprint": "ed23b28f0583d1cfccde7a3090295292aa82b3ebcff71f0530687757d2ff2cd4",
+    "host": "linux-x86_64",
+    "inputs": {
+      "arguments": [
+        "--subdirs=review-final"
+      ],
+      "mode": "full",
+      "scope": [
+        "compiler"
+      ]
+    },
+    "kind": "prove",
+    "machine": "codex-silver",
+    "monotonic_ns": 74080970545893,
+    "pid": 442880,
+    "reason": "Required complete current-input audit after original232644 finished with exactly the known Primary postcondition and Relation assertion failures; failed original reports/tasks/source are retained separately. Reviewed Primary87 and Relation152 complete-helper checks passed at normal settings. Same installation is now ce97ede446/source7d39745; all144selected inputs and2586nativepreflight inputs verified, only3reviewed Static assertion lines differ from original943 branch, which remains preserved. Idle missing-key-only transfer added2737unmodified entries;3existing values with path/timing differences remained untouched and bothoriginal values reportunsat. Ordinary GNATprove matching remains authoritative; no cold-proof claim or limit change. Root completeLean1 has separate workspace; this authorized4worker forced-analysis audit uses the existing review-final workspace.",
+    "requested_workers": 4,
+    "resources": [
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/toolchain",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/toolchain"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/compiler/obj/review-final",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/compiler/obj/review-final"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/compiler/bin/review-final",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/compiler/bin/review-final"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/proof-containers/obj/review-final",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/proof-containers/obj/review-final"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/proof-cache/gnatprove",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/proof-cache/gnatprove"
+      }
+    ],
+    "run_id": "20261107T065643-5c23478ef04b",
+    "schema": 1,
+    "scope": [
+      "compiler"
+    ],
+    "task": "#297 final native audit",
+    "utc": "2026-11-07T06:56:46.778122+00:00",
+    "workers": 4,
+    "worktree": {
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair",
+      "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair"
+    }
+  },
+  "audit_finished": {
+    "duration_seconds": 23909.63419175,
+    "event": "finished",
+    "evidence": [
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/compiler/obj/review-final/gnatprove",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/compiler/obj/review-final/gnatprove"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261107T065643-5c23478ef04b/native.log",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261107T065643-5c23478ef04b/native.log"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261107T065643-5c23478ef04b/previous-reports",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261107T065643-5c23478ef04b/previous-reports"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/compiler/obj/review-final/gnatprove/proof-provenance.json",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/compiler/obj/review-final/gnatprove/proof-provenance.json"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261107T065643-5c23478ef04b/proof-evidence",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261107T065643-5c23478ef04b/proof-evidence"
+      }
+    ],
+    "failure_keys": [],
+    "monotonic_ns": 97990564729192,
+    "outcome": "success",
+    "retained_reports": [],
+    "returncode": null,
+    "run_id": "20261107T065643-5c23478ef04b",
+    "utc": "2026-11-07T13:35:16.472950+00:00"
+  },
+  "audit_command": [
+    "gnatprove",
+    "-P",
+    "../../../silver.gpr",
+    "-U",
+    "--mode=all",
+    "--report=all",
+    "--warnings=error",
+    "--checks-as-errors=on",
+    "--level=2",
+    "--prover=cvc5,z3,altergo",
+    "--timeout=30",
+    "-j",
+    "4",
+    "--memcached-server=file:/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/proof-cache/gnatprove/ea6aba21eca447a9c8473fc1c3ea0300b03a95ce919d8a326f68a67989029329",
+    "-f",
+    "--subdirs=review-final",
+    "-XSILVER_HOST=linux-x86_64"
+  ],
+  "raw_spark_counts": {
+    "units": 76,
+    "entities": 2266,
+    "proof_records": 16168,
+    "flow_records": 1513
+  },
+  "record_severities": {
+    "proof": {
+      "info": 16168
+    },
+    "flow": {
+      "info": 1513
+    }
+  },
+  "original_required_assertion": [
+    {
+      "check_col": 32,
+      "check_file": "silver_output_profile.adb",
+      "check_line": 2179,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Timeout",
+              "steps": 1,
+              "time": 30
+            },
+            "Z3": {
+              "result": "Valid",
+              "steps": 3060,
+              "time": 1.41704
+            },
+            "altergo": {
+              "result": "Timeout",
+              "steps": 1,
+              "time": 30
+            }
+          },
+          "transformations": {}
+        }
+      ],
+      "col": 32,
+      "entity": 57,
+      "file": "silver_output_profile.adb",
+      "how_proved": "prover",
+      "line": 2179,
+      "message": {
+        "text": "assertion proved"
+      },
+      "msg_id": 1530,
+      "rule": "VC_ASSERT",
+      "severity": "info",
+      "stats": {
+        "Z3": {
+          "count": 1,
+          "max_steps": 3060,
+          "max_time": 1.41703796386719
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    }
+  ],
+  "repaired_primary_and_relation_assertions": [
+    {
+      "check_col": 35,
+      "check_file": "silver_output_profile.adb",
+      "check_line": 3661,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 24503,
+              "time": 94.6843
+            },
+            "Z3": {
+              "result": "Valid",
+              "steps": 723,
+              "time": 0.347563
+            },
+            "altergo": {
+              "result": "Valid",
+              "steps": 140779,
+              "time": 22.1784
+            }
+          },
+          "transformations": {}
+        }
+      ],
+      "col": 35,
+      "entity": 143,
+      "file": "silver_output_profile.adb",
+      "how_proved": "prover",
+      "line": 3661,
+      "message": {
+        "text": "assertion proved"
+      },
+      "msg_id": 2261,
+      "rule": "VC_ASSERT",
+      "severity": "info",
+      "stats": {
+        "Z3": {
+          "count": 1,
+          "max_steps": 723,
+          "max_time": 0.347562998533249
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 21,
+      "check_file": "silver_output_profile.adb",
+      "check_line": 3934,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Timeout",
+              "steps": 1,
+              "time": 30
+            },
+            "Z3": {
+              "result": "Valid",
+              "steps": 2444,
+              "time": 1.40625
+            },
+            "altergo": {
+              "result": "Timeout",
+              "steps": 1,
+              "time": 30
+            }
+          },
+          "transformations": {}
+        }
+      ],
+      "col": 21,
+      "entity": 88,
+      "file": "silver_output_profile.adb",
+      "how_proved": "prover",
+      "line": 3934,
+      "message": {
+        "text": "assertion proved"
+      },
+      "msg_id": 2358,
+      "rule": "VC_ASSERT",
+      "severity": "info",
+      "stats": {
+        "Z3": {
+          "count": 1,
+          "max_steps": 2444,
+          "max_time": 1.40625202655792
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 18,
+      "check_file": "silver_output_profile.adb",
+      "check_line": 3948,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 17036,
+              "time": 34.0753
+            },
+            "Z3": {
+              "result": "Timeout",
+              "steps": 1,
+              "time": 30
+            },
+            "altergo": {
+              "result": "Valid",
+              "steps": 45913,
+              "time": 8.42303
+            }
+          },
+          "transformations": {}
+        }
+      ],
+      "col": 18,
+      "entity": 88,
+      "file": "silver_output_profile.adb",
+      "how_proved": "prover",
+      "line": 3948,
+      "message": {
+        "text": "assertion proved"
+      },
+      "msg_id": 2376,
+      "rule": "VC_ASSERT",
+      "severity": "info",
+      "stats": {
+        "altergo": {
+          "count": 1,
+          "max_steps": 45913,
+          "max_time": 8.42302799224854
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    }
+  ],
+  "proof_provenance_sha256": "e447a0519a5be323e9dffcaaf69b9390a76dd38912431f30733cfc9c20c79d88",
+  "source_sha256": "7d39745bd9e2d57c573a1c398f9e0f07e486a9d482b60f1cd21fc436e48543f3",
+  "build_run_id": "20261107T133600-c3cee7a3d07c",
+  "binary_identities": {
+    "silver": {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/compiler/bin/silver",
+      "resolved_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/compiler/bin/silver",
+      "bytes": 2679200,
+      "sha256": "9ed78adbe8fa172a7d4e8738127d2b67b42c00444fa8499e008cd65a4fc49b18"
+    },
+    "silver_image_adapter": {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/compiler/bin/silver_image_adapter",
+      "resolved_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/compiler/bin/silver_image_adapter",
+      "bytes": 2018192,
+      "sha256": "8ca0b182d58b4b9ac51e50f2906e10de3dc95d8b02e5868ff8ef019925e9e9fd"
+    }
+  },
+  "cache_scope": "Complete forced-analysis audit with ordinary native sessions/cache reuse; not a cold proof measurement. The separately retained repaired-cache transfer record identifies missing-key-only additions from the idle experiment cache, without overwrites/key rewrites; ordinary GNATprove matching remains authoritative. Earlier cache transfers remain dated history in their original packets.",
+  "timing_scope": "Managed elapsed wall time on a shared Linux host; exact phases/settings are recorded in the captured managed events. This successful native run used stable captured source/options. Earlier failed/interrupted runs remain separate historical outcomes.",
+  "assurance_scope": "Complete native compiler/runtime audit and ordinary final build on the repaired captured inputs, following separate retained original failure and focused/whole-helper experiments. Complete Lean/source-correspondence and full regressions are separate root-owned evidence.",
+  "native_status": "?? tmp/",
+  "feature_status_before_retention": "?? docs/evidence/boolean-arrays-20261106/final-review/expected-modules.txt\n?? docs/evidence/boolean-arrays-20261106/final-review/lean-terminal-review-20261107.md\n?? docs/evidence/boolean-arrays-20261106/final-review/preclosing-delta-ce97ede446.json\n?? docs/evidence/boolean-arrays-20261106/final-review/preclosing-inputs.json\n?? docs/evidence/boolean-arrays-20261106/final-review/runtime-applicability-prebuild-9715e446.json\n?? docs/reviews/review-boolean-arrays-delivery-20261107.md\n?? tmp/",
+  "retention": "Success provenance and all complete .spark/SARIF/summary/input reports; exact managed logs/events compressed; selected source/input comparison and binary identities; earlier observations explicitly scoped."
+}

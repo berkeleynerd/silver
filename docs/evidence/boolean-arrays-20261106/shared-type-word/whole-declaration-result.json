@@ -1,0 +1,14 @@
+{
+  "run_id": "20261106T224836-6338c8d07171",
+  "outcome": "success",
+  "duration_seconds": 1032.687732975,
+  "source_sha256": "1686b0b61da8c684ce185995621fb08bc5a6932893d2cc859a82ced9922ce4e8",
+  "scope": "Complete Array_Declaration_At body2105, all runtime/static posts, original logical assertion2179 and equality bridge; normal30s/1000MiB/level2/3provers/4workers. GNATprove summary47checks.",
+  "proof_records": 45,
+  "flow_records": 2,
+  "all_proof_records_info": true,
+  "spark_snapshot": "tmp/boolean-array-producer/shared-boolean-word/whole-declaration.spark",
+  "spark_sha256": "9d50ca5dd88b573d5d157cb74ed1cae5fb1cd05d8041e3e0371f88e0839602a6",
+  "session_snapshot": "tmp/boolean-array-producer/shared-boolean-word/whole-declaration-why3session.xml",
+  "session_sha256": "ea7f6175de2c6e3604c2c7570df69ec0a75a06db52cf4cb898c3371e910ca1c6"
+}

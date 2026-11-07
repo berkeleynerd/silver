@@ -1,0 +1,15 @@
+{
+  "target_commit": "689aef86bf",
+  "changes_from_original_b63_inventory": [
+    "tests/test_silver.py"
+  ],
+  "all_other_captured_files": "byte-identical",
+  "selected_test_files": [
+    "tests/test_lean_evidence.py",
+    "tests/test_lean_modules.py"
+  ],
+  "selected_file_sha256": {
+    "tests/test_lean_evidence.py": "78b6700e401cd9c08ca0b869bf32edab148cccf49aaecb0f681f7f90910b7bd3",
+    "tests/test_lean_modules.py": "cb287c6dc17b7955edeb701775cc04ca4f92ede68a4393d7d77acd6b5ee67657"
+  }
+}

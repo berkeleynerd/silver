@@ -74,6 +74,8 @@ structure HelperMeaning (primitive : Primitives) : Prop where
     primitive.arrayTarget text context position = Predicate.arrayTarget text context.model position
   arrayAssignment : ∀ text context scan, ScalarAssignmentDomain text context scan →
     primitive.arrayAssignment text context scan = arrayAssignmentBody text context.model scan
+  booleanArrayAssignment : ∀ text context scan, ScalarAssignmentDomain text context scan →
+    primitive.booleanArrayAssignment text context scan = booleanArrayAssignmentBody text context.model scan
   fits : ∀ facts summary, primitive.fits facts summary = fitsLengthSummary facts summary
   sameLength : ∀ facts left right, primitive.sameLength facts left right = equalLengthIntervals facts left right
   reject : ∀ facts, primitive.reject facts = facts.reject
@@ -116,6 +118,8 @@ noncomputable def totalize (primitive : Primitives) : Primitives := by
       primitive.arrayTarget text context position else Predicate.arrayTarget text context.model position
     arrayAssignment := fun text context scan => if ScalarAssignmentDomain text context scan then
       primitive.arrayAssignment text context scan else arrayAssignmentBody text context.model scan
+    booleanArrayAssignment := fun text context scan => if ScalarAssignmentDomain text context scan then
+      primitive.booleanArrayAssignment text context scan else booleanArrayAssignmentBody text context.model scan
     fits := primitive.fits
     sameLength := primitive.sameLength
     reject := primitive.reject }
@@ -220,6 +224,12 @@ theorem totalize_equations {primitive : Primitives} (meaning : HelperMeaning pri
     split
     · exact meaning.arrayAssignment text context scan ‹_›
     · rfl
+  booleanArrayAssignment := by
+    funext text context scan
+    dsimp only [totalize]
+    split
+    · exact meaning.booleanArrayAssignment text context scan ‹_›
+    · rfl
   fits := funext fun facts => funext fun summary => meaning.fits facts summary
   sameLength := funext fun facts => funext fun left => funext fun right => meaning.sameLength facts left right
   reject := funext meaning.reject
@@ -249,6 +259,7 @@ theorem model_helper_meaning : HelperMeaning modelPrimitives where
   booleanAssignment _ _ _ _ := rfl
   arrayTarget _ _ _ _ := rfl
   arrayAssignment _ _ _ _ := rfl
+  booleanArrayAssignment _ _ _ _ := rfl
   fits _ _ := rfl
   sameLength _ _ _ := rfl
   reject _ := rfl

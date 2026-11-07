@@ -1,0 +1,1078 @@
+{
+  "review_target": "d3aafa4bafd6d94179eb74d883102f953b09afd7",
+  "base": "430d20668407a621945456743818172d02c8db6c",
+  "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays",
+  "captured_utc": "2026-11-06T19:55:11.680787+00:00",
+  "host": "Linux-7.0.14-x86_64-with-glibc2.43",
+  "scope_note": "Input envelope: all feature-diff paths plus unchanged governing and source-wiring files consulted. Inventory membership does not claim line-by-line review of every file; report identifies bounded review scope.",
+  "files": [
+    {
+      "path": "AGENTS.md",
+      "bytes": 8943,
+      "sha256": "ca6546bfb752045ab2e650e7748b026236ab585b94712b7e406bf31b073aef88",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "catalogue/silver.json",
+      "bytes": 74909,
+      "sha256": "5bd76b8e6f34f42ed6ed5e31c7e4be20169fc75ad7b1a315fc3e447719f33ba8",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "development.md",
+      "bytes": 27132,
+      "sha256": "b7b7b942b0aaf7610448c116698f26f6ba4ae711ca6d373e19371ddd849ee5c3",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "docs/agent-workflow.md",
+      "bytes": 4582,
+      "sha256": "4ea695f314d67b06f72d61146bbd6eea986cb8e0defc4449c99095b7edd5d3d7",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "docs/assurance.md",
+      "bytes": 94074,
+      "sha256": "6a3fde893e610b350e5ccabee7e7debc7d82b14ac1832bf4a147416501c7322f",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "docs/boolean-arrays-report-capacity.md",
+      "bytes": 6306,
+      "sha256": "5ceb33c30232cf8b04216c043d9f998ffd8d902cd767f9a82dde6d27838082a3",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "docs/boolean-arrays.md",
+      "bytes": 14437,
+      "sha256": "452e8626c1a8fd357b79f98cac28d6470ce24d93803e55ac0b70b2c74bdbd161",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "docs/evidence/boolean-arrays-20261106/capacity-review/arithmetic.json",
+      "bytes": 359,
+      "sha256": "62687b028531bfdccc14df564e5be9083b2603e0b60c8d115d5171af3ce1988a",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "docs/evidence/boolean-arrays-20261106/capacity-review/inputs.json",
+      "bytes": 8863,
+      "sha256": "15def71e774927bad214a0c1ae1bd0ce9dc402cb3bc69e18fc2b0d81a589559d",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "docs/evidence/boolean-arrays-20261106/semantic-review/input-inventory-end.json",
+      "bytes": 90159,
+      "sha256": "b270cfb3c24c9a7c45c29ddf64aeee46decc807e9ed9d1ac5c4cc36e00c479d6",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "docs/evidence/boolean-arrays-20261106/semantic-review/input-inventory-start.json",
+      "bytes": 90159,
+      "sha256": "d487c3b7db784dfed94ebd656ece3af83853fe5d1d1bc7d1c3bea1fe18d1b1f2",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "docs/evidence/boolean-arrays-20261106/semantic-review/reviewed-inputs.json",
+      "bytes": 13182,
+      "sha256": "89f3a5b276e8fcff782a177ada1f8b4dd9b44d5016494b0d88244583825eb53d",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "docs/reviews/review-boolean-arrays-capacity-20261106.md",
+      "bytes": 9728,
+      "sha256": "28b36d7ca29b2a581bc5e1e15f361c888d1db69e240aa78abfb864a20e0fefc1",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "docs/reviews/review-boolean-arrays-semantics-20261106.md",
+      "bytes": 9427,
+      "sha256": "f7bcca81644e60d9f0996ebfc30c362d9d74afa8c40848708e9ef5776ae75046",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "docs/reviews/review-source-tree-structural-guards-20261106.md",
+      "bytes": 8499,
+      "sha256": "54ac4b79c3c85d6f435e690c8904740c5a42105e7ebb5d0f1d7d1c023aad6021",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "docs/source-tree-structural-guards.md",
+      "bytes": 13574,
+      "sha256": "6c126c794efa2d0a7803f1616fce72431b97dc66ca2b35b19ea89e947118d965",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "docs/trusted-boundary.md",
+      "bytes": 104133,
+      "sha256": "0e9ebe1e084ca843bfef4eb31778bae2e85f05879bbee2d0c8056cfd6ced0186",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "language.md",
+      "bytes": 87181,
+      "sha256": "b2808bcc4274f22778316c2f844f3db7b20370b75607719d1b708f7496ee792f",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "oracle.md",
+      "bytes": 6308,
+      "sha256": "ef1e182ab8eedd8d259f5a7cff49a597e8b7ccfe207bdf11d7456003e0b6603a",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/ArrayBindings.lean",
+      "bytes": 35514,
+      "sha256": "5071507ea997a610a3d10eb9796e7ec0040d79fd81cd41dc8aa5add2d0cb97bc",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/ArrayBindingsRead.lean",
+      "bytes": 10165,
+      "sha256": "92c7426bfe9cc11892840b68aa925a11778794ce70d832de486bedab0bab7917",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/ArrayBindingsSourceChecks.lean",
+      "bytes": 22033,
+      "sha256": "e284a609e8436215e1cb7717945e62cce5084a464b92b6dd9334dfa5fe93eadb",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/BooleanArrayAssignments.lean",
+      "bytes": 3852,
+      "sha256": "aa328bf63ae7ace5c578000550d14b82f630732faf4d4608890fe22bbdac269d",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/BooleanArrays.lean",
+      "bytes": 9763,
+      "sha256": "c3d88434c123f2d448937e10a74075a82adeacee2bfd2121fc84c6216022e58b",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/BooleanBindings.lean",
+      "bytes": 4335,
+      "sha256": "c2dc39d6453d09891ba894bae7a8448cf3201dfb393aa19ce7b3576aaf9eaa7c",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/BooleanDeclarationObligations.lean",
+      "bytes": 1193,
+      "sha256": "4936fb81cd9d79ae088a1a1bbfed737b4da6217a569e88941c4e7cb2b39abc0e",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/BooleanDeclarations.lean",
+      "bytes": 28139,
+      "sha256": "93caba18d27df386f7383a5411a12e75393f75e58add6b60b22596605670ae18",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/BooleanFreezing.lean",
+      "bytes": 10311,
+      "sha256": "b8481a12db08dae75293ae2e30f8b0c91a07feed0893d24df47103b0afbf3e36",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/BooleanFreezingChecks.lean",
+      "bytes": 13100,
+      "sha256": "81a4ac2186681f191790c354fb774ecff699dfe4174c4aec9e01d3944388c020",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/BooleanModel.lean",
+      "bytes": 3222,
+      "sha256": "49ae6e26604f75fe79878ca9a1659c2e9c40f23f0c9e753736a911c2ab541392",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/BooleanShapeExtension.lean",
+      "bytes": 9762,
+      "sha256": "9a42e1c2ad901681547c700687ba00a43ca39ed1203eddba5a133ae63f5c803c",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/ComposeAdmission.lean",
+      "bytes": 51874,
+      "sha256": "c9b3f42eec1b460a2972d53997e5ec0748bfca6125c40e7416c338c1ceab5610",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/ComposeArrayDeclarationSource.lean",
+      "bytes": 3266,
+      "sha256": "b17f01f8511cf0f5e459d4fe779bb348cf0da9d43721b807f9439c368d9a67b8",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/ComposeArrayDeclarations.lean",
+      "bytes": 22609,
+      "sha256": "63da1e05a4e636b62b316dd81123a29ee62cdf9574c55412bfd65290c966f622",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/ComposeArrayDenotations.lean",
+      "bytes": 13709,
+      "sha256": "31f73c4e4c158823fd4fa94cef43cfa94f5a60af16b3d5ede2458b2cd9ab21c8",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/ComposeArrayEquations.lean",
+      "bytes": 28720,
+      "sha256": "709e67e196efcfb098057687ef2d3979dca57fb2d86fc021d83a5e5244d85681",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/ComposeArrayExpressions.lean",
+      "bytes": 16765,
+      "sha256": "24f8c654b5f13250dad2e8d5e4411acc3503d9d626f2a503ae076fc4c7fd3dc1",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/ComposeArrayModel.lean",
+      "bytes": 2838,
+      "sha256": "52a3bde644199ac43b3b529ecf85f08c7d8a4846ce8a0702577f25d2c2cd9cb7",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/ComposeArrayNativeBounds.lean",
+      "bytes": 11316,
+      "sha256": "0477593448ddbf1c8b6f060be03e93f20456366af99e5f8f4e469afbfce7d264",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/ComposeArrayStore.lean",
+      "bytes": 8758,
+      "sha256": "ef719198864dc31994155198b8f848972e25897e0cdb69eaca0aeab576f83879",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/ComposeAtoms.lean",
+      "bytes": 21006,
+      "sha256": "fcadf1b523d4b89635c70b25adf421e3fb06f87370cd6af08a6509f86f680b17",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/ComposeBooleanArrayDeclarations.lean",
+      "bytes": 12910,
+      "sha256": "6a1390e6d1920cdee639d484eb6b00ad7d27f94991dbc9dc59c02b733123a09b",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/ComposeBooleanArrayElaboration.lean",
+      "bytes": 12915,
+      "sha256": "61362a6e69b114eaf6bffe8e63518b3390590d370353d51129883f348c5be2b4",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/ComposeBooleanArrayHeaderChecks.lean",
+      "bytes": 2938,
+      "sha256": "1fa8d40f013d217a6abd518f42b1c2bd4ac7117c7be2164c7c42bb2d45c80237",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/ComposeBooleanArraySource.lean",
+      "bytes": 4662,
+      "sha256": "e0c10c8a63678957524a2e5797ecc455d83223e00d26d89894021e238a8664c9",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/ComposeBooleanArrayTrace.lean",
+      "bytes": 20215,
+      "sha256": "11a8b4e9e494d16d9cd21af961e87dbebd08c0d88255ed92ff0ca4d9753a69ea",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/ComposeBooleanInitializerLibraries.lean",
+      "bytes": 5581,
+      "sha256": "e2b2571d89e2decaa5a4a214abbf487cda2d6b1927f8fb67c07f7f26e166a405",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/ComposeBooleanInitializerNative.lean",
+      "bytes": 5328,
+      "sha256": "92732f55cf97931598de165d3678f4fef054a4b65b7e04db5d32ff156b61cec3",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/ComposeBooleanRegionTrace.lean",
+      "bytes": 23686,
+      "sha256": "48399a4f8ac4abb93c50fd8d11db4d5c3732d5346dbbe320a53504c72dad9338",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/ComposeBooleanTrace.lean",
+      "bytes": 9473,
+      "sha256": "ac5046d443cdb0c64c3e10506fb50c98e31d8e033b84834a2da76d6c706927c1",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/ComposeCharacterProperties.lean",
+      "bytes": 3997,
+      "sha256": "cec87da6c5671d66b2b7ae756a4fc4906160d183734b9861622f63f207aaab72",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/ComposeCharacterReading.lean",
+      "bytes": 16227,
+      "sha256": "4c6d12c382e90c24247b6a2023e9deff676eb34f06a131203563fc348cf0530b",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/ComposeContracts.lean",
+      "bytes": 41883,
+      "sha256": "dbf6b7780e150f65a8c712f96d32d9f0ea60490e78acc171b0cb01298bd75d82",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/ComposeDeclarationBounds.lean",
+      "bytes": 17064,
+      "sha256": "d3d7ec23c858c19c1fe697e8c13a836dd3e4418dd5180cdecb1b92183da77dbb",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/ComposeDeclarations.lean",
+      "bytes": 33977,
+      "sha256": "97b3695e860aad7539fff466d7c6d8d3080e35fbd6f208032bab3d2e6c235963",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/ComposeEquations.lean",
+      "bytes": 21731,
+      "sha256": "73bf553ce42bf5ade7bf38d88121747b08276ff840377aa36672ae5902a7a73b",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/ComposeEvaluation.lean",
+      "bytes": 80730,
+      "sha256": "0839183f82e6c0e13a67a79264565bc78860a36fe3421a23ea05323988d321f4",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/ComposeExpressions.lean",
+      "bytes": 152574,
+      "sha256": "ef3d28e23965842f94e07c57ad02a7a83ab419c3a16cf14c55a9ae0520e6d038",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/ComposeFrozenSemantics.lean",
+      "bytes": 5409,
+      "sha256": "646e6bd27d6b94a00b10d4e74719823141ec34fcb19090ef83cbc324651b8358",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/ComposeHelperSourceCandidate.lean",
+      "bytes": 45555,
+      "sha256": "10cf6a324c75f89f59e6bf1939d87c4deb5e7be95e0936f9d109220ec83188c2",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/ComposeIndexedReading.lean",
+      "bytes": 13884,
+      "sha256": "cd611e4064d29831960e205ab7d368659c9b2b1aeb05f2c3fdf91e7466616ad4",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/ComposeInitializerTrace.lean",
+      "bytes": 22009,
+      "sha256": "7ba815b2292119433e685cd2926e3355694ecce89c2f9efe22cd4431c7f39601",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/ComposeModelCalls.lean",
+      "bytes": 5641,
+      "sha256": "777ed0c6a26d62abb10f1c34874a6d89d252e6fae4ca2238e7a8cec22f46c9dc",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/ComposeModelHelperEquations.lean",
+      "bytes": 31355,
+      "sha256": "c708451814cf538ec1fb1c0fe124ea721538dd83d721910a118dc8d13149495a",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/ComposeNativeStateBounds.lean",
+      "bytes": 10350,
+      "sha256": "7aa397fece9ae20ca540b4ca8a4f4166a6e643be1c64ba7d0469e538e309e8d2",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/ComposeScalarTrace.lean",
+      "bytes": 21063,
+      "sha256": "1b5d36201dc507df5c1b180e5bb65bab635a9417ad0c7bd86c8515000ebb519a",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/ComposeSemantics.lean",
+      "bytes": 42505,
+      "sha256": "a70acc18d3edd5aa509ac629d4575de1000a760786c24e202be6659c447a0dad",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/ComposeSourceBridge.lean",
+      "bytes": 11587,
+      "sha256": "350c87778672d88188ffa1db4e8b394812c3ac485826695a6c0e869cd4fc3de0",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/ComposeSourceChecks.lean",
+      "bytes": 2929,
+      "sha256": "b8dc070b41390fd345867638038df0c51550ed717106a24eac125830fb30ba9c",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/ComposeStateBounds.lean",
+      "bytes": 41617,
+      "sha256": "d2850ce492fbeb21142ac757bef7cbd077afaae51bdfee4635dd4bfbc56647aa",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/ComposeStringAtomBounds.lean",
+      "bytes": 11878,
+      "sha256": "0cef4dc1854d3a7ffb3813072f2892d151b2786c254fb37c32d5b7d87fde7b93",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/ComposeStringBoundSafety.lean",
+      "bytes": 10580,
+      "sha256": "e55af2f93b4c744e93c8dee16844c9342903a198bad1bd969845d656e10a67ed",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/ComposeStringBounds.lean",
+      "bytes": 8954,
+      "sha256": "aec057f6f53342055231f8934bb251779b05c88ee381bc4c5ee849592681c862",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PathBounds.lean",
+      "bytes": 8256,
+      "sha256": "8de91e4a7f9de1fff51378ca64004c47eda3f52552abe36be18c703351ee0c77",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateArrayBodyNative.lean",
+      "bytes": 22030,
+      "sha256": "99829153410a6f1f1f9e5038daad2cdb8ea481a26e733b227e5a21f69d80e4f7",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateArrayBodySource.lean",
+      "bytes": 18058,
+      "sha256": "6067130753ad1f96b003606fd22f1df55e786f2e324efff93704a073176a274b",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateArrayFlow.lean",
+      "bytes": 7697,
+      "sha256": "2fada34965b25743584bb2be3d4dd52e2f2a267c27a763354995b5e74f7c7475",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateBasicEquations.lean",
+      "bytes": 6820,
+      "sha256": "4346adb7976c586dbda567bb7847ddddd682100590ed9e5350b7ef00fd0b9c3a",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateBasicExpressions.lean",
+      "bytes": 17728,
+      "sha256": "2b6e19ac9260fb89513ed816ccc6de63e7327bf1d30582b06856fb9b8586545f",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateBasicHelpers.lean",
+      "bytes": 16347,
+      "sha256": "408b91055e8e4a62c893f8e5a553fa05b55602db3a50facc5e227534105a30ae",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateBasicLibraries.lean",
+      "bytes": 14427,
+      "sha256": "3b2790f4729397996879c5ec63bf0580e6fe666346057097f6384e98af5c7a10",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateBasicReadings.lean",
+      "bytes": 37420,
+      "sha256": "767d58adb748b6f58df30f395a37d1f2b434a0fbb4f88ad6bcc1cebce5f8a074",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateBasicSizing.lean",
+      "bytes": 3619,
+      "sha256": "1cd9c3abcf65ab77dfe068a412fdcfe5b726380330f4f1982faa77fd2e1e88af",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateBasicSourceCandidate.lean",
+      "bytes": 9710,
+      "sha256": "dc87f2a0ba7b67cc60707bf352a002fc0567657ac91fa9270ab3f1728555a394",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateBodyAdmission.lean",
+      "bytes": 26447,
+      "sha256": "d154d6afc6bdb4cb98959c9346e82f52ac6c884417b0af1e9cfc3d3488641975",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateBodyBounds.lean",
+      "bytes": 7653,
+      "sha256": "9bbd1fea96349ef84104187f600ead7be3ea02ab9993df5412d574d9622bc8b0",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateBodyControls.lean",
+      "bytes": 7654,
+      "sha256": "bfa45449990764ebe6182a692744ce844225f12a99047f559af1ee3e139674bc",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateBodyFlow.lean",
+      "bytes": 8776,
+      "sha256": "4fb2a9aa19b78707be26ce987f8486190ec485f4f98646db9c4bab2dd93beeae",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateBodyFlowValidity.lean",
+      "bytes": 8238,
+      "sha256": "4d69861bb350c6f39fa9fe3b3b7e36807d27c3cd506f015a0cdd04801fde106c",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateBodyMeaning.lean",
+      "bytes": 39345,
+      "sha256": "93d5c04a663cd32dc4779f7ad564e60e19f0fd6508735dfd15172954784c8f1c",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateBodyProperties.lean",
+      "bytes": 21012,
+      "sha256": "7781dc16adccbc050bf4fa8aaf557f216de48141ac55ea5f066ff58c0d32813a",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateBooleanArrayBodyHelpers.lean",
+      "bytes": 9146,
+      "sha256": "02f0d3dfa32011d948c2ae68a29d4ef9b5486c513e44050d49c6dbd26b2910eb",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateBooleanArrayBodyLibraries.lean",
+      "bytes": 3447,
+      "sha256": "fee6d97cb5ea5f8efab52b73930e448dd2a205b761c4ce4bf537f4ee13c25407",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateBooleanArrayBodyNative.lean",
+      "bytes": 18610,
+      "sha256": "f8b6096debcb94a6a6ba4291ad45df0c698d0e5ff30b7c8b5459ed600629745c",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateBooleanArrayBodySource.lean",
+      "bytes": 3003,
+      "sha256": "3fd4acd4e86e03dbb5d4f1d92b10ccd4e2d10de93b69a8163e9977ac04240ef3",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateBooleanHeader.lean",
+      "bytes": 9257,
+      "sha256": "1775c4a378c5a7872400047404ff79a1a10050c8528a4722e897c6ecdecc371b",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateCharacterReadings.lean",
+      "bytes": 8017,
+      "sha256": "e160b7cf590d7059f65724403324142dcbca0daf7288c3465410e637ac5ea0c2",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateChecking.lean",
+      "bytes": 31904,
+      "sha256": "698bc3cd04f7d90439b0411c003b04d4bb56cb108f9e40ca1ccd1c6e844871ac",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateChecks.lean",
+      "bytes": 12754,
+      "sha256": "89e920da73e13b63d0636080fddd1ecf78b71579eb4aee912326c620087c61ef",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateComposition.lean",
+      "bytes": 23655,
+      "sha256": "ac227c0478e4005cb83e555da2d3b2a0b6dbaa72c79e78a1258bc011405e8459",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateConditionAdmission.lean",
+      "bytes": 22840,
+      "sha256": "76c105e34fcd2ec80c8c8ed19ca97341530b46b2012401e4aa59adb3fd8fd7d7",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateConditionBounds.lean",
+      "bytes": 7733,
+      "sha256": "3f6edb6142cddeedfb6b5064df6081e13d51753a0ebb4da003a9090c1d738169",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateConditionFlow.lean",
+      "bytes": 8247,
+      "sha256": "40ab7ec89d416f05559caab8d6e1a70ac59c8f88c8eb740b8f08cc66a86fd278",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateConditionFlowValidity.lean",
+      "bytes": 15315,
+      "sha256": "3c3b8d1df6101bbd45927412b8a0b0ff1bf2a4af6e983767217f254a26937309",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateConditionMeaning.lean",
+      "bytes": 6250,
+      "sha256": "20c35a7d113dc57ee64b801d711ca59a8c0b40621a75b95fd4b6ce14f8671919",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateConditionReadings.lean",
+      "bytes": 24449,
+      "sha256": "0ccb1aa9bb0c858fc14d61a66f86abff1070b63e64a7234e9ee2311715873e24",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateConditionSound.lean",
+      "bytes": 36651,
+      "sha256": "d07dda02b8e56d8fe54ac7675b61af8f4fc7baaefb9e64e36d4ae798ca225466",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateConditionUnique.lean",
+      "bytes": 14367,
+      "sha256": "fe366c26ddff4828391499e0efa113a15cb963e66ab3ff35fd2cfa6ba61bcac6",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateConditionValidity.lean",
+      "bytes": 21141,
+      "sha256": "adf7e2c244a1bbd5ad93630a483e9bec1ebb14def655c4eab8de5c2e766e1754",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateEquations.lean",
+      "bytes": 17465,
+      "sha256": "fad0aae90e66f82baa21bc9e7680abf89c90b631291610d073fa7095301b76b1",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateExecution.lean",
+      "bytes": 61039,
+      "sha256": "6f5fd88b777291583e37f7aeebfda6f0aeb70fb70c8984fe7b7c27ef94080690",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateGrammar.lean",
+      "bytes": 17719,
+      "sha256": "380e20b5b562a121cb83fe096406911a79b1efca37fd553df4b036c5cb18aad8",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateHeaderDecode.lean",
+      "bytes": 6359,
+      "sha256": "55eef1d8700d2a39879af62f5d086becd4bb2b3615777839cd2a6c60ef4a68ce",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateHeaderFlow.lean",
+      "bytes": 8653,
+      "sha256": "c1823faa758c87232c13fc124a6200736d13bda6b1e6283716a1b9ab165ea12f",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateInheritedReady.lean",
+      "bytes": 15745,
+      "sha256": "4da97acab5933c5073851be2836f2a36820723a9598fceddf4d3dd0d76d985e1",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateLoopCandidate.lean",
+      "bytes": 10006,
+      "sha256": "a45cc0b73af73ecbd7860556aa719f2632e2083bf95f1748486220e559e6bd37",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateLoopNative.lean",
+      "bytes": 49194,
+      "sha256": "d0d6ef69ef120d4965b23b0810c06dd94b407ccaae5a4b2b21d050fc932d1a9c",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateNativeBodies.lean",
+      "bytes": 22341,
+      "sha256": "111d183a670330985b14f4920a6666e8a2994aae3411e91bde3f81f750ad57b8",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateNativeContracts.lean",
+      "bytes": 9239,
+      "sha256": "284b391102887f67fcb02d378b11027e87c7e0bde2794d1c274cfbb5a286d0fd",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateNativeEquations.lean",
+      "bytes": 32248,
+      "sha256": "e04eb2491d1d6e2513f709ad0c1326417c4344dcf0d0897a5d639980f88e1716",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateNativeExpressions.lean",
+      "bytes": 39593,
+      "sha256": "96bc2c00a611eda6c2c846f0b24f10685abc309ddffbb1f08038acfbf8808d57",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateNativeHelpers.lean",
+      "bytes": 41084,
+      "sha256": "ed02066ede0d0b0cef08f1833a9ab9b551a03b6420b73b0c082ea5bedc345daa",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateNativeLibraries.lean",
+      "bytes": 20432,
+      "sha256": "5cb0065d941035f64a6d3a18b5dbd67c778ea338e7456fb3aab3cbab004fc294",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateNativeModel.lean",
+      "bytes": 21975,
+      "sha256": "cdc80decad8daf269ae7fdb5af03d3a12f6d60beb727d6b70e500ae289a6bdef",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateNativeModelSizing.lean",
+      "bytes": 9006,
+      "sha256": "7c0bc19da9b6ddb2dbcfc4fbd2aa66e7fd0ce39774b168b24bd8e56ce052cdf3",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateNativePrecedence.lean",
+      "bytes": 8765,
+      "sha256": "49c55b423c88c895ed0bd2eb03ea9c6fae42279e52dfd8f272a5c2a29083ceed",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateNativeProgress.lean",
+      "bytes": 9136,
+      "sha256": "5f13c27122ffdbf575aead22aa6a38c2df30511c5ac0699448d6522ffecb311d",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateNativeShapeCandidate.lean",
+      "bytes": 24001,
+      "sha256": "8017061d7b5e67529c9c75daf214dbe0c2f0bdfa8fd85413f935447a2e4dfec1",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateNativeSizing.lean",
+      "bytes": 3314,
+      "sha256": "3ab50bf1725a2e8f21c077d8be3cfbb93dd5a43c577897647d4ded17c2631e76",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateNativeSourceChecks.lean",
+      "bytes": 23632,
+      "sha256": "5b7f3ce573bef9bb3ad953163fc18057654a2a229d8dc8703fa9d8a4413455ce",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateNativeState.lean",
+      "bytes": 6493,
+      "sha256": "fe1596c4b7d6c4a44347edbc23a7fe96c21d59f65173265d6f629991f2436561",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateObligations.lean",
+      "bytes": 19624,
+      "sha256": "90b3a9f474e4b00026bb367965ec1cafd0e5ba79efb032cb3babaa39c3ee15e4",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateOuterReadiness.lean",
+      "bytes": 8175,
+      "sha256": "418ee5d3457e56a3965a0fc757b15f1edd5fc5221dc50162edf09964d35f2f66",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateReadings.lean",
+      "bytes": 8109,
+      "sha256": "b9528433c89c5eed75fb32795f2bf5d48564328a10f61e0e0bfd3b54f0722010",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateScalarBodyCandidate.lean",
+      "bytes": 1496,
+      "sha256": "fa1d89fbe3b764b785a2ea779bb7310e661be5210cfdb3a33a2747e147de62f7",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateScalarBodyHelpers.lean",
+      "bytes": 12387,
+      "sha256": "3714355cf59c0082318ac6c40ae0f4c3ed415eb6f83a7f951d15dfd0af62e7fc",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateScalarGuardMeaning.lean",
+      "bytes": 22103,
+      "sha256": "8e0083dc735470617d016e9f98763dc5ff3a47abaa490efe8c998e856a3a1c12",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateSemantics.lean",
+      "bytes": 13939,
+      "sha256": "07fda4391fb7d503a5ead9cd145314fab2c734a1ca8447d13da6151ccc4f29ce",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateSourceBridge.lean",
+      "bytes": 6668,
+      "sha256": "a4e004c2bab2ec9cf799dde9711c6def19f530d993df50bb18fec73ddd77124c",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateSourceCandidate.lean",
+      "bytes": 15869,
+      "sha256": "de41733050d4c5bccde81d7bf895c665ebd3e4fcac56a3273a73edf0b115ff9a",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateSourceChecks.lean",
+      "bytes": 1652,
+      "sha256": "e78f63f5a603b64fa5efb52dde9edd20d86021541471e8957731ff3194881ad0",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateSourceRequirements.lean",
+      "bytes": 39777,
+      "sha256": "84d72f43375f02432e71ea016a8be7a0058832a6303d4b42ee3dbfe3798618ce",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateSourceSyntax.lean",
+      "bytes": 14849,
+      "sha256": "0c7055b9815b7468bf48666f172e71814c7925f87087bd1932e6966e8ec4bc13",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateStatements.lean",
+      "bytes": 25853,
+      "sha256": "5ba5be10db5d51ef8d68682b2d4ba22d0d12e1385ec60dbd0ad3aa7950601333",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateStringActualExecution.lean",
+      "bytes": 10080,
+      "sha256": "186e72c910493f7e6f8c646bb9e5263bf3bfd919275413d73382348f8bd25a32",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateStringActualInitializers.lean",
+      "bytes": 27425,
+      "sha256": "88936ecae5152ab90e1fe6cd574935a2acf73940166e55ca5adf1668b5248e9a",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateStringAssignmentMeaning.lean",
+      "bytes": 9625,
+      "sha256": "b8f60c64b647cccca8116e6756a4b69e8ff3a956426efc432305c1e005bab494",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateStringBoundsExecution.lean",
+      "bytes": 22006,
+      "sha256": "1b12dedcac96240e4f44b4930f41b892e933210a7954e0ddf5069aee94dda266",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateStringBoundsSources.lean",
+      "bytes": 95686,
+      "sha256": "146fd78321632e27a286b2d9d721106a1c2af396a1066d33cc4a10dafeae5d75",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateStructuralGuards.lean",
+      "bytes": 24039,
+      "sha256": "b65482ec8ee4a9106adea803db42c94276e13a13ea7fa80d8cdcd2fef811921c",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateSyntax.lean",
+      "bytes": 5052,
+      "sha256": "7a006dcb619d39a74811b7dde4442f48f24c19bc44d849217b006b9a00a57d25",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/ReviewedOutputShape.lean",
+      "bytes": 496956,
+      "sha256": "1c8e43d9d0b92436bcc66a10bbb3323889037e89b1dbf6e9f0700f8e065aa060",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/ScalarArrayExpressionGrammar.lean",
+      "bytes": 10878,
+      "sha256": "2f8a06e09eb95b008ac834f8202cd23228cceb8f0152b43a0045066eca49deb2",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/ScalarArrayExpressionRecognition.lean",
+      "bytes": 22480,
+      "sha256": "924520efef0e57c1aa55a7124da87a38a883d00f8cf1f681c99cad2125b00fdd",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/ScalarExpression.lean",
+      "bytes": 15815,
+      "sha256": "a2b46e0f369bc129f045f541b724fce39c3a565a28dd6329cb87369a7bd3350f",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/ScalarExpressionAdmission.lean",
+      "bytes": 12133,
+      "sha256": "9414d64147efcebd48d19468601262ae9be71591bc9c57ce57b653843c878cca",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/ScalarExpressionNativeArrayAlgebra.lean",
+      "bytes": 9623,
+      "sha256": "9ff89489c86819e41d0beda8d3a2e1ec1b5157da34325d229dc46925a7642968",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/ScalarExpressionNativeArrayAtoms.lean",
+      "bytes": 14248,
+      "sha256": "6411b1b6d3701584ac68501deb58057dd8c1d9906b1bf2c0276b2f3e8814c490",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/ScalarExpressionNativeArrayRecursion.lean",
+      "bytes": 17173,
+      "sha256": "16f8ad97097c6a682dd0ef2a9b33a21b300600b0da8786777910526bf406b85b",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/ScalarExpressionNativeDenotations.lean",
+      "bytes": 14224,
+      "sha256": "0c2df3ae79d3a1f85499288c26fce1dda36f2980109c0c9382ae4a9bb9d7d140",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/ScalarExpressionNativeEquations.lean",
+      "bytes": 37628,
+      "sha256": "54c1bf53858c25cad4a33300d016b40f742bf13838550942cf1ecc4b30aab839",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/ScalarExpressionNativeExpressions.lean",
+      "bytes": 38421,
+      "sha256": "da6c59feb08174f56c73bc2579b2b598dc4decdee6a4ed9b52ec70b661594f80",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/ScalarExpressionNativeModel.lean",
+      "bytes": 14232,
+      "sha256": "95d7a2cf7eb652a18bb1459598e33d6c4edbdbe359fc03fe2f12469b8549cc5e",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/ScalarExpressionSourceBridge.lean",
+      "bytes": 8764,
+      "sha256": "139094680556c6dbbf18cae81bac342fd537c4ef84017a5dd7f848902349e734",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "proof/Silver/ScalarExpressionSourceShape.lean",
+      "bytes": 35791,
+      "sha256": "16d8f441eb614d43a3cd901a276c00cff5761720f4458ad63346595b1adad1f1",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "roadmap.md",
+      "bytes": 79934,
+      "sha256": "3acb45cb8cbcbc76acbaf1d02f63dab5305339b2294e7b4ef7c0389ac2275941",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "rosetta/assessment-boolean-arrays-20261106.md",
+      "bytes": 3569,
+      "sha256": "70d6f5e3831a769f1edfb6ade1fede75642030b533b9271420c766d25dd16f50",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "samples/manifest.json",
+      "bytes": 78943,
+      "sha256": "2ea1b8fbf6aae530893d572e4a8d7fdc9a4d3aa0c8d9b1070d272c545f8c287e",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "samples/rosetta_elementary_cellular_automaton.adb",
+      "bytes": 2256,
+      "sha256": "179084724993f570be4d6f110269f30f6b575524564d18eaebdc7fb86c5b5a6d",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "samples/rosetta_sieve_of_eratosthenes.adb",
+      "bytes": 1300,
+      "sha256": "12951fd73e37ccb9c44002689465f4f2df0fe3423f620cacb3f51e7b8fab3230",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "src/silver_array_bindings.ads",
+      "bytes": 6060,
+      "sha256": "39ee0b705e340923abacd4d5d49667d8c4b08568cdede75c23ee4e13b473baf9",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "src/silver_catalogue.adb",
+      "bytes": 114564,
+      "sha256": "7027cee26a7e6b1dfd1613f4fa1bc81552d493474192d3ee91cb00ca1d5a9f67",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "src/silver_output_profile.adb",
+      "bytes": 311871,
+      "sha256": "d82f6880924196f6fccc2077ed86b71c6a31683d72b8e2a935d494b7d62296f4",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "src/silver_scalar_expressions.adb",
+      "bytes": 19316,
+      "sha256": "0bf741545fc672985a51dabdc1d27ba48af6a4e0d24f977c0782c0ec89579a4e",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "tests/test_boolean_arrays.py",
+      "bytes": 9403,
+      "sha256": "2ead0a3908ebbf7b3dd0c414a4a3cce07492f9e1972864f7d4a393940619b69f",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "tests/test_boolean_objects.py",
+      "bytes": 19782,
+      "sha256": "9391297f686999c952f67046181ba7066d098527061ce656cb4dc9ebe3d07d36",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "tests/test_samples.py",
+      "bytes": 11165,
+      "sha256": "02910f015be7c9911493e6f0acd9e564498dd12ab5aadf43757b4d560b69b2ec",
+      "live_matches_review_commit": true
+    },
+    {
+      "path": "tests/test_silver.py",
+      "bytes": 40624,
+      "sha256": "1b6fa3f2be48c645d99e3d75a46dc59832d62f7cf199cc37ab809c45ff5ef773",
+      "live_matches_review_commit": true
+    }
+  ]
+}

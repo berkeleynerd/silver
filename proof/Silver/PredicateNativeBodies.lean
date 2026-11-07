@@ -61,6 +61,38 @@ def lengthBody : Expr .length :=
         (.length (.callTake text (.callTake text after (.token .apostrophe)) (.token .lengthName))
           (.callBound (.bindingAt names index))))
 
+/-- The source Boolean component helper keeps its scalar-only subscript and
+native mask arguments explicit. -/
+def booleanArrayBody : Expr .number :=
+  let text : Expr .source := .variable "text"
+  let context : Expr .context := .variable "context"
+  let position : Expr .number := .variable "position"
+  let facts : Expr .facts := .variable "facts"
+  let first : Expr .number := .variable "first"
+  let after : Expr .number := .variable "after"
+  let target : Expr .number := .variable "target"
+  let subscript : Expr .scalarResult := .variable "subscript"
+  let close : Expr .number := .variable "close"
+  let item := Expr.arrayBindingAt (.field .contextArrays context) target
+  .locals <| .local "first" ["literal_position"] (.callSkip text position) <|
+    .local "after" ["literal_position"] (.callNameAfter text first) <|
+    .local "target" ["array_bindings", ".", "binding_count"]
+      (.callArrayLookup text (.field .contextArrays context) first after) <|
+    .local "subscript" ["scalar_expressions", ".", "expression_result"]
+      (.callScalarIndex text (.callTake text after (.token .leftParenthesis))
+        (.callReadingNames context facts) (.field .contextMaskFirst context) (.field .contextMaskAfter context)) <|
+    .local "close" ["literal_position"]
+      (.callTake text (.field .scalarAfter subscript) (.token .rightParenthesis)) <|
+    .group <| .ite
+      (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse
+        (.orElse (.orElse (.eq first (.number 0)) (.le after first)) (.eq target (.number 0))) (.not (.field .arrayBooleanElements item)))
+        (.ne (.callScalarLookup text (.field .contextScalarNames context) first after) (.number 0)))
+        (.group (.andThen (.ne (.field .contextMaskFirst context) (.number 0))
+          (.callEqualName text (.field .contextMaskFirst context) (.field .contextMaskAfter context) first after))))
+        (.eq (.field .scalarOperands subscript) .maxScalarOperands))
+        (.not (.app (.app (.function .arrayContains) item) (.field .scalarBounds subscript))))
+        (.le close position)) (.number 0) close
+
 def booleanAtomBody : Expr .number :=
   let text : Expr .source := .variable "text"
   let context : Expr .context := .variable "context"
@@ -100,6 +132,8 @@ def primaryBody : Expr .condition :=
         .localCondition "result" (.field .flowCount facts) (.callModel text context after facts (.variable "initials")) <|
         .local "close" ["literal_position"] (.callTake text (.field .conditionAfter result) (.token .rightParenthesis)) <|
         .group <| .ite (.eq close (.number 0)) (.invalid facts) (.updateAfter result close))
+      (.elsif (.ne (.callBooleanArray text context position facts) (.number 0))
+        (.condition false (.field .flowCount facts) (.callBooleanArray text context position facts) facts facts)
       (.elsif (.ne (.callBooleanAtom text context position) (.number 0))
         (.condition false (.field .flowCount facts) (.callBooleanAtom text context position) facts facts)
       (.elsif (.eq (.field .dynamicFirst context) (.number 0)) (.invalid facts)
@@ -112,7 +146,7 @@ def primaryBody : Expr .condition :=
             (.field .contextBooleans context)) <|
           .group <| .ite (.eq afterCall (.number 0)) (.invalid facts)
             (.condition true (.field .flowCount facts) afterCall
-              (.updatePath facts (.callAssumeValid path)) (.updatePath facts (.callAssumeInvalid path))))))
+              (.updatePath facts (.callAssumeValid path)) (.updatePath facts (.callAssumeInvalid path)))))))
 
 def booleanFactorBody : Expr .condition :=
   let text : Expr .source := .variable "text"

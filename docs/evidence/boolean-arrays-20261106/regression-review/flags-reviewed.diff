@@ -1,0 +1,52 @@
+diff --git a/proof/Silver/PredicateFlags.lean b/proof/Silver/PredicateFlags.lean
+index e79073d003..6f3526113d 100644
+--- a/proof/Silver/PredicateFlags.lean
++++ b/proof/Silver/PredicateFlags.lean
+@@ -22,7 +22,8 @@ def Flag.observe (flag : Flag) (scan : BodyScan) : Bool :=
+ mutual
+   def Flag.source (flag : Flag) : SourceStatement → Bool
+     | .simple item => flag.simple item
+-    | .scalarAssign _ | .arrayAssign _ | .booleanAssign _ => flag == .assignment
++    | .scalarAssign _ | .arrayAssign _ | .booleanAssign _ | .booleanArrayAssign _ =>
++        flag == .assignment
+     | .reject => false
+     | .choice _ yes tail => flag.sources yes || flag.alternative tail
+     | .forLoop _ _ _ _ body | .arrayLoop _ _ _ body => flag.sources body
+@@ -111,6 +112,15 @@ theorem basic_flags {text context scan item result} (parsed : BasicAt text conte
+         rw [← resultEq]
+         simp only [bodyToken_flags, Flag.source]
+         cases flag <;> simp [Flag.observe]
++  | booleanArrayAssignment kind indexed condition =>
++      simp only [basicRaw, kind, booleanArrayAssignmentBody] at raw resultEq
++      split at raw
++      · exact False.elim (raw rfl)
++      · rename_i good
++        rw [ite_eq_right good] at resultEq
++        rw [← resultEq]
++        simp only [bodyToken_flags, Flag.source]
++        cases flag <;> simp [Flag.observe]
+   | assignment kind reading =>
+       have positive : (stringAssignmentBody text context scan).position ≠ 0 := by
+         simpa only [basicRaw, kind] using raw
+diff --git a/proof/Silver/PredicateSelectors.lean b/proof/Silver/PredicateSelectors.lean
+index d98aab3da2..6a3811f289 100644
+--- a/proof/Silver/PredicateSelectors.lean
++++ b/proof/Silver/PredicateSelectors.lean
+@@ -47,7 +47,8 @@ theorem accepted_form_unique {source : Source} {first second : Form}
+ mutual
+   def Flag.statement (flag : Flag) : Statement → Bool
+     | .simple item => flag.simple item
+-    | .scalarAssign _ | .arrayAssign _ | .booleanAssign _ => flag == .assignment
++    | .scalarAssign _ | .arrayAssign _ | .booleanAssign _ | .booleanArrayAssign _ =>
++        flag == .assignment
+     | .reject => false
+     | .choice _ yes no => flag.statements yes || flag.statements no
+     | .forLoop _ _ _ _ body | .arrayLoop _ _ _ body => flag.statements body
+@@ -65,6 +66,7 @@ mutual
+     | simple item => simp only [SourceStatement.lower, Flag.statement, Flag.source]
+     | scalarAssign update => simp only [SourceStatement.lower, Flag.statement, Flag.source]
+     | booleanAssign update => simp only [SourceStatement.lower, Flag.statement, Flag.source]
++    | booleanArrayAssign update => simp only [SourceStatement.lower, Flag.statement, Flag.source]
+     | arrayAssign update => simp only [SourceStatement.lower, Flag.statement, Flag.source]
+     | reject => simp only [SourceStatement.lower, Flag.statement, Flag.source]
+     | choice condition yes tail =>

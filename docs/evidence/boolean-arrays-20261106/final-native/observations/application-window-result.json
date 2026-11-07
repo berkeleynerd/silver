@@ -1,0 +1,357 @@
+{
+  "scope": "Bounded two native executable methods, two new Rosetta samples and three concrete8MiB stack observations. Not complete compiler/fullregression/universal-stack assurance.",
+  "source_sha256": "d82f6880924196f6fccc2077ed86b71c6a31683d72b8e2a935d494b7d62296f4",
+  "compiler_sha256": "1cf857171f9af64e20bfdb2fb2a32e411ceefc67a26168acf5e1fa83961d0796",
+  "managed_results": {
+    "native": {
+      "run_id": "20261106T223551-ec0497ae9df1",
+      "outcome": "success",
+      "duration_seconds": 30.339085451,
+      "directory": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261106T223551-ec0497ae9df1"
+    },
+    "samples": {
+      "run_id": "20261106T223701-4e3560c38c8d",
+      "outcome": "success",
+      "duration_seconds": 31.172328745,
+      "directory": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261106T223701-4e3560c38c8d"
+    },
+    "stack": {
+      "run_id": "20261106T223744-e0c6eddfa117",
+      "outcome": "success",
+      "duration_seconds": 104.148292632,
+      "directory": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261106T223744-e0c6eddfa117"
+    }
+  },
+  "samples": [
+    {
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/samples/rosetta_sieve_of_eratosthenes.adb",
+      "source_bytes": 1300,
+      "source_sha256": "12951fd73e37ccb9c44002689465f4f2df0fe3423f620cacb3f51e7b8fab3230",
+      "compiler_sha256": "1cf857171f9af64e20bfdb2fb2a32e411ceefc67a26168acf5e1fa83961d0796",
+      "phases": [
+        {
+          "action": "check",
+          "returncode": 0,
+          "duration_seconds": 0.08141280800191453
+        },
+        {
+          "action": "compile",
+          "returncode": 0,
+          "duration_seconds": 11.465222849001293
+        }
+      ],
+      "audit": {
+        "units": 5,
+        "entities": 17,
+        "flow_checks": 19,
+        "proof_checks": 51,
+        "limitation_notes": 0,
+        "imported_entities": 6,
+        "trusted_math_notes": 0,
+        "vendor_spec_entities": 0,
+        "array_initialization_advisories": 0,
+        "assignment_advisories": 1,
+        "image_advisories": 1
+      },
+      "execution": {
+        "returncode": 0,
+        "stdout_bytes": 96,
+        "stderr_bytes": 0
+      },
+      "executable_sha256": "c4c3d4faa49845f27a6200ee761b668be1475e01b6c3d88bf35e78eaae6fb66e",
+      "workspace": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/program-uEymvL"
+    },
+    {
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/samples/rosetta_elementary_cellular_automaton.adb",
+      "source_bytes": 2256,
+      "source_sha256": "179084724993f570be4d6f110269f30f6b575524564d18eaebdc7fb86c5b5a6d",
+      "compiler_sha256": "1cf857171f9af64e20bfdb2fb2a32e411ceefc67a26168acf5e1fa83961d0796",
+      "phases": [
+        {
+          "action": "check",
+          "returncode": 0,
+          "duration_seconds": 0.052887259000272024
+        },
+        {
+          "action": "compile",
+          "returncode": 0,
+          "duration_seconds": 11.126151907999883
+        }
+      ],
+      "audit": {
+        "units": 5,
+        "entities": 17,
+        "flow_checks": 19,
+        "proof_checks": 54,
+        "limitation_notes": 0,
+        "imported_entities": 6,
+        "trusted_math_notes": 0,
+        "vendor_spec_entities": 0,
+        "array_initialization_advisories": 6,
+        "assignment_advisories": 14,
+        "image_advisories": 1
+      },
+      "execution": {
+        "returncode": 0,
+        "stdout_bytes": 1081,
+        "stderr_bytes": 0
+      },
+      "executable_sha256": "237e882833641392c2d0ca2dfa4d7056ce102676724fcc7f794ecc72db0cc167",
+      "workspace": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/program-8Z37qT"
+    }
+  ],
+  "stack": [
+    {
+      "binary": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/compiler/bin/silver",
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/stack-fixtures/counted.adb",
+      "bytes": 4096,
+      "binary_sha256": "1cf857171f9af64e20bfdb2fb2a32e411ceefc67a26168acf5e1fa83961d0796",
+      "source_sha256": "9d6ff3adb364f806f08feb491a34993805b526682b497271a42e8f06bb190e5f",
+      "stack_kib": 8192,
+      "cpu_affinity": [
+        0,
+        1
+      ],
+      "shell_text": "ulimit -s 8192 || exit; ulimit -s; exec \"$@\"",
+      "observations": [
+        {
+          "name": "check",
+          "command": [
+            "bash",
+            "-c",
+            "ulimit -s 8192 || exit; ulimit -s; exec \"$@\"",
+            "silver-stack-observation",
+            "taskset",
+            "-c",
+            "0,1",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/compiler/bin/silver",
+            "check",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/stack-fixtures/counted.adb"
+          ],
+          "returncode": 0,
+          "elapsed_seconds": 0.06134395399567438,
+          "output_file": "check.log"
+        },
+        {
+          "name": "compile",
+          "command": [
+            "bash",
+            "-c",
+            "ulimit -s 8192 || exit; ulimit -s; exec \"$@\"",
+            "silver-stack-observation",
+            "taskset",
+            "-c",
+            "0,1",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/compiler/bin/silver",
+            "compile",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/stack-fixtures/counted.adb"
+          ],
+          "returncode": 0,
+          "elapsed_seconds": 22.455591778998496,
+          "output_file": "compile.log"
+        },
+        {
+          "name": "execute",
+          "command": [
+            "bash",
+            "-c",
+            "ulimit -s 8192 || exit; ulimit -s; exec \"$@\"",
+            "silver-stack-observation",
+            "taskset",
+            "-c",
+            "0,1",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/program-cgGaQR/bin/main"
+          ],
+          "returncode": 0,
+          "elapsed_seconds": 0.008237902999098878,
+          "output_file": "execute.log"
+        }
+      ],
+      "executable": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/program-cgGaQR/bin/main",
+      "workspace": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/program-cgGaQR",
+      "audit": {
+        "units": 5,
+        "entities": 17,
+        "flow_checks": 19,
+        "proof_checks": 47,
+        "limitation_notes": 0,
+        "imported_entities": 6,
+        "trusted_math_notes": 0,
+        "vendor_spec_entities": 0,
+        "array_initialization_advisories": 0,
+        "assignment_advisories": 0,
+        "image_advisories": 0
+      },
+      "expected_execute_log_sha256": "131e490ede5d344e5a8539d4a5335ccc70db7eacb397b876cffc72578b1331bf",
+      "retained_workspace": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/stack-observations/counted/workspace"
+    },
+    {
+      "binary": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/compiler/bin/silver",
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/stack-fixtures/foreach-singleton.adb",
+      "bytes": 4096,
+      "binary_sha256": "1cf857171f9af64e20bfdb2fb2a32e411ceefc67a26168acf5e1fa83961d0796",
+      "source_sha256": "ae91c2316e004cfee11062ec96d9df7d36277d5eec01d9efe45d6185879b115a",
+      "stack_kib": 8192,
+      "cpu_affinity": [
+        0,
+        1
+      ],
+      "shell_text": "ulimit -s 8192 || exit; ulimit -s; exec \"$@\"",
+      "observations": [
+        {
+          "name": "check",
+          "command": [
+            "bash",
+            "-c",
+            "ulimit -s 8192 || exit; ulimit -s; exec \"$@\"",
+            "silver-stack-observation",
+            "taskset",
+            "-c",
+            "0,1",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/compiler/bin/silver",
+            "check",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/stack-fixtures/foreach-singleton.adb"
+          ],
+          "returncode": 0,
+          "elapsed_seconds": 0.19084142900101142,
+          "output_file": "check.log"
+        },
+        {
+          "name": "compile",
+          "command": [
+            "bash",
+            "-c",
+            "ulimit -s 8192 || exit; ulimit -s; exec \"$@\"",
+            "silver-stack-observation",
+            "taskset",
+            "-c",
+            "0,1",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/compiler/bin/silver",
+            "compile",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/stack-fixtures/foreach-singleton.adb"
+          ],
+          "returncode": 0,
+          "elapsed_seconds": 22.446294812994893,
+          "output_file": "compile.log"
+        },
+        {
+          "name": "execute",
+          "command": [
+            "bash",
+            "-c",
+            "ulimit -s 8192 || exit; ulimit -s; exec \"$@\"",
+            "silver-stack-observation",
+            "taskset",
+            "-c",
+            "0,1",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/program-vM60M2/bin/main"
+          ],
+          "returncode": 0,
+          "elapsed_seconds": 0.01121176099695731,
+          "output_file": "execute.log"
+        }
+      ],
+      "executable": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/program-vM60M2/bin/main",
+      "workspace": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/program-vM60M2",
+      "audit": {
+        "units": 5,
+        "entities": 17,
+        "flow_checks": 19,
+        "proof_checks": 47,
+        "limitation_notes": 0,
+        "imported_entities": 6,
+        "trusted_math_notes": 0,
+        "vendor_spec_entities": 0,
+        "array_initialization_advisories": 0,
+        "assignment_advisories": 0,
+        "image_advisories": 0
+      },
+      "expected_execute_log_sha256": "131e490ede5d344e5a8539d4a5335ccc70db7eacb397b876cffc72578b1331bf",
+      "retained_workspace": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/stack-observations/foreach-singleton/workspace"
+    },
+    {
+      "binary": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/compiler/bin/silver",
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/stack-fixtures/counted-slice.adb",
+      "bytes": 4096,
+      "binary_sha256": "1cf857171f9af64e20bfdb2fb2a32e411ceefc67a26168acf5e1fa83961d0796",
+      "source_sha256": "57bce55766285535607830d0829255d1cbf596973dafc7bf356586366a7e8c02",
+      "stack_kib": 8192,
+      "cpu_affinity": [
+        0,
+        1
+      ],
+      "shell_text": "ulimit -s 8192 || exit; ulimit -s; exec \"$@\"",
+      "observations": [
+        {
+          "name": "check",
+          "command": [
+            "bash",
+            "-c",
+            "ulimit -s 8192 || exit; ulimit -s; exec \"$@\"",
+            "silver-stack-observation",
+            "taskset",
+            "-c",
+            "0,1",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/compiler/bin/silver",
+            "check",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/stack-fixtures/counted-slice.adb"
+          ],
+          "returncode": 0,
+          "elapsed_seconds": 0.08068258200364653,
+          "output_file": "check.log"
+        },
+        {
+          "name": "compile",
+          "command": [
+            "bash",
+            "-c",
+            "ulimit -s 8192 || exit; ulimit -s; exec \"$@\"",
+            "silver-stack-observation",
+            "taskset",
+            "-c",
+            "0,1",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/compiler/bin/silver",
+            "compile",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/stack-fixtures/counted-slice.adb"
+          ],
+          "returncode": 0,
+          "elapsed_seconds": 50.060292937996564,
+          "output_file": "compile.log"
+        },
+        {
+          "name": "execute",
+          "command": [
+            "bash",
+            "-c",
+            "ulimit -s 8192 || exit; ulimit -s; exec \"$@\"",
+            "silver-stack-observation",
+            "taskset",
+            "-c",
+            "0,1",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/program-DJSzQM/bin/main"
+          ],
+          "returncode": 0,
+          "elapsed_seconds": 0.012162662998889573,
+          "output_file": "execute.log"
+        }
+      ],
+      "executable": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/program-DJSzQM/bin/main",
+      "workspace": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/program-DJSzQM",
+      "audit": {
+        "units": 5,
+        "entities": 17,
+        "flow_checks": 19,
+        "proof_checks": 48,
+        "limitation_notes": 0,
+        "imported_entities": 6,
+        "trusted_math_notes": 0,
+        "vendor_spec_entities": 0,
+        "array_initialization_advisories": 0,
+        "assignment_advisories": 140,
+        "image_advisories": 0
+      },
+      "expected_execute_log_sha256": "158c2f73e24867e61b7c9e1a34c41b92b1d2216dc277c8c0c0302e67f38a4ec1",
+      "retained_workspace": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/stack-observations/counted-slice/workspace"
+    }
+  ]
+}

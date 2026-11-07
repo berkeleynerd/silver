@@ -1,0 +1,1356 @@
+Lean phase build started at 2026-11-07T06:48:28.523693+00:00
++ /home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays/.tools/linux-x86_64/lean/bin/lake --rehash --reconfigure -K silverThreads=12 -K silverMemoryMb=24576 build Silver.Audit
+✔ [80/95] Built Silver.OutputProfileBodySource (1.2s)
+✔ [93/96] Built Silver.AuthoritativeSource (1.2s)
+✔ [105/108] Built Silver.OutputBodyCertificate (2709s)
+✔ [111/113] Built Silver.SourceCertificates (3.8s)
+✔ [112/127] Built Silver.Source (2.0s)
+✔ [189/193] Built Silver.ComposeExpressionSourceCandidate (410s)
+✔ [190/193] Built Silver.ComposeCatalogueSourceCandidate (48s)
+✔ [191/193] Built Silver.ComposeDeclarationSourceCandidate (1305s)
+✔ [192/198] Built Silver.ComposeContractSourceCandidate (691s)
+✔ [196/200] Built Silver.ComposeBooleanArraySourceCandidate (221s)
+✔ [198/202] Built Silver.ComposeHelperSourceCandidate (738s)
+✔ [199/203] Built Silver.ComposeSourceCandidate (2.4s)
+✔ [207/209] Built Silver.OutputSourceBridge (180s)
+✔ [208/211] Built Silver.ComposeSourceChecks (3.1s)
+✔ [259/265] Built Silver.NamedSourceBridge (34s)
+✔ [269/281] Built Silver.ArgumentsSourceBridge (97s)
+✔ [281/290] Built Silver.LexicalSourceBridge (63s)
+✔ [378/381] Built Silver.ComposeSourceBridge (4.8s)
+✔ [407/411] Built Silver.PredicateSourceShape (1.5s)
+✔ [408/412] Built Silver.PredicateCharacterSourceCandidate (219s)
+✔ [409/412] Built Silver.PredicateSourceRequirements (4.9s)
+✔ [410/413] Built Silver.PredicateScalarBodyCandidate (1063s)
+✔ [411/414] Built Silver.PredicateFlowSourceCandidate (1347s)
+✔ [412/416] Built Silver.PredicateNativeHelpersCandidate (1216s)
+✔ [413/418] Built Silver.PredicateNativeShapeCandidate (2346s)
+✔ [414/418] Built Silver.PredicateBodySourceCandidate (2219s)
+✔ [416/418] Built Silver.PredicateSourceCandidate (4.2s)
+✔ [417/421] Built Silver.PredicateSourceChecks (3.6s)
+✔ [457/461] Built Silver.PredicateInheritedReady (5.1s)
+✔ [458/461] Built Silver.PredicateOuterModel (5.8s)
+✔ [459/461] Built Silver.PredicateEquations (3.0s)
+✔ [460/462] Built Silver.PredicateSourceBridge (3.4s)
+✔ [516/522] Built Silver.PredicateCorrespondence (3.9s)
+✔ [689/690] Built Silver (3.6s)
+ℹ [690/690] Built Silver.Audit (17s)
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.Lexical
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.Admission
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.Cursor
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.SourceLexer
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.CertificateWitness
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelSpecSource
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelSpecCertificate
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelBodySource
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelBodyCertificate
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelTemplatesSpecSource
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelTemplatesSpecCertificate
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelTemplatesBodySource
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelTemplatesBodyCertificate
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ScalarsSpecSource
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ScalarsSpecCertificate
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ScalarLiteralSpecSource
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ScalarLiteralSpecCertificate
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ScalarLiteralBodySource
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ScalarLiteralBodyCertificate
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ScalarExpressionSpecSource
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ScalarExpressionSpecCertificate
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ArrayBindingsSpecSource
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ArrayBindingsSpecCertificate
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ArrayBindingsBodySource
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ArrayBindingsBodyCertificate
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ScalarExpressionBodySource
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ScalarExpressionBodyCertificate
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.NamesSpecSource
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.NamesSpecCertificate
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.NamesBodySource
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.NamesBodyCertificate
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PathFactsSpecSource
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PathFactsSpecCertificate
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.IntegerLiteralSpecSource
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.IntegerLiteralSpecCertificate
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.IntegerLiteralBodySource
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.IntegerLiteralBodyCertificate
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.OutputLexicalBodySource
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.OutputLexicalBodyCertificate
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.OutputLexicalSpecSource
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.OutputLexicalSpecCertificate
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageFilesSpecSource
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageFilesBodySource
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.LengthIntervalsSpecSource
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.LengthIntervalsBodySource
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.IntegerImageSpecSource
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageTheorySpecSource
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ProfileSpecSource
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ProfileBodySource
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.OutputProfileSpecSource
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.OutputProfileBodySource
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.IoSpecSource
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.IoBodySource
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.OutputLibcSpecSource
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ArgumentsSpecSource
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ArgumentsBodySource
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.RuntimeSpecSource
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.AuthoritativeSource
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ProfileSpecCertificate
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ProfileBodyCertificate
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.OutputSpecCertificate
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.OutputBodyLines0
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.OutputBodyLines1
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.OutputBodyLines2
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.OutputBodyLines3
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.OutputBodyLines4
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.OutputBodyLines5
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.OutputBodyLines6
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.OutputBodyLines7
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.OutputBodyCertificate
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.IOSpecCertificate
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.IOBodyCertificate
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.OutputLibcCertificate
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ArgumentsSpecCertificate
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ArgumentsBodyCertificate
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.RuntimeSpecCertificate
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.SourceCertificates
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.Source
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.SourceDeclarations
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.OutputLiteral
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.OutputAdmission
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.NamedIdentifier
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.NamedAdmission
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ArgumentsAdmission
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.GuardedDecimal
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.OutputRuntime
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ArgumentsRuntime
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.IntegerIntervals
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.IntegerDivision
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ArrayLayout
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.IntegerExpressions
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.IntegerImage
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.StringIndexing
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.CharacterExpressions
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.Bindings
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeExpression
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.Names
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ScalarLiteral
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.IntegerDeclarations
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.IntegerMutable
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.IntegerChecks
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.IntegerArraySnapshots
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.IntegerArrays
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.BooleanModel
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.BooleanArrays
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.BooleanBindings
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ArrayBindings
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ScalarExpression
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ScalarExpressionBounds
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ScalarExpressionGrammar
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ScalarExpressionRecognition
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ScalarArrayExpressionGrammar
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ScalarArrayExpressionRecognition
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ScalarExpressionEnvironment
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ScalarExpressionAdmission
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.StringLengths
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.IntegerSubtypeBindings
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeAtomAdmission
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeAtomReading
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeIndexedReading
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeCharacterReading
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.StringExecution
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeAtoms
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.StringObjectBounds
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeBindingBounds
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PathFacts
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.IntegerComparisons
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateSyntax
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateSemantics
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.StringLengthRefinement
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ScalarFlow
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateChecking
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.IntegerLiteral
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateFlowStorage
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateFlowOverlay
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateFlowOperations
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateFlowInvariant
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateFlowWidening
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateArrayFlow
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateXorAdmission
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateConditionAdmission
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeAdmission
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.Expressions
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.NamesExpressions
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.NamesEquations
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeExpressions
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeArrayExpressions
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeBooleanDeclarationNative
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeBooleanDeclarationSource
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeArrayDeclarationSource
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeStringNative
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeBounds
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeContracts
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ReviewedOutputShape
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeExpressionSourceCandidate
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeCatalogueSourceCandidate
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeDeclarationSourceCandidate
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeContractSourceCandidate
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeBooleanInitializerNative
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeBooleanArraySource
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeBooleanArraySourceCandidate
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeHelperSourceCandidate
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeSourceCandidate
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.Precedence
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.Uniqueness
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.Semantics
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.SupportedTools
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ReviewedSourceShape
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.RecursiveBridge
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.SourceBridge
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.OutputEquations
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.OutputExpressions
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.OutputSourceBridge
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeSourceChecks
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeStringPrimitiveEquations
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeCoreHelperEquations
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ScalarExpressionConstants
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeSubtypeDeclarations
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeSemantics
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.StringFreezing
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeFrozenSemantics
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeScalarDeclarations
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeArrayDeclarations
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeArrayElaboration
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeBooleanArrayDeclarations
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeBooleanArrayElaboration
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeBooleanDeclarations
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeStringDeclarations
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeCharacterProperties
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeCharacterDeclarations
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeObjectDeclarations
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeCharacterBounds
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeStateBounds
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeStringEquations
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeGuardedSliceEquations
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeNativeValueBounds
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeNativeRecordBounds
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateReadings
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PathBounds
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateCharacterReadings
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateConditionReadings
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateConditionSound
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateConditionBounds
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateNativeRanges
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeArrayNativeBounds
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeStringHelperEquations
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeStringDeclarationEquation
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeScalarDenotations
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeModelCalls
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeArrayDenotations
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeArrayModel
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.NamedSemantics
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.NamedDisjoint
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeNameBridge
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ArrayBindingsRead
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ArrayBindingsNativeExpressions
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ArrayBindingsNativeEquations
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ScalarExpressionNativeModel
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ScalarExpressionNativeAlgebra
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ScalarExpressionNativeRecursion
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ScalarExpressionNativeTypes
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeHelperEquations
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeArrayEquations
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeEquations
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.NamedEquations
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.NamedExpressions
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.NamedSourceBridge
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ConcatAdmission
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ConcatEquations
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ArgumentsEquations
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ConcatExpressions
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ArgumentsExpressions
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ArgumentsSourceBridge
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.GuardedAdmission
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.GuardedEquations
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.AssignmentAdmission
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.AssignmentEquations
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.AssignmentExpressions
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.BranchingAdmission
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.BranchingEquations
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.BranchingExpressions
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.GuardedExpressions
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.LexicalSourceBridge
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.NamesSourceShape
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.NamesSourceChecks
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.NamesSourceBridge
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ScalarExpressionNativeExpressions
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ScalarExpressionNativeDenotations
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ScalarExpressionNativeArrayAlgebra
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ScalarExpressionNativeArrayAtoms
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ScalarExpressionNativeArrayRecursion
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ScalarExpressionNativeEquations
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ScalarExpressionSourceShape
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ScalarEnvironmentSourceBridge
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ScalarExpressionSourceChecks
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ArrayBindingsSourceChecks
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ArrayBindingsSourceBridge
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ScalarExpressionSourceBridge
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeLexical
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeEvaluation
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.IntegerImageLength
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.IntegerImageNative
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.IntegerImageNativeExpressions
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.IntegerImageNativeCapture
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ScalarsNativeExpressions
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ScalarsNativeEquations
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ScalarsNativeSourceChecks
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ScalarsNativeSourceBridge
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.IntegerImageNativeSource
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeBooleanDeclarationMeaning
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateConditionFlow
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateFlowBounds
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateConditionFlowValidity
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateNativeState
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateScalarHeaderReady
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateInitialFlowValidity
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeDeclarations
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeDeclarationContext
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeBoundTracking
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeStringAtomBounds
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeStringBounds
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeStringBoundSafety
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeDeclarationBounds
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeNativeStateBounds
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateOuterReadiness
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeBooleanDeclarationDomain
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateNativeExpressions
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateNativeBodies
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateNativePrecedence
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateNativeEquations
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateNativeProgress
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateNativeModel
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateNativeCorrespondence
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateNativeContracts
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateNativeSizing
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateNativeModelSizing
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateNativeWorkers
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateNativeHelpers
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeBooleanDeclarationCondition
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.GuardedSemantics
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.GuardedObligations
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeMain
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeGrammar
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateAdmission
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.SequenceSyntax
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.IntegerIteration
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.BooleanArrayAssignments
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateStatements
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.SequenceSemantics
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.SequenceExecution
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateExecution
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeObligations
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.StringObligations
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateObligations
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.SequenceEffects
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.BooleanDeclarations
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.BooleanDeclarationObligations
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateComposition
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateSourceSyntax
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateCountedBoundModel
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateBodyAdmission
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateLoopProperties
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateBodyFlow
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateStringAssignmentFields
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateBodyProperties
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateBodyWrappers
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateFlowCopy
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateLoopNative
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateBodyExpressions
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateBodyEquations
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateBodyControls
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateBodyBounds
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateBodyFlowValidity
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateLoopFlowValidity
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateBodyFlowPreservation
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateBodyCorrespondence
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PathNativeModel
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateAdapter
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateFlowSourceBridge
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateAdapterEnvironment
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeBooleanDeclarationLibraries
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeBooleanInitializerLibraries
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeSourceBridge
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateFlowReaders
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateNativeScalarHelpers
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateNativeSourceChecks
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateBooleanBodyNative
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateBooleanArrayBodyNative
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateScalarBodyNative
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateArrayBodyNative
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PathNativeExpressions
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PathNativeEquations
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.LengthIntervalModel
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateBasicExpressions
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateBasicSourceCandidate
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateBooleanBodySource
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateBooleanArrayBodySource
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.BooleanBindingsNative
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.BooleanBindingsSourceChecks
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateXorNative
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateXorSourceBridge
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateScalarBodySource
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.BooleanBindingsSourceBridge
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateFlowReaderLibraries
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateScalarBodyHelpers
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateArrayBodySource
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateCountedBoundSource
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateBodyCandidates
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateLoopCandidate
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateAdapterSourceCandidate
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateOuterExpressions
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateOuterCandidates
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateSourceShape
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateSourceRequirements
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateCharacterSourceCandidate
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateScalarBodyCandidate
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateFlowSourceCandidate
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateNativeHelpersCandidate
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateNativeShapeCandidate
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateBodySourceCandidate
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateSourceCandidate
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateStructuralGuards
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateSourceChecks
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.IntegerLiteralExpressions
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.IntegerLiteralEquations
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.IntegerLiteralSourceShape
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.IntegerLiteralSourceChecks
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.IntegerLiteralSourceBridge
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.LengthIntervalExpressions
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.LengthIntervalPrecedence
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.LengthIntervalsCapture
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PathNativePrecedence
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PathFactsSourceShape
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PathFactsSourceChecks
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PathFactsSourceBridge
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.LengthIntervalsSource
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateBodySizing
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateBodyModelSizing
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateLoopImports
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateBodyHelpers
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateBooleanBodyHelpers
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateBooleanBodyLibraries
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateBooleanArrayBodyHelpers
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateBooleanArrayBodyLibraries
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateBasicEquations
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateBasicSizing
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateBasicHelpers
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateNativeLibraries
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateBasicLibraries
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateLoopHelpers
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateLoopSizing
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateOuterEquations
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeModelRecursion
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeSubtypeModelEquations
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeStringDenotations
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeModelHelperEquations
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeRecognitionEquations
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeModelEquations
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeModelRanges
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeSubtypeLookupLegal
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeModelLegal
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeModel
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateInheritedReady
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateOuterModel
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateEquations
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateSourceBridge
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateConditionUnique
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateConditionMeaning
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateScalarGuardMeaning
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateConditionValidity
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ArrayBindingsOrdered
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateStringAssignmentReadings
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateStringAssignmentMeaning
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateBasicReadings
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateBodyReadings
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateBodySound
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateBodyBinderSeparation
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateBodyMeaning
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateBodyUnique
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.SequenceAdmission
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.SequenceTokens
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.SequenceContext
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateShell
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeDecode
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateHeaderDecode
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.SequenceSubtypeReady
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeScalarTrace
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.SequenceScalarTrace
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeSubtypeChecks
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeArrayChecks
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeBooleanArrayHeaderChecks
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeInitializerTrace
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.SequenceInitializerTrace
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.SequenceArrayReady
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateHeader
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateHeaderFlow
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.BooleanFreezing
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.BooleanFreezingChecks
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.BooleanShapeExtension
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeBooleanTrace
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeBooleanArrayTrace
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeBooleanRegionTrace
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateBooleanHeader
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeArrayStore
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateGrammar
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateFlags
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateSelectors
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeStringOrigins
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeStringRuntimeBounds
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateStringBoundChecks
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateChecks
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateStringBoundsSources
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateStringBoundsExecution
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateStringBoundsAssurance
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeStringBoundEquivalence
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateStringActualBounds
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateStringActualExecution
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateStringActualInitializers
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateStringActualAssurance
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.Current
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateCorrespondence
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateNativeSourceBridge
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelInsertion
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelMatcher
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelMatcherNative
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelSourceShape
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelMatcherSource
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelNames
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelDecodedNative
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelDecodedSource
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelNameNative
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelNameSource
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelTheoryNative
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelStringNative
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelFinishNative
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelStringSource
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelTheorySource
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelFinishSource
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelCoreState
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelHexSource
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelCharacter
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelScannerSyntax
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelStructuralNative
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelConsumeNative
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelScannerGuards
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelScannerSource
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelScanTrace
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelNativeHelpers
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageFilesTrace
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelInitialSource
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageFileSplice
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageFilesSplice
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageFilesSpliceGuards
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageFilesCapture
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageFilesSourceShape
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageFilesSource
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelByteCount
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageFilesEndpoint
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelStringScan
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelStringNormalization
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelJsonSyntax
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelStringEncoding
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelStringObservations
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelNumberScan
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelStructuralSteps
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelQuotedString
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelStructuralNesting
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelIdRun
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelIdNormalization
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelTokenScan
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelRootScan
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelStringResult
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelWideString
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelMatcherDeath
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelJsonSpelling
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelAtomResult
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelJsonComposition
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelJsonDelimiters
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelJsonArrays
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelJsonBodies
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelJsonNormalization
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelJsonSimulation
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelJsonErasure
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelJsonFields
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelWideQuotedResult
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelWideNormalization
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelEmissionLiveness
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelWideSimulation
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelFieldArrayBody
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelWideFields
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelTheorySpelling
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelWideTheorySpelling
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelTheoryFields
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelTheoryScan
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelWideTheoryFields
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelWideTheoryScan
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelTheorySpan
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelCodeUnitSpelling
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelDocumentSpan
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelDocumentTheory
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelDocumentHeader
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelDocumentEntries
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelDocumentEffects
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelDocumentSelection
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelDocumentFooter
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelDocumentScan
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelDocumentAllSelected
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelJsonCanonical
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelJsonSplice
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelTheoryOffsets
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelTheorySplice
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelDocumentSplice
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelTheoryCuts
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelTheoryRefinement
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelTemplateData
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelTemplateIndex
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelTemplateSource
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelTemplateSchema
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelClone
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelTemplateFragments
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelTemplateSelectors
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelSelectedTemplate
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelJsonMeaning
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelCanonicalRead
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelTemplateValidity
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelSelectedMeaning
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.IntegerImageRefinement
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.IntegerImageTheory
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelCloneMeaning
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelRefinement
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageRefinementEndpoint
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelProducerSyntax
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelExactEmission
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelNormalExact
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelTheoryAcceptance
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelDocumentTraceProperties
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelDocumentAcceptance
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelDocumentFinish
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageProducerEndpoint
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageModelConsumerBoundary
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ImageConsumerEndpoint
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.PredicateExamples
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ScalarLiteralExpressions
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ScalarLiteralEquations
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ScalarLiteralSourceShape
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ScalarLiteralSourceChecks
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ScalarLiteralSourceBridge
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.NamedExamples
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ArgumentsSemantics
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ArgumentsExamples
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ConcatSemantics
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ConcatExamples
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.GuardedMain
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.GuardedExamples
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.AssignmentSemantics
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.AssignmentExamples
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.BranchingSemantics
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.BranchingMain
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.BranchingExamples
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeExamples
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.SequenceBasics
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.SequenceLists
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.SequenceConditions
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.SequenceHeader
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.SequenceShell
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.SequenceConditionValidity
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.SequenceGrammar
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.SequenceFormDisjoint
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.SequenceSelectors
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.SequenceMain
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.SequenceObligations
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.SequenceModelRanges
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.SequenceNativeState
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.SequenceNativeExpressions
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.SequenceExpressions
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.SequenceNativeEquations
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.SequenceNativeUnique
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.SequenceNativeModel
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.SequenceBodyContext
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.SequenceNativeProjection
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.SequenceFullEquations
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.SequenceNativeProjected
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.SequenceNativeCorrespondence
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.SequenceEquations
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.SequenceModel
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeExecution
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ArgumentsDisjoint
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ConcatDisjoint
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.GuardedDisjoint
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.AssignmentDisjoint
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.BranchingDisjoint
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.ComposeBooleanDeclarationCandidate
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.AxiomAudit
+info: Silver/Audit.lean:8:0: SILVER_MODULE Silver.Audit
+info: Silver/Audit.lean:8:0: Silver axiom audit passed: 132101 declarations; foundations: [propext, Classical.choice, Quot.sound]
+Build completed successfully (690 jobs).
+
+Lean phase build finished at 2026-11-07T10:58:37.413727+00:00; elapsed 15008.840s; exit 0
+Lean phase audit started at 2026-11-07T10:58:42.525676+00:00
++ /home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays/.tools/linux-x86_64/lean/bin/lake -K silverThreads=12 -K silverMemoryMb=24576 env /home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays/.tools/linux-x86_64/lean/bin/lean -DwarningAsError=true -j12 -M24576 Silver/Audit.lean
+SILVER_MODULE Silver.Lexical
+SILVER_MODULE Silver.Admission
+SILVER_MODULE Silver.Cursor
+SILVER_MODULE Silver.SourceLexer
+SILVER_MODULE Silver.CertificateWitness
+SILVER_MODULE Silver.ImageModelSpecSource
+SILVER_MODULE Silver.ImageModelSpecCertificate
+SILVER_MODULE Silver.ImageModelBodySource
+SILVER_MODULE Silver.ImageModelBodyCertificate
+SILVER_MODULE Silver.ImageModelTemplatesSpecSource
+SILVER_MODULE Silver.ImageModelTemplatesSpecCertificate
+SILVER_MODULE Silver.ImageModelTemplatesBodySource
+SILVER_MODULE Silver.ImageModelTemplatesBodyCertificate
+SILVER_MODULE Silver.ScalarsSpecSource
+SILVER_MODULE Silver.ScalarsSpecCertificate
+SILVER_MODULE Silver.ScalarLiteralSpecSource
+SILVER_MODULE Silver.ScalarLiteralSpecCertificate
+SILVER_MODULE Silver.ScalarLiteralBodySource
+SILVER_MODULE Silver.ScalarLiteralBodyCertificate
+SILVER_MODULE Silver.ScalarExpressionSpecSource
+SILVER_MODULE Silver.ScalarExpressionSpecCertificate
+SILVER_MODULE Silver.ArrayBindingsSpecSource
+SILVER_MODULE Silver.ArrayBindingsSpecCertificate
+SILVER_MODULE Silver.ArrayBindingsBodySource
+SILVER_MODULE Silver.ArrayBindingsBodyCertificate
+SILVER_MODULE Silver.ScalarExpressionBodySource
+SILVER_MODULE Silver.ScalarExpressionBodyCertificate
+SILVER_MODULE Silver.NamesSpecSource
+SILVER_MODULE Silver.NamesSpecCertificate
+SILVER_MODULE Silver.NamesBodySource
+SILVER_MODULE Silver.NamesBodyCertificate
+SILVER_MODULE Silver.PathFactsSpecSource
+SILVER_MODULE Silver.PathFactsSpecCertificate
+SILVER_MODULE Silver.IntegerLiteralSpecSource
+SILVER_MODULE Silver.IntegerLiteralSpecCertificate
+SILVER_MODULE Silver.IntegerLiteralBodySource
+SILVER_MODULE Silver.IntegerLiteralBodyCertificate
+SILVER_MODULE Silver.OutputLexicalBodySource
+SILVER_MODULE Silver.OutputLexicalBodyCertificate
+SILVER_MODULE Silver.OutputLexicalSpecSource
+SILVER_MODULE Silver.OutputLexicalSpecCertificate
+SILVER_MODULE Silver.ImageFilesSpecSource
+SILVER_MODULE Silver.ImageFilesBodySource
+SILVER_MODULE Silver.LengthIntervalsSpecSource
+SILVER_MODULE Silver.LengthIntervalsBodySource
+SILVER_MODULE Silver.IntegerImageSpecSource
+SILVER_MODULE Silver.ImageTheorySpecSource
+SILVER_MODULE Silver.ProfileSpecSource
+SILVER_MODULE Silver.ProfileBodySource
+SILVER_MODULE Silver.OutputProfileSpecSource
+SILVER_MODULE Silver.OutputProfileBodySource
+SILVER_MODULE Silver.IoSpecSource
+SILVER_MODULE Silver.IoBodySource
+SILVER_MODULE Silver.OutputLibcSpecSource
+SILVER_MODULE Silver.ArgumentsSpecSource
+SILVER_MODULE Silver.ArgumentsBodySource
+SILVER_MODULE Silver.RuntimeSpecSource
+SILVER_MODULE Silver.AuthoritativeSource
+SILVER_MODULE Silver.ProfileSpecCertificate
+SILVER_MODULE Silver.ProfileBodyCertificate
+SILVER_MODULE Silver.OutputSpecCertificate
+SILVER_MODULE Silver.OutputBodyLines0
+SILVER_MODULE Silver.OutputBodyLines1
+SILVER_MODULE Silver.OutputBodyLines2
+SILVER_MODULE Silver.OutputBodyLines3
+SILVER_MODULE Silver.OutputBodyLines4
+SILVER_MODULE Silver.OutputBodyLines5
+SILVER_MODULE Silver.OutputBodyLines6
+SILVER_MODULE Silver.OutputBodyLines7
+SILVER_MODULE Silver.OutputBodyCertificate
+SILVER_MODULE Silver.IOSpecCertificate
+SILVER_MODULE Silver.IOBodyCertificate
+SILVER_MODULE Silver.OutputLibcCertificate
+SILVER_MODULE Silver.ArgumentsSpecCertificate
+SILVER_MODULE Silver.ArgumentsBodyCertificate
+SILVER_MODULE Silver.RuntimeSpecCertificate
+SILVER_MODULE Silver.SourceCertificates
+SILVER_MODULE Silver.Source
+SILVER_MODULE Silver.SourceDeclarations
+SILVER_MODULE Silver.OutputLiteral
+SILVER_MODULE Silver.OutputAdmission
+SILVER_MODULE Silver.NamedIdentifier
+SILVER_MODULE Silver.NamedAdmission
+SILVER_MODULE Silver.ArgumentsAdmission
+SILVER_MODULE Silver.GuardedDecimal
+SILVER_MODULE Silver.OutputRuntime
+SILVER_MODULE Silver.ArgumentsRuntime
+SILVER_MODULE Silver.IntegerIntervals
+SILVER_MODULE Silver.IntegerDivision
+SILVER_MODULE Silver.ArrayLayout
+SILVER_MODULE Silver.IntegerExpressions
+SILVER_MODULE Silver.IntegerImage
+SILVER_MODULE Silver.StringIndexing
+SILVER_MODULE Silver.CharacterExpressions
+SILVER_MODULE Silver.Bindings
+SILVER_MODULE Silver.ComposeExpression
+SILVER_MODULE Silver.Names
+SILVER_MODULE Silver.ScalarLiteral
+SILVER_MODULE Silver.IntegerDeclarations
+SILVER_MODULE Silver.IntegerMutable
+SILVER_MODULE Silver.IntegerChecks
+SILVER_MODULE Silver.IntegerArraySnapshots
+SILVER_MODULE Silver.IntegerArrays
+SILVER_MODULE Silver.BooleanModel
+SILVER_MODULE Silver.BooleanArrays
+SILVER_MODULE Silver.BooleanBindings
+SILVER_MODULE Silver.ArrayBindings
+SILVER_MODULE Silver.ScalarExpression
+SILVER_MODULE Silver.ScalarExpressionBounds
+SILVER_MODULE Silver.ScalarExpressionGrammar
+SILVER_MODULE Silver.ScalarExpressionRecognition
+SILVER_MODULE Silver.ScalarArrayExpressionGrammar
+SILVER_MODULE Silver.ScalarArrayExpressionRecognition
+SILVER_MODULE Silver.ScalarExpressionEnvironment
+SILVER_MODULE Silver.ScalarExpressionAdmission
+SILVER_MODULE Silver.StringLengths
+SILVER_MODULE Silver.IntegerSubtypeBindings
+SILVER_MODULE Silver.ComposeAtomAdmission
+SILVER_MODULE Silver.ComposeAtomReading
+SILVER_MODULE Silver.ComposeIndexedReading
+SILVER_MODULE Silver.ComposeCharacterReading
+SILVER_MODULE Silver.StringExecution
+SILVER_MODULE Silver.ComposeAtoms
+SILVER_MODULE Silver.StringObjectBounds
+SILVER_MODULE Silver.ComposeBindingBounds
+SILVER_MODULE Silver.PathFacts
+SILVER_MODULE Silver.IntegerComparisons
+SILVER_MODULE Silver.PredicateSyntax
+SILVER_MODULE Silver.PredicateSemantics
+SILVER_MODULE Silver.StringLengthRefinement
+SILVER_MODULE Silver.ScalarFlow
+SILVER_MODULE Silver.PredicateChecking
+SILVER_MODULE Silver.IntegerLiteral
+SILVER_MODULE Silver.PredicateFlowStorage
+SILVER_MODULE Silver.PredicateFlowOverlay
+SILVER_MODULE Silver.PredicateFlowOperations
+SILVER_MODULE Silver.PredicateFlowInvariant
+SILVER_MODULE Silver.PredicateFlowWidening
+SILVER_MODULE Silver.PredicateArrayFlow
+SILVER_MODULE Silver.PredicateXorAdmission
+SILVER_MODULE Silver.PredicateConditionAdmission
+SILVER_MODULE Silver.ComposeAdmission
+SILVER_MODULE Silver.Expressions
+SILVER_MODULE Silver.NamesExpressions
+SILVER_MODULE Silver.NamesEquations
+SILVER_MODULE Silver.ComposeExpressions
+SILVER_MODULE Silver.ComposeArrayExpressions
+SILVER_MODULE Silver.ComposeBooleanDeclarationNative
+SILVER_MODULE Silver.ComposeBooleanDeclarationSource
+SILVER_MODULE Silver.ComposeArrayDeclarationSource
+SILVER_MODULE Silver.ComposeStringNative
+SILVER_MODULE Silver.ComposeBounds
+SILVER_MODULE Silver.ComposeContracts
+SILVER_MODULE Silver.ReviewedOutputShape
+SILVER_MODULE Silver.ComposeExpressionSourceCandidate
+SILVER_MODULE Silver.ComposeCatalogueSourceCandidate
+SILVER_MODULE Silver.ComposeDeclarationSourceCandidate
+SILVER_MODULE Silver.ComposeContractSourceCandidate
+SILVER_MODULE Silver.ComposeBooleanInitializerNative
+SILVER_MODULE Silver.ComposeBooleanArraySource
+SILVER_MODULE Silver.ComposeBooleanArraySourceCandidate
+SILVER_MODULE Silver.ComposeHelperSourceCandidate
+SILVER_MODULE Silver.ComposeSourceCandidate
+SILVER_MODULE Silver.Precedence
+SILVER_MODULE Silver.Uniqueness
+SILVER_MODULE Silver.Semantics
+SILVER_MODULE Silver.SupportedTools
+SILVER_MODULE Silver.ReviewedSourceShape
+SILVER_MODULE Silver.RecursiveBridge
+SILVER_MODULE Silver.SourceBridge
+SILVER_MODULE Silver.OutputEquations
+SILVER_MODULE Silver.OutputExpressions
+SILVER_MODULE Silver.OutputSourceBridge
+SILVER_MODULE Silver.ComposeSourceChecks
+SILVER_MODULE Silver.ComposeStringPrimitiveEquations
+SILVER_MODULE Silver.ComposeCoreHelperEquations
+SILVER_MODULE Silver.ScalarExpressionConstants
+SILVER_MODULE Silver.ComposeSubtypeDeclarations
+SILVER_MODULE Silver.ComposeSemantics
+SILVER_MODULE Silver.StringFreezing
+SILVER_MODULE Silver.ComposeFrozenSemantics
+SILVER_MODULE Silver.ComposeScalarDeclarations
+SILVER_MODULE Silver.ComposeArrayDeclarations
+SILVER_MODULE Silver.ComposeArrayElaboration
+SILVER_MODULE Silver.ComposeBooleanArrayDeclarations
+SILVER_MODULE Silver.ComposeBooleanArrayElaboration
+SILVER_MODULE Silver.ComposeBooleanDeclarations
+SILVER_MODULE Silver.ComposeStringDeclarations
+SILVER_MODULE Silver.ComposeCharacterProperties
+SILVER_MODULE Silver.ComposeCharacterDeclarations
+SILVER_MODULE Silver.ComposeObjectDeclarations
+SILVER_MODULE Silver.ComposeCharacterBounds
+SILVER_MODULE Silver.ComposeStateBounds
+SILVER_MODULE Silver.ComposeStringEquations
+SILVER_MODULE Silver.ComposeGuardedSliceEquations
+SILVER_MODULE Silver.ComposeNativeValueBounds
+SILVER_MODULE Silver.ComposeNativeRecordBounds
+SILVER_MODULE Silver.PredicateReadings
+SILVER_MODULE Silver.PathBounds
+SILVER_MODULE Silver.PredicateCharacterReadings
+SILVER_MODULE Silver.PredicateConditionReadings
+SILVER_MODULE Silver.PredicateConditionSound
+SILVER_MODULE Silver.PredicateConditionBounds
+SILVER_MODULE Silver.PredicateNativeRanges
+SILVER_MODULE Silver.ComposeArrayNativeBounds
+SILVER_MODULE Silver.ComposeStringHelperEquations
+SILVER_MODULE Silver.ComposeStringDeclarationEquation
+SILVER_MODULE Silver.ComposeScalarDenotations
+SILVER_MODULE Silver.ComposeModelCalls
+SILVER_MODULE Silver.ComposeArrayDenotations
+SILVER_MODULE Silver.ComposeArrayModel
+SILVER_MODULE Silver.NamedSemantics
+SILVER_MODULE Silver.NamedDisjoint
+SILVER_MODULE Silver.ComposeNameBridge
+SILVER_MODULE Silver.ArrayBindingsRead
+SILVER_MODULE Silver.ArrayBindingsNativeExpressions
+SILVER_MODULE Silver.ArrayBindingsNativeEquations
+SILVER_MODULE Silver.ScalarExpressionNativeModel
+SILVER_MODULE Silver.ScalarExpressionNativeAlgebra
+SILVER_MODULE Silver.ScalarExpressionNativeRecursion
+SILVER_MODULE Silver.ScalarExpressionNativeTypes
+SILVER_MODULE Silver.ComposeHelperEquations
+SILVER_MODULE Silver.ComposeArrayEquations
+SILVER_MODULE Silver.ComposeEquations
+SILVER_MODULE Silver.NamedEquations
+SILVER_MODULE Silver.NamedExpressions
+SILVER_MODULE Silver.NamedSourceBridge
+SILVER_MODULE Silver.ConcatAdmission
+SILVER_MODULE Silver.ConcatEquations
+SILVER_MODULE Silver.ArgumentsEquations
+SILVER_MODULE Silver.ConcatExpressions
+SILVER_MODULE Silver.ArgumentsExpressions
+SILVER_MODULE Silver.ArgumentsSourceBridge
+SILVER_MODULE Silver.GuardedAdmission
+SILVER_MODULE Silver.GuardedEquations
+SILVER_MODULE Silver.AssignmentAdmission
+SILVER_MODULE Silver.AssignmentEquations
+SILVER_MODULE Silver.AssignmentExpressions
+SILVER_MODULE Silver.BranchingAdmission
+SILVER_MODULE Silver.BranchingEquations
+SILVER_MODULE Silver.BranchingExpressions
+SILVER_MODULE Silver.GuardedExpressions
+SILVER_MODULE Silver.LexicalSourceBridge
+SILVER_MODULE Silver.NamesSourceShape
+SILVER_MODULE Silver.NamesSourceChecks
+SILVER_MODULE Silver.NamesSourceBridge
+SILVER_MODULE Silver.ScalarExpressionNativeExpressions
+SILVER_MODULE Silver.ScalarExpressionNativeDenotations
+SILVER_MODULE Silver.ScalarExpressionNativeArrayAlgebra
+SILVER_MODULE Silver.ScalarExpressionNativeArrayAtoms
+SILVER_MODULE Silver.ScalarExpressionNativeArrayRecursion
+SILVER_MODULE Silver.ScalarExpressionNativeEquations
+SILVER_MODULE Silver.ScalarExpressionSourceShape
+SILVER_MODULE Silver.ScalarEnvironmentSourceBridge
+SILVER_MODULE Silver.ScalarExpressionSourceChecks
+SILVER_MODULE Silver.ArrayBindingsSourceChecks
+SILVER_MODULE Silver.ArrayBindingsSourceBridge
+SILVER_MODULE Silver.ScalarExpressionSourceBridge
+SILVER_MODULE Silver.ComposeLexical
+SILVER_MODULE Silver.ComposeEvaluation
+SILVER_MODULE Silver.IntegerImageLength
+SILVER_MODULE Silver.IntegerImageNative
+SILVER_MODULE Silver.IntegerImageNativeExpressions
+SILVER_MODULE Silver.IntegerImageNativeCapture
+SILVER_MODULE Silver.ScalarsNativeExpressions
+SILVER_MODULE Silver.ScalarsNativeEquations
+SILVER_MODULE Silver.ScalarsNativeSourceChecks
+SILVER_MODULE Silver.ScalarsNativeSourceBridge
+SILVER_MODULE Silver.IntegerImageNativeSource
+SILVER_MODULE Silver.ComposeBooleanDeclarationMeaning
+SILVER_MODULE Silver.PredicateConditionFlow
+SILVER_MODULE Silver.PredicateFlowBounds
+SILVER_MODULE Silver.PredicateConditionFlowValidity
+SILVER_MODULE Silver.PredicateNativeState
+SILVER_MODULE Silver.PredicateScalarHeaderReady
+SILVER_MODULE Silver.PredicateInitialFlowValidity
+SILVER_MODULE Silver.ComposeDeclarations
+SILVER_MODULE Silver.ComposeDeclarationContext
+SILVER_MODULE Silver.ComposeBoundTracking
+SILVER_MODULE Silver.ComposeStringAtomBounds
+SILVER_MODULE Silver.ComposeStringBounds
+SILVER_MODULE Silver.ComposeStringBoundSafety
+SILVER_MODULE Silver.ComposeDeclarationBounds
+SILVER_MODULE Silver.ComposeNativeStateBounds
+SILVER_MODULE Silver.PredicateOuterReadiness
+SILVER_MODULE Silver.ComposeBooleanDeclarationDomain
+SILVER_MODULE Silver.PredicateNativeExpressions
+SILVER_MODULE Silver.PredicateNativeBodies
+SILVER_MODULE Silver.PredicateNativePrecedence
+SILVER_MODULE Silver.PredicateNativeEquations
+SILVER_MODULE Silver.PredicateNativeProgress
+SILVER_MODULE Silver.PredicateNativeModel
+SILVER_MODULE Silver.PredicateNativeCorrespondence
+SILVER_MODULE Silver.PredicateNativeContracts
+SILVER_MODULE Silver.PredicateNativeSizing
+SILVER_MODULE Silver.PredicateNativeModelSizing
+SILVER_MODULE Silver.PredicateNativeWorkers
+SILVER_MODULE Silver.PredicateNativeHelpers
+SILVER_MODULE Silver.ComposeBooleanDeclarationCondition
+SILVER_MODULE Silver.GuardedSemantics
+SILVER_MODULE Silver.GuardedObligations
+SILVER_MODULE Silver.ComposeMain
+SILVER_MODULE Silver.ComposeGrammar
+SILVER_MODULE Silver.PredicateAdmission
+SILVER_MODULE Silver.SequenceSyntax
+SILVER_MODULE Silver.IntegerIteration
+SILVER_MODULE Silver.BooleanArrayAssignments
+SILVER_MODULE Silver.PredicateStatements
+SILVER_MODULE Silver.SequenceSemantics
+SILVER_MODULE Silver.SequenceExecution
+SILVER_MODULE Silver.PredicateExecution
+SILVER_MODULE Silver.ComposeObligations
+SILVER_MODULE Silver.StringObligations
+SILVER_MODULE Silver.PredicateObligations
+SILVER_MODULE Silver.SequenceEffects
+SILVER_MODULE Silver.BooleanDeclarations
+SILVER_MODULE Silver.BooleanDeclarationObligations
+SILVER_MODULE Silver.PredicateComposition
+SILVER_MODULE Silver.PredicateSourceSyntax
+SILVER_MODULE Silver.PredicateCountedBoundModel
+SILVER_MODULE Silver.PredicateBodyAdmission
+SILVER_MODULE Silver.PredicateLoopProperties
+SILVER_MODULE Silver.PredicateBodyFlow
+SILVER_MODULE Silver.PredicateStringAssignmentFields
+SILVER_MODULE Silver.PredicateBodyProperties
+SILVER_MODULE Silver.PredicateBodyWrappers
+SILVER_MODULE Silver.PredicateFlowCopy
+SILVER_MODULE Silver.PredicateLoopNative
+SILVER_MODULE Silver.PredicateBodyExpressions
+SILVER_MODULE Silver.PredicateBodyEquations
+SILVER_MODULE Silver.PredicateBodyControls
+SILVER_MODULE Silver.PredicateBodyBounds
+SILVER_MODULE Silver.PredicateBodyFlowValidity
+SILVER_MODULE Silver.PredicateLoopFlowValidity
+SILVER_MODULE Silver.PredicateBodyFlowPreservation
+SILVER_MODULE Silver.PredicateBodyCorrespondence
+SILVER_MODULE Silver.PathNativeModel
+SILVER_MODULE Silver.PredicateAdapter
+SILVER_MODULE Silver.PredicateFlowSourceBridge
+SILVER_MODULE Silver.PredicateAdapterEnvironment
+SILVER_MODULE Silver.ComposeBooleanDeclarationLibraries
+SILVER_MODULE Silver.ComposeBooleanInitializerLibraries
+SILVER_MODULE Silver.ComposeSourceBridge
+SILVER_MODULE Silver.PredicateFlowReaders
+SILVER_MODULE Silver.PredicateNativeScalarHelpers
+SILVER_MODULE Silver.PredicateNativeSourceChecks
+SILVER_MODULE Silver.PredicateBooleanBodyNative
+SILVER_MODULE Silver.PredicateBooleanArrayBodyNative
+SILVER_MODULE Silver.PredicateScalarBodyNative
+SILVER_MODULE Silver.PredicateArrayBodyNative
+SILVER_MODULE Silver.PathNativeExpressions
+SILVER_MODULE Silver.PathNativeEquations
+SILVER_MODULE Silver.LengthIntervalModel
+SILVER_MODULE Silver.PredicateBasicExpressions
+SILVER_MODULE Silver.PredicateBasicSourceCandidate
+SILVER_MODULE Silver.PredicateBooleanBodySource
+SILVER_MODULE Silver.PredicateBooleanArrayBodySource
+SILVER_MODULE Silver.BooleanBindingsNative
+SILVER_MODULE Silver.BooleanBindingsSourceChecks
+SILVER_MODULE Silver.PredicateXorNative
+SILVER_MODULE Silver.PredicateXorSourceBridge
+SILVER_MODULE Silver.PredicateScalarBodySource
+SILVER_MODULE Silver.BooleanBindingsSourceBridge
+SILVER_MODULE Silver.PredicateFlowReaderLibraries
+SILVER_MODULE Silver.PredicateScalarBodyHelpers
+SILVER_MODULE Silver.PredicateArrayBodySource
+SILVER_MODULE Silver.PredicateCountedBoundSource
+SILVER_MODULE Silver.PredicateBodyCandidates
+SILVER_MODULE Silver.PredicateLoopCandidate
+SILVER_MODULE Silver.PredicateAdapterSourceCandidate
+SILVER_MODULE Silver.PredicateOuterExpressions
+SILVER_MODULE Silver.PredicateOuterCandidates
+SILVER_MODULE Silver.PredicateSourceShape
+SILVER_MODULE Silver.PredicateSourceRequirements
+SILVER_MODULE Silver.PredicateCharacterSourceCandidate
+SILVER_MODULE Silver.PredicateScalarBodyCandidate
+SILVER_MODULE Silver.PredicateFlowSourceCandidate
+SILVER_MODULE Silver.PredicateNativeHelpersCandidate
+SILVER_MODULE Silver.PredicateNativeShapeCandidate
+SILVER_MODULE Silver.PredicateBodySourceCandidate
+SILVER_MODULE Silver.PredicateSourceCandidate
+SILVER_MODULE Silver.PredicateStructuralGuards
+SILVER_MODULE Silver.PredicateSourceChecks
+SILVER_MODULE Silver.IntegerLiteralExpressions
+SILVER_MODULE Silver.IntegerLiteralEquations
+SILVER_MODULE Silver.IntegerLiteralSourceShape
+SILVER_MODULE Silver.IntegerLiteralSourceChecks
+SILVER_MODULE Silver.IntegerLiteralSourceBridge
+SILVER_MODULE Silver.LengthIntervalExpressions
+SILVER_MODULE Silver.LengthIntervalPrecedence
+SILVER_MODULE Silver.LengthIntervalsCapture
+SILVER_MODULE Silver.PathNativePrecedence
+SILVER_MODULE Silver.PathFactsSourceShape
+SILVER_MODULE Silver.PathFactsSourceChecks
+SILVER_MODULE Silver.PathFactsSourceBridge
+SILVER_MODULE Silver.LengthIntervalsSource
+SILVER_MODULE Silver.PredicateBodySizing
+SILVER_MODULE Silver.PredicateBodyModelSizing
+SILVER_MODULE Silver.PredicateLoopImports
+SILVER_MODULE Silver.PredicateBodyHelpers
+SILVER_MODULE Silver.PredicateBooleanBodyHelpers
+SILVER_MODULE Silver.PredicateBooleanBodyLibraries
+SILVER_MODULE Silver.PredicateBooleanArrayBodyHelpers
+SILVER_MODULE Silver.PredicateBooleanArrayBodyLibraries
+SILVER_MODULE Silver.PredicateBasicEquations
+SILVER_MODULE Silver.PredicateBasicSizing
+SILVER_MODULE Silver.PredicateBasicHelpers
+SILVER_MODULE Silver.PredicateNativeLibraries
+SILVER_MODULE Silver.PredicateBasicLibraries
+SILVER_MODULE Silver.PredicateLoopHelpers
+SILVER_MODULE Silver.PredicateLoopSizing
+SILVER_MODULE Silver.PredicateOuterEquations
+SILVER_MODULE Silver.ComposeModelRecursion
+SILVER_MODULE Silver.ComposeSubtypeModelEquations
+SILVER_MODULE Silver.ComposeStringDenotations
+SILVER_MODULE Silver.ComposeModelHelperEquations
+SILVER_MODULE Silver.ComposeRecognitionEquations
+SILVER_MODULE Silver.ComposeModelEquations
+SILVER_MODULE Silver.ComposeModelRanges
+SILVER_MODULE Silver.ComposeSubtypeLookupLegal
+SILVER_MODULE Silver.ComposeModelLegal
+SILVER_MODULE Silver.ComposeModel
+SILVER_MODULE Silver.PredicateInheritedReady
+SILVER_MODULE Silver.PredicateOuterModel
+SILVER_MODULE Silver.PredicateEquations
+SILVER_MODULE Silver.PredicateSourceBridge
+SILVER_MODULE Silver.PredicateConditionUnique
+SILVER_MODULE Silver.PredicateConditionMeaning
+SILVER_MODULE Silver.PredicateScalarGuardMeaning
+SILVER_MODULE Silver.PredicateConditionValidity
+SILVER_MODULE Silver.ArrayBindingsOrdered
+SILVER_MODULE Silver.PredicateStringAssignmentReadings
+SILVER_MODULE Silver.PredicateStringAssignmentMeaning
+SILVER_MODULE Silver.PredicateBasicReadings
+SILVER_MODULE Silver.PredicateBodyReadings
+SILVER_MODULE Silver.PredicateBodySound
+SILVER_MODULE Silver.PredicateBodyBinderSeparation
+SILVER_MODULE Silver.PredicateBodyMeaning
+SILVER_MODULE Silver.PredicateBodyUnique
+SILVER_MODULE Silver.SequenceAdmission
+SILVER_MODULE Silver.SequenceTokens
+SILVER_MODULE Silver.SequenceContext
+SILVER_MODULE Silver.PredicateShell
+SILVER_MODULE Silver.ComposeDecode
+SILVER_MODULE Silver.PredicateHeaderDecode
+SILVER_MODULE Silver.SequenceSubtypeReady
+SILVER_MODULE Silver.ComposeScalarTrace
+SILVER_MODULE Silver.SequenceScalarTrace
+SILVER_MODULE Silver.ComposeSubtypeChecks
+SILVER_MODULE Silver.ComposeArrayChecks
+SILVER_MODULE Silver.ComposeBooleanArrayHeaderChecks
+SILVER_MODULE Silver.ComposeInitializerTrace
+SILVER_MODULE Silver.SequenceInitializerTrace
+SILVER_MODULE Silver.SequenceArrayReady
+SILVER_MODULE Silver.PredicateHeader
+SILVER_MODULE Silver.PredicateHeaderFlow
+SILVER_MODULE Silver.BooleanFreezing
+SILVER_MODULE Silver.BooleanFreezingChecks
+SILVER_MODULE Silver.BooleanShapeExtension
+SILVER_MODULE Silver.ComposeBooleanTrace
+SILVER_MODULE Silver.ComposeBooleanArrayTrace
+SILVER_MODULE Silver.ComposeBooleanRegionTrace
+SILVER_MODULE Silver.PredicateBooleanHeader
+SILVER_MODULE Silver.ComposeArrayStore
+SILVER_MODULE Silver.PredicateGrammar
+SILVER_MODULE Silver.PredicateFlags
+SILVER_MODULE Silver.PredicateSelectors
+SILVER_MODULE Silver.ComposeStringOrigins
+SILVER_MODULE Silver.ComposeStringRuntimeBounds
+SILVER_MODULE Silver.PredicateStringBoundChecks
+SILVER_MODULE Silver.PredicateChecks
+SILVER_MODULE Silver.PredicateStringBoundsSources
+SILVER_MODULE Silver.PredicateStringBoundsExecution
+SILVER_MODULE Silver.PredicateStringBoundsAssurance
+SILVER_MODULE Silver.ComposeStringBoundEquivalence
+SILVER_MODULE Silver.PredicateStringActualBounds
+SILVER_MODULE Silver.PredicateStringActualExecution
+SILVER_MODULE Silver.PredicateStringActualInitializers
+SILVER_MODULE Silver.PredicateStringActualAssurance
+SILVER_MODULE Silver.Current
+SILVER_MODULE Silver.PredicateCorrespondence
+SILVER_MODULE Silver.PredicateNativeSourceBridge
+SILVER_MODULE Silver.ImageModelInsertion
+SILVER_MODULE Silver.ImageModelMatcher
+SILVER_MODULE Silver.ImageModelMatcherNative
+SILVER_MODULE Silver.ImageModelSourceShape
+SILVER_MODULE Silver.ImageModelMatcherSource
+SILVER_MODULE Silver.ImageModelNames
+SILVER_MODULE Silver.ImageModelDecodedNative
+SILVER_MODULE Silver.ImageModelDecodedSource
+SILVER_MODULE Silver.ImageModelNameNative
+SILVER_MODULE Silver.ImageModelNameSource
+SILVER_MODULE Silver.ImageModelTheoryNative
+SILVER_MODULE Silver.ImageModelStringNative
+SILVER_MODULE Silver.ImageModelFinishNative
+SILVER_MODULE Silver.ImageModelStringSource
+SILVER_MODULE Silver.ImageModelTheorySource
+SILVER_MODULE Silver.ImageModelFinishSource
+SILVER_MODULE Silver.ImageModelCoreState
+SILVER_MODULE Silver.ImageModelHexSource
+SILVER_MODULE Silver.ImageModelCharacter
+SILVER_MODULE Silver.ImageModelScannerSyntax
+SILVER_MODULE Silver.ImageModelStructuralNative
+SILVER_MODULE Silver.ImageModelConsumeNative
+SILVER_MODULE Silver.ImageModelScannerGuards
+SILVER_MODULE Silver.ImageModelScannerSource
+SILVER_MODULE Silver.ImageModelScanTrace
+SILVER_MODULE Silver.ImageModelNativeHelpers
+SILVER_MODULE Silver.ImageFilesTrace
+SILVER_MODULE Silver.ImageModelInitialSource
+SILVER_MODULE Silver.ImageFileSplice
+SILVER_MODULE Silver.ImageFilesSplice
+SILVER_MODULE Silver.ImageFilesSpliceGuards
+SILVER_MODULE Silver.ImageFilesCapture
+SILVER_MODULE Silver.ImageFilesSourceShape
+SILVER_MODULE Silver.ImageFilesSource
+SILVER_MODULE Silver.ImageModelByteCount
+SILVER_MODULE Silver.ImageFilesEndpoint
+SILVER_MODULE Silver.ImageModelStringScan
+SILVER_MODULE Silver.ImageModelStringNormalization
+SILVER_MODULE Silver.ImageModelJsonSyntax
+SILVER_MODULE Silver.ImageModelStringEncoding
+SILVER_MODULE Silver.ImageModelStringObservations
+SILVER_MODULE Silver.ImageModelNumberScan
+SILVER_MODULE Silver.ImageModelStructuralSteps
+SILVER_MODULE Silver.ImageModelQuotedString
+SILVER_MODULE Silver.ImageModelStructuralNesting
+SILVER_MODULE Silver.ImageModelIdRun
+SILVER_MODULE Silver.ImageModelIdNormalization
+SILVER_MODULE Silver.ImageModelTokenScan
+SILVER_MODULE Silver.ImageModelRootScan
+SILVER_MODULE Silver.ImageModelStringResult
+SILVER_MODULE Silver.ImageModelWideString
+SILVER_MODULE Silver.ImageModelMatcherDeath
+SILVER_MODULE Silver.ImageModelJsonSpelling
+SILVER_MODULE Silver.ImageModelAtomResult
+SILVER_MODULE Silver.ImageModelJsonComposition
+SILVER_MODULE Silver.ImageModelJsonDelimiters
+SILVER_MODULE Silver.ImageModelJsonArrays
+SILVER_MODULE Silver.ImageModelJsonBodies
+SILVER_MODULE Silver.ImageModelJsonNormalization
+SILVER_MODULE Silver.ImageModelJsonSimulation
+SILVER_MODULE Silver.ImageModelJsonErasure
+SILVER_MODULE Silver.ImageModelJsonFields
+SILVER_MODULE Silver.ImageModelWideQuotedResult
+SILVER_MODULE Silver.ImageModelWideNormalization
+SILVER_MODULE Silver.ImageModelEmissionLiveness
+SILVER_MODULE Silver.ImageModelWideSimulation
+SILVER_MODULE Silver.ImageModelFieldArrayBody
+SILVER_MODULE Silver.ImageModelWideFields
+SILVER_MODULE Silver.ImageModelTheorySpelling
+SILVER_MODULE Silver.ImageModelWideTheorySpelling
+SILVER_MODULE Silver.ImageModelTheoryFields
+SILVER_MODULE Silver.ImageModelTheoryScan
+SILVER_MODULE Silver.ImageModelWideTheoryFields
+SILVER_MODULE Silver.ImageModelWideTheoryScan
+SILVER_MODULE Silver.ImageModelTheorySpan
+SILVER_MODULE Silver.ImageModelCodeUnitSpelling
+SILVER_MODULE Silver.ImageModelDocumentSpan
+SILVER_MODULE Silver.ImageModelDocumentTheory
+SILVER_MODULE Silver.ImageModelDocumentHeader
+SILVER_MODULE Silver.ImageModelDocumentEntries
+SILVER_MODULE Silver.ImageModelDocumentEffects
+SILVER_MODULE Silver.ImageModelDocumentSelection
+SILVER_MODULE Silver.ImageModelDocumentFooter
+SILVER_MODULE Silver.ImageModelDocumentScan
+SILVER_MODULE Silver.ImageModelDocumentAllSelected
+SILVER_MODULE Silver.ImageModelJsonCanonical
+SILVER_MODULE Silver.ImageModelJsonSplice
+SILVER_MODULE Silver.ImageModelTheoryOffsets
+SILVER_MODULE Silver.ImageModelTheorySplice
+SILVER_MODULE Silver.ImageModelDocumentSplice
+SILVER_MODULE Silver.ImageModelTheoryCuts
+SILVER_MODULE Silver.ImageModelTheoryRefinement
+SILVER_MODULE Silver.ImageModelTemplateData
+SILVER_MODULE Silver.ImageModelTemplateIndex
+SILVER_MODULE Silver.ImageModelTemplateSource
+SILVER_MODULE Silver.ImageModelTemplateSchema
+SILVER_MODULE Silver.ImageModelClone
+SILVER_MODULE Silver.ImageModelTemplateFragments
+SILVER_MODULE Silver.ImageModelTemplateSelectors
+SILVER_MODULE Silver.ImageModelSelectedTemplate
+SILVER_MODULE Silver.ImageModelJsonMeaning
+SILVER_MODULE Silver.ImageModelCanonicalRead
+SILVER_MODULE Silver.ImageModelTemplateValidity
+SILVER_MODULE Silver.ImageModelSelectedMeaning
+SILVER_MODULE Silver.IntegerImageRefinement
+SILVER_MODULE Silver.IntegerImageTheory
+SILVER_MODULE Silver.ImageModelCloneMeaning
+SILVER_MODULE Silver.ImageModelRefinement
+SILVER_MODULE Silver.ImageRefinementEndpoint
+SILVER_MODULE Silver.ImageModelProducerSyntax
+SILVER_MODULE Silver.ImageModelExactEmission
+SILVER_MODULE Silver.ImageModelNormalExact
+SILVER_MODULE Silver.ImageModelTheoryAcceptance
+SILVER_MODULE Silver.ImageModelDocumentTraceProperties
+SILVER_MODULE Silver.ImageModelDocumentAcceptance
+SILVER_MODULE Silver.ImageModelDocumentFinish
+SILVER_MODULE Silver.ImageProducerEndpoint
+SILVER_MODULE Silver.ImageModelConsumerBoundary
+SILVER_MODULE Silver.ImageConsumerEndpoint
+SILVER_MODULE Silver.PredicateExamples
+SILVER_MODULE Silver.ScalarLiteralExpressions
+SILVER_MODULE Silver.ScalarLiteralEquations
+SILVER_MODULE Silver.ScalarLiteralSourceShape
+SILVER_MODULE Silver.ScalarLiteralSourceChecks
+SILVER_MODULE Silver.ScalarLiteralSourceBridge
+SILVER_MODULE Silver.NamedExamples
+SILVER_MODULE Silver.ArgumentsSemantics
+SILVER_MODULE Silver.ArgumentsExamples
+SILVER_MODULE Silver.ConcatSemantics
+SILVER_MODULE Silver.ConcatExamples
+SILVER_MODULE Silver.GuardedMain
+SILVER_MODULE Silver.GuardedExamples
+SILVER_MODULE Silver.AssignmentSemantics
+SILVER_MODULE Silver.AssignmentExamples
+SILVER_MODULE Silver.BranchingSemantics
+SILVER_MODULE Silver.BranchingMain
+SILVER_MODULE Silver.BranchingExamples
+SILVER_MODULE Silver.ComposeExamples
+SILVER_MODULE Silver.SequenceBasics
+SILVER_MODULE Silver.SequenceLists
+SILVER_MODULE Silver.SequenceConditions
+SILVER_MODULE Silver.SequenceHeader
+SILVER_MODULE Silver.SequenceShell
+SILVER_MODULE Silver.SequenceConditionValidity
+SILVER_MODULE Silver.SequenceGrammar
+SILVER_MODULE Silver.SequenceFormDisjoint
+SILVER_MODULE Silver.SequenceSelectors
+SILVER_MODULE Silver.SequenceMain
+SILVER_MODULE Silver.SequenceObligations
+SILVER_MODULE Silver.SequenceModelRanges
+SILVER_MODULE Silver.SequenceNativeState
+SILVER_MODULE Silver.SequenceNativeExpressions
+SILVER_MODULE Silver.SequenceExpressions
+SILVER_MODULE Silver.SequenceNativeEquations
+SILVER_MODULE Silver.SequenceNativeUnique
+SILVER_MODULE Silver.SequenceNativeModel
+SILVER_MODULE Silver.SequenceBodyContext
+SILVER_MODULE Silver.SequenceNativeProjection
+SILVER_MODULE Silver.SequenceFullEquations
+SILVER_MODULE Silver.SequenceNativeProjected
+SILVER_MODULE Silver.SequenceNativeCorrespondence
+SILVER_MODULE Silver.SequenceEquations
+SILVER_MODULE Silver.SequenceModel
+SILVER_MODULE Silver.ComposeExecution
+SILVER_MODULE Silver.ArgumentsDisjoint
+SILVER_MODULE Silver.ConcatDisjoint
+SILVER_MODULE Silver.GuardedDisjoint
+SILVER_MODULE Silver.AssignmentDisjoint
+SILVER_MODULE Silver.BranchingDisjoint
+SILVER_MODULE Silver
+SILVER_MODULE Silver.ComposeBooleanDeclarationCandidate
+SILVER_MODULE Silver.AxiomAudit
+SILVER_MODULE Silver.Audit
+Silver axiom audit passed: 132101 declarations; foundations: [propext, Classical.choice, Quot.sound]
+
+Lean phase audit finished at 2026-11-07T10:58:57.465976+00:00; elapsed 14.940s; exit 0

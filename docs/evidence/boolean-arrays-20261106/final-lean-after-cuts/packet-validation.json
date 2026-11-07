@@ -1,0 +1,7 @@
+{
+  "markdown_links_resolve": true,
+  "markdown_trailing_whitespace": false,
+  "build_fresh_expected_module_inventory_matches": true,
+  "rebuilt_plus_reused_modules": 655,
+  "log_has_error_or_warning_diagnostics": false
+}

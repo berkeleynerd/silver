@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every index and arithmetic check follows from bounded index subtypes plus the loop condition and 'and then' guards directly before each access, and loops sit in procedures so no variants are needed. No annotation, recursion or heap use is required.
 
-Position 209 in the [progression](../../../progression.md#stage-7), in stage 7.
+Position 210 in the [progression](../../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

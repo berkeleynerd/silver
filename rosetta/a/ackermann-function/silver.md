@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The program uses no recursion, runs its while loop inside a procedure that gets no termination check, and guards every index and increment just before use, so each check follows from local guards and declared ranges. Arbitrary precision is optional, so Natural values with a reported capacity limit are enough.
 
-Position 203 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 204 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

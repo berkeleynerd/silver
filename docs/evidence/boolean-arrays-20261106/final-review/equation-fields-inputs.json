@@ -1,0 +1,61 @@
+{
+  "inspection_started_utc": "2026-11-07T02:42:56Z",
+  "comparison_finished_utc": "2026-11-07T02:43:43Z",
+  "recorded_utc": "2026-11-07T02:44:20.458255+00:00",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_confirmation": "unavailable",
+  "token_cost": "unavailable",
+  "review_baseline": "1b4ab33131afb1b7035a8489f6e699e1e63264cc",
+  "active_run": "20261107T014623-e873505c3c30",
+  "active_run_terminal_outcome": "Not claimed; module failure recorded while other work continues",
+  "reviewed_inputs_sha256": {
+    "proof/Silver/ComposeSourceBridge.lean": "350c87778672d88188ffa1db4e8b394812c3ac485826695a6c0e869cd4fc3de0",
+    "proof/Silver/ComposeContracts.lean": "dbf6b7780e150f65a8c712f96d32d9f0ea60490e78acc171b0cb01298bd75d82",
+    "proof/Silver/ComposeBooleanDeclarationLibraries.lean": "b89ef284874fc753235e8a0e34881bc9df7d6f9da72ec81bebf2faccdb7143d0",
+    "proof/Silver/ComposeBooleanDeclarationMeaning.lean": "70fbe669a380b4665a025adc2afa7009edd562e6e35748524b57ff6d809c96ff",
+    "proof/Silver/ComposeBooleanInitializerLibraries.lean": "e2b2571d89e2decaa5a4a214abbf487cda2d6b1927f8fb67c07f7f26e166a405",
+    "tests/test_lean_source.py": "5f77ec7653b6b7bc8807be3d4ef67612812903ffb5612106818253eeaff56b1f",
+    "tests/test_lean_evidence.py": "78b6700e401cd9c08ca0b869bf32edab148cccf49aaecb0f681f7f90910b7bd3",
+    "tests/test_lean_modules.py": "cb287c6dc17b7955edeb701775cc04ca4f92ede68a4393d7d77acd6b5ee67657"
+  },
+  "candidate_path": "tmp/ComposeSourceBridge-field-repair.lean",
+  "candidate_sha256": "3bb85bcd32810ecc243166b148c97b98fafb72227fe4cb17d021f2d82da9416a",
+  "original_sha256": "350c87778672d88188ffa1db4e8b394812c3ac485826695a6c0e869cd4fc3de0",
+  "reviewed_patch_sha256": "74c85e8d49c5cf7f02352ecd79c2c96b86ab94039783a6da6721018c61e14b6f",
+  "failure_excerpt_sha256": "de34929fa727fdcf594b0e163524fa68bfb533ed2ac693814d1c95732071df62",
+  "proof_body_comparison": "Both named proof bodies equal their corresponding old bullet bodies after whitespace normalization; all bytes outside record construction unchanged.",
+  "changed_reader_projection": {
+    "module": [
+      "module\n"
+    ],
+    "imports": [
+      "Silver.ComposeSourceChecks",
+      "Silver.ComposeEquations",
+      "Silver.LexicalSourceBridge",
+      "Silver.NamesSourceBridge",
+      "Silver.ScalarExpressionSourceBridge",
+      "Silver.ComposeEvaluation",
+      "Silver.IntegerImageNativeSource",
+      "Silver.ComposeBooleanDeclarationLibraries",
+      "Silver.ComposeBooleanInitializerLibraries"
+    ],
+    "include_str_count": 0
+  },
+  "projection_matches_original": true,
+  "retained_certificate_actual_closure_sha256": {
+    "Silver.AxiomAudit": "47cb06e63dd120cf1db5ca14f39c3743500c6032d5f68d6e797106cb2903cb7b",
+    "Silver.CertificateWitness": "7f64ba1832d59532bdfcf56d06cfb3d9589fdb71c2e39e0bc88326b2d8757f2d",
+    "Silver.SourceLexer": "6c2824f4ed5b303b3a3f3ec94d8cdb650ffbd86103eef842a32a3c6f3755a8eb",
+    "Silver.Cursor": "c5316bac7eb2a733fcda3787d23ee16e8e3b963ef31f6b7e26d285eb7e517ac3",
+    "Silver.Admission": "7c756102bc689b108aa0d5b2c41a68868d07f21230282891d776ef0994f2faf2",
+    "Silver.Lexical": "bd6025d6dc26fd8d984de90bc4a00b63e30d76c27e3db086358aeaa5712ad372"
+  },
+  "retained_802_capture_contains_changed_module": true,
+  "selected_802_matching_if_candidate_integrated_after_two_flag_repairs": 799,
+  "regression_reuse": "Applicable by unchanged actual dependencies/projections; historical all-input equality is not asserted.",
+  "candidate_integrated_at_inspection": false,
+  "kernel_checked_candidate": false,
+  "reviewer_started_native_proof_test_jobs": false,
+  "followup_required": "After active run terminal, integrate exact candidate; focused-check affected bridge/consumers and complete final Lean/source audit, then confirm final committed target."
+}

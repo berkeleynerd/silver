@@ -1,0 +1,35 @@
+{
+  "utc": "2026-11-06T23:04:05.619250+00:00",
+  "pid": 186453,
+  "command": [
+    "/usr/bin/python3",
+    "scripts/dev.py",
+    "test",
+    "--task",
+    "#297 final Boolean arrays full regressions",
+    "--jobs",
+    "4"
+  ],
+  "before": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "after": [
+    8,
+    9,
+    10,
+    11
+  ],
+  "applied_on": "managed run announcement, before preflight hashing and unittest launch",
+  "run_announcement": "Managed run: 20261106T230401-5dde322e2782 (/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261106T230401-5dde322e2782)"
+}

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check is an index or range on a fixed 9-cell board, a bounded generator, or a for loop with a visible guard, and no while loop sits inside a function, so no annotation is needed; interactive human input is optional and is left out in favour of the deterministic computer players.
 
-Position 453 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 454 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

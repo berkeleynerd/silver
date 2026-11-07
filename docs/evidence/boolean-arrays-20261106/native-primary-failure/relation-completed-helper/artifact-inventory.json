@@ -1,0 +1,42 @@
+[
+  {
+    "path": "README.md",
+    "bytes": 883,
+    "sha256": "75281967f27c56beee8b25242966a460888625ca2f93523a2d19a9bf7f1d56e4"
+  },
+  {
+    "path": "managed-events-at-observation.jsonl.gz",
+    "bytes": 126856,
+    "sha256": "15df8dd7bb9738ab97dbfea88907cda616f10983bbafc43d11eab60ccfa0e268"
+  },
+  {
+    "path": "managed-log-at-observation.log.gz",
+    "bytes": 68469,
+    "sha256": "1a9b8e42e7e6b8dab59cca205c275c580875f4bc37bfbddfad16a56b566fc255"
+  },
+  {
+    "path": "original-source.adb.gz",
+    "bytes": 35451,
+    "sha256": "3f41e9072c835ae528a8cfa1cae8a9b8316bc6ace4aecd36e2c03a3a422dab9e"
+  },
+  {
+    "path": "read-relation-task.gnat-json.gz",
+    "bytes": 1858911,
+    "sha256": "c2ca2260c2169bcc99c04c7050459cc88855732d3463674ae1b30911bb4e956c"
+  },
+  {
+    "path": "read-relation-why3session.xml.gz",
+    "bytes": 9207,
+    "sha256": "aa4044ec24d7817ab0dd7aebf3fa9b6b6cd4434d23c103b7d85c4b43cce2c100"
+  },
+  {
+    "path": "read-relation-why3shapes.gz",
+    "bytes": 57494,
+    "sha256": "c9bfab79f5c5ab91425967a093803017f838ab3c7c574a1357f844bf867d2bff"
+  },
+  {
+    "path": "record.json",
+    "bytes": 5500,
+    "sha256": "bdf487dbae9595d86228f97db07b58be51d3f267f6e5f5193585d245ef6ac5ac"
+  }
+]

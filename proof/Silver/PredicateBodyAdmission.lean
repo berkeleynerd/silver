@@ -90,12 +90,20 @@ def arrayAssignmentBody (text : Source) (context : ParseContext) (scan : BodySca
   let subscript := arrayIndex text context scan
   let value := readScalarInFlow text context (arrayValueStart text context scan) scan.facts
   let binding := ArrayBindings.binding context.arrayNames target
-  if target = 0 ∨ !binding.mutable ∨ !ArrayBindings.contains binding subscript.bounds ∨
+  if target = 0 ∨ !binding.mutable ∨ binding.isBoolean ∨ !ArrayBindings.contains binding subscript.bounds ∨
       subscript.operands = ScalarExpression.maxOperands ∨ value.after ≤ scan.position ∨ value.bounds.isEmpty ∨
       value.bounds.lower < binding.componentBounds.lower ∨ value.bounds.upper > binding.componentBounds.upper
   then invalidBody scan else {scan with position := value.after, assigned := true}
 
-inductive BasicKind | null | output | put | reject | scalarAssignment | arrayAssignment | booleanAssignment | assignment
+def booleanArrayAssignmentBody (text : Source) (context : ParseContext) (scan : BodyScan) : BodyScan :=
+  let target := arrayTarget text context scan.position
+  let targetAfter := booleanArrayAfter text context scan.position scan.facts
+  let value := readCondition text context (fixedAfter text targetAfter ":=" false) scan.facts
+  if target = 0 ∨ !(ArrayBindings.binding context.arrayNames target).isBoolean ∨
+      !(ArrayBindings.binding context.arrayNames target).mutable ∨ targetAfter = 0 ∨ value.after ≤ scan.position
+  then invalidBody scan else {scan with position := value.after, assigned := true}
+
+inductive BasicKind | null | output | put | reject | scalarAssignment | arrayAssignment | booleanArrayAssignment | booleanAssignment | assignment
   deriving DecidableEq, Repr
 
 def basicKind (text : Source) (context : ParseContext) (scan : BodyScan) : BasicKind :=
@@ -105,7 +113,9 @@ def basicKind (text : Source) (context : ParseContext) (scan : BodyScan) : Basic
   else if context.hasArguments && decide (callAfter text context.names scan.position .reject context.scalarNames context.arrayNames (context.subtypeHiding.get .reject) context.booleanNames ≠ 0)
     then .reject
   else if scalarTarget text context scan.position ≠ 0 then .scalarAssignment
-  else if arrayTarget text context scan.position ≠ 0 then .arrayAssignment
+  else if arrayTarget text context scan.position ≠ 0 then
+    if (ArrayBindings.binding context.arrayNames (arrayTarget text context scan.position)).isBoolean
+    then .booleanArrayAssignment else .arrayAssignment
   else if booleanTarget text context scan.position ≠ 0 then .booleanAssignment
   else .assignment
 
@@ -176,6 +186,7 @@ def basicRaw (text : Source) (context : ParseContext) (scan : BodyScan) : BodySc
       {call with facts := {call.facts with path := call.facts.path.reject}}
   | .scalarAssignment => scalarAssignmentBody text context scan
   | .arrayAssignment => arrayAssignmentBody text context scan
+  | .booleanArrayAssignment => booleanArrayAssignmentBody text context scan
   | .booleanAssignment => booleanAssignmentBody text context scan
   | .assignment => stringAssignmentBody text context scan
 
@@ -247,7 +258,8 @@ def loopArrayAllowed (text : Source) (context : ParseContext) (scan : BodyScan) 
   let first := skipAt text (loopLowerPosition text scan)
   let after := nameAfter text first
   decide (first ≠ 0 ∧ first < after ∧ target ≠ 0) && !(ArrayBindings.binding context.arrayNames target).mutable &&
-    !Named.equalName text (loopFirst text scan) (loopNameAfter text scan) first after
+    !Named.equalName text (loopFirst text scan) (loopNameAfter text scan) first after &&
+    !(ArrayBindings.binding context.arrayNames target).isBoolean
 
 def LoopHeader.bounds (header : LoopHeader) : Integer.Interval :=
   if header.isArray then header.componentBounds else Integer.loopBounds header.lower.bounds header.upper.bounds

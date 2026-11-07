@@ -3,6 +3,7 @@ module
 public import Silver.ComposeObjectDeclarations
 public import Silver.ComposeScalarDeclarations
 public import Silver.ComposeArrayElaboration
+public import Silver.ComposeBooleanArrayElaboration
 public import Silver.ComposeBooleanDeclarations
 
 @[expose] public section
@@ -37,6 +38,14 @@ inductive DeclarationsAt (text : Source) (arguments : Bool) :
       (subtypeDeclarationAt text state arguments).position = 0 →
       (scalarDeclarationAt text state arguments).position = 0 →
       ArrayDeclarationAt text arguments state declaration middle →
+      DeclarationsAt text arguments middle rest final →
+      DeclarationsAt text arguments state rest final
+
+  | booleanArray {state middle final : ParserState} {rest : List Declaration} :
+      state.position ≠ 0 → fixedAfter text state.position "begin" true = 0 →
+      (subtypeDeclarationAt text state arguments).position = 0 →
+      (scalarDeclarationAt text state arguments).position = 0 →
+      BooleanArrayDeclarationAt text arguments state middle →
       DeclarationsAt text arguments middle rest final →
       DeclarationsAt text arguments state rest final
 
@@ -92,13 +101,19 @@ theorem declarationsLoop_sound (text : Source) (arguments : Bool) (fuel : Nat) (
                 · have selected : declarationAt text state arguments = arrayDeclarationAt text state arguments := by
                     dsimp only [declarationAt]
                     rw [ite_eq_right subtype, ite_eq_right scalar, ite_eq_left array]
-                  obtain ⟨declaration, parsed⟩ := array_declaration_sound text state arguments array
                   have remaining : (declarationsLoop text arguments fuel (arrayDeclarationAt text state arguments)).position ≠ 0 := by
                     simpa [declarationsLoop, positive, stop, selected, array] using accepted
                   obtain ⟨rest, parsedRest⟩ := ih _ remaining
-                  refine ⟨rest, ?_⟩
-                  simpa [declarationsLoop, positive, stop, selected, array] using
-                    DeclarationsAt.array positive (by omega) (by omega) (by omega) parsed parsedRest
+                  by_cases kind : (arrayDeclarationParts text state).isBoolean = true
+                  · have parsed := boolean_array_declaration_sound text state arguments kind array
+                    refine ⟨rest, ?_⟩
+                    simpa [declarationsLoop, positive, stop, selected, array] using
+                      DeclarationsAt.booleanArray positive (by omega) (by omega) (by omega) parsed parsedRest
+                  · obtain ⟨declaration, parsed⟩ := array_declaration_sound text state arguments
+                      (Bool.eq_false_iff.mpr kind) array
+                    refine ⟨rest, ?_⟩
+                    simpa [declarationsLoop, positive, stop, selected, array] using
+                      DeclarationsAt.array positive (by omega) (by omega) (by omega) parsed parsedRest
                 · by_cases boolean : (booleanDeclarationAt text state arguments).position ≠ 0
                   · have selected : declarationAt text state arguments = booleanDeclarationAt text state arguments := by
                       simp only [declarationAt]; split <;> simp_all
@@ -142,6 +157,9 @@ theorem declarations_count {text : Source} {arguments : Bool} {state final : Par
   | array _ _ _ _ first _ ih =>
       rw [(array_declaration_preserves first).1] at ih
       exact ih
+  | booleanArray _ _ _ _ first _ ih =>
+      rw [(boolean_array_declaration_preserves first).1] at ih
+      exact ih
 
   | subtype _ _ first _ ih => cases first; exact ih
   | boolean _ _ _ _ _ first _ ih => cases first; exact ih
@@ -164,6 +182,9 @@ theorem declarations_shape {text : Source} {arguments : Bool} {state final : Par
   | array _ _ _ _ first _ ih =>
       rw [(array_declaration_preserves first).1, (array_declaration_preserves first).2] at ih
       exact ih normal static
+  | booleanArray _ _ _ _ first _ ih =>
+      rw [(boolean_array_declaration_preserves first).1, (boolean_array_declaration_preserves first).2.1] at ih
+      exact ih normal static
 
   | boolean _ _ _ _ _ first _ ih => cases first; exact ih normal static
   | subtype _ _ first _ ih => cases first; exact ih normal static
@@ -180,7 +201,9 @@ theorem declarations_normal {text : Source} {arguments : Bool} {state final : Pa
   | array _ _ _ _ first _ ih =>
       rw [(array_declaration_preserves first).1] at ih
       exact ih normal
-
+  | booleanArray _ _ _ _ first _ ih =>
+      rw [(boolean_array_declaration_preserves first).1] at ih
+      exact ih normal
 
   | boolean _ _ _ _ _ first _ ih => cases first; exact ih normal
   | subtype _ _ first _ ih => cases first; exact ih normal
@@ -196,7 +219,9 @@ theorem declarations_static {text : Source} {arguments : Bool} {state final : Pa
   | array _ _ _ _ first _ ih =>
       rw [(array_declaration_preserves first).2] at ih
       exact ih static
-
+  | booleanArray _ _ _ _ first _ ih =>
+      rw [(boolean_array_declaration_preserves first).2.1] at ih
+      exact ih static
 
   | boolean _ _ _ _ _ first _ ih => cases first; exact ih static
   | subtype _ _ first _ ih => cases first; exact ih static
@@ -347,7 +372,7 @@ theorem declarations_unique {text : Source} {arguments : Bool} {state leftState 
   | done positive stop =>
       cases second with
       | done => exact ⟨rfl, rfl⟩
-      | next _ more _ _ _ _ _ _ | scalar _ more _ _ _ | array _ more _ _ _ _ | subtype _ more _ _ | boolean _ more _ _ _ _ _ => exact False.elim (stop more)
+      | next _ more _ _ _ _ _ _ | scalar _ more _ _ _ | array _ more _ _ _ _ | booleanArray _ more _ _ _ _ | subtype _ more _ _ | boolean _ more _ _ _ _ _ => exact False.elim (stop more)
   | next positive more noSubtype noScalar noArray noBoolean parsed rest ih =>
       cases second with
       | done _ stop => exact False.elim (stop more)
@@ -363,6 +388,10 @@ theorem declarations_unique {text : Source} {arguments : Bool} {state leftState 
           have accepted := array_declaration_positive other
           rw [← array_declaration_complete other, noArray] at accepted
           contradiction
+      | booleanArray _ _ _ _ other _ =>
+          have accepted := boolean_array_declaration_positive other
+          rw [← boolean_array_declaration_complete other, noArray] at accepted
+          contradiction
       | boolean _ _ _ _ _ other _ =>
           have accepted := boolean_declaration_positive other
           rw [← boolean_declaration_complete other, noBoolean] at accepted
@@ -375,7 +404,7 @@ theorem declarations_unique {text : Source} {arguments : Bool} {state leftState 
   | scalar positive more noSubtype parsed rest ih =>
       cases second with
       | done _ stop => exact False.elim (stop more)
-      | next _ _ _ noScalar _ _ _ _ | array _ _ _ noScalar _ _ | boolean _ _ _ noScalar _ _ _ =>
+      | next _ _ _ noScalar _ _ _ _ | array _ _ _ noScalar _ _ | booleanArray _ _ _ noScalar _ _ | boolean _ _ _ noScalar _ _ _ =>
           have accepted := scalar_declaration_positive parsed
           rw [← scalar_declaration_complete parsed, noScalar] at accepted
           contradiction
@@ -402,6 +431,27 @@ theorem declarations_unique {text : Source} {arguments : Bool} {state leftState 
           have same := (array_declaration_complete parsed).symm.trans (array_declaration_complete other)
           cases same
           exact ih remaining
+      | booleanArray _ _ _ _ other _ => exact False.elim (array_declaration_kinds_disjoint parsed other)
+      | subtype _ _ other _ =>
+          have accepted := subtype_declaration_positive other
+          rw [← subtype_declaration_complete other, noSubtype] at accepted
+          contradiction
+  | booleanArray positive more noSubtype noScalar parsed rest ih =>
+      cases second with
+      | done _ stop => exact False.elim (stop more)
+      | next _ _ _ _ noArray _ _ _ | boolean _ _ _ _ noArray _ _ =>
+          have accepted := boolean_array_declaration_positive parsed
+          rw [← boolean_array_declaration_complete parsed, noArray] at accepted
+          contradiction
+      | scalar _ _ _ other _ =>
+          have accepted := scalar_declaration_positive other
+          rw [← scalar_declaration_complete other, noScalar] at accepted
+          contradiction
+      | array _ _ _ _ other _ => exact False.elim (array_declaration_kinds_disjoint other parsed)
+      | booleanArray _ _ _ _ other remaining =>
+          have same := boolean_array_declaration_unique parsed other
+          cases same
+          exact ih remaining
       | subtype _ _ other _ =>
           have accepted := subtype_declaration_positive other
           rw [← subtype_declaration_complete other, noSubtype] at accepted
@@ -409,7 +459,7 @@ theorem declarations_unique {text : Source} {arguments : Bool} {state leftState 
   | subtype positive more parsed rest ih =>
       cases second with
       | done _ stop => exact False.elim (stop more)
-      | next _ _ noSubtype _ _ _ _ _ | scalar _ _ noSubtype _ _ | array _ _ noSubtype _ _ _ | boolean _ _ noSubtype _ _ _ _ =>
+      | next _ _ noSubtype _ _ _ _ _ | scalar _ _ noSubtype _ _ | array _ _ noSubtype _ _ _ | booleanArray _ _ noSubtype _ _ _ | boolean _ _ noSubtype _ _ _ _ =>
           have accepted := subtype_declaration_positive parsed
           rw [← subtype_declaration_complete parsed, noSubtype] at accepted
           contradiction
@@ -432,6 +482,10 @@ theorem declarations_unique {text : Source} {arguments : Bool} {state leftState 
       | array _ _ _ _ other _ =>
           have accepted := array_declaration_positive other
           rw [← array_declaration_complete other, noArray] at accepted
+          contradiction
+      | booleanArray _ _ _ _ other _ =>
+          have accepted := boolean_array_declaration_positive other
+          rw [← boolean_array_declaration_complete other, noArray] at accepted
           contradiction
       | subtype _ _ other _ =>
           have accepted := subtype_declaration_positive other
@@ -469,6 +523,14 @@ theorem declarations_fields {text : Source} {arguments : Bool} {state final : Pa
       exact ⟨ih.1.trans fields.1, ih.2.1.trans fields.2.1,
         ih.2.2.1.trans fields.2.2.1, ih.2.2.2.trans fields.2.2.2⟩
 
+  | booleanArray _ _ _ _ first _ ih =>
+      have same := boolean_array_declaration_fields first
+      have capacity := congrArg ParserState.capacity same
+      have target := congrArg ParserState.target same
+      have dynamicFirst := congrArg ParserState.dynamicFirst same
+      have dynamicAfter := congrArg ParserState.dynamicAfter same
+      exact ⟨ih.1.trans capacity, ih.2.1.trans target,
+        ih.2.2.1.trans dynamicFirst, ih.2.2.2.trans dynamicAfter⟩
   | subtype _ _ first _ ih => cases first; exact ih
   | boolean _ _ _ _ _ first _ ih => cases first; exact ih
 
@@ -494,6 +556,9 @@ theorem declarations_subtypes_valid {text arguments state final declarations}
   | array _ _ _ _ first _ ih =>
       rw [array_declaration_subtypes first] at ih
       exact ih valid
+  | booleanArray _ _ _ _ first _ ih =>
+      rw [(boolean_array_declaration_preserves first).2.2.2] at ih
+      exact ih valid
 
 theorem declarations_subtypes_hiding {text arguments state final declarations}
     (parsed : DeclarationsAt text arguments state declarations final)
@@ -510,6 +575,9 @@ theorem declarations_subtypes_hiding {text arguments state final declarations}
   | subtype _ _ first _ ih => exact ih (subtype_declaration_hiding first correct)
   | array _ _ _ _ first _ ih =>
       rw [array_declaration_subtypes first] at ih
+      exact ih correct
+  | booleanArray _ _ _ _ first _ ih =>
+      rw [(boolean_array_declaration_preserves first).2.2.2] at ih
       exact ih correct
 
 theorem declarations_array_ready {text arguments state final declarations}
@@ -532,5 +600,8 @@ theorem declarations_array_ready {text arguments state final declarations}
   | array _ _ _ _ first _ ih =>
       exact ih (array_declaration_source_ready first ready subtypes)
         ((array_declaration_subtypes first).symm ▸ subtypes)
+  | booleanArray _ _ _ _ first _ ih =>
+      exact ih (boolean_array_declaration_source_ready first ready)
+        ((boolean_array_declaration_preserves first).2.2.2.symm ▸ subtypes)
 
 end Silver.Compose

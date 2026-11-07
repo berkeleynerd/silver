@@ -109,6 +109,43 @@ strings, comments and identifier substrings, and is reflected in admission and
 source correspondence. Independent xor expressions remain available. No report
 policy, source budget or required obligation is relaxed.
 
+## Fixed-size Boolean arrays
+
+The [Boolean-array delivery record](boolean-arrays.md#delivery-assurance-and-validation--2026-11-07)
+records the exact implementation, scoped reviews, successful Linux native
+Bronze/Silver and complete Lean/source checkpoints, and ordinary final build.
+It separately tracks final runtime applicability and the exact closing review
+target and disposition. The proof structure below retains the existing explicit
+source/native-refinement and automatic-pipeline premises.
+
+Integer and Boolean arrays share descriptor bounds and source-derived allocation
+budgets, with a component-kind tag distinguishing their typed projections.
+`ScalarExpression` excludes Boolean cells from Integer expressions;
+`BooleanArrays` reuses the checked index layout with a Boolean store and proves
+initialization, selected-cell updates and preservation of other cells and
+scalar Boolean bindings. Native Integer placeholder values reserve storage;
+they do not encode Boolean execution values.
+
+`ComposeBooleanArrayTrace` retains every raw initializer condition and reads
+all aggregate elements in the same incoming declaration environment.
+The declaration semantics evaluate those conditions to exact stored Boolean
+values, so later writes do not alter snapshots. `ComposeBooleanArrayElaboration`
+separately accounts for the native allocation placeholders. `PredicateBooleanArrayBodySource` connects
+checked indexed reads and writes to their native helpers; target index and RHS
+use the incoming state, with updates carried through the existing finite loops.
+Stored Boolean reads return the incoming facts for both outcomes and cannot
+recover scalar, String or input-validity relations from an earlier condition.
+Eager and short-circuit operands retain their ordinary safety rules.
+
+The source chain includes component-mark resolution, Boolean-array header and
+initializer helpers, typed indexed conditions and assignments, and the actual
+String/Character initializer and write traces affected by the shared store.
+`Compose.SourceBridge.actual_boolean_array_helpers` transports the checked
+helper shapes to the authoritative implementation tokens. These checks must
+compose with the complete source/endpoint, module and axiom audit and native
+Bronze/Silver obligation coverage. Focused builds, matching pins and sample
+outputs do not individually establish the resulting-language guarantee.
+
 ## Named Integer subtypes and bounded components
 
 The [delivery record](named-integer-subtypes.md#delivery-assurance-and-validation)

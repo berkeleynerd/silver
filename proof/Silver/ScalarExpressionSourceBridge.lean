@@ -58,7 +58,7 @@ theorem interpreted_safe_arrays (calls : Native.Calls) (source : InterpretedSour
     (initials : ArrayBindings.Initials) (elaborating : Bool) (bound : position ≤ text.length + 1)
     (environment : ValidEnvironment text names) (mask : ValidMask text maskFirst maskAfter)
     (metadata : ArrayBindings.ValidMetadata text arrays) (initialsValid : ArrayBindings.ValidInitials initials)
-    (values : Integer.Store) (fits : Integer.Fits (ArrayBindings.ranges arrays initials elaborating (ranges names)) values)
+    (values : Integer.Store) (fits : Integer.Fits (ArrayBindings.integerRanges arrays initials elaborating (ranges names)) values)
     (success : (calls.readExpression text position names maskFirst maskAfter allowSign arrays initials elaborating).after ≠ 0) :
     ∃ expression : Integer.Expr, expression.Safe values ∧
       (calls.readExpression text position names maskFirst maskAfter allowSign arrays initials elaborating).bounds.Contains

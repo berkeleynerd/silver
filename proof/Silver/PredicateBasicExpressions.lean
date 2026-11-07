@@ -2,6 +2,7 @@ module
 
 public import Silver.PredicateBodyAdmission
 public import Silver.PredicateBooleanBodyNative
+public import Silver.PredicateBooleanArrayBodyNative
 public import Silver.PredicateScalarBodyNative
 public import Silver.PredicateArrayBodyNative
 public import Silver.PredicateNativeState
@@ -31,6 +32,7 @@ structure Primitives where
   booleanAssignment : Source → Native.Context → BodyScan → BodyScan
   arrayTarget : Source → Native.Context → Nat → Nat
   arrayAssignment : Source → Native.Context → BodyScan → BodyScan
+  booleanArrayAssignment : Source → Native.Context → BodyScan → BodyScan
   fits : PathFacts.Context → LengthSummary → Bool
   sameLength : PathFacts.Context → LengthSummary → LengthSummary → Bool
   reject : PathFacts.Context → PathFacts.Context
@@ -49,7 +51,7 @@ def bindingSummary (info : Compose.BindingInfo) : LengthSummary := .ofExact info
 inductive Test
   | operation (value : Names.Operation)
   | zeroResult | nonadvancing | present (token : ShellToken) | hasArguments
-  | zeroValue | zeroCharacter | characterTarget | invalidInput | notFits | zeroTarget | notSameLength | scalarTarget | booleanTarget | arrayTarget
+  | zeroValue | zeroCharacter | characterTarget | invalidInput | notFits | zeroTarget | notSameLength | scalarTarget | booleanTarget | arrayTarget | booleanArrayTarget
   | orElse (left right : Test) | andThen (left right : Test)
 
 def Test.eval (primitive : Primitives) (frame : Frame) : Test → Bool
@@ -66,6 +68,8 @@ def Test.eval (primitive : Primitives) (frame : Frame) : Test → Bool
   | .scalarTarget => decide (primitive.scalarTarget frame.text frame.context frame.result.position ≠ 0)
   | .booleanTarget => decide (primitive.booleanTarget frame.text frame.context frame.result.position ≠ 0)
   | .arrayTarget => decide (primitive.arrayTarget frame.text frame.context frame.result.position ≠ 0)
+  | .booleanArrayTarget => (ArrayBindings.binding frame.context.arrayNames
+      (primitive.arrayTarget frame.text frame.context frame.result.position)).isBoolean
   | .zeroTarget => decide (frame.result.target = 0)
   | .notSameLength => !primitive.sameLength frame.result.facts.path (summaryOf frame.value)
       (bindingSummary ((frame.context.names.get frame.result.target).getD {}))
@@ -89,6 +93,8 @@ def Test.render : Test → List String
   | .scalarTarget => call "scalar_target" [["text"], ["context"], ["result", ".", "position"]] ++ ["/=", "0"]
   | .booleanTarget => call "boolean_target" [["text"], ["context"], ["result", ".", "position"]] ++ ["/=", "0"]
   | .arrayTarget => call "array_target" [["text"], ["context"], ["result", ".", "position"]] ++ ["/=", "0"]
+  | .booleanArrayTarget => ["context", ".", "array_names", ".", "items", "("] ++
+      call "array_target" [["text"], ["context"], ["result", ".", "position"]] ++ [")", ".", "boolean_elements"]
   | .zeroTarget => ["result", ".", "target", "=", "0"]
   | .notSameLength => ["not", "length_intervals", "."] ++ call "same_length"
       [["result", ".", "facts", ".", "path"], call "summary_of" [["value"]], call "binding_summary"
@@ -99,7 +105,7 @@ def Test.render : Test → List String
 inductive Update
   | operation (value : Names.Operation) | association
   | token (token : ShellToken)
-  | valueAfter | characterAfter | statePosition | stateTarget | output | assigned | rejected | scalarAssignment | booleanAssignment | arrayAssignment
+  | valueAfter | characterAfter | statePosition | stateTarget | output | assigned | rejected | scalarAssignment | booleanAssignment | arrayAssignment | booleanArrayAssignment
 
 def Update.eval (primitive : Primitives) (frame : Frame) : Update → BodyScan
   | .operation value => {frame.result with position := primitive.callAfter frame.text frame.context.names frame.result.position value frame.context.scalarNames frame.context.arrayNames (frame.context.subtypeHiding.get value) frame.context.booleanNames}
@@ -108,6 +114,7 @@ def Update.eval (primitive : Primitives) (frame : Frame) : Update → BodyScan
   | .scalarAssignment => primitive.scalarAssignment frame.text frame.context frame.result
   | .booleanAssignment => primitive.booleanAssignment frame.text frame.context frame.result
   | .arrayAssignment => primitive.arrayAssignment frame.text frame.context frame.result
+  | .booleanArrayAssignment => primitive.booleanArrayAssignment frame.text frame.context frame.result
   | .valueAfter => {frame.result with position := frame.value.after}
   | .characterAfter => {frame.result with position := frame.characterValue.after}
   | .statePosition => {frame.result with position := frame.target.after}
@@ -124,6 +131,7 @@ def Update.render : Update → List String
   | .scalarAssignment => ["result", ":="] ++ call "scalar_assignment_body" [["text"], ["context"], ["result"]] ++ [";"]
   | .booleanAssignment => ["result", ":="] ++ call "boolean_assignment_body" [["text"], ["context"], ["result"]] ++ [";"]
   | .arrayAssignment => ["result", ":="] ++ call "array_assignment_body" [["text"], ["context"], ["result"]] ++ [";"]
+  | .booleanArrayAssignment => ["result", ":="] ++ call "boolean_array_assignment_body" [["text"], ["context"], ["result"]] ++ [";"]
   | .valueAfter => ["result", ".", "position", ":=", "value", ".", "after", ";"]
   | .characterAfter => ["result", ".", "position", ":=", "character_value", ".", "after", ";"]
   | .statePosition => ["result", ".", "position", ":=", "target", ".", "after", ";"]
@@ -208,7 +216,8 @@ def dispatchCommands : Command :=
       (.choose (.operation .partialOutput) putCommands
         (.choose (.andThen .hasArguments (.operation .reject)) rejectCommands
           (.choose .scalarTarget (.update .scalarAssignment)
-            (.choose .arrayTarget (.update .arrayAssignment)
+            (.choose .arrayTarget
+              (.choose .booleanArrayTarget (.update .booleanArrayAssignment) (.update .arrayAssignment))
               (.choose .booleanTarget (.update .booleanAssignment) assignmentCommands))))))
 def basicCommands : Command := .list [guard .zeroResult, dispatchCommands,
   .update (.token (.symbol ";")), guard .nonadvancing, .returnResult]
@@ -237,6 +246,7 @@ def modelPrimitives : Primitives where
   booleanAssignment := fun text context scan => booleanAssignmentBody text context.model scan
   arrayTarget := fun text context position => Predicate.arrayTarget text context.model position
   arrayAssignment := fun text context scan => arrayAssignmentBody text context.model scan
+  booleanArrayAssignment := fun text context scan => booleanArrayAssignmentBody text context.model scan
   fits := fitsLengthSummary
   sameLength := equalLengthIntervals
   reject := PathFacts.Context.reject

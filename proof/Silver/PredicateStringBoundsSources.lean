@@ -62,7 +62,7 @@ theorem Condition.objectBoundsSafe_of_safe {names : Compose.BindingEnvironment} 
       exact ⟨ihl origin.1 safe.1, fun reached => ihr origin.2 (safe.2 reached)⟩
   | eager operator left right ihl ihr | booleanCompare unequal left right ihl ihr =>
       exact ⟨ihl origin.1 safe.1, ihr origin.2 safe.2⟩
-  | lengthCompare | scalarCompare | characterCompare | inputValid | booleanLiteral | booleanName => trivial
+  | lengthCompare | scalarCompare | characterCompare | inputValid | booleanLiteral | booleanName | booleanArrayRead => trivial
 
 def SimpleBoundsOrigin (names : Compose.BindingEnvironment) : Sequence.SimpleStatement → Prop
   | .null => True
@@ -72,7 +72,7 @@ def SimpleBoundsOrigin (names : Compose.BindingEnvironment) : Sequence.SimpleSta
 mutual
   def Statement.BoundsOrigin (names : Compose.BindingEnvironment) : Statement → Prop
     | .simple item => SimpleBoundsOrigin names item
-    | .booleanAssign update => update.value.BoundsOrigin names
+    | .booleanAssign update | .booleanArrayAssign update => update.value.BoundsOrigin names
     | .choice condition yes no => condition.BoundsOrigin names ∧
         StatementsBoundsOrigin names yes ∧ StatementsBoundsOrigin names no
     | .forLoop _ _ _ _ body | .arrayLoop _ _ _ body => StatementsBoundsOrigin names body
@@ -96,7 +96,7 @@ theorem Condition.boundsOrigin_extends {names following : Compose.BindingEnviron
       exact ⟨ihl origin.1, ihr origin.2⟩
   | eager operator left right ihl ihr | booleanCompare unequal left right ihl ihr =>
       exact ⟨ihl origin.1, ihr origin.2⟩
-  | lengthCompare | scalarCompare | inputValid | booleanLiteral | booleanName => trivial
+  | lengthCompare | scalarCompare | inputValid | booleanLiteral | booleanName | booleanArrayRead => trivial
 
 theorem Condition.boundsOrigin_freeze {names : Compose.BindingEnvironment} {condition : Condition}
     (snapshot : Integer.Store) (origin : condition.BoundsOrigin names) :
@@ -110,7 +110,7 @@ theorem Condition.boundsOrigin_freeze {names : Compose.BindingEnvironment} {cond
       exact ⟨ihl origin.1, ihr origin.2⟩
   | eager operator left right ihl ihr | booleanCompare unequal left right ihl ihr =>
       exact ⟨ihl origin.1, ihr origin.2⟩
-  | lengthCompare | scalarCompare | inputValid | booleanLiteral | booleanName => trivial
+  | lengthCompare | scalarCompare | inputValid | booleanLiteral | booleanName | booleanArrayRead => trivial
 
 private theorem chainCondition_boundsOrigin {names : Compose.BindingEnvironment} {left right : Condition}
     (operator : ChainKind) (a : left.BoundsOrigin names) (b : right.BoundsOrigin names) :
@@ -125,7 +125,8 @@ mutual
     | group _ _ _ inner _ =>
         simp only [Condition.BoundsOrigin]
         exact condition_boundsOrigin inner
-    | boolean _ _ _ _ atom => cases atom <;> trivial
+    | booleanArray _ _ _ _ atom => cases atom <;> trivial
+    | boolean _ _ _ _ _ atom => cases atom <;> trivial
     | valid => trivial
   termination_by (remainingAt text position, 1)
   decreasing_by all_goals subst_vars; all_goals first | exact Prod.Lex.left _ _ (by assumption) | exact Prod.Lex.right _ (by decide)
@@ -213,8 +214,9 @@ theorem basic_boundsOrigin {text context scan item result}
       simp only [SourceStatement.lower, Statement.BoundsOrigin, SimpleBoundsOrigin]
   | output _ source | put _ source =>
       simpa only [SourceStatement.lower, Statement.BoundsOrigin, SimpleBoundsOrigin] using expression_boundsOrigin source
-  | booleanAssignment _ source =>
-      simpa only [SourceStatement.lower, Statement.BoundsOrigin] using condition_boundsOrigin source
+  | booleanAssignment _ source | booleanArrayAssignment _ _ source =>
+      simp only [SourceStatement.lower, Statement.BoundsOrigin]
+      exact condition_boundsOrigin source
   | assignment _ source =>
       simpa only [SourceStatement.lower, Statement.BoundsOrigin, SimpleBoundsOrigin] using stringAssignment_boundsOrigin source
 
@@ -339,6 +341,8 @@ theorem declarations_boundsNamesExtend {text arguments state final declarations}
   | boolean _ _ _ _ _ first _ ih => cases first; exact ih
   | array _ _ _ _ first _ ih =>
       simpa only [(array_declaration_preserves first).1] using ih
+  | booleanArray _ _ _ _ first _ ih =>
+      simpa only [(boolean_array_declaration_preserves first).1] using ih
 
 end Silver.Compose
 
@@ -467,6 +471,25 @@ theorem prefix_names_bounds {source form events}
     (by simp [initialState]) (by simpa only [initialState, empty_names_shape] using empty_fits []) header
   exact ⟨result.1, result.2.1⟩
 
+theorem boolean_array_values_boundsOrigin {text state maskFirst maskAfter position length parsed raw finish}
+    (trace : BooleanArrayValuesAt text state maskFirst maskAfter position length parsed raw finish) :
+    ∀ value ∈ raw, value.BoundsOrigin state.names := by
+  induction trace with
+  | done => intro value member; cases member
+  | next _ reading _ ih =>
+      intro value member
+      rcases List.mem_cons.mp member with rfl | member
+      · exact condition_boundsOrigin reading
+      · exact ih value member
+
+theorem boolean_array_declaration_boundsOrigin {text state declaration checks}
+    (trace : BooleanArrayDeclarationChecksAt text state declaration checks) :
+    ∀ value ∈ declaration.values, value.BoundsOrigin state.names := by
+  obtain ⟨parts, position, raw, finish, _, _, values, rfl, _⟩ := trace
+  intro value member
+  obtain ⟨condition, present, rfl⟩ := List.mem_map.mp member
+  exact Condition.boundsOrigin_freeze _ (boolean_array_values_boundsOrigin values condition present)
+
 theorem boolean_declarations_boundsOrigin {source arguments before after declarations checks}
     (trace : BooleanDeclarationsAt source arguments before declarations checks after) :
     ∀ declaration ∈ declarations, declaration.value.BoundsOrigin after.names := by
@@ -474,6 +497,16 @@ theorem boolean_declarations_boundsOrigin {source arguments before after declara
   | done => simp
   | string _ _ _ _ _ _ _ _ ih | scalar _ _ _ _ _ ih => exact ih
   | array _ _ _ _ _ _ ih | subtype _ _ _ _ ih => exact ih
+  | @booleanArray state middle final declaration rest firstChecks checks _ _ _ _ first raw tail ih =>
+      intro selected present
+      rcases List.mem_append.mp present with member | member
+      · have origin := boolean_array_declaration_boundsOrigin raw selected.value
+          (declaration.initializations_member member).1
+        obtain ⟨strings, remaining⟩ := boolean_declarations_reading tail
+        have extension := declarations_boundsNamesExtend remaining
+        rw [(boolean_array_declaration_preserves first).1] at extension
+        exact Condition.boundsOrigin_extends extension origin
+      · exact ih selected member
   | @boolean state middle final declaration rest firstChecks checks _ _ _ _ _ first raw tail ih =>
       intro selected present
       rcases List.mem_cons.mp present with rfl | present
@@ -818,7 +851,7 @@ theorem condition_objectBounds_from_raw_certificates {condition : Condition} {pr
           (fun context summary member => certificates context summary (List.mem_append_left _ member)),
         ihr origin.2 readable.2 allowed rightChecked
           (fun context summary member => certificates context summary (List.mem_append_right _ member))⟩
-  | lengthCompare | scalarCompare | characterCompare | inputValid | booleanLiteral | booleanName => trivial
+  | lengthCompare | scalarCompare | characterCompare | inputValid | booleanLiteral | booleanName | booleanArrayRead => trivial
 
 /-- For each declaration-time String store satisfying the actual prefix table,
 the raw Boolean condition is safe at the source snapshot. Arbitrary Boolean
@@ -830,13 +863,14 @@ def RawBooleanInitializerBounds (text : Source) (program : Program) (state : Par
     ConditionAt text (booleanDeclarationContext state (booleanDeclarationParts text state))
       (booleanDeclarationParts text state).valueFirst (booleanDeclarationFacts state)
       raw (booleanDeclarationValue text state) state.arrayNames.values ∧
-    declaration = ⟨decide ((booleanDeclarationParts text state).constantAfter = 0),
+    declaration = ⟨state.booleanNames.length + 1,
+      decide ((booleanDeclarationParts text state).constantAfter = 0),
       raw.freezeIntegers (frozenIntegers state.scalarNames state.arrayNames.names state.arrayNames.values)⟩ ∧
     checks = raw.obligations state.names.shape
       (booleanDeclarationContext state (booleanDeclarationParts text state)).analysis
       ((booleanDeclarationContext state (booleanDeclarationParts text state)).flow
         (booleanDeclarationFacts state) state.arrayNames.values)
-      (BooleanBindings.analysis state.booleanNames) ∧
+      (ArrayBindings.booleanAnalysis state.arrayNames.names (BooleanBindings.analysis state.booleanNames)) ∧
     RawBooleanBoundsCertificates program state.names checks ∧
     (∀ booleans, raw.ObjectBoundsSafe state.names values input inputValid
       (frozenIntegers state.scalarNames state.arrayNames.names state.arrayNames.values) booleans) ∧
@@ -877,7 +911,64 @@ theorem raw_boolean_initializer_bounds {text state declaration checks program in
       (Condition.boundsOrigin_freeze _ origin) (Condition.freezeIntegers_safe (safe booleans))
 
 
-/-- This checked trace follows all six alternatives of the *same* mixed source
+/-- Every component retains its source condition and raw certificates. All
+components use the same incoming Integer and Boolean snapshot, independently
+of the ordered allocation events used by the semantic declaration stream. -/
+def RawBooleanArrayInitializerBounds (text : Source) (program : Program) (state : ParserState)
+    (declaration : BooleanArrayDeclaration) (checks : List Obligation)
+    (input : Source) (inputValid : Bool) (values : Values) : Prop :=
+  ∃ parts position raw finish,
+    arrayDeclarationParts text state = parts ∧
+    ArrayAggregateAt text state parts position ∧
+    BooleanArrayValuesAt text state parts.first parts.after position parts.length 0 raw finish ∧
+    declaration = ⟨(parts.binding state).booleanDescriptor, decide (parts.constantAfter = 0),
+      raw.map (fun value => value.freezeIntegers
+        (frozenIntegers state.scalarNames state.arrayNames.names state.arrayNames.values))⟩ ∧
+    checks = booleanArrayRawChecks state parts.first parts.after raw ∧
+    RawBooleanBoundsCertificates program state.names checks ∧
+    (∀ value ∈ raw, ∀ booleans, value.ObjectBoundsSafe state.names values input inputValid
+      (frozenIntegers state.scalarNames state.arrayNames.names state.arrayNames.values) booleans) ∧
+    (∀ value ∈ declaration.values, ∀ after booleans,
+      value.ObjectBoundsSafe state.names values input inputValid after booleans)
+
+theorem raw_boolean_array_initializer_bounds {text state declaration checks program input inputValid values}
+    (valid : program.Valid) (count : state.names.length ≤ maxBindings)
+    (metadata : NamesBoundsValid state.names) (strings : Fits state.names.shape input values)
+    (stateValid : Compose.Expressions.ValidState text state)
+    (ready : ScalarMetadata.HeaderReady state.scalarNames)
+    (static : ScalarExpression.StaticEnvironment state.scalarNames)
+    (allowed : (booleanDeclarationFacts state).path.Allows inputValid input.length false)
+    (members : ∀ check ∈ checks, check ∈ program.booleanInitializerChecks)
+    (trace : BooleanArrayDeclarationChecksAt text state declaration checks) :
+    RawBooleanArrayInitializerBounds text program state declaration checks input inputValid values := by
+  obtain ⟨parts, position, raw, finish, partsEq, aggregate, source, frozen, schemas⟩ := trace
+  have meaning := source.valid metadata.normal stateValid ready
+  have origins := boolean_array_values_boundsOrigin source
+  have fits := boolean_initializer_ranges_fit (maskFirst := parts.first) (maskAfter := parts.after) static
+  have flowAllowed : ((booleanInitializerContext state parts.first parts.after).flow
+      (booleanInitializerFacts state) state.arrayNames.values).Allows inputValid input.length false
+      (frozenIntegers state.scalarNames state.arrayNames.names state.arrayNames.values) := ⟨allowed, fits⟩
+  have certificates := raw_boolean_bounds_certificates valid count members
+  have safe : ∀ value ∈ raw, ∀ booleans, value.Safe state.names.shape values input inputValid
+      (frozenIntegers state.scalarNames state.arrayNames.names state.arrayNames.values) booleans := by
+    intro value member booleans
+    exact Condition.checkBounds_sound strings (meaning value member).2.1 flowAllowed (meaning value member).2.2
+  refine ⟨parts, position, raw, finish, partsEq, aggregate, source, frozen, schemas, certificates, ?_, ?_⟩
+  · intro value member booleans
+    apply condition_objectBounds_from_raw_certificates metadata strings (origins value member)
+      (meaning value member).2.1 flowAllowed (meaning value member).2.2
+    intro context summary check
+    apply certificates context summary
+    rw [schemas]
+    exact List.mem_flatMap.mpr ⟨value, member, check⟩
+  · intro value member after booleans
+    rw [frozen] at member
+    obtain ⟨condition, present, rfl⟩ := List.mem_map.mp member
+    exact Condition.objectBoundsSafe_of_safe count metadata strings
+      (Condition.boundsOrigin_freeze _ (origins condition present))
+      (Condition.freezeIntegers_safe (safe condition present booleans))
+
+/-- This checked trace follows all seven alternatives of the *same* mixed source
 declaration grammar. The String store advances only at String/Character
 declarations, and each Boolean initializer is checked against the store at its
 own source position. There is no constructor that omits an initializer. -/
@@ -912,6 +1003,16 @@ inductive RawHeaderBoundsTrace (text : Source) (arguments : Bool) (program : Pro
       ArrayDeclarationAt text arguments state declaration middle →
       RawHeaderBoundsTrace text arguments program input inputValid middle values strings booleans checks final →
       RawHeaderBoundsTrace text arguments program input inputValid state values strings booleans checks final
+  | booleanArray {state middle final values declaration strings booleans firstChecks checks} :
+      state.position ≠ 0 → fixedAfter text state.position "begin" true = 0 →
+      (subtypeDeclarationAt text state arguments).position = 0 →
+      (scalarDeclarationAt text state arguments).position = 0 →
+      BooleanArrayDeclarationAt text arguments state middle →
+      BooleanArrayDeclarationChecksAt text state declaration firstChecks →
+      RawBooleanArrayInitializerBounds text program state declaration firstChecks input inputValid values →
+      RawHeaderBoundsTrace text arguments program input inputValid middle values strings booleans checks final →
+      RawHeaderBoundsTrace text arguments program input inputValid state values strings
+        (declaration.initializations ++ booleans) (firstChecks ++ checks) final
   | subtype {state middle final values strings booleans checks} :
       state.position ≠ 0 → fixedAfter text state.position "begin" true = 0 →
       SubtypeDeclarationAt text arguments state middle →
@@ -945,6 +1046,9 @@ theorem RawHeaderBoundsTrace.source {text arguments program input inputValid sta
   | array positive more noSubtype noScalar first _ ih =>
       exact ⟨.array positive more noSubtype noScalar first ih.1,
         .array positive more noSubtype noScalar first ih.2⟩
+  | booleanArray positive more noSubtype noScalar first raw _ _ ih =>
+      exact ⟨.booleanArray positive more noSubtype noScalar first ih.1,
+        .booleanArray positive more noSubtype noScalar first raw ih.2⟩
   | subtype positive more first _ ih =>
       exact ⟨.subtype positive more first ih.1, .subtype positive more first ih.2⟩
   | boolean positive more noSubtype noScalar noArray first raw _ _ ih =>
@@ -1042,6 +1146,25 @@ theorem boolean_region_bounds_trace {text input : Source} {arguments state final
         (scalars.symm ▸ ready) (scalars.symm ▸ static) nextAllowed nextInventory booleanInventory
       exact ⟨declarations, .array positive more noSubtype noScalar first source,
         .array positive more noSubtype noScalar first bounds⟩
+  | @booleanArray state middle final declaration booleans firstChecks checks positive more noSubtype noScalar first raw tail ih =>
+      have localBounds := raw_boolean_array_initializer_bounds valid count metadata stringsFit stateValid ready static allowed
+        (fun check member => booleanInventory check (List.mem_append_left _ member)) raw
+      have names := (boolean_array_declaration_preserves first).1
+      have scalars := (boolean_array_declaration_preserves first).2.1
+      have dynamic := congrArg ParserState.dynamicFirst (boolean_array_declaration_fields first)
+      have nextAllowed : (booleanDeclarationFacts middle).path.Allows inputValid input.length false := by
+        simpa only [booleanDeclarationFacts, ActiveFlow.initial, dynamic] using allowed
+      have nextInventory : ∀ declarations, DeclarationsAt text arguments middle declarations final →
+          ∀ schema ∈ declarationRangeObligations middle.names.shape final.names.shape declarations,
+            Check.declaration (.range schema) ∈ program.checks := by
+        intro declarations source schema member
+        exact rangeInventory declarations (.booleanArray positive more noSubtype noScalar first source) schema (names ▸ member)
+      obtain ⟨declarations, source, bounds⟩ := ih (names.symm ▸ metadata) (names.symm ▸ count)
+        (names.symm ▸ stringsFit) (Compose.Expressions.model_boolean_array_reading_valid stateValid first)
+        (scalars.symm ▸ ready) (scalars.symm ▸ static) nextAllowed nextInventory
+        (fun check member => booleanInventory check (List.mem_append_right _ member))
+      exact ⟨declarations, .booleanArray positive more noSubtype noScalar first source,
+        .booleanArray positive more noSubtype noScalar first raw localBounds bounds⟩
   | @subtype state middle final booleans checks positive more first tail ih =>
       have names : middle.names = state.names := by cases first; rfl
       have scalars : middle.scalarNames = state.scalarNames := by cases first; rfl

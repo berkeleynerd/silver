@@ -1,0 +1,18 @@
+{
+  "utc": "2026-11-07T01:16:06.966193+00:00",
+  "revision": "9d9c786dceac6160c6fff521ed273fddfdfa628b",
+  "original_revision": "b63e81aa98c5cf02357a3fdf1dedd47e1a3f9613",
+  "captured_file_count": 8686,
+  "current_tracked_input_set_equals_original": true,
+  "changes": [
+    {
+      "path": "tests/test_silver.py",
+      "original_sha256": "1b6fa3f2be48c645d99e3d75a46dc59832d62f7cf199cc37ab809c45ff5ef773",
+      "final_sha256": "0ff4cddd24a05110eb53d22ba565c4c473d354065b37c4b6aa5c60622dbfb02c"
+    }
+  ],
+  "all_other_captured_inputs": "byte-identical",
+  "binary_sha256": "c3f97c7f6477931ad01c76c3be658db06fc4c02f997a6475f921eee9a5362790",
+  "output_profile_sha256": "1686b0b61da8c684ce185995621fb08bc5a6932893d2cc859a82ced9922ce4e8",
+  "review_status": "Input comparison performed by regression executor; independent final inventory/applicability review remains required"
+}

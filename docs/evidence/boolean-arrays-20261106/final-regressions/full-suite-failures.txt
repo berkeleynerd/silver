@@ -1,0 +1,51 @@
+
+======================================================================
+ERROR: test_manifest_samples (test_samples.SupportedSampleTests.test_manifest_samples) (source='rosetta_shell_one_liner.adb')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/tests/test_samples.py", line 85, in test_manifest_samples
+    compilation = invoke("compile", source)
+  File "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/tests/test_silver.py", line 25, in invoke
+    return subprocess.run([str(SILVER), *(str(arg) for arg in args)], cwd=cwd,
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                          text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                          timeout=120)
+                          ^^^^^^^^^^^^
+  File "/usr/lib/python3.14/subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/subprocess.py", line 2154, in _communicate
+    self._check_timeout(endtime, orig_timeout, stdout, stderr)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/subprocess.py", line 1268, in _check_timeout
+    raise TimeoutExpired(
+    ...<2 lines>...
+            stderr=b''.join(stderr_seq) if stderr_seq else None)
+subprocess.TimeoutExpired: Command '['/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/compiler/bin/silver', 'compile', '/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/samples/rosetta_shell_one_liner.adb']' timed out after 120 seconds
+
+======================================================================
+FAIL: test_catalogue_is_json (test_silver.SilverIntegrationTests.test_catalogue_is_json)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/tests/test_silver.py", line 186, in test_catalogue_is_json
+    self.assertEqual(conditions["initializer_image_length"],
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                     "non-input minimum and maximum must agree; Image captures exact "
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                     "initial values of earlier Integer objects and array components")
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'non-[67 chars]values of earlier Integer objects and Integer-array components' != 'non-[67 chars]values of earlier Integer objects and array components'
+- non-input minimum and maximum must agree; Image captures exact initial values of earlier Integer objects and Integer-array components
+?                                                                                                              --------
++ non-input minimum and maximum must agree; Image captures exact initial values of earlier Integer objects and array components
+
+
+----------------------------------------------------------------------
+Ran 612 tests in 5394.101s
+
+FAILED (failures=1, errors=1, skipped=8)
+development command: Command '['/usr/bin/python3', '-m', 'unittest', 'discover', '-s', 'tests', '-v']' returned non-zero exit status 1.

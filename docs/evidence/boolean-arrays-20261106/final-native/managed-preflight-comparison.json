@@ -1,0 +1,9 @@
+{
+  "recorded_utc": "2026-11-07T07:00:02.455747+00:00",
+  "run_id": "20261107T065643-5c23478ef04b",
+  "source_sha256": "7d39745bd9e2d57c573a1c398f9e0f07e486a9d482b60f1cd21fc436e48543f3",
+  "all_prepared_inputs_match_verified_snapshot": true,
+  "input_count": 2586,
+  "tools_match_original_rechecked_identities": true,
+  "snapshot_sha256": "10b4a871c816aec986f6a67b9eec9ffed07b3902c79594b9e34cbe8a25560c06"
+}

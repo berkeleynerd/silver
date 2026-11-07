@@ -1,0 +1,52 @@
+[
+  {
+    "path": "candidate.patch",
+    "bytes": 800,
+    "sha256": "6f88d7bc16fc00e846a89f04d6c10966fc1f71dffa3f0ec9a1f1a1603861b86b"
+  },
+  {
+    "path": "managed-run.inventory.json",
+    "bytes": 594,
+    "sha256": "77eabae1e3382a6a9ef5cce1e2bfddaf88451105f4fbd3f351a56cbaedbb7fec"
+  },
+  {
+    "path": "managed-run.tar.gz",
+    "bytes": 127677,
+    "sha256": "a59069a1867cf232242dadbf7bbd40b0911122eadd5290253668a5bbc3961673"
+  },
+  {
+    "path": "native-inputs-and-tools.json.gz",
+    "bytes": 125978,
+    "sha256": "8b62ce3264e01b434a3f2b5888d95dd5b66c44516158b18d67121df11555e5e6"
+  },
+  {
+    "path": "pre-edit.json",
+    "bytes": 899,
+    "sha256": "750b129f143688ed94b38b81ddafa4295797a4a84c62b2a5e79e16eef0146bec"
+  },
+  {
+    "path": "record.json",
+    "bytes": 11123,
+    "sha256": "e4b2a7ff2a8bc7e13a20b0c57d83f1ca90c5f8122bd715bd5b8dd58b499a7bcd"
+  },
+  {
+    "path": "reports-and-solver-inputs.inventory.json",
+    "bytes": 7256,
+    "sha256": "46cd78708b3fdcec3bb53dd14b4464031c53ebd52d106717dee9f007261bca0c"
+  },
+  {
+    "path": "reports-and-solver-inputs.tar.gz",
+    "bytes": 2907516,
+    "sha256": "7c0746233b210e4b0675bf3f7db01d514911407b8755795f7267af3044c041f0"
+  },
+  {
+    "path": "retention-helper.py",
+    "bytes": 9874,
+    "sha256": "01e85d2dc59c0582dc2eeb5c9e5045875543927dbe2712a7fad38e3808cb43f3"
+  },
+  {
+    "path": "source.adb.gz",
+    "bytes": 35459,
+    "sha256": "b7061578734a93b22487eeeb00bfc2e953fba210a46f1cf970b1210a1fda9558"
+  }
+]

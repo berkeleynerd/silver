@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic and indexing can be made safe by explicit bound guards before each operation, and the only unbounded-looking loop is a while loop in a procedure, so no annotation is needed, though several loop-carried values each need a careful guard.
 
-Position 279 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 280 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

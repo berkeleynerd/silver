@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All data are fixed-capacity arrays and bounded integer subtypes, and the search is an iterative loop in a procedure, so no variants or invariants are needed; the main work is placing guards on stack depth, sums and buffer positions.
 
-Position 288 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 289 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

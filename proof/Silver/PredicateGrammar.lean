@@ -99,7 +99,7 @@ theorem form_reading_valid {source : Source} {form : Form} {events : List Event}
   have scalarChecked := prefix_scalar_checked scalarTrace
   obtain ⟨valid, stream⟩ := Sequence.tokens_valid domain.2.1 parsed.header Compose.initial_valid
   have ranges := scanTokens_ranges source form.helper form.prefix initialScan ⟨domain.1, domain.2.1⟩ (initial_ranges source)
-  have bodyValid := body_meaning rfl valid.1 (prefix_baseReady scalarTrace) (prefix_arraysReady parsed.header) ranges.2.1
+  have bodyValid := body_meaning rfl valid.1 (prefix_baseReady scalarTrace) (prefix_arraysReady parsed.header) ranges.2.2.2.2.2.2.2.2.1 ranges.2.1
     (bodyOf_compatible _) (initialFacts_bounded _) parsed.statements
   have context := Sequence.tokens_context parsed.header
   simp only [initialState, empty_names_shape] at context
@@ -113,10 +113,10 @@ theorem form_reading_valid {source : Source} {form : Form} {events : List Event}
     (Sequence.tokens_kinds parsed.header)
     (by simpa only [initialState, empty_names_shape, List.append_nil] using stream [] trivial)
     (body_nonempty parsed.statements)
-    (by rw [context, ← arguments, ← prefix_boolean_analysis booleanTrace]; exact bodyValid.1)
+    (by rw [context, ← arguments, ← prefix_boolean_analysis ⟨domain.1, domain.2.1⟩ booleanTrace]; exact bodyValid.1)
     (by
       refine ⟨(contextOf (prefixScan source form)).flow (rawBody source form).facts, ?_, parsed.completed⟩
-      rw [context, ← arguments, ← prefix_analysis scalarTrace, ← bodyOf_model, ← prefix_boolean_analysis booleanTrace]
+      rw [context, ← arguments, ← prefix_analysis scalarTrace, ← bodyOf_model, ← prefix_boolean_analysis ⟨domain.1, domain.2.1⟩ booleanTrace]
       exact bodyValid.2.1)
     scalarChecked.1 (prefix_initializer_checked domain.2.1 initializerTrace)
   exact ⟨scalars, checks, booleans, booleanChecks, program, scalarTrace, initializerTrace, booleanTrace, decoded, programValid⟩

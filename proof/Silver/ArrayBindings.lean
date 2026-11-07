@@ -2,6 +2,8 @@ module
 
 public import Silver.IntegerArrays
 public import Silver.NamedIdentifier
+public import Silver.BooleanArrays
+public import Silver.BooleanBindings
 
 @[expose] public section
 
@@ -22,6 +24,7 @@ structure Binding where
   length : Nat
   mutable : Bool
   componentBounds : Integer.Interval := .full
+  isBoolean : Bool := false
   deriving DecidableEq, Repr
 
 abbrev Metadata := List Binding
@@ -33,11 +36,36 @@ structure Env where
   values : Initials := []
   deriving DecidableEq, Repr
 
-def emptyBinding : Binding := ⟨0, 0, Integer.Interval.empty, 0, 0, false, .full⟩
+def emptyBinding : Binding := ⟨0, 0, Integer.Interval.empty, 0, 0, false, .full, false⟩
 def binding (names : Metadata) (index : Nat) : Binding := names.getD (index - 1) emptyBinding
 
 def Binding.descriptor (item : Binding) : Integer.ArrayDescriptor :=
   ⟨scalarLimit + 1 + item.offset, item.bounds, item.componentBounds⟩
+
+def Binding.booleanDescriptor (item : Binding) : Boolean.ArrayDescriptor :=
+  ⟨BooleanBindings.maxBindings + 1 + item.offset, item.bounds⟩
+
+/-- Filtering is used only for typed semantic projections. Native lookup and
+source target identities always use the full shared metadata list. -/
+def integerNames (names : Metadata) : Metadata := names.filter fun item => !item.isBoolean
+
+def booleanNames (names : Metadata) : Metadata := names.filter (·.isBoolean)
+
+@[simp] theorem integerNames_append_boolean (names : Metadata) {item : Binding}
+    (kind : item.isBoolean = true) : integerNames (names ++ [item]) = integerNames names := by
+  simp [integerNames, kind]
+
+@[simp] theorem integerNames_append_integer (names : Metadata) {item : Binding}
+    (kind : item.isBoolean = false) : integerNames (names ++ [item]) = integerNames names ++ [item] := by
+  simp [integerNames, kind]
+
+@[simp] theorem booleanNames_append_integer (names : Metadata) {item : Binding}
+    (kind : item.isBoolean = false) : booleanNames (names ++ [item]) = booleanNames names := by
+  simp [booleanNames, kind]
+
+@[simp] theorem booleanNames_append_boolean (names : Metadata) {item : Binding}
+    (kind : item.isBoolean = true) : booleanNames (names ++ [item]) = booleanNames names ++ [item] := by
+  simp [booleanNames, kind]
 
 def initialValue (values : Initials) (slot : Nat) : Int := values.getD (slot - 1) 0
 
@@ -121,6 +149,37 @@ def SourceReady (text : Source) (environment : Env) : Prop :=
     environment.names.Pairwise (fun left right => left.offset + left.length ≤ right.offset) ∧
     InitialsFit environment.names environment.values
 
+@[simp] theorem mem_integerNames {names : Metadata} {item : Binding} :
+    item ∈ integerNames names ↔ item ∈ names ∧ item.isBoolean = false := by
+  simp [integerNames]
+
+@[simp] theorem mem_booleanNames {names : Metadata} {item : Binding} :
+    item ∈ booleanNames names ↔ item ∈ names ∧ item.isBoolean = true := by
+  simp [booleanNames]
+
+theorem integerNames_validBindings {names : Metadata}
+    (valid : ∀ item ∈ names, ValidBinding item) :
+    ∀ item ∈ integerNames names, ValidBinding item := by
+  intro item member
+  exact valid item (mem_integerNames.mp member).1
+
+theorem integerNames_ordered {names : Metadata}
+    (ordered : names.Pairwise (fun left right => left.offset + left.length ≤ right.offset)) :
+    (integerNames names).Pairwise (fun left right => left.offset + left.length ≤ right.offset) := by
+  exact List.Pairwise.filter (fun (item : Binding) => !item.isBoolean) ordered
+
+theorem integerNames_initialsFit {names : Metadata} {values : Initials}
+    (ready : InitialsFit names values) : InitialsFit (integerNames names) values := by
+  intro item member
+  exact ready item (mem_integerNames.mp member).1
+
+theorem integerNames_validMetadata {text : Source} {names : Metadata}
+    (valid : ValidMetadata text names) : ValidMetadata text (integerNames names) := by
+  refine ⟨Nat.le_trans (List.length_filter_le (fun (item : Binding) => !item.isBoolean) names)
+    valid.1, ?_, integerNames_ordered valid.2.2⟩
+  intro item member
+  exact valid.2.1 item (mem_integerNames.mp member).1
+
 def lookupFrom (text : Source) (names : Metadata) (first after : Nat) : Nat → Nat
   | 0 => 0
   | index + 1 =>
@@ -180,6 +239,120 @@ def mutability (names : Metadata) (scalars : Integer.Mutability) : Integer.Mutab
 def refinability (names : Metadata) (scalars : Integer.Mutability) : Integer.Mutability := fun cell =>
   if covers names cell then false else scalars cell
 
+def integerRanges (names : Metadata) (values : Initials) (elaborating : Bool)
+    (scalars : Integer.Ranges) : Integer.Ranges :=
+  ranges (integerNames names) values elaborating scalars
+
+def integerStore (names : Metadata) (values : Initials) (scalars : Integer.Store) : Integer.Store :=
+  store (integerNames names) values scalars
+
+def integerMutability (names : Metadata) (scalars : Integer.Mutability) : Integer.Mutability :=
+  mutability (integerNames names) scalars
+
+def integerRefinability (names : Metadata) (scalars : Integer.Mutability) : Integer.Mutability :=
+  refinability (integerNames names) scalars
+
+def booleanAnalysis (names : Metadata) (scalars : Boolean.Analysis) : Boolean.Analysis :=
+  { initialized := fun cell =>
+      (booleanNames names).any (fun item => decide (item.booleanDescriptor.ContainsCell cell)) ||
+        scalars.initialized cell
+    mutable := fun cell =>
+      match (booleanNames names).find? (fun item => decide (item.booleanDescriptor.ContainsCell cell)) with
+      | some item => item.mutable
+      | none => scalars.mutable cell }
+
+theorem booleanDescriptor_preserves_scalar (item : Binding) {scalar : Nat}
+    (bounded : scalar ≤ BooleanBindings.maxBindings) :
+    ¬ item.booleanDescriptor.ContainsCell scalar := by
+  simp only [Boolean.ArrayDescriptor.ContainsCell, Boolean.ArrayDescriptor.layout,
+    Integer.ArrayDescriptor.ContainsCell, Binding.booleanDescriptor]
+  omega
+
+theorem booleanAnalysis_scalar (names : Metadata) (scalars : Boolean.Analysis) {scalar : Nat}
+    (bounded : scalar ≤ BooleanBindings.maxBindings) :
+    (booleanAnalysis names scalars).initialized scalar = scalars.initialized scalar ∧
+      (booleanAnalysis names scalars).mutable scalar = scalars.mutable scalar := by
+  have absent : ∀ item ∈ booleanNames names,
+      decide (item.booleanDescriptor.ContainsCell scalar) = false := by
+    intro item _
+    exact decide_eq_false (booleanDescriptor_preserves_scalar item bounded)
+  have noAny : (booleanNames names).any
+      (fun item => decide (item.booleanDescriptor.ContainsCell scalar)) = false := by
+    apply List.any_eq_false.mpr
+    intro item member
+    simp [absent item member]
+  have noFind : (booleanNames names).find?
+      (fun item => decide (item.booleanDescriptor.ContainsCell scalar)) = none := by
+    apply List.find?_eq_none.mpr
+    intro item member
+    simp [absent item member]
+  simp [booleanAnalysis, noAny, noFind]
+
+theorem booleanAnalysis_canWrite_scalar (names : Metadata) (scalars : Boolean.Analysis) {scalar : Nat}
+    (bounded : scalar ≤ BooleanBindings.maxBindings) :
+    (booleanAnalysis names scalars).canWrite scalar = scalars.canWrite scalar := by
+  simp only [Boolean.Analysis.canWrite, (booleanAnalysis_scalar names scalars bounded).1,
+    (booleanAnalysis_scalar names scalars bounded).2]
+
+theorem booleanAnalysis_initialize_scalar (names : Metadata) (scalars : Boolean.Analysis)
+    {index : Nat} (bounded : index ≤ BooleanBindings.maxBindings) (mutable : Bool) :
+    booleanAnalysis names (scalars.initialize index mutable) =
+      (booleanAnalysis names scalars).initialize index mutable := by
+  have atIndex := booleanAnalysis_scalar names (scalars.initialize index mutable) bounded
+  unfold Boolean.Analysis.initialize at atIndex
+  unfold booleanAnalysis Boolean.Analysis.initialize
+  congr 1 <;> funext cell <;> by_cases same : cell = index
+  · subst cell
+    simpa only [booleanAnalysis, ↓reduceIte] using atIndex.1
+  · simp only [same, ↓reduceIte]
+  · subst cell
+    simpa only [booleanAnalysis, ↓reduceIte] using atIndex.2
+  · simp only [same, ↓reduceIte]
+
+theorem booleanAnalysis_append_scalar (names : Metadata) (scalars : BooleanBindings.Environment)
+    (item : BooleanBindings.Binding) (space : scalars.length < BooleanBindings.maxBindings) :
+    booleanAnalysis names (BooleanBindings.analysis (scalars ++ [item])) =
+      (booleanAnalysis names (BooleanBindings.analysis scalars)).initialize
+        (scalars.length + 1) item.mutable := by
+  rw [BooleanBindings.analysis_append]
+  exact booleanAnalysis_initialize_scalar names _ (by omega) item.mutable
+
+theorem booleanAnalysis_append_fresh {names : Metadata} {item : Binding} {scalars : Boolean.Analysis}
+    (kind : item.isBoolean = true)
+    (fresh : ∀ cell, item.booleanDescriptor.ContainsCell cell →
+      (booleanAnalysis names scalars).initialized cell = false) :
+    booleanAnalysis (names ++ [item]) scalars =
+      item.booleanDescriptor.initializeAnalysis (booleanAnalysis names scalars) item.mutable := by
+  have noFind (cell : Nat) (inside : item.booleanDescriptor.ContainsCell cell) :
+      (booleanNames names).find? (fun entry => decide (entry.booleanDescriptor.ContainsCell cell)) = none := by
+    have empty := fresh cell inside
+    simp only [booleanAnalysis, Bool.or_eq_false_iff] at empty
+    apply List.find?_eq_none.mpr
+    intro entry member
+    exact List.any_eq_false.mp empty.1 entry member
+  unfold booleanAnalysis Boolean.ArrayDescriptor.initializeAnalysis
+  rw [booleanNames_append_boolean names kind]
+  congr 1 <;> funext cell <;> by_cases inside : item.booleanDescriptor.ContainsCell cell
+  · simp [List.any_append, inside]
+  · simp [List.any_append, inside]
+  · simp [List.find?_append, noFind cell inside, inside]
+  · simp [List.find?_append, inside]
+
+@[simp] theorem booleanAnalysis_append_integer (names : Metadata) (scalars : Boolean.Analysis)
+    {item : Binding} (kind : item.isBoolean = false) :
+    booleanAnalysis (names ++ [item]) scalars = booleanAnalysis names scalars := by
+  simp only [booleanAnalysis, booleanNames_append_integer names kind]
+
+theorem booleanAnalysis_initialized {names : Metadata} {item : Binding}
+    (member : item ∈ names) (kind : item.isBoolean = true) (scalars : Boolean.Analysis) :
+    item.booleanDescriptor.initialized (booleanAnalysis names scalars) = true := by
+  apply (Boolean.ArrayDescriptor.allCells_iff _ _).mpr
+  intro cell inside
+  apply Bool.or_eq_true_iff.mpr
+  left
+  apply List.any_eq_true.mpr
+  exact ⟨item, by simp [booleanNames, member, kind], by simpa using inside⟩
+
 @[simp] theorem ranges_nil (values : Initials) (elaborating : Bool) (scalars : Integer.Ranges) :
     ranges [] values elaborating scalars = scalars := rfl
 
@@ -198,6 +371,15 @@ theorem binding_descriptor_length {item : Binding} (valid : ValidBinding item) :
   simp only [Binding.descriptor, Integer.ArrayDescriptor.length]
   have exactLength := valid.2.2.2.2.1
   omega
+
+theorem binding_booleanDescriptor_valid {item : Binding} (valid : ValidBinding item) :
+    item.booleanDescriptor.Valid := ⟨valid.1, valid.2.1⟩
+
+theorem binding_booleanDescriptor_length {item : Binding} (valid : ValidBinding item) :
+    item.booleanDescriptor.length = item.length := by
+  simpa only [Binding.booleanDescriptor, Boolean.ArrayDescriptor.length,
+    Boolean.ArrayDescriptor.layout, Binding.descriptor, Integer.ArrayDescriptor.length] using
+      binding_descriptor_length valid
 
 theorem binding_component_valid {item : Binding} (valid : ValidBinding item) :
     item.descriptor.ComponentValid := valid.2.2.2.2.2
@@ -462,5 +644,57 @@ theorem body_ranges_components {names : Metadata} {item : Binding}
   change ranges names values false scalars (item.descriptor.address index) = some item.componentBounds
   simp only [ranges, covered, ↓reduceIte, Bool.false_eq_true,
     ordered_componentRange valid ordered member atCell]
+
+private theorem ordered_booleanFind {names : Metadata} {item : Binding} {cell : Nat}
+    (valid : ∀ entry ∈ names, ValidBinding entry)
+    (ordered : names.Pairwise (fun left right => left.offset + left.length ≤ right.offset))
+    (member : item ∈ names) (inside : item.booleanDescriptor.ContainsCell cell) :
+    names.find? (fun entry => decide (entry.booleanDescriptor.ContainsCell cell)) = some item := by
+  induction names with
+  | nil => simp at member
+  | cons head tail ih =>
+      have order := List.pairwise_cons.mp ordered
+      rcases List.mem_cons.mp member with same | member
+      · subst item
+        simp only [List.find?_cons, inside, decide_true]
+      · have separate := order.1 item member
+        have headLength := binding_booleanDescriptor_length (valid head (by simp))
+        have absent : ¬ head.booleanDescriptor.ContainsCell cell := by
+          intro contained
+          change head.booleanDescriptor.base ≤ cell ∧
+            cell < head.booleanDescriptor.base + head.booleanDescriptor.length at contained
+          change item.booleanDescriptor.base ≤ cell ∧
+            cell < item.booleanDescriptor.base + item.booleanDescriptor.length at inside
+          rw [headLength] at contained
+          simp only [Binding.booleanDescriptor] at contained inside
+          omega
+        have rest := ih (fun entry found => valid entry (by simp [found])) order.2 member
+        simpa only [List.find?_cons, absent, decide_false, Bool.false_eq_true, ↓reduceIte] using rest
+
+theorem booleanAnalysis_mutability {names : Metadata} {item : Binding} {cell : Nat}
+    (valid : ∀ entry ∈ names, ValidBinding entry)
+    (ordered : names.Pairwise (fun left right => left.offset + left.length ≤ right.offset))
+    (member : item ∈ names) (kind : item.isBoolean = true)
+    (inside : item.booleanDescriptor.ContainsCell cell) (scalars : Boolean.Analysis) :
+    (booleanAnalysis names scalars).mutable cell = item.mutable := by
+  have found := ordered_booleanFind
+    (names := booleanNames names)
+    (fun entry present => valid entry (mem_booleanNames.mp present).1)
+    (List.Pairwise.filter (fun (entry : Binding) => entry.isBoolean) ordered)
+    (mem_booleanNames.mpr ⟨member, kind⟩) inside
+  simp only [booleanAnalysis, found]
+
+theorem booleanAnalysis_writable {names : Metadata} {item : Binding}
+    (valid : ∀ entry ∈ names, ValidBinding entry)
+    (ordered : names.Pairwise (fun left right => left.offset + left.length ≤ right.offset))
+    (member : item ∈ names) (kind : item.isBoolean = true) (writable : item.mutable = true)
+    (scalars : Boolean.Analysis) :
+    item.booleanDescriptor.writable (booleanAnalysis names scalars) = true := by
+  apply (Boolean.ArrayDescriptor.allCells_iff _ _).mpr
+  intro cell inside
+  apply Bool.and_eq_true_iff.mpr
+  refine ⟨?_, (booleanAnalysis_mutability valid ordered member kind inside scalars).trans writable⟩
+  exact (Boolean.ArrayDescriptor.allCells_iff _ _).mp
+    (booleanAnalysis_initialized member kind scalars) cell inside
 
 end Silver.ArrayBindings

@@ -189,6 +189,14 @@ theorem Condition.freezeIntegers_checked {condition : Condition} {shape : Shape}
         Character.Expr.freeze_check checked.1 fits Integer.emptyRanges,
         Character.Expr.freeze_check checked.2 fits Integer.emptyRanges, Bool.and_self], fun _ => rfl⟩
   | inputValid | booleanLiteral _ | booleanName _ => exact ⟨checked, fun _ => rfl⟩
+  | booleanArrayRead array index =>
+      have both : array.initialized booleans = true ∧ array.checkIndex flow.scalars index = true :=
+        Bool.and_eq_true_iff.mp checked
+      have sound := array.checkIndex_sound both.2 fits
+      have indexCheck := array.indexCheck_singleton (array.checkIndex_valid both.2) sound.2
+      refine ⟨?_, fun _ => rfl⟩
+      simpa only [freezeIntegers, checkBounds, withoutScalars, both.1, Bool.true_and,
+        Boolean.ArrayDescriptor.checkIndex, Character.snapshot_infer (Integer.Expr.safe_value sound.1)] using indexCheck
   | parenthesized inner ih => exact ih exact fits checked
   | negated inner ih =>
       have frozen := ih exact fits checked

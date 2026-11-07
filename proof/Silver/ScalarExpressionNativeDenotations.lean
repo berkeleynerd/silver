@@ -51,7 +51,7 @@ def arrayAtomEquation (calls : Calls) (text : Source) (position : Nat) (names : 
     (maskFirst maskAfter target : Nat) (arrays : ArrayBindings.Metadata)
     (initials : ArrayBindings.Initials) (elaborating : Bool) : Result :=
   let opened := calls.symbol text position 40
-  if opened = 0 then invalid else
+  if opened = 0 ∨ (ArrayBindings.binding arrays target).isBoolean = true then invalid else
     let subscript := calls.readExpression text opened names maskFirst maskAfter true
     let closed := calls.symbol text subscript.after 41
     if closed ≤ position ∨ subscript.operands = maxOperands ∨

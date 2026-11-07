@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from subtype ranges and a bounded LCG step, and the endless-loop semantics live in a procedure, which gets no termination check. The seeded generator is deterministic, so the "loop forever if 10 never appears" behavior is faithful, though for a fixed seed the run may either stop or cycle forever, which is a visible outcome of the specification.
 
-Position 183 in the [progression](../../../progression.md#stage-7), in stage 7.
+Position 184 in the [progression](../../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

@@ -97,7 +97,7 @@ theorem arrayDeclaration_ready (text : Source) (state : ParserState) (arguments 
       · rename_i accepted
         split
         · exact ScalarMetadata.headerReady_empty
-        · rw [(arrayValuesModel_preserves text state state _ _ 0 accepted).2.1]
+        · rw [(arrayDeclarationValues_preserves accepted).2.1]
           exact ready
 
 theorem booleanDeclaration_ready (text : Source) (state : ParserState) (arguments : Bool)

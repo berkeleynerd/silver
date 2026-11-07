@@ -32,9 +32,9 @@ def arrayPutBody : Expr .state :=
 
 def addArrayBinding (state : ParserState) (first after : Nat) (bounds : Integer.Interval)
     (offset length : Nat) (mutable : Bool) (following : Nat)
-    (componentBounds : Integer.Interval) : ParserState :=
+    (componentBounds : Integer.Interval) (isBoolean : Bool := false) : ParserState :=
   {state with position := following, arrayNames := {state.arrayNames with
-    names := state.arrayNames.names ++ [⟨first, after, bounds, offset, length, mutable, componentBounds⟩]}}
+    names := state.arrayNames.names ++ [⟨first, after, bounds, offset, length, mutable, componentBounds, isBoolean⟩]}}
 
 def arrayAddBody : Expr .state :=
   let state : Expr .state := .variable "state"
@@ -42,13 +42,13 @@ def arrayAddBody : Expr .state :=
     (.arrayNamesOnly (.field .stateArrayNames state)
       (.arrayAppend (arrayStateNames state) (.variable "first") (.variable "after")
         (.variable "bounds") (.variable "offset") (.variable "length") (.variable "mutable")
-        (.variable "component_bounds")))
+        (.variable "component_bounds") (.variable "boolean_elements")))
 
 def arrayAddCall (text : Expr .source) (state : Expr .state) (first after : Expr .number)
     (bounds : Expr .interval) (offset length : Expr .number) (mutable : Expr .truth)
-    (following : Expr .number) (componentBounds : Expr .interval) : Expr .state :=
-  .app (.app (.app (.app (.app (.app (.app (.app (.app (.app
-    (.function .arrayAdd) text) state) first) after) bounds) offset) length) mutable) following) componentBounds
+    (following : Expr .number) (componentBounds : Expr .interval) (isBoolean : Expr .truth) : Expr .state :=
+  .app (.app (.app (.app (.app (.app (.app (.app (.app (.app (.app
+    (.function .arrayAdd) text) state) first) after) bounds) offset) length) mutable) following) componentBounds) isBoolean
 
 def arrayRead (text : Expr .source) (position : Expr .number)
     (state : Expr .state) : Expr .scalarResult :=
@@ -97,6 +97,39 @@ def arrayValuesModelBody : Expr .state :=
       arrayValuesCall false text source (.variable "next_state") (.variable "next_position")
         length (.add parsed (.number 1)) components
 
+def booleanArrayValuesCall (executable : Bool) (text : Expr .source)
+    (source result : Expr .state) (position length parsed maskFirst maskAfter : Expr .number) : Expr .state :=
+  let callee : Expr (.arrow .source (.arrow .state (.arrow .state
+      (.arrow .number (.arrow .number (.arrow .number (.arrow .number (.arrow .number .state)))))))) :=
+    if executable then .function .booleanArrayValues else .function .booleanArrayValuesModel
+  .app (.app (.app (.app (.app (.app (.app (.app callee text) source) result) position)
+    length) parsed) maskFirst) maskAfter
+
+def booleanArrayValuesModelBody : Expr .state :=
+  let text : Expr .source := .variable "text"
+  let source : Expr .state := .variable "source_state"
+  let result : Expr .state := .variable "result_state"
+  let position : Expr .number := .variable "position"
+  let length : Expr .number := .variable "length"
+  let parsed : Expr .number := .variable "parsed"
+  let maskFirst : Expr .number := .variable "mask_first"
+  let maskAfter : Expr .number := .variable "mask_after"
+  let valueAfter : Expr .number := .variable "value_after"
+  .ite (.eq position (.number 0)) .invalid <|
+  .elsif (.eq parsed length) (.statePosition result position) <|
+  .group <| .locals <|
+    .local "value_after" "literal_position"
+      (.app (.app (.app (.app (.app (.function .booleanInitializer) text) source) position) maskFirst) maskAfter) <|
+    .group <| .ite (.eq valueAfter (.number 0)) .invalid <|
+    .group <| .locals <|
+      .local "next_state" "parser_state"
+        (.app (.app (.function .arrayPut) result) (.integerNumber 0)) <|
+      .local "next_position" "literal_position"
+        (.group <| .ite (.lt (.add parsed (.number 1)) length)
+          (arrayTake text valueAfter (.symbol ",")) valueAfter) <|
+      booleanArrayValuesCall false text source (.variable "next_state") (.variable "next_position")
+        length (.add parsed (.number 1)) maskFirst maskAfter
+
 /-- The runtime wrapper has the same expression tree, calling the native
 aggregate helper instead of its ghost recursive model. -/
 def arrayDeclarationBody (executable : Bool) : Expr .state :=
@@ -115,6 +148,7 @@ def arrayDeclarationBody (executable : Bool) : Expr .state :=
   let choice : Expr .scalarResult := .variable "choice"
   let values : Expr .state := .variable "values"
   let following : Expr .number := .variable "following"
+  let isBoolean : Expr .truth := .variable "boolean_elements"
   let take := arrayTake text
   let skip (p : Expr .number) := Expr.app (.app (.function .skip) text) p
   let hiddenString := Expr.app (.app (.app (.app (.function .lookupName) text)
@@ -123,9 +157,15 @@ def arrayDeclarationBody (executable : Bool) : Expr .state :=
     (.field .stateScalarNames state)) (.variable "type_first")) (.variable "type_after")
   let hiddenArray := Expr.app (.app (.app (.app (.function .arrayLookup) text)
     (arrayStateNames state)) (.variable "type_first")) (.variable "type_after")
+  let hiddenBoolean := Expr.app (.app (.app (.app (.function .booleanLookup) text)
+    (.field .stateBooleanNames state)) (.variable "type_first")) (.variable "type_after")
+  let hiddenSubtype := Expr.app (.app (.app (.app (.function .subtypeLookup) text)
+    (.field .stateSubtypeNames state)) (.variable "type_first")) (.variable "type_after")
   let conditions : List (Expr .truth) :=
     [.not (.app (.app (.app (.app (.app (.function .newName) text) state) first) after) arguments),
-     .app (.app (.app (.app (.function .nameIs) text) first) after) .integerTypeWord,
+     .group <| .ite isBoolean
+       (.app (.app (.app (.app (.function .nameIs) text) first) after) .booleanTypeWord)
+       (.app (.app (.app (.app (.function .nameIs) text) first) after) .integerTypeWord),
      .eq (.variable "array_after") (.number 0), .eq position (.number 0),
      .eq (.arrayCount (arrayStateNames state)) .maxArrayBindings,
      .eq (.field .scalarAfter lower) (.number 0), .eq (.field .scalarAfter upper) (.number 0),
@@ -137,7 +177,9 @@ def arrayDeclarationBody (executable : Bool) : Expr .state :=
      .integerGt low high,
      .integerGe (.integerSub (.wideInteger high) (.wideInteger low))
        (.wideNumber (.sub .maxArrayElements (arrayStateUsed state))),
-     .ne hiddenString (.number 0), .ne hiddenScalar (.number 0), .ne hiddenArray (.number 0)]
+     .ne hiddenString (.number 0), .ne hiddenScalar (.number 0), .ne hiddenArray (.number 0),
+     .ne hiddenBoolean (.number 0),
+     .group (.andThen isBoolean (.ne hiddenSubtype (.number 0)))]
   let rejected := conditions.tail.foldl Expr.orElse (conditions.headD (.truth false))
   .locals <|
     .local "first" "literal_position" (skip (.field .statePosition state)) <|
@@ -152,8 +194,15 @@ def arrayDeclarationBody (executable : Bool) : Expr .state :=
       (arrayRead text (take (.field .scalarAfter lower) (.symbol "..")) state) <|
     .local "type_first" "literal_position"
       (skip (take (take (.field .scalarAfter upper) (.symbol ")")) (.word "of"))) <|
-    .local "type_mark" "scalar_constraint_result"
+    .local "integer_type" "scalar_constraint_result"
       (.app (.app (.app (.function .scalarType) text) state) (.variable "type_first")) <|
+    .local "boolean_elements" "boolean"
+      (.andThen (.eq (.field .constraintAfter (.variable "integer_type")) (.number 0))
+        (.ne (take (.variable "type_first") (.word "boolean")) (.number 0))) <|
+    .local "type_mark" "scalar_constraint_result"
+      (.group <| .ite isBoolean
+        (.constraint (take (.variable "type_first") (.word "boolean")) .fullInterval)
+        (.variable "integer_type")) <|
     .local "type_after" "literal_position" (.field .constraintAfter (.variable "type_mark")) <|
     .local "position" "literal_position"
       (take (take (.variable "type_after") (.symbol ":=")) (.symbol "(")) <|
@@ -176,15 +225,18 @@ def arrayDeclarationBody (executable : Bool) : Expr .state :=
             (.integerNe (.field .intervalUpper (.field .scalarBounds choice)) low))) .invalid <|
       .group <| .locals <|
         .local "values" "parser_state"
-          (arrayValuesCall executable text state state (.variable "values_first") length (.number 0)
-            (.field .constraintBounds (.variable "type_mark"))) <|
+          (.group <| .ite isBoolean
+            (booleanArrayValuesCall executable text state state (.variable "values_first")
+              length (.number 0) first after)
+            (arrayValuesCall executable text state state (.variable "values_first") length (.number 0)
+              (.field .constraintBounds (.variable "type_mark")))) <|
         .local "following" "literal_position"
           (take (take (.field .statePosition values) (.symbol ")")) (.symbol ";")) <|
         .group <| .ite (.orElse (.eq (.field .statePosition values) (.number 0))
             (.le following (.field .statePosition state))) .invalid <|
           arrayAddCall text values first after (.interval low high)
             (arrayStateUsed state) length (.eq constant (.number 0)) following
-            (.field .constraintBounds (.variable "type_mark"))
+            (.field .constraintBounds (.variable "type_mark")) isBoolean
 
 theorem arrayValues_precedence : arrayValuesModelBody.wellFormed = true := by decide +kernel
 
@@ -206,6 +258,7 @@ separate from the base expression catalogue to preserve its dependency order. -/
 abbrev ArrayWellFormedTrees : Prop :=
   arrayPutBody.wellFormed = true ∧ arrayAddBody.wellFormed = true ∧
   arrayValuesModelBody.wellFormed = true ∧
+  booleanArrayValuesModelBody.wellFormed = true ∧
   (arrayDeclarationBody false).wellFormed = true ∧
   (arrayDeclarationBody true).wellFormed = true
 
@@ -215,9 +268,12 @@ abbrev ArrayWellScopedTrees : Prop :=
   arrayPutBody.scoped [("state", .state), ("value", .integer)] = true ∧
   arrayAddBody.scoped [("text", .source), ("state", .state), ("first", .number),
     ("after", .number), ("bounds", .interval), ("offset", .number), ("length", .number),
-    ("mutable", .truth), ("following", .number), ("component_bounds", .interval)] = true ∧
+    ("mutable", .truth), ("following", .number), ("component_bounds", .interval), ("boolean_elements", .truth)] = true ∧
   arrayValuesModelBody.scoped [("text", .source), ("source_state", .state),
     ("result_state", .state), ("position", .number), ("length", .number), ("parsed", .number), ("component_bounds", .interval)] = true ∧
+  booleanArrayValuesModelBody.scoped [("text", .source), ("source_state", .state),
+    ("result_state", .state), ("position", .number), ("length", .number), ("parsed", .number),
+    ("mask_first", .number), ("mask_after", .number)] = true ∧
   (arrayDeclarationBody false).scoped [("text", .source), ("state", .state), ("arguments", .truth)] = true ∧
   (arrayDeclarationBody true).scoped [("text", .source), ("state", .state), ("arguments", .truth)] = true
 

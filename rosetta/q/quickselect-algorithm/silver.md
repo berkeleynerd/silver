@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything uses fixed-size arrays, bounded index subtypes and while loops inside procedures, so no annotation is needed, but the loop-carried indices need guards before each use to discharge without invariants.
 
-Position 233 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 234 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

@@ -1,0 +1,44 @@
+[
+  {
+    "path": "gnatprove.out",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/compiler/obj/explore/primary-branch-cut/gnatprove/gnatprove.out",
+    "bytes": 3026,
+    "sha256": "7fb07b7e675e0c42072321f5f55d532a05be8da7ce4074ca8d64e9d25567ab80"
+  },
+  {
+    "path": "gnatprove.sarif",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/compiler/obj/explore/primary-branch-cut/gnatprove/gnatprove.sarif",
+    "bytes": 78428,
+    "sha256": "516ad36b3c832040a4e0d703bb1983a23f9613f64f2ac00fc708ec4e971e8f29"
+  },
+  {
+    "path": "silver_output_profile.spark",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/compiler/obj/explore/primary-branch-cut/gnatprove/silver_output_profile.spark",
+    "bytes": 305549,
+    "sha256": "79a3ca3ab3e62a6a696f13cbfa8a1d2db12f085b8d96ceab4eeb8b3d0b658154"
+  },
+  {
+    "path": "silver_output_profile__read_primary_into/why3session.xml",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/compiler/obj/explore/primary-branch-cut/gnatprove/silver_output_profile__read_primary_into/why3session.xml",
+    "bytes": 109331,
+    "sha256": "4e687978eec0c54e01d5d18a1a5840ca5f25a19873f75deb21aad611ce3f1cd6"
+  },
+  {
+    "path": "silver_output_profile__read_primary_into/why3shapes",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/compiler/obj/explore/primary-branch-cut/gnatprove/silver_output_profile__read_primary_into/why3shapes",
+    "bytes": 501166,
+    "sha256": "6d0542b61e8a02c5206910c608c673403570f807d975044579ce602ad0360255"
+  },
+  {
+    "path": "silver_output_profile__read_primary_into.gnat-json",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/compiler/obj/explore/primary-branch-cut/gnatprove/silver_output_profile__read_primary_into.gnat-json",
+    "bytes": 15480253,
+    "sha256": "fd0bd53d01a142d5bcd63f0ac8114259fcc35198f02023ab57ec027d3f3ff389"
+  },
+  {
+    "path": "why3.conf",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/compiler/obj/explore/primary-branch-cut/gnatprove/why3.conf",
+    "bytes": 4286,
+    "sha256": "baee1fccc021d2ba10f3f343300747b0380331ed142985da5647896fe05ea3dc"
+  }
+]

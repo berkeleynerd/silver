@@ -70,4 +70,9 @@ theorem actual_boolean_declaration :
   rw [Output.SourceBridge.actual_complete_shape.2.1]
   exact candidate_boolean_declaration
 
+theorem actual_boolean_array_helpers :
+    BooleanArraySource.Checked Source.outputBodyTokens := by
+  rw [Output.SourceBridge.actual_complete_shape.2.1]
+  exact candidate_boolean_array_helpers
+
 end Silver.Compose.SourceBridge

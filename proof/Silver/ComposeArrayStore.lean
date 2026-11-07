@@ -1,6 +1,7 @@
 module
 
 public import Silver.ComposeArrayElaboration
+public import Silver.ComposeBooleanArrayElaboration
 public import Silver.ComposeFrozenSemantics
 
 @[expose] public section
@@ -8,6 +9,35 @@ public import Silver.ComposeFrozenSemantics
 /-! The canonical native table has the same store effect as evaluating every
 raw component in the incoming environment and initializing the declared array. -/
 namespace Silver.Compose
+
+private theorem integer_source_ready {text : Source} {environment : ArrayBindings.Env}
+    (ready : ArrayBindings.SourceReady text environment) :
+    ArrayBindings.SourceReady text {environment with names := ArrayBindings.integerNames environment.names} := by
+  refine ⟨⟨ArrayBindings.integerNames_validMetadata ready.1.1, ready.1.2.1, ready.1.2.2.1, ?_⟩,
+    ready.2.1, ArrayBindings.integerNames_ordered ready.2.2.1, ArrayBindings.integerNames_initialsFit ready.2.2.2⟩
+  intro item member
+  exact ready.1.2.2.2 item (ArrayBindings.mem_integerNames.mp member).1
+
+private theorem array_store_extend_values {text : Source} {environment : ArrayBindings.Env}
+    (ready : ArrayBindings.SourceReady text environment) (items : List Int) (scalars : Integer.Store) :
+    ArrayBindings.store environment.names (environment.values ++ items) scalars =
+      ArrayBindings.store environment.names environment.values scalars := by
+  funext cell
+  unfold ArrayBindings.store
+  split
+  · rename_i covered
+    obtain ⟨old, member, inside⟩ := (ArrayBindings.covers_iff _ _).mp covered
+    have valid := (ready.1.1.2.1 old member).2.2.2
+    have length := ArrayBindings.binding_descriptor_length valid
+    have last := ready.1.2.2.2 old member
+    have before : cell - ArrayBindings.scalarLimit - 1 < environment.values.length := by
+      simp only [Integer.ArrayDescriptor.ContainsCell] at inside
+      rw [length] at inside
+      simp only [ArrayBindings.Binding.descriptor] at inside
+      have canonical := ready.2.1
+      omega
+    simp only [ArrayBindings.initialValue, List.getD_eq_getElem?_getD, List.getElem?_append_left before]
+  · rfl
 
 private theorem array_store_append {text : Source} {environment : ArrayBindings.Env}
     {item : ArrayBindings.Binding} (items : List Int) (scalars : Integer.Store)
@@ -83,6 +113,30 @@ theorem array_declaration_execute {text arguments state declaration final}
       rw [← evaluated]
       dsimp only [frozenIntegers]
       rw [scalars, names, table]
-      exact (array_store_append items _ ready (array_declaration_binding_valid allowed typeMark low high subtypes) rfl count).symm
+      unfold ArrayBindings.integerStore
+      rw [ArrayBindings.integerNames_append_integer _ (show (parts.binding state).isBoolean = false from allowed.integer)]
+      exact (array_store_append items _ (integer_source_ready ready)
+        (array_declaration_binding_valid allowed typeMark low high subtypes) rfl count).symm
+
+theorem boolean_array_declaration_integer_store {text arguments state final}
+    (reading : BooleanArrayDeclarationAt text arguments state final)
+    (ready : ArrayBindings.SourceReady text state.arrayNames) :
+    frozenIntegers final.scalarNames final.arrayNames.names final.arrayNames.values =
+      frozenIntegers state.scalarNames state.arrayNames.names state.arrayNames.values := by
+  cases reading with
+  | @declaration values parts lower upper position following _ allowed _ _ _ valuesEq positive _ _ =>
+      have fields := booleanArrayValuesModel_fields text state state position parts.length 0 parts.first parts.after
+        (valuesEq.symm ▸ positive)
+      rw [valuesEq] at fields
+      have names : values.arrayNames.names = state.arrayNames.names := congrArg (fun s => s.arrayNames.names) fields
+      have scalars : values.scalarNames = state.scalarNames := congrArg (fun s => s.scalarNames) fields
+      have table : values.arrayNames.values = state.arrayNames.values ++ List.replicate parts.length 0 := by
+        simpa only [valuesEq, Nat.sub_zero] using booleanArrayValuesModel_canonical text state state position parts.length 0
+          parts.first parts.after (valuesEq.symm ▸ positive) ready.2.1
+      dsimp only [frozenIntegers]
+      unfold ArrayBindings.integerStore
+      rw [names, scalars, table, ArrayBindings.integerNames_append_boolean _
+        (show (parts.binding state).isBoolean = true from allowed.kind)]
+      exact array_store_extend_values (integer_source_ready ready) _ _
 
 end Silver.Compose

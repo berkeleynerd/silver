@@ -1,0 +1,14 @@
+{
+  "run_id": "20261106T230639-d72d8edd5e80",
+  "outcome": "success",
+  "duration_seconds": 910.136338955,
+  "source_sha256": "1686b0b61da8c684ce185995621fb08bc5a6932893d2cc859a82ced9922ce4e8",
+  "scope": "Complete affected Array_Declaration_Model body1812; all model safety/progress/runtime contracts retained, normal30s/1000MiB/level2/3provers/4workers. GNATprove summary42checks.",
+  "proof_records": 40,
+  "flow_records": 2,
+  "all_proof_records_info": true,
+  "spark_snapshot": "tmp/boolean-array-producer/shared-boolean-word/complete-model.spark",
+  "spark_sha256": "f15cf5d4bc4c4e0159f3469aabba726518655b558db9c31ce2f98ca3fbd58dba",
+  "session_snapshot": "tmp/boolean-array-producer/shared-boolean-word/complete-model-why3session.xml",
+  "session_sha256": "78efd9a5fdaddd9797d50861e0d088633cbf9ba2a99e847eb2d3ab10f155c946"
+}

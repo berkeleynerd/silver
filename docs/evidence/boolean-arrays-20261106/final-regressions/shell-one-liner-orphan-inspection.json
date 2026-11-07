@@ -1,0 +1,179 @@
+{
+  "utc": "2026-11-07T00:17:49.195677+00:00",
+  "failed_source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/samples/rosetta_shell_one_liner.adb",
+  "source_sha256": "a845ee99c96ed3ccee3346bea45370dade0fddc9ea7817afe9a89efdec8946ed",
+  "matching_program_workspaces": [
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/program-jg2hVS",
+      "main_sha256": "a845ee99c96ed3ccee3346bea45370dade0fddc9ea7817afe9a89efdec8946ed",
+      "executable_exists": false,
+      "reports": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/program-jg2hVS/obj/gnatprove/gnatprove.sarif"
+      ]
+    }
+  ],
+  "processes_referencing_failed_workspace": [],
+  "current_image_worktree_native_processes": [
+    {
+      "pid": 309185,
+      "ppid": 186471,
+      "state": "S",
+      "rss_bytes": 37937152,
+      "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/compiler/bin/silver compile /home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/samples/rosetta_reverse_a_string.adb "
+    },
+    {
+      "pid": 309186,
+      "ppid": 309185,
+      "state": "S",
+      "rss_bytes": 1933312,
+      "command": "sh -c -- cd /home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/toolchain && unset ALR_CONFIG GPR_CONFIG GPR_PROJECT_PATH GPR_PROJECT_PATH_FILE ADA_PROJECT_PATH && ALIRE_SETTINGS_DIR=/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.tools/linux-x86_64/alire/settings /home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.tools/linux-x86_64/alr/bin/alr -n exec -- /home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/image-tools/bin/gnatprove -P /home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/program-JG3FAk/program.gpr -U --mode=all --report=all --warnings=continue --checks-as-errors=on --level=2 --prover=cvc5,z3,altergo --steps=100000 --timeout=0 --memlimit=1000 -j0 --no-loop-unrolling "
+    },
+    {
+      "pid": 309187,
+      "ppid": 309186,
+      "state": "S",
+      "rss_bytes": 25825280,
+      "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.tools/linux-x86_64/alr/bin/alr -n exec -- /home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/image-tools/bin/gnatprove -P /home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/program-JG3FAk/program.gpr -U --mode=all --report=all --warnings=continue --checks-as-errors=on --level=2 --prover=cvc5,z3,altergo --steps=100000 --timeout=0 --memlimit=1000 -j0 --no-loop-unrolling "
+    },
+    {
+      "pid": 309193,
+      "ppid": 309187,
+      "state": "S",
+      "rss_bytes": 21790720,
+      "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/image-tools/bin/gnatprove -P /home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/program-JG3FAk/program.gpr -U --mode=all --report=all --warnings=continue --checks-as-errors=on --level=2 --prover=cvc5,z3,altergo --steps=100000 --timeout=0 --memlimit=1000 -j0 --no-loop-unrolling "
+    },
+    {
+      "pid": 309242,
+      "ppid": 309193,
+      "state": "S",
+      "rss_bytes": 1835008,
+      "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/image-tools/libexec/spark/bin/why3server -j 12 --socket /tmp/why3server_309193.sock "
+    },
+    {
+      "pid": 309243,
+      "ppid": 309193,
+      "state": "S",
+      "rss_bytes": 13103104,
+      "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/image-tools/libexec/spark/bin/gprbuild --subdirs=gnatprove/ --complete-output --restricted-to-languages=ada --target=x86_64-linux --gnatprove -s -q -ws --no-exit-message -j12 -U -c -P /home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/program-JG3FAk/program.gpr --db /home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/image-tools/share/spark/config/gnat2why -cargs:Ada -gnatc -gnates=/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/program-JG3FAk/obj/gnatprove/719f9a9b.tmp "
+    },
+    {
+      "pid": 309256,
+      "ppid": 309243,
+      "state": "S",
+      "rss_bytes": 27774976,
+      "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/image-tools/libexec/spark/bin/gnat2why -c -x ada -gnatA -gnat2022 -gnata -gnato -gnatc -gnates=/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/program-JG3FAk/obj/gnatprove/719f9a9b.tmp -gnatec=/tmp/GPR.309243/GNAT-TEMP-000002.TMP -gnatem=/tmp/GPR.309243/GNAT-TEMP-000005.TMP /home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/program-JG3FAk/silver_arguments.adb -gnateO=/tmp/GPR.309243/GNAT-TEMP-000004.TMP "
+    },
+    {
+      "pid": 309258,
+      "ppid": 309243,
+      "state": "S",
+      "rss_bytes": 28942336,
+      "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/image-tools/libexec/spark/bin/gnat2why -c -x ada -gnatA -gnat2022 -gnata -gnato -gnatc -gnates=/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/program-JG3FAk/obj/gnatprove/719f9a9b.tmp -gnatec=/tmp/GPR.309243/GNAT-TEMP-000002.TMP -gnatem=/tmp/GPR.309243/GNAT-TEMP-000007.TMP /home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/program-JG3FAk/silver_io.adb -gnateO=/tmp/GPR.309243/GNAT-TEMP-000004.TMP "
+    },
+    {
+      "pid": 309259,
+      "ppid": 309243,
+      "state": "S",
+      "rss_bytes": 26501120,
+      "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/image-tools/libexec/spark/bin/gnat2why -c -x ada -gnatA -gnat2022 -gnata -gnato -gnatc -gnates=/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/program-JG3FAk/obj/gnatprove/719f9a9b.tmp -gnatec=/tmp/GPR.309243/GNAT-TEMP-000002.TMP -gnatem=/tmp/GPR.309243/GNAT-TEMP-000008.TMP /home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/program-JG3FAk/main.adb -o main~1.spark -gnateI1 -gnateO=/tmp/GPR.309243/GNAT-TEMP-000004.TMP "
+    },
+    {
+      "pid": 309260,
+      "ppid": 309256,
+      "state": "S",
+      "rss_bytes": 1929216,
+      "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/image-tools/libexec/spark/bin/spark_semaphore_wrapper gnatwhy3 --timeout 0 --steps 100000 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 12 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 1022 /home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/program-JG3FAk/obj/gnatprove/silver_arguments__input_is_valid.gnat-json "
+    },
+    {
+      "pid": 309261,
+      "ppid": 309256,
+      "state": "S",
+      "rss_bytes": 1929216,
+      "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/image-tools/libexec/spark/bin/spark_semaphore_wrapper gnatwhy3 --timeout 0 --steps 100000 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 12 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 1031 /home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/program-JG3FAk/obj/gnatprove/silver_arguments__first_or_default.gnat-json "
+    },
+    {
+      "pid": 309262,
+      "ppid": 309260,
+      "state": "S",
+      "rss_bytes": 2211840,
+      "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/image-tools/libexec/spark/bin/gnatwhy3 --timeout 0 --steps 100000 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 12 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 1022 /home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/program-JG3FAk/obj/gnatprove/silver_arguments__input_is_valid.gnat-json "
+    },
+    {
+      "pid": 309263,
+      "ppid": 309259,
+      "state": "S",
+      "rss_bytes": 2109440,
+      "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/image-tools/libexec/spark/bin/spark_semaphore_wrapper gnatwhy3 --timeout 0 --steps 100000 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 12 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 844 /home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/program-JG3FAk/obj/gnatprove/main.gnat-json "
+    },
+    {
+      "pid": 309264,
+      "ppid": 309256,
+      "state": "S",
+      "rss_bytes": 1884160,
+      "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/image-tools/libexec/spark/bin/spark_semaphore_wrapper gnatwhy3 --timeout 0 --steps 100000 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 12 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 854 /home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/program-JG3FAk/obj/gnatprove/silver_arguments__is_message.gnat-json "
+    },
+    {
+      "pid": 309266,
+      "ppid": 309261,
+      "state": "S",
+      "rss_bytes": 2289664,
+      "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/image-tools/libexec/spark/bin/gnatwhy3 --timeout 0 --steps 100000 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 12 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 1031 /home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/program-JG3FAk/obj/gnatprove/silver_arguments__first_or_default.gnat-json "
+    },
+    {
+      "pid": 309267,
+      "ppid": 309263,
+      "state": "S",
+      "rss_bytes": 2195456,
+      "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/image-tools/libexec/spark/bin/gnatwhy3 --timeout 0 --steps 100000 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 12 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 844 /home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/program-JG3FAk/obj/gnatprove/main.gnat-json "
+    },
+    {
+      "pid": 309269,
+      "ppid": 309264,
+      "state": "S",
+      "rss_bytes": 2351104,
+      "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/image-tools/libexec/spark/bin/gnatwhy3 --timeout 0 --steps 100000 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 12 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 854 /home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/program-JG3FAk/obj/gnatprove/silver_arguments__is_message.gnat-json "
+    },
+    {
+      "pid": 309270,
+      "ppid": 309262,
+      "state": "S",
+      "rss_bytes": 71487488,
+      "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3 --timeout 0 --steps 100000 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 12 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 1022 /home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/program-JG3FAk/obj/gnatprove/silver_arguments__input_is_valid.gnat-json "
+    },
+    {
+      "pid": 309271,
+      "ppid": 309267,
+      "state": "R",
+      "rss_bytes": 71884800,
+      "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3 --timeout 0 --steps 100000 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 12 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 844 /home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/program-JG3FAk/obj/gnatprove/main.gnat-json "
+    },
+    {
+      "pid": 309272,
+      "ppid": 309258,
+      "state": "S",
+      "rss_bytes": 1888256,
+      "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/image-tools/libexec/spark/bin/spark_semaphore_wrapper gnatwhy3 --timeout 0 --steps 100000 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 12 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 1308 /home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/program-JG3FAk/obj/gnatprove/silver_io__put_line.gnat-json "
+    },
+    {
+      "pid": 309273,
+      "ppid": 309269,
+      "state": "R",
+      "rss_bytes": 69853184,
+      "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3 --timeout 0 --steps 100000 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 12 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 854 /home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/program-JG3FAk/obj/gnatprove/silver_arguments__is_message.gnat-json "
+    },
+    {
+      "pid": 309274,
+      "ppid": 309266,
+      "state": "R",
+      "rss_bytes": 58552320,
+      "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3 --timeout 0 --steps 100000 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 12 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 1031 /home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/program-JG3FAk/obj/gnatprove/silver_arguments__first_or_default.gnat-json "
+    },
+    {
+      "pid": 309275,
+      "ppid": 309258,
+      "state": "S",
+      "rss_bytes": 1732608,
+      "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/image-tools/libexec/spark/bin/spark_semaphore_wrapper gnatwhy3 --timeout 0 --steps 100000 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 12 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 1379 /home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/program-JG3FAk/obj/gnatprove/silver_io__put.gnat-json "
+    }
+  ]
+}

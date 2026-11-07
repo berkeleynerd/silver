@@ -38,6 +38,12 @@ theorem basicRaw_factsBounded (text : Source) (context : ParseContext) (scan : B
       split
       · exact Context.empty_bounded
       · exact bounded
+  | booleanArrayAssignment =>
+      unfold booleanArrayAssignmentBody
+      dsimp only
+      split
+      · exact Context.empty_bounded
+      · exact bounded
   | assignment =>
       rcases stringAssignment_fields text context scan with failed | fields
       · rw [failed]
