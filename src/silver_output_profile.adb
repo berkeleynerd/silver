@@ -5496,21 +5496,24 @@ is
          or else Formal_Hides (Text, State, First, After)
        then (0, Functions.Integer_Kind, Scalars.Empty)
        else (After, Functions.Boolean_Kind, Scalars.Full)));
-   function Parameters_At
-     (Text : String; State : Parser_State; Arguments : Boolean) return Parser_State
+   type Parameter_Step_Result is record
+      State : Parser_State;
+      Closed : Boolean;
+   end record;
+   function Parameter_Step
+     (Text : String; State : Parser_State; Arguments : Boolean) return Parameter_Step_Result
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
          and then Valid_State (Text, State),
-       Post => Valid_State (Text, Parameters_At'Result)
-         and then (Parameters_At'Result.Position = 0
-           or else (Parameters_At'Result.Position > State.Position
-             and then Parameters_At'Result.Functions.Count = State.Functions.Count
-             and then Parameters_At'Result.Functions.Parameter_Count > State.Functions.Parameter_Count
-             and then Parameters_At'Result.First_Parameter = State.First_Parameter
-             and then Parameters_At'Result.Pure = State.Pure)),
-       Subprogram_Variant => (Decreases => (Text'Last + 1) - State.Position);
-   function Parameters_At
-     (Text : String; State : Parser_State; Arguments : Boolean) return Parser_State is
+       Post => Valid_State (Text, Parameter_Step'Result.State)
+         and then (Parameter_Step'Result.State.Position = 0
+           or else (Parameter_Step'Result.State.Position > State.Position
+             and then Parameter_Step'Result.State.Functions.Count = State.Functions.Count
+             and then Parameter_Step'Result.State.Functions.Parameter_Count = State.Functions.Parameter_Count + 1
+             and then Parameter_Step'Result.State.First_Parameter = State.First_Parameter
+             and then Parameter_Step'Result.State.Pure = State.Pure));
+   function Parameter_Step
+     (Text : String; State : Parser_State; Arguments : Boolean) return Parameter_Step_Result is
      (declare First : constant Literal_Position := Skip_At (Text, State.Position);
        After : constant Literal_Position := Name_After (Text, First);
        Start : constant Literal_Position := Take_Token (Text, Take_Token (Text, After, Colon), In_Keyword);
@@ -5519,37 +5522,135 @@ is
         or else Start = 0 or else Value.After <= State.Position
         or else State.Functions.Parameter_Count = Functions.Max_Formals
         or else Equal_Name (Text, First, After, Skip_At (Text, Start), Value.After)
-       then Invalid_State
+       then (Invalid_State, False)
        else (declare Next : constant Parser_State :=
          (State with delta Position => Value.After,
           Functions => Functions.Append_Formal (State.Functions, (First, After, Value.Kind, Value.Bounds)),
           Hiding => Hide_Name (Text, State.Hiding, First, After));
         Separator : constant Literal_Position := Take_Token (Text, Value.After, Semicolon);
         Close : constant Literal_Position := Take_Token (Text, Value.After, Right_Parenthesis);
-        begin (if Close /= 0 then (Next with delta Position => Close)
-         elsif Separator > State.Position then Parameters_At (Text, (Next with delta Position => Separator), Arguments)
-         else Invalid_State))));
+        begin (if Close /= 0 then ((Next with delta Position => Close), True)
+         elsif Separator > State.Position then ((Next with delta Position => Separator), False)
+         else (Invalid_State, False)))));
+   function Parameters_Model
+     (Text : String; State : Parser_State; Arguments : Boolean) return Parser_State
+     with Ghost => Static, Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_State (Text, State),
+       Post => Valid_State (Text, Parameters_Model'Result)
+         and then (Parameters_Model'Result.Position = 0
+           or else (Parameters_Model'Result.Position > State.Position
+             and then Parameters_Model'Result.Functions.Count = State.Functions.Count
+             and then Parameters_Model'Result.Functions.Parameter_Count > State.Functions.Parameter_Count
+             and then Parameters_Model'Result.First_Parameter = State.First_Parameter
+             and then Parameters_Model'Result.Pure = State.Pure)),
+       Subprogram_Variant => (Decreases => (Text'Last + 1) - State.Position);
+   function Parameters_Model
+     (Text : String; State : Parser_State; Arguments : Boolean) return Parser_State is
+     (declare Next : constant Parameter_Step_Result := Parameter_Step (Text, State, Arguments);
+      begin (if Next.State.Position = 0 then Invalid_State
+       elsif Next.Closed then Next.State
+       else Parameters_Model (Text, Next.State, Arguments)));
+   function Parameters_At
+     (Text : String; State : Parser_State; Arguments : Boolean) return Parser_State
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_State (Text, State),
+       Post => (Runtime => Valid_State (Text, Parameters_At'Result)
+         and then (Parameters_At'Result.Position = 0
+           or else (Parameters_At'Result.Position > State.Position
+             and then Parameters_At'Result.Functions.Count = State.Functions.Count
+             and then Parameters_At'Result.Functions.Parameter_Count > State.Functions.Parameter_Count
+             and then Parameters_At'Result.First_Parameter = State.First_Parameter
+             and then Parameters_At'Result.Pure = State.Pure)),
+         Static => Parameters_At'Result = Parameters_Model (Text, State, Arguments));
+   function Parameters_At
+     (Text : String; State : Parser_State; Arguments : Boolean) return Parser_State is
+      Current : Parser_State := State;
+   begin
+      loop
+         pragma Loop_Invariant (Valid_State (Text, Current));
+         pragma Loop_Invariant (Current.Position >= State.Position);
+         pragma Loop_Invariant (Current.Functions.Count = State.Functions.Count);
+         pragma Loop_Invariant (Current.Functions.Parameter_Count >= State.Functions.Parameter_Count);
+         pragma Loop_Invariant (Current.First_Parameter = State.First_Parameter);
+         pragma Loop_Invariant (Current.Pure = State.Pure);
+         pragma Loop_Invariant (Static => Parameters_Model (Text, State, Arguments) =
+           Parameters_Model (Text, Current, Arguments));
+         pragma Loop_Variant (Increases => Current.Position);
+         declare Next : constant Parameter_Step_Result := Parameter_Step (Text, Current, Arguments);
+         begin
+            if Next.State.Position = 0 then return Invalid_State; end if;
+            if Next.Closed then return Next.State; end if;
+            Current := Next.State;
+         end;
+      end loop;
+   end Parameters_At;
+   function Function_Local_At
+     (Text : String; State : Parser_State; Arguments : Boolean) return Parser_State
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_State (Text, State),
+       Post => Valid_State (Text, Function_Local_At'Result)
+         and then (Function_Local_At'Result.Position = 0
+           or else (Function_Local_At'Result.Position > State.Position
+             and then Function_Local_At'Result.Functions = State.Functions
+             and then Function_Local_At'Result.First_Parameter = State.First_Parameter
+             and then Function_Local_At'Result.Pure = State.Pure));
+   function Function_Local_At
+     (Text : String; State : Parser_State; Arguments : Boolean) return Parser_State is
+     (declare Scalar : constant Parser_State := Scalar_Declaration_At (Text, State, Arguments);
+       Flag : constant Parser_State := Boolean_Declaration_At (Text, State, Arguments);
+      begin (if Scalar.Position /= 0 then Scalar else Flag));
+   function Function_Locals_Model
+     (Text : String; State : Parser_State; Arguments : Boolean) return Parser_State
+     with Ghost => Static, Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_State (Text, State),
+       Post => Valid_State (Text, Function_Locals_Model'Result)
+         and then (Function_Locals_Model'Result.Position = 0
+           or else (Function_Locals_Model'Result.Position >= State.Position
+             and then Function_Locals_Model'Result.Functions = State.Functions
+             and then Function_Locals_Model'Result.First_Parameter = State.First_Parameter
+             and then Function_Locals_Model'Result.Pure = State.Pure)),
+       Subprogram_Variant => (Decreases => (Text'Last + 1) - State.Position);
+   function Function_Locals_Model
+     (Text : String; State : Parser_State; Arguments : Boolean) return Parser_State is
+     (if State.Position = 0 then Invalid_State
+      elsif Take_Token (Text, State.Position, Begin_Keyword) /= 0 then State
+      else (declare Next : constant Parser_State := Function_Local_At (Text, State, Arguments);
+       begin (if Next.Position = 0 then Invalid_State
+              else Function_Locals_Model (Text, Next, Arguments))));
    function Function_Locals
      (Text : String; State : Parser_State; Arguments : Boolean) return Parser_State
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
          and then Valid_State (Text, State),
-       Post => Valid_State (Text, Function_Locals'Result)
+       Post => (Runtime => Valid_State (Text, Function_Locals'Result)
          and then (Function_Locals'Result.Position = 0
            or else (Function_Locals'Result.Position >= State.Position
              and then Function_Locals'Result.Functions = State.Functions
              and then Function_Locals'Result.First_Parameter = State.First_Parameter
              and then Function_Locals'Result.Pure = State.Pure)),
-       Subprogram_Variant => (Decreases => (Text'Last + 1) - State.Position);
+         Static => Function_Locals'Result = Function_Locals_Model (Text, State, Arguments));
    function Function_Locals
      (Text : String; State : Parser_State; Arguments : Boolean) return Parser_State is
-     (if State.Position = 0 then Invalid_State
-      elsif Take_Token (Text, State.Position, Begin_Keyword) /= 0 then State
-      else (declare Scalar : constant Parser_State := Scalar_Declaration_At (Text, State, Arguments);
-        Flag : constant Parser_State := Boolean_Declaration_At (Text, State, Arguments);
-        Next : constant Parser_State := (if Scalar.Position /= 0 then Scalar else Flag);
-       begin (if Next.Position <= State.Position then Invalid_State
-        else Function_Locals (Text, Next, Arguments))));
+      Current : Parser_State := State;
+   begin
+      while Current.Position /= 0 loop
+         pragma Loop_Invariant (Valid_State (Text, Current));
+         pragma Loop_Invariant (Current.Position >= State.Position);
+         pragma Loop_Invariant (Current.Functions = State.Functions);
+         pragma Loop_Invariant (Current.First_Parameter = State.First_Parameter);
+         pragma Loop_Invariant (Current.Pure = State.Pure);
+         pragma Loop_Invariant (Static => Function_Locals_Model (Text, State, Arguments) =
+           Function_Locals_Model (Text, Current, Arguments));
+         pragma Loop_Variant (Increases => Current.Position);
+         if Take_Token (Text, Current.Position, Begin_Keyword) /= 0 then return Current; end if;
+         Current := Function_Local_At (Text, Current, Arguments);
+      end loop;
+      return Invalid_State;
+   end Function_Locals;
    function Append_Parameter (Frame : Parser_State; Parameter : Functions.Formal) return Parser_State is
      (if Parameter.Kind = Functions.Integer_Kind then
         (if Frame.Scalar_Names.Count = Scalar_Expressions.Max_Bindings then Invalid_State
