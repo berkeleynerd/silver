@@ -44,6 +44,12 @@ The [report fixture/producer packet](report-readings/README.md) retains the
 39-test native policy fixture result and pinned producer inputs. It does not
 claim that the compiler's complete native audit has passed.
 
+The [early mechanism probes](mechanism-probes/README.md) retain the exact
+application sources, projects, historical producer reports and managed records
+for the initial no-inlining/full-domain experiments. The first run remains
+failed because its declared inputs changed; the later seven- and nine-check
+successes remain scoped producer observations rather than compiler validation.
+
 ## Native repair and source integration checkpoint
 
 The [parser equality packet](parser-equality/README.md) retains the original

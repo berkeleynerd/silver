@@ -120,9 +120,10 @@ generated files. That failure is retained. Exact-file probe
 The selected-grammar probe `20261107T173133-e00faebcc964` passed nine checks,
 including an unused function's guarded division, termination and full coverage.
 These are mechanism probes, not complete compiler or feature validation.
-The sources, reports and managed records currently reside in the planning
-worktree's `tmp/native-function-probes/`; retain the delivery-relevant evidence
-in the checked-in packet before support is claimed. The integration installation
+The exact sources, reports and managed records are retained in the
+[mechanism-probe packet](evidence/scalar-functions-20261107/mechanism-probes/README.md),
+including the failed input-capture outcome. These remain producer observations
+from before compiler implementation. The integration installation
 at `tmp/scalar-functions-298` copied the existing native tool release/cache from
 `tmp/empty-loop-repair` and ran bootstrap to create its own Alire settings,
 context, generated installation paths and Image overlay. No old native proof
