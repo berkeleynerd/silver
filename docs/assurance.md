@@ -1153,6 +1153,16 @@ All output shells use `Complete_Application_Proof`; only null retains
 | Assigned | Static sequence containing assignment | Main, optionally Put and/or Put_Line | Above plus exact unused-assignment advisory |
 | Selected | Argument-input sequence containing assignment | Main and argument callees, optionally Put and/or Put_Line; producer may eliminate calls | Above plus exact unused-assignment advisory |
 
+For the working [scalar-function increment](scalar-functions.md), these runtime
+entity alternatives additionally require every source-declared local function.
+Admission supplies its exact source name; coverage does not accept arbitrary
+`Main.` prefixes or omit unused functions. Function-bearing proof runs use
+`--no-inlining` to analyze each body over its full formal domain. The exact local
+entities may carry successful `SUBPROGRAM_TERMINATION` flow records and
+`CLAIM_EFFECTS`/`CLAIM_AORTE` dependencies, with the same complete safety-check
+discharge requirements as Main. No function postcondition is assumed. Complete
+delivery validation remains pending as recorded in the capability record.
+
 Every emitted Main safety record must be a proved/info `VC_RANGE_CHECK`,
 `VC_LENGTH_CHECK`, `VC_OVERFLOW_CHECK`, `VC_DIVISION_CHECK` or `VC_INDEX_CHECK`,
 with the expected Main filename/entity, valid positive location, prover completion and no suppression or justification. Empty safety
@@ -1175,6 +1185,14 @@ waive safety checks. Repeated output permits exactly `"NAME" is set by
 "OPERATION" but not used after the call`, with OPERATION either `Put` or
 `Put_Line` and NAME one of `Written_Count`,
 `Flushed`, `Succeeded` or `Written_Bytes`. Other messages remain rejected. Some legal names make GNATprove omit an advisory.
+
+Identified local functions additionally permit `UNUSED_VARIABLE` with exactly
+`unused variable "NAME"`, warning severity and flow provenance. The name obeys
+the checked Ada identifier grammar and 4,096-byte source bound. The source file,
+positive location and exact local entity remain required, and suppression or
+justification is rejected. This unused-formal advisory is excluded from Main's
+entity. Its producer route and storage accounting are retained in the
+[function report-capacity record](scalar-functions-report-capacity.md).
 
 The application warning list also permits the pinned `imprecise-image` advisory
 described in the [Image producer record](for-loops-integers-image.md). Its full

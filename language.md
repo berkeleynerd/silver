@@ -1388,6 +1388,15 @@ safety record must be a proved/info `VC_RANGE_CHECK`, `VC_LENGTH_CHECK`,
 suppression. Length checks require the fixed-bound argument; their absence through
 static elimination is no longer a prerequisite for supporting copies.
 
+Function-bearing programs use GNATprove's `--no-inlining` analysis on the same
+author source. Each declared function, including an unused function, is checked
+over its complete formal domain. The application report must cover Main and
+every source-declared local function exactly; the same safety classes and
+discharge requirements apply to their records. Successful
+`SUBPROGRAM_TERMINATION` flow records establish the reported termination checks.
+Local dependencies may name only the identified functions' effect and
+absence-of-runtime-error claims; no authored function contract is introduced.
+
 All output policies classify finite lists of the exact `INEFFECTIVE` initializer
 advisory. Assignment-bearing policies also classify the exact `unused assignment`
 advisory. All output-capable policies also classify the exact `INEFFECTIVE` message
@@ -1404,6 +1413,13 @@ discharges or removes a safety check. The [assurance policy](docs/assurance.md)
 specifies its native/SARIF classification. Other warnings in the audited reports
 fail; naming conventions that make GNATprove omit an advisory do not change
 membership.
+
+An identified local function may additionally carry the exact `UNUSED_VARIABLE`
+message `unused variable "NAME"` for an unused formal. It retains warning severity,
+flow provenance, a positive location in `main.adb`, the declared function's entity
+and no suppression or justification. `NAME` has Ada identifier spelling and is
+bounded by the complete-source limit. This advisory does not discharge a safety
+obligation and is not accepted for Main itself.
 
 Faithful static evaluation, complete obligation/report generation, completeness
 of the accepted producer shapes and pinned solver completion for the bounded
