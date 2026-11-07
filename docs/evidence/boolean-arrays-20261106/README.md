@@ -1,7 +1,7 @@
 # Boolean-array evidence inventory — 2026-11-06
 
-**Linux native proof/build and complete Lean/source checkpoints passed,
-2026-11-07.** Final applicability and closing confirmation are tracked in the
+**Complete Linux validation and closing confirmation passed, 2026-11-07.**
+Final applicability and the accepted target are recorded in the
 [delivery account](../../boolean-arrays.md#delivery-assurance-and-validation--2026-11-07).
 This inventory supports [#297](https://github.com/berkeleynerd/silver/issues/297)
 and the [capability record](../../boolean-arrays.md). The current
@@ -50,8 +50,8 @@ original managed paths.
   catalogue delta from `ce97ede446`. The packet retains the 925 captured inputs.
 - The Astra Extra High closing reviewer confirmed native/build/runtime
   applicability and the tested Rosetta/board reconciliation without repair or
-  rerun. Only exact committed documentation/evidence target confirmation remains;
-  its status is tracked centrally in the
+  rerun. The exact integrated target `2227a82686` is accepted with no blocking
+  finding, as recorded centrally in the
   [delivery account](../../boolean-arrays.md#delivery-assurance-and-validation--2026-11-07).
   Reviewer runtime setting confirmation and token/cost measurements are unavailable.
 

@@ -2,15 +2,15 @@
 
 ## 2026-11-07 — Boolean-array delivery closeout
 
-Owner-directed work continues on existing #297 through reviewable publication
-of [PR #335](https://github.com/berkeleynerd/silver/pull/335), under the recorded
+Owner-directed implementation of existing #297 is complete through reviewable
+publication of [PR #335](https://github.com/berkeleynerd/silver/pull/335), under the recorded
 [authorization](#2026-11-06--structural-guards-merged-boolean-arrays-selected-next).
 The [delivery record](boolean-arrays.md#delivery-assurance-and-validation--2026-11-07)
 links successful Linux native/build and complete Lean/source checkpoints,
 retained behavioral regressions and the tested narrow Rosetta metadata. It
-tracks final runtime applicability and the exact closing review target and
-disposition. This closeout does not authorize implementation merge or another
-feature.
+records confirmed runtime applicability and closing review acceptance of
+`2227a82686`, with unchanged governed source `ce97ede446`. This closeout does
+not authorize implementation merge or another feature.
 
 Preserve earlier failed/interrupted outcomes and the original source/binary
 scope of producer and stack observations. Promote only `fixed-boolean-arrays`;

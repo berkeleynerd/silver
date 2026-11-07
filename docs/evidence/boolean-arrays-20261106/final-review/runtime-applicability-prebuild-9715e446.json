@@ -1,0 +1,340 @@
+{
+  "state": "Prepared runtime applicability comparison; final build and complete current audits pending",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_confirmation": "unavailable",
+  "token_cost": "unavailable",
+  "inspection_started_utc": "2026-11-07T07:26:23Z",
+  "recorded_utc": "2026-11-07T07:30:08.219956+00:00",
+  "implementation_commit": "ce97ede446aad55520e59854ea8298e2a63d56eb",
+  "current_head": "9715e4469e77cd3f239f25463f1841da53fa301f",
+  "governed_inputs_unchanged_since_implementation_commit": true,
+  "old_build": {
+    "run_id": "20261106T230245-a19eaca75889",
+    "installation": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair",
+    "record_gz_sha256": "ea4412718f2a35cdbabc2a6906cea601bb20a95f69e323780738183b99db8a9e",
+    "terminal_outcome": "success",
+    "actual_commands": [
+      [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.tools/linux-x86_64/alr/bin/alr",
+        "-s",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.tools/linux-x86_64/alire/settings",
+        "-C",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/toolchain",
+        "-n",
+        "--no-tty",
+        "exec",
+        "--",
+        "gprbuild",
+        "-P",
+        "../../../silver.gpr",
+        "-p",
+        "-j4",
+        "-XSILVER_HOST=linux-x86_64"
+      ]
+    ],
+    "regression_binary_sha256": "c3f97c7f6477931ad01c76c3be658db06fc4c02f997a6475f921eee9a5362790"
+  },
+  "current_native_preflight": {
+    "run_id": "20261107T065643-5c23478ef04b",
+    "installation": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair",
+    "events_path": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261107T065643-5c23478ef04b/events.jsonl",
+    "prepared_event_line_sha256": "0f8217cb5616019384c6e06d6ed945b3c64a3c11811b22c385648d3e06f31cb3",
+    "prepared_utc": "2026-11-07T06:56:49.030219+00:00",
+    "terminal_event_present_at_observation": false
+  },
+  "normalized_native_input_comparison": {
+    "old_count": 2586,
+    "current_count": 2586,
+    "added": [],
+    "removed": [],
+    "differences": [
+      {
+        "path": ".silver/linux-x86_64/generated/silver_build.ads",
+        "old_sha256": "0739236ea2fdd9ee13c0c77c81f64802bd4f650ff872fde0586b96bdc4656f09",
+        "current_prepared_sha256": "66f77f6e7067e3499b5a84eefc43ff05bdf2696b45e99b3ef1b8d40d37d389c1"
+      },
+      {
+        "path": ".silver/linux-x86_64/generated/silver_image_config.ads",
+        "old_sha256": "8a9455bf37ba922f6f56a357b537dd3cd52f02664c13e744cb9933f818081637",
+        "current_prepared_sha256": "f9669bd5a06cfdcfa54f935af0c3c46781689b3a3fddbbcfc692376cf4f06213"
+      },
+      {
+        "path": ".tools/linux-x86_64/alire/settings/settings.toml",
+        "old_sha256": "c508c1f3deab0e1e6671bda10877717a4553e4ac50636dc0cadfb8f0460a766e",
+        "current_prepared_sha256": "a57879963f790cf124bb7c61299e0aab301d93fb025f57bd2671882722349df5"
+      },
+      {
+        "path": "src/silver_output_profile.adb",
+        "old_sha256": "1686b0b61da8c684ce185995621fb08bc5a6932893d2cc859a82ced9922ce4e8",
+        "current_prepared_sha256": "7d39745bd9e2d57c573a1c398f9e0f07e486a9d482b60f1cd21fc436e48543f3"
+      }
+    ],
+    "old_map_canonical_sha256": "a74ac9374c1bd9865d08c1950739ed41db1e10f0143805e8dceb2c960a9a18f0",
+    "current_map_canonical_sha256": "f256ea24d8e781d1735a353c0244f3e0d44ca8f2d50c64b182908cafbc19654e",
+    "current_live_input_mismatches": [],
+    "old_installation_live_input_mismatches": [
+      "src/silver_output_profile.adb"
+    ],
+    "source_path_count": 131,
+    "all_current_native_sources_match_integration": true
+  },
+  "native_source_delta_basis": {
+    "old_sha256": "1686b0b61da8c684ce185995621fb08bc5a6932893d2cc859a82ced9922ce4e8",
+    "current_sha256": "7d39745bd9e2d57c573a1c398f9e0f07e486a9d482b60f1cd21fc436e48543f3",
+    "exact_scope": "Only independently reviewed Primary and Relation Static assertions; executable branches, contracts and model domains retained. Prior reviews are not repeated.",
+    "review_reports": [
+      "review-boolean-array-primary-cut-20261107.md",
+      "review-boolean-array-relation-cut-20261107.md"
+    ]
+  },
+  "generated_configuration_comparison": [
+    {
+      "path": ".silver/linux-x86_64/generated/silver_build.ads",
+      "old_sha256": "0739236ea2fdd9ee13c0c77c81f64802bd4f650ff872fde0586b96bdc4656f09",
+      "current_sha256": "66f77f6e7067e3499b5a84eefc43ff05bdf2696b45e99b3ef1b8d40d37d389c1",
+      "byte_identical": false,
+      "identical_after_exact_installation_root_substitution": true
+    },
+    {
+      "path": ".silver/linux-x86_64/generated/silver_image_config.ads",
+      "old_sha256": "8a9455bf37ba922f6f56a357b537dd3cd52f02664c13e744cb9933f818081637",
+      "current_sha256": "f9669bd5a06cfdcfa54f935af0c3c46781689b3a3fddbbcfc692376cf4f06213",
+      "byte_identical": false,
+      "identical_after_exact_installation_root_substitution": true
+    },
+    {
+      "path": ".silver/linux-x86_64/generated/silver_library_sources.ads",
+      "old_sha256": "be5a0d9ee5d93e6fe08d4b5c653ae1a1a497fbb52191f7bb393c9d1b6bc182bf",
+      "current_sha256": "be5a0d9ee5d93e6fe08d4b5c653ae1a1a497fbb52191f7bb393c9d1b6bc182bf",
+      "byte_identical": true,
+      "identical_after_exact_installation_root_substitution": true
+    }
+  ],
+  "alire_global_settings_comparison": {
+    "old_sha256": "c508c1f3deab0e1e6671bda10877717a4553e4ac50636dc0cadfb8f0460a766e",
+    "current_sha256": "a57879963f790cf124bb7c61299e0aab301d93fb025f57bd2671882722349df5",
+    "same_parsed_configuration_after_root_substitution_and_removing_index_last_update": true,
+    "old_index_last_update": 295692818,
+    "current_index_last_update": 295692884,
+    "qualification": "Keep the freshness metadata difference explicit; package lock, selected manifests, tool binaries and all other captured native inputs match. No raw settings hash equality is claimed."
+  },
+  "tool_identities": [
+    {
+      "tool": "alr",
+      "binary_sha256": "2e2b8de009b793ad2aed10096e162649bbcc5b0711e3c21785ebe8a1261c5d64",
+      "old_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.tools/linux-x86_64/alr/bin/alr",
+      "current_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.tools/linux-x86_64/alr/bin/alr",
+      "raw_version_hash_equal": true,
+      "version_text_equal_after_installation_root_substitution": true
+    },
+    {
+      "tool": "alt-ergo",
+      "binary_sha256": "b21825912f28802662caee0005e4ea761a5087ce8c21f4dae510ae21bcc34189",
+      "old_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/alt-ergo",
+      "current_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/alt-ergo",
+      "raw_version_hash_equal": true,
+      "version_text_equal_after_installation_root_substitution": true
+    },
+    {
+      "tool": "cvc5",
+      "binary_sha256": "eb2f46a6bc5fb8a3c81b3387fecb0e68ef5ed1a0c0c5908557254ceb8091b232",
+      "old_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/cvc5",
+      "current_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/cvc5",
+      "raw_version_hash_equal": true,
+      "version_text_equal_after_installation_root_substitution": true
+    },
+    {
+      "tool": "gcc",
+      "binary_sha256": "238f4adafcb1425c84da6519068fdfcf33e57e406fc793e2958a9238789900de",
+      "old_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gcc",
+      "current_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gcc",
+      "raw_version_hash_equal": true,
+      "version_text_equal_after_installation_root_substitution": true
+    },
+    {
+      "tool": "gnat2why",
+      "binary_sha256": "343682de485bb151e1817615acebab5b185504efdf2b082f1647cd41a14241f1",
+      "old_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnat2why",
+      "current_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnat2why",
+      "raw_version_hash_equal": true,
+      "version_text_equal_after_installation_root_substitution": true
+    },
+    {
+      "tool": "gnatls",
+      "binary_sha256": "cdd3e2c74ca7d1f1e395d25523c3e233b206a880e4064e822f8015044d1715e2",
+      "old_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gnatls",
+      "current_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gnatls",
+      "raw_version_hash_equal": true,
+      "version_text_equal_after_installation_root_substitution": true
+    },
+    {
+      "tool": "gnatprove",
+      "binary_sha256": "544e6da2eedc24ce87d9200d44f61e8e789726466e81e68bf8935489d7f5323e",
+      "old_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/bin/gnatprove",
+      "current_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/bin/gnatprove",
+      "raw_version_hash_equal": false,
+      "version_text_equal_after_installation_root_substitution": true
+    },
+    {
+      "tool": "gnatwhy3",
+      "binary_sha256": "7c8c302f65a98e66159f6514045f4c2634aab5c556eea0a7d6fd1f39dc35a368",
+      "old_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+      "current_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+      "raw_version_hash_equal": true,
+      "version_text_equal_after_installation_root_substitution": true
+    },
+    {
+      "tool": "gprbuild",
+      "binary_sha256": "aff9fde5ca766d5497da9dec185cb8b96878206a0d02512aa5685e1e56d0a4d3",
+      "old_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/bin/gprbuild",
+      "current_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/bin/gprbuild",
+      "raw_version_hash_equal": true,
+      "version_text_equal_after_installation_root_substitution": true
+    },
+    {
+      "tool": "python",
+      "binary_sha256": "b8d8288faefdd300201f43fcf00f6f539a27218eeed3a3dff5ab10b9c4c99700",
+      "old_path": "/usr/bin/python3.14",
+      "current_path": "/usr/bin/python3.14",
+      "raw_version_hash_equal": true,
+      "version_text_equal_after_installation_root_substitution": true
+    },
+    {
+      "tool": "why3server",
+      "binary_sha256": "143e182d167d3e290c974770d0b84b5f59cf70bf331de5208a36bd650b386a80",
+      "old_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/why3server",
+      "current_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/why3server",
+      "raw_version_hash_equal": true,
+      "version_text_equal_after_installation_root_substitution": true
+    },
+    {
+      "tool": "z3",
+      "binary_sha256": "44c00197fc576e02775a493dad255a20bb41fa5b4c47378a5f9d090cbc1a25c5",
+      "old_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/z3",
+      "current_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/z3",
+      "raw_version_hash_equal": true,
+      "version_text_equal_after_installation_root_substitution": true
+    }
+  ],
+  "tool_binary_hashes_all_equal": true,
+  "project_file_sha256": "487fb033a7f3d056f6032b67ff5b57abfc16ce8e65db39a53d24d1d961b152eb",
+  "project_compiler_switches": [
+    "-gnat2022",
+    "-gnata",
+    "-gnato",
+    "-g"
+  ],
+  "project_mains": [
+    "silver.adb",
+    "silver_image_adapter.adb"
+  ],
+  "runtime_and_routing_inputs": {
+    "generated_library_sources_byte_identical": true,
+    "all_unchanged_native_sources_byte_identical_except_reviewed_assertions": true,
+    "alire_context_manifest_lock_and_local_settings_byte_identical": true,
+    "bootstrap_driver_platform_and_provenance_scripts_byte_identical": true,
+    "observed_routing": [
+      {
+        "installation": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair",
+        "observed_compiler_sha256": "c3f97c7f6477931ad01c76c3be658db06fc4c02f997a6475f921eee9a5362790",
+        "observed_adapter_sha256": "d9bde29ddb3e63c09b15ddf62f608f9c38103bc6e5426bc6d30704528a43725a",
+        "copied_overlay_gnatprove_matches_vendor": true,
+        "overlay_gnatwhy3_link_targets_local_adapter": true,
+        "overlay_gnatwhy3_link": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/image-tools/libexec/spark/bin/gnatwhy3",
+        "overlay_gnatwhy3_target": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/compiler/bin/silver_image_adapter",
+        "vendor_gnatwhy3_sha256": "7c8c302f65a98e66159f6514045f4c2634aab5c556eea0a7d6fd1f39dc35a368",
+        "observed_binary_identity_is_final_build": false
+      },
+      {
+        "installation": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair",
+        "observed_compiler_sha256": "1cf857171f9af64e20bfdb2fb2a32e411ceefc67a26168acf5e1fa83961d0796",
+        "observed_adapter_sha256": "8ca0b182d58b4b9ac51e50f2906e10de3dc95d8b02e5868ff8ef019925e9e9fd",
+        "copied_overlay_gnatprove_matches_vendor": true,
+        "overlay_gnatwhy3_link_targets_local_adapter": true,
+        "overlay_gnatwhy3_link": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/image-tools/libexec/spark/bin/gnatwhy3",
+        "overlay_gnatwhy3_target": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/compiler/bin/silver_image_adapter",
+        "vendor_gnatwhy3_sha256": "7c8c302f65a98e66159f6514045f4c2634aab5c556eea0a7d6fd1f39dc35a368",
+        "observed_binary_identity_is_final_build": false
+      }
+    ],
+    "main_integration_has_generated_native_installation": false,
+    "old_adapter_binary_hash_in_original_suite_capture": false,
+    "old_adapter_hash_qualification": "Current old-installation adapter observation is not retrospectively labeled a captured regression-time binary identity; original successful build used both project mains. No new binary-attestation obligation introduced."
+  },
+  "remaining_runtime_check": [
+    "Final managed build must identify its actual installation, current native source and generated configuration, successful commands, and resulting silver and silver_image_adapter binaries. Existing observed binaries are not final-build evidence.",
+    "Compare the final build native input map and tool identities to this prepared map; account for installation-specific root strings and Alire index freshness rather than asserting whole raw-map identity.",
+    "Confirm final source/proof/compiler inputs correspond under existing complete native audit/provenance and final build checks, including actual generated routing and original vendor binding.",
+    "The final build must correspond to the actual complete native audit source and generated configuration. For the current empty-loop-repair audit, retain the explicit old-regression-to-current root relocation and vendor/overlay comparison. Merely building at the original regression path would not establish correspondence to the current audited configuration. No whole-suite rerun follows solely from this analyzed delta."
+  ],
+  "missing_collectible_now": "No source/config/tool baseline gap remains for the compared installations. Final build result/binary identities and complete current audit terminals do not exist yet; collect them after completion.",
+  "jobs_launched_by_reviewer": false,
+  "final_runtime_build_applicability_approved": false,
+  "complete_assurance_approved": false,
+  "new_evidence_checked": {
+    "original_full_native_terminal": {
+      "run_id": "20261106T232644-673fc5a9c06b",
+      "terminal_utc": "2026-11-07T06:44:39.775262+00:00",
+      "outcome": "failure",
+      "verified_outer_packet_artifacts": 16,
+      "artifact_inventory_sha256": "ee8522aa9493589a74a12a88c82badbce579e5709cee14c33cbcfbf9f765489d",
+      "independently_counted_native_reports": 76,
+      "proof_records": 16163,
+      "informational_proof_records": 16161,
+      "unresolved_proof_records": 2,
+      "informational_flow_records": 1513,
+      "only_unresolved_checks": [
+        "VC_POSTCONDITION check3570:28 diagnostic3572:20",
+        "VC_ASSERT3945:18"
+      ],
+      "report_count_method": "Read every original .spark report from retained native-reports archive and select non-info proof records; not inferred from summary alone."
+    },
+    "complete_relation": {
+      "run_id": "20261107T040619-48e6ccbe10c9",
+      "terminal_utc": "2026-11-07T04:50:10.254248+00:00",
+      "outcome": "success",
+      "source_sha256": "7d39745bd9e2d57c573a1c398f9e0f07e486a9d482b60f1cd21fc436e48543f3",
+      "verified_outer_packet_artifacts": 10,
+      "artifact_inventory_sha256": "7eefad8ee4242ac91daa3fb583cb6f9ddad01b39d260198e06aac2d72895a3d6",
+      "proof_records": 150,
+      "flow_records": 2,
+      "all_report_records_informational": true,
+      "assumption_and_skip_lists_empty": true,
+      "scope": "Complete helper report and managed terminal inspected; earlier independent semantic/source review reused, no full compiler assurance claimed."
+    },
+    "focused_lean_leaf_pin": {
+      "run_id": "20261107T045523-be282a369adf",
+      "outcome": "success",
+      "terminal_utc": "2026-11-07T05:19:29.470222+00:00",
+      "targets": [
+        "Silver.OutputBodyLines5",
+        "Silver.ReviewedOutputShape"
+      ],
+      "modules": 8,
+      "declarations": 2543,
+      "foundations": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "packet_evidence_hashes_verified": {
+        "events.jsonl": "83302c23340d37ce4532c73ff35a6cac76b195de6503201e5664d954636a2e63",
+        "lean-focused.log": "b88f530faac421670f8d6fb1036e36f28398af4df378c69f8e62e5b80bef0dd1",
+        "lean-focused-evidence.json": "87513b46e9b1d9e4a7267a7722ed95e9792aa0a765d052aeecf6b9d40211e968",
+        "captured-inputs.json": "5822062591ad81d967940baf97dd7fbe0c50e7d915ddbbc5107cf49f5c9d2c72",
+        "focused-audit.lean": "6912ef7bb5200699f4c1dd63e41c93d7bfc8fd4c5200d7d4895091e462767010"
+      },
+      "full_reconstruction_and_source_chain_in_scope": false
+    },
+    "active_complete_lean": {
+      "run_id": "20261107T064815-9c9da56edf3d",
+      "handoff_snapshot_sha256": "c31ad50606e49503a6ea6a23d94751e8b50c6ae2cae13f85aeba9a3442ac0154",
+      "state_at_inspection": "Active complete checkpoint; output reconstruction still building in supplied07:25UTC handoff; complete fresh audit pending.",
+      "before_inputs_sha256": "3fdf68f577ac33cfc3dc6cbaa37106756b1d76fd713a7ba0a49e4eaffd205e18"
+    }
+  },
+  "completed_utc": "2026-11-07T07:32:00.295800+00:00",
+  "elapsed_wall_seconds": 337.2958,
+  "closing_draft_sha256": "bfdcff804aa8dbde4ec9d59cbf541f4cc94509095b7cf79f4d2497d942b90f60"
+}

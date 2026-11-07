@@ -1,13 +1,11 @@
 # Fixed-size Boolean arrays
 
-**Linux native proof/build and complete Lean/source checkpoints passed,
-2026-11-07. Final closing confirmation is recorded below.**
+**Complete on Linux, 2026-11-07. PR #335 is ready for review and remains unmerged.**
 [Milestone 19](https://github.com/berkeleynerd/silver/milestone/19) contains the
 existing [#297](https://github.com/berkeleynerd/silver/issues/297) as one cohesive
 work package. The [current delivery account](#delivery-assurance-and-validation--2026-11-07)
-separates successful native/build and Lean/source checkpoints, retained
-regressions, tested Rosetta metadata and reviewed runtime applicability from
-confirmation of the final committed documentation/evidence target.
+records complete native/build and Lean/source checkpoints, reviewed regression
+reuse, integrated Rosetta metadata and the accepted delivery review target.
 
 ## Implementation decisions — 2026-11-06
 
@@ -65,6 +63,7 @@ recorded in the delivery account below; this preparation itself admitted nothing
 | 2026-11-07 closing preparation | Runtime applicability review: GPT-6 Astra / Extra High; boundary documentation: GPT-6.1 Sol / High; lead runtime setting not independently confirmed | Compared all 2,586 native inputs and twelve tool binaries with the regression build: differences are the reviewed Static assertions, installation paths and an Alire index timestamp. No baseline collection gap remains; final build applicability is pending. Documentation now records the existing sample, producer and concrete 8 MiB stack observations with their original input scope. Complete run `064815` rebuilt source reconstruction in 2,709 s; later source modules and the fresh audit remain pending. Full native run `065643` is active on the repaired source. No additional validation job was started for these records. |
 | 2026-11-07 complete Lean success | Execution/monitoring: GPT-6.1 Sol / High; lead runtime setting not independently confirmed | Run `064815` passed the complete build and fresh audit: all 655 project modules / 132,101 declarations, only the three approved foundations. Build 15,008.840 s; fresh audit 14.940 s; ordinary cache reuse, one Lake worker and automatic 12-thread processes. Native run `065643`, final build/runtime applicability and Rosetta/closing confirmation remain pending. |
 | 2026-11-07 closing documentation | Documentation: GPT-6.1 Sol / High; independent closing reviewer: GPT-6 Astra / Extra High, selected settings; runtime confirmation unavailable | Reconciled synchronized closeout text with complete native `065643`, ordinary final build `133600`, complete Lean `064815` and integrated/tested Rosetta `110355` (root hash comparison matches). Astra Extra High confirmed native/build/runtime applicability; only the exact committed documentation/evidence target remains for closing confirmation. No proof, build, test or render job was launched by this documentation round; wall-clock duration and token/cost measurements unavailable. |
+| 2026-11-07 final delivery confirmation | Independent reviewer: GPT-6 Astra / Extra High; runtime confirmation unavailable | Accepted integrated target `2227a82686` with no blocking finding after complete native/build, Lean, runtime/regression applicability and exact Rosetta integration checks. The narrow capability is complete on Linux; PR #335 remains unmerged. No proof/build/test/render rerun was required; the review records inspection times and unavailable token/cost measurements. |
 
 Token/cost measurements and independent runtime confirmation of the selected
 subthread settings are unavailable. Historical rows preserve their original
@@ -115,7 +114,7 @@ iteration, `others`, functions #298 and sample expansion #300 remain outside it.
 | Complete native Bronze/Silver and ordinary final build | Native run `20261107T065643-5c23478ef04b` passed at 13:35:16 UTC: 17,681 checks (1,513 flow + 16,168 proof), 76 units and 1,112 owned entities, 23,909.634 s, four workers. Full forced analysis retained ordinary sessions/cache; this was not a cold proof. Ordinary build `20261107T133600-c3cee7a3d07c` passed in 9.156 s on unchanged implementation `ce97ede446`. The [native packet](evidence/boolean-arrays-20261106/final-native/README.md) and [build record](evidence/boolean-arrays-20261106/final-native/build-result.json) retain exact source/configuration/tool provenance and compiler/adapter identities. |
 | Rosetta metadata and rendering | Local tested candidate `0b9a355494`; managed run `20261107T110355-fc2e8678d28a` passes all three methods, no skips/failures (3.435 s unittest; 8.093 s managed). Integrated as `21a60979b89a2651f8773fbd277033c90a7e4396`; the [integration comparison](evidence/boolean-arrays-20261106/final-rosetta/integration-comparison.json) confirms all 9 critical inputs, 1,784 rendered outputs and 471 changed source/generated hashes match the tested candidate. No governed source/proof/script/test/sample/catalogue delta from `ce97ede446` was introduced. |
 | Final runtime/regression applicability | The Astra Extra High closing reviewer confirmed the native/build/runtime comparison: all 2,586 native inputs and twelve tool identities match the prepared prebuild comparison; all 131 native source inputs equal integration. Retained behavioral results remain applicable, without a rerun or repair. Exact comparison scope and the tested Rosetta/board reconciliation are retained in the [closing confirmation](reviews/review-boolean-arrays-delivery-20261107.md). |
-| Exact committed source/document/render/evidence target and final closing disposition | **FINAL_REVIEW_PENDING** — only the final committed documentation/evidence target confirmation remains. Bind the exact closing commit and reviewer disposition in the closing confirmation, without enlarging scoped review claims. |
+| Exact committed source/document/render/evidence target and final closing disposition | The independent closing confirmation accepts `2227a826862ec4d7d91815f9aeeb86713fceeba9` with no blocking finding. Governed implementation remains `ce97ede446`; subsequent closure text records that disposition without changing validated inputs. |
 
 The [regression applicability review](reviews/review-boolean-arrays-regression-applicability-20261107.md)
 retains the complete sample fixture: 61 sources and 117 execution cases, including
