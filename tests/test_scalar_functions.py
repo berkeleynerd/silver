@@ -146,6 +146,25 @@ class ScalarFunctionTests(unittest.TestCase):
                   b'if B then Silver_IO.Put_Line("ok");else Silver_Arguments.Reject;end if;end Main;')
         self.check(source, 2)
 
+    def test_boolean_actuals_use_caller_string_and_character_facts(self) -> None:
+        declarations = (BOOLEAN + b'R:Boolean:=False;S:String:="ab";'
+                        b"C:Character:='a';")
+        self.check(program(declarations,
+                           b'R:=Flip(S="ab");R:=Flip(C=S(1));'
+                           b"R:=Flip(S'Length=2 and then S(2)='b');"))
+        self.check(program(BOOLEAN + b'R:Boolean:=False;',
+                           b'R:=Flip(Input="old");', arguments=True))
+        # Each actual still needs its own established String index bounds.
+        self.check(program(declarations, b"R:=Flip(S(3)='b');"), 2)
+
+    def test_function_names_hide_predefined_names_in_later_closed_frames(self) -> None:
+        named_true = IDENTITY.replace(b'Id', b'True')
+        named_boolean = IDENTITY.replace(b'Id', b'Boolean')
+        result = b'function F(X:in Integer)return Boolean is begin return '
+        self.check(program(named_true + result + b'False;end F;', b'null;'))
+        self.check(program(named_true + result + b'True;end F;', b'null;'), 2)
+        self.check(program(named_boolean + BOOLEAN, b'null;'), 2)
+
     def test_earlier_calls_and_recursion_rejection(self) -> None:
         wrapper = (b'function Twice(X:in Integer)return Integer is R:Integer:=0;'
                    b'begin R:=Id(X);R:=Id(R);return R;end Twice;')
