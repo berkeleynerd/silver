@@ -457,3 +457,13 @@ tools and managed outcome. This includes the original postcondition and both
 local/merged assertions. The original full audit is still running on its frozen
 source. Both known failures now have complete helper repair evidence; final
 complete native verification/build and Lean/source assurance remain required.
+
+Focused Lean run `20261107T045523-be282a369adf` then passed the refreshed
+53,343-token pin and changed `OutputBodyLines5` bucket. The
+[leaf/pin packet](relation-leaf-lean/README.md) records both rebuilds (338 s and
+1,069 s), a 1,417.800 s build and fresh 7.782 s audit of eight project modules /
+2,543 declarations with only the three approved foundations. All 762 captured
+source hashes still match. One worker and automatic 12-thread processes fit
+alongside the continuing native audit without a memory incident. The complete
+reconstruction and native-shape candidates were outside this focused scope;
+their final whole-project/source checkpoint remains outstanding.
