@@ -1,8 +1,10 @@
 # Scalar functions: producer and report capacity
 
 Feature-local account for [#298](https://github.com/berkeleynerd/silver/issues/298),
-2026-11-07. Implementation, complete validation and independent review are in
-progress. This extends the [Boolean-array envelope](boolean-arrays-report-capacity.md)
+2026-11-07. Implementation and complete validation are in progress. The
+[bounded capacity/policy review](reviews/review-scalar-function-capacity-20261107.md)
+found no material finding at `9469d5632b`; complete delivery review remains
+pending. This extends the [Boolean-array envelope](boolean-arrays-report-capacity.md)
 without changing the 4,096-byte source limit or 32 MiB Main report allocation.
 It records inspected producer routes under the existing trusted-tool premises,
 not a proof of the producer or a completed feature claim.
@@ -112,8 +114,9 @@ uses `Considered_Objects`/`Used` sets at 1218–1267. Thus each unused formal ad
 at most one fixed record and one declaration-name payload. Disjoint formal
 syntax fits the inherited `2*S` flow-record and aggregate-name allowances;
 this route needs no independent additional maximum. Classification remains
-limited to exact local-function entities and the pinned message. Final policy,
-capacity and complete-delivery review remain pending.
+limited to exact local-function entities and the pinned message. The bounded
+policy/capacity review above is complete; final native/Lean validation and
+complete-delivery review remain pending.
 
 ## Inspected inputs and observations
 
@@ -134,5 +137,6 @@ the completed compiler accepted, proved or built that source.
 The producer investigation selected GPT-6 Astra / Extra High. The integration
 lead prepared this account from those inspected routes and rechecked input
 hashes, retained report fields and arithmetic. Independent runtime settings and
-token/cost measurements are unavailable. Independent capacity and complete
-delivery review remain pending.
+token/cost measurements are unavailable. The independent capacity review above
+records its own selected settings, exact target and limits. Complete delivery
+validation and review remain pending.

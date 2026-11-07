@@ -5,8 +5,8 @@ focused Linux checks and producer observations; it is not a complete delivery
 checkpoint. The [capability record](../../scalar-functions.md) states the
 remaining requirements.
 
-`focused/` contains verbatim, gzip-compressed managed records, input identities
-and streamed logs from the shared run registry. Each listed run completed its
+`focused/` contains verbatim managed records, input identities and streamed logs
+from the shared run registry, normally gzip-compressed. Each run in the table below completed its
 focused build and a fresh axiom audit with only `propext`, `Classical.choice`
 and `Quot.sound`. Cached dependency objects were accepted by Lake; no clean
 rebuild or independent kernel replay is claimed.
@@ -57,8 +57,13 @@ of 20,013 declarations after compiling the changed tree and evaluator modules.
 Its [record](focused/20261107T222609-601d7f7b780d/README.md) distinguishes this
 model result from the still-required authoritative source candidates. The
 [bounded source review](../../reviews/review-scalar-function-source-integration-20261107.md)
-identified the remaining derivation gap tracked as #340. The final complete
-native/Lean and regression checkpoints have not been claimed.
+identified the derivation gap tracked as #340. Its
+[raw-source repair](focused/20261107T230226-02ff494be2c6/README.md) passed a fresh
+49,907-declaration focused audit. The
+[independent re-review](../../reviews/review-scalar-functions-raw-source-r1-e76a3f9420.md)
+found no remaining R1 code defect, while retaining the outstanding upper
+integration and complete-checkpoint requirements. The final complete native/Lean
+and regression checkpoints have not been claimed.
 
 The regenerated certificate parity test passed in managed Linux run
 `20261107T223021-ea6081c05e62` across all 30 source certificates and eight
@@ -66,3 +71,19 @@ output-body chunks. The preceding run `20261107T222826-c95794092b91` remains
 failed: it identified three stale checked-in specification/function certificates,
 which were regenerated before the passing rerun. Regeneration and byte parity
 are input preparation, not kernel acceptance or source correspondence.
+
+The later parity run `20261107T230745-ca313156b33d` passed after integrating
+the two final Static condition assertions. The
+[condition-equality packet](condition-equality/README.md) accounts for both new
+assertions and the original failing endpoints. All 23 function tests and the
+`Is_Prime` sample passed in the separately scoped
+[native behavior packet](final-native-behavior/README.md).
+
+Failed Sequence integration runs `20261107T224846-c33ea7d88705` and
+`20261107T230246-bef827673692` are retained under `focused/` as failures, outside
+the success table. Their successful intermediate objects were reused while
+repairing omitted context equalities and initial empty function metadata.
+They do not claim a fresh axiom audit or complete validation. The
+[bounded capacity/policy review](../../reviews/review-scalar-function-capacity-20261107.md)
+records its independently checked producer/storage scope separately from the
+complete native and Lean requirements.

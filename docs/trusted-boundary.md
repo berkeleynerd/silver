@@ -283,6 +283,28 @@ keeps those results, final runtime applicability and closing review status
 distinct. Earlier dated frame and stack observations retain their original
 input/build scope; no new trusted premise is added.
 
+## Small scalar-function boundary
+
+The working [scalar-function increment](scalar-functions.md) keeps the same
+Ada/SPARK, GNATprove and Lean pins, runtime imports and source/operator limits.
+Its complete checkpoint remains pending. Function-bearing applications use
+the pinned producer's `--no-inlining` mode on the unchanged author source;
+each declared function is checked over its complete formal domain. The exact
+source-derived entity inventory, safety records, termination witnesses and
+local dependency policy are described in the
+[assurance argument](assurance.md#small-nonrecursive-scalar-functions).
+
+The [producer/capacity account](scalar-functions-report-capacity.md) bounds the
+combined Main/local-function report at 33,149,440 bytes within the existing
+33,554,432-byte allocation. Its source-byte charges and pinned-producer
+serialization premises received a
+[bounded independent review](reviews/review-scalar-function-capacity-20261107.md).
+The added metadata allowances are a storage argument, not a proof-time or
+peak-memory bound. The formal/signature pool remains source-derived; no new
+independent author-visible count limit is introduced. Earlier stack observations
+retain their recorded compiler scope. Sufficient stack and memory remain the
+existing environmental premises.
+
 ## Scalar guard refinement boundary
 
 The [guard delivery](scalar-guard-refinement.md#delivery-assurance-and-validation)

@@ -64,6 +64,58 @@ The assurance targets are the User's Guide definitions of
 The [trusted boundary](trusted-boundary.md) names the frontend, proof tools,
 runtime imports, ABI and environmental assumptions used throughout.
 
+## Small nonrecursive scalar functions
+
+The working [function increment](scalar-functions.md) extends ordered Main
+declarations with closed Integer/Boolean functions and whole-assignment calls.
+Its complete native/Lean checkpoint and delivery review remain pending; the
+following describes the implemented argument, not completed support.
+
+`ScalarFunctions.DefinitionsChecked` checks each definition against exactly the
+earlier signatures. `compileDefinitions` constructs the executable environment
+in the same order. `compileDefinitions_valid` and `checked_definitions_safe`
+establish that every definition, including an unused one, returns within its
+declared result type for every fitting tuple of formal arguments. The body
+executes in its own initialized local/formal frame and has no effects. Calls
+resolve only to earlier definitions; their argument expressions use the same
+incoming caller state. Integer calls expose their declared result interval,
+while Boolean calls export no predicate facts. Finite counted loops and the
+ordered definition construction retain termination without recursion.
+
+`Definition.obligations` includes local initializer, body and terminal-return
+checks. `definitions_obligations_discharge` covers the complete declaration
+list. These obligations and the constructed environment are consumed by the
+existing program execution and obligation endpoints, rather than considering
+only functions reached by the sample or Main's execution.
+
+The source path retains all declarations through `FunctionDeclarationsAt` and
+`Sequence.FunctionTokensAt`. Their checkedness and uniqueness results feed
+`Predicate.form_reading_valid` and `SourceMeaning`, tying the ordered
+typed definitions to the admitted author source. The metadata, visibility,
+formal/local declaration, body and return readers have corresponding source
+trees, native domains and equations. Their authoritative token checks remain
+part of the required complete source checkpoint.
+
+`FunctionDeclarationNative.InterpretedSource` takes raw definition equations,
+native contracts and direct callee links. Its lower `Predicate.BodyLibraries`
+derivation uses `RawHelperEquations`; it does not require the completed function
+declaration law as a premise. Body-reader equations, normalized wrapper models
+and actual/return-import meanings are derived internally. The
+[independent repair review](reviews/review-scalar-functions-raw-source-r1-e76a3f9420.md)
+records the #340 correction and its exact scope. The model inhabitant exercises
+this construction, while the integrated source bridge retains the complete
+native domains and identities of the actual callees.
+
+The unchanged-source native recipe adds `--no-inlining` for function-bearing
+programs so every function is analyzed over its formal domain. The
+[source-selected policy](#source-selected-application-policies) requires exact
+Main/local-function coverage and successful termination witnesses, retaining
+all safety checks and the permitted local Effects/AoRTE dependencies. The
+[producer account](scalar-functions-report-capacity.md) extends the retained
+report envelope within the existing allocation. Its
+[bounded review](reviews/review-scalar-function-capacity-20261107.md) does not
+replace complete compiler proof or the final Lean/source audit.
+
 ## Boolean scalar objects and expressions
 
 The [Boolean delivery checkpoint](boolean-objects.md#delivery-assurance-and-validation)
