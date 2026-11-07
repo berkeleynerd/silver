@@ -26,6 +26,8 @@ rebuild or independent kernel replay is claimed.
 | `20261107T203419-acb04c0069db` | Accepted function header/body source, complete initializer checks, checked definition and uniqueness | 21,742 |
 | `20261107T204542-e1a7564b967a` | Ordered accepted-function trace and whole-program grammar, including Sequence declaration consumers | 22,602 |
 | `20261107T205716-06beedcb3070` | Function-aware assignment selectors and actual String-bound assurance for Main call arguments/initializers | 23,722 |
+| `20261107T210546-e2448c2f2aec` | Inherited scalar/String/array source equations, typed call equations and predicate structural guards | 38,037 |
+| `20261107T210649-a6e98d8a9788` | Exact function declaration/body equations, imported-call composition and native domains | 17,226 |
 
 These scopes overlap; the declaration counts must not be added. Their captured
 inputs identify their individual worktree snapshots. Integration and a complete
