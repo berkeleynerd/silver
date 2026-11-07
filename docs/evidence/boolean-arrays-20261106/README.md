@@ -408,3 +408,30 @@ repair + seven native fixtures + one retained certificate control + two refreshe
 source-policy methods + three final Rosetta methods = 603 distinct methods.
 Final runtime-input/build and metadata applicability still require confirmation.
 No prior failed/interrupted run is relabelled successful.
+
+## Complete Primary helper and Relation diagnosis — 2026-11-07
+
+The [complete Primary helper packet](native-primary-failure/complete-helper/record.json)
+records successful run `20261107T032921-a797df49b155`: all 87 checks
+(two flow and 85 proof) passed in 1,271.345 seconds at the normal proof limits.
+This removes the line filter used in the earlier two focused checks. It covers
+the integrated Primary assertion on native body `c1ce845a59`, not the complete
+compiler or the later Relation candidate.
+
+The original full audit continues on unchanged old source `1686b0b61d`.
+Its completed `Read_Relation_Into` session has one unresolved false-flow
+equality assertion, mapped from the retained task and session shapes to
+`3945:18` (`GP_Check1952`, `def'vc.368`). The
+[dated Relation packet](native-primary-failure/relation-completed-helper/README.md)
+retains that diagnostic without waiting for the buffered driver output. The
+current source has the same Relation body, with a one-line offset from the
+Primary repair. Review found no executable or model mismatch and proposed one
+local Static equality assertion after the nonzero-target false-flow assignment.
+The isolated candidate must prove its new assertion and call precondition,
+then the retained original assertion and complete affected helper. These are
+pending checks; no candidate or full-audit success is inferred from the diagnosis.
+
+The two new evidence subdirectories are dated additions. The original
+`native-primary-failure` checkpoint and its inventoried files remain unchanged.
+Final native verification/build and complete Lean/source assurance remain
+outstanding; no Lean process is paused or running at this checkpoint.

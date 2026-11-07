@@ -55,6 +55,15 @@ feature assurance checkpoint pass; no Rosetta gain is claimed yet.
 | 2026-11-07 flag integration and complete retry | Independent review: GPT-6 Astra / Extra High; Lean monitoring: GPT-6.1 Sol / High; lead runtime setting not independently confirmed | `ba23d2167c` adds the omitted Boolean-array assignment cases to `PredicateFlags` and its direct consumer `PredicateSelectors`, preserving all statements and admission premises. Both focused builds/fresh audits pass (22.628/9.558 s and 11.266/8.754 s); independent review confirms the repair and retained regression applicability. A complete one-worker retry retains successful objects and automatic 12-thread processes at the unchanged 24 GiB threshold. Native inputs are unchanged. |
 | 2026-11-07 final equation and native branch repairs | Independent reviews: GPT-6 Astra / Extra High; native implementation: GPT-6.1 Sol / Extra High; monitoring: GPT-6.1 Sol / High | The one-worker retry rebuilt source reconstruction in 2,817 s and eight modules total, then exposed positional field-proof ordering in `ComposeSourceBridge`. Reviewed named-field repair `8daabd327b` passes focused run `20261107T032925-b6d64f6ff906` (318 modules / 92,000 declarations; 19.871 s build, 15.088 s audit). Native run `232644` independently exposed an unresolved `Read_Primary_Into` model-equality postcondition. One reviewed Static assertion closes both its own check and the original postcondition at normal limits in `031832` and `032305`. The older Lean run was explicitly interrupted after snapshot retention because native source will change; no paused process remains. Refreshed pin/reconstruction and two affected source-policy methods pass; complete native/helper/source checkpoints remain pending. |
 
+The complete Primary helper subsequently passed all 87 checks in run
+`20261107T032921-a797df49b155` at normal limits. The original full audit then
+exposed one unresolved Relation false-flow equality assertion on its unchanged
+old source. The [dated diagnostic and evidence](evidence/boolean-arrays-20261106/README.md#complete-primary-helper-and-relation-diagnosis--2026-11-07)
+separate the successful repair from the new pending local-assertion experiment.
+Native implementation remains selected GPT-6.1 Sol / Extra High; diagnosis and
+independent review remain selected GPT-6 Astra / Extra High. The next complete
+Lean checkpoint waits for these native source repairs to settle.
+
 Token/cost measurements and independent runtime confirmation of the selected
 subthread settings are unavailable. Complete native/build/Lean/regression
 checkpoints, independent critical review, publication and delivery records

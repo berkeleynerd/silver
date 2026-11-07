@@ -1,0 +1,106 @@
+{
+  "observed_utc": "2026-11-07T03:51:37.307653+00:00",
+  "state": "Read_Relation_Into helper finished with unresolved goal; original complete audit remains active, now checking Read_Chain_Into.",
+  "run_id": "20261106T232644-673fc5a9c06b",
+  "entity": "silver_output_profile__read_relation_into",
+  "unresolved_goal": "def'vc.368",
+  "unresolved_goal_xml": [
+    "<goal name=\"def'vc.368\">\n  <proof prover=\"0\"><result status=\"timeout\" /></proof>\n  <proof prover=\"1\"><result status=\"timeout\" /></proof>\n  <proof prover=\"2\"><result status=\"timeout\" /></proof>\n  <transf name=\"introduce_premises\">\n   <goal name=\"def'vc.368.0\">\n   <proof prover=\"4\"><result status=\"timeout\" /></proof>\n   </goal>\n  </transf>\n  </goal>\n  ",
+    "<goal name=\"def'vc.368.0\">\n   <proof prover=\"4\"><result status=\"timeout\" /></proof>\n   </goal>\n  "
+  ],
+  "prover_registry": [
+    {
+      "id": "0",
+      "name": "altergo",
+      "version": "1.30-gnatprove",
+      "timelimit": "30",
+      "steplimit": "0",
+      "memlimit": "1000"
+    },
+    {
+      "id": "1",
+      "name": "CVC5",
+      "version": "0.0.7-gnatprove",
+      "timelimit": "30",
+      "steplimit": "0",
+      "memlimit": "1000"
+    },
+    {
+      "id": "2",
+      "name": "Z3",
+      "version": "4.5.1-gnatprove",
+      "timelimit": "30",
+      "steplimit": "0",
+      "memlimit": "1000"
+    },
+    {
+      "id": "3",
+      "name": "Trivial",
+      "version": "1.0",
+      "alternative": "trivial",
+      "timelimit": "1",
+      "steplimit": "1",
+      "memlimit": "1000"
+    },
+    {
+      "id": "4",
+      "name": "CVC5_CE",
+      "version": "0.0.7-gnatprove",
+      "timelimit": "10",
+      "steplimit": "0",
+      "memlimit": "1000"
+    }
+  ],
+  "source_sha256": "1686b0b61da8c684ce185995621fb08bc5a6932893d2cc859a82ced9922ce4e8",
+  "source_commit": "943a97c8cf8eb40679519939e7797c9b47459dc0",
+  "integration_source_sha256": "c1ce845a597605c152119bedc6b07f1aa3bccece5d2870addb86cd18077fffaa",
+  "source_mapping": "Original driver has not emitted the final source/rule diagnostic. No source location inferred from leaf number. Generated original task retained for read-only diagnosis.",
+  "original_solver_inputs": "Completed solver temporary task files not claimed recovered. Original generated gnat-json and Why3 session/shapes retained without rerun.",
+  "full_audit_scope": "Original audit remains failed due completed Primary and Relation unresolved goals; other helpers continue untouched. Terminal evidence remains pending.",
+  "existing_checkpoint": "Original 32-file checkpoint remains immutable; this is a new subdirectory.",
+  "selected_model_effort": "GPT-6.1 Sol / Extra High per original assignment; runtime confirmation and token/cost evidence unavailable.",
+  "artifact_inventory": [
+    {
+      "path": "read-relation-task.gnat-json.gz",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/compiler/obj/review-final/gnatprove/silver_output_profile__read_relation_into.gnat-json",
+      "source_bytes": 18433310,
+      "source_sha256": "025c8915572962f63866f9ae4ed6183a8447d5fd6c47971b027b4c055b8de2e1",
+      "compressed_sha256": "c2ca2260c2169bcc99c04c7050459cc88855732d3463674ae1b30911bb4e956c"
+    },
+    {
+      "path": "read-relation-why3session.xml.gz",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/compiler/obj/review-final/gnatprove/silver_output_profile__read_relation_into/why3session.xml",
+      "source_bytes": 169097,
+      "source_sha256": "8d0015dc1ea8980d16f95a502bc4c9ab140fd779e70f868984311c4a773f6c26",
+      "compressed_sha256": "aa4044ec24d7817ab0dd7aebf3fa9b6b6cd4434d23c103b7d85c4b43cce2c100"
+    },
+    {
+      "path": "read-relation-why3shapes.gz",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/compiler/obj/review-final/gnatprove/silver_output_profile__read_relation_into/why3shapes",
+      "source_bytes": 802231,
+      "source_sha256": "2f5cdc4321f9338c149f1bb30d8dea8f24bb1de5870a9cb578f691b2ad1caab4",
+      "compressed_sha256": "c9bfab79f5c5ab91425967a093803017f838ab3c7c574a1357f844bf867d2bff"
+    },
+    {
+      "path": "original-source.adb.gz",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/src/silver_output_profile.adb",
+      "source_bytes": 311940,
+      "source_sha256": "1686b0b61da8c684ce185995621fb08bc5a6932893d2cc859a82ced9922ce4e8",
+      "compressed_sha256": "3f41e9072c835ae528a8cfa1cae8a9b8316bc6ace4aecd36e2c03a3a422dab9e"
+    },
+    {
+      "path": "managed-events-at-observation.jsonl.gz",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261106T232644-673fc5a9c06b/events.jsonl",
+      "source_bytes": 446104,
+      "source_sha256": "7294c52d3eea8eee1e7bdf05e004a66b1a9acfa504617276759a6e0d8e4fa8c4",
+      "compressed_sha256": "15df8dd7bb9738ab97dbfea88907cda616f10983bbafc43d11eab60ccfa0e268"
+    },
+    {
+      "path": "managed-log-at-observation.log.gz",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261106T232644-673fc5a9c06b/native.log",
+      "source_bytes": 1133548,
+      "source_sha256": "13dd4d76c50da1ed08bbb9a2b4d02ccef6a8f3734428c2547f30c083b083f742",
+      "compressed_sha256": "1a9b8e42e7e6b8dab59cca205c275c580875f4bc37bfbddfad16a56b566fc255"
+    }
+  ]
+}
