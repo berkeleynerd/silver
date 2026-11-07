@@ -1,0 +1,12 @@
+{
+  "implementation_commit": "e76a3f9420300dec1011b8a549814769a0eb85db",
+  "dependency_only_commit_do_not_integrate": "cda3b59dbf",
+  "parent_dependency_baseline": "3c76b69a59",
+  "files": {
+    "proof/Silver/PredicateBodyLibraries.lean": "a2b167e6d15a20766e746ac469263194694f02aae572b692b95a9812645d8325",
+    "proof/Silver/PredicateEquations.lean": "acb2f4402f52bc3036cd4db9bc5d0de9691e400ca06670dc599749b21d105dfb",
+    "proof/Silver/FunctionDeclarationSourceBridge.lean": "d33cf2c4b7f0d37a813eacb59a3372fde77c57354c699dad2879c611394c9f45",
+    "proof/Silver/FunctionDeclarationModelSource.lean": "e3626d279d6d62b00f082b55be63c656dbd175e0b8f1291ae42415e7206e72e7",
+    "proof/Silver/PredicateFunctionCallLibraries.lean": "0ee827b6d1c7752b893d3cb58f7202929350c95aa73edabd8bf5aa0fd9ed7b71"
+  }
+}
