@@ -148,6 +148,11 @@ def arrayDeclarationEquation (calls : Calls) (executable : Bool)
       decide (calls.function .scalarLookup text state.scalarNames typeFirst typeAfter ≠ 0) ||
       decide (calls.function .arrayLookup text state.arrayNames.names typeFirst typeAfter ≠ 0) ||
       decide (calls.function .booleanLookup text state.booleanNames typeFirst typeAfter ≠ 0) ||
+      decide (calls.function .functionLookup text state.functions typeFirst typeAfter ≠ 0) ||
+      calls.function .formalHides text state typeFirst typeAfter ||
+      (state.hiding.integerHidden && calls.function .nameIs text typeFirst typeAfter "integer") ||
+      (state.hiding.booleanHidden && calls.function .nameIs text typeFirst typeAfter "boolean") ||
+      (state.hiding.characterHidden && calls.function .nameIs text typeFirst typeAfter "character") ||
       (parts.isBoolean && decide (calls.function .subtypeLookup text state.subtypeNames typeFirst typeAfter ≠ 0))
   then invalidState else
     let length := (high.bounds.lower - low.bounds.lower + 1).toNat
