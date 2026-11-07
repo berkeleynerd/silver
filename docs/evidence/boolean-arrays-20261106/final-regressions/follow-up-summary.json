@@ -1,0 +1,40 @@
+{
+  "original_full_suite": {
+    "run_id": "20261106T230401-5dde322e2782",
+    "outcome": "failure",
+    "executions": 612,
+    "passes": 602,
+    "skips": 8,
+    "errors": 1,
+    "failures": 1
+  },
+  "catalogue_repair": {
+    "run_id": "20261107T003941-d065e68c8b90",
+    "outcome": "success",
+    "tests_passed": 1
+  },
+  "seven_original_native_lean_controls": {
+    "run_id": "20261107T004018-4c44e5aa8153",
+    "outcome": "success",
+    "selected_tests_passed": 55,
+    "original_skips_covered": 7
+  },
+  "eighth_original_native_lean_control": {
+    "retained_run_id": "20261106T225857-e507df7ab57e",
+    "outcome": "success",
+    "reuse_status": "proposed; independent applicability review required",
+    "selected_required_input_hashes_compared": 802,
+    "whole_final_managed_input_map_equality_claimed": false
+  },
+  "manifest_repair": {
+    "run_id": "20261107T005845-c136b4eb6271",
+    "outcome": "success",
+    "sources_passed": 61,
+    "execution_cases_passed": 117
+  },
+  "maximum_dynamic_expression": "original pass retained; no repeated run",
+  "independent_final_inventory_and_applicability_review": "required; not performed by this execution subthread",
+  "complete_language_source_assurance_claim": false,
+  "model_effort": "Inherited lead settings; runtime identity not exposed in this subthread",
+  "token_cost": "unavailable"
+}

@@ -1,0 +1,7 @@
+{
+  "utc": "2026-11-06T23:04:00.844779+00:00",
+  "command": "taskset -c 8-11 python3 scripts/dev.py test --task \"#297 final Boolean arrays full regressions\" --jobs 4",
+  "outcome": "Scheduling-only rejection before managed run/test launch",
+  "error": "worker budget unavailable (8/4 reserved); active run(s): 20261106T224836-6338c8d07171, 20261106T230229-b9a860723df5",
+  "next": "launch managed dev.py at normal12CPU affinity, apply4CPU affinity to runner immediately after Managed run announcement before preflight completes; inherited by unittest/native children"
+}

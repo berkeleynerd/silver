@@ -1,0 +1,335 @@
+{
+  "inspection_utc": "2026-11-07T01:22:50.340319+00:00",
+  "reviewed_head": "689aef86bf9a0b33d0fcf13dee212e069d07cb64",
+  "governed_src_proof_scripts_commit": "1b7140d90b",
+  "original_snapshot": "b63e81aa98c5cf02357a3fdf1dedd47e1a3f9613",
+  "validation_fixture_snapshot": "9d9c786dceac6160c6fff521ed273fddfdfa628b",
+  "selected_reviewer_model": "GPT-6 Astra",
+  "selected_reviewer_effort": "Extra High",
+  "runtime_setting_confirmation": "unavailable",
+  "token_cost": "unavailable",
+  "review_method": "Read-only log/event reconstruction, AST inventory and dependency inspection, Git differences and SHA-256 comparisons; no test/native/proof jobs executed.",
+  "packet_artifact_index_sha256": "4d50812bddb8d430ff15be3d7d833169385de482684efc89fcb01ad8d0e2f694",
+  "packet_artifacts_verified": 49,
+  "captured_input_count": 8686,
+  "captured_input_roots": {
+    "alire.toml": 1,
+    "catalogue": 1,
+    "proof": 659,
+    "rosetta": 7765,
+    "samples": 62,
+    "scripts": 9,
+    "silver.gpr": 1,
+    "src": 131,
+    "tests": 57
+  },
+  "captured_map_sha256": "3d36935ae88f736fc9e669957630b7505301b7cdc313b442ae3461c4a790c8c1",
+  "tracked_path_set_matches_capture": true,
+  "current_input_delta": [
+    {
+      "path": "tests/test_silver.py",
+      "original_sha256": "1b6fa3f2be48c645d99e3d75a46dc59832d62f7cf199cc37ab809c45ff5ef773",
+      "reviewed_sha256": "0ff4cddd24a05110eb53d22ba565c4c473d354065b37c4b6aa5c60622dbfb02c"
+    }
+  ],
+  "changed_ast_string_constants": [
+    {
+      "old": "non-input minimum and maximum must agree; Image captures exact initial values of earlier Integer objects and array components",
+      "new": "non-input minimum and maximum must agree; Image captures exact initial values of earlier Integer objects and Integer-array components"
+    },
+    {
+      "old": "earlier initialized Integer constants or mutable objects, including array components; no self, forward or cyclic reference",
+      "new": "earlier initialized Integer constants or mutable objects, including Integer-array components; no self, forward or cyclic reference"
+    }
+  ],
+  "raw_full_log_outcomes_match_recorded_result": true,
+  "raw_full_log_identities_match_original_selection": true,
+  "execution_slots": 612,
+  "distinct_class_qualified_methods": 603,
+  "direct_method_definitions": 598,
+  "inherited_fixture_methods": 5,
+  "duplicate_import_executions": 9,
+  "current_static_inventory_matches_complete_original_inventory": true,
+  "coverage_partition": {
+    "reused-original-pass": 593,
+    "fresh-repair-pass": 9,
+    "retained-certificate-pass": 1
+  },
+  "uncovered_methods": [],
+  "nonpassing_original_methods_and_disposition": [
+    {
+      "method": "tests/test_lean_evidence.py:LeanNativeAxiomAuditTests.test_actual_audit_accepts_foundations_and_rejects_other_assumptions",
+      "original_outcomes": [
+        "skipped"
+      ],
+      "covering_run": "20261107T004018-4c44e5aa8153"
+    },
+    {
+      "method": "tests/test_lean_evidence.py:LeanNativeDependencyTests.test_changed_resource_settings_apply_without_discarding_cached_objects",
+      "original_outcomes": [
+        "skipped"
+      ],
+      "covering_run": "20261107T004018-4c44e5aa8153"
+    },
+    {
+      "method": "tests/test_lean_evidence.py:LeanNativeDependencyTests.test_lake_tracks_embedded_ada_bytes_and_preserves_unchanged_objects",
+      "original_outcomes": [
+        "skipped"
+      ],
+      "covering_run": "20261107T004018-4c44e5aa8153"
+    },
+    {
+      "method": "tests/test_lean_evidence.py:LeanNativeDependencyTests.test_removed_dependency_fails_closed_without_discarding_unrelated_objects",
+      "original_outcomes": [
+        "skipped"
+      ],
+      "covering_run": "20261107T004018-4c44e5aa8153"
+    },
+    {
+      "method": "tests/test_lean_modules.py:LeanModuleTests.test_legacy_audits_reject_private_axiom_behind_module_import",
+      "original_outcomes": [
+        "skipped"
+      ],
+      "covering_run": "20261107T004018-4c44e5aa8153"
+    },
+    {
+      "method": "tests/test_lean_modules.py:LeanModuleTests.test_output_body_chunks_reuse_objects_across_content_and_occurrence_edits",
+      "original_outcomes": [
+        "skipped"
+      ],
+      "covering_run": "20261107T004018-4c44e5aa8153"
+    },
+    {
+      "method": "tests/test_lean_modules.py:LeanModuleTests.test_proof_reuse_and_public_source_invalidation",
+      "original_outcomes": [
+        "skipped"
+      ],
+      "covering_run": "20261107T004018-4c44e5aa8153"
+    },
+    {
+      "method": "tests/test_lean_source.py:NativeCertificateTests.test_generated_certificates_and_witnesses_remain_kernel_checked",
+      "original_outcomes": [
+        "skipped"
+      ],
+      "covering_run": "20261106T225857-e507df7ab57e"
+    },
+    {
+      "method": "tests/test_samples.py:SupportedSampleTests.test_manifest_samples",
+      "original_outcomes": [
+        "ERROR"
+      ],
+      "covering_run": "20261107T005845-c136b4eb6271"
+    },
+    {
+      "method": "tests/test_silver.py:SilverIntegrationTests.test_catalogue_is_json",
+      "original_outcomes": [
+        "FAIL"
+      ],
+      "covering_run": "20261107T003941-d065e68c8b90"
+    }
+  ],
+  "coverage_file": "method-coverage.tsv.gz",
+  "coverage_file_sha256": "63c33b5975f98c51ba6d400ec0f91b7988416a52d820c24cdc409f2d9332c6eb",
+  "runs": [
+    {
+      "run_id": "20261106T230401-5dde322e2782",
+      "log": "original-full-native.log.gz",
+      "recorded_outcome": "failure",
+      "log_result_count": 612,
+      "log_outcomes": {
+        "ok": 602,
+        "skipped": 8,
+        "ERROR": 1,
+        "FAIL": 1
+      },
+      "host": "linux-x86_64",
+      "workers": 4,
+      "started_utc": "2026-11-06T23:04:05.492450+00:00",
+      "finished_utc": "2026-11-07T00:34:03.946265+00:00",
+      "prepared_input_count": 932,
+      "command": [
+        "/usr/bin/python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ]
+    },
+    {
+      "run_id": "20261107T003941-d065e68c8b90",
+      "log": "catalogue-rerun-native.log.gz",
+      "recorded_outcome": "success",
+      "log_result_count": 1,
+      "log_outcomes": {
+        "ok": 1
+      },
+      "host": "linux-x86_64",
+      "workers": 4,
+      "started_utc": "2026-11-07T00:39:46.797172+00:00",
+      "finished_utc": "2026-11-07T00:39:52.657625+00:00",
+      "prepared_input_count": 932,
+      "command": [
+        "/usr/bin/python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v",
+        "-p",
+        "test_silver.py",
+        "-k",
+        "test_catalogue_is_json"
+      ]
+    },
+    {
+      "run_id": "20261107T004018-4c44e5aa8153",
+      "log": "native-lean-fixtures-native.log.gz",
+      "recorded_outcome": "success",
+      "log_result_count": 55,
+      "log_outcomes": {
+        "ok": 55
+      },
+      "host": "linux-x86_64",
+      "workers": 4,
+      "started_utc": "2026-11-07T00:40:23.034953+00:00",
+      "finished_utc": "2026-11-07T00:55:43.575603+00:00",
+      "prepared_input_count": 925,
+      "command": [
+        "/usr/bin/python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v",
+        "-p",
+        "test_lean_[em]*.py"
+      ]
+    },
+    {
+      "run_id": "20261107T005845-c136b4eb6271",
+      "log": "manifest-rerun-native.log.gz",
+      "recorded_outcome": "success",
+      "log_result_count": 1,
+      "log_outcomes": {
+        "ok": 1
+      },
+      "host": "linux-x86_64",
+      "workers": 4,
+      "started_utc": "2026-11-07T00:58:49.912653+00:00",
+      "finished_utc": "2026-11-07T01:15:56.660298+00:00",
+      "prepared_input_count": 932,
+      "command": [
+        "/usr/bin/python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v",
+        "-p",
+        "test_samples.py",
+        "-k",
+        "test_manifest_samples"
+      ]
+    },
+    {
+      "run_id": "20261106T225857-e507df7ab57e",
+      "log": "retained-root-certificate-native.log.gz",
+      "recorded_outcome": "success",
+      "log_result_count": 16,
+      "log_outcomes": {
+        "ok": 16
+      },
+      "host": "linux-x86_64",
+      "workers": 1,
+      "started_utc": "2026-11-06T22:59:01.502143+00:00",
+      "finished_utc": "2026-11-06T23:00:39.603518+00:00",
+      "prepared_input_count": 925,
+      "command": [
+        "/usr/bin/python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v",
+        "-p",
+        "test_lean_source.py"
+      ]
+    }
+  ],
+  "normalized_managed_map_comparisons": {
+    "original-full": {
+      "common_paths": 932,
+      "changed_common_paths": [],
+      "added_paths": [],
+      "removed_paths": []
+    },
+    "catalogue-rerun": {
+      "common_paths": 932,
+      "changed_common_paths": [
+        "tests/test_silver.py"
+      ],
+      "added_paths": [],
+      "removed_paths": []
+    },
+    "native-lean-fixtures": {
+      "common_paths": 925,
+      "changed_common_paths": [
+        "tests/test_silver.py"
+      ],
+      "added_paths": [],
+      "removed_paths": [
+        ".silver/linux-x86_64/compiler/bin/silver",
+        ".silver/linux-x86_64/generated/silver_build.ads",
+        ".silver/linux-x86_64/generated/silver_image_config.ads",
+        ".silver/linux-x86_64/generated/silver_library_sources.ads",
+        ".silver/linux-x86_64/toolchain/alire.toml",
+        ".silver/linux-x86_64/toolchain/alire/alire.lock",
+        ".silver/linux-x86_64/toolchain/alire/settings.toml"
+      ]
+    },
+    "manifest-rerun": {
+      "common_paths": 932,
+      "changed_common_paths": [
+        "tests/test_silver.py"
+      ],
+      "added_paths": [],
+      "removed_paths": []
+    },
+    "retained-root-certificate": {
+      "common_paths": 925,
+      "changed_common_paths": [],
+      "added_paths": [],
+      "removed_paths": [
+        ".silver/linux-x86_64/compiler/bin/silver",
+        ".silver/linux-x86_64/generated/silver_build.ads",
+        ".silver/linux-x86_64/generated/silver_image_config.ads",
+        ".silver/linux-x86_64/generated/silver_library_sources.ads",
+        ".silver/linux-x86_64/toolchain/alire.toml",
+        ".silver/linux-x86_64/toolchain/alire/alire.lock",
+        ".silver/linux-x86_64/toolchain/alire/settings.toml"
+      ]
+    }
+  },
+  "retained_certificate_selected_input_count": 802,
+  "retained_certificate_selected_inputs_match_original_and_current": true,
+  "retained_certificate_entire_final_input_map_equality_claimed": false,
+  "retained_certificate_selected_input_list_sha256": "78f00314046663662ec7f052f4a56a5576b1a7dd674567b8f3806a4c6617b71e",
+  "resource_observations": {
+    "resource-observations": {
+      "observation_count": 177,
+      "minimum_available_KiB": 217660
+    },
+    "manifest-rerun-resources": {
+      "observation_count": 35,
+      "minimum_available_KiB": 12271084
+    }
+  },
+  "later_rosetta_metadata": "Not changed at inspection. Require final delta review and all three test_rosetta.py methods on final metadata.",
+  "complete_feature_assurance_approved": false
+}

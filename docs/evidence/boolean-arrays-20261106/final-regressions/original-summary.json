@@ -1,0 +1,47 @@
+{
+  "utc": "2026-11-07T00:36:23.987123+00:00",
+  "run_id": "20261106T230401-5dde322e2782",
+  "revision": "b63e81aa98c5cf02357a3fdf1dedd47e1a3f9613",
+  "outcome": "failure",
+  "managed_duration_seconds": 5398.38308931,
+  "unittest_duration_seconds": 5394.101,
+  "expected_execution_slots": 612,
+  "observed_execution_slots": 612,
+  "underlying_source_methods": 603,
+  "duplicate_extra_executions": 9,
+  "outcome_counts": {
+    "ok": 602,
+    "skipped": 8,
+    "ERROR": 1,
+    "FAIL": 1
+  },
+  "captured_file_changes": [],
+  "binary_sha256_after": "c3f97c7f6477931ad01c76c3be658db06fc4c02f997a6475f921eee9a5362790",
+  "tracked_inventory_sha256": "fba37b85fc613dc9ecfd4db6c02bd07e5b1815292d45c72cc375920dc870f148",
+  "manifest_source_count": 61,
+  "manifest_argument_cases": 117,
+  "failed_source": {
+    "source": "rosetta_shell_one_liner.adb",
+    "source_sha256": "a845ee99c96ed3ccee3346bea45370dade0fddc9ea7817afe9a89efdec8946ed",
+    "cases": [
+      {
+        "arguments": [],
+        "expected": {
+          "stdout": "Hello world!\n",
+          "stderr": "",
+          "exit_status": 0
+        }
+      }
+    ]
+  },
+  "failed_source_case_count": 1,
+  "completed_other_manifest_source_count": 60,
+  "completed_other_manifest_case_count": 116,
+  "maximum_dynamic_expression": "passed, including2executioncases",
+  "min_observed_available_MiB": 212,
+  "max_observed_sum_test_descendant_RSS_MiB": 1677,
+  "resource_observations": 177,
+  "affinity_deviations": [],
+  "failure_traceback_file": "full-suite-failures.txt",
+  "source_scope": "Exact b63e81aa98 tracked src/scripts/proof/tests/samples/catalogue/rosetta and project-input bytes; original snapshot unchanged through terminal"
+}

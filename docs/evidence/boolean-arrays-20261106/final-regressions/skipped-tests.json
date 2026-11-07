@@ -1,0 +1,42 @@
+[
+  {
+    "test_id": "test_lean_evidence.LeanNativeAxiomAuditTests.test_actual_audit_accepts_foundations_and_rejects_other_assumptions",
+    "reason": "'install the pinned native Lean tools to check the real axiom audit'",
+    "log_line": "test_actual_audit_accepts_foundations_and_rejects_other_assumptions (test_lean_evidence.LeanNativeAxiomAuditTests.test_actual_audit_accepts_foundations_and_rejects_other_assumptions) ... skipped 'install the pinned native Lean tools to check the real axiom audit'"
+  },
+  {
+    "test_id": "test_lean_evidence.LeanNativeDependencyTests.test_changed_resource_settings_apply_without_discarding_cached_objects",
+    "reason": "'install the pinned native Lean tools to check Lake configuration'",
+    "log_line": "test_changed_resource_settings_apply_without_discarding_cached_objects (test_lean_evidence.LeanNativeDependencyTests.test_changed_resource_settings_apply_without_discarding_cached_objects) ... skipped 'install the pinned native Lean tools to check Lake configuration'"
+  },
+  {
+    "test_id": "test_lean_evidence.LeanNativeDependencyTests.test_lake_tracks_embedded_ada_bytes_and_preserves_unchanged_objects",
+    "reason": "'install the pinned native Lean tools to check actual Lake invalidation'",
+    "log_line": "test_lake_tracks_embedded_ada_bytes_and_preserves_unchanged_objects (test_lean_evidence.LeanNativeDependencyTests.test_lake_tracks_embedded_ada_bytes_and_preserves_unchanged_objects) ... skipped 'install the pinned native Lean tools to check actual Lake invalidation'"
+  },
+  {
+    "test_id": "test_lean_evidence.LeanNativeDependencyTests.test_removed_dependency_fails_closed_without_discarding_unrelated_objects",
+    "reason": "'install the pinned native Lean tools to check module removal'",
+    "log_line": "test_removed_dependency_fails_closed_without_discarding_unrelated_objects (test_lean_evidence.LeanNativeDependencyTests.test_removed_dependency_fails_closed_without_discarding_unrelated_objects) ... skipped 'install the pinned native Lean tools to check module removal'"
+  },
+  {
+    "test_id": "test_lean_modules.LeanModuleTests.test_legacy_audits_reject_private_axiom_behind_module_import",
+    "reason": "'install the pinned native Lean tools to check module boundaries'",
+    "log_line": "test_legacy_audits_reject_private_axiom_behind_module_import (test_lean_modules.LeanModuleTests.test_legacy_audits_reject_private_axiom_behind_module_import) ... skipped 'install the pinned native Lean tools to check module boundaries'"
+  },
+  {
+    "test_id": "test_lean_modules.LeanModuleTests.test_output_body_chunks_reuse_objects_across_content_and_occurrence_edits",
+    "reason": "'install the pinned native Lean tools to check module boundaries'",
+    "log_line": "test_output_body_chunks_reuse_objects_across_content_and_occurrence_edits (test_lean_modules.LeanModuleTests.test_output_body_chunks_reuse_objects_across_content_and_occurrence_edits) ... skipped 'install the pinned native Lean tools to check module boundaries'"
+  },
+  {
+    "test_id": "test_lean_modules.LeanModuleTests.test_proof_reuse_and_public_source_invalidation",
+    "reason": "'install the pinned native Lean tools to check module boundaries'",
+    "log_line": "test_proof_reuse_and_public_source_invalidation (test_lean_modules.LeanModuleTests.test_proof_reuse_and_public_source_invalidation) ... skipped 'install the pinned native Lean tools to check module boundaries'"
+  },
+  {
+    "test_id": "test_lean_source.NativeCertificateTests.test_generated_certificates_and_witnesses_remain_kernel_checked",
+    "reason": "'install pinned native Lean to check generated certificates'",
+    "log_line": "test_generated_certificates_and_witnesses_remain_kernel_checked (test_lean_source.NativeCertificateTests.test_generated_certificates_and_witnesses_remain_kernel_checked) ... skipped 'install pinned native Lean to check generated certificates'"
+  }
+]

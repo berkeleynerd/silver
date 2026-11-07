@@ -322,3 +322,51 @@ the full 612-test inventory in `20261106T230401-5dde322e2782`. These active runs
 are not successful assurance evidence yet. Final regression applicability,
 Rosetta rendering, independent delivery confirmation and publication remain
 pending.
+
+
+## Complete-checkpoint resource recovery — 2026-11-07
+
+Complete Lean run `20261106T230229-b9a860723df5` failed its
+`OutputBodyCertificate` build with exit 137 after 2,556 seconds, including
+recorded suspension. Kernel evidence identifies a global out-of-memory kill at
+00:08:27 UTC; this is not a reported proof/type error. The reconstruction and
+several source candidates overlapped on the 32 GiB host. Pausing stopped growth
+but retained their heaps, and a transient garbage-collection low did not justify
+resuming concurrent dense checks. The original failed run and completed module
+objects are preserved. The [resource evidence directory](final-lean/) retains
+the kernel observation, input comparison and process/suspension samples.
+
+The run finished failed after a 9,229.662 s build, preserving 175 successful
+module builds. `PredicateNativeShapeCandidate` was deliberately terminated to
+recover RAM; this is distinct from the reconstruction's OOM kill. A third failure
+exposed omitted Boolean-array assignment cases in `PredicateFlags`. Repair
+`ba23d2167c` also updates its direct consumer `PredicateSelectors`, as the
+[independent flag review](../../reviews/review-boolean-array-flags-20261107.md)
+required. Both focused builds and fresh audits passed. The complete cached
+retry serializes module builds with automatic 12-thread processes and the
+unchanged 24,576 MiB threshold. Native verification continues on unchanged
+inputs. No complete checkpoint is claimed by these focused checks.
+
+## Final regression coverage and flag-repair applicability
+
+The [regression packet](final-regressions/README.md) preserves full run
+`20261106T230401-5dde322e2782` as failed: 612 executions, representing 603
+distinct methods plus nine imported duplicates, with 602 passes, eight skips,
+one catalogue assertion failure and one sample compilation deadline error.
+Only two expectation literals changed in `689aef86bf`; the actual catalogue
+already used the specified Integer-array terminology. The targeted catalogue
+rerun passed. The unchanged complete manifest method subsequently passed all
+61 sources and 117 execution cases at the same 120-second fixture deadline.
+Seven native Lean controls passed in the 55-test fixture rerun; the eighth has
+applicable retained certificate-control success. The dynamic-expression method's
+two successful cases are retained without a repeat.
+
+The [independent applicability review](../../reviews/review-boolean-arrays-regression-applicability-20261107.md)
+accounts for all 603 distinct methods: 593 original passes, the catalogue and
+manifest repairs, seven fresh controls and one retained certificate control.
+The subsequent flag review covers the two proof-file changes separately: 800
+of the original 802 selected certificate-fixture inputs now match, while the
+two changed modules are outside its actual dependency closure. Native/sample
+inputs and all relevant proof-reader projections remain unchanged. This is
+reviewed result reuse, not a passing full-suite run. Final Rosetta metadata
+changes still require the three-method renderer rerun and applicability follow-up.

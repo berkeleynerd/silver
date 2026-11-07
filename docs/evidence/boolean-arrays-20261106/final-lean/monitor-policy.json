@@ -1,0 +1,12 @@
+{
+  "emergency_stop_available_kib": 6291456,
+  "sample_interval_seconds": 5,
+  "automatic_resume": false,
+  "reason": "Root override after observed multi-GiB growth within about 20 seconds; native minimum 5 GiB",
+  "allowed_dense_pid": 318326,
+  "sequential_harvest": true,
+  "allowed_dense_pids": [
+    377599
+  ],
+  "phase": "Root-authorized single source candidate phase after all model/example queue drained"
+}

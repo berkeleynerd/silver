@@ -1,0 +1,10 @@
+{
+  "root_fixture_commit": "689aef86bf",
+  "validation_revision": "9d9c786dceac6160c6fff521ed273fddfdfa628b",
+  "changes_from_original_captured_inventory": [
+    "tests/test_silver.py"
+  ],
+  "test_silver_sha256": "0ff4cddd24a05110eb53d22ba565c4c473d354065b37c4b6aa5c60622dbfb02c",
+  "binary_sha256": "c3f97c7f6477931ad01c76c3be658db06fc4c02f997a6475f921eee9a5362790",
+  "src_scripts_proof_samples_catalogue_rosetta_project_bytes": "unchanged from original captured inventory"
+}
