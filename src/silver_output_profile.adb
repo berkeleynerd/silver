@@ -12,6 +12,7 @@ with Silver_Scalar_Expressions;
 with Silver_Array_Bindings;
 with Silver_Integer_Image;
 with Silver_Length_Intervals;
+with Silver_Function_Bindings;
 
 package body Silver_Output_Profile
   with SPARK_Mode => On
@@ -22,6 +23,9 @@ is
    package Scalars renames Silver_Scalars;
    package Scalar_Expressions renames Silver_Scalar_Expressions;
    package Array_Bindings renames Silver_Array_Bindings;
+   package Functions renames Silver_Function_Bindings;
+   use type Functions.Scalar_Kind;
+   use type Functions.Metadata;
    use type Scalars.Wide;
    use type Scalars.Interval;
    use type Names.Operation_Kind;
@@ -37,7 +41,7 @@ is
         | And_Keyword | Length_Name | Or_Keyword | Not_Keyword | Null_Keyword
         | Integer_Name | For_Keyword | In_Keyword | Reverse_Keyword | Loop_Keyword | Range_Keyword
         | Array_Keyword | Of_Keyword | Subtype_Keyword
-        | Boolean_Name | True_Name | False_Name | Xor_Keyword | Character_Name);
+        | Boolean_Name | True_Name | False_Name | Xor_Keyword | Character_Name | Function_Keyword | Return_Keyword);
 
    function Spelling (Token : Token_Kind) return String is
      (case Token is
@@ -93,6 +97,8 @@ is
          when Array_Keyword => "array",
          when Subtype_Keyword => "subtype",
          when Character_Name => "character",
+         when Function_Keyword => "function",
+         when Return_Keyword => "return",
          when Boolean_Name => "boolean",
          when True_Name => "true",
          when False_Name => "false",
@@ -235,8 +241,17 @@ is
           (Text, Subtypes.Items (Index).First, Subtypes.Items (Index).After)
         and then not Scalars.Is_Empty (Subtypes.Items (Index).Bounds));
 
+   type Hidden_Marks is record
+      Integer_Hidden, Boolean_Hidden, Character_Hidden : Boolean;
+      True_Hidden, False_Hidden : Boolean;
+   end record;
+   No_Hidden_Marks : constant Hidden_Marks := (others => False);
    type Parser_State is record
       Position : Literal_Position;
+      Functions : Functions.Metadata;
+      Pure, Assigned_In_Functions : Boolean;
+      Hiding : Hidden_Marks;
+      First_Parameter : Functions.Formal_Count;
       Names : Binding_Environment;
       Scalar_Names : Scalar_Expressions.Environment;
       Array_Names : Array_Bindings.Environment;
@@ -247,13 +262,17 @@ is
       Capacity : Capacity_Value;
    end record;
    Initial_State : constant Parser_State :=
-     (Position => 1, Names => Empty_Environment,
+     (Position => 1, Functions => Functions.Empty_Metadata,
+      Pure => False, Assigned_In_Functions => False, Hiding => No_Hidden_Marks,
+      First_Parameter => 0, Names => Empty_Environment,
       Scalar_Names => Scalar_Expressions.Empty_Environment,
       Array_Names => Array_Bindings.Empty_Environment, Subtype_Names => Empty_Subtypes,
       Boolean_Names => Empty_Booleans, Dynamic_First => 0,
       Dynamic_After => 0, Target => 0, Capacity => Max_Source_Length);
    Invalid_State : constant Parser_State :=
-     (Position => 0, Names => Empty_Environment,
+     (Position => 0, Functions => Functions.Empty_Metadata,
+      Pure => False, Assigned_In_Functions => False, Hiding => No_Hidden_Marks,
+      First_Parameter => 0, Names => Empty_Environment,
       Scalar_Names => Scalar_Expressions.Empty_Environment,
       Array_Names => Array_Bindings.Empty_Environment, Subtype_Names => Empty_Subtypes,
       Boolean_Names => Empty_Booleans, Dynamic_First => 0,
@@ -275,6 +294,8 @@ is
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length;
    function Valid_State (Text : String; State : Parser_State) return Boolean is
      (State.Position <= Text'Last + 1
+      and then Functions.Valid_Metadata (Text, State.Functions)
+      and then State.First_Parameter <= State.Functions.Parameter_Count + 1
       and then Valid_Names (Text, State.Names)
       and then Scalar_Expressions.Valid_Environment (Text, State.Scalar_Names)
       and then Array_Bindings.Valid_Environment (Text, State.Array_Names)
@@ -284,6 +305,24 @@ is
       and then Valid_Declaration_Values (State.Scalar_Names, State.Scalar_Names.Count)
       and then Valid_Name_State (Text, State.Dynamic_First, State.Dynamic_After)
       and then State.Target <= State.Names.Count);
+
+   function Function_Hides
+     (Text : String; Catalog : Functions.Metadata; Word : String) return Boolean is
+     (for some Index in 1 .. Catalog.Count =>
+        Name_Is (Text, Catalog.Items (Index).First, Catalog.Items (Index).After, Word))
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Functions.Valid_Metadata (Text, Catalog);
+   function Formal_Hides
+     (Text : String; State : Parser_State; First, After : Literal_Position) return Boolean is
+     (State.First_Parameter /= 0 and then
+       (for some Index in State.First_Parameter .. State.Functions.Parameter_Count =>
+          Equal_Name (Text, State.Functions.Parameters (Index).First,
+                      State.Functions.Parameters (Index).After, First, After)))
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_State (Text, State)
+         and then First <= Text'Last + 1 and then After <= Text'Last + 1;
 
    --  These executable lexical adapters preserve the established functional
    --  lexical meanings. Zero is failure and is propagated by every adapter.
@@ -1305,7 +1344,10 @@ is
       and then Scalar_Expressions.Lookup (Text, State.Scalar_Names, First, After) = 0
       and then Array_Bindings.Lookup (Text, State.Array_Names.Names, First, After) = 0
       and then Lookup_Boolean (Text, State.Boolean_Names, First, After) = 0
-      and then Lookup_Subtype (Text, State.Subtype_Names, First, After) = 0);
+      and then Lookup_Subtype (Text, State.Subtype_Names, First, After) = 0
+      and then not Formal_Hides (Text, State, First, After)
+      and then (State.Pure or else
+        Functions.Lookup (Text, State.Functions, First, After) = 0));
 
    function Add_Binding
      (State : Parser_State; First, After : Literal_Position;
@@ -1391,6 +1433,9 @@ is
            or else Scalar_Expressions.Lookup (Text, State.Scalar_Names, First, After) /= 0
            or else Array_Bindings.Lookup (Text, State.Array_Names.Names, First, After) /= 0
            or else Lookup_Boolean (Text, State.Boolean_Names, First, After) /= 0
+           or else Functions.Lookup (Text, State.Functions, First, After) /= 0
+           or else Formal_Hides (Text, State, First, After)
+           or else (State.Hiding.Integer_Hidden and then Name_Is (Text, First, After, "integer"))
          then (0, Scalars.Empty)
          elsif Name_Is (Text, First, After, "integer") then (After, Scalars.Full)
          elsif Target /= 0 then (After, State.Subtype_Names.Items (Target).Bounds)
@@ -1426,6 +1471,11 @@ is
            or else Scalar_Expressions.Lookup (Text, State.Scalar_Names, Type_First, Type_After) /= 0
            or else Array_Bindings.Lookup (Text, State.Array_Names.Names, Type_First, Type_After) /= 0
            or else Lookup_Boolean (Text, State.Boolean_Names, Type_First, Type_After) /= 0
+           or else Functions.Lookup (Text, State.Functions, Type_First, Type_After) /= 0
+           or else Formal_Hides (Text, State, Type_First, Type_After)
+           or else (State.Hiding.Integer_Hidden and then Name_Is (Text, Type_First, Type_After, "integer"))
+           or else (State.Hiding.Boolean_Hidden and then Name_Is (Text, Type_First, Type_After, "boolean"))
+           or else (State.Hiding.Character_Hidden and then Name_Is (Text, Type_First, Type_After, "character"))
          then Invalid_State
          else (State with delta Position => Following,
            Subtype_Names =>
@@ -1520,6 +1570,11 @@ is
         or else Array_Bindings.Lookup (Text, State.Array_Names.Names, Type_First, Type_After) /= 0
         or else Lookup_Subtype (Text, State.Subtype_Names, Type_First, Type_After) /= 0
         or else Lookup_Boolean (Text, State.Boolean_Names, Type_First, Type_After) /= 0
+           or else Functions.Lookup (Text, State.Functions, Type_First, Type_After) /= 0
+           or else Formal_Hides (Text, State, Type_First, Type_After)
+           or else (State.Hiding.Integer_Hidden and then Name_Is (Text, Type_First, Type_After, "integer"))
+           or else (State.Hiding.Boolean_Hidden and then Name_Is (Text, Type_First, Type_After, "boolean"))
+           or else (State.Hiding.Character_Hidden and then Name_Is (Text, Type_First, Type_After, "character"))
       then return Invalid_State; end if;
       return Add_Binding (State, First, After, Value, Constant_After = 0,
         Following, Character_Object => True);
@@ -1545,7 +1600,8 @@ is
                 (Text, Take_Token (Text, Type_After, Assignment), State.Names, State.Scalar_Names,
                  (First /= 0 and then After > First
                    and then Take_Token (Text, First, Integer_Name) = After)
-                   or else Boolean_Hides_Integer (Text, State.Boolean_Names),
+                   or else Boolean_Hides_Integer (Text, State.Boolean_Names)
+                   or else State.Hiding.Integer_Hidden,
                  State.Array_Names.Names, State.Array_Names.Values, True);
               Following : constant Literal_Position := Take_Token (Text, Value.After, Semicolon);
       begin
@@ -1646,6 +1702,11 @@ is
        Annotate => (GNATprove, Logical_Equal);
    function Same_Parser_State (Left, Right : Parser_State) return Boolean is
      (Left.Position = Right.Position
+      and then Left.Functions = Right.Functions
+      and then Left.Pure = Right.Pure
+      and then Left.Assigned_In_Functions = Right.Assigned_In_Functions
+      and then Left.Hiding = Right.Hiding
+      and then Left.First_Parameter = Right.First_Parameter
       and then Left.Names.Count = Right.Names.Count
       and then Same_Parser_String_Items (Left.Names.Items, Right.Names.Items)
       and then Left.Scalar_Names.Count = Right.Scalar_Names.Count
@@ -1850,6 +1911,11 @@ is
            or else Scalar_Expressions.Lookup (Text, State.Scalar_Names, Type_First, Type_After) /= 0
            or else Array_Bindings.Lookup (Text, State.Array_Names.Names, Type_First, Type_After) /= 0
            or else Lookup_Boolean (Text, State.Boolean_Names, Type_First, Type_After) /= 0
+           or else Functions.Lookup (Text, State.Functions, Type_First, Type_After) /= 0
+           or else Formal_Hides (Text, State, Type_First, Type_After)
+           or else (State.Hiding.Integer_Hidden and then Name_Is (Text, Type_First, Type_After, "integer"))
+           or else (State.Hiding.Boolean_Hidden and then Name_Is (Text, Type_First, Type_After, "boolean"))
+           or else (State.Hiding.Character_Hidden and then Name_Is (Text, Type_First, Type_After, "character"))
            or else (Boolean_Elements and then
              Lookup_Subtype (Text, State.Subtype_Names, Type_First, Type_After) /= 0)
          then Invalid_State
@@ -2144,6 +2210,11 @@ is
            or else Scalar_Expressions.Lookup (Text, State.Scalar_Names, Type_First, Type_After) /= 0
            or else Array_Bindings.Lookup (Text, State.Array_Names.Names, Type_First, Type_After) /= 0
            or else Lookup_Boolean (Text, State.Boolean_Names, Type_First, Type_After) /= 0
+           or else Functions.Lookup (Text, State.Functions, Type_First, Type_After) /= 0
+           or else Formal_Hides (Text, State, Type_First, Type_After)
+           or else (State.Hiding.Integer_Hidden and then Name_Is (Text, Type_First, Type_After, "integer"))
+           or else (State.Hiding.Boolean_Hidden and then Name_Is (Text, Type_First, Type_After, "boolean"))
+           or else (State.Hiding.Character_Hidden and then Name_Is (Text, Type_First, Type_After, "character"))
            or else (Boolean_Elements and then
              Lookup_Subtype (Text, State.Subtype_Names, Type_First, Type_After) /= 0)
          then Invalid_State
@@ -2192,6 +2263,15 @@ is
          and then (Boolean_Declaration_At'Result.Position = 0
            or else Boolean_Declaration_At'Result.Position > State.Position);
 
+   function Function_Declaration_At
+     (Text : String; State : Parser_State; Arguments : Boolean) return Parser_State
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_State (Text, State),
+       Post => Valid_State (Text, Function_Declaration_At'Result)
+         and then (Function_Declaration_At'Result.Position = 0
+           or else Function_Declaration_At'Result.Position > State.Position);
+
    function Declaration_At
      (Text : String; State : Parser_State; Arguments : Boolean) return Parser_State
      with Global => null,
@@ -2202,12 +2282,14 @@ is
            or else Declaration_At'Result.Position > State.Position);
    function Declaration_At
      (Text : String; State : Parser_State; Arguments : Boolean) return Parser_State is
-     (declare Subtype_State : constant Parser_State := Subtype_Declaration_At (Text, State, Arguments);
+     (declare Function_State : constant Parser_State := Function_Declaration_At (Text, State, Arguments);
+              Subtype_State : constant Parser_State := Subtype_Declaration_At (Text, State, Arguments);
               Scalar_State : constant Parser_State := Scalar_Declaration_At (Text, State, Arguments);
               Array_State : constant Parser_State := Array_Declaration_At (Text, State, Arguments);
               Boolean_State : constant Parser_State := Boolean_Declaration_At (Text, State, Arguments);
               Character_State : constant Parser_State := Character_Declaration_At (Text, State, Arguments);
-      begin (if Subtype_State.Position /= 0 then Subtype_State
+      begin (if Function_State.Position /= 0 then Function_State
+             elsif Subtype_State.Position /= 0 then Subtype_State
              elsif Scalar_State.Position /= 0 then Scalar_State
              elsif Array_State.Position /= 0 then Array_State
              elsif Boolean_State.Position /= 0 then Boolean_State
@@ -2424,7 +2506,7 @@ is
       Array_Names : Array_Bindings.Metadata;
       Subtype_Hiding : Subtype_Visibility;
       Boolean_Names : Boolean_Environment;
-      True_Hidden, False_Hidden, Elaborating : Boolean;
+      True_Hidden, False_Hidden, Elaborating, Pure, Integer_Hidden : Boolean;
       Mask_First, Mask_After : Literal_Position;
       Declaration_Count : Scalar_Expressions.Binding_Count;
       Dynamic_First, Dynamic_After : Literal_Position;
@@ -2447,7 +2529,7 @@ is
       Capacity : Capacity_Value;
       Assigned, Output : Boolean;
    end record;
-   type Body_Stop is (End_Only, Else_Only, Arm_Boundary);
+   type Body_Stop is (End_Only, Else_Only, Arm_Boundary, Return_Only);
 
    function Context_Of (Scan : Scan_Result) return Body_Context is
      (Names => Scan.State.Names,
@@ -2455,8 +2537,9 @@ is
       Array_Names => Scan.State.Array_Names.Names,
       Subtype_Hiding => Scan.State.Subtype_Names.Hidden_Calls,
       Boolean_Names => Scan.State.Boolean_Names,
-      True_Hidden => Scan.State.Subtype_Names.True_Hidden,
-      False_Hidden => Scan.State.Subtype_Names.False_Hidden,
+      True_Hidden => Scan.State.Subtype_Names.True_Hidden or Scan.State.Hiding.True_Hidden,
+      False_Hidden => Scan.State.Subtype_Names.False_Hidden or Scan.State.Hiding.False_Hidden,
+      Pure => Scan.State.Pure, Integer_Hidden => Scan.State.Hiding.Integer_Hidden,
       Elaborating => False, Mask_First => 0, Mask_After => 0,
       Declaration_Count => Scan.State.Scalar_Names.Count,
       Dynamic_First => Scan.State.Dynamic_First,
@@ -2528,10 +2611,9 @@ is
       end return;
    end Invalid_Body;
    function Expand_Body
-     (Context : Body_Context; Scan : Body_Scan; Arrays : Array_Bindings.Environment;
-      Subtypes : Subtype_Environment) return Scan_Result is
-     (State => (Position => Scan.Position, Names => Context.Names, Scalar_Names => Context.Scalar_Names,
-       Array_Names => Arrays, Subtype_Names => Subtypes, Boolean_Names => Context.Boolean_Names,
+     (Context : Body_Context; Scan : Body_Scan; Original : Parser_State) return Scan_Result is
+     (State => (Original with delta Position => Scan.Position, Names => Context.Names,
+       Scalar_Names => Context.Scalar_Names, Boolean_Names => Context.Boolean_Names,
        Dynamic_First => Context.Dynamic_First, Dynamic_After => Context.Dynamic_After,
        Target => Scan.Target, Capacity => Scan.Capacity),
       Assigned => Scan.Assigned, Output => Scan.Output);
@@ -2794,7 +2876,7 @@ is
          or else Read_String_In_Flow'Result.After in Position + 1 .. Text'Last + 1,
          Static => Read_String_In_Flow'Result = Expression_At
            (Text, Position, Context.Names, Reading_Names (Context, Facts),
-            Integer_Hidden => Boolean_Hides_Integer (Text, Context.Boolean_Names)
+            Integer_Hidden => Context.Integer_Hidden or else Boolean_Hides_Integer (Text, Context.Boolean_Names)
               or else (Context.Mask_First /= 0 and then
                 Name_Is (Text, Context.Mask_First, Context.Mask_After, Integer_Type_Word)), Arrays => Context.Array_Names,
             Initials => Initials, Elaborating => Context.Elaborating));
@@ -2806,7 +2888,7 @@ is
       Overlay : constant Scalar_Expressions.Environment := Reading_Names (Context, Facts);
    begin
       return Expression_At (Text, Position, Context.Names, Overlay,
-         Integer_Hidden => Boolean_Hides_Integer (Text, Context.Boolean_Names)
+         Integer_Hidden => Context.Integer_Hidden or else Boolean_Hides_Integer (Text, Context.Boolean_Names)
            or else (Context.Mask_First /= 0 and then
              Name_Is (Text, Context.Mask_First, Context.Mask_After, Integer_Type_Word)), Arrays => Context.Array_Names,
             Initials => Initials, Elaborating => Context.Elaborating);
@@ -3331,6 +3413,8 @@ is
                begin
                  (if Right_Scalar.After <= Position then Invalid_Condition (Facts)
                   else Scalar_Condition (Text, Context, Position, Operator.After, Facts, Left_Scalar, Right_Scalar, Operator.Operator)))
+            elsif Context.Pure then
+              Boolean_Relation_Model (Text, Context, Position, Facts, Initials)
             else
               (declare Left : constant Expression_Result := Read_String_In_Flow (Text, Context, Position, Facts, Initials => Initials);
                begin
@@ -3967,6 +4051,8 @@ is
          pragma Assert (Static => Valid_Flow (Context, Result.When_True));
          pragma Assert (Static => Valid_Flow (Context, Result.When_False));
          pragma Assert (Static => Result = Expected);
+      elsif Context.Pure then
+         Read_Boolean_Relation_Into (Text, Context, Position, Facts, Result, Initials);
       else
          declare Left : constant Expression_Result := Read_String_In_Flow (Text, Context, Position, Facts, Initials => Initials);
          begin
@@ -4364,6 +4450,11 @@ is
         or else Array_Bindings.Lookup (Text, State.Array_Names.Names, Type_First, Type_After) /= 0
         or else Lookup_Subtype (Text, State.Subtype_Names, Type_First, Type_After) /= 0
         or else Lookup_Boolean (Text, State.Boolean_Names, Type_First, Type_After) /= 0
+           or else Functions.Lookup (Text, State.Functions, Type_First, Type_After) /= 0
+           or else Formal_Hides (Text, State, Type_First, Type_After)
+           or else (State.Hiding.Integer_Hidden and then Name_Is (Text, Type_First, Type_After, "integer"))
+           or else (State.Hiding.Boolean_Hidden and then Name_Is (Text, Type_First, Type_After, "boolean"))
+           or else (State.Hiding.Character_Hidden and then Name_Is (Text, Type_First, Type_After, "character"))
       then return Invalid_State; end if;
       Context.Scalar_Names := State.Scalar_Names;
       Context.Elaborating := True;
@@ -4621,16 +4712,252 @@ is
       return (Scan with delta Position => Value.After, Assigned => True);
    end Boolean_Array_Assignment_Body;
 
-   function Basic_Body
-     (Text : String; Context : Body_Context; Scan : Body_Scan) return Body_Scan
+   function Actual_Model
+     (Text : String; Context : Body_Context; Position : Literal_Position;
+      Facts : Scalar_Flow; Parameter : Functions.Formal) return Literal_Position
+     with Ghost => Static, Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Position <= Text'Last + 1 and then Valid_Context (Text, Context)
+         and then Valid_Flow (Context, Facts),
+       Post => Actual_Model'Result = 0
+         or else Actual_Model'Result in Position + 1 .. Text'Last + 1;
+   function Actual_Model
+     (Text : String; Context : Body_Context; Position : Literal_Position;
+      Facts : Scalar_Flow; Parameter : Functions.Formal) return Literal_Position is
+     (if Parameter.Kind = Functions.Boolean_Kind then
+        Condition_Model (Text, Context, Position, Facts).After
+      else (declare Value : constant Scalar_Expressions.Expression_Result :=
+        Read_Scalar_In_Flow (Text, Context, Position, Facts);
+       begin (if Value.After = 0 or else Scalars.Is_Empty (Value.Bounds)
+          or else not Included (Value.Bounds, Parameter.Bounds)
+         then 0 else Value.After)));
+   function Actual_After
+     (Text : String; Context : Body_Context; Position : Literal_Position;
+      Facts : Scalar_Flow; Parameter : Functions.Formal) return Literal_Position
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Position <= Text'Last + 1 and then Valid_Context (Text, Context)
+         and then Valid_Flow (Context, Facts),
+       Post => (Runtime => Actual_After'Result = 0
+         or else Actual_After'Result in Position + 1 .. Text'Last + 1,
+         Static => Actual_After'Result = Actual_Model (Text, Context, Position, Facts, Parameter));
+   function Actual_After
+     (Text : String; Context : Body_Context; Position : Literal_Position;
+      Facts : Scalar_Flow; Parameter : Functions.Formal) return Literal_Position is
+   begin
+      if Parameter.Kind = Functions.Boolean_Kind then
+         declare Value : Condition_Result (Facts.Count);
+         begin
+            Read_Condition_Into (Text, Context, Position, Facts, Value);
+            return Value.After;
+         end;
+      else
+         declare Value : constant Scalar_Expressions.Expression_Result :=
+           Read_Scalar_In_Flow (Text, Context, Position, Facts);
+         begin
+            return (if Value.After = 0 or else Scalars.Is_Empty (Value.Bounds)
+              or else not Included (Value.Bounds, Parameter.Bounds) then 0 else Value.After);
+         end;
+      end if;
+   end Actual_After;
+   function Actuals_Model
+     (Text : String; Context : Body_Context; Position : Literal_Position;
+      Facts : Scalar_Flow; Catalog : Functions.Metadata;
+      First, Last : Functions.Formal_Index) return Literal_Position
+     with Ghost => Static, Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Position <= Text'Last + 1 and then Valid_Context (Text, Context)
+         and then Valid_Flow (Context, Facts)
+         and then Functions.Valid_Metadata (Text, Catalog)
+         and then First <= Last and then Last <= Catalog.Parameter_Count,
+       Post => Actuals_Model'Result = 0
+         or else Actuals_Model'Result in Position + 1 .. Text'Last + 1,
+       Subprogram_Variant => (Decreases => Last - First);
+   function Actuals_Model
+     (Text : String; Context : Body_Context; Position : Literal_Position;
+      Facts : Scalar_Flow; Catalog : Functions.Metadata;
+      First, Last : Functions.Formal_Index) return Literal_Position is
+     (declare After : constant Literal_Position :=
+        Actual_Model (Text, Context, Position, Facts, Catalog.Parameters (First));
+      begin (if After = 0 then 0
+       elsif First = Last then Take_Token (Text, After, Right_Parenthesis)
+       else Actuals_Model (Text, Context, Take_Token (Text, After, Comma),
+                           Facts, Catalog, First + 1, Last)));
+   function Actuals_After
+     (Text : String; Context : Body_Context; Position : Literal_Position;
+      Facts : Scalar_Flow; Catalog : Functions.Metadata;
+      First, Last : Functions.Formal_Index) return Literal_Position
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Position <= Text'Last + 1 and then Valid_Context (Text, Context)
+         and then Valid_Flow (Context, Facts)
+         and then Functions.Valid_Metadata (Text, Catalog)
+         and then First <= Last and then Last <= Catalog.Parameter_Count,
+       Post => (Runtime => Actuals_After'Result = 0
+         or else Actuals_After'Result in Position + 1 .. Text'Last + 1,
+         Static => Actuals_After'Result =
+           Actuals_Model (Text, Context, Position, Facts, Catalog, First, Last));
+   function Actuals_After
+     (Text : String; Context : Body_Context; Position : Literal_Position;
+      Facts : Scalar_Flow; Catalog : Functions.Metadata;
+      First, Last : Functions.Formal_Index) return Literal_Position is
+      Index : Functions.Formal_Index := First;
+      Cursor : Literal_Position := Position;
+   begin
+      loop
+         pragma Loop_Invariant (Index in First .. Last);
+         pragma Loop_Invariant (Cursor <= Text'Last + 1);
+         pragma Loop_Invariant (Static =>
+           Actuals_Model (Text, Context, Position, Facts, Catalog, First, Last) =
+             Actuals_Model (Text, Context, Cursor, Facts, Catalog, Index, Last));
+         pragma Loop_Variant (Increases => Index);
+         Cursor := Actual_After (Text, Context, Cursor, Facts, Catalog.Parameters (Index));
+         if Cursor = 0 then return 0; end if;
+         if Index = Last then return Take_Token (Text, Cursor, Right_Parenthesis); end if;
+         Cursor := Take_Token (Text, Cursor, Comma);
+         Index := Index + 1;
+      end loop;
+   end Actuals_After;
+   type Call_Result is record
+      After : Literal_Position;
+      Kind : Functions.Scalar_Kind;
+      Bounds : Scalars.Interval;
+   end record;
+   Invalid_Call : constant Call_Result := (0, Functions.Integer_Kind, Scalars.Empty);
+   function Callee_At
+     (Text : String; Context : Body_Context; Position : Literal_Position;
+      Catalog : Functions.Metadata) return Functions.Function_Count
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Position <= Text'Last + 1 and then Valid_Context (Text, Context)
+         and then Functions.Valid_Metadata (Text, Catalog),
+       Post => Callee_At'Result <= Catalog.Count;
+   function Callee_At
+     (Text : String; Context : Body_Context; Position : Literal_Position;
+      Catalog : Functions.Metadata) return Functions.Function_Count is
+     (declare First : constant Literal_Position := Skip_At (Text, Position);
+       After : constant Literal_Position := Name_After (Text, First);
+      begin (if First = 0 or else After <= First
+        or else Lookup_Name (Text, Context.Names, First, After) /= 0
+        or else Scalar_Expressions.Lookup (Text, Context.Scalar_Names, First, After) /= 0
+        or else Lookup_Boolean (Text, Context.Boolean_Names, First, After) /= 0
+        or else Array_Bindings.Lookup (Text, Context.Array_Names, First, After) /= 0
+       then 0 else Functions.Lookup (Text, Catalog, First, After)));
+   function Call_Model
+     (Text : String; Context : Body_Context; Position : Literal_Position;
+      Facts : Scalar_Flow; Catalog : Functions.Metadata) return Call_Result
+     with Ghost => Static, Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Position <= Text'Last + 1 and then Valid_Context (Text, Context)
+         and then Valid_Flow (Context, Facts) and then Functions.Valid_Metadata (Text, Catalog),
+       Post => Call_Model'Result.After = 0
+         or else Call_Model'Result.After in Position + 1 .. Text'Last + 1;
+   function Call_Model
+     (Text : String; Context : Body_Context; Position : Literal_Position;
+      Facts : Scalar_Flow; Catalog : Functions.Metadata) return Call_Result is
+     (declare Callee : constant Functions.Function_Count := Callee_At (Text, Context, Position, Catalog);
+      begin (if Callee = 0 then Invalid_Call
+       else (declare Item : constant Functions.Signature := Catalog.Items (Callee);
+         Start : constant Literal_Position := Take_Token
+           (Text, Name_After (Text, Skip_At (Text, Position)), Left_Parenthesis);
+         After : constant Literal_Position := Actuals_Model
+           (Text, Context, Start, Facts, Catalog, Item.Formal_First, Item.Formal_First + Item.Count - 1);
+        begin (if After <= Position then Invalid_Call
+         else (After, Item.Result_Kind, Item.Result_Bounds)))));
+   function Read_Call
+     (Text : String; Context : Body_Context; Position : Literal_Position;
+      Facts : Scalar_Flow; Catalog : Functions.Metadata) return Call_Result
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Position <= Text'Last + 1 and then Valid_Context (Text, Context)
+         and then Valid_Flow (Context, Facts) and then Functions.Valid_Metadata (Text, Catalog),
+       Post => (Runtime => Read_Call'Result.After = 0
+         or else Read_Call'Result.After in Position + 1 .. Text'Last + 1,
+         Static => Read_Call'Result = Call_Model (Text, Context, Position, Facts, Catalog));
+   function Read_Call
+     (Text : String; Context : Body_Context; Position : Literal_Position;
+      Facts : Scalar_Flow; Catalog : Functions.Metadata) return Call_Result is
+      Callee : constant Functions.Function_Count := Callee_At (Text, Context, Position, Catalog);
+   begin
+      if Callee = 0 then return Invalid_Call; end if;
+      declare Item : constant Functions.Signature := Catalog.Items (Callee);
+         Start : constant Literal_Position := Take_Token
+           (Text, Name_After (Text, Skip_At (Text, Position)), Left_Parenthesis);
+         After : constant Literal_Position := Actuals_After
+           (Text, Context, Start, Facts, Catalog, Item.Formal_First, Item.Formal_First + Item.Count - 1);
+      begin
+         return (if After <= Position then Invalid_Call
+                 else (After, Item.Result_Kind, Item.Result_Bounds));
+      end;
+   end Read_Call;
+   function Call_Assignment_Result
+     (Context : Body_Context; Scan : Body_Scan;
+      Scalar : Scalar_Expressions.Binding_Count; Flag : Boolean_Count;
+      Value : Call_Result) return Body_Scan
+     with Global => null,
+       Pre => Scalar <= Context.Scalar_Names.Count and then Scalar <= Scan.Count
+         and then Flag <= Context.Boolean_Names.Count;
+   function Call_Assignment_Result
+     (Context : Body_Context; Scan : Body_Scan;
+      Scalar : Scalar_Expressions.Binding_Count; Flag : Boolean_Count;
+      Value : Call_Result) return Body_Scan is
+     (if Value.After <= Scan.Position then Invalid_Body (Scan)
+      elsif Scalar /= 0 then
+        (if Value.Kind /= Functions.Integer_Kind
+          or else not Context.Scalar_Names.Items (Scalar).Mutable
+          or else Scalars.Is_Empty (Value.Bounds)
+          or else not Included (Value.Bounds, Context.Scalar_Names.Items (Scalar).Declared_Bounds)
+         then Invalid_Body (Scan)
+         else (Scan with delta Position => Value.After, Assigned => True,
+           Facts => (Scan.Facts with delta Values => (Scan.Facts.Values with delta Scalar => Value.Bounds))))
+      elsif Flag /= 0 and then Context.Boolean_Names.Items (Flag).Mutable
+        and then Value.Kind = Functions.Boolean_Kind
+      then (Scan with delta Position => Value.After, Assigned => True)
+      else Invalid_Body (Scan));
+   function Call_Assignment_Model
+     (Text : String; Context : Body_Context; Scan : Body_Scan;
+      Catalog : Functions.Metadata) return Body_Scan
+     with Ghost => Static, Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_Context (Text, Context) and then Valid_Body (Text, Context, Scan)
+         and then Functions.Valid_Metadata (Text, Catalog);
+   function Call_Assignment_Model
+     (Text : String; Context : Body_Context; Scan : Body_Scan;
+      Catalog : Functions.Metadata) return Body_Scan is
+     (Call_Assignment_Result (Context, Scan, Scalar_Target (Text, Context, Scan.Position),
+       Boolean_Target (Text, Context, Scan.Position), Call_Model
+         (Text, Context, Take_Token (Text, Name_After (Text, Skip_At (Text, Scan.Position)), Assignment),
+          Scan.Facts, Catalog)));
+   function Call_Assignment_Body
+     (Text : String; Context : Body_Context; Scan : Body_Scan;
+      Catalog : Functions.Metadata) return Body_Scan
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_Context (Text, Context) and then Valid_Body (Text, Context, Scan)
+         and then Functions.Valid_Metadata (Text, Catalog),
+       Post => (Runtime => Valid_Body (Text, Context, Call_Assignment_Body'Result)
+         and then (Call_Assignment_Body'Result.Position = 0
+           or else Call_Assignment_Body'Result.Position > Scan.Position),
+         Static => Call_Assignment_Body'Result = Call_Assignment_Model (Text, Context, Scan, Catalog));
+   function Call_Assignment_Body
+     (Text : String; Context : Body_Context; Scan : Body_Scan;
+      Catalog : Functions.Metadata) return Body_Scan is
+     (Call_Assignment_Result (Context, Scan, Scalar_Target (Text, Context, Scan.Position),
+       Boolean_Target (Text, Context, Scan.Position), Read_Call
+         (Text, Context, Take_Token (Text, Name_After (Text, Skip_At (Text, Scan.Position)), Assignment),
+          Scan.Facts, Catalog)));
+
+   function Basic_Body
+     (Text : String; Context : Body_Context; Scan : Body_Scan; Catalog : Functions.Metadata) return Body_Scan
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Functions.Valid_Metadata (Text, Catalog)
          and then Valid_Context (Text, Context) and then Valid_Body (Text, Context, Scan),
        Post => Valid_Body (Text, Context, Basic_Body'Result)
          and then (Basic_Body'Result.Position = 0
            or else Basic_Body'Result.Position > Scan.Position);
    function Basic_Body
-     (Text : String; Context : Body_Context; Scan : Body_Scan) return Body_Scan is
+     (Text : String; Context : Body_Context; Scan : Body_Scan; Catalog : Functions.Metadata) return Body_Scan is
       Result : Body_Scan (Scan.Count) := Scan;
       Value : Expression_Result;
       Target : String_Target_Result;
@@ -4639,7 +4966,7 @@ is
       if Result.Position = 0 then return Invalid_Body (Scan); end if;
       if Take_Token (Text, Result.Position, Null_Keyword) /= 0 then
          Result := Body_Token (Text, Context, Result, Null_Keyword);
-      elsif Call_After (Text, Context.Names, Result.Position, Names.Output_Call, Context.Scalar_Names, Context.Array_Names, Context.Subtype_Hiding (Names.Output_Call), Context.Boolean_Names) /= 0 then
+      elsif not Context.Pure and then Call_After (Text, Context.Names, Result.Position, Names.Output_Call, Context.Scalar_Names, Context.Array_Names, Context.Subtype_Hiding (Names.Output_Call), Context.Boolean_Names) /= 0 then
          Result.Position := Call_After (Text, Context.Names, Result.Position, Names.Output_Call, Context.Scalar_Names, Context.Array_Names, Context.Subtype_Hiding (Names.Output_Call), Context.Boolean_Names);
          Result := Body_Token (Text, Context, Result, Left_Parenthesis);
          Result.Position := Names.Association_After (Text, Result.Position, False);
@@ -4650,7 +4977,7 @@ is
          Result.Position := Value.After;
          Result := Body_Token (Text, Context, Result, Right_Parenthesis);
          Result.Output := True;
-      elsif Call_After (Text, Context.Names, Result.Position, Names.Partial_Output_Call, Context.Scalar_Names, Context.Array_Names, Context.Subtype_Hiding (Names.Partial_Output_Call), Context.Boolean_Names) /= 0 then
+      elsif not Context.Pure and then Call_After (Text, Context.Names, Result.Position, Names.Partial_Output_Call, Context.Scalar_Names, Context.Array_Names, Context.Subtype_Hiding (Names.Partial_Output_Call), Context.Boolean_Names) /= 0 then
          Result.Position := Call_After (Text, Context.Names, Result.Position, Names.Partial_Output_Call, Context.Scalar_Names, Context.Array_Names, Context.Subtype_Hiding (Names.Partial_Output_Call), Context.Boolean_Names);
          Result := Body_Token (Text, Context, Result, Left_Parenthesis);
          Result.Position := Names.Association_After (Text, Result.Position, False);
@@ -4667,15 +4994,25 @@ is
          Result.Position := Call_After (Text, Context.Names, Result.Position, Names.Reject_Call, Context.Scalar_Names, Context.Array_Names, Context.Subtype_Hiding (Names.Reject_Call), Context.Boolean_Names);
          Result.Facts.Path := Paths.Rejected (Result.Facts.Path);
       elsif Scalar_Target (Text, Context, Result.Position) /= 0 then
-         Result := Scalar_Assignment_Body (Text, Context, Result);
-      elsif Array_Target (Text, Context, Result.Position) /= 0 then
+         declare Called : constant Body_Scan := Call_Assignment_Body (Text, Context, Result, Catalog);
+         begin
+            Result := (if Called.Position /= 0 then Called
+                       else Scalar_Assignment_Body (Text, Context, Result));
+         end;
+      elsif not Context.Pure and then Array_Target (Text, Context, Result.Position) /= 0 then
          if Context.Array_Names.Items (Array_Target (Text, Context, Result.Position)).Boolean_Elements then
             Result := Boolean_Array_Assignment_Body (Text, Context, Result);
          else
             Result := Array_Assignment_Body (Text, Context, Result);
          end if;
       elsif Boolean_Target (Text, Context, Result.Position) /= 0 then
-         Result := Boolean_Assignment_Body (Text, Context, Result);
+         declare Called : constant Body_Scan := Call_Assignment_Body (Text, Context, Result, Catalog);
+         begin
+            Result := (if Called.Position /= 0 then Called
+                       else Boolean_Assignment_Body (Text, Context, Result));
+         end;
+      elsif Context.Pure then
+         return Invalid_Body (Scan);
       else
          Target := Body_String_Target (Text, Context, Result.Position);
          Result.Position := Target.After;
@@ -4724,6 +5061,7 @@ is
    function At_Body_Stop (Text : String; Position : Literal_Position; Stop : Body_Stop)
       return Boolean is
      (case Stop is
+        when Return_Only => Take_Token (Text, Position, Return_Keyword) /= 0,
         when End_Only => Take_Token (Text, Position, End_Keyword) /= 0,
         when Else_Only => Take_Token (Text, Position, Else_Keyword) /= 0,
         when Arm_Boundary => Take_Token (Text, Position, Elsif_Keyword) /= 0
@@ -4731,36 +5069,40 @@ is
           or else Take_Token (Text, Position, End_Keyword) /= 0);
 
    function Statement_Body
-     (Text : String; Context : Body_Context; Scan : Body_Scan) return Body_Scan
+     (Text : String; Context : Body_Context; Scan : Body_Scan; Catalog : Functions.Metadata) return Body_Scan
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Functions.Valid_Metadata (Text, Catalog)
          and then Valid_Context (Text, Context) and then Valid_Body (Text, Context, Scan),
        Post => Valid_Body (Text, Context, Statement_Body'Result)
          and then (Statement_Body'Result.Position = 0
            or else Statement_Body'Result.Position > Scan.Position),
        Subprogram_Variant => (Decreases => (Text'Last + 1) - Scan.Position, Decreases => 2);
    function Loop_Body
-     (Text : String; Context : Body_Context; Scan : Body_Scan) return Body_Scan
+     (Text : String; Context : Body_Context; Scan : Body_Scan; Catalog : Functions.Metadata) return Body_Scan
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Functions.Valid_Metadata (Text, Catalog)
          and then Valid_Context (Text, Context) and then Valid_Body (Text, Context, Scan),
        Post => Valid_Body (Text, Context, Loop_Body'Result)
          and then (Loop_Body'Result.Position = 0
            or else Loop_Body'Result.Position > Scan.Position),
        Subprogram_Variant => (Decreases => (Text'Last + 1) - Scan.Position, Decreases => 1);
    function Conditional_Body
-     (Text : String; Context : Body_Context; Scan : Body_Scan) return Body_Scan
+     (Text : String; Context : Body_Context; Scan : Body_Scan; Catalog : Functions.Metadata) return Body_Scan
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Functions.Valid_Metadata (Text, Catalog)
          and then Valid_Context (Text, Context) and then Valid_Body (Text, Context, Scan),
        Post => Valid_Body (Text, Context, Conditional_Body'Result)
          and then (Conditional_Body'Result.Position = 0
            or else Conditional_Body'Result.Position > Scan.Position),
        Subprogram_Variant => (Decreases => (Text'Last + 1) - Scan.Position, Decreases => 1);
    function Alternative_Body
-     (Text : String; Context : Body_Context; Scan : Body_Scan) return Body_Scan
+     (Text : String; Context : Body_Context; Scan : Body_Scan; Catalog : Functions.Metadata) return Body_Scan
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Functions.Valid_Metadata (Text, Catalog)
          and then Valid_Context (Text, Context) and then Valid_Body (Text, Context, Scan),
        Post => Valid_Body (Text, Context, Alternative_Body'Result)
          and then (Alternative_Body'Result.Position = 0
@@ -4768,37 +5110,39 @@ is
        Subprogram_Variant => (Decreases => (Text'Last + 1) - Scan.Position, Decreases => 1);
 
    function Body_Tail_Model
-     (Text : String; Context : Body_Context; Scan : Body_Scan; Stop : Body_Stop)
+     (Text : String; Context : Body_Context; Scan : Body_Scan; Stop : Body_Stop; Catalog : Functions.Metadata)
       return Body_Scan
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Functions.Valid_Metadata (Text, Catalog)
          and then Valid_Context (Text, Context) and then Valid_Body (Text, Context, Scan),
        Post => Valid_Body (Text, Context, Body_Tail_Model'Result)
          and then (Body_Tail_Model'Result.Position = 0
            or else Body_Tail_Model'Result.Position >= Scan.Position),
        Subprogram_Variant => (Decreases => (Text'Last + 1) - Scan.Position, Decreases => 3);
    function Body_Tail_Model
-     (Text : String; Context : Body_Context; Scan : Body_Scan; Stop : Body_Stop)
+     (Text : String; Context : Body_Context; Scan : Body_Scan; Stop : Body_Stop; Catalog : Functions.Metadata)
       return Body_Scan is
      (if Scan.Position = 0 then Invalid_Body_Model (Scan)
       elsif At_Body_Stop (Text, Scan.Position, Stop) then Scan
       else
-        (declare Result : constant Body_Scan (Scan.Count) := Statement_Body (Text, Context, Scan);
+        (declare Result : constant Body_Scan (Scan.Count) := Statement_Body (Text, Context, Scan, Catalog);
          begin (if Result.Position <= Scan.Position then Invalid_Body_Model (Result)
-           else Body_Tail_Model (Text, Context, Result, Stop))));
+           else Body_Tail_Model (Text, Context, Result, Stop, Catalog))));
    function Body_Tail
-     (Text : String; Context : Body_Context; Scan : Body_Scan; Stop : Body_Stop)
+     (Text : String; Context : Body_Context; Scan : Body_Scan; Stop : Body_Stop; Catalog : Functions.Metadata)
       return Body_Scan
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Functions.Valid_Metadata (Text, Catalog)
          and then Valid_Context (Text, Context) and then Valid_Body (Text, Context, Scan),
        Post => (Runtime => Valid_Body (Text, Context, Body_Tail'Result)
          and then (Body_Tail'Result.Position = 0 or else Body_Tail'Result.Position >= Scan.Position),
-         Static => Body_Tail'Result = Body_Tail_Model (Text, Context, Scan, Stop)),
+         Static => Body_Tail'Result = Body_Tail_Model (Text, Context, Scan, Stop, Catalog)),
        --  The executable wrapper also calls its rank-3 ghost model in contracts.
        Subprogram_Variant => (Decreases => (Text'Last + 1) - Scan.Position, Decreases => 4);
    function Body_Tail
-     (Text : String; Context : Body_Context; Scan : Body_Scan; Stop : Body_Stop)
+     (Text : String; Context : Body_Context; Scan : Body_Scan; Stop : Body_Stop; Catalog : Functions.Metadata)
       return Body_Scan is
       Result : Body_Scan (Scan.Count) := Scan;
       Before : Literal_Position;
@@ -4806,56 +5150,56 @@ is
       while Result.Position /= 0 and then not At_Body_Stop (Text, Result.Position, Stop) loop
          pragma Loop_Invariant (Valid_Body (Text, Context, Result));
          pragma Loop_Invariant (Result.Position >= Scan.Position);
-         pragma Loop_Invariant (Static => Body_Tail_Model (Text, Context, Scan, Stop)
-           = Body_Tail_Model (Text, Context, Result, Stop));
+         pragma Loop_Invariant (Static => Body_Tail_Model (Text, Context, Scan, Stop, Catalog)
+           = Body_Tail_Model (Text, Context, Result, Stop, Catalog));
          pragma Loop_Variant (Increases => Result.Position);
          declare
             --  Keep the model step in an ordinary ghost declaration: the
             --  pinned translator rejects this local inside a declare-expression.
             Next : constant Body_Scan (Scan.Count) :=
-              Statement_Body (Text, Context, Result) with Ghost => Static;
+              Statement_Body (Text, Context, Result, Catalog) with Ghost => Static;
             --  Numeric-variant recursive model bodies are available on ordinary
             --  ghost calls, but not on calls occurring inside assertions.
             Tail : constant Body_Scan (Scan.Count) :=
-              Body_Tail_Model (Text, Context, Result, Stop) with Ghost => Static;
+              Body_Tail_Model (Text, Context, Result, Stop, Catalog) with Ghost => Static;
          begin
             --  The same Statement_Body application supplies the executable step.
             pragma Assert
-              (Static => Tail = Body_Tail_Model (Text, Context, Result, Stop)
+              (Static => Tail = Body_Tail_Model (Text, Context, Result, Stop, Catalog)
                 and then Tail =
                 (if Next.Position <= Result.Position then Invalid_Body_Model (Next)
-                 else Body_Tail_Model (Text, Context, Next, Stop)));
+                 else Body_Tail_Model (Text, Context, Next, Stop, Catalog)));
             Before := Result.Position;
-            Result := Statement_Body (Text, Context, Result);
+            Result := Statement_Body (Text, Context, Result, Catalog);
             pragma Assert
-              (Static => Body_Tail_Model (Text, Context, Scan, Stop) =
+              (Static => Body_Tail_Model (Text, Context, Scan, Stop, Catalog) =
                 (if Result.Position <= Before then Invalid_Body_Model (Result)
-                 else Body_Tail_Model (Text, Context, Result, Stop)));
+                 else Body_Tail_Model (Text, Context, Result, Stop, Catalog)));
             if Result.Position <= Before then
                pragma Assert
                  (Static => Invalid_Body (Result) =
-                    Body_Tail_Model (Text, Context, Scan, Stop));
+                    Body_Tail_Model (Text, Context, Scan, Stop, Catalog));
                return Invalid_Body (Result);
             end if;
          end;
       end loop;
       declare
          Original_Tail : constant Body_Scan (Scan.Count) :=
-           Body_Tail_Model (Text, Context, Scan, Stop) with Ghost => Static;
+           Body_Tail_Model (Text, Context, Scan, Stop, Catalog) with Ghost => Static;
          Tail : constant Body_Scan (Scan.Count) :=
-           Body_Tail_Model (Text, Context, Result, Stop) with Ghost => Static;
+           Body_Tail_Model (Text, Context, Result, Stop, Catalog) with Ghost => Static;
       begin
          pragma Assert (Static => Original_Tail = Tail);
          if Result.Position = 0 then
             pragma Assert
-              (Static => Tail = Body_Tail_Model (Text, Context, Result, Stop)
+              (Static => Tail = Body_Tail_Model (Text, Context, Result, Stop, Catalog)
                 and then Tail = Invalid_Body_Model (Result));
             pragma Assert
               (Static => Invalid_Body (Result) =
-                 Body_Tail_Model (Text, Context, Scan, Stop));
+                 Body_Tail_Model (Text, Context, Scan, Stop, Catalog));
             return Invalid_Body (Result);
          end if;
-         pragma Assert (Static => Tail = Body_Tail_Model (Text, Context, Result, Stop)
+         pragma Assert (Static => Tail = Body_Tail_Model (Text, Context, Result, Stop, Catalog)
            and then Tail = Result);
          --  Expose transitive equality of the interval array separately from
          --  the surrounding scan fields before discharging model equality.
@@ -4863,43 +5207,44 @@ is
          Lemma_Flow_Equality (Tail.Facts, Result.Facts);
          pragma Assert (Static => Original_Tail = Result);
          pragma Assert
-           (Static => Result = Body_Tail_Model (Text, Context, Scan, Stop));
+           (Static => Result = Body_Tail_Model (Text, Context, Scan, Stop, Catalog));
          return Result;
       end;
    end Body_Tail;
 
    function Read_Body
-     (Text : String; Context : Body_Context; Scan : Body_Scan; Stop : Body_Stop)
+     (Text : String; Context : Body_Context; Scan : Body_Scan; Stop : Body_Stop; Catalog : Functions.Metadata)
       return Body_Scan
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Functions.Valid_Metadata (Text, Catalog)
          and then Valid_Context (Text, Context) and then Valid_Body (Text, Context, Scan),
        Post => (Runtime => Valid_Body (Text, Context, Read_Body'Result)
          and then (Read_Body'Result.Position = 0
            or else Read_Body'Result.Position > Scan.Position),
          Static => Read_Body'Result =
-           (if Statement_Body (Text, Context, Scan).Position = 0 then Invalid_Body (Statement_Body (Text, Context, Scan))
-            else Body_Tail_Model (Text, Context, Statement_Body (Text, Context, Scan), Stop))),
+           (if Statement_Body (Text, Context, Scan, Catalog).Position = 0 then Invalid_Body (Statement_Body (Text, Context, Scan, Catalog))
+            else Body_Tail_Model (Text, Context, Statement_Body (Text, Context, Scan, Catalog), Stop, Catalog))),
        Subprogram_Variant => (Decreases => (Text'Last + 1) - Scan.Position, Decreases => 3);
    function Read_Body
-     (Text : String; Context : Body_Context; Scan : Body_Scan; Stop : Body_Stop)
+     (Text : String; Context : Body_Context; Scan : Body_Scan; Stop : Body_Stop; Catalog : Functions.Metadata)
       return Body_Scan is
-      Result : constant Body_Scan (Scan.Count) := Statement_Body (Text, Context, Scan);
+      Result : constant Body_Scan (Scan.Count) := Statement_Body (Text, Context, Scan, Catalog);
    begin
       if Result.Position = 0 then return Invalid_Body (Result); end if;
-      return Body_Tail (Text, Context, Result, Stop);
+      return Body_Tail (Text, Context, Result, Stop, Catalog);
    end Read_Body;
 
    function Statement_Body
-     (Text : String; Context : Body_Context; Scan : Body_Scan) return Body_Scan is
+     (Text : String; Context : Body_Context; Scan : Body_Scan; Catalog : Functions.Metadata) return Body_Scan is
      (if Scan.Position = 0 then Invalid_Body (Scan)
       elsif Take_Token (Text, Scan.Position, If_Keyword) /= 0
-      then Conditional_Body (Text, Context, Scan)
+      then Conditional_Body (Text, Context, Scan, Catalog)
       elsif Take_Token (Text, Scan.Position, For_Keyword) /= 0
-      then Loop_Body (Text, Context, Scan) else Basic_Body (Text, Context, Scan));
+      then Loop_Body (Text, Context, Scan, Catalog) else Basic_Body (Text, Context, Scan, Catalog));
 
    function Loop_Body
-     (Text : String; Context : Body_Context; Scan : Body_Scan) return Body_Scan is
+     (Text : String; Context : Body_Context; Scan : Body_Scan; Catalog : Functions.Metadata) return Body_Scan is
       Result : Body_Scan (Scan.Count) := Body_Token (Text, Context, Scan, For_Keyword);
       First : constant Literal_Position := Skip_At (Text, Result.Position);
       After : constant Literal_Position := Name_After (Text, First);
@@ -4997,7 +5342,7 @@ is
            Included (Inner_Scan.Facts.Values (Inner_Scan.Count),
                      Inner.Scalar_Names.Items (Inner_Scan.Count).Bounds));
          pragma Assert (Static => Valid_Flow (Inner, Inner_Scan.Facts));
-         Inner_Scan := Read_Body (Text, Inner, Inner_Scan, End_Only);
+         Inner_Scan := Read_Body (Text, Inner, Inner_Scan, End_Only, Catalog);
          if Inner_Scan.Position <= Scan.Position then return Invalid_Body (Scan); end if;
          Result.Position := Inner_Scan.Position;
          Result.Target := Inner_Scan.Target;
@@ -5021,7 +5366,7 @@ is
    end Loop_Body;
 
    function Conditional_Body
-     (Text : String; Context : Body_Context; Scan : Body_Scan) return Body_Scan is
+     (Text : String; Context : Body_Context; Scan : Body_Scan; Catalog : Functions.Metadata) return Body_Scan is
       Result : Body_Scan (Scan.Count) := Body_Token (Text, Context, Scan, If_Keyword);
       Condition : Condition_Result (Scan.Count);
       Yes : Scalar_Flow (Scan.Count);
@@ -5031,12 +5376,12 @@ is
       Result.Facts := Condition.When_True;
       Result := Body_Token (Text, Context, Result, Then_Keyword);
       if Result.Position <= Scan.Position then return Invalid_Body (Scan); end if;
-      Result := Read_Body (Text, Context, Result, Arm_Boundary);
+      Result := Read_Body (Text, Context, Result, Arm_Boundary, Catalog);
       if Result.Position <= Scan.Position then return Invalid_Body (Scan); end if;
       Yes := Result.Facts;
       pragma Assert (Static => Valid_Flow (Context, Yes));
       Result.Facts := Condition.When_False;
-      Result := Alternative_Body (Text, Context, Result);
+      Result := Alternative_Body (Text, Context, Result, Catalog);
       pragma Assert (Static => Valid_Flow (Context, Result.Facts));
       Lemma_Joined_Flow (Context, Result.Facts, Yes);
       Join_Into (Result.Facts, Yes);
@@ -5049,7 +5394,7 @@ is
    end Conditional_Body;
 
    function Alternative_Body
-     (Text : String; Context : Body_Context; Scan : Body_Scan) return Body_Scan is
+     (Text : String; Context : Body_Context; Scan : Body_Scan; Catalog : Functions.Metadata) return Body_Scan is
       Result : Body_Scan (Scan.Count) := Scan;
       Condition : Condition_Result (Scan.Count);
       Yes : Scalar_Flow (Scan.Count);
@@ -5062,12 +5407,12 @@ is
          Result.Facts := Condition.When_True;
          Result := Body_Token (Text, Context, Result, Then_Keyword);
          if Result.Position <= Scan.Position then return Invalid_Body (Scan); end if;
-         Result := Read_Body (Text, Context, Result, Arm_Boundary);
+         Result := Read_Body (Text, Context, Result, Arm_Boundary, Catalog);
          if Result.Position <= Scan.Position then return Invalid_Body (Scan); end if;
          Yes := Result.Facts;
          pragma Assert (Static => Valid_Flow (Context, Yes));
          Result.Facts := Condition.When_False;
-         Result := Alternative_Body (Text, Context, Result);
+         Result := Alternative_Body (Text, Context, Result, Catalog);
          pragma Assert (Static => Valid_Flow (Context, Result.Facts));
          Lemma_Joined_Flow (Context, Result.Facts, Yes);
          Join_Into (Result.Facts, Yes);
@@ -5076,13 +5421,281 @@ is
       elsif Take_Token (Text, Scan.Position, Else_Keyword) /= 0 then
          Result := Body_Token (Text, Context, Result, Else_Keyword);
          if Result.Position <= Scan.Position then return Invalid_Body (Scan); end if;
-         return Read_Body (Text, Context, Result, End_Only);
+         return Read_Body (Text, Context, Result, End_Only, Catalog);
       elsif Take_Token (Text, Scan.Position, End_Keyword) /= 0 then
          return Scan;
       else
          return Invalid_Body (Scan);
       end if;
    end Alternative_Body;
+
+   function Hidden_Word (Text : String; State : Parser_State; Word : String) return Boolean is
+     (Function_Hides (Text, State.Functions, Word)
+      or else (for some I in 1 .. State.Names.Count =>
+        Name_Is (Text, State.Names.Items (I).First, State.Names.Items (I).After, Word))
+      or else (for some I in 1 .. State.Scalar_Names.Count =>
+        Name_Is (Text, State.Scalar_Names.Items (I).First, State.Scalar_Names.Items (I).After, Word))
+      or else (for some I in 1 .. State.Boolean_Names.Count =>
+        Name_Is (Text, State.Boolean_Names.Items (I).First, State.Boolean_Names.Items (I).After, Word))
+      or else (for some I in 1 .. State.Array_Names.Names.Count =>
+        Name_Is (Text, State.Array_Names.Names.Items (I).First, State.Array_Names.Names.Items (I).After, Word))
+      or else (for some I in 1 .. State.Subtype_Names.Count =>
+        Name_Is (Text, State.Subtype_Names.Items (I).First, State.Subtype_Names.Items (I).After, Word)))
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_State (Text, State);
+   function Hidden_Outer (Text : String; State : Parser_State) return Hidden_Marks is
+     (Integer_Hidden => State.Hiding.Integer_Hidden or Hidden_Word (Text, State, "integer"),
+      Boolean_Hidden => State.Hiding.Boolean_Hidden or Hidden_Word (Text, State, "boolean"),
+      Character_Hidden => State.Hiding.Character_Hidden or Hidden_Word (Text, State, "character"),
+      True_Hidden => State.Hiding.True_Hidden or Hidden_Word (Text, State, "true"),
+      False_Hidden => State.Hiding.False_Hidden or Hidden_Word (Text, State, "false"))
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_State (Text, State);
+   function Hide_Name
+     (Text : String; Hiding : Hidden_Marks; First, After : Literal_Position)
+      return Hidden_Marks is
+     (Integer_Hidden => Hiding.Integer_Hidden or Name_Is (Text, First, After, "integer"),
+      Boolean_Hidden => Hiding.Boolean_Hidden or Name_Is (Text, First, After, "boolean"),
+      Character_Hidden => Hiding.Character_Hidden or Name_Is (Text, First, After, "character"),
+      True_Hidden => Hiding.True_Hidden or Name_Is (Text, First, After, "true"),
+      False_Hidden => Hiding.False_Hidden or Name_Is (Text, First, After, "false"))
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then First <= Text'Last + 1 and then After <= Text'Last + 1;
+   type Function_Type_Result is record
+      After : Literal_Position;
+      Kind : Functions.Scalar_Kind;
+      Bounds : Scalars.Interval;
+   end record;
+   function Function_Type_At
+     (Text : String; State : Parser_State; Position : Literal_Position) return Function_Type_Result
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Position <= Text'Last + 1 and then Valid_State (Text, State),
+       Post => Function_Type_At'Result.After = 0
+         or else (Function_Type_At'Result.After in Position + 1 .. Text'Last + 1
+           and then not Scalars.Is_Empty (Function_Type_At'Result.Bounds));
+   function Function_Type_At
+     (Text : String; State : Parser_State; Position : Literal_Position) return Function_Type_Result is
+     (declare Integer_Type : constant Scalar_Constraint_Result := Scalar_Type_At (Text, State, Position);
+       First : constant Literal_Position := Skip_At (Text, Position);
+       After : constant Literal_Position := Take_Token (Text, First, Boolean_Name);
+      begin (if Integer_Type.After /= 0 then
+        (Integer_Type.After, Functions.Integer_Kind, Integer_Type.Bounds)
+       elsif After = 0 or else State.Hiding.Boolean_Hidden
+         or else Lookup_Name (Text, State.Names, First, After) /= 0
+         or else Scalar_Expressions.Lookup (Text, State.Scalar_Names, First, After) /= 0
+         or else Lookup_Boolean (Text, State.Boolean_Names, First, After) /= 0
+         or else Lookup_Subtype (Text, State.Subtype_Names, First, After) /= 0
+         or else Array_Bindings.Lookup (Text, State.Array_Names.Names, First, After) /= 0
+         or else Functions.Lookup (Text, State.Functions, First, After) /= 0
+         or else Formal_Hides (Text, State, First, After)
+       then (0, Functions.Integer_Kind, Scalars.Empty)
+       else (After, Functions.Boolean_Kind, Scalars.Full)));
+   function Parameters_At
+     (Text : String; State : Parser_State; Arguments : Boolean) return Parser_State
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_State (Text, State),
+       Post => Valid_State (Text, Parameters_At'Result)
+         and then (Parameters_At'Result.Position = 0
+           or else Parameters_At'Result.Position > State.Position),
+       Subprogram_Variant => (Decreases => (Text'Last + 1) - State.Position);
+   function Parameters_At
+     (Text : String; State : Parser_State; Arguments : Boolean) return Parser_State is
+     (declare First : constant Literal_Position := Skip_At (Text, State.Position);
+       After : constant Literal_Position := Name_After (Text, First);
+       Start : constant Literal_Position := Take_Token (Text, Take_Token (Text, After, Colon), In_Keyword);
+       Value : constant Function_Type_Result := Function_Type_At (Text, State, Start);
+      begin (if not New_Name_Allowed (Text, State, First, After, Arguments)
+        or else Start = 0 or else Value.After <= State.Position
+        or else State.Functions.Parameter_Count = Functions.Max_Formals
+        or else Equal_Name (Text, First, After, Skip_At (Text, Start), Value.After)
+       then Invalid_State
+       else (declare Next : constant Parser_State :=
+         (State with delta Position => Value.After,
+          Functions => Functions.Append_Formal (State.Functions, (First, After, Value.Kind, Value.Bounds)),
+          Hiding => Hide_Name (Text, State.Hiding, First, After));
+        Separator : constant Literal_Position := Take_Token (Text, Value.After, Semicolon);
+        Close : constant Literal_Position := Take_Token (Text, Value.After, Right_Parenthesis);
+        begin (if Close /= 0 then (Next with delta Position => Close)
+         elsif Separator > State.Position then Parameters_At (Text, (Next with delta Position => Separator), Arguments)
+         else Invalid_State))));
+   function Function_Locals
+     (Text : String; State : Parser_State; Arguments : Boolean) return Parser_State
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_State (Text, State),
+       Post => Valid_State (Text, Function_Locals'Result),
+       Subprogram_Variant => (Decreases => (Text'Last + 1) - State.Position);
+   function Function_Locals
+     (Text : String; State : Parser_State; Arguments : Boolean) return Parser_State is
+     (if State.Position = 0 then Invalid_State
+      elsif Take_Token (Text, State.Position, Begin_Keyword) /= 0 then State
+      else (declare Scalar : constant Parser_State := Scalar_Declaration_At (Text, State, Arguments);
+        Flag : constant Parser_State := Boolean_Declaration_At (Text, State, Arguments);
+        Next : constant Parser_State := (if Scalar.Position /= 0 then Scalar else Flag);
+       begin (if Next.Position <= State.Position then Invalid_State
+        else Function_Locals (Text, Next, Arguments))));
+   function Append_Parameter (Frame : Parser_State; Parameter : Functions.Formal) return Parser_State is
+     (if Parameter.Kind = Functions.Integer_Kind then
+        (if Frame.Scalar_Names.Count = Scalar_Expressions.Max_Bindings then Invalid_State
+         else (Frame with delta Scalar_Names => Scalar_Expressions.Append
+           (Frame.Scalar_Names, (Parameter.First, Parameter.After, Parameter.Bounds,
+                               False, Parameter.Bounds, False))))
+      else (if Frame.Boolean_Names.Count = Max_Boolean_Bindings then Invalid_State
+       else (Frame with delta Boolean_Names =>
+         (Count => Frame.Boolean_Names.Count + 1,
+          Items => (Frame.Boolean_Names.Items with delta Frame.Boolean_Names.Count + 1 =>
+            (Parameter.First, Parameter.After, False))))))
+     with Global => null;
+   subtype Parameter_Cursor is Positive range 1 .. Functions.Max_Formals + 1;
+   function Parameter_Frame_Model
+     (Frame : Parser_State; Index : Parameter_Cursor) return Parser_State
+     with Ghost => Static, Global => null,
+       Pre => Index <= Frame.Functions.Parameter_Count + 1,
+       Subprogram_Variant => (Decreases => Functions.Max_Formals + 1 - Index);
+   function Parameter_Frame_Model
+     (Frame : Parser_State; Index : Parameter_Cursor) return Parser_State is
+     (if Frame.Position = 0 then Invalid_State
+      elsif Index > Frame.Functions.Parameter_Count then Frame
+      else (declare Next : constant Parser_State := Append_Parameter (Frame, Frame.Functions.Parameters (Index));
+       begin (if Next.Position = 0 then Invalid_State
+              else Parameter_Frame_Model (Next, Index + 1))));
+   function Parameter_Frame (Text : String; Frame : Parser_State) return Parser_State
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_State (Text, Frame) and then Frame.First_Parameter > 0,
+       Post => (Runtime => Valid_State (Text, Parameter_Frame'Result),
+         Static => Parameter_Frame'Result = Parameter_Frame_Model (Frame, Frame.First_Parameter));
+   function Parameter_Frame (Text : String; Frame : Parser_State) return Parser_State is
+      Result : Parser_State := Frame;
+      Index : Parameter_Cursor := Frame.First_Parameter;
+   begin
+      while Index <= Frame.Functions.Parameter_Count loop
+         pragma Loop_Invariant (Index in Frame.First_Parameter .. Frame.Functions.Parameter_Count + 1);
+         pragma Loop_Invariant (Result.Functions = Frame.Functions);
+         pragma Loop_Invariant (Valid_State (Text, Result));
+         pragma Loop_Invariant (Static => Parameter_Frame_Model (Frame, Frame.First_Parameter) =
+           Parameter_Frame_Model (Result, Index));
+         pragma Loop_Variant (Increases => Index);
+         Result := Append_Parameter (Result, Frame.Functions.Parameters (Index));
+         if Result.Position = 0 then return Invalid_State; end if;
+         Index := Index + 1;
+      end loop;
+      return Result;
+   end Parameter_Frame;
+   function Function_Return_After
+     (Text : String; Context : Body_Context; Scan : Body_Scan;
+      Result_Type : Function_Type_Result) return Literal_Position
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_Context (Text, Context) and then Valid_Body (Text, Context, Scan),
+       Post => Function_Return_After'Result = 0
+         or else Function_Return_After'Result in Scan.Position + 1 .. Text'Last + 1;
+   function Function_Return_After
+     (Text : String; Context : Body_Context; Scan : Body_Scan;
+      Result_Type : Function_Type_Result) return Literal_Position is
+      Start : constant Literal_Position := Take_Token (Text, Scan.Position, Return_Keyword);
+   begin
+      return Actual_After (Text, Context, Start, Scan.Facts,
+                           (0, 0, Result_Type.Kind, Result_Type.Bounds));
+   end Function_Return_After;
+   function Function_Body_At
+     (Text : String; Outer : Parser_State; Frame : Parser_State;
+      First, After : Literal_Position; Result_Type : Function_Type_Result;
+      Arguments : Boolean) return Parser_State
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_State (Text, Outer) and then Valid_State (Text, Frame)
+         and then Frame.First_Parameter > 0
+         and then Frame.First_Parameter <= Frame.Functions.Parameter_Count
+         and then Frame.Functions.Count < Functions.Max_Functions
+         and then Valid_Name_State (Text, First, After) and then First > 0
+         and then not Scalars.Is_Empty (Result_Type.Bounds),
+       Post => Valid_State (Text, Function_Body_At'Result)
+         and then (Function_Body_At'Result.Position = 0
+           or else Function_Body_At'Result.Position > Outer.Position);
+   function Function_Body_At
+     (Text : String; Outer : Parser_State; Frame : Parser_State;
+      First, After : Literal_Position; Result_Type : Function_Type_Result;
+      Arguments : Boolean) return Parser_State is
+      Locals : constant Parser_State := Function_Locals (Text, Frame, Arguments);
+   begin
+      if Locals.Position = 0 then return Invalid_State; end if;
+      declare Bound : constant Parser_State := Parameter_Frame (Text, Locals);
+      begin
+         if Bound.Position = 0 then return Invalid_State; end if;
+         declare
+            Start : constant Parser_State := (Bound with delta Position => Take_Token (Text, Bound.Position, Begin_Keyword));
+            Context : constant Body_Context := (Context_Of ((Start, False, False))
+              with delta Declaration_Count => Locals.Scalar_Names.Count);
+            Body_Result : constant Body_Scan := Body_Tail
+              (Text, Context, Body_Of ((Start, False, False)), Return_Only, Frame.Functions);
+            Return_End : constant Literal_Position := Function_Return_After (Text, Context, Body_Result, Result_Type);
+            End_First : constant Literal_Position := Skip_At (Text,
+              Take_Token (Text, Take_Token (Text, Return_End, Semicolon), End_Keyword));
+            End_After : constant Literal_Position := Name_After (Text, End_First);
+            Following : constant Literal_Position := Take_Token (Text, End_After, Semicolon);
+         begin
+            if Body_Result.Position = 0 or else Return_End = 0
+              or else not Equal_Name (Text, First, After, End_First, End_After)
+              or else Following <= Outer.Position
+            then return Invalid_State; end if;
+            return (Outer with delta Position => Following,
+              Functions => Functions.Append (Frame.Functions,
+                (First, After, Frame.First_Parameter,
+                 Frame.Functions.Parameter_Count - Frame.First_Parameter + 1,
+                 Result_Type.Kind, Result_Type.Bounds)),
+              Hiding => Hide_Name (Text, Outer.Hiding, First, After),
+              Assigned_In_Functions => Outer.Assigned_In_Functions or Body_Result.Assigned,
+              Subtype_Names => (Outer.Subtype_Names with delta Hidden_Calls =>
+                (for Operation in Names.Operation_Kind =>
+                  Outer.Subtype_Names.Hidden_Calls (Operation) or else
+                    Name_Is (Text, First, After,
+                      (case Operation is
+                        when Names.Output_Call => "put_line",
+                        when Names.Partial_Output_Call => "put",
+                        when Names.Argument_Call => "first_or_default",
+                        when Names.Validity_Call => "input_is_valid",
+                        when Names.Reject_Call => "reject")))));
+         end;
+      end;
+   end Function_Body_At;
+   function Function_Declaration_At
+     (Text : String; State : Parser_State; Arguments : Boolean) return Parser_State is
+      Start : constant Literal_Position := Take_Token (Text, State.Position, Function_Keyword);
+      First : constant Literal_Position := Skip_At (Text, Start);
+      After : constant Literal_Position := Name_After (Text, First);
+      Open : constant Literal_Position := Take_Token (Text, After, Left_Parenthesis);
+   begin
+      if Start = 0 or else Open = 0 or else State.Pure
+        or else not New_Name_Allowed (Text, State, First, After, Arguments)
+        or else State.Functions.Count = Functions.Max_Functions
+        or else State.Functions.Parameter_Count = Functions.Max_Formals
+      then return Invalid_State; end if;
+      declare
+         Initial : constant Parser_State :=
+           (Initial_State with delta Position => Open, Pure => True,
+            Subtype_Names => State.Subtype_Names, Functions => State.Functions,
+            Hiding => Hide_Name (Text, Hidden_Outer (Text, State), First, After),
+            First_Parameter => State.Functions.Parameter_Count + 1);
+         Header : constant Parser_State := Parameters_At (Text, Initial, Arguments);
+      begin
+         if Header.Position = 0 then return Invalid_State; end if;
+         declare
+            Result_Type : constant Function_Type_Result := Function_Type_At
+              (Text, Header, Take_Token (Text, Header.Position, Return_Keyword));
+            Body_Start : constant Literal_Position := Take_Token (Text, Result_Type.After, Is_Keyword);
+         begin
+            if Result_Type.After = 0 or else Body_Start = 0 then return Invalid_State; end if;
+            return Function_Body_At (Text, State, (Header with delta Position => Body_Start),
+                                     First, After, Result_Type, Arguments);
+         end;
+      end;
+   end Function_Declaration_At;
 
    function Read_Statements
      (Text : String; Scan : Scan_Result; Stop : Token_Kind) return Scan_Result
@@ -5094,10 +5707,10 @@ is
      (Text : String; Scan : Scan_Result; Stop : Token_Kind) return Scan_Result is
       Context : constant Body_Context := Context_Of (Scan);
       Result : constant Body_Scan (Scan.State.Scalar_Names.Count) := Read_Body
-        (Text, Context, Body_Of (Scan), (if Stop = Else_Keyword then Else_Only else End_Only));
+        (Text, Context, Body_Of (Scan), (if Stop = Else_Keyword then Else_Only else End_Only), Scan.State.Functions);
    begin
       return (if Result.Position = 0 or else not Paths.Completed (Result.Facts.Path)
-              then Invalid_Scan else Expand_Body (Context, Result, Scan.State.Array_Names, Scan.State.Subtype_Names));
+              then Invalid_Scan else Expand_Body (Context, Result, Scan.State));
    end Read_Statements;
 
    function Scan_Step
@@ -5112,7 +5725,9 @@ is
       return Scan_Result is
      (if Token = Statements then Read_Statements
         (Text, Scan, End_Keyword)
-      else (Scan with delta State => Step (Text, Form, Token, Scan.State)));
+      else (declare Next : constant Parser_State := Step (Text, Form, Token, Scan.State);
+            begin (Scan with delta State => Next,
+              Assigned => Scan.Assigned or Next.Assigned_In_Functions)));
 
    subtype Token_Index is Positive range 1 .. 101;
    function Scan_Suffix
@@ -5141,6 +5756,13 @@ is
       and then Within_Work_Budget (Normalized (Source))
       then Scan_Suffix (Normalized (Source), Form, 1, Initial_Scan)
       else Invalid_Scan);
+
+   function Function_Model (Source : String) return Functions.Metadata is
+     (if Form_Result (Source, Direct_Form).State.Position /= 0 then
+        Form_Result (Source, Direct_Form).State.Functions
+      elsif Form_Result (Source, Argument_Form).State.Position /= 0 then
+        Form_Result (Source, Argument_Form).State.Functions
+      else Functions.Empty_Metadata);
 
    function Is_Member (Source : String) return Boolean is
      (for some Form in Form_Kind => Form_Result (Source, Form).State.Position /= 0);
@@ -5180,6 +5802,17 @@ is
          return (if Skip_At (Text, Scan.State.Position) > Text'Last then Scan else Invalid_Scan);
       end;
    end Read_Form;
+
+   function Local_Functions (Source : String) return Functions.Metadata is
+      Direct : constant Scan_Result := Read_Form (Source, Direct_Form);
+   begin
+      if Direct.State.Position /= 0 then return Direct.State.Functions; end if;
+      declare Argument : constant Scan_Result := Read_Form (Source, Argument_Form);
+      begin
+         return (if Argument.State.Position /= 0 then Argument.State.Functions
+                 else Functions.Empty_Metadata);
+      end;
+   end Local_Functions;
 
    function Accepts (Source : String) return Boolean is
    begin
