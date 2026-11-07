@@ -1,0 +1,31 @@
+{
+  "run_id": "20261107T175855-2a7fb1194711",
+  "implementation": "cdc5609425",
+  "outcome": "failed native report audit after successful GNATprove process (71 checks); unused formal diagnostic unclassified",
+  "files": [
+    {
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-NWAkPo/main.adb",
+      "retained": "main.adb",
+      "sha256": "2755e2b940998b89dfc67da362a2f654990cb1c25956eb78051642d354ead635",
+      "bytes": 592
+    },
+    {
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-NWAkPo/obj/gnatprove/main~1.spark",
+      "retained": "main~1.spark.gz",
+      "sha256": "b9f0df0e70681b3cc0f67ad498e263a1dcdd9b1d5464dbf1293fef02da3a565c",
+      "bytes": 9713
+    },
+    {
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-NWAkPo/obj/gnatprove/gnatprove.sarif",
+      "retained": "gnatprove.sarif.gz",
+      "sha256": "8442648aa240e71b60e2be963fbe81559788daa190442f275220a9c67aef9eb1",
+      "bytes": 53795
+    },
+    {
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-NWAkPo/obj/gnatprove/gnatprove.out",
+      "retained": "gnatprove.out.gz",
+      "sha256": "9eb61473fb04a352a8452f723e8e6e4369cdc3f502832d048d35a5fc0a496485",
+      "bytes": 5014
+    }
+  ]
+}
