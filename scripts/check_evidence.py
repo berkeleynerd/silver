@@ -556,7 +556,11 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                             and type(record.get("col")) is int and record["col"] > 0
                             and type(record.get("entity")) is int and record["entity"] > 0
                             and entities.get(f" {record['entity']}", entities.get(str(record["entity"]))) in application_entities.values()
-                            and ((record.get("rule") == "INEFFECTIVE"
+                            and ((record.get("rule") == "UNUSED_VARIABLE"
+                                  and entities.get(f" {record['entity']}", entities.get(str(record["entity"]))) in local_entities.values()
+                                  and re.fullmatch(r'unused variable "[A-Za-z]([A-Za-z0-9]|_[A-Za-z0-9])*"',
+                                                   record.get("message", {}).get("text", "")) is not None)
+                                 or (record.get("rule") == "INEFFECTIVE"
                                   and (re.fullmatch(r'initialization of "[A-Za-z]([A-Za-z0-9]|_[A-Za-z0-9])*" has no effect',
                                                     record.get("message", {}).get("text", "")) is not None
                                        or record.get("message", {}).get("text") in {
