@@ -108,4 +108,21 @@ theorem lookup_append_new (signatures : Signatures) (next : Signature) :
     lookup (signatures ++ [next]) (signatures.length + 1) = some next := by
   simp [lookup]
 
+/-- A computational callable table. The definition fold constructs it without
+an admission proof; soundness separately establishes Environment.Valid. -/
+structure Environment where
+  signatures : Signatures
+  values : CallValues
+
+def Environment.empty : Environment where
+  signatures := []
+  values := fun _ _ => .integer 0
+
+def Environment.Valid (environment : Environment) : Prop :=
+  ResultsFit environment.signatures environment.values
+
+theorem Environment.empty_valid : Environment.empty.Valid := by
+  intro identity signature found
+  simp [Environment.empty, lookup_empty] at found
+
 end Silver.ScalarFunctions

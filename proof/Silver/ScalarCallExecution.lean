@@ -158,6 +158,40 @@ def Target.write (target : Target) (value : Value) (state : State) : State :=
 def Assignment.execute (calls : CallValues) (state : State) (assignment : Assignment) : State :=
   assignment.target.write (assignment.call.evaluate calls state) state
 
+def Target.checkedWrite (target : Target) (value : Value) (state : State) : Option State :=
+  match target, value with
+  | .integer identity bounds, .integer result =>
+      if bounds.Contains result then some {state with integers := Integer.put state.integers identity result}
+      else none
+  | .boolean identity, .boolean result =>
+      some {state with booleans := Boolean.put state.booleans identity result}
+  | _, _ => none
+
+def Assignment.checkedExecute (signatures : Signatures) (calls : CallValues)
+    (state : State) (assignment : Assignment) : Option State :=
+  (assignment.call.checkedEvaluate signatures calls state).bind fun value =>
+    assignment.target.checkedWrite value state
+
+theorem Target.checkedWrite_agrees {target : Target} {result : ScalarType} {value : Value}
+    {analysis : Integer.Analysis} {booleans : Boolean.Analysis} {state : State}
+    (checked : target.check analysis booleans result = true)
+    (contained : result.Contains value) :
+    target.checkedWrite value state = some (target.write value state) := by
+  cases target with
+  | integer identity bounds =>
+      cases result with
+      | boolean => simp [Target.check] at checked
+      | integer result =>
+          cases value with
+          | boolean value => contradiction
+          | integer value =>
+              have within := Integer.Interval.included_sound (Target.integer_check checked).2.2.2 contained
+              simp only [checkedWrite, write, within, ↓reduceIte]
+  | boolean identity =>
+      cases result with
+      | integer bounds => simp [Target.check] at checked
+      | boolean => cases value <;> simp_all [ScalarType.Contains, checkedWrite, write]
+
 theorem Target.write_frame (target : Target) (value : Value) (state : State) :
     (target.write value state).values = state.values ∧
       (target.write value state).input = state.input ∧
@@ -242,5 +276,58 @@ theorem Assignment.execute_frame (calls : CallValues) (state : State) (assignmen
       (assignment.execute calls state).input = state.input ∧
       (assignment.execute calls state).inputValid = state.inputValid :=
   assignment.target.write_frame _ state
+
+theorem Assignment.checkedExecute_agrees {signatures : Signatures} {calls : CallValues}
+    {shape : Bindings.Shape} {analysis : Integer.Analysis} {flow : Predicate.Flow}
+    {booleans : Boolean.Analysis} {assignment : Assignment} {state : State}
+    {hasArguments rejected : Bool}
+    (results : ResultsFit signatures calls)
+    (strings : Bindings.Fits shape state.input state.values)
+    (readable : assignment.call.Readable hasArguments shape booleans)
+    (allowed : flow.Allows state.inputValid state.input.length rejected state.integers)
+    (checked : assignment.check signatures shape analysis flow booleans = true) :
+    assignment.checkedExecute signatures calls state = some (assignment.execute calls state) := by
+  obtain ⟨result, callChecked, targetChecked⟩ := assignment.check_success checked
+  have sound := assignment.call.check_sound results strings readable allowed callChecked
+  simp only [checkedExecute, sound.2.2, Option.bind_some, execute]
+  exact Target.checkedWrite_agrees targetChecked sound.2.1
+
+theorem Assignment.integer_unchanged {signatures : Signatures} {calls : CallValues}
+    {shape : Bindings.Shape} {analysis : Integer.Analysis} {flow : Predicate.Flow}
+    {booleans : Boolean.Analysis} {assignment : Assignment} {state : State} {identity : Nat}
+    (checked : assignment.check signatures shape analysis flow booleans = true)
+    (readonly : analysis.mutable identity = false) :
+    (assignment.execute calls state).integers identity = state.integers identity := by
+  obtain ⟨result, _, targetChecked⟩ := assignment.check_success checked
+  cases targetEq : assignment.target with
+  | boolean index => cases valueEq : assignment.call.evaluate calls state <;> simp [execute, targetEq, valueEq, Target.write]
+  | integer index bounds =>
+      rw [targetEq] at targetChecked
+      cases result with
+      | boolean => simp [Target.check] at targetChecked
+      | integer result =>
+          have writable := (Target.integer_check targetChecked).1
+          have other : identity ≠ index := by intro same; rw [← same, readonly] at writable; contradiction
+          cases valueEq : assignment.call.evaluate calls state <;>
+            simp [execute, targetEq, valueEq, Target.write, Integer.put, other]
+
+theorem Assignment.boolean_unchanged {signatures : Signatures} {calls : CallValues}
+    {shape : Bindings.Shape} {analysis : Integer.Analysis} {flow : Predicate.Flow}
+    {booleans : Boolean.Analysis} {assignment : Assignment} {state : State} {identity : Nat}
+    (checked : assignment.check signatures shape analysis flow booleans = true)
+    (readonly : booleans.mutable identity = false) :
+    (assignment.execute calls state).booleans identity = state.booleans identity := by
+  obtain ⟨result, _, targetChecked⟩ := assignment.check_success checked
+  cases targetEq : assignment.target with
+  | integer index bounds => cases valueEq : assignment.call.evaluate calls state <;> simp [execute, targetEq, valueEq, Target.write]
+  | boolean index =>
+      rw [targetEq] at targetChecked
+      cases result with
+      | integer result => simp [Target.check] at targetChecked
+      | boolean =>
+          have writable := Boolean.canWrite_mutable targetChecked
+          have other : identity ≠ index := by intro same; rw [← same, readonly] at writable; contradiction
+          cases valueEq : assignment.call.evaluate calls state <;>
+            simp [execute, targetEq, valueEq, Target.write, Boolean.put, other]
 
 end Silver.ScalarFunctions

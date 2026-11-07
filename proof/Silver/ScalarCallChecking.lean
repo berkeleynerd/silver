@@ -51,6 +51,18 @@ theorem Call.check_success {signatures : Signatures} {shape : Bindings.Shape}
   · exact ⟨signature, found, by assumption, Option.some.inj checked⟩
   · contradiction
 
+/-- An accepted call refers strictly inside the already checked prefix. -/
+theorem Call.check_callee_bound {signatures : Signatures} {shape : Bindings.Shape}
+    {analysis : Integer.Analysis} {flow : Predicate.Flow} {booleans : Boolean.Analysis}
+    {call : Call} {result : ScalarType}
+    (checked : call.check signatures shape analysis flow booleans = some result) :
+    0 < call.callee ∧ call.callee ≤ signatures.length := by
+  obtain ⟨signature, found, _, _⟩ := call.check_success checked
+  have positive := lookup_nonzero found
+  simp only [lookup, positive, ↓reduceIte] at found
+  have within := (List.getElem?_eq_some_iff.mp found).1
+  omega
+
 def Target.check (analysis : Integer.Analysis) (booleans : Boolean.Analysis)
     (result : ScalarType) (target : Target) : Bool :=
   match target, result with
@@ -119,5 +131,78 @@ theorem Assignment.after_checked {signatures : Signatures} {shape : Bindings.Sha
     (Assignment.mk (.boolean identity) call).after signatures flow = flow := by
   unfold after
   split <;> rfl
+
+theorem Target.integer_check {identity : Nat} {target result : Integer.Interval}
+    {analysis : Integer.Analysis} {booleans : Boolean.Analysis}
+    (checked : (Target.integer identity target).check analysis booleans (.integer result) = true) :
+    analysis.mutable identity = true ∧ analysis.declared identity = some target ∧
+      result.isEmpty = false ∧ result.included target = true := by
+  simp only [Target.check, Bool.and_eq_true] at checked
+  cases found : analysis.declared identity with
+  | none => simp [found] at checked
+  | some bounds =>
+      have compatible : target = bounds ∧ result.isEmpty = false ∧ result.included bounds = true := by
+        simpa only [found, Bool.and_eq_true, decide_eq_true_eq, Bool.not_eq_true'] using checked.2
+      obtain ⟨rfl, nonempty, included⟩ := compatible
+      exact ⟨checked.1, rfl, nonempty, included⟩
+
+theorem Assignment.after_ranges {signatures : Signatures} {shape : Bindings.Shape}
+    {analysis : Integer.Analysis} {flow : Predicate.Flow} {booleans : Boolean.Analysis}
+    {assignment : Assignment}
+    (checked : assignment.check signatures shape analysis flow booleans = true)
+    (refined : flow.scalars.Refines analysis.declared) (bounded : flow.scalars.Bounded)
+    (declared : analysis.declared.Bounded) :
+    (assignment.after signatures flow).scalars.Refines analysis.declared ∧
+      (assignment.after signatures flow).scalars.Bounded := by
+  obtain ⟨result, callChecked, targetChecked⟩ := assignment.check_success checked
+  rw [assignment.after_checked callChecked]
+  cases targetEq : assignment.target with
+  | boolean identity => exact ⟨refined, bounded⟩
+  | integer identity target =>
+      rw [targetEq] at targetChecked
+      cases result with
+      | boolean => simp [Target.check] at targetChecked
+      | integer result =>
+          obtain ⟨_, present, nonempty, included⟩ := Target.integer_check targetChecked
+          have ordered : result.lower ≤ result.upper := by
+            simp only [Integer.Interval.isEmpty, decide_eq_false_iff_not] at nonempty
+            omega
+          have resultBounded : result.Bounded :=
+            ⟨Integer.Interval.bounded_contains (declared _ _ present)
+                (Integer.Interval.included_sound included ⟨Int.le_refl _, ordered⟩),
+              Integer.Interval.bounded_contains (declared _ _ present)
+                (Integer.Interval.included_sound included ⟨ordered, Int.le_refl _⟩)⟩
+          refine ⟨?_, Integer.Ranges.put_bounded bounded resultBounded⟩
+          intro other interval found
+          by_cases same : other = identity
+          · subst other
+            rw [present] at found
+            cases found
+            exact ⟨result, by simp [Target.after, Integer.put],
+              fun _ within => Integer.Interval.included_sound included within⟩
+          · obtain ⟨old, known, subset⟩ := refined other interval found
+            exact ⟨old, by simpa only [Target.after, Integer.put, same, ↓reduceIte] using known, subset⟩
+
+theorem Assignment.after_unchanged {signatures : Signatures} {shape : Bindings.Shape}
+    {analysis : Integer.Analysis} {flow : Predicate.Flow} {booleans : Boolean.Analysis}
+    {assignment : Assignment} {identity : Nat}
+    (checked : assignment.check signatures shape analysis flow booleans = true)
+    (readonly : analysis.mutable identity = false) :
+    (assignment.after signatures flow).scalars identity = flow.scalars identity := by
+  obtain ⟨result, callChecked, targetChecked⟩ := assignment.check_success checked
+  rw [assignment.after_checked callChecked]
+  cases targetEq : assignment.target with
+  | boolean index => rfl
+  | integer index bounds =>
+      rw [targetEq] at targetChecked
+      cases result with
+      | boolean => rfl
+      | integer result =>
+          have writable := (Target.integer_check targetChecked).1
+          have other : identity ≠ index := by
+            intro same
+            rw [← same, readonly] at writable
+            contradiction
+          simp only [Target.after, Integer.put, other, ↓reduceIte]
 
 end Silver.ScalarFunctions
