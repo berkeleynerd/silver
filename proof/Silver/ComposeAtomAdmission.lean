@@ -8,6 +8,7 @@ public import Silver.ArrayBindings
 public import Silver.IntegerSubtypeBindings
 public import Silver.BooleanBindings
 public import Silver.ScalarExpressionEnvironment
+public import Silver.FunctionBindings
 
 @[expose] public section
 
@@ -64,6 +65,14 @@ structure ExpressionState where
   lastIndex : Integer.Interval := .singleton 0
   deriving DecidableEq, Repr
 
+structure HiddenMarks where
+  integerHidden : Bool := false
+  booleanHidden : Bool := false
+  characterHidden : Bool := false
+  trueHidden : Bool := false
+  falseHidden : Bool := false
+  deriving DecidableEq, Repr
+
 structure ParserState where
   position : Nat := 1
   names : BindingEnvironment := []
@@ -75,6 +84,11 @@ structure ParserState where
   arrayNames : ArrayBindings.Env := {}
   subtypeNames : IntegerSubtypes.Environment := {}
   booleanNames : BooleanBindings.Environment := []
+  functions : FunctionBindings.Metadata := {}
+  pure : Bool := false
+  assignedInFunctions : Bool := false
+  hiding : HiddenMarks := {}
+  firstParameter : Nat := 0
   deriving DecidableEq, Repr
 
 def initialState : ParserState := {}
@@ -82,6 +96,14 @@ def invalidState : ParserState := {position := 0, capacity := 0}
 def invalidValue : ValueResult := {}
 def invalidExpression : ExpressionResult := {}
 def invalidExpressionState : ExpressionState := {}
+
+def functionHides (text : Source) (catalog : FunctionBindings.Metadata) (word : String) : Bool :=
+  catalog.items.any fun item => Named.nameIs text item.first item.after (word.toList.map Char.toNat)
+
+def formalHides (text : Source) (state : ParserState) (first after : Nat) : Bool :=
+  decide (0 < first ∧ first < after ∧ state.firstParameter ≠ 0) &&
+    (state.functions.parameters.drop (state.firstParameter - 1)).any
+      (fun item => Named.equalName text item.first item.after first after)
 
 inductive Form
   | direct | assignment | argument | guardedArgument | branching | guardedBranching | result | guardedResult

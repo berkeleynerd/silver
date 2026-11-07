@@ -21,7 +21,10 @@ def ValidState (text : Source) (state : ParserState) : Prop :=
     ScalarExpression.ValidEnvironment text state.scalarNames ∧
     ArrayBindings.ValidEnvironment text state.arrayNames ∧
     IntegerSubtypes.ValidEnvironment text state.subtypeNames ∧
-    BooleanBindings.ValidEnvironment text state.booleanNames
+    BooleanBindings.ValidEnvironment text state.booleanNames ∧
+    FunctionBindings.ValidMetadata text state.functions ∧
+    state.firstParameter ≤ state.functions.parameters.length + 1 ∧
+    state.firstParameter ≤ FunctionBindings.maxFormals
 
 /-- The state precondition actually provided by an interpreted native caller.
 The base domain remains available for the independent mathematical model. -/
@@ -94,7 +97,8 @@ def allTokens : List ShellToken :=
    .declarations, .assignmentTarget, .targetReference, .dynamicReference, .assignmentValue,
    .outputExpression, .comparisonExpression, .word "null", .contextClauses,
    .word "integer", .word "for", .word "in", .word "reverse", .word "loop", .symbol "..", .word "range", .word "subtype", .word "array", .word "of", .symbol ",", .symbol "=>",
-   .word "boolean", .word "true", .word "false", .word "xor", .word "character"]
+   .word "boolean", .word "true", .word "false", .word "xor", .word "character",
+   .word "function", .word "return"]
 
 def ValidToken (token : ShellToken) : Prop := token ∈ allTokens
 
