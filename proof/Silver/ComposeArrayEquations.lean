@@ -246,6 +246,15 @@ theorem interpreted_arrayDeclaration (calls : Calls) (laws : HelperEquations cal
   have positions : ArrayPartsBounds text parts := by
     rw [← partsEq]
     exact model_arrayParts_valid text state vstate.1 vstate.2.2.2.2.2.2.2.1
+  by_cases positionZero : parts.position = 0
+  · simp only [positionZero, decide_true, Bool.or_true, Bool.true_or, ↓reduceIte]
+  have typeNameValid : ValidName text parts.typeFirst parts.typeAfter := by
+    rw [← partsEq] at positionZero ⊢
+    exact model_arrayParts_typeName text state vstate.1 vstate.2.2.2.2.2.2.2.1 positionZero
+  have efunction := equations.functionLookup text valid state.functions parts.typeFirst parts.typeAfter
+    vstate.functions positions.typeFirst positions.typeAfter
+  have eformal := equations.formalHides text valid state parts.typeFirst parts.typeAfter
+    stateValid positions.typeFirst positions.typeAfter
   have ename := interpreted_newName calls equations text valid state parts.first parts.after arguments
     stateValid positions.first positions.after
   have estring := interpreted_lookup calls equations text valid state.names parts.typeFirst parts.typeAfter
@@ -255,7 +264,7 @@ theorem interpreted_arrayDeclaration (calls : Calls) (laws : HelperEquations cal
   have earray := equations.arrayLookup text valid state.arrayNames.names parts.typeFirst parts.typeAfter
     (state_array_metadata vstate) positions.typeFirst positions.typeAfter
   have eboolean := equations.booleanLookup text valid state.booleanNames parts.typeFirst parts.typeAfter
-    vstate.2.2.2.2.2.2.2.2 positions.typeFirst positions.typeAfter
+    vstate.booleans positions.typeFirst positions.typeAfter
   have esubtype := interpreted_subtypeLookup calls equations text valid state.subtypeNames parts.typeFirst parts.typeAfter
     vstate.2.2.2.2.2.2.2.1 positions.typeFirst positions.typeAfter
   rw [ename]
@@ -265,7 +274,10 @@ theorem interpreted_arrayDeclaration (calls : Calls) (laws : HelperEquations cal
       equations.nameIs text valid parts.first parts.after "boolean" nameValid (by decide) (by decide),
       equations.scalarEmpty parts.lower.bounds positions.lowerBounds,
       equations.scalarEmpty parts.upper.bounds positions.upperBounds,
-      estring, escalar, earray, eboolean, esubtype]
+      estring, escalar, earray, eboolean, esubtype, efunction, eformal,
+      equations.nameIs text valid parts.typeFirst parts.typeAfter "integer" typeNameValid (by decide) (by decide),
+      equations.nameIs text valid parts.typeFirst parts.typeAfter "boolean" typeNameValid (by decide) (by decide),
+      equations.nameIs text valid parts.typeFirst parts.typeAfter "character" typeNameValid (by decide) (by decide)]
     have typeName : (if parts.isBoolean then
         Named.nameIs text parts.first parts.after ("boolean".toList.map Char.toNat)
         else Named.nameIs text parts.first parts.after ("integer".toList.map Char.toNat)) =

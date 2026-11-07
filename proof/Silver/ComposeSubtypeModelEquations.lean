@@ -61,7 +61,7 @@ theorem model_definition_subtypeDeclaration : ∀ text, ValidText text → ∀ s
   dsimp +instances only [subtypeDeclarationEquation, modelCalls, subtypeDeclarationAt, subtypeDeclarationParts,
     addSubtypeBinding, IntegerSubtypes.append, IntegerSubtypes.CallHiding.add,
     IntegerSubtypes.CallHiding.get, spelling, isWord, ShellToken.word, ShellToken.symbol]
-  simp only [Bool.decide_or, Bool.or_assoc]
+  simp only [Bool.decide_coe, Bool.decide_or, Bool.or_assoc]
 
 theorem model_definition_callAfter : ∀ text, ValidText text → ∀ names position operation scalarNames arrays subtypeHidden booleans,
     ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames → ArrayBindings.ValidMetadata text arrays → BooleanBindings.ValidEnvironment text booleans → ValidCursor text position →
@@ -138,7 +138,8 @@ theorem model_definition_declarations : ∀ text, ValidText text → ∀ state a
       have scalars := stateValid.2.2.2.2.2.1.1
       have arrays := stateValid.2.2.2.2.2.2.1.1.1
       have subtypes := stateValid.2.2.2.2.2.2.2.1.1
-      have booleans := stateValid.2.2.2.2.2.2.2.2.1
+      have booleans := stateValid.booleans.1
+      have functions := stateValid.functions.1
       omega)]
   dsimp +instances only [declarationsBody, Expr.eval, Context.locals, modelCalls, Calls.get, Field.get, spelling, isWord]
   simp only [decide_eq_true_eq, ite_not]

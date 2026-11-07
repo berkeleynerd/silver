@@ -297,71 +297,82 @@ end Silver.Predicate.Native.ScalarHelpers
 namespace Silver.Predicate.Adapter
 
 def Expr.prefix : Expr α → Bool
-  | .scan | .body | .context | .arrays | .subtypes | .result | .position
+  | .scan | .body | .context | .original | .result | .position
   | .token | .stop | .field _ _ | .stopValue _ | .initial _ | .initialFlow _
   | .nameCount _ | .completed _ | .bodyEnvironment _ | .takeToken _ _ | .invalid
-  | .contextOf _ | .bodyOf _ | .expand _ _ _ _ | .read _ _ _ => true
-  | .truth _ | .number _ | .zero _ | .nonzero _ | .not _ | .orElse _ _
-  | .tokenEqual _ | .choose _ _ _ | .contextValue _ _ _ _ _ _ _ _ _ _ _ _ _
-  | .bodyValue _ _ _ _ _ _ _ | .stateValue _ _ _ _ _ _ _ _ _ _ | .scanValue _ _ _
-  | .bodyToken _ _ | .stopCase _ _ _ => false
+  | .contextOf _ | .bodyOf _ | .expand _ _ _ | .read _ _ _ _ => true
+  | .truth _ | .number _ | .zero _ | .nonzero _ | .not _ | .or _ _ | .orElse _ _
+  | .tokenEqual _ | .choose _ _ _ | .contextValue _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+  | .bodyValue _ _ _ _ _ _ _ | .stateValue _ _ _ _ _ _ _ _ _ | .scanValue _ _ _
+  | .bodyToken _ _ | .stopCase _ _ _ _ => false
 
 def Expr.primary : Expr α → Bool
-  | .scan | .body | .context | .truth _ | .number _ | .arrays | .subtypes
+  | .scan | .body | .context | .truth _ | .number _ | .original
   | .result | .position | .token | .stop | .field _ _ | .stopValue _
   | .choose _ _ _ | .initial _ | .initialFlow _ | .nameCount _ | .completed _
-  | .bodyEnvironment _ | .contextValue _ _ _ _ _ _ _ _ _ _ _ _ _
-  | .bodyValue _ _ _ _ _ _ _ | .stateValue _ _ _ _ _ _ _ _ _ _ | .scanValue _ _ _
+  | .bodyEnvironment _ | .contextValue _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+  | .bodyValue _ _ _ _ _ _ _ | .stateValue _ _ _ _ _ _ _ _ _ | .scanValue _ _ _
   | .bodyToken _ _ | .takeToken _ _ | .invalid | .contextOf _ | .bodyOf _
-  | .expand _ _ _ _ | .read _ _ _ | .stopCase _ _ _ => true
-  | .zero _ | .nonzero _ | .not _ | .orElse _ _ | .tokenEqual _ => false
+  | .expand _ _ _ | .read _ _ _ _ | .stopCase _ _ _ _ => true
+  | .zero _ | .nonzero _ | .not _ | .or _ _ | .orElse _ _ | .tokenEqual _ => false
 
 def Expr.relation (value : Expr α) : Bool := value.primary || match value with
   | .zero _ | .nonzero _ | .not _ | .tokenEqual _ => true
   | _ => false
 
 def Expr.expression (value : Expr α) : Bool := value.relation || match value with
+  | .or _ _ | .orElse _ _ => true
+  | _ => false
+
+/-- Ada permits nesting of the same logical operator; eager and short-circuit
+forms must not be mixed without an explicitly parenthesized expression. -/
+def Expr.eagerOrOperand (value : Expr α) : Bool := value.relation || match value with
+  | .or _ _ => true
+  | _ => false
+
+def Expr.shortOrOperand (value : Expr α) : Bool := value.relation || match value with
   | .orElse _ _ => true
   | _ => false
 
 def Expr.wellFormed : Expr α → Bool
-  | .scan | .body | .context | .truth _ | .number _ | .arrays | .subtypes
+  | .scan | .body | .context | .truth _ | .number _ | .original
   | .result | .position | .token | .stop | .tokenEqual _ | .stopValue _ | .invalid => true
   | .field _ value | .nameCount value => value.prefix && value.wellFormed
   | .zero value | .nonzero value | .not value =>
       value.primary && value.wellFormed
-  | .orElse left right => left.expression && right.expression && left.wellFormed && right.wellFormed
+  | .orElse left right => left.shortOrOperand && right.shortOrOperand && left.wellFormed && right.wellFormed
+  | .or left right => left.eagerOrOperand && right.eagerOrOperand && left.wellFormed && right.wellFormed
   | .choose test yes no => test.expression && yes.expression && no.expression &&
       test.wellFormed && yes.wellFormed && no.wellFormed
   | .initial value | .initialFlow value | .completed value | .bodyEnvironment value
   | .contextOf value | .bodyOf value => value.expression && value.wellFormed
-  | .contextValue names scalarNames arrayNames hidden booleans trueHidden falseHidden elaborating maskFirst maskAfter count first after =>
+  | .contextValue names scalarNames arrayNames hidden booleans trueHidden falseHidden pure integerHidden elaborating maskFirst maskAfter count first after =>
       names.expression && scalarNames.expression && arrayNames.expression && hidden.expression && booleans.expression &&
-      trueHidden.expression && falseHidden.expression && elaborating.expression && maskFirst.expression &&
+      trueHidden.expression && falseHidden.expression && pure.expression && integerHidden.expression && elaborating.expression && maskFirst.expression &&
       maskAfter.expression && count.expression && first.expression && after.expression &&
       names.wellFormed && scalarNames.wellFormed && arrayNames.wellFormed && hidden.wellFormed && booleans.wellFormed &&
-      trueHidden.wellFormed && falseHidden.wellFormed && elaborating.wellFormed && maskFirst.wellFormed &&
+      trueHidden.wellFormed && falseHidden.wellFormed && pure.wellFormed && integerHidden.wellFormed && elaborating.wellFormed && maskFirst.wellFormed &&
       maskAfter.wellFormed && count.wellFormed && first.wellFormed && after.wellFormed
   | .bodyValue count facts pos target capacity assigned output =>
       count.expression && facts.expression && pos.expression && target.expression && capacity.expression &&
       assigned.expression && output.expression && count.wellFormed && facts.wellFormed && pos.wellFormed &&
       target.wellFormed && capacity.wellFormed && assigned.wellFormed && output.wellFormed
-  | .stateValue pos names scalarNames arrayEnvironment subtypeEnvironment booleans first after target capacity =>
-      pos.expression && names.expression && scalarNames.expression && arrayEnvironment.expression && subtypeEnvironment.expression &&
+  | .stateValue originalExpr pos names scalarNames booleans first after target capacity =>
+      originalExpr.expression && pos.expression && names.expression && scalarNames.expression &&
       booleans.expression && first.expression && after.expression && target.expression && capacity.expression &&
-      pos.wellFormed && names.wellFormed && scalarNames.wellFormed && arrayEnvironment.wellFormed && subtypeEnvironment.wellFormed &&
+      originalExpr.wellFormed && pos.wellFormed && names.wellFormed && scalarNames.wellFormed &&
       booleans.wellFormed && first.wellFormed && after.wellFormed && target.wellFormed && capacity.wellFormed
   | .scanValue state assigned output => state.expression && assigned.expression && output.expression &&
       state.wellFormed && assigned.wellFormed && output.wellFormed
   | .bodyToken value tok => value.prefix && tok.expression && value.wellFormed && tok.wellFormed
   | .takeToken pos _ => pos.expression && pos.wellFormed
-  | .expand ctx value arrayEnvironment subtypeEnvironment =>
-      ctx.expression && value.expression && arrayEnvironment.expression && subtypeEnvironment.expression &&
-      ctx.wellFormed && value.wellFormed && arrayEnvironment.wellFormed && subtypeEnvironment.wellFormed
-  | .read ctx value boundary => ctx.expression && value.expression && boundary.expression &&
-      ctx.wellFormed && value.wellFormed && boundary.wellFormed
-  | .stopCase ending alternative arm => ending.expression && alternative.expression && arm.expression &&
-      ending.wellFormed && alternative.wellFormed && arm.wellFormed
+  | .expand ctx value originalExpr =>
+      ctx.expression && value.expression && originalExpr.expression &&
+      ctx.wellFormed && value.wellFormed && originalExpr.wellFormed
+  | .read ctx value boundary catalog => ctx.expression && value.expression && boundary.expression && catalog.expression &&
+      ctx.wellFormed && value.wellFormed && boundary.wellFormed && catalog.wellFormed
+  | .stopCase ending alternative arm returning => ending.expression && alternative.expression && arm.expression && returning.expression &&
+      ending.wellFormed && alternative.wellFormed && arm.wellFormed && returning.wellFormed
 
 def Function.wellFormed (fn : Function) : Bool :=
   fn.context.expression && fn.result.expression && fn.returned.expression &&
@@ -383,6 +394,15 @@ theorem not_collision :
     (Expr.not (.orElse atom atom)).wellFormed = false ∧
     (Expr.orElse (.not atom) atom).wellFormed = true := by decide +kernel
 
+theorem eager_or_structure :
+    (Expr.not (.or atom atom)).render = (Expr.or (.not atom) atom).render ∧
+    (Expr.not (.or atom atom)).wellFormed = false ∧
+    (Expr.or (.not atom) atom).wellFormed = true ∧
+    (Expr.or (.or atom atom) atom).wellFormed = true ∧
+    (Expr.or atom (.or atom atom)).wellFormed = true ∧
+    (Expr.or (.orElse atom atom) atom).wellFormed = false ∧
+    (Expr.orElse atom (.or atom atom)).wellFormed = false := by decide +kernel
+
 theorem same_operator_nesting :
     (Expr.orElse (.orElse atom atom) atom).wellFormed = true ∧
     (Expr.orElse atom (.orElse atom atom)).wellFormed = true := by decide +kernel
@@ -391,14 +411,14 @@ theorem selected_prefixes :
     (Expr.field .bodyPosition (.choose atom .body .body)).wellFormed = false ∧
     (Expr.field .bodyPosition (.bodyToken .body .token)).wellFormed = false ∧
     (Expr.bodyToken (.choose atom .body .body) .token).wellFormed = false ∧
-    (Expr.field .bodyPosition (.read .context .body .stop)).wellFormed = true ∧
+    (Expr.field .bodyPosition (.read .context .body .stop (.field .stateFunctions (.field .scanState .scan)))).wellFormed = true ∧
     (Expr.field .statePosition (.field .scanState .scan)).wellFormed = true := by decide +kernel
 
 theorem categories_and_nested_children :
     (Expr.not (.zero .position)).wellFormed = false ∧
     (Expr.not (.choose atom (.zero .position) atom)).wellFormed = true ∧
     (Expr.initial (.not (.orElse atom atom))).wellFormed = false ∧
-    (Expr.stopCase atom atom (.not (.orElse atom atom))).wellFormed = false ∧
+    (Expr.stopCase atom atom (.not (.orElse atom atom)) atom).wellFormed = false ∧
     (Function.wellFormed ⟨.context, .body, .choose (.not (.orElse atom atom)) .invalid .scan⟩) = false := by
   decide +kernel
 

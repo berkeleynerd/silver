@@ -73,6 +73,21 @@ structure ArrayPartsBounds (text : Source) (parts : ArrayDeclarationParts) : Pro
   componentBounds : parts.componentBounds.Bounded
   position : ValidCursor text parts.position
 
+private theorem scalarType_nameSpan (text : Source) (state : ParserState) (position : Nat)
+    (bound : ValidCursor text position) (nonzero : (scalarTypeAt text state position).after ≠ 0) :
+    ValidName text position (scalarTypeAt text state position).after := by
+  have parsed := scalarTypeAt_sound text state position nonzero
+  have span : 0 < skipAt text position ∧
+      skipAt text position < (scalarTypeAt text state position).after := by
+    generalize resultEq : scalarTypeAt text state position = result at parsed ⊢
+    cases parsed <;> dsimp only <;> constructor <;> omega
+  have skipped := skipAt_advances text position bound (by omega)
+  have positive : position ≠ 0 := by
+    intro zero
+    simp [zero, skipAt] at span
+  exact ⟨by omega, by omega, scalarTypeAt_position_valid text state position⟩
+
+
 theorem model_arrayParts_valid (text : Source) (state : ParserState)
     (position : ValidCursor text state.position)
     (subtypes : IntegerSubtypes.ValidEnvironment text state.subtypeNames) :
@@ -113,6 +128,42 @@ theorem model_arrayParts_valid (text : Source) (state : ParserState)
     fixedAfter_result_bound text _ "(" false (by decide)
   exact ⟨first, after, lowerStart, lower.1, lower.2, upperStart, upper.1, upper.2,
     typeFirst, typeAfter, components, position⟩
+
+theorem model_arrayParts_typeName (text : Source) (state : ParserState)
+    (position : ValidCursor text state.position)
+    (subtypes : IntegerSubtypes.ValidEnvironment text state.subtypeNames)
+    (present : (arrayDeclarationParts text state).position ≠ 0) :
+    ValidName text (arrayDeclarationParts text state).typeFirst
+      (arrayDeclarationParts text state).typeAfter := by
+  let parts := arrayDeclarationParts text state
+  have bounds := model_arrayParts_valid text state position subtypes
+  have typePositive : parts.typeAfter ≠ 0 := by
+    exact model_fixed_input_nonzero text _ ":=" false
+      (model_fixed_input_nonzero text _ "(" false present)
+  cases kind : parts.isBoolean with
+  | true =>
+    have same : parts.typeAfter = fixedAfter text parts.typeFirst "boolean" true := by
+      change (if parts.isBoolean then
+        (⟨fixedAfter text parts.typeFirst "boolean" true, Integer.Interval.full⟩ : ScalarConstraintResult)
+        else scalarTypeAt text state parts.typeFirst).after = _
+      rw [kind]
+      rfl
+    have nonzero := same ▸ typePositive
+    have firstPositive := model_fixed_input_nonzero text _ "boolean" true nonzero
+    have advance := model_fixed_advances text _ "boolean" true bounds.typeFirst (by decide) nonzero
+    change ValidName text parts.typeFirst parts.typeAfter
+    rw [same]
+    exact ⟨Nat.pos_of_ne_zero firstPositive, advance, same ▸ bounds.typeAfter⟩
+  | false =>
+    have same : parts.typeAfter = (scalarTypeAt text state parts.typeFirst).after := by
+      change (if parts.isBoolean then
+        (⟨fixedAfter text parts.typeFirst "boolean" true, Integer.Interval.full⟩ : ScalarConstraintResult)
+        else scalarTypeAt text state parts.typeFirst).after = _
+      rw [kind]
+      rfl
+    change ValidName text parts.typeFirst parts.typeAfter
+    rw [same]
+    exact scalarType_nameSpan text state parts.typeFirst bounds.typeFirst (same ▸ typePositive)
 
 /-- Native validity is preserved by every recursive aggregate step, including
 rejected readings. This does not assume source-level compact allocation. -/
