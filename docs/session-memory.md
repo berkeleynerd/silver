@@ -3,12 +3,20 @@
 ## 2026-11-07 — Tutorial audit and Rosetta sample expansion selected
 
 The owner instructed **“Let's proceed to tackle 300 after determining if our
-tutorial is up-to-date. This may only live in a branch at this time.”** Audit
-the tutorial, including branch-only candidates, before starting the sample
-implementation. That discovery/currency result is pending at this planning
-checkpoint.
+tutorial is up-to-date. This may only live in a branch at this time.”** The
+[available-guide audit](rosetta-sample-expansion.md#tutorial-audit--2026-11-07)
+is complete: the README matches current capabilities and all 31 referenced
+samples pass admission. Its stale #314 status is corrected. No separate
+first-party tutorial was located in the searched history or branches; revisit
+that result if the owner supplies a pointer. No new sample compilation or proof
+is claimed by this audit.
 
-After the tutorial checkpoint, existing
+The owner subsequently instructed **“Let's update it and merge it as part of
+the current work effort.”** This explicitly authorizes updating and merging
+the available guide with this planning work. It does not authorize merging the
+later sample implementation.
+
+With that qualified tutorial checkpoint complete, existing
 [#300](https://github.com/berkeleynerd/silver/issues/300), in
 [milestone 15](https://github.com/berkeleynerd/silver/milestone/15), is selected
 before unselected functions #298. The
@@ -25,8 +33,9 @@ it does not alter their historical scope. Routine planning publication and merge
 followed by implementation through reviewable publication, follow the current
 proceed instruction. Implementation merge remains a later owner decision.
 Keep #300 Backlog until the authorization reaches main, then mark Ready and
-claim it after the tutorial checkpoint. No implementation or new validation is
-claimed by this documentation increment. No CLI recall entry was updated.
+claim it through the ordinary routine. Planning PR #336 is open; sample
+implementation has not started. No new compiler/runtime assurance is claimed by
+this documentation increment. No CLI recall entry was updated.
 
 ## 2026-11-07 — Boolean-array merge authorized
 

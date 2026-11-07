@@ -23,7 +23,7 @@ each delivery; the linked issues hold scope and completion criteria.
 | Delivered 2026-10-31 | [Boolean scalar objects and expressions #291](https://github.com/berkeleynerd/silver/issues/291), stacked on the named-subtype delivery [#286](https://github.com/berkeleynerd/silver/issues/286) | Sequence of primes by trial division; Square but not cube; Common list elements |
 | Complete 2026-11-06 | [Bounded String indexing and character operations #296](https://github.com/berkeleynerd/silver/issues/296) | Reverse a string; Palindrome detection; character replacement |
 | Complete 2026-11-07 | [Fixed-size Boolean arrays #297](https://github.com/berkeleynerd/silver/issues/297) | Sieve of Eratosthenes; elementary cellular automata |
-| Selected 2026-11-07, after tutorial audit | [Sample-only expansion #300](https://github.com/berkeleynerd/silver/issues/300) | Ten programs covering eleven task mappings; [bounded plan](docs/rosetta-sample-expansion.md) |
+| Selected 2026-11-07, available-guide audit complete | [Sample-only expansion #300](https://github.com/berkeleynerd/silver/issues/300) | Ten programs covering eleven task mappings; [bounded plan](docs/rosetta-sample-expansion.md) |
 | Later (1) | [Small nonrecursive functions #298](https://github.com/berkeleynerd/silver/issues/298) | Reusable primality tests, GCD and numeric search helpers |
 
 The bounded String increment has completed repaired Linux native and Lean
@@ -56,14 +56,21 @@ and deferred capacity work retain their scope.
 
 ### Rosetta sample expansion
 
-**Selected 2026-11-07; tutorial audit pending before implementation.** The owner
-instructed **“Let's proceed to tackle 300 after determining if our tutorial is
-up-to-date. This may only live in a branch at this time.”** The
+**Selected 2026-11-07; available-guide audit complete, planning publication pending.**
+The owner instructed **“Let's proceed to tackle 300 after determining if our
+tutorial is up-to-date. This may only live in a branch at this time.”** The
 [dated authorization](docs/session-memory.md#2026-11-07--tutorial-audit-and-rosetta-sample-expansion-selected)
 selects existing [#300](https://github.com/berkeleynerd/silver/issues/300) in
 [milestone 15](https://github.com/berkeleynerd/silver/milestone/15), after the
 completed String #296 and Boolean-array #297 deliveries and before unselected
-functions #298. Search branch-only tutorial work and assess currency first.
+functions #298. The
+[tutorial audit](docs/rosetta-sample-expansion.md#tutorial-audit--2026-11-07)
+finds the available README current after correcting its stale #314 status;
+its 31 referenced samples pass admission. No separate first-party tutorial was
+located in the searched history or branches. Revisit a specific tutorial if the
+owner supplies its pointer; no arbitrary replacement tutorial is selected.
+Planning PR #336 remains open; claim implementation after authorization reaches
+main through the ordinary issue/board routine.
 
 The [bounded record](docs/rosetta-sample-expansion.md) restores the missing #300
 scope link and retains ten programs with eleven mappings: FizzBuzz; Even or odd;

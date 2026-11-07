@@ -8,9 +8,10 @@ selects existing [#300](https://github.com/berkeleynerd/silver/issues/300), in
 [milestone 15](https://github.com/berkeleynerd/silver/milestone/15), after the
 tutorial audit and before unselected functions #298. The
 [dated authorization](session-memory.md#2026-11-07--tutorial-audit-and-rosetta-sample-expansion-selected)
-records the publication boundary. Tutorial discovery and currency assessment
-are pending; inspect branches as well as published documentation and record the
-result before sample implementation begins.
+records the publication boundary. The qualified available-guide audit below is
+complete. No separate first-party tutorial was located; revisit a specific
+tutorial if the owner supplies its pointer. Sample implementation begins after
+planning authorization reaches main through the ordinary issue/board routine.
 
 This is one sample-only work package using the current language. String #296
 and Boolean-array #297 deliveries are complete. No new language construct,
@@ -19,6 +20,29 @@ Preserve the 4,096-byte complete-source bound and existing expression/storage
 budgets. Samples exercise admitted rules; they do not establish the universal
 guarantee documented in [assurance](assurance.md) and the
 [trusted boundary](trusted-boundary.md).
+
+## Tutorial audit — 2026-11-07
+
+The owner subsequently instructed **“Let's update it and merge it as part of
+the current work effort.”** This authorizes the available-guide correction and
+its merge with this planning work; sample implementation merge remains a later
+owner decision.
+
+The read-only audit found no separate first-party tutorial in 4,643 reachable
+commits, 659 local heads, 111 remote refs or three tags. It also checked all 139
+live GitHub branches: their tips were reachable locally and none had a tutorial
+name. These are the searched sources, not a claim that a tutorial cannot exist
+elsewhere. Revisit the result if a specific branch or document is identified.
+
+The available [README guide](../README.md) matches current capability support,
+tool pins and command options. In the audited checkout, all 91 local path links
+and 18 fragments checked were valid, and all 31 referenced sample sources passed
+current admission. One
+stale statement treated #314 as remaining work; this planning update links its
+[merged delivery](source-tree-structural-guards.md#merged-delivery--2026-11-06)
+while preserving the external review's interim status. Sample admission is the
+new executable check here; the audit claims no new sample compilation, proof or
+execution and no new compiler/runtime assurance. No new tutorial is selected.
 
 ## Ten programs, eleven task mappings
 
@@ -54,9 +78,10 @@ do not silently drop candidates or promise to implement that entire list here.
 
 ## Implementation, validation and review
 
-After the tutorial checkpoint and planning publication, claim #300 through the
-ordinary issue/board routine. Add ten sources and their manifest cases as one
-cohesive increment. Do not change compiler, runtime, language, catalogue, proof
+With the qualified tutorial checkpoint complete, claim #300 after planning
+publication through the ordinary issue/board routine. Add ten sources and their
+manifest cases as one cohesive increment. Do not change compiler, runtime,
+language, catalogue, proof
 rules or supported construct identifiers to make a sample fit. If an admitted
 program exposes an implementation defect, record the diagnosis and reassess the
 necessary repair without weakening task requirements or Oracle guarantees.
@@ -101,6 +126,7 @@ close the issue or milestone.
 
 The planning branch is `plan/rosetta-expansion-300-20261107` in
 `tmp/rosetta-expansion-plan`, based on `aebeef3f86`. This record restores #300's
-missing repository scope link. Tutorial audit results, planning publication and
-sample implementation remain pending. This documentation checkpoint claims no
-new native, Lean, sample-execution or Rosetta-render evidence.
+missing repository scope link. The qualified tutorial audit above is complete;
+planning PR #336 is open and sample implementation remains unstarted. This
+documentation checkpoint claims no new native, Lean, sample-compilation,
+sample-execution or Rosetta-render evidence.
