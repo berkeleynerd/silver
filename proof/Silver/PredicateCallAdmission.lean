@@ -58,7 +58,7 @@ def readCall (text : Source) (context : ParseContext) (position : Nat)
 
 theorem calleeAt_bound (text : Source) (context : ParseContext) (position : Nat)
     (catalog : FunctionBindings.Metadata) : calleeAt text context position catalog ≤ catalog.items.length := by
-  unfold calleeAt
+  dsimp only [calleeAt]
   split
   · exact Nat.zero_le _
   · exact FunctionBindings.lookup_bound ..
