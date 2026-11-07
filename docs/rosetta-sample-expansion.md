@@ -191,7 +191,7 @@ inputs and tools remained stable throughout. The five focused closing methods
 also passed: Rosetta rendering (three), the Boolean sample-oracle check and
 certificate-regeneration parity. The final inventory remains 603 distinct test
 methods: six fresh results including the manifest and 597 retained applicable
-results, subject to the closing independent review. The prior failed full suite
+results, accepted by the independent closing review. The prior failed full suite
 remains failed; this is not a fresh full-suite claim.
 
 The final render confirms **70 Stage-1 assessments**, up from 61. Exactly
@@ -201,9 +201,18 @@ new. Stage fields for #9, #10, #229 and #234 remain 1, #11 remains 2 and #12 rem
 3; current board values match the render. The assessment record preserves prior
 FizzBuzz/parity attribution and each task's original assessment settings.
 
-Independent closing review and final publication are pending; draft
-[PR #337](https://github.com/berkeleynerd/silver/pull/337) carries the implementation.
-Implementation merge remains a later owner decision.
+The [independent review](reviews/review-rosetta-expansion-20261107.md) accepts
+`d4aab1db5bb86ee48e544e99c8abc3ea5f81d32c` with no unresolved finding. It checks
+task fidelity, exact manifest expectations, final rendering and complete evidence
+applicability, including the Python patch change. The failed identity check is
+a resolved provenance refresh, not a repository defect. The subsequent report
+and completion text change documentation only; validated inputs are unchanged.
+
+[PR #337](https://github.com/berkeleynerd/silver/pull/337) publishes the completed
+work for review. #300 is In review; the issue and milestone remain open until
+merge. Implementation merge remains a later owner decision, and functions #298
+and the expanded opportunity inventory remain unselected. No expensive job is
+left running, and unrelated root-checkout work and scratch files are preserved.
 
 ## Delivery rounds
 
@@ -212,7 +221,7 @@ Implementation merge remains a later owner decision.
 | Tutorial inventory and guide correction | Sol Extra High inventory; Sol High documentation; lead inspected | Available README audited and corrected through merged PR #336; separate tutorial not located in searched sources. | 31 admission checks; whole-round elapsed/token/cost data unavailable. |
 | Sample implementation | Two disjoint Sol Extra High subthreads | Ten programs and independent expectations integrated; lead requested clearer negative-value list separators and the gcd(0,0) convention before validation. | Source checks passed; no whole-round cost measurement. |
 | Metadata reconciliation | Sol High; lead closure wording follow-up | Exactly eleven task records, original provenance preserved, supported identifiers unchanged. After the first render, replaced repeated pending-review text with a reference to this record, re-rendered only eleven pages and repeated the three affected methods successfully. | Static inventory/link checks and managed renderer test timings; no separate elapsed measurement. |
-| Independent fidelity/integration review | Astra Extra High, bounded to actual samples, expectations, metadata and evidence | Fidelity, manifest, metadata preparation and native/Lean applicability reviewed; closing target pending. | Exact inspection scope/times in the review; token/cost data unavailable. |
+| Independent fidelity/integration review | Astra Extra High, bounded to actual samples, expectations, metadata and evidence | Accepted final target `d4aab1db5b` with no unresolved finding; task fidelity, final rendering, evidence and complete regression applicability checked. | Exact inspection scope/times in the review; token/cost data unavailable. |
 | Integration and validation | Lead runtime model/effort not independently exposed; no live setting change claimed | Complete native refresh, build, manifest and all five focused methods passed; final render and six stage-field comparisons complete. | Managed run timings in the packet; no whole-team cost claim. |
 
 Selected settings are not independent runtime confirmations. No harness goal

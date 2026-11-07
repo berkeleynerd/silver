@@ -52,8 +52,9 @@ The unchanged regression inventory contains 603 distinct methods. The
 [previous reviewed partition](../boolean-arrays-20261106/README.md#current-delivery-closeout--2026-11-07)
 is the source of retained results. This delivery refreshes six methods: the
 manifest, three Rosetta methods, the Boolean sample-oracle method and certificate
-parity. The remaining 597 results require the closing independent applicability
-review, including the interpreter patch change. The original 612-execution full
+parity. The [closing independent review](../../reviews/review-rosetta-expansion-20261107.md)
+accepts the remaining 597 results, including applicability across the interpreter
+patch change. Their historical Python 3.14.4 execution scope is preserved. The original 612-execution full
 suite remains failed; nine duplicate method executions explain the difference
 from 603. This is a composed regression result, not a fresh full-suite pass.
 
@@ -79,7 +80,10 @@ identifiers remain unchanged. The generated diff includes 880 task pages: eleven
 assessment changes and 869 position-only changes, plus the index and progression.
 The [stage reconciliation](stage-reconciliation.json) verifies all six tracked
 open/closed stage fields against the final render; no board-field change was
-needed. Independent closing acceptance of the committed target remains pending.
+needed. The independent review accepts final committed target
+`d4aab1db5bb86ee48e544e99c8abc3ea5f81d32c` with no unresolved finding. The report
+and later completion text change documentation only; application and assurance
+inputs retain their reviewed identity.
 
 A final wording correction replaced eleven repeated "closing review pending"
 claims with references to the delivery record, so task pages will not retain

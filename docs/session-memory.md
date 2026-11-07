@@ -1,5 +1,23 @@
 # Session memory
 
+## 2026-11-07 — Rosetta sample expansion delivered for review
+
+The authorized original ten-program, eleven-task batch in
+[#300](https://github.com/berkeleynerd/silver/issues/300) is complete through
+reviewable publication in [PR #337](https://github.com/berkeleynerd/silver/pull/337).
+The [delivery account](rosetta-sample-expansion.md#delivery-and-validation--2026-11-07)
+links successful application validation, current native provenance, retained
+complete Lean assurance, reviewed regression applicability, the narrow render
+and independent acceptance of `d4aab1db5b`. No unresolved finding remains.
+The available-guide correction and planning authorization already reached main
+through merged PR #336.
+
+This fulfills the selected batch without admitting a construct or changing a
+resource limit. Keep #300 In review and its issue/milestone open until the later
+owner merge instruction. The prior guide-merge authorization does not merge
+this implementation PR or select functions #298 or the expanded opportunity
+inventory. No CLI recall entry was updated.
+
 ## 2026-11-07 — Tutorial audit and Rosetta sample expansion selected
 
 The owner instructed **“Let's proceed to tackle 300 after determining if our
