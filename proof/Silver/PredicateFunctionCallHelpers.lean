@@ -24,8 +24,11 @@ def FunctionLookupDomain (text : Source) (catalog : Metadata) (first after : Nat
   Expressions.ValidText text ∧ ValidMetadata text catalog ∧
     Expressions.ValidCursor text first ∧ Expressions.ValidCursor text after
 
+def callTokens : List ShellToken :=
+  [.symbol "(", .symbol ")", .symbol ",", .symbol ":="]
+
 def TokenDomain (text : Source) (position : Nat) (token : ShellToken) : Prop :=
-  CursorDomain text position ∧ Expressions.ValidToken token
+  CursorDomain text position ∧ token ∈ callTokens
 
 /-- Every helper equation uses its native input domain. Imported functions
 remain arbitrary; model values outside those domains only totalize the formal
