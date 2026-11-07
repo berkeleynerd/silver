@@ -1,0 +1,82 @@
+[
+  {
+    "path": "README.md",
+    "bytes": 1282,
+    "sha256": "a869f4a21e82af122131768157a872fe708191574191a2849e866855b0c93ecd"
+  },
+  {
+    "path": "failed-helper-shared-configuration.inventory.json",
+    "bytes": 292,
+    "sha256": "6165e0ca897ea389730d3e33bb391f42d0094b722450fd751c97d6700e868f1a"
+  },
+  {
+    "path": "failed-helper-shared-configuration.tar.gz",
+    "bytes": 931,
+    "sha256": "175d14e3f5def86b3f46fb039c291d0cd9b7f7d088f539f92eaf2683d584239e"
+  },
+  {
+    "path": "input-comparison.json",
+    "bytes": 25372,
+    "sha256": "892e903cb4b262ebaf43b202d1bba1651f0aae8cd9dadbdd6a49e88d08c95b6f"
+  },
+  {
+    "path": "local-full-task-retention.json",
+    "bytes": 1815,
+    "sha256": "85954f0536f4f2c15b5c3d57ca6f105cd675c1ba8b8baece1539617fe2ea02f2"
+  },
+  {
+    "path": "managed-run.inventory.json",
+    "bytes": 56638,
+    "sha256": "7e09c049ee74f12bec0b6923c63307737b34003eb0ef6230d19b8d36d4090125"
+  },
+  {
+    "path": "managed-run.tar.gz",
+    "bytes": 3479103,
+    "sha256": "671c137a0ffcfe0e06298e2ff6ad3c3fe27e829215d259659bf020875923fe41"
+  },
+  {
+    "path": "native-reports.inventory.json",
+    "bytes": 26416,
+    "sha256": "545b4f6d8262fcd0aa512a66c770ed1409add7bdda4c52e06fc9dc1230ecddfb"
+  },
+  {
+    "path": "native-reports.tar.gz",
+    "bytes": 2013803,
+    "sha256": "91e3d6d2fe0deecfc542f51c433b4192827c9998b924af74f9662799f0226ab7"
+  },
+  {
+    "path": "publication-scope-helper.py",
+    "bytes": 6972,
+    "sha256": "34e5f875a5160340a50be2ccdf770995f404420659abdd4233ab90233d40a4bd"
+  },
+  {
+    "path": "record.json",
+    "bytes": 63278,
+    "sha256": "1d19e564ca02ea17124348feda4380c2def6f5ea4b75acf7a139f608e30f1315"
+  },
+  {
+    "path": "retention-helper.py",
+    "bytes": 9566,
+    "sha256": "bf646511b8af58528ca435b8d4cc18cbf3ce16cbfc20dbd32c503fcb3c84851b"
+  },
+  {
+    "path": "selected-native-sources.inventory.json",
+    "bytes": 40452,
+    "sha256": "93bdc7d9e3a03eaef4a16996b58ee6f36efc151c7f0a6155af52de3d3718b8ed"
+  },
+  {
+    "path": "selected-native-sources.tar.gz",
+    "bytes": 244203,
+    "sha256": "5f2ba59a7dec66d6a20517895c38807cc94873c393a55dd8e821a035c610886c"
+  },
+  {
+    "path": "unresolved-helper-tasks-and-sessions.inventory.json",
+    "bytes": 2279,
+    "sha256": "f4e7dce71662297c17e53d05f48fd705028bf45c5fbd6676f78eb8680ddd2d1e"
+  },
+  {
+    "path": "unresolved-helper-tasks-and-sessions.tar.gz",
+    "bytes": 3609051,
+    "sha256": "0a19221a09fc75ccbd2109e9447f05070ade90a1c6853dea6854199fcf714683"
+  }
+]

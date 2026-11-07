@@ -467,3 +467,29 @@ source hashes still match. One worker and automatic 12-thread processes fit
 alongside the continuing native audit without a memory incident. The complete
 reconstruction and native-shape candidates were outside this focused scope;
 their final whole-project/source checkpoint remains outstanding.
+
+## Original native audit terminal and repaired checkpoint — 2026-11-07
+
+Original run `20261106T232644-673fc5a9c06b` finished **failed** at 06:44:39 UTC
+after 26,270.505 seconds. The [terminal packet](native-primary-failure/terminal-native/README.md)
+contains all 76 reports: 16,163 proof records (16,161 informational and the two
+known medium failures) and 1,513 informational flow records. The Primary failure
+has check location `3570:28` and emitted diagnostic location `3572:20`; the
+Relation failure is `3945:18`. No other failed obligation was reported.
+Both changes already have the complete repaired-helper passes recorded above.
+
+The packet retains complete source/input/tool/run identities and the two failed
+helpers' detailed generated evidence. Successful helpers' generated tasks are
+preserved in the local managed ledger, with their size/hash and inventory
+identified by the packet; they are not additional checked-in archives. The
+old source, failed outcome and completed proof work remain distinguishable from
+the forthcoming repaired-source native audit.
+
+Complete cached Lean run `20261107T064815-9c9da56edf3d` started on unchanged
+governed implementation `ce97ede446`, using one Lake worker, automatic 12-thread
+processes, the same 24,576 MiB threshold and detailed provenance. Its expected
+inventory is 655 modules. The refreshed pin and line bucket remain available
+from the successful focused run. The complete build/fresh audit is active at
+this checkpoint; no clean build, independent replay or completed assurance is
+claimed. Final native verification/build is being prepared in the original
+installation after retaining its failed run and confirming idle writers.
