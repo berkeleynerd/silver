@@ -142,7 +142,7 @@ theorem boolean_array_fresh_cell {text : Source} {state : ParserState} {cell : N
     (ArrayBindings.booleanAnalysis state.arrayNames.names
       (BooleanBindings.analysis state.booleanNames)).initialized cell = false := by
   have arrays := valid.2.2.2.2.2.2.1
-  have scalars := valid.2.2.2.2.2.2.2.2.1
+  have scalars := valid.booleans.1
   apply Bool.or_eq_false_iff.mpr
   constructor
   · apply List.any_eq_false.mpr

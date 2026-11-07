@@ -1,5 +1,7 @@
 module
 
+public import Silver.PredicateFunctionCallMeaning
+public import Silver.PredicateSourceSyntax
 public import Silver.PredicateBodyProperties
 public import Silver.PredicateConditionUnique
 public import Silver.PredicateConditionSound
@@ -11,6 +13,7 @@ public import Silver.PredicateStringAssignmentMeaning
 @[expose] public section
 
 namespace Silver.Predicate
+variable {catalog : FunctionBindings.Metadata}
 open Compose Bindings PathFacts
 
 set_option backward.dsimp.instances true
@@ -30,21 +33,28 @@ abbrev assignmentStart (text : Source) (context : ParseContext) (scan : BodyScan
 
 /-- Source operands and mutable target names are retained independently of the
 cursor scanner. The successful trace supplies only concrete admission guards. -/
-inductive BasicPayload (text : Source) (context : ParseContext) (scan : BodyScan) : SourceStatement → Prop
-  | null : basicKind text context scan = .null → BasicPayload text context scan (.simple .null)
+inductive BasicPayload (text : Source) (context : ParseContext) (scan : BodyScan) (catalog : FunctionBindings.Metadata := {}) : SourceStatement → Prop
+  | null : basicKind text context scan = .null → BasicPayload (catalog := catalog) text context scan (.simple .null)
   | output {expression} : basicKind text context scan = .output →
       ExpressionAt (integerHidden := context.integerHidden text) (elaborating := context.elaborating) (arrays := context.arrayNames) (scalarNames := context.readingNames scan.facts) text context.names (outputStart text context scan).position expression
         (expressionAt (integerHidden := context.integerHidden text) (elaborating := context.elaborating) (arrays := context.arrayNames) text (outputStart text context scan).position context.names (context.readingNames scan.facts)) →
-      BasicPayload text context scan (.simple (.output expression))
+      BasicPayload (catalog := catalog) text context scan (.simple (.output expression))
   | put {expression} : basicKind text context scan = .put →
       ExpressionAt (integerHidden := context.integerHidden text) (elaborating := context.elaborating) (arrays := context.arrayNames) (scalarNames := context.readingNames scan.facts) text context.names (putStart text context scan).position expression
         (expressionAt (integerHidden := context.integerHidden text) (elaborating := context.elaborating) (arrays := context.arrayNames) text (putStart text context scan).position context.names (context.readingNames scan.facts)) →
-      BasicPayload text context scan (.simple (.put expression))
-  | reject : basicKind text context scan = .reject → BasicPayload text context scan .reject
+      BasicPayload (catalog := catalog) text context scan (.simple (.put expression))
+  | reject : basicKind text context scan = .reject → BasicPayload (catalog := catalog) text context scan .reject
+  | scalarCallAssignment {update} : basicKind text context scan = .scalarAssignment →
+      FunctionAssignmentAt text context scan catalog update →
+      BasicPayload (catalog := catalog) text context scan (.callAssign update)
+  | booleanCallAssignment {update} : basicKind text context scan = .booleanAssignment →
+      FunctionAssignmentAt text context scan catalog update →
+      BasicPayload (catalog := catalog) text context scan (.callAssign update)
   | scalarAssignment {expression} : basicKind text context scan = .scalarAssignment →
+      (callAssignmentBody text context scan catalog).position = 0 →
       ScalarExpression.At (elaborating := context.elaborating) (arrays := context.arrayNames) text (context.readingNames scan.facts) (scalarAssignmentStart text scan) expression
         (ScalarExpression.read (elaborating := context.elaborating) (arrays := context.arrayNames) text (scalarAssignmentStart text scan) (context.readingNames scan.facts)) →
-      BasicPayload text context scan (.scalarAssign
+      BasicPayload (catalog := catalog) text context scan (.scalarAssign
         ⟨scalarTarget text context scan.position, expression,
           (ScalarExpression.binding context.scalarNames (scalarTarget text context scan.position)).declaredBounds⟩)
   | arrayAssignment {index expression} : basicKind text context scan = .arrayAssignment →
@@ -53,7 +63,7 @@ inductive BasicPayload (text : Source) (context : ParseContext) (scan : BodyScan
       ScalarExpression.At (elaborating := context.elaborating) (arrays := context.arrayNames) text (context.readingNames scan.facts)
         (arrayValueStart text context scan) expression
         (readScalarInFlow text context (arrayValueStart text context scan) scan.facts) →
-      BasicPayload text context scan (.arrayAssign
+      BasicPayload (catalog := catalog) text context scan (.arrayAssign
         ⟨(ArrayBindings.binding context.arrayNames (arrayTarget text context scan.position)).descriptor,
           index, expression⟩)
   | booleanArrayAssignment {index condition} : basicKind text context scan = .booleanArrayAssignment →
@@ -66,26 +76,27 @@ inductive BasicPayload (text : Source) (context : ParseContext) (scan : BodyScan
         scan.facts condition
         (readCondition text context
           (fixedAfter text (booleanArrayAfter text context scan.position scan.facts) ":=" false) scan.facts) →
-      BasicPayload text context scan (.booleanArrayAssign
+      BasicPayload (catalog := catalog) text context scan (.booleanArrayAssign
         ⟨(ArrayBindings.binding context.arrayNames (arrayTarget text context scan.position)).booleanDescriptor,
           index, condition⟩)
   | booleanAssignment {condition} : basicKind text context scan = .booleanAssignment →
+      (callAssignmentBody text context scan catalog).position = 0 →
       ConditionAt text context (scalarAssignmentStart text scan) scan.facts condition
         (readCondition text context (scalarAssignmentStart text scan) scan.facts) →
-      BasicPayload text context scan (.booleanAssign ⟨booleanTarget text context scan.position, condition⟩)
+      BasicPayload (catalog := catalog) text context scan (.booleanAssign ⟨booleanTarget text context scan.position, condition⟩)
   | assignment {update} : basicKind text context scan = .assignment →
       StringAssignmentReading text context scan update →
-      BasicPayload text context scan (.simple (.assign update))
+      BasicPayload (catalog := catalog) text context scan (.simple (.assign update))
 
 structure BasicAt (text : Source) (context : ParseContext) (scan : BodyScan)
-    (item : SourceStatement) (result : BodyScan) : Prop where
+    (item : SourceStatement) (result : BodyScan) (catalog : FunctionBindings.Metadata := {}) : Prop where
   positive : result.position ≠ 0
-  equation : basicBody text context scan = result
-  payload : BasicPayload text context scan item
+  equation : basicBody (catalog := catalog) text context scan = result
+  payload : BasicPayload (catalog := catalog) text context scan item
 
 theorem basic_after_raw {text context scan}
-    (accepted : (basicBody text context scan).position ≠ 0) :
-    basicBody text context scan = bodyToken text (basicRaw text context scan) (.symbol ";") := by
+    (accepted : (basicBody (catalog := catalog) text context scan).position ≠ 0) :
+    basicBody (catalog := catalog) text context scan = bodyToken text (basicRaw (catalog := catalog) text context scan) (.symbol ";") := by
   unfold basicBody at accepted ⊢
   split at accepted
   · exact False.elim (accepted rfl)
@@ -98,16 +109,26 @@ theorem basic_after_raw {text context scan}
       exact ite_eq_right advanced
 
 theorem basic_raw_positive {text context scan}
-    (accepted : (basicBody text context scan).position ≠ 0) :
-    (basicRaw text context scan).position ≠ 0 := by
-  rw [basic_after_raw accepted] at accepted
+    (accepted : (basicBody (catalog := catalog) text context scan).position ≠ 0) :
+    (basicRaw (catalog := catalog) text context scan).position ≠ 0 := by
+  rw [basic_after_raw (catalog := catalog) accepted] at accepted
   exact fixedAfter_nonzero accepted
+
+theorem basicRaw_string {text context scan}
+    (kind : basicKind text context scan = .assignment)
+    (positive : (basicRaw (catalog := catalog) text context scan).position ≠ 0) :
+    basicRaw (catalog := catalog) text context scan = stringAssignmentBody text context scan := by
+  simp only [basicRaw, kind] at positive ⊢
+  split at positive
+  · exact False.elim (positive rfl)
+  · rename_i impure
+    exact ite_eq_right impure
 
 theorem basic_sound {text context scan}
     (tv : Compose.Expressions.ValidText text) (nv : Compose.Expressions.ValidNames text context.names)
-    (accepted : (basicBody text context scan).position ≠ 0) :
-    ∃ item, BasicAt text context scan item (basicBody text context scan) := by
-  have raw := basic_raw_positive accepted
+    (accepted : (basicBody (catalog := catalog) text context scan).position ≠ 0) :
+    ∃ item, BasicAt (catalog := catalog) text context scan item (basicBody (catalog := catalog) text context scan) := by
+  have raw := basic_raw_positive (catalog := catalog) accepted
   cases kind : basicKind text context scan with
   | null => exact ⟨_, ⟨accepted, rfl, .null kind⟩⟩
   | reject => exact ⟨_, ⟨accepted, rfl, .reject kind⟩⟩
@@ -130,17 +151,21 @@ theorem basic_sound {text context scan}
         obtain ⟨expression, parsed⟩ := expressionAt_sound (integerHidden := context.integerHidden text) (elaborating := context.elaborating) (arrays := context.arrayNames) (scalarNames := context.readingNames scan.facts) text context.names _ positive
         exact ⟨_, ⟨accepted, rfl, .put kind parsed⟩⟩
   | scalarAssignment =>
-      simp only [basicRaw, kind, scalarAssignmentBody] at raw
-      split at raw
-      · exact False.elim (raw rfl)
-      · rename_i good
-        simp only [readScalarInFlow] at good raw
-        have positive : (ScalarExpression.read (elaborating := context.elaborating) (arrays := context.arrayNames) text (scalarAssignmentStart text scan) (context.readingNames scan.facts)).after ≠ 0 := by
-          intro zero
-          exact good (Or.inr (Or.inr (Or.inl (by omega))))
-        obtain ⟨expression, parsed⟩ := ScalarExpression.read_sound
-          (Compose.Expressions.model_fixed_valid text _ ":=" false (Compose.Expressions.model_name_valid text _)) positive
-        exact ⟨_, ⟨accepted, rfl, .scalarAssignment kind parsed⟩⟩
+      by_cases called : (callAssignmentBody text context scan catalog).position ≠ 0
+      · obtain ⟨update, parsed⟩ := functionAssignment_sound tv nv called
+        exact ⟨_, ⟨accepted, rfl, .scalarCallAssignment kind parsed⟩⟩
+      · have noCall : (callAssignmentBody text context scan catalog).position = 0 := by simpa using called
+        simp only [basicRaw, kind, noCall, ne_eq, not_true_eq_false, ↓reduceIte, scalarAssignmentBody] at raw
+        split at raw
+        · exact False.elim (raw rfl)
+        · rename_i good
+          simp only [readScalarInFlow] at good raw
+          have positive : (ScalarExpression.read (elaborating := context.elaborating) (arrays := context.arrayNames) text (scalarAssignmentStart text scan) (context.readingNames scan.facts)).after ≠ 0 := by
+            intro zero
+            exact good (Or.inr (Or.inr (Or.inl (by omega))))
+          obtain ⟨expression, parsed⟩ := ScalarExpression.read_sound
+            (Compose.Expressions.model_fixed_valid text _ ":=" false (Compose.Expressions.model_name_valid text _)) positive
+          exact ⟨_, ⟨accepted, rfl, .scalarAssignment kind noCall parsed⟩⟩
   | arrayAssignment =>
       simp only [basicRaw, kind, arrayAssignmentBody] at raw
       split at raw
@@ -180,24 +205,152 @@ theorem basic_sound {text context scan}
         rw [← targetEq] at indexed
         exact ⟨_, ⟨accepted, rfl, .booleanArrayAssignment kind indexed parsed⟩⟩
   | booleanAssignment =>
-      simp only [basicRaw, kind, booleanAssignmentBody] at raw
-      split at raw
-      · exact False.elim (raw rfl)
-      · rename_i good
-        have positive : (readCondition text context (scalarAssignmentStart text scan) scan.facts).after ≠ 0 := by
-          intro zero
-          exact good (Or.inr (Or.inr (by simp only [scalarAssignmentStart] at zero; omega)))
-        obtain ⟨⟨condition, parsed⟩, _⟩ := condition_sound text context _ _ tv nv
-          (Compose.Expressions.model_fixed_valid text _ ":=" false (Compose.Expressions.model_name_valid text _)) positive
-        exact ⟨_, ⟨accepted, rfl, .booleanAssignment kind parsed⟩⟩
+      by_cases called : (callAssignmentBody text context scan catalog).position ≠ 0
+      · obtain ⟨update, parsed⟩ := functionAssignment_sound tv nv called
+        exact ⟨_, ⟨accepted, rfl, .booleanCallAssignment kind parsed⟩⟩
+      · have noCall : (callAssignmentBody text context scan catalog).position = 0 := by simpa using called
+        simp only [basicRaw, kind, noCall, ne_eq, not_true_eq_false, ↓reduceIte, booleanAssignmentBody] at raw
+        split at raw
+        · exact False.elim (raw rfl)
+        · rename_i good
+          have positive : (readCondition text context (scalarAssignmentStart text scan) scan.facts).after ≠ 0 := by
+            intro zero
+            exact good (Or.inr (Or.inr (by simp only [scalarAssignmentStart] at zero; omega)))
+          obtain ⟨⟨condition, parsed⟩, _⟩ := condition_sound text context _ _ tv nv
+            (Compose.Expressions.model_fixed_valid text _ ":=" false (Compose.Expressions.model_name_valid text _)) positive
+          exact ⟨_, ⟨accepted, rfl, .booleanAssignment kind noCall parsed⟩⟩
   | assignment =>
       have positive : (stringAssignmentBody text context scan).position ≠ 0 := by
-        simpa only [basicRaw, kind] using raw
+        simpa only [basicRaw_string kind raw] using raw
       obtain ⟨update, source⟩ := stringAssignment_sound positive
       exact ⟨_, ⟨accepted, rfl, .assignment kind source⟩⟩
 
 private theorem true_of_not_neg {b : Bool} (h : ¬(!b) = true) : b = true := by
   cases b <;> simp_all
+
+theorem functionAssignment_meaning {text context scan catalog update}
+    (normal : NamesNormal context.names)
+    (base : ScalarMetadata.BaseReady context.scalarNames context.declarationCount)
+    (arraysReady : context.ArraysReady text)
+    (booleansBound : context.booleanNames.length ≤ BooleanBindings.maxBindings)
+    (compatible : ScalarMetadata.OverlayCompatible context.scalarNames context.declarationCount scan.facts)
+    (nv : Compose.Expressions.ValidNames text context.names)
+    (bounded : scan.facts.path.Bounded) (bodyMode : context.elaborating = false)
+    (valid : FunctionBindings.ValidMetadata text catalog)
+    (parsed : FunctionAssignmentAt text context scan catalog update) :
+    update.target.identity ≠ 0 ∧
+      update.call.Readable context.hasArguments context.names.shape
+        (ArrayBindings.booleanAnalysis context.arrayNames (BooleanBindings.analysis context.booleanNames)) ∧
+      update.check (catalogSignatures catalog) context.names.shape context.analysis (context.flow scan.facts)
+        (ArrayBindings.booleanAnalysis context.arrayNames (BooleanBindings.analysis context.booleanNames)) = true ∧
+      update.after (catalogSignatures catalog) (context.flow scan.facts) =
+        context.flow (callAssignmentBody text context scan catalog).facts := by
+  have contextReady : ScalarMetadata.ContextReady context.scalarNames context.declarationCount context.elaborating := by
+    rw [bodyMode]
+    exact base.toContextReady
+  have meaning := call_meaning normal nv contextReady arraysReady compatible bounded valid parsed.call
+  have fields := call_result_fields parsed.call
+  have accepted := parsed.positive
+  unfold callAssignmentBody callAssignmentResult at accepted
+  dsimp only at accepted
+  split at accepted
+  · exact False.elim (accepted rfl)
+  · rename_i advance
+    split at accepted
+    · rename_i nonzero
+      try dsimp only at accepted
+      split at accepted
+      · exact False.elim (accepted rfl)
+      · rename_i good
+        have kind : (readCall text context (scalarAssignmentStart text scan) scan.facts catalog).kind = .integer :=
+          Classical.not_not.mp (fun bad => good (Or.inl bad))
+        have resultKind : (FunctionBindings.signature catalog update.call.callee).resultKind = .integer :=
+          fields.1.symm.trans kind
+        have targetBound : scalarTarget text context scan.position ≤ context.scalarNames.length :=
+          ScalarExpression.lookup_bound ..
+        have mutable : (ScalarExpression.binding context.scalarNames (scalarTarget text context scan.position)).mutable = true :=
+          true_of_not_neg (fun bad => good (Or.inr (Or.inl bad)))
+        have same := ScalarExpression.bodyReady_binding base.body (Nat.pos_of_ne_zero nonzero) targetBound mutable
+        have nonempty : (readCall text context (scalarAssignmentStart text scan) scan.facts catalog).bounds.isEmpty = false :=
+          Bool.eq_false_iff.mpr (fun bad => good (Or.inr (Or.inr (Or.inl bad))))
+        have included : (readCall text context (scalarAssignmentStart text scan) scan.facts catalog).bounds.included
+            (ScalarExpression.binding context.scalarNames (scalarTarget text context scan.position)).declaredBounds = true :=
+          true_of_not_neg (fun bad => good (Or.inr (Or.inr (Or.inr bad))))
+        have native : callAssignmentBody text context scan catalog =
+            {scan with
+              position := (readCall text context (scalarAssignmentStart text scan) scan.facts catalog).after,
+              assigned := true,
+              facts := scan.facts.replace (scalarTarget text context scan.position)
+                (readCall text context (scalarAssignmentStart text scan) scan.facts catalog).bounds} := by
+          unfold callAssignmentBody callAssignmentResult
+          rw [ite_eq_right advance, ite_eq_left nonzero]
+          exact ite_eq_right good
+        have target : update.target = .integer (scalarTarget text context scan.position)
+            (ScalarExpression.binding context.scalarNames (scalarTarget text context scan.position)).declaredBounds := by
+          rw [parsed.target]
+          unfold functionAssignmentTarget
+          exact ite_eq_left nonzero
+        have mutableModel : context.analysis.mutable (scalarTarget text context scan.position) = true := by
+          simp only [ParseContext.analysis, ArrayFlow.analysis, ArrayBindings.integerMutability,
+            ArrayBindings.mutability_scalar _ _ (Nat.le_trans targetBound base.size),
+            ScalarMetadata.analysis, ScalarExpression.mutability,
+            Nat.pos_of_ne_zero nonzero, targetBound, and_self, decide_true, Bool.true_and, mutable]
+        have declaredModel : context.analysis.declared (scalarTarget text context scan.position) =
+            some (ScalarExpression.binding context.scalarNames (scalarTarget text context scan.position)).declaredBounds := by
+          simp only [ParseContext.analysis, ArrayFlow.analysis, ArrayBindings.integerRanges,
+            ArrayBindings.ranges_scalar _ _ _ _ (Nat.le_trans targetBound base.size),
+            ScalarMetadata.analysis, ScalarExpression.ranges,
+            Nat.pos_of_ne_zero nonzero, targetBound, and_self, ↓reduceIte, same]
+        refine ⟨?_, meaning.1, ?_, ?_⟩
+        · simpa only [target, ScalarFunctions.Target.identity] using nonzero
+        · rw [fields.2] at nonempty included
+          unfold ScalarFunctions.Assignment.check
+          rw [meaning.2, target]
+          simp only [resultType, resultKind, ScalarFunctions.Target.check,
+            mutableModel, declaredModel, decide_true, nonempty, included,
+            Bool.not_false, Bool.and_self]
+        · rw [ScalarFunctions.Assignment.after_checked meaning.2, target, native]
+          simp only [resultType, resultKind, ScalarFunctions.Target.after]
+          have flowAfter := ArrayFlow.flow_replace context.arrayNames scan.facts
+            (scalarTarget text context scan.position)
+            (readCall text context (scalarAssignmentStart text scan) scan.facts catalog).bounds
+            (Nat.pos_of_ne_zero nonzero) (by rw [compatible.count]; exact targetBound)
+            (Nat.le_trans targetBound base.size)
+          simpa only [ArrayFlow.flow, ParseContext.flow, bodyMode, fields.2] using flowAfter.symm
+    · rename_i noScalar
+      split at accepted
+      · rename_i good
+        have resultKind : (FunctionBindings.signature catalog update.call.callee).resultKind = .boolean :=
+          fields.1.symm.trans good.2.2
+        have targetBound : booleanTarget text context scan.position ≤ context.booleanNames.length := by
+          unfold booleanTarget
+          dsimp only
+          split
+          · exact Nat.zero_le _
+          · exact BooleanBindings.lookup_bound ..
+        have scalar := ArrayBindings.booleanAnalysis_scalar context.arrayNames
+          (BooleanBindings.analysis context.booleanNames) (Nat.le_trans targetBound booleansBound)
+        have writable : (ArrayBindings.booleanAnalysis context.arrayNames
+            (BooleanBindings.analysis context.booleanNames)).canWrite (booleanTarget text context scan.position) = true := by
+          unfold Boolean.Analysis.canWrite
+          rw [scalar.1, scalar.2]
+          simp only [BooleanBindings.analysis, Nat.pos_of_ne_zero good.1, targetBound,
+            and_self, decide_true, Bool.true_and, good.2.1]
+        have native : (callAssignmentBody text context scan catalog).facts = scan.facts := by
+          unfold callAssignmentBody callAssignmentResult
+          rw [ite_eq_right advance, ite_eq_right noScalar, ite_eq_left good]
+        have target : update.target = .boolean (booleanTarget text context scan.position) := by
+          rw [parsed.target]
+          unfold functionAssignmentTarget
+          exact ite_eq_right noScalar
+        refine ⟨?_, meaning.1, ?_, ?_⟩
+        · simpa only [target, ScalarFunctions.Target.identity] using good.1
+        · unfold ScalarFunctions.Assignment.check
+          rw [meaning.2, target]
+          simp only [resultType, resultKind, ScalarFunctions.Target.check, writable]
+        · rw [ScalarFunctions.Assignment.after_checked meaning.2, target, native]
+          rfl
+      · exact False.elim (accepted rfl)
 
 theorem basic_meaning {text context scan item result}
     (normal : NamesNormal context.names)
@@ -207,14 +360,15 @@ theorem basic_meaning {text context scan item result}
     (compatible : ScalarMetadata.OverlayCompatible context.scalarNames context.declarationCount scan.facts)
     (nv : Compose.Expressions.ValidNames text context.names)
     (bounded : scan.facts.path.Bounded) (bodyMode : context.elaborating = false)
-    (parsed : BasicAt text context scan item result) :
+    (valid : FunctionBindings.ValidMetadata text catalog)
+    (parsed : BasicAt (catalog := catalog) text context scan item result) :
     item.WellFormed context.hasArguments context.names.shape (ArrayBindings.booleanAnalysis context.arrayNames (BooleanBindings.analysis context.booleanNames)) ∧
-      item.lower.check context.names.shape context.analysis (context.flow scan.facts)
+      item.lower.check (signatures := catalogSignatures catalog) context.names.shape context.analysis (context.flow scan.facts)
         (ArrayBindings.booleanAnalysis context.arrayNames (BooleanBindings.analysis context.booleanNames)) = some (context.flow result.facts) := by
   have rangesEq := context.reading_ranges compatible
-  have success : (basicBody text context scan).position ≠ 0 := parsed.equation ▸ parsed.positive
-  have raw := basic_raw_positive success
-  have resultEq := (basic_after_raw success).symm.trans parsed.equation
+  have success : (basicBody (catalog := catalog) text context scan).position ≠ 0 := parsed.equation ▸ parsed.positive
+  have raw := basic_raw_positive (catalog := catalog) success
+  have resultEq := (basic_after_raw (catalog := catalog) success).symm.trans parsed.equation
   cases parsed.payload with
   | null kind =>
       simp only [basicRaw, kind] at resultEq
@@ -287,8 +441,20 @@ theorem basic_meaning {text context scan item result}
         rw [← factsEq]
         simp only [SourceStatement.lower, Statement.check, checkSimple, ready.2, ParseContext.flow_path, fits, valid,
           Bool.not_false, Bool.true_and, ↓reduceIte]
-  | scalarAssignment kind expression =>
-      simp only [basicRaw, kind, scalarAssignmentBody] at raw resultEq
+  | scalarCallAssignment kind reading | booleanCallAssignment kind reading =>
+      have meaning := functionAssignment_meaning normal base arraysReady booleansBound compatible
+        nv bounded bodyMode valid reading
+      have rawEq : basicRaw (catalog := catalog) text context scan = callAssignmentBody text context scan catalog := by
+        simp only [basicRaw, kind]
+        exact ite_eq_left reading.positive
+      have factsEq : (callAssignmentBody text context scan catalog).facts = result.facts := by
+        simpa only [rawEq, bodyToken_facts] using congrArg BodyScan.facts resultEq
+      simp only [SourceStatement.WellFormed]
+      refine ⟨⟨meaning.1, meaning.2.1⟩, ?_⟩
+      simp only [SourceStatement.lower, Statement.check, meaning.2.2.1, ↓reduceIte,
+        meaning.2.2.2, factsEq]
+  | scalarAssignment kind noCall expression =>
+      simp only [basicRaw, kind, noCall, ne_eq, not_true_eq_false, ↓reduceIte, scalarAssignmentBody] at raw resultEq
       split at raw
       · exact False.elim (raw rfl)
       · rename_i good
@@ -447,8 +613,8 @@ theorem basic_meaning {text context scan item result}
         · rw [← factsEq]
           simp only [SourceStatement.lower, Statement.check, BooleanArrayAssignment.check,
             writable, checkedIndex, valueMeaning.checked, Bool.and_self, ↓reduceIte]
-  | booleanAssignment kind condition =>
-      simp only [basicRaw, kind, booleanAssignmentBody] at raw resultEq
+  | booleanAssignment kind noCall condition =>
+      simp only [basicRaw, kind, noCall, ne_eq, not_true_eq_false, ↓reduceIte, booleanAssignmentBody] at raw resultEq
       split at raw
       · exact False.elim (raw rfl)
       · rename_i good
@@ -481,11 +647,12 @@ theorem basic_meaning {text context scan item result}
         simp only [SourceStatement.lower, Statement.check, writable, meaning.checked, Bool.true_and, ↓reduceIte]
   | assignment kind reading =>
       have positive : (stringAssignmentBody text context scan).position ≠ 0 := by
-        simpa only [basicRaw, kind] using raw
+        simpa only [basicRaw_string kind raw] using raw
       have meaning := stringAssignment_meaning normal compatible nv bodyMode reading positive
       have factsEq : scan.facts = result.facts := by
         have fields := congrArg BodyScan.facts resultEq
-        simpa only [basicRaw, kind, bodyToken_facts, stringAssignment_facts positive] using fields
+        rw [basicRaw_string kind raw] at fields
+        simpa only [bodyToken_facts, stringAssignment_facts positive] using fields
       simp only [SourceStatement.WellFormed]
       refine ⟨meaning.1, ?_⟩
       rw [← factsEq]
@@ -493,7 +660,7 @@ theorem basic_meaning {text context scan item result}
         meaning.2, ↓reduceIte]
 
 theorem basic_unique {text context scan left right first second}
-    (a : BasicAt text context scan left first) (b : BasicAt text context scan right second) :
+    (a : BasicAt (catalog := catalog) text context scan left first) (b : BasicAt (catalog := catalog) text context scan right second) :
     left = right ∧ first = second := by
   refine ⟨?_, a.equation.symm.trans b.equation⟩
   cases a.payload with
@@ -503,25 +670,40 @@ theorem basic_unique {text context scan left right first second}
       cases b.payload <;> simp_all
   | output kind reading =>
       cases b.payload with
-      | null other | reject other | assignment other | scalarAssignment other | arrayAssignment other | booleanAssignment other | booleanArrayAssignment other | put other => simp_all
+      | null other | reject other | assignment other | scalarAssignment other | arrayAssignment other | booleanAssignment other | booleanArrayAssignment other | put other | scalarCallAssignment other | booleanCallAssignment other => simp_all
       | output _ other =>
           obtain ⟨rfl, _⟩ := expressionTail_unique reading other
           rfl
   | put kind reading =>
       cases b.payload with
-      | null other | reject other | assignment other | scalarAssignment other | arrayAssignment other | booleanAssignment other | booleanArrayAssignment other | output other => simp_all
+      | null other | reject other | assignment other | scalarAssignment other | arrayAssignment other | booleanAssignment other | booleanArrayAssignment other | output other | scalarCallAssignment other | booleanCallAssignment other => simp_all
       | put _ other =>
           obtain ⟨rfl, _⟩ := expressionTail_unique reading other
           rfl
-  | scalarAssignment kind reading =>
+  | scalarCallAssignment kind reading =>
       cases b.payload with
-      | null other | reject other | output other | put other | arrayAssignment other | booleanAssignment other | booleanArrayAssignment other | assignment other => simp_all
-      | scalarAssignment _ other =>
+      | scalarCallAssignment _ other => rw [functionAssignment_unique reading other]
+      | scalarAssignment _ noCall _ => exact False.elim (reading.positive noCall)
+      | null other | reject other | output other | put other | arrayAssignment other
+      | booleanAssignment other | booleanCallAssignment other | booleanArrayAssignment other
+      | assignment other => simp_all
+  | booleanCallAssignment kind reading =>
+      cases b.payload with
+      | booleanCallAssignment _ other => rw [functionAssignment_unique reading other]
+      | booleanAssignment _ noCall _ => exact False.elim (reading.positive noCall)
+      | null other | reject other | output other | put other | arrayAssignment other
+      | scalarAssignment other | scalarCallAssignment other | booleanArrayAssignment other
+      | assignment other => simp_all
+  | scalarAssignment kind noCall reading =>
+      cases b.payload with
+      | scalarCallAssignment _ other => exact False.elim (other.positive noCall)
+      | null other | reject other | output other | put other | arrayAssignment other | booleanAssignment other | booleanArrayAssignment other | assignment other | booleanCallAssignment other => simp_all
+      | scalarAssignment _ _ other =>
           obtain ⟨rfl, _⟩ := ScalarExpression.at_unique reading other
           rfl
   | arrayAssignment kind indexed reading =>
       cases b.payload with
-      | null other | reject other | output other | put other | scalarAssignment other | assignment other | booleanAssignment other | booleanArrayAssignment other => simp_all
+      | null other | reject other | output other | put other | scalarAssignment other | assignment other | booleanAssignment other | booleanArrayAssignment other | scalarCallAssignment other | booleanCallAssignment other => simp_all
       | arrayAssignment _ otherIndex other =>
           obtain ⟨rfl, _⟩ := ScalarExpression.at_unique indexed otherIndex
           obtain ⟨rfl, _⟩ := ScalarExpression.at_unique reading other
@@ -529,22 +711,23 @@ theorem basic_unique {text context scan left right first second}
   | booleanArrayAssignment kind indexed reading =>
       cases b.payload with
       | null other | reject other | output other | put other | scalarAssignment other
-      | arrayAssignment other | assignment other | booleanAssignment other => simp_all
+      | arrayAssignment other | assignment other | booleanAssignment other | scalarCallAssignment other | booleanCallAssignment other => simp_all
       | booleanArrayAssignment _ otherIndex other =>
           have indexEq := booleanArray_unique indexed otherIndex
           injection indexEq with _ sameIndex
           cases sameIndex
           obtain rfl := condition_unique reading other
           rfl
-  | booleanAssignment kind reading =>
+  | booleanAssignment kind noCall reading =>
       cases b.payload with
-      | null other | reject other | output other | put other | scalarAssignment other | arrayAssignment other | assignment other | booleanArrayAssignment other => simp_all
-      | booleanAssignment _ other =>
+      | booleanCallAssignment _ other => exact False.elim (other.positive noCall)
+      | null other | reject other | output other | put other | scalarAssignment other | arrayAssignment other | assignment other | booleanArrayAssignment other | scalarCallAssignment other => simp_all
+      | booleanAssignment _ _ other =>
           obtain ⟨rfl, _⟩ := condition_unique reading other
           rfl
   | assignment kind reading =>
       cases b.payload with
-      | null other | reject other | output other | scalarAssignment other | arrayAssignment other | booleanAssignment other | booleanArrayAssignment other | put other => simp_all
+      | null other | reject other | output other | scalarAssignment other | arrayAssignment other | booleanAssignment other | booleanArrayAssignment other | put other | scalarCallAssignment other | booleanCallAssignment other => simp_all
       | assignment _ other =>
           rw [stringAssignment_unique reading other]
 

@@ -2,6 +2,7 @@ module
 
 public import Silver.FunctionVisibilitySource
 public import Silver.ComposeContracts
+public import Silver.FunctionDeclarationDomains
 
 @[expose] public section
 
@@ -9,6 +10,7 @@ namespace Silver.Compose.FunctionVisibilityNative
 open Silver.Compose.Expressions
 
 abbrev ValidText := FunctionBindings.Native.ValidText
+abbrev NativeValidState := FunctionDeclarationNative.NativeValidState
 abbrev NameSpan := FunctionBindings.NameSpan
 
 def ValidWord (word : String) : Prop := 0 < word.toList.length ∧ word.toList.length ≤ 4096
@@ -33,13 +35,13 @@ structure Equations (implementation : Implementation) : Prop where
     FunctionBindings.ValidMetadata text catalog → ValidWord word →
     implementation.calls.functionHides text catalog word = functionHidesBody.eval implementation.calls {text, catalog, word}
   formalHides : ∀ text, ValidText text → ∀ state first after,
-    ValidState text state → first ≤ text.length + 1 → after ≤ text.length + 1 →
+    NativeValidState text state → first ≤ text.length + 1 → after ≤ text.length + 1 →
     implementation.formalHides text state first after = formalHidesBody.eval implementation.calls {text, state, first, after}
   hiddenWord : ∀ text, ValidText text → ∀ state word,
-    ValidState text state → ValidWord word →
+    NativeValidState text state → ValidWord word →
     implementation.calls.hiddenWord text state word = hiddenWordBody.eval implementation.calls {text, state, word}
   hiddenOuter : ∀ text, ValidText text → ∀ state,
-    ValidState text state → implementation.hiddenOuter text state = evalMarks implementation.calls {text, state} hiddenOuterField
+    NativeValidState text state → implementation.hiddenOuter text state = evalMarks implementation.calls {text, state} hiddenOuterField
   hideName : ∀ text, ValidText text → ∀ flags first after,
     NameSpan text first after →
     implementation.hideName text flags first after = evalMarks implementation.calls {text, flags, first, after} hideNameField
@@ -65,7 +67,7 @@ theorem functionHides_meaning (implementation : Implementation) (primitives : Pr
 
 theorem formalHides_meaning (implementation : Implementation) (primitives : Primitives implementation.calls)
     (equations : Equations implementation) (text : Source) (textValid : ValidText text)
-    (state : ParserState) (valid : ValidState text state) (first after : Nat)
+    (state : ParserState) (valid : NativeValidState text state) (first after : Nat)
     (firstBound : first ≤ text.length + 1) (afterBound : after ≤ text.length + 1) :
     implementation.formalHides text state first after = Compose.formalHides text state first after := by
   rw [equations.formalHides text textValid state first after valid firstBound afterBound]
@@ -77,7 +79,7 @@ theorem formalHides_meaning (implementation : Implementation) (primitives : Prim
       apply any_congr_on
       intro item member
       exact primitives.equalName text textValid item.first item.after first after
-        ((valid.2.2.2.2.2.2.2.2.2.1).2.2.1 item (List.mem_of_mem_drop member)).1
+        ((valid.base.2.2.2.2.2.2.2.2.2.1).2.2.1 item (List.mem_of_mem_drop member)).1
         ⟨firstPositive, ordered, afterBound⟩
     · simp only [show ¬after > first from ordered, decide_false, Bool.and_false, Bool.false_and]
   · simp only [firstPositive, decide_false, Bool.false_and]
@@ -109,17 +111,17 @@ private theorem table_spans (text : Source) (state : ParserState) (valid : Valid
 
 theorem hiddenWord_meaning (implementation : Implementation) (primitives : Primitives implementation.calls)
     (equations : Equations implementation) (text : Source) (textValid : ValidText text)
-    (state : ParserState) (valid : ValidState text state) (word : String) (wordValid : ValidWord word) :
+    (state : ParserState) (valid : NativeValidState text state) (word : String) (wordValid : ValidWord word) :
     implementation.calls.hiddenWord text state word = Compose.hiddenWord text state word := by
   rw [equations.hiddenWord text textValid state word valid wordValid, ← hiddenWord_model]
   have tableMeaning (table : Table) : (Expr.tableNames table).eval implementation.calls {text, state, word} =
       (Expr.tableNames table).eval modelCalls {text, state, word} := by
     apply any_congr_on
     intro span member
-    exact primitives.nameIs text textValid span.1 span.2 word (table_spans text state valid table span member) wordValid
+    exact primitives.nameIs text textValid span.1 span.2 word (table_spans text state valid.base table span member) wordValid
   dsimp only [hiddenWordBody, Expr.eval]
   rw [functionHides_meaning implementation primitives equations text textValid state.functions
-    valid.2.2.2.2.2.2.2.2.2.1 word wordValid]
+    valid.base.2.2.2.2.2.2.2.2.2.1 word wordValid]
   dsimp only [Expr.eval] at tableMeaning
   rw [tableMeaning, tableMeaning, tableMeaning, tableMeaning, tableMeaning]
   rfl
@@ -128,7 +130,7 @@ private theorem mark_word_valid (mark : Mark) : ValidWord mark.word := by unfold
 
 theorem hiddenOuter_meaning (implementation : Implementation) (primitives : Primitives implementation.calls)
     (equations : Equations implementation) (text : Source) (textValid : ValidText text)
-    (state : ParserState) (valid : ValidState text state) :
+    (state : ParserState) (valid : NativeValidState text state) :
     implementation.hiddenOuter text state = Compose.hiddenOuter text state := by
   rw [equations.hiddenOuter text textValid state valid, ← hiddenOuter_model]
   have fields (mark : Mark) : (hiddenOuterField mark).eval implementation.calls {text, state} =

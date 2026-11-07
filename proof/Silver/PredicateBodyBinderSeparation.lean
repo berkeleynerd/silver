@@ -9,6 +9,7 @@ public import Silver.PredicateLoopProperties
 source-derived bound separates all nested loop binders from array storage;
 the generic statement model itself has no native-identity assumption. -/
 namespace Silver.Predicate
+variable {catalog : FunctionBindings.Metadata}
 open Compose
 
 mutual
@@ -16,7 +17,7 @@ mutual
       {array : Integer.ArrayDescriptor}
       (low : context.scalarNames.length ≤ ArrayBindings.scalarLimit)
       (apart : ∀ index, index ≤ ArrayBindings.scalarLimit → ¬array.ContainsCell index)
-      (parsed : StatementAt text context scan item result) : item.lower.bindersApart array = true := by
+      (parsed : StatementAt (catalog := catalog) text context scan item result) : item.lower.bindersApart array = true := by
     cases parsed with
     | basic _ _ _ reading _ => cases reading.payload <;> simp only [SourceStatement.lower, Statement.bindersApart]
     | choice _ _ reading _ =>
@@ -30,7 +31,7 @@ mutual
       {array : Integer.ArrayDescriptor}
       (low : context.scalarNames.length ≤ ArrayBindings.scalarLimit)
       (apart : ∀ index, index ≤ ArrayBindings.scalarLimit → ¬array.ContainsCell index)
-      (parsed : LoopAt text context scan lower upper body result) :
+      (parsed : LoopAt (catalog := catalog) text context scan lower upper body result) :
       (SourceStatement.forLoop (context.scalarNames.length + 1) (loopHeader text context scan).reverse
         lower upper body).lower.bindersApart array = true := by
     cases parsed with
@@ -47,7 +48,7 @@ mutual
       {array : Integer.ArrayDescriptor}
       (low : context.scalarNames.length ≤ ArrayBindings.scalarLimit)
       (apart : ∀ index, index ≤ ArrayBindings.scalarLimit → ¬array.ContainsCell index)
-      (parsed : ArrayLoopAt text context scan body result) :
+      (parsed : ArrayLoopAt (catalog := catalog) text context scan body result) :
       (SourceStatement.arrayLoop (context.scalarNames.length + 1) (loopHeader text context scan).reverse
         (ArrayBindings.binding context.arrayNames (loopArrayTarget text context scan)).descriptor body).lower.bindersApart array = true := by
     cases parsed with
@@ -64,7 +65,7 @@ mutual
       {array : Integer.ArrayDescriptor}
       (low : context.scalarNames.length ≤ ArrayBindings.scalarLimit)
       (apart : ∀ index, index ≤ ArrayBindings.scalarLimit → ¬array.ContainsCell index)
-      (parsed : ChoiceAt text context scan condition yes tail result) :
+      (parsed : ChoiceAt (catalog := catalog) text context scan condition yes tail result) :
       statementsBindersApart array (lowerStatements yes) = true ∧
         statementsBindersApart array tail.lower = true := by
     cases parsed with
@@ -76,7 +77,7 @@ mutual
       {array : Integer.ArrayDescriptor}
       (low : context.scalarNames.length ≤ ArrayBindings.scalarLimit)
       (apart : ∀ index, index ≤ ArrayBindings.scalarLimit → ¬array.ContainsCell index)
-      (parsed : AlternativeAt text context scan tail result) :
+      (parsed : AlternativeAt (catalog := catalog) text context scan tail result) :
       statementsBindersApart array tail.lower = true := by
     cases parsed with
     | absent => simp only [SourceAlternative.lower, statementsBindersApart]
@@ -91,7 +92,7 @@ mutual
       {array : Integer.ArrayDescriptor}
       (low : context.scalarNames.length ≤ ArrayBindings.scalarLimit)
       (apart : ∀ index, index ≤ ArrayBindings.scalarLimit → ¬array.ContainsCell index)
-      (parsed : BodyTailAt text context stop scan items result) :
+      (parsed : BodyTailAt (catalog := catalog) text context stop scan items result) :
       statementsBindersApart array (lowerStatements items) = true := by
     cases parsed with
     | done => simp only [lowerStatements, statementsBindersApart]
@@ -104,7 +105,7 @@ mutual
       {array : Integer.ArrayDescriptor}
       (low : context.scalarNames.length ≤ ArrayBindings.scalarLimit)
       (apart : ∀ index, index ≤ ArrayBindings.scalarLimit → ¬array.ContainsCell index)
-      (parsed : BodyAt text context scan stop items result) :
+      (parsed : BodyAt (catalog := catalog) text context scan stop items result) :
       statementsBindersApart array (lowerStatements items) = true := by
     cases parsed with
     | cons itemRead _ restRead _ =>

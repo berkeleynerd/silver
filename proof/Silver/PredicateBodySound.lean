@@ -7,6 +7,7 @@ public import Silver.PredicateBodyReadings
 set_option backward.dsimp.instances true
 
 namespace Silver.Predicate
+variable {catalog : FunctionBindings.Metadata}
 open Compose Bindings PathFacts Compose.Expressions
 
 attribute [local irreducible] ScalarExpression.read
@@ -20,13 +21,13 @@ private theorem branch_sound {text context scan keyword}
   exact (condition_sound text context _ _ tv nv (bodyToken_bound text scan _ sv) conditionPositive).1
 
 private theorem conditional_shape {text context scan}
-    (accepted : (conditionalBody text context scan).position ≠ 0) :
+    (accepted : (conditionalBody (catalog := catalog) text context scan).position ≠ 0) :
     let start := branchStart text context scan "if"
-    let yes := readBody text context start.1 .arm
-    let no := alternativeBody text context {yes with facts := start.2}
+    let yes := readBody (catalog := catalog) text context start.1 .arm
+    let no := alternativeBody (catalog := catalog) text context {yes with facts := start.2}
     scan.position < start.1.position ∧ bodyRemaining text start.1 < bodyRemaining text scan ∧
     scan.position < yes.position ∧ bodyRemaining text yes < bodyRemaining text scan ∧
-    conditionalBody text context scan = bodyTokens text {no with facts := yes.facts.join no.facts}
+    conditionalBody (catalog := catalog) text context scan = bodyTokens text {no with facts := yes.facts.join no.facts}
       [.word "end", .word "if", .symbol ";"] := by
   rw [conditionalBody] at accepted ⊢
   dsimp only at accepted ⊢
@@ -55,17 +56,17 @@ private theorem conditional_shape {text context scan}
 mutual
   theorem statement_sound (text : Source) (context : ParseContext) (scan : BodyScan)
       (tv : ValidText text) (nv : ValidNames text context.names) (sv : scan.position ≤ text.length + 1)
-      (accepted : (statementBody text context scan).position ≠ 0) :
-      ∃ item, StatementAt text context scan item (statementBody text context scan) := by
-    have positive : scan.position ≠ 0 := fun zero => accepted (by rw [statementBody_zero zero]; rfl)
+      (accepted : (statementBody (catalog := catalog) text context scan).position ≠ 0) :
+      ∃ item, StatementAt (catalog := catalog) text context scan item (statementBody (catalog := catalog) text context scan) := by
+    have positive : scan.position ≠ 0 := fun zero => accepted (by rw [statementBody_zero (catalog := catalog) zero]; rfl)
     by_cases found : fixedAfter text scan.position "if" true ≠ 0
-    · have equation : statementBody text context scan = conditionalBody text context scan := by
+    · have equation : statementBody (catalog := catalog) text context scan = conditionalBody (catalog := catalog) text context scan := by
         rw [statementBody]; simp [positive, found, ↓reduceIte]
       obtain ⟨condition, yes, tail, parsed⟩ := choice_sound text context scan tv nv sv (equation ▸ accepted)
       exact ⟨_, .choice positive found (equation ▸ parsed) rfl⟩
     · have missing : fixedAfter text scan.position "if" true = 0 := by simpa using found
       by_cases loopFound : fixedAfter text scan.position "for" true ≠ 0
-      · have equation : statementBody text context scan = loopBody text context scan := by
+      · have equation : statementBody (catalog := catalog) text context scan = loopBody (catalog := catalog) text context scan := by
           rw [statementBody]; simp [positive, found, loopFound, ↓reduceIte]
         by_cases iterable : loopIsArray text scan = true
         · obtain ⟨body, parsed⟩ := arrayLoop_sound text context scan tv nv iterable (equation ▸ accepted)
@@ -74,18 +75,18 @@ mutual
             (Bool.eq_false_iff.mpr iterable) (equation ▸ accepted)
           exact ⟨_, .loop positive missing loopFound (equation ▸ parsed) rfl⟩
       · have noLoop : fixedAfter text scan.position "for" true = 0 := by simpa using loopFound
-        have equation : statementBody text context scan = basicBody text context scan := by
+        have equation : statementBody (catalog := catalog) text context scan = basicBody (catalog := catalog) text context scan := by
           rw [statementBody]; simp [positive, found, loopFound, ↓reduceIte]
-        obtain ⟨item, parsed⟩ := basic_sound tv nv (equation ▸ accepted)
+        obtain ⟨item, parsed⟩ := basic_sound (catalog := catalog) tv nv (equation ▸ accepted)
         exact ⟨item, .basic positive missing noLoop (equation ▸ parsed) rfl⟩
   termination_by (bodyRemaining text scan, 2)
 
   theorem loop_sound (text : Source) (context : ParseContext) (scan : BodyScan)
       (tv : ValidText text) (nv : ValidNames text context.names)
       (counted : loopIsArray text scan = false)
-      (accepted : (loopBody text context scan).position ≠ 0) :
-      ∃ lower upper body, LoopAt text context scan lower upper body (loopBody text context scan) := by
-    obtain ⟨allowed, entryForward, advanced, bodyForward, equation, _⟩ := loopBody_shape accepted
+      (accepted : (loopBody (catalog := catalog) text context scan).position ≠ 0) :
+      ∃ lower upper body, LoopAt (catalog := catalog) text context scan lower upper body (loopBody (catalog := catalog) text context scan) := by
+    obtain ⟨allowed, entryForward, advanced, bodyForward, equation, _⟩ := loopBody_shape (catalog := catalog) accepted
     obtain ⟨lower, upper, lowerRead, upperRead⟩ := loopHeader_readings counted (by omega :
       (loopHeader text context scan).entry.position ≠ 0)
     obtain ⟨body, bodyRead⟩ := body_sound text (loopInner context (loopHeader text context scan))
@@ -96,9 +97,9 @@ mutual
   theorem arrayLoop_sound (text : Source) (context : ParseContext) (scan : BodyScan)
       (tv : ValidText text) (nv : ValidNames text context.names)
       (iterable : loopIsArray text scan = true)
-      (accepted : (loopBody text context scan).position ≠ 0) :
-      ∃ body, ArrayLoopAt text context scan body (loopBody text context scan) := by
-    obtain ⟨allowed, entryForward, advanced, bodyForward, equation, _⟩ := loopBody_shape accepted
+      (accepted : (loopBody (catalog := catalog) text context scan).position ≠ 0) :
+      ∃ body, ArrayLoopAt (catalog := catalog) text context scan body (loopBody (catalog := catalog) text context scan) := by
+    obtain ⟨allowed, entryForward, advanced, bodyForward, equation, _⟩ := loopBody_shape (catalog := catalog) accepted
     have validArray : loopArrayAllowed text context scan = true := by
       by_cases present : loopArrayAllowed text context scan = true
       · exact present
@@ -112,31 +113,31 @@ mutual
 
   theorem choice_sound (text : Source) (context : ParseContext) (scan : BodyScan)
       (tv : ValidText text) (nv : ValidNames text context.names) (sv : scan.position ≤ text.length + 1)
-      (accepted : (conditionalBody text context scan).position ≠ 0) :
-      ∃ condition yes tail, ChoiceAt text context scan condition yes tail (conditionalBody text context scan) := by
-    obtain ⟨startForward, advanced, yesForward, yesAdvanced, equation⟩ := conditional_shape accepted
+      (accepted : (conditionalBody (catalog := catalog) text context scan).position ≠ 0) :
+      ∃ condition yes tail, ChoiceAt (catalog := catalog) text context scan condition yes tail (conditionalBody (catalog := catalog) text context scan) := by
+    obtain ⟨startForward, advanced, yesForward, yesAdvanced, equation⟩ := conditional_shape (catalog := catalog) accepted
     have startPositive : (branchStart text context scan "if").1.position ≠ 0 := by omega
     obtain ⟨condition, conditionRead⟩ := branch_sound tv nv sv startPositive
-    have yesPositive : (readBody text context (branchStart text context scan "if").1 .arm).position ≠ 0 := by omega
+    have yesPositive : (readBody (catalog := catalog) text context (branchStart text context scan "if").1 .arm).position ≠ 0 := by omega
     obtain ⟨yes, yesRead⟩ := body_sound text context _ .arm tv nv
       (branchStart_bound text context scan "if" tv nv sv) yesPositive
-    have noPositive : (alternativeBody text context
-        {readBody text context (branchStart text context scan "if").1 .arm with facts :=
+    have noPositive : (alternativeBody (catalog := catalog) text context
+        {readBody (catalog := catalog) text context (branchStart text context scan "if").1 .arm with facts :=
           (branchStart text context scan "if").2}).position ≠ 0 := by
       intro zero
       rw [equation] at accepted
       exact accepted (bodyTokens_zero zero)
     obtain ⟨tail, tailRead⟩ := alternative_sound text context
-      {readBody text context (branchStart text context scan "if").1 .arm with facts := (branchStart text context scan "if").2} tv nv
-      (readBody_bound text context _ .arm tv nv (branchStart_bound text context scan "if" tv nv sv)) noPositive
+      {readBody (catalog := catalog) text context (branchStart text context scan "if").1 .arm with facts := (branchStart text context scan "if").2} tv nv
+      (readBody_bound (catalog := catalog) text context _ .arm tv nv (branchStart_bound text context scan "if" tv nv sv)) noPositive
     exact ⟨condition, yes, tail, .choice conditionRead advanced yesRead yesAdvanced tailRead equation accepted rfl⟩
   termination_by (bodyRemaining text scan, 1)
 
   theorem alternative_sound (text : Source) (context : ParseContext) (scan : BodyScan)
       (tv : ValidText text) (nv : ValidNames text context.names) (sv : scan.position ≤ text.length + 1)
-      (accepted : (alternativeBody text context scan).position ≠ 0) :
-      ∃ tail, AlternativeAt text context scan tail (alternativeBody text context scan) := by
-    have positive : scan.position ≠ 0 := fun zero => accepted (by rw [alternativeBody_zero zero]; rfl)
+      (accepted : (alternativeBody (catalog := catalog) text context scan).position ≠ 0) :
+      ∃ tail, AlternativeAt (catalog := catalog) text context scan tail (alternativeBody (catalog := catalog) text context scan) := by
+    have positive : scan.position ≠ 0 := fun zero => accepted (by rw [alternativeBody_zero (catalog := catalog) zero]; rfl)
     by_cases elsifFound : fixedAfter text scan.position "elsif" true ≠ 0
     · have reduced := accepted
       rw [alternativeBody] at reduced
@@ -152,9 +153,9 @@ mutual
           · rename_i yes
             split at reduced
             · rename_i yesAdvanced
-              have equation : alternativeBody text context scan =
-                  let yes := readBody text context (branchStart text context scan "elsif").1 .arm
-                  let no := alternativeBody text context {yes with facts := (branchStart text context scan "elsif").2}
+              have equation : alternativeBody (catalog := catalog) text context scan =
+                  let yes := readBody (catalog := catalog) text context (branchStart text context scan "elsif").1 .arm
+                  let no := alternativeBody (catalog := catalog) text context {yes with facts := (branchStart text context scan "elsif").2}
                   {no with facts := yes.facts.join no.facts} := by
                 rw [alternativeBody]
                 simp [positive, elsifFound, start, advanced, yes, yesAdvanced, ↓reduceIte, ↓reduceDIte]
@@ -162,8 +163,8 @@ mutual
               obtain ⟨yesItems, yesRead⟩ := body_sound text context _ .arm tv nv
                 (branchStart_bound text context scan "elsif" tv nv sv) (by omega)
               obtain ⟨tail, tailRead⟩ := alternative_sound text context
-                {readBody text context (branchStart text context scan "elsif").1 .arm with facts := (branchStart text context scan "elsif").2} tv nv
-                (readBody_bound text context _ .arm tv nv (branchStart_bound text context scan "elsif" tv nv sv)) reduced
+                {readBody (catalog := catalog) text context (branchStart text context scan "elsif").1 .arm with facts := (branchStart text context scan "elsif").2} tv nv
+                (readBody_bound (catalog := catalog) text context _ .arm tv nv (branchStart_bound text context scan "elsif" tv nv sv)) reduced
               exact ⟨_, .elsif positive elsifFound conditionRead advanced yesRead yesAdvanced tailRead equation accepted rfl⟩
             · exact False.elim (reduced rfl)
         · exact False.elim (reduced rfl)
@@ -177,7 +178,7 @@ mutual
         · rename_i start
           split at reduced
           · rename_i advanced
-            have equation : alternativeBody text context scan = readBody text context (bodyToken text scan (.word "else")) .endOnly := by
+            have equation : alternativeBody (catalog := catalog) text context scan = readBody (catalog := catalog) text context (bodyToken text scan (.word "else")) .endOnly := by
               rw [alternativeBody, ite_eq_right positive, ite_eq_right elsifFound, ite_eq_left elseFound]
               dsimp only
               simp only [start, advanced, ↓reduceIte, ↓reduceDIte]
@@ -189,18 +190,18 @@ mutual
           intro zero
           rw [alternativeBody] at accepted
           simp [positive, elsifFound, elseFound, zero, invalidBody] at accepted
-        have equation : alternativeBody text context scan = scan := by
+        have equation : alternativeBody (catalog := catalog) text context scan = scan := by
           rw [alternativeBody]; simp [positive, elsifFound, elseFound, endFound, ↓reduceIte]
         exact ⟨_, by rw [equation]; exact AlternativeAt.absent positive noElsif noElse endFound⟩
   termination_by (bodyRemaining text scan, 1)
 
   theorem bodyTail_sound (text : Source) (context : ParseContext) (scan : BodyScan) (stop : BodyStop)
       (tv : ValidText text) (nv : ValidNames text context.names) (sv : scan.position ≤ text.length + 1)
-      (accepted : (bodyTail text context scan stop).position ≠ 0) :
-      ∃ items, BodyTailAt text context stop scan items (bodyTail text context scan stop) := by
-    have positive : scan.position ≠ 0 := fun zero => accepted (by rw [bodyTail_zero zero]; rfl)
+      (accepted : (bodyTail (catalog := catalog) text context scan stop).position ≠ 0) :
+      ∃ items, BodyTailAt (catalog := catalog) text context stop scan items (bodyTail (catalog := catalog) text context scan stop) := by
+    have positive : scan.position ≠ 0 := fun zero => accepted (by rw [bodyTail_zero (catalog := catalog) zero]; rfl)
     by_cases stopped : atBodyStop text scan.position stop = true
-    · have equation : bodyTail text context scan stop = scan := by rw [bodyTail]; simp [positive, stopped, ↓reduceIte]
+    · have equation : bodyTail (catalog := catalog) text context scan stop = scan := by rw [bodyTail]; simp [positive, stopped, ↓reduceIte]
       exact ⟨[], by rw [equation]; exact BodyTailAt.done positive stopped⟩
     · have notStopped : atBodyStop text scan.position stop = false := by cases h : atBodyStop text scan.position stop <;> simp_all
       have reduced := accepted
@@ -212,19 +213,19 @@ mutual
       · rename_i next
         split at reduced
         · rename_i advanced
-          have equation : bodyTail text context scan stop = bodyTail text context (statementBody text context scan) stop := by
+          have equation : bodyTail (catalog := catalog) text context scan stop = bodyTail (catalog := catalog) text context (statementBody (catalog := catalog) text context scan) stop := by
             rw [bodyTail]; simp [positive, stopped, next, advanced, ↓reduceIte, ↓reduceDIte]
           obtain ⟨item, itemRead⟩ := statement_sound text context scan tv nv sv (by omega)
           obtain ⟨rest, restRead⟩ := bodyTail_sound text context _ stop tv nv
-            (statementBody_bound text context scan tv nv sv) reduced
+            (statementBody_bound (catalog := catalog) text context scan tv nv sv) reduced
           exact ⟨_, .next positive notStopped itemRead advanced (equation ▸ restRead) rfl⟩
         · exact False.elim (reduced rfl)
   termination_by (bodyRemaining text scan, 3)
 
   theorem body_sound (text : Source) (context : ParseContext) (scan : BodyScan) (stop : BodyStop)
       (tv : ValidText text) (nv : ValidNames text context.names) (sv : scan.position ≤ text.length + 1)
-      (accepted : (readBody text context scan stop).position ≠ 0) :
-      ∃ items, BodyAt text context scan stop items (readBody text context scan stop) := by
+      (accepted : (readBody (catalog := catalog) text context scan stop).position ≠ 0) :
+      ∃ items, BodyAt (catalog := catalog) text context scan stop items (readBody (catalog := catalog) text context scan stop) := by
     have reduced := accepted
     rw [readBody] at reduced
     try dsimp only at reduced
@@ -233,11 +234,11 @@ mutual
     · rename_i next
       split at reduced
       · rename_i advanced
-        have equation : readBody text context scan stop = bodyTail text context (statementBody text context scan) stop := by
+        have equation : readBody (catalog := catalog) text context scan stop = bodyTail (catalog := catalog) text context (statementBody (catalog := catalog) text context scan) stop := by
           rw [readBody]; simp [next, advanced, ↓reduceIte, ↓reduceDIte]
         obtain ⟨item, itemRead⟩ := statement_sound text context scan tv nv sv next
         obtain ⟨rest, restRead⟩ := bodyTail_sound text context _ stop tv nv
-          (statementBody_bound text context scan tv nv sv) reduced
+          (statementBody_bound (catalog := catalog) text context scan tv nv sv) reduced
         exact ⟨_, .cons itemRead advanced (equation ▸ restRead) rfl⟩
       · exact False.elim (reduced rfl)
   termination_by (bodyRemaining text scan, 3)
