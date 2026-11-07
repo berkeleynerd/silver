@@ -275,6 +275,7 @@ inductive Field : Ty → Ty → Type
   | contextBooleans : Field .context .booleanNames
   | contextTrueHidden : Field .context .truth
   | contextFalseHidden : Field .context .truth
+  | contextPure : Field .context .truth
   | contextElaborating : Field .context .truth
   | contextMaskFirst : Field .context .number
   | contextMaskAfter : Field .context .number
@@ -315,6 +316,7 @@ def Field.name : Field a b → String
   | .contextBooleans => "boolean_names"
   | .contextTrueHidden => "true_hidden"
   | .contextFalseHidden => "false_hidden"
+  | .contextPure => "pure"
   | .contextElaborating => "elaborating"
   | .contextMaskFirst => "mask_first"
   | .contextMaskAfter => "mask_after"
@@ -354,6 +356,7 @@ def Field.get : Field a b → a.meaning → b.meaning
   | .contextBooleans, value => value.booleanNames
   | .contextTrueHidden, value => value.trueHidden
   | .contextFalseHidden, value => value.falseHidden
+  | .contextPure, value => value.pure
   | .contextElaborating, value => value.elaborating
   | .contextMaskFirst, value => value.maskFirst
   | .contextMaskAfter, value => value.maskAfter

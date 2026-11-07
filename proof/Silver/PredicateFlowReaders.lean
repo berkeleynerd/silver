@@ -74,6 +74,7 @@ def Expr.render : Expr ty → List String
   | .arrays contextExpr => contextExpr.render ++ [".", "array_names"]
   | .elaborating contextExpr => contextExpr.render ++ [".", "elaborating"]
   | .integerHidden textExpr contextExpr =>
+      contextExpr.render ++ [".", "integer_hidden", "or", "else"] ++
       Expressions.call "boolean_hides_integer" [textExpr.render, contextExpr.render ++ [".", "boolean_names"]] ++
       ["or", "else", "("] ++ contextExpr.render ++ [".", "mask_first", "/=", "0", "and", "then"] ++
       Expressions.call "name_is" [textExpr.render, contextExpr.render ++ [".", "mask_first"],
@@ -98,7 +99,7 @@ def Expr.eval (calls : Calls) (inputs : Inputs) : Expr ty → ty.meaning
   | .integerHidden textExpr contextExpr =>
       let context := contextExpr.eval calls inputs
       let text := textExpr.eval calls inputs
-      calls.booleanHidesInteger text context.booleanNames ||
+      context.integerHidden || calls.booleanHidesInteger text context.booleanNames ||
         (decide (context.maskFirst ≠ 0) && calls.nameIs text context.maskFirst context.maskAfter "integer")
   | .reading contextExpr flowExpr => overlay calls.reading (contextExpr.eval calls inputs) (flowExpr.eval calls inputs)
   | .scalar textExpr positionExpr environmentExpr startExpr endExpr arraysExpr initialsExpr elaboratingExpr =>
@@ -117,7 +118,7 @@ def stringRhs : Expr .string :=
     (.arrays .context) .initials (.elaborating .context)
 
 def integerHidden (text : Source) (context : Native.Context) : Bool :=
-  BooleanBindings.hidesInteger text context.booleanNames ||
+  context.integerHidden || BooleanBindings.hidesInteger text context.booleanNames ||
     (decide (context.maskFirst ≠ 0) && Named.nameIs text context.maskFirst context.maskAfter ("integer".toList.map Char.toNat))
 
 structure Meaning (calls : Calls) : Prop where
