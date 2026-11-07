@@ -1,0 +1,860 @@
+[
+  {
+    "path": "records/application-window-result.json",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/application-window-result.json",
+    "bytes": 14434,
+    "sha256": "3a4771503952ee958f3dfecefc089267281d50149e77f9abfd61fa4102e99e75"
+  },
+  {
+    "path": "records/application-window-applicability.json",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/application-window-applicability.json",
+    "bytes": 10033,
+    "sha256": "7a05ef2a095e75846000c7e1908bf87133297336289d0a14fc77bc015bfbad75"
+  },
+  {
+    "path": "records/stack-observations.json",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/stack-observations.json",
+    "bytes": 9962,
+    "sha256": "b4718352a58ec7ca71d975acad736f55b5784d9e28ca1093fe5137058fa19fc4"
+  },
+  {
+    "path": "records/sample-observations.json",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/sample-observations.json",
+    "bytes": 2531,
+    "sha256": "aaf2cbd378338a0bf8df63eb26883b7ca0c3efe6c40372858cac78cd05ec7cf9"
+  },
+  {
+    "path": "records/layout-baseline.json",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/layout-baseline.json",
+    "bytes": 2402,
+    "sha256": "6ebf7ee6796ad45cb9d346e96700e8ba70843cf6c1d1f8d6a6d37495aa4b9d06"
+  },
+  {
+    "path": "records/layout-current.json",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/layout-current.json",
+    "bytes": 3704,
+    "sha256": "6ae9413b3959b7dab55d00e5d55e76e2dcac7021c79ad6bb4970207c0d7c3164"
+  },
+  {
+    "path": "records/layout-comparison.json",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/layout-comparison.json",
+    "bytes": 1665,
+    "sha256": "40eeadeaab165fd2547ef40461c1872b1f9a570cc9867b77b49390b8c5d068eb"
+  },
+  {
+    "path": "records/native-source-identity.json",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/native-source-identity.json",
+    "bytes": 14737,
+    "sha256": "e4494182f8596dc396c5cd5385db20ccb21c9499f93b191c90f6dac263a3e5cc"
+  },
+  {
+    "path": "records/test-snapshot.json",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/test-snapshot.json",
+    "bytes": 256,
+    "sha256": "b29d8b4f40c0233dbe975cd5521993fd4bb486e1ffb02cfee295480a6f842b30"
+  },
+  {
+    "path": "records/observations.json",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/observations.json",
+    "bytes": 7443,
+    "sha256": "126641a5bf5338b9b331d35fdeb85df4f7f7633bcf245b37f52ce1c55ffa6b04"
+  },
+  {
+    "path": "records/inventory.json",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/inventory.json",
+    "bytes": 257,
+    "sha256": "2734b995196776bef4525040ab8999fb18d765c1da47594ff4a5fb24917d4a62"
+  },
+  {
+    "path": "records/test_boolean_arrays.snapshot.py",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/test_boolean_arrays.snapshot.py",
+    "bytes": 9403,
+    "sha256": "2ead0a3908ebbf7b3dd0c414a4a3cce07492f9e1972864f7d4a393940619b69f"
+  },
+  {
+    "path": "runners/run-admissions.py",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/run-admissions.py",
+    "bytes": 2473,
+    "sha256": "6836d64a8066991f25ea8154f0dcb137dead03497fca2ff8483a81411d124bea"
+  },
+  {
+    "path": "runners/run-samples.py",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/run-samples.py",
+    "bytes": 3385,
+    "sha256": "95a2ebbb4f9da2927d59a3e1aeb03bdaef6544f3ca9e7167035db836b4203754"
+  },
+  {
+    "path": "runners/run-stack.py",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/run-stack.py",
+    "bytes": 2167,
+    "sha256": "43688fd47fc09408ac30ce36bb1b8faf82632f76682106efc7616876774212e9"
+  },
+  {
+    "path": "runners/stack-observer.snapshot.py",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/stack-observer.snapshot.py",
+    "bytes": 2224,
+    "sha256": "075b77402d7ab00ddcb35872087fec9d64a8889bdecd03c6cf40565cbe7fab5f"
+  },
+  {
+    "path": "runners/run-probes.py",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/run-probes.py",
+    "bytes": 1626,
+    "sha256": "f5220cb367cbee072b265272bdbf3d3505783b618afc5213aef85255961a545f"
+  },
+  {
+    "path": "runners/summarize-probes.py",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/summarize-probes.py",
+    "bytes": 2280,
+    "sha256": "0fe063157fce7d9db3813fd3cf2e5128f839473e6e08b3fe2431d00b4e4e26f6"
+  },
+  {
+    "path": "stack-fixtures/counted-slice.adb",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/stack-fixtures/counted-slice.adb",
+    "bytes": 4096,
+    "sha256": "57bce55766285535607830d0829255d1cbf596973dafc7bf356586366a7e8c02"
+  },
+  {
+    "path": "stack-fixtures/counted.adb",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/stack-fixtures/counted.adb",
+    "bytes": 4096,
+    "sha256": "9d6ff3adb364f806f08feb491a34993805b526682b497271a42e8f06bb190e5f"
+  },
+  {
+    "path": "stack-fixtures/foreach-singleton.adb",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/stack-fixtures/foreach-singleton.adb",
+    "bytes": 4096,
+    "sha256": "ae91c2316e004cfee11062ec96d9df7d36277d5eec01d9efe45d6185879b115a"
+  },
+  {
+    "path": "native-observations/test_native_integer_subtype_spelled_boolean/main.adb",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/native-observations/test_native_integer_subtype_spelled_boolean/main.adb",
+    "bytes": 239,
+    "sha256": "807c938b0700de2fe920a418cb94f8de1c95897779902743b0ec167e6fa1a977"
+  },
+  {
+    "path": "native-observations/test_native_integer_subtype_spelled_boolean/observation.json",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/native-observations/test_native_integer_subtype_spelled_boolean/observation.json",
+    "bytes": 602,
+    "sha256": "961eec428184e1534a9ef1a4d76382fa4bee37bf32785fd3ae3c81f0993a17aa"
+  },
+  {
+    "path": "native-observations/test_native_integer_subtype_spelled_boolean/program.gpr",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/native-observations/test_native_integer_subtype_spelled_boolean/program.gpr",
+    "bytes": 541,
+    "sha256": "3e99dd2e5c909ebfba6a7d8554d034bcc497b32f275e9a9aad3bd290221725ff"
+  },
+  {
+    "path": "native-observations/test_native_integer_subtype_spelled_boolean/obj/gnatprove/gnatprove.out",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/native-observations/test_native_integer_subtype_spelled_boolean/obj/gnatprove/gnatprove.out",
+    "bytes": 4453,
+    "sha256": "53fcea0fdf4c3e61fb15874c6b614abeb87d67072619fbd2293be1b81e3d8f37"
+  },
+  {
+    "path": "native-observations/test_native_integer_subtype_spelled_boolean/obj/gnatprove/gnatprove.sarif",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/native-observations/test_native_integer_subtype_spelled_boolean/obj/gnatprove/gnatprove.sarif",
+    "bytes": 51607,
+    "sha256": "a29c0c45ddd9c2256f12a8bb866079e94c6226af74a01ce56fb1e8e8cbd36c0d"
+  },
+  {
+    "path": "native-observations/test_native_integer_subtype_spelled_boolean/obj/gnatprove/main~1.spark",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/native-observations/test_native_integer_subtype_spelled_boolean/obj/gnatprove/main~1.spark",
+    "bytes": 1839,
+    "sha256": "33707bd623bfafce69465466de2111496a4546ed3963743626cbf53ac5feeaf2"
+  },
+  {
+    "path": "native-observations/test_native_integer_subtype_spelled_boolean/obj/gnatprove/silver_arguments.spark",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/native-observations/test_native_integer_subtype_spelled_boolean/obj/gnatprove/silver_arguments.spark",
+    "bytes": 34084,
+    "sha256": "56347d6283cbb7a9e1d1877a0b91b8b7c7ded41bc29b2462eec3579e75ba6be2"
+  },
+  {
+    "path": "native-observations/test_native_integer_subtype_spelled_boolean/obj/gnatprove/silver_io.spark",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/native-observations/test_native_integer_subtype_spelled_boolean/obj/gnatprove/silver_io.spark",
+    "bytes": 82994,
+    "sha256": "a1440c2d8517ab464f4b1c1f939f2efed9f37905523c8662a4a05b3423b4df13"
+  },
+  {
+    "path": "native-observations/test_native_integer_subtype_spelled_boolean/obj/gnatprove/silver_output_libc.spark",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/native-observations/test_native_integer_subtype_spelled_boolean/obj/gnatprove/silver_output_libc.spark",
+    "bytes": 1715,
+    "sha256": "eced5834030b426b634e5317a299b20261fd4cab0ad2acf61f79bd5f46a8d0c6"
+  },
+  {
+    "path": "native-observations/test_native_integer_subtype_spelled_boolean/obj/gnatprove/silver_runtime.spark",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/native-observations/test_native_integer_subtype_spelled_boolean/obj/gnatprove/silver_runtime.spark",
+    "bytes": 1692,
+    "sha256": "579e8ccf20864f634ae546d88e02f35550a7343584a0939ec28d33a50fd24b1b"
+  },
+  {
+    "path": "native-observations/test_native_snapshots_updates_and_loop_persistence/main.adb",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/native-observations/test_native_snapshots_updates_and_loop_persistence/main.adb",
+    "bytes": 431,
+    "sha256": "8d16d3f65b80062e00b57dcae7fbb78d56d53e4194c65eee2d48d73ffe7f5b9d"
+  },
+  {
+    "path": "native-observations/test_native_snapshots_updates_and_loop_persistence/observation.json",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/native-observations/test_native_snapshots_updates_and_loop_persistence/observation.json",
+    "bytes": 609,
+    "sha256": "f12054b5494b156e47f6af1f9086809666a0e10efd2b3e9866fc7422b78cb050"
+  },
+  {
+    "path": "native-observations/test_native_snapshots_updates_and_loop_persistence/program.gpr",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/native-observations/test_native_snapshots_updates_and_loop_persistence/program.gpr",
+    "bytes": 541,
+    "sha256": "3e99dd2e5c909ebfba6a7d8554d034bcc497b32f275e9a9aad3bd290221725ff"
+  },
+  {
+    "path": "native-observations/test_native_snapshots_updates_and_loop_persistence/obj/gnatprove/gnatprove.out",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/native-observations/test_native_snapshots_updates_and_loop_persistence/obj/gnatprove/gnatprove.out",
+    "bytes": 4453,
+    "sha256": "4850c812fb8958aa3f98add4af025f7c5a9f5f0dc9d68e0a1e5e765f719dee7d"
+  },
+  {
+    "path": "native-observations/test_native_snapshots_updates_and_loop_persistence/obj/gnatprove/gnatprove.sarif",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/native-observations/test_native_snapshots_updates_and_loop_persistence/obj/gnatprove/gnatprove.sarif",
+    "bytes": 51482,
+    "sha256": "1f399aaebc3e88ec2668cdb87fa20c95a96936c179627148cc3d53d95d9e8067"
+  },
+  {
+    "path": "native-observations/test_native_snapshots_updates_and_loop_persistence/obj/gnatprove/main~1.spark",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/native-observations/test_native_snapshots_updates_and_loop_persistence/obj/gnatprove/main~1.spark",
+    "bytes": 1670,
+    "sha256": "612065de2ffa08ad57fd7b1dc8e09ba3aced4c79c9e052d0239fce6ac1440f14"
+  },
+  {
+    "path": "native-observations/test_native_snapshots_updates_and_loop_persistence/obj/gnatprove/silver_arguments.spark",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/native-observations/test_native_snapshots_updates_and_loop_persistence/obj/gnatprove/silver_arguments.spark",
+    "bytes": 33854,
+    "sha256": "a94c3edf739ab8ff1b9307b72511cf040e1de1fdb5720920de211dec11ead168"
+  },
+  {
+    "path": "native-observations/test_native_snapshots_updates_and_loop_persistence/obj/gnatprove/silver_io.spark",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/native-observations/test_native_snapshots_updates_and_loop_persistence/obj/gnatprove/silver_io.spark",
+    "bytes": 83095,
+    "sha256": "fdeeb7fea6649a4531af1914a38f48bbab77e2a142feaf8a42d9bf2342ceecda"
+  },
+  {
+    "path": "native-observations/test_native_snapshots_updates_and_loop_persistence/obj/gnatprove/silver_output_libc.spark",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/native-observations/test_native_snapshots_updates_and_loop_persistence/obj/gnatprove/silver_output_libc.spark",
+    "bytes": 1715,
+    "sha256": "df25c4079623616399eefc2f9dabe76aa45f5a1eeded283a05124b43da42ee7a"
+  },
+  {
+    "path": "native-observations/test_native_snapshots_updates_and_loop_persistence/obj/gnatprove/silver_runtime.spark",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/native-observations/test_native_snapshots_updates_and_loop_persistence/obj/gnatprove/silver_runtime.spark",
+    "bytes": 1692,
+    "sha256": "b6234b989c59e18cf08e72c67ba9483053dd096f42c3563f00d35556c97ca8d5"
+  },
+  {
+    "path": "sample-observations/rosetta_elementary_cellular_automaton/check.log",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/sample-observations/rosetta_elementary_cellular_automaton/check.log",
+    "bytes": 18,
+    "sha256": "9142aa202a50339bf9567d8d22c343d4f138e5261752f23d06a9211e061b7a55"
+  },
+  {
+    "path": "sample-observations/rosetta_elementary_cellular_automaton/compile.log",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/sample-observations/rosetta_elementary_cellular_automaton/compile.log",
+    "bytes": 8124,
+    "sha256": "cd22880bda45673d2488459ef74e731cd655ef2298b8b96b9aef54c935198f95"
+  },
+  {
+    "path": "sample-observations/rosetta_elementary_cellular_automaton/observation.json",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/sample-observations/rosetta_elementary_cellular_automaton/observation.json",
+    "bytes": 1193,
+    "sha256": "b1e15b290e22116f5e10c201e8ea4feebcf1518b1be1ce93590f07e9b6c22544"
+  },
+  {
+    "path": "sample-observations/rosetta_elementary_cellular_automaton/workspace/main.adb",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/sample-observations/rosetta_elementary_cellular_automaton/workspace/main.adb",
+    "bytes": 2256,
+    "sha256": "179084724993f570be4d6f110269f30f6b575524564d18eaebdc7fb86c5b5a6d"
+  },
+  {
+    "path": "sample-observations/rosetta_elementary_cellular_automaton/workspace/program.gpr",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/sample-observations/rosetta_elementary_cellular_automaton/workspace/program.gpr",
+    "bytes": 541,
+    "sha256": "3e99dd2e5c909ebfba6a7d8554d034bcc497b32f275e9a9aad3bd290221725ff"
+  },
+  {
+    "path": "sample-observations/rosetta_elementary_cellular_automaton/workspace/obj/gnatprove/gnatprove.out",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/sample-observations/rosetta_elementary_cellular_automaton/workspace/obj/gnatprove/gnatprove.out",
+    "bytes": 4453,
+    "sha256": "2142632a2352a4857cfcee4759053a2c33aae506af9aec6002f616a741fe8a82"
+  },
+  {
+    "path": "sample-observations/rosetta_elementary_cellular_automaton/workspace/obj/gnatprove/gnatprove.sarif",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/sample-observations/rosetta_elementary_cellular_automaton/workspace/obj/gnatprove/gnatprove.sarif",
+    "bytes": 59194,
+    "sha256": "34f93ed43998aed78b9116f4b073d5194efcc5ca5ad4ef7a1fa37002888cff0e"
+  },
+  {
+    "path": "sample-observations/rosetta_elementary_cellular_automaton/workspace/obj/gnatprove/main~1.spark",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/sample-observations/rosetta_elementary_cellular_automaton/workspace/obj/gnatprove/main~1.spark",
+    "bytes": 22348,
+    "sha256": "d0c283e215dfffbd9ee1fd8a9e504c00c6794211df849a9f59e68616a3ab2f4e"
+  },
+  {
+    "path": "sample-observations/rosetta_elementary_cellular_automaton/workspace/obj/gnatprove/silver_arguments.spark",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/sample-observations/rosetta_elementary_cellular_automaton/workspace/obj/gnatprove/silver_arguments.spark",
+    "bytes": 33873,
+    "sha256": "62c0f28195c4527c55b5ad5cbb6c50864fa5ed48ffb8ec7b26b337ff782b7486"
+  },
+  {
+    "path": "sample-observations/rosetta_elementary_cellular_automaton/workspace/obj/gnatprove/silver_io.spark",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/sample-observations/rosetta_elementary_cellular_automaton/workspace/obj/gnatprove/silver_io.spark",
+    "bytes": 82868,
+    "sha256": "0c56e592211b654c7a2faf6dfc8024e3d9f7546bd2947425bfba9b2dae70c084"
+  },
+  {
+    "path": "sample-observations/rosetta_elementary_cellular_automaton/workspace/obj/gnatprove/silver_output_libc.spark",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/sample-observations/rosetta_elementary_cellular_automaton/workspace/obj/gnatprove/silver_output_libc.spark",
+    "bytes": 1715,
+    "sha256": "6da36e1e6333b6b961a846c607ca3eb181d8c49b50a041bbfefc556f30d6e5c7"
+  },
+  {
+    "path": "sample-observations/rosetta_elementary_cellular_automaton/workspace/obj/gnatprove/silver_runtime.spark",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/sample-observations/rosetta_elementary_cellular_automaton/workspace/obj/gnatprove/silver_runtime.spark",
+    "bytes": 1692,
+    "sha256": "a983a83859833c03522720a9ee027b61b380868090ee630ca0b993821e2cdd3d"
+  },
+  {
+    "path": "sample-observations/rosetta_sieve_of_eratosthenes/check.log",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/sample-observations/rosetta_sieve_of_eratosthenes/check.log",
+    "bytes": 18,
+    "sha256": "9142aa202a50339bf9567d8d22c343d4f138e5261752f23d06a9211e061b7a55"
+  },
+  {
+    "path": "sample-observations/rosetta_sieve_of_eratosthenes/compile.log",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/sample-observations/rosetta_sieve_of_eratosthenes/compile.log",
+    "bytes": 5480,
+    "sha256": "62e3ddf96c7aa309ab8734040812f4485a1708e8e8216fed2fea5e0dc7e310c5"
+  },
+  {
+    "path": "sample-observations/rosetta_sieve_of_eratosthenes/observation.json",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/sample-observations/rosetta_sieve_of_eratosthenes/observation.json",
+    "bytes": 1181,
+    "sha256": "42f26cd0f43d59dfcf387d5e9695b05bf9d60ad03575019bfbf5aeea059ae85f"
+  },
+  {
+    "path": "sample-observations/rosetta_sieve_of_eratosthenes/workspace/main.adb",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/sample-observations/rosetta_sieve_of_eratosthenes/workspace/main.adb",
+    "bytes": 1300,
+    "sha256": "12951fd73e37ccb9c44002689465f4f2df0fe3423f620cacb3f51e7b8fab3230"
+  },
+  {
+    "path": "sample-observations/rosetta_sieve_of_eratosthenes/workspace/program.gpr",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/sample-observations/rosetta_sieve_of_eratosthenes/workspace/program.gpr",
+    "bytes": 541,
+    "sha256": "3e99dd2e5c909ebfba6a7d8554d034bcc497b32f275e9a9aad3bd290221725ff"
+  },
+  {
+    "path": "sample-observations/rosetta_sieve_of_eratosthenes/workspace/obj/gnatprove/gnatprove.out",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/sample-observations/rosetta_sieve_of_eratosthenes/workspace/obj/gnatprove/gnatprove.out",
+    "bytes": 4453,
+    "sha256": "1fcb7d89747fd546ad0f9f7d46ed4593286d426a1acbbbb15e4b226fb0a23e14"
+  },
+  {
+    "path": "sample-observations/rosetta_sieve_of_eratosthenes/workspace/obj/gnatprove/gnatprove.sarif",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/sample-observations/rosetta_sieve_of_eratosthenes/workspace/obj/gnatprove/gnatprove.sarif",
+    "bytes": 52633,
+    "sha256": "792e93df0bc82bac4395134cd861e332b51b074ee59484d48eac9ef4a7ec4fe1"
+  },
+  {
+    "path": "sample-observations/rosetta_sieve_of_eratosthenes/workspace/obj/gnatprove/main~1.spark",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/sample-observations/rosetta_sieve_of_eratosthenes/workspace/obj/gnatprove/main~1.spark",
+    "bytes": 10348,
+    "sha256": "c46c48520101a66c84419300f2d52af35abf1a237cbeac990d2293762b6277ff"
+  },
+  {
+    "path": "sample-observations/rosetta_sieve_of_eratosthenes/workspace/obj/gnatprove/silver_arguments.spark",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/sample-observations/rosetta_sieve_of_eratosthenes/workspace/obj/gnatprove/silver_arguments.spark",
+    "bytes": 34021,
+    "sha256": "08e4861ddaaee52fcadb929e37e0d17c7a04e960347b19b8303dabf5213ac96d"
+  },
+  {
+    "path": "sample-observations/rosetta_sieve_of_eratosthenes/workspace/obj/gnatprove/silver_io.spark",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/sample-observations/rosetta_sieve_of_eratosthenes/workspace/obj/gnatprove/silver_io.spark",
+    "bytes": 83118,
+    "sha256": "801f89b4347fe185665c0ee9f01c8479d82e3b077b82ea983adb821e1664cb30"
+  },
+  {
+    "path": "sample-observations/rosetta_sieve_of_eratosthenes/workspace/obj/gnatprove/silver_output_libc.spark",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/sample-observations/rosetta_sieve_of_eratosthenes/workspace/obj/gnatprove/silver_output_libc.spark",
+    "bytes": 1715,
+    "sha256": "36f9cf6165850faec6667cbaa02ec6994edac21f566a54798443ccfb56e7c843"
+  },
+  {
+    "path": "sample-observations/rosetta_sieve_of_eratosthenes/workspace/obj/gnatprove/silver_runtime.spark",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/sample-observations/rosetta_sieve_of_eratosthenes/workspace/obj/gnatprove/silver_runtime.spark",
+    "bytes": 1692,
+    "sha256": "1d96aafd95714e93e9aa983f10f20db0d8da7a0422d2495dedc3e94aae105ab3"
+  },
+  {
+    "path": "stack-observations/counted/check.log",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/stack-observations/counted/check.log",
+    "bytes": 23,
+    "sha256": "073cd50b0da7ab282f4841dc188475c87059864a0f9d062619af53faf715a32e"
+  },
+  {
+    "path": "stack-observations/counted/compile.log",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/stack-observations/counted/compile.log",
+    "bytes": 5116,
+    "sha256": "10b56783c06f9ea7ed337f2045e7d6854153ad36e48ea6c1f3793306ddeff497"
+  },
+  {
+    "path": "stack-observations/counted/execute.log",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/stack-observations/counted/execute.log",
+    "bytes": 5,
+    "sha256": "131e490ede5d344e5a8539d4a5335ccc70db7eacb397b876cffc72578b1331bf"
+  },
+  {
+    "path": "stack-observations/counted/observation.json",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/stack-observations/counted/observation.json",
+    "bytes": 3129,
+    "sha256": "c2acd1ec775280f44c3f5b6208988ad33784e57fadee3b303f8fd5ea78413ce8"
+  },
+  {
+    "path": "stack-observations/counted/workspace/main.adb",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/stack-observations/counted/workspace/main.adb",
+    "bytes": 4096,
+    "sha256": "9d6ff3adb364f806f08feb491a34993805b526682b497271a42e8f06bb190e5f"
+  },
+  {
+    "path": "stack-observations/counted/workspace/program.gpr",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/stack-observations/counted/workspace/program.gpr",
+    "bytes": 541,
+    "sha256": "3e99dd2e5c909ebfba6a7d8554d034bcc497b32f275e9a9aad3bd290221725ff"
+  },
+  {
+    "path": "stack-observations/counted/workspace/obj/gnatprove/gnatprove.out",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/stack-observations/counted/workspace/obj/gnatprove/gnatprove.out",
+    "bytes": 4452,
+    "sha256": "28215533e401c82a60a53e2bbd84b27556b3cf25ce61f0a362971cc390ed28e0"
+  },
+  {
+    "path": "stack-observations/counted/workspace/obj/gnatprove/gnatprove.sarif",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/stack-observations/counted/workspace/obj/gnatprove/gnatprove.sarif",
+    "bytes": 50904,
+    "sha256": "9808ef0599a08365f9ffaed7e5a36c83f430d13793fa65203486a1ca7ba6b392"
+  },
+  {
+    "path": "stack-observations/counted/workspace/obj/gnatprove/main~1.spark",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/stack-observations/counted/workspace/obj/gnatprove/main~1.spark",
+    "bytes": 1019,
+    "sha256": "88f57459917a4c9d6fb2df7f6409b0f776947fd9f54bd4e7214a20eaf0cfb576"
+  },
+  {
+    "path": "stack-observations/counted/workspace/obj/gnatprove/silver_arguments.spark",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/stack-observations/counted/workspace/obj/gnatprove/silver_arguments.spark",
+    "bytes": 33683,
+    "sha256": "fcc6f76d2e1c4a1192ebf5ace462b837415b162b58e7e9f108e88a646ace9c09"
+  },
+  {
+    "path": "stack-observations/counted/workspace/obj/gnatprove/silver_io.spark",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/stack-observations/counted/workspace/obj/gnatprove/silver_io.spark",
+    "bytes": 82851,
+    "sha256": "de30d38ee7d929127d50f1d504062fc33ecfa5a65339216b14e8a73c85323226"
+  },
+  {
+    "path": "stack-observations/counted/workspace/obj/gnatprove/silver_output_libc.spark",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/stack-observations/counted/workspace/obj/gnatprove/silver_output_libc.spark",
+    "bytes": 1715,
+    "sha256": "ad2f79b000a456f8a4948c16ce109912196e86c6f1ea6d62404695327c6d7f03"
+  },
+  {
+    "path": "stack-observations/counted/workspace/obj/gnatprove/silver_runtime.spark",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/stack-observations/counted/workspace/obj/gnatprove/silver_runtime.spark",
+    "bytes": 1692,
+    "sha256": "bf42229721405721f4b392a70abc231a4c54e2c39f2e49fc15e7342dbac4628f"
+  },
+  {
+    "path": "stack-observations/counted-slice/check.log",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/stack-observations/counted-slice/check.log",
+    "bytes": 23,
+    "sha256": "073cd50b0da7ab282f4841dc188475c87059864a0f9d062619af53faf715a32e"
+  },
+  {
+    "path": "stack-observations/counted-slice/compile.log",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/stack-observations/counted-slice/compile.log",
+    "bytes": 794227,
+    "sha256": "35a8d3463eb6ef13acf6c9bfb5f168b2e482e56a47b4cc9813cb76d874ffd129"
+  },
+  {
+    "path": "stack-observations/counted-slice/execute.log",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/stack-observations/counted-slice/execute.log",
+    "bytes": 7,
+    "sha256": "158c2f73e24867e61b7c9e1a34c41b92b1d2216dc277c8c0c0302e67f38a4ec1"
+  },
+  {
+    "path": "stack-observations/counted-slice/observation.json",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/stack-observations/counted-slice/observation.json",
+    "bytes": 3155,
+    "sha256": "c6e6f894654518cf80ca5fe0d6cd955959f760d3035821e7d4c44dcaa080045d"
+  },
+  {
+    "path": "stack-observations/counted-slice/workspace/main.adb",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/stack-observations/counted-slice/workspace/main.adb",
+    "bytes": 4096,
+    "sha256": "57bce55766285535607830d0829255d1cbf596973dafc7bf356586366a7e8c02"
+  },
+  {
+    "path": "stack-observations/counted-slice/workspace/program.gpr",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/stack-observations/counted-slice/workspace/program.gpr",
+    "bytes": 541,
+    "sha256": "3e99dd2e5c909ebfba6a7d8554d034bcc497b32f275e9a9aad3bd290221725ff"
+  },
+  {
+    "path": "stack-observations/counted-slice/workspace/obj/gnatprove/gnatprove.out",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/stack-observations/counted-slice/workspace/obj/gnatprove/gnatprove.out",
+    "bytes": 4454,
+    "sha256": "90499c21ac6d6c78aa73304d0a9c4c19204e6e1b571e83a3af43278c741d63cd"
+  },
+  {
+    "path": "stack-observations/counted-slice/workspace/obj/gnatprove/gnatprove.sarif",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/stack-observations/counted-slice/workspace/obj/gnatprove/gnatprove.sarif",
+    "bytes": 87231,
+    "sha256": "c0f7740a8a06b7f9f02dbddce232210af8647dc38459be36d4cbe0968a15e410"
+  },
+  {
+    "path": "stack-observations/counted-slice/workspace/obj/gnatprove/main~1.spark",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/stack-observations/counted-slice/workspace/obj/gnatprove/main~1.spark",
+    "bytes": 57142,
+    "sha256": "fc8cb87c91d70c443a39f512f339522bc63ad731b49535048c237d3c1181fd3c"
+  },
+  {
+    "path": "stack-observations/counted-slice/workspace/obj/gnatprove/silver_arguments.spark",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/stack-observations/counted-slice/workspace/obj/gnatprove/silver_arguments.spark",
+    "bytes": 33736,
+    "sha256": "3a971068863e1c8d061abfa228ed02373b019aed3c07a2ae743188b4c86f42f4"
+  },
+  {
+    "path": "stack-observations/counted-slice/workspace/obj/gnatprove/silver_io.spark",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/stack-observations/counted-slice/workspace/obj/gnatprove/silver_io.spark",
+    "bytes": 82988,
+    "sha256": "75e25ffb2d20eeb2516ecea5cc95cb8648844f61fc7cbe07b75f8d6f34ad097e"
+  },
+  {
+    "path": "stack-observations/counted-slice/workspace/obj/gnatprove/silver_output_libc.spark",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/stack-observations/counted-slice/workspace/obj/gnatprove/silver_output_libc.spark",
+    "bytes": 1715,
+    "sha256": "e6fc4e46a69e89714aceef2212ea05a264e16f467c2400d13247f698e5b50159"
+  },
+  {
+    "path": "stack-observations/counted-slice/workspace/obj/gnatprove/silver_runtime.spark",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/stack-observations/counted-slice/workspace/obj/gnatprove/silver_runtime.spark",
+    "bytes": 1692,
+    "sha256": "814efb33aeb44aaec0905d5aed19e5fc1f4d5b73b5bbdbaa79dd321d962e9625"
+  },
+  {
+    "path": "stack-observations/foreach-singleton/check.log",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/stack-observations/foreach-singleton/check.log",
+    "bytes": 23,
+    "sha256": "073cd50b0da7ab282f4841dc188475c87059864a0f9d062619af53faf715a32e"
+  },
+  {
+    "path": "stack-observations/foreach-singleton/compile.log",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/stack-observations/foreach-singleton/compile.log",
+    "bytes": 5116,
+    "sha256": "f05c85610e68a6ed7d0a3070e038dc4e923347e6c600629f1705750fb0b81d46"
+  },
+  {
+    "path": "stack-observations/foreach-singleton/execute.log",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/stack-observations/foreach-singleton/execute.log",
+    "bytes": 5,
+    "sha256": "131e490ede5d344e5a8539d4a5335ccc70db7eacb397b876cffc72578b1331bf"
+  },
+  {
+    "path": "stack-observations/foreach-singleton/observation.json",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/stack-observations/foreach-singleton/observation.json",
+    "bytes": 3168,
+    "sha256": "34656836e1f214b5d7b93c652827cff70381c13b87539084bb43a51f5fa00d98"
+  },
+  {
+    "path": "stack-observations/foreach-singleton/workspace/main.adb",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/stack-observations/foreach-singleton/workspace/main.adb",
+    "bytes": 4096,
+    "sha256": "ae91c2316e004cfee11062ec96d9df7d36277d5eec01d9efe45d6185879b115a"
+  },
+  {
+    "path": "stack-observations/foreach-singleton/workspace/program.gpr",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/stack-observations/foreach-singleton/workspace/program.gpr",
+    "bytes": 541,
+    "sha256": "3e99dd2e5c909ebfba6a7d8554d034bcc497b32f275e9a9aad3bd290221725ff"
+  },
+  {
+    "path": "stack-observations/foreach-singleton/workspace/obj/gnatprove/gnatprove.out",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/stack-observations/foreach-singleton/workspace/obj/gnatprove/gnatprove.out",
+    "bytes": 4453,
+    "sha256": "f9ba1327688bb2fbc6641ad458fa928c43af30856181e1e0f97d383de67562e6"
+  },
+  {
+    "path": "stack-observations/foreach-singleton/workspace/obj/gnatprove/gnatprove.sarif",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/stack-observations/foreach-singleton/workspace/obj/gnatprove/gnatprove.sarif",
+    "bytes": 50904,
+    "sha256": "7d62329fb5bcb2626089a84940e8e893ae7cf47b3670b0db37ba8c3bf6598d33"
+  },
+  {
+    "path": "stack-observations/foreach-singleton/workspace/obj/gnatprove/main~1.spark",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/stack-observations/foreach-singleton/workspace/obj/gnatprove/main~1.spark",
+    "bytes": 1019,
+    "sha256": "f82dd266895b3472110b308e201017931e546d3d0222819c00400f6ad165ad38"
+  },
+  {
+    "path": "stack-observations/foreach-singleton/workspace/obj/gnatprove/silver_arguments.spark",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/stack-observations/foreach-singleton/workspace/obj/gnatprove/silver_arguments.spark",
+    "bytes": 33839,
+    "sha256": "5a030428daa031d357ba91273a63e8fd2c10c221953b690f095491c44c68fc77"
+  },
+  {
+    "path": "stack-observations/foreach-singleton/workspace/obj/gnatprove/silver_io.spark",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/stack-observations/foreach-singleton/workspace/obj/gnatprove/silver_io.spark",
+    "bytes": 82992,
+    "sha256": "1be3f7d47fd17ff7eb1ea0c8415492a9e58b79018ad9a9596b3d80b100e302b3"
+  },
+  {
+    "path": "stack-observations/foreach-singleton/workspace/obj/gnatprove/silver_output_libc.spark",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/stack-observations/foreach-singleton/workspace/obj/gnatprove/silver_output_libc.spark",
+    "bytes": 1715,
+    "sha256": "08f386814ca0a2e7d41ccaed047e95cd33332d5f7cd3200808354208da6375a7"
+  },
+  {
+    "path": "stack-observations/foreach-singleton/workspace/obj/gnatprove/silver_runtime.spark",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/stack-observations/foreach-singleton/workspace/obj/gnatprove/silver_runtime.spark",
+    "bytes": 1692,
+    "sha256": "5f17e0a1cb7842556c60fbb61c5ea0abfc4ea0535f1bd92e3265eea325468d3a"
+  },
+  {
+    "path": "application-runtime/silver_arguments.adb",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/stack-observations/counted/workspace/silver_arguments.adb",
+    "bytes": 1339,
+    "sha256": "74271048db16452bb5b6329f44c70151f73afdfebb089fe4a2a99e66e3b45918"
+  },
+  {
+    "path": "application-runtime/silver_arguments.ads",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/stack-observations/counted/workspace/silver_arguments.ads",
+    "bytes": 1129,
+    "sha256": "5991cb89d0af92506704109882e6f464edda3f781713e9a38a33829b97d78032"
+  },
+  {
+    "path": "application-runtime/silver_io.adb",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/stack-observations/counted/workspace/silver_io.adb",
+    "bytes": 3358,
+    "sha256": "e82a62f420651e7ad9de80ffe485e929ac9b5d48348f97d6b766440357dda358"
+  },
+  {
+    "path": "application-runtime/silver_io.ads",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/stack-observations/counted/workspace/silver_io.ads",
+    "bytes": 2222,
+    "sha256": "691565e501e458a5cb280b468cb5947b7548128483169f9ba171d4024379802c"
+  },
+  {
+    "path": "application-runtime/silver_output_libc.ads",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/stack-observations/counted/workspace/silver_output_libc.ads",
+    "bytes": 1532,
+    "sha256": "7c595fa7d94c4b21d39b271ba6df51ebed440a6342314c503fbf91319cd10229"
+  },
+  {
+    "path": "application-runtime/silver_runtime.ads",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/stack-observations/counted/workspace/silver_runtime.ads",
+    "bytes": 1010,
+    "sha256": "53f6791b0e7484703639eece0f87acb680c1d4f12b06e044f69244f0ce1b6ea7"
+  },
+  {
+    "path": "producer/aggregate_reads_writes/probe.gpr",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/aggregate_reads_writes/probe.gpr",
+    "bytes": 219,
+    "sha256": "fba092ac1cfde1bad27cb79215254e18559607602abc923e21bd857d1fb2b9d7"
+  },
+  {
+    "path": "producer/aggregate_reads_writes/src/main.adb",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/aggregate_reads_writes/src/main.adb",
+    "bytes": 233,
+    "sha256": "d64e0f60ded2dd40f2b9005af5e479c7786707da62fbaf13163c943053ec5056"
+  },
+  {
+    "path": "producer/aggregate_reads_writes/reports/gnatprove.out",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/aggregate_reads_writes/obj/explore/boolean-arrays/gnatprove/gnatprove.out",
+    "bytes": 1718,
+    "sha256": "5d17189173e9e010419395caa75b911c70bf842b4259afb78305ac483353a177"
+  },
+  {
+    "path": "producer/aggregate_reads_writes/reports/gnatprove.sarif",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/aggregate_reads_writes/obj/explore/boolean-arrays/gnatprove/gnatprove.sarif",
+    "bytes": 32430,
+    "sha256": "0d5ac0ab05bc37cc5871a2194523583920f794a893141586c95d64be44bfa907"
+  },
+  {
+    "path": "producer/aggregate_reads_writes/reports/main.spark",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/aggregate_reads_writes/obj/explore/boolean-arrays/gnatprove/main.spark",
+    "bytes": 1438,
+    "sha256": "0033b95f16486d6966bf94276edc4a61ae4c0d8589b1368bd14326d640ad61b8"
+  },
+  {
+    "path": "producer/comparison_xor/probe.gpr",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/comparison_xor/probe.gpr",
+    "bytes": 219,
+    "sha256": "fba092ac1cfde1bad27cb79215254e18559607602abc923e21bd857d1fb2b9d7"
+  },
+  {
+    "path": "producer/comparison_xor/src/main.adb",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/comparison_xor/src/main.adb",
+    "bytes": 273,
+    "sha256": "5cb3dc908038f58fd44f544bc4e167506ec870c3df3e77d9f78cac2f5d4f3e45"
+  },
+  {
+    "path": "producer/comparison_xor/reports/gnatprove.out",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/comparison_xor/obj/explore/boolean-arrays/gnatprove/gnatprove.out",
+    "bytes": 1718,
+    "sha256": "5d17189173e9e010419395caa75b911c70bf842b4259afb78305ac483353a177"
+  },
+  {
+    "path": "producer/comparison_xor/reports/gnatprove.sarif",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/comparison_xor/obj/explore/boolean-arrays/gnatprove/gnatprove.sarif",
+    "bytes": 32748,
+    "sha256": "b106522a690cb2d30ab2efd13d4c7359f2424412816c49d0fb4498b772651c51"
+  },
+  {
+    "path": "producer/comparison_xor/reports/main.spark",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/comparison_xor/obj/explore/boolean-arrays/gnatprove/main.spark",
+    "bytes": 1858,
+    "sha256": "2fc6786a3bfd1158e3d6bedbbc08e2d3918c6dd7853c24709aa027c9b6fe6012"
+  },
+  {
+    "path": "producer/character_string_initializers/probe.gpr",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/character_string_initializers/probe.gpr",
+    "bytes": 219,
+    "sha256": "fba092ac1cfde1bad27cb79215254e18559607602abc923e21bd857d1fb2b9d7"
+  },
+  {
+    "path": "producer/character_string_initializers/src/main.adb",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/character_string_initializers/src/main.adb",
+    "bytes": 289,
+    "sha256": "3add2d414de72d3bf496247a208830708a587b6d9d3cf6aa4dc8e4129928953a"
+  },
+  {
+    "path": "producer/character_string_initializers/reports/gnatprove.out",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/character_string_initializers/obj/explore/boolean-arrays/gnatprove/gnatprove.out",
+    "bytes": 1718,
+    "sha256": "5d17189173e9e010419395caa75b911c70bf842b4259afb78305ac483353a177"
+  },
+  {
+    "path": "producer/character_string_initializers/reports/gnatprove.sarif",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/character_string_initializers/obj/explore/boolean-arrays/gnatprove/gnatprove.sarif",
+    "bytes": 32112,
+    "sha256": "d15bba9cef39bb77f8fdf85b5d2ee2458ac6ec88e58d8fe13b79eadd56aecc2e"
+  },
+  {
+    "path": "producer/character_string_initializers/reports/main.spark",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/character_string_initializers/obj/explore/boolean-arrays/gnatprove/main.spark",
+    "bytes": 1019,
+    "sha256": "423f2862754745bb2b74412b8182138189495c5169e026c1487c7bca8e6089c3"
+  },
+  {
+    "path": "producer/guarded_index/probe.gpr",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/guarded_index/probe.gpr",
+    "bytes": 219,
+    "sha256": "fba092ac1cfde1bad27cb79215254e18559607602abc923e21bd857d1fb2b9d7"
+  },
+  {
+    "path": "producer/guarded_index/src/main.adb",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/guarded_index/src/main.adb",
+    "bytes": 205,
+    "sha256": "af8424e5377bd0133cdd0022a369b12401fc1e4f76e89ac9be3e41ccabcac655"
+  },
+  {
+    "path": "producer/guarded_index/reports/gnatprove.out",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/guarded_index/obj/explore/boolean-arrays/gnatprove/gnatprove.out",
+    "bytes": 1748,
+    "sha256": "ab4e8f17ece70f2c1f5df8bf44a1bd26c7f651e4daf6e62d4508a8fb8c0a8880"
+  },
+  {
+    "path": "producer/guarded_index/reports/gnatprove.sarif",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/guarded_index/obj/explore/boolean-arrays/gnatprove/gnatprove.sarif",
+    "bytes": 32597,
+    "sha256": "2f4ac99aa1b7617c233d3b17b3377c7692258f4f18bf1134c2e5d2f9601b2711"
+  },
+  {
+    "path": "producer/guarded_index/reports/main.spark",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/guarded_index/obj/explore/boolean-arrays/gnatprove/main.spark",
+    "bytes": 6424,
+    "sha256": "704412e38c1bdbb10f96a5fd2256b03ffd428e546e13417594a9f8e7066751cd"
+  },
+  {
+    "path": "layout/current/inventory.json",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/layout-retained-before-final-build/inventory.json",
+    "bytes": 950,
+    "sha256": "b08d5b58ab73cd149dd8a1a3a080d3944503ccfba837444c513c4843388fa92a"
+  },
+  {
+    "path": "layout/current/silver_array_bindings.ads",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/layout-retained-before-final-build/silver_array_bindings.ads",
+    "bytes": 6060,
+    "sha256": "39ee0b705e340923abacd4d5d49667d8c4b08568cdede75c23ee4e13b473baf9"
+  },
+  {
+    "path": "layout/current/silver_output_profile.adb",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/layout-retained-before-final-build/silver_output_profile.adb",
+    "bytes": 311871,
+    "sha256": "d82f6880924196f6fccc2077ed86b71c6a31683d72b8e2a935d494b7d62296f4"
+  },
+  {
+    "path": "layout/current/silver_output_profile.o",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/layout-retained-before-final-build/silver_output_profile.o",
+    "bytes": 473712,
+    "sha256": "21a79657d8674fba62f2ec40b3e038ad540cd8da8a5342276560522d9032eef0"
+  },
+  {
+    "path": "layout/current/silver_output_profile.su",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/layout-retained-before-final-build/silver_output_profile.su",
+    "bytes": 27987,
+    "sha256": "a14c5ab56ab250c58688056d7ecd0a20b0eed1e5ad9029ea41747e5fbd7b2fa1"
+  },
+  {
+    "path": "layout/baseline/input-index.json",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/layout-baseline/input-index.json",
+    "bytes": 14574,
+    "sha256": "77b6f19f7fc6a15dd66f61b0fdffdfb95dd2ceaf5289d88d64fe65eed96b0b11"
+  },
+  {
+    "path": "layout/baseline/silver.gpr",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/layout-baseline/silver.gpr",
+    "bytes": 854,
+    "sha256": "e72987ca699d8c580d08f72a5de11dcd72f3627efb85baa921807dec36b58064"
+  },
+  {
+    "path": "layout/baseline/obj/silver_output_profile.o",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/layout-baseline/obj/silver_output_profile.o",
+    "bytes": 441680,
+    "sha256": "e50a3574af8e5e7a9a217bfc8059122393a24d3ec1711451866249c3e6397dfe"
+  },
+  {
+    "path": "layout/baseline/obj/silver_output_profile.su",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/layout-baseline/obj/silver_output_profile.su",
+    "bytes": 34372,
+    "sha256": "a09dbd374aa7691a55db9d5c9538dc0a8b393b07ca674356544f70162d04afce"
+  },
+  {
+    "path": "layout/baseline/src/silver_array_bindings.ads",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/layout-baseline/src/silver_array_bindings.ads",
+    "bytes": 5856,
+    "sha256": "f057010619971987bdbb6c475b8403708c5dd772c0a38e5059c34c563f4b3376"
+  },
+  {
+    "path": "layout/baseline/src/silver_output_profile.adb",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/layout-baseline/src/silver_output_profile.adb",
+    "bytes": 292108,
+    "sha256": "88cfb89fb4d4970df7a8a88740655e556d47758330108be9e35556d4f40e7c1b"
+  },
+  {
+    "path": "layout/shared-word-source-change.diff",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/layout-retained-before-final-build/shared-word-source-change.diff",
+    "bytes": 1698,
+    "sha256": "5b0a8206e5a171f2e4c72ba7a61960dd3c63c1646bf49d5928f2e7e10558b478"
+  },
+  {
+    "path": "runners/collect-evidence.py",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/tmp/boolean-array-producer/collect-evidence.py",
+    "bytes": 4828,
+    "sha256": "bf2ef8d4eae96900a871d0580bd55f6a34ac3e2fa849af295241e98145cd4722"
+  }
+]

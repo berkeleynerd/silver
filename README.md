@@ -193,7 +193,7 @@ The drivers cover [reversal](samples/rosetta_reverse_a_string.adb),
 [palindromes](samples/rosetta_palindrome_detection.adb) and
 [selective replacement](samples/rosetta_selective_character_replacement.adb).
 
-The [fixed-size Boolean-array candidate](docs/boolean-arrays.md) extends the
+The [fixed-size Boolean-array increment](docs/boolean-arrays.md) extends the
 shared static array layout with explicit Boolean initialization, checked reads
 and mutable component writes. Stored cells retain values without recovering
 facts about their originating predicates. The drivers are a
@@ -201,7 +201,10 @@ facts about their originating predicates. The drivers are a
 [wrapping elementary cellular automata](samples/rosetta_elementary_cellular_automaton.adb)
 for rules 90, 30 and 122. Both passed native compilation and execution in the
 [reviewed sample results](docs/reviews/review-boolean-arrays-regression-applicability-20261107.md).
-The complete resulting-language assurance checkpoint remains pending.
+The Linux native proof/build and complete Lean/source checkpoints passed. The
+[delivery record](docs/boolean-arrays.md#delivery-assurance-and-validation--2026-11-07)
+tracks final runtime applicability, retained behavioral evidence, tested Rosetta
+metadata and the exact closing review target and disposition.
 
 The [Find square difference sample](samples/find_square_difference.adb) stores
 the first matching index and prints ` 501` followed by a newline.

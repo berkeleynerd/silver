@@ -1,0 +1,74 @@
+{
+  "scope": "Concrete native Linuxx86_64 source/build observations; printed dynamic entry sizes are fixed portions, not total stack bounds",
+  "baseline": "430d20668407a621945456743818172d02c8db6c",
+  "current_native_equivalent": "25e6fe06a3",
+  "record_sizes": {
+    "silver_array_bindings__binding": {
+      "baseline": 36,
+      "current": 40,
+      "delta": 4
+    },
+    "silver_array_bindings__metadata": {
+      "baseline": 6124,
+      "current": 6804,
+      "delta": 680
+    },
+    "silver_output_profile__body_context": {
+      "baseline": 38216,
+      "current": 38896,
+      "delta": 680
+    },
+    "silver_output_profile__parser_state": {
+      "baseline": 48460,
+      "current": 49140,
+      "delta": 680
+    }
+  },
+  "frames": {
+    "Read_String_In_Flow/dynamic,bounded": {
+      "baseline": 18848,
+      "current": 18848,
+      "delta": 0
+    },
+    "Read_String_In_Flow/static": {
+      "baseline": 256,
+      "current": 256,
+      "delta": 0
+    },
+    "Body_Tail/static": {
+      "baseline": 208,
+      "current": 208,
+      "delta": 0
+    },
+    "Body_Tail/dynamic": {
+      "baseline": 160,
+      "current": 160,
+      "delta": 0
+    },
+    "Loop_Body/static": {
+      "baseline": 192,
+      "current": 192,
+      "delta": 0
+    },
+    "Loop_Body/dynamic": {
+      "baseline": 38496,
+      "current": 39168,
+      "delta": 672
+    },
+    "Conditional_Body/static": {
+      "baseline": 192,
+      "current": 192,
+      "delta": 0
+    },
+    "Conditional_Body/dynamic": {
+      "baseline": 240,
+      "current": 240,
+      "delta": 0
+    },
+    "Context_Of/static": {
+      "baseline": 18768,
+      "current": 18768,
+      "delta": 0
+    }
+  }
+}

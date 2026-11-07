@@ -1,0 +1,109 @@
+{
+  "run_id": "20261107T133600-c3cee7a3d07c",
+  "started": {
+    "available_cpus": 12,
+    "command": [
+      "gprbuild"
+    ],
+    "event": "started",
+    "evidence": [],
+    "expensive": false,
+    "fingerprint": "6793daa45b6b714fbc9dd12acd3d2d9bb32222cc080bb0feee319babfa74f77d",
+    "host": "linux-x86_64",
+    "inputs": {
+      "arguments": [],
+      "mode": "build",
+      "scope": [
+        "compiler"
+      ]
+    },
+    "kind": "build",
+    "machine": "codex-silver",
+    "monotonic_ns": 98039047290694,
+    "pid": 538267,
+    "reason": "Authorized ordinary build after complete repaired audit 20261107T065643-5c23478ef04b succeeded on ce97ede446; exact current proof inputs verified unchanged. No instrumented build or additional proof experiment.",
+    "requested_workers": 4,
+    "resources": [
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/toolchain",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/toolchain"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/compiler/obj",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/compiler/obj"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/compiler/bin",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/compiler/bin"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/proof-containers/obj",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/proof-containers/obj"
+      }
+    ],
+    "run_id": "20261107T133600-c3cee7a3d07c",
+    "schema": 1,
+    "scope": [
+      "compiler"
+    ],
+    "task": "#297 final native build",
+    "utc": "2026-11-07T13:36:04.955462+00:00",
+    "workers": 4,
+    "worktree": {
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair",
+      "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair"
+    }
+  },
+  "finished": {
+    "duration_seconds": 9.156013379,
+    "event": "finished",
+    "evidence": [
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261107T133600-c3cee7a3d07c/native.log",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261107T133600-c3cee7a3d07c/native.log"
+      }
+    ],
+    "failure_keys": [],
+    "monotonic_ns": 98048203524112,
+    "outcome": "success",
+    "retained_reports": [],
+    "returncode": null,
+    "run_id": "20261107T133600-c3cee7a3d07c",
+    "utc": "2026-11-07T13:36:14.111714+00:00"
+  },
+  "command": [
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.tools/linux-x86_64/alr/bin/alr",
+    "-s",
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.tools/linux-x86_64/alire/settings",
+    "-C",
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/toolchain",
+    "-n",
+    "--no-tty",
+    "exec",
+    "--",
+    "gprbuild",
+    "-P",
+    "../../../silver.gpr",
+    "-p",
+    "-j4",
+    "-XSILVER_HOST=linux-x86_64"
+  ],
+  "binaries": {
+    "silver": {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/compiler/bin/silver",
+      "resolved_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/compiler/bin/silver",
+      "bytes": 2679200,
+      "sha256": "9ed78adbe8fa172a7d4e8738127d2b67b42c00444fa8499e008cd65a4fc49b18"
+    },
+    "silver_image_adapter": {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/compiler/bin/silver_image_adapter",
+      "resolved_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/compiler/bin/silver_image_adapter",
+      "bytes": 2018192,
+      "sha256": "8ca0b182d58b4b9ac51e50f2906e10de3dc95d8b02e5868ff8ef019925e9e9fd"
+    }
+  },
+  "native_head": "ce97ede446aad55520e59854ea8298e2a63d56eb",
+  "native_tracked_status": "",
+  "native_full_status": "?? tmp/",
+  "proof_inputs_unchanged_after_build": true
+}

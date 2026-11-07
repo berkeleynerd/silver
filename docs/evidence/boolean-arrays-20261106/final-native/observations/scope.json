@@ -1,0 +1,19 @@
+{
+  "scope": "Exact earlier d82 source /1cf857 compiler applications and concrete stack observations; pre-Boolean baseline430d206 vs earlier25e6 source layout; raw producer report-shape probes. No final compiler application or universal stack claim.",
+  "input_source_sha256": "d82f6880924196f6fccc2077ed86b71c6a31683d72b8e2a935d494b7d62296f4",
+  "compiler_sha256": "1cf857171f9af64e20bfdb2fb2a32e411ceefc67a26168acf5e1fa83961d0796",
+  "scope_limit": "These application and concrete 8 MiB stack observations used the earlier compiler. They do not represent fresh final compiler tests or universal stack bounds. Root regression stream owns final applications; independent review owns applicability.",
+  "layout_comparison": "Pre-Boolean baseline 430d20668407a621945456743818172d02c8db6c versus earlier Boolean-array native equivalent 25e6fe06a3; fixed portions only for dynamic stack entries.",
+  "managed_runs": [
+    "20261106T223551-ec0497ae9df1",
+    "20261106T223701-4e3560c38c8d",
+    "20261106T223744-e0c6eddfa117",
+    "20261106T200711-a8699a3bdebd",
+    "20261106T200723-cd4c48c06a5f",
+    "20261106T200733-8dbd9314fda8",
+    "20261106T200744-47eca4474ae3",
+    "20261106T200816-9d01da6c8ea6",
+    "20261106T200556-dc4f1e19f053"
+  ],
+  "file_count": 143
+}

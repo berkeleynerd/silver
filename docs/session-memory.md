@@ -1,5 +1,24 @@
 # Session memory
 
+## 2026-11-07 — Boolean-array delivery closeout
+
+Owner-directed work continues on existing #297 through reviewable publication
+of [PR #335](https://github.com/berkeleynerd/silver/pull/335), under the recorded
+[authorization](#2026-11-06--structural-guards-merged-boolean-arrays-selected-next).
+The [delivery record](boolean-arrays.md#delivery-assurance-and-validation--2026-11-07)
+links successful Linux native/build and complete Lean/source checkpoints,
+retained behavioral regressions and the tested narrow Rosetta metadata. It
+tracks final runtime applicability and the exact closing review target and
+disposition. This closeout does not authorize implementation merge or another
+feature.
+
+Preserve earlier failed/interrupted outcomes and the original source/binary
+scope of producer and stack observations. Promote only `fixed-boolean-arrays`;
+broad arrays/booleans, Boolean iteration and `others` remain outside scope.
+Keep #297/#334 and milestone 19 open pending merge. Implementation merge and
+starting functions #298 or sample expansion #300 are not authorized by this
+closeout. No CLI recall entry was updated by this documentation round.
+
 ## 2026-11-07 — Earlier proof diagnosis escalation authorized
 
 After discussing the Boolean-array validation delays, the owner instructed

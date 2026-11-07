@@ -1,5 +1,13 @@
 # Silver language specification
 
+The fixed-size Boolean-array increment is recorded in the
+[delivery account](docs/boolean-arrays.md#delivery-assurance-and-validation--2026-11-07).
+The Linux native proof/build and complete Lean/source checkpoints passed; the
+delivery account carries final runtime applicability and closing review status.
+The bounded Boolean-array rules below keep the existing source, expression and
+storage budgets; broad arrays, Boolean iteration and `others` aggregates remain
+outside this increment.
+
 The bounded String indexing, Character and slice additions have complete
 repaired Linux native and Lean assurance after the
 [interim external review](docs/interim-review-response-20261105.md).

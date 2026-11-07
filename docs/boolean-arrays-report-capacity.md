@@ -4,7 +4,10 @@ Feature-local account for [#297](https://github.com/berkeleynerd/silver/issues/2
 prepared 2026-11-06 and updated 2026-11-07. The native subthread inspected the pinned producer routes below.
 The [independent capacity review](reviews/review-boolean-arrays-capacity-20261106.md)
 found no blocking finding. Four discovery probes passed on the earlier source
-identified below; complete feature assurance remains pending. This account extends the
+identified below. Linux native proof/build and complete Lean/source checking
+passed. The [delivery record](boolean-arrays.md#delivery-assurance-and-validation--2026-11-07)
+tracks final applicability and closing review status separately from the dated
+producer observations. This account extends the
 [String/Character envelope](bounded-string-characters-report-capacity.md) and
 [Boolean scalar account](evidence/boolean-objects-20261030/producer-review.md).
 It does not change report policy, allocation or the existing producer assumptions.

@@ -1,8 +1,10 @@
 {
-  "README.md": "b1c2fdfeb5712b433ac6b3596f780d193cf4e314a73f57535130e9e1b50d53cf",
+  "README.md": "9610ef4bc3c4d40a3445819242bf6d06b16ef7e89b0e42da2d747e64961efeee",
   "board-before.json": "8679bf253d0e4b926baf2493b75c760bbbb5a39336846f4136a2e2d5656d9b0e",
   "candidate-hashes.json": "eb2df177d54b0a5d348d9ed1a4d18db1005a16c4bc045401b524a2c5398faf20",
   "events.jsonl": "e59cafb555377140317cb6bde9389d0b5f84fc33bfd75bc4fdd2c1905cd8e5df",
+  "integrated-board-check.json": "6bcaab5d4a4a47f10abb4f85619244f531e1dbfc803db612dbcfac9f85391da3",
+  "integration-comparison.json": "da5b1f96ae37209865c0ad92068f25635d11486579b577bd4c2d269cc0c1b2c7",
   "managed-inputs.json": "bbd40798127447cf58299e8b1e4ce09d23b0d16839ec7c1af479cd24e9e925ea",
   "native.log": "076272bba0dd11854685cf2073baed90cb8e580757d1a6c992b649359be2fed7",
   "stage-reconciliation.json": "274c3c601e7b863a51f36bccd8c7b847f4eb2762911afe1b2fa132b178e6f077",

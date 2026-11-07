@@ -1,7 +1,8 @@
 # Final Rosetta metadata candidate — 2026-11-07
 
-Local unpublished candidate for #297. **Final native/build applicability and
-closing delivery confirmation remain pending.** This packet establishes the
+The following is the original isolated-candidate record for #297; its pending
+items are superseded by the dated integration account below. **At the original
+checkpoint, final native/build applicability and closing confirmation were pending.** This packet establishes the
 three pure Python Rosetta methods on the exact metadata/render candidate; it
 does not establish complete language assurance or authorize merge/publication.
 The parent reports complete Lean success separately; this packet does not audit
@@ -60,3 +61,21 @@ actual final native/build provenance/runtime applicability. The failed original
 612-execution suite remains failed. Keep #297/#334 and milestone 19 open pending
 merge, and PR #335 unmerged. No broad arrays/booleans, Boolean iteration/others,
 functions #298, sample expansion #300 or resource increase is included.
+
+## Integrated delivery comparison — 2026-11-07
+
+The tested candidate was integrated as `21a60979b8`. The
+[integration comparison](integration-comparison.json) found exact matches for
+all nine critical inputs, 1,784 rendered outputs and 471 changed source/generated
+paths. Governed implementation inputs remain `ce97ede446`. The three successful
+methods therefore retain their tested metadata/render inputs; no repeat render
+or test run was needed. The [live board check](integrated-board-check.json)
+confirms all six existing stage positions remain unchanged, while #297/#334
+remain open and In review.
+
+The final [native audit and build](../final-native/README.md) also passed. Their
+runtime-input applicability is independently recorded in the
+[closing review](../../../reviews/review-boolean-arrays-delivery-20261107.md).
+The complete disjoint regression inventory is recorded in the
+[capability account](../../../boolean-arrays.md#delivery-assurance-and-validation--2026-11-07);
+the original full-suite failure retains its outcome. PR #335 remains unmerged.

@@ -1,0 +1,28 @@
+    <712>   DW_AT_name        : (indirect string, offset: 0x2b9f): silver_array_bindings__binding
+    <716>   DW_AT_byte_size   : 40
+    <717>   DW_AT_decl_file   : 6
+    <718>   DW_AT_decl_line   : 22
+    <719>   DW_AT_decl_column : 9
+    <719>   DW_AT_sibling     : <0x786>
+ <2><71d>: Abbrev Number: 7 (DW_TAG_member)
+    <79c>   DW_AT_name        : (indirect string, offset: 0x12f9): silver_array_bindings__metadata
+    <7a0>   DW_AT_byte_size   : 6804
+    <7a2>   DW_AT_decl_file   : 6
+    <7a3>   DW_AT_decl_line   : 35
+    <7a4>   DW_AT_decl_column : 9
+    <7a4>   DW_AT_sibling     : <0x7c3>
+ <2><7a8>: Abbrev Number: 7 (DW_TAG_member)
+    <b7b>   DW_AT_name        : (indirect string, offset: 0x1a1a): silver_output_profile__body_context
+    <b7f>   DW_AT_byte_size   : 38896
+    <b81>   DW_AT_decl_file   : 2
+    <b81>   DW_AT_decl_line   : 2421
+    <b83>   DW_AT_decl_column : 9
+    <b83>   DW_AT_sibling     : <0xc3e>
+ <2><b87>: Abbrev Number: 8 (DW_TAG_member)
+    <810>   DW_AT_name        : (indirect string, offset: 0x37d8): silver_output_profile__parser_state
+    <814>   DW_AT_byte_size   : 49140
+    <816>   DW_AT_decl_file   : 2
+    <817>   DW_AT_decl_line   : 238
+    <818>   DW_AT_decl_column : 9
+    <818>   DW_AT_sibling     : <0x8a7>
+ <2><81c>: Abbrev Number: 7 (DW_TAG_member)

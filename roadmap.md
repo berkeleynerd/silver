@@ -22,7 +22,7 @@ each delivery; the linked issues hold scope and completion criteria.
 | --- | --- | --- |
 | Delivered 2026-10-31 | [Boolean scalar objects and expressions #291](https://github.com/berkeleynerd/silver/issues/291), stacked on the named-subtype delivery [#286](https://github.com/berkeleynerd/silver/issues/286) | Sequence of primes by trial division; Square but not cube; Common list elements |
 | Complete 2026-11-06 | [Bounded String indexing and character operations #296](https://github.com/berkeleynerd/silver/issues/296) | Reverse a string; Palindrome detection; character replacement |
-| In progress 2026-11-06 | [Fixed-size Boolean arrays #297](https://github.com/berkeleynerd/silver/issues/297) | Sieve of Eratosthenes; elementary cellular automata |
+| Delivery closeout 2026-11-07 | [Fixed-size Boolean arrays #297](https://github.com/berkeleynerd/silver/issues/297) | Sieve of Eratosthenes; elementary cellular automata |
 | Later (1) | [Small nonrecursive functions #298](https://github.com/berkeleynerd/silver/issues/298) | Reusable primality tests, GCD and numeric search helpers |
 
 The bounded String increment has completed repaired Linux native and Lean
@@ -42,7 +42,7 @@ caller-visible mutation. Their detailed design follows the preceding deliveries.
 #297 is [selected next on 2026-11-06](docs/session-memory.md#2026-11-06--structural-guards-merged-boolean-arrays-selected-next),
 under the owner's instruction to proceed after merging the ready structural
 guards. Authorization reached main through PR #333; implementation is in
-progress on draft PR #335. #298 remains a
+delivery closeout on PR #335. #298 remains a
 **Backlog proposal**. Candidate samples need faithful implementations before
 any coverage gain is claimed. The separate sample-only
 proposal [#300](https://github.com/berkeleynerd/silver/issues/300) retains its
@@ -54,7 +54,9 @@ and deferred capacity work retain their scope.
 
 ### Fixed-size Boolean arrays
 
-**Implementation integrated on draft PR #335, 2026-11-06; complete validation pending.**
+**Linux native/build and complete Lean/source checkpoints passed, 2026-11-07.**
+The [delivery account](docs/boolean-arrays.md#delivery-assurance-and-validation--2026-11-07)
+tracks final runtime applicability and closing confirmation.
 
 After the ready structural-guard delivery, the owner's instruction to proceed
 selects existing [#297](https://github.com/berkeleynerd/silver/issues/297) from
@@ -64,19 +66,25 @@ distinguishes that ordering inference from the owner's exact words.
 [Milestone 19](https://github.com/berkeleynerd/silver/milestone/19), **Fixed-size
 Boolean arrays**, contains this one cohesive work package; do not create a
 duplicate stage issue. Authorization reached main as `430d206684` through
-[PR #333](https://github.com/berkeleynerd/silver/pull/333); #297 is In progress.
+[PR #333](https://github.com/berkeleynerd/silver/pull/333). #297 and finding
+#334 remain open pending merge; PR #335 remains unmerged.
 
-The [bounded plan](docs/boolean-arrays.md) extends initialized static
-one-dimensional arrays to Boolean components and indexed reads/writes, composed
-with existing Boolean/scalar/index/loop machinery. The integrated candidate uses
-explicit positional/singleton aggregates and typed Boolean storage, with existing
-name resolution and incoming-state snapshots. Independent scoped reviews and
-focused checks are recorded in the capability record. Complete native and Lean
-universal/actual-source assurance, boundary/composition regressions, final review
-and synchronized delivery records remain required before claiming support.
-Sieve of Eratosthenes and elementary cellular automata remain candidate drivers
-until their exact supported forms are established. Broad `arrays` stage #12
-remains Open/Backlog; promote only a precisely assessed delivered fragment.
+The [delivery record](docs/boolean-arrays.md#delivery-assurance-and-validation--2026-11-07)
+tracks initialized static one-dimensional Boolean arrays and indexed reads/writes,
+composed with existing Boolean/scalar/index/loop machinery. The implementation
+uses explicit positional/singleton aggregates, typed Boolean storage, existing
+name resolution and incoming-state snapshots. Complete Linux native Bronze/Silver
+and Lean/source/module/axiom checks and the ordinary final build passed; the
+delivery account separately identifies final runtime applicability and exact
+closing review. Historical failures retain their outcomes.
+
+The bounded drivers are Sieve of Eratosthenes through 100 and wrapping elementary
+cellular automata for rules 90, 30 and 122. The integrated, separately tested
+Rosetta metadata promotes only `fixed-boolean-arrays`: 61 Stage-1 assessments,
+distinct from 61 source samples, 117 manifest execution cases and 38 Rosetta source files. All six
+existing stage issue positions remain unchanged. Broad `arrays` stage #12 remains
+Open/Backlog; broad `arrays`/`booleans`, Boolean element iteration and `others`
+aggregates remain unsupported.
 
 The complete-source 4,096-byte limit and existing expression/storage budgets
 remain unchanged. General containers, dynamic/multidimensional arrays, functions
@@ -996,6 +1004,7 @@ sequence.
 | Named Integer subtypes and bounded components | Supported | Direct static Integer range subtypes for initialized scalar objects and existing fixed-array components, optional narrower scalar object ranges, and declared component bounds in body reads and foreach elements; [complete Linux assurance and validation](docs/named-integer-subtypes.md#delivery-assurance-and-validation). Broad ranged subtypes and arrays remain separate. | [Sum of squares](samples/rosetta_sum_of_squares.adb), [Sum and product](samples/rosetta_sum_and_product.adb) |
 | Boolean scalar objects and expressions | Supported | Initialized scalar Boolean objects, assignment and eager/short-circuit expressions; no retained scalar predicate facts through flags, no xor inside xor operands; [delivery assurance and validation](docs/boolean-objects.md#delivery-assurance-and-validation). | [Sequence of primes](samples/rosetta_sequence_of_primes_by_trial_division.adb), [Square but not cube](samples/rosetta_square_but_not_cube.adb), [Common list elements](samples/rosetta_common_list_elements.adb) |
 | Bounded String indexing and Character operations | Supported | Printable-ASCII Character values and typed comparisons, fixed-bound String indexed reads/writes and bounded slices, preserving actual/null bounds, sliding and snapshots; [complete Linux assurance and validation](docs/bounded-string-characters.md#repaired-delivery-checkpoint--2026-11-05). | [Reversal](samples/rosetta_reverse_a_string.adb), [palindromes](samples/rosetta_palindrome_detection.adb), [selective replacement](samples/rosetta_selective_character_replacement.adb) |
+| Fixed-size Boolean arrays | Linux checkpoints passed; closing status in delivery record | Explicitly initialized anonymous one-dimensional predefined Boolean arrays, safe scalar-only indexes and mutable component writes; exact snapshots and typed stored flags without retained predicate facts. [Linux evidence and closing confirmation](docs/boolean-arrays.md#delivery-assurance-and-validation--2026-11-07). Broad arrays/booleans and Boolean iteration/`others` remain separate. | [Sieve through 100](samples/rosetta_sieve_of_eratosthenes.adb), [elementary cellular automata](samples/rosetta_elementary_cellular_automaton.adb) |
 
 The output target covers admitted literals and bounded command-line
 messages; the text `Hello, world!` receives no special treatment. String literals do not imply support for

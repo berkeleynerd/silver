@@ -111,9 +111,12 @@ policy, source budget or required obligation is relaxed.
 
 ## Fixed-size Boolean arrays
 
-The [Boolean-array capability record](boolean-arrays.md) tracks the candidate's
-integration and outstanding complete checkpoint. The following describes its
-proof structure, not a completed validation claim.
+The [Boolean-array delivery record](boolean-arrays.md#delivery-assurance-and-validation--2026-11-07)
+records the exact implementation, scoped reviews, successful Linux native
+Bronze/Silver and complete Lean/source checkpoints, and ordinary final build.
+It separately tracks final runtime applicability and the exact closing review
+target and disposition. The proof structure below retains the existing explicit
+source/native-refinement and automatic-pipeline premises.
 
 Integer and Boolean arrays share descriptor bounds and source-derived allocation
 budgets, with a component-kind tag distinguishing their typed projections.

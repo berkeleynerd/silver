@@ -243,7 +243,7 @@ no trusted assumption or unchecked obligation path.
 
 ## Fixed-size Boolean-array boundary
 
-The [Boolean-array candidate](boolean-arrays.md) retains the pinned Ada/SPARK,
+The [Boolean-array increment](boolean-arrays.md) retains the pinned Ada/SPARK,
 frontend, Why3/solver, runtime-import and report-policy premises. Components use
 predefined Boolean meaning. Static nonempty bounds, exact explicit aggregate
 cardinality and nonempty contained Integer index intervals establish the same
@@ -276,10 +276,12 @@ and compiler
 
 These dated observations retain their exact earlier source/build scope; they
 do not measure the final compiler or establish a universal 8 MiB stack bound.
-Sufficient stack and memory remain environmental premises. The complete
-resulting-language checkpoint remains pending, as recorded in the
-[capability record](boolean-arrays.md). Earlier dated frame and stack
-observations above retain their original input/build scope.
+Sufficient stack and memory remain environmental premises. Linux native
+proof/build and complete Lean/source checking passed with the existing trusted
+boundary. The [delivery record](boolean-arrays.md#delivery-assurance-and-validation--2026-11-07)
+keeps those results, final runtime applicability and closing review status
+distinct. Earlier dated frame and stack observations retain their original
+input/build scope; no new trusted premise is added.
 
 ## Scalar guard refinement boundary
 

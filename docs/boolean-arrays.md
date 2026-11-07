@@ -1,10 +1,13 @@
 # Fixed-size Boolean arrays
 
-**Complete Lean/source audit passed on 2026-11-07; final native/build assurance
-and delivery remain pending.**
+**Linux native proof/build and complete Lean/source checkpoints passed,
+2026-11-07. Final closing confirmation is recorded below.**
 [Milestone 19](https://github.com/berkeleynerd/silver/milestone/19) contains the
 existing [#297](https://github.com/berkeleynerd/silver/issues/297) as one cohesive
-work package. Complete validation is required before this candidate is supported.
+work package. The [current delivery account](#delivery-assurance-and-validation--2026-11-07)
+separates successful native/build and Lean/source checkpoints, retained
+regressions, tested Rosetta metadata and reviewed runtime applicability from
+confirmation of the final committed documentation/evidence target.
 
 ## Implementation decisions — 2026-11-06
 
@@ -28,11 +31,12 @@ array of that subtype remains an Integer array. A draft that classified the
 spelling before resolving the subtype was corrected during implementation;
 regression coverage must distinguish this case from a hidden predefined mark.
 
-The candidate driver programs are a bounded sieve through 100 and elementary
+The prepared driver programs were a bounded sieve through 100 and elementary
 cellular automata for rules 90, 30 and 122. Scratch feasibility checks fit them
 within the source budget and independently calculate their expected outputs.
-Sample-only commit `4c45aa0cbb` retains both programs and independent expected outputs. They remain candidates until admission, native execution and the complete
-feature assurance checkpoint pass; no Rosetta gain is claimed yet.
+Sample-only commit `4c45aa0cbb` retains both programs and independent expected
+outputs. Their later native execution and current Rosetta/assurance status are
+recorded in the delivery account below; this preparation itself admitted nothing.
 
 ## Implementation rounds
 
@@ -60,6 +64,7 @@ feature assurance checkpoint pass; no Rosetta gain is claimed yet.
 | 2026-11-07 repaired complete checkpoint | Native execution: GPT-6.1 Sol / Extra High; Lean execution/monitoring: GPT-6.1 Sol / High | Original native run `232644` finished failed after 26,270.505 s with exactly the known Primary/Relation failures and no new failure. Complete reports and failed-helper tasks are retained; all original generated tasks remain preserved locally. Final native verification/build is being prepared on the reviewed repairs in the same installation. Complete cached Lean run `064815` has started with one worker and detailed provenance, retaining the focused pin/line successes; its 655-module build and fresh full audit remain pending. |
 | 2026-11-07 closing preparation | Runtime applicability review: GPT-6 Astra / Extra High; boundary documentation: GPT-6.1 Sol / High; lead runtime setting not independently confirmed | Compared all 2,586 native inputs and twelve tool binaries with the regression build: differences are the reviewed Static assertions, installation paths and an Alire index timestamp. No baseline collection gap remains; final build applicability is pending. Documentation now records the existing sample, producer and concrete 8 MiB stack observations with their original input scope. Complete run `064815` rebuilt source reconstruction in 2,709 s; later source modules and the fresh audit remain pending. Full native run `065643` is active on the repaired source. No additional validation job was started for these records. |
 | 2026-11-07 complete Lean success | Execution/monitoring: GPT-6.1 Sol / High; lead runtime setting not independently confirmed | Run `064815` passed the complete build and fresh audit: all 655 project modules / 132,101 declarations, only the three approved foundations. Build 15,008.840 s; fresh audit 14.940 s; ordinary cache reuse, one Lake worker and automatic 12-thread processes. Native run `065643`, final build/runtime applicability and Rosetta/closing confirmation remain pending. |
+| 2026-11-07 closing documentation | Documentation: GPT-6.1 Sol / High; independent closing reviewer: GPT-6 Astra / Extra High, selected settings; runtime confirmation unavailable | Reconciled synchronized closeout text with complete native `065643`, ordinary final build `133600`, complete Lean `064815` and integrated/tested Rosetta `110355` (root hash comparison matches). Astra Extra High confirmed native/build/runtime applicability; only the exact committed documentation/evidence target remains for closing confirmation. No proof, build, test or render job was launched by this documentation round; wall-clock duration and token/cost measurements unavailable. |
 
 Token/cost measurements and independent runtime confirmation of the selected
 subthread settings are unavailable. Historical rows preserve their original
@@ -81,17 +86,58 @@ No clean build or independent kernel replay is claimed.
 This closes the outstanding complete Lean/source checkpoint, including the
 Boolean-array guard repair in #334. The original failed and interrupted runs
 remain recorded with their actual outcomes. Complete native run
-`20261107T065643-5c23478ef04b` and the subsequent final build are still pending.
-Runtime-input applicability, final Rosetta metadata/tests, closing confirmation
-and reviewable publication remain required; no complete feature delivery is
-claimed yet.
+`20261107T065643-5c23478ef04b` and the subsequent final build have their own
+status in the delivery account below.
+The integrated, separately tested Rosetta metadata is recorded below. Final runtime-input
+applicability, closing confirmation and reviewable publication remain governed
+by the delivery closeout status; no final native result is inferred from Lean
+or metadata success.
 
 The subsequent complete Relation helper run `20261107T040619-48e6ccbe10c9`
 passed all 152 checks at normal limits in 2,625.834 seconds. Both known native
 failures therefore have complete helper repair evidence. The
 [evidence overview](evidence/boolean-arrays-20261106/README.md#complete-primary-helper-and-relation-diagnosis--2026-11-07)
-retains the exact source and outcomes separately from the still-required final
-complete native and Lean/source checkpoints.
+retains the exact source and outcomes separately from the later complete
+Lean/source result and the native closeout status.
+
+## Delivery assurance and validation — 2026-11-07
+
+The implemented fragment uses predefined Boolean components, explicit positional
+or singleton initialization, safe scalar-only indexes and mutable component
+writes. It preserves incoming-state snapshots and typed storage without storing
+predicate facts. The 4,096-byte source limit, expression/storage budgets, Oracle
+and trusted boundary are unchanged. Broad `arrays`/`booleans`, Boolean element
+iteration, `others`, functions #298 and sample expansion #300 remain outside it.
+
+| Closing evidence | Actual result or outstanding confirmation |
+| --- | --- |
+| Complete Lean/source/module/axiom checkpoint | `20261107T064815-9c9da56edf3d`: 655 project modules / 132,101 declarations, only `propext`, `Classical.choice`, `Quot.sound`; 35 project modules rebuilt and 620 reused. Build 15,008.840 s; separate fresh audit 14.940 s; ordinary cache reuse, without a clean build or independent replay. |
+| Complete native Bronze/Silver and ordinary final build | Native run `20261107T065643-5c23478ef04b` passed at 13:35:16 UTC: 17,681 checks (1,513 flow + 16,168 proof), 76 units and 1,112 owned entities, 23,909.634 s, four workers. Full forced analysis retained ordinary sessions/cache; this was not a cold proof. Ordinary build `20261107T133600-c3cee7a3d07c` passed in 9.156 s on unchanged implementation `ce97ede446`. The [native packet](evidence/boolean-arrays-20261106/final-native/README.md) and [build record](evidence/boolean-arrays-20261106/final-native/build-result.json) retain exact source/configuration/tool provenance and compiler/adapter identities. |
+| Rosetta metadata and rendering | Local tested candidate `0b9a355494`; managed run `20261107T110355-fc2e8678d28a` passes all three methods, no skips/failures (3.435 s unittest; 8.093 s managed). Integrated as `21a60979b89a2651f8773fbd277033c90a7e4396`; the [integration comparison](evidence/boolean-arrays-20261106/final-rosetta/integration-comparison.json) confirms all 9 critical inputs, 1,784 rendered outputs and 471 changed source/generated hashes match the tested candidate. No governed source/proof/script/test/sample/catalogue delta from `ce97ede446` was introduced. |
+| Final runtime/regression applicability | The Astra Extra High closing reviewer confirmed the native/build/runtime comparison: all 2,586 native inputs and twelve tool identities match the prepared prebuild comparison; all 131 native source inputs equal integration. Retained behavioral results remain applicable, without a rerun or repair. Exact comparison scope and the tested Rosetta/board reconciliation are retained in the [closing confirmation](reviews/review-boolean-arrays-delivery-20261107.md). |
+| Exact committed source/document/render/evidence target and final closing disposition | **FINAL_REVIEW_PENDING** — only the final committed documentation/evidence target confirmation remains. Bind the exact closing commit and reviewer disposition in the closing confirmation, without enlarging scoped review claims. |
+
+The [regression applicability review](reviews/review-boolean-arrays-regression-applicability-20261107.md)
+retains the complete sample fixture: 61 sources and 117 execution cases, including
+both bounded drivers. There are 38 `rosetta_` source files. The separately tested
+Rosetta metadata integrated at `21a60979b8` promotes only `fixed-boolean-arrays`;
+its ordinary render has 61 Stage-1 assessments and 44 total stages. Existing stage issue fields remain
+#9/#10/#229/#234 at 1, #11 at 2 and broad arrays #12 at 3. A re-render does not
+select another feature or close the broad arrays issue.
+
+The final disjoint method inventory is **588 original + one catalogue + one
+manifest + seven native fixtures + one retained certificate + two source-policy
+methods from `20261107T040620-63bb90cecba1` + three Rosetta methods from
+`20261107T110355-fc2e8678d28a` = 603**. The original 612-execution suite remains
+failed; overlapping reruns are not added to this partition. Final applicability
+is based on the native/build/input and final metadata comparisons above.
+
+Earlier failed/interrupted Lean/native attempts keep their actual outcomes.
+The 31,822,336-byte producer envelope and earlier concrete 8 MiB stack executions
+retain their original source/binary scopes; they are not final-binary executions
+or a universal 8 MiB stack bound. No independent replay, clean build, CI or macOS
+result is added by this closeout. #297/#334 and milestone 19 remain open pending
+merge; publication of reviewable PR #335 does not authorize its merge.
 
 ## Authorization and bounded scope
 
@@ -99,18 +145,18 @@ The owner instructed **“Please merge it if it is ready and proceed to the next
 unit of work.”** Ready PR #332 has merged; the
 [dated authorization](session-memory.md#2026-11-06--structural-guards-merged-boolean-arrays-selected-next)
 identifies #297 from the recorded next-feature queue. The owner did not explicitly
-name its issue number. Keep #297 Backlog until that dated record reaches main;
-then use the ordinary Ready/claim workflow. Planning publication/merge and
-implementation through reviewable publication are authorized. Implementation
-merge remains a later owner decision.
+name its issue number. That dated record reached main through PR #333 at
+`430d206684`; #297 was then claimed under the ordinary workflow. Planning
+publication/merge and implementation through reviewable publication are
+authorized. Implementation merge remains a later owner decision.
 
 Extend the fixed-array foundation to initialized, statically bounded,
 one-dimensional arrays of predefined Boolean, with constant/mutable objects,
 indexed reads and mutable component writes. Reuse existing Boolean expressions,
 Integer index expressions, declaration ordering, finite control flow and
 snapshot/update behavior. Sieve of Eratosthenes and elementary cellular automata
-are candidate Rosetta drivers, subject to faithful bounded implementations.
-The current [language](../language.md) remains authoritative until delivery.
+have bounded driver mappings in the [reconciliation record](../rosetta/assessment-boolean-arrays-20261106.md).
+The current [language](../language.md) remains authoritative.
 
 Preserve the 4,096-byte complete-source limit, existing expression and
 source-derived storage budgets, Oracle guarantees, native Bronze/Silver
@@ -216,8 +262,8 @@ The [integration review](reviews/review-boolean-arrays-integration-20261106.md)
 then found the new body tree's missing prefix/root categories. Finding
 [#334](https://github.com/berkeleynerd/silver/issues/334) is repaired at
 `4ab30d865a`, independently re-reviewed and focused kernel-checked. It remains
-open for the complete final source checkpoint and delivery to main. The repair
-does not change native renderings, evaluations, concrete trees or admitted
+open until delivery to main; the complete final source checkpoint has passed.
+The repair does not change native renderings, evaluations, concrete trees or admitted
 programs. The first repair check remains failed: its positive test mistakenly
 used a relation as a primary operand of `not`; the corrected control passed.
 
@@ -230,6 +276,7 @@ leaf and fresh import-scope audit do not cover the combined helper or final
 authoritative endpoints; their active checks are recorded in the
 [evidence inventory](evidence/boolean-arrays-20261106/README.md#helper-memory-repair-and-scoped-review).
 
-These scoped reviews do not claim complete feature approval. Native repair
-checks, source certificates, complete universal/source audit, regressions and
-closing integration review remain required.
+These scoped reviews retain their bounded claims. The later complete Lean/source
+result, applicable regressions, native/build status and final closing review are
+reconciled in the current delivery account above; no scoped review alone is
+complete feature approval.

@@ -1,7 +1,8 @@
 # Boolean-array evidence inventory — 2026-11-06
 
-**Complete Lean/source checkpoint passed on 2026-11-07; final native/build and
-delivery confirmation remain pending.**
+**Linux native proof/build and complete Lean/source checkpoints passed,
+2026-11-07.** Final applicability and closing confirmation are tracked in the
+[delivery account](../../boolean-arrays.md#delivery-assurance-and-validation--2026-11-07).
 This inventory supports [#297](https://github.com/berkeleynerd/silver/issues/297)
 and the [capability record](../../boolean-arrays.md). The current
 [complete Lean packet](final-lean-after-cuts/README.md) records run
@@ -10,10 +11,12 @@ with a fresh audit reporting only the three approved foundations. It is an
 incremental build with ordinary cache reuse, not a clean build or independent
 kernel replay. The
 [regression review](../../reviews/review-boolean-arrays-regression-applicability-20261107.md)
-retains the sample and regression results; final runtime applicability and
-Rosetta metadata confirmation are still required. The historical preparation,
-cache and focused-run records below preserve their original scope and status.
-No final native assurance or complete feature delivery is claimed yet.
+retains the sample and regression results. The integrated, separately tested
+[Rosetta metadata](final-rosetta/README.md) passes all three methods; the
+[integration comparison](final-rosetta/integration-comparison.json) confirms
+exact correspondence to its tested source/render bytes. The historical
+preparation, cache and focused-run records preserve their original scope,
+source/binary observations and failed/interrupted outcomes.
 
 Paths below are relative to the shared repository root unless stated otherwise.
 The integration checkout is `tmp/boolean-arrays`; the native installation stays
@@ -25,6 +28,45 @@ The local managed registry is
 under `reports/0/lean-focused.log`. The helper-memory failure/success records
 linked below are copied into this packet; other local records remain at their
 original managed paths.
+
+## Current delivery closeout — 2026-11-07
+
+- Complete Lean `20261107T064815-9c9da56edf3d`: all 655 project modules /
+  132,101 declarations; 35 rebuilt and 620 reused; 15,008.840 s build and
+  14.940 s separate fresh audit; only the approved three foundations, ordinary
+  cache reuse and no independent replay or clean build.
+- Complete native `20261107T065643-5c23478ef04b` passed at 13:35:16 UTC:
+  17,681 checks (1,513 flow + 16,168 proof), 76 units and 1,112 owned entities,
+  23,909.634 s with four workers. This was full forced analysis with retained
+  sessions/cache, not a cold proof. The [native record](final-native/record.json)
+  retains exact coverage, provenance and binary identities. The ordinary
+  [final build](final-native/build-result.json) `20261107T133600-c3cee7a3d07c`
+  passed in 9.156 s on unchanged implementation `ce97ede446`.
+- Rosetta candidate `0b9a355494`, managed run `20261107T110355-fc2e8678d28a`:
+  all three methods pass, no skips/failures, 3.435 s unittest / 8.093 s managed.
+  Integrated as `21a60979b89a2651f8773fbd277033c90a7e4396`; the root comparison
+  confirms all 9 critical inputs, 1,784 rendered outputs and 471 changed source/
+  generated hashes match. There is no governed source/proof/script/test/sample/
+  catalogue delta from `ce97ede446`. The packet retains the 925 captured inputs.
+- The Astra Extra High closing reviewer confirmed native/build/runtime
+  applicability and the tested Rosetta/board reconciliation without repair or
+  rerun. Only exact committed documentation/evidence target confirmation remains;
+  its status is tracked centrally in the
+  [delivery account](../../boolean-arrays.md#delivery-assurance-and-validation--2026-11-07).
+  Reviewer runtime setting confirmation and token/cost measurements are unavailable.
+
+The inventories remain distinct: 61 source samples, 117 manifest execution
+cases, 38 `rosetta_` source files and 61 Stage-1 assessments in the tested render.
+The six existing stage issue positions are unchanged; broad arrays #12 remains
+open. Promote only `fixed-boolean-arrays`, preserving original assessment
+provenance and keeping #298/#300 and Boolean iteration/`others` outside scope.
+
+Final disjoint method coverage is **588 original + one catalogue + one manifest +
+seven native fixtures + one retained certificate + two source-policy methods
+from `040620` + three Rosetta methods from `110355` = 603**. Applicability to the
+final native build and integrated metadata is governed by the comparisons
+above. The original 612-execution suite remains failed. Historical checkpoint
+prose below records what was known then, not the current closeout status.
 
 ## Ordinary cache reuse and transfers
 

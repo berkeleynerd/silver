@@ -1,0 +1,56 @@
+{
+  "9": {
+    "state": "CLOSED",
+    "fields": {
+      "Status": "Done",
+      "Stage": 1.0
+    }
+  },
+  "10": {
+    "state": "CLOSED",
+    "fields": {
+      "Status": "Done",
+      "Stage": 1.0
+    }
+  },
+  "229": {
+    "state": "CLOSED",
+    "fields": {
+      "Status": "Done",
+      "Stage": 1.0
+    }
+  },
+  "234": {
+    "state": "CLOSED",
+    "fields": {
+      "Status": "Done",
+      "Stage": 1.0
+    }
+  },
+  "11": {
+    "state": "OPEN",
+    "fields": {
+      "Status": "Backlog",
+      "Stage": 2.0
+    }
+  },
+  "12": {
+    "state": "OPEN",
+    "fields": {
+      "Status": "Backlog",
+      "Stage": 3.0
+    }
+  },
+  "297": {
+    "state": "OPEN",
+    "fields": {
+      "Status": "In review"
+    }
+  },
+  "334": {
+    "state": "OPEN",
+    "fields": {
+      "Status": "In review"
+    }
+  }
+}
