@@ -1382,7 +1382,7 @@ Literal/static expressions and plain name output may have no Main safety checks.
 Runtime concatenation and constrained scalar initialization/assignment can emit
 range checks; copied dynamic-length assignments can emit length checks; scalar
 arithmetic can emit overflow checks, division/remainder can emit nonzero-divisor
-checks, and indexed array/String reads and writes can emit index checks. Every emitted Main
+checks, and indexed array/String reads and writes can emit index checks. Every emitted application
 safety record must be a proved/info `VC_RANGE_CHECK`, `VC_LENGTH_CHECK`,
 `VC_OVERFLOW_CHECK`, `VC_DIVISION_CHECK` or `VC_INDEX_CHECK`, with complete coverage, approved dependencies and no
 suppression. Length checks require the fixed-bound argument; their absence through
@@ -1404,7 +1404,8 @@ advisory. All output-capable policies also classify the exact `INEFFECTIVE` mess
 produced by statically known predicates. Repeated output additionally permits only
 the four exact `INEFFECTIVE` messages naming the overwritten ghost outputs
 `Written_Count`, `Flushed`, `Succeeded` and `Written_Bytes` of either `Put` or
-`Put_Line` (eight exact messages). These flow advisories retain Main location, flow
+`Put_Line` (eight exact messages). These flow advisories retain a location in
+`main.adb`, the exact Main or declared local-function entity, flow
 provenance and no suppression. Initializers still establish object bounds even when
 their bytes are unused. The warning list additionally permits only the exact producer
 `imprecise-image` advisory, including its full message with exactly the producer's

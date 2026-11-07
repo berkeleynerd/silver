@@ -1163,9 +1163,10 @@ entities may carry successful `SUBPROGRAM_TERMINATION` flow records and
 discharge requirements as Main. No function postcondition is assumed. Complete
 delivery validation remains pending as recorded in the capability record.
 
-Every emitted Main safety record must be a proved/info `VC_RANGE_CHECK`,
+Every emitted application safety record must be a proved/info `VC_RANGE_CHECK`,
 `VC_LENGTH_CHECK`, `VC_OVERFLOW_CHECK`, `VC_DIVISION_CHECK` or `VC_INDEX_CHECK`,
-with the expected Main filename/entity, valid positive location, prover completion and no suppression or justification. Empty safety
+with filename `main.adb`, the exact Main or declared local-function entity,
+valid positive location, prover completion and no suppression or justification. Empty safety
 lists are permitted when checks were eliminated. Required coverage, progress
 and dependency fields remain checked; dependencies must identify approved
 entities and effect, postcondition or absence-of-runtime-error claims. No other
@@ -1178,7 +1179,8 @@ message `unused assignment`. All four policies additionally permit
 `INEFFECTIVE` / `statement has no effect` and `DEAD_CODE` /
 `this statement is never reached`, observed for statically known predicates.
 Every allowed advisory must have warning severity,
-flow provenance, Main filename/entity, a positive location and no suppression
+flow provenance, filename `main.adb`, the exact Main or declared local-function
+entity, a positive location and no suppression
 or justification. There is no independent advisory-count cap; the source grammar
 and complete report domain still constrain production. These diagnostics do not
 waive safety checks. Repeated output permits exactly `"NAME" is set by
