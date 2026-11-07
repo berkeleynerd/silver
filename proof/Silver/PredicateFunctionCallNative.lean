@@ -56,7 +56,15 @@ structure Frame where
   called : CallResult := invalidCall
 
 inductive Expr : Type → Type 1
-  | position | scanPosition | first | last | after | callee | start | scalar | flag : Expr Nat
+  | position : Expr Nat
+  | scanPosition : Expr Nat
+  | first : Expr Nat
+  | last : Expr Nat
+  | after : Expr Nat
+  | callee : Expr Nat
+  | start : Expr Nat
+  | scalar : Expr Nat
+  | flag : Expr Nat
   | value : Expr ScalarExpression.Result
   | called : Expr CallResult
   | parameter : Expr Formal
@@ -65,7 +73,8 @@ inductive Expr : Type → Type 1
   | kind : ScalarKind → Expr ScalarKind
   | formalKind : Expr Formal → Expr ScalarKind
   | formalBounds : Expr Formal → Expr Integer.Interval
-  | formalFirst | formalCount : Expr Signature → Expr Nat
+  | formalFirst : Expr Signature → Expr Nat
+  | formalCount : Expr Signature → Expr Nat
   | resultKind : Expr Signature → Expr ScalarKind
   | resultBounds : Expr Signature → Expr Integer.Interval
   | valueAfter : Expr ScalarExpression.Result → Expr Nat
@@ -75,33 +84,52 @@ inductive Expr : Type → Type 1
   | callBounds : Expr CallResult → Expr Integer.Interval
   | parameterAt : Expr Nat → Expr Formal
   | signatureAt : Expr Nat → Expr Signature
-  | scalarMutable | booleanMutable : Expr Nat → Expr Bool
+  | scalarMutable : Expr Nat → Expr Bool
+  | booleanMutable : Expr Nat → Expr Bool
   | declaredBounds : Expr Nat → Expr Integer.Interval
-  | skip | nameAfter : Expr Nat → Expr Nat
-  | namesLookup | scalarLookup | booleanLookup | arrayLookup | functionLookup : Expr Nat → Expr Nat → Expr Nat
+  | skip : Expr Nat → Expr Nat
+  | nameAfter : Expr Nat → Expr Nat
+  | namesLookup : Expr Nat → Expr Nat → Expr Nat
+  | scalarLookup : Expr Nat → Expr Nat → Expr Nat
+  | booleanLookup : Expr Nat → Expr Nat → Expr Nat
+  | arrayLookup : Expr Nat → Expr Nat → Expr Nat
+  | functionLookup : Expr Nat → Expr Nat → Expr Nat
   | token : Expr Nat → ShellToken → Expr Nat
   | readScalar : Expr Nat → Expr ScalarExpression.Result
   | readConditionAfter : Expr Nat → Expr Nat
   | actual : Expr Nat → Expr Formal → Expr Nat
   | actuals : Expr Nat → Expr Nat → Expr Nat → Expr Nat
   | calleeAt : Expr Nat → Expr Nat
-  | callModel | readCall : Expr Nat → Expr CallResult
-  | scalarTarget | booleanTarget : Expr Nat → Expr Nat
+  | callModel : Expr Nat → Expr CallResult
+  | readCall : Expr Nat → Expr CallResult
+  | scalarTarget : Expr Nat → Expr Nat
+  | booleanTarget : Expr Nat → Expr Nat
   | assignmentResult : Expr Nat → Expr Nat → Expr CallResult → Expr BodyScan
-  | add | sub : Expr Nat → Expr Nat → Expr Nat
-  | eq | ne | le : Expr Nat → Expr Nat → Expr Bool
-  | kindEq | kindNe : Expr ScalarKind → Expr ScalarKind → Expr Bool
+  | add : Expr Nat → Expr Nat → Expr Nat
+  | sub : Expr Nat → Expr Nat → Expr Nat
+  | eq : Expr Nat → Expr Nat → Expr Bool
+  | ne : Expr Nat → Expr Nat → Expr Bool
+  | le : Expr Nat → Expr Nat → Expr Bool
+  | kindEq : Expr ScalarKind → Expr ScalarKind → Expr Bool
+  | kindNe : Expr ScalarKind → Expr ScalarKind → Expr Bool
   | empty : Expr Integer.Interval → Expr Bool
   | included : Expr Integer.Interval → Expr Integer.Interval → Expr Bool
   | not : Expr Bool → Expr Bool
-  | andThen | orElse : Expr Bool → Expr Bool → Expr Bool
+  | andThen : Expr Bool → Expr Bool → Expr Bool
+  | orElse : Expr Bool → Expr Bool → Expr Bool
   | invalidCall : Expr CallResult
   | makeCall : Expr Nat → Expr ScalarKind → Expr Integer.Interval → Expr CallResult
-  | invalidBody | assignedInteger | assignedBoolean : Expr BodyScan
+  | invalidBody : Expr BodyScan
+  | assignedInteger : Expr BodyScan
+  | assignedBoolean : Expr BodyScan
   | group : Expr α → Expr α
-  | ite | elsif : Expr Bool → Expr α → Expr α → Expr α
+  | ite : Expr Bool → Expr α → Expr α → Expr α
+  | elsif : Expr Bool → Expr α → Expr α → Expr α
   | locals : Expr α → Expr α
-  | letFirst | letAfter | letCallee | letStart : Expr Nat → Expr α → Expr α
+  | letFirst : Expr Nat → Expr α → Expr α
+  | letAfter : Expr Nat → Expr α → Expr α
+  | letCallee : Expr Nat → Expr α → Expr α
+  | letStart : Expr Nat → Expr α → Expr α
   | letItem : Expr Signature → Expr α → Expr α
   | letValue : Expr ScalarExpression.Result → Expr α → Expr α
 
@@ -160,8 +188,11 @@ def Expr.eval (imports : Imports) (calls : Calls) (frame : Frame) : Expr α → 
   | .invalidCall => Predicate.invalidCall
   | .makeCall after kind bounds => ⟨after.eval imports calls frame, kind.eval imports calls frame, bounds.eval imports calls frame⟩
   | .invalidBody => imports.invalid frame.scan
-  | .assignedInteger => {frame.scan with position := frame.called.after, assigned := true,
-      facts := frame.scan.facts.replace frame.scalar frame.called.bounds}
+  | .assignedInteger =>
+      {frame.scan with
+        position := frame.called.after
+        assigned := true
+        facts := frame.scan.facts.replace frame.scalar frame.called.bounds}
   | .assignedBoolean => {frame.scan with position := frame.called.after, assigned := true}
   | .group value | .locals value => value.eval imports calls frame
   | .ite condition yes no | .elsif condition yes no => if condition.eval imports calls frame then yes.eval imports calls frame else no.eval imports calls frame
