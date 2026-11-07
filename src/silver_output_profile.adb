@@ -3658,6 +3658,7 @@ is
          Result.After := Boolean_Array_After (Text, Context, Position, Facts);
          Result.When_True := Facts;
          Result.When_False := Facts;
+         pragma Assert (Static => Result = Primary_Model (Text, Context, Position, Facts, Initials => Initials));
       elsif Boolean_Atom_After (Text, Context, Position) /= 0 then
          Result.After := Boolean_Atom_After (Text, Context, Position);
          Result.When_True := Facts;

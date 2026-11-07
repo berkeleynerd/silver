@@ -1,0 +1,8 @@
+{
+  "run_id": "20261107T014623-e873505c3c30",
+  "checked_at": "2026-11-07T03:29:01.712425+00:00",
+  "owned_runner_lake_shape_pids_absent": true,
+  "remaining_owned_session_processes": [],
+  "lease_exclusive_nonblocking_probe": "passed; released immediately",
+  "source_snapshot": "Already retained at 2026-11-07T03:27:42.598970+00:00 before root released input freeze; this cleanup probe is not another input snapshot."
+}

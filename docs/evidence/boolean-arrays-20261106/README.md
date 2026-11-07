@@ -370,3 +370,41 @@ two changed modules are outside its actual dependency closure. Native/sample
 inputs and all relevant proof-reader projections remain unchanged. This is
 reviewed result reuse, not a passing full-suite run. Final Rosetta metadata
 changes still require the three-method renderer rerun and applicability follow-up.
+
+## Equation-field and primary-branch repairs — 2026-11-07
+
+The [serial retry](final-lean-retry/README.md) successfully rebuilt the complete
+source reconstruction (2,817 s) and seven dependent modules. It then exposed
+positional proof bullets in `ComposeSourceBridge` being assigned in the updated
+structure's declaration order. The reviewed repair attaches the unchanged
+proof bodies to their named fields. [Focused run `032925`](equation-fields/README.md)
+passes 318 modules / 92,000 declarations with the approved foundations; it
+precedes the native source change below and is not final complete assurance.
+
+The ongoing original native audit `20261106T232644-673fc5a9c06b` has a completed
+`Read_Primary_Into` session with one unresolved final model-equality postcondition.
+The [failure and focused repair packet](native-primary-failure/README.md) retains
+the exact task and normal-limit timeouts. A one-line Static assertion in the new
+Boolean-array branch passes its assertion/model-call precondition in `031832`
+and the original postcondition in `032305`. The
+[independent review](../../reviews/review-boolean-array-primary-cut-20261107.md)
+confirms unchanged runtime behavior, model, domains and complete postcondition.
+The old canonical audit continues collecting remaining diagnostics on its
+original inputs; it is not a final successful audit of the repaired source.
+
+Because the native source will change, the coordinator explicitly interrupted
+the older Lean retry after its known field-order failure and snapshot retention.
+The pause, resume and interruption are recorded separately; all completed
+objects remain and no stopped process or workspace lease was left behind.
+The [integration packet](primary-cut-integration/README.md) records the actual
+source/pin/reconstruction refresh and successful rerun of both affected
+source-policy methods. All eight line modules remain byte-identical. Native
+whole-helper/final audit and final build remain required, followed by the
+complete Lean/source checkpoint and final Rosetta validation.
+
+After the separately required final Rosetta rerun, reviewed regression coverage
+will be 588 retained original methods + one catalogue repair + one manifest
+repair + seven native fixtures + one retained certificate control + two refreshed
+source-policy methods + three final Rosetta methods = 603 distinct methods.
+Final runtime-input/build and metadata applicability still require confirmation.
+No prior failed/interrupted run is relabelled successful.
