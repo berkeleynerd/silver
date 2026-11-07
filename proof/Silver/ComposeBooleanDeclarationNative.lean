@@ -489,7 +489,7 @@ theorem model_facts (state : ParserState) (p : BooleanDeclarationParts) :
 
 theorem model_reject (text : Source) (state : ParserState) (arguments : Bool) (p : BooleanDeclarationParts) :
     reject modelImports text state arguments p = !booleanDeclarationReady text state arguments p := by
-  simp [reject, modelImports, lookup, Mark.word, Mark.hidden, booleanDeclarationReady, Bool.decide_and,
+  simp [reject, modelImports, lookup, Mark.word, booleanDeclarationReady, Bool.decide_and,
     Bool.not_and, Bool.or_assoc]
 
 theorem model_meaning (text : Source) (state : ParserState) (arguments : Bool) :
