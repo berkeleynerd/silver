@@ -48,23 +48,27 @@ private theorem declarations_staticFlags {text arguments state final values}
       Integer.declarationStaticFlags (state.scalarNames.map (·.isStatic)) values := by
   induction parsed with
   | done => rfl
-  | string _ _ _ _ _ _ first _ ih =>
+  | string _ _ _ _ _ _ _ first _ ih =>
       rw [declaration_scalarNames first] at ih
       exact ih
-  | scalar _ _ _ first _ ih =>
+  | scalar _ _ _ _ first _ ih =>
       rw [ih, declaration_staticFlags first]
       rfl
-  | array _ _ _ _ first _ ih =>
+  | array _ _ _ _ _ first _ ih =>
       rw [(array_declaration_preserves first).2] at ih
       exact ih
-  | booleanArray _ _ _ _ first _ ih =>
+  | booleanArray _ _ _ _ _ first _ ih =>
       rw [(boolean_array_declaration_preserves first).2.1] at ih
       exact ih
-  | subtype _ _ first _ ih =>
+  | subtype _ _ _ first _ ih =>
       rw [(subtype_declaration_preserves first).2.1] at ih
       exact ih
-  | boolean _ _ _ _ _ first _ ih =>
+  | boolean _ _ _ _ _ _ first _ ih =>
       rw [(boolean_declaration_preserves first).2.1] at ih
+      exact ih
+
+  | function _ _ accepted _ ih =>
+      rw [(functionDeclarationAt_preserves_outer _ _ _ accepted).scalarNames] at ih
       exact ih
 
 private theorem scalar_step_staticFlags {text form token state next values}
