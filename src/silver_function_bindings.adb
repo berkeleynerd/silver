@@ -2,7 +2,7 @@ package body Silver_Function_Bindings with SPARK_Mode => On is
    function Lookup_Model
      (Text : String; Functions : Metadata; First, After : Literal_Position;
       Index : Function_Count) return Function_Count is
-     (if Index = 0 then 0
+     (if First = 0 or else After <= First or else Index = 0 then 0
       elsif Equal_Name (Text, Functions.Items (Index).First,
                        Functions.Items (Index).After, First, After)
       then Index
@@ -13,6 +13,7 @@ package body Silver_Function_Bindings with SPARK_Mode => On is
       return Function_Count is
       Index : Function_Count := Functions.Count;
    begin
+      if First = 0 or else After <= First then return 0; end if;
       while Index > 0 loop
          pragma Loop_Invariant (Index <= Functions.Count);
          pragma Loop_Invariant (Static =>

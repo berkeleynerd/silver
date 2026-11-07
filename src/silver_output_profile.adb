@@ -248,10 +248,10 @@ is
    No_Hidden_Marks : constant Hidden_Marks := (others => False);
    type Parser_State is record
       Position : Literal_Position;
-      Functions : Functions.Metadata;
+      Functions : Silver_Function_Bindings.Metadata;
       Pure, Assigned_In_Functions : Boolean;
       Hiding : Hidden_Marks;
-      First_Parameter : Functions.Formal_Count;
+      First_Parameter : Silver_Function_Bindings.Formal_Count;
       Names : Binding_Environment;
       Scalar_Names : Scalar_Expressions.Environment;
       Array_Names : Array_Bindings.Environment;
@@ -312,10 +312,11 @@ is
         Name_Is (Text, Catalog.Items (Index).First, Catalog.Items (Index).After, Word))
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
-         and then Functions.Valid_Metadata (Text, Catalog);
+         and then Functions.Valid_Metadata (Text, Catalog)
+         and then Word'First = 1 and then Word'Length in 1 .. Max_Source_Length;
    function Formal_Hides
      (Text : String; State : Parser_State; First, After : Literal_Position) return Boolean is
-     (State.First_Parameter /= 0 and then
+     (First > 0 and then After > First and then State.First_Parameter /= 0 and then
        (for some Index in State.First_Parameter .. State.Functions.Parameter_Count =>
           Equal_Name (Text, State.Functions.Parameters (Index).First,
                       State.Functions.Parameters (Index).After, First, After)))
@@ -5443,7 +5444,8 @@ is
         Name_Is (Text, State.Subtype_Names.Items (I).First, State.Subtype_Names.Items (I).After, Word)))
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
-         and then Valid_State (Text, State);
+         and then Valid_State (Text, State)
+         and then Word'First = 1 and then Word'Length in 1 .. Max_Source_Length;
    function Hidden_Outer (Text : String; State : Parser_State) return Hidden_Marks is
      (Integer_Hidden => State.Hiding.Integer_Hidden or Hidden_Word (Text, State, "integer"),
       Boolean_Hidden => State.Hiding.Boolean_Hidden or Hidden_Word (Text, State, "boolean"),
@@ -5463,7 +5465,7 @@ is
       False_Hidden => Hiding.False_Hidden or Name_Is (Text, First, After, "false"))
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
-         and then First <= Text'Last + 1 and then After <= Text'Last + 1;
+         and then First > 0 and then After > First and then After <= Text'Last + 1;
    type Function_Type_Result is record
       After : Literal_Position;
       Kind : Functions.Scalar_Kind;
@@ -5641,6 +5643,7 @@ is
             Following : constant Literal_Position := Take_Token (Text, End_After, Semicolon);
          begin
             if Body_Result.Position = 0 or else Return_End = 0
+              or else End_First = 0 or else End_After <= End_First
               or else not Equal_Name (Text, First, After, End_First, End_After)
               or else Following <= Outer.Position
             then return Invalid_State; end if;
