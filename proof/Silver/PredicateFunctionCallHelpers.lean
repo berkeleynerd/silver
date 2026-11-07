@@ -1,20 +1,41 @@
 module
 
 public import Silver.PredicateFunctionCallEquations
-public import Silver.PredicateScalarBodyHelpers
-public import Silver.PredicateBooleanBodyHelpers
-public import Silver.FunctionBindingsSourceBridge
-public import Silver.PredicateNativeRanges
+public import Silver.FunctionBindingsNativeEquations
 
 @[expose] public section
 
 namespace Silver.Predicate.FunctionCallNative
 open Compose FunctionBindings
 
-abbrev CursorDomain := ScalarBodyNative.CursorDomain
-abbrev TargetDomain := ScalarBodyNative.TargetDomain
-abbrev ReadDomain := BooleanBodyNative.ReadDomain
-abbrev AssignmentDomain := ScalarBodyNative.AssignmentDomain
+/-- These are the same native cursor, context and body domains used by the
+scalar/Boolean statement readers. Keeping the contract formulas here lets the
+call interpreter check without importing unrelated whole-body theorems. -/
+def CursorDomain (text : Source) (position : Nat) : Prop :=
+  Expressions.ValidText text ∧ Expressions.ValidCursor text position
+
+def TargetDomain (text : Source) (context : Native.Context) (position : Nat) : Prop :=
+  Expressions.ValidText text ∧ Native.ValidContext text context ∧ Expressions.ValidCursor text position
+
+def ReadDomain (text : Source) (context : Native.Context) (position : Nat) (facts : ActiveFlow) : Prop :=
+  TargetDomain text context position ∧ Native.ValidFlow context facts
+
+def AssignmentDomain (text : Source) (context : Native.Context) (scan : BodyScan) : Prop :=
+  TargetDomain text context scan.position ∧
+    (scan.target ≤ context.names.length ∧ scan.capacity ≤ Expressions.maxSourceLength) ∧
+    Native.ValidFlow context scan.facts
+
+def StringLookupDomain (text : Source) (names : BindingEnvironment) (first after : Nat) : Prop :=
+  Expressions.ValidText text ∧ Expressions.NativeNames text names ∧
+    Expressions.ValidCursor text first ∧ Expressions.ValidCursor text after
+
+def ScalarLookupDomain (text : Source) (names : ScalarExpression.Environment) (first after : Nat) : Prop :=
+  Expressions.ValidText text ∧ ScalarExpression.ValidEnvironment text names ∧
+    Expressions.ValidCursor text first ∧ Expressions.ValidCursor text after
+
+def BooleanLookupDomain (text : Source) (names : BooleanBindings.Environment) (first after : Nat) : Prop :=
+  Expressions.ValidText text ∧ BooleanBindings.ValidEnvironment text names ∧
+    Expressions.ValidCursor text first ∧ Expressions.ValidCursor text after
 
 def ArrayLookupDomain (text : Source) (names : ArrayBindings.Metadata) (first after : Nat) : Prop :=
   Expressions.ValidText text ∧ ArrayBindings.ValidMetadata text names ∧
@@ -38,11 +59,11 @@ structure ImportsMeaning (imports : Imports) : Prop where
     imports.skip text position = modelImports.skip text position
   nameAfter : ∀ text position, CursorDomain text position →
     imports.nameAfter text position = modelImports.nameAfter text position
-  namesLookup : ∀ text names first after, ScalarBodyNative.StringLookupDomain text names first after →
+  namesLookup : ∀ text names first after, StringLookupDomain text names first after →
     imports.namesLookup text names first after = modelImports.namesLookup text names first after
-  scalarLookup : ∀ text names first after, ScalarBodyNative.LookupDomain text names first after →
+  scalarLookup : ∀ text names first after, ScalarLookupDomain text names first after →
     imports.scalarLookup text names first after = modelImports.scalarLookup text names first after
-  booleanLookup : ∀ text names first after, BooleanBodyNative.BooleanLookupDomain text names first after →
+  booleanLookup : ∀ text names first after, BooleanLookupDomain text names first after →
     imports.booleanLookup text names first after = modelImports.booleanLookup text names first after
   arrayLookup : ∀ text names first after, ArrayLookupDomain text names first after →
     imports.arrayLookup text names first after = modelImports.arrayLookup text names first after
@@ -66,9 +87,9 @@ noncomputable def totalizeImports (imports : Imports) : Imports := by
   exact {
     skip := fun text position => if CursorDomain text position then imports.skip text position else modelImports.skip text position
     nameAfter := fun text position => if CursorDomain text position then imports.nameAfter text position else modelImports.nameAfter text position
-    namesLookup := fun text names first after => if ScalarBodyNative.StringLookupDomain text names first after then imports.namesLookup text names first after else modelImports.namesLookup text names first after
-    scalarLookup := fun text names first after => if ScalarBodyNative.LookupDomain text names first after then imports.scalarLookup text names first after else modelImports.scalarLookup text names first after
-    booleanLookup := fun text names first after => if BooleanBodyNative.BooleanLookupDomain text names first after then imports.booleanLookup text names first after else modelImports.booleanLookup text names first after
+    namesLookup := fun text names first after => if StringLookupDomain text names first after then imports.namesLookup text names first after else modelImports.namesLookup text names first after
+    scalarLookup := fun text names first after => if ScalarLookupDomain text names first after then imports.scalarLookup text names first after else modelImports.scalarLookup text names first after
+    booleanLookup := fun text names first after => if BooleanLookupDomain text names first after then imports.booleanLookup text names first after else modelImports.booleanLookup text names first after
     arrayLookup := fun text names first after => if ArrayLookupDomain text names first after then imports.arrayLookup text names first after else modelImports.arrayLookup text names first after
     functionLookup := fun text catalog first after => if FunctionLookupDomain text catalog first after then imports.functionLookup text catalog first after else modelImports.functionLookup text catalog first after
     token := fun text position token => if TokenDomain text position token then imports.token text position token else modelImports.token text position token

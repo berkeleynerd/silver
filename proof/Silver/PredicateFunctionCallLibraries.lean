@@ -1,6 +1,8 @@
 module
 
 public import Silver.PredicateFunctionCallHelpers
+public import Silver.PredicateScalarBodyHelpers
+public import Silver.FunctionBindingsSourceBridge
 public import Silver.PredicateNativeHelpers
 public import Silver.PredicateNativeLibraries
 public import Silver.PredicateBooleanBodyLibraries
