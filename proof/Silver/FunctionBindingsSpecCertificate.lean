@@ -1408,5 +1408,4 @@ theorem functionBindingsSpecTokens_correct : lex functionBindingsSpec = some fun
     functionBindingsSpecTokens_block_0_92.nonempty]
   rw [functionBindingsSpecTokens_values]
 
-
 end Silver.Source

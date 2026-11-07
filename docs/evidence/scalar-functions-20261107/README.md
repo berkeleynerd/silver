@@ -43,3 +43,26 @@ explains the classification and source-bound storage argument.
 The [report fixture/producer packet](report-readings/README.md) retains the
 39-test native policy fixture result and pinned producer inputs. It does not
 claim that the compiler's complete native audit has passed.
+
+## Native repair and source integration checkpoint
+
+The [parser equality packet](parser-equality/README.md) retains the original
+failed observations, the isolated diagnosis, and successful selected checks.
+The [report repair packet](report-readings/native-repair/README.md) now accounts
+for all seven original report failures with scoped successful repairs. Neither
+packet replaces a complete audit of the integrated native source.
+
+The named-word Lean check `20261107T222609-601d7f7b780d` passed a fresh audit
+of 20,013 declarations after compiling the changed tree and evaluator modules.
+Its [record](focused/20261107T222609-601d7f7b780d/README.md) distinguishes this
+model result from the still-required authoritative source candidates. The
+[bounded source review](../../reviews/review-scalar-function-source-integration-20261107.md)
+identified the remaining derivation gap tracked as #340. The final complete
+native/Lean and regression checkpoints have not been claimed.
+
+The regenerated certificate parity test passed in managed Linux run
+`20261107T223021-ea6081c05e62` across all 30 source certificates and eight
+output-body chunks. The preceding run `20261107T222826-c95794092b91` remains
+failed: it identified three stale checked-in specification/function certificates,
+which were regenerated before the passing rerun. Regeneration and byte parity
+are input preparation, not kernel acceptance or source correspondence.

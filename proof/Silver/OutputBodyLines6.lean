@@ -27,6 +27,12 @@ def outputBodyTokens_line_0662d2b39d8f600e8f172b75ee26c0672946899e50e420cc5d23fd
   correct := by decide +kernel
   noNewline := by decide +kernel
 
+def outputBodyTokens_line_0666bdd6586873e4596f64269754d8838b4772369e25cc9c5e00f4f6e33fe30f : LineCertificate where
+  text := "      Boolean_Hidden => State.Hiding.Boolean_Hidden or Hidden_Word (Text, State, \"boolean\"),"
+  tokens := ["boolean_hidden", "=>", "state", ".", "hiding", ".", "boolean_hidden", "or", "hidden_word", "(", "text", ",", "state", ",", "\"boolean\"", ")", ","]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
 def outputBodyTokens_line_06696cfcb17f458c643a6723ee8ca1f10a80d9b7735462854cf52a0329cce03e : LineCertificate where
   text := "      --  Null concatenation returns its right operand, including arbitrary"
   tokens := []
@@ -57,6 +63,12 @@ def outputBodyTokens_line_067c5dde07eedc59dca1613a03fe047c17b63cbaf3e46bc131f9e6
   correct := by decide +kernel
   noNewline := by decide +kernel
 
+def outputBodyTokens_line_06a6487df2059c71ad8a972463d2c6994dd08984e79b2b3c62d63153ca2ae196 : LineCertificate where
+  text := "      Facts : Scalar_Flow; Catalog : Functions.Metadata) return Call_Result"
+  tokens := ["facts", ":", "scalar_flow", ";", "catalog", ":", "functions", ".", "metadata", ")", "return", "call_result"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
 def outputBodyTokens_line_06b825b9ca12019c169f708442dbc26c42b4641517ec48270ce9bb318fe65553 : LineCertificate where
   text := "                  pragma Assert (Static => Result = Combined);"
   tokens := ["pragma", "assert", "(", "static", "=>", "result", "=", "combined", ")", ";"]
@@ -81,6 +93,12 @@ def outputBodyTokens_line_0e2edf9cd6ce7841cdca724c0dbe987a6d0bb2c3366f7c08cef668
   correct := by decide +kernel
   noNewline := by decide +kernel
 
+def outputBodyTokens_line_0e50fc547b19f177b04fcf578f6e5cece385ad9f18b73a03dec5f0d159400feb : LineCertificate where
+  text := "      Open : constant Literal_Position := Take_Token (Text, After, Left_Parenthesis);"
+  tokens := ["open", ":", "constant", "literal_position", ":=", "take_token", "(", "text", ",", "after", ",", "left_parenthesis", ")", ";"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
 def outputBodyTokens_line_0e62a1e909256884c00ff549005185ea78324d1b4e23d09299624eb36ac2968a : LineCertificate where
   text := "               Lemma_Condition_Equality (Result, Invalid_Condition (Facts));"
   tokens := ["lemma_condition_equality", "(", "result", ",", "invalid_condition", "(", "facts", ")", ")", ";"]
@@ -90,6 +108,12 @@ def outputBodyTokens_line_0e62a1e909256884c00ff549005185ea78324d1b4e23d09299624e
 def outputBodyTokens_line_0e6810b0f340b66eadc32b3b69343395f7ec114bb54ad935474decc3c08f8ee2 : LineCertificate where
   text := "                  pragma Assert (Static => Same_Flow (Result.When_True, Combined.When_True));"
   tokens := ["pragma", "assert", "(", "static", "=>", "same_flow", "(", "result", ".", "when_true", ",", "combined", ".", "when_true", ")", ")", ";"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def outputBodyTokens_line_0e71f03f4094b07486937639ced986d40f645abfc856768195bef1358a24fb49 : LineCertificate where
+  text := "      Result := Read_Body (Text, Context, Result, Arm_Boundary, Catalog);"
+  tokens := ["result", ":=", "read_body", "(", "text", ",", "context", ",", "result", ",", "arm_boundary", ",", "catalog", ")", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
@@ -141,6 +165,18 @@ def outputBodyTokens_line_161656f438e199f1033d6e2b7f5c15b83e87610dfa63b8d8c4a767
   correct := by decide +kernel
   noNewline := by decide +kernel
 
+def outputBodyTokens_line_162ea72ed70af2d5a6adaddb9b223a4c389ea041a170b28dee7a5a0902d40f2a : LineCertificate where
+  text := "       elsif First = Last then Take_Token (Text, After, Right_Parenthesis)"
+  tokens := ["elsif", "first", "=", "last", "then", "take_token", "(", "text", ",", "after", ",", "right_parenthesis", ")"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def outputBodyTokens_line_16323007e7f62202f5c512dd82b56db11fde0eecd029929f799dce9eaff8a55b : LineCertificate where
+  text := "        or else Start = 0 or else Value.After <= State.Position"
+  tokens := ["or", "else", "start", "=", "0", "or", "else", "value", ".", "after", "<=", "state", ".", "position"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
 def outputBodyTokens_line_163255be8d991f0039b5012b09e8e4b40a4ad386dd143ec43dc7ff0444827016 : LineCertificate where
   text := "      if Result.After = 0 then"
   tokens := ["if", "result", ".", "after", "=", "0", "then"]
@@ -159,9 +195,9 @@ def outputBodyTokens_line_16598797c7a69d1154ad610c610def6bee2877b446e1a04b253f21
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputBodyTokens_line_167aee297a67006039600afd554187d612089f19604581f76685c578dd7f6db0 : LineCertificate where
-  text := "      Result : constant Body_Scan (Scan.Count) := Statement_Body (Text, Context, Scan);"
-  tokens := ["result", ":", "constant", "body_scan", "(", "scan", ".", "count", ")", ":=", "statement_body", "(", "text", ",", "context", ",", "scan", ")", ";"]
+def outputBodyTokens_line_165be35f82956427ebf561d5528b2a49aa6fa83df7b3da1a6ada78c7757af8ca : LineCertificate where
+  text := "                                     First, After, Result_Type, Arguments);"
+  tokens := ["first", ",", "after", ",", "result_type", ",", "arguments", ")", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
@@ -183,6 +219,12 @@ def outputBodyTokens_line_16b00ea1ed1da9fffb20897a2f00c2f7ad632ccdf624614b1c1445
   correct := by decide +kernel
   noNewline := by decide +kernel
 
+def outputBodyTokens_line_16b638b08e7d72a9e2f28f474dddc475218c941b6b26d63f4ecea42c8bcd480f : LineCertificate where
+  text := "                       else Boolean_Assignment_Body (Text, Context, Result));"
+  tokens := ["else", "boolean_assignment_body", "(", "text", ",", "context", ",", "result", ")", ")", ";"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
 def outputBodyTokens_line_16b81a9002d193cf42b6bdf0efa7e7a901c1ca62c18a884c217d1714f8e3ce91 : LineCertificate where
   text := "      declare"
   tokens := ["declare"]
@@ -198,6 +240,12 @@ def outputBodyTokens_line_16b827cbdadd654c0d6f1a7e6cf3e676796edb439fe7bc405cf2d4
 def outputBodyTokens_line_16bf9761eddc96a87142cd99bdf44346a1624af3379d248dfc8925945e906d22 : LineCertificate where
   text := "           Minimum_Length => 1, Static_Length => 1, Dynamic_Seen => False,"
   tokens := ["minimum_length", "=>", "1", ",", "static_length", "=>", "1", ",", "dynamic_seen", "=>", "false", ","]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def outputBodyTokens_line_16bf9b1a0c93b4dac133747baf1c668aa5fac6af389431b9a5231d610eb1d62d : LineCertificate where
+  text := "      then Loop_Body (Text, Context, Scan, Catalog) else Basic_Body (Text, Context, Scan, Catalog));"
+  tokens := ["then", "loop_body", "(", "text", ",", "context", ",", "scan", ",", "catalog", ")", "else", "basic_body", "(", "text", ",", "context", ",", "scan", ",", "catalog", ")", ")", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
@@ -285,6 +333,12 @@ def outputBodyTokens_line_1e6c2c4c487b8d772fa4b7760c4b64eefaaa238bcf5ca4c11c6b7f
   correct := by decide +kernel
   noNewline := by decide +kernel
 
+def outputBodyTokens_line_1e6ea0f45d4f0f1d7c8b55da81becd5277a04016b2860cf934303602c0301ada : LineCertificate where
+  text := "             and then Function_Locals_Model'Result.Functions = State.Functions"
+  tokens := ["and", "then", "function_locals_model", "'", "result", ".", "functions", "=", "state", ".", "functions"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
 def outputBodyTokens_line_1e9a70fda1a0b2e9f3f7482337e58d1fa3225410f0e99c5ca8bed27a6f091f1e : LineCertificate where
   text := "      Gate : Scalar_Expressions.Expression_Result;"
   tokens := ["gate", ":", "scalar_expressions", ".", "expression_result", ";"]
@@ -315,6 +369,12 @@ def outputBodyTokens_line_1ea9b8a16474b6029eb0b3dc956b141b504ef4ebca4c95179967f1
   correct := by decide +kernel
   noNewline := by decide +kernel
 
+def outputBodyTokens_line_1ebda30edd15245fd5e7795f9438bf02df8b53159ff14fe908ff9230976effe8 : LineCertificate where
+  text := "         or else Read_Call'Result.After in Position + 1 .. Text'Last + 1,"
+  tokens := ["or", "else", "read_call", "'", "result", ".", "after", "in", "position", "+", "1", "..", "text", "'", "last", "+", "1", ","]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
 def outputBodyTokens_line_1ebe8d937422146caee22851f3d2a03ec4aa13214a65f41b4c0d5f46a7831187 : LineCertificate where
   text := "      if Target = 0 or else not Context.Scalar_Names.Items (Target).Mutable"
   tokens := ["if", "target", "=", "0", "or", "else", "not", "context", ".", "scalar_names", ".", "items", "(", "target", ")", ".", "mutable"]
@@ -339,6 +399,12 @@ def outputBodyTokens_line_1eec5413bdae7be788a13941540ebdb969651842788f79c1797071
   correct := by decide +kernel
   noNewline := by decide +kernel
 
+def outputBodyTokens_line_261fd2db40f3b85e2823d0b186f24ee825695a59312c0ff08be34f19d84f14ed : LineCertificate where
+  text := "           or else (Function_Locals_Model'Result.Position >= State.Position"
+  tokens := ["or", "else", "(", "function_locals_model", "'", "result", ".", "position", ">=", "state", ".", "position"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
 def outputBodyTokens_line_26249520d5cb8c406711f1578a88d7122bdff20f501807634e5414e8973e7d92 : LineCertificate where
   text := "            then return Invalid_State; end if;"
   tokens := ["then", "return", "invalid_state", ";", "end", "if", ";"]
@@ -348,6 +414,18 @@ def outputBodyTokens_line_26249520d5cb8c406711f1578a88d7122bdff20f501807634e5414
 def outputBodyTokens_line_2637a55586fa699362b832c3f03e97ffc784c012ccd67ec79b550fd3edd811af : LineCertificate where
   text := "           Work_Tail (Text, Character_Literal_After (Text, First), Remaining)"
   tokens := ["work_tail", "(", "text", ",", "character_literal_after", "(", "text", ",", "first", ")", ",", "remaining", ")"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def outputBodyTokens_line_263cd42f7faac4df91fc315fe65c360cf9b8d54257b188161ba4e93c5d5e52c2 : LineCertificate where
+  text := "              (Static => Body_Tail_Model (Text, Context, Scan, Stop, Catalog) ="
+  tokens := ["(", "static", "=>", "body_tail_model", "(", "text", ",", "context", ",", "scan", ",", "stop", ",", "catalog", ")", "="]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def outputBodyTokens_line_263eae1963064f0bce5224ffb4b65986ace9c34d09541758732fa39851d0db13 : LineCertificate where
+  text := "     (declare Callee : constant Functions.Function_Count := Callee_At (Text, Context, Position, Catalog);"
+  tokens := ["(", "declare", "callee", ":", "constant", "functions", ".", "function_count", ":=", "callee_at", "(", "text", ",", "context", ",", "position", ",", "catalog", ")", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
@@ -423,12 +501,6 @@ def outputBodyTokens_line_2eb538e2717b97a04809cf95cfa9c3d7b58f51b178584f1f321049
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputBodyTokens_line_2eb6db6cd9c10477cfc605e02b4e73429256948ead9984badaa7e52659d8b8da : LineCertificate where
-  text := "     (declare Subtype_State : constant Parser_State := Subtype_Declaration_At (Text, State, Arguments);"
-  tokens := ["(", "declare", "subtype_state", ":", "constant", "parser_state", ":=", "subtype_declaration_at", "(", "text", ",", "state", ",", "arguments", ")", ";"]
-  correct := by decide +kernel
-  noNewline := by decide +kernel
-
 def outputBodyTokens_line_2eba8c3024380090ea887ced83a1ec8d186b874d2e7c2dc6e27773bf16550fd5 : LineCertificate where
   text := "                    Choice : constant Scalar_Expressions.Expression_Result :="
   tokens := ["choice", ":", "constant", "scalar_expressions", ".", "expression_result", ":="]
@@ -453,12 +525,6 @@ def outputBodyTokens_line_2ecefd7a07c4563279fe1cf2c00b46a9d5385e40cb304c4095b91f
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputBodyTokens_line_2ed9109cf00664835f2c5c6bda164984c1b9b20420b7535938df831deab7eb89 : LineCertificate where
-  text := "     (Position => 0, Names => Empty_Environment,"
-  tokens := ["(", "position", "=>", "0", ",", "names", "=>", "empty_environment", ","]
-  correct := by decide +kernel
-  noNewline := by decide +kernel
-
 def outputBodyTokens_line_2eeb0cfed3f86d421622f7fab5d0a3fcbad3a8e49062a7c5b14abc2454a753d3 : LineCertificate where
   text := "          or else Scalar_Expressions.Lookup (Text, Context.Scalar_Names, First, After) /= 0"
   tokens := ["or", "else", "scalar_expressions", ".", "lookup", "(", "text", ",", "context", ".", "scalar_names", ",", "first", ",", "after", ")", "/=", "0"]
@@ -468,6 +534,12 @@ def outputBodyTokens_line_2eeb0cfed3f86d421622f7fab5d0a3fcbad3a8e49062a7c5b14abc
 def outputBodyTokens_line_36048e420cf9e516cb6ad6f5145c7451c6c7b8097bd70d4021ace4f4c8bc76bd : LineCertificate where
   text := "         and then Index <= Names.Count + 1,"
   tokens := ["and", "then", "index", "<=", "names", ".", "count", "+", "1", ","]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def outputBodyTokens_line_360f9eb2f4fe13add6ae058e196d3a6e762d5919f91a91b2af854a3f224b3cb0 : LineCertificate where
+  text := "   end Function_Declaration_At;"
+  tokens := ["end", "function_declaration_at", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
@@ -549,6 +621,12 @@ def outputBodyTokens_line_3e0daeb8d3f23db7bf5cc0c62f5d31fd2d3ac4a9169caf198d6a1a
   correct := by decide +kernel
   noNewline := by decide +kernel
 
+def outputBodyTokens_line_3e1362f70e7895b99442bb77379e574d638560661046008381c6a30530dbac74 : LineCertificate where
+  text := "         and then Valid_Flow (Context, Facts) and then Functions.Valid_Metadata (Text, Catalog),"
+  tokens := ["and", "then", "valid_flow", "(", "context", ",", "facts", ")", "and", "then", "functions", ".", "valid_metadata", "(", "text", ",", "catalog", ")", ","]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
 def outputBodyTokens_line_3e1ac2bc95220a94707d909320f1589eaaea1cf258a68ca9ea114a87743dda91 : LineCertificate where
   text := "      Position := Position + Word'Length;"
   tokens := ["position", ":=", "position", "+", "word", "'", "length", ";"]
@@ -564,6 +642,12 @@ def outputBodyTokens_line_3e209ce8b9f10510700962d6dcce45f8e46a38fbe68d2ccf9e5874
 def outputBodyTokens_line_3e350766dcbbf641692be81103751650ae90ee095dab362a00ddc3d1614cbd96 : LineCertificate where
   text := "           Condition_Tail (Text, Context, Result, Short_And, False, Initials => Initials, Incoming => Facts, Original_Start => Position);"
   tokens := ["condition_tail", "(", "text", ",", "context", ",", "result", ",", "short_and", ",", "false", ",", "initials", "=>", "initials", ",", "incoming", "=>", "facts", ",", "original_start", "=>", "position", ")", ";"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def outputBodyTokens_line_3e4ea5f2cb63ff7dc3f84b8d2f8b034c37016e98350937323fa108d7e48fe11a : LineCertificate where
+  text := "           or else Call_Assignment_Body'Result.Position > Scan.Position),"
+  tokens := ["or", "else", "call_assignment_body", "'", "result", ".", "position", ">", "scan", ".", "position", ")", ","]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
@@ -663,6 +747,18 @@ def outputBodyTokens_line_465a2fd6d6c53f9a2f45733e36e98a3ec2465ab882ec596a39fbac
   correct := by decide +kernel
   noNewline := by decide +kernel
 
+def outputBodyTokens_line_467603f2ca19886239123803b14729a40f31cfd460863f29f833be7bde4fbcba : LineCertificate where
+  text := "      Hiding : Hidden_Marks;"
+  tokens := ["hiding", ":", "hidden_marks", ";"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def outputBodyTokens_line_46824a9c8d1e8aa2ffd2aad526ce22c6284b8baa5b8f86b754dfc786620d8adc : LineCertificate where
+  text := "     (Text : String; State : Parser_State; Arguments : Boolean) return Parameter_Step_Result is"
+  tokens := ["(", "text", ":", "string", ";", "state", ":", "parser_state", ";", "arguments", ":", "boolean", ")", "return", "parameter_step_result", "is"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
 def outputBodyTokens_line_46853fd5c254f25d8d1d59beb606aeecc0ecb71f298a364aad7ea9b5f710c579 : LineCertificate where
   text := "                    Paths.Refine_Bounds (Facts.Path, Operator.Operator, Left_Length.Value, Right_Length.Value, True)),"
   tokens := ["paths", ".", "refine_bounds", "(", "facts", ".", "path", ",", "operator", ".", "operator", ",", "left_length", ".", "value", ",", "right_length", ".", "value", ",", "true", ")", ")", ","]
@@ -672,6 +768,12 @@ def outputBodyTokens_line_46853fd5c254f25d8d1d59beb606aeecc0ecb71f298a364aad7ea9
 def outputBodyTokens_line_4687797d6dfcd45ce0a41ded58d48fe1c2a2723ee095d418f473f9d3d699c329 : LineCertificate where
   text := "               and then Indexed_At'Result.Last_Index = Scalars.Singleton (1))));"
   tokens := ["and", "then", "indexed_at", "'", "result", ".", "last_index", "=", "scalars", ".", "singleton", "(", "1", ")", ")", ")", ")", ";"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def outputBodyTokens_line_4692ef381c7259c07798d04358b40deaadb48ef432c0ac33021d8e406d7cf68d : LineCertificate where
+  text := "          or else not Context.Scalar_Names.Items (Scalar).Mutable"
+  tokens := ["or", "else", "not", "context", ".", "scalar_names", ".", "items", "(", "scalar", ")", ".", "mutable"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
@@ -699,9 +801,21 @@ def outputBodyTokens_line_46c27be826c64a171fbb962c1126f60d78ed816db3100bbebdc420
   correct := by decide +kernel
   noNewline := by decide +kernel
 
+def outputBodyTokens_line_4e007377e2464ac847497cfb34cc3690352527ec36f0ba46bfd9d55f85c00e8f : LineCertificate where
+  text := "         or else Call_Model'Result.After in Position + 1 .. Text'Last + 1;"
+  tokens := ["or", "else", "call_model", "'", "result", ".", "after", "in", "position", "+", "1", "..", "text", "'", "last", "+", "1", ";"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
 def outputBodyTokens_line_4e0a547e630b366250ee83897369374b34755fa9ca346d464797df511a844657 : LineCertificate where
   text := "                       (if Right.After = 0 or else (Selected = Eager_Xor"
   tokens := ["(", "if", "right", ".", "after", "=", "0", "or", "else", "(", "selected", "=", "eager_xor"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def outputBodyTokens_line_4e0cd24958fe52ac8bc71697cd553b1642ed45d5a4fe97ba36f6bfe25e4f64f5 : LineCertificate where
+  text := "         or else Array_Bindings.Lookup (Text, State.Array_Names.Names, First, After) /= 0"
+  tokens := ["or", "else", "array_bindings", ".", "lookup", "(", "text", ",", "state", ".", "array_names", ".", "names", ",", "first", ",", "after", ")", "/=", "0"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
@@ -756,6 +870,12 @@ def outputBodyTokens_line_4eb1398f64e008a00f5fedd7762667486ed1877b5fdc1e9c5f56e9
 def outputBodyTokens_line_4ebc37538b4fe4c2a36588d3536c699a42a26feccf07ca442a21e3ecfbd33f77 : LineCertificate where
   text := "           or else Lookup_Boolean (Text, State.Boolean_Names, First, After) /= 0"
   tokens := ["or", "else", "lookup_boolean", "(", "text", ",", "state", ".", "boolean_names", ",", "first", ",", "after", ")", "/=", "0"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def outputBodyTokens_line_4ec5845f580084f4cb5ea7e15a806be74595634f3c852d56d5bc0141992b5a68 : LineCertificate where
+  text := "           or else (State.Hiding.Character_Hidden and then Name_Is (Text, Type_First, Type_After, \"character\"))"
+  tokens := ["or", "else", "(", "state", ".", "hiding", ".", "character_hidden", "and", "then", "name_is", "(", "text", ",", "type_first", ",", "type_after", ",", "\"character\"", ")", ")"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
@@ -849,9 +969,21 @@ def outputBodyTokens_line_56c9ad118c0b4118efefed38baf7fe36e377cdafe0bc7bc0becf78
   correct := by decide +kernel
   noNewline := by decide +kernel
 
+def outputBodyTokens_line_56d349afd99854b84e01d07a14f6538db945b32c203c318bd96b04c5fcf87416 : LineCertificate where
+  text := "      declare Item : constant Functions.Signature := Catalog.Items (Callee);"
+  tokens := ["declare", "item", ":", "constant", "functions", ".", "signature", ":=", "catalog", ".", "items", "(", "callee", ")", ";"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
 def outputBodyTokens_line_56d69b2f5e41738b7fafa64aef07805023f3d73b618eb861d2dc216c15699709 : LineCertificate where
   text := "      return (Result with delta Position => Current);"
   tokens := ["return", "(", "result", "with", "delta", "position", "=>", "current", ")", ";"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def outputBodyTokens_line_56d7e898d9f74fcf1efac2f87b94c2463d7d0d007f965cf99dc0d75b2bd6f4e0 : LineCertificate where
+  text := "         and then Valid_Name_State (Text, First, After) and then First > 0"
+  tokens := ["and", "then", "valid_name_state", "(", "text", ",", "first", ",", "after", ")", "and", "then", "first", ">", "0"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
@@ -879,9 +1011,27 @@ def outputBodyTokens_line_5e32fc50c536f752b82e4bffd31c9816ff199aa16ddd6e3cdad2ca
   correct := by decide +kernel
   noNewline := by decide +kernel
 
+def outputBodyTokens_line_5e339261ca6b2b06e0c97a1d609fb3ec9324650320059f926da84ee57bc2ebdc : LineCertificate where
+  text := "   end Read_Call;"
+  tokens := ["end", "read_call", ";"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def outputBodyTokens_line_5e468f0d7adbc848b2b2430e42e65c2995c0e8387698a28d3b69184333b52156 : LineCertificate where
+  text := "                           Facts, Catalog, First + 1, Last)));"
+  tokens := ["facts", ",", "catalog", ",", "first", "+", "1", ",", "last", ")", ")", ")", ";"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
 def outputBodyTokens_line_5e5a8beb921fd07637275aa3ca40334d2da5589f61d85bbcb4c4360df8e10922 : LineCertificate where
   text := "            Facts.Values (Index) := Context.Scalar_Names.Items (Index).Declared_Bounds;"
   tokens := ["facts", ".", "values", "(", "index", ")", ":=", "context", ".", "scalar_names", ".", "items", "(", "index", ")", ".", "declared_bounds", ";"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def outputBodyTokens_line_5e5e55b8c25c3e604396ce39e819b9fbb29c30f1a560d01576695e945db6057d : LineCertificate where
+  text := "      begin (if After = 0 then 0"
+  tokens := ["begin", "(", "if", "after", "=", "0", "then", "0"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
@@ -900,6 +1050,12 @@ def outputBodyTokens_line_5e670ed7ae5a5d15bcf88e64ad1aa5b95dd010d35201825d3adf26
 def outputBodyTokens_line_5e72763f8cb82fe6ddd3218be96567cec08bcb22e5b327d93bc271acce2efb6c : LineCertificate where
   text := "       Post => Value_At'Result.Value_First <= Text'Last + 1"
   tokens := ["post", "=>", "value_at", "'", "result", ".", "value_first", "<=", "text", "'", "last", "+", "1"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def outputBodyTokens_line_5e906ae60168200d4b0c93b86c08863c9d6d8b55ddb70384536bd0e008ae536f : LineCertificate where
+  text := "        or else Array_Bindings.Lookup (Text, Context.Array_Names, First, After) /= 0"
+  tokens := ["or", "else", "array_bindings", ".", "lookup", "(", "text", ",", "context", ".", "array_names", ",", "first", ",", "after", ")", "/=", "0"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
@@ -933,9 +1089,33 @@ def outputBodyTokens_line_5ebf9cf6184c0e9a2924665a45064acd0eb159dec9063eb624f49f
   correct := by decide +kernel
   noNewline := by decide +kernel
 
+def outputBodyTokens_line_5ed751b04edf89adc0f42e3d4d3e0847617ff524f6d84da18984436e9f3ae0b5 : LineCertificate where
+  text := "   function Parameter_Frame (Text : String; Frame : Parser_State) return Parser_State"
+  tokens := ["function", "parameter_frame", "(", "text", ":", "string", ";", "frame", ":", "parser_state", ")", "return", "parser_state"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
 def outputBodyTokens_line_660791a318897d0c55cd85ab2dd25250a8e1f4487ea2d207cab21ffde19c9e35 : LineCertificate where
   text := "   end Reading_Names;"
   tokens := ["end", "reading_names", ";"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def outputBodyTokens_line_660b3a96272f22818e2d38139dbde0b421f0d8b676a7d2f2f7581145b5be2f98 : LineCertificate where
+  text := "      Facts : Scalar_Flow; Catalog : Functions.Metadata) return Call_Result is"
+  tokens := ["facts", ":", "scalar_flow", ";", "catalog", ":", "functions", ".", "metadata", ")", "return", "call_result", "is"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def outputBodyTokens_line_6613bb2f0639697242f03de589dd17c8638c467f0719003f7c84805d0ab45332 : LineCertificate where
+  text := "            begin (Scan with delta State => Next,"
+  tokens := ["begin", "(", "scan", "with", "delta", "state", "=>", "next", ","]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def outputBodyTokens_line_66151fd363e2e85bdef647697d975ccf6f9824dfc866c791e7acc240368b5742 : LineCertificate where
+  text := "         and then Outer.Functions.Parameter_Count <= Frame.Functions.Parameter_Count"
+  tokens := ["and", "then", "outer", ".", "functions", ".", "parameter_count", "<=", "frame", ".", "functions", ".", "parameter_count"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
@@ -960,6 +1140,12 @@ def outputBodyTokens_line_66517cba1be98387b101ef788c5c4054ffa1ea789f8ff9565b08f6
 def outputBodyTokens_line_66521c5af9e484a863cb3295deddfbdc072b6407fb80e3803431dc79d4a9ef44 : LineCertificate where
   text := "       Post => Boolean_Initializer_Model'Result = 0"
   tokens := ["post", "=>", "boolean_initializer_model", "'", "result", "=", "0"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def outputBodyTokens_line_665910be5d950af394a84bec22b72096841078af9e0a4230639d29a5b71c751b : LineCertificate where
+  text := "       Post => (Runtime => Valid_Body (Text, Context, Call_Assignment_Body'Result)"
+  tokens := ["post", "=>", "(", "runtime", "=>", "valid_body", "(", "text", ",", "context", ",", "call_assignment_body", "'", "result", ")"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
@@ -993,9 +1179,33 @@ def outputBodyTokens_line_66c9d165413def27f7a26f558716c98cffa4afa141dd5f196ee56e
   correct := by decide +kernel
   noNewline := by decide +kernel
 
+def outputBodyTokens_line_66ee04ec7636e8377374d7f0946e6ae73fa70d58cc07052b7f09e4bd12b5c023 : LineCertificate where
+  text := "         and then Valid_State (Text, State);"
+  tokens := ["and", "then", "valid_state", "(", "text", ",", "state", ")", ";"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def outputBodyTokens_line_66fa204ebce7e0a0acb56282f21cf51de558949c7b2b76fbffac20e14caa20b0 : LineCertificate where
+  text := "         and then (Parameters_At'Result.Position = 0"
+  tokens := ["and", "then", "(", "parameters_at", "'", "result", ".", "position", "=", "0"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def outputBodyTokens_line_6e17db0d9758df67d517d9a44855ca2d7bbee55239518cfb8c6e44ad171d3065 : LineCertificate where
+  text := "      elsif Scalar /= 0 then"
+  tokens := ["elsif", "scalar", "/=", "0", "then"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
 def outputBodyTokens_line_6e1abd4de3ffa9c5a36c51b227bda8870d0c6d5c9e393625ef60e16897925630 : LineCertificate where
   text := "            Lemma_Condition_Equality (Result, Inner);"
   tokens := ["lemma_condition_equality", "(", "result", ",", "inner", ")", ";"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def outputBodyTokens_line_6e2011cb2cfd4c9349afa61e4110815dfc2253fa5861e366140ee56c3753c508 : LineCertificate where
+  text := "              (Text, Header, Take_Token (Text, Header.Position, Return_Keyword));"
+  tokens := ["(", "text", ",", "header", ",", "take_token", "(", "text", ",", "header", ".", "position", ",", "return_keyword", ")", ")", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
@@ -1023,9 +1233,21 @@ def outputBodyTokens_line_6e9c4db9e6e6cbc6d1d410e74b27bbe2826f6d38abaed253cb300c
   correct := by decide +kernel
   noNewline := by decide +kernel
 
+def outputBodyTokens_line_6ea5a60abfa71c17443b4af3404900526df87aa1a635c9831a5fea65f9864515 : LineCertificate where
+  text := "      if Start = 0 or else Open = 0 or else State.Pure"
+  tokens := ["if", "start", "=", "0", "or", "else", "open", "=", "0", "or", "else", "state", ".", "pure"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
 def outputBodyTokens_line_6eaff88d4a56265e8d2a22858fba331ad282b602f92c9e5b8a3ec3d3ff63ecf5 : LineCertificate where
   text := "                    Values_First : constant Literal_Position :="
   tokens := ["values_first", ":", "constant", "literal_position", ":="]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def outputBodyTokens_line_6eb1a0213c28cd99abe8f0f4e0fe27145c87c701b80d77878e77d3f55c4856a9 : LineCertificate where
+  text := "         Cursor := Take_Token (Text, Cursor, Comma);"
+  tokens := ["cursor", ":=", "take_token", "(", "text", ",", "cursor", ",", "comma", ")", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
@@ -1044,6 +1266,12 @@ def outputBodyTokens_line_6ecf6aced7fba30a8eacfe87d7522fd4d7a5430eb982e6f00a366b
 def outputBodyTokens_line_6edf6f9a262ce5f3e04bea83ff5f416507a3e5fe1216b9699181e8b6ec3f6dec : LineCertificate where
   text := "   --  A:Boolean:=B; consumes thirteen bytes. Boolean metadata is immutable;"
   tokens := []
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def outputBodyTokens_line_6ee3759200d1d7945e1a8d743348ac528f0417d336cafda3e223954ed5b6925d : LineCertificate where
+  text := "         or else Actuals_After'Result in Position + 1 .. Text'Last + 1,"
+  tokens := ["or", "else", "actuals_after", "'", "result", "in", "position", "+", "1", "..", "text", "'", "last", "+", "1", ","]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
@@ -1125,6 +1353,24 @@ def outputBodyTokens_line_76fae2d4cfa25d1d2f5ba36733e41566eec0d16d6d4a2ed66c5a4d
   correct := by decide +kernel
   noNewline := by decide +kernel
 
+def outputBodyTokens_line_7e058aeec7be5879f6af09c7a6d3cc7ac508716646684fe9c8200e7674e9ce72 : LineCertificate where
+  text := "   Character_Type_Word : constant String := \"character\";"
+  tokens := ["character_type_word", ":", "constant", "string", ":=", "\"character\"", ";"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def outputBodyTokens_line_7e168ee10c33d5e4c59cbfe160fe1e3ee73f568ec1b064a8102e321166eba4a6 : LineCertificate where
+  text := "         or else Function_Return_After'Result in Scan.Position + 1 .. Text'Last + 1;"
+  tokens := ["or", "else", "function_return_after", "'", "result", "in", "scan", ".", "position", "+", "1", "..", "text", "'", "last", "+", "1", ";"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def outputBodyTokens_line_7e26802ddcbfef4a46e09f00d44fc26abfc40efb1dfd2c1a10d20c97705bca6b : LineCertificate where
+  text := "      or else (for some I in 1 .. State.Subtype_Names.Count =>"
+  tokens := ["or", "else", "(", "for", "some", "i", "in", "1", "..", "state", ".", "subtype_names", ".", "count", "=>"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
 def outputBodyTokens_line_7e2a804d1d9ecb0ffbfbb420b5c75836cba134bcebb020e53b844bb679123359 : LineCertificate where
   text := "   --  execution. Sequential statement tails are iterative; nested control flow"
   tokens := []
@@ -1149,15 +1395,33 @@ def outputBodyTokens_line_7e40880eaedd86b6faade878aae2e8894ed19745470a2526bec24b
   correct := by decide +kernel
   noNewline := by decide +kernel
 
+def outputBodyTokens_line_7e472de3479bf7115992b4bd3326ea989a529fd1c5ff99c5bdc9f04b56985b32 : LineCertificate where
+  text := "with Silver_Function_Bindings;"
+  tokens := ["with", "silver_function_bindings", ";"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
 def outputBodyTokens_line_7e6ae53c4aead192319a70129dc6041c863feba941a063d954990e1424994f78 : LineCertificate where
   text := "        and then Lowercase (Text (Position + 1)) = 'o'"
   tokens := ["and", "then", "lowercase", "(", "text", "(", "position", "+", "1", ")", ")", "=", "'o'"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
+def outputBodyTokens_line_7e74694855f76d862f4050de19910b519443bc4671b0eb3573cd111e943d3872 : LineCertificate where
+  text := "         Static => Function_Locals'Result = Function_Locals_Model (Text, State, Arguments));"
+  tokens := ["static", "=>", "function_locals", "'", "result", "=", "function_locals_model", "(", "text", ",", "state", ",", "arguments", ")", ")", ";"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
 def outputBodyTokens_line_7e772aaece220336753f81a63d136380921623940cc3a3fa6511f2893e5ecd91 : LineCertificate where
   text := "          Items => (State.Array_Names.Names.Items with delta State.Array_Names.Names.Count + 1 =>"
   tokens := ["items", "=>", "(", "state", ".", "array_names", ".", "names", ".", "items", "with", "delta", "state", ".", "array_names", ".", "names", ".", "count", "+", "1", "=>"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def outputBodyTokens_line_7e79ed31ea3ba83b95866d95f969c62ad34e4c8b770778c1e4c791860eee5209 : LineCertificate where
+  text := "   type Call_Result is record"
+  tokens := ["type", "call_result", "is", "record"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
@@ -1170,6 +1434,24 @@ def outputBodyTokens_line_7e8208e876467f115ca30e7c9675d1493c3c09d884137fd45d94b2
 def outputBodyTokens_line_7e827c66b276b27fe0e71a18112ed0d2849e0e303cc62765e7ec90460f140381 : LineCertificate where
   text := "      High : constant Scalars.Wide := (Scalars.Wide (First.Upper) + Maximum) - 1;"
   tokens := ["high", ":", "constant", "scalars", ".", "wide", ":=", "(", "scalars", ".", "wide", "(", "first", ".", "upper", ")", "+", "maximum", ")", "-", "1", ";"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def outputBodyTokens_line_7e87afbac3fab99f00b63c13630a0392225f8743ca95e8e1af05e2b834b81d73 : LineCertificate where
+  text := "              (Text, Context, Body_Of ((Start, False, False)), Return_Only, Frame.Functions);"
+  tokens := ["(", "text", ",", "context", ",", "body_of", "(", "(", "start", ",", "false", ",", "false", ")", ")", ",", "return_only", ",", "frame", ".", "functions", ")", ";"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def outputBodyTokens_line_7e8fbcfbc8336b513853c3dc27a3f3d254a865e72ebcd7fa7e9c4521be3690d3 : LineCertificate where
+  text := "       Pre => Index <= Frame.Functions.Parameter_Count + 1,"
+  tokens := ["pre", "=>", "index", "<=", "frame", ".", "functions", ".", "parameter_count", "+", "1", ","]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def outputBodyTokens_line_7ea3409b8fb6e96d953811d42267a48e0001a7a890db3d31fac69b374c6cba99 : LineCertificate where
+  text := "   end Parameters_At;"
+  tokens := ["end", "parameters_at", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
@@ -1215,6 +1497,12 @@ def outputBodyTokens_line_862e8bfa747febe89a107b8e214ecb257a11d302f527e45c8eec0a
   correct := by decide +kernel
   noNewline := by decide +kernel
 
+def outputBodyTokens_line_863367602a902ac5e213df6359aa76dcb6f3049b1ab2a6e67f7e44c7f2ba6c41 : LineCertificate where
+  text := "   function Parameters_Model"
+  tokens := ["function", "parameters_model"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
 def outputBodyTokens_line_863f21e1a8a724841f91b254109a70e1334f7a5b77a8d3c8a3a6bc83bd8bf439 : LineCertificate where
   text := "           (After => After, Value_First => Names.Items (Index).Value_First,"
   tokens := ["(", "after", "=>", "after", ",", "value_first", "=>", "names", ".", "items", "(", "index", ")", ".", "value_first", ","]
@@ -1230,6 +1518,12 @@ def outputBodyTokens_line_864034e7a2cf6212a4ce441e74fdb7a404fa64f474111f2d180b26
 def outputBodyTokens_line_864964a5eb8cc1405c9a02f474d082caee0eae145c79414c73cf1f4103a61da8 : LineCertificate where
   text := "       Post => Valid_State (Text, Step'Result);"
   tokens := ["post", "=>", "valid_state", "(", "text", ",", "step", "'", "result", ")", ";"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def outputBodyTokens_line_865c22c45d64bd9bc7cc87cdde4a5888178f0e9cb3927044a5b34ae95f2ee728 : LineCertificate where
+  text := "       elsif Next.Closed then Next.State"
+  tokens := ["elsif", "next", ".", "closed", "then", "next", ".", "state"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
@@ -1263,6 +1557,12 @@ def outputBodyTokens_line_8694837fe4ec634b4ee0925ad1e9a893fab0f503fe6a2d67f562b8
   correct := by decide +kernel
   noNewline := by decide +kernel
 
+def outputBodyTokens_line_86957adac4f17b81625401ebfb89b812e7a896cb0858dbae73532bacdfa93453 : LineCertificate where
+  text := "           Parameter_Frame_Model (Result, Index));"
+  tokens := ["parameter_frame_model", "(", "result", ",", "index", ")", ")", ";"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
 def outputBodyTokens_line_86a7e7a16ed9f3b7c76f9a1846743f84f85970280e74b015ec4222297146e49e : LineCertificate where
   text := "             (Text, Position, Source_State.Scalar_Names,"
   tokens := ["(", "text", ",", "position", ",", "source_state", ".", "scalar_names", ","]
@@ -1281,6 +1581,12 @@ def outputBodyTokens_line_86de456c32a2a85673a2ce9861265893bc881763eb0aafc3ae3f8d
   correct := by decide +kernel
   noNewline := by decide +kernel
 
+def outputBodyTokens_line_86fc8dccd76c626ee5790e2ee75933e85f9b84d988840baaa76df88f5ba24c8e : LineCertificate where
+  text := "       else Actuals_Model (Text, Context, Take_Token (Text, After, Comma),"
+  tokens := ["else", "actuals_model", "(", "text", ",", "context", ",", "take_token", "(", "text", ",", "after", ",", "comma", ")", ","]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
 def outputBodyTokens_line_8e123e8f4a197cb038a7d47f442bdeb956d1c026d79b7abf5c50d1394eadaeda : LineCertificate where
   text := "         elsif Character_Literal_After (Text, First) /= 0 then"
   tokens := ["elsif", "character_literal_after", "(", "text", ",", "first", ")", "/=", "0", "then"]
@@ -1296,6 +1602,12 @@ def outputBodyTokens_line_8e13891742778803c7568fcd700444175a6c97198355f2c8a45319
 def outputBodyTokens_line_8e3d4bbf68f6211054d6208bb0e87711fba3f93b66cf2797ff43b596ca1e1eed : LineCertificate where
   text := "   Empty_Boolean_Binding : constant Boolean_Binding := (0, 0, False);"
   tokens := ["empty_boolean_binding", ":", "constant", "boolean_binding", ":=", "(", "0", ",", "0", ",", "false", ")", ";"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def outputBodyTokens_line_8e3eae4432e8bc4754f56b3e057f5321faeb825a5584157dc395d523333f7a3d : LineCertificate where
+  text := "       else (After, Functions.Boolean_Kind, Scalars.Full)));"
+  tokens := ["else", "(", "after", ",", "functions", ".", "boolean_kind", ",", "scalars", ".", "full", ")", ")", ")", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
@@ -1347,9 +1659,21 @@ def outputBodyTokens_line_8ec5c650abb829a0cfd38051efc2d4ebfa537b435750795aec5802
   correct := by decide +kernel
   noNewline := by decide +kernel
 
+def outputBodyTokens_line_8ed8f04720bf466d357cc1ff951d5fc544a7dd8c5e6fe8aa9a9cff830e8a54f0 : LineCertificate where
+  text := "            else Body_Tail_Model (Text, Context, Statement_Body (Text, Context, Scan, Catalog), Stop, Catalog))),"
+  tokens := ["else", "body_tail_model", "(", "text", ",", "context", ",", "statement_body", "(", "text", ",", "context", ",", "scan", ",", "catalog", ")", ",", "stop", ",", "catalog", ")", ")", ")", ","]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
 def outputBodyTokens_line_9614ad51fb1eba6c2c7fee12a142f38de0d78d1c3381968eec4e9e6b0f33e15a : LineCertificate where
   text := "with Silver_Integer_Image;"
   tokens := ["with", "silver_integer_image", ";"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def outputBodyTokens_line_961b6d5fcd727b7305e6bb3dc398e9b8245f40d2f633f496526808409c7c4a1e : LineCertificate where
+  text := "         and then Valid_Flow (Context, Facts)"
+  tokens := ["and", "then", "valid_flow", "(", "context", ",", "facts", ")"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
@@ -1398,6 +1722,12 @@ def outputBodyTokens_line_96991768a604ab16e9662120e92210ada057bc9914170186a2759d
 def outputBodyTokens_line_96a7bf0fd8d11559ddf413395a3eaa6cb256db36ce99b8780537561a3668a83e : LineCertificate where
   text := "           and then not Scalars.Is_Empty (Scalar_Type_At'Result.Bounds));"
   tokens := ["and", "then", "not", "scalars", ".", "is_empty", "(", "scalar_type_at", "'", "result", ".", "bounds", ")", ")", ";"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def outputBodyTokens_line_96c2f7fcb454c7b97ed38e697713ec075bbdab42d10f87d4baf53aca997721e4 : LineCertificate where
+  text := "         and then Flag <= Context.Boolean_Names.Count;"
+  tokens := ["and", "then", "flag", "<=", "context", ".", "boolean_names", ".", "count", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
@@ -1452,6 +1782,12 @@ def outputBodyTokens_line_9e30081db0b26dc1c3a7e2979e55bf661cb319df840478ed166ea8
 def outputBodyTokens_line_9e4fe11bfa9a156bf9f4c5ab833e7ced238249619d13a3cd78031e63ec54e78b : LineCertificate where
   text := "   function Valid_Subtypes (Text : String; Subtypes : Subtype_Environment) return Boolean"
   tokens := ["function", "valid_subtypes", "(", "text", ":", "string", ";", "subtypes", ":", "subtype_environment", ")", "return", "boolean"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def outputBodyTokens_line_9e688bb9702a02d730751867c82435e7af74db23a3f0a4f415fe3178a7bcc9a7 : LineCertificate where
+  text := "   use type Functions.Formal;"
+  tokens := ["use", "type", "functions", ".", "formal", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
@@ -1521,6 +1857,12 @@ def outputBodyTokens_line_a6116e3c7fcc94fc2b6e8094b022cd7060cda6423c9e2505664a75
   correct := by decide +kernel
   noNewline := by decide +kernel
 
+def outputBodyTokens_line_a6131969c3f4a4f132372fd978a71c3280ea2948f7ddd0df61bf6b8d96d7a415 : LineCertificate where
+  text := "      Locals : constant Parser_State := Function_Locals (Text, Frame, Arguments);"
+  tokens := ["locals", ":", "constant", "parser_state", ":=", "function_locals", "(", "text", ",", "frame", ",", "arguments", ")", ";"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
 def outputBodyTokens_line_a62b7dfe00d491726b462c356133a0c9d33e6d9eaa4e25f9b108e3cbb44c9c3d : LineCertificate where
   text := "      Declaration_Count => Scan.State.Scalar_Names.Count,"
   tokens := ["declaration_count", "=>", "scan", ".", "state", ".", "scalar_names", ".", "count", ","]
@@ -1548,6 +1890,12 @@ def outputBodyTokens_line_a665f9ad919feaa35ed4c0153a5b04a11f2fba156da27edf50c521
 def outputBodyTokens_line_a67b7480abbfdc9829d780d5f13e79c091e30b4c1129b3a4137e6d25fc2f9e0a : LineCertificate where
   text := "              (not Scalars.Is_Empty (Context.Scalar_Names.Items (Index).Bounds));"
   tokens := ["(", "not", "scalars", ".", "is_empty", "(", "context", ".", "scalar_names", ".", "items", "(", "index", ")", ".", "bounds", ")", ")", ";"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def outputBodyTokens_line_a692abaaf178d1af2ca5dadc3d325c5a68f54ce415387dd6b1653ff660fe8f56 : LineCertificate where
+  text := "      Functions : Silver_Function_Bindings.Metadata;"
+  tokens := ["functions", ":", "silver_function_bindings", ".", "metadata", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
@@ -1581,6 +1929,12 @@ def outputBodyTokens_line_ae0ebf137d76de7827ba350ed4cb9b2d26713c8dc32f750be6fd6b
   correct := by decide +kernel
   noNewline := by decide +kernel
 
+def outputBodyTokens_line_ae0f16506ffb794637f8486fc3dac50fd672d6dcf659f9a7f810666e96aaf730 : LineCertificate where
+  text := "         After : constant Literal_Position := Actuals_Model"
+  tokens := ["after", ":", "constant", "literal_position", ":=", "actuals_model"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
 def outputBodyTokens_line_ae14d6d68e9d9664dbc5faedfbfcb0f7e99f4e28ab3b50acbb1a6f9538df68d6 : LineCertificate where
   text := "        Scalar_Expressions.Read_Expression"
   tokens := ["scalar_expressions", ".", "read_expression"]
@@ -1590,6 +1944,12 @@ def outputBodyTokens_line_ae14d6d68e9d9664dbc5faedfbfcb0f7e99f4e28ab3b50acbb1a6f
 def outputBodyTokens_line_ae385bfd90970df7826f46d37de4655b5afb3bb303cb22187586947c38816bb5 : LineCertificate where
   text := "                  First_Index => Scalars.Singleton (1),"
   tokens := ["first_index", "=>", "scalars", ".", "singleton", "(", "1", ")", ","]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def outputBodyTokens_line_ae3c853d25f65a35a7cb8e90a3b2e31fde47257714fb21f4117f6fc6eaf90bfe : LineCertificate where
+  text := "         or else Actual_Model'Result in Position + 1 .. Text'Last + 1;"
+  tokens := ["or", "else", "actual_model", "'", "result", "in", "position", "+", "1", "..", "text", "'", "last", "+", "1", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
@@ -1641,6 +2001,12 @@ def outputBodyTokens_line_ae7efce65ecec4aa05010724f866b6c66164c51e625635580c391e
   correct := by decide +kernel
   noNewline := by decide +kernel
 
+def outputBodyTokens_line_ae82903e9862c6ae147806dea663804c98389053f993141589ab467d30b73bd7 : LineCertificate where
+  text := "                   or else State.Hiding.Integer_Hidden,"
+  tokens := ["or", "else", "state", ".", "hiding", ".", "integer_hidden", ","]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
 def outputBodyTokens_line_ae891208c3e324af4c672ed91567351b08f728bee0961011b1ab4f8adfc88bb8 : LineCertificate where
   text := "       Post => Valid_State (Text, Assignment_At'Result);"
   tokens := ["post", "=>", "valid_state", "(", "text", ",", "assignment_at", "'", "result", ")", ";"]
@@ -1665,9 +2031,21 @@ def outputBodyTokens_line_aed07cc82a15f2c4a8dbf175abece318c06cad2e70899254a2ff6b
   correct := by decide +kernel
   noNewline := by decide +kernel
 
+def outputBodyTokens_line_aee12b99ce726b62f4cce4bdfa9a8cd9ceb8b67314934846e28b59e3403d9975 : LineCertificate where
+  text := "   function Local_Functions (Source : String) return Functions.Metadata is"
+  tokens := ["function", "local_functions", "(", "source", ":", "string", ")", "return", "functions", ".", "metadata", "is"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
 def outputBodyTokens_line_aee30161a49491290899dde2a110ecc76f0781b58b895e6b4d2b7aed33e77c96 : LineCertificate where
   text := "      Match_Sized_Literal (Text, Next, Matched, Length);"
   tokens := ["match_sized_literal", "(", "text", ",", "next", ",", "matched", ",", "length", ")", ";"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def outputBodyTokens_line_b6029702274d4b86295a648658be58df82ffcbf12eb3afa312630205fe286dc3 : LineCertificate where
+  text := "            Result := Statement_Body (Text, Context, Result, Catalog);"
+  tokens := ["result", ":=", "statement_body", "(", "text", ",", "context", ",", "result", ",", "catalog", ")", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
@@ -1686,6 +2064,12 @@ def outputBodyTokens_line_b62d0a27cea4e4570a082f2764d025aaa154dfc51083dbaf80832c
 def outputBodyTokens_line_b64b5d253b5cea24faa6a265596732ad675dbdc411cc9343137a49b65e57f15f : LineCertificate where
   text := "           (Text, Position'Old, Spelling (Token), Is_Word_Token (Token))"
   tokens := ["(", "text", ",", "position", "'", "old", ",", "spelling", "(", "token", ")", ",", "is_word_token", "(", "token", ")", ")"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def outputBodyTokens_line_b64e1e26162b25b481903b6333842f200b2e9bfb8a1188664f3ff1b7981e0a9d : LineCertificate where
+  text := "          or else Scalars.Is_Empty (Value.Bounds)"
+  tokens := ["or", "else", "scalars", ".", "is_empty", "(", "value", ".", "bounds", ")"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
@@ -1767,6 +2151,12 @@ def outputBodyTokens_line_be24ccaa32e73df953d6ee936121b36a13d7adb4c3d6ad47c4b644
   correct := by decide +kernel
   noNewline := by decide +kernel
 
+def outputBodyTokens_line_be3651d72ce05685706f84c4818ec33ae2058f61247d8085146333ac830a5b04 : LineCertificate where
+  text := "      while Current.Position /= 0 loop"
+  tokens := ["while", "current", ".", "position", "/=", "0", "loop"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
 def outputBodyTokens_line_be7886f7e5da959a1a6e3e4f158a732d60199eacecc99f2f3229d571d137b4e5 : LineCertificate where
   text := "                    with Ghost => Static;"
   tokens := ["with", "ghost", "=>", "static", ";"]
@@ -1815,9 +2205,21 @@ def outputBodyTokens_line_bef9ac6d2b44ca076393714ef6b93154a22eac21f68345e235b666
   correct := by decide +kernel
   noNewline := by decide +kernel
 
+def outputBodyTokens_line_c605438ef127efaf45d996f2bc0ff27db7affac43f73fe652aee8f38e816bcaf : LineCertificate where
+  text := "             and then Function_Locals'Result.Functions = State.Functions"
+  tokens := ["and", "then", "function_locals", "'", "result", ".", "functions", "=", "state", ".", "functions"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
 def outputBodyTokens_line_c64ba9864b93897a9c608f87e1317a1396952760be52da5a41d25a309d200e55 : LineCertificate where
   text := "   function Work_Tail"
   tokens := ["function", "work_tail"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def outputBodyTokens_line_c65ce4f51a33c6d22243533882cfee05e419999c9845d985aae131ef39f28b23 : LineCertificate where
+  text := "        or else Lookup_Boolean (Text, Context.Boolean_Names, First, After) /= 0"
+  tokens := ["or", "else", "lookup_boolean", "(", "text", ",", "context", ".", "boolean_names", ",", "first", ",", "after", ")", "/=", "0"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
@@ -1854,6 +2256,12 @@ def outputBodyTokens_line_c6b3cc28911919e12467c319a42602c542c2ec8450b84b0a6e2bbb
 def outputBodyTokens_line_c6c90f9d5bebb72fe5ee01313980a2088c50b649fdf7a2eecbf6bfcfc72bfa1a : LineCertificate where
   text := "         elsif Text (Position) = '-' and then Position + 1 < After"
   tokens := ["elsif", "text", "(", "position", ")", "=", "'-'", "and", "then", "position", "+", "1", "<", "after"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def outputBodyTokens_line_c6e230a6557676265fe80de97458bcd793945fabe174795246a021eba3fddf2e : LineCertificate where
+  text := "       Post => Actuals_Model'Result = 0"
+  tokens := ["post", "=>", "actuals_model", "'", "result", "=", "0"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
@@ -1953,6 +2361,12 @@ def outputBodyTokens_line_cec432a56d821989603bc3d2b76009262a410db38dbab8d9ad5e4e
   correct := by decide +kernel
   noNewline := by decide +kernel
 
+def outputBodyTokens_line_ced1ca5835e2af70dca28cff571a4b3ecbf6c1fe7c1f3b5524ab05d1b5ccd2a1 : LineCertificate where
+  text := "       then (Invalid_State, False)"
+  tokens := ["then", "(", "invalid_state", ",", "false", ")"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
 def outputBodyTokens_line_ceda72e7c7ac0cbfe495b82bc4c4a15b1093593aa40e95c7a9a60d1f035748e4 : LineCertificate where
   text := "     with Ghost => Static;"
   tokens := ["with", "ghost", "=>", "static", ";"]
@@ -2001,12 +2415,6 @@ def outputBodyTokens_line_d623a527682e2cb336179d4b64209793371df45974d0cf082af3ff
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputBodyTokens_line_d6253abbd40b3f7853375e44b2ae1ed33900028af67e23dd2e067dbb9c9971e1 : LineCertificate where
-  text := "     (Text : String; Context : Body_Context; Scan : Body_Scan; Stop : Body_Stop)"
-  tokens := ["(", "text", ":", "string", ";", "context", ":", "body_context", ";", "scan", ":", "body_scan", ";", "stop", ":", "body_stop", ")"]
-  correct := by decide +kernel
-  noNewline := by decide +kernel
-
 def outputBodyTokens_line_d64976178bcfedf33d60f1b275725ba18c93ac871b904ded4975d6a55ac408a3 : LineCertificate where
   text := "                     (Text, Context.Mask_First, Context.Mask_After, Validity_Call_Word))), Context.Boolean_Names);"
   tokens := ["(", "text", ",", "context", ".", "mask_first", ",", "context", ".", "mask_after", ",", "validity_call_word", ")", ")", ")", ",", "context", ".", "boolean_names", ")", ";"]
@@ -2049,6 +2457,18 @@ def outputBodyTokens_line_de08a203763df7b03f5f8f71cf451218381c5259b587fd0e6e7cc2
   correct := by decide +kernel
   noNewline := by decide +kernel
 
+def outputBodyTokens_line_de12475f1b7cc752f1d1063c14ac747e5922837ceda272312faac96d4dbc31b4 : LineCertificate where
+  text := "            (Parameter.First, Parameter.After, False))))))"
+  tokens := ["(", "parameter", ".", "first", ",", "parameter", ".", "after", ",", "false", ")", ")", ")", ")", ")", ")"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def outputBodyTokens_line_de12e0187e040d42f19632ed26ba01aaecbcb27487275ebda8d2e354d784b89f : LineCertificate where
+  text := "        Functions.Lookup (Text, State.Functions, First, After) = 0));"
+  tokens := ["functions", ".", "lookup", "(", "text", ",", "state", ".", "functions", ",", "first", ",", "after", ")", "=", "0", ")", ")", ";"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
 def outputBodyTokens_line_de31eab7621f2933bfeef9756073af1ca77cfaa782b93a71df162b749790b430 : LineCertificate where
   text := "            Character_Value := Indexed_At"
   tokens := ["character_value", ":=", "indexed_at"]
@@ -2079,6 +2499,12 @@ def outputBodyTokens_line_de6b82397734c70e379b597e7fbe55c57dfd07a3c9b0dfe0cdeeda
   correct := by decide +kernel
   noNewline := by decide +kernel
 
+def outputBodyTokens_line_de6ba65063e68a284ed11c817376e2effa7fbe6bfe11560da897c04641681c52 : LineCertificate where
+  text := "             and then Function_Locals_Model'Result.First_Parameter = State.First_Parameter"
+  tokens := ["and", "then", "function_locals_model", "'", "result", ".", "first_parameter", "=", "state", ".", "first_parameter"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
 def outputBodyTokens_line_de7dcf2a61ebb4049ce32ab0c55066d2af6a80264c138a7b82dd63939c561b26 : LineCertificate where
   text := "           or else Array_Bindings.Lookup (Text, Arrays, First, Type_After) /= 0"
   tokens := ["or", "else", "array_bindings", ".", "lookup", "(", "text", ",", "arrays", ",", "first", ",", "type_after", ")", "/=", "0"]
@@ -2100,6 +2526,12 @@ def outputBodyTokens_line_de9186b1082962d57f644f89497994e676745bfa31fc8c9453faa2
 def outputBodyTokens_line_de94e370afdebfb9de7ce4f55119055ed9116c668c10ca755417b9240f4058d7 : LineCertificate where
   text := "              then (Context.Scalar_Names.Items (Index) with delta Bounds => Facts.Values (Index))"
   tokens := ["then", "(", "context", ".", "scalar_names", ".", "items", "(", "index", ")", "with", "delta", "bounds", "=>", "facts", ".", "values", "(", "index", ")", ")"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def outputBodyTokens_line_de9ababe97b3344b6679676efa6362cd89c5de94d53755c4b07e28ea72c3d462 : LineCertificate where
+  text := "      else (declare Value : constant Scalar_Expressions.Expression_Result :="
+  tokens := ["else", "(", "declare", "value", ":", "constant", "scalar_expressions", ".", "expression_result", ":="]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
@@ -2169,12 +2601,6 @@ def outputBodyTokens_line_e62f27cbf98889dc00ec5116b08f76362c4db48a430990e2a18827
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputBodyTokens_line_e64b6b05408db88370f84a58fa26953c2a231a705e5fa82eedf8491852fbf937 : LineCertificate where
-  text := "     (Context : Body_Context; Scan : Body_Scan; Arrays : Array_Bindings.Environment;"
-  tokens := ["(", "context", ":", "body_context", ";", "scan", ":", "body_scan", ";", "arrays", ":", "array_bindings", ".", "environment", ";"]
-  correct := by decide +kernel
-  noNewline := by decide +kernel
-
 def outputBodyTokens_line_e6554e91ca6779e6fee918264fdd56b41a8b6c9fd3a581e2f0c181a0280234f7 : LineCertificate where
   text := "              (Result, Condition_Tail (Text, Context, Initial_Result, Short_And, False, Initials => Initials, Incoming => Facts, Original_Start => Position));"
   tokens := ["(", "result", ",", "condition_tail", "(", "text", ",", "context", ",", "initial_result", ",", "short_and", ",", "false", ",", "initials", "=>", "initials", ",", "incoming", "=>", "facts", ",", "original_start", "=>", "position", ")", ")", ";"]
@@ -2193,9 +2619,15 @@ def outputBodyTokens_line_e65bd10ce31b525daddc6cd8cffe069cb644150856ed554903b6f5
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputBodyTokens_line_e6878684780095e7e0ef46e3cfc2f8b5ca67b4e18dd0d6f78e25f5b8a285c75d : LineCertificate where
-  text := "         Result := Read_Body (Text, Context, Result, Arm_Boundary);"
-  tokens := ["result", ":=", "read_body", "(", "text", ",", "context", ",", "result", ",", "arm_boundary", ")", ";"]
+def outputBodyTokens_line_e6786b92ab2d09d3ea3f494813967f978c697c95db3c16e7ce1e1bcbaa909d3d : LineCertificate where
+  text := "           or else (Parameters_Model'Result.Position > State.Position"
+  tokens := ["or", "else", "(", "parameters_model", "'", "result", ".", "position", ">", "state", ".", "position"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def outputBodyTokens_line_e68cd2f56f4da8009c09eb2d67b72a5a308f4f8b88b92d1e30253622304f9c2c : LineCertificate where
+  text := "      Scalar : Scalar_Expressions.Binding_Count; Flag : Boolean_Count;"
+  tokens := ["scalar", ":", "scalar_expressions", ".", "binding_count", ";", "flag", ":", "boolean_count", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
@@ -2208,6 +2640,18 @@ def outputBodyTokens_line_e6a349ea6a89ec42897deff2ee599fa5a0c87071026b944af1f43e
 def outputBodyTokens_line_e6ad00c92ff97e6b907d08ac81781e7c9f15c2230dc7c1eb8f22933ffd2ecac2 : LineCertificate where
   text := "       Post => Scalar_Type_At'Result.After = 0"
   tokens := ["post", "=>", "scalar_type_at", "'", "result", ".", "after", "=", "0"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def outputBodyTokens_line_e6bc919b38fd6caf200ae4f850c3d03e5fd2afd6522cf366967ae1e9de4414cb : LineCertificate where
+  text := "         Inner_Scan := Read_Body (Text, Inner, Inner_Scan, End_Only, Catalog);"
+  tokens := ["inner_scan", ":=", "read_body", "(", "text", ",", "inner", ",", "inner_scan", ",", "end_only", ",", "catalog", ")", ";"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def outputBodyTokens_line_e6c5d4df87d8ea5c82c34b40a00979c606986bf1d51b85007a9ae6848c3e0574 : LineCertificate where
+  text := "         After : constant Literal_Position := Actuals_After"
+  tokens := ["after", ":", "constant", "literal_position", ":=", "actuals_after"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
@@ -2235,6 +2679,18 @@ def outputBodyTokens_line_e6fe80f55b56f4ddd5e2fa137d7f342227c5409b6ce8040ebd17c0
   correct := by decide +kernel
   noNewline := by decide +kernel
 
+def outputBodyTokens_line_ee257efc63a4e76c27065d8b584cc373a859e551440e5e0de0e67b370c51e1a5 : LineCertificate where
+  text := "                 else Body_Tail_Model (Text, Context, Next, Stop, Catalog)));"
+  tokens := ["else", "body_tail_model", "(", "text", ",", "context", ",", "next", ",", "stop", ",", "catalog", ")", ")", ")", ";"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def outputBodyTokens_line_ee2ea6dfbf0f015f7381d0959f3716a3043934a8bb6a8145d0368784a10a1b9a : LineCertificate where
+  text := "           or else Function_Body_At'Result.Position > Outer.Position);"
+  tokens := ["or", "else", "function_body_at", "'", "result", ".", "position", ">", "outer", ".", "position", ")", ";"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
 def outputBodyTokens_line_ee3fd21d533ef33ed16a64baa33758cbe7dc8e6d5f2449be91084053e407310a : LineCertificate where
   text := "   end Literal_At;"
   tokens := ["end", "literal_at", ";"]
@@ -2253,6 +2709,12 @@ def outputBodyTokens_line_ee4c7da7fdc72722288657b06211f3f827e34cb8a106bdaa695080
   correct := by decide +kernel
   noNewline := by decide +kernel
 
+def outputBodyTokens_line_ee5b2c39ccb7335a9d57116c59a8f24ee38a4dd872dd24a7964a37a6c276aac4 : LineCertificate where
+  text := "         pragma Loop_Invariant (Current.Functions.Parameter_Count >= State.Functions.Parameter_Count);"
+  tokens := ["pragma", "loop_invariant", "(", "current", ".", "functions", ".", "parameter_count", ">=", "state", ".", "functions", ".", "parameter_count", ")", ";"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
 def outputBodyTokens_line_ee6305dc94b97edcfaee1b353885f9ba4f566bc3db3e403fc0b402a619fd5a36 : LineCertificate where
   text := "     (Text : String; Position : Literal_Position; Names : Binding_Environment;"
   tokens := ["(", "text", ":", "string", ";", "position", ":", "literal_position", ";", "names", ":", "binding_environment", ";"]
@@ -2265,6 +2727,12 @@ def outputBodyTokens_line_ee7a91d4d1de24c73223225ecef0248907169bfabb114ce1873aff
   correct := by decide +kernel
   noNewline := by decide +kernel
 
+def outputBodyTokens_line_ee816f5ef306d8589c200ed5247ace9ced453b46cee06975d441c0d1db6dd9b1 : LineCertificate where
+  text := "      begin (if Function_State.Position /= 0 then Function_State"
+  tokens := ["begin", "(", "if", "function_state", ".", "position", "/=", "0", "then", "function_state"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
 def outputBodyTokens_line_eeb06fcf04e319195e2b66b57bb710f104e0b3ebd0fb45d30d3b81b0736881d0 : LineCertificate where
   text := "      for Index in Facts.Values'Range loop"
   tokens := ["for", "index", "in", "facts", ".", "values", "'", "range", "loop"]
@@ -2274,6 +2742,18 @@ def outputBodyTokens_line_eeb06fcf04e319195e2b66b57bb710f104e0b3ebd0fb45d30d3b81
 def outputBodyTokens_line_eed5d08b83c4afb62b88a07e405f91f4ba97fa8e6b142e942cb22a759ca011ac : LineCertificate where
   text := "                     Lemma_Condition_Equality (Result, Boolean_Relation_Model (Text, Context, Position, Facts, Initials));"
   tokens := ["lemma_condition_equality", "(", "result", ",", "boolean_relation_model", "(", "text", ",", "context", ",", "position", ",", "facts", ",", "initials", ")", ")", ";"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def outputBodyTokens_line_eed630ac38567c10bef05b1c62f2759321b9d089772af2a93324ed84e691f022 : LineCertificate where
+  text := "       Post => Callee_At'Result <= Catalog.Count;"
+  tokens := ["post", "=>", "callee_at", "'", "result", "<=", "catalog", ".", "count", ";"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def outputBodyTokens_line_eefc9ebef634b07e50bafe0bef9b93b04d856d2b8e68254c7455dd35d1d69212 : LineCertificate where
+  text := "           Parameters_Model (Text, Current, Arguments));"
+  tokens := ["parameters_model", "(", "text", ",", "current", ",", "arguments", ")", ")", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
@@ -2310,6 +2790,12 @@ def outputBodyTokens_line_f64b24597770cf8810018cdb5cd7264236e90861ecb04e8434c0ef
 def outputBodyTokens_line_f6583a27211c0fdf2af79adbf986f1c415dbcae4606be29058584254faef7667 : LineCertificate where
   text := "      Value : Value_Result;"
   tokens := ["value", ":", "value_result", ";"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def outputBodyTokens_line_f659135d6cd6475063fbe9dbff864d25a09d8ee126b023294b61df3c85e946ab : LineCertificate where
+  text := "     (Text : String; Context : Body_Context; Scan : Body_Scan; Stop : Body_Stop; Catalog : Functions.Metadata)"
+  tokens := ["(", "text", ":", "string", ";", "context", ":", "body_context", ";", "scan", ":", "body_scan", ";", "stop", ":", "body_stop", ";", "catalog", ":", "functions", ".", "metadata", ")"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
@@ -2421,6 +2907,12 @@ def outputBodyTokens_line_fe12e1ba05ca6ef769885648418e8f9bf328f60318c9cbece36130
   correct := by decide +kernel
   noNewline := by decide +kernel
 
+def outputBodyTokens_line_fe29222c490623b5bfec4face2c37763b45e3f958421b05442b0a4d9f6d87aa6 : LineCertificate where
+  text := "            return Function_Body_At (Text, State, (Header with delta Position => Body_Start),"
+  tokens := ["return", "function_body_at", "(", "text", ",", "state", ",", "(", "header", "with", "delta", "position", "=>", "body_start", ")", ","]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
 def outputBodyTokens_line_fe3ac18f8b9340c4403476026ef34ca291cb31fc12654c6d1323c545849ce13f : LineCertificate where
   text := "                and then (Scalars.Is_Empty (Concatenated_First (State, Atom))"
   tokens := ["and", "then", "(", "scalars", ".", "is_empty", "(", "concatenated_first", "(", "state", ",", "atom", ")", ")"]
@@ -2436,6 +2928,18 @@ def outputBodyTokens_line_fe52a087bb33c03857ea9a215623779e861cade2e0cda42cad9615
 def outputBodyTokens_line_fe57f4e8ffec501cb59742c0f90f144fd6ae6fb43109609b66342b64aa1d8e3b : LineCertificate where
   text := "                                   When_True => (Facts with delta Path =>"
   tokens := ["when_true", "=>", "(", "facts", "with", "delta", "path", "=>"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def outputBodyTokens_line_fe65ebdf1a1a5c0fc1f9ce199c309a0a54c915c8740ea8a6bc2d9ea0d2cedf2c : LineCertificate where
+  text := "         pragma Loop_Invariant (Current.First_Parameter = State.First_Parameter);"
+  tokens := ["pragma", "loop_invariant", "(", "current", ".", "first_parameter", "=", "state", ".", "first_parameter", ")", ";"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def outputBodyTokens_line_fe6a48c6b35eb0c080a475dbed5f9e831dfe98128f2e848015338d11182e163b : LineCertificate where
+  text := "      and then Same_Parser_Formal_Items (Left.Functions.Parameters, Right.Functions.Parameters)"
+  tokens := ["and", "then", "same_parser_formal_items", "(", "left", ".", "functions", ".", "parameters", ",", "right", ".", "functions", ".", "parameters", ")"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 

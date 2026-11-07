@@ -523,5 +523,4 @@ theorem functionBindingsBodyTokens_correct : lex functionBindingsBody = some fun
     functionBindingsBodyTokens_block_0_33.nonempty]
   rw [functionBindingsBodyTokens_values]
 
-
 end Silver.Source
