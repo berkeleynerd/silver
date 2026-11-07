@@ -42,17 +42,16 @@ theorem included_model (left right : Integer.Interval) :
     includedBody.eval modelImports modelCalls {intervalValue := left, intervalBounds := right} =
       left.included right := by
   apply Bool.eq_iff_iff.mpr
-  simp +instances only [includedBody, Expr.eval, modelImports, Integer.Interval.included,
-    Integer.Interval.isEmpty, Bool.or_eq_true, Bool.and_eq_true, Bool.not_eq_true',
-    decide_eq_true_eq, decide_eq_false_iff_not]
+  dsimp +instances only [includedBody, Expr.eval, modelImports, Integer.Interval.included, Integer.Interval.isEmpty]
+  simp only [Bool.or_eq_true, Bool.and_eq_true, Bool.not_eq_true', decide_eq_true_eq, decide_eq_false_iff_not]
   omega
 
 theorem actual_model (text : Source) (context : Native.Context) (position : Nat)
     (facts : ActiveFlow) (parameter : Formal) :
     actualBody.eval modelImports modelCalls {text, context, position, facts, parameter} =
       actualAfter text context.model position facts parameter := by
-  simp +instances only [actualBody, Expr.eval, modelImports, actualAfter,
-    Bool.or_eq_true, Bool.not_eq_true', decide_eq_true_eq, or_assoc]
+  dsimp +instances only [actualBody, Expr.eval, modelImports, actualAfter]
+  simp only [Bool.or_eq_true, Bool.not_eq_true', decide_eq_true_eq, or_assoc]
 
 theorem actuals_model (text : Source) (context : Native.Context) (position : Nat)
     (facts : ActiveFlow) (catalog : Metadata) (first last : Nat) (ordered : first ≤ last) :
@@ -71,22 +70,24 @@ theorem callee_model (text : Source) (context : Native.Context) (position : Nat)
     (catalog : Metadata) :
     calleeBody.eval modelImports modelCalls {text, context, position, catalog} =
       calleeAt text context.model position catalog := by
-  simp +instances only [calleeBody, Expr.eval, modelImports, calleeAt, Native.Context.model,
-    Bool.or_eq_true, decide_eq_true_eq, or_assoc]
+  dsimp +instances only [calleeBody, Expr.eval, modelImports, calleeAt, Native.Context.model]
+  simp only [Bool.or_eq_true, decide_eq_true_eq, or_assoc]
 
 theorem call_model (text : Source) (context : Native.Context) (position : Nat)
     (facts : ActiveFlow) (catalog : Metadata) :
     callBody.eval modelImports modelCalls {text, context, position, facts, catalog} =
       Predicate.readCall text context.model position facts catalog := by
-  simp +instances only [callBody, Expr.eval, modelImports, modelCalls, Predicate.readCall,
-    tokenAfter, ShellToken.symbol, decide_eq_true_eq]
+  dsimp +instances only [callBody, Expr.eval, modelImports, modelCalls, Predicate.readCall,
+    tokenAfter, ShellToken.symbol]
+  simp only [decide_eq_true_eq]
 
 theorem assignmentResult_model (context : Native.Context) (scan : BodyScan)
     (scalar flag : Nat) (called : CallResult) :
     assignmentResultBody.eval modelImports modelCalls {context, scan, scalar, flag, called} =
       callAssignmentResult context.model scan scalar flag called := by
-  simp +instances only [assignmentResultBody, Expr.eval, modelImports, callAssignmentResult,
-    Native.Context.model, Bool.or_eq_true, Bool.and_eq_true, Bool.not_eq_true', decide_eq_true_eq, and_assoc, or_assoc]
+  dsimp +instances only [assignmentResultBody, Expr.eval, modelImports, callAssignmentResult,
+    Native.Context.model]
+  simp only [Bool.or_eq_true, Bool.and_eq_true, Bool.not_eq_true', decide_eq_true_eq, and_assoc, or_assoc]
 
 theorem assignment_model (text : Source) (context : Native.Context) (scan : BodyScan)
     (catalog : Metadata) (native : Bool) :

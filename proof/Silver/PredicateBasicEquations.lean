@@ -31,15 +31,15 @@ theorem basicEval_model (text : Source) (context : Native.Context) (scan : BodyS
   case' neg =>
     by_cases nullToken : fixedAfter text scan.position "null" true ≠ 0
     case' neg =>
-      by_cases outputCall : callAfter text context.names scan.position .output context.scalarNames context.arrayNames (context.subtypeHiding.get .output) context.booleanNames ≠ 0
+      by_cases outputCall : !context.pure && decide (callAfter text context.names scan.position .output context.scalarNames context.arrayNames (context.subtypeHiding.get .output) context.booleanNames ≠ 0) = true
       case' neg =>
-        by_cases putCall : callAfter text context.names scan.position .partialOutput context.scalarNames context.arrayNames (context.subtypeHiding.get .partialOutput) context.booleanNames ≠ 0
+        by_cases putCall : !context.pure && decide (callAfter text context.names scan.position .partialOutput context.scalarNames context.arrayNames (context.subtypeHiding.get .partialOutput) context.booleanNames ≠ 0) = true
         case' neg =>
           by_cases rejectCall : context.dynamicFirst ≠ 0 ∧ callAfter text context.names scan.position .reject context.scalarNames context.arrayNames (context.subtypeHiding.get .reject) context.booleanNames ≠ 0
           case' neg =>
             by_cases scalar : scalarTarget text context.model scan.position ≠ 0
             case' neg =>
-              by_cases array : arrayTarget text context.model scan.position ≠ 0
+              by_cases array : !context.pure && decide (arrayTarget text context.model scan.position ≠ 0) = true
               case' neg =>
                 by_cases boolean : booleanTarget text context.model scan.position ≠ 0
                 case' neg =>

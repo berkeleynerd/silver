@@ -37,7 +37,7 @@ theorem model_arrayDeclaration_equation (text : Source) (state : ParserState)
   cases executable <;>
     simp only [arrayDeclarationEquation, model_arrayParts_equation] <;>
     dsimp +instances only [modelCalls, spelling, isWord, ShellToken.word, ShellToken.symbol] <;>
-    simp only [arrayDeclarationAt, arrayDeclarationValues, Bool.decide_or, Bool.or_assoc, ite_self]
+    simp only [arrayDeclarationAt, arrayDeclarationValues, Bool.decide_or, Bool.decide_coe, Bool.or_assoc, ite_self]
   all_goals
     generalize arrayDeclarationParts text state = parts
     rcases Bool.eq_false_or_eq_true parts.isBoolean with kind | kind <;>

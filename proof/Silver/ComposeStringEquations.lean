@@ -148,7 +148,12 @@ def characterDeclarationEquation (calls : Calls) (text : Source) (state : Parser
       decide (calls.function .scalarLookup text state.scalarNames typeFirst typeAfter ≠ 0) ||
       decide (calls.function .arrayLookup text state.arrayNames.names typeFirst typeAfter ≠ 0) ||
       decide (calls.function .subtypeLookup text state.subtypeNames typeFirst typeAfter ≠ 0) ||
-      decide (calls.function .booleanLookup text state.booleanNames typeFirst typeAfter ≠ 0)
+      decide (calls.function .booleanLookup text state.booleanNames typeFirst typeAfter ≠ 0) ||
+      decide (calls.function .functionLookup text state.functions typeFirst typeAfter ≠ 0) ||
+      calls.function .formalHides text state typeFirst typeAfter ||
+      (state.hiding.integerHidden && calls.function .nameIs text typeFirst typeAfter "integer") ||
+      (state.hiding.booleanHidden && calls.function .nameIs text typeFirst typeAfter "boolean") ||
+      (state.hiding.characterHidden && calls.function .nameIs text typeFirst typeAfter "character")
   then invalidState
   else calls.function .addBindingWithCharacter state first after value (decide (constantAfter = 0)) following true
 
@@ -170,7 +175,12 @@ theorem characterDeclaration_progress_guard (text : Source) (state : ParserState
       decide (ScalarExpression.lookup text state.scalarNames parts.typeFirst parts.typeAfter ≠ 0) ||
       decide (ArrayBindings.lookup text state.arrayNames.names parts.typeFirst parts.typeAfter ≠ 0) ||
       decide (IntegerSubtypes.lookup text state.subtypeNames parts.typeFirst parts.typeAfter ≠ 0) ||
-      decide (BooleanBindings.lookup text state.booleanNames parts.typeFirst parts.typeAfter ≠ 0)) =
+      decide (BooleanBindings.lookup text state.booleanNames parts.typeFirst parts.typeAfter ≠ 0) ||
+      decide (FunctionBindings.lookup text state.functions parts.typeFirst parts.typeAfter ≠ 0) ||
+      formalHides text state parts.typeFirst parts.typeAfter ||
+      (state.hiding.integerHidden && Named.nameIs text parts.typeFirst parts.typeAfter ("integer".toList.map Char.toNat)) ||
+      (state.hiding.booleanHidden && Named.nameIs text parts.typeFirst parts.typeAfter ("boolean".toList.map Char.toNat)) ||
+      (state.hiding.characterHidden && Named.nameIs text parts.typeFirst parts.typeAfter ("character".toList.map Char.toNat))) =
       characterDeclarationRejected text state arguments parts := by
   generalize partsEq : characterDeclarationParts text state = parts
   dsimp only
@@ -191,7 +201,7 @@ theorem characterDeclaration_progress_guard (text : Source) (state : ParserState
       omega
     simp only [decide_eq_true nonprogress, Bool.or_true, Bool.true_or, rejected]
   · have following : parts.following ≠ 0 := by omega
-    simp only [characterDeclarationRejected, Bool.decide_or, Bool.or_assoc,
+    simp only [characterDeclarationRejected, Bool.decide_coe, Bool.decide_or, Bool.or_assoc,
       decide_eq_false_iff_not.mpr nonprogress, decide_eq_false_iff_not.mpr following]
 
 end Silver.Compose.Expressions

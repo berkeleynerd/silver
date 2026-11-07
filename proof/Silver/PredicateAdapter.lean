@@ -376,8 +376,9 @@ def Expr.render : Expr α → List String
   | .bodyOf input => Expressions.call "body_of" [input.render]
   | .expand ctx input originalExpr => Expressions.call "expand_body" [ctx.render, input.render, originalExpr.render]
   | .read ctx input boundary catalog => Expressions.call "read_body" [["text"], ctx.render, input.render, boundary.render, catalog.render]
-  | .stopCase ending alternative arm returning => ["(", "case", "stop", "is", "when", "end_only", "=>"] ++ ending.render ++
-      [",", "when", "else_only", "=>"] ++ alternative.render ++ [",", "when", "arm_boundary", "=>"] ++ arm.render ++ [",", "when", "return_only", "=>"] ++ returning.render ++ [")"]
+  | .stopCase ending alternative arm returning => ["(", "case", "stop", "is", "when", "return_only", "=>"] ++ returning.render ++
+      [",", "when", "end_only", "=>"] ++ ending.render ++
+      [",", "when", "else_only", "=>"] ++ alternative.render ++ [",", "when", "arm_boundary", "=>"] ++ arm.render ++ [")"]
 
 def contextExpr : Expr Native.Context :=
   .contextValue (.field .stateNames (.field .scanState .scan)) (.bodyEnvironment (.field .stateScalarNames (.field .scanState .scan)))
