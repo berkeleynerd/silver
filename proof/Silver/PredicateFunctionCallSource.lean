@@ -72,6 +72,9 @@ def callAssignmentBodyImpl : List String := expectedTokens
 
 structure Checked (tokens : List String) : Prop where
   trees : CheckedTrees
+  included_impl : functionHeader "included" "is" tokens =
+    some (expectedTokens "(Value, Bounds : Scalars.Interval) return Boolean")
+  included_body : Source.expressionBody "included" tokens = some includedBody.render
   actualModel_spec : functionHeader "actual_model" ";" tokens = some actualModelSpec
   actualModel_impl : functionHeader "actual_model" "is" tokens = some actualModelImpl
   actualAfter_spec : functionHeader "actual_after" ";" tokens = some actualAfterSpec

@@ -11,7 +11,7 @@ applied. Every actual uses the same incoming flow. -/
 namespace Silver.Predicate.FunctionCallNative
 open Compose FunctionBindings
 
-structure Imports where
+@[ext] structure Imports where
   skip : Source → Nat → Nat
   nameAfter : Source → Nat → Nat
   namesLookup : Source → BindingEnvironment → Nat → Nat → Nat
@@ -26,7 +26,7 @@ structure Imports where
   included : Integer.Interval → Integer.Interval → Bool
   invalid : BodyScan → BodyScan
 
-structure Calls where
+@[ext] structure Calls where
   actual : Source → Native.Context → Nat → ActiveFlow → Formal → Nat
   actuals : Source → Native.Context → Nat → ActiveFlow → Metadata → Nat → Nat → Nat
   callee : Source → Native.Context → Nat → Metadata → Nat
@@ -54,6 +54,8 @@ structure Frame where
   item : Signature := emptySignature
   value : ScalarExpression.Result := ScalarExpression.invalid
   called : CallResult := invalidCall
+  intervalValue : Integer.Interval := .empty
+  intervalBounds : Integer.Interval := .empty
 
 inductive Expr : Type → Type 1
   | position : Expr Nat
@@ -65,6 +67,12 @@ inductive Expr : Type → Type 1
   | start : Expr Nat
   | scalar : Expr Nat
   | flag : Expr Nat
+  | intervalValue : Expr Integer.Interval
+  | intervalBounds : Expr Integer.Interval
+  | lower : Expr Integer.Interval → Expr Int
+  | upper : Expr Integer.Interval → Expr Int
+  | geInt : Expr Int → Expr Int → Expr Bool
+  | leInt : Expr Int → Expr Int → Expr Bool
   | value : Expr ScalarExpression.Result
   | called : Expr CallResult
   | parameter : Expr Formal
@@ -137,6 +145,11 @@ def Expr.eval (imports : Imports) (calls : Calls) (frame : Frame) : Expr α → 
   | .position => frame.position | .scanPosition => frame.scan.position
   | .first => frame.first | .last => frame.last | .after => frame.after
   | .callee => frame.callee | .start => frame.start | .scalar => frame.scalar | .flag => frame.flag
+  | .intervalValue => frame.intervalValue | .intervalBounds => frame.intervalBounds
+  | .lower value => (value.eval imports calls frame).lower
+  | .upper value => (value.eval imports calls frame).upper
+  | .geInt left right => decide (left.eval imports calls frame ≥ right.eval imports calls frame)
+  | .leInt left right => decide (left.eval imports calls frame ≤ right.eval imports calls frame)
   | .value => frame.value | .called => frame.called | .parameter => frame.parameter | .item => frame.item
   | .number value => value | .kind value => value
   | .formalKind value => (value.eval imports calls frame).kind
@@ -217,6 +230,11 @@ def Expr.render : Expr α → List String
   | .position => ["position"] | .scanPosition => ["scan", ".", "position"]
   | .first => ["first"] | .last => ["last"] | .after => ["after"] | .callee => ["callee"]
   | .start => ["start"] | .scalar => ["scalar"] | .flag => ["flag"]
+  | .intervalValue => ["value"] | .intervalBounds => ["bounds"]
+  | .lower value => value.render ++ [".", "lower"]
+  | .upper value => value.render ++ [".", "upper"]
+  | .geInt left right => left.render ++ [">="] ++ right.render
+  | .leInt left right => left.render ++ ["<="] ++ right.render
   | .value | .called => ["value"] | .parameter => ["parameter"] | .item => ["item"]
   | .number value => [toString value]
   | .kind value => ["functions", ".", if value = .integer then "integer_kind" else "boolean_kind"]
@@ -284,6 +302,7 @@ def Expr.render : Expr α → List String
 local declarations must never be mistaken for atomic Ada expressions. -/
 def Expr.primary : Expr α → Bool
   | .position | .scanPosition | .first | .last | .after | .callee | .start | .scalar | .flag
+  | .intervalValue | .intervalBounds | .lower _ | .upper _
   | .value | .called | .parameter | .item | .number _ | .kind _
   | .formalKind _ | .formalBounds _ | .formalFirst _ | .formalCount _ | .resultKind _ | .resultBounds _
   | .valueAfter _ | .valueBounds _ | .callAfter _ | .callKind _ | .callBounds _
@@ -300,7 +319,7 @@ def Expr.simple : Expr α → Bool
   | value => value.primary
 
 def Expr.relation : Expr α → Bool
-  | .eq _ _ | .ne _ _ | .le _ _ | .kindEq _ _ | .kindNe _ _ | .not _ => true
+  | .geInt _ _ | .leInt _ _ | .eq _ _ | .ne _ _ | .le _ _ | .kindEq _ _ | .kindNe _ _ | .not _ => true
   | value => value.simple
 
 def Expr.andHead : Expr α → Bool | .andThen _ _ => true | value => value.relation
@@ -310,7 +329,8 @@ def Expr.isElsif : Expr α → Bool | .elsif _ _ _ => true | _ => false
 def Expr.wellFormed : Expr α → Bool
   | .position | .scanPosition | .first | .last | .after | .callee | .start | .scalar | .flag
   | .value | .called | .parameter | .item | .number _ | .kind _ | .invalidCall
-  | .invalidBody | .assignedInteger | .assignedBoolean => true
+  | .intervalValue | .intervalBounds | .invalidBody | .assignedInteger | .assignedBoolean => true
+  | .lower value | .upper value
   | .formalKind value | .formalBounds value | .formalFirst value | .formalCount value
   | .resultKind value | .resultBounds value | .valueAfter value | .valueBounds value
   | .callAfter value | .callKind value | .callBounds value | .not value => value.primary && value.wellFormed
@@ -318,6 +338,7 @@ def Expr.wellFormed : Expr α → Bool
   | .skip value | .nameAfter value | .readScalar value | .readConditionAfter value | .calleeAt value
   | .callModel value | .readCall value | .scalarTarget value | .booleanTarget value | .empty value
   | .token value _ => value.simple && value.wellFormed
+  | .geInt left right | .leInt left right
   | .namesLookup left right | .scalarLookup left right | .booleanLookup left right
   | .arrayLookup left right | .functionLookup left right | .included left right | .actual left right
   | .eq left right | .ne left right | .le left right | .kindEq left right | .kindNe left right =>
@@ -343,6 +364,7 @@ def Scope.bind (scope : Scope) (name : String) (kind : Nat) : Scope :=
   (name, kind) :: scope.filter (fun entry => entry.1 != name)
 
 def Expr.scoped (scope : Scope) : Expr α → Bool
+  | .intervalValue => ("value", 10) ∈ scope | .intervalBounds => ("bounds", 10) ∈ scope
   | .position => ("position", 0) ∈ scope | .scanPosition => ("scan", 9) ∈ scope
   | .first => ("first", 0) ∈ scope | .last => ("last", 0) ∈ scope | .after => ("after", 0) ∈ scope
   | .callee => ("callee", 0) ∈ scope | .start => ("start", 0) ∈ scope | .scalar => ("scalar", 0) ∈ scope
@@ -365,9 +387,11 @@ def Expr.scoped (scope : Scope) : Expr α → Bool
   | .invalidBody => ("scan", 9) ∈ scope
   | .assignedInteger => decide (("scan", 9) ∈ scope ∧ ("value", 2) ∈ scope ∧ ("scalar", 0) ∈ scope)
   | .assignedBoolean => decide (("scan", 9) ∈ scope ∧ ("value", 2) ∈ scope)
+  | .lower value | .upper value
   | .formalKind value | .formalBounds value | .formalFirst value | .formalCount value | .resultKind value | .resultBounds value
   | .valueAfter value | .valueBounds value | .callAfter value | .callKind value | .callBounds value
   | .empty value | .not value | .group value | .locals value => value.scoped scope
+  | .geInt left right | .leInt left right
   | .add left right | .sub left right | .eq left right | .ne left right | .le left right
   | .kindEq left right | .kindNe left right | .included left right | .andThen left right | .orElse left right =>
       left.scoped scope && right.scoped scope
@@ -379,6 +403,12 @@ def Expr.scoped (scope : Scope) : Expr α → Bool
   | .letStart value body => value.scoped scope && body.scoped (scope.bind "start" 0)
   | .letItem value body => value.scoped scope && body.scoped (scope.bind "item" 4)
   | .letValue value body => value.scoped scope && body.scoped (scope.bind "value" 1)
+
+def includedBody : Expr Bool :=
+  .orElse (.empty .intervalValue) (.group <|
+    .andThen (.andThen (.not (.empty .intervalBounds))
+      (.geInt (.lower .intervalValue) (.lower .intervalBounds)))
+      (.leInt (.upper .intervalValue) (.upper .intervalBounds)))
 
 def actualBody : Expr Nat :=
   .ite (.kindEq (.formalKind .parameter) (.kind .boolean)) (.readConditionAfter .position)
