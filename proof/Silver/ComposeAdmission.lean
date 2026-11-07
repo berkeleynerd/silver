@@ -1,7 +1,7 @@
 module
 
 public import Silver.ComposeDeclarationAdmission
-public import Silver.FunctionDeclarationAdmission
+public import Silver.FunctionDeclarationPreservation
 
 @[expose] public section
 
@@ -67,8 +67,8 @@ def declarationsLoop (text : Source) (arguments : Bool) : Nat → ParserState �
 
 def declarationsAt (text : Source) (state : ParserState) (arguments : Bool) : ParserState :=
   declarationsLoop text arguments
-    (maxBindings + ScalarExpression.maxBindings + ArrayBindings.maxBindings + IntegerSubtypes.maxBindings + BooleanBindings.maxBindings + 1 -
-      (state.names.length + state.scalarNames.length + state.arrayNames.names.length + state.subtypeNames.items.length + state.booleanNames.length)) state
+    (maxBindings + ScalarExpression.maxBindings + ArrayBindings.maxBindings + IntegerSubtypes.maxBindings + BooleanBindings.maxBindings + FunctionBindings.maxFunctions + 1 -
+      (state.names.length + state.scalarNames.length + state.arrayNames.names.length + state.subtypeNames.items.length + state.booleanNames.length + state.functions.items.length)) state
 
 -- The shell tables retain current control flow. Only declaration slots become
 -- a finite list, and assignment names resolve against its shared environment.
@@ -257,6 +257,28 @@ theorem arrayValuesModel_booleanNames (text : Source) (source result : ParserSta
 termination_by length - parsed
 decreasing_by omega
 
+theorem arrayValuesModel_functions (text : Source) (source result : ParserState)
+    (position length parsed : Nat) {componentBounds : Integer.Interval}
+    (accepted : (arrayValuesModel text source result position length parsed componentBounds).position ≠ 0) :
+    (arrayValuesModel text source result position length parsed componentBounds).functions = result.functions := by
+  rw [arrayValuesModel] at accepted ⊢
+  by_cases zero : position = 0
+  · simp only [zero, ↓reduceIte, invalidState, ne_eq, not_true_eq_false] at accepted
+  · simp only [zero, ↓reduceIte] at accepted ⊢
+    by_cases remaining : parsed < length
+    · simp only [remaining, ↓reduceDIte] at accepted ⊢
+      generalize valueEq : ScalarExpression.read text position source.scalarNames
+        (arrays := source.arrayNames.names) (initials := source.arrayNames.values)
+        (elaborating := true) = value at accepted ⊢
+      by_cases bad : value.after = 0 ∨ value.bounds.isEmpty = true ∨ value.bounds.lower ≠ value.bounds.upper ∨
+        value.bounds.lower < componentBounds.lower ∨ componentBounds.upper < value.bounds.upper
+      · simp only [bad, ↓reduceIte, invalidState, ne_eq, not_true_eq_false] at accepted
+      · simp only [bad, ↓reduceIte] at accepted ⊢
+        exact arrayValuesModel_functions text source _ _ length (parsed + 1) accepted
+    · simp only [remaining, ↓reduceDIte]
+termination_by length - parsed
+decreasing_by omega
+
 theorem booleanArrayValuesModel_preserves (text : Source) (source result : ParserState)
     (position length parsed maskFirst maskAfter : Nat)
     (accepted : (booleanArrayValuesModel text source result position length parsed maskFirst maskAfter).position ≠ 0) :
@@ -277,6 +299,24 @@ theorem booleanArrayValuesModel_preserves (text : Source) (source result : Parse
         exact booleanArrayValuesModel_preserves text source _ _ length (parsed + 1) maskFirst maskAfter accepted
     · simp only [remaining, ↓reduceDIte]
       trivial
+termination_by length - parsed
+decreasing_by omega
+
+theorem booleanArrayValuesModel_functions (text : Source) (source result : ParserState)
+    (position length parsed maskFirst maskAfter : Nat)
+    (accepted : (booleanArrayValuesModel text source result position length parsed maskFirst maskAfter).position ≠ 0) :
+    (booleanArrayValuesModel text source result position length parsed maskFirst maskAfter).functions = result.functions := by
+  rw [booleanArrayValuesModel] at accepted ⊢
+  by_cases zero : position = 0
+  · simp only [zero, ↓reduceIte, invalidState, ne_eq, not_true_eq_false] at accepted
+  · simp only [zero, ↓reduceIte] at accepted ⊢
+    by_cases remaining : parsed < length
+    · simp only [remaining, ↓reduceDIte] at accepted ⊢
+      by_cases bad : booleanInitializerAfter text source position maskFirst maskAfter = 0
+      · simp only [bad, ↓reduceIte, invalidState, ne_eq, not_true_eq_false] at accepted
+      · simp only [bad, ↓reduceIte] at accepted ⊢
+        exact booleanArrayValuesModel_functions text source _ _ length (parsed + 1) maskFirst maskAfter accepted
+    · simp only [remaining, ↓reduceDIte]
 termination_by length - parsed
 decreasing_by omega
 
@@ -356,94 +396,144 @@ theorem arrayDeclarationAt_booleanNames {text : Source} {state : ParserState} {a
           simp only [following, ↓reduceIte]
           exact (arrayDeclarationValues_preserves values).2.2.2.2
 
+theorem arrayDeclarationValues_functions {text state parts position length}
+    (accepted : (arrayDeclarationValues text state parts position length).position ≠ 0) :
+    (arrayDeclarationValues text state parts position length).functions = state.functions := by
+  unfold arrayDeclarationValues at accepted ⊢
+  split at accepted
+  · rename_i kind
+    simp only [kind, ↓reduceIte]
+    exact booleanArrayValuesModel_functions _ _ _ _ _ _ _ _ accepted
+  · rename_i kind
+    simp only [kind]
+    exact arrayValuesModel_functions _ _ _ _ _ _ accepted
+
+theorem arrayDeclarationAt_functions {text : Source} {state : ParserState} {arguments : Bool}
+    (accepted : (arrayDeclarationAt text state arguments).position ≠ 0) :
+    (arrayDeclarationAt text state arguments).functions = state.functions := by
+  unfold arrayDeclarationAt at accepted ⊢
+  dsimp only at accepted ⊢
+  split at accepted
+  · simp only [invalidState] at accepted
+    contradiction
+  · rename_i ready
+    simp only [ready, Bool.false_eq_true, ↓reduceIte]
+    split at accepted
+    · simp only [invalidState] at accepted
+      contradiction
+    · rename_i start
+      simp only [start, ↓reduceIte]
+      split at accepted
+      · simp only [invalidState] at accepted
+        contradiction
+      · rename_i values
+        simp only [values, ↓reduceIte]
+        split at accepted
+        · simp only [invalidState] at accepted
+          contradiction
+        · rename_i following
+          simp only [following, ↓reduceIte]
+          exact arrayDeclarationValues_functions values
+
 theorem declarationAt_count {text : Source} {state : ParserState} {arguments : Bool}
     (accepted : (declarationAt text state arguments).position ≠ 0) :
     (declarationAt text state arguments).names.length +
       (declarationAt text state arguments).scalarNames.length +
       (declarationAt text state arguments).arrayNames.names.length +
       (declarationAt text state arguments).subtypeNames.items.length +
-      (declarationAt text state arguments).booleanNames.length =
-      state.names.length + state.scalarNames.length + state.arrayNames.names.length + state.subtypeNames.items.length + state.booleanNames.length + 1 := by
-  by_cases subtype : (subtypeDeclarationAt text state arguments).position ≠ 0
-  · have selected : declarationAt text state arguments = subtypeDeclarationAt text state arguments := by
-      simp only [declarationAt]; split <;> simp_all
+      (declarationAt text state arguments).booleanNames.length +
+      (declarationAt text state arguments).functions.items.length =
+      state.names.length + state.scalarNames.length + state.arrayNames.names.length + state.subtypeNames.items.length + state.booleanNames.length + state.functions.items.length + 1 := by
+  by_cases function : (functionDeclarationAt text state arguments).position ≠ 0
+  · have selected : declarationAt text state arguments = functionDeclarationAt text state arguments := by
+      dsimp only [declarationAt]
+      rw [ite_eq_left function]
     rw [selected]
-    unfold subtypeDeclarationAt at subtype ⊢
-    dsimp only at subtype ⊢
-    split at subtype
-    · simp [invalidState] at subtype
-    · rename_i good
-      simp only [good, Bool.false_eq_true, ↓reduceIte, addSubtypeBinding, IntegerSubtypes.append,
-        List.length_append, List.length_singleton]
-      omega
-  · by_cases scalar : (scalarDeclarationAt text state arguments).position ≠ 0
-    · have selected : declarationAt text state arguments = scalarDeclarationAt text state arguments := by
-        simp only [declarationAt, subtype, ↓reduceIte]; split <;> simp_all
+    have kept := functionDeclarationAt_preserves_outer text state arguments function
+    rw [kept.names, kept.scalarNames, kept.arrayNames, kept.subtypeItems, kept.booleanNames,
+      functionDeclarationAt_count text state arguments function]
+    omega
+  · by_cases subtype : (subtypeDeclarationAt text state arguments).position ≠ 0
+    · have selected : declarationAt text state arguments = subtypeDeclarationAt text state arguments := by
+        simp only [declarationAt, function, ↓reduceIte]; split <;> simp_all
       rw [selected]
-      unfold scalarDeclarationAt at scalar ⊢
-      dsimp only at scalar ⊢
-      split at scalar
-      · simp [invalidState] at scalar
+      unfold subtypeDeclarationAt at subtype ⊢
+      dsimp only at subtype ⊢
+      split at subtype
+      · simp [invalidState] at subtype
       · rename_i good
-        simp only [good, Bool.false_eq_true, ↓reduceIte, addScalarBinding,
+        simp only [good, Bool.false_eq_true, ↓reduceIte, addSubtypeBinding, IntegerSubtypes.append,
           List.length_append, List.length_singleton]
         omega
-    · by_cases array : (arrayDeclarationAt text state arguments).position ≠ 0
-      · have selected : declarationAt text state arguments = arrayDeclarationAt text state arguments := by
-          simp only [declarationAt, subtype, ↓reduceIte]; split <;> simp_all
+    · by_cases scalar : (scalarDeclarationAt text state arguments).position ≠ 0
+      · have selected : declarationAt text state arguments = scalarDeclarationAt text state arguments := by
+          simp only [declarationAt, function, subtype, ↓reduceIte]; split <;> simp_all
         rw [selected]
-        have count := arrayDeclarationAt_count array
-        rw [count.1, count.2.1, count.2.2.1, count.2.2.2, arrayDeclarationAt_booleanNames array]
-        omega
-      · by_cases boolean : (booleanDeclarationAt text state arguments).position ≠ 0
-        · have selected : declarationAt text state arguments = booleanDeclarationAt text state arguments := by
-            simp only [declarationAt]; split <;> simp_all
+        unfold scalarDeclarationAt at scalar ⊢
+        dsimp only at scalar ⊢
+        split at scalar
+        · simp [invalidState] at scalar
+        · rename_i good
+          simp only [good, Bool.false_eq_true, ↓reduceIte, addScalarBinding,
+            List.length_append, List.length_singleton]
+          omega
+      · by_cases array : (arrayDeclarationAt text state arguments).position ≠ 0
+        · have selected : declarationAt text state arguments = arrayDeclarationAt text state arguments := by
+            simp only [declarationAt, function, subtype, ↓reduceIte]; split <;> simp_all
           rw [selected]
-          unfold booleanDeclarationAt at boolean ⊢
-          dsimp only at boolean ⊢
-          split at boolean
-          · simp [invalidState] at boolean
-          · rename_i ready
-            simp only [ready, Bool.false_eq_true, ↓reduceIte]
+          have count := arrayDeclarationAt_count array
+          rw [count.1, count.2.1, count.2.2.1, count.2.2.2, arrayDeclarationAt_booleanNames array, arrayDeclarationAt_functions array]
+          omega
+        · by_cases boolean : (booleanDeclarationAt text state arguments).position ≠ 0
+          · have selected : declarationAt text state arguments = booleanDeclarationAt text state arguments := by
+              simp only [declarationAt, function, ↓reduceIte]; split <;> simp_all
+            rw [selected]
+            unfold booleanDeclarationAt at boolean ⊢
+            dsimp only at boolean ⊢
             split at boolean
             · simp [invalidState] at boolean
-            · rename_i advance
-              simp only [advance, ↓reduceIte, addBooleanBinding, List.length_append, List.length_singleton]
-              omega
-        · by_cases character : (characterDeclarationAt text state arguments).position ≠ 0
-          · have selected : declarationAt text state arguments = characterDeclarationAt text state arguments := by
-              simp only [declarationAt]; split <;> simp_all
-            rw [selected]
-            unfold characterDeclarationAt at character ⊢
-            dsimp only at character ⊢
-            split at character
-            · simp [invalidState] at character
-            · rename_i good
-              simp only [good, Bool.false_eq_true, ↓reduceIte, addBinding,
-                List.length_append, List.length_singleton]
-              omega
-          · have selected : declarationAt text state arguments = stringDeclarationAt text state arguments := by
-              simp only [declarationAt]; split <;> simp_all
-            rw [selected] at accepted ⊢
-            unfold stringDeclarationAt at accepted ⊢
-            dsimp only at accepted ⊢
-            split at accepted
-            · simp [invalidState] at accepted
-            · rename_i good
-              simp only [good, Bool.false_eq_true, ↓reduceIte, addBinding,
-                List.length_append, List.length_singleton]
-              omega
+            · rename_i ready
+              simp only [ready, Bool.false_eq_true, ↓reduceIte]
+              split at boolean
+              · simp [invalidState] at boolean
+              · rename_i advance
+                simp only [advance, ↓reduceIte, addBooleanBinding, List.length_append, List.length_singleton]
+                omega
+          · by_cases character : (characterDeclarationAt text state arguments).position ≠ 0
+            · have selected : declarationAt text state arguments = characterDeclarationAt text state arguments := by
+                simp only [declarationAt, function, ↓reduceIte]; split <;> simp_all
+              rw [selected]
+              unfold characterDeclarationAt at character ⊢
+              dsimp only at character ⊢
+              split at character
+              · simp [invalidState] at character
+              · rename_i good
+                simp only [good, Bool.false_eq_true, ↓reduceIte, addBinding,
+                  List.length_append, List.length_singleton]
+                omega
+            · have selected : declarationAt text state arguments = stringDeclarationAt text state arguments := by
+                simp only [declarationAt, function, ↓reduceIte]; split <;> simp_all
+              rw [selected] at accepted ⊢
+              unfold stringDeclarationAt at accepted ⊢
+              dsimp only at accepted ⊢
+              split at accepted
+              · simp [invalidState] at accepted
+              · rename_i good
+                simp only [good, Bool.false_eq_true, ↓reduceIte, addBinding,
+                  List.length_append, List.length_singleton]
+                omega
+
 
 
 theorem declarationsAt_equation (text : Source) (state : ParserState) (arguments : Bool)
-    (bounded : state.names.length + state.scalarNames.length + state.arrayNames.names.length + state.subtypeNames.items.length + state.booleanNames.length ≤ (maxBindings + ScalarExpression.maxBindings + ArrayBindings.maxBindings + IntegerSubtypes.maxBindings + BooleanBindings.maxBindings)) :
+    (bounded : state.names.length + state.scalarNames.length + state.arrayNames.names.length + state.subtypeNames.items.length + state.booleanNames.length + state.functions.items.length ≤ (maxBindings + ScalarExpression.maxBindings + ArrayBindings.maxBindings + IntegerSubtypes.maxBindings + BooleanBindings.maxBindings + FunctionBindings.maxFunctions)) :
     declarationsAt text state arguments =
       if state.position = 0 then invalidState
       else if fixedAfter text state.position "begin" true ≠ 0 then state
       else if (declarationAt text state arguments).position = 0 then invalidState
       else declarationsAt text (declarationAt text state arguments) arguments := by
-  have fuel : (maxBindings + ScalarExpression.maxBindings + ArrayBindings.maxBindings + IntegerSubtypes.maxBindings + BooleanBindings.maxBindings) + 1 - (state.names.length + state.scalarNames.length + state.arrayNames.names.length + state.subtypeNames.items.length + state.booleanNames.length) =
-      ((maxBindings + ScalarExpression.maxBindings + ArrayBindings.maxBindings + IntegerSubtypes.maxBindings + BooleanBindings.maxBindings) - (state.names.length + state.scalarNames.length + state.arrayNames.names.length + state.subtypeNames.items.length + state.booleanNames.length)) + 1 := by omega
+  have fuel : (maxBindings + ScalarExpression.maxBindings + ArrayBindings.maxBindings + IntegerSubtypes.maxBindings + BooleanBindings.maxBindings + FunctionBindings.maxFunctions) + 1 - (state.names.length + state.scalarNames.length + state.arrayNames.names.length + state.subtypeNames.items.length + state.booleanNames.length + state.functions.items.length) =
+      ((maxBindings + ScalarExpression.maxBindings + ArrayBindings.maxBindings + IntegerSubtypes.maxBindings + BooleanBindings.maxBindings + FunctionBindings.maxFunctions) - (state.names.length + state.scalarNames.length + state.arrayNames.names.length + state.subtypeNames.items.length + state.booleanNames.length + state.functions.items.length)) + 1 := by omega
   unfold declarationsAt
   rw [fuel, declarationsLoop]
   by_cases empty : state.position = 0
