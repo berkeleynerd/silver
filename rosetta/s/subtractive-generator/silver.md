@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every value is bounded by its element subtype, the only arithmetic is a linear subtraction followed by an add-m guard, and every index is a fresh mod 55 of a for-loop index, so all checks follow from types and local guards.
 
-Position 131 in the [progression](../../progression.md#stage-6), in stage 6.
+Position 132 in the [progression](../../progression.md#stage-6), in stage 6.
 
 ## Approach
 

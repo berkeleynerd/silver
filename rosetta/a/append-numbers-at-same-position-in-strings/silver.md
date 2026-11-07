@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All data is embedded, the loop indexes are the arrays' own range, and the value ranges are tiny, so every check follows from types and static bounds with no loop-carried state.
 
-Position 124 in the [progression](../../progression.md#stage-6), in stage 6.
+Position 125 in the [progression](../../progression.md#stage-6), in stage 6.
 
 ## Approach
 

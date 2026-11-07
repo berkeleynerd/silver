@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The loop index is bounded by its declared range so the square fits in the wide type and the only loop-carried state is a Boolean and a ranged result, so every check follows from types; the not-found branch gives a visible outcome rather than narrowing behavior.
 
-Position 179 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 180 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

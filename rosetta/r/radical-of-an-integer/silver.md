@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is a sieve over a fixed one-million array with bounded subtypes and explicit guards in procedures, so no annotation is needed, but the loop-carried products and counters require careful guard placement to discharge.
 
-Position 418 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 419 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

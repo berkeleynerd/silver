@@ -1,6 +1,9 @@
 # Boolean-array driver reconciliation
 
-**Prepared on 2026-11-06; native execution and complete assurance pending.**
+**Delivery metadata reconciliation — 2026-11-07.**
+Current validation and input applicability are bound by the
+[closing confirmation](../docs/reviews/review-boolean-arrays-delivery-20261107.md).
+The preparation sections below preserve their historical scope and pending status.
 The owner-authorized [#297](https://github.com/berkeleynerd/silver/issues/297)
 adds the narrow fixed-size Boolean-array fragment described in
 [language.md](../language.md#fixed-size-boolean-arrays). The
@@ -43,7 +46,7 @@ not promise runtime-sized arrays or unbounded configurations. Direct output of
 the three demonstrations without a user subroutine. Expected rows use an
 independent Python neighborhood/bit-shift calculation.
 
-## Retained assessment provenance and delivery work
+## Retained assessment provenance and historical delivery work
 
 Both previous assessments were made on 2026-10-15 by
 `claude-sonnet-5-5`, selected effort `medium`, rubric 2, standard tier, on the
@@ -53,7 +56,7 @@ proposals, not descriptions of these bounded executable drivers. Their original
 assessment date, model and effort remain in the coverage records when current
 review metadata is added.
 
-Before delivery: complete native sample executions and universal/actual-source
+The preparation checklist was: complete native sample executions and universal/actual-source
 assurance, review the task mapping, add only `fixed-boolean-arrays` to supported
 constructs, update the current assessor description and both task summaries,
 render the progression and reconcile the affected stage issue fields. Broad
@@ -78,3 +81,28 @@ The exact future identifier is `fixed-boolean-arrays`; it is registered with the
 assessor and renderer but is not yet in `supported`. Broad `arrays`, `booleans`
 and their other task assessments remain unchanged. Generated pages have not
 been rendered from these prepared records.
+
+## Delivery reconciliation — 2026-11-07
+
+Only `fixed-boolean-arrays` is added to supported constructs. The current-language
+assessor and the two summaries/review records describe the bounded drivers above;
+the original assessment revision, date, rubric, tier, model and effort are
+unchanged, and each review retains its historical preparation metadata. Broad
+`arrays` and `booleans`, Boolean element iteration, `others` aggregates, functions
+#298 and the separate sample-expansion package #300 remain outside this delivery.
+Broad arrays #12 remains open.
+
+The complete manifest execution is retained in the
+[regression applicability review](../docs/reviews/review-boolean-arrays-regression-applicability-20261107.md).
+Final native/build/Lean evidence, runtime-input applicability and final metadata
+checks are bound separately in the closing confirmation above. Sample execution
+does not establish universal assurance. The inventories remain distinct:
+61 source samples, 117 manifest execution cases, 38 `rosetta_` source files, and
+61 Stage-1 assessments after rendering. Rendering changes progression positions;
+all affected stage fields must follow that generated output, including closed
+stages whose constructs are supported.
+
+This metadata preparation selected GPT-6.1 Sol / High. Runtime model/effort and
+token/cost measurements were not independently exposed. No proof, test or render
+job was launched by this preparation subthread; it supplies source wording for
+the lead to apply only after the closing evidence is confirmed.

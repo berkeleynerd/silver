@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The fixed loop keeps all indexed reads and writes within 1..11. The current byte is captured before mutation, and occurrence counters implement the requested selection instead of hardcoding final positions or output. Guards establish counter range containment using the existing scalar-flow rules. The exact program passed the complete Linux manifest-driven regression check; complete native and actual-source assurance is recorded in docs/bounded-string-characters.md.
 
-Position 58 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 59 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

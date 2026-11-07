@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from bounded subtypes, array ranges and a guard placed before each doubling, with only terminating for loops and a procedure-based exit loop, so nothing needs an annotation.
 
-Position 196 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 197 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

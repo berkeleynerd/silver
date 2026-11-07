@@ -1,0 +1,50 @@
+{
+  "stage1_assessments": 61,
+  "total_stages": 44,
+  "stage_issues": [
+    {
+      "issue": 9,
+      "stage_before": 1,
+      "actual_stage_after": 1,
+      "status_unchanged": "Done",
+      "constructs": null
+    },
+    {
+      "issue": 10,
+      "stage_before": 1,
+      "actual_stage_after": 1,
+      "status_unchanged": "Done",
+      "constructs": "integer-for-loops, immutable-integers, integer-image"
+    },
+    {
+      "issue": 11,
+      "stage_before": 2,
+      "actual_stage_after": 2,
+      "status_unchanged": "Backlog",
+      "constructs": "for-loops, integers, procedures, ranged-subtypes, scalar-image"
+    },
+    {
+      "issue": 12,
+      "stage_before": 3,
+      "actual_stage_after": 3,
+      "status_unchanged": "Backlog",
+      "constructs": "arrays"
+    },
+    {
+      "issue": 229,
+      "stage_before": 1,
+      "actual_stage_after": 1,
+      "status_unchanged": "Done",
+      "constructs": "interval-integer-division"
+    },
+    {
+      "issue": 234,
+      "stage_before": 1,
+      "actual_stage_after": 1,
+      "status_unchanged": "Done",
+      "constructs": "scalar-guard-refinement"
+    }
+  ],
+  "board_snapshot_origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays/tmp/rosetta-delivery-prep/board-before.json",
+  "github_actions": "None; parent supplies live board snapshot; positions checked against rendered Stage sections."
+}

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Euclid's algorithm needs only Natural-typed loop variables, and since T mod N with N nonzero yields a value below N, every range and division check follows from types and the loop guard without an invariant. Putting the loop in a procedure avoids the function termination obligation.
 
-Position 181 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 182 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

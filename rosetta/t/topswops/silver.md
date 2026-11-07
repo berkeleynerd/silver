@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks come from the array's declared index range, card subtype and explicit guards before each reversal or scan, and loops sit in procedures so no variants are needed, but several loop-carried indexes and the 3.6 million-permutation run for n=10 make the discharge depend on careful program shape.
 
-Position 265 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 266 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

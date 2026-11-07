@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from static for-loop bounds, a nonzero divisor D and guards placed just before the loop-carried additions, with no recursion or annotation needed. The only care is capping the divisor sum and the counters with visible guards that cannot alter the required classification.
 
-Position 133 in the [progression](../../progression.md#stage-6), in stage 6.
+Position 134 in the [progression](../../progression.md#stage-6), in stage 6.
 
 ## Approach
 

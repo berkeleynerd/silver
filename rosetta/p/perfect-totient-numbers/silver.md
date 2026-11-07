@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from array bounds and subtype ranges, with the only loop-carried arithmetic (the chain sum and sieve multiple) kept safe by a guard before use, so it should discharge without annotations but depends on careful program shape.
 
-Position 215 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 216 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

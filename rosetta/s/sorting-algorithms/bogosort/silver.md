@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the ranged subtypes and the fixed array bounds, and the only loop in a function is a for loop, while the unbounded retry loop is a procedure so it needs no variant. Whether the generator ever reaches a sorted order is not a proof obligation, since procedures get no termination check.
 
-Position 324 in the [progression](../../../progression.md#stage-8), in stage 8.
+Position 325 in the [progression](../../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

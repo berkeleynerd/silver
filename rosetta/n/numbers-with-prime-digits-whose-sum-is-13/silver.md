@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check is a range or division-by-ten on bounded integer subtypes with for loops only and a guard before each accumulation, so the proofs follow from types and local guards with no annotation needed.
 
-Position 128 in the [progression](../../progression.md#stage-6), in stage 6.
+Position 129 in the [progression](../../progression.md#stage-6), in stage 6.
 
 ## Approach
 

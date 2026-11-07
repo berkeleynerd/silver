@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Integer coordinates in a bounded subtype make every squared-distance, index and accumulator check follow from types, and only for loops are used so no termination or invariant is needed.
 
-Position 72 in the [progression](../../progression.md#stage-3), in stage 3.
+Position 74 in the [progression](../../progression.md#stage-3), in stage 3.
 
 ## Approach
 

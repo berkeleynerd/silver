@@ -24,7 +24,8 @@
   "constant-integer-array-iteration",
   "named-integer-subtypes",
   "scalar-boolean-objects",
-  "bounded-string-characters"
+  "bounded-string-characters",
+  "fixed-boolean-arrays"
  ],
  "tasks": {
   "100 doors": {
@@ -20033,16 +20034,25 @@
    ],
    "size": 61,
    "approach": "Use samples/rosetta_elementary_cellular_automaton.adb: iterate constant Integer rule values 90, 30 and 122; decode each rule into eight Boolean cells by repeated / 2 and mod 2; reset a width-21 state to one central active cell; display 16 generations. For each new generation compute 4 * left + 2 * current + right using wrapping modulo neighbors, write a separate Boolean Next_State, then copy components into State. Print #/. directly with Put, without a String buffer or user routine. Static declarations configure rule values, width and arbitrary initial contents within source/storage bounds.",
-   "summary": "The prepared program implements all 256 local transition rules by their eight decoded bits, reads a separate unchanged generation and wraps both edges, as the cached task requires. Width, initial state and rule choices are static source configuration within Silver's budgets; the demonstration selects width 21, 16 rows and rules 90, 30 and 122. Independent expected rows use neighborhood bit shifts. Native execution and complete resulting-language assurance remain pending; the [mapping record](../../assessment-boolean-arrays-20261106.md) records the bounded interpretation and historical provenance.",
+   "summary": "The program implements all 256 local transition rules by their eight decoded bits, reads a separate unchanged generation and wraps both edges, as the cached task requires. Width, initial state and rule choices are static source configuration within Silver's budgets; the demonstration selects width 21, 16 rows and rules 90, 30 and 122. Independent expected rows use neighborhood bit shifts. Native driver execution is retained separately from complete resulting-language assurance; the [mapping record](../../assessment-boolean-arrays-20261106.md) records the bounded interpretation and historical provenance.",
    "confidence": "high",
    "review": {
-    "date": "2026-11-06",
+    "date": "2026-11-07",
     "record": "assessment-boolean-arrays-20261106.md",
     "model": "gpt-6.1-sol",
     "effort": "high",
     "setting_evidence": "Selected setting; runtime model/effort not independently exposed",
-    "method": "Author source/task reconciliation against cached revisions and prepared samples at d3aafa4baf; static metadata preparation only, no native/Lean/test execution; not independent critical review",
-    "validation_status": "Native driver executions and complete resulting-language assurance pending"
+    "method": "Delivery metadata reconciliation of the prepared source/task mapping; native execution, runtime applicability and complete assurance are separately bound by the linked delivery confirmation; not an independent critical review",
+    "validation_status": "Delivery evidence and final input applicability are recorded in docs/reviews/review-boolean-arrays-delivery-20261107.md",
+    "preparation": {
+     "date": "2026-11-06",
+     "record": "assessment-boolean-arrays-20261106.md",
+     "model": "gpt-6.1-sol",
+     "effort": "high",
+     "setting_evidence": "Selected setting; runtime model/effort not independently exposed",
+     "method": "Author source/task reconciliation against cached revisions and prepared samples at d3aafa4baf; static metadata preparation only, no native/Lean/test execution; not independent critical review",
+     "validation_status": "Native driver executions and complete resulting-language assurance pending"
+    }
    }
   },
   "Elementary cellular automaton/Infinite length": {
@@ -62644,16 +62654,25 @@
    ],
    "size": 33,
    "approach": "Use samples/rosetta_sieve_of_eratosthenes.adb: explicitly initialize flags for 2 through 100, scan Base from 2 through 10, and for each surviving base cross out K * Base for K from Base through Limit / Base. Store the product in Multiple and guard Multiple <= Limit before the indexed write. Print every final surviving index with Integer'Image. No wheel, precomputed prime list or user subroutine is used.",
-   "summary": "The prepared bounded sieve follows the cached task's marking algorithm, using only its allowed square-root and prime-square optimizations. K <= Limit / Base makes the Multiple guard true for every reached product, so it omits no required crossing. Expected output is independently derived by trial division. Native execution and complete resulting-language assurance remain pending; the [mapping record](../../assessment-boolean-arrays-20261106.md) separates this source reconciliation from delivery.",
+   "summary": "The bounded sieve follows the cached task's marking algorithm, using only its allowed square-root and prime-square optimizations. K <= Limit / Base makes the Multiple guard true for every reached product, so it omits no required crossing. Expected output is independently derived by trial division. Native driver execution is retained separately from complete resulting-language assurance; the [mapping record](../../assessment-boolean-arrays-20261106.md) links the delivery evidence and preserves the original assessment provenance.",
    "confidence": "high",
    "review": {
-    "date": "2026-11-06",
+    "date": "2026-11-07",
     "record": "assessment-boolean-arrays-20261106.md",
     "model": "gpt-6.1-sol",
     "effort": "high",
     "setting_evidence": "Selected setting; runtime model/effort not independently exposed",
-    "method": "Author source/task reconciliation against cached revisions and prepared samples at d3aafa4baf; static metadata preparation only, no native/Lean/test execution; not independent critical review",
-    "validation_status": "Native driver executions and complete resulting-language assurance pending"
+    "method": "Delivery metadata reconciliation of the prepared source/task mapping; native execution, runtime applicability and complete assurance are separately bound by the linked delivery confirmation; not an independent critical review",
+    "validation_status": "Delivery evidence and final input applicability are recorded in docs/reviews/review-boolean-arrays-delivery-20261107.md",
+    "preparation": {
+     "date": "2026-11-06",
+     "record": "assessment-boolean-arrays-20261106.md",
+     "model": "gpt-6.1-sol",
+     "effort": "high",
+     "setting_evidence": "Selected setting; runtime model/effort not independently exposed",
+     "method": "Author source/task reconciliation against cached revisions and prepared samples at d3aafa4baf; static metadata preparation only, no native/Lean/test execution; not independent critical review",
+     "validation_status": "Native driver executions and complete resulting-language assurance pending"
+    }
    }
   },
   "Sieve of Pritchard": {

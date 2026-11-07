@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the 0..9 digit subtype bounds and for-loop indexes, with no accumulators, recursion or while loops, so the proofs should discharge automatically. The only growth needed is ranged subtypes, for loops, integer arithmetic and character conversion for output.
 
-Position 446 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 447 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

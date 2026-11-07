@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops over static ranges and every loop-carried value is a ranged subtype or guarded, so index, range and overflow checks follow from types and guards without any invariant. The only non-routine items are the large fixed array and the nonlinear sieve index, both handled by bounds.
 
-Position 100 in the [progression](../../progression.md#stage-5), in stage 5.
+Position 102 in the [progression](../../progression.md#stage-5), in stage 5.
 
 ## Approach
 

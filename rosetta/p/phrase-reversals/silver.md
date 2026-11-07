@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Fixed-size strings and for loops over the phrase's own range make the index checks follow from bounds and guards, and the word-splitting loop lives in a procedure so no variant is needed.
 
-Position 515 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 516 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

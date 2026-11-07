@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops over static ranges and the only loop-carried value, the product, is range-typed and guarded before each multiplication, so every check follows from types and guards.
 
-Position 119 in the [progression](../../progression.md#stage-6), in stage 6.
+Position 121 in the [progression](../../progression.md#stage-6), in stage 6.
 
 ## Approach
 

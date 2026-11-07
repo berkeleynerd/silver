@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is on integers bounded by a fixed 500,000 limit, with array accesses guarded just before use and loops confined to procedures, so no annotation is needed, though the several loop-carried indexes require careful guard placement.
 
-Position 260 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 261 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

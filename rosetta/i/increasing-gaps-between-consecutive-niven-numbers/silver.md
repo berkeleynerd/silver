@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from declared ranges, a bounded digit loop and for-loop indexes, with only simple guards before counter increments and the division, so proofs should discharge without annotations. The main new surface is integer arithmetic with mod and /, loops, and numeric text output.
 
-Position 348 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 349 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

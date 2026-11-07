@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task has a fixed small input and generates the order directly with integer arithmetic, so every check follows from a bounded subtype plus guards placed just before the operations, though the loop-carried current value needs careful guarding.
 
-Position 218 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 219 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

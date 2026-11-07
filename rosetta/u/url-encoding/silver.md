@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is a single for loop over a fixed-length string with bounded byte arithmetic and a capacity guard before each append, so all checks follow from types and guards without any invariant. The only care is keeping the output length counter's growth safe, which the pre-append guard handles.
 
-Position 508 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 509 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

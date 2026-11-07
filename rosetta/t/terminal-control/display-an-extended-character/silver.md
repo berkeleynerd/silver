@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The program is straight-line code over constants with a single output call, so every check follows from static values and the only new surface is Character'Val with Character values.
 
-Position 426 in the [progression](../../../progression.md#stage-9), in stage 9, which adds characters.
+Position 427 in the [progression](../../../progression.md#stage-9), in stage 9, which adds characters.
 
 ## Approach
 
