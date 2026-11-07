@@ -390,8 +390,11 @@ when making a whole-team comparison. Separate native execution time from total
 elapsed time; label unavailable measurements and never infer model quality from
 token volume, agent count or an uncontrolled comparison. Reassess when work
 fails repeatedly, stalls or reaches a context handoff; integrate established
-results before opening another investigation. This monitoring adds no approval
-ceremony and does not replace required verification.
+results before opening another investigation. Apply the
+[early proof-escalation guidance](docs/proof-iteration.md#recurring-failures-and-handoff)
+when an established approach fails, before another expensive complete run.
+This monitoring adds no approval ceremony and does not replace required
+verification.
 
 Every new review report records the reviewed commit or exact inputs, reviewer
 model(s) and effort actually used, elapsed time and token/cost evidence when

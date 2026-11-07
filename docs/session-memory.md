@@ -1,5 +1,23 @@
 # Session memory
 
+## 2026-11-07 — Earlier proof diagnosis escalation authorized
+
+After discussing the Boolean-array validation delays, the owner instructed
+**“Please update guidance wherever necessary to match the new limits.”** The
+[model policy](../AGENTS.md#models-effort-and-delegation) now explicitly assigns
+uncertain proof diagnosis, memory strategy and cross-system integration decisions
+to Astra Extra High, with temporary Astra Max for a named difficult problem when
+needed. Established implementation remains Sol Extra High; routine monitoring,
+evidence collection and documentation remain Sol High. Reassess unsuccessful
+approaches before another expensive complete run, without waiting for a fixed
+retry count. Elapsed prover time alone is not an escalation trigger.
+
+The personal global guidance is aligned; existing host profiles already match
+the baseline settings. This updates guidance only, with no live model switch,
+proof restart, worker/memory-limit change or new feature authorization. Both
+current validation runs continue. Complete assurance is still required. No CLI
+recall entry was updated.
+
 ## 2026-11-06 — Structural guards merged; Boolean arrays selected next
 
 The owner instructed **“Please merge it if it is ready and proceed to the next
