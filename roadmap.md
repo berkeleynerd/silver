@@ -23,6 +23,7 @@ each delivery; the linked issues hold scope and completion criteria.
 | Delivered 2026-10-31 | [Boolean scalar objects and expressions #291](https://github.com/berkeleynerd/silver/issues/291), stacked on the named-subtype delivery [#286](https://github.com/berkeleynerd/silver/issues/286) | Sequence of primes by trial division; Square but not cube; Common list elements |
 | Complete 2026-11-06 | [Bounded String indexing and character operations #296](https://github.com/berkeleynerd/silver/issues/296) | Reverse a string; Palindrome detection; character replacement |
 | Complete 2026-11-07 | [Fixed-size Boolean arrays #297](https://github.com/berkeleynerd/silver/issues/297) | Sieve of Eratosthenes; elementary cellular automata |
+| Selected 2026-11-07, available-guide audit complete | [Sample-only expansion #300](https://github.com/berkeleynerd/silver/issues/300) | Ten programs covering eleven task mappings; [bounded plan](docs/rosetta-sample-expansion.md) |
 | Later (1) | [Small nonrecursive functions #298](https://github.com/berkeleynerd/silver/issues/298) | Reusable primality tests, GCD and numeric search helpers |
 
 The bounded String increment has completed repaired Linux native and Lean
@@ -42,15 +43,50 @@ caller-visible mutation. Their detailed design follows the preceding deliveries.
 #297 is [selected next on 2026-11-06](docs/session-memory.md#2026-11-06--structural-guards-merged-boolean-arrays-selected-next),
 under the owner's instruction to proceed after merging the ready structural
 guards. Authorization reached main through PR #333; implementation is complete
-on Linux through PR #335, whose merge is now owner-authorized. #298 remains a
+on Linux and merged through PR #335. #298 remains a
 **Backlog proposal**. Candidate samples need faithful implementations before
-any coverage gain is claimed. The separate sample-only
-proposal [#300](https://github.com/berkeleynerd/silver/issues/300) retains its
-pending scope and opportunity inventory; it is not part of this feature.
+any coverage gain is claimed. The owner now selects the separate sample-only
+[#300](https://github.com/berkeleynerd/silver/issues/300) after checking tutorial
+currency; its original ten-program scope precedes #298. The expanded opportunity
+inventory remains outside that commitment.
 Existing source and expression budgets, assurance requirements, broad stages
 and deferred capacity work retain their scope.
 
 ## Current development sequence
+
+### Rosetta sample expansion
+
+**Selected 2026-11-07; available-guide audit complete, planning publication pending.**
+The owner instructed **“Let's proceed to tackle 300 after determining if our
+tutorial is up-to-date. This may only live in a branch at this time.”** The
+[dated authorization](docs/session-memory.md#2026-11-07--tutorial-audit-and-rosetta-sample-expansion-selected)
+selects existing [#300](https://github.com/berkeleynerd/silver/issues/300) in
+[milestone 15](https://github.com/berkeleynerd/silver/milestone/15), after the
+completed String #296 and Boolean-array #297 deliveries and before unselected
+functions #298. The
+[tutorial audit](docs/rosetta-sample-expansion.md#tutorial-audit--2026-11-07)
+finds the available README current after correcting its stale #314 status;
+its 31 referenced samples pass admission. No separate first-party tutorial was
+located in the searched history or branches. Revisit a specific tutorial if the
+owner supplies its pointer; no arbitrary replacement tutorial is selected.
+Planning PR #336 remains open; claim implementation after authorization reaches
+main through the ordinary issue/board routine.
+
+The [bounded record](docs/rosetta-sample-expansion.md) restores the missing #300
+scope link and retains ten programs with eleven mappings: FizzBuzz; Even or odd;
+Empty string; Array concatenation; Bubble sort also serving Sort an integer
+array; Greatest common divisor; Factors of an integer; Leap year; Multiplication
+tables; and the required one-dollar Count the coins problem. The expanded
+91-mapping opportunity inventory is retained by link, outside this commitment.
+
+Preserve faithful task algorithms, independent expected outputs and complete
+new-sample admission/proof/build/execution. Review applicability before reusing
+successful native/Lean compiler evidence; obtain independent fidelity and
+integration review and reconcile only the eleven delivered assessments. At most
+nine new Stage-1 mappings are possible because FizzBuzz and Even or odd already
+qualify. No language, capacity or broad supported-identifier change is selected.
+Routine planning publication/merge and implementation through reviewable
+publication are authorized; implementation merge remains a later owner decision.
 
 ### Fixed-size Boolean arrays
 
@@ -191,10 +227,9 @@ Open/Backlog at rendered stages 2/3; #9/#10 remain Done at stage 1. Issue #296
 records the precise feature mapping, so no duplicate stage issue is needed.
 
 Milestone 16 covers this completed delivery and its selected review repairs.
-The remaining structural guards in #314 are tracked separately in milestone 18
-above. Boolean arrays #297, functions #298, sample
-expansion #300 and deferred capacity/assurance-mode work retain their unselected
-scope.
+The structural guards in #314 and Boolean arrays #297 are complete as recorded
+above. Sample expansion #300 is now selected after the tutorial audit; functions
+#298 and deferred capacity/assurance-mode work retain their unselected scope.
 
 ### Boolean scalar objects and expressions
 

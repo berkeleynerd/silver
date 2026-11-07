@@ -1,5 +1,42 @@
 # Session memory
 
+## 2026-11-07 — Tutorial audit and Rosetta sample expansion selected
+
+The owner instructed **“Let's proceed to tackle 300 after determining if our
+tutorial is up-to-date. This may only live in a branch at this time.”** The
+[available-guide audit](rosetta-sample-expansion.md#tutorial-audit--2026-11-07)
+is complete: the README matches current capabilities and all 31 referenced
+samples pass admission. Its stale #314 status is corrected. No separate
+first-party tutorial was located in the searched history or branches; revisit
+that result if the owner supplies a pointer. No new sample compilation or proof
+is claimed by this audit.
+
+The owner subsequently instructed **“Let's update it and merge it as part of
+the current work effort.”** This explicitly authorizes updating and merging
+the available guide with this planning work. It does not authorize merging the
+later sample implementation.
+
+With that qualified tutorial checkpoint complete, existing
+[#300](https://github.com/berkeleynerd/silver/issues/300), in
+[milestone 15](https://github.com/berkeleynerd/silver/milestone/15), is selected
+before unselected functions #298. The
+[restored bounded record](rosetta-sample-expansion.md) retains the original ten
+programs and eleven task mappings, faithful algorithms, independent expected
+outputs, required new-sample admission/proof/build/execution, applicable retained
+compiler/runtime assurance, independent review and narrow Rosetta reconciliation.
+The expanded inventory linked from #300 remains opportunity planning, not added
+delivery scope. No language/capacity change or broad promotion is selected.
+
+Boolean-array PR #335 is merged; String #296 and Boolean-array #297 are complete.
+This current selection supersedes earlier statements leaving #300 unselected;
+it does not alter their historical scope. Routine planning publication and merge,
+followed by implementation through reviewable publication, follow the current
+proceed instruction. Implementation merge remains a later owner decision.
+Keep #300 Backlog until the authorization reaches main, then mark Ready and
+claim it through the ordinary routine. Planning PR #336 is open; sample
+implementation has not started. No new compiler/runtime assurance is claimed by
+this documentation increment. No CLI recall entry was updated.
+
 ## 2026-11-07 — Boolean-array merge authorized
 
 The owner instructed **“If it is ready to merge please proceed.”** This
