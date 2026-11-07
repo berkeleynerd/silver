@@ -185,11 +185,11 @@ class SilverIntegrationTests(unittest.TestCase):
             self.assertIs(conditions["later_guards_justify_initializers"], False)
             self.assertEqual(conditions["initializer_image_length"],
                              "non-input minimum and maximum must agree; Image captures exact "
-                             "initial values of earlier Integer objects and array components")
+                             "initial values of earlier Integer objects and Integer-array components")
         for name in ("named_integer_constant", "named_integer_variable"):
             self.assertEqual(constructs[name]["conditions"]["initializer_visibility"],
                              "earlier initialized Integer constants or mutable objects, including "
-                             "array components; no self, forward or cyclic reference")
+                             "Integer-array components; no self, forward or cyclic reference")
         equality = constructs["string_equality"]["conditions"]
         self.assertEqual(equality["operands"], ["string_expression", "string_expression"])
         self.assertIs(equality["at_least_one_bound_name_or_image_across_operands"], True)
