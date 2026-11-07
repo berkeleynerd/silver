@@ -2764,7 +2764,7 @@ package body Silver_Library_Reports with SPARK_Mode => On is
 
    function Unbounded_Runtime_Report_Policy
      (Report : Raw_Bytes.Sequence; Kind : Report_Kind) return Boolean is
-     (Raw_Report_Policy (Report, Audit_Of (Kind), "", Empty_Functions));
+     (Raw_Report_Policy (Report, Audit_Of (Kind), Atom_Empty, Empty_Functions));
 
    function Unbounded_Application_Report_Policy
      (Report : Raw_Bytes.Sequence; Kind : Application_Kind := Argument_Output;
@@ -4651,7 +4651,7 @@ package body Silver_Library_Reports with SPARK_Mode => On is
    function Runtime_Report_Policy (Report : String; Kind : Report_Kind)
      return Boolean is
      (Report'Length <= Max_Runtime_Report_Length
-      and then Report_Policy (Report, Audit_Of (Kind), "", Empty_Functions));
+      and then Report_Policy (Report, Audit_Of (Kind), Atom_Empty, Empty_Functions));
 
    function Application_Report_Policy
      (Report : String; Kind : Application_Kind := Argument_Output;
@@ -4727,7 +4727,7 @@ package body Silver_Library_Reports with SPARK_Mode => On is
      (Original : Raw_Bytes.Sequence; Projected : String; Kind : Report_Kind)
    is
    begin
-      Mixed_Report (Original, Projected, Audit_Of (Kind), "", Empty_Functions);
+      Mixed_Report (Original, Projected, Audit_Of (Kind), Atom_Empty, Empty_Functions);
    end Runtime_Projection_Correspondence;
 
    function Audit_Normalized_Report (Text : String; Kind : Audit_Kind;
@@ -4814,7 +4814,7 @@ package body Silver_Library_Reports with SPARK_Mode => On is
    function Complete_Runtime_Proof
      (Report : String; Kind : Report_Kind) return Boolean is
    begin
-      return Report'Length <= Max_Runtime_Report_Length and then Audit_Report (Report, Audit_Of (Kind), "", Empty_Functions);
+      return Report'Length <= Max_Runtime_Report_Length and then Audit_Report (Report, Audit_Of (Kind), Atom_Empty, Empty_Functions);
    end Complete_Runtime_Proof;
    function Complete_Application_Proof
      (Report : String; Kind : Application_Kind := Argument_Output;
