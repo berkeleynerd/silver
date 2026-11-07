@@ -87,7 +87,7 @@ structure ParserState where
   functions : FunctionBindings.Metadata := {}
   pure : Bool := false
   assignedInFunctions : Bool := false
-  hiding : HiddenMarks := {}
+  «hiding» : HiddenMarks := {}
   firstParameter : Nat := 0
   deriving DecidableEq, Repr
 
