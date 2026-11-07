@@ -14,8 +14,10 @@ unchecked scanner. -/
 namespace Silver.Predicate.BodyNative
 open Compose
 
+variable {catalog : FunctionBindings.Metadata}
+
 def bodyTokens : List ShellToken :=
-  [.word "if", .word "for", .word "then", .word "end", .word "elsif", .word "else", .symbol ";"]
+  [.word "if", .word "for", .word "then", .word "end", .word "elsif", .word "else", .word "return", .symbol ";"]
 
 structure HelperMeaning (primitive : Primitives) : Prop where
   loop : LoopNative.ImportsMeaning primitive.loop
@@ -26,8 +28,8 @@ structure HelperMeaning (primitive : Primitives) : Prop where
     ValidScan text context scan → ∀ token, token ∈ bodyTokens →
     primitive.bodyToken text context scan token = Predicate.bodyToken text scan token
   basic : ∀ text, ValidText text → ∀ context, Native.ValidContext text context →
-    ∀ scan, ValidScan text context scan →
-    primitive.basic text context scan = basicBody text context.model scan
+    ∀ scan, ValidScan text context scan → ∀ catalog, FunctionBindings.ValidMetadata text catalog →
+    primitive.basic text context scan catalog = basicBody text context.model scan catalog
   predicate : ∀ text, ValidText text → ∀ context, Native.ValidContext text context →
     ∀ position, position ≤ text.length + 1 → ∀ facts, Native.ValidFlow context facts →
     primitive.predicate text context position facts = readCondition text context.model position facts
@@ -46,9 +48,9 @@ noncomputable def totalize (primitive : Primitives) : Primitives := by
     bodyToken := fun text context scan token =>
       if ValidText text ∧ Native.ValidContext text context ∧ ValidScan text context scan ∧ token ∈ bodyTokens then
         primitive.bodyToken text context scan token else Predicate.bodyToken text scan token
-    basic := fun text context scan =>
-      if ValidText text ∧ Native.ValidContext text context ∧ ValidScan text context scan then
-        primitive.basic text context scan else basicBody text context.model scan
+    basic := fun text context scan catalog =>
+      if ValidText text ∧ Native.ValidContext text context ∧ ValidScan text context scan ∧ FunctionBindings.ValidMetadata text catalog then
+        primitive.basic text context scan catalog else basicBody text context.model scan catalog
     predicate := fun text context position facts =>
       if ValidText text ∧ Native.ValidContext text context ∧ position ≤ text.length + 1 ∧ Native.ValidFlow context facts then
         primitive.predicate text context position facts else readCondition text context.model position facts
@@ -66,10 +68,10 @@ theorem totalize_token (primitive : Primitives) (text : Source) (tv : ValidText 
 
 theorem totalize_basic (primitive : Primitives) (text : Source) (tv : ValidText text)
     (context : Native.Context) (cv : Native.ValidContext text context) (scan : BodyScan)
-    (sv : ValidScan text context scan) :
-    (totalize primitive).basic text context scan = primitive.basic text context scan := by
+    (sv : ValidScan text context scan) (fv : FunctionBindings.ValidMetadata text catalog) :
+    (totalize primitive).basic text context scan catalog = primitive.basic text context scan catalog := by
   classical
-  simp only [totalize, tv, cv, sv, and_self, ↓reduceIte]
+  simp only [totalize, tv, cv, sv, fv, and_self, ↓reduceIte]
 
 theorem totalize_predicate (primitive : Primitives) (text : Source) (tv : ValidText text)
     (context : Native.Context) (cv : Native.ValidContext text context) (position : Nat)
@@ -96,11 +98,11 @@ theorem totalize_eq_model (primitive : Primitives) (meaning : HelperMeaning prim
       exact meaning.bodyToken text valid.1 context valid.2.1 scan valid.2.2.1 token valid.2.2.2
     · rfl
   have basics : (totalize primitive).basic = modelPrimitives.basic := by
-    funext text context scan
+    funext text context scan catalog
     dsimp only [totalize, modelPrimitives]
     split
     · rename_i valid
-      exact meaning.basic text valid.1 context valid.2.1 scan valid.2.2
+      exact meaning.basic text valid.1 context valid.2.1 scan valid.2.2.1 catalog valid.2.2.2
     · rfl
   have predicates : (totalize primitive).predicate = modelPrimitives.predicate := by
     funext text context position facts
@@ -147,20 +149,20 @@ extensions. Every recursive callee remains arbitrary. -/
 structure DefinitionEquations (primitive : Primitives) (calls : Calls) : Prop where
   sized : SizedBodies (totalize primitive) calls
   statement : ∀ text, ValidText text → ∀ context, Native.ValidContext text context → ∀ scan,
-    ValidScan text context scan → calls.statement text context scan = statementEval (totalize primitive) calls {text,context,scan}
+    ValidScan text context scan → ∀ catalog, FunctionBindings.ValidMetadata text catalog → calls.statement text context scan catalog = statementEval (totalize primitive) calls {text,context,scan,catalog}
   loop : ∀ text, ValidText text → ∀ context, Native.ValidContext text context → ∀ scan,
-    ValidScan text context scan → calls.loop text context scan = LoopNative.evalWith (LoopNative.totalizeImports primitive.loop) calls.read text context scan
+    ValidScan text context scan → ∀ catalog, FunctionBindings.ValidMetadata text catalog → calls.loop text context scan catalog = LoopNative.evalWith (LoopNative.totalizeImports primitive.loop) calls.read text context scan catalog
   conditional : ∀ text, ValidText text → ∀ context, Native.ValidContext text context → ∀ scan,
-    ValidScan text context scan → calls.conditional text context scan = conditionalFunction.eval (totalize primitive) calls {text,context,scan}
+    ValidScan text context scan → ∀ catalog, FunctionBindings.ValidMetadata text catalog → calls.conditional text context scan catalog = conditionalFunction.eval (totalize primitive) calls {text,context,scan,catalog}
   alternative : ∀ text, ValidText text → ∀ context, Native.ValidContext text context → ∀ scan,
-    ValidScan text context scan → calls.alternative text context scan = alternativeFunction.eval (totalize primitive) calls {text,context,scan}
+    ValidScan text context scan → ∀ catalog, FunctionBindings.ValidMetadata text catalog → calls.alternative text context scan catalog = alternativeFunction.eval (totalize primitive) calls {text,context,scan,catalog}
   tailModel : ∀ text, ValidText text → ∀ context, Native.ValidContext text context → ∀ scan stop,
-    ValidScan text context scan → calls.tailModel text context scan stop = tailModelBody.eval (totalize primitive) calls {text,context,scan,stop}
+    ValidScan text context scan → ∀ catalog, FunctionBindings.ValidMetadata text catalog → calls.tailModel text context scan stop catalog = tailModelBody.eval (totalize primitive) calls {text,context,scan,catalog,stop}
   tail : ∀ text, ValidText text → ∀ context, Native.ValidContext text context → ∀ scan stop,
-    ValidScan text context scan → calls.tail text context scan stop =
-      (ScanExpr.tailModel .current .input).eval (totalize primitive) calls {text,context,scan,stop}
+    ValidScan text context scan → ∀ catalog, FunctionBindings.ValidMetadata text catalog → calls.tail text context scan stop catalog =
+      (ScanExpr.tailModel .current .input).eval (totalize primitive) calls {text,context,scan,catalog,stop}
   read : ∀ text, ValidText text → ∀ context, Native.ValidContext text context → ∀ scan stop,
-    ValidScan text context scan → calls.read text context scan stop = readContractBody.eval (totalize primitive) calls {text,context,scan,stop}
+    ValidScan text context scan → ∀ catalog, FunctionBindings.ValidMetadata text catalog → calls.read text context scan stop catalog = readContractBody.eval (totalize primitive) calls {text,context,scan,catalog,stop}
 
 theorem equations_of_definitions (primitive : Primitives) (calls : Calls)
     (meaning : HelperMeaning primitive) (definitions : DefinitionEquations primitive calls) : Equations calls := by
@@ -179,7 +181,7 @@ theorem model_helper_meaning : HelperMeaning modelPrimitives where
   loop := LoopNative.model_imports_meaning
   token _ _ _ _ _ _ := rfl
   bodyToken _ _ _ _ _ _ _ _ := rfl
-  basic _ _ _ _ _ _ := rfl
+  basic _ _ _ _ _ _ _ _ := rfl
   predicate _ _ _ _ _ _ _ _ := rfl
   invalidModel _ _ := rfl
   invalid _ _ := rfl
@@ -201,7 +203,7 @@ theorem model_definition_equations : DefinitionEquations modelPrimitives modelCa
 theorem bodyToken_valid (token : ShellToken) (valid : token ∈ bodyTokens) :
     Compose.Expressions.ValidToken token := by
   simp only [bodyTokens, List.mem_cons, List.mem_nil_iff, or_false] at valid
-  rcases valid with rfl | rfl | rfl | rfl | rfl | rfl | rfl <;>
+  rcases valid with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl <;>
     simp [Compose.Expressions.ValidToken, Compose.Expressions.allTokens]
 
 theorem bodyToken_model (text : Source) (position : Nat) (token : ShellToken)
@@ -209,7 +211,7 @@ theorem bodyToken_model (text : Source) (position : Nat) (token : ShellToken)
     fixedAfter text position (Compose.Expressions.spelling token) (Compose.Expressions.isWord token) =
       tokenAfter text position token := by
   simp only [bodyTokens, List.mem_cons, List.mem_nil_iff, or_false] at valid
-  rcases valid with rfl | rfl | rfl | rfl | rfl | rfl | rfl <;> rfl
+  rcases valid with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl <;> rfl
 
 def ScanExpr.tokenCalls : ScanExpr → List ShellToken
   | .token tok value => tok :: value.tokenCalls
@@ -221,7 +223,7 @@ def ScanExpr.tokenCalls : ScanExpr → List ShellToken
 def Test.tokenCalls : Test → List ShellToken
   | .present token value => token :: value.tokenCalls
   | .zero value | .nonadvancing value => value.tokenCalls
-  | .stop value => [.word "end", .word "else", .word "elsif"] ++ value.tokenCalls
+  | .stop value => [.word "end", .word "else", .word "elsif", .word "return"] ++ value.tokenCalls
 
 def Command.tokenCalls : Command → List ShellToken
   | .assign value | .ret value => value.tokenCalls

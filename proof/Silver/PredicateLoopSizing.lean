@@ -21,7 +21,7 @@ def Update.Sized (imports : Imports) (read : Reader) (frame : Frame) : Update �
   | .indexValue => 0 < frame.innerScan.count ∧ frame.innerScan.count ≤ ScalarExpression.maxBindings ∧
       (frame.innerScan.facts.values.set (frame.innerScan.count - 1) frame.bounds).length = frame.scan.count + 1
   | .restoreFacts => frame.scan.facts.count = frame.result.count
-  | .readBody => (read frame.text frame.inner frame.innerScan .endOnly).count = frame.scan.count + 1
+  | .readBody => (read frame.text frame.inner frame.innerScan .endOnly frame.catalog).count = frame.scan.count + 1
   | .token selected => (imports.bodyToken frame.text frame.context frame.result selected).count = frame.scan.count
   | _ => True
 
@@ -43,35 +43,35 @@ def Command.Sized (imports : Imports) (read : Reader) (frame : Frame)
       yes.Sized imports read frame next else no.Sized imports read frame next
 
 def SizedLoop (imports : Imports) (read : Reader) (text : Source) (context : Native.Context)
-    (scan : BodyScan) : Prop :=
+    (scan : BodyScan) (catalog : FunctionBindings.Metadata) : Prop :=
   scan.count ≤ ScalarExpression.maxBindings ∧
-    (initialWith imports text context scan).result.count = scan.count ∧
-    commands.Sized imports read (initialWith imports text context scan) (fun _ => True)
+    (initialWith imports text context scan catalog).result.count = scan.count ∧
+    commands.Sized imports read (initialWith imports text context scan catalog) (fun _ => True)
 
-def modelRead : Reader := fun text context scan stop => readBody text context.model scan stop
+def modelRead : Reader := fun text context scan stop catalog => readBody text context.model scan stop catalog
 
-private theorem modelRead_count (text : Source) (context : Native.Context) (scan : BodyScan) (stop : BodyStop)
+private theorem modelRead_count (text : Source) (context : Native.Context) (scan : BodyScan) (stop : BodyStop) (catalog : FunctionBindings.Metadata)
     (same : scan.count = context.scalarNames.length) :
-    (modelRead text context scan stop).count = scan.count := by
-  exact (readBody_count text context.model scan stop same).trans same.symm
+    (modelRead text context scan stop catalog).count = scan.count := by
+  exact (readBody_count (catalog := catalog) text context.model scan stop same).trans same.symm
 
 /-- After record projections reduce, the size interpreter observes the actual
 list extent rather than the count abbreviation. -/
 private theorem modelRead_values_length (text : Source) (context : Native.Context)
-    (scan : BodyScan) (stop : BodyStop)
+    (scan : BodyScan) (stop : BodyStop) (catalog : FunctionBindings.Metadata)
     (same : scan.facts.values.length = context.scalarNames.length) :
-    (modelRead text context scan stop).facts.values.length = scan.facts.values.length :=
-  modelRead_count text context scan stop same
+    (modelRead text context scan stop catalog).facts.values.length = scan.facts.values.length :=
+  modelRead_count text context scan stop catalog same
 
 set_option maxRecDepth 10000
 set_option maxHeartbeats 2000000
 attribute [local irreducible] ScalarExpression.read
 
-theorem model_sizedLoop (text : Source) (context : Native.Context) (scan : BodyScan)
+theorem model_sizedLoop (text : Source) (context : Native.Context) (scan : BodyScan) (catalog : FunctionBindings.Metadata)
     (same : scan.count = context.scalarNames.length)
     (capacity : context.scalarNames.length ≤ ScalarExpression.maxBindings) :
-    SizedLoop modelImports modelRead text context scan := by
-  have initialSame : initialWith modelImports text context scan = initial text context scan := rfl
+    SizedLoop modelImports modelRead text context scan catalog := by
+  have initialSame : initialWith modelImports text context scan catalog = initial text context scan catalog := rfl
   have widened : (ActiveFlow.widen context.scalarNames scan.facts).count = scan.count :=
     ActiveFlow.widen_count context.scalarNames scan.facts same
   unfold SizedLoop

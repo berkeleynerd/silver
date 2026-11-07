@@ -12,7 +12,7 @@ arbitrary. The lexical/scalar callees are interpreted imported operations. -/
 namespace Silver.Predicate.LoopNative
 open Compose
 
-abbrev Reader := Source → Native.Context → BodyScan → BodyStop → BodyScan
+abbrev Reader := Source → Native.Context → BodyScan → BodyStop → FunctionBindings.Metadata → BodyScan
 
 /-- Imported operations retain their native call identities. The independent
 model is one interpretation; source bridges supply the actual interpretation. -/
@@ -54,6 +54,7 @@ def modelImports : Imports where
   emptyFacts := PathFacts.Context.empty
 
 structure Frame where
+  catalog : FunctionBindings.Metadata
   text : Source
   context : Native.Context
   scan : BodyScan
@@ -245,7 +246,7 @@ def Update.eval (read : Reader) (frame : Frame) : Update → Frame
   | .bodyPath => {frame with result := {frame.result with facts := {frame.result.facts with path := frame.innerScan.facts.path}}}
   | .joinFacts => {frame with result := {frame.result with facts := {frame.result.facts with
       path := frame.scan.facts.path.join frame.innerScan.facts.path}}}
-  | .readBody => {frame with innerScan := read frame.text frame.inner frame.innerScan .endOnly}
+  | .readBody => {frame with innerScan := read frame.text frame.inner frame.innerScan .endOnly frame.catalog}
   | .token value => {frame with result := bodyToken frame.text frame.result value}
 
 def Update.evalWith (imports : Imports) (read : Reader) (frame : Frame) : Update → Frame
@@ -280,7 +281,7 @@ def Update.evalWith (imports : Imports) (read : Reader) (frame : Frame) : Update
   | .bodyPath => {frame with result := {frame.result with facts := {frame.result.facts with path := frame.innerScan.facts.path}}}
   | .joinFacts => {frame with result := {frame.result with facts := {frame.result.facts with
       path := imports.join frame.scan.facts.path frame.innerScan.facts.path}}}
-  | .readBody => {frame with innerScan := read frame.text frame.inner frame.innerScan .endOnly}
+  | .readBody => {frame with innerScan := read frame.text frame.inner frame.innerScan .endOnly frame.catalog}
   | .token value => {frame with result := imports.bodyToken frame.text frame.context frame.result value}
 
 @[simp] theorem Update.evalWith_model (read : Reader) (frame : Frame) (update : Update) :
@@ -349,7 +350,7 @@ def Update.render : Update → List String
   | .bodyPath => ["result", ".", "facts", ".", "path", ":=", "inner_scan", ".", "facts", ".", "path", ";"]
   | .joinFacts => ["result", ".", "facts", ".", "path", ":=", "paths", "."] ++
       call "join" [["scan", ".", "facts", ".", "path"], ["inner_scan", ".", "facts", ".", "path"]] ++ [";"]
-  | .readBody => ["inner_scan", ":="] ++ call "read_body" [["text"], ["inner"], ["inner_scan"], ["end_only"]] ++ [";"]
+  | .readBody => ["inner_scan", ":="] ++ call "read_body" [["text"], ["inner"], ["inner_scan"], ["end_only"], ["catalog"]] ++ [";"]
   | .token value => ["result", ":="] ++ call "body_token"
       [["text"], ["context"], ["result"], [Compose.Expressions.tokenName value]] ++ [";"]
 
@@ -435,24 +436,24 @@ def commands : Command := .list [guard .invalidName,
   .update (.token (.word "end")), .update (.token (.word "loop")), .update (.token (.symbol ";")),
   guard .nonadvancing, .result]
 
-def initial (text : Source) (context : Native.Context) (scan : BodyScan) : Frame :=
+def initial (text : Source) (context : Native.Context) (scan : BodyScan) (catalog : FunctionBindings.Metadata) : Frame :=
   let result := bodyToken text scan (.word "for")
   let first := skipAt text result.position
-  {text, context, scan, result, first, after := nameAfter text first, inner := context, innerScan := freshInnerScan scan}
+  {text, context, scan, catalog, result, first, after := nameAfter text first, inner := context, innerScan := freshInnerScan scan}
 
-def eval (read : Reader) (text : Source) (context : Native.Context) (scan : BodyScan) : BodyScan :=
-  commands.eval read (initial text context scan) (fun _ => invalidBody scan)
+def eval (read : Reader) (text : Source) (context : Native.Context) (scan : BodyScan) (catalog : FunctionBindings.Metadata) : BodyScan :=
+  commands.eval read (initial text context scan catalog) (fun _ => invalidBody scan)
 
-def initialWith (imports : Imports) (text : Source) (context : Native.Context) (scan : BodyScan) : Frame :=
+def initialWith (imports : Imports) (text : Source) (context : Native.Context) (scan : BodyScan) (catalog : FunctionBindings.Metadata) : Frame :=
   let result := imports.bodyToken text context scan (.word "for")
   let first := imports.skip text result.position
-  {text, context, scan, result, first, after := imports.nameAfter text first, inner := context, innerScan := freshInnerScan scan}
+  {text, context, scan, catalog, result, first, after := imports.nameAfter text first, inner := context, innerScan := freshInnerScan scan}
 
-def evalWith (imports : Imports) (read : Reader) (text : Source) (context : Native.Context) (scan : BodyScan) : BodyScan :=
-  commands.evalWith imports read (initialWith imports text context scan) (fun _ => imports.invalid scan)
+def evalWith (imports : Imports) (read : Reader) (text : Source) (context : Native.Context) (scan : BodyScan) (catalog : FunctionBindings.Metadata) : BodyScan :=
+  commands.evalWith imports read (initialWith imports text context scan catalog) (fun _ => imports.invalid scan)
 
-@[simp] theorem evalWith_model (read : Reader) (text : Source) (context : Native.Context) (scan : BodyScan) :
-    evalWith modelImports read text context scan = eval read text context scan := by
+@[simp] theorem evalWith_model (read : Reader) (text : Source) (context : Native.Context) (scan : BodyScan) (catalog : FunctionBindings.Metadata) :
+    evalWith modelImports read text context scan catalog = eval read text context scan catalog := by
   simp only [evalWith, Command.evalWith_model]
   rfl
 
@@ -470,11 +471,11 @@ def inner (context : Native.Context) (header : LoopHeader) : Native.Context :=
 @[simp] theorem inner_model (context : Native.Context) (header : LoopHeader) :
     (inner context header).model = loopInner context.model header := rfl
 
-def equation (read : Reader) (text : Source) (context : Native.Context) (scan : BodyScan) : BodyScan :=
+def equation (read : Reader) (text : Source) (context : Native.Context) (scan : BodyScan) (catalog : FunctionBindings.Metadata) : BodyScan :=
   let header := loopHeader text context.model scan
   if !loopNameAllowed text context.model header then invalidBody scan
   else if header.entry.position ≤ scan.position then invalidBody scan else
-    let body := read text (inner context header) header.entry .endOnly
+    let body := read text (inner context header) header.entry .endOnly catalog
     if body.position ≤ scan.position then invalidBody scan else
     let result := bodyTokens text
       {body with facts := loopAfterHeader context.model scan.facts body.facts header}
@@ -487,8 +488,8 @@ set_option maxHeartbeats 3000000
 
 attribute [local irreducible] ScalarExpression.read
 
-theorem invalidName_allowed (text : Source) (context : Native.Context) (scan : BodyScan) :
-    Test.invalidName.eval (initial text context scan) =
+theorem invalidName_allowed (text : Source) (context : Native.Context) (scan : BodyScan) (catalog : FunctionBindings.Metadata) :
+    Test.invalidName.eval (initial text context scan catalog) =
       !loopNameAllowed text context.model (loopHeader text context.model scan) := by
   apply Bool.eq_iff_iff.mpr
   dsimp +instances only [Test.eval, initial, loopNameAllowed, loopHeader, loopFirst, loopNameAfter,
@@ -517,7 +518,7 @@ private def tailEquation (read : Reader) (frame : Frame) : BodyScan :=
   let widened := ActiveFlow.widen frame.context.scalarNames frame.scan.facts
   let entry := {frame.result with facts := {widened.append frame.bounds with
     path := loopContext frame.scan.facts.path frame.bounds}}
-  let body := read frame.text inner entry .endOnly
+  let body := read frame.text inner entry .endOnly frame.catalog
   if body.position ≤ frame.scan.position then invalidBody frame.scan else
   let facts := if frame.bounds.isEmpty then frame.scan.facts else
     ⟨if frame.definite then body.facts.path else frame.scan.facts.path.join body.facts.path,
@@ -558,8 +559,8 @@ private def countedCommands : Command := .list [
   .update .low, .update .delimiter, .update .high, .update .opening,
   .update .bounds, .update .definite]
 
-private def arrayFrame (text : Source) (context : Native.Context) (scan : BodyScan) : Frame :=
-  {initial text context scan with
+private def arrayFrame (text : Source) (context : Native.Context) (scan : BodyScan) (catalog : FunctionBindings.Metadata) : Frame :=
+  {initial text context scan catalog with
     result := {scan with position := (loopHeader text context.model scan).entry.position}
     bounds := (ArrayBindings.binding context.arrayNames (loopArrayTarget text context.model scan)).componentBounds
     definite := true
@@ -567,9 +568,9 @@ private def arrayFrame (text : Source) (context : Native.Context) (scan : BodySc
     arrayAfter := nameAfter text (skipAt text (loopLowerPosition text scan))
     arrayTarget := loopArrayTarget text context.model scan}
 
-private def countedFrame (text : Source) (context : Native.Context) (scan : BodyScan) : Frame :=
+private def countedFrame (text : Source) (context : Native.Context) (scan : BodyScan) (catalog : FunctionBindings.Metadata) : Frame :=
   let header := loopHeader text context.model scan
-  {initial text context scan with
+  {initial text context scan catalog with
     result := {scan with position := header.entry.position}
     low := header.lower
     high := header.upper
@@ -583,8 +584,8 @@ private theorem invalid_array_guard (first after target : Nat) (equal mutable bo
   cases equal <;> cases mutable <;> cases boolean <;>
     simp [Bool.or_eq_true, decide_eq_true_eq, decide_eq_false_iff_not] <;> omega
 
-private def iteratorFrame (text : Source) (context : Native.Context) (scan : BodyScan) : Frame :=
-  {initial text context scan with result := {scan with position := loopLowerPosition text scan}}
+private def iteratorFrame (text : Source) (context : Native.Context) (scan : BodyScan) (catalog : FunctionBindings.Metadata) : Frame :=
+  {initial text context scan catalog with result := {scan with position := loopLowerPosition text scan}}
 
 private def reverseFrame (frame : Frame) : Frame :=
   let position := if fixedAfter frame.text frame.result.position "reverse" true ≠ 0 then
@@ -598,8 +599,8 @@ private theorem reverse_eval (read : Reader) (frame : Frame) (next : Frame → B
     reverseFrame, decide_eq_true_eq]
   split <;> rfl
 
-private theorem iterator_invalid (text : Source) (context : Native.Context) (scan : BodyScan) :
-    Test.invalidArray.eval (enterArray (iteratorFrame text context scan)) =
+private theorem iterator_invalid (text : Source) (context : Native.Context) (scan : BodyScan) (catalog : FunctionBindings.Metadata) :
+    Test.invalidArray.eval (enterArray (iteratorFrame text context scan catalog)) =
       !loopArrayAllowed text context.model scan := by
   exact invalid_array_guard (skipAt text (loopLowerPosition text scan))
     (nameAfter text (skipAt text (loopLowerPosition text scan))) (loopArrayTarget text context.model scan)
@@ -608,18 +609,18 @@ private theorem iterator_invalid (text : Source) (context : Native.Context) (sca
     (ArrayBindings.binding context.arrayNames (loopArrayTarget text context.model scan)).mutable
     (ArrayBindings.binding context.arrayNames (loopArrayTarget text context.model scan)).isBoolean
 
-private theorem array_eval (read : Reader) (text : Source) (context : Native.Context) (scan : BodyScan)
+private theorem array_eval (read : Reader) (text : Source) (context : Native.Context) (scan : BodyScan) (catalog : FunctionBindings.Metadata)
     (next : Frame → BodyScan) (iterable : loopIsArray text scan = true) :
-    arrayCommands.eval read (initial text context scan) next =
-      if loopArrayAllowed text context.model scan then next (arrayFrame text context scan)
+    arrayCommands.eval read (initial text context scan catalog) next =
+      if loopArrayAllowed text context.model scan then next (arrayFrame text context scan catalog)
       else invalidBody scan := by
   change (Command.choose .reverse (.update .reverse) .nothing).eval read
-    (Update.iterable.eval read (initial text context scan))
+    (Update.iterable.eval read (initial text context scan catalog))
     (fun frame => (Command.arrayScope (.list [guard .invalidArray, .update .arrayOpening, .update .arrayBounds])).eval read frame
       (fun frame => next (Update.arrayDefinite.eval read frame))) = _
   rw [reverse_eval]
-  have cursor : reverseFrame (Update.iterable.eval read (initial text context scan)) =
-      iteratorFrame text context scan := by
+  have cursor : reverseFrame (Update.iterable.eval read (initial text context scan catalog)) =
+      iteratorFrame text context scan catalog := by
     simp only [reverseFrame, iteratorFrame, loopLowerPosition, loopReverse, loopInAfter,
       iterable, ↓reduceIte, decide_eq_true_eq]
     rfl
@@ -634,9 +635,9 @@ private theorem array_eval (read : Reader) (text : Source) (context : Native.Con
       simp only [Update.eval, enterArray, iteratorFrame, arrayFrame, loopHeader, iterable, permitted, ↓reduceIte]
       rfl
 
-private theorem counted_eval (read : Reader) (text : Source) (context : Native.Context) (scan : BodyScan)
+private theorem counted_eval (read : Reader) (text : Source) (context : Native.Context) (scan : BodyScan) (catalog : FunctionBindings.Metadata)
     (next : Frame → BodyScan) (counted : loopIsArray text scan = false) :
-    countedCommands.eval read (initial text context scan) next = next (countedFrame text context scan) := by
+    countedCommands.eval read (initial text context scan catalog) next = next (countedFrame text context scan catalog) := by
   simp only [countedCommands, Command.list, List.foldr_cons, List.foldr_nil, Command.eval]
   dsimp only [Update.eval, Test.eval, initial]
   unfold countedFrame
@@ -647,17 +648,17 @@ private theorem counted_eval (read : Reader) (text : Source) (context : Native.C
   all_goals try simp_all +instances
   all_goals rfl
 
-private def headerFrame (text : Source) (context : Native.Context) (scan : BodyScan) : Frame :=
+private def headerFrame (text : Source) (context : Native.Context) (scan : BodyScan) (catalog : FunctionBindings.Metadata) : Frame :=
   let header := loopHeader text context.model scan
-  {initial text context scan with
+  {initial text context scan catalog with
     result := {scan with position := header.entry.position}
     bounds := header.bounds
     definite := if header.isArray then true else Integer.loopDefinite header.lower.bounds header.upper.bounds}
 
-private def headerContinuation (read : Reader) (text : Source) (context : Native.Context) (scan : BodyScan) : BodyScan :=
+private def headerContinuation (read : Reader) (text : Source) (context : Native.Context) (scan : BodyScan) (catalog : FunctionBindings.Metadata) : BodyScan :=
   let header := loopHeader text context.model scan
   if header.entry.position ≤ scan.position then invalidBody scan else
-    let body := read text (inner context header) header.entry .endOnly
+    let body := read text (inner context header) header.entry .endOnly catalog
     if body.position ≤ scan.position then invalidBody scan else
     let result := bodyTokens text
       {body with facts := loopAfterHeader context.model scan.facts body.facts header}
@@ -688,29 +689,29 @@ private theorem header_components_nonempty (text : Source) (context : Native.Con
   simp only [Integer.Interval.isEmpty, decide_eq_false_iff_not, Int.not_lt]
   simpa only [ArrayBindings.Binding.descriptor] using valid.2
 
-private theorem header_tail (read : Reader) (text : Source) (context : Native.Context) (scan : BodyScan)
+private theorem header_tail (read : Reader) (text : Source) (context : Native.Context) (scan : BodyScan) (catalog : FunctionBindings.Metadata)
     (metadata : ArrayBindings.ValidMetadata text context.arrayNames) :
-    tailEquation read (headerFrame text context scan) = headerContinuation read text context scan := by
+    tailEquation read (headerFrame text context scan catalog) = headerContinuation read text context scan catalog := by
   unfold tailEquation headerFrame
   dsimp only [initial]
   rw [header_exit _ _ _ _ (fun _ => header_components_nonempty text context scan metadata)]
   rfl
 
-private theorem array_tail (read : Reader) (text : Source) (context : Native.Context) (scan : BodyScan)
+private theorem array_tail (read : Reader) (text : Source) (context : Native.Context) (scan : BodyScan) (catalog : FunctionBindings.Metadata)
     (iterable : loopIsArray text scan = true)
     (metadata : ArrayBindings.ValidMetadata text context.arrayNames) :
-    tailEquation read (arrayFrame text context scan) = headerContinuation read text context scan := by
-  rw [← header_tail read text context scan metadata]
+    tailEquation read (arrayFrame text context scan catalog) = headerContinuation read text context scan catalog := by
+  rw [← header_tail read text context scan catalog metadata]
   have selected : (loopHeader text context.model scan).isArray = true := iterable
   have components : (loopHeader text context.model scan).componentBounds =
       (ArrayBindings.binding context.arrayNames (loopArrayTarget text context.model scan)).componentBounds := rfl
   simp only [tailEquation, arrayFrame, headerFrame, LoopHeader.bounds, selected, ↓reduceIte, components]
 
-private theorem counted_tail (read : Reader) (text : Source) (context : Native.Context) (scan : BodyScan)
+private theorem counted_tail (read : Reader) (text : Source) (context : Native.Context) (scan : BodyScan) (catalog : FunctionBindings.Metadata)
     (counted : loopIsArray text scan = false)
     (metadata : ArrayBindings.ValidMetadata text context.arrayNames) :
-    tailEquation read (countedFrame text context scan) = headerContinuation read text context scan := by
-  rw [← header_tail read text context scan metadata]
+    tailEquation read (countedFrame text context scan catalog) = headerContinuation read text context scan catalog := by
+  rw [← header_tail read text context scan catalog metadata]
   have selected : (loopHeader text context.model scan).isArray = false := counted
   simp only [tailEquation, countedFrame, headerFrame, selected, Bool.false_eq_true, ↓reduceIte]
   rfl
@@ -721,35 +722,35 @@ private theorem commands_decompose :
 
 attribute [local irreducible] tailCommands arrayCommands countedCommands
 
-theorem eval_equation (read : Reader) (text : Source) (context : Native.Context) (scan : BodyScan)
+theorem eval_equation (read : Reader) (text : Source) (context : Native.Context) (scan : BodyScan) (catalog : FunctionBindings.Metadata)
     (count : scan.facts.count = context.scalarNames.length)
     (metadata : ArrayBindings.ValidMetadata text context.arrayNames) :
-    eval read text context scan = equation read text context scan := by
+    eval read text context scan catalog = equation read text context scan catalog := by
   rw [eval, commands_decompose]
-  change (guard .invalidName).eval read (initial text context scan)
+  change (guard .invalidName).eval read (initial text context scan catalog)
     (fun frame => (Command.choose .array arrayCommands countedCommands).eval read frame
       (fun frame => tailCommands.eval read frame (fun _ => invalidBody scan))) =
     (if !loopNameAllowed text context.model (loopHeader text context.model scan) then invalidBody scan
-     else headerContinuation read text context scan)
+     else headerContinuation read text context scan catalog)
   simp only [guard, Command.eval, invalidName_allowed]
   by_cases allowed : loopNameAllowed text context.model (loopHeader text context.model scan) = true
   · simp only [allowed, Bool.not_true, Bool.false_eq_true, ↓reduceIte]
-    have arrayTest : Test.array.eval (initial text context scan) = loopIsArray text scan := rfl
+    have arrayTest : Test.array.eval (initial text context scan catalog) = loopIsArray text scan := rfl
     rw [arrayTest]
     by_cases iterable : loopIsArray text scan = true
     · simp only [iterable, ↓reduceIte]
-      rw [array_eval read text context scan _ iterable]
+      rw [array_eval read text context scan catalog _ iterable]
       by_cases valid : loopArrayAllowed text context.model scan = true
       · simp only [valid, ↓reduceIte]
-        rw [tail_eval read _ _ rfl count, array_tail read text context scan iterable metadata]
+        rw [tail_eval read _ _ rfl count, array_tail read text context scan catalog iterable metadata]
       · simp only [valid, Bool.false_eq_true, ↓reduceIte]
         have zero : (loopHeader text context.model scan).entry.position = 0 := by
           simp only [loopHeader, iterable, ↓reduceIte, valid, Bool.false_eq_true]
         simp only [headerContinuation, zero, Nat.zero_le, ↓reduceIte]
     · have counted := Bool.eq_false_iff.mpr iterable
       simp only [counted, Bool.false_eq_true, ↓reduceIte]
-      rw [counted_eval read text context scan _ counted]
-      rw [tail_eval read _ _ rfl count, counted_tail read text context scan counted metadata]
+      rw [counted_eval read text context scan catalog _ counted]
+      rw [tail_eval read _ _ rfl count, counted_tail read text context scan catalog counted metadata]
   · have disallowed := Bool.eq_false_iff.mpr allowed
     simp only [disallowed, Bool.not_false, ↓reduceIte]
     rfl
