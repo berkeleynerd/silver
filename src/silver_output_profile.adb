@@ -5730,6 +5730,7 @@ is
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
          and then Valid_State (Text, Outer) and then Valid_State (Text, Frame)
+         and then Outer.Functions.Parameter_Count <= Frame.Functions.Parameter_Count
          and then Frame.First_Parameter > 0
          and then Frame.First_Parameter <= Frame.Functions.Parameter_Count
          and then Frame.Functions.Count < Functions.Max_Functions
