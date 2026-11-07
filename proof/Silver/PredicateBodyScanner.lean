@@ -79,7 +79,8 @@ def callAssignmentResult (context : ParseContext) (scan : BodyScan)
     if value.kind ≠ .integer ∨ !binding.mutable ∨ value.bounds.isEmpty ∨
         !value.bounds.included binding.declaredBounds then invalidBody scan
     else
-      {scan with position := value.after, assigned := true,
+      {scan with
+        position := value.after, assigned := true,
         facts := scan.facts.replace scalar value.bounds}
   else if flag ≠ 0 ∧ (BooleanBindings.binding context.booleanNames flag).mutable ∧
       value.kind = .boolean then {scan with position := value.after, assigned := true}
