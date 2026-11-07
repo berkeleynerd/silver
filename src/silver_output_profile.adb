@@ -3766,6 +3766,7 @@ is
          Result.After := Boolean_Atom_After (Text, Context, Position);
          Result.When_True := Facts;
          Result.When_False := Facts;
+         pragma Assert (Static => Result = Primary_Model (Text, Context, Position, Facts, Initials => Initials));
       elsif Context.Dynamic_First = 0 then
          Invalidate_Condition (Facts, Result);
          --  No dynamic argument context.
@@ -4072,6 +4073,7 @@ is
          pragma Assert (Static => Result = Expected);
       elsif Context.Pure then
          Read_Boolean_Relation_Into (Text, Context, Position, Facts, Result, Initials);
+         pragma Assert (Static => Result = Expected);
       else
          declare Left : constant Expression_Result := Read_String_In_Flow (Text, Context, Position, Facts, Initials => Initials);
          begin
