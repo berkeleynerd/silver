@@ -17,6 +17,11 @@ rebuild or independent kernel replay is claimed.
 | `20261107T190752-25ffaaf049d5` | Argument/call source readings and checkedness | 10,953 |
 | `20261107T193620-fbc422c6bb56` | Body-flow counts and loop shape/progress; 91 modules | 9,690 |
 | `20261107T193723-1fb396ba26de` | Declaration source requirements, visibility and formal-frame native equations; 109 modules | 16,509 |
+| `20261107T194714-5bf92f00c822` | Call-aware body bounds, control and flow preservation | 10,363 |
+| `20261107T195608-5b7d48919380` | Local declaration semantics and closed initializer check transport | 20,104 |
+| `20261107T200333-cc7bd8262cba` | Catalogue-aware recursive native body equations, helper domains and loop sizing | 21,629 |
+| `20261107T200353-32e76e9cf75c` | Nested body source readings, soundness, uniqueness and meaning | 16,176 |
+| `20261107T200431-78784ce9217b` | Mixed Integer/Boolean formal installation and semantic analyses | 18,663 |
 
 These scopes overlap; the declaration counts must not be added. Their captured
 inputs identify their individual worktree snapshots. Integration and a complete
