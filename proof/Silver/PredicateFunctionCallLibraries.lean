@@ -2,6 +2,7 @@ module
 
 public import Silver.PredicateFunctionCallHelpers
 public import Silver.PredicateNativeHelpers
+public import Silver.PredicateNativeLibraries
 public import Silver.PredicateBooleanBodyLibraries
 
 @[expose] public section
@@ -131,5 +132,58 @@ theorem linked_assignment {assignment composed predicate}
   obtain ⟨imports, calls, imported, targets, definitions⟩ := links.source
   exact assignment_meaning (imports_meaning source helpers defs contracts imported) definitions
     (targets_meaning source helpers defs contracts targets) text context scan catalog valid
+
+
+theorem model_imports_links :
+    ImportsLinks {modelImports with token := Expressions.modelCalls.function .takeToken}
+      Expressions.modelCalls Native.modelCalls where
+  skip := rfl
+  nameAfter := rfl
+  namesLookup := rfl
+  scalarLookup := rfl
+  booleanLookup := rfl
+  arrayLookup := rfl
+  functions := ⟨FunctionBindings.Native.modelCalls, FunctionBindings.SourceBridge.model_interpreted, rfl⟩
+  token := rfl
+  condition := rfl
+  scalar := rfl
+  isEmpty := rfl
+  included left right _ _ := (included_model left right).symm
+  invalid := ⟨BodyWrappers.modelCalls, BodyWrappers.model_definitions, rfl⟩
+
+theorem model_target_links
+    (source : Expressions.RawHelperEquations Expressions.modelCalls (domain := domain)) :
+    TargetLinks modelCalls Expressions.modelCalls Native.modelCalls where
+  scalar := by
+    have flow := Native.Libraries.model_links.readers.defaults
+    let scalar := fun text context position facts => Native.modelCalls.scalarInFlow text context position facts []
+    let string := fun text context position facts => Native.modelCalls.stringInFlow text context position facts []
+    let imported := ScalarBodyNative.inheritedImports Expressions.modelCalls scalar BodyWrappers.modelCalls
+    have normalized : ScalarBodyNative.totalize imported = ScalarBodyNative.modelImports :=
+      ScalarBodyNative.totalize_eq_model (ScalarBodyNative.inherited_meaning source flow BodyWrappers.model_definitions)
+    refine ⟨scalar, string, BodyWrappers.modelCalls, ScalarBodyNative.modelCalls,
+      flow, BodyWrappers.model_definitions, ?_, rfl⟩
+    exact {
+      target := fun text context position _ => by
+        rw [normalized]
+        exact (ScalarBodyNative.targetEval_model ..).symm
+      stringTarget := fun _ _ _ _ => by rw [normalized]; rfl
+      assignmentSized := fun text context scan _ => by
+        rw [normalized]
+        exact ScalarBodyNative.assignmentEval_model_count ..
+      assignmentModel := fun text context scan _ => by
+        rw [normalized]
+        exact (ScalarBodyNative.assignmentEval_model ..).symm
+      assignment := fun _ _ _ _ => rfl }
+  boolean := ⟨BodyWrappers.modelCalls, BooleanBodyNative.modelCalls, BodyWrappers.model_definitions,
+    BooleanBodyNative.inherited_model_definitions source, rfl⟩
+
+theorem model_links
+    (source : Expressions.RawHelperEquations Expressions.modelCalls (domain := domain)) :
+    Links (fun text context scan catalog => callAssignmentBody text context.model scan catalog)
+      Expressions.modelCalls Native.modelCalls := by
+  refine ⟨⟨_, modelCalls, model_imports_links, model_target_links source, ?_⟩⟩
+  exact model_definitions_of_meaning (imports_meaning source Native.model_helper_meaning
+    Native.model_definition_equations Native.model_contracts model_imports_links)
 
 end Silver.Predicate.FunctionCallNative

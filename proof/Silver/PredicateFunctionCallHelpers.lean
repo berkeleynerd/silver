@@ -386,26 +386,31 @@ theorem model_targets_meaning : TargetsMeaning modelCalls := by
 theorem model_calls_totalize : totalizeCalls modelCalls = modelCalls := by
   apply Calls.ext <;> funext <;> simp only [totalizeCalls] <;> split <;> rfl
 
-theorem model_definitions : DefinitionEquations modelImports modelCalls
+theorem model_definitions_of_meaning (meaning : ImportsMeaning imports) :
+    DefinitionEquations imports modelCalls
     (fun text context scan catalog => callAssignmentBody text context.model scan catalog) where
   actual text context position facts parameter _ := by
-    rw [totalizeImports_eq_model model_imports_meaning, model_calls_totalize]
+    rw [totalizeImports_eq_model meaning, model_calls_totalize]
     exact (actual_model ..).symm
   actuals text context position facts catalog first last valid := by
-    rw [totalizeImports_eq_model model_imports_meaning, model_calls_totalize]
+    rw [totalizeImports_eq_model meaning, model_calls_totalize]
     exact (actuals_model text context position facts catalog first last valid.2.2.2.1).symm
   callee text context position catalog _ := by
-    rw [totalizeImports_eq_model model_imports_meaning, model_calls_totalize]
+    rw [totalizeImports_eq_model meaning, model_calls_totalize]
     exact (callee_model ..).symm
   callModel text context position facts catalog _ := by
-    rw [totalizeImports_eq_model model_imports_meaning, model_calls_totalize]
+    rw [totalizeImports_eq_model meaning, model_calls_totalize]
     exact (call_model ..).symm
   readCall _ _ _ _ _ _ := rfl
   assignmentResult context scan scalar flag value _ := by
-    rw [totalizeImports_eq_model model_imports_meaning, model_calls_totalize]
+    rw [totalizeImports_eq_model meaning, model_calls_totalize]
     exact (assignmentResult_model ..).symm
   assignment text context scan catalog _ := by
-    rw [totalizeImports_eq_model model_imports_meaning, model_calls_totalize]
+    rw [totalizeImports_eq_model meaning, model_calls_totalize]
     exact (assignment_model ..).symm
+
+theorem model_definitions : DefinitionEquations modelImports modelCalls
+    (fun text context scan catalog => callAssignmentBody text context.model scan catalog) :=
+  model_definitions_of_meaning model_imports_meaning
 
 end Silver.Predicate.FunctionCallNative
