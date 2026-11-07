@@ -10,35 +10,12 @@ public import Silver.PredicateBodyScanner
 namespace Silver.Predicate
 open Compose Bindings PathFacts
 
-structure ScanResult where
-  state : ParserState
-  assigned : Bool := false
-  output : Bool := false
-  deriving DecidableEq, Repr
-
-def initialScan : ScanResult := ⟨initialState, false, false⟩
-def invalidScan : ScanResult := ⟨invalidState, false, false⟩
-
-def initialFacts (arguments : Bool) : Context :=
-  if arguments then Context.initial maxSourceLength else ⟨some ⟨0, 0⟩, false, false⟩
-
-def contextOf (scan : ScanResult) : ParseContext :=
-  ⟨scan.state.names, decide (scan.state.dynamicFirst ≠ 0),
-    ScalarExpression.bodyEnvironment scan.state.scalarNames, scan.state.scalarNames.length, scan.state.arrayNames.names, scan.state.subtypeNames.hiddenCalls,
-    scan.state.booleanNames, scan.state.subtypeNames.trueHidden, scan.state.subtypeNames.falseHidden,
-    false, 0, 0⟩
-
-def bodyOf (scan : ScanResult) : BodyScan :=
-  ⟨scan.state.position, scan.state.target, scan.state.capacity,
-    ActiveFlow.initial (contextOf scan).scalarNames
-      (initialFacts (decide (scan.state.dynamicFirst ≠ 0))), scan.assigned, scan.output⟩
-
 def expandBody (before : ParserState) (scan : BodyScan) : ScanResult :=
   ⟨{before with position := scan.position, target := scan.target, capacity := scan.capacity, scalarNames := ScalarExpression.bodyEnvironment before.scalarNames},
     scan.assigned, scan.output⟩
 
 def readStatements (text : Source) (scan : ScanResult) : ScanResult :=
-  let result := readBody text (contextOf scan) (bodyOf scan) .endOnly
+  let result := readBody text (contextOf scan) (bodyOf scan) .endOnly scan.state.functions
   if result.position = 0 ∨ !completed result.facts.path then invalidScan else expandBody scan.state result
 
 inductive Form | direct | argument
@@ -62,7 +39,9 @@ def Form.tokens (form : Form) : List Token :=
 
 def scanStep (text : Source) (form : Form) (token : Token) (scan : ScanResult) : ScanResult :=
   match token with
-  | .helper token => {scan with state := step text form.helper token scan.state}
+  | .helper token =>
+      let next := step text form.helper token scan.state
+      {scan with state := next, assigned := scan.assigned || next.assignedInFunctions}
   | .statements => readStatements text scan
 
 def scanSuffix (text : Source) (form : Form) : List Token → ScanResult → ScanResult

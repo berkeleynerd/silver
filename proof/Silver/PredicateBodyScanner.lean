@@ -2,6 +2,7 @@ module
 
 public import Silver.ComposeDeclarationAdmission
 public import Silver.PredicateConditionAdmission
+public import Silver.PredicateCallAdmission
 public import Silver.PredicateFlowWidening
 public import Silver.PredicateCountedBoundModel
 
@@ -69,6 +70,25 @@ def booleanAssignmentBody (text : Source) (context : ParseContext) (scan : BodyS
   if target = 0 ∨ !(BooleanBindings.binding context.booleanNames target).mutable ∨ value.after ≤ scan.position
   then invalidBody scan else {scan with position := value.after, assigned := true}
 
+def callAssignmentResult (context : ParseContext) (scan : BodyScan)
+    (scalar flag : Nat) (value : CallResult) : BodyScan :=
+  if value.after ≤ scan.position then invalidBody scan
+  else if scalar ≠ 0 then
+    let binding := ScalarExpression.binding context.scalarNames scalar
+    if value.kind ≠ .integer ∨ !binding.mutable ∨ value.bounds.isEmpty ∨
+        !value.bounds.included binding.declaredBounds then invalidBody scan
+    else {scan with position := value.after, assigned := true,
+      facts := scan.facts.replace scalar value.bounds}
+  else if flag ≠ 0 ∧ (BooleanBindings.binding context.booleanNames flag).mutable ∧
+      value.kind = .boolean then {scan with position := value.after, assigned := true}
+  else invalidBody scan
+
+def callAssignmentBody (text : Source) (context : ParseContext) (scan : BodyScan)
+    (catalog : FunctionBindings.Metadata) : BodyScan :=
+  callAssignmentResult context scan (scalarTarget text context scan.position)
+    (booleanTarget text context scan.position)
+    (readCall text context (scalarAssignmentStart text scan) scan.facts catalog)
+
 def arrayTarget (text : Source) (context : ParseContext) (position : Nat) : Nat :=
   let first := skipAt text position
   let after := nameAfter text first
@@ -107,12 +127,12 @@ inductive BasicKind | null | output | put | reject | scalarAssignment | arrayAss
 
 def basicKind (text : Source) (context : ParseContext) (scan : BodyScan) : BasicKind :=
   if fixedAfter text scan.position "null" true ≠ 0 then .null
-  else if callAfter text context.names scan.position .output context.scalarNames context.arrayNames (context.subtypeHiding.get .output) context.booleanNames ≠ 0 then .output
-  else if callAfter text context.names scan.position .partialOutput context.scalarNames context.arrayNames (context.subtypeHiding.get .partialOutput) context.booleanNames ≠ 0 then .put
+  else if !context.pure && decide (callAfter text context.names scan.position .output context.scalarNames context.arrayNames (context.subtypeHiding.get .output) context.booleanNames ≠ 0) then .output
+  else if !context.pure && decide (callAfter text context.names scan.position .partialOutput context.scalarNames context.arrayNames (context.subtypeHiding.get .partialOutput) context.booleanNames ≠ 0) then .put
   else if context.hasArguments && decide (callAfter text context.names scan.position .reject context.scalarNames context.arrayNames (context.subtypeHiding.get .reject) context.booleanNames ≠ 0)
     then .reject
   else if scalarTarget text context scan.position ≠ 0 then .scalarAssignment
-  else if arrayTarget text context scan.position ≠ 0 then
+  else if !context.pure && decide (arrayTarget text context scan.position ≠ 0) then
     if (ArrayBindings.binding context.arrayNames (arrayTarget text context scan.position)).isBoolean
     then .booleanArrayAssignment else .arrayAssignment
   else if booleanTarget text context scan.position ≠ 0 then .booleanAssignment
@@ -163,7 +183,8 @@ def stringAssignmentBody (text : Source) (context : ParseContext) (scan : BodySc
       then invalidBody scan
       else {start with position := value.after, assigned := true}
 
-def basicRaw (text : Source) (context : ParseContext) (scan : BodyScan) : BodyScan :=
+def basicRaw (text : Source) (context : ParseContext) (scan : BodyScan)
+    (catalog : FunctionBindings.Metadata := {}) : BodyScan :=
   match basicKind text context scan with
   | .null => bodyToken text scan (.word "null")
   | .output =>
@@ -183,21 +204,27 @@ def basicRaw (text : Source) (context : ParseContext) (scan : BodyScan) : BodySc
   | .reject =>
       let call := {scan with position := callAfter text context.names scan.position .reject context.scalarNames context.arrayNames (context.subtypeHiding.get .reject) context.booleanNames}
       {call with facts := {call.facts with path := call.facts.path.reject}}
-  | .scalarAssignment => scalarAssignmentBody text context scan
+  | .scalarAssignment =>
+      let called := callAssignmentBody text context scan catalog
+      if called.position ≠ 0 then called else scalarAssignmentBody text context scan
   | .arrayAssignment => arrayAssignmentBody text context scan
   | .booleanArrayAssignment => booleanArrayAssignmentBody text context scan
-  | .booleanAssignment => booleanAssignmentBody text context scan
-  | .assignment => stringAssignmentBody text context scan
+  | .booleanAssignment =>
+      let called := callAssignmentBody text context scan catalog
+      if called.position ≠ 0 then called else booleanAssignmentBody text context scan
+  | .assignment => if context.pure then invalidBody scan else stringAssignmentBody text context scan
 
-def basicBody (text : Source) (context : ParseContext) (scan : BodyScan) : BodyScan :=
+def basicBody (text : Source) (context : ParseContext) (scan : BodyScan)
+    (catalog : FunctionBindings.Metadata := {}) : BodyScan :=
   if scan.position = 0 then invalidBody scan else
-  let result := bodyToken text (basicRaw text context scan) (.symbol ";")
+  let result := bodyToken text (basicRaw text context scan catalog) (.symbol ";")
   if result.position ≤ scan.position then invalidBody scan else result
 
-inductive BodyStop | endOnly | elseOnly | arm
+inductive BodyStop | endOnly | elseOnly | arm | returnOnly
   deriving DecidableEq, Repr
 
 def atBodyStop (text : Source) (position : Nat) : BodyStop → Bool
+  | .returnOnly => decide (fixedAfter text position "return" true ≠ 0)
   | .endOnly => decide (fixedAfter text position "end" true ≠ 0)
   | .elseOnly => decide (fixedAfter text position "else" true ≠ 0)
   | .arm => decide (fixedAfter text position "elsif" true ≠ 0 ∨
@@ -308,23 +335,25 @@ def loopAfterHeader (context : ParseContext) (before after : ActiveFlow) (header
   else loopAfterFlow context before after header.lower.bounds header.upper.bounds
 
 mutual
-  def statementBody (text : Source) (context : ParseContext) (scan : BodyScan) : BodyScan :=
+  def statementBody (text : Source) (context : ParseContext) (scan : BodyScan)
+      (catalog : FunctionBindings.Metadata := {}) : BodyScan :=
     if scan.position = 0 then invalidBody scan
-    else if fixedAfter text scan.position "if" true ≠ 0 then conditionalBody text context scan
-    else if fixedAfter text scan.position "for" true ≠ 0 then loopBody text context scan
-    else basicBody text context scan
+    else if fixedAfter text scan.position "if" true ≠ 0 then conditionalBody text context scan catalog
+    else if fixedAfter text scan.position "for" true ≠ 0 then loopBody text context scan catalog
+    else basicBody text context scan catalog
   termination_by bodyRemaining text scan * 4 + 2
   decreasing_by
     all_goals simp_wf
     all_goals (try dsimp (config := {zetaDelta := true}) only [bodyRemaining] at *)
     all_goals omega
 
-  def loopBody (text : Source) (context : ParseContext) (scan : BodyScan) : BodyScan :=
+  def loopBody (text : Source) (context : ParseContext) (scan : BodyScan)
+      (catalog : FunctionBindings.Metadata := {}) : BodyScan :=
     let header := loopHeader text context scan
     if !loopNameAllowed text context header then invalidBody scan
     else if header.entry.position ≤ scan.position then invalidBody scan
     else if _advanced : bodyRemaining text header.entry < bodyRemaining text scan then
-      let body := readBody text (loopInner context header) header.entry .endOnly
+      let body := readBody text (loopInner context header) header.entry .endOnly catalog
       if body.position ≤ scan.position then invalidBody scan else
       let result := bodyTokens text
         {body with facts := loopAfterHeader context scan.facts body.facts header}
@@ -337,14 +366,15 @@ mutual
     all_goals (try dsimp (config := {zetaDelta := true}) only [bodyRemaining] at *)
     all_goals omega
 
-  def conditionalBody (text : Source) (context : ParseContext) (scan : BodyScan) : BodyScan :=
+  def conditionalBody (text : Source) (context : ParseContext) (scan : BodyScan)
+      (catalog : FunctionBindings.Metadata := {}) : BodyScan :=
     let start := branchStart text context scan "if"
     if start.1.position ≤ scan.position then invalidBody scan else
     if _advanced : bodyRemaining text start.1 < bodyRemaining text scan then
-      let yes := readBody text context start.1 .arm
+      let yes := readBody text context start.1 .arm catalog
       if yes.position ≤ scan.position then invalidBody scan else
       if _yesAdvanced : bodyRemaining text yes < bodyRemaining text scan then
-        let no := alternativeBody text context {yes with facts := start.2}
+        let no := alternativeBody text context {yes with facts := start.2} catalog
         let joined := {no with facts := yes.facts.join no.facts}
         let result := bodyTokens text joined [.word "end", .word "if", .symbol ";"]
         if result.position ≤ scan.position then invalidBody scan else result
@@ -356,16 +386,17 @@ mutual
     all_goals (try dsimp (config := {zetaDelta := true}) only [bodyRemaining] at *)
     all_goals omega
 
-  def alternativeBody (text : Source) (context : ParseContext) (scan : BodyScan) : BodyScan :=
+  def alternativeBody (text : Source) (context : ParseContext) (scan : BodyScan)
+      (catalog : FunctionBindings.Metadata := {}) : BodyScan :=
     if scan.position = 0 then invalidBody scan
     else if fixedAfter text scan.position "elsif" true ≠ 0 then
       let start := branchStart text context scan "elsif"
       if start.1.position ≤ scan.position then invalidBody scan else
       if _advanced : bodyRemaining text start.1 < bodyRemaining text scan then
-        let yes := readBody text context start.1 .arm
+        let yes := readBody text context start.1 .arm catalog
         if yes.position ≤ scan.position then invalidBody scan else
         if _yesAdvanced : bodyRemaining text yes < bodyRemaining text scan then
-          let no := alternativeBody text context {yes with facts := start.2}
+          let no := alternativeBody text context {yes with facts := start.2} catalog
           {no with facts := yes.facts.join no.facts}
         else invalidBody scan
       else invalidBody scan
@@ -373,7 +404,7 @@ mutual
       let start := bodyToken text scan (.word "else")
       if start.position ≤ scan.position then invalidBody scan else
       if _advanced : bodyRemaining text start < bodyRemaining text scan then
-        readBody text context start .endOnly
+        readBody text context start .endOnly catalog
       else invalidBody scan
     else if fixedAfter text scan.position "end" true ≠ 0 then scan
     else invalidBody scan
@@ -383,13 +414,14 @@ mutual
     all_goals (try dsimp (config := {zetaDelta := true}) only [bodyRemaining] at *)
     all_goals omega
 
-  def bodyTail (text : Source) (context : ParseContext) (scan : BodyScan) (stop : BodyStop) : BodyScan :=
+  def bodyTail (text : Source) (context : ParseContext) (scan : BodyScan) (stop : BodyStop)
+      (catalog : FunctionBindings.Metadata := {}) : BodyScan :=
     if scan.position = 0 then invalidBody scan
     else if atBodyStop text scan.position stop then scan
     else
-      let next := statementBody text context scan
+      let next := statementBody text context scan catalog
       if next.position ≤ scan.position then invalidBody next else
-      if _advanced : bodyRemaining text next < bodyRemaining text scan then bodyTail text context next stop
+      if _advanced : bodyRemaining text next < bodyRemaining text scan then bodyTail text context next stop catalog
       else invalidBody next
   termination_by bodyRemaining text scan * 4 + 3
   decreasing_by
@@ -397,10 +429,11 @@ mutual
     all_goals (try dsimp (config := {zetaDelta := true}) only [bodyRemaining] at *)
     all_goals omega
 
-  def readBody (text : Source) (context : ParseContext) (scan : BodyScan) (stop : BodyStop) : BodyScan :=
-    let next := statementBody text context scan
+  def readBody (text : Source) (context : ParseContext) (scan : BodyScan) (stop : BodyStop)
+      (catalog : FunctionBindings.Metadata := {}) : BodyScan :=
+    let next := statementBody text context scan catalog
     if next.position = 0 then invalidBody next else
-    if _advanced : bodyRemaining text next < bodyRemaining text scan then bodyTail text context next stop
+    if _advanced : bodyRemaining text next < bodyRemaining text scan then bodyTail text context next stop catalog
     else invalidBody next
   termination_by bodyRemaining text scan * 4 + 3
   decreasing_by
@@ -409,5 +442,29 @@ mutual
     all_goals omega
 end
 
+
+structure ScanResult where
+  state : ParserState
+  assigned : Bool := false
+  output : Bool := false
+  deriving DecidableEq, Repr
+
+def initialScan : ScanResult := ⟨initialState, false, false⟩
+def invalidScan : ScanResult := ⟨invalidState, false, false⟩
+
+def initialFacts (arguments : Bool) : Context :=
+  if arguments then Context.initial maxSourceLength else ⟨some ⟨0, 0⟩, false, false⟩
+
+def contextOf (scan : ScanResult) : ParseContext :=
+  ⟨scan.state.names, decide (scan.state.dynamicFirst ≠ 0),
+    ScalarExpression.bodyEnvironment scan.state.scalarNames, scan.state.scalarNames.length, scan.state.arrayNames.names, scan.state.subtypeNames.hiddenCalls,
+    scan.state.booleanNames, scan.state.subtypeNames.trueHidden || scan.state.hiding.trueHidden,
+    scan.state.subtypeNames.falseHidden || scan.state.hiding.falseHidden,
+    false, 0, 0, scan.state.pure, scan.state.hiding.integerHidden⟩
+
+def bodyOf (scan : ScanResult) : BodyScan :=
+  ⟨scan.state.position, scan.state.target, scan.state.capacity,
+    ActiveFlow.initial (contextOf scan).scalarNames
+      (initialFacts (decide (scan.state.dynamicFirst ≠ 0))), scan.assigned, scan.output⟩
 
 end Silver.Predicate
