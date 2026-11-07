@@ -5,17 +5,18 @@ public import Silver.PredicateBodyReadings
 @[expose] public section
 
 namespace Silver.Predicate
+variable {catalog : FunctionBindings.Metadata}
 open Compose Bindings PathFacts
 
 attribute [local irreducible] ScalarExpression.read
 
 mutual
   theorem statement_unique {text context scan left right first second}
-      (a : StatementAt text context scan left first) (b : StatementAt text context scan right second) : left = right := by
+      (a : StatementAt (catalog := catalog) text context scan left first) (b : StatementAt (catalog := catalog) text context scan right second) : left = right := by
     cases a with
     | basic _ noIf noFor reading _ =>
         cases b with
-        | basic _ _ _ other _ => exact (basic_unique reading other).1
+        | basic _ _ _ other _ => exact (basic_unique (catalog := catalog) reading other).1
         | choice _ found => exact False.elim (found noIf)
         | loop _ _ found | arrayLoop _ _ found => exact False.elim (found noFor)
     | choice _ found reading _ =>
@@ -50,8 +51,8 @@ mutual
   termination_by (bodyRemaining text scan, 2)
 
   theorem loop_unique {text context scan leftLower rightLower leftUpper rightUpper leftBody rightBody first second}
-      (a : LoopAt text context scan leftLower leftUpper leftBody first)
-      (b : LoopAt text context scan rightLower rightUpper rightBody second) :
+      (a : LoopAt (catalog := catalog) text context scan leftLower leftUpper leftBody first)
+      (b : LoopAt (catalog := catalog) text context scan rightLower rightUpper rightBody second) :
       leftLower = rightLower ∧ leftUpper = rightUpper ∧ leftBody = rightBody := by
     cases a with
     | loop _ _ lowerRead upperRead _ bodyRead _ _ _ =>
@@ -62,8 +63,8 @@ mutual
   termination_by (bodyRemaining text scan, 1)
 
   theorem arrayLoop_unique {text context scan leftBody rightBody first second}
-      (a : ArrayLoopAt text context scan leftBody first)
-      (b : ArrayLoopAt text context scan rightBody second) : leftBody = rightBody := by
+      (a : ArrayLoopAt (catalog := catalog) text context scan leftBody first)
+      (b : ArrayLoopAt (catalog := catalog) text context scan rightBody second) : leftBody = rightBody := by
     cases a with
     | loop _ _ _ _ bodyRead _ _ _ =>
         cases b with
@@ -71,8 +72,8 @@ mutual
   termination_by (bodyRemaining text scan, 1)
 
   theorem choice_unique {text context scan leftCondition rightCondition leftYes rightYes leftTail rightTail first second}
-      (a : ChoiceAt text context scan leftCondition leftYes leftTail first)
-      (b : ChoiceAt text context scan rightCondition rightYes rightTail second) :
+      (a : ChoiceAt (catalog := catalog) text context scan leftCondition leftYes leftTail first)
+      (b : ChoiceAt (catalog := catalog) text context scan rightCondition rightYes rightTail second) :
       leftCondition = rightCondition ∧ leftYes = rightYes ∧ leftTail = rightTail := by
     cases a with
     | choice conditionRead _ yesRead _ noRead _ _ _ =>
@@ -80,14 +81,14 @@ mutual
         | choice otherCondition _ otherYes _ otherNo _ _ _ =>
             have conditionSame := condition_unique conditionRead otherCondition
             have yesSame := body_unique yesRead otherYes
-            have yesResultSame := (body_complete yesRead).symm.trans (body_complete otherYes)
+            have yesResultSame := (body_complete (catalog := catalog) yesRead).symm.trans (body_complete (catalog := catalog) otherYes)
             cases yesResultSame
             have noSame := alternative_unique noRead otherNo
             exact ⟨conditionSame, yesSame, noSame⟩
   termination_by (bodyRemaining text scan, 1)
 
   theorem alternative_unique {text context scan left right first second}
-      (a : AlternativeAt text context scan left first) (b : AlternativeAt text context scan right second) : left = right := by
+      (a : AlternativeAt (catalog := catalog) text context scan left first) (b : AlternativeAt (catalog := catalog) text context scan right second) : left = right := by
     cases a with
     | absent _ noElsif noElse _ =>
         cases b with
@@ -105,7 +106,7 @@ mutual
         | elsif _ _ otherCondition _ otherYes _ otherNo _ _ _ =>
             have conditionSame := condition_unique conditionRead otherCondition
             have yesSame := body_unique yesRead otherYes
-            have yesResultSame := (body_complete yesRead).symm.trans (body_complete otherYes)
+            have yesResultSame := (body_complete (catalog := catalog) yesRead).symm.trans (body_complete (catalog := catalog) otherYes)
             cases yesResultSame
             have noSame := alternative_unique noRead otherNo
             cases conditionSame
@@ -115,7 +116,7 @@ mutual
   termination_by (bodyRemaining text scan, 1)
 
   theorem bodyTail_unique {text context stop scan left right first second}
-      (a : BodyTailAt text context stop scan left first) (b : BodyTailAt text context stop scan right second) : left = right := by
+      (a : BodyTailAt (catalog := catalog) text context stop scan left first) (b : BodyTailAt (catalog := catalog) text context stop scan right second) : left = right := by
     cases a with
     | done _ stopped =>
         cases b with
@@ -126,7 +127,7 @@ mutual
         | done _ stopped => simp [stopped] at notStopped
         | next _ _ other _ otherRest _ =>
             have itemSame := statement_unique item other
-            have nextSame := (statement_complete item).symm.trans (statement_complete other)
+            have nextSame := (statement_complete (catalog := catalog) item).symm.trans (statement_complete (catalog := catalog) other)
             cases nextSame
             have restSame := bodyTail_unique rest otherRest
             cases itemSame
@@ -135,13 +136,13 @@ mutual
   termination_by (bodyRemaining text scan, 3)
 
   theorem body_unique {text context scan stop left right first second}
-      (a : BodyAt text context scan stop left first) (b : BodyAt text context scan stop right second) : left = right := by
+      (a : BodyAt (catalog := catalog) text context scan stop left first) (b : BodyAt (catalog := catalog) text context scan stop right second) : left = right := by
     cases a with
     | cons item _ rest _ =>
         cases b with
         | cons other _ otherRest _ =>
             have itemSame := statement_unique item other
-            have nextSame := (statement_complete item).symm.trans (statement_complete other)
+            have nextSame := (statement_complete (catalog := catalog) item).symm.trans (statement_complete (catalog := catalog) other)
             cases nextSame
             have restSame := bodyTail_unique rest otherRest
             cases itemSame
