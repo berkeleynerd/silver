@@ -192,6 +192,24 @@ lean_lib ArrayBindingsBodySource where
   globs := #[.one `Silver.ArrayBindingsBodySource]
   needs := #[arrayBindingsBodySource]
 
+input_file functionBindingsSpecSource where
+  path := "../src/silver_function_bindings.ads"
+  text := false
+
+lean_lib FunctionBindingsSpecSource where
+  roots := #[]
+  globs := #[.one `Silver.FunctionBindingsSpecSource]
+  needs := #[functionBindingsSpecSource]
+
+input_file functionBindingsBodySource where
+  path := "../src/silver_function_bindings.adb"
+  text := false
+
+lean_lib FunctionBindingsBodySource where
+  roots := #[]
+  globs := #[.one `Silver.FunctionBindingsBodySource]
+  needs := #[functionBindingsBodySource]
+
 lean_lib ScalarExpressionSpecSource where
   roots := #[]
   globs := #[.one `Silver.ScalarExpressionSpecSource]

@@ -19,6 +19,8 @@ public import Silver.ScalarExpressionSpecSource
 public import Silver.ScalarExpressionBodySource
 public import Silver.ArrayBindingsSpecSource
 public import Silver.ArrayBindingsBodySource
+public import Silver.FunctionBindingsSpecSource
+public import Silver.FunctionBindingsBodySource
 
 public import Silver.NamesSpecSource
 public import Silver.NamesBodySource
