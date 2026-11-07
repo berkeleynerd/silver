@@ -4569,6 +4569,40 @@ package body Silver_Library_Reports with SPARK_Mode => On is
       Observe_Object_List (Raw, L, LE, Text, R, RE, JSON_flow, Source => Source, Functions => Functions);
    end Observe_Flow_List;
 
+   --  Transfer the complete function witness requirement in a small proof
+   --  context, then use its Boolean equality in the complete object policy.
+   procedure Mixed_Termination_Witnesses
+     (Raw : Raw_Bytes.Sequence; L, LE : Raw_Scan.Span; Text : String; R, RE : Span;
+      Source : String; Functions : Function_Metadata)
+     with Ghost => Static, Global => null,
+       Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
+         and then List_Observation_Agreement
+           (Raw, L, LE, Text, R, RE, False, Source => Source, Functions => Functions),
+       Post =>
+         (for all I in 1 .. Functions.Count => Raw_List_Spec
+           (Raw, L, LE, Argument_Postconditions + I, Source => Source, Functions => Functions)) =
+         (for all I in 1 .. Functions.Count => List_Spec
+           (Text, R, RE, Argument_Postconditions + I, Source => Source, Functions => Functions))
+   is
+      --  The callee proves exact predicate equality. Keep the quantified
+      --  transfer at that predicate boundary instead of expanding its bodies.
+      pragma Annotate
+        (GNATprove, Hide_Info, "Expression_Function_Body", Raw_List_Spec);
+      pragma Annotate
+        (GNATprove, Hide_Info, "Expression_Function_Body", List_Spec);
+   begin
+      for I in 1 .. Functions.Count loop
+         Mixed_List_Congruence
+           (Raw, L, LE, Text, R, RE, Argument_Postconditions + I,
+            Source => Source, Functions => Functions);
+         pragma Loop_Invariant (for all J in 1 .. I =>
+           Raw_List_Spec (Raw, L, LE, Argument_Postconditions + J,
+             Source => Source, Functions => Functions) =
+           List_Spec (Text, R, RE, Argument_Postconditions + J,
+             Source => Source, Functions => Functions));
+      end loop;
+   end Mixed_Termination_Witnesses;
+
    procedure Mixed_Object
      (Raw : Raw_Bytes.Sequence; L : Raw_Scan.Span; Text : String; R : Span; Kind : Audit_Kind;
       Source : String; Functions : Function_Metadata)
@@ -4577,6 +4611,10 @@ package body Silver_Library_Reports with SPARK_Mode => On is
          and then Object_Observation_Agreement (Raw, L, Text, R),
        Post => Raw_Object_Policy (Raw, L, Kind, Source => Source, Functions => Functions) = Object_Policy (Text, R, Kind, Source => Source, Functions => Functions)
    is
+      pragma Annotate
+        (GNATprove, Hide_Info, "Expression_Function_Body", Raw_List_Spec);
+      pragma Annotate
+        (GNATprove, Hide_Info, "Expression_Function_Body", List_Spec);
       LE : constant Raw_Scan.Span := Raw_Field (Raw, L, JSON_entities);
       RE : constant Span := Field_Spec (Text, R, JSON_entities);
       Flow_Kind : constant List_Kind :=
@@ -4616,14 +4654,9 @@ package body Silver_Library_Reports with SPARK_Mode => On is
       Mixed_Dependencies (Raw, Raw_Field (Raw, L, JSON_assumptions), LE,
                           Text, Field_Spec (Text, R, JSON_assumptions), RE, Source => Source, Functions => Functions);
       Observe_Flow_List (Raw, L, LE, Text, R, RE, Source => Source, Functions => Functions);
-      for I in 1 .. Functions.Count loop
-         pragma Loop_Invariant (for all J in 1 .. I - 1 =>
-           Raw_List_Spec (Raw, Raw_Field (Raw, L, JSON_flow), LE, Argument_Postconditions + J, Source => Source, Functions => Functions) =
-           List_Spec (Text, Field_Spec (Text, R, JSON_flow), RE, Argument_Postconditions + J, Source => Source, Functions => Functions));
-         Mixed_List_Congruence
-           (Raw, Raw_Field (Raw, L, JSON_flow), LE,
-            Text, Field_Spec (Text, R, JSON_flow), RE, Argument_Postconditions + I, Source => Source, Functions => Functions);
-      end loop;
+      Mixed_Termination_Witnesses
+        (Raw, Raw_Field (Raw, L, JSON_flow), LE,
+         Text, Field_Spec (Text, R, JSON_flow), RE, Source => Source, Functions => Functions);
       Observe_Proof_List (Raw, L, LE, Text, R, RE, Source => Source, Functions => Functions);
       Mixed_Empty_Observed (Raw, Raw_Field (Raw, L, JSON_flow), LE, Text, Field_Spec (Text, R, JSON_flow), RE, Source => Source, Functions => Functions);
       Mixed_Empty_Observed (Raw, Raw_Field (Raw, L, JSON_proof), LE, Text, Field_Spec (Text, R, JSON_proof), RE, Source => Source, Functions => Functions);

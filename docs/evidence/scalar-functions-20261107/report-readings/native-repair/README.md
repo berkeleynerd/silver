@@ -83,3 +83,61 @@ commands/input hashes, reports and sessions are retained for each scope.
 
 These focused results do not replace the complete native audit of the final
 integrated source or its required source/provenance checks.
+
+The second witness attempt, `20261107T205807-8d917b05658e`, replaced the
+pointwise invariant with equality of complete prefix quantifiers. It proved
+16 of 19 total checks, including the flow check, and failed both invariant
+checks as well as the postcondition. Saved leaves `def'vc.31.0` and
+`def'vc.87.0` again require the bounded validity conjunct; `def'vc.68.0`
+requires the bounded list policy. The retained diagnostic restores the
+already-proved pointwise invariant and next isolates the existing validity and
+array-boundary facts before the loop. The second attempt is retained as a
+failure, with its exact source, task, report and session.
+
+The third witness attempt, `20261107T212038-17d88744a05d`, isolated zero
+functions, invalid list spans and non-array boundary bytes before restoring
+the pointwise loop. It proved 30 of 31 total checks: all explicit validity and
+byte assertions, runtime checks, and both loop-invariant checks passed. Only
+the universal-equality postcondition remained unproved, reported at an expanded
+opening-bracket conjunct. This distinguishes successful boundary and pointwise
+reasoning from the failed quantified transfer. Its diagnostic next uses
+subprogram-local expression-body hiding for the two list predicates, retaining
+the exact proved callee contract and all obligations.
+
+Run `20261107T213534-43867e204187` proved all 19 checks for
+`Mixed_Termination_Witnesses`. The final helper retains the original pointwise
+loop and the exact universal-equality postcondition. Two subprogram-local
+`Hide_Info` annotations keep `Raw_List_Spec` and `List_Spec` abstract while this
+helper uses `Mixed_List_Congruence`'s exact equality contract. The exploratory
+boundary branches are absent from the final helper. Comparing the generated
+tasks confirms that both predicate declarations and postcondition axioms
+remain; only their expression-body definition imports are omitted from this
+helper's proof context. This is proof abstraction and introduces no assumption,
+input restriction, policy change, skipped check or larger prover limit.
+The [SPARK annotation guide](https://docs.adacore.com/spark2014-docs/html/ug/en/appendix/additional_annotate_pragmas.html)
+documents this caller-local placement. All recorded input hashes were verified
+when retaining the exact successful source, task, log, report and session.
+
+Scratch run `20261107T214103-5c62118c81c8` proved 20 checks for
+`Mixed_Object_Field`, because the initial selector matched the requested name
+as a prefix. Its final inventory exposed the scope error. This run is retained
+without claiming validation of `Mixed_Object`. The runner now requires one
+exact Ada identifier match and records that selected name as its managed scope.
+
+The corrected run `20261107T214346-a2fc78f63458` selected exactly
+`Mixed_Object` at source line 4606 and proved all 51 checks, including its
+original `Raw_Object_Policy = Object_Policy` postcondition. The final analyzed
+inventory contains that one intended subprogram. Its two local expression-body
+hiding annotations use the same abstraction as the successful witness helper;
+the flow and universal-witness helpers now supply the needed correspondences.
+The exact bounded and raw object-policy source blocks remain unchanged. Every
+selected Why3 root is proved, the final report has no unproved check, and all
+recorded input hashes matched when the successful source/task/report/session
+were retained. The run used the original 30-second three-prover settings and
+two reserved native workers on Linux x86_64.
+
+All seven failures from the original complete report attempt now have scoped
+repair evidence. That original attempt remains a failure, and these selected
+checks do not establish complete assurance for final integrated compiler bytes.
+The lead must still run the complete native audit and required source/Lean/
+provenance checks on those final bytes, retaining applicable successful caches.
