@@ -4553,6 +4553,22 @@ package body Silver_Library_Reports with SPARK_Mode => On is
       Observe_Object_List (Raw, L, LE, Text, R, RE, JSON_proof, Source => Source, Functions => Functions);
    end Observe_Proof_List;
 
+   procedure Observe_Flow_List
+     (Raw : Raw_Bytes.Sequence; L, LE : Raw_Scan.Span; Text : String; R, RE : Span;
+      Source : String; Functions : Function_Metadata)
+     with Ghost => Static, Global => null,
+       Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
+         and then Object_Observation_Agreement (Raw, L, Text, R)
+         and then Mixed_Field (Raw, LE, Text, RE),
+       Post => List_Observation_Agreement
+         (Raw, Raw_Field (Raw, L, JSON_flow), LE,
+          Text, Field_Spec (Text, R, JSON_flow), RE, False, Source => Source, Functions => Functions)
+   is
+   begin
+      Projection_Field_Names;
+      Observe_Object_List (Raw, L, LE, Text, R, RE, JSON_flow, Source => Source, Functions => Functions);
+   end Observe_Flow_List;
+
    procedure Mixed_Object
      (Raw : Raw_Bytes.Sequence; L : Raw_Scan.Span; Text : String; R : Span; Kind : Audit_Kind;
       Source : String; Functions : Function_Metadata)
@@ -4599,7 +4615,7 @@ package body Silver_Library_Reports with SPARK_Mode => On is
       Mixed_Map (Raw, Raw_Field (Raw, L, JSON_spark), LE, Text, Field_Spec (Text, R, JSON_spark), RE, Kind, True, Source => Source, Functions => Functions);
       Mixed_Dependencies (Raw, Raw_Field (Raw, L, JSON_assumptions), LE,
                           Text, Field_Spec (Text, R, JSON_assumptions), RE, Source => Source, Functions => Functions);
-      Observe_Object_List (Raw, L, LE, Text, R, RE, JSON_flow, Source => Source, Functions => Functions);
+      Observe_Flow_List (Raw, L, LE, Text, R, RE, Source => Source, Functions => Functions);
       for I in 1 .. Functions.Count loop
          pragma Loop_Invariant (for all J in 1 .. I - 1 =>
            Raw_List_Spec (Raw, Raw_Field (Raw, L, JSON_flow), LE, Argument_Postconditions + J, Source => Source, Functions => Functions) =
