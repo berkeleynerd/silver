@@ -6,13 +6,14 @@ public import Silver.PredicateLoopFlowValidity
 @[expose] public section
 
 namespace Silver.Predicate
+variable {catalog : FunctionBindings.Metadata}
 open Compose
 
 theorem loopBody_flowReady (text : Source) (context : ParseContext) (scan : BodyScan)
     (base : ScalarMetadata.ContextReady context.scalarNames context.declarationCount context.elaborating)
     (ready : scan.FlowReady context)
     (environment : ScalarExpression.ValidEnvironment text context.scalarNames) :
-    (loopBody text context scan).FlowReady context := by
+    (loopBody (catalog := catalog) text context scan).FlowReady context := by
   rw [loopBody]
   dsimp only
   split
@@ -30,25 +31,27 @@ theorem loopBody_flowReady (text : Source) (context : ParseContext) (scan : Body
 
 mutual
   theorem statementBody_flowReady (text : Source) (context : ParseContext) (scan : BodyScan)
+      (valid : FunctionBindings.ValidMetadata text catalog)
       (base : ScalarMetadata.ContextReady context.scalarNames context.declarationCount context.elaborating)
       (ready : scan.FlowReady context)
       (environment : ScalarExpression.ValidEnvironment text context.scalarNames) :
-      (statementBody text context scan).FlowReady context := by
+      (statementBody (catalog := catalog) text context scan).FlowReady context := by
     rw [statementBody]
     split
     · exact invalidBody_flowReady ready
     · split
-      · exact conditionalBody_flowReady text context scan base ready environment
+      · exact conditionalBody_flowReady text context scan valid base ready environment
       · split
-        · exact loopBody_flowReady text context scan base ready environment
-        · exact basic_flowReady text context scan base ready
+        · exact loopBody_flowReady (catalog := catalog) text context scan base ready environment
+        · exact basic_flowReady (catalog := catalog) text context scan valid base ready
   termination_by (bodyRemaining text scan, 2)
 
   theorem conditionalBody_flowReady (text : Source) (context : ParseContext) (scan : BodyScan)
+      (valid : FunctionBindings.ValidMetadata text catalog)
       (base : ScalarMetadata.ContextReady context.scalarNames context.declarationCount context.elaborating)
       (ready : scan.FlowReady context)
       (environment : ScalarExpression.ValidEnvironment text context.scalarNames) :
-      (conditionalBody text context scan).FlowReady context := by
+      (conditionalBody (catalog := catalog) text context scan).FlowReady context := by
     rw [conditionalBody]
     try dsimp only
     split
@@ -62,10 +65,10 @@ mutual
             · exact invalidBody_flowReady ready
             · have branches := branchStart_flowReady text context scan "if" base ready
               have yes := readBody_flowReady text context (branchStart text context scan "if").1 .arm
-                base branches.1 environment
+                valid base branches.1 environment
               have no := alternativeBody_flowReady text context
-                {readBody text context (branchStart text context scan "if").1 .arm with
-                  facts := (branchStart text context scan "if").2} base branches.2 environment
+                {readBody (catalog := catalog) text context (branchStart text context scan "if").1 .arm with
+                  facts := (branchStart text context scan "if").2} valid base branches.2 environment
               apply bodyTokens_flowReady
               exact ScalarMetadata.FlowReady.join_context base yes no
           · exact invalidBody_flowReady ready
@@ -73,10 +76,11 @@ mutual
   termination_by (bodyRemaining text scan, 1)
 
   theorem alternativeBody_flowReady (text : Source) (context : ParseContext) (scan : BodyScan)
+      (valid : FunctionBindings.ValidMetadata text catalog)
       (base : ScalarMetadata.ContextReady context.scalarNames context.declarationCount context.elaborating)
       (ready : scan.FlowReady context)
       (environment : ScalarExpression.ValidEnvironment text context.scalarNames) :
-      (alternativeBody text context scan).FlowReady context := by
+      (alternativeBody (catalog := catalog) text context scan).FlowReady context := by
     rw [alternativeBody]
     split
     · exact invalidBody_flowReady ready
@@ -90,10 +94,10 @@ mutual
             · split
               · have branches := branchStart_flowReady text context scan "elsif" base ready
                 have yes := readBody_flowReady text context (branchStart text context scan "elsif").1 .arm
-                  base branches.1 environment
+                  valid base branches.1 environment
                 have no := alternativeBody_flowReady text context
-                  {readBody text context (branchStart text context scan "elsif").1 .arm with
-                    facts := (branchStart text context scan "elsif").2} base branches.2 environment
+                  {readBody (catalog := catalog) text context (branchStart text context scan "elsif").1 .arm with
+                    facts := (branchStart text context scan "elsif").2} valid base branches.2 environment
                 exact ScalarMetadata.FlowReady.join_context base yes no
               · exact invalidBody_flowReady ready
           · exact invalidBody_flowReady ready
@@ -102,7 +106,7 @@ mutual
           split
           · exact invalidBody_flowReady ready
           · split
-            · exact readBody_flowReady text context _ .endOnly base ready environment
+            · exact readBody_flowReady text context _ .endOnly valid base ready environment
             · exact invalidBody_flowReady ready
         · split
           · exact ready
@@ -110,10 +114,11 @@ mutual
   termination_by (bodyRemaining text scan, 1)
 
   theorem bodyTail_flowReady (text : Source) (context : ParseContext) (scan : BodyScan) (stop : BodyStop)
+      (valid : FunctionBindings.ValidMetadata text catalog)
       (base : ScalarMetadata.ContextReady context.scalarNames context.declarationCount context.elaborating)
       (ready : scan.FlowReady context)
       (environment : ScalarExpression.ValidEnvironment text context.scalarNames) :
-      (bodyTail text context scan stop).FlowReady context := by
+      (bodyTail (catalog := catalog) text context scan stop).FlowReady context := by
     rw [bodyTail]
     split
     · exact invalidBody_flowReady ready
@@ -121,26 +126,27 @@ mutual
       · exact ready
       · try dsimp only
         split
-        · exact invalidBody_flowReady (statementBody_flowReady text context scan base ready environment)
+        · exact invalidBody_flowReady (statementBody_flowReady text context scan valid base ready environment)
         · split
-          · exact bodyTail_flowReady text context _ stop base
-              (statementBody_flowReady text context scan base ready environment) environment
-          · exact invalidBody_flowReady (statementBody_flowReady text context scan base ready environment)
+          · exact bodyTail_flowReady text context _ stop valid base
+              (statementBody_flowReady text context scan valid base ready environment) environment
+          · exact invalidBody_flowReady (statementBody_flowReady text context scan valid base ready environment)
   termination_by (bodyRemaining text scan, 3)
 
   theorem readBody_flowReady (text : Source) (context : ParseContext) (scan : BodyScan) (stop : BodyStop)
+      (valid : FunctionBindings.ValidMetadata text catalog)
       (base : ScalarMetadata.ContextReady context.scalarNames context.declarationCount context.elaborating)
       (ready : scan.FlowReady context)
       (environment : ScalarExpression.ValidEnvironment text context.scalarNames) :
-      (readBody text context scan stop).FlowReady context := by
+      (readBody (catalog := catalog) text context scan stop).FlowReady context := by
     rw [readBody]
     try dsimp only
     split
-    · exact invalidBody_flowReady (statementBody_flowReady text context scan base ready environment)
+    · exact invalidBody_flowReady (statementBody_flowReady text context scan valid base ready environment)
     · split
-      · exact bodyTail_flowReady text context _ stop base
-          (statementBody_flowReady text context scan base ready environment) environment
-      · exact invalidBody_flowReady (statementBody_flowReady text context scan base ready environment)
+      · exact bodyTail_flowReady text context _ stop valid base
+          (statementBody_flowReady text context scan valid base ready environment) environment
+      · exact invalidBody_flowReady (statementBody_flowReady text context scan valid base ready environment)
   termination_by (bodyRemaining text scan, 3)
 end
 

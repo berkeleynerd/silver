@@ -9,6 +9,7 @@ public import Silver.PredicateConditionFlowValidity
 @[expose] public section
 
 namespace Silver.Predicate
+variable {catalog : FunctionBindings.Metadata}
 open Compose
 
 namespace ScalarMetadata
@@ -111,9 +112,57 @@ theorem scalarAssignment_flowReady (text : Source) (context : ParseContext) (sca
     dsimp only [scalarAssignmentStart, readScalarInFlow] at low high
     constructor <;> omega
 
+theorem readCall_bounds (text : Source) (context : ParseContext) (position : Nat)
+    (facts : ActiveFlow) (catalog : FunctionBindings.Metadata)
+    (valid : FunctionBindings.ValidMetadata text catalog) :
+    (readCall text context position facts catalog).bounds.Bounded := by
+  unfold readCall
+  dsimp only
+  split
+  · exact Integer.Interval.empty_bounded
+  · rename_i nonzero
+    split
+    · exact Integer.Interval.empty_bounded
+    · have present := FunctionBindings.signature_mem (Nat.pos_of_ne_zero nonzero)
+        (calleeAt_bound text context position catalog)
+      exact (valid.2.2.2 _ present).2.2.2.2.2.1
+
+theorem callAssignmentResult_flowReady (context : ParseContext) (scan : BodyScan)
+    (scalar flag : Nat) (value : CallResult) (ready : scan.FlowReady context)
+    (targetBound : scalar ≤ context.scalarNames.length) (typed : value.bounds.Bounded) :
+    (callAssignmentResult context scan scalar flag value).FlowReady context := by
+  unfold callAssignmentResult
+  split
+  · exact invalidBody_flowReady ready
+  · split
+    · rename_i nonzero
+      dsimp only
+      split
+      · exact invalidBody_flowReady ready
+      · rename_i good
+        have mutable : (ScalarExpression.binding context.scalarNames scalar).mutable = true :=
+          true_of_not_neg (fun bad => good (Or.inr (Or.inl bad)))
+        have nonempty : value.bounds.isEmpty = false :=
+          Bool.eq_false_iff.mpr (fun bad => good (Or.inr (Or.inr (Or.inl bad))))
+        have included : value.bounds.included (ScalarExpression.binding context.scalarNames scalar).declaredBounds = true :=
+          true_of_not_neg (fun bad => good (Or.inr (Or.inr (Or.inr bad))))
+        exact ScalarMetadata.FlowReady.replace ready scalar value.bounds
+          (Nat.pos_of_ne_zero nonzero) targetBound mutable typed nonempty
+          (fun _ within => Integer.Interval.included_sound included within)
+    · split
+      · exact ready
+      · exact invalidBody_flowReady ready
+
+theorem callAssignment_flowReady (text : Source) (context : ParseContext) (scan : BodyScan)
+    (catalog : FunctionBindings.Metadata) (valid : FunctionBindings.ValidMetadata text catalog)
+    (ready : scan.FlowReady context) : (callAssignmentBody text context scan catalog).FlowReady context :=
+  callAssignmentResult_flowReady context scan _ _ _ ready (ScalarExpression.lookup_bound ..)
+    (readCall_bounds text context _ scan.facts catalog valid)
+
 theorem basicRaw_flowReady (text : Source) (context : ParseContext) (scan : BodyScan)
+    (valid : FunctionBindings.ValidMetadata text catalog)
     (base : ScalarMetadata.ContextReady context.scalarNames context.declarationCount context.elaborating)
-    (ready : scan.FlowReady context) : (basicRaw text context scan).FlowReady context := by
+    (ready : scan.FlowReady context) : (basicRaw (catalog := catalog) text context scan).FlowReady context := by
   unfold basicRaw
   cases basicKind text context scan with
   | null => exact ready
@@ -128,7 +177,11 @@ theorem basicRaw_flowReady (text : Source) (context : ParseContext) (scan : Body
       · exact invalidBody_flowReady ready
       · exact ready
   | reject => exact ready.withPath _
-  | scalarAssignment => exact scalarAssignment_flowReady text context scan base ready
+  | scalarAssignment =>
+      dsimp only
+      split
+      · exact callAssignment_flowReady text context scan catalog valid ready
+      · exact scalarAssignment_flowReady text context scan base ready
   | arrayAssignment =>
       unfold arrayAssignmentBody
       dsimp only
@@ -136,11 +189,14 @@ theorem basicRaw_flowReady (text : Source) (context : ParseContext) (scan : Body
       · exact invalidBody_flowReady ready
       · exact ready
   | booleanAssignment =>
-      unfold booleanAssignmentBody
       dsimp only
       split
-      · exact invalidBody_flowReady ready
-      · exact ready
+      · exact callAssignment_flowReady text context scan catalog valid ready
+      · unfold booleanAssignmentBody
+        dsimp only
+        split
+        · exact invalidBody_flowReady ready
+        · exact ready
   | booleanArrayAssignment =>
       unfold booleanArrayAssignmentBody
       dsimp only
@@ -148,21 +204,25 @@ theorem basicRaw_flowReady (text : Source) (context : ParseContext) (scan : Body
       · exact invalidBody_flowReady ready
       · exact ready
   | assignment =>
-      rcases stringAssignment_fields text context scan with failed | fields
-      · rw [failed]
-        exact invalidBody_flowReady ready
-      · simpa only [BodyScan.FlowReady, fields.2.2.1] using ready
+      dsimp only
+      split
+      · exact invalidBody_flowReady ready
+      · rcases stringAssignment_fields text context scan with failed | fields
+        · rw [failed]
+          exact invalidBody_flowReady ready
+        · simpa only [BodyScan.FlowReady, fields.2.2.1] using ready
 
 theorem basic_flowReady (text : Source) (context : ParseContext) (scan : BodyScan)
+    (valid : FunctionBindings.ValidMetadata text catalog)
     (base : ScalarMetadata.ContextReady context.scalarNames context.declarationCount context.elaborating)
-    (ready : scan.FlowReady context) : (basicBody text context scan).FlowReady context := by
+    (ready : scan.FlowReady context) : (basicBody (catalog := catalog) text context scan).FlowReady context := by
   unfold basicBody
   split
   · exact invalidBody_flowReady ready
   · try dsimp only
     split
     · exact invalidBody_flowReady ready
-    · exact bodyToken_flowReady (basicRaw_flowReady text context scan base ready) text _
+    · exact bodyToken_flowReady (basicRaw_flowReady (catalog := catalog) text context scan valid base ready) text _
 
 theorem branchStart_flowReady (text : Source) (context : ParseContext) (scan : BodyScan) (keyword : String)
     (base : ScalarMetadata.ContextReady context.scalarNames context.declarationCount context.elaborating)
