@@ -112,22 +112,25 @@ mutual
               simpa only [ActiveFlow.refine_path] using And.intro bounded bounded
           · try dsimp only
             split
+            · exact readBooleanRelation_bounded text context position facts bounded initials
             · try dsimp only
               split
-              · exact invalidCondition_bounded facts
               · try dsimp only
                 split
                 · exact invalidCondition_bounded facts
                 · try dsimp only
-                  by_cases equal : (comparisonAt text (readStringInFlow text context position facts initials).after).operator == Comparison.eq
-                  · simp only [equal, ↓reduceIte]
-                    exact ⟨refineLengthOverlap_bounded bounded _ _, bounded⟩
-                  · simp only [equal, Bool.false_eq_true, ↓reduceIte]
-                    exact ⟨bounded, refineLengthOverlap_bounded bounded _ _⟩
-            · try dsimp only
-              split
-              · exact characterCondition_bounded text context position facts initials bounded
-              · exact readBooleanRelation_bounded text context position facts bounded initials
+                  split
+                  · exact invalidCondition_bounded facts
+                  · try dsimp only
+                    by_cases equal : (comparisonAt text (readStringInFlow text context position facts initials).after).operator == Comparison.eq
+                    · simp only [equal, ↓reduceIte]
+                      exact ⟨refineLengthOverlap_bounded bounded _ _, bounded⟩
+                    · simp only [equal, Bool.false_eq_true, ↓reduceIte]
+                      exact ⟨bounded, refineLengthOverlap_bounded bounded _ _⟩
+              · try dsimp only
+                split
+                · exact characterCondition_bounded text context position facts initials bounded
+                · exact readBooleanRelation_bounded text context position facts bounded initials
   termination_by (remainingAt text position, 4)
 
   theorem conditionTail_bounded (text : Source) (context : ParseContext) (result : ConditionResult)

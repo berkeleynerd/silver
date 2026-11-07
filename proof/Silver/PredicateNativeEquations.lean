@@ -157,6 +157,7 @@ def relationEquation (calls : Calls) (text : Source) (context : Context) (positi
     let rightScalar := calls.scalarInFlow text context operator.after facts initials
     if rightScalar.after ≤ position then calls.invalidCondition facts
     else calls.scalarCondition text context position operator.after facts leftScalar rightScalar operator.operator
+  else if context.pure then calls.booleanRelation text context position facts initials
   else
     let left := calls.stringInFlow text context position facts initials
     if left.after ≠ 0 then

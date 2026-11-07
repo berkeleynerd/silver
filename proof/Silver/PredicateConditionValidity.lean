@@ -230,7 +230,7 @@ mutual
       (bounded : facts.path.Bounded) (parsed : RelationAt text context position facts condition result initials) :
       ConditionMeaning context facts condition result initials ∧ condition.isRelation = true := by
     cases parsed with
-    | booleanNot _ _ inner => exact booleanRelation_valid normal namesValid base arraysReady compatible bounded inner
+    | booleanNot _ _ inner | pureBoolean _ _ _ _ _ inner => exact booleanRelation_valid normal namesValid base arraysReady compatible bounded inner
     | length _ _ _ left right _ => exact ⟨length_meaning namesValid bounded left right, rfl⟩
     | scalars _ _ _ _ left right _ =>
         have ranges := context.reading_ranges compatible initials

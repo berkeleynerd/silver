@@ -125,7 +125,7 @@ theorem relation_progress (text : Source) (context : ParseContext) (position : N
   obtain ⟨condition, parsed⟩ := (relation_sound text context position facts textValid namesValid bounded accepted).1
   generalize equation : readRelation text context position facts initials = result at parsed accepted ⊢
   cases parsed with
-  | booleanNot _ _ inner =>
+  | booleanNot _ _ inner | pureBoolean _ _ _ _ _ inner =>
     rw [← booleanRelation_complete inner] at accepted ⊢
     exact booleanRelation_progress text context position facts textValid namesValid bounded accepted
   | length _ _ _ _ _ advanced => exact advanced

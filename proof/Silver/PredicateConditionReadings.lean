@@ -159,6 +159,12 @@ mutual
           (.scalarCompare (comparisonAt text leftResult.after).operator.toInteger left right)
           (scalarCondition text context position (comparisonAt text leftResult.after).after
             facts leftResult rightResult (comparisonAt text leftResult.after).operator)
+    | pureBoolean {position facts inner result} : position ≠ 0 →
+        fixedAfter text position "not" true = 0 → (lengthAt text context position false).after = 0 →
+        (readScalarInFlow text context position facts (initials := initials)).after = 0 →
+        context.pure = true →
+        BooleanRelationAtCore text context initials position facts inner result →
+        RelationAtCore text context initials position facts inner result
     | strings {position facts left right leftResult rightResult} : position ≠ 0 →
         fixedAfter text position "not" true = 0 → (lengthAt text context position false).after = 0 →
         (readScalarInFlow text context position facts (initials := initials)).after = 0 →
@@ -169,6 +175,7 @@ mutual
           (arrays := context.arrayNames) (initials := initials) (elaborating := context.elaborating) →
         StringRelationReady facts leftResult rightResult (comparisonAt text leftResult.after) →
         position < rightResult.after →
+        context.pure = false →
         RelationAtCore text context initials position facts
           (.stringCompare ((comparisonAt text leftResult.after).operator != .eq) left right)
           (stringResult facts leftResult rightResult (comparisonAt text leftResult.after))
@@ -177,6 +184,7 @@ mutual
         (readScalarInFlow text context position facts (initials := initials)).after = 0 →
         (readStringInFlow text context position facts initials).after = 0 →
         CharacterRelationAt text context position facts initials inner result →
+        context.pure = false →
         RelationAtCore text context initials position facts inner result
     | primary {position facts inner result} : position ≠ 0 →
         fixedAfter text position "not" true = 0 → (lengthAt text context position false).after = 0 →
@@ -184,6 +192,7 @@ mutual
         (readStringInFlow text context position facts initials).after = 0 →
         (characterCondition text context position facts initials).after = 0 →
         BooleanRelationAtCore text context initials position facts inner result →
+        context.pure = false →
         RelationAtCore text context initials position facts inner result
 
   inductive ChainAtCore (text : Source) (context : ParseContext) (initials : ArrayBindings.Initials) :
@@ -295,7 +304,10 @@ theorem relation_complete {text context position facts condition result initials
       simp only [readScalarInFlow, positive, noNot, noLength, ScalarExpression.read_complete left,
         leftPositive, ScalarExpression.read_complete right, Nat.not_le.mpr advanced,
         ne_eq, not_true_eq_false, not_false_eq_true, ↓reduceIte]
-  | @strings position facts leftExpr rightExpr leftResult rightResult positive noNot noLength noScalar left right ready advanced =>
+  | pureBoolean positive noNot noLength noScalar pure inner =>
+      simp only [readRelation, positive, noNot, noLength, noScalar, pure,
+        ne_eq, not_true_eq_false, ↓reduceIte, booleanRelation_complete inner]
+  | @strings position facts leftExpr rightExpr leftResult rightResult positive noNot noLength noScalar left right ready advanced impure =>
       have leftEq : readStringInFlow text context position facts initials = leftResult := expressionTail_complete left
       have rightEq : readStringInFlow text context (comparisonAt text leftResult.after).after facts initials = rightResult := expressionTail_complete right
       have operatorAllowed : ¬((comparisonAt text leftResult.after).after = 0 ∨
@@ -306,16 +318,16 @@ theorem relation_complete {text context position facts condition result initials
         · rcases kind with equal | unequal
           · exact different.1 equal
           · exact different.2 unequal
-      simp only [readRelation, positive, noNot, noLength, noScalar, ne_eq, not_true_eq_false, ↓reduceIte,
+      simp only [readRelation, positive, noNot, noLength, noScalar, impure, Bool.false_eq_true, ne_eq, not_true_eq_false, ↓reduceIte,
         leftEq, ready.1, operatorAllowed, rightEq,
         Nat.not_le.mpr advanced, ready.2.2.2.2.1, ready.2.2.2.2.2.1, ready.2.2.2.2.2.2,
         Bool.not_true, Bool.false_eq_true, or_self, not_false_eq_true, stringResult]
-  | character positive noNot noLength noScalar noExpression inner =>
-      simp only [readRelation, positive, noNot, noLength, noScalar, noExpression,
+  | character positive noNot noLength noScalar noExpression inner impure =>
+      simp only [readRelation, positive, noNot, noLength, noScalar, impure, Bool.false_eq_true, noExpression,
         ne_eq, not_true_eq_false, ↓reduceIte]
       rw [characterRelation_complete inner, ite_eq_left (characterRelation_positive inner)]
-  | primary positive noNot noLength noScalar noExpression noCharacter inner =>
-      simp only [readRelation, positive, noNot, noLength, noScalar, noExpression,
+  | primary positive noNot noLength noScalar noExpression noCharacter inner impure =>
+      simp only [readRelation, positive, noNot, noLength, noScalar, impure, Bool.false_eq_true, noExpression,
         noCharacter, ne_eq, not_true_eq_false, ↓reduceIte, booleanRelation_complete inner]
 
 theorem chain_complete {text context condition result chained final finalResult incoming initials originalStart}

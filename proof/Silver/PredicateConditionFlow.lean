@@ -130,22 +130,25 @@ mutual
             · exact scalarCondition_counts ..
           · try dsimp only
             split
+            · exact booleanRelation_counts text context position facts initials
             · try dsimp only
               split
-              · exact invalidCondition_counts facts
               · try dsimp only
                 split
                 · exact invalidCondition_counts facts
                 · try dsimp only
-                  by_cases equal : (comparisonAt text (readStringInFlow text context position facts initials).after).operator == Comparison.eq
-                  · simp only [equal, ↓reduceIte]
-                    exact ⟨rfl, rfl⟩
-                  · simp only [equal, Bool.false_eq_true, ↓reduceIte]
-                    exact ⟨rfl, rfl⟩
-            · try dsimp only
-              split
-              · exact characterCondition_counts text context position facts initials
-              · exact booleanRelation_counts text context position facts initials
+                  split
+                  · exact invalidCondition_counts facts
+                  · try dsimp only
+                    by_cases equal : (comparisonAt text (readStringInFlow text context position facts initials).after).operator == Comparison.eq
+                    · simp only [equal, ↓reduceIte]
+                      exact ⟨rfl, rfl⟩
+                    · simp only [equal, Bool.false_eq_true, ↓reduceIte]
+                      exact ⟨rfl, rfl⟩
+              · try dsimp only
+                split
+                · exact characterCondition_counts text context position facts initials
+                · exact booleanRelation_counts text context position facts initials
   termination_by (remainingAt text position, 4)
 
   theorem tail_counts (text : Source) (context : ParseContext) (result : ConditionResult)
