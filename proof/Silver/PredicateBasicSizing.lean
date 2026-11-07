@@ -25,13 +25,28 @@ def Command.Sized (primitive : Primitives) (frame : Frame) (next : Frame → Pro
   | .sequence first second => first.Sized primitive frame (fun updated => second.Sized primitive updated next)
   | .choose test yes no => if test.eval primitive frame then yes.Sized primitive frame next else no.Sized primitive frame next
 
-def SizedBasic (primitive : Primitives) (text : Source) (context : Native.Context) (scan : BodyScan) : Prop :=
+def SizedBasic (primitive : Primitives) (text : Source) (context : Native.Context) (scan : BodyScan)
+    (catalog : FunctionBindings.Metadata := {}) : Prop :=
   scan.count ≤ ScalarExpression.maxBindings ∧
-    basicCommands.Sized primitive ⟨text,context,scan,scan,{},{},{}⟩ (fun _ => True)
+    basicCommands.Sized primitive ⟨text,context,scan,scan,{},{},{},catalog⟩ (fun _ => True)
+
+private theorem callAssignment_count (text : Source) (context : ParseContext)
+    (scan : BodyScan) (catalog : FunctionBindings.Metadata) :
+    (callAssignmentBody text context scan catalog).count = scan.count := by
+  unfold callAssignmentBody callAssignmentResult
+  repeat' first | split | (simp only [invalidBody, BodyScan.count, ActiveFlow.invalid_count,
+    ActiveFlow.replace_count])
 
 private theorem model_update_count (frame : Frame) (value : Update) :
     (value.eval modelPrimitives frame).count = frame.result.count := by
   cases value <;> try rfl
+  · dsimp only [Update.eval]
+    split
+    · exact callAssignment_count ..
+    · split
+      · dsimp only [modelPrimitives, booleanAssignmentBody]
+        split <;> rfl
+      · exact scalarAssignment_count ..
   · exact scalarAssignment_count ..
   · dsimp only [Update.eval, modelPrimitives, booleanAssignmentBody]
     split <;> rfl
@@ -63,7 +78,8 @@ private theorem model_command_sized (command : Command) (frame : Frame)
       · exact noIH frame same next continuation
 
 theorem model_sizedBasic (text : Source) (context : Native.Context) (scan : BodyScan)
-    (capacity : scan.count ≤ ScalarExpression.maxBindings) : SizedBasic modelPrimitives text context scan :=
+    (capacity : scan.count ≤ ScalarExpression.maxBindings)
+    (catalog : FunctionBindings.Metadata := {}) : SizedBasic modelPrimitives text context scan catalog :=
   ⟨capacity, model_command_sized basicCommands _ rfl _ (fun _ _ => trivial)⟩
 
 end Silver.Predicate.BasicNative

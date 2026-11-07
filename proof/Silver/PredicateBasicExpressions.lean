@@ -28,6 +28,7 @@ structure Primitives where
   invalid : BodyScan → BodyScan
   scalarTarget : Source → Native.Context → Nat → Nat
   scalarAssignment : Source → Native.Context → BodyScan → BodyScan
+  callAssignment : Source → Native.Context → BodyScan → FunctionBindings.Metadata → BodyScan
   booleanTarget : Source → Native.Context → Nat → Nat
   booleanAssignment : Source → Native.Context → BodyScan → BodyScan
   arrayTarget : Source → Native.Context → Nat → Nat
@@ -45,16 +46,20 @@ structure Frame where
   value : ExpressionResult := {}
   target : ScalarBodyNative.StringTargetResult := {}
   characterValue : ValueResult := {}
+  catalog : FunctionBindings.Metadata := {}
 
 def bindingSummary (info : Compose.BindingInfo) : LengthSummary := .ofExact info.bound.summary
 
 inductive Test
   | operation (value : Names.Operation)
+  | pure | impure
   | zeroResult | nonadvancing | present (token : ShellToken) | hasArguments
   | zeroValue | zeroCharacter | characterTarget | invalidInput | notFits | zeroTarget | notSameLength | scalarTarget | booleanTarget | arrayTarget | booleanArrayTarget
   | orElse (left right : Test) | andThen (left right : Test)
 
 def Test.eval (primitive : Primitives) (frame : Frame) : Test → Bool
+  | .pure => frame.context.pure
+  | .impure => !frame.context.pure
   | .operation value => decide (primitive.callAfter frame.text frame.context.names frame.result.position value frame.context.scalarNames frame.context.arrayNames (frame.context.subtypeHiding.get value) frame.context.booleanNames ≠ 0)
   | .zeroResult => decide (frame.result.position = 0)
   | .nonadvancing => decide (frame.result.position ≤ frame.scan.position)
@@ -79,6 +84,8 @@ def Test.eval (primitive : Primitives) (frame : Frame) : Test → Bool
 def call := Compose.Expressions.call
 
 def Test.render : Test → List String
+  | .pure => ["context", ".", "pure"]
+  | .impure => ["not", "context", ".", "pure"]
   | .operation value => call "call_after" [["text"], ["context", ".", "names"], ["result", ".", "position"], (Compose.Expressions.Expr.operation value).render, ["context", ".", "scalar_names"], ["context", ".", "array_names"], ["context", ".", "subtype_hiding", "("] ++ (Compose.Expressions.Expr.operation value).render ++ [")"], ["context", ".", "boolean_names"]] ++ ["/=", "0"]
   | .zeroResult => ["result", ".", "position", "=", "0"]
   | .nonadvancing => ["result", ".", "position", "<=", "scan", ".", "position"]
@@ -104,10 +111,16 @@ def Test.render : Test → List String
 
 inductive Update
   | operation (value : Names.Operation) | association
+  | callAssignment (boolean : Bool)
   | token (token : ShellToken)
   | valueAfter | characterAfter | statePosition | stateTarget | output | assigned | rejected | scalarAssignment | booleanAssignment | arrayAssignment | booleanArrayAssignment
 
 def Update.eval (primitive : Primitives) (frame : Frame) : Update → BodyScan
+  | .callAssignment boolean =>
+      let called := primitive.callAssignment frame.text frame.context frame.result frame.catalog
+      if called.position ≠ 0 then called
+      else if boolean then primitive.booleanAssignment frame.text frame.context frame.result
+      else primitive.scalarAssignment frame.text frame.context frame.result
   | .operation value => {frame.result with position := primitive.callAfter frame.text frame.context.names frame.result.position value frame.context.scalarNames frame.context.arrayNames (frame.context.subtypeHiding.get value) frame.context.booleanNames}
   | .association => {frame.result with position := primitive.associationAfter frame.text frame.result.position false}
   | .token tok => primitive.bodyToken frame.text frame.context frame.result tok
@@ -124,6 +137,12 @@ def Update.eval (primitive : Primitives) (frame : Frame) : Update → BodyScan
   | .rejected => {frame.result with facts := {frame.result.facts with path := primitive.reject frame.result.facts.path}}
 
 def Update.render : Update → List String
+  | .callAssignment boolean =>
+      ["declare", "called", ":", "constant", "body_scan", ":="] ++
+      call "call_assignment_body" [["text"], ["context"], ["result"], ["catalog"]] ++
+      [";", "begin", "result", ":=", "(", "if", "called", ".", "position", "/=", "0", "then", "called", "else"] ++
+      call (if boolean then "boolean_assignment_body" else "scalar_assignment_body")
+        [["text"], ["context"], ["result"]] ++ [")", ";", "end", ";"]
   | .operation value => ["result", ".", "position", ":="] ++ call "call_after" [["text"], ["context", ".", "names"], ["result", ".", "position"], (Compose.Expressions.Expr.operation value).render, ["context", ".", "scalar_names"], ["context", ".", "array_names"], ["context", ".", "subtype_hiding", "("] ++ (Compose.Expressions.Expr.operation value).render ++ [")"], ["context", ".", "boolean_names"]] ++ [";"]
   | .association => ["result", ".", "position", ":=", "names", "."] ++ call "association_after" [["text"], ["result", ".", "position"], ["false"]] ++ [";"]
   | .token tok => ["result", ":="] ++ call "body_token"
@@ -212,13 +231,14 @@ def assignmentCommands : Command := .list [
   .update .assigned]
 def dispatchCommands : Command :=
   .choose (.present (.word "null")) (.update (.token (.word "null")))
-    (.choose (.operation .output) outputCommands
-      (.choose (.operation .partialOutput) putCommands
+    (.choose (.andThen .impure (.operation .output)) outputCommands
+      (.choose (.andThen .impure (.operation .partialOutput)) putCommands
         (.choose (.andThen .hasArguments (.operation .reject)) rejectCommands
-          (.choose .scalarTarget (.update .scalarAssignment)
-            (.choose .arrayTarget
+          (.choose .scalarTarget (.update (.callAssignment false))
+            (.choose (.andThen .impure .arrayTarget)
               (.choose .booleanArrayTarget (.update .booleanArrayAssignment) (.update .arrayAssignment))
-              (.choose .booleanTarget (.update .booleanAssignment) assignmentCommands))))))
+              (.choose .booleanTarget (.update (.callAssignment true))
+                (.choose .pure .returnInvalid assignmentCommands)))))))
 def basicCommands : Command := .list [guard .zeroResult, dispatchCommands,
   .update (.token (.symbol ";")), guard .nonadvancing, .returnResult]
 
@@ -226,8 +246,9 @@ def basicRender : List String :=
   ["result", ":", "body_scan", "(", "scan", ".", "count", ")", ":=", "scan", ";", "value", ":", "expression_result", ";",
     "target", ":", "string_target_result", ";", "character_value", ":", "value_result", ";", "begin"] ++ basicCommands.render ++ ["end", "basic_body", ";"]
 
-def basicEval (primitive : Primitives) (text : Source) (context : Native.Context) (scan : BodyScan) : BodyScan :=
-  basicCommands.eval primitive ⟨text, context, scan, scan, {}, {}, {}⟩ (fun _ => primitive.invalid scan)
+def basicEval (primitive : Primitives) (text : Source) (context : Native.Context) (scan : BodyScan)
+    (catalog : FunctionBindings.Metadata := {}) : BodyScan :=
+  basicCommands.eval primitive ⟨text, context, scan, scan, {}, {}, {}, catalog⟩ (fun _ => primitive.invalid scan)
 
 def modelPrimitives : Primitives where
   callAfter := fun text names position operation scalarNames arrays hidden booleans => Compose.callAfter text names position operation scalarNames arrays hidden booleans
@@ -242,6 +263,7 @@ def modelPrimitives : Primitives where
   invalid := invalidBody
   scalarTarget := fun text context position => Predicate.scalarTarget text context.model position
   scalarAssignment := fun text context scan => scalarAssignmentBody text context.model scan
+  callAssignment := fun text context scan catalog => callAssignmentBody text context.model scan catalog
   booleanTarget := fun text context position => Predicate.booleanTarget text context.model position
   booleanAssignment := fun text context scan => booleanAssignmentBody text context.model scan
   arrayTarget := fun text context position => Predicate.arrayTarget text context.model position
