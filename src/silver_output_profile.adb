@@ -26,6 +26,8 @@ is
    package Functions renames Silver_Function_Bindings;
    use type Functions.Scalar_Kind;
    use type Functions.Metadata;
+   use type Functions.Signature;
+   use type Functions.Formal;
    use type Scalars.Wide;
    use type Scalars.Interval;
    use type Names.Operation_Kind;
@@ -1701,9 +1703,24 @@ is
       and then (for all Index in Boolean_Index => Left (Index) = Right (Index)))
      with Ghost => Static, Global => null,
        Annotate => (GNATprove, Logical_Equal);
+   function Same_Parser_Function_Items
+     (Left, Right : Functions.Signature_Array) return Boolean is
+     (Left'First = Right'First and then Left'Last = Right'Last
+      and then (for all Index in Functions.Function_Index => Left (Index) = Right (Index)))
+     with Ghost => Static, Global => null,
+       Annotate => (GNATprove, Logical_Equal);
+   function Same_Parser_Formal_Items
+     (Left, Right : Functions.Formal_Array) return Boolean is
+     (Left'First = Right'First and then Left'Last = Right'Last
+      and then (for all Index in Functions.Formal_Index => Left (Index) = Right (Index)))
+     with Ghost => Static, Global => null,
+       Annotate => (GNATprove, Logical_Equal);
    function Same_Parser_State (Left, Right : Parser_State) return Boolean is
      (Left.Position = Right.Position
-      and then Left.Functions = Right.Functions
+      and then Left.Functions.Count = Right.Functions.Count
+      and then Same_Parser_Function_Items (Left.Functions.Items, Right.Functions.Items)
+      and then Left.Functions.Parameter_Count = Right.Functions.Parameter_Count
+      and then Same_Parser_Formal_Items (Left.Functions.Parameters, Right.Functions.Parameters)
       and then Left.Pure = Right.Pure
       and then Left.Assigned_In_Functions = Right.Assigned_In_Functions
       and then Left.Hiding = Right.Hiding
