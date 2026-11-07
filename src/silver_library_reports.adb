@@ -4837,6 +4837,20 @@ package body Silver_Library_Reports with SPARK_Mode => On is
       end;
    end Audit_Normalized_Report;
 
+   procedure Report_Rebase_Policy
+     (Report : String; Kind : Audit_Kind; Source : String;
+      Functions : Function_Metadata)
+     with Ghost => Static, Global => null,
+       Pre => Report'Length in 1 .. Max_Report_Length,
+       Post =>
+         (declare Text : constant String (1 .. Report'Length) := Report;
+          begin Report_Policy (Report, Kind, Source => Source, Functions => Functions) =
+            Report_Policy (Text, Kind, Source => Source, Functions => Functions))
+   is
+   begin
+      null;
+   end Report_Rebase_Policy;
+
    --  Keep the uncommon rebasing copy in its own call frame. The driver and
    --  runtime-evidence reader already supply slices starting at one.
    function Audit_Rebased_Report (Report : String; Kind : Audit_Kind;
@@ -4846,6 +4860,7 @@ package body Silver_Library_Reports with SPARK_Mode => On is
    is
       Text : constant String (1 .. Report'Length) := Report;
    begin
+      Report_Rebase_Policy (Report, Kind, Source, Functions);
       return Audit_Normalized_Report (Text, Kind, Source => Source, Functions => Functions);
    end Audit_Rebased_Report;
 
