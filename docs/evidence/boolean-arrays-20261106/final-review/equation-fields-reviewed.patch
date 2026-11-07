@@ -1,0 +1,40 @@
+--- a/proof/Silver/ComposeSourceBridge.lean
++++ b/proof/Silver/ComposeSourceBridge.lean
+@@ -142,20 +142,23 @@
+     split <;> rfl
+   let raw := Expressions.normalized_rawHelpers calls (interpreted_primitives calls source)
+     {source.definitions with imageMinimum := minimum, imageMaximum := maximum} source.legal
+-  refine { toRawHelperEquations := raw, booleanDeclaration := ?_, booleanInitializer := ?_ }
+-  · obtain ⟨imports, predicate, helpers, definitions, contracts, links, equation⟩ :=
+-      source.booleanDeclaration.source
+-    intro text valid state arguments ready
+-    exact (equation text valid state arguments ready.base).trans
+-      (BooleanDeclarationNative.imports_meaning imports text state arguments
+-        (BooleanDeclarationNative.Libraries.imports_meaning raw helpers definitions contracts links
+-          text valid state arguments ready.base))
+-  · obtain ⟨imports, predicate, helpers, definitions, contracts, links, equation⟩ :=
+-      source.booleanInitializer.source
+-    intro text valid state position first after ready bounded mask
+-    exact (equation text valid state position first after ready.base bounded mask).trans
+-      (BooleanInitializerNative.Libraries.imports_meaning helpers definitions contracts links
+-        text valid state position first after ready.base bounded mask)
++  exact {
++    toRawHelperEquations := raw
++    booleanDeclaration := by
++      obtain ⟨imports, predicate, helpers, definitions, contracts, links, equation⟩ :=
++        source.booleanDeclaration.source
++      intro text valid state arguments ready
++      exact (equation text valid state arguments ready.base).trans
++        (BooleanDeclarationNative.imports_meaning imports text state arguments
++          (BooleanDeclarationNative.Libraries.imports_meaning raw helpers definitions contracts links
++            text valid state arguments ready.base))
++    booleanInitializer := by
++      obtain ⟨imports, predicate, helpers, definitions, contracts, links, equation⟩ :=
++        source.booleanInitializer.source
++      intro text valid state position first after ready bounded mask
++      exact (equation text valid state position first after ready.base bounded mask).trans
++        (BooleanInitializerNative.Libraries.imports_meaning helpers definitions contracts links
++          text valid state position first after ready.base bounded mask) }
+ 
+ theorem interpreted_step (calls : Expressions.Calls) (source : InterpretedSource calls)
+     (text : Source) (valid : Expressions.ValidText text) (form : Form) (token : ShellToken)
