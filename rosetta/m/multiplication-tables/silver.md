@@ -1,6 +1,6 @@
 # Multiplication tables
 
-**Candidate: proofs likely to discharge automatically.** The source computes the complete 12-by-12 upper triangle, including its diagonal, with a header and aligned row labels. The manifest specifies 13 lines of 52 bytes before LF; no Character operations, digit buffer, helper procedure or general string building is used. The exact source passed admission, complete required application/library proof audit, build and manifest execution in integration run 20261107T164659-9f6192441d21; the linked assessment records the evidence scope. Independent closing review remains pending.
+**Candidate: proofs likely to discharge automatically.** The source computes the complete 12-by-12 upper triangle, including its diagonal, with a header and aligned row labels. The manifest specifies 13 lines of 52 bytes before LF; no Character operations, digit buffer, helper procedure or general string building is used. The exact source passed admission, complete required application/library proof audit, build and manifest execution in integration run 20261107T164659-9f6192441d21; the linked assessment records the evidence scope. The linked delivery record carries the independent closing review status.
 
 Position 63 in the [progression](../../progression.md#stage-1), in stage 1.
 

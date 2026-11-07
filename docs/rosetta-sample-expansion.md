@@ -194,7 +194,7 @@ methods: six fresh results including the manifest and 597 retained applicable
 results, subject to the closing independent review. The prior failed full suite
 remains failed; this is not a fresh full-suite claim.
 
-The single final render confirms **70 Stage-1 assessments**, up from 61. Exactly
+The final render confirms **70 Stage-1 assessments**, up from 61. Exactly
 eleven source assessment records changed and no supported construct identifier
 changed. FizzBuzz and Even or odd were already in Stage 1, so nine mappings are
 new. Stage fields for #9, #10, #229 and #234 remain 1, #11 remains 2 and #12 remains
@@ -211,7 +211,7 @@ Implementation merge remains a later owner decision.
 | --- | --- | --- | --- |
 | Tutorial inventory and guide correction | Sol Extra High inventory; Sol High documentation; lead inspected | Available README audited and corrected through merged PR #336; separate tutorial not located in searched sources. | 31 admission checks; whole-round elapsed/token/cost data unavailable. |
 | Sample implementation | Two disjoint Sol Extra High subthreads | Ten programs and independent expectations integrated; lead requested clearer negative-value list separators and the gcd(0,0) convention before validation. | Source checks passed; no whole-round cost measurement. |
-| Metadata reconciliation | Sol High | Exactly eleven task records, original provenance preserved, supported identifiers unchanged. | Static inventory/link checks; no separate elapsed measurement. |
+| Metadata reconciliation | Sol High; lead closure wording follow-up | Exactly eleven task records, original provenance preserved, supported identifiers unchanged. After the first render, replaced repeated pending-review text with a reference to this record, re-rendered only eleven pages and repeated the three affected methods successfully. | Static inventory/link checks and managed renderer test timings; no separate elapsed measurement. |
 | Independent fidelity/integration review | Astra Extra High, bounded to actual samples, expectations, metadata and evidence | Fidelity, manifest, metadata preparation and native/Lean applicability reviewed; closing target pending. | Exact inspection scope/times in the review; token/cost data unavailable. |
 | Integration and validation | Lead runtime model/effort not independently exposed; no live setting change claimed | Complete native refresh, build, manifest and all five focused methods passed; final render and six stage-field comparisons complete. | Managed run timings in the packet; no whole-team cost claim. |
 

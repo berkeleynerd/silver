@@ -4105,7 +4105,7 @@
    ],
    "size": 39,
    "approach": "Main declares Element range -9 .. 9, First = (-3, 0, 5, 5), Second = (8, -1, 2) and an initialized seven-element Combined array. It copies First into indexes 1 .. 4 and Second into 4 + I for I in 1 .. 3, then displays all three arrays using Put and Integer Image.",
-   "summary": "The two fixed copy ranges cover every result index once, yielding (-3, 0, 5, 5, 8, -1, 2). The source uses indexed copies rather than a general whole-array concatenation operation. The exact source passed admission, complete required application/library proof audit, build and manifest execution in integration run 20261107T164659-9f6192441d21; the linked assessment records the evidence scope. Independent closing review remains pending.",
+   "summary": "The two fixed copy ranges cover every result index once, yielding (-3, 0, 5, 5, 8, -1, 2). The source uses indexed copies rather than a general whole-array concatenation operation. The exact source passed admission, complete required application/library proof audit, build and manifest execution in integration run 20261107T164659-9f6192441d21; the linked assessment records the evidence scope. The linked delivery record carries the independent closing review status.",
    "confidence": "high",
    "review": {
     "date": "2026-11-07",
@@ -4113,7 +4113,7 @@
     "model": "gpt-6.1-sol",
     "effort": "high",
     "setting_evidence": "Lead-selected GPT-6.1 Sol / High for metadata reconciliation; live runtime settings not independently exposed",
-    "method": "Targeted source, captured task, manifest and independent expected-output derivation review at ff4fdb9c8b; finalized against integration lead manifest validation run 20261107T164659-9f6192441d21, including application/library proof audits, build and exact execution; independent closing review pending; metadata reconciliation is not an independent review"
+    "method": "Targeted source, captured task, manifest and independent expected-output derivation review at ff4fdb9c8b; finalized against integration lead manifest validation run 20261107T164659-9f6192441d21, including application/library proof audits, build and exact execution; independent closing review status is recorded in the linked delivery record; metadata reconciliation is not an independent review"
    }
   },
   "Array length": {
@@ -14688,7 +14688,7 @@
    ],
    "size": 21,
    "approach": "Main enumerates Quarters in 0 .. 4, Dimes in 0 .. 10 and Nickels in 0 .. 20. It computes Total := Quarters * 25 + Dimes * 10 + Nickels * 5 with explicit grouping. When Total <= 100 and Ways < 1155 it increments Ways; the remaining cents uniquely determine the number of pennies. It prints the resulting count for 100 cents.",
-   "summary": "The 5 * 11 * 21 = 1155 triples include every affordable quarter/dime/nickel choice exactly once, so the counter guard cannot skip an iteration that should count. The independently derived required result is 242. The optional $1000 case with two additional denominations is excluded. The exact source passed admission, complete required application/library proof audit, build and manifest execution in integration run 20261107T164659-9f6192441d21; the linked assessment records the evidence scope. Independent closing review remains pending.",
+   "summary": "The 5 * 11 * 21 = 1155 triples include every affordable quarter/dime/nickel choice exactly once, so the counter guard cannot skip an iteration that should count. The independently derived required result is 242. The optional $1000 case with two additional denominations is excluded. The exact source passed admission, complete required application/library proof audit, build and manifest execution in integration run 20261107T164659-9f6192441d21; the linked assessment records the evidence scope. The linked delivery record carries the independent closing review status.",
    "confidence": "high",
    "review": {
     "date": "2026-11-07",
@@ -14696,7 +14696,7 @@
     "model": "gpt-6.1-sol",
     "effort": "high",
     "setting_evidence": "Lead-selected GPT-6.1 Sol / High for metadata reconciliation; live runtime settings not independently exposed",
-    "method": "Targeted source, captured task, manifest and independent expected-output derivation review at ff4fdb9c8b; finalized against integration lead manifest validation run 20261107T164659-9f6192441d21, including application/library proof audits, build and exact execution; independent closing review pending; metadata reconciliation is not an independent review"
+    "method": "Targeted source, captured task, manifest and independent expected-output derivation review at ff4fdb9c8b; finalized against integration lead manifest validation run 20261107T164659-9f6192441d21, including application/library proof audits, build and exact execution; independent closing review status is recorded in the linked delivery record; metadata reconciliation is not an independent review"
    }
   },
   "Count the coins/0-1": {
@@ -20437,7 +20437,7 @@
    "risks": [],
    "size": 25,
    "approach": "Main declares mutable String variables Empty := \"\" and Nonempty := \"Silver\", assigns \"\" to Empty, and tests Empty = \"\" and Nonempty /= \"\". It initializes Input with First_Or_Default (\"\"), checks Input_Is_Valid, then prints whether Input'Length = 0; invalid input calls Reject.",
-   "summary": "Mutable empty and nonempty String variables demonstrate the required assignment and checks using baseline String/argument operations. Manifest cases cover no argument, an explicit empty argument, Silver, one space, the 4096-byte limit, and rejection of extra arguments, 4097 bytes or a tab. The exact source passed admission, complete required application/library proof audit, build and manifest execution in integration run 20261107T164659-9f6192441d21; the linked assessment records the evidence scope. Independent closing review remains pending.",
+   "summary": "Mutable empty and nonempty String variables demonstrate the required assignment and checks using baseline String/argument operations. Manifest cases cover no argument, an explicit empty argument, Silver, one space, the 4096-byte limit, and rejection of extra arguments, 4097 bytes or a tab. The exact source passed admission, complete required application/library proof audit, build and manifest execution in integration run 20261107T164659-9f6192441d21; the linked assessment records the evidence scope. The linked delivery record carries the independent closing review status.",
    "confidence": "high",
    "review": {
     "date": "2026-11-07",
@@ -20445,7 +20445,7 @@
     "model": "gpt-6.1-sol",
     "effort": "high",
     "setting_evidence": "Lead-selected GPT-6.1 Sol / High for metadata reconciliation; live runtime settings not independently exposed",
-    "method": "Targeted source, captured task, manifest and independent expected-output derivation review at ff4fdb9c8b; finalized against integration lead manifest validation run 20261107T164659-9f6192441d21, including application/library proof audits, build and exact execution; independent closing review pending; metadata reconciliation is not an independent review"
+    "method": "Targeted source, captured task, manifest and independent expected-output derivation review at ff4fdb9c8b; finalized against integration lead manifest validation run 20261107T164659-9f6192441d21, including application/library proof audits, build and exact execution; independent closing review status is recorded in the linked delivery record; metadata reconciliation is not an independent review"
    }
   },
   "Endless maze": {
@@ -21622,7 +21622,7 @@
    "risks": [],
    "size": 12,
    "approach": "Main loops over -3 .. 3 and tests (Number rem 2) = 0, printing Integer'Image (Number) followed by \": even\" or \": odd\". The seven actual integer values include negatives, zero and positives of both parities.",
-   "summary": "The seven-value demonstration classifies the required integer inputs by remainder, including negative odd values. The literal divisor 2 excludes division by zero. The exact source passed admission, complete required application/library proof audit, build and manifest execution in integration run 20261107T164659-9f6192441d21; the linked assessment records the evidence scope. Independent closing review remains pending.",
+   "summary": "The seven-value demonstration classifies the required integer inputs by remainder, including negative odd values. The literal divisor 2 excludes division by zero. The exact source passed admission, complete required application/library proof audit, build and manifest execution in integration run 20261107T164659-9f6192441d21; the linked assessment records the evidence scope. The linked delivery record carries the independent closing review status.",
    "confidence": "high",
    "review": {
     "date": "2026-11-07",
@@ -21630,7 +21630,7 @@
     "model": "gpt-6.1-sol",
     "effort": "high",
     "setting_evidence": "Lead-selected GPT-6.1 Sol / High for metadata reconciliation; live runtime settings not independently exposed",
-    "method": "Targeted source, captured task, manifest and independent expected-output derivation review at ff4fdb9c8b; finalized against integration lead manifest validation run 20261107T164659-9f6192441d21, including application/library proof audits, build and exact execution; independent closing review pending; metadata reconciliation is not an independent review"
+    "method": "Targeted source, captured task, manifest and independent expected-output derivation review at ff4fdb9c8b; finalized against integration lead manifest validation run 20261107T164659-9f6192441d21, including application/library proof audits, build and exact execution; independent closing review status is recorded in the linked delivery record; metadata reconciliation is not an independent review"
    }
   },
   "Events": {
@@ -23438,7 +23438,7 @@
    ],
    "size": 18,
    "approach": "Main iterates over the constant Positive_Input array (1, 2, 6, 12, 13, 28, 36, 97, 100), with component range 1 .. 100. For each Number it tests every Divisor in 1 .. Number and prints Divisor when (Number mod Divisor) = 0, forming one labelled divisor-list line per input.",
-   "summary": "Every positive divisor is at most the positive input, so exhaustive counted trial division produces the complete ascending list. Cases include 1, primes and composites; zero and negative inputs are outside the task requirement. The exact source passed admission, complete required application/library proof audit, build and manifest execution in integration run 20261107T164659-9f6192441d21; the linked assessment records the evidence scope. Independent closing review remains pending.",
+   "summary": "Every positive divisor is at most the positive input, so exhaustive counted trial division produces the complete ascending list. Cases include 1, primes and composites; zero and negative inputs are outside the task requirement. The exact source passed admission, complete required application/library proof audit, build and manifest execution in integration run 20261107T164659-9f6192441d21; the linked assessment records the evidence scope. The linked delivery record carries the independent closing review status.",
    "confidence": "high",
    "review": {
     "date": "2026-11-07",
@@ -23446,7 +23446,7 @@
     "model": "gpt-6.1-sol",
     "effort": "high",
     "setting_evidence": "Lead-selected GPT-6.1 Sol / High for metadata reconciliation; live runtime settings not independently exposed",
-    "method": "Targeted source, captured task, manifest and independent expected-output derivation review at ff4fdb9c8b; finalized against integration lead manifest validation run 20261107T164659-9f6192441d21, including application/library proof audits, build and exact execution; independent closing review pending; metadata reconciliation is not an independent review"
+    "method": "Targeted source, captured task, manifest and independent expected-output derivation review at ff4fdb9c8b; finalized against integration lead manifest validation run 20261107T164659-9f6192441d21, including application/library proof audits, build and exact execution; independent closing review status is recorded in the linked delivery record; metadata reconciliation is not an independent review"
    }
   },
   "Fairshare between two and more": {
@@ -26004,7 +26004,7 @@
    "risks": [],
    "size": 16,
    "approach": "Main loops over 1 .. 100, testing Number mod 15, then mod 3, then mod 5. It prints FizzBuzz, Fizz or Buzz for the matching branch, otherwise Integer'Image (Number), retaining Ada's leading space for positive numbers.",
-   "summary": "The source computes the complete required sequence, including the multiples of both three and five. Static loop bounds and literal nonzero divisors use the existing narrow Integer-loop, division and Image rules. The exact source passed admission, complete required application/library proof audit, build and manifest execution in integration run 20261107T164659-9f6192441d21; the linked assessment records the evidence scope. Independent closing review remains pending.",
+   "summary": "The source computes the complete required sequence, including the multiples of both three and five. Static loop bounds and literal nonzero divisors use the existing narrow Integer-loop, division and Image rules. The exact source passed admission, complete required application/library proof audit, build and manifest execution in integration run 20261107T164659-9f6192441d21; the linked assessment records the evidence scope. The linked delivery record carries the independent closing review status.",
    "confidence": "high",
    "review": {
     "date": "2026-11-07",
@@ -26012,7 +26012,7 @@
     "model": "gpt-6.1-sol",
     "effort": "high",
     "setting_evidence": "Lead-selected GPT-6.1 Sol / High for metadata reconciliation; live runtime settings not independently exposed",
-    "method": "Targeted source, captured task, manifest and independent expected-output derivation review at ff4fdb9c8b; finalized against integration lead manifest validation run 20261107T164659-9f6192441d21, including application/library proof audits, build and exact execution; independent closing review pending; metadata reconciliation is not an independent review"
+    "method": "Targeted source, captured task, manifest and independent expected-output derivation review at ff4fdb9c8b; finalized against integration lead manifest validation run 20261107T164659-9f6192441d21, including application/library proof audits, build and exact execution; independent closing review status is recorded in the linked delivery record; metadata reconciliation is not an independent review"
    }
   },
   "Flatten a list": {
@@ -28979,7 +28979,7 @@
    ],
    "size": 35,
    "approach": "Main reads eight embedded pairs from fixed Input_Value arrays bounded -1000 .. 1000, normalizes each scalar copy by guarded unary negation, then performs up to 20 Euclidean updates under B > 0. Each update sets Remainder := (A mod B), A := B and B := Remainder. It prints the original pair and A. The source explicitly adopts gcd (0, 0) = 0.",
-   "summary": "For nonnegative magnitudes at most 1000, two Euclidean updates at least halve the second operand; 20 updates suffice since 2**10 exceeds 1000. Cases include ordinary, zero, both-zero, signed and coprime pairs, including (610, 987). This bounded demonstration does not claim an unrestricted GCD API. The exact source passed admission, complete required application/library proof audit, build and manifest execution in integration run 20261107T164659-9f6192441d21; the linked assessment records the evidence scope. Independent closing review remains pending.",
+   "summary": "For nonnegative magnitudes at most 1000, two Euclidean updates at least halve the second operand; 20 updates suffice since 2**10 exceeds 1000. Cases include ordinary, zero, both-zero, signed and coprime pairs, including (610, 987). This bounded demonstration does not claim an unrestricted GCD API. The exact source passed admission, complete required application/library proof audit, build and manifest execution in integration run 20261107T164659-9f6192441d21; the linked assessment records the evidence scope. The linked delivery record carries the independent closing review status.",
    "confidence": "high",
    "review": {
     "date": "2026-11-07",
@@ -28987,7 +28987,7 @@
     "model": "gpt-6.1-sol",
     "effort": "high",
     "setting_evidence": "Lead-selected GPT-6.1 Sol / High for metadata reconciliation; live runtime settings not independently exposed",
-    "method": "Targeted source, captured task, manifest and independent expected-output derivation review at ff4fdb9c8b; finalized against integration lead manifest validation run 20261107T164659-9f6192441d21, including application/library proof audits, build and exact execution; independent closing review pending; metadata reconciliation is not an independent review"
+    "method": "Targeted source, captured task, manifest and independent expected-output derivation review at ff4fdb9c8b; finalized against integration lead manifest validation run 20261107T164659-9f6192441d21, including application/library proof audits, build and exact execution; independent closing review status is recorded in the linked delivery record; metadata reconciliation is not an independent review"
    }
   },
   "Greatest element of a list": {
@@ -36522,7 +36522,7 @@
    "risks": [],
    "size": 19,
    "approach": "Main iterates over a constant Gregorian_Year array bounded 1 .. 2400, containing 1600, 1700, 1800, 1900, 1996, 1999, 2000, 2004, 2100, 2200, 2300 and 2400. An inline condition tests divisibility by 400 or divisibility by 4 but not 100, then prints leap or common.",
-   "summary": "The inline Gregorian predicate covers ordinary leap/common years, common century years and century years divisible by 400. Only literal nonzero divisors are used; no function or computed String buffer is needed. The exact source passed admission, complete required application/library proof audit, build and manifest execution in integration run 20261107T164659-9f6192441d21; the linked assessment records the evidence scope. Independent closing review remains pending.",
+   "summary": "The inline Gregorian predicate covers ordinary leap/common years, common century years and century years divisible by 400. Only literal nonzero divisors are used; no function or computed String buffer is needed. The exact source passed admission, complete required application/library proof audit, build and manifest execution in integration run 20261107T164659-9f6192441d21; the linked assessment records the evidence scope. The linked delivery record carries the independent closing review status.",
    "confidence": "high",
    "review": {
     "date": "2026-11-07",
@@ -36530,7 +36530,7 @@
     "model": "gpt-6.1-sol",
     "effort": "high",
     "setting_evidence": "Lead-selected GPT-6.1 Sol / High for metadata reconciliation; live runtime settings not independently exposed",
-    "method": "Targeted source, captured task, manifest and independent expected-output derivation review at ff4fdb9c8b; finalized against integration lead manifest validation run 20261107T164659-9f6192441d21, including application/library proof audits, build and exact execution; independent closing review pending; metadata reconciliation is not an independent review"
+    "method": "Targeted source, captured task, manifest and independent expected-output derivation review at ff4fdb9c8b; finalized against integration lead manifest validation run 20261107T164659-9f6192441d21, including application/library proof audits, build and exact execution; independent closing review status is recorded in the linked delivery record; metadata reconciliation is not an independent review"
    }
   },
   "Least common multiple": {
@@ -43073,7 +43073,7 @@
    ],
    "size": 38,
    "approach": "Main prints twelve column headings and then rows 1 .. 12. Nested counted loops print four spaces when Column < Row, otherwise compute Product := (Row * Column) in range 1 .. 144. Conditional literal padding and Integer Image give each heading and product a four-character field.",
-   "summary": "The source computes the complete 12-by-12 upper triangle, including its diagonal, with a header and aligned row labels. The manifest specifies 13 lines of 52 bytes before LF; no Character operations, digit buffer, helper procedure or general string building is used. The exact source passed admission, complete required application/library proof audit, build and manifest execution in integration run 20261107T164659-9f6192441d21; the linked assessment records the evidence scope. Independent closing review remains pending.",
+   "summary": "The source computes the complete 12-by-12 upper triangle, including its diagonal, with a header and aligned row labels. The manifest specifies 13 lines of 52 bytes before LF; no Character operations, digit buffer, helper procedure or general string building is used. The exact source passed admission, complete required application/library proof audit, build and manifest execution in integration run 20261107T164659-9f6192441d21; the linked assessment records the evidence scope. The linked delivery record carries the independent closing review status.",
    "confidence": "high",
    "review": {
     "date": "2026-11-07",
@@ -43081,7 +43081,7 @@
     "model": "gpt-6.1-sol",
     "effort": "high",
     "setting_evidence": "Lead-selected GPT-6.1 Sol / High for metadata reconciliation; live runtime settings not independently exposed",
-    "method": "Targeted source, captured task, manifest and independent expected-output derivation review at ff4fdb9c8b; finalized against integration lead manifest validation run 20261107T164659-9f6192441d21, including application/library proof audits, build and exact execution; independent closing review pending; metadata reconciliation is not an independent review"
+    "method": "Targeted source, captured task, manifest and independent expected-output derivation review at ff4fdb9c8b; finalized against integration lead manifest validation run 20261107T164659-9f6192441d21, including application/library proof audits, build and exact execution; independent closing review status is recorded in the linked delivery record; metadata reconciliation is not an independent review"
    }
   },
   "Multiplicative order": {
@@ -65123,7 +65123,7 @@
    ],
    "size": 39,
    "approach": "Main initializes ten Element values (-5, 0, 12, -5, 7, 100, -100, 12, 0, 3), with Element range -100 .. 100. For Pass in 1 .. 9, a Boolean Changed enables adjacent comparisons over 1 .. (10 - Pass), swapping through a bounded temporary. A pass without swaps disables later pass bodies. Before and after arrays are displayed.",
-   "summary": "Nine shrinking adjacent-swap passes suffice for ten elements, and early inactivity follows only a complete pass without swaps. The ascending result is (-100, -5, -5, 0, 0, 3, 7, 12, 12, 100), preserving duplicates. One source supplies both task mappings without a user procedure, while loop or generic sorting facility. The exact source passed admission, complete required application/library proof audit, build and manifest execution in integration run 20261107T164659-9f6192441d21; the linked assessment records the evidence scope. Independent closing review remains pending.",
+   "summary": "Nine shrinking adjacent-swap passes suffice for ten elements, and early inactivity follows only a complete pass without swaps. The ascending result is (-100, -5, -5, 0, 0, 3, 7, 12, 12, 100), preserving duplicates. One source supplies both task mappings without a user procedure, while loop or generic sorting facility. The exact source passed admission, complete required application/library proof audit, build and manifest execution in integration run 20261107T164659-9f6192441d21; the linked assessment records the evidence scope. The linked delivery record carries the independent closing review status.",
    "confidence": "high",
    "review": {
     "date": "2026-11-07",
@@ -65131,7 +65131,7 @@
     "model": "gpt-6.1-sol",
     "effort": "high",
     "setting_evidence": "Lead-selected GPT-6.1 Sol / High for metadata reconciliation; live runtime settings not independently exposed",
-    "method": "Targeted source, captured task, manifest and independent expected-output derivation review at ff4fdb9c8b; finalized against integration lead manifest validation run 20261107T164659-9f6192441d21, including application/library proof audits, build and exact execution; independent closing review pending; metadata reconciliation is not an independent review"
+    "method": "Targeted source, captured task, manifest and independent expected-output derivation review at ff4fdb9c8b; finalized against integration lead manifest validation run 20261107T164659-9f6192441d21, including application/library proof audits, build and exact execution; independent closing review status is recorded in the linked delivery record; metadata reconciliation is not an independent review"
    }
   },
   "Sort an outline at every level": {
@@ -65562,7 +65562,7 @@
    ],
    "size": 39,
    "approach": "Main initializes ten Element values (-5, 0, 12, -5, 7, 100, -100, 12, 0, 3), with Element range -100 .. 100. For Pass in 1 .. 9, a Boolean Changed enables adjacent comparisons over 1 .. (10 - Pass), swapping through a bounded temporary. A pass without swaps disables later pass bodies. Before and after arrays are displayed.",
-   "summary": "Nine shrinking adjacent-swap passes suffice for ten elements, and early inactivity follows only a complete pass without swaps. The ascending result is (-100, -5, -5, 0, 0, 3, 7, 12, 12, 100), preserving duplicates. One source supplies both task mappings without a user procedure, while loop or generic sorting facility. The exact source passed admission, complete required application/library proof audit, build and manifest execution in integration run 20261107T164659-9f6192441d21; the linked assessment records the evidence scope. Independent closing review remains pending.",
+   "summary": "Nine shrinking adjacent-swap passes suffice for ten elements, and early inactivity follows only a complete pass without swaps. The ascending result is (-100, -5, -5, 0, 0, 3, 7, 12, 12, 100), preserving duplicates. One source supplies both task mappings without a user procedure, while loop or generic sorting facility. The exact source passed admission, complete required application/library proof audit, build and manifest execution in integration run 20261107T164659-9f6192441d21; the linked assessment records the evidence scope. The linked delivery record carries the independent closing review status.",
    "confidence": "high",
    "review": {
     "date": "2026-11-07",
@@ -65570,7 +65570,7 @@
     "model": "gpt-6.1-sol",
     "effort": "high",
     "setting_evidence": "Lead-selected GPT-6.1 Sol / High for metadata reconciliation; live runtime settings not independently exposed",
-    "method": "Targeted source, captured task, manifest and independent expected-output derivation review at ff4fdb9c8b; finalized against integration lead manifest validation run 20261107T164659-9f6192441d21, including application/library proof audits, build and exact execution; independent closing review pending; metadata reconciliation is not an independent review"
+    "method": "Targeted source, captured task, manifest and independent expected-output derivation review at ff4fdb9c8b; finalized against integration lead manifest validation run 20261107T164659-9f6192441d21, including application/library proof audits, build and exact execution; independent closing review status is recorded in the linked delivery record; metadata reconciliation is not an independent review"
    }
   },
   "Sorting algorithms/Circle sort": {

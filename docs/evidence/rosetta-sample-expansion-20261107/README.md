@@ -72,7 +72,7 @@ by the selection above. Full invocation arrays and captured input hashes remain
 in each event stream. The one-worker reservation is sufficient for these serial
 Python tests; it does not restrict a future Lean run.
 
-One final `python3 rosetta/refresh.py --render` produced **70 Stage-1
+The final `python3 rosetta/refresh.py --render` produced **70 Stage-1
 assessments**, up from 61, with the same 1,576 candidates and 44 stages. Exactly
 eleven source assessment records changed; all original attribution and supported
 identifiers remain unchanged. The generated diff includes 880 task pages: eleven
@@ -80,6 +80,18 @@ assessment changes and 869 position-only changes, plus the index and progression
 The [stage reconciliation](stage-reconciliation.json) verifies all six tracked
 open/closed stage fields against the final render; no board-field change was
 needed. Independent closing acceptance of the committed target remains pending.
+
+A final wording correction replaced eleven repeated "closing review pending"
+claims with references to the delivery record, so task pages will not retain
+stale status after acceptance. A second render changed only those eleven pages;
+counts, dependencies and stage positions are unchanged. The affected three
+Rosetta methods passed again in `20261107T170729-85eb4456d89e`:
+[result](rosetta-final/result.json), [log](rosetta-final/native.log),
+[events](rosetta-final/events.jsonl). This later result supplies the three Rosetta
+methods in the six-fresh/597-retained partition; overlapping passes are not added.
+The oracle/parity runs captured the earlier `coverage.json` incidentally, but do
+not read it; their actual source, fixture and generator dependencies are
+unchanged. Their successful results remain applicable without another rerun.
 
 ## Independent expected outputs and task fidelity
 

@@ -1,0 +1,25 @@
+{
+  "run_id": "20261107T170729-85eb4456d89e",
+  "outcome": "success",
+  "methods": 3,
+  "unittest_seconds": 3.724,
+  "managed_seconds": 5.001930592,
+  "reason": "Changed only eleven review-status strings in summaries/methods and regenerated the corresponding task pages; repeat affected renderer tests on final metadata. No application, native or Lean rerun.",
+  "terminal": {
+    "duration_seconds": 5.001930592,
+    "event": "finished",
+    "evidence": [
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261107T170729-85eb4456d89e/native.log",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261107T170729-85eb4456d89e/native.log"
+      }
+    ],
+    "failure_keys": [],
+    "monotonic_ns": 2554826894885,
+    "outcome": "success",
+    "retained_reports": [],
+    "returncode": null,
+    "run_id": "20261107T170729-85eb4456d89e",
+    "utc": "2026-11-07T17:07:34.145279+00:00"
+  }
+}

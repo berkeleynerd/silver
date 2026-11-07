@@ -7,8 +7,9 @@ reviews sources and expected outputs at integration commit `ff4fdb9c8b`,
 including source commits `e84a7c10a3` and `c9f9ab272e` and the manifest at that
 integration target. The integration lead subsequently completed application
 proof audits, build and exact manifest execution for these unchanged sources
-in run `20261107T164659-9f6192441d21`. Independent closing review remains pending;
-this record does not claim its acceptance or an implementation merge.
+in run `20261107T164659-9f6192441d21`. Independent closing review status is recorded in the linked
+[delivery account](../docs/rosetta-sample-expansion.md#delivery-and-validation--2026-11-07);
+this metadata assessment does not itself supply that acceptance.
 
 The metadata subthread selected GPT-6.1 Sol / High (`gpt-6.1-sol`, `high`).
 Live runtime settings were not independently exposed; whole-round elapsed time,
@@ -75,7 +76,7 @@ against the exact manifest cases. The
 records native/Lean input applicability and the broader integration checks.
 This metadata subthread did not run compilation, proof, build or application
 execution; its final wording uses that separately retained integration evidence.
-Independent closing review remains pending.
+The delivery account carries independent closing review and publication status.
 
 Stage 1 has a 61-assessment baseline; FizzBuzz and Even or odd already belong
 there, so this reconciliation adds nine mappings, to 70. There are 71 source

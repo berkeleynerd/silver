@@ -1,6 +1,6 @@
 # Even or odd
 
-**Candidate: proofs likely to discharge automatically.** The seven-value demonstration classifies the required integer inputs by remainder, including negative odd values. The literal divisor 2 excludes division by zero. The exact source passed admission, complete required application/library proof audit, build and manifest execution in integration run 20261107T164659-9f6192441d21; the linked assessment records the evidence scope. Independent closing review remains pending.
+**Candidate: proofs likely to discharge automatically.** The seven-value demonstration classifies the required integer inputs by remainder, including negative odd values. The literal divisor 2 excludes division by zero. The exact source passed admission, complete required application/library proof audit, build and manifest execution in integration run 20261107T164659-9f6192441d21; the linked assessment records the evidence scope. The linked delivery record carries the independent closing review status.
 
 Position 17 in the [progression](../../progression.md#stage-1), in stage 1.
 
