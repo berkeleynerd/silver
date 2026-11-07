@@ -1,0 +1,119 @@
+{
+  "recorded_utc": "2026-11-07T03:09:13.418216+00:00",
+  "state": "Original full native audit still active; completed Read_Primary_Into helper has unresolved VC448. Full run must remain failed.",
+  "run_id": "20261106T232644-673fc5a9c06b",
+  "entity": "silver_output_profile__read_primary_into",
+  "unresolved_goal": "def'vc.448",
+  "prover_registry": [
+    {
+      "id": "0",
+      "name": "altergo",
+      "version": "1.30-gnatprove",
+      "timelimit": "30",
+      "steplimit": "0",
+      "memlimit": "1000"
+    },
+    {
+      "id": "1",
+      "name": "CVC5",
+      "version": "0.0.7-gnatprove",
+      "timelimit": "30",
+      "steplimit": "0",
+      "memlimit": "1000"
+    },
+    {
+      "id": "2",
+      "name": "Z3",
+      "version": "4.5.1-gnatprove",
+      "timelimit": "30",
+      "steplimit": "0",
+      "memlimit": "1000"
+    },
+    {
+      "id": "3",
+      "name": "Trivial",
+      "version": "1.0",
+      "alternative": "trivial",
+      "timelimit": "1",
+      "steplimit": "1",
+      "memlimit": "1000"
+    },
+    {
+      "id": "4",
+      "name": "CVC5_CE",
+      "version": "0.0.7-gnatprove",
+      "timelimit": "10",
+      "steplimit": "0",
+      "memlimit": "1000"
+    }
+  ],
+  "unresolved_goal_xml": [
+    "<goal name=\"def'vc.448\">\n  <proof prover=\"0\"><result status=\"timeout\" /></proof>\n  <proof prover=\"1\"><result status=\"timeout\" /></proof>\n  <proof prover=\"2\"><result status=\"timeout\" /></proof>\n  <transf name=\"introduce_premises\">\n   <goal name=\"def'vc.448.0\">\n   <proof prover=\"4\"><result status=\"timeout\" /></proof>\n   </goal>\n  </transf>\n  </goal>\n ",
+    "<goal name=\"def'vc.448.0\">\n   <proof prover=\"4\"><result status=\"timeout\" /></proof>\n   </goal>\n  "
+  ],
+  "source_diagnostic": "Pending original driver emission. Source location is not inferred from subgoal numbering.",
+  "native_source_sha256": "1686b0b61da8c684ce185995621fb08bc5a6932893d2cc859a82ced9922ce4e8",
+  "source_identity_scope": "144 selected native/feature source, script, project and catalogue inputs match original final snapshot; exact complete preflight and tool identities retained.",
+  "temporary_solver_inputs": "Already-completed solver temporary task files were absent at observation; native generated gnat-json task retained without rerun.",
+  "artifact_inventory": [
+    {
+      "path": "read-primary-task.gnat-json.gz",
+      "source_bytes": 16267678,
+      "source_sha256": "5afc825e57e447cd8592267f7096b7ed0a6d550dc1979b43252ce0700ea62afd",
+      "compressed_sha256": "7e2708f2b49d4dd6fae91d2de0e38a858afa905850a87b673634eb063a7939b2",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/compiler/obj/review-final/gnatprove/silver_output_profile__read_primary_into.gnat-json"
+    },
+    {
+      "path": "read-primary-why3session.xml.gz",
+      "source_bytes": 104998,
+      "source_sha256": "b080ce55c4f4e0f0c631aec9c67ae40d48b516a4c956e8c15fa1337fa58c6284",
+      "compressed_sha256": "d7536a60c9dc906e7457d34b644875a1cd369278f384264038b49ad7ce17ea55",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/compiler/obj/review-final/gnatprove/silver_output_profile__read_primary_into/why3session.xml"
+    },
+    {
+      "path": "read-primary-why3shapes.gz",
+      "source_bytes": 482572,
+      "source_sha256": "59303b3f2033c08b12ad2fb7fd8e9aeae22fbc91f8b1c95ce5e53c956d2a1394",
+      "compressed_sha256": "5029c54c1f5fba45c5fba0b61d776a330daaa4d6799cc8a4a3b1e638d69ac882",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/compiler/obj/review-final/gnatprove/silver_output_profile__read_primary_into/why3shapes"
+    },
+    {
+      "path": "silver_output_profile.adb.gz",
+      "source_bytes": 311940,
+      "source_sha256": "1686b0b61da8c684ce185995621fb08bc5a6932893d2cc859a82ced9922ce4e8",
+      "compressed_sha256": "98e608be816322b3039fe630459a66aaf909898e4d952a7e071a254f8071fe2d",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/src/silver_output_profile.adb"
+    },
+    {
+      "path": "managed-start-and-preflight.json.gz",
+      "source_bytes": 473085,
+      "source_sha256": "dbdb2268e93bd6f4268bf8fd3625a5daf351c45a75469f7a807341023a097bf4",
+      "compressed_sha256": "ce64d0a7bbbd77bc6ce9f9ecc6c2bfb1492d54d0d0641a9aadd2aa34107e462a"
+    }
+  ],
+  "remaining_obligations": [
+    "Continue original audit untouched and retain terminal failure, final logs/events/reports and exact source/check diagnostic.",
+    "Perform bounded independent diagnosis before any source change or proof retry.",
+    "Any later successful full audit/build needs separate final-native evidence; no success-only helper has been invoked."
+  ],
+  "selected_model_effort": "GPT-6.1 Sol / Extra High per original bounded assignment; runtime confirmation and token/cost unavailable",
+  "scope": "Failed native assurance evidence only. No source/options/worker change, process pause/restart, additional proof run, build, staging, commit or publication.",
+  "candidate_whole_helper": {
+    "run_id": "20261107T032921-a797df49b155",
+    "state": "active",
+    "source_sha256": "c1ce845a597605c152119bedc6b07f1aa3bccece5d2870addb86cd18077fffaa",
+    "workspace": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair",
+    "scope": "Complete Read_Primary_Into only, two workers, ordinary proof limits, no line limiter; not complete compiler assurance."
+  },
+  "integration_after_initial_capture": {
+    "observed_utc": "2026-11-07T03:38:58.758221+00:00",
+    "commit": "e0d2521d5d9681cec445c1153ae67b2565e5620a",
+    "candidate_source_matches": true,
+    "expected_change_since_original_native_capture": "src/silver_output_profile.adb only; canonical tree remains original1686b0... while integration is reviewedc1ce845a...",
+    "comparison": "candidate-integration-input-comparison.json"
+  },
+  "checkpoint": {
+    "frozen_utc": "2026-11-07T03:39:21.112887+00:00",
+    "scope": "Initial failed-helper packet and both completed focused experiments. Original audit and complete candidate-helper run remain active; later terminal/helper additions will be separate."
+  }
+}

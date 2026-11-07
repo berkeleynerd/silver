@@ -1,0 +1,14 @@
+[
+  {
+    "path": "events.jsonl",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261107T031832-c8c7ca1eac6d/events.jsonl",
+    "bytes": 449401,
+    "sha256": "ca124e4c4f3324860caa0091fe28c0bf51b6661a755005e62803691b513641ed"
+  },
+  {
+    "path": "native.log",
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261107T031832-c8c7ca1eac6d/native.log",
+    "bytes": 752,
+    "sha256": "e8ed3593df272fb355cc91f2ee92051099d6980447076a829a1f85b20bb3b0fb"
+  }
+]
