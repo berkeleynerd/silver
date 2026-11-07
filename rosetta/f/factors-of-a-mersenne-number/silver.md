@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every operation is bounded integer arithmetic inside static-range for loops with small declared subtypes, so overflow, range and division checks follow from types and guards without annotations. The only integer-to-text conversion and no recursion or while loops make it plain for the provers.
 
-Position 347 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 349 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

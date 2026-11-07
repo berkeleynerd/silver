@@ -1,0 +1,57 @@
+{
+  "date": "2026-11-07",
+  "baseline": "fdbd6132ca7eef35fabcab64c811ce1f7674846b",
+  "stage1_before": 61,
+  "stage1_after": 70,
+  "issues": [
+    {
+      "issue": 9,
+      "state": "CLOSED",
+      "status": "Done",
+      "stage": 1,
+      "rendered_stage": 1,
+      "changed": false
+    },
+    {
+      "issue": 10,
+      "state": "CLOSED",
+      "status": "Done",
+      "stage": 1,
+      "rendered_stage": 1,
+      "changed": false
+    },
+    {
+      "issue": 11,
+      "state": "OPEN",
+      "status": "Backlog",
+      "stage": 2,
+      "rendered_stage": 2,
+      "changed": false
+    },
+    {
+      "issue": 12,
+      "state": "OPEN",
+      "status": "Backlog",
+      "stage": 3,
+      "rendered_stage": 3,
+      "changed": false
+    },
+    {
+      "issue": 229,
+      "state": "CLOSED",
+      "status": "Done",
+      "stage": 1,
+      "rendered_stage": 1,
+      "changed": false
+    },
+    {
+      "issue": 234,
+      "state": "CLOSED",
+      "status": "Done",
+      "stage": 1,
+      "rendered_stage": 1,
+      "changed": false
+    }
+  ],
+  "method": "Compared current GitHub Stage/Status fields with final rendered progression. All six remain correct; no mutation needed."
+}

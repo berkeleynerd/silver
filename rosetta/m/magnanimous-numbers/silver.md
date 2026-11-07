@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All values are bounded by declared ranges (candidates below 10^6, sums below 2*10^6), indexes are guarded and loops are for loops or sit in a procedure, so no annotation is needed. The 400th magnanimous number is 602081, which fits within the cap.
 
-Position 360 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 362 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

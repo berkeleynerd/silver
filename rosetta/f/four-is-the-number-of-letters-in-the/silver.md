@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is integer arithmetic, constant tables and procedure loops whose indexes and accumulators can be bounded by declared ranges and capacity guards, so no annotation is needed, but the large loop-carried totals and big array make careful shape and range types necessary.
 
-Position 575 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 576 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

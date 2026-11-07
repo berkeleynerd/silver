@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Door toggles are independent, so exchanging loop order and counting visits preserves the complete task. Before any increment there are at most 99 prior visits; the guard suppresses no required toggle. Static nonzero pass bounds justify modulo, and the bare-name/static-threshold guard justifies the bounded increment. Expected bytes are derived independently by pass-major toggles. Silver admission, proof, build and execution completed with expected results in the retained delivery suite; the [delivery record](../../../docs/scalar-guard-refinement.md#delivery-assurance-and-validation) distinguishes complete assurance, retained regression results and focused repair validation.
 
-Position 38 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 40 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

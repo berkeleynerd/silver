@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded integer arithmetic in for loops with guards just before each use, so no annotation is needed, but loop-carried counters, the table index and the comma-formatting buffer need careful guarding and the nonlinear products rely on subtype ranges.
 
-Position 391 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 393 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is fixed-bound for loops over constant arrays with fixed data, so indexes and termination are routine, and the only non-routine check is the loop-carried sum bound, which a visible guard with a Reject outcome can handle without annotations.
 
-Position 819 in the [progression](../../../progression.md#stage-13), in stage 13.
+Position 820 in the [progression](../../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

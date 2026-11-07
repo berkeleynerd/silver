@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task is satisfied by a fixed-size ASCII-art grid with static dimensions and for loops only, so all index and range checks follow from constants and loop ranges without any annotation.
 
-Position 646 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 647 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

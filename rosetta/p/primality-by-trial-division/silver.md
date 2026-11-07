@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check (mod by a nonzero constant-range divisor, bounded arithmetic) follows from the subtype ranges and a for loop with a fixed upper bound, so no variant or invariant is needed; the only subtlety is replacing the Sqrt/float bound with an integer guard, which stays faithful to trial division.
 
-Position 311 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 313 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every operand is bounded by the Points subtype, so all overflow and division checks discharge from types, and the only loop is a for loop over a static range with no loop-carried values.
 
-Position 310 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 312 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The index interval 1 through 5 and constant step 2 bound every product between 2 and 10, so no loop-carried arithmetic fact is needed.
 
-Position 23 in the [progression](../../../progression.md#stage-1), in stage 1.
+Position 24 in the [progression](../../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

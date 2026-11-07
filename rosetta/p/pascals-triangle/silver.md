@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops over static ranges and every index is a loop variable within the array's bounds, so only the entry sum needs a guard, which is a plain comparison just before the assignment. Negative or zero row counts do not arise because the count is an embedded constant, and no recursion, floating point or annotations are needed.
 
-Position 440 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 442 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

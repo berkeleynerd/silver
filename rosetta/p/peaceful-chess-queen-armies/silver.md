@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded integer and array work in a procedure with an explicit stack, so index and range checks follow from ranged subtypes and guards before each access, with no recursion, heap or annotation needed. The risk is the loop-carried stack depth and cell indices in the backtracking while loop, which need careful guarding but no invariant.
 
-Position 733 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 734 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

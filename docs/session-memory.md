@@ -32,10 +32,14 @@ This current selection supersedes earlier statements leaving #300 unselected;
 it does not alter their historical scope. Routine planning publication and merge,
 followed by implementation through reviewable publication, follow the current
 proceed instruction. Implementation merge remains a later owner decision.
-Keep #300 Backlog until the authorization reaches main, then mark Ready and
-claim it through the ordinary routine. Planning PR #336 is open; sample
-implementation has not started. No new compiler/runtime assurance is claimed by
-this documentation increment. No CLI recall entry was updated.
+The initial planning checkpoint kept #300 Backlog until authorization reached
+main. PR #336 subsequently merged as `fdbd6132ca`; #300 was claimed through the
+ordinary routine and its ten-program implementation is now published in draft
+PR #337. The [delivery record](rosetta-sample-expansion.md#delivery-and-validation--2026-11-07)
+records current validation and closing review status. The initial guide/planning
+increment itself claimed no new compiler/runtime assurance. Implementation merge
+remains a later owner decision, and functions #298 is still unselected.
+No CLI recall entry was updated.
 
 ## 2026-11-07 — Boolean-array merge authorized
 

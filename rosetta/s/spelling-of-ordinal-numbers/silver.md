@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded integer arithmetic, constant tables and iterative buffer building with explicit capacity guards, so no annotations are needed, though the buffer-length and backward-scan loops need careful guarded shape. The optional alternate numeric forms (00123.0, 1.23e2) are skipped as optional.
 
-Position 851 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 852 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

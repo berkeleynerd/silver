@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is a bounded for loop over a literal range with integer arithmetic whose operands are bounded by types, so only the accumulating sum needs a careful guard or wide range and no annotations are required. Using scaled integers rather than Long_Float avoids unprovable float-overflow on the loop-carried sum, at the cost of a documented 12-digit precision.
 
-Position 540 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 541 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

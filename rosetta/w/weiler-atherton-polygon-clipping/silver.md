@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything uses bounded integer arithmetic, fixed arrays and while loops inside procedures, so checks follow from ranged types and guards, but the many loop-carried list indexes and link updates make discharge depend on careful program shape.
 
-Position 639 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 640 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded for loops over fixed-size arrays in procedures, so termination and indexing are routine, but loop-carried distance arithmetic needs explicit magnitude guards with a visible rejection outcome to discharge overflow without invariants.
 
-Position 732 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 733 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

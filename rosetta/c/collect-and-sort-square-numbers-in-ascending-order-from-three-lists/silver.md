@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from declared ranges, for-loop indexes and one capacity guard before appending, so no loop invariant is needed and the proofs should discharge. The only new surface is arrays, ranged subtypes, for loops, integer Image and unterminated output.
 
-Position 652 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 653 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

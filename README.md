@@ -462,6 +462,10 @@ their Linux validation and independent review.
 The [five finite Rosetta sample record](docs/rosetta-finite-samples.md) covers
 the #226 follow-on using existing Integer, loop, assignment and Image rules.
 
+The [ten-program Rosetta expansion](docs/rosetta-sample-expansion.md) covers
+eleven tasks using existing arrays, arithmetic, Boolean and String operations,
+with independent expected outputs and complete application validation.
+
 The [Bounded mutable integers record](docs/bounded-mutable-integers.md) identifies
 the integrated implementation, [independent review](docs/reviews/review-bounded-mutable-integers.md),
 complete Linux native and Lean validation, and full-suite execution supplemented

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The outer quotient lies in 0..50; live inner-loop indexes lie in 1..50, excluding zero and fitting Largest's declared range. Both modulo sites have nonzero divisors. Padding uses an ordinary scalar condition without narrowing a later arithmetic expression.
 
-Position 48 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 52 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

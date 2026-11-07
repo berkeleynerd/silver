@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All values are bounded by small declared ranges (at most 105 and 14 rows), numbers come from closed-form arithmetic rather than loop-carried state, and loops are for loops, so every check follows from types and static bounds.
 
-Position 501 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 503 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

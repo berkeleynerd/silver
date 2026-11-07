@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Greedy change with fixed coins uses only a for loop over a constant array, with division by constants that are provably nonzero and ranged accumulators, so every check follows from types and no annotation is needed. Nothing recursive, heap-based or input-dependent is involved.
 
-Position 126 in the [progression](../../progression.md#stage-6), in stage 6.
+Position 131 in the [progression](../../progression.md#stage-6), in stage 6.
 
 ## Approach
 

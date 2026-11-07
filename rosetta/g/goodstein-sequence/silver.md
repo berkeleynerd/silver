@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Required outputs (n up to 10, largest value about 4.5e13) fit in 64-bit integers, so every check follows from types and local overflow guards once the hereditary recursion is flattened to bounded-depth procedures, but the guard-heavy loop-carried arithmetic makes discharge depend on careful program shape.
 
-Position 421 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 423 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

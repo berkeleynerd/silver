@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from bounded subtypes, fixed for-loop bounds and a guard before the one loop-carried addition, and no while loop or recursion is needed. Only new surface (functions, integers, loops, 'Image) is required, with no annotations.
 
-Position 761 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 762 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

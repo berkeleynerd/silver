@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The index covers every positive square root of a three-digit square. Modulo by 2 selects the eleven odd squares; the largest intermediate is 961 and the divisor is nonzero.
 
-Position 21 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 22 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

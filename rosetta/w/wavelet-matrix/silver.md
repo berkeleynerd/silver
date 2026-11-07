@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All loops are for loops over static ranges in procedures and every carried value is held in a declared range with a guard just before use, so no annotation is needed, but the loop-carried l, r and k updates need careful guarding. The task text gives no concrete queries, so the existing solution's five sample queries are used as the embedded data.
 
-Position 730 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 731 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

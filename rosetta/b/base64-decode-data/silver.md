@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the 0..63 value subtype, for-loop indexes over groups of a length-checked input, and a guarded fixed buffer, with no loop-carried accumulator wider than its type. The task needs nothing an annotation would supply, and the only dependence is careful program shape around padding and index arithmetic.
 
-Position 766 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 767 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from subtype ranges, for-loop indexes over the array range and guards before increments, and the loop is in a procedure so no termination check applies.
 
-Position 441 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 443 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

@@ -10,8 +10,9 @@ tutorial audit and before unselected functions #298. The
 [dated authorization](session-memory.md#2026-11-07--tutorial-audit-and-rosetta-sample-expansion-selected)
 records the publication boundary. The qualified available-guide audit below is
 complete. No separate first-party tutorial was located; revisit a specific
-tutorial if the owner supplies its pointer. Sample implementation begins after
-planning authorization reaches main through the ordinary issue/board routine.
+tutorial if the owner supplies its pointer. Planning authorization reached main
+through merged PR #336 at `fdbd6132ca`; sample implementation and validation
+are recorded below.
 
 This is one sample-only work package using the current language. String #296
 and Boolean-array #297 deliveries are complete. No new language construct,
@@ -127,11 +128,92 @@ promoted by a rewritten task. Update this record, the roadmap, session memory,
 commit uses `Fixes #300`; this planning increment uses `Refs #300` and does not
 close the issue or milestone.
 
-## Local planning checkpoint — 2026-11-07
+## Historical local planning checkpoint — 2026-11-07
 
 The planning branch is `plan/rosetta-expansion-300-20261107` in
 `tmp/rosetta-expansion-plan`, based on `aebeef3f86`. This record restores #300's
 missing repository scope link. The qualified tutorial audit above is complete;
-planning PR #336 is open and sample implementation remains unstarted. This
-documentation checkpoint claims no new native, Lean, sample-compilation,
+at that checkpoint planning PR #336 was open and sample implementation was
+unstarted. It subsequently merged as `fdbd6132ca`. That documentation checkpoint
+claimed no new native, Lean, sample-compilation,
 sample-execution or Rosetta-render evidence.
+
+## Delivery and validation — 2026-11-07
+
+The original ten programs and eleven mappings are implemented at
+`ff4fdb9c8ba209a291b1274b6fb947894625c815`, with unchanged compiler, runtime,
+proof, language, catalogue and test sources. The
+[task reconciliation](../rosetta/assessment-sample-expansion-20261107.md) links
+every source to the captured task and explains the algorithm, chosen inputs
+and sufficient bounds. All ten sources are between 307 and 1,096 bytes.
+
+The additions provide 17 execution cases. The complete manifest now contains
+71 source programs and 134 execution cases, including 48 Rosetta source files.
+The new samples cover negative/zero parity, mutable empty Strings and argument
+failures, duplicate/negative sorting values, complete prime/composite factor
+lists, Gregorian century exceptions, signed/zero GCD pairs, the full formatted
+12-by-12 upper triangle and the required four-denomination dollar count, 242.
+The optional $1000 coin problem remains outside this batch.
+
+Bubble sort's nine passes suffice for ten cells; a no-swap pass correctly
+disables later work. Euclid's twenty steps cover magnitudes at most 1000 because
+every two steps at least halve its second operand. The coin counter's limit
+covers all 1,155 examined triples, so its guard omits no required increment.
+The independently retained expectations use paired divisors, calendar rules,
+Python sorting and GCD, and coin dynamic programming. They are not recorded
+Silver outputs used as their own oracle.
+
+The [evidence packet](evidence/rosetta-sample-expansion-20261107/README.md)
+records commands, input applicability, outcomes and limits. Native Linux x86_64
+validation uses the existing installation at `tmp/empty-loop-repair`; its
+implementation remains `ce97ede446`. The VM migration changed only Python among
+the twelve recorded native tools. An attempted fresh audit correctly rejected
+the historical interpreter identity and is retained as failed. Ordinary forced
+full analysis with the existing sessions/cache refreshed the provenance:
+`20261107T164210-abaf005c4a13` passed all 17,681 checks (1,513 flow, 16,168 proof)
+over 76 units and 1,112 owned entities in 98.863 seconds, with 22 workers. All
+2,586 inputs and the other eleven tool identities were unchanged. This was not
+a cold proof. Build `20261107T164532-6f3da3076d4d` passed as an up-to-date check
+in 3.667 seconds; compiler and Image-adapter bytes remain identical.
+
+The complete Lean/source checkpoint `20261107T064815-9c9da56edf3d` is retained:
+655 modules and 132,101 declarations, with exactly `propext`, `Classical.choice`
+and `Quot.sound`. All 762 captured inputs match this delivery; Lean/Lake and
+regenerated certificate scope retain their previous recorded identities. No new
+Lean build or independent kernel replay is claimed. The current Python
+certificate-parity check is recorded separately below.
+
+The complete manifest passed in run `20261107T164659-9f6192441d21`: all 71
+programs and 134 cases, including admission, same-source proof/build, full
+application/library audits and exact output/status comparisons. The unchanged
+unittest method took 720.619 seconds; managed total was 729.716 seconds. Native
+inputs and tools remained stable throughout. The five focused closing methods
+also passed: Rosetta rendering (three), the Boolean sample-oracle check and
+certificate-regeneration parity. The final inventory remains 603 distinct test
+methods: six fresh results including the manifest and 597 retained applicable
+results, subject to the closing independent review. The prior failed full suite
+remains failed; this is not a fresh full-suite claim.
+
+The single final render confirms **70 Stage-1 assessments**, up from 61. Exactly
+eleven source assessment records changed and no supported construct identifier
+changed. FizzBuzz and Even or odd were already in Stage 1, so nine mappings are
+new. Stage fields for #9, #10, #229 and #234 remain 1, #11 remains 2 and #12 remains
+3; current board values match the render. The assessment record preserves prior
+FizzBuzz/parity attribution and each task's original assessment settings.
+
+Independent closing review and final publication are pending; draft
+[PR #337](https://github.com/berkeleynerd/silver/pull/337) carries the implementation.
+Implementation merge remains a later owner decision.
+
+## Delivery rounds
+
+| Work | Selected settings and scope | Result | Measurements |
+| --- | --- | --- | --- |
+| Tutorial inventory and guide correction | Sol Extra High inventory; Sol High documentation; lead inspected | Available README audited and corrected through merged PR #336; separate tutorial not located in searched sources. | 31 admission checks; whole-round elapsed/token/cost data unavailable. |
+| Sample implementation | Two disjoint Sol Extra High subthreads | Ten programs and independent expectations integrated; lead requested clearer negative-value list separators and the gcd(0,0) convention before validation. | Source checks passed; no whole-round cost measurement. |
+| Metadata reconciliation | Sol High | Exactly eleven task records, original provenance preserved, supported identifiers unchanged. | Static inventory/link checks; no separate elapsed measurement. |
+| Independent fidelity/integration review | Astra Extra High, bounded to actual samples, expectations, metadata and evidence | Fidelity, manifest, metadata preparation and native/Lean applicability reviewed; closing target pending. | Exact inspection scope/times in the review; token/cost data unavailable. |
+| Integration and validation | Lead runtime model/effort not independently exposed; no live setting change claimed | Complete native refresh, build, manifest and all five focused methods passed; final render and six stage-field comparisons complete. | Managed run timings in the packet; no whole-team cost claim. |
+
+Selected settings are not independent runtime confirmations. No harness goal
+was created, and CLI recall tools were unavailable and were not updated.

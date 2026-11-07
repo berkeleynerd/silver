@@ -1,12 +1,14 @@
 # Eleven sample-expansion task assessments
 
-Targeted metadata preparation for [#300](https://github.com/berkeleynerd/silver/issues/300),
+Targeted metadata reconciliation for [#300](https://github.com/berkeleynerd/silver/issues/300),
 2026-11-07. The [authorized scope](../docs/rosetta-sample-expansion.md) is ten
 programs with eleven task mappings using the current language. This record
 reviews sources and expected outputs at integration commit `ff4fdb9c8b`,
 including source commits `e84a7c10a3` and `c9f9ab272e` and the manifest at that
-integration target. Application proof, build and execution validation remains
-pending. These assessments describe submitted source, not completed delivery.
+integration target. The integration lead subsequently completed application
+proof audits, build and exact manifest execution for these unchanged sources
+in run `20261107T164659-9f6192441d21`. Independent closing review remains pending;
+this record does not claim its acceptance or an implementation merge.
 
 The metadata subthread selected GPT-6.1 Sol / High (`gpt-6.1-sol`, `high`).
 Live runtime settings were not independently exposed; whole-round elapsed time,
@@ -39,7 +41,7 @@ or baseline String/argument operations. No broad arrays, integer division,
 Boolean functions, user routines, general String building or other feature is
 promoted.
 
-## Expected-output evidence and pending validation
+## Expected-output evidence and validation checkpoint
 
 The retained [simple derivation](../docs/evidence/rosetta-sample-expansion-20261107/expected-simple.py)
 uses divisibility classes, parity by the low bit, paired divisors through the
@@ -50,7 +52,9 @@ and coin dynamic programming, rather than the Silver enumeration. Both derive
 manifest expectations independently of Silver execution, including Ada Image
 spaces, LF terminators, empty stderr and exit status. This subthread read those
 derivations and compared their intended results with the manifest and sources;
-it did not run the derivations or execute the applications.
+it did not run the derivations or execute the applications. That preparation
+preceded the integration lead's successful validation below and retains its
+separate static-review scope.
 
 The risks in the revised assessments describe the actual interval/index/division
 checks and bounded algorithms. A counted loop's termination alone does not
@@ -58,14 +62,27 @@ establish enough passes to solve a task; the GCD and bubble-sort bounds above
 supply that separate argument. Finite sample cases do not establish universal
 language assurance or comprehensive task-input coverage.
 
-No compiler, prover, build, test suite or Rosetta renderer ran in this metadata
-subthread. The integration lead must finish required application/library proof
-audits, compilation and exact manifest executions, independent review, final
-wording and the single final render before claiming delivery. Stage 1 has a
-61-assessment baseline; FizzBuzz and Even or odd already belong there, so the
-expected increase is nine, to 70. The submitted manifest inventory is 71 source
-samples, 134 execution cases and 48 Rosetta source files. These inventory facts
-are distinct from successful executions and final rendered stage counts.
+The integration lead's Linux x86_64 manifest run
+`20261107T164659-9f6192441d21` passed for all 71 source samples and 134 execution
+cases. The retained [result](../docs/evidence/rosetta-sample-expansion-20261107/manifest-result.json)
+records success, zero errors/failures and stable native inputs/tools; the
+[managed terminal record](../docs/evidence/rosetta-sample-expansion-20261107/manifest/terminal.json)
+records the same successful run. The unchanged manifest test checks admission,
+byte-identical proof/build source, the required application/library proof policy
+and complete report audit, build success, and executable stdout/stderr/status
+against the exact manifest cases. The
+[delivery evidence](../docs/evidence/rosetta-sample-expansion-20261107/README.md)
+records native/Lean input applicability and the broader integration checks.
+This metadata subthread did not run compilation, proof, build or application
+execution; its final wording uses that separately retained integration evidence.
+Independent closing review remains pending.
+
+Stage 1 has a 61-assessment baseline; FizzBuzz and Even or odd already belong
+there, so this reconciliation adds nine mappings, to 70. There are 71 source
+samples, 134 manifest execution cases and 48 Rosetta source files. The successful
+finite executions and the rendered assessment count are distinct facts, and
+neither establishes universal language assurance. Only the ordinary final
+metadata render runs in this subthread; no language identifier is promoted.
 
 Static JSON consistency checks confirmed exactly eleven changed task records,
 unchanged supported identifiers and original assessment provenance, and only

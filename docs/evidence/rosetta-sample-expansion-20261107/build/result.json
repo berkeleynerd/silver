@@ -1,0 +1,41 @@
+{
+  "run_id": "20261107T164532-6f3da3076d4d",
+  "started_utc": "2026-11-07T16:45:32.418936+00:00",
+  "finished_utc": "2026-11-07T16:45:36.086157+00:00",
+  "outcome": "success",
+  "duration_seconds": 3.666984648,
+  "workers": 22,
+  "reason": "Ordinary build after successful 17681-check native provenance refresh on the migrated Python; source and toolchain bytes unchanged.",
+  "command_events": [
+    {
+      "command": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.tools/linux-x86_64/alr/bin/alr",
+        "-s",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.tools/linux-x86_64/alire/settings",
+        "-C",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/toolchain",
+        "-n",
+        "--no-tty",
+        "exec",
+        "--",
+        "gprbuild",
+        "-P",
+        "../../../silver.gpr",
+        "-p",
+        "-j22",
+        "-XSILVER_HOST=linux-x86_64"
+      ],
+      "cwd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/toolchain",
+      "event": "command",
+      "monotonic_ns": 1235261321046,
+      "run_id": "20261107T164532-6f3da3076d4d",
+      "utc": "2026-11-07T16:45:34.529333+00:00"
+    }
+  ],
+  "source_commit": "ce97ede446aad55520e59854ea8298e2a63d56eb",
+  "mode": "ordinary up-to-date build check",
+  "binaries_sha256": {
+    "silver": "9ed78adbe8fa172a7d4e8738127d2b67b42c00444fa8499e008cd65a4fc49b18",
+    "silver_image_adapter": "8ca0b182d58b4b9ac51e50f2906e10de3dc95d8b02e5868ff8ef019925e9e9fd"
+  }
+}

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded iteration over fixed arrays with guards before each loop-carried addition or index, and no recursion is needed because the subset-sum is a table; the difficulty is only the guard discipline and the integer-to-text output.
 
-Position 418 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 420 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

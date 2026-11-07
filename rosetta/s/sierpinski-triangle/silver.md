@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every index and update depends only on for-loop ranges and Boolean values, so the checks follow from types and loop bounds and need no invariant, and the loops and output sit in a procedure so there are no termination checks. The task has no input or recursion, so there is no unbounded depth or heap use.
 
-Position 484 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 486 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

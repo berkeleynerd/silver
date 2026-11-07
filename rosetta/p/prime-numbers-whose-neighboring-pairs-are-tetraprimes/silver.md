@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks come from ranged types, for-loop indexes and guards before neighbor indexing and counter increments, with no annotation-only facts, but nested sieve index arithmetic and loop-carried counters need careful shaping.
 
-Position 424 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 426 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

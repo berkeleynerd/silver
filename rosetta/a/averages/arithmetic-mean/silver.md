@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything follows from small declared ranges, a fixed capacity and an explicit zero-count guard, but the accumulating sum and the digit-by-digit fraction need carefully guarded loop-carried values, so discharge depends on program shape rather than being routine.
 
-Position 167 in the [progression](../../../progression.md#stage-6), in stage 6.
+Position 172 in the [progression](../../../progression.md#stage-6), in stage 6.
 
 ## Approach
 

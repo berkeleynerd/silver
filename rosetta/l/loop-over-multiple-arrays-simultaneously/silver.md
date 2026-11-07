@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The for loop runs over the arrays' own index range with static bounds, and the digit is a bounded value in 1..3, so no check needs a loop invariant or annotation.
 
-Position 434 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 436 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

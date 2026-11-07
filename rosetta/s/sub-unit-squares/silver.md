@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is bounded integer work with fixed-iteration for loops in functions and the only unbounded-looking loop in a procedure, so checks follow from range types and guards; the main care is keeping n*n and the repunit subtraction within 64 bits.
 
-Position 385 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 387 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded integer arithmetic in procedures with explicit guards and no recursion or annotations, but loop-carried lcm and counter values need careful subtype bounds and guards, so discharge depends on program shape.
 
-Position 827 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 828 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

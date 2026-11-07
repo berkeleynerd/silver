@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All data is static and every loop is a for loop over the array's own range, so index and range checks follow from types and a found guard; the only care needed is formatting hundredths without float.
 
-Position 785 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 786 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic and indexing is over small ranged integers and fixed-capacity buffers, so each check can be discharged by types and guards placed before the use, but the loop-carried group indices and lengths make it depend on careful program shape rather than being routine.
 
-Position 615 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 616 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

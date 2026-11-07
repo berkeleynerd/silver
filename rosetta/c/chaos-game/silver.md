@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from ranged subtypes, constant array bounds and for loops, with a bounded-seed deterministic generator replacing system randomness, so proofs should discharge without annotations.
 
-Position 758 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 759 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
