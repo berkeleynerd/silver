@@ -64,6 +64,15 @@ theorem Condition.objectBoundsSafe_of_safe {names : Compose.BindingEnvironment} 
       exact ⟨ihl origin.1 safe.1, ihr origin.2 safe.2⟩
   | lengthCompare | scalarCompare | characterCompare | inputValid | booleanLiteral | booleanName | booleanArrayRead => trivial
 
+/-- Boolean actuals retain the same String/Character source-origin evidence as
+ordinary conditions; Integer actuals contain no String expressions. -/
+def CallActualBoundsOrigin (names : Compose.BindingEnvironment) : ScalarFunctions.Actual → Prop
+  | .integer _ => True
+  | .boolean condition => condition.BoundsOrigin names
+
+def CallBoundsOrigin (names : Compose.BindingEnvironment) (call : ScalarFunctions.Call) : Prop :=
+  ∀ actual ∈ call.actuals, CallActualBoundsOrigin names actual
+
 def SimpleBoundsOrigin (names : Compose.BindingEnvironment) : Sequence.SimpleStatement → Prop
   | .null => True
   | .assign update => update.value.BoundsOrigin names
@@ -72,6 +81,7 @@ def SimpleBoundsOrigin (names : Compose.BindingEnvironment) : Sequence.SimpleSta
 mutual
   def Statement.BoundsOrigin (names : Compose.BindingEnvironment) : Statement → Prop
     | .simple item => SimpleBoundsOrigin names item
+    | .callAssign update => CallBoundsOrigin names update.call
     | .booleanAssign update | .booleanArrayAssign update => update.value.BoundsOrigin names
     | .choice condition yes no => condition.BoundsOrigin names ∧
         StatementsBoundsOrigin names yes ∧ StatementsBoundsOrigin names no
@@ -97,6 +107,18 @@ theorem Condition.boundsOrigin_extends {names following : Compose.BindingEnviron
   | eager operator left right ihl ihr | booleanCompare unequal left right ihl ihr =>
       exact ⟨ihl origin.1, ihr origin.2⟩
   | lengthCompare | scalarCompare | inputValid | booleanLiteral | booleanName | booleanArrayRead => trivial
+
+theorem callActualBoundsOrigin_extends {names following : Compose.BindingEnvironment}
+    {actual : ScalarFunctions.Actual} (extension : BoundsNamesExtend names following)
+    (origin : CallActualBoundsOrigin names actual) : CallActualBoundsOrigin following actual := by
+  cases actual with
+  | integer _ => trivial
+  | boolean condition => exact condition.boundsOrigin_extends extension origin
+
+theorem callBoundsOrigin_extends {names following : Compose.BindingEnvironment}
+    {call : ScalarFunctions.Call} (extension : BoundsNamesExtend names following)
+    (origin : CallBoundsOrigin names call) : CallBoundsOrigin following call :=
+  fun actual member => callActualBoundsOrigin_extends extension (origin actual member)
 
 theorem Condition.boundsOrigin_freeze {names : Compose.BindingEnvironment} {condition : Condition}
     (snapshot : Integer.Store) (origin : condition.BoundsOrigin names) :
@@ -569,13 +591,13 @@ theorem declaration_range_check_present {program : Program} {schema : Guarded.Ra
     (present : schema ∈ declarationRangeObligations emptyShape program.names.shape program.declarations) :
     Check.declaration (.range schema) ∈ program.checks := by
   simp only [Program.checks, declarationChecks, List.mem_append, List.mem_map]
-  exact Or.inl (Or.inl (Or.inl ⟨.range schema,
-    Or.inl ⟨schema, present, rfl⟩, rfl⟩))
+  exact Or.inr (Or.inl (Or.inl (Or.inl ⟨.range schema,
+    Or.inl ⟨schema, present, rfl⟩, rfl⟩)))
 
 theorem raw_boolean_check_present {program : Program} {check : Obligation}
     (present : check ∈ program.booleanInitializerChecks) : Check.path check ∈ program.checks := by
   simp only [Program.checks, List.mem_append, List.mem_map]
-  exact Or.inl (Or.inr ⟨check, Or.inl present, rfl⟩)
+  exact Or.inr (Or.inl (Or.inr ⟨check, Or.inl present, rfl⟩))
 
 /-- A complete local occurrence witness. `values` is supplied by the source-
 order traversal, so it is the store before this declaration, not the final body

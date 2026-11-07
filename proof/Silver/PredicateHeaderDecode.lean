@@ -18,9 +18,9 @@ def decodePrefix (form : Form) (events : List Event) (items : List SourceStateme
     (initializerChecks : List Integer.Obligation := []) (arrays : ArrayBindings.Env := {})
     (booleans : List BooleanDeclaration := []) (booleanChecks : List Obligation := []) : Option Program :=
   match form, events with
-  | .direct, [.declarations values names] => some ⟨values, names, [], false, lowerStatements items, integerDeclarations, integerConstants, initializerChecks, arrays, booleans, booleanChecks⟩
+  | .direct, [.declarations values names] => some ⟨values, names, [], false, lowerStatements items, integerDeclarations, integerConstants, initializerChecks, arrays, booleans, booleanChecks, []⟩
   | .argument, [.argument fallback, .declarations values names] =>
-      some ⟨argumentDeclaration :: values, names, fallback, true, lowerStatements items, integerDeclarations, integerConstants, initializerChecks, arrays, booleans, booleanChecks⟩
+      some ⟨argumentDeclaration :: values, names, fallback, true, lowerStatements items, integerDeclarations, integerConstants, initializerChecks, arrays, booleans, booleanChecks, []⟩
   | _, _ => none
 
 theorem prefix_decoded_valid (form : Form) (events : List Event) (items : List SourceStatement)
@@ -53,8 +53,8 @@ theorem prefix_decoded_valid (form : Form) (events : List Event) (items : List S
       obtain ⟨values, names, rest, rfl, shape0⟩ := (declarations_event_shape _ _).mp shape
       have empty := List.map_eq_nil_iff.mp shape0
       subst rest
-      refine ⟨⟨values, names, [], false, lowerStatements items, integerDeclarations, integerConstants, initializerChecks, arrays, booleans, booleanChecks⟩, rfl, ?_⟩
-      refine ⟨⟨stream.1, booleanValid, booleanChecked, booleanDischarged⟩, by simp [Bindings.Printable], by simp [maxSourceLength],
+      refine ⟨⟨values, names, [], false, lowerStatements items, integerDeclarations, integerConstants, initializerChecks, arrays, booleans, booleanChecks, []⟩, rfl, ?_⟩
+      refine ⟨⟨stream.1, booleanValid, booleanChecked, booleanDischarged, trivial⟩, by simp [Bindings.Printable], by simp [maxSourceLength],
         lowerStatements_nonempty nonempty, lowerStatements_wellFormed body, ?_⟩
       obtain ⟨after, bodyChecked, completed⟩ := checked
       exact ⟨after, (Program.checkBody_iff _ after).mpr ⟨scalars, initializers, ⟨arraysValid, arraysFit⟩, bodyChecked⟩, completed⟩
@@ -64,8 +64,8 @@ theorem prefix_decoded_valid (form : Form) (events : List Event) (items : List S
       obtain ⟨values, names, rest, rfl, shape1⟩ := (declarations_event_shape _ _).mp shape0
       have empty := List.map_eq_nil_iff.mp shape1
       subst rest
-      refine ⟨⟨argumentDeclaration :: values, names, fallback, true, lowerStatements items, integerDeclarations, integerConstants, initializerChecks, arrays, booleans, booleanChecks⟩, rfl, ?_⟩
-      refine ⟨⟨prepend_argument stream.2.2.1, booleanValid, booleanChecked, booleanDischarged⟩, stream.1, stream.2.1,
+      refine ⟨⟨argumentDeclaration :: values, names, fallback, true, lowerStatements items, integerDeclarations, integerConstants, initializerChecks, arrays, booleans, booleanChecks, []⟩, rfl, ?_⟩
+      refine ⟨⟨prepend_argument stream.2.2.1, booleanValid, booleanChecked, booleanDischarged, trivial⟩, stream.1, stream.2.1,
         lowerStatements_nonempty nonempty, lowerStatements_wellFormed body, ?_⟩
       obtain ⟨after, bodyChecked, completed⟩ := checked
       exact ⟨after, (Program.checkBody_iff _ after).mpr ⟨scalars, initializers, ⟨arraysValid, arraysFit⟩, bodyChecked⟩, completed⟩
