@@ -1,6 +1,7 @@
 module
 
 public import Silver.FunctionDeclarationAdmission
+public import Silver.PredicateNativeState
 
 @[expose] public section
 
@@ -38,7 +39,7 @@ inductive Ty
   | .booleans => BooleanBindings.Environment
   | .subtypes => IntegerSubtypes.Environment
   | .arrays => ArrayBindings.Metadata
-  | .context => Predicate.ParseContext
+  | .context => Predicate.Native.Context
   | .scan => Predicate.ScanResult
   | .bodyScan => Predicate.BodyScan
   | .flow => Predicate.ActiveFlow
@@ -67,7 +68,7 @@ def Ty.default : (ty : Ty) → ty.meaning
   | .booleans => []
   | .subtypes => {}
   | .arrays => []
-  | .context => {names := [], hasArguments := false}
+  | .context => {names := [], dynamicFirst := 0, dynamicAfter := 0}
   | .scan => ⟨invalidState, false, false⟩
   | .bodyScan => ⟨0,0,0,⟨PathFacts.Context.empty, []⟩,false,false⟩
   | .flow => ⟨PathFacts.Context.empty, []⟩
@@ -189,6 +190,23 @@ def Function.name : Function → List String
 
 abbrev Calls := (fn : Function) → fn.type.meaning
 
+def nativeContextOf (scan : Predicate.ScanResult) : Predicate.Native.Context :=
+  { names := scan.state.names
+    dynamicFirst := scan.state.dynamicFirst
+    dynamicAfter := scan.state.dynamicAfter
+    scalarNames := ScalarExpression.bodyEnvironment scan.state.scalarNames
+    declarationCount := scan.state.scalarNames.length
+    arrayNames := scan.state.arrayNames.names
+    subtypeHiding := scan.state.subtypeNames.hiddenCalls
+    booleanNames := scan.state.booleanNames
+    trueHidden := scan.state.subtypeNames.trueHidden || scan.state.hiding.trueHidden
+    falseHidden := scan.state.subtypeNames.falseHidden || scan.state.hiding.falseHidden
+    pure := scan.state.pure
+    integerHidden := scan.state.hiding.integerHidden }
+
+theorem nativeContextOf_model (scan : Predicate.ScanResult) :
+    (nativeContextOf scan).model = Predicate.contextOf scan := rfl
+
 def modelCalls : Calls
   | .skip => skipAt
   | .nameAfter => nameAfter
@@ -221,11 +239,11 @@ def modelCalls : Calls
   | .appendParameter => appendParameter
   | .parameterFrameModel => parameterFrameModel
   | .parameterFrame => parameterFrame
-  | .contextOf => Predicate.contextOf
+  | .contextOf => nativeContextOf
   | .bodyOf => Predicate.bodyOf
-  | .bodyTail => fun text context scan stop functions => Predicate.bodyTail text context scan stop functions
-  | .actualAfter => Predicate.actualAfter
-  | .returnAfter => functionReturnAfter
+  | .bodyTail => fun text context scan stop functions => Predicate.bodyTail text context.model scan stop functions
+  | .actualAfter => fun text context position facts parameter => Predicate.actualAfter text context.model position facts parameter
+  | .returnAfter => fun text context scan resultType => functionReturnAfter text context.model scan resultType
   | .functionBody => functionBodyAt
   | .functionDeclaration => functionDeclarationAt
 
@@ -911,7 +929,7 @@ structure Frame where
   index : Nat := 0
   parameter : FunctionBindings.Formal := FunctionBindings.emptyFormal
   resultType : FunctionTypeResult := ⟨0, .integer, .empty⟩
-  context : Predicate.ParseContext := {names := [], hasArguments := false}
+  context : Predicate.Native.Context := {names := [], dynamicFirst := 0, dynamicAfter := 0}
   scan : Predicate.BodyScan := ⟨0,0,0,⟨PathFacts.Context.empty, []⟩,false,false⟩
 
 def Frame.locals (frame : Frame) : Locals

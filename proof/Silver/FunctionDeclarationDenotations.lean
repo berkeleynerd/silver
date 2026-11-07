@@ -37,10 +37,10 @@ theorem appendParameter_model (frame : ParserState) (parameter : FunctionBinding
     simp [appendParameterBody, Expr.eval, apply2, Frame.locals,
       modelCalls, Field.get, StateField.set, appendParameter, Capacity.value, kindEq]
 
-theorem returnAfter_model (text : Source) (context : Predicate.ParseContext) (scan : Predicate.BodyScan)
+theorem returnAfter_model (text : Source) (context : Predicate.Native.Context) (scan : Predicate.BodyScan)
     (resultType : FunctionTypeResult) :
     returnAfterBody.eval modelCalls ({text, context, scan, resultType} : Frame).locals =
-      functionReturnAfter text context scan resultType := by
+      functionReturnAfter text context.model scan resultType := by
   rfl
 
 theorem functionBody_model (text : Source) (outer frame : ParserState) (first after : Nat)
@@ -50,7 +50,7 @@ theorem functionBody_model (text : Source) (outer frame : ParserState) (first af
   simp [functionBodyBody, Command.eval, Expr.eval, apply2, apply3, apply4, apply5,
     Frame.locals, Locals.set, modelCalls, Field.get, StateField.set, Token.shell,
     tokenAfter, ShellToken.word, ShellToken.symbol, functionBodyAt, Bool.or_eq_true, or_assoc, IntegerSubtypes.CallHiding.add,
-    Names.Operation.name]
+    Names.Operation.name, nativeContextOf, Predicate.Native.Context.model, Predicate.contextOf]
 
 theorem functionDeclaration_model (text : Source) (state : ParserState) (arguments : Bool) :
     functionDeclarationBody.eval modelCalls ({text, state, arguments} : Frame).locals =
