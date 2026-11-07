@@ -4389,6 +4389,8 @@ package body Silver_Library_Reports with SPARK_Mode => On is
       Windows.Item_Window (Raw, Projected, L.First, L.Last, LP, To_Big_Integer (R.First) - L.First);
       Item_Observation (Text, R, RP);
       if LM.State = Raw_Scan.Present then
+         pragma Assert
+           (LM.Next = L.First + To_Big_Integer (RM.Next - R.First));
          Item_Inside (Raw, L, LP);
          Window_Part (Raw, L, LM.Value, Projected, Observation_Span (R), Observation_Span (RM.Value));
          Content_Bounded (Raw, LM.Value, Text, RM.Value);
