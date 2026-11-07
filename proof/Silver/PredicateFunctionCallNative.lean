@@ -305,31 +305,35 @@ def Expr.wellFormed : Expr α → Bool
   | .letItem value body | .letValue value body =>
       value.simple && value.wellFormed && (body.local || body.simple) && body.wellFormed
 
-/-- The scope records source parameter/local names. Type checking of the tree
-also fixes each use's type; the two Value slots belong to disjoint functions. -/
-def Expr.scoped (scope : List String) : Expr α → Bool
-  | .position => "position" ∈ scope | .scanPosition => "scan" ∈ scope
-  | .first => "first" ∈ scope | .last => "last" ∈ scope | .after => "after" ∈ scope
-  | .callee => "callee" ∈ scope | .start => "start" ∈ scope | .scalar => "scalar" ∈ scope
-  | .flag => "flag" ∈ scope | .value | .called => "value" ∈ scope
-  | .parameter => "parameter" ∈ scope | .item => "item" ∈ scope
+/-- Scope keys retain the source name and its type. Binding a scalar Value
+cannot make the separate Call_Result projection well scoped. -/
+abbrev Scope := List (String × Nat)
+def Scope.bind (scope : Scope) (name : String) (kind : Nat) : Scope :=
+  (name, kind) :: scope.filter (fun entry => entry.1 != name)
+
+def Expr.scoped (scope : Scope) : Expr α → Bool
+  | .position => ("position", 0) ∈ scope | .scanPosition => ("scan", 9) ∈ scope
+  | .first => ("first", 0) ∈ scope | .last => ("last", 0) ∈ scope | .after => ("after", 0) ∈ scope
+  | .callee => ("callee", 0) ∈ scope | .start => ("start", 0) ∈ scope | .scalar => ("scalar", 0) ∈ scope
+  | .flag => ("flag", 0) ∈ scope | .value => ("value", 1) ∈ scope | .called => ("value", 2) ∈ scope
+  | .parameter => ("parameter", 3) ∈ scope | .item => ("item", 4) ∈ scope
   | .number _ | .kind _ | .invalidCall => true
-  | .parameterAt value | .signatureAt value => decide ("catalog" ∈ scope) && value.scoped scope
-  | .scalarMutable value | .booleanMutable value | .declaredBounds value => decide ("context" ∈ scope) && value.scoped scope
-  | .skip value | .nameAfter value | .token value _ => decide ("text" ∈ scope) && value.scoped scope
+  | .parameterAt value | .signatureAt value => decide (("catalog", 8) ∈ scope) && value.scoped scope
+  | .scalarMutable value | .booleanMutable value | .declaredBounds value => decide (("context", 6) ∈ scope) && value.scoped scope
+  | .skip value | .nameAfter value | .token value _ => decide (("text", 5) ∈ scope) && value.scoped scope
   | .namesLookup first after | .scalarLookup first after | .booleanLookup first after | .arrayLookup first after =>
-      decide ("text" ∈ scope ∧ "context" ∈ scope) && first.scoped scope && after.scoped scope
-  | .functionLookup first after => decide ("text" ∈ scope ∧ "catalog" ∈ scope) && first.scoped scope && after.scoped scope
-  | .readScalar value | .readConditionAfter value => decide ("text" ∈ scope ∧ "context" ∈ scope ∧ "facts" ∈ scope) && value.scoped scope
-  | .actual position parameter => decide ("text" ∈ scope ∧ "context" ∈ scope ∧ "facts" ∈ scope) && position.scoped scope && parameter.scoped scope
-  | .actuals position first last => decide ("text" ∈ scope ∧ "context" ∈ scope ∧ "facts" ∈ scope ∧ "catalog" ∈ scope) && position.scoped scope && first.scoped scope && last.scoped scope
-  | .calleeAt value => decide ("text" ∈ scope ∧ "context" ∈ scope ∧ "catalog" ∈ scope) && value.scoped scope
-  | .callModel value | .readCall value => decide ("text" ∈ scope ∧ "context" ∈ scope ∧ "scan" ∈ scope ∧ "catalog" ∈ scope) && value.scoped scope
-  | .scalarTarget value | .booleanTarget value => decide ("text" ∈ scope ∧ "context" ∈ scope) && value.scoped scope
-  | .assignmentResult scalar flag value => decide ("context" ∈ scope ∧ "scan" ∈ scope) && scalar.scoped scope && flag.scoped scope && value.scoped scope
-  | .invalidBody => "scan" ∈ scope
-  | .assignedInteger => decide ("scan" ∈ scope ∧ "value" ∈ scope ∧ "scalar" ∈ scope)
-  | .assignedBoolean => decide ("scan" ∈ scope ∧ "value" ∈ scope)
+      decide (("text", 5) ∈ scope ∧ ("context", 6) ∈ scope) && first.scoped scope && after.scoped scope
+  | .functionLookup first after => decide (("text", 5) ∈ scope ∧ ("catalog", 8) ∈ scope) && first.scoped scope && after.scoped scope
+  | .readScalar value | .readConditionAfter value => decide (("text", 5) ∈ scope ∧ ("context", 6) ∈ scope ∧ ("facts", 7) ∈ scope) && value.scoped scope
+  | .actual position parameter => decide (("text", 5) ∈ scope ∧ ("context", 6) ∈ scope ∧ ("facts", 7) ∈ scope) && position.scoped scope && parameter.scoped scope
+  | .actuals position first last => decide (("text", 5) ∈ scope ∧ ("context", 6) ∈ scope ∧ ("facts", 7) ∈ scope ∧ ("catalog", 8) ∈ scope) && position.scoped scope && first.scoped scope && last.scoped scope
+  | .calleeAt value => decide (("text", 5) ∈ scope ∧ ("context", 6) ∈ scope ∧ ("catalog", 8) ∈ scope) && value.scoped scope
+  | .callModel value | .readCall value => decide (("text", 5) ∈ scope ∧ ("context", 6) ∈ scope ∧ ("scan", 9) ∈ scope ∧ ("catalog", 8) ∈ scope) && value.scoped scope
+  | .scalarTarget value | .booleanTarget value => decide (("text", 5) ∈ scope ∧ ("context", 6) ∈ scope) && value.scoped scope
+  | .assignmentResult scalar flag value => decide (("context", 6) ∈ scope ∧ ("scan", 9) ∈ scope) && scalar.scoped scope && flag.scoped scope && value.scoped scope
+  | .invalidBody => ("scan", 9) ∈ scope
+  | .assignedInteger => decide (("scan", 9) ∈ scope ∧ ("value", 2) ∈ scope ∧ ("scalar", 0) ∈ scope)
+  | .assignedBoolean => decide (("scan", 9) ∈ scope ∧ ("value", 2) ∈ scope)
   | .formalKind value | .formalBounds value | .formalFirst value | .formalCount value | .resultKind value | .resultBounds value
   | .valueAfter value | .valueBounds value | .callAfter value | .callKind value | .callBounds value
   | .empty value | .not value | .group value | .locals value => value.scoped scope
@@ -338,12 +342,12 @@ def Expr.scoped (scope : List String) : Expr α → Bool
       left.scoped scope && right.scoped scope
   | .makeCall first second third | .ite first second third | .elsif first second third =>
       first.scoped scope && second.scoped scope && third.scoped scope
-  | .letFirst value body => value.scoped scope && body.scoped ("first" :: scope)
-  | .letAfter value body => value.scoped scope && body.scoped ("after" :: scope)
-  | .letCallee value body => value.scoped scope && body.scoped ("callee" :: scope)
-  | .letStart value body => value.scoped scope && body.scoped ("start" :: scope)
-  | .letItem value body => value.scoped scope && body.scoped ("item" :: scope)
-  | .letValue value body => value.scoped scope && body.scoped ("value" :: scope)
+  | .letFirst value body => value.scoped scope && body.scoped (scope.bind "first" 0)
+  | .letAfter value body => value.scoped scope && body.scoped (scope.bind "after" 0)
+  | .letCallee value body => value.scoped scope && body.scoped (scope.bind "callee" 0)
+  | .letStart value body => value.scoped scope && body.scoped (scope.bind "start" 0)
+  | .letItem value body => value.scoped scope && body.scoped (scope.bind "item" 4)
+  | .letValue value body => value.scoped scope && body.scoped (scope.bind "value" 1)
 
 def actualBody : Expr Nat :=
   .ite (.kindEq (.formalKind .parameter) (.kind .boolean)) (.readConditionAfter .position)

@@ -10,18 +10,18 @@ open Compose FunctionBindings
 set_option maxRecDepth 4096
 set_option maxHeartbeats 1000000
 
-def callScope : List String := ["text", "context", "position", "facts", "catalog"]
+def callScope : Scope := [("text", 5), ("context", 6), ("position", 0), ("facts", 7), ("catalog", 8)]
 
 abbrev CheckedTrees : Prop :=
-  actualBody.wellFormed = true ∧ actualBody.scoped ("parameter" :: callScope) = true ∧
-  actualsBody.wellFormed = true ∧ actualsBody.scoped ("first" :: "last" :: callScope) = true ∧
+  actualBody.wellFormed = true ∧ actualBody.scoped (("parameter", 3) :: callScope) = true ∧
+  actualsBody.wellFormed = true ∧ actualsBody.scoped (("first", 0) :: ("last", 0) :: callScope) = true ∧
   calleeBody.wellFormed = true ∧ calleeBody.scoped callScope = true ∧
   callBody.wellFormed = true ∧ callBody.scoped callScope = true ∧
   assignmentResultBody.wellFormed = true ∧
-    assignmentResultBody.scoped ["context", "scan", "scalar", "flag", "value"] = true ∧
+    assignmentResultBody.scoped [("context", 6), ("scan", 9), ("scalar", 0), ("flag", 0), ("value", 2)] = true ∧
   (assignmentBody false).wellFormed = true ∧ (assignmentBody true).wellFormed = true ∧
-  (assignmentBody false).scoped ["text", "context", "scan", "catalog"] = true ∧
-  (assignmentBody true).scoped ["text", "context", "scan", "catalog"] = true
+  (assignmentBody false).scoped [("text", 5), ("context", 6), ("scan", 9), ("catalog", 8)] = true ∧
+  (assignmentBody true).scoped [("text", 5), ("context", 6), ("scan", 9), ("catalog", 8)] = true
 
 theorem checked_trees : CheckedTrees := by decide +kernel
 
@@ -32,6 +32,9 @@ theorem subtraction_association_guard :
 
 theorem conditional_operand_guard :
     (Expr.add (.ite (.eq (.number 0) (.number 0)) (.number 1) (.number 2)) (.number 3)).wellFormed = false := by decide +kernel
+
+theorem wrong_value_kind_guard :
+    (Expr.letValue (.readScalar .position) (.callAfter .called)).scoped callScope = false := by decide +kernel
 
 theorem actual_model (text : Source) (context : Native.Context) (position : Nat)
     (facts : ActiveFlow) (parameter : Formal) :
