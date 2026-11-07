@@ -98,18 +98,22 @@ noncomputable def model_interpreted (domain : Expressions.StateDomain)
   frames := model_frame_equations
   equations := model_ordinary_equations
   contracts := model_traversal_contracts
-  reader := Predicate.BodyNative.modelCalls
-  readerSource := Predicate.BodyNative.model_equations
-  models := Predicate.Adapter.Wrappers.modelCalls Predicate.BodyNative.modelCalls
-  wrappers := Predicate.Adapter.Wrappers.modelCalls Predicate.BodyNative.modelCalls
-  modelEquations := Predicate.Adapter.Wrappers.model_equations _
-  refinement := Predicate.Adapter.Wrappers.model_refinement _
+  lexical := ⟨Guarded.Expressions.modelCalls, fixedAt, rfl, Lexical.model_interpreted⟩
+  bodyLibraries := Predicate.BodyLibraries.modelCalls
+  bodyDefinitions := Predicate.BodyLibraries.model_definitions inherited.toRawHelperEquations
+    (Lexical.interpreted_primitives Guarded.Expressions.modelCalls fixedAt Lexical.model_interpreted)
   bodyLinks := model_body_links
-  actualImports := Predicate.FunctionCallNative.modelImports
+  actualImports := {Predicate.FunctionCallNative.modelImports with token := Expressions.modelCalls.function .takeToken}
   actualCalls := Predicate.FunctionCallNative.modelCalls
   assignment := fun text context scan catalog => Predicate.callAssignmentBody text context.model scan catalog
-  actualMeaning := Predicate.FunctionCallNative.model_imports_meaning
-  actualEquations := Predicate.FunctionCallNative.model_definitions
+  actualLinks := Predicate.FunctionCallNative.model_imports_links
+  actualEquations := Predicate.FunctionCallNative.model_definitions_of_meaning
+    (Predicate.FunctionCallNative.imports_meaning inherited.toRawHelperEquations
+      (Predicate.BodyLibraries.predicate_helpers Predicate.BodyLibraries.modelCalls
+        inherited.toRawHelperEquations (Predicate.BodyLibraries.model_definitions inherited.toRawHelperEquations
+          (Lexical.interpreted_primitives Guarded.Expressions.modelCalls fixedAt Lexical.model_interpreted)))
+      Predicate.Native.model_definition_equations Predicate.Native.model_contracts
+      Predicate.FunctionCallNative.model_imports_links)
   actualLink := rfl
 
 theorem model_interpreted_inherited (domain : Expressions.StateDomain)

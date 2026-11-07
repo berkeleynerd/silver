@@ -4,6 +4,7 @@ public import Silver.FunctionDeclarationBodyLibrary
 public import Silver.FunctionDeclarationReturnLibrary
 public import Silver.FunctionDeclarationSource
 public import Silver.FunctionDeclarationStateRecords
+public import Silver.PredicateBodyLibraries
 
 @[expose] public section
 
@@ -28,26 +29,51 @@ structure InterpretedSource (calls : Calls) where
   frames : FrameEquations calls
   equations : OrdinaryEquations calls
   contracts : TraversalContracts calls
-  reader : Predicate.BodyNative.Calls
-  readerSource : Predicate.BodyNative.Equations reader
-  models : Predicate.Adapter.Wrappers.Calls
-  wrappers : Predicate.Adapter.Wrappers.Calls
-  modelEquations : Predicate.Adapter.Wrappers.ModelEquations models reader
-  refinement : Predicate.Adapter.Wrappers.Refinement models wrappers
-  bodyLinks : BodyLinks calls reader wrappers
+  lexical : ∃ (helpers : Guarded.Expressions.Calls)
+      (token : Source → Nat → String → Bool → Bool),
+    inherited.primitive = Lexical.primitives helpers token ∧
+      Lexical.InterpretedSource helpers token
+  bodyLibraries : Predicate.BodyLibraries.Calls inherited
+  bodyDefinitions : Predicate.BodyLibraries.Definitions bodyLibraries
+  bodyLinks : BodyLinks calls bodyLibraries.body bodyLibraries.bodyWrappers
   actualImports : Predicate.FunctionCallNative.Imports
   actualCalls : Predicate.FunctionCallNative.Calls
   assignment : Source → Predicate.Native.Context → Predicate.BodyScan → FunctionBindings.Metadata → Predicate.BodyScan
-  actualMeaning : Predicate.FunctionCallNative.ImportsMeaning actualImports
+  actualLinks : Predicate.FunctionCallNative.ImportsLinks actualImports inherited bodyLibraries.predicate
   actualEquations : Predicate.FunctionCallNative.DefinitionEquations actualImports actualCalls assignment
   actualLink : calls .actualAfter = actualCalls.actual
+
+/-- All normalized reader meanings are conclusions from the raw source
+bodies, contracts, and the callees selected by this interpretation. -/
+theorem source_lexical {calls : Calls} (source : InterpretedSource calls) :
+    Lexical.Meaning source.inherited.primitive := by
+  obtain ⟨helpers, token, linked, definitions⟩ := source.lexical
+  rw [linked]
+  exact Lexical.interpreted_primitives helpers token definitions
+
+theorem source_reader_equations {calls : Calls} (source : InterpretedSource calls) :
+    Predicate.BodyNative.Equations source.bodyLibraries.body :=
+  Predicate.BodyLibraries.body_equations source.bodyLibraries
+    source.inheritedSource.toRawHelperEquations source.bodyDefinitions (source_lexical source)
+
+theorem source_wrapper_models {calls : Calls} (source : InterpretedSource calls) :
+    Predicate.Adapter.Wrappers.ModelEquations source.bodyLibraries.bodyWrapperModels source.bodyLibraries.body :=
+  Predicate.BodyLibraries.wrapper_models source.bodyLibraries
+    source.inheritedSource.toRawHelperEquations source.bodyDefinitions
+
+theorem source_actual_meaning {calls : Calls} (source : InterpretedSource calls) :
+    Predicate.FunctionCallNative.ImportsMeaning source.actualImports :=
+  Predicate.FunctionCallNative.imports_meaning source.inheritedSource.toRawHelperEquations
+    (Predicate.BodyLibraries.predicate_helpers source.bodyLibraries
+      source.inheritedSource.toRawHelperEquations source.bodyDefinitions)
+    source.bodyDefinitions.predicates source.bodyDefinitions.predicateContracts source.actualLinks
 
 theorem source_return_imports {calls : Calls} (source : InterpretedSource calls)
     (text : Source) (tv : FunctionBindings.Native.ValidText text)
     (context : Predicate.Native.Context) (scan : Predicate.BodyScan) (resultType : FunctionTypeResult)
     (valid : ReturnInput text context scan resultType) : ReturnImports calls text context scan resultType :=
   return_library_imports source.inheritedSource.toRawHelperEquations source.links.toHeaderLinks
-    source.actualImports source.actualCalls source.assignment source.actualMeaning source.actualEquations
+    source.actualImports source.actualCalls source.assignment (source_actual_meaning source) source.actualEquations
     source.actualLink text tv context scan resultType valid
 
 theorem source_body_imports {calls : Calls} (source : InterpretedSource calls)
@@ -57,8 +83,9 @@ theorem source_body_imports {calls : Calls} (source : InterpretedSource calls)
   body_library_imports source.inheritedSource source.exactDomain
     (FunctionBindings.SourceBridge.interpreted_complete source.metadata source.metadataSource)
     source.visibilityPrimitives source.visibilityEquations source.links source.headers source.headerContracts
-    source.frames source.equations source.contracts source.reader source.readerSource source.models source.wrappers
-    source.modelEquations source.refinement source.bodyLinks (source_return_imports source)
+    source.frames source.equations source.contracts source.bodyLibraries.body (source_reader_equations source)
+    source.bodyLibraries.bodyWrapperModels source.bodyLibraries.bodyWrappers
+    (source_wrapper_models source) source.bodyDefinitions.wrappers source.bodyLinks (source_return_imports source)
     text tv outer frame first after resultType arguments valid
 
 theorem source_declaration_imports {calls : Calls} (source : InterpretedSource calls)

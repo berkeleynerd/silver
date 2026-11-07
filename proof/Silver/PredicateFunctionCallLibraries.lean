@@ -11,11 +11,11 @@ public import Silver.PredicateBooleanBodyLibraries
 namespace Silver.Predicate.FunctionCallNative
 open Compose FunctionBindings
 
-variable {domain : Expressions.StateDomain}
+variable {domain : Compose.Expressions.StateDomain}
 
 /-- Exact callee wiring for the new call trees. Range containment is interpreted
 from its own checked expression, rather than assumed as a parser result. -/
-structure ImportsLinks (imports : Imports) (composed : Expressions.Calls)
+structure ImportsLinks (imports : Imports) (composed : Compose.Expressions.Calls)
     (predicate : Native.Calls) : Prop where
   skip : imports.skip = predicate.skip
   nameAfter : imports.nameAfter = predicate.nameAfter
@@ -34,7 +34,7 @@ structure ImportsLinks (imports : Imports) (composed : Expressions.Calls)
   invalid : ∃ body, BodyWrappers.DefinitionEquations body ∧ imports.invalid = body.invalidModel
 
 theorem imports_meaning {imports composed predicate}
-    (source : Expressions.RawHelperEquations composed (domain := domain))
+    (source : Compose.Expressions.RawHelperEquations composed (domain := domain))
     (helpers : Native.HelperMeaning predicate) (defs : Native.DefinitionEquations predicate)
     (contracts : Native.Contracts predicate) (links : ImportsLinks imports composed predicate) :
     ImportsMeaning imports where
@@ -65,8 +65,8 @@ theorem imports_meaning {imports composed predicate}
     have member := valid.2
     simp only [callTokens, List.mem_cons, List.mem_nil_iff, or_false] at member
     rcases member with rfl | rfl | rfl | rfl <;>
-      rw [links.token, Expressions.interpreted_take composed source text valid.1.1 position _ valid.1.2
-        (by unfold Expressions.ValidToken; decide +kernel)] <;> rfl
+      rw [links.token, Compose.Expressions.interpreted_take composed source text valid.1.1 position _ valid.1.2
+        (by unfold Compose.Expressions.ValidToken; decide +kernel)] <;> rfl
   condition text context position facts valid := by
     rw [links.condition]
     exact Native.condition_of_source_equations helpers defs contracts text valid.1.1 context valid.1.2.1
@@ -84,6 +84,7 @@ theorem imports_meaning {imports composed predicate}
       _ = includedBody.eval modelImports modelCalls {intervalValue := left, intervalBounds := right} := by
         simp only [includedBody, Expr.eval, links.isEmpty,
           source.scalarEmpty left valid.1, source.scalarEmpty right valid.2, modelImports]
+        rfl
       _ = _ := included_model left right
   invalid scan valid := by
     obtain ⟨body, definitions, observed⟩ := links.invalid
@@ -92,7 +93,7 @@ theorem imports_meaning {imports composed predicate}
 
 /-- Scalar and Boolean assignment targets already have separately checked
 source definitions. The two predicates retain their complete native domains. -/
-structure TargetLinks (calls : Calls) (composed : Expressions.Calls) (predicate : Native.Calls) : Prop where
+structure TargetLinks (calls : Calls) (composed : Compose.Expressions.Calls) (predicate : Native.Calls) : Prop where
   scalar : ∃ scalar string body targets,
     FlowReaders.Links composed scalar string ∧ BodyWrappers.DefinitionEquations body ∧
     ScalarBodyNative.DefinitionEquations (ScalarBodyNative.inheritedImports composed scalar body) targets ∧
@@ -103,7 +104,7 @@ structure TargetLinks (calls : Calls) (composed : Expressions.Calls) (predicate 
     calls.booleanTarget = targets.target
 
 theorem targets_meaning {calls composed predicate}
-    (source : Expressions.RawHelperEquations composed (domain := domain))
+    (source : Compose.Expressions.RawHelperEquations composed (domain := domain))
     (helpers : Native.HelperMeaning predicate) (defs : Native.DefinitionEquations predicate)
     (contracts : Native.Contracts predicate) (links : TargetLinks calls composed predicate) :
     TargetsMeaning calls where
@@ -119,13 +120,13 @@ theorem targets_meaning {calls composed predicate}
       definitions text context position valid
 
 structure Links (assignment : Source → Native.Context → BodyScan → Metadata → BodyScan)
-    (composed : Expressions.Calls) (predicate : Native.Calls) : Prop where
+    (composed : Compose.Expressions.Calls) (predicate : Native.Calls) : Prop where
   source : ∃ imports calls,
     ImportsLinks imports composed predicate ∧ TargetLinks calls composed predicate ∧
     DefinitionEquations imports calls assignment
 
 theorem linked_assignment {assignment composed predicate}
-    (source : Expressions.RawHelperEquations composed (domain := domain))
+    (source : Compose.Expressions.RawHelperEquations composed (domain := domain))
     (helpers : Native.HelperMeaning predicate) (defs : Native.DefinitionEquations predicate)
     (contracts : Native.Contracts predicate) (links : Links assignment composed predicate)
     (text : Source) (context : Native.Context) (scan : BodyScan) (catalog : Metadata)
@@ -137,8 +138,8 @@ theorem linked_assignment {assignment composed predicate}
 
 
 theorem model_imports_links :
-    ImportsLinks {modelImports with token := Expressions.modelCalls.function .takeToken}
-      Expressions.modelCalls Native.modelCalls where
+    ImportsLinks {modelImports with token := Compose.Expressions.modelCalls.function .takeToken}
+      Compose.Expressions.modelCalls Native.modelCalls where
   skip := rfl
   nameAfter := rfl
   namesLookup := rfl
@@ -154,13 +155,13 @@ theorem model_imports_links :
   invalid := ⟨BodyWrappers.modelCalls, BodyWrappers.model_definitions, rfl⟩
 
 theorem model_target_links
-    (source : Expressions.RawHelperEquations Expressions.modelCalls (domain := domain)) :
-    TargetLinks modelCalls Expressions.modelCalls Native.modelCalls where
+    (source : Compose.Expressions.RawHelperEquations Compose.Expressions.modelCalls (domain := domain)) :
+    TargetLinks modelCalls Compose.Expressions.modelCalls Native.modelCalls where
   scalar := by
     have flow := Native.Libraries.model_links.readers.defaults
     let scalar := fun text context position facts => Native.modelCalls.scalarInFlow text context position facts []
     let string := fun text context position facts => Native.modelCalls.stringInFlow text context position facts []
-    let imported := ScalarBodyNative.inheritedImports Expressions.modelCalls scalar BodyWrappers.modelCalls
+    let imported := ScalarBodyNative.inheritedImports Compose.Expressions.modelCalls scalar BodyWrappers.modelCalls
     have normalized : ScalarBodyNative.totalize imported = ScalarBodyNative.modelImports :=
       ScalarBodyNative.totalize_eq_model (ScalarBodyNative.inherited_meaning source flow BodyWrappers.model_definitions)
     refine ⟨scalar, string, BodyWrappers.modelCalls, ScalarBodyNative.modelCalls,
@@ -181,9 +182,9 @@ theorem model_target_links
     BooleanBodyNative.inherited_model_definitions source, rfl⟩
 
 theorem model_links
-    (source : Expressions.RawHelperEquations Expressions.modelCalls (domain := domain)) :
+    (source : Compose.Expressions.RawHelperEquations Compose.Expressions.modelCalls (domain := domain)) :
     Links (fun text context scan catalog => callAssignmentBody text context.model scan catalog)
-      Expressions.modelCalls Native.modelCalls := by
+      Compose.Expressions.modelCalls Native.modelCalls := by
   refine ⟨⟨_, modelCalls, model_imports_links, model_target_links source, ?_⟩⟩
   exact model_definitions_of_meaning (imports_meaning source Native.model_helper_meaning
     Native.model_definition_equations Native.model_contracts model_imports_links)
