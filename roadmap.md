@@ -42,7 +42,7 @@ caller-visible mutation. Their detailed design follows the preceding deliveries.
 #297 is [selected next on 2026-11-06](docs/session-memory.md#2026-11-06--structural-guards-merged-boolean-arrays-selected-next),
 under the owner's instruction to proceed after merging the ready structural
 guards. Authorization reached main through PR #333; implementation is complete
-on Linux and ready for review on unmerged PR #335. #298 remains a
+on Linux through PR #335, whose merge is now owner-authorized. #298 remains a
 **Backlog proposal**. Candidate samples need faithful implementations before
 any coverage gain is claimed. The separate sample-only
 proposal [#300](https://github.com/berkeleynerd/silver/issues/300) retains its
@@ -54,7 +54,7 @@ and deferred capacity work retain their scope.
 
 ### Fixed-size Boolean arrays
 
-**Complete on Linux, 2026-11-07; PR #335 remains unmerged.**
+**Complete on Linux, 2026-11-07, through PR #335.**
 The [delivery account](docs/boolean-arrays.md#delivery-assurance-and-validation--2026-11-07)
 records complete assurance, regression applicability and the accepted closing review.
 
@@ -66,8 +66,9 @@ distinguishes that ordering inference from the owner's exact words.
 [Milestone 19](https://github.com/berkeleynerd/silver/milestone/19), **Fixed-size
 Boolean arrays**, contains this one cohesive work package; do not create a
 duplicate stage issue. Authorization reached main as `430d206684` through
-[PR #333](https://github.com/berkeleynerd/silver/pull/333). #297 and finding
-#334 remain open pending merge; PR #335 remains unmerged.
+[PR #333](https://github.com/berkeleynerd/silver/pull/333). The owner later
+[authorized merging PR #335](docs/session-memory.md#2026-11-07--boolean-array-merge-authorized),
+which completes #297 and finding #334; milestone 19 closes with that delivery.
 
 The [delivery record](docs/boolean-arrays.md#delivery-assurance-and-validation--2026-11-07)
 tracks initialized static one-dimensional Boolean arrays and indexed reads/writes,
@@ -89,7 +90,8 @@ aggregates remain unsupported.
 The complete-source 4,096-byte limit and existing expression/storage budgets
 remain unchanged. General containers, dynamic/multidimensional arrays, functions
 #298, the separate #300 sample batch, capacity rewrites and Oracle amendments
-remain outside this unit. Implementation merge remains a later owner decision.
+remain outside this unit. The owner-authorized merge retains the complete
+validated implementation and its reviewed evidence.
 
 ### Source-tree structural guards
 

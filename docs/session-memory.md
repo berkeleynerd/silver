@@ -1,5 +1,21 @@
 # Session memory
 
+## 2026-11-07 — Boolean-array merge authorized
+
+The owner instructed **“If it is ready to merge please proceed.”** This
+authorizes merging ready [PR #335](https://github.com/berkeleynerd/silver/pull/335)
+and its routine issue/board/milestone closeout. Complete Linux native/build,
+Lean/source and reviewed regression assurance are retained in the
+[delivery record](boolean-arrays.md#delivery-assurance-and-validation--2026-11-07).
+The accepted integrated target is `2227a82686`, with separately inspected
+completion text published at `d17fb7b299`; governed implementation remains
+`ce97ede446`. The authorization/status reconciliation changes documentation
+only and retains that successful evidence without reruns.
+
+This supersedes the earlier merge hold for #335. Issues #297/#334 and milestone
+19 close with the merge; no functions #298 or separate sample batch #300 work
+is selected. No CLI recall entry was updated.
+
 ## 2026-11-07 — Boolean-array delivery closeout
 
 Owner-directed implementation of existing #297 is complete through reviewable

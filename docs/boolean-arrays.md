@@ -1,6 +1,6 @@
 # Fixed-size Boolean arrays
 
-**Complete on Linux, 2026-11-07. PR #335 is ready for review and remains unmerged.**
+**Complete on Linux, 2026-11-07, through [PR #335](https://github.com/berkeleynerd/silver/pull/335).**
 [Milestone 19](https://github.com/berkeleynerd/silver/milestone/19) contains the
 existing [#297](https://github.com/berkeleynerd/silver/issues/297) as one cohesive
 work package. The [current delivery account](#delivery-assurance-and-validation--2026-11-07)
@@ -135,8 +135,9 @@ Earlier failed/interrupted Lean/native attempts keep their actual outcomes.
 The 31,822,336-byte producer envelope and earlier concrete 8 MiB stack executions
 retain their original source/binary scopes; they are not final-binary executions
 or a universal 8 MiB stack bound. No independent replay, clean build, CI or macOS
-result is added by this closeout. #297/#334 and milestone 19 remain open pending
-merge; publication of reviewable PR #335 does not authorize its merge.
+result is added by this closeout. The owner subsequently
+[authorized the merge](session-memory.md#2026-11-07--boolean-array-merge-authorized)
+of PR #335; #297/#334 and milestone 19 close with that delivery.
 
 ## Authorization and bounded scope
 
@@ -147,7 +148,8 @@ identifies #297 from the recorded next-feature queue. The owner did not explicit
 name its issue number. That dated record reached main through PR #333 at
 `430d206684`; #297 was then claimed under the ordinary workflow. Planning
 publication/merge and implementation through reviewable publication are
-authorized. Implementation merge remains a later owner decision.
+authorized. The later [merge instruction](session-memory.md#2026-11-07--boolean-array-merge-authorized)
+now authorizes implementation merge and its routine closeout.
 
 Extend the fixed-array foundation to initialized, statically bounded,
 one-dimensional arrays of predefined Boolean, with constant/mutable objects,
