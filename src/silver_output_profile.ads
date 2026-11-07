@@ -4,6 +4,7 @@ with Silver_Function_Bindings;
 package Silver_Output_Profile
   with SPARK_Mode => On
 is
+   use type Silver_Function_Bindings.Metadata;
    Max_Source_Length : constant Positive := 4_096;
    Max_Expression_Operands : constant Positive := 64;
    --  Retain a source-wide operator budget; actual proof cost also depends on
