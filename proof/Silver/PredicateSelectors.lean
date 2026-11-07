@@ -1,6 +1,6 @@
 module
 
-public import Silver.PredicateFlags
+public import Silver.PredicateFunctionFlags
 
 @[expose] public section
 
@@ -44,58 +44,9 @@ theorem accepted_form_unique {source : Source} {first second : Form}
   obtain ⟨_, _, _, secondRead⟩ := form_reading_sound b
   exact form_reading_unique firstRead secondRead
 
-mutual
-  def Flag.statement (flag : Flag) : Statement → Bool
-    | .simple item => flag.simple item
-    | .scalarAssign _ | .arrayAssign _ | .booleanAssign _ | .booleanArrayAssign _ =>
-        flag == .assignment
-    | .reject => false
-    | .choice _ yes no => flag.statements yes || flag.statements no
-    | .forLoop _ _ _ _ body | .arrayLoop _ _ _ body => flag.statements body
-  termination_by item => sizeOf item
-  def Flag.statements (flag : Flag) : List Statement → Bool
-    | [] => false
-    | item :: rest => flag.statement item || flag.statements rest
-  termination_by items => sizeOf items
-end
 
-mutual
-  theorem source_lower_flags (flag : Flag) (item : SourceStatement) :
-      flag.statement item.lower = flag.source item := by
-    cases item with
-    | simple item => simp only [SourceStatement.lower, Flag.statement, Flag.source]
-    | scalarAssign update => simp only [SourceStatement.lower, Flag.statement, Flag.source]
-    | booleanAssign update => simp only [SourceStatement.lower, Flag.statement, Flag.source]
-    | booleanArrayAssign update => simp only [SourceStatement.lower, Flag.statement, Flag.source]
-    | arrayAssign update => simp only [SourceStatement.lower, Flag.statement, Flag.source]
-    | reject => simp only [SourceStatement.lower, Flag.statement, Flag.source]
-    | choice condition yes tail =>
-        simp only [SourceStatement.lower, Flag.statement, Flag.source,
-          statements_lower_flags flag yes, alternative_lower_flags flag tail]
-    | forLoop index reverse lower upper body | arrayLoop index reverse array body =>
-        simp only [SourceStatement.lower, Flag.statement, Flag.source, statements_lower_flags flag body]
-  termination_by sizeOf item
-  theorem alternative_lower_flags (flag : Flag) (tail : SourceAlternative) :
-      flag.statements tail.lower = flag.alternative tail := by
-    cases tail with
-    | absent => simp only [SourceAlternative.lower, Flag.statements, Flag.alternative]
-    | otherwise items => simpa only [SourceAlternative.lower, Flag.alternative] using statements_lower_flags flag items
-    | elsif condition yes tail =>
-        simp only [SourceAlternative.lower, Flag.statements, Flag.statement, Flag.alternative,
-          statements_lower_flags flag yes, alternative_lower_flags flag tail, Bool.or_false]
-  termination_by sizeOf tail
-  theorem statements_lower_flags (flag : Flag) (items : List SourceStatement) :
-      flag.statements (lowerStatements items) = flag.sources items := by
-    cases items with
-    | nil => simp only [lowerStatements, Flag.statements, Flag.sources]
-    | cons item rest =>
-        simp only [lowerStatements, Flag.statements, Flag.sources,
-          source_lower_flags flag item, statements_lower_flags flag rest]
-  termination_by sizeOf items
-end
-
-theorem decoded_body {form events items scalars constants checks arrays booleans booleanChecks program}
-    (decoded : decodePrefix form events items scalars constants checks arrays booleans booleanChecks = some program) :
+theorem decoded_body {form events items scalars constants checks arrays booleans booleanChecks functions program}
+    (decoded : decodePrefix form events items scalars constants checks arrays booleans booleanChecks functions = some program) :
     program.statements = lowerStatements items ∧ program.hasArguments = form.hasArguments := by
   unfold decodePrefix at decoded
   split at decoded <;> cases decoded
@@ -117,15 +68,21 @@ theorem any_form_flag {source : Source} {form : Form}
 theorem meaning_selectors {source : Source} {program : Program}
     (meaning : SourceMeaning source program) :
     hasArguments source = program.hasArguments ∧
-      hasAssignment source = Flag.assignment.statements program.statements ∧
+      hasAssignment source = program.assignmentFlag ∧
       hasOutput source = Flag.output.statements program.statements := by
-  obtain ⟨form, events, items, _, _, _, _, domain, _, parsed, _, _, _, decoded⟩ := meaning
+  obtain ⟨form, events, items, _, _, _, _, domain, _, parsed, _, _, _, functions, functionTrace, decoded⟩ := meaning
   have accepted := form_reading_complete ⟨domain, events, items, parsed⟩
   have body := decoded_body decoded
+  have functionsEq := decoded_functions decoded
+  have flags := prefix_function_flags functionTrace
+  have absorbs : ((prefixScan source form).assigned || (prefixScan source form).state.assignedInFunctions) =
+      (prefixScan source form).assigned := by rw [flags.1, flags.2]; exact Bool.or_self _
   refine ⟨(any_form_flag accepted Form.hasArguments).trans body.2.symm, ?_, ?_⟩
-  · rw [hasAssignment, any_form_flag accepted, body.1, statements_lower_flags]
-    exact form_flags domain parsed .assignment
+  · rw [hasAssignment, any_form_flag accepted, Program.assignmentFlag, body.1, functionsEq, statements_lower_flags]
+    have observed := form_flags domain parsed absorbs .assignment
+    simpa only [Flag.scanObserve, flags.1, Bool.or_comm] using observed
   · rw [hasOutput, any_form_flag accepted, body.1, statements_lower_flags]
-    exact form_flags domain parsed .output
+    have observed := form_flags domain parsed absorbs .output
+    simpa only [Flag.scanObserve, prefix_output, Bool.false_or] using observed
 
 end Silver.Predicate

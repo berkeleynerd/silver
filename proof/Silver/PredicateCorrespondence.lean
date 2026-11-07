@@ -24,7 +24,7 @@ theorem executable_selectors (calls : Implementation.Calls) (source : Interprete
     (refinement : ExecutableRefinement calls admit arguments assignment output)
     {text : Source} {program : Program} (meaning : SourceMeaning text program) :
     arguments text = program.hasArguments ∧
-      assignment text = Flag.assignment.statements program.statements ∧
+      assignment text = program.assignmentFlag ∧
       output text = Flag.output.statements program.statements := by
   have selectors := (executable_correspondence calls source admit arguments assignment output refinement text).2
   have decoded := meaning_selectors meaning
@@ -39,7 +39,7 @@ theorem executable_main_correct (calls : Implementation.Calls) (source : Interpr
       (∀ other, SourceMeaning text other → other = program) ∧
       (∀ argv, program.checkedExecute argv = some (program.execute argv)) ∧
       arguments text = program.hasArguments ∧
-      assignment text = Flag.assignment.statements program.statements ∧
+      assignment text = program.assignmentFlag ∧
       output text = Flag.output.statements program.statements ∧
       Semantics.discharge (Current.obligations (.sequence program)) = true ∧
       (∀ environment, program.inputValid environment.arguments = false → program.run environment = ⟨1, []⟩) ∧
