@@ -3,6 +3,7 @@ module
 public import Silver.PredicateFunctionCallReadings
 public import Silver.PredicateConditionValidity
 public import Silver.PredicateFlowInvariant
+public import Silver.ScalarFunctionDefinition
 
 @[expose] public section
 
@@ -96,5 +97,127 @@ theorem call_meaning {text context position facts catalog call result}
   refine ⟨arguments.1, ?_⟩
   simp only [ScalarFunctions.Call.check, catalogSignatures_lookup positive inside,
     Option.bind_some, signatureModel, arguments.2, ↓reduceIte]
+
+/-- A function body or initializer has no String, array, or input namespace.
+Purity alone is insufficient to rule out all non-scalar source operands. -/
+structure ClosedFunctionContext (context : ParseContext) : Prop where
+  pure : context.pure = true
+  noArguments : context.hasArguments = false
+  noNames : context.names = []
+  noArrays : context.arrayNames = []
+
+theorem scalarExpression_of_readsOnly {expression : Integer.Expr} {allowed : Nat → Prop}
+    (reads : expression.ReadsOnly allowed) : ScalarFunctions.scalarExpression expression = true := by
+  induction expression <;> simp_all [Integer.Expr.ReadsOnly, ScalarFunctions.scalarExpression]
+
+theorem scalarExpression_source_scalar {text names position expression result maskFirst maskAfter allowSign initials elaborating}
+    (parsed : ScalarExpression.At text names position expression result maskFirst maskAfter allowSign
+      [] initials elaborating) : ScalarFunctions.scalarExpression expression = true :=
+  scalarExpression_of_readsOnly (ScalarExpression.syntax_readsOnly parsed.grammar)
+
+mutual
+  theorem primary_source_scalar {text context position facts condition result initials}
+      (closed : ClosedFunctionContext context)
+      (parsed : PrimaryAt text context position facts condition result initials) :
+      ScalarFunctions.scalarCondition condition = true := by
+    cases parsed with
+    | group _ _ _ inner _ =>
+        have scalar := condition_source_scalar closed inner
+        exact scalar
+    | boolean _ _ _ _ _ atom => cases atom <;> rfl
+    | valid _ _ _ _ arguments _ => simp [closed.noArguments] at arguments
+    | booleanArray _ _ _ _ atom =>
+        cases atom with
+        | read found _ _ _ _ _ _ _ =>
+            simp [closed.noArrays, ArrayBindings.lookup, ArrayBindings.lookupFrom] at found
+  termination_by (remainingAt text position, 1)
+  decreasing_by all_goals subst_vars; all_goals exact Prod.Lex.left _ _ (by assumption)
+
+  theorem booleanFactor_source_scalar {text context position facts condition result initials}
+      (closed : ClosedFunctionContext context)
+      (parsed : BooleanFactorAt text context position facts condition result initials) :
+      ScalarFunctions.scalarCondition condition = true := by
+    cases parsed with
+    | primary _ inner | negated _ _ inner =>
+        have scalar := primary_source_scalar closed inner
+        exact scalar
+  termination_by (remainingAt text position, 2)
+  decreasing_by all_goals subst_vars; all_goals first | exact Prod.Lex.left _ _ (by assumption) | exact Prod.Lex.right _ (by decide)
+
+  theorem booleanRelation_source_scalar {text context position facts condition result initials}
+      (closed : ClosedFunctionContext context)
+      (parsed : BooleanRelationAt text context position facts condition result initials) :
+      ScalarFunctions.scalarCondition condition = true := by
+    cases parsed with
+    | factor inner _ _ => exact booleanFactor_source_scalar closed inner
+    | comparison left _ _ _ _ right _ =>
+        exact Bool.and_eq_true_iff.mpr ⟨booleanFactor_source_scalar closed left,
+          booleanFactor_source_scalar closed right⟩
+  termination_by (remainingAt text position, 3)
+  decreasing_by all_goals subst_vars; all_goals first | exact Prod.Lex.left _ _ (by assumption) | exact Prod.Lex.right _ (by decide)
+
+  theorem relation_source_scalar {text context position facts condition result initials}
+      (closed : ClosedFunctionContext context)
+      (parsed : RelationAt text context position facts condition result initials) :
+      ScalarFunctions.scalarCondition condition = true := by
+    cases parsed with
+    | booleanNot _ _ inner | pureBoolean _ _ _ _ _ inner =>
+        exact booleanRelation_source_scalar closed inner
+    | length _ _ _ left _ _ =>
+        cases left with
+        | binding _ _ found _ _ _ _ _ =>
+            simp [closed.noNames, BindingEnvironment.get] at found
+    | scalars _ _ _ _ left right _ =>
+        rw [closed.noArrays] at left right
+        exact Bool.and_eq_true_iff.mpr ⟨scalarExpression_source_scalar left,
+          scalarExpression_source_scalar right⟩
+    | strings _ _ _ _ _ _ _ _ impure | character _ _ _ _ _ _ impure
+    | primary _ _ _ _ _ _ _ impure => simp [closed.pure] at impure
+  termination_by (remainingAt text position, 4)
+  decreasing_by all_goals subst_vars; all_goals first | exact Prod.Lex.left _ _ (by assumption) | exact Prod.Lex.right _ (by decide)
+
+  theorem chain_source_scalar {text context condition result chained final finalResult facts initials originalStart}
+      (closed : ClosedFunctionContext context)
+      (parsed : ChainAt text context condition result chained final finalResult facts initials originalStart)
+      (scalar : ScalarFunctions.scalarCondition condition = true) :
+      ScalarFunctions.scalarCondition final = true := by
+    cases parsed with
+    | done => exact scalar
+    | @next _ _ condition result chained operator right rightResult final finalResult _ _ _ _ _ _ _ rightRead _ _ _ rest =>
+        apply chain_source_scalar closed rest
+        have rightScalar := relation_source_scalar closed rightRead
+        cases operator <;> exact Bool.and_eq_true_iff.mpr ⟨scalar, rightScalar⟩
+  termination_by (remainingAt text result.after, 6)
+  decreasing_by all_goals subst_vars; all_goals exact Prod.Lex.left _ _ (by assumption)
+
+  theorem condition_source_scalar {text context position facts condition result initials}
+      (closed : ClosedFunctionContext context)
+      (parsed : ConditionAt text context position facts condition result initials) :
+      ScalarFunctions.scalarCondition condition = true := by
+    cases parsed with
+    | condition _ first _ _ tail =>
+        exact chain_source_scalar closed tail (relation_source_scalar closed first)
+  termination_by (remainingAt text position, 5)
+  decreasing_by all_goals subst_vars; all_goals first | exact Prod.Lex.left _ _ (by assumption) | exact Prod.Lex.right _ (by decide)
+end
+
+theorem actual_source_scalar {text context position facts formal actual after}
+    (closed : ClosedFunctionContext context)
+    (parsed : ActualAt text context position facts formal actual after) :
+    ScalarFunctions.scalarActual actual = true := by
+  cases parsed.payload with
+  | integer _ source _ _ =>
+      rw [closed.noArrays] at source
+      exact scalarExpression_source_scalar source
+  | boolean _ source => exact condition_source_scalar closed source
+
+theorem actuals_source_scalar {text context facts catalog position first last actuals after}
+    (closed : ClosedFunctionContext context)
+    (parsed : ActualsAt text context facts catalog position first last actuals after) :
+    actuals.all ScalarFunctions.scalarActual = true := by
+  induction parsed with
+  | last source _ => simp only [List.all_cons, List.all_nil, Bool.and_true]; exact actual_source_scalar closed source
+  | next _ source _ ih => exact Bool.and_eq_true_iff.mpr ⟨actual_source_scalar closed source, ih⟩
+
 
 end Silver.Predicate
