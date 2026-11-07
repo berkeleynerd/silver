@@ -1,0 +1,149 @@
+{
+  "first_sample": "2026-11-07T06:49:00.625877+00:00",
+  "last_sample": "2026-11-07T10:59:06.987767+00:00",
+  "maximum_sampled_lean_rss": {
+    "at": "2026-11-07T07:24:02.670724+00:00",
+    "cpu_time_as_reported": "00:37:55",
+    "elapsed_seconds": 2124,
+    "module": "/home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays/.silver/linux-x86_64/proof/Silver/OutputBodyCertificate.lean",
+    "pid": 442314,
+    "sampled_rss_kib": 24354788
+  },
+  "minimum_sampled_available_memory": {
+    "at": "2026-11-07T07:24:02.670724+00:00",
+    "kib": 6018556
+  },
+  "per_module_maximum_sampled_rss": {
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays/.silver/linux-x86_64/proof/Silver/ArgumentsSourceBridge.lean": {
+      "at": "2026-11-07T08:35:20.510945+00:00",
+      "cpu_time_as_reported": "00:00:48",
+      "elapsed_seconds": 48,
+      "pid": 481763,
+      "sampled_rss_kib": 1370684
+    },
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays/.silver/linux-x86_64/proof/Silver/Audit.lean": {
+      "at": "2026-11-07T10:58:30.916799+00:00",
+      "cpu_time_as_reported": "00:00:10",
+      "elapsed_seconds": 11,
+      "pid": 509115,
+      "sampled_rss_kib": 2157656
+    },
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays/.silver/linux-x86_64/proof/Silver/ComposeBooleanArraySourceCandidate.lean": {
+      "at": "2026-11-07T08:17:47.135602+00:00",
+      "cpu_time_as_reported": "00:02:55",
+      "elapsed_seconds": 175,
+      "pid": 477273,
+      "sampled_rss_kib": 1385696
+    },
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays/.silver/linux-x86_64/proof/Silver/ComposeCatalogueSourceCandidate.lean": {
+      "at": "2026-11-07T07:41:22.527542+00:00",
+      "cpu_time_as_reported": "00:00:36",
+      "elapsed_seconds": 36,
+      "pid": 471436,
+      "sampled_rss_kib": 1307728
+    },
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays/.silver/linux-x86_64/proof/Silver/ComposeContractSourceCandidate.lean": {
+      "at": "2026-11-07T08:08:28.004865+00:00",
+      "cpu_time_as_reported": "00:05:09",
+      "elapsed_seconds": 308,
+      "pid": 475206,
+      "sampled_rss_kib": 1424888
+    },
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays/.silver/linux-x86_64/proof/Silver/ComposeDeclarationSourceCandidate.lean": {
+      "at": "2026-11-07T07:53:56.498315+00:00",
+      "cpu_time_as_reported": "00:12:20",
+      "elapsed_seconds": 742,
+      "pid": 471588,
+      "sampled_rss_kib": 7808040
+    },
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays/.silver/linux-x86_64/proof/Silver/ComposeExpressionSourceCandidate.lean": {
+      "at": "2026-11-07T07:36:30.103238+00:00",
+      "cpu_time_as_reported": "00:02:34",
+      "elapsed_seconds": 155,
+      "pid": 469492,
+      "sampled_rss_kib": 1436736
+    },
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays/.silver/linux-x86_64/proof/Silver/ComposeHelperSourceCandidate.lean": {
+      "at": "2026-11-07T08:24:25.676821+00:00",
+      "cpu_time_as_reported": "00:06:54",
+      "elapsed_seconds": 353,
+      "pid": 478397,
+      "sampled_rss_kib": 3262612
+    },
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays/.silver/linux-x86_64/proof/Silver/LexicalSourceBridge.lean": {
+      "at": "2026-11-07T08:37:05.981863+00:00",
+      "cpu_time_as_reported": "00:02:11",
+      "elapsed_seconds": 56,
+      "pid": 482372,
+      "sampled_rss_kib": 1188316
+    },
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays/.silver/linux-x86_64/proof/Silver/NamedSourceBridge.lean": {
+      "at": "2026-11-07T08:34:26.281037+00:00",
+      "cpu_time_as_reported": "00:00:28",
+      "elapsed_seconds": 28,
+      "pid": 481531,
+      "sampled_rss_kib": 1641020
+    },
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays/.silver/linux-x86_64/proof/Silver/OutputBodyCertificate.lean": {
+      "at": "2026-11-07T07:24:02.670724+00:00",
+      "cpu_time_as_reported": "00:37:55",
+      "elapsed_seconds": 2124,
+      "pid": 442314,
+      "sampled_rss_kib": 24354788
+    },
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays/.silver/linux-x86_64/proof/Silver/OutputSourceBridge.lean": {
+      "at": "2026-11-07T08:32:47.656196+00:00",
+      "cpu_time_as_reported": "00:02:56",
+      "elapsed_seconds": 114,
+      "pid": 480364,
+      "sampled_rss_kib": 4364156
+    },
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays/.silver/linux-x86_64/proof/Silver/PredicateBodySourceCandidate.lean": {
+      "at": "2026-11-07T10:56:55.625101+00:00",
+      "cpu_time_as_reported": "00:36:09",
+      "elapsed_seconds": 2174,
+      "pid": 503221,
+      "sampled_rss_kib": 11413092
+    },
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays/.silver/linux-x86_64/proof/Silver/PredicateCharacterSourceCandidate.lean": {
+      "at": "2026-11-07T08:38:55.769339+00:00",
+      "cpu_time_as_reported": "00:01:41",
+      "elapsed_seconds": 93,
+      "pid": 482644,
+      "sampled_rss_kib": 5913404
+    },
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays/.silver/linux-x86_64/proof/Silver/PredicateFlowSourceCandidate.lean": {
+      "at": "2026-11-07T09:13:59.455279+00:00",
+      "cpu_time_as_reported": "00:15:04",
+      "elapsed_seconds": 908,
+      "pid": 489228,
+      "sampled_rss_kib": 12373720
+    },
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays/.silver/linux-x86_64/proof/Silver/PredicateNativeHelpersCandidate.lean": {
+      "at": "2026-11-07T09:40:23.084586+00:00",
+      "cpu_time_as_reported": "00:19:03",
+      "elapsed_seconds": 1145,
+      "pid": 492744,
+      "sampled_rss_kib": 7379040
+    },
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays/.silver/linux-x86_64/proof/Silver/PredicateNativeShapeCandidate.lean": {
+      "at": "2026-11-07T10:02:50.346340+00:00",
+      "cpu_time_as_reported": "00:21:15",
+      "elapsed_seconds": 1276,
+      "pid": 497853,
+      "sampled_rss_kib": 16740152
+    },
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays/.silver/linux-x86_64/proof/Silver/PredicateScalarBodyCandidate.lean": {
+      "at": "2026-11-07T08:58:12.449509+00:00",
+      "cpu_time_as_reported": "00:17:00",
+      "elapsed_seconds": 1025,
+      "pid": 483413,
+      "sampled_rss_kib": 4946004
+    }
+  },
+  "process_controls": "None; no suspension, signal, retry or limit change in this run.",
+  "recorded_at": "2026-11-07T11:01:13.898168+00:00",
+  "sample_count": 296,
+  "sampling_limit": "Sampled observations are not continuous peaks or independently measured isolated CPU benchmarks.",
+  "terminal_sample_has_no_lean_or_lake_processes": true
+}

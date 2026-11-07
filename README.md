@@ -196,11 +196,12 @@ The drivers cover [reversal](samples/rosetta_reverse_a_string.adb),
 The [fixed-size Boolean-array candidate](docs/boolean-arrays.md) extends the
 shared static array layout with explicit Boolean initialization, checked reads
 and mutable component writes. Stored cells retain values without recovering
-facts about their originating predicates. The prepared drivers are a
+facts about their originating predicates. The drivers are a
 [sieve through 100](samples/rosetta_sieve_of_eratosthenes.adb) and
 [wrapping elementary cellular automata](samples/rosetta_elementary_cellular_automaton.adb)
-for rules 90, 30 and 122. Native execution and the complete resulting-language
-assurance checkpoint remain pending; these samples do not yet claim delivery.
+for rules 90, 30 and 122. Both passed native compilation and execution in the
+[reviewed sample results](docs/reviews/review-boolean-arrays-regression-applicability-20261107.md).
+The complete resulting-language assurance checkpoint remains pending.
 
 The [Find square difference sample](samples/find_square_difference.adb) stores
 the first matching index and prints ` 501` followed by a newline.

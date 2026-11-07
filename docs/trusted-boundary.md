@@ -250,12 +250,36 @@ cardinality and nonempty contained Integer index intervals establish the same
 shape and index requirements as the existing fixed-array fragment. Stored flags
 supply no predicate relations. No new trusted operation or assumption is added.
 
-The capacity review recorded in the capability record retains the
-31,822,336-byte Main envelope within the existing 32 MiB allocation, separating
-Boolean comparison routes from Integer component-conversion reservations.
-Native producer observations and the complete resulting-language checkpoint
-remain pending. Existing dated frame and stack observations above retain their
-original input/build scope; they do not measure the Boolean-array candidate.
+The [capacity review](boolean-arrays-report-capacity.md) recorded in the
+capability record retains the 31,822,336-byte Main envelope within the existing
+32 MiB allocation, separating Boolean comparison routes from Integer
+component-conversion reservations.
+Its four native producer probes passed on 2026-11-06: aggregate reads/writes
+`20261106T200711-a8699a3bdebd`, comparison/xor
+`20261106T200723-cd4c48c06a5f`, Character/String initializers
+`20261106T200733-8dbd9314fda8`, and guarded indexing
+`20261106T200744-47eca4474ae3`. These corroborate the selected producer routes;
+the source-derived capacity and complete discharge arguments remain required.
+
+The earlier Boolean-array Linux x86_64 layout observations compare baseline
+`430d20668407a621945456743818172d02c8db6c` with source
+`d82f6880924196f6fccc2077ed86b71c6a31683d72b8e2a935d494b7d62296f4`
+and compiler
+`1cf857171f9af64e20bfdb2fb2a32e411ceefc67a26168acf5e1fa83961d0796`.
+`Body_Context` grew from 38,216 to 38,896 bytes (+680); the `.su` dynamic
+`Loop_Body` entry's printed fixed portion grew from 38,496 to 39,168 bytes
+(+672). The latter is not a total dynamic-stack measurement. Managed run
+`20261106T223744-e0c6eddfa117` passed check, compile and execution for three
+4,096-byte fixtures at an 8,192 KiB stack limit: `counted` (141 nested loops),
+`foreach-singleton` (158 nested Integer-array element loops), and
+`counted-slice` (140 nested loops with a String slice).
+
+These dated observations retain their exact earlier source/build scope; they
+do not measure the final compiler or establish a universal 8 MiB stack bound.
+Sufficient stack and memory remain environmental premises. The complete
+resulting-language checkpoint remains pending, as recorded in the
+[capability record](boolean-arrays.md). Earlier dated frame and stack
+observations above retain their original input/build scope.
 
 ## Scalar guard refinement boundary
 

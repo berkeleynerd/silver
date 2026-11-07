@@ -1,0 +1,22 @@
+{
+  "ACTIVE-HANDOFF.md": "b7a2805752502e660a50bedd6bcf503efde9e81c48658ca5a7479ca5a2d031ee",
+  "README.md": "f5acd7fbaec37f6effd7155561c6eb42b6fc5f5cfb44a6a8fea159a6ba225ed5",
+  "actual-audit-modules.txt": "a8ba28252aaa6044db049dba22f23d47ab7fea6b9c90c39624c86368bfec0332",
+  "after-inputs.json": "adbeaef6268b75be55f5c71c7acfe7fd45b533b5ffd6069fbea89dd981181530",
+  "after-status.json": "3698265c15cba9977be9a32a30b723fba7f261d4aff928155b93cd8542c70386",
+  "before-inputs.json": "3fdf68f577ac33cfc3dc6cbaa37106756b1d76fd713a7ba0a49e4eaffd205e18",
+  "before-status.json": "28f038a062db0dce3b146729c100eedfe93f853c6d68f9541d7255417c641ccb",
+  "candidate-correspondence.json": "925f3fb138d230169125117be32d31b7a07173cff197d09dc699449c612faa9d",
+  "events.jsonl": "86b8036bcc8874320f845aaf980a8bed92585cb46b46a3acdd7ac3d20932fb66",
+  "expected-modules.txt": "a8ba28252aaa6044db049dba22f23d47ab7fea6b9c90c39624c86368bfec0332",
+  "initial-meminfo.txt": "62148aaa4004d26508b5cae87227d7c6a6432b457e2502dd323988b5eb5c1129",
+  "lean-evidence.json": "b0c9b1f60e0482c27db1ced52a4920e60d5a34f337634fd806a53e0c0b74b167",
+  "lean-proof.log": "465afcea9760bbf342ca44f60506b462840d72392f22cbdc4f9b5c4f047cac5b",
+  "managed-inputs.json": "429df0c143eb6c2d659242d392a85172895649fd87768ff012b5fc9e13cb5d0e",
+  "observation-summary.json": "0c0d106b5ed0922909d6069992934a20dd7d53d791d9b28513f370ffbfa998f3",
+  "observations.jsonl": "b8378cc7bbb9fc1d52c1213d99b7fee03566e9e3950143ca41ccddbaa9208cc8",
+  "packet-validation.json": "827031e6b14c681146653880e43188cc4183f06b1ca42e76906b0f96a916144e",
+  "rebuilt-modules.json": "b2b9201d88160615d92ad43e1b76c12cd6970e8492fb8e8d87ee23ca42e1fb10",
+  "remaining-work-estimate.json": "4fb2e35c9ba4afaa87359bbd159e23c1dcbeb15319cea430042bb8bff7845fc1",
+  "reused-modules.txt": "0390ee05c220113d058e1ee06696a5cfcc6b4e6f651769f3f14242e080ff7ce7"
+}

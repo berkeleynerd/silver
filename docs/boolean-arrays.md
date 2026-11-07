@@ -1,6 +1,7 @@
 # Fixed-size Boolean arrays
 
-**Implementation in progress on 2026-11-06; assurance and delivery pending.**
+**Complete Lean/source audit passed on 2026-11-07; final native/build assurance
+and delivery remain pending.**
 [Milestone 19](https://github.com/berkeleynerd/silver/milestone/19) contains the
 existing [#297](https://github.com/berkeleynerd/silver/issues/297) as one cohesive
 work package. Complete validation is required before this candidate is supported.
@@ -57,11 +58,33 @@ feature assurance checkpoint pass; no Rosetta gain is claimed yet.
 | 2026-11-07 Relation false-flow repair | Native implementation: GPT-6.1 Sol / Extra High; diagnosis and independent review: GPT-6 Astra / Extra High | Complete Primary helper `032921` passed all 87 checks. The original full audit exposed a second unresolved equality in Relation. One local Static assertion closes its new assertion/call precondition in `040114` and the original assertion/call precondition in `040331`, without changed semantics, contracts or proof limits. Independent review passes both focused results. Full pin, reconstruction and one line bucket are refreshed; source-policy run `040620` passes both affected methods. Complete Relation helper `040619` and the old-source full audit remain active. The next complete Lean checkpoint waits for native source repairs to settle. |
 | 2026-11-07 bounded source-leaf refresh | Execution/monitoring: GPT-6.1 Sol / High | After the complete Relation helper passed 152 checks, focused Lean run `045523` checked the refreshed full token pin and changed line bucket while the original native audit continued. Both rebuilds and the fresh eight-module / 2,543-declaration audit passed (1,417.800 s build, 7.782 s audit); all 762 captured source hashes match. This preserves usable kernel-checked objects for the later complete source checkpoint. No reconstruction or native-shape build, clean build, replay or source edit occurred in this round. |
 | 2026-11-07 repaired complete checkpoint | Native execution: GPT-6.1 Sol / Extra High; Lean execution/monitoring: GPT-6.1 Sol / High | Original native run `232644` finished failed after 26,270.505 s with exactly the known Primary/Relation failures and no new failure. Complete reports and failed-helper tasks are retained; all original generated tasks remain preserved locally. Final native verification/build is being prepared on the reviewed repairs in the same installation. Complete cached Lean run `064815` has started with one worker and detailed provenance, retaining the focused pin/line successes; its 655-module build and fresh full audit remain pending. |
+| 2026-11-07 closing preparation | Runtime applicability review: GPT-6 Astra / Extra High; boundary documentation: GPT-6.1 Sol / High; lead runtime setting not independently confirmed | Compared all 2,586 native inputs and twelve tool binaries with the regression build: differences are the reviewed Static assertions, installation paths and an Alire index timestamp. No baseline collection gap remains; final build applicability is pending. Documentation now records the existing sample, producer and concrete 8 MiB stack observations with their original input scope. Complete run `064815` rebuilt source reconstruction in 2,709 s; later source modules and the fresh audit remain pending. Full native run `065643` is active on the repaired source. No additional validation job was started for these records. |
+| 2026-11-07 complete Lean success | Execution/monitoring: GPT-6.1 Sol / High; lead runtime setting not independently confirmed | Run `064815` passed the complete build and fresh audit: all 655 project modules / 132,101 declarations, only the three approved foundations. Build 15,008.840 s; fresh audit 14.940 s; ordinary cache reuse, one Lake worker and automatic 12-thread processes. Native run `065643`, final build/runtime applicability and Rosetta/closing confirmation remain pending. |
 
 Token/cost measurements and independent runtime confirmation of the selected
-subthread settings are unavailable. Complete native/build/Lean/regression
-checkpoints, independent critical review, publication and delivery records
-remain outstanding.
+subthread settings are unavailable. Historical rows preserve their original
+checkpoint status; the current result is recorded below.
+
+## Complete Lean checkpoint — 2026-11-07
+
+Run `20261107T064815-9c9da56edf3d` passed the complete Linux Lean/source build
+and fresh axiom audit on the reviewed `ce97ede446` implementation. It covers
+all 655 project modules and 132,101 declarations with exactly `propext`,
+`Classical.choice` and `Quot.sound`. The
+[terminal packet](evidence/boolean-arrays-20261106/final-lean-after-cuts/README.md)
+retains the exact inputs, module inventory, detailed provenance and earlier
+resource observations. Build time was 15,008.840 seconds; the separate fresh
+audit took 14.940 seconds. The run used ordinary cached objects, one Lake worker,
+12 automatic threads per process and the unchanged 24,576 MiB threshold.
+No clean build or independent kernel replay is claimed.
+
+This closes the outstanding complete Lean/source checkpoint, including the
+Boolean-array guard repair in #334. The original failed and interrupted runs
+remain recorded with their actual outcomes. Complete native run
+`20261107T065643-5c23478ef04b` and the subsequent final build are still pending.
+Runtime-input applicability, final Rosetta metadata/tests, closing confirmation
+and reviewable publication remain required; no complete feature delivery is
+claimed yet.
 
 The subsequent complete Relation helper run `20261107T040619-48e6ccbe10c9`
 passed all 152 checks at normal limits in 2,625.834 seconds. Both known native

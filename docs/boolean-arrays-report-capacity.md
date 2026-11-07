@@ -1,10 +1,10 @@
 # Boolean arrays: producer and report capacity
 
-Draft feature-local account for [#297](https://github.com/berkeleynerd/silver/issues/297),
-2026-11-06. The native subthread inspected the pinned producer routes below.
+Feature-local account for [#297](https://github.com/berkeleynerd/silver/issues/297),
+prepared 2026-11-06 and updated 2026-11-07. The native subthread inspected the pinned producer routes below.
 The [independent capacity review](reviews/review-boolean-arrays-capacity-20261106.md)
-found no blocking finding; discovery probes and complete feature assurance
-remain pending. This account extends the
+found no blocking finding. Four discovery probes passed on the earlier source
+identified below; complete feature assurance remains pending. This account extends the
 [String/Character envelope](bounded-string-characters-report-capacity.md) and
 [Boolean scalar account](evidence/boolean-objects-20261030/producer-review.md).
 It does not change report policy, allocation or the existing producer assumptions.
@@ -81,8 +81,24 @@ Main = checks*2048 + (2*S + 2*floor(S/16))*1024 + 2*S + 65536
 This bound concerns retained report storage. It does not assert a maximum solver
 time or a measured peak memory consumption. Report acceptance still requires
 every emitted obligation to be proved with the existing provenance requirements.
-Discovery reports will corroborate the selected routes; examples do not replace
+Discovery reports corroborate the selected routes; examples do not replace
 the feature's universal and actual-source assurance.
+
+## Native corroboration — 2026-11-06
+
+The four managed producer probes passed: aggregate reads/writes
+`20261106T200711-a8699a3bdebd`, comparison/xor
+`20261106T200723-cd4c48c06a5f`, Character/String initializers
+`20261106T200733-8dbd9314fda8`, and guarded indexing
+`20261106T200744-47eca4474ae3`. Their raw Main proof-record counts are
+0, 0, 0 and 2 respectively; both records in the guarded probe are proved
+`VC_INDEX_CHECK` checks. These observations corroborate the selected producer
+routes and do not replace the source-derived bound or universal discharge proof.
+
+The native installation retains each probe source, project, reports and managed
+log for the final evidence packet. These observations belong to the earlier Boolean-array
+source `d82f6880924196f6fccc2077ed86b71c6a31683d72b8e2a935d494b7d62296f4`;
+they are not fresh executions of the final compiler.
 
 ## Inputs
 
@@ -103,4 +119,5 @@ integration lead prepared this account from that bounded investigation.
 Independent review selected GPT-6 Astra / Extra High and took 293 seconds,
 including its report. Runtime setting confirmation and token/cost measurements
 are unavailable. Its exact input inventory and independent arithmetic are
-retained with the linked review; native producer corroboration remains pending.
+retained with the linked review. The later native observations above keep their
+own source and execution scope.

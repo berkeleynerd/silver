@@ -1,10 +1,19 @@
 # Boolean-array evidence inventory — 2026-11-06
 
-**Preparation snapshot; the complete integrated delivery checkpoint is pending.**
+**Complete Lean/source checkpoint passed on 2026-11-07; final native/build and
+delivery confirmation remain pending.**
 This inventory supports [#297](https://github.com/berkeleynerd/silver/issues/297)
-and the [capability record](../../boolean-arrays.md). It records existing local
-cache provenance and focused results; it does not claim final native assurance,
-complete source correspondence, sample execution or feature delivery.
+and the [capability record](../../boolean-arrays.md). The current
+[complete Lean packet](final-lean-after-cuts/README.md) records run
+`20261107T064815-9c9da56edf3d`: all 655 project modules and 132,101 declarations,
+with a fresh audit reporting only the three approved foundations. It is an
+incremental build with ordinary cache reuse, not a clean build or independent
+kernel replay. The
+[regression review](../../reviews/review-boolean-arrays-regression-applicability-20261107.md)
+retains the sample and regression results; final runtime applicability and
+Rosetta metadata confirmation are still required. The historical preparation,
+cache and focused-run records below preserve their original scope and status.
+No final native assurance or complete feature delivery is claimed yet.
 
 Paths below are relative to the shared repository root unless stated otherwise.
 The integration checkout is `tmp/boolean-arrays`; the native installation stays
