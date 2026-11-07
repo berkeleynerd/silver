@@ -200,6 +200,9 @@ inductive ScalarTypeAt (text : Source) (state : ParserState) (position : Nat) :
       ScalarExpression.lookup text state.scalarNames first after = 0 →
       ArrayBindings.lookup text state.arrayNames.names first after = 0 →
       BooleanBindings.lookup text state.booleanNames first after = 0 →
+      FunctionBindings.lookup text state.functions first after = 0 →
+      formalHides text state first after = false →
+      (state.hiding.integerHidden && Named.nameIs text first after ("integer".toList.map Char.toNat)) = false →
       Named.nameIs text first after ("integer".toList.map Char.toNat) = true →
       ScalarTypeAt text state position ⟨after, .full⟩
   | named {first after target : Nat} :
@@ -209,6 +212,9 @@ inductive ScalarTypeAt (text : Source) (state : ParserState) (position : Nat) :
       ScalarExpression.lookup text state.scalarNames first after = 0 →
       ArrayBindings.lookup text state.arrayNames.names first after = 0 →
       BooleanBindings.lookup text state.booleanNames first after = 0 →
+      FunctionBindings.lookup text state.functions first after = 0 →
+      formalHides text state first after = false →
+      (state.hiding.integerHidden && Named.nameIs text first after ("integer".toList.map Char.toNat)) = false →
       Named.nameIs text first after ("integer".toList.map Char.toNat) = false →
       target = IntegerSubtypes.lookup text state.subtypeNames first after → target ≠ 0 →
       ScalarTypeAt text state position ⟨after, (IntegerSubtypes.binding state.subtypeNames target).bounds⟩
@@ -222,24 +228,25 @@ theorem scalarTypeAt_sound (text : Source) (state : ParserState) (position : Nat
   · simp_all
   · rename_i ready
     have good := ready
-    simp only [not_or, Nat.not_le, ne_eq, Decidable.not_not] at good
+    simp only [not_or, Nat.not_le, ne_eq, Decidable.not_not, Bool.not_eq_true] at good
+    rcases good with ⟨first, advance, strings, scalars, arrays, booleans, functions, formals, visible⟩
     split
     · rename_i integer
-      exact .integer rfl rfl good.1 good.2.1 good.2.2.1 good.2.2.2.1 good.2.2.2.2.1 good.2.2.2.2.2 integer
+      exact .integer rfl rfl first advance strings scalars arrays booleans functions formals visible integer
     · rename_i named
       split
       · rename_i found
-        exact .named rfl rfl good.1 good.2.1 good.2.2.1 good.2.2.2.1 good.2.2.2.2.1 good.2.2.2.2.2
+        exact .named rfl rfl first advance strings scalars arrays booleans functions formals visible
           (Bool.eq_false_iff.mpr named) rfl found
       · simp_all
 
 theorem scalarTypeAt_complete {text state position result}
     (reading : ScalarTypeAt text state position result) : scalarTypeAt text state position = result := by
   cases reading with
-  | integer first after positive advance strings scalars arrays booleans integer =>
+  | integer first after positive advance strings scalars arrays booleans functions formals visible integer =>
       subst first; subst after
       simp_all [scalarTypeAt, Nat.not_le.mpr advance]
-  | named first after positive advance strings scalars arrays booleans integer target nonzero =>
+  | named first after positive advance strings scalars arrays booleans functions formals visible integer target nonzero =>
       subst first; subst after; subst target
       simp_all [scalarTypeAt, Nat.not_le.mpr advance]
 
@@ -254,7 +261,7 @@ theorem ScalarTypeAt.nonempty {text state position result}
     (valid : IntegerSubtypes.ValidEnvironment text state.subtypeNames) : result.bounds.lower ≤ result.bounds.upper := by
   cases reading with
   | integer => exact (by decide : Integer.Interval.full.lower ≤ Integer.Interval.full.upper)
-  | @named first after target _ _ _ _ _ _ _ _ _ found nonzero =>
+  | @named first after target _ _ _ _ _ _ _ _ _ _ _ _ found nonzero =>
       have bound := IntegerSubtypes.lookup_bound text state.subtypeNames first after
       rw [← found] at bound
       exact (valid.2 _ (subtypeBinding_mem (by omega) bound)).2.2.2.2
@@ -272,7 +279,12 @@ def SubtypeDeclarationReady (text : Source) (state : ParserState) (arguments : B
     lookupName text state.names parts.typeFirst parts.typeAfter = 0 ∧
     ScalarExpression.lookup text state.scalarNames parts.typeFirst parts.typeAfter = 0 ∧
     ArrayBindings.lookup text state.arrayNames.names parts.typeFirst parts.typeAfter = 0 ∧
-    BooleanBindings.lookup text state.booleanNames parts.typeFirst parts.typeAfter = 0
+    BooleanBindings.lookup text state.booleanNames parts.typeFirst parts.typeAfter = 0 ∧
+    FunctionBindings.lookup text state.functions parts.typeFirst parts.typeAfter = 0 ∧
+    formalHides text state parts.typeFirst parts.typeAfter = false ∧
+    (state.hiding.integerHidden && Named.nameIs text parts.typeFirst parts.typeAfter ("integer".toList.map Char.toNat)) = false ∧
+    (state.hiding.booleanHidden && Named.nameIs text parts.typeFirst parts.typeAfter ("boolean".toList.map Char.toNat)) = false ∧
+    (state.hiding.characterHidden && Named.nameIs text parts.typeFirst parts.typeAfter ("character".toList.map Char.toNat)) = false
 
 inductive SubtypeDeclarationAt (text : Source) (arguments : Bool) :
     ParserState → ParserState → Prop
@@ -285,7 +297,7 @@ theorem subtype_declaration_complete {text arguments state next}
     (reading : SubtypeDeclarationAt text arguments state next) : subtypeDeclarationAt text state arguments = next := by
   cases reading with
   | declaration parts ready _ =>
-      rcases ready with ⟨allowed, own, count, after, range, constraint, following, nonempty, strings, scalars, arrays, booleans⟩
+      rcases ready with ⟨allowed, own, count, after, range, constraint, following, nonempty, strings, scalars, arrays, booleans, functions, formals, integer, boolean, character⟩
       simp_all [subtypeDeclarationAt, Nat.not_le.mpr following]
 
 theorem subtype_declaration_sound (text : Source) (state : ParserState) (arguments : Bool)
@@ -339,7 +351,8 @@ theorem subtype_declaration_valid {text arguments state next}
         have nameBound : parts.after ≤ text.length + 1 := by
           rw [← partsEq]
           exact model_name_valid text _
-        refine ⟨Nat.pos_of_ne_zero allowed.1.1.1.1, allowed.1.1.1.2, nameBound,
+        rcases allowed with ⟨⟨⟨⟨⟨⟨nonzero, advance⟩, _⟩, _⟩, _⟩, _⟩, _⟩
+        refine ⟨Nat.pos_of_ne_zero nonzero, advance, nameBound,
           constraint.bounded Integer.Interval.full_bounded, ?_⟩
         have nonempty := ready.2.2.2.2.2.2.2.1
         simpa only [Integer.Interval.isEmpty, decide_eq_false_iff_not, Int.not_lt] using nonempty
