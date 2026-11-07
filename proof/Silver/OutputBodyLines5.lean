@@ -387,6 +387,12 @@ def outputBodyTokens_line_2d1586e2be5ea0bce10f08173c2789b0e627b16060d8a78b9d1f9b
   correct := by decide +kernel
   noNewline := by decide +kernel
 
+def outputBodyTokens_line_2d482e33f4076adc87aa8fabd9e14347746d668a3a1d15e8b439d624f0c3bddb : LineCertificate where
+  text := "                    Result.When_False = Refined_Flow (Facts, Target, Selected, Threshold, False));"
+  tokens := ["result", ".", "when_false", "=", "refined_flow", "(", "facts", ",", "target", ",", "selected", ",", "threshold", ",", "false", ")", ")", ";"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
 def outputBodyTokens_line_2d59f6fdb3650396c17ee1de8e43d458d44e0904a9c6b0b1680254279bfb8a1e : LineCertificate where
   text := "                          or else not Length_Intervals.Fits (Facts.Path, Summary_Of (Right))"
   tokens := ["or", "else", "not", "length_intervals", ".", "fits", "(", "facts", ".", "path", ",", "summary_of", "(", "right", ")", ")"]

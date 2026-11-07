@@ -435,3 +435,16 @@ The two new evidence subdirectories are dated additions. The original
 `native-primary-failure` checkpoint and its inventoried files remain unchanged.
 Final native verification/build and complete Lean/source assurance remain
 outstanding; no Lean process is paused or running at this checkpoint.
+
+The proposed Relation cut subsequently passed both focused checks at normal
+configured limits: `20261107T040114-c0bc2424d7bc` covers the new assertion and
+its call precondition, and `20261107T040331-451c30667872` covers the original
+merged assertion and its call precondition. The
+[independent review](../../reviews/review-boolean-array-relation-cut-20261107.md)
+confirms the exact candidate and both retained results. The
+[integration packet](relation-cut-integration/README.md) records the source,
+full-pin, reconstruction and single-bucket refresh, plus successful run
+`20261107T040620-63bb90cecba1` of the two affected source-policy methods.
+Complete Relation helper run `20261107T040619-48e6ccbe10c9` is active; the
+original full audit continues collecting diagnostics on its unchanged source.
+Final complete native/build/Lean assurance remains outstanding.

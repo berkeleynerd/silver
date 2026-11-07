@@ -1,0 +1,23 @@
+{
+  "recorded_utc": "2026-11-07T04:06:12.117239+00:00",
+  "base_commit": "67a1b36213",
+  "changed_generated_modules": [
+    "OutputBodyCertificate.lean",
+    "OutputBodyLines5.lean"
+  ],
+  "pin_tokens_before": 53320,
+  "pin_tokens_after": 53343,
+  "files": {
+    "src/silver_output_profile.adb": "7d39745bd9e2d57c573a1c398f9e0f07e486a9d482b60f1cd21fc436e48543f3",
+    "proof/Silver/ReviewedOutputShape.lean": "ae62bd0ba9d4e831657d53342228c0875bb24c84c7029bdd9e344bc5800c6575",
+    "proof/Silver/OutputBodyCertificate.lean": "dbf48fbbf186b92aaaed942a952faa9af24fa0f72fc625d833091b5f6fd0d8cd",
+    "proof/Silver/OutputBodyLines0.lean": "a19c6784f9e185414047453465d9ebe3e53e5f6aeebc0993604b387ffb073b4f",
+    "proof/Silver/OutputBodyLines1.lean": "9d7313b2f8f4ac9458ffd004e033d56ba9046bd63bdfeaaa28b0af67bd1c9187",
+    "proof/Silver/OutputBodyLines2.lean": "67527dda17e75e2b069c65efc81765a26f86ed4838d8beab037692a984e336e4",
+    "proof/Silver/OutputBodyLines3.lean": "b08fb26eeeb373b7b62e49a40aeb05509380a6bdd1e1c114afce56f919423799",
+    "proof/Silver/OutputBodyLines4.lean": "40cd518865a782d23980c564e76fea367cf28c2505b182a4da8b204b39937d9a",
+    "proof/Silver/OutputBodyLines5.lean": "b0c8c4371731cb3f779f8402a2e5ccc157ece1318354bcbf628a5708eca8d7b2",
+    "proof/Silver/OutputBodyLines6.lean": "cf3dae13c5ad6f865a14c29343f405ef228236c8f80b62f8f63a56f32cff5743",
+    "proof/Silver/OutputBodyLines7.lean": "16c99a52e9769131946b1cb4ef024fd3ef2f388be46153513cc5678b9c598cc3"
+  }
+}

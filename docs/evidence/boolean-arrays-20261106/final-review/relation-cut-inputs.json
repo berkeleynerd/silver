@@ -1,0 +1,243 @@
+{
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_confirmation": "unavailable",
+  "token_cost": "unavailable",
+  "inspection_started_utc": "2026-11-07T04:00:44Z",
+  "source_inspection_completed_utc": "2026-11-07T04:03:44.758720+00:00",
+  "integration_head_at_inspection": "67a1b36213828a38c850c0992e7ae59eeaf1f9c4",
+  "candidate_native_base_commit": "9d9c786dceac6160c6fff521ed273fddfdfa628b",
+  "base_source_sha256": "c1ce845a597605c152119bedc6b07f1aa3bccece5d2870addb86cd18077fffaa",
+  "candidate_source_sha256": "7d39745bd9e2d57c573a1c398f9e0f07e486a9d482b60f1cd21fc436e48543f3",
+  "patch_sha256": "6f88d7bc16fc00e846a89f04d6c10966fc1f71dffa3f0ec9a1f1a1603861b86b",
+  "reviewed_inputs_sha256": {
+    "src/silver_output_profile.adb": "c1ce845a597605c152119bedc6b07f1aa3bccece5d2870addb86cd18077fffaa",
+    "proof/Silver/PredicateNativeBodies.lean": "111d183a670330985b14f4920a6666e8a2994aae3411e91bde3f81f750ad57b8",
+    "proof/Silver/PredicateNativeEquations.lean": "e04eb2491d1d6e2513f709ad0c1326417c4344dcf0d0897a5d639980f88e1716",
+    "proof/Silver/PredicateNativeSourceChecks.lean": "5b7f3ce573bef9bb3ad953163fc18057654a2a229d8dc8703fa9d8a4413455ce",
+    "proof/Silver/PredicateNativeShapeCandidate.lean": "8017061d7b5e67529c9c75daf214dbe0c2f0bdfa8fd85413f935447a2e4dfec1",
+    "proof/Silver/PredicateNativeWorkers.lean": "5c737386697b33388534d45137e1ba33d1dda0d8fb949f4af07594b10e9217ac",
+    "proof/Silver/PredicateNativeHelpersCandidate.lean": "02da429c419824ac9a5430c30ca8ca6d9affaf3b6fe75c9143352504810d61e1",
+    "proof/Silver/PredicateSourceCandidate.lean": "de41733050d4c5bccde81d7bf895c665ebd3e4fcac56a3273a73edf0b115ff9a",
+    "proof/Silver/PredicateSourceChecks.lean": "e78f63f5a603b64fa5efb52dde9edd20d86021541471e8957731ff3194881ad0",
+    "proof/Silver/SourceDeclarations.lean": "8fa7137ece364ade168a57abb4532e4f108eb9794f287c8d7bc69e9e12cb4dee",
+    "proof/Silver/OutputProfileBodySource.lean": "35ef9119ab63f6e20483c936107241bc997f9f3378181beb45f7ed7bab72938f",
+    "proof/Silver/ReviewedOutputShape.lean": "a5efbc23b920893e086f3c62da3078d91b22364f5e593a108047a8ff975332e9",
+    "proof/Silver/OutputBodyCertificate.lean": "71b92953d8b0bb645d03a1418f55fd5a1b7d52de4bbe837480749f647989edd1",
+    "proof/generate_source_certificate.py": "633655f041976bf2641a69e21ef333bd34ae913559cdc2d5ec572c20a19bece6",
+    "silver.gpr": "487fb033a7f3d056f6032b67ff5b57abfc16ce8e65db39a53d24d1d961b152eb",
+    "scripts/bootstrap.py": "415b31960868345b9e81cba9e9ef4cc84c25b9904e707328eefa31d46e9ab3da",
+    "scripts/proof_provenance.py": "f2c531acfff00b2946fecac621fc1cfb38815004ae16b73e4085cda3d63173b9",
+    "tests/test_lean_source.py": "5f77ec7653b6b7bc8807be3d4ef67612812903ffb5612106818253eeaff56b1f",
+    "tests/test_lean_evidence.py": "78b6700e401cd9c08ca0b869bf32edab148cccf49aaecb0f681f7f90910b7bd3",
+    "tests/test_lean_modules.py": "cb287c6dc17b7955edeb701775cc04ca4f92ede68a4393d7d77acd6b5ee67657",
+    "references/spark/16.1/docs/lrm/source/exceptions.rst": "19a6103eaa87a082928c48d73c81b85be2106bfebaf38edb7bdce272bfd747f5",
+    "references/spark/16.1/docs/ug/en/source/specification_features.rst": "ced4ca54fd479e8d64911cd9acc12ed54d0b6fef44fffbc981d33c1d75395caa",
+    "proof/Silver/PredicateNativeScalarHelpers.lean": "f513242c3ff04e6da4b20118ca93b78972fcc14e77f85312d7618c77bcab2030",
+    "proof/Silver/PredicateCharacterSourceCandidate.lean": "f9b403a7a65cadcb7ff25fb338a66a7ec10e6511b8ba60b4526e2d3cee079e46",
+    "proof/Silver/OutputBodyLines0.lean": "a19c6784f9e185414047453465d9ebe3e53e5f6aeebc0993604b387ffb073b4f",
+    "proof/Silver/OutputBodyLines1.lean": "9d7313b2f8f4ac9458ffd004e033d56ba9046bd63bdfeaaa28b0af67bd1c9187",
+    "proof/Silver/OutputBodyLines2.lean": "67527dda17e75e2b069c65efc81765a26f86ed4838d8beab037692a984e336e4",
+    "proof/Silver/OutputBodyLines3.lean": "b08fb26eeeb373b7b62e49a40aeb05509380a6bdd1e1c114afce56f919423799",
+    "proof/Silver/OutputBodyLines4.lean": "40cd518865a782d23980c564e76fea367cf28c2505b182a4da8b204b39937d9a",
+    "proof/Silver/OutputBodyLines5.lean": "c52ffaec611b67077f70f3648097d402e69094350488d478ac2d5278eb066708",
+    "proof/Silver/OutputBodyLines6.lean": "cf3dae13c5ad6f865a14c29343f405ef228236c8f80b62f8f63a56f32cff5743",
+    "proof/Silver/OutputBodyLines7.lean": "16c99a52e9769131946b1cb4ef024fd3ef2f388be46153513cc5678b9c598cc3"
+  },
+  "generation_record": "relation-cut-generation.json",
+  "generation_record_sha256": "764026757e639aa066e12a6abc009e89152ec4f7352bdd011cbfe3bf0b0a2909",
+  "required_focused_checks": [
+    {
+      "rule": "VC_ASSERT",
+      "line": 3934,
+      "column": 21
+    },
+    {
+      "rule": "VC_PRECONDITION",
+      "line": 3934,
+      "column": 41
+    },
+    {
+      "rule": "VC_ASSERT",
+      "line": 3948,
+      "column": 18
+    }
+  ],
+  "focused_native_evidence_status": "Both local and original merged assertions, each model-call precondition and all selected range leaves independently inspected and proved.",
+  "complete_helper_evidence_status": "Not independently inspected; remains separate from this two-focus verdict.",
+  "native_or_lean_or_test_jobs_started_by_reviewer": false,
+  "complete_assurance_approved": false,
+  "focused_runs": [
+    {
+      "run_id": "20261107T040114-c0bc2424d7bc",
+      "packet": "relation-focused-local-assertion",
+      "source_sha256": "7d39745bd9e2d57c573a1c398f9e0f07e486a9d482b60f1cd21fc436e48543f3",
+      "artifact_inventory_sha256": "ddc1c9ee5dfa2a004dd3f6ceb80f8e3f318daf9a25ffe6983e3caa8ed2274bec",
+      "verified_packet_artifacts": 10,
+      "verified_archived_members": {
+        "managed-run": 2,
+        "reports-and-solver-inputs": 19
+      },
+      "managed_terminal": {
+        "outcome": "success",
+        "utc": "2026-11-07T04:03:06.284751+00:00",
+        "duration_seconds": 106.761947332
+      },
+      "spark_report_sha256": "5b0e8d4c4eade53163b8b290ef932576c2edcc683093e99ed8d9a18cee053be5",
+      "native_log_sha256": "04ed8d464321db5cf8279590321257ad72bee454dee88e4275fdd9b7729efbc0",
+      "proof_checks": [
+        {
+          "rule": "VC_RANGE_CHECK",
+          "line": 3934,
+          "column": 27,
+          "message": "range check proved",
+          "subgoals": 2,
+          "each_subgoal_has_valid_proof": true
+        },
+        {
+          "rule": "VC_PRECONDITION",
+          "line": 3934,
+          "column": 41,
+          "message": "precondition proved",
+          "subgoals": 1,
+          "each_subgoal_has_valid_proof": true
+        },
+        {
+          "rule": "VC_ASSERT",
+          "line": 3934,
+          "column": 21,
+          "message": "assertion proved",
+          "subgoals": 1,
+          "each_subgoal_has_valid_proof": true
+        }
+      ],
+      "flow_record_count": 2,
+      "suppression_lists_empty": true,
+      "options": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.tools/linux-x86_64/alr/bin/alr",
+        "-s",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.tools/linux-x86_64/alire/settings",
+        "-C",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/toolchain",
+        "-n",
+        "--no-tty",
+        "exec",
+        "--",
+        "gnatprove",
+        "-P",
+        "../../../silver.gpr",
+        "--mode=all",
+        "--report=all",
+        "--warnings=error",
+        "--checks-as-errors=on",
+        "--level=2",
+        "--prover=cvc5,z3,altergo",
+        "--timeout=30",
+        "--memlimit=1000",
+        "--memcached-server=file:/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/tmp/primary-branch-cut/cache",
+        "--subdirs=explore/relation-false-flow-cut",
+        "--limit-subp=silver_output_profile.adb:3574",
+        "--limit-line=silver_output_profile.adb:3934",
+        "--debug-save-vcs",
+        "-XSILVER_HOST=linux-x86_64",
+        "-j2"
+      ]
+    },
+    {
+      "run_id": "20261107T040331-451c30667872",
+      "packet": "relation-focused-original-assertion",
+      "source_sha256": "7d39745bd9e2d57c573a1c398f9e0f07e486a9d482b60f1cd21fc436e48543f3",
+      "artifact_inventory_sha256": "ca86a8b5ede0241285d01f075a22159cecd26c4ffc575f0c330afa3633d582f1",
+      "verified_packet_artifacts": 10,
+      "verified_archived_members": {
+        "managed-run": 2,
+        "reports-and-solver-inputs": 19
+      },
+      "managed_terminal": {
+        "outcome": "success",
+        "utc": "2026-11-07T04:05:32.700463+00:00",
+        "duration_seconds": 115.954966195
+      },
+      "spark_report_sha256": "ea2827715e599cfa7506248af9101916c449c05fddfc5d2a5f42502ef88d4276",
+      "native_log_sha256": "feb914f15497315998a49078f7b7bcebe0da95df16b242328fc200fb5ae7e021",
+      "proof_checks": [
+        {
+          "rule": "VC_RANGE_CHECK",
+          "line": 3948,
+          "column": 24,
+          "message": "range check proved",
+          "subgoals": 2,
+          "each_subgoal_has_valid_proof": true
+        },
+        {
+          "rule": "VC_PRECONDITION",
+          "line": 3948,
+          "column": 38,
+          "message": "precondition proved",
+          "subgoals": 1,
+          "each_subgoal_has_valid_proof": true
+        },
+        {
+          "rule": "VC_ASSERT",
+          "line": 3948,
+          "column": 18,
+          "message": "assertion proved",
+          "subgoals": 1,
+          "each_subgoal_has_valid_proof": true
+        }
+      ],
+      "flow_record_count": 2,
+      "suppression_lists_empty": true,
+      "options": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.tools/linux-x86_64/alr/bin/alr",
+        "-s",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.tools/linux-x86_64/alire/settings",
+        "-C",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/toolchain",
+        "-n",
+        "--no-tty",
+        "exec",
+        "--",
+        "gnatprove",
+        "-P",
+        "../../../silver.gpr",
+        "--mode=all",
+        "--report=all",
+        "--warnings=error",
+        "--checks-as-errors=on",
+        "--level=2",
+        "--prover=cvc5,z3,altergo",
+        "--timeout=30",
+        "--memlimit=1000",
+        "--memcached-server=file:/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/tmp/primary-branch-cut/cache",
+        "--subdirs=explore/relation-false-flow-cut",
+        "--limit-subp=silver_output_profile.adb:3574",
+        "--limit-line=silver_output_profile.adb:3948",
+        "--debug-save-vcs",
+        "-XSILVER_HOST=linux-x86_64",
+        "-j2"
+      ]
+    }
+  ],
+  "latest_evidence_review_utc": "2026-11-07T04:05:28.642191+00:00",
+  "focused_input_maps_and_tool_identities_equal": true,
+  "focused_input_path_count": 2586,
+  "focused_review_completed_utc": "2026-11-07T04:06:36.268932+00:00",
+  "integration_confirmation": {
+    "utc": "2026-11-07T04:07:31.287577+00:00",
+    "head": "67a1b36213828a38c850c0992e7ae59eeaf1f9c4",
+    "native_source_matches_candidate": true,
+    "full_pin_matches_all_53343_candidate_tokens": true,
+    "all_nine_generated_modules_match_independent_expected_hashes": true,
+    "remaining_reviewed_inputs_unchanged": true,
+    "changed_files_sha256": {
+      "proof/Silver/OutputBodyCertificate.lean": "dbf48fbbf186b92aaaed942a952faa9af24fa0f72fc625d833091b5f6fd0d8cd",
+      "proof/Silver/OutputBodyLines5.lean": "b0c8c4371731cb3f779f8402a2e5ccc157ece1318354bcbf628a5708eca8d7b2",
+      "proof/Silver/ReviewedOutputShape.lean": "ae62bd0ba9d4e831657d53342228c0875bb24c84c7029bdd9e344bc5800c6575",
+      "src/silver_output_profile.adb": "7d39745bd9e2d57c573a1c398f9e0f07e486a9d482b60f1cd21fc436e48543f3"
+    },
+    "native_or_kernel_success_claimed": false
+  },
+  "review_completed_utc": "2026-11-07T04:07:31.287577+00:00",
+  "elapsed_wall_seconds_including_evidence_waits": 407.287577
+}

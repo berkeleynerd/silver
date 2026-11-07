@@ -3930,6 +3930,8 @@ is
                   Lemma_Flow_Equality
                     (Result.When_True, Refined_Flow (Facts, Target, Selected, Threshold, True));
                   Result.When_False.Values (Target) := Refine_Or_Keep (Facts.Values (Target), Selected, Threshold, False);
+                  pragma Assert (Static =>
+                    Result.When_False = Refined_Flow (Facts, Target, Selected, Threshold, False));
                else
                   pragma Assert (Static =>
                     Result.When_True = Refined_Flow (Facts, Target, Selected, Threshold, True));

@@ -1,0 +1,281 @@
+{
+  "recorded_utc": "2026-11-07T04:03:15.534160+00:00",
+  "platform": "linux-x86_64",
+  "run_id": "20261107T040114-c0bc2424d7bc",
+  "started": {
+    "available_cpus": 12,
+    "command": [
+      "gnatprove",
+      "-P",
+      "../../../silver.gpr",
+      "--mode=all",
+      "--report=all",
+      "--warnings=error",
+      "--checks-as-errors=on",
+      "--level=2",
+      "--prover=cvc5,z3,altergo",
+      "--timeout=30",
+      "--memlimit=1000",
+      "--memcached-server=file:/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/tmp/primary-branch-cut/cache",
+      "--subdirs=explore/relation-false-flow-cut",
+      "--limit-subp=silver_output_profile.adb:3574",
+      "--limit-line=silver_output_profile.adb:3934",
+      "--debug-save-vcs",
+      "-XSILVER_HOST=linux-x86_64"
+    ],
+    "event": "started",
+    "evidence": [
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/compiler/obj/explore/relation-false-flow-cut/gnatprove",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/compiler/obj/explore/relation-false-flow-cut/gnatprove"
+      }
+    ],
+    "expensive": false,
+    "fingerprint": "69514e4400029e111d41f2024d58486ae2fe62bbf53e105ad87e2be549b33bd9",
+    "host": "linux-x86_64",
+    "inputs": {
+      "arguments": [
+        "gnatprove",
+        "-P",
+        "../../../silver.gpr",
+        "--mode=all",
+        "--report=all",
+        "--warnings=error",
+        "--checks-as-errors=on",
+        "--level=2",
+        "--prover=cvc5,z3,altergo",
+        "--timeout=30",
+        "--memlimit=1000",
+        "--memcached-server=file:/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/tmp/primary-branch-cut/cache",
+        "--subdirs=explore/relation-false-flow-cut",
+        "--limit-subp=silver_output_profile.adb:3574",
+        "--limit-line=silver_output_profile.adb:3934",
+        "--debug-save-vcs",
+        "-XSILVER_HOST=linux-x86_64"
+      ],
+      "mode": "tool",
+      "scope": [
+        "mode:all",
+        "project:../../../silver.gpr",
+        "--limit-subp=silver_output_profile.adb:3574",
+        "--limit-line=silver_output_profile.adb:3934"
+      ]
+    },
+    "kind": "tool-gnatprove",
+    "machine": "codex-silver",
+    "monotonic_ns": 63553765678676,
+    "pid": 410635,
+    "reason": "Root-authorized two-worker focused check of one local false-flow equality cut at3934 and its call precondition at3934 using normal limits; preserve original merged assertion and all contracts. Canonical old-source full audit remains untouched. Reuse idle experiment-only cache at original path with ordinary matching; no canonical cache transfer or mutation.",
+    "requested_workers": 2,
+    "resources": [
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/toolchain",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/toolchain"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/tmp/primary-branch-cut/cache",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/tmp/primary-branch-cut/cache"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/compiler/obj/explore/relation-false-flow-cut",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/compiler/obj/explore/relation-false-flow-cut"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/compiler/bin/explore/relation-false-flow-cut",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/compiler/bin/explore/relation-false-flow-cut"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/proof-containers/obj/explore/relation-false-flow-cut",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/proof-containers/obj/explore/relation-false-flow-cut"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/tmp/primary-branch-cut/cache",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/tmp/primary-branch-cut/cache"
+      }
+    ],
+    "run_id": "20261107T040114-c0bc2424d7bc",
+    "schema": 1,
+    "scope": [
+      "mode:all",
+      "project:../../../silver.gpr",
+      "--limit-subp=silver_output_profile.adb:3574",
+      "--limit-line=silver_output_profile.adb:3934"
+    ],
+    "task": "#297 Relation false-flow branch-cut assertion experiment",
+    "utc": "2026-11-07T04:01:19.523028+00:00",
+    "workers": 2,
+    "worktree": {
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair",
+      "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair"
+    }
+  },
+  "finished": {
+    "duration_seconds": 106.761947332,
+    "event": "finished",
+    "evidence": [
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/compiler/obj/explore/relation-false-flow-cut/gnatprove",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/compiler/obj/explore/relation-false-flow-cut/gnatprove"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261107T040114-c0bc2424d7bc/native.log",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261107T040114-c0bc2424d7bc/native.log"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261107T040114-c0bc2424d7bc/exploratory-evidence",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261107T040114-c0bc2424d7bc/exploratory-evidence"
+      }
+    ],
+    "failure_keys": [],
+    "monotonic_ns": 63660527357814,
+    "outcome": "success",
+    "retained_reports": [],
+    "returncode": null,
+    "run_id": "20261107T040114-c0bc2424d7bc",
+    "utc": "2026-11-07T04:03:06.284751+00:00"
+  },
+  "command": [
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.tools/linux-x86_64/alr/bin/alr",
+    "-s",
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.tools/linux-x86_64/alire/settings",
+    "-C",
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/toolchain",
+    "-n",
+    "--no-tty",
+    "exec",
+    "--",
+    "gnatprove",
+    "-P",
+    "../../../silver.gpr",
+    "--mode=all",
+    "--report=all",
+    "--warnings=error",
+    "--checks-as-errors=on",
+    "--level=2",
+    "--prover=cvc5,z3,altergo",
+    "--timeout=30",
+    "--memlimit=1000",
+    "--memcached-server=file:/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/tmp/primary-branch-cut/cache",
+    "--subdirs=explore/relation-false-flow-cut",
+    "--limit-subp=silver_output_profile.adb:3574",
+    "--limit-line=silver_output_profile.adb:3934",
+    "--debug-save-vcs",
+    "-XSILVER_HOST=linux-x86_64",
+    "-j2"
+  ],
+  "source_sha256": "7d39745bd9e2d57c573a1c398f9e0f07e486a9d482b60f1cd21fc436e48543f3",
+  "target_line": 3934,
+  "target_rule": "VC_ASSERT",
+  "whole_helper": false,
+  "actual_selected_records": [
+    {
+      "check_col": 41,
+      "check_file": "silver_output_profile.adb",
+      "check_line": 3934,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 2995,
+              "time": 0.953139
+            },
+            "Z3": {
+              "result": "Valid",
+              "steps": 638,
+              "time": 0.668039
+            },
+            "altergo": {
+              "result": "Valid",
+              "steps": 1796,
+              "time": 0.836788
+            }
+          },
+          "transformations": {}
+        }
+      ],
+      "col": 41,
+      "entity": 1,
+      "file": "silver_output_profile.adb",
+      "how_proved": "prover",
+      "line": 3934,
+      "message": {
+        "text": "precondition proved"
+      },
+      "msg_id": 1,
+      "rule": "VC_PRECONDITION",
+      "severity": "info",
+      "stats": {
+        "Z3": {
+          "count": 1,
+          "max_steps": 638,
+          "max_time": 0.66803902387619
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 21,
+      "check_file": "silver_output_profile.adb",
+      "check_line": 3934,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "High failure (signaled)",
+              "steps": 1,
+              "time": 0.013948
+            },
+            "Z3": {
+              "result": "Valid",
+              "steps": 2444,
+              "time": 1.48672
+            },
+            "altergo": {
+              "result": "High failure (signaled)",
+              "steps": 1,
+              "time": 0.014525
+            }
+          },
+          "transformations": {}
+        }
+      ],
+      "col": 21,
+      "entity": 1,
+      "file": "silver_output_profile.adb",
+      "how_proved": "prover",
+      "line": 3934,
+      "message": {
+        "text": "assertion proved"
+      },
+      "msg_id": 2,
+      "rule": "VC_ASSERT",
+      "severity": "info",
+      "stats": {
+        "Z3": {
+          "count": 1,
+          "max_steps": 2444,
+          "max_time": 1.48672103881836
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    }
+  ],
+  "proof_record_count": 3,
+  "flow_record_count": 2,
+  "saved_solver_input_count": 12,
+  "solver_input_selection": "Freshly saved inputs for the exact selected source line after this run began; earlier line-focused inputs are retained separately.",
+  "preserved_debug_output": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/compiler/obj/explore/relation-false-flow-cut/gnatprove",
+  "selected_input_count": 2586,
+  "original_binary_unchanged": true,
+  "original_binary_sha256": "c3f97c7f6477931ad01c76c3be658db06fc4c02f997a6475f921eee9a5362790",
+  "branch": "repair/boolean-primary-cut-20261107",
+  "head": "9d9c786dceac6160c6fff521ed273fddfdfa628b",
+  "tracked_status": " M src/silver_output_profile.adb\n",
+  "selected_model_effort": "GPT-6.1 Sol / Extra High per original assignment; runtime confirmation and token/cost unavailable",
+  "scope": "Isolated local or merged-assertion experiment only; not whole-helper or complete native assurance. Original canonical232644 remains failed and untouched. No source integration, rebuild, application execution, commit or publication."
+}
