@@ -175,11 +175,11 @@ def Expr.eval (imports : Imports) (calls : Calls) (frame : Frame) : Expr α → 
   | .booleanLookup startExpr endExpr => imports.booleanLookup frame.text frame.context.booleanNames (startExpr.eval imports calls frame) (endExpr.eval imports calls frame)
   | .arrayLookup startExpr endExpr => imports.arrayLookup frame.text frame.context.arrayNames (startExpr.eval imports calls frame) (endExpr.eval imports calls frame)
   | .functionLookup startExpr endExpr => imports.functionLookup frame.text frame.catalog (startExpr.eval imports calls frame) (endExpr.eval imports calls frame)
-  | .token cursor token => imports.token frame.text (cursor.eval imports calls frame) token
+  | .token cursor tokenValue => imports.token frame.text (cursor.eval imports calls frame) tokenValue
   | .readScalar cursor => imports.scalar frame.text frame.context (cursor.eval imports calls frame) frame.facts
   | .readConditionAfter cursor => (imports.condition frame.text frame.context (cursor.eval imports calls frame) frame.facts).after
   | .actual cursor formalExpr => calls.actual frame.text frame.context (cursor.eval imports calls frame) frame.facts (formalExpr.eval imports calls frame)
-  | .actuals cursor startExpr last => calls.actuals frame.text frame.context (cursor.eval imports calls frame) frame.facts frame.catalog (startExpr.eval imports calls frame) (last.eval imports calls frame)
+  | .actuals cursor startExpr endExpr => calls.actuals frame.text frame.context (cursor.eval imports calls frame) frame.facts frame.catalog (startExpr.eval imports calls frame) (endExpr.eval imports calls frame)
   | .calleeAt cursor => calls.callee frame.text frame.context (cursor.eval imports calls frame) frame.catalog
   | .callModel cursor => calls.callModel frame.text frame.context (cursor.eval imports calls frame) frame.scan.facts frame.catalog
   | .readCall cursor => calls.readCall frame.text frame.context (cursor.eval imports calls frame) frame.scan.facts frame.catalog
@@ -257,11 +257,11 @@ def Expr.render : Expr α → List String
   | .booleanLookup startExpr endExpr => call ["lookup_boolean"] [["text"], ["context", ".", "boolean_names"], startExpr.render, endExpr.render]
   | .arrayLookup startExpr endExpr => call ["array_bindings", ".", "lookup"] [["text"], ["context", ".", "array_names"], startExpr.render, endExpr.render]
   | .functionLookup startExpr endExpr => call ["functions", ".", "lookup"] [["text"], ["catalog"], startExpr.render, endExpr.render]
-  | .token cursor token => call ["take_token"] [["text"], cursor.render, [Compose.Expressions.tokenName token]]
+  | .token cursor tokenValue => call ["take_token"] [["text"], cursor.render, [Compose.Expressions.tokenName tokenValue]]
   | .readScalar cursor => call ["read_scalar_in_flow"] [["text"], ["context"], cursor.render, ["facts"]]
   | .readConditionAfter cursor => call ["condition_model"] [["text"], ["context"], cursor.render, ["facts"]] ++ [".", "after"]
   | .actual cursor formalExpr => call ["actual_model"] [["text"], ["context"], cursor.render, ["facts"], formalExpr.render]
-  | .actuals cursor startExpr last => call ["actuals_model"] [["text"], ["context"], cursor.render, ["facts"], ["catalog"], startExpr.render, last.render]
+  | .actuals cursor startExpr endExpr => call ["actuals_model"] [["text"], ["context"], cursor.render, ["facts"], ["catalog"], startExpr.render, endExpr.render]
   | .calleeAt cursor => call ["callee_at"] [["text"], ["context"], cursor.render, ["catalog"]]
   | .callModel cursor => call ["call_model"] [["text"], ["context"], cursor.render, ["scan", ".", "facts"], ["catalog"]]
   | .readCall cursor => call ["read_call"] [["text"], ["context"], cursor.render, ["scan", ".", "facts"], ["catalog"]]
@@ -379,7 +379,7 @@ def Expr.scoped (scope : Scope) : Expr α → Bool
   | .functionLookup startExpr endExpr => decide (("text", 5) ∈ scope ∧ ("catalog", 8) ∈ scope) && startExpr.scoped scope && endExpr.scoped scope
   | .readScalar node | .readConditionAfter node => decide (("text", 5) ∈ scope ∧ ("context", 6) ∈ scope ∧ ("facts", 7) ∈ scope) && node.scoped scope
   | .actual cursor formalExpr => decide (("text", 5) ∈ scope ∧ ("context", 6) ∈ scope ∧ ("facts", 7) ∈ scope) && cursor.scoped scope && formalExpr.scoped scope
-  | .actuals cursor startExpr last => decide (("text", 5) ∈ scope ∧ ("context", 6) ∈ scope ∧ ("facts", 7) ∈ scope ∧ ("catalog", 8) ∈ scope) && cursor.scoped scope && startExpr.scoped scope && last.scoped scope
+  | .actuals cursor startExpr endExpr => decide (("text", 5) ∈ scope ∧ ("context", 6) ∈ scope ∧ ("facts", 7) ∈ scope ∧ ("catalog", 8) ∈ scope) && cursor.scoped scope && startExpr.scoped scope && endExpr.scoped scope
   | .calleeAt node => decide (("text", 5) ∈ scope ∧ ("context", 6) ∈ scope ∧ ("catalog", 8) ∈ scope) && node.scoped scope
   | .callModel node | .readCall node => decide (("text", 5) ∈ scope ∧ ("context", 6) ∈ scope ∧ ("scan", 9) ∈ scope ∧ ("catalog", 8) ∈ scope) && node.scoped scope
   | .scalarTarget node | .booleanTarget node => decide (("text", 5) ∈ scope ∧ ("context", 6) ∈ scope) && node.scoped scope
