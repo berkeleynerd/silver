@@ -11,6 +11,10 @@ mutation. The working-branch [language](../language.md) and
 [catalogue](../catalogue/silver.json) now specify the selected fragment below.
 Function support remains pending complete implementation and assurance.
 
+The integrated implementation checkpoint is published in draft
+[PR #339](https://github.com/berkeleynerd/silver/pull/339). The PR remains in
+progress; its publication does not complete validation or authorize merge.
+
 Routine planning publication and merge, followed by implementation through
 reviewable publication, are authorized. Implementation merge remains a later
 owner decision. No next feature is selected. The completed sample expansion
