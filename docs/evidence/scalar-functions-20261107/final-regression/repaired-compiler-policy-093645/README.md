@@ -57,6 +57,14 @@ No missing obligation is waived. The post-exit process check at 12:23:50 found
 no matching regression process-group member or reparented regression-artifact
 command. It is a point-in-time scoped observation, not a general process audit.
 
+The [bounded independent review](../../../../reviews/review-scalar-functions-delivery-20261108.md#three-affected-regression-errors-bounded-diagnostic-checkpoint)
+at `6b0b01992f` independently reconciled all 338 IDs, classified the three final
+exceptions, verified the 515 archived diagnostic files and all 34 indexed
+coordinator payloads, and checked the unchanged follow-up plan. Its
+[49-member bundle](../failure-review-093645/index.json) is retained separately.
+The reviewer reconciled the coordinator's postflight rows against the prepared
+map; the coordinator performed the live rehash and selector/tool re-resolution.
+
 The [artifact index](index.json) records 34 copied artifacts by original and
 stored length/hash, including exact managed records, raw log, observations,
 launcher/selector files, failure archives, retention script and scoped postflight

@@ -1,0 +1,257 @@
+{
+  "review_commit": "6b0b01992f7e457c362af3bd0cf7596472bd1ee2",
+  "governed_inputs": "f6308191545c1012d76132ae535977e55fd4f018",
+  "coordinator_evidence": "c34068a2e2",
+  "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-delivery-review-298/tmp/regression-failure-diagnostic-298/shareable-evidence.tar.gz",
+  "bundle": "evidence.tar.gz",
+  "bytes": 1566585,
+  "sha256": "45ce1a148c1b7f70cfe7ecd918c3d769392d340779a47f99048a5ef3beec68fe",
+  "members": [
+    {
+      "path": "PLAN.md",
+      "bytes": 6586,
+      "sha256": "5bd28d8d9b4e3ccf5a76d91294f4b5835d0786266441df48b3064adb24549ba2"
+    },
+    {
+      "path": "README.md",
+      "bytes": 1663,
+      "sha256": "b5dd2aa96d2743591d5392431c443ab67245b3170a372828fe0d04da3a154cfb"
+    },
+    {
+      "path": "active-log-snapshot.gz",
+      "bytes": 45287,
+      "sha256": "4b05378b72a266792a80540b72ca8d64e8b07bc2eeca085f849c7fbfcbf83614"
+    },
+    {
+      "path": "commands.json",
+      "bytes": 2295,
+      "sha256": "c4997272700ac71d486341dfff6ed8b03d37d3fe9fcc54ed4d1adae018de6dfd"
+    },
+    {
+      "path": "coordinator-exit-processes.json",
+      "bytes": 571,
+      "sha256": "4d2bcebe501d4c06f586e98fc8ae20e66de068e8a882f191026420a25f260405"
+    },
+    {
+      "path": "coordinator-final-packet/compiler-policy/launch.json.gz",
+      "bytes": 7105,
+      "sha256": "f3a20c3665a687fa176393eb10c970edb4af50fcc4787a1efb7fd24f1a261b2c"
+    },
+    {
+      "path": "coordinator-final-packet/compiler-policy/result.json.gz",
+      "bytes": 158,
+      "sha256": "4807adccf188a15151f71a6a0448a19525ee4a979822043ce3cfa176fcacb9b9"
+    },
+    {
+      "path": "coordinator-final-packet/compiler-policy-ids.txt.gz",
+      "bytes": 6452,
+      "sha256": "af1cbcad2f97b8e1ef76934afcf92fcdb84e6d7ee69c0282bb330f28b15a406a"
+    },
+    {
+      "path": "coordinator-final-packet/compiler-policy-managed-exit.json.gz",
+      "bytes": 54,
+      "sha256": "82aecae36002aff23c7de59712de5685e235ee77c934036f2cd043514f42ff47"
+    },
+    {
+      "path": "coordinator-final-packet/index.json",
+      "bytes": 15093,
+      "sha256": "418a2a880ac70e2dc00c714de1b97f9a8a496eddad91db33a515d0fdd8a4e2f5"
+    },
+    {
+      "path": "coordinator-final-packet/managed/events.jsonl.gz",
+      "bytes": 58882,
+      "sha256": "0562270606b94f497e6fdceff27b583aa35298a4f2ea6b2dad1e9f6e7c41a909"
+    },
+    {
+      "path": "coordinator-final-packet/managed/native.log.gz",
+      "bytes": 45142,
+      "sha256": "b5f5eff48bf222e6951975f106f02711760eb23c42d019325c79d7bda9e2a085"
+    },
+    {
+      "path": "coordinator-final-packet/postflight-inputs.json",
+      "bytes": 358969,
+      "sha256": "d98e146bd64efbfd994d10edb1e32f7ff315f7e313976af12eab12efbc029158"
+    },
+    {
+      "path": "coordinator-final-packet/summary.json",
+      "bytes": 111276,
+      "sha256": "a28d089dda285144f188e138fcfdafdf745291fa1030c0cba2fd1354c0abbb79"
+    },
+    {
+      "path": "failure-markers.json",
+      "bytes": 1044,
+      "sha256": "851630d76883b3c8e93e69f01666eeff692039823bf3abee2e445ff4edcabede"
+    },
+    {
+      "path": "failure-window-observations.json",
+      "bytes": 2070626,
+      "sha256": "483c05fda735416d60ece2d03ab42ea94d0c9420214bd6f00d61fb6695e94902"
+    },
+    {
+      "path": "final-driver.log.gz",
+      "bytes": 45287,
+      "sha256": "4b05378b72a266792a80540b72ca8d64e8b07bc2eeca085f849c7fbfcbf83614"
+    },
+    {
+      "path": "final-per-id.json",
+      "bytes": 63824,
+      "sha256": "7acf16547511ceb11959240d578c9305d1d29b933736153ebe50aa275631ac79"
+    },
+    {
+      "path": "final-summary.json",
+      "bytes": 2887,
+      "sha256": "190a73181bb92a7094a2877f90e15783c00575de9e63f4053a51ca23e0cc68ee"
+    },
+    {
+      "path": "final-tracebacks.txt",
+      "bytes": 8277,
+      "sha256": "5724aab7b7502aca515fdbec9aff53648ec6293749e322adcbc8a2b30be46ea9"
+    },
+    {
+      "path": "finalize.py",
+      "bytes": 5891,
+      "sha256": "c036d012336eee5a036f6836b1cea6c4a43fb63c99938eae7930ab856a396a48"
+    },
+    {
+      "path": "inspect_packets.py",
+      "bytes": 7375,
+      "sha256": "a7962705540fbed2ef4b27a799fd57db0db57284aec210a6743869a4ef4a14b2"
+    },
+    {
+      "path": "inspection.json",
+      "bytes": 15531,
+      "sha256": "e536703660affbf32f7aff63612bfa8e31849bc48d29b09078319439b8bd08a0"
+    },
+    {
+      "path": "make_bundle.py",
+      "bytes": 1627,
+      "sha256": "e4b20fbace2d2e6bcfafc71091abb02020e8364c70cc033b2edb22faf5d9fb0a"
+    },
+    {
+      "path": "manifest.json",
+      "bytes": 7633,
+      "sha256": "ace996c211364b32b92aebee5f29727b976018fb23ab0a6f193899fc53568d04"
+    },
+    {
+      "path": "maximum-expression-diagnostic/after.json",
+      "bytes": 88,
+      "sha256": "8aafa948ccda355ae2fe60a7e28e36a7775d4f25863924797baa77ec575b1786"
+    },
+    {
+      "path": "maximum-expression-diagnostic/before.json",
+      "bytes": 14744,
+      "sha256": "dea150d6729aae715b42dc77908aa5882700011eb4265df646a50d64749d362d"
+    },
+    {
+      "path": "maximum-expression-diagnostic/failed-workspace-before-cleanup.tar.gz",
+      "bytes": 475322,
+      "sha256": "45915df6690725199d0740dfc8bd88e5780f175e68a650967e5fa8214fbdbcba"
+    },
+    {
+      "path": "maximum-expression-diagnostic/main.adb",
+      "bytes": 395,
+      "sha256": "3dfeee525b935212f90c161d4eadc87ac1707aa1f33f347bcc008b2ef75ffbae"
+    },
+    {
+      "path": "maximum-expression-diagnostic/preservation-and-cleanup.json",
+      "bytes": 7802,
+      "sha256": "c64d288969e72863d5cdcc85850fb83358c31b3259f595561631060ed1f28679"
+    },
+    {
+      "path": "maximum-expression-diagnostic/stopped.json",
+      "bytes": 14589,
+      "sha256": "ab9a2162c069d900a66b9b3e2bfa15ace1db9c9c632970ce5fdd422b885b56cc"
+    },
+    {
+      "path": "maximum-expression-diagnostic/workspace-index.json",
+      "bytes": 31234,
+      "sha256": "9481738080a814451a8b7a674fcb2b713b56b9c2a1754e999d36d5f6ba8dcabb"
+    },
+    {
+      "path": "ordered-calls-diagnostic/gnatprove.out",
+      "bytes": 4344,
+      "sha256": "0dde291c4cb812d6af657ea8088b24bcb39ed10cb7e11cf40ffa878a4e9805dd"
+    },
+    {
+      "path": "ordered-calls-diagnostic/gnatprove.sarif",
+      "bytes": 40710,
+      "sha256": "521e7cbf2361d7500f5c8b2a7cf6e8f7305322fdc896a10d1ce11db53afd24e8"
+    },
+    {
+      "path": "ordered-calls-diagnostic/index.json",
+      "bytes": 29612,
+      "sha256": "83d787d490fd8e1dc17e5dca3e74c0188402c0203023e40bb456f06251e19ac9"
+    },
+    {
+      "path": "ordered-calls-diagnostic/main.adb",
+      "bytes": 631,
+      "sha256": "3d58f122f47611646d6ef54794100ec89ab94bb6daea301a8ec76e1f369ee9da"
+    },
+    {
+      "path": "ordered-calls-diagnostic/main~1.spark",
+      "bytes": 10077,
+      "sha256": "bcddc2d45095f5946ee8ee7fb31f767150e4d163fad608e40a008a6da9da7263"
+    },
+    {
+      "path": "ordered-calls-diagnostic/retained-workspace.tar.gz",
+      "bytes": 217261,
+      "sha256": "6c601ab24c8e25d90d5125df7fc996d86effcca2262fd06083990b8706ab5440"
+    },
+    {
+      "path": "platform-wrapper-command.json",
+      "bytes": 835,
+      "sha256": "3491fe41cf65a299abf6d9b1781c5aa2061e5f9ad1fd5ac1ee116dbdb38c3224"
+    },
+    {
+      "path": "prior-events-summary.json",
+      "bytes": 1217,
+      "sha256": "29713d7ddcd2b76af1a23507b181ad3c2bc18c634e4c3d85e7274edf2c8371a4"
+    },
+    {
+      "path": "prior-result.json",
+      "bytes": 96685,
+      "sha256": "444fef213d6ac75a792b3c922e8d77a1e8b32cce7bcdd33e18ac37e3c1460120"
+    },
+    {
+      "path": "prior-three-outcomes.txt",
+      "bytes": 419,
+      "sha256": "012afae683b907d76aa5cfb6bb9145936dd9341c5fd2e444c1c0b5bc404b89bc"
+    },
+    {
+      "path": "report-fragment.md",
+      "bytes": 7551,
+      "sha256": "38f97f8c71ccf35fd371f01ad94c0bab0c0946d5626439dbe152adce491d44b4"
+    },
+    {
+      "path": "self-actuals-diagnostic/gnatprove.out",
+      "bytes": 3853,
+      "sha256": "ab42d14b6bda4c2c77b9c7b339f11cf7d64ed5da2f4fe2027b50af180dd747e3"
+    },
+    {
+      "path": "self-actuals-diagnostic/gnatprove.sarif",
+      "bytes": 38669,
+      "sha256": "bda7a94751dc87441737df0aae4baf5e885cac908c6faa11067f7b1729e33fef"
+    },
+    {
+      "path": "self-actuals-diagnostic/index.json",
+      "bytes": 27651,
+      "sha256": "a84e38abf977f0ece18c3e3a8f0b2a78f6eadf7b3479dae14120ce5f1d3dd102"
+    },
+    {
+      "path": "self-actuals-diagnostic/main.adb",
+      "bytes": 312,
+      "sha256": "4cb9e12d0ce7114ee42ae51d2d7cf2a541935ba502ea1feccc5de3d3e403cbbd"
+    },
+    {
+      "path": "self-actuals-diagnostic/main~1.spark",
+      "bytes": 3333,
+      "sha256": "94b760e9fb7ee4a431486b2861efd7bd6b3c90aa6c6e19eddc044a75a466be83"
+    },
+    {
+      "path": "self-actuals-diagnostic/retained-workspace.tar.gz",
+      "bytes": 208485,
+      "sha256": "0b94672e5e7340766da62ba48f5e10140a78e6e2fab4bdb4f45aec196bd9759d"
+    }
+  ],
+  "scope": "Independent bounded classification of three actual compilation timeouts and review of unchanged serialized follow-up plan; not complete regression or native/Lean acceptance"
+}
