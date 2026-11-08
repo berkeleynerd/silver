@@ -1,5 +1,42 @@
 # Session memory
 
+## 2026-11-08 — Astra Max and focused helper contracts authorized
+
+After the four scalar-function native postcondition failures, the owner instructed
+**“Let's apply both improvements, Astra Max”** and **“focused verification of each
+new helper's complete contract”** before the expensive integrated run. This
+supersedes the 2026-11-07 Extra High baseline for proof design and diagnosis.
+Use Astra Max for new proof/contract design, source correspondence, uncertain
+proof diagnosis, proof-memory strategy, cross-system proof integration and
+critical proof review. Established implementation remains Sol Extra High and
+routine monitoring/evidence remains Sol High; Ultra is reserved for a named
+unresolved problem with useful parallel investigations.
+
+[Development guidance](../development.md#proof-loop-and-validation) now requires
+successful focused verification of each new or contract-changed helper over its
+full declared domain before expensive integrated native/Lean validation. Cover
+whole native subprograms, strengthened callees and affected callers, and check
+the applicable Lean helper/model targets. Batch targets, reuse matching successes
+and link their coverage in existing task/evidence records. Complete native/Lean
+and actual-source assurance remain required; no runner or additional evidence
+framework is introduced.
+
+The [four-failure diagnosis](evidence/scalar-functions-20261107/native-checkpoint/four-postcondition-diagnosis/DIAGNOSIS.md)
+and focused [Parameter_Frame](evidence/scalar-functions-20261107/native-checkpoint/parameter-frame-entry-guard/README.md)
+and [remaining repairs](evidence/scalar-functions-20261107/native-checkpoint/remaining-three-repairs/README.md)
+already supply the repaired helpers' focused outcomes. Preserve the current
+complete native and Lean runs; this guidance change needs no proof restart.
+Both active delivery owners were briefed. Future critical proof assignments
+select Astra Max explicitly; existing running agents were not switched.
+
+The host `/home/agent/.codex/proof.config.toml` now selects `gpt-6-astra` and
+`max` for model and Plan effort. The installed Codex loaded that profile with
+`codex --profile proof mcp list --json`; this is configuration validation, not
+confirmation of a changed live model. Generic host settings were preserved.
+This documentation change accompanies #298 / PR #339 and does not authorize
+implementation merge or a next feature. No CLI recall tool was available and
+no CLI recall entry was updated.
+
 ## 2026-11-07 — Small nonrecursive functions selected
 
 The owner instructed **“Proceed”** after the recommendation to select existing

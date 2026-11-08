@@ -24,26 +24,26 @@ items whose owner authorization is recorded, or work the owner requests directly
 This project policy travels with the repository; it does not depend on another
 agent having the lead's global instructions. Favor more intelligence when the
 task's uncertainty or consequences are unclear. Use the following starting
-points when available (mapping clarified by the owner on 2026-11-07):
+points when available (mapping clarified by the owner on 2026-11-08).
+Use the more specific work category when roles overlap:
 
 | Work | Model | Effort |
 | --- | --- | --- |
 | Lead or unclassified work; uncertain research, architecture, capacity, soundness or consequential judgment | GPT-6 Astra | Extra High |
-| Uncertain proof diagnosis, proof-memory strategy or cross-system integration decisions | GPT-6 Astra | Extra High |
-| Named difficult proof problem when Extra High is inadequate or clearly insufficient | GPT-6 Astra | Max, temporarily |
-| Independent review of a critical argument or high-consequence change | GPT-6 Astra | Extra High |
+| New proof or contract design, source correspondence, uncertain proof diagnosis, proof-memory strategy or cross-system proof integration | GPT-6 Astra | Max |
+| Independent review of a critical proof, contract or source-correspondence argument | GPT-6 Astra | Max |
+| Independent review of another high-consequence change | GPT-6 Astra | Extra High |
 | Substantial implementation, debugging or proof with an established approach | GPT-6.1 Sol | Extra High |
 | Directly checkable extraction, inventory or transformation | GPT-6.1 Sol | Extra High |
 | Routine implementation, documentation, monitoring, evidence collection/scripts or coordination | GPT-6.1 Sol | High |
 
-Use Sol in place of Luna. When implementation leaves an established approach,
-reclassify the task as uncertain diagnosis and use Astra Extra High. Repeated
+Use Sol in place of Luna. When proof implementation leaves an established
+approach, use Astra Max for the unresolved design or diagnosis. Repeated
 unsuccessful repairs, unclear solver/model behavior, or unresolved integration
 or memory strategy call for reassessment before another expensive complete run;
-do not wait for the runner's recurring-failure threshold. Escalate the named
-problem to Astra Max when Extra High is inadequate, or its difficulty clearly
-warrants Max from the outset. Record the question and next focused check in the
-existing task record, and return to the appropriate baseline when it is resolved.
+do not wait for the runner's recurring-failure threshold. Record the question
+and next focused check in the existing task record. Return to established
+implementation or routine settings when the remaining work fits those categories.
 
 Elapsed compiler or prover time alone does not justify escalation. Keep routine
 monitoring at Sol High and preserve productive running jobs; additional agent
@@ -54,8 +54,9 @@ lower the tier when a model or usage allocation is unavailable.
 
 Before a fan-out, briefly state the expected subthreads, models/efforts and
 deliverables. Delegate only separable work with explicit ownership and review
-the results. Use Ultra when meaningful parallel work justifies it; automated
-delegation follows the same ownership, permissions and resource rules. Select
+the results. Reserve Ultra for a named unresolved problem where meaningful
+parallel investigation justifies it; automated delegation follows the same
+ownership, permissions and resource rules. Select
 second opinions by the unresolved question and consequences, across providers
 when available and authorized; avoid a fixed vendor or verifier-count rule.
 
@@ -119,6 +120,12 @@ model or effort changed.
   Report evidence by actual inputs and native platform. Cached results, clean
   reruns, retained macOS evidence and configured CI are distinct claims.
 - Read the managed run summary before starting or resuming expensive validation.
+  Before an expensive integrated native or Lean checkpoint, establish focused
+  success for each new helper's complete contract and each changed helper contract,
+  including affected callees and callers. Use whole-subprogram native checks and
+  the relevant Lean targets over the full declared domains; batch targets and
+  reuse matching successes as [development.md](development.md#proof-loop-and-validation)
+  describes. Focused checks do not replace complete assurance.
   Coordinate actual workspaces and worker allocations across subthreads; retain
   successful evidence and record the reason for an identical-success expensive
   rerun. Recurring failed obligations need a diagnostic checkpoint with evidence,

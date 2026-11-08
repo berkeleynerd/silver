@@ -129,6 +129,25 @@ python3 scripts/dev.py test -- -p test_string_assignment.py
 python3 scripts/check_lean.py --target Silver.PredicateChecks
 ```
 
+Before an expensive integrated native or Lean checkpoint, each new helper and
+each helper with a changed contract must have successful focused verification
+of its complete contract over the full declared input domain. For native code,
+select the entire subprogram (or its containing unit), including all runtime,
+flow, precondition, postcondition and loop/termination obligations; selecting only
+a previously failing line or check is insufficient. Check strengthened callees
+and affected callers that rely on their exported facts. Include failure/empty
+states permitted by the precondition, even when current successful callers avoid
+them. Do not narrow a domain, weaken a contract or suppress an obligation to pass.
+
+Check the corresponding Lean helper/model argument with the smallest applicable
+target modules. Batch focused targets and reuse successful evidence whose relevant
+inputs and configuration still match; a separate process or new record format per
+helper is unnecessary. In the existing task/evidence record, identify the helpers,
+their covering runs and any unresolved obligations. A pending or failed helper
+contract blocks entry to the expensive integrated checkpoint. These checks give
+early feedback; the complete native audit, Lean audit and actual-source
+correspondence remain required at the stable checkpoint.
+
 Use the managed run summary at startup, after interruption and before an expensive
 checkpoint. Compare retained evidence with the current inputs and configuration,
 then choose the smallest outstanding check. The
@@ -219,6 +238,9 @@ validation checkpoint before describing it as supported. Enter it with:
 - Planned Ada implementation and annotation edits finished, and known failures
   requiring source changes resolved through focused iteration. Inspect retained
   diagnostics and report obligations; tool exit status alone is insufficient.
+- Complete-contract focused success for every new or contract-changed helper and
+  its affected callees/callers, as above, with matching evidence linked from the
+  task record.
 - Applicable cheap certificate-parity and handwritten source-shape/pin checks
   reviewed together with their source and semantic changes. Expensive source
   proofs belong inside the checkpoint, not in a mandatory entry precheck.
