@@ -1797,3 +1797,91 @@ token/cost telemetry are unavailable.
 No signal, process-control experiment, native/Lean/test execution, production or
 tool/config edit, lease/cache change, publication or merge occurred here. The
 live goal was rechecked and is null; CLI memory was not updated.
+
+## Repaired-input regression applicability resolution — 2026-11-08
+
+Accepted all 286 proposed retained outcomes and the 335 actual fresh passes for
+integration `3d38fedb6866b537ddc4a8d2a634b7d0b339360f`, governed source
+`f6308191545c1012d76132ae535977e55fd4f018`, parser SHA256
+`036a53b4bd9a9d7c711b4ddf8d83467a6b470184bfce2ac6677b15cf4f57ef47`.
+No proposed reuse is rejected. This is 621 applicable successful outcomes with
+sixteen IDs pending, not acceptance of the complete 637-ID inventory.
+
+| Disposition | Unique IDs | Actual evidence |
+| --- | ---: | --- |
+| Accepted retained original passes | 285 | `20261108T021923-5ef7f9b81de7` |
+| Accepted retained repaired chunk fixture | 1 | `20261108T065724-7d260468ca14` |
+| Accepted fresh passes | 335 | Failed run `20261108T093645-d959cfabae08` |
+| Pending actual compilation timeouts | 3 | Same failed run; no successful replacement yet |
+| Pending original platform wrapper | 1 | Fresh repaired-input wrapper required |
+| Pending platform bodies through wrapper | 12 | Exact nested coverage required |
+| Total current inventory | 637 | Every ID resolved individually |
+
+The independent AST inventory matches the original actual census, including five
+inherited Array-report methods and nine imported shared-binding aliases. Every
+per-ID definition was checked against that inventory. Raw logs establish each
+accepted success; no failed outcome or skip is counted as a pass. The three
+pending compilation IDs are SupportedSampleTests.test_maximum_dynamic_expression,
+ScalarFunctionTests.test_native_boolean_and_integer_self_actuals, and
+ScalarFunctionTests.test_native_ordered_calls_snapshot_and_full_unused_coverage.
+The original failed runs remain failed. Three retained Rosetta results apply to
+the current inputs only; all three require fresh results after promotion.
+
+All 8,866 tracked files in the governed source/proof/test/script/sample/catalogue/
+Rosetta/project roots match their committed blobs and the actual integration and
+regression worktrees. The initial comparison captured `896995129a`; the extension
+to `3d38fedb68` changes only five policy documents. Actual file bytes were rehashed
+when completing the reconciliation. Regression execution belongs to checkout
+`4281f71171477c24995eae18c983ae69b1cd1747`; integration has no installed compiler or
+adapter. The compiler hash is
+`807d862b572e4dcab8e72302a2fdcfe1a3304f3c064b9166900e24544b8dbcfe` and unchanged
+adapter hash is
+`0d7900091323ec642d58f1cc53df1db73a1b6b477aaec3784d6aede0ee15b751`.
+
+Fresh compiler build `20261108T093134-afb39e7e6b4f` has a successful managed finish
+and actual native-tool phase exit 0; its top-level stored returncode is null.
+Its 2,588 prepared source/configuration inputs match the current native map and
+its twelve tool identities match the repaired test map. Independently rehashed
+retained maps cover those 2,588 inputs, fourteen native/compiler/adapter records,
+two Lean/Lake records and the original 1,031 selected inputs. Only the parser
+changes in the native build map and only the compiler changes in the native tool
+map. All 1,115 repaired test inputs and thirteen tool entries match; independent
+selector enumeration confirms exactly the prepared membership, without additions
+or omissions. All 34 indexed repaired-run payloads were verified.
+
+Retention accounts for indirect dependencies: explicit native probe closures
+exclude the parser; synthetic evidence/runner/history fixtures copy unchanged
+scripts, projects and selected bindings/helpers; the two retained adapter methods
+avoid the compiler; nine retained Lean-source methods avoid the changed production
+proof closure. The other seven source-policy methods passed freshly. Shared
+watchdog repairs were checked by whole-module AST normalization: the unaffected
+Lean methods preserve default timeout 60, and the three retained installation
+methods do not invoke changed worker helpers or copy the full production proof
+tree. The platform wrapper and its bodies remain affected.
+
+The chunk success is retained on its twenty exact copied inputs, with eleven
+edits, 25 builds and twelve fresh audits, no errors/failures/skips. Its 60-member
+archive and all retained members were reconciled. No chunk rerun or fresh
+whole-Lean-distribution rehash was performed; the original distribution check
+remains historical evidence and scoped executable identities were rechecked.
+
+One audit-script correction distinguished the original input map from the prior
+accepted checkpoint: packet `previous` equals the earlier audit's `current` on
+all 1,031 rows, while its `old` values match the original raw prepared event.
+Ten earlier reviewed proof/watchdog changes explain that distinction. The packet
+preserves all three stages and the correction; no difference was suppressed.
+
+Exhaustive per-ID resolution, dependency findings, raw outcome origins, input/tool
+identities, build records and supplemental checks are in
+`tmp/retained-regression-resolution-298/`. Its verified indexed bundle contains
+25 members, 950,540 bytes, SHA256
+`8e196780d6d9e970fb4d1b79fb4db02a910d915a257a02336ae4324a29a2b351`.
+Complete native/Lean assurance, the sixteen pending regression IDs and future
+Rosetta refresh remain outside this acceptance. No tests/proofs, signals,
+production/configuration edits, lease/cache changes, publication or merge occurred.
+
+Selected reviewer remains GPT-6 Astra / Extra High for this bounded inventory
+audit. Runtime model/effort, token/cost and complete elapsed-review measurements
+are unavailable; no live switch to the new future-proof-work Max policy is
+claimed. Actual host is Linux x86-64. Live goal was rechecked and is null;
+CLI memory was not updated.
