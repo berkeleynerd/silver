@@ -279,6 +279,15 @@ deadlines, assertions or proof options. Complete native/Lean assurance and final
 regression applicability remain pending; the older 637-ID acceptance has not been
 extended to these changed inputs.
 
+The subsequent [bounded applicability review](evidence/scalar-functions-20261107/final-regression/retained-resolution-3d38/README.md)
+accepts 286 retained outcomes and the 335 actual fresh passes at `3d38fedb68`,
+with exact governed inputs still `f630819154`. Its per-ID record accounts for
+all 637 methods and their indirect dependencies. Sixteen IDs remain pending:
+the three compilation timeouts, the original platform wrapper and twelve nested
+bodies. Three accepted Rosetta methods also require fresh results after the
+future promotion. This accepts current partial evidence without relabeling a
+failed run or completing native/Lean assurance or the whole regression inventory.
+
 The [bounded Lake resource assessment](evidence/scalar-functions-20261107/lake-scheduler-resource-review/README.md)
 reviewed a preventive scheduling hold while both complete audits continued.
 Stopping Lake also stops its child-output readers and completion bookkeeping;
