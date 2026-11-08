@@ -885,3 +885,57 @@ remain failed and unchanged. This passes the one repaired regression, without
 reclassifying the original full suite or replacing separate mandatory project
 assurance. The separately authorized unchanged platform fixture is next after
 this retention. No publication, merge or CLI memory update occurred.
+
+### Unchanged local-source platform fixture fails with nested errors retained
+
+After the first fixture's actual success, cleanup, postflight and evidence
+retention, the coordinator authorized exactly one unchanged local-source
+platform attempt. Native Linux managed run `20261108T071906-6ce712a8a90c`
+failed at the original 180-second outer deadline: one test, one TimeoutExpired
+error, zero failures/skips and no reporting errors. Unittest took 181.156
+seconds, observation/cleanup/postcheck 186.468 seconds, and managed execution
+204.808 seconds. No retry or watchdog change followed.
+
+The original 866 source/helper/config files and modes, complete 821-file Lean
+set, normal imports, four-host concurrency and every original assertion/mock
+were preserved. Source/root placement moved to overlay; no binary/install,
+selector or project object was copied. The explicit scoped TMPDIR/TMP/TEMP
+change was recorded, and the method still created its original physical/alias
+pair. Observed nested/worker environments all used the same live symlink alias.
+Original outer180/worker60/barrier15 remained unchanged. This is Linux evidence
+for mocked platform routing, not native macOS or project proof assurance.
+
+Actual partial TimeoutExpired streams are retained: 999 bytes stderr and
+701 bytes stdout. The nested stderr reports cached-audit `ok`, concurrent-host
+setup `ERROR`, development-command routing `ok`, output-overrides `ok`, then
+an `ERROR` for linux-aarch64 inside the each-host case. The fifth whole case did
+not report completion and the remaining seven methods were not established as
+executed. The nested suite was killed before its final traceback section, so
+the two inner exception types are not established by their ERROR labels.
+
+Observed worker spans were approximately 44.9 seconds for the first worker,
+59.1-60.2 for the four concurrent workers and 58.8 for the first sequential
+host. These are one-second samples, not exact exit times or proof of timeout
+causality. A newly started linux-x86_64 worker survived the outer fixture exit;
+the observer killed only that verified owned descendant afterward and recorded
+its reaping. No descendant remains, the scoped temporary directory is empty
+and the four-worker lease is released. No signal changed the running fixture's
+original execution budget.
+
+All 866 copied bytes/modes and the 821-file Lean set matched afterward. Explicit
+postflight rehashed all 884 captured managed inputs, because the failure path
+skips the runner's normal success-path check; all matched. A separate recheck
+of all 866 original governed-source bytes/modes against `47fe4003c0` also matched.
+Minimum sampled available RAM was 42.673 GiB. No broad scheduling or storage
+cause is inferred from these observations.
+
+The exact output, process/alias observations, source/input checks, drivers and
+managed records are retained in `tmp/local-platform-fixture-298/`. Its verified
+902-member shareable bundle is 4,570,127 bytes, SHA256
+`4ecc2c81635bf7c7cf4a5f613ecba5d3754b23849051038f3f883462fb1d9720`;
+the private environment is excluded. The prior successful chunk-fixture bundle
+was rechecked unchanged. Local source placement alone was insufficient, and an
+outer-only increase cannot be assumed to repair already observed nested errors.
+The coordinator requested a prepared diagnostic plan to expose one actual inner
+exception under unchanged worker/barrier limits; no such execution is yet
+authorized. No publication, merge or CLI memory update occurred.
