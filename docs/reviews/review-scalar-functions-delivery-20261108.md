@@ -307,3 +307,66 @@ and elapsed/token/cost measurements are unavailable. No proof/build/test run,
 integration edit or external publication was performed. The live harness goal
 is null and no CLI memory was updated. Final evidence/applicability review and
 any later owner merge decision remain separate from this static verdict.
+
+## Resource assessment — complete Lean run, 05:01–05:04 UTC
+
+The concurrent allocation growth created a concrete host-memory concern, with
+no observed OOM event. Read-only inspection covered complete Lean run
+`20261108T044143-17a94f7033eb` and concurrent native run
+`20261108T040128-2651963b8574`. The Lean run reserves eight workers, uses 22
+threads per process, and has `memory_mb: null`; the native run reserves twelve
+workers. Process RSS/address-space limits and cgroup `memory.max`/`memory.high`
+are unlimited. The Linux host has 62.87 GiB physical memory and no swap.
+Worker reservations do not bound aggregate memory. The cgroup's large
+`memory.current` includes reclaimable cache and is not itself a hard-limit
+failure indication. Memory-pressure metrics were unavailable; cgroup OOM and
+OOM-kill counters were zero at inspection.
+
+| UTC | Host MemAvailable | FunctionSourceCandidate RSS | Observation |
+| --- | ---: | ---: | --- |
+| 05:01:14 | 22.54 GiB | 22.64 GiB | Source candidate remained CPU-active. |
+| 05:02:27 | 16.64 GiB | 24.14 GiB | All Lean RSS summed to 42.71 GiB; native processes summed to 5.13 GiB. |
+| 05:03:06 | 16.45 GiB | 25.09 GiB | ComposeExamples held 5.79 GiB; PredicateNativeHelpersCandidate held 6.42 GiB. Other workers released some memory. |
+| 05:04:02 | 15.15 GiB | — | Coordinator's targeted preservation action below. |
+| 05:04:36 | 22.87 GiB | 27.50 GiB | Source candidate remained alive; cancelled example worker had exited. |
+
+These are non-atomic process snapshots. RSS totals double-count shared mappings;
+host `MemAvailable` is the more useful headroom indicator. The initial
+5.9 GiB/73-second decline justified intervention planning, while subsequent
+releases demonstrate why extrapolating that slope is not a peak-memory or
+completion prediction. The source module checks declaration, visibility and
+call requirements against the complete reviewed token source in three kernel
+proofs. Its terminal allocation and current theorem position were unavailable.
+Its output object had not yet been produced; existing successful source-shape
+and named-body objects were retained in the same workspace.
+
+The recommended minimal action was to release the growing, shorter-running
+`ComposeExamples` process while preserving the longer-running source candidate,
+Lake and native work. After verifying its command line, the coordinator sent
+SIGTERM only to PID 590345 at `2026-11-08T05:04:02.531499Z`. The retained
+`tmp/complete-lean-memory-preservation-action.json` records that decision and
+the pre-action process state. Lake records `ComposeExamples` after 287 seconds
+with exit code 143 and continues other work. The post-action headroom includes
+concurrent allocations/releases; no exact causal memory-saving total is claimed.
+The coordinator also observed PredicateNativeHelpersCandidate fall from about
+6.42 to 1.68 GiB and ArgumentsExamples exit by 05:04:31, when its sample showed
+23.77 GiB available and the source candidate still using a CPU productively.
+The reviewer sent no signals and launched no validation.
+
+Continue 30-second memory observations while the source candidate grows, with
+a fresh observation 15–30 seconds after any intervention. Reassess promptly if
+`MemAvailable` reaches 12 GiB, or a recent sustained decline projects 8 GiB
+within two minutes; 8 GiB requires an immediate preservation decision rather
+than waiting for OOM. These are operational margins, not proved limits or
+automatic whole-run cancellation rules. No further cancellation is recommended
+at the observed 22.87 GiB headroom. Lake may schedule replacement jobs, so the
+aggregate must continue to be observed.
+
+The run already contains the known Boolean-candidate failure. The cancelled
+example remains a failed required module and must succeed in the later complete
+checkpoint. Frozen source, domains, contracts, exact-source checks and every
+module/axiom obligation remain unchanged; no clean rebuild, limit change or
+proof-structure optimization was requested. This resource assessment supplies
+no assurance acceptance. Selected setting: GPT-6 Astra / Extra High; runtime
+model/effort and token/cost telemetry are unavailable. Local scratch retains
+the assessment snapshots; the live goal remains null and CLI memory is unchanged.
