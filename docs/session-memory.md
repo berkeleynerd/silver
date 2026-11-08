@@ -1,5 +1,27 @@
 # Session memory
 
+## 2026-11-08 — Callable examples merge and divisor group authorized
+
+After the recommendation to merge ready PR #351 and implement
+[#343 — GCD and divisor calculations](https://github.com/berkeleynerd/silver/issues/343),
+the owner instructed **“Agreed. proceed.”** This authorizes the #351 merge and
+ordinary #342 closeout, superseding its earlier merge hold, and selects #343's
+four programs: Least common multiple, Coprimes, Sum of divisors and Tau function.
+The [batch plan](scalar-function-rosetta-batch.md) retains their exact task
+requirements, declared domains, source/operator budgets and focused application
+validation. Publish the completed #343 increment for review; its implementation
+merge remains a later owner decision.
+
+Record this selection on main with the #351 merge before claiming #343.
+Reuse the accepted unchanged compiler/runtime/native/Lean evidence subject to
+input and dependency applicability; each new program still needs admission,
+complete application proof/build/execution and independent task/domain review.
+No compiler, language, proof, auditor or capacity change is selected. #344 stays
+unstarted/Backlog, and #345 retains the later combined checkpoint and narrow
+Rosetta reconciliation. Closing the first group does not close milestone 21.
+Preserve the external review's fixed target/workspaces and unrelated root
+checkout changes. No CLI recall entry was updated.
+
 ## 2026-11-08 — Callable integer examples validated and reviewed
 
 Owner-selected [#342](https://github.com/berkeleynerd/silver/issues/342) now has

@@ -4,7 +4,7 @@
 
 **First group #342 implemented, validated on Linux and independently reviewed;
 published in [PR #351](https://github.com/berkeleynerd/silver/pull/351).
-Remaining groups proposed.**
+Merge authorized; second group #343 selected.**
 The owner initially instructed **“Proceed with the planning effort we just discussed.”**
 The [dated decision](session-memory.md#2026-11-08--coherent-batch-planning-authorized)
 authorizes the batching guidance, candidate assessment, milestone/issues and
@@ -15,9 +15,11 @@ in PR #346 and asked for the next unit to be reported before implementation.
 PR #346 merged as `74ea2edeaa`. The subsequent
 [owner instruction](session-memory.md#2026-11-08--callable-integer-examples-selected-during-external-review)
 selects #342's four callable examples while the external review proceeds.
-Implement and review those four samples under the existing plan; #343 and #344
-remain unstarted, and #345 retains the later combined batch checkpoint.
-The implementation PR remains open for a later owner merge decision.
+Those four samples are validated and reviewed. The owner's subsequent
+[“Agreed. proceed.”](session-memory.md#2026-11-08--callable-examples-merge-and-divisor-group-authorized)
+authorizes merging PR #351 and implementing #343's four divisor programs through
+reviewable publication. #343's merge remains a later owner decision. #344 stays
+unstarted, and #345 retains the later combined batch checkpoint.
 
 The [first-group checkpoint](#callable-integer-examples--2026-11-08) below
 records the four programs and their application validation. It does not complete
@@ -117,10 +119,10 @@ failure occurred in the four-program checkpoint.
 
 Selected agent settings are distinct from independently confirmed runtime
 settings, which were not exposed. No new Rosetta coverage is claimed: #345 owns
-the later narrow assessment/render and combined checkpoint. #343 and #344 stay
-unstarted. The implementation is published in
-[PR #351](https://github.com/berkeleynerd/silver/pull/351). Merge and issue closure
-remain held for the owner's later decision; milestone 21 stays open.
+the later narrow assessment/render and combined checkpoint. The implementation
+is published in [PR #351](https://github.com/berkeleynerd/silver/pull/351), whose
+merge and #342 closeout are now owner-authorized. #343 is selected next; #344
+stays unstarted. Milestone 21 remains open.
 
 ## Increments and ownership
 
