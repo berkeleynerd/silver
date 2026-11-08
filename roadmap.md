@@ -25,7 +25,7 @@ each delivery; the linked issues hold scope and completion criteria.
 | Complete 2026-11-07 | [Fixed-size Boolean arrays #297](https://github.com/berkeleynerd/silver/issues/297) | Sieve of Eratosthenes; elementary cellular automata |
 | Complete on Linux and merged 2026-11-07; PR #337 | [Sample-only expansion #300](https://github.com/berkeleynerd/silver/issues/300) | Ten programs covering eleven task mappings; [bounded plan](docs/rosetta-sample-expansion.md) |
 | Complete on Linux 2026-11-08; merged through PR #339 | [Small nonrecursive functions #298](https://github.com/berkeleynerd/silver/issues/298) | Boolean `Is_Prime` for Primality by trial division first; GCD and numeric search helpers remain candidate uses |
-| First group #342 merged; #343 merge authorized; #344 selected 2026-11-08 | [Scalar-function Rosetta batch, milestone 21](https://github.com/berkeleynerd/silver/milestone/21) | Eight callable/divisor programs validated through [PR #351](https://github.com/berkeleynerd/silver/pull/351) and [PR #352](https://github.com/berkeleynerd/silver/pull/352). Four digit/prime examples selected next; combined reconciliation remains proposed. [Batch record](docs/scalar-function-rosetta-batch.md). |
+| First two groups #342/#343 merged; #344 validated/reviewed 2026-11-08 | [Scalar-function Rosetta batch, milestone 21](https://github.com/berkeleynerd/silver/milestone/21) | Eight callable/divisor programs merged through [PR #351](https://github.com/berkeleynerd/silver/pull/351) and [PR #352](https://github.com/berkeleynerd/silver/pull/352). Four digit/prime programs are validated and reviewed in [PR #353](https://github.com/berkeleynerd/silver/pull/353); combined reconciliation remains proposed. [Batch record](docs/scalar-function-rosetta-batch.md). |
 
 The bounded String increment has completed repaired Linux native and Lean
 assurance after the [interim review repairs](docs/interim-review-response-20261105.md).
@@ -54,8 +54,9 @@ Candidate samples need faithful implementations before any coverage gain is
 claimed. The expanded opportunity inventory remains outside this commitment.
 No language feature after #298 is selected. The sample-only successor begins
 with owner-selected #342 on the accepted #298 baseline; it is merged and #343
-is validated and independently reviewed, with merge authorized. #344 is selected
-next; #345 stays Backlog until selected.
+is also merged after validation and review. #344 is validated and reviewed,
+published in PR #353 with its merge now authorized. #345 is selected for the
+combined checkpoint and narrow Rosetta assessment/render.
 Existing source and expression budgets, assurance requirements, broad stages
 and deferred capacity work retain their scope.
 
@@ -107,8 +108,9 @@ validation inputs.
 
 **First group #342 implemented, validated on Linux and independently reviewed,
 2026-11-08; PR #351 merged and #343 validated/reviewed in
-[PR #352](https://github.com/berkeleynerd/silver/pull/352), whose merge is now
-authorized; #344 is selected next.** The owner initially
+[PR #352](https://github.com/berkeleynerd/silver/pull/352), now merged;
+#344 is implemented, validated on Linux and independently reviewed in
+[PR #353](https://github.com/berkeleynerd/silver/pull/353).** The owner initially
 instructed **“Proceed with the planning effort we just discussed.”** The
 [dated decision](docs/session-memory.md#2026-11-08--coherent-batch-planning-authorized)
 authorizes the batching guidance, one successor assessment, milestone/issues
@@ -123,8 +125,10 @@ the external review proceeds. The later
 [“Agreed. proceed.”](docs/session-memory.md#2026-11-08--callable-examples-merge-and-divisor-group-authorized)
 authorizes merging ready PR #351 and implementing #343. The subsequent
 [owner selection](docs/session-memory.md#2026-11-08--divisor-examples-merge-and-digitprime-group-authorized)
-authorizes merging ready PR #352 and implementing #344. The third group's
-implementation merge remains a later owner decision.
+authorizes merging ready PR #352 and implementing #344. The subsequent
+[“Proceed.”](docs/session-memory.md#2026-11-08--digitprime-merge-and-combined-rosetta-delivery-authorized)
+authorizes merging ready PR #353 and completing #345 through reviewed publication.
+The combined delivery PR's merge remains a later owner decision.
 
 [Milestone 21](https://github.com/berkeleynerd/silver/milestone/21) proposes
 twelve numeric tasks using the delivered scalar-function fragment. The
@@ -141,7 +145,9 @@ The increment order is:
    can then proceed independently with separate sample ownership. #343's four
    programs now have successful focused application validation and independent
    review; its [checkpoint](docs/scalar-function-rosetta-batch.md#gcd-and-divisor-examples--2026-11-08)
-   records exact inputs, domains and evidence reuse. #344 is selected next.
+   records exact inputs, domains and evidence reuse. #344 now has four validated
+   programs; its [checkpoint](docs/scalar-function-rosetta-batch.md#digit-and-prime-examples--2026-11-08)
+   records complete task ranges, helper domains and production checks.
 3. [#345 — Combined delivery](https://github.com/berkeleynerd/silver/issues/345)
    completes shared validation, review and narrow Rosetta reconciliation.
 
@@ -149,11 +155,11 @@ The intended saving is reuse of unchanged compiler/runtime and Lean/source
 evidence, subject to applicability and required audits. Every new program still
 needs its own admission, complete application proof/build/execution and task
 fidelity review. No compiler change, new language form, larger resource bound or
-restart of deferred #119 is proposed. The eight callable/divisor programs are
-validated; their Rosetta assessment promotion remains with #345, so the rendered Stage-1
+restart of deferred #119 is proposed. All twelve programs have focused application
+validation; their Rosetta assessment promotion remains with #345, so the rendered Stage-1
 total remains 71. Only actual delivered task mappings count. #298 and its accepted final evidence
-are prerequisites, now satisfied. #344 is selected after #342/#343, and #345
-retains the later combined checkpoint. A partial group does
+are prerequisites, now satisfied. #344 is published for review after #342/#343,
+and #345 retains the later combined checkpoint. A partial group does
 not complete milestone 21. There is no second provisional successor.
 
 ### Rosetta sample expansion

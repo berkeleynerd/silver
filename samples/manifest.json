@@ -2709,6 +2709,145 @@
         "stderr": "",
         "exit_status": 0
       }
+    },
+    {
+      "source": "rosetta_sum_digits_of_an_integer.adb",
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "named_integer_subtype",
+        "scalar_function",
+        "scalar_function_call",
+        "named_integer_variable",
+        "integer_assignment",
+        "integer_range_constraint",
+        "scalar_guard_refinement",
+        "for_loop",
+        "integer_expression",
+        "integer_comparison",
+        "integer_image",
+        "string_choice",
+        "expression_output",
+        "statement_sequence",
+        "integer_array_object",
+        "integer_array_read",
+        "string_literal",
+        "string_expression",
+        "string_concatenation"
+      ],
+      "application_functions": [
+        "Sum_Digits"
+      ],
+      "specification": "../language.md#small-nonrecursive-scalar-functions",
+      "expected": {
+        "stdout": "sum_digits( 1, 10) = 1\nsum_digits( 1234, 10) = 10\nsum_digits( 254, 16) = 29\nsum_digits( 3854, 16) = 29\nsum_digits( 0, 2) = 0\nsum_digits( 1, 2) = 1\nsum_digits( 2, 2) = 1\nsum_digits( 3, 2) = 2\nsum_digits( 0, 36) = 0\nsum_digits( 35, 36) = 35\nsum_digits( 36, 36) = 1\nsum_digits( 1295, 36) = 70\nsum_digits( 1296, 36) = 1\nsum_digits( 2147483647, 2) = 31\nsum_digits( 2147483647, 10) = 46\nsum_digits( 2147483647, 16) = 112\nsum_digits( 2147483647, 36) = 127\n",
+        "stderr": "",
+        "exit_status": 0
+      }
+    },
+    {
+      "source": "rosetta_happy_numbers.adb",
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "named_integer_subtype",
+        "scalar_function",
+        "scalar_function_call",
+        "named_integer_variable",
+        "integer_assignment",
+        "integer_range_constraint",
+        "scalar_guard_refinement",
+        "for_loop",
+        "integer_expression",
+        "integer_comparison",
+        "integer_image",
+        "string_choice",
+        "expression_output",
+        "statement_sequence",
+        "named_boolean_variable",
+        "boolean_assignment",
+        "boolean_expression"
+      ],
+      "application_functions": [
+        "Sum_Squared_Digits",
+        "Is_Happy"
+      ],
+      "specification": "../language.md#small-nonrecursive-scalar-functions",
+      "expected": {
+        "stdout": " 1\n 7\n 10\n 13\n 19\n 23\n 28\n 31\n",
+        "stderr": "",
+        "exit_status": 0
+      }
+    },
+    {
+      "source": "rosetta_additive_primes.adb",
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "named_integer_subtype",
+        "scalar_function",
+        "scalar_function_call",
+        "named_integer_variable",
+        "integer_assignment",
+        "named_boolean_variable",
+        "boolean_assignment",
+        "boolean_expression",
+        "integer_expression",
+        "integer_comparison",
+        "scalar_guard_refinement",
+        "for_loop",
+        "integer_image",
+        "expression_output",
+        "string_choice",
+        "statement_sequence"
+      ],
+      "application_functions": [
+        "Is_Prime",
+        "Digit_Sum"
+      ],
+      "specification": "../language.md#small-nonrecursive-scalar-functions",
+      "expected": {
+        "stdout": " 2\n 3\n 5\n 7\n 11\n 23\n 29\n 41\n 43\n 47\n 61\n 67\n 83\n 89\n 101\n 113\n 131\n 137\n 139\n 151\n 157\n 173\n 179\n 191\n 193\n 197\n 199\n 223\n 227\n 229\n 241\n 263\n 269\n 281\n 283\n 311\n 313\n 317\n 331\n 337\n 353\n 359\n 373\n 379\n 397\n 401\n 409\n 421\n 443\n 449\n 461\n 463\n 467\n 487\n",
+        "stderr": "",
+        "exit_status": 0
+      }
+    },
+    {
+      "source": "rosetta_attractive_numbers.adb",
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "named_integer_subtype",
+        "scalar_function",
+        "scalar_function_call",
+        "named_integer_variable",
+        "integer_assignment",
+        "named_boolean_variable",
+        "boolean_assignment",
+        "boolean_expression",
+        "integer_expression",
+        "integer_comparison",
+        "scalar_guard_refinement",
+        "for_loop",
+        "integer_image",
+        "expression_output",
+        "string_choice",
+        "statement_sequence"
+      ],
+      "application_functions": [
+        "Is_Prime",
+        "Prime_Factor_Count"
+      ],
+      "specification": "../language.md#small-nonrecursive-scalar-functions",
+      "expected": {
+        "stdout": " 4\n 6\n 8\n 9\n 10\n 12\n 14\n 15\n 18\n 20\n 21\n 22\n 25\n 26\n 27\n 28\n 30\n 32\n 33\n 34\n 35\n 38\n 39\n 42\n 44\n 45\n 46\n 48\n 49\n 50\n 51\n 52\n 55\n 57\n 58\n 62\n 63\n 65\n 66\n 68\n 69\n 70\n 72\n 74\n 75\n 76\n 77\n 78\n 80\n 82\n 85\n 86\n 87\n 91\n 92\n 93\n 94\n 95\n 98\n 99\n 102\n 105\n 106\n 108\n 110\n 111\n 112\n 114\n 115\n 116\n 117\n 118\n 119\n 120\n",
+        "stderr": "",
+        "exit_status": 0
+      }
     }
   ]
 }

@@ -1,5 +1,52 @@
 # Session memory
 
+## 2026-11-08 — Digit/prime merge and combined Rosetta delivery authorized
+
+After the ready [PR #353](https://github.com/berkeleynerd/silver/pull/353)
+and next [#345 combined checkpoint](https://github.com/berkeleynerd/silver/issues/345)
+were reported, the owner instructed **“Proceed.”** This authorizes merging
+ready #353 and ordinary #344 closeout, superseding its earlier merge hold,
+and selects #345 through reviewed publication. Record this decision on main
+with #353 before claiming the combined work.
+
+Complete the existing twelve-program batch: establish final evidence
+applicability, run affected integration/Rosetta checks, reconcile only the
+faithfully demonstrated task mappings, preserve prior assessment provenance,
+render and update affected board fields. Retain successful applicable compiler,
+Lean and application evidence; repeat only invalidated checks. Keep current
+language, source/expression budgets and proof obligations unchanged. No successor
+capability is selected. The combined delivery PR's merge remains a later owner
+decision. Preserve unrelated root edits, external-review workspaces and scratch.
+CLI recall was not updated.
+
+## 2026-11-08 — Divisor examples merged; digit/prime group validated
+
+Owner-authorized [PR #352](https://github.com/berkeleynerd/silver/pull/352)
+merged as `87e18b4c3ede6efac69a5fe46178510e9f17c2fa`. #343 is closed/Done;
+its accepted implementation target remains `5262fb81fa`, with successful focused
+application evidence and independently reviewed baseline reuse. Final merge
+authorization `034780977f` changed documentation only and selected #344.
+
+[#344](https://github.com/berkeleynerd/silver/issues/344) is implemented and
+validated in
+`tmp/digit-prime-examples-344`, branch `feat/digit-prime-examples-344-20261108`,
+based on that merge. Two isolated Sol / Extra High streams implemented Sum
+digits/Happy numbers and Additive primes/Attractive numbers. Independent
+Astra / Max review accepts target `f2842c6d62ec`, including task fidelity,
+complete domains, sufficient finite iteration bounds, application evidence and
+baseline reuse, with no material finding. The
+[third-group checkpoint](scalar-function-rosetta-batch.md#digit-and-prime-examples--2026-11-08)
+records successful production checks for every new program and helper, 80
+retained manifest cases plus four fresh cases, and applicable unchanged
+compiler/native/Lean evidence. Selected settings are recorded; live model/effort
+introspection is not independently available.
+
+The [existing batch plan](scalar-function-rosetta-batch.md) remains the scope.
+[PR #353](https://github.com/berkeleynerd/silver/pull/353) publishes #344 for
+review; hold its implementation merge. #345 retains the
+combined checkpoint and narrow Rosetta assessment/render. Milestone 21 remains
+open; rendered Stage-1 coverage remains 71 tasks. No CLI recall update was made.
+
 ## 2026-11-08 — Divisor examples merge and digit/prime group authorized
 
 The owner instructed **“OK, proceed to merge 352 and move on to the next item.”**
