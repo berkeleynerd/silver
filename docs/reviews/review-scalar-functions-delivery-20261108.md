@@ -174,3 +174,86 @@ by this reviewer. The selected setting remains GPT-6 Astra / Extra High;
 runtime model/effort telemetry and token/cost measurements remain unavailable.
 The live harness goal is null; no CLI memory was updated. This supplement
 authorizes no merge and makes no delivery-acceptance claim.
+
+## Supplemental static review — body candidates and wrapper projection
+
+No material defect was found in the five-file proof delta from
+`c437a41d30dbdbd174773cab1f5d647dc6e7bbf3` through
+`f00205b5f85812df9e9ba1932d2762d69cb0407b`, or in the prepared
+`tmp/predicate-wrapper-projection.patch`, SHA-256
+`e17b7aa08e94b4f7cdd19343da042e300bf75123caa045366aac8e7dba9f8c44`.
+Published documentation target `c9f2dd0d3188c46681ad27779ff677e1bae3fb85`
+has the same governed inputs as `f00205b5f8`. The delta changes no native,
+script or test inputs. The inspected output-profile body retains SHA-256
+`9ec28d94a41c81bb68168bb674792bc44bf1ddeae69e71d4d3e11b153786b77f`;
+its specification has SHA-256
+`b24b61c1c147f0ad46d0dd15565daa7733c86f8417236f95d56ce8977dbf0862`.
+The annotation remains unapplied during the active frozen-input run.
+
+The [basic-body candidate](../../proof/Silver/PredicateBasicSourceCandidate.lean)
+now records the existing native purity guards, scalar/Boolean call-assignment
+attempts and pure-context rejection before the String/Character fallback.
+Inspection of `Basic_Body` and `PredicateBasicExpressions` confirms the same
+branch order, one call-assignment evaluation, successful-call selection and
+ordinary-assignment fallback. The typed evaluator and renderer already contain
+these choices; this delta changes their candidate token list only.
+The [loop candidate](../../proof/Silver/PredicateLoopCandidate.lean) adds the
+existing `Catalog` actual to its recursive `Read_Body` call, forwarding the same
+catalog rather than constructing a different environment.
+
+The twenty changed entries in
+[PredicateSourceRequirements](../../proof/Silver/PredicateSourceRequirements.lean)
+record the existing native declarations and contracts: body-helper catalog
+formals and `Functions.Valid_Metadata (Text, Catalog)`, `Expand_Body`'s
+`Original : Parser_State`, the `Pure`/`Integer_Hidden` context fields,
+`Return_Only`, and function/return token kinds and word-token classification.
+The catalog-validity condition already occurs in native preconditions and the
+quantified body equations; it is not a new restriction introduced by this
+repair. Those equations retain every valid catalog and native context, including
+both purity values. The existing adapter uses the original parser state to
+preserve metadata outside its explicit delta. The typed tail/read postcondition
+renderers remain in the requirements, with the same catalog-bearing calls.
+No semantic model, contract, termination variant or formal-input domain changes.
+
+The change to
+[ComposeBooleanDeclarationLibraries](../../proof/Silver/ComposeBooleanDeclarationLibraries.lean)
+reduces the existing local `let p := booleanDeclarationParts ...` after
+introducing `mark`, then introduces the existing `p.typeAfter ≠ 0` hypothesis.
+The complete name-mark meaning and caller domain are unchanged. The four-field
+record-update repair in
+[ComposeSourceBridge](../../proof/Silver/ComposeSourceBridge.lean) changes layout
+only; `imageMinimum`, `imageMaximum`, `functionLookup` and `formalHides` retain
+the same derived proofs and dependencies.
+
+The prepared [PredicateEquations](../../proof/Silver/PredicateEquations.lean)
+annotation gives `definitions.wrappers` the explicit type
+`Adapter.Wrappers.Refinement calls.bodyWrapperModels calls.bodyWrappers`.
+`Calls.bodyCalls` copies those exact two fields into `BodyLibraries.Calls`;
+the inherited refinement therefore already has this type by reduction.
+The annotation selects the direct wrapper projection when instantiating the
+existing `adapter_interpreted` lemma. It adds no wrapper equality assumption,
+model inhabitant, callee substitution or new premise. The same scalar-count
+`BodyDomain` fact from `sv` is supplied, and the subsequent body interpretation
+and uniqueness lemmas remain unchanged. This is an adequate static repair for
+the observed projection mismatch; its actual elaboration still needs checking.
+
+The retained failed runs `20261108T021648-bb06ac912aef` and
+`20261108T022400-531d5c89d319` contain the diagnosed token/header differences.
+Their comparisons are diagnostic evidence. The latter log confirms compilation
+of both refreshed candidate renderings and the Boolean import proof; the active
+`20261108T032945-867186df7c99` log confirms compilation of the source requirements
+and Compose bridge, then reports the wrapper-projection rewrite failure.
+These individual module successes do not establish a successful source audit.
+The unchanged named extraction checks for `basic_body`, `loop_body` and
+`scan_step` in `PredicateBodySourceCandidate` remain mandatory, together with
+all other actual-source checks and the complete module/axiom audit. No pin-only
+acceptance is inferred from this review.
+
+The complete corrected native audit, complete Lean checkpoint and final
+regression applicability remain pending. The coordinator reports an unresolved
+error in the active full regression run; its cause and disposition are outside
+this static review and must be established before delivery acceptance. This
+review launched no validation and changed no active inputs. Selected setting:
+GPT-6 Astra / Extra High; runtime model/effort and elapsed/token/cost telemetry
+are unavailable. The live harness goal is null and CLI memory was not updated.
+Implementation merge remains held; this supplement is not delivery acceptance.
