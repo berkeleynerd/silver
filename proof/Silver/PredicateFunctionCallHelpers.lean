@@ -325,7 +325,13 @@ theorem normalized_actuals_at (meaning : ImportsMeaning imports)
         rfl
       · have advancing : first < last := by have ordered := valid.2.2.2.1; omega
         simp only [zero, final, advancing, decide_false, Bool.false_eq_true, ↓reduceIte, ↓reduceDIte]
-        exact normalized_actuals_at meaning defs text context _ facts catalog (first + 1) last
+        by_cases comma : fixedAfter text
+            (actualAfter text context.model position facts (parameter catalog first)) "," false = 0
+        · simp only [modelImports, tokenAfter, ShellToken.symbol, comma, decide_true,
+            ↓reduceIte, actualsAfter_zero]
+        · simp only [modelImports, tokenAfter, ShellToken.symbol, comma, decide_false,
+            Bool.false_eq_true, ↓reduceIte]
+          exact normalized_actuals_at meaning defs text context _ facts catalog (first + 1) last
   · rfl
 termination_by last - first
 

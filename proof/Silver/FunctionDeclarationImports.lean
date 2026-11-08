@@ -83,8 +83,9 @@ theorem returnAfter_imports (calls : Calls) (text : Source) (context : Predicate
   have taken : calls .take text scan.position (.fixed "return" true) =
       fixedAfter text scan.position "return" true := by
     simpa only [Token.shell, tokenAfter, ShellToken.word] using imports.take
-  simp [returnAfterBody, Command.eval, Expr.eval, apply2, apply3, apply4, apply5,
-    Frame.locals, Locals.set, Field.get, taken, Token.shell,
-    ShellToken.word, imports.actual, functionReturnAfter]
+  by_cases zero : fixedAfter text scan.position "return" true = 0 <;>
+    simp [returnAfterBody, Command.eval, Expr.eval, apply2, apply3, apply4, apply5,
+      Frame.locals, Locals.set, Field.get, taken, Token.shell,
+      ShellToken.word, imports.actual, functionReturnAfter, zero, Predicate.actualAfter_zero]
 
 end Silver.Compose.FunctionDeclarationNative

@@ -2295,6 +2295,12 @@ def outputBodyTokens_line_c5a9c9bcf74fba0eeb81d5f8936a71d62bdda51d1296a7cdaee7a6
   correct := by decide +kernel
   noNewline := by decide +kernel
 
+def outputBodyTokens_line_c5b04168301c34cd5fe96a845162e7ee0f995219d99a91e5d42f5cd3d868e7e2 : LineCertificate where
+  text := "           or else (Boolean_Declaration_At'Result.Position > State.Position"
+  tokens := ["or", "else", "(", "boolean_declaration_at", "'", "result", ".", "position", ">", "state", ".", "position"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
 def outputBodyTokens_line_c5b7180256dff516244d6042e8c3a817ba0d8532d42eec75c730a31e276e79b3 : LineCertificate where
   text := "           Lookup_From (Text, Names, First, After, 1) ="
   tokens := ["lookup_from", "(", "text", ",", "names", ",", "first", ",", "after", ",", "1", ")", "="]
@@ -2688,6 +2694,12 @@ def outputBodyTokens_line_edd0ac1f929e4bfe2d40bb554de8a1897dd0d569652295626e74e1
 def outputBodyTokens_line_edd4f8ab8a097eeaf41f0a459d4d34f4bb66ef0fac1f4a319451bff5eaf4257e : LineCertificate where
   text := "      return Condition_Result is"
   tokens := ["return", "condition_result", "is"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def outputBodyTokens_line_edd8e8da2f6a810a844a4fb2317337af026926b373a6e23f83d8a764e7864c02 : LineCertificate where
+  text := "      if Start = 0 then return 0; end if;"
+  tokens := ["if", "start", "=", "0", "then", "return", "0", ";", "end", "if", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 

@@ -16,7 +16,7 @@ set_option maxHeartbeats 10000000
 namespace Silver.FunctionSourceCandidate.Parts
 
 theorem calls_callee_at_body :
-    Source.expressionBody "callee_at" Output.SourceShape.outputImplementation = some calleeBody.render := by
+    qualifiedExpressionBody "callee_at" Output.SourceShape.outputImplementation = some calleeBody.render := by
   decide +kernel
 
 end Silver.FunctionSourceCandidate.Parts

@@ -42,7 +42,7 @@ def implHeader : List String := expectedTokens
   "(Text : String; State : Parser_State; Arguments : Boolean) return Parser_State"
 
 def specHeader : List String := implHeader ++ expectedTokens
-  "with Global => null, Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length and then Valid_State (Text, State), Post => Valid_State (Text, Boolean_Declaration_At'Result) and then (Boolean_Declaration_At'Result.Position = 0 or else Boolean_Declaration_At'Result.Position > State.Position)"
+  "with Global => null, Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length and then Valid_State (Text, State), Post => Valid_State (Text, Boolean_Declaration_At'Result) and then (Boolean_Declaration_At'Result.Position = 0 or else (Boolean_Declaration_At'Result.Position > State.Position and then Boolean_Declaration_At'Result.Functions = State.Functions and then Boolean_Declaration_At'Result.First_Parameter = State.First_Parameter and then Boolean_Declaration_At'Result.Pure = State.Pure))"
 
 structure Checked (tokens : List String) : Prop where
   precedence : body.wellFormed = true

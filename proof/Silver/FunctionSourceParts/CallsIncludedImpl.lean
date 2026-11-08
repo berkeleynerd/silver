@@ -17,7 +17,8 @@ namespace Silver.FunctionSourceCandidate.Parts
 
 theorem calls_included_impl :
     functionHeader "included" "is" Output.SourceShape.outputImplementation =
-    some (expectedTokens "(Value, Bounds : Scalars.Interval) return Boolean") := by
+    some (Silver.Predicate.FunctionCallNative.SourceChecks.expectedTokens
+      "(Value, Bounds : Scalars.Interval) return Boolean") := by
   decide +kernel
 
 end Silver.FunctionSourceCandidate.Parts

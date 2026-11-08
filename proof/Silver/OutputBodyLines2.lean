@@ -2505,6 +2505,12 @@ def outputBodyTokens_line_da8e7e42822ba54e7c865db046476c8b8e76c2e2c077b2844faede
   correct := by decide +kernel
   noNewline := by decide +kernel
 
+def outputBodyTokens_line_da8e84ee0d8644b6df3276ba91511095d772280cf66c56a2b94a0f9632ae77b0 : LineCertificate where
+  text := "      if Frame.Position = 0 then return Invalid_State; end if;"
+  tokens := ["if", "frame", ".", "position", "=", "0", "then", "return", "invalid_state", ";", "end", "if", ";"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
 def outputBodyTokens_line_da9e161a7a39b73d6728a136c67b94d1a4ff2828f59555208d49db4ab42b8db4 : LineCertificate where
   text := "                           begin"
   tokens := ["begin"]

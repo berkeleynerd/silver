@@ -939,12 +939,6 @@ def outputBodyTokens_line_5f259c2845084a7caf454b9988875ef62959a97bbd0e9ea6775319
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputBodyTokens_line_5f2d8fe71a770837693eb336edf437871793cf56a60cf9d346a737f001f1ffb2 : LineCertificate where
-  text := "           or else Scalar_Declaration_At'Result.Position > State.Position);"
-  tokens := ["or", "else", "scalar_declaration_at", "'", "result", ".", "position", ">", "state", ".", "position", ")", ";"]
-  correct := by decide +kernel
-  noNewline := by decide +kernel
-
 def outputBodyTokens_line_5f31caa2615e69ff4541686c5e220d081199f309064bdf7d0f088c4a37ab2568 : LineCertificate where
   text := "      --  The raw result before the final invalidation follows the same guarded"
   tokens := []
@@ -1482,6 +1476,12 @@ def outputBodyTokens_line_87917bca8ff751a5f25c5223403db747a8a819cdb450788b76ae93
 def outputBodyTokens_line_87a1f4d7f57a549b422cf7755dd0aae594d69c5edf47b2825afefd88bd0aef3c : LineCertificate where
   text := "           else Body_Tail_Model (Text, Context, Result, Stop, Catalog))));"
   tokens := ["else", "body_tail_model", "(", "text", ",", "context", ",", "result", ",", "stop", ",", "catalog", ")", ")", ")", ")", ";"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def outputBodyTokens_line_87cfb4e57ddeb3d1df1233f6bacd88ac26881915eea3ff67e07bd53ac47b6a2c : LineCertificate where
+  text := "             and then Boolean_Declaration_At'Result.Functions = State.Functions"
+  tokens := ["and", "then", "boolean_declaration_at", "'", "result", ".", "functions", "=", "state", ".", "functions"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 

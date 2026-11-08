@@ -703,7 +703,8 @@ def returnAfterBody : Command .number :=
   let scan : Expr .bodyScan := .variable "scan"
   let resultType : Expr .typeResult := .variable "result_type"
   .letValue "start" (apply3 (.function .take) text (.field .bodyPosition scan) (.token .returnKeyword)) <|
-    .beginBody <| .returned <| apply5 (.function .actualAfter) text context (.variable "start") (.field .bodyFacts scan)
+    .beginBody <| .guard (.eq (.variable "start") (.number 0)) (.number 0) <|
+    .returned <| apply5 (.function .actualAfter) text context (.variable "start") (.field .bodyFacts scan)
       (.formal (.number 0) (.number 0) (.field .typeKind resultType) (.field .typeBounds resultType))
 
 def functionBodyBody : Command .state :=

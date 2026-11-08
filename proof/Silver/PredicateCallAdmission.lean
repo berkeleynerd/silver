@@ -26,6 +26,21 @@ def actualAfter (text : Source) (context : ParseContext) (position : Nat)
     if value.after = 0 ∨ value.bounds.isEmpty ∨ !value.bounds.included parameter.bounds
     then 0 else value.after
 
+/-- Rejected cursors stay rejected for both scalar result kinds. -/
+theorem actualAfter_zero (text : Source) (context : ParseContext)
+    (facts : ActiveFlow) (parameter : FunctionBindings.Formal) :
+    actualAfter text context 0 facts parameter = 0 := by
+  unfold actualAfter
+  split
+  · rw [readCondition, readRelation]
+    rfl
+  · have scalar : readScalarInFlow text context 0 facts = ScalarExpression.invalid := by
+      unfold readScalarInFlow ScalarExpression.read
+      split
+      · simp [ScalarExpression.parseFuel, ScalarExpression.skip, ScalarExpression.summarize]
+      · simp [ScalarExpression.parseArraysFuel, ScalarExpression.skip, ScalarExpression.summarizeArrays]
+    simp [scalar, ScalarExpression.invalid]
+
 def actualsAfter (text : Source) (context : ParseContext) (position : Nat)
     (facts : ActiveFlow) (catalog : FunctionBindings.Metadata) (first last : Nat) : Nat :=
   let after := actualAfter text context position facts (FunctionBindings.parameter catalog first)
@@ -35,6 +50,12 @@ def actualsAfter (text : Source) (context : ParseContext) (position : Nat)
     actualsAfter text context (fixedAfter text after "," false) facts catalog (first + 1) last
   else 0
 termination_by last - first
+
+theorem actualsAfter_zero (text : Source) (context : ParseContext)
+    (facts : ActiveFlow) (catalog : FunctionBindings.Metadata) (first last : Nat) :
+    actualsAfter text context 0 facts catalog first last = 0 := by
+  rw [actualsAfter, actualAfter_zero]
+  rfl
 
 def calleeAt (text : Source) (context : ParseContext) (position : Nat)
     (catalog : FunctionBindings.Metadata) : Nat :=

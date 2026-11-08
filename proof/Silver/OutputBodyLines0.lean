@@ -159,6 +159,12 @@ def outputBodyTokens_line_08af7acf35f08b10e11fe331308b1fc8b790a00637fc630d99394d
   correct := by decide +kernel
   noNewline := by decide +kernel
 
+def outputBodyTokens_line_08bb33136416a631e37022192bbea06acd1109cb74c4f3a82f5c0677c1c9d48f : LineCertificate where
+  text := "             and then Scalar_Declaration_At'Result.Functions = State.Functions"
+  tokens := ["and", "then", "scalar_declaration_at", "'", "result", ".", "functions", "=", "state", ".", "functions"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
 def outputBodyTokens_line_08e83ab3c5140efdf8472737267ea7664dc2e0f066b6d671297e4b2e5c5c6eb6 : LineCertificate where
   text := "        (Text, Context, Take_Token (Text, Target_After, Assignment), Scan.Facts, Value);"
   tokens := ["(", "text", ",", "context", ",", "take_token", "(", "text", ",", "target_after", ",", "assignment", ")", ",", "scan", ".", "facts", ",", "value", ")", ";"]
@@ -735,6 +741,12 @@ def outputBodyTokens_line_400732066f6af0f4816740e9c563e740c6bfea3b9dfd134873a6e0
   correct := by decide +kernel
   noNewline := by decide +kernel
 
+def outputBodyTokens_line_40091282637967b28f128bf12ae1f77afc4c9fb7bf736226ad691c0267eeae52 : LineCertificate where
+  text := "             and then Scalar_Declaration_At'Result.Pure = State.Pure));"
+  tokens := ["and", "then", "scalar_declaration_at", "'", "result", ".", "pure", "=", "state", ".", "pure", ")", ")", ";"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
 def outputBodyTokens_line_40093020a6e938d158c7d889846ad1e60ad12545bde57bba8667aa6a9f3cb686 : LineCertificate where
   text := "      Type_First : constant Literal_Position := Skip_At"
   tokens := ["type_first", ":", "constant", "literal_position", ":=", "skip_at"]
@@ -888,6 +900,12 @@ def outputBodyTokens_line_489647d22f2faee8c6db34bb29b022310f0ba07ebba7d9737e8beb
 def outputBodyTokens_line_48b9b4d2edfad275f2aeb9c8eed73cc87c2039a567330c39bc59447bbaf4daf4 : LineCertificate where
   text := "       Post => (Static => (Take_Token'Result = 0"
   tokens := ["post", "=>", "(", "static", "=>", "(", "take_token", "'", "result", "=", "0"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def outputBodyTokens_line_48cfdd8b5d7f3c1a74d40a73b77d7a05cd497fe93c85ab4fa9b6812fccbcf159 : LineCertificate where
+  text := "       elsif Take_Token (Text, After, Comma) = 0 then 0"
+  tokens := ["elsif", "take_token", "(", "text", ",", "after", ",", "comma", ")", "=", "0", "then", "0"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 

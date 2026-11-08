@@ -421,7 +421,8 @@ def actualsBody : Expr Nat :=
   .locals <| .letAfter (.actual .position (.parameterAt .first)) <|
     .group <| .ite (.eq .after (.number 0)) (.number 0)
       (.elsif (.eq .first .last) (.token .after (.symbol ")"))
-        (.actuals (.token .after (.symbol ",")) (.add .first (.number 1)) .last))
+        (.elsif (.eq (.token .after (.symbol ",")) (.number 0)) (.number 0)
+          (.actuals (.token .after (.symbol ",")) (.add .first (.number 1)) .last)))
 
 def calleeBody : Expr Nat :=
   .locals <| .letFirst (.skip .position) <| .letAfter (.nameAfter .first) <|

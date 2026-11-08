@@ -64,7 +64,10 @@ theorem actuals_model (text : Source) (context : Native.Context) (position : Nat
   · by_cases final : first = last
     · simp_all +instances
     · have advancing : first < last := by omega
-      simp_all +instances
+      by_cases comma : fixedAfter text
+          (actualAfter text context.model position facts (parameter catalog first)) "," false = 0
+      · simp_all +instances [actualsAfter_zero]
+      · simp_all +instances
 
 theorem callee_model (text : Source) (context : Native.Context) (position : Nat)
     (catalog : Metadata) :

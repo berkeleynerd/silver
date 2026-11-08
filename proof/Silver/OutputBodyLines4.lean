@@ -1149,12 +1149,6 @@ def outputBodyTokens_line_64d90fd2adef8f35235ee1b2571ede2ee46dda609366bc47ad5bd8
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputBodyTokens_line_64ee1ac939e55fd78646c578829e940a6ac60a3c74903b0b9b680afe978e109d : LineCertificate where
-  text := "           or else Boolean_Declaration_At'Result.Position > State.Position);"
-  tokens := ["or", "else", "boolean_declaration_at", "'", "result", ".", "position", ">", "state", ".", "position", ")", ";"]
-  correct := by decide +kernel
-  noNewline := by decide +kernel
-
 def outputBodyTokens_line_64f770374be932e8fa3c2a81341766f5f48c234a4b96ade192e7d6892bfe79ef : LineCertificate where
   text := "                 with Ghost => Static;"
   tokens := ["with", "ghost", "=>", "static", ";"]
@@ -1224,6 +1218,12 @@ def outputBodyTokens_line_6c55bdcdb173e5f55f5152c8e469ee979a31e49113fa17ec32c507
 def outputBodyTokens_line_6c5789f39bf7549f9fdb6d6a879ba476ecd30c6d64f3542b951c11969d631e5d : LineCertificate where
   text := "              Condition_Model (Text, Context, After, Facts, Initials => Initials) with Ghost => Static;"
   tokens := ["condition_model", "(", "text", ",", "context", ",", "after", ",", "facts", ",", "initials", "=>", "initials", ")", "with", "ghost", "=>", "static", ";"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def outputBodyTokens_line_6c7746306958b9798d7f04a47b602ed71ee7aeb5bf316f8868b670c98a1d9454 : LineCertificate where
+  text := "             and then Boolean_Declaration_At'Result.First_Parameter = State.First_Parameter"
+  tokens := ["and", "then", "boolean_declaration_at", "'", "result", ".", "first_parameter", "=", "state", ".", "first_parameter"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 

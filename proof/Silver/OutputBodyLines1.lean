@@ -195,6 +195,12 @@ def outputBodyTokens_line_09ce52441208fe4323a8d31e6063bfc9e1831dc6de8b7a66b8dbb5
   correct := by decide +kernel
   noNewline := by decide +kernel
 
+def outputBodyTokens_line_09dab034113f52c291ad6d26f22385267ce410b327f24b0e71ce080fccc6d10b : LineCertificate where
+  text := "             and then Scalar_Declaration_At'Result.First_Parameter = State.First_Parameter"
+  tokens := ["and", "then", "scalar_declaration_at", "'", "result", ".", "first_parameter", "=", "state", ".", "first_parameter"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
 def outputBodyTokens_line_09e7069bc168ad6fb7fa50eaf714ae44a596648d34bec3d443e9c99340ff53b0 : LineCertificate where
   text := "                   or else (Context.Mask_First /= 0 and then Name_Is"
   tokens := ["or", "else", "(", "context", ".", "mask_first", "/=", "0", "and", "then", "name_is"]
@@ -675,6 +681,12 @@ def outputBodyTokens_line_393626277b8b316150848ca0e3779fa476977b7d3e41c931003b8b
   correct := by decide +kernel
   noNewline := by decide +kernel
 
+def outputBodyTokens_line_394198d57b5e1b27cd8de91047c103e9cf715937f41630c5ada9e29e65a582f8 : LineCertificate where
+  text := "           or else (Scalar_Declaration_At'Result.Position > State.Position"
+  tokens := ["or", "else", "(", "scalar_declaration_at", "'", "result", ".", "position", ">", "state", ".", "position"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
 def outputBodyTokens_line_395369e18b869416ee58d4339156be9329f11c89f8429fc76eda5a17bf3ad22c : LineCertificate where
   text := "      and then Same_Parser_Subtype_Items (Left.Subtype_Names.Items, Right.Subtype_Names.Items)"
   tokens := ["and", "then", "same_parser_subtype_items", "(", "left", ".", "subtype_names", ".", "items", ",", "right", ".", "subtype_names", ".", "items", ")"]
@@ -1152,6 +1164,12 @@ def outputBodyTokens_line_6942f7aead004a2edd956ec95e57487f55bf2082eed295be286e26
 def outputBodyTokens_line_69437cf465bea22a5690920c3d982d54b7a054b8a9d90dcca1306f237ebd41c7 : LineCertificate where
   text := "      Result_Type : Function_Type_Result) return Literal_Position is"
   tokens := ["result_type", ":", "function_type_result", ")", "return", "literal_position", "is"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def outputBodyTokens_line_6951d14d5229420d800d6e83e3b4919d3fa2264149ebe92dc19ef5bcb9b4ab1f : LineCertificate where
+  text := "             and then Boolean_Declaration_At'Result.Pure = State.Pure));"
+  tokens := ["and", "then", "boolean_declaration_at", "'", "result", ".", "pure", "=", "state", ".", "pure", ")", ")", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 

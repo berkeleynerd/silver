@@ -97,7 +97,7 @@ structure Checked (tokens : List String) : Prop where
   callAssignmentBody_impl : functionHeader "call_assignment_body" "is" tokens = some callAssignmentBodyImpl
   actual_model_body : Source.expressionBody "actual_model" tokens = some actualBody.render
   actuals_model_body : Source.expressionBody "actuals_model" tokens = some actualsBody.render
-  callee_at_body : Source.expressionBody "callee_at" tokens = some calleeBody.render
+  callee_at_body : qualifiedExpressionBody "callee_at" tokens = some calleeBody.render
   call_model_body : Source.expressionBody "call_model" tokens = some callBody.render
   call_assignment_result_body : Source.expressionBody "call_assignment_result" tokens = some assignmentResultBody.render
   call_assignment_model_body : Source.expressionBody "call_assignment_model" tokens = some (assignmentBody false).render
