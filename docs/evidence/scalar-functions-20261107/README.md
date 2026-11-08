@@ -248,3 +248,16 @@ unchanged. Headroom recovered alongside garbage collection and completion of
 another module, so that recovery is not attributed solely to the cancellation.
 `ComposeExamples` remains required in the next complete check. This deliberate
 interruption is additional incomplete validation, not a waived obligation.
+
+Later garbage collection temporarily recovered headroom, but repeated low and
+falling samples returned as `FunctionSourceCandidate` grew to 38.31 GiB. On the
+reviewer's refined recommendation, the coordinator verified and terminated only
+that Lean child at 05:12:10 UTC. Lake recorded 1,735 seconds and exit code 143;
+the other four source candidates and native proof continued. The required
+function source checks remain unfinished. A scratch proposal separates their
+80 exact requirements into independently compiled leaves and reconstructs the
+same three exported `Checked` theorems, including every table row and the
+existing tree proofs. It is under separate independent review and remains
+unapplied while the current run retains its frozen inputs. A serial leaf check,
+complete function-source consumer check and complete project audit are required;
+packaging alone establishes no proof success or per-leaf memory bound.
