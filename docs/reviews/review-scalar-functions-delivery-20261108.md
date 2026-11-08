@@ -752,3 +752,48 @@ provenance/correctness purpose and preparation of any narrowly justified repair
 for coordinator review. No timeout, fixture or acceptance change is authorized
 by this failed result itself. Reviewer settings/telemetry limits remain
 unchanged; no CLI memory update or publication occurred.
+
+### Fixture watchdog provenance and unapplied repair proposal
+
+The read-only assessment traced the unchanged `timeout=60` in
+`LeanModuleTests.lake` to `15ca622139564b55e5e15f95b2e97a763e72ed9d`
+(2026-10-12), when the helper served small module-boundary and audit probes.
+The split-certificate fixture was added in `eebaab79f8c65f1b0306c07c24dc148e41ed7dc3`
+and expanded through `0f3076d3da` and `524dbfbd4084c79f7048b1710dd3a7af76affe59`
+on November 6 without changing that deadline. The current graph has 17 project
+modules. The inspected history, code and governing documents contain no explicit
+60-second compilation performance contract or elapsed-time assertion. The earlier
+340.850-second whole-method success is a measurement, not an individual-build
+bound. Related native Lake fixtures already use 180-second subprocess watchdogs.
+
+The retained unchanged runs show material configuration/import costs and the
+latest local-install initial build still timed out after five project modules,
+with SourceLexer active before any chunk compiler was observed. That evidence
+supports a narrowly scoped watchdog repair proposal: keep the class helper's
+default at 60 seconds, add a keyword-only timeout argument, and pass 180 seconds
+only from this fixture's local build helper. Broad edit/reset builds can rebuild
+all chunks, so the proposal covers that helper rather than only its first call.
+Fresh audits and other tests retain 60 seconds. This changes the execution budget;
+all correctness assertions, source/object identities, stale rejection, eleven edit
+cases, fresh axiom audits, proof options and kernel checks remain identical.
+
+The 180 seconds is a proposed bounded engineering budget with related-fixture
+precedent, not a measured completion guarantee or a whole-method deadline. It
+allows a build more time to reach the same acceptance checks; timeout remains an
+error. No production proof timeout, solver option, language restriction or Oracle
+guarantee changes. Complete original-fixture success remains outstanding, and all
+historical failures remain failed. The proposal authorizes no automatic rerun,
+subsequent increase or weakened check.
+
+The exact candidate and unapplied patch are retained separately under
+`tmp/fixture-watchdog-assessment-298/`, with provenance, source identities and
+static-review results. Parsing/compilation of candidate text succeeded without
+execution; reverting exactly its three timeout-related AST changes reproduces
+the entire original file's AST. All four live test copies (review, regression,
+integration and isolated local root) remained byte-identical. `git apply --check`
+accepted the scratch patch without applying it. Patch SHA256 is
+`5b666993e70dae3672a83012ff96e45d09a870a463c3c9f356d8e1d60cb36c4f`.
+No actual test/source/harness edit, changed-timeout execution, repeat or publication
+was performed. The coordinator retains the regression context; this reviewer has
+no native process or lease. Live harness goal is null and CLI memory was not
+updated.
