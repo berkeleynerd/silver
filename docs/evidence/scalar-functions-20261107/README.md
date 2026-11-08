@@ -257,7 +257,9 @@ the other four source candidates and native proof continued. The required
 function source checks remain unfinished. A scratch proposal separates their
 80 exact requirements into independently compiled leaves and reconstructs the
 same three exported `Checked` theorems, including every table row and the
-existing tree proofs. It is under separate independent review and remains
-unapplied while the current run retains its frozen inputs. A serial leaf check,
+existing tree proofs. The [separate independent review](../../reviews/review-scalar-functions-source-packaging-20261108.md)
+found no material static defect in its exact coverage, original theorem types,
+actual-source transport or nested-module audit/provenance handling. It remains
+uncompiled and unapplied while the current run retains frozen inputs. A serial leaf check,
 complete function-source consumer check and complete project audit are required;
 packaging alone establishes no proof success or per-leaf memory bound.

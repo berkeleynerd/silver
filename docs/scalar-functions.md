@@ -182,10 +182,16 @@ after the complete Lean workload releases its workers.
 
 The complete Lean build has exposed a stale Boolean-declaration source
 candidate. Its token list omits five hiding checks already present in both the
-unchanged native body and its Lean model. An exact candidate-only repair is
-prepared for independent review; the active build retains frozen inputs and
-productive source objects. Complete native/Lean assurance and final delivery
-review remain pending.
+unchanged native body and its Lean model. The exact candidate-only repair passed
+bounded independent static review; the active build retains frozen inputs and
+productive source objects. Later memory growth required reviewed, targeted
+interruptions of `ComposeExamples` and `FunctionSourceCandidate` while the
+other source checks and native proof continued. Both remain required. The
+[separately reviewed proof-packaging proposal](reviews/review-scalar-functions-source-packaging-20261108.md)
+preserves the function candidate's 80 source requirements and original exported
+theorems in independently compiled units. It remains uncompiled and unapplied
+until the current run finishes. Complete native/Lean assurance and final
+delivery review remain pending.
 
 Selected subthread settings are recorded from their launches; independent runtime
 confirmation, token/cost and total elapsed-work measurements are unavailable.
