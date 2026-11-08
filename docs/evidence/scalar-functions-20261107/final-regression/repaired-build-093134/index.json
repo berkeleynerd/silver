@@ -1,0 +1,17 @@
+[
+  {
+    "artifact": "events.jsonl.gz",
+    "sha256": "dcc340bdcc31d07f0d0765aa0ef38e2078285cdb2d9a540b269e1333c294cc30",
+    "bytes": 445593
+  },
+  {
+    "artifact": "native.log.gz",
+    "sha256": "f5cba89c8c928f8e06d0f56f7152f385b971021e7cb064dd806421c469042a12",
+    "bytes": 195
+  },
+  {
+    "artifact": "regression-inputs.json.gz",
+    "sha256": "d6e13af1db5d0dbf76d1f65183b0b400934e3feff3fcd827e258e8c0896d30f5",
+    "bytes": 1573603
+  }
+]
