@@ -176,8 +176,9 @@ existing refinement; it remains unapplied while the named-body check uses
 frozen inputs. This static review is not complete source or delivery acceptance.
 
 The regression build passed and the full 637-method suite is running on frozen
-`c437a41d30`. It has reported one error in the output-body chunk object-reuse
-test; its exact traceback is deferred by unittest until suite completion.
+`c437a41d30`. It has reported errors in the output-body chunk object-reuse
+and symlinked temporary-directory platform-routing tests; their exact tracebacks
+are deferred by unittest until suite completion.
 The full inventory is being preserved before diagnosis or any targeted rerun.
 Later changes are proof-only; final regression applicability and any affected
 reruns will be recorded after its actual full outcome. The suite's

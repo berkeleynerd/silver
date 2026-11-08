@@ -152,8 +152,8 @@ The named-body continuation finished with a failed outcome at 03:24 UTC on
 identifies the stale header/declaration candidates and source-bridge layout
 error, corrected in proof-only commit `f00205b5f8`. Focused checking is active
 again with retained objects; complete assurance and independent review remain
-pending. The full regression suite also has one object-reuse fixture error;
-the exact collected traceback and complete inventory are awaited before
+pending. The full regression suite has errors in its object-reuse and symlinked
+temporary-directory platform-routing fixtures; the exact collected tracebacks and complete inventory are awaited before
 diagnosis. No timeout, warning policy, domain or required check changed.
 
 Selected subthread settings are recorded from their launches; independent runtime
