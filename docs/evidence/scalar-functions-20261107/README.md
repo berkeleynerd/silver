@@ -224,18 +224,16 @@ captured-input comparisons are retained. A timeout does not establish its
 underlying cause. The failed outcome remains failed; final-input focused
 follow-ups with unchanged deadlines and their applicability review are pending.
 
-Complete Lean run `20261108T044143-17a94f7033eb` remains active on frozen
-`2a3badff5c`. It has reported a false `candidate_matches` comparison in
+Complete Lean run `20261108T044143-17a94f7033eb` ran on frozen
+`2a3badff5c`. It reported a false `candidate_matches` comparison in
 `ComposeBooleanDeclarationCandidate.lean`. The independently extracted candidate
 has 402 tokens; the unchanged native body has 495. The sole token insertion
 contains the existing function lookup, formal hiding and three hidden scalar
 type checks. The existing semantic model already renders and interprets these
 checks. The [bounded independent review](../../reviews/review-scalar-functions-delivery-20261108.md#supplemental-static-review--boolean-declaration-candidate)
-found no material defect in the exact candidate-only repair. It remains in
-scratch until this run's actual outcome is retained.
-Other source computations remain productive; no active input or proof
-requirement has changed. This is an unresolved complete-check failure, not a
-completed-support claim.
+found no material defect in the exact candidate-only repair. Other productive
+source computations continued with unchanged inputs before that repair was
+applied. This complete-check failure is retained below, not counted as success.
 
 During that run, concurrent Lean memory growth reduced available host memory
 to about 15 GiB with no swap or configured process limit. The
@@ -259,8 +257,7 @@ function source checks remain unfinished. A scratch proposal separates their
 same three exported `Checked` theorems, including every table row and the
 existing tree proofs. The [separate independent review](../../reviews/review-scalar-functions-source-packaging-20261108.md)
 found no material static defect in its exact coverage, original theorem types,
-actual-source transport or nested-module audit/provenance handling. It remains
-uncompiled and unapplied while the current run retains frozen inputs. A serial leaf check,
+actual-source transport or nested-module audit/provenance handling. A serial leaf check,
 complete function-source consumer check and complete project audit are required;
 packaging alone establishes no proof success or per-leaf memory bound.
 
@@ -269,6 +266,24 @@ The first object-reuse fixture follow-up also failed at its unchanged initial
 separate configuration from module compilation and profile one unchanged
 module: imports dominate its measured cost. Exact tool/library identities and
 current filesystem observations are retained. One authenticated local-storage
-comparison is authorized, with no active-installation or fixture change.
+comparison completed with identical distribution/library bytes and lower observed
+import cost, without changing an active installation or fixture.
 These observations have not passed the original fixture, established a complete
 historical cause, or changed any required timeout or proof.
+
+The [complete attempt](complete-lean/20261108T044143-17a94f7033eb/README.md)
+actually exited at 06:31:02 UTC with exactly the Boolean mismatch and the two
+deliberate interruptions. NativeShapeCandidate compiled in 5,775 seconds and
+PredicateSourceCandidate followed; all completed objects remain retained. The
+packet preserves the log, events, memory actions/observations and exact reviewed
+patches. Its ten compressed artifacts were independently verified by size and
+SHA-256. The complete axiom/module audit was not reached.
+
+Commit `47fe4003c0` applies the reviewed Boolean tokens and source decomposition
+after that workspace was released. All 81 decomposition file bodies match the
+reviewed proposal byte for byte; native source, semantic requirements, scripts,
+tests and samples are unchanged. The serial header-leaf probe starts with one
+worker and one thread; complete function-source closure and the final complete
+cached build/audit remain required. A separate unchanged object-reuse fixture
+attempt will select the authenticated local Lean installation in a fresh test
+root, preserving all assertions and the 60-second per-command deadline.

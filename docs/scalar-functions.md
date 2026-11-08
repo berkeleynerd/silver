@@ -189,9 +189,13 @@ interruptions of `ComposeExamples` and `FunctionSourceCandidate` while the
 other source checks and native proof continued. Both remain required. The
 [separately reviewed proof-packaging proposal](reviews/review-scalar-functions-source-packaging-20261108.md)
 preserves the function candidate's 80 source requirements and original exported
-theorems in independently compiled units. It remains uncompiled and unapplied
-until the current run finishes. Complete native/Lean assurance and final
-delivery review remain pending.
+theorems in independently compiled units. The complete attempt actually exited
+at 06:31:02 UTC with only those three known failures; its last expensive source
+candidate passed. The [retained failed packet](evidence/scalar-functions-20261107/complete-lean/20261108T044143-17a94f7033eb/README.md)
+keeps the completed objects and exact resource actions. Commit `47fe4003c0`
+then applied both reviewed repairs byte for byte. Serial leaf, complete
+function-source closure and complete project checks remain required. Complete
+native/Lean assurance and final delivery review are still pending.
 
 The first object-reuse fixture follow-up repeated its initial-build timeout.
 The [isolated configuration, build and import diagnostics](evidence/scalar-functions-20261107/fixture-diagnostics/README.md)
