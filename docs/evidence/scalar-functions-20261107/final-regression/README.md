@@ -157,3 +157,23 @@ needed, separately authorize one isolated configuration-only diagnostic using
 a recreated identical fixture, retaining stdout/stderr and monotonic child-start,
 CPU-tick, I/O and wait samples. No such diagnostic ran here. Preserve the original
 fixture limits and decide any further fixture run from the resulting evidence.
+
+## Subsequent isolated follow-ups, 2026-11-08
+
+The [configuration/import diagnostics](../fixture-diagnostics/README.md) led
+to an authenticated local Lean installation and one unchanged full object-reuse
+fixture attempt. Run `20261108T064023-1bc9e7d6f89f` still failed the original
+60-second initial-build limit before its audit/edit stages. Its exact prepared
+inputs, complete installed distribution and postflight input inventory matched;
+the failed output and pre-cleanup workspace are retained. Local storage alone
+was insufficient. Read-only watchdog assessment remains in progress.
+
+The coordinator synchronized the final 82 proof-file changes to governed
+`47fe4003c0` and ran the separate symlink-TMPDIR method once with its original
+deadlines and assertions. Run `20261108T064731-9f1ab6dc731c` failed its existing
+180-second outer limit, with one error and zero skips. The
+[final-input packet](symlink-fixture-47fe4003c0/README.md) retains the actual
+outcome and verifies all 1,100 governed files and all 821 Lean file identities
+before and after execution. No fixture processes remain. Neither failure
+clears the original full suite; both methods still need successful checks and
+final applicability review. No further repeat or deadline change has occurred.

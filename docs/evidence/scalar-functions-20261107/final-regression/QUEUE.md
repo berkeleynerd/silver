@@ -4,6 +4,19 @@ This file preserves preparation and running checkpoints as history. The final
 completion/queue section below and [outcome record](README.md) supersede the
 earlier holds and active-run checkpoint.
 
+Latest state, 2026-11-08 06:50 UTC: both original fixture failures remain
+unresolved after focused attempts. The object-reuse method also timed out with
+authenticated local tools in run `064023-1bc9e7d6f89f`; independent watchdog
+assessment is pending, with no further run authorized. The coordinator applied
+the exact reviewed 82-file proof sync to the regression checkout as local
+`b40999754c`, matching governed `47fe4003c0` across all 1,100 input files and
+821 Lean sources. The unchanged symlink-TMPDIR method then timed out at its
+180-second outer boundary in `064731-9f1ab6dc731c`. Its verified evidence is in
+[the final-input packet](symlink-fixture-47fe4003c0/README.md). The sync commit
+must not be cherry-picked into integration; evidence-only `79d6e4412b` was
+integrated separately. No regression process or workspace lease remains active.
+Do not treat the older queued commands below as authorization for another retry.
+
 Owner-authorized #298 / PR #339 regression orchestration. No merge,
 publication or source/proof/tooling modifications are authorized in this
 subthread. Worktree: `tmp/scalar-functions-298`, branch
