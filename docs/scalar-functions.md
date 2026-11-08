@@ -164,6 +164,13 @@ identical-option continuation `20261108T040128-2651963b8574`. The
 records the observation and unconfirmed cause; no source or proof requirement
 changed. This interruption is additional rework, not successful validation.
 
+The later [focused source continuation](evidence/scalar-functions-20261107/README.md#successful-focused-source-continuation--2026-11-08)
+compiled every named-body extraction, then applied the independently reviewed
+wrapper-refinement annotation in `2a3badff5c`. The four-target check passed with
+a fresh audit of 449 modules and 113,497 declarations, reusing the retained
+source objects. The required complete Lean/source/module/axiom audit has started;
+this focused success does not complete native or regression assurance.
+
 Selected subthread settings are recorded from their launches; independent runtime
 confirmation, token/cost and total elapsed-work measurements are unavailable.
 Native probe time is retained by the managed records rather than inferred from

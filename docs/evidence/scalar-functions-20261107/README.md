@@ -196,3 +196,18 @@ options and twelve workers. The continuation reuses retained sessions; it is
 not a cold run. The owner remains active through the actual outcome. Neither
 the interrupted run nor its saved-session inventory establishes complete audit
 success; final native provenance and coverage remain required.
+
+## Successful focused source continuation — 2026-11-08
+
+The [named-body run](focused/20261108T032945-867186df7c99/README.md) compiled
+`PredicateBodySourceCandidate`, including the required named `basic_body`,
+`loop_body` and `scan_step` comparisons. It failed only on the independently
+reviewed wrapper-projection rewrite. Commit `2a3badff5c` applies that exact
+existing-refinement type annotation, with no native, model or domain change.
+
+The [focused follow-up](focused/20261108T043745-2e1959571d9d/README.md) passed:
+449 modules and 113,497 declarations received a fresh axiom audit after the
+annotation compiled. Expensive source objects were retained and reused. This
+is partial validation; the required complete project/source/module/axiom audit
+has started on the same governed inputs. Complete native validation, final
+regression error diagnosis/applicability and delivery review remain pending.
