@@ -322,6 +322,39 @@ confirmation, token/cost and total elapsed-work measurements are unavailable.
 Native probe time is retained by the managed records rather than inferred from
 agent runtime. Complete results and review targets will be recorded here.
 
+## Complete proof checkpoint — 2026-11-08
+
+Current governed integration `0333d33503` includes the independently approved
+compiler-auditor correction `53d3` (applied as `dfda468593`) and the one-line
+independent frame-flow import. The [complete current-input Lean checkpoint](evidence/scalar-functions-20261107/complete-lean/20261108T172947-84b3cd350332/README.md)
+passed all 820 modules and a fresh 145,525-declaration approved-axiom audit, with
+actual driver exit 0. It reused valid objects under automatic 22-worker/22-thread
+defaults; no clean or replay was selected. The [successful native checkpoint](evidence/scalar-functions-20261107/native-checkpoint/auditor-refresh-53d3/README.md)
+remains applicable to the same Ada and auditor inputs; this Lean import changes
+no native code, contract, option or compiler binary.
+
+The earlier [complete Lean attempt](evidence/scalar-functions-20261107/complete-lean/20261108T094147-fb5330310904/README.md)
+remains failed: its successful build and logical-assumption scan omitted one
+independent lemma module from the exact project inventory. [Finding #349](https://github.com/berkeleynerd/silver/issues/349)
+records the bounded repair. [Astra / Max diagnosis](evidence/scalar-functions-20261107/frame-flow-import-diagnosis/DIAGNOSIS.md)
+found no missing premise in the existing semantic consumers. The unchanged
+module first passed its [complete focused check](evidence/scalar-functions-20261107/focused/20261108T172824-28123f63af08/README.md),
+then the facade import and all current modules passed the complete audit above.
+No theorem statement, domain or audit rule was changed.
+
+The [three isolated compile regressions](evidence/scalar-functions-20261107/final-regression/isolated-final/README.md)
+now pass with their original deadlines, full 22-CPU allowance and unchanged
+production proof options. The original failed regression run remains failed.
+The platform wrapper and its twelve nested bodies are running on the synchronized
+regression facade; their result, the narrow Rosetta render/three-test refresh and
+final independent acceptance remain pending. This proof checkpoint does not yet
+complete #298 or authorize implementation merge.
+
+| Round | Selected settings | Outcome | Available measurements |
+| --- | --- | --- | --- |
+| Missing-module diagnosis | Existing critical reviewer: GPT-6 Astra / Max | One independent facade import; original lemmas and exact audit preserved | Runtime confirmation and token/cost telemetry unavailable |
+| Monitoring, collection and regression coordination | Coordinator runtime settings not independently exposed | Failed result preserved; focused and complete Lean successes retained; three original-deadline regressions passed | Managed native/Lean/test intervals remain in their exact evidence records; whole-team elapsed/cost unavailable |
+
 ## Required assurance chain
 
 The [Oracle](../oracle.md) applies to the entire resulting language and every
