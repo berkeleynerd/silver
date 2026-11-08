@@ -93,3 +93,16 @@ They do not claim a fresh axiom audit or complete validation. The
 [bounded capacity/policy review](../../reviews/review-scalar-function-capacity-20261107.md)
 records its independently checked producer/storage scope separately from the
 complete native and Lean requirements.
+
+## Outer scanner integration checkpoint — 2026-11-08
+
+While focused run `20261107T230910-a15a07ea6dd4` retains its productive source
+chunks, it has reported a failure in `PredicateOuterEquations.lean:64`. The
+outer expression evaluator and rendering omit the function-assignment flag
+already present in native `Scan_Step` and `Predicate.scanStep`. The
+[independent bounded repair review](../../reviews/review-scalar-functions-delivery-20261108.md)
+found no material defect in the prepared evaluator/render/candidate correction.
+The native source, domains and contracts are unchanged. The patch remains
+unapplied while the active run's inputs are frozen; named-body kernel checking
+and the complete validation checkpoint remain required. Successful source
+objects inside this run do not establish a successful focused audit.
