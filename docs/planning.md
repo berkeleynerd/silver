@@ -66,9 +66,12 @@ They replace GitHub's default labels.
 | `severity: blocker`, `severity: medium`, `severity: low`, `severity: info` | A finding's severity, matching the review reports |
 | `area: language`, `area: assurance`, `area: compiler`, `area: runtime`, `area: tooling`, `area: docs`, `area: planning` | The part of the project an item changes |
 
-**Milestones**: one GitHub milestone for each roadmap milestone that is
-authorized or in progress, named as in the roadmap. Its issues are the
-milestone's work packages. A completed milestone is closed.
+**Milestones**: one GitHub milestone for each committed delivery batch, named
+as in the roadmap. Owner-authorized successor planning may also create one
+provisional milestone, clearly marked as proposed with implementation issues
+in Backlog. Its existence does not authorize implementation. A milestone's issues
+are its work packages; a completed milestone is closed. Retained deferred
+milestones remain historical/deferred work, outside this active two-batch queue.
 
 **Views**, set up once in GitHub's web interface:
 
@@ -95,6 +98,40 @@ or a closed issue whose status was not updated, fixes it by hand.
 - A commit that advances an issue references it with `Refs #<n>`, and the commit
   that completes it uses `Fixes #<n>`, which closes the issue when the commit
   reaches `main`. Housekeeping with no issue needs no reference.
+
+## Delivery batches
+
+Keep one committed batch and one provisional successor in the active queue.
+The roadmap states their order and authorization; the capability record holds
+the design and evidence; the milestone and issues hold live work status.
+Use existing records and board fields, without a second planning database.
+
+Before implementing a batch, its capability plan names:
+
+- The user-visible outcome and concrete Rosetta tasks, preserving required
+  interfaces, ranges and outputs.
+- Included forms and boundaries, dependencies and the common semantic/proof
+  machinery that makes grouping useful.
+- Meaningful implementation increments, each with an issue in the same milestone,
+  scope, completion criteria and focused checks. Create the increment issues and
+  record their order together; use sub-issues only when an increment itself splits.
+- One shared final validation/review checkpoint, expected evidence reuse and
+  the changes that would require fresh compiler/runtime or source-proof work.
+
+Each implementation issue carries a short checklist for implementation, focused
+verification, review and final evidence applicability. Batching does not make an
+unfinished increment or unvalidated composition supported. Sample-only batches
+still require application proof/build/execution and faithful task assessments.
+Keep small commits or stacked PRs reviewable while sharing final validation.
+If scope changes, update the issue and capability plan with the reason rather
+than silently dropping a task or enlarging the batch.
+
+At delivery, record actual Rosetta mappings gained, elapsed delivery time and
+expensive checkpoint attempts, including failures/interruption and repair causes.
+Link existing run records; distinguish pauses and overlapping runs without
+building new metrics infrastructure. Use these observations to size the
+provisional successor. Planning approval is separate from implementation
+authorization, and neither replaces the existing merge authorization.
 
 ## Agent routine
 

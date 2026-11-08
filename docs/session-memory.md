@@ -1,5 +1,31 @@
 # Session memory
 
+## 2026-11-08 — Batch-planning merge authorized; report next unit first
+
+The owner instructed **“If you agree 346 is ready to merge please merge it as
+well. Then, report the next unit of work before beginning.”** This authorizes
+merging ready [PR #346](https://github.com/berkeleynerd/silver/pull/346),
+superseding its earlier merge hold. The reviewed twelve-task proposal and
+batching guidance remain unchanged. This documentation-only merge requires
+local document/diff checks, not another native or Lean validation run.
+
+Report [#342 — Callable integer examples](https://github.com/berkeleynerd/silver/issues/342)
+as the first proposed implementation unit, then stop before implementation.
+Milestone 21 and #342–#345 remain Backlog pending that next instruction.
+PR #339 is merged and its six issues and milestone 20 are closed. Preserve
+unrelated work and scratch files. CLI recall was not updated.
+
+## 2026-11-08 — Scalar functions merged; successor planning retargeted
+
+Owner-authorized [PR #339](https://github.com/berkeleynerd/silver/pull/339)
+merged as `05302f760f59ba887e4ebec4fb37361da02d5933`. The accepted delivery and
+merge authorization are now on main. Separate planning
+[PR #346](https://github.com/berkeleynerd/silver/pull/346) is retargeted to main,
+with its documentation conflicts reconciled against the completed delivery.
+Its reviewed proposal remains unchanged; successor #342–#345 remain Backlog.
+No implementation, proof or validation input changes in this reconciliation,
+and no successful expensive check was repeated. CLI recall was not updated.
+
 ## 2026-11-08 — Scalar-function merge authorized
 
 The owner instructed **“Let's merge it.”** This authorizes merging ready
@@ -38,6 +64,43 @@ and its milestone 21 Backlog items are outside this implementation branch.
 Preserve unrelated root-checkout changes and scratch material. This documentation
 follow-up needs no repeated successful proof/build/test run. The live harness
 goal was null; no CLI recall entry was updated.
+
+## 2026-11-08 — Coherent batch planning authorized
+
+The owner asked whether larger units could reduce repeated proof effort and how
+to structure them, then instructed **“Proceed with the planning effort we just
+discussed.”** This authorizes updating the existing development/planning guidance,
+keeping #298 as the committed batch, assessing one provisional successor,
+creating its milestone and meaningful increment issues, updating the roadmap and
+capability plan, and publishing documentation for review.
+
+The selected planning horizon is one committed batch and one provisional
+successor. Group related language forms by shared semantics/proof machinery,
+and group sample-only programs that use delivered capabilities. Preserve focused
+helper-contract verification, small reviewable increments and complete final
+combined assurance. Track scope/dependencies and focused/integrated evidence in
+existing issues and records. At delivery, record coverage gained, elapsed time
+and expensive checkpoint attempts with repair causes using the existing ledger.
+
+[Milestone 21](https://github.com/berkeleynerd/silver/milestone/21), **Scalar-function
+Rosetta batch**, is the provisional successor. Its
+[plan](scalar-function-rosetta-batch.md) evaluates twelve numeric task candidates
+against #298's fragment and separates callable examples, divisor calculations,
+digit/prime algorithms and shared delivery. The complete original #300 inventory
+remains retained; this is a selected planning subset, not its replacement.
+GCD is already delivered and Primality belongs to #298, so neither counts as a
+new mapping in this batch.
+
+This is planning authorization only. Successor implementation issues stay in
+Backlog, and implementation needs a later owner instruction after an accepted
+#298 baseline. #298's ongoing scope, validation inputs and separate merge
+authorization are unchanged. No language, catalogue, sample, Rosetta assessment
+or proof input is changed by this planning publication, and no deferred capacity
+work is resumed. [PR #346](https://github.com/berkeleynerd/silver/pull/346) publishes
+the plan for review, stacked on #339; no merge is claimed. Planning content
+`9113e2e230` received independent Astra / Max review with no material correction.
+Issues #342–#345 were verified as Backlog in milestone 21 on the Silver board.
+CLI recall tools were unavailable and no CLI recall entry was updated.
 
 ## 2026-11-08 — Astra Max and focused helper contracts authorized
 
