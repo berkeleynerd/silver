@@ -578,3 +578,62 @@ scratch outputs, that could locate its import/startup versus theorem cost
 before choosing any implementation change. It is proposed only, has not run,
 and does not justify changing the fixture timeout. Reviewer settings and
 runtime-telemetry limits remain unchanged; no CLI memory update was made.
+
+### Direct CertificateWitness profile and imported-artifact identity
+
+The coordinator authorized the single proposed direct profiling observation.
+Native Linux managed run `20261108T060219-fd618279bf6d` succeeded with fresh
+isolated outputs. Source and retained setup bytes were unchanged; original
+-j1/-M2048/warningAsError and --json/output forms were preserved, adding only
+`-Dprofiler=true -Dprofiler.threshold=0`. Pinned Lake's compiler-spawn code
+sets only LEAN_PATH in its subprocess environment; this diagnostic reproduced
+that override on the saved pre-Alire environment with relocated scratch paths.
+The command exited in 9.604 seconds within the unchanged 60-second deadline.
+No signal, repeat or remaining diagnostic process followed.
+
+The pinned profiler's exclusive cumulative report attributes 6.870 seconds to
+imports, 0.240 to initialization, 0.136 to olean serialization, 0.0469 to
+elaboration, 0.00236 to type checking and 0.0303 to C generation. Last sampled
+CPU was 8.34 seconds (3.17 user and 5.17 system), peak sampled RSS 460.0 MiB,
+and sampled scheduler wait 0.147 seconds. Import work dominates this observed
+module. The profiler does not account for every startup/teardown interval,
+and observation/instrumentation costs limit strict timing comparisons.
+
+Imported artifacts were checked separately from compiler executables. The
+managed input capture hashed all 15,127 installed lib/lean files, among 15,168
+inputs, and final checking confirmed input stability. Those reads warm file
+caches and are an explicit measurement difference. All 4,966 sampled mapped
+files, including 4,959 installed standard-library files, matched their hashes
+from the preceding initial-build diagnostic, with no new or mismatching sampled
+files. Briefly mapped files can escape sampling. No imported-artifact identity
+inventory is established for the November6 successful fixture; its matching
+Lean/Lake executable hashes alone do not establish historical library equality.
+
+Read-only mount inspection found the resolved installed Lean library on the
+repository's `virtiofs` mount, source `host`. Together with thousands of mapped
+artifacts and substantial system CPU, this supplies a concrete filesystem
+metadata/mapping-cost hypothesis. It does not prove that hypothesis or explain
+the original failures. The coordinator's 06:03:38 resource update had only
+PredicateNativeShapeCandidate still compiling alongside native12, roughly
+43 GiB available and 20 managed workers reserved; these current facts are not
+historical contention evidence.
+
+Detailed evidence is retained in
+`tmp/certificate-witness-profile-298/` in the separate review worktree, including
+raw profiler streams, CPU/I/O/wait/start observations, complete managed input
+identities, mapped-artifact comparison, source/setup hashes and fresh output
+objects. Managed elapsed time was 128.499 seconds including before/after
+library hashing, setup and retention. All diagnostic descendants exited and
+the one-worker lease was released; postflight returned to 20/22 reserved. Both
+prior diagnostic bundles and their drivers/results remain unchanged.
+
+The smallest justified next action is a reviewed plan for a matched host-local
+Lean installation observation using identical authenticated tool/library/source
+bytes and settings, distinct managed workspace ownership and the applicable
+bootstrap/platform-coexistence procedure. Preserve the live installation and
+productive caches. Such a comparison could test the filesystem hypothesis
+before selecting any fixture change; it has not been executed. This profile
+does not justify a theorem rewrite or timeout increase, and it does not pass
+the original fixture or its outstanding audit/edit stages. Reviewer settings
+remain Astra Extra High with runtime telemetry unavailable. No CLI memory
+update or publication was performed.
