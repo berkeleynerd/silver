@@ -1,0 +1,102 @@
+{
+  "review_target": "5aa1509fc5ac2d6f2dc02c5803d94da7e201aaf1",
+  "documentation_followup": "d396db2aeb498cd132bbe4b9f0ea3f0fb93687f8",
+  "bundle": "evidence.tar.gz",
+  "sha256": "fb1900bcca3685f8d7dc2083e75e46eb7c167f22c6067050c68b253015f3c239",
+  "bytes": 432596,
+  "members": 18,
+  "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-delivery-review-298/tmp/regression-applicability-review-298/shareable-evidence.tar.gz",
+  "scope": "Independent acceptance of applicable successful evidence for all 637 original regression IDs at the exact target. Original full run remains failed. No test execution by this review; native build/source/tool inputs verified. Complete native proof/audit and Lean/source correspondence remain separate mandatory conditions. Future Rosetta promotion requires three fresh tests.",
+  "member_inventory": [
+    {
+      "path": "ANALYSIS.md",
+      "bytes": 10205,
+      "sha256": "5a0d04da77921ffb113847867a8b0b207efe744720f9227bd657ec1b824d02cd"
+    },
+    {
+      "path": "audit.py",
+      "bytes": 8979,
+      "sha256": "306a6f141cae77b77f4a584e0eef13ebe099d2184dbf1520c5488d3af5b86475"
+    },
+    {
+      "path": "complete_matrix.py",
+      "bytes": 8242,
+      "sha256": "a0a3bf1ab8765a3deb611a0df7269e839564e07527b359e10364a64d0afa1c99"
+    },
+    {
+      "path": "coordinator-preparation.json",
+      "bytes": 386119,
+      "sha256": "6da93b7818c4b9057dff660a0fcfc6a97dcb67127f4772909f5c6013e040632c"
+    },
+    {
+      "path": "documentation-followup.json",
+      "bytes": 564,
+      "sha256": "3c9d206a424abb1531b19632e8864a8200d0ad61710da5ddb48bcc0a5b43c22a"
+    },
+    {
+      "path": "fixture-target-byte-identities.json",
+      "bytes": 154402,
+      "sha256": "ee9f4a0b749ae332638206fa0cbc9582bde2420d03cebf9709339457bf092391"
+    },
+    {
+      "path": "independent-ast-inventory.json",
+      "bytes": 223376,
+      "sha256": "1d3e7775336afa084f3feaf624210bcc80716d0683f3d6ff72164dde2afec2c2"
+    },
+    {
+      "path": "independent-audit-summary.json",
+      "bytes": 25670,
+      "sha256": "89a99eeeda7273d6d827f2e1c37fa3fcd09cf923930108bed85a9c0444b37503"
+    },
+    {
+      "path": "independent-final-matrix.json",
+      "bytes": 548487,
+      "sha256": "8f5198c1ec34fe7e7e22fd4af4e9410c67c4e7a1819dbf61b5def180478e64ce"
+    },
+    {
+      "path": "independent-input-identities.json",
+      "bytes": 328735,
+      "sha256": "a2307d7d6a3295889933217c9ddf723a5e64866b75edea5dcead75fe6147a553"
+    },
+    {
+      "path": "independent-original-results.json",
+      "bytes": 87633,
+      "sha256": "c2836c6881dd1ed99ad22793d9d0931b36ef85e969ed53b8f043c22667dea387"
+    },
+    {
+      "path": "independent-policy-inputs.json",
+      "bytes": 202169,
+      "sha256": "ece1896da051593c4afb65295fa9f71e118f991616521894ca3e3a9149d90399"
+    },
+    {
+      "path": "native-build-input-check.json",
+      "bytes": 714245,
+      "sha256": "eedc329e687e523be9b329feaab5f328dfd7bde3b46c14ad9abf51a987bf83d9"
+    },
+    {
+      "path": "original-pinned-lean-tools.json",
+      "bytes": 425,
+      "sha256": "3fb5c2fb65ab9dd3c87c0cf8d2f857caaddbe52b94281be8d5faef1192526e95"
+    },
+    {
+      "path": "repair-ast-equivalence.json",
+      "bytes": 272,
+      "sha256": "390b54b1c907d1dd9871302ad3ffc1f9e25ecdfc5f9a0b4e92a9ae12b560117a"
+    },
+    {
+      "path": "sample-manifest-check.json",
+      "bytes": 154,
+      "sha256": "32d1457739a652a8b31ccebe6834f0d297ce50c02be7aac74222889143bb17b2"
+    },
+    {
+      "path": "test-proof-reads.txt",
+      "bytes": 81212,
+      "sha256": "7962fa8f518f995c6ac84de68c62c9aa4b06ecc646e10b23b5589a9c812c041a"
+    },
+    {
+      "path": "verified-retained-artifacts.json",
+      "bytes": 1617,
+      "sha256": "b6680314fa5e5f5fabe16d5ad42b75a5f11bc76db3e399e0623ad37884786e31"
+    }
+  ]
+}

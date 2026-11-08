@@ -1,10 +1,11 @@
 # Final native regression evidence for #298
 
-The Linux x86-64 build passed. The complete regression run **failed** with
-635 passing tests, two subprocess-timeout errors and no skips. The repaired
-object-reuse fixture subsequently passed in full; the platform fixture still
-requires a passing check. The original complete run remains failed history,
-and final independent applicability review must account for every test.
+The Linux x86-64 build passed, and independent review now accepts applicable
+successful evidence for all 637 required regression IDs on the current inputs.
+This combines retained results and passing affected checks as detailed below.
+The original complete run remains **failed** history: 635 passes, two timeout
+errors and zero skips. Complete native proof/auditing and Lean/source assurance
+remain separate mandatory requirements.
 
 | Managed run | Inputs | Result | Managed elapsed |
 | --- | --- | --- | --- |
@@ -198,3 +199,48 @@ changes both worker waits to 180 seconds and the complete wrapper to 900 seconds
 preserving the barrier, every assertion and all twelve nested methods. One
 complete final-input wrapper check is authorized; its actual outcome and the
 complete 637-result applicability review remain outstanding.
+
+
+## Accepted current-input regression composition
+
+The [independent applicability review](../../../reviews/review-scalar-functions-delivery-20261108.md#independent-composition-of-the-final-regression-results)
+accepts integration `5aa1509fc5`, with exact production proof/source/script inputs
+`47fe4003c0` and native source `560144172c`. It explicitly extends that result
+to documentation follow-up `d396db2aeb`. The [18-member evidence bundle](applicability-review/index.json)
+retains the complete per-ID matrix, independently extracted raw outcomes,
+current AST inventory, shared-helper analysis and exact input/tool comparisons.
+Integration independently read and indexed all eighteen members by size and
+SHA-256. No additional test execution was performed by that review.
+
+| Applicable successful evidence | Required IDs | Managed run |
+| --- | ---: | --- |
+| Retained original passes | 619 | `20261108T021923-5ef7f9b81de7` |
+| Final source-policy checks | 4 | `20261108T072619-eca79cdaf440` |
+| Repaired chunk fixture | 1 | `20261108T065724-7d260468ca14` |
+| Platform method bodies through the original wrapper | 12 | `20261108T075522-000e545aebc8` |
+| Original platform wrapper | 1 | `20261108T075522-000e545aebc8` |
+| Total | 637 | |
+
+All 637 original unique IDs and outcomes match the raw log and current discovery
+inventory, including inherited methods and imported aliases. The reviewer
+accounts for eighty added Lean files, eight modified Lean files and both test-only
+watchdog repairs. All other native sources, scripts, samples, catalogue, projects,
+configuration, Lean pin/lakefile/generator and current Rosetta inputs are unchanged.
+The original build's 2,588 inputs and compiler, adapter and tool identities still
+match. All 72 sample entries and their dependencies retain their original success.
+
+Shared helper defaults, complete recursive proof reads and synthetic fixture
+boundaries are explicitly reviewed. Every affected platform method is covered
+by the successful complete wrapper on the final 866-file input set, including
+all 821 Lean files. This is a fresh symlink-environment execution of those bodies,
+not a separate fresh non-symlink run. The chunk fixture exercises its original
+small production-module subset and all eleven edits; it does not claim to prove
+the full project. Earlier failures remain failed and no correctness assertion
+or required proof obligation was waived.
+
+No current regression ID remains uncovered; an identical full-suite repeat is
+unnecessary under the repository's reviewed composition rule. The three Rosetta
+tests are currently retained because those inputs are unchanged. All three must
+run freshly after the later promotion patch. Complete native and Lean/source
+assurance, final delivery review and the actual Rosetta reconciliation remain
+outstanding.

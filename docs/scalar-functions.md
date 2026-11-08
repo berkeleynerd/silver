@@ -230,6 +230,16 @@ authorized; its outcome and final regression applicability review remain pending
 The serial function-source closure and complete native audit continue on frozen
 implementation inputs, followed by the mandatory complete Lean/source audit.
 
+The repaired complete platform wrapper subsequently passed with all twelve
+nested methods selected, unchanged final inputs and no remaining descendants.
+The [independent regression applicability review](evidence/scalar-functions-20261107/final-regression/README.md#accepted-current-input-regression-composition)
+now accepts all 637 original test IDs through retained successes and fresh
+affected checks, preserving the failed original run. It verifies source, build,
+tool and shared-fixture dependencies; no current regression ID is uncovered.
+Complete native/Lean assurance remains pending. The later Rosetta promotion
+still requires its actual render and three fresh tests, followed by final
+delivery review.
+
 Selected subthread settings are recorded from their launches; independent runtime
 confirmation, token/cost and total elapsed-work measurements are unavailable.
 Native probe time is retained by the managed records rather than inferred from
