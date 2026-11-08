@@ -1411,3 +1411,59 @@ by this review. Selected reviewer remains GPT-6 Astra / Extra High, with runtime
 telemetry unavailable. No source/test/proof/script edits, native/Lean execution,
 signals, publication, merge or CLI memory update occurred here.
 The live harness goal was rechecked and is null.
+
+### Integrated repair review: 68c4fd259b and normalization follow-up
+
+Bounded review of `0c7ed70356..68c4fd259b` found no mathematical or source-linkage
+defect in the integrated repair. This is not acceptance of a completed checked
+result: its focused Lean compilation failed, and complete final native/Lean
+evidence remains outstanding. Native parser bytes independently match the exact
+approved candidate `036a53b4bd9a9d7c711b4ddf8d83467a6b470184bfce2ac6677b15cf4f57ef47`.
+The original domain and every precondition/assertion/invariant/variant are retained.
+
+The 14 handwritten changes implement the planned semantic bridge without changing
+existing Lean model definitions or native input-domain predicates. actualAfter_zero
+is unconditional and covers Boolean and scalar readers, including both array
+metadata cases; actualsAfter_zero follows from the first rejection branch.
+The actuals tree's comma guard preserves the original model through that lemma,
+and normalization retains existing import/definition hypotheses, totalization
+and induction on last - first. The return command guard likewise preserves the
+existing return model through actualAfter_zero, keeping ReturnImports unchanged.
+All four affected semantic theorem statements were independently compared and
+are identical. The stronger native header requirements, Parameter_Frame expected
+loop and both previously reviewed reader/name repairs align with the exact source.
+
+Static reconstruction checked all 6,021 ordered line occurrences, including the
+final empty line, through 3,913 unique certificates and all 6,020 joins. They
+reproduce the exact native bytes. The ordered certificate tokens equal both the
+generated complete token list and outputImplementation: 62,191 becomes 62,309;
+every other source pin is unchanged. Generated buckets 0, 1, 2, 4, 5 and 7 change;
+3 and 6 remain byte-identical. Both scalar header lists, the Boolean header and
+Parameter_Frame's expected loop independently match complete source tokens.
+Line lexical proofs and character equality witnesses still require actual kernel
+checking; static reconstruction alone does not discharge source correspondence.
+
+Retained run `20261108T090716-23e8e3641bc7` failed at 09:10:38 UTC with exit 1
+after 200.406 s managed and a 172.551 s build. This reviewer independently verified
+all three indexed packet artifacts and read the actual error goals.
+PredicateCallAdmission, PredicateFunctionCallNative and PredicateFunctionCallEquations
+compiled. returnAfter_model retained apply2/apply4 in its goal; the comma
+normalization retained modelCalls.actual and did not match its hypothesis.
+Consequent unused-simp and recursion diagnostics remain part of that failed run.
+
+The separately reviewed follow-up `f630819154` adds only apply2/apply4 in the
+return-model simplification and modelCalls in the two comma-branch simplifications.
+It changes no statement, model, domain, native source, source tree, header, pin or
+certificate, and disables no checker/linter. The structural disposition extends
+to that follow-up; successful affected compilation is still required, followed
+by the complete native and Lean/source checks. The failed outcome is preserved.
+
+Detailed reasoning, exact handwritten/follow-up patches, static inspection script
+and results, and verified failed-run evidence are retained in
+`tmp/integrated-native-source-review-298/`. Its verified 10-member bundle is
+136,244 bytes, SHA256
+`65bf37df8fe1c3322c90296f2996c106e136912b192db9f9fd4b9820c7cf82ae`.
+No production edit, native/Lean/compiler/fixture/generator execution, signal,
+lease/cache change, publication or merge was performed by this reviewer. Selected
+reviewer remains GPT-6 Astra / Extra High; runtime telemetry is unavailable.
+The requested per-ID regression applicability preparation is separate next work.
