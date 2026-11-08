@@ -5711,6 +5711,7 @@ is
       Result : Parser_State := Frame;
       Index : Parameter_Cursor := Frame.First_Parameter;
    begin
+      if Frame.Position = 0 then return Invalid_State; end if;
       while Index <= Frame.Functions.Parameter_Count loop
          pragma Loop_Invariant (Index in Frame.First_Parameter .. Frame.Functions.Parameter_Count + 1);
          pragma Loop_Invariant (Result.Functions = Frame.Functions);
