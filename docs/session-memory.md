@@ -1,5 +1,20 @@
 # Session memory
 
+## 2026-11-08 — Batch-planning merge authorized; report next unit first
+
+The owner instructed **“If you agree 346 is ready to merge please merge it as
+well. Then, report the next unit of work before beginning.”** This authorizes
+merging ready [PR #346](https://github.com/berkeleynerd/silver/pull/346),
+superseding its earlier merge hold. The reviewed twelve-task proposal and
+batching guidance remain unchanged. This documentation-only merge requires
+local document/diff checks, not another native or Lean validation run.
+
+Report [#342 — Callable integer examples](https://github.com/berkeleynerd/silver/issues/342)
+as the first proposed implementation unit, then stop before implementation.
+Milestone 21 and #342–#345 remain Backlog pending that next instruction.
+PR #339 is merged and its six issues and milestone 20 are closed. Preserve
+unrelated work and scratch files. CLI recall was not updated.
+
 ## 2026-11-08 — Scalar functions merged; successor planning retargeted
 
 Owner-authorized [PR #339](https://github.com/berkeleynerd/silver/pull/339)

@@ -94,7 +94,7 @@ outcomes passed. The narrow Rosetta render and three tests also passed: only
 Primality by trial division moves Stage 8 to 1, taking Stage-1 mappings from
 70 to 71. Independent review accepts the complete 645-ID inventory and delivery target
 `4d9ce491ee`. PR #339 merged as `05302f760f`; its six issues and
-milestone 20 close with that delivery. Separate planning PR #346 stays open;
+milestone 20 are closed. Separate planning PR #346 is authorized to merge;
 its milestone 21 successor items remain Backlog.
 Recursion, `out`/`in out`, array/String signatures, general package admission and
 capacity rewrites remain outside this package. No split is selected; if needed,
@@ -109,6 +109,8 @@ instructed **“Proceed with the planning effort we just discussed.”** The
 [dated decision](docs/session-memory.md#2026-11-08--coherent-batch-planning-authorized)
 authorizes the batching guidance, one successor assessment, milestone/issues
 and reviewable planning publication alongside #298, now delivered.
+The owner subsequently [authorized merging ready PR #346](docs/session-memory.md#2026-11-08--batch-planning-merge-authorized-report-next-unit-first),
+with the next unit reported before implementation starts.
 
 [Milestone 21](https://github.com/berkeleynerd/silver/milestone/21) proposes
 twelve numeric tasks using the delivered scalar-function fragment. The

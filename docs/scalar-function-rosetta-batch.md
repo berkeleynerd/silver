@@ -8,12 +8,14 @@ The [dated decision](session-memory.md#2026-11-08--coherent-batch-planning-autho
 authorizes the batching guidance, candidate assessment, milestone/issues and
 reviewable planning publication. [Milestone 21](https://github.com/berkeleynerd/silver/milestone/21)
 and its implementation issues remain Backlog until a later owner instruction.
+The owner [authorized merging the ready plan](session-memory.md#2026-11-08--batch-planning-merge-authorized-report-next-unit-first)
+in PR #346 and asked for the next unit to be reported before implementation.
 
-The committed batch is still [small nonrecursive functions #298](https://github.com/berkeleynerd/silver/issues/298)
-in milestone 20 / PR #339. This successor requires its completed, accepted
-native/Lean/source assurance and delivery baseline; pending or failed checkpoints
-are not reusable success. Planning does not expand #298, change its running
-validation inputs or authorize either implementation merge.
+The preceding batch, [small nonrecursive functions #298](https://github.com/berkeleynerd/silver/issues/298),
+is complete: PR #339 merged as `05302f760f` and milestone 20 is closed. Its
+accepted native/Lean/source assurance supplies this successor's delivery baseline;
+pending or failed checkpoints are not reusable success. Planning does not expand
+#298 or authorize successor implementation.
 
 ## Outcome and choice
 
@@ -153,7 +155,7 @@ database, proof bypass or approval ceremony is part of this plan.
 ## Coverage, tracking and delivery
 
 At planning snapshot `8eec12216a`, the rendered Stage 1 has 70 task mappings.
-#298 proposes Primality as one further mapping, still pending delivery.
+#298 subsequently delivered Primality, establishing a merged baseline of 71.
 None of these twelve candidates is currently in Stage 1: legacy assessments
 place them in stages 6, 7, 8 or 13 because their older approaches request extra
 surface. A revised implementation and reviewed assessment are required before
@@ -193,10 +195,13 @@ factor-step ceilings, required sum 233168, divisor-sum ceiling 5050 and the firs
 eight happy numbers. These checks validate the planning arithmetic only.
 
 This planning pass ran no Silver admission, build, proof, sample execution or
-Rosetta render and changed no supported-assessment metadata. The current
-delivery agents retain ownership of #298's workspaces and validation. The
-planning branch is `plan/coherent-batches-20261108`, based on `8eec12216a`,
-published in [PR #346](https://github.com/berkeleynerd/silver/pull/346), stacked
-on PR #339. All four issues were checked on the Silver board as Backlog and in
+Rosetta render and changed no supported-assessment metadata. At the initial
+planning checkpoint, delivery agents retained ownership of #298's workspaces
+and validation. The planning branch is `plan/coherent-batches-20261108`,
+originally based on `8eec12216a` and published in
+[PR #346](https://github.com/berkeleynerd/silver/pull/346), stacked on PR #339.
+After #339 merged, PR #346 was retargeted to main and its documentation
+reconciled with the completed delivery. All four issues remain Backlog in
 milestone 21. Local document links and whitespace passed; later edits record
-this review/publication only. CLI recall was not updated.
+review, publication, delivery status and merge authorization only. The reviewed
+proposal is unchanged. CLI recall was not updated.
