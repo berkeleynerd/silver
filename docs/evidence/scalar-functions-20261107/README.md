@@ -211,3 +211,27 @@ annotation compiled. Expensive source objects were retained and reused. This
 is partial validation; the required complete project/source/module/axiom audit
 has started on the same governed inputs. Complete native validation, final
 regression error diagnosis/applicability and delivery review remain pending.
+
+## Complete regression outcome and source continuation — 2026-11-08
+
+The [full regression record](final-regression/README.md) retains the successful
+Linux build and failed complete test run `20261108T021923-5ef7f9b81de7` on
+`c437a41d30`: 637 discovered methods, 635 passes, two errors and zero skips.
+All 72 manifest samples passed. The errors are an initial Lake fixture build
+exceeding 60 seconds and an outer nested platform-routing fixture exceeding
+180 seconds. Exact tracebacks, commands, the ordered result inventory and all
+captured-input comparisons are retained. A timeout does not establish its
+underlying cause. The failed outcome remains failed; final-input focused
+follow-ups with unchanged deadlines and their applicability review are pending.
+
+Complete Lean run `20261108T044143-17a94f7033eb` remains active on frozen
+`2a3badff5c`. It has reported a false `candidate_matches` comparison in
+`ComposeBooleanDeclarationCandidate.lean`. The independently extracted candidate
+has 402 tokens; the unchanged native body has 495. The sole token insertion
+contains the existing function lookup, formal hiding and three hidden scalar
+type checks. The existing semantic model already renders and interprets these
+checks. The exact candidate-only repair is prepared in scratch for independent
+review and will be applied only after this run's actual outcome is retained.
+Other source computations remain productive; no active input or proof
+requirement has changed. This is an unresolved complete-check failure, not a
+completed-support claim.

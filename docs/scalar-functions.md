@@ -150,11 +150,11 @@ result is attributed to this new installation.
 The named-body continuation finished with a failed outcome at 03:24 UTC on
 2026-11-08. Its [retained diagnostic and repair record](evidence/scalar-functions-20261107/focused/20261108T022400-531d5c89d319/README.md)
 identifies the stale header/declaration candidates and source-bridge layout
-error, corrected in proof-only commit `f00205b5f8`. Focused checking is active
-again with retained objects; complete assurance and independent review remain
-pending. The full regression suite has errors in its object-reuse and symlinked
-temporary-directory platform-routing fixtures; the exact collected tracebacks and complete inventory are awaited before
-diagnosis. No timeout, warning policy, domain or required check changed.
+error, corrected in proof-only commit `f00205b5f8`. Focused checking then resumed
+with retained objects. The full regression suite reported errors in its
+object-reuse and symlinked temporary-directory platform-routing fixtures;
+the completed outcome and exact tracebacks are recorded below. No timeout,
+warning policy, domain or required check changed.
 
 The native monitoring handoff did not preserve the active execution as assumed:
 run `20261108T014042-81a35c010d1f` is interrupted with no finished event or
@@ -170,6 +170,22 @@ wrapper-refinement annotation in `2a3badff5c`. The four-target check passed with
 a fresh audit of 449 modules and 113,497 declarations, reusing the retained
 source objects. The required complete Lean/source/module/axiom audit has started;
 this focused success does not complete native or regression assurance.
+
+The [complete regression packet](evidence/scalar-functions-20261107/final-regression/README.md)
+retains 637 methods: 635 passed, two exceeded existing subprocess deadlines,
+and none was skipped. All 72 manifest samples passed admission, proof/report
+audits, build and expected runtime bytes. The errors were a 60-second initial
+proof-object fixture build and a 180-second nested platform-routing fixture;
+their causes are not established by the timeout exceptions. The original run
+remains failed. Exact final-input, unchanged-deadline focused reruns are queued
+after the complete Lean workload releases its workers.
+
+The complete Lean build has exposed a stale Boolean-declaration source
+candidate. Its token list omits five hiding checks already present in both the
+unchanged native body and its Lean model. An exact candidate-only repair is
+prepared for independent review; the active build retains frozen inputs and
+productive source objects. Complete native/Lean assurance and final delivery
+review remain pending.
 
 Selected subthread settings are recorded from their launches; independent runtime
 confirmation, token/cost and total elapsed-work measurements are unavailable.
