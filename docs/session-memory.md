@@ -21,7 +21,8 @@ compiler/native/Lean evidence. Selected settings are recorded; live model/effort
 introspection is not independently available.
 
 The [existing batch plan](scalar-function-rosetta-batch.md) remains the scope.
-Publication is prepared; hold #343's implementation merge. #344 stays unstarted;
+[PR #352](https://github.com/berkeleynerd/silver/pull/352) publishes the reviewed
+increment; hold #343's implementation merge. #344 stays unstarted;
 #345 retains the combined checkpoint and Rosetta assessment/render. Milestone 21
 remains open and rendered coverage remains 71 tasks. No CLI recall update was made.
 

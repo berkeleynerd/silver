@@ -5,7 +5,7 @@
 **First group #342 complete and merged through
 [PR #351](https://github.com/berkeleynerd/silver/pull/351);
 second group #343 implemented, validated on Linux and independently reviewed;
-publication prepared.**
+published in [PR #352](https://github.com/berkeleynerd/silver/pull/352).**
 The owner initially instructed **“Proceed with the planning effort we just discussed.”**
 The [dated decision](session-memory.md#2026-11-08--coherent-batch-planning-authorized)
 authorizes the batching guidance, candidate assessment, milestone/issues and
@@ -195,7 +195,8 @@ No language mechanism or resource budget changed. The first two groups now
 provide eight validated programs; #344's four digit/prime programs remain
 unstarted. #345 retains the combined checkpoint and narrow Rosetta assessment
 and render, so the rendered Stage-1 total remains 71. The #343 implementation
-merge remains held for the owner's later decision; milestone 21 remains open.
+is published in [PR #352](https://github.com/berkeleynerd/silver/pull/352).
+Merge remains held for the owner's later decision; milestone 21 remains open.
 
 ## Increments and ownership
 
