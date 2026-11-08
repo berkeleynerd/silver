@@ -106,3 +106,28 @@ The native source, domains and contracts are unchanged. The patch remains
 unapplied while the active run's inputs are frozen; named-body kernel checking
 and the complete validation checkpoint remain required. Successful source
 objects inside this run do not establish a successful focused audit.
+
+The same run exposed two stale Boolean-initializer context adapters: they omit
+the existing `pure` and `integerHidden` fields and use the earlier readiness/
+validity conjunction shape. A two-file proof-only correction is prepared while
+the run finishes; it changes no theorem statement, domain or native source.
+It is additional to the three-file outer repair reviewed above.
+
+## Native warning checkpoint — 2026-11-08
+
+Complete native run `20261107T231059-a9f0c12c8350` finished with **failure**.
+The [retained native packet](native-checkpoint/README.md) records all 12,558
+checks as discharged and all 585 saved Why3 roots as proved, but three compiler
+flow warnings caused exit code 1: an overwritten initializer and two unused
+private `Source` formals. Successful complete provenance was not generated.
+The compiler warning policy remains unchanged; application advisory exceptions
+do not apply to these diagnostics.
+
+The coordinator reviewed a minimal cleanup of the initializer and unused
+private parameters/actuals. Source-derived name matching, exact entity coverage,
+contracts, domains and output-profile bytes are preserved. The native owner is
+authorized to apply the exact reviewed cleanup after retaining this failed run,
+then check unit flow, rebuild and complete the native audit with retained
+sessions. Those later results remain pending. The independent integration
+certificate continues on frozen inputs; both regression build and full tests
+wait for the integrated native and proof repair snapshot.
