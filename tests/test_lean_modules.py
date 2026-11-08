@@ -52,10 +52,11 @@ class LeanModuleTests(unittest.TestCase):
         prepare_workspace(self.host, {self.root / "proof" / name: text.encode()
                                       for name, text in files.items()})
 
-    def lake(self, *arguments: str) -> subprocess.CompletedProcess[str]:
+    def lake(self, *arguments: str,
+             timeout: int = 60) -> subprocess.CompletedProcess[str]:
         return subprocess.run([str(self.host.lean / "bin/lake"), *arguments],
                               cwd=self.host.proof, env=self.environment,
-                              text=True, capture_output=True, timeout=60)
+                              text=True, capture_output=True, timeout=timeout)
 
     def build(self, *targets: str) -> subprocess.CompletedProcess[str]:
         return self.lake("--rehash", "--reconfigure", "build",
@@ -185,8 +186,11 @@ class LeanModuleTests(unittest.TestCase):
         targets = ("Silver." + certificate, "Silver.Independent", "Silver.AxiomAudit")
 
         def build():
+            # The 17-module cold build and broad edit rebuilds need more
+            # watchdog headroom than the small module probes.
             return self.lake("--rehash", "--reconfigure", "-K", "silverThreads=1",
-                             "-K", "silverMemoryMb=2048", "build", *("+" + target for target in targets))
+                             "-K", "silverMemoryMb=2048", "build",
+                             *("+" + target for target in targets), timeout=180)
 
         def regenerate():
             with mock.patch.object(check_lean, "ROOT", self.root), \
