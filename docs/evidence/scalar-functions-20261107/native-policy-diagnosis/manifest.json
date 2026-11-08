@@ -1,0 +1,55 @@
+{
+  "schema": 1,
+  "files": [
+    {
+      "path": "PLAN.md",
+      "bytes": 9328,
+      "sha256": "74f9d5d97812c16eb1fc6984ebe938a10b6821056953483f98dfec4fd2e7b134"
+    },
+    {
+      "path": "annotation-guide.txt",
+      "bytes": 5760,
+      "sha256": "78e3a947f3abfde79c22ef84ca78189bcc1e0948c1f898e892a1f36545084848"
+    },
+    {
+      "path": "audit-order.txt",
+      "bytes": 1754,
+      "sha256": "b30918ccbf2f63a32ca6e2014ea7dff1f9b13060014e6dae6552fc072ed5d589"
+    },
+    {
+      "path": "diagnosis-evidence.json",
+      "bytes": 65082,
+      "sha256": "238d145fd09903f89be05924eafff4040c51bb78f84a733901feed42ea587d11"
+    },
+    {
+      "path": "native-annotations.txt",
+      "bytes": 2992,
+      "sha256": "23c60b8b900fe2cc8e5bf53a8ce1140e84828538fca7cdb9cc5a4624d3002e8b"
+    },
+    {
+      "path": "reassociation-guidance.txt",
+      "bytes": 1618,
+      "sha256": "ba57f14efd52b6ceceed45f9ba1cb07da3a8b8daab4dd49205d84b75f172918b"
+    },
+    {
+      "path": "reassociation-lrm.txt",
+      "bytes": 1171,
+      "sha256": "6d90e7f57431a78ee936af3b53e85005beaf4ef0fe9a816e4b77106a99ba46ff"
+    },
+    {
+      "path": "review-report-append.patch",
+      "bytes": 12059,
+      "sha256": "20f94d471e596e21c8a746f06d62c3f0ffbc3029711dc81cd9f5c425574b5d0b"
+    },
+    {
+      "path": "source-policy.txt",
+      "bytes": 3848,
+      "sha256": "a1506b87dd01a5bdc7ad6f06687023f4533eb534f765800079c0636e743d26a0"
+    },
+    {
+      "path": "summary.json",
+      "bytes": 1059,
+      "sha256": "b5d52354f3d61ea897d42ca1a0840b708b5ed6aaa1aa6c704c911d30fec1ce95"
+    }
+  ]
+}
