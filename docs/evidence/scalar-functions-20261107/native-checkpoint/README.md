@@ -1,6 +1,13 @@
-# Complete native checkpoint — failed warnings-as-errors run retained
+# Native checkpoint history — failed runs retained
 
-Final native source is authoritative integration commit `9469d5632b`, native
+The corrected-source continuation `20261108T040128-2651963b8574` finished with
+failure on 2026-11-08: four parser postconditions remain unproved among 18,524
+checks. The [warning-cleanup packet](warning-cleanup/README.md) records its exact
+final reports, failed tasks, source identities and interrupted predecessor.
+No successful complete native obligation/coverage/provenance audit is claimed.
+The earlier warnings-as-errors failure below remains historical evidence.
+
+Earlier native source is authoritative integration commit `9469d5632b`, native
 identical to `bc800d4e82`. This isolated validation worktree imported only
 `src/silver_output_profile.adb` in sync-only commit `3b3e5e3990`; do not cherry-pick
 that source-sync commit into the implementation branch. All 276 selected native
