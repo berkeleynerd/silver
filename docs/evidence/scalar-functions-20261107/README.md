@@ -158,17 +158,24 @@ those three proof files. Its retained token inventory compares each candidate
 with the unchanged native body and existing semantic rendering; the native
 implementation, theorem statements, domains and contracts are unchanged.
 
-In follow-up run `20261108T022400-531d5c89d319`, both candidate rendering proofs
-and the Boolean import proof compiled. The named-body source candidate remains
-active. A later `ComposeSourceBridge` record-update layout error has a prepared
-formatting correction, held until this productive run releases its frozen
-workspace. No successful focused audit or complete Lean checkpoint is claimed.
-The three proof corrections and upcoming layout correction still require final
+In [follow-up run `20261108T022400-531d5c89d319`](focused/20261108T022400-531d5c89d319/README.md),
+both candidate rendering proofs and the Boolean import proof compiled. The run
+finished with failure: the named-body leaf found stale catalog/header and type
+declaration requirements, alongside the known `ComposeSourceBridge` layout
+error. Commit `f00205b5f8` updates those source requirements against the unchanged
+native definitions and semantic models, preserving the typed contract renderers,
+and aligns the four unchanged record-update fields. Its exact token deltas and
+failed log are retained. The same four focused targets are being checked again
+with the existing objects before the required complete Lean/source/module/axiom
+audit. These corrections and the three preceding proof repairs still require
 independent review; the earlier bounded report did not inspect them.
 
 The regression build passed and the full 637-method suite is running on frozen
-`c437a41d30`. Later changes are proof-only; final regression applicability and
-any affected reruns will be recorded after its actual full outcome. The suite's
+`c437a41d30`. It has reported one error in the output-body chunk object-reuse
+test; its exact traceback is deferred by unittest until suite completion.
+The full inventory is being preserved before diagnosis or any targeted rerun.
+Later changes are proof-only; final regression applicability and any affected
+reruns will be recorded after its actual full outcome. The suite's
 managed two-worker reservation is not an enforced application cap: the existing
 application recipe uses `-j0`, resolving to 22 on this host. Its owner retains
 observed process/load evidence; no source, proof option or timeout was changed.

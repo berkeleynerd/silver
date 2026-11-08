@@ -147,6 +147,15 @@ result is attributed to this new installation.
 | 2026-11-08 | Native/regression coordination: GPT-6.1 Sol / High selected; delivery coordinator runtime setting not independently exposed | Retain complete native outcome and prepare minimal remaining repairs | The [complete native run](evidence/scalar-functions-20261107/native-checkpoint/README.md) discharged all 12,558 checks but failed on three compiler flow warnings; successful full provenance/audit remains absent. The reviewed private-parameter/initializer cleanup is committed in the isolated native worktree for focused flow, build and complete audit refresh. The integration run has compiled all eight output source chunks and Compose source candidates; its output certificate remains active on frozen inputs. Two additional Boolean-context adapter repairs are prepared alongside the reviewed outer repair. Both regression build and full tests await the exact integrated snapshot. No support or merge-readiness claim is made. |
 | 2026-11-08 02:15 onward | Native/regression coordination: GPT-6.1 Sol / High; prior bounded review: GPT-6 Astra / Extra High selected; delivery coordinator runtime setting not independently exposed | Integrate reviewed repairs and finish actual-source validation | The frozen source run finished with two known failure groups while compiling its output certificate and downstream source bridges. All five reviewed repairs are applied and compiled. Expanded checking exposed two stale basic/loop candidates and a Boolean proof let binder; three proof-only corrections at `6a74bccc5a` now compile. The named-body candidate remains active, with a later source-bridge layout correction prepared. The [evidence continuation](evidence/scalar-functions-20261107/README.md#expanded-source-check-continuation--2026-11-08) retains failed scopes and pending checks. Full regression build passed and the complete suite is running on its frozen snapshot; complete native/source assurance and final review remain pending. |
 
+The named-body continuation finished with a failed outcome at 03:24 UTC on
+2026-11-08. Its [retained diagnostic and repair record](evidence/scalar-functions-20261107/focused/20261108T022400-531d5c89d319/README.md)
+identifies the stale header/declaration candidates and source-bridge layout
+error, corrected in proof-only commit `f00205b5f8`. Focused checking is active
+again with retained objects; complete assurance and independent review remain
+pending. The full regression suite also has one object-reuse fixture error;
+the exact collected traceback and complete inventory are awaited before
+diagnosis. No timeout, warning policy, domain or required check changed.
+
 Selected subthread settings are recorded from their launches; independent runtime
 confirmation, token/cost and total elapsed-work measurements are unavailable.
 Native probe time is retained by the managed records rather than inferred from
