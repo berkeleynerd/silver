@@ -1,0 +1,428 @@
+{
+  "native": {
+    "body": {
+      "path": "src/silver_output_profile.adb",
+      "sha256": "9ec28d94a41c81bb68168bb674792bc44bf1ddeae69e71d4d3e11b153786b77f"
+    },
+    "spec": {
+      "path": "src/silver_output_profile.ads",
+      "sha256": "b24b61c1c147f0ad46d0dd15565daa7733c86f8417236f95d56ce8977dbf0862"
+    }
+  },
+  "old_sha256": "84d72f43375f02432e71ea016a8be7a0058832a6303d4b42ee3dbfe3798618ce",
+  "new_sha256": "78c4b2a6f279f6147f73c138223fe0ce8241559b45c27981f78878e24af2c617",
+  "changes": [
+    {
+      "definition": "body_basic_body_spec_header",
+      "before": "  [\"(\", \"text\", \":\", \"string\", \";\", \"context\", \":\", \"body_context\", \";\", \"scan\", \":\", \"body_scan\", \")\", \"return\", \"body_scan\", \"with\", \"global\", \"=>\", \"null\", \",\", \"pre\", \"=>\", \"text\", \"'\", \"first\", \"=\", \"1\", \"and\", \"then\", \"text\", \"'\", \"length\", \"in\", \"1\", \"..\", \"max_source_length\", \"and\", \"then\", \"valid_context\", \"(\", \"text\", \",\", \"context\", \")\", \"and\", \"then\", \"valid_body\", \"(\", \"text\", \",\", \"context\", \",\", \"scan\", \")\", \",\", \"post\", \"=>\", \"valid_body\", \"(\", \"text\", \",\", \"context\", \",\", \"basic_body\", \"'\", \"result\", \")\", \"and\", \"then\", \"(\", \"basic_body\", \"'\", \"result\", \".\", \"position\", \"=\", \"0\", \"or\", \"else\", \"basic_body\", \"'\", \"result\", \".\", \"position\", \">\", \"scan\", \".\", \"position\", \")\"]",
+      "after": "  [\"(\", \"text\", \":\", \"string\", \";\", \"context\", \":\", \"body_context\", \";\", \"scan\", \":\", \"body_scan\", \";\", \"catalog\", \":\", \"functions\", \".\", \"metadata\", \")\", \"return\", \"body_scan\", \"with\", \"global\", \"=>\", \"null\", \",\", \"pre\", \"=>\", \"text\", \"'\", \"first\", \"=\", \"1\", \"and\", \"then\", \"text\", \"'\", \"length\", \"in\", \"1\", \"..\", \"max_source_length\", \"and\", \"then\", \"functions\", \".\", \"valid_metadata\", \"(\", \"text\", \",\", \"catalog\", \")\", \"and\", \"then\", \"valid_context\", \"(\", \"text\", \",\", \"context\", \")\", \"and\", \"then\", \"valid_body\", \"(\", \"text\", \",\", \"context\", \",\", \"scan\", \")\", \",\", \"post\", \"=>\", \"valid_body\", \"(\", \"text\", \",\", \"context\", \",\", \"basic_body\", \"'\", \"result\", \")\", \"and\", \"then\", \"(\", \"basic_body\", \"'\", \"result\", \".\", \"position\", \"=\", \"0\", \"or\", \"else\", \"basic_body\", \"'\", \"result\", \".\", \"position\", \">\", \"scan\", \".\", \"position\", \")\"]",
+      "token_changes": [
+        {
+          "op": "insert",
+          "old": [],
+          "new": [
+            ";",
+            "catalog",
+            ":",
+            "functions",
+            ".",
+            "metadata"
+          ]
+        },
+        {
+          "op": "insert",
+          "old": [],
+          "new": [
+            "and",
+            "then",
+            "functions",
+            ".",
+            "valid_metadata",
+            "(",
+            "text",
+            ",",
+            "catalog",
+            ")"
+          ]
+        }
+      ]
+    },
+    {
+      "definition": "body_basic_body_impl_header",
+      "before": "  [\"(\", \"text\", \":\", \"string\", \";\", \"context\", \":\", \"body_context\", \";\", \"scan\", \":\", \"body_scan\", \")\", \"return\", \"body_scan\"]",
+      "after": "  [\"(\", \"text\", \":\", \"string\", \";\", \"context\", \":\", \"body_context\", \";\", \"scan\", \":\", \"body_scan\", \";\", \"catalog\", \":\", \"functions\", \".\", \"metadata\", \")\", \"return\", \"body_scan\"]",
+      "token_changes": [
+        {
+          "op": "insert",
+          "old": [],
+          "new": [
+            ";",
+            "catalog",
+            ":",
+            "functions",
+            ".",
+            "metadata"
+          ]
+        }
+      ]
+    },
+    {
+      "definition": "body_statement_body_spec_header",
+      "before": "  [\"(\", \"text\", \":\", \"string\", \";\", \"context\", \":\", \"body_context\", \";\", \"scan\", \":\", \"body_scan\", \")\", \"return\", \"body_scan\", \"with\", \"global\", \"=>\", \"null\", \",\", \"pre\", \"=>\", \"text\", \"'\", \"first\", \"=\", \"1\", \"and\", \"then\", \"text\", \"'\", \"length\", \"in\", \"1\", \"..\", \"max_source_length\", \"and\", \"then\", \"valid_context\", \"(\", \"text\", \",\", \"context\", \")\", \"and\", \"then\", \"valid_body\", \"(\", \"text\", \",\", \"context\", \",\", \"scan\", \")\", \",\", \"post\", \"=>\", \"valid_body\", \"(\", \"text\", \",\", \"context\", \",\", \"statement_body\", \"'\", \"result\", \")\", \"and\", \"then\", \"(\", \"statement_body\", \"'\", \"result\", \".\", \"position\", \"=\", \"0\", \"or\", \"else\", \"statement_body\", \"'\", \"result\", \".\", \"position\", \">\", \"scan\", \".\", \"position\", \")\", \",\", \"subprogram_variant\", \"=>\", \"(\", \"decreases\", \"=>\", \"(\", \"text\", \"'\", \"last\", \"+\", \"1\", \")\", \"-\", \"scan\", \".\", \"position\", \",\", \"decreases\", \"=>\", \"2\", \")\"]",
+      "after": "  [\"(\", \"text\", \":\", \"string\", \";\", \"context\", \":\", \"body_context\", \";\", \"scan\", \":\", \"body_scan\", \";\", \"catalog\", \":\", \"functions\", \".\", \"metadata\", \")\", \"return\", \"body_scan\", \"with\", \"global\", \"=>\", \"null\", \",\", \"pre\", \"=>\", \"text\", \"'\", \"first\", \"=\", \"1\", \"and\", \"then\", \"text\", \"'\", \"length\", \"in\", \"1\", \"..\", \"max_source_length\", \"and\", \"then\", \"functions\", \".\", \"valid_metadata\", \"(\", \"text\", \",\", \"catalog\", \")\", \"and\", \"then\", \"valid_context\", \"(\", \"text\", \",\", \"context\", \")\", \"and\", \"then\", \"valid_body\", \"(\", \"text\", \",\", \"context\", \",\", \"scan\", \")\", \",\", \"post\", \"=>\", \"valid_body\", \"(\", \"text\", \",\", \"context\", \",\", \"statement_body\", \"'\", \"result\", \")\", \"and\", \"then\", \"(\", \"statement_body\", \"'\", \"result\", \".\", \"position\", \"=\", \"0\", \"or\", \"else\", \"statement_body\", \"'\", \"result\", \".\", \"position\", \">\", \"scan\", \".\", \"position\", \")\", \",\", \"subprogram_variant\", \"=>\", \"(\", \"decreases\", \"=>\", \"(\", \"text\", \"'\", \"last\", \"+\", \"1\", \")\", \"-\", \"scan\", \".\", \"position\", \",\", \"decreases\", \"=>\", \"2\", \")\"]",
+      "token_changes": [
+        {
+          "op": "insert",
+          "old": [],
+          "new": [
+            ";",
+            "catalog",
+            ":",
+            "functions",
+            ".",
+            "metadata"
+          ]
+        },
+        {
+          "op": "insert",
+          "old": [],
+          "new": [
+            "and",
+            "then",
+            "functions",
+            ".",
+            "valid_metadata",
+            "(",
+            "text",
+            ",",
+            "catalog",
+            ")"
+          ]
+        }
+      ]
+    },
+    {
+      "definition": "body_statement_body_impl_header",
+      "before": "  [\"(\", \"text\", \":\", \"string\", \";\", \"context\", \":\", \"body_context\", \";\", \"scan\", \":\", \"body_scan\", \")\", \"return\", \"body_scan\"]",
+      "after": "  [\"(\", \"text\", \":\", \"string\", \";\", \"context\", \":\", \"body_context\", \";\", \"scan\", \":\", \"body_scan\", \";\", \"catalog\", \":\", \"functions\", \".\", \"metadata\", \")\", \"return\", \"body_scan\"]",
+      "token_changes": [
+        {
+          "op": "insert",
+          "old": [],
+          "new": [
+            ";",
+            "catalog",
+            ":",
+            "functions",
+            ".",
+            "metadata"
+          ]
+        }
+      ]
+    },
+    {
+      "definition": "body_loop_body_spec_header",
+      "before": "  [\"(\", \"text\", \":\", \"string\", \";\", \"context\", \":\", \"body_context\", \";\", \"scan\", \":\", \"body_scan\", \")\", \"return\", \"body_scan\", \"with\", \"global\", \"=>\", \"null\", \",\", \"pre\", \"=>\", \"text\", \"'\", \"first\", \"=\", \"1\", \"and\", \"then\", \"text\", \"'\", \"length\", \"in\", \"1\", \"..\", \"max_source_length\", \"and\", \"then\", \"valid_context\", \"(\", \"text\", \",\", \"context\", \")\", \"and\", \"then\", \"valid_body\", \"(\", \"text\", \",\", \"context\", \",\", \"scan\", \")\", \",\", \"post\", \"=>\", \"valid_body\", \"(\", \"text\", \",\", \"context\", \",\", \"loop_body\", \"'\", \"result\", \")\", \"and\", \"then\", \"(\", \"loop_body\", \"'\", \"result\", \".\", \"position\", \"=\", \"0\", \"or\", \"else\", \"loop_body\", \"'\", \"result\", \".\", \"position\", \">\", \"scan\", \".\", \"position\", \")\", \",\", \"subprogram_variant\", \"=>\", \"(\", \"decreases\", \"=>\", \"(\", \"text\", \"'\", \"last\", \"+\", \"1\", \")\", \"-\", \"scan\", \".\", \"position\", \",\", \"decreases\", \"=>\", \"1\", \")\"]",
+      "after": "  [\"(\", \"text\", \":\", \"string\", \";\", \"context\", \":\", \"body_context\", \";\", \"scan\", \":\", \"body_scan\", \";\", \"catalog\", \":\", \"functions\", \".\", \"metadata\", \")\", \"return\", \"body_scan\", \"with\", \"global\", \"=>\", \"null\", \",\", \"pre\", \"=>\", \"text\", \"'\", \"first\", \"=\", \"1\", \"and\", \"then\", \"text\", \"'\", \"length\", \"in\", \"1\", \"..\", \"max_source_length\", \"and\", \"then\", \"functions\", \".\", \"valid_metadata\", \"(\", \"text\", \",\", \"catalog\", \")\", \"and\", \"then\", \"valid_context\", \"(\", \"text\", \",\", \"context\", \")\", \"and\", \"then\", \"valid_body\", \"(\", \"text\", \",\", \"context\", \",\", \"scan\", \")\", \",\", \"post\", \"=>\", \"valid_body\", \"(\", \"text\", \",\", \"context\", \",\", \"loop_body\", \"'\", \"result\", \")\", \"and\", \"then\", \"(\", \"loop_body\", \"'\", \"result\", \".\", \"position\", \"=\", \"0\", \"or\", \"else\", \"loop_body\", \"'\", \"result\", \".\", \"position\", \">\", \"scan\", \".\", \"position\", \")\", \",\", \"subprogram_variant\", \"=>\", \"(\", \"decreases\", \"=>\", \"(\", \"text\", \"'\", \"last\", \"+\", \"1\", \")\", \"-\", \"scan\", \".\", \"position\", \",\", \"decreases\", \"=>\", \"1\", \")\"]",
+      "token_changes": [
+        {
+          "op": "insert",
+          "old": [],
+          "new": [
+            ";",
+            "catalog",
+            ":",
+            "functions",
+            ".",
+            "metadata"
+          ]
+        },
+        {
+          "op": "insert",
+          "old": [],
+          "new": [
+            "and",
+            "then",
+            "functions",
+            ".",
+            "valid_metadata",
+            "(",
+            "text",
+            ",",
+            "catalog",
+            ")"
+          ]
+        }
+      ]
+    },
+    {
+      "definition": "body_loop_body_impl_header",
+      "before": "  [\"(\", \"text\", \":\", \"string\", \";\", \"context\", \":\", \"body_context\", \";\", \"scan\", \":\", \"body_scan\", \")\", \"return\", \"body_scan\"]",
+      "after": "  [\"(\", \"text\", \":\", \"string\", \";\", \"context\", \":\", \"body_context\", \";\", \"scan\", \":\", \"body_scan\", \";\", \"catalog\", \":\", \"functions\", \".\", \"metadata\", \")\", \"return\", \"body_scan\"]",
+      "token_changes": [
+        {
+          "op": "insert",
+          "old": [],
+          "new": [
+            ";",
+            "catalog",
+            ":",
+            "functions",
+            ".",
+            "metadata"
+          ]
+        }
+      ]
+    },
+    {
+      "definition": "body_conditional_body_spec_header",
+      "before": "  [\"(\", \"text\", \":\", \"string\", \";\", \"context\", \":\", \"body_context\", \";\", \"scan\", \":\", \"body_scan\", \")\", \"return\", \"body_scan\", \"with\", \"global\", \"=>\", \"null\", \",\", \"pre\", \"=>\", \"text\", \"'\", \"first\", \"=\", \"1\", \"and\", \"then\", \"text\", \"'\", \"length\", \"in\", \"1\", \"..\", \"max_source_length\", \"and\", \"then\", \"valid_context\", \"(\", \"text\", \",\", \"context\", \")\", \"and\", \"then\", \"valid_body\", \"(\", \"text\", \",\", \"context\", \",\", \"scan\", \")\", \",\", \"post\", \"=>\", \"valid_body\", \"(\", \"text\", \",\", \"context\", \",\", \"conditional_body\", \"'\", \"result\", \")\", \"and\", \"then\", \"(\", \"conditional_body\", \"'\", \"result\", \".\", \"position\", \"=\", \"0\", \"or\", \"else\", \"conditional_body\", \"'\", \"result\", \".\", \"position\", \">\", \"scan\", \".\", \"position\", \")\", \",\", \"subprogram_variant\", \"=>\", \"(\", \"decreases\", \"=>\", \"(\", \"text\", \"'\", \"last\", \"+\", \"1\", \")\", \"-\", \"scan\", \".\", \"position\", \",\", \"decreases\", \"=>\", \"1\", \")\"]",
+      "after": "  [\"(\", \"text\", \":\", \"string\", \";\", \"context\", \":\", \"body_context\", \";\", \"scan\", \":\", \"body_scan\", \";\", \"catalog\", \":\", \"functions\", \".\", \"metadata\", \")\", \"return\", \"body_scan\", \"with\", \"global\", \"=>\", \"null\", \",\", \"pre\", \"=>\", \"text\", \"'\", \"first\", \"=\", \"1\", \"and\", \"then\", \"text\", \"'\", \"length\", \"in\", \"1\", \"..\", \"max_source_length\", \"and\", \"then\", \"functions\", \".\", \"valid_metadata\", \"(\", \"text\", \",\", \"catalog\", \")\", \"and\", \"then\", \"valid_context\", \"(\", \"text\", \",\", \"context\", \")\", \"and\", \"then\", \"valid_body\", \"(\", \"text\", \",\", \"context\", \",\", \"scan\", \")\", \",\", \"post\", \"=>\", \"valid_body\", \"(\", \"text\", \",\", \"context\", \",\", \"conditional_body\", \"'\", \"result\", \")\", \"and\", \"then\", \"(\", \"conditional_body\", \"'\", \"result\", \".\", \"position\", \"=\", \"0\", \"or\", \"else\", \"conditional_body\", \"'\", \"result\", \".\", \"position\", \">\", \"scan\", \".\", \"position\", \")\", \",\", \"subprogram_variant\", \"=>\", \"(\", \"decreases\", \"=>\", \"(\", \"text\", \"'\", \"last\", \"+\", \"1\", \")\", \"-\", \"scan\", \".\", \"position\", \",\", \"decreases\", \"=>\", \"1\", \")\"]",
+      "token_changes": [
+        {
+          "op": "insert",
+          "old": [],
+          "new": [
+            ";",
+            "catalog",
+            ":",
+            "functions",
+            ".",
+            "metadata"
+          ]
+        },
+        {
+          "op": "insert",
+          "old": [],
+          "new": [
+            "and",
+            "then",
+            "functions",
+            ".",
+            "valid_metadata",
+            "(",
+            "text",
+            ",",
+            "catalog",
+            ")"
+          ]
+        }
+      ]
+    },
+    {
+      "definition": "body_conditional_body_impl_header",
+      "before": "  [\"(\", \"text\", \":\", \"string\", \";\", \"context\", \":\", \"body_context\", \";\", \"scan\", \":\", \"body_scan\", \")\", \"return\", \"body_scan\"]",
+      "after": "  [\"(\", \"text\", \":\", \"string\", \";\", \"context\", \":\", \"body_context\", \";\", \"scan\", \":\", \"body_scan\", \";\", \"catalog\", \":\", \"functions\", \".\", \"metadata\", \")\", \"return\", \"body_scan\"]",
+      "token_changes": [
+        {
+          "op": "insert",
+          "old": [],
+          "new": [
+            ";",
+            "catalog",
+            ":",
+            "functions",
+            ".",
+            "metadata"
+          ]
+        }
+      ]
+    },
+    {
+      "definition": "body_alternative_body_spec_header",
+      "before": "  [\"(\", \"text\", \":\", \"string\", \";\", \"context\", \":\", \"body_context\", \";\", \"scan\", \":\", \"body_scan\", \")\", \"return\", \"body_scan\", \"with\", \"global\", \"=>\", \"null\", \",\", \"pre\", \"=>\", \"text\", \"'\", \"first\", \"=\", \"1\", \"and\", \"then\", \"text\", \"'\", \"length\", \"in\", \"1\", \"..\", \"max_source_length\", \"and\", \"then\", \"valid_context\", \"(\", \"text\", \",\", \"context\", \")\", \"and\", \"then\", \"valid_body\", \"(\", \"text\", \",\", \"context\", \",\", \"scan\", \")\", \",\", \"post\", \"=>\", \"valid_body\", \"(\", \"text\", \",\", \"context\", \",\", \"alternative_body\", \"'\", \"result\", \")\", \"and\", \"then\", \"(\", \"alternative_body\", \"'\", \"result\", \".\", \"position\", \"=\", \"0\", \"or\", \"else\", \"alternative_body\", \"'\", \"result\", \".\", \"position\", \">=\", \"scan\", \".\", \"position\", \")\", \",\", \"subprogram_variant\", \"=>\", \"(\", \"decreases\", \"=>\", \"(\", \"text\", \"'\", \"last\", \"+\", \"1\", \")\", \"-\", \"scan\", \".\", \"position\", \",\", \"decreases\", \"=>\", \"1\", \")\"]",
+      "after": "  [\"(\", \"text\", \":\", \"string\", \";\", \"context\", \":\", \"body_context\", \";\", \"scan\", \":\", \"body_scan\", \";\", \"catalog\", \":\", \"functions\", \".\", \"metadata\", \")\", \"return\", \"body_scan\", \"with\", \"global\", \"=>\", \"null\", \",\", \"pre\", \"=>\", \"text\", \"'\", \"first\", \"=\", \"1\", \"and\", \"then\", \"text\", \"'\", \"length\", \"in\", \"1\", \"..\", \"max_source_length\", \"and\", \"then\", \"functions\", \".\", \"valid_metadata\", \"(\", \"text\", \",\", \"catalog\", \")\", \"and\", \"then\", \"valid_context\", \"(\", \"text\", \",\", \"context\", \")\", \"and\", \"then\", \"valid_body\", \"(\", \"text\", \",\", \"context\", \",\", \"scan\", \")\", \",\", \"post\", \"=>\", \"valid_body\", \"(\", \"text\", \",\", \"context\", \",\", \"alternative_body\", \"'\", \"result\", \")\", \"and\", \"then\", \"(\", \"alternative_body\", \"'\", \"result\", \".\", \"position\", \"=\", \"0\", \"or\", \"else\", \"alternative_body\", \"'\", \"result\", \".\", \"position\", \">=\", \"scan\", \".\", \"position\", \")\", \",\", \"subprogram_variant\", \"=>\", \"(\", \"decreases\", \"=>\", \"(\", \"text\", \"'\", \"last\", \"+\", \"1\", \")\", \"-\", \"scan\", \".\", \"position\", \",\", \"decreases\", \"=>\", \"1\", \")\"]",
+      "token_changes": [
+        {
+          "op": "insert",
+          "old": [],
+          "new": [
+            ";",
+            "catalog",
+            ":",
+            "functions",
+            ".",
+            "metadata"
+          ]
+        },
+        {
+          "op": "insert",
+          "old": [],
+          "new": [
+            "and",
+            "then",
+            "functions",
+            ".",
+            "valid_metadata",
+            "(",
+            "text",
+            ",",
+            "catalog",
+            ")"
+          ]
+        }
+      ]
+    },
+    {
+      "definition": "body_alternative_body_impl_header",
+      "before": "  [\"(\", \"text\", \":\", \"string\", \";\", \"context\", \":\", \"body_context\", \";\", \"scan\", \":\", \"body_scan\", \")\", \"return\", \"body_scan\"]",
+      "after": "  [\"(\", \"text\", \":\", \"string\", \";\", \"context\", \":\", \"body_context\", \";\", \"scan\", \":\", \"body_scan\", \";\", \"catalog\", \":\", \"functions\", \".\", \"metadata\", \")\", \"return\", \"body_scan\"]",
+      "token_changes": [
+        {
+          "op": "insert",
+          "old": [],
+          "new": [
+            ";",
+            "catalog",
+            ":",
+            "functions",
+            ".",
+            "metadata"
+          ]
+        }
+      ]
+    },
+    {
+      "definition": "spec_is_word_token_spec_header",
+      "before": "  [\"(\", \"token\", \":\", \"token_kind\", \")\", \"return\", \"boolean\", \"with\", \"global\", \"=>\", \"null\", \",\", \"post\", \"=>\", \"is_word_token\", \"'\", \"result\", \"=\", \"(\", \"token_kind\", \"'\", \"pos\", \"(\", \"token\", \")\", \"in\", \"0\", \"..\", \"10\", \"or\", \"else\", \"token\", \"in\", \"constant_keyword\", \"|\", \"string_name\", \"|\", \"arguments_name\", \"|\", \"first_or_default_name\", \"|\", \"if_keyword\", \"|\", \"input_is_valid_name\", \"|\", \"then_keyword\", \"|\", \"else_keyword\", \"|\", \"elsif_keyword\", \"|\", \"reject_name\", \"|\", \"and_keyword\", \"|\", \"length_name\", \"|\", \"or_keyword\", \"|\", \"not_keyword\", \"|\", \"null_keyword\", \"|\", \"integer_name\", \"|\", \"for_keyword\", \"|\", \"in_keyword\", \"|\", \"reverse_keyword\", \"|\", \"loop_keyword\", \"|\", \"range_keyword\", \"|\", \"array_keyword\", \"|\", \"of_keyword\", \"|\", \"subtype_keyword\", \"|\", \"boolean_name\", \"|\", \"true_name\", \"|\", \"false_name\", \"|\", \"xor_keyword\", \"|\", \"character_name\", \")\"]",
+      "after": "  [\"(\", \"token\", \":\", \"token_kind\", \")\", \"return\", \"boolean\", \"with\", \"global\", \"=>\", \"null\", \",\", \"post\", \"=>\", \"is_word_token\", \"'\", \"result\", \"=\", \"(\", \"token_kind\", \"'\", \"pos\", \"(\", \"token\", \")\", \"in\", \"0\", \"..\", \"10\", \"or\", \"else\", \"token\", \"in\", \"constant_keyword\", \"|\", \"string_name\", \"|\", \"arguments_name\", \"|\", \"first_or_default_name\", \"|\", \"if_keyword\", \"|\", \"input_is_valid_name\", \"|\", \"then_keyword\", \"|\", \"else_keyword\", \"|\", \"elsif_keyword\", \"|\", \"reject_name\", \"|\", \"and_keyword\", \"|\", \"length_name\", \"|\", \"or_keyword\", \"|\", \"not_keyword\", \"|\", \"null_keyword\", \"|\", \"integer_name\", \"|\", \"for_keyword\", \"|\", \"in_keyword\", \"|\", \"reverse_keyword\", \"|\", \"loop_keyword\", \"|\", \"range_keyword\", \"|\", \"array_keyword\", \"|\", \"of_keyword\", \"|\", \"subtype_keyword\", \"|\", \"boolean_name\", \"|\", \"true_name\", \"|\", \"false_name\", \"|\", \"xor_keyword\", \"|\", \"character_name\", \"|\", \"function_keyword\", \"|\", \"return_keyword\", \")\"]",
+      "token_changes": [
+        {
+          "op": "insert",
+          "old": [],
+          "new": [
+            "|",
+            "function_keyword",
+            "|",
+            "return_keyword"
+          ]
+        }
+      ]
+    },
+    {
+      "definition": "body_body_tail_impl_header",
+      "before": "  [\"(\", \"text\", \":\", \"string\", \";\", \"context\", \":\", \"body_context\", \";\", \"scan\", \":\", \"body_scan\", \";\", \"stop\", \":\", \"body_stop\", \")\", \"return\", \"body_scan\"]",
+      "after": "  [\"(\", \"text\", \":\", \"string\", \";\", \"context\", \":\", \"body_context\", \";\", \"scan\", \":\", \"body_scan\", \";\", \"stop\", \":\", \"body_stop\", \";\", \"catalog\", \":\", \"functions\", \".\", \"metadata\", \")\", \"return\", \"body_scan\"]",
+      "token_changes": [
+        {
+          "op": "insert",
+          "old": [],
+          "new": [
+            ";",
+            "catalog",
+            ":",
+            "functions",
+            ".",
+            "metadata"
+          ]
+        }
+      ]
+    },
+    {
+      "definition": "body_read_body_impl_header",
+      "before": "  [\"(\", \"text\", \":\", \"string\", \";\", \"context\", \":\", \"body_context\", \";\", \"scan\", \":\", \"body_scan\", \";\", \"stop\", \":\", \"body_stop\", \")\", \"return\", \"body_scan\"]",
+      "after": "  [\"(\", \"text\", \":\", \"string\", \";\", \"context\", \":\", \"body_context\", \";\", \"scan\", \":\", \"body_scan\", \";\", \"stop\", \":\", \"body_stop\", \";\", \"catalog\", \":\", \"functions\", \".\", \"metadata\", \")\", \"return\", \"body_scan\"]",
+      "token_changes": [
+        {
+          "op": "insert",
+          "old": [],
+          "new": [
+            ";",
+            "catalog",
+            ":",
+            "functions",
+            ".",
+            "metadata"
+          ]
+        }
+      ]
+    },
+    {
+      "definition": "body_expand_body_impl_header",
+      "before": "  [\"(\", \"context\", \":\", \"body_context\", \";\", \"scan\", \":\", \"body_scan\", \";\", \"arrays\", \":\", \"array_bindings\", \".\", \"environment\", \";\", \"subtypes\", \":\", \"subtype_environment\", \")\", \"return\", \"scan_result\"]",
+      "after": "  [\"(\", \"context\", \":\", \"body_context\", \";\", \"scan\", \":\", \"body_scan\", \";\", \"original\", \":\", \"parser_state\", \")\", \"return\", \"scan_result\"]",
+      "token_changes": [
+        {
+          "op": "replace",
+          "old": [
+            "arrays"
+          ],
+          "new": [
+            "original"
+          ]
+        },
+        {
+          "op": "replace",
+          "old": [
+            "array_bindings",
+            ".",
+            "environment",
+            ";",
+            "subtypes",
+            ":",
+            "subtype_environment"
+          ],
+          "new": [
+            "parser_state"
+          ]
+        }
+      ]
+    },
+    {
+      "definition": "body_body_tail_spec_header",
+      "before": "  (Source.lexLine \"(Text : String; Context : Body_Context; Scan : Body_Scan; Stop : Body_Stop) return Body_Scan with Global => null, Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length and then Valid_Context (Text, Context) and then Valid_Body (Text, Context, Scan), Post => (Runtime => Valid_Body (Text, Context, Body_Tail'Result) and then (Body_Tail'Result.Position = 0 or else Body_Tail'Result.Position >= Scan.Position), Static => Body_Tail'Result =\").getD [] ++\n  (BodyNative.ScanExpr.tailModel .current .input).render ++ (Source.lexLine \") , Subprogram_Variant => (Decreases => (Text'Last + 1) - Scan.Position, Decreases => 4)\").getD []",
+      "after": "  (Source.lexLine \"(Text : String; Context : Body_Context; Scan : Body_Scan; Stop : Body_Stop; Catalog : Functions.Metadata) return Body_Scan with Global => null, Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length and then Functions.Valid_Metadata (Text, Catalog) and then Valid_Context (Text, Context) and then Valid_Body (Text, Context, Scan), Post => (Runtime => Valid_Body (Text, Context, Body_Tail'Result) and then (Body_Tail'Result.Position = 0 or else Body_Tail'Result.Position >= Scan.Position), Static => Body_Tail'Result =\").getD [] ++\n  (BodyNative.ScanExpr.tailModel .current .input).render ++ (Source.lexLine \") , Subprogram_Variant => (Decreases => (Text'Last + 1) - Scan.Position, Decreases => 4)\").getD []",
+      "token_changes": null
+    },
+    {
+      "definition": "body_read_body_spec_header",
+      "before": "  (Source.lexLine \"(Text : String; Context : Body_Context; Scan : Body_Scan; Stop : Body_Stop) return Body_Scan with Global => null, Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length and then Valid_Context (Text, Context) and then Valid_Body (Text, Context, Scan), Post => (Runtime => Valid_Body (Text, Context, Read_Body'Result) and then (Read_Body'Result.Position = 0 or else Read_Body'Result.Position > Scan.Position), Static => Read_Body'Result =\").getD [] ++\n  BodyNative.readContractBody.render ++ (Source.lexLine \") , Subprogram_Variant => (Decreases => (Text'Last + 1) - Scan.Position, Decreases => 3)\").getD []",
+      "after": "  (Source.lexLine \"(Text : String; Context : Body_Context; Scan : Body_Scan; Stop : Body_Stop; Catalog : Functions.Metadata) return Body_Scan with Global => null, Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length and then Functions.Valid_Metadata (Text, Catalog) and then Valid_Context (Text, Context) and then Valid_Body (Text, Context, Scan), Post => (Runtime => Valid_Body (Text, Context, Read_Body'Result) and then (Read_Body'Result.Position = 0 or else Read_Body'Result.Position > Scan.Position), Static => Read_Body'Result =\").getD [] ++\n  BodyNative.readContractBody.render ++ (Source.lexLine \") , Subprogram_Variant => (Decreases => (Text'Last + 1) - Scan.Position, Decreases => 3)\").getD []",
+      "token_changes": null
+    },
+    {
+      "definition": "body_body_tail_model_spec_header",
+      "before": "  (Source.lexLine \"(Text : String; Context : Body_Context; Scan : Body_Scan; Stop : Body_Stop) return Body_Scan with Ghost => Static, Global => null, Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length and then Valid_Context (Text, Context) and then Valid_Body (Text, Context, Scan), Post => Valid_Body (Text, Context, Body_Tail_Model'Result) and then (Body_Tail_Model'Result.Position = 0 or else Body_Tail_Model'Result.Position >= Scan.Position), Subprogram_Variant => (Decreases => (Text'Last + 1) - Scan.Position, Decreases => 3)\").getD []",
+      "after": "  (Source.lexLine \"(Text : String; Context : Body_Context; Scan : Body_Scan; Stop : Body_Stop; Catalog : Functions.Metadata) return Body_Scan with Ghost => Static, Global => null, Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length and then Functions.Valid_Metadata (Text, Catalog) and then Valid_Context (Text, Context) and then Valid_Body (Text, Context, Scan), Post => Valid_Body (Text, Context, Body_Tail_Model'Result) and then (Body_Tail_Model'Result.Position = 0 or else Body_Tail_Model'Result.Position >= Scan.Position), Subprogram_Variant => (Decreases => (Text'Last + 1) - Scan.Position, Decreases => 3)\").getD []",
+      "token_changes": null
+    },
+    {
+      "definition": "body_context_declaration",
+      "before": "  (Source.lexLine \"record Names : Binding_Environment; Scalar_Names : Scalar_Expressions.Environment; Array_Names : Array_Bindings.Metadata; Subtype_Hiding : Subtype_Visibility; Boolean_Names : Boolean_Environment; True_Hidden, False_Hidden, Elaborating : Boolean; Mask_First, Mask_After : Literal_Position; Declaration_Count : Scalar_Expressions.Binding_Count; Dynamic_First, Dynamic_After : Literal_Position; end record\").getD []",
+      "after": "  (Source.lexLine \"record Names : Binding_Environment; Scalar_Names : Scalar_Expressions.Environment; Array_Names : Array_Bindings.Metadata; Subtype_Hiding : Subtype_Visibility; Boolean_Names : Boolean_Environment; True_Hidden, False_Hidden, Elaborating, Pure, Integer_Hidden : Boolean; Mask_First, Mask_After : Literal_Position; Declaration_Count : Scalar_Expressions.Binding_Count; Dynamic_First, Dynamic_After : Literal_Position; end record\").getD []",
+      "token_changes": null
+    },
+    {
+      "definition": "body_stop_declaration",
+      "before": "  [\"(\", \"end_only\", \",\", \"else_only\", \",\", \"arm_boundary\", \")\"]",
+      "after": "  [\"(\", \"end_only\", \",\", \"else_only\", \",\", \"arm_boundary\", \",\", \"return_only\", \")\"]",
+      "token_changes": [
+        {
+          "op": "insert",
+          "old": [],
+          "new": [
+            ",",
+            "return_only"
+          ]
+        }
+      ]
+    },
+    {
+      "definition": "token_kind_declaration",
+      "before": "  [\"(\", \"with_keyword\", \",\", \"io_name\", \",\", \"procedure_keyword\", \",\", \"main_name\", \",\", \"is_keyword\", \",\", \"pragma_keyword\", \",\", \"spark_mode_name\", \",\", \"on_name\", \",\", \"begin_keyword\", \",\", \"put_line_name\", \",\", \"end_keyword\", \",\", \"left_parenthesis\", \",\", \"right_parenthesis\", \",\", \"semicolon\", \",\", \"dot\", \",\", \"string_literal\", \",\", \"colon\", \",\", \"constant_keyword\", \",\", \"string_name\", \",\", \"assignment\", \",\", \"arguments_name\", \",\", \"first_or_default_name\", \",\", \"if_keyword\", \",\", \"input_is_valid_name\", \",\", \"then_keyword\", \",\", \"else_keyword\", \",\", \"elsif_keyword\", \",\", \"reject_name\", \",\", \"ampersand\", \",\", \"and_keyword\", \",\", \"or_keyword\", \",\", \"not_keyword\", \",\", \"not_equal\", \",\", \"less\", \",\", \"greater\", \",\", \"greater_equal\", \",\", \"apostrophe\", \",\", \"length_name\", \",\", \"less_equal\", \",\", \"capacity_literal\", \",\", \"equal\", \",\", \"argument_declaration\", \",\", \"declarations\", \",\", \"assignment_target\", \",\", \"target_reference\", \",\", \"dynamic_reference\", \",\", \"assignment_value\", \",\", \"output_expression\", \",\", \"comparison_expression\", \",\", \"null_keyword\", \",\", \"statements\", \",\", \"context_clauses\", \",\", \"integer_name\", \",\", \"for_keyword\", \",\", \"in_keyword\", \",\", \"reverse_keyword\", \",\", \"loop_keyword\", \",\", \"range_delimiter\", \",\", \"range_keyword\", \",\", \"array_keyword\", \",\", \"of_keyword\", \",\", \"comma\", \",\", \"arrow\", \",\", \"subtype_keyword\", \",\", \"boolean_name\", \",\", \"true_name\", \",\", \"false_name\", \",\", \"xor_keyword\", \",\", \"character_name\", \")\"]",
+      "after": "  [\"(\", \"with_keyword\", \",\", \"io_name\", \",\", \"procedure_keyword\", \",\", \"main_name\", \",\", \"is_keyword\", \",\", \"pragma_keyword\", \",\", \"spark_mode_name\", \",\", \"on_name\", \",\", \"begin_keyword\", \",\", \"put_line_name\", \",\", \"end_keyword\", \",\", \"left_parenthesis\", \",\", \"right_parenthesis\", \",\", \"semicolon\", \",\", \"dot\", \",\", \"string_literal\", \",\", \"colon\", \",\", \"constant_keyword\", \",\", \"string_name\", \",\", \"assignment\", \",\", \"arguments_name\", \",\", \"first_or_default_name\", \",\", \"if_keyword\", \",\", \"input_is_valid_name\", \",\", \"then_keyword\", \",\", \"else_keyword\", \",\", \"elsif_keyword\", \",\", \"reject_name\", \",\", \"ampersand\", \",\", \"and_keyword\", \",\", \"or_keyword\", \",\", \"not_keyword\", \",\", \"not_equal\", \",\", \"less\", \",\", \"greater\", \",\", \"greater_equal\", \",\", \"apostrophe\", \",\", \"length_name\", \",\", \"less_equal\", \",\", \"capacity_literal\", \",\", \"equal\", \",\", \"argument_declaration\", \",\", \"declarations\", \",\", \"assignment_target\", \",\", \"target_reference\", \",\", \"dynamic_reference\", \",\", \"assignment_value\", \",\", \"output_expression\", \",\", \"comparison_expression\", \",\", \"null_keyword\", \",\", \"statements\", \",\", \"context_clauses\", \",\", \"integer_name\", \",\", \"for_keyword\", \",\", \"in_keyword\", \",\", \"reverse_keyword\", \",\", \"loop_keyword\", \",\", \"range_delimiter\", \",\", \"range_keyword\", \",\", \"array_keyword\", \",\", \"of_keyword\", \",\", \"comma\", \",\", \"arrow\", \",\", \"subtype_keyword\", \",\", \"boolean_name\", \",\", \"true_name\", \",\", \"false_name\", \",\", \"xor_keyword\", \",\", \"character_name\", \",\", \"function_keyword\", \",\", \"return_keyword\", \")\"]",
+      "token_changes": [
+        {
+          "op": "insert",
+          "old": [],
+          "new": [
+            ",",
+            "function_keyword",
+            ",",
+            "return_keyword"
+          ]
+        }
+      ]
+    }
+  ]
+}

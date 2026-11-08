@@ -1,0 +1,59 @@
+{
+  "review_commit": "bd67437916cf3cd8ec70bbb21193a9991dc193ec",
+  "archive": "evidence.tar.gz",
+  "bytes": 136244,
+  "sha256": "65bf37df8fe1c3322c90296f2996c106e136912b192db9f9fd4b9820c7cf82ae",
+  "all_members_compared_with_originals": true,
+  "members": [
+    {
+      "path": "REVIEW.md",
+      "bytes": 6783,
+      "sha256": "2caea5bdad77b99e5a8751e55bdfb0da7241d877515f13fc237babc3f76cc7cb"
+    },
+    {
+      "path": "events.jsonl.gz",
+      "bytes": 44937,
+      "sha256": "3b73fc7c1c770c9b6a3aaa00f590faa24658de98345775f147792e0e5b92f35b"
+    },
+    {
+      "path": "focused-failed-index.json",
+      "bytes": 939,
+      "sha256": "52a01a5a5fa730a1450d5004a61f2a0d5e0dbe996259b4ffbe62642e73a1f095"
+    },
+    {
+      "path": "handwritten.patch",
+      "bytes": 1060719,
+      "sha256": "31f5edba96ea945a45cf2e7f59162d77be00f98c6b3a90692b041d9f976e00a3"
+    },
+    {
+      "path": "lean-focused.log.gz",
+      "bytes": 2005,
+      "sha256": "ecbc957e988e58ce7e548f09e2f9ed652fea88d66fd9d8906362b826f28f99b6"
+    },
+    {
+      "path": "manifest.json",
+      "bytes": 1552,
+      "sha256": "0b83e2102c2c7acabb1e9641d93e431e957883ea67a6b7b7182c691c35c054b5"
+    },
+    {
+      "path": "memory-observations.jsonl.gz",
+      "bytes": 508,
+      "sha256": "98f2cf8f566704b643720618addc331e33071979a07ad9d2ced9593ccc91d6ba"
+    },
+    {
+      "path": "normalization-only-followup.patch",
+      "bytes": 2068,
+      "sha256": "204b6819e9700b7a065e6152da6a5666ff8962257b2de009e3b144b0c876e1f8"
+    },
+    {
+      "path": "static-verification.json",
+      "bytes": 3673,
+      "sha256": "31a6f70639601959d432e52409b214ca4cce284cb8c46c18144726f5bb56b818"
+    },
+    {
+      "path": "verify_static.py",
+      "bytes": 8502,
+      "sha256": "b31b28335836c109a4763da62cab83267004b1bc1029950304cf3459f0fef998"
+    }
+  ]
+}

@@ -1,0 +1,114 @@
+{
+  "target": "Function_Return_After",
+  "body_line": 5747,
+  "run_id": "20261108T093913-9f0356646570",
+  "source_commit": "ee02fce26ac8f3cbe911022b2f9f1611f33594ab",
+  "source_sha256": "036a53b4bd9a9d7c711b4ddf8d83467a6b470184bfce2ac6677b15cf4f57ef47",
+  "actual_tool_exitcode": 0,
+  "finished": {
+    "duration_seconds": 110.115758324,
+    "event": "finished",
+    "evidence": [
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-parser-repairs-298/.silver/linux-x86_64/compiler/obj/explore/remaining-three-function-return-after/gnatprove",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-parser-repairs-298/.silver/linux-x86_64/compiler/obj/explore/remaining-three-function-return-after/gnatprove"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093913-9f0356646570/native.log",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093913-9f0356646570/native.log"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093913-9f0356646570/exploratory-evidence",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093913-9f0356646570/exploratory-evidence"
+      }
+    ],
+    "failure_keys": [],
+    "monotonic_ns": 62164939316068,
+    "outcome": "success",
+    "retained_reports": [],
+    "returncode": null,
+    "run_id": "20261108T093913-9f0356646570",
+    "utc": "2026-11-08T09:41:04.543298+00:00"
+  },
+  "proof_records_by_severity": {
+    "info": 7
+  },
+  "flow_records_by_severity": {
+    "info": 2
+  },
+  "checked_proof_entities": [
+    "Silver_Output_Profile.Function_Return_After"
+  ],
+  "proof_tree_branches": 34,
+  "proved_proof_tree_branches": 34,
+  "postcondition_tree_branches": 1,
+  "proved_postcondition_tree_branches": 1,
+  "saved_session_roots": 1,
+  "saved_session_roots_marked_proved": 1,
+  "saved_session_goal_nodes": 37,
+  "saved_session_goal_nodes_marked_proved": 37,
+  "progress": "PROGRESS_PROOF",
+  "stop_reason": "STOP_REASON_NONE",
+  "skip_proof": [],
+  "skip_flow_proof": [],
+  "pragma_assume": [],
+  "non_info_records": [],
+  "proof_records": [
+    {
+      "line": 5750,
+      "column": 44,
+      "rule": "VC_PRECONDITION",
+      "severity": "info",
+      "tree_branches": 4,
+      "all_tree_branches_proved": true
+    },
+    {
+      "line": 5753,
+      "column": 54,
+      "rule": "VC_RANGE_CHECK",
+      "severity": "info",
+      "tree_branches": 2,
+      "all_tree_branches_proved": true
+    },
+    {
+      "line": 5753,
+      "column": 14,
+      "rule": "VC_PRECONDITION",
+      "severity": "info",
+      "tree_branches": 19,
+      "all_tree_branches_proved": true
+    },
+    {
+      "line": 5746,
+      "column": 81,
+      "rule": "VC_OVERFLOW_CHECK",
+      "severity": "info",
+      "tree_branches": 2,
+      "all_tree_branches_proved": true
+    },
+    {
+      "line": 5744,
+      "column": 19,
+      "rule": "VC_PRECONDITION",
+      "severity": "info",
+      "tree_branches": 3,
+      "all_tree_branches_proved": true
+    },
+    {
+      "line": 5744,
+      "column": 58,
+      "rule": "VC_PRECONDITION",
+      "severity": "info",
+      "tree_branches": 3,
+      "all_tree_branches_proved": true
+    },
+    {
+      "line": 5745,
+      "column": 16,
+      "rule": "VC_POSTCONDITION",
+      "severity": "info",
+      "tree_branches": 1,
+      "all_tree_branches_proved": true
+    }
+  ]
+}

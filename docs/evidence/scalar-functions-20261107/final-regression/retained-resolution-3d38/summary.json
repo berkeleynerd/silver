@@ -1,0 +1,167 @@
+{
+  "accepted_outcomes": 621,
+  "briefed_target": "1aaa381dd3e26ad250eb671f01a4114badba64ae",
+  "canonical_ids": 637,
+  "changed_inputs_from_prior_target": [
+    "proof/Silver/ComposeBooleanDeclarationSource.lean",
+    "proof/Silver/ComposeContractSourceCandidate.lean",
+    "proof/Silver/FunctionDeclarationDenotations.lean",
+    "proof/Silver/FunctionDeclarationImports.lean",
+    "proof/Silver/FunctionDeclarationNative.lean",
+    "proof/Silver/FunctionDeclarationSource.lean",
+    "proof/Silver/FunctionSourceParts/CallsCalleeAtBody.lean",
+    "proof/Silver/FunctionSourceParts/CallsIncludedImpl.lean",
+    "proof/Silver/OutputBodyCertificate.lean",
+    "proof/Silver/OutputBodyLines0.lean",
+    "proof/Silver/OutputBodyLines1.lean",
+    "proof/Silver/OutputBodyLines2.lean",
+    "proof/Silver/OutputBodyLines4.lean",
+    "proof/Silver/OutputBodyLines5.lean",
+    "proof/Silver/OutputBodyLines7.lean",
+    "proof/Silver/PredicateCallAdmission.lean",
+    "proof/Silver/PredicateFunctionCallEquations.lean",
+    "proof/Silver/PredicateFunctionCallHelpers.lean",
+    "proof/Silver/PredicateFunctionCallNative.lean",
+    "proof/Silver/PredicateFunctionCallSource.lean",
+    "proof/Silver/ReviewedOutputShape.lean",
+    "src/silver_output_profile.adb"
+  ],
+  "chunk_inputs_unchanged": 20,
+  "counts": {
+    "accepted_fresh": 335,
+    "accepted_retained": 286,
+    "pending_compile_timeout": 3,
+    "pending_platform_body_via_wrapper": 12,
+    "pending_platform_wrapper": 1
+  },
+  "current_native_build_inputs_rehashed": 2588,
+  "future_rosetta_fresh_methods": 3,
+  "governed": "f6308191545c1012d76132ae535977e55fd4f018",
+  "imported_aliases": [
+    {
+      "ast_sha256": "139500bb390e75534d5811b80b2eb9bff0c2fb72a2f2d97a099e4450736bbcbd",
+      "defining_class": "SharedBindingsTests",
+      "discovered_in": "test_integer_loops",
+      "id": "tests.test_shared_bindings.SharedBindingsTests.test_alias_occurrences_keep_expression_capacity_limits",
+      "line": 129,
+      "path": "tests/test_shared_bindings.py"
+    },
+    {
+      "ast_sha256": "848c943242e7f0e64f329ccbaa4f468bd11ddc2ef7177d4a5affa929bb3e816e",
+      "defining_class": "SharedBindingsTests",
+      "discovered_in": "test_integer_loops",
+      "id": "tests.test_shared_bindings.SharedBindingsTests.test_arbitrary_ordered_constant_and_mutable_bindings",
+      "line": 74,
+      "path": "tests/test_shared_bindings.py"
+    },
+    {
+      "ast_sha256": "89b13e5eb35a5d989d15edd80bf215accef66070f01809d50f41c8b0cabaf860",
+      "defining_class": "SharedBindingsTests",
+      "discovered_in": "test_integer_loops",
+      "id": "tests.test_shared_bindings.SharedBindingsTests.test_assignment_respects_mutability_and_fixed_length",
+      "line": 117,
+      "path": "tests/test_shared_bindings.py"
+    },
+    {
+      "ast_sha256": "35006ec962afdfc9e09bd34af33259b46f52a7d5c4918c4aefb22bce67bb67d5",
+      "defining_class": "SharedBindingsTests",
+      "discovered_in": "test_integer_loops",
+      "id": "tests.test_shared_bindings.SharedBindingsTests.test_bindings_do_not_bypass_name_or_initialization_rules",
+      "line": 104,
+      "path": "tests/test_shared_bindings.py"
+    },
+    {
+      "ast_sha256": "2615715b3e47b4bd87d5cee6adf5b9986871fe4b3b80122043f58c50ee18629b",
+      "defining_class": "SharedBindingsTests",
+      "discovered_in": "test_integer_loops",
+      "id": "tests.test_shared_bindings.SharedBindingsTests.test_dense_copy_chain_and_exact_source_bound",
+      "line": 141,
+      "path": "tests/test_shared_bindings.py"
+    },
+    {
+      "ast_sha256": "c3b2e2d70870065d277adb5fc44d9a3d2a6732449f57e5bcdbda1e64ad752869",
+      "defining_class": "SharedBindingsTests",
+      "discovered_in": "test_integer_loops",
+      "id": "tests.test_shared_bindings.SharedBindingsTests.test_native_copy_snapshots_and_unused_assignment",
+      "line": 156,
+      "path": "tests/test_shared_bindings.py"
+    },
+    {
+      "ast_sha256": "96ec00314cab8ae468821a2e1f6e75e6b58a43eba5b1299b51562cd037a7e665",
+      "defining_class": "SharedBindingsTests",
+      "discovered_in": "test_integer_loops",
+      "id": "tests.test_shared_bindings.SharedBindingsTests.test_native_dynamic_copies_preserve_argument_domain",
+      "line": 175,
+      "path": "tests/test_shared_bindings.py"
+    },
+    {
+      "ast_sha256": "277b5476716e8d82f48619671f582a947f444855a8c1f7c0558fc8a4ccd3750b",
+      "defining_class": "SharedBindingsTests",
+      "discovered_in": "test_integer_loops",
+      "id": "tests.test_shared_bindings.SharedBindingsTests.test_native_unused_initializers_without_assignment",
+      "line": 168,
+      "path": "tests/test_shared_bindings.py"
+    },
+    {
+      "ast_sha256": "ea1acfb135c74058a3dfb11be05f0d39600e0986bfa439139435cc8766c21dc8",
+      "defining_class": "SharedBindingsTests",
+      "discovered_in": "test_integer_loops",
+      "id": "tests.test_shared_bindings.SharedBindingsTests.test_static_and_dynamic_snapshots_in_guarded_bodies",
+      "line": 90,
+      "path": "tests/test_shared_bindings.py"
+    }
+  ],
+  "inherited_methods": [
+    {
+      "ast_sha256": "80d86c45b2807bee874128e436d8435c15edf3c531fcfee13855804325cae5f7",
+      "defining_class": "ImageEvidenceTests",
+      "discovered_in": "test_image_reports",
+      "id": "test_image_reports.ArrayEvidenceTests.test_advisory_is_not_counted_as_a_discharged_check",
+      "line": 110,
+      "path": "tests/test_image_reports.py"
+    },
+    {
+      "ast_sha256": "7bc9b5f520af542afa72e6bf06a656ea9730fae89550bdb206554c974eaba98a",
+      "defining_class": "ImageEvidenceTests",
+      "discovered_in": "test_image_reports",
+      "id": "test_image_reports.ArrayEvidenceTests.test_mutated_advisory_fields_are_rejected",
+      "line": 125,
+      "path": "tests/test_image_reports.py"
+    },
+    {
+      "ast_sha256": "c8b0d6fa788b2d6bf54a105d942c9ddea85df383bc8612d2b66d6f742571ae00",
+      "defining_class": "ImageEvidenceTests",
+      "discovered_in": "test_image_reports",
+      "id": "test_image_reports.ArrayEvidenceTests.test_sarif_must_retain_the_exact_producer_classification",
+      "line": 132,
+      "path": "tests/test_image_reports.py"
+    },
+    {
+      "ast_sha256": "fa2a9f654976a5f5447bd6c960d9215c1138d518e2bf7c7647b223a15625532a",
+      "defining_class": "NativeImageReportTests",
+      "discovered_in": "test_image_reports",
+      "id": "test_image_reports.NativeArrayReportTests.test_exact_advisory_preserves_required_checks_in_all_application_policies",
+      "line": 56,
+      "path": "tests/test_image_reports.py"
+    },
+    {
+      "ast_sha256": "960bea95d28a17eefd5927c3d4f81b8d0febb8c8726543ce2dfa7798fcbd7229",
+      "defining_class": "NativeImageReportTests",
+      "discovered_in": "test_image_reports",
+      "id": "test_image_reports.NativeArrayReportTests.test_mutated_missing_duplicate_and_misplaced_advisories_are_rejected",
+      "line": 70,
+      "path": "tests/test_image_reports.py"
+    }
+  ],
+  "postflight_tool_entries_verified": 13,
+  "regression_commit": "4281f71171477c24995eae18c983ae69b1cd1747",
+  "rejected_reuse": [],
+  "repaired_postflight_files_rehashed": 1115,
+  "review_target": "3d38fedb6866b537ddc4a8d2a634b7d0b339360f",
+  "scope": "Applicability for exact current source target; no final 637, complete native or complete Lean acceptance. No tests, proof, signals, production edits, publication or merge.",
+  "source_test_trees_equal": true,
+  "still_pending_ids": 16,
+  "test_modules": 55,
+  "tracked_inputs_compared": 8866,
+  "utc": "2026-11-08T14:17:04.147119+00:00"
+}

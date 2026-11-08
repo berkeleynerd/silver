@@ -1,0 +1,9 @@
+{
+  "run_id": "20261108T054614-dc5613468a66",
+  "bundle": "evidence.tar.gz",
+  "sha256": "233174b2888aaafa4b7eb2b2ef357776d3710febeda2bdcd87a3e59982df1b31",
+  "bytes": 414355,
+  "members": 48,
+  "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-delivery-review-298/tmp/lake-config-diagnostic-298/shareable-evidence.tar.gz",
+  "scope": "Isolated diagnostic; not a complete passing regression fixture. Private complete environment excluded."
+}

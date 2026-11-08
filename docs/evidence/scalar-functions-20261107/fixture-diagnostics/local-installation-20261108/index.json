@@ -1,0 +1,419 @@
+{
+  "run_ids": [
+    "20261108T061828-f176c7d39979",
+    "20261108T062237-55f39cc9f940"
+  ],
+  "bundle": "evidence.tar.gz",
+  "sha256": "b99b029d6ed88dec0061c404ec8d54571a28bae071f75eb75e4e612f6062d79a",
+  "bytes": 4991286,
+  "members": 81,
+  "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-delivery-review-298/tmp/lean-local-comparison-298/shareable-evidence.tar.gz",
+  "scope": "Authenticated isolated local Lean installation and one matched direct CertificateWitness profile; not a passing regression fixture. Private complete environment excluded.",
+  "member_inventory": [
+    {
+      "path": "ANALYSIS.md",
+      "bytes": 4751,
+      "sha256": "72e71b00e7d8dd1e3ad830e472ba1a08e990966c425b7f4eb16f49dad4fd5ec6"
+    },
+    {
+      "path": "approved-PLAN.md",
+      "bytes": 10291,
+      "sha256": "172bab86e8a16a292693391db48968bfbc5f6712d70e8e1d7f9eae7e529b2351"
+    },
+    {
+      "path": "bootstrap-driver/provision.py",
+      "bytes": 7971,
+      "sha256": "06ec6ba6b2627f50c2742015b61d827ec3b036af411bebfea636b198db44d09c"
+    },
+    {
+      "path": "bootstrap-results/bootstrap-command.json",
+      "bytes": 278,
+      "sha256": "5122d83e20fd6747230329e19eacecf09fa2256137fdf68288cae40dd9443a53"
+    },
+    {
+      "path": "bootstrap-results/bootstrap-preflight.json",
+      "bytes": 2982,
+      "sha256": "c21964012ca3d25b2c1c11172021676791ba44b918c4c80ca9bf6895363776e2"
+    },
+    {
+      "path": "bootstrap-results/bootstrap-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "bootstrap-results/bootstrap-stdout.bin",
+      "bytes": 226,
+      "sha256": "2cb9e71872997a13064ded26a5f7a8e8a6f4eebcae1ec48af86c14d4d4c1099a"
+    },
+    {
+      "path": "bootstrap-results/copied-inputs.json",
+      "bytes": 405,
+      "sha256": "a74ac11078acf70b90365026d556b7f0683c97ddffd63537a22b574a5c817e6a"
+    },
+    {
+      "path": "bootstrap-results/identity-comparison.json",
+      "bytes": 808,
+      "sha256": "3d7ae270672cab3653f5c87d95578bcfa418df9af72b8294daac244768414bd8"
+    },
+    {
+      "path": "bootstrap-results/local-distribution-inventory.json",
+      "bytes": 3497034,
+      "sha256": "400788b072dcfcf616681a4cf17902e85c3a9ab78df144661acc6966c2459f65"
+    },
+    {
+      "path": "bootstrap-results/managed-events.jsonl",
+      "bytes": 3751704,
+      "sha256": "9c0f50857c81209a6945095ae653f7e70598a29fc198d6546f1307bf72ff455f"
+    },
+    {
+      "path": "bootstrap-results/managed-native.log",
+      "bytes": 786,
+      "sha256": "8a49d6e923ba2fd948299cd36c5449be43bbacd741a608269229e089056d7eb9"
+    },
+    {
+      "path": "bootstrap-results/original-distribution-inventory.json",
+      "bytes": 3497034,
+      "sha256": "400788b072dcfcf616681a4cf17902e85c3a9ab78df144661acc6966c2459f65"
+    },
+    {
+      "path": "bootstrap-results/phases.jsonl",
+      "bytes": 786,
+      "sha256": "8a49d6e923ba2fd948299cd36c5449be43bbacd741a608269229e089056d7eb9"
+    },
+    {
+      "path": "frozen-bootstrap/bootstrap_lean.py",
+      "bytes": 7000,
+      "sha256": "ae72d6967ebf458c4ccfccfd53d6a59da08767901f29e1ba1917dc2ad5623dff"
+    },
+    {
+      "path": "frozen-bootstrap/lean-toolchain",
+      "bytes": 25,
+      "sha256": "d5edba4e4b8faad9c1baeadb265716d20d03be4d1a2647dc5e35b0c0325bea7b"
+    },
+    {
+      "path": "frozen-bootstrap/platforms.py",
+      "bytes": 3980,
+      "sha256": "01e673a58c8aa2158e8314f5005af30292d3f0e95d6dcedb071e9ecf7a62bfc5"
+    },
+    {
+      "path": "frozen-profile/CertificateWitness.setup.json",
+      "bytes": 150,
+      "sha256": "0119da9f05d66e3e7b20b14d59f3e6a78f286a0993c030eafbe65a922763bdca"
+    },
+    {
+      "path": "frozen-profile/baseline-profile-analysis.json",
+      "bytes": 3785,
+      "sha256": "b8f23cbff23a3fb7311b800c49a69db9f34f86595d7c668d8991ed3098d1ff5d"
+    },
+    {
+      "path": "frozen-profile/baseline-profile-managed-events.jsonl",
+      "bytes": 3212908,
+      "sha256": "154d628fd20d5d840dd46964bf0283464309c7318c182eb061376c5c32faf55c"
+    },
+    {
+      "path": "frozen-profile/identity-key-relocation.json",
+      "bytes": 479,
+      "sha256": "2f6b24368d8ebc408958cdb7c30298110a4dcfa0f96dcccf9875832d79d31a46"
+    },
+    {
+      "path": "frozen-profile/prepared-initial-build-workspace-inventory.json",
+      "bytes": 3574,
+      "sha256": "f0bdc65a2830cc7cde166e81ec1fdd9be87646d7141787746f5d1bb2b289bd76"
+    },
+    {
+      "path": "frozen-profile/prior-observed-file-identities.json",
+      "bytes": 1146620,
+      "sha256": "94593ffae44469f259f383cfe4329c746867e6df2cb1d5c4027e8fb65ff6b0b2"
+    },
+    {
+      "path": "frozen-profile/prior-profile-loaded-identities.json",
+      "bytes": 1250780,
+      "sha256": "ae7d4829f42f3696b5dfe87c452b3dfbbd89af45a72a7ee7be1e5d3d4c887849"
+    },
+    {
+      "path": "frozen-profile/proof/Silver/Admission.lean",
+      "bytes": 5435,
+      "sha256": "7c756102bc689b108aa0d5b2c41a68868d07f21230282891d776ef0994f2faf2"
+    },
+    {
+      "path": "frozen-profile/proof/Silver/AxiomAudit.lean",
+      "bytes": 1927,
+      "sha256": "47cb06e63dd120cf1db5ca14f39c3743500c6032d5f68d6e797106cb2903cb7b"
+    },
+    {
+      "path": "frozen-profile/proof/Silver/CertificateWitness.lean",
+      "bytes": 1614,
+      "sha256": "7f64ba1832d59532bdfcf56d06cfb3d9589fdb71c2e39e0bc88326b2d8757f2d"
+    },
+    {
+      "path": "frozen-profile/proof/Silver/Cursor.lean",
+      "bytes": 14705,
+      "sha256": "c5316bac7eb2a733fcda3787d23ee16e8e3b963ef31f6b7e26d285eb7e517ac3"
+    },
+    {
+      "path": "frozen-profile/proof/Silver/Lexical.lean",
+      "bytes": 8836,
+      "sha256": "bd6025d6dc26fd8d984de90bc4a00b63e30d76c27e3db086358aeaa5712ad372"
+    },
+    {
+      "path": "frozen-profile/proof/Silver/OutputProfileBodySource.lean",
+      "bytes": 245,
+      "sha256": "35ef9119ab63f6e20483c936107241bc997f9f3378181beb45f7ed7bab72938f"
+    },
+    {
+      "path": "frozen-profile/proof/Silver/SourceLexer.lean",
+      "bytes": 11076,
+      "sha256": "6c2824f4ed5b303b3a3f3ec94d8cdb650ffbd86103eef842a32a3c6f3755a8eb"
+    },
+    {
+      "path": "frozen-profile/proof/generate_source_certificate.py",
+      "bytes": 14981,
+      "sha256": "9c01647f30c6e15ae11469c2651c49c0ee08d0fd920eabbe8f0ad2acd993377e"
+    },
+    {
+      "path": "frozen-profile/proof/lakefile.lean",
+      "bytes": 9658,
+      "sha256": "8cab85a3bb752f14cad6e1e96ede51d1db4c04ad515eb62f0020bc066cff7938"
+    },
+    {
+      "path": "frozen-profile/proof/lean-toolchain",
+      "bytes": 25,
+      "sha256": "d5edba4e4b8faad9c1baeadb265716d20d03be4d1a2647dc5e35b0c0325bea7b"
+    },
+    {
+      "path": "frozen-profile/result.json",
+      "bytes": 8606,
+      "sha256": "69106655224911bfba3834a27379674a0464be4c6b238c5a1284c188ed2d75b0"
+    },
+    {
+      "path": "frozen-profile/scripts/bootstrap.py",
+      "bytes": 20969,
+      "sha256": "415b31960868345b9e81cba9e9ef4cc84c25b9904e707328eefa31d46e9ab3da"
+    },
+    {
+      "path": "frozen-profile/scripts/bootstrap_lean.py",
+      "bytes": 7000,
+      "sha256": "ae72d6967ebf458c4ccfccfd53d6a59da08767901f29e1ba1917dc2ad5623dff"
+    },
+    {
+      "path": "frozen-profile/scripts/check_evidence.py",
+      "bytes": 52489,
+      "sha256": "503e8d3b3ab9178af3a12e546aaa1d6da4c24598224210237d634c5a4d14ab9e"
+    },
+    {
+      "path": "frozen-profile/scripts/check_lean.py",
+      "bytes": 35024,
+      "sha256": "2091d1b0a2a9525f44af973d625a63e1b6d915a2e66e49add599825bea7820ac"
+    },
+    {
+      "path": "frozen-profile/scripts/dev.py",
+      "bytes": 31344,
+      "sha256": "3954a59193a7f3a49b742d6f4a3b640e1bb3ab63f7853583cc925854585902ef"
+    },
+    {
+      "path": "frozen-profile/scripts/platforms.py",
+      "bytes": 3980,
+      "sha256": "01e673a58c8aa2158e8314f5005af30292d3f0e95d6dcedb071e9ecf7a62bfc5"
+    },
+    {
+      "path": "frozen-profile/scripts/proof_provenance.py",
+      "bytes": 14754,
+      "sha256": "f2c531acfff00b2946fecac621fc1cfb38815004ae16b73e4085cda3d63173b9"
+    },
+    {
+      "path": "frozen-profile/scripts/run_history.py",
+      "bytes": 20442,
+      "sha256": "62edf14dbfa8342e33517274d84964b9d9a1b83fdd1e4a01b7d806b7b9d5d324"
+    },
+    {
+      "path": "frozen-profile/scripts/run_macos.py",
+      "bytes": 2517,
+      "sha256": "f1c9d053d627208af92a9fda2a4e257314889afaa1eb37e64c63eb5ac845ceb1"
+    },
+    {
+      "path": "frozen-profile/snapshot-sha256.json",
+      "bytes": 2935,
+      "sha256": "df32945e1df002f46aed2c07fcd56743ed8224671c2b2f7f1b93923998144904"
+    },
+    {
+      "path": "frozen-profile/test_lean_modules.py",
+      "bytes": 16118,
+      "sha256": "cb287c6dc17b7955edeb701775cc04ca4f92ede68a4393d7d77acd6b5ee67657"
+    },
+    {
+      "path": "plan-read-only-preflight.json",
+      "bytes": 4226,
+      "sha256": "147a59c2a4fc8e77a789ed0aedd845367d8a3e52db651fb155ee5a4ac1591152"
+    },
+    {
+      "path": "postflight-status.json",
+      "bytes": 31540,
+      "sha256": "100e0a9cd3665ddb1ec17597832c3c02edbba0a02e08bb659bd59390a55a0f67"
+    },
+    {
+      "path": "profile-driver/observe.py",
+      "bytes": 14541,
+      "sha256": "98c650d8ef1e0a3ce2751999abf4a0fe56ec2df0786f4f8ba623146e844222ac"
+    },
+    {
+      "path": "profile-driver-delta.patch",
+      "bytes": 1205,
+      "sha256": "5f5cdb941f7efb6797f3efc1ed4b712fc9b11caa25e6eb76e51d957dc81e88ca"
+    },
+    {
+      "path": "results/artifact-inventory.json",
+      "bytes": 1665,
+      "sha256": "488082652097d1d989d34fcf97934ee1557ab5d0a7d01752864f2de8a3e97928"
+    },
+    {
+      "path": "results/command.json",
+      "bytes": 1844,
+      "sha256": "5742a7a7b6d1ada9f4eca9329852e6e9115f87e5d6bd8a26f50c73280ab470de"
+    },
+    {
+      "path": "results/comparison-analysis.json",
+      "bytes": 4536,
+      "sha256": "93ee079bf8b8e0823d8a674547aea80f15064a58348bec854441316352039df3"
+    },
+    {
+      "path": "results/environment.json",
+      "bytes": 11136,
+      "sha256": "858a9ac6253e9de1dbf841dee6821e287ea11c3a674f0da65d437cc853d8af86"
+    },
+    {
+      "path": "results/import-identity-comparison.json",
+      "bytes": 664,
+      "sha256": "8505ce8372a7b869450697af56579275b14fe3a722c0c588978e1ebdc60489f9"
+    },
+    {
+      "path": "results/input-after.json",
+      "bytes": 237,
+      "sha256": "e5e474ab049d6c45ea53c3a2049fb40f027cf8d9599e324e98229f29e6dc9dea"
+    },
+    {
+      "path": "results/input-before.json",
+      "bytes": 237,
+      "sha256": "e5e474ab049d6c45ea53c3a2049fb40f027cf8d9599e324e98229f29e6dc9dea"
+    },
+    {
+      "path": "results/launch.json",
+      "bytes": 338,
+      "sha256": "7a4fce3331da744245f30a41d8a905aa43a0e15bc2abeb8c1b36aef1f3d9aa12"
+    },
+    {
+      "path": "results/loaded-file-identities.json",
+      "bytes": 1146620,
+      "sha256": "94593ffae44469f259f383cfe4329c746867e6df2cb1d5c4027e8fb65ff6b0b2"
+    },
+    {
+      "path": "results/managed-events.jsonl",
+      "bytes": 3385159,
+      "sha256": "c812e890025035320c4191f3b007f328a9aa6d7e2272ae0d14f0f2852420aaab"
+    },
+    {
+      "path": "results/managed-native.log",
+      "bytes": 445,
+      "sha256": "ec5d86b886de17d529d8cadd1a81e8b092fd3ad2ba14ae2217c962c1b11da944"
+    },
+    {
+      "path": "results/preparation-start.json",
+      "bytes": 70,
+      "sha256": "831dc85416e4ef9492146afb2d1aecda65f4a87728538b82eda1d89b5783ad10"
+    },
+    {
+      "path": "results/prepared-input-comparison.json",
+      "bytes": 525,
+      "sha256": "f1c90a0bfa079fb0a361639fec716212eb4990b2ed3042246a8777b82f9d85cb"
+    },
+    {
+      "path": "results/samples.jsonl",
+      "bytes": 77600,
+      "sha256": "97eae9385c844e70606d769322d4fe15c0ff8aeab2a05a40c979d3d5d9fe5b44"
+    },
+    {
+      "path": "results/stderr.bin",
+      "bytes": 107634,
+      "sha256": "2c39f03708e210f3bb086a4dbbc0cc41b0a47a6bc5ad675ed9a84c283f197425"
+    },
+    {
+      "path": "results/stdout.bin",
+      "bytes": 13045,
+      "sha256": "cc70e6501b5213b8e6cd2a4c1189671dc82d88066042bff0c4c8e7cb3dba41df"
+    },
+    {
+      "path": "results/summary.json",
+      "bytes": 503,
+      "sha256": "9d1f6b0befc493a25bf5596896baa120d13c6e5334c70e9e87d5d4dea12f0ddd"
+    },
+    {
+      "path": "results/tool-identities.json",
+      "bytes": 716,
+      "sha256": "d4b030dbf0997a1b1b16de2c872f0bdd5d4d5708a3c981c8a88fedfea36b8cdb"
+    },
+    {
+      "path": "stage1-preflight-host.json",
+      "bytes": 1557,
+      "sha256": "541185ed731346ece5d0cd459f863e6044f4d5d873a0b7bea7f9ee9d2440e67c"
+    },
+    {
+      "path": "stage1-preflight-status.json",
+      "bytes": 32275,
+      "sha256": "f88c8307239424f617a1b08ca309132ea221b76205bafa529d4e4cd3cf9699db"
+    },
+    {
+      "path": "stage2-preflight-host.json",
+      "bytes": 2335,
+      "sha256": "917611d4e821a876a52c5dc73071ff8b53614b9300003da9d63720cc572733b8"
+    },
+    {
+      "path": "stage2-preflight-status.json",
+      "bytes": 31579,
+      "sha256": "d89be5b4a8eb6bd16ddbf94fca7033e8f8a80af3baaca5bb69c121254fa17451"
+    },
+    {
+      "path": "work/.silver/linux-x86_64/proof/.lake/build/ir/Silver/CertificateWitness.c",
+      "bytes": 83916,
+      "sha256": "ebf318bc76ca4b3b41387e97977a23e22723bbd9d8c844b311e15f7a825b200e"
+    },
+    {
+      "path": "work/.silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/CertificateWitness.ilean",
+      "bytes": 5969,
+      "sha256": "0fc6316bc7e571262bedbd286870cbc797cbf097af562308a60494fb99bbc180"
+    },
+    {
+      "path": "work/.silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/CertificateWitness.ir",
+      "bytes": 62008,
+      "sha256": "49836b240becaec180f1e11b5535ce9d0b2fa98fc8e9fa01c233ebc35b25d0b4"
+    },
+    {
+      "path": "work/.silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/CertificateWitness.ir.sig",
+      "bytes": 176,
+      "sha256": "4ff2eb2d0b31cefed11a693f22744e9715673fe29384e4b2c63ecd61f8a51dee"
+    },
+    {
+      "path": "work/.silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/CertificateWitness.olean",
+      "bytes": 70336,
+      "sha256": "8de2799e48b0ca4b78e302d084f0f6be83ea806e13b2f62fccf6a459e5fa6cfd"
+    },
+    {
+      "path": "work/.silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/CertificateWitness.olean.private",
+      "bytes": 152240,
+      "sha256": "655aef4dc2896636b48e273f9a7c454c661ffe70401336d7728141de9b1d0049"
+    },
+    {
+      "path": "work/.silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/CertificateWitness.olean.server",
+      "bytes": 2224,
+      "sha256": "174b61f8c317262d09a9f3a8d8c13e90664279009916b1634554fcae8ed5e70f"
+    },
+    {
+      "path": "work/.silver/linux-x86_64/proof/Silver/CertificateWitness.lean",
+      "bytes": 1614,
+      "sha256": "7f64ba1832d59532bdfcf56d06cfb3d9589fdb71c2e39e0bc88326b2d8757f2d"
+    },
+    {
+      "path": "work/CertificateWitness.setup.json",
+      "bytes": 150,
+      "sha256": "0119da9f05d66e3e7b20b14d59f3e6a78f286a0993c030eafbe65a922763bdca"
+    }
+  ]
+}

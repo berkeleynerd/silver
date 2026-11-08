@@ -11,6 +11,8 @@ public import Silver.ScalarLiteralBodyCertificate
 public import Silver.ScalarExpressionSpecCertificate
 public import Silver.ArrayBindingsSpecCertificate
 public import Silver.ArrayBindingsBodyCertificate
+public import Silver.FunctionBindingsSpecCertificate
+public import Silver.FunctionBindingsBodyCertificate
 public import Silver.ScalarExpressionBodyCertificate
 
 public import Silver.NamesSpecCertificate

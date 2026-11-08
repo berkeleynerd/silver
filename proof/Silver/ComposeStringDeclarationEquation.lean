@@ -1,6 +1,7 @@
 module
 
 public import Silver.ComposeContracts
+public meta import Silver.CertificateWitness
 
 @[expose] public section
 namespace Silver.Compose.Expressions
@@ -20,7 +21,7 @@ def stringDeclarationEquation (calls : Calls) (text : Source) (state : ParserSta
   let typeAfter := take (if decide (constant ≠ 0) then constant else colon) (.word "string")
   let hidden := (decide (first ≠ 0) && decide (after > first) &&
     decide (take first (.word "integer") = after)) ||
-    calls.function .booleanHidesInteger text state.booleanNames
+    calls.function .booleanHidesInteger text state.booleanNames || state.hiding.integerHidden
   let value := calls.function .expression text (take typeAfter (.symbol ":=")) state.names
     state.scalarNames hidden state.arrayNames.names state.arrayNames.values true
   let following := take value.after (.symbol ";")
@@ -36,9 +37,11 @@ def stringDeclarationEquation (calls : Calls) (text : Source) (state : ParserSta
   then invalidState
   else calls.function .addBinding state first after value.value (decide (constant = 0)) following
 
-theorem stringDeclaration_denotation (calls : Calls) (text : Source) (state : ParserState)
-    (arguments : Bool) :
+theorem stringDeclaration_denotation : ∀ (calls : Calls) (text : Source) (state : ParserState)
+    (arguments : Bool),
     stringDeclarationBody.eval (lexical calls) (Context.locals {text,state,arguments}) =
-      stringDeclarationEquation calls text state arguments := by rfl
+      stringDeclarationEquation calls text state arguments := by
+  kernel_exact (fun (calls : Calls) (text : Source) (state : ParserState) (arguments : Bool) =>
+    Eq.refl (stringDeclarationBody.eval (lexical calls) (Context.locals {text,state,arguments})))
 
 end Silver.Compose.Expressions

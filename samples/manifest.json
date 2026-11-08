@@ -2400,6 +2400,36 @@
         "stderr": "",
         "exit_status": 0
       }
+    },
+    {
+      "source": "rosetta_primality_by_trial_division.adb",
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "named_integer_subtype",
+        "scalar_function",
+        "scalar_function_call",
+        "named_boolean_variable",
+        "boolean_assignment",
+        "boolean_expression",
+        "integer_expression",
+        "integer_comparison",
+        "scalar_guard_refinement",
+        "for_loop",
+        "integer_image",
+        "expression_output",
+        "string_choice"
+      ],
+      "application_functions": [
+        "Is_Prime"
+      ],
+      "specification": "../language.md#small-nonrecursive-scalar-functions",
+      "expected": {
+        "stdout": " 2\n 3\n 5\n 7\n 11\n 13\n 17\n 19\n 23\n 29\n 31\n 37\n 41\n 43\n 47\n 53\n 59\n 61\n 67\n 71\n 73\n 79\n 83\n 89\n 97\n",
+        "stderr": "",
+        "exit_status": 0
+      }
     }
   ]
 }

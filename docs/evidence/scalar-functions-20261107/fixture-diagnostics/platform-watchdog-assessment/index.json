@@ -1,0 +1,55 @@
+{
+  "bundle": "evidence.tar.gz",
+  "sha256": "56e861a8ec210c8345dbe1597c08cf6dd02ce092866ccb4a7c7947327a84257a",
+  "bytes": 28703,
+  "members": 9,
+  "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-delivery-review-298/tmp/platform-watchdog-repair-298/shareable-proposal.tar.gz",
+  "scope": "Reviewed test-only watchdog repair proposal: shared worker180 at both sites and wrapper900, unchanged15s barrier and all checks. Concrete original/candidate/patch, historical rationale, affected-method map and one fullwrapper validation plan. Applied exactly at9e89c80f82 after review; success remains required.",
+  "member_inventory": [
+    {
+      "path": "ASSESSMENT.md",
+      "bytes": 12091,
+      "sha256": "dd4137b5d5255a2428370ccc4b0b65d3fad6820e9a61f32871114056258dfa36"
+    },
+    {
+      "path": "affected-methods.json",
+      "bytes": 3548,
+      "sha256": "04e2854be8df88865431dc384223922434acfda1f370c662c2cba1bfd4aecec4"
+    },
+    {
+      "path": "platform-watchdogs.patch",
+      "bytes": 2269,
+      "sha256": "3ea1a76ed86604f7ecf4c71da7f7a26e7f2524f67df320b040dc51f15537496f"
+    },
+    {
+      "path": "source-identities.json",
+      "bytes": 814,
+      "sha256": "bcf6f1e3a19251af86f6e37f6ab71c21b0e41746d500e6a5b349ed193154c7ac"
+    },
+    {
+      "path": "static-review.json",
+      "bytes": 616,
+      "sha256": "8531d0e710d1a5d5e54f882de569e683110ce6838f25be2b78b60e79afd9f7cd"
+    },
+    {
+      "path": "test_platforms.original.py",
+      "bytes": 42932,
+      "sha256": "331468a742750f40d8931089e25f2f33307278b9ba9370192a9cc462c2bc83cd"
+    },
+    {
+      "path": "test_platforms.proposed.py",
+      "bytes": 43290,
+      "sha256": "92e107283974c2f905f5a7c96eab3fc306c51df5ec4034b06148a2ffd8773a30"
+    },
+    {
+      "path": "watchdog-provenance.json",
+      "bytes": 8322,
+      "sha256": "9bd98e41099f29d4c0fc690579cdbeb75789ba1f393524c3376e6a0855944769"
+    },
+    {
+      "path": "manifest.json",
+      "bytes": 1082,
+      "sha256": "d5246d64556ef9ebf0048099bd7c48af27941d86405b031959685240f2b4e35a"
+    }
+  ]
+}

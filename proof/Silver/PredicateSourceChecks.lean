@@ -4,6 +4,7 @@ public import Silver.ComposeSourceBridge
 public import Silver.PredicateSourceCandidate
 public import Silver.PredicateNativePrecedence
 public import Silver.PredicateStructuralGuards
+public import Silver.FunctionSourceChecks
 
 @[expose] public section
 
@@ -15,6 +16,7 @@ namespace Silver.Predicate.SourceChecks
 
 structure CheckedSource : Prop where
   helpers : Compose.SourceBridge.CheckedSource
+  functions : FunctionSourceChecks.CheckedSource
   precedence : Native.WellFormedTrees
   scalarBodyPrecedence : ScalarBodyNative.WellFormedTrees
   scalarHelperPrecedence : Native.ScalarHelpers.WellFormedTrees
@@ -24,6 +26,7 @@ structure CheckedSource : Prop where
 
 theorem actualSource : CheckedSource where
   helpers := Compose.SourceBridge.checked_source
+  functions := FunctionSourceChecks.checked_source
   precedence := Native.checked_precedence
   scalarBodyPrecedence := ScalarBodyNative.checked_precedence
   scalarHelperPrecedence := Native.ScalarHelpers.checked_precedence

@@ -46,7 +46,7 @@ all source-order-preserving groupings and all loop iterations. -/
 def Program.StringBoundsSafe (source : Source) (program : Program)
     (arguments : Arguments.Runtime.Arguments) : Prop :=
   RawInitializersBoundsSafe source program arguments ∧
-    StatementsObjectBoundsSafe program.names (program.input arguments) (program.inputValid arguments)
+    StatementsObjectBoundsSafe (functions := program.functionEnvironment) program.names (program.input arguments) (program.inputValid arguments)
       (program.initialValues arguments) program.statements program.initialIntegers (program.initialBooleans arguments)
 
 theorem source_string_bounds_assured {source program} (meaning : SourceMeaning source program) :
@@ -55,11 +55,11 @@ theorem source_string_bounds_assured {source program} (meaning : SourceMeaning s
   have refinement := source_bounds_refinement meaning
   have header := refinement.header
   have certificates : RawBooleanBoundsCertificates program program.names
-      (statementsObligations program.names.shape program.bodyAnalysis program.initialFlow
+      (statementsObligations (signatures := program.functionEnvironment.signatures) program.names.shape program.bodyAnalysis program.initialFlow
         program.statements program.bodyBooleanAnalysis) := by
     intro context summary member
     have present : Check.path (.stringRange context summary) ∈ program.checks :=
-      List.mem_append_right _ (List.mem_map.mpr ⟨_, member, rfl⟩)
+      List.mem_append_right _ (List.mem_append_right _ (List.mem_map.mpr ⟨_, member, rfl⟩))
     obtain ⟨certificate, count, length, refined, safe⟩ := refinement.pathCertificates context summary present
     exact ⟨certificate, count, length, present, refined, safe⟩
   refine ⟨refinement, ?_⟩
@@ -67,7 +67,7 @@ theorem source_string_bounds_assured {source program} (meaning : SourceMeaning s
   refine ⟨source_raw_initializers_bounds meaning arguments, ?_⟩
   obtain ⟨after, checked, _⟩ := valid.2.2.2.2.2
   have bodyChecked := ((program.checkBody_iff after).mp checked).2.2.2
-  exact statements_objectBoundsSafe header.count header.metadata header.statements valid.2.2.2.2.1 bodyChecked
+  exact statements_objectBoundsSafe (program.functions_valid valid) header.count header.metadata header.statements valid.2.2.2.2.1 bodyChecked
     (program.initial_fits valid arguments) (program.input_domain arguments).2
     ⟨program.initial_allowed arguments, program.initial_integer_fits valid⟩ (program.initial_integer_fits valid)
     certificates

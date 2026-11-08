@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the Integer type and the constant divisor 2, which cannot be zero or overflow. The while loop sits in a procedure, so no termination check or variant is needed.
 
-Position 184 in the [progression](../../../progression.md#stage-7), in stage 7.
+Position 185 in the [progression](../../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

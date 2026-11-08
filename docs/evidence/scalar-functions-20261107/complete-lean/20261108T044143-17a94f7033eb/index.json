@@ -1,0 +1,62 @@
+[
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T044143-17a94f7033eb/events.jsonl",
+    "artifact": "events.jsonl.gz",
+    "sha256": "e2387044c90681cae509095873f810cf09068f9b67a724f3f4563bfe63b56c68",
+    "bytes": 98005
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T044143-17a94f7033eb/reports/0/lean-proof.log",
+    "artifact": "lean-proof.log.gz",
+    "sha256": "7a1b30fa04fe8659f1f8d045f3e80f2451b2904126078e2a012ca16abe48394e",
+    "bytes": 9324
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-source-integration-298/tmp/complete-lean-memory-preservation-action.json",
+    "artifact": "complete-lean-memory-preservation-action.json.gz",
+    "sha256": "8bb86e94a67b8472e683c2f74e0221938680cd5582768513b284cd7e954d5c91",
+    "bytes": 2853
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-source-integration-298/tmp/function-source-memory-preservation-action.json",
+    "artifact": "function-source-memory-preservation-action.json.gz",
+    "sha256": "799ffe00b8d25f798e5b4a91a37231f02f459030397d8c282f84815dc663c715",
+    "bytes": 3133
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-source-integration-298/tmp/complete-lean-memory-observations.jsonl",
+    "artifact": "complete-lean-memory-observations.jsonl.gz",
+    "sha256": "e4efa70358ddbdb6607cd60ee2bbb3ca0a416a7d981e0111926d5490b699715a",
+    "bytes": 71799
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-source-integration-298/tmp/boolean-declaration-candidate.patch",
+    "artifact": "boolean-declaration-candidate.patch.gz",
+    "sha256": "55d3324ba5b7c7538ca50a3d5c17773c895208f2ea61738d61a6f5e44d554478",
+    "bytes": 7969
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-source-integration-298/tmp/boolean-declaration-candidate-comparison.json",
+    "artifact": "boolean-declaration-candidate-comparison.json.gz",
+    "sha256": "43275c2a25854a7384c9d4a02a46856da7dd4e4a464ce8029f35f69d391304e3",
+    "bytes": 1952
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-source-integration-298/tmp/reviewed-function-source-components/PLAN.md",
+    "artifact": "reviewed-function-source-components-PLAN.md.gz",
+    "sha256": "b783fcb51895d613e0fdb1d22a29aad32327d2cf6f11f29b1ee35ca21270749e",
+    "bytes": 9631
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-source-integration-298/tmp/reviewed-function-source-components/inventory.json",
+    "artifact": "reviewed-function-source-components-inventory.json.gz",
+    "sha256": "5a0e4f0c6adbeaf0617ff350d093da3e711b0b73ac7f051e315699cc8123e95e",
+    "bytes": 46249
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-source-integration-298/tmp/reviewed-function-source-components/function-source-components.patch",
+    "artifact": "reviewed-function-source-components-function-source-components.patch.gz",
+    "sha256": "f018c845b443695879e59f4425042f5ba12a93c028a8e8c488283b856f931bd3",
+    "bytes": 73332
+  }
+]

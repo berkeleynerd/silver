@@ -9,6 +9,7 @@ public import Silver.ComposeEvaluation
 public import Silver.IntegerImageNativeSource
 public import Silver.ComposeBooleanDeclarationLibraries
 public import Silver.ComposeBooleanInitializerLibraries
+public import Silver.FunctionDeclarationSourceBridge
 
 @[expose] public section
 
@@ -93,6 +94,30 @@ structure BooleanInitializerInterpretation (calls : Expressions.Calls) : Prop wh
       calls.function .booleanInitializer text state position first after =
         BooleanInitializerNative.body.eval imports ⟨text, state, position, first, after⟩
 
+/-- The ordinary function declaration reader is connected to its checked
+native equations and directly linked callees. Its full scanner meaning is a
+conclusion of that interpretation, not an assumed helper equation. -/
+structure FunctionDeclarationInterpretation (calls : Expressions.Calls) : Prop where
+  source : ∃ (native : FunctionDeclarationNative.Calls)
+      (interpreted : FunctionDeclarationNative.InterpretedSource native),
+    interpreted.inherited = calls ∧
+      calls.function .functionDeclaration = native .functionDeclaration ∧
+      calls.function .functionLookup = interpreted.metadata.lookup ∧
+      calls.function .formalHides = interpreted.visibility.formalHides
+
+/-- The two imported function-library meanings are supplied only after
+interpreting the directly linked metadata and visibility implementations. -/
+structure FunctionImportMeaning (calls : Expressions.Calls) : Prop where
+  lookup : ∀ text, Expressions.ValidText text → ∀ catalog first after,
+    FunctionBindings.ValidMetadata text catalog → Expressions.ValidCursor text first →
+    Expressions.ValidCursor text after →
+    calls.function .functionLookup text catalog first after =
+      FunctionBindings.lookup text catalog first after
+  hides : ∀ text, Expressions.ValidText text → ∀ state first after,
+    Expressions.NativeState Predicate.OuterReadiness.domain text state →
+    Expressions.ValidCursor text first → Expressions.ValidCursor text after →
+    calls.function .formalHides text state first after = Compose.formalHides text state first after
+
 /-- Helper definitions and executed lexical-call domains, with Step restricted
 to the two shell tags actually declared by the native implementation. -/
 structure InterpretedSource (calls : Expressions.Calls) : Prop where
@@ -105,9 +130,11 @@ structure InterpretedSource (calls : Expressions.Calls) : Prop where
       (token : Source → Nat → String → Bool → Bool),
     calls.primitive = Lexical.primitives helpers token ∧
       Lexical.InterpretedSource helpers token
-  definitions : Expressions.RawHelperEquations calls calls Predicate.OuterReadiness.domain
+  definitions : FunctionImportMeaning calls →
+    Expressions.RawHelperEquations calls calls Predicate.OuterReadiness.domain
   booleanDeclaration : BooleanDeclarationInterpretation calls
   booleanInitializer : BooleanInitializerInterpretation calls
+  functionDeclaration : FunctionDeclarationInterpretation calls
   legal : Expressions.LegalHelpers calls Predicate.OuterReadiness.domain
   step : ∀ text, Expressions.ValidText text → ∀ form token state,
     NativeForm form → Expressions.ValidToken token → Predicate.OuterReadiness.ValidState text state →
@@ -140,8 +167,32 @@ theorem interpreted_equations (calls : Expressions.Calls)
       Integer.Image.NativeSource.maximumLength_eq imageCalls scalarCalls imageSource bounds bounded]
     unfold LengthSummary.ofImage
     split <;> rfl
+  obtain ⟨native, functionSource, _, declarationLink, lookupLink, hidesLink⟩ :=
+    source.functionDeclaration.source
+  have lookup : ∀ text, Expressions.ValidText text → ∀ catalog first after,
+      FunctionBindings.ValidMetadata text catalog → Expressions.ValidCursor text first →
+      Expressions.ValidCursor text after →
+      calls.function .functionLookup text catalog first after =
+        FunctionBindings.lookup text catalog first after := by
+    intro text valid catalog first after metadata firstBound afterBound
+    rw [lookupLink]
+    exact (FunctionBindings.SourceBridge.interpreted_complete functionSource.metadata
+      functionSource.metadataSource).lookup text valid catalog metadata first after firstBound afterBound
+  have hides : ∀ text, Expressions.ValidText text → ∀ state first after,
+      Expressions.NativeState Predicate.OuterReadiness.domain text state →
+      Expressions.ValidCursor text first → Expressions.ValidCursor text after →
+      calls.function .formalHides text state first after = Compose.formalHides text state first after := by
+    intro text valid state first after ready firstBound afterBound
+    rw [hidesLink]
+    exact FunctionVisibilityNative.formalHides_meaning functionSource.visibility
+      functionSource.visibilityPrimitives functionSource.visibilityEquations text valid state
+      ⟨ready.valid, ready.base.ready, ready.bounds⟩ first after firstBound afterBound
   let raw := Expressions.normalized_rawHelpers calls (interpreted_primitives calls source)
-    {source.definitions with imageMinimum := minimum, imageMaximum := maximum} source.legal
+    {source.definitions ⟨lookup, hides⟩ with
+      imageMinimum := minimum
+      imageMaximum := maximum
+      functionLookup := lookup
+      formalHides := hides} source.legal
   exact {
     toRawHelperEquations := raw
     booleanDeclaration := by
@@ -152,6 +203,11 @@ theorem interpreted_equations (calls : Expressions.Calls)
         (BooleanDeclarationNative.imports_meaning imports text state arguments
           (BooleanDeclarationNative.Libraries.imports_meaning raw helpers definitions contracts links
             text valid state arguments ready.base))
+    functionDeclaration := by
+      intro text valid state arguments ready
+      rw [declarationLink]
+      exact FunctionDeclarationNative.interpreted_native_declaration functionSource text valid
+        state arguments ⟨ready.valid, ready.base.ready, ready.bounds⟩
     booleanInitializer := by
       obtain ⟨imports, predicate, helpers, definitions, contracts, links, equation⟩ :=
         source.booleanInitializer.source

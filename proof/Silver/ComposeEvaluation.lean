@@ -126,7 +126,7 @@ def Expr.Legal (calls : Calls) (locals : Locals) : Expr ty → Prop
   | .firstForm _ source => source.Legal calls locals
   | .operation _ => True
   | .number n | .character n => True
-  | .word _ | .integerTypeWord | .booleanTypeWord => True
+  | .word _ | .integerTypeWord | .booleanTypeWord | .characterTypeWord => True
   | .truth b => True
   | .variable name => True
   | .maxLength  => True
@@ -1056,7 +1056,7 @@ theorem Expr.eval_lexical (calls : Calls) (meaning : Compose.Lexical.Meaning cal
   | .operation _, _ => rfl
   | .number n, _ => rfl
   | .character n, _ => rfl
-  | .word _, _ | .integerTypeWord, _ | .booleanTypeWord, _ => rfl
+  | .word _, _ | .integerTypeWord, _ | .booleanTypeWord, _ | .characterTypeWord, _ => rfl
   | .truth b, _ => rfl
   | .variable name, _ => rfl
   | .maxLength , _ => rfl
@@ -1372,11 +1372,21 @@ theorem characterBody_legal (calls : Calls) : characterBody.Legal calls := by
     Command.Legal, guard, anyOf, allOf, List.foldl, Expr.Legal, Function.isLexical]
   simp
 
+section
+attribute [local irreducible] Expr.eval
+
 theorem characterDeclarationBody_legal (calls : Calls) : characterDeclarationBody.Legal calls := by
-  simp only [Body.Legal, characterDeclarationBody, List.mem_cons, List.not_mem_nil, forall_eq_or_imp]
-  dsimp only [Declaration.Legal, constant, uninitialized, Command.list, List.foldr,
-    Command.Legal, guard, anyOf, allOf, List.foldl, Expr.Legal, Function.isLexical]
-  simp
+  unfold Body.Legal
+  constructor
+  · simp only [characterDeclarationBody, List.forall_mem_cons]
+    dsimp only [Declaration.Legal, constant, Expr.Legal, Function.isLexical]
+    simp
+  · dsimp only [characterDeclarationBody, Command.list, List.foldr,
+      Command.Legal, guard, withFunctionTypeHiding, anyOf, allOf, List.foldl,
+      Expr.Legal, Function.isLexical]
+    repeat' first | constructor | intro _
+
+end
 
 end Silver.Compose.StringNative
 
@@ -1513,6 +1523,8 @@ theorem normalized_rawHelpers {domain : StateDomain} (calls : Calls)
     (meaning : Compose.Lexical.Meaning calls.primitive)
     (source : RawHelperEquations calls calls domain) (legal : LegalHelpers calls domain) :
     RawHelperEquations calls (domain := domain) where
+  functionLookup := source.functionLookup
+  formalHides := source.formalHides
   ranges := source.ranges
   names := source.names
   fixedBounds := by
@@ -1811,6 +1823,7 @@ theorem normalized_helpers {domain : StateDomain} (calls : Calls)
   toRawHelperEquations := normalized_rawHelpers calls meaning source.toRawHelperEquations legal
   booleanDeclaration := source.booleanDeclaration
   booleanInitializer := source.booleanInitializer
+  functionDeclaration := source.functionDeclaration
 
 theorem normalized_definitions (calls : Calls)
     (meaning : Compose.Lexical.Meaning calls.primitive)

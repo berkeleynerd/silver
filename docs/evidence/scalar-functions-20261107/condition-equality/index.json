@@ -1,0 +1,1008 @@
+{
+  "scope": "Two Static condition-worker equalities for #298; focused checks only",
+  "baseline": "96950ce3e81070d9d6ff524e108fd34e97c8dcc8",
+  "host": "linux-x86_64",
+  "source": {
+    "artifact": "silver_output_profile.adb.gz",
+    "sha256": "9ec28d94a41c81bb68168bb674792bc44bf1ddeae69e71d4d3e11b153786b77f",
+    "bytes": 361250
+  },
+  "runs": [
+    {
+      "run_id": "20261107T224942-369c977f6af6",
+      "scope": [
+        "condition-repair:Read_Primary_Into:new-assertion-and-original-endpoint"
+      ],
+      "command": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/bin/gnatprove",
+        "-P",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-function-condition-repairs-298/tmp/condition-proof-repair/probe.gpr",
+        "-u",
+        "silver_output_profile.adb",
+        "--mode=all",
+        "--report=all",
+        "--warnings=continue",
+        "--checks-as-errors=on",
+        "--level=2",
+        "--prover=cvc5,z3,altergo",
+        "--timeout=30",
+        "--subdirs=explore/condition-repair",
+        "--limit-subp=silver_output_profile.adb:3665",
+        "--limit-lines=/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-function-condition-repairs-298/tmp/condition-proof-repair/Read_Primary_Into.lines",
+        "--memcached-server=file:/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-function-condition-repairs-298/tmp/condition-proof-repair/cache",
+        "-XSILVER_HOST=linux-x86_64",
+        "-j6"
+      ],
+      "workers": 6,
+      "reason": "Test the two authorized branch-local Static equalities on baseline 96950ce3e8. Select this worker plus its added assertion and original failed endpoint together; preserve every contract, domain, original assertion and 30-second prover settings. Six workers in isolated output/cache; audit actual selected checks and session roots.",
+      "outcome": "failure",
+      "returncode": null,
+      "duration_seconds": 4.07783189,
+      "failure_keys": [],
+      "fingerprint": "bab7b4f82b00a5e75bdf3d185789ad8f01c97f7cd3f2656a7b4bd64f9979db83",
+      "artifacts": [
+        {
+          "artifact": "20261107T224942-369c977f6af6/events.jsonl.gz",
+          "sha256": "7a4a209a33064d4397dbabee60580981a65aa41c131d5ae9160cccdeac735e34",
+          "bytes": 76173
+        },
+        {
+          "artifact": "20261107T224942-369c977f6af6/native.log.gz",
+          "sha256": "dbcc66d3d806036d2e26dfc75c117e62b0a385f7f1069a7bee4edc74b68bb690",
+          "bytes": 137
+        },
+        {
+          "artifact": "20261107T224942-369c977f6af6/selected-reports/Read_Primary_Into.lines.gz",
+          "sha256": "06bf6f2e11de5413868d30409be69ec3ec8f22fa48981fcf97d454eb5f8f0ba3",
+          "bytes": 62
+        },
+        {
+          "artifact": "20261107T224942-369c977f6af6/selected-reports/probe.gpr.gz",
+          "sha256": "dbced0b077fae8cca13ade2ee9bad45e57ff6f274a432e7a5f628b48bd872b34",
+          "bytes": 263
+        },
+        {
+          "artifact": "20261107T224942-369c977f6af6/selected-reports/run-condition-proof.py.gz",
+          "sha256": "37bd59040e17fd52426d02f85c73ca2afa9d9af6dafb9aabd2157c6ef5b626b3",
+          "bytes": 7784
+        },
+        {
+          "artifact": "20261107T224942-369c977f6af6/selected-reports/silver_output_profile.adb.gz",
+          "sha256": "9ec28d94a41c81bb68168bb674792bc44bf1ddeae69e71d4d3e11b153786b77f",
+          "bytes": 361250
+        }
+      ]
+    },
+    {
+      "run_id": "20261107T225019-4cd5ced38c0f",
+      "scope": [
+        "condition-repair:Read_Primary_Into:whole-worker"
+      ],
+      "command": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/bin/gnatprove",
+        "-P",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-function-condition-repairs-298/tmp/condition-proof-repair/probe.gpr",
+        "-u",
+        "silver_output_profile.adb",
+        "--mode=all",
+        "--report=all",
+        "--warnings=continue",
+        "--checks-as-errors=on",
+        "--level=2",
+        "--prover=cvc5,z3,altergo",
+        "--timeout=30",
+        "--subdirs=explore/condition-repair",
+        "--limit-subp=silver_output_profile.adb:3665",
+        "--memcached-server=file:/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-function-condition-repairs-298/tmp/condition-proof-repair/cache",
+        "-XSILVER_HOST=linux-x86_64",
+        "-j6"
+      ],
+      "workers": 6,
+      "reason": "Correct the unsupported --limit-subp/--limit-lines combination rejected by retained run 20261107T224942-369c977f6af6 before proof generation. Prove the whole worker including its new assertion and original failed endpoint; unchanged two-line source delta, contracts, domains, original assertions and 30-second settings. Six workers in isolated output/cache; audit actual checks and session roots.",
+      "outcome": "interrupted",
+      "returncode": null,
+      "duration_seconds": 35.580647209,
+      "failure_keys": [],
+      "fingerprint": "2ed7828c4d078cba51137f5ef6a2ea2d9bd5e376935630828e2a0dc5017b2289",
+      "artifacts": [
+        {
+          "artifact": "20261107T225019-4cd5ced38c0f/events.jsonl.gz",
+          "sha256": "87b9d756b488dff8e3df7760f0e7b84c76a878d07fabecec447dc5120de240ab",
+          "bytes": 75146
+        },
+        {
+          "artifact": "20261107T225019-4cd5ced38c0f/native.log.gz",
+          "sha256": "e69351b86a9b1e177e2298589adbe6ed55fcb3273c961afc16fcf666a704e038",
+          "bytes": 133
+        },
+        {
+          "artifact": "20261107T225019-4cd5ced38c0f/selected-inputs/Read_Primary_Into.lines.gz",
+          "sha256": "06bf6f2e11de5413868d30409be69ec3ec8f22fa48981fcf97d454eb5f8f0ba3",
+          "bytes": 62
+        },
+        {
+          "artifact": "20261107T225019-4cd5ced38c0f/selected-inputs/probe.gpr.gz",
+          "sha256": "dbced0b077fae8cca13ade2ee9bad45e57ff6f274a432e7a5f628b48bd872b34",
+          "bytes": 263
+        },
+        {
+          "artifact": "20261107T225019-4cd5ced38c0f/selected-inputs/run-condition-proof.py.gz",
+          "sha256": "7d78f2255b6cd31cd0509ecd71ef229439762b2b87a51d7803ebefd1b93a9eaf",
+          "bytes": 7998
+        },
+        {
+          "artifact": "20261107T225019-4cd5ced38c0f/selected-inputs/silver_output_profile.adb.gz",
+          "sha256": "9ec28d94a41c81bb68168bb674792bc44bf1ddeae69e71d4d3e11b153786b77f",
+          "bytes": 361250
+        }
+      ]
+    },
+    {
+      "run_id": "20261107T225130-8170d01a2abf",
+      "scope": [
+        "condition-repair:Read_Primary_Into:added"
+      ],
+      "command": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/bin/gnatprove",
+        "-P",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-function-condition-repairs-298/tmp/condition-proof-repair/probe.gpr",
+        "-u",
+        "silver_output_profile.adb",
+        "--mode=all",
+        "--report=all",
+        "--warnings=continue",
+        "--checks-as-errors=on",
+        "--level=2",
+        "--prover=cvc5,z3,altergo",
+        "--timeout=30",
+        "--subdirs=explore/condition-repair",
+        "--limit-subp=silver_output_profile.adb:3665",
+        "--limit-line=silver_output_profile.adb:3769",
+        "--memcached-server=file:/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-function-condition-repairs-298/tmp/condition-proof-repair/cache",
+        "-XSILVER_HOST=linux-x86_64",
+        "-j6"
+      ],
+      "workers": 6,
+      "reason": "Use the prior supported --limit-subp plus single --limit-line combination after retained multi-line setup rejection 20261107T224942-369c977f6af6. Lead directed four sequential precise checks; whole-worker run 20261107T225019-4cd5ced38c0f was interrupted during representation generation before proof tasks. This run checks added only; both added assertions and original endpoints must pass separately on identical source. Preserve two-line source delta, contracts, domains, original assertions and 30-second settings, six workers, isolated output/cache.",
+      "outcome": "failure",
+      "returncode": 0,
+      "duration_seconds": 168.411048798,
+      "failure_keys": [],
+      "fingerprint": "2342e51a794f68a8b02a4cddb884c1ef205f8db04671bf054d1190ac6e3072de",
+      "artifacts": [
+        {
+          "artifact": "20261107T225130-8170d01a2abf/events.jsonl.gz",
+          "sha256": "23ba0a2fd75ddd91d53295984d282bb534a5dc11d2a6c828d0b529b9fe0dc347",
+          "bytes": 76747
+        },
+        {
+          "artifact": "20261107T225130-8170d01a2abf/native.log.gz",
+          "sha256": "2692077994e8a8cefab90db3afe45d08c0af14eddf7ad5d2c502096110c8685f",
+          "bytes": 767
+        },
+        {
+          "artifact": "20261107T225130-8170d01a2abf/selected-reports/Read_Primary_Into.lines.gz",
+          "sha256": "06bf6f2e11de5413868d30409be69ec3ec8f22fa48981fcf97d454eb5f8f0ba3",
+          "bytes": 62
+        },
+        {
+          "artifact": "20261107T225130-8170d01a2abf/selected-reports/corrected-scope-audit.json.gz",
+          "sha256": "3b4f0bb25ae81161ca717f9645d6573003e1af07851c97424d559a43997c82f8",
+          "bytes": 665
+        },
+        {
+          "artifact": "20261107T225130-8170d01a2abf/selected-reports/gnatprove.out.gz",
+          "sha256": "81ae40dd9dc36ff056d36ceab9dc1711d0d700d3fd445ecf3f4c31d4a5a3bb96",
+          "bytes": 2137
+        },
+        {
+          "artifact": "20261107T225130-8170d01a2abf/selected-reports/gnatprove.sarif.gz",
+          "sha256": "970fd81c5806e7f5203ee161253ac53f29ee829a7d2fc49bc64ed8320302325e",
+          "bytes": 56396
+        },
+        {
+          "artifact": "20261107T225130-8170d01a2abf/selected-reports/probe.gpr.gz",
+          "sha256": "dbced0b077fae8cca13ade2ee9bad45e57ff6f274a432e7a5f628b48bd872b34",
+          "bytes": 263
+        },
+        {
+          "artifact": "20261107T225130-8170d01a2abf/selected-reports/run-condition-proof.py.gz",
+          "sha256": "147c186bab7e3494e460b81befccdde6aba88b183ba5810bb0bcb7d635094d16",
+          "bytes": 8379
+        },
+        {
+          "artifact": "20261107T225130-8170d01a2abf/selected-reports/scope-audit.json.gz",
+          "sha256": "bd8fecb207b146b28f79a59c37e4984bdc544a7a7f76aa04c304752497fd50db",
+          "bytes": 2362
+        },
+        {
+          "artifact": "20261107T225130-8170d01a2abf/selected-reports/silver_output_profile.adb.gz",
+          "sha256": "9ec28d94a41c81bb68168bb674792bc44bf1ddeae69e71d4d3e11b153786b77f",
+          "bytes": 361250
+        },
+        {
+          "artifact": "20261107T225130-8170d01a2abf/selected-reports/silver_output_profile.spark.gz",
+          "sha256": "6431caea31c6c673d41aa40b5c8e024071f22c2778454e784b7d5632706e1298",
+          "bytes": 44518
+        },
+        {
+          "artifact": "20261107T225130-8170d01a2abf/selected-reports/silver_output_profile__read_primary_into.gnat-json.gz",
+          "sha256": "af5f7f60d10d0d0f2cdc52bd7fee43f9081f493f822f17fb13ed3948749f0402",
+          "bytes": 15569632
+        },
+        {
+          "artifact": "20261107T225130-8170d01a2abf/selected-reports/why3session.xml.gz",
+          "sha256": "1fcefc3a08b6875062c0e75c487793328ec3b78f91f51d9b3453671d93e35b39",
+          "bytes": 31039
+        },
+        {
+          "artifact": "20261107T225130-8170d01a2abf/selected-reports/why3shapes.gz",
+          "sha256": "1b75cf2831351ea67fc895eb7ae0b2843af3e6741dc01b8281f6ffda2ddafb07",
+          "bytes": 523724
+        }
+      ],
+      "scope-audit.json": {
+        "run_id": "20261107T225130-8170d01a2abf",
+        "expected_checks": [
+          [
+            "VC_ASSERT",
+            3769
+          ]
+        ],
+        "entities": {
+          " 1": {
+            "name": "Silver_Output_Profile.Read_Primary_Into",
+            "sloc": [
+              {
+                "column": 14,
+                "file": "silver_output_profile.adb",
+                "line": 3665
+              }
+            ]
+          }
+        },
+        "selected_checks": [
+          {
+            "check_col": 35,
+            "check_file": "silver_output_profile.adb",
+            "check_line": 3769,
+            "col": 35,
+            "entity": 1,
+            "file": "silver_output_profile.adb",
+            "how_proved": "prover",
+            "line": 3769,
+            "message": {
+              "text": "assertion proved"
+            },
+            "msg_id": 1,
+            "rule": "VC_ASSERT",
+            "severity": "info",
+            "stats": {
+              "Z3": {
+                "count": 1,
+                "max_steps": 915,
+                "max_time": 1.0142970085144
+              }
+            },
+            "unproved_status": {
+              "status": "unknown"
+            }
+          }
+        ],
+        "all_checks": [
+          {
+            "check_col": 44,
+            "check_file": "silver_output_profile.adb",
+            "check_line": 3769,
+            "col": 44,
+            "entity": 1,
+            "file": "silver_output_profile.adb",
+            "how_proved": "prover",
+            "line": 3769,
+            "message": {
+              "text": "precondition proved"
+            },
+            "msg_id": 0,
+            "rule": "VC_PRECONDITION",
+            "severity": "info",
+            "stats": {
+              "Trivial": {
+                "count": 1,
+                "max_steps": 2,
+                "max_time": 0.0
+              },
+              "Z3": {
+                "count": 18,
+                "max_steps": 1,
+                "max_time": 0.648836970329285
+              }
+            },
+            "unproved_status": {
+              "status": "unknown"
+            }
+          },
+          {
+            "check_col": 35,
+            "check_file": "silver_output_profile.adb",
+            "check_line": 3769,
+            "col": 35,
+            "entity": 1,
+            "file": "silver_output_profile.adb",
+            "how_proved": "prover",
+            "line": 3769,
+            "message": {
+              "text": "assertion proved"
+            },
+            "msg_id": 1,
+            "rule": "VC_ASSERT",
+            "severity": "info",
+            "stats": {
+              "Z3": {
+                "count": 1,
+                "max_steps": 915,
+                "max_time": 1.0142970085144
+              }
+            },
+            "unproved_status": {
+              "status": "unknown"
+            }
+          }
+        ],
+        "session_roots": [
+          {
+            "name": "def'vc",
+            "proved": null
+          }
+        ],
+        "session_goal_count": 492
+      },
+      "corrected-scope-audit.json": {
+        "run_id": "20261107T225130-8170d01a2abf",
+        "managed_outcome": "failure",
+        "native_tool_status": 0,
+        "scope_result": "selected assertion and its precondition proved",
+        "audit_correction": "Unselected goals remain in filtered session root; original harness incorrectly required all root goals proved. Every reported selected check_tree has a direct Valid proof. No native rerun.",
+        "source_sha256": "9ec28d94a41c81bb68168bb674792bc44bf1ddeae69e71d4d3e11b153786b77f",
+        "selected_checks": [
+          {
+            "rule": "VC_PRECONDITION",
+            "line": 3769,
+            "leaves": 19
+          },
+          {
+            "rule": "VC_ASSERT",
+            "line": 3769,
+            "leaves": 1
+          }
+        ]
+      }
+    },
+    {
+      "run_id": "20261107T225518-9833ad1fcd84",
+      "scope": [
+        "condition-repair:Read_Primary_Into:endpoint"
+      ],
+      "command": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/bin/gnatprove",
+        "-P",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-function-condition-repairs-298/tmp/condition-proof-repair/probe.gpr",
+        "-u",
+        "silver_output_profile.adb",
+        "--mode=all",
+        "--report=all",
+        "--warnings=continue",
+        "--checks-as-errors=on",
+        "--level=2",
+        "--prover=cvc5,z3,altergo",
+        "--timeout=30",
+        "--subdirs=explore/condition-repair",
+        "--limit-subp=silver_output_profile.adb:3665",
+        "--limit-line=silver_output_profile.adb:3673",
+        "--memcached-server=file:/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-function-condition-repairs-298/tmp/condition-proof-repair/cache",
+        "-XSILVER_HOST=linux-x86_64",
+        "-j6"
+      ],
+      "workers": 6,
+      "reason": "Use the prior supported --limit-subp plus single --limit-line combination after retained multi-line setup rejection 20261107T224942-369c977f6af6. Lead directed four sequential precise checks; whole-worker run 20261107T225019-4cd5ced38c0f was interrupted during representation generation before proof tasks. This run checks endpoint only; both added assertions and original endpoints must pass separately on identical source. Preserve two-line source delta, contracts, domains, original assertions and 30-second settings, six workers, isolated output/cache.",
+      "outcome": "success",
+      "returncode": 0,
+      "duration_seconds": 105.397302713,
+      "failure_keys": [],
+      "fingerprint": "714b6f9909783f9b7903cd8917bd0629658827d613b8d9e4c1b52cbfeebbe798",
+      "artifacts": [
+        {
+          "artifact": "20261107T225518-9833ad1fcd84/events.jsonl.gz",
+          "sha256": "fa8b562591589792696e7d5c56a0a4372e13c1083c23a2b19d2f0f5dedea7555",
+          "bytes": 75691
+        },
+        {
+          "artifact": "20261107T225518-9833ad1fcd84/native.log.gz",
+          "sha256": "31778cb51bba0c8ddd8f0e6a87eed7e318fc74fa77ed6d6b820e816ca7416f23",
+          "bytes": 705
+        },
+        {
+          "artifact": "20261107T225518-9833ad1fcd84/selected-reports/Read_Primary_Into.lines.gz",
+          "sha256": "06bf6f2e11de5413868d30409be69ec3ec8f22fa48981fcf97d454eb5f8f0ba3",
+          "bytes": 62
+        },
+        {
+          "artifact": "20261107T225518-9833ad1fcd84/selected-reports/gnatprove.out.gz",
+          "sha256": "b5210b3dc5457a6cb130411ce2a945c1634fbf4d6970843c185e7322e6a7441e",
+          "bytes": 2042
+        },
+        {
+          "artifact": "20261107T225518-9833ad1fcd84/selected-reports/gnatprove.sarif.gz",
+          "sha256": "5fb7b06ebd1f6aa2ed0c3b364c231546a1e3a514a29a5f2af01627c78c03e6cc",
+          "bytes": 56099
+        },
+        {
+          "artifact": "20261107T225518-9833ad1fcd84/selected-reports/probe.gpr.gz",
+          "sha256": "dbced0b077fae8cca13ade2ee9bad45e57ff6f274a432e7a5f628b48bd872b34",
+          "bytes": 263
+        },
+        {
+          "artifact": "20261107T225518-9833ad1fcd84/selected-reports/run-condition-proof.py.gz",
+          "sha256": "21f02f735b347e2d8836dc5bef6c415d7289fa64230dc5e88c49ce3856ee5063",
+          "bytes": 9039
+        },
+        {
+          "artifact": "20261107T225518-9833ad1fcd84/selected-reports/scope-audit.json.gz",
+          "sha256": "46b3a7e80e3cea3d8a8c53596091ed82db734475801525fbbf58e6120d1a9d10",
+          "bytes": 2160
+        },
+        {
+          "artifact": "20261107T225518-9833ad1fcd84/selected-reports/silver_output_profile.adb.gz",
+          "sha256": "9ec28d94a41c81bb68168bb674792bc44bf1ddeae69e71d4d3e11b153786b77f",
+          "bytes": 361250
+        },
+        {
+          "artifact": "20261107T225518-9833ad1fcd84/selected-reports/silver_output_profile.spark.gz",
+          "sha256": "fc29e037969ecc57720102d27bb1b632319d4e41cea8c805d673a19d3e72912b",
+          "bytes": 35490
+        },
+        {
+          "artifact": "20261107T225518-9833ad1fcd84/selected-reports/silver_output_profile__read_primary_into.gnat-json.gz",
+          "sha256": "af5f7f60d10d0d0f2cdc52bd7fee43f9081f493f822f17fb13ed3948749f0402",
+          "bytes": 15569632
+        },
+        {
+          "artifact": "20261107T225518-9833ad1fcd84/selected-reports/why3session.xml.gz",
+          "sha256": "fa8d7906a36069ca8ef4a6e3a42ead25d3cd9de698681ca8fc4b43a4eefb0161",
+          "bytes": 31843
+        },
+        {
+          "artifact": "20261107T225518-9833ad1fcd84/selected-reports/why3session.xml.bak.gz",
+          "sha256": "1fcefc3a08b6875062c0e75c487793328ec3b78f91f51d9b3453671d93e35b39",
+          "bytes": 31039
+        },
+        {
+          "artifact": "20261107T225518-9833ad1fcd84/selected-reports/why3shapes.gz",
+          "sha256": "1b75cf2831351ea67fc895eb7ae0b2843af3e6741dc01b8281f6ffda2ddafb07",
+          "bytes": 523724
+        },
+        {
+          "artifact": "20261107T225518-9833ad1fcd84/selected-reports/why3shapes.bak.gz",
+          "sha256": "1b75cf2831351ea67fc895eb7ae0b2843af3e6741dc01b8281f6ffda2ddafb07",
+          "bytes": 523724
+        }
+      ],
+      "scope-audit.json": {
+        "run_id": "20261107T225518-9833ad1fcd84",
+        "expected_checks": [
+          [
+            "VC_POSTCONDITION",
+            3673
+          ]
+        ],
+        "entities": {
+          " 1": {
+            "name": "Silver_Output_Profile.Read_Primary_Into",
+            "sloc": [
+              {
+                "column": 14,
+                "file": "silver_output_profile.adb",
+                "line": 3665
+              }
+            ]
+          }
+        },
+        "selected_checks": [
+          {
+            "check_col": 28,
+            "check_file": "silver_output_profile.adb",
+            "check_line": 3673,
+            "col": 28,
+            "entity": 1,
+            "file": "silver_output_profile.adb",
+            "how_proved": "prover",
+            "line": 3673,
+            "message": {
+              "text": "postcondition proved"
+            },
+            "msg_id": 0,
+            "rule": "VC_POSTCONDITION",
+            "severity": "info",
+            "stats": {
+              "CVC5": {
+                "count": 1,
+                "max_steps": 3383,
+                "max_time": 2.93599510192871
+              },
+              "Z3": {
+                "count": 3,
+                "max_steps": 55160,
+                "max_time": 24.2014904022217
+              }
+            },
+            "unproved_status": {
+              "status": "unknown"
+            }
+          }
+        ],
+        "all_checks": [
+          {
+            "check_col": 28,
+            "check_file": "silver_output_profile.adb",
+            "check_line": 3673,
+            "col": 28,
+            "entity": 1,
+            "file": "silver_output_profile.adb",
+            "how_proved": "prover",
+            "line": 3673,
+            "message": {
+              "text": "postcondition proved"
+            },
+            "msg_id": 0,
+            "rule": "VC_POSTCONDITION",
+            "severity": "info",
+            "stats": {
+              "CVC5": {
+                "count": 1,
+                "max_steps": 3383,
+                "max_time": 2.93599510192871
+              },
+              "Z3": {
+                "count": 3,
+                "max_steps": 55160,
+                "max_time": 24.2014904022217
+              }
+            },
+            "unproved_status": {
+              "status": "unknown"
+            }
+          }
+        ],
+        "selected_check_trees_proved": true,
+        "selected_solver_leaf_count": 4,
+        "session_roots": [
+          {
+            "name": "def'vc",
+            "proved": null
+          }
+        ],
+        "session_goal_count": 492,
+        "session_note": "Filtered session roots include unselected goals; selected checks and every reported check_tree determine this scope result."
+      }
+    },
+    {
+      "run_id": "20261107T225729-2e9deb20d0ee",
+      "scope": [
+        "condition-repair:Read_Relation_Into:added"
+      ],
+      "command": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/bin/gnatprove",
+        "-P",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-function-condition-repairs-298/tmp/condition-proof-repair/probe.gpr",
+        "-u",
+        "silver_output_profile.adb",
+        "--mode=all",
+        "--report=all",
+        "--warnings=continue",
+        "--checks-as-errors=on",
+        "--level=2",
+        "--prover=cvc5,z3,altergo",
+        "--timeout=30",
+        "--subdirs=explore/condition-repair",
+        "--limit-subp=silver_output_profile.adb:3677",
+        "--limit-line=silver_output_profile.adb:4076",
+        "--memcached-server=file:/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-function-condition-repairs-298/tmp/condition-proof-repair/cache",
+        "-XSILVER_HOST=linux-x86_64",
+        "-j6"
+      ],
+      "workers": 6,
+      "reason": "Use the prior supported --limit-subp plus single --limit-line combination after retained multi-line setup rejection 20261107T224942-369c977f6af6. Lead directed four sequential precise checks; whole-worker run 20261107T225019-4cd5ced38c0f was interrupted during representation generation before proof tasks. This run checks added only; both added assertions and original endpoints must pass separately on identical source. Preserve two-line source delta, contracts, domains, original assertions and 30-second settings, six workers, isolated output/cache.",
+      "outcome": "success",
+      "returncode": 0,
+      "duration_seconds": 114.376259379,
+      "failure_keys": [],
+      "fingerprint": "dbcfd52fc18a4e6709a29fce530caa1e53aba2cce0604e427508626bf0f81701",
+      "artifacts": [
+        {
+          "artifact": "20261107T225729-2e9deb20d0ee/events.jsonl.gz",
+          "sha256": "0f38277817876df1f405c806bd228e75e568853b58e43b9ab3252b97d5eeccc7",
+          "bytes": 75675
+        },
+        {
+          "artifact": "20261107T225729-2e9deb20d0ee/native.log.gz",
+          "sha256": "73cdb9fa1a892db1204519acac87eb610f16d2a68493ebfd199b65075b1b20e7",
+          "bytes": 701
+        },
+        {
+          "artifact": "20261107T225729-2e9deb20d0ee/selected-reports/Read_Relation_Into.lines.gz",
+          "sha256": "74aa7ab99dd8a62ebd926c68eb6ee68c62aac98c19bed4ed17b18193551d24b1",
+          "bytes": 62
+        },
+        {
+          "artifact": "20261107T225729-2e9deb20d0ee/selected-reports/gnatprove.out.gz",
+          "sha256": "55b2ee75446436510b57d82245a2d0784f39e46e87cd1c52550ba44b9c0269ae",
+          "bytes": 1841
+        },
+        {
+          "artifact": "20261107T225729-2e9deb20d0ee/selected-reports/gnatprove.sarif.gz",
+          "sha256": "3024231a9d7d91efc183333cf03081c183f244b75f8cc25cac2632c7a1374e18",
+          "bytes": 56091
+        },
+        {
+          "artifact": "20261107T225729-2e9deb20d0ee/selected-reports/probe.gpr.gz",
+          "sha256": "dbced0b077fae8cca13ade2ee9bad45e57ff6f274a432e7a5f628b48bd872b34",
+          "bytes": 263
+        },
+        {
+          "artifact": "20261107T225729-2e9deb20d0ee/selected-reports/run-condition-proof.py.gz",
+          "sha256": "21f02f735b347e2d8836dc5bef6c415d7289fa64230dc5e88c49ce3856ee5063",
+          "bytes": 9039
+        },
+        {
+          "artifact": "20261107T225729-2e9deb20d0ee/selected-reports/scope-audit.json.gz",
+          "sha256": "aed9555783e1f3ff7820102b3e5cd71c9c9a0c655c6ad119b32e58cff858cdab",
+          "bytes": 1890
+        },
+        {
+          "artifact": "20261107T225729-2e9deb20d0ee/selected-reports/silver_output_profile.adb.gz",
+          "sha256": "9ec28d94a41c81bb68168bb674792bc44bf1ddeae69e71d4d3e11b153786b77f",
+          "bytes": 361250
+        },
+        {
+          "artifact": "20261107T225729-2e9deb20d0ee/selected-reports/silver_output_profile.spark.gz",
+          "sha256": "9e4797ed566de03d08e4cd0d01e9132aa582609dcd1e32b511c1bf9831bf66ea",
+          "bytes": 33666
+        },
+        {
+          "artifact": "20261107T225729-2e9deb20d0ee/selected-reports/silver_output_profile__read_relation_into.gnat-json.gz",
+          "sha256": "d804f67e7635f08df0328e16c21e73be5a5230f0a227d8b8cc813fd29abdef9d",
+          "bytes": 17668527
+        },
+        {
+          "artifact": "20261107T225729-2e9deb20d0ee/selected-reports/why3session.xml.gz",
+          "sha256": "1a26da10c11f9e7d1adc412abbe2066dfe430fae2daae0835a3801f524b58290",
+          "bytes": 43264
+        },
+        {
+          "artifact": "20261107T225729-2e9deb20d0ee/selected-reports/why3shapes.gz",
+          "sha256": "136bc29cb4c94147c93508816be13756f5d2b8b87ca27b0c1efcc9ee98fad548",
+          "bytes": 808644
+        }
+      ],
+      "scope-audit.json": {
+        "run_id": "20261107T225729-2e9deb20d0ee",
+        "expected_checks": [
+          [
+            "VC_ASSERT",
+            4076
+          ]
+        ],
+        "entities": {
+          " 1": {
+            "name": "Silver_Output_Profile.Read_Relation_Into",
+            "sloc": [
+              {
+                "column": 14,
+                "file": "silver_output_profile.adb",
+                "line": 3677
+              }
+            ]
+          }
+        },
+        "selected_checks": [
+          {
+            "check_col": 35,
+            "check_file": "silver_output_profile.adb",
+            "check_line": 4076,
+            "col": 35,
+            "entity": 1,
+            "file": "silver_output_profile.adb",
+            "how_proved": "prover",
+            "line": 4076,
+            "message": {
+              "text": "assertion proved"
+            },
+            "msg_id": 0,
+            "rule": "VC_ASSERT",
+            "severity": "info",
+            "stats": {
+              "Z3": {
+                "count": 1,
+                "max_steps": 784,
+                "max_time": 1.29589796066284
+              }
+            },
+            "unproved_status": {
+              "status": "unknown"
+            }
+          }
+        ],
+        "all_checks": [
+          {
+            "check_col": 35,
+            "check_file": "silver_output_profile.adb",
+            "check_line": 4076,
+            "col": 35,
+            "entity": 1,
+            "file": "silver_output_profile.adb",
+            "how_proved": "prover",
+            "line": 4076,
+            "message": {
+              "text": "assertion proved"
+            },
+            "msg_id": 0,
+            "rule": "VC_ASSERT",
+            "severity": "info",
+            "stats": {
+              "Z3": {
+                "count": 1,
+                "max_steps": 784,
+                "max_time": 1.29589796066284
+              }
+            },
+            "unproved_status": {
+              "status": "unknown"
+            }
+          }
+        ],
+        "selected_check_trees_proved": true,
+        "selected_solver_leaf_count": 1,
+        "session_roots": [
+          {
+            "name": "def'vc",
+            "proved": null
+          }
+        ],
+        "session_goal_count": 762,
+        "session_note": "Filtered session roots include unselected goals; selected checks and every reported check_tree determine this scope result."
+      }
+    },
+    {
+      "run_id": "20261107T230027-3e226abd3bd6",
+      "scope": [
+        "condition-repair:Read_Relation_Into:endpoint"
+      ],
+      "command": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/bin/gnatprove",
+        "-P",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-function-condition-repairs-298/tmp/condition-proof-repair/probe.gpr",
+        "-u",
+        "silver_output_profile.adb",
+        "--mode=all",
+        "--report=all",
+        "--warnings=continue",
+        "--checks-as-errors=on",
+        "--level=2",
+        "--prover=cvc5,z3,altergo",
+        "--timeout=30",
+        "--subdirs=explore/condition-repair",
+        "--limit-subp=silver_output_profile.adb:3677",
+        "--limit-line=silver_output_profile.adb:4141",
+        "--memcached-server=file:/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-function-condition-repairs-298/tmp/condition-proof-repair/cache",
+        "-XSILVER_HOST=linux-x86_64",
+        "-j6"
+      ],
+      "workers": 6,
+      "reason": "Use the prior supported --limit-subp plus single --limit-line combination after retained multi-line setup rejection 20261107T224942-369c977f6af6. Lead directed four sequential precise checks; whole-worker run 20261107T225019-4cd5ced38c0f was interrupted during representation generation before proof tasks. This run checks endpoint only; both added assertions and original endpoints must pass separately on identical source. Preserve two-line source delta, contracts, domains, original assertions and 30-second settings, six workers, isolated output/cache.",
+      "outcome": "success",
+      "returncode": 0,
+      "duration_seconds": 238.75388552,
+      "failure_keys": [],
+      "fingerprint": "9a40ed4baf71c4bb7b77fee04ebdf5f93a3b7d9bea67001d344c0d828c070ad0",
+      "artifacts": [
+        {
+          "artifact": "20261107T230027-3e226abd3bd6/events.jsonl.gz",
+          "sha256": "89714d9c0f316abfbad6fb6f894774428f75ad34fbd67aa381c3417e906d64f1",
+          "bytes": 75689
+        },
+        {
+          "artifact": "20261107T230027-3e226abd3bd6/native.log.gz",
+          "sha256": "41ae41f11335d7b336c8492b2f2be963733e1ef389fc7b17343cc27c5d48a08f",
+          "bytes": 767
+        },
+        {
+          "artifact": "20261107T230027-3e226abd3bd6/selected-reports/Read_Relation_Into.lines.gz",
+          "sha256": "74aa7ab99dd8a62ebd926c68eb6ee68c62aac98c19bed4ed17b18193551d24b1",
+          "bytes": 62
+        },
+        {
+          "artifact": "20261107T230027-3e226abd3bd6/selected-reports/gnatprove.out.gz",
+          "sha256": "5316e5c7e8fb2346d0fcea914cd2d12184bb19743ef7ba91ddaa6e42ba4c3ee1",
+          "bytes": 2335
+        },
+        {
+          "artifact": "20261107T230027-3e226abd3bd6/selected-reports/gnatprove.sarif.gz",
+          "sha256": "604f6a0311d55b3e1a631f92afcbe241ce05cb759302c5e5a92f0d25caf33ef7",
+          "bytes": 56400
+        },
+        {
+          "artifact": "20261107T230027-3e226abd3bd6/selected-reports/probe.gpr.gz",
+          "sha256": "dbced0b077fae8cca13ade2ee9bad45e57ff6f274a432e7a5f628b48bd872b34",
+          "bytes": 263
+        },
+        {
+          "artifact": "20261107T230027-3e226abd3bd6/selected-reports/run-condition-proof.py.gz",
+          "sha256": "21f02f735b347e2d8836dc5bef6c415d7289fa64230dc5e88c49ce3856ee5063",
+          "bytes": 9039
+        },
+        {
+          "artifact": "20261107T230027-3e226abd3bd6/selected-reports/scope-audit.json.gz",
+          "sha256": "9805ea6f6847a5236cef0ca79d720c82f0e23bdf672bb8e049e5e05cb921b8d9",
+          "bytes": 2721
+        },
+        {
+          "artifact": "20261107T230027-3e226abd3bd6/selected-reports/silver_output_profile.adb.gz",
+          "sha256": "9ec28d94a41c81bb68168bb674792bc44bf1ddeae69e71d4d3e11b153786b77f",
+          "bytes": 361250
+        },
+        {
+          "artifact": "20261107T230027-3e226abd3bd6/selected-reports/silver_output_profile.spark.gz",
+          "sha256": "b7f2ff113c0022b5a81b8ad2a91dd351b3ee351a3e83555fb158c6eb88370775",
+          "bytes": 44811
+        },
+        {
+          "artifact": "20261107T230027-3e226abd3bd6/selected-reports/silver_output_profile__read_relation_into.gnat-json.gz",
+          "sha256": "d804f67e7635f08df0328e16c21e73be5a5230f0a227d8b8cc813fd29abdef9d",
+          "bytes": 17668527
+        },
+        {
+          "artifact": "20261107T230027-3e226abd3bd6/selected-reports/why3session.xml.gz",
+          "sha256": "da00789a7f224d7a1267b082952fae58e89c3652d92ae313a081cb90e867f3b8",
+          "bytes": 47068
+        },
+        {
+          "artifact": "20261107T230027-3e226abd3bd6/selected-reports/why3session.xml.bak.gz",
+          "sha256": "1a26da10c11f9e7d1adc412abbe2066dfe430fae2daae0835a3801f524b58290",
+          "bytes": 43264
+        },
+        {
+          "artifact": "20261107T230027-3e226abd3bd6/selected-reports/why3shapes.gz",
+          "sha256": "136bc29cb4c94147c93508816be13756f5d2b8b87ca27b0c1efcc9ee98fad548",
+          "bytes": 808644
+        },
+        {
+          "artifact": "20261107T230027-3e226abd3bd6/selected-reports/why3shapes.bak.gz",
+          "sha256": "136bc29cb4c94147c93508816be13756f5d2b8b87ca27b0c1efcc9ee98fad548",
+          "bytes": 808644
+        }
+      ],
+      "scope-audit.json": {
+        "run_id": "20261107T230027-3e226abd3bd6",
+        "expected_checks": [
+          [
+            "VC_ASSERT",
+            4141
+          ]
+        ],
+        "entities": {
+          " 1": {
+            "name": "Silver_Output_Profile.Read_Relation_Into",
+            "sloc": [
+              {
+                "column": 14,
+                "file": "silver_output_profile.adb",
+                "line": 3677
+              }
+            ]
+          }
+        },
+        "selected_checks": [
+          {
+            "check_col": 32,
+            "check_file": "silver_output_profile.adb",
+            "check_line": 4141,
+            "col": 32,
+            "entity": 1,
+            "file": "silver_output_profile.adb",
+            "how_proved": "prover",
+            "line": 4141,
+            "message": {
+              "text": "assertion proved"
+            },
+            "msg_id": 1,
+            "rule": "VC_ASSERT",
+            "severity": "info",
+            "stats": {
+              "altergo": {
+                "count": 1,
+                "max_steps": 18790,
+                "max_time": 3.63000893592834
+              }
+            },
+            "unproved_status": {
+              "status": "unknown"
+            }
+          }
+        ],
+        "all_checks": [
+          {
+            "check_col": 41,
+            "check_file": "silver_output_profile.adb",
+            "check_line": 4141,
+            "col": 41,
+            "entity": 1,
+            "file": "silver_output_profile.adb",
+            "how_proved": "prover",
+            "line": 4141,
+            "message": {
+              "text": "precondition proved"
+            },
+            "msg_id": 0,
+            "rule": "VC_PRECONDITION",
+            "severity": "info",
+            "stats": {
+              "Trivial": {
+                "count": 1,
+                "max_steps": 2,
+                "max_time": 0.0
+              },
+              "Z3": {
+                "count": 4,
+                "max_steps": 1,
+                "max_time": 0.549521028995514
+              },
+              "altergo": {
+                "count": 14,
+                "max_steps": 5897,
+                "max_time": 3.07639789581299
+              }
+            },
+            "unproved_status": {
+              "status": "unknown"
+            }
+          },
+          {
+            "check_col": 32,
+            "check_file": "silver_output_profile.adb",
+            "check_line": 4141,
+            "col": 32,
+            "entity": 1,
+            "file": "silver_output_profile.adb",
+            "how_proved": "prover",
+            "line": 4141,
+            "message": {
+              "text": "assertion proved"
+            },
+            "msg_id": 1,
+            "rule": "VC_ASSERT",
+            "severity": "info",
+            "stats": {
+              "altergo": {
+                "count": 1,
+                "max_steps": 18790,
+                "max_time": 3.63000893592834
+              }
+            },
+            "unproved_status": {
+              "status": "unknown"
+            }
+          }
+        ],
+        "selected_check_trees_proved": true,
+        "selected_solver_leaf_count": 20,
+        "session_roots": [
+          {
+            "name": "def'vc",
+            "proved": null
+          }
+        ],
+        "session_goal_count": 762,
+        "session_note": "Filtered session roots include unselected goals; selected checks and every reported check_tree determine this scope result."
+      }
+    }
+  ]
+}

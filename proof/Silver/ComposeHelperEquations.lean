@@ -298,7 +298,7 @@ termination_by text.length + 1 - position
     calls.function .newName text state first after arguments = newNameAllowed text state first after arguments := by
   rw [equations.newName text valid state first after arguments stateValid firstValid afterValid]
   dsimp +instances only [newNameBody, Expr.eval, Context.locals, lexical, modelPrimitives, Calls.get, Field.get, newNameAllowed]
-  simp only [interpreted_lookup calls equations text valid state.names first after stateValid.nativeNames firstValid afterValid, equations.scalarLookup text valid state.scalarNames first after stateValid.valid.2.2.2.2.2.1 firstValid afterValid, equations.arrayLookup text valid state.arrayNames.names first after (state_array_metadata stateValid.valid) firstValid afterValid, interpreted_subtypeLookup calls equations text valid state.subtypeNames first after stateValid.valid.2.2.2.2.2.2.2.1 firstValid afterValid, equations.booleanLookup text valid state.booleanNames first after stateValid.valid.2.2.2.2.2.2.2.2 firstValid afterValid, Bool.and_assoc, Bool.decide_and]
+  simp only [interpreted_lookup calls equations text valid state.names first after stateValid.nativeNames firstValid afterValid, equations.scalarLookup text valid state.scalarNames first after stateValid.valid.2.2.2.2.2.1 firstValid afterValid, equations.arrayLookup text valid state.arrayNames.names first after (state_array_metadata stateValid.valid) firstValid afterValid, interpreted_subtypeLookup calls equations text valid state.subtypeNames first after stateValid.valid.2.2.2.2.2.2.2.1 firstValid afterValid, equations.booleanLookup text valid state.booleanNames first after stateValid.valid.booleans firstValid afterValid, equations.functionLookup text valid state.functions first after stateValid.valid.functions firstValid afterValid, equations.formalHides text valid state first after stateValid firstValid afterValid, Bool.and_assoc, Bool.decide_and]
 
 @[simp] theorem interpreted_addBinding (calls : Calls) (equations : RawHelperEquations calls (domain := domain))
     (text : Source) (valid : ValidText text) (state : ParserState) (first after : Nat) (value : ValueResult)
@@ -369,25 +369,27 @@ termination_by text.length + 1 - position
     interpreted_subtypeLookup calls equations text valid state.subtypeNames parts.typeFirst parts.typeAfter
       context.valid.2.2.2.2.2.2.2.1 btypeFirst btype,
     equations.booleanLookup text valid state.booleanNames parts.typeFirst parts.typeAfter
-      context.valid.2.2.2.2.2.2.2.2 btypeFirst btype]
+      context.valid.booleans btypeFirst btype,
+    equations.functionLookup text valid state.functions parts.typeFirst parts.typeAfter
+      context.valid.functions btypeFirst btype,
+    equations.formalHides text valid state parts.typeFirst parts.typeAfter context btypeFirst btype]
+  by_cases typeAbsent : parts.typeAfter = 0
+  · simp [typeAbsent, characterDeclarationAt, characterDeclarationRejected, parts]
+  have typeName : ValidName text parts.typeFirst parts.typeAfter := by
+    have present : fixedAfter text parts.typeFirst "character" true ≠ 0 := typeAbsent
+    have positive := model_fixed_input_nonzero text _ "character" true present
+    have advances := model_fixed_advances text _ "character" true btypeFirst (by decide) present
+    exact ⟨by omega, advances, btype⟩
+  rw [equations.nameIs text valid parts.typeFirst parts.typeAfter "integer" typeName (by decide) (by decide),
+    equations.nameIs text valid parts.typeFirst parts.typeAfter "boolean" typeName (by decide) (by decide),
+    equations.nameIs text valid parts.typeFirst parts.typeAfter "character" typeName (by decide) (by decide)]
   by_cases allowed : newNameAllowed text state parts.first parts.after arguments = true
   · have nameValid : ValidName text parts.first parts.after := by
       have parsed := allowed
       simp only [newNameAllowed, Bool.and_eq_true, decide_eq_true_eq] at parsed
       exact ⟨by omega, by omega, ba⟩
     rw [equations.nameIs text valid parts.first parts.after "character" nameValid (by decide) (by decide)]
-    have nativeGuard :
-        (!newNameAllowed text state parts.first parts.after arguments ||
-          decide (parts.typeAfter = 0) || decide (parts.following ≤ state.position) ||
-          decide (state.names.length = maxBindings) ||
-          Named.nameIs text parts.first parts.after ("character".toList.map Char.toNat) ||
-          decide (lookupName text state.names parts.typeFirst parts.typeAfter ≠ 0) ||
-          decide (ScalarExpression.lookup text state.scalarNames parts.typeFirst parts.typeAfter ≠ 0) ||
-          decide (ArrayBindings.lookup text state.arrayNames.names parts.typeFirst parts.typeAfter ≠ 0) ||
-          decide (IntegerSubtypes.lookup text state.subtypeNames parts.typeFirst parts.typeAfter ≠ 0) ||
-          decide (BooleanBindings.lookup text state.booleanNames parts.typeFirst parts.typeAfter ≠ 0)) =
-          characterDeclarationRejected text state arguments parts := by
-      exact characterDeclaration_progress_guard text state arguments context.valid
+    have nativeGuard := characterDeclaration_progress_guard text state arguments context.valid
     simp only [Bool.or_assoc] at nativeGuard
     simp only [Bool.or_assoc]
     rw [nativeGuard]
@@ -591,10 +593,10 @@ attribute [local irreducible] expressionAt
   have einteger := interpreted_take calls equations text valid first (.word "integer") bfirst
     (by unfold ValidToken; decide)
   have ebooleans := equations.booleanHidesInteger text valid state.booleanNames
-    stateValid.valid.2.2.2.2.2.2.2.2
+    stateValid.valid.booleans
   have hidden : ((decide (first ≠ 0) && decide (after > first) &&
       decide (calls.function .takeToken text first (.word "integer") = after)) ||
-      calls.function .booleanHidesInteger text state.booleanNames) = integerHidden := by
+      calls.function .booleanHidesInteger text state.booleanNames || state.hiding.integerHidden) = integerHidden := by
     rw [einteger, ebooleans]
     simp only [integerHidden, declarationIntegerHidden, Bool.decide_and, Bool.and_assoc,
       spelling, isWord, ShellToken.word, first, after]
@@ -689,26 +691,23 @@ attribute [local irreducible] expressionAt
   have et := interpreted_subtypeLookup calls equations text valid state.subtypeNames first after
     stateValid.valid.2.2.2.2.2.2.2.1 firstBound afterBound
   have eb := equations.booleanLookup text valid state.booleanNames first after
-    stateValid.valid.2.2.2.2.2.2.2.2 firstBound afterBound
-  rw [equations.scalarType text valid state position stateValid bound]
-  dsimp +instances only [scalarTypeBody, Expr.eval, Context.locals, Locals.set, lexical, Calls.get, Field.get]
-  simp only [reduceCtorEq, String.reduceEq, ↓reduceIte, ↓reduceDIte, es, en, el, ec, ea, et, eb]
-  change (if decide (first = 0) || decide (after ≤ first) ||
-      decide (lookupName text state.names first after ≠ 0) ||
-      decide (ScalarExpression.lookup text state.scalarNames first after ≠ 0) ||
-      decide (ArrayBindings.lookup text state.arrayNames.names first after ≠ 0) ||
-      decide (BooleanBindings.lookup text state.booleanNames first after ≠ 0)
-    then _ else _) = _
-  simp only [Bool.or_eq_true, decide_eq_true_eq, or_assoc]
-  split
-  · rename_i rejected
-    dsimp only [after, first] at rejected
-    simp only [scalarTypeAt, rejected, ↓reduceIte]
-  · rename_i admitted
-    have nameValid : ValidName text first after := ⟨by omega, by omega, afterBound⟩
+    stateValid.valid.booleans firstBound afterBound
+  have ef := equations.functionLookup text valid state.functions first after
+    stateValid.valid.functions firstBound afterBound
+  have eh := equations.formalHides text valid state first after stateValid firstBound afterBound
+  rw [equations.scalarType text valid state position stateValid bound, scalarType_denotation]
+  dsimp +instances only [scalarTypeEquation, lexical]
+  rw [es, en, el, ec, ea, et, eb, ef, eh]
+  by_cases invalid : first = 0 ∨ after ≤ first
+  · rcases invalid with zero | backwards
+    · have actualZero : skipAt text position = 0 := zero
+      simp [scalarTypeAt, first, after, actualZero]
+    · have actualBackwards : nameAfter text (skipAt text position) ≤ skipAt text position := backwards
+      simp [scalarTypeAt, first, after, actualBackwards]
+  · have nameValid : ValidName text first after := ⟨by omega, by omega, afterBound⟩
     rw [equations.nameIs text valid first after "integer" nameValid (by decide) (by decide)]
-    dsimp only [after, first] at admitted
-    simp only [scalarTypeAt, admitted, ↓reduceIte, after, first]
+    dsimp +instances only [scalarTypeAt, after, first]
+    simp only [Bool.or_eq_true, decide_eq_true_eq, or_assoc]
 
 @[simp] theorem interpreted_subtypeDeclaration (calls : Calls) (equations : RawHelperEquations calls (domain := domain))
     (text : Source) (valid : ValidText text) (state : ParserState) (arguments : Bool)
@@ -751,12 +750,27 @@ attribute [local irreducible] expressionAt
   have ear := equations.arrayLookup text valid state.arrayNames.names typeFirst typeAfter
     (state_array_metadata stateValid.valid) btf bta
   have ebool := equations.booleanLookup text valid state.booleanNames typeFirst typeAfter
-    stateValid.valid.2.2.2.2.2.2.2.2 btf bta
+    stateValid.valid.booleans btf bta
+  have efunction := equations.functionLookup text valid state.functions typeFirst typeAfter
+    stateValid.valid.functions btf bta
+  have eformal := equations.formalHides text valid state typeFirst typeAfter stateValid btf bta
   have eb := equations.scalarEmpty constraint.bounds cp
   rw [equations.subtypeDeclaration text valid state arguments stateValid, subtypeDeclaration_denotation]
   change subtypeDeclarationEquation calls text state arguments = _
   dsimp only [subtypeDeclarationEquation]
-  rw [ep, ef, ea, em, etf, eta, ec, ee, en, er, es, ei, ear, ebool, eb]
+  rw [ep, ef, ea, em, etf, eta, ec, ee, en, er, es, ei, ear, ebool, efunction, eformal, eb]
+  by_cases typeAbsent : typeAfter = 0
+  · have actualZero := typeAbsent
+    dsimp only [subtypeAfter, first, after, marker, typeFirst, typeAfter] at actualZero
+    simp only [typeAbsent, decide_true, Bool.or_true, Bool.true_or, ↓reduceIte]
+    simp [subtypeDeclarationAt, subtypeDeclarationParts, actualZero]
+  have typeName : ValidName text typeFirst typeAfter := by
+    have positive := model_fixed_input_nonzero text typeFirst "integer" true typeAbsent
+    have advance := model_fixed_advances text typeFirst "integer" true btf (by decide) typeAbsent
+    exact ⟨by omega, advance, bta⟩
+  rw [equations.nameIs text valid typeFirst typeAfter "integer" typeName (by decide) (by decide),
+    equations.nameIs text valid typeFirst typeAfter "boolean" typeName (by decide) (by decide),
+    equations.nameIs text valid typeFirst typeAfter "character" typeName (by decide) (by decide)]
   by_cases allowed : newNameAllowed text state first after arguments = true
   · have nameValid := model_new_name_valid text state first after arguments ba allowed
     have own := equations.nameIs text valid first after "integer" nameValid (by decide) (by decide)
@@ -772,7 +786,7 @@ attribute [local irreducible] expressionAt
       IntegerSubtypes.append, IntegerSubtypes.CallHiding.add, IntegerSubtypes.CallHiding.get,
       spelling, isWord, ShellToken.word,
       subtypeAfter, first, after, marker, typeFirst, typeAfter, constraint, following]
-    simp only [Bool.decide_or, Bool.or_assoc]
+    simp only [Bool.decide_coe, Bool.decide_or, Bool.or_assoc]
   · have rejected : newNameAllowed text state first after arguments = false := Bool.eq_false_iff.mpr allowed
     simp only [rejected, Bool.not_false, Bool.true_or, ↓reduceIte]
     dsimp only [after, first, subtypeAfter] at rejected

@@ -1,0 +1,98 @@
+{
+  "target": "Function_Local_At",
+  "body_line": 5628,
+  "run_id": "20261108T093741-791fda34c956",
+  "source_commit": "ee02fce26ac8f3cbe911022b2f9f1611f33594ab",
+  "source_sha256": "036a53b4bd9a9d7c711b4ddf8d83467a6b470184bfce2ac6677b15cf4f57ef47",
+  "actual_tool_exitcode": 0,
+  "finished": {
+    "duration_seconds": 88.436568727,
+    "event": "finished",
+    "evidence": [
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-parser-repairs-298/.silver/linux-x86_64/compiler/obj/explore/remaining-three-function-local-at/gnatprove",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-parser-repairs-298/.silver/linux-x86_64/compiler/obj/explore/remaining-three-function-local-at/gnatprove"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093741-791fda34c956/native.log",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093741-791fda34c956/native.log"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093741-791fda34c956/exploratory-evidence",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093741-791fda34c956/exploratory-evidence"
+      }
+    ],
+    "failure_keys": [],
+    "monotonic_ns": 62050734556071,
+    "outcome": "success",
+    "retained_reports": [],
+    "returncode": null,
+    "run_id": "20261108T093741-791fda34c956",
+    "utc": "2026-11-08T09:39:10.338543+00:00"
+  },
+  "proof_records_by_severity": {
+    "info": 5
+  },
+  "flow_records_by_severity": {
+    "info": 2
+  },
+  "checked_proof_entities": [
+    "Silver_Output_Profile.Function_Local_At"
+  ],
+  "proof_tree_branches": 49,
+  "proved_proof_tree_branches": 49,
+  "postcondition_tree_branches": 13,
+  "proved_postcondition_tree_branches": 13,
+  "saved_session_roots": 1,
+  "saved_session_roots_marked_proved": 1,
+  "saved_session_goal_nodes": 52,
+  "saved_session_goal_nodes_marked_proved": 52,
+  "progress": "PROGRESS_PROOF",
+  "stop_reason": "STOP_REASON_NONE",
+  "skip_proof": [],
+  "skip_flow_proof": [],
+  "pragma_assume": [],
+  "non_info_records": [],
+  "proof_records": [
+    {
+      "line": 5631,
+      "column": 40,
+      "rule": "VC_PRECONDITION",
+      "severity": "info",
+      "tree_branches": 15,
+      "all_tree_branches_proved": true
+    },
+    {
+      "line": 5630,
+      "column": 49,
+      "rule": "VC_PRECONDITION",
+      "severity": "info",
+      "tree_branches": 15,
+      "all_tree_branches_proved": true
+    },
+    {
+      "line": 5622,
+      "column": 16,
+      "rule": "VC_PRECONDITION",
+      "severity": "info",
+      "tree_branches": 3,
+      "all_tree_branches_proved": true
+    },
+    {
+      "line": 5621,
+      "column": 19,
+      "rule": "VC_PRECONDITION",
+      "severity": "info",
+      "tree_branches": 3,
+      "all_tree_branches_proved": true
+    },
+    {
+      "line": 5622,
+      "column": 16,
+      "rule": "VC_POSTCONDITION",
+      "severity": "info",
+      "tree_branches": 13,
+      "all_tree_branches_proved": true
+    }
+  ]
+}

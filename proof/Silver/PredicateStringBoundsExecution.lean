@@ -13,6 +13,78 @@ def SimpleObjectBoundsSafe (names : Compose.BindingEnvironment) (values : Values
   | .assign update => update.value.ObjectBoundsSafe names values input integers
   | .output expression | .put expression => expression.ObjectBoundsSafe names values input integers
 
+def CallActualObjectBoundsSafe (names : Compose.BindingEnvironment) (values : Values)
+    (input : Source) (valid : Bool) (integers : Integer.Store) (booleans : Boolean.Store) :
+    ScalarFunctions.Actual → Prop
+  | .integer _ => True
+  | .boolean condition => condition.ObjectBoundsSafe names values input valid integers booleans
+
+def CallObjectBoundsSafe (names : Compose.BindingEnvironment) (values : Values)
+    (input : Source) (valid : Bool) (integers : Integer.Store) (booleans : Boolean.Store)
+    (call : ScalarFunctions.Call) : Prop :=
+  ∀ actual ∈ call.actuals, CallActualObjectBoundsSafe names values input valid integers booleans actual
+
+theorem actuals_objectBoundsSafe {program : Program} {names : Compose.BindingEnvironment}
+    {analysis : Integer.Analysis} {flow : Flow} {booleans : Boolean.Analysis}
+    {formals : List ScalarFunctions.ScalarType} {actuals : List ScalarFunctions.Actual}
+    {values : Values} {input : Source} {valid rejected : Bool}
+    {integers : Integer.Store} {flags : Boolean.Store} {hasArguments : Bool}
+    (metadata : NamesBoundsValid names)
+    (origin : ∀ actual ∈ actuals, CallActualBoundsOrigin names actual)
+    (readable : ∀ actual ∈ actuals, actual.Readable hasArguments names.shape booleans)
+    (checked : ScalarFunctions.checkActuals names.shape analysis flow booleans formals actuals = true)
+    (state : Fits names.shape input values) (allowed : flow.Allows valid input.length rejected integers)
+    (certificates : RawBooleanBoundsCertificates program names
+      (actualsObligations names.shape analysis flow booleans formals actuals)) :
+    ∀ actual ∈ actuals, CallActualObjectBoundsSafe names values input valid integers flags actual := by
+  induction formals generalizing actuals with
+  | nil => cases actuals <;> simp_all [ScalarFunctions.checkActuals]
+  | cons formal formals ih =>
+      cases actuals with
+      | nil => simp [ScalarFunctions.checkActuals] at checked
+      | cons actual actuals =>
+          have checks := Bool.and_eq_true_iff.mp checked
+          have firstCertificates : RawBooleanBoundsCertificates program names
+              (actualObligations names.shape analysis flow booleans formal actual) :=
+            fun context summary present => certificates context summary (List.mem_append_left _ present)
+          have first : CallActualObjectBoundsSafe names values input valid integers flags actual := by
+            cases actual with
+            | integer _ => trivial
+            | boolean condition =>
+                cases formal with
+                | integer bounds => simp [ScalarFunctions.Actual.check] at checks
+                | boolean =>
+                    exact condition_objectBounds_from_raw_certificates metadata state (origin (.boolean condition) (by simp))
+                      (readable (.boolean condition) (by simp)).2 allowed checks.1 firstCertificates
+          have rest := ih (fun other present => origin other (by simp [present]))
+            (fun other present => readable other (by simp [present])) checks.2
+            (fun context summary present => certificates context summary (List.mem_append_right _ present))
+          intro other present
+          rcases List.mem_cons.mp present with rfl | present
+          · exact first
+          · exact rest other present
+
+theorem call_objectBoundsSafe {program : Program} {names : Compose.BindingEnvironment}
+    {signatures : ScalarFunctions.Signatures} {analysis : Integer.Analysis} {flow : Flow}
+    {booleans : Boolean.Analysis} {assignment : ScalarFunctions.Assignment}
+    {values : Values} {input : Source} {valid rejected : Bool}
+    {integers : Integer.Store} {flags : Boolean.Store} {hasArguments : Bool}
+    (metadata : NamesBoundsValid names)
+    (origin : CallBoundsOrigin names assignment.call)
+    (readable : assignment.call.Readable hasArguments names.shape booleans)
+    (checked : assignment.check signatures names.shape analysis flow booleans = true)
+    (state : Fits names.shape input values) (allowed : flow.Allows valid input.length rejected integers)
+    (certificates : RawBooleanBoundsCertificates program names
+      (callObligations signatures names.shape analysis flow booleans assignment)) :
+    CallObjectBoundsSafe names values input valid integers flags assignment.call := by
+  obtain ⟨result, callChecked, _⟩ := assignment.check_success checked
+  obtain ⟨signature, found, actualsChecked, _⟩ := assignment.call.check_success callChecked
+  apply actuals_objectBoundsSafe metadata origin readable actualsChecked state allowed
+  intro context summary present
+  apply certificates context summary
+  simp only [callObligations, found]
+  exact List.mem_append_left _ present
+
 def IterationsObjectBoundsSafe (step : Values → Integer.Store → Boolean.Store → Int → Execution)
     (safeStep : Values → Integer.Store → Boolean.Store → Int → Prop) :
     Values → Integer.Store → Boolean.Store → List Int → Prop
@@ -24,43 +96,46 @@ def IterationsObjectBoundsSafe (step : Values → Integer.Store → Boolean.Stor
 
 mutual
   def Statement.ObjectBoundsSafe (names : Compose.BindingEnvironment) (input : Source) (valid : Bool)
-      (values : Values) (item : Statement) (integers : Integer.Store) (booleans : Boolean.Store) : Prop :=
+      (values : Values) (item : Statement) (integers : Integer.Store) (booleans : Boolean.Store)
+      (functions : ScalarFunctions.Environment := .empty) : Prop :=
     match item with
     | .simple item => SimpleObjectBoundsSafe names values input integers item
+    | .callAssign update => CallObjectBoundsSafe names values input valid integers booleans update.call
     | .booleanAssign update | .booleanArrayAssign update =>
         update.value.ObjectBoundsSafe names values input valid integers booleans
     | .scalarAssign _ | .arrayAssign _ | .reject => True
     | .choice condition yes no =>
         condition.ObjectBoundsSafe names values input valid integers booleans ∧
           if condition.evaluate values input valid integers booleans
-          then StatementsObjectBoundsSafe names input valid values yes integers booleans
-          else StatementsObjectBoundsSafe names input valid values no integers booleans
+          then StatementsObjectBoundsSafe (functions := functions) names input valid values yes integers booleans
+          else StatementsObjectBoundsSafe (functions := functions) names input valid values no integers booleans
     | .forLoop index reverse lower upper body =>
         IterationsObjectBoundsSafe
           (fun current scalars flags value =>
-            (executeStatements input valid current body (Integer.put scalars index value) flags).restoreIndex index scalars)
+            (executeStatements (functions := functions) input valid current body (Integer.put scalars index value) flags).restoreIndex index scalars)
           (fun current scalars flags value =>
-            StatementsObjectBoundsSafe names input valid current body (Integer.put scalars index value) flags)
+            StatementsObjectBoundsSafe (functions := functions) names input valid current body (Integer.put scalars index value) flags)
           values integers booleans (Integer.iterationValues reverse (lower.evaluate integers) (upper.evaluate integers))
     | .arrayLoop index reverse array body =>
         IterationsObjectBoundsSafe
           (fun current scalars flags component =>
-            (executeStatements input valid current body
+            (executeStatements (functions := functions) input valid current body
               (Integer.put scalars index (array.project scalars component)) flags).restoreIndex index scalars)
           (fun current scalars flags component =>
-            StatementsObjectBoundsSafe names input valid current body
+            StatementsObjectBoundsSafe (functions := functions) names input valid current body
               (Integer.put scalars index (array.project scalars component)) flags)
           values integers booleans (Integer.iterationValues reverse array.bounds.lower array.bounds.upper)
   termination_by sizeOf item
 
   def StatementsObjectBoundsSafe (names : Compose.BindingEnvironment) (input : Source) (valid : Bool)
-      (values : Values) (items : List Statement) (integers : Integer.Store) (booleans : Boolean.Store) : Prop :=
+      (values : Values) (items : List Statement) (integers : Integer.Store) (booleans : Boolean.Store)
+      (functions : ScalarFunctions.Environment := .empty) : Prop :=
     match items with
     | [] => True
-    | item :: rest => item.ObjectBoundsSafe names input valid values integers booleans ∧
-        StatementsObjectBoundsSafe names input valid (item.execute input valid values integers booleans).values rest
-          (item.execute input valid values integers booleans).integers
-          (item.execute input valid values integers booleans).booleans
+    | item :: rest => item.ObjectBoundsSafe (functions := functions) names input valid values integers booleans ∧
+        StatementsObjectBoundsSafe (functions := functions) names input valid (item.execute (functions := functions) input valid values integers booleans).values rest
+          (item.execute (functions := functions) input valid values integers booleans).integers
+          (item.execute (functions := functions) input valid values integers booleans).booleans
   termination_by sizeOf items
 end
 
@@ -124,19 +199,20 @@ private theorem iterations_objectBoundsSafe {shape : Shape} {ranges declared : I
 
 
 mutual
-  theorem statement_objectBoundsSafe {program : Program} {names : Compose.BindingEnvironment} {before after : Flow}
+  theorem statement_objectBoundsSafe {functions : ScalarFunctions.Environment} {program : Program} {names : Compose.BindingEnvironment} {before after : Flow}
       {hasArguments : Bool} {analysis : Integer.Analysis} {booleanAnalysis : Boolean.Analysis}
       {integers : Integer.Store} {booleans : Boolean.Store} {item : Statement}
       {input : Source} {values : Values} {valid rejected : Bool}
+      (certified : functions.Valid)
       (count : names.length ≤ maxBindings) (metadata : NamesBoundsValid names)
       (origin : item.BoundsOrigin names)
       (wellFormed : item.WellFormed hasArguments names.shape booleanAnalysis)
-      (checked : item.check names.shape analysis before booleanAnalysis = some after)
+      (checked : item.check (signatures := functions.signatures) names.shape analysis before booleanAnalysis = some after)
       (state : Fits names.shape input values) (printable : Bindings.Printable input)
       (allowed : before.Allows valid input.length rejected integers)
       (declaredState : Integer.Fits analysis.declared integers)
-      (certificates : RawBooleanBoundsCertificates program names (item.obligations names.shape analysis before booleanAnalysis)) :
-      item.ObjectBoundsSafe names input valid values integers booleans := by
+      (certificates : RawBooleanBoundsCertificates program names (item.obligations (signatures := functions.signatures) names.shape analysis before booleanAnalysis)) :
+      item.ObjectBoundsSafe (functions := functions) names input valid values integers booleans := by
     cases item with
     | simple item =>
         simp only [Statement.obligations] at certificates
@@ -148,6 +224,16 @@ mutual
           exact simple_objectBoundsSafe count metadata origin good state allowed certificates
         · contradiction
     | scalarAssign | arrayAssign | reject => simp only [Statement.ObjectBoundsSafe]
+    | callAssign update =>
+        simp only [Statement.BoundsOrigin] at origin
+        simp only [Statement.WellFormed] at wellFormed
+        simp only [Statement.ObjectBoundsSafe]
+        simp only [Statement.obligations] at certificates
+        simp only [Statement.check] at checked
+        split at checked
+        · rename_i checkedCall
+          exact call_objectBoundsSafe metadata origin wellFormed.2 checkedCall state allowed certificates
+        · contradiction
     | booleanAssign update =>
         simp only [Statement.obligations] at certificates
         simp only [Statement.BoundsOrigin] at origin
@@ -195,14 +281,14 @@ mutual
           | true =>
               simp only [outcome] at refined
               simp only [↓reduceIte]
-              exact statements_objectBoundsSafe count metadata origin.2.1 wellFormed.2.2.2.1 yesChecked
+              exact statements_objectBoundsSafe certified count metadata origin.2.1 wellFormed.2.2.2.1 yesChecked
                 state printable refined declaredState
                 (fun context summary member => certificates context summary
                   (List.mem_append_left _ (List.mem_append_right _ member)))
           | false =>
               simp only [outcome] at refined
               simp only [Bool.false_eq_true, ↓reduceIte]
-              exact statements_objectBoundsSafe count metadata origin.2.2 wellFormed.2.2.2.2 noChecked
+              exact statements_objectBoundsSafe certified count metadata origin.2.2 wellFormed.2.2.2.2 noChecked
                 state printable refined declaredState
                 (fun context summary member => certificates context summary (List.mem_append_right _ member))
         · contradiction
@@ -224,20 +310,20 @@ mutual
           refine ⟨?_, Integer.put_fits currentScalars within⟩
           simpa only [loopEntry, loopContext, Integer.Interval.contains_nonempty within, Bool.false_eq_true, ↓reduceIte]
             using currentAllowed
-        have sound := statements_execution_sound (booleans := flags) wellFormed.2.2 bodyChecked currentState
+        have sound := statements_execution_sound certified (booleans := flags) wellFormed.2.2 bodyChecked currentState
           printable bodyAllowed (Integer.put_fits currentDeclared within)
         have bodyCertificates : RawBooleanBoundsCertificates program names
-            (statementsObligations names.shape (analysis.withIndex index (Integer.loopBounds a b))
+            (statementsObligations (signatures := functions.signatures) names.shape (analysis.withIndex index (Integer.loopBounds a b))
               (loopEntry analysis before index (Integer.loopBounds a b)) body booleanAnalysis) := by
           intro context summary member
           apply certificates context summary
           simpa only [Statement.obligations, lowerFound, upperFound] using List.mem_append_right
             ((lower.obligations before.scalars ++ upper.obligations before.scalars).map Obligation.scalar) member
-        have safe := statements_objectBoundsSafe (booleans := flags) count metadata origin wellFormed.2.2 bodyChecked currentState
+        have safe := statements_objectBoundsSafe certified (booleans := flags) count metadata origin wellFormed.2.2 bodyChecked currentState
           printable bodyAllowed (Integer.put_fits currentDeclared within) bodyCertificates
         have restoredDeclared := Integer.restore_fits currentDeclared sound.declared
         have restoredCurrent : Integer.Fits (analysis.widen before.scalars)
-            (Integer.restore scalars (executeStatements input valid current body
+            (Integer.restore scalars (executeStatements (functions := functions) input valid current body
               (Integer.put scalars index value) flags).integers index) := by
           apply analysis.widen_closed currentScalars restoredDeclared
           intro other readonly
@@ -246,7 +332,7 @@ mutual
             simp only [Integer.restore, Integer.put, ↓reduceIte]
           · have readBody : (analysis.withIndex index (Integer.loopBounds a b)).mutable other = false := by
               simpa only [Integer.Analysis.withIndex, Integer.put, same, ↓reduceIte] using readonly
-            have unchanged := statements_unchanged (input := input) (valid := valid)
+            have unchanged := statements_unchanged (functions := functions) (input := input) (valid := valid)
               (values := current) (booleans := flags) (integers := Integer.put scalars index value) bodyChecked readBody
             simpa only [Integer.restore, Integer.put, same, ↓reduceIte] using unchanged
         exact ⟨safe, sound.state, restoredCurrent, restoredDeclared⟩
@@ -270,14 +356,14 @@ mutual
           have bodyAllowed : (arrayLoopEntry analysis before index array.componentBounds).Allows
               valid input.length already (Integer.put scalars index (array.project scalars component)) :=
             ⟨currentAllowed, Integer.put_fits currentScalars valueWithin⟩
-          have sound := statements_execution_sound (booleans := flags) wellFormed.2.2 bodyChecked currentState
+          have sound := statements_execution_sound certified (booleans := flags) wellFormed.2.2 bodyChecked currentState
             printable bodyAllowed (Integer.put_fits currentDeclared valueWithin)
-          have safe := statements_objectBoundsSafe (booleans := flags) count metadata origin wellFormed.2.2 bodyChecked currentState
+          have safe := statements_objectBoundsSafe certified (booleans := flags) count metadata origin wellFormed.2.2 bodyChecked currentState
             printable bodyAllowed (Integer.put_fits currentDeclared valueWithin)
             (fun context summary member => certificates context summary (List.mem_append_right _ member))
           have restoredDeclared := Integer.restore_fits currentDeclared sound.declared
           have restoredCurrent : Integer.Fits (analysis.widen before.scalars)
-              (Integer.restore scalars (executeStatements input valid current body
+              (Integer.restore scalars (executeStatements (functions := functions) input valid current body
                 (Integer.put scalars index (array.project scalars component)) flags).integers index) := by
             apply analysis.widen_closed currentScalars restoredDeclared
             intro other readonly
@@ -286,7 +372,7 @@ mutual
               simp only [Integer.restore, Integer.put, ↓reduceIte]
             · have readBody : (analysis.withIndex index array.componentBounds).mutable other = false := by
                 simpa only [Integer.Analysis.withIndex, Integer.put, same, ↓reduceIte] using readonly
-              have unchanged := statements_unchanged (input := input) (valid := valid)
+              have unchanged := statements_unchanged (functions := functions) (input := input) (valid := valid)
                 (values := current) (booleans := flags) (integers := Integer.put scalars index (array.project scalars component))
                 bodyChecked readBody
               simpa only [Integer.restore, Integer.put, same, ↓reduceIte] using unchanged
@@ -294,19 +380,20 @@ mutual
         · contradiction
   termination_by sizeOf item
 
-  theorem statements_objectBoundsSafe {program : Program} {names : Compose.BindingEnvironment} {before after : Flow}
+  theorem statements_objectBoundsSafe {functions : ScalarFunctions.Environment} {program : Program} {names : Compose.BindingEnvironment} {before after : Flow}
       {hasArguments : Bool} {analysis : Integer.Analysis} {booleanAnalysis : Boolean.Analysis}
       {integers : Integer.Store} {booleans : Boolean.Store} {items : List Statement}
       {input : Source} {values : Values} {valid rejected : Bool}
+      (certified : functions.Valid)
       (count : names.length ≤ maxBindings) (metadata : NamesBoundsValid names)
       (origin : StatementsBoundsOrigin names items)
       (wellFormed : StatementsWellFormed hasArguments names.shape items booleanAnalysis)
-      (checked : checkStatements names.shape analysis before items booleanAnalysis = some after)
+      (checked : checkStatements (signatures := functions.signatures) names.shape analysis before items booleanAnalysis = some after)
       (state : Fits names.shape input values) (printable : Bindings.Printable input)
       (allowed : before.Allows valid input.length rejected integers)
       (declaredState : Integer.Fits analysis.declared integers)
-      (certificates : RawBooleanBoundsCertificates program names (statementsObligations names.shape analysis before items booleanAnalysis)) :
-      StatementsObjectBoundsSafe names input valid values items integers booleans := by
+      (certificates : RawBooleanBoundsCertificates program names (statementsObligations (signatures := functions.signatures) names.shape analysis before items booleanAnalysis)) :
+      StatementsObjectBoundsSafe (functions := functions) names input valid values items integers booleans := by
     cases items with
     | nil => simp only [StatementsObjectBoundsSafe]
     | cons item rest =>
@@ -314,20 +401,20 @@ mutual
         simp only [StatementsWellFormed] at wellFormed
         simp only [checkStatements, Option.bind_eq_some_iff] at checked
         obtain ⟨middle, firstChecked, restChecked⟩ := checked
-        have sound := statement_execution_sound (booleans := booleans) wellFormed.1 firstChecked state printable allowed declaredState
+        have sound := statement_execution_sound certified (booleans := booleans) wellFormed.1 firstChecked state printable allowed declaredState
         simp only [StatementsObjectBoundsSafe]
         simp only [statementsObligations, firstChecked] at certificates
         have firstCertificates : RawBooleanBoundsCertificates program names
-            (item.obligations names.shape analysis before booleanAnalysis) :=
+            (item.obligations (signatures := functions.signatures) names.shape analysis before booleanAnalysis) :=
           fun context summary member => certificates context summary (List.mem_append_left _ member)
         have restCertificates : RawBooleanBoundsCertificates program names
-            (statementsObligations names.shape analysis middle rest booleanAnalysis) := by
+            (statementsObligations (signatures := functions.signatures) names.shape analysis middle rest booleanAnalysis) := by
           intro context summary member
           apply certificates context summary
           simpa only [statementsObligations, firstChecked] using List.mem_append_right
-            (item.obligations names.shape analysis before booleanAnalysis) member
-        exact ⟨statement_objectBoundsSafe count metadata origin.1 wellFormed.1 firstChecked state printable allowed declaredState firstCertificates,
-          statements_objectBoundsSafe count metadata origin.2 wellFormed.2 restChecked sound.state printable
+            (item.obligations (signatures := functions.signatures) names.shape analysis before booleanAnalysis) member
+        exact ⟨statement_objectBoundsSafe certified count metadata origin.1 wellFormed.1 firstChecked state printable allowed declaredState firstCertificates,
+          statements_objectBoundsSafe certified count metadata origin.2 wellFormed.2 restChecked sound.state printable
             ⟨sound.next, sound.scalars⟩ sound.declared restCertificates⟩
   termination_by sizeOf items
 end

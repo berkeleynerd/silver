@@ -1,0 +1,30 @@
+{
+  "utc": "2026-11-08T15:33:07.406444+00:00",
+  "review_target": "8eec12216a4ed1dbd0ec205e7baab7f206824233",
+  "retained_evidence_target": "d39a2b21c8f9b74151967f748cc300b99d1f8302",
+  "governed_inputs": "f6308191545c1012d76132ae535977e55fd4f018",
+  "run_id": "20261108T094547-29491e1d3036",
+  "findings": [
+    {
+      "id": "R2",
+      "severity": "medium",
+      "status": "confirmed classifier mismatch; proposed correction not implemented"
+    },
+    {
+      "id": "R3",
+      "severity": "medium",
+      "status": "confirmed masked advisory rejection; proposed correction not implemented"
+    }
+  ],
+  "disposition": "complete native audit failed; final acceptance held; independent review of eventual policy correction required",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Max",
+  "runtime_confirmation": null,
+  "elapsed_review_measurement": null,
+  "token_cost_measurement": null,
+  "native_platform": "Linux x86-64",
+  "validation_executed": false,
+  "production_edits": false,
+  "publication": false,
+  "cli_memory_updated": false
+}

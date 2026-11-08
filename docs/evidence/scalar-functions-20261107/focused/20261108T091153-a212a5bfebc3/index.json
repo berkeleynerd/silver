@@ -1,0 +1,26 @@
+[
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T091153-a212a5bfebc3/events.jsonl",
+    "artifact": "events.jsonl.gz",
+    "sha256": "86cc8de93b8f1d680aeafb88c6f60097777e061a22582c8d937229e7a7b962aa",
+    "bytes": 110867
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T091153-a212a5bfebc3/lean-focused.log",
+    "artifact": "lean-focused.log.gz",
+    "sha256": "5c83ef0d34b27cd403f080ce27dbc8a87364fd50eaf2f59d75baf48c92d8badc",
+    "bytes": 5328
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T091153-a212a5bfebc3/lean-focused-evidence.json",
+    "artifact": "lean-focused-evidence.json.gz",
+    "sha256": "cb7517b9864a8ca54671355a3b4318c6094cf94dd9dae831c002f19e538d7919",
+    "bytes": 4764
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-source-integration-298/tmp/20261108T091153-a212a5bfebc3-memory.jsonl",
+    "artifact": "memory-observations.jsonl.gz",
+    "sha256": "4c018264a5d5d320d4ac4f49d1a09ef79df1912ecc7c2bd617fc50761bfbbc79",
+    "bytes": 636
+  }
+]

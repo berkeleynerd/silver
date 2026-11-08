@@ -1,0 +1,274 @@
+[
+  {
+    "artifact": "managed/events.jsonl.gz",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/events.jsonl",
+    "bytes": 280629,
+    "sha256": "570cf23a120eda603bf65986e80a782d921f0084d2e772e08f0f5e02527b8f8d",
+    "stored_bytes": 58882,
+    "stored_sha256": "0562270606b94f497e6fdceff27b583aa35298a4f2ea6b2dad1e9f6e7c41a909"
+  },
+  {
+    "artifact": "managed/native.log.gz",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/native.log",
+    "bytes": 1868701,
+    "sha256": "ae6df2e97fccadf4329ec4eb3956f5c6c7a64ba61dfff09417aa2920e28cf58e",
+    "stored_bytes": 45142,
+    "stored_sha256": "b5f5eff48bf222e6951975f106f02711760eb23c42d019325c79d7bda9e2a085"
+  },
+  {
+    "artifact": "affinity-launcher.py.gz",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/tmp/repaired-input-regressions/affinity-launcher.py",
+    "bytes": 5458,
+    "sha256": "c5cffd2d7b2c1a5421c60ce62901a485b0cbc6e4c2eac5f5abdab756e426208c",
+    "stored_bytes": 1987,
+    "stored_sha256": "cdae19fd32c8c99da09f1d125fb5d88197e60c129923a375cea8d78e7e6df482"
+  },
+  {
+    "artifact": "capture-failed-subtree.py.gz",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/tmp/repaired-input-regressions/capture-failed-subtree.py",
+    "bytes": 5360,
+    "sha256": "4bcc4d13280a4163e25da943ecf1389a0feada92392361d75ae916376a7bc971",
+    "stored_bytes": 1886,
+    "stored_sha256": "2bd2ec50e266292970c128f46c2ec1858de7c3387c727afc72071f840a2f08b8"
+  },
+  {
+    "artifact": "commands.json.gz",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/tmp/repaired-input-regressions/commands.json",
+    "bytes": 38686,
+    "sha256": "b786c6027c26de0cf61e468a07ef3ed8168ddfd484a4820e6cf5afae16698487",
+    "stored_bytes": 6918,
+    "stored_sha256": "1011f54bb1ac26d79db2afc79e38e41327c5c16a152cf90db722b9fbc2963ee8"
+  },
+  {
+    "artifact": "compiler-policy-ids.txt.gz",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/tmp/repaired-input-regressions/compiler-policy-ids.txt",
+    "bytes": 32255,
+    "sha256": "eb5adeab7e21bfb72b74ad0c8cae49d207341794bdf69caabedc7aad3b18ec2e",
+    "stored_bytes": 6452,
+    "stored_sha256": "af1cbcad2f97b8e1ef76934afcf92fcdb84e6d7ee69c0282bb330f28b15a406a"
+  },
+  {
+    "artifact": "compiler-policy-preflight-status.json.gz",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/tmp/repaired-input-regressions/compiler-policy-preflight-status.json",
+    "bytes": 35777,
+    "sha256": "aefc5d609f95438b35b1bc285d1728b222fd6891cfedc412ea2a4339dcb3c8cc",
+    "stored_bytes": 8393,
+    "stored_sha256": "6988cf8ab0a78ab60849dddc3541a30161f78a290dc6be2573ef46b120405d47"
+  },
+  {
+    "artifact": "compiler-policy-driver.log.gz",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/tmp/repaired-input-regressions/compiler-policy-driver.log",
+    "bytes": 1869471,
+    "sha256": "6497cf896abb8d2d9fe8e9baf92f758d98c7e96364d05ac859962eb16fa99654",
+    "stored_bytes": 45287,
+    "stored_sha256": "4b05378b72a266792a80540b72ca8d64e8b07bc2eeca085f849c7fbfcbf83614"
+  },
+  {
+    "artifact": "compiler-policy-managed-exit.json.gz",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/tmp/repaired-input-regressions/compiler-policy-managed-exit.json",
+    "bytes": 34,
+    "sha256": "0ed4ab8a3917b7a80717763390845786088004fa522e10982d24e17f27926e5d",
+    "stored_bytes": 54,
+    "stored_sha256": "82aecae36002aff23c7de59712de5685e235ee77c934036f2cd043514f42ff47"
+  },
+  {
+    "artifact": "managed-command.json.gz",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/tmp/repaired-input-regressions/managed-command.json",
+    "bytes": 2606,
+    "sha256": "d3ccf094f5e897ccb0b9684bb4a79c70792f83f6a981d05f2e6732c257ece22b",
+    "stored_bytes": 508,
+    "stored_sha256": "8f2e35ea67bf4e5b55316e51fd60201b58b79d44d0c1631321c3d65570f68754"
+  },
+  {
+    "artifact": "failure-markers.json.gz",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/tmp/repaired-input-regressions/failure-markers.json",
+    "bytes": 1044,
+    "sha256": "851630d76883b3c8e93e69f01666eeff692039823bf3abee2e445ff4edcabede",
+    "stored_bytes": 392,
+    "stored_sha256": "2462a18827fe52cc8df947e84d4de5dc47a9e31eeddb4a2466d268bf58b36974"
+  },
+  {
+    "artifact": "compiler-policy/launch.json.gz",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/tmp/repaired-input-regressions/compiler-policy/launch.json",
+    "bytes": 39111,
+    "sha256": "f066e6baab3943cbb8a60efff32302b8fcf055c5374b35d308a8e928962b54b4",
+    "stored_bytes": 7105,
+    "stored_sha256": "f3a20c3665a687fa176393eb10c970edb4af50fcc4787a1efb7fd24f1a261b2c"
+  },
+  {
+    "artifact": "compiler-policy/observations.jsonl.gz",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/tmp/repaired-input-regressions/compiler-policy/observations.jsonl",
+    "bytes": 27341938,
+    "sha256": "7eb19242c58d213606492b334e64d23fec681713ad1fa99aa611089ae93ad028",
+    "stored_bytes": 4598421,
+    "stored_sha256": "40b42b36abb06a6ef9c6e7e43222cd5d73433d46296b8edef1d0494f07363f49"
+  },
+  {
+    "artifact": "compiler-policy/result.json.gz",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/tmp/repaired-input-regressions/compiler-policy/result.json",
+    "bytes": 181,
+    "sha256": "dd4e40f9f09bfd122928144ddf32225dd4e522acaed8215498a34a136db11b60",
+    "stored_bytes": 158,
+    "stored_sha256": "4807adccf188a15151f71a6a0448a19525ee4a979822043ce3cfa176fcacb9b9"
+  },
+  {
+    "artifact": "maximum-expression-diagnostic/after.json.gz",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/tmp/repaired-input-regressions/maximum-expression-diagnostic/after.json",
+    "bytes": 88,
+    "sha256": "8aafa948ccda355ae2fe60a7e28e36a7775d4f25863924797baa77ec575b1786",
+    "stored_bytes": 105,
+    "stored_sha256": "f4cb9fbefd7ff3b06713f9929dc82ab2df095e281b0432ea266737319d19509b"
+  },
+  {
+    "artifact": "maximum-expression-diagnostic/before.json.gz",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/tmp/repaired-input-regressions/maximum-expression-diagnostic/before.json",
+    "bytes": 14744,
+    "sha256": "dea150d6729aae715b42dc77908aa5882700011eb4265df646a50d64749d362d",
+    "stored_bytes": 1811,
+    "stored_sha256": "9d370f7fc9e3a647b59c75f4289687597f17e5747564ec1af5bdfc439242b55e"
+  },
+  {
+    "artifact": "maximum-expression-diagnostic/compiler-policy-driver.log.gz",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/tmp/repaired-input-regressions/maximum-expression-diagnostic/compiler-policy-driver.log.gz",
+    "bytes": 40060,
+    "sha256": "93b51cc96fcdaa4a5e51c7de816c88278c8b077217d27662d1b58d54c4d3510a",
+    "stored_bytes": 40060,
+    "stored_sha256": "93b51cc96fcdaa4a5e51c7de816c88278c8b077217d27662d1b58d54c4d3510a"
+  },
+  {
+    "artifact": "maximum-expression-diagnostic/failed-workspace-before-cleanup.tar.gz",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/tmp/repaired-input-regressions/maximum-expression-diagnostic/failed-workspace-before-cleanup.tar.gz",
+    "bytes": 475322,
+    "sha256": "45915df6690725199d0740dfc8bd88e5780f175e68a650967e5fa8214fbdbcba",
+    "stored_bytes": 475322,
+    "stored_sha256": "45915df6690725199d0740dfc8bd88e5780f175e68a650967e5fa8214fbdbcba"
+  },
+  {
+    "artifact": "maximum-expression-diagnostic/launch.json.gz",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/tmp/repaired-input-regressions/maximum-expression-diagnostic/launch.json.gz",
+    "bytes": 7105,
+    "sha256": "f3a20c3665a687fa176393eb10c970edb4af50fcc4787a1efb7fd24f1a261b2c",
+    "stored_bytes": 7105,
+    "stored_sha256": "f3a20c3665a687fa176393eb10c970edb4af50fcc4787a1efb7fd24f1a261b2c"
+  },
+  {
+    "artifact": "maximum-expression-diagnostic/observations.jsonl.gz",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/tmp/repaired-input-regressions/maximum-expression-diagnostic/observations.jsonl.gz",
+    "bytes": 3745907,
+    "sha256": "6f0ef6dea21a643afb9940ae170d4a0897232d0ca22fbab4e4171ecf90dbbefd",
+    "stored_bytes": 3745907,
+    "stored_sha256": "6f0ef6dea21a643afb9940ae170d4a0897232d0ca22fbab4e4171ecf90dbbefd"
+  },
+  {
+    "artifact": "maximum-expression-diagnostic/preservation-and-cleanup.json.gz",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/tmp/repaired-input-regressions/maximum-expression-diagnostic/preservation-and-cleanup.json",
+    "bytes": 7802,
+    "sha256": "c64d288969e72863d5cdcc85850fb83358c31b3259f595561631060ed1f28679",
+    "stored_bytes": 852,
+    "stored_sha256": "c89b9306a8847afbb6a41425efe39fa0d217f5ee7abb4ce1023c3b932f4cfa2a"
+  },
+  {
+    "artifact": "maximum-expression-diagnostic/stopped.json.gz",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/tmp/repaired-input-regressions/maximum-expression-diagnostic/stopped.json",
+    "bytes": 14589,
+    "sha256": "ab9a2162c069d900a66b9b3e2bfa15ace1db9c9c632970ce5fdd422b885b56cc",
+    "stored_bytes": 1702,
+    "stored_sha256": "6c0bfe2e30ba780b490c941b5a67d69ba1715df51dca0877148269429449fd42"
+  },
+  {
+    "artifact": "maximum-expression-diagnostic/workspace-index.json.gz",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/tmp/repaired-input-regressions/maximum-expression-diagnostic/workspace-index.json",
+    "bytes": 31234,
+    "sha256": "9481738080a814451a8b7a674fcb2b713b56b9c2a1754e999d36d5f6ba8dcabb",
+    "stored_bytes": 5899,
+    "stored_sha256": "a93371f22485ee37ad73595c7f2dda65cec3bb15536a6c2d13f46e74210de659"
+  },
+  {
+    "artifact": "self-actuals-diagnostic/index.json.gz",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/tmp/repaired-input-regressions/self-actuals-diagnostic/index.json",
+    "bytes": 27651,
+    "sha256": "a84e38abf977f0ece18c3e3a8f0b2a78f6eadf7b3479dae14120ce5f1d3dd102",
+    "stored_bytes": 6734,
+    "stored_sha256": "c1ba495bce431918d5076be0062e6c50d2689f645ef47dd53d282660a20367e5"
+  },
+  {
+    "artifact": "self-actuals-diagnostic/retained-workspace.tar.gz",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/tmp/repaired-input-regressions/self-actuals-diagnostic/retained-workspace.tar.gz",
+    "bytes": 208485,
+    "sha256": "0b94672e5e7340766da62ba48f5e10140a78e6e2fab4bdb4f45aec196bd9759d",
+    "stored_bytes": 208485,
+    "stored_sha256": "0b94672e5e7340766da62ba48f5e10140a78e6e2fab4bdb4f45aec196bd9759d"
+  },
+  {
+    "artifact": "ordered-calls-diagnostic/index.json.gz",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/tmp/repaired-input-regressions/ordered-calls-diagnostic/index.json",
+    "bytes": 29612,
+    "sha256": "83d787d490fd8e1dc17e5dca3e74c0188402c0203023e40bb456f06251e19ac9",
+    "stored_bytes": 7400,
+    "stored_sha256": "fb3cf4efce278f649ec77c471ae7ee4fe3df5eaa4f291e37fc578a851c32c853"
+  },
+  {
+    "artifact": "ordered-calls-diagnostic/retained-workspace.tar.gz",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/tmp/repaired-input-regressions/ordered-calls-diagnostic/retained-workspace.tar.gz",
+    "bytes": 217261,
+    "sha256": "6c601ab24c8e25d90d5125df7fc996d86effcca2262fd06083990b8706ab5440",
+    "stored_bytes": 217261,
+    "stored_sha256": "6c601ab24c8e25d90d5125df7fc996d86effcca2262fd06083990b8706ab5440"
+  },
+  {
+    "artifact": "exit-processes.json.gz",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-source-integration-298/tmp/repaired-regression-exit-processes.json",
+    "bytes": 571,
+    "sha256": "4d2bcebe501d4c06f586e98fc8ae20e66de068e8a882f191026420a25f260405",
+    "stored_bytes": 295,
+    "stored_sha256": "caee88c4130ee7c5378f72af2933989cfe2ef827285c0dd52e31a42d5145e6ad"
+  },
+  {
+    "artifact": "retain-repaired-regression.py.gz",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-source-integration-298/tmp/retain-repaired-regression.py",
+    "bytes": 5527,
+    "sha256": "677cccda7715663c30fc37fdac098ece847340bf293c0c8c86103a4748bcc4d9",
+    "stored_bytes": 2139,
+    "stored_sha256": "afc3e64785520c5f9af5764461b961a0aa694122d33abe0a603cf2edec2c16cd"
+  },
+  {
+    "artifact": "retained-applicability-identities/lean-tools.json.gz",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-source-integration-298/tmp/reusable-regression-identity-1202/lean-tools.json",
+    "bytes": 633,
+    "sha256": "2fcba6aaa90a5fc9a10f471155f4664b05d86b8fdb3624492f9ac320b64fdfec",
+    "stored_bytes": 274,
+    "stored_sha256": "4b2546f0b597ca2437c2a2307c99be18e62108607d619b2d017bcb755cd8392f"
+  },
+  {
+    "artifact": "retained-applicability-identities/native-build-inputs.json.gz",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-source-integration-298/tmp/reusable-regression-identity-1202/native-build-inputs.json",
+    "bytes": 983398,
+    "sha256": "5a5f3de73b40d6bee25880e06b03e30887f88b61bcf1b8a403c696b0d72ac767",
+    "stored_bytes": 135909,
+    "stored_sha256": "c65cafb19fdbff84b9339b12e2e390e76264a10f925a5323af60c34cccd78492"
+  },
+  {
+    "artifact": "retained-applicability-identities/native-tools.json.gz",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-source-integration-298/tmp/reusable-regression-identity-1202/native-tools.json",
+    "bytes": 4875,
+    "sha256": "7089315a9e7e69558e356c63898914d5616fe01902f532e7e6a71cd6ad0f059a",
+    "stored_bytes": 1058,
+    "stored_sha256": "8df53fe399dfd10304342d08914464e49d3536d3b51178b082d4a1421e82b30d"
+  },
+  {
+    "artifact": "retained-applicability-identities/original-prepared-inputs.json.gz",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-source-integration-298/tmp/reusable-regression-identity-1202/original-prepared-inputs.json",
+    "bytes": 329777,
+    "sha256": "3e743c8c0c1ff84721507eec22fde16ebdfae74a4e9ad2ba4013ddeb849ceefd",
+    "stored_bytes": 55444,
+    "stored_sha256": "e563f515326d48a5412a06c3955012b354afc955e25066f588856db5a6a0224a"
+  },
+  {
+    "artifact": "retained-applicability-identities/summary.json.gz",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-source-integration-298/tmp/reusable-regression-identity-1202/summary.json",
+    "bytes": 8916,
+    "sha256": "2f17feb5c542fad455e4028f9fc843e1900ad5d56c747b4791e1142dc988c3af",
+    "stored_bytes": 2440,
+    "stored_sha256": "0186a7717837a19c801a4f83a80e947cd5b580766ba3eb12b693445f54b04cfd"
+  }
+]

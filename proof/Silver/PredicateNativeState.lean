@@ -30,12 +30,15 @@ structure Context where
   elaborating : Bool := false
   maskFirst : Nat := 0
   maskAfter : Nat := 0
+  pure : Bool := false
+  integerHidden : Bool := false
   deriving DecidableEq, Repr
 
 def Context.model (context : Context) : ParseContext :=
   ⟨context.names, decide (context.dynamicFirst ≠ 0), context.scalarNames,
     context.declarationCount, context.arrayNames, context.subtypeHiding, context.booleanNames,
-    context.trueHidden, context.falseHidden, context.elaborating, context.maskFirst, context.maskAfter⟩
+    context.trueHidden, context.falseHidden, context.elaborating, context.maskFirst, context.maskAfter,
+    context.pure, context.integerHidden⟩
 
 def ValidContext (text : Source) (context : Context) : Prop :=
   Compose.Expressions.ValidNames text context.names ∧

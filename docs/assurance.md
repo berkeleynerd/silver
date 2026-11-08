@@ -64,6 +64,59 @@ The assurance targets are the User's Guide definitions of
 The [trusted boundary](trusted-boundary.md) names the frontend, proof tools,
 runtime imports, ABI and environmental assumptions used throughout.
 
+## Small nonrecursive scalar functions
+
+The [function increment](scalar-functions.md) extends ordered Main declarations
+with closed Integer/Boolean functions and whole-assignment calls. Its
+[delivery record](scalar-functions.md#delivery-assurance-and-validation) retains
+complete native and Lean/source assurance, applicable regression results and
+final review status on the exact implementation inputs.
+
+`ScalarFunctions.DefinitionsChecked` checks each definition against exactly the
+earlier signatures. `compileDefinitions` constructs the executable environment
+in the same order. `compileDefinitions_valid` and `checked_definitions_safe`
+establish that every definition, including an unused one, returns within its
+declared result type for every fitting tuple of formal arguments. The body
+executes in its own initialized local/formal frame and has no effects. Calls
+resolve only to earlier definitions; their argument expressions use the same
+incoming caller state. Integer calls expose their declared result interval,
+while Boolean calls export no predicate facts. Finite counted loops and the
+ordered definition construction retain termination without recursion.
+
+`Definition.obligations` includes local initializer, body and terminal-return
+checks. `definitions_obligations_discharge` covers the complete declaration
+list. These obligations and the constructed environment are consumed by the
+existing program execution and obligation endpoints, rather than considering
+only functions reached by the sample or Main's execution.
+
+The source path retains all declarations through `FunctionDeclarationsAt` and
+`Sequence.FunctionTokensAt`. Their checkedness and uniqueness results feed
+`Predicate.form_reading_valid` and `SourceMeaning`, tying the ordered
+typed definitions to the admitted author source. The metadata, visibility,
+formal/local declaration, body and return readers have corresponding source
+trees, native domains and equations. Their authoritative token checks remain
+part of the required complete source checkpoint.
+
+`FunctionDeclarationNative.InterpretedSource` takes raw definition equations,
+native contracts and direct callee links. Its lower `Predicate.BodyLibraries`
+derivation uses `RawHelperEquations`; it does not require the completed function
+declaration law as a premise. Body-reader equations, normalized wrapper models
+and actual/return-import meanings are derived internally. The
+[independent repair review](reviews/review-scalar-functions-raw-source-r1-e76a3f9420.md)
+records the #340 correction and its exact scope. The model inhabitant exercises
+this construction, while the integrated source bridge retains the complete
+native domains and identities of the actual callees.
+
+The unchanged-source native recipe adds `--no-inlining` for function-bearing
+programs so every function is analyzed over its formal domain. The
+[source-selected policy](#source-selected-application-policies) requires exact
+Main/local-function coverage and successful termination witnesses, retaining
+all safety checks and the permitted local Effects/AoRTE dependencies. The
+[producer account](scalar-functions-report-capacity.md) extends the retained
+report envelope within the existing allocation. Its
+[bounded review](reviews/review-scalar-function-capacity-20261107.md) does not
+replace complete compiler proof or the final Lean/source audit.
+
 ## Boolean scalar objects and expressions
 
 The [Boolean delivery checkpoint](boolean-objects.md#delivery-assurance-and-validation)
@@ -1153,9 +1206,20 @@ All output shells use `Complete_Application_Proof`; only null retains
 | Assigned | Static sequence containing assignment | Main, optionally Put and/or Put_Line | Above plus exact unused-assignment advisory |
 | Selected | Argument-input sequence containing assignment | Main and argument callees, optionally Put and/or Put_Line; producer may eliminate calls | Above plus exact unused-assignment advisory |
 
-Every emitted Main safety record must be a proved/info `VC_RANGE_CHECK`,
+For the [scalar-function increment](scalar-functions.md), these runtime
+entity alternatives additionally require every source-declared local function.
+Admission supplies its exact source name; coverage does not accept arbitrary
+`Main.` prefixes or omit unused functions. Function-bearing proof runs use
+`--no-inlining` to analyze each body over its full formal domain. The exact local
+entities may carry successful `SUBPROGRAM_TERMINATION` flow records and
+`CLAIM_EFFECTS`/`CLAIM_AORTE` dependencies, with the same complete safety-check
+discharge requirements as Main. No function postcondition is assumed. Complete
+delivery validation remains pending as recorded in the capability record.
+
+Every emitted application safety record must be a proved/info `VC_RANGE_CHECK`,
 `VC_LENGTH_CHECK`, `VC_OVERFLOW_CHECK`, `VC_DIVISION_CHECK` or `VC_INDEX_CHECK`,
-with the expected Main filename/entity, valid positive location, prover completion and no suppression or justification. Empty safety
+with filename `main.adb`, the exact Main or declared local-function entity,
+valid positive location, prover completion and no suppression or justification. Empty safety
 lists are permitted when checks were eliminated. Required coverage, progress
 and dependency fields remain checked; dependencies must identify approved
 entities and effect, postcondition or absence-of-runtime-error claims. No other
@@ -1168,13 +1232,22 @@ message `unused assignment`. All four policies additionally permit
 `INEFFECTIVE` / `statement has no effect` and `DEAD_CODE` /
 `this statement is never reached`, observed for statically known predicates.
 Every allowed advisory must have warning severity,
-flow provenance, Main filename/entity, a positive location and no suppression
+flow provenance, filename `main.adb`, the exact Main or declared local-function
+entity, a positive location and no suppression
 or justification. There is no independent advisory-count cap; the source grammar
 and complete report domain still constrain production. These diagnostics do not
 waive safety checks. Repeated output permits exactly `"NAME" is set by
 "OPERATION" but not used after the call`, with OPERATION either `Put` or
 `Put_Line` and NAME one of `Written_Count`,
 `Flushed`, `Succeeded` or `Written_Bytes`. Other messages remain rejected. Some legal names make GNATprove omit an advisory.
+
+Identified local functions additionally permit `UNUSED_VARIABLE` with exactly
+`unused variable "NAME"`, warning severity and flow provenance. The name obeys
+the checked Ada identifier grammar and 4,096-byte source bound. The source file,
+positive location and exact local entity remain required, and suppression or
+justification is rejected. This unused-formal advisory is excluded from Main's
+entity. Its producer route and storage accounting are retained in the
+[function report-capacity record](scalar-functions-report-capacity.md).
 
 The application warning list also permits the pinned `imprecise-image` advisory
 described in the [Image producer record](for-loops-integers-image.md). Its full

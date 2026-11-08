@@ -14,7 +14,7 @@ open Compose
 
 def scanTokens (text : Source) (form : Compose.Form) : List ShellToken → ScanResult → ScanResult
   | [], scan => scan
-  | token :: rest, scan => scanTokens text form rest {scan with state := step text form token scan.state}
+  | token :: rest, scan => scanTokens text form rest {scan with state := step text form token scan.state, assigned := scan.assigned || (step text form token scan.state).assignedInFunctions}
 
 theorem scanTokens_zero (text : Source) (form : Compose.Form) (tokens : List ShellToken)
     (scan : ScanResult) (zero : scan.state.position = 0) :
@@ -32,9 +32,9 @@ theorem tokens_sound (text : Source) (form : Compose.Form) (tokens : List ShellT
       have positive : scan.state.position ≠ 0 := fun zero =>
         accepted (scanTokens_zero text form (token :: tokens) scan zero)
       have nextPositive : (step text form token scan.state).position ≠ 0 := fun zero =>
-        accepted (scanTokens_zero text form tokens {scan with state := step text form token scan.state} zero)
+        accepted (scanTokens_zero text form tokens {scan with state := step text form token scan.state, assigned := scan.assigned || (step text form token scan.state).assignedInFunctions} zero)
       obtain ⟨event, first⟩ := step_sound text form token scan.state positive nextPositive
-      obtain ⟨rest, following⟩ := ih {scan with state := step text form token scan.state} accepted
+      obtain ⟨rest, following⟩ := ih {scan with state := step text form token scan.state, assigned := scan.assigned || (step text form token scan.state).assignedInFunctions} accepted
       exact ⟨event.toList ++ rest, .next first following⟩
 
 theorem scanTokens_ranges (text : Source) (form : Compose.Form) (tokens : List ShellToken)

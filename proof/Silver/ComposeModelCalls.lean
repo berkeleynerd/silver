@@ -56,6 +56,9 @@ def modelCalls : Calls where
     | .imageMaximum => fun bounds => (LengthSummary.ofImage bounds).staticLength
     | .value => fun text position names scalarNames integerHidden arrays initials elaborating => valueAt text position names scalarNames integerHidden arrays initials elaborating
     | .newName => newNameAllowed
+    | .functionLookup => FunctionBindings.lookup
+    | .formalHides => formalHides
+    | .functionDeclaration => functionDeclarationAt
     | .addBinding => addBinding
     | .stringDeclaration => stringDeclarationAt
     | .scalarConstraint => fun text position names bounds => scalarConstraintAt text position names bounds

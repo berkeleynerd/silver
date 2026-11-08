@@ -34,6 +34,8 @@ else:
 
 PROOF = ROOT / "proof"
 CERTIFICATE_ROOTS = {
+    Path("Silver/FunctionBindingsSpecCertificate.lean"): "silver_function_bindings.ads",
+    Path("Silver/FunctionBindingsBodyCertificate.lean"): "silver_function_bindings.adb",
     Path("Silver/ArrayBindingsSpecCertificate.lean"): "silver_array_bindings.ads",
     Path("Silver/ArrayBindingsBodyCertificate.lean"): "silver_array_bindings.adb",
     Path("Silver/ImageModelSpecCertificate.lean"): "silver_image_model.ads",

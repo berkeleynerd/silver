@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All arithmetic is bounded integer arithmetic over declared ranged subtypes with no loops or recursion, so every overflow, range and division check follows from the types; the only extra surface is decimal text formatting of a scaled integer.
 
-Position 304 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 305 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

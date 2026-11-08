@@ -1,6 +1,8 @@
 module
 
 public import Silver.PredicateChecking
+public import Silver.ScalarCallChecking
+public import Silver.PredicateBodyFacts
 public import Silver.SequenceSyntax
 public import Silver.IntegerIteration
 public import Silver.IntegerMutable
@@ -16,6 +18,8 @@ output effects. Source `elsif` lowers to a choice in the false arm; an omitted
 namespace Silver.Predicate
 open Bindings Compose PathFacts
 
+variable {signatures : ScalarFunctions.Signatures}
+
 structure BooleanAssignment where
   target : Nat
   value : Condition
@@ -24,6 +28,7 @@ structure BooleanAssignment where
 inductive Statement
   | simple (item : Sequence.SimpleStatement)
   | scalarAssign (update : Integer.Assignment)
+  | callAssign (update : ScalarFunctions.Assignment)
   | arrayAssign (update : Integer.ArrayAssignment)
   | booleanAssign (update : BooleanAssignment)
   | booleanArrayAssign (update : BooleanArrayAssignment)
@@ -38,7 +43,7 @@ Restoring a nested binder only at loop exit would not establish Ada's alias
 semantics during the nested body. This check covers both loop constructors. -/
 mutual
   def Statement.bindersApart (array : Integer.ArrayDescriptor) : Statement → Bool
-    | .simple _ | .scalarAssign _ | .arrayAssign _ | .booleanAssign _ | .booleanArrayAssign _ | .reject => true
+    | .simple _ | .scalarAssign _ | .callAssign _ | .arrayAssign _ | .booleanAssign _ | .booleanArrayAssign _ | .reject => true
     | .choice _ yes no => statementsBindersApart array yes && statementsBindersApart array no
     | .forLoop index _ _ _ body | .arrayLoop index _ _ body =>
         decide (¬array.ContainsCell index) && statementsBindersApart array body
@@ -65,6 +70,7 @@ mutual
     match item with
     | .simple item => SimpleWellFormed shape item
     | .scalarAssign update => update.target ≠ 0
+    | .callAssign update => update.target.identity ≠ 0 ∧ update.call.Readable hasArguments shape booleans
     | .arrayAssign _ => True
     | .booleanAssign update => booleans.canWrite update.target = true ∧
         update.value.Grammatical ∧ update.value.Readable hasArguments shape booleans
@@ -90,16 +96,6 @@ valid interval and at zero on reachable invalid inputs. For a static target
 (the right summary), the value's static contribution must fit the target even
 on empty paths, and must equal it when the value is wholly static. The pinned
 Ada compiler can diagnose these assignments before eliminating a dead arm. -/
-def equalSummary (context : Context) (left right : Summary) : Bool :=
-  ((decide (right.dynamicCount ≠ 0) ||
-      (decide (left.staticLength ≤ right.staticLength) &&
-        (decide (left.dynamicCount ≠ 0) || decide (left.staticLength = right.staticLength)))) &&
-    (match context.validLengths with
-    | none => true
-    | some interval => decide (left.length interval.lower = right.length interval.lower ∧
-        left.length interval.upper = right.length interval.upper))) &&
-    (!context.invalidReachable || decide (left.length 0 = right.length 0))
-
 theorem equalSummary_static_target {context : Context} {left right : Summary}
     (fixed : right.dynamicCount = 0) (checked : equalSummary context left right = true) :
     left.staticLength ≤ right.staticLength ∧
@@ -127,11 +123,6 @@ theorem equalSummary_sound {context : Context} {left right : Summary} {length : 
             simpa only [Context.Allows, found, Region.Contains, ↓reduceIte] using allowed
           apply Interval.equal_sound (length := length) _ within
           simpa only [found, decide_eq_true_eq, Interval.Equal] using checked.1.2
-
-def equalLengthSummary (context : Context) (left : LengthSummary) (right : Summary) : Bool :=
-  if left.empty then
-    decide (right.dynamicCount ≠ 0 ∨ left.minimumLength ≤ right.staticLength)
-  else equalSummary context left.lower right && equalSummary context left.upper right
 
 theorem equalLengthSummary_sound {context : Context} {left : LengthSummary} {right : Summary}
     {inputLength actualLength : Nat} {valid rejected : Bool}
@@ -162,13 +153,6 @@ def checkSimple (shape : Shape) (context : Context) (item : Sequence.SimpleState
       match expression.inferLength shape ranges with
       | some summary => fitsLengthSummary context summary && !context.invalidReachable
       | none => false
-
-def loopContext (context : Context) (bounds : Integer.Interval) : Context :=
-  if bounds.isEmpty then Context.empty else context
-
-def loopAfter (before after : Context) (lower upper : Integer.Interval) : Context :=
-  if (Integer.loopBounds lower upper).isEmpty then before
-  else if Integer.loopDefinite lower upper then after else before.join after
 
 def loopEntry (analysis : Integer.Analysis) (flow : Flow) (index : Nat)
     (bounds : Integer.Interval) : Flow :=
@@ -217,12 +201,15 @@ def checkArrayAssignment (analysis : Integer.Analysis) (flow : Flow)
 
 mutual
   def Statement.check (shape : Shape) (analysis : Integer.Analysis) (flow : Flow)
-      (item : Statement) (booleans : Boolean.Analysis := {}) : Option Flow :=
+      (item : Statement) (booleans : Boolean.Analysis := {})
+      (signatures : ScalarFunctions.Signatures := []) : Option Flow :=
     match item with
     | .simple item => if checkSimple shape flow.path item flow.scalars then some flow else none
     | .scalarAssign update =>
         if update.check flow.scalars analysis.mutable analysis.declared
         then some {flow with scalars := update.after flow.scalars} else none
+    | .callAssign update =>
+        if update.check signatures shape analysis flow booleans then some (update.after signatures flow) else none
     | .arrayAssign update =>
         if checkArrayAssignment analysis flow update then some flow else none
     | .booleanAssign update =>
@@ -233,26 +220,27 @@ mutual
     | .reject => some {flow with path := flow.path.reject}
     | .choice condition yes no =>
         if condition.checkBounds shape analysis flow booleans then
-          (checkStatements shape analysis (condition.refine shape analysis flow true) yes booleans).bind fun afterYes =>
-            (checkStatements shape analysis (condition.refine shape analysis flow false) no booleans).map fun afterNo =>
+          (checkStatements (signatures := signatures) shape analysis (condition.refine shape analysis flow true) yes booleans).bind fun afterYes =>
+            (checkStatements (signatures := signatures) shape analysis (condition.refine shape analysis flow false) no booleans).map fun afterNo =>
               afterYes.join afterNo
         else none
     | .forLoop index _ lower upper body =>
         (lower.infer flow.scalars).bind fun a => (upper.infer flow.scalars).bind fun b =>
           let bounds := Integer.loopBounds a b
-          (checkStatements shape (analysis.withIndex index bounds)
+          (checkStatements (signatures := signatures) shape (analysis.withIndex index bounds)
             (loopEntry analysis flow index bounds) body booleans).map fun after => loopExit analysis flow after a b
     | .arrayLoop index _ array body =>
         if arrayLoopReady analysis flow index array && statementsBindersApart array body then
-          (checkStatements shape (analysis.withIndex index array.componentBounds)
+          (checkStatements (signatures := signatures) shape (analysis.withIndex index array.componentBounds)
             (arrayLoopEntry analysis flow index array.componentBounds) body booleans).map fun after => arrayLoopExit analysis flow after
         else none
   termination_by sizeOf item
   def checkStatements (shape : Shape) (analysis : Integer.Analysis) (flow : Flow)
-      (items : List Statement) (booleans : Boolean.Analysis := {}) : Option Flow :=
+      (items : List Statement) (booleans : Boolean.Analysis := {})
+      (signatures : ScalarFunctions.Signatures := []) : Option Flow :=
     match items with
     | [] => some flow
-    | item :: rest => (item.check shape analysis flow booleans).bind fun next => checkStatements shape analysis next rest booleans
+    | item :: rest => (item.check (signatures := signatures) shape analysis flow booleans).bind fun next => checkStatements (signatures := signatures) shape analysis next rest booleans
   termination_by sizeOf items
 end
 
@@ -261,7 +249,7 @@ including through precise assignments, branch hulls and conservative loop exits.
 mutual
   theorem statement_ranges_invariant {shape : Shape} {analysis : Integer.Analysis} {booleans : Boolean.Analysis}
       {before after : Flow} {item : Statement}
-      (checked : item.check shape analysis before booleans = some after)
+      (checked : item.check (signatures := signatures) shape analysis before booleans = some after)
       (refined : before.scalars.Refines analysis.declared)
       (bounded : before.scalars.Bounded) (declared : analysis.declared.Bounded) :
       after.scalars.Refines analysis.declared ∧ after.scalars.Bounded := by
@@ -277,6 +265,13 @@ mutual
         · rename_i good
           cases checked
           exact ⟨update.after_refines good refined, update.after_bounded bounded⟩
+        · contradiction
+    | callAssign update =>
+        simp only [Statement.check] at checked
+        split at checked
+        · rename_i good
+          cases checked
+          exact update.after_ranges good refined bounded declared
         · contradiction
     | arrayAssign update | booleanAssign update | booleanArrayAssign update =>
         simp only [Statement.check] at checked
@@ -316,7 +311,7 @@ mutual
 
   theorem statements_ranges_invariant {shape : Shape} {analysis : Integer.Analysis} {booleans : Boolean.Analysis}
       {before after : Flow} {items : List Statement}
-      (checked : checkStatements shape analysis before items booleans = some after)
+      (checked : checkStatements (signatures := signatures) shape analysis before items booleans = some after)
       (refined : before.scalars.Refines analysis.declared)
       (bounded : before.scalars.Bounded) (declared : analysis.declared.Bounded) :
       after.scalars.Refines analysis.declared ∧ after.scalars.Bounded := by
@@ -339,7 +334,7 @@ nonemptiness makes branch hulls literally preserve the incoming interval. -/
 mutual
   theorem statement_preserves_fixed {shape : Shape} {analysis : Integer.Analysis} {booleans : Boolean.Analysis}
       {before after : Flow} {item : Statement} {index : Nat} {bounds : Integer.Interval}
-      (checked : item.check shape analysis before booleans = some after)
+      (checked : item.check (signatures := signatures) shape analysis before booleans = some after)
       (readonly : analysis.mutable index = false) (fixed : analysis.refinable index = false)
       (incoming : before.scalars index = some bounds) (nonempty : bounds.isEmpty = false) :
       after.scalars index = some bounds := by
@@ -362,6 +357,13 @@ mutual
             rw [← same, readonly] at changed
             contradiction
           simpa only [Integer.Assignment.after, Integer.put, distinct, ↓reduceIte] using incoming
+        · contradiction
+    | callAssign update =>
+        simp only [Statement.check] at checked
+        split at checked
+        · rename_i good
+          cases checked
+          exact (update.after_unchanged good readonly).trans incoming
         · contradiction
     | arrayAssign update | booleanAssign update | booleanArrayAssign update =>
         simp only [Statement.check] at checked
@@ -401,7 +403,7 @@ mutual
 
   theorem statements_preserves_fixed {shape : Shape} {analysis : Integer.Analysis} {booleans : Boolean.Analysis}
       {before after : Flow} {items : List Statement} {index : Nat} {bounds : Integer.Interval}
-      (checked : checkStatements shape analysis before items booleans = some after)
+      (checked : checkStatements (signatures := signatures) shape analysis before items booleans = some after)
       (readonly : analysis.mutable index = false) (fixed : analysis.refinable index = false)
       (incoming : before.scalars index = some bounds) (nonempty : bounds.isEmpty = false) :
       after.scalars index = some bounds := by

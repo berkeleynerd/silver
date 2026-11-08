@@ -59,7 +59,8 @@ theorem interpreted_scanStep (calls : Calls) (helpers : HelperMeaning calls) (bo
   cases token with
   | helper token =>
       dsimp +instances only [scanStepBody, Expr.eval, Condition.eval, HelperRef.eval]
-      change {scan with state := calls.helpers.function .step text form.helper token scan.state} = _
+      change (let next := calls.helpers.function .step text form.helper token scan.state
+              {scan with state := next, assigned := scan.assigned || next.assignedInFunctions}) = _
       rw [helpers.step text valid form token scan.state tokenValid context]
       rfl
   | statements =>

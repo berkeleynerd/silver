@@ -1,0 +1,434 @@
+[
+  {
+    "pid": "70173",
+    "ppid": "1783",
+    "pgid": "70173",
+    "stat": "Ss",
+    "elapsed": "04:49:46",
+    "command": "/bin/sh -lc python3 scripts/dev.py tool --task '#298 function parser safety' --reason 'Focused safety and contract proof after the 434-check flow pass; eight workers alongside report4, metadata2 and model8 reservations.' --jobs 8 -- gnatprove -P ../../../silver.gpr -u silver_output_profile.adb silver_function_bindings.adb --mode=all --report=all --warnings=continue --checks-as-errors=on --level=2 --prover=cvc5,z3,altergo --timeout=30 --subdirs=explore/function-parser-safety -XSILVER_HOST=linux-x86_64"
+  },
+  {
+    "pid": "70174",
+    "ppid": "70173",
+    "pgid": "70173",
+    "stat": "S",
+    "elapsed": "04:49:46",
+    "command": "python3 scripts/dev.py tool --task #298 function parser safety --reason Focused safety and contract proof after the 434-check flow pass; eight workers alongside report4, metadata2 and model8 reservations. --jobs 8 -- gnatprove -P ../../../silver.gpr -u silver_output_profile.adb silver_function_bindings.adb --mode=all --report=all --warnings=continue --checks-as-errors=on --level=2 --prover=cvc5,z3,altergo --timeout=30 --subdirs=explore/function-parser-safety -XSILVER_HOST=linux-x86_64"
+  },
+  {
+    "pid": "70265",
+    "ppid": "70174",
+    "pgid": "70173",
+    "stat": "S",
+    "elapsed": "04:49:42",
+    "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alr/bin/alr -s /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/settings -C /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/toolchain -n --no-tty exec -- gnatprove -P ../../../silver.gpr -u silver_output_profile.adb silver_function_bindings.adb --mode=all --report=all --warnings=continue --checks-as-errors=on --level=2 --prover=cvc5,z3,altergo --timeout=30 --subdirs=explore/function-parser-safety -XSILVER_HOST=linux-x86_64 -j8"
+  },
+  {
+    "pid": "70278",
+    "ppid": "70265",
+    "pgid": "70173",
+    "stat": "S",
+    "elapsed": "04:49:41",
+    "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/bin/gnatprove -P ../../../silver.gpr -u silver_output_profile.adb silver_function_bindings.adb --mode=all --report=all --warnings=continue --checks-as-errors=on --level=2 --prover=cvc5,z3,altergo --timeout=30 --subdirs=explore/function-parser-safety -XSILVER_HOST=linux-x86_64 -j8"
+  },
+  {
+    "pid": "70591",
+    "ppid": "70278",
+    "pgid": "70173",
+    "stat": "S",
+    "elapsed": "04:49:31",
+    "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/why3server -j 8 --socket /tmp/why3server_70278.sock"
+  },
+  {
+    "pid": "70592",
+    "ppid": "70278",
+    "pgid": "70173",
+    "stat": "Sl",
+    "elapsed": "04:49:31",
+    "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gprbuild --subdirs=explore/function-parser-safety/gnatprove/ -u --complete-output --restricted-to-languages=ada --target=x86_64-linux --gnatprove -s silver_output_profile.adb silver_function_bindings.adb -q -ws --no-exit-message -j8 -c -XSILVER_HOST=linux-x86_64 -P ../../../silver.gpr --db /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/share/spark/config/gnat2why -cargs:Ada -gnatc -gnates=/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/obj/explore/function-parser-safety/gnatprove/f371bf49.tmp"
+  },
+  {
+    "pid": "70613",
+    "ppid": "70592",
+    "pgid": "70173",
+    "stat": "S",
+    "elapsed": "04:49:31",
+    "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnat2why -c -x ada -gnatA -gnat2022 -gnata -gnato -g -gnatc -gnates=/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/obj/explore/function-parser-safety/gnatprove/f371bf49.tmp -gnatec=/tmp/GPR.70592/GNAT-TEMP-000002.TMP -gnatem=/tmp/GPR.70592/GNAT-TEMP-000003.TMP /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/src/silver_output_profile.adb -gnateO=/tmp/GPR.70592/GNAT-TEMP-000004.TMP"
+  },
+  {
+    "pid": "101915",
+    "ppid": "70613",
+    "pgid": "70173",
+    "stat": "S",
+    "elapsed": "04:13:54",
+    "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/spark_semaphore_wrapper gnatwhy3 --timeout 30 --steps 0 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 8 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 28626 /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/obj/explore/function-parser-safety/gnatprove/silver_output_profile__read_chain_into.gnat-json"
+  },
+  {
+    "pid": "123411",
+    "ppid": "70613",
+    "pgid": "70173",
+    "stat": "S",
+    "elapsed": "03:31:08",
+    "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/spark_semaphore_wrapper gnatwhy3 --timeout 30 --steps 0 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 8 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 34712 /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/obj/explore/function-parser-safety/gnatprove/silver_output_profile__boolean_assignment_body.gnat-json"
+  },
+  {
+    "pid": "125406",
+    "ppid": "70613",
+    "pgid": "70173",
+    "stat": "S",
+    "elapsed": "03:27:28",
+    "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/spark_semaphore_wrapper gnatwhy3 --timeout 30 --steps 0 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 8 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 34903 /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/obj/explore/function-parser-safety/gnatprove/silver_output_profile__scalar_target.gnat-json"
+  },
+  {
+    "pid": "125462",
+    "ppid": "70613",
+    "pgid": "70173",
+    "stat": "S",
+    "elapsed": "03:27:19",
+    "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/spark_semaphore_wrapper gnatwhy3 --timeout 30 --steps 0 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 8 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 35016 /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/obj/explore/function-parser-safety/gnatprove/silver_output_profile__body_string_target.gnat-json"
+  },
+  {
+    "pid": "128363",
+    "ppid": "70613",
+    "pgid": "70173",
+    "stat": "S",
+    "elapsed": "03:21:31",
+    "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/spark_semaphore_wrapper gnatwhy3 --timeout 30 --steps 0 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 8 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 35173 /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/obj/explore/function-parser-safety/gnatprove/silver_output_profile__scalar_assignment_model.gnat-json"
+  },
+  {
+    "pid": "130479",
+    "ppid": "70613",
+    "pgid": "70173",
+    "stat": "S",
+    "elapsed": "03:17:22",
+    "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/spark_semaphore_wrapper gnatwhy3 --timeout 30 --steps 0 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 8 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 35409 /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/obj/explore/function-parser-safety/gnatprove/silver_output_profile__scalar_assignment_body.gnat-json"
+  },
+  {
+    "pid": "130834",
+    "ppid": "70613",
+    "pgid": "70173",
+    "stat": "S",
+    "elapsed": "03:16:40",
+    "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/spark_semaphore_wrapper gnatwhy3 --timeout 30 --steps 0 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 8 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 35670 /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/obj/explore/function-parser-safety/gnatprove/silver_output_profile__array_target.gnat-json"
+  },
+  {
+    "pid": "131206",
+    "ppid": "70613",
+    "pgid": "70173",
+    "stat": "S",
+    "elapsed": "03:16:06",
+    "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/spark_semaphore_wrapper gnatwhy3 --timeout 30 --steps 0 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 8 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 35784 /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/obj/explore/function-parser-safety/gnatprove/silver_output_profile__array_assignment_body.gnat-json"
+  },
+  {
+    "pid": "131766",
+    "ppid": "70613",
+    "pgid": "70173",
+    "stat": "S",
+    "elapsed": "03:15:09",
+    "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/spark_semaphore_wrapper gnatwhy3 --timeout 30 --steps 0 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 8 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 36060 /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/obj/explore/function-parser-safety/gnatprove/silver_output_profile__boolean_array_assignment_model.gnat-json"
+  },
+  {
+    "pid": "132265",
+    "ppid": "70613",
+    "pgid": "70173",
+    "stat": "S",
+    "elapsed": "03:14:22",
+    "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/spark_semaphore_wrapper gnatwhy3 --timeout 30 --steps 0 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 8 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 36248 /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/obj/explore/function-parser-safety/gnatprove/silver_output_profile__boolean_array_assignment_body.gnat-json"
+  },
+  {
+    "pid": "132958",
+    "ppid": "70613",
+    "pgid": "70173",
+    "stat": "S",
+    "elapsed": "03:12:59",
+    "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/spark_semaphore_wrapper gnatwhy3 --timeout 30 --steps 0 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 8 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 36453 /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/obj/explore/function-parser-safety/gnatprove/silver_output_profile__actual_model.gnat-json"
+  },
+  {
+    "pid": "133363",
+    "ppid": "70613",
+    "pgid": "70173",
+    "stat": "S",
+    "elapsed": "03:12:08",
+    "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/spark_semaphore_wrapper gnatwhy3 --timeout 30 --steps 0 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 8 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 36614 /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/obj/explore/function-parser-safety/gnatprove/silver_output_profile__actual_after.gnat-json"
+  },
+  {
+    "pid": "133755",
+    "ppid": "70613",
+    "pgid": "70173",
+    "stat": "S",
+    "elapsed": "03:11:19",
+    "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/spark_semaphore_wrapper gnatwhy3 --timeout 30 --steps 0 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 8 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 36814 /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/obj/explore/function-parser-safety/gnatprove/silver_output_profile__actuals_model.gnat-json"
+  },
+  {
+    "pid": "135160",
+    "ppid": "70613",
+    "pgid": "70173",
+    "stat": "S",
+    "elapsed": "03:08:07",
+    "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/spark_semaphore_wrapper gnatwhy3 --timeout 30 --steps 0 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 8 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 37007 /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/obj/explore/function-parser-safety/gnatprove/silver_output_profile__actuals_after.gnat-json"
+  },
+  {
+    "pid": "137671",
+    "ppid": "70613",
+    "pgid": "70173",
+    "stat": "S",
+    "elapsed": "03:03:09",
+    "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/spark_semaphore_wrapper gnatwhy3 --timeout 30 --steps 0 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 8 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 37298 /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/obj/explore/function-parser-safety/gnatprove/silver_output_profile__callee_at.gnat-json"
+  },
+  {
+    "pid": "138114",
+    "ppid": "70613",
+    "pgid": "70173",
+    "stat": "S",
+    "elapsed": "03:02:21",
+    "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/spark_semaphore_wrapper gnatwhy3 --timeout 30 --steps 0 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 8 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 37468 /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/obj/explore/function-parser-safety/gnatprove/silver_output_profile__call_model.gnat-json"
+  },
+  {
+    "pid": "138356",
+    "ppid": "70613",
+    "pgid": "70173",
+    "stat": "S",
+    "elapsed": "03:01:53",
+    "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/spark_semaphore_wrapper gnatwhy3 --timeout 30 --steps 0 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 8 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 37661 /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/obj/explore/function-parser-safety/gnatprove/silver_output_profile__read_call.gnat-json"
+  },
+  {
+    "pid": "138568",
+    "ppid": "70613",
+    "pgid": "70173",
+    "stat": "S",
+    "elapsed": "03:01:36",
+    "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/spark_semaphore_wrapper gnatwhy3 --timeout 30 --steps 0 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 8 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 37875 /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/obj/explore/function-parser-safety/gnatprove/silver_output_profile__call_assignment_result.gnat-json"
+  },
+  {
+    "pid": "139018",
+    "ppid": "70613",
+    "pgid": "70173",
+    "stat": "S",
+    "elapsed": "03:01:02",
+    "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/spark_semaphore_wrapper gnatwhy3 --timeout 30 --steps 0 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 8 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 38070 /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/obj/explore/function-parser-safety/gnatprove/silver_output_profile__call_assignment_model.gnat-json"
+  },
+  {
+    "pid": "139104",
+    "ppid": "70613",
+    "pgid": "70173",
+    "stat": "S",
+    "elapsed": "03:00:47",
+    "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/spark_semaphore_wrapper gnatwhy3 --timeout 30 --steps 0 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 8 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 38186 /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/obj/explore/function-parser-safety/gnatprove/silver_output_profile__call_assignment_body.gnat-json"
+  },
+  {
+    "pid": "139254",
+    "ppid": "70613",
+    "pgid": "70173",
+    "stat": "S",
+    "elapsed": "03:00:19",
+    "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/spark_semaphore_wrapper gnatwhy3 --timeout 30 --steps 0 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 8 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 38343 /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/obj/explore/function-parser-safety/gnatprove/silver_output_profile__basic_body.gnat-json"
+  },
+  {
+    "pid": "139358",
+    "ppid": "70613",
+    "pgid": "70173",
+    "stat": "S",
+    "elapsed": "03:00:13",
+    "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/spark_semaphore_wrapper gnatwhy3 --timeout 30 --steps 0 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 8 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 39294 /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/obj/explore/function-parser-safety/gnatprove/silver_output_profile__at_body_stop.gnat-json"
+  },
+  {
+    "pid": "139525",
+    "ppid": "70613",
+    "pgid": "70173",
+    "stat": "S",
+    "elapsed": "02:59:57",
+    "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/spark_semaphore_wrapper gnatwhy3 --timeout 30 --steps 0 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 8 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 39606 /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/obj/explore/function-parser-safety/gnatprove/silver_output_profile__conditional_body.gnat-json"
+  },
+  {
+    "pid": "139961",
+    "ppid": "70613",
+    "pgid": "70173",
+    "stat": "S",
+    "elapsed": "02:59:34",
+    "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/spark_semaphore_wrapper gnatwhy3 --timeout 30 --steps 0 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 8 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 39504 /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/obj/explore/function-parser-safety/gnatprove/silver_output_profile__loop_body.gnat-json"
+  },
+  {
+    "pid": "139986",
+    "ppid": "70613",
+    "pgid": "70173",
+    "stat": "S",
+    "elapsed": "02:59:33",
+    "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/spark_semaphore_wrapper gnatwhy3 --timeout 30 --steps 0 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 8 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 39402 /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/obj/explore/function-parser-safety/gnatprove/silver_output_profile__statement_body.gnat-json"
+  },
+  {
+    "pid": "140067",
+    "ppid": "70613",
+    "pgid": "70173",
+    "stat": "S",
+    "elapsed": "02:59:30",
+    "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/spark_semaphore_wrapper gnatwhy3 --timeout 30 --steps 0 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 8 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 39708 /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/obj/explore/function-parser-safety/gnatprove/silver_output_profile__alternative_body.gnat-json"
+  },
+  {
+    "pid": "140085",
+    "ppid": "70613",
+    "pgid": "70173",
+    "stat": "S",
+    "elapsed": "02:59:29",
+    "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/spark_semaphore_wrapper gnatwhy3 --timeout 30 --steps 0 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 8 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 39810 /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/obj/explore/function-parser-safety/gnatprove/silver_output_profile__body_tail_model.gnat-json"
+  },
+  {
+    "pid": "140113",
+    "ppid": "70613",
+    "pgid": "70173",
+    "stat": "S",
+    "elapsed": "02:59:28",
+    "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/spark_semaphore_wrapper gnatwhy3 --timeout 30 --steps 0 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 8 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 39993 /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/obj/explore/function-parser-safety/gnatprove/silver_output_profile__body_tail.gnat-json"
+  },
+  {
+    "pid": "140137",
+    "ppid": "70613",
+    "pgid": "70173",
+    "stat": "S",
+    "elapsed": "02:59:26",
+    "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/spark_semaphore_wrapper gnatwhy3 --timeout 30 --steps 0 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 8 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 40518 /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/obj/explore/function-parser-safety/gnatprove/silver_output_profile__read_body.gnat-json"
+  },
+  {
+    "pid": "140181",
+    "ppid": "70613",
+    "pgid": "70173",
+    "stat": "S",
+    "elapsed": "02:59:25",
+    "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/spark_semaphore_wrapper gnatwhy3 --timeout 30 --steps 0 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 8 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 42177 /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/obj/explore/function-parser-safety/gnatprove/silver_output_profile__hidden_word.gnat-json"
+  },
+  {
+    "pid": "140237",
+    "ppid": "70613",
+    "pgid": "70173",
+    "stat": "S",
+    "elapsed": "02:59:23",
+    "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/spark_semaphore_wrapper gnatwhy3 --timeout 30 --steps 0 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 8 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 42406 /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/obj/explore/function-parser-safety/gnatprove/silver_output_profile__hidden_outer.gnat-json"
+  },
+  {
+    "pid": "140566",
+    "ppid": "70613",
+    "pgid": "70173",
+    "stat": "S",
+    "elapsed": "02:59:06",
+    "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/spark_semaphore_wrapper gnatwhy3 --timeout 30 --steps 0 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 8 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 42510 /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/obj/explore/function-parser-safety/gnatprove/silver_output_profile__hide_name.gnat-json"
+  },
+  {
+    "pid": "140683",
+    "ppid": "70613",
+    "pgid": "70173",
+    "stat": "S",
+    "elapsed": "02:59:03",
+    "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/spark_semaphore_wrapper gnatwhy3 --timeout 30 --steps 0 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 8 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 42646 /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/obj/explore/function-parser-safety/gnatprove/silver_output_profile__function_type_at.gnat-json"
+  },
+  {
+    "pid": "142607",
+    "ppid": "70613",
+    "pgid": "70173",
+    "stat": "S",
+    "elapsed": "02:58:29",
+    "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/spark_semaphore_wrapper gnatwhy3 --timeout 30 --steps 0 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 8 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 42902 /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/obj/explore/function-parser-safety/gnatprove/silver_output_profile__parameter_step.gnat-json"
+  },
+  {
+    "pid": "143788",
+    "ppid": "70613",
+    "pgid": "70173",
+    "stat": "S",
+    "elapsed": "02:56:16",
+    "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/spark_semaphore_wrapper gnatwhy3 --timeout 30 --steps 0 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 8 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 43214 /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/obj/explore/function-parser-safety/gnatprove/silver_output_profile__parameters_model.gnat-json"
+  },
+  {
+    "pid": "150713",
+    "ppid": "70613",
+    "pgid": "70173",
+    "stat": "S",
+    "elapsed": "02:38:22",
+    "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/spark_semaphore_wrapper gnatwhy3 --timeout 30 --steps 0 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 8 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 43390 /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/obj/explore/function-parser-safety/gnatprove/silver_output_profile__parameters_at.gnat-json"
+  },
+  {
+    "pid": "150747",
+    "ppid": "70613",
+    "pgid": "70173",
+    "stat": "S",
+    "elapsed": "02:38:13",
+    "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/spark_semaphore_wrapper gnatwhy3 --timeout 30 --steps 0 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 8 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 43663 /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/obj/explore/function-parser-safety/gnatprove/silver_output_profile__function_local_at.gnat-json"
+  },
+  {
+    "pid": "150776",
+    "ppid": "70613",
+    "pgid": "70173",
+    "stat": "S",
+    "elapsed": "02:38:05",
+    "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/spark_semaphore_wrapper gnatwhy3 --timeout 30 --steps 0 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 8 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 43796 /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/obj/explore/function-parser-safety/gnatprove/silver_output_profile__function_locals_model.gnat-json"
+  },
+  {
+    "pid": "150800",
+    "ppid": "70613",
+    "pgid": "70173",
+    "stat": "S",
+    "elapsed": "02:38:00",
+    "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/spark_semaphore_wrapper gnatwhy3 --timeout 30 --steps 0 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 8 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 43961 /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/obj/explore/function-parser-safety/gnatprove/silver_output_profile__function_locals.gnat-json"
+  },
+  {
+    "pid": "150884",
+    "ppid": "70613",
+    "pgid": "70173",
+    "stat": "S",
+    "elapsed": "02:37:49",
+    "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/spark_semaphore_wrapper gnatwhy3 --timeout 30 --steps 0 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 8 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 44190 /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/obj/explore/function-parser-safety/gnatprove/silver_output_profile__append_parameter.gnat-json"
+  },
+  {
+    "pid": "150912",
+    "ppid": "70613",
+    "pgid": "70173",
+    "stat": "S",
+    "elapsed": "02:37:44",
+    "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/spark_semaphore_wrapper gnatwhy3 --timeout 30 --steps 0 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 8 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 44310 /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/obj/explore/function-parser-safety/gnatprove/silver_output_profile__parameter_frame_model.gnat-json"
+  },
+  {
+    "pid": "151159",
+    "ppid": "70613",
+    "pgid": "70173",
+    "stat": "S",
+    "elapsed": "02:37:27",
+    "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/spark_semaphore_wrapper gnatwhy3 --timeout 30 --steps 0 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 8 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 44404 /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/obj/explore/function-parser-safety/gnatprove/silver_output_profile__parameter_frame.gnat-json"
+  },
+  {
+    "pid": "151594",
+    "ppid": "70613",
+    "pgid": "70173",
+    "stat": "S",
+    "elapsed": "02:36:30",
+    "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/spark_semaphore_wrapper gnatwhy3 --timeout 30 --steps 0 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 8 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 44678 /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/obj/explore/function-parser-safety/gnatprove/silver_output_profile__function_return_after.gnat-json"
+  },
+  {
+    "pid": "151933",
+    "ppid": "70613",
+    "pgid": "70173",
+    "stat": "S",
+    "elapsed": "02:36:00",
+    "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/spark_semaphore_wrapper gnatwhy3 --timeout 30 --steps 0 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 8 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 44796 /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/obj/explore/function-parser-safety/gnatprove/silver_output_profile__function_body_at.gnat-json"
+  },
+  {
+    "pid": "152680",
+    "ppid": "70613",
+    "pgid": "70173",
+    "stat": "S",
+    "elapsed": "02:34:20",
+    "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/spark_semaphore_wrapper gnatwhy3 --timeout 30 --steps 0 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 8 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 46022 /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/obj/explore/function-parser-safety/gnatprove/silver_output_profile__read_form.gnat-json"
+  },
+  {
+    "pid": "176468",
+    "ppid": "101915",
+    "pgid": "70173",
+    "stat": "R",
+    "elapsed": "01:25:19",
+    "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3 --timeout 30 --steps 0 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 8 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 28626 /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/obj/explore/function-parser-safety/gnatprove/silver_output_profile__read_chain_into.gnat-json"
+  },
+  {
+    "pid": "203655",
+    "ppid": "123411",
+    "pgid": "70173",
+    "stat": "R",
+    "elapsed": "00:19",
+    "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3 --timeout 30 --steps 0 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 8 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 34712 /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/obj/explore/function-parser-safety/gnatprove/silver_output_profile__boolean_assignment_body.gnat-json"
+  }
+]

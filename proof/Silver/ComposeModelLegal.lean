@@ -166,8 +166,8 @@ private theorem model_legal_scalarType : ∀ text, ValidText text → ∀ state 
   intros
   generalize modelCalls = calls
   generalize Context.locals _ = locals
-  dsimp +instances only [scalarTypeBody, Expr.Legal, Function.isLexical]
-  simp only [and_self, implies_true, ite_self]
+  dsimp +instances only [scalarTypeBody, withFunctionTypeHiding, Expr.Legal, Function.isLexical]
+  repeat' first | constructor | intro _ | split
 
 private theorem model_legal_subtypeDeclaration : ∀ text, ValidText text → ∀ state arguments,
     NativeState .basic text state →
@@ -175,8 +175,8 @@ private theorem model_legal_subtypeDeclaration : ∀ text, ValidText text → �
   intros
   generalize modelCalls = calls
   generalize Context.locals _ = locals
-  dsimp +instances only [subtypeDeclarationBody, Expr.Legal, Function.isLexical]
-  simp only [and_self, implies_true, ite_self]
+  dsimp +instances only [subtypeDeclarationBody, withFunctionTypeHiding, Expr.Legal, Function.isLexical]
+  repeat' first | constructor | intro _ | split
 
 private theorem model_legal_scalarDeclaration : ∀ text, ValidText text → ∀ state arguments,
     NativeState .basic text state →

@@ -1,0 +1,15 @@
+{
+  "scope": "Read-only managed summaries before native build/proof; headroom and reservations are timestamped historical observations.",
+  "artifacts": [
+    {
+      "path": "final-native-pre-build-status.json.gz",
+      "sha256": "d2be3ac3902947289a06b29f42fdf7622619240d56f94be7a1babb7883d04bce",
+      "bytes": 45943
+    },
+    {
+      "path": "final-native-pre-proof-status.json.gz",
+      "sha256": "31a491bf40afc4c250daaeb6442cf848bc10eadb1ff5e262114fca0129420d34",
+      "bytes": 45179
+    }
+  ]
+}

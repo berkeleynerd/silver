@@ -1,11 +1,12 @@
 module
 
-public import Silver.PredicateBodyAdmission
+public import Silver.PredicateBodyScanner
 public import Silver.PredicateConditionFlow
 
 @[expose] public section
 
 namespace Silver.Predicate
+variable {catalog : FunctionBindings.Metadata}
 open Compose
 
 @[simp] theorem invalidBody_count (scan : BodyScan) : (invalidBody scan).count = scan.count := rfl
@@ -27,8 +28,26 @@ theorem scalarAssignment_count (text : Source) (context : ParseContext) (scan : 
   · rfl
   · exact ActiveFlow.replace_count ..
 
+theorem callAssignmentResult_count (context : ParseContext) (scan : BodyScan)
+    (scalar flag : Nat) (value : CallResult) :
+    (callAssignmentResult context scan scalar flag value).count = scan.count := by
+  unfold callAssignmentResult
+  split
+  · rfl
+  · split
+    · dsimp only
+      split
+      · rfl
+      · exact ActiveFlow.replace_count ..
+    · split <;> rfl
+
+theorem callAssignment_count (text : Source) (context : ParseContext) (scan : BodyScan)
+    (catalog : FunctionBindings.Metadata) :
+    (callAssignmentBody text context scan catalog).count = scan.count :=
+  callAssignmentResult_count ..
+
 theorem basicRaw_count (text : Source) (context : ParseContext) (scan : BodyScan) :
-    (basicRaw text context scan).count = scan.count := by
+    (basicRaw (catalog := catalog) text context scan).count = scan.count := by
   unfold basicRaw
   cases basicKind text context scan with
   | null => rfl
@@ -39,42 +58,52 @@ theorem basicRaw_count (text : Source) (context : ParseContext) (scan : BodyScan
       try dsimp only
       split <;> rfl
   | reject => rfl
-  | scalarAssignment => exact scalarAssignment_count ..
+  | scalarAssignment =>
+      try dsimp only
+      split
+      · exact callAssignment_count ..
+      · exact scalarAssignment_count ..
   | booleanAssignment =>
-      unfold booleanAssignmentBody
-      dsimp only
-      split <;> rfl
+      try dsimp only
+      split
+      · exact callAssignment_count ..
+      · unfold booleanAssignmentBody
+        try dsimp only
+        split <;> rfl
   | booleanArrayAssignment =>
       unfold booleanArrayAssignmentBody
-      dsimp only
+      try dsimp only
       split <;> rfl
   | arrayAssignment =>
       unfold arrayAssignmentBody
-      dsimp only
+      try dsimp only
       split <;> rfl
   | assignment =>
-      have countIf (condition : Prop) [Decidable condition] (left right : BodyScan)
-          (leftCount : left.count = scan.count) (rightCount : right.count = scan.count) :
-          (if condition then left else right).count = scan.count := by
-        by_cases chosen : condition
-        · simpa only [chosen, ↓reduceIte] using leftCount
-        · simpa only [chosen, ↓reduceIte] using rightCount
-      cases kind : stringAssignmentKind text context scan
-      all_goals
-        simp only [stringAssignmentBody, kind]
-        apply countIf
-        · rfl
-        · apply countIf <;> rfl
+      dsimp only
+      split
+      · rfl
+      · have countIf (condition : Prop) [Decidable condition] (left right : BodyScan)
+            (leftCount : left.count = scan.count) (rightCount : right.count = scan.count) :
+            (if condition then left else right).count = scan.count := by
+          by_cases chosen : condition
+          · simpa only [chosen, ↓reduceIte] using leftCount
+          · simpa only [chosen, ↓reduceIte] using rightCount
+        cases kind : stringAssignmentKind text context scan
+        all_goals
+          simp only [stringAssignmentBody, kind]
+          apply countIf
+          · rfl
+          · apply countIf <;> rfl
 
 theorem basic_count (text : Source) (context : ParseContext) (scan : BodyScan) :
-    (basicBody text context scan).count = scan.count := by
+    (basicBody (catalog := catalog) text context scan).count = scan.count := by
   unfold basicBody
   split
   · rfl
   · try dsimp only
     split
     · rfl
-    · exact basicRaw_count ..
+    · exact basicRaw_count (catalog := catalog) ..
 
 theorem branchStart_counts (text : Source) (context : ParseContext) (scan : BodyScan) (keyword : String) :
     (branchStart text context scan keyword).1.count = scan.count ∧
@@ -107,7 +136,7 @@ theorem loopAfterHeader_count (context : ParseContext) (before after : ActiveFlo
 
 theorem loopBody_count (text : Source) (context : ParseContext) (scan : BodyScan)
     (same : scan.count = context.scalarNames.length) :
-    (loopBody text context scan).count = context.scalarNames.length := by
+    (loopBody (catalog := catalog) text context scan).count = context.scalarNames.length := by
   rw [loopBody]
   dsimp only
   split
@@ -126,20 +155,20 @@ theorem loopBody_count (text : Source) (context : ParseContext) (scan : BodyScan
 mutual
   theorem statementBody_count (text : Source) (context : ParseContext) (scan : BodyScan)
       (same : scan.count = context.scalarNames.length) :
-      (statementBody text context scan).count = context.scalarNames.length := by
+      (statementBody (catalog := catalog) text context scan).count = context.scalarNames.length := by
     rw [statementBody]
     split
     · exact same
     · split
       · exact conditionalBody_count text context scan same
       · split
-        · exact loopBody_count text context scan same
-        · exact (basic_count text context scan).trans same
+        · exact loopBody_count (catalog := catalog) text context scan same
+        · exact (basic_count (catalog := catalog) text context scan).trans same
   termination_by (bodyRemaining text scan, 2)
 
   theorem conditionalBody_count (text : Source) (context : ParseContext) (scan : BodyScan)
       (same : scan.count = context.scalarNames.length) :
-      (conditionalBody text context scan).count = context.scalarNames.length := by
+      (conditionalBody (catalog := catalog) text context scan).count = context.scalarNames.length := by
     rw [conditionalBody]
     try dsimp only
     split
@@ -155,7 +184,7 @@ mutual
               have branches := branchStart_counts text context scan "if"
               have yes := readBody_count text context (branchStart text context scan "if").1 .arm (branches.1.trans same)
               have no := alternativeBody_count text context
-                {readBody text context (branchStart text context scan "if").1 .arm with
+                {readBody (catalog := catalog) text context (branchStart text context scan "if").1 .arm with
                   facts := (branchStart text context scan "if").2} (branches.2.trans same)
               exact (ActiveFlow.join_count _ _ (yes.trans no.symm)).trans yes
           · exact same
@@ -164,7 +193,7 @@ mutual
 
   theorem alternativeBody_count (text : Source) (context : ParseContext) (scan : BodyScan)
       (same : scan.count = context.scalarNames.length) :
-      (alternativeBody text context scan).count = context.scalarNames.length := by
+      (alternativeBody (catalog := catalog) text context scan).count = context.scalarNames.length := by
     rw [alternativeBody]
     split
     · exact same
@@ -179,7 +208,7 @@ mutual
               · have branches := branchStart_counts text context scan "elsif"
                 have yes := readBody_count text context (branchStart text context scan "elsif").1 .arm (branches.1.trans same)
                 have no := alternativeBody_count text context
-                  {readBody text context (branchStart text context scan "elsif").1 .arm with
+                  {readBody (catalog := catalog) text context (branchStart text context scan "elsif").1 .arm with
                     facts := (branchStart text context scan "elsif").2} (branches.2.trans same)
                 exact (ActiveFlow.join_count _ _ (yes.trans no.symm)).trans yes
               · exact same
@@ -196,7 +225,7 @@ mutual
 
   theorem bodyTail_count (text : Source) (context : ParseContext) (scan : BodyScan) (stop : BodyStop)
       (same : scan.count = context.scalarNames.length) :
-      (bodyTail text context scan stop).count = context.scalarNames.length := by
+      (bodyTail (catalog := catalog) text context scan stop).count = context.scalarNames.length := by
     rw [bodyTail]
     split
     · exact same
@@ -212,7 +241,7 @@ mutual
 
   theorem readBody_count (text : Source) (context : ParseContext) (scan : BodyScan) (stop : BodyStop)
       (same : scan.count = context.scalarNames.length) :
-      (readBody text context scan stop).count = context.scalarNames.length := by
+      (readBody (catalog := catalog) text context scan stop).count = context.scalarNames.length := by
     rw [readBody]
     try dsimp only
     split

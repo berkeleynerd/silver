@@ -1,0 +1,51 @@
+{
+  "source_commit": "53d3a3b22bd0c2c0693bd81c662ad5dfc4658dcb",
+  "scope": "Auditor/tests/boundary only; no full native or Lean completion claim",
+  "artifacts": [
+    {
+      "artifact": "dependency-delta.json.gz",
+      "sha256": "8775aa5d86cdb7aadcf755e4eb8bd8f3e402774d02c2301d01f648b40ceea8cb",
+      "bytes": 5167
+    },
+    {
+      "artifact": "evidence-provenance-tests.log.gz",
+      "sha256": "48165ff741757e63b2bccfc56755c767aadb3386f2cd360b48974b451e101de5",
+      "bytes": 18325
+    },
+    {
+      "artifact": "related-python-tests.log.gz",
+      "sha256": "a27d046438f84f9acecd58a27b60e9b31816e6da12ac92d1f5892cd68fe5d4e4",
+      "bytes": 6806
+    },
+    {
+      "artifact": "related-test-inventory.json.gz",
+      "sha256": "69793bd103c48e75fc2e463ece026a1d810e77c3ee051285c1a2db1ef9118332",
+      "bytes": 4299
+    },
+    {
+      "artifact": "repair.diff.gz",
+      "sha256": "1874feaaa9dbede63470b6279fc367f754bdc718b54979074995ae5a2aadcc90",
+      "bytes": 33616
+    },
+    {
+      "artifact": "retained-native-diagnostic.json.gz",
+      "sha256": "a10d57e55dab5fb1296052f50b09c82e994bca66a0138b01e77e9f837601f80d",
+      "bytes": 1207
+    },
+    {
+      "artifact": "summary.json.gz",
+      "sha256": "c7b55b39b98ebd9b98ab49fddba665ad7d78677b862be31983320e879188f99c",
+      "bytes": 2160
+    },
+    {
+      "artifact": "test-inventory.json.gz",
+      "sha256": "025dc1511343cf73e7a055cb4d92abf7e9c0eee62f39b6034c785d2760843b02",
+      "bytes": 10569
+    },
+    {
+      "artifact": "test-method-delta.json.gz",
+      "sha256": "eb4d69fcb6074c2f3c57518b016820bef1c0214da3fd54404c68a27ab6b7a085",
+      "bytes": 1042
+    }
+  ]
+}

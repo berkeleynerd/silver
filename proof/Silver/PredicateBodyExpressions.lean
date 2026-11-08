@@ -17,22 +17,23 @@ structure Primitives where
   loop : LoopNative.Imports
   token : Source → Nat → ShellToken → Nat
   bodyToken : Source → Native.Context → BodyScan → ShellToken → BodyScan
-  basic : Source → Native.Context → BodyScan → BodyScan
+  basic : Source → Native.Context → BodyScan → FunctionBindings.Metadata → BodyScan
   predicate : Source → Native.Context → Nat → ActiveFlow → ConditionResult
   invalidModel : BodyScan → BodyScan
   invalid : BodyScan → BodyScan
   joinInto : ActiveFlow → ActiveFlow → ActiveFlow
 
 structure Calls where
-  statement : Source → Native.Context → BodyScan → BodyScan
-  loop : Source → Native.Context → BodyScan → BodyScan
-  conditional : Source → Native.Context → BodyScan → BodyScan
-  alternative : Source → Native.Context → BodyScan → BodyScan
-  tailModel : Source → Native.Context → BodyScan → BodyStop → BodyScan
-  tail : Source → Native.Context → BodyScan → BodyStop → BodyScan
-  read : Source → Native.Context → BodyScan → BodyStop → BodyScan
+  statement : Source → Native.Context → BodyScan → FunctionBindings.Metadata → BodyScan
+  loop : Source → Native.Context → BodyScan → FunctionBindings.Metadata → BodyScan
+  conditional : Source → Native.Context → BodyScan → FunctionBindings.Metadata → BodyScan
+  alternative : Source → Native.Context → BodyScan → FunctionBindings.Metadata → BodyScan
+  tailModel : Source → Native.Context → BodyScan → BodyStop → FunctionBindings.Metadata → BodyScan
+  tail : Source → Native.Context → BodyScan → BodyStop → FunctionBindings.Metadata → BodyScan
+  read : Source → Native.Context → BodyScan → BodyStop → FunctionBindings.Metadata → BodyScan
 
 structure Frame where
+  catalog : FunctionBindings.Metadata
   text : Source
   context : Native.Context
   scan : BodyScan
@@ -48,7 +49,7 @@ def StopRef.eval (frame : Frame) : StopRef → BodyStop
   | .literal stop => stop | .current => frame.stop
 
 def stopName : BodyStop → String
-  | .endOnly => "end_only" | .elseOnly => "else_only" | .arm => "arm_boundary"
+  | .endOnly => "end_only" | .elseOnly => "else_only" | .arm => "arm_boundary" | .returnOnly => "return_only"
 
 def StopRef.render : StopRef → List String
   | .literal stop => [stopName stop] | .current => ["stop"]
@@ -73,14 +74,14 @@ def ScanExpr.eval (primitive : Primitives) (calls : Calls) (frame : Frame) : Sca
   | .invalid value => primitive.invalid (value.eval primitive calls frame)
   | .invalidModel value => primitive.invalidModel (value.eval primitive calls frame)
   | .token tok value => primitive.bodyToken frame.text frame.context (value.eval primitive calls frame) tok
-  | .basic value => primitive.basic frame.text frame.context (value.eval primitive calls frame)
-  | .statement value => calls.statement frame.text frame.context (value.eval primitive calls frame)
-  | .loop value => calls.loop frame.text frame.context (value.eval primitive calls frame)
-  | .conditional value => calls.conditional frame.text frame.context (value.eval primitive calls frame)
-  | .alternative value => calls.alternative frame.text frame.context (value.eval primitive calls frame)
-  | .tailModel stop value => calls.tailModel frame.text frame.context (value.eval primitive calls frame) (stop.eval frame)
-  | .tail stop value => calls.tail frame.text frame.context (value.eval primitive calls frame) (stop.eval frame)
-  | .read stop value => calls.read frame.text frame.context (value.eval primitive calls frame) (stop.eval frame)
+  | .basic value => primitive.basic frame.text frame.context (value.eval primitive calls frame) frame.catalog
+  | .statement value => calls.statement frame.text frame.context (value.eval primitive calls frame) frame.catalog
+  | .loop value => calls.loop frame.text frame.context (value.eval primitive calls frame) frame.catalog
+  | .conditional value => calls.conditional frame.text frame.context (value.eval primitive calls frame) frame.catalog
+  | .alternative value => calls.alternative frame.text frame.context (value.eval primitive calls frame) frame.catalog
+  | .tailModel stop value => calls.tailModel frame.text frame.context (value.eval primitive calls frame) (stop.eval frame) frame.catalog
+  | .tail stop value => calls.tail frame.text frame.context (value.eval primitive calls frame) (stop.eval frame) frame.catalog
+  | .read stop value => calls.read frame.text frame.context (value.eval primitive calls frame) (stop.eval frame) frame.catalog
 
 def call := Compose.Expressions.call
 
@@ -89,14 +90,14 @@ def ScanExpr.render : ScanExpr → List String
   | .invalid value => call "invalid_body" [value.render]
   | .invalidModel value => call "invalid_body_model" [value.render]
   | .token tok value => call "body_token" [["text"], ["context"], value.render, [Compose.Expressions.tokenName tok]]
-  | .basic value => call "basic_body" [["text"], ["context"], value.render]
-  | .statement value => call "statement_body" [["text"], ["context"], value.render]
-  | .loop value => call "loop_body" [["text"], ["context"], value.render]
-  | .conditional value => call "conditional_body" [["text"], ["context"], value.render]
-  | .alternative value => call "alternative_body" [["text"], ["context"], value.render]
-  | .tailModel stop value => call "body_tail_model" [["text"], ["context"], value.render, stop.render]
-  | .tail stop value => call "body_tail" [["text"], ["context"], value.render, stop.render]
-  | .read stop value => call "read_body" [["text"], ["context"], value.render, stop.render]
+  | .basic value => call "basic_body" [["text"], ["context"], value.render, ["catalog"]]
+  | .statement value => call "statement_body" [["text"], ["context"], value.render, ["catalog"]]
+  | .loop value => call "loop_body" [["text"], ["context"], value.render, ["catalog"]]
+  | .conditional value => call "conditional_body" [["text"], ["context"], value.render, ["catalog"]]
+  | .alternative value => call "alternative_body" [["text"], ["context"], value.render, ["catalog"]]
+  | .tailModel stop value => call "body_tail_model" [["text"], ["context"], value.render, stop.render, ["catalog"]]
+  | .tail stop value => call "body_tail" [["text"], ["context"], value.render, stop.render, ["catalog"]]
+  | .read stop value => call "read_body" [["text"], ["context"], value.render, stop.render, ["catalog"]]
 
 inductive FactsExpr
   | result | yes | whenTrue | whenFalse
@@ -305,19 +306,19 @@ def modelPrimitives : Primitives where
   loop := LoopNative.modelImports
   token := tokenAfter
   bodyToken text _ scan token := Predicate.bodyToken text scan token
-  basic text context scan := basicBody text context.model scan
+  basic text context scan catalog := basicBody text context.model scan catalog
   predicate text context position facts := readCondition text context.model position facts
   invalidModel := invalidBody
   invalid := invalidBody
   joinInto := ActiveFlow.join
 
 def modelCalls : Calls where
-  statement text context scan := statementBody text context.model scan
-  loop text context scan := loopBody text context.model scan
-  conditional text context scan := conditionalBody text context.model scan
-  alternative text context scan := alternativeBody text context.model scan
-  tailModel text context scan stop := bodyTail text context.model scan stop
-  tail text context scan stop := bodyTail text context.model scan stop
-  read text context scan stop := readBody text context.model scan stop
+  statement text context scan catalog := statementBody text context.model scan catalog
+  loop text context scan catalog := loopBody text context.model scan catalog
+  conditional text context scan catalog := conditionalBody text context.model scan catalog
+  alternative text context scan catalog := alternativeBody text context.model scan catalog
+  tailModel text context scan stop catalog := bodyTail text context.model scan stop catalog
+  tail text context scan stop catalog := bodyTail text context.model scan stop catalog
+  read text context scan stop catalog := readBody text context.model scan stop catalog
 
 end Silver.Predicate.BodyNative

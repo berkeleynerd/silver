@@ -1,0 +1,182 @@
+{
+  "applicability": "Only unchanged seven-production-module subset, fixture/generator/config and helper inputs verified against 2a3badff5c. No claim to final future proof inventory or held all-production-proof symlink fixture.",
+  "artifacts": {
+    "events.jsonl": {
+      "compressed_sha256": "a772512595ee9474dfed3167319b700dbfb9f6e94b4e598ef62dd7305e5f0d95",
+      "uncompressed_bytes": 189408,
+      "uncompressed_sha256": "028e29a3fb4b9b126a8411baea6111bd7a67162925b25b05ef31b971714904ea"
+    },
+    "native.log": {
+      "compressed_sha256": "2217ac1c5449ec7aaedbb7ae102013a50c814da9b96529408bdfeeded7927685",
+      "uncompressed_bytes": 3039,
+      "uncompressed_sha256": "e204d9b7f7bd2c9b69b448cc5a8e6d94a406df1a626634e38b5cb236734c502d"
+    }
+  },
+  "captured_at": "2026-11-08T05:34:23.141830+00:00",
+  "command": [
+    "/usr/bin/python3",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-v",
+    "-p",
+    "test_lean_modules.py",
+    "-k",
+    "test_output_body_chunks_reuse_objects_across_content_and_occurrence_edits"
+  ],
+  "counts": {
+    "errors": 1,
+    "passed": 0,
+    "skips": 0,
+    "tests": 1
+  },
+  "fixture_dependency_inputs": {
+    "proof/Silver/Admission.lean": {
+      "bytes": 5435,
+      "equals_governed_2a3badff5c": true,
+      "sha256": "7c756102bc689b108aa0d5b2c41a68868d07f21230282891d776ef0994f2faf2"
+    },
+    "proof/Silver/AxiomAudit.lean": {
+      "bytes": 1927,
+      "equals_governed_2a3badff5c": true,
+      "sha256": "47cb06e63dd120cf1db5ca14f39c3743500c6032d5f68d6e797106cb2903cb7b"
+    },
+    "proof/Silver/CertificateWitness.lean": {
+      "bytes": 1614,
+      "equals_governed_2a3badff5c": true,
+      "sha256": "7f64ba1832d59532bdfcf56d06cfb3d9589fdb71c2e39e0bc88326b2d8757f2d"
+    },
+    "proof/Silver/Cursor.lean": {
+      "bytes": 14705,
+      "equals_governed_2a3badff5c": true,
+      "sha256": "c5316bac7eb2a733fcda3787d23ee16e8e3b963ef31f6b7e26d285eb7e517ac3"
+    },
+    "proof/Silver/Lexical.lean": {
+      "bytes": 8836,
+      "equals_governed_2a3badff5c": true,
+      "sha256": "bd6025d6dc26fd8d984de90bc4a00b63e30d76c27e3db086358aeaa5712ad372"
+    },
+    "proof/Silver/OutputProfileBodySource.lean": {
+      "bytes": 245,
+      "equals_governed_2a3badff5c": true,
+      "sha256": "35ef9119ab63f6e20483c936107241bc997f9f3378181beb45f7ed7bab72938f"
+    },
+    "proof/Silver/SourceLexer.lean": {
+      "bytes": 11076,
+      "equals_governed_2a3badff5c": true,
+      "sha256": "6c2824f4ed5b303b3a3f3ec94d8cdb650ffbd86103eef842a32a3c6f3755a8eb"
+    },
+    "proof/generate_source_certificate.py": {
+      "bytes": 14981,
+      "equals_governed_2a3badff5c": true,
+      "sha256": "9c01647f30c6e15ae11469c2651c49c0ee08d0fd920eabbe8f0ad2acd993377e"
+    },
+    "proof/lakefile.lean": {
+      "bytes": 9658,
+      "equals_governed_2a3badff5c": true,
+      "sha256": "8cab85a3bb752f14cad6e1e96ede51d1db4c04ad515eb62f0020bc066cff7938"
+    },
+    "proof/lean-toolchain": {
+      "bytes": 25,
+      "equals_governed_2a3badff5c": true,
+      "sha256": "d5edba4e4b8faad9c1baeadb265716d20d03be4d1a2647dc5e35b0c0325bea7b"
+    },
+    "scripts/bootstrap_lean.py": {
+      "bytes": 7000,
+      "equals_governed_2a3badff5c": true,
+      "sha256": "ae72d6967ebf458c4ccfccfd53d6a59da08767901f29e1ba1917dc2ad5623dff"
+    },
+    "scripts/check_lean.py": {
+      "bytes": 35024,
+      "equals_governed_2a3badff5c": true,
+      "sha256": "2091d1b0a2a9525f44af973d625a63e1b6d915a2e66e49add599825bea7820ac"
+    },
+    "scripts/dev.py": {
+      "bytes": 31344,
+      "equals_governed_2a3badff5c": true,
+      "sha256": "3954a59193a7f3a49b742d6f4a3b640e1bb3ab63f7853583cc925854585902ef"
+    },
+    "scripts/platforms.py": {
+      "bytes": 3980,
+      "equals_governed_2a3badff5c": true,
+      "sha256": "01e673a58c8aa2158e8314f5005af30292d3f0e95d6dcedb071e9ecf7a62bfc5"
+    },
+    "tests/test_lean_modules.py": {
+      "bytes": 16118,
+      "equals_governed_2a3badff5c": true,
+      "sha256": "cb287c6dc17b7955edeb701775cc04ca4f92ede68a4393d7d77acd6b5ee67657"
+    }
+  },
+  "fixture_settings": {
+    "changed": false,
+    "lean_memory_mb": 2048,
+    "lean_threads": 1,
+    "subprocess_timeout_seconds": 60
+  },
+  "head": "946944856bf086138dc00b389ea4d5fca26784e5",
+  "observations": {
+    "available_memory_preflight_human_readable": "41 GiB",
+    "concurrent_managed_runs": {
+      "20261108T040128-2651963b8574": 12,
+      "20261108T044143-17a94f7033eb": 8
+    },
+    "initial_preflight_utc": "2026-11-08T05:31:10Z",
+    "load_average_preflight": [
+      19.57,
+      20.38,
+      21.05
+    ],
+    "measurement_limits": {
+      "child_start": "At 05:33:09, surviving Lexical child elapsed was 10 seconds; approximate start inferred from rounded ps elapsed, not an exec timestamp.",
+      "configuration_phase": "At 05:32:40, Lake elapsed 32 seconds and no owned Lean child appeared in the process-group sample; at 05:32:52 the workspace contained lakefile.olean.trace. This bounds observations but does not measure configuration-only CPU time or all phase transitions.",
+      "diagnosis": "No contention, configuration bottleneck, I/O bottleneck or other root cause established.",
+      "io": "No read/write counters, wait channel or I/O wait samples captured.",
+      "process_measurements": "ps elapsed, lifetime-average percent CPU and RSS at two instants; process command and parent/group identity. No task clock or CPU tick deltas."
+    },
+    "notes": [
+      "Read-only initial-build snapshot records 20 prepared files at 05:32:53 UTC; archive contains source/config/JSON/trace files only. See exact captured timestamp in inventory.",
+      "Second process observation at 05:33:09 shows Lake defunct and a Lexical child with elapsed 10s. This does not establish the reason for exceeded deadline.",
+      "Automatic fixture cleanup removed temporary workspace before final snapshot could be retained; original partial subprocess streams are not printed by standard unittest TimeoutExpired formatting.",
+      "No rerun, timeout adjustment, source/test/harness change, or second fixture launch followed this failure.",
+      "Owned test, Lake and observed child PIDs no longer live after completion."
+    ]
+  },
+  "platform": "Linux x86-64",
+  "postflight_input_drift": [],
+  "prepared_input_count": 1031,
+  "proposed_next_step_not_executed": "Astra Extra High first reviews retained lakefile.olean.trace/config, process chronology and fixture setup. If a run is necessary, authorize one isolated configuration-only diagnostic from a recreated identical fixture, capturing stdout/stderr and monotonic process-start/CPU-tick/I/O/wait samples to distinguish Lake configuration from module compilation. Retain original fixture limits; decide any later fixture action only after that evidence.",
+  "reason": "Authorized first failed-fixture follow-up; unchanged seven-module dependency subset after six-file proof sync; 2 free managed workers with native12 plus Lean8 active and 41GiB host available at preflight; retain existing 60-second/one-thread/2048MiB settings; symlink fixture remains held",
+  "run_id": "20261108T053156-3a0a42e9d590",
+  "selected_orchestration_settings": "GPT-6.1 Sol / High, inherited from parent spawn per prior checkpoint; independent runtime model/effort confirmation unavailable",
+  "terminal": {
+    "duration_seconds": 73.566116698,
+    "error": "CalledProcessError: Command '['/usr/bin/python3', '-m', 'unittest', 'discover', '-s', 'tests', '-v', '-p', 'test_lean_modules.py', '-k', 'test_output_body_chunks_reuse_objects_across_content_and_occurrence_edits']' returned non-zero exit status 1.",
+    "event": "finished",
+    "evidence": [
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T053156-3a0a42e9d590/native.log",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T053156-3a0a42e9d590/native.log"
+      }
+    ],
+    "failure_keys": [],
+    "monotonic_ns": 47292135158083,
+    "outcome": "failure",
+    "retained_reports": [],
+    "returncode": 1,
+    "run_id": "20261108T053156-3a0a42e9d590",
+    "utc": "2026-11-08T05:33:11.654359+00:00"
+  },
+  "test_outcomes": [
+    {
+      "at": "tests/test_lean_modules.py:213",
+      "exception": "subprocess.TimeoutExpired",
+      "id": "test_lean_modules.LeanModuleTests.test_output_body_chunks_reuse_objects_across_content_and_occurrence_edits",
+      "stage": "initial Lake build before audit and variants",
+      "status": "ERROR"
+    }
+  ],
+  "unittest_elapsed_seconds": 65.2,
+  "workers_reserved": 2
+}

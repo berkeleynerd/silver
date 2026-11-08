@@ -1,0 +1,137 @@
+{
+  "review_commit": "412de80b29e51be5caec382732c19486b532c958",
+  "review_target": "3d38fedb6866b537ddc4a8d2a634b7d0b339360f",
+  "governed_inputs": "f6308191545c1012d76132ae535977e55fd4f018",
+  "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-delivery-review-298/tmp/retained-regression-resolution-298/shareable-evidence.tar.gz",
+  "bundle": "evidence.tar.gz",
+  "bytes": 950540,
+  "sha256": "8e196780d6d9e970fb4d1b79fb4db02a910d915a257a02336ae4324a29a2b351",
+  "members": [
+    {
+      "path": "ANALYSIS.md",
+      "bytes": 10166,
+      "sha256": "98fd64d2459292790deb8e5187e5965cbb0b28af5a4b2e5f6451f42e5bad425b"
+    },
+    {
+      "path": "audit-script-correction.json",
+      "bytes": 872,
+      "sha256": "d2bbbd1627b0db748911a1f81054b48fc86b796d2109db5a7770d7db0b26b1ef"
+    },
+    {
+      "path": "audit_retention.py",
+      "bytes": 14737,
+      "sha256": "1e9accba09abe7e7ff0b0bc90e0cdf9f44c9e31d178163c9544d6f91199aea5d"
+    },
+    {
+      "path": "canonical-inventory.json",
+      "bytes": 223376,
+      "sha256": "1d3e7775336afa084f3feaf624210bcc80716d0683f3d6ff72164dde2afec2c2"
+    },
+    {
+      "path": "chunk-resolution.json",
+      "bytes": 13809,
+      "sha256": "e8ccc144496b6f45cc1d60dcd32fa442e919828c0f915748a7f5dbc866fb7ad1"
+    },
+    {
+      "path": "code-import-closures.json",
+      "bytes": 12774,
+      "sha256": "9d87e5a2c02b42f8ed488e245d835a2a2bba16e52789fee4c5ed8715ba6641d0"
+    },
+    {
+      "path": "completed-byte-comparison.json",
+      "bytes": 487,
+      "sha256": "1034a0d1c26692ed2302f0505eb248c491ba06dbadceb4d77b889bcf649e51f9"
+    },
+    {
+      "path": "docs-only-target-extension.json",
+      "bytes": 400,
+      "sha256": "574dabf43628d64a146a5a0c6b26c36be1d26e7ec8038b985bc2301da0f0c2e8"
+    },
+    {
+      "path": "fresh-build-events.jsonl.gz",
+      "bytes": 126548,
+      "sha256": "66701db5720ccc4b02dbda2a373e40e5ddfff0bc0f8b955c13ab94d44511d5ea"
+    },
+    {
+      "path": "fresh-build-linkage.json",
+      "bytes": 1573,
+      "sha256": "376d23131b8e28e307bee77b86f895ac0f0abeb24e96c7a81ba2b8e281ef21c9"
+    },
+    {
+      "path": "fresh-build-native.log.gz",
+      "bytes": 140,
+      "sha256": "6288c2638912ea78a3bcb177a772a649094913e5dd47d4f411165cb218b11c31"
+    },
+    {
+      "path": "helper-normalization-resolution.json",
+      "bytes": 423,
+      "sha256": "e7eee2a25c6b27fb55deb05f81fcbd2630a2f55a9ca26132543e466c217e4d1f"
+    },
+    {
+      "path": "identity-delta-summary.json",
+      "bytes": 8336,
+      "sha256": "3f70d8269835b2b22a84adc40f0464d75492af65c49668dfbab0b8c139d2fc48"
+    },
+    {
+      "path": "make_bundle.py",
+      "bytes": 1719,
+      "sha256": "1b29f9ea7959a40fae42a81e9d0e76ca5ce7d89b48e4246ac52092d595b6d9da"
+    },
+    {
+      "path": "manifest.json",
+      "bytes": 3624,
+      "sha256": "a6000265ea629d7418fe4bbac03ee1b2ad7a92850fcc1bea7d453b95923e6d90"
+    },
+    {
+      "path": "native-probe-closures.json",
+      "bytes": 1312,
+      "sha256": "f64dd2969a1d5ac9aa9a2c690539c249e778ab38724cd9d4996ed2e33296ba9a"
+    },
+    {
+      "path": "original-to-accepted-identities.json",
+      "bytes": 328735,
+      "sha256": "a2307d7d6a3295889933217c9ddf723a5e64866b75edea5dcead75fe6147a553"
+    },
+    {
+      "path": "per-id-resolution.json",
+      "bytes": 641774,
+      "sha256": "0a282007a07f81b67e2c890ff9a6e1fcae9f78bd9af4526bacc79f5ec9601ac3"
+    },
+    {
+      "path": "raw-success-origins.json",
+      "bytes": 141933,
+      "sha256": "1088539642c9f01c6b88e2022e5c41c2a1f587bffb3765b76e743ad6aea2b3dd"
+    },
+    {
+      "path": "resolution-overview.json",
+      "bytes": 4660,
+      "sha256": "e6a11a1a53cda344690b6ad2977d7fc3b6a0316bc7d9be603be30e38e91b9bb5"
+    },
+    {
+      "path": "retained-identity-resolution.json",
+      "bytes": 1406263,
+      "sha256": "32454822fa80569eaf60434837ed6cfb479ff386fa789d9be6f11841e5a08bb5"
+    },
+    {
+      "path": "selector-membership-resolution.json",
+      "bytes": 135989,
+      "sha256": "ec8bb7ddaf7bddbb55695473a61148be7a428be678589ab08ff25a89a32db6db"
+    },
+    {
+      "path": "summary.json",
+      "bytes": 7462,
+      "sha256": "80a2a1154702857b74a98744653674893bfea5c2d7169abfcae83c914cdc42fa"
+    },
+    {
+      "path": "target-input-identities.json",
+      "bytes": 2045313,
+      "sha256": "676407e7912ceec908ae5249b42c55ab680d4f1188c7be41cb1922d6d47313b4"
+    },
+    {
+      "path": "verified-evidence.json",
+      "bytes": 15716,
+      "sha256": "1e7f56882baa1696d13ff3510d552ce01248900b5333322572f3a24d7104b5c2"
+    }
+  ],
+  "scope": "621 applicable successful regression outcomes; 16 pending IDs plus future Rosetta refresh; no complete native/Lean/637 acceptance"
+}

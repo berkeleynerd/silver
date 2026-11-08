@@ -71,10 +71,16 @@ def ValidEnvironment (text : Source) (environment : Environment) : Prop :=
     0 < item.first ∧ item.first < item.after ∧ item.after ≤ text.length + 1 ∧
     item.bounds.Bounded ∧ item.bounds.lower ≤ item.bounds.upper
 
-def HidingCorrect (text : Source) (environment : Environment) : Prop :=
+/-- The same native call-hiding table contains subtype names and completed
+function names. Extra spans are supplied by the declaration proof; the default
+retains the subtype-only initialization statement. -/
+def HidingCorrect (text : Source) (environment : Environment)
+    (otherNames : List (Nat × Nat) := []) : Prop :=
   ∀ operation, environment.hiddenCalls.get operation =
-    environment.items.any (fun item => Named.nameIs text item.first item.after
-      (operation.name.toList.map Char.toNat))
+    (environment.items.any (fun item => Named.nameIs text item.first item.after
+      (operation.name.toList.map Char.toNat)) ||
+     otherNames.any (fun item => Named.nameIs text item.1 item.2
+      (operation.name.toList.map Char.toNat)))
 
 theorem lookupFrom_bound (text : Source) (environment : Environment)
     (first after index : Nat) : lookupFrom text environment first after index ≤ index := by
@@ -110,14 +116,26 @@ theorem hiding_empty (text : Source) : HidingCorrect text {} := by
   intro operation
   cases operation <;> rfl
 
-theorem hiding_append {text : Source} {environment : Environment}
-    (correct : HidingCorrect text environment) (item : Binding) :
-    HidingCorrect text (append text environment item) := by
+theorem hiding_append {text : Source} {environment : Environment} {otherNames : List (Nat × Nat)}
+    (correct : HidingCorrect text environment otherNames) (item : Binding) :
+    HidingCorrect text (append text environment item) otherNames := by
   intro operation
   have appended := congrArg (fun flag => flag || Named.nameIs text item.first item.after
     (operation.name.toList.map Char.toNat)) (correct operation)
   cases operation <;>
-    simpa [append, CallHiding.add, CallHiding.get, List.any_append] using appended
+    simpa [append, CallHiding.add, CallHiding.get, List.any_append, Bool.or_assoc, Bool.or_left_comm, Bool.or_comm] using appended
+
+
+theorem hiding_add_other {text : Source} {environment : Environment} {otherNames : List (Nat × Nat)}
+    (correct : HidingCorrect text environment otherNames) (first after : Nat) :
+    HidingCorrect text
+      {environment with hiddenCalls := environment.hiddenCalls.add text first after}
+      (otherNames ++ [(first, after)]) := by
+  intro operation
+  have appended := congrArg (fun flag => flag || Named.nameIs text first after
+    (operation.name.toList.map Char.toNat)) (correct operation)
+  cases operation <;>
+    simpa [CallHiding.add, CallHiding.get, List.any_append, Bool.or_assoc] using appended
 
 
 def LiteralHidingCorrect (text : Source) (environment : Environment) : Prop :=

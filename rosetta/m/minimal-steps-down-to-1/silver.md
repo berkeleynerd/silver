@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is a bounded for-loop dynamic program over a fixed-size array where each index and increment is bounded by subtype ranges or an immediately preceding guard, so no annotation is required, though several loop-carried values (running minimum, trace position) need careful guards.
 
-Position 181 in the [progression](../../progression.md#stage-6), in stage 6.
+Position 182 in the [progression](../../progression.md#stage-6), in stage 6.
 
 ## Approach
 

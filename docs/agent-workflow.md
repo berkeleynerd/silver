@@ -7,14 +7,15 @@ workload choices and applies even when an agent has no matching global policy.
 Personal global guidance can carry the same principles across repositories.
 These are starting points, not measured guarantees about model quality.
 
-The owner's 2026-11-07 clarification assigns uncertain proof diagnosis,
-proof-memory strategy and cross-system integration decisions to Astra Extra High.
+The owner's 2026-11-08 clarification assigns new proof/contract design, source
+correspondence, uncertain proof diagnosis, proof-memory strategy, cross-system
+proof integration and critical proof review to Astra Max.
 Established implementation stays Sol Extra High; routine monitoring and evidence
-collection stay Sol High. Apply the project's escalation triggers before another
-expensive complete run when repairs or resource strategy remain unresolved.
-Escalate a named difficult problem to Astra Max when needed, then return to its
-baseline. Tool execution time alone does not call for a stronger monitoring agent
-or restarting a productive run.
+collection stay Sol High. Reserve Ultra for a named unresolved problem with
+useful parallel investigations. Apply the
+[complete-helper-contract checks](../development.md#proof-loop-and-validation)
+before an expensive integrated run. Tool execution time alone does not call for
+a stronger monitoring agent or restarting a productive run.
 
 ## Host defaults and profiles
 
@@ -50,7 +51,7 @@ Named profiles live beside `config.toml` as `<name>.config.toml`:
 
 | Profile | Model | Model and Plan effort | Intended use |
 | --- | --- | --- | --- |
-| `proof` | `gpt-6-astra` | `xhigh` | Uncertain proof diagnosis, memory strategy, integration decisions and critical review |
+| `proof` | `gpt-6-astra` | `max` | New proof/contract design, source correspondence, uncertain proof diagnosis, memory strategy, proof integration and critical proof review |
 | `implementation` | `gpt-6.1-sol` | `xhigh` | Established implementation, debugging, proof or checkable extraction |
 | `routine` | `gpt-6.1-sol` | `high` | Routine implementation, documentation, monitoring, evidence collection and coordination |
 
@@ -59,9 +60,10 @@ Each profile sets `model`, `model_reasoning_effort` and
 The conservative subagent defaults remain in the base configuration. Choose
 each bounded worker's model and effort explicitly under the project policy;
 the profile does not turn every future delegated task into routine work.
-Select Astra Max explicitly for a named escalation; it is temporary and needs no
-persistent profile or global effort increase. These role assignments preserve the
-documented host defaults and native worker/memory controls. A guidance edit does
+Select `gpt-6-astra` with `max` explicitly for delegated proof-role tasks;
+do not let the generic Extra High default override that role. The `proof` profile
+sets both model and Plan effort to `max`, while the generic base defaults and
+native worker/memory controls remain unchanged. A guidance or profile edit does
 not change a running agent's model or a proof process's resource allocation.
 
 Custom role files are optional. They must follow the same policy and ownership
@@ -87,12 +89,12 @@ whole-team cost, and an agent count or document count is not a success measure.
 When a child receives a focused brief, include the governing requirements and
 relevant decision/evidence excerpts; widen its reading when those are insufficient.
 
-Model guidance rechecked on 2026-11-07:
+Model and effort guidance rechecked on 2026-11-08:
 
-- [Models and reasoning](https://developers.openai.com/codex/models/)
+- [GPT-6 Astra and supported effort](https://developers.openai.com/api/docs/models/gpt-6-astra)
+- [Configuration, effort and profile files](https://learn.chatgpt.com/docs/config-file/config-reference)
 
-Configuration and instruction guidance checked on 2026-10-18:
+Other configuration and instruction guidance checked on 2026-10-18:
 
-- [Configuration and profile files](https://learn.chatgpt.com/docs/config-file/config-reference)
 - [Subagents and custom roles](https://learn.chatgpt.com/docs/agent-configuration/subagents)
 - [Global and project instruction discovery](https://learn.chatgpt.com/docs/agent-configuration/agents-md)

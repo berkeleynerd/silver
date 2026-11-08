@@ -32,6 +32,7 @@ inductive Ty
   | scalarNames | scalarBinding | scalarResult | scalarLiteral | interval | scalarConstraint
   | arrayMetadata | arrayInitials | arrayEnv
   | subtypeNames | subtypeBinding | callHiding | booleanNames
+  | functionMetadata | hiddenMarks
   | arrow (domain codomain : Ty)
   deriving DecidableEq, Repr
 
@@ -49,6 +50,7 @@ inductive Ty
   | .subtypeNames => IntegerSubtypes.Environment | .subtypeBinding => IntegerSubtypes.Binding
   | .callHiding => IntegerSubtypes.CallHiding
   | .booleanNames => BooleanBindings.Environment
+  | .functionMetadata => FunctionBindings.Metadata | .hiddenMarks => HiddenMarks
   | .arrow a b => a.meaning → b.meaning
 
 def Ty.default : (ty : Ty) → ty.meaning
@@ -61,6 +63,7 @@ def Ty.default : (ty : Ty) → ty.meaning
   | Ty.interval => Integer.Interval.empty | Ty.scalarConstraint => ⟨0, Integer.Interval.empty⟩
   | Ty.arrayMetadata => [] | Ty.arrayInitials => [] | Ty.arrayEnv => {}
   | Ty.subtypeNames => {} | Ty.subtypeBinding => {} | Ty.callHiding => {} | Ty.booleanNames => []
+  | Ty.functionMetadata => {} | Ty.hiddenMarks => {}
   | Ty.arrow _ b => fun _ => b.default
 
 inductive Function
@@ -97,6 +100,7 @@ inductive Function
   | image | imageMinimum | imageMaximum
   | value
   | newName
+  | functionLookup | formalHides | functionDeclaration
   | addBinding
   | declaration
   | stringDeclaration | scalarConstraint | scalarDeclaration | scalarLookup | scalarRead | scalarAppend | scalarEmpty | scalarLiteral | nameIs
@@ -125,6 +129,9 @@ inductive Function
   deriving DecidableEq, Repr
 
 def Function.name : Function → String
+  | .functionLookup => "functions.lookup"
+  | .formalHides => "formal_hides"
+  | .functionDeclaration => "function_declaration_at"
   | .fixedBoundsValid => "fixed_bounds_valid"
   | .characterLiteral => "character_literal_after"
   | .guardedAt => "guarded_at"
@@ -209,6 +216,9 @@ def Function.name : Function → String
   | .assignment => "has_assignment"
 
 @[reducible] def Function.type : Function → Ty
+  | .functionLookup => .arrow .source (.arrow .functionMetadata (.arrow .number (.arrow .number .number)))
+  | .formalHides => .arrow .source (.arrow .state (.arrow .number (.arrow .number .truth)))
+  | .functionDeclaration => .arrow .source (.arrow .state (.arrow .truth .state))
   | .fixedBoundsValid => .arrow .number (.arrow .truth (.arrow .truth (.arrow .integer (.arrow .integer (.arrow .number .truth)))))
   | .characterLiteral => .arrow .source (.arrow .number .number)
   | .guardedAt => .arrow .source (.arrow .number (.arrow .number (.arrow .number (.arrow .truth (.arrow .truth .truth)))))
@@ -301,6 +311,9 @@ structure Calls where
 /-- Lexical symbols are projected from the established lexical interface.
 Every recognizer helper is left arbitrary. -/
 def Calls.get (calls : Calls) : (symbol : Function) → symbol.type.meaning
+  | .functionLookup => calls.function .functionLookup
+  | .formalHides => calls.function .formalHides
+  | .functionDeclaration => calls.function .functionDeclaration
   | .fixedBoundsValid => calls.function .fixedBoundsValid
   | .characterLiteral => calls.function .characterLiteral
   | .guardedAt => calls.function .guardedAt
@@ -385,6 +398,16 @@ def Calls.get (calls : Calls) : (symbol : Function) → symbol.type.meaning
   | .assignment => calls.function .assignment
 
 inductive Field : Ty → Ty → Type
+  | stateFunctions : Field .state .functionMetadata
+  | statePure : Field .state .truth
+  | stateAssignedInFunctions : Field .state .truth
+  | stateHiding : Field .state .hiddenMarks
+  | stateFirstParameter : Field .state .number
+  | hiddenInteger : Field .hiddenMarks .truth
+  | hiddenBoolean : Field .hiddenMarks .truth
+  | hiddenCharacter : Field .hiddenMarks .truth
+  | hiddenTrue : Field .hiddenMarks .truth
+  | hiddenFalse : Field .hiddenMarks .truth
   | bindingCharacter : Field .binding .truth
   | bindingFirstIndex : Field .binding .integer
   | bindingLastIndex : Field .binding .integer
@@ -454,6 +477,11 @@ inductive Field : Ty → Ty → Type
   | decimalValue : Field .decimal .number
 
 def Field.name : Field a b → String
+  | .stateFunctions => "functions" | .statePure => "pure"
+  | .stateAssignedInFunctions => "assigned_in_functions" | .stateHiding => "hiding"
+  | .stateFirstParameter => "first_parameter"
+  | .hiddenInteger => "integer_hidden" | .hiddenBoolean => "boolean_hidden"
+  | .hiddenCharacter => "character_hidden" | .hiddenTrue => "true_hidden" | .hiddenFalse => "false_hidden"
   | .bindingCharacter => "is_character"
   | .bindingFirstIndex => "first_index"
   | .bindingLastIndex => "last_index"
@@ -516,6 +544,12 @@ def Field.name : Field a b → String
   | .decimalValue => "value"
 
 def Field.get : Field a b → a.meaning → b.meaning
+  | .stateFunctions, state => state.functions | .statePure, state => state.pure
+  | .stateAssignedInFunctions, state => state.assignedInFunctions
+  | .stateHiding, state => state.hiding | .stateFirstParameter, state => state.firstParameter
+  | .hiddenInteger, marks => marks.integerHidden | .hiddenBoolean, marks => marks.booleanHidden
+  | .hiddenCharacter, marks => marks.characterHidden | .hiddenTrue, marks => marks.trueHidden
+  | .hiddenFalse, marks => marks.falseHidden
   | .bindingCharacter, value => value.isCharacter
   | .bindingFirstIndex, value => value.firstIndex
   | .bindingLastIndex, value => value.lastIndex
@@ -637,6 +671,7 @@ inductive Expr : Ty → Type
   | word (value : String) : Expr .spelling
   | integerTypeWord : Expr .spelling
   | booleanTypeWord : Expr .spelling
+  | characterTypeWord : Expr .spelling
   | operatorByte : Expr .number → Expr .truth
   | arrayCount : Expr .arrayMetadata → Expr .number
   | maxArrayBindings : Expr .number
@@ -762,6 +797,7 @@ def tokenName : ShellToken → String
     | "if" => "if_keyword" | "input_is_valid" => "input_is_valid_name" | "then" => "then_keyword"
     | "else" => "else_keyword" | "elsif" => "elsif_keyword" | "reject" => "reject_name" | "&" => "ampersand"
     | "and" => "and_keyword" | "or" => "or_keyword" | "not" => "not_keyword"
+    | "function" => "function_keyword" | "return" => "return_keyword"
     | "character" => "character_name"
     | "boolean" => "boolean_name" | "true" => "true_name" | "false" => "false_name" | "xor" => "xor_keyword"
     | "/=" => "not_equal" | "<" => "less" | ">" => "greater" | ">=" => "greater_equal" | "'" => "apostrophe" | "length" => "length_name"
@@ -822,6 +858,7 @@ def Expr.render : Expr ty → List String
   | .function .contextAfter => ["names", ".", "context_after"]
   | .function .operationAfter => ["names", ".", "operation_after"]
   | .function .associationAfter => ["names", ".", "association_after"]
+  | .function .functionLookup => ["functions", ".", "lookup"]
   | .function .arrayLookup => ["array_bindings", ".", "lookup"]
   | .function .scalarLookup => ["scalar_expressions", ".", "lookup"]
   | .function .scalarRead => ["scalar_expressions", ".", "read_expression"]
@@ -866,6 +903,7 @@ def Expr.render : Expr ty → List String
   | .word spellingValue => ["\"" ++ spellingValue ++ "\""]
   | .integerTypeWord => ["integer_type_word"]
   | .booleanTypeWord => ["boolean_type_word"]
+  | .characterTypeWord => ["character_type_word"]
   | .operatorByte x => x.render ++ ["in", "'&'", "|", "'+'", "|", "'-'", "|", "'*'", "|", "'/'"]
   | .arrayCount a => a.render ++ [".", "count"]
   | .maxArrayBindings => ["array_bindings", ".", "max_bindings"]
@@ -1049,6 +1087,7 @@ def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
   | .word spellingValue => spellingValue
   | .integerTypeWord => "integer"
   | .booleanTypeWord => "boolean"
+  | .characterTypeWord => "character"
   | .operatorByte x => decide (x.eval calls locals ∈ [38, 43, 45, 42, 47])
   | .arrayCount a => (a.eval calls locals).length
   | .maxArrayBindings => ArrayBindings.maxBindings
@@ -1291,7 +1330,7 @@ def newNameBody : Expr .truth :=
   let state : Expr .state := .variable "state"
   let first : Expr .number := .variable "first"
   let after : Expr .number := .variable "after"
-  .andThen (.andThen (.andThen (.andThen (.andThen (.andThen (.andThen (.andThen
+  let existing := Expr.andThen (.andThen (.andThen (.andThen (.andThen (.andThen (.andThen (.andThen
     (.ne first (.number 0)) (.gt after first))
     (.not (.lexForbidden text first after)))
     (.group (.orElse (.not (.variable "arguments")) (.not (.lexForbiddenArgument text first after)))))
@@ -1300,6 +1339,11 @@ def newNameBody : Expr .truth :=
     (.eq (.app (.app (.app (.app (.function .arrayLookup) text) (.field .arrayNames (.field .stateArrayNames state))) first) after) (.number 0)))
     (.eq (.app (.app (.app (.app (.function .booleanLookup) text) (.field .stateBooleanNames state)) first) after) (.number 0)))
     (.eq (.app (.app (.app (.app (.function .subtypeLookup) text) (.field .stateSubtypeNames state)) first) after) (.number 0))
+  .andThen (.andThen existing
+    (.not (.app (.app (.app (.app (.function .formalHides) text) state) first) after)))
+    (.group (.orElse (.field .statePure state)
+      (.eq (.app (.app (.app (.app (.function .functionLookup) text)
+        (.field .stateFunctions state)) first) after) (.number 0))))
 
 def addBindingBody : Expr .state :=
   .stateBinding (.variable "state") (.variable "following")
@@ -1324,8 +1368,8 @@ def stringDeclarationBody : Expr .state :=
       (.variable "constant_after") (.variable "colon_after")) (.word "string")) <|
     .local "value" "expression_result" (.app (.app (.app (.app (.app (.app (.app (.app (.function .expression) text)
       (take (.variable "type_after") (.symbol ":="))) (.field .stateNames state)) (.field .stateScalarNames state))
-      (.orElse (.group (.andThen (.andThen (.ne first (.number 0)) (.gt after first)) (.eq (take first (.word "integer")) after)))
-        (.app (.app (.function .booleanHidesInteger) text) (.field .stateBooleanNames state)))) (.field .arrayNames (.field .stateArrayNames state))) (.field .arrayValues (.field .stateArrayNames state))) (.truth true)) <|
+      (.orElse (.orElse (.group (.andThen (.andThen (.ne first (.number 0)) (.gt after first)) (.eq (take first (.word "integer")) after)))
+        (.app (.app (.function .booleanHidesInteger) text) (.field .stateBooleanNames state))) (.field .hiddenInteger (.field .stateHiding state)))) (.field .arrayNames (.field .stateArrayNames state))) (.field .arrayValues (.field .stateArrayNames state))) (.truth true)) <|
     .local "following" "literal_position" (take (.field .resultAfter value) (.symbol ";")) <|
     .group <| .ite (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse
       (.not <| .app (.app (.app (.app (.app (.function .newName) text) state) first) after) (.variable "arguments"))
@@ -1393,6 +1437,22 @@ def subtypeLookupModelBody : Expr .number :=
     (.elsif (.lexEqual text (.field .subtypeFirst item) (.field .subtypeAfter item) first after) index
       (.app (.app (.app (.app (.app (.function .subtypeLookupModel) text) names) first) after) (.sub index (.number 1))))
 
+/-- Extend an existing left-associated rejection condition with the actual
+function/formal visibility checks. This builds ordinary guarded trees; it does
+not introduce a new permissive rendering constructor. -/
+def withFunctionTypeHiding (rejected : Expr .truth) (text : Expr .source)
+    (state : Expr .state) (first after : Expr .number) (allMarks : Bool := true) : Expr .truth :=
+  let same (word : String) := Expr.app (.app (.app (.app (.function .nameIs) text) first) after) (.word word)
+  let hidden (field : Field .hiddenMarks .truth) (word : String) :=
+    Expr.group (.andThen (.field field (.field .stateHiding state)) (same word))
+  let common := Expr.orElse (.orElse (.orElse rejected
+    (.ne (.app (.app (.app (.app (.function .functionLookup) text)
+      (.field .stateFunctions state)) first) after) (.number 0)))
+    (.app (.app (.app (.app (.function .formalHides) text) state) first) after))
+    (hidden .hiddenInteger "integer")
+  if allMarks then .orElse (.orElse common (hidden .hiddenBoolean "boolean"))
+    (hidden .hiddenCharacter "character") else common
+
 def scalarTypeBody : Expr .scalarConstraint :=
   let text : Expr .source := .variable "text"
   let state : Expr .state := .variable "state"
@@ -1403,11 +1463,11 @@ def scalarTypeBody : Expr .scalarConstraint :=
     .local "after" "literal_position" (.app (.app (.function .nameAfter) text) first) <|
     .local "target" "subtype_count" (.app (.app (.app (.app (.function .subtypeLookup) text) (.field .stateSubtypeNames state)) first) after) <|
     .group <| .ite
-      (.orElse (.orElse (.orElse (.orElse (.orElse (.eq first (.number 0)) (.le after first))
+      (withFunctionTypeHiding (.orElse (.orElse (.orElse (.orElse (.orElse (.eq first (.number 0)) (.le after first))
         (.ne (.app (.app (.app (.app (.function .lookupName) text) (.field .stateNames state)) first) after) (.number 0)))
         (.ne (.app (.app (.app (.app (.function .scalarLookup) text) (.field .stateScalarNames state)) first) after) (.number 0)))
         (.ne (.app (.app (.app (.app (.function .arrayLookup) text) (.field .arrayNames (.field .stateArrayNames state))) first) after) (.number 0)))
-    (.ne (.app (.app (.app (.app (.function .booleanLookup) text) (.field .stateBooleanNames state)) first) after) (.number 0)))
+    (.ne (.app (.app (.app (.app (.function .booleanLookup) text) (.field .stateBooleanNames state)) first) after) (.number 0))) text state first after false)
       (.constraint (.number 0) .emptyInterval)
       (.elsif (.app (.app (.app (.app (.function .nameIs) text) first) after) (.word "integer")) (.constraint after .fullInterval)
         (.elsif (.ne target (.number 0)) (.constraint after (.field .subtypeBounds (.subtypeItem (.field .stateSubtypeNames state) target)))
@@ -1433,7 +1493,7 @@ def subtypeDeclarationBody : Expr .state :=
     .local "constraint" "scalar_constraint_result" (.defaultFull (.app (.app (.app (.function .scalarConstraint) text) typeAfter) (.field .stateScalarNames state))) <|
     .local "following" "literal_position" (take (.field .constraintAfter constraint) (.symbol ";")) <|
     .group <| .ite
-      (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse
+      (withFunctionTypeHiding (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse
         (.not (.app (.app (.app (.app (.app (.function .newName) text) state) first) after) (.variable "arguments")))
         (.app (.app (.app (.app (.function .nameIs) text) first) after) (.word "integer")))
         (.eq (.subtypeCount subtypes) .maxSubtypeBindings))
@@ -1443,7 +1503,7 @@ def subtypeDeclarationBody : Expr .state :=
         (.ne (.app (.app (.app (.app (.function .lookupName) text) (.field .stateNames state)) typeFirst) typeAfter) (.number 0)))
         (.ne (.app (.app (.app (.app (.function .scalarLookup) text) (.field .stateScalarNames state)) typeFirst) typeAfter) (.number 0)))
         (.ne (.app (.app (.app (.app (.function .arrayLookup) text) (.field .arrayNames (.field .stateArrayNames state))) typeFirst) typeAfter) (.number 0)))
-    (.ne (.app (.app (.app (.app (.function .booleanLookup) text) (.field .stateBooleanNames state)) typeFirst) typeAfter) (.number 0)))
+    (.ne (.app (.app (.app (.app (.function .booleanLookup) text) (.field .stateBooleanNames state)) typeFirst) typeAfter) (.number 0))) text state typeFirst typeAfter true)
       .invalid
       (.stateSubtype state following (.subtypeAppend subtypes first after (.field .constraintBounds constraint)
         (.orElse (.field .subtypeTrueHidden subtypes) (.app (.app (.app (.app (.function .nameIs) text) first) after) (.word "true")))
@@ -1503,16 +1563,18 @@ def declarationBody : Expr .state :=
   let arguments : Expr .truth := .variable "arguments"
   let scalar : Expr .state := .variable "scalar_state"
   let array : Expr .state := .variable "array_state"
-  .locals <| .local "subtype_state" "parser_state" (.app (.app (.app (.function .subtypeDeclaration) text) state) arguments) <| .local "scalar_state" "parser_state" (.app (.app (.app (.function .scalarDeclaration) text) state) arguments) <|
+  .locals <| .local "function_state" "parser_state" (.app (.app (.app (.function .functionDeclaration) text) state) arguments) <|
+    .local "subtype_state" "parser_state" (.app (.app (.app (.function .subtypeDeclaration) text) state) arguments) <| .local "scalar_state" "parser_state" (.app (.app (.app (.function .scalarDeclaration) text) state) arguments) <|
     .local "array_state" "parser_state" (.app (.app (.app (.function .arrayDeclaration) text) state) arguments) <|
     .local "boolean_state" "parser_state" (.app (.app (.app (.function .booleanDeclaration) text) state) arguments) <|
     .local "character_state" "parser_state" (.app (.app (.app (.function .characterDeclaration) text) state) arguments) <|
-    .group <| .ite (.ne (.field .statePosition (.variable "subtype_state")) (.number 0)) (.variable "subtype_state")
+    .group <| .ite (.ne (.field .statePosition (.variable "function_state")) (.number 0)) (.variable "function_state")
+      (.elsif (.ne (.field .statePosition (.variable "subtype_state")) (.number 0)) (.variable "subtype_state")
       (.elsif (.ne (.field .statePosition scalar) (.number 0)) scalar
       (.elsif (.ne (.field .statePosition array) (.number 0)) array
       (.elsif (.ne (.field .statePosition (.variable "boolean_state")) (.number 0)) (.variable "boolean_state")
       (.elsif (.ne (.field .statePosition (.variable "character_state")) (.number 0)) (.variable "character_state")
-      (.app (.app (.app (.function .stringDeclaration) text) state) arguments)))))
+      (.app (.app (.app (.function .stringDeclaration) text) state) arguments))))))
 
 def callAfterBody : Expr .number :=
   let text : Expr .source := .variable "text"
@@ -1761,7 +1823,7 @@ def Expr.primary : Expr ty → Bool
   | .operation _ | .number _ | .character _ | .truth _ | .variable _ | .function _
   | .app _ _ | .defaultFalse _ | .scalarReadDefault _ _ _ | .scalarReadArrays _ _ _ _ _ _
   | .expressionArrays _ _ _ _ _ _ _ | .field _ _ | .count _ | .scalarCount _
-  | .word _ | .integerTypeWord | .booleanTypeWord | .arrayCount _ | .maxArrayBindings | .maxArrayElements
+  | .word _ | .integerTypeWord | .booleanTypeWord | .characterTypeWord | .arrayCount _ | .maxArrayBindings | .maxArrayElements
   | .invalidScalar | .integerNumber _ | .wideInteger _ | .wideNumber _ | .elementCount _
   | .arrayPut _ _ _ | .arrayUsedValues _ _ _ | .arrayNamesOnly _ _ | .stateArray _ _
   | .statePositionArray _ _ _ | .arrayAppend _ _ _ _ _ _ _ _ _ | .maxScalarBindings
@@ -1908,7 +1970,7 @@ def Expr.wellFormed : Expr ty → Bool
   | .statePositionArray a b c => a.wellFormed && b.wellFormed && c.wellFormed
   | .arrayAppend a b c d e f g h i => a.wellFormed && b.wellFormed && c.wellFormed && d.wellFormed && e.wellFormed && f.wellFormed && g.wellFormed && h.wellFormed && i.wellFormed
   | .maxArrayBindings | .maxArrayElements | .invalidScalar | .integerNumber _ => true
-  | .word _ | .integerTypeWord | .booleanTypeWord | .maxScalarBindings => true
+  | .word _ | .integerTypeWord | .booleanTypeWord | .characterTypeWord | .maxScalarBindings => true
   | .operatorByte x => x.wellFormed && x.simple
   | .fullInterval | .emptyInterval => true
   | .interval a b => a.wellFormed && b.wellFormed
@@ -2151,7 +2213,7 @@ def Expr.scoped (scope : Scope) : Expr ty → Bool
   | .statePositionArray a b c => a.scoped scope && b.scoped scope && c.scoped scope
   | .arrayAppend a b c d e f g h i => a.scoped scope && b.scoped scope && c.scoped scope && d.scoped scope && e.scoped scope && f.scoped scope && g.scoped scope && h.scoped scope && i.scoped scope
   | .maxArrayBindings | .maxArrayElements | .invalidScalar | .integerNumber _ => true
-  | .word _ | .integerTypeWord | .booleanTypeWord | .maxScalarBindings => true
+  | .word _ | .integerTypeWord | .booleanTypeWord | .characterTypeWord | .maxScalarBindings => true
   | .operatorByte x => x.scoped scope
   | .fullInterval | .emptyInterval => true
   | .interval a b | .integerNe a b | .integerLt a b | .integerLe a b => a.scoped scope && b.scoped scope

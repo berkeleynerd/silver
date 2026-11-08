@@ -36,6 +36,25 @@ theorem Condition.actualBoundsSafe {bounds : BoundsStore} {names : Compose.Bindi
       exact ⟨ihl origin.1 safe.1, ihr origin.2 safe.2⟩
   | lengthCompare | scalarCompare | characterCompare | inputValid | booleanLiteral | booleanName | booleanArrayRead => trivial
 
+def CallActualBoundsSafe (bounds : BoundsStore) (names : Compose.BindingEnvironment) (values : Values)
+    (input : Source) (valid : Bool) (integers : Integer.Store) (booleans : Boolean.Store)
+    (call : ScalarFunctions.Call) : Prop :=
+  ∀ actual ∈ call.actuals, match actual with
+    | .integer _ => True
+    | .boolean condition => condition.ActualBoundsSafe bounds names values input valid integers booleans
+
+theorem call_actualBoundsSafe {bounds : BoundsStore} {names : Compose.BindingEnvironment}
+    {values : Values} {input : Source} {valid : Bool} {integers : Integer.Store} {booleans : Boolean.Store}
+    {call : ScalarFunctions.Call} (compatible : bounds.Compatible names input)
+    (origin : CallBoundsOrigin names call) (safe : CallObjectBoundsSafe names values input valid integers booleans call) :
+    CallActualBoundsSafe bounds names values input valid integers booleans call := by
+  intro actual present
+  have source := origin actual present
+  have guarded := safe actual present
+  cases actual with
+  | integer _ => trivial
+  | boolean condition => exact condition.actualBoundsSafe compatible source guarded
+
 def SimpleActualBoundsSafe (bounds : BoundsStore) (names : Compose.BindingEnvironment) (values : Values)
     (input : Source) (integers : Integer.Store) : Sequence.SimpleStatement → Prop
   | .null => True
@@ -44,43 +63,46 @@ def SimpleActualBoundsSafe (bounds : BoundsStore) (names : Compose.BindingEnviro
 
 mutual
   def Statement.ActualBoundsSafe (bounds : BoundsStore) (names : Compose.BindingEnvironment) (input : Source) (valid : Bool)
-      (values : Values) (item : Statement) (integers : Integer.Store) (booleans : Boolean.Store) : Prop :=
+      (values : Values) (item : Statement) (integers : Integer.Store) (booleans : Boolean.Store)
+      (functions : ScalarFunctions.Environment := .empty) : Prop :=
     match item with
     | .simple item => SimpleActualBoundsSafe bounds names values input integers item
+    | .callAssign update => CallActualBoundsSafe bounds names values input valid integers booleans update.call
     | .booleanAssign update | .booleanArrayAssign update =>
         update.value.ActualBoundsSafe bounds names values input valid integers booleans
     | .scalarAssign _ | .arrayAssign _ | .reject => True
     | .choice condition yes no =>
         condition.ActualBoundsSafe bounds names values input valid integers booleans ∧
           if condition.evaluate values input valid integers booleans
-          then StatementsActualBoundsSafe bounds names input valid values yes integers booleans
-          else StatementsActualBoundsSafe bounds names input valid values no integers booleans
+          then StatementsActualBoundsSafe (functions := functions) bounds names input valid values yes integers booleans
+          else StatementsActualBoundsSafe (functions := functions) bounds names input valid values no integers booleans
     | .forLoop index reverse lower upper body =>
         IterationsObjectBoundsSafe
           (fun current scalars flags value =>
-            (executeStatements input valid current body (Integer.put scalars index value) flags).restoreIndex index scalars)
+            (executeStatements (functions := functions) input valid current body (Integer.put scalars index value) flags).restoreIndex index scalars)
           (fun current scalars flags value =>
-            StatementsActualBoundsSafe bounds names input valid current body (Integer.put scalars index value) flags)
+            StatementsActualBoundsSafe (functions := functions) bounds names input valid current body (Integer.put scalars index value) flags)
           values integers booleans (Integer.iterationValues reverse (lower.evaluate integers) (upper.evaluate integers))
     | .arrayLoop index reverse array body =>
         IterationsObjectBoundsSafe
           (fun current scalars flags component =>
-            (executeStatements input valid current body
+            (executeStatements (functions := functions) input valid current body
               (Integer.put scalars index (array.project scalars component)) flags).restoreIndex index scalars)
           (fun current scalars flags component =>
-            StatementsActualBoundsSafe bounds names input valid current body
+            StatementsActualBoundsSafe (functions := functions) bounds names input valid current body
               (Integer.put scalars index (array.project scalars component)) flags)
           values integers booleans (Integer.iterationValues reverse array.bounds.lower array.bounds.upper)
   termination_by sizeOf item
 
   def StatementsActualBoundsSafe (bounds : BoundsStore) (names : Compose.BindingEnvironment) (input : Source) (valid : Bool)
-      (values : Values) (items : List Statement) (integers : Integer.Store) (booleans : Boolean.Store) : Prop :=
+      (values : Values) (items : List Statement) (integers : Integer.Store) (booleans : Boolean.Store)
+      (functions : ScalarFunctions.Environment := .empty) : Prop :=
     match items with
     | [] => True
-    | item :: rest => item.ActualBoundsSafe bounds names input valid values integers booleans ∧
-        StatementsActualBoundsSafe bounds names input valid (item.execute input valid values integers booleans).values rest
-          (item.execute input valid values integers booleans).integers
-          (item.execute input valid values integers booleans).booleans
+    | item :: rest => item.ActualBoundsSafe (functions := functions) bounds names input valid values integers booleans ∧
+        StatementsActualBoundsSafe (functions := functions) bounds names input valid (item.execute (functions := functions) input valid values integers booleans).values rest
+          (item.execute (functions := functions) input valid values integers booleans).integers
+          (item.execute (functions := functions) input valid values integers booleans).booleans
   termination_by sizeOf items
 end
 
@@ -98,11 +120,11 @@ theorem IterationsObjectBoundsSafe.mono
 /- String assignment, including sliding, keeps the target's initialized bounds.
 Thus one source-produced compatible bounds store covers all later byte stores. -/
 mutual
-  theorem statement_actualBoundsSafe {bounds : BoundsStore} {names : Compose.BindingEnvironment}
+  theorem statement_actualBoundsSafe {functions : ScalarFunctions.Environment} {bounds : BoundsStore} {names : Compose.BindingEnvironment}
       {values : Values} {input : Source} {valid : Bool} {integers : Integer.Store} {booleans : Boolean.Store}
       {item : Statement} (compatible : bounds.Compatible names input)
-      (origin : item.BoundsOrigin names) (safe : item.ObjectBoundsSafe names input valid values integers booleans) :
-      item.ActualBoundsSafe bounds names input valid values integers booleans := by
+      (origin : item.BoundsOrigin names) (safe : item.ObjectBoundsSafe (functions := functions) names input valid values integers booleans) :
+      item.ActualBoundsSafe (functions := functions) bounds names input valid values integers booleans := by
     cases item with
     | simple item =>
         simp only [Statement.BoundsOrigin, Statement.ObjectBoundsSafe, Statement.ActualBoundsSafe] at origin safe ⊢
@@ -111,6 +133,9 @@ mutual
         | assign update | output update | put update =>
             exact Expression.actualBoundsSafe compatible origin safe
     | scalarAssign | arrayAssign | reject => simp only [Statement.ActualBoundsSafe]
+    | callAssign update =>
+        simp only [Statement.BoundsOrigin, Statement.ObjectBoundsSafe, Statement.ActualBoundsSafe] at origin safe ⊢
+        exact call_actualBoundsSafe compatible origin safe
     | booleanAssign update | booleanArrayAssign update =>
         simp only [Statement.BoundsOrigin, Statement.ObjectBoundsSafe, Statement.ActualBoundsSafe] at origin safe ⊢
         exact Condition.actualBoundsSafe compatible origin safe
@@ -132,12 +157,12 @@ mutual
           (fun _ _ _ _ inner => statements_actualBoundsSafe compatible origin inner) safe
   termination_by sizeOf item
 
-  theorem statements_actualBoundsSafe {bounds : BoundsStore} {names : Compose.BindingEnvironment}
+  theorem statements_actualBoundsSafe {functions : ScalarFunctions.Environment} {bounds : BoundsStore} {names : Compose.BindingEnvironment}
       {values : Values} {input : Source} {valid : Bool} {integers : Integer.Store} {booleans : Boolean.Store}
       {items : List Statement} (compatible : bounds.Compatible names input)
       (origin : StatementsBoundsOrigin names items)
-      (safe : StatementsObjectBoundsSafe names input valid values items integers booleans) :
-      StatementsActualBoundsSafe bounds names input valid values items integers booleans := by
+      (safe : StatementsObjectBoundsSafe (functions := functions) names input valid values items integers booleans) :
+      StatementsActualBoundsSafe (functions := functions) bounds names input valid values items integers booleans := by
     cases items with
     | nil => simp only [StatementsActualBoundsSafe]
     | cons item rest =>

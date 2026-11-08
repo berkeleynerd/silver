@@ -29,6 +29,8 @@ abbrev ArrayHelperTranslationFor (bodyTokens : List String) : Prop :=
     some (["constant", "string", ":=", "\"integer\""]) ∧
   Source.declaration "boolean_type_word" bodyTokens =
     some (["constant", "string", ":=", "\"boolean\""]) ∧
+  Source.declaration "character_type_word" bodyTokens =
+    some (["constant", "string", ":=", "\"character\""]) ∧
   expressionDeclaration "put_array_value" bodyTokens =
     some ((Expressions.arrayPutBody.render.drop 1 |>.dropLast), (["with", "global", "=>", "null", ",", "pre", "=>", "state", ".", "array_names", ".", "used", "<", "array_bindings", ".", "max_elements"])) ∧
   expressionDeclaration "add_array_binding" bodyTokens =
@@ -67,6 +69,11 @@ private theorem array_helper_integer_type_word :
 private theorem array_helper_boolean_type_word :
   Source.declaration "boolean_type_word" Output.SourceShape.outputImplementation =
     some (["constant", "string", ":=", "\"boolean\""]) := by
+  decide +kernel
+
+private theorem array_helper_character_type_word :
+  Source.declaration "character_type_word" Output.SourceShape.outputImplementation =
+    some (["constant", "string", ":=", "\"character\""]) := by
   decide +kernel
 
 
@@ -164,6 +171,7 @@ theorem candidate_array_helpers : ArrayHelperTranslationFor Output.SourceShape.o
     Expressions.checked_array_scopes,
     array_helper_integer_type_word,
     array_helper_boolean_type_word,
+    array_helper_character_type_word,
     array_helper_put_array_value_body,
     array_helper_add_array_binding_body,
     array_helper_array_values_model_body,

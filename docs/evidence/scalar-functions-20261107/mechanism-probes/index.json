@@ -1,0 +1,343 @@
+{
+  "host": "linux-x86_64",
+  "collection_base_commit": "45fa4fe8c9f3d940bbf09246a3ebb7f8d11727d1",
+  "original_probe_directory": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-plan-298/tmp/native-function-probes",
+  "runs": [
+    {
+      "run_id": "20261107T172711-bb53bdee4857",
+      "outcome": "failure",
+      "workers": 1,
+      "duration_seconds": 4.125603547,
+      "native_tool_returncode": 0,
+      "input_sha256": {
+        "basic/main.adb.gz": "5ca48c24fd6b70699fa56759dd736373071587221cb01914d82a55184bf27a7e",
+        "basic/probe.gpr.gz": "cc7840f3226ad5397a149d8705d543ac5ef9275dde51e08820b6c3fc9dfd97f4"
+      },
+      "arguments": [
+        "gnatprove",
+        "-P",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-plan-298/tmp/native-function-probes/basic/probe.gpr",
+        "--subdirs=explore/function-basic",
+        "-U",
+        "--mode=all",
+        "--report=all",
+        "--warnings=continue",
+        "--checks-as-errors=on",
+        "--level=2",
+        "--prover=cvc5,z3,altergo",
+        "--steps=100000",
+        "--timeout=30",
+        "--memlimit=1000",
+        "-j1",
+        "--no-loop-unrolling"
+      ],
+      "events": "runs/20261107T172711-bb53bdee4857/events.jsonl.gz",
+      "log": "runs/20261107T172711-bb53bdee4857/native.log.gz",
+      "reports": [
+        "basic/function-basic/main~1.spark.gz",
+        "basic/function-basic/gnatprove.out.gz",
+        "basic/function-basic/gnatprove.sarif.gz"
+      ],
+      "data_representation_snapshot": "basic/function-basic/data_representation/main.adb.json.gz",
+      "error": "RuntimeError: declared run inputs changed during execution"
+    },
+    {
+      "run_id": "20261107T172925-d1dec7c49eb6",
+      "outcome": "success",
+      "workers": 1,
+      "duration_seconds": 5.183987797,
+      "native_tool_returncode": 0,
+      "input_sha256": {
+        "basic/main.adb.gz": "5ca48c24fd6b70699fa56759dd736373071587221cb01914d82a55184bf27a7e",
+        "basic/probe.gpr.gz": "cc7840f3226ad5397a149d8705d543ac5ef9275dde51e08820b6c3fc9dfd97f4"
+      },
+      "arguments": [
+        "gnatprove",
+        "-P",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-plan-298/tmp/native-function-probes/basic/probe.gpr",
+        "--subdirs=explore/function-modular",
+        "-U",
+        "--mode=all",
+        "--report=all",
+        "--warnings=continue",
+        "--checks-as-errors=on",
+        "--level=2",
+        "--prover=cvc5,z3,altergo",
+        "--steps=100000",
+        "--timeout=30",
+        "--memlimit=1000",
+        "-j1",
+        "--no-loop-unrolling",
+        "--no-inlining"
+      ],
+      "events": "runs/20261107T172925-d1dec7c49eb6/events.jsonl.gz",
+      "log": "runs/20261107T172925-d1dec7c49eb6/native.log.gz",
+      "reports": [
+        "basic/function-modular/main~1.spark.gz",
+        "basic/function-modular/gnatprove.out.gz",
+        "basic/function-modular/gnatprove.sarif.gz"
+      ],
+      "data_representation_snapshot": "basic/function-modular/data_representation/main.adb.json.gz"
+    },
+    {
+      "run_id": "20261107T173133-e00faebcc964",
+      "outcome": "success",
+      "workers": 1,
+      "duration_seconds": 7.268570516,
+      "native_tool_returncode": 0,
+      "input_sha256": {
+        "selected/main.adb.gz": "844977832049bb3811901ae0c86117882276ad9776ee3f0075d225746081b31f",
+        "selected/probe.gpr.gz": "cc7840f3226ad5397a149d8705d543ac5ef9275dde51e08820b6c3fc9dfd97f4"
+      },
+      "arguments": [
+        "gnatprove",
+        "-P",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-plan-298/tmp/native-function-probes/selected/probe.gpr",
+        "--subdirs=explore/function-selected",
+        "-U",
+        "--mode=all",
+        "--report=all",
+        "--warnings=continue",
+        "--checks-as-errors=on",
+        "--level=2",
+        "--prover=cvc5,z3,altergo",
+        "--steps=100000",
+        "--timeout=0",
+        "--memlimit=1000",
+        "-j1",
+        "--no-loop-unrolling",
+        "--no-inlining"
+      ],
+      "events": "runs/20261107T173133-e00faebcc964/events.jsonl.gz",
+      "log": "runs/20261107T173133-e00faebcc964/native.log.gz",
+      "reports": [
+        "selected/function-selected/main~1.spark.gz",
+        "selected/function-selected/gnatprove.out.gz",
+        "selected/function-selected/gnatprove.sarif.gz"
+      ],
+      "data_representation_snapshot": "selected/function-selected/data_representation/main.adb.json.gz"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "input-report-hashes.json.gz",
+      "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-plan-298/tmp/native-function-probes/input-report-hashes.json",
+      "sha256": "d3e7ff0241adddfbf96802166aa2393073760cf8ef9383459becfddb6096dc3c",
+      "bytes": 1579,
+      "compressed": true,
+      "compressed_sha256": "a36a02f4e548b6ec151968a58839b3974bacda04a30f7a404fc80d045d9f9607",
+      "compressed_bytes": 673
+    },
+    {
+      "path": "basic/main.adb.gz",
+      "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-plan-298/tmp/native-function-probes/basic/main.adb",
+      "sha256": "5ca48c24fd6b70699fa56759dd736373071587221cb01914d82a55184bf27a7e",
+      "bytes": 1103,
+      "compressed": true,
+      "compressed_sha256": "609e78d010f8c2f1feb45e1140a131ccdbb0411494866de0533ddb65439658e9",
+      "compressed_bytes": 403,
+      "historical_hash_key": "basic/main.adb"
+    },
+    {
+      "path": "basic/probe.gpr.gz",
+      "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-plan-298/tmp/native-function-probes/basic/probe.gpr",
+      "sha256": "cc7840f3226ad5397a149d8705d543ac5ef9275dde51e08820b6c3fc9dfd97f4",
+      "bytes": 407,
+      "compressed": true,
+      "compressed_sha256": "d5f2e90dd443673bea3986c73d31abb60648e4f9dac6f9c69c3016abca66237d",
+      "compressed_bytes": 223,
+      "historical_hash_key": "basic/probe.gpr"
+    },
+    {
+      "path": "selected/main.adb.gz",
+      "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-plan-298/tmp/native-function-probes/selected/main.adb",
+      "sha256": "844977832049bb3811901ae0c86117882276ad9776ee3f0075d225746081b31f",
+      "bytes": 1164,
+      "compressed": true,
+      "compressed_sha256": "63d0b15412c2aed9b460df8c11f12e6a4f6ace4ecdacd99a7e638662a0feab03",
+      "compressed_bytes": 446,
+      "historical_hash_key": "selected/main.adb"
+    },
+    {
+      "path": "selected/probe.gpr.gz",
+      "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-plan-298/tmp/native-function-probes/selected/probe.gpr",
+      "sha256": "cc7840f3226ad5397a149d8705d543ac5ef9275dde51e08820b6c3fc9dfd97f4",
+      "bytes": 407,
+      "compressed": true,
+      "compressed_sha256": "d5f2e90dd443673bea3986c73d31abb60648e4f9dac6f9c69c3016abca66237d",
+      "compressed_bytes": 223,
+      "historical_hash_key": "selected/probe.gpr"
+    },
+    {
+      "path": "basic/function-basic/main~1.spark.gz",
+      "original_path": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261107T172711-bb53bdee4857/reports/0/basic/obj/explore/function-basic/gnatprove/main~1.spark",
+      "sha256": "08eb67463b54f0ffa6bef2d751c3bf35d13dc870b313ab1864225ff2ca909452",
+      "bytes": 10981,
+      "compressed": true,
+      "compressed_sha256": "ce0d17e01474cfc87b05a665b723de5c9b318d848b3dfc9327d9a5cf758241cf",
+      "compressed_bytes": 1891,
+      "historical_hash_key": "basic/obj/explore/function-basic/gnatprove/main~1.spark"
+    },
+    {
+      "path": "basic/function-basic/gnatprove.out.gz",
+      "original_path": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261107T172711-bb53bdee4857/reports/0/basic/obj/explore/function-basic/gnatprove/gnatprove.out",
+      "sha256": "0254e9bec73079fe919bac51da3bb798a321cdf6727ee4db532994ae5c8d7a24",
+      "bytes": 2283,
+      "compressed": true,
+      "compressed_sha256": "fcc12fbf2eb7eb7342cb487a9d8e8282652986675ec17778c445d5b5e8abb243",
+      "compressed_bytes": 556
+    },
+    {
+      "path": "basic/function-basic/gnatprove.sarif.gz",
+      "original_path": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261107T172711-bb53bdee4857/reports/0/basic/obj/explore/function-basic/gnatprove/gnatprove.sarif",
+      "sha256": "098741848e15b20d55ef5d7281c22591f282ff0b4374922181789c6d36318fa1",
+      "bytes": 35976,
+      "compressed": true,
+      "compressed_sha256": "a641bf412a8c752313b68e47e5186408253c4690daa7c880db0e05cf59af2fce",
+      "compressed_bytes": 7596
+    },
+    {
+      "path": "basic/function-basic/data_representation/main.adb.json.gz",
+      "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-plan-298/tmp/native-function-probes/basic/obj/explore/function-basic/gnatprove/data_representation/main.adb.json",
+      "sha256": "6b76679b76ce59a359c09f12610fd77e94ce8a335e47d3df499d0de8df09e461",
+      "bytes": 682,
+      "compressed": true,
+      "compressed_sha256": "94c91e56782c56e3b53b7ac57f32466be1976e579365959b9aa82dbf93786d3d",
+      "compressed_bytes": 209,
+      "historical_hash_key": "basic/obj/explore/function-basic/gnatprove/data_representation/main.adb.json"
+    },
+    {
+      "path": "runs/20261107T172711-bb53bdee4857/events.jsonl.gz",
+      "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-plan-298/tmp/native-function-probes/managed/20261107T172711-bb53bdee4857/events.jsonl",
+      "sha256": "28687a7cb894a60eb9e35328ed975408976e72f3bad2e525ac78793f8458d09c",
+      "bytes": 15766,
+      "compressed": true,
+      "compressed_sha256": "55648defe5e41818bfcaf4258da30da25ede1db25209f6cc70de5a3196d370b7",
+      "compressed_bytes": 4214
+    },
+    {
+      "path": "runs/20261107T172711-bb53bdee4857/native.log.gz",
+      "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-plan-298/tmp/native-function-probes/managed/20261107T172711-bb53bdee4857/native.log",
+      "sha256": "a6f438769fbdafaf80cc0986106207e56b2d0c7129e7e5db6ffbda7445a666f5",
+      "bytes": 2505,
+      "compressed": true,
+      "compressed_sha256": "9c9e628ebed622a2a404db40bfa4deb29b8550c120f022cfcc96223a5d67f8ac",
+      "compressed_bytes": 666,
+      "historical_hash_key": "managed/20261107T172711-bb53bdee4857/native.log"
+    },
+    {
+      "path": "basic/function-modular/main~1.spark.gz",
+      "original_path": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261107T172925-d1dec7c49eb6/exploratory-evidence/0/basic/obj/explore/function-modular/gnatprove/main~1.spark",
+      "sha256": "e6ea4f6a9651e9479ec2b2c9780adb2e91cbe3d7aa775f01742dabeae42938b9",
+      "bytes": 11842,
+      "compressed": true,
+      "compressed_sha256": "0b1d54400af0c5e29f8f24231be32f65db314a9f9339f4c4c7e682293ec70ae5",
+      "compressed_bytes": 2067,
+      "historical_hash_key": "basic/obj/explore/function-modular/gnatprove/main~1.spark"
+    },
+    {
+      "path": "basic/function-modular/gnatprove.out.gz",
+      "original_path": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261107T172925-d1dec7c49eb6/exploratory-evidence/0/basic/obj/explore/function-modular/gnatprove/gnatprove.out",
+      "sha256": "4a7dffc9f8ae12593954db471c4265ec0927ce5a735e9927e895362fe9360b13",
+      "bytes": 2283,
+      "compressed": true,
+      "compressed_sha256": "3918a9381cca4574a5bd62f61cbe353fc4c458b131db9272537e42b354a76538",
+      "compressed_bytes": 564
+    },
+    {
+      "path": "basic/function-modular/gnatprove.sarif.gz",
+      "original_path": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261107T172925-d1dec7c49eb6/exploratory-evidence/0/basic/obj/explore/function-modular/gnatprove/gnatprove.sarif",
+      "sha256": "8d635ac8d2a82d615a1bd27bc8321ca166a940bc22f0b28c8768f4520830df2f",
+      "bytes": 34451,
+      "compressed": true,
+      "compressed_sha256": "9ec05a5c86d8b67e9fadd232944f9b9bc0c5e2fae4955ac2f18063841ebf9c0d",
+      "compressed_bytes": 7490
+    },
+    {
+      "path": "basic/function-modular/data_representation/main.adb.json.gz",
+      "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-plan-298/tmp/native-function-probes/basic/obj/explore/function-modular/gnatprove/data_representation/main.adb.json",
+      "sha256": "6b76679b76ce59a359c09f12610fd77e94ce8a335e47d3df499d0de8df09e461",
+      "bytes": 682,
+      "compressed": true,
+      "compressed_sha256": "94c91e56782c56e3b53b7ac57f32466be1976e579365959b9aa82dbf93786d3d",
+      "compressed_bytes": 209,
+      "historical_hash_key": "basic/obj/explore/function-modular/gnatprove/data_representation/main.adb.json"
+    },
+    {
+      "path": "runs/20261107T172925-d1dec7c49eb6/events.jsonl.gz",
+      "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-plan-298/tmp/native-function-probes/managed/20261107T172925-d1dec7c49eb6/events.jsonl",
+      "sha256": "80d5191f1c8fccd4eec94d832e0ec4bd1a23b38da782953ab48430ffecec6251",
+      "bytes": 15260,
+      "compressed": true,
+      "compressed_sha256": "b6a885d7fd5cc8e6b0e2bd13e3806e376223d9a04e72aaa04832baccf8bef9cf",
+      "compressed_bytes": 4159
+    },
+    {
+      "path": "runs/20261107T172925-d1dec7c49eb6/native.log.gz",
+      "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-plan-298/tmp/native-function-probes/managed/20261107T172925-d1dec7c49eb6/native.log",
+      "sha256": "bbdd52940b914ad5953f6ce54a3e73f87fe03c731bfc634386f8e205bbc30969",
+      "bytes": 1115,
+      "compressed": true,
+      "compressed_sha256": "7442a6fb29d495065f94bba14a81ff2fe17ffbcded0c9f6c00b5765aea4ca29e",
+      "compressed_bytes": 460,
+      "historical_hash_key": "managed/20261107T172925-d1dec7c49eb6/native.log"
+    },
+    {
+      "path": "selected/function-selected/main~1.spark.gz",
+      "original_path": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261107T173133-e00faebcc964/exploratory-evidence/0/selected/obj/explore/function-selected/gnatprove/main~1.spark",
+      "sha256": "5556d3921789bbd0a9e5f4cb1237dcac2011eca9c5a323eff0d7a72ce2e6b05c",
+      "bytes": 15936,
+      "compressed": true,
+      "compressed_sha256": "ff6acb0fd6e7374e7fcd3b26e7818ba6c1135f1415443643a43f152df6b555ec",
+      "compressed_bytes": 2529,
+      "historical_hash_key": "selected/obj/explore/function-selected/gnatprove/main~1.spark"
+    },
+    {
+      "path": "selected/function-selected/gnatprove.out.gz",
+      "original_path": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261107T173133-e00faebcc964/exploratory-evidence/0/selected/obj/explore/function-selected/gnatprove/gnatprove.out",
+      "sha256": "a356dffbed464eaff2081814346d0a7881e24115673171b53567e6f8a6a467a6",
+      "bytes": 2279,
+      "compressed": true,
+      "compressed_sha256": "47392943740771f9030c1731c4d4ecc8cabe06571b23a527216c7705d32efc38",
+      "compressed_bytes": 560
+    },
+    {
+      "path": "selected/function-selected/gnatprove.sarif.gz",
+      "original_path": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261107T173133-e00faebcc964/exploratory-evidence/0/selected/obj/explore/function-selected/gnatprove/gnatprove.sarif",
+      "sha256": "8fccb93fb4b937727d74b750e8e64dea85d124dd5b97d0d19d27737197185441",
+      "bytes": 34683,
+      "compressed": true,
+      "compressed_sha256": "44e9e051e5164914aaad86ffd7e64ec4a52f145045cd3699c10a141f3c36d9bd",
+      "compressed_bytes": 7471
+    },
+    {
+      "path": "selected/function-selected/data_representation/main.adb.json.gz",
+      "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-plan-298/tmp/native-function-probes/selected/obj/explore/function-selected/gnatprove/data_representation/main.adb.json",
+      "sha256": "9461948563b0a3ddfd55b32c07b98adbbb23172896b9e4fd0d78af44b0683fa2",
+      "bytes": 703,
+      "compressed": true,
+      "compressed_sha256": "75529bef2310effed998b21e720331b5d1e5d7de0abd2638f527c281f4a416ae",
+      "compressed_bytes": 204,
+      "historical_hash_key": "selected/obj/explore/function-selected/gnatprove/data_representation/main.adb.json"
+    },
+    {
+      "path": "runs/20261107T173133-e00faebcc964/events.jsonl.gz",
+      "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-plan-298/tmp/native-function-probes/managed/20261107T173133-e00faebcc964/events.jsonl",
+      "sha256": "59c3ca445bd3fd671458da71a30aa6be56706242e74d4f3806745bdb55a77cb7",
+      "bytes": 15290,
+      "compressed": true,
+      "compressed_sha256": "1c2b799c26d4e2b57e1061be7e83064ad38aa030aad8e681eef8783ea70794db",
+      "compressed_bytes": 4156
+    },
+    {
+      "path": "runs/20261107T173133-e00faebcc964/native.log.gz",
+      "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-plan-298/tmp/native-function-probes/managed/20261107T173133-e00faebcc964/native.log",
+      "sha256": "a934613f38e903396b811591b1c0986f56af6a8e31d938810639a53498c0678b",
+      "bytes": 1079,
+      "compressed": true,
+      "compressed_sha256": "8a4b546ee49be5f78a3fae415bf69adbcb7ab10e406dbf7b76150ed8a119121e",
+      "compressed_bytes": 417,
+      "historical_hash_key": "managed/20261107T173133-e00faebcc964/native.log"
+    }
+  ]
+}

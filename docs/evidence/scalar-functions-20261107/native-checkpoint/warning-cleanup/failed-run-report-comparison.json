@@ -1,0 +1,73 @@
+{
+  "scope": "Read-only comparison of retained failed-run report inventories; absence is not a successful coverage claim and is not itself a diagnosis of scheduling cause",
+  "earlier_run": "20261107T231059-a9f0c12c8350",
+  "current_run": "20261108T040128-2651963b8574",
+  "earlier_report_units": 66,
+  "current_report_units": 77,
+  "earlier_proof_records_by_severity": {
+    "info": 11575
+  },
+  "current_proof_records_by_severity": {
+    "info": 16915,
+    "medium": 4
+  },
+  "earlier_flow_records_by_severity": {
+    "info": 983,
+    "warning": 3
+  },
+  "current_flow_records_by_severity": {
+    "info": 1605
+  },
+  "reports_only_in_current": [
+    "silver_image_runtime.spark",
+    "silver_integer_literals.spark",
+    "silver_libraries.spark",
+    "silver_output_lexical.spark",
+    "silver_output_profile.spark",
+    "silver_path_facts.spark",
+    "silver_report_observation_windows.spark",
+    "silver_report_projection_emissions.spark",
+    "silver_report_projection_lists.spark",
+    "silver_report_projection_values.spark",
+    "silver_scalar_literals.spark"
+  ],
+  "reports_only_in_earlier": [],
+  "current_failures": [
+    {
+      "file": "silver_output_profile.adb",
+      "line": 4794,
+      "column": 16,
+      "check_line": 4794,
+      "check_column": 16,
+      "rule": "VC_POSTCONDITION",
+      "message": "postcondition might fail"
+    },
+    {
+      "file": "silver_output_profile.adb",
+      "line": 5615,
+      "column": 19,
+      "check_line": 5614,
+      "check_column": 16,
+      "rule": "VC_POSTCONDITION",
+      "message": "postcondition might fail, cannot prove (Function_Local_At'Result.Position = 0 or else (Function_Local_At'Result.Position > State.Position and then Function_Local_At'Result.Functions = State.Functions and then Function_Local_At'Result.First_Parameter = State.First_Parameter and then Function_Loc..."
+    },
+    {
+      "file": "silver_output_profile.adb",
+      "line": 5709,
+      "column": 20,
+      "check_line": 5703,
+      "check_column": 28,
+      "rule": "VC_POSTCONDITION",
+      "message": "postcondition might fail, cannot prove Parameter_Frame'Result = Parameter_Frame_Model (Frame, Frame.First_Parameter)"
+    },
+    {
+      "file": "silver_output_profile.adb",
+      "line": 5736,
+      "column": 16,
+      "check_line": 5736,
+      "check_column": 16,
+      "rule": "VC_POSTCONDITION",
+      "message": "postcondition might fail"
+    }
+  ]
+}

@@ -82,7 +82,8 @@ class SilverIntegrationTests(unittest.TestCase):
                          "length_predicate", "boolean_predicate", "integer_literal",
                          "scalar_integer_literal", "named_integer_constant", "named_integer_variable",
                          "named_boolean_constant", "named_boolean_variable", "boolean_expression",
-                         "boolean_assignment", "boolean_comparison", "integer_range_constraint", "named_integer_subtype", "integer_assignment", "integer_expression",
+                         "boolean_assignment", "boolean_comparison", "scalar_function", "scalar_function_call",
+                         "integer_range_constraint", "named_integer_subtype", "integer_assignment", "integer_expression",
                          "integer_array_object", "integer_array_read", "integer_array_assignment",
                          "boolean_array_object", "boolean_array_read", "boolean_array_assignment",
                          "integer_comparison", "scalar_guard_refinement", "integer_image",
@@ -134,7 +135,8 @@ class SilverIntegrationTests(unittest.TestCase):
         sequence = constructs["statement_sequence"]["conditions"]
         self.assertEqual(sequence["minimum"], 1)
         self.assertEqual(sequence["items"], ["null_statement", "character_assignment", "string_element_assignment",
-                                         "string_assignment", "integer_assignment", "boolean_assignment", "integer_array_assignment", "boolean_array_assignment", "expression_output",
+                                         "string_assignment", "integer_assignment", "boolean_assignment", "scalar_function_call",
+                                         "integer_array_assignment", "boolean_array_assignment", "expression_output",
                                          "string_choice", "argument_rejection", "for_loop", "integer_array_iteration"])
         self.assertEqual(sequence["argument_rejection_context"], "argument-input shell only")
         self.assertFalse(sequence["output_required"])
@@ -159,7 +161,7 @@ class SilverIntegrationTests(unittest.TestCase):
                              ["named_string_constant", "named_string_variable", "named_integer_constant",
                               "named_integer_variable", "named_boolean_constant", "named_boolean_variable",
                               "named_integer_subtype", "integer_array_object", "boolean_array_object",
-                              "named_character_constant", "named_character_variable"])
+                              "named_character_constant", "named_character_variable", "scalar_function"])
             self.assertEqual(declarations["minimum"], 0)
             self.assertEqual(declarations["count"], "finite_within_complete_source_bound")
             self.assertEqual(declarations["initializers"], [*initializers, "integer_expression", "boolean_expression",

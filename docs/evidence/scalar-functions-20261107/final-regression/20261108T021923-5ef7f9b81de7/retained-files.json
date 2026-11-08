@@ -1,0 +1,12 @@
+[
+  {
+    "name": "events.jsonl",
+    "size": 188411,
+    "sha256": "4e5179698ac0859adf6cddefba25d1f497953fca44079866beca5f8d4a2a663d"
+  },
+  {
+    "name": "native.log",
+    "size": 1779826,
+    "sha256": "39b9309a7800a9aea8029d9dd321e632cea0c61504e5a5c5b8ce75b03d2d9877"
+  }
+]

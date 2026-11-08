@@ -388,6 +388,9 @@ theorem model_helpers (ranges : RangeContracts modelCalls) :
     HelperEquations modelCalls modelCalls where
   ranges := model_definition_ranges ranges
   names := model_definition_names
+  functionLookup := by intros; rfl
+  formalHides := by intros; rfl
+  functionDeclaration := by intros; rfl
   fixedBounds := model_definition_fixedBounds
   characterLiteral := model_definition_characterLiteral
   guardedAt := by

@@ -21,7 +21,18 @@ def ValidState (text : Source) (state : ParserState) : Prop :=
     ScalarExpression.ValidEnvironment text state.scalarNames ∧
     ArrayBindings.ValidEnvironment text state.arrayNames ∧
     IntegerSubtypes.ValidEnvironment text state.subtypeNames ∧
-    BooleanBindings.ValidEnvironment text state.booleanNames
+    BooleanBindings.ValidEnvironment text state.booleanNames ∧
+    FunctionBindings.ValidMetadata text state.functions ∧
+    state.firstParameter ≤ state.functions.parameters.length + 1 ∧
+    state.firstParameter ≤ FunctionBindings.maxFormals
+
+theorem ValidState.booleans {text : Source} {state : ParserState}
+    (valid : ValidState text state) : BooleanBindings.ValidEnvironment text state.booleanNames :=
+  valid.2.2.2.2.2.2.2.2.1
+
+theorem ValidState.functions {text : Source} {state : ParserState}
+    (valid : ValidState text state) : FunctionBindings.ValidMetadata text state.functions :=
+  valid.2.2.2.2.2.2.2.2.2.1
 
 /-- The state precondition actually provided by an interpreted native caller.
 The base domain remains available for the independent mathematical model. -/
@@ -94,7 +105,8 @@ def allTokens : List ShellToken :=
    .declarations, .assignmentTarget, .targetReference, .dynamicReference, .assignmentValue,
    .outputExpression, .comparisonExpression, .word "null", .contextClauses,
    .word "integer", .word "for", .word "in", .word "reverse", .word "loop", .symbol "..", .word "range", .word "subtype", .word "array", .word "of", .symbol ",", .symbol "=>",
-   .word "boolean", .word "true", .word "false", .word "xor", .word "character"]
+   .word "boolean", .word "true", .word "false", .word "xor", .word "character",
+   .word "function", .word "return"]
 
 def ValidToken (token : ShellToken) : Prop := token ∈ allTokens
 
@@ -308,6 +320,14 @@ structure RawHelperEquations (calls : Calls) (evaluator : Calls := lexical calls
     (domain : StateDomain := .basic) : Prop where
   ranges : HelperRanges calls domain
   names : Names.InterpretedSource calls.names
+  /-- Imported from the metadata package's actual-source lookup bridge. -/
+  functionLookup : ∀ text, ValidText text → ∀ catalog first after,
+    FunctionBindings.ValidMetadata text catalog → ValidCursor text first → ValidCursor text after →
+    calls.function .functionLookup text catalog first after = FunctionBindings.lookup text catalog first after
+  /-- Imported from the checked source equation for the active formal suffix. -/
+  formalHides : ∀ text, ValidText text → ∀ state first after,
+    NativeState domain text state → ValidCursor text first → ValidCursor text after →
+    calls.function .formalHides text state first after = Compose.formalHides text state first after
   fixedBounds : ∀ length dynamic isCharacter firstIndex lastIndex slot,
     length ≤ maxSourceLength → Integer.InRange firstIndex → Integer.InRange lastIndex →
     1 ≤ slot → slot ≤ maxBindings →
@@ -561,6 +581,11 @@ from its typed native body and the interpreted condition reader; it is not a
 primitive assumption of the actual-source bridge. -/
 structure HelperEquations (calls : Calls) (evaluator : Calls := lexical calls)
     (domain : StateDomain := .basic) : Prop extends RawHelperEquations calls evaluator domain where
+  /-- Derived from the checked function parser and its body/call interpreter.
+  This is discharged downstream, like the Boolean initializer equation. -/
+  functionDeclaration : ∀ text, ValidText text → ∀ state arguments,
+    NativeState domain text state →
+    calls.function .functionDeclaration text state arguments = functionDeclarationAt text state arguments
   /-- Derived from the checked initializer body and the condition interpreter,
   on precisely the source helper's state, cursor and masked-name domain. -/
   booleanInitializer : ∀ text, ValidText text → ∀ state position maskFirst maskAfter,

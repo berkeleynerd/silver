@@ -1,5 +1,12 @@
 # Silver language specification
 
+The small nonrecursive scalar-function increment is recorded in the
+[delivery account](docs/scalar-functions.md#delivery-assurance-and-validation).
+Its complete Linux native and Lean/source checkpoints and applicable regression
+results passed. The delivery account retains the exact inputs, failed earlier
+rounds and final review status. The rules below preserve full formal domains,
+including unused functions, and the existing source and expression budgets.
+
 The fixed-size Boolean-array increment is recorded in the
 [delivery account](docs/boolean-arrays.md#delivery-assurance-and-validation--2026-11-07).
 The Linux native proof/build and complete Lean/source checkpoints passed; the
@@ -216,7 +223,7 @@ declaration ::= name ":" [ "constant" ] "String" ":=" expression ";"
                 ":=" scalar_expression ";"
               | "subtype" name "is" "Integer" "range"
                 static_scalar_expression ".." static_scalar_expression ";"
-              | integer_array_declaration | boolean_array_declaration
+              | integer_array_declaration | boolean_array_declaration | scalar_function
 integer_subtype_mark ::= "Integer" | earlier_named_integer_subtype
 ```
 
@@ -251,7 +258,7 @@ This length relationship survives copies, including mutable-source snapshots.
 Native String binding storage retains `4096 / 12 = 341` slots. Scalar storage
 has `4096 / 7 = 585` slots because even `A:S:=0;`, using a one-letter named
 subtype, consumes seven source bytes. Both capacities follow from the complete
-source bound and minimum declaration spellings; they are not independent
+source bound and minimum declaration/formal spellings; they are not independent
 language restrictions on declaration counts.
 
 <a id="immutable-integer-expressions-and-comparisons"></a>
@@ -263,8 +270,8 @@ through 2147483647. A named subtype declaration has the form
 `subtype S is Integer range L .. U;`. It must name the visible predefined
 Integer directly, and introduces a static nonempty range contained in Integer.
 It constrains Integer values without creating a distinct type. Earlier named
-subtypes may be used in scalar constant or mutable declarations and as fixed
-array component marks. Subtype alias chains, derived types, conversions and
+subtypes may be used in scalar constant or mutable declarations, fixed
+array component marks and scalar function parameter/result marks. Subtype alias chains, derived types, conversions and
 subtype attributes, including `S'Image`, are excluded.
 The new subtype's name cannot be `Integer`, ignoring case. This is a Silver
 scope restriction that keeps the predefined parent distinct from declared
@@ -457,6 +464,100 @@ assignment preserve the existing Integer intervals, String bounds and input
 facts; evaluating their RHS still requires every reached expression to be safe.
 Declaration checks use the exact initialized values of earlier Integer objects
 and array components; body checks retain the existing flow and component rules.
+
+### Small nonrecursive scalar functions
+
+Functions are local to Main and appear among its ordered declarations, after
+argument initialization in an argument shell. They use ordinary Ada syntax:
+
+```text
+scalar_function ::= "function" name "(" formal { ";" formal } ")"
+                    "return" function_type "is" { function_local }
+                    "begin" { function_statement }
+                    "return" function_result ";" "end" name ";"
+formal          ::= name ":" "in" function_type
+function_type   ::= integer_subtype_mark | "Boolean"
+function_call   ::= visible_earlier_function "(" actual { "," actual } ")"
+call_assignment ::= mutable_integer_name ":=" function_call ";"
+                  | mutable_boolean_name ":=" function_call ";"
+```
+
+Each formal has exactly one name, explicit `in` and no default. There is at
+least one formal. Integer marks resolve to visible predefined Integer or an
+earlier named Integer subtype; Boolean resolves to the visible predefined type.
+Inline range constraints, zero-formal functions, named actuals, overloads,
+forward declarations and nested functions are excluded. These are Silver scope
+restrictions. Explicit `in` and single-name formals also preserve the existing
+source-derived binding capacities: even `X:in T;` consumes seven bytes and
+`X:in Boolean;` consumes thirteen, with the closing `)` replacing the final
+semicolon. Local objects, formals and loop binders consume disjoint source.
+
+A function has initialized local Integer/Boolean objects using the existing
+scalar declaration forms; `function_local` admits only those forms. Earlier
+local initializers supply exact values under the ordinary staticness rules.
+Initializers cannot read formals, outer objects or calls. Local range constraints
+use literals and earlier Ada-static local constants, or earlier named subtype
+marks. Local subtype declarations, Strings, Characters and arrays are excluded.
+The closed local frame keeps this first function increment independent of outer
+elaboration and aggregate state; these exclusions are not Ada requirements.
+
+`function_statement` admits null, local scalar assignment, call assignment,
+conditionals and counted `for ... in` loops, recursively under the same
+restriction. Conditions use Boolean literals/names, Integer comparisons and
+Boolean logic; String/Character/length/validity predicates are excluded.
+There is exactly one return at the end of the outer function statement list,
+with no early or nested return. Zero preceding statements are allowed.
+`function_result` is an ordinary scalar expression for an Integer result or
+one of these pure conditions for a Boolean result. Function calls are excluded
+from return expressions. The terminal return rule makes return coverage explicit
+without a separate early-return flow analysis.
+
+A body can read its formals and locals and call already completed functions;
+it cannot read or write outer objects, perform output, acquire/query input or
+Reject. Earlier subtype metadata remains visible. Ordinary case-insensitive name
+rules and predefined-name hiding still apply even when an outer object is not
+readable. Main declaration names are distinct across functions and other
+objects/subtypes. Formal and local names are distinct within the function and
+cannot collide with earlier subtype names; this last restriction reuses the
+current subtype environment rather than adding subtype shadowing. Local values
+and loop binders may hide earlier function names, preventing calls through those
+spellings. Each closing function name must match its opening name.
+
+Every body is checked over the full product of its declared formal domains,
+including an unused function. Integer formals enter with their full subtype
+intervals; they are immutable and nonstatic, support bare-name guard refinement,
+and retain entry facts across mutable widening in loops. Boolean formals retain
+no predicate relation. Returned Integer intervals must be nonempty and contained
+in the declared result subtype, even in unreachable code. Each function becomes
+callable only after its complete body and matching closing name pass admission.
+Earlier-only calls exclude both direct and indirect recursion; finite counted
+loops and that call ordering establish termination.
+
+A call occurs only as the complete RHS of an assignment to an existing mutable
+scalar Integer/Boolean object of the result kind. It cannot appear in an
+initializer, arithmetic, guard, output/Image, subscript, loop bound, return,
+array-cell assignment or another actual. This restriction keeps calls outside
+the current expression grammar. Integer actuals use existing scalar expressions;
+Boolean actuals use existing conditions in the caller's permitted scope.
+Actuals are positional and match every formal exactly once. All are checked
+against the same incoming state, before assignment: Boolean outcomes do not
+refine later actuals, because Ada does not require an argument evaluation order.
+Integer actual intervals must be nonempty and contained in formal subtypes.
+
+An Integer call contributes exactly its declared result interval, regardless of
+the particular actual or function body. That interval must fit the destination's
+declared range and replaces its current read interval. Boolean call results carry
+no facts about arguments, scalar ranges, String bounds or input validity.
+All other caller stores and facts are preserved. An actual can read the assignment
+target's incoming value. These rules permit calls inside existing Main branches,
+counted loops and constant Integer-array iteration.
+
+The complete 4,096-byte source bound remains shared by all declarations and
+bodies. Each embedded scalar/String expression keeps its 64-operand limit, and
+all Main/function arithmetic and concatenation share the 63-operator budget;
+Boolean logic/comparisons do not consume that budget. No budget resets at a
+function boundary. Pooled signature/formal storage follows source length and
+adds no independent function/formal count restriction.
 
 ### Character objects and fixed-bound String indexing
 
@@ -679,10 +780,9 @@ Each nested loop captures its bounds when entered. Scalar and String writes
 carry across iterations and remain visible after the loop; only the scoped
 index is removed on exit. An empty loop preserves both stores.
 A lower bound greater than the upper bound gives zero iterations in either
-direction. A body is nonempty and may contain any admitted statement, including
+direction. A body is nonempty and may contain any statement admitted in its enclosing scope, including
 nested loops, choices, String and Integer assignments, output and argument-shell Reject.
-The index is immutable and disappears on loop exit. Declarations stay in the
-single outer declaration region; `exit`, `while`, unconstrained loops and
+The index is immutable and disappears on loop exit. Declarations stay before the executable body of Main or its function; `exit`, `while`, unconstrained loops and
 explicit iteration steps are excluded.
 
 Indexes may hide a String, an Integer or Boolean object, an Integer or Boolean array, an enclosing index, an enclosing
@@ -899,6 +999,7 @@ statements       ::= statement { statement }
 statement        ::= basic_statement | string_choice | for_loop | array_iteration
 basic_statements ::= basic_statement { basic_statement }
 basic_statement  ::= "null" ";"
+                   | call_assignment
                    | reject_name ";"
                    | mutable_name ":=" expression ";"
                    | mutable_character_name ":=" character_expression ";"
@@ -1195,6 +1296,7 @@ The catalogue uses these construct identifiers:
 | `integer_array_object`, `integer_array_read`, `integer_array_assignment` | Explicitly initialized anonymous fixed-size Integer arrays, nonempty interval-checked subscripts and component-preserving indexed assignment. |
 | `boolean_array_object`, `boolean_array_read`, `boolean_array_assignment` | Explicitly initialized fixed-size Boolean arrays, typed indexed reads and mutable cell writes; stored flags retain no scalar or String/input facts. |
 | `integer_array_iteration` | Forward/reverse iteration over constant Integer arrays, with immutable nonstatic elements, declared component entry bounds and existing guard/statement compositions. |
+| `scalar_function`, `scalar_function_call` | Closed Integer/Boolean functions with explicit-in formals, terminal return, earlier-only calls and whole scalar assignment RHS calls. |
 | `named_boolean_constant`, `named_boolean_variable`, `boolean_assignment`, `boolean_expression`, `boolean_comparison` | Initialized scalar Boolean objects, snapshot copies, assignment, logical expressions and Boolean equality/inequality under the visibility, evaluation and xor restrictions above; stored flags retain no scalar or String/input facts. |
 | `integer_comparison`, `scalar_guard_refinement`, `integer_image`, `for_loop` | Bare mutable/index/element names against static thresholds, current read intervals with assignment replacement and branch hulls, standard decimal Image and scoped finite loops with captured bounds and mutable widening. |
 | `expression_output`, `literal_output`, `named_output`, `concatenated_output` | Returning output calls with qualified or visible unqualified names and positional or `Item =>` actuals. |
@@ -1207,7 +1309,7 @@ The catalogue uses these construct identifiers:
 Everything else is excluded, including derived scalar types, subtype alias chains, conversions,
 other loop forms,
 Boolean operations outside the specified fragment,
-additional declaration regions, resizable strings, other array
+declaration regions beyond the scalar functions above, resizable strings, other array
 operations, access types and file handles.
 The catalogue's token arrays are informative skeletons, including qualified,
 positional call examples; their construct conditions specify the context,
@@ -1283,11 +1385,20 @@ Literal/static expressions and plain name output may have no Main safety checks.
 Runtime concatenation and constrained scalar initialization/assignment can emit
 range checks; copied dynamic-length assignments can emit length checks; scalar
 arithmetic can emit overflow checks, division/remainder can emit nonzero-divisor
-checks, and indexed array/String reads and writes can emit index checks. Every emitted Main
+checks, and indexed array/String reads and writes can emit index checks. Every emitted application
 safety record must be a proved/info `VC_RANGE_CHECK`, `VC_LENGTH_CHECK`,
 `VC_OVERFLOW_CHECK`, `VC_DIVISION_CHECK` or `VC_INDEX_CHECK`, with complete coverage, approved dependencies and no
 suppression. Length checks require the fixed-bound argument; their absence through
 static elimination is no longer a prerequisite for supporting copies.
+
+Function-bearing programs use GNATprove's `--no-inlining` analysis on the same
+author source. Each declared function, including an unused function, is checked
+over its complete formal domain. The application report must cover Main and
+every source-declared local function exactly; the same safety classes and
+discharge requirements apply to their records. Successful
+`SUBPROGRAM_TERMINATION` flow records establish the reported termination checks.
+Local dependencies may name only the identified functions' effect and
+absence-of-runtime-error claims; no authored function contract is introduced.
 
 All output policies classify finite lists of the exact `INEFFECTIVE` initializer
 advisory. Assignment-bearing policies also classify the exact `unused assignment`
@@ -1296,7 +1407,8 @@ advisory. All output-capable policies also classify the exact `INEFFECTIVE` mess
 produced by statically known predicates. Repeated output additionally permits only
 the four exact `INEFFECTIVE` messages naming the overwritten ghost outputs
 `Written_Count`, `Flushed`, `Succeeded` and `Written_Bytes` of either `Put` or
-`Put_Line` (eight exact messages). These flow advisories retain Main location, flow
+`Put_Line` (eight exact messages). These flow advisories retain a location in
+`main.adb`, the exact Main or declared local-function entity, flow
 provenance and no suppression. Initializers still establish object bounds even when
 their bytes are unused. The warning list additionally permits only the exact producer
 `imprecise-image` advisory, including its full message with exactly the producer's
@@ -1305,6 +1417,13 @@ discharges or removes a safety check. The [assurance policy](docs/assurance.md)
 specifies its native/SARIF classification. Other warnings in the audited reports
 fail; naming conventions that make GNATprove omit an advisory do not change
 membership.
+
+An identified local function may additionally carry the exact `UNUSED_VARIABLE`
+message `unused variable "NAME"` for an unused formal. It retains warning severity,
+flow provenance, a positive location in `main.adb`, the declared function's entity
+and no suppression or justification. `NAME` has Ada identifier spelling and is
+bounded by the complete-source limit. This advisory does not discharge a safety
+obligation and is not accepted for Main itself.
 
 Faithful static evaluation, complete obligation/report generation, completeness
 of the accepted producer shapes and pinned solver completion for the bounded

@@ -30,6 +30,8 @@ structure ParseContext where
   elaborating : Bool := false
   maskFirst : Nat := 0
   maskAfter : Nat := 0
+  pure : Bool := false
+  outerIntegerHidden : Bool := false
   deriving Repr
 
 def ParseContext.analysis (context : ParseContext) : Integer.Analysis :=
@@ -111,7 +113,7 @@ def readScalarInFlow (text : Source) (context : ParseContext) (position : Nat) (
     (arrays := context.arrayNames) (initials := initials) (elaborating := context.elaborating)
 
 def ParseContext.integerHidden (context : ParseContext) (text : Source) : Bool :=
-  BooleanBindings.hidesInteger text context.booleanNames ||
+  context.outerIntegerHidden || BooleanBindings.hidesInteger text context.booleanNames ||
       (decide (context.maskFirst ≠ 0) &&
         Named.nameIs text context.maskFirst context.maskAfter ("integer".toList.map Char.toNat))
 
@@ -340,6 +342,7 @@ mutual
           let rightScalar := readScalarInFlow text context operator.after facts (initials := initials)
           if rightScalar.after ≤ position then invalidCondition facts
           else scalarCondition text context position operator.after facts leftScalar rightScalar operator.operator
+        else if context.pure then readBooleanRelation text context position facts initials
         else
         let left := readStringInFlow text context position facts initials
         if left.after ≠ 0 then

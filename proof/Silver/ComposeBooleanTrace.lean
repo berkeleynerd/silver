@@ -64,7 +64,7 @@ theorem boolean_declaration_analysis {text arguments state next declaration chec
           declaration.target declaration.mutable := by
   obtain ⟨raw, _, rfl, _⟩ := trace
   have following := model_boolean_reading_valid valid parsed
-  have bound := following.2.2.2.2.2.2.2.2.1
+  have bound := following.booleans.1
   rw [boolean_declaration_bindings parsed] at bound
   simp only [List.length_append, List.length_singleton] at bound
   have space : state.booleanNames.length < BooleanBindings.maxBindings := by omega

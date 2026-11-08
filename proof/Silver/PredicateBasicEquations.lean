@@ -22,23 +22,24 @@ open Compose Bindings
 set_option maxRecDepth 10000
 set_option maxHeartbeats 4000000
 
-theorem basicEval_model (text : Source) (context : Native.Context) (scan : BodyScan) :
-    basicEval modelPrimitives text context scan = basicBody text context.model scan := by
+theorem basicEval_model (text : Source) (context : Native.Context) (scan : BodyScan)
+    (catalog : FunctionBindings.Metadata := {}) :
+    basicEval modelPrimitives text context scan catalog = basicBody text context.model scan catalog := by
   have target := ScalarBodyNative.stringTargetEval_model text context scan
   dsimp +instances only [Native.Context.model] at target
   by_cases zero : scan.position = 0
   case' neg =>
     by_cases nullToken : fixedAfter text scan.position "null" true ≠ 0
     case' neg =>
-      by_cases outputCall : callAfter text context.names scan.position .output context.scalarNames context.arrayNames (context.subtypeHiding.get .output) context.booleanNames ≠ 0
+      by_cases outputCall : !context.pure && decide (callAfter text context.names scan.position .output context.scalarNames context.arrayNames (context.subtypeHiding.get .output) context.booleanNames ≠ 0) = true
       case' neg =>
-        by_cases putCall : callAfter text context.names scan.position .partialOutput context.scalarNames context.arrayNames (context.subtypeHiding.get .partialOutput) context.booleanNames ≠ 0
+        by_cases putCall : !context.pure && decide (callAfter text context.names scan.position .partialOutput context.scalarNames context.arrayNames (context.subtypeHiding.get .partialOutput) context.booleanNames ≠ 0) = true
         case' neg =>
           by_cases rejectCall : context.dynamicFirst ≠ 0 ∧ callAfter text context.names scan.position .reject context.scalarNames context.arrayNames (context.subtypeHiding.get .reject) context.booleanNames ≠ 0
           case' neg =>
             by_cases scalar : scalarTarget text context.model scan.position ≠ 0
             case' neg =>
-              by_cases array : arrayTarget text context.model scan.position ≠ 0
+              by_cases array : !context.pure && decide (arrayTarget text context.model scan.position ≠ 0) = true
               case' neg =>
                 by_cases boolean : booleanTarget text context.model scan.position ≠ 0
                 case' neg =>
@@ -49,6 +50,7 @@ theorem basicEval_model (text : Source) (context : Native.Context) (scan : BodyS
                     case' neg =>
                       by_cases elementTarget :
                         fixedAfter text (stringAssignmentTarget text context.model scan).position "(" false ≠ 0
+  all_goals by_cases pure : context.pure = true
   all_goals
     by_cases booleanArray : (ArrayBindings.binding context.arrayNames
       (arrayTarget text context.model scan.position)).isBoolean = true
@@ -84,6 +86,7 @@ structure PrimitiveEquations (primitive : Primitives) : Prop where
   invalid : primitive.invalid = invalidBody
   scalarTarget : primitive.scalarTarget = fun text context position => Predicate.scalarTarget text context.model position
   scalarAssignment : primitive.scalarAssignment = fun text context scan => scalarAssignmentBody text context.model scan
+  callAssignment : primitive.callAssignment = fun text context scan catalog => callAssignmentBody text context.model scan catalog
   booleanTarget : primitive.booleanTarget = fun text context position => Predicate.booleanTarget text context.model position
   booleanAssignment : primitive.booleanAssignment = fun text context scan => booleanAssignmentBody text context.model scan
   arrayTarget : primitive.arrayTarget = fun text context position => Predicate.arrayTarget text context.model position
@@ -102,9 +105,10 @@ theorem PrimitiveEquations.eq_model {primitive : Primitives} (equations : Primit
   simp_all [modelPrimitives]
 
 theorem basicEval_of_equations {primitive : Primitives} (equations : PrimitiveEquations primitive)
-    (text : Source) (context : Native.Context) (scan : BodyScan) :
-    basicEval primitive text context scan = basicBody text context.model scan := by
+    (text : Source) (context : Native.Context) (scan : BodyScan)
+    (catalog : FunctionBindings.Metadata := {}) :
+    basicEval primitive text context scan catalog = basicBody text context.model scan catalog := by
   rw [equations.eq_model]
-  exact basicEval_model text context scan
+  exact basicEval_model text context scan catalog
 
 end Silver.Predicate.BasicNative

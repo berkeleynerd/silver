@@ -22,6 +22,11 @@ structure Context where
   arrayNames : ArrayBindings.Env
   subtypeNames : IntegerSubtypes.Environment
   booleanNames : BooleanBindings.Environment
+  functions : FunctionBindings.Metadata
+  pure : Bool
+  assignedInFunctions : Bool
+  «hiding» : HiddenMarks
+  firstParameter : Nat
   deriving DecidableEq, Repr
 
 structure Scan where
@@ -36,14 +41,17 @@ def invalid : Scan := ⟨0, 0, 0, false, false⟩
 
 def contextOf (scan : ScanResult) : Context :=
   ⟨scan.state.names, scan.state.dynamicFirst, scan.state.dynamicAfter,
-    scan.state.scalarNames, scan.state.arrayNames, scan.state.subtypeNames, scan.state.booleanNames⟩
+    scan.state.scalarNames, scan.state.arrayNames, scan.state.subtypeNames, scan.state.booleanNames,
+    scan.state.functions, scan.state.pure, scan.state.assignedInFunctions, scan.state.hiding,
+    scan.state.firstParameter⟩
 
 def bodyOf (scan : ScanResult) : Scan :=
   ⟨scan.state.position, scan.state.target, scan.state.capacity, scan.assigned, scan.output⟩
 
 def expand (context : Context) (scan : Scan) : ScanResult :=
   ⟨⟨scan.position, context.names, context.dynamicFirst, context.dynamicAfter,
-      scan.target, scan.capacity, context.scalarNames, context.arrayNames, context.subtypeNames, context.booleanNames⟩, scan.assigned, scan.output⟩
+      scan.target, scan.capacity, context.scalarNames, context.arrayNames, context.subtypeNames, context.booleanNames,
+      context.functions, context.pure, context.assignedInFunctions, context.hiding, context.firstParameter⟩, scan.assigned, scan.output⟩
 
 def compact (context : Context) (scan : ScanResult) : Scan :=
   if scan.state.position = 0 ∨ context.names.length < scan.state.target then invalid
@@ -58,7 +66,10 @@ def ValidContext (text : Source) (context : Context) : Prop :=
     ScalarExpression.ValidEnvironment text context.scalarNames ∧
     ArrayBindings.ValidEnvironment text context.arrayNames ∧
     IntegerSubtypes.ValidEnvironment text context.subtypeNames ∧
-    BooleanBindings.ValidEnvironment text context.booleanNames
+    BooleanBindings.ValidEnvironment text context.booleanNames ∧
+    FunctionBindings.ValidMetadata text context.functions ∧
+    context.firstParameter ≤ context.functions.parameters.length + 1 ∧
+    context.firstParameter ≤ FunctionBindings.maxFormals
 
 def ValidScan (text : Source) (context : Context) (scan : Scan) : Prop :=
   scan.position ≤ text.length + 1 ∧ scan.target ≤ context.names.length ∧

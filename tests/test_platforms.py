@@ -28,6 +28,9 @@ if str(ROOT) not in sys.path:
 
 from scripts import bootstrap, bootstrap_lean, check_lean, dev, platforms, run_history
 
+# Each worker prepares all project modules and generates every source certificate.
+PLATFORM_SETUP_TIMEOUT_SECONDS = 180
+
 
 def archive_bytes(members: dict[str, bytes]) -> bytes:
     output = io.BytesIO()
@@ -401,7 +404,8 @@ class PlatformIsolationTests(unittest.TestCase):
 
     def run_worker(self, key: str, *options: str) -> None:
         result = subprocess.run(self.worker_command(key, *options), cwd=ROOT,
-                                text=True, capture_output=True, timeout=60)
+                                text=True, capture_output=True,
+                                timeout=PLATFORM_SETUP_TIMEOUT_SECONDS)
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
 
     def test_platform_aliases_and_disjoint_paths(self) -> None:
@@ -468,7 +472,7 @@ class PlatformIsolationTests(unittest.TestCase):
                    for key in platforms.HOST_KEYS]
         try:
             for key, process in zip(platforms.HOST_KEYS, workers):
-                output, error = process.communicate(timeout=60)
+                output, error = process.communicate(timeout=PLATFORM_SETUP_TIMEOUT_SECONDS)
                 self.assertEqual(process.returncode, 0, f"{key}: {output}{error}")
         finally:
             for process in workers:
@@ -633,9 +637,11 @@ class InstallationEnvironmentTests(unittest.TestCase):
             environment = dict(os.environ, TMPDIR=str(alias), TEMP=str(alias), TMP=str(alias))
             # Select just the fixture suite to avoid recursively spawning this
             # regression. Its subprocesses inherit the symlinked TMPDIR too.
+            # The full class runs eleven sequential setup workers and one
+            # four-worker group, each generating all current certificates.
             result = subprocess.run(
                 [sys.executable, str(Path(__file__).resolve()), "PlatformIsolationTests", "-v"],
-                cwd=ROOT, env=environment, text=True, capture_output=True, timeout=180)
+                cwd=ROOT, env=environment, text=True, capture_output=True, timeout=900)
             self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
 
     def test_generated_tool_command_anchors_and_quotes_installation(self) -> None:

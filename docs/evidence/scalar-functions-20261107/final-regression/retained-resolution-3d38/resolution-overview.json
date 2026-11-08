@@ -1,0 +1,116 @@
+{
+  "accepted_retained_by_definition_file": {
+    "tests/test_argument_bounds.py": 1,
+    "tests/test_boolean_objects.py": 1,
+    "tests/test_capacity.py": 1,
+    "tests/test_dev_runs.py": 26,
+    "tests/test_evidence.py": 62,
+    "tests/test_image_adapter.py": 2,
+    "tests/test_image_model.py": 3,
+    "tests/test_image_reports.py": 11,
+    "tests/test_image_setup.py": 8,
+    "tests/test_lean_evidence.py": 52,
+    "tests/test_lean_modules.py": 3,
+    "tests/test_lean_run_history.py": 10,
+    "tests/test_lean_source.py": 9,
+    "tests/test_library_reports.py": 36,
+    "tests/test_platforms.py": 3,
+    "tests/test_proof_provenance.py": 27,
+    "tests/test_report_projection.py": 8,
+    "tests/test_rosetta.py": 3,
+    "tests/test_run_history.py": 19,
+    "tests/test_static_proof.py": 1
+  },
+  "cli_memory_updated": false,
+  "complete_elapsed_review_measurement": null,
+  "counts": {
+    "accepted_fresh": 335,
+    "accepted_retained": 286,
+    "pending_compile_timeout": 3,
+    "pending_platform_body_via_wrapper": 12,
+    "pending_platform_wrapper": 1
+  },
+  "future_rosetta_refresh": [
+    "test_rosetta.RosettaRenderTests.test_pending_design_has_no_stage_and_is_not_an_oracle_exclusion",
+    "test_rosetta.RosettaRenderTests.test_render_is_identical_across_hash_seeds",
+    "test_rosetta.RosettaRenderTests.test_risk_counts_are_per_sample_and_ties_are_alphabetical"
+  ],
+  "goal": null,
+  "native_platform": "Linux x86-64",
+  "pending": [
+    {
+      "disposition": "pending_platform_wrapper",
+      "id": "test_platforms.InstallationEnvironmentTests.test_symlinked_tmpdir_preserves_platform_setup_and_routing"
+    },
+    {
+      "disposition": "pending_platform_body_via_wrapper",
+      "id": "test_platforms.PlatformIsolationTests.test_cached_build_log_cannot_replace_fresh_lean_audit"
+    },
+    {
+      "disposition": "pending_platform_body_via_wrapper",
+      "id": "test_platforms.PlatformIsolationTests.test_concurrent_different_host_setups_do_not_collide"
+    },
+    {
+      "disposition": "pending_platform_body_via_wrapper",
+      "id": "test_platforms.PlatformIsolationTests.test_development_commands_keep_project_outputs_and_audit_in_native_host"
+    },
+    {
+      "disposition": "pending_platform_body_via_wrapper",
+      "id": "test_platforms.PlatformIsolationTests.test_development_output_overrides_fail_before_invoking_tools"
+    },
+    {
+      "disposition": "pending_platform_body_via_wrapper",
+      "id": "test_platforms.PlatformIsolationTests.test_each_host_setup_preserves_other_hosts_and_shared_inputs"
+    },
+    {
+      "disposition": "pending_platform_body_via_wrapper",
+      "id": "test_platforms.PlatformIsolationTests.test_failed_proof_invalidates_only_its_host_evidence"
+    },
+    {
+      "disposition": "pending_platform_body_via_wrapper",
+      "id": "test_platforms.PlatformIsolationTests.test_foreign_execution_is_rejected_before_side_effects"
+    },
+    {
+      "disposition": "pending_platform_body_via_wrapper",
+      "id": "test_platforms.PlatformIsolationTests.test_lean_auto_and_explicit_resources_are_recorded_and_isolated"
+    },
+    {
+      "disposition": "pending_platform_body_via_wrapper",
+      "id": "test_platforms.PlatformIsolationTests.test_lean_full_and_clean_modes_record_their_actual_checks"
+    },
+    {
+      "disposition": "pending_platform_body_via_wrapper",
+      "id": "test_platforms.PlatformIsolationTests.test_legacy_archives_are_read_only_inputs"
+    },
+    {
+      "disposition": "pending_platform_body_via_wrapper",
+      "id": "test_platforms.PlatformIsolationTests.test_platform_aliases_and_disjoint_paths"
+    },
+    {
+      "disposition": "pending_platform_body_via_wrapper",
+      "id": "test_platforms.PlatformIsolationTests.test_unchanged_context_setup_preserves_generated_file_mtimes"
+    },
+    {
+      "disposition": "pending_compile_timeout",
+      "id": "test_samples.SupportedSampleTests.test_maximum_dynamic_expression"
+    },
+    {
+      "disposition": "pending_compile_timeout",
+      "id": "test_scalar_functions.ScalarFunctionTests.test_native_boolean_and_integer_self_actuals"
+    },
+    {
+      "disposition": "pending_compile_timeout",
+      "id": "test_scalar_functions.ScalarFunctionTests.test_native_ordered_calls_snapshot_and_full_unused_coverage"
+    }
+  ],
+  "per_id_definitions_equal_independent_inventory": true,
+  "retained_origin_counts": {
+    "20261108T021923-5ef7f9b81de7": 285,
+    "20261108T065724-7d260468ca14": 1
+  },
+  "review_target": "3d38fedb6866b537ddc4a8d2a634b7d0b339360f",
+  "runtime_settings_telemetry": null,
+  "selected_reviewer_effort": "Extra High",
+  "selected_reviewer_model": "GPT-6 Astra",
+  "token_cost_measurement": null
+}

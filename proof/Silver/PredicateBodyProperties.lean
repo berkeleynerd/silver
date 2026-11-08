@@ -1,6 +1,7 @@
 module
 
-public import Silver.PredicateBodyAdmission
+public import Silver.PredicateFunctionCallReadings
+public import Silver.PredicateBodyScanner
 public import Silver.PredicateLoopProperties
 public import Silver.PredicateBodyFlow
 public import Silver.ComposeCharacterBounds
@@ -8,6 +9,7 @@ public import Silver.PredicateStringAssignmentFields
 
 @[expose] public section
 namespace Silver.Predicate
+variable {catalog : FunctionBindings.Metadata}
 open Compose Bindings PathFacts Compose.Expressions
 
 attribute [local irreducible] ScalarExpression.read
@@ -82,10 +84,40 @@ theorem characterRead_bound (text : Source) (context : ParseContext) (position :
   · obtain ⟨value, reading⟩ := character_sound _ zero
     exact character_after_bounded reading
 
+theorem functionCall_bound (text : Source) (context : ParseContext) (position : Nat)
+    (facts : ActiveFlow) (catalog : FunctionBindings.Metadata)
+    (tv : ValidText text) (nv : ValidNames text context.names) :
+    (readCall text context position facts catalog).after ≤ text.length + 1 := by
+  by_cases zero : (readCall text context position facts catalog).after = 0
+  · simp only [zero]
+    exact Nat.zero_le _
+  · obtain ⟨call, parsed⟩ := call_sound tv nv zero
+    exact actuals_bounded parsed.actuals
+
+theorem callAssignmentResult_bound (context : ParseContext) (scan : BodyScan)
+    (scalar flag : Nat) (value : CallResult) (limit : Nat) (bounded : value.after ≤ limit) :
+    (callAssignmentResult context scan scalar flag value).position ≤ limit := by
+  unfold callAssignmentResult
+  split
+  · exact Nat.zero_le _
+  · split
+    · try dsimp only
+      split
+      · exact Nat.zero_le _
+      · exact bounded
+    · split
+      · exact bounded
+      · exact Nat.zero_le _
+
+theorem callAssignment_bound (text : Source) (context : ParseContext) (scan : BodyScan)
+    (catalog : FunctionBindings.Metadata) (tv : ValidText text) (nv : ValidNames text context.names) :
+    (callAssignmentBody text context scan catalog).position ≤ text.length + 1 :=
+  callAssignmentResult_bound context scan _ _ _ _ (functionCall_bound text context _ scan.facts catalog tv nv)
+
 theorem basicRaw_bound (text : Source) (context : ParseContext) (scan : BodyScan)
     (textValid : ValidText text) (namesValid : ValidNames text context.names)
     (bounded : scan.position ≤ text.length + 1) :
-    (basicRaw text context scan).position ≤ text.length + 1 := by
+    (basicRaw (catalog := catalog) text context scan).position ≤ text.length + 1 := by
   unfold basicRaw
   cases basicKind text context scan with
   | null => exact bodyToken_bound text scan _ bounded
@@ -109,19 +141,25 @@ theorem basicRaw_bound (text : Source) (context : ParseContext) (scan : BodyScan
               (model_fixed_valid text _ "(" false (model_callAfter_valid (arrays := context.arrayNames) (scalarNames := context.scalarNames) (booleans := context.booleanNames) (subtypeHidden := context.subtypeHiding.get .partialOutput) text context.names scan.position .partialOutput bounded))) namesValid).1
   | reject => exact model_callAfter_valid (arrays := context.arrayNames) (scalarNames := context.scalarNames) (booleans := context.booleanNames) (subtypeHidden := context.subtypeHiding.get .reject) text context.names scan.position .reject bounded
   | scalarAssignment =>
-      unfold scalarAssignmentBody
-      dsimp only
+      try dsimp only
       split
-      · exact Nat.zero_le _
-      · exact scalarRead_bound (elaborating := context.elaborating) text _ (context.readingNames scan.facts) 0 0 context.arrayNames
-          (model_fixed_valid text _ ":=" false (model_name_valid text _))
+      · exact callAssignment_bound text context scan catalog textValid namesValid
+      · unfold scalarAssignmentBody
+        dsimp only
+        split
+        · exact Nat.zero_le _
+        · exact scalarRead_bound (elaborating := context.elaborating) text _ (context.readingNames scan.facts) 0 0 context.arrayNames
+            (model_fixed_valid text _ ":=" false (model_name_valid text _))
   | booleanAssignment =>
-      unfold booleanAssignmentBody
-      dsimp only
+      try dsimp only
       split
-      · exact Nat.zero_le _
-      · exact condition_bound text context _ scan.facts textValid namesValid
-          (model_fixed_valid text _ ":=" false (model_name_valid text _))
+      · exact callAssignment_bound text context scan catalog textValid namesValid
+      · unfold booleanAssignmentBody
+        dsimp only
+        split
+        · exact Nat.zero_le _
+        · exact condition_bound text context _ scan.facts textValid namesValid
+            (model_fixed_valid text _ ":=" false (model_name_valid text _))
   | booleanArrayAssignment =>
       unfold booleanArrayAssignmentBody
       dsimp only
@@ -143,44 +181,47 @@ theorem basicRaw_bound (text : Source) (context : ParseContext) (scan : BodyScan
             (scalarRead_bound text _ (context.readingNames scan.facts) 0 0 []
               (model_fixed_valid text _ "(" false (model_name_valid text _)))))
   | assignment =>
-      have targetBound : (stringAssignmentTarget text context scan).position ≤ text.length + 1 := by
-        unfold stringAssignmentTarget targetAt
-        dsimp only
-        split
-        · exact Nat.zero_le _
-        · exact model_name_valid text _
-      unfold stringAssignmentBody
       dsimp only
-      apply bodyChoicePosition_bound
+      split
       · exact Nat.zero_le _
-      · cases stringAssignmentKind text context scan with
-        | character | element =>
-            apply bodyChoicePosition_bound
-            · exact Nat.zero_le _
-            · exact characterRead_bound text context _ scan.facts
-        | whole =>
-            apply bodyChoicePosition_bound
-            · exact Nat.zero_le _
-            · exact (model_expression_valid (integerHidden := context.integerHidden text)
-                (elaborating := context.elaborating) (arrays := context.arrayNames)
-                (scalarNames := context.readingNames scan.facts) text textValid _ context.names
-                (bodyToken_bound text _ _ targetBound) namesValid).1
+      · have targetBound : (stringAssignmentTarget text context scan).position ≤ text.length + 1 := by
+          unfold stringAssignmentTarget targetAt
+          dsimp only
+          split
+          · exact Nat.zero_le _
+          · exact model_name_valid text _
+        unfold stringAssignmentBody
+        dsimp only
+        apply bodyChoicePosition_bound
+        · exact Nat.zero_le _
+        · cases stringAssignmentKind text context scan with
+          | character | element =>
+              apply bodyChoicePosition_bound
+              · exact Nat.zero_le _
+              · exact characterRead_bound text context _ scan.facts
+          | whole =>
+              apply bodyChoicePosition_bound
+              · exact Nat.zero_le _
+              · exact (model_expression_valid (integerHidden := context.integerHidden text)
+                  (elaborating := context.elaborating) (arrays := context.arrayNames)
+                  (scalarNames := context.readingNames scan.facts) text textValid _ context.names
+                  (bodyToken_bound text _ _ targetBound) namesValid).1
 
 theorem basicBody_bound (text : Source) (context : ParseContext) (scan : BodyScan)
     (textValid : ValidText text) (namesValid : ValidNames text context.names)
     (bounded : scan.position ≤ text.length + 1) :
-    (basicBody text context scan).position ≤ text.length + 1 := by
+    (basicBody (catalog := catalog) text context scan).position ≤ text.length + 1 := by
   unfold basicBody
   split
   · exact Nat.zero_le _
   · try dsimp only
     split
     · exact Nat.zero_le _
-    · exact bodyToken_bound text _ _ (basicRaw_bound text context scan textValid namesValid bounded)
+    · exact bodyToken_bound text _ _ (basicRaw_bound (catalog := catalog) text context scan textValid namesValid bounded)
 
 theorem basicBody_progress (text : Source) (context : ParseContext) (scan : BodyScan)
-    (positive : (basicBody text context scan).position ≠ 0) :
-    scan.position < (basicBody text context scan).position := by
+    (positive : (basicBody (catalog := catalog) text context scan).position ≠ 0) :
+    scan.position < (basicBody (catalog := catalog) text context scan).position := by
   unfold basicBody at positive ⊢
   split <;> rename_i h
   · simp [h, invalidBody] at positive
@@ -192,7 +233,7 @@ theorem basicBody_progress (text : Source) (context : ParseContext) (scan : Body
     · omega
 
 theorem basicBody_zero {text context scan} (zero : scan.position = 0) :
-    basicBody text context scan = invalidBody scan := by simp [basicBody, zero]
+    basicBody (catalog := catalog) text context scan = invalidBody scan := by simp [basicBody, zero]
 
 @[simp] theorem branchStart_assigned (text : Source) (context : ParseContext) (scan : BodyScan) (keyword : String) :
     (branchStart text context scan keyword).1.assigned = scan.assigned := rfl
@@ -211,7 +252,7 @@ theorem branchStart_bound (text : Source) (context : ParseContext) (scan : BodyS
 mutual
   theorem statementBody_bound (text : Source) (context : ParseContext) (scan : BodyScan)
       (tv : ValidText text) (nv : ValidNames text context.names) (sv : scan.position ≤ text.length + 1) :
-      (statementBody text context scan).position ≤ text.length + 1 := by
+      (statementBody (catalog := catalog) text context scan).position ≤ text.length + 1 := by
     rw [statementBody]
     split
     · exact Nat.zero_le _
@@ -219,12 +260,12 @@ mutual
       · exact conditionalBody_bound text context scan tv nv sv
       · split
         · exact loopBody_bound text context scan tv nv sv
-        · exact basicBody_bound text context scan tv nv sv
+        · exact basicBody_bound (catalog := catalog) text context scan tv nv sv
   termination_by (bodyRemaining text scan, 2)
 
   theorem loopBody_bound (text : Source) (context : ParseContext) (scan : BodyScan)
       (tv : ValidText text) (nv : ValidNames text context.names) (_sv : scan.position ≤ text.length + 1) :
-      (loopBody text context scan).position ≤ text.length + 1 := by
+      (loopBody (catalog := catalog) text context scan).position ≤ text.length + 1 := by
     rw [loopBody]
     dsimp only
     split
@@ -244,7 +285,7 @@ mutual
 
   theorem conditionalBody_bound (text : Source) (context : ParseContext) (scan : BodyScan)
       (tv : ValidText text) (nv : ValidNames text context.names) (sv : scan.position ≤ text.length + 1) :
-      (conditionalBody text context scan).position ≤ text.length + 1 := by
+      (conditionalBody (catalog := catalog) text context scan).position ≤ text.length + 1 := by
     rw [conditionalBody]
     try dsimp only
     split
@@ -264,7 +305,7 @@ mutual
 
   theorem alternativeBody_bound (text : Source) (context : ParseContext) (scan : BodyScan)
       (tv : ValidText text) (nv : ValidNames text context.names) (sv : scan.position ≤ text.length + 1) :
-      (alternativeBody text context scan).position ≤ text.length + 1 := by
+      (alternativeBody (catalog := catalog) text context scan).position ≤ text.length + 1 := by
     rw [alternativeBody]
     split
     · exact Nat.zero_le _
@@ -294,7 +335,7 @@ mutual
 
   theorem bodyTail_bound (text : Source) (context : ParseContext) (scan : BodyScan) (stop : BodyStop)
       (tv : ValidText text) (nv : ValidNames text context.names) (sv : scan.position ≤ text.length + 1) :
-      (bodyTail text context scan stop).position ≤ text.length + 1 := by
+      (bodyTail (catalog := catalog) text context scan stop).position ≤ text.length + 1 := by
     rw [bodyTail]
     split
     · exact Nat.zero_le _
@@ -310,7 +351,7 @@ mutual
 
   theorem readBody_bound (text : Source) (context : ParseContext) (scan : BodyScan) (stop : BodyStop)
       (tv : ValidText text) (nv : ValidNames text context.names) (sv : scan.position ≤ text.length + 1) :
-      (readBody text context scan stop).position ≤ text.length + 1 := by
+      (readBody (catalog := catalog) text context scan stop).position ≤ text.length + 1 := by
     rw [readBody]
     try dsimp only
     split
@@ -322,13 +363,13 @@ mutual
 end
 
 @[simp] theorem statementBody_zero {text context scan} (zero : scan.position = 0) :
-    statementBody text context scan = invalidBody scan := by rw [statementBody]; simp [zero]
+    statementBody (catalog := catalog) text context scan = invalidBody scan := by rw [statementBody]; simp [zero]
 @[simp] theorem bodyTail_zero {text context scan stop} (zero : scan.position = 0) :
-    bodyTail text context scan stop = invalidBody scan := by rw [bodyTail]; simp [zero]
+    bodyTail (catalog := catalog) text context scan stop = invalidBody scan := by rw [bodyTail]; simp [zero]
 @[simp] theorem alternativeBody_zero {text context scan} (zero : scan.position = 0) :
-    alternativeBody text context scan = invalidBody scan := by rw [alternativeBody]; simp [zero]
+    alternativeBody (catalog := catalog) text context scan = invalidBody scan := by rw [alternativeBody]; simp [zero]
 @[simp] theorem readBody_zero {text context scan stop} (zero : scan.position = 0) :
-    readBody text context scan stop = invalidBody scan := by rw [readBody, statementBody_zero zero]; rfl
+    readBody (catalog := catalog) text context scan stop = invalidBody scan := by rw [readBody, statementBody_zero (catalog := catalog) zero]; rfl
 
 theorem readCondition_zero (text : Source) (context : ParseContext) (facts : ActiveFlow) :
     readCondition text context 0 facts = invalidCondition facts := by
@@ -341,13 +382,13 @@ theorem branchStart_zero {text context scan keyword} (zero : scan.position = 0) 
     ↓reduceIte, readCondition_zero, invalidCondition]
 
 theorem conditionalBody_zero {text context scan} (zero : scan.position = 0) :
-    conditionalBody text context scan = invalidBody scan := by
+    conditionalBody (catalog := catalog) text context scan = invalidBody scan := by
   rw [conditionalBody]
   simp only [branchStart_zero zero, zero, Nat.le_refl, ↓reduceIte]
 
 theorem conditionalBody_progress (text : Source) (context : ParseContext) (scan : BodyScan)
-    (positive : (conditionalBody text context scan).position ≠ 0) :
-    scan.position < (conditionalBody text context scan).position := by
+    (positive : (conditionalBody (catalog := catalog) text context scan).position ≠ 0) :
+    scan.position < (conditionalBody (catalog := catalog) text context scan).position := by
   rw [conditionalBody] at positive ⊢
   try dsimp only at *
   split <;> rename_i start
@@ -368,8 +409,8 @@ theorem conditionalBody_progress (text : Source) (context : ParseContext) (scan 
     · simp only [advanced, ↓reduceDIte, invalidBody, ne_eq, not_true_eq_false] at positive
 
 theorem statementBody_progress (text : Source) (context : ParseContext) (scan : BodyScan)
-    (positive : (statementBody text context scan).position ≠ 0) :
-    scan.position < (statementBody text context scan).position := by
+    (positive : (statementBody (catalog := catalog) text context scan).position ≠ 0) :
+    scan.position < (statementBody (catalog := catalog) text context scan).position := by
   rw [statementBody] at positive ⊢
   by_cases zero : scan.position = 0
   · rw [ite_eq_left zero] at positive
@@ -377,17 +418,17 @@ theorem statementBody_progress (text : Source) (context : ParseContext) (scan : 
   · rw [ite_eq_right zero] at positive ⊢
     by_cases found : fixedAfter text scan.position "if" true ≠ 0
     · rw [ite_eq_left found] at positive ⊢
-      exact conditionalBody_progress text context scan positive
+      exact conditionalBody_progress (catalog := catalog) text context scan positive
     · rw [ite_eq_right found] at positive ⊢
       by_cases loopFound : fixedAfter text scan.position "for" true ≠ 0
       · rw [ite_eq_left loopFound] at positive ⊢
-        exact loopBody_progress text context scan positive
+        exact loopBody_progress (catalog := catalog) text context scan positive
       · rw [ite_eq_right loopFound] at positive ⊢
-        exact basicBody_progress text context scan positive
+        exact basicBody_progress (catalog := catalog) text context scan positive
 
 theorem bodyTail_nondecreasing (text : Source) (context : ParseContext) (scan : BodyScan) (stop : BodyStop)
-    (positive : (bodyTail text context scan stop).position ≠ 0) :
-    scan.position ≤ (bodyTail text context scan stop).position := by
+    (positive : (bodyTail (catalog := catalog) text context scan stop).position ≠ 0) :
+    scan.position ≤ (bodyTail (catalog := catalog) text context scan stop).position := by
   rw [bodyTail] at positive ⊢
   split <;> rename_i zero
   · simp [zero, invalidBody] at positive
@@ -401,14 +442,14 @@ theorem bodyTail_nondecreasing (text : Source) (context : ParseContext) (scan : 
       · simp only [failed, ↓reduceIte] at positive
         split <;> rename_i advanced
         · simp only [advanced, ↓reduceDIte] at positive
-          have next := bodyTail_nondecreasing text context (statementBody text context scan) stop positive
+          have next := bodyTail_nondecreasing text context (statementBody (catalog := catalog) text context scan) stop positive
           omega
         · simp only [advanced, ↓reduceDIte, invalidBody, ne_eq, not_true_eq_false] at positive
 termination_by bodyRemaining text scan
 
 theorem readBody_progress (text : Source) (context : ParseContext) (scan : BodyScan) (stop : BodyStop)
-    (positive : (readBody text context scan stop).position ≠ 0) :
-    scan.position < (readBody text context scan stop).position := by
+    (positive : (readBody (catalog := catalog) text context scan stop).position ≠ 0) :
+    scan.position < (readBody (catalog := catalog) text context scan stop).position := by
   rw [readBody] at positive ⊢
   try dsimp only at *
   split <;> rename_i zero
@@ -416,8 +457,8 @@ theorem readBody_progress (text : Source) (context : ParseContext) (scan : BodyS
   · simp only [zero, ↓reduceIte] at positive
     split <;> rename_i advanced
     · simp only [advanced, ↓reduceDIte] at positive
-      exact Nat.lt_of_lt_of_le (statementBody_progress text context scan zero)
-        (bodyTail_nondecreasing text context _ stop positive)
+      exact Nat.lt_of_lt_of_le (statementBody_progress (catalog := catalog) text context scan zero)
+        (bodyTail_nondecreasing (catalog := catalog) text context _ stop positive)
     · simp only [advanced, ↓reduceDIte, invalidBody, ne_eq, not_true_eq_false] at positive
 
 end Silver.Predicate

@@ -1,0 +1,50 @@
+{
+  "bundle": "evidence.tar.gz",
+  "sha256": "933cd88f2db10046c63d5765cb81611ae83d098aa5bcb2bdb035f0a27f7d93d3",
+  "bytes": 11671,
+  "members": 8,
+  "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-delivery-review-298/tmp/fixture-watchdog-assessment-298/shareable-assessment.tar.gz",
+  "scope": "Read-only watchdog provenance and exact fixture-only180-second build proposal, with AST equivalence check; no changed-timeout result in this packet.",
+  "member_inventory": [
+    {
+      "path": "ASSESSMENT.md",
+      "bytes": 11003,
+      "sha256": "1271003281471927b568dec43654d30c00465db9b2b0102b42960eebf4c7a981"
+    },
+    {
+      "path": "fixture-build-watchdog-180.patch",
+      "bytes": 1580,
+      "sha256": "5b666993e70dae3672a83012ff96e45d09a870a463c3c9f356d8e1d60cb36c4f"
+    },
+    {
+      "path": "manifest.json",
+      "bytes": 953,
+      "sha256": "a1b31ef70a72531dc775a93ddbafd60f734116c71f98104ae0c26ffa1f862512"
+    },
+    {
+      "path": "provenance.json",
+      "bytes": 5360,
+      "sha256": "7ff376f048017d3ab783c5aa1718b4c1bc551d90ac55b154625d300fe52a0d41"
+    },
+    {
+      "path": "source-identities.json",
+      "bytes": 905,
+      "sha256": "54af3d9cdc1ca4c8a0caa601d91b945a58fbbe0722f15ff753584d50ab76344d"
+    },
+    {
+      "path": "static-review.json",
+      "bytes": 634,
+      "sha256": "40c7a2053135b3377d66b86afcf673c46ece390752eee8c0cd82d2c3257f9c06"
+    },
+    {
+      "path": "test_lean_modules.original.py",
+      "bytes": 16118,
+      "sha256": "cb287c6dc17b7955edeb701775cc04ca4f92ede68a4393d7d77acd6b5ee67657"
+    },
+    {
+      "path": "test_lean_modules.proposed.py",
+      "bytes": 16332,
+      "sha256": "e1b5c2212a7f5b0c3d9cca93224237d5eb26e5064cc8e5573e60f958fb724c5c"
+    }
+  ]
+}

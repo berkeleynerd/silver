@@ -1,0 +1,57 @@
+{
+  "source_packet_commit": "8f39d74fa588e4f811de3ef4cdb8ffc5cbaf3641",
+  "verified_indexed_gzip": 221,
+  "verified_uncompressed_bytes": 102299161,
+  "all_artifacts_tracked": true,
+  "raw_report_verification": [
+    {
+      "target": "Actuals_After",
+      "run_id": "20261108T092903-fba617d20124",
+      "checks": 22,
+      "branches": 194,
+      "postcondition_branches": 2,
+      "all_proved": true
+    },
+    {
+      "target": "Actuals_Model",
+      "run_id": "20261108T092545-9e7bbff4ca54",
+      "checks": 14,
+      "branches": 73,
+      "postcondition_branches": 1,
+      "all_proved": true
+    },
+    {
+      "target": "Boolean_Declaration_At",
+      "run_id": "20261108T091430-82e1dc49e0e1",
+      "checks": 40,
+      "branches": 217,
+      "postcondition_branches": 13,
+      "all_proved": true
+    },
+    {
+      "target": "Function_Local_At",
+      "run_id": "20261108T093741-791fda34c956",
+      "checks": 7,
+      "branches": 49,
+      "postcondition_branches": 13,
+      "all_proved": true
+    },
+    {
+      "target": "Function_Return_After",
+      "run_id": "20261108T093913-9f0356646570",
+      "checks": 9,
+      "branches": 34,
+      "postcondition_branches": 1,
+      "all_proved": true
+    },
+    {
+      "target": "Scalar_Declaration_At",
+      "run_id": "20261108T091045-bbad5e1bc42a",
+      "checks": 23,
+      "branches": 137,
+      "postcondition_branches": 13,
+      "all_proved": true
+    }
+  ],
+  "scope": "focused full-body results only; complete native and Lean validation remain separate"
+}

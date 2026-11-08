@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The program only branches on Booleans, loops over Boolean'Range and prints fixed literals, so it has no arithmetic, indexing or loop-carried values for a check to fail on, and procedures need no termination proof. Initialization of the out parameters and of x and y on every path follows directly from data flow.
 
-Position 112 in the [progression](../../progression.md#stage-5), in stage 5.
+Position 113 in the [progression](../../progression.md#stage-5), in stage 5.
 
 ## Approach
 

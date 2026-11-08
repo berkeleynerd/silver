@@ -66,6 +66,9 @@ structure HelperMeaning (primitive : Primitives) : Prop where
     primitive.scalarTarget text context position = Predicate.scalarTarget text context.model position
   scalarAssignment : ∀ text context scan, ScalarAssignmentDomain text context scan →
     primitive.scalarAssignment text context scan = scalarAssignmentBody text context.model scan
+  callAssignment : ∀ text context scan catalog, ScalarAssignmentDomain text context scan →
+    FunctionBindings.ValidMetadata text catalog →
+    primitive.callAssignment text context scan catalog = callAssignmentBody text context.model scan catalog
   booleanTarget : ∀ text context position, TargetDomain text context position →
     primitive.booleanTarget text context position = Predicate.booleanTarget text context.model position
   booleanAssignment : ∀ text context scan, ScalarAssignmentDomain text context scan →
@@ -110,6 +113,9 @@ noncomputable def totalize (primitive : Primitives) : Primitives := by
       primitive.scalarTarget text context position else Predicate.scalarTarget text context.model position
     scalarAssignment := fun text context scan => if ScalarAssignmentDomain text context scan then
       primitive.scalarAssignment text context scan else scalarAssignmentBody text context.model scan
+    callAssignment := fun text context scan catalog =>
+      if ScalarAssignmentDomain text context scan ∧ FunctionBindings.ValidMetadata text catalog then
+        primitive.callAssignment text context scan catalog else callAssignmentBody text context.model scan catalog
     booleanTarget := fun text context position => if TargetDomain text context position then
       primitive.booleanTarget text context position else Predicate.booleanTarget text context.model position
     booleanAssignment := fun text context scan => if ScalarAssignmentDomain text context scan then
@@ -200,6 +206,12 @@ theorem totalize_equations {primitive : Primitives} (meaning : HelperMeaning pri
     split
     · exact meaning.scalarAssignment text context scan ‹_›
     · rfl
+  callAssignment := by
+    funext text context scan catalog
+    dsimp only [totalize]
+    split
+    · exact meaning.callAssignment text context scan catalog (And.left ‹_›) (And.right ‹_›)
+    · rfl
   booleanTarget := by
     funext text context position
     dsimp only [totalize]
@@ -238,9 +250,10 @@ theorem totalize_eq_model {primitive : Primitives} (meaning : HelperMeaning prim
     totalize primitive = modelPrimitives := (totalize_equations meaning).eq_model
 
 theorem basicEval_normalized {primitive : Primitives} (meaning : HelperMeaning primitive)
-    (text : Source) (context : Native.Context) (scan : BodyScan) :
-    basicEval (totalize primitive) text context scan = basicBody text context.model scan :=
-  basicEval_of_equations (totalize_equations meaning) text context scan
+    (text : Source) (context : Native.Context) (scan : BodyScan)
+    (catalog : FunctionBindings.Metadata := {}) :
+    basicEval (totalize primitive) text context scan catalog = basicBody text context.model scan catalog :=
+  basicEval_of_equations (totalize_equations meaning) text context scan catalog
 
 theorem model_helper_meaning : HelperMeaning modelPrimitives where
   callAfter _ _ _ _ _ _ _ _ _ := rfl
@@ -255,6 +268,7 @@ theorem model_helper_meaning : HelperMeaning modelPrimitives where
   invalid _ _ := rfl
   scalarTarget _ _ _ _ := rfl
   scalarAssignment _ _ _ _ := rfl
+  callAssignment _ _ _ _ _ _ := rfl
   booleanTarget _ _ _ _ := rfl
   booleanAssignment _ _ _ _ := rfl
   arrayTarget _ _ _ _ := rfl

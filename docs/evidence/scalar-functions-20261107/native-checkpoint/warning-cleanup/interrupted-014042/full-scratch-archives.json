@@ -1,0 +1,29 @@
+{
+  "captured_utc": "2026-11-08T04:01:02.546197+00:00",
+  "scope": "Full inactive interrupted report/cache snapshots retained in owned scratch, separate from successful proof evidence. Original cache/sessions stay in place for continuation.",
+  "archives": [
+    {
+      "kind": "reports",
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-parser-repairs-298/.silver/linux-x86_64/compiler/obj/gnatprove",
+      "scratch_archive": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-parser-repairs-298/tmp/report-warning-repair/interrupted-014042-reports.tar.gz",
+      "compressed_sha256": "cccb3a75d766d100827d05f464cdc6d5fe186fa3f7a0f2374c4dd136dc0765e0",
+      "compressed_bytes": 335392813,
+      "source_file_count": 4024,
+      "source_bytes": 2291961805
+    },
+    {
+      "kind": "cache",
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-parser-repairs-298/.silver/linux-x86_64/proof-cache/gnatprove/ea6aba21eca447a9c8473fc1c3ea0300b03a95ce919d8a326f68a67989029329",
+      "scratch_archive": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-parser-repairs-298/tmp/report-warning-repair/interrupted-014042-cache.tar.gz",
+      "compressed_sha256": "3a41567f5de088f5f910834347614402599494da3d4b29d000cabda0086b756c",
+      "compressed_bytes": 37402480,
+      "source_file_count": 83564,
+      "source_bytes": 143638379
+    }
+  ],
+  "detailed_inventory": {
+    "path": "full-scratch-archives.json.gz",
+    "sha256": "699dbac6317ab13468351985d7dd3c417c22bb9985b84073fe927ff2e9ab098d",
+    "bytes": 13126131
+  }
+}

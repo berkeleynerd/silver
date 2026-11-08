@@ -18,12 +18,14 @@ set_option maxHeartbeats 2000000
 def toNative (context : BooleanDeclarationNative.Context) : Native.Context :=
   ⟨context.names, context.dynamicFirst, context.dynamicAfter, context.scalarNames,
     context.declarationCount, context.arrayNames, context.subtypeHiding, context.booleanNames,
-    context.trueHidden, context.falseHidden, context.elaborating, context.maskFirst, context.maskAfter⟩
+    context.trueHidden, context.falseHidden, context.elaborating, context.maskFirst, context.maskAfter,
+    context.pure, context.integerHidden⟩
 
 def fromNative (context : Native.Context) : BooleanDeclarationNative.Context :=
   ⟨context.names, context.dynamicFirst, context.dynamicAfter, context.scalarNames,
     context.declarationCount, context.arrayNames, context.subtypeHiding, context.booleanNames,
-    context.trueHidden, context.falseHidden, context.elaborating, context.maskFirst, context.maskAfter⟩
+    context.trueHidden, context.falseHidden, context.elaborating, context.maskFirst, context.maskAfter,
+    context.pure, context.integerHidden⟩
 
 @[simp] theorem toNative_model (context : BooleanDeclarationNative.Context) :
     (toNative context).model = context.model := rfl
@@ -54,10 +56,10 @@ theorem initializer_context_valid (text : Source) (state : ParserState) (argumen
   have bounds := part_bounds text state valid.1.1
   have allowed : newNameAllowed text state (booleanDeclarationParts text state).first
       (booleanDeclarationParts text state).after arguments = true := by
-    simp only [booleanDeclarationReady, Bool.and_eq_true, decide_eq_true_eq] at ready
-    exact ready.1.1.1
+    simp only [booleanDeclarationReady, Bool.and_eq_true, decide_eq_true_eq, and_assoc] at ready
+    exact ready.1
   have name := model_new_name_valid text state _ _ arguments bounds.after allowed
-  rcases valid.1 with ⟨_, names, dynamic, _, _, scalars, arrays, _, booleans⟩
+  rcases valid.1 with ⟨_, names, dynamic, _, _, scalars, arrays, _, booleans, _, _, _⟩
   exact ⟨names, dynamic, scalars, valid.2.contextReady scalars.1, arrays.1, booleans, Or.inr name, valid.bounds⟩
 
 theorem initializer_flow_valid (text : Source) (state : ParserState)

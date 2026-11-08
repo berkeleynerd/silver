@@ -28,7 +28,7 @@ theorem rendered_tokens : tokensBody = candidate_tokens := by
   decide +kernel
 
 def candidate_scan_step : List String :=
-  ["if", "token", "=", "statements", "then", "read_statements", "(", "text", ",", "scan", ",", "end_keyword", ")", "else", "(", "scan", "with", "delta", "state", "=>", "step", "(", "text", ",", "form", ",", "token", ",", "scan", ".", "state", ")", ")"]
+  ["if", "token", "=", "statements", "then", "read_statements", "(", "text", ",", "scan", ",", "end_keyword", ")", "else", "(", "declare", "next", ":", "constant", "parser_state", ":=", "step", "(", "text", ",", "form", ",", "token", ",", "scan", ".", "state", ")", ";", "begin", "(", "scan", "with", "delta", "state", "=>", "next", ",", "assigned", "=>", "scan", ".", "assigned", "or", "next", ".", "assigned_in_functions", ")", ")"]
 
 theorem rendered_scan_step : scanStepBody.render = candidate_scan_step := by
   simp only [scanStepBody, Expr.render, Expr.renderElse, Condition.render]

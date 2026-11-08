@@ -100,7 +100,10 @@ theorem context_same {context : Context} {scan : Scan} {result : ScanResult}
   cases context
   simp only [SameContext, expand] at same
   simp only [contextOf]
-  simp only [same.1, same.2.1, same.2.2.1, same.2.2.2.2.1, same.2.2.2.2.2.1, same.2.2.2.2.2.2.1, same.2.2.2.2.2.2.2]
+  rcases same with ⟨names, dynamicFirst, dynamicAfter, _, scalars, arrays, subtypes,
+    booleans, functions, pure, assigned, hidden, firstParameter⟩
+  simp only [names, dynamicFirst, dynamicAfter, scalars, arrays, subtypes,
+    booleans, functions, pure, assigned, hidden, firstParameter]
 
 theorem compact_position {context : Context} {result : ScanResult}
     (target : result.state.target ≤ context.names.length) :

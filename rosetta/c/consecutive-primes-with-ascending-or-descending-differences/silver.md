@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All arrays have static bounds, all loops are in a procedure, and every index and counter is bounded by a subtype or a guard just before use, so no annotation is needed. The only non-routine parts are the sieve step index and the counters, which are handled by guards and bounded subtypes.
 
-Position 216 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 217 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

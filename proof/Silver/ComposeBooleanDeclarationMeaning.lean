@@ -59,6 +59,11 @@ structure ImportsMeaning (imports : Imports) (text : Source) (state : ParserStat
   nameIsBoolean : let p := booleanDeclarationParts text state
     newNameAllowed text state p.first p.after arguments = true →
     imports.nameIsBoolean text p.first p.after = Named.nameIs text p.first p.after ("boolean".toList.map Char.toNat)
+  nameIsMark : ∀ mark, let p := booleanDeclarationParts text state
+    p.typeAfter ≠ 0 → imports.nameIsMark mark text p.typeFirst p.typeAfter =
+      Named.nameIs text p.typeFirst p.typeAfter (mark.word.toList.map Char.toNat)
+  formalHides : let p := booleanDeclarationParts text state
+    imports.formalHides text state p.typeFirst p.typeAfter = Compose.formalHides text state p.typeFirst p.typeAfter
   lookup : ∀ kind, let p := booleanDeclarationParts text state
     imports.lookup kind text state p.typeFirst p.typeAfter = BooleanDeclarationNative.lookup kind text state p.typeFirst p.typeAfter
   context : imports.contextOf ⟨state, false, false⟩ = contextOf ⟨state, false, false⟩
@@ -80,7 +85,10 @@ theorem reject_meaning (imports : Imports) (text : Source) (state : ParserState)
   dsimp +instances only [reject, modelImports]
   by_cases allowed : newNameAllowed text state (booleanDeclarationParts text state).first
       (booleanDeclarationParts text state).after arguments = true
-  · simp only [meaning.newName, meaning.nameIsBoolean allowed, meaning.lookup]
+  · by_cases absent : (booleanDeclarationParts text state).typeAfter = 0
+    · simp only [meaning.newName, absent, decide_true, Bool.or_true, Bool.true_or]
+    · simp only [meaning.newName, meaning.nameIsBoolean allowed, meaning.lookup,
+        meaning.formalHides, meaning.nameIsMark _ absent]
   · have rejected : newNameAllowed text state (booleanDeclarationParts text state).first
         (booleanDeclarationParts text state).after arguments = false := Bool.eq_false_iff.mpr allowed
     simp only [meaning.newName, rejected, Bool.not_false, Bool.true_or]

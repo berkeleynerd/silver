@@ -324,6 +324,7 @@ SURFACE_LABELS = {"integer-for-loops": "Integer range for loops",
                   "constant-integer-array-iteration": "constant Integer-array iteration",
                   "named-integer-subtypes": "named Integer subtypes and bounded components",
                   "scalar-boolean-objects": "scalar Boolean objects and expressions",
+                  "scalar-functions": "small nonrecursive scalar functions",
                   "bounded-string-characters": "bounded String indexing and Character operations",
                   "integer-object-size-read": "Integer object Size attribute reads",
                   "integer-image": "Integer image", "booleans": "Boolean objects",
@@ -349,6 +350,7 @@ USES = {"stdin": "standard input", "files": "files", "arguments": "arguments", "
 # The question each construct's admission must answer: the decidable rule under which every program
 # using it proves automatically.
 ADMISSION = {
+    "scalar-functions": "How do closed Integer/Boolean local functions, full formal-domain body checks, immutable formals, earlier-only calls, finite loops, terminal typed returns and whole scalar assignment calls preserve scope, source correspondence, universal safety, termination and complete automatic discharge without caller-visible mutation?",
     "fixed-string-replacement": "Which argument forms and source bounds guarantee valid Low/High positions, a bounded result and complete automatic discharge for the selected Replace_Slice operation, with corresponding library verification and compilation?",
     "unicode-identifiers": "Which Unicode identifier repertoire and source encoding are admitted, and how do lexer identity, Ada case folding, byte limits and frontend source correspondence agree?",
     "scalar-guard-refinement": "Which comparisons refine scalar intervals on each branch, and how do assignments, joins and loops preserve soundness and automatic discharge?",

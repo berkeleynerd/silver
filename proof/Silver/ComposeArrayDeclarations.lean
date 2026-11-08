@@ -43,11 +43,16 @@ def ArrayDeclarationReady (text : Source) (state : ParserState) (arguments : Boo
     ScalarExpression.lookup text state.scalarNames parts.typeFirst parts.typeAfter = 0 ∧
     ArrayBindings.lookup text state.arrayNames.names parts.typeFirst parts.typeAfter = 0 ∧
     BooleanBindings.lookup text state.booleanNames parts.typeFirst parts.typeAfter = 0 ∧
+    FunctionBindings.lookup text state.functions parts.typeFirst parts.typeAfter = 0 ∧
+    formalHides text state parts.typeFirst parts.typeAfter = false ∧
+    (state.hiding.integerHidden = true → Named.nameIs text parts.typeFirst parts.typeAfter ("integer".toList.map Char.toNat) = false) ∧
+    (state.hiding.booleanHidden = true → Named.nameIs text parts.typeFirst parts.typeAfter ("boolean".toList.map Char.toNat) = false) ∧
+    (state.hiding.characterHidden = true → Named.nameIs text parts.typeFirst parts.typeAfter ("character".toList.map Char.toNat) = false) ∧
     parts.isBoolean = false
 
 theorem ArrayDeclarationReady.integer {text state arguments parts}
     (ready : ArrayDeclarationReady text state arguments parts) : parts.isBoolean = false := by
-  rcases ready with ⟨_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, kind⟩
+  rcases ready with ⟨_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, kind⟩
   exact kind
 
 theorem arrayParts_integer_type {text state}
@@ -289,7 +294,7 @@ theorem array_declaration_complete {text arguments state declaration final}
       · rename_i bad
         exfalso
         simp_all [ArrayDeclarationReady, Bool.or_eq_true]
-        omega
+        rcases bad with numeric | hidden | hidden | hidden <;> (try simp_all) <;> omega
       · simp only [aggregateEq, start, valuesEq, positive, ↓reduceIte]
         rw [← followingEq, ite_eq_right (Nat.not_le.mpr advances)]
         simp only [ArrayDeclarationParts.binding, ArrayDeclarationParts.length, kind]

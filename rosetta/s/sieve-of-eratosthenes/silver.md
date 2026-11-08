@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The bounded sieve follows the cached task's marking algorithm, using only its allowed square-root and prime-square optimizations. K <= Limit / Base makes the Multiple guard true for every reached product, so it omits no required crossing. Expected output is independently derived by trial division. Native driver execution is retained separately from complete resulting-language assurance; the [mapping record](../../assessment-boolean-arrays-20261106.md) links the delivery evidence and preserves the original assessment provenance.
 
-Position 60 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 61 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

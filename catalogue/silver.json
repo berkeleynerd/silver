@@ -436,6 +436,7 @@
           "string_assignment",
           "integer_assignment",
           "boolean_assignment",
+          "scalar_function_call",
           "integer_array_assignment",
           "boolean_array_assignment",
           "expression_output",
@@ -483,6 +484,7 @@
           "string_assignment",
           "integer_assignment",
           "boolean_assignment",
+          "scalar_function_call",
           "integer_array_assignment",
           "boolean_array_assignment",
           "expression_output",
@@ -530,7 +532,7 @@
         "constant": true,
         "initializer_required": true,
         "initializer": "boolean_expression",
-        "declaration_context": "ordered declarations in either output shell",
+        "declaration_context": "ordered Main declarations or scalar function locals under closed initialization rules",
         "visibility": "earlier initialized values and Boolean-array cells only; no self, forward or cyclic references; declarations hide predefined names in their own declaration",
         "name_rules": "shared case-insensitive declaration uniqueness and reserved-name rules; Boolean object cannot be named Boolean; True and False remain legal names",
         "copy_semantics": "snapshot of the initialized Boolean value; no retained predicate provenance",
@@ -546,7 +548,7 @@
         "constant": false,
         "initializer_required": true,
         "initializer": "boolean_expression",
-        "declaration_context": "ordered declarations in either output shell",
+        "declaration_context": "ordered Main declarations or scalar function locals under closed initialization rules",
         "visibility": "earlier initialized values and Boolean-array cells only; no self, forward or cyclic references; declarations hide predefined names in their own declaration",
         "name_rules": "shared case-insensitive declaration uniqueness and reserved-name rules; Boolean object cannot be named Boolean; True and False remain legal names",
         "copy_semantics": "snapshot of the initialized Boolean value; no retained predicate provenance",
@@ -623,14 +625,17 @@
           "boolean_assignment_rhs",
           "boolean_array_initializer_component",
           "boolean_array_assignment_rhs",
-          "condition"
+          "condition",
+          "function_boolean_actual",
+          "function_boolean_return"
         ],
         "primaries": [
           "visible predefined True or False",
           "visible initialized Boolean object",
           "boolean_array_read",
           "input_guard",
-          "parenthesized_condition"
+          "parenthesized_condition",
+          "immutable Boolean formal in a function body"
         ],
         "not": "one primary; repeated negation requires grouping",
         "relations": "existing safe String, Character, length and Integer comparisons, plus Boolean equality and inequality",
@@ -655,7 +660,7 @@
           "Boolean Image",
           "Boolean ordering",
           "general enumeration iteration",
-          "Boolean-valued user routines"
+          "calls embedded in Boolean expressions; whole scalar assignment calls use scalar_function_call"
         ],
         "xor_operands": "neither operand may contain xor; String/Character literals, comments and identifier substrings do not count; independent xor expressions remain permitted",
         "xor_scope_purpose": "avoid repeated formula multiplication in the pinned proof producer; not an Ada restriction"
@@ -819,9 +824,9 @@
         "exclude_ada_2022_reserved_words": true,
         "case_insensitive_binding": true,
         "all_declared_names_distinct_ignoring_case": true,
-        "shared_name_environment": "String, Character, Integer and Boolean objects, named Integer subtypes and Integer/Boolean-array declarations; scoped loop indexes and Integer-array elements may hide them in bodies",
+        "shared_name_environment": "String, Character, Integer and Boolean objects, named Integer subtypes, Integer/Boolean arrays and scalar functions; scoped local/formal names and loop binders obey their hiding rules",
         "type_mark_visible": true,
-        "declaration_context": "every output shell; after the first argument binding in argument shells",
+        "declaration_context": "every output shell after argument initialization when present, or a scalar function local declaration under its closed initialization rules",
         "count": "finite_within_complete_source_bound",
         "value_range": [
           -2147483648,
@@ -857,9 +862,9 @@
         "exclude_ada_2022_reserved_words": true,
         "case_insensitive_binding": true,
         "all_declared_names_distinct_ignoring_case": true,
-        "shared_name_environment": "String, Character, Integer and Boolean objects, named Integer subtypes and Integer/Boolean-array declarations; scoped loop indexes and Integer-array elements may hide them in bodies",
+        "shared_name_environment": "String, Character, Integer and Boolean objects, named Integer subtypes, Integer/Boolean arrays and scalar functions; scoped local/formal names and loop binders obey their hiding rules",
         "type_mark_visible": true,
-        "declaration_context": "every output shell; after the first argument binding in argument shells",
+        "declaration_context": "every output shell after argument initialization when present, or a scalar function local declaration under its closed initialization rules",
         "count": "finite_within_complete_source_bound",
         "value_range": [
           -2147483648,
@@ -883,7 +888,8 @@
         "type_identity": "constrains Integer without creating a distinct type",
         "uses": [
           "scalar constant or mutable object subtype mark",
-          "fixed anonymous Integer-array component mark"
+          "fixed anonymous Integer-array component mark",
+          "scalar function formal or result subtype mark"
         ],
         "object_local_range": "optional nonempty static subset of the named subtype",
         "name_rules": "case-insensitive distinct names across every declaration; same reserved-name exclusions as Integer objects; parent Integer must remain visible",
@@ -988,7 +994,8 @@
           "visible_mutable_integer",
           "scoped_for_index",
           "scoped_for_element",
-          "integer_array_read"
+          "integer_array_read",
+          "immutable nonstatic Integer formal in a function body"
         ],
         "min_operands": 1,
         "max_operands": 64,
@@ -1032,7 +1039,9 @@
           "integer_image_argument",
           "array_initializer_component",
           "array_assignment_rhs",
-          "array_index_expression_without_array_reads"
+          "array_index_expression_without_array_reads",
+          "function_integer_actual",
+          "function_integer_return"
         ],
         "conversions": false,
         "division": true,
@@ -1376,6 +1385,70 @@
         "target_assignment": false,
         "resizing": false
       }
+    },
+    {
+      "id": "scalar_function",
+      "ada_kind": "subprogram_body",
+      "conditions": {
+        "declaration_context": "ordered Main declarations in either output shell, after argument initialization when present",
+        "formal_list": "nonempty; exactly one name per formal; explicit in; no default",
+        "formal_and_result_types": [
+          "visible predefined Integer",
+          "earlier visible named Integer subtype",
+          "visible predefined Boolean"
+        ],
+        "locals": "initialized Integer/Boolean scalar constants or variables; earlier exact local snapshots; no formal, captured-object or call reads during initialization",
+        "body": "zero or more null statements, local scalar assignments, earlier-function call assignments, pure scalar/Boolean conditions and finite counted loops, followed by one typed terminal return",
+        "formal_domain": "full product of declared subtype domains, independently of actual callers, including unused functions",
+        "integer_formal_flow": "immutable, nonstatic, full declared entry interval; bare-name guards refine; mutable loop widening preserves entry formal facts",
+        "return": "Integer interval nonempty and contained in result subtype; Boolean condition safe without retained predicate facts",
+        "visibility": "case-insensitive distinct Main declarations; formal/local names distinct and cannot collide with earlier subtype names; preserve outer hiding; local values and loop binders may hide earlier functions",
+        "calls": "only earlier completely accepted functions; no self, forward or recursive calls",
+        "effects": "no outer object reads or writes, output, input acquisition/query or Reject",
+        "scope_purpose": "closed scalar bodies and terminal returns establish total pure function composition without captures, early-return analysis or general expression calls",
+        "budgets": "4096 complete source bytes; existing 64 expression operands and source-wide 63 arithmetic/concatenation operators across all bodies; pooled source-derived signature/formal storage",
+        "explicit_in_purpose": "one-name Integer formals consume at least seven disjoint bytes and Boolean formals thirteen, preserving existing binding capacities",
+        "excluded": [
+          "zero-formal functions",
+          "named actuals",
+          "default formals",
+          "out/in out",
+          "overloads",
+          "forward declarations",
+          "nested functions",
+          "early returns",
+          "local subtype/String/Character/array declarations",
+          "String/Character/length/validity conditions in functions",
+          "author contracts or annotations"
+        ]
+      }
+    },
+    {
+      "id": "scalar_function_call",
+      "ada_kind": "assignment_statement",
+      "conditions": {
+        "position": "whole RHS of assignment to an existing mutable scalar Integer/Boolean object; result kind matches target",
+        "callee": "visible earlier completely accepted function, not hidden by a local value or loop binder",
+        "actuals": "positional, one per formal; existing scalar expressions or Boolean conditions in caller scope; no nested calls",
+        "actual_state": "all actuals checked independently in the same incoming state; Boolean outcomes do not refine other actuals",
+        "integer_actual": "nonempty interval contained in formal subtype",
+        "integer_result": "declared result subtype interval must fit target declared bounds and replaces target flow interval",
+        "boolean_result": "no retained argument, scalar, String-bound or input-validity facts",
+        "frame": "read all actuals before destination update; preserve every other caller store and fact",
+        "composition": "Main sequences, branches, counted loops and constant Integer-array iteration; pure scalar function bodies may call earlier functions",
+        "excluded_positions": [
+          "initializer",
+          "arithmetic",
+          "condition",
+          "output/Image",
+          "subscript",
+          "loop bound",
+          "return expression",
+          "array-element assignment",
+          "other actual"
+        ],
+        "scope_purpose": "keep calls outside existing expression grammar and respect Ada argument-evaluation freedom"
+      }
     }
   ],
   "compositions": [
@@ -1412,7 +1485,8 @@
           "integer_array_object",
           "boolean_array_object",
           "named_character_constant",
-          "named_character_variable"
+          "named_character_variable",
+          "scalar_function"
         ],
         "minimum": 0,
         "count": "finite_within_complete_source_bound",
@@ -1464,7 +1538,8 @@
           "integer_array_object",
           "boolean_array_object",
           "named_character_constant",
-          "named_character_variable"
+          "named_character_variable",
+          "scalar_function"
         ],
         "minimum": 0,
         "count": "finite_within_complete_source_bound",

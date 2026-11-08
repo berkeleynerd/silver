@@ -1,0 +1,9 @@
+{
+  "run_id": "20261108T055144-283b5d488a27",
+  "bundle": "evidence.tar.gz",
+  "sha256": "74168d3bdc55c4b05e2a024b8cfec335c5916ce1ba3d3860128ba2f2ab1b671b",
+  "bytes": 1202929,
+  "members": 120,
+  "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-delivery-review-298/tmp/lake-initial-build-diagnostic-298/shareable-evidence.tar.gz",
+  "scope": "Isolated diagnostic; not a complete passing regression fixture. Private complete environment excluded."
+}

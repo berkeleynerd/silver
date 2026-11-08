@@ -74,6 +74,16 @@ IMAGE_ADVISORY_TEXTS = (IMAGE_ADVISORY_TEXT,
 # Warn_Init_Array in the pinned producer's vc_kinds.ads.
 ARRAY_INITIALIZATION_ADVISORY_TEXT = (
     'initialization of an array in FOR loop is handled imprecisely [array-initialization]')
+# GNATprove and the pinned GNAT compiler use the same arithmetic association.
+# This portability advisory concerns other compilers, not withheld proof facts.
+# Restrict even imported-spec occurrences to the reviewed compiler origins.
+OPERATOR_REASSOCIATION_ADVISORY_TEXT = (
+    'possible reassociation due to missing parentheses [operator-reassociation]')
+OPERATOR_REASSOCIATION_SOURCES = {
+    "silver_function_bindings": {"silver_function_bindings.ads"},
+    "silver_library_reports": {"silver_library_reports.adb"},
+    "silver_output_profile": {"silver_output_profile.adb", "silver_function_bindings.ads"},
+}
 # Runtime units need verification even when the compiler Main does not call them.
 # GNATprove's default only analyzes Main and its transitive dependency closure.
 PROOF_OPTIONS = ["-U", "--mode=all", "--report=all", "--warnings=error",
@@ -298,6 +308,7 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                   trusted_import_units: set[str] | None = None, *,
                   effective_command: list[str] | None = None,
                   application_kind: str | None = None,
+                  application_functions: tuple[str, ...] = (),
                   indexed_main: bool = False,
                   proof_instance: tuple[int, int, int] | None = None,
                   proof_instances: dict[str, tuple[int, int, int]] | None = None,
@@ -316,7 +327,7 @@ def audit_reports(report_dir: Path, expected_units: set[str],
     stats = {"units": 0, "entities": 0, "flow_checks": 0, "proof_checks": 0,
              "limitation_notes": 0, "imported_entities": 0,
              "trusted_math_notes": 0, "vendor_spec_entities": 0,
-             "array_initialization_advisories": 0}
+             "array_initialization_advisories": 0, "operator_reassociation_advisories": 0}
     instances = dict(proof_instances or {})
     if proof_instance is not None:
         require(SEQUENCE_UNIT not in instances, "duplicate compiler proof-container instance")
@@ -333,10 +344,21 @@ def audit_reports(report_dir: Path, expected_units: set[str],
             signed_conversion_entities(signed_conversion_instance))
     require(application_kind in (None, "static", "argument", "assigned", "selected"),
             "unknown application report policy")
+    require(not application_functions or application_kind is not None,
+            "application function inventory requires an application policy")
+    require(len(application_functions) <= 4096 // 32
+            and all(isinstance(name, str) and re.fullmatch(
+                r"[A-Za-z]([A-Za-z0-9]|_[A-Za-z0-9])*", name) is not None
+                    for name in application_functions),
+            "application: invalid source function inventory")
+    function_names = {"main." + name.lower() for name in application_functions}
+    require(len(function_names) == len(application_functions),
+            "application: duplicate source function name")
     if application_kind is not None:
         require("main" in expected_units, "application audit requires Main")
         stats["assignment_advisories"] = 0
         stats["image_advisories"] = 0
+        stats["termination_checks"] = 0
     reports = {unit: read_json(report_dir / name) for unit, name in report_names.items()}
     owned_names: set[str] = set()
     owned_locations: dict[str, set[str]] = {}
@@ -345,6 +367,7 @@ def audit_reports(report_dir: Path, expected_units: set[str],
     math_diagnostics: Counter = Counter()
     image_diagnostics: Counter = Counter()
     array_initialization_diagnostics: Counter = Counter()
+    operator_reassociation_diagnostics: Counter = Counter()
     summary = (report_dir / "gnatprove.out").read_text()
     summaries_by_report = {name: (int(analyzed), int(total)) for name, analyzed, total in
                           re.findall(r"in unit ([^,\s]+), (\d+) subprograms and packages out of (\d+) analyzed", summary)}
@@ -374,28 +397,35 @@ def audit_reports(report_dir: Path, expected_units: set[str],
             # producer shape without inferring source membership from a report.
             main_entities = {key: value for key, value in entities.items()
                              if value.get("name", "").lower() == "main"}
+            local_entities = {key: value for key, value in entities.items()
+                              if value.get("name", "").lower() in function_names}
+            application_entities = main_entities | local_entities
+            require(len(local_entities) == len(function_names)
+                    and {item.get("name", "").lower() for item in local_entities.values()} == function_names,
+                    "application: missing or duplicate source function entity")
+            termination_entities: set[str] = set()
             output_callees = {"Silver_IO.Put_Line", "Silver_IO.Put"}
             callees = {name: "silver_io.ads" for name in output_callees}
             if application_kind in ("argument", "selected"):
                 callees.update({name: "silver_arguments.ads" for name in
                                 ("Silver_Arguments.First_Or_Default",
                                  "Silver_Arguments.Input_Is_Valid", "Silver_Arguments.Reject")})
-            bare = len(entities) == 1
+            bare = len(entities) == len(application_entities)
             expected_names = set() if bare else set(callees)
             actual_names = [value.get("name") for key, value in entities.items()
-                            if key not in main_entities]
+                            if key not in application_entities]
             if not bare:
                 expected_names.difference_update(output_callees - set(actual_names))
             if application_kind in ("argument", "selected") and not bare and "Silver_Arguments.Input_Is_Valid" not in actual_names:
                 expected_names.remove("Silver_Arguments.Input_Is_Valid")
             require(len(main_entities) == 1 and set(actual_names) == expected_names
                     and len(actual_names) == len(expected_names)
-                    and coverage.keys() == main_entities.keys()
+                    and coverage.keys() == application_entities.keys()
                     and all(value == "all" for value in coverage.values()),
-                    "application: unexpected entities or Main coverage")
+                    "application: unexpected entities or application coverage")
             main_key, main = next(iter(main_entities.items()))
             for key, item in entities.items():
-                filename = "main.adb" if key == main_key else callees[item["name"]]
+                filename = "main.adb" if key in application_entities else callees[item["name"]]
                 require(bool(item.get("sloc"))
                         and all(location.get("file") == filename
                                 and type(location.get("line")) is int and location["line"] > 0
@@ -451,6 +481,9 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                 entity = entities.get(f" {reference.get('arg')}", entities.get(str(reference.get("arg"))))
                 require(isinstance(entity, dict), f"{unit}: assumption references unknown entity")
                 name = entity.get("name")
+                if application and name.lower() in function_names:
+                    require(reference["predicate"] in {"CLAIM_AORTE", "CLAIM_EFFECTS"},
+                            "application: local function has an unapproved claim")
                 locations = entity.get("sloc", [])
                 trusted_runtime = name in TRUSTED_RUNTIME_CALLEES and bool(locations) and all(
                     Path(location["file"]).name == TRUSTED_RUNTIME_CALLEES[name]
@@ -465,6 +498,26 @@ def audit_reports(report_dir: Path, expected_units: set[str],
             require(isinstance(records, list), f"{unit}: missing {key} results")
             for record in records:
                 require(isinstance(record, dict), f"{unit}: malformed {key} record")
+                reassociation_note = (record.get("rule") == "operator-reassociation"
+                                      or (isinstance(record.get("message"), dict)
+                                          and record["message"].get("text") == OPERATOR_REASSOCIATION_ADVISORY_TEXT))
+                if reassociation_note:
+                    require(application_kind is None and key == "warn_error"
+                            and set(record) == {"rule", "severity", "how_proved", "file", "line", "col",
+                                                "message", "unproved_status", "check_tree", "suppressed"}
+                            and record.get("rule") == "operator-reassociation"
+                            and record.get("severity") == "warning"
+                            and record.get("how_proved") == "trivial"
+                            and isinstance(record.get("file"), str)
+                            and record.get("file") in OPERATOR_REASSOCIATION_SOURCES.get(unit, set())
+                            and type(record.get("line")) is int and record["line"] > 0
+                            and type(record.get("col")) is int and record["col"] > 0
+                            and record.get("message") == {"text": OPERATOR_REASSOCIATION_ADVISORY_TEXT}
+                            and record.get("unproved_status") == {"status": "unknown"}
+                            and record.get("check_tree") == {}
+                            and record.get("suppressed") == "",
+                            f"{unit}: unexpected operator-reassociation advisory")
+                    stats["operator_reassociation_advisories"] += 1
                 array_note = (record.get("rule") == "array-initialization"
                               or (isinstance(record.get("message"), dict)
                                   and record["message"].get("text") == ARRAY_INITIALIZATION_ADVISORY_TEXT))
@@ -503,7 +556,29 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                                         ("entity", "justification", "justified", "annot_kind", "justif_msg")),
                             "application: unexpected Image advisory")
                     stats["image_advisories"] += 1
-                advisory = application and key == "flow"
+                termination = (application and key == "flow"
+                               and record.get("rule") == "SUBPROGRAM_TERMINATION")
+                if termination:
+                    entity_key = f" {record.get('entity')}"
+                    if entity_key not in entities:
+                        entity_key = str(record.get("entity"))
+                    local = local_entities.get(entity_key)
+                    require(local is not None and entity_key not in termination_entities
+                            and record.get("severity") == "info"
+                            and record.get("how_proved") == "flow"
+                            and record.get("file") == "main.adb"
+                            and type(record.get("line")) is int and record["line"] > 0
+                            and type(record.get("col")) is int and record["col"] > 0
+                            and type(record.get("entity")) is int and record["entity"] > 0
+                            and record.get("message") == {"text":
+                                f'implicit aspect Always_Terminates on "{local["name"].split(".")[1]}" '
+                                "has been proved, subprogram will terminate"}
+                            and not any(field in record for field in
+                                        ("justification", "justified", "suppressed", "annot_kind", "justif_msg")),
+                            "application: unexpected function termination record")
+                    termination_entities.add(entity_key)
+                    stats["termination_checks"] += 1
+                advisory = application and key == "flow" and not termination
                 if advisory:
                     require(record.get("severity") == "warning"
                             and record.get("how_proved") == "flow"
@@ -511,8 +586,12 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                             and type(record.get("line")) is int and record["line"] > 0
                             and type(record.get("col")) is int and record["col"] > 0
                             and type(record.get("entity")) is int and record["entity"] > 0
-                            and entities.get(f" {record['entity']}", entities.get(str(record["entity"]))) == main
-                            and ((record.get("rule") == "INEFFECTIVE"
+                            and entities.get(f" {record['entity']}", entities.get(str(record["entity"]))) in application_entities.values()
+                            and ((record.get("rule") == "UNUSED_VARIABLE"
+                                  and entities.get(f" {record['entity']}", entities.get(str(record["entity"]))) in local_entities.values()
+                                  and re.fullmatch(r'unused variable "[A-Za-z]([A-Za-z0-9]|_[A-Za-z0-9])*"',
+                                                   record.get("message", {}).get("text", "")) is not None)
+                                 or (record.get("rule") == "INEFFECTIVE"
                                   and (re.fullmatch(r'initialization of "[A-Za-z]([A-Za-z0-9]|_[A-Za-z0-9])*" has no effect',
                                                     record.get("message", {}).get("text", "")) is not None
                                        or record.get("message", {}).get("text") in {
@@ -537,8 +616,8 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                             and type(record.get("line")) is int and record["line"] > 0
                             and type(record.get("col")) is int and record["col"] > 0
                             and type(record.get("entity")) is int and record["entity"] > 0
-                            and entities.get(f" {record['entity']}", entities.get(str(record["entity"]))) == main,
-                            "application: expected a proved Main range, length, overflow, division or index check")
+                            and entities.get(f" {record['entity']}", entities.get(str(record["entity"]))) in application_entities.values(),
+                            "application: expected a proved application range, length, overflow, division or index check")
                     require(not any(field in record for field in
                                     ("justification", "justified", "suppressed", "annot_kind", "justif_msg")),
                             "application: suppressed or justified safety check")
@@ -553,7 +632,7 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                                                       record.get("message")))
                 require(record.get("message", {}).get("text") != BIG_INTEGER_VALIDITY_TEXT or math_note,
                         "vendor math note: unreviewed premise classification")
-                require(record.get("severity") == "info" or limitation or advisory or math_note or image_note or array_note,
+                require(record.get("severity") == "info" or limitation or advisory or math_note or image_note or array_note or reassociation_note,
                         f"{unit}: {key} diagnostic is not proved/info: {record}")
                 if limitation:
                     stats["limitation_notes"] += 1
@@ -563,7 +642,7 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                         f"{unit}: justified or unproved {key} result: {record}")
                 require(not record.get("justification") and not record.get("justified"),
                         f"{unit}: justified result")
-                require(("suppressed" not in record or ((limitation or image_note or array_note) and record["suppressed"] == ""))
+                require(("suppressed" not in record or ((limitation or image_note or array_note or reassociation_note) and record["suppressed"] == ""))
                         and not record.get("annot_kind") and not record.get("justif_msg"),
                         f"{unit}: suppressed result")
                 require(isinstance(record.get("rule"), str) and isinstance(record.get("file"), str)
@@ -583,9 +662,14 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                     image_diagnostics[diagnostic] += 1
                 if array_note:
                     array_initialization_diagnostics[diagnostic] += 1
+                if reassociation_note:
+                    operator_reassociation_diagnostics[diagnostic] += 1
+        if application:
+            require(termination_entities == local_entities.keys(),
+                    "application: missing source function termination coverage")
         stats["units"] += 1
         stats["entities"] += len(own_entities)
-        stats["flow_checks"] += 0 if application else len(report["flow"])
+        stats["flow_checks"] += len(termination_entities) if application else len(report["flow"])
         stats["proof_checks"] += len(report["proof"])
 
     sarif = read_json(report_dir / "gnatprove.sarif")
@@ -620,10 +704,28 @@ def audit_reports(report_dir: Path, expected_units: set[str],
     for option, expected in (("--mode", "all"), ("--report", "all")):
         values = [argument.split("=", 1)[1] for argument in arguments if argument.startswith(option + "=")]
         require(values == [expected], f"conflicting/repeated {option} configuration")
+    require(not application_functions or "--no-inlining" in arguments,
+            "application: function proofs require modular no-inlining analysis")
     results = run.get("results")
     require(isinstance(results, list), "missing SARIF results")
     sarif_diagnostics: Counter = Counter()
     for result in results:
+        reassociation_note = (result.get("ruleId") == "operator-reassociation"
+                              or (isinstance(result.get("message"), dict)
+                                  and result["message"].get("text") == OPERATOR_REASSOCIATION_ADVISORY_TEXT))
+        if reassociation_note:
+            # Compare before extracting locations so missing/malformed nested
+            # fields fail closed as well. Multiset equality below retains every
+            # occurrence, including a spec warning repeated by an importing unit.
+            require(any(result == {
+                        "ruleId": "operator-reassociation", "kind": "open", "level": "warning",
+                        "message": {"text": OPERATOR_REASSOCIATION_ADVISORY_TEXT},
+                        "locations": [{"physicalLocation": {
+                            "artifactLocation": {"uri": diagnostic[1]},
+                            "region": {"startLine": diagnostic[2], "startColumn": diagnostic[3]}}}],
+                        "suppressions": [{"kind": "external"}]}
+                        for diagnostic in operator_reassociation_diagnostics),
+                    "SARIF must preserve the exact operator-reassociation advisory classification")
         locations = result.get("locations", [])
         require(len(locations) == 1, "missing/ambiguous SARIF diagnostic location")
         location = locations[0]["physicalLocation"]
@@ -631,6 +733,9 @@ def audit_reports(report_dir: Path, expected_units: set[str],
         diagnostic = (result.get("ruleId"), Path(location["artifactLocation"]["uri"]).name,
                       region["startLine"], region["startColumn"],
                       result.get("message", {}).get("text"))
+        if reassociation_note:
+            require(type(region["startLine"]) is int and type(region["startColumn"]) is int,
+                    "SARIF operator-reassociation locations must be integers")
         advisory = (diagnostic in assignment_diagnostics
                     and location["artifactLocation"]["uri"] == "main.adb"
                     and result.get("kind") == "open" and result.get("level") == "warning")
@@ -666,15 +771,16 @@ def audit_reports(report_dir: Path, expected_units: set[str],
         require((result.get("ruleId") != "array-initialization"
                  and result.get("message", {}).get("text") != ARRAY_INITIALIZATION_ADVISORY_TEXT) or array_note,
                 "unreviewed SARIF array-initialization advisory")
-        require(result.get("kind") in ("pass", "informational") or limitation or advisory or math_note or image_note or array_note,
+        require(result.get("kind") in ("pass", "informational") or limitation or advisory or math_note or image_note or array_note or reassociation_note,
                 f"SARIF result not proved: {result}")
-        require(result.get("level", "none") in ("none", "note") or limitation or advisory or math_note or image_note or array_note,
+        require(result.get("level", "none") in ("none", "note") or limitation or advisory or math_note or image_note or array_note or reassociation_note,
                 f"SARIF warning/error: {result}")
         # GNATprove marks its disabled-by-default limitation diagnostics as
-        # externally suppressed. This is not an obligation suppression.
+        # externally suppressed, as it does the pedantic reassociation advisory.
+        # These producer markers are not obligation suppressions.
         suppressions = result.get("suppressions", [])
         require((not image_note and not suppressions)
-                or ((limitation or image_note or array_note) and suppressions == [{"kind": "external"}]),
+                or ((limitation or image_note or array_note or reassociation_note) and suppressions == [{"kind": "external"}]),
                 "suppressed SARIF diagnostic")
         sarif_diagnostics[diagnostic] += 1
     require(diagnostics == sarif_diagnostics, "SARIF and SPARK diagnostic coverage disagree")
@@ -731,11 +837,19 @@ def audit_source_policy(source: Path) -> None:
     # directives. Report-level checks remain necessary for skipped/justified
     # obligations; source checks also reject directives that could prevent a
     # check from being generated in the first place.
-    tokens = [piece.lower() for piece in source_tokens(source)]
+    tokens = [piece if piece.startswith('"') else piece.lower() for piece in source_tokens(source)]
     forbidden = {"assume", "suppress", "suppress_all", "assertion_policy", "check_policy",
                  "check", "annotate", "warnings"}
-    for left, right in zip(tokens, tokens[1:]):
-        require(left != "pragma" or right not in forbidden,
+    # Caller-local Hide_Info removes these expression bodies from the proof
+    # context; it supplies no facts and leaves every obligation required.
+    hide_info_forms = {
+        ("pragma", "annotate", "(", "gnatprove", ",", "hide_info", ",",
+         '"Expression_Function_Body"', ",", target, ")", ";")
+        for target in ("raw_list_spec", "list_spec")}
+    for index, (left, right) in enumerate(zip(tokens, tokens[1:])):
+        hide_info = (source.name == "silver_library_reports.adb"
+                     and tuple(tokens[index:index + 12]) in hide_info_forms)
+        require(left != "pragma" or right not in forbidden or hide_info,
                 f"{source}: forbidden assumption/check-policy pragma {right}")
     for index, token in enumerate(tokens):
         if token == "spark_mode":

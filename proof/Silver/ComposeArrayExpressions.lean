@@ -179,6 +179,16 @@ def arrayDeclarationBody (executable : Bool) : Expr .state :=
        (.wideNumber (.sub .maxArrayElements (arrayStateUsed state))),
      .ne hiddenString (.number 0), .ne hiddenScalar (.number 0), .ne hiddenArray (.number 0),
      .ne hiddenBoolean (.number 0),
+     .ne (.app (.app (.app (.app (.function .functionLookup) text)
+       (.field .stateFunctions state)) (.variable "type_first")) (.variable "type_after")) (.number 0),
+     .app (.app (.app (.app (.function .formalHides) text) state)
+       (.variable "type_first")) (.variable "type_after"),
+     .group (.andThen (.field .hiddenInteger (.field .stateHiding state))
+       (.app (.app (.app (.app (.function .nameIs) text) (.variable "type_first")) (.variable "type_after")) .integerTypeWord)),
+     .group (.andThen (.field .hiddenBoolean (.field .stateHiding state))
+       (.app (.app (.app (.app (.function .nameIs) text) (.variable "type_first")) (.variable "type_after")) .booleanTypeWord)),
+     .group (.andThen (.field .hiddenCharacter (.field .stateHiding state))
+       (.app (.app (.app (.app (.function .nameIs) text) (.variable "type_first")) (.variable "type_after")) .characterTypeWord)),
      .group (.andThen isBoolean (.ne hiddenSubtype (.number 0)))]
   let rejected := conditions.tail.foldl Expr.orElse (conditions.headD (.truth false))
   .locals <|

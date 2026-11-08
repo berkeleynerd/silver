@@ -1,0 +1,182 @@
+{
+  "captured_at": "2026-11-08T02:32:26.049845+00:00",
+  "test_run_id": "20261108T021923-5ef7f9b81de7",
+  "managed_reservation": 2,
+  "application_proof_policy": "src/silver.adb:130 uses -j0; GNATprove selected22 workers",
+  "policy_changed": false,
+  "elapsed_sample_seconds": 1.1272765989997424,
+  "task_roots": [
+    381636
+  ],
+  "descendant_count": 17,
+  "observed_process_counts": {
+    "application_compiler": 1,
+    "frontends": 1,
+    "actual_vendor_gnatwhy3": 2,
+    "solver_processes": 2
+  },
+  "rss_sum_kib": 566628,
+  "cpu_percent_sum_sample": 193.38643256982024,
+  "host_load_average": [
+    20.6845703125,
+    19.80517578125,
+    17.98291015625
+  ],
+  "host_meminfo": "MemTotal:       65928044 kB\nMemFree:        25905292 kB\nMemAvailable:   58897100 kB\nBuffers:           85704 kB\nCached:         30808796 kB\nSwapCached:            0 kB\nActive:         17007036 kB\nInactive:       19285796 kB\nActive(anon):       2296 kB\nInactive(anon):  5396108 kB\nActive(file):   17004740 kB\nInactive(file): 13889688 kB\nUnevictable:           0 kB\nMlocked:               0 kB\nSwapTotal:             0 kB\nSwapFree:              0 kB\nZswap:                 0 kB\nZswapped:              0 kB\nDirty:              8372 kB\nWriteback:             0 kB\nAnonPages:       5399132 kB\nMapped:          1542804 kB\nShmem:               112 kB\nKReclaimable:    2723732 kB\nSlab:            3073804 kB\nSReclaimable:    2723732 kB\nSUnreclaim:       350072 kB\nKernelStack:       13448 kB\nPageTables:        75748 kB\nSecPageTables:         0 kB\nNFS_Unstable:          0 kB\nBounce:                0 kB\nWritebackTmp:          0 kB\nCommitLimit:    32964020 kB\nCommitted_AS:   146046724 kB\nVmallocTotal:   34359738367 kB\nVmallocUsed:       16652 kB\nVmallocChunk:          0 kB\nPercpu:             6144 kB\nBalloon:               0 kB\nHugePages_Total:       0\nHugePages_Free:        0\nHugePages_Rsvd:        0\nHugePages_Surp:        0\nHugepagesize:       2048 kB\nHugetlb:               0 kB\nDirectMap4k:       20476 kB\nDirectMap2M:     3125248 kB\nDirectMap1G:    65011712 kB\n",
+  "processes": [
+    {
+      "pid": 381636,
+      "ppid": 381635,
+      "pgid": 381635,
+      "rss_kib": 82668,
+      "cmd": "python3 -B scripts/dev.py test --jobs 2 --task #298 final regression --reason Complete all637 discovered final regression/sample tests on exact c437a41d30/native560144172c with fresh local build; pinned Lean4.34.1 installed; no exclusions or timeout changes;2workers alongside native12 and focused Lean8",
+      "cwd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298",
+      "cpu_percent_sample": 0.0
+    },
+    {
+      "pid": 381709,
+      "ppid": 381636,
+      "pgid": 381635,
+      "rss_kib": 46928,
+      "cmd": "/usr/bin/python3 -m unittest discover -s tests -v",
+      "cwd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298",
+      "cpu_percent_sample": 0.0
+    },
+    {
+      "pid": 402320,
+      "ppid": 381709,
+      "pgid": 381635,
+      "rss_kib": 36504,
+      "cmd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/bin/silver compile /tmp/silver guarded greeting-fjw3juvy/input.adb",
+      "cwd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298",
+      "cpu_percent_sample": 0.0
+    },
+    {
+      "pid": 402328,
+      "ppid": 402320,
+      "pgid": 381635,
+      "rss_kib": 1592,
+      "cmd": "sh -c -- cd /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/toolchain && unset ALR_CONFIG GPR_CONFIG GPR_PROJECT_PATH GPR_PROJECT_PATH_FILE ADA_PROJECT_PATH && ALIRE_SETTINGS_DIR=/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/settings /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alr/bin/alr -n exec -- /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/image-tools/bin/gnatprove -P /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-InIAs5/program.gpr -U --mode=all --report=all --warnings=continue --checks-as-errors=on --level=2 --prover=cvc5,z3,altergo --steps=100000 --timeout=0 --memlimit=1000 -j0 --no-loop-unrolling",
+      "cwd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/toolchain",
+      "cpu_percent_sample": 0.0
+    },
+    {
+      "pid": 402329,
+      "ppid": 402328,
+      "pgid": 381635,
+      "rss_kib": 25316,
+      "cmd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alr/bin/alr -n exec -- /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/image-tools/bin/gnatprove -P /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-InIAs5/program.gpr -U --mode=all --report=all --warnings=continue --checks-as-errors=on --level=2 --prover=cvc5,z3,altergo --steps=100000 --timeout=0 --memlimit=1000 -j0 --no-loop-unrolling",
+      "cwd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/toolchain",
+      "cpu_percent_sample": 0.0
+    },
+    {
+      "pid": 402354,
+      "ppid": 402329,
+      "pgid": 381635,
+      "rss_kib": 21596,
+      "cmd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/image-tools/bin/gnatprove -P /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-InIAs5/program.gpr -U --mode=all --report=all --warnings=continue --checks-as-errors=on --level=2 --prover=cvc5,z3,altergo --steps=100000 --timeout=0 --memlimit=1000 -j0 --no-loop-unrolling",
+      "cwd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/toolchain",
+      "cpu_percent_sample": 0.0
+    },
+    {
+      "pid": 402496,
+      "ppid": 402354,
+      "pgid": 381635,
+      "rss_kib": 1584,
+      "cmd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/image-tools/libexec/spark/bin/why3server -j 22 --socket /tmp/why3server_402354.sock",
+      "cwd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-InIAs5/obj/gnatprove",
+      "cpu_percent_sample": 15.967687092920938
+    },
+    {
+      "pid": 402497,
+      "ppid": 402354,
+      "pgid": 381635,
+      "rss_kib": 12556,
+      "cmd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/image-tools/libexec/spark/bin/gprbuild --subdirs=gnatprove/ --complete-output --restricted-to-languages=ada --target=x86_64-linux --gnatprove -s -q -ws --no-exit-message -j22 -U -c -P /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-InIAs5/program.gpr --db /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/image-tools/share/spark/config/gnat2why -cargs:Ada -gnatc -gnates=/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-InIAs5/obj/gnatprove/6d3baa52.tmp",
+      "cwd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-InIAs5/obj/gnatprove",
+      "cpu_percent_sample": 0.0
+    },
+    {
+      "pid": 402543,
+      "ppid": 402497,
+      "pgid": 381635,
+      "rss_kib": 28588,
+      "cmd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/image-tools/libexec/spark/bin/gnat2why -c -x ada -gnatA -gnat2022 -gnata -gnato -gnatc -gnates=/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-InIAs5/obj/gnatprove/6d3baa52.tmp -gnatec=/tmp/GPR.402497/GNAT-TEMP-000002.TMP -gnatem=/tmp/GPR.402497/GNAT-TEMP-000007.TMP /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-InIAs5/silver_io.adb -gnateO=/tmp/GPR.402497/GNAT-TEMP-000004.TMP",
+      "cwd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-InIAs5/obj/gnatprove",
+      "cpu_percent_sample": 0.0
+    },
+    {
+      "pid": 402548,
+      "ppid": 402543,
+      "pgid": 381635,
+      "rss_kib": 1588,
+      "cmd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/image-tools/libexec/spark/bin/spark_semaphore_wrapper gnatwhy3 --timeout 0 --steps 100000 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 22 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 1308 /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-InIAs5/obj/gnatprove/silver_io__put_line.gnat-json",
+      "cwd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-InIAs5/obj/gnatprove",
+      "cpu_percent_sample": 0.0
+    },
+    {
+      "pid": 402553,
+      "ppid": 402543,
+      "pgid": 381635,
+      "rss_kib": 1572,
+      "cmd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/image-tools/libexec/spark/bin/spark_semaphore_wrapper gnatwhy3 --timeout 0 --steps 100000 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 22 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 1379 /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-InIAs5/obj/gnatprove/silver_io__put.gnat-json",
+      "cwd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-InIAs5/obj/gnatprove",
+      "cpu_percent_sample": 0.0
+    },
+    {
+      "pid": 402554,
+      "ppid": 402548,
+      "pgid": 381635,
+      "rss_kib": 1988,
+      "cmd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/image-tools/libexec/spark/bin/gnatwhy3 --timeout 0 --steps 100000 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 22 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 1308 /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-InIAs5/obj/gnatprove/silver_io__put_line.gnat-json",
+      "cwd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-InIAs5/obj/gnatprove",
+      "cpu_percent_sample": 0.0
+    },
+    {
+      "pid": 402557,
+      "ppid": 402553,
+      "pgid": 381635,
+      "rss_kib": 2116,
+      "cmd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/image-tools/libexec/spark/bin/gnatwhy3 --timeout 0 --steps 100000 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 22 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 1379 /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-InIAs5/obj/gnatprove/silver_io__put.gnat-json",
+      "cwd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-InIAs5/obj/gnatprove",
+      "cpu_percent_sample": 0.0
+    },
+    {
+      "pid": 402565,
+      "ppid": 402557,
+      "pgid": 381635,
+      "rss_kib": 127748,
+      "cmd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3 --timeout 0 --steps 100000 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 22 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 1379 /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-InIAs5/obj/gnatprove/silver_io__put.gnat-json",
+      "cwd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-InIAs5/obj/gnatprove",
+      "cpu_percent_sample": 85.16099782891166
+    },
+    {
+      "pid": 402567,
+      "ppid": 402554,
+      "pgid": 381635,
+      "rss_kib": 128500,
+      "cmd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3 --timeout 0 --steps 100000 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 22 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 1308 /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-InIAs5/obj/gnatprove/silver_io__put_line.gnat-json",
+      "cwd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-InIAs5/obj/gnatprove",
+      "cpu_percent_sample": 92.25774764798766
+    },
+    {
+      "pid": 402899,
+      "ppid": 402496,
+      "pgid": 402899,
+      "rss_kib": 24972,
+      "cmd": "cvc5 --rlimit=3515000 --prenex-quant=none --stats-internal /tmp/why_20e86b_silver_io-T-defqtvc.smt2",
+      "cwd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-InIAs5/obj/gnatprove",
+      "cpu_percent_sample": 0.0
+    },
+    {
+      "pid": 402904,
+      "ppid": 402496,
+      "pgid": 402904,
+      "rss_kib": 20812,
+      "cmd": "cvc5 --rlimit=3515000 --prenex-quant=none --stats-internal /tmp/why_d8440f_silver_io-T-defqtvc.smt2",
+      "cwd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-InIAs5/obj/gnatprove",
+      "cpu_percent_sample": 0.0
+    }
+  ],
+  "limitations": "One instantaneous process census with CPU deltas for processes present at both ends; exited or newly-created work can be missed. RSS sum can count shared pages repeatedly. Reservation is a ledger declaration, not a subprocess or OS thread cap."
+}

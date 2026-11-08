@@ -1,6 +1,6 @@
 module
 
-public import Silver.PredicateBodyAdmission
+public import Silver.PredicateBodyScanner
 
 @[expose] public section
 namespace Silver.Predicate

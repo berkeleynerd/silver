@@ -160,12 +160,21 @@ and existing managed modes; this matrix adds no hash exclusions or replay gate.
 
 ## Recurring failures and handoff
 
+Before an expensive integrated native or Lean run, follow the
+[complete-helper-contract checks](../development.md#proof-loop-and-validation):
+cover every new helper and changed helper contract with whole-subprogram native
+checks and applicable focused Lean targets over the full declared domains.
+Include affected callees/callers, inspect all selected obligations and record
+coverage in the existing task/evidence record. Batch targets and reuse matching
+successes. Resolve outstanding helper obligations before the integrated run;
+focused success still does not replace the complete assurance checkpoint.
+
 Apply the [model policy](../AGENTS.md#models-effort-and-delegation) as soon as
 proof work leaves an established approach. Uncertain solver encoding, Lean
-reduction or memory behavior, and cross-system integration decisions belong with
-Astra Extra High; a named difficult problem can temporarily escalate to Astra
-Max. Repeated unsuccessful repairs require this reassessment before another
-expensive complete run, without waiting for the diagnostic threshold below.
+reduction or memory behavior, and cross-system proof integration belong with
+Astra Max, as do new proof/contract design, source correspondence and critical
+proof review. Repeated unsuccessful repairs require this reassessment before
+another expensive complete run, without waiting for the diagnostic threshold below.
 Keep the question, retained evidence and next focused check in the existing
 diagnostic/task record. Use available focused checks to resolve known integration
 failures before the next complete checkpoint. Preserve applicable successes and

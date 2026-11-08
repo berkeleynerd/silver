@@ -283,6 +283,30 @@ keeps those results, final runtime applicability and closing review status
 distinct. Earlier dated frame and stack observations retain their original
 input/build scope; no new trusted premise is added.
 
+## Small scalar-function boundary
+
+The [scalar-function increment](scalar-functions.md) keeps the same Ada/SPARK,
+GNATprove and Lean pins, runtime imports and source/operator limits. Its
+[delivery record](scalar-functions.md#delivery-assurance-and-validation) retains
+the complete native and Lean/source checkpoints and final review status.
+Function-bearing applications use
+the pinned producer's `--no-inlining` mode on the unchanged author source;
+each declared function is checked over its complete formal domain. The exact
+source-derived entity inventory, safety records, termination witnesses and
+local dependency policy are described in the
+[assurance argument](assurance.md#small-nonrecursive-scalar-functions).
+
+The [producer/capacity account](scalar-functions-report-capacity.md) bounds the
+combined Main/local-function report at 33,149,440 bytes within the existing
+33,554,432-byte allocation. Its source-byte charges and pinned-producer
+serialization premises received a
+[bounded independent review](reviews/review-scalar-function-capacity-20261107.md).
+The added metadata allowances are a storage argument, not a proof-time or
+peak-memory bound. The formal/signature pool remains source-derived; no new
+independent author-visible count limit is introduced. Earlier stack observations
+retain their recorded compiler scope. Sufficient stack and memory remain the
+existing environmental premises.
+
 ## Scalar guard refinement boundary
 
 The [guard delivery](scalar-guard-refinement.md#delivery-assurance-and-validation)
@@ -895,6 +919,17 @@ distinguishes qualified expressions from character literals. It pins the
 reviewed GPR token shape and checks permitted assumption edges to owned or
 explicitly trusted callees.
 
+The compiler source policy permits only the complete
+`pragma Annotate (GNATprove, Hide_Info, "Expression_Function_Body", F);` form
+in `silver_library_reports.adb`, where `F` is `Raw_List_Spec` or `List_Spec`.
+The pinned [SPARK 16.1 annotation guide](../references/spark/16.1/docs/ug/en/appendix/additional_annotate_pragmas.rst)
+documents this caller-local form: it removes the expression-function body from
+the caller's proof context. It supplies no assurance fact, changes no domain or
+contract, and leaves every obligation required. The lexer checks the full
+statement and case-sensitive string; other Annotate pragmas and all existing
+assumption, suppression and check-policy exclusions remain rejected. This
+compiler-owned proof annotation does not change Silver application pragma rules.
+
 The logical proof configuration is explicit: full flow/proof, all reports,
 warnings/checks as errors, level 2, bundled `cvc5,z3,altergo`, and a 30-second
 timeout. Worker count is configurable and defaults to all detected cores.
@@ -960,6 +995,29 @@ coverage, counting these notes separately from discharged obligations. Its
 external-suppression marker identifies the disabled-by-default information
 warning; source suppression remains forbidden. Application audits cannot use
 this class. Every initialization, safety and coverage check remains required.
+
+Separately, the compiler audit classifies the exact `operator-reassociation`
+portability advisory under the existing pinned-GNAT boundary. The pinned
+[SPARK portability guide](../references/spark/16.1/docs/ug/en/appendix/portability_issues.rst)
+states that GNATprove follows GNAT's arithmetic association; the
+[SPARK language reference](../references/spark/16.1/docs/lrm/source/names-and-expressions.rst)
+states that GNAT does not exercise Ada's permission to reassociate these
+operators. This is an agreement about the fixed compiler's meaning, distinct
+from annotations or limitations that reduce available proof information. It
+does not establish portability to other Ada compilers.
+
+Only `silver_function_bindings.ads` in its own report,
+`silver_library_reports.adb` in its own report, and either
+`silver_output_profile.adb` or the imported `silver_function_bindings.ads` in
+the output-profile report qualify. The classifier requires the exact message,
+native field set, warning/trivial metadata, positive integer location, unknown
+status, empty tree and empty suppression string, together with the exact
+matching SARIF open/warning record and producer-generated external marker.
+Diagnostic multiset equality preserves repeated imported-spec occurrences.
+These advisories are counted separately and contribute no discharged checks;
+applications, other origins, source suppressions, justifications and failed or
+missing obligations receive no allowance. No arithmetic syntax, proof option or
+trusted dependency changes.
 
 ## Source identity and program proof evidence
 

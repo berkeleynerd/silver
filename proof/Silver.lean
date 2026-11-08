@@ -40,5 +40,6 @@ public import Silver.SequenceModel
 -- Independent fragment and recursion lemmas retained in the whole-project audit.
 public import Silver.ComposeExecution
 public import Silver.BranchingDisjoint
+public import Silver.ScalarFunctionFrameFlow
 
 @[expose] public section

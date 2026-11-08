@@ -1,0 +1,89 @@
+{
+  "utc": "2026-11-08T17:37:55.158205+00:00",
+  "run_id": "20261108T173145-74f709e086a7",
+  "outcome": "success",
+  "selector": "test_platforms.InstallationEnvironmentTests.test_symlinked_tmpdir_preserves_platform_setup_and_routing",
+  "per_id": {
+    "test_platforms.InstallationEnvironmentTests.test_symlinked_tmpdir_preserves_platform_setup_and_routing": "ok",
+    "test_platforms.PlatformIsolationTests.test_platform_aliases_and_disjoint_paths": "ok via original successful wrapper",
+    "test_platforms.PlatformIsolationTests.test_foreign_execution_is_rejected_before_side_effects": "ok via original successful wrapper",
+    "test_platforms.PlatformIsolationTests.test_each_host_setup_preserves_other_hosts_and_shared_inputs": "ok via original successful wrapper",
+    "test_platforms.PlatformIsolationTests.test_concurrent_different_host_setups_do_not_collide": "ok via original successful wrapper",
+    "test_platforms.PlatformIsolationTests.test_failed_proof_invalidates_only_its_host_evidence": "ok via original successful wrapper",
+    "test_platforms.PlatformIsolationTests.test_lean_full_and_clean_modes_record_their_actual_checks": "ok via original successful wrapper",
+    "test_platforms.PlatformIsolationTests.test_cached_build_log_cannot_replace_fresh_lean_audit": "ok via original successful wrapper",
+    "test_platforms.PlatformIsolationTests.test_lean_auto_and_explicit_resources_are_recorded_and_isolated": "ok via original successful wrapper",
+    "test_platforms.PlatformIsolationTests.test_legacy_archives_are_read_only_inputs": "ok via original successful wrapper",
+    "test_platforms.PlatformIsolationTests.test_development_commands_keep_project_outputs_and_audit_in_native_host": "ok via original successful wrapper",
+    "test_platforms.PlatformIsolationTests.test_development_output_overrides_fail_before_invoking_tools": "ok via original successful wrapper",
+    "test_platforms.PlatformIsolationTests.test_unchanged_context_setup_preserves_generated_file_mtimes": "ok via original successful wrapper"
+  },
+  "test_seconds": 303.203,
+  "actual_driver_session": 24368,
+  "actual_driver_exit": 0,
+  "observer_session": 66756,
+  "observer_exit": 0,
+  "managed_finished": {
+    "duration_seconds": 305.993728066,
+    "event": "finished",
+    "evidence": [
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T173145-74f709e086a7/native.log",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T173145-74f709e086a7/native.log"
+      }
+    ],
+    "failure_keys": [],
+    "monotonic_ns": 90712775040383,
+    "outcome": "success",
+    "retained_reports": [],
+    "returncode": null,
+    "run_id": "20261108T173145-74f709e086a7",
+    "utc": "2026-11-08T17:36:52.479800+00:00"
+  },
+  "command": [
+    "python3",
+    "scripts/dev.py",
+    "test",
+    "--jobs",
+    "22",
+    "--task",
+    "#298 isolated platform-wrapper",
+    "--reason",
+    "Previously pending regression after complete proof capacity release; original deadlines, assertions and production options; full 22 CPU allowance",
+    "--",
+    "-k",
+    "test_platforms.InstallationEnvironmentTests.test_symlinked_tmpdir_preserves_platform_setup_and_routing"
+  ],
+  "regression_head": "8c9d581c2155c282ec13619af128cccba5c974f1",
+  "input_count": 1100,
+  "inputs_unchanged": true,
+  "binary_identities": {
+    "silver": "807d862b572e4dcab8e72302a2fdcfe1a3304f3c064b9166900e24544b8dbcfe",
+    "silver_image_adapter": "0d7900091323ec642d58f1cc53df1db73a1b6b477aaec3784d6aede0ee15b751"
+  },
+  "compressed_artifacts_verified": 10,
+  "observed_process_samples": 59,
+  "minimum_observed_available_gib": 59.785404205322266,
+  "observed_affinity_lengths": [
+    22
+  ],
+  "remaining_observed_live_descendants": [],
+  "scope": "Original test method, assertions, subprocess deadlines and production proof options; full22CPU allowance, no competing managed proof runs. Read-only process sampling is not exhaustive short-lived-child tracing. Failed earlier runs remain failed.",
+  "observer_scope": "Read-only samples plus actual exit",
+  "nested_ids": [
+    "test_platforms.PlatformIsolationTests.test_platform_aliases_and_disjoint_paths",
+    "test_platforms.PlatformIsolationTests.test_foreign_execution_is_rejected_before_side_effects",
+    "test_platforms.PlatformIsolationTests.test_each_host_setup_preserves_other_hosts_and_shared_inputs",
+    "test_platforms.PlatformIsolationTests.test_concurrent_different_host_setups_do_not_collide",
+    "test_platforms.PlatformIsolationTests.test_failed_proof_invalidates_only_its_host_evidence",
+    "test_platforms.PlatformIsolationTests.test_lean_full_and_clean_modes_record_their_actual_checks",
+    "test_platforms.PlatformIsolationTests.test_cached_build_log_cannot_replace_fresh_lean_audit",
+    "test_platforms.PlatformIsolationTests.test_lean_auto_and_explicit_resources_are_recorded_and_isolated",
+    "test_platforms.PlatformIsolationTests.test_legacy_archives_are_read_only_inputs",
+    "test_platforms.PlatformIsolationTests.test_development_commands_keep_project_outputs_and_audit_in_native_host",
+    "test_platforms.PlatformIsolationTests.test_development_output_overrides_fail_before_invoking_tools",
+    "test_platforms.PlatformIsolationTests.test_unchanged_context_setup_preserves_generated_file_mtimes"
+  ],
+  "nested_execution_basis": "Original wrapper invokes the entire PlatformIsolationTests class with -v and requires exit0; unchanged 12-method class has no skip mechanism. Actual child command was observed. Nested stdout is captured by the unchanged successful wrapper and is not separately retained.",
+  "platform_test_source_sha256": "92e107283974c2f905f5a7c96eab3fc306c51df5ec4034b06148a2ffd8773a30"
+}

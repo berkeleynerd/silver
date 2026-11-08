@@ -149,7 +149,7 @@ theorem array_declaration_array_valid {text arguments state declaration final}
         simp only [List.mem_append, List.mem_singleton] at member
         rcases member with member | rfl
         · exact valid.1.2.1 item (metadata ▸ member)
-        · exact ⟨by change 0 < parts.first; omega, allowed.1.1.1.2, nameBound, bindingValid⟩
+        · exact ⟨by change 0 < parts.first; omega, by change parts.first < parts.after; omega, nameBound, bindingValid⟩
       · dsimp only
         rw [metadata, List.pairwise_append]
         refine ⟨valid.1.2.2, by simp, ?_⟩

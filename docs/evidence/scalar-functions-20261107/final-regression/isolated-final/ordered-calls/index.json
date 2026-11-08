@@ -1,0 +1,62 @@
+[
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/tmp/repaired-input-regressions/isolated-final/ordered-calls/preflight.json",
+    "artifact": "00-preflight.json.gz",
+    "sha256": "3edad501a9dd652f6bddbe4c521e552f23d26fd402067eaca1faba4dbf4869b2",
+    "bytes": 136756
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/tmp/repaired-input-regressions/isolated-final/ordered-calls/preflight-run-status.json",
+    "artifact": "01-preflight-run-status.json.gz",
+    "sha256": "2aef4db63b2c580fbba8f3a7be45c92d500231bd10f83507ae334b9a6a1bf63b",
+    "bytes": 87767
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/tmp/repaired-input-regressions/isolated-final/ordered-calls/launch.json",
+    "artifact": "02-launch.json.gz",
+    "sha256": "4206c3ddbac67d1a9c4c2e632f6737797ac57ddd4ce585af8c6e907b0f73f694",
+    "bytes": 690
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/tmp/repaired-input-regressions/isolated-final/ordered-calls/actual-exit.json",
+    "artifact": "03-actual-exit.json.gz",
+    "sha256": "6f8fbe54608c01cd253785ead7a4e46f5b052f9c1855f48099480927645e8111",
+    "bytes": 92247
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/tmp/repaired-input-regressions/isolated-final/ordered-calls/driver.log",
+    "artifact": "04-driver.log.gz",
+    "sha256": "c974790b09570403bb651de751c9d12e44ccf6ec5f0f882a689c3a14dc0b08ad",
+    "bytes": 441
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-source-integration-298/tmp/isolated-regression-observations/20261108T172546-80a42bd29b42/result.json",
+    "artifact": "05-result.json.gz",
+    "sha256": "821bd3a6ee5468d561cb75bcd2f0f39cca93289607c6e6d4eac4755df081c85c",
+    "bytes": 2155
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-source-integration-298/tmp/isolated-regression-observations/20261108T172546-80a42bd29b42/start.json",
+    "artifact": "06-start.json.gz",
+    "sha256": "9ef5561d8841f49fb190b812472fb6c0508d781d26a1498b70e61366e167cc1a",
+    "bytes": 3145
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-source-integration-298/tmp/isolated-regression-observations/20261108T172546-80a42bd29b42/observations.jsonl",
+    "artifact": "07-observations.jsonl.gz",
+    "sha256": "004b949d73838e06ea8dbda0bfd028bc42f2fd3cb2db72424d924486aa20b5f9",
+    "bytes": 44561
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T172546-80a42bd29b42/events.jsonl",
+    "artifact": "08-events.jsonl.gz",
+    "sha256": "95098d9bcbf3c7cbaad463d8ea30f4c98223f1e3bd85d2795d297933b11fd5f5",
+    "bytes": 205886
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T172546-80a42bd29b42/native.log",
+    "artifact": "09-native.log.gz",
+    "sha256": "c705d10f9ad7c56149e87da22843fbe497b9d5f2b99fa6a22a266d0cd22fbb81",
+    "bytes": 269
+  }
+]

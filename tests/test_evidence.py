@@ -115,6 +115,77 @@ class ProofEvidenceTests(unittest.TestCase):
         with self.assertRaisesRegex(EvidenceError, "coverage summary"):
             audit_reports(self.path, {"main"}, indexed_main=True)
 
+    def prepare_functions(self) -> None:
+        for key, name in ((" 2", "Main.MiXeD"), (" 3", "Main.Unused")):
+            self.report["entities"][key] = {
+                "name": name, "sloc": [{"file": "main.adb", "line": int(key), "column": 13}]}
+            self.report["spark"][key] = "all"
+            self.report["flow"].append({
+                "severity": "info", "how_proved": "flow", "entity": int(key),
+                "file": "main.adb", "line": int(key), "col": 13,
+                "rule": "SUBPROGRAM_TERMINATION", "message": {"text":
+                    f'implicit aspect Always_Terminates on "{name.split(".")[1]}" '
+                    "has been proved, subprogram will terminate"},
+                "check_tree": {}, "unproved_status": {"status": "unknown"}})
+        self.report["proof"] = [{
+            "severity": "info", "how_proved": "prover", "entity": 3,
+            "file": "main.adb", "line": 4, "col": 9, "rule": "VC_DIVISION_CHECK",
+            "message": {"text": "division check proved"}}]
+        self.report["assumptions"] = [{
+            "claim": {"arg": 1, "predicate": "CLAIM_AORTE"},
+            "assumptions": [{"arg": 2, "predicate": "CLAIM_AORTE"},
+                            {"arg": 2, "predicate": "CLAIM_EFFECTS"}]}]
+        self.sarif["runs"][0]["invocations"][0]["commandLine"] += " --no-inlining"
+
+    def audit_functions(self, names: tuple[str, ...] = ("mixed", "UNUSED")) -> dict[str, int]:
+        (self.path / "main.spark").write_text(json.dumps(self.report))
+        self.refresh_reports()
+        return audit_reports(self.path, {"main"}, application_kind="assigned",
+                             application_functions=names)
+
+    def test_functions_require_each_declared_entity_and_termination(self) -> None:
+        self.prepare_functions()
+        stats = self.audit_functions()
+        self.assertEqual(stats["entities"], 3)
+        self.assertEqual(stats["termination_checks"], 2)
+        self.assertEqual(stats["flow_checks"], 2)
+        self.assertEqual(stats["proof_checks"], 1)
+        saved = copy.deepcopy(self.report)
+        for mutate in (
+            lambda: self.report["spark"].pop(" 3"),
+            lambda: self.report["spark"].update({" 3": "spec"}),
+            lambda: self.report["entities"][" 3"].update(name="Main.Unknown"),
+            lambda: self.report["entities"][" 3"].update(name="Main.MIXED"),
+            lambda: self.report["entities"][" 3"]["sloc"][0].update(file="other.adb"),
+            lambda: self.report["flow"].pop(),
+            lambda: self.report["flow"].append(copy.deepcopy(self.report["flow"][0])),
+            lambda: self.report["flow"][0].update(entity=1),
+            lambda: self.report["flow"][0].update(severity="warning"),
+            lambda: self.report["flow"][0].update(how_proved="trivial"),
+            lambda: self.report["flow"][0].update(message={"text": "termination proved"}),
+            lambda: self.report["flow"][0].update(suppressed=""),
+            lambda: self.report["proof"][0].update(severity="medium"),
+            lambda: self.report["proof"][0].update(rule="VC_ASSERT"),
+            lambda: self.report["assumptions"][0]["assumptions"][0].update(predicate="CLAIM_POST"),
+        ):
+            self.report = copy.deepcopy(saved)
+            mutate()
+            with self.assertRaises(EvidenceError):
+                self.audit_functions()
+        self.report = saved
+        self.sarif["runs"][0]["invocations"][0]["commandLine"] = "gnatprove --mode=all --report=all"
+        with self.assertRaisesRegex(EvidenceError, "no-inlining"):
+            self.audit_functions()
+
+    def test_function_inventory_is_independent_of_report_entities(self) -> None:
+        self.prepare_functions()
+        for names in ((), ("MiXeD",), ("MiXeD", "Unused", "Absent"),
+                      ("MiXeD", "mixed"), ("Main.Unused",), ("Bad__Name",)):
+            with self.subTest(names=names), self.assertRaises(EvidenceError):
+                self.audit_functions(names)
+        with self.assertRaisesRegex(EvidenceError, "requires an application"):
+            audit_reports(self.path, {"main"}, application_functions=("MiXeD",))
+
     def prepare_assignment(self, **advisory_changes: object) -> None:
         self.report["assumptions"] = []
         self.report["flow"] = [{"severity": "warning", "how_proved": "flow", "entity": 1,
@@ -880,6 +951,70 @@ class ProofEvidenceTests(unittest.TestCase):
             self.audit()
 
 
+class CompilerHideInfoPolicyTests(unittest.TestCase):
+    def setUp(self) -> None:
+        directory = tempfile.TemporaryDirectory(prefix="silver-hide-info-")
+        self.addCleanup(directory.cleanup)
+        self.path = Path(directory.name) / "silver_library_reports.adb"
+
+    def source(self, annotation: str) -> None:
+        # The reviewed pragmas occur in caller-local declarative parts.
+        self.path.write_text("package body Silver_Library_Reports is\n"
+                             "procedure Mixed_Object is\n" + annotation +
+                             "\nbegin null; end Mixed_Object;\nend Silver_Library_Reports;\n")
+
+    def test_exact_caller_local_hide_info_targets_and_ada_layout(self) -> None:
+        for target in ("Raw_List_Spec", "List_Spec", "rAw_LiSt_SpEc", "LIST_SPEC"):
+            with self.subTest(target=target):
+                self.source('PrAgMa -- caller-local abstraction\n AnNoTaTe\n'
+                            '(GnAtPrOvE, -- producer\n HiDe_InFo, "Expression_Function_Body", '
+                            + target + ');')
+                audit_source_policy(self.path)
+        self.source('pragma Annotate (GNATprove, Hide_Info, "Expression_Function_Body", Raw_List_Spec);\n'
+                    'pragma Annotate (GNATprove, Hide_Info, "Expression_Function_Body", List_Spec);')
+        audit_source_policy(self.path)
+
+    def test_hide_info_requires_exact_complete_pragma(self) -> None:
+        safe = 'pragma Annotate (GNATprove, Hide_Info, "Expression_Function_Body", Raw_List_Spec);'
+        mutations = (safe.replace("GNATprove", "Other_Tool"),
+                     safe.replace("Hide_Info", "False_Positive"),
+                     safe.replace("Hide_Info", "Assume"),
+                     safe.replace("Raw_List_Spec", "Other_Spec"),
+                     safe.replace("Raw_List_Spec", "Pkg.Raw_List_Spec"),
+                     safe.replace("Expression_Function_Body", "expression_function_body"),
+                     safe.replace("Expression_Function_Body", "Expression_Function_Body "),
+                     safe.replace('"Expression_Function_Body"', '"Expression_Function_Body"""'),
+                     safe.replace(', Raw_List_Spec', ''),
+                     safe.replace('Raw_List_Spec)', 'Raw_List_Spec, List_Spec)'),
+                     safe.replace(');', ')'), safe.replace(');', ';'),
+                     safe.replace(');', '));'), safe.replace(');', ') Extra;'))
+        for annotation in mutations:
+            with self.subTest(annotation=annotation):
+                self.source(annotation)
+                with self.assertRaisesRegex(EvidenceError, "forbidden.*annotate"):
+                    audit_source_policy(self.path)
+        self.source(safe)
+        for filename in ("main.adb", "silver_library_reports.ads", "other.adb"):
+            with self.subTest(filename=filename):
+                other = self.path.with_name(filename)
+                other.write_bytes(self.path.read_bytes())
+                with self.assertRaisesRegex(EvidenceError, "forbidden.*annotate"):
+                    audit_source_policy(other)
+
+    def test_allowed_hide_info_does_not_exempt_other_directives(self) -> None:
+        safe = 'pragma Annotate (GNATprove, Hide_Info, "Expression_Function_Body", List_Spec);\n'
+        for directive in ('pragma Assume (False);', 'pragma Suppress (All_Checks);',
+                          'pragma Suppress_All;', 'pragma Assertion_Policy (Ignore);',
+                          'pragma Check_Policy (Assert, Ignore);', 'pragma Check (Assume, False);',
+                          'pragma Warnings (Off);', 'pragma SPARK_Mode (Off);',
+                          'pragma Annotate (GNATprove, Skip_Proof, Mixed_Object);',
+                          'pragma Annotate (GNATprove, False_Positive, "check", "reason");'):
+            with self.subTest(directive=directive):
+                self.source(safe + directive)
+                with self.assertRaises(EvidenceError):
+                    audit_source_policy(self.path)
+
+
 class ArrayInitializationAdvisoryTests(unittest.TestCase):
     def setUp(self) -> None:
         ProofEvidenceTests.setUp(self)
@@ -1059,6 +1194,208 @@ class ArrayInitializationAdvisoryTests(unittest.TestCase):
                 (self.path / "gnatprove.sarif").write_text(json.dumps(self.sarif))
                 with self.assertRaisesRegex(EvidenceError, "diagnostic coverage disagree"):
                     audit_reports(self.path, {self.unit})
+
+
+class OperatorReassociationAdvisoryTests(unittest.TestCase):
+    # Reuse the existing synthetic producer, without changing shared fixtures.
+    write_reports = ArrayInitializationAdvisoryTests.write_reports
+    audit = ArrayInitializationAdvisoryTests.audit
+
+    def setUp(self) -> None:
+        ProofEvidenceTests.setUp(self)
+        self.initial_report = copy.deepcopy(self.report)
+        self.initial_sarif = copy.deepcopy(self.sarif)
+        self.prepare_reassociation_advisories()
+
+    def prepare_reassociation_advisories(self) -> None:
+        for report_path in self.path.glob("*.spark"):
+            report_path.unlink()
+        self.sarif = copy.deepcopy(self.initial_sarif)
+        self.reports = {}
+        # Actual retained 094547 origins, including the repeated bindings-spec
+        # location. Line numbers exercise the producer shape, not policy pins.
+        origins = {
+            "silver_function_bindings": [("silver_function_bindings.ads", 61, 38)],
+            "silver_library_reports": [("silver_library_reports.adb", line, col) for line, col in
+                                       ((1118, 52), (1126, 32), (1126, 36), (1438, 25),
+                                        (1337, 64), (2482, 25), (1550, 28))],
+            "silver_output_profile": [("silver_function_bindings.ads", 61, 38)] +
+                                     [("silver_output_profile.adb", line, col) for line, col in
+                                      ((4893, 88), (4916, 88), (5802, 50))],
+        }
+        for unit, locations in origins.items():
+            report = copy.deepcopy(self.initial_report)
+            owned_file = unit + (".ads" if unit == "silver_function_bindings" else ".adb")
+            report["entities"] = {" 1": {"name": unit + ".Helper",
+                                        "sloc": [{"file": owned_file, "line": 1, "column": 1}]}}
+            report["assumptions"] = []
+            report["proof"] = [{"severity": "info", "how_proved": "prover", "entity": 1,
+                                "rule": "VC_OVERFLOW_CHECK", "file": owned_file,
+                                "line": 1, "col": 1, "message": {"text": "overflow check proved"}}]
+            report["warn_error"] = [
+                {"rule": "operator-reassociation", "severity": "warning", "how_proved": "trivial",
+                 "file": file, "line": line, "col": col,
+                 "message": {"text": "possible reassociation due to missing parentheses [operator-reassociation]"},
+                 "unproved_status": {"status": "unknown"}, "check_tree": {}, "suppressed": ""}
+                for file, line, col in locations]
+            self.reports[unit] = report
+        self.unit = "silver_library_reports"
+        self.report = self.reports[self.unit]
+        self.note = self.report["warn_error"][0]
+
+    def test_exact_compiler_origins_and_duplicate_location_are_separate_from_checks(self) -> None:
+        stats = self.audit()
+        self.assertEqual((stats["operator_reassociation_advisories"], stats["flow_checks"],
+                          stats["proof_checks"], stats["limitation_notes"],
+                          stats["array_initialization_advisories"]), (12, 0, 3, 0, 0))
+        self.note.update(line=2, col=3)
+        self.assertEqual(self.audit()["operator_reassociation_advisories"], 12)
+        # SARIF ordering is not semantic; matching multiplicities are mandatory.
+        self.sarif["runs"][0]["results"].reverse()
+        (self.path / "gnatprove.sarif").write_text(json.dumps(self.sarif))
+        self.assertEqual(audit_reports(self.path, set(self.reports))["proof_checks"], 3)
+        (self.path / "gnatprove.out").write_text(
+            (self.path / "gnatprove.out").read_text().replace("Total 3 0 3", "Total 15 0 15"))
+        with self.assertRaisesRegex(EvidenceError, "check totals disagree"):
+            audit_reports(self.path, set(self.reports))
+
+    def test_reassociation_requires_exact_native_fields_and_values(self) -> None:
+        changes = ({"rule": "numeric-variant"}, {"severity": "info"}, {"severity": "medium"},
+                   {"how_proved": "prover"}, {"how_proved": "unproved"},
+                   {"file": "other.adb"}, {"file": "./silver_library_reports.adb"}, {"file": []},
+                   {"line": 0}, {"line": -1}, {"line": True}, {"line": 1118.0}, {"line": "1118"},
+                   {"col": 0}, {"col": -1}, {"col": True}, {"col": 52.0}, {"col": "52"},
+                   {"message": {"text": "changed [operator-reassociation]"}}, {"message": []},
+                   {"message": dict(self.note["message"], extra=True)},
+                   {"unproved_status": {"status": "valid"}},
+                   {"unproved_status": {"status": "unknown", "extra": True}},
+                   {"check_tree": {"proved": True}}, {"check_tree": []},
+                   {"suppressed": "source suppression"}, {"suppressed": False},
+                   {"entity": 1}, {"justification": ""}, {"justified": False},
+                   {"annot_kind": ""}, {"justif_msg": ""}, {"extra": True})
+        for change in changes:
+            with self.subTest(change=change):
+                self.prepare_reassociation_advisories()
+                self.note.update(change)
+                with self.assertRaisesRegex(EvidenceError, "unexpected operator-reassociation advisory"):
+                    self.audit()
+        self.prepare_reassociation_advisories()
+        for field in tuple(self.note):
+            with self.subTest(missing=field):
+                self.prepare_reassociation_advisories()
+                self.note.pop(field)
+                with self.assertRaisesRegex(EvidenceError, "unexpected operator-reassociation advisory"):
+                    self.audit()
+
+    def test_reassociation_cannot_replace_or_hide_required_work(self) -> None:
+        for section, severity in product(("flow", "proof"), ("warning", "info")):
+            with self.subTest(section=section, severity=severity):
+                self.prepare_reassociation_advisories()
+                self.note.update(severity=severity)
+                self.report["warn_error"].remove(self.note)
+                self.report[section].append(self.note)
+                with self.assertRaisesRegex(EvidenceError, "unexpected operator-reassociation advisory"):
+                    self.audit()
+        for section, failed in (("flow", {"severity": "high", "how_proved": "flow", "rule": "UNINITIALIZED"}),
+                                ("proof", {"severity": "medium", "how_proved": "unproved"})):
+            with self.subTest(section=section):
+                self.prepare_reassociation_advisories()
+                self.report[section].append(dict(self.report["proof"][0], **failed))
+                with self.assertRaisesRegex(EvidenceError, "not proved/info"):
+                    self.audit()
+        for section in ("skip_flow_proof", "skip_proof", "pragma_assume"):
+            with self.subTest(section=section):
+                self.prepare_reassociation_advisories()
+                self.report[section] = [1]
+                with self.assertRaisesRegex(EvidenceError, "missing or nonempty"):
+                    self.audit()
+        self.prepare_reassociation_advisories()
+        self.report["spark"] = {}
+        with self.assertRaisesRegex(EvidenceError, "no SPARK coverage"):
+            self.audit()
+
+    def test_reassociation_rejects_applications_and_unreviewed_origin_pairs(self) -> None:
+        for kind, target in product(("static", "argument", "assigned", "selected"), ("main", "library")):
+            with self.subTest(kind=kind, target=target):
+                self.prepare_reassociation_advisories()
+                main = copy.deepcopy(self.initial_report)
+                main["assumptions"] = []
+                if target == "main":
+                    main["warn_error"] = [dict(self.note, file="main.adb")]
+                    for report in self.reports.values():
+                        report["warn_error"] = []
+                self.reports["main"] = main
+                with self.assertRaisesRegex(EvidenceError, "unexpected operator-reassociation advisory"):
+                    self.audit(application_kind=kind)
+        for unit, file in (("silver_io", "silver_io.adb"),
+                           ("silver_function_bindings", "silver_library_reports.adb"),
+                           ("silver_library_reports", "silver_function_bindings.ads"),
+                           ("silver_output_profile", "silver_function_bindings.adb")):
+            with self.subTest(unit=unit, file=file):
+                self.prepare_reassociation_advisories()
+                self.report["entities"][" 1"]["sloc"][0]["file"] = unit + ".adb"
+                self.note["file"] = file
+                self.reports = {unit: self.report}
+                with self.assertRaisesRegex(EvidenceError, "unexpected operator-reassociation advisory"):
+                    self.audit()
+
+    def test_reassociation_requires_exact_sarif_shape_and_multiplicity(self) -> None:
+        changes = ({"kind": "pass", "level": "none"}, {"kind": "informational"}, {"level": "error"},
+                   {"ruleId": "numeric-variant"}, {"message": {"text": "changed advisory"}},
+                   {"message": []}, {"locations": []}, {"locations": [{}]},
+                   {"suppressions": []}, {"suppressions": [{"kind": "inSource"}]},
+                   {"suppressions": [{"kind": "external", "justification": "trusted"}]},
+                   {"properties": {"extra": True}})
+        for change in changes:
+            with self.subTest(change=change):
+                self.prepare_reassociation_advisories()
+                self.write_reports()
+                self.sarif["runs"][0]["results"][-1].update(change)
+                (self.path / "gnatprove.sarif").write_text(json.dumps(self.sarif))
+                with self.assertRaises(EvidenceError):
+                    audit_reports(self.path, set(self.reports))
+        for field in ("ruleId", "kind", "level", "message", "locations", "suppressions"):
+            with self.subTest(missing=field):
+                self.prepare_reassociation_advisories()
+                self.write_reports()
+                self.sarif["runs"][0]["results"][-1].pop(field)
+                (self.path / "gnatprove.sarif").write_text(json.dumps(self.sarif))
+                with self.assertRaises(EvidenceError):
+                    audit_reports(self.path, set(self.reports))
+        for field, value in (("uri", "./silver_output_profile.adb"), ("uri", "other.adb"),
+                             ("startLine", 5803), ("startColumn", 51),
+                             ("startLine", 5802.0), ("startColumn", 50.0),
+                             ("startLine", True), ("startColumn", True), ("extra", True)):
+            with self.subTest(field=field, value=value):
+                self.prepare_reassociation_advisories()
+                self.write_reports()
+                location = self.sarif["runs"][0]["results"][-1]["locations"][0]["physicalLocation"]
+                location["artifactLocation" if field == "uri" else "region"][field] = value
+                (self.path / "gnatprove.sarif").write_text(json.dumps(self.sarif))
+                with self.assertRaises(EvidenceError):
+                    audit_reports(self.path, set(self.reports))
+        for duplicate in (False, True):
+            with self.subTest(duplicate=duplicate):
+                self.prepare_reassociation_advisories()
+                self.write_reports()
+                results = self.sarif["runs"][0]["results"]
+                # Remove/duplicate one of the two identical imported-spec notes.
+                imported = next(item for item in results if item.get("ruleId") == "operator-reassociation"
+                                and item["locations"][0]["physicalLocation"]["artifactLocation"]["uri"]
+                                    == "silver_function_bindings.ads")
+                results.append(copy.deepcopy(imported)) if duplicate else results.remove(imported)
+                (self.path / "gnatprove.sarif").write_text(json.dumps(self.sarif))
+                with self.assertRaisesRegex(EvidenceError, "diagnostic coverage disagree"):
+                    audit_reports(self.path, set(self.reports))
+        self.prepare_reassociation_advisories()
+        self.write_reports()
+        # A recognized SARIF advisory cannot appear without a native counterpart.
+        extra = copy.deepcopy(self.sarif["runs"][0]["results"][-1])
+        extra["locations"][0]["physicalLocation"]["region"]["startLine"] += 1
+        self.sarif["runs"][0]["results"].append(extra)
+        (self.path / "gnatprove.sarif").write_text(json.dumps(self.sarif))
+        with self.assertRaisesRegex(EvidenceError, "exact operator-reassociation advisory"):
+            audit_reports(self.path, set(self.reports))
 
 
 class VendorProofEvidenceTests(unittest.TestCase):

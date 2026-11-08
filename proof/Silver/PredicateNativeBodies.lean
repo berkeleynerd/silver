@@ -274,7 +274,9 @@ def relationBody : Expr .condition :=
       .group <| .ite (.ne after (.number 0))
         (.callBooleanRelation text context position facts (.variable "initials"))
         (.elsif (.ne (.field .lengthAfter leftLength) (.number 0)) lengthCase
-        (.elsif (.ne (.field .scalarAfter leftScalar) (.number 0)) scalarCase stringCase))
+        (.elsif (.ne (.field .scalarAfter leftScalar) (.number 0)) scalarCase
+          (.elsif (.field .contextPure context)
+            (.callBooleanRelation text context position facts (.variable "initials")) stringCase)))
 
 def chainTokenBody : Expr .chain :=
   let text : Expr .source := .variable "text"
