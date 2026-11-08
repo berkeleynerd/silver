@@ -1,0 +1,8 @@
+{
+  "utc": "2026-11-08T08:54:19.120471+00:00",
+  "indexed_artifacts_verified": 155,
+  "uncompressed_bytes_verified": 32809180,
+  "all_gzip_files_indexed": true,
+  "retained_native_inputs_matching_managed_preflight": 141,
+  "scope": "Focused Parameter_Frame artifact verification and correspondence to captured native input hashes; not complete compiler proof or provenance audit"
+}
