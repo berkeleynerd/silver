@@ -5,7 +5,8 @@
 **First group #342 complete and merged through
 [PR #351](https://github.com/berkeleynerd/silver/pull/351);
 second group #343 implemented, validated on Linux and independently reviewed;
-published in [PR #352](https://github.com/berkeleynerd/silver/pull/352).**
+published in [PR #352](https://github.com/berkeleynerd/silver/pull/352).
+Its merge is authorized; third group #344 is selected.**
 The owner initially instructed **“Proceed with the planning effort we just discussed.”**
 The [dated decision](session-memory.md#2026-11-08--coherent-batch-planning-authorized)
 authorizes the batching guidance, candidate assessment, milestone/issues and
@@ -19,8 +20,11 @@ selects #342's four callable examples while the external review proceeds.
 Those four samples are validated and reviewed. The owner's subsequent
 [“Agreed. proceed.”](session-memory.md#2026-11-08--callable-examples-merge-and-divisor-group-authorized)
 authorizes merging PR #351 and implementing #343's four divisor programs through
-reviewable publication. #343's merge remains a later owner decision. #344 stays
-unstarted, and #345 retains the later combined batch checkpoint.
+reviewable publication. The later
+[owner instruction](session-memory.md#2026-11-08--divisor-examples-merge-and-digitprime-group-authorized)
+authorizes merging ready PR #352 and implementing #344's four digit/prime
+programs through reviewable publication. #344's merge remains a later owner
+decision, and #345 retains the later combined batch checkpoint.
 PR #351 merged as `a74e67c3a8` and #342 is closed. The divisor group starts from
 those accepted inputs; its own source, manifest and application evidence remain
 separate from the first-group checkpoint below.
@@ -33,7 +37,7 @@ The preceding batch, [small nonrecursive functions #298](https://github.com/berk
 is complete: PR #339 merged as `05302f760f` and milestone 20 is closed. Its
 accepted native/Lean/source assurance supplies this successor's delivery baseline;
 pending or failed checkpoints are not reusable success. Planning does not expand
-#298; the later authorizations above select the first two implementation groups.
+#298; the later authorizations above select all three implementation groups.
 
 ## Outcome and choice
 
@@ -192,11 +196,11 @@ run is claimed; original failed runs remain failed.
 | Independent task/evidence review | GPT-6 Astra / Max | Accepted `5262fb81fa`: full-domain algorithms/guards, task fidelity, exact output and evidence applicability; no material finding, one inherited status sentence corrected | Total review elapsed/token/cost measurements unavailable |
 
 No language mechanism or resource budget changed. The first two groups now
-provide eight validated programs; #344's four digit/prime programs remain
-unstarted. #345 retains the combined checkpoint and narrow Rosetta assessment
+provide eight validated programs; #344's four digit/prime programs are selected
+next. #345 retains the combined checkpoint and narrow Rosetta assessment
 and render, so the rendered Stage-1 total remains 71. The #343 implementation
 is published in [PR #352](https://github.com/berkeleynerd/silver/pull/352).
-Merge remains held for the owner's later decision; milestone 21 remains open.
+Its merge and #343 closeout are now owner-authorized; milestone 21 remains open.
 
 ## Increments and ownership
 

@@ -1,5 +1,28 @@
 # Session memory
 
+## 2026-11-08 — Divisor examples merge and digit/prime group authorized
+
+The owner instructed **“OK, proceed to merge 352 and move on to the next item.”**
+This authorizes merging ready [PR #352](https://github.com/berkeleynerd/silver/pull/352)
+and ordinary #343 closeout, superseding its earlier merge hold, and selects
+[#344 — Digit and prime algorithms](https://github.com/berkeleynerd/silver/issues/344).
+Its four programs are Sum digits of an integer, Happy numbers, Additive primes
+and Attractive numbers, under the [existing batch plan](scalar-function-rosetta-batch.md).
+Implement and publish that group for review; its implementation merge remains a
+later owner decision. Record this selection on main with the #352 merge before
+claiming #344.
+
+Retain the proposed domains, complete task ranges, 4,096-byte source and existing
+operator/operand limits. Establish sufficient digit, finite-state and factor
+iteration bounds, with no truncated search or behavior-changing guard. Each new
+program needs production admission, complete application proof/build/execution,
+independent outputs and task/domain review. Reuse only applicable accepted
+compiler/native/Lean and earlier sample evidence. No compiler, language, proof,
+auditor or capacity change is selected. #345 retains the later combined
+checkpoint and narrow Rosetta assessment/render; milestone 21 stays open.
+Preserve external-review workspaces, unrelated root edits and scratch. CLI recall
+was not updated.
+
 ## 2026-11-08 — Callable examples merged; divisor group validated
 
 The authorized [PR #351](https://github.com/berkeleynerd/silver/pull/351) merge
