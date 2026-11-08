@@ -25,7 +25,7 @@ each delivery; the linked issues hold scope and completion criteria.
 | Complete 2026-11-07 | [Fixed-size Boolean arrays #297](https://github.com/berkeleynerd/silver/issues/297) | Sieve of Eratosthenes; elementary cellular automata |
 | Complete on Linux and merged 2026-11-07; PR #337 | [Sample-only expansion #300](https://github.com/berkeleynerd/silver/issues/300) | Ten programs covering eleven task mappings; [bounded plan](docs/rosetta-sample-expansion.md) |
 | Complete on Linux 2026-11-08; merged through PR #339 | [Small nonrecursive functions #298](https://github.com/berkeleynerd/silver/issues/298) | Boolean `Is_Prime` for Primality by trial division first; GCD and numeric search helpers remain candidate uses |
-| Provisional successor; planning authorized 2026-11-08 | [Scalar-function Rosetta batch, milestone 21](https://github.com/berkeleynerd/silver/milestone/21) | Twelve callable, divisor and digit/prime task candidates; [bounded plan](docs/scalar-function-rosetta-batch.md). Implementation is not authorized. |
+| First group #342 selected 2026-11-08; remaining groups proposed | [Scalar-function Rosetta batch, milestone 21](https://github.com/berkeleynerd/silver/milestone/21) | Twelve callable, divisor and digit/prime task candidates; [bounded plan](docs/scalar-function-rosetta-batch.md). Begin with the four callable integer examples. |
 
 The bounded String increment has completed repaired Linux native and Lean
 assurance after the [interim review repairs](docs/interim-review-response-20261105.md).
@@ -52,9 +52,9 @@ merged through PR #337 after its tutorial checkpoint. The owner
 [selects #298 next on 2026-11-07](docs/session-memory.md#2026-11-07--small-nonrecursive-functions-selected).
 Candidate samples need faithful implementations before any coverage gain is
 claimed. The expanded opportunity inventory remains outside this commitment.
-No language feature after #298 is selected. The sample-only successor above is
-provisional planning, with implementation issues in Backlog until later owner
-authorization and an accepted #298 delivery baseline.
+No language feature after #298 is selected. The sample-only successor begins
+with owner-selected #342 on the accepted #298 baseline; its remaining groups
+stay Backlog until selected.
 Existing source and expression budgets, assurance requirements, broad stages
 and deferred capacity work retain their scope.
 
@@ -94,23 +94,28 @@ outcomes passed. The narrow Rosetta render and three tests also passed: only
 Primality by trial division moves Stage 8 to 1, taking Stage-1 mappings from
 70 to 71. Independent review accepts the complete 645-ID inventory and delivery target
 `4d9ce491ee`. PR #339 merged as `05302f760f`; its six issues and
-milestone 20 are closed. Separate planning PR #346 is authorized to merge;
-its milestone 21 successor items remain Backlog.
+milestone 20 are closed. Planning PR #346 merged as `74ea2edeaa`; the first
+milestone 21 implementation group is selected below.
 Recursion, `out`/`in out`, array/String signatures, general package admission and
 capacity rewrites remain outside this package. No split is selected; if needed,
 record increment issues and their order together. This completes the committed
 delivery batch; successor planning does not expand its scope or change its
 validation inputs.
 
-### Provisional scalar-function Rosetta batch
+### Scalar-function Rosetta batch
 
-**Planning authorized 2026-11-08; implementation not authorized.** The owner
+**First group #342 selected for implementation, 2026-11-08.** The owner initially
 instructed **“Proceed with the planning effort we just discussed.”** The
 [dated decision](docs/session-memory.md#2026-11-08--coherent-batch-planning-authorized)
 authorizes the batching guidance, one successor assessment, milestone/issues
 and reviewable planning publication alongside #298, now delivered.
 The owner subsequently [authorized merging ready PR #346](docs/session-memory.md#2026-11-08--batch-planning-merge-authorized-report-next-unit-first),
 with the next unit reported before implementation starts.
+After that report and merge, the owner instructed **“OK, while that trundles
+along let's tackle the next unit of work.”** The
+[dated selection](docs/session-memory.md#2026-11-08--callable-integer-examples-selected-during-external-review)
+authorizes #342's four callable examples through reviewed publication while
+the external review proceeds. Implementation merge remains a later decision.
 
 [Milestone 21](https://github.com/berkeleynerd/silver/milestone/21) proposes
 twelve numeric tasks using the delivered scalar-function fragment. The
@@ -132,7 +137,9 @@ needs its own admission, complete application proof/build/execution and task
 fidelity review. No compiler change, new language form, larger resource bound or
 restart of deferred #119 is proposed. All candidate gains remain unvalidated;
 only actual delivered task mappings count. #298 and its accepted final evidence
-are prerequisites. Issues remain Backlog; there is no second provisional successor.
+are prerequisites, now satisfied. Only #342 is selected; #343 and #344 remain
+unstarted, and #345 retains the later combined checkpoint. A partial group does
+not complete milestone 21. There is no second provisional successor.
 
 ### Rosetta sample expansion
 

@@ -1,5 +1,30 @@
 # Session memory
 
+## 2026-11-08 — Callable integer examples selected during external review
+
+After the merged batch plan and identification of its first unit, the owner
+instructed **“OK, while that trundles along let's tackle the next unit of work.”**
+This selects [#342 — Callable integer examples](https://github.com/berkeleynerd/silver/issues/342)
+in milestone 21: four separate faithful Factorial, Fibonacci, Signum and Sum
+multiples of 3 and 5 programs using the delivered scalar-function fragment.
+The [batch plan](scalar-function-rosetta-batch.md) retains the agreed domains,
+source/operator budgets, task requirements and application validation.
+
+Routine authorization publication/merge and #342 implementation through
+reviewable publication are authorized, with focused application proof/build/run,
+independent expected outputs and task-fidelity review. Reuse applicable accepted
+#339 compiler/runtime/Lean evidence under the existing policy. This sample-only
+unit does not select compiler, language, proof, auditor or capacity changes.
+Keep #343 and #344 unstarted and Backlog; #345 retains the later combined
+batch checkpoint. Do not close the parent milestone for this first increment.
+Implementation merge remains a later owner decision.
+
+The owner reports the Claude external review is proceeding against fixed target
+`74ea2edeaa`; this authorizes parallel sample work, not a claim about the
+reviewer's actual progress or outcome. Keep its existing workspaces untouched
+and coordinate any native jobs with live reservations. Preserve unrelated root
+checkout changes and scratch files. No CLI recall entry was updated.
+
 ## 2026-11-08 — Batch-planning merge authorized; report next unit first
 
 The owner instructed **“If you agree 346 is ready to merge please merge it as
