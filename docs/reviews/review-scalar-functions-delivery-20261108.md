@@ -2060,3 +2060,163 @@ no auditor, test, proof, build, signal, lease/cache mutation, publication or
 merge. Because this reviewer proposed the policy interpretation, another
 independent reviewer must approve the eventual correction before its evidence
 is used for final acceptance.
+
+## Final independent acceptance — 2026-11-08
+
+**Accept integration `4d9ce491eedc50776b71577d8229ece67e38b0e7` for
+owner-authorized #298 delivery through reviewable publication.** Complete Linux
+native and Lean/source assurance, all 645 regression IDs and the narrow Rosetta
+reconciliation have applicable successful evidence. No unresolved material
+finding remains in this review scope. Implementation merge remains held.
+
+The final governed implementation is
+`0333d3350384c1af05380e288d9fdd386a13b5a3`. Its underlying Ada/function source
+is `f6308191545c1012d76132ae535977e55fd4f018`; it additionally contains the
+independently approved auditor `53d3a3b22b`, integrated as `dfda468593`, and the
+one-line frame-flow facade import. The reviewed `4d9ce491ee` includes the final
+evidence, Rosetta and documentation reconciliation. No governed source, proof,
+script, test, sample, catalogue or project input changes between `0333` and this
+review target. The review commit itself is a later report-only change.
+
+This bounded acceptance uses the retained independent admission, capacity,
+raw-source and auditor reviews without repeating them. In particular,
+[independent review `121868a6c7`](review-scalar-functions-native-auditor-20261108.md)
+approved the auditor policy proposed in the earlier diagnosis. Its exact script
+and test bytes are present here. This verdict does not substitute this reviewer's
+own policy interpretation for that separate approval.
+
+### Complete assurance and current inputs
+
+The [native checkpoint](../evidence/scalar-functions-20261107/native-checkpoint/auditor-refresh-53d3/README.md)
+`20261108T155015-d9cbdb714cbd` actually completed with driver exit 0. Its log
+records all **18,525 required checks** proved: 1,605 flow and 16,920 proof checks,
+with the complete 77-unit / 1,165-entity source/report audit and mandatory final
+evidence checker. Completed provenance preserves the exact snapshot and command.
+All 2,588 captured inputs match the current native workspace, and its 145
+repository inputs match this target. Independently verified 151 archived native
+inputs, all 79 provenance report hashes and twelve native tool executable hashes;
+version commands were not re-executed.
+
+This was the recorded ordinary warm Linux run with twelve workers, preserved
+sessions/cache and unchanged logical options. Separately classified advisories
+contribute no discharged obligation. The facade import is outside the native
+input selector. Later documentation and Rosetta changes alter no native source,
+contract, formal domain, project option or compiler binary; no native rerun is
+required for those changes.
+
+The [complete Lean checkpoint](../evidence/scalar-functions-20261107/complete-lean/20261108T172947-84b3cd350332/README.md)
+`20261108T172947-84b3cd350332` actually completed with driver exit 0. Its successful
+build and separately executed fresh audit cover **all 820 current project
+modules**, with no omission, extra or duplicate, and **145,525 declarations**
+using only `propext`, `Classical.choice` and `Quot.sound`. All 927 captured inputs
+match both this review checkout and the actual integration checkout; independent
+selector comparison confirms their exact membership. The two Lean/Lake executable
+hashes also match. This is complete current-source evidence under the documented
+local-cache premise, not a clean rebuild or independent kernel replay.
+
+The unchanged entire frame-flow module first passed
+[focused run `20261108T172824-28123f63af08`](../evidence/scalar-functions-20261107/focused/20261108T172824-28123f63af08/README.md):
+actual exit 0, 97 build jobs and a fresh 9,973-declaration imported-closure audit.
+The subsequent complete run checks the facade edge and all modules together.
+No statement, definition, semantic consumer, full native domain or audit rule
+changed. The legacy audit still covers private declarations, and authoritative
+source correspondence remains required.
+
+Original native `20261108T094547-29491e1d3036` and complete Lean
+`20261108T094147-fb5330310904` remain failed. The latter's five retained payloads
+were independently verified, including actual exit 1 and absence of completed
+Lean evidence. Neither earlier result is restamped by the later success.
+
+### Final regression and Rosetta composition
+
+Accept the [645-ID composition](../evidence/scalar-functions-20261107/final-regression/final-645-id-resolution.json).
+Its unique IDs and every inherited per-ID field match the independently reviewed
+auditor-delta inventory exactly. Tests are unchanged from that inventory; all
+58 tracked test files also match the actual regression checkout. No failure,
+skip or aggregate count is substituted for an individual successful outcome.
+
+| Final applicable origin | IDs |
+| --- | ---: |
+| Prior independently accepted successes retained after final dependency comparison | 626 |
+| Fresh successes resolving the sixteen pending IDs | 16 |
+| Fresh Rosetta outcomes replacing three existing IDs | 3 |
+| Total, with no pending ID | **645** |
+
+The [four isolated runs](../evidence/scalar-functions-20261107/final-regression/isolated-final/README.md)
+establish actual exit-0 successes for maximum expression, self actuals, ordered
+calls and the original platform wrapper. Their test intervals are 171.737,
+14.879, 15.010 and 303.203 seconds, preserving the original 300/120/120/900-second
+outer deadlines, worker/barrier limits, assertions and production options, with
+the full 22-CPU allowance. Retained input/binary comparisons pass. All 1,100
+platform preflight inputs and both compiler/adapter binaries also match the
+actual regression checkout now. The 72 manifest sample successes retain their
+already reviewed unchanged-source/compiler applicability. Earlier failed runs
+remain failed.
+
+The wrapper accounts for its own ID and twelve nested IDs. Its actual
+`test_platforms.py PlatformIsolationTests -v` child was observed. The unchanged
+class contains exactly those twelve methods, with no skip or custom loader
+mechanism; the original wrapper requires child returncode 0. This establishes
+their execution and success under that contract. Nested stdout was captured by
+the successful wrapper but is not separately retained. The quick self-actuals
+test finished before its observer launched; actual exit and the explicit
+postflight scan are retained, without a continuous-observation claim. These Linux
+routing fixtures do not establish native macOS validation.
+
+The added public facade edge changes no `include_str` source-binding census or
+legacy-module classification. The source-policy tests' lower Compose closures
+are unchanged. Synthetic Lean fixtures and the successful chunk fixture copy
+fixed helpers or synthesize their facade; they do not acquire this production
+edge. The affected full-copy platform wrapper ran freshly on `0333`. Native and
+Python dependencies retain their independently accepted scope, while the complete
+Lean run supplies current whole-project assurance. Status prose is not a test
+input. No chunk, policy or broad native regression rerun is needed for this delta.
+
+The [Rosetta packet](../evidence/scalar-functions-20261107/rosetta-delivery/README.md)
+records successful rendering and all three original test methods passing in
+`20261108T174013-0af40cd230ed`: 6.422 test seconds, actual driver exit 0.
+All 1,104 prepared inputs match. Exhaustive comparison confirms only
+`scalar-functions` was added to supported identifiers, only Primality by trial
+division was reassessed, and only that task moved Stage 8 to 1, increasing
+Stage-1 mappings from 70 to 71. All 258 other changed task pages differ only in
+position numbering. The sample bytes, original revision/date/rubric/tier/model/
+effort and separately dated Sol / High review attribution are preserved. General
+functions, procedures and broad booleans remain unsupported.
+
+The eight status documents accurately distinguish complete checks, retained
+evidence, examples and universal/source assurance. All 37 added or changed local
+links in the final documentation delta resolve, including anchors. The approved
+auditor-boundary text is unchanged outside the scalar-function status introduction.
+No Oracle amendment or language-scope expansion is present.
+
+### Findings and handoff
+
+| Finding | Final disposition on `4d9ce491ee` |
+| --- | --- |
+| R1 / #340, normalized reader premises | Fixed and accepted. The [independent raw-source repair](review-scalar-functions-raw-source-r1-e76a3f9420.md) retains derivation from raw equations, contracts and direct callee identities. Four of its five files match `e76a3f9420`; the fifth differs only by the explicit wrapper projection annotation already reviewed above. The complete current audit supplies the previously pending integrated-consumer/source evidence. |
+| R2 / #347, compiler proof-context annotation | Fixed and accepted. Separate independent approval covers the exact correction; successful current native provenance, complete Lean and applicable policy regressions satisfy the outstanding validation. No generic annotation allowance or omitted obligation is introduced. |
+| R3 / #348, compiler reassociation advisory | Fixed and accepted. Separate independent approval covers the exact compiler-only native/SARIF classification; successful current complete auditing preserves all checks and diagnostic multiplicities under the documented pinned-GNAT premise. |
+| R4 / #349, omitted frame-flow module | Fixed and accepted. Whole-module focused success precedes the final exact 820-module audit; the single facade edge changes no premise, domain or obligation. |
+
+Exact source, full declared formal domains, unused-function checking, termination
+and every required obligation retain the reviewed guarantees. This acceptance
+introduces no deferred repair or successor implementation. The coordinator may
+record this verdict, reconcile stage issue #341 to Stage 1 and affected board
+items to In review, and publish PR #339 as ready for review. Issues and milestone
+remain open until the later authorized merge; implementation merge remains held.
+
+Selected reviewer: **GPT-6 Astra / Max**, explicitly requested. Independent
+runtime confirmation, token/cost and complete elapsed-review or whole-team
+measurements are unavailable. Successful read-only data and metadata comparisons
+record approximately 33.981 and 4.965 seconds, distinct from production execution
+durations. Actual host: Linux x86-64, confirmed by `uname` and `dev.py paths`.
+Harness goal was rechecked and is null; CLI recall was not updated.
+
+No production auditor, test, build, proof or renderer ran in this review. No
+integration, process, cache, lease, GitHub, push or merge change occurred. Only
+this appended report and owned scratch were written. The independent evidence
+verifies 2,037 indexed committed payloads and is retained in
+`tmp/final-acceptance-4d9-298/`, including every ID's accepted applicability and
+the four finding dispositions. Its verified seven-member `evidence.tar.gz` is
+34,933 bytes, SHA256
+`abb5c110483fa55ed4bde3bd71be870de8d1cc370b6a2c2a55659b6d5d737d08`.
