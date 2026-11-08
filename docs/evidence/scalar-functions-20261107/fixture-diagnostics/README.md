@@ -1,7 +1,7 @@
 # Isolated fixture diagnostics — 2026-11-08
 
 These observations investigate the repeated initial-build timeout in the
-[regression packet](../final-regression/README.md). Neither is a passing
+[regression packet](../final-regression/README.md). None is a passing
 regression fixture. The original full run and focused follow-up remain failed;
 their audit and object-reuse/edit stages still require a complete pass.
 
@@ -10,8 +10,10 @@ their audit and object-reuse/edit stages still require a complete pass.
 | `20261108T054614-dc5613468a66` | Cold configuration only, exact Lake prefix, then immediate marker | Passed in 22.878 seconds; no module build |
 | `20261108T055144-283b5d488a27` | Cold initial build with original targets and 60-second deadline | Timed out during Cursor, after Lexical, CertificateWitness and Admission compiled |
 | `20261108T060219-fd618279bf6d` | One direct CertificateWitness compile with pinned profiler options | Passed in 9.604 seconds; exclusive import cost 6.870 seconds |
+| `20261108T061828-f176c7d39979` | Fresh authenticated Lean installation on container-local overlay | Passed; all 18,381 distribution entries and 15,127 baseline library identities matched |
+| `20261108T062237-55f39cc9f940` | One matched CertificateWitness profile using that local installation | Passed in 4.836 seconds; exclusive import cost 2.910 seconds |
 
-Both used the original one-thread/one-worker and 2,048 MiB settings and matched
+The first two used the original one-thread/one-worker and 2,048 MiB settings and matched
 all 19 retained prepared source/configuration hashes. Each ran in its own
 workspace through the managed runner with one reserved worker. The current
 environment was captured explicitly; the historical ambient environment and
@@ -37,8 +39,22 @@ The profiler observation recorded 3.17 user and 5.17 system CPU seconds;
 elaboration took 46.9 ms. The installed library's 15,127 files were unchanged
 before and after the run. Hashing warmed caches, and the earlier successful
 fixture's imported-library identity is unknown. The current installation is
-on a measured `virtiofs` mount. A separately authorized, authenticated local
-Lean installation and one matched profiler comparison are pending; they will
-leave the active installations untouched. This remains a diagnostic hypothesis,
-not a fixture repair or completed acceptance. Any further fixture run must
-follow the resulting diagnosis and retain the existing checks and deadline.
+on a measured `virtiofs` mount. The separately authorized local installation
+and matched profiler comparison both completed. Their
+[combined bundle and exhaustive member inventory](local-installation-20261108/index.json)
+retain unchanged bootstrap inputs, complete distribution comparisons, profiler
+inputs and loaded-file identities, process observations and both managed ledgers.
+Every bundle member's bytes and SHA-256 were independently read and indexed
+during integration; both ledgers record actual successful completion.
+
+The local profile used identical source, setup and normalized arguments and
+environment. Source/output stayed on virtiofs; installed tools and libraries
+were on the verified overlay filesystem. All 4,966 sampled mapped-file identities
+matched after installation-prefix normalization, and no old installation file
+was loaded. Sampled system CPU decreased from 5.17 to 1.90 seconds. Both runs
+warmed caches through identity checks; extraction and scheduling were not
+controlled, and serialization time increased. The original fixture used /tmp
+for its source/output workspace. These limits prevent treating this one
+observation as a complete causal explanation or a passing fixture. Existing
+installations and prior evidence remain untouched. The next fixture check must
+retain its original assertions, deadline and complete edit/audit sequence.

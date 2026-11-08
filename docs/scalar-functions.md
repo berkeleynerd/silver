@@ -195,8 +195,11 @@ delivery review remain pending.
 
 The first object-reuse fixture follow-up repeated its initial-build timeout.
 The [isolated configuration, build and import diagnostics](evidence/scalar-functions-20261107/fixture-diagnostics/README.md)
-retain exact inputs and measured phase costs. A matched local-storage diagnostic
-is pending; both regression fixture passes remain required. No fixture,
+retain exact inputs and measured phase costs. A fresh authenticated local Lean
+installation matched every distribution entry; one matched profile reduced
+measured import time from 6.87 to 2.91 seconds. The retained comparison records
+its cache, scheduling and storage-scope limits. Both regression fixture passes
+remain required. No fixture,
 timeout, language rule or proof obligation has been changed.
 
 Selected subthread settings are recorded from their launches; independent runtime
