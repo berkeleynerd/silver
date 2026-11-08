@@ -1,0 +1,80 @@
+[
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T064001-6ef8f57066d6/events.jsonl",
+    "artifact": "events.jsonl.gz",
+    "sha256": "4beb6d1110b98d678d116e4c27ebc28fc4c6bfb91b88921be116260b791c76d4",
+    "bytes": 109864
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T064001-6ef8f57066d6/reports/0/lean-focused.log",
+    "artifact": "lean-focused.log.gz",
+    "sha256": "7717215cfa1301c9ada18cc10bebc8688de51d1144d7507246e0a7b596512c85",
+    "bytes": 10124
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-source-integration-298/tmp/20261108T064001-6ef8f57066d6-memory.jsonl",
+    "artifact": "0-20261108T064001-6ef8f57066d6-memory.jsonl.gz",
+    "sha256": "0383d5af7d9f820ad512a6e847499d58b6edc23d3cff7a0c09388c4df0d17e7b",
+    "bytes": 72811
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-source-integration-298/tmp/watch-serial-lean-memory.py",
+    "artifact": "1-watch-serial-lean-memory.py.gz",
+    "sha256": "153fc9379f08b8eff4c5e53d79c72dc5e4591118104850ddc3967d075915972c",
+    "bytes": 1612
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-source-integration-298/tmp/calls-included-qualification/CallsIncludedImpl.lean",
+    "artifact": "2-CallsIncludedImpl.lean.gz",
+    "sha256": "4407c53896429802b4981e69302d5026786016680bf9e2f548086b12d25db8d4",
+    "bytes": 690
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-source-integration-298/tmp/calls-included-qualification/README.md",
+    "artifact": "3-README.md.gz",
+    "sha256": "490c2af9548a57e957320cee90619291095403f52586871bf686522b06fbeab5",
+    "bytes": 954
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-source-integration-298/tmp/calls-included-qualification/comparison.json",
+    "artifact": "4-comparison.json.gz",
+    "sha256": "e041bbc72c0be96864e07e4a64e6ee9c5f848d4e1b7c3c0c88f9217ef1e9ed52",
+    "bytes": 546
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-source-integration-298/tmp/calls-included-qualification/repair.patch",
+    "artifact": "5-repair.patch.gz",
+    "sha256": "fcf1698abd92167b5438846c0c8c59a6cb6708ac4cc7c04895add0f1bddd8974",
+    "bytes": 541
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-source-integration-298/tmp/callee-qualified-source-reader/CallsCalleeAtBody.lean",
+    "artifact": "6-CallsCalleeAtBody.lean.gz",
+    "sha256": "317f90b89a933ce75dc493465fbd74ccb6f30b2104d172e177d005d111713cca",
+    "bytes": 586
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-source-integration-298/tmp/callee-qualified-source-reader/PredicateFunctionCallSource.lean",
+    "artifact": "7-PredicateFunctionCallSource.lean.gz",
+    "sha256": "753bf0eeeb8f7a19c8eeaccc8a7e9a4cd357978a7e3f5d830cbfbbb478de83d5",
+    "bytes": 10872
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-source-integration-298/tmp/callee-qualified-source-reader/proposal.json",
+    "artifact": "8-proposal.json.gz",
+    "sha256": "1ea4dac3eaa7350dc4647c67774fe0b15ea46de2a187caa2d4c0beef7863d13e",
+    "bytes": 1109
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-source-integration-298/tmp/callee-qualified-source-reader/repair.patch",
+    "artifact": "9-repair.patch.gz",
+    "sha256": "34b2aeb798af54caa06e0005e1f164ee40e7209be5bcde88a6391ef15bea2c4c",
+    "bytes": 1430
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-source-integration-298/tmp/callee-qualified-source-reader/source-reader-diagnosis.json",
+    "artifact": "10-source-reader-diagnosis.json.gz",
+    "sha256": "f28d2411a3e661de53e6c86c3b32637c6bb229f13dd3fd19fde8f2e909a27ed8",
+    "bytes": 592
+  }
+]
