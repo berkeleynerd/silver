@@ -1,9 +1,10 @@
 # Final native regression evidence for #298
 
 The Linux x86-64 build passed. The complete regression run **failed** with
-635 passing tests, two subprocess-timeout errors and no skips. Both failed
-fixtures still require passing focused reruns; the complete run remains failed
-after any follow-up results.
+635 passing tests, two subprocess-timeout errors and no skips. The repaired
+object-reuse fixture subsequently passed in full; the platform fixture still
+requires a passing check. The original complete run remains failed history,
+and final independent applicability review must account for every test.
 
 | Managed run | Inputs | Result | Managed elapsed |
 | --- | --- | --- | --- |
@@ -188,3 +189,12 @@ history. Four [source-policy methods](source-policy-47fe4003c0/README.md) also
 passed on the changed final recursive module graph. The separate platform
 fixture remains unresolved after its unchanged local-source attempt exposed
 inner errors before the outer timeout; exact diagnosis is pending.
+
+The subsequent single-method diagnostic established a 60-second worker timeout
+during real certificate generation. Its retained traceback, unchanged-input
+checks and the independently reviewed test-only watchdog repair are recorded
+in the [diagnostic packet](../fixture-diagnostics/README.md). Commit `9e89c80f82`
+changes both worker waits to 180 seconds and the complete wrapper to 900 seconds,
+preserving the barrier, every assertion and all twelve nested methods. One
+complete final-input wrapper check is authorized; its actual outcome and the
+complete 637-result applicability review remain outstanding.

@@ -220,6 +220,16 @@ The separate unchanged platform fixture still failed from a local source root;
 its retained partial output exposes inner errors whose exception identities
 require diagnosis before any repair. No language rule or proof obligation changed.
 
+The [single concurrent-method diagnostic and watchdog assessment](evidence/scalar-functions-20261107/fixture-diagnostics/README.md)
+subsequently established an actual 60-second worker timeout while real source
+generation was still progressing. The exact reviewed test-only repair uses
+180 seconds for both worker waits and 900 seconds for the complete symlink
+wrapper. Every assertion, all twelve nested methods, expected-negative checks
+and the fifteen-second barrier remain. One complete affected-fixture check is
+authorized; its outcome and final regression applicability review remain pending.
+The serial function-source closure and complete native audit continue on frozen
+implementation inputs, followed by the mandatory complete Lean/source audit.
+
 Selected subthread settings are recorded from their launches; independent runtime
 confirmation, token/cost and total elapsed-work measurements are unavailable.
 Native probe time is retained by the managed records rather than inferred from
