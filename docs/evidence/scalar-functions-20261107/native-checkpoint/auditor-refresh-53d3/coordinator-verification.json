@@ -1,0 +1,13 @@
+{
+  "utc": "2026-11-08T15:57:14.739495+00:00",
+  "source_commits": [
+    "19812198c2",
+    "527c7a9f9f434c6a6841c04452b8e1d327f9ef23"
+  ],
+  "integration_commit": "c766990eacdb44c65a8372737d8dcdcc70a40dd7",
+  "run": "20261108T155015-d9cbdb714cbd",
+  "indexed_gzip_count": 1974,
+  "tracked_blob_count": 1979,
+  "all_member_sets_lengths_hashes_and_committed_blobs_verified": true,
+  "initial_packaging_correction": "Initial committed-member verification found two indexed Alire files excluded by existing alire/ ignore. Explicitly added both exact retained gzip inputs before publication; no native run or input change."
+}
