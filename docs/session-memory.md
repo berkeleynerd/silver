@@ -1,5 +1,34 @@
 # Session memory
 
+## 2026-11-08 — Digit/prime examples merged; combined checkpoint validated
+
+Owner-authorized [PR #353](https://github.com/berkeleynerd/silver/pull/353)
+merged as `247592a8fa2cb1230594c50246894f0cf461a642`. #344 is closed/Done;
+its accepted source/manifest review target remains `f2842c6d62ec`, with complete
+focused application evidence and independently reviewed assurance reuse.
+Authorization commit `27b649e4ad` changed only documentation and selected #345.
+
+[#345](https://github.com/berkeleynerd/silver/issues/345) is implemented and
+validated in `tmp/scalar-function-rosetta-delivery-345`, branch
+`feat/scalar-function-rosetta-delivery-345-20261108`. Metadata target
+`c9d8f3352296` integrates the separate Sol / Extra High reconciliation
+`3c2e1a6224`. Astra / Max independently reviews final task fidelity, evidence
+applicability and integration; final acceptance is pending. The lead owns
+managed affected tests, delivery records, board checks and publication. Selected
+settings are distinct from independently confirmed live runtime settings,
+which are unavailable.
+
+The [combined checkpoint](scalar-function-rosetta-batch.md#combined-delivery--2026-11-08)
+retains the twelve merged programs and unchanged compiler, proof and capacity
+inputs. All three sample groups have successful application evidence; the three
+affected Rosetta tests now pass. The rendered branch adds twelve faithful task
+mappings, from 71 to 83; tracked construct-stage assignments remain unchanged.
+[PR #354](https://github.com/berkeleynerd/silver/pull/354) publishes the combined
+result for review. Its delivery merge remains held for the owner; milestone 21
+stays open and no successor capability is selected. Main retains its earlier
+coverage until that merge. No CLI recall update was made. Unrelated root changes,
+external-review workspaces and scratch remain preserved.
+
 ## 2026-11-08 — Digit/prime merge and combined Rosetta delivery authorized
 
 After the ready [PR #353](https://github.com/berkeleynerd/silver/pull/353)

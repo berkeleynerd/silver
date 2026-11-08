@@ -2,11 +2,13 @@
 
 ## Status and authorization — 2026-11-08
 
-**First two groups #342/#343 complete and merged through
-[PR #351](https://github.com/berkeleynerd/silver/pull/351) and
-[PR #352](https://github.com/berkeleynerd/silver/pull/352);
-third group #344 implemented, validated on Linux and independently reviewed;
-published in [PR #353](https://github.com/berkeleynerd/silver/pull/353).**
+**All three implementation groups #342/#343/#344 are merged through
+[PR #351](https://github.com/berkeleynerd/silver/pull/351),
+[PR #352](https://github.com/berkeleynerd/silver/pull/352) and
+[PR #353](https://github.com/berkeleynerd/silver/pull/353).
+The #345 combined Linux checkpoint passed and is published in
+[PR #354](https://github.com/berkeleynerd/silver/pull/354); final independent
+acceptance is pending.**
 The owner initially instructed **“Proceed with the planning effort we just discussed.”**
 The [dated decision](session-memory.md#2026-11-08--coherent-batch-planning-authorized)
 authorizes the batching guidance, candidate assessment, milestone/issues and
@@ -31,7 +33,8 @@ PR #351 merged as `a74e67c3a8` and #342 is closed. The divisor group starts from
 those accepted inputs; its own source, manifest and application evidence remain
 separate from the first-group checkpoint below.
 PR #352 subsequently merged as `87e18b4c3e` and #343 is closed. The digit/prime
-group starts from that accepted combined baseline.
+group starts from that accepted combined baseline. PR #353 merged as
+`247592a8fa` and #344 is closed; #345 starts from these combined inputs.
 
 The [first-group checkpoint](#callable-integer-examples--2026-11-08) below
 records the four programs and their application validation. It does not complete
@@ -130,8 +133,8 @@ failure occurred in the four-program checkpoint.
 | Independent task/evidence review | GPT-6 Astra / Max | Accepted `db8ca3495c`: task fidelity, full-domain guard arguments, exact output, retained application reports and baseline applicability; no material finding | Total review elapsed/token/cost measurements unavailable |
 
 Selected agent settings are distinct from independently confirmed runtime
-settings, which were not exposed. No new Rosetta coverage is claimed: #345 owns
-the later narrow assessment/render and combined checkpoint. The implementation
+settings, which were not exposed. At this first-group checkpoint, no new Rosetta coverage was claimed; #345
+retained the later narrow assessment/render and combined checkpoint. The implementation
 is merged in [PR #351](https://github.com/berkeleynerd/silver/pull/351) as
 `a74e67c3a8`, and #342 is closed. Subsequent groups are recorded below;
 milestone 21 remains open.
@@ -202,7 +205,7 @@ run is claimed; original failed runs remain failed.
 No language mechanism or resource budget changed. The first two groups now
 provide eight validated programs; #344's four digit/prime programs follow below.
 #345 retains the combined checkpoint and narrow Rosetta assessment
-and render, so the rendered Stage-1 total remains 71. The #343 implementation
+and render; the Stage-1 total at this second-group checkpoint remained 71. The #343 implementation
 is published in [PR #352](https://github.com/berkeleynerd/silver/pull/352).
 It merged as `87e18b4c3e` and #343 is closed. Milestone 21 remains open.
 
@@ -283,10 +286,71 @@ checks passed on their first run.
 
 Selected agent settings are distinct from independently confirmed runtime
 settings, which were not exposed. All twelve programs now have focused application
-validation. [PR #353](https://github.com/berkeleynerd/silver/pull/353) publishes
-#344 for review; its merge is now authorized. #345 is selected for
-the combined checkpoint and narrow Rosetta assessment/render. Rendered coverage
-remains 71 tasks, and milestone 21 remains open.
+validation. [PR #353](https://github.com/berkeleynerd/silver/pull/353) merged as
+`247592a8fa`, closing #344. At this third-group checkpoint, rendered coverage
+remained 71 tasks; the final reconciliation follows below.
+
+## Combined delivery — 2026-11-08
+
+The three merged groups add twelve separate programs using the existing language,
+with no compiler, runtime, proof, catalogue, auditor or resource-budget change.
+The final manifest has **84 programs and 147 executable cases** (84 default
+invocations plus 63 argument cases). The batch contributes twelve of those
+invocations, exercising 17 helper declarations and producing 454 demonstration
+lines: 76 callable, 225 divisor and 153 digit/prime lines. A demonstration line
+is not a separate executable case or unittest identity.
+
+The [narrow assessment](../rosetta/assessment-scalar-function-batch-20261108.md)
+reconciles only these twelve primary tasks with the actual merged sources and
+preserves earlier assessment provenance. The render promotes exactly those
+twelve mappings: **71 to 83 supported Rosetta tasks**. The candidate inventory
+remains 1,576 tasks in 44 stages; downstream positions change, but construct-stage
+ordering and every tracked board Stage value remain unchanged. Existing supported
+identifiers remain unchanged; general functions,
+procedures and arrays remain outside the delivered fragment.
+
+All 645 unittest identities remain in scope. The three affected Rosetta tests
+passed freshly on metadata target `c9d8f3352296` in managed run
+`20261108T225101-0e909fa50875` (7.214 seconds); 642 IDs retain applicable results. The
+manifest method among those retained IDs composes the 72 accepted baseline
+program cases with the twelve successful new program cases, including all
+63 unchanged extra argument invocations. Final inventory checks confirm that
+every source is listed once, metadata is valid and all 72 earlier complete
+manifest records and source files are unchanged. Complete compiler/native/Lean
+assurance remains the accepted [#339 checkpoint](scalar-functions.md#delivery-assurance-and-validation).
+The [final review](reviews/review-scalar-function-rosetta-delivery-20261108.md)
+records applicability and final integration acceptance once complete. The
+[combined packet](evidence/scalar-function-rosetta-batch-20261108/README.md)
+retains the successful affected test, all 1,116 matching captured inputs,
+final inventory and unchanged board-stage comparison. No new complete compiler,
+Lean or full regression run is claimed.
+
+The three successful application checkpoints total **208.274 seconds**;
+all passed on their first production attempt. Their records above retain the
+admission-only draft repairs (arithmetic parentheses and a reserved identifier).
+There was no failed/interrupted production checkpoint in this sample batch and
+no complete compiler/Lean rebuild attempt. Overall wall-clock delivery starts
+at the #342 authorization merge `acde83e294`, 2026-11-08 19:37:37 UTC; its end
+is the successful affected-test completion at 22:51:09.969052 UTC, **3 h 13 m
+33 s** later (rounded). This excludes the subsequent final review/publication
+and includes authoring, reviews, records and owner handoffs, rather than only
+active execution. Pause durations were not separately measured.
+Agent elapsed time, tokens and cost are unavailable. The measured application
+work is short because it exercises unchanged delivered machinery; it does not
+predict the cost of a new language mechanism. No successor batch is selected.
+
+| Round | Selected model / effort | Result | Available timing |
+| --- | --- | --- | --- |
+| Narrow metadata and render | GPT-6.1 Sol / Extra High | Twelve existing-language task assessments; render adds exactly twelve mappings (71 to 83) | Agent elapsed/token/cost unavailable |
+| Combined validation and records | Lead runtime model/effort not independently exposed | 84-program/147-case inventory, three fresh Rosetta tests and matching captured inputs | Final managed test 7.214 s; application intervals recorded separately above |
+| Independent combined review | GPT-6 Astra / Max | Initial dependency review supports three fresh Rosetta IDs and 642 retained IDs; final acceptance pending | Review elapsed/token/cost unavailable |
+
+Selected settings are distinct from runtime-confirmed settings, which are not
+independently exposed. [PR #354](https://github.com/berkeleynerd/silver/pull/354)
+publishes the combined result. #345 and milestone 21 remain open until the later
+owner-authorized merge; main retains its earlier coverage until then. A completed
+implementation group did not complete this combined delivery. Native macOS
+validation is not claimed.
 
 ## Increments and ownership
 
@@ -400,11 +464,10 @@ database, proof bypass or approval ceremony is part of this plan.
 
 At planning snapshot `8eec12216a`, the rendered Stage 1 has 70 task mappings.
 #298 subsequently delivered Primality, establishing a merged baseline of 71.
-None of these twelve candidates is currently in Stage 1: legacy assessments
-place them in stages 6, 7, 8 or 13 because their older approaches request extra
-surface. A revised implementation and reviewed assessment are required before
-any promotion. The batch's upper bound is twelve additional task mappings, not
-a claimed gain or guaranteed final total.
+At that baseline, none of these twelve candidates was in Stage 1: legacy
+assessments placed them in stages 6, 7, 8 or 13 because their older approaches
+requested extra surface. Twelve additional mappings was the planning upper
+bound. The combined-delivery section above records the actual reconciliation.
 
 Reconcile only demonstrated tasks, preserve earlier review provenance, render
 once after the final metadata integration and update affected stage fields.

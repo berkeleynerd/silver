@@ -1,0 +1,45 @@
+{
+  "authorization_merge": "acde83e294dbe336b4fd9964c3a974e9806e7eea",
+  "authorization_utc": "2026-11-08T19:37:37Z",
+  "application_runs": [
+    {
+      "packet": "docs/evidence/callable-integer-examples-20261108",
+      "run_id": "20261108T194440-c7a94430faf1",
+      "outcome": "success",
+      "duration_seconds": 76.284483401,
+      "finished_utc": "2026-11-08T19:45:58.486671+00:00",
+      "programs": 4,
+      "execution_cases": 4
+    },
+    {
+      "packet": "docs/evidence/divisor-examples-20261108",
+      "run_id": "20261108T211402-d028fe5c343d",
+      "outcome": "success",
+      "duration_seconds": 66.335889714,
+      "finished_utc": "2026-11-08T21:15:10.479725+00:00",
+      "programs": 4,
+      "execution_cases": 4
+    },
+    {
+      "packet": "docs/evidence/digit-prime-examples-20261108",
+      "run_id": "20261108T214753-620fcc9bc295",
+      "outcome": "success",
+      "duration_seconds": 65.653239362,
+      "finished_utc": "2026-11-08T21:49:00.353961+00:00",
+      "programs": 4,
+      "execution_cases": 4
+    }
+  ],
+  "application_total_seconds": 208.273612477,
+  "timing_scope": "Sum of three nonoverlapping production application checkpoints; excludes authoring, review, records and owner handoffs.",
+  "combined_test_run": {
+    "run_id": "20261108T225101-0e909fa50875",
+    "duration_seconds": 7.213803704,
+    "finished_utc": "2026-11-08T22:51:09.969052+00:00",
+    "workers": 1,
+    "unittest_seconds": 4.891,
+    "tests": 3
+  },
+  "wall_clock_to_validation_seconds": 11612.969052,
+  "wall_clock_scope": "From first sample-group authorization on main through final affected-test completion; includes authoring, review, records and owner handoffs. Not an active-agent duration or final publication time."
+}

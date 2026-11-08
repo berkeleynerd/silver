@@ -209,3 +209,14 @@ The inventory has 84 programs; that count differs from the 83 supported task
 mappings. Manifest execution cases remain a separate count as well. Successful
 finite executions and the rendered assessment count establish neither universal
 language assurance nor additional language support.
+
+## Combined integration follow-up
+
+The integration lead retained successful managed run
+`20261108T225101-0e909fa50875` on metadata target `c9d8f3352296`: all three
+affected Rosetta tests passed, including rendering under different hash seeds.
+The [combined packet](../docs/evidence/scalar-function-rosetta-batch-20261108/README.md)
+records all 1,116 matching captured inputs, 84 programs/147 executable cases,
+and unchanged board Stage values. The earlier pending wording describes the
+metadata-author checkpoint; final independent delivery acceptance remains
+pending at this follow-up. This adds no new assessment or render input.
