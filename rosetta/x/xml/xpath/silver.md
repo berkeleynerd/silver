@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task reduces to substring search over a fixed embedded document with a handful of bounded scans, so every index check follows from for-loop ranges and explicit length guards. Plausible rather than likely because the careful position arithmetic across several scan phases needs guards on each loop-carried offset.
 
-Position 557 in the [progression](../../../progression.md#stage-10), in stage 10.
+Position 558 in the [progression](../../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

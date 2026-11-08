@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Rotation is rendered as deterministic text-art frames from an integer lookup table, so every check follows from declared ranges, for-loop indexes and mod reductions without loop-carried facts needing an invariant. The task is a graphical animation, but text frames satisfy it and no recursion, floating point or timing is needed.
 
-Position 670 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 671 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Fixed small ranges, for loops and a guarded counter mean every overflow, range and division check follows from types and static bounds with no loop invariant needed.
 
-Position 139 in the [progression](../../progression.md#stage-6), in stage 6.
+Position 150 in the [progression](../../progression.md#stage-6), in stage 6.
 
 ## Approach
 

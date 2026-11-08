@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All arithmetic is on small ranged integers with guards before each increment and multiply, and all loops sit in procedures so no termination annotation is needed, so the proofs should discharge from types and guards.
 
-Position 199 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 206 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

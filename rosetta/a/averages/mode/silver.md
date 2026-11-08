@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All indexes and counters follow from ranged subtypes and for loops over array ranges, with only the guarded counter increment needing care, so no annotation is required.
 
-Position 102 in the [progression](../../../progression.md#stage-4), in stage 4.
+Position 114 in the [progression](../../../progression.md#stage-4), in stage 4.
 
 ## Approach
 

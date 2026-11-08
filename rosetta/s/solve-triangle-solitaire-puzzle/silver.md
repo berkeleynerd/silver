@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check is an index or counter bounded by declared subtypes and guards, there is no function-level loop or recursion, and the search runs in a procedure, so no annotation is needed. The risk is only that the loop-carried stack depth and cursor need careful guard placement.
 
-Position 718 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 719 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

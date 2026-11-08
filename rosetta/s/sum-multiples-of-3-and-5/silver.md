@@ -1,23 +1,25 @@
 # Sum multiples of 3 and 5
 
-**Candidate: proofs likely to discharge automatically.** The closed-form series sum needs only bounded integer arithmetic on ranged subtypes and one fixed output line, so every check follows from declared types with no loops or annotations. The optional 1e20 extra credit is omitted, and the required n = 1000 case is covered faithfully.
+**Candidate: proofs likely to discharge automatically.** For positive N each quotient counts multiples strictly below N. Each numerator d*q*(q+1) is even, so division by two is exact, and subtracting the multiples of 15 removes double counting. All intermediates fit Integer over 0..1000. Demonstrations cover zero, strict boundaries, the overlap at 15, 999 and 1000. The task marks efficient 10^20 inputs as extra credit; the delivered callable domain is explicit. The [reconciliation](../../../rosetta/assessment-scalar-function-batch-20261108.md) preserves the original assessment attribution and links the separately reviewed Linux application evidence; final combined integration and independent delivery status remain in the batch delivery record.
 
-Position 299 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 69 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 
-Declare a ranged subtype Limit_Range (1 .. 10**9) and a function Multiples_Sum (Step, Last) that uses the arithmetic-series formula (Last / Step) * (Step * ((Last / Step) + 1)) / 2 over a 64-bit integer type. Sum_35 (Limit) returns Multiples_Sum (3) + Multiples_Sum (5) - Multiples_Sum (15) for Last = Limit - 1. Main calls it with the constant 1000 and prints "n=1000: " & the 'Image of the result (233168); the loop-based form is avoided because a loop-carried accumulator could not be proven free of overflow without an invariant. About 28 lines.
+Use samples/rosetta_sum_multiples_of_3_and_5.adb: Sum_Multiples(N : in Input_Value) returns Integer for N in 0..1000. Return the initialized zero for N = 0; otherwise set Upper to N-1, obtain the quotients by 3, 5 and 15, and apply the arithmetic-series identity with inclusion-exclusion. Main iterates eleven constant-array cases, assigning each call to a scalar before output. About 35 lines.
 
 ## Proof obligations to watch
 
-- **overflow**: The closed-form arithmetic k*(k+1)*step is bounded by a declared Limit range of at most 10**9 in a 64-bit integer type, so every intermediate fits and the checks follow from types alone, with no loop-carried accumulator.
+- **overflow**: The declared quotient ranges 0..333, 0..199 and 0..66 bound the three numerators by 333666, 199000 and 66330; even conservative independent-interval addition/subtraction fits Integer.
 
 ## Language surface recorded by this assessment
 
-Integers, integer division, ranged subtypes, functions and 'Image of scalars.
+Named Integer subtypes and bounded components, small nonrecursive scalar functions, bounded mutable Integer objects, interval-checked Integer division, scalar guard refinement, fixed-size Integer arrays, constant Integer-array iteration and Integer image.
 
 ## External effects
 
-- **console output** (allowed): Prints the sum for n = 1000 with Silver_IO.Put_Line.
+- **console output** (allowed): Prints eleven computed cases including the required n = 1000 result 233168.
 
-Assessed on 2026-10-15 against page revision 413418 of the [task](https://rosettacode.org/wiki/Sum_multiples_of_3_and_5) by claude-sonnet-5-5 at medium effort; confidence high. The inclusion policy is in `rosetta/coverage.json`.
+Initially assessed on 2026-10-15 against page revision 413418 of the [task](https://rosettacode.org/wiki/Sum_multiples_of_3_and_5) by claude-sonnet-5-5 at medium effort; current confidence high. The inclusion policy is in `rosetta/coverage.json`.
+
+Revised on 2026-11-08 by Codex through targeted source review; see the [review record](../../assessment-scalar-function-batch-20261108.md).

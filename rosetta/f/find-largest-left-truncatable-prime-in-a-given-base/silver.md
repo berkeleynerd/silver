@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded integer arithmetic in procedures with guards before each product and store, so checks follow from types and guards, but several loop-carried values (place value, counts, divisor) need careful guarding and the task's full table needs big numbers beyond the documented cap.
 
-Position 288 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 292 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks follow from for-loop ranges, ranged digit subtypes and a guard before the array index, with no loop-carried unbounded values, so proofs should discharge automatically. The only extra needs are integer arithmetic, arrays, loops and number-to-text output.
 
-Position 159 in the [progression](../../progression.md#stage-6), in stage 6.
+Position 169 in the [progression](../../progression.md#stage-6), in stage 6.
 
 ## Approach
 

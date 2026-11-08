@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The cached task explicitly requires a Boolean function, excludes 1 and nonpositive inputs, and permits other trial-division loops. The driver covers all candidates in its declared domain. For 2 and 3 the divisor loop is empty; every composite N >= 4 has a proper divisor between 2 and N/2. Guard refinement bounds N / 2; every executed divisor is at least 2. There is no answer table, floating-point square root, early return, while loop, extra procedure or computed String buffer. Independent composite marking derives the 25 expected prime lines. The [reconciliation](../../../rosetta/assessment-scalar-functions-20261107.md) distinguishes static task/source review and retained native application evidence from the [capability assurance record](../../../docs/scalar-functions.md).
 
-Position 55 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 59 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

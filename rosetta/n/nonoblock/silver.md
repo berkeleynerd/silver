@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from small ranged subtypes, fixed bounds and guards before each use, but the odometer loop carries several positions with no invariant, so discharge depends on careful guard placement. No recursion or annotation is needed since the enumeration is iterative inside procedures.
 
-Position 565 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 566 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

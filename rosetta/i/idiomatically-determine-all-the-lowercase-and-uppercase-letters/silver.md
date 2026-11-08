@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check (loop bounds, buffer index, Character'Val-free arithmetic) follows from the subtype ranges and a for loop over a static range, so proofs should discharge without annotations. The only new Silver surface is Character subtypes, for loops and String indexing, with no recursion, no floating point and no loop-carried values.
 
-Position 477 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 478 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

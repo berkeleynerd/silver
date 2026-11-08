@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task is a simple bind/unit composition over a small bounded integer record applied to four embedded values, so every check follows from subtype ranges and a Valid-flag guard before each operation.
 
-Position 598 in the [progression](../../../progression.md#stage-11), in stage 11.
+Position 599 in the [progression](../../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

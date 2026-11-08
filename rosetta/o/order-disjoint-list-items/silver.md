@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops over fixed array ranges and all indexes come from subtype ranges or guards just before use, so no annotations are needed; only the loop-carried counters need routine guards.
 
-Position 611 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 612 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

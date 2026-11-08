@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is arrays, ranged integers and procedure while loops with guards before each index or update, so no annotation is needed, but the 64-bit loop-carried sieve arithmetic and bounded tables to reach 10^6 need careful shaping.
 
-Position 287 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 291 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

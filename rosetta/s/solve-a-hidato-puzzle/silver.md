@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every array index and counter is bounded by declared ranges or guards placed just before use, and recursion is replaced by an explicit stack in a procedure's while loop, so no annotation is needed, though the many loop-carried indices make the guard placement delicate.
 
-Position 730 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 731 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

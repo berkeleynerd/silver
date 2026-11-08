@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task only asks for the element definition with mutable next and previous links, which a bounded index-based record pool expresses without access types, and every check follows from declared ranges and for-loop indexes over the array's own range.
 
-Position 580 in the [progression](../../../progression.md#stage-11), in stage 11.
+Position 581 in the [progression](../../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

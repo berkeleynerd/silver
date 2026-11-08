@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from subtype ranges, for-loop bounds, a Count guard and fixed string positions, and no loop carries a value needing an invariant. The fixed year bound 2200 is a documented resource limit that covers all 15 required results.
 
-Position 526 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 527 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

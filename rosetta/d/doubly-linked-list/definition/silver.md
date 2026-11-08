@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks follow from index subtype ranges and a capacity guard before allocation, with for loops and procedures only, so no annotation is needed. The no-circular-loops requirement is met structurally by only linking fresh nodes.
 
-Position 603 in the [progression](../../../progression.md#stage-11), in stage 11.
+Position 604 in the [progression](../../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

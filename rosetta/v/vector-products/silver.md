@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task is fixed-size integer arithmetic on 3-vectors with embedded data, so every overflow and index check follows from declared ranges and no loop carries an unbounded value. Using integers (the task's values are integral) avoids floating-point proof difficulty.
 
-Position 357 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 359 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task only needs bounded arrays, nested for loops and integer-to-text output, all of which have types or guards bounding every index and length, and no recursion or heap is required. Plausible rather than likely because the n-ary odometer and text-buffer building carry loop-carried values that need careful range-bounded subtypes.
 
-Position 720 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 721 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

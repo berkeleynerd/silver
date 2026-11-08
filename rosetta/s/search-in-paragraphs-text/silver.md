@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from declared line-length bounds, for-loop indexes over buffer ranges and length guards before each substring comparison, and no recursion, input or termination annotation is needed because all loops are in procedures or are for loops. The embedded text keeps the task faithful without file input, though the long data table makes the program lengthy.
 
-Position 613 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 614 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

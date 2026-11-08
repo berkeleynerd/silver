@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Nine shrinking adjacent-swap passes suffice for ten elements, and early inactivity follows only a complete pass without swaps. The ascending result is (-100, -5, -5, 0, 0, 3, 7, 12, 12, 100), preserving duplicates. One source supplies both task mappings without a user procedure, while loop or generic sorting facility. The exact source passed admission, complete required application/library proof audit, build and manifest execution in integration run 20261107T164659-9f6192441d21; the linked assessment records the evidence scope. The linked delivery record carries the independent closing review status.
 
-Position 67 in the [progression](../../../progression.md#stage-1), in stage 1.
+Position 73 in the [progression](../../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

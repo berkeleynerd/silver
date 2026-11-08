@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops over the constant strings' own ranges, and the only loop-carried value is the output count, which a bounded subtype and an explicit guard keep safe without any annotation.
 
-Position 497 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 498 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

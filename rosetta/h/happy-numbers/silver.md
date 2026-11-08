@@ -1,24 +1,26 @@
 # Happy numbers
 
-**Candidate: proofs likely to discharge automatically.** All arithmetic is bounded by declared ranges and the iteration uses for loops with fixed caps inside a procedure, so no annotation is needed; the new surface is just integers, division, loops, a procedure and integer-to-text.
+**Candidate: proofs likely to discharge automatically.** Three extractions cover every declared input and the static guard cannot skip a square. The first transformation enters 0..243 and one is absorbing. If 244 images avoid one, two repeat among the 243 non-one states, so no later first visit to one is possible. Thus the test decides happiness on the complete 0..999 domain, rather than using an arbitrary cutoff. The complete positive prefix through 31 contains exactly the required first eight. The [reconciliation](../../../rosetta/assessment-scalar-function-batch-20261108.md) preserves the original assessment attribution and links the separately reviewed Linux application evidence; final combined integration and independent delivery status remain in the batch delivery record.
 
-Position 198 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 77 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 
-A subtype Small is range 0..999; procedure Is_Happy takes N and an out Boolean, and runs a for loop over a fixed step cap, each step replacing Current by the sum of squares of its three digits (computed with mod 10 and / 10 on straight-line digits, result range-bounded at 243), exiting with True at 1 and False if the cap ends without reaching 1. The main procedure loops N in 1 .. 100 (the first eight happy numbers end at 31), calls Is_Happy, and prints each happy number via Integer'Image with Put_Line, counting Found and exiting when Found reaches 8 (increment guarded by Found < 8). About 40 lines.
+Use samples/rosetta_happy_numbers.adb: Sum_Squared_Digits on 0..999 extracts three decimal digits and returns their square sum in 0..243 under a <=162 pre-addition guard. Is_Happy assigns the earlier helper call 244 times, then returns whether Current = 1. Main scans the entire positive prefix 1..31, assigns each Boolean call and prints only happy candidates. About 43 lines.
 
 ## Proof obligations to watch
 
-- **overflow**: The digit-square sum is computed straight-line over three digits of a number typed 0..999, so the sum is bounded by 243 from types alone.
-- **termination**: The per-number iteration is a for loop over a fixed step cap (for example 20 steps) with early exit, so no variant is needed; every candidate up to 100 reaches 1 or the 4-cycle well within the cap.
+- **range**: At most two earlier squared digits contribute 162; adding a square <=81 fits 0..243. Every helper result fits the caller input domain 0..999.
+- **termination**: The loops are counted; the absorbing-state/repetition argument proves that 244 transformations suffice to decide happiness throughout the declared domain.
 
 ## Language surface recorded by this assessment
 
-Integers, integer division, ranged subtypes, Boolean objects, for loops, while loops, procedures and 'Image of scalars.
+Named Integer subtypes and bounded components, small nonrecursive scalar functions, bounded mutable Integer objects, scalar Boolean objects and expressions, Integer range for loops, interval-checked Integer division, scalar guard refinement and Integer image.
 
 ## External effects
 
-- **console output** (allowed): Prints the first eight happy numbers, one per line.
+- **console output** (allowed): Prints exactly the first eight happy numbers: 1, 7, 10, 13, 19, 23, 28 and 31.
 
-Assessed on 2026-10-15 against page revision 415022 of the [task](https://rosettacode.org/wiki/Happy_numbers) by claude-sonnet-5-5 at medium effort; confidence high. The inclusion policy is in `rosetta/coverage.json`.
+Initially assessed on 2026-10-15 against page revision 415022 of the [task](https://rosettacode.org/wiki/Happy_numbers) by claude-sonnet-5-5 at medium effort; current confidence high. The inclusion policy is in `rosetta/coverage.json`.
+
+Revised on 2026-11-08 by Codex through targeted source review; see the [review record](../../assessment-scalar-function-batch-20261108.md).

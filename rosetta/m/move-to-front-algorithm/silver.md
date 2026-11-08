@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops over bounded ranges and every index comes from a 0..25 subtype or a loop variable, so the checks follow from types and loop ranges without invariants. The recursion in the existing solution is replaced by iteration and everything sits in procedures.
 
-Position 528 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 529 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All arithmetic is bounded by small integer subtypes (moduli at most about 10^6, products under 10^12) and every loop is a for loop with static bounds, so every check follows from types and guards without annotations. Output needs only Put and 'Image formatting.
 
-Position 348 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 350 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

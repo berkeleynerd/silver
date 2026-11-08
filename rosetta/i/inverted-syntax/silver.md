@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The program uses only Booleans, a small ranged counter and a plain loop with exit when, and each check follows from declared ranges and the guard just before the increment. Ada has no true inverted assignment or trailing-if syntax, so the faithful demonstration is the traditional forms plus exit when, which needs no annotation.
 
-Position 188 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 197 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

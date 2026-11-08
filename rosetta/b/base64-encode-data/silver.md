@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All arithmetic is on bounded byte values with mod and division by literals and a for loop over a static array range, so every check follows from types and static bounds with no loop-carried unbounded values.
 
-Position 451 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 452 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

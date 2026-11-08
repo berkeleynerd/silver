@@ -1,26 +1,27 @@
 # Attractive numbers
 
-**Candidate: proofs plausibly discharge automatically.** All values are bounded by 120 and the factor count by a small cap, so every check follows from types and a single guard, though loop-carried N and Count need careful shaping and a procedure-based while loop.
+**Candidate: proofs likely to discharge automatically.** Seven successful removals would require an input >=128, so there are at most six throughout the declared factor-count domain; neither the count guard nor seven attempts per factor suppresses a required removal. Smaller primes are exhausted before any composite factor, hence only prime factors are removed and multiplicity is counted. In particular 20 removes 2, 2 and 5. Independent prime-power multiplicity and sieve expectations establish the complete 74-value sequence through 120. The [reconciliation](../../../rosetta/assessment-scalar-function-batch-20261108.md) preserves the original assessment attribution and links the separately reviewed Linux application evidence; final combined integration and independent delivery status remain in the batch delivery record.
 
-Position 370 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 80 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 
-For each I in 2..120 a procedure counts prime factors by looping F over 2..120 and, inside, a while loop dividing the remaining value N while N mod F = 0, incrementing a guarded Count. A second small primality test on Count (at most 6) checks it against 2, 3, 5 by comparison, and attractive numbers are printed with Put using 'Image padded to width 5, emitting a newline after every 20th. The 1 case is excluded since it has zero factors, which is not prime. About 55 lines.
+Use samples/rosetta_attractive_numbers.adb: Prime_Factor_Count on 1..120 visits factors 2..120 and attempts seven guarded divisions per factor, counting each removal under Count < 6. An earlier Is_Prime function on 0..120 tests divisors 2..N/2. Main scans 1..120, assigns the count and its primality to scalar locals and prints each selected value. About 48 lines.
 
 ## Proof obligations to watch
 
-- **overflow**: The loop-carried factor count is only known by its type after the first iteration, so the increment is preceded by a guard against a generous cap that can never trigger since 120 has at most 6 prime factors.
-- **termination**: The divide-out loop is a while loop, so it lives in a procedure (no termination check) rather than a function, and is bounded by the enclosing for loop over candidate factors.
-- **division**: The divisor is the for-loop index of 2..120, whose type range excludes zero.
-- **range**: The remaining quotient is a subtype of 1..120 and N/F with F at least 2 stays in range, which the provers handle without an invariant.
+- **division**: Every factor is at least two and every trial divisor is at least two; the guarded remaining value and fixed positive factors keep quotient and modulo operations safe.
+- **range**: Count < 6 permits a result at most six; the product invariant shows the guard never blocks a required division. Remaining quotients stay in 0..120, and result counts fit the primality input domain.
+- **termination**: All loops are counted; the at-most-six-removals argument proves that seven attempts per factor exhaust its multiplicity without an arbitrary cutoff.
 
 ## Language surface recorded by this assessment
 
-Integers, integer division, ranged subtypes, Boolean objects, for loops, while loops, procedures, functions, 'Image of scalars and Put without a newline.
+Named Integer subtypes and bounded components, small nonrecursive scalar functions, bounded mutable Integer objects, scalar Boolean objects and expressions, Integer range for loops, interval-checked Integer division, scalar guard refinement and Integer image.
 
 ## External effects
 
-- **console output** (allowed): Prints the header line and the attractive numbers up to 120, 20 per row.
+- **console output** (allowed): Prints every attractive number through 120: all 74 qualifying values, one per line.
 
-Assessed on 2026-10-15 against page revision 413644 of the [task](https://rosettacode.org/wiki/Attractive_numbers) by claude-sonnet-5-5 at medium effort; confidence medium. The inclusion policy is in `rosetta/coverage.json`.
+Initially assessed on 2026-10-15 against page revision 413644 of the [task](https://rosettacode.org/wiki/Attractive_numbers) by claude-sonnet-5-5 at medium effort; current confidence high. The inclusion policy is in `rosetta/coverage.json`.
+
+Revised on 2026-11-08 by Codex through targeted source review; see the [review record](../../assessment-scalar-function-batch-20261108.md).

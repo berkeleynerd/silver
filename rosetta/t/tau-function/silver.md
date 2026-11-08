@@ -1,24 +1,26 @@
 # Tau function
 
-**Candidate: proofs likely to discharge automatically.** Trial division with nested for loops over static ranges needs only range-typed counters and mod with a loop-index divisor, so every check follows from types and one visible guard; only output formatting needs new library surface.
+**Candidate: proofs likely to discharge automatically.** Before candidate d there are at most d-1 <= 99 earlier contributions, so the increment guard is always true when needed. The resulting count includes both one and N and is exact for every required input, including primes and perfect squares. The task requires the first hundred results and no ten-column layout. The [reconciliation](../../../rosetta/assessment-scalar-function-batch-20261108.md) preserves the original assessment attribution and links the separately reviewed Linux application evidence; final combined integration and independent delivery status remain in the batch delivery record.
 
-Position 156 in the [progression](../../progression.md#stage-6), in stage 6.
+Position 56 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 
-A main procedure loops N over 1 .. 100 and an inner for loop D over 1 .. N counts divisors with N mod D = 0 into a Count variable of subtype 0 .. 100, guarding the increment with Count < 100. Each row of ten counts is built into a bounded fixed-size String line by padding the 'Image text of each count to a fixed width, then printed with Put_Line (or Put for each cell and Put_Line to end the row). No recursion or while loops are needed, and all bounds are static. About 45 lines.
+Use samples/rosetta_tau_function.adb: Tau(N : in Positive_Input), N in 1..100, returns Divisor_Count in 0..100. Scan Divisor in 1..N, count exact divisors under Count < 100 and return once. Main assigns each call result before printing all one hundred inputs with Integer Image. About 25 lines.
 
 ## Proof obligations to watch
 
-- **overflow**: The divisor counter is bounded by the loop range (at most 100 increments) and typed as a small range subtype, so increments are guarded by the type's upper bound or a Count < limit check.
-- **division**: The mod divisor is the for-loop index over 1 .. N, whose type range excludes zero, so the division check discharges from the loop range.
+- **range**: Count < 100 narrows the pre-increment value to 0..99; the candidate-prefix argument establishes that the guard never truncates the true divisor count.
+- **division**: Every executed divisor lies in the positive range 1..N, excluding a zero modulo divisor.
 
 ## Language surface recorded by this assessment
 
-Integers, integer division, ranged subtypes, for loops, procedures, 'Image of scalars, string building and Put without a newline.
+Named Integer subtypes and bounded components, small nonrecursive scalar functions, bounded mutable Integer objects, Integer range for loops, interval-checked Integer division, scalar guard refinement and Integer image.
 
 ## External effects
 
-- **console output** (allowed): Prints the divisor counts for 1 to 100 as ten rows of ten numbers.
+- **console output** (allowed): Prints the positive-divisor count for every required input 1..100, one labelled line per input.
 
-Assessed on 2026-10-15 against page revision 413079 of the [task](https://rosettacode.org/wiki/Tau_function) by claude-sonnet-5-5 at medium effort; confidence high. The inclusion policy is in `rosetta/coverage.json`.
+Initially assessed on 2026-10-15 against page revision 413079 of the [task](https://rosettacode.org/wiki/Tau_function) by claude-sonnet-5-5 at medium effort; current confidence high. The inclusion policy is in `rosetta/coverage.json`.
+
+Revised on 2026-11-08 by Codex through targeted source review; see the [review record](../../assessment-scalar-function-batch-20261108.md).

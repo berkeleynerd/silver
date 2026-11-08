@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Plain Ada record values meet the task's idea of a first-class environment, and every check is routine apart from the two loop-carried increments. Explicit guards placed just before those increments discharge them, and the unbounded while loop is in a procedure, so no annotation is needed.
 
-Position 614 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 615 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
