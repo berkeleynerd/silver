@@ -89,7 +89,8 @@ theorem body_meaning (lexical : Compose.Lexical.Meaning calls.outer.helpers.prim
     Outer.BodyMeaning calls.outer where
   statements text tv scan sv := by
     rw [definitions.adapter text tv scan sv (.word "end") (Or.inr rfl),
-      Adapter.Wrappers.adapter_interpreted (wrapper_models calls helpers definitions) definitions.wrappers
+      Adapter.Wrappers.adapter_interpreted (wrapper_models calls helpers definitions)
+        (show Adapter.Wrappers.Refinement calls.bodyWrapperModels calls.bodyWrappers from definitions.wrappers)
         {text,scan,token := .word "end"} sv.1.2.2.2.2.2.1.1,
       Adapter.adapter_eval,
       Adapter.adapter_unique calls.outer.body (body_equations calls helpers definitions lexical) text tv scan sv]
