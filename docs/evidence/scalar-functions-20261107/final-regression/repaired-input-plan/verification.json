@@ -1,0 +1,8 @@
+{
+  "bundle_sha256": "ad4f4058781822e1cedb9ac73c31c7903854e1353aab8923ae91558e26087740",
+  "bundle_bytes": 134494,
+  "members": 15,
+  "verified_indexed_artifacts": 14,
+  "review_commit": "7f62d2864ed69323281d663ce28a61e98e854862",
+  "scope": "preparation only; final fresh outcomes and input/tool applicability still required"
+}
