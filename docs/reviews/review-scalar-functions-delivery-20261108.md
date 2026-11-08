@@ -1694,3 +1694,106 @@ token/cost data and complete elapsed review time are unavailable. No production,
 test, proof or launcher edits, builds, native/Lean/test execution, signals,
 lease/cache changes, publication, push or merge occurred here. The live harness
 goal was rechecked and is null; CLI memory was not updated.
+
+### Lake-only scheduling hold assessment: active complete run 094147
+
+A stop of only the verified Lake process can defer further Lake launches. The
+proposed stronger guarantee, that active children will finish while Lake is
+stopped and then headroom will return, is unsupported. A stop frees no current
+RSS, also stops the child-output readers, and is not an urgent memory-reclamation
+measure. The qualified contingency below preserves the existing interruption
+policy. No intervention is indicated by the healthy inspected headroom, and
+this reviewer performed no signal or process-control experiment.
+
+Scope is complete Lean run `20261108T094147-fb5330310904`, with frozen f630/parser036a
+inputs at integration checkpoint `1aaa381dd3`, and only its actual runner/Lake
+control path. Python driver PID 691106 and Lake PID 691697 have start identities
+6220611 and 6223303; tool session 65188 is not an OS PID. Native run 094547 is
+another owner's twelve-worker run and is outside any signal target. Current
+Lean/Lake executable hashes match the managed preflight for pinned v4.34.1.
+Recorded and observed settings agree: two reserved workers, Lake environment
+LEAN_NUM_THREADS=2, child -j2, no memory cap. Observed OS thread counts exceed two;
+these settings are scheduling controls, not a process or aggregate memory limit.
+
+| UTC | MemAvailable | OutputBodyCertificate PID 834812 | Helper sibling PID 881336 |
+| --- | ---: | ---: | ---: |
+| 13:45:57 | 25.43 GiB | 26.34 GiB | 1.47 GiB |
+| 13:50:39 | 26.31 GiB | 24.19 GiB | 1.52 GiB |
+
+The earlier Boolean-array sibling had completed successfully in 351 s before
+these captures; the current sibling was ComposeHelperSourceCandidate. Both
+children had running compute threads in the first capture. A sleeping process
+leader alone is not a stall. The old 15.418 GiB dense-leaf observation bounds
+neither this certificate nor future siblings, and its remaining work and peak
+are unknown. The later decrease also prevents a monotonic-growth claim. These
+are non-atomic Linux x86-64 observations on a 62.87 GiB host without swap.
+
+The pinned source explains the critical distinction. Lake Build/Actions calls
+rawProc, then IO.Process.output at Init/System/IO.lean:1544. That function connects
+both child output streams to pipes, drains stdout on a dedicated Lake task,
+drains stderr on the job task, and waits for exit. Actual fd links show both
+Lean children connected to Lake; four Lake reader threads were in anon_pipe_read.
+The Python driver drains only Lake's outward pipe. Stopping every Lake thread
+therefore stops scheduling and those readers together. Quiet children can
+continue and exit, releasing their address spaces; finite output pipes can
+instead fill and block a child. No reviewed output-volume bound proves that
+these children will finish silently. Resume/stop pulses cannot selectively
+drain output without also permitting new launches.
+
+A child can write its own artifacts while Lake is stopped, but child exit or an
+.olean file is not a completed Lake result. Module.buildLean computes output
+metadata after the subprocess returns, and buildAction writes its successful
+trace afterward. Those steps await continuation; killing Lake meanwhile can
+lose reusable completion bookkeeping. check_lean.py's run_logged waits without
+a phase deadline, and driver, Lake and children retain the actual managed lease.
+The stopped process therefore keeps its workspace exclusion and reservation;
+no lease removal, replacement writer or cache manipulation is justified.
+
+The minimal contingent procedure is a monitored preventive hold, not a new
+automatic scheduler or memory bound:
+
+1. Keep the existing triggers: 15 s observations below 12 GiB, reassessment for
+   two successive low/falling samples or a sustained projection to 8 GiB within
+   60 s. At or below 8 GiB promptly use the existing evidence-preservation and
+   targeted interruption procedure for the verified current dominant owned Lean
+   child. A Lake-only hold cannot replace or delay that response; never target
+   native work.
+2. At a nonurgent reassessment, the coordinator may choose a hold to defer
+   replacement jobs. First preserve UTC, headroom/trend, exact run/lease, target
+   executable, argv/CWD, PID/start identity, parent/group and current descendants.
+   Recheck identity immediately before acting; abort on mismatch or completed
+   run. Target only the positive Lake PID, not a process group, driver, child or
+   tool-session identifier. Verify every Lake thread stopped and rescan for a
+   child launched just before the stop took effect.
+3. While held, inspect memory and per-child RSS, aggregate thread CPU/state and
+   available wait channels every 15 s. Pipe-write waits, progress needing Lake,
+   further falling headroom or cancellation require reassessment. Do not assume
+   children will disappear or use a sleeping main thread as a liveness verdict.
+4. Continue only the same verified Lake process once ordinary two-worker
+   scheduling is acceptable again. Child exit and recovered headroom are useful
+   observations, but a bare crossing above 12 GiB or the old leaf measurement is
+   not a sufficient universal resume threshold. Continuation immediately enables
+   readers, bookkeeping and new ready jobs together; continue monitoring them.
+5. If progress and safe continuation cannot both be maintained, the hold has
+   reached its limit. Apply the existing targeted child-interruption policy as
+   resource conditions require. Do not improvise external pipe consumers, altered
+   prover settings, live scheduler changes or process-group cleanup. A separate
+   launch gate with independent drainage would require separately authorized
+   implementation and validation, outside this frozen run.
+
+All required modules, exact-source checks, full domains and the fresh axiom audit
+remain mandatory. A pause/continuation alone is neither a proof pass nor a proof
+failure; preserve the actual later exits, module records and final checks. No
+assurance checkpoint or successful complete run is claimed here.
+
+Detailed source references, ten retained runner/Lake source files with hashes,
+matching executable identities, managed settings, two /proc snapshots and the
+unmodified Lean log snapshot are retained in
+`tmp/lake-scheduler-resource-assessment-298/`. The verified 21-member bundle is
+81,120 bytes, SHA256
+`f8f87d34fd70fec0ddc91da3fbe4172515835fcfb963177c65cfe10e8ef0696f`.
+Selected reviewer remains GPT-6 Astra / Extra High; runtime model/effort and
+token/cost telemetry are unavailable.
+No signal, process-control experiment, native/Lean/test execution, production or
+tool/config edit, lease/cache change, publication or merge occurred here. The
+live goal was rechecked and is null; CLI memory was not updated.
