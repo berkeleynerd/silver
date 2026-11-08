@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the index subtype and the J > 0 guard evaluated just before use, and the while loop sits in a procedure so no variant is needed, hence no annotation is required.
 
-Position 190 in the [progression](../../../progression.md#stage-7), in stage 7.
+Position 191 in the [progression](../../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

@@ -1,24 +1,21 @@
 # Primality by trial division
 
-**Candidate: proofs likely to discharge automatically.** Every check (mod by a nonzero constant-range divisor, bounded arithmetic) follows from the subtype ranges and a for loop with a fixed upper bound, so no variant or invariant is needed; the only subtlety is replacing the Sqrt/float bound with an integer guard, which stays faithful to trial division.
+**Candidate: proofs likely to discharge automatically.** The cached task explicitly requires a Boolean function, excludes 1 and nonpositive inputs, and permits other trial-division loops. The driver covers all candidates in its declared domain. For 2 and 3 the divisor loop is empty; every composite N >= 4 has a proper divisor between 2 and N/2. Guard refinement bounds N / 2; every executed divisor is at least 2. There is no answer table, floating-point square root, early return, while loop, extra procedure or computed String buffer. Independent composite marking derives the 25 expected prime lines. The [reconciliation](../../../rosetta/assessment-scalar-functions-20261107.md) distinguishes static task/source review and retained native application evidence from the [capability assurance record](../../../docs/scalar-functions.md).
 
-Position 313 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 55 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 
-Define a bounded subtype of Integer (for example 0 .. 1_000_000) for candidates and a Boolean function Is_Prime that returns False for N below 2, True for 2, False for even N, then runs a for loop over K in 1 .. 500 (or a bound derived from the subtype's maximum square root) testing divisor 2*K+1 and returning False when N mod divisor = 0 and the divisor squared exceeds nothing (checked via divisor <= N / divisor guard before testing). A main procedure loops over embedded sample values and prints each verdict with Put_Line, using Boolean-to-text via an if statement. About 40 lines.
-
-## Proof obligations to watch
-
-- **overflow**: The divisor loop is bounded by a Long_Long_Integer-range or small-range candidate, and the guard Test <= N / Test (never Test*Test) keeps all arithmetic in range.
-- **termination**: The is-prime logic is a function, so it uses a for loop over a fixed range 1 .. 2**30 style bound (exit by early return) with Test = 3 + 2*K computed in range, avoiding a while loop that would need a variant.
+Use samples/rosetta_primality_by_trial_division.adb unchanged: Candidate is Integer range -10 .. 100; Is_Prime(N : in Candidate) returns Boolean. Its local Prime starts False. If N >= 2, set Prime True and test each Divisor in 2 .. (N / 2), clearing Prime on an exact divisor. Return the final flag once. Main calls Is_Prime as the whole RHS of a Boolean assignment for every candidate and prints only primes with Integer Image and Put_Line. About 28 lines.
 
 ## Language surface recorded by this assessment
 
-Integers, integer division, ranged subtypes, Boolean objects, for loops, while loops, functions, procedures, 'Image of scalars, string building and Put without a newline.
+Named Integer subtypes and bounded components, small nonrecursive scalar functions, scalar Boolean objects and expressions, Integer range for loops, interval-checked Integer division, scalar guard refinement and Integer image.
 
 ## External effects
 
-- **console output** (allowed): Prints the primality verdict for embedded test values with Put_Line.
+- **console output** (allowed): Main prints exactly the prime candidates in the declared -10..100 domain, one Integer Image per line.
 
-Assessed on 2026-10-15 against page revision 414879 of the [task](https://rosettacode.org/wiki/Primality_by_trial_division) by claude-sonnet-5-5 at medium effort; confidence high. The inclusion policy is in `rosetta/coverage.json`.
+Initially assessed on 2026-10-15 against page revision 414879 of the [task](https://rosettacode.org/wiki/Primality_by_trial_division) by claude-sonnet-5-5 at medium effort; current confidence high. The inclusion policy is in `rosetta/coverage.json`.
+
+Revised on 2026-11-07 by Codex through targeted source review; see the [review record](../../../rosetta/assessment-scalar-functions-20261107.md).

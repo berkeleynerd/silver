@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from array ranges, constant divisors and bounded sums with guards, with no recursion or heap, but the loop-carried sums and counters and the bit-extraction arithmetic need careful guard placement.
 
-Position 177 in the [progression](../../progression.md#stage-6), in stage 6.
+Position 178 in the [progression](../../progression.md#stage-6), in stage 6.
 
 ## Approach
 

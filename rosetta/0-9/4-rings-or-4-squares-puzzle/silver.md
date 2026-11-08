@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the 0..9 digit subtype, bounded sums and a guard on the counter, with only for loops in a procedure, so no annotation is needed.
 
-Position 113 in the [progression](../../progression.md#stage-5), in stage 5.
+Position 114 in the [progression](../../progression.md#stage-5), in stage 5.
 
 ## Approach
 

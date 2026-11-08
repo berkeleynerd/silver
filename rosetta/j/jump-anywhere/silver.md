@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task lets each language show only the jumps it has, so a Silver program can leave out goto, exceptions and continuations and still be faithful. The program needs only bounded for-loop indexes, a small counter with its own range and a procedure whose early return is plain control flow, so every check follows from types and static bounds.
 
-Position 203 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 204 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

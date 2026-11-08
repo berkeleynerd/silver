@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every term fits within 46 bits, so a modular product by double-and-add keeps all intermediates inside declared ranges and no annotation is needed; trial division up to about 3.9e13 is far too slow to run in practice but that is a runtime cost, not a proof obstacle.
 
-Position 231 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 232 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

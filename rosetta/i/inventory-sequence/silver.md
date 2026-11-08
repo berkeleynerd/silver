@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check is an array index or counter increment that a guard immediately before it can discharge, and the loops live in a procedure so no variant is needed. It is plausible rather than likely because the index and counter values are loop-carried and the position of the first element at or above 10,000 may be large, requiring a wide integer type and a visible limit outcome.
 
-Position 259 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 260 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 
