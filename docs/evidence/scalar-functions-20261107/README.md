@@ -5,7 +5,7 @@ focused Linux checks and producer observations; it is not a complete delivery
 checkpoint. The [capability record](../../scalar-functions.md) states the
 remaining requirements.
 
-## Current checkpoint — 2026-11-08 09:46 UTC
+## Current checkpoint — 2026-11-08 12:26 UTC
 
 Stable implementation/source snapshot `f630819154` includes reviewed parser
 SHA-256 `036a53b4bd9a9d7c711b4ddf8d83467a6b470184bfce2ac6677b15cf4f57ef47`.
@@ -27,14 +27,18 @@ workers and the retained warm cache. Neither has a completed result yet.
 The [fresh compiler build](final-regression/repaired-build-093134/README.md)
 passed. The [independent per-ID plan](final-regression/repaired-input-plan/README.md)
 accounts for all 637 regression IDs: 286 reusable outcomes and 351 requiring
-fresh evidence. The 338 compiler/policy selections are active in run
-`20261108T093645-d959cfabae08`; the original platform wrapper and its twelve
-nested bodies follow separately. Its [reviewed resource launcher](final-regression/affinity-launcher-review/README.md)
-reserves four workers and applies inherited CPU allowance 18–21, with sampled
-process-leader affinity and memory. Total allocation is eighteen of twenty-two
-managed workers. Sampling is not continuous all-thread inspection, and affinity
-does not bound process count or memory. Final outcomes and applicability remain
-pending; earlier failed runs retain their actual failed outcomes.
+fresh evidence. The [338-method compiler/policy run](final-regression/repaired-compiler-policy-093645/README.md)
+`20261108T093645-d959cfabae08` finished with 335 passes and three compile-timeout
+errors, without skips. All 72 manifest samples and seven source-policy methods
+passed. Exact logs, failure workspaces and unchanged-input postflight are retained.
+Its [reviewed resource launcher](final-regression/affinity-launcher-review/README.md)
+used four workers and inherited CPU allowance 18–21. Sampled process-leader
+affinity stayed within that allowance; it does not bound process count or memory.
+The three affected methods and original platform wrapper will be checked
+separately after dense proof runs release the full host allowance, preserving
+every deadline, production option and assertion. Complete native and Lean now
+reserve fourteen of twenty-two workers. Final applicability remains pending;
+earlier failed runs retain their actual failed outcomes.
 
 Actual Rosetta promotion, its three fresh tests and final independent delivery
 review remain outstanding. PR #339 stays draft; implementation merge is held.

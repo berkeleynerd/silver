@@ -1,0 +1,1134 @@
+{
+  "utc": "2026-11-08T12:23:33.074194+00:00",
+  "run_id": "20261108T093645-d959cfabae08",
+  "implementation": "f6308191545c1012d76132ae535977e55fd4f018",
+  "regression_commit": "4281f71171477c24995eae18c983ae69b1cd1747",
+  "finished": {
+    "duration_seconds": 9898.122690558,
+    "error": "CalledProcessError: Command '['/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alr/bin/alr', '-s', '/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/settings', '-C', '/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/toolchain', '-n', '--no-tty', 'exec', '--', '/usr/bin/python3', '/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/tmp/repaired-input-regressions/affinity-launcher.py', 'compiler-policy']' returned non-zero exit status 1.",
+    "event": "finished",
+    "evidence": [
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/native.log",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/native.log"
+      }
+    ],
+    "failure_keys": [],
+    "monotonic_ns": 71804784430496,
+    "outcome": "failure",
+    "retained_reports": [
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/obj/explore/function-parser-flow/gnatprove/gnatprove.out",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/compiler/obj/explore/function-parser-flow/gnatprove/gnatprove.out"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/obj/explore/function-parser-flow/gnatprove/gnatprove.sarif",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/compiler/obj/explore/function-parser-flow/gnatprove/gnatprove.sarif"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/obj/explore/function-parser-flow/gnatprove/silver_function_bindings.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/compiler/obj/explore/function-parser-flow/gnatprove/silver_function_bindings.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/obj/explore/function-parser-flow/gnatprove/silver_output_profile.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/compiler/obj/explore/function-parser-flow/gnatprove/silver_output_profile.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/obj/explore/function-parser-safety/gnatprove/silver_function_bindings.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/compiler/obj/explore/function-parser-safety/gnatprove/silver_function_bindings.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-5Vbj31/obj/gnatprove/gnatprove.out",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-5Vbj31/obj/gnatprove/gnatprove.out"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-5Vbj31/obj/gnatprove/gnatprove.sarif",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-5Vbj31/obj/gnatprove/gnatprove.sarif"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-5Vbj31/obj/gnatprove/main~1.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-5Vbj31/obj/gnatprove/main~1.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-5Vbj31/obj/gnatprove/silver_arguments.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-5Vbj31/obj/gnatprove/silver_arguments.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-5Vbj31/obj/gnatprove/silver_io.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-5Vbj31/obj/gnatprove/silver_io.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-5Vbj31/obj/gnatprove/silver_output_libc.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-5Vbj31/obj/gnatprove/silver_output_libc.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-5Vbj31/obj/gnatprove/silver_runtime.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-5Vbj31/obj/gnatprove/silver_runtime.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-8OHvxK/obj/gnatprove/gnatprove.out",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-8OHvxK/obj/gnatprove/gnatprove.out"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-8OHvxK/obj/gnatprove/gnatprove.sarif",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-8OHvxK/obj/gnatprove/gnatprove.sarif"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-8OHvxK/obj/gnatprove/main~1.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-8OHvxK/obj/gnatprove/main~1.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-8OHvxK/obj/gnatprove/silver_arguments.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-8OHvxK/obj/gnatprove/silver_arguments.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-8OHvxK/obj/gnatprove/silver_io.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-8OHvxK/obj/gnatprove/silver_io.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-8OHvxK/obj/gnatprove/silver_output_libc.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-8OHvxK/obj/gnatprove/silver_output_libc.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-8OHvxK/obj/gnatprove/silver_runtime.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-8OHvxK/obj/gnatprove/silver_runtime.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-DgIO7k/obj/gnatprove/gnatprove.out",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-DgIO7k/obj/gnatprove/gnatprove.out"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-DgIO7k/obj/gnatprove/gnatprove.sarif",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-DgIO7k/obj/gnatprove/gnatprove.sarif"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-DgIO7k/obj/gnatprove/main~1.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-DgIO7k/obj/gnatprove/main~1.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-DgIO7k/obj/gnatprove/silver_arguments.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-DgIO7k/obj/gnatprove/silver_arguments.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-DgIO7k/obj/gnatprove/silver_io.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-DgIO7k/obj/gnatprove/silver_io.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-DgIO7k/obj/gnatprove/silver_output_libc.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-DgIO7k/obj/gnatprove/silver_output_libc.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-DgIO7k/obj/gnatprove/silver_runtime.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-DgIO7k/obj/gnatprove/silver_runtime.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-E1vrfk/obj/gnatprove/gnatprove.out",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-E1vrfk/obj/gnatprove/gnatprove.out"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-E1vrfk/obj/gnatprove/gnatprove.sarif",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-E1vrfk/obj/gnatprove/gnatprove.sarif"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-E1vrfk/obj/gnatprove/main~1.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-E1vrfk/obj/gnatprove/main~1.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-Fo6SyY/obj/gnatprove/gnatprove.out",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-Fo6SyY/obj/gnatprove/gnatprove.out"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-Fo6SyY/obj/gnatprove/gnatprove.sarif",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-Fo6SyY/obj/gnatprove/gnatprove.sarif"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-Fo6SyY/obj/gnatprove/main~1.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-Fo6SyY/obj/gnatprove/main~1.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-Fo6SyY/obj/gnatprove/silver_arguments.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-Fo6SyY/obj/gnatprove/silver_arguments.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-Fo6SyY/obj/gnatprove/silver_output_libc.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-Fo6SyY/obj/gnatprove/silver_output_libc.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-Fo6SyY/obj/gnatprove/silver_runtime.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-Fo6SyY/obj/gnatprove/silver_runtime.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-HOSOr6/obj/gnatprove/gnatprove.out",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-HOSOr6/obj/gnatprove/gnatprove.out"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-HOSOr6/obj/gnatprove/gnatprove.sarif",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-HOSOr6/obj/gnatprove/gnatprove.sarif"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-HOSOr6/obj/gnatprove/main~1.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-HOSOr6/obj/gnatprove/main~1.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-HOSOr6/obj/gnatprove/silver_arguments.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-HOSOr6/obj/gnatprove/silver_arguments.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-HOSOr6/obj/gnatprove/silver_io.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-HOSOr6/obj/gnatprove/silver_io.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-HOSOr6/obj/gnatprove/silver_output_libc.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-HOSOr6/obj/gnatprove/silver_output_libc.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-HOSOr6/obj/gnatprove/silver_runtime.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-HOSOr6/obj/gnatprove/silver_runtime.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-KHroGS/obj/gnatprove/gnatprove.out",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-KHroGS/obj/gnatprove/gnatprove.out"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-KHroGS/obj/gnatprove/gnatprove.sarif",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-KHroGS/obj/gnatprove/gnatprove.sarif"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-KHroGS/obj/gnatprove/main~1.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-KHroGS/obj/gnatprove/main~1.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-KHroGS/obj/gnatprove/silver_arguments.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-KHroGS/obj/gnatprove/silver_arguments.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-KHroGS/obj/gnatprove/silver_io.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-KHroGS/obj/gnatprove/silver_io.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-KHroGS/obj/gnatprove/silver_output_libc.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-KHroGS/obj/gnatprove/silver_output_libc.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-KHroGS/obj/gnatprove/silver_runtime.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-KHroGS/obj/gnatprove/silver_runtime.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-KqCdl0/obj/gnatprove/gnatprove.out",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-KqCdl0/obj/gnatprove/gnatprove.out"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-KqCdl0/obj/gnatprove/gnatprove.sarif",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-KqCdl0/obj/gnatprove/gnatprove.sarif"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-KqCdl0/obj/gnatprove/main~1.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-KqCdl0/obj/gnatprove/main~1.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-KqCdl0/obj/gnatprove/silver_arguments.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-KqCdl0/obj/gnatprove/silver_arguments.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-KqCdl0/obj/gnatprove/silver_io.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-KqCdl0/obj/gnatprove/silver_io.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-KqCdl0/obj/gnatprove/silver_output_libc.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-KqCdl0/obj/gnatprove/silver_output_libc.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-KqCdl0/obj/gnatprove/silver_runtime.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-KqCdl0/obj/gnatprove/silver_runtime.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-Lk2tLu/obj/gnatprove/gnatprove.out",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-Lk2tLu/obj/gnatprove/gnatprove.out"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-Lk2tLu/obj/gnatprove/gnatprove.sarif",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-Lk2tLu/obj/gnatprove/gnatprove.sarif"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-Lk2tLu/obj/gnatprove/main~1.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-Lk2tLu/obj/gnatprove/main~1.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-Lk2tLu/obj/gnatprove/silver_arguments.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-Lk2tLu/obj/gnatprove/silver_arguments.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-Lk2tLu/obj/gnatprove/silver_io.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-Lk2tLu/obj/gnatprove/silver_io.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-Lk2tLu/obj/gnatprove/silver_output_libc.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-Lk2tLu/obj/gnatprove/silver_output_libc.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-Lk2tLu/obj/gnatprove/silver_runtime.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-Lk2tLu/obj/gnatprove/silver_runtime.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-MXhGwi/obj/gnatprove/gnatprove.out",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-MXhGwi/obj/gnatprove/gnatprove.out"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-MXhGwi/obj/gnatprove/gnatprove.sarif",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-MXhGwi/obj/gnatprove/gnatprove.sarif"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-MXhGwi/obj/gnatprove/main~1.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-MXhGwi/obj/gnatprove/main~1.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-NWAkPo/obj/gnatprove/gnatprove.out",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-NWAkPo/obj/gnatprove/gnatprove.out"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-NWAkPo/obj/gnatprove/gnatprove.sarif",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-NWAkPo/obj/gnatprove/gnatprove.sarif"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-NWAkPo/obj/gnatprove/main~1.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-NWAkPo/obj/gnatprove/main~1.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-NWAkPo/obj/gnatprove/silver_arguments.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-NWAkPo/obj/gnatprove/silver_arguments.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-NWAkPo/obj/gnatprove/silver_io.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-NWAkPo/obj/gnatprove/silver_io.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-NWAkPo/obj/gnatprove/silver_output_libc.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-NWAkPo/obj/gnatprove/silver_output_libc.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-NWAkPo/obj/gnatprove/silver_runtime.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-NWAkPo/obj/gnatprove/silver_runtime.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-Or5nEH/obj/gnatprove/gnatprove.out",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-Or5nEH/obj/gnatprove/gnatprove.out"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-Or5nEH/obj/gnatprove/gnatprove.sarif",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-Or5nEH/obj/gnatprove/gnatprove.sarif"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-Or5nEH/obj/gnatprove/main~1.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-Or5nEH/obj/gnatprove/main~1.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-Or5nEH/obj/gnatprove/silver_arguments.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-Or5nEH/obj/gnatprove/silver_arguments.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-Or5nEH/obj/gnatprove/silver_io.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-Or5nEH/obj/gnatprove/silver_io.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-Or5nEH/obj/gnatprove/silver_output_libc.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-Or5nEH/obj/gnatprove/silver_output_libc.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-Or5nEH/obj/gnatprove/silver_runtime.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-Or5nEH/obj/gnatprove/silver_runtime.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-PeKf6m/obj/gnatprove/gnatprove.out",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-PeKf6m/obj/gnatprove/gnatprove.out"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-PeKf6m/obj/gnatprove/gnatprove.sarif",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-PeKf6m/obj/gnatprove/gnatprove.sarif"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-PeKf6m/obj/gnatprove/main~1.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-PeKf6m/obj/gnatprove/main~1.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-PeKf6m/obj/gnatprove/silver_arguments.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-PeKf6m/obj/gnatprove/silver_arguments.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-PeKf6m/obj/gnatprove/silver_io.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-PeKf6m/obj/gnatprove/silver_io.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-PeKf6m/obj/gnatprove/silver_output_libc.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-PeKf6m/obj/gnatprove/silver_output_libc.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-PeKf6m/obj/gnatprove/silver_runtime.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-PeKf6m/obj/gnatprove/silver_runtime.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-SXCr7a/obj/gnatprove/gnatprove.out",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-SXCr7a/obj/gnatprove/gnatprove.out"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-SXCr7a/obj/gnatprove/gnatprove.sarif",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-SXCr7a/obj/gnatprove/gnatprove.sarif"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-SXCr7a/obj/gnatprove/main~1.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-SXCr7a/obj/gnatprove/main~1.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-SXCr7a/obj/gnatprove/silver_arguments.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-SXCr7a/obj/gnatprove/silver_arguments.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-SXCr7a/obj/gnatprove/silver_io.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-SXCr7a/obj/gnatprove/silver_io.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-SXCr7a/obj/gnatprove/silver_output_libc.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-SXCr7a/obj/gnatprove/silver_output_libc.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-SXCr7a/obj/gnatprove/silver_runtime.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-SXCr7a/obj/gnatprove/silver_runtime.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-VzYMr4/obj/gnatprove/gnatprove.out",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-VzYMr4/obj/gnatprove/gnatprove.out"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-VzYMr4/obj/gnatprove/gnatprove.sarif",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-VzYMr4/obj/gnatprove/gnatprove.sarif"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-VzYMr4/obj/gnatprove/main~1.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-VzYMr4/obj/gnatprove/main~1.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-VzYMr4/obj/gnatprove/silver_arguments.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-VzYMr4/obj/gnatprove/silver_arguments.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-VzYMr4/obj/gnatprove/silver_io.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-VzYMr4/obj/gnatprove/silver_io.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-VzYMr4/obj/gnatprove/silver_output_libc.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-VzYMr4/obj/gnatprove/silver_output_libc.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-VzYMr4/obj/gnatprove/silver_runtime.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-VzYMr4/obj/gnatprove/silver_runtime.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-WHQiZ7/obj/gnatprove/gnatprove.out",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-WHQiZ7/obj/gnatprove/gnatprove.out"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-WHQiZ7/obj/gnatprove/gnatprove.sarif",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-WHQiZ7/obj/gnatprove/gnatprove.sarif"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-WHQiZ7/obj/gnatprove/main~1.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-WHQiZ7/obj/gnatprove/main~1.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-WHQiZ7/obj/gnatprove/silver_arguments.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-WHQiZ7/obj/gnatprove/silver_arguments.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-WHQiZ7/obj/gnatprove/silver_io.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-WHQiZ7/obj/gnatprove/silver_io.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-WHQiZ7/obj/gnatprove/silver_output_libc.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-WHQiZ7/obj/gnatprove/silver_output_libc.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-WHQiZ7/obj/gnatprove/silver_runtime.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-WHQiZ7/obj/gnatprove/silver_runtime.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-Wfeitd/obj/gnatprove/gnatprove.out",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-Wfeitd/obj/gnatprove/gnatprove.out"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-Wfeitd/obj/gnatprove/gnatprove.sarif",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-Wfeitd/obj/gnatprove/gnatprove.sarif"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-Wfeitd/obj/gnatprove/main~1.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-Wfeitd/obj/gnatprove/main~1.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-Wfeitd/obj/gnatprove/silver_arguments.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-Wfeitd/obj/gnatprove/silver_arguments.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-Wfeitd/obj/gnatprove/silver_io.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-Wfeitd/obj/gnatprove/silver_io.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-Wfeitd/obj/gnatprove/silver_output_libc.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-Wfeitd/obj/gnatprove/silver_output_libc.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-Wfeitd/obj/gnatprove/silver_runtime.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-Wfeitd/obj/gnatprove/silver_runtime.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-Wv4S7U/obj/gnatprove/gnatprove.out",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-Wv4S7U/obj/gnatprove/gnatprove.out"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-Wv4S7U/obj/gnatprove/gnatprove.sarif",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-Wv4S7U/obj/gnatprove/gnatprove.sarif"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-Wv4S7U/obj/gnatprove/main~1.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-Wv4S7U/obj/gnatprove/main~1.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-Wv4S7U/obj/gnatprove/silver_arguments.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-Wv4S7U/obj/gnatprove/silver_arguments.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-Wv4S7U/obj/gnatprove/silver_io.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-Wv4S7U/obj/gnatprove/silver_io.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-Wv4S7U/obj/gnatprove/silver_output_libc.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-Wv4S7U/obj/gnatprove/silver_output_libc.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-Wv4S7U/obj/gnatprove/silver_runtime.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-Wv4S7U/obj/gnatprove/silver_runtime.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-XJElSw/obj/gnatprove/gnatprove.out",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-XJElSw/obj/gnatprove/gnatprove.out"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-XJElSw/obj/gnatprove/gnatprove.sarif",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-XJElSw/obj/gnatprove/gnatprove.sarif"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-XJElSw/obj/gnatprove/main~1.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-XJElSw/obj/gnatprove/main~1.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-XJElSw/obj/gnatprove/silver_arguments.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-XJElSw/obj/gnatprove/silver_arguments.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-XJElSw/obj/gnatprove/silver_io.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-XJElSw/obj/gnatprove/silver_io.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-XJElSw/obj/gnatprove/silver_output_libc.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-XJElSw/obj/gnatprove/silver_output_libc.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-XJElSw/obj/gnatprove/silver_runtime.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-XJElSw/obj/gnatprove/silver_runtime.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-XbjahH/obj/gnatprove/gnatprove.out",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-XbjahH/obj/gnatprove/gnatprove.out"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-XbjahH/obj/gnatprove/gnatprove.sarif",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-XbjahH/obj/gnatprove/gnatprove.sarif"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-XbjahH/obj/gnatprove/main~1.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-XbjahH/obj/gnatprove/main~1.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-ZdGrPi/obj/gnatprove/gnatprove.out",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-ZdGrPi/obj/gnatprove/gnatprove.out"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-ZdGrPi/obj/gnatprove/gnatprove.sarif",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-ZdGrPi/obj/gnatprove/gnatprove.sarif"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-ZdGrPi/obj/gnatprove/main~1.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-ZdGrPi/obj/gnatprove/main~1.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-ZiQSRQ/obj/gnatprove/gnatprove.out",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-ZiQSRQ/obj/gnatprove/gnatprove.out"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-ZiQSRQ/obj/gnatprove/gnatprove.sarif",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-ZiQSRQ/obj/gnatprove/gnatprove.sarif"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-ZiQSRQ/obj/gnatprove/main~1.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-ZiQSRQ/obj/gnatprove/main~1.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-ZiQSRQ/obj/gnatprove/silver_arguments.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-ZiQSRQ/obj/gnatprove/silver_arguments.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-ZiQSRQ/obj/gnatprove/silver_io.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-ZiQSRQ/obj/gnatprove/silver_io.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-ZiQSRQ/obj/gnatprove/silver_output_libc.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-ZiQSRQ/obj/gnatprove/silver_output_libc.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-ZiQSRQ/obj/gnatprove/silver_runtime.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-ZiQSRQ/obj/gnatprove/silver_runtime.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-eD5Hw9/obj/gnatprove/gnatprove.out",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-eD5Hw9/obj/gnatprove/gnatprove.out"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-eD5Hw9/obj/gnatprove/gnatprove.sarif",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-eD5Hw9/obj/gnatprove/gnatprove.sarif"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-eD5Hw9/obj/gnatprove/main~1.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-eD5Hw9/obj/gnatprove/main~1.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-eD5Hw9/obj/gnatprove/silver_arguments.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-eD5Hw9/obj/gnatprove/silver_arguments.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-eD5Hw9/obj/gnatprove/silver_io.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-eD5Hw9/obj/gnatprove/silver_io.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-eD5Hw9/obj/gnatprove/silver_output_libc.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-eD5Hw9/obj/gnatprove/silver_output_libc.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-eD5Hw9/obj/gnatprove/silver_runtime.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-eD5Hw9/obj/gnatprove/silver_runtime.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-fqw9tz/obj/gnatprove/gnatprove.out",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-fqw9tz/obj/gnatprove/gnatprove.out"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-fqw9tz/obj/gnatprove/gnatprove.sarif",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-fqw9tz/obj/gnatprove/gnatprove.sarif"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-fqw9tz/obj/gnatprove/main~1.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-fqw9tz/obj/gnatprove/main~1.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-jHx7GV/obj/gnatprove/gnatprove.out",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-jHx7GV/obj/gnatprove/gnatprove.out"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-jHx7GV/obj/gnatprove/gnatprove.sarif",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-jHx7GV/obj/gnatprove/gnatprove.sarif"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-jHx7GV/obj/gnatprove/main~1.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-jHx7GV/obj/gnatprove/main~1.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-jHx7GV/obj/gnatprove/silver_arguments.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-jHx7GV/obj/gnatprove/silver_arguments.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-jHx7GV/obj/gnatprove/silver_output_libc.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-jHx7GV/obj/gnatprove/silver_output_libc.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-jHx7GV/obj/gnatprove/silver_runtime.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-jHx7GV/obj/gnatprove/silver_runtime.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-ow1rRx/obj/gnatprove/gnatprove.out",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-ow1rRx/obj/gnatprove/gnatprove.out"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-ow1rRx/obj/gnatprove/gnatprove.sarif",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-ow1rRx/obj/gnatprove/gnatprove.sarif"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-ow1rRx/obj/gnatprove/main~1.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-ow1rRx/obj/gnatprove/main~1.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-ow1rRx/obj/gnatprove/silver_arguments.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-ow1rRx/obj/gnatprove/silver_arguments.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-ow1rRx/obj/gnatprove/silver_io.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-ow1rRx/obj/gnatprove/silver_io.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-ow1rRx/obj/gnatprove/silver_output_libc.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-ow1rRx/obj/gnatprove/silver_output_libc.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-ow1rRx/obj/gnatprove/silver_runtime.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-ow1rRx/obj/gnatprove/silver_runtime.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-p04Kbj/obj/gnatprove/gnatprove.out",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-p04Kbj/obj/gnatprove/gnatprove.out"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-p04Kbj/obj/gnatprove/gnatprove.sarif",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-p04Kbj/obj/gnatprove/gnatprove.sarif"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-p04Kbj/obj/gnatprove/main~1.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-p04Kbj/obj/gnatprove/main~1.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-p04Kbj/obj/gnatprove/silver_arguments.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-p04Kbj/obj/gnatprove/silver_arguments.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-p04Kbj/obj/gnatprove/silver_io.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-p04Kbj/obj/gnatprove/silver_io.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-p04Kbj/obj/gnatprove/silver_output_libc.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-p04Kbj/obj/gnatprove/silver_output_libc.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-p04Kbj/obj/gnatprove/silver_runtime.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-p04Kbj/obj/gnatprove/silver_runtime.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-pUATDd/obj/gnatprove/silver_arguments.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-pUATDd/obj/gnatprove/silver_arguments.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-pUATDd/obj/gnatprove/silver_io.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-pUATDd/obj/gnatprove/silver_io.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-pUATDd/obj/gnatprove/silver_output_libc.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-pUATDd/obj/gnatprove/silver_output_libc.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-pUATDd/obj/gnatprove/silver_runtime.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-pUATDd/obj/gnatprove/silver_runtime.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-rbG8eF/obj/gnatprove/gnatprove.out",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-rbG8eF/obj/gnatprove/gnatprove.out"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-rbG8eF/obj/gnatprove/gnatprove.sarif",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-rbG8eF/obj/gnatprove/gnatprove.sarif"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-rbG8eF/obj/gnatprove/main~1.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-rbG8eF/obj/gnatprove/main~1.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-rbG8eF/obj/gnatprove/silver_arguments.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-rbG8eF/obj/gnatprove/silver_arguments.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-rbG8eF/obj/gnatprove/silver_io.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-rbG8eF/obj/gnatprove/silver_io.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-rbG8eF/obj/gnatprove/silver_output_libc.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-rbG8eF/obj/gnatprove/silver_output_libc.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-rbG8eF/obj/gnatprove/silver_runtime.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-rbG8eF/obj/gnatprove/silver_runtime.spark"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-sHaiT6/obj/gnatprove/gnatprove.out",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-sHaiT6/obj/gnatprove/gnatprove.out"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-sHaiT6/obj/gnatprove/gnatprove.sarif",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-sHaiT6/obj/gnatprove/gnatprove.sarif"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-sHaiT6/obj/gnatprove/main~1.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T093645-d959cfabae08/reports/0/program-sHaiT6/obj/gnatprove/main~1.spark"
+      }
+    ],
+    "returncode": 1,
+    "run_id": "20261108T093645-d959cfabae08",
+    "utc": "2026-11-08T12:21:44.417457+00:00"
+  },
+  "actual_driver": {
+    "actual_driver_exitcode": 1
+  },
+  "actual_launcher": {
+    "utc": "2026-11-08T12:21:40.549646+00:00",
+    "actual_unittest_exitcode": 1,
+    "child_pid": 682577,
+    "observer_errors": [],
+    "interruptions": [],
+    "affinity_violations": []
+  },
+  "tests": 338,
+  "counts": {
+    "ok": 335,
+    "ERROR": 3,
+    "FAIL": 0
+  },
+  "skips": 0,
+  "per_id": {
+    "test_arguments.ArgumentTests.test_argument_shell_admission": "ok",
+    "test_arguments.ArgumentTests.test_boundary_defaults_and_names": "ok",
+    "test_arguments.ArgumentTests.test_every_argument_outcome": "ok",
+    "test_boolean_arrays.BooleanArrayTests.test_eager_and_stored_flags_do_not_supply_safety_facts": "ok",
+    "test_boolean_arrays.BooleanArrayTests.test_explicit_aggregates_and_static_bounds": "ok",
+    "test_boolean_arrays.BooleanArrayTests.test_index_operand_boundary_counts_the_array_read": "ok",
+    "test_boolean_arrays.BooleanArrayTests.test_native_integer_subtype_spelled_boolean": "ok",
+    "test_boolean_arrays.BooleanArrayTests.test_native_snapshots_updates_and_loop_persistence": "ok",
+    "test_boolean_arrays.BooleanArrayTests.test_nonempty_contained_indices_even_in_dead_code": "ok",
+    "test_boolean_arrays.BooleanArrayTests.test_string_character_conditions_in_initializers_and_writes": "ok",
+    "test_boolean_arrays.BooleanArrayTests.test_typed_indexed_operations_and_loop_hiding": "ok",
+    "test_boolean_arrays.BooleanArrayTests.test_visibility_and_integer_subtype_named_boolean": "ok",
+    "test_boolean_objects.BooleanObjectTests.test_comparison_initializers_arrays_and_argument_fact_composition": "ok",
+    "test_boolean_objects.BooleanObjectTests.test_eager_rhs_requires_its_own_incoming_safety": "ok",
+    "test_boolean_objects.BooleanObjectTests.test_homogeneous_chains_and_boolean_equality": "ok",
+    "test_boolean_objects.BooleanObjectTests.test_initialized_objects_typing_and_assignment": "ok",
+    "test_boolean_objects.BooleanObjectTests.test_name_hiding_uses_binding_kind_and_declaration_scope": "ok",
+    "test_boolean_objects.BooleanObjectTests.test_native_boolean_hiding_and_loop_scope_restoration": "ok",
+    "test_boolean_objects.BooleanObjectTests.test_native_common_elements_no_match_boundary": "ok",
+    "test_boolean_objects.BooleanObjectTests.test_native_trial_division_empty_inner_loop_boundary": "ok",
+    "test_boolean_objects.BooleanObjectTests.test_native_truth_tables_and_boolean_snapshots": "ok",
+    "test_boolean_objects.BooleanObjectTests.test_source_and_existing_operator_leaf_limits": "ok",
+    "test_boolean_objects.BooleanObjectTests.test_stored_flags_do_not_keep_scalar_string_or_validity_relations": "ok",
+    "test_boolean_objects.BooleanObjectTests.test_xor_operand_spans_ignore_strings_comments_and_identifier_parts": "ok",
+    "test_branching.BranchingTests.test_admitted_literals_binding_and_layout": "ok",
+    "test_branching.BranchingTests.test_excluded_declaration_names": "ok",
+    "test_branching.BranchingTests.test_inner_and_reject_arm_sequences_have_rejected_neighbours": "ok",
+    "test_branching.BranchingTests.test_native_choice_argument_domain_and_output_failure": "ok",
+    "test_branching.BranchingTests.test_native_empty_escaped_and_maximum_literals": "ok",
+    "test_branching.BranchingTests.test_native_maximum_binding": "ok",
+    "test_branching.BranchingTests.test_rejected_guard_equality_and_branch_neighbours": "ok",
+    "test_capacity.CapacityEnvelopeTests.test_dense_review_source_is_admitted_and_maximal_credit_report_exceeds_old_limit": "ok",
+    "test_capacity.CapacityEnvelopeTests.test_dense_static_subtypes_and_mutable_assignments_are_admitted": "ok",
+    "test_command_line_greeting.CommandLineGreetingTests.test_admitted_capacity_binding_and_layout": "ok",
+    "test_command_line_greeting.CommandLineGreetingTests.test_native_obligations_output_bounds_and_failures": "ok",
+    "test_command_line_greeting.CommandLineGreetingTests.test_rejected_guard_and_expression_neighbours": "ok",
+    "test_common_expressions.CommonExpressionsTests.test_assignment_expression_preserves_exact_bounds": "ok",
+    "test_common_expressions.CommonExpressionsTests.test_common_expression_positions_and_grouping": "ok",
+    "test_common_expressions.CommonExpressionsTests.test_comparison_expressions_need_string_type_anchor": "ok",
+    "test_common_expressions.CommonExpressionsTests.test_comparison_operands_have_independent_capacity_checks": "ok",
+    "test_common_expressions.CommonExpressionsTests.test_concatenation_budget_is_shared_by_every_expression_position": "ok",
+    "test_common_expressions.CommonExpressionsTests.test_deep_parentheses_and_complete_source_bound": "ok",
+    "test_common_expressions.CommonExpressionsTests.test_grouping_does_not_reset_operand_work_limit": "ok",
+    "test_common_expressions.CommonExpressionsTests.test_initializer_bounds_precede_body_guards": "ok",
+    "test_common_expressions.CommonExpressionsTests.test_native_common_comparison_and_selected_assignment": "ok",
+    "test_common_expressions.CommonExpressionsTests.test_native_constant_comparisons_preserve_precise_advisories": "ok",
+    "test_common_expressions.CommonExpressionsTests.test_native_expression_initializers_preserve_snapshots": "ok",
+    "test_common_expressions.CommonExpressionsTests.test_native_repeated_aliases_and_empty_grouping": "ok",
+    "test_common_expressions.CommonExpressionsTests.test_repeated_dynamic_values_use_weighted_capacity": "ok",
+    "test_common_expressions.CommonExpressionsTests.test_sixty_four_dynamic_leaves_retain_byte_capacity": "ok",
+    "test_common_expressions.CommonExpressionsTests.test_whole_program_concatenation_work_budget": "ok",
+    "test_composed_results.ComposedResultsTests.test_flat_expressions_in_every_output_position": "ok",
+    "test_composed_results.ComposedResultsTests.test_generalized_capacity_literals_keep_the_bound": "ok",
+    "test_composed_results.ComposedResultsTests.test_native_branch_result_rejoins_with_maximal_expression": "ok",
+    "test_composed_results.ComposedResultsTests.test_native_guarded_expressions_and_branch_outputs": "ok",
+    "test_composed_results.ComposedResultsTests.test_native_static_shells_and_full_expanded_output": "ok",
+    "test_composed_results.ComposedResultsTests.test_native_tight_capacity_applies_to_default_and_empty_input": "ok",
+    "test_composed_results.ComposedResultsTests.test_operand_and_expanded_output_boundaries": "ok",
+    "test_composed_results.ComposedResultsTests.test_rejected_operand_guard_and_binding_neighbours": "ok",
+    "test_conditionals.ConditionalTests.test_native_elsif_first_match_optional_paths_and_argument_rejection": "ok",
+    "test_conditionals.ConditionalTests.test_native_nested_assignments_observe_current_values_and_snapshots": "ok",
+    "test_conditionals.ConditionalTests.test_nested_conditions_and_elsif_share_expression_limits": "ok",
+    "test_conditionals.ConditionalTests.test_nested_elsif_and_optional_else_have_rejected_neighbours": "ok",
+    "test_conditionals.ConditionalTests.test_source_bound_limits_nesting_and_elsif_chains": "ok",
+    "test_constant_array_iteration.ConstantArrayIterationTests.test_admission_definitely_nonempty_input_and_string_transfer": "ok",
+    "test_constant_array_iteration.ConstantArrayIterationTests.test_admission_forward_reverse_singleton_and_comments": "ok",
+    "test_constant_array_iteration.ConstantArrayIterationTests.test_admission_full_integer_entry_range_and_guarded_element_uses": "ok",
+    "test_constant_array_iteration.ConstantArrayIterationTests.test_admission_hiding_own_specification_and_restored_scope": "ok",
+    "test_constant_array_iteration.ConstantArrayIterationTests.test_admission_mutables_widen_and_element_facts_do_not_escape": "ok",
+    "test_constant_array_iteration.ConstantArrayIterationTests.test_admission_nested_loops_and_mutable_array_writes": "ok",
+    "test_constant_array_iteration.ConstantArrayIterationTests.test_admission_only_bare_visible_constant_integer_arrays": "ok",
+    "test_constant_array_iteration.ConstantArrayIterationTests.test_admission_source_operator_operand_and_nested_frame_boundaries": "ok",
+    "test_constant_array_iteration.ConstantArrayIterationTests.test_native_nonempty_reject_transfer": "ok",
+    "test_constant_array_iteration.ConstantArrayIterationTests.test_native_order_guards_nested_writes_and_original_source": "ok",
+    "test_copy_values.CopyValuesTests.test_distinct_names_decoded_values_and_layout": "ok",
+    "test_copy_values.CopyValuesTests.test_literals_and_each_constant_at_every_copy_position": "ok",
+    "test_copy_values.CopyValuesTests.test_native_copies_advisories_quotes_and_full_output": "ok",
+    "test_copy_values.CopyValuesTests.test_native_selected_copies_both_branches_dynamic_input_and_empty_values": "ok",
+    "test_copy_values.CopyValuesTests.test_operand_output_capacity_and_complete_source_bounds": "ok",
+    "test_copy_values.CopyValuesTests.test_rejected_case_insensitive_collisions_and_excluded_names": "ok",
+    "test_copy_values.CopyValuesTests.test_rejected_copy_sources_lengths_order_and_extra_statements": "ok",
+    "test_copy_values.CopyValuesTests.test_shared_binding_lists_and_mutable_copy_sources": "ok",
+    "test_counted_bound_review.CountedBoundReviewTests.test_constant_array_components_are_excluded_at_both_counted_bounds": "ok",
+    "test_counted_bound_review.CountedBoundReviewTests.test_maximal_nested_loops_keep_filter_scratch_out_of_frames": "ok",
+    "test_counted_bound_review.CountedBoundReviewTests.test_mutable_array_bounds_keep_original_offsets_and_full_route": "ok",
+    "test_counted_bound_review.CountedBoundReviewTests.test_scalar_snapshots_and_constant_foreach_keep_the_full_route": "ok",
+    "test_empty_loop_folds.EmptyLoopFoldTests.test_admission_constant_producing_empty_identities_are_rejected": "ok",
+    "test_empty_loop_folds.EmptyLoopFoldTests.test_admission_empty_identity_rules_do_not_change_nonempty_arithmetic": "ok",
+    "test_empty_loop_folds.EmptyLoopFoldTests.test_native_identity_free_empty_expressions_survive_full_build": "ok",
+    "test_greeting.GreetingTests.test_closed_form_admission": "ok",
+    "test_greeting.GreetingTests.test_excluded_neighbour_expressions": "ok",
+    "test_greeting.GreetingTests.test_native_decoded_output_boundaries_names_and_failure": "ok",
+    "test_greeting.GreetingTests.test_shared_binding_lists_and_mutable_greeting_operand": "ok",
+    "test_image_adapter.ImageAdapterTests.test_initializer_and_loop_assignment_prove_and_execute_unchanged": "ok",
+    "test_image_adapter.ImageAdapterTests.test_wrong_image_width_never_reaches_proof": "ok",
+    "test_integer_arrays.IntegerArrayTests.test_admission_anonymous_bounds_and_exact_aggregate_shapes": "ok",
+    "test_integer_arrays.IntegerArrayTests.test_admission_declaration_snapshots_are_exact_and_nonstatic": "ok",
+    "test_integer_arrays.IntegerArrayTests.test_admission_dense_explicit_initializers_fit_the_source_derived_table": "ok",
+    "test_integer_arrays.IntegerArrayTests.test_admission_excludes_unselected_types_aggregates_and_bounds": "ok",
+    "test_integer_arrays.IntegerArrayTests.test_admission_index_guards_use_scalar_flow_and_indices_stay_nonempty": "ok",
+    "test_integer_arrays.IntegerArrayTests.test_admission_index_leaves_and_program_operators_keep_existing_budgets": "ok",
+    "test_integer_arrays.IntegerArrayTests.test_admission_mutability_type_and_subscript_boundaries": "ok",
+    "test_integer_arrays.IntegerArrayTests.test_admission_names_and_scoped_hiding": "ok",
+    "test_integer_arrays.IntegerArrayTests.test_admission_nested_loops_keep_the_initializer_table_out_of_body_frames": "ok",
+    "test_integer_arrays.IntegerArrayTests.test_admission_reads_are_scalar_atoms_in_existing_positions": "ok",
+    "test_integer_arrays.IntegerArrayTests.test_admission_rotation_driver_and_argument_composition": "ok",
+    "test_integer_arrays.IntegerArrayTests.test_native_rotation_snapshots_and_guarded_index_report": "ok",
+    "test_integer_division.IntegerDivisionTests.test_admission_division_shares_exactly_the_existing_operator_budget": "ok",
+    "test_integer_division.IntegerDivisionTests.test_admission_empty_operands_do_not_waive_divisor_or_static_legality": "ok",
+    "test_integer_division.IntegerDivisionTests.test_admission_every_shared_scalar_expression_position": "ok",
+    "test_integer_division.IntegerDivisionTests.test_admission_initializers_capture_values_and_staticness_is_preserved": "ok",
+    "test_integer_division.IntegerDivisionTests.test_admission_modulus_and_remainder_include_interior_extrema": "ok",
+    "test_integer_division.IntegerDivisionTests.test_admission_nonzero_divisors_and_division_overflow": "ok",
+    "test_integer_division.IntegerDivisionTests.test_admission_operator_words_are_case_insensitive_whole_tokens": "ok",
+    "test_integer_division.IntegerDivisionTests.test_admission_quotient_hulls_for_positive_and_negative_divisors": "ok",
+    "test_integer_division.IntegerDivisionTests.test_admission_singletons_follow_ada_sign_and_truncation_rules": "ok",
+    "test_integer_division.IntegerDivisionTests.test_native_dynamic_signs_and_minimum_integer": "ok",
+    "test_integer_division.IntegerDivisionTests.test_native_josephus_and_remainder_interior_values": "ok",
+    "test_integer_image.IntegerImageTests.test_assignment_requires_both_length_endpoints": "ok",
+    "test_integer_image.IntegerImageTests.test_empty_image_keeps_static_resource_and_target_checks": "ok",
+    "test_integer_image.IntegerImageTests.test_image_is_one_string_leaf_with_shared_operator_budget": "ok",
+    "test_integer_image.IntegerImageTests.test_native_composite_argument_loop": "ok",
+    "test_integer_image.IntegerImageTests.test_native_extreme_images_and_fixed_width_assignment": "ok",
+    "test_integer_image.IntegerImageTests.test_predicate_overlap_refines_selected_input_capacity": "ok",
+    "test_integer_image.IntegerImageTests.test_scalar_expression_and_string_positions": "ok",
+    "test_integer_image.IntegerImageTests.test_scalar_leaf_boundary_and_loop_image_compositions": "ok",
+    "test_integer_image.IntegerImageTests.test_type_visibility_and_scalar_visibility": "ok",
+    "test_integer_loops.IntegerLoopsTests.test_constants_are_initialized_typed_and_immutable": "ok",
+    "test_integer_loops.IntegerLoopsTests.test_integer_type_visibility_preserves_existing_string_names": "ok",
+    "test_integer_loops.IntegerLoopsTests.test_loop_arithmetic_uses_guarded_index_ranges": "ok",
+    "test_integer_loops.IntegerLoopsTests.test_loop_scope_reverse_null_ranges_and_own_bounds": "ok",
+    "test_integer_loops.IntegerLoopsTests.test_native_string_assignments_and_argument_guards_compose_with_loops": "ok",
+    "test_integer_loops.IntegerLoopsTests.test_native_triangle_and_reverse_composition": "ok",
+    "test_integer_loops.IntegerLoopsTests.test_scalar_literals_and_every_intermediate_operation": "ok",
+    "test_integer_loops.IntegerLoopsTests.test_scoped_indexes_hide_strings_constants_and_unqualified_calls": "ok",
+    "test_integer_loops.IntegerLoopsTests.test_shared_work_budget_counts_operators_but_not_exponent_signs": "ok",
+    "test_integer_loops.IntegerLoopsTests.test_shared_work_budget_counts_plus_after_digit_e_identifiers": "ok",
+    "test_integer_loops.IntegerLoopsTests.test_shared_work_budget_ignores_real_exponents_and_quoted_or_comment_operators": "ok",
+    "test_integer_loops.IntegerLoopsTests.test_shared_work_budget_is_independent_of_identifier_and_operator_spacing": "ok",
+    "tests.test_shared_bindings.SharedBindingsTests.test_alias_occurrences_keep_expression_capacity_limits": "ok",
+    "tests.test_shared_bindings.SharedBindingsTests.test_arbitrary_ordered_constant_and_mutable_bindings": "ok",
+    "tests.test_shared_bindings.SharedBindingsTests.test_assignment_respects_mutability_and_fixed_length": "ok",
+    "tests.test_shared_bindings.SharedBindingsTests.test_bindings_do_not_bypass_name_or_initialization_rules": "ok",
+    "tests.test_shared_bindings.SharedBindingsTests.test_dense_copy_chain_and_exact_source_bound": "ok",
+    "tests.test_shared_bindings.SharedBindingsTests.test_native_copy_snapshots_and_unused_assignment": "ok",
+    "tests.test_shared_bindings.SharedBindingsTests.test_native_dynamic_copies_preserve_argument_domain": "ok",
+    "tests.test_shared_bindings.SharedBindingsTests.test_native_unused_initializers_without_assignment": "ok",
+    "tests.test_shared_bindings.SharedBindingsTests.test_static_and_dynamic_snapshots_in_guarded_bodies": "ok",
+    "test_lean_source.CompilerSourcePolicyTests.test_checked_in_certificates_equal_regeneration": "ok",
+    "test_lean_source.CompilerSourcePolicyTests.test_compose_candidate_has_no_authoritative_source_dependencies": "ok",
+    "test_lean_source.CompilerSourcePolicyTests.test_compose_source_checks_retain_authoritative_dependencies": "ok",
+    "test_lean_source.CompilerSourcePolicyTests.test_current_compiler_sources_satisfy_byte_policy": "ok",
+    "test_lean_source.CompilerSourcePolicyTests.test_include_str_is_confined_to_the_source_bindings": "ok",
+    "test_lean_source.CompilerSourcePolicyTests.test_only_audit_roots_use_legacy_full_imports": "ok",
+    "test_lean_source.CompilerSourcePolicyTests.test_output_body_split_preserves_every_line_proof_and_ordered_reconstruction": "ok",
+    "test_main_discovery.MainDiscoveryTests.test_image_advisory_follows_main_unit_casing": "ok",
+    "test_main_discovery.MainDiscoveryTests.test_indexed_main_preserves_cr_source_in_all_shells": "ok",
+    "test_mutable_integers.MutableIntegerTests.test_admission_assignments_preserve_type_and_immutability": "ok",
+    "test_mutable_integers.MutableIntegerTests.test_admission_body_starts_declared_and_tracks_writes_and_guards": "ok",
+    "test_mutable_integers.MutableIntegerTests.test_admission_declarations_and_exact_initialization_snapshots": "ok",
+    "test_mutable_integers.MutableIntegerTests.test_admission_mutable_images_use_declared_widths": "ok",
+    "test_mutable_integers.MutableIntegerTests.test_admission_range_operators_share_the_source_budget": "ok",
+    "test_mutable_integers.MutableIntegerTests.test_admission_requires_static_nonempty_constraints_and_legal_names": "ok",
+    "test_mutable_integers.MutableIntegerTests.test_admission_scalar_guard_composes_with_input_length_facts": "ok",
+    "test_mutable_integers.MutableIntegerTests.test_empty_interval_assignments_rejected_before_compilation": "ok",
+    "test_mutable_integers.MutableIntegerTests.test_native_declaration_snapshots_and_mutable_image": "ok",
+    "test_mutable_integers.MutableIntegerTests.test_native_dense_static_subtypes_and_initializer_advisories": "ok",
+    "test_mutable_integers.MutableIntegerTests.test_native_driver_and_frozen_loop_bounds": "ok",
+    "test_mutable_integers.MutableIntegerTests.test_native_retained_empty_loop_forms": "ok",
+    "test_named_integer_subtypes.NamedIntegerSubtypeTests.test_admission_component_bounds_enable_reads_and_foreach_arithmetic": "ok",
+    "test_named_integer_subtypes.NamedIntegerSubtypeTests.test_admission_exact_initializer_snapshots_do_not_become_static": "ok",
+    "test_named_integer_subtypes.NamedIntegerSubtypeTests.test_admission_guards_loop_widening_and_narrow_component_stores": "ok",
+    "test_named_integer_subtypes.NamedIntegerSubtypeTests.test_admission_initial_values_and_every_store_respect_declared_range": "ok",
+    "test_named_integer_subtypes.NamedIntegerSubtypeTests.test_admission_rejects_unselected_or_invalid_subtype_declarations": "ok",
+    "test_named_integer_subtypes.NamedIntegerSubtypeTests.test_admission_retains_expression_and_source_derived_binding_budgets": "ok",
+    "test_named_integer_subtypes.NamedIntegerSubtypeTests.test_admission_static_bounds_scalar_objects_and_local_narrowing": "ok",
+    "test_named_integer_subtypes.NamedIntegerSubtypeTests.test_admission_subtype_names_are_metadata_and_share_name_visibility": "ok",
+    "test_named_integer_subtypes.NamedIntegerSubtypeTests.test_native_contradictory_guards_with_named_scalar_and_component_bounds": "ok",
+    "test_named_integer_subtypes.NamedIntegerSubtypeTests.test_native_subtype_snapshots_narrow_stores_and_argument_composition": "ok",
+    "test_named_output.NamedOutputTests.test_excluded_names_and_nearby_forms": "ok",
+    "test_named_output.NamedOutputTests.test_names_and_declaration_trivia": "ok",
+    "test_named_output.NamedOutputTests.test_native_empty_escaped_and_boundary_constants": "ok",
+    "test_named_output.NamedOutputTests.test_shared_binding_lists_and_mutable_named_output": "ok",
+    "test_names_calls.NamesCallsTests.test_context_order_grouping_and_repetition_preserve_package_requirements": "ok",
+    "test_names_calls.NamesCallsTests.test_input_objects_hide_operations_but_not_qualified_calls": "ok",
+    "test_names_calls.NamesCallsTests.test_local_objects_hide_operations_but_not_qualified_calls": "ok",
+    "test_names_calls.NamesCallsTests.test_named_associations_preserve_actuals_and_formal_names": "ok",
+    "test_names_calls.NamesCallsTests.test_native_named_calls_and_local_operation_names": "ok",
+    "test_names_calls.NamesCallsTests.test_native_qualified_initializer_allows_its_own_operation_name": "ok",
+    "test_names_calls.NamesCallsTests.test_partial_output_uses_the_same_visibility_and_association_rules": "ok",
+    "test_names_calls.NamesCallsTests.test_unqualified_calls_need_their_own_use_clause": "ok",
+    "test_names_calls.NamesCallsTests.test_use_does_not_admit_other_library_entities_or_extra_initializers": "ok",
+    "test_output.LiteralOutputTests.test_empty_escaped_and_maximum_literals_execute": "ok",
+    "test_output.LiteralOutputTests.test_literal_lexing_and_token_boundaries": "ok",
+    "test_output.LiteralOutputTests.test_nearby_forms_are_excluded": "ok",
+    "test_output.LiteralOutputTests.test_output_failure_cannot_report_success": "ok",
+    "test_output_integrity.OutputIntegrityTests.test_application_report_capacity_accepts_exact_bound_without_truncation": "ok",
+    "test_output_integrity.OutputIntegrityTests.test_artifact_symlink_does_not_redirect_runtime_source_selection": "ok",
+    "test_output_integrity.OutputIntegrityTests.test_dense_review_construction_accepts_maximal_credit_report": "ok",
+    "test_output_integrity.OutputIntegrityTests.test_divergent_installed_source_stops_before_proof": "ok",
+    "test_output_integrity.OutputIntegrityTests.test_every_library_snapshot_change_during_build_stops_before_publication": "ok",
+    "test_output_integrity.OutputIntegrityTests.test_every_library_snapshot_change_during_proof_stops_before_build": "ok",
+    "test_output_integrity.OutputIntegrityTests.test_large_argument_vector_with_eight_mib_stack": "ok",
+    "test_output_integrity.OutputIntegrityTests.test_large_opaque_proof_trees_preserve_complete_original_reports": "ok",
+    "test_output_integrity.OutputIntegrityTests.test_malformed_opaque_proof_tree_stops_before_build": "ok",
+    "test_output_integrity.OutputIntegrityTests.test_missing_application_keeps_ambiguous_runtime_status": "ok",
+    "test_output_integrity.OutputIntegrityTests.test_missing_runtime_report_stops_before_build": "ok",
+    "test_output_integrity.OutputIntegrityTests.test_present_but_rejected_runtime_report_stops_before_build": "ok",
+    "test_output_integrity.OutputIntegrityTests.test_run_abnormal_exit_reports_process_failure": "ok",
+    "test_output_integrity.OutputIntegrityTests.test_run_forwards_exact_argument_vector": "ok",
+    "test_output_integrity.OutputIntegrityTests.test_run_preserves_application_exit_status": "ok",
+    "test_output_integrity.OutputIntegrityTests.test_selected_compiler_accepts_output_source": "ok",
+    "test_output_integrity.OutputIntegrityTests.test_success_uses_fixed_library_selection_and_runs": "ok",
+    "test_partial_output.PartialOutputTests.test_native_branches_and_inputs_preserve_each_call_bound": "ok",
+    "test_partial_output.PartialOutputTests.test_native_empty_put_flushes_without_writing_a_newline": "ok",
+    "test_partial_output.PartialOutputTests.test_native_mixed_output_preserves_bytes_and_continues_after_failure": "ok",
+    "test_partial_output.PartialOutputTests.test_partial_calls_keep_expression_and_source_bounds": "ok",
+    "test_path_refinement.PathRefinementTests.test_affine_lengths_and_alias_bounds_refine_together": "ok",
+    "test_path_refinement.PathRefinementTests.test_counted_loop_definiteness_decides_required_rejection": "ok",
+    "test_path_refinement.PathRefinementTests.test_generalized_validity_paths_require_rejection_without_output": "ok",
+    "test_path_refinement.PathRefinementTests.test_interval_join_and_string_inequality_do_not_invent_exact_length": "ok",
+    "test_path_refinement.PathRefinementTests.test_joins_assignments_and_initializers_do_not_invent_facts": "ok",
+    "test_path_refinement.PathRefinementTests.test_native_invalid_input_assignments_use_the_empty_initializer": "ok",
+    "test_path_refinement.PathRefinementTests.test_native_length_guard_can_establish_validity_without_query": "ok",
+    "test_path_refinement.PathRefinementTests.test_native_refined_assignments_preserve_snapshots_and_input_domain": "ok",
+    "test_path_refinement.PathRefinementTests.test_native_reject_returns_and_failure_status_is_sticky": "ok",
+    "test_path_refinement.PathRefinementTests.test_native_short_circuit_length_branches": "ok",
+    "test_path_refinement.PathRefinementTests.test_native_static_rhs_floor_preserves_refined_and_unreachable_siblings": "ok",
+    "test_path_refinement.PathRefinementTests.test_short_circuit_operands_use_only_preceding_facts": "ok",
+    "test_path_refinement.PathRefinementTests.test_static_targets_bound_all_static_rhs_contributions_even_when_unreachable": "ok",
+    "test_path_refinement.PathRefinementTests.test_true_and_false_lengths_refine_fixed_assignments": "ok",
+    "test_path_refinement.PathRefinementTests.test_unreachable_static_assignment_requires_equal_lengths": "ok",
+    "test_predicates.PredicateTests.test_boolean_grouping_and_short_circuit_spelling": "ok",
+    "test_predicates.PredicateTests.test_bracket_encoded_character_spelling_is_rejected_in_each_position": "ok",
+    "test_predicates.PredicateTests.test_final_bracket_literals_require_a_separator_before_word_tokens": "ok",
+    "test_predicates.PredicateTests.test_integer_spellings_values_and_exponent_bounds": "ok",
+    "test_predicates.PredicateTests.test_native_bracket_literal_siblings_preserve_decoded_bytes": "ok",
+    "test_predicates.PredicateTests.test_native_literal_meaning_boolean_grouping_and_inequality": "ok",
+    "test_predicates.PredicateTests.test_predicate_atoms_have_rejected_neighbours": "ok",
+    "test_predicates.PredicateTests.test_source_bound_literal_spellings_do_not_gain_a_digit_count_limit": "ok",
+    "test_samples.SupportedSampleTests.test_manifest_samples": "ok",
+    "test_samples.SupportedSampleTests.test_maximum_dynamic_expression": "ERROR",
+    "test_scalar_functions.ScalarFunctionTests.test_actual_and_result_ranges_use_declared_subtypes": "ok",
+    "test_scalar_functions.ScalarFunctionTests.test_actual_arity_kinds_and_positional_association": "ok",
+    "test_scalar_functions.ScalarFunctionTests.test_actuals_share_incoming_state_without_cross_argument_refinement": "ok",
+    "test_scalar_functions.ScalarFunctionTests.test_boolean_actuals_use_caller_string_and_character_facts": "ok",
+    "test_scalar_functions.ScalarFunctionTests.test_boolean_result_carries_no_argument_or_input_facts": "ok",
+    "test_scalar_functions.ScalarFunctionTests.test_calls_are_whole_scalar_assignment_rhs_only": "ok",
+    "test_scalar_functions.ScalarFunctionTests.test_dense_formals_and_complete_source_bound": "ok",
+    "test_scalar_functions.ScalarFunctionTests.test_dense_locals_and_function_list": "ok",
+    "test_scalar_functions.ScalarFunctionTests.test_earlier_calls_and_recursion_rejection": "ok",
+    "test_scalar_functions.ScalarFunctionTests.test_existing_array_actuals_and_nested_loops": "ok",
+    "test_scalar_functions.ScalarFunctionTests.test_formal_syntax_and_closing_names": "ok",
+    "test_scalar_functions.ScalarFunctionTests.test_formals_are_immutable_and_guard_refinable": "ok",
+    "test_scalar_functions.ScalarFunctionTests.test_full_formal_domain_is_checked_even_if_unused": "ok",
+    "test_scalar_functions.ScalarFunctionTests.test_function_names_hide_predefined_names_in_later_closed_frames": "ok",
+    "test_scalar_functions.ScalarFunctionTests.test_functions_cannot_capture_or_perform_effects": "ok",
+    "test_scalar_functions.ScalarFunctionTests.test_hiding_and_duplicate_names": "ok",
+    "test_scalar_functions.ScalarFunctionTests.test_local_initializers_are_independent_exact_snapshots": "ok",
+    "test_scalar_functions.ScalarFunctionTests.test_native_boolean_and_integer_self_actuals": "ERROR",
+    "test_scalar_functions.ScalarFunctionTests.test_native_ordered_calls_snapshot_and_full_unused_coverage": "ERROR",
+    "test_scalar_functions.ScalarFunctionTests.test_nonempty_actuals_and_returns_even_in_empty_loops": "ok",
+    "test_scalar_functions.ScalarFunctionTests.test_return_must_be_single_terminal_and_typed": "ok",
+    "test_scalar_functions.ScalarFunctionTests.test_source_wide_operator_budget_spans_functions": "ok",
+    "test_scalar_functions.ScalarFunctionTests.test_typed_terminal_returns_and_assignment_calls": "ok",
+    "test_scalar_guards.ScalarGuardTests.test_admission_all_comparisons_both_orders_and_outcomes": "ok",
+    "test_scalar_guards.ScalarGuardTests.test_admission_assignment_replaces_only_written_identity": "ok",
+    "test_scalar_guards.ScalarGuardTests.test_admission_bare_targets_and_static_thresholds_only": "ok",
+    "test_scalar_guards.ScalarGuardTests.test_admission_both_operands_checked_before_refinement": "ok",
+    "test_scalar_guards.ScalarGuardTests.test_admission_branch_joins_elsif_and_omitted_else": "ok",
+    "test_scalar_guards.ScalarGuardTests.test_admission_contradictions_keep_incoming_and_empty_index": "ok",
+    "test_scalar_guards.ScalarGuardTests.test_admission_endpoint_guards_and_negation": "ok",
+    "test_scalar_guards.ScalarGuardTests.test_admission_exact_source_limit_with_active_scalar_counts": "ok",
+    "test_scalar_guards.ScalarGuardTests.test_admission_image_reads_and_string_writes_use_scalar_flow": "ok",
+    "test_scalar_guards.ScalarGuardTests.test_admission_input_length_facts_survive_scalar_write": "ok",
+    "test_scalar_guards.ScalarGuardTests.test_admission_long_boolean_and_statement_tails": "ok",
+    "test_scalar_guards.ScalarGuardTests.test_admission_loop_bounds_captured_before_widening": "ok",
+    "test_scalar_guards.ScalarGuardTests.test_admission_loop_mutables_widen_at_entry_and_exit": "ok",
+    "test_scalar_guards.ScalarGuardTests.test_admission_nonzero_hulls_and_division_sign_arms": "ok",
+    "test_scalar_guards.ScalarGuardTests.test_admission_outer_index_facts_restored_and_inner_facts_discarded": "ok",
+    "test_scalar_guards.ScalarGuardTests.test_admission_precise_bounds_reveal_excluded_empty_assignment": "ok",
+    "test_scalar_guards.ScalarGuardTests.test_admission_refinement_uses_binding_identity": "ok",
+    "test_scalar_guards.ScalarGuardTests.test_admission_short_circuit_reached_flows": "ok",
+    "test_scalar_guards.ScalarGuardTests.test_native_complete_100_doors": "ok",
+    "test_scalar_guards.ScalarGuardTests.test_native_contradictory_guard_forms_and_live_scalar_updates": "ok",
+    "test_scalar_guards.ScalarGuardTests.test_native_contradictory_guard_preserves_original_source": "ok",
+    "test_scalar_guards.ScalarGuardTests.test_native_contradictory_guards_compose_with_argument_array_loops": "ok",
+    "test_scalar_guards.ScalarGuardTests.test_native_guarded_updates_division_and_captured_bounds": "ok",
+    "test_shared_bindings.SharedBindingsTests.test_alias_occurrences_keep_expression_capacity_limits": "ok",
+    "test_shared_bindings.SharedBindingsTests.test_arbitrary_ordered_constant_and_mutable_bindings": "ok",
+    "test_shared_bindings.SharedBindingsTests.test_assignment_respects_mutability_and_fixed_length": "ok",
+    "test_shared_bindings.SharedBindingsTests.test_bindings_do_not_bypass_name_or_initialization_rules": "ok",
+    "test_shared_bindings.SharedBindingsTests.test_dense_copy_chain_and_exact_source_bound": "ok",
+    "test_shared_bindings.SharedBindingsTests.test_native_copy_snapshots_and_unused_assignment": "ok",
+    "test_shared_bindings.SharedBindingsTests.test_native_dynamic_copies_preserve_argument_domain": "ok",
+    "test_shared_bindings.SharedBindingsTests.test_native_unused_initializers_without_assignment": "ok",
+    "test_shared_bindings.SharedBindingsTests.test_static_and_dynamic_snapshots_in_guarded_bodies": "ok",
+    "test_silver.SilverIntegrationTests.test_accepted_lexical_forms": "ok",
+    "test_silver.SilverIntegrationTests.test_catalogue_is_json": "ok",
+    "test_silver.SilverIntegrationTests.test_command_usage_errors": "ok",
+    "test_silver.SilverIntegrationTests.test_excluded_bytes_including_inside_comments": "ok",
+    "test_silver.SilverIntegrationTests.test_excluded_constructs_and_boundaries": "ok",
+    "test_silver.SilverIntegrationTests.test_excluded_source_never_proceeds_to_compilation": "ok",
+    "test_silver.SilverIntegrationTests.test_file_errors": "ok",
+    "test_silver.SilverIntegrationTests.test_run_preserves_the_admitted_source": "ok",
+    "test_silver.SilverIntegrationTests.test_tool_failures_and_source_changes_do_not_report_success": "ok",
+    "test_statement_sequencing.StatementSequencingTests.test_expression_leaf_limit_in_initializers_assignments_and_comparisons": "ok",
+    "test_statement_sequencing.StatementSequencingTests.test_former_single_statement_restrictions_are_sequences": "ok",
+    "test_statement_sequencing.StatementSequencingTests.test_native_argument_sequences_cover_both_paths_and_rejection": "ok",
+    "test_statement_sequencing.StatementSequencingTests.test_native_assignments_and_outputs_preserve_order_and_snapshots": "ok",
+    "test_statement_sequencing.StatementSequencingTests.test_native_no_output_sequences_retain_complete_proof_records": "ok",
+    "test_statement_sequencing.StatementSequencingTests.test_native_output_failure_continues_and_status_stays_failed": "ok",
+    "test_statement_sequencing.StatementSequencingTests.test_native_source_maximum_outputs_exceed_old_report_capacity": "ok",
+    "test_statement_sequencing.StatementSequencingTests.test_sequence_boundaries_have_single_edit_neighbours": "ok",
+    "test_statement_sequencing.StatementSequencingTests.test_statement_rules_have_admitted_and_rejected_neighbours": "ok",
+    "test_string_assignment.StringAssignmentTests.test_admitted_decoded_lengths_names_and_layout": "ok",
+    "test_string_assignment.StringAssignmentTests.test_excluded_declaration_names": "ok",
+    "test_string_assignment.StringAssignmentTests.test_native_replacement_boundaries_and_output_failure": "ok",
+    "test_string_assignment.StringAssignmentTests.test_rejected_lengths_bindings_and_compositions": "ok",
+    "test_string_assignment.StringAssignmentTests.test_shared_binding_lists_self_copy_and_independent_output": "ok",
+    "test_string_characters.StringCharacterTests.test_admission_all_character_relations_and_boolean_composition": "ok",
+    "test_string_characters.StringCharacterTests.test_admission_character_literals_copies_and_types": "ok",
+    "test_string_characters.StringCharacterTests.test_admission_index_bounds_guards_arrays_and_dead_paths": "ok",
+    "test_string_characters.StringCharacterTests.test_admission_names_and_hiding_use_resolved_kinds": "ok",
+    "test_string_characters.StringCharacterTests.test_admission_nested_character_and_dense_comparison_boundaries": "ok",
+    "test_string_characters.StringCharacterTests.test_admission_slice_boundary_rules": "ok",
+    "test_string_characters.StringCharacterTests.test_admission_slices_keep_actual_bounds_and_slide_assignments": "ok",
+    "test_string_characters.StringCharacterTests.test_admission_source_operator_and_leaf_accounting": "ok",
+    "test_string_characters.StringCharacterTests.test_native_argument_copy_index_and_invalid_printable_boundary": "ok",
+    "test_string_characters.StringCharacterTests.test_native_character_snapshots_bounds_nulls_and_sliding": "ok",
+    "test_string_characters.StringCharacterTests.test_native_dynamic_copies_with_noncanonical_null_bounds": "ok",
+    "test_string_review_blockers.StringReviewBlockerTests.test_admission_guard_scanner_chains_tokens_and_resets": "ok",
+    "test_string_review_blockers.StringReviewBlockerTests.test_admission_guarded_nonstatic_slice_endpoints": "ok",
+    "test_string_review_blockers.StringReviewBlockerTests.test_admission_inverted_span_is_bounded_before_any_consumer": "ok",
+    "test_string_review_blockers.StringReviewBlockerTests.test_native_boundary_nulls_copies_and_concatenation": "ok",
+    "test_string_review_blockers.StringReviewBlockerTests.test_native_static_guarded_slices_and_dynamic_reset": "ok",
+    "test_string_review_blockers.StringReviewBlockerTests.test_native_static_slices_on_nonstatic_prefix_snapshots": "ok",
+    "test_string_review_blockers.StringReviewBlockerTests.test_original_extreme_null_slice_failures_are_rejected": "ok"
+  },
+  "sample_manifest": "test_manifest_samples passed all72 manifest samples on repaired compiler",
+  "postflight_input_count": 1115,
+  "postflight_input_changes": [],
+  "observation_count": 652,
+  "minimum_observed_available_gib": 41.89870071411133,
+  "sampled_affinity_violations": [],
+  "scope": "Actual failed affected regression retained as failed; no test repeated, proof/options/domain changed, or complete native/Lean assurance claimed."
+}

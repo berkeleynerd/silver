@@ -265,10 +265,19 @@ frame facts. Their exact source and semantic correspondence were independently
 reviewed, including the regenerated source certificates and unchanged semantic
 models. Focused [semantic closure 091153](evidence/scalar-functions-20261107/focused/20261108T091153-a212a5bfebc3/README.md)
 passed both interpretation targets and its fresh 101-module / 16,853-declaration
-audit after a retained mechanical unfolding repair. The six affected native
-subprogram checks are in progress. Complete native and Lean/source assurance,
-rebuilt compiler and affected regression validation remain pending; the older
-637-ID acceptance has not been extended to these changed inputs.
+audit after a retained mechanical unfolding repair. All [six affected native
+subprogram checks](evidence/scalar-functions-20261107/native-checkpoint/remaining-three-repairs/README.md)
+passed; the ordinary complete native and Lean/source/module/axiom audits remain
+active on stable `f630819154` inputs. The rebuilt compiler passed its build.
+The [affected regression run](evidence/scalar-functions-20261107/final-regression/repaired-compiler-policy-093645/README.md)
+finished with 335 passes and three compile-timeout errors across 338 methods,
+without skips. All 72 manifest samples and seven source-policy methods passed.
+Exact failed outcomes, diagnostic workspaces and unchanged-input postflight are
+retained. The three isolated follow-ups and original platform wrapper will use
+the full available host allowance after dense proof runs finish, without changing
+deadlines, assertions or proof options. Complete native/Lean assurance and final
+regression applicability remain pending; the older 637-ID acceptance has not been
+extended to these changed inputs.
 
 Selected subthread settings are recorded from their launches; independent runtime
 confirmation, token/cost and total elapsed-work measurements are unavailable.

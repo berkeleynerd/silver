@@ -201,7 +201,7 @@ complete final-input wrapper check is authorized; its actual outcome and the
 complete 637-result applicability review remain outstanding.
 
 
-## Accepted current-input regression composition
+## Accepted regression composition for the earlier snapshot
 
 The [independent applicability review](../../../reviews/review-scalar-functions-delivery-20261108.md#independent-composition-of-the-final-regression-results)
 accepts integration `5aa1509fc5`, with exact production proof/source/script inputs
@@ -238,9 +238,26 @@ small production-module subset and all eleven edits; it does not claim to prove
 the full project. Earlier failures remain failed and no correctness assertion
 or required proof obligation was waived.
 
-No current regression ID remains uncovered; an identical full-suite repeat is
-unnecessary under the repository's reviewed composition rule. The three Rosetta
+At that checkpoint no regression ID remained uncovered; an identical full-suite
+repeat was unnecessary under the repository's reviewed composition rule. The three Rosetta
 tests are currently retained because those inputs are unchanged. All three must
 run freshly after the later promotion patch. Complete native and Lean/source
 assurance, final delivery review and the actual Rosetta reconciliation remain
 outstanding.
+
+## Repaired-parser regression continuation
+
+The later parser/source repairs at `f630819154` require fresh affected evidence;
+the preceding acceptance does not apply automatically to those changed inputs.
+The [reviewed per-ID plan](repaired-input-plan/README.md) selects 338 compiler and
+source-policy methods plus the original platform wrapper's thirteen unique IDs,
+with 286 retained outcomes awaiting final applicability review.
+
+The [338-method run](repaired-compiler-policy-093645/README.md) finished failed at
+12:21:44 UTC: 335 passed, three compile subprocesses timed out, and none was
+skipped. All 72 manifest samples passed on the repaired compiler. The complete
+raw outcomes, preserved failing workspaces, resource observations and exact
+postflight are retained. The three isolated follow-ups and unchanged platform
+wrapper are deferred until the dense native/Lean runs release full host capacity;
+all existing checks, deadlines and production proof options remain unchanged.
+Final 637-ID acceptance and fresh post-promotion Rosetta checks remain required.

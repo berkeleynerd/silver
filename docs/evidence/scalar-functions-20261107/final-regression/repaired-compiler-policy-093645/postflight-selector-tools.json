@@ -1,0 +1,138 @@
+{
+  "utc": "2026-11-08T12:25:28.476085+00:00",
+  "selectors": [
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/scripts",
+    "/usr/bin/python3.14",
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/tmp/repaired-input-regressions/affinity-launcher.py",
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/tmp/repaired-input-regressions/commands.json",
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/src",
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/proof",
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/tests",
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/samples",
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/catalogue",
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/rosetta/refresh.py",
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/rosetta/manifest.json",
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/rosetta/coverage.json",
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/silver.gpr",
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/alire.toml",
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/generated",
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/toolchain",
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/bin/silver",
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/bin/silver_image_adapter",
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alr/bin/alr",
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/toolchain/alire.toml"
+  ],
+  "prepared_file_count": 1115,
+  "current_file_count": 1115,
+  "added": [],
+  "removed": [],
+  "changed": [],
+  "tools": [
+    {
+      "name": "alr",
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alr/bin/alr",
+      "resolved_current": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alr/bin/alr",
+      "expected": "2e2b8de009b793ad2aed10096e162649bbcc5b0711e3c21785ebe8a1261c5d64",
+      "actual": "2e2b8de009b793ad2aed10096e162649bbcc5b0711e3c21785ebe8a1261c5d64",
+      "equal": true
+    },
+    {
+      "name": "alt-ergo",
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/alt-ergo",
+      "resolved_current": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/alt-ergo",
+      "expected": "b21825912f28802662caee0005e4ea761a5087ce8c21f4dae510ae21bcc34189",
+      "actual": "b21825912f28802662caee0005e4ea761a5087ce8c21f4dae510ae21bcc34189",
+      "equal": true
+    },
+    {
+      "name": "cvc5",
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/cvc5",
+      "resolved_current": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/cvc5",
+      "expected": "eb2f46a6bc5fb8a3c81b3387fecb0e68ef5ed1a0c0c5908557254ceb8091b232",
+      "actual": "eb2f46a6bc5fb8a3c81b3387fecb0e68ef5ed1a0c0c5908557254ceb8091b232",
+      "equal": true
+    },
+    {
+      "name": "gcc",
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gcc",
+      "resolved_current": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gcc",
+      "expected": "238f4adafcb1425c84da6519068fdfcf33e57e406fc793e2958a9238789900de",
+      "actual": "238f4adafcb1425c84da6519068fdfcf33e57e406fc793e2958a9238789900de",
+      "equal": true
+    },
+    {
+      "name": "gnat2why",
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnat2why",
+      "resolved_current": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnat2why",
+      "expected": "343682de485bb151e1817615acebab5b185504efdf2b082f1647cd41a14241f1",
+      "actual": "343682de485bb151e1817615acebab5b185504efdf2b082f1647cd41a14241f1",
+      "equal": true
+    },
+    {
+      "name": "gnatls",
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gnatls",
+      "resolved_current": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gnatls",
+      "expected": "cdd3e2c74ca7d1f1e395d25523c3e233b206a880e4064e822f8015044d1715e2",
+      "actual": "cdd3e2c74ca7d1f1e395d25523c3e233b206a880e4064e822f8015044d1715e2",
+      "equal": true
+    },
+    {
+      "name": "gnatprove",
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/bin/gnatprove",
+      "resolved_current": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/bin/gnatprove",
+      "expected": "544e6da2eedc24ce87d9200d44f61e8e789726466e81e68bf8935489d7f5323e",
+      "actual": "544e6da2eedc24ce87d9200d44f61e8e789726466e81e68bf8935489d7f5323e",
+      "equal": true
+    },
+    {
+      "name": "gnatwhy3",
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+      "resolved_current": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+      "expected": "7c8c302f65a98e66159f6514045f4c2634aab5c556eea0a7d6fd1f39dc35a368",
+      "actual": "7c8c302f65a98e66159f6514045f4c2634aab5c556eea0a7d6fd1f39dc35a368",
+      "equal": true
+    },
+    {
+      "name": "gprbuild",
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/bin/gprbuild",
+      "resolved_current": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/bin/gprbuild",
+      "expected": "aff9fde5ca766d5497da9dec185cb8b96878206a0d02512aa5685e1e56d0a4d3",
+      "actual": "aff9fde5ca766d5497da9dec185cb8b96878206a0d02512aa5685e1e56d0a4d3",
+      "equal": true
+    },
+    {
+      "name": "python",
+      "path": "/usr/bin/python3.14",
+      "resolved_current": "/usr/bin/python3.14",
+      "expected": "81d98c05d0d5ac32bc02a56e9354e7826556f94fbb2df9d399083ef38dbd1068",
+      "actual": "81d98c05d0d5ac32bc02a56e9354e7826556f94fbb2df9d399083ef38dbd1068",
+      "equal": true
+    },
+    {
+      "name": "why3server",
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/why3server",
+      "resolved_current": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/why3server",
+      "expected": "143e182d167d3e290c974770d0b84b5f59cf70bf331de5208a36bd650b386a80",
+      "actual": "143e182d167d3e290c974770d0b84b5f59cf70bf331de5208a36bd650b386a80",
+      "equal": true
+    },
+    {
+      "name": "z3",
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/z3",
+      "resolved_current": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/z3",
+      "expected": "44c00197fc576e02775a493dad255a20bb41fa5b4c47378a5f9d090cbc1a25c5",
+      "actual": "44c00197fc576e02775a493dad255a20bb41fa5b4c47378a5f9d090cbc1a25c5",
+      "equal": true
+    },
+    {
+      "name": "custom-python",
+      "path": "/usr/bin/python3.14",
+      "resolved_current": "/usr/bin/python3.14",
+      "expected": "81d98c05d0d5ac32bc02a56e9354e7826556f94fbb2df9d399083ef38dbd1068",
+      "actual": "81d98c05d0d5ac32bc02a56e9354e7826556f94fbb2df9d399083ef38dbd1068",
+      "equal": true
+    }
+  ],
+  "custom_absolute_selector_resolves": "/usr/bin/python3.14",
+  "note": "Read-only re-resolution and hashing after nonzero managed invocation; no native tool or proof/test execution"
+}
