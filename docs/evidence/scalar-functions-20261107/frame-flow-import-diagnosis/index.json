@@ -1,0 +1,56 @@
+[
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-final-review-298/tmp/frame-flow-import-diagnosis-298/DIAGNOSIS.md",
+    "artifact": "DIAGNOSIS.md.gz",
+    "sha256": "a96e38ca59c8f9ca2282a2e9b42701d25298b10409de2a1284a665bfb0b2ba8b",
+    "bytes": 8238
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-final-review-298/tmp/frame-flow-import-diagnosis-298/ScalarFunctionFrameFlow.lean",
+    "artifact": "ScalarFunctionFrameFlow.lean.gz",
+    "sha256": "055ae8e0ca3abd539fc1ea1042c775cf106c49a8321e8260b5f7ac9ae2b1868c",
+    "bytes": 2915
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-final-review-298/tmp/frame-flow-import-diagnosis-298/Silver.lean.before",
+    "artifact": "Silver.lean.before.gz",
+    "sha256": "91804ec555e9382ac5884d5a0a69c1b30502e7287096539d680fae8adc107dad",
+    "bytes": 1380
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-final-review-298/tmp/frame-flow-import-diagnosis-298/Silver.lean.candidate",
+    "artifact": "Silver.lean.candidate.gz",
+    "sha256": "d71d991818e9bc5178c73546dbf9fc7fef199d7232d550da217dfb58eb663d44",
+    "bytes": 1425
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-final-review-298/tmp/frame-flow-import-diagnosis-298/actual-module-inventory.txt",
+    "artifact": "actual-module-inventory.txt.gz",
+    "sha256": "3eb566ee29255140cbab67898f6ad5f5957553af5c71ae5ffb5fd45ae3cb019b",
+    "bytes": 26729
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-final-review-298/tmp/frame-flow-import-diagnosis-298/analysis.json",
+    "artifact": "analysis.json.gz",
+    "sha256": "3b0a4a0998ec9374e2ebf4f4ca11f11c213555ebe92e65b953b98e47dc61a191",
+    "bytes": 3715
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-final-review-298/tmp/frame-flow-import-diagnosis-298/original-run-summary.json",
+    "artifact": "original-run-summary.json.gz",
+    "sha256": "057895d0aa2ea7dc6e2117ff17007777505cbdcdff4561015ee5be30050c90e5",
+    "bytes": 2793
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-final-review-298/tmp/frame-flow-import-diagnosis-298/proposed-import.patch",
+    "artifact": "proposed-import.patch.gz",
+    "sha256": "379d93d4fc0dd1adc0d1615496aaa3de9d67583b77fe80b4841d89c4dea2937e",
+    "bytes": 302
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-final-review-298/tmp/frame-flow-import-diagnosis-298/proposed-module-inventory.txt",
+    "artifact": "proposed-module-inventory.txt.gz",
+    "sha256": "bf15444d63e0b6f91eb872d630d7afec11404262057f74628910021fe412e506",
+    "bytes": 26760
+  }
+]

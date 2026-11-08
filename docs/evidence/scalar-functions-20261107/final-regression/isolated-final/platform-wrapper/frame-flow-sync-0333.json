@@ -1,0 +1,8 @@
+{
+  "utc": "2026-11-08T17:30:55.973180+00:00",
+  "source_commit": "0333d33503",
+  "applied_commit": "8c9d581c2155c282ec13619af128cccba5c974f1",
+  "file": "proof/Silver.lean",
+  "sha256": "d71d991818e9bc5178c73546dbf9fc7fef199d7232d550da217dfb58eb663d44",
+  "scope": "Only diagnosed facade import for forthcoming platform wrapper; no compiler/runtime/test/tool source or binary change; previous three native regression successes remain on their original recorded inputs."
+}

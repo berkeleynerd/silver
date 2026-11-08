@@ -66,10 +66,11 @@ runtime imports, ABI and environmental assumptions used throughout.
 
 ## Small nonrecursive scalar functions
 
-The working [function increment](scalar-functions.md) extends ordered Main
-declarations with closed Integer/Boolean functions and whole-assignment calls.
-Its complete native/Lean checkpoint and delivery review remain pending; the
-following describes the implemented argument, not completed support.
+The [function increment](scalar-functions.md) extends ordered Main declarations
+with closed Integer/Boolean functions and whole-assignment calls. Its
+[delivery record](scalar-functions.md#delivery-assurance-and-validation) retains
+complete native and Lean/source assurance, applicable regression results and
+final review status on the exact implementation inputs.
 
 `ScalarFunctions.DefinitionsChecked` checks each definition against exactly the
 earlier signatures. `compileDefinitions` constructs the executable environment
@@ -1205,7 +1206,7 @@ All output shells use `Complete_Application_Proof`; only null retains
 | Assigned | Static sequence containing assignment | Main, optionally Put and/or Put_Line | Above plus exact unused-assignment advisory |
 | Selected | Argument-input sequence containing assignment | Main and argument callees, optionally Put and/or Put_Line; producer may eliminate calls | Above plus exact unused-assignment advisory |
 
-For the working [scalar-function increment](scalar-functions.md), these runtime
+For the [scalar-function increment](scalar-functions.md), these runtime
 entity alternatives additionally require every source-declared local function.
 Admission supplies its exact source name; coverage does not accept arbitrary
 `Main.` prefixes or omit unused functions. Function-bearing proof runs use

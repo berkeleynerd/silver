@@ -1,8 +1,11 @@
 # Silver language specification
 
-The scalar-function rules in this working branch implement [#298](https://github.com/berkeleynerd/silver/issues/298).
-Their [capability record](docs/scalar-functions.md) retains the selected grammar
-and pending validation; they are not yet a completed-support claim.
+The small nonrecursive scalar-function increment is recorded in the
+[delivery account](docs/scalar-functions.md#delivery-assurance-and-validation).
+Its complete Linux native and Lean/source checkpoints and applicable regression
+results passed. The delivery account retains the exact inputs, failed earlier
+rounds and final review status. The rules below preserve full formal domains,
+including unused functions, and the existing source and expression budgets.
 
 The fixed-size Boolean-array increment is recorded in the
 [delivery account](docs/boolean-arrays.md#delivery-assurance-and-validation--2026-11-07).

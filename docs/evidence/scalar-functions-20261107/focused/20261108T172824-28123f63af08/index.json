@@ -1,0 +1,20 @@
+[
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T172824-28123f63af08/events.jsonl",
+    "artifact": "events.jsonl.gz",
+    "sha256": "39c5e6908b618c21eb235f37634e71182c119f76604e41e77664dc05e6c0e2c8",
+    "bytes": 110759
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T172824-28123f63af08/lean-focused.log",
+    "artifact": "lean-focused.log.gz",
+    "sha256": "1b4235c594dc9c7c82e365deae3e2b85c495802999a11a2ecd21ea7d808a7c50",
+    "bytes": 4918
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T172824-28123f63af08/lean-focused-evidence.json",
+    "artifact": "lean-focused-evidence.json.gz",
+    "sha256": "3906e1fe011efff3514d5e20946afe6879105978a67c084dd0b90b606139bf1e",
+    "bytes": 4514
+  }
+]

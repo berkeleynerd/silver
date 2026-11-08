@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All values are constant-bounded integers in straight-line code, so overflow checks follow from the type ranges once the tax multiplication is split to stay within 64 bits. Needed beyond today's Silver are integer arithmetic, scalar image and bounded string building for the output.
 
-Position 141 in the [progression](../../progression.md#stage-6), in stage 6.
+Position 142 in the [progression](../../progression.md#stage-6), in stage 6.
 
 ## Approach
 

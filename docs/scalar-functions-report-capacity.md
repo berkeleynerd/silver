@@ -1,13 +1,15 @@
 # Scalar functions: producer and report capacity
 
 Feature-local account for [#298](https://github.com/berkeleynerd/silver/issues/298),
-2026-11-07. Implementation and complete validation are in progress. The
+2026-11-07. The
 [bounded capacity/policy review](reviews/review-scalar-function-capacity-20261107.md)
-found no material finding at `9469d5632b`; complete delivery review remains
-pending. This extends the [Boolean-array envelope](boolean-arrays-report-capacity.md)
+found no material finding at `9469d5632b`; the later
+[delivery record](scalar-functions.md#delivery-assurance-and-validation) retains
+complete native/Lean validation and final review status. This extends the
+[Boolean-array envelope](boolean-arrays-report-capacity.md)
 without changing the 4,096-byte source limit or 32 MiB Main report allocation.
 It records inspected producer routes under the existing trusted-tool premises,
-not a proof of the producer or a completed feature claim.
+not a proof of the producer or a substitute for final delivery acceptance.
 
 ## Selected producer routes
 
@@ -115,8 +117,8 @@ at most one fixed record and one declaration-name payload. Disjoint formal
 syntax fits the inherited `2*S` flow-record and aggregate-name allowances;
 this route needs no independent additional maximum. Classification remains
 limited to exact local-function entities and the pinned message. The bounded
-policy/capacity review above is complete; final native/Lean validation and
-complete-delivery review remain pending.
+policy/capacity review above is complete. The delivery record links the later
+complete native/Lean results and their exact review scope.
 
 ## Inspected inputs and observations
 
@@ -138,5 +140,5 @@ The producer investigation selected GPT-6 Astra / Extra High. The integration
 lead prepared this account from those inspected routes and rechecked input
 hashes, retained report fields and arithmetic. Independent runtime settings and
 token/cost measurements are unavailable. The independent capacity review above
-records its own selected settings, exact target and limits. Complete delivery
-validation and review remain pending.
+records its own selected settings, exact target and limits. The later delivery
+record separately identifies complete validation and the final review target.

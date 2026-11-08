@@ -1,0 +1,39 @@
+{
+  "review_commit": "121868a6c7",
+  "implementation_target": "53d3a3b22bd0c2c0693bd81c662ad5dfc4658dcb",
+  "members": [
+    {
+      "path": "independent-verification.json",
+      "bytes": 3289,
+      "sha256": "29faf8bce25ed5a0301076fa012c38fddfc9940afa4c75911f24f4e19dd1de57"
+    },
+    {
+      "path": "regression-delta.json",
+      "bytes": 464183,
+      "sha256": "7c2ddd4fbe63b0ff7a1ec7bb1af1d01b324962dba43f826dc333348a48b89462"
+    },
+    {
+      "path": "pinned-producer/errout_wrapper.adb",
+      "bytes": 30046,
+      "sha256": "d117c09ba360c274d453dbfb90c6cc61b5ff6c008b75f97abddab15442579a20"
+    },
+    {
+      "path": "pinned-producer/errout_wrapper.ads",
+      "bytes": 10000,
+      "sha256": "48cb7c655e97be52d736f0b45a3ebd5458ba17978adee784f3b6a10a6076d72d"
+    },
+    {
+      "path": "pinned-producer/manifest.json",
+      "bytes": 1035,
+      "sha256": "3d570666bb8d43742086d61d41aa5ff0090fb525f72c67151c1b346058a24192"
+    },
+    {
+      "path": "pinned-producer/spark_report-generate_sarif_report.adb",
+      "bytes": 15685,
+      "sha256": "73e204769fdb453153c8069f9e213412151dce6ff129150ec09f442d079ce232"
+    }
+  ],
+  "archive": "evidence.tar.gz",
+  "archive_bytes": 35017,
+  "archive_sha256": "a03c40afeaf105042a4dbccb04e431ee848d8f649ad4ea98963ed7fdeb1ec21b"
+}

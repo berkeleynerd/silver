@@ -1,0 +1,44 @@
+{
+  "baseline": "f4957c07cb70a8246d957a2baa63a9c65557a5a1",
+  "changed_assessments": [
+    "Primality by trial division"
+  ],
+  "supported_added": [
+    "scalar-functions"
+  ],
+  "supported_removed": [],
+  "original_provenance": {
+    "revision": 414879,
+    "assessed": "2026-10-15",
+    "rubric": 2,
+    "tier": "standard",
+    "model": "claude-sonnet-5-5",
+    "effort": "medium"
+  },
+  "stage_changes": {
+    "Primality by trial division": {
+      "before": 8,
+      "after": 1
+    }
+  },
+  "stage1_before": 70,
+  "stage1_after": 71,
+  "target_rank": 55,
+  "generated_non_target_pages_changed_only_in_rank": 258,
+  "changed_tracked_files": 264,
+  "coverage_sha256": "9cee5223ccf30bce010fdb266379e14e22ef5471ee238a1f6195a670d6d1323a",
+  "render_command": [
+    "python3",
+    "rosetta/refresh.py",
+    "--render"
+  ],
+  "actual_render_tool_session": 96012,
+  "actual_render_exit": 0,
+  "regression_run": "20261108T174013-0af40cd230ed",
+  "regression_tool_session": 35377,
+  "regression_actual_exit": 0,
+  "test_count": 3,
+  "test_seconds": 6.422,
+  "native_or_lean_input_changed": false,
+  "governed_input_comparison": "No tracked source/proof/scripts/tests/project change from0333d33503"
+}

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Current Integer numerals already cover decimal and every based literal base from 2 through 16, hash and colon delimiters, digit separators, nonnegative exponents and the signed Integer endpoints. Numeral interpretation is performed by the language, with Image used only to display the resulting values.
 
-Position 55 in the [progression](../../../progression.md#stage-1), in stage 1.
+Position 56 in the [progression](../../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Euclid's gcd on Natural values with the mod guarded by the loop condition has no overflow, range or division risk, and as a procedure loop it needs no variant.
 
-Position 192 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 193 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

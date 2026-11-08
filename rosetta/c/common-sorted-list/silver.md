@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every index comes from for-loop ranges over fixed-size arrays or a guard just before the use, and the dedupe-while-printing design avoids any loop-carried counter, so no annotation is needed.
 
-Position 78 in the [progression](../../progression.md#stage-3), in stage 3.
+Position 79 in the [progression](../../progression.md#stage-3), in stage 3.
 
 ## Approach
 

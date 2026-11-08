@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arrays and ranges are static and every loop-carried value (strike index, counters) can be guarded just before use, with no recursion or functions needing variants, but several loop-carried guards and a large Boolean array make careful shape necessary.
 
-Position 293 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 294 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

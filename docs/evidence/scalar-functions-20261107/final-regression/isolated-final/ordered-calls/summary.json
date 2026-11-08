@@ -1,0 +1,61 @@
+{
+  "utc": "2026-11-08T17:26:31.795435+00:00",
+  "run_id": "20261108T172546-80a42bd29b42",
+  "outcome": "success",
+  "selector": "test_scalar_functions.ScalarFunctionTests.test_native_ordered_calls_snapshot_and_full_unused_coverage",
+  "per_id": {
+    "test_scalar_functions.ScalarFunctionTests.test_native_ordered_calls_snapshot_and_full_unused_coverage": "ok"
+  },
+  "test_seconds": 15.01,
+  "actual_driver_session": 17666,
+  "actual_driver_exit": 0,
+  "observer_session": 81672,
+  "observer_exit": 0,
+  "managed_finished": {
+    "duration_seconds": 18.369659465,
+    "event": "finished",
+    "evidence": [
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T172546-80a42bd29b42/native.log",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T172546-80a42bd29b42/native.log"
+      }
+    ],
+    "failure_keys": [],
+    "monotonic_ns": 90066437693370,
+    "outcome": "success",
+    "retained_reports": [],
+    "returncode": null,
+    "run_id": "20261108T172546-80a42bd29b42",
+    "utc": "2026-11-08T17:26:06.142451+00:00"
+  },
+  "command": [
+    "python3",
+    "scripts/dev.py",
+    "test",
+    "--jobs",
+    "22",
+    "--task",
+    "#298 isolated ordered-calls",
+    "--reason",
+    "Previously pending regression after complete proof capacity release; original deadlines, assertions and production options; full 22 CPU allowance",
+    "--",
+    "-k",
+    "test_scalar_functions.ScalarFunctionTests.test_native_ordered_calls_snapshot_and_full_unused_coverage"
+  ],
+  "regression_head": "4aedc16404db352e3bd9e5d4d86978a112f849fc",
+  "input_count": 1100,
+  "inputs_unchanged": true,
+  "binary_identities": {
+    "silver": "807d862b572e4dcab8e72302a2fdcfe1a3304f3c064b9166900e24544b8dbcfe",
+    "silver_image_adapter": "0d7900091323ec642d58f1cc53df1db73a1b6b477aaec3784d6aede0ee15b751"
+  },
+  "compressed_artifacts_verified": 10,
+  "observed_process_samples": 4,
+  "minimum_observed_available_gib": 59.929893493652344,
+  "observed_affinity_lengths": [
+    22
+  ],
+  "remaining_observed_live_descendants": [],
+  "scope": "Original test method, assertions, subprocess deadlines and production proof options; full22CPU allowance, no competing managed proof runs. Read-only process sampling is not exhaustive short-lived-child tracing. Failed earlier runs remain failed.",
+  "observer_scope": "Read-only samples plus actual exit"
+}

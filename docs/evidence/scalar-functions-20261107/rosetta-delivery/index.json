@@ -1,0 +1,20 @@
+[
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-source-integration-298/tmp/final-rosetta-delivery/reconcile.py",
+    "artifact": "reconcile.py.gz",
+    "sha256": "868827d6c16b3f5f9b26cf2939681407273fe928d08d904a2ef70965db4879b8",
+    "bytes": 3230
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T174013-0af40cd230ed/events.jsonl",
+    "artifact": "events.jsonl.gz",
+    "sha256": "4ff13de4f47ee3476a552646ccf13a837d6d6e3c462665dd81d72675a4ccaec6",
+    "bytes": 224905
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T174013-0af40cd230ed/native.log",
+    "artifact": "native.log.gz",
+    "sha256": "0ec9cf16b513b5c991810f6b2b7920d020f438169efb75d14ce7e0aa88c7dab6",
+    "bytes": 773
+  }
+]

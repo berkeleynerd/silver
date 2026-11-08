@@ -1,5 +1,55 @@
 # Session memory
 
+## 2026-11-08 — Scalar functions merged; successor planning retargeted
+
+Owner-authorized [PR #339](https://github.com/berkeleynerd/silver/pull/339)
+merged as `05302f760f59ba887e4ebec4fb37361da02d5933`. The accepted delivery and
+merge authorization are now on main. Separate planning
+[PR #346](https://github.com/berkeleynerd/silver/pull/346) is retargeted to main,
+with its documentation conflicts reconciled against the completed delivery.
+Its reviewed proposal remains unchanged; successor #342–#345 remain Backlog.
+No implementation, proof or validation input changes in this reconciliation,
+and no successful expensive check was repeated. CLI recall was not updated.
+
+## 2026-11-08 — Scalar-function merge authorized
+
+The owner instructed **“Let's merge it.”** This authorizes merging ready
+[PR #339](https://github.com/berkeleynerd/silver/pull/339) and ordinary closure
+of #298, #340, #341, #347, #348, #349 and milestone 20. This decision supersedes
+the earlier implementation merge hold. The
+[delivery account](scalar-functions.md#delivery-assurance-and-validation)
+retains independent acceptance of `4d9ce491ee` and the complete applicable
+Linux assurance and regression evidence. This authorization update changes
+documentation only; no successful proof, build or test needs repeating.
+
+Keep separate planning [PR #346](https://github.com/berkeleynerd/silver/pull/346)
+open and retarget it to main after the merge. Its merge and milestone 21
+successor implementation remain unselected; #342–#345 stay Backlog. Preserve
+unrelated root-checkout changes and scratch files. No CLI recall entry was
+updated.
+
+## 2026-11-08 — Scalar-function delivery accepted; merge held
+
+Owner-authorized #298 remains the small nonrecursive Integer/Boolean function
+increment through reviewable publication. The
+[delivery account](scalar-functions.md#delivery-assurance-and-validation)
+now links complete successful Linux native and current Lean/actual-source
+checkpoints, repaired compiler build and manifest results, the independently
+approved auditor correction and all formerly pending regression outcomes.
+Earlier failed runs remain failed. The narrow Rosetta render and all three
+Rosetta tests passed, promoting only the precise Primality scalar-function
+fragment. Independent Astra / Max review accepted the complete regression
+inventory and integrated delivery target `4d9ce491ee`; the delivery account
+retains the exact governed implementation, review and evidence identities.
+
+Implementation merge remains held. PR #339 is published for review; #298, #340, #341,
+#347, #348, #349 and milestone 20 remain open pending later merge. No Oracle
+amendment or successor implementation is authorized. Separate planning PR #346
+and its milestone 21 Backlog items are outside this implementation branch.
+Preserve unrelated root-checkout changes and scratch material. This documentation
+follow-up needs no repeated successful proof/build/test run. The live harness
+goal was null; no CLI recall entry was updated.
+
 ## 2026-11-08 — Coherent batch planning authorized
 
 The owner asked whether larger units could reduce repeated proof effort and how
