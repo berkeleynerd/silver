@@ -1583,3 +1583,114 @@ resource observations remain pending. Exact reviewed files and inspection
 metadata are retained in `tmp/regression-launcher-review-298/`. No production
 file was edited. Selected reviewer remains GPT-6 Astra / Extra High, with runtime
 telemetry unavailable; live harness goal is null and CLI memory was not updated.
+
+### Three affected-regression errors: bounded diagnostic checkpoint
+
+Reviewed regression inputs are commit 4281f71171, matching f630819154 for the
+selected tree, parser SHA256
+`036a53b4bd9a9d7c711b4ddf8d83467a6b470184bfce2ac6677b15cf4f57ef47`,
+and compiler SHA256
+`807d862b572e4dcab8e72302a2fdcfe1a3304f3c064b9166900e24544b8dbcfe`. This
+checkpoint concerns run `20261108T093645-d959cfabae08` and its three exact error
+methods, not another broad implementation review. The run actually finished
+failed at 12:21:44 UTC, after 9,898.123 s managed;
+unittest took 9,885.693 s. Driver, managed run and actual unittest exits are all 1.
+Final tracebacks independently confirm subprocess.TimeoutExpired in each compile
+call at the deadlines below. These are not failed application-output assertions
+or proof-obligation verdicts. No observer error, interruption or sampled affinity
+violation was recorded.
+
+Independent final-log reconstruction resolves all 338 selected IDs exactly:
+335 passed, three errored, no failures or skips. The apparently missing
+PathRefinementTests.test_counted_loop_definiteness_decides_required_rejection
+uses unittest's normal two-line docstring display at lines 2727–2728 and is `ok`;
+its output was not lost or interleaved. Imported `tests.test_shared_bindings`
+aliases are retained as their distinct discovered IDs. All 72 manifest samples
+passed before the maximum-expression error. This reviewer verified all 34 indexed
+coordinator packet payloads and reconciled its independent postflight table with
+the exact 1,115-key original prepared map: every recorded hash is unchanged.
+The coordinator performed the live file rehash; this reviewer did not repeat it.
+The retained packet is
+`docs/evidence/scalar-functions-20261107/final-regression/repaired-compiler-policy-093645/`.
+
+| Method | Compile deadline | Preserved author input |
+| --- | --- | --- |
+| `test_samples.SupportedSampleTests.test_maximum_dynamic_expression` | 300 s | 395 bytes, SHA256 `3dfeee525b935212f90c161d4eadc87ac1707aa1f33f347bcc008b2ef75ffbae` |
+| `test_scalar_functions.ScalarFunctionTests.test_native_boolean_and_integer_self_actuals` | 120 s | 312 bytes, SHA256 `4cb9e12d0ce7114ee42ae51d2d7cf2a541935ba502ea1feccc5de3d3e403cbbd` |
+| `test_scalar_functions.ScalarFunctionTests.test_native_ordered_calls_snapshot_and_full_unused_coverage` | 120 s | 631 bytes, SHA256 `3d58f122f47611646d6ef54794100ec89ab94bb6daea301a8ec76e1f369ee9da` |
+
+All 515 archived files independently match their recorded sizes and hashes:
+181 for maximum expression, 161 for self actuals and 173 for ordered calls. The
+maximum packet has no completed Main .spark report. Each scalar packet omits
+silver_io.spark and has no bin/ executable. Their later GNATprove reports list
+only four analyzed units, with 20 and 23 total checks respectively and no listed
+unproved checks; five units and the application's function coverage are required.
+The ordered Main report contains its proved division and termination records.
+SARIF executionSuccessful values do not establish complete application coverage,
+the compiler's audit, a completed build or either test's output assertions.
+These summaries were written after the error windows, at 11:47:52–53 UTC and
+11:50:20 UTC respectively. They remain diagnostic artifacts, not passing results.
+
+The three methods are `ok` in independently hash-verified raw evidence from
+`20261108T021923-5ef7f9b81de7`. That earlier run itself failed on two different
+fixtures. Both test modules and both shared helpers are byte-identical to its
+c437a41d snapshot; parser/compiler inputs changed. The earlier command ran
+unittest discovery directly with a two-worker reservation, without the new
+affinity wrapper. No actual old affinity or per-method elapsed times were
+retained. Its successful methods are useful comparators, not acceptance of the
+repaired compiler or a controlled performance comparison.
+
+All three current workspace windows show Why3 `-j 22` under CPUs 18–21, despite
+the four-worker managed reservation. The maximum-expression capture also records
+native gprbuild `-j22`. No sampled process-leader affinity violation occurred;
+that says nothing about sufficient CPU service for each timed test. The
+coordinator's preserved maximum tree was reparented to PID 1 and continued on
+those four CPUs across both scalar-error windows until recorded cleanup at
+11:51 UTC. Once reparented, it left the launcher's ancestry-only sampling tree,
+so later descendant process/RSS counts omit that competing work. The cleanup
+record reports no remaining live owned processes at 11:51:05 UTC; this reviewer
+issued no signals and did not audit the cleanup helper. Sampled host available
+memory stayed above 50 GiB across these three workspace windows. Oversubscription
+and orphan contention are supported hypotheses; resource causation and a general
+runtime bound are not established by this evidence.
+
+The coordinator's post-exit process readout at 12:23:50 UTC found no matching
+regression process-group members or reparented regression-artifact commands.
+It still records 14 of 22 workers reserved for productive native and Lean runs;
+this snapshot does not replace the required prelaunch recheck.
+
+The smallest next check retains every test and production option. After true
+completion, exact final-input reconciliation and clean relevant process/lease
+state, wait for the productive dense native/Lean runs to release capacity. Use
+the full actual CPU allowance with a matching managed reservation, first for the
+maximum method alone, then each scalar method in a separate invocation. At
+preparation the unrestricted mask was CPUs 0–21 and budget 22; recheck those facts
+before execution. Keep the 300/120 s compilation deadlines, 10 s execution
+deadlines, production timeout 0 and steps 100000, prover selection, full domains,
+source checks, report coverage and all output assertions unchanged. Retain and
+diagnose a repeated failure before any further attempt, including orphan state.
+A passing retry supplies fresh evidence but does not retroactively classify the
+original failed run or prove its cause.
+
+The remaining full platform wrapper should follow those three methods under the
+full then-available allocation, using its existing ordinary managed `--jobs 0`
+command without the four-CPU restriction. Its unchanged current outer deadline
+is 900 s; it runs eleven sequential setup workers and one four-worker group,
+generating current certificates with mocked native/Lean tools. This is scheduling
+of the already-required twelve-body wrapper, not a new fixture or deadline edit,
+and not native cross-platform assurance. Extra cores do not imply proportional
+speedup for sequential work. Keep successful unaffected results only after exact
+final applicability review; complete native and Lean/source evidence remain
+separate requirements.
+
+Inspection script, verified archive copies, source/report extracts, resource
+window, prior-run comparison and exact unexecuted commands are retained under
+`tmp/regression-failure-diagnostic-298/`. Each retry selector independently matches
+exactly one of the 637 previously resolved IDs; no new discovery was executed.
+The verified 49-member bundle is 1,566,585 bytes, SHA256
+`45ce1a148c1b7f70cfe7ecd918c3d769392d340779a47f99048a5ef3beec68fe`.
+Selected reviewer remains GPT-6 Astra / Extra High; runtime model/effort telemetry,
+token/cost data and complete elapsed review time are unavailable. No production,
+test, proof or launcher edits, builds, native/Lean/test execution, signals,
+lease/cache changes, publication, push or merge occurred here. The live harness
+goal was rechecked and is null; CLI memory was not updated.
