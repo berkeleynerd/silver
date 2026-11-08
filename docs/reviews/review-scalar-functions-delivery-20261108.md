@@ -1058,39 +1058,137 @@ The coordinator authorized the exact proposal above and one complete wrapper.
 The source-only repair is `92412ec75f4b1bcf5ab99022ac378801a3d16763`, integrated
 as `9e89c80f82`. The final test SHA256 is
 `92e107283974c2f905f5a7c96eab3fc306c51df5ec4034b06148a2ffd8773a30`.
-Only the approved worker180/wrapper900 watchdogs changed; the barrier remains15.
+Only the approved worker 180 / wrapper 900 watchdogs changed; the barrier remains 15.
 
 Native Linux managed run `20261108T075522-000e545aebc8` succeeded. The original
 outer method passed once with zero errors, failures, skips or reporting errors:
-unittest622.698s, observer626.778s, managed647.801s. Normal imports and the original
-wrapper selected all12 PlatformIsolationTests. Its unchanged assertion establishes
+unittest 622.698 s, observer 626.778 s, managed 647.801 s. Normal imports and the original
+wrapper selected all 12 PlatformIsolationTests. Its unchanged assertion establishes
 successful nested exit; the class contains no skip or conditional-selection path.
 The nested successful stdout remains internal to the original method. Neither
 the collector nor observer replaced its subprocess or reconstructed unavailable
 output. This freshly exercises the twelve bodies under the symlink environment;
 a separate fresh non-symlink run is not claimed.
 
-The observer saw one nested suite and15 setup workers directly parented by it,
+The observer saw one nested suite and 15 setup workers directly parented by it,
 matching eleven serial calls and four concurrent calls. Its raw command-substring
-filter counts16 observations because a worker child was briefly sampled with
+filter counts 16 observations because a worker child was briefly sampled with
 its parent's command line. The supplemental worker review records the parentage
 and preserves that raw count. The nested suite and all matching observations
 used the same verified symlink for TMPDIR/TMP/TEMP. Sampled short-lived processes
 are not a complete generator invocation census.
 
-Postflight explicitly rehashed all884 managed inputs unchanged and verified all
-866 governed/copied byte/mode identities and the complete821-file Lean set.
+Postflight explicitly rehashed all 884 managed inputs unchanged and verified all
+866 governed/copied byte/mode identities and the complete 821-file Lean set.
 The only input difference from the prior fixture is the approved test repair;
-the other865 source files match47fe4003c0. No descendants, owned lease or temporary
+the other 865 source files match 47fe4003c0. No descendants, owned lease or temporary
 entries remain, and the observer sent no cleanup signal. Minimum sampled available
-memory was43.962GiB. Four workers were reserved, with preflight total17/22.
+memory was 43.962 GiB. Four workers were reserved, with preflight total 17/22.
 
 The complete result and source inputs are retained in
-`tmp/final-platform-fixture-298/`. The verified903-member shareable bundle is
-4,555,596bytes, SHA256
+`tmp/final-platform-fixture-298/`. The verified 903-member shareable bundle is
+4,555,596 bytes, SHA256
 `26f9b37bbca5b48f00416079aa6c7672dcd8138de60e482078260bc80009c623`;
 private inherited environment is excluded. The report's review target is
-`5aa1509fc5ac2d6f2dc02c5803d94da7e201aaf1`, production47fe4003c0. Earlier failures
-remain failed. Separate637-result applicability review and complete native/Lean
+`5aa1509fc5ac2d6f2dc02c5803d94da7e201aaf1`, production 47fe4003c0. Earlier failures
+remain failed. Separate 637-result applicability review and complete native/Lean
 assurance remain mandatory. No retry, further timeout change, publication, merge
 or CLI memory update occurred.
+
+### Independent composition of the final regression results
+
+I accept regression-result composition for integration
+`5aa1509fc5ac2d6f2dc02c5803d94da7e201aaf1`, with production proof/src/scripts
+`47fe4003c0` and native source `560144172c`. This acceptance covers regression
+applicability only. Complete native proof/audit, complete Lean/source
+correspondence and any future Rosetta promotion remain separate requirements.
+The original full run `20261108T021923-5ef7f9b81de7` remains failed: 635 passes,
+two errors and zero skips. No new test ran during this read-only applicability
+review, and no source or test change was made.
+
+Independent AST inventory reproduces all 637 unique original IDs in discovery
+order, including five inherited Array-report definitions and nine imported
+`tests.test_shared_bindings` aliases. Current tracked test files match the target
+and there are no additional Python test files or dynamic discovery hooks. Raw
+log extraction independently reproduces the original census and every outcome,
+including fifteen cases with intervening docstrings or subprocess output.
+The coordinator's preparation matrix was a lead, not the acceptance evidence.
+
+| Applicable evidence | Required IDs | Actual run |
+| --- | ---: | --- |
+| Retained original successful results | 619 | `20261108T021923-5ef7f9b81de7` |
+| Fresh affected source-policy methods | 4 | `20261108T072619-eca79cdaf440` |
+| Fresh repaired chunk fixture | 1 | `20261108T065724-7d260468ca14` |
+| Fresh platform bodies through the original wrapper | 12 | `20261108T075522-000e545aebc8` |
+| Fresh original platform wrapper | 1 | `20261108T075522-000e545aebc8` |
+| Total, with one disposition per original ID | 637 | |
+
+The production/test delta from `c437a41d30` is exactly 80 added Lean components,
+eight modified Lean files and the two reviewed watchdog repairs. Native source,
+scripts, samples, catalogue, Rosetta data/render tooling, projects, configuration,
+Lean pin, lakefile and generator are unchanged. Remaining changes are evidence,
+review/design documentation and roadmap, which these tests do not consume.
+Of the original 1,031 captured test inputs, 1,021 still match; the other ten are
+exactly the eight modified Lean files and two tests. Added Lean paths are checked
+against the complete current tree. All 2,588 original native build inputs and
+the recorded native tool binaries, compiler, adapter, Lean and Lake identities
+also match. This retains the original build's applicability, not full-proof
+acceptance. The retained sample manifest is byte-identical and contains all
+72 samples exercised by the original successful sample methods.
+
+The shared `LeanModuleTests.lake` default remains 60 seconds; only the selected
+chunk method supplies 180. The other two test methods and their shared build
+and audit calls forward the same default and use unchanged synthetic modules,
+AxiomAudit/Audit and pin. Reversing the new parameter/forwarding and selected
+keyword produces the original whole-module AST. The platform module likewise
+normalizes exactly to its original AST after reverting its constant and three
+watchdog keywords. Assertions, inputs, generator behavior, proof settings and
+cleanup were not weakened.
+
+All twelve platform methods need fresh coverage because their setUp copies the
+complete proof tree, including five methods whose worker timeout did not change.
+The original wrapper provides that coverage under the symlink environment, with
+normal imports, unchanged selection and no skip paths. Its successful nested
+exit establishes those body results; no second non-symlink run or unavailable
+nested success log is claimed. Other installation methods do not call the
+changed worker helper or read changed production Lean modules.
+
+Dependency review distinguishes actual production reads from synthetic or native
+proof reports. The four fresh source-policy tests traverse the full proof tree
+or affected import closures; their exact launcher, raw success log and all
+847 declared inputs match, including all 824 production proof files. Other
+source/generator tests read unchanged bindings, certificates/output chunks,
+source bytes and generator, or synthetic strings. The native certificate probe
+uses only six unchanged helper modules. Lean evidence/runner/history fixtures
+construct temporary synthetic roots and mock tools; their native probes copy
+only unchanged AxiomAudit, source bindings, lakefile and pin. Other native,
+report, provenance, dev and sample tests use unchanged compiler/tool/configuration
+inputs, synthetic reports, application GNATprove output or the unchanged native
+proof-container GPR. The altered production Lean graph is not an indirect input
+to those retained methods. Shared helper imports and inherited definitions are
+accounted for in the per-ID matrix.
+
+The successful chunk fixture copies seven production Lean modules, nine helpers,
+lakefile/pin/generator and the test, all equal to the target; its original generated
+17-module cold closure and edit cases do not exercise all 821 production modules.
+The successful platform fixture instead copies all 866 target input files and
+all 821 Lean paths. Both scopes match their test semantics. Their existing
+verified bundles remain byte-identical. Successful repair results supplement
+the failed original run; they do not rewrite it or establish universal assurance.
+No required regression ID remains uncovered, so another identical full-suite
+execution is unnecessary under the development.md composition rule.
+
+The complete independent matrix, source/dependency rationale, raw outcome
+extraction, AST and input comparisons are retained in
+`tmp/regression-applicability-review-298/`. Its verified 18-member bundle is
+432,596 bytes, SHA256
+`fb1900bcca3685f8d7dc2083e75e46eb7c167f22c6067050c68b253015f3c239`.
+At handoff integration is `d396db2aeb498cd132bbe4b9f0ea3f0fb93687f8`; an explicit
+comparison shows only four platform-evidence/review documentation paths changed
+since the target, so this disposition extends to that observed follow-up.
+
+The three currently unchanged Rosetta tests are included among the 619 retained
+passes. Their future promotion has not been applied or accepted here: all three
+must run freshly after that patch. Other later changes require ordinary
+applicability review. Selected reviewer remains GPT-6 Astra / Extra High, with
+runtime telemetry unavailable. No publication, merge or CLI memory update occurred.
