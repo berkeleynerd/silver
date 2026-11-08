@@ -1467,3 +1467,77 @@ No production edit, native/Lean/compiler/fixture/generator execution, signal,
 lease/cache change, publication or merge was performed by this reviewer. Selected
 reviewer remains GPT-6 Astra / Extra High; runtime telemetry is unavailable.
 The requested per-ID regression applicability preparation is separate next work.
+
+### Focused semantic success and exact regression preparation
+
+The normalization follow-up now has actual focused success. Retained run
+`20261108T091153-a212a5bfebc3` completed successfully at 09:13:32 UTC in
+98.938 s managed. The log records a successful 50.621 s build, newly completing
+PredicateFunctionCallHelpers, FunctionDeclarationDenotations and
+FunctionDeclarationImports, followed by a fresh 13.123 s axiom audit. Its closure
+contains 101 modules including AxiomAudit, and the audit checks 16,853 declarations
+with only propext, Classical.choice and Quot.sound. Actual settings are four Lake
+workers and four threads per process on Linux x86-64. This reviewer independently
+verified all four retained gzip artifacts and read the log/events/evidence;
+copies are under `tmp/integrated-native-source-review-298/focused-followup-success/`.
+This is incremental focused semantic validation, not complete source closure or
+complete native assurance. Run 090716 remains failed.
+
+The requested read-only regression preparation compares previously accepted
+5aa1509fc5/d396db2aeb with 68c4fd259b, extends through the two proof-body reductions
+in f630819154, and checks the docs-only follow-up 6b6969187e. Exactly 22 tracked
+non-documentation inputs change: the parser and 21 Lean files. Tests, scripts,
+samples, catalogue, Rosetta inputs, project files, generator, lakefile and pin
+remain identical. Reusing the prior independently resolved inventory by exact
+test-module identity accounts for all 637 unique IDs, inherited methods and
+imported aliases, without another discovery/test execution.
+
+The exact per-ID matrix identifies 286 reusable outcomes and 351 IDs requiring
+fresh evidence: 331 compiler/build/sample consumers, seven source-policy methods,
+the original platform wrapper and its twelve nested bodies. The selected top-level
+commands contain 338 compiler/policy IDs and one wrapper ID. Their unittest -k
+matching was checked statically against the complete census to exclude extra or
+missing selections. The wrapper's unchanged twelve-body selection supplies
+nested coverage; it is not counted as twelve fresh top-level outcomes.
+
+Both sample tests require fresh execution through the repaired compiler. Pure
+task-oracle and capacity-envelope methods remain reusable, as do the two
+adapter-only methods on unchanged adapter/native identities. Standalone argument,
+report and image probes have unchanged explicit inputs/dependency closures that
+exclude the parser. Synthetic evidence, history, runner and provenance fixtures
+remain reusable on their unchanged actual dependencies; the matrix states the
+basis for every ID rather than retaining the old 619 as one group.
+
+All 20 inputs copied by the successful chunk fixture remain byte-identical,
+including its seven fixed Lean helpers and synthetic-source test. No repeated
+chunk run is indicated. All 22 changed inputs occur in the full platform fixture
+copy, so its wrapper must run freshly. FunctionDeclarationDenotations and
+PredicateFunctionCallHelpers are also recorded with their changed f630 hashes
+in that platform-copy set. The three other installation methods remain reusable.
+The three unchanged Rosetta passes apply to this target only; promotion still
+requires all three tests freshly after its own patch.
+
+The plan supplies exact unexecuted managed build/test commands and complete argv
+arrays. Execution requires stable final inputs, a successful repaired compiler
+build, matching retained tool/configuration identities, and coordinated resources.
+An outer four-worker test reservation alone does not cap application -j0 children.
+The coordinator proposes a separate synchronized regression worktree and an
+inherited four-CPU affinity mask; bounded review finds that can enforce CPU
+allowance without changing tests/options, but it cannot cap native process count
+or RAM and does not reserve exclusive cores. Capture actual masks, descendants,
+memory, inputs, argv/CWD and postflight. The tool launcher starts under host.context
+and must invoke unchanged discovery from the regression root. Keep it outside
+scripts/. Serialize if actual resource capture/headroom cannot support overlap.
+No such launcher, build or test was executed by this reviewer.
+
+The full matrix, source/fixture comparisons, exact commands, follow-up hashes and
+resource assessment are retained in `tmp/regression-delta-68c4-298/`. Its verified
+15-member bundle is 134,494 bytes, SHA256
+`ad4f4058781822e1cedb9ac73c31c7903854e1353aab8923ae91558e26087740`.
+This is applicability preparation, not final acceptance: fresh outcomes and final
+tool/input stability must still reconcile all IDs. Complete native proof/provenance
+and Lean/source correspondence remain separate obligations. No production edit,
+native/Lean/test execution, signals, publication, merge or CLI memory update
+occurred here. Selected reviewer remains GPT-6 Astra / Extra High; runtime
+telemetry is unavailable.
+The live harness goal was rechecked and remains null.
