@@ -1505,7 +1505,10 @@ is
          and then Valid_State (Text, State),
        Post => Valid_State (Text, Scalar_Declaration_At'Result)
          and then (Scalar_Declaration_At'Result.Position = 0
-           or else Scalar_Declaration_At'Result.Position > State.Position);
+           or else (Scalar_Declaration_At'Result.Position > State.Position
+             and then Scalar_Declaration_At'Result.Functions = State.Functions
+             and then Scalar_Declaration_At'Result.First_Parameter = State.First_Parameter
+             and then Scalar_Declaration_At'Result.Pure = State.Pure));
    function Scalar_Declaration_At
      (Text : String; State : Parser_State; Arguments : Boolean) return Parser_State is
      (declare First : constant Literal_Position := Skip_At (Text, State.Position);
@@ -2280,7 +2283,10 @@ is
          and then Valid_State (Text, State),
        Post => Valid_State (Text, Boolean_Declaration_At'Result)
          and then (Boolean_Declaration_At'Result.Position = 0
-           or else Boolean_Declaration_At'Result.Position > State.Position);
+           or else (Boolean_Declaration_At'Result.Position > State.Position
+             and then Boolean_Declaration_At'Result.Functions = State.Functions
+             and then Boolean_Declaration_At'Result.First_Parameter = State.First_Parameter
+             and then Boolean_Declaration_At'Result.Pure = State.Pure));
 
    function Function_Declaration_At
      (Text : String; State : Parser_State; Arguments : Boolean) return Parser_State
@@ -4802,6 +4808,7 @@ is
         Actual_Model (Text, Context, Position, Facts, Catalog.Parameters (First));
       begin (if After = 0 then 0
        elsif First = Last then Take_Token (Text, After, Right_Parenthesis)
+       elsif Take_Token (Text, After, Comma) = 0 then 0
        else Actuals_Model (Text, Context, Take_Token (Text, After, Comma),
                            Facts, Catalog, First + 1, Last)));
    function Actuals_After
@@ -4836,6 +4843,7 @@ is
          if Cursor = 0 then return 0; end if;
          if Index = Last then return Take_Token (Text, Cursor, Right_Parenthesis); end if;
          Cursor := Take_Token (Text, Cursor, Comma);
+         if Cursor = 0 then return 0; end if;
          Index := Index + 1;
       end loop;
    end Actuals_After;
@@ -5741,6 +5749,7 @@ is
       Result_Type : Function_Type_Result) return Literal_Position is
       Start : constant Literal_Position := Take_Token (Text, Scan.Position, Return_Keyword);
    begin
+      if Start = 0 then return 0; end if;
       return Actual_After (Text, Context, Start, Scan.Facts,
                            (0, 0, Result_Type.Kind, Result_Type.Bounds));
    end Function_Return_After;
