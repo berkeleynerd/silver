@@ -120,3 +120,19 @@ empty-source edit changed seven buckets and retained bucket 4, correcting the
 earlier assessment's broad statement about all eight. Every original assertion
 passed. This closes the repaired fixture without reclassifying prior failures
 or establishing a general performance bound.
+
+The unchanged local-source platform attempt `071906-6ce712a8a90c` then failed
+its original 180-second outer limit. Its [902-member bundle](20261108T071906-6ce712a8a90c/index.json)
+was independently read and indexed by size and SHA-256. Actual partial stderr
+now records an error in concurrent-host setup and an error for linux-aarch64
+inside the per-host case, before the outer timeout. Their final tracebacks were
+not reached, so neither exception type is established. An outer-only increase
+cannot be assumed to repair these inner errors.
+
+All 866 copied bytes/modes, all 821 Lean files and all 884 managed inputs matched
+postflight. The nested suite and observed workers used the same live symlink
+alias. One verified worker survived the fixture's original exit and was killed
+and reaped afterward; no descendant remains. Unittest took 181.156 seconds and
+managed execution 204.808 seconds. These remain failed results. The next prepared
+diagnostic must expose one actual inner exception with the existing worker and
+barrier limits; no repeat or deadline change is authorized by this failure.
