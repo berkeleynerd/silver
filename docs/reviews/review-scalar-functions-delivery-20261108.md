@@ -1885,3 +1885,178 @@ audit. Runtime model/effort, token/cost and complete elapsed-review measurements
 are unavailable; no live switch to the new future-proof-work Max policy is
 claimed. Actual host is Linux x86-64. Live goal was rechecked and is null;
 CLI memory was not updated.
+
+## Complete-native policy failure — 2026-11-08
+
+Two concrete audit blockers are confirmed. The first rejects four compiler-owned
+proof-context annotations; the second would reject twelve arithmetic-portability
+advisories after that first failure is repaired. Neither finding establishes an
+unproved native obligation or an unsafe admitted program. The complete native
+run remains failed, and final delivery acceptance remains pending.
+
+The reviewed integration is `8eec12216a4ed1dbd0ec205e7baab7f206824233`, extended
+through evidence-only `d39a2b21c8f9b74151967f748cc300b99d1f8302`; governed inputs
+remain `f6308191545c1012d76132ae535977e55fd4f018`. The actual native checkout is
+`scalar-functions-parser-repairs-298` at `8f39d74fa588e4f811de3ef4cdb8ffc5cbaf3641`.
+Seven selected Ada/auditor/runner/project files independently match integration,
+the native checkout and the captured native preflight hashes. In particular,
+the parser remains `036a53b4bd9a9d7c711b4ddf8d83467a6b470184bfce2ac6677b15cf4f57ef47`,
+the report body `3254d7d3236cbaa689e61a4dc13478d29ab9cafe6cfdd5f0ba8b2ecff4d13b25`,
+and `check_evidence.py` `503e8d3b3ab9178af3a12e546aaa1d6da4c24598224210237d634c5a4d14ab9e`.
+
+### Actual outcome and its limits
+
+Managed run `20261108T094547-29491e1d3036` records native-tool exit 0 at
+15:10:52.291581 UTC and audit entry immediately afterward. The actual native log
+ends with `Success: all checks proved (18525 checks).` Its summary separates
+16,920 proof and 1,605 flow checks, with zero justified/unproved totals.
+The managed finish at 15:10:54.746037 UTC is **failure**, with
+`EvidenceError: ...silver_library_reports.adb: forbidden assumption/check-policy pragma annotate`.
+The owning tool's actual exit was 1. Managed elapsed time is 19,505.655 seconds;
+the native-tool phase is 19,496.905 seconds.
+
+`dev.py` calls `audit_sources` before `complete_proof`, then runs the mandatory
+standalone `check_evidence.py`. Within `audit_sources`, source policy precedes
+`audit_reports`. Consequently, the first rejection prevented the complete
+coverage, dependency, diagnostic/SARIF and provenance checks. No final
+`proof-provenance.json` exists. Empty failure keys and successful Why3 roots do
+not replace those checks.
+
+The [retained native packet](../evidence/scalar-functions-20261107/native-checkpoint/final-036a/README.md)
+contains the actual failed outcome, exact inputs and complete raw reports. Its
+owner inventory records all 77 expected units, no skipped proof/flow or Assume
+entries, and 866 proved saved Why3 roots. This reviewer read the actual events,
+summary, relevant helper records and all warning inventories; the coordinator
+separately verified the complete 1,973-artifact gzip retention. These remain
+raw native evidence, not a successful complete audit.
+
+### R2 (medium): safe compiler annotation rejected by the source classifier
+
+The four pragmas at `silver_library_reports.adb:4589`, 4591, 4614 and 4616 are
+exactly `Annotate (GNATprove, Hide_Info, "Expression_Function_Body", F)`, with
+`F` equal to `Raw_List_Spec` or `List_Spec`. They occur at the beginning of
+`Mixed_Termination_Witnesses` and `Mixed_Object`. Commit `1aa4e311831` introduced
+them with the quantified witness transfer; they are not a new change in this
+failed round.
+
+The pinned [SPARK 16.1 annotation guide](../../references/spark/16.1/docs/ug/en/appendix/additional_annotate_pragmas.rst),
+lines 1175–1217, explicitly documents this caller-local placement. It removes
+the expression-function definition from that entity's proof context, rather
+than removing a check or supplying a successful result. The guide's example
+becomes unprovable when the needed definition is hidden. Here the caller uses
+`Mixed_List_Congruence`'s proved equality and retains the complete quantified
+postcondition. The earlier retained task comparison records the definitions'
+omission while predicate declarations and contracts remain.
+
+The current raw reports corroborate that the relevant obligations still exist:
+`Mixed_Termination_Witnesses`, `Mixed_Object` and `Mixed_List_Congruence` have
+`all` coverage, respectively 18, 50 and 11 successful proof records, including
+one postcondition each. `List_Spec` and `Raw_List_Spec` also have `all` coverage
+and respectively five and six successful proof records. No formal domain or
+postcondition was narrowed. Complete report validation is still required.
+
+The Oracle expressly permits compiler/library-owned proof annotations. Its
+one-permitted-pragma rule applies to Silver application authors. The observed
+rejection is therefore a conservative compiler-source classifier mismatch,
+not evidence that these four annotations violate the Oracle. Generic Annotate
+approval would be incorrect: assumption, justification and skipped-check forms
+must remain rejected.
+
+### R3 (medium): pinned-compiler reassociation advisory is unclassified
+
+Reading `warn_error`, separately from successful `proof` and `flow` lists,
+found twelve `operator-reassociation` records. The current report auditor has
+no classifier for this rule, so its warning-severity rejection would apply
+after the source-policy correction. The records occur in the function-bindings,
+library-reports and output-profile reports, in counts 1, 7 and 4. There are
+eleven distinct file/line/column locations: the bindings-spec location is also
+reported through the output-profile unit. All twelve have matching SARIF
+records. No complete auditor execution was performed during this diagnosis.
+
+The pinned [SPARK portability guide](../../references/spark/16.1/docs/ug/en/appendix/portability_issues.rst),
+lines 87–110, says GNATprove adopts GNAT's implementation choices and evaluates
+these expressions left-to-right like GNAT. The [SPARK language reference](../../references/spark/16.1/docs/lrm/source/names-and-expressions.rst),
+lines 431–443, explains Ada's reassociation permission and explicitly states
+that GNAT does not use it. This warning concerns portability to a different
+compiler. It is not proof-context information withholding and must not simply
+be added to the existing recursive-contract limitation set.
+
+The actual tool snapshot identifies GNAT/GNATprove 16.1.0, Why3 1.8.2+git,
+CVC5 1.3.2, Z3 4.15.4 and Alt-Ergo 2.6.1. The compiler project retains Ada 2022,
+assertion and overflow checks; the native proof retains full mode/report,
+warnings/checks as errors, level 2 and the existing thirty-second prover limit.
+These facts support a narrowly documented compiler portability classifier under
+the existing pinned-GNAT boundary. They do not broaden application arithmetic
+syntax, permit arbitrary compilers, or justify ignoring arbitrary warnings.
+
+### Proposed correction and smallest supported validation
+
+No production correction is implemented by this review. The smallest justified
+proposal changes the auditor, its focused regressions and boundary documentation;
+the Ada source, contracts, semantic models and source certificates can remain
+unchanged:
+
+- Recognize the complete safe Hide_Info pragma statement using the existing
+  lexer, restricted to `silver_library_reports.adb` and the two reviewed target
+  names. Match the exact `"Expression_Function_Body"` string and complete
+  argument/terminator structure, respecting Ada identifier case and comments.
+  Retain the default rejection of every other Annotate form and all existing
+  Assume, suppression, policy, warning and SPARK-Off exclusions. Do not approve
+  annotations by a substring, line number or source hash alone.
+- Classify the exact compiler-only `operator-reassociation` advisory separately
+  from proved checks and proof-limitations. Bound the classification to the
+  reviewed owned source files, allowing the observed imported bindings-spec
+  location. Require the exact native record fields, message, severity, location,
+  `trivial` producer marker, empty tree, unknown status and empty suppression
+  string. Require the matching exact SARIF `open`/`warning` record and its
+  producer-generated `external` marker. Preserve diagnostic multiset equality;
+  add no permission for application reports, other warning rules, arbitrary
+  suppressions, justifications or missing obligations.
+- Explain the two different reasons in the existing trusted-boundary record:
+  reduced proof context and fixed GNAT arithmetic association. No Oracle
+  amendment or new external dependency is proposed.
+
+Before another expensive checkpoint, independently review the actual patch and
+exercise the affected source/report tests. They must accept the exact retained
+forms and reject altered categories, annotation targets/arguments, application
+use, malformed or extra fields, changed messages, wrong severity or invalid/foreign locations,
+suppression/justification changes and missing/mismatched SARIF records. Preserve
+the current negative policy controls. Check the corrected source policy over
+all frozen Ada inputs and the corrected report logic against retained 094547
+reports as cheap diagnostics; those checks alone do not create provenance.
+
+There is no supported audit-only completion mode in the current runner.
+`complete_proof` requires current inputs to equal the run snapshot, and
+`input_hashes` includes every recursive `scripts/*.py` input. The auditor change
+therefore invalidates the old snapshot for provenance completion. Standalone
+`check_evidence.py` validates an already completed manifest, which this run never
+created. Editing the snapshot or manufacturing a new manifest would not be
+legitimate reuse.
+
+Use one ordinary managed warm `prove --full` after the correction is frozen,
+preserving canonical native sessions/cache and the existing logical options.
+Require its actual completion, full source/report audit, current-input provenance
+and mandatory final checker. No cold run, cache deletion, native-helper rerun or
+new runner mode is justified by these auditor-only changes. Cache reuse does not
+promise a particular runtime. Run 094547 remains failed regardless of the later
+outcome.
+
+The active integration Lean run captures `scripts/check_evidence.py`; keep its
+inputs frozen through its actual exit. Prepare any correction in an isolated
+stream. After integration, the script digest requires an ordinary cached
+complete Lean run with a fresh whole-project audit; unchanged expensive proof
+objects remain reusable. Review the regression applicability delta as well:
+changed/new evidence-policy tests and affected shared fixtures need current
+results, while retained results require explicit dependency justification. The
+old 621-outcome acceptance is not automatically extended to the new script.
+
+Detailed records, exact offending native/SARIF entries, seven input comparisons,
+tool identities and pinned-reference excerpts are retained under
+`tmp/native-policy-diagnosis-298/` in the isolated final-review worktree.
+Selected reviewer configuration is GPT-6 Astra / Max; independent runtime
+confirmation, elapsed-review and token/cost measurements are unavailable.
+This reviewer performed read-only diagnosis and report/scratch writing only:
+no auditor, test, proof, build, signal, lease/cache mutation, publication or
+merge. Because this reviewer proposed the policy interpretation, another
+independent reviewer must approve the eventual correction before its evidence
+is used for final acceptance.
