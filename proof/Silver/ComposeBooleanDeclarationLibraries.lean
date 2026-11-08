@@ -78,7 +78,9 @@ theorem imports_meaning {imports composed condition}
     rw [links.nameIs]
     exact equations.nameIs text tv _ _ "boolean"
       (model_new_name_valid text state _ _ arguments bounds.after allowed) (by decide) (by decide)
-  · intro mark present
+  · intro mark
+    dsimp only
+    intro present
     rw [links.nameIsMark]
     have afterPositive : fixedAfter text (booleanDeclarationParts text state).typeFirst "boolean" true ≠ 0 := present
     have firstPositive := model_fixed_input_nonzero text _ "boolean" true afterPositive

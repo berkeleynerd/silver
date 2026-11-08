@@ -1,0 +1,258 @@
+{
+  "native_sha256": "9ec28d94a41c81bb68168bb674792bc44bf1ddeae69e71d4d3e11b153786b77f",
+  "comparisons": [
+    {
+      "module": "PredicateBasicSourceCandidate",
+      "native_function": "Basic_Body",
+      "old_tokens": 1087,
+      "native_tokens": 1178,
+      "old_file_sha256": "dc87f2a0ba7b67cc60707bf352a002fc0567657ac91fa9270ab3f1728555a394",
+      "new_file_sha256": "91a59a170f699d6b68372d98339daf83ecc127741da73b78bfe0ed1625cd1500",
+      "changes": [
+        {
+          "op": "insert",
+          "old_range": [
+            68,
+            68
+          ],
+          "new_range": [
+            68,
+            74
+          ],
+          "old": [],
+          "new": [
+            "not",
+            "context",
+            ".",
+            "pure",
+            "and",
+            "then"
+          ]
+        },
+        {
+          "op": "insert",
+          "old_range": [
+            268,
+            268
+          ],
+          "new_range": [
+            274,
+            280
+          ],
+          "old": [],
+          "new": [
+            "not",
+            "context",
+            ".",
+            "pure",
+            "and",
+            "then"
+          ]
+        },
+        {
+          "op": "insert",
+          "old_range": [
+            588,
+            588
+          ],
+          "new_range": [
+            600,
+            618
+          ],
+          "old": [],
+          "new": [
+            "declare",
+            "called",
+            ":",
+            "constant",
+            "body_scan",
+            ":=",
+            "call_assignment_body",
+            "(",
+            "text",
+            ",",
+            "context",
+            ",",
+            "result",
+            ",",
+            "catalog",
+            ")",
+            ";",
+            "begin"
+          ]
+        },
+        {
+          "op": "insert",
+          "old_range": [
+            590,
+            590
+          ],
+          "new_range": [
+            620,
+            630
+          ],
+          "old": [],
+          "new": [
+            "(",
+            "if",
+            "called",
+            ".",
+            "position",
+            "/=",
+            "0",
+            "then",
+            "called",
+            "else"
+          ]
+        },
+        {
+          "op": "insert",
+          "old_range": [
+            598,
+            598
+          ],
+          "new_range": [
+            638,
+            641
+          ],
+          "old": [],
+          "new": [
+            ")",
+            ";",
+            "end"
+          ]
+        },
+        {
+          "op": "insert",
+          "old_range": [
+            600,
+            600
+          ],
+          "new_range": [
+            643,
+            649
+          ],
+          "old": [],
+          "new": [
+            "not",
+            "context",
+            ".",
+            "pure",
+            "and",
+            "then"
+          ]
+        },
+        {
+          "op": "insert",
+          "old_range": [
+            674,
+            674
+          ],
+          "new_range": [
+            723,
+            741
+          ],
+          "old": [],
+          "new": [
+            "declare",
+            "called",
+            ":",
+            "constant",
+            "body_scan",
+            ":=",
+            "call_assignment_body",
+            "(",
+            "text",
+            ",",
+            "context",
+            ",",
+            "result",
+            ",",
+            "catalog",
+            ")",
+            ";",
+            "begin"
+          ]
+        },
+        {
+          "op": "insert",
+          "old_range": [
+            676,
+            676
+          ],
+          "new_range": [
+            743,
+            753
+          ],
+          "old": [],
+          "new": [
+            "(",
+            "if",
+            "called",
+            ".",
+            "position",
+            "/=",
+            "0",
+            "then",
+            "called",
+            "else"
+          ]
+        },
+        {
+          "op": "insert",
+          "old_range": [
+            683,
+            683
+          ],
+          "new_range": [
+            760,
+            774
+          ],
+          "old": [],
+          "new": [
+            ")",
+            ")",
+            ";",
+            "end",
+            ";",
+            "elsif",
+            "context",
+            ".",
+            "pure",
+            "then",
+            "return",
+            "invalid_body",
+            "(",
+            "scan"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "PredicateLoopCandidate",
+      "native_function": "Loop_Body",
+      "old_tokens": 1177,
+      "native_tokens": 1179,
+      "old_file_sha256": "a45cc0b73af73ecbd7860556aa719f2632e2083bf95f1748486220e559e6bd37",
+      "new_file_sha256": "30a6ce5a8db070cc961aa255624f8b97a5080ad638fcd11d95a0ee7a3d2a6d63",
+      "changes": [
+        {
+          "op": "insert",
+          "old_range": [
+            994,
+            994
+          ],
+          "new_range": [
+            994,
+            996
+          ],
+          "old": [],
+          "new": [
+            ",",
+            "catalog"
+          ]
+        }
+      ]
+    }
+  ]
+}
