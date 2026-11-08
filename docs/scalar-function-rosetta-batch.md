@@ -2,20 +2,26 @@
 
 ## Status and authorization — 2026-11-08
 
-**Provisional successor; planning authorized, implementation not authorized.**
-The owner instructed **“Proceed with the planning effort we just discussed.”**
+**First group #342 selected for implementation; remaining groups proposed.**
+The owner initially instructed **“Proceed with the planning effort we just discussed.”**
 The [dated decision](session-memory.md#2026-11-08--coherent-batch-planning-authorized)
 authorizes the batching guidance, candidate assessment, milestone/issues and
 reviewable planning publication. [Milestone 21](https://github.com/berkeleynerd/silver/milestone/21)
-and its implementation issues remain Backlog until a later owner instruction.
+holds the four increment issues below.
 The owner [authorized merging the ready plan](session-memory.md#2026-11-08--batch-planning-merge-authorized-report-next-unit-first)
 in PR #346 and asked for the next unit to be reported before implementation.
+PR #346 merged as `74ea2edeaa`. The subsequent
+[owner instruction](session-memory.md#2026-11-08--callable-integer-examples-selected-during-external-review)
+selects #342's four callable examples while the external review proceeds.
+Implement and review those four samples under the existing plan; #343 and #344
+remain unstarted, and #345 retains the later combined batch checkpoint.
+The implementation PR remains open for a later owner merge decision.
 
 The preceding batch, [small nonrecursive functions #298](https://github.com/berkeleynerd/silver/issues/298),
 is complete: PR #339 merged as `05302f760f` and milestone 20 is closed. Its
 accepted native/Lean/source assurance supplies this successor's delivery baseline;
 pending or failed checkpoints are not reusable success. Planning does not expand
-#298 or authorize successor implementation.
+#298; the later authorization above selects only the first implementation group.
 
 ## Outcome and choice
 
@@ -47,7 +53,7 @@ not elimination of application proof or task-fidelity work.
 
 ## Increments and ownership
 
-The [roadmap](../roadmap.md#provisional-scalar-function-rosetta-batch) records order:
+The [roadmap](../roadmap.md#scalar-function-rosetta-batch) records order:
 callable examples first; divisor and digit/prime groups can then proceed
 independently; shared delivery follows all three. All issues are in milestone 21.
 
