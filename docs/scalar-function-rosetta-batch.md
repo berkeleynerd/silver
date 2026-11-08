@@ -2,11 +2,11 @@
 
 ## Status and authorization — 2026-11-08
 
-**First group #342 complete and merged through
-[PR #351](https://github.com/berkeleynerd/silver/pull/351);
-second group #343 implemented, validated on Linux and independently reviewed;
-published in [PR #352](https://github.com/berkeleynerd/silver/pull/352).
-Its merge is authorized; third group #344 is selected.**
+**First two groups #342/#343 complete and merged through
+[PR #351](https://github.com/berkeleynerd/silver/pull/351) and
+[PR #352](https://github.com/berkeleynerd/silver/pull/352);
+third group #344 implemented, validated on Linux and independently reviewed;
+published in [PR #353](https://github.com/berkeleynerd/silver/pull/353).**
 The owner initially instructed **“Proceed with the planning effort we just discussed.”**
 The [dated decision](session-memory.md#2026-11-08--coherent-batch-planning-authorized)
 authorizes the batching guidance, candidate assessment, milestone/issues and
@@ -28,6 +28,8 @@ decision, and #345 retains the later combined batch checkpoint.
 PR #351 merged as `a74e67c3a8` and #342 is closed. The divisor group starts from
 those accepted inputs; its own source, manifest and application evidence remain
 separate from the first-group checkpoint below.
+PR #352 subsequently merged as `87e18b4c3e` and #343 is closed. The digit/prime
+group starts from that accepted combined baseline.
 
 The [first-group checkpoint](#callable-integer-examples--2026-11-08) below
 records the four programs and their application validation. It does not complete
@@ -129,8 +131,8 @@ Selected agent settings are distinct from independently confirmed runtime
 settings, which were not exposed. No new Rosetta coverage is claimed: #345 owns
 the later narrow assessment/render and combined checkpoint. The implementation
 is merged in [PR #351](https://github.com/berkeleynerd/silver/pull/351) as
-`a74e67c3a8`, and #342 is closed. #343 is selected next; #344
-stays unstarted. Milestone 21 remains open.
+`a74e67c3a8`, and #342 is closed. Subsequent groups are recorded below;
+milestone 21 remains open.
 
 ## GCD and divisor examples — 2026-11-08
 
@@ -196,11 +198,93 @@ run is claimed; original failed runs remain failed.
 | Independent task/evidence review | GPT-6 Astra / Max | Accepted `5262fb81fa`: full-domain algorithms/guards, task fidelity, exact output and evidence applicability; no material finding, one inherited status sentence corrected | Total review elapsed/token/cost measurements unavailable |
 
 No language mechanism or resource budget changed. The first two groups now
-provide eight validated programs; #344's four digit/prime programs are selected
-next. #345 retains the combined checkpoint and narrow Rosetta assessment
+provide eight validated programs; #344's four digit/prime programs follow below.
+#345 retains the combined checkpoint and narrow Rosetta assessment
 and render, so the rendered Stage-1 total remains 71. The #343 implementation
 is published in [PR #352](https://github.com/berkeleynerd/silver/pull/352).
-Its merge and #343 closeout are now owner-authorized; milestone 21 remains open.
+It merged as `87e18b4c3e` and #343 is closed. Milestone 21 remains open.
+
+## Digit and prime examples — 2026-11-08
+
+Implementation target `f2842c6d62ec` adds four sources and their manifest entries
+to merged baseline `87e18b4c3e`. All 80 earlier sample sources and complete
+manifest records are unchanged; the inventory now contains 84 programs.
+Compiler/runtime, language, catalogue, Lean, auditor and test code are unchanged.
+
+| Program | Full helper domains | Demonstrated results | Audited flow / proof checks |
+| --- | --- | --- | --- |
+| [Sum digits of an integer](../samples/rosetta_sum_digits_of_an_integer.adb) | Natural Integer input, base 2..36 | 17 cases, including both required hexadecimal examples, zero, base boundaries and Integer'Last | 20 / 55 |
+| [Happy numbers](../samples/rosetta_happy_numbers.adb) | 0..999 | First eight happy numbers, from a complete scan of 1..31 | 21 / 50 |
+| [Additive primes](../samples/rosetta_additive_primes.adb) | Primality and digit sum: 0..499 | All 54 additive primes below 500 | 21 / 52 |
+| [Attractive numbers](../samples/rosetta_attractive_numbers.adb) | Primality: 0..120; factor count: 1..120 | All 74 attractive numbers through 120, with multiplicity | 21 / 52 |
+
+Managed run `20261108T214753-620fcc9bc295` passed admission, production application
+proof, build, both unchanged report-policy checks and exact stdout/stderr/status
+comparisons for all four programs in 65.653 seconds, with 22 reserved workers on
+Linux x86_64. All 153 output lines match independently derived expectations.
+Each row includes the application and four selected library units; these are
+application checks, not new compiler-proof totals. The seven declared helpers
+have complete full-domain production checks, including termination, with the
+unchanged `--no-inlining` and `--no-loop-unrolling` options. The source snapshots
+match the committed samples. The [evidence packet](evidence/digit-prime-examples-20261108/README.md)
+retains reports, sources, logs, outputs, validation code and derivation notes.
+
+For Sum digits, 31 divisions suffice because the base is at least two and
+every input is below 2^31. Before any addition, at most 30 earlier digits have
+contributed at most 35 each, so the `Total <= 1050` guard cannot discard a digit.
+The demonstrations include all four required examples; an independent base-string
+oracle also agrees on 147,507 boundary and small-input pairs. The analytical
+bound covers the full declared product, beyond those finite checks.
+
+For Happy numbers, three decimal extractions give the exact digit-square sum
+for every input 0..999. The first transformation enters 0..243, and one is
+absorbing. If 244 successive images avoid one, two of those images repeat among
+the 243 non-one states; determinism prevents a later first visit to one. Thus
+the finite iteration implements the unbounded definition on the entire domain.
+Independent cycle detection agrees on all 1,000 inputs and confirms exactly
+eight happy numbers in the complete positive prefix through 31.
+
+Additive primes tests every candidate below 500 and its complete decimal digit
+sum. Three digit extractions suffice; the addition guard is always true because
+at most two earlier digits contribute at most 18. Both primality helpers test
+all possible divisors through N/2 and handle zero, one and empty loops explicitly.
+Attractive numbers removes factors in increasing order. Seven successful removals
+would require an input of at least 128, exceeding 120, so seven attempts per
+factor suffice and the six-count guard never suppresses a valid removal.
+Smaller primes are exhausted before any composite factor, so only primes are
+removed; the final count includes multiplicity. Independent sieve and prime-power
+oracles check all declared helper inputs. These mathematical arguments establish
+task fidelity; the application checks establish safety and discharge.
+
+The [independent review](reviews/review-digit-prime-examples-20261108.md) covers
+task fidelity, complete domains, final application evidence and applicability
+of the accepted #339 native/Lean assurance and earlier sample results, with no
+material finding. It independently matched 94 archived files and all actual
+outputs, and rehashed 2,588 native and 927 Lean inputs plus their recorded tools.
+The unchanged 645-ID test inventory retains
+644 unaffected results; the manifest ID combines 80 retained cases with the four
+fresh cases and fresh global inventory/metadata checks. No fresh full regression
+suite or complete compiler/Lean run is claimed. Earlier failed runs remain failed.
+
+The initial Additive primes draft used reserved identifier `Digits`; admission
+rejected it, and renaming the local to `Sum` repaired it before production
+validation. The failed admission log is retained. All four production application
+checks passed on their first run.
+
+| Round | Selected model / effort | Result and rework | Available timing |
+| --- | --- | --- | --- |
+| Sum digits/Happy implementation | GPT-6.1 Sol / Extra High | Two faithful sources, full-domain bounds and independent output derivations | Agent elapsed/token/cost measurements unavailable |
+| Additive/Attractive implementation | GPT-6.1 Sol / Extra High | Two faithful sources and complete-domain checks; reserved local renamed before validation | Agent elapsed/token/cost measurements unavailable |
+| Integration and application validation | Lead runtime model/effort not independently exposed | Seven helper inventories; all four production application checks passed | Managed native interval 65.653 s; whole-team elapsed unavailable |
+| Evidence retention | GPT-6.1 Sol / Extra High | Production artifacts and derivation notes retained outside governed inputs | Agent elapsed/token/cost measurements unavailable |
+| Independent task/evidence review | GPT-6 Astra / Max | Accepted `f2842c6d62ec`: task fidelity, full-domain bounds, exact output, reports and reuse applicability; no material finding | Total review elapsed/token/cost measurements unavailable |
+
+Selected agent settings are distinct from independently confirmed runtime
+settings, which were not exposed. All twelve programs now have focused application
+validation. [PR #353](https://github.com/berkeleynerd/silver/pull/353) publishes
+#344 for review; its implementation merge remains held for the owner. #345 retains
+the combined checkpoint and narrow Rosetta assessment/render. Rendered coverage
+remains 71 tasks, and milestone 21 remains open.
 
 ## Increments and ownership
 
@@ -225,8 +309,8 @@ evidence applicability; a partial group does not complete the milestone.
 
 The cached manifest was retrieved 2026-10-15. The revisions below identify the
 primary `task.wiki` descriptions read for this plan, not the later delivery date.
-The table retains the bounded planning designs; the first eight now have the
-implementation evidence above. The remaining designs still need validation.
+The table retains the bounded planning designs; all twelve now have focused
+implementation evidence above. Combined reconciliation remains with #345.
 Wider domains from legacy assessments are not promises.
 
 | Task and captured revision | Required behavior and meaningful cases | Proposed bounded design |

@@ -112,10 +112,12 @@ target [manifest](../../../samples/manifest.json) supplies exact expectations.
 Its complete hash is retained in the summary and integrity record.
 
 Independent GPT-6 Astra / Max applicability
-[review](../../reviews/review-digit-prime-examples-20261108.md) is pending at
-this retention checkpoint. The installation comparison alone does not establish
-reuse applicability. Compiler and Lean assurance were not freshly rerun here.
-The proposed coverage combines 80 retained sample cases and four fresh cases;
+[review](../../reviews/review-digit-prime-examples-20261108.md) subsequently
+accepted the implementation, final application evidence and retained baseline
+reuse with no material finding. The integrity record preserves its earlier
+retention-stage status; the linked review supplies the final applicability
+conclusion. Compiler and Lean assurance were not freshly rerun here.
+The accepted coverage combines 80 retained sample cases and four fresh cases;
 it is not a fresh full-suite result. This retention task performed no build,
 proof, application execution, test or derivation-script rerun. Native macOS
 validation is not claimed.
