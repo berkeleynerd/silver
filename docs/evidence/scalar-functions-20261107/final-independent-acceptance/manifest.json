@@ -1,0 +1,43 @@
+{
+  "target": "4d9ce491eedc50776b71577d8229ece67e38b0e7",
+  "members": [
+    {
+      "path": "README.md",
+      "bytes": 5427,
+      "sha256": "f9b0387fc025fe3952bb040ce43ac8e40f46f746929115697fa2af8b2925dd53"
+    },
+    {
+      "path": "verify_retained_data.py",
+      "bytes": 17182,
+      "sha256": "6fc1f3c0490731b2ad0b67334e47f8173b1d7faeb773ae4b9e9fec3c264f3c81"
+    },
+    {
+      "path": "verify_final_metadata.py",
+      "bytes": 10948,
+      "sha256": "bb9e6bbc2f383d8203014c89f2fec78cd42f2f01cb8e38e66b048df98c1d8174"
+    },
+    {
+      "path": "retained-data-verification.json",
+      "bytes": 13764,
+      "sha256": "356b28f74788a0b5d8221d44ce6a5b8916ed9ce114bada8824bc7fa8a77b54ca"
+    },
+    {
+      "path": "metadata-and-applicability-verification.json",
+      "bytes": 8374,
+      "sha256": "fb18282aa2af548f3a3b547da30544d2f9b15cc4b5c03eddc783465ac63fd7fa"
+    },
+    {
+      "path": "accepted-645-id-resolution.json",
+      "bytes": 422443,
+      "sha256": "a1ea5e3334e9ed12021fc6dba540c5e0fc65613769f49f338bb38eb3bd6c50cb"
+    },
+    {
+      "path": "finding-dispositions.json",
+      "bytes": 4253,
+      "sha256": "521b4049b323e5e483a3575f55434c94daad7aa772190ca9af434e6e78a46235"
+    }
+  ],
+  "archive": "evidence.tar.gz",
+  "archive_bytes": 34933,
+  "archive_sha256": "abb5c110483fa55ed4bde3bd71be870de8d1cc370b6a2c2a55659b6d5d737d08"
+}

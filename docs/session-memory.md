@@ -1,6 +1,6 @@
 # Session memory
 
-## 2026-11-08 — Scalar-function delivery assurance retained; merge held
+## 2026-11-08 — Scalar-function delivery accepted; merge held
 
 Owner-authorized #298 remains the small nonrecursive Integer/Boolean function
 increment through reviewable publication. The
@@ -10,10 +10,11 @@ checkpoints, repaired compiler build and manifest results, the independently
 approved auditor correction and all formerly pending regression outcomes.
 Earlier failed runs remain failed. The narrow Rosetta render and all three
 Rosetta tests passed, promoting only the precise Primality scalar-function
-fragment. Final independent regression inventory and integrated delivery
-acceptance remain pending; these are distinct from the successful checkpoints.
+fragment. Independent Astra / Max review accepted the complete regression
+inventory and integrated delivery target `4d9ce491ee`; the delivery account
+retains the exact governed implementation, review and evidence identities.
 
-Implementation merge remains held. PR #339 stays draft, and #298, #340, #341,
+Implementation merge remains held. PR #339 is published for review; #298, #340, #341,
 #347, #348, #349 and milestone 20 remain open pending later merge. No Oracle
 amendment or successor implementation is authorized. Separate planning PR #346
 and its milestone 21 Backlog items are outside this implementation branch.

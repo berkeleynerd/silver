@@ -1,7 +1,6 @@
 # Small nonrecursive scalar functions
 
-**Implemented and validated on Linux; final independent acceptance pending,
-2026-11-08.** Existing
+**Complete on Linux and independently accepted, 2026-11-08.** Existing
 [#298](https://github.com/berkeleynerd/silver/issues/298), in
 [milestone 20](https://github.com/berkeleynerd/silver/milestone/20), **Small
 nonrecursive functions**, is one cohesive work package. The
@@ -10,12 +9,12 @@ records the owner's **“Proceed”** after the recommendation to start with Int
 and Boolean scalar parameters/results, acyclic calls and no caller-visible
 mutation. The [language](../language.md) and
 [catalogue](../catalogue/silver.json) now specify the selected fragment below.
-The [delivery account](#delivery-assurance-and-validation) separates complete
-assurance and behavioral evidence from the pending final review.
+The [delivery account](#delivery-assurance-and-validation) links complete
+assurance, behavioral evidence and final independent acceptance.
 
-The integrated implementation checkpoint is published in draft
-[PR #339](https://github.com/berkeleynerd/silver/pull/339). The PR remains in
-progress pending final acceptance; its publication does not authorize merge.
+The implementation is published for review in
+[PR #339](https://github.com/berkeleynerd/silver/pull/339). Independent acceptance
+covers exact target `4d9ce491ee`; implementation merge remains a later owner decision.
 The [Rosetta stage record #341](https://github.com/berkeleynerd/silver/issues/341)
 tracks the precise `scalar-functions` mapping within #298. The delivery account
 records the narrow Rosetta reconciliation separately from broad functions and
@@ -359,9 +358,9 @@ below. This proof checkpoint does not authorize implementation merge.
 
 ## Delivery assurance and validation
 
-**2026-11-08: complete Linux assurance and all formerly pending regression
-outcomes retained; final independent acceptance pending.** Implementation merge
-remains held. PR #339 stays draft, and #298, #340, #341, #347, #348, #349 and
+**2026-11-08: complete Linux assurance, accepted regression coverage and
+independent delivery acceptance.** Implementation merge remains held.
+Issues #298, #340, #341, #347, #348, #349 and
 milestone 20 remain open pending later merge. This account adds no successor
 implementation or Oracle amendment. Separate planning PR #346 is outside this
 delivery and does not authorize its milestone 21 Backlog items.
@@ -370,9 +369,14 @@ The implementation snapshot is `f630819154`: its parser and report bodies
 remain unchanged through final governed input `0333d33503`. The latter adds
 independently approved auditor `53d3a3b22b`, applied as `dfda468593`, and the
 single facade import for #349. Documentation/evidence checkpoint `f4957c07cb`
-also retains the final platform outcome. These scopes remain distinct from the
-final integrated review target, which has not yet been accepted; its exact
-commit and disposition must be recorded when available.
+also retains the final platform outcome. The
+[final independent Astra / Max review](reviews/review-scalar-functions-delivery-20261108.md#final-independent-acceptance--2026-11-08)
+accepts exact target `4d9ce491ee` with no unresolved material finding. Original
+review commit `756ac0a210` is integrated as `6371807b52`; its
+[verified seven-member evidence packet](evidence/scalar-functions-20261107/final-independent-acceptance/README.md)
+retains every accepted test ID and the finding dispositions. These source,
+evidence and review identities remain distinct from later documentation-only
+completion records, which change no governed input.
 
 | Required evidence | Actual result and scope |
 | --- | --- |
@@ -380,7 +384,7 @@ commit and disposition must be recorded when available.
 | Complete Lean and actual-source/module/axiom check | [Run `20261108T172947-84b3cd350332`](evidence/scalar-functions-20261107/complete-lean/20261108T172947-84b3cd350332/README.md): actual driver exit 0, all 820 modules / 145,525 declarations, only `propext`, `Classical.choice` and `Quot.sound`; all 927 captured inputs match `0333d33503`. Automatic 22 workers / 22 threads; cached build with fresh whole-project audit, no clean build or independent replay. |
 | Ordinary compiler build and manifest | The [repaired-input run](evidence/scalar-functions-20261107/final-regression/repaired-compiler-policy-093645/README.md) retains the rebuilt compiler and all 72 manifest sample passes, including admission/proof/build/execution. The failed regression run remains failed. |
 | Final compile and platform outcomes | [Four isolated runs](evidence/scalar-functions-20261107/final-regression/isolated-final/README.md) resolve all sixteen pending IDs: maximum expression 171.737 s, self-actuals 14.879 s, ordered calls 15.010 s and original platform wrapper 303.203 s with its twelve nested bodies. Actual drivers exited 0, original deadlines/assertions/options remained, and no live descendants remained. |
-| Complete regression inventory | The [independently approved auditor delta](reviews/review-scalar-functions-native-auditor-20261108.md#regression-applicability-and-remaining-validation) establishes 629 applicable passes, including 137 fresh Python IDs and 492 retained successes. The sixteen fresh outcomes above cover the remaining IDs of the 645-ID inventory; all 645 IDs now have successful outcomes, with final independent inventory acceptance pending. The three existing Rosetta IDs were refreshed in the run below. |
+| Complete regression inventory | The [independently approved auditor delta](reviews/review-scalar-functions-native-auditor-20261108.md#regression-applicability-and-remaining-validation) establishes 629 applicable passes, including 137 fresh Python IDs and 492 retained successes. The sixteen fresh outcomes above cover the remaining IDs of the 645-ID inventory; the final independent review accepts all 645 IDs with no pending outcome. The three existing Rosetta IDs were refreshed in the run below. |
 | Narrow Rosetta render and tests | The [delivery packet](evidence/scalar-functions-20261107/rosetta-delivery/README.md) retains successful render and managed run `20261108T174013-0af40cd230ed`: all three `test_rosetta` IDs passed in 6.422 test seconds, actual driver exit 0. Only Primality by trial division moves Stage 8 to 1; Stage-1 mappings rise 70 to 71. |
 
 The [dated scalar-function assessment](../rosetta/assessment-scalar-functions-20261107.md)
@@ -389,8 +393,8 @@ revision, date, rubric, tier, model and effort provenance are retained; the
 prepared Sol / High review attribution remains separately dated 2026-11-07.
 The render's 258 other task-page changes were exhaustively compared as position
 numbering only. General functions/procedures receive no broader promotion.
-Stage issue #341 is to be reconciled to Stage 1 and In review after final
-acceptance, remaining open until later merge.
+Stage issue #341 is reconciled to Stage 1 and In review, remaining open until
+later merge.
 
 The platform observer retained the actual `PlatformIsolationTests -v` child
 invocation. The unchanged no-skip class contains exactly twelve nested methods;
@@ -414,7 +418,7 @@ solver-time or peak-memory guarantee.
 | --- | --- |
 | R1 / #340: normalized source-reader premises | [Independent repair review](reviews/review-scalar-functions-raw-source-r1-e76a3f9420.md) found the raw-equation derivation gap repaired at `e76a3f9420`, inspecting integrated consumers at `bc800d4e82`; the later complete source check covers final integration. |
 | R2 / #347 and R3 / #348: source annotation and reassociation classification | [Independent Astra / Max review](reviews/review-scalar-functions-native-auditor-20261108.md) approved exact auditor `53d3a3b22b`; successful current native proof/provenance uses those bytes. No source, contract, domain or obligation was weakened. |
-| #349: omitted independent frame-flow module | [Astra / Max diagnosis](evidence/scalar-functions-20261107/frame-flow-import-diagnosis/DIAGNOSIS.md) found no missing semantic premise; the original module passed its [focused check](evidence/scalar-functions-20261107/focused/20261108T172824-28123f63af08/README.md), then the one-line facade import passed the complete current check. Final review disposition remains pending. |
+| #349: omitted independent frame-flow module | [Astra / Max diagnosis](evidence/scalar-functions-20261107/frame-flow-import-diagnosis/DIAGNOSIS.md) found no missing semantic premise; the original module passed its [focused check](evidence/scalar-functions-20261107/focused/20261108T172824-28123f63af08/README.md), then the one-line facade import passed the complete current check. Final independent review accepts the repair. |
 | Bounded admission, capacity and source packaging reviews | [Native admission](reviews/review-scalar-function-native-admission-20261107.md), [capacity](reviews/review-scalar-function-capacity-20261107.md) and [packaging](reviews/review-scalar-functions-source-packaging-20261108.md) retain their exact targets and limits; none is relabeled as final capability acceptance. |
 
 Original native `20261108T094547-29491e1d3036` and Lean

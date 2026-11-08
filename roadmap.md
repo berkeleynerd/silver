@@ -24,7 +24,7 @@ each delivery; the linked issues hold scope and completion criteria.
 | Complete 2026-11-06 | [Bounded String indexing and character operations #296](https://github.com/berkeleynerd/silver/issues/296) | Reverse a string; Palindrome detection; character replacement |
 | Complete 2026-11-07 | [Fixed-size Boolean arrays #297](https://github.com/berkeleynerd/silver/issues/297) | Sieve of Eratosthenes; elementary cellular automata |
 | Complete on Linux and merged 2026-11-07; PR #337 | [Sample-only expansion #300](https://github.com/berkeleynerd/silver/issues/300) | Ten programs covering eleven task mappings; [bounded plan](docs/rosetta-sample-expansion.md) |
-| Validated on Linux 2026-11-08; final review pending, merge held | [Small nonrecursive functions #298](https://github.com/berkeleynerd/silver/issues/298) | Boolean `Is_Prime` for Primality by trial division first; GCD and numeric search helpers remain candidate uses |
+| Complete on Linux 2026-11-08; PR #339 in review, merge held | [Small nonrecursive functions #298](https://github.com/berkeleynerd/silver/issues/298) | Boolean `Is_Prime` for Primality by trial division first; GCD and numeric search helpers remain candidate uses |
 
 The bounded String increment has completed repaired Linux native and Lean
 assurance after the [interim review repairs](docs/interim-review-response-20261105.md).
@@ -39,7 +39,7 @@ Boolean arrays reuse bounded array storage and scalar Boolean semantics.
 Functions start with Integer/Boolean scalar parameters/results, an acyclic call
 graph and no caller-visible mutation. The [bounded plan](docs/scalar-functions.md)
 records the selected scope, complete Linux native/Lean/source checkpoints and
-applicable behavioral results. Final independent acceptance remains pending.
+applicable behavioral results and final independent acceptance.
 
 #296 is [authorized for implementation on 2026-10-31](docs/session-memory.md#2026-10-31--bounded-string-indexing-and-character-operations-authorized).
 #297 is [selected next on 2026-11-06](docs/session-memory.md#2026-11-06--structural-guards-merged-boolean-arrays-selected-next),
@@ -59,7 +59,7 @@ and deferred capacity work retain their scope.
 
 ### Small nonrecursive scalar functions
 
-**Implemented and validated on Linux, 2026-11-08; final acceptance pending.** The owner's
+**Complete on Linux and independently accepted, 2026-11-08.** The owner's
 **“Proceed”** selects existing [#298](https://github.com/berkeleynerd/silver/issues/298)
 after the Integer/Boolean scalar recommendation.
 [Milestone 20](https://github.com/berkeleynerd/silver/milestone/20), **Small
@@ -88,9 +88,9 @@ hiding, result facts and source-derived capacity accounting. Existing
 Complete native/Lean/source checkpoints and all formerly pending regression
 outcomes passed. The narrow Rosetta render and three tests also passed: only
 Primality by trial division moves Stage 8 to 1, taking Stage-1 mappings from
-70 to 71. Final independent 645-ID inventory acceptance and delivery review
-remain pending; PR #339 stays draft
-and the milestone/issues remain open until later authorized merge.
+70 to 71. Independent review accepts the complete 645-ID inventory and delivery target
+`4d9ce491ee`. PR #339 is published for review; the milestone/issues remain open
+until later authorized merge.
 Recursion, `out`/`in out`, array/String signatures, general package admission and
 capacity rewrites remain outside this package. No split is selected; if needed,
 record increment issues and their order together. No next feature is selected.

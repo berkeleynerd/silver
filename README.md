@@ -217,7 +217,7 @@ returns a Boolean result for a bounded input domain including negatives, zero,
 one, primes and composites. Recursion, outer-value capture, caller mutation,
 array/String signatures and expression-embedded calls remain outside this
 increment. Complete Linux native and Lean/source checkpoints passed; the delivery
-account retains regression applicability and pending final independent acceptance.
+account retains accepted regression applicability and the final independent review.
 
 The [Find square difference sample](samples/find_square_difference.adb) stores
 the first matching index and prints ` 501` followed by a newline.
