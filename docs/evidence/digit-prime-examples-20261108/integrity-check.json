@@ -1,0 +1,367 @@
+{
+  "validated_target": "f2842c6d62ecab7c6d44848f22363a7558f43912",
+  "run_id": "20261108T214753-620fcc9bc295",
+  "host": "linux-x86_64",
+  "workers": 22,
+  "available_cpus": 22,
+  "utc_started": "2026-11-08T21:47:55.001517+00:00",
+  "utc_finished": "2026-11-08T21:49:00.353961+00:00",
+  "duration_seconds": 65.653239362,
+  "final_summary_outcome": "passed",
+  "ledger_finished_outcome": "success",
+  "manifest_sha256": "d3f50c254bc14109fdbfd378e4a6bd5bfa631da670c6436737010299155a4752",
+  "original_copies": [
+    {
+      "retained": "application-validation/rosetta_additive_primes/application-evidence.tar.gz",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/digit-prime-examples-344/tmp/application-validation/rosetta_additive_primes/application-evidence.tar.gz",
+      "bytes": 33995,
+      "sha256": "f73795b917a45973541747b9c073c5cc2e57365f7cc22978e5a9c6ed933964a5"
+    },
+    {
+      "retained": "application-validation/rosetta_additive_primes/check.log",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/digit-prime-examples-344/tmp/application-validation/rosetta_additive_primes/check.log",
+      "bytes": 18,
+      "sha256": "9142aa202a50339bf9567d8d22c343d4f138e5261752f23d06a9211e061b7a55"
+    },
+    {
+      "retained": "application-validation/rosetta_additive_primes/compile.log",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/digit-prime-examples-344/tmp/application-validation/rosetta_additive_primes/compile.log",
+      "bytes": 6222,
+      "sha256": "512881e49c03e46c3015d78041bb962e7e189682d4a52fc41ef338eafa6af421"
+    },
+    {
+      "retained": "application-validation/rosetta_additive_primes/execution-0.stderr",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/digit-prime-examples-344/tmp/application-validation/rosetta_additive_primes/execution-0.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "retained": "application-validation/rosetta_additive_primes/execution-0.stdout",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/digit-prime-examples-344/tmp/application-validation/rosetta_additive_primes/execution-0.stdout",
+      "bytes": 252,
+      "sha256": "88af67a62775b894a72b2cbc8e972d70f976e71ad4e85b05902c0c2ebf28513e"
+    },
+    {
+      "retained": "application-validation/rosetta_attractive_numbers/application-evidence.tar.gz",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/digit-prime-examples-344/tmp/application-validation/rosetta_attractive_numbers/application-evidence.tar.gz",
+      "bytes": 34260,
+      "sha256": "8b1dd77b1134efc3961262585c1c54caeb5d20fb49c58ef4059536537966a84c"
+    },
+    {
+      "retained": "application-validation/rosetta_attractive_numbers/check.log",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/digit-prime-examples-344/tmp/application-validation/rosetta_attractive_numbers/check.log",
+      "bytes": 18,
+      "sha256": "9142aa202a50339bf9567d8d22c343d4f138e5261752f23d06a9211e061b7a55"
+    },
+    {
+      "retained": "application-validation/rosetta_attractive_numbers/compile.log",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/digit-prime-examples-344/tmp/application-validation/rosetta_attractive_numbers/compile.log",
+      "bytes": 6087,
+      "sha256": "308c5a67535ae883f237bbbb8f36af7239533b594a9281aff4b1e4365f520fa1"
+    },
+    {
+      "retained": "application-validation/rosetta_attractive_numbers/execution-0.stderr",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/digit-prime-examples-344/tmp/application-validation/rosetta_attractive_numbers/execution-0.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "retained": "application-validation/rosetta_attractive_numbers/execution-0.stdout",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/digit-prime-examples-344/tmp/application-validation/rosetta_attractive_numbers/execution-0.stdout",
+      "bytes": 306,
+      "sha256": "007e87e2c11e17093f796715b10e5fb5548b2353b65adda5f3a9d640dbc5ab58"
+    },
+    {
+      "retained": "application-validation/rosetta_happy_numbers/application-evidence.tar.gz",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/digit-prime-examples-344/tmp/application-validation/rosetta_happy_numbers/application-evidence.tar.gz",
+      "bytes": 33802,
+      "sha256": "90fffc7de262f19a56c691a822fb519ad3f1b29560a985c5b66c3295f2bec436"
+    },
+    {
+      "retained": "application-validation/rosetta_happy_numbers/check.log",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/digit-prime-examples-344/tmp/application-validation/rosetta_happy_numbers/check.log",
+      "bytes": 18,
+      "sha256": "9142aa202a50339bf9567d8d22c343d4f138e5261752f23d06a9211e061b7a55"
+    },
+    {
+      "retained": "application-validation/rosetta_happy_numbers/compile.log",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/digit-prime-examples-344/tmp/application-validation/rosetta_happy_numbers/compile.log",
+      "bytes": 6168,
+      "sha256": "01a0563fb7a24bd435323f99569d406219979c891e8fce46a70690afc0936e1d"
+    },
+    {
+      "retained": "application-validation/rosetta_happy_numbers/execution-0.stderr",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/digit-prime-examples-344/tmp/application-validation/rosetta_happy_numbers/execution-0.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "retained": "application-validation/rosetta_happy_numbers/execution-0.stdout",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/digit-prime-examples-344/tmp/application-validation/rosetta_happy_numbers/execution-0.stdout",
+      "bytes": 30,
+      "sha256": "96858c98a48581a9df52e480a1eb9656a903c4ff266575b42f7b901a6d70df40"
+    },
+    {
+      "retained": "application-validation/rosetta_sum_digits_of_an_integer/application-evidence.tar.gz",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/digit-prime-examples-344/tmp/application-validation/rosetta_sum_digits_of_an_integer/application-evidence.tar.gz",
+      "bytes": 34442,
+      "sha256": "7f095fe1793bf5bceac15b0b014122bbecde89a67007f4f16bc58bf162524a8a"
+    },
+    {
+      "retained": "application-validation/rosetta_sum_digits_of_an_integer/check.log",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/digit-prime-examples-344/tmp/application-validation/rosetta_sum_digits_of_an_integer/check.log",
+      "bytes": 18,
+      "sha256": "9142aa202a50339bf9567d8d22c343d4f138e5261752f23d06a9211e061b7a55"
+    },
+    {
+      "retained": "application-validation/rosetta_sum_digits_of_an_integer/compile.log",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/digit-prime-examples-344/tmp/application-validation/rosetta_sum_digits_of_an_integer/compile.log",
+      "bytes": 6118,
+      "sha256": "cbae5eea351f60bb9ecbf52659196b28f7d3c1276f2cd1ad738c37d24c4a9a21"
+    },
+    {
+      "retained": "application-validation/rosetta_sum_digits_of_an_integer/execution-0.stderr",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/digit-prime-examples-344/tmp/application-validation/rosetta_sum_digits_of_an_integer/execution-0.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "retained": "application-validation/rosetta_sum_digits_of_an_integer/execution-0.stdout",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/digit-prime-examples-344/tmp/application-validation/rosetta_sum_digits_of_an_integer/execution-0.stdout",
+      "bytes": 449,
+      "sha256": "4a279753791051001a719c3159ebccf18993ca25f79c83b62f4df801cc35ad78"
+    },
+    {
+      "retained": "application-validation/summary.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/digit-prime-examples-344/tmp/application-validation/summary.json",
+      "bytes": 5364,
+      "sha256": "36b27b71de47b8acbf377fcf5ff9d293513fc62434cd8060ce5d15d8ded7c457"
+    },
+    {
+      "retained": "validate_digit_prime_samples.py",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/digit-prime-examples-344/tmp/validate_digit_prime_samples.py",
+      "bytes": 6008,
+      "sha256": "34b684eadc981467f261f2439bda5b0dbcb4c78192e0b5d530751e81ee2505df"
+    },
+    {
+      "retained": "installation-comparison.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/digit-prime-examples-344/tmp/installation-comparison.json",
+      "bytes": 306,
+      "sha256": "be1eb32a01a471dfff3b235a16ec226eea21aa2d83ea21ecaa9f7faf75e0bc43"
+    },
+    {
+      "retained": "author-notes/sum-happy/admission.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/digit-prime-examples-344/tmp/author-proposals/sum-happy/admission.json",
+      "bytes": 1269,
+      "sha256": "735531b5e8be8c0ecc82c72fdd4e870108622ef3c175556080a10645234ff4c0"
+    },
+    {
+      "retained": "author-notes/sum-happy/derivation-results.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/digit-prime-examples-344/tmp/author-proposals/sum-happy/derivation-results.json",
+      "bytes": 4499,
+      "sha256": "d8e14f1f64914792afe56b7eafbd13b8739b325c096146548382a25c20fc7624"
+    },
+    {
+      "retained": "author-notes/sum-happy/derive_expectations.py",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/digit-prime-examples-344/tmp/author-proposals/sum-happy/derive_expectations.py",
+      "bytes": 6524,
+      "sha256": "5d9f2ccbf5230e85bc6f7e34c8540f9c5e22599d0784b96f1cae791956481a76"
+    },
+    {
+      "retained": "author-notes/sum-happy/implementation-notes.md",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/digit-prime-examples-344/tmp/author-proposals/sum-happy/implementation-notes.md",
+      "bytes": 8139,
+      "sha256": "a83ffe82ba2124415b48f3075e723d8bccdc1ded13b1eb227f96e52701579a18"
+    },
+    {
+      "retained": "author-notes/prime-pair/additive-admission-initial-reserved-name.log",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/digit-prime-examples-344/tmp/author-proposals/prime-pair/additive-admission-initial-reserved-name.log",
+      "bytes": 50,
+      "sha256": "6e0a8a281eebe98e345ba493f16ba20d733d6ed85e4d92d45b015ca61ad7f114"
+    },
+    {
+      "retained": "author-notes/prime-pair/additive-admission.log",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/digit-prime-examples-344/tmp/author-proposals/prime-pair/additive-admission.log",
+      "bytes": 18,
+      "sha256": "9142aa202a50339bf9567d8d22c343d4f138e5261752f23d06a9211e061b7a55"
+    },
+    {
+      "retained": "author-notes/prime-pair/attractive-admission.log",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/digit-prime-examples-344/tmp/author-proposals/prime-pair/attractive-admission.log",
+      "bytes": 18,
+      "sha256": "9142aa202a50339bf9567d8d22c343d4f138e5261752f23d06a9211e061b7a55"
+    },
+    {
+      "retained": "author-notes/prime-pair/derivation-results.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/digit-prime-examples-344/tmp/author-proposals/prime-pair/derivation-results.json",
+      "bytes": 3431,
+      "sha256": "d6a25018175d5b53b2ab7f182711c173f2236e848c2fa169c00a211417c53e08"
+    },
+    {
+      "retained": "author-notes/prime-pair/derivation-run.log",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/digit-prime-examples-344/tmp/author-proposals/prime-pair/derivation-run.log",
+      "bytes": 3431,
+      "sha256": "d6a25018175d5b53b2ab7f182711c173f2236e848c2fa169c00a211417c53e08"
+    },
+    {
+      "retained": "author-notes/prime-pair/derive-evidence.py",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/digit-prime-examples-344/tmp/author-proposals/prime-pair/derive-evidence.py",
+      "bytes": 5937,
+      "sha256": "409442704a98468119f274fbf1ec7ff5c2e1cc40507d863a6d159c75076ca988"
+    },
+    {
+      "retained": "author-notes/prime-pair/implementation-notes.md",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/digit-prime-examples-344/tmp/author-proposals/prime-pair/implementation-notes.md",
+      "bytes": 7908,
+      "sha256": "8dbbb94577fdf7e7400ad3d7e80fe4401c2413259967ec414c247882b3a5f84e"
+    }
+  ],
+  "losslessly_compressed_originals": [
+    {
+      "retained": "managed-run/native.log.gz",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T214753-620fcc9bc295/native.log",
+      "original_bytes": 3984,
+      "original_sha256": "2bd005b9473024833931f06c932a021f9c7f06cfa2e66687b658cd0c49f8e9c3",
+      "retained_sha256": "53e47892bc009e5cf4cbb7cf37c9f4376a589bfb83e20ac9db2718320db9c55e",
+      "lossless_roundtrip": true
+    },
+    {
+      "retained": "managed-run/events.jsonl.gz",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T214753-620fcc9bc295/events.jsonl",
+      "original_bytes": 29918,
+      "original_sha256": "53abe2f81c7abff3aba08fd4f6a6ea64b113992a5479607e440960a260cea1a8",
+      "retained_sha256": "ee4f596a7b289bb26ffa0126402672654a935eadfc13adbb3cca4bbd5a859b1b",
+      "lossless_roundtrip": true
+    }
+  ],
+  "native_log_results_equal_final_summary": true,
+  "samples": [
+    {
+      "source": "rosetta_sum_digits_of_an_integer.adb",
+      "source_sha256": "0d3fa1abbe651218b315ff68de6fc0889a45132cb4da1c1c81f96dfd1b3cd878",
+      "source_bytes": 1602,
+      "archived_author_bytes_equal_target_and_input": true,
+      "archive_sha256": "7f095fe1793bf5bceac15b0b014122bbecde89a67007f4f16bc58bf162524a8a",
+      "readable_archive_files": 23,
+      "archived_files_equal_original_workspace": true,
+      "exact_stdout_matches_target_manifest": true,
+      "stdout_lines": 17,
+      "stderr_empty": true,
+      "successful_exit_recorded_by_validator": true,
+      "report_counts_equal_summary": {
+        "units": 5,
+        "entities": 18,
+        "flow_checks": 20,
+        "proof_checks": 55
+      },
+      "helpers": {
+        "Sum_Digits": {
+          "listed_in_source_manifest_and_summary": true,
+          "report_flow_entries": 3,
+          "report_proof_entries": 3
+        }
+      },
+      "unchanged_full_domain_options": true
+    },
+    {
+      "source": "rosetta_happy_numbers.adb",
+      "source_sha256": "bc9f41507a6f597ada5276441f29e418c8454bc34d707b90b302083cea49dc6f",
+      "source_bytes": 1455,
+      "archived_author_bytes_equal_target_and_input": true,
+      "archive_sha256": "90fffc7de262f19a56c691a822fb519ad3f1b29560a985c5b66c3295f2bec436",
+      "readable_archive_files": 23,
+      "archived_files_equal_original_workspace": true,
+      "exact_stdout_matches_target_manifest": true,
+      "stdout_lines": 8,
+      "stderr_empty": true,
+      "successful_exit_recorded_by_validator": true,
+      "report_counts_equal_summary": {
+        "units": 5,
+        "entities": 19,
+        "flow_checks": 21,
+        "proof_checks": 50
+      },
+      "helpers": {
+        "Sum_Squared_Digits": {
+          "listed_in_source_manifest_and_summary": true,
+          "report_flow_entries": 3,
+          "report_proof_entries": 3
+        },
+        "Is_Happy": {
+          "listed_in_source_manifest_and_summary": true,
+          "report_flow_entries": 2,
+          "report_proof_entries": 0
+        }
+      },
+      "unchanged_full_domain_options": true
+    },
+    {
+      "source": "rosetta_additive_primes.adb",
+      "source_sha256": "708e9a9294647a59f96130328fb7013bb146aadb69cd5197745bb201ee016f01",
+      "source_bytes": 1366,
+      "archived_author_bytes_equal_target_and_input": true,
+      "archive_sha256": "f73795b917a45973541747b9c073c5cc2e57365f7cc22978e5a9c6ed933964a5",
+      "readable_archive_files": 24,
+      "archived_files_equal_original_workspace": true,
+      "exact_stdout_matches_target_manifest": true,
+      "stdout_lines": 54,
+      "stderr_empty": true,
+      "successful_exit_recorded_by_validator": true,
+      "report_counts_equal_summary": {
+        "units": 5,
+        "entities": 19,
+        "flow_checks": 21,
+        "proof_checks": 52
+      },
+      "helpers": {
+        "Is_Prime": {
+          "listed_in_source_manifest_and_summary": true,
+          "report_flow_entries": 1,
+          "report_proof_entries": 2
+        },
+        "Digit_Sum": {
+          "listed_in_source_manifest_and_summary": true,
+          "report_flow_entries": 2,
+          "report_proof_entries": 3
+        }
+      },
+      "unchanged_full_domain_options": true
+    },
+    {
+      "source": "rosetta_attractive_numbers.adb",
+      "source_sha256": "453ec68a06b211d80fe0ec4beabfa8fac5ccf95c5bea12350565b8883c58694b",
+      "source_bytes": 1473,
+      "archived_author_bytes_equal_target_and_input": true,
+      "archive_sha256": "8b1dd77b1134efc3961262585c1c54caeb5d20fb49c58ef4059536537966a84c",
+      "readable_archive_files": 24,
+      "archived_files_equal_original_workspace": true,
+      "exact_stdout_matches_target_manifest": true,
+      "stdout_lines": 74,
+      "stderr_empty": true,
+      "successful_exit_recorded_by_validator": true,
+      "report_counts_equal_summary": {
+        "units": 5,
+        "entities": 19,
+        "flow_checks": 21,
+        "proof_checks": 52
+      },
+      "helpers": {
+        "Is_Prime": {
+          "listed_in_source_manifest_and_summary": true,
+          "report_flow_entries": 1,
+          "report_proof_entries": 2
+        },
+        "Prime_Factor_Count": {
+          "listed_in_source_manifest_and_summary": true,
+          "report_flow_entries": 2,
+          "report_proof_entries": 3
+        }
+      },
+      "unchanged_full_domain_options": true
+    }
+  ],
+  "total_stdout_lines": 153,
+  "scope": "Byte retention and report/output integrity only; no build, proof, application execution, test or derivation-script rerun. Independent applicability review is pending and separate.",
+  "selected_model_effort": "GPT-6.1 Sol / Extra High",
+  "runtime_introspection": "unavailable"
+}

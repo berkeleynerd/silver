@@ -1,0 +1,17 @@
+sum_digits( 1, 10) = 1
+sum_digits( 1234, 10) = 10
+sum_digits( 254, 16) = 29
+sum_digits( 3854, 16) = 29
+sum_digits( 0, 2) = 0
+sum_digits( 1, 2) = 1
+sum_digits( 2, 2) = 1
+sum_digits( 3, 2) = 2
+sum_digits( 0, 36) = 0
+sum_digits( 35, 36) = 35
+sum_digits( 36, 36) = 1
+sum_digits( 1295, 36) = 70
+sum_digits( 1296, 36) = 1
+sum_digits( 2147483647, 2) = 31
+sum_digits( 2147483647, 10) = 46
+sum_digits( 2147483647, 16) = 112
+sum_digits( 2147483647, 36) = 127

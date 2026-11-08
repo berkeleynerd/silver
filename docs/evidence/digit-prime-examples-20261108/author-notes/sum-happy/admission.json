@@ -1,0 +1,30 @@
+{
+  "kind": "read-only admission only; no build/proof/runtime",
+  "host": "Linux x86_64",
+  "binary": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/bin/silver",
+  "binary_sha256": "807d862b572e4dcab8e72302a2fdcfe1a3304f3c064b9166900e24544b8dbcfe",
+  "checks": [
+    {
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/bin/silver",
+        "check",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/digit-sum-happy-344/samples/rosetta_sum_digits_of_an_integer.adb"
+      ],
+      "source_sha256": "0d3fa1abbe651218b315ff68de6fc0889a45132cb4da1c1c81f96dfd1b3cd878",
+      "exit_status": 0,
+      "stdout": "Accepted: silver.\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/bin/silver",
+        "check",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/digit-sum-happy-344/samples/rosetta_happy_numbers.adb"
+      ],
+      "source_sha256": "bc9f41507a6f597ada5276441f29e418c8454bc34d707b90b302083cea49dc6f",
+      "exit_status": 0,
+      "stdout": "Accepted: silver.\n",
+      "stderr": ""
+    }
+  ]
+}

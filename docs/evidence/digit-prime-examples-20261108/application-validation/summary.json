@@ -1,0 +1,137 @@
+{
+  "compiler": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/bin/silver",
+  "compiler_sha256": "807d862b572e4dcab8e72302a2fdcfe1a3304f3c064b9166900e24544b8dbcfe",
+  "source_root": "/home/canto/src/github.com/berkeleynerd/silver/tmp/digit-prime-examples-344",
+  "manifest_sha256": "d3f50c254bc14109fdbfd378e4a6bd5bfa631da670c6436737010299155a4752",
+  "mode": "four focused sample admission/proof/build/audit/execution checks; unchanged production options",
+  "results": [
+    {
+      "source": "rosetta_sum_digits_of_an_integer.adb",
+      "sha256": "0d3fa1abbe651218b315ff68de6fc0889a45132cb4da1c1c81f96dfd1b3cd878",
+      "bytes": 1602,
+      "application_functions": [
+        "Sum_Digits"
+      ],
+      "check_exit": 0,
+      "compile_exit": 0,
+      "workspace": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-vGvIDM",
+      "executable": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-vGvIDM/bin/main",
+      "statistics": {
+        "units": 5,
+        "entities": 18,
+        "flow_checks": 20,
+        "proof_checks": 55,
+        "limitation_notes": 0,
+        "imported_entities": 6,
+        "trusted_math_notes": 0,
+        "vendor_spec_entities": 0,
+        "array_initialization_advisories": 0,
+        "operator_reassociation_advisories": 0,
+        "assignment_advisories": 3,
+        "image_advisories": 3,
+        "termination_checks": 1
+      },
+      "cases": 1,
+      "elapsed_seconds": 16.622524563004845,
+      "archive_sha256": "7f095fe1793bf5bceac15b0b014122bbecde89a67007f4f16bc58bf162524a8a",
+      "outcome": "passed"
+    },
+    {
+      "source": "rosetta_happy_numbers.adb",
+      "sha256": "bc9f41507a6f597ada5276441f29e418c8454bc34d707b90b302083cea49dc6f",
+      "bytes": 1455,
+      "application_functions": [
+        "Sum_Squared_Digits",
+        "Is_Happy"
+      ],
+      "check_exit": 0,
+      "compile_exit": 0,
+      "workspace": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-OTOwHa",
+      "executable": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-OTOwHa/bin/main",
+      "statistics": {
+        "units": 5,
+        "entities": 19,
+        "flow_checks": 21,
+        "proof_checks": 50,
+        "limitation_notes": 0,
+        "imported_entities": 6,
+        "trusted_math_notes": 0,
+        "vendor_spec_entities": 0,
+        "array_initialization_advisories": 0,
+        "operator_reassociation_advisories": 0,
+        "assignment_advisories": 4,
+        "image_advisories": 1,
+        "termination_checks": 2
+      },
+      "cases": 1,
+      "elapsed_seconds": 14.49429457000224,
+      "archive_sha256": "90fffc7de262f19a56c691a822fb519ad3f1b29560a985c5b66c3295f2bec436",
+      "outcome": "passed"
+    },
+    {
+      "source": "rosetta_additive_primes.adb",
+      "sha256": "708e9a9294647a59f96130328fb7013bb146aadb69cd5197745bb201ee016f01",
+      "bytes": 1366,
+      "application_functions": [
+        "Is_Prime",
+        "Digit_Sum"
+      ],
+      "check_exit": 0,
+      "compile_exit": 0,
+      "workspace": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-Mujcma",
+      "executable": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-Mujcma/bin/main",
+      "statistics": {
+        "units": 5,
+        "entities": 19,
+        "flow_checks": 21,
+        "proof_checks": 52,
+        "limitation_notes": 0,
+        "imported_entities": 6,
+        "trusted_math_notes": 0,
+        "vendor_spec_entities": 0,
+        "array_initialization_advisories": 0,
+        "operator_reassociation_advisories": 0,
+        "assignment_advisories": 4,
+        "image_advisories": 1,
+        "termination_checks": 2
+      },
+      "cases": 1,
+      "elapsed_seconds": 14.014889051992213,
+      "archive_sha256": "f73795b917a45973541747b9c073c5cc2e57365f7cc22978e5a9c6ed933964a5",
+      "outcome": "passed"
+    },
+    {
+      "source": "rosetta_attractive_numbers.adb",
+      "sha256": "453ec68a06b211d80fe0ec4beabfa8fac5ccf95c5bea12350565b8883c58694b",
+      "bytes": 1473,
+      "application_functions": [
+        "Is_Prime",
+        "Prime_Factor_Count"
+      ],
+      "check_exit": 0,
+      "compile_exit": 0,
+      "workspace": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-sSh6Fw",
+      "executable": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-sSh6Fw/bin/main",
+      "statistics": {
+        "units": 5,
+        "entities": 19,
+        "flow_checks": 21,
+        "proof_checks": 52,
+        "limitation_notes": 0,
+        "imported_entities": 6,
+        "trusted_math_notes": 0,
+        "vendor_spec_entities": 0,
+        "array_initialization_advisories": 0,
+        "operator_reassociation_advisories": 0,
+        "assignment_advisories": 3,
+        "image_advisories": 1,
+        "termination_checks": 2
+      },
+      "cases": 1,
+      "elapsed_seconds": 13.76760427300178,
+      "archive_sha256": "8b1dd77b1134efc3961262585c1c54caeb5d20fb49c58ef4059536537966a84c",
+      "outcome": "passed"
+    }
+  ],
+  "outcome": "passed"
+}
