@@ -36,9 +36,24 @@ This preserves existing checks and the work needed for a fast cached proof loop.
 
 ## Admit one coherent capability
 
-Prefer a small capability motivated by a sample. Closely coupled syntax may
-arrive together. Do not add extra operations solely to create intermediate
-examples, or turn every anticipated infrastructure component into a project.
+Plan a coherent delivery batch motivated by concrete programs, using several
+Rosetta tasks when they exercise the same machinery. Group closely related
+forms that share semantic rules, implementation and expensive source proofs.
+A genuinely small capability can remain small; a task count is not a quota.
+Sample-only batches can exercise delivered constructs without extending the
+language. Do not add extra operations solely to create intermediate examples,
+or turn every anticipated infrastructure component into a project.
+
+Specify the intended behavior, included forms, boundaries, target tasks and
+expected proof reuse before implementation. Keep focused helper checks and
+reviewable increments inside the batch, followed by one shared complete
+validation checkpoint on the final combined inputs. Reuse matching evidence
+under the ordinary validation policy; a planned shared checkpoint does not
+excuse a failed obligation or missing composition proof. A newly discovered
+semantic mechanism calls for a scope reassessment before adding it to the batch.
+Once a checkpoint is running, preserve its inputs and plan future work separately.
+The [batch planning routine](docs/planning.md#delivery-batches) keeps one committed
+batch and one provisional successor in the active queue.
 
 When a task cannot be completed as one increment, create one issue per increment
 in its GitHub milestone, with scope and completion criteria, when making that

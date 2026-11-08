@@ -25,6 +25,7 @@ each delivery; the linked issues hold scope and completion criteria.
 | Complete 2026-11-07 | [Fixed-size Boolean arrays #297](https://github.com/berkeleynerd/silver/issues/297) | Sieve of Eratosthenes; elementary cellular automata |
 | Complete on Linux and merged 2026-11-07; PR #337 | [Sample-only expansion #300](https://github.com/berkeleynerd/silver/issues/300) | Ten programs covering eleven task mappings; [bounded plan](docs/rosetta-sample-expansion.md) |
 | Selected next 2026-11-07 | [Small nonrecursive functions #298](https://github.com/berkeleynerd/silver/issues/298) | Boolean `Is_Prime` for Primality by trial division first; GCD and numeric search helpers remain candidate uses |
+| Provisional successor; planning authorized 2026-11-08 | [Scalar-function Rosetta batch, milestone 21](https://github.com/berkeleynerd/silver/milestone/21) | Twelve callable, divisor and digit/prime task candidates; [bounded plan](docs/scalar-function-rosetta-batch.md). Implementation is not authorized. |
 
 The bounded String increment has completed repaired Linux native and Lean
 assurance after the [interim review repairs](docs/interim-review-response-20261105.md).
@@ -51,7 +52,9 @@ merged through PR #337 after its tutorial checkpoint. The owner
 [selects #298 next on 2026-11-07](docs/session-memory.md#2026-11-07--small-nonrecursive-functions-selected).
 Candidate samples need faithful implementations before any coverage gain is
 claimed. The expanded opportunity inventory remains outside this commitment;
-no feature after #298 is selected.
+No language feature after #298 is selected. The sample-only successor above is
+provisional planning, with implementation issues in Backlog until later owner
+authorization and an accepted #298 delivery baseline.
 Existing source and expression budgets, assurance requirements, broad stages
 and deferred capacity work retain their scope.
 
@@ -89,7 +92,39 @@ Complete native/Lean/source validation and Rosetta reconciliation are pending;
 no completed function support or coverage gain is claimed.
 Recursion, `out`/`in out`, array/String signatures, general package admission and
 capacity rewrites remain outside this package. No split is selected; if needed,
-record increment issues and their order together. No next feature is selected.
+record increment issues and their order together. This remains the committed
+delivery batch; successor planning does not expand its scope or change its
+validation inputs.
+
+### Provisional scalar-function Rosetta batch
+
+**Planning authorized 2026-11-08; implementation not authorized.** The owner
+instructed **“Proceed with the planning effort we just discussed.”** The
+[dated decision](docs/session-memory.md#2026-11-08--coherent-batch-planning-authorized)
+authorizes the batching guidance, one successor assessment, milestone/issues
+and reviewable planning publication while #298 continues.
+
+[Milestone 21](https://github.com/berkeleynerd/silver/milestone/21) proposes
+twelve numeric tasks using the delivered scalar-function fragment. The
+[capability plan](docs/scalar-function-rosetta-batch.md) records primary task
+requirements, three sample groups and the shared validation/reconciliation work.
+The increment order is:
+
+1. [#342 — Callable integer examples](https://github.com/berkeleynerd/silver/issues/342)
+   establishes the common sample patterns.
+2. [#343 — GCD and divisor calculations](https://github.com/berkeleynerd/silver/issues/343)
+   and [#344 — Digit and prime algorithms](https://github.com/berkeleynerd/silver/issues/344)
+   can then proceed independently with separate sample ownership.
+3. [#345 — Combined delivery](https://github.com/berkeleynerd/silver/issues/345)
+   completes shared validation, review and narrow Rosetta reconciliation.
+
+The intended saving is reuse of unchanged compiler/runtime and Lean/source
+evidence, subject to applicability and required audits. Every new program still
+needs its own admission, complete application proof/build/execution and task
+fidelity review. No compiler change, new language form, larger resource bound or
+restart of deferred #119 is proposed. All candidate gains remain unvalidated;
+only actual delivered task mappings count. #298 and its accepted final evidence
+are prerequisites. Issues remain Backlog; there is no second provisional successor.
 
 ### Rosetta sample expansion
 

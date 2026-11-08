@@ -1,5 +1,39 @@
 # Session memory
 
+## 2026-11-08 — Coherent batch planning authorized
+
+The owner asked whether larger units could reduce repeated proof effort and how
+to structure them, then instructed **“Proceed with the planning effort we just
+discussed.”** This authorizes updating the existing development/planning guidance,
+keeping #298 as the committed batch, assessing one provisional successor,
+creating its milestone and meaningful increment issues, updating the roadmap and
+capability plan, and publishing documentation for review.
+
+The selected planning horizon is one committed batch and one provisional
+successor. Group related language forms by shared semantics/proof machinery,
+and group sample-only programs that use delivered capabilities. Preserve focused
+helper-contract verification, small reviewable increments and complete final
+combined assurance. Track scope/dependencies and focused/integrated evidence in
+existing issues and records. At delivery, record coverage gained, elapsed time
+and expensive checkpoint attempts with repair causes using the existing ledger.
+
+[Milestone 21](https://github.com/berkeleynerd/silver/milestone/21), **Scalar-function
+Rosetta batch**, is the provisional successor. Its
+[plan](scalar-function-rosetta-batch.md) evaluates twelve numeric task candidates
+against #298's fragment and separates callable examples, divisor calculations,
+digit/prime algorithms and shared delivery. The complete original #300 inventory
+remains retained; this is a selected planning subset, not its replacement.
+GCD is already delivered and Primality belongs to #298, so neither counts as a
+new mapping in this batch.
+
+This is planning authorization only. Successor implementation issues stay in
+Backlog, and implementation needs a later owner instruction after an accepted
+#298 baseline. #298's ongoing scope, validation inputs and separate merge
+authorization are unchanged. No language, catalogue, sample, Rosetta assessment
+or proof input is changed by this planning publication, and no deferred capacity
+work is resumed. The plan is published separately for review; no merge is claimed.
+CLI recall tools were unavailable and no CLI recall entry was updated.
+
 ## 2026-11-08 — Astra Max and focused helper contracts authorized
 
 After the four scalar-function native postcondition failures, the owner instructed
