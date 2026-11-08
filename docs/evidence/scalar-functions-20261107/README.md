@@ -148,3 +148,28 @@ without warnings and an ordinary build; complete native run
 `20261108T014042-81a35c010d1f` is still active. Full regressions are queued for
 the exact integrated repair snapshot. None of these pending checks is claimed
 as completed support.
+
+## Expanded source-check continuation — 2026-11-08
+
+The [expanded focused run](focused/20261108T021648-bb06ac912aef/README.md)
+compiled all five repaired modules but failed on two stale body candidates and
+a Boolean import proof's local let binder. Commit `6a74bccc5a` corrects only
+those three proof files. Its retained token inventory compares each candidate
+with the unchanged native body and existing semantic rendering; the native
+implementation, theorem statements, domains and contracts are unchanged.
+
+In follow-up run `20261108T022400-531d5c89d319`, both candidate rendering proofs
+and the Boolean import proof compiled. The named-body source candidate remains
+active. A later `ComposeSourceBridge` record-update layout error has a prepared
+formatting correction, held until this productive run releases its frozen
+workspace. No successful focused audit or complete Lean checkpoint is claimed.
+The three proof corrections and upcoming layout correction still require final
+independent review; the earlier bounded report did not inspect them.
+
+The regression build passed and the full 637-method suite is running on frozen
+`c437a41d30`. Later changes are proof-only; final regression applicability and
+any affected reruns will be recorded after its actual full outcome. The suite's
+managed two-worker reservation is not an enforced application cap: the existing
+application recipe uses `-j0`, resolving to 22 on this host. Its owner retains
+observed process/load evidence; no source, proof option or timeout was changed.
+The complete corrected native audit remains active with unchanged source.
