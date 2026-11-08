@@ -5,7 +5,7 @@ focused Linux checks and producer observations; it is not a complete delivery
 checkpoint. The [capability record](../../scalar-functions.md) states the
 remaining requirements.
 
-## Current checkpoint — 2026-11-08 12:26 UTC
+## Current checkpoint — 2026-11-08 15:40 UTC
 
 Stable implementation/source snapshot `f630819154` includes reviewed parser
 SHA-256 `036a53b4bd9a9d7c711b4ddf8d83467a6b470184bfce2ac6677b15cf4f57ef47`.
@@ -21,8 +21,16 @@ The semantic follow-up [091153](focused/20261108T091153-a212a5bfebc3/README.md)
 passed with a fresh 101-module / 16,853-declaration audit. The ordinary complete
 Lean/source/module/axiom check `20261108T094147-fb5330310904` is active with two
 Lake workers and two threads per process, based on measured source-leaf memory
-use. Complete native audit `20261108T094547-29491e1d3036` is active with twelve
-workers and the retained warm cache. Neither has a completed result yet.
+use. Complete native audit `20261108T094547-29491e1d3036` [finished failed](native-checkpoint/final-036a/README.md):
+GNATprove exited 0 with all 18,525 checks proved, then the mandatory source-policy
+audit rejected four compiler-owned Hide_Info annotations. No completed native
+provenance exists. The [Astra Max diagnosis](native-policy-diagnosis/README.md)
+identifies that mismatch and twelve separately classified arithmetic-portability
+advisories as findings [#347](https://github.com/berkeleynerd/silver/issues/347)
+and [#348](https://github.com/berkeleynerd/silver/issues/348). A narrow auditor,
+test and boundary-documentation repair is being implemented and independently
+reviewed. Native sources, obligations, options and warm sessions/cache remain
+unchanged; the original failed snapshot will not be restamped.
 
 The [fresh compiler build](final-regression/repaired-build-093134/README.md)
 passed. The [independent per-ID plan](final-regression/repaired-input-plan/README.md)
@@ -36,9 +44,11 @@ used four workers and inherited CPU allowance 18–21. Sampled process-leader
 affinity stayed within that allowance; it does not bound process count or memory.
 The three affected methods and original platform wrapper will be checked
 separately after dense proof runs release the full host allowance, preserving
-every deadline, production option and assertion. Complete native and Lean now
-reserve fourteen of twenty-two workers. Final applicability remains pending;
-earlier failed runs retain their actual failed outcomes.
+every deadline, production option and assertion. The [independent applicability
+review](final-regression/retained-resolution-3d38/README.md) accepts 286 retained
+outcomes and 335 current passes on the pre-auditor-repair inputs; sixteen IDs
+remain pending. The auditor correction needs its own affected-test and dependency
+reconciliation. Earlier failed runs retain their actual failed outcomes.
 
 Actual Rosetta promotion, its three fresh tests and final independent delivery
 review remain outstanding. PR #339 stays draft; implementation merge is held.

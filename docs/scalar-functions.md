@@ -267,8 +267,8 @@ models. Focused [semantic closure 091153](evidence/scalar-functions-20261107/foc
 passed both interpretation targets and its fresh 101-module / 16,853-declaration
 audit after a retained mechanical unfolding repair. All [six affected native
 subprogram checks](evidence/scalar-functions-20261107/native-checkpoint/remaining-three-repairs/README.md)
-passed; the ordinary complete native and Lean/source/module/axiom audits remain
-active on stable `f630819154` inputs. The rebuilt compiler passed its build.
+passed; the ordinary complete native and Lean/source/module/axiom audits then
+started on stable `f630819154` inputs. The rebuilt compiler passed its build.
 The [affected regression run](evidence/scalar-functions-20261107/final-regression/repaired-compiler-policy-093645/README.md)
 finished with 335 passes and three compile-timeout errors across 338 methods,
 without skips. All 72 manifest samples and seven source-policy methods passed.
@@ -296,6 +296,20 @@ headroom required no intervention, and no signal or settings change occurred.
 The qualified contingency preserves the existing urgent-pressure response and
 all outstanding assurance requirements. Its report and independently verified
 21-member evidence bundle are retained separately from proof results.
+
+The subsequent [complete native result](evidence/scalar-functions-20261107/native-checkpoint/final-036a/README.md)
+is failed: GNATprove discharged all 18,525 checks across all 77 expected units,
+then the mandatory source-policy audit rejected four proof-context Hide_Info
+annotations. No completed native provenance exists. The [Astra Max diagnosis](evidence/scalar-functions-20261107/native-policy-diagnosis/README.md)
+records findings [R2 / #347](https://github.com/berkeleynerd/silver/issues/347)
+and [R3 / #348](https://github.com/berkeleynerd/silver/issues/348): the exact safe
+compiler annotation and twelve pinned-GNAT reassociation advisories need narrowly
+scoped classification. The isolated auditor/tests/boundary repair and separate
+independent Astra Max review are in progress. Ada sources, contracts, formal
+domains and proof settings remain unchanged. The live complete Lean run remains
+on its frozen inputs; after the auditor change, current matching native
+provenance and cached complete Lean/fresh audit remain required. This checkpoint
+does not complete #298, its regressions or final review.
 
 Selected subthread settings are recorded from their launches; independent runtime
 confirmation, token/cost and total elapsed-work measurements are unavailable.
