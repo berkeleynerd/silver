@@ -1,0 +1,44 @@
+{
+  "run_id": "20261107T181811-5b7564ac5afc",
+  "finished": {
+    "duration_seconds": 17457.921989074,
+    "error": "KeyboardInterrupt: ",
+    "event": "finished",
+    "evidence": [
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/obj/explore/function-parser-safety/gnatprove",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/obj/explore/function-parser-safety/gnatprove"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261107T181811-5b7564ac5afc/native.log",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261107T181811-5b7564ac5afc/native.log"
+      }
+    ],
+    "failure_keys": [],
+    "monotonic_ns": 24250215996602,
+    "outcome": "interrupted",
+    "retained_reports": [
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/obj/explore/function-parser-safety/gnatprove/silver_function_bindings.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261107T181811-5b7564ac5afc/reports/0/silver_function_bindings.spark"
+      }
+    ],
+    "returncode": null,
+    "run_id": "20261107T181811-5b7564ac5afc",
+    "utc": "2026-11-07T23:09:09.634800+00:00"
+  },
+  "artifacts": [
+    {
+      "path": "events.jsonl.gz",
+      "sha256": "f3836a01e61ee1e15f8bcc616cce7843e511213f7fa451b3f7a7c29d51babb3d",
+      "bytes": 448122
+    },
+    {
+      "path": "native.log.gz",
+      "sha256": "50dcd1c69686766722fbc9e1b5b7877f134c53d25ab2411aeaf358a6dd6fc2dd",
+      "bytes": 4793
+    }
+  ],
+  "stop_author": "lead",
+  "note": "Lead verified group70173 exited after SIGINT and residual read_chain_into SIGTERM; old outputs retained, no successful outcome claimed"
+}

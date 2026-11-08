@@ -1,0 +1,71 @@
+{
+  "observed_utc": "2026-11-08T01:30:28.239223+00:00",
+  "run_id": "20261107T231059-a9f0c12c8350",
+  "scope": "exact compiler-unit warnings observed during active complete run; no final outcome asserted",
+  "flow_warnings": [
+    {
+      "check_tree": {},
+      "col": 7,
+      "entity": 51,
+      "file": "silver_library_reports.adb",
+      "how_proved": "flow",
+      "line": 1859,
+      "message": {
+        "text": "unused variable \"Source\""
+      },
+      "msg_id": 72,
+      "rule": "UNUSED_VARIABLE",
+      "severity": "warning",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {},
+      "col": 7,
+      "entity": 140,
+      "file": "silver_library_reports.adb",
+      "how_proved": "flow",
+      "line": 1210,
+      "message": {
+        "text": "initialization of \"Result\" has no effect"
+      },
+      "msg_id": 193,
+      "rule": "INEFFECTIVE",
+      "severity": "warning",
+      "tracefile": "silver_library_reports__flow__0.trace",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {},
+      "col": 7,
+      "entity": 164,
+      "file": "silver_library_reports.adb",
+      "how_proved": "flow",
+      "line": 1826,
+      "message": {
+        "text": "unused variable \"Source\""
+      },
+      "msg_id": 233,
+      "rule": "UNUSED_VARIABLE",
+      "severity": "warning",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "silver_library_reports.spark.gz",
+      "sha256": "c04a21c47930aab2b6b21fcfc58eaad5cf4998cc2f2bbd0f2fd0c54e960465e8",
+      "bytes": 7820000
+    },
+    {
+      "path": "source.adb.gz",
+      "sha256": "700e6fb94d4d722cb3d95a8c145c03bee44dd36a6384bb693772dd6bc8531459",
+      "bytes": 279511
+    }
+  ]
+}

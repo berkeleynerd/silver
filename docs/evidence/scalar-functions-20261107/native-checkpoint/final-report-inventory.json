@@ -1,0 +1,959 @@
+{
+  "scope": "Final saved native SPARK reports; not successful managed proof, obligation/provenance audit, Lean/source correspondence or regression validation.",
+  "report_units": 66,
+  "proof_records_by_severity": {
+    "info": 11575
+  },
+  "flow_records_by_severity": {
+    "info": 983,
+    "warning": 3
+  },
+  "non_info_flow_records": [
+    {
+      "unit": "silver_library_reports.spark",
+      "record": {
+        "check_tree": {},
+        "col": 7,
+        "entity": 51,
+        "file": "silver_library_reports.adb",
+        "how_proved": "flow",
+        "line": 1859,
+        "message": {
+          "text": "unused variable \"Source\""
+        },
+        "msg_id": 72,
+        "rule": "UNUSED_VARIABLE",
+        "severity": "warning",
+        "unproved_status": {
+          "status": "unknown"
+        }
+      }
+    },
+    {
+      "unit": "silver_library_reports.spark",
+      "record": {
+        "check_tree": {},
+        "col": 7,
+        "entity": 140,
+        "file": "silver_library_reports.adb",
+        "how_proved": "flow",
+        "line": 1210,
+        "message": {
+          "text": "initialization of \"Result\" has no effect"
+        },
+        "msg_id": 193,
+        "rule": "INEFFECTIVE",
+        "severity": "warning",
+        "tracefile": "silver_library_reports__flow__0.trace",
+        "unproved_status": {
+          "status": "unknown"
+        }
+      }
+    },
+    {
+      "unit": "silver_library_reports.spark",
+      "record": {
+        "check_tree": {},
+        "col": 7,
+        "entity": 164,
+        "file": "silver_library_reports.adb",
+        "how_proved": "flow",
+        "line": 1826,
+        "message": {
+          "text": "unused variable \"Source\""
+        },
+        "msg_id": 233,
+        "rule": "UNUSED_VARIABLE",
+        "severity": "warning",
+        "unproved_status": {
+          "status": "unknown"
+        }
+      }
+    }
+  ],
+  "proof_provenance_exists": false,
+  "proof_inputs_exists": true,
+  "units": [
+    {
+      "report": "silver.spark",
+      "progress": "PROGRESS_PROOF",
+      "stop_reason": "STOP_REASON_NONE",
+      "proof_records_by_severity": {
+        "info": 105
+      },
+      "flow_records_by_severity": {
+        "info": 29
+      },
+      "skip_proof": [],
+      "skip_flow_proof": [],
+      "pragma_assume": []
+    },
+    {
+      "report": "silver_arguments.spark",
+      "progress": "PROGRESS_PROOF",
+      "stop_reason": "STOP_REASON_NONE",
+      "proof_records_by_severity": {
+        "info": 11
+      },
+      "flow_records_by_severity": {
+        "info": 7
+      },
+      "skip_proof": [],
+      "skip_flow_proof": [],
+      "pragma_assume": []
+    },
+    {
+      "report": "silver_array_bindings.spark",
+      "progress": "PROGRESS_PROOF",
+      "stop_reason": "STOP_REASON_NONE",
+      "proof_records_by_severity": {
+        "info": 63
+      },
+      "flow_records_by_severity": {
+        "info": 16
+      },
+      "skip_proof": [],
+      "skip_flow_proof": [],
+      "pragma_assume": []
+    },
+    {
+      "report": "silver_build.spark",
+      "progress": "PROGRESS_PROOF",
+      "stop_reason": "STOP_REASON_NONE",
+      "proof_records_by_severity": {},
+      "flow_records_by_severity": {},
+      "skip_proof": [],
+      "skip_flow_proof": [],
+      "pragma_assume": []
+    },
+    {
+      "report": "silver_catalogue.spark",
+      "progress": "PROGRESS_PROOF",
+      "stop_reason": "STOP_REASON_NONE",
+      "proof_records_by_severity": {
+        "info": 27
+      },
+      "flow_records_by_severity": {
+        "info": 6
+      },
+      "skip_proof": [],
+      "skip_flow_proof": [],
+      "pragma_assume": []
+    },
+    {
+      "report": "silver_function_bindings.spark",
+      "progress": "PROGRESS_PROOF",
+      "stop_reason": "STOP_REASON_NONE",
+      "proof_records_by_severity": {
+        "info": 55
+      },
+      "flow_records_by_severity": {
+        "info": 8
+      },
+      "skip_proof": [],
+      "skip_flow_proof": [],
+      "pragma_assume": []
+    },
+    {
+      "report": "silver_image_adapter.spark",
+      "progress": "PROGRESS_PROOF",
+      "stop_reason": "STOP_REASON_NONE",
+      "proof_records_by_severity": {
+        "info": 102
+      },
+      "flow_records_by_severity": {
+        "info": 10
+      },
+      "skip_proof": [],
+      "skip_flow_proof": [],
+      "pragma_assume": []
+    },
+    {
+      "report": "silver_image_config.spark",
+      "progress": "PROGRESS_PROOF",
+      "stop_reason": "STOP_REASON_NONE",
+      "proof_records_by_severity": {},
+      "flow_records_by_severity": {},
+      "skip_proof": [],
+      "skip_flow_proof": [],
+      "pragma_assume": []
+    },
+    {
+      "report": "silver_image_files.spark",
+      "progress": "PROGRESS_PROOF",
+      "stop_reason": "STOP_REASON_NONE",
+      "proof_records_by_severity": {
+        "info": 129
+      },
+      "flow_records_by_severity": {
+        "info": 65
+      },
+      "skip_proof": [],
+      "skip_flow_proof": [],
+      "pragma_assume": []
+    },
+    {
+      "report": "silver_image_install.spark",
+      "progress": "PROGRESS_PROOF",
+      "stop_reason": "STOP_REASON_NONE",
+      "proof_records_by_severity": {
+        "info": 36
+      },
+      "flow_records_by_severity": {
+        "info": 16
+      },
+      "skip_proof": [],
+      "skip_flow_proof": [],
+      "pragma_assume": []
+    },
+    {
+      "report": "silver_image_libc.spark",
+      "progress": "PROGRESS_PROOF",
+      "stop_reason": "STOP_REASON_NONE",
+      "proof_records_by_severity": {},
+      "flow_records_by_severity": {},
+      "skip_proof": [],
+      "skip_flow_proof": [],
+      "pragma_assume": []
+    },
+    {
+      "report": "silver_image_model.spark",
+      "progress": "PROGRESS_PROOF",
+      "stop_reason": "STOP_REASON_NONE",
+      "proof_records_by_severity": {
+        "info": 180
+      },
+      "flow_records_by_severity": {
+        "info": 12
+      },
+      "skip_proof": [],
+      "skip_flow_proof": [],
+      "pragma_assume": []
+    },
+    {
+      "report": "silver_image_model_templates.spark",
+      "progress": "PROGRESS_PROOF",
+      "stop_reason": "STOP_REASON_NONE",
+      "proof_records_by_severity": {
+        "info": 15
+      },
+      "flow_records_by_severity": {
+        "info": 4
+      },
+      "skip_proof": [],
+      "skip_flow_proof": [],
+      "pragma_assume": []
+    },
+    {
+      "report": "silver_image_theory.spark",
+      "progress": "PROGRESS_PROOF",
+      "stop_reason": "STOP_REASON_NONE",
+      "proof_records_by_severity": {},
+      "flow_records_by_severity": {},
+      "skip_proof": [],
+      "skip_flow_proof": [],
+      "pragma_assume": []
+    },
+    {
+      "report": "silver_integer_image.spark",
+      "progress": "PROGRESS_PROOF",
+      "stop_reason": "STOP_REASON_NONE",
+      "proof_records_by_severity": {},
+      "flow_records_by_severity": {
+        "info": 3
+      },
+      "skip_proof": [],
+      "skip_flow_proof": [],
+      "pragma_assume": []
+    },
+    {
+      "report": "silver_io.spark",
+      "progress": "PROGRESS_PROOF",
+      "stop_reason": "STOP_REASON_NONE",
+      "proof_records_by_severity": {
+        "info": 36
+      },
+      "flow_records_by_severity": {
+        "info": 12
+      },
+      "skip_proof": [],
+      "skip_flow_proof": [],
+      "pragma_assume": []
+    },
+    {
+      "report": "silver_length_intervals.spark",
+      "progress": "PROGRESS_PROOF",
+      "stop_reason": "STOP_REASON_NONE",
+      "proof_records_by_severity": {
+        "info": 9
+      },
+      "flow_records_by_severity": {
+        "info": 11
+      },
+      "skip_proof": [],
+      "skip_flow_proof": [],
+      "pragma_assume": []
+    },
+    {
+      "report": "silver_libc.spark",
+      "progress": "PROGRESS_PROOF",
+      "stop_reason": "STOP_REASON_NONE",
+      "proof_records_by_severity": {},
+      "flow_records_by_severity": {},
+      "skip_proof": [],
+      "skip_flow_proof": [],
+      "pragma_assume": []
+    },
+    {
+      "report": "silver_library_reports.spark",
+      "progress": "PROGRESS_PROOF",
+      "stop_reason": "STOP_REASON_NONE",
+      "proof_records_by_severity": {
+        "info": 3166
+      },
+      "flow_records_by_severity": {
+        "info": 305,
+        "warning": 3
+      },
+      "skip_proof": [],
+      "skip_flow_proof": [],
+      "pragma_assume": []
+    },
+    {
+      "report": "silver_library_sources.spark",
+      "progress": "PROGRESS_PROOF",
+      "stop_reason": "STOP_REASON_NONE",
+      "proof_records_by_severity": {},
+      "flow_records_by_severity": {},
+      "skip_proof": [],
+      "skip_flow_proof": [],
+      "pragma_assume": []
+    },
+    {
+      "report": "silver_names.spark",
+      "progress": "PROGRESS_PROOF",
+      "stop_reason": "STOP_REASON_NONE",
+      "proof_records_by_severity": {
+        "info": 87
+      },
+      "flow_records_by_severity": {
+        "info": 21
+      },
+      "skip_proof": [],
+      "skip_flow_proof": [],
+      "pragma_assume": []
+    },
+    {
+      "report": "silver_numbers.spark",
+      "progress": "PROGRESS_PROOF",
+      "stop_reason": "STOP_REASON_NONE",
+      "proof_records_by_severity": {
+        "info": 14
+      },
+      "flow_records_by_severity": {
+        "info": 4
+      },
+      "skip_proof": [],
+      "skip_flow_proof": [],
+      "pragma_assume": []
+    },
+    {
+      "report": "silver_output_libc.spark",
+      "progress": "PROGRESS_PROOF",
+      "stop_reason": "STOP_REASON_NONE",
+      "proof_records_by_severity": {},
+      "flow_records_by_severity": {},
+      "skip_proof": [],
+      "skip_flow_proof": [],
+      "pragma_assume": []
+    },
+    {
+      "report": "silver_platform.spark",
+      "progress": "PROGRESS_PROOF",
+      "stop_reason": "STOP_REASON_NONE",
+      "proof_records_by_severity": {
+        "info": 132
+      },
+      "flow_records_by_severity": {
+        "info": 36
+      },
+      "skip_proof": [],
+      "skip_flow_proof": [],
+      "pragma_assume": []
+    },
+    {
+      "report": "silver_process_runtime.spark",
+      "progress": "PROGRESS_PROOF",
+      "stop_reason": "STOP_REASON_NONE",
+      "proof_records_by_severity": {
+        "info": 1
+      },
+      "flow_records_by_severity": {},
+      "skip_proof": [],
+      "skip_flow_proof": [],
+      "pragma_assume": []
+    },
+    {
+      "report": "silver_profile.spark",
+      "progress": "PROGRESS_PROOF",
+      "stop_reason": "STOP_REASON_NONE",
+      "proof_records_by_severity": {
+        "info": 151
+      },
+      "flow_records_by_severity": {
+        "info": 34
+      },
+      "skip_proof": [],
+      "skip_flow_proof": [],
+      "pragma_assume": []
+    },
+    {
+      "report": "silver_report_observation_assembly.spark",
+      "progress": "PROGRESS_PROOF",
+      "stop_reason": "STOP_REASON_NONE",
+      "proof_records_by_severity": {
+        "info": 263
+      },
+      "flow_records_by_severity": {
+        "info": 3
+      },
+      "skip_proof": [],
+      "skip_flow_proof": [],
+      "pragma_assume": []
+    },
+    {
+      "report": "silver_report_observation_composition.spark",
+      "progress": "PROGRESS_PROOF",
+      "stop_reason": "STOP_REASON_NONE",
+      "proof_records_by_severity": {
+        "info": 302
+      },
+      "flow_records_by_severity": {
+        "info": 7
+      },
+      "skip_proof": [],
+      "skip_flow_proof": [],
+      "pragma_assume": []
+    },
+    {
+      "report": "silver_report_observation_items.spark",
+      "progress": "PROGRESS_PROOF",
+      "stop_reason": "STOP_REASON_NONE",
+      "proof_records_by_severity": {
+        "info": 231
+      },
+      "flow_records_by_severity": {
+        "info": 4
+      },
+      "skip_proof": [],
+      "skip_flow_proof": [],
+      "pragma_assume": []
+    },
+    {
+      "report": "silver_report_observation_traversal.spark",
+      "progress": "PROGRESS_PROOF",
+      "stop_reason": "STOP_REASON_NONE",
+      "proof_records_by_severity": {
+        "info": 126
+      },
+      "flow_records_by_severity": {
+        "info": 3
+      },
+      "skip_proof": [],
+      "skip_flow_proof": [],
+      "pragma_assume": []
+    },
+    {
+      "report": "silver_report_observations.spark",
+      "progress": "PROGRESS_PROOF",
+      "stop_reason": "STOP_REASON_NONE",
+      "proof_records_by_severity": {
+        "info": 292
+      },
+      "flow_records_by_severity": {
+        "info": 19
+      },
+      "skip_proof": [],
+      "skip_flow_proof": [],
+      "pragma_assume": []
+    },
+    {
+      "report": "silver_report_projection.spark",
+      "progress": "PROGRESS_PROOF",
+      "stop_reason": "STOP_REASON_NONE",
+      "proof_records_by_severity": {
+        "info": 66
+      },
+      "flow_records_by_severity": {
+        "info": 7
+      },
+      "skip_proof": [],
+      "skip_flow_proof": [],
+      "pragma_assume": []
+    },
+    {
+      "report": "silver_report_projection_audit.spark",
+      "progress": "PROGRESS_PROOF",
+      "stop_reason": "STOP_REASON_NONE",
+      "proof_records_by_severity": {
+        "info": 16
+      },
+      "flow_records_by_severity": {
+        "info": 2
+      },
+      "skip_proof": [],
+      "skip_flow_proof": [],
+      "pragma_assume": []
+    },
+    {
+      "report": "silver_report_projection_bridge.spark",
+      "progress": "PROGRESS_PROOF",
+      "stop_reason": "STOP_REASON_NONE",
+      "proof_records_by_severity": {
+        "info": 228
+      },
+      "flow_records_by_severity": {
+        "info": 7
+      },
+      "skip_proof": [],
+      "skip_flow_proof": [],
+      "pragma_assume": []
+    },
+    {
+      "report": "silver_report_projection_composition.spark",
+      "progress": "PROGRESS_PROOF",
+      "stop_reason": "STOP_REASON_NONE",
+      "proof_records_by_severity": {
+        "info": 297
+      },
+      "flow_records_by_severity": {
+        "info": 6
+      },
+      "skip_proof": [],
+      "skip_flow_proof": [],
+      "pragma_assume": []
+    },
+    {
+      "report": "silver_report_projection_container_mapping.spark",
+      "progress": "PROGRESS_PROOF",
+      "stop_reason": "STOP_REASON_NONE",
+      "proof_records_by_severity": {
+        "info": 130
+      },
+      "flow_records_by_severity": {
+        "info": 2
+      },
+      "skip_proof": [],
+      "skip_flow_proof": [],
+      "pragma_assume": []
+    },
+    {
+      "report": "silver_report_projection_continuations.spark",
+      "progress": "PROGRESS_PROOF",
+      "stop_reason": "STOP_REASON_NONE",
+      "proof_records_by_severity": {
+        "info": 307
+      },
+      "flow_records_by_severity": {
+        "info": 3
+      },
+      "skip_proof": [],
+      "skip_flow_proof": [],
+      "pragma_assume": []
+    },
+    {
+      "report": "silver_report_projection_entry.spark",
+      "progress": "PROGRESS_PROOF",
+      "stop_reason": "STOP_REASON_NONE",
+      "proof_records_by_severity": {
+        "info": 30
+      },
+      "flow_records_by_severity": {
+        "info": 2
+      },
+      "skip_proof": [],
+      "skip_flow_proof": [],
+      "pragma_assume": []
+    },
+    {
+      "report": "silver_report_projection_item_mapping.spark",
+      "progress": "PROGRESS_PROOF",
+      "stop_reason": "STOP_REASON_NONE",
+      "proof_records_by_severity": {
+        "info": 382
+      },
+      "flow_records_by_severity": {
+        "info": 5
+      },
+      "skip_proof": [],
+      "skip_flow_proof": [],
+      "pragma_assume": []
+    },
+    {
+      "report": "silver_report_projection_keys.spark",
+      "progress": "PROGRESS_PROOF",
+      "stop_reason": "STOP_REASON_NONE",
+      "proof_records_by_severity": {
+        "info": 428
+      },
+      "flow_records_by_severity": {
+        "info": 11
+      },
+      "skip_proof": [],
+      "skip_flow_proof": [],
+      "pragma_assume": []
+    },
+    {
+      "report": "silver_report_projection_mapping.spark",
+      "progress": "PROGRESS_PROOF",
+      "stop_reason": "STOP_REASON_NONE",
+      "proof_records_by_severity": {
+        "info": 207
+      },
+      "flow_records_by_severity": {
+        "info": 11
+      },
+      "skip_proof": [],
+      "skip_flow_proof": [],
+      "pragma_assume": []
+    },
+    {
+      "report": "silver_report_projection_member_bounds.spark",
+      "progress": "PROGRESS_PROOF",
+      "stop_reason": "STOP_REASON_NONE",
+      "proof_records_by_severity": {
+        "info": 209
+      },
+      "flow_records_by_severity": {
+        "info": 6
+      },
+      "skip_proof": [],
+      "skip_flow_proof": [],
+      "pragma_assume": []
+    },
+    {
+      "report": "silver_report_projection_member_mapping.spark",
+      "progress": "PROGRESS_PROOF",
+      "stop_reason": "STOP_REASON_NONE",
+      "proof_records_by_severity": {
+        "info": 226
+      },
+      "flow_records_by_severity": {
+        "info": 4
+      },
+      "skip_proof": [],
+      "skip_flow_proof": [],
+      "pragma_assume": []
+    },
+    {
+      "report": "silver_report_projection_member_steps.spark",
+      "progress": "PROGRESS_PROOF",
+      "stop_reason": "STOP_REASON_NONE",
+      "proof_records_by_severity": {
+        "info": 60
+      },
+      "flow_records_by_severity": {
+        "info": 11
+      },
+      "skip_proof": [],
+      "skip_flow_proof": [],
+      "pragma_assume": []
+    },
+    {
+      "report": "silver_report_projection_members.spark",
+      "progress": "PROGRESS_PROOF",
+      "stop_reason": "STOP_REASON_NONE",
+      "proof_records_by_severity": {
+        "info": 995
+      },
+      "flow_records_by_severity": {
+        "info": 19
+      },
+      "skip_proof": [],
+      "skip_flow_proof": [],
+      "pragma_assume": []
+    },
+    {
+      "report": "silver_report_projection_model.spark",
+      "progress": "PROGRESS_PROOF",
+      "stop_reason": "STOP_REASON_NONE",
+      "proof_records_by_severity": {
+        "info": 240
+      },
+      "flow_records_by_severity": {
+        "info": 68
+      },
+      "skip_proof": [],
+      "skip_flow_proof": [],
+      "pragma_assume": []
+    },
+    {
+      "report": "silver_report_projection_nonobjects.spark",
+      "progress": "PROGRESS_PROOF",
+      "stop_reason": "STOP_REASON_NONE",
+      "proof_records_by_severity": {
+        "info": 55
+      },
+      "flow_records_by_severity": {
+        "info": 4
+      },
+      "skip_proof": [],
+      "skip_flow_proof": [],
+      "pragma_assume": []
+    },
+    {
+      "report": "silver_report_projection_observations.spark",
+      "progress": "PROGRESS_PROOF",
+      "stop_reason": "STOP_REASON_NONE",
+      "proof_records_by_severity": {
+        "info": 148
+      },
+      "flow_records_by_severity": {
+        "info": 13
+      },
+      "skip_proof": [],
+      "skip_flow_proof": [],
+      "pragma_assume": []
+    },
+    {
+      "report": "silver_report_projection_parents.spark",
+      "progress": "PROGRESS_PROOF",
+      "stop_reason": "STOP_REASON_NONE",
+      "proof_records_by_severity": {
+        "info": 86
+      },
+      "flow_records_by_severity": {
+        "info": 11
+      },
+      "skip_proof": [],
+      "skip_flow_proof": [],
+      "pragma_assume": []
+    },
+    {
+      "report": "silver_report_projection_records.spark",
+      "progress": "PROGRESS_PROOF",
+      "stop_reason": "STOP_REASON_NONE",
+      "proof_records_by_severity": {
+        "info": 306
+      },
+      "flow_records_by_severity": {
+        "info": 7
+      },
+      "skip_proof": [],
+      "skip_flow_proof": [],
+      "pragma_assume": []
+    },
+    {
+      "report": "silver_report_projection_representation.spark",
+      "progress": "PROGRESS_PROOF",
+      "stop_reason": "STOP_REASON_NONE",
+      "proof_records_by_severity": {
+        "info": 11
+      },
+      "flow_records_by_severity": {
+        "info": 1
+      },
+      "skip_proof": [],
+      "skip_flow_proof": [],
+      "pragma_assume": []
+    },
+    {
+      "report": "silver_report_projection_roots.spark",
+      "progress": "PROGRESS_PROOF",
+      "stop_reason": "STOP_REASON_NONE",
+      "proof_records_by_severity": {
+        "info": 85
+      },
+      "flow_records_by_severity": {
+        "info": 5
+      },
+      "skip_proof": [],
+      "skip_flow_proof": [],
+      "pragma_assume": []
+    },
+    {
+      "report": "silver_report_projection_separators.spark",
+      "progress": "PROGRESS_PROOF",
+      "stop_reason": "STOP_REASON_NONE",
+      "proof_records_by_severity": {
+        "info": 154
+      },
+      "flow_records_by_severity": {
+        "info": 5
+      },
+      "skip_proof": [],
+      "skip_flow_proof": [],
+      "pragma_assume": []
+    },
+    {
+      "report": "silver_report_projection_spans.spark",
+      "progress": "PROGRESS_PROOF",
+      "stop_reason": "STOP_REASON_NONE",
+      "proof_records_by_severity": {
+        "info": 158
+      },
+      "flow_records_by_severity": {
+        "info": 6
+      },
+      "skip_proof": [],
+      "skip_flow_proof": [],
+      "pragma_assume": []
+    },
+    {
+      "report": "silver_report_projection_structure.spark",
+      "progress": "PROGRESS_PROOF",
+      "stop_reason": "STOP_REASON_NONE",
+      "proof_records_by_severity": {
+        "info": 42
+      },
+      "flow_records_by_severity": {
+        "info": 10
+      },
+      "skip_proof": [],
+      "skip_flow_proof": [],
+      "pragma_assume": []
+    },
+    {
+      "report": "silver_report_projection_syntax.spark",
+      "progress": "PROGRESS_PROOF",
+      "stop_reason": "STOP_REASON_NONE",
+      "proof_records_by_severity": {
+        "info": 152
+      },
+      "flow_records_by_severity": {
+        "info": 2
+      },
+      "skip_proof": [],
+      "skip_flow_proof": [],
+      "pragma_assume": []
+    },
+    {
+      "report": "silver_report_projection_tokens.spark",
+      "progress": "PROGRESS_PROOF",
+      "stop_reason": "STOP_REASON_NONE",
+      "proof_records_by_severity": {
+        "info": 361
+      },
+      "flow_records_by_severity": {
+        "info": 7
+      },
+      "skip_proof": [],
+      "skip_flow_proof": [],
+      "pragma_assume": []
+    },
+    {
+      "report": "silver_report_projection_types.spark",
+      "progress": "PROGRESS_PROOF",
+      "stop_reason": "STOP_REASON_NONE",
+      "proof_records_by_severity": {},
+      "flow_records_by_severity": {},
+      "skip_proof": [],
+      "skip_flow_proof": [],
+      "pragma_assume": []
+    },
+    {
+      "report": "silver_report_projection_value_mapping.spark",
+      "progress": "PROGRESS_PROOF",
+      "stop_reason": "STOP_REASON_NONE",
+      "proof_records_by_severity": {
+        "info": 120
+      },
+      "flow_records_by_severity": {
+        "info": 3
+      },
+      "skip_proof": [],
+      "skip_flow_proof": [],
+      "pragma_assume": []
+    },
+    {
+      "report": "silver_report_projection_windows.spark",
+      "progress": "PROGRESS_PROOF",
+      "stop_reason": "STOP_REASON_NONE",
+      "proof_records_by_severity": {
+        "info": 56
+      },
+      "flow_records_by_severity": {
+        "info": 3
+      },
+      "skip_proof": [],
+      "skip_flow_proof": [],
+      "pragma_assume": []
+    },
+    {
+      "report": "silver_report_reader.spark",
+      "progress": "PROGRESS_PROOF",
+      "stop_reason": "STOP_REASON_NONE",
+      "proof_records_by_severity": {
+        "info": 51
+      },
+      "flow_records_by_severity": {
+        "info": 15
+      },
+      "skip_proof": [],
+      "skip_flow_proof": [],
+      "pragma_assume": []
+    },
+    {
+      "report": "silver_report_storage.spark",
+      "progress": "PROGRESS_PROOF",
+      "stop_reason": "STOP_REASON_NONE",
+      "proof_records_by_severity": {},
+      "flow_records_by_severity": {},
+      "skip_proof": [],
+      "skip_flow_proof": [],
+      "pragma_assume": []
+    },
+    {
+      "report": "silver_reports.spark",
+      "progress": "PROGRESS_PROOF",
+      "stop_reason": "STOP_REASON_NONE",
+      "proof_records_by_severity": {
+        "info": 229
+      },
+      "flow_records_by_severity": {
+        "info": 27
+      },
+      "skip_proof": [],
+      "skip_flow_proof": [],
+      "pragma_assume": []
+    },
+    {
+      "report": "silver_runtime.spark",
+      "progress": "PROGRESS_PROOF",
+      "stop_reason": "STOP_REASON_NONE",
+      "proof_records_by_severity": {},
+      "flow_records_by_severity": {},
+      "skip_proof": [],
+      "skip_flow_proof": [],
+      "pragma_assume": []
+    },
+    {
+      "report": "silver_scalar_expressions.spark",
+      "progress": "PROGRESS_PROOF",
+      "stop_reason": "STOP_REASON_NONE",
+      "proof_records_by_severity": {
+        "info": 190
+      },
+      "flow_records_by_severity": {
+        "info": 38
+      },
+      "skip_proof": [],
+      "skip_flow_proof": [],
+      "pragma_assume": []
+    },
+    {
+      "report": "silver_scalars.spark",
+      "progress": "PROGRESS_PROOF",
+      "stop_reason": "STOP_REASON_NONE",
+      "proof_records_by_severity": {
+        "info": 17
+      },
+      "flow_records_by_severity": {
+        "info": 27
+      },
+      "skip_proof": [],
+      "skip_flow_proof": [],
+      "pragma_assume": []
+    }
+  ]
+}

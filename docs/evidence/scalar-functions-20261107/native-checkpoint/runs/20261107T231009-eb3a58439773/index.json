@@ -1,0 +1,17 @@
+{
+  "run_id": "20261107T231009-eb3a58439773",
+  "scope": "native compiler build only",
+  "outcome": "success",
+  "artifacts": [
+    {
+      "path": "runs/20261107T231009-eb3a58439773/events.jsonl.gz",
+      "sha256": "d1e399d083902943669e053d520beadbd682d26dd29e4a852810910a21cf59bc",
+      "bytes": 446055
+    },
+    {
+      "path": "runs/20261107T231009-eb3a58439773/native.log.gz",
+      "sha256": "f5cba89c8c928f8e06d0f56f7152f385b971021e7cb064dd806421c469042a12",
+      "bytes": 195
+    }
+  ]
+}
