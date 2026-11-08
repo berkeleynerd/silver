@@ -939,3 +939,30 @@ outer-only increase cannot be assumed to repair already observed nested errors.
 The coordinator requested a prepared diagnostic plan to expose one actual inner
 exception under unchanged worker/barrier limits; no such execution is yet
 authorized. No publication, merge or CLI memory update occurred.
+
+### Prepared diagnostic for the first nested platform error
+
+Read-only inspection confirmed the concurrent-host method already has the needed
+bounded worker behavior: four Popen workers, original communicate(timeout=60),
+zero-status assertions, and its existing finally cleanup. Workers retain the
+15-second barrier. Running that single existing method would let unittest print
+its actual final traceback without the surrounding full-class watchdog ending
+the suite first. It would be diagnostic evidence only, not a passing outer fixture.
+
+The prepared plan retains the same copied ROOT, all 866 file bytes/modes, complete
+821-file Lean set and exact earlier symlink TMP environment. Eight ordinary Python
+cache files produced by the prior run are inventoried and would be declared as
+existing inputs. No cache clearing, source reduction, new installation, deadline
+change or subprocess/method replacement is proposed. A reporting-only result
+callback would preserve actual exceptions/available streams and per-host records
+before original cleanup, with process and managed duration reported separately.
+No unavailable worker output would be reconstructed.
+
+The exact plan and unchanged-method excerpts are retained in
+`tmp/platform-inner-error-plan-298/`. Plan SHA256 is
+`72ab0ff21f3c1b3a68ed3b9e8e36213e1f09f85b07d46a16499d69f24565a516`;
+its four-member shareable plan bundle is 6,775 bytes, SHA256
+`0ec05aa90a12d700cff06f775e45fbddb61f3c274d0546a09a1ade80e6b235a0`.
+The plan requires separate coordinator authorization, fresh resource/lease
+checks and stopping after one actual result. No diagnostic, source edit,
+watchdog increase or additional fixture run has been performed.
