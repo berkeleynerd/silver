@@ -25,7 +25,7 @@ each delivery; the linked issues hold scope and completion criteria.
 | Complete 2026-11-07 | [Fixed-size Boolean arrays #297](https://github.com/berkeleynerd/silver/issues/297) | Sieve of Eratosthenes; elementary cellular automata |
 | Complete on Linux and merged 2026-11-07; PR #337 | [Sample-only expansion #300](https://github.com/berkeleynerd/silver/issues/300) | Ten programs covering eleven task mappings; [bounded plan](docs/rosetta-sample-expansion.md) |
 | Complete on Linux 2026-11-08; merged through PR #339 | [Small nonrecursive functions #298](https://github.com/berkeleynerd/silver/issues/298) | Boolean `Is_Prime` for Primality by trial division first; GCD and numeric search helpers remain candidate uses |
-| All three groups merged; #345 validated on Linux 2026-11-08 | [Scalar-function Rosetta batch, milestone 21](https://github.com/berkeleynerd/silver/milestone/21) | Twelve validated programs merged through [PR #351](https://github.com/berkeleynerd/silver/pull/351), [PR #352](https://github.com/berkeleynerd/silver/pull/352) and [PR #353](https://github.com/berkeleynerd/silver/pull/353); combined reconciliation is validated in [PR #354](https://github.com/berkeleynerd/silver/pull/354), with final independent acceptance pending. [Batch record](docs/scalar-function-rosetta-batch.md). |
+| All three groups merged; #345 validated/reviewed on Linux 2026-11-08 | [Scalar-function Rosetta batch, milestone 21](https://github.com/berkeleynerd/silver/milestone/21) | Twelve validated programs merged through [PR #351](https://github.com/berkeleynerd/silver/pull/351), [PR #352](https://github.com/berkeleynerd/silver/pull/352) and [PR #353](https://github.com/berkeleynerd/silver/pull/353); combined reconciliation is validated and independently reviewed in [PR #354](https://github.com/berkeleynerd/silver/pull/354). [Batch record](docs/scalar-function-rosetta-batch.md). |
 
 The bounded String increment has completed repaired Linux native and Lean
 assurance after the [interim review repairs](docs/interim-review-response-20261105.md).
@@ -55,7 +55,7 @@ claimed. The expanded opportunity inventory remains outside this commitment.
 No language feature after #298 is selected. The sample-only successor begins
 with owner-selected #342 on the accepted #298 baseline; all three sample groups
 are merged after validation and review. #345 has passed the combined affected
-checks and narrow Rosetta assessment/render; final acceptance is pending in PR #354.
+checks and narrow Rosetta assessment/render; independent acceptance passed in PR #354.
 Existing source and expression budgets, assurance requirements, broad stages
 and deferred capacity work retain their scope.
 
@@ -107,7 +107,7 @@ validation inputs.
 
 **All twelve programs in #342/#343/#344 are validated, independently reviewed
 and merged through PRs #351/#352/#353. The owner-selected #345 combined
-checkpoint passed on Linux, 2026-11-08; final acceptance is pending in
+checkpoint and independent acceptance passed on Linux, 2026-11-08; published in
 [PR #354](https://github.com/berkeleynerd/silver/pull/354).** The owner initially
 instructed **“Proceed with the planning effort we just discussed.”** The
 [dated decision](docs/session-memory.md#2026-11-08--coherent-batch-planning-authorized)

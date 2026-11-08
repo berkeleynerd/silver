@@ -6,9 +6,8 @@
 [PR #351](https://github.com/berkeleynerd/silver/pull/351),
 [PR #352](https://github.com/berkeleynerd/silver/pull/352) and
 [PR #353](https://github.com/berkeleynerd/silver/pull/353).
-The #345 combined Linux checkpoint passed and is published in
-[PR #354](https://github.com/berkeleynerd/silver/pull/354); final independent
-acceptance is pending.**
+The #345 combined Linux checkpoint and independent review passed;
+[PR #354](https://github.com/berkeleynerd/silver/pull/354) is ready for review.**
 The owner initially instructed **“Proceed with the planning effort we just discussed.”**
 The [dated decision](session-memory.md#2026-11-08--coherent-batch-planning-authorized)
 authorizes the batching guidance, candidate assessment, milestone/issues and
@@ -319,7 +318,8 @@ every source is listed once, metadata is valid and all 72 earlier complete
 manifest records and source files are unchanged. Complete compiler/native/Lean
 assurance remains the accepted [#339 checkpoint](scalar-functions.md#delivery-assurance-and-validation).
 The [final review](reviews/review-scalar-function-rosetta-delivery-20261108.md)
-records applicability and final integration acceptance once complete. The
+accepts the metadata target `c9d8f3352296` and records/evidence target
+`e4284899cd`, with no material finding or required repair. The
 [combined packet](evidence/scalar-function-rosetta-batch-20261108/README.md)
 retains the successful affected test, all 1,116 matching captured inputs,
 final inventory and unchanged board-stage comparison. No new complete compiler,
@@ -343,7 +343,7 @@ predict the cost of a new language mechanism. No successor batch is selected.
 | --- | --- | --- | --- |
 | Narrow metadata and render | GPT-6.1 Sol / Extra High | Twelve existing-language task assessments; render adds exactly twelve mappings (71 to 83) | Agent elapsed/token/cost unavailable |
 | Combined validation and records | Lead runtime model/effort not independently exposed | 84-program/147-case inventory, three fresh Rosetta tests and matching captured inputs | Final managed test 7.214 s; application intervals recorded separately above |
-| Independent combined review | GPT-6 Astra / Max | Initial dependency review supports three fresh Rosetta IDs and 642 retained IDs; final acceptance pending | Review elapsed/token/cost unavailable |
+| Independent combined review | GPT-6 Astra / Max | Accepted task fidelity, exact twelve-mapping gain, three fresh/642 retained IDs, packet and final integration; no material finding | Review elapsed/token/cost unavailable |
 
 Selected settings are distinct from runtime-confirmed settings, which are not
 independently exposed. [PR #354](https://github.com/berkeleynerd/silver/pull/354)

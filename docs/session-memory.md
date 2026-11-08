@@ -1,6 +1,6 @@
 # Session memory
 
-## 2026-11-08 — Digit/prime examples merged; combined checkpoint validated
+## 2026-11-08 — Digit/prime examples merged; combined delivery reviewed
 
 Owner-authorized [PR #353](https://github.com/berkeleynerd/silver/pull/353)
 merged as `247592a8fa2cb1230594c50246894f0cf461a642`. #344 is closed/Done;
@@ -8,12 +8,12 @@ its accepted source/manifest review target remains `f2842c6d62ec`, with complete
 focused application evidence and independently reviewed assurance reuse.
 Authorization commit `27b649e4ad` changed only documentation and selected #345.
 
-[#345](https://github.com/berkeleynerd/silver/issues/345) is implemented and
-validated in `tmp/scalar-function-rosetta-delivery-345`, branch
+[#345](https://github.com/berkeleynerd/silver/issues/345) is implemented, validated
+and independently reviewed in `tmp/scalar-function-rosetta-delivery-345`, branch
 `feat/scalar-function-rosetta-delivery-345-20261108`. Metadata target
 `c9d8f3352296` integrates the separate Sol / Extra High reconciliation
-`3c2e1a6224`. Astra / Max independently reviews final task fidelity, evidence
-applicability and integration; final acceptance is pending. The lead owns
+`3c2e1a6224`. Astra / Max independently accepted final task fidelity, evidence applicability
+and integration at records target `e4284899cd`, with no material finding. The lead owns
 managed affected tests, delivery records, board checks and publication. Selected
 settings are distinct from independently confirmed live runtime settings,
 which are unavailable.

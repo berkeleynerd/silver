@@ -22,7 +22,10 @@ The original events retain the exact argument array and input map. Every
 captured input was rehashed after completion and still matches, including the
 three Rosetta producer/metadata inputs. The final render has 83 supported
 mappings, up from 71, with the same 1,576 candidates in 44 stages. Independent
-review acceptance is pending at this retention checkpoint.
+review subsequently accepted metadata target `c9d8f3352296` and this packet
+at retention commit `e4284899cd`, with no material finding. The final
+acceptance wording and this README checksum were updated after that review;
+all other retained payloads are unchanged.
 
 The retained application packets are
 [callable examples](../callable-integer-examples-20261108/README.md),

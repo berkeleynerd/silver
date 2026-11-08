@@ -218,5 +218,8 @@ affected Rosetta tests passed, including rendering under different hash seeds.
 The [combined packet](../docs/evidence/scalar-function-rosetta-batch-20261108/README.md)
 records all 1,116 matching captured inputs, 84 programs/147 executable cases,
 and unchanged board Stage values. The earlier pending wording describes the
-metadata-author checkpoint; final independent delivery acceptance remains
-pending at this follow-up. This adds no new assessment or render input.
+metadata-author checkpoint. The [independent delivery review](../docs/reviews/review-scalar-function-rosetta-delivery-20261108.md)
+now accepts metadata target `c9d8f3352296` and final records/evidence
+`e4284899cd` with no material finding. [PR #354](https://github.com/berkeleynerd/silver/pull/354)
+publishes the combined result; its merge remains held for the owner. This
+follow-up changes no assessment or render input.
