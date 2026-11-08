@@ -78,3 +78,20 @@ in 113.471 seconds, including setup and retention. All owned descendants exited.
 Local storage alone was insufficient. Read-only assessment of the test
 watchdog's purpose and measured cost is the next step; no further run or fixture
 change follows automatically from this failure.
+
+The [watchdog assessment](watchdog-assessment/index.json) traced the inherited
+60-second helper limit to the original small module probes. No corresponding
+performance contract or elapsed-time assertion was found. The 17-module
+certificate fixture inherited that value as it grew. Its exact reviewed repair
+keeps the helper default and fresh audits at 60 seconds and gives only this
+fixture's build helper 180 seconds, matching related real-Lake test budgets.
+An AST comparison confirmed that reverting those timeout changes recovers the
+entire original test. Every assertion, edit case, proof option and audit remains.
+
+After reviewing that evidence and exact patch, the coordinator authorized this
+bounded test-watchdog repair and one complete affected-fixture check with local
+tools. This explicitly changes its build execution budget; it changes no
+production proof limit, solver setting, language domain or acceptance check.
+The successful complete fixture remains required, and 180 seconds is not a
+measured completion guarantee. No further increase or automatic retry is
+authorized. The separate platform fixture's 180-second outer limit is unchanged.
