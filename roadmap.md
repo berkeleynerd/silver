@@ -24,7 +24,7 @@ each delivery; the linked issues hold scope and completion criteria.
 | Complete 2026-11-06 | [Bounded String indexing and character operations #296](https://github.com/berkeleynerd/silver/issues/296) | Reverse a string; Palindrome detection; character replacement |
 | Complete 2026-11-07 | [Fixed-size Boolean arrays #297](https://github.com/berkeleynerd/silver/issues/297) | Sieve of Eratosthenes; elementary cellular automata |
 | Complete on Linux and merged 2026-11-07; PR #337 | [Sample-only expansion #300](https://github.com/berkeleynerd/silver/issues/300) | Ten programs covering eleven task mappings; [bounded plan](docs/rosetta-sample-expansion.md) |
-| Selected next 2026-11-07 | [Small nonrecursive functions #298](https://github.com/berkeleynerd/silver/issues/298) | Boolean `Is_Prime` for Primality by trial division first; GCD and numeric search helpers remain candidate uses |
+| Validated on Linux 2026-11-08; final review pending, merge held | [Small nonrecursive functions #298](https://github.com/berkeleynerd/silver/issues/298) | Boolean `Is_Prime` for Primality by trial division first; GCD and numeric search helpers remain candidate uses |
 
 The bounded String increment has completed repaired Linux native and Lean
 assurance after the [interim review repairs](docs/interim-review-response-20261105.md).
@@ -38,8 +38,8 @@ libraries remain outside this fragment.
 Boolean arrays reuse bounded array storage and scalar Boolean semantics.
 Functions start with Integer/Boolean scalar parameters/results, an acyclic call
 graph and no caller-visible mutation. The [bounded plan](docs/scalar-functions.md)
-records the selected scope and chosen native/Lean mechanism; implementation
-and complete validation are in progress.
+records the selected scope, complete Linux native/Lean/source checkpoints and
+applicable behavioral results. Final independent acceptance remains pending.
 
 #296 is [authorized for implementation on 2026-10-31](docs/session-memory.md#2026-10-31--bounded-string-indexing-and-character-operations-authorized).
 #297 is [selected next on 2026-11-06](docs/session-memory.md#2026-11-06--structural-guards-merged-boolean-arrays-selected-next),
@@ -59,7 +59,7 @@ and deferred capacity work retain their scope.
 
 ### Small nonrecursive scalar functions
 
-**Selected 2026-11-07; implementation in progress.** The owner's
+**Implemented and validated on Linux, 2026-11-08; final acceptance pending.** The owner's
 **“Proceed”** selects existing [#298](https://github.com/berkeleynerd/silver/issues/298)
 after the Integer/Boolean scalar recommendation.
 [Milestone 20](https://github.com/berkeleynerd/silver/milestone/20), **Small
@@ -72,10 +72,10 @@ Routine planning publication/merge and implementation through reviewable
 publication are authorized; implementation merge remains a later owner decision.
 
 The [scalar-functions stage record #341](https://github.com/berkeleynerd/silver/issues/341)
-tracks this precise Rosetta fragment within the same package. Its current Stage 8
-field records the motivating task's position under broad `functions`; promotion
-to supported `scalar-functions` and Stage 1 awaits complete assurance and the
-actual render. General functions, procedures and booleans keep their separate scope.
+tracks this precise Rosetta fragment within the same package. The
+[delivery account](docs/scalar-functions.md#delivery-assurance-and-validation)
+records the narrow Rosetta reconciliation. General functions, procedures and
+booleans keep their separate scope.
 
 The first driver is a Boolean `Is_Prime` function for Primality by trial division,
 whose task explicitly requires that function. The chosen first fragment has
@@ -85,8 +85,12 @@ its full formal domain; native probes selected `--no-inlining` to preserve that
 coverage even for unused functions. The capability record specifies scope,
 hiding, result facts and source-derived capacity accounting. Existing
 4,096-byte complete-source, expression/operator and storage budgets remain.
-Complete native/Lean/source validation and Rosetta reconciliation are pending;
-no completed function support or coverage gain is claimed.
+Complete native/Lean/source checkpoints and all formerly pending regression
+outcomes passed. The narrow Rosetta render and three tests also passed: only
+Primality by trial division moves Stage 8 to 1, taking Stage-1 mappings from
+70 to 71. Final independent 645-ID inventory acceptance and delivery review
+remain pending; PR #339 stays draft
+and the milestone/issues remain open until later authorized merge.
 Recursion, `out`/`in out`, array/String signatures, general package admission and
 capacity rewrites remain outside this package. No split is selected; if needed,
 record increment issues and their order together. No next feature is selected.

@@ -285,9 +285,11 @@ input/build scope; no new trusted premise is added.
 
 ## Small scalar-function boundary
 
-The working [scalar-function increment](scalar-functions.md) keeps the same
-Ada/SPARK, GNATprove and Lean pins, runtime imports and source/operator limits.
-Its complete checkpoint remains pending. Function-bearing applications use
+The [scalar-function increment](scalar-functions.md) keeps the same Ada/SPARK,
+GNATprove and Lean pins, runtime imports and source/operator limits. Its
+[delivery record](scalar-functions.md#delivery-assurance-and-validation) retains
+the complete native and Lean/source checkpoints and final review status.
+Function-bearing applications use
 the pinned producer's `--no-inlining` mode on the unchanged author source;
 each declared function is checked over its complete formal domain. The exact
 source-derived entity inventory, safety records, termination witnesses and

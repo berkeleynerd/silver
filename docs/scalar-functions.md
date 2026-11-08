@@ -1,23 +1,25 @@
 # Small nonrecursive scalar functions
 
-**Owner-selected work, 2026-11-07; implementation in progress.** Existing
+**Implemented and validated on Linux; final independent acceptance pending,
+2026-11-08.** Existing
 [#298](https://github.com/berkeleynerd/silver/issues/298), in
 [milestone 20](https://github.com/berkeleynerd/silver/milestone/20), **Small
 nonrecursive functions**, is one cohesive work package. The
 [dated authorization](session-memory.md#2026-11-07--small-nonrecursive-functions-selected)
 records the owner's **“Proceed”** after the recommendation to start with Integer
 and Boolean scalar parameters/results, acyclic calls and no caller-visible
-mutation. The working-branch [language](../language.md) and
+mutation. The [language](../language.md) and
 [catalogue](../catalogue/silver.json) now specify the selected fragment below.
-Function support remains pending complete implementation and assurance.
+The [delivery account](#delivery-assurance-and-validation) separates complete
+assurance and behavioral evidence from the pending final review.
 
 The integrated implementation checkpoint is published in draft
 [PR #339](https://github.com/berkeleynerd/silver/pull/339). The PR remains in
-progress; its publication does not complete validation or authorize merge.
+progress pending final acceptance; its publication does not authorize merge.
 The [Rosetta stage record #341](https://github.com/berkeleynerd/silver/issues/341)
-tracks the precise `scalar-functions` mapping within #298. Its current Stage 8
-field reflects the motivating task's existing broad-functions position; no
-support promotion or rendered coverage gain has occurred.
+tracks the precise `scalar-functions` mapping within #298. The delivery account
+records the narrow Rosetta reconciliation separately from broad functions and
+procedures.
 
 Routine planning publication and merge, followed by implementation through
 reviewable publication, are authorized. Implementation merge remains a later
@@ -32,8 +34,8 @@ Admit small user-defined nonrecursive functions with Integer/Boolean scalar
 parameters and results, an explicitly decidable acyclic call discipline, and
 no caller-visible mutation. Reuse existing scalar bounds, Boolean expressions,
 guards, declaration visibility and finite control flow wherever their current
-rules suffice. Specify the exact admitted declaration, call and return forms
-during the native/Lean design, before representing any form as supported.
+rules suffice. The native/Lean design specifies the exact admitted declaration,
+call and return forms.
 The selected grammar and proof mechanism are recorded below.
 
 The first driver is a Boolean `Is_Prime` function for
@@ -58,8 +60,8 @@ boundary; its exact permitted forms and observable effects must be explicit.
 
 ## Selected grammar and mechanism — 2026-11-07
 
-The native/Lean design selected the following bounded fragment. Implementation
-and validation are in progress; these decisions are not a support claim.
+The native/Lean design selected and implemented the following bounded fragment;
+its complete checkpoints and final review status are recorded below.
 
 - Ordinary Main-local function bodies appear in the ordered declaration list.
   Each has a nonempty formal list, one name per formal and explicit `in`.
@@ -345,15 +347,86 @@ No theorem statement, domain or audit rule was changed.
 The [three isolated compile regressions](evidence/scalar-functions-20261107/final-regression/isolated-final/README.md)
 now pass with their original deadlines, full 22-CPU allowance and unchanged
 production proof options. The original failed regression run remains failed.
-The platform wrapper and its twelve nested bodies are running on the synchronized
-regression facade; their result, the narrow Rosetta render/three-test refresh and
-final independent acceptance remain pending. This proof checkpoint does not yet
-complete #298 or authorize implementation merge.
+The platform wrapper and its twelve nested bodies subsequently passed on the
+synchronized regression facade. Final inventory reconciliation, the successful narrow
+Rosetta refresh and independent acceptance are tracked in the delivery account
+below. This proof checkpoint does not authorize implementation merge.
 
 | Round | Selected settings | Outcome | Available measurements |
 | --- | --- | --- | --- |
 | Missing-module diagnosis | Existing critical reviewer: GPT-6 Astra / Max | One independent facade import; original lemmas and exact audit preserved | Runtime confirmation and token/cost telemetry unavailable |
 | Monitoring, collection and regression coordination | Coordinator runtime settings not independently exposed | Failed result preserved; focused and complete Lean successes retained; three original-deadline regressions passed | Managed native/Lean/test intervals remain in their exact evidence records; whole-team elapsed/cost unavailable |
+
+## Delivery assurance and validation
+
+**2026-11-08: complete Linux assurance and all formerly pending regression
+outcomes retained; final independent acceptance pending.** Implementation merge
+remains held. PR #339 stays draft, and #298, #340, #341, #347, #348, #349 and
+milestone 20 remain open pending later merge. This account adds no successor
+implementation or Oracle amendment. Separate planning PR #346 is outside this
+delivery and does not authorize its milestone 21 Backlog items.
+
+The implementation snapshot is `f630819154`: its parser and report bodies
+remain unchanged through final governed input `0333d33503`. The latter adds
+independently approved auditor `53d3a3b22b`, applied as `dfda468593`, and the
+single facade import for #349. Documentation/evidence checkpoint `f4957c07cb`
+also retains the final platform outcome. These scopes remain distinct from the
+final integrated review target, which has not yet been accepted; its exact
+commit and disposition must be recorded when available.
+
+| Required evidence | Actual result and scope |
+| --- | --- |
+| Complete native Bronze/Silver and source/report audit | [Run `20261108T155015-d9cbdb714cbd`](evidence/scalar-functions-20261107/native-checkpoint/auditor-refresh-53d3/README.md): actual driver exit 0, all 77 units / 1,165 entities / 18,525 checks (1,605 flow and 16,920 proof), all 866 saved Why3 roots proved, current provenance and final standalone checker passed. Ordinary warm Linux run, 12 workers; no cold rerun. |
+| Complete Lean and actual-source/module/axiom check | [Run `20261108T172947-84b3cd350332`](evidence/scalar-functions-20261107/complete-lean/20261108T172947-84b3cd350332/README.md): actual driver exit 0, all 820 modules / 145,525 declarations, only `propext`, `Classical.choice` and `Quot.sound`; all 927 captured inputs match `0333d33503`. Automatic 22 workers / 22 threads; cached build with fresh whole-project audit, no clean build or independent replay. |
+| Ordinary compiler build and manifest | The [repaired-input run](evidence/scalar-functions-20261107/final-regression/repaired-compiler-policy-093645/README.md) retains the rebuilt compiler and all 72 manifest sample passes, including admission/proof/build/execution. The failed regression run remains failed. |
+| Final compile and platform outcomes | [Four isolated runs](evidence/scalar-functions-20261107/final-regression/isolated-final/README.md) resolve all sixteen pending IDs: maximum expression 171.737 s, self-actuals 14.879 s, ordered calls 15.010 s and original platform wrapper 303.203 s with its twelve nested bodies. Actual drivers exited 0, original deadlines/assertions/options remained, and no live descendants remained. |
+| Complete regression inventory | The [independently approved auditor delta](reviews/review-scalar-functions-native-auditor-20261108.md#regression-applicability-and-remaining-validation) establishes 629 applicable passes, including 137 fresh Python IDs and 492 retained successes. The sixteen fresh outcomes above cover the remaining IDs of the 645-ID inventory; all 645 IDs now have successful outcomes, with final independent inventory acceptance pending. The three existing Rosetta IDs were refreshed in the run below. |
+| Narrow Rosetta render and tests | The [delivery packet](evidence/scalar-functions-20261107/rosetta-delivery/README.md) retains successful render and managed run `20261108T174013-0af40cd230ed`: all three `test_rosetta` IDs passed in 6.422 test seconds, actual driver exit 0. Only Primality by trial division moves Stage 8 to 1; Stage-1 mappings rise 70 to 71. |
+
+The [dated scalar-function assessment](../rosetta/assessment-scalar-functions-20261107.md)
+adds only `scalar-functions` to supported constructs. The original assessment's
+revision, date, rubric, tier, model and effort provenance are retained; the
+prepared Sol / High review attribution remains separately dated 2026-11-07.
+The render's 258 other task-page changes were exhaustively compared as position
+numbering only. General functions/procedures receive no broader promotion.
+Stage issue #341 is to be reconciled to Stage 1 and In review after final
+acceptance, remaining open until later merge.
+
+The platform observer retained the actual `PlatformIsolationTests -v` child
+invocation. The unchanged no-skip class contains exactly twelve nested methods;
+the wrapper's success establishes their execution under that contract. Nested
+stdout is not separately retained. These Linux routing/installation tests are
+not native macOS validation. Native macOS work remains independent and
+nonblocking. The quick self-actuals test completed before its observer launch;
+the retained actual exit and postflight scan support its result without a
+continuous-observation claim.
+
+The [assurance argument](assurance.md#small-nonrecursive-scalar-functions) and
+[trusted boundary](trusted-boundary.md#small-scalar-function-boundary) retain
+exact source, full formal domains including unused functions, and every required
+obligation. Examples exercise these rules; the semantic, discharge and
+actual-source arguments supply universal assurance. The
+[capacity account](scalar-functions-report-capacity.md) retains the unchanged
+source, expression/operator and report budgets; its storage bound is not a
+solver-time or peak-memory guarantee.
+
+| Finding / review | Disposition on the recorded inputs |
+| --- | --- |
+| R1 / #340: normalized source-reader premises | [Independent repair review](reviews/review-scalar-functions-raw-source-r1-e76a3f9420.md) found the raw-equation derivation gap repaired at `e76a3f9420`, inspecting integrated consumers at `bc800d4e82`; the later complete source check covers final integration. |
+| R2 / #347 and R3 / #348: source annotation and reassociation classification | [Independent Astra / Max review](reviews/review-scalar-functions-native-auditor-20261108.md) approved exact auditor `53d3a3b22b`; successful current native proof/provenance uses those bytes. No source, contract, domain or obligation was weakened. |
+| #349: omitted independent frame-flow module | [Astra / Max diagnosis](evidence/scalar-functions-20261107/frame-flow-import-diagnosis/DIAGNOSIS.md) found no missing semantic premise; the original module passed its [focused check](evidence/scalar-functions-20261107/focused/20261108T172824-28123f63af08/README.md), then the one-line facade import passed the complete current check. Final review disposition remains pending. |
+| Bounded admission, capacity and source packaging reviews | [Native admission](reviews/review-scalar-function-native-admission-20261107.md), [capacity](reviews/review-scalar-function-capacity-20261107.md) and [packaging](reviews/review-scalar-functions-source-packaging-20261108.md) retain their exact targets and limits; none is relabeled as final capability acceptance. |
+
+Original native `20261108T094547-29491e1d3036` and Lean
+`20261108T094147-fb5330310904` remain failed in their linked packets. Later
+successes neither restamp those runs nor remove earlier diagnostic history.
+No successful expensive proof, broad test, unchanged certificate fixture or
+Python-policy result was repeated for this documentation follow-up.
+
+Delivery documentation selected GPT-6.1 Sol / High. Independent runtime
+confirmation, token/cost and whole-team elapsed measurements are unavailable;
+managed records retain actual native/Lean/test intervals. The harness goal was
+null, and no CLI recall entry was updated.
 
 ## Required assurance chain
 
@@ -394,8 +467,9 @@ the input/configuration comparison that makes reuse applicable. Follow the
 [proof-iteration workflow](proof-iteration.md), actual workspace/worker
 reservations and documented CPU/memory settings; avoid identical-success
 expensive reruns without a stated reason. Linux evidence is primary; independent
-macOS validation remains nonblocking. No native, Lean or sample result is claimed
-by this planning record.
+macOS validation remains nonblocking. The delivery account above records the
+actual completed runs; earlier planning and work-round statements retain their
+historical scope.
 
 Exercise the driver through admission, proof, build and execution with independent
 expected results. Cover type/domain boundaries, scope and hiding, returns and
@@ -420,6 +494,6 @@ merge close it.
 
 Documentation preparation selected GPT-6.1 Sol / High; independent runtime
 confirmation, token/cost measurements and elapsed-work measurements are
-unavailable. This planning subthread performs no proof/build/test/render run,
-GitHub mutation, staging, commit or publication. The lead integrates and
-publishes the bounded plan before implementation.
+unavailable. The initial planning subthread performed no proof/build/test/render run,
+GitHub mutation, staging, commit or publication. That historical planning scope
+is distinct from delivery documentation and validation recorded above.

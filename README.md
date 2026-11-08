@@ -206,6 +206,19 @@ The Linux native proof/build and complete Lean/source checkpoints passed. The
 tracks final runtime applicability, retained behavioral evidence, tested Rosetta
 metadata and the exact closing review target and disposition.
 
+The [small scalar-function increment](docs/scalar-functions.md#delivery-assurance-and-validation) adds ordered
+Main-local Integer/Boolean functions with explicit-in formals, closed bodies
+and one terminal return. Calls go to earlier functions and occupy a whole
+scalar assignment RHS. Every body is checked over its full declared formal
+domain, including unused functions; an Integer result exposes its declared
+range and a Boolean result carries no predicate facts. The
+[Primality by trial division driver](samples/rosetta_primality_by_trial_division.adb)
+returns a Boolean result for a bounded input domain including negatives, zero,
+one, primes and composites. Recursion, outer-value capture, caller mutation,
+array/String signatures and expression-embedded calls remain outside this
+increment. Complete Linux native and Lean/source checkpoints passed; the delivery
+account retains regression applicability and pending final independent acceptance.
+
 The [Find square difference sample](samples/find_square_difference.adb) stores
 the first matching index and prints ` 501` followed by a newline.
 

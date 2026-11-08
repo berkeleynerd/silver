@@ -1,5 +1,26 @@
 # Session memory
 
+## 2026-11-08 — Scalar-function delivery assurance retained; merge held
+
+Owner-authorized #298 remains the small nonrecursive Integer/Boolean function
+increment through reviewable publication. The
+[delivery account](scalar-functions.md#delivery-assurance-and-validation)
+now links complete successful Linux native and current Lean/actual-source
+checkpoints, repaired compiler build and manifest results, the independently
+approved auditor correction and all formerly pending regression outcomes.
+Earlier failed runs remain failed. The narrow Rosetta render and all three
+Rosetta tests passed, promoting only the precise Primality scalar-function
+fragment. Final independent regression inventory and integrated delivery
+acceptance remain pending; these are distinct from the successful checkpoints.
+
+Implementation merge remains held. PR #339 stays draft, and #298, #340, #341,
+#347, #348, #349 and milestone 20 remain open pending later merge. No Oracle
+amendment or successor implementation is authorized. Separate planning PR #346
+and its milestone 21 Backlog items are outside this implementation branch.
+Preserve unrelated root-checkout changes and scratch material. This documentation
+follow-up needs no repeated successful proof/build/test run. The live harness
+goal was null; no CLI recall entry was updated.
+
 ## 2026-11-08 — Astra Max and focused helper contracts authorized
 
 After the four scalar-function native postcondition failures, the owner instructed
