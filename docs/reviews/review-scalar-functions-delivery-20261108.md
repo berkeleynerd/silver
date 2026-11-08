@@ -1051,3 +1051,46 @@ All four live test copies remain identical, and git apply --check succeeds
 without applying the patch. The verified nine-member proposal bundle is 28,703
 bytes, SHA256 `56e861a8ec210c8345dbe1597c08cf6dd02ce092866ccb4a7c7947327a84257a`.
 No test/source edit, changed-timeout execution or additional diagnostic occurred.
+
+### Approved platform repair and successful final-input wrapper
+
+The coordinator authorized the exact proposal above and one complete wrapper.
+The source-only repair is `92412ec75f4b1bcf5ab99022ac378801a3d16763`, integrated
+as `9e89c80f82`. The final test SHA256 is
+`92e107283974c2f905f5a7c96eab3fc306c51df5ec4034b06148a2ffd8773a30`.
+Only the approved worker180/wrapper900 watchdogs changed; the barrier remains15.
+
+Native Linux managed run `20261108T075522-000e545aebc8` succeeded. The original
+outer method passed once with zero errors, failures, skips or reporting errors:
+unittest622.698s, observer626.778s, managed647.801s. Normal imports and the original
+wrapper selected all12 PlatformIsolationTests. Its unchanged assertion establishes
+successful nested exit; the class contains no skip or conditional-selection path.
+The nested successful stdout remains internal to the original method. Neither
+the collector nor observer replaced its subprocess or reconstructed unavailable
+output. This freshly exercises the twelve bodies under the symlink environment;
+a separate fresh non-symlink run is not claimed.
+
+The observer saw one nested suite and15 setup workers directly parented by it,
+matching eleven serial calls and four concurrent calls. Its raw command-substring
+filter counts16 observations because a worker child was briefly sampled with
+its parent's command line. The supplemental worker review records the parentage
+and preserves that raw count. The nested suite and all matching observations
+used the same verified symlink for TMPDIR/TMP/TEMP. Sampled short-lived processes
+are not a complete generator invocation census.
+
+Postflight explicitly rehashed all884 managed inputs unchanged and verified all
+866 governed/copied byte/mode identities and the complete821-file Lean set.
+The only input difference from the prior fixture is the approved test repair;
+the other865 source files match47fe4003c0. No descendants, owned lease or temporary
+entries remain, and the observer sent no cleanup signal. Minimum sampled available
+memory was43.962GiB. Four workers were reserved, with preflight total17/22.
+
+The complete result and source inputs are retained in
+`tmp/final-platform-fixture-298/`. The verified903-member shareable bundle is
+4,555,596bytes, SHA256
+`26f9b37bbca5b48f00416079aa6c7672dcd8138de60e482078260bc80009c623`;
+private inherited environment is excluded. The report's review target is
+`5aa1509fc5ac2d6f2dc02c5803d94da7e201aaf1`, production47fe4003c0. Earlier failures
+remain failed. Separate637-result applicability review and complete native/Lean
+assurance remain mandatory. No retry, further timeout change, publication, merge
+or CLI memory update occurred.
