@@ -4,6 +4,17 @@ This file preserves preparation and running checkpoints as history. The final
 completion/queue section below and [outcome record](README.md) supersede the
 earlier holds and active-run checkpoint.
 
+Update at 06:56 UTC: the independently reviewed fixture-watchdog repair is
+applied as regression source-only `6b62dafb43` and integrated as `d41d721064`.
+Only the certificate object-reuse method's builds now have a 180-second budget;
+its audits and the helper default remain 60 seconds, with all correctness
+assertions and proof settings unchanged. The reviewer owns one full affected
+fixture attempt using authenticated local tools and fresh isolated paths, and
+must retain its actual outcome before any next action. The separate platform
+fixture remains unchanged and unresolved. Its possible repair is read-only
+assessment only. This explicit bounded authorization supersedes the earlier
+no-watchdog-change restriction solely for that selected build helper.
+
 Latest state, 2026-11-08 06:50 UTC: both original fixture failures remain
 unresolved after focused attempts. The object-reuse method also timed out with
 authenticated local tools in run `064023-1bc9e7d6f89f`; independent watchdog

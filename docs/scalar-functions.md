@@ -203,8 +203,14 @@ retain exact inputs and measured phase costs. A fresh authenticated local Lean
 installation matched every distribution entry; one matched profile reduced
 measured import time from 6.87 to 2.91 seconds. The retained comparison records
 its cache, scheduling and storage-scope limits. Both regression fixture passes
-remain required. No fixture,
-timeout, language rule or proof obligation has been changed.
+remain required. Those diagnostics changed no fixture or deadline. The unchanged
+local-tool fixture and a final-input symlink fixture both subsequently timed out.
+The independent review traced the 60-second build watchdog to the original small
+module probes, without a corresponding performance contract. The exact reviewed
+repair now gives only the larger certificate fixture's builds 180 seconds;
+its audits, all correctness assertions, proof settings and other tests retain
+their existing behavior. One complete affected check is authorized, with no
+passing result yet. No language rule or proof obligation changed.
 
 Selected subthread settings are recorded from their launches; independent runtime
 confirmation, token/cost and total elapsed-work measurements are unavailable.
