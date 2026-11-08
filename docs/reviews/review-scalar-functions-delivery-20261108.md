@@ -839,3 +839,49 @@ subject to fresh resource review, and preservation of actual timeout streams
 if the unchanged route fails. No execution or later watchdog increase is
 authorized by the assessment. Shareable assessment bundle SHA256 is
 `74b9bcb5916e73901567359819155fa2d7f92f63865d4998f83caab8f84ccc51`.
+
+### Complete chunk-reuse fixture passes with the approved local watchdog
+
+The coordinator authorized and integrated the exact reviewed repair. Source-only
+commit `6b62dafb43e48556e7631190751cf0c5b39446c1` changes only the test helper's
+keyword-only timeout parameter and the selected method's 180-second build budget;
+class default and fresh audits remain 60 seconds. The coordinator verified this
+test is outside the active production Lean input set. All other assertions,
+proof settings, source and cleanup were unchanged.
+
+Native Linux managed run `20261108T065724-7d260468ca14` passed: one test,
+eleven successful edit subtests, zero errors/failures/skips and no reporting
+errors. Unittest took 1,079.914 seconds, outer observation/identity work
+1,100.613 seconds, and complete managed execution 1,141.938 seconds. The cold
+initial build, initial fresh audit, no-op reuse, expected restored-timestamp
+stale rejection, every edit audit and reset build completed. The observer
+recorded all 25 build and 12 fresh audit invocations. Exact generated-source,
+affected/retained object, Independent and eight-chunk audit assertions all passed;
+all eleven original structured edit observations were retained.
+
+The fixed empty-source variant changes seven buckets (0,1,2,3,5,6,7) and retains
+bucket4. This corrects the earlier assessment's overly broad statement that its
+broad rebuild cases could affect all eight. The actual code comment says only
+"broad edit rebuilds" and remains correct. All eight are included in the initial
+cold build and the unchanged exact reuse checks. No further test edit is needed.
+
+Normal copied-root imports and all nineteen prepared workspace hashes matched.
+Nine helpers, seven proof modules and lakefile/pin/generator matched `47fe4003c0`
+and the earlier failed fixture; the only test delta was the authorized patch.
+All 18,381 authenticated distribution entries and copied inputs were unchanged.
+The successful managed postflight completed, and an independent rehash of all
+17,793 captured managed inputs also found no drift. No signal or timeout occurred;
+all descendants exited, original temporary cleanup completed and the worker lease
+was released. Minimum sampled available RAM was 42.705 GiB; no historical timing
+cause or universal performance bound is inferred.
+
+Exact drivers, inputs, actual output, callback/printed edit observations,
+identity checks and managed records are retained in
+`tmp/local-watchdog-fixture-298/`. The verified 60-member shareable bundle is
+3,032,373 bytes, SHA256
+`b576f78b7ab40dc4dc3e618999e47f34fbcead11e904ffae89501c01082613e7`;
+the private inherited environment is excluded. All earlier failed runs/bundles
+remain failed and unchanged. This passes the one repaired regression, without
+reclassifying the original full suite or replacing separate mandatory project
+assurance. The separately authorized unchanged platform fixture is next after
+this retention. No publication, merge or CLI memory update occurred.
