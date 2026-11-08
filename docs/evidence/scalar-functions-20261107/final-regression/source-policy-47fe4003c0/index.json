@@ -1,0 +1,32 @@
+[
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T072303-5e0f2237aed4/events.jsonl",
+    "artifact": "20261108T072303-5e0f2237aed4-events.jsonl.gz",
+    "bytes": 2216,
+    "sha256": "025217aa8f4153dd45c75cb480d943b8957725fe5d7ab888684ffa517cb3c92d"
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T072619-eca79cdaf440/native.log",
+    "artifact": "20261108T072619-eca79cdaf440-native.log.gz",
+    "bytes": 753,
+    "sha256": "80bea564c7dda7a04a086efec361bb6457557071dc9e642bedf20bd8c031fc50"
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T072619-eca79cdaf440/events.jsonl",
+    "artifact": "20261108T072619-eca79cdaf440-events.jsonl.gz",
+    "bytes": 182870,
+    "sha256": "1c50b8f082352478e3b5e727b616b281115987d44bcba95df2435a8fca9c366c"
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-source-integration-298/tmp/source-policy-final-47fe/run.py",
+    "artifact": "run.py.gz",
+    "bytes": 737,
+    "sha256": "d4037294b81eeedc0ab1058c0143115a916ce6079434ef685559746dc221dcb1"
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-source-integration-298/tmp/source-policy-final-47fe/scope.txt",
+    "artifact": "scope.txt.gz",
+    "bytes": 352,
+    "sha256": "429bce4c451805ebd42544327c1fbcd38e1c8fdcda6f081284fad476d78795a7"
+  }
+]

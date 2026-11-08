@@ -13,6 +13,7 @@ their audit and object-reuse/edit stages still require a complete pass.
 | `20261108T061828-f176c7d39979` | Fresh authenticated Lean installation on container-local overlay | Passed; all 18,381 distribution entries and 15,127 baseline library identities matched |
 | `20261108T062237-55f39cc9f940` | One matched CertificateWitness profile using that local installation | Passed in 4.836 seconds; exclusive import cost 2.910 seconds |
 | `20261108T064023-1bc9e7d6f89f` | Full unchanged original fixture in a separate test root using authenticated local tools | Failed at the unchanged 60-second initial-build deadline; no audit/edit subtest reached |
+| `20261108T065724-7d260468ca14` | Complete fixture with the reviewed local build watchdog | Passed all 25 builds, 12 fresh audits and eleven edit cases; no errors, failures or skips |
 
 The first two used the original one-thread/one-worker and 2,048 MiB settings and matched
 all 19 retained prepared source/configuration hashes. Each ran in its own
@@ -107,3 +108,15 @@ move. After review, one such unchanged platform fixture is authorized only
 after the active certificate fixture finishes and releases its context, with
 fresh headroom checks and a four-worker reservation. Its fit within 180 seconds
 is unproven; a timeout requires retained diagnosis before any next action.
+
+The repaired object-reuse fixture subsequently passed in full. Its
+[60-member evidence bundle](20261108T065724-7d260468ca14/index.json) retains actual
+output, all eleven structured edit observations, all 25 build and 12 audit
+invocations, exact input/distribution identities and managed records. Integration
+independently read and indexed every member by size and SHA-256. Unittest took
+1,079.914 seconds and managed execution 1,141.938 seconds. All 17,793 captured
+inputs remained unchanged; no timeout, signal or descendant remained. The fixed
+empty-source edit changed seven buckets and retained bucket 4, correcting the
+earlier assessment's broad statement about all eight. Every original assertion
+passed. This closes the repaired fixture without reclassifying prior failures
+or establishing a general performance bound.

@@ -177,3 +177,14 @@ outcome and verifies all 1,100 governed files and all 821 Lean file identities
 before and after execution. No fixture processes remain. Neither failure
 clears the original full suite; both methods still need successful checks and
 final applicability review. No further repeat or deadline change has occurred.
+
+The subsequent reviewed test-only watchdog repair gives the larger certificate
+fixture's builds 180 seconds while preserving its 60-second audits and every
+correctness/proof setting. The [complete repaired run](../fixture-diagnostics/README.md)
+`065724-7d260468ca14` passed all eleven edit cases, 25 builds and 12 fresh audits
+with no errors/failures/skips or input drift. The object-reuse failure is now
+covered by that passing affected check; the original full suite remains failed
+history. Four [source-policy methods](source-policy-47fe4003c0/README.md) also
+passed on the changed final recursive module graph. The separate platform
+fixture remains unresolved after its unchanged local-source attempt exposed
+inner errors before the outer timeout; exact diagnosis is pending.
