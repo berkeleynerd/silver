@@ -404,3 +404,50 @@ serially under managed reservations to avoid multiplying allocation. No such
 change or run was performed; healthy current headroom does not require it.
 Selected reviewer configuration remains Astra Extra High with runtime telemetry
 unavailable. The reviewer owns no active process and sent no signal.
+
+### Targeted source interruption and concrete retry proposal
+
+After renewed available-memory observations of 11.66 GiB at 05:11:22,
+10.91 GiB at 05:11:30 and 10.38 GiB at 05:12:10, the coordinator verified the
+command line and sent SIGTERM only to FunctionSourceCandidate PID 582544 at
+`2026-11-08T05:12:10.541560Z`. Its RSS/high-water mark was 38.31 GiB. Lake
+retains that module's failed outcome after 1,735 seconds with code 143; the
+other source workers, native run and frozen inputs continue unchanged. The
+exact action and samples are in integration scratch
+`tmp/function-source-memory-preservation-action.json`. This was a resource
+interruption, with all source obligations still mandatory.
+
+The reviewer prepared a concrete uncompiled patch under the separate review
+worktree's `tmp/function-source-decomposition/`, with `PLAN.md`, complete
+`inventory.json`, proposed file bodies and `function-source-components.patch`.
+Patch SHA-256:
+`f018c845b443695879e59f4425042f5ba12a93c028a8e8c488283b856f931bd3`.
+It changes only the existing FunctionSourceCandidate facade and adds 80 leaf
+modules: 41 declaration requirements (25 headers, seven expressions, three
+ordinary bodies, three iterative bodies and three declarations), ten visibility
+requirements and 29 call requirements. Existing tree proofs remain included.
+
+Each leaf keeps its exact full-source proposition and `decide +kernel`.
+Declaration-table leaves refer to the existing table with a bounds-checked
+`List.get`; the original complete forall domains are assembled from every row.
+The original three exported theorem names and result types remain unchanged,
+as does the actual-source consumer. Static inventory checking confirms each
+leaf is referenced once; read-only patch applicability passed. No governed
+proof file was changed and no compilation was performed.
+
+The proposed first check is the single
+`Silver.FunctionSourceParts.DeclarationHeaderFunctionTypeAtSpec` leaf, followed
+by `Silver.FunctionSourceChecks` and then the required complete check, each
+using `scripts/check_lean.py --workers 1 --threads 1` with the recorded memory
+reason. The plan retains matching source certificates and unrelated objects,
+allows required downstream rebuilding, and requests no clean deletion, optional
+replay, changed memory cap or weakened obligation. It must wait for the current
+workspace/input lease to be released and the actual failed outcome retained.
+
+Separate processes and serial scheduling limit simultaneous transient proof
+allocation and preserve successful components. A single component or the final
+assembly/audit can still be large; no per-component size or successful outcome
+has been established. The concrete proposal addresses the observed failure risk
+without claiming a memory bound. The current monitoring thresholds remain in
+force. Selected reviewer setting is Astra Extra High with runtime telemetry
+unavailable; the reviewer sent no signals and owns no active process.
