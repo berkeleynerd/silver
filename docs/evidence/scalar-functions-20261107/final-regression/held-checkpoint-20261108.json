@@ -1,0 +1,29 @@
+{
+  "captured_at": "2026-11-08T01:49:47.681549+00:00",
+  "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298",
+  "head": "eb72b5217e0d8728033150fee8f79986e7920996",
+  "owned_directory": "docs/evidence/scalar-functions-20261107/final-regression",
+  "build_started": false,
+  "tests_started": false,
+  "hold": "Both build and full tests await exact integrated native cleanup and proof repair snapshot from delivery lead. Resource availability alone does not authorize launch.",
+  "watcher": {
+    "session": 2594,
+    "python_pid": 244467,
+    "read_only": true,
+    "trigger": "focused230910 becomes inactive; print status and exit; launch nothing"
+  },
+  "available_cpus": 22,
+  "reserved_workers": 22,
+  "active_runs": [
+    {
+      "run_id": "20261107T230910-a15a07ea6dd4",
+      "task": "#298 source integration",
+      "workers": 10
+    },
+    {
+      "run_id": "20261108T014042-81a35c010d1f",
+      "task": "#298",
+      "workers": 12
+    }
+  ]
+}
