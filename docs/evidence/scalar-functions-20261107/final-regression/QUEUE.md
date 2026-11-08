@@ -4,6 +4,18 @@ This file preserves preparation and running checkpoints as history. The final
 completion/queue section below and [outcome record](README.md) supersede the
 earlier holds and active-run checkpoint.
 
+Update at 07:30 UTC: the repaired certificate fixture `065724-7d260468ca14`
+actually passed all eleven edit cases, 25 builds and 12 fresh audits, with no
+errors/failures/skips or input drift. Four source-policy methods affected by the
+new recursive module graph passed in `072619-eca79cdaf440`. Their retained
+evidence closes those checks, preserving the failed original full-suite outcome.
+The unchanged local-source platform attempt `071906-6ce712a8a90c` failed its
+outer 180-second limit and retained inner ERROR output from concurrent-host and
+per-host cases. Actual inner exception types are not yet known. Its source/input
+postflight and verified descendant cleanup are retained. No fixture process or
+lease remains; the reviewer is preparing one focused inner-error diagnostic,
+with no execution, repeat or platform deadline change authorized yet.
+
 Update at 06:56 UTC: the independently reviewed fixture-watchdog repair is
 applied as regression source-only `6b62dafb43` and integrated as `d41d721064`.
 Only the certificate object-reuse method's builds now have a 180-second budget;

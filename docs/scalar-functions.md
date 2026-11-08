@@ -209,8 +209,12 @@ The independent review traced the 60-second build watchdog to the original small
 module probes, without a corresponding performance contract. The exact reviewed
 repair now gives only the larger certificate fixture's builds 180 seconds;
 its audits, all correctness assertions, proof settings and other tests retain
-their existing behavior. One complete affected check is authorized, with no
-passing result yet. No language rule or proof obligation changed.
+their existing behavior. The complete affected check passed all eleven edit
+cases, 25 builds and 12 fresh audits with no errors, skips or input drift.
+Four existing source-policy tests also passed against the final module graph.
+The separate unchanged platform fixture still failed from a local source root;
+its retained partial output exposes inner errors whose exception identities
+require diagnosis before any repair. No language rule or proof obligation changed.
 
 Selected subthread settings are recorded from their launches; independent runtime
 confirmation, token/cost and total elapsed-work measurements are unavailable.
