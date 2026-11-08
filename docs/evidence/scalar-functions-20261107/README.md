@@ -263,3 +263,12 @@ actual-source transport or nested-module audit/provenance handling. It remains
 uncompiled and unapplied while the current run retains frozen inputs. A serial leaf check,
 complete function-source consumer check and complete project audit are required;
 packaging alone establishes no proof success or per-leaf memory bound.
+
+The first object-reuse fixture follow-up also failed at its unchanged initial
+60-second build deadline. The [retained diagnostics](fixture-diagnostics/README.md)
+separate configuration from module compilation and profile one unchanged
+module: imports dominate its measured cost. Exact tool/library identities and
+current filesystem observations are retained. One authenticated local-storage
+comparison is authorized, with no active-installation or fixture change.
+These observations have not passed the original fixture, established a complete
+historical cause, or changed any required timeout or proof.

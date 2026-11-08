@@ -193,6 +193,12 @@ theorems in independently compiled units. It remains uncompiled and unapplied
 until the current run finishes. Complete native/Lean assurance and final
 delivery review remain pending.
 
+The first object-reuse fixture follow-up repeated its initial-build timeout.
+The [isolated configuration, build and import diagnostics](evidence/scalar-functions-20261107/fixture-diagnostics/README.md)
+retain exact inputs and measured phase costs. A matched local-storage diagnostic
+is pending; both regression fixture passes remain required. No fixture,
+timeout, language rule or proof obligation has been changed.
+
 Selected subthread settings are recorded from their launches; independent runtime
 confirmation, token/cost and total elapsed-work measurements are unavailable.
 Native probe time is retained by the managed records rather than inferred from
