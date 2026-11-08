@@ -1011,3 +1011,43 @@ No further diagnostic ran. The coordinator requested an unapplied test-only
 watchdog patch and complete affected-coverage plan, preserving the barrier and
 all checks. An outer-only adjustment cannot fix the now-established worker limit.
 No source/deadline change, publication, merge or CLI memory update occurred.
+
+### Unapplied platform watchdog repair and affected coverage
+
+The coordinator requested a concrete minimal test-only proposal after the inner
+exception was established. Both worker60 sites are present in earliest retained
+commit `32d50d68e9`, with fifteen Lean files. The outer watchdog grew to 180 in
+`3fdda42dc1b` when there were thirty-three Lean files and seven candidate mappings;
+current target `47fe4003c0` has 821 Lean files and thirty certificate roots.
+No inspected elapsed-time assertion or performance contract requires those
+inherited numerals.
+
+The exact proposal adds one named 180-second setup-worker budget, uses it in
+both the shared helper and concurrent communicate call, and sets only the
+complete symlink wrapper's watchdog to 900 seconds. The startup barrier and
+unrelated command timeout remain fifteen seconds. Every case, assertion, mock,
+generator, source/input check, proof setting and cleanup remains unchanged.
+These are finite engineering budgets, not established completion bounds. The
+outer estimate accounts for eleven serial workers plus one four-worker group,
+with additional copying/snapshot work; no automatic retry or later increase
+is proposed.
+
+The shared helper serves six methods and eleven invocations; concurrent setup
+adds one method/four workers. The other five class methods have no worker-budget
+change. All twelve methods together run fifteen setups and, on their complete
+passing path, 450 generator invocations. A single successful final-input original
+symlink wrapper executes those same twelve bodies with the complete current
+input set and required alias environment. Its actual result, unchanged selection,
+no-skip code paths and input applicability must be verified before composing
+coverage; no fresh non-symlink invocation is claimed. The wider 637-result reuse
+assessment and mandatory native/Lean assurance remain separate final review.
+
+The proposal and exact invocation map are retained in
+`tmp/platform-watchdog-repair-298/`. Patch SHA256 is
+`3ea1a76ed86604f7ecf4c71da7f7a26e7f2524f67df320b040dc51f15537496f`.
+The candidate parses/compiles without execution; removing its new constant and
+reverting the three timeout keywords reproduces the entire original AST.
+All four live test copies remain identical, and git apply --check succeeds
+without applying the patch. The verified nine-member proposal bundle is 28,703
+bytes, SHA256 `56e861a8ec210c8345dbe1597c08cf6dd02ce092866ccb4a7c7947327a84257a`.
+No test/source edit, changed-timeout execution or additional diagnostic occurred.
