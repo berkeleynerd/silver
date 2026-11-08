@@ -87,3 +87,90 @@ inferred from configured defaults. The inspected host is Linux 7.0.14 x86_64,
 and `scripts/dev.py paths` reports `linux-x86_64`. The live harness goal is null.
 No CLI memory was updated. A later review needs the exact final target and its
 completed evidence; this report alone does not accept that future target.
+
+## Supplemental static review — Boolean context and report warnings
+
+This second bounded review found no material defect in either additional repair.
+Its targets are integration `454e99da25` plus the prepared two-file
+`tmp/boolean-initializer-context-repair.patch`, SHA-256
+`2b1d29146438835b8e2b3bcf87d87796af0cf1c25d4e2d721b42578afa26bdb2`, and
+the separate native source-only commit
+`560144172c3bcef4d831ab2c9a584cce40613c60`. Integration's `src/`, `proof/`
+and `scripts/` still match `eb72b5217e`; the prepared Lean changes remain
+unapplied while the frozen source check runs. The native commit changes only
+`src/silver_library_reports.adb`, from SHA-256
+`700e6fb94d4d722cb3d95a8c145c03bee44dd36a6384bb693772dd6bc8531459` to
+`3254d7d3236cbaa689e61a4dc13478d29ab9cafe6cfdd5f0ba8b2ecff4d13b25`.
+Both report hashes and the prepared patch digest were independently checked.
+
+### Boolean context and proof domains
+
+[ComposeBooleanDeclarationDomain](../../proof/Silver/ComposeBooleanDeclarationDomain.lean)
+now copies `pure` and `integerHidden` in both `toNative` and `fromNative`.
+Both context structures already contain these fields, both `.model` projections
+use them, and the existing native/body adapter obtains them from parser state.
+The repair therefore preserves all fifteen fields, including both values of
+each Boolean flag, in the initializer and condition-reader equations. It does
+not alter either context structure, the native source, the evaluator, or the
+theorem statements and source-link hypotheses.
+
+The readiness proof reassociates the existing conjunction and selects its first
+fact, `newNameAllowed ... = true`. No readiness clause is removed. The tuple
+patterns in this file and
+[ComposeBooleanInitializerLibraries](../../proof/Silver/ComposeBooleanInitializerLibraries.lean)
+now match all twelve conjuncts of `Compose.Expressions.ValidState`, selecting
+the Boolean environment fact before the three existing function-metadata/formal
+bounds. The caller still supplies the complete `OuterReadiness.ValidState`;
+unused facts in this particular context proof are not removed from that domain.
+`Native.ValidContext`, flow validity, masks, source-name bounds and imported
+condition contracts remain unchanged. The observed constructor/projection
+failures explain this repair, but its successful kernel compilation and
+downstream source correspondence remain pending.
+
+### Native cleanup and source-name matching
+
+The complete diff of
+[silver_library_reports.adb](../../src/silver_library_reports.adb) removes
+`:= Unknown` from `Entity_Name`'s local `Result` declaration and removes `Source` from
+six private profiles and 23 calls belonging to `Expected_Entity`,
+`Expected_Coverage`, `Map_Policy`, `Advance_Map` and `Finish_Map`.
+Every branch of `Entity_Name`'s complete conditional assigns `Result` before
+the location check or return. The fallback still calls `Function_Name` with
+the source and metadata, and the exact functional postcondition remains.
+
+The two expected-policy expressions never inspect `Source`; the three map
+helpers only passed it to these source-independent expressions and contracts.
+The removed formal is an unconstrained `String` with no additional precondition,
+and each removed actual is the existing variable `Source`. Removing those
+actuals removes no effectful evaluation or domain check. The entity ranges,
+required coverage strings, uniqueness predicates, map traversal, variants,
+metadata and remaining pre/postconditions retain their meaning.
+
+Source-dependent resolution remains intact in `Map_Name`, `Map_From`,
+`Map_Spec`, `Map_OK` and their raw/mixed paths. In particular, the nested
+`Map_From` and `Raw_Map_From` calls still receive `Source => Source` inside
+calls to the shortened `Map_Policy`. `Mixed_Map_Name` retains the same source
+actual on its nested `Raw_Entity_Name` call inside `Expected_Coverage`.
+`Function_Spelling` still checks source-span validity and compares the reported
+`Main.<function>` spelling against the actual source bytes. No warning exception,
+proof suppression or assumed source-name equality is introduced.
+
+### Evidence boundary for this supplement
+
+The earlier full native run `20261107T231059-a9f0c12c8350` has since finished
+with failure: the retained native-checkpoint record at integration `454e99da25`
+reports 12,558 proved checks and 585 proved roots, but three compiler flow
+warnings and no completed provenance certificate. That outcome remains failed.
+The cleanup's inspected focused log `20261108T014000-e499f2abc850` reports 306
+successful flow checks without warnings; the retained continuation record and
+build log identify successful build `20261108T014016-bd4b52349efa`. These
+limited observations do not establish a complete native audit. The corrected
+full run `20261108T014042-81a35c010d1f` remains pending at this checkpoint.
+
+Final review must assess the integrated bytes, affected actual-source checks,
+complete native obligation/coverage/provenance evidence, complete Lean
+module/axiom audit and regression applicability. No validation run was launched
+by this reviewer. The selected setting remains GPT-6 Astra / Extra High;
+runtime model/effort telemetry and token/cost measurements remain unavailable.
+The live harness goal is null; no CLI memory was updated. This supplement
+authorizes no merge and makes no delivery-acceptance claim.
