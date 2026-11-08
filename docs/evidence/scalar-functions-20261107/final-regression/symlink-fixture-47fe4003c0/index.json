@@ -1,0 +1,32 @@
+[
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T064731-9f1ab6dc731c/native.log",
+    "artifact": "00-native.log.gz",
+    "bytes": 2000,
+    "sha256": "75e0f780acee01b5463f605e09a7d75bfde5569fa1b32e87aa03d36482a7da9b"
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T064731-9f1ab6dc731c/lease",
+    "artifact": "01-lease.gz",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T064731-9f1ab6dc731c/events.jsonl",
+    "artifact": "02-events.jsonl.gz",
+    "bytes": 205919,
+    "sha256": "9d3b85cadd7566db0015dac2817dc42504d0c1da4e4b486f6d97bde34e10f2b5"
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/tmp/symlink-fixture-47fe4003c0/input-inventory.json",
+    "artifact": "03-input-inventory.json.gz",
+    "bytes": 277489,
+    "sha256": "ac442eb7084ee797ca698fa149a74d3b456cd4916e0c5e5193f3ff96dc5d3cf7"
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/tmp/symlink-fixture-47fe4003c0/input-postflight.json",
+    "artifact": "04-input-postflight.json.gz",
+    "bytes": 249,
+    "sha256": "c7459093707a8d80676a89cc9d4290280f7bf541cd1282a2a93c73ed0f9f74c7"
+  }
+]
