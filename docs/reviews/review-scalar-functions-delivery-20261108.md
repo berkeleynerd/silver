@@ -257,3 +257,53 @@ review launched no validation and changed no active inputs. Selected setting:
 GPT-6 Astra / Extra High; runtime model/effort and elapsed/token/cost telemetry
 are unavailable. The live harness goal is null and CLI memory was not updated.
 Implementation merge remains held; this supplement is not delivery acceptance.
+
+## Supplemental static review — Boolean declaration candidate
+
+No material defect was found in the prepared
+`tmp/boolean-declaration-candidate.patch`, SHA-256
+`55d3324ba5b7c7538ca50a3d5c17773c895208f2ea61738d61a6f5e44d554478`,
+reviewed against `b2c48911207b709d5bbbc7052cdfae4bebf23590`.
+The review worktree was synchronized to that target with all earlier report
+text preserved. The patch remains unapplied in the frozen integration inputs.
+
+The patch changes only the token list in
+[ComposeBooleanDeclarationCandidate](../../proof/Silver/ComposeBooleanDeclarationCandidate.lean):
+one insertion of 93 tokens expands the candidate from 402 to 495 tokens.
+The inserted rejection checks are `Functions.Lookup`, `Formal_Hides`, and
+the Integer, Boolean and Character hidden-mark/name comparisons. Independent
+read-only tokenization of native `Boolean_Declaration_At` at lines 4451–4493
+matches the proposed complete candidate exactly. The inspected native body's
+file retains SHA-256
+`9ec28d94a41c81bb68168bb674792bc44bf1ddeae69e71d4d3e11b153786b77f`.
+This comparison confirms the patch scope; it is not a kernel proof.
+
+All five checks already occur in
+[ComposeBooleanDeclarationNative](../../proof/Silver/ComposeBooleanDeclarationNative.lean)'s
+`rejected` tree, evaluator/render cases and `reject` equation, in the same
+order and grouping as the native source. `booleanDeclarationReady` already
+contains the corresponding acceptance conditions. The existing import-meaning
+proof derives function lookup from valid function metadata, formal hiding from
+the current native state, and mark comparisons at their established source
+bounds. `reject_meaning` connects these imports to readiness. No additional
+semantic/model gap was found in this bounded comparison: the patch changes
+no executable behavior, evaluator, helper contract, state domain or obligation.
+
+The active complete-run log reports
+`ComposeBooleanDeclarationCandidate.lean:18` failing `candidate_matches` because
+the old candidate differs from `rendered`. The corrected equality still needs
+kernel checking. The unchanged
+[source requirement](../../proof/Silver/ComposeBooleanDeclarationSource.lean)
+also requires named `ordinaryFunction "boolean_declaration_at"` extraction,
+scope/precedence and exact native headers. `candidate_boolean_declaration` in
+[ComposeHelperSourceCandidate](../../proof/Silver/ComposeHelperSourceCandidate.lean)
+and `actual_boolean_declaration` in
+[ComposeSourceChecks](../../proof/Silver/ComposeSourceChecks.lean) retain that
+authoritative-source connection. All these checks and the complete source,
+module and axiom audit remain required before final delivery acceptance.
+
+Selected reviewer setting remains GPT-6 Astra / Extra High; runtime telemetry
+and elapsed/token/cost measurements are unavailable. No proof/build/test run,
+integration edit or external publication was performed. The live harness goal
+is null and no CLI memory was updated. Final evidence/applicability review and
+any later owner merge decision remain separate from this static verdict.
