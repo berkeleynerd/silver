@@ -230,8 +230,21 @@ Complete Lean run `20261108T044143-17a94f7033eb` remains active on frozen
 has 402 tokens; the unchanged native body has 495. The sole token insertion
 contains the existing function lookup, formal hiding and three hidden scalar
 type checks. The existing semantic model already renders and interprets these
-checks. The exact candidate-only repair is prepared in scratch for independent
-review and will be applied only after this run's actual outcome is retained.
+checks. The [bounded independent review](../../reviews/review-scalar-functions-delivery-20261108.md#supplemental-static-review--boolean-declaration-candidate)
+found no material defect in the exact candidate-only repair. It remains in
+scratch until this run's actual outcome is retained.
 Other source computations remain productive; no active input or proof
 requirement has changed. This is an unresolved complete-check failure, not a
 completed-support claim.
+
+During that run, concurrent Lean memory growth reduced available host memory
+to about 15 GiB with no swap or configured process limit. The
+[bounded resource assessment](../../reviews/review-scalar-functions-delivery-20261108.md)
+recommended cancelling only the growing `ComposeExamples` Lean child to
+preserve the longer-running source candidates. The coordinator verified its
+command and sent that child `SIGTERM`; Lake recorded exit code 143 and continued
+the other proofs. Native validation, source inputs and proof requirements were
+unchanged. Headroom recovered alongside garbage collection and completion of
+another module, so that recovery is not attributed solely to the cancellation.
+`ComposeExamples` remains required in the next complete check. This deliberate
+interruption is additional incomplete validation, not a waived obligation.
