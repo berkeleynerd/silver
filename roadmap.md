@@ -55,7 +55,8 @@ claimed. The expanded opportunity inventory remains outside this commitment.
 No language feature after #298 is selected. The sample-only successor begins
 with owner-selected #342 on the accepted #298 baseline; it is merged and #343
 is also merged after validation and review. #344 is validated and reviewed,
-published in PR #353 with its merge held. #345 stays Backlog until selected.
+published in PR #353 with its merge now authorized. #345 is selected for the
+combined checkpoint and narrow Rosetta assessment/render.
 Existing source and expression budgets, assurance requirements, broad stages
 and deferred capacity work retain their scope.
 
@@ -124,8 +125,10 @@ the external review proceeds. The later
 [“Agreed. proceed.”](docs/session-memory.md#2026-11-08--callable-examples-merge-and-divisor-group-authorized)
 authorizes merging ready PR #351 and implementing #343. The subsequent
 [owner selection](docs/session-memory.md#2026-11-08--divisor-examples-merge-and-digitprime-group-authorized)
-authorizes merging ready PR #352 and implementing #344. The third group's
-implementation merge remains a later owner decision.
+authorizes merging ready PR #352 and implementing #344. The subsequent
+[“Proceed.”](docs/session-memory.md#2026-11-08--digitprime-merge-and-combined-rosetta-delivery-authorized)
+authorizes merging ready PR #353 and completing #345 through reviewed publication.
+The combined delivery PR's merge remains a later owner decision.
 
 [Milestone 21](https://github.com/berkeleynerd/silver/milestone/21) proposes
 twelve numeric tasks using the delivered scalar-function fragment. The

@@ -1,5 +1,24 @@
 # Session memory
 
+## 2026-11-08 — Digit/prime merge and combined Rosetta delivery authorized
+
+After the ready [PR #353](https://github.com/berkeleynerd/silver/pull/353)
+and next [#345 combined checkpoint](https://github.com/berkeleynerd/silver/issues/345)
+were reported, the owner instructed **“Proceed.”** This authorizes merging
+ready #353 and ordinary #344 closeout, superseding its earlier merge hold,
+and selects #345 through reviewed publication. Record this decision on main
+with #353 before claiming the combined work.
+
+Complete the existing twelve-program batch: establish final evidence
+applicability, run affected integration/Rosetta checks, reconcile only the
+faithfully demonstrated task mappings, preserve prior assessment provenance,
+render and update affected board fields. Retain successful applicable compiler,
+Lean and application evidence; repeat only invalidated checks. Keep current
+language, source/expression budgets and proof obligations unchanged. No successor
+capability is selected. The combined delivery PR's merge remains a later owner
+decision. Preserve unrelated root edits, external-review workspaces and scratch.
+CLI recall was not updated.
+
 ## 2026-11-08 — Divisor examples merged; digit/prime group validated
 
 Owner-authorized [PR #352](https://github.com/berkeleynerd/silver/pull/352)

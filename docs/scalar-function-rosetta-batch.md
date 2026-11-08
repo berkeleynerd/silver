@@ -23,8 +23,10 @@ authorizes merging PR #351 and implementing #343's four divisor programs through
 reviewable publication. The later
 [owner instruction](session-memory.md#2026-11-08--divisor-examples-merge-and-digitprime-group-authorized)
 authorizes merging ready PR #352 and implementing #344's four digit/prime
-programs through reviewable publication. #344's merge remains a later owner
-decision, and #345 retains the later combined batch checkpoint.
+programs through reviewable publication. The subsequent
+[“Proceed.”](session-memory.md#2026-11-08--digitprime-merge-and-combined-rosetta-delivery-authorized)
+authorizes merging ready PR #353 and completing #345 through reviewed publication.
+The combined delivery PR's merge remains a later owner decision.
 PR #351 merged as `a74e67c3a8` and #342 is closed. The divisor group starts from
 those accepted inputs; its own source, manifest and application evidence remain
 separate from the first-group checkpoint below.
@@ -282,7 +284,7 @@ checks passed on their first run.
 Selected agent settings are distinct from independently confirmed runtime
 settings, which were not exposed. All twelve programs now have focused application
 validation. [PR #353](https://github.com/berkeleynerd/silver/pull/353) publishes
-#344 for review; its implementation merge remains held for the owner. #345 retains
+#344 for review; its merge is now authorized. #345 is selected for
 the combined checkpoint and narrow Rosetta assessment/render. Rendered coverage
 remains 71 tasks, and milestone 21 remains open.
 
