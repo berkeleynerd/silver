@@ -966,3 +966,48 @@ its four-member shareable plan bundle is 6,775 bytes, SHA256
 The plan requires separate coordinator authorization, fresh resource/lease
 checks and stopping after one actual result. No diagnostic, source edit,
 watchdog increase or additional fixture run has been performed.
+
+### Single concurrent-host diagnostic establishes the inner 60-second timeout
+
+The coordinator authorized the exact prepared single-method diagnostic. Native
+Linux managed run `20261108T073911-6cec95e84ac5` failed with one actual
+TimeoutExpired error, zero failures/skips and no reporting errors. Its complete
+traceback identifies the original `process.communicate(timeout=60)` at
+`tests/test_platforms.py:471` for the first linux-aarch64 --concurrent worker.
+This establishes the missing inner exception directly. The required outer
+fixture was not selected and no deadline changed.
+
+Actual worker stdout (5,203 bytes) reached completed mocked bootstrap and the
+Lean concurrency message; the exception's stderr value was absent. All four
+retained per-host run records show successful preflight without a build/audit
+phase. Late process observations still show real IO/arguments/runtime certificate
+generators. Source review confirms generation and input verification precede
+the mocked build phase. The watchdog interrupted unfinished fixture work; the
+records do not show a prior policy or assertion rejection, and do not establish
+that all later checks would pass. The 113 sampled generator processes are an
+observed count, not a complete census of short-lived processes.
+
+Unittest took 64.825 seconds, including 2.347 seconds of reporting-only
+precleanup capture. Python launch through observed wait completion took
+68.177 seconds, followed by 0.845 seconds of cleanup/postcheck; managed elapsed
+was 82.657 seconds. Per-worker timing remains sampled at one-second intervals.
+All four workers retained the exact symlink TMP environment, original 60-second
+limits, 15-second barrier and unchanged source/mock/generator/assertion behavior.
+The original method performed its existing unfinished-worker cleanup; the
+observer sent no additional signal. No descendants, lease or temporary wrapper
+remain. Minimum sampled available memory was 46.981 GiB.
+
+All 874 retained-root files and modes (866 governed plus eight Python caches),
+complete 821-file Lean set, 886 captured managed inputs and 866 original
+governed-source byte/mode comparisons matched afterward. All 54 archived
+precleanup records matched their captured hashes/sizes. The exact traceback,
+available streams, inventory, phase review and managed records are retained in
+`tmp/platform-concurrent-inner-diagnostic-298/`. Its verified 47-member shareable
+bundle is 842,725 bytes, SHA256
+`dda08150a42a2f0ea4f6ebaf987cadf2690fc17168861f74e734feab981ce6b2`;
+the private environment is excluded.
+
+No further diagnostic ran. The coordinator requested an unapplied test-only
+watchdog patch and complete affected-coverage plan, preserving the barrier and
+all checks. An outer-only adjustment cannot fix the now-established worker limit.
+No source/deadline change, publication, merge or CLI memory update occurred.
