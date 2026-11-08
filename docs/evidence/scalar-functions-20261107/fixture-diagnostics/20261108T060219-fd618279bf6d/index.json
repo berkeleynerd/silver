@@ -1,0 +1,9 @@
+{
+  "run_id": "20261108T060219-fd618279bf6d",
+  "bundle": "evidence.tar.gz",
+  "sha256": "381c8248fda6a6f3fb90d3cb35ee7399449eef8a1ba3e95954866dd042820705",
+  "bytes": 1493808,
+  "members": 58,
+  "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-delivery-review-298/tmp/certificate-witness-profile-298/shareable-evidence.tar.gz",
+  "scope": "One profiled CertificateWitness compilation; not a passing regression fixture. Private complete environment excluded."
+}

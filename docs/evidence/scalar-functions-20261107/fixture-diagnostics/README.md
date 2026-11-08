@@ -9,6 +9,7 @@ their audit and object-reuse/edit stages still require a complete pass.
 | --- | --- | --- |
 | `20261108T054614-dc5613468a66` | Cold configuration only, exact Lake prefix, then immediate marker | Passed in 22.878 seconds; no module build |
 | `20261108T055144-283b5d488a27` | Cold initial build with original targets and 60-second deadline | Timed out during Cursor, after Lexical, CertificateWitness and Admission compiled |
+| `20261108T060219-fd618279bf6d` | One direct CertificateWitness compile with pinned profiler options | Passed in 9.604 seconds; exclusive import cost 6.870 seconds |
 
 Both used the original one-thread/one-worker and 2,048 MiB settings and matched
 all 19 retained prepared source/configuration hashes. Each ran in its own
@@ -32,6 +33,12 @@ a complete root cause are not established. The initial-build timeout cleanup
 verified and killed only its newly created diagnostic session processes, then
 reaped them. No external proof process was signalled.
 
-A separately authorized single-module profiler observation is pending. Any
-further fixture run must follow the resulting diagnosis and retain the existing
-required checks and deadline.
+The profiler observation recorded 3.17 user and 5.17 system CPU seconds;
+elaboration took 46.9 ms. The installed library's 15,127 files were unchanged
+before and after the run. Hashing warmed caches, and the earlier successful
+fixture's imported-library identity is unknown. The current installation is
+on a measured `virtiofs` mount. A separately authorized, authenticated local
+Lean installation and one matched profiler comparison are pending; they will
+leave the active installations untouched. This remains a diagnostic hypothesis,
+not a fixture repair or completed acceptance. Any further fixture run must
+follow the resulting diagnosis and retain the existing checks and deadline.
