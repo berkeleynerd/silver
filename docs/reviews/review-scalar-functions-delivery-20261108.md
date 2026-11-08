@@ -1192,3 +1192,131 @@ passes. Their future promotion has not been applied or accepted here: all three
 must run freshly after that patch. Other later changes require ordinary
 applicability review. Selected reviewer remains GPT-6 Astra / Extra High, with
 runtime telemetry unavailable. No publication, merge or CLI memory update occurred.
+
+### Four failed native postconditions: independent diagnosis
+
+Complete native Linux run `20261108T040128-2651963b8574` actually failed at
+08:23:26 UTC, exit 1 after 15,717.688 s. The coordinator requested diagnosis
+without another run or source change. Review of the frozen source, generated
+Why3 tasks and recorded outcomes establishes a concrete full-domain defect in
+`Parameter_Frame`, plus specific modular-contract gaps in the other three
+obligations. Increasing prover budgets or repeating the unchanged complete run
+would not repair the demonstrated false postcondition.
+
+The exact parser input is SHA256
+`9ec28d94a41c81bb68168bb674792bc44bf1ddeae69e71d4d3e11b153786b77f`, native snapshot
+`560144172c`. The native owner retained the failed evidence in commit
+`0e11f7f9dc7e38d2780366ece82976fad6feb7a3`; sources, caches and original outcomes
+remain unchanged. All four ordinary-prover branches report timeout at their
+30 s settings; their CVC5 counterexample branches time out at 10 s. No prover
+counterexample was reported. The counterexample below is independently derived
+from source, without compiling or executing a program or proof.
+
+| Failed postcondition | Diagnostic location | Root check location / GP_Check id | Why3 leaf | Other split children proved |
+| --- | --- | --- | --- | ---: |
+| Actuals_Model | 4794:16 | 4794:16 / 2612 | def'vc.71 | 71 of 72 |
+| Function_Local_At | 5615:19 | 5614:16 / 3154 | def'vc.50 | 50 of 51 |
+| Parameter_Frame | 5709:20 | 5703:28 / 3207 | def'vc.98 | 98 of 99 |
+| Function_Return_After | 5736:16 | 5736:16 / 3214 | def'vc.35 | 35 of 36 |
+
+All locations are in `silver_output_profile.adb`. The retained identity matrix
+includes exact task SHA256, source labels, session theory/goal names, report
+entities, message IDs and complete prover check trees. Diagnostic subexpression
+locations and enclosing check locations are deliberately distinguished.
+
+For `Parameter_Frame`, take `Text = "x"` and
+`Frame = (Invalid_State with delta First_Parameter => 1)`. Every written
+precondition holds: position zero is within bounds, the empty metadata and all
+empty environments satisfy their quantified validity predicates, the zero name
+pair is explicitly valid, and first-parameter index 1 is positive and no greater
+than parameter count 0 plus 1. Every field is initialized and well typed.
+The function initializes Result to Frame; its loop condition `1 <= 0` is false,
+so it returns Frame with First_Parameter equal to 1. The model tests Position
+zero before its beyond-last test and returns canonical Invalid_State, whose
+First_Parameter is 0. Thus the required static equality is false. The runtime
+part still holds, matching the reported failing static subexpression. The
+witness does not depend on array equality or a solver strategy.
+
+A minimal candidate repair returns Invalid_State when Frame.Position is zero
+before entering the loop. This preserves the entire declared domain and the
+model's specified result. Restricting the precondition to positive positions
+would exclude the witness by narrowing the domain and is not an authorized
+repair. Actual callers avoiding this state would not establish the full-domain
+subprogram contract. A focused proof of the candidate remains necessary and
+could expose further proof-engineering work; no repair has been applied.
+
+The other three findings are distinct from that actual behavior/model mismatch:
+
+- `Actuals_Model` recurses at the comma token's result, which may be zero. Its
+  recursive contract allows a nonzero result from zero input and supplies no
+  relation back to the original positive position. The generated task has that
+  weak induction contract and no self-definition axiom. Proved zero-input
+  preservation in the induction contract, with the corresponding Actual_Model
+  fact, or an explicit rejected-comma branch would supply the missing argument.
+- `Function_Local_At` promises successful preservation of Functions,
+  First_Parameter and Pure. Its scalar and Boolean declaration callees export
+  validity/progress, but no such preservation facts; their generated program
+  contracts do not expose bodies that could supply them. The source's successful
+  scalar branch updates only Position/Scalar_Names, and the Boolean branch only
+  Position/Boolean_Names. Add and prove the guarded frame facts in those callee
+  postconditions before proving the wrapper. Do not weaken whole-record equality.
+- `Function_Return_After` calls Actual_After at a possibly zero failed-keyword
+  cursor. The latter's explicit range contract does not say an accepted result
+  requires a positive input. Exposing that proved property, or explicitly
+  returning zero for a failed keyword, makes the progress composition local.
+  Its static link through Actual_Model offers a larger definition-based route,
+  but the timeout does not establish that extra solver time would complete it.
+  Lean's existing actual_post/return_post argument explicitly uses the stronger
+  positive-input fact; that semantic proof does not replace native discharge.
+
+Earlier run `20261107T231059-a9f0c12c8350` does not establish earlier success for
+any of these four obligations. Its retained reports contain 66 units and
+12,558 info flow/proof records, plus three flow warnings. They contain no
+`silver_output_profile.spark`, no parser sessions or these four tasks, and no
+parser-unit section in the retained final summary. Current evidence has 77
+units and 18,524 records, including these four failures. The earlier total
+applies only to its recorded checks; neither run completed the required audit.
+
+The parser bytes and annotations, exact native command/options, 12-worker request,
+cache location, tool identities and why3.conf are identical between these runs.
+The prepared input maps differ only in `src/silver_library_reports.adb`, from
+SHA256 `700e6fb94d4d722cb3d95a8c145c03bee44dd36a6384bb693772dd6bc8531459` to
+`3254d7d3236cbaa689e61a4dc13478d29ab9cafe6cfdd5f0ba8b2ecff4d13b25`, the retained
+unused-formal/ineffective-initializer repair. There is no older parser task to
+compare, so no task equivalence or prover nondeterminism is inferred. This
+review does not establish why the eleven additional units were absent earlier.
+The examined prior focused parser-equality packet addresses other functions;
+no matching earlier attempt for these four was found in the supplied evidence.
+
+After all four findings were consolidated, the recommended smallest experiment
+is an isolated focused native proof of the Parameter_Frame entry guard under the
+original settings and full domain. Then prepare and prove the other three
+repairs with their affected callees, retaining exact input/task outcomes before
+another complete native run. No experiment, source/test/proof/script edit,
+process signal or source-domain restriction occurred during this diagnosis.
+
+Active Lean checkpoint `064001` must keep its captured inputs. Any eventual
+parser repair changes authoritative source and requires regenerated source
+certificates/chunks, corresponding body/contract checks and semantic proof
+review, followed by complete native and Lean/source-correspondence validation.
+Parameter_Frame's loop text is checked by FunctionDeclarationSource and
+FunctionSourceParts/DeclarationLoopParameterFrame; FrameEquations relies on its
+static contract as a premise. Updating source pins alone cannot resolve a false
+native premise. Preserve completed unaffected objects and the running checkpoint's
+actual outcome. The existing regression acceptance remains valid for its
+unchanged snapshot; a later repair needs ordinary affected-input review.
+
+The detailed diagnosis, complete witness, exact source delta, task/session
+identities and selected generated-theory readings are retained in
+`tmp/native-postcondition-diagnosis-298/`. This reviewer independently verified
+301 consumed retained artifacts by decompressed size/hash. Its verified
+103-member bundle is 4,032,648 bytes, SHA256
+`8e778022d872a81092910454bc9c6f23fc5ad790209fea593b2833307f530df1`.
+Selected reviewer remains GPT-6 Astra / Extra High; live runtime telemetry is
+unavailable. No publication, merge or CLI memory update occurred; goal is null.
+
+Separately, read-only review found no issue with the coordinator's proposed
+CallsIncludedImpl qualification patch `fcf1698abd92167b5438846c0c8c59a6cb6708ac4cc7c04895add0f1bddd8974`.
+It selects the same expectedTokens namespace used by Checked.included_impl;
+both competing definitions are `(Source.lexLine text).getD []`. It was not
+applied or validated here and still needs its affected proof after lease release.
