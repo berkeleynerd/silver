@@ -1,5 +1,50 @@
 # Session memory
 
+## 2026-11-08 — Callable examples merge and divisor group authorized
+
+After the recommendation to merge ready PR #351 and implement
+[#343 — GCD and divisor calculations](https://github.com/berkeleynerd/silver/issues/343),
+the owner instructed **“Agreed. proceed.”** This authorizes the #351 merge and
+ordinary #342 closeout, superseding its earlier merge hold, and selects #343's
+four programs: Least common multiple, Coprimes, Sum of divisors and Tau function.
+The [batch plan](scalar-function-rosetta-batch.md) retains their exact task
+requirements, declared domains, source/operator budgets and focused application
+validation. Publish the completed #343 increment for review; its implementation
+merge remains a later owner decision.
+
+Record this selection on main with the #351 merge before claiming #343.
+Reuse the accepted unchanged compiler/runtime/native/Lean evidence subject to
+input and dependency applicability; each new program still needs admission,
+complete application proof/build/execution and independent task/domain review.
+No compiler, language, proof, auditor or capacity change is selected. #344 stays
+unstarted/Backlog, and #345 retains the later combined checkpoint and narrow
+Rosetta reconciliation. Closing the first group does not close milestone 21.
+Preserve the external review's fixed target/workspaces and unrelated root
+checkout changes. No CLI recall entry was updated.
+
+## 2026-11-08 — Callable integer examples validated and reviewed
+
+Owner-selected [#342](https://github.com/berkeleynerd/silver/issues/342) now has
+four callable programs: Factorial (0..12), Fibonacci (0..46), full-Integer
+Signum and Sum multiples of 3 and 5 (0..1000). The
+[first-group record](scalar-function-rosetta-batch.md#callable-integer-examples--2026-11-08)
+links successful production application proof/build/execution, independent
+expected outputs, complete-domain task arguments and the independent Astra / Max
+review of implementation target `db8ca3495c`. No material finding remains in
+that review scope. The unchanged compiler/native/Lean evidence is reused;
+the record distinguishes 72 retained manifest cases from four fresh cases.
+
+The reviewed sample-only increment is published in
+[PR #351](https://github.com/berkeleynerd/silver/pull/351), as authorized by the
+earlier selection. Implementation merge remains a later owner decision. #342 stays open
+for that merge and its link to #345's combined reconciliation. #343 and #344
+remain unstarted/Backlog; #345 and milestone 21 remain open. The rendered Rosetta
+coverage stays at 71 task mappings until the planned assessment/render work.
+No new language capability, compiler/proof change or successor implementation
+is selected. The external review's fixed target/workspaces and unrelated root
+checkout edits remain untouched. The live harness goal is null; CLI recall
+was not updated.
+
 ## 2026-11-08 — Callable integer examples selected during external review
 
 After the merged batch plan and identification of its first unit, the owner

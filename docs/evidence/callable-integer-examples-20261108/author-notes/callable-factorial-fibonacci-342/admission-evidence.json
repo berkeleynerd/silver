@@ -1,0 +1,50 @@
+{
+  "date_utc": "2026-11-08",
+  "host": "linux-x86_64",
+  "compiler": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/bin/silver",
+  "compiler_sha256": "807d862b572e4dcab8e72302a2fdcfe1a3304f3c064b9166900e24544b8dbcfe",
+  "initial_draft_checks": [
+    {
+      "source": "samples/rosetta_factorial.adb",
+      "source_bytes": 679,
+      "exit_status": 2,
+      "output": "Rejected: source is outside the Silver catalogue.\n",
+      "cause": "Unparenthesized scalar multiplication; corrected to (Result * Factor)."
+    },
+    {
+      "source": "samples/rosetta_fibonacci_sequence.adb",
+      "source_bytes": 970,
+      "exit_status": 2,
+      "output": "Rejected: source is outside the Silver catalogue.\n",
+      "cause": "Unparenthesized scalar addition; corrected to (Previous + Current)."
+    }
+  ],
+  "unchanged_control_check": {
+    "source": "samples/rosetta_primality_by_trial_division.adb",
+    "exit_status": 0,
+    "output": "Accepted: silver.\n"
+  },
+  "final_checks": [
+    {
+      "source": "samples/rosetta_factorial.adb",
+      "source_bytes": 681,
+      "source_sha256": "0334749ecb7fc9aac75a97492cdb084453bd48cfafe57c69053c33ecc2172a0e",
+      "stdout_bytes": 145,
+      "stdout_lines": 13,
+      "stdout_sha256": "239e4354694dbcbc1ffd6ce8fd37848de7c29c8b00e8be5d96a7a5af7de06955",
+      "exit_status": 0,
+      "output": "Accepted: silver.\n"
+    },
+    {
+      "source": "samples/rosetta_fibonacci_sequence.adb",
+      "source_bytes": 972,
+      "source_sha256": "4690aabaa7757890d2a01e21da7a31f938ff71a4be250ce3d40736c6f7c65ab7",
+      "stdout_bytes": 977,
+      "stdout_lines": 47,
+      "stdout_sha256": "081dad102929a677f2d6de2b3b42f0e2e61677a790db8dbfc48fd097da5f6528",
+      "exit_status": 0,
+      "output": "Accepted: silver.\n"
+    }
+  ],
+  "limitations": "Admission only; no native compilation, GNATprove, Lean, application execution or managed validation performed in this subthread."
+}

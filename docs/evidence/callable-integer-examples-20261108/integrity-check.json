@@ -1,0 +1,85 @@
+{
+  "date_utc": "2026-11-08",
+  "kind": "retained packet integrity and independent arithmetic checks; no new build/proof/application execution",
+  "validated_target": "db8ca3495c6b2a118f4bd9ebe8bbcddad2e6fa0f",
+  "managed_run": "20261108T194440-c7a94430faf1",
+  "host": "linux-x86_64",
+  "workers": 22,
+  "duration_seconds": 76.284483401,
+  "original_files_copied_byte_for_byte": 27,
+  "compressed_run_files_equal_originals": 2,
+  "helper_sha256_matches_recorded_run_input": true,
+  "target_manifest_sha256_matches_original_summary": true,
+  "compiler_sha256_consistent_between_original_summary_and_run_events": true,
+  "independent_derivations": {
+    "factorial": "Python math.factorial, all 13 values",
+    "fibonacci": "binomial identity, all 47 values",
+    "signum": "zero or x // abs(x), five demonstrations; full-domain partition argument retained in notes",
+    "sum_multiples": "direct positive-integer enumeration, all 1001 inputs compared with inclusion-exclusion"
+  },
+  "factorial_required_update_guard_checks": 78,
+  "fibonacci_required_update_guard_checks": 1035,
+  "sum_multiples_domain_comparisons": 1001,
+  "programs": [
+    {
+      "source": "rosetta_factorial.adb",
+      "source_sha256": "0334749ecb7fc9aac75a97492cdb084453bd48cfafe57c69053c33ecc2172a0e",
+      "archive_sha256": "3ec4a56105d6cf643893b25cce3375604766ae960ff47c725bd1b64d4dc0c41f",
+      "archive_members": 23,
+      "parsed_report_json_files": 6,
+      "parsed_why3_xml_files": 6,
+      "source_equals_validated_target": true,
+      "stdout_equals_independent_derivation_and_manifest": true,
+      "stderr_empty": true,
+      "recorded_gnatprove_execution_successful": true,
+      "recorded_production_options_match": true
+    },
+    {
+      "source": "rosetta_fibonacci_sequence.adb",
+      "source_sha256": "4690aabaa7757890d2a01e21da7a31f938ff71a4be250ce3d40736c6f7c65ab7",
+      "archive_sha256": "f814e74f3250b091deb83606da86b2e1369dddccd9ff3e173ef322709ab893bf",
+      "archive_members": 23,
+      "parsed_report_json_files": 6,
+      "parsed_why3_xml_files": 6,
+      "source_equals_validated_target": true,
+      "stdout_equals_independent_derivation_and_manifest": true,
+      "stderr_empty": true,
+      "recorded_gnatprove_execution_successful": true,
+      "recorded_production_options_match": true
+    },
+    {
+      "source": "rosetta_signum.adb",
+      "source_sha256": "96709a2d51bd874ef22dc0b2f916cd12e8d60bbfed538d3d1b83b868a56b1937",
+      "archive_sha256": "a87bc41220e6e7753f73b1c8294985c674482eaea5469a32bd62267c4894fac0",
+      "archive_members": 22,
+      "parsed_report_json_files": 6,
+      "parsed_why3_xml_files": 5,
+      "source_equals_validated_target": true,
+      "stdout_equals_independent_derivation_and_manifest": true,
+      "stderr_empty": true,
+      "recorded_gnatprove_execution_successful": true,
+      "recorded_production_options_match": true
+    },
+    {
+      "source": "rosetta_sum_multiples_of_3_and_5.adb",
+      "source_sha256": "24d02d8658e43a36bc09388c04542975eb2508e30761b26852f622b4afe35fd6",
+      "archive_sha256": "b5245c78f06d41b170a7016795df0a113ee5d00103004ddef19ffe86f46b1887",
+      "archive_members": 23,
+      "parsed_report_json_files": 6,
+      "parsed_why3_xml_files": 6,
+      "source_equals_validated_target": true,
+      "stdout_equals_independent_derivation_and_manifest": true,
+      "stderr_empty": true,
+      "recorded_gnatprove_execution_successful": true,
+      "recorded_production_options_match": true
+    }
+  ],
+  "outcome": "passed",
+  "limits": "Records existing successful application evidence and verifies retained bytes. Baseline applicability was established by the cited independent review, outside this retention task. No new build/proof/application execution was performed here.",
+  "baseline_applicability_review": {
+    "record": "docs/reviews/review-callable-integer-examples-20261108.md",
+    "validated_target": "db8ca3495c6b2a118f4bd9ebe8bbcddad2e6fa0f",
+    "outcome": "accepted with no findings",
+    "attribution": "Independent reviewer acceptance reported by the lead; retention task did not perform this review."
+  }
+}
