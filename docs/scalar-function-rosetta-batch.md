@@ -2,7 +2,8 @@
 
 ## Status and authorization — 2026-11-08
 
-**First group #342 selected for implementation; remaining groups proposed.**
+**First group #342 implemented, validated on Linux and independently reviewed;
+publication prepared. Remaining groups proposed.**
 The owner initially instructed **“Proceed with the planning effort we just discussed.”**
 The [dated decision](session-memory.md#2026-11-08--coherent-batch-planning-authorized)
 authorizes the batching guidance, candidate assessment, milestone/issues and
@@ -16,6 +17,10 @@ selects #342's four callable examples while the external review proceeds.
 Implement and review those four samples under the existing plan; #343 and #344
 remain unstarted, and #345 retains the later combined batch checkpoint.
 The implementation PR remains open for a later owner merge decision.
+
+The [first-group checkpoint](#callable-integer-examples--2026-11-08) below
+records the four programs and their application validation. It does not complete
+the twelve-task batch or promote the candidate Rosetta mappings.
 
 The preceding batch, [small nonrecursive functions #298](https://github.com/berkeleynerd/silver/issues/298),
 is complete: PR #339 merged as `05302f760f` and milestone 20 is closed. Its
@@ -51,6 +56,70 @@ with expected compiler-proof reuse, without selecting another future batch.
 The saving is avoided repeated validation of unchanged compiler machinery,
 not elimination of application proof or task-fidelity work.
 
+## Callable integer examples — 2026-11-08
+
+Implementation target `db8ca3495c` adds four sources and their manifest entries
+to authorization baseline `acde83e294`. The existing 72 manifest entries and
+sources are unchanged; the resulting manifest contains 76 programs. Each new
+program uses a real callable function and the delivered scalar-function rules.
+No compiler, runtime, language, catalogue, Lean or test implementation changes.
+
+| Program | Declared argument domain | Demonstrated cases | Audited flow / proof checks |
+| --- | --- | --- | --- |
+| [Factorial](../samples/rosetta_factorial.adb) | 0..12 | All 13 arguments, including 0! and 12! | 20 / 51 |
+| [Fibonacci](../samples/rosetta_fibonacci_sequence.adb) | 0..46 | All 47 arguments, ending at F46 | 20 / 52 |
+| [Signum](../samples/rosetta_signum.adb) | Full Integer | -10, 42, 0 and both Integer endpoints | 20 / 50 |
+| [Sum multiples](../samples/rosetta_sum_multiples_of_3_and_5.adb) | 0..1000 | 11 zero, strict-boundary, overlap and upper-bound cases | 20 / 58 |
+
+Each row includes the application and its four selected library units; these
+are separate sample audits, not additional compiler proof totals. Managed run
+`20261108T194440-c7a94430faf1` passed admission, production application proof,
+build, both report-policy checks and exact stdout/stderr/status comparisons for
+all four programs in 76.284 seconds, reserving 22 workers on Linux x86_64.
+The production options retain `--no-inlining` and `--no-loop-unrolling`, so
+the function checks cover their full formal domains. The retained application
+sources match the sample bytes. The [evidence packet](evidence/callable-integer-examples-20261108/README.md)
+contains the managed log, reports, sources, output, validator and derivation notes.
+
+The arithmetic guards preserve the intended result. Before Factorial's step
+i <= 12, the accumulator is (i-1)! <= 11! = 39,916,800. Before Fibonacci's
+step i <= 46, its terms are F(i-2) <= F44 and F(i-1) <= F45, exactly the two
+guard bounds; it never computes F47. Signum partitions Integer into negative,
+zero and positive values without negating its argument. Sum multiples uses
+the arithmetic-series identity and inclusion-exclusion; every intermediate
+fits Integer. Independent expected outputs use `math.factorial`, a binomial
+identity for Fibonacci and direct enumeration for Sum multiples. The latter
+was compared across all 1,001 declared inputs. These task-correctness arguments
+complement the production safety checks; samples do not prove the language.
+
+The accepted [#339 baseline](scalar-functions.md#delivery-assurance-and-validation)
+supplies complete compiler native and Lean/source assurance. The
+[independent review](reviews/review-callable-integer-examples-20261108.md)
+accepts this reuse: compiler/proof/tool/test inputs are unchanged, and the binary
+matches the accepted #339 binary. The 645-test inventory is unchanged. Of these,
+644 IDs retain their applicable results; the manifest test is covered by its
+72 retained sample cases, four fresh cases and fresh global inventory/metadata
+checks. This is composed coverage, not a fresh 645-test run. No new complete
+compiler or Lean run is claimed. The original failed baseline runs remain failed.
+
+The first Factorial/Fibonacci drafts needed the required parentheses around
+their arithmetic RHSs. That admission repair changed neither algorithm nor
+domain and preceded the successful production run. No application proof/build
+failure occurred in the four-program checkpoint.
+
+| Round | Selected model / effort | Result and rework | Available timing |
+| --- | --- | --- | --- |
+| Factorial/Fibonacci implementation | GPT-6.1 Sol / Extra High | Two faithful callable sources, independent outputs and complete-domain guard arguments; corrected arithmetic parentheses before validation | Agent elapsed/token/cost measurements unavailable |
+| Signum/Sum multiples implementation | GPT-6.1 Sol / Extra High | Two faithful callable sources, independent outputs and all 1,001 sum inputs checked | Agent elapsed/token/cost measurements unavailable |
+| Integration and application validation | Lead runtime model/effort not independently exposed | Four manifest entries; all four production application checks passed | Managed native interval 76.284 s; whole-team elapsed unavailable |
+| Independent task/evidence review | GPT-6 Astra / Max | Accepted `db8ca3495c`: task fidelity, full-domain guard arguments, exact output, retained application reports and baseline applicability; no material finding | Total review elapsed/token/cost measurements unavailable |
+
+Selected agent settings are distinct from independently confirmed runtime
+settings, which were not exposed. No new Rosetta coverage is claimed: #345 owns
+the later narrow assessment/render and combined checkpoint. #343 and #344 stay
+unstarted. The implementation merge and issue closure remain held for the
+owner's later decision; milestone 21 stays open.
+
 ## Increments and ownership
 
 The [roadmap](../roadmap.md#scalar-function-rosetta-batch) records order:
@@ -74,8 +143,9 @@ evidence applicability; a partial group does not complete the milestone.
 
 The cached manifest was retrieved 2026-10-15. The revisions below identify the
 primary `task.wiki` descriptions read for this plan, not the later delivery date.
-These are bounded designs to validate during implementation, not admission or
-proof results. Wider domains from legacy assessments are not promises.
+The table retains the bounded planning designs; the first four now have the
+implementation evidence above. The remaining designs still need validation.
+Wider domains from legacy assessments are not promises.
 
 | Task and captured revision | Required behavior and meaningful cases | Proposed bounded design |
 | --- | --- | --- |
@@ -207,7 +277,8 @@ and validation. The planning branch is `plan/coherent-batches-20261108`,
 originally based on `8eec12216a` and published in
 [PR #346](https://github.com/berkeleynerd/silver/pull/346), stacked on PR #339.
 After #339 merged, PR #346 was retargeted to main and its documentation
-reconciled with the completed delivery. All four issues remain Backlog in
-milestone 21. Local document links and whitespace passed; later edits record
+reconciled with the completed delivery. At that planning publication, all four
+issues remained Backlog in milestone 21; the later #342 selection is recorded
+above. Local document links and whitespace passed; later planning edits record
 review, publication, delivery status and merge authorization only. The reviewed
 proposal is unchanged. CLI recall was not updated.
