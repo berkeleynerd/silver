@@ -259,6 +259,17 @@ regenerated source certificates, complete native/Lean audits and an affected-inp
 regression review. The accepted regression composition above applies to its exact
 unchanged snapshot; it does not pre-accept those future source repairs.
 
+The bounded native repairs are now integrated: the invalid-frame guard, explicit
+failed comma/return-token rejection, and successful scalar/Boolean declaration
+frame facts. Their exact source and semantic correspondence were independently
+reviewed, including the regenerated source certificates and unchanged semantic
+models. Focused [semantic closure 091153](evidence/scalar-functions-20261107/focused/20261108T091153-a212a5bfebc3/README.md)
+passed both interpretation targets and its fresh 100-module / 16,853-declaration
+audit after a retained mechanical unfolding repair. The six affected native
+subprogram checks are in progress. Complete native and Lean/source assurance,
+rebuilt compiler and affected regression validation remain pending; the older
+637-ID acceptance has not been extended to these changed inputs.
+
 Selected subthread settings are recorded from their launches; independent runtime
 confirmation, token/cost and total elapsed-work measurements are unavailable.
 Native probe time is retained by the managed records rather than inferred from
