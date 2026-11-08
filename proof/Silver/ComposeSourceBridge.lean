@@ -188,8 +188,11 @@ theorem interpreted_equations (calls : Expressions.Calls)
       functionSource.visibilityPrimitives functionSource.visibilityEquations text valid state
       ⟨ready.valid, ready.base.ready, ready.bounds⟩ first after firstBound afterBound
   let raw := Expressions.normalized_rawHelpers calls (interpreted_primitives calls source)
-    {source.definitions ⟨lookup, hides⟩ with imageMinimum := minimum, imageMaximum := maximum,
-      functionLookup := lookup, formalHides := hides} source.legal
+    {source.definitions ⟨lookup, hides⟩ with
+      imageMinimum := minimum
+      imageMaximum := maximum
+      functionLookup := lookup
+      formalHides := hides} source.legal
   exact {
     toRawHelperEquations := raw
     booleanDeclaration := by
