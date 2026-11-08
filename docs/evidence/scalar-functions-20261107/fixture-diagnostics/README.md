@@ -95,3 +95,15 @@ production proof limit, solver setting, language domain or acceptance check.
 The successful complete fixture remains required, and 180 seconds is not a
 measured completion guarantee. No further increase or automatic retry is
 authorized. The separate platform fixture's 180-second outer limit is unchanged.
+
+The [separate platform assessment](platform-local-route/index.json) identifies
+repeated source-side copying: each of twelve nested tests copies all 821 Lean
+files from the repository's virtiofs mount into an already local temporary
+project. The concrete local-source route retains all 866 required input files,
+their bytes and modes, normal import/ROOT derivation, real generators and existing
+tool mocks. It preserves the outer 180-second, worker 60-second and barrier
+15-second watchdogs and every nested assertion. No binaries or proof objects
+move. After review, one such unchanged platform fixture is authorized only
+after the active certificate fixture finishes and releases its context, with
+fresh headroom checks and a four-worker reservation. Its fit within 180 seconds
+is unproven; a timeout requires retained diagnosis before any next action.

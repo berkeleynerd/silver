@@ -1,0 +1,35 @@
+{
+  "bundle": "evidence.tar.gz",
+  "sha256": "74b9bcb5916e73901567359819155fa2d7f92f63865d4998f83caab8f84ccc51",
+  "bytes": 53538,
+  "members": 5,
+  "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-delivery-review-298/tmp/symlink-fixture-assessment-298/shareable-assessment.tar.gz",
+  "scope": "Read-only unchanged platform-fixture local-source route and complete866-file inventory; no platform run in this packet.",
+  "member_inventory": [
+    {
+      "path": "ASSESSMENT.md",
+      "bytes": 9815,
+      "sha256": "6a3fe6bbc4e8efbe22c12c17de4c47119dda0f2ad7f94de1635f1483c5053ce2"
+    },
+    {
+      "path": "earlier-fullsuite-platform-excerpt.json",
+      "bytes": 7162,
+      "sha256": "ca9924a117e7fd777986fdab959f2e54d2f316fbf7626bdca822778bb685868c"
+    },
+    {
+      "path": "manifest.json",
+      "bytes": 562,
+      "sha256": "261b3b0d492a0436759197b75568a3096e035f358ed4700194642ef06b40489e"
+    },
+    {
+      "path": "proposed-input-inventory.json",
+      "bytes": 182996,
+      "sha256": "2b50db03bf56f5a7cdc6e2fdd4189bec920558efd6a6c17f0480c76df566cbc5"
+    },
+    {
+      "path": "watchdog-provenance.json",
+      "bytes": 4873,
+      "sha256": "998640804dcbb5f2f498e4c7ecf2e585f10cf2db1737a6d262a19553d9658ad4"
+    }
+  ]
+}
