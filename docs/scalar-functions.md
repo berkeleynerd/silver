@@ -14,6 +14,10 @@ Function support remains pending complete implementation and assurance.
 The integrated implementation checkpoint is published in draft
 [PR #339](https://github.com/berkeleynerd/silver/pull/339). The PR remains in
 progress; its publication does not complete validation or authorize merge.
+The [Rosetta stage record #341](https://github.com/berkeleynerd/silver/issues/341)
+tracks the precise `scalar-functions` mapping within #298. Its current Stage 8
+field reflects the motivating task's existing broad-functions position; no
+support promotion or rendered coverage gain has occurred.
 
 Routine planning publication and merge, followed by implementation through
 reviewable publication, are authorized. Implementation merge remains a later

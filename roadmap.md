@@ -71,6 +71,12 @@ assurance, actual native/Lean source correspondence and complete validation.
 Routine planning publication/merge and implementation through reviewable
 publication are authorized; implementation merge remains a later owner decision.
 
+The [scalar-functions stage record #341](https://github.com/berkeleynerd/silver/issues/341)
+tracks this precise Rosetta fragment within the same package. Its current Stage 8
+field records the motivating task's position under broad `functions`; promotion
+to supported `scalar-functions` and Stage 1 awaits complete assurance and the
+actual render. General functions, procedures and booleans keep their separate scope.
+
 The first driver is a Boolean `Is_Prime` function for Primality by trial division,
 whose task explicitly requires that function. The chosen first fragment has
 explicit-in scalar formals, closed scalar bodies with one terminal return, and
