@@ -287,3 +287,11 @@ worker and one thread; complete function-source closure and the final complete
 cached build/audit remain required. A separate unchanged object-reuse fixture
 attempt will select the authenticated local Lean installation in a fresh test
 root, preserving all assertions and the 60-second per-command deadline.
+
+The [serial header probe](focused/20261108T063451-39ef5c8a1b1a/README.md) passed:
+its named leaf compiled in 115 seconds, and the fresh focused audit covered
+97 modules and 15,042 declarations with only the approved foundations. All four
+retained artifacts were independently verified. Sampled leaf RSS reached
+4.317 GiB with healthy host headroom; this is not a bound for other requirements.
+The serial complete function-source consumer check is now starting. This first
+leaf success does not complete source or whole-project assurance.
