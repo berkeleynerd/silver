@@ -1,0 +1,54 @@
+{
+  "review_commit": "863300220b2f36e3de50c6a30d6cb26e3b7a7122",
+  "archive": "evidence.tar.gz",
+  "bytes": 18848,
+  "sha256": "197e15b7cb32f70cf5b13b42cd5ea5af4d2558cdb8ebc2179c2effe388439b63",
+  "all_members_independently_compared_with_originals": true,
+  "members": [
+    {
+      "path": "CALLEE-REVIEW.md",
+      "bytes": 1491,
+      "sha256": "767d8b039011e122433c955b9d68737164e83bf835022991f9b9543331ae12d5"
+    },
+    {
+      "path": "PLAN.md",
+      "bytes": 14468,
+      "sha256": "14f1ec6affe467855ae04df84f29dd7ed3ca33a34aaee431f891f898d77dace3"
+    },
+    {
+      "path": "callee-qualified-source-reader.patch",
+      "bytes": 1430,
+      "sha256": "34b2aeb798af54caa06e0005e1f164ee40e7209be5bcde88a6391ef15bea2c4c"
+    },
+    {
+      "path": "inventory.json",
+      "bytes": 5156,
+      "sha256": "76f16d914e79e5e6fefff75663180e8fa137a3642202d4f67a2e7ddf4d190516"
+    },
+    {
+      "path": "manifest.json",
+      "bytes": 1425,
+      "sha256": "cfaf7017db6612134f0769c193cc6e6793d2fd461f5b7fef490ae13836ada8d8"
+    },
+    {
+      "path": "parameter-frame-guard-obligation-inventory.json",
+      "bytes": 8687,
+      "sha256": "9bacf7c61050d30288d30acba258fe555daa1c0d14fa6fca5092bd62aa0e1094"
+    },
+    {
+      "path": "parameter-frame-guard-verification.json",
+      "bytes": 28019,
+      "sha256": "436c3c451358ead19e219a409d193018924fb0053b8108c1cba6dc4e6a4c5b2a"
+    },
+    {
+      "path": "remaining-three.patch",
+      "bytes": 2777,
+      "sha256": "a6c87808887548b8723e7febfce0823a6679312b55fb3b21da5873d27355ee21"
+    },
+    {
+      "path": "static-verification.json",
+      "bytes": 631,
+      "sha256": "b151197425f0eecc175533d0b8c9bbbf3521502f805e1c56c37622329534000a"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "verified_utc": "2026-11-08T08:56:19.765454+00:00",
+  "integration_commit": "f787c4f1f3",
+  "source_commit": "b8365c0606e0d2e185e89a73264b10cf72530e06",
+  "artifacts": 155,
+  "uncompressed_bytes": 32809180,
+  "all_decompressed_hashes_lengths_match": true,
+  "all_gzip_files_indexed": true
+}
