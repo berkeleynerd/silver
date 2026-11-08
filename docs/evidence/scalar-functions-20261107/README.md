@@ -185,4 +185,14 @@ reruns will be recorded after its actual full outcome. The suite's
 managed two-worker reservation is not an enforced application cap: the existing
 application recipe uses `-j0`, resolving to 22 on this host. Its owner retains
 observed process/load evidence; no source, proof option or timeout was changed.
-The complete corrected native audit remains active with unchanged source.
+The corrected native run `20261108T014042-81a35c010d1f` was subsequently
+interrupted without a finished event or successful provenance. Its recorded
+processes and persistent tool sessions disappeared after a monitoring handoff
+ended the owning agent's turn. The assumed lifetime across agent finalization
+was not established; the exact cause remains unconfirmed. Source hashes are
+unchanged. The owner retained the partial reports, saved sessions and cache
+before starting `20261108T040128-2651963b8574` with the identical source, proof
+options and twelve workers. The continuation reuses retained sessions; it is
+not a cold run. The owner remains active through the actual outcome. Neither
+the interrupted run nor its saved-session inventory establishes complete audit
+success; final native provenance and coverage remain required.

@@ -156,6 +156,14 @@ pending. The full regression suite has errors in its object-reuse and symlinked
 temporary-directory platform-routing fixtures; the exact collected tracebacks and complete inventory are awaited before
 diagnosis. No timeout, warning policy, domain or required check changed.
 
+The native monitoring handoff did not preserve the active execution as assumed:
+run `20261108T014042-81a35c010d1f` is interrupted with no finished event or
+successful provenance. Its partial reports and cache were retained before the
+identical-option continuation `20261108T040128-2651963b8574`. The
+[evidence continuation](evidence/scalar-functions-20261107/README.md#expanded-source-check-continuation--2026-11-08)
+records the observation and unconfirmed cause; no source or proof requirement
+changed. This interruption is additional rework, not successful validation.
+
 Selected subthread settings are recorded from their launches; independent runtime
 confirmation, token/cost and total elapsed-work measurements are unavailable.
 Native probe time is retained by the managed records rather than inferred from
