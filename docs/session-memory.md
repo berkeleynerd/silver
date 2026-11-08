@@ -1,5 +1,30 @@
 # Session memory
 
+## 2026-11-08 — Callable examples merged; divisor group validated
+
+The authorized [PR #351](https://github.com/berkeleynerd/silver/pull/351) merge
+completed as `a74e67c3a8d1c3ec6213519e4b4664c6e66825e7`. #342 is closed/Done;
+its accepted implementation target remains `db8ca3495c`, with complete focused
+application evidence and independently reviewed baseline reuse. The final
+authorization commit `079ad0251d` changed documentation only and selected #343.
+
+[#343](https://github.com/berkeleynerd/silver/issues/343) is implemented and
+validated in
+`tmp/divisor-examples-343`, branch `feat/divisor-examples-343-20261108`, based on
+that merge. Two isolated Sol / Extra High streams implemented LCM/Coprimes and
+Sum of divisors/Tau. Independent Astra / Max review accepts target `5262fb81fa`,
+including task fidelity, complete domains, exact outputs and evidence reuse,
+with no material finding. The [second-group checkpoint](scalar-function-rosetta-batch.md#gcd-and-divisor-examples--2026-11-08)
+records all four successful production application proof/build/execution checks,
+76 retained manifest cases plus four fresh cases, and the applicable unchanged
+compiler/native/Lean evidence. Selected settings are recorded; live model/effort
+introspection is not independently available.
+
+The [existing batch plan](scalar-function-rosetta-batch.md) remains the scope.
+Publication is prepared; hold #343's implementation merge. #344 stays unstarted;
+#345 retains the combined checkpoint and Rosetta assessment/render. Milestone 21
+remains open and rendered coverage remains 71 tasks. No CLI recall update was made.
+
 ## 2026-11-08 — Callable examples merge and divisor group authorized
 
 After the recommendation to merge ready PR #351 and implement

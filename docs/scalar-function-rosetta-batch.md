@@ -2,9 +2,10 @@
 
 ## Status and authorization — 2026-11-08
 
-**First group #342 implemented, validated on Linux and independently reviewed;
-published in [PR #351](https://github.com/berkeleynerd/silver/pull/351).
-Merge authorized; second group #343 selected.**
+**First group #342 complete and merged through
+[PR #351](https://github.com/berkeleynerd/silver/pull/351);
+second group #343 implemented, validated on Linux and independently reviewed;
+publication prepared.**
 The owner initially instructed **“Proceed with the planning effort we just discussed.”**
 The [dated decision](session-memory.md#2026-11-08--coherent-batch-planning-authorized)
 authorizes the batching guidance, candidate assessment, milestone/issues and
@@ -20,6 +21,9 @@ Those four samples are validated and reviewed. The owner's subsequent
 authorizes merging PR #351 and implementing #343's four divisor programs through
 reviewable publication. #343's merge remains a later owner decision. #344 stays
 unstarted, and #345 retains the later combined batch checkpoint.
+PR #351 merged as `a74e67c3a8` and #342 is closed. The divisor group starts from
+those accepted inputs; its own source, manifest and application evidence remain
+separate from the first-group checkpoint below.
 
 The [first-group checkpoint](#callable-integer-examples--2026-11-08) below
 records the four programs and their application validation. It does not complete
@@ -29,7 +33,7 @@ The preceding batch, [small nonrecursive functions #298](https://github.com/berk
 is complete: PR #339 merged as `05302f760f` and milestone 20 is closed. Its
 accepted native/Lean/source assurance supplies this successor's delivery baseline;
 pending or failed checkpoints are not reusable success. Planning does not expand
-#298; the later authorization above selects only the first implementation group.
+#298; the later authorizations above select the first two implementation groups.
 
 ## Outcome and choice
 
@@ -120,9 +124,78 @@ failure occurred in the four-program checkpoint.
 Selected agent settings are distinct from independently confirmed runtime
 settings, which were not exposed. No new Rosetta coverage is claimed: #345 owns
 the later narrow assessment/render and combined checkpoint. The implementation
-is published in [PR #351](https://github.com/berkeleynerd/silver/pull/351), whose
-merge and #342 closeout are now owner-authorized. #343 is selected next; #344
+is merged in [PR #351](https://github.com/berkeleynerd/silver/pull/351) as
+`a74e67c3a8`, and #342 is closed. #343 is selected next; #344
 stays unstarted. Milestone 21 remains open.
+
+## GCD and divisor examples — 2026-11-08
+
+Implementation target `5262fb81fa` adds four sources and their manifest entries
+to merged baseline `a74e67c3a8`. All 76 earlier sample sources and manifest
+records are unchanged; the current inventory is 80 programs. Compiler/runtime,
+language, catalogue, Lean, auditor and test implementation inputs are unchanged.
+
+| Program | Declared argument domain | Demonstrated cases | Audited flow / proof checks |
+| --- | --- | --- | --- |
+| [Least common multiple](../samples/rosetta_least_common_multiple.adb) | Both arguments -1000..1000 | 12 pairs covering the required 12/18 example, signs, zero and bounds | 21 / 59 |
+| [Coprimes](../samples/rosetta_coprimes.adb) | Both arguments -1000..1000 | All five required pairs plus eight sign, zero and boundary controls | 21 / 56 |
+| [Sum of divisors](../samples/rosetta_sum_of_divisors.adb) | 1..100 | Every required input, including primes and perfect squares | 20 / 52 |
+| [Tau function](../samples/rosetta_tau_function.adb) | 1..100 | Every required input, including primes and perfect squares | 20 / 51 |
+
+Managed run `20261108T211402-d028fe5c343d` passed admission, production application
+proof, build, the unchanged effective-proof-policy and report audits, and exact
+stdout/stderr/status comparison for all four sources in 66.336 seconds, with
+22 reserved workers on Linux x86_64. Each row covers its application and four
+selected library units. The LCM and Coprimes audits include both their GCD helper
+and their task function; they each have 19 audited entities. Sum and Tau each
+have 18. These are application checks, not new compiler-proof totals.
+The [retained packet](evidence/divisor-examples-20261108/README.md) contains
+the actual source snapshots, reports, logs, output and validation helper.
+
+The shared Euclidean algorithm preserves GCD after sign normalization. Every
+two active updates reduce the nonnegative second operand by at least half;
+after 20 steps it is at most 1000/1024, hence zero. Inactive guarded iterations
+preserve the answer. Independent enumeration of all 1,002,001 magnitude pairs
+matches `math.gcd` and `math.lcm`, with at most 15 active steps observed;
+the sign-normalization argument extends this to every signed argument pair.
+LCM computes the absolute product divided by GCD when the latter is positive.
+Only two zero arguments give GCD zero; retaining the initialized zero result
+then implements the required zero case. All intermediate magnitudes are bounded
+by 1,000,000. Coprimes tests whether the resulting GCD is one.
+
+Before candidate divisor d <= 100, the sum of earlier positive candidates is
+at most d(d-1)/2 <= 4,950 and their count is at most d-1 <= 99. The static
+guards therefore cannot discard a required contribution in either divisor
+program. The full loops visit every positive divisor. Expected sums and counts
+come independently from prime-factorization product identities, covering all
+100 outputs. Application proof retains the production `--no-inlining` and
+`--no-loop-unrolling` options and checks full formal domains; task arguments
+establish the mathematical result in addition to safety.
+
+The [independent Astra / Max review](reviews/review-divisor-examples-20261108.md)
+accepts the implementation, task arguments, application evidence and retained
+#339 compiler/native/Lean assurance. It independently matched all 93 archived
+files, all 225 output lines, 2,588 captured native inputs and 927 Lean inputs,
+with their recorded tool identities. The unchanged 645-ID test inventory retains
+644 unaffected results; the manifest ID combines 76 retained cases with four
+fresh cases and fresh global inventory/metadata checks. The focused run checked
+all 80 manifest records, unique source coverage, capability identifiers and
+specification links. No fresh full regression suite or complete compiler/Lean
+run is claimed; original failed runs remain failed.
+
+| Round | Selected model / effort | Result and rework | Available timing |
+| --- | --- | --- | --- |
+| LCM/Coprimes implementation | GPT-6.1 Sol / Extra High | Two callable sources, complete-domain Euclidean/sign argument and independent outputs; both admitted | Agent elapsed/token/cost measurements unavailable |
+| Sum/Tau implementation | GPT-6.1 Sol / Extra High | Two callable sources covering all 100 inputs, nontruncating guard arguments and prime-factorization output derivation | Agent elapsed/token/cost measurements unavailable |
+| Integration and application validation | Lead runtime model/effort not independently exposed | Four manifest entries; every production application check passed on the first run | Managed native interval 66.336 s; whole-team elapsed unavailable |
+| Evidence retention | GPT-6.1 Sol / Extra High | Original reports/logs and derivation notes retained separately from production inputs | Agent elapsed/token/cost measurements unavailable |
+| Independent task/evidence review | GPT-6 Astra / Max | Accepted `5262fb81fa`: full-domain algorithms/guards, task fidelity, exact output and evidence applicability; no material finding, one inherited status sentence corrected | Total review elapsed/token/cost measurements unavailable |
+
+No language mechanism or resource budget changed. The first two groups now
+provide eight validated programs; #344's four digit/prime programs remain
+unstarted. #345 retains the combined checkpoint and narrow Rosetta assessment
+and render, so the rendered Stage-1 total remains 71. The #343 implementation
+merge remains held for the owner's later decision; milestone 21 remains open.
 
 ## Increments and ownership
 
@@ -147,7 +220,7 @@ evidence applicability; a partial group does not complete the milestone.
 
 The cached manifest was retrieved 2026-10-15. The revisions below identify the
 primary `task.wiki` descriptions read for this plan, not the later delivery date.
-The table retains the bounded planning designs; the first four now have the
+The table retains the bounded planning designs; the first eight now have the
 implementation evidence above. The remaining designs still need validation.
 Wider domains from legacy assessments are not promises.
 
