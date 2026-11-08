@@ -131,3 +131,20 @@ then check unit flow, rebuild and complete the native audit with retained
 sessions. Those later results remain pending. The independent integration
 certificate continues on frozen inputs; both regression build and full tests
 wait for the integrated native and proof repair snapshot.
+
+## Applied integration repairs — 2026-11-08
+
+The [frozen focused run](focused/20261107T230910-a15a07ea6dd4/README.md)
+finished with exactly the two known failure groups. Its output certificate and
+source bridges compiled successfully and remain cached. After retaining that
+failed outcome, the coordinator applied all five reviewed proof-file repairs
+and integrated the native warning cleanup as `cd705e9bba`. The
+[review supplement](../../reviews/review-scalar-functions-delivery-20261108.md#supplemental-static-review--boolean-context-and-report-warnings)
+found no material defect in the additional Boolean adapters or report cleanup.
+
+Focused repair checking, including named `scan_step` extraction, and the complete
+Lean/source audit remain outstanding. The native cleanup passed focused flow
+without warnings and an ordinary build; complete native run
+`20261108T014042-81a35c010d1f` is still active. Full regressions are queued for
+the exact integrated repair snapshot. None of these pending checks is claimed
+as completed support.

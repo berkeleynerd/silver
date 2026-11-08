@@ -81,7 +81,8 @@ mutual
     | .scan => ctx.scan | .result => ctx.result | .initial => initialScan | .invalid => invalidScan
     | .helperStep direct token value =>
         let scan := value.eval calls ctx
-        {scan with state := calls.helpers.function .step ctx.text (if direct then .direct else ctx.form.helper) (token.eval ctx) scan.state}
+        let next := calls.helpers.function .step ctx.text (if direct then .direct else ctx.form.helper) (token.eval ctx) scan.state
+        {scan with state := next, assigned := scan.assigned || next.assignedInFunctions}
     | .readStatements stop value => calls.readStatements ctx.text (value.eval calls ctx) (stop.eval ctx)
     | .scanStep indexed value => calls.scanStep ctx.text ctx.form
         (if indexed then ctx.form.tokens.getD (ctx.nextToken - 1) (.helper (.symbol ";")) else ctx.token)
@@ -111,9 +112,11 @@ def position (value : List String) : List String := value ++ [".", "state", ".",
 mutual
   def Expr.render : Expr → List String
     | .scan => ["scan"] | .result => ["result"] | .initial => ["initial_scan"] | .invalid => ["invalid_scan"]
-    | .helperStep direct token value => ["("] ++ value.render ++ ["with", "delta", "state", "=>"] ++
+    | .helperStep direct token value => ["(", "declare", "next", ":", "constant", "parser_state", ":="] ++
         call "step" [["text"], [if direct then "direct_form" else "form"], token.render,
-          value.render ++ [".", "state"]] ++ [")"]
+          value.render ++ [".", "state"]] ++ [";", "begin", "("] ++ value.render ++
+        ["with", "delta", "state", "=>", "next", ",", "assigned", "=>"] ++
+        value.render ++ [".", "assigned", "or", "next", ".", "assigned_in_functions", ")", ")"]
     | .readStatements stop value => call "read_statements" [["text"], value.render, stop.render]
     | .scanStep indexed value => call "scan_step" [["text"], ["form"],
         if indexed then ["tokens", "(", "form", ")", "(", "next_token", ")"] else ["token"], value.render]
