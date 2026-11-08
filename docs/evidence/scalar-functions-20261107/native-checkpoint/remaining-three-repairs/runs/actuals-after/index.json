@@ -1,0 +1,67 @@
+{
+  "artifact_root": ".",
+  "run_id": "20261108T092903-fba617d20124",
+  "source_commit": "ee02fce26ac8f3cbe911022b2f9f1611f33594ab",
+  "artifacts": [
+    {
+      "path": "managed/events.jsonl.gz",
+      "sha256": "472abf1b32313b6eb4acccc5eef648e37a387464e628bfcf9d7871d33a7d426f",
+      "bytes": 450763
+    },
+    {
+      "path": "managed/native.log.gz",
+      "sha256": "ea76940ae4d23484063622df2e6e28759a4f9664b3791f5888f73544c0af5148",
+      "bytes": 2288
+    },
+    {
+      "path": "observations/driver.log.gz",
+      "sha256": "98c934787a2b95bd1d1f5c08cfd5efd434ffee41b4162b0141564e25eae94299",
+      "bytes": 2460
+    },
+    {
+      "path": "observations/pre-run-status.json.gz",
+      "sha256": "abcc71c35574701c919628907541b41e8bb24084063b70f7fba9f5787591950b",
+      "bytes": 82364
+    },
+    {
+      "path": "reports/gnatprove.out.gz",
+      "sha256": "8e831f9e48f407ddab8d2248500726bfb753402c8c0a0fc751d0fa0c503609f8",
+      "bytes": 2447
+    },
+    {
+      "path": "reports/gnatprove.sarif.gz",
+      "sha256": "49d9e2da73eaf30011e9967d76360ca2bbd883a5a95b3cd2c58bc27397b31f01",
+      "bytes": 61968
+    },
+    {
+      "path": "reports/silver_output_profile.adb.stderr.gz",
+      "sha256": "1114c45de2349e272bf811e70a2163f29abcfc1e4b686a0ecaa00c3495415d30",
+      "bytes": 1893
+    },
+    {
+      "path": "reports/silver_output_profile.spark.gz",
+      "sha256": "2bc9cac82330f5e6cd0aa99dcdbc582993d2fb5ed85a7779f63a98d13597b15e",
+      "bytes": 152027
+    },
+    {
+      "path": "reports/silver_output_profile__actuals_after/why3session.xml.gz",
+      "sha256": "a4d62ecf8138896fd9f594b07cc8dac93f63be13f44f45f9354757fca04d801f",
+      "bytes": 50296
+    },
+    {
+      "path": "reports/silver_output_profile__actuals_after/why3shapes.gz",
+      "sha256": "9281f3a695aace676053a1953a6708c8e01c44d527cf18e5208911fbe4b99f31",
+      "bytes": 212990
+    },
+    {
+      "path": "reports/silver_output_profile__actuals_after.gnat-json.gz",
+      "sha256": "34004ca271e41a8f019ccc6719b8c9172be3fde4def134e38e7e83cd0c90f8d2",
+      "bytes": 13915466
+    },
+    {
+      "path": "reports/why3.conf.gz",
+      "sha256": "d411a4e190be2c2ccf88763ec9fd3d3c1855703cc23812d38d62a741b6843a07",
+      "bytes": 5024
+    }
+  ]
+}

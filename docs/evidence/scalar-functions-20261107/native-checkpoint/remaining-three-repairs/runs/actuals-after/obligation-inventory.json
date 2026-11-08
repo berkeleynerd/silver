@@ -1,0 +1,218 @@
+{
+  "target": "Actuals_After",
+  "body_line": 4828,
+  "run_id": "20261108T092903-fba617d20124",
+  "source_commit": "ee02fce26ac8f3cbe911022b2f9f1611f33594ab",
+  "source_sha256": "036a53b4bd9a9d7c711b4ddf8d83467a6b470184bfce2ac6677b15cf4f57ef47",
+  "actual_tool_exitcode": 0,
+  "finished": {
+    "duration_seconds": 510.860545263,
+    "event": "finished",
+    "evidence": [
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-parser-repairs-298/.silver/linux-x86_64/compiler/obj/explore/remaining-three-actuals-after/gnatprove",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-parser-repairs-298/.silver/linux-x86_64/compiler/obj/explore/remaining-three-actuals-after/gnatprove"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T092903-fba617d20124/native.log",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T092903-fba617d20124/native.log"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T092903-fba617d20124/exploratory-evidence",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T092903-fba617d20124/exploratory-evidence"
+      }
+    ],
+    "failure_keys": [],
+    "monotonic_ns": 61954814007584,
+    "outcome": "success",
+    "retained_reports": [],
+    "returncode": null,
+    "run_id": "20261108T092903-fba617d20124",
+    "utc": "2026-11-08T09:37:34.417992+00:00"
+  },
+  "proof_records_by_severity": {
+    "info": 20
+  },
+  "flow_records_by_severity": {
+    "info": 2
+  },
+  "checked_proof_entities": [
+    "Silver_Output_Profile.Actuals_After"
+  ],
+  "proof_tree_branches": 194,
+  "proved_proof_tree_branches": 194,
+  "postcondition_tree_branches": 2,
+  "proved_postcondition_tree_branches": 2,
+  "saved_session_roots": 1,
+  "saved_session_roots_marked_proved": 1,
+  "saved_session_goal_nodes": 204,
+  "saved_session_goal_nodes_marked_proved": 204,
+  "progress": "PROGRESS_PROOF",
+  "stop_reason": "STOP_REASON_NONE",
+  "skip_proof": [],
+  "skip_flow_proof": [],
+  "pragma_assume": [],
+  "non_info_records": [],
+  "proof_records": [
+    {
+      "line": 4842,
+      "column": 20,
+      "rule": "VC_PRECONDITION",
+      "severity": "info",
+      "tree_branches": 19,
+      "all_tree_branches_proved": true
+    },
+    {
+      "line": 4844,
+      "column": 38,
+      "rule": "VC_PRECONDITION",
+      "severity": "info",
+      "tree_branches": 4,
+      "all_tree_branches_proved": true
+    },
+    {
+      "line": 4845,
+      "column": 20,
+      "rule": "VC_PRECONDITION",
+      "severity": "info",
+      "tree_branches": 4,
+      "all_tree_branches_proved": true
+    },
+    {
+      "line": 4847,
+      "column": 25,
+      "rule": "VC_RANGE_CHECK",
+      "severity": "info",
+      "tree_branches": 2,
+      "all_tree_branches_proved": true
+    },
+    {
+      "line": 4839,
+      "column": 12,
+      "rule": "VC_PRECONDITION",
+      "severity": "info",
+      "tree_branches": 56,
+      "all_tree_branches_proved": true
+    },
+    {
+      "line": 4840,
+      "column": 14,
+      "rule": "VC_PRECONDITION",
+      "severity": "info",
+      "tree_branches": 56,
+      "all_tree_branches_proved": true
+    },
+    {
+      "line": 4839,
+      "column": 12,
+      "rule": "VC_LOOP_INVARIANT_INIT",
+      "severity": "info",
+      "tree_branches": 1,
+      "all_tree_branches_proved": true
+    },
+    {
+      "line": 4839,
+      "column": 12,
+      "rule": "VC_LOOP_INVARIANT_PRESERV",
+      "severity": "info",
+      "tree_branches": 1,
+      "all_tree_branches_proved": true
+    },
+    {
+      "line": 4837,
+      "column": 53,
+      "rule": "VC_OVERFLOW_CHECK",
+      "severity": "info",
+      "tree_branches": 4,
+      "all_tree_branches_proved": true
+    },
+    {
+      "line": 4837,
+      "column": 33,
+      "rule": "VC_LOOP_INVARIANT_INIT",
+      "severity": "info",
+      "tree_branches": 1,
+      "all_tree_branches_proved": true
+    },
+    {
+      "line": 4837,
+      "column": 33,
+      "rule": "VC_LOOP_INVARIANT_PRESERV",
+      "severity": "info",
+      "tree_branches": 1,
+      "all_tree_branches_proved": true
+    },
+    {
+      "line": 4836,
+      "column": 33,
+      "rule": "VC_LOOP_INVARIANT_INIT",
+      "severity": "info",
+      "tree_branches": 2,
+      "all_tree_branches_proved": true
+    },
+    {
+      "line": 4836,
+      "column": 33,
+      "rule": "VC_LOOP_INVARIANT_PRESERV",
+      "severity": "info",
+      "tree_branches": 2,
+      "all_tree_branches_proved": true
+    },
+    {
+      "line": 4841,
+      "column": 31,
+      "rule": "VC_LOOP_VARIANT",
+      "severity": "info",
+      "tree_branches": 1,
+      "all_tree_branches_proved": true
+    },
+    {
+      "line": 4827,
+      "column": 12,
+      "rule": "VC_PRECONDITION",
+      "severity": "info",
+      "tree_branches": 28,
+      "all_tree_branches_proved": true
+    },
+    {
+      "line": 4825,
+      "column": 68,
+      "rule": "VC_OVERFLOW_CHECK",
+      "severity": "info",
+      "tree_branches": 2,
+      "all_tree_branches_proved": true
+    },
+    {
+      "line": 4820,
+      "column": 41,
+      "rule": "VC_OVERFLOW_CHECK",
+      "severity": "info",
+      "tree_branches": 2,
+      "all_tree_branches_proved": true
+    },
+    {
+      "line": 4820,
+      "column": 54,
+      "rule": "VC_PRECONDITION",
+      "severity": "info",
+      "tree_branches": 3,
+      "all_tree_branches_proved": true
+    },
+    {
+      "line": 4822,
+      "column": 28,
+      "rule": "VC_PRECONDITION",
+      "severity": "info",
+      "tree_branches": 3,
+      "all_tree_branches_proved": true
+    },
+    {
+      "line": 4824,
+      "column": 28,
+      "rule": "VC_POSTCONDITION",
+      "severity": "info",
+      "tree_branches": 2,
+      "all_tree_branches_proved": true
+    }
+  ]
+}

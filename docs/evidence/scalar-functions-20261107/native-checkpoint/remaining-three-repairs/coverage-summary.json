@@ -1,0 +1,21 @@
+{
+  "scope": "Six complete focused subprogram native checks only; no complete compiler/provenance/Lean/language delivery claim",
+  "actual_sequence_exitcode": 0,
+  "source_commit": "ee02fce26ac8f3cbe911022b2f9f1611f33594ab",
+  "source_sha256": "036a53b4bd9a9d7c711b4ddf8d83467a6b470184bfce2ac6677b15cf4f57ef47",
+  "target_count": 6,
+  "all_managed_success": true,
+  "all_actual_tool_exitcodes_zero": true,
+  "proof_records_info": 101,
+  "flow_records_info": 14,
+  "total_checks": 115,
+  "proof_tree_branches": 704,
+  "all_proof_tree_branches_proved": true,
+  "postcondition_tree_branches": 43,
+  "all_postcondition_tree_branches_proved": true,
+  "saved_session_roots": 6,
+  "all_saved_session_roots_marked_proved": true,
+  "saved_session_goal_nodes": 744,
+  "all_saved_session_goal_nodes_marked_proved": true,
+  "indexed_gzip_artifacts_verified": 221
+}
