@@ -12,6 +12,7 @@ their audit and object-reuse/edit stages still require a complete pass.
 | `20261108T060219-fd618279bf6d` | One direct CertificateWitness compile with pinned profiler options | Passed in 9.604 seconds; exclusive import cost 6.870 seconds |
 | `20261108T061828-f176c7d39979` | Fresh authenticated Lean installation on container-local overlay | Passed; all 18,381 distribution entries and 15,127 baseline library identities matched |
 | `20261108T062237-55f39cc9f940` | One matched CertificateWitness profile using that local installation | Passed in 4.836 seconds; exclusive import cost 2.910 seconds |
+| `20261108T064023-1bc9e7d6f89f` | Full unchanged original fixture in a separate test root using authenticated local tools | Failed at the unchanged 60-second initial-build deadline; no audit/edit subtest reached |
 
 The first two used the original one-thread/one-worker and 2,048 MiB settings and matched
 all 19 retained prepared source/configuration hashes. Each ran in its own
@@ -58,3 +59,22 @@ for its source/output workspace. These limits prevent treating this one
 observation as a complete causal explanation or a passing fixture. Existing
 installations and prior evidence remain untouched. The next fixture check must
 retain its original assertions, deadline and complete edit/audit sequence.
+
+The authorized original-fixture attempt then failed despite those local tools.
+Its [bundle and exhaustive inventory](20261108T064023-1bc9e7d6f89f/index.json)
+retain exact copied inputs, normal ROOT/import checks, complete distribution
+identity, exception streams, the pre-cleanup workspace, process observations
+and managed records. All 53 bundle members were independently read and indexed
+by size and SHA-256 during integration. Postflight rehashed all 17,792 captured
+input files with no difference. The explicitly scoped TMPDIR used the same
+overlay filesystem class as the original unset-TMPDIR fixture.
+
+Unittest recorded one error and zero skips after 64.277 seconds. Actual captured
+output shows five completed modules; SourceLexer was still running at the
+snapshot and no line-chunk compilation had started. The observer subsequently
+reaped that completed child without a signal; its later exit does not complete
+the killed Lake build or unexecuted test stages. The failed managed run finished
+in 113.471 seconds, including setup and retention. All owned descendants exited.
+Local storage alone was insufficient. Read-only assessment of the test
+watchdog's purpose and measured cost is the next step; no further run or fixture
+change follows automatically from this failure.

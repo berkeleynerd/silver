@@ -295,3 +295,11 @@ retained artifacts were independently verified. Sampled leaf RSS reached
 4.317 GiB with healthy host headroom; this is not a bound for other requirements.
 The serial complete function-source consumer check is now starting. This first
 leaf success does not complete source or whole-project assurance.
+
+The unchanged full object-reuse fixture with authenticated local tools also
+failed its original 60-second initial-build limit, before audit/edit stages.
+The [retained attempt](fixture-diagnostics/README.md) records exact inputs,
+exception output and all process outcomes; local storage alone was insufficient.
+The independent reviewer is assessing the watchdog's purpose and measured cost.
+The separate symlink-TMPDIR fixture is running once on the synchronized final
+proof snapshot with its original deadlines and assertions.

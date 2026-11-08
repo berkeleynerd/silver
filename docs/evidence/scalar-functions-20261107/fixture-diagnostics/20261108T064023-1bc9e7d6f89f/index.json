@@ -1,0 +1,276 @@
+{
+  "run_id": "20261108T064023-1bc9e7d6f89f",
+  "bundle": "evidence.tar.gz",
+  "sha256": "57d1140510274cb9fac10a31538912b3808f3b1dfe06c278fea083a2fc910edc",
+  "bytes": 3117711,
+  "members": 53,
+  "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-delivery-review-298/tmp/local-original-fixture-298/shareable-evidence.tar.gz",
+  "scope": "Failed original unchanged full fixture using validated local Lean installation, scoped TMPDIR, exact copied inputs; timed out initial build before audit/edit stages. Private complete environment excluded.",
+  "member_inventory": [
+    {
+      "path": "ANALYSIS.md",
+      "bytes": 3509,
+      "sha256": "8e4b9551f55510efd9e3740fc1997c98fca4c72663b51356667f27f4843943c7"
+    },
+    {
+      "path": "approved-ASSESSMENT.md",
+      "bytes": 7179,
+      "sha256": "0ec1cec5d051a7a6fce90739c148fadf017730042957b6ef31c1097a23cfe766"
+    },
+    {
+      "path": "driver/fixture_child.py",
+      "bytes": 6756,
+      "sha256": "a81167ce90fc6c70aafc92b2c9a7a2a589ddcea38fc5f457182f7b89c39b0655"
+    },
+    {
+      "path": "driver/run_fixture.py",
+      "bytes": 9049,
+      "sha256": "beb833ecf16ed1263b0a2f22054e8c1652d1791d91dfb58f420d12605b3c6a02"
+    },
+    {
+      "path": "frozen-inputs/CertificateWitness.setup.json",
+      "bytes": 150,
+      "sha256": "0119da9f05d66e3e7b20b14d59f3e6a78f286a0993c030eafbe65a922763bdca"
+    },
+    {
+      "path": "frozen-inputs/expected-distribution-inventory.json",
+      "bytes": 3497034,
+      "sha256": "400788b072dcfcf616681a4cf17902e85c3a9ab78df144661acc6966c2459f65"
+    },
+    {
+      "path": "frozen-inputs/prepared-initial-build-workspace-inventory.json",
+      "bytes": 3574,
+      "sha256": "f0bdc65a2830cc7cde166e81ec1fdd9be87646d7141787746f5d1bb2b289bd76"
+    },
+    {
+      "path": "frozen-inputs/prior-observed-file-identities.json",
+      "bytes": 1836964,
+      "sha256": "9009a9e96883a00d597ac68e92eea44507c1b7c7cbbcbeb63ef682c6ff5fee30"
+    },
+    {
+      "path": "frozen-inputs/proof/Silver/Admission.lean",
+      "bytes": 5435,
+      "sha256": "7c756102bc689b108aa0d5b2c41a68868d07f21230282891d776ef0994f2faf2"
+    },
+    {
+      "path": "frozen-inputs/proof/Silver/AxiomAudit.lean",
+      "bytes": 1927,
+      "sha256": "47cb06e63dd120cf1db5ca14f39c3743500c6032d5f68d6e797106cb2903cb7b"
+    },
+    {
+      "path": "frozen-inputs/proof/Silver/CertificateWitness.lean",
+      "bytes": 1614,
+      "sha256": "7f64ba1832d59532bdfcf56d06cfb3d9589fdb71c2e39e0bc88326b2d8757f2d"
+    },
+    {
+      "path": "frozen-inputs/proof/Silver/Cursor.lean",
+      "bytes": 14705,
+      "sha256": "c5316bac7eb2a733fcda3787d23ee16e8e3b963ef31f6b7e26d285eb7e517ac3"
+    },
+    {
+      "path": "frozen-inputs/proof/Silver/Lexical.lean",
+      "bytes": 8836,
+      "sha256": "bd6025d6dc26fd8d984de90bc4a00b63e30d76c27e3db086358aeaa5712ad372"
+    },
+    {
+      "path": "frozen-inputs/proof/Silver/OutputProfileBodySource.lean",
+      "bytes": 245,
+      "sha256": "35ef9119ab63f6e20483c936107241bc997f9f3378181beb45f7ed7bab72938f"
+    },
+    {
+      "path": "frozen-inputs/proof/Silver/SourceLexer.lean",
+      "bytes": 11076,
+      "sha256": "6c2824f4ed5b303b3a3f3ec94d8cdb650ffbd86103eef842a32a3c6f3755a8eb"
+    },
+    {
+      "path": "frozen-inputs/proof/generate_source_certificate.py",
+      "bytes": 14981,
+      "sha256": "9c01647f30c6e15ae11469c2651c49c0ee08d0fd920eabbe8f0ad2acd993377e"
+    },
+    {
+      "path": "frozen-inputs/proof/lakefile.lean",
+      "bytes": 9658,
+      "sha256": "8cab85a3bb752f14cad6e1e96ede51d1db4c04ad515eb62f0020bc066cff7938"
+    },
+    {
+      "path": "frozen-inputs/proof/lean-toolchain",
+      "bytes": 25,
+      "sha256": "d5edba4e4b8faad9c1baeadb265716d20d03be4d1a2647dc5e35b0c0325bea7b"
+    },
+    {
+      "path": "frozen-inputs/result.json",
+      "bytes": 8606,
+      "sha256": "69106655224911bfba3834a27379674a0464be4c6b238c5a1284c188ed2d75b0"
+    },
+    {
+      "path": "frozen-inputs/scripts/bootstrap.py",
+      "bytes": 20969,
+      "sha256": "415b31960868345b9e81cba9e9ef4cc84c25b9904e707328eefa31d46e9ab3da"
+    },
+    {
+      "path": "frozen-inputs/scripts/bootstrap_lean.py",
+      "bytes": 7000,
+      "sha256": "ae72d6967ebf458c4ccfccfd53d6a59da08767901f29e1ba1917dc2ad5623dff"
+    },
+    {
+      "path": "frozen-inputs/scripts/check_evidence.py",
+      "bytes": 52489,
+      "sha256": "503e8d3b3ab9178af3a12e546aaa1d6da4c24598224210237d634c5a4d14ab9e"
+    },
+    {
+      "path": "frozen-inputs/scripts/check_lean.py",
+      "bytes": 35024,
+      "sha256": "2091d1b0a2a9525f44af973d625a63e1b6d915a2e66e49add599825bea7820ac"
+    },
+    {
+      "path": "frozen-inputs/scripts/dev.py",
+      "bytes": 31344,
+      "sha256": "3954a59193a7f3a49b742d6f4a3b640e1bb3ab63f7853583cc925854585902ef"
+    },
+    {
+      "path": "frozen-inputs/scripts/platforms.py",
+      "bytes": 3980,
+      "sha256": "01e673a58c8aa2158e8314f5005af30292d3f0e95d6dcedb071e9ecf7a62bfc5"
+    },
+    {
+      "path": "frozen-inputs/scripts/proof_provenance.py",
+      "bytes": 14754,
+      "sha256": "f2c531acfff00b2946fecac621fc1cfb38815004ae16b73e4085cda3d63173b9"
+    },
+    {
+      "path": "frozen-inputs/scripts/run_history.py",
+      "bytes": 20442,
+      "sha256": "62edf14dbfa8342e33517274d84964b9d9a1b83fdd1e4a01b7d806b7b9d5d324"
+    },
+    {
+      "path": "frozen-inputs/scripts/run_macos.py",
+      "bytes": 2517,
+      "sha256": "f1c9d053d627208af92a9fda2a4e257314889afaa1eb37e64c63eb5ac845ceb1"
+    },
+    {
+      "path": "frozen-inputs/snapshot-sha256.json",
+      "bytes": 2618,
+      "sha256": "a9b0e8e7ce4a095e6210724f5a3278e748a8be92af0e60eb3c2322baa2376407"
+    },
+    {
+      "path": "frozen-inputs/test_lean_modules.py",
+      "bytes": 16118,
+      "sha256": "cb287c6dc17b7955edeb701775cc04ca4f92ede68a4393d7d77acd6b5ee67657"
+    },
+    {
+      "path": "postflight-status.json",
+      "bytes": 33095,
+      "sha256": "9a57d39c261dc62d624aafa5fea8e199ff15091159e97ae9bbaae1b755b4f749"
+    },
+    {
+      "path": "preflight-host.json",
+      "bytes": 2953,
+      "sha256": "77e09b8e8a8c7688655cfc29b35543280d675e606df08078ae0a4311ef27b348"
+    },
+    {
+      "path": "preflight-status.json",
+      "bytes": 32540,
+      "sha256": "1a3bd165837e9c5eb49b6e2c5541a084cd122b83232a05a7667c99f8869a216b"
+    },
+    {
+      "path": "results/copied-inputs-after.json",
+      "bytes": 1988,
+      "sha256": "ca54ba32a16b681f807f87288fdedab12a808d12fe109e7a71f52873dafa6147"
+    },
+    {
+      "path": "results/copied-inputs-before.json",
+      "bytes": 1988,
+      "sha256": "ca54ba32a16b681f807f87288fdedab12a808d12fe109e7a71f52873dafa6147"
+    },
+    {
+      "path": "results/distribution-verification.json",
+      "bytes": 240,
+      "sha256": "2cc6976551084c405c8e047915055b3a9a86ca644d01639fc5312c7878b5553b"
+    },
+    {
+      "path": "results/exception-00-stderr.bin",
+      "bytes": 115,
+      "sha256": "c06621c7d29743dc7d5a03ad0874c2bfcde08a469be39fb84c85e49ac2c97fa6"
+    },
+    {
+      "path": "results/exception-00-stdout.bin",
+      "bytes": 217,
+      "sha256": "934e685ab629baaa71bc9a165a3f2b2ce58fe3ce1320eaeb16e6ed4b85f9ec43"
+    },
+    {
+      "path": "results/failure-workspace-00.tar.gz",
+      "bytes": 979781,
+      "sha256": "8c2c4e4c49c98c29559ff5d5288492506b8fdff25bddcc3fdcbf87d40eb20a5a"
+    },
+    {
+      "path": "results/fixture-command.json",
+      "bytes": 369,
+      "sha256": "1c8a3c93e98ed142eb75043f2fdc29b4022f99ff6f527247f3ea892f4f65d61b"
+    },
+    {
+      "path": "results/fixture-environment.json",
+      "bytes": 7578,
+      "sha256": "2ef10dfd8ac77e4642719c29cfc405b328b94af3dbc5bdb618ade9488d8d8f0c"
+    },
+    {
+      "path": "results/fixture-import-paths.json",
+      "bytes": 1297,
+      "sha256": "18c5f177a8accbf805aea56c52210a8a22ed472e7091f64230dca75687d606dc"
+    },
+    {
+      "path": "results/fixture-observations.json",
+      "bytes": 6843,
+      "sha256": "b55f2dfafc37e36e04bcbd3a0a2fff2331ab1e220555fc20cc1e382c71587f93"
+    },
+    {
+      "path": "results/fixture-result.json",
+      "bytes": 362,
+      "sha256": "a78deebda878b173528625f5f002067762cd6ebab20080cd6390ae1dbdbdfcd3"
+    },
+    {
+      "path": "results/fixture-start.json",
+      "bytes": 194,
+      "sha256": "0ac4eea469dd024869c70692885da185e177c05c1af4b653fbab5820d4edbef9"
+    },
+    {
+      "path": "results/managed-events.jsonl",
+      "bytes": 3384811,
+      "sha256": "11ddca497e9d483c189a7bc34f6c2f1b202d929c239cec3a252e2cb5c282af99"
+    },
+    {
+      "path": "results/managed-native.log",
+      "bytes": 868,
+      "sha256": "b58316e3ce1336f39721ba150f6d8026e0b0de28e85b34ea56392c75979fc439"
+    },
+    {
+      "path": "results/observer-events.jsonl",
+      "bytes": 49929,
+      "sha256": "e7226fb101d62d18cf00c0aed38f642c655f7a54fbe00aabfb6f86e23ecbaa73"
+    },
+    {
+      "path": "results/original-prepared-fixture-comparison.json",
+      "bytes": 5133,
+      "sha256": "9468a198711ea12d8c18846028745878049642a59624f8291d155998f26f06b7"
+    },
+    {
+      "path": "results/postflight-managed-input-verification.json",
+      "bytes": 265,
+      "sha256": "1fc36ebc081235c7966d44d83a0726c137d47e051595b1ce4bb6e5685a37140c"
+    },
+    {
+      "path": "results/summary.json",
+      "bytes": 725,
+      "sha256": "36ebf35f5abc974bb24d534899d27ea6ba5ad33ae560ea1d2a717a71eb1ae13c"
+    },
+    {
+      "path": "results/unittest-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "results/unittest-stdout.bin",
+      "bytes": 3337,
+      "sha256": "2b92a308a121cbb2ce2921fba8425a8b482bc5e02276e7e7fc1e5f491e9662ab"
+    }
+  ]
+}
