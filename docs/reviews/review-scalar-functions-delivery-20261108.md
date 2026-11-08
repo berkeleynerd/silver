@@ -1320,3 +1320,94 @@ CallsIncludedImpl qualification patch `fcf1698abd92167b5438846c0c8c59a6cb6708ac4
 It selects the same expectedTokens namespace used by Checked.included_impl;
 both competing definitions are `(Source.lexLine text).getD []`. It was not
 applied or validated here and still needs its affected proof after lease release.
+
+### Minimal remaining native repair plan and bounded reader review
+
+The separately owned Parameter_Frame entry guard is now source commit
+`b8365c0606e0d2e185e89a73264b10cf72530e06`, parser SHA256
+`e23559aa4b480bb4f69df99fb9c28c590ef9320388dc48c44e2604dd5226918c`.
+Focused run `20261108T084757-1036cb8a0958` passed with actual exit 0 after
+82.341 s: 27 proof records, 2 flow records, all 82 proof-tree branches and all
+14 postcondition branches proved. Evidence commit
+`5a92be1916ae1d748c354a4ced9ad59102eea13d` retains the complete selected scope.
+This reviewer independently verified all 155 indexed gzip artifacts by
+decompressed size and SHA256. The outcome establishes that full selected
+subprogram contract on the guard base, not a complete native audit. The native
+owner's subsequent ledger search found no earlier completed focused scope for
+these four failures; interrupted run 014042 has no completed parser report.
+
+The coordinator requested a concrete plan for the remaining three gaps without
+source edits or native/Lean execution by this reviewer. The resulting unapplied
+patch changes five sites: guarded successful frame preservation in the scalar
+and Boolean declaration contracts, failed-comma rejection in Actuals_Model and
+its executable Actuals_After loop, and failed-return-keyword rejection before
+Function_Return_After calls Actual_After. Every precondition, existing post fact,
+assertion level, loop invariant and variant is preserved. The matching executable
+comma guard is necessary to keep the existing static model-equality proof aligned.
+
+Patch SHA256 is
+`a6c87808887548b8723e7febfce0823a6679312b55fb3b21da5873d27355ee21`, against the
+exact guard base above. Static reconstruction in memory independently yields
+candidate parser SHA256
+`036a53b4bd9a9d7c711b4ddf8d83467a6b470184bfce2ac6677b15cf4f57ef47`; no candidate
+Ada file was written here. The proposed six full-subprogram selections are
+Scalar_Declaration_At, Boolean_Declaration_At, Actuals_Model, Actuals_After,
+Function_Local_At and Function_Return_After, at candidate body lines 1512, 4457,
+4803, 4828, 5628 and 5747. Keep original native proof settings and use a separate
+managed exploratory scope with four workers. A failed focus requires its exact
+diagnostic checkpoint before another attempt.
+
+The detailed plan identifies each direct Lean/source file and proof obligation.
+Keep the existing semantic models and domains; prove unconditional
+actualAfter_zero and actualsAfter_zero in PredicateCallAdmission, add the matching
+typed-tree guards, and update actuals_model, normalized_actuals_at,
+returnAfter_model and returnAfter_imports to split the rejected cursor branch.
+PredicateBodyProperties.readCondition_zero corroborates the Boolean fact, but
+importing that module into PredicateCallAdmission would cycle through
+PredicateFunctionCallReadings; use the direct foundational argument there.
+Both exact scalar header lists and the Boolean specHeader must reflect the
+stronger native contracts. Integrate the separately owned Parameter_Frame loop
+shape, regenerate authoritative source/chunks, and rebuild the affected source
+leaves and complete import closure. Actuals_After remains linked by its unchanged
+complete native static-equality postcondition; no unrelated new loop-shape checker
+is proposed. Pin updates alone establish none of these semantic obligations.
+
+The existing 637-ID regression acceptance remains scoped to its previously
+reviewed inputs. Changed compiler/source/Lean bytes require per-ID applicability
+review for native/compiler/sample behavior, source policy/provenance, and the
+platform fixture's complete production-tree copy. Synthetic methods and the
+synthetic chunk fixture may retain evidence only when their actual dependency
+sets are unchanged. Do not carry forward the old 619 passes as one presumed
+unaffected group. The three fresh Rosetta tests remain required after promotion.
+Focused successes must be followed by complete native obligation/provenance and
+Lean/source-correspondence validation on identified final inputs.
+
+After completing that plan, bounded read-only review found no objection to the
+two-line Callee_At reader patch, SHA256
+`34b2aeb798af54caa06e0005e1f164ee40e7209be5bcde88a6391ef15bea2c4c`.
+Source.expressionBodies requires a single-token result type; the actual header
+returns Functions.Function_Count. Existing SourceBridge.qualifiedExpressionBody
+matches that qualified shape and retains balanced-body, trailing-semicolon and
+singleton-match checks. Both complete exact callee headers remain required.
+The patch changes only Checked.callee_at_body and its CallsCalleeAtBody source
+leaf proposition; typed tree, render, denotation and native source are unchanged.
+It was not applied or Lean-tested by this reviewer and needs its fresh affected
+leaf/import closure.
+
+The plan, exact patch/inventory, static reconstruction, guard-packet verification
+and bounded reader review are retained under
+`tmp/native-postcondition-diagnosis-298/remaining-three-plan/`.
+PLAN.md SHA256 is
+`14f1ec6affe467855ae04df84f29dd7ed3ca33a34aaee431f891f898d77dace3`.
+The separately verified 9-member bundle is 18,848 bytes, SHA256
+`197e15b7cb32f70cf5b13b42cd5ea5af4d2558cdb8ebc2179c2effe388439b63`.
+The original four-obligation diagnosis bundle remains unchanged.
+
+At this handoff the coordinator reports Lean run 064001 ended and its lease was
+released, accepts the bounded proposal, and has authorized the native owner to
+apply the five sites and run the six focused checks. Integration semantic/source
+edits are separately owned and in progress; their proof outcomes are not claimed
+by this review. Selected reviewer remains GPT-6 Astra / Extra High, with runtime
+telemetry unavailable. No source/test/proof/script edits, native/Lean execution,
+signals, publication, merge or CLI memory update occurred here.
+The live harness goal was rechecked and is null.
