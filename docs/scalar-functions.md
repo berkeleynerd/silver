@@ -264,7 +264,7 @@ failed comma/return-token rejection, and successful scalar/Boolean declaration
 frame facts. Their exact source and semantic correspondence were independently
 reviewed, including the regenerated source certificates and unchanged semantic
 models. Focused [semantic closure 091153](evidence/scalar-functions-20261107/focused/20261108T091153-a212a5bfebc3/README.md)
-passed both interpretation targets and its fresh 100-module / 16,853-declaration
+passed both interpretation targets and its fresh 101-module / 16,853-declaration
 audit after a retained mechanical unfolding repair. The six affected native
 subprogram checks are in progress. Complete native and Lean/source assurance,
 rebuilt compiler and affected regression validation remain pending; the older

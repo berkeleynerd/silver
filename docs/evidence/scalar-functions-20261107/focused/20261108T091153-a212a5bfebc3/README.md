@@ -9,7 +9,7 @@ threads per process. The native parser bytes remain
 Targets `Silver.PredicateFunctionCallHelpers` and
 `Silver.FunctionDeclarationImports` establish the new rejection guards'
 equivalence with unchanged semantic models, including unconditional zero-input
-lemmas and recursive/import interpretation. The fresh audit covered all 100
+lemmas and recursive/import interpretation. The fresh audit covered all 101
 expected modules and 16,853 declarations, with only `propext`,
 `Classical.choice` and `Quot.sound`. No clean build or independent replay ran.
 
