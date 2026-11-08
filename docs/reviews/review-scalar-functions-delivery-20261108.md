@@ -1541,3 +1541,45 @@ native/Lean/test execution, signals, publication, merge or CLI memory update
 occurred here. Selected reviewer remains GPT-6 Astra / Extra High; runtime
 telemetry is unavailable.
 The live harness goal was rechecked and remains null.
+
+### Bounded four-CPU regression launcher review
+
+Read-only review found no remaining launch blocker in the final prepared launcher
+SHA256 `c5cffd2d7b2c1a5421c60ce62901a485b0cbc6e4c2eac5f5abdab756e426208c`
+and concrete managed command SHA256
+`d3ccf094f5e897ccb0b9684bb4a79c70792f83f6a981d05f2e6732c257ece22b`.
+The prepared commands.json exactly matches the prior reviewed vectors and selects
+338 compiler/policy IDs or one platform wrapper through unchanged unittest
+discovery. The actual working directory is the regression root. The selected
+input-tree comparison of regression commit 4281f71171 with f630819154 is empty.
+
+The initial launcher dropped the inherited ManagedRun lease at its unittest
+Popen boundary. The coordinator corrected that concrete lifetime gap before
+execution: the final launcher inventories inherited descriptors, requires the
+single existing managed lease, explicitly passes it to unittest, and continues
+waiting for the actual child after observer errors. Interruptions are recorded
+and forwarded to the owned child process group. Observer failures, interruptions
+or recorded affinity violations make the wrapper nonzero even if unittest exits
+zero; the actual unittest exit remains separately recorded.
+
+The managed command reserves four workers and leases the entire regression
+host-artifact tree plus its mode-specific observation directory. Its 16 declared
+input categories cover launcher/selector files, src/proof/tests/samples/catalogue,
+the three Rosetta inputs, project configuration, generated/toolchain context,
+compiler and adapter. dev.py tool additionally captures scripts, Python/custom
+executable and native tool identities and performs declared-input postflight.
+No missing stable-input category was identified for the selected scope.
+
+The launcher sets its affinity to four actual allowed CPUs before starting
+unittest, which inherits the mask. It records original/selected masks and samples
+descendant process-leader masks and RAM every 15 s. This is not continuous
+all-thread/short-lived-process observation, exclusive-core allocation, a native
+process-count cap or a memory limit. Those limits remain explicit in the
+coordinator's resource monitoring and acceptance of actual evidence.
+
+The coordinator reports the corrected launcher has now started; this reviewer
+performed no execution or signal. Actual test results, input postflight and
+resource observations remain pending. Exact reviewed files and inspection
+metadata are retained in `tmp/regression-launcher-review-298/`. No production
+file was edited. Selected reviewer remains GPT-6 Astra / Extra High, with runtime
+telemetry unavailable; live harness goal is null and CLI memory was not updated.
