@@ -1,0 +1,13 @@
+coprime( 21, 15) = false
+coprime( 17, 23) = true
+coprime( 36, 12) = false
+coprime( 18, 29) = true
+coprime( 60, 15) = false
+coprime( 0, 0) = false
+coprime( 0, 1) = true
+coprime( 1, 0) = true
+coprime(-1, 1) = true
+coprime(-1000, 999) = true
+coprime( 1000, 1000) = false
+coprime(-1000,-999) = true
+coprime( 1000, 0) = false

@@ -1,0 +1,11 @@
+{
+  "command": [
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/bin/silver",
+    "check",
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/divisor-lcm-coprimes-343/samples/rosetta_coprimes.adb"
+  ],
+  "status": 0,
+  "stdout": "Accepted: silver.\n",
+  "stderr": "",
+  "source_bytes": 1657
+}

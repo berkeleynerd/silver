@@ -1,0 +1,130 @@
+{
+  "independent_oracles": [
+    "Python math.gcd",
+    "Python math.lcm"
+  ],
+  "magnitude_pairs_checked": 1002001,
+  "signed_pairs_covered_by_normalization": 4004001,
+  "maximum_executed_euclidean_steps": 15,
+  "first_maximum_steps_pair": [
+    610,
+    987
+  ],
+  "lcm_pairs": [
+    [
+      12,
+      18
+    ],
+    [
+      -12,
+      18
+    ],
+    [
+      12,
+      -18
+    ],
+    [
+      -12,
+      -18
+    ],
+    [
+      0,
+      18
+    ],
+    [
+      12,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      -1000,
+      1000
+    ],
+    [
+      1000,
+      999
+    ],
+    [
+      -1000,
+      -999
+    ],
+    [
+      1,
+      1000
+    ],
+    [
+      1000,
+      1
+    ]
+  ],
+  "coprime_pairs": [
+    [
+      21,
+      15
+    ],
+    [
+      17,
+      23
+    ],
+    [
+      36,
+      12
+    ],
+    [
+      18,
+      29
+    ],
+    [
+      60,
+      15
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      1
+    ],
+    [
+      1,
+      0
+    ],
+    [
+      -1,
+      1
+    ],
+    [
+      -1000,
+      999
+    ],
+    [
+      1000,
+      1000
+    ],
+    [
+      -1000,
+      -999
+    ],
+    [
+      1000,
+      0
+    ]
+  ],
+  "sources": {
+    "rosetta_least_common_multiple.adb": {
+      "bytes": 1872,
+      "sha256": "3bf5444b068802b7a5b94a2a0dd867774a66f9639f9ea11a87c2fd9481bb8582",
+      "arithmetic_and_concatenation_operators": 20
+    },
+    "rosetta_coprimes.adb": {
+      "bytes": 1657,
+      "sha256": "9d192a9cd5970abd9f8bc115de8fa72196ae547d4b6c497c01b3fd8cc3d900bb",
+      "arithmetic_and_concatenation_operators": 12
+    }
+  },
+  "scope": "Arithmetic calculation only; no native compile, proof, build or run"
+}

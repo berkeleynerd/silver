@@ -1,0 +1,20 @@
+{
+  "domain": "every integer 1..100",
+  "derivation": "prime factorization sigma product and tau product",
+  "direct_recurrence_matches": 100,
+  "guards_true_before_every_iteration": true,
+  "maximum_observed_sum_before_iteration": 156,
+  "maximum_observed_count_before_iteration": 11,
+  "maximum_sigma": 252,
+  "maximum_tau": 12,
+  "sources": {
+    "rosetta_sum_of_divisors.adb": {
+      "bytes": 821,
+      "sha256": "c1bdfeb4b41ee616e300a42a27da346a44f345cc1a7fb615a340a758a4079b17"
+    },
+    "rosetta_tau_function.adb": {
+      "bytes": 760,
+      "sha256": "597f4d08a3678891e4ccb81014bfb462c40b89cd52927111baea0c8846b1846c"
+    }
+  }
+}

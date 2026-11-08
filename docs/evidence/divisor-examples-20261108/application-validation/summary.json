@@ -1,0 +1,136 @@
+{
+  "compiler": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/bin/silver",
+  "compiler_sha256": "807d862b572e4dcab8e72302a2fdcfe1a3304f3c064b9166900e24544b8dbcfe",
+  "source_root": "/home/canto/src/github.com/berkeleynerd/silver/tmp/divisor-examples-343",
+  "manifest_sha256": "db4a6c1d1ac04a861ee3f700b9ad935268924eda623c2f24349d59010ac5fb01",
+  "mode": "four focused sample admission/proof/build/audit/execution checks; unchanged production options",
+  "results": [
+    {
+      "source": "rosetta_least_common_multiple.adb",
+      "sha256": "3bf5444b068802b7a5b94a2a0dd867774a66f9639f9ea11a87c2fd9481bb8582",
+      "bytes": 1872,
+      "application_functions": [
+        "GCD",
+        "LCM"
+      ],
+      "check_exit": 0,
+      "compile_exit": 0,
+      "workspace": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-811dtG",
+      "executable": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-811dtG/bin/main",
+      "statistics": {
+        "units": 5,
+        "entities": 19,
+        "flow_checks": 21,
+        "proof_checks": 59,
+        "limitation_notes": 0,
+        "imported_entities": 6,
+        "trusted_math_notes": 0,
+        "vendor_spec_entities": 0,
+        "array_initialization_advisories": 0,
+        "operator_reassociation_advisories": 0,
+        "assignment_advisories": 6,
+        "image_advisories": 3,
+        "termination_checks": 2
+      },
+      "cases": 1,
+      "elapsed_seconds": 16.19517401799385,
+      "archive_sha256": "f6c92488a603e9c68a719ded25b9c427d62d005bd0b4af401daa0575af109248",
+      "outcome": "passed"
+    },
+    {
+      "source": "rosetta_coprimes.adb",
+      "sha256": "9d192a9cd5970abd9f8bc115de8fa72196ae547d4b6c497c01b3fd8cc3d900bb",
+      "bytes": 1657,
+      "application_functions": [
+        "GCD",
+        "Coprime"
+      ],
+      "check_exit": 0,
+      "compile_exit": 0,
+      "workspace": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-CGXw61",
+      "executable": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-CGXw61/bin/main",
+      "statistics": {
+        "units": 5,
+        "entities": 19,
+        "flow_checks": 21,
+        "proof_checks": 56,
+        "limitation_notes": 0,
+        "imported_entities": 6,
+        "trusted_math_notes": 0,
+        "vendor_spec_entities": 0,
+        "array_initialization_advisories": 0,
+        "operator_reassociation_advisories": 0,
+        "assignment_advisories": 9,
+        "image_advisories": 2,
+        "termination_checks": 2
+      },
+      "cases": 1,
+      "elapsed_seconds": 15.026750255987281,
+      "archive_sha256": "548216737a7bb5d9f8f50215604e32d5d459593cf3556c7f7e514e60df12bca2",
+      "outcome": "passed"
+    },
+    {
+      "source": "rosetta_sum_of_divisors.adb",
+      "sha256": "c1bdfeb4b41ee616e300a42a27da346a44f345cc1a7fb615a340a758a4079b17",
+      "bytes": 821,
+      "application_functions": [
+        "Sum_Of_Divisors"
+      ],
+      "check_exit": 0,
+      "compile_exit": 0,
+      "workspace": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-yfMB3s",
+      "executable": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-yfMB3s/bin/main",
+      "statistics": {
+        "units": 5,
+        "entities": 18,
+        "flow_checks": 20,
+        "proof_checks": 52,
+        "limitation_notes": 0,
+        "imported_entities": 6,
+        "trusted_math_notes": 0,
+        "vendor_spec_entities": 0,
+        "array_initialization_advisories": 0,
+        "operator_reassociation_advisories": 0,
+        "assignment_advisories": 1,
+        "image_advisories": 2,
+        "termination_checks": 1
+      },
+      "cases": 1,
+      "elapsed_seconds": 14.715139496998745,
+      "archive_sha256": "499131e504bff244395d3519108170ab3aafe1293dadafc124e53d7a91c390ef",
+      "outcome": "passed"
+    },
+    {
+      "source": "rosetta_tau_function.adb",
+      "sha256": "597f4d08a3678891e4ccb81014bfb462c40b89cd52927111baea0c8846b1846c",
+      "bytes": 760,
+      "application_functions": [
+        "Tau"
+      ],
+      "check_exit": 0,
+      "compile_exit": 0,
+      "workspace": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-Ohmf4W",
+      "executable": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-Ohmf4W/bin/main",
+      "statistics": {
+        "units": 5,
+        "entities": 18,
+        "flow_checks": 20,
+        "proof_checks": 51,
+        "limitation_notes": 0,
+        "imported_entities": 6,
+        "trusted_math_notes": 0,
+        "vendor_spec_entities": 0,
+        "array_initialization_advisories": 0,
+        "operator_reassociation_advisories": 0,
+        "assignment_advisories": 1,
+        "image_advisories": 2,
+        "termination_checks": 1
+      },
+      "cases": 1,
+      "elapsed_seconds": 14.477947481005685,
+      "archive_sha256": "f202ba03f546dabe5a7c2728486c6ae71c1eb9b0e3bbc85b53e177ae9cc938df",
+      "outcome": "passed"
+    }
+  ],
+  "outcome": "passed"
+}

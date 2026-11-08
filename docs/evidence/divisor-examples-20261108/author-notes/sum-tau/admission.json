@@ -1,0 +1,30 @@
+{
+  "recorded_at": "2026-11-08T21:11:36.110143+00:00",
+  "host": "linux-x86_64",
+  "compiler_sha256": "807d862b572e4dcab8e72302a2fdcfe1a3304f3c064b9166900e24544b8dbcfe",
+  "scope": "read-only admission only; no application proof, build or execution",
+  "checks": [
+    {
+      "command": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/bin/silver",
+        "check",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/divisor-sum-tau-343/samples/rosetta_sum_of_divisors.adb"
+      ],
+      "exit_status": 0,
+      "stdout": "Accepted: silver.\n",
+      "stderr": "",
+      "source_sha256": "c1bdfeb4b41ee616e300a42a27da346a44f345cc1a7fb615a340a758a4079b17"
+    },
+    {
+      "command": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/bin/silver",
+        "check",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/divisor-sum-tau-343/samples/rosetta_tau_function.adb"
+      ],
+      "exit_status": 0,
+      "stdout": "Accepted: silver.\n",
+      "stderr": "",
+      "source_sha256": "597f4d08a3678891e4ccb81014bfb462c40b89cd52927111baea0c8846b1846c"
+    }
+  ]
+}

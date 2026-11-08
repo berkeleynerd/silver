@@ -1,0 +1,345 @@
+{
+  "validated_target": "5262fb81fa38c4afd55debf87ea44f50720aaf8c",
+  "run_id": "20261108T211402-d028fe5c343d",
+  "host": "linux-x86_64",
+  "workers": 22,
+  "available_cpus": 22,
+  "utc_started": "2026-11-08T21:14:04.363151+00:00",
+  "utc_finished": "2026-11-08T21:15:10.479725+00:00",
+  "duration_seconds": 66.335889714,
+  "final_summary_outcome": "passed",
+  "ledger_finished_outcome": "success",
+  "manifest_sha256": "db4a6c1d1ac04a861ee3f700b9ad935268924eda623c2f24349d59010ac5fb01",
+  "original_copies": [
+    {
+      "retained": "application-validation/rosetta_coprimes/application-evidence.tar.gz",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/divisor-examples-343/tmp/application-validation/rosetta_coprimes/application-evidence.tar.gz",
+      "bytes": 34796,
+      "sha256": "548216737a7bb5d9f8f50215604e32d5d459593cf3556c7f7e514e60df12bca2"
+    },
+    {
+      "retained": "application-validation/rosetta_coprimes/check.log",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/divisor-examples-343/tmp/application-validation/rosetta_coprimes/check.log",
+      "bytes": 18,
+      "sha256": "9142aa202a50339bf9567d8d22c343d4f138e5261752f23d06a9211e061b7a55"
+    },
+    {
+      "retained": "application-validation/rosetta_coprimes/compile.log",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/divisor-examples-343/tmp/application-validation/rosetta_coprimes/compile.log",
+      "bytes": 7658,
+      "sha256": "746e91a483de81647d777301b8e4cfe52f0f9927a8056ccc3f3f613873e11614"
+    },
+    {
+      "retained": "application-validation/rosetta_coprimes/execution-0.stderr",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/divisor-examples-343/tmp/application-validation/rosetta_coprimes/execution-0.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "retained": "application-validation/rosetta_coprimes/execution-0.stdout",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/divisor-examples-343/tmp/application-validation/rosetta_coprimes/execution-0.stdout",
+      "bytes": 321,
+      "sha256": "6fd99906a66e6c3cf7eec701320e4c0fa1f8e4ba6799f7855f9e83b23dc43c19"
+    },
+    {
+      "retained": "application-validation/rosetta_least_common_multiple/application-evidence.tar.gz",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/divisor-examples-343/tmp/application-validation/rosetta_least_common_multiple/application-evidence.tar.gz",
+      "bytes": 36082,
+      "sha256": "f6c92488a603e9c68a719ded25b9c427d62d005bd0b4af401daa0575af109248"
+    },
+    {
+      "retained": "application-validation/rosetta_least_common_multiple/check.log",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/divisor-examples-343/tmp/application-validation/rosetta_least_common_multiple/check.log",
+      "bytes": 18,
+      "sha256": "9142aa202a50339bf9567d8d22c343d4f138e5261752f23d06a9211e061b7a55"
+    },
+    {
+      "retained": "application-validation/rosetta_least_common_multiple/compile.log",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/divisor-examples-343/tmp/application-validation/rosetta_least_common_multiple/compile.log",
+      "bytes": 6887,
+      "sha256": "aa807bc06df777495f14068dc5d28ccb107b9cc1de0840817b008a0200e856cd"
+    },
+    {
+      "retained": "application-validation/rosetta_least_common_multiple/execution-0.stderr",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/divisor-examples-343/tmp/application-validation/rosetta_least_common_multiple/execution-0.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "retained": "application-validation/rosetta_least_common_multiple/execution-0.stdout",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/divisor-examples-343/tmp/application-validation/rosetta_least_common_multiple/execution-0.stdout",
+      "bytes": 235,
+      "sha256": "56570f13d9f6966384a55c2ad0babeb58203b527f9ac664bc51d5cb836e5d228"
+    },
+    {
+      "retained": "application-validation/rosetta_sum_of_divisors/application-evidence.tar.gz",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/divisor-examples-343/tmp/application-validation/rosetta_sum_of_divisors/application-evidence.tar.gz",
+      "bytes": 33897,
+      "sha256": "499131e504bff244395d3519108170ab3aafe1293dadafc124e53d7a91c390ef"
+    },
+    {
+      "retained": "application-validation/rosetta_sum_of_divisors/check.log",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/divisor-examples-343/tmp/application-validation/rosetta_sum_of_divisors/check.log",
+      "bytes": 18,
+      "sha256": "9142aa202a50339bf9567d8d22c343d4f138e5261752f23d06a9211e061b7a55"
+    },
+    {
+      "retained": "application-validation/rosetta_sum_of_divisors/compile.log",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/divisor-examples-343/tmp/application-validation/rosetta_sum_of_divisors/compile.log",
+      "bytes": 5643,
+      "sha256": "e6ceb94cd23ba94ae3cc16b76f63b7e0eec809036431d45c76f0e75993e37acb"
+    },
+    {
+      "retained": "application-validation/rosetta_sum_of_divisors/execution-0.stderr",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/divisor-examples-343/tmp/application-validation/rosetta_sum_of_divisors/execution-0.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "retained": "application-validation/rosetta_sum_of_divisors/execution-0.stdout",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/divisor-examples-343/tmp/application-validation/rosetta_sum_of_divisors/execution-0.stdout",
+      "bytes": 818,
+      "sha256": "33066446aaf490566c06732a94281d6d454ea0f8481953746452d4c4c9afcb1d"
+    },
+    {
+      "retained": "application-validation/rosetta_tau_function/application-evidence.tar.gz",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/divisor-examples-343/tmp/application-validation/rosetta_tau_function/application-evidence.tar.gz",
+      "bytes": 33663,
+      "sha256": "f202ba03f546dabe5a7c2728486c6ae71c1eb9b0e3bbc85b53e177ae9cc938df"
+    },
+    {
+      "retained": "application-validation/rosetta_tau_function/check.log",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/divisor-examples-343/tmp/application-validation/rosetta_tau_function/check.log",
+      "bytes": 18,
+      "sha256": "9142aa202a50339bf9567d8d22c343d4f138e5261752f23d06a9211e061b7a55"
+    },
+    {
+      "retained": "application-validation/rosetta_tau_function/compile.log",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/divisor-examples-343/tmp/application-validation/rosetta_tau_function/compile.log",
+      "bytes": 5574,
+      "sha256": "0f467711a8cc6d0511c31c23f27d2f81313c67d68a8117c4e98c5869522cc530"
+    },
+    {
+      "retained": "application-validation/rosetta_tau_function/execution-0.stderr",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/divisor-examples-343/tmp/application-validation/rosetta_tau_function/execution-0.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "retained": "application-validation/rosetta_tau_function/execution-0.stdout",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/divisor-examples-343/tmp/application-validation/rosetta_tau_function/execution-0.stdout",
+      "bytes": 699,
+      "sha256": "7850ba475b3e8acef7b3b4b655da4196690db313ab433e35693983fe42e300ff"
+    },
+    {
+      "retained": "application-validation/summary.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/divisor-examples-343/tmp/application-validation/summary.json",
+      "bytes": 5288,
+      "sha256": "926401cf929b5f30a692c0cd8c7146cca321699960d7dcc7ac42f3e0236b4da1"
+    },
+    {
+      "retained": "validate_divisor_samples.py",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/divisor-examples-343/tmp/validate_divisor_samples.py",
+      "bytes": 5994,
+      "sha256": "302b365dbf4103a1cf460d3fdc33425381239a188a94318ee40886416850d586"
+    },
+    {
+      "retained": "installation-comparison.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/divisor-examples-343/tmp/installation-comparison.json",
+      "bytes": 306,
+      "sha256": "18a4ef3c6219254821f09073389ef10d5637e774000c36f77a4d70da7ee7d2da"
+    },
+    {
+      "retained": "author-notes/lcm-coprimes/independent-arithmetic.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/divisor-examples-343/tmp/author-proposals/lcm-coprimes/independent-arithmetic.json",
+      "bytes": 1634,
+      "sha256": "0f0d99d9db25517d5ad734edf4762adac5368824409ddea0ccc8939eefc0edc0"
+    },
+    {
+      "retained": "author-notes/lcm-coprimes/independent_expectations.py",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/divisor-examples-343/tmp/author-proposals/lcm-coprimes/independent_expectations.py",
+      "bytes": 4306,
+      "sha256": "c756b584aed3026cc6bb1e78bacf122d94d54d0e8663e978531aade907cefe93"
+    },
+    {
+      "retained": "author-notes/lcm-coprimes/implementation-notes.md",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/divisor-examples-343/tmp/author-proposals/lcm-coprimes/implementation-notes.md",
+      "bytes": 6714,
+      "sha256": "71840866b54fd87ba8b3bfa4b2611b8b186962c6a186568850ac28c73165080f"
+    },
+    {
+      "retained": "author-notes/lcm-coprimes/rosetta_least_common_multiple.adb.admission.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/divisor-examples-343/tmp/author-proposals/lcm-coprimes/rosetta_least_common_multiple.adb.admission.json",
+      "bytes": 370,
+      "sha256": "0c68c08acc5391af5d8fa5cca3525dd739f5f649639e06071fa761a9faaa77b2"
+    },
+    {
+      "retained": "author-notes/lcm-coprimes/rosetta_coprimes.adb.admission.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/divisor-examples-343/tmp/author-proposals/lcm-coprimes/rosetta_coprimes.adb.admission.json",
+      "bytes": 357,
+      "sha256": "bc18151859b72d6245726796ea2a5d8b4439041a3deff400cf4efb9b1638f69a"
+    },
+    {
+      "retained": "author-notes/sum-tau/admission.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/divisor-examples-343/tmp/author-proposals/sum-tau/admission.json",
+      "bytes": 1211,
+      "sha256": "00801c0d6f1744fc0587d9b4d5050a1f8d34331328af2c36258ec72df857d9c6"
+    },
+    {
+      "retained": "author-notes/sum-tau/derive-expected.py",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/divisor-examples-343/tmp/author-proposals/sum-tau/derive-expected.py",
+      "bytes": 3704,
+      "sha256": "8f5f59e94aa8b9c140d2c958da90dca56fcbd69c0ae6a0f236328850243d8f40"
+    },
+    {
+      "retained": "author-notes/sum-tau/derivation-summary.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/divisor-examples-343/tmp/author-proposals/sum-tau/derivation-summary.json",
+      "bytes": 642,
+      "sha256": "a6b52f8ddd9dd957ebdc3dbc7615569f98c9c792ecc4e32303dbadd5fd2522fb"
+    },
+    {
+      "retained": "author-notes/sum-tau/implementation-notes.md",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/divisor-examples-343/tmp/author-proposals/sum-tau/implementation-notes.md",
+      "bytes": 6449,
+      "sha256": "53544069450ab6c6214b0e251c41142ec3d1160bf16a70475fa0916cd6d17b48"
+    }
+  ],
+  "losslessly_compressed_originals": [
+    {
+      "retained": "managed-run/native.log.gz",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T211402-d028fe5c343d/native.log",
+      "original_bytes": 3920,
+      "original_sha256": "9207c953d057a75ae6d191bd66986d704ac546ae1418bf1548fcce9bf9925265",
+      "retained_sha256": "9e4aef09fb3238d83a49abab55bd95ddb90564c262fff336ed162de4ccba14ce",
+      "lossless_roundtrip": true
+    },
+    {
+      "retained": "managed-run/events.jsonl.gz",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261108T211402-d028fe5c343d/events.jsonl",
+      "original_bytes": 28755,
+      "original_sha256": "11f2337055b8d75ceb5da32a2946d8e0918707ba698a9f4e1c59e60a9b13ef68",
+      "retained_sha256": "c383a116f497fbf1f0c98fd953eef7c587296896de43bc4d1bfd59911eeed882",
+      "lossless_roundtrip": true
+    }
+  ],
+  "native_log_results_equal_final_summary": true,
+  "samples": [
+    {
+      "source": "rosetta_least_common_multiple.adb",
+      "source_sha256": "3bf5444b068802b7a5b94a2a0dd867774a66f9639f9ea11a87c2fd9481bb8582",
+      "source_bytes": 1872,
+      "archived_author_bytes_equal_target_and_input": true,
+      "archive_sha256": "f6c92488a603e9c68a719ded25b9c427d62d005bd0b4af401daa0575af109248",
+      "readable_archive_files": 24,
+      "exact_stdout_matches_target_manifest_and_independent_proposal": true,
+      "stdout_lines": 12,
+      "stderr_empty": true,
+      "successful_exit_recorded_by_validator": true,
+      "report_counts_equal_summary": {
+        "units": 5,
+        "entities": 19,
+        "flow_checks": 21,
+        "proof_checks": 59
+      },
+      "helpers": {
+        "GCD": {
+          "listed_in_manifest_and_summary": true,
+          "report_flow_entries": 4,
+          "report_proof_entries": 5
+        },
+        "LCM": {
+          "listed_in_manifest_and_summary": true,
+          "report_flow_entries": 3,
+          "report_proof_entries": 2
+        }
+      },
+      "unchanged_full_domain_options": true
+    },
+    {
+      "source": "rosetta_coprimes.adb",
+      "source_sha256": "9d192a9cd5970abd9f8bc115de8fa72196ae547d4b6c497c01b3fd8cc3d900bb",
+      "source_bytes": 1657,
+      "archived_author_bytes_equal_target_and_input": true,
+      "archive_sha256": "548216737a7bb5d9f8f50215604e32d5d459593cf3556c7f7e514e60df12bca2",
+      "readable_archive_files": 23,
+      "exact_stdout_matches_target_manifest_and_independent_proposal": true,
+      "stdout_lines": 13,
+      "stderr_empty": true,
+      "successful_exit_recorded_by_validator": true,
+      "report_counts_equal_summary": {
+        "units": 5,
+        "entities": 19,
+        "flow_checks": 21,
+        "proof_checks": 56
+      },
+      "helpers": {
+        "GCD": {
+          "listed_in_manifest_and_summary": true,
+          "report_flow_entries": 4,
+          "report_proof_entries": 5
+        },
+        "Coprime": {
+          "listed_in_manifest_and_summary": true,
+          "report_flow_entries": 2,
+          "report_proof_entries": 0
+        }
+      },
+      "unchanged_full_domain_options": true
+    },
+    {
+      "source": "rosetta_sum_of_divisors.adb",
+      "source_sha256": "c1bdfeb4b41ee616e300a42a27da346a44f345cc1a7fb615a340a758a4079b17",
+      "source_bytes": 821,
+      "archived_author_bytes_equal_target_and_input": true,
+      "archive_sha256": "499131e504bff244395d3519108170ab3aafe1293dadafc124e53d7a91c390ef",
+      "readable_archive_files": 23,
+      "exact_stdout_matches_target_manifest_and_independent_proposal": true,
+      "stdout_lines": 100,
+      "stderr_empty": true,
+      "successful_exit_recorded_by_validator": true,
+      "report_counts_equal_summary": {
+        "units": 5,
+        "entities": 18,
+        "flow_checks": 20,
+        "proof_checks": 52
+      },
+      "helpers": {
+        "Sum_Of_Divisors": {
+          "listed_in_manifest_and_summary": true,
+          "report_flow_entries": 1,
+          "report_proof_entries": 3
+        }
+      },
+      "unchanged_full_domain_options": true
+    },
+    {
+      "source": "rosetta_tau_function.adb",
+      "source_sha256": "597f4d08a3678891e4ccb81014bfb462c40b89cd52927111baea0c8846b1846c",
+      "source_bytes": 760,
+      "archived_author_bytes_equal_target_and_input": true,
+      "archive_sha256": "f202ba03f546dabe5a7c2728486c6ae71c1eb9b0e3bbc85b53e177ae9cc938df",
+      "readable_archive_files": 23,
+      "exact_stdout_matches_target_manifest_and_independent_proposal": true,
+      "stdout_lines": 100,
+      "stderr_empty": true,
+      "successful_exit_recorded_by_validator": true,
+      "report_counts_equal_summary": {
+        "units": 5,
+        "entities": 18,
+        "flow_checks": 20,
+        "proof_checks": 51
+      },
+      "helpers": {
+        "Tau": {
+          "listed_in_manifest_and_summary": true,
+          "report_flow_entries": 1,
+          "report_proof_entries": 2
+        }
+      },
+      "unchanged_full_domain_options": true
+    }
+  ],
+  "scope": "Byte retention and report/output integrity only; no build, proof, application execution, test or derivation-script rerun. Independent applicability review is separate.",
+  "selected_model_effort": "GPT-6.1 Sol / Extra High",
+  "runtime_introspection": "unavailable"
+}
