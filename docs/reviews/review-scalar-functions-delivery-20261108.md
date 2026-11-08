@@ -637,3 +637,67 @@ does not justify a theorem rewrite or timeout increase, and it does not pass
 the original fixture or its outstanding audit/edit stages. Reviewer settings
 remain Astra Extra High with runtime telemetry unavailable. No CLI memory
 update or publication was performed.
+
+### Authenticated local-install comparison
+
+The coordinator approved two sequential managed stages from the reviewed
+storage-comparison plan. Run `20261108T061828-f176c7d39979` freshly bootstrapped
+Lean in `/tmp/silver-certificate-witness-local-298-20261108` using the unchanged
+installer/helper/pin and the authenticated cached release ZIP. Measured mount
+information selected the writable root overlay, distinct from the repository's
+virtiofs mount; disk/headroom checks passed. No download, existing-installation
+relocation, native bootstrap or project proof-object copying was performed.
+The native version was 4.34.1 at commit
+`5045d0056413266e57c625dcd7c365b10e377c52`.
+
+Complete original/local distribution inventories matched all 18,381 entries,
+including relative file sets, bytes, sizes, permission modes, directories and
+symlink targets. All 15,127 baseline profiler lib/lean identities matched too.
+The bootstrap stage finished successfully in 181.102 managed seconds, including
+installation, comparisons and input checks. Its descendants exited and its
+lease was released before profile B began.
+
+Run `20261108T062237-55f39cc9f940` then performed exactly one direct
+CertificateWitness profile with fresh outputs. Normalized source/setup,
+arguments and environment matched A; only installation/workspace paths changed.
+The observer diff changed only frozen-input location, installation selector
+and baseline-run identifier. Source/output storage remained virtiofs for both
+profiling runs, while B's installation was on overlay. The original
+-j1/-M2048/warningAsError/profiler settings and 60-second deadline remained.
+
+B passed in 4.836 observed command seconds versus A's 9.604. Exclusive import
+time decreased from 6.870 to 2.910 seconds. Sampled user/system CPU decreased
+from 3.17/5.17 to 2.24/1.90 seconds, with similar sampled RSS (460.0 versus
+461.1 MiB). Other categories varied: olean serialization rose from 0.136 to
+0.461 seconds. The bounded observation supports storage-related import
+overhead as a current hypothesis; it is not a repeated benchmark, complete
+causal attribution or proof of the historical timeout cause.
+
+All 4,966 sampled mapped-file identities matched A after documented installation
+prefix normalization, including 4,959 lib/lean files. All 4,960 mapped
+installation files came from the new local distribution; none came from the
+old one. External mapped library identities matched. Managed B captured 17,751
+regular distribution files among 17,795 inputs and passed final stability
+checking. Managed elapsed was 49.534 seconds, including setup/retention, distinct
+from compiler time. No signal or timeout occurred, all diagnostic descendants
+exited, and the one-worker lease was released; shared status returned to 20/22.
+
+Both runs deliberately warmed caches through identity checks; B also followed
+extraction and complete distribution comparison. Host scheduling/peer work
+was not fixed. The profiling A/B source/output paths were both on virtiofs,
+whereas the original failed fixture used its separate /tmp workspace.
+November6 imported-artifact identities remain unavailable. These limits prevent
+substituting this observation for an actual passing original fixture.
+
+The new installation and evidence are retained. Exact drivers/diff, complete
+inventories, streams, timings, mapped-file checks, source/setup/environment
+comparison, fresh module objects and managed records are under the separate
+review worktree's `tmp/lean-local-comparison-298/`. All earlier diagnostic
+bundles/drivers/results remain unchanged. The next bounded task is to assess
+a separate test root selecting the authenticated local distribution through
+normal ROOT derivation and running the unchanged original fixture. Its cold
+17-module build plus forced configuration still presents a 60-second risk;
+one module's improvement does not establish the complete budget. No fixture,
+initial build, suite or additional profile was run. No source/test/harness,
+live selector, deadline or acceptance condition changed; publication remains
+outside this review stream.
