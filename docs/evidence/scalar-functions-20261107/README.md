@@ -167,8 +167,13 @@ native definitions and semantic models, preserving the typed contract renderers,
 and aligns the four unchanged record-update fields. Its exact token deltas and
 failed log are retained. The same four focused targets are being checked again
 with the existing objects before the required complete Lean/source/module/axiom
-audit. These corrections and the three preceding proof repairs still require
-independent review; the earlier bounded report did not inspect them.
+audit. The [bounded review supplement](../../reviews/review-scalar-functions-delivery-20261108.md#supplemental-static-review--body-candidates-and-wrapper-projection)
+found no material defect in these corrections or the three preceding proof
+repairs. Follow-up checking compiled the new requirements and Compose bridge,
+then exposed a wrapper-projection rewrite mismatch in `PredicateEquations`.
+The same supplement inspected the prepared explicit type annotation for the
+existing refinement; it remains unapplied while the named-body check uses
+frozen inputs. This static review is not complete source or delivery acceptance.
 
 The regression build passed and the full 637-method suite is running on frozen
 `c437a41d30`. It has reported one error in the output-body chunk object-reuse
