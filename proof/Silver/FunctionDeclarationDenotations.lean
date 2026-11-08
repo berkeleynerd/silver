@@ -42,7 +42,7 @@ theorem returnAfter_model (text : Source) (context : Predicate.Native.Context) (
     returnAfterBody.eval modelCalls ({text, context, scan, resultType} : Frame).locals =
       functionReturnAfter text context.model scan resultType := by
   by_cases zero : fixedAfter text scan.position "return" true = 0 <;>
-    simp [returnAfterBody, Command.eval, Expr.eval, apply5, apply3,
+    simp [returnAfterBody, Command.eval, Expr.eval, apply2, apply3, apply4, apply5,
       Frame.locals, Locals.set, modelCalls, Field.get, Token.shell,
       tokenAfter, ShellToken.word, functionReturnAfter, zero, Predicate.actualAfter_zero]
 
