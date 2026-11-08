@@ -1,0 +1,24 @@
+{
+  "mathematical_methods": {
+    "factorial": "Python math.factorial",
+    "fibonacci": "sum(comb(n-k-1,k), k=0..floor((n-1)/2)); F0=0"
+  },
+  "factorial_guard_checks": 78,
+  "fibonacci_guard_checks": 1035,
+  "samples": {
+    "rosetta_factorial.adb": {
+      "source_bytes": 681,
+      "source_sha256": "0334749ecb7fc9aac75a97492cdb084453bd48cfafe57c69053c33ecc2172a0e",
+      "stdout_bytes": 145,
+      "stdout_lines": 13,
+      "stdout_sha256": "239e4354694dbcbc1ffd6ce8fd37848de7c29c8b00e8be5d96a7a5af7de06955"
+    },
+    "rosetta_fibonacci_sequence.adb": {
+      "source_bytes": 972,
+      "source_sha256": "4690aabaa7757890d2a01e21da7a31f938ff71a4be250ce3d40736c6f7c65ab7",
+      "stdout_bytes": 977,
+      "stdout_lines": 47,
+      "stdout_sha256": "081dad102929a677f2d6de2b3b42f0e2e61677a790db8dbfc48fd097da5f6528"
+    }
+  }
+}

@@ -1,0 +1,5 @@
+signum(-10) =-1
+signum( 42) = 1
+signum( 0) = 0
+signum(-2147483648) =-1
+signum( 2147483647) = 1

@@ -1,0 +1,138 @@
+[
+  {
+    "source": "rosetta_factorial.adb",
+    "capabilities": [
+      "main_procedure",
+      "spark_mode_on",
+      "runtime_context",
+      "named_integer_subtype",
+      "scalar_function",
+      "scalar_function_call",
+      "named_integer_variable",
+      "integer_assignment",
+      "scalar_guard_refinement",
+      "for_loop",
+      "integer_expression",
+      "integer_comparison",
+      "integer_image",
+      "string_choice",
+      "string_literal",
+      "string_expression",
+      "string_concatenation",
+      "expression_output",
+      "statement_sequence"
+    ],
+    "application_functions": [
+      "Factorial"
+    ],
+    "specification": "../language.md#small-nonrecursive-scalar-functions",
+    "expected": {
+      "stdout": " 0! = 1\n 1! = 1\n 2! = 2\n 3! = 6\n 4! = 24\n 5! = 120\n 6! = 720\n 7! = 5040\n 8! = 40320\n 9! = 362880\n 10! = 3628800\n 11! = 39916800\n 12! = 479001600\n",
+      "stderr": "",
+      "exit_status": 0
+    }
+  },
+  {
+    "source": "rosetta_fibonacci_sequence.adb",
+    "capabilities": [
+      "main_procedure",
+      "spark_mode_on",
+      "runtime_context",
+      "named_integer_subtype",
+      "scalar_function",
+      "scalar_function_call",
+      "named_integer_variable",
+      "integer_assignment",
+      "scalar_guard_refinement",
+      "for_loop",
+      "integer_expression",
+      "integer_comparison",
+      "integer_image",
+      "boolean_predicate",
+      "string_choice",
+      "string_literal",
+      "string_expression",
+      "string_concatenation",
+      "expression_output",
+      "statement_sequence"
+    ],
+    "application_functions": [
+      "Fibonacci"
+    ],
+    "specification": "../language.md#small-nonrecursive-scalar-functions",
+    "expected": {
+      "stdout": "Fibonacci 0 = 0\nFibonacci 1 = 1\nFibonacci 2 = 1\nFibonacci 3 = 2\nFibonacci 4 = 3\nFibonacci 5 = 5\nFibonacci 6 = 8\nFibonacci 7 = 13\nFibonacci 8 = 21\nFibonacci 9 = 34\nFibonacci 10 = 55\nFibonacci 11 = 89\nFibonacci 12 = 144\nFibonacci 13 = 233\nFibonacci 14 = 377\nFibonacci 15 = 610\nFibonacci 16 = 987\nFibonacci 17 = 1597\nFibonacci 18 = 2584\nFibonacci 19 = 4181\nFibonacci 20 = 6765\nFibonacci 21 = 10946\nFibonacci 22 = 17711\nFibonacci 23 = 28657\nFibonacci 24 = 46368\nFibonacci 25 = 75025\nFibonacci 26 = 121393\nFibonacci 27 = 196418\nFibonacci 28 = 317811\nFibonacci 29 = 514229\nFibonacci 30 = 832040\nFibonacci 31 = 1346269\nFibonacci 32 = 2178309\nFibonacci 33 = 3524578\nFibonacci 34 = 5702887\nFibonacci 35 = 9227465\nFibonacci 36 = 14930352\nFibonacci 37 = 24157817\nFibonacci 38 = 39088169\nFibonacci 39 = 63245986\nFibonacci 40 = 102334155\nFibonacci 41 = 165580141\nFibonacci 42 = 267914296\nFibonacci 43 = 433494437\nFibonacci 44 = 701408733\nFibonacci 45 = 1134903170\nFibonacci 46 = 1836311903\n",
+      "stderr": "",
+      "exit_status": 0
+    }
+  },
+  {
+    "source": "rosetta_signum.adb",
+    "capabilities": [
+      "main_procedure",
+      "spark_mode_on",
+      "runtime_context",
+      "named_integer_subtype",
+      "scalar_function",
+      "scalar_function_call",
+      "integer_array_object",
+      "integer_array_iteration",
+      "named_integer_variable",
+      "integer_assignment",
+      "integer_expression",
+      "integer_comparison",
+      "scalar_guard_refinement",
+      "integer_image",
+      "string_choice",
+      "string_literal",
+      "string_expression",
+      "string_concatenation",
+      "expression_output",
+      "statement_sequence"
+    ],
+    "application_functions": [
+      "Signum"
+    ],
+    "specification": "../language.md#small-nonrecursive-scalar-functions",
+    "expected": {
+      "stdout": "signum(-10) =-1\nsignum( 42) = 1\nsignum( 0) = 0\nsignum(-2147483648) =-1\nsignum( 2147483647) = 1\n",
+      "stderr": "",
+      "exit_status": 0
+    }
+  },
+  {
+    "source": "rosetta_sum_multiples_of_3_and_5.adb",
+    "capabilities": [
+      "main_procedure",
+      "spark_mode_on",
+      "runtime_context",
+      "named_integer_subtype",
+      "scalar_function",
+      "scalar_function_call",
+      "integer_array_object",
+      "integer_array_iteration",
+      "named_integer_variable",
+      "integer_assignment",
+      "integer_expression",
+      "integer_comparison",
+      "scalar_guard_refinement",
+      "integer_image",
+      "string_choice",
+      "string_literal",
+      "string_expression",
+      "string_concatenation",
+      "expression_output",
+      "statement_sequence",
+      "integer_range_constraint"
+    ],
+    "application_functions": [
+      "Sum_Multiples"
+    ],
+    "specification": "../language.md#small-nonrecursive-scalar-functions",
+    "expected": {
+      "stdout": "sum_multiples( 0) = 0\nsum_multiples( 1) = 0\nsum_multiples( 3) = 0\nsum_multiples( 4) = 3\nsum_multiples( 5) = 3\nsum_multiples( 6) = 8\nsum_multiples( 10) = 23\nsum_multiples( 15) = 45\nsum_multiples( 16) = 60\nsum_multiples( 999) = 232169\nsum_multiples( 1000) = 233168\n",
+      "stderr": "",
+      "exit_status": 0
+    }
+  }
+]

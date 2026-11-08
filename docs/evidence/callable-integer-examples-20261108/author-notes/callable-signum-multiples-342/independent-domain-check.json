@@ -1,0 +1,111 @@
+{
+  "method": "Independent direct enumeration of positive integers below n with divisibility by 3 or 5; formula compared over every n in 0..1000.",
+  "sum_domain": {
+    "first": 0,
+    "last": 1000,
+    "cases": 1001,
+    "mismatches": 0,
+    "minimum_result": 0,
+    "maximum_result": 233168
+  },
+  "signum_cases": [
+    {
+      "input": -10,
+      "result": -1
+    },
+    {
+      "input": 42,
+      "result": 1
+    },
+    {
+      "input": 0,
+      "result": 0
+    },
+    {
+      "input": -2147483648,
+      "result": -1
+    },
+    {
+      "input": 2147483647,
+      "result": 1
+    }
+  ],
+  "sum_cases": [
+    {
+      "input": 0,
+      "result": 0
+    },
+    {
+      "input": 1,
+      "result": 0
+    },
+    {
+      "input": 3,
+      "result": 0
+    },
+    {
+      "input": 4,
+      "result": 3
+    },
+    {
+      "input": 5,
+      "result": 3
+    },
+    {
+      "input": 6,
+      "result": 8
+    },
+    {
+      "input": 10,
+      "result": 23
+    },
+    {
+      "input": 15,
+      "result": 45
+    },
+    {
+      "input": 16,
+      "result": 60
+    },
+    {
+      "input": 999,
+      "result": 232169
+    },
+    {
+      "input": 1000,
+      "result": 233168
+    }
+  ],
+  "samples": [
+    {
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/callable-signum-multiples-342/samples/rosetta_signum.adb",
+      "bytes": 697,
+      "sha256": "96709a2d51bd874ef22dc0b2f916cd12e8d60bbfed538d3d1b83b868a56b1937",
+      "admission": {
+        "command": [
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/bin/silver",
+          "check",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/callable-signum-multiples-342/samples/rosetta_signum.adb"
+        ],
+        "stdout": "Accepted: silver.\n",
+        "stderr": "",
+        "exit_status": 0
+      }
+    },
+    {
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/callable-signum-multiples-342/samples/rosetta_sum_multiples_of_3_and_5.adb",
+      "bytes": 1202,
+      "sha256": "24d02d8658e43a36bc09388c04542975eb2508e30761b26852f622b4afe35fd6",
+      "admission": {
+        "command": [
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/bin/silver",
+          "check",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/callable-signum-multiples-342/samples/rosetta_sum_multiples_of_3_and_5.adb"
+        ],
+        "stdout": "Accepted: silver.\n",
+        "stderr": "",
+        "exit_status": 0
+      }
+    }
+  ]
+}

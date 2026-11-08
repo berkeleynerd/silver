@@ -1,0 +1,134 @@
+{
+  "compiler": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/compiler/bin/silver",
+  "compiler_sha256": "807d862b572e4dcab8e72302a2fdcfe1a3304f3c064b9166900e24544b8dbcfe",
+  "source_root": "/home/canto/src/github.com/berkeleynerd/silver/tmp/callable-examples-342",
+  "manifest_sha256": "6b65d3b49da43bddf98bcbdfab6fbefa08fe5dfdeaad771eda4ee6f04421811a",
+  "mode": "four focused sample admission/proof/build/audit/execution checks; unchanged production options",
+  "results": [
+    {
+      "source": "rosetta_factorial.adb",
+      "sha256": "0334749ecb7fc9aac75a97492cdb084453bd48cfafe57c69053c33ecc2172a0e",
+      "bytes": 681,
+      "application_functions": [
+        "Factorial"
+      ],
+      "check_exit": 0,
+      "compile_exit": 0,
+      "workspace": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-nVwqmD",
+      "executable": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-nVwqmD/bin/main",
+      "statistics": {
+        "units": 5,
+        "entities": 18,
+        "flow_checks": 20,
+        "proof_checks": 51,
+        "limitation_notes": 0,
+        "imported_entities": 6,
+        "trusted_math_notes": 0,
+        "vendor_spec_entities": 0,
+        "array_initialization_advisories": 0,
+        "operator_reassociation_advisories": 0,
+        "assignment_advisories": 1,
+        "image_advisories": 2,
+        "termination_checks": 1
+      },
+      "cases": 1,
+      "elapsed_seconds": 19.478383213994675,
+      "archive_sha256": "3ec4a56105d6cf643893b25cce3375604766ae960ff47c725bd1b64d4dc0c41f",
+      "outcome": "passed"
+    },
+    {
+      "source": "rosetta_fibonacci_sequence.adb",
+      "sha256": "4690aabaa7757890d2a01e21da7a31f938ff71a4be250ce3d40736c6f7c65ab7",
+      "bytes": 972,
+      "application_functions": [
+        "Fibonacci"
+      ],
+      "check_exit": 0,
+      "compile_exit": 0,
+      "workspace": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-95EM9k",
+      "executable": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-95EM9k/bin/main",
+      "statistics": {
+        "units": 5,
+        "entities": 18,
+        "flow_checks": 20,
+        "proof_checks": 52,
+        "limitation_notes": 0,
+        "imported_entities": 6,
+        "trusted_math_notes": 0,
+        "vendor_spec_entities": 0,
+        "array_initialization_advisories": 0,
+        "operator_reassociation_advisories": 0,
+        "assignment_advisories": 2,
+        "image_advisories": 2,
+        "termination_checks": 1
+      },
+      "cases": 1,
+      "elapsed_seconds": 19.450793319992954,
+      "archive_sha256": "f814e74f3250b091deb83606da86b2e1369dddccd9ff3e173ef322709ab893bf",
+      "outcome": "passed"
+    },
+    {
+      "source": "rosetta_signum.adb",
+      "sha256": "96709a2d51bd874ef22dc0b2f916cd12e8d60bbfed538d3d1b83b868a56b1937",
+      "bytes": 697,
+      "application_functions": [
+        "Signum"
+      ],
+      "check_exit": 0,
+      "compile_exit": 0,
+      "workspace": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-7UZDa7",
+      "executable": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-7UZDa7/bin/main",
+      "statistics": {
+        "units": 5,
+        "entities": 18,
+        "flow_checks": 20,
+        "proof_checks": 50,
+        "limitation_notes": 0,
+        "imported_entities": 6,
+        "trusted_math_notes": 0,
+        "vendor_spec_entities": 0,
+        "array_initialization_advisories": 0,
+        "operator_reassociation_advisories": 0,
+        "assignment_advisories": 2,
+        "image_advisories": 2,
+        "termination_checks": 1
+      },
+      "cases": 1,
+      "elapsed_seconds": 16.013662793993717,
+      "archive_sha256": "a87bc41220e6e7753f73b1c8294985c674482eaea5469a32bd62267c4894fac0",
+      "outcome": "passed"
+    },
+    {
+      "source": "rosetta_sum_multiples_of_3_and_5.adb",
+      "sha256": "24d02d8658e43a36bc09388c04542975eb2508e30761b26852f622b4afe35fd6",
+      "bytes": 1202,
+      "application_functions": [
+        "Sum_Multiples"
+      ],
+      "check_exit": 0,
+      "compile_exit": 0,
+      "workspace": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-rdDggQ",
+      "executable": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-298/.silver/linux-x86_64/program-rdDggQ/bin/main",
+      "statistics": {
+        "units": 5,
+        "entities": 18,
+        "flow_checks": 20,
+        "proof_checks": 58,
+        "limitation_notes": 0,
+        "imported_entities": 6,
+        "trusted_math_notes": 0,
+        "vendor_spec_entities": 0,
+        "array_initialization_advisories": 0,
+        "operator_reassociation_advisories": 0,
+        "assignment_advisories": 6,
+        "image_advisories": 2,
+        "termination_checks": 1
+      },
+      "cases": 1,
+      "elapsed_seconds": 15.1793384749908,
+      "archive_sha256": "b5245c78f06d41b170a7016795df0a113ee5d00103004ddef19ffe86f46b1887",
+      "outcome": "passed"
+    }
+  ],
+  "outcome": "passed"
+}
