@@ -451,3 +451,130 @@ has been established. The concrete proposal addresses the observed failure risk
 without claiming a memory bound. The current monitoring thresholds remain in
 force. Selected reviewer setting is Astra Extra High with runtime telemetry
 unavailable; the reviewer sent no signals and owns no active process.
+
+### Repeated regression timeout: isolated configuration observation
+
+The full regression and unchanged focused follow-up
+`20261108T053156-3a0a42e9d590` both exceeded the existing 60-second deadline in
+the first chunk-reuse Lake build, before the audit and reuse/edit variants.
+Review of the retained archive found the expected configuration options and
+Lean identity, but pinned `Lake/Load/Lean/Elab.lean` writes and flushes
+`lakefile.olean.trace` before elaboration. The historical trace's presence
+therefore does not establish configuration completion. The two historical
+process samples cannot establish a scheduling, I/O or configuration root cause.
+
+After reviewing the pinned `lake env` implementation and sending a concrete
+isolated plan, the coordinator authorized exactly one configuration-only
+observation with the unchanged deadline and options. The reviewer used the
+released regression toolchain context through managed `dev.py tool`, reserving
+one worker and explicitly declaring its scratch workspace and inputs. Fresh
+preflight showed 20/22 workers reserved and 51.1 GiB available. All 19 prepared
+source/configuration hashes matched the retained failed-fixture inventory;
+the recreated workspace began without `.lake` state. No test, harness,
+production source, module, timeout or memory option was changed.
+
+Native Linux managed run `20261108T054614-dc5613468a66` succeeded. Its exact
+Lake prefix was `--rehash --reconfigure -K silverThreads=1 -K
+silverMemoryMb=2048`; `env` and an immediate process/timing marker replaced only
+the module build command. The command and marker exited in 22.878 seconds,
+including spawn and exit confirmation, while the complete managed run took
+62.554 seconds including preflight, preparation and evidence collection.
+The trace was first observed at 1.067 seconds, configuration olean at 20.318
+seconds, marker process birth at approximately 20.542 seconds (10ms Linux tick
+precision), and marker Python entry at 21.607 seconds. No `.lake/build`
+artifacts were produced. Stdout was empty and stderr contained only expected
+manifest/toolchain information.
+
+The 85 process samples recorded 21.14 seconds of aggregate Lake CPU growth and
+834.7 MiB maximum sampled RSS. Per-observed-thread scheduler wait counters
+totalled 0.220 seconds, a sampling lower bound; the last readable I/O sample
+had zero storage-read bytes and approximately 1.05 MB written. This demonstrates
+active configuration computation during this observation. It does not explain
+the earlier build delay, whose ambient environment and OS cache/scheduling state
+were not retained. The current environment was explicitly captured before
+Alire and supplied through the unchanged `lean_environment` function. Relevant
+values and other-value hashes are retained; its private complete snapshot is
+excluded from shareable evidence.
+
+All diagnostic inputs remained unchanged, no signal or repeat was needed, and
+all diagnostic descendants exited. The managed reservation was released;
+postflight returned to 20/22 reserved. Detailed evidence and exact observer
+are retained in the separate review worktree's
+`tmp/lake-config-diagnostic-298/`, including `ANALYSIS.md`, `PLAN.md`, streams,
+250ms process/CPU/I/O/wait samples, command, tool/loaded-file hashes, artifact
+inventory and managed events. This is a successful diagnostic, not a passing
+fixture or delivery acceptance.
+
+The smallest prospective check is one instrumented initial-build-only
+observation from an identical cold fixture under the same 60-second deadline,
+retaining individual module starts and streams. It would separate current
+configuration cost from module compilation before selecting any repair or full
+fixture rerun; it has not been launched. The original full fixture, its audit
+and all reuse/edit checks remain mandatory. There is no evidence here supporting
+a timeout increase. Selected reviewer setting remains Astra Extra High with
+runtime telemetry unavailable. Live goal was null at resume; CLI memory was
+not updated.
+
+### Instrumented initial build: timeout after completed configuration
+
+The coordinator separately authorized one initial-build-only observation after
+the preceding configuration result. Native Linux managed run
+`20261108T055144-283b5d488a27` used a new isolated scratch workspace, the same
+validated 19 prepared files and recorded current environment, one reserved
+worker, and the exact original build targets and options. The cold `.lake`
+condition and unchanged inputs were verified. The successful configuration
+observer and its evidence were preserved unchanged.
+
+This observation timed out. Configuration's final olean was first sampled at
+21.166 seconds; kernel process-start ticks place Lexical at approximately
+21.219 seconds, CertificateWitness at 32.049, Admission at 43.569 and Cursor
+at 55.289 (10ms tick precision). Captured stdout reports the first three modules
+built successfully in 10, 11 and 11 seconds. Cursor remained active at the
+60-second deadline. Its detection occurred at 60.282 seconds with sampling
+and polling overhead. The reviewer verified session/start identities and sent
+SIGKILL only to this diagnostic's Lake PID 602629 and Cursor PID 602805 at
+60.329/60.330 seconds. The diagnostic subreaper reaped Cursor; all diagnostic
+descendants had exited by 62.389 seconds. Driver status 124, Lake status -9
+and the managed wrapper's failed status remain explicit. No external process
+was signalled, no repeat was made, and the one-worker lease was released.
+
+The initial build preserved completed Lexical, CertificateWitness and Admission
+object families and the partial workspace. Last sampled aggregate CPU was
+22.36 seconds for Lake (including build coordination), 9.59 for Lexical, 8.05
+for CertificateWitness, 8.65 for Admission and 5.25 for interrupted Cursor.
+The first three module processes accumulated 4.15, 5.22 and 5.13 system CPU
+seconds, respectively. This establishes significant current configuration and
+serial module-process cost; it does not distinguish every import, elaboration,
+serialization and process-startup contribution.
+
+The historical follow-up's lifetime-average observations were Lake at
+32 seconds/58.1% CPU, defunct Lake at 61 seconds/61.7%, and Lexical at
+10 seconds/57.5%. These differ from the separate configuration observation's
+21.15 sampled CPU seconds in 22.878 observed wall seconds. Those historical
+averages nevertheless cannot isolate configuration CPU, I/O or scheduling;
+no historical contention cause is asserted.
+
+A read-only comparison with successful real fixture
+`20261106T145355-acbd4750fe92` at `524dbfbd40` found identical seven production
+modules, test, toolchain, bootstrap/environment helpers and both Lean/Lake
+executable hashes. The lakefile, generator and check_lean.py differ; exact
+identity comparisons are retained. Matching those bytes does not establish
+matching historical environment, host, libraries or cache state.
+
+Detailed timings, counters, streams, identities, completed/partial objects and
+managed records are preserved in the review worktree's
+`tmp/lake-initial-build-diagnostic-298/`. The managed failed run lasted
+94.409 seconds including setup, deadline cleanup and evidence collection.
+Fresh postflight showed 20/22 workers reserved and no diagnostic descendants.
+The original fixture and all audit/reuse/edit stages remain mandatory and
+unpassed by this observation.
+
+The smallest prospective execution is one isolated profiling compile of the
+unchanged CertificateWitness module, whose three Lean meta imports require no
+Silver dependency in its retained setup. Pinned Lean exposes import and
+serialization measurements through `-Dprofiler=true -Dprofiler.threshold=0`.
+With the existing thread, memory, warning and 60-second settings and distinct
+scratch outputs, that could locate its import/startup versus theorem cost
+before choosing any implementation change. It is proposed only, has not run,
+and does not justify changing the fixture timeout. Reviewer settings and
+runtime-telemetry limits remain unchanged; no CLI memory update was made.
