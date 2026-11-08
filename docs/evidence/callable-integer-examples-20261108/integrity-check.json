@@ -75,5 +75,11 @@
     }
   ],
   "outcome": "passed",
-  "limits": "Records existing successful application evidence and verifies retained bytes. Does not perform or replace lead/reviewer compiler and Lean baseline-applicability assessment."
+  "limits": "Records existing successful application evidence and verifies retained bytes. Baseline applicability was established by the cited independent review, outside this retention task. No new build/proof/application execution was performed here.",
+  "baseline_applicability_review": {
+    "record": "docs/reviews/review-callable-integer-examples-20261108.md",
+    "validated_target": "db8ca3495c6b2a118f4bd9ebe8bbcddad2e6fa0f",
+    "outcome": "accepted with no findings",
+    "attribution": "Independent reviewer acceptance reported by the lead; retention task did not perform this review."
+  }
 }

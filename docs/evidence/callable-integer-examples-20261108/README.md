@@ -102,11 +102,15 @@ author inputs; no annotated replacement source was introduced.
 
 This retention task ran no build, proof, application execution or new universal
 or Lean proof checkpoint. The managed run used the existing compiler/toolchain
-installation from the accepted scalar-function work and recorded an intention
-to reuse unchanged compiler and Lean assurance. **The lead/reviewer owns the
-baseline applicability assessment and its final evidence links; this packet
-does not claim that assessment is complete.** Native macOS validation is not
-claimed here.
+installation from the accepted scalar-function work and reused unchanged
+compiler and Lean assurance. The
+[independent review](../../reviews/review-callable-integer-examples-20261108.md)
+accepted the exact validated target's application evidence and baseline
+applicability with no findings. It matched the archived files to their retained
+workspaces, reran the unchanged Python auditors and proof-policy checks, and
+checked source hashes, exact stdout and unchanged native/Lean proof inputs.
+That review establishes applicability; this packet-retention task does not
+claim to have performed the review. Native macOS validation is not claimed here.
 
 Retention role selection carried forward from the implementation assignment:
 GPT-6.1 Sol / Extra High. This records the selected model/effort; independent
