@@ -370,3 +370,37 @@ proof-structure optimization was requested. This resource assessment supplies
 no assurance acceptance. Selected setting: GPT-6 Astra / Extra High; runtime
 model/effort and token/cost telemetry are unavailable. Local scratch retains
 the assessment snapshots; the live goal remains null and CLI memory is unchanged.
+
+### Follow-up resource decision — 05:08–05:10 UTC
+
+The watcher subsequently reported 11.13 GiB available at 05:07:51 and 9.92 GiB
+at 05:08:21. Fresh inspection at 05:08:46 instead showed 15.54 GiB available:
+the Helpers and ScalarBody workers had released allocations to 0.86/1.11 GiB.
+At 05:10:10, available memory was 16.18 GiB and FunctionSourceCandidate's
+RSS/high-water mark was 35.44 GiB. No second signal was sent at this checkpoint.
+These oscillations justify preserving the current work after recovery, while
+continuing to watch the candidate's sustained growth.
+
+Refine monitoring to 15-second samples during each excursion below 12 GiB.
+Two successive low/falling samples, or a sustained decline projecting 8 GiB
+within 60 seconds, justify a fresh preservation decision; at or below 8 GiB,
+act immediately. Verify the current process identity before signalling. If
+another cancellation becomes necessary, target only FunctionSourceCandidate
+PID 582544: it dominates resident memory, while cancelling Helpers and
+ScalarBody would free much less and discard two other required ongoing jobs.
+Keep Lake, the remaining source workers, native work and successful objects.
+All cancelled checks still require successful completion; elapsed time supplies
+no estimate of their remaining work.
+
+Scratch-only inspection identified a possible retry decomposition if that
+candidate must be stopped. Its three independent `Checked` proofs have 8, 11
+and 30 fields, with whole-table checks among the declaration fields. The active
+theorem/field and terminal peak are unknown, so a three-module split alone is
+not a demonstrated memory bound. A contingent retry could separately compile
+the unchanged exact components or individual named table requirements, then
+assemble the original theorem statements and import facade. Such a retry must
+retain every named source, tree, scope, header, body and domain check and run
+serially under managed reservations to avoid multiplying allocation. No such
+change or run was performed; healthy current headroom does not require it.
+Selected reviewer configuration remains Astra Extra High with runtime telemetry
+unavailable. The reviewer owns no active process and sent no signal.
