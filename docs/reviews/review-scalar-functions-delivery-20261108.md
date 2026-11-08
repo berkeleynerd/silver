@@ -701,3 +701,54 @@ one module's improvement does not establish the complete budget. No fixture,
 initial build, suite or additional profile was run. No source/test/harness,
 live selector, deadline or acceptance condition changed; publication remains
 outside this review stream.
+
+### Unchanged original fixture with authenticated local tools still times out
+
+The coordinator authorized exactly one complete original method through the
+reviewed isolated-root route. Native Linux managed run
+`20261108T064023-1bc9e7d6f89f` finished failed: one test, one TimeoutExpired
+error, zero skips and no audit/edit subtests reached. The initial Lake build
+exceeded its unchanged 60-second limit. Unittest took 64.277 seconds, the outer
+observation/identity work 83.861 seconds, and the complete managed command
+113.471 seconds. The failed outcome remains explicit.
+
+The test, nine helpers, lakefile/pin/generator and seven proof modules were
+byte-identical to current governed fixture inputs. Normal __file__ derivation
+selected the copied ROOT/PROOF/imports; a new isolated selector used the
+validated local installation without editing any existing selector. The
+approved scoped TMPDIR stayed on the original /tmp overlay filesystem class.
+All test assertions, subprocess calls, source, proof options, one-thread and
+2048 MiB settings, 60-second limits and original cleanup remained unchanged;
+no profiler was enabled.
+
+Complete 18,381-entry distribution identity matched before/after. The prepared
+workspace matched all 19 source/configuration hashes and copied inputs remained
+unchanged. An explicit postflight rehashed all 17,792 managed input files with
+zero differences, because the failed managed invocation does not itself execute
+its normal success-path final stability check.
+
+Actual TimeoutExpired stdout reports Lexical built in 5.9 seconds,
+CertificateWitness in 4.9, Admission in 5.9, Cursor in 11 and
+OutputProfileBodySource in 1.4. SourceLexer was first sampled at 46.2 seconds
+after the fixture process started (Lake at 3.2 seconds), with no chunk-module
+compiler observed before the deadline. A reporting-only result callback
+preserved actual exception streams and the pre-cleanup workspace, including
+the five completed object families. The snapshot is not an atomic completed
+build; SourceLexer was still present when it was captured.
+
+The observer later reaped the completed SourceLexer descendant with wait
+status zero and sent no signal. That later child exit does not complete the
+killed Lake build or unexecuted fixture stages. Original cleanup emptied the
+scoped temporary directory; all owned descendants exited and the worker lease
+was released. Minimum sampled available memory was 50.95 GiB. No historical
+or current contention cause is inferred from that observation.
+
+The isolated root, exact drivers and failed evidence are retained under
+`tmp/local-original-fixture-298/` in the separate review worktree; the two owned
+/tmp roots and authenticated installation remain available. No repeat or other
+test followed. Local storage alone was insufficient to make this unchanged
+fixture pass. The next bounded work is read-only assessment of the watchdog's
+provenance/correctness purpose and preparation of any narrowly justified repair
+for coordinator review. No timeout, fixture or acceptance change is authorized
+by this failed result itself. Reviewer settings/telemetry limits remain
+unchanged; no CLI memory update or publication occurred.
