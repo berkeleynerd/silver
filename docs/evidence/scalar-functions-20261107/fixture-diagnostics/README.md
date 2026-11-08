@@ -180,3 +180,26 @@ review; it is not a separate fresh non-symlink run. The full result is pending,
 with no automatic retry or further watchdog increase. The test file is outside
 the active Lean input set, and all production proof, source and script bytes
 remain equal to `47fe4003c0`.
+
+
+The [complete repaired platform wrapper](20261108T075522-000e545aebc8/index.json)
+`075522-000e545aebc8` then passed on the exact final inputs. The original outer
+method selected all twelve nested methods and asserted their successful exit,
+with no skip or conditional-selection path. All assertions and negative checks
+remained. Unittest took 622.698 seconds, the observer 626.778 seconds, and managed
+execution 647.801 seconds. Successful nested stdout remains internal to the
+original method; it was neither intercepted nor reconstructed.
+
+All 884 managed input hashes, 866 copied byte/mode identities and the 821-file
+Lean set matched afterward. The only source difference from the preceding
+fixture was the reviewed watchdog patch. No descendants, lease or temporary
+entries remained, and no cleanup signal was required. Parentage review accounts
+for fifteen direct suite workers; a raw substring filter also sampled one child
+with its parent's command line. That raw observation is preserved without
+claiming a complete census of short-lived generator processes.
+
+Integration independently read and indexed every one of the 903 bundle members
+by size and SHA-256. This supplies a passing affected platform check; previous
+failures retain their outcomes. Independent applicability review must still
+account for the original 637 methods and final changes. The separate complete
+native and Lean/source audits remain required.
