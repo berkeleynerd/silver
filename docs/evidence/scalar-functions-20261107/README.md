@@ -5,6 +5,43 @@ focused Linux checks and producer observations; it is not a complete delivery
 checkpoint. The [capability record](../../scalar-functions.md) states the
 remaining requirements.
 
+## Current checkpoint — 2026-11-08 09:46 UTC
+
+Stable implementation/source snapshot `f630819154` includes reviewed parser
+SHA-256 `036a53b4bd9a9d7c711b4ddf8d83467a6b470184bfce2ac6677b15cf4f57ef47`.
+The [six complete affected-body checks](native-checkpoint/remaining-three-repairs/README.md)
+all passed, as did the earlier Parameter_Frame check. Independent integration
+verification inspected the six raw reports, actual finished outcomes and every
+one of 221 indexed compressed artifacts: all 115 checks, 704 proof-tree branches
+and 43 postcondition branches were discharged. No precondition, input domain,
+old contract clause or obligation was removed. These focused results do not
+establish complete compiler assurance.
+
+The semantic follow-up [091153](focused/20261108T091153-a212a5bfebc3/README.md)
+passed with a fresh 101-module / 16,853-declaration audit. The ordinary complete
+Lean/source/module/axiom check `20261108T094147-fb5330310904` is active with two
+Lake workers and two threads per process, based on measured source-leaf memory
+use. Complete native audit `20261108T094547-29491e1d3036` is active with twelve
+workers and the retained warm cache. Neither has a completed result yet.
+
+The [fresh compiler build](final-regression/repaired-build-093134/README.md)
+passed. The [independent per-ID plan](final-regression/repaired-input-plan/README.md)
+accounts for all 637 regression IDs: 286 reusable outcomes and 351 requiring
+fresh evidence. The 338 compiler/policy selections are active in run
+`20261108T093645-d959cfabae08`; the original platform wrapper and its twelve
+nested bodies follow separately. Its [reviewed resource launcher](final-regression/affinity-launcher-review/README.md)
+reserves four workers and applies inherited CPU allowance 18–21, with sampled
+process-leader affinity and memory. Total allocation is eighteen of twenty-two
+managed workers. Sampling is not continuous all-thread inspection, and affinity
+does not bound process count or memory. Final outcomes and applicability remain
+pending; earlier failed runs retain their actual failed outcomes.
+
+Actual Rosetta promotion, its three fresh tests and final independent delivery
+review remain outstanding. PR #339 stays draft; implementation merge is held.
+The dated records below preserve earlier stages and superseded active states.
+
+## Earlier focused implementation evidence
+
 `focused/` contains verbatim managed records, input identities and streamed logs
 from the shared run registry, normally gzip-compressed. Each run in the table below completed its
 focused build and a fresh axiom audit with only `propext`, `Classical.choice`
