@@ -5,7 +5,7 @@ focused Linux checks and producer observations; it is not a complete delivery
 checkpoint. The [capability record](../../scalar-functions.md) states the
 remaining requirements.
 
-## Current checkpoint — 2026-11-08 15:40 UTC
+## Current checkpoint — 2026-11-08 15:58 UTC
 
 Stable implementation/source snapshot `f630819154` includes reviewed parser
 SHA-256 `036a53b4bd9a9d7c711b4ddf8d83467a6b470184bfce2ac6677b15cf4f57ef47`.
@@ -27,10 +27,15 @@ audit rejected four compiler-owned Hide_Info annotations. No completed native
 provenance exists. The [Astra Max diagnosis](native-policy-diagnosis/README.md)
 identifies that mismatch and twelve separately classified arithmetic-portability
 advisories as findings [#347](https://github.com/berkeleynerd/silver/issues/347)
-and [#348](https://github.com/berkeleynerd/silver/issues/348). A narrow auditor,
-test and boundary-documentation repair is being implemented and independently
-reviewed. Native sources, obligations, options and warm sessions/cache remain
-unchanged; the original failed snapshot will not be restamped.
+and [#348](https://github.com/berkeleynerd/silver/issues/348). The [exact correction](native-policy-repair/README.md)
+subsequently received [separate Astra Max approval](native-policy-independent-review/README.md).
+Ordinary warm run [155015](native-checkpoint/auditor-refresh-53d3/README.md)
+**passed**: all 18,525 checks, complete source/report coverage, current matching
+provenance and the mandatory standalone checker. Actual driver exit was 0.
+Native sources, obligations, options and canonical cache remained unchanged;
+the original failed snapshot was not restamped. The auditor script is applied
+in the isolated native checkout; integration keeps its old script until the
+live Lean run exits, then requires a cached complete Lean/fresh audit refresh.
 
 The [fresh compiler build](final-regression/repaired-build-093134/README.md)
 passed. The [independent per-ID plan](final-regression/repaired-input-plan/README.md)
@@ -47,8 +52,11 @@ separately after dense proof runs release the full host allowance, preserving
 every deadline, production option and assertion. The [independent applicability
 review](final-regression/retained-resolution-3d38/README.md) accepts 286 retained
 outcomes and 335 current passes on the pre-auditor-repair inputs; sixteen IDs
-remain pending. The auditor correction needs its own affected-test and dependency
-reconciliation. Earlier failed runs retain their actual failed outcomes.
+remain pending. The [auditor correction's independent delta](native-policy-independent-review/README.md)
+refreshes 129 prior IDs and adds eight new passing tests, retaining 492 other
+applicable passes. Its target inventory has 645 IDs, with 629 accepted successful
+results and the same sixteen pending. Earlier failed runs retain their actual
+failed outcomes.
 
 Actual Rosetta promotion, its three fresh tests and final independent delivery
 review remain outstanding. PR #339 stays draft; implementation merge is held.

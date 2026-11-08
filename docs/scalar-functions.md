@@ -304,12 +304,18 @@ annotations. No completed native provenance exists. The [Astra Max diagnosis](ev
 records findings [R2 / #347](https://github.com/berkeleynerd/silver/issues/347)
 and [R3 / #348](https://github.com/berkeleynerd/silver/issues/348): the exact safe
 compiler annotation and twelve pinned-GNAT reassociation advisories need narrowly
-scoped classification. The isolated auditor/tests/boundary repair and separate
-independent Astra Max review are in progress. Ada sources, contracts, formal
-domains and proof settings remain unchanged. The live complete Lean run remains
-on its frozen inputs; after the auditor change, current matching native
-provenance and cached complete Lean/fresh audit remain required. This checkpoint
-does not complete #298, its regressions or final review.
+scoped classification. The [exact auditor correction](evidence/scalar-functions-20261107/native-policy-repair/README.md)
+subsequently received [independent Astra Max approval](evidence/scalar-functions-20261107/native-policy-independent-review/README.md).
+Its ordinary [warm complete native refresh](evidence/scalar-functions-20261107/native-checkpoint/auditor-refresh-53d3/README.md)
+passed all 18,525 checks, complete source/report coverage, current matching
+provenance and the mandatory final checker, with actual driver exit 0. Ada
+sources, contracts, formal domains and proof settings remained unchanged.
+The original failed native run remains failed. The approved auditor target has
+137 fresh Python test passes (129 prior IDs plus eight new IDs), with 492 other
+prior outcomes retained; 629 of 645 IDs are accepted and sixteen remain pending.
+The live complete Lean run retains its old script input until exit, followed by
+the necessary cached complete Lean/fresh audit on the corrected auditor digest.
+This checkpoint does not complete #298, its regressions or final review.
 
 Selected subthread settings are recorded from their launches; independent runtime
 confirmation, token/cost and total elapsed-work measurements are unavailable.
