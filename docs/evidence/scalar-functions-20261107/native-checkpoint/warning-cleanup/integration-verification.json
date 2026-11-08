@@ -1,0 +1,10 @@
+{
+  "verified_utc": "2026-11-08T08:34:31.294970+00:00",
+  "integration_commit": "503ec3be3d",
+  "evidence_source_commit": "0e11f7f9dc7e38d2780366ece82976fad6feb7a3",
+  "gzip_artifacts": 3711,
+  "uncompressed_bytes": 259740868,
+  "every_indexed_gzip_sha256_and_length_matches": true,
+  "every_retained_gzip_is_indexed": true,
+  "scope": "Coordinator independently decompressed and checked all retained focused, interrupted and final native evidence artifacts after evidence-only integration. No native proof rerun or successful audit is claimed."
+}

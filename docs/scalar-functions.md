@@ -240,6 +240,25 @@ Complete native/Lean assurance remains pending. The later Rosetta promotion
 still requires its actual render and three fresh tests, followed by final
 delivery review.
 
+The complete native run `20261108T040128-2651963b8574` subsequently failed:
+18,520 of 18,524 checks discharged across 77 units, with four unresolved parser
+postconditions. The [independent diagnosis](reviews/review-scalar-functions-delivery-20261108.md#four-failed-native-postconditions-independent-diagnosis)
+establishes a concrete zero-position `Parameter_Frame` result/model mismatch
+and three modular-contract gaps. Its [retained packet](evidence/scalar-functions-20261107/native-checkpoint/four-postcondition-diagnosis/DIAGNOSIS.md)
+preserves the source, generated tasks, witness and comparison with earlier
+incomplete coverage. The exact entry guard has passed one focused native check;
+its source integration and complete assurance remain outstanding. The other
+three repairs are being prepared before another complete native run. No input
+domain or required postcondition is weakened.
+
+The serial Lean source run retains its frozen inputs and continues compiling
+unaffected leaves after a namespace ambiguity in `CallsIncludedImpl`. Its reviewed
+qualification repair remains unapplied until the workspace lease is released.
+Later native changes require corresponding source and semantic proof review,
+regenerated source certificates, complete native/Lean audits and an affected-input
+regression review. The accepted regression composition above applies to its exact
+unchanged snapshot; it does not pre-accept those future source repairs.
+
 Selected subthread settings are recorded from their launches; independent runtime
 confirmation, token/cost and total elapsed-work measurements are unavailable.
 Native probe time is retained by the managed records rather than inferred from
