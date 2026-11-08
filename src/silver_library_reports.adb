@@ -1207,7 +1207,7 @@ package body Silver_Library_Reports with SPARK_Mode => On is
        Post => (Static => Entity_Name'Result = Entity_Name_Spec (Text, Entity, Source => Source, Functions => Functions))
    is
       Name : constant Span := Field (Text, Entity, JSON_name);
-      Result : Entity_Kind := Unknown;
+      Result : Entity_Kind;
    begin
       if Main_Spelling (Text, Name) then Result := Main_Entity;
       elsif String_Equal (Text, Name, Atom_Silver_IO) then Result := IO_Package;
@@ -1823,7 +1823,7 @@ package body Silver_Library_Reports with SPARK_Mode => On is
    end Dependencies_OK;
 
    function Expected_Entity (Name : Entity_Kind; Kind : Audit_Kind;
-      Source : String; Functions : Function_Metadata)
+      Functions : Function_Metadata)
      return Boolean is
      ((Kind in Application_Audit and then
         Name in Main_Entity + 1 .. Main_Entity + Functions.Count) or else
@@ -1856,7 +1856,7 @@ package body Silver_Library_Reports with SPARK_Mode => On is
         when Static_Mixed | Assignment_Mixed => Name in Main_Entity | Put_Line | Put));
 
    function Expected_Coverage (Name : Entity_Kind; Kind : Audit_Kind;
-      Source : String; Functions : Function_Metadata)
+      Functions : Function_Metadata)
      return String is
      (case Kind is
         when IO_Body => (if Name in IO_Package | Put_Line | Put then Atom_all else Atom_Empty),
@@ -1905,8 +1905,8 @@ package body Silver_Library_Reports with SPARK_Mode => On is
         (declare Name : constant Entity_Kind := Entity_Name_Spec
             (Text, Field_Spec (Text, Entities, Text (M.Key.First + 1 .. M.Key.Last - 1)), Source => Source, Functions => Functions);
          begin
-           (if Expected_Coverage (Name, Kind, Source => Source, Functions => Functions)'Length = 0
-              or else not String_Equal (Text, M.Value, Expected_Coverage (Name, Kind, Source => Source, Functions => Functions))
+           (if Expected_Coverage (Name, Kind, Functions => Functions)'Length = 0
+              or else not String_Equal (Text, M.Value, Expected_Coverage (Name, Kind, Functions => Functions))
             then Unknown else Name))
       elsif Field_Spec (Text, Items, Text (M.Key.First + 1 .. M.Key.Last - 1)) /= M.Value
       then Unknown
@@ -1941,31 +1941,31 @@ package body Silver_Library_Reports with SPARK_Mode => On is
 
    function Map_Policy (Prefix : Entity_Set; Suffix : Entity_Summary;
                         Kind : Audit_Kind; Coverage : Boolean;
-      Source : String; Functions : Function_Metadata) return Boolean
+      Functions : Function_Metadata) return Boolean
      with Ghost => Static, Global => null;
 
    function Map_Policy (Prefix : Entity_Set; Suffix : Entity_Summary;
                         Kind : Audit_Kind; Coverage : Boolean;
-      Source : String; Functions : Function_Metadata) return Boolean is
+      Functions : Function_Metadata) return Boolean is
      (Suffix.Well_Formed and then Suffix.Unique
       and then (for all Name in Entity_Kind =>
         not (Prefix (Name) and Suffix.Seen (Name))
         and ((Prefix (Name) or Suffix.Seen (Name)) =
-          (if Coverage then Expected_Coverage (Name, Kind, Source => Source, Functions => Functions)'Length > 0
-           else Expected_Entity (Name, Kind, Source => Source, Functions => Functions)))));
+          (if Coverage then Expected_Coverage (Name, Kind, Functions => Functions)'Length > 0
+           else Expected_Entity (Name, Kind, Functions => Functions)))));
 
    --  A name can move from the recursively specified suffix to the
    --  imperative prefix without changing uniqueness or exact coverage.
    procedure Advance_Map
      (Prefix : Entity_Set; Rest : Entity_Summary; Name : Entity_Kind;
       Kind : Audit_Kind; Coverage : Boolean;
-      Source : String; Functions : Function_Metadata)
+      Functions : Function_Metadata)
      with Ghost => Static, Global => null,
        Pre => Name /= Unknown and then not Prefix (Name),
        Post => Map_Policy
          (Prefix, (Rest.Well_Formed, Rest.Unique and not Rest.Seen (Name),
-                   Remember (Rest.Seen, Name)), Kind, Coverage, Source => Source, Functions => Functions) =
-         Map_Policy (Remember (Prefix, Name), Rest, Kind, Coverage, Source => Source, Functions => Functions)
+                   Remember (Rest.Seen, Name)), Kind, Coverage, Functions => Functions) =
+         Map_Policy (Remember (Prefix, Name), Rest, Kind, Coverage, Functions => Functions)
    is
    begin
       null;
@@ -1973,13 +1973,13 @@ package body Silver_Library_Reports with SPARK_Mode => On is
 
    procedure Finish_Map
      (Prefix : Entity_Set; Kind : Audit_Kind; Coverage : Boolean;
-      Source : String; Functions : Function_Metadata)
+      Functions : Function_Metadata)
      with Ghost => Static, Global => null,
        Post => Map_Policy
-         (Prefix, (True, True, No_Entities), Kind, Coverage, Source => Source, Functions => Functions) =
+         (Prefix, (True, True, No_Entities), Kind, Coverage, Functions => Functions) =
          (for all Name in Entity_Kind => Prefix (Name) =
-           (if Coverage then Expected_Coverage (Name, Kind, Source => Source, Functions => Functions)'Length > 0
-            else Expected_Entity (Name, Kind, Source => Source, Functions => Functions)))
+           (if Coverage then Expected_Coverage (Name, Kind, Functions => Functions)'Length > 0
+            else Expected_Entity (Name, Kind, Functions => Functions)))
    is
    begin
       null;
@@ -1997,7 +1997,7 @@ package body Silver_Library_Reports with SPARK_Mode => On is
      (Valid (Text, Items) and then Text (Items.First) = '{'
       and then Text (Items.Last) = '}'
       and then Map_Policy
-        (No_Entities, Map_From (Text, Items, Entities, Kind, Coverage, Items.First + 1, Source => Source, Functions => Functions), Kind, Coverage, Source => Source, Functions => Functions));
+        (No_Entities, Map_From (Text, Items, Entities, Kind, Coverage, Items.First + 1, Source => Source, Functions => Functions), Kind, Coverage, Functions => Functions));
 
    function Map_OK (Text : String; Items, Entities : Span;
                     Kind : Audit_Kind; Coverage : Boolean;
@@ -2018,7 +2018,7 @@ package body Silver_Library_Reports with SPARK_Mode => On is
          pragma Loop_Invariant (P in Items.First + 1 .. Text'Length + 1);
          pragma Loop_Invariant
            (Static => Map_Spec (Text, Items, Entities, Kind, Coverage, Source => Source, Functions => Functions) =
-             Map_Policy (Seen, Map_From (Text, Items, Entities, Kind, Coverage, P, Source => Source, Functions => Functions), Kind, Coverage, Source => Source, Functions => Functions));
+             Map_Policy (Seen, Map_From (Text, Items, Entities, Kind, Coverage, P, Source => Source, Functions => Functions), Kind, Coverage, Functions => Functions));
          pragma Loop_Variant (Increases => P);
          M := Read_Member (Text, Items, P);
          case M.State is
@@ -2027,15 +2027,15 @@ package body Silver_Library_Reports with SPARK_Mode => On is
                pragma Assert (Static => Map_From
                  (Text, Items, Entities, Kind, Coverage, P, Source => Source, Functions => Functions) =
                    (True, True, No_Entities));
-               Finish_Map (Seen, Kind, Coverage, Source => Source, Functions => Functions);
+               Finish_Map (Seen, Kind, Coverage, Functions => Functions);
                exit;
             when Present =>
                if M.Key.Last - M.Key.First < 1 then return False; end if;
                if Coverage then
                   Name := Entity_Name (Text, Field
                     (Text, Entities, Text (M.Key.First + 1 .. M.Key.Last - 1)), Source => Source, Functions => Functions);
-                  if Expected_Coverage (Name, Kind, Source => Source, Functions => Functions)'Length = 0
-                    or else not String_Equal (Text, M.Value, Expected_Coverage (Name, Kind, Source => Source, Functions => Functions))
+                  if Expected_Coverage (Name, Kind, Functions => Functions)'Length = 0
+                    or else not String_Equal (Text, M.Value, Expected_Coverage (Name, Kind, Functions => Functions))
                   then return False; end if;
                else
                   if Field (Text, Items, Text (M.Key.First + 1 .. M.Key.Last - 1)) /= M.Value
@@ -2057,19 +2057,19 @@ package body Silver_Library_Reports with SPARK_Mode => On is
                     (Static => Map_From (Text, Items, Entities, Kind, Coverage, P, Source => Source, Functions => Functions) =
                       (Rest.Well_Formed, Rest.Unique and not Rest.Seen (Name),
                        Remember (Rest.Seen, Name)));
-                  Advance_Map (Seen, Rest, Name, Kind, Coverage, Source => Source, Functions => Functions);
+                  Advance_Map (Seen, Rest, Name, Kind, Coverage, Functions => Functions);
                   pragma Assert
                     (Static => Map_Policy
-                      (Seen, Map_From (Text, Items, Entities, Kind, Coverage, P, Source => Source, Functions => Functions), Kind, Coverage, Source => Source, Functions => Functions) =
-                      Map_Policy (Remember (Seen, Name), Rest, Kind, Coverage, Source => Source, Functions => Functions));
+                      (Seen, Map_From (Text, Items, Entities, Kind, Coverage, P, Source => Source, Functions => Functions), Kind, Coverage, Functions => Functions) =
+                      Map_Policy (Remember (Seen, Name), Rest, Kind, Coverage, Functions => Functions));
                end;
                Seen := Remember (Seen, Name);
                P := M.Next;
          end case;
       end loop;
       return (for all Name in Entity_Kind => Seen (Name) =
-        (if Coverage then Expected_Coverage (Name, Kind, Source => Source, Functions => Functions)'Length > 0
-         else Expected_Entity (Name, Kind, Source => Source, Functions => Functions)));
+        (if Coverage then Expected_Coverage (Name, Kind, Functions => Functions)'Length > 0
+         else Expected_Entity (Name, Kind, Functions => Functions)));
    end Map_OK;
 
    function Entities_OK (Text : String; Entities : Span; Kind : Audit_Kind;
@@ -2664,8 +2664,8 @@ package body Silver_Library_Reports with SPARK_Mode => On is
         (declare Name : constant Entity_Kind := Raw_Entity_Name
             (Text, Raw_Field_Key (Text, Entities, (M.Key.First + 1, M.Key.Last - 1)), Source => Source, Functions => Functions);
          begin
-           (if Expected_Coverage (Name, Kind, Source => Source, Functions => Functions)'Length = 0
-              or else not Raw_String_Equal (Text, M.Value, Expected_Coverage (Name, Kind, Source => Source, Functions => Functions))
+           (if Expected_Coverage (Name, Kind, Functions => Functions)'Length = 0
+              or else not Raw_String_Equal (Text, M.Value, Expected_Coverage (Name, Kind, Functions => Functions))
             then Unknown else Name))
       elsif Raw_Field_Key (Text, Items, (M.Key.First + 1, M.Key.Last - 1)) /= M.Value
       then Unknown
@@ -2708,7 +2708,7 @@ package body Silver_Library_Reports with SPARK_Mode => On is
      (Raw_Scan.Valid (Text, Items) and then Raw_Bytes.Get (Text, Items.First) = '{'
       and then Raw_Bytes.Get (Text, Items.Last) = '}'
       and then Map_Policy
-        (No_Entities, Raw_Map_From (Text, Items, Entities, Kind, Coverage, Items.First + 1, Source => Source, Functions => Functions), Kind, Coverage, Source => Source, Functions => Functions));
+        (No_Entities, Raw_Map_From (Text, Items, Entities, Kind, Coverage, Items.First + 1, Source => Source, Functions => Functions), Kind, Coverage, Functions => Functions));
 
    function Raw_Object_Policy (Text : Raw_Bytes.Sequence; Object : Raw_Scan.Span; Kind : Audit_Kind;
       Source : String; Functions : Function_Metadata)
@@ -4307,7 +4307,7 @@ package body Silver_Library_Reports with SPARK_Mode => On is
             Mixed_Entity_Name (Raw, Raw_Field (Raw, LE, Name), Text, Field_Spec (Text, RE, Name), Source => Source, Functions => Functions);
             Mixed_String_Congruence
               (Raw, LM.Value, Text, RM.Value,
-               Expected_Coverage (Raw_Entity_Name (Raw, Raw_Field (Raw, LE, Name), Source => Source, Functions => Functions), Kind, Source => Source, Functions => Functions));
+               Expected_Coverage (Raw_Entity_Name (Raw, Raw_Field (Raw, LE, Name), Source => Source, Functions => Functions), Kind, Functions => Functions));
          else
             Raw_Dynamic_Field (Raw, L, LN, Name);
             Mixed_Field_Shift (Raw, L, Text, R, Name);
