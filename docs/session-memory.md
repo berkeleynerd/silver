@@ -31,7 +31,10 @@ Backlog, and implementation needs a later owner instruction after an accepted
 #298 baseline. #298's ongoing scope, validation inputs and separate merge
 authorization are unchanged. No language, catalogue, sample, Rosetta assessment
 or proof input is changed by this planning publication, and no deferred capacity
-work is resumed. The plan is published separately for review; no merge is claimed.
+work is resumed. [PR #346](https://github.com/berkeleynerd/silver/pull/346) publishes
+the plan for review, stacked on #339; no merge is claimed. Planning content
+`9113e2e230` received independent Astra / Max review with no material correction.
+Issues #342–#345 were verified as Backlog in milestone 21 on the Silver board.
 CLI recall tools were unavailable and no CLI recall entry was updated.
 
 ## 2026-11-08 — Astra Max and focused helper contracts authorized
