@@ -136,3 +136,47 @@ and reaped afterward; no descendant remains. Unittest took 181.156 seconds and
 managed execution 204.808 seconds. These remain failed results. The next prepared
 diagnostic must expose one actual inner exception with the existing worker and
 barrier limits; no repeat or deadline change is authorized by this failure.
+
+
+The [single unchanged concurrent-method diagnostic](20261108T073911-6cec95e84ac5/index.json)
+`073911-6cec95e84ac5` established the actual inner exception: `TimeoutExpired`
+at the original 60-second `communicate` for the first concurrent worker. All
+four host records passed preflight; real certificate generation was still
+observed near the deadline, before the mocked build/audit phase. The complete
+traceback and 5,203 bytes of actual stdout are retained. The exception supplied
+no stderr value. This one-method failure does not establish the separate
+sequential-host error or later assertion outcomes.
+
+Unittest took 64.825 seconds including 2.347 seconds of reporting capture;
+Python launch through observed exit took 68.177 seconds, and managed execution
+82.657 seconds. All 874 retained-root files/modes, 821 Lean files and 886
+managed inputs were unchanged. The original cleanup left no descendants or
+lease; no observer signal was needed. Integration independently read and indexed
+all 47 bundle members by size and SHA-256. The retained phase review verifies
+its 54 archived precleanup records against their captured identities.
+
+The [platform watchdog assessment](platform-watchdog-assessment/index.json)
+traces the inherited limits to fixtures with fifteen or thirty-three Lean
+files, compared with 821 today. There is no inspected elapsed-time assertion
+or performance contract requiring those numerals. The complete class runs
+six shared-helper methods with eleven serial workers, one concurrent four-worker
+method and five other methods. Real certificate generation and every existing
+assertion remain part of the fixture.
+
+After reviewing the exact patch and affected-coverage plan, the coordinator
+applied the test-only repair at `9e89c80f82`: both setup-worker waits use a
+named 180-second budget, and only the complete symlink wrapper uses 900 seconds.
+The barrier and unrelated command limit remain fifteen seconds. Reversing
+those three timeout values and the new constant restores the entire original
+AST. All nine proposal-bundle members were independently read and indexed.
+These finite watchdogs are engineering headroom, not measured completion bounds;
+no production proof setting, language rule or correctness check changed.
+
+One complete final-input wrapper check is authorized with the reviewed local
+source route, fresh scoped temporaries and four managed workers. All twelve
+nested methods and expected-negative checks remain required. A successful
+wrapper may provide their affected coverage under final independent applicability
+review; it is not a separate fresh non-symlink run. The full result is pending,
+with no automatic retry or further watchdog increase. The test file is outside
+the active Lean input set, and all production proof, source and script bytes
+remain equal to `47fe4003c0`.
