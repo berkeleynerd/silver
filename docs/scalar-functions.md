@@ -14,15 +14,17 @@ assurance, behavioral evidence and final independent acceptance.
 
 The implementation is published for review in
 [PR #339](https://github.com/berkeleynerd/silver/pull/339). Independent acceptance
-covers exact target `4d9ce491ee`; implementation merge remains a later owner decision.
+covers exact target `4d9ce491ee`; the owner authorized merge on 2026-11-08.
 The [Rosetta stage record #341](https://github.com/berkeleynerd/silver/issues/341)
 tracks the precise `scalar-functions` mapping within #298. The delivery account
 records the narrow Rosetta reconciliation separately from broad functions and
 procedures.
 
-Routine planning publication and merge, followed by implementation through
-reviewable publication, are authorized. Implementation merge remains a later
-owner decision. No next feature is selected. The completed sample expansion
+The owner's **“Let's merge it.”** authorizes implementation merge and ordinary
+issue/milestone closeout. The
+[dated decision](session-memory.md#2026-11-08--scalar-function-merge-authorized)
+supersedes the earlier merge hold. No successor implementation is selected.
+The completed sample expansion
 [#300](https://github.com/berkeleynerd/silver/issues/300) merged through
 [PR #337](https://github.com/berkeleynerd/silver/pull/337); it is not an outstanding
 dependency of this work.
@@ -359,9 +361,9 @@ below. This proof checkpoint does not authorize implementation merge.
 ## Delivery assurance and validation
 
 **2026-11-08: complete Linux assurance, accepted regression coverage and
-independent delivery acceptance.** Implementation merge remains held.
+independent delivery acceptance.** Implementation merge is owner-authorized.
 Issues #298, #340, #341, #347, #348, #349 and
-milestone 20 remain open pending later merge. This account adds no successor
+milestone 20 close with that delivery. This account adds no successor
 implementation or Oracle amendment. Separate planning PR #346 is outside this
 delivery and does not authorize its milestone 21 Backlog items.
 
@@ -393,8 +395,8 @@ revision, date, rubric, tier, model and effort provenance are retained; the
 prepared Sol / High review attribution remains separately dated 2026-11-07.
 The render's 258 other task-page changes were exhaustively compared as position
 numbering only. General functions/procedures receive no broader promotion.
-Stage issue #341 is reconciled to Stage 1 and In review, remaining open until
-later merge.
+Stage issue #341 is reconciled to Stage 1; its status moves from In review to
+Done with the authorized merge.
 
 The platform observer retained the actual `PlatformIsolationTests -v` child
 invocation. The unchanged no-skip class contains exactly twelve nested methods;

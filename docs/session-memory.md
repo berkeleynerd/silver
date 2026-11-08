@@ -1,5 +1,22 @@
 # Session memory
 
+## 2026-11-08 — Scalar-function merge authorized
+
+The owner instructed **“Let's merge it.”** This authorizes merging ready
+[PR #339](https://github.com/berkeleynerd/silver/pull/339) and ordinary closure
+of #298, #340, #341, #347, #348, #349 and milestone 20. This decision supersedes
+the earlier implementation merge hold. The
+[delivery account](scalar-functions.md#delivery-assurance-and-validation)
+retains independent acceptance of `4d9ce491ee` and the complete applicable
+Linux assurance and regression evidence. This authorization update changes
+documentation only; no successful proof, build or test needs repeating.
+
+Keep separate planning [PR #346](https://github.com/berkeleynerd/silver/pull/346)
+open and retarget it to main after the merge. Its merge and milestone 21
+successor implementation remain unselected; #342–#345 stay Backlog. Preserve
+unrelated root-checkout changes and scratch files. No CLI recall entry was
+updated.
+
 ## 2026-11-08 — Scalar-function delivery accepted; merge held
 
 Owner-authorized #298 remains the small nonrecursive Integer/Boolean function

@@ -24,7 +24,7 @@ each delivery; the linked issues hold scope and completion criteria.
 | Complete 2026-11-06 | [Bounded String indexing and character operations #296](https://github.com/berkeleynerd/silver/issues/296) | Reverse a string; Palindrome detection; character replacement |
 | Complete 2026-11-07 | [Fixed-size Boolean arrays #297](https://github.com/berkeleynerd/silver/issues/297) | Sieve of Eratosthenes; elementary cellular automata |
 | Complete on Linux and merged 2026-11-07; PR #337 | [Sample-only expansion #300](https://github.com/berkeleynerd/silver/issues/300) | Ten programs covering eleven task mappings; [bounded plan](docs/rosetta-sample-expansion.md) |
-| Complete on Linux 2026-11-08; PR #339 in review, merge held | [Small nonrecursive functions #298](https://github.com/berkeleynerd/silver/issues/298) | Boolean `Is_Prime` for Primality by trial division first; GCD and numeric search helpers remain candidate uses |
+| Complete on Linux 2026-11-08; PR #339 merge authorized | [Small nonrecursive functions #298](https://github.com/berkeleynerd/silver/issues/298) | Boolean `Is_Prime` for Primality by trial division first; GCD and numeric search helpers remain candidate uses |
 
 The bounded String increment has completed repaired Linux native and Lean
 assurance after the [interim review repairs](docs/interim-review-response-20261105.md).
@@ -68,8 +68,9 @@ nonrecursive functions**, contains #298 as its one cohesive package. The
 and [bounded capability plan](docs/scalar-functions.md) retain one cohesive work
 package, exact-source/no-authored-contract guarantees, complete-call-chain
 assurance, actual native/Lean source correspondence and complete validation.
-Routine planning publication/merge and implementation through reviewable
-publication are authorized; implementation merge remains a later owner decision.
+The owner authorized implementation merge on 2026-11-08 with **“Let's merge it.”**
+The [dated decision](docs/session-memory.md#2026-11-08--scalar-function-merge-authorized)
+supersedes the earlier merge hold and authorizes ordinary issue/milestone closeout.
 
 The [scalar-functions stage record #341](https://github.com/berkeleynerd/silver/issues/341)
 tracks this precise Rosetta fragment within the same package. The
@@ -89,8 +90,9 @@ Complete native/Lean/source checkpoints and all formerly pending regression
 outcomes passed. The narrow Rosetta render and three tests also passed: only
 Primality by trial division moves Stage 8 to 1, taking Stage-1 mappings from
 70 to 71. Independent review accepts the complete 645-ID inventory and delivery target
-`4d9ce491ee`. PR #339 is published for review; the milestone/issues remain open
-until later authorized merge.
+`4d9ce491ee`. PR #339 is ready for the authorized merge; its six issues and
+milestone 20 close with that delivery. Separate planning PR #346 stays open;
+its milestone 21 successor items remain Backlog.
 Recursion, `out`/`in out`, array/String signatures, general package admission and
 capacity rewrites remain outside this package. No split is selected; if needed,
 record increment issues and their order together. No next feature is selected.
