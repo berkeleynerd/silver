@@ -279,6 +279,15 @@ deadlines, assertions or proof options. Complete native/Lean assurance and final
 regression applicability remain pending; the older 637-ID acceptance has not been
 extended to these changed inputs.
 
+The [bounded Lake resource assessment](evidence/scalar-functions-20261107/lake-scheduler-resource-review/README.md)
+reviewed a preventive scheduling hold while both complete audits continued.
+Stopping Lake also stops its child-output readers and completion bookkeeping;
+it neither frees current memory nor guarantees child completion. The inspected
+headroom required no intervention, and no signal or settings change occurred.
+The qualified contingency preserves the existing urgent-pressure response and
+all outstanding assurance requirements. Its report and independently verified
+21-member evidence bundle are retained separately from proof results.
+
 Selected subthread settings are recorded from their launches; independent runtime
 confirmation, token/cost and total elapsed-work measurements are unavailable.
 Native probe time is retained by the managed records rather than inferred from

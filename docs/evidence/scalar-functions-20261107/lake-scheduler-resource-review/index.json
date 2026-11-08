@@ -1,0 +1,117 @@
+{
+  "review_commit": "fe18e6dd67f9919daa30e00b81edab97858044c8",
+  "governed_inputs": "f6308191545c1012d76132ae535977e55fd4f018",
+  "reviewed_checkpoint": "1aaa381dd3e26ad250eb671f01a4114badba64ae",
+  "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-delivery-review-298/tmp/lake-scheduler-resource-assessment-298/shareable-evidence.tar.gz",
+  "bundle": "evidence.tar.gz",
+  "bytes": 81120,
+  "sha256": "f8f87d34fd70fec0ddc91da3fbe4172515835fcfb963177c65cfe10e8ef0696f",
+  "members": [
+    {
+      "path": "ASSESSMENT.md",
+      "bytes": 8898,
+      "sha256": "04314bea8cd15f64fedc9f4685730f1136ec0c9ca0fd8fad20af0e054a873cdc"
+    },
+    {
+      "path": "capture_readonly.py",
+      "bytes": 4980,
+      "sha256": "e78f6bd6c85c4701e093761c027ab6542a9cc6514b78cd18687dcbb6a67e287e"
+    },
+    {
+      "path": "context.json",
+      "bytes": 462,
+      "sha256": "18eb17220e7998c7ab569d4e0503e7a5f32c26f786ac2b2a017ad27a70dfbb7a"
+    },
+    {
+      "path": "lean-log-snapshot.gz",
+      "bytes": 527,
+      "sha256": "4d2d807eb0f7c9d499b1c9b2ac6640d2b8c75a108460b1a868fba5c1fe541e69"
+    },
+    {
+      "path": "make_bundle.py",
+      "bytes": 1665,
+      "sha256": "153087b442016935e6466f648ae8414143656a63f8186ad409c44b53311e5c33"
+    },
+    {
+      "path": "managed-context.json",
+      "bytes": 2810,
+      "sha256": "8091a204335506025735839e0246fbad322fdf57b25373358feea1c27b9a82b1"
+    },
+    {
+      "path": "manifest.json",
+      "bytes": 3212,
+      "sha256": "0cf54c40b5ab86bd242afe6a1f63640d66d92252e808d0116ae16e362a8332a2"
+    },
+    {
+      "path": "report-fragment.md",
+      "bytes": 6644,
+      "sha256": "a1b30a0b5c2cf96371dd208691f68cbfc97f07f3d067d5bdf90945799b54b3f7"
+    },
+    {
+      "path": "snapshot-2026-11-08T134557.json",
+      "bytes": 31747,
+      "sha256": "48c2e6dad4f3f6a6ba207651756e75863d9a57a285f5e2f2ef0cb29ee4debc22"
+    },
+    {
+      "path": "snapshot-2026-11-08T135039.json",
+      "bytes": 31777,
+      "sha256": "da2a0beca3d90766a166767316c522dda723e344287e0b7d0eeba9270c57e89a"
+    },
+    {
+      "path": "source-identities.json",
+      "bytes": 3914,
+      "sha256": "612b3f623dd5e7be92de97a52a973b29498ee0504052df285114b392cc447406"
+    },
+    {
+      "path": "source/proof/lakefile.lean",
+      "bytes": 9658,
+      "sha256": "8cab85a3bb752f14cad6e1e96ede51d1db4c04ad515eb62f0020bc066cff7938"
+    },
+    {
+      "path": "source/proof/lean-toolchain",
+      "bytes": 25,
+      "sha256": "d5edba4e4b8faad9c1baeadb265716d20d03be4d1a2647dc5e35b0c0325bea7b"
+    },
+    {
+      "path": "source/scripts/check_lean.py",
+      "bytes": 35024,
+      "sha256": "2091d1b0a2a9525f44af973d625a63e1b6d915a2e66e49add599825bea7820ac"
+    },
+    {
+      "path": "source/scripts/run_history.py",
+      "bytes": 20442,
+      "sha256": "62edf14dbfa8342e33517274d84964b9d9a1b83fdd1e4a01b7d806b7b9d5d324"
+    },
+    {
+      "path": "source/tools/linux-x86_64/lean/src/lean/Init/System/IO.lean",
+      "bytes": 68710,
+      "sha256": "4612b91e65806364c814fc445b35598d8e26ee0f2a811ffde6c330d792dcddab"
+    },
+    {
+      "path": "source/tools/linux-x86_64/lean/src/lean/lake/Lake/Build/Actions.lean",
+      "bytes": 7407,
+      "sha256": "9c7d7101f89eb1d0618d8a76b86c30d628932ed2d2088db29792fdf88fb1e870"
+    },
+    {
+      "path": "source/tools/linux-x86_64/lean/src/lean/lake/Lake/Build/Common.lean",
+      "bytes": 44102,
+      "sha256": "03c6017c49303720287e76e7c31decea54f1fddec5d0d7fd358e036e3b48575c"
+    },
+    {
+      "path": "source/tools/linux-x86_64/lean/src/lean/lake/Lake/Build/Job/Monad.lean",
+      "bytes": 12125,
+      "sha256": "b53c57817853f2b7e47401a90741f1914bae931a7773933cb9cd70dc6e429fd8"
+    },
+    {
+      "path": "source/tools/linux-x86_64/lean/src/lean/lake/Lake/Build/Module.lean",
+      "bytes": 66188,
+      "sha256": "4a84a2896dedea36679a15515043860e28b95e596b28552f56bad1ff1eade27e"
+    },
+    {
+      "path": "source/tools/linux-x86_64/lean/src/lean/lake/Lake/Util/Proc.lean",
+      "bytes": 2752,
+      "sha256": "ac766e6c3ffd82923781cb302deee636d1d80018e72366f0cbcf6ad589f95097"
+    }
+  ],
+  "scope": "Read-only qualified preventive Lake hold assessment; no signals/settings change or completed assurance claim"
+}
