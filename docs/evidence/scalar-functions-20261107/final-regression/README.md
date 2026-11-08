@@ -103,3 +103,57 @@ spawn settings. Runtime model identity, model token/cost and total CPU time are
 unavailable. The elapsed values above are managed wall times, not model work
 or CPU measurements. No harness goal was active in this subthread. No GitHub
 write, publication or merge was performed; implementation merge remains held.
+
+## First failed-fixture follow-up, 2026-11-08 05:33 UTC
+
+The coordinator authorized only the unchanged seven-module chunk-reuse fixture
+while final proof packaging remained pending. Managed run
+`20261108T053156-3a0a42e9d590` **failed**: one test, one error, zero skips,
+65.200 seconds in unittest and 73.566 seconds managed elapsed. It reproduced
+the 60-second `TimeoutExpired` in the initial Lake build at
+`tests/test_lean_modules.py:213`, before any audit or edit variants. No timeout,
+thread, memory, test option or harness change was made. No subsequent rerun
+was launched. Both original full-suite errors still require passing follow-ups.
+
+The follow-up ran at local snapshot `946944856b`, preserving the six-file
+proof sync. All 1,031 managed prepared inputs matched after completion.
+The exact seven copied production modules, Lake/toolchain/generator inputs,
+test and relevant helpers also match governed snapshot `2a3badff5c` byte-for-byte;
+their hashes are in the follow-up [result](20261108T053156-3a0a42e9d590/result.json).
+This scope does not cover future proof packaging or the all-production-proof
+symlinked-TMPDIR fixture, which remains held for the coordinator's final inventory.
+
+Preflight at 05:31 UTC reported 41 GiB available memory and load averages
+19.57 / 20.38 / 21.05. The two-worker reservation coexisted with native twelve
+and complete Lean eight-worker reservations on 22 available CPUs. The fixture
+itself retained one Lean thread and its existing 2,048 MiB setting. The reservation
+does not cap subprocess concurrency. Two read-only process/resource observations
+and a partial prepared-workspace inventory/archive are retained beside the
+compressed full managed events/log and exact traceback. At 05:33:09, Lake was
+defunct and a surviving `Lexical` child had run about ten seconds; all observed
+owned processes had exited at postflight. These observations do not establish
+the cause of the exceeded deadline.
+
+The workspace snapshot was taken during the initial build, not atomically at
+failure. It archives source/configuration/JSON/trace files and inventories
+available files; it does not preserve compiled objects or subprocess pipes.
+Automatic fixture cleanup removed the workspace before final capture. Standard
+unittest exception formatting does not print `TimeoutExpired`'s captured streams.
+Uncertain diagnosis was returned to the coordinator without a blind repeat or
+independent source/test edit. No harness goal was active; CLI memory was not
+updated. Model token/cost and total CPU measurements remain unavailable.
+
+The process samples record elapsed time, lifetime-average CPU percentage and
+RSS. They do not measure configuration-only CPU time, CPU tick deltas, I/O
+counters or wait states. At 05:32:40, Lake had run 32 seconds and no owned Lean
+child appeared; the 05:32:52 workspace snapshot included `lakefile.olean.trace`.
+The later child's rounded elapsed time suggests an approximate start, not an
+exact execution timestamp. These records are insufficient to distinguish all
+configuration, compilation, scheduling and I/O costs.
+
+The smallest proposed next step is coordinator-owned Astra Extra High review
+of the retained configuration trace and chronology. If more execution is
+needed, separately authorize one isolated configuration-only diagnostic using
+a recreated identical fixture, retaining stdout/stderr and monotonic child-start,
+CPU-tick, I/O and wait samples. No such diagnostic ran here. Preserve the original
+fixture limits and decide any further fixture run from the resulting evidence.

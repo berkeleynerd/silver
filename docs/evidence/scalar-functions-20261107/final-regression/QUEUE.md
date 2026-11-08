@@ -175,3 +175,24 @@ uncertain diagnosis or required source/test change to the coordinator. Final
 applicability review, passing failed/affected fixture reruns and independent
 complete assurance remain outstanding. Live harness goal recheck returned
 `null`; this subthread did not update CLI memory.
+
+## 2026-11-08 first-fixture-only follow-up completed
+
+The coordinator explicitly released only the unchanged seven-module chunk-reuse
+fixture, leaving the symlinked-TMPDIR fixture held for final proof packaging.
+Run `20261108T053156-3a0a42e9d590` used the authorized two-worker managed
+reservation with every existing fixture setting intact. It failed again in the
+initial Lake build with `TimeoutExpired` after 60 seconds, before audit/edit
+variants. Unittest recorded one error in 65.200 seconds; managed elapsed was
+73.566 seconds. Full output/events, traceback, 1,031-input stability check,
+exact dependency applicability and partial build/resource observations are
+retained in its directory and described in the outcome record.
+
+No productive owned process remains. Do not launch another identical run or
+change timeout/harness inputs without the coordinator's diagnostic decision.
+No source/proof/test edits were made. Keep the six-file proof sync unchanged;
+the second fixture still awaits the exact final reviewed proof inventory and
+explicit resource release. The complete suite remains failed, and neither
+failed fixture has a passing focused result. This evidence-only follow-up is
+ready for the coordinator to integrate; publication and merge remain outside
+this subthread's authorization.
