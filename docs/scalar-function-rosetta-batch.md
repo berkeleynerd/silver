@@ -3,7 +3,8 @@
 ## Status and authorization — 2026-11-08
 
 **First group #342 implemented, validated on Linux and independently reviewed;
-publication prepared. Remaining groups proposed.**
+published in [PR #351](https://github.com/berkeleynerd/silver/pull/351).
+Remaining groups proposed.**
 The owner initially instructed **“Proceed with the planning effort we just discussed.”**
 The [dated decision](session-memory.md#2026-11-08--coherent-batch-planning-authorized)
 authorizes the batching guidance, candidate assessment, milestone/issues and
@@ -117,8 +118,9 @@ failure occurred in the four-program checkpoint.
 Selected agent settings are distinct from independently confirmed runtime
 settings, which were not exposed. No new Rosetta coverage is claimed: #345 owns
 the later narrow assessment/render and combined checkpoint. #343 and #344 stay
-unstarted. The implementation merge and issue closure remain held for the
-owner's later decision; milestone 21 stays open.
+unstarted. The implementation is published in
+[PR #351](https://github.com/berkeleynerd/silver/pull/351). Merge and issue closure
+remain held for the owner's later decision; milestone 21 stays open.
 
 ## Increments and ownership
 

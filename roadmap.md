@@ -25,7 +25,7 @@ each delivery; the linked issues hold scope and completion criteria.
 | Complete 2026-11-07 | [Fixed-size Boolean arrays #297](https://github.com/berkeleynerd/silver/issues/297) | Sieve of Eratosthenes; elementary cellular automata |
 | Complete on Linux and merged 2026-11-07; PR #337 | [Sample-only expansion #300](https://github.com/berkeleynerd/silver/issues/300) | Ten programs covering eleven task mappings; [bounded plan](docs/rosetta-sample-expansion.md) |
 | Complete on Linux 2026-11-08; merged through PR #339 | [Small nonrecursive functions #298](https://github.com/berkeleynerd/silver/issues/298) | Boolean `Is_Prime` for Primality by trial division first; GCD and numeric search helpers remain candidate uses |
-| First group #342 validated and reviewed 2026-11-08; publication prepared | [Scalar-function Rosetta batch, milestone 21](https://github.com/berkeleynerd/silver/milestone/21) | Four callable integer examples implemented; eight further task candidates and combined reconciliation remain proposed. [Batch record](docs/scalar-function-rosetta-batch.md). |
+| First group #342 validated and reviewed 2026-11-08; [PR #351](https://github.com/berkeleynerd/silver/pull/351) open | [Scalar-function Rosetta batch, milestone 21](https://github.com/berkeleynerd/silver/milestone/21) | Four callable integer examples implemented; eight further task candidates and combined reconciliation remain proposed. [Batch record](docs/scalar-function-rosetta-batch.md). |
 
 The bounded String increment has completed repaired Linux native and Lean
 assurance after the [interim review repairs](docs/interim-review-response-20261105.md).
@@ -105,7 +105,7 @@ validation inputs.
 ### Scalar-function Rosetta batch
 
 **First group #342 implemented, validated on Linux and independently reviewed,
-2026-11-08; publication prepared.** The owner initially
+2026-11-08; [PR #351](https://github.com/berkeleynerd/silver/pull/351) open.** The owner initially
 instructed **“Proceed with the planning effort we just discussed.”** The
 [dated decision](docs/session-memory.md#2026-11-08--coherent-batch-planning-authorized)
 authorizes the batching guidance, one successor assessment, milestone/issues

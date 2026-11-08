@@ -12,8 +12,9 @@ review of implementation target `db8ca3495c`. No material finding remains in
 that review scope. The unchanged compiler/native/Lean evidence is reused;
 the record distinguishes 72 retained manifest cases from four fresh cases.
 
-Publication of this reviewed sample-only increment is authorized by the earlier
-selection. Implementation merge remains a later owner decision. #342 stays open
+The reviewed sample-only increment is published in
+[PR #351](https://github.com/berkeleynerd/silver/pull/351), as authorized by the
+earlier selection. Implementation merge remains a later owner decision. #342 stays open
 for that merge and its link to #345's combined reconciliation. #343 and #344
 remain unstarted/Backlog; #345 and milestone 21 remain open. The rendered Rosetta
 coverage stays at 71 task mappings until the planned assessment/render work.
