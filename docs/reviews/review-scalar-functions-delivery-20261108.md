@@ -797,3 +797,45 @@ No actual test/source/harness edit, changed-timeout execution, repeat or publica
 was performed. The coordinator retains the regression context; this reviewer has
 no native process or lease. Live harness goal is null and CLI memory was not
 updated.
+
+### Separate symlink-TMPDIR fixture: read-only assessment
+
+The coordinator retained the final-input follow-up
+`20261108T064731-9f1ab6dc731c` as failed: the complete nested
+PlatformIsolationTests invocation exceeded its unchanged outer 180-second
+watchdog. Its governed-input postflight matched `47fe4003c0`; no child remained.
+This reviewer did not repeat that fixture or change its source/deadline.
+
+The outer limit began as 60 seconds in `8b8619f3ad53895dbad2e8e14e767fa5e51de628`
+and increased to 180 in `3fdda42dc1b058b54dc7c6c83054af85a2d6f574` on October 8.
+It is a suite subprocess watchdog with no elapsed-time assertion. The tracked
+Lean input set grew from 33 files at that increase to 821 at the current target.
+Each of the twelve nested cases copies the complete production Lean set from
+ROOT into an overlay-backed temporary project; ROOT remains on virtiofs. The
+class also runs fifteen setup-worker processes, including the four-host parallel
+case, with real Python certificate generators and existing mocked tool effects.
+Those distinct costs cannot be assigned a measured total from the retained log.
+
+All twelve direct class cases passed in the earlier complete run, but its log
+contains no per-case start/end timings. Embedded run identifiers at 03:51:44
+in the third case and 03:55:30 in a later module bracket mixed work and do not
+establish a full class span. The coordinator's later four-worker process sample
+is likewise a phase observation, not a root-cause diagnosis.
+
+The prepared route recommends one unchanged selected method from a fresh local
+source/test root, retaining outer 180 seconds, worker 60 seconds, concurrency
+barrier 15 seconds, all twelve nested tests and every assertion. Its exact 866
+required files (54,490,005 bytes), including all 821 Lean sources, nine helpers
+and thirty certificate-bound sources, match `47fe4003c0`. No installed binary,
+project object or live selector needs to move: external Alire/Lean effects are
+already mocked in this platform-only fixture. The change would remove repeated
+ROOT-side virtiofs copies while keeping the existing destination storage class.
+Other generator/hash/snapshot work remains; fitting the deadline is unproven.
+
+The concrete ownership/import/environment/reporting plan and input inventory are
+retained in `tmp/symlink-fixture-assessment-298/`. It proposes a four-worker
+reservation after the active chunk fixture releases the regression context,
+subject to fresh resource review, and preservation of actual timeout streams
+if the unchanged route fails. No execution or later watchdog increase is
+authorized by the assessment. Shareable assessment bundle SHA256 is
+`74b9bcb5916e73901567359819155fa2d7f92f63865d4998f83caab8f84ccc51`.
