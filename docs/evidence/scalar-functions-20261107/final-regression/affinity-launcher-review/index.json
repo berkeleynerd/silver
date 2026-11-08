@@ -1,0 +1,32 @@
+[
+  {
+    "artifact": "affinity-launcher-observed-violation-followup.py.gz",
+    "bytes": 5458,
+    "sha256": "c5cffd2d7b2c1a5421c60ce62901a485b0cbc6e4c2eac5f5abdab756e426208c"
+  },
+  {
+    "artifact": "affinity-launcher.py.gz",
+    "bytes": 5458,
+    "sha256": "c5cffd2d7b2c1a5421c60ce62901a485b0cbc6e4c2eac5f5abdab756e426208c"
+  },
+  {
+    "artifact": "commands.json.gz",
+    "bytes": 38686,
+    "sha256": "b786c6027c26de0cf61e468a07ef3ed8168ddfd484a4820e6cf5afae16698487"
+  },
+  {
+    "artifact": "managed-command.json.gz",
+    "bytes": 2606,
+    "sha256": "d3ccf094f5e897ccb0b9684bb4a79c70792f83f6a981d05f2e6732c257ece22b"
+  },
+  {
+    "artifact": "observed-violation-followup.patch.gz",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "artifact": "review.json.gz",
+    "bytes": 3117,
+    "sha256": "f70434bb769ca4b7d9699bf7ed3e71c3b8e0981c6e70fefc357321d1c394c6a4"
+  }
+]
