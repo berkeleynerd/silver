@@ -12,21 +12,22 @@ changes to earlier rules and examples must be explicit and consistent. The
 [development policy](development.md) prioritizes foundations needed for the
 next capability while retaining full assurance for the current language.
 
-## Current priority — external review response, 2026-11-09
+## External review response — validated and accepted, 2026-11-09
 
 Owner-authorized [milestone 22](https://github.com/berkeleynerd/silver/milestone/22)
-and [#355](https://github.com/berkeleynerd/silver/issues/355) resolve the
-[external review of `74ea2edeaa`](docs/reviews/review-74ea2edeaa.md) before further
-feature/sample work. The [response plan](docs/external-review-response-74ea2edeaa.md)
-records exact scope, all dispositions and validation. Work order:
+and [#355](https://github.com/berkeleynerd/silver/issues/355) cover the
+[external review of `74ea2edeaa`](docs/reviews/review-74ea2edeaa.md).
+[PR #368](https://github.com/berkeleynerd/silver/pull/368) contains the completed
+repairs and reasoned dispositions. The
+[response record](docs/external-review-response-74ea2edeaa.md) links complete
+Linux native/Lean/regression validation and final independent acceptance.
 
-1. Function-tree prefix and discriminating controls (#356, #357), regression
-   repairs (#358–#360), and assessor/evidence/catalogue corrections (#361–#363).
-2. In parallel, examine the named inherited native/Lean contract interfaces and
-   account for the remaining review scope (#364); repair concrete defects before
-   freezing implementation inputs.
-3. One shared final native/Lean/regression checkpoint and independent critical
-   review; complete #355 only after all accepted fixes and dispositions are reviewed.
+Function-tree prefix and discriminating controls (#356, #357), regressions
+(#358–#360), and assessor/evidence/catalogue corrections (#361–#363) are complete.
+The inherited-interface review (#364) maps the nine named files and records its
+scope limits; the additional native-domain and formal-description repairs
+(#366, #367) are included. The shared final checkpoint passed on frozen inputs;
+no accepted repair or validation requirement remains unresolved.
 
 The existing #345 / PR #354 Rosetta delivery remains separate and awaits its
 existing owner merge decision. No new language or sample batch is selected.

@@ -63,8 +63,9 @@ source tree, pin or endpoint statement changes.
 ## Disposition inventory
 
 These dispositions distinguish implemented fixes from reviewed no-change
-decisions. Complete native and regression validation passed; the complete
-Lean checkpoint and final evidence acceptance remain pending before closure.
+decisions. Complete native, Lean and regression validation passed. Final
+independent evidence acceptance at `b58c89d481` found no remaining gap within
+the documented review scope.
 
 | Finding | Tracking | Response |
 | --- | --- | --- |
@@ -79,7 +80,7 @@ Lean checkpoint and final evidence acceptance remain pending before closure.
 | R-3 | #363 | Normalized four placeholders in the emitter/catalogue; final live export is byte-identical. |
 | P1-3 | #355 | Documented the frame-flow lemmas as auxiliary; existing consumers have no missing premise. |
 | P1-4 | #355 | Retain exact-text/compiler-unit advisory classification. Location/count pinning is brittle and adds no obligation coverage; no code change without a concrete misclassification. |
-| P1-5 | #355 | The documented own-name type-mark restriction remains. Correct the blanket claim about `/=`: excluding an endpoint can refine an interval; excluding an interior point cannot represent a hole. No implementation repair. |
+| P1-5 | #355 | The documented own-name type-mark restriction remains. Corrected the blanket claim about `/=`: excluding an endpoint can refine an interval; excluding an interior point cannot represent a hole. No implementation repair. |
 | P1-6 | #355 | Exact advisory handling is not obligation suppression; no repair. |
 | P2-3 | #355 | Retain the documented interpreted-source boundary; artificial endpoint parameters would not strengthen correspondence. |
 | P2-4 | #357 | Inventoried relevant operator trees and added the missing discriminating controls; fixed templates need no generic guard framework. |
@@ -94,7 +95,7 @@ Lean checkpoint and final evidence acceptance remain pending before closure.
 | R-6 | #355 | No per-construct sample mandate exists; keep sample tags accurate without creating unrelated samples. |
 | R-7 | #355 | Added a dated forward pointer to the #314 closure, preserving historical instructions. |
 | C-1 | #355 | Reject: local-hiding probes contain ungrouped/overflowing arithmetic. Corrected returns preserve hiding and are admitted; retain reproducible controls. |
-| Section 2a | #364 | Review inherited domain/Pre/Post/raw-equation interfaces and account explicitly for unexamined source/model scope. No broad external clearance is inferred. |
+| Section 2a | #364 | Reviewed the nine named inherited domain/Pre/Post/raw-equation interfaces, mapped 28 structures and 241 own fields, and explicitly recorded unexamined source/model scope. No broad external clearance is inferred. |
 
 ## Corrections to the report
 
@@ -135,9 +136,11 @@ function declaration; P1-2 does not exercise that route.
 | Focused validation, 2026-11-09 | Managed tools; lead runtime not independently exposed | All guard/domain targets and fresh 22,643-declaration audit passed; complete native audit passed | Exact run settings/logs retained in the evidence packet; these are tool intervals, not whole-team cost |
 | Parallel function leaves and complete validation launch, 2026-11-09 | Astra Max reviewed resource schedule; Sol Extra High regression supervision | All 80 leaf targets and fresh 16,910-declaration audit passed; complete Lean and unfiltered suite running | Leaf batch 965.765 s, six Lake workers / 22 process threads; complete Lean one worker for actual memory headroom, suite 21 workers |
 | Complete regression, 2026-11-09 | Sol Extra High supervision; managed test tools | All 648 test executions passed, including all 84 manifest samples and nine changed review-response methods; no failures or skips | 4,495.139 s unittest duration; 4,498.508 s managed interval; actual driver exit 0, unchanged deadlines and unfiltered discovery |
+| Complete Lean, 2026-11-09 | Managed tools under the Astra Max-reviewed resource schedule; lead runtime not independently exposed | Complete cached build and fresh audit passed; all 820 modules and 145,589 declarations, with the three approved foundations and all 927 captured inputs matching | 14,038.369 s build, 10.660 s fresh audit, 14,069.219 s managed interval; actual driver exit 0; no clean build or kernel replay |
+| Final acceptance and closeout, 2026-11-09 | Astra Max independent evidence review; Sol Extra High closeout preparation; lead runtime not independently exposed | Final source/evidence applicability accepted at `b58c89d481`; all confirmed repairs and reasoned dispositions complete for PR #368 | Retained records, input identities, exact module coverage and actual driver outcomes checked; no repeat validation; whole-team token/cost telemetry unavailable |
 
-Implementation and independent source review are complete at `17da01a129`;
-all changed helpers/guards and the six focused target closures passed run
+The final governed snapshot is `6365003968`; later commits change only records
+and evidence. All changed helpers/guards and the six focused target closures passed run
 `20261109T142008-886cdd5994b7`. The three failed earlier control-theorem attempts
 remain failed in the [evidence packet](evidence/review-response-74ea2edeaa/README.md).
 They changed proof scripts for test propositions, not guard semantics or the
@@ -158,5 +161,14 @@ Complete native audit passed `20261109T142006-5f058d0b96be` (18,525 checks,
 `20261109T144553-8abe96c6e3ad` passed all 648 tests, with actual driver exit 0.
 These are execution identities covering 634 method definitions; the regression
 packet accounts for inherited/imported executions explicitly.
-Complete Lean/source validation, final evidence applicability review and delivery
-remain pending. No capability or Rosetta support count changes in this response.
+Complete Lean/source validation passed `20261109T144532-5e2dbc4f965b`: exactly
+820 modules and a fresh 145,589-declaration audit under `propext`,
+`Classical.choice` and `Quot.sound`, with actual driver exit 0. All 927 captured
+inputs and both Lean tools match; generated certificates are regenerated by the
+runner. This is complete cached validation, not a clean build or kernel replay.
+Final independent evidence applicability review accepted `b58c89d481`, including
+the complete input set, retained artifacts, exact module closure and all three
+validation legs. No accepted repair or validation requirement remains open.
+PR #368 carries the response and ordinary issue/milestone closeout. No capability
+or Rosetta support count changes in this response; PR #354 retains its separate
+owner merge hold, and no next feature/sample batch is selected.

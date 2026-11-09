@@ -94,5 +94,7 @@
     "Silver/SequenceNativeModel.lean": 522580,
     "Silver/SequenceNativeProjected.lean": 492396
   },
-  "filter": "Only canonical worktree Lean module paths contribute to per-module RSS; regression fixture processes are excluded."
+  "filter": "Only canonical worktree Lean module paths contribute to per-module RSS; regression fixture processes are excluded.",
+  "leaf_batch_sample_count": 2,
+  "complete_run_sample_count": 931
 }
