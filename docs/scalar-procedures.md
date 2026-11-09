@@ -48,6 +48,8 @@ source-visible initialization boundary without adding general path-dependent
 definite-assignment analysis. It is not an Ada requirement. The body frame must
 be constructed from these actual assignments; inventing initialized output
 values in the model is not a substitute.
+When no `out` formal supplies a prefix assignment, require at least one ordinary
+body statement to satisfy Ada's nonempty statement-list rule.
 
 After the prefix, writable formals behave like ordinary initialized mutable
 scalars and enter ordinary body analysis at their full declared ranges. The

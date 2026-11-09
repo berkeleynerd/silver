@@ -1,5 +1,11 @@
 # Silver language specification
 
+The scalar-procedure increment below is under development in
+[#370](https://github.com/berkeleynerd/silver/issues/370). Its
+[capability record](docs/scalar-procedures.md) distinguishes the selected rules
+from pending implementation and complete assurance; no procedure delivery claim
+is made before those checks pass.
+
 The small nonrecursive scalar-function increment is recorded in the
 [delivery account](docs/scalar-functions.md#delivery-assurance-and-validation).
 Its complete Linux native and Lean/source checkpoints and applicable regression
@@ -271,7 +277,8 @@ through 2147483647. A named subtype declaration has the form
 Integer directly, and introduces a static nonempty range contained in Integer.
 It constrains Integer values without creating a distinct type. Earlier named
 subtypes may be used in scalar constant or mutable declarations, fixed
-array component marks and scalar function parameter/result marks. Subtype alias chains, derived types, conversions and
+array component marks, scalar function parameter/result marks and scalar
+procedure parameter marks. Subtype alias chains, derived types, conversions and
 subtype attributes, including `S'Image`, are excluded.
 The new subtype's name cannot be `Integer`, ignoring case. This is a Silver
 scope restriction that keeps the predefined parent distinct from declared
@@ -558,6 +565,101 @@ all Main/function arithmetic and concatenation share the 63-operator budget;
 Boolean logic/comparisons do not consume that budget. No budget resets at a
 function boundary. Pooled signature/formal storage follows source length and
 adds no independent function/formal count restriction.
+
+### Small nonrecursive scalar procedures
+
+Procedures are local to Main, among its ordered declarations and after argument
+initialization when present. The selected forms are:
+
+```text
+scalar_procedure ::= "procedure" name "(" procedure_formal
+                     { ";" procedure_formal } ")" "is" { function_local }
+                     "begin" output_initialization_prefix
+                     { procedure_statement } "end" name ";"
+procedure_formal ::= name ":" parameter_mode function_type
+parameter_mode   ::= "in" | "out" | "in" "out"
+procedure_call   ::= visible_earlier_procedure "(" procedure_actual
+                     { "," procedure_actual } ")" ";"
+```
+
+Each formal has one name, an explicit mode and no default. There is at least one
+formal and at least one `out` or `in out` formal. `function_type` and
+`function_local` reuse the Integer/Boolean and initialized-local rules above.
+There are no inline formal range constraints, overloads, forward declarations,
+nested subprograms, named/default associations, String/Character/array signatures
+or local subtype declarations. These first-fragment scope restrictions keep the
+signature, frame and source-capacity rules bounded; they are not Ada rules.
+
+`output_initialization_prefix` consists of exactly one ordinary assignment for
+each `out` formal, in formal declaration order, immediately after `begin`.
+It is empty when there are no `out` formals; in that case at least one ordinary
+body statement is required, because Ada statement lists are nonempty. No null statement, call, condition,
+loop or assignment to another target may intervene. Each RHS uses the existing
+Integer expression or pure Boolean condition grammar. It can read initialized
+locals and `in`/`in out` formals, but no `out` formal, including one initialized
+earlier in this prefix. Function calls are excluded from prefix RHSs. All prefix
+expressions are checked in the same pre-output frame; each Integer result must
+have a nonempty interval contained in its output formal's declared range.
+
+The prefix gives an explicit initialization boundary without general
+path-dependent definite-assignment analysis. Ordinary body analysis then starts
+each writable Integer formal at its full declared range, regardless of the
+prefix RHS interval. This conservative entry rule reuses the complete-domain
+frame analysis. Later ordinary assignments and guards refine those ranges in
+the usual way. For example, an `out` formal of range `0 .. 9` initialized to `1`
+still needs a guard before an ordinary `(X + 1)` assignment back to X; an ordinary
+post-prefix `X := 1;` establishes the usual narrower flow fact.
+
+`procedure_statement` admits local scalar assignment, function-call assignment,
+procedure call, null, pure scalar/Boolean conditionals and counted loops,
+recursively. The frame is closed: no outer object reads or writes, output,
+input acquisition/query, Reject, local Strings/Characters/arrays or return
+statements. Local initializers cannot read formals, captured values or calls.
+`in` formals are immutable; `in out` and initialized `out` formals are mutable.
+Procedure bodies may call only earlier completely accepted subprograms.
+Function bodies keep their current scope and cannot call procedures in this
+increment. Earlier-only calls and finite loops establish termination.
+
+Case-insensitive name hiding and distinct-declaration rules apply across
+procedures, functions and other Main declarations. Formal/local names are
+distinct within a procedure and cannot collide with earlier subtype names.
+Unavailable output formals still hide identically named outer objects and
+operations while prefix RHSs are checked. Locals and loop binders can hide
+earlier callable names. Each closing procedure name matches its opening name.
+Every procedure, including an unused one, is checked over the full product of
+the declared `in` and `in out` domains; calls cannot narrow that obligation.
+
+Calls are standalone statements in Main and admitted procedure bodies, including
+branches and finite loops. Positional actuals match every formal exactly once.
+An `in` actual is an ordinary Integer expression or Boolean condition in the
+caller scope. An `out` or `in out` actual is an existing mutable bare scalar name
+of the same kind; constants, immutable formals, loop indexes/elements, parenthesized
+names and array components cannot be writable actuals. No call can occur inside
+another actual. These restrictions make the initial copy-back and alias rule
+explicit without general lvalue or alias analysis.
+
+Check every input actual against the same incoming state. Integer `in` and
+`in out` actual intervals must be nonempty and contained in the formal range;
+Boolean outcomes cannot refine another actual. For every writable Integer
+actual, the formal's entire declared range must fit the actual object's declared
+range. In particular, `in out` requires both incoming containment and outgoing
+containment. These requirements apply even in unreachable arms or empty loops,
+preserving the existing nonempty-expression and frontend-acceptance rules.
+
+Writable targets must be pairwise distinct by kind and binding identity.
+A writable target cannot occur in another actual's read expression; its own
+`in out` incoming read is permitted. This conservative rule excludes conflicting
+copy-back and avoids depending on an argument or copy-back evaluation order.
+All inputs are evaluated before caller updates. On return, each written Integer
+target receives the corresponding formal's full declared interval, discarding
+its previous target refinement. Boolean results retain no predicate relation.
+Every other caller value, String/array store and path fact is preserved.
+
+All Main, function and procedure declarations and bodies share the existing
+4,096-byte source and 63-operator limits. Existing per-expression limits remain;
+no budget resets at a procedure boundary. Signature/formal storage is pooled and
+derived from the admitted source spellings. Report capacity and exact native
+initialization/copy-back obligations are recorded with the capability evidence.
 
 ### Character objects and fixed-bound String indexing
 

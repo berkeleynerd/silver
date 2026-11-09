@@ -33,6 +33,7 @@ class ScalarProcedureTests(unittest.TestCase):
             b'procedure P()is begin null;end P;',
             b'procedure P(X:Integer)is begin null;end P;',
             b'procedure P(X:in Integer)is begin null;end P;',
+            b'procedure P(X:in out Integer)is begin end P;',
             b'procedure P(X,Y:out Integer)is begin X:=0;Y:=0;end P;',
             b'procedure P(X:out Integer;)is begin X:=0;end P;',
             b'procedure P(X:out Integer:=0)is begin X:=0;end P;',
@@ -43,6 +44,7 @@ class ScalarProcedureTests(unittest.TestCase):
         ):
             with self.subTest(declaration=declaration):
                 self.check(program(declaration, b'null;'), 2)
+        self.check(program(b'procedure P(X:in out Integer)is begin null;end P;', b'null;'))
 
     def test_outputs_have_ordered_unconditional_initialization(self) -> None:
         prefix = b'procedure P(X:out Integer;Y:out Integer)is begin '
