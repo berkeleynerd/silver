@@ -1777,14 +1777,14 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("  ""integer_assignment_tokens"": [""<integer_assignment_target>"","":="",""<integer_expression>"","";""],");
       Put_Line ("  ""integer_array_declaration_tokens"": [""<declaration_name>"","":"",""array"",""("",""<static_integer_expression>"","".."",""<static_integer_expression>"","")"",""of"",""<integer_subtype_mark>"","":="",""<explicit_integer_array_aggregate>"","";""],");
       Put_Line ("  ""integer_array_constant_declaration_tokens"": [""<declaration_name>"","":"",""constant"",""array"",""("",""<static_integer_expression>"","".."",""<static_integer_expression>"","")"",""of"",""<integer_subtype_mark>"","":="",""<explicit_integer_array_aggregate>"","";""],");
-      Put_Line ("  ""integer_array_read_tokens"": [""<integer_array_name>"",""("",""<scalar_index_expression_without_array_reads>"","")""],");
-      Put_Line ("  ""integer_array_assignment_tokens"": [""<mutable_integer_array_name>"",""("",""<scalar_index_expression_without_array_reads>"","")"","":="",""<integer_expression>"","";""],");
+      Put_Line ("  ""integer_array_read_tokens"": [""<integer_array_name>"",""("",""<scalar_index_expression>"","")""],");
+      Put_Line ("  ""integer_array_assignment_tokens"": [""<mutable_integer_array_name>"",""("",""<scalar_index_expression>"","")"","":="",""<integer_expression>"","";""],");
       Put_Line ("  ""boolean_array_declaration_tokens"": [""<declaration_name>"","":"",""array"",""("",""<static_integer_expression>"","".."",""<static_integer_expression>"","")"",""of"",""boolean"","":="",""<explicit_boolean_array_aggregate>"","";""],");
       Put_Line ("  ""boolean_array_constant_declaration_tokens"": [""<declaration_name>"","":"",""constant"",""array"",""("",""<static_integer_expression>"","".."",""<static_integer_expression>"","")"",""of"",""boolean"","":="",""<explicit_boolean_array_aggregate>"","";""],");
       Put_Line ("  ""boolean_array_positional_aggregate_tokens"": [""("",""<condition>"",""<one_or_more_comma_conditions>"","")""],");
       Put_Line ("  ""boolean_array_singleton_aggregate_tokens"": [""("",""<static_integer_expression>"",""=>"",""<condition>"","")""],");
-      Put_Line ("  ""boolean_array_read_tokens"": [""<boolean_array_name>"",""("",""<scalar_index_expression_without_array_reads>"","")""],");
-      Put_Line ("  ""boolean_array_assignment_tokens"": [""<mutable_boolean_array_name>"",""("",""<scalar_index_expression_without_array_reads>"","")"","":="",""<condition>"","";""],");
+      Put_Line ("  ""boolean_array_read_tokens"": [""<boolean_array_name>"",""("",""<scalar_index_expression>"","")""],");
+      Put_Line ("  ""boolean_array_assignment_tokens"": [""<mutable_boolean_array_name>"",""("",""<scalar_index_expression>"","")"","":="",""<condition>"","";""],");
       Put_Line ("  ""integer_image_tokens"": [""integer"",""'"",""image"",""("",""<integer_expression>"","")""],");
       Put_Line ("  ""scalar_relation_tokens"": [""<integer_expression>"",""<scalar_comparison>"",""<integer_expression>""],");
       Put_Line ("  ""for_loop_tokens"": [""for"",""<index_name>"",""in"",""<integer_expression>"","".."",""<integer_expression>"",""loop"",""<statements>"",""end"",""loop"","";""],");
