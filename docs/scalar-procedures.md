@@ -50,7 +50,11 @@ be constructed from these actual assignments; inventing initialized output
 values in the model is not a substitute.
 
 After the prefix, writable formals behave like ordinary initialized mutable
-scalars. The body admits existing local assignments, function-call assignments,
+scalars and enter ordinary body analysis at their full declared ranges. The
+prefix establishes initialization and range containment, but does not export
+narrower output intervals to that body. This conservative rule reuses the
+full-domain parameter-frame check; a body may refine those ranges using its
+ordinary assignments and guards. The body admits existing local assignments, function-call assignments,
 null, conditions and counted loops, plus calls to earlier accepted procedures.
 Function bodies retain their current scope and cannot call procedures in this
 increment. Admit a procedure only after its entire body and closing name pass.

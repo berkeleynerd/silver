@@ -1,0 +1,20 @@
+{
+  "run_id": "20261109T230606-6cf4a949f72f",
+  "implementation_commit": "58306e9d9a651e7f9b9e88fb021807b272ec046a",
+  "integration_commit": "791b122423",
+  "managed_outcome": "success",
+  "recorded_test_process_exit": 0,
+  "managed_driver_exit_separately_retained": false,
+  "passed_test_methods": 12,
+  "unittest_seconds": 10.069,
+  "managed_seconds": 12.456177629,
+  "workers": 1,
+  "host": "linux-x86_64",
+  "affected_input_hashes": {
+    "rosetta/refresh.py": "e63aef342970f588b690e34fa2faae0718e2499ece544031254d93724c8b5c7b",
+    "rosetta/manifest.json": "c007b4a67439be22b242e6104f5e41998d5aa3ca1a7174cfe3cc6de7927b452f",
+    "rosetta/coverage.json": "b79cf62c988c36040b8bb13729eac04fb0aedb01a40cb4be9703ea13ea716684",
+    "tests/test_rosetta.py": "90a625bccc1fac8cab7dc822eb2866812d83ff8a08995c44682815207b10bbf4"
+  },
+  "basis": "Focused Rosetta-only scope; checked affected inputs match the integrated repair. New procedure/compiler work remains unvalidated and is outside this result."
+}

@@ -90,6 +90,13 @@ class ScalarProcedureTests(unittest.TestCase):
         self.check(program(divisor.replace(b'if D>0 then ', b'').replace(b'end if;', b''),
                            b'null;'), 2)
 
+    def test_ordinary_body_starts_with_full_declared_output_ranges(self) -> None:
+        prefix = (b'subtype Small is Integer range 0..9;'
+                  b'procedure P(X:out Small)is begin X:=1;')
+        self.check(program(prefix + b'X:=(X+1);end P;', b'null;'), 2)
+        self.check(program(prefix + b'if X<9 then X:=(X+1);end if;end P;', b'null;'))
+        self.check(program(prefix + b'X:=1;X:=(X+1);end P;', b'null;'))
+
     def test_input_and_copyback_boundaries_use_declared_ranges(self) -> None:
         declaration = (b'subtype Small is Integer range 0..9;'
                        b'procedure P(N:in Small;X:out Small)is begin X:=N;end P;')
