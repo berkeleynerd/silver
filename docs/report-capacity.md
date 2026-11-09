@@ -398,8 +398,19 @@ The [array producer review](fixed-integer-arrays-report-capacity.md) charges
 aggregate components and indexed occurrences jointly with earlier expression
 roots/comparisons, and accounts for an array-loop initialization note at each
 enclosing-loop/write pair. The resulting retained Main envelope is
-**25,084,928 bytes**. Main and the shared platform reader use **33,554,432 bytes**;
+**25,084,928 bytes**. That delivery gave Main and the shared platform reader
+**33,554,432 bytes**;
 runtime and null-report policies remain at **262,144 bytes**. This is a
 feature-local allocation, preserving the source/operator budgets and existing
 projection. It does not reopen deferred #119 research or claim that an observed
 report exceeded the old allocation.
+
+## Scalar procedure extension
+
+The [procedure account](scalar-procedures-report-capacity.md) preserves the
+joint scalar-subprogram entity budget and raises the call-edge allowance for
+five-byte procedure calls. It separately charges copy-back range checks and
+successful output initialization, yielding **38,186,752 bytes** in the selected
+**67,108,864-byte** allocation. The complete source budget and streaming
+projection policy remain unchanged. The capability record identifies pending
+validation and independent review; this calculation alone is not a support claim.
