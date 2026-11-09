@@ -46,6 +46,10 @@ The rules and proof interfaces below describe the current inputs. Each delivery
 record distinguishes the combined Linux checkpoint's canonical Lean audit,
 cache-preserving native proof audit, full-suite results and focused repairs.
 Earlier capability and performance records retain their original input scope.
+The current capability arguments follow below, beginning with
+[scalar functions](#small-nonrecursive-scalar-functions), followed by Boolean
+objects/arrays, subtypes, Integer arrays/iteration, loops, division and guard
+refinement. The paragraphs above retain the earlier delivery chronology.
 
 The [language specification](../language.md) defines the precise admitted syntax
 and behavior; the [catalogue](../catalogue/silver.json) and compiler must agree

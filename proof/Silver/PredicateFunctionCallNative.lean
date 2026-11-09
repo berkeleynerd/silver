@@ -298,6 +298,24 @@ def Expr.render : Expr α → List String
   | .letValue node body => localRender "value" ["scalar_expressions", ".", "expression_result"] node.render body.render body.local
 
 
+/-- Prefixes of selected components must render names. Explicit groups and
+record aggregates are primaries, but cannot be selected without qualification. -/
+def Expr.prefix : Expr α → Bool
+  | .position | .scanPosition | .first | .last | .after | .callee | .start | .scalar | .flag
+  | .intervalValue | .intervalBounds | .lower _ | .upper _
+  | .value | .called | .parameter | .item | .kind _
+  | .formalKind _ | .formalBounds _ | .formalFirst _ | .formalCount _ | .resultKind _ | .resultBounds _
+  | .valueAfter _ | .valueBounds _ | .callAfter _ | .callKind _ | .callBounds _
+  | .parameterAt _ | .signatureAt _ | .scalarMutable _ | .booleanMutable _ | .declaredBounds _
+  | .skip _ | .nameAfter _ | .namesLookup _ _ | .scalarLookup _ _ | .booleanLookup _ _
+  | .arrayLookup _ _ | .functionLookup _ _ | .token _ _ | .readScalar _ | .readConditionAfter _
+  | .actual _ _ | .actuals _ _ _ | .calleeAt _ | .callModel _ | .readCall _ | .scalarTarget _
+  | .booleanTarget _ | .assignmentResult _ _ _ | .empty _ | .included _ _ | .invalidCall | .invalidBody => true
+  | .number _ | .geInt _ _ | .leInt _ _ | .add _ _ | .sub _ _ | .eq _ _ | .ne _ _ | .le _ _
+  | .kindEq _ _ | .kindNe _ _ | .not _ | .andThen _ _ | .orElse _ _ | .makeCall _ _ _
+  | .assignedInteger | .assignedBoolean | .group _ | .ite _ _ _ | .elsif _ _ _ | .locals _
+  | .letFirst _ _ | .letAfter _ _ | .letCallee _ _ | .letStart _ _ | .letItem _ _ | .letValue _ _ => false
+
 /-- Fail closed when adding a new operator: bare arithmetic, conditions and
 local declarations must never be mistaken for atomic Ada expressions. -/
 def Expr.primary : Expr α → Bool
@@ -333,7 +351,8 @@ def Expr.wellFormed : Expr α → Bool
   | .lower node | .upper node
   | .formalKind node | .formalBounds node | .formalFirst node | .formalCount node
   | .resultKind node | .resultBounds node | .valueAfter node | .valueBounds node
-  | .callAfter node | .callKind node | .callBounds node | .not node => node.primary && node.wellFormed
+  | .callAfter node | .callKind node | .callBounds node => node.prefix && node.wellFormed
+  | .not node => node.primary && node.wellFormed
   | .parameterAt node | .signatureAt node | .scalarMutable node | .booleanMutable node | .declaredBounds node
   | .skip node | .nameAfter node | .readScalar node | .readConditionAfter node | .calleeAt node
   | .callModel node | .readCall node | .scalarTarget node | .booleanTarget node | .empty node
@@ -480,5 +499,20 @@ def modelCalls : Calls where
   scalarTarget := fun text context position => Predicate.scalarTarget text context.model position
   booleanTarget := fun text context position => Predicate.booleanTarget text context.model position
   assignmentResult := fun context scan scalar flag value => callAssignmentResult context.model scan scalar flag value
+
+namespace StructuralControls
+
+theorem selected_prefixes :
+    (Expr.valueAfter (.group .value)).wellFormed = false ∧
+    (Expr.callAfter (.group (.ite (.empty .intervalValue) .called .called))).wellFormed = false ∧
+    (Expr.callAfter (.makeCall (.number 1) (.kind .integer) .intervalBounds)).wellFormed = false ∧
+    (Expr.formalKind (.group .parameter)).wellFormed = false ∧
+    (Expr.lower (.group .intervalValue)).wellFormed = false ∧
+    (Expr.valueAfter .value).wellFormed = true ∧
+    (Expr.callAfter (.readCall .position)).wellFormed = true ∧
+    (Expr.formalBounds (.parameterAt (.number 1))).wellFormed = true ∧
+    (Expr.lower (.callBounds (.readCall .position))).wellFormed = true := by decide +kernel
+
+end StructuralControls
 
 end Silver.Predicate.FunctionCallNative

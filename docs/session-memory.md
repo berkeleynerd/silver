@@ -1,5 +1,28 @@
 # Session memory
 
+## 2026-11-09 — External review response validated and accepted
+
+The owner-authorized [#355 response](https://github.com/berkeleynerd/silver/issues/355)
+has complete Linux native, Lean/source and regression validation and final
+independent acceptance for [PR #368](https://github.com/berkeleynerd/silver/pull/368).
+The [response record](external-review-response-74ea2edeaa.md) retains all original
+finding dispositions, the two additional repairs, the inherited-interface scope,
+actual run evidence and final review target. The original external report remains
+unchanged; corrections and reasoned no-change decisions remain separate.
+
+The owner's resolve-all instruction authorizes ordinary response merge and
+issue/board/milestone closeout after these checks. No further approval gate was
+introduced. The final records preserve cached/full/clean/replay distinctions;
+no successful expensive validation was repeated for documentation-only closeout.
+The [independent acceptance](reviews/review-response-integration-74ea2edeaa.md)
+is bounded to its stated scope, without claiming a new comprehensive external
+review of all historical code.
+
+PR #354 still awaits its separate owner merge decision. No successor language
+feature or sample batch is selected, and no Oracle amendment or speculative
+artifact-security machinery was added. Unrelated worktrees and scratch remain
+preserved. CLI recall was not updated.
+
 ## 2026-11-09 — External review response authorized before further work
 
 The owner instructed: **“Let's resolve all of the issues before proceeding to any

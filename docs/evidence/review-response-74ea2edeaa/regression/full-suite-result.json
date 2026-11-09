@@ -1,0 +1,120 @@
+{
+  "actual_driver_exit": 0,
+  "arguments": [],
+  "available_cpus": 22,
+  "base_commit": "6365003968a3631493e60380d71417fdc42233c3",
+  "captured_at": "2026-11-09T16:04:49.215514+00:00",
+  "census": "test-census.json.gz",
+  "command": [
+    "python3",
+    "scripts/dev.py",
+    "test",
+    "--jobs",
+    "21",
+    "--task",
+    "#355 regression",
+    "--reason",
+    "Full unfiltered suite with unchanged default deadlines/options on frozen source inputs; canonical native checkpoint and focused source frontier passed, and only the one-worker complete Lean run shares the host."
+  ],
+  "deadline_and_options_scope": "Unfiltered discovery with the unchanged default test/application deadlines and options; no skips, exclusions, retries, input edits or additional validation run.",
+  "distinct_executed_method_definitions": 634,
+  "driver_exit_observation": "exec session 81482 completed with exit_code 0 after the actual suite outcome; no restart, filtering or repair rerun.",
+  "effective_test_command": [
+    "/usr/bin/python3",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-v"
+  ],
+  "errors": 0,
+  "expected_failures": 0,
+  "failure_keys": [],
+  "failures": 0,
+  "finished_at": "2026-11-09T16:00:52.345156+00:00",
+  "host": "linux-x86_64",
+  "input_parity": "final-input-parity.json",
+  "machine": "silver",
+  "managed_duration_seconds": 4498.507773603,
+  "managed_finished_returncode": null,
+  "managed_outcome": "success",
+  "managed_returncode_note": "The managed finished event retains returncode null by runner design; test phase-end and the actual driver both independently record 0.",
+  "manifest": {
+    "identity": "test_samples.SupportedSampleTests.test_manifest_samples",
+    "outcome": "ok",
+    "samples": 84,
+    "scope": "Each sample passed admission, native application proof, build, report audit and expected execution streams/status checks."
+  },
+  "prepared_fingerprint": "50dc0adcf666e524fd8e6e01e63e9fd5ee5f15c02710c2e6d1d926fa8aff5b4d",
+  "regression_head_at_capture": "7690b222f676b430d88c6510ded56a5a1aef0206",
+  "requested_workers": 21,
+  "resource_reason": "One worker remained reserved for the canonical complete Lean checkpoint; no competing native/build reservation at launch.",
+  "retained_files": {
+    "driver_log": "full-suite-driver.log.gz",
+    "native_log": "full-suite-native.log.gz",
+    "runner_events": "full-suite-events.jsonl.gz"
+  },
+  "review_response_methods": [
+    {
+      "driver_log_line": 2839,
+      "identity": "test_scalar_functions.ScalarFunctionTests.test_local_hiding_is_independent_of_return_arithmetic",
+      "outcome": "ok"
+    },
+    {
+      "driver_log_line": 2844,
+      "identity": "test_scalar_functions.ScalarFunctionTests.test_native_unused_function_without_main_output",
+      "outcome": "ok"
+    },
+    {
+      "driver_log_line": 2842,
+      "identity": "test_scalar_functions.ScalarFunctionTests.test_native_hiding_and_argument_shell",
+      "outcome": "ok"
+    },
+    {
+      "driver_log_line": 2833,
+      "identity": "test_scalar_functions.ScalarFunctionTests.test_formal_syntax_and_closing_names",
+      "outcome": "ok"
+    },
+    {
+      "driver_log_line": 2846,
+      "identity": "test_scalar_functions.ScalarFunctionTests.test_return_must_be_single_terminal_and_typed",
+      "outcome": "ok"
+    },
+    {
+      "driver_log_line": 2824,
+      "identity": "test_scalar_functions.ScalarFunctionTests.test_actual_arity_kinds_and_positional_association",
+      "outcome": "ok"
+    },
+    {
+      "driver_log_line": 2843,
+      "identity": "test_scalar_functions.ScalarFunctionTests.test_native_ordered_calls_snapshot_and_full_unused_coverage",
+      "outcome": "ok"
+    },
+    {
+      "driver_log_line": 2841,
+      "identity": "test_scalar_functions.ScalarFunctionTests.test_native_boolean_and_integer_self_actuals",
+      "outcome": "ok"
+    },
+    {
+      "driver_log_line": 2917,
+      "identity": "test_string_review_blockers.StringReviewBlockerTests.test_admission_guarded_nonstatic_slice_endpoints",
+      "outcome": "ok"
+    }
+  ],
+  "run_directory": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261109T144553-8abe96c6e3ad",
+  "run_id": "20261109T144553-8abe96c6e3ad",
+  "scope": [
+    "all-tests"
+  ],
+  "scope_note": "Linux regression/application evidence for unchanged source inputs. Canonical native compiler assurance and the complete Lean checkpoint belong to the integration workspace.",
+  "skips": 0,
+  "started_at": "2026-11-09T14:45:53.837160+00:00",
+  "task": "#355 regression",
+  "test_phase_returncode": 0,
+  "unexpected_successes": 0,
+  "unittest_duration_seconds": 4495.139,
+  "unittest_executions": 648,
+  "unittest_outcome": "OK",
+  "workers": 21
+}

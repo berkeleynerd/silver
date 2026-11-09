@@ -391,13 +391,13 @@ Scalar comparisons admit `=`, `/=`, `<`, `<=`, `>` and `>=` between scalar
 expressions and compose with the existing short-circuit predicates. Both
 operands must pass the incoming expression check before refinement, including
 all static subexpressions. A comparison refines a bare visible mutable Integer
-name, loop-index name or loop-element name against an Ada-static nonempty singleton Integer
-expression, in either operand order. Refinement follows resolved binding
+name, Integer formal name, loop-index name or loop-element name against an
+Ada-static nonempty singleton Integer expression, in either operand order. Refinement follows resolved binding
 identity, so shadowed names remain distinct. Parentheses around a whole condition
 preserve refinement; parentheses around the target scalar name, arithmetic
 targets and variable-to-variable comparisons do not refine. A nonstatic singleton,
 including an immutable snapshot copied from a mutable object or a singleton loop
-index, cannot supply the threshold. Immutable declaration constants keep their
+index, cannot supply the threshold. Immutable object constants keep their
 exact values and declaration-derived staticness.
 
 For each true or false outcome, intersect the target's current interval with
@@ -1298,7 +1298,7 @@ The catalogue uses these construct identifiers:
 | `integer_array_iteration` | Forward/reverse iteration over constant Integer arrays, with immutable nonstatic elements, declared component entry bounds and existing guard/statement compositions. |
 | `scalar_function`, `scalar_function_call` | Closed Integer/Boolean functions with explicit-in formals, terminal return, earlier-only calls and whole scalar assignment RHS calls. |
 | `named_boolean_constant`, `named_boolean_variable`, `boolean_assignment`, `boolean_expression`, `boolean_comparison` | Initialized scalar Boolean objects, snapshot copies, assignment, logical expressions and Boolean equality/inequality under the visibility, evaluation and xor restrictions above; stored flags retain no scalar or String/input facts. |
-| `integer_comparison`, `scalar_guard_refinement`, `integer_image`, `for_loop` | Bare mutable/index/element names against static thresholds, current read intervals with assignment replacement and branch hulls, standard decimal Image and scoped finite loops with captured bounds and mutable widening. |
+| `integer_comparison`, `scalar_guard_refinement`, `integer_image`, `for_loop` | Bare mutable/formal/index/element names against static thresholds, current read intervals with assignment replacement and branch hulls, standard decimal Image and scoped finite loops with captured bounds and mutable widening. |
 | `expression_output`, `literal_output`, `named_output`, `concatenated_output` | Returning output calls with qualified or visible unqualified names and positional or `Item =>` actuals. |
 | `argument_initialization`, `input_guard`, `capacity_guard`, `argument_rejection` | First/unique immutable input with positional or `Default =>` literal, path-derived validity/capacity and returning rejection; existing calls follow the shared visibility rules. |
 | `string_equality`, `string_choice` | Nested predicates with nonempty statements, repeated `elsif`, optional `else` and path refinement. |

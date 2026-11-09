@@ -1,11 +1,22 @@
 # Scalar-function implementation evidence
 
+**Delivery status — 2026-11-09.** The completed #298 delivery is recorded in
+the [capability account](../../scalar-functions.md#delivery-assurance-and-validation).
+Final governed input `0333d33503` passed the complete
+[Lean/source/module/axiom checkpoint `20261108T172947-84b3cd350332`](complete-lean/20261108T172947-84b3cd350332/README.md);
+the [complete native checkpoint `20261108T155015-d9cbdb714cbd`](native-checkpoint/auditor-refresh-53d3/README.md)
+applies to its unchanged Ada and auditor inputs. The
+[final independent acceptance](../../reviews/review-scalar-functions-delivery-20261108.md#final-independent-acceptance--2026-11-08)
+accepted target `4d9ce491ee`, and PR #339 subsequently merged. These final
+records supersede the in-progress and merge-held states below; earlier failed
+runs and intermediate checkpoints retain their original outcomes and input scope.
+
 Implementation and validation of #298 are in progress. This packet retains
 focused Linux checks and producer observations; it is not a complete delivery
 checkpoint. The [capability record](../../scalar-functions.md) states the
 remaining requirements.
 
-## Current checkpoint — 2026-11-08 15:58 UTC
+## Historical checkpoint — 2026-11-08 15:58 UTC
 
 Stable implementation/source snapshot `f630819154` includes reviewed parser
 SHA-256 `036a53b4bd9a9d7c711b4ddf8d83467a6b470184bfce2ac6677b15cf4f57ef47`.

@@ -43,40 +43,59 @@ normal reviewed repair-result composition remains permitted if needed. Preserve
 failed runs and test identities; no cold/replay campaign is required. Independent
 review checks actual changes, contract mappings, dispositions and final evidence.
 
+## Additional response findings
+
+- [#366](https://github.com/berkeleynerd/silver/issues/366): the Boolean name
+  primitive now states the native nonempty, source-length-bounded Word domain.
+  Its only concrete caller already used the valid literal `integer`; no current
+  program or endpoint defect was found. The two-line repair passed focused
+  native-model and source-bridge Lean validation and independent source review.
+- [#367](https://github.com/berkeleynerd/silver/issues/367): general guard-refinement
+  descriptions now include Integer formals, matching their already-delivered
+  behavior. The emitter, catalogue and language summary agree; immutable object
+  constants remain distinct from immutable formals.
+
+The prefix repair also covers the Boolean-body selector and inherited Compose
+selected/indexed/attribute prefixes, where the same narrow category gap existed.
+Delta-aggregate bases retain their legal expression forms. No renderer, evaluator,
+source tree, pin or endpoint statement changes.
+
 ## Disposition inventory
 
-These are planned dispositions, not claims of completed repairs. Each accepted
-fix needs its issue's focused check and shared final evidence before closure.
+These dispositions distinguish implemented fixes from reviewed no-change
+decisions. Complete native, Lean and regression validation passed. Final
+independent evidence acceptance at `b58c89d481` found no remaining gap within
+the documented review scope.
 
-| Finding | Tracking | Planned response |
+| Finding | Tracking | Response |
 | --- | --- | --- |
-| P2-1 | #356 | Fix actual selected/indexed prefix categories; preserve legal delta aggregates. |
-| P2-2 | #357 | Correct the control inventory; add missing discriminating controls without duplicating existing ones. |
-| P1-1 | #358 | Add four missing malformed-function cases; existing empty-formal rejection already covers the fifth. |
-| P1-2 | #359 | Add compact full-route unused-function/hiding/loop-call coverage and function+argument-shell cases; correct warnings-route attribution. |
-| A-1 | #360 | Add five promised endpoint rejection spellings/forms. |
-| S-1 | #355 | The adopted reviewed-composition policy is satisfied at the old target; absence of a single run is not itself a defect. Prefer one fresh final suite for this changed response inventory, subject to normal recorded repair/applicability handling. |
-| R-1 | #361 | Correct four current-language restrictions; assessor-only text does not feed the renderer. |
-| R-2 | #362 | Add a dated final checkpoint pointer and preserve prior history. |
-| R-3 | #363 | Normalize the four placeholders in the Ada emitter and generated catalogue. |
-| P1-3 | #355 | Document the frame-flow lemmas as auxiliary; existing consumers have no missing premise. |
+| P2-1 | #356 | Implemented explicit categories at actual selected/indexed prefixes; legal delta aggregates preserved; focused controls and source leaves passed. |
+| P2-2 | #357 | Corrected the control inventory and added the missing discriminating controls; focused kernel checks passed. |
+| P1-1 | #358 | Added four missing malformed-function cases; existing empty-formal rejection covers the fifth. Full suite passed. |
+| P1-2 | #359 | Added compact full-route unused-function/hiding/loop-call and argument-shell coverage; corrected warnings-route attribution. Full suite passed. |
+| A-1 | #360 | Added all five promised endpoint rejection spellings/forms; full suite passed. |
+| S-1 | #355 | The old target satisfies the adopted reviewed-composition policy, so its lack of a single final run was not a defect. This response nevertheless completed one fresh unfiltered suite: 648 tests passed. |
+| R-1 | #361 | Corrected all four current-language restrictions; assessor-only text does not feed the renderer. |
+| R-2 | #362 | Added the dated final checkpoint pointer while preserving prior history. |
+| R-3 | #363 | Normalized four placeholders in the emitter/catalogue; final live export is byte-identical. |
+| P1-3 | #355 | Documented the frame-flow lemmas as auxiliary; existing consumers have no missing premise. |
 | P1-4 | #355 | Retain exact-text/compiler-unit advisory classification. Location/count pinning is brittle and adds no obligation coverage; no code change without a concrete misclassification. |
-| P1-5 | #355 | Correct documented conservative behavior; no repair. |
+| P1-5 | #355 | The documented own-name type-mark restriction remains. Corrected the blanket claim about `/=`: excluding an endpoint can refine an interval; excluding an interior point cannot represent a hole. No implementation repair. |
 | P1-6 | #355 | Exact advisory handling is not obligation suppression; no repair. |
 | P2-3 | #355 | Retain the documented interpreted-source boundary; artificial endpoint parameters would not strengthen correspondence. |
-| P2-4 | #357 | Inventory relevant operator trees and add only missing discriminating controls; fixed templates need no generic guard framework. |
+| P2-4 | #357 | Inventoried relevant operator trees and added the missing discriminating controls; fixed templates need no generic guard framework. |
 | P2-5 | #355 | No metaprogram sandbox expansion: the repository policy is not an adversarial boundary and no bypass is demonstrated. |
-| P2-6 | #355 | Correct stale merge wording and CPU attribution while preserving dated experiment records and typed-leaf assumptions. |
+| P2-6 | #355 | Corrected stale merge wording and CPU attribution while preserving dated experiment records and typed-leaf assumptions. |
 | A-2 | #355 | Retain the explicit B2 conditional-region restriction and admitted positive controls. |
 | A-3 | #355 | Existing mod/rem (-1) coverage resolves the stale triage note. |
 | A-4 | #355 | Retain observed outcomes with corrected invocation/source counts and explicit admission-only limits. |
-| S-2 | #355 | Record current measured per-module memory with units/run identities; preserve automatic CPU defaults and scale only for actual host headroom. |
+| S-2 | #355 | Recorded per-module memory observations with units/run identities; automatic CPU defaults remain, with this run's reduced concurrency tied to actual host headroom. |
 | R-4 | #355 | Structured scalar-function catalogue conditions meet the Oracle; no new token-template machinery is needed. |
-| R-5 | #355 | Add a concise current-scope pointer if useful; retain historical summary chronology. |
+| R-5 | #355 | Added a current-scope pointer to the assurance summary; historical delivery chronology is preserved. |
 | R-6 | #355 | No per-construct sample mandate exists; keep sample tags accurate without creating unrelated samples. |
-| R-7 | #355 | Add a dated forward pointer to the #314 closure, preserving historical instructions. |
+| R-7 | #355 | Added a dated forward pointer to the #314 closure, preserving historical instructions. |
 | C-1 | #355 | Reject: local-hiding probes contain ungrouped/overflowing arithmetic. Corrected returns preserve hiding and are admitted; retain reproducible controls. |
-| Section 2a | #364 | Review inherited domain/Pre/Post/raw-equation interfaces and account explicitly for unexamined source/model scope. No broad external clearance is inferred. |
+| Section 2a | #364 | Reviewed the nine named inherited domain/Pre/Post/raw-equation interfaces, mapped 28 structures and 241 own fields, and explicitly recorded unexamined source/model scope. No broad external clearance is inferred. |
 
 ## Corrections to the report
 
@@ -97,7 +116,12 @@ C-1's three local-hiding programs become admitted when only their invalid
 arithmetic return is replaced by the local value. The initial assessment checked
 all six original/control inputs against the exact reviewed compiler SHA-256
 `32531113d73a15bed573e5c158d6bf629c49932de9fb4af84f241b063b2478dd`.
-Durable focused regression/evidence will reproduce this distinction.
+The retained controls and successful full-suite local-hiding regression reproduce
+this distinction.
+The original `c24b` artifact likewise returns the excluded ungrouped `X+Y`.
+The report also mislabels `c24c` as rejected: its retained log says
+`Accepted: silver.`, and it contains no function-local hiding. These original
+artifacts are copied into the corrections record without claiming a fresh run.
 
 Function programs without output still use the output-capable shell and its
 warnings policy. The separate `--warnings=error` null-program route admits no
@@ -108,6 +132,43 @@ function declaration; P1-2 does not exercise that route.
 | Round | Selected settings | Result / next check | Measurements |
 | --- | --- | --- | --- |
 | Initial response assessment and planning, 2026-11-09 | Astra Max proof review; Sol Extra High records/tests; lead runtime not independently exposed | Confirmed actionable scope; corrected C-1, S-1 and control/execution inventories; implementation pending | No expensive validation repeated; six admission-only controls; token/cost telemetry unavailable |
+| Implementation and source review, 2026-11-09 | Astra Max proof repair, inherited mapping and independent critical review; Sol Extra High tests/records | Confirmed repairs integrated; one lost native test path restored in the same fixture; catalogue formal descriptions corrected | Three short failed focused builds: 54.942 s, 15.514 s, 14.605 s; no expensive integrated run was wasted on those proof-script errors |
+| Focused validation, 2026-11-09 | Managed tools; lead runtime not independently exposed | All guard/domain targets and fresh 22,643-declaration audit passed; complete native audit passed | Exact run settings/logs retained in the evidence packet; these are tool intervals, not whole-team cost |
+| Parallel function leaves and complete validation launch, 2026-11-09 | Astra Max reviewed resource schedule; Sol Extra High regression supervision | All 80 leaf targets and fresh 16,910-declaration audit passed; complete Lean and unfiltered suite running | Leaf batch 965.765 s, six Lake workers / 22 process threads; complete Lean one worker for actual memory headroom, suite 21 workers |
+| Complete regression, 2026-11-09 | Sol Extra High supervision; managed test tools | All 648 test executions passed, including all 84 manifest samples and nine changed review-response methods; no failures or skips | 4,495.139 s unittest duration; 4,498.508 s managed interval; actual driver exit 0, unchanged deadlines and unfiltered discovery |
+| Complete Lean, 2026-11-09 | Managed tools under the Astra Max-reviewed resource schedule; lead runtime not independently exposed | Complete cached build and fresh audit passed; all 820 modules and 145,589 declarations, with the three approved foundations and all 927 captured inputs matching | 14,038.369 s build, 10.660 s fresh audit, 14,069.219 s managed interval; actual driver exit 0; no clean build or kernel replay |
+| Final acceptance and closeout, 2026-11-09 | Astra Max independent evidence review; Sol Extra High closeout preparation; lead runtime not independently exposed | Final source/evidence applicability accepted at `b58c89d481`; all confirmed repairs and reasoned dispositions complete for PR #368 | Retained records, input identities, exact module coverage and actual driver outcomes checked; no repeat validation; whole-team token/cost telemetry unavailable |
 
-Implementation, focused results, complete evidence and independent closing review
-remain pending. No capability or Rosetta support count changes in this response.
+The final governed snapshot is `6365003968`; later commits change only records
+and evidence. All changed helpers/guards and the six focused target closures passed run
+`20261109T142008-886cdd5994b7`. The three failed earlier control-theorem attempts
+remain failed in the [evidence packet](evidence/review-response-74ea2edeaa/README.md).
+They changed proof scripts for test propositions, not guard semantics or the
+modeled native domains. The final successful wrapper proof uses concrete
+command-render equations and a reflexive condition-token equality.
+
+The [inherited review](reviews/review-inherited-interfaces-74ea2edeaa.md) maps
+all nine named files, 28 structures and 241 own fields. The
+[independent integration review](reviews/review-response-integration-74ea2edeaa.md)
+accepts the source changes, including the narrowed native-domain premise and
+both test/catalogue follow-up repairs. Its bounded report-policy/catalogue
+inspection and the inherited map do not claim comprehensive fresh external
+review of every unread module or the whole historical range. Those scope limits
+are recorded, not treated as a defect requiring an indiscriminate rereview.
+
+Complete native audit passed `20261109T142006-5f058d0b96be` (18,525 checks,
+77 units, 1,165 entities, actual driver exit 0). The full unfiltered regression run
+`20261109T144553-8abe96c6e3ad` passed all 648 tests, with actual driver exit 0.
+These are execution identities covering 634 method definitions; the regression
+packet accounts for inherited/imported executions explicitly.
+Complete Lean/source validation passed `20261109T144532-5e2dbc4f965b`: exactly
+820 modules and a fresh 145,589-declaration audit under `propext`,
+`Classical.choice` and `Quot.sound`, with actual driver exit 0. All 927 captured
+inputs and both Lean tools match; generated certificates are regenerated by the
+runner. This is complete cached validation, not a clean build or kernel replay.
+Final independent evidence applicability review accepted `b58c89d481`, including
+the complete input set, retained artifacts, exact module closure and all three
+validation legs. No accepted repair or validation requirement remains open.
+PR #368 carries the response and ordinary issue/milestone closeout. No capability
+or Rosetta support count changes in this response; PR #354 retains its separate
+owner merge hold, and no next feature/sample batch is selected.

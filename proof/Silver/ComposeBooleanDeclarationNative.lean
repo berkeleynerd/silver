@@ -293,6 +293,24 @@ def Expr.wellFormed : Expr α → Bool
   | .addBoolean position first after mutable => position.primary && first.primary && after.primary &&
       mutable.orHead && position.wellFormed && first.wellFormed && after.wellFormed && mutable.wellFormed
 
+namespace StructuralControls
+
+theorem not_collision :
+    (Expr.not (.orElse (.truth true) (.truth true))).render =
+      (Expr.orElse (.not (.truth true)) (.truth true)).render ∧
+    (Expr.not (.orElse (.truth true) (.truth true))).wellFormed = false ∧
+    (Expr.orElse (.not (.truth true)) (.truth true)).wellFormed = true := by decide +kernel
+
+theorem categories_and_nested_children :
+    (Expr.andThen (.orElse (.truth true) (.truth false)) (.truth true)).wellFormed = false ∧
+    (Expr.andThen (.group (.orElse (.truth true) (.truth false))) (.truth true)).wellFormed = true ∧
+    (Expr.eq (.choose (.truth true) (.number 0) (.number 1)) (.number 0)).wellFormed = false ∧
+    (Expr.eq (.group (.choose (.truth true) (.number 0) (.number 1))) (.number 0)).wellFormed = true ∧
+    (Expr.skip (.choose (.truth true) (.number 0) (.number 1))).wellFormed = false ∧
+    (Expr.skip (.group (.choose (.truth true) (.number 0) (.number 1)))).wellFormed = true := by decide +kernel
+
+end StructuralControls
+
 structure Scope where
   locals : Local → Bool := fun _ => false
   context : Bool := false

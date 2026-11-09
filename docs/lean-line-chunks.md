@@ -6,16 +6,21 @@ The original bounded sample experiment is complete; the 2026-11-06 authorization
 below selects complete-candidate evaluation and production integration if useful.
 
 Both production splits passed complete Linux validation on 2026-11-06 and are
-retained in [PR #326](https://github.com/berkeleynerd/silver/pull/326), pending
-owner review and merge. The [completed validation](#completed-production-validation--2026-11-06)
-below records the adoption assessment and its measurement limits.
+merged through [PR #326](https://github.com/berkeleynerd/silver/pull/326), merge
+`508692aa89` on 2026-11-06. This delivery supersedes earlier pending/hold states
+below. The [completed validation](#completed-production-validation--2026-11-06)
+records the adoption assessment and its measurement limits.
 
-The automatic-CPU restart of PR #307 exposed useful parallel work followed by
-a long single-module tail in `OutputBodyCertificate`. At the selected prototype
+The PR #307 restart used the automatic CPU/thread defaults introduced by
+`b3f7e002e7` on 2026-10-10; PR #307 did not introduce that policy. This run
+exposed useful parallel work followed by a long single-module tail in
+`OutputBodyCertificate`. At the selected prototype
 baseline `617547bd0d`, it contains 4,915 line certificates and 9,829 reconstruction
 nodes in one module. The earlier [#246 profile](development-velocity.md#first-package-implementation-and-validation)
 attributed 74.79% of named trace time to line certificates and 24.62% to joins.
 These historical trace shares are not current CPU costs or a speedup forecast.
+The [later memory observations](lean-incremental-throughput.md#later-memory-observations--2026-11-09)
+separate current-source measurements from the dated process allowances below.
 
 ## Current selected scope — 2026-11-06
 

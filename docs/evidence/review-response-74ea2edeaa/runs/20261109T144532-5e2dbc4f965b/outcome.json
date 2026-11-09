@@ -1,0 +1,18 @@
+{
+  "run_id": "20261109T144532-5e2dbc4f965b",
+  "driver_exit": 0,
+  "driver_exit_basis": "Exec session 69460 returned exit_code 0, observed by the lead through monitor cell 295.",
+  "managed_outcome": "success",
+  "managed_duration_seconds": 14069.219008733,
+  "build_jobs": 857,
+  "module_count": 820,
+  "fresh_audit_declarations": 145589,
+  "foundations": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "scope": "complete cached build and fresh whole-project module/axiom audit",
+  "clean_build": false,
+  "kernel_recheck": null
+}

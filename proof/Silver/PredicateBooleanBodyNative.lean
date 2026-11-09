@@ -128,6 +128,16 @@ def Expr.render : Expr α → List String
       value.render ++ [";"] ++ body.render
   | .beginValue value => ["begin"] ++ value.render
 
+/-- The condition-result selector requires a name, including a function call,
+but cannot select from an explicitly parenthesized expression. -/
+def Expr.prefix : Expr α → Bool
+  | .inputPosition | .scanPosition | .localFirst | .localAfter | .localTarget | .localValue |
+    .skip _ | .nameAfter _ | .scalarLookup _ _ | .booleanLookup _ _ | .target _ | .assignment _ |
+    .condition _ | .mutable _ | .valueAfter _ | .invalid => true
+  | .zero | .eqNat _ _ | .neNat _ _ | .leNat _ _ | .not _ | .orElse _ _ | .assigned _ |
+    .choose _ _ _ | .group _ | .locals _ | .letFirst _ _ | .letAfter _ _ | .letTarget _ _ |
+    .letValue _ _ | .beginValue _ => false
+
 def Expr.primary : Expr α → Bool
   | .eqNat _ _ | .neNat _ _ | .leNat _ _ | .not _ | .orElse _ _ | .choose _ _ _
   | .locals _ | .letFirst _ _ | .letAfter _ _ | .letTarget _ _ | .letValue _ _ | .beginValue _ => false
@@ -150,7 +160,8 @@ def Expr.isBegin : Expr α → Bool | .beginValue _ => true | _ => false
 def Expr.wellFormed : Expr α → Bool
   | .inputPosition | .scanPosition | .localFirst | .localAfter | .localTarget | .zero | .localValue | .invalid => true
   | .skip value | .nameAfter value | .target value | .assignment value | .condition value | .mutable value
-  | .valueAfter value | .assigned value => value.primary && value.wellFormed
+  | .assigned value => value.primary && value.wellFormed
+  | .valueAfter value => value.prefix && value.wellFormed
   | .scalarLookup left right | .booleanLookup left right | .eqNat left right | .neNat left right | .leNat left right =>
       left.primary && right.primary && left.wellFormed && right.wellFormed
   | .not value => value.primary && value.wellFormed
@@ -233,6 +244,31 @@ theorem assignment_denotation (imports : Imports) (target : TargetCall) (text : 
   simp +instances only [Bool.or_eq_true, decide_eq_true_eq, or_assoc]
 
 theorem checked_precedence : targetBody.wellFormed = true ∧ assignmentBody.wellFormed = true := by decide +kernel
+
+namespace StructuralControls
+
+theorem selected_prefixes :
+    (Expr.valueAfter (.group .localValue)).wellFormed = false ∧
+    (Expr.valueAfter (.group (.choose (.mutable .localTarget) .localValue .localValue))).wellFormed = false ∧
+    (Expr.valueAfter .localValue).wellFormed = true ∧
+    (Expr.valueAfter (.condition .inputPosition)).wellFormed = true := by decide +kernel
+
+private def atom : Expr Bool := .mutable .localTarget
+
+private theorem not_collision :
+    (Expr.not (.orElse atom atom)).render = (Expr.orElse (.not atom) atom).render ∧
+    (Expr.not (.orElse atom atom)).wellFormed = false ∧
+    (Expr.orElse (.not atom) atom).wellFormed = true := by decide +kernel
+
+private theorem categories_and_nested_children :
+    (Expr.eqNat (.choose atom .zero .inputPosition) .zero).wellFormed = false ∧
+    (Expr.eqNat (.group (.choose atom .zero .inputPosition)) .zero).wellFormed = true ∧
+    (Expr.valueAfter (.condition (.choose atom .zero .inputPosition))).wellFormed = false ∧
+    (Expr.valueAfter (.condition (.group (.choose atom .zero .inputPosition)))).wellFormed = true ∧
+    (Expr.group (.not (.orElse atom atom))).wellFormed = false ∧
+    (Expr.group (.not (.group (.orElse atom atom)))).wellFormed = true := by decide +kernel
+
+end StructuralControls
 
 theorem checked_scopes : targetBody.scoped {} = true ∧ assignmentBody.scoped {} = true := by decide +kernel
 
