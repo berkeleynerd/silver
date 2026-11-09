@@ -1800,6 +1800,27 @@ def Function.isLexical : Function → Bool
   | .trivia | .literalEnd | .literalLength | .identifier | .forbidden | .forbiddenArgument | .equal | .decimal | .tokenAt | .normalize | .allowed => true
   | _ => false
 
+/-- Names usable before a selector, index or attribute. Calls and conversions
+are names; parenthesized expressions and unqualified aggregates are not.
+Delta-aggregate bases that are not also selected retain their existing rules. -/
+def Expr.prefix : Expr ty → Bool
+  | .wideMaximum _ _ | .valueNumber _ | .valueInteger _ | .capacityInteger _ |
+    .singleton _ | .joinInterval _ _ | .minimumInteger | .maximumInteger | .maximumLength |
+    .lexTrivia _ _ | .lexLiteralEnd _ _ | .lexLiteralLength _ _ | .lexIdentifier _ _ |
+    .lexForbidden _ _ _ | .lexForbiddenArgument _ _ _ | .lexEqual _ _ _ _ _ |
+    .lexDecimal _ _ | .lexTokenAt _ _ _ _ | .lexNormalize _ | .lexAllowed _ |
+    .operation _ | .variable _ | .function _ | .app _ _ | .defaultFalse _ | .defaultFull _ |
+    .subtypeCount _ | .subtypeItem _ _ | .hiddenFlag _ _ | .maxSubtypeBindings |
+    .scalarReadDefault _ _ _ | .scalarReadArrays _ _ _ _ _ _ | .expressionArrays _ _ _ _ _ _ _ |
+    .field _ _ | .count _ | .scalarCount _ | .integerTypeWord | .booleanTypeWord | .characterTypeWord |
+    .arrayCount _ | .maxArrayBindings | .maxArrayElements | .invalidScalar |
+    .wideInteger _ | .wideNumber _ | .elementCount _ | .maxScalarBindings |
+    .fullInterval | .emptyInterval | .item _ _ | .byteAt _ _ | .sourceLast _ | .sourceLength _ |
+    .characterVal _ | .maxLength | .maxBindings | .maxOperands | .maxConcatenations | .token _ |
+    .tokenSpelling _ | .spellingLength _ | .wordToken _ | .hasArguments _ | .tokensLast _ | .tokenIndex _ _ |
+    .initial | .invalid | .invalidValue | .invalidResult | .invalidScan => true
+  | _ => false
+
 /-- Ada 2022 expression categories. Renderers preserve explicit grouping;
 these checks prevent a flattened tree from changing precedence or association. -/
 def Expr.primary : Expr ty → Bool
@@ -1939,12 +1960,12 @@ def Expr.wellFormed : Expr ty → Bool
   | .app f x => f.wellFormed && x.wellFormed && f.functionSpine && x.expression
   | .defaultFalse f => f.wellFormed && f.hasFalseDefault
   | .defaultFull f => f.wellFormed && f.hasFullDefault
-  | .subtypeCount names => names.wellFormed && names.primary
-  | .subtypeItem names index => names.wellFormed && names.primary && index.wellFormed && index.expression
-  | .hiddenFlag flags op => flags.wellFormed && flags.primary && op.wellFormed && op.expression
+  | .subtypeCount names => names.wellFormed && names.prefix
+  | .subtypeItem names index => names.wellFormed && names.prefix && index.wellFormed && index.expression
+  | .hiddenFlag flags op => flags.wellFormed && flags.prefix && op.wellFormed && op.expression
   | .operationName op => op.wellFormed && op.expression
   | .forOperations _ body => body.wellFormed && body.expression
-  | .subtypeAppend names first after bounds trueHidden falseHidden flags => names.wellFormed && names.primary &&
+  | .subtypeAppend names first after bounds trueHidden falseHidden flags => names.wellFormed && names.prefix &&
       first.wellFormed && first.expression && after.wellFormed && after.expression &&
       bounds.wellFormed && bounds.expression && trueHidden.wellFormed && trueHidden.expression &&
       falseHidden.wellFormed && falseHidden.expression && flags.wellFormed && flags.expression
@@ -1955,9 +1976,9 @@ def Expr.wellFormed : Expr ty → Bool
       a.wellFormed && i.wellFormed && e.wellFormed && t.expression && p.expression && n.expression && a.expression && i.expression && e.expression
   | .expressionArrays t p n sn a i e => t.wellFormed && p.wellFormed && n.wellFormed && sn.wellFormed &&
       a.wellFormed && i.wellFormed && e.wellFormed && t.expression && p.expression && n.expression && sn.expression && a.expression && i.expression && e.expression
-  | .field _ x => x.wellFormed && x.primary
-  | .scalarCount x => x.wellFormed
-  | .arrayCount a => a.wellFormed
+  | .field _ x => x.wellFormed && x.prefix
+  | .scalarCount x => x.wellFormed && x.prefix
+  | .arrayCount a => a.wellFormed && a.prefix
   | .wideInteger a => a.wellFormed
   | .wideNumber a => a.wellFormed
   | .elementCount a => a.wellFormed
@@ -1968,7 +1989,7 @@ def Expr.wellFormed : Expr ty → Bool
   | .arrayNamesOnly a b => a.wellFormed && b.wellFormed
   | .stateArray a b => a.wellFormed && b.wellFormed
   | .statePositionArray a b c => a.wellFormed && b.wellFormed && c.wellFormed
-  | .arrayAppend a b c d e f g h i => a.wellFormed && b.wellFormed && c.wellFormed && d.wellFormed && e.wellFormed && f.wellFormed && g.wellFormed && h.wellFormed && i.wellFormed
+  | .arrayAppend a b c d e f g h i => a.wellFormed && a.prefix && b.wellFormed && c.wellFormed && d.wellFormed && e.wellFormed && f.wellFormed && g.wellFormed && h.wellFormed && i.wellFormed
   | .maxArrayBindings | .maxArrayElements | .invalidScalar | .integerNumber _ => true
   | .word _ | .integerTypeWord | .booleanTypeWord | .characterTypeWord | .maxScalarBindings => true
   | .operatorByte x => x.wellFormed && x.simple
@@ -1978,8 +1999,8 @@ def Expr.wellFormed : Expr ty → Bool
   | .constraint a b => a.wellFormed && b.wellFormed
   | .scalarBinding a b c d e f => a.wellFormed && b.wellFormed && c.wellFormed && d.wellFormed && e.wellFormed && f.wellFormed
   | .stateScalar a b c => a.wellFormed && b.wellFormed && c.wellFormed
-  | .count x => x.wellFormed
-  | .item x i => x.wellFormed && i.wellFormed
+  | .count x => x.wellFormed && x.prefix
+  | .item x i => x.wellFormed && x.prefix && i.wellFormed
   | .add x y => x.wellFormed && y.wellFormed && x.simple && y.term
   | .sub x y => x.wellFormed && y.wellFormed && x.simple && y.term
   | .mul x y => x.wellFormed && y.wellFormed && x.primary && y.primary
@@ -1994,13 +2015,13 @@ def Expr.wellFormed : Expr ty → Bool
   | .not x => x.wellFormed && x.primary
   | .group x => x.wellFormed && !x.isElsif
   | .locals x => x.wellFormed
-  | .byteAt text position => text.wellFormed && position.wellFormed
-  | .sourceLast text => text.wellFormed
-  | .sourceLength text => text.wellFormed
+  | .byteAt text position => text.wellFormed && text.prefix && position.wellFormed
+  | .sourceLast text => text.wellFormed && text.prefix
+  | .sourceLength text => text.wellFormed && text.prefix
   | .characterVal x => x.wellFormed
   | .tokenEq x y => x.wellFormed && y.wellFormed
   | .tokenSpelling x => x.wellFormed
-  | .spellingLength x => x.wellFormed
+  | .spellingLength x => x.wellFormed && x.prefix
   | .wordToken x => x.wellFormed
   | .hasArguments x => x.wellFormed
   | .tokensLast x => x.wellFormed
@@ -2017,7 +2038,7 @@ def Expr.wellFormed : Expr ty → Bool
   | .stateTarget s p t => s.wellFormed && p.wellFormed && t.wellFormed
   | .stateCapacity s p c => s.wellFormed && p.wellFormed && c.wellFormed
   | .stateDynamic s a b => s.wellFormed && a.wellFormed && b.wellFormed
-  | .stateBinding s p info => s.wellFormed && p.wellFormed && info.wellFormed
+  | .stateBinding s p info => s.wellFormed && s.prefix && p.wellFormed && info.wellFormed
   | .someForm source => source.wellFormed
   | .firstForm _ source => source.wellFormed
   | .operation _ => true
@@ -2086,6 +2107,43 @@ abbrev WellFormedTrees : Prop :=
 theorem checked_precedence : WellFormedTrees := by decide +kernel
 
 namespace PrecedenceChecks
+
+private theorem selected_prefixes :
+    (Expr.field .statePosition (.group .initial)).wellFormed = false ∧
+    (Expr.field .statePosition (.group (.ite (.truth true) .initial .invalid))).wellFormed = false ∧
+    (Expr.field .statePosition (.statePosition .initial (.number 1))).wellFormed = false ∧
+    (Expr.field .intervalLower (.interval (.integerNumber 0) (.integerNumber 1))).wellFormed = false ∧
+    (Expr.count (.group (.variable "names"))).wellFormed = false ∧
+    (Expr.scalarCount (.group (.variable "scalars"))).wellFormed = false ∧
+    (Expr.arrayCount (.group (.variable "arrays"))).wellFormed = false ∧
+    (Expr.subtypeCount (.group (.variable "subtypes"))).wellFormed = false ∧
+    (Expr.field .statePosition .initial).wellFormed = true ∧
+    (Expr.field .bindingFirst (.item (.variable "names") (.number 1))).wellFormed = true ∧
+    (Expr.field .scalarAfter
+      (.scalarReadDefault (.variable "text") (.number 1) (.variable "scalars"))).wellFormed = true := by decide +kernel
+
+private theorem indexed_and_attribute_prefixes :
+    (Expr.item (.group (.variable "names")) (.number 1)).wellFormed = false ∧
+    (Expr.subtypeItem (.group (.variable "subtypes")) (.number 1)).wellFormed = false ∧
+    (Expr.hiddenFlag (.group (.variable "flags")) (.operation .output)).wellFormed = false ∧
+    (Expr.byteAt (.group (.variable "text")) (.number 1)).wellFormed = false ∧
+    (Expr.sourceLast (.group (.variable "text"))).wellFormed = false ∧
+    (Expr.sourceLength (.group (.variable "text"))).wellFormed = false ∧
+    (Expr.spellingLength (.group .integerTypeWord)).wellFormed = false ∧
+    (Expr.item (.variable "names") (.number 1)).wellFormed = true ∧
+    (Expr.hiddenFlag (.variable "flags") (.operation .output)).wellFormed = true ∧
+    (Expr.byteAt (.variable "text") (.number 1)).wellFormed = true ∧
+    (Expr.spellingLength (.tokenSpelling (.token (.symbol ":")))).wellFormed = true := by decide +kernel
+
+private theorem aggregate_base_categories :
+    (Expr.stateBinding (.group .initial) (.number 1) (.variable "info")).wellFormed = false ∧
+    (Expr.subtypeAppend (.group (.variable "subtypes")) (.number 1) (.number 2)
+      .fullInterval (.truth false) (.truth false) (.variable "flags")).wellFormed = false ∧
+    (Expr.arrayAppend (.group (.variable "arrays")) (.number 1) (.number 2)
+      .fullInterval (.number 0) (.number 1) (.truth false) .fullInterval (.truth false)).wellFormed = false ∧
+    (Expr.stateBinding .initial (.number 1) (.variable "info")).wellFormed = true ∧
+    (Expr.statePosition (.group .initial) (.number 1)).wellFormed = true ∧
+    (Expr.statePosition (.statePosition .initial (.number 1)) (.number 2)).wellFormed = true := by decide +kernel
 
 private def rightSub : Expr .integer := .integerSub (.integerNumber 10)
   (.integerSub (.integerNumber 3) (.integerNumber 1))
