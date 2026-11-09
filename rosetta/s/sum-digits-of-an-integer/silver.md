@@ -1,25 +1,27 @@
 # Sum digits of an integer
 
-**Candidate: proofs plausibly discharge automatically.** Every check follows from subtype ranges for Base and a guard before the accumulator addition, and the loop sits in a procedure so no variant is needed; the only care needed is the loop-carried Sum overflow guard.
+**Candidate: proofs likely to discharge automatically.** Since N < 2^31 and Base >= 2, thirty-one divisions consume every digit throughout the declared formal-domain product. Extra leading zero digits contribute nothing. Before any addition at most thirty digits of value <=35 give Total <=1050, so the guard never discards a digit and the result fits 1085. The four primary examples give 1, 10, 29 and 29. The analytical argument covers all declared inputs; retained finite checks do not claim exhaustive enumeration of that domain. The [reconciliation](../../../rosetta/assessment-scalar-function-batch-20261108.md) preserves the original assessment attribution and links the separately reviewed Linux application evidence; final combined integration and independent delivery status remain in the batch delivery record.
 
-Position 224 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 74 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 
-A procedure Sum_Of_Digits takes a Natural value N and a Base of subtype 2..36 and returns the digit sum through an out parameter, using a while loop that adds Val mod Base to Sum and divides Val by Base. Sum is a ranged subtype with a guard before each addition that rejects if the limit would be exceeded. Main calls it on the embedded examples (1, 1234, 16#fe#, 16#f0e# in the proper bases) and prints each result with Integer'Image through Put_Line. About 45 lines.
+Use samples/rosetta_sum_digits_of_an_integer.adb: Sum_Digits takes N in 0..2147483647 and Base in 2..36 and returns 0..1085. Thirty-one counted iterations add Remaining mod Base under Total <= 1050, then divide Remaining by Base. Main indexes constant input/base arrays and assigns calls before printing; decimal inputs 254 and 3854 with base 16 are the required FE and F0E examples. About 39 lines.
 
 ## Proof obligations to watch
 
-- **overflow**: The loop-carried Sum has only its type range after the first iteration, so each addition is preceded by a guard against Sum exceeding a declared limit that leads to a visible rejection, which can never trigger for 31-bit inputs.
-- **termination**: The digit-extraction loop lives in a procedure, so no termination check is generated, and the loop is still finite because Val shrinks by division by Base of at least 2.
-- **division**: Base is a subtype ranging 2..36 so the mod and / divisors are statically nonzero.
+- **division**: The full 2..36 base range excludes zero for every / and mod operation.
+- **range**: Each digit is in 0..35; the static <=1050 guard bounds the sum after addition by 1085 and never truncates a required digit.
+- **termination**: The fixed thirty-one-step loop terminates; N < 2^31 and Base >= 2 separately establish complete extraction for every declared input.
 
 ## Language surface recorded by this assessment
 
-Integers, integer division, ranged subtypes, procedures, while loops, 'Image of scalars and string building.
+Named Integer subtypes and bounded components, small nonrecursive scalar functions, bounded mutable Integer objects, Integer range for loops, interval-checked Integer division, scalar guard refinement, fixed-size Integer arrays and Integer image.
 
 ## External effects
 
-- **console output** (allowed): The sums for the embedded example numbers are printed with Put_Line.
+- **console output** (allowed): Prints seventeen digit sums including all four required decimal/base-16 examples and zero, base and Integer-boundary cases.
 
-Assessed on 2026-10-15 against page revision 413075 of the [task](https://rosettacode.org/wiki/Sum_digits_of_an_integer) by claude-sonnet-5-5 at medium effort; confidence medium. The inclusion policy is in `rosetta/coverage.json`.
+Initially assessed on 2026-10-15 against page revision 413075 of the [task](https://rosettacode.org/wiki/Sum_digits_of_an_integer) by claude-sonnet-5-5 at medium effort; current confidence high. The inclusion policy is in `rosetta/coverage.json`.
+
+Revised on 2026-11-08 by Codex through targeted source review; see the [review record](../../assessment-scalar-function-batch-20261108.md).

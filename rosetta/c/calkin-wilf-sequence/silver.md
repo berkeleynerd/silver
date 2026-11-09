@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is small bounded integer arithmetic with iteration, so checks follow from ranged types and explicit guards with visible rejection, though several loop-carried values (denominator, term count, index accumulator) each need a guard placed just before use.
 
-Position 275 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 279 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

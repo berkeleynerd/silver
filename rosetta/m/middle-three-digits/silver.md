@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All arithmetic is on values bounded by Integer and loop counts are fixed at most 10, so overflow, index and range checks follow from types and one guard, and the error case is a visible Boolean outcome rather than an exception.
 
-Position 453 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 454 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

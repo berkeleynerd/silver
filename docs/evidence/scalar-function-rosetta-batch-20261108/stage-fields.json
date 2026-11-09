@@ -1,0 +1,69 @@
+{
+  "metadata_target": "c9d8f3352296503e314174ce6b552af65ba9a5e0",
+  "basis": "Existing project values compared to final render; independent review checks the construct-stage mapping.",
+  "fields": [
+    {
+      "issue": 9,
+      "item_id": "PVTI_lAHOAd-1yc4BnN6ozhBB8hk",
+      "status": "Done",
+      "recorded_stage": 1,
+      "rendered_stage": 1,
+      "constructs": null,
+      "changed": false
+    },
+    {
+      "issue": 10,
+      "item_id": "PVTI_lAHOAd-1yc4BnN6ozhBB8oI",
+      "status": "Done",
+      "recorded_stage": 1,
+      "rendered_stage": 1,
+      "constructs": "integer-for-loops, immutable-integers, integer-image",
+      "changed": false
+    },
+    {
+      "issue": 11,
+      "item_id": "PVTI_lAHOAd-1yc4BnN6ozhBB8vk",
+      "status": "Backlog",
+      "recorded_stage": 2,
+      "rendered_stage": 2,
+      "constructs": "for-loops, integers, procedures, ranged-subtypes, scalar-image",
+      "changed": false
+    },
+    {
+      "issue": 12,
+      "item_id": "PVTI_lAHOAd-1yc4BnN6ozhBB82k",
+      "status": "Backlog",
+      "recorded_stage": 3,
+      "rendered_stage": 3,
+      "constructs": "arrays",
+      "changed": false
+    },
+    {
+      "issue": 229,
+      "item_id": "PVTI_lAHOAd-1yc4BnN6ozhDcFYg",
+      "status": "Done",
+      "recorded_stage": 1,
+      "rendered_stage": 1,
+      "constructs": "interval-integer-division",
+      "changed": false
+    },
+    {
+      "issue": 234,
+      "item_id": "PVTI_lAHOAd-1yc4BnN6ozhDcFkg",
+      "status": "Done",
+      "recorded_stage": 1,
+      "rendered_stage": 1,
+      "constructs": "scalar-guard-refinement",
+      "changed": false
+    },
+    {
+      "issue": 341,
+      "item_id": "PVTI_lAHOAd-1yc4BnN6ozhG65vw",
+      "status": "Done",
+      "recorded_stage": 1,
+      "rendered_stage": 1,
+      "constructs": "scalar-functions",
+      "changed": false
+    }
+  ]
+}

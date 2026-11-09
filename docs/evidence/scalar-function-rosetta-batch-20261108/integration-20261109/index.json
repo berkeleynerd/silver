@@ -1,0 +1,20 @@
+[
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261109T203227-4742be5f3187/events.jsonl",
+    "artifact": "events.jsonl.gz",
+    "sha256": "a1f99de8261b2a7f7a09afc55b58ffdbeef3436200afe446df8b6ed35f489dfe",
+    "bytes": 224019
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261109T203227-4742be5f3187/native.log",
+    "artifact": "native.log.gz",
+    "sha256": "ef9a1caad93a616ba97c40f5418a0f92bc3384158b2864d7700413276a6ce5b2",
+    "bytes": 773
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-function-rosetta-delivery-345/tmp/integration-20261109/rosetta-test.log",
+    "artifact": "rosetta-test.log.gz",
+    "sha256": "3e5274d671858f8249679f5b251820ba15b03c549e4183d8510a28eac3017b39",
+    "bytes": 945
+  }
+]

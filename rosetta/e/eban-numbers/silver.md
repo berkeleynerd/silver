@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check is arithmetic on constant-bounded integers inside for loops with no recursion, so only the loop-carried count needs a guard, and no annotation is required.
 
-Position 394 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 395 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All values are tiny (1..33) with fixed-size buffers and bases, so every index and range check follows from types and loop guards, with no function termination issues because the while loop lives in a procedure.
 
-Position 441 in the [progression](../../../progression.md#stage-9), in stage 9.
+Position 442 in the [progression](../../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

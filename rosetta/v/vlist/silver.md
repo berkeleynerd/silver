@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is a pure in-memory data structure demo that maps to index-based arrays instead of pointers, so only console output is needed and all checks follow from fixed capacities and guards. It is plausible rather than likely because the lookup and length walks carry block and offset indexes through loops with no invariants.
 
-Position 628 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 629 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

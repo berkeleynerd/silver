@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All divisions have nonzero literal-bounded divisors and loop indexes come from for ranges, and the single loop-carried multiplication is covered by an explicit guard before use, so no annotation is needed.
 
-Position 122 in the [progression](../../progression.md#stage-6), in stage 6.
+Position 134 in the [progression](../../progression.md#stage-6), in stage 6.
 
 ## Approach
 

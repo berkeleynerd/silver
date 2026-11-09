@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All loops are for loops or while loops inside procedures (no termination check), arrays are statically sized, and every arithmetic step is bounded by wide subtypes plus explicit guards, so nothing needs an annotation; the main burden is guarded loop-carried arithmetic and the new integer, array, string-building and Put surface.
 
-Position 471 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 472 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

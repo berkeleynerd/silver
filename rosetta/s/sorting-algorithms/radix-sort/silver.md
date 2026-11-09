@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All bounds are static and every loop is a for loop over fixed ranges, so checks follow from types and guards, but loop-carried counts and prefix sums need careful guards because no invariants can be written.
 
-Position 253 in the [progression](../../../progression.md#stage-7), in stage 7.
+Position 257 in the [progression](../../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

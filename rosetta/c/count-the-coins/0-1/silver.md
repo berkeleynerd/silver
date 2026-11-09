@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All indices and bounds come from static array ranges and for loops with no recursion or while loops, but the loop-carried counts and factorial products need explicit cap guards to discharge overflow without invariants, so it is plausible rather than likely.
 
-Position 697 in the [progression](../../../progression.md#stage-12), in stage 12.
+Position 698 in the [progression](../../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

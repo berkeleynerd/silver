@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task asks only to display moving gradient bars, which text-art frames on the console satisfy, and all indexing comes from constant tables, ranged subtypes and for-loop indexes with no loop-carried unbounded values. No floating point or recursion is needed.
 
-Position 661 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 662 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

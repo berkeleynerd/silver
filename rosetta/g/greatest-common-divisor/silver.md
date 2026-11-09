@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** For nonnegative magnitudes at most 1000, two Euclidean updates at least halve the second operand; 20 updates suffice since 2**10 exceeds 1000. Cases include ordinary, zero, both-zero, signed and coprime pairs, including (610, 987). This bounded demonstration does not claim an unrestricted GCD API. The exact source passed admission, complete required application/library proof audit, build and manifest execution in integration run 20261107T164659-9f6192441d21; the linked assessment records the evidence scope. The linked delivery record carries the independent closing review status.
 
-Position 63 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 68 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

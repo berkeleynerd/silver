@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task only asks for a 3D house and bar chart, which text art meets, and integer projection over bounded grids has types or guards bounding every check.
 
-Position 669 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 670 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arrays are statically bounded, and every loop-carried counter can be kept in range with an explicit guard before use, so no annotation is needed, but the many guarded counters and the Image-based text building require careful program shape.
 
-Position 278 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 282 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

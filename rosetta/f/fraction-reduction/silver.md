@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every operation is a for loop over fixed-size digit arrays with bounded subtypes, so range, index and termination checks follow from types, and the only non-routine items are loop-carried counters and the bounded nonlinear product. No annotations or recursion are needed, but careful counter typing makes it plausible rather than likely.
 
-Position 724 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 725 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

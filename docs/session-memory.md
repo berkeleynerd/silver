@@ -1,5 +1,36 @@
 # Session memory
 
+## 2026-11-09 — PR #354 merge authorized; report the next unit
+
+The owner instructed **“Let's merge it. Then report what we should work on
+next.”** This authorizes merging the ready
+[PR #354](https://github.com/berkeleynerd/silver/pull/354) and ordinary #345 /
+milestone-21 closeout, superseding the earlier handoff's separate merge hold.
+The [current-main integration](scalar-function-rosetta-batch.md#current-main-integration--2026-11-09)
+retains complete accepted assurance and the successful focused Rosetta checks.
+Only authorization/status records change after that checkpoint.
+
+Report the recommended next coherent unit after merge; do not begin a successor
+implementation under this instruction. The accepted delivery adds twelve
+Rosetta mappings, bringing the supported total to 83. Preserve unrelated work,
+the original review/evidence history, and deferred capacity/assurance-mode work.
+CLI recall was not updated.
+
+## 2026-11-09 — PR #354 documentation cleanup authorized
+
+The owner allowed the cleanup to ride in any PR and explicitly clarified
+**“PR #354 documentation cleanup.”** Carry it in the existing
+[PR #354](https://github.com/berkeleynerd/silver/pull/354): integrate current
+main, preserve both dated session histories, and update delivery/evidence
+references after the external-review response merged. The existing #345
+publication scope covers these record and focused integration checks.
+
+This selects no proof-runner optimization or successor feature. PR #354's
+separate implementation merge hold remains in place. The successful complete response checkpoint is retained, and all three affected
+Rosetta tests passed in the [current-main integration](scalar-function-rosetta-batch.md#current-main-integration--2026-11-09). No new native/Lean cycle was run for this
+metadata/documentation integration.
+Unrelated worktrees and scratch are preserved. CLI recall was not updated.
+
 ## 2026-11-09 — External review response validated and accepted
 
 The owner-authorized [#355 response](https://github.com/berkeleynerd/silver/issues/355)
@@ -48,6 +79,35 @@ are preserved. Selected subthreads: Astra Max for proof repair and inherited
 source/contract analysis, Sol Extra High for checkable tests and records; selected
 settings are not independently observed runtime settings. No CLI recall update
 was made.
+
+## 2026-11-08 — Digit/prime examples merged; combined delivery reviewed
+
+Owner-authorized [PR #353](https://github.com/berkeleynerd/silver/pull/353)
+merged as `247592a8fa2cb1230594c50246894f0cf461a642`. #344 is closed/Done;
+its accepted source/manifest review target remains `f2842c6d62ec`, with complete
+focused application evidence and independently reviewed assurance reuse.
+Authorization commit `27b649e4ad` changed only documentation and selected #345.
+
+[#345](https://github.com/berkeleynerd/silver/issues/345) is implemented, validated
+and independently reviewed in `tmp/scalar-function-rosetta-delivery-345`, branch
+`feat/scalar-function-rosetta-delivery-345-20261108`. Metadata target
+`c9d8f3352296` integrates the separate Sol / Extra High reconciliation
+`3c2e1a6224`. Astra / Max independently accepted final task fidelity, evidence applicability
+and integration at records target `e4284899cd`, with no material finding. The lead owns
+managed affected tests, delivery records, board checks and publication. Selected
+settings are distinct from independently confirmed live runtime settings,
+which are unavailable.
+
+The [combined checkpoint](scalar-function-rosetta-batch.md#combined-delivery--2026-11-08)
+retains the twelve merged programs and unchanged compiler, proof and capacity
+inputs. All three sample groups have successful application evidence; the three
+affected Rosetta tests now pass. The rendered branch adds twelve faithful task
+mappings, from 71 to 83; tracked construct-stage assignments remain unchanged.
+[PR #354](https://github.com/berkeleynerd/silver/pull/354) publishes the combined
+result for review. Its delivery merge remains held for the owner; milestone 21
+stays open and no successor capability is selected. Main retains its earlier
+coverage until that merge. No CLI recall update was made. Unrelated root changes,
+external-review workspaces and scratch remain preserved.
 
 ## 2026-11-08 — Digit/prime merge and combined Rosetta delivery authorized
 

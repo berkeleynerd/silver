@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is a fixed-size for-loop over a small constant array with values bounded by a ranged subtype, so all checks follow from types and static bounds. The only new surface is arrays, integer image, bounded string building and non-newline Put.
 
-Position 645 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 646 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

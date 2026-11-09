@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All loops are bounded by declared ranges and every arithmetic value fits a small range subtype, so proofs should discharge with careful guards and without any invariants, provided digit-peeling and trial division are written as for loops or in procedures.
 
-Position 377 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 378 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

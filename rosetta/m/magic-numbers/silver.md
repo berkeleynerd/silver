@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** No big numbers are needed because only prefix remainders modulo at most 25 are tracked, and every loop is a procedure while loop over bounded subtypes, so checks follow from types and depth guards. The nonroutine part is the loop-carried depth cursor and counters, which need careful typing.
 
-Position 470 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 471 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

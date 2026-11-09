@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The program is a fixed list of Put_Line calls on string literals, which today's Silver already supports. Its only proof obligations are initialization and data flow, which are trivial for this program.
 
-Position 68 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 75 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

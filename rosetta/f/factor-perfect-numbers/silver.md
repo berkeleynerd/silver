@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything reduces to bounded-array iteration and guarded integer additions in procedures with no recursion or functions needing variants, so proofs should discharge with careful guard placement but no annotations.
 
-Position 295 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 299 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

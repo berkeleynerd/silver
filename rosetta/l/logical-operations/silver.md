@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The only checks are Bronze-level initialization and data flow of two in-mode Boolean parameters; Boolean operators and literal output cannot raise a run-time error, so everything discharges trivially.
 
-Position 110 in the [progression](../../progression.md#stage-5), in stage 5.
+Position 122 in the [progression](../../progression.md#stage-5), in stage 5.
 
 ## Approach
 

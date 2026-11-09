@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is bounded for-loop integer arithmetic over ranged types and constant-size arrays with no loop-carried values, so all checks follow from types and static bounds; the task allows text art with distinct stroke, fill and background tokens.
 
-Position 665 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 666 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

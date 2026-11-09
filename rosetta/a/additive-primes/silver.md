@@ -1,24 +1,26 @@
 # Additive primes
 
-**Candidate: proofs likely to discharge automatically.** All bounds are small and static (N below 500, digit sum at most 22), so the checks follow from ranged types and a guard before the sieve write, and no loop invariant is needed.
+**Candidate: proofs likely to discharge automatically.** Every composite N >= 4 has a divisor in 2..N/2; empty loops accept two and three. Three digit extractions cover the complete helper domain, and at most two earlier digits give a sum <=18, so the guard preserves the exact decimal digit sum. Main covers every required candidate below 500. Independent sieve and decimal-text expectations match all 54 selected values. No sieve array, while loop, output buffer or extra procedure is required by the task. The [reconciliation](../../../rosetta/assessment-scalar-function-batch-20261108.md) preserves the original assessment attribution and links the separately reviewed Linux application evidence; final combined integration and independent delivery status remain in the batch delivery record.
 
-Position 209 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 79 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 
-Use a Boolean array over 0..499 filled by a for-loop sieve (inner multiples advanced with a guarded while loop in the main procedure, or a for loop over N in 2..249 with an explicit N*P <= 499 guard). For each N, compute the digit sum by three fixed div/mod steps (hundreds, tens, units) into a ranged Sum, then if both Prime(N) and Prime(Sum) hold, increment a ranged Count and print N with Put and Put_Line using scalar-image, wrapping every 12 columns; finish with the count line. About 55 lines.
+Use samples/rosetta_additive_primes.adb: Is_Prime on 0..499 rejects zero and one and tests all divisors 2..N/2. Digit_Sum extracts three decimal digits with a <=18 pre-addition guard and returns 0..27. Main scans 2..499, assigns primality, digit-sum and digit-primality calls to scalar locals and prints candidates for which both flags are true. About 46 lines.
 
 ## Proof obligations to watch
 
-- **index**: The sieve multiple N*P is guarded to be at most 499 before indexing, and the digit sum of a value in 2..499 is at most 22, so Prime(Sum) indexes safely when the array covers 0..499 or the sum is guarded.
-- **overflow**: Loop-carried Count and digit-sum accumulators are declared with ranged subtypes (Count 0..499, Sum 0..27), and the sieve product is bounded by P<=499 and N<=499 in Integer.
+- **division**: The N >= 2 guard checks the positive half bound, and each executed trial divisor is at least two; decimal divisions use literal ten.
+- **range**: The exact three-digit sum fits 0..27, and its full declared result range fits the 0..499 primality formal without relying on call-specific correlations.
 
 ## Language surface recorded by this assessment
 
-Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, 'Image of scalars, Put without a newline, procedures and string building.
+Named Integer subtypes and bounded components, small nonrecursive scalar functions, bounded mutable Integer objects, scalar Boolean objects and expressions, Integer range for loops, interval-checked Integer division, scalar guard refinement and Integer image.
 
 ## External effects
 
-- **console output** (allowed): Prints the heading, the additive primes below 500 in columns, and the count.
+- **console output** (allowed): Prints all 54 additive primes less than 500, one per line; the optional count is omitted.
 
-Assessed on 2026-10-15 against page revision 411689 of the [task](https://rosettacode.org/wiki/Additive_primes) by claude-sonnet-5-5 at medium effort; confidence high. The inclusion policy is in `rosetta/coverage.json`.
+Initially assessed on 2026-10-15 against page revision 411689 of the [task](https://rosettacode.org/wiki/Additive_primes) by claude-sonnet-5-5 at medium effort; current confidence high. The inclusion policy is in `rosetta/coverage.json`.
+
+Revised on 2026-11-08 by Codex through targeted source review; see the [review record](../../assessment-scalar-function-batch-20261108.md).

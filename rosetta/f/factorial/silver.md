@@ -1,25 +1,26 @@
 # Factorial
 
-**Candidate: proofs plausibly discharge automatically.** Iterative factorial over a ranged argument with a division-based guard on the accumulator needs no annotation, but the nonlinear loop-carried multiply makes discharge depend on program shape rather than being routine.
+**Candidate: proofs likely to discharge automatically.** The primary task requires a real factorial function and permits iteration. The empty loop returns 0! = 1. Before step i <= 12 the exact accumulator is (i-1)! <= 39916800, so the static guard never skips a product; 12! = 479001600 fits Integer, while 13! does not. The sample covers the complete nonnegative argument domain whose factorial fits this Integer representation; optional negative-input handling is omitted. The [reconciliation](../../../rosetta/assessment-scalar-function-batch-20261108.md) preserves the original assessment attribution and links the separately reviewed Linux application evidence; final combined integration and independent delivery status remain in the batch delivery record.
 
-Position 165 in the [progression](../../progression.md#stage-6), in stage 6.
+Position 45 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 
-Declare subtype Arg is Integer range 0 .. 20 and subtype Fact is Long_Long_Integer range 1 .. 20!, and an iterative procedure Factorial (N : Arg; Result : out Fact; Ok : out Boolean) with a for loop from 2 to N, each step guarded by Result <= Max / I before multiplying, setting Ok false otherwise. Main loops N over 0 .. 20 calling it and printing "N! = value" with Put_Line, reporting an overflow line if Ok is false; negative n is excluded by the argument type, and larger n is outside the documented limit of 20. About 35 lines.
+Use samples/rosetta_factorial.adb: Factorial(N : in Factorial_Argument) returns Factorial_Value, with argument range 0..12 and result range 1..479001600. Its initialized local Result is multiplied by every Factor in 1..N under Result <= 39916800, followed by one terminal return. Main assigns each call result to a scalar and prints all thirteen inputs with Integer Image. About 22 lines.
 
 ## Proof obligations to watch
 
-- **overflow**: The loop-carried product Result * I is known only by its subtype range, so the program guards it with Result <= Max / I just before the multiply, which provers can discharge with a constant Max, and the else branch reports failure visibly.
-- **range**: The result subtype 1 .. 20! and the argument subtype 0 .. 20 make assignments and the 'Image conversion routine checks follow from declared ranges.
-- **length**: Concatenating a literal with two 'Image results into Put_Line needs a bound on the image lengths, which follow from the ranged subtypes (at most 2 and 19 digits).
+- **overflow**: The bare-local static guard Result <= 39916800 and Factor <= 12 bound each admitted product by 479001600; the factorial-prefix argument establishes that the guard preserves every required update.
+- **range**: Every computed product and the terminal return fit the declared 1..479001600 result range over the full 0..12 formal domain.
 
 ## Language surface recorded by this assessment
 
-Integers, integer division, ranged subtypes, for loops, procedures, 'Image of scalars, string building and Boolean objects.
+Named Integer subtypes and bounded components, small nonrecursive scalar functions, bounded mutable Integer objects, Integer range for loops, scalar guard refinement and Integer image.
 
 ## External effects
 
-- **console output** (allowed): Prints each n and n! as a line of text via Put_Line.
+- **console output** (allowed): Prints the input and its computed factorial for every integer 0..12 with Put_Line.
 
-Assessed on 2026-10-15 against page revision 415532 of the [task](https://rosettacode.org/wiki/Factorial) by claude-sonnet-5-5 at medium effort; confidence medium. The inclusion policy is in `rosetta/coverage.json`.
+Initially assessed on 2026-10-15 against page revision 415532 of the [task](https://rosettacode.org/wiki/Factorial) by claude-sonnet-5-5 at medium effort; current confidence high. The inclusion policy is in `rosetta/coverage.json`.
+
+Revised on 2026-11-08 by Codex through targeted source review; see the [review record](../../assessment-scalar-function-batch-20261108.md).

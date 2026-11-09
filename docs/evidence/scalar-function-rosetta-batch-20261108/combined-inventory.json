@@ -1,0 +1,33 @@
+{
+  "checked_target": "247592a8fa2cb1230594c50246894f0cf461a642",
+  "manifest_sha256": "d3f50c254bc14109fdbfd378e4a6bd5bfa631da670c6436737010299155a4752",
+  "program_records": 84,
+  "execution_cases": 147,
+  "baseline_program_records": 72,
+  "baseline_execution_cases": 135,
+  "new_programs": 12,
+  "new_helper_declarations": 17,
+  "new_output_lines": 454,
+  "test_id_count": 645,
+  "retained_test_ids": 642,
+  "checks": "Unique complete source inventory; schema/capability/specification/expected-field checks; all72 baseline full records and exact source blobs match accepted #339; independent reviewer confirmed three-group composition.",
+  "new_sources": {
+    "rosetta_factorial.adb": "0334749ecb7fc9aac75a97492cdb084453bd48cfafe57c69053c33ecc2172a0e",
+    "rosetta_fibonacci_sequence.adb": "4690aabaa7757890d2a01e21da7a31f938ff71a4be250ce3d40736c6f7c65ab7",
+    "rosetta_signum.adb": "96709a2d51bd874ef22dc0b2f916cd12e8d60bbfed538d3d1b83b868a56b1937",
+    "rosetta_sum_multiples_of_3_and_5.adb": "24d02d8658e43a36bc09388c04542975eb2508e30761b26852f622b4afe35fd6",
+    "rosetta_least_common_multiple.adb": "3bf5444b068802b7a5b94a2a0dd867774a66f9639f9ea11a87c2fd9481bb8582",
+    "rosetta_coprimes.adb": "9d192a9cd5970abd9f8bc115de8fa72196ae547d4b6c497c01b3fd8cc3d900bb",
+    "rosetta_sum_of_divisors.adb": "c1bdfeb4b41ee616e300a42a27da346a44f345cc1a7fb615a340a758a4079b17",
+    "rosetta_tau_function.adb": "597f4d08a3678891e4ccb81014bfb462c40b89cd52927111baea0c8846b1846c",
+    "rosetta_sum_digits_of_an_integer.adb": "0d3fa1abbe651218b315ff68de6fc0889a45132cb4da1c1c81f96dfd1b3cd878",
+    "rosetta_happy_numbers.adb": "bc9f41507a6f597ada5276441f29e418c8454bc34d707b90b302083cea49dc6f",
+    "rosetta_additive_primes.adb": "708e9a9294647a59f96130328fb7013bb146aadb69cd5197745bb201ee016f01",
+    "rosetta_attractive_numbers.adb": "453ec68a06b211d80fe0ec4beabfa8fac5ccf95c5bea12350565b8883c58694b"
+  },
+  "fresh_test_ids": 3,
+  "metadata_target": "c9d8f3352296503e314174ce6b552af65ba9a5e0",
+  "managed_test_run": "20261108T225101-0e909fa50875",
+  "managed_test_inputs": 1116,
+  "source_metadata_unchanged_after_inventory": true
+}

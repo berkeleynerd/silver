@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded array and for-loop work in procedures with small ranged types, so checks follow from types and guards, but the loop-carried used-flags, rotation indexing and invalid-input paths need careful shaping. No annotation-only facts, recursion or heap are needed.
 
-Position 632 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 633 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
