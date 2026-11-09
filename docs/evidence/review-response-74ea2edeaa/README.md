@@ -38,7 +38,9 @@ actual driver exit 0, 77 units, 1,165 entities, 1,605 flow checks and 16,920 pro
 checks (18,525 total). It was a forced full-scope run with eight workers and the
 recorded warm cache seed, not a cold run. The 81 report/provenance files and actual
 runner output are retained under that run. Complete Lean/source/module/axiom
-validation and final regressions remain pending.
+validation remains pending. The [complete regression packet](regression/README.md)
+records all 648 successful executions, covering 634 method definitions, all nine
+response regressions and all 84 manifest samples, with actual driver exit 0.
 
 Independent evidence review identified the missing archived `gnatprove.sarif`
 file after the initial packet was committed. It is now retained with its exact
@@ -50,7 +52,12 @@ started after the successful leaf batch, with one Lake worker and automatic
 62.87 GiB, no-swap host; it is not a persistent one-worker default. The independent
 regression installation then started full unfiltered run
 `20261109T144553-8abe96c6e3ad` with the remaining 21-worker reservation, unchanged
-deadlines and no exclusions. Both outcomes are pending.
+deadlines and no exclusions. The suite passed in 4,495.139 seconds (4,498.508 seconds
+managed duration), with no failures, errors or skips. Complete Lean remains active.
+Regression source inputs match the canonical installation; generated installation
+prefixes and the resulting executable hashes are recorded separately. The test
+binary remained unchanged during the suite; byte-equality between the two
+installation-specific binaries is not claimed.
 
 The final [live catalogue comparison](catalogue-parity.json), performed after
 the #367 wording rebuild, is byte-identical to `catalogue/silver.json`.
