@@ -42,7 +42,7 @@ namespace StructuralControls
 
 private def atom : Expr Bool := .empty .intervalValue
 
-theorem not_collision :
+private theorem not_collision :
     (Expr.not (.orElse atom atom)).render = (Expr.orElse (.not atom) atom).render ∧
     (Expr.not (.orElse atom atom)).wellFormed = false ∧
     (Expr.orElse (.not atom) atom).wellFormed = true := by decide +kernel
@@ -55,7 +55,7 @@ theorem subtraction_collision :
     (Expr.sub (.sub (.number 10) (.number 3)) (.number 2)).wellFormed = true :=
   ⟨rfl, subtraction_association_guard, rfl⟩
 
-theorem mixed_operators_and_nested_children :
+private theorem mixed_operators_and_nested_children :
     (Expr.andThen (.orElse atom atom) atom).wellFormed = false ∧
     (Expr.andThen (.group (.orElse atom atom)) atom).wellFormed = true ∧
     (Expr.orElse atom (.andThen atom atom)).wellFormed = false ∧

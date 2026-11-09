@@ -313,7 +313,7 @@ private def functions : Expr .metadata := .variable "functions"
 private def item : Expr .formal := .variable "item"
 private def condition : Expr .truth := .eq (.number 0) (.number 0)
 
-theorem selected_and_indexed_prefixes :
+private theorem selected_and_indexed_prefixes :
     (Expr.field .count (.group functions)).wellFormed = false ∧
     (Expr.field .count (.group (.ite condition functions functions))).wellFormed = false ∧
     (Expr.field .count (.group (.extendFormal functions item))).wellFormed = false ∧
@@ -323,7 +323,7 @@ theorem selected_and_indexed_prefixes :
     (Expr.field .first (.signature functions (.number 1))).wellFormed = true ∧
     (Expr.field .parameterFirst (.parameter functions (.number 1))).wellFormed = true := by decide +kernel
 
-theorem embedded_prefixes :
+private theorem embedded_prefixes :
     (Expr.forAllSignatures "i" (.group functions) condition).wellFormed = false ∧
     (Expr.forAllParameters "i" (.group functions) condition).wellFormed = false ∧
     (Expr.extendFormal (.group functions) item).wellFormed = false ∧
@@ -335,7 +335,7 @@ theorem embedded_prefixes :
 
 private def atom : Expr .truth := .app (.function .isEmpty) (.variable "bounds")
 
-theorem not_collision :
+private theorem not_collision :
     (Expr.not (.orElse atom atom)).render = (Expr.orElse (.not atom) atom).render ∧
     (Expr.not (.orElse atom atom)).wellFormed = false ∧
     (Expr.orElse (.not atom) atom).wellFormed = true := by decide +kernel
@@ -344,7 +344,9 @@ theorem subtraction_collision :
     (Expr.natSub (.number 10) (.natSub (.number 3) (.number 1))).render =
       (Expr.natSub (.natSub (.number 10) (.number 3)) (.number 1)).render ∧
     (Expr.natSub (.number 10) (.natSub (.number 3) (.number 1))).wellFormed = false ∧
-    (Expr.natSub (.natSub (.number 10) (.number 3)) (.number 1)).wellFormed = true := by decide +kernel
+    (Expr.natSub (.natSub (.number 10) (.number 3)) (.number 1)).wellFormed = true := by
+  refine ⟨rfl, ?_⟩
+  decide +kernel
 
 end StructuralControls
 

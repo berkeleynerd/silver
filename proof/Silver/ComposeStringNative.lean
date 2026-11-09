@@ -441,22 +441,26 @@ private def leftSub : Expr .integer :=
 private def badDeclaration := constant .integer "value" ["scalars", ".", "wide"] rightSub
 private def goodDeclaration := constant .integer "value" ["scalars", ".", "wide"] leftSub
 
-theorem initializer_collision :
+private theorem initializer_collision :
     badDeclaration.render = goodDeclaration.render ∧
-    badDeclaration.wellFormed = false ∧ goodDeclaration.wellFormed = true := by decide +kernel
+    badDeclaration.wellFormed = false ∧ goodDeclaration.wellFormed = true := by
+  refine ⟨rfl, ?_⟩
+  decide +kernel
 
 private def badCondition : Expr .truth := .not (.orElse (.truth true) (.truth true))
 private def goodCondition : Expr .truth := .orElse (.not (.truth true)) (.truth true)
 private def branch (test : Expr .truth) : Command .number :=
   .choose test (.returned (.number 0)) (.returned (.number 1))
 
-theorem command_collision_and_nested_children :
+private theorem command_collision_and_nested_children :
     (branch badCondition).render = (branch goodCondition).render ∧
     (branch badCondition).wellFormed = false ∧ (branch goodCondition).wellFormed = true ∧
     (Command.sequence .nothing (branch badCondition)).wellFormed = false ∧
     (Command.sequence .nothing (branch goodCondition)).wellFormed = true ∧
     (Command.choose (.truth true) (.returned rightSub) (.returned leftSub)).wellFormed = false ∧
-    (Command.choose (.truth true) (.returned leftSub) (.returned leftSub)).wellFormed = true := by decide +kernel
+    (Command.choose (.truth true) (.returned leftSub) (.returned leftSub)).wellFormed = true := by
+  refine ⟨rfl, ?_⟩
+  decide +kernel
 
 end StructuralControls
 

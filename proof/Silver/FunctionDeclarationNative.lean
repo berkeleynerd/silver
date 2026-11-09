@@ -983,7 +983,7 @@ namespace StructuralControls
 private def state : Expr .state := .variable "state"
 private def parameter : Expr .formal := .variable "parameter"
 
-theorem selected_and_indexed_prefixes :
+private theorem selected_and_indexed_prefixes :
     (Expr.field .position (.group state)).wellFormed = false ∧
     (Expr.field .position (.group (.ite (.truth true) state state))).wellFormed = false ∧
     (Expr.field .position (.update .position state (.number 1))).wellFormed = false ∧
@@ -994,7 +994,7 @@ theorem selected_and_indexed_prefixes :
     (Expr.field .constraintAfter
       (apply3 (.function .scalarType) (.variable "text") state (.number 1))).wellFormed = true := by decide +kernel
 
-theorem aggregate_internal_prefixes :
+private theorem aggregate_internal_prefixes :
     (Expr.addHiddenCalls (.group (.field .subtypes state)) (.variable "text") (.number 1) (.number 2)).wellFormed = false ∧
     (Expr.appendBoolean (.group state) parameter).wellFormed = false ∧
     (Expr.appendBoolean state (.group parameter)).wellFormed = false ∧
@@ -1003,7 +1003,7 @@ theorem aggregate_internal_prefixes :
 
 /-- A delta-aggregate base is an expression. Nested updates also retain the
 renderer’s deliberate flattening into one aggregate. -/
-theorem delta_aggregate_bases :
+private theorem delta_aggregate_bases :
     (Expr.update .position (.group state) (.number 1)).wellFormed = true ∧
     (Expr.update .pure (.update .position state (.number 1)) (.truth true)).wellFormed = true ∧
     (Expr.updateDeclarationCount (.group (.variable "context")) (.number 1)).wellFormed = true := by decide +kernel
@@ -1023,7 +1023,9 @@ theorem subtraction_collision :
       (Expr.sub (.sub (.number 10) (.number 3)) (.number 1)).render ∧
     (Expr.sub (.number 10) (.sub (.number 3) (.number 1))).wellFormed = false ∧
     (Expr.sub (.sub (.number 10) (.number 3)) (.number 1)).wellFormed = true ∧
-    (Expr.sub (.number 10) (.group (.sub (.number 3) (.number 1)))).wellFormed = true := by decide +kernel
+    (Expr.sub (.number 10) (.group (.sub (.number 3) (.number 1)))).wellFormed = true := by
+  refine ⟨rfl, ?_⟩
+  decide +kernel
 
 theorem mixed_operators_and_nested_children :
     (Expr.or (.orElse (.truth true) (.truth false)) (.truth true)).wellFormed = false ∧

@@ -23,7 +23,7 @@ private def atom : Expr := .functionHides
 
 /-- This language's controls cover mixed logical chains and fixed quantified
 operands, including rejection of a malformed child inside an explicit group. -/
-theorem logical_and_quantified_categories :
+private theorem logical_and_quantified_categories :
     (Expr.andThen (.orElse atom atom) atom).wellFormed = false ∧
     (Expr.andThen (.group (.orElse atom atom)) atom).wellFormed = true ∧
     (Expr.or (.orElse atom atom) atom).wellFormed = false ∧

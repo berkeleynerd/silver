@@ -255,12 +255,12 @@ theorem selected_prefixes :
 
 private def atom : Expr Bool := .mutable .localTarget
 
-theorem not_collision :
+private theorem not_collision :
     (Expr.not (.orElse atom atom)).render = (Expr.orElse (.not atom) atom).render ∧
     (Expr.not (.orElse atom atom)).wellFormed = false ∧
     (Expr.orElse (.not atom) atom).wellFormed = true := by decide +kernel
 
-theorem categories_and_nested_children :
+private theorem categories_and_nested_children :
     (Expr.eqNat (.choose atom .zero .inputPosition) .zero).wellFormed = false ∧
     (Expr.eqNat (.group (.choose atom .zero .inputPosition)) .zero).wellFormed = true ∧
     (Expr.valueAfter (.condition (.choose atom .zero .inputPosition))).wellFormed = false ∧
