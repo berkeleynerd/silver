@@ -150,6 +150,7 @@ structure Primitives (calls : Calls) : Prop where
     calls.equalName text first after otherFirst otherAfter = Named.equalName text first after otherFirst otherAfter
   nameIs : ∀ text, ValidText text → ∀ first after,
     0 < first → first < after → after ≤ text.length + 1 → ∀ expected,
+    0 < expected.length → expected.length ≤ maxSourceLength →
     calls.nameIs text first after expected = Named.nameIs text first after expected
 
 structure Equations (calls : Calls) : Prop where
@@ -207,6 +208,7 @@ theorem hidesInteger_meaning (calls : Calls) (primitives : Primitives calls) (eq
     intro item member
     have valid := nv.2 item member
     exact primitives.nameIs text tv item.first item.after valid.1 valid.2.1 valid.2.2 _
+      (by decide) (by decide)
   clear nv
   induction names with
   | nil => rfl
