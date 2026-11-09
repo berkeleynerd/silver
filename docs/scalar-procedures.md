@@ -191,3 +191,13 @@ termination requirements. Initialization classification uses only observations
 preserved by the existing report projection. The draft tests have not yet run
 against the completed native report API. No new report-auditor architecture or
 independent kernel replay is selected.
+
+The integration worktree has an isolated native installation copied from the
+native-author worktree, followed by a fresh `scripts/bootstrap.py` configuration
+and version check. Its Lean 4.34.1 distribution and authenticated archive came
+from `tmp/review-response-74ea2edeaa`; `scripts/bootstrap_lean.py` rechecked the
+archive and installed version. The initial proof-cache seed was that worktree's
+accepted `20261109T144532-5e2dbc4f965b` checkpoint. The complete proof workspace,
+including private/server objects, traces and Lake metadata, was copied to the
+integration worktree's own `.silver/linux-x86_64/proof`; there are no shared
+cache writers. This prepares incremental validation and is not a new proof run.
