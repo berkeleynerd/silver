@@ -1,0 +1,26 @@
+[
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261109T141018-5deae03fe6f2/lease",
+    "artifact": "lease.gz",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261109T141018-5deae03fe6f2/events.jsonl",
+    "artifact": "events.jsonl.gz",
+    "sha256": "1b160383347a91a17b31a1832cb869fcd5ba8b2d10804c483add94b24c1015b1",
+    "bytes": 109748
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-response-74ea2edeaa/tmp/validation/guards-focused-repair.log",
+    "artifact": "guards-focused-repair.log.gz",
+    "sha256": "28aabc081c3f83167018015fd1e6b96b2a6f7f7258b4a8765bb14b8d3488426d",
+    "bytes": 2484
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-response-74ea2edeaa/tmp/validation/guard-diagnostic.json",
+    "artifact": "guard-diagnostic.json.gz",
+    "sha256": "5a1f1e803a816d31d929f4f8baa518a06f2e29d7ecbd1cd772cdd6fd32905867",
+    "bytes": 1110
+  }
+]

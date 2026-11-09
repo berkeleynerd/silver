@@ -43,6 +43,23 @@ normal reviewed repair-result composition remains permitted if needed. Preserve
 failed runs and test identities; no cold/replay campaign is required. Independent
 review checks actual changes, contract mappings, dispositions and final evidence.
 
+## Additional response findings
+
+- [#366](https://github.com/berkeleynerd/silver/issues/366): the Boolean name
+  primitive now states the native nonempty, source-length-bounded Word domain.
+  Its only concrete caller already used the valid literal `integer`; no current
+  program or endpoint defect was found. The two-line repair passed focused
+  native-model and source-bridge Lean validation and independent source review.
+- [#367](https://github.com/berkeleynerd/silver/issues/367): general guard-refinement
+  descriptions now include Integer formals, matching their already-delivered
+  behavior. The emitter, catalogue and language summary agree; immutable object
+  constants remain distinct from immutable formals.
+
+The prefix repair also covers the Boolean-body selector and inherited Compose
+selected/indexed/attribute prefixes, where the same narrow category gap existed.
+Delta-aggregate bases retain their legal expression forms. No renderer, evaluator,
+source tree, pin or endpoint statement changes.
+
 ## Disposition inventory
 
 These are planned dispositions, not claims of completed repairs. Each accepted
@@ -109,5 +126,27 @@ function declaration; P1-2 does not exercise that route.
 | --- | --- | --- | --- |
 | Initial response assessment and planning, 2026-11-09 | Astra Max proof review; Sol Extra High records/tests; lead runtime not independently exposed | Confirmed actionable scope; corrected C-1, S-1 and control/execution inventories; implementation pending | No expensive validation repeated; six admission-only controls; token/cost telemetry unavailable |
 
-Implementation, focused results, complete evidence and independent closing review
-remain pending. No capability or Rosetta support count changes in this response.
+| Implementation and source review, 2026-11-09 | Astra Max proof repair, inherited mapping and independent critical review; Sol Extra High tests/records | Confirmed repairs integrated; one lost native test path restored in the same fixture; catalogue formal descriptions corrected | Three short failed focused builds: 54.942 s, 15.514 s, 14.605 s; no expensive integrated run was wasted on those proof-script errors |
+| Focused validation, 2026-11-09 | Managed tools; lead runtime not independently exposed | All guard/domain targets and fresh 22,643-declaration audit passed; native complete audit running | Exact run settings/logs retained in the evidence packet; these are tool intervals, not whole-team cost |
+
+Implementation and independent source review are complete at `17da01a129`;
+all changed helpers/guards and the six focused target closures passed run
+`20261109T142008-886cdd5994b7`. The three failed earlier control-theorem attempts
+remain failed in the [evidence packet](evidence/review-response-74ea2edeaa/README.md).
+They changed proof scripts for test propositions, not guard semantics or the
+modeled native domains. The final successful wrapper proof uses concrete
+command-render equations and a reflexive condition-token equality.
+
+The [inherited review](reviews/review-inherited-interfaces-74ea2edeaa.md) maps
+all nine named files, 28 structures and 241 own fields. The
+[independent integration review](reviews/review-response-integration-74ea2edeaa.md)
+accepts the source changes, including the narrowed native-domain premise and
+both test/catalogue follow-up repairs. Its bounded report-policy/catalogue
+inspection and the inherited map do not claim comprehensive fresh external
+review of every unread module or the whole historical range. Those scope limits
+are recorded, not treated as a defect requiring an indiscriminate rereview.
+
+Complete native audit passed `20261109T142006-5f058d0b96be` (18,525 checks,
+77 units, 1,165 entities, actual driver exit 0). Complete Lean/source and regression
+validation, final evidence applicability review and delivery remain pending. No capability or Rosetta
+support count changes in this response.
