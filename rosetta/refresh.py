@@ -277,9 +277,29 @@ def code_blocks(section: str, language_of_section: str) -> list[tuple[str, str, 
     return blocks
 
 
+def cached_page(cache: Path, revision: int) -> str:
+    path = cache / "pages" / f"{revision}.wiki"
+    try:
+        return path.read_text(encoding="utf-8")
+    except (OSError, UnicodeError) as error:
+        raise SystemExit(f"cannot read cached page {path}: {error}; remove the unusable file if present "
+                         "and run once without --offline to refresh the cache") from error
+
+
 def gather(cache: Path, online: bool) -> tuple[dict, dict, dict, dict]:
+    def cached(name: str) -> dict:
+        path = cache / name
+        try:
+            value = read_json(path)
+            if not isinstance(value, dict):
+                raise ValueError("expected a JSON object")
+            return value
+        except (OSError, ValueError) as error:
+            raise SystemExit(f"cannot read cache file {path}: {error}; repair or remove this file and "
+                             "run once without --offline to refresh the cache") from error
+
     (cache / "pages").mkdir(parents=True, exist_ok=True)
-    index = read_json(cache / "pages.json") if (cache / "pages.json").is_file() else {}
+    index = cached("pages.json") if (cache / "pages.json").is_file() else {}
     if online:
         retrieved = datetime.now(timezone.utc).date().isoformat()
         categories = {}
@@ -291,12 +311,12 @@ def gather(cache: Path, online: bool) -> tuple[dict, dict, dict, dict]:
         info = page_info(titles)
         write_json(cache / "info.json", info)
         download(info, cache, index)
-    stored = read_json(cache / "categories.json")
-    info = read_json(cache / "info.json")
+    stored = cached("categories.json")
+    info = cached("info.json")
     if online:
         wanted: list[str] = []
         for title, value in info.items():
-            text = (cache / "pages" / f"{value['revision']}.wiki").read_text(encoding="utf-8")
+            text = cached_page(cache, value["revision"])
             found, _ = sections(text)
             for name in choose(found):
                 section = "".join(text[s:e] for s, e, _, _ in found[name])
@@ -305,7 +325,7 @@ def gather(cache: Path, online: bool) -> tuple[dict, dict, dict, dict]:
         write_json(cache / "pages.json", index)
     elif not (cache / "subpages.json").is_file():
         raise SystemExit("the cache has no subpages.json; run once without --offline")
-    return stored, info, read_json(cache / "subpages.json"), index
+    return stored, info, cached("subpages.json"), index
 
 
 def choose(found: dict) -> list[str]:
@@ -586,9 +606,47 @@ def assessment(task: dict, assessed: dict, policy: dict) -> str:
     return "\n".join(lines) + "\n"
 
 
+def preflight_cache(cache: Path, stored: dict, info: dict, subpages: dict,
+                    index: dict[str, dict]) -> dict[str, set[str]]:
+    """Read every required cached page and metadata field before replacing output."""
+    source = cache / "categories.json"
+    try:
+        categories = {name: set(stored["categories"][name]) for name in CATEGORIES}
+        _ = stored["retrieved"]
+        source = cache / "subpages.json"
+        aliases, pages = subpages["aliases"], subpages["pages"]
+        if not isinstance(aliases, dict) or not isinstance(pages, dict):
+            raise ValueError("aliases and pages must be objects")
+        for title in sorted(categories[TASKS] | categories[DRAFTS], key=lambda t: (t.casefold(), t)):
+            if title not in info:
+                continue  # build() retains the existing missing-revision warning.
+            source = cache / "info.json"
+            revision = info[title]["revision"]
+            source = cache / "pages.json"
+            _ = index[str(revision)]["timestamp"]
+            found, _ = sections(text := cached_page(cache, revision))
+            written = set()
+            for name in choose(found):
+                key = tuple((s, e) for s, e, _, _ in found[name])
+                if key in written:
+                    continue
+                written.add(key)
+                section = "\n\n".join(text[s:e].strip("\n") for s, e, _, _ in found[name]) + "\n"
+                source = cache / "subpages.json"
+                for page_title in subpage_titles(section, title, name, aliases):
+                    if page_title in pages:
+                        page = pages[page_title]
+                        _ = page["timestamp"]
+                        cached_page(cache, page["revision"])
+    except (KeyError, TypeError, ValueError, AttributeError) as error:
+        raise SystemExit(f"malformed cache metadata in {source}: {error}; repair or remove this file and "
+                         "run once without --offline to refresh the cache") from error
+    return categories
+
+
 def build(cache: Path, stored: dict, info: dict, subpages: dict, index: dict[str, dict],
           output: Path) -> tuple[list[dict], dict]:
-    categories = {name: set(titles) for name, titles in stored["categories"].items()}
+    categories = preflight_cache(cache, stored, info, subpages, index)
     tasks, drafts = categories[TASKS], categories[DRAFTS]
     if output.exists():
         for entry in output.iterdir():
@@ -604,7 +662,7 @@ def build(cache: Path, stored: dict, info: dict, subpages: dict, index: dict[str
             print(f"warning: no revision for {title}", file=sys.stderr)
             continue
         revision = info[title]["revision"]
-        text = (cache / "pages" / f"{revision}.wiki").read_text(encoding="utf-8")
+        text = cached_page(cache, revision)
         found, preamble = sections(text)
         for name in LANGUAGES:
             if (title in categories[name]) != (name in found):
@@ -640,7 +698,7 @@ def build(cache: Path, stored: dict, info: dict, subpages: dict, index: dict[str
                     print(f"warning: subpage {page_title!r} of {title!r} is missing", file=sys.stderr)
                     continue
                 page = subpages["pages"][page_title]
-                page_text = (cache / "pages" / f"{page['revision']}.wiki").read_text(encoding="utf-8")
+                page_text = cached_page(cache, page["revision"])
                 page_file = f"{stem}-page.wiki" if k == 1 else f"{stem}-page-{k}.wiki"
                 (directory / page_file).write_text(page_text.strip("\n") + "\n", encoding="utf-8")
                 pages.append({"title": page_title, "revision": page["revision"],

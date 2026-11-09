@@ -118,8 +118,13 @@ recorded scope.
 
 `python3 rosetta/refresh.py` downloads the current revisions and rebuilds the
 task directories, `manifest.json`, the `silver.md` files and `rosetta.md`. It
-replaces only those generated files, keeping this README, the scripts and
-`coverage.json`. A full download fetches about 220 MB of page text. Pass
+regenerates each group directory (`0-9`, `a` through `z`) in full, including
+deleting any manually added files inside those directories. Keep local additions
+outside the groups. This README, the scripts and `coverage.json` are kept.
+Required cached task and solution-subpage pages are read before the existing
+groups and manifest are removed, so missing or unreadable pages leave that output
+intact. Cache metadata errors are reported before that removal as well.
+A full download fetches about 220 MB of page text. Pass
 `--cache DIR` to keep pages between runs, so later runs fetch only pages that
 changed; add `--offline` to rebuild from that cache without contacting Rosetta
 Code.
