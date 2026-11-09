@@ -1,10 +1,12 @@
 with Silver_Profile;
 with Silver_Function_Bindings;
+with Silver_Procedure_Bindings;
 
 package Silver_Output_Profile
   with SPARK_Mode => On
 is
    use type Silver_Function_Bindings.Metadata;
+   use type Silver_Procedure_Bindings.Metadata;
    Max_Source_Length : constant Positive := 4_096;
    Max_Expression_Operands : constant Positive := 64;
    --  Retain a source-wide operator budget; actual proof cost also depends on
@@ -29,7 +31,7 @@ is
       Null_Keyword, Statements, Context_Clauses, Integer_Name,
       For_Keyword, In_Keyword, Reverse_Keyword, Loop_Keyword, Range_Delimiter,
       Range_Keyword, Array_Keyword, Of_Keyword, Comma, Arrow, Subtype_Keyword,
-      Boolean_Name, True_Name, False_Name, Xor_Keyword, Character_Name, Function_Keyword, Return_Keyword);
+      Boolean_Name, True_Name, False_Name, Xor_Keyword, Character_Name, Function_Keyword, Return_Keyword, Out_Keyword);
 
    function Is_Word_Token (Token : Token_Kind) return Boolean
      with Global => null,
@@ -39,7 +41,7 @@ is
            | Then_Keyword | Else_Keyword | Elsif_Keyword | Reject_Name | And_Keyword | Length_Name
            | Or_Keyword | Not_Keyword | Null_Keyword | Integer_Name
            | For_Keyword | In_Keyword | Reverse_Keyword | Loop_Keyword | Range_Keyword | Array_Keyword | Of_Keyword | Subtype_Keyword
-           | Boolean_Name | True_Name | False_Name | Xor_Keyword | Character_Name | Function_Keyword | Return_Keyword);
+           | Boolean_Name | True_Name | False_Name | Xor_Keyword | Character_Name | Function_Keyword | Return_Keyword | Out_Keyword);
 
    type Token_Sequence is array (Positive range <>) of Token_Kind;
    --  Shared declaration and statement rules live within two outer shells.
@@ -61,6 +63,12 @@ is
    function Local_Functions (Source : String) return Silver_Function_Bindings.Metadata
      with Global => null,
        Post => (Static => Local_Functions'Result = Function_Model (Source));
+
+   function Procedure_Model (Source : String) return Silver_Procedure_Bindings.Metadata
+     with Ghost => Static, Global => null;
+   function Local_Procedures (Source : String) return Silver_Procedure_Bindings.Metadata
+     with Global => null,
+       Post => (Static => Local_Procedures'Result = Procedure_Model (Source));
 
    function Is_Member (Source : String) return Boolean
      with Ghost => Static, Global => null;
