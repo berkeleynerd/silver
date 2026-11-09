@@ -1114,7 +1114,7 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("      ""ada_kind"": ""flow_analysis"",");
       Put_Line ("      ""conditions"": {");
       Put_Line ("        ""grammar_change"": false,");
-      Put_Line ("        ""target"": ""bare visible mutable Integer name, loop-index name or loop-element name, resolved by binding identity"",");
+      Put_Line ("        ""target"": ""bare visible mutable Integer name, Integer formal name, loop-index name or loop-element name, resolved by binding identity"",");
       Put_Line ("        ""threshold"": ""Ada-static nonempty singleton Integer expression in either operand order; nonstatic snapshots, singleton indexes and singleton elements are not thresholds"",");
       Put_Line ("        ""operators"": [");
       Put_Line ("          ""="",");
@@ -1128,7 +1128,7 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("        ""parentheses"": ""whole-condition grouping preserves refinement; parenthesized scalar targets do not refine"",");
       Put_Line ("        ""outcomes"": ""comparison intersection for true; complemented comparison for false; swap operator for reversed operands; retain incoming interval if refinement is empty"",");
       Put_Line ("        ""interval_holes"": ""closed interval hull only; disequality removes an endpoint but retains interior holes"",");
-      Put_Line ("        ""immutable_declarations"": ""preserve exact snapshot values and Ada staticness; never refinement targets"",");
+      Put_Line ("        ""immutable_declarations"": ""Integer object constants preserve exact snapshot values and Ada staticness; they are never refinement targets"",");
       Put_Line ("        ""other_comparisons"": ""checked without expression inversion, variable relations or scalar refinement"",");
       Put_Line ("        ""short_circuit"": ""and then RHS gets left-true flow; or else RHS gets left-false; not swaps outcomes; all nested scalar/Image reads use reached flow"",");
       Put_Line ("        ""branch_join"": ""componentwise scalar hulls; elsif receives previous false flow; omitted else contributes false flow"",");

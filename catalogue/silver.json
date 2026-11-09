@@ -1076,7 +1076,7 @@
       "ada_kind": "flow_analysis",
       "conditions": {
         "grammar_change": false,
-        "target": "bare visible mutable Integer name, loop-index name or loop-element name, resolved by binding identity",
+        "target": "bare visible mutable Integer name, Integer formal name, loop-index name or loop-element name, resolved by binding identity",
         "threshold": "Ada-static nonempty singleton Integer expression in either operand order; nonstatic snapshots, singleton indexes and singleton elements are not thresholds",
         "operators": [
           "=",
@@ -1090,7 +1090,7 @@
         "parentheses": "whole-condition grouping preserves refinement; parenthesized scalar targets do not refine",
         "outcomes": "comparison intersection for true; complemented comparison for false; swap operator for reversed operands; retain incoming interval if refinement is empty",
         "interval_holes": "closed interval hull only; disequality removes an endpoint but retains interior holes",
-        "immutable_declarations": "preserve exact snapshot values and Ada staticness; never refinement targets",
+        "immutable_declarations": "Integer object constants preserve exact snapshot values and Ada staticness; they are never refinement targets",
         "other_comparisons": "checked without expression inversion, variable relations or scalar refinement",
         "short_circuit": "and then RHS gets left-true flow; or else RHS gets left-false; not swaps outcomes; all nested scalar/Image reads use reached flow",
         "branch_join": "componentwise scalar hulls; elsif receives previous false flow; omitted else contributes false flow",
