@@ -27,6 +27,7 @@ its index records original uncompressed hashes/lengths. Failed runs stay failed.
 | `20261109T141506-cd8588ccad8b` | Focused String wrapper proof failed when simplifying the large dependent expression renderer; 14.605s build. Diagnostic retained; guards/proposition remained unchanged. |
 | `20261109T141833-cb10648fbacb` | Smallest String check passed after using reflexive condition-token equality with only concrete command-render equations; fresh audit of 13,357 declarations, three foundations. |
 | `20261109T142008-886cdd5994b7` | All six focused guard/domain/source-bridge targets passed; fresh audit of 22,643 declarations, three foundations. 14 workers available alongside eight-worker native audit. |
+| `20261109T142839-1befe0666f22` | All 80 function-source leaf targets passed: 184 build jobs and a fresh 16,910-declaration audit, driver exit 0. Six Lake workers / automatic 22 process threads; 965.765 s managed duration. |
 
 The final successful focused targets were `Silver.FunctionDeclarationNative`,
 `Silver.PredicateFunctionCallEquations`, `Silver.FunctionVisibilitySource`,
@@ -38,6 +39,22 @@ checks (18,525 total). It was a forced full-scope run with eight workers and the
 recorded warm cache seed, not a cold run. The 80 report/provenance files and actual
 runner output are retained under that run. Complete Lean/source/module/axiom
 validation and final regressions remain pending.
+
+The ordinary complete Lean checkpoint `20261109T144532-5e2dbc4f965b`
+started after the successful leaf batch, with one Lake worker and automatic
+22-thread processes. This serializes dense source candidates on this actual
+62.87 GiB, no-swap host; it is not a persistent one-worker default. The independent
+regression installation then started full unfiltered run
+`20261109T144553-8abe96c6e3ad` with the remaining 21-worker reservation, unchanged
+deadlines and no exclusions. Both outcomes are pending.
+
+The final [live catalogue comparison](catalogue-parity.json), performed after
+the #367 wording rebuild, is byte-identical to `catalogue/silver.json`.
+The leaf batch's sampled RSS reached 12.84 GiB for
+`DeclarationHeaderFunctionBodyAtSpec`; this is an observation, not a measured
+peak or a universal leaf bound. Earlier 4.317 GiB leaf and 38.31 GiB monolithic
+function-candidate observations describe their historical inputs. Resource
+samples for this response are retained with the final checkpoint.
 
 [review-corrections.json](review-corrections.json) retains the six admission-only
 C1 original/control programs and the lane-A ledger recount. It does not claim

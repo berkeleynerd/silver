@@ -125,9 +125,9 @@ function declaration; P1-2 does not exercise that route.
 | Round | Selected settings | Result / next check | Measurements |
 | --- | --- | --- | --- |
 | Initial response assessment and planning, 2026-11-09 | Astra Max proof review; Sol Extra High records/tests; lead runtime not independently exposed | Confirmed actionable scope; corrected C-1, S-1 and control/execution inventories; implementation pending | No expensive validation repeated; six admission-only controls; token/cost telemetry unavailable |
-
 | Implementation and source review, 2026-11-09 | Astra Max proof repair, inherited mapping and independent critical review; Sol Extra High tests/records | Confirmed repairs integrated; one lost native test path restored in the same fixture; catalogue formal descriptions corrected | Three short failed focused builds: 54.942 s, 15.514 s, 14.605 s; no expensive integrated run was wasted on those proof-script errors |
-| Focused validation, 2026-11-09 | Managed tools; lead runtime not independently exposed | All guard/domain targets and fresh 22,643-declaration audit passed; native complete audit running | Exact run settings/logs retained in the evidence packet; these are tool intervals, not whole-team cost |
+| Focused validation, 2026-11-09 | Managed tools; lead runtime not independently exposed | All guard/domain targets and fresh 22,643-declaration audit passed; complete native audit passed | Exact run settings/logs retained in the evidence packet; these are tool intervals, not whole-team cost |
+| Parallel function leaves and complete validation launch, 2026-11-09 | Astra Max reviewed resource schedule; Sol Extra High regression supervision | All 80 leaf targets and fresh 16,910-declaration audit passed; complete Lean and unfiltered suite running | Leaf batch 965.765 s, six Lake workers / 22 process threads; complete Lean one worker for actual memory headroom, suite 21 workers |
 
 Implementation and independent source review are complete at `17da01a129`;
 all changed helpers/guards and the six focused target closures passed run
