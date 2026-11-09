@@ -210,6 +210,24 @@ lean_lib FunctionBindingsBodySource where
   globs := #[.one `Silver.FunctionBindingsBodySource]
   needs := #[functionBindingsBodySource]
 
+input_file procedureBindingsSpecSource where
+  path := "../src/silver_procedure_bindings.ads"
+  text := false
+
+lean_lib ProcedureBindingsSpecSource where
+  roots := #[]
+  globs := #[.one `Silver.ProcedureBindingsSpecSource]
+  needs := #[procedureBindingsSpecSource]
+
+input_file procedureBindingsBodySource where
+  path := "../src/silver_procedure_bindings.adb"
+  text := false
+
+lean_lib ProcedureBindingsBodySource where
+  roots := #[]
+  globs := #[.one `Silver.ProcedureBindingsBodySource]
+  needs := #[procedureBindingsBodySource]
+
 lean_lib ScalarExpressionSpecSource where
   roots := #[]
   globs := #[.one `Silver.ScalarExpressionSpecSource]
