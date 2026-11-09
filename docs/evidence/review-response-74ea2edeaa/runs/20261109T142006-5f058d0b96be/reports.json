@@ -5,6 +5,11 @@
     "bytes": 218223
   },
   {
+    "name": "gnatprove.sarif",
+    "sha256": "951f0c54ebfe3691a5d255a89cb5d8dad83e23d2c5fb70d0f7062e3c871014f8",
+    "bytes": 7633771
+  },
+  {
     "name": "proof-inputs.json",
     "sha256": "9e85dfe5e93c27b718993c3ae0aee74b4f03b20da3f62a61778e87ba9546c5a6",
     "bytes": 459166

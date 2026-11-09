@@ -100,5 +100,21 @@
       "stdout": "Accepted: silver.\n",
       "stderr": ""
     }
-  ]
+  ],
+  "additional_C1_report_errata": {
+    "basis": "Retained original reviewer artifacts, read 2026-11-09; no new execution claimed",
+    "interpretation": "c24b returns the excluded ungrouped X+Y expression. c24c has no function-local hiding and its original log records acceptance, contrary to the external report sentence.",
+    "artifacts": [
+      {
+        "reviewer_artifact": "/home/canto/src/github.com/berkeleynerd/silver/tmp/external-review-74ea2edeaa/lanes/COVERAGE/programs/c24b_main_object_before_function_local_same_name_RECORD",
+        "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);Y:Integer:=2;function F(X:in Integer)return Integer is Y:Integer:=1;begin return X+Y;end F;R:Integer:=0;begin R:=F(Y);Silver_IO.Put_Line(Integer'Image(R));end Main;",
+        "reviewer_check_log": "Rejected: source is outside the Silver catalogue.\n"
+      },
+      {
+        "reviewer_artifact": "/home/canto/src/github.com/berkeleynerd/silver/tmp/external-review-74ea2edeaa/lanes/COVERAGE/programs/c24c_main_object_after_function_named_like_formal_RECORD",
+        "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);function F(X:in Integer)return Integer is begin return X;end F;X:Integer:=2;R:Integer:=0;begin R:=F(X);Silver_IO.Put_Line(Integer'Image(R));end Main;",
+        "reviewer_check_log": "Accepted: silver.\n"
+      }
+    ]
+  }
 }

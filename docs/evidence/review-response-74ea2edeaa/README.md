@@ -36,9 +36,13 @@ The final successful focused targets were `Silver.FunctionDeclarationNative`,
 helper and control and the native-domain caller/witness. The complete native audit also passed in `20261109T142006-5f058d0b96be`:
 actual driver exit 0, 77 units, 1,165 entities, 1,605 flow checks and 16,920 proof
 checks (18,525 total). It was a forced full-scope run with eight workers and the
-recorded warm cache seed, not a cold run. The 80 report/provenance files and actual
+recorded warm cache seed, not a cold run. The 81 report/provenance files and actual
 runner output are retained under that run. Complete Lean/source/module/axiom
 validation and final regressions remain pending.
+
+Independent evidence review identified the missing archived `gnatprove.sarif`
+file after the initial packet was committed. It is now retained with its exact
+hash from the successful native provenance manifest; this required no proof rerun.
 
 The ordinary complete Lean checkpoint `20261109T144532-5e2dbc4f965b`
 started after the successful leaf batch, with one Lake worker and automatic

@@ -78,7 +78,7 @@ fix needs its issue's focused check and shared final evidence before closure.
 | R-3 | #363 | Normalize the four placeholders in the Ada emitter and generated catalogue. |
 | P1-3 | #355 | Document the frame-flow lemmas as auxiliary; existing consumers have no missing premise. |
 | P1-4 | #355 | Retain exact-text/compiler-unit advisory classification. Location/count pinning is brittle and adds no obligation coverage; no code change without a concrete misclassification. |
-| P1-5 | #355 | Correct documented conservative behavior; no repair. |
+| P1-5 | #355 | The documented own-name type-mark restriction remains. Correct the blanket claim about `/=`: excluding an endpoint can refine an interval; excluding an interior point cannot represent a hole. No implementation repair. |
 | P1-6 | #355 | Exact advisory handling is not obligation suppression; no repair. |
 | P2-3 | #355 | Retain the documented interpreted-source boundary; artificial endpoint parameters would not strengthen correspondence. |
 | P2-4 | #357 | Inventory relevant operator trees and add only missing discriminating controls; fixed templates need no generic guard framework. |
@@ -89,7 +89,7 @@ fix needs its issue's focused check and shared final evidence before closure.
 | A-4 | #355 | Retain observed outcomes with corrected invocation/source counts and explicit admission-only limits. |
 | S-2 | #355 | Record current measured per-module memory with units/run identities; preserve automatic CPU defaults and scale only for actual host headroom. |
 | R-4 | #355 | Structured scalar-function catalogue conditions meet the Oracle; no new token-template machinery is needed. |
-| R-5 | #355 | Add a concise current-scope pointer if useful; retain historical summary chronology. |
+| R-5 | #355 | Added a current-scope pointer to the assurance summary; historical delivery chronology is preserved. |
 | R-6 | #355 | No per-construct sample mandate exists; keep sample tags accurate without creating unrelated samples. |
 | R-7 | #355 | Add a dated forward pointer to the #314 closure, preserving historical instructions. |
 | C-1 | #355 | Reject: local-hiding probes contain ungrouped/overflowing arithmetic. Corrected returns preserve hiding and are admitted; retain reproducible controls. |
@@ -115,6 +115,10 @@ arithmetic return is replaced by the local value. The initial assessment checked
 all six original/control inputs against the exact reviewed compiler SHA-256
 `32531113d73a15bed573e5c158d6bf629c49932de9fb4af84f241b063b2478dd`.
 Durable focused regression/evidence will reproduce this distinction.
+The original `c24b` artifact likewise returns the excluded ungrouped `X+Y`.
+The report also mislabels `c24c` as rejected: its retained log says
+`Accepted: silver.`, and it contains no function-local hiding. These original
+artifacts are copied into the corrections record without claiming a fresh run.
 
 Function programs without output still use the output-capable shell and its
 warnings policy. The separate `--warnings=error` null-program route admits no
