@@ -459,8 +459,9 @@ private theorem command_collision_and_nested_children :
     (Command.sequence .nothing (branch goodCondition)).wellFormed = true ∧
     (Command.choose (.truth true) (.returned rightSub) (.returned leftSub)).wellFormed = false ∧
     (Command.choose (.truth true) (.returned leftSub) (.returned leftSub)).wellFormed = true := by
-  refine ⟨rfl, ?_⟩
-  decide +kernel
+  constructor
+  · simp only [branch, Command.render, Command.renderElse, badCondition, goodCondition, Expr.render]
+  · decide +kernel
 
 end StructuralControls
 
