@@ -17,6 +17,26 @@ abbrev CheckedTrees : Prop :=
 
 theorem checked_trees : CheckedTrees := by decide +kernel
 
+namespace StructuralControls
+
+private def atom : Expr := .functionHides
+
+/-- This language's controls cover mixed logical chains and fixed quantified
+operands, including rejection of a malformed child inside an explicit group. -/
+theorem logical_and_quantified_categories :
+    (Expr.andThen (.orElse atom atom) atom).wellFormed = false ∧
+    (Expr.andThen (.group (.orElse atom atom)) atom).wellFormed = true ∧
+    (Expr.or (.orElse atom atom) atom).wellFormed = false ∧
+    (Expr.or (.group (.orElse atom atom)) atom).wellFormed = true ∧
+    (Expr.orElse atom (.or atom atom)).wellFormed = false ∧
+    (Expr.orElse atom (.group (.or atom atom))).wellFormed = true ∧
+    (Expr.orElse .catalogNames atom).wellFormed = false ∧
+    (Expr.orElse (.group .catalogNames) atom).wellFormed = true ∧
+    (Expr.andThen (.group (.orElse atom (.andThen atom atom))) atom).wellFormed = false ∧
+    (Expr.orElse (.orElse atom atom) atom).wellFormed = true := by decide +kernel
+
+end StructuralControls
+
 structure Checked (tokens : List String) : Prop where
   trees : CheckedTrees
   functionHides : expressionDeclaration "function_hides" tokens =

@@ -253,6 +253,21 @@ theorem selected_prefixes :
     (Expr.valueAfter .localValue).wellFormed = true ∧
     (Expr.valueAfter (.condition .inputPosition)).wellFormed = true := by decide +kernel
 
+private def atom : Expr Bool := .mutable .localTarget
+
+theorem not_collision :
+    (Expr.not (.orElse atom atom)).render = (Expr.orElse (.not atom) atom).render ∧
+    (Expr.not (.orElse atom atom)).wellFormed = false ∧
+    (Expr.orElse (.not atom) atom).wellFormed = true := by decide +kernel
+
+theorem categories_and_nested_children :
+    (Expr.eqNat (.choose atom .zero .inputPosition) .zero).wellFormed = false ∧
+    (Expr.eqNat (.group (.choose atom .zero .inputPosition)) .zero).wellFormed = true ∧
+    (Expr.valueAfter (.condition (.choose atom .zero .inputPosition))).wellFormed = false ∧
+    (Expr.valueAfter (.condition (.group (.choose atom .zero .inputPosition)))).wellFormed = true ∧
+    (Expr.group (.not (.orElse atom atom))).wellFormed = false ∧
+    (Expr.group (.not (.group (.orElse atom atom)))).wellFormed = true := by decide +kernel
+
 end StructuralControls
 
 theorem checked_scopes : targetBody.scoped {} = true ∧ assignmentBody.scoped {} = true := by decide +kernel

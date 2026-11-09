@@ -333,6 +333,19 @@ theorem embedded_prefixes :
     (Expr.extendFormal functions item).wellFormed = true ∧
     (Expr.extendSignature functions (.variable "signature")).wellFormed = true := by decide +kernel
 
+private def atom : Expr .truth := .app (.function .isEmpty) (.variable "bounds")
+
+theorem not_collision :
+    (Expr.not (.orElse atom atom)).render = (Expr.orElse (.not atom) atom).render ∧
+    (Expr.not (.orElse atom atom)).wellFormed = false ∧
+    (Expr.orElse (.not atom) atom).wellFormed = true := by decide +kernel
+
+theorem subtraction_collision :
+    (Expr.natSub (.number 10) (.natSub (.number 3) (.number 1))).render =
+      (Expr.natSub (.natSub (.number 10) (.number 3)) (.number 1)).render ∧
+    (Expr.natSub (.number 10) (.natSub (.number 3) (.number 1))).wellFormed = false ∧
+    (Expr.natSub (.natSub (.number 10) (.number 3)) (.number 1)).wellFormed = true := by decide +kernel
+
 end StructuralControls
 
 end Silver.FunctionBindings.Native

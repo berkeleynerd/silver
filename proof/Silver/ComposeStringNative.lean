@@ -430,6 +430,36 @@ theorem checked_precedence : WellFormedTrees := by decide +kernel
 
 theorem checked_scopes : WellScopedTrees := by decide +kernel
 
+namespace StructuralControls
+
+/-- ComposeExpressions already checks the arithmetic collision. These controls
+ensure ordinary declarations and command branches enforce the child guards. -/
+private def rightSub : Expr .integer :=
+  .integerSub (.integerNumber 10) (.integerSub (.integerNumber 3) (.integerNumber 1))
+private def leftSub : Expr .integer :=
+  .integerSub (.integerSub (.integerNumber 10) (.integerNumber 3)) (.integerNumber 1)
+private def badDeclaration := constant .integer "value" ["scalars", ".", "wide"] rightSub
+private def goodDeclaration := constant .integer "value" ["scalars", ".", "wide"] leftSub
+
+theorem initializer_collision :
+    badDeclaration.render = goodDeclaration.render ∧
+    badDeclaration.wellFormed = false ∧ goodDeclaration.wellFormed = true := by decide +kernel
+
+private def badCondition : Expr .truth := .not (.orElse (.truth true) (.truth true))
+private def goodCondition : Expr .truth := .orElse (.not (.truth true)) (.truth true)
+private def branch (test : Expr .truth) : Command .number :=
+  .choose test (.returned (.number 0)) (.returned (.number 1))
+
+theorem command_collision_and_nested_children :
+    (branch badCondition).render = (branch goodCondition).render ∧
+    (branch badCondition).wellFormed = false ∧ (branch goodCondition).wellFormed = true ∧
+    (Command.sequence .nothing (branch badCondition)).wellFormed = false ∧
+    (Command.sequence .nothing (branch goodCondition)).wellFormed = true ∧
+    (Command.choose (.truth true) (.returned rightSub) (.returned leftSub)).wellFormed = false ∧
+    (Command.choose (.truth true) (.returned leftSub) (.returned leftSub)).wellFormed = true := by decide +kernel
+
+end StructuralControls
+
 namespace SourceChecks
 
 def guardedHeader : List String := ((Source.lexLine

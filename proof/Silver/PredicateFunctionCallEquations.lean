@@ -38,6 +38,33 @@ theorem conditional_operand_guard :
 theorem wrong_value_kind_guard :
     (Expr.letValue (.readScalar .position) (.callAfter .called)).scoped callScope = false := by decide +kernel
 
+namespace StructuralControls
+
+private def atom : Expr Bool := .empty .intervalValue
+
+theorem not_collision :
+    (Expr.not (.orElse atom atom)).render = (Expr.orElse (.not atom) atom).render ∧
+    (Expr.not (.orElse atom atom)).wellFormed = false ∧
+    (Expr.orElse (.not atom) atom).wellFormed = true := by decide +kernel
+
+/-- The existing rejection also distinguishes two trees with identical tokens. -/
+theorem subtraction_collision :
+    (Expr.sub (.number 10) (.sub (.number 3) (.number 2))).render =
+      (Expr.sub (.sub (.number 10) (.number 3)) (.number 2)).render ∧
+    (Expr.sub (.number 10) (.sub (.number 3) (.number 2))).wellFormed = false ∧
+    (Expr.sub (.sub (.number 10) (.number 3)) (.number 2)).wellFormed = true :=
+  ⟨rfl, subtraction_association_guard, rfl⟩
+
+theorem mixed_operators_and_nested_children :
+    (Expr.andThen (.orElse atom atom) atom).wellFormed = false ∧
+    (Expr.andThen (.group (.orElse atom atom)) atom).wellFormed = true ∧
+    (Expr.orElse atom (.andThen atom atom)).wellFormed = false ∧
+    (Expr.orElse atom (.group (.andThen atom atom))).wellFormed = true ∧
+    (Expr.group (.not (.orElse atom atom))).wellFormed = false ∧
+    (Expr.group (.not (.group (.orElse atom atom)))).wellFormed = true := by decide +kernel
+
+end StructuralControls
+
 theorem included_model (left right : Integer.Interval) :
     includedBody.eval modelImports modelCalls {intervalValue := left, intervalBounds := right} =
       left.included right := by

@@ -1008,6 +1008,31 @@ theorem delta_aggregate_bases :
     (Expr.update .pure (.update .position state (.number 1)) (.truth true)).wellFormed = true ∧
     (Expr.updateDeclarationCount (.group (.variable "context")) (.number 1)).wellFormed = true := by decide +kernel
 
+theorem not_collisions :
+    (Expr.not (.orElse (.truth true) (.truth true))).render =
+      (Expr.orElse (.not (.truth true)) (.truth true)).render ∧
+    (Expr.not (.orElse (.truth true) (.truth true))).wellFormed = false ∧
+    (Expr.orElse (.not (.truth true)) (.truth true)).wellFormed = true ∧
+    (Expr.not (.or (.truth true) (.truth true))).render =
+      (Expr.or (.not (.truth true)) (.truth true)).render ∧
+    (Expr.not (.or (.truth true) (.truth true))).wellFormed = false ∧
+    (Expr.or (.not (.truth true)) (.truth true)).wellFormed = true := by decide +kernel
+
+theorem subtraction_collision :
+    (Expr.sub (.number 10) (.sub (.number 3) (.number 1))).render =
+      (Expr.sub (.sub (.number 10) (.number 3)) (.number 1)).render ∧
+    (Expr.sub (.number 10) (.sub (.number 3) (.number 1))).wellFormed = false ∧
+    (Expr.sub (.sub (.number 10) (.number 3)) (.number 1)).wellFormed = true ∧
+    (Expr.sub (.number 10) (.group (.sub (.number 3) (.number 1)))).wellFormed = true := by decide +kernel
+
+theorem mixed_operators_and_nested_children :
+    (Expr.or (.orElse (.truth true) (.truth false)) (.truth true)).wellFormed = false ∧
+    (Expr.or (.group (.orElse (.truth true) (.truth false))) (.truth true)).wellFormed = true ∧
+    (Expr.andThen (.truth true) (.orElse (.truth false) (.truth true))).wellFormed = false ∧
+    (Expr.andThen (.truth true) (.group (.orElse (.truth false) (.truth true)))).wellFormed = true ∧
+    (Expr.group (.not (.orElse (.truth true) (.truth true)))).wellFormed = false ∧
+    (Expr.group (.not (.group (.orElse (.truth true) (.truth true))))).wellFormed = true := by decide +kernel
+
 end StructuralControls
 
 end Silver.Compose.FunctionDeclarationNative
