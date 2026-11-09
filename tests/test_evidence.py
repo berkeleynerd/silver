@@ -20,6 +20,7 @@ from scripts.check_evidence import (BIG_INTEGER_VALIDITY_TEXT, SEQUENCE_NAME, SE
                                     SIGNED_CONVERSION_UNIT, SIGNED_CONVERSION_NAME,
                                     audit_signed_conversion_instance, signed_conversion_entities)
 from scripts.platforms import HostLayout
+from tests import test_library_reports as library_reports
 
 
 class ProofEvidenceTests(unittest.TestCase):
@@ -185,6 +186,50 @@ class ProofEvidenceTests(unittest.TestCase):
                 self.audit_functions(names)
         with self.assertRaisesRegex(EvidenceError, "requires an application"):
             audit_reports(self.path, {"main"}, application_functions=("MiXeD",))
+
+    def prepare_procedures(self) -> None:
+        self.report = library_reports.procedure_report()
+        self.sarif["runs"][0]["invocations"][0]["commandLine"] += " --no-inlining"
+
+    def audit_procedures(self, procedures=None) -> dict[str, int]:
+        (self.path / "main.spark").write_text(json.dumps(self.report))
+        self.refresh_reports()
+        if procedures is None:
+            procedures = {"Set_Value": ("Value", "Flag"), "Reset": ("Value",), "Step": ()}
+        return audit_reports(self.path, {"main"}, application_kind="assigned",
+                             application_functions=("Id",), application_procedures=procedures)
+
+    def test_procedures_require_each_output_and_preserve_function_termination(self) -> None:
+        self.prepare_procedures()
+        stats = self.audit_procedures()
+        self.assertEqual(stats["entities"], 5)
+        self.assertEqual(stats["initialization_checks"], 3)
+        self.assertEqual(stats["termination_checks"], 1)
+        self.assertEqual(stats["flow_checks"], 4)
+        self.assertEqual(stats["proof_checks"], 1)
+        for label, mutate in library_reports.procedure_report_mutations():
+            self.report = library_reports.procedure_report()
+            mutate(self.report)
+            with self.subTest(label=label), self.assertRaises(EvidenceError):
+                self.audit_procedures()
+
+    def test_procedure_inventory_and_no_inlining_are_required(self) -> None:
+        self.prepare_procedures()
+        for inventory in ({}, {"Set_Value": ("Value", "Flag"), "Reset": ("Value",)},
+                          {"Set_Value": ("Value",), "Reset": ("Value",), "Step": ()},
+                          {"Set_Value": ("Value", "Flag"), "Reset": ("Value",), "Step": ("Carry",)}):
+            with self.subTest(inventory=inventory), self.assertRaises(EvidenceError):
+                self.audit_procedures(inventory)
+        self.sarif["runs"][0]["invocations"][0]["commandLine"] = "gnatprove --mode=all --report=all"
+        with self.assertRaisesRegex(EvidenceError, "no-inlining"):
+            self.audit_procedures()
+
+    def test_initialization_witness_ignores_projected_check_tree(self) -> None:
+        self.prepare_procedures()
+        for tree in ({"producer_details": [{"not_used_by_flow_policy": True}]}, {}):
+            for record in self.report["flow"]:
+                record["check_tree"] = tree
+            self.assertEqual(self.audit_procedures()["initialization_checks"], 3)
 
     def prepare_assignment(self, **advisory_changes: object) -> None:
         self.report["assumptions"] = []

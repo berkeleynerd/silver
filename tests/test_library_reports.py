@@ -94,6 +94,53 @@ def assignment_call_report() -> dict:
     return data
 
 
+def procedure_report() -> dict:
+    """Inventory from Procedure_Source in library_reports_probe.adb."""
+    data = assignment_report(False)
+    for index, name in enumerate(("Id", "Set_Value", "Reset", "Step"), 2):
+        key = f" {index}"
+        data["entities"][key] = {"name": f"Main.{name}", "sloc": [
+            {"file": "main.adb", "line": 1, "column": index * 50}]}
+        data["spark"][key] = "all"
+    data["flow"] = [dict(check(), how_proved="flow", entity=2,
+        file="main.adb", rule="SUBPROGRAM_TERMINATION", message={"text":
+            'implicit aspect Always_Terminates on "Id" has been proved, subprogram will terminate'})]
+    for owner, name in ((3, "Value"), (3, "Flag"), (4, "Value")):
+        data["flow"].append(dict(check(), how_proved="flow", entity=owner,
+            file="main.adb", rule="UNINITIALIZED",
+            message={"text": f'initialization of "{name}" proved'}))
+    data["proof"] = [dict(check(), entity=3, file="main.adb", rule="VC_RANGE_CHECK",
+                          message={"text": "range check proved"})]
+    data["assumptions"] = [{"claim": {"arg": 1, "predicate": "CLAIM_AORTE"},
+        "assumptions": [{"arg": 2, "predicate": "CLAIM_AORTE"},
+                        {"arg": 3, "predicate": "CLAIM_EFFECTS"},
+                        {"arg": 4, "predicate": "CLAIM_AORTE"}]}]
+    return data
+
+
+def procedure_report_mutations():
+    """Shared policy boundaries for the Python and native auditors."""
+    yield "missing initialization", lambda d: d["flow"].pop()
+    yield "duplicate initialization", lambda d: d["flow"].append(copy.deepcopy(d["flow"][1]))
+    yield "missing function termination", lambda d: d["flow"].pop(0)
+    for field, value in (("entity", 1), ("entity", 2), ("entity", 5),
+                         ("severity", "warning"), ("how_proved", "prover"),
+                         ("file", "other.adb"), ("line", 0), ("col", 0),
+                         ("suppressed", "")):
+        yield f"initialization {field}={value!r}", lambda d, f=field, v=value: d["flow"][1].update({f: v})
+    for name in ("value", "Carry", "Unknown"):
+        yield f"initialization name {name}", lambda d, n=name: d["flow"][1].update(
+            message={"text": f'initialization of "{n}" proved'})
+    yield "wrong owner for Flag", lambda d: d["flow"][2].update(entity=4)
+    yield "procedure termination", lambda d: d["flow"][0].update(entity=5, message={"text":
+        'implicit aspect Always_Terminates on "Step" has been proved, subprogram will terminate'})
+    yield "unproved procedure safety", lambda d: d["proof"][0].update(severity="medium")
+    yield "missing unused procedure coverage", lambda d: d["spark"].pop(" 5")
+    yield "unknown procedure", lambda d: d["entities"][" 5"].update(name="Main.Unknown")
+    yield "procedure postcondition dependency", lambda d: d["assumptions"][0]["assumptions"][1].update(
+        predicate="CLAIM_POST")
+
+
 class LibraryReportTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
@@ -138,6 +185,24 @@ end Probe;
                 self.assertTrue(self.accepts(main_report(count), kind="main"))
                 self.assertFalse(self.accepts(main_report(count), kind="body"))
         self.assertFalse(self.accepts(report(), kind="main"))
+
+    def test_procedure_output_coverage_and_function_termination(self) -> None:
+        self.assertTrue(self.accepts(procedure_report(), kind="procedures"))
+        self.assertFalse(self.accepts(procedure_report(), kind="assignment"))
+        for label, mutate in procedure_report_mutations():
+            data = procedure_report()
+            mutate(data)
+            with self.subTest(label=label):
+                self.assertFalse(self.accepts(data, kind="procedures"))
+
+    def test_initialization_policy_uses_projection_preserved_fields(self) -> None:
+        data = procedure_report()
+        for record in data["flow"]:
+            record["check_tree"] = {"producer_details": [{"not_used_by_flow_policy": True}]}
+        self.assertTrue(self.accepts(data, kind="procedures"))
+        for record in data["flow"]:
+            record["check_tree"] = {}
+        self.assertTrue(self.accepts(data, kind="procedures"))
 
     def test_main_entity_preserves_admitted_procedure_casing(self) -> None:
         for letters in product(*[(c.lower(), c.upper()) for c in "main"]):
