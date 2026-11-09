@@ -7,7 +7,8 @@
 [PR #352](https://github.com/berkeleynerd/silver/pull/352) and
 [PR #353](https://github.com/berkeleynerd/silver/pull/353).
 The #345 combined Linux checkpoint and independent review passed;
-[PR #354](https://github.com/berkeleynerd/silver/pull/354) is ready for review.**
+[PR #354](https://github.com/berkeleynerd/silver/pull/354) is complete on Linux,
+with its merge authorized on 2026-11-09.**
 The [current-main integration](#current-main-integration--2026-11-09) below
 records the documentation cleanup after PR #368 and the refreshed evidence
 applicability; the earlier dated checkpoints remain historical.
@@ -30,7 +31,8 @@ authorizes merging ready PR #352 and implementing #344's four digit/prime
 programs through reviewable publication. The subsequent
 [“Proceed.”](session-memory.md#2026-11-08--digitprime-merge-and-combined-rosetta-delivery-authorized)
 authorizes merging ready PR #353 and completing #345 through reviewed publication.
-The combined delivery PR's merge remains a later owner decision.
+The [2026-11-09 owner instruction](session-memory.md#2026-11-09--pr-354-merge-authorized-report-the-next-unit)
+authorizes the ready combined delivery merge and ordinary closeout.
 PR #351 merged as `a74e67c3a8` and #342 is closed. The divisor group starts from
 those accepted inputs; its own source, manifest and application evidence remain
 separate from the first-group checkpoint below.
@@ -385,9 +387,11 @@ gain, assessment provenance and construct-stage ordering are unchanged.
 
 The prior task/domain review remains applicable to the unchanged samples.
 Documentation links, conflict resolution and evidence applicability were checked;
-this is a record integration, not a new comprehensive proof review. PR #354,
-#345 and milestone 21 remain open for the separate owner merge decision.
-No successor work or proof-runner change is selected.
+this is a record integration, not a new comprehensive proof review. The owner
+subsequently authorized merging PR #354 and closing #345 / milestone 21 on
+2026-11-09. This supersedes the earlier publication-only hold. No successor
+implementation or proof-runner change is selected; report the next recommendation
+after merge.
 
 ## Increments and ownership
 

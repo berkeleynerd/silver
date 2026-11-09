@@ -1,5 +1,21 @@
 # Session memory
 
+## 2026-11-09 — PR #354 merge authorized; report the next unit
+
+The owner instructed **“Let's merge it. Then report what we should work on
+next.”** This authorizes merging the ready
+[PR #354](https://github.com/berkeleynerd/silver/pull/354) and ordinary #345 /
+milestone-21 closeout, superseding the earlier handoff's separate merge hold.
+The [current-main integration](scalar-function-rosetta-batch.md#current-main-integration--2026-11-09)
+retains complete accepted assurance and the successful focused Rosetta checks.
+Only authorization/status records change after that checkpoint.
+
+Report the recommended next coherent unit after merge; do not begin a successor
+implementation under this instruction. The accepted delivery adds twelve
+Rosetta mappings, bringing the supported total to 83. Preserve unrelated work,
+the original review/evidence history, and deferred capacity/assurance-mode work.
+CLI recall was not updated.
+
 ## 2026-11-09 — PR #354 documentation cleanup authorized
 
 The owner allowed the cleanup to ride in any PR and explicitly clarified

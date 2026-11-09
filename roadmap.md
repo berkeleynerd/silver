@@ -29,8 +29,9 @@ scope limits; the additional native-domain and formal-description repairs
 (#366, #367) are included. The shared final checkpoint passed on frozen inputs;
 no accepted repair or validation requirement remains unresolved.
 
-The existing #345 / PR #354 Rosetta delivery remains separate and awaits its
-existing owner merge decision. No new language or sample batch is selected.
+The #345 / PR #354 Rosetta delivery is complete on Linux, with its merge
+[authorized on 2026-11-09](docs/session-memory.md#2026-11-09--pr-354-merge-authorized-report-the-next-unit).
+No new language or sample batch is selected.
 Its [2026-11-09 integration](docs/scalar-function-rosetta-batch.md#current-main-integration--2026-11-09)
 preserves this response and uses its complete validation, with only the three
 affected Rosetta tests rerun after resolving the session-history conflict.
@@ -48,7 +49,7 @@ each delivery; the linked issues hold scope and completion criteria.
 | Complete 2026-11-07 | [Fixed-size Boolean arrays #297](https://github.com/berkeleynerd/silver/issues/297) | Sieve of Eratosthenes; elementary cellular automata |
 | Complete on Linux and merged 2026-11-07; PR #337 | [Sample-only expansion #300](https://github.com/berkeleynerd/silver/issues/300) | Ten programs covering eleven task mappings; [bounded plan](docs/rosetta-sample-expansion.md) |
 | Complete on Linux 2026-11-08; merged through PR #339 | [Small nonrecursive functions #298](https://github.com/berkeleynerd/silver/issues/298) | Boolean `Is_Prime` for Primality by trial division first; GCD and numeric search helpers remain candidate uses |
-| All three groups merged; #345 validated/reviewed on Linux 2026-11-08 | [Scalar-function Rosetta batch, milestone 21](https://github.com/berkeleynerd/silver/milestone/21) | Twelve validated programs merged through [PR #351](https://github.com/berkeleynerd/silver/pull/351), [PR #352](https://github.com/berkeleynerd/silver/pull/352) and [PR #353](https://github.com/berkeleynerd/silver/pull/353); combined reconciliation is validated and independently reviewed in [PR #354](https://github.com/berkeleynerd/silver/pull/354). [Batch record](docs/scalar-function-rosetta-batch.md). |
+| Complete on Linux; combined merge authorized 2026-11-09, PR #354 | [Scalar-function Rosetta batch, milestone 21](https://github.com/berkeleynerd/silver/milestone/21) | Twelve validated programs merged through [PR #351](https://github.com/berkeleynerd/silver/pull/351), [PR #352](https://github.com/berkeleynerd/silver/pull/352) and [PR #353](https://github.com/berkeleynerd/silver/pull/353); combined reconciliation is validated and independently reviewed in [PR #354](https://github.com/berkeleynerd/silver/pull/354). [Batch record](docs/scalar-function-rosetta-batch.md). |
 
 The bounded String increment has completed repaired Linux native and Lean
 assurance after the [interim review repairs](docs/interim-review-response-20261105.md).
@@ -149,7 +150,8 @@ authorizes merging ready PR #351 and implementing #343. The subsequent
 authorizes merging ready PR #352 and implementing #344. The subsequent
 [“Proceed.”](docs/session-memory.md#2026-11-08--digitprime-merge-and-combined-rosetta-delivery-authorized)
 authorizes merging ready PR #353 and completing #345 through reviewed publication.
-The combined delivery PR's merge remains a later owner decision.
+The [2026-11-09 owner instruction](docs/session-memory.md#2026-11-09--pr-354-merge-authorized-report-the-next-unit)
+authorizes the ready combined delivery merge and ordinary issue/milestone closeout.
 
 [Milestone 21](https://github.com/berkeleynerd/silver/milestone/21) proposes
 twelve numeric tasks using the delivered scalar-function fragment. The
@@ -180,10 +182,12 @@ restart of deferred #119 is proposed. All twelve programs have focused applicati
 validation. #345 reconciles exactly their twelve task mappings: the rendered
 Stage-1 total rises from 71 to 83, while broad unsupported constructs and all
 tracked stage fields remain unchanged. The [combined checkpoint](docs/scalar-function-rosetta-batch.md#combined-delivery--2026-11-08)
-distinguishes 84 programs, 147 executable cases and 645 covered test identities,
-including three fresh Rosetta results. #298 and its accepted final evidence
-remain applicable. PR #354 holds the combined delivery for review; milestone 21
-remains open until its later owner-authorized merge. No successor is selected.
+distinguishes 84 programs and 147 executable cases. The
+[current-main integration](docs/scalar-function-rosetta-batch.md#current-main-integration--2026-11-09)
+uses the complete review-response assurance and accounts for 648 test executions,
+including three fresh Rosetta results. PR #354 completes the combined delivery
+and milestone 21 under the owner-authorized merge. The next unit is to be reported
+before any successor implementation begins.
 
 ### Rosetta sample expansion
 

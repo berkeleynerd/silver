@@ -18,7 +18,8 @@ complete native and Lean validation and the fresh 648-execution suite with all
 applicable; the three affected Rosetta identities passed the new focused run.
 The older 645-identity accounting below describes the November 8 checkpoint.
 No new complete native, Lean or regression run was needed for this record and
-metadata integration. The existing PR merge hold remains in place.
+metadata integration. The owner authorized the ready PR merge on 2026-11-09;
+subsequent authorization/status edits do not change these validated inputs.
 
 ## Original combined checkpoint — 2026-11-08
 
