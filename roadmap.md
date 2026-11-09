@@ -12,6 +12,25 @@ changes to earlier rules and examples must be explicit and consistent. The
 [development policy](development.md) prioritizes foundations needed for the
 next capability while retaining full assurance for the current language.
 
+## Current priority — external review response, 2026-11-09
+
+Owner-authorized [milestone 22](https://github.com/berkeleynerd/silver/milestone/22)
+and [#355](https://github.com/berkeleynerd/silver/issues/355) resolve the
+[external review of `74ea2edeaa`](docs/reviews/review-74ea2edeaa.md) before further
+feature/sample work. The [response plan](docs/external-review-response-74ea2edeaa.md)
+records exact scope, all dispositions and validation. Work order:
+
+1. Function-tree prefix and discriminating controls (#356, #357), regression
+   repairs (#358–#360), and assessor/evidence/catalogue corrections (#361–#363).
+2. In parallel, examine the named inherited native/Lean contract interfaces and
+   account for the remaining review scope (#364); repair concrete defects before
+   freezing implementation inputs.
+3. One shared final native/Lean/regression checkpoint and independent critical
+   review; complete #355 only after all accepted fixes and dispositions are reviewed.
+
+The existing #345 / PR #354 Rosetta delivery remains separate and awaits its
+existing owner merge decision. No new language or sample batch is selected.
+
 ## Near-term feature queue
 
 **Owner-selected planning order, 2026-10-30.** Prioritize useful Rosetta

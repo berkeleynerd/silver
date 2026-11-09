@@ -1,5 +1,31 @@
 # Session memory
 
+## 2026-11-09 — External review response authorized before further work
+
+The owner instructed: **“Let's resolve all of the issues before proceeding to any
+additional work unless there is a strong reason not to do so.”** This selects
+[review response #355](https://github.com/berkeleynerd/silver/issues/355),
+[milestone 22](https://github.com/berkeleynerd/silver/milestone/22), ahead of any
+further feature or sample work. The [response plan](external-review-response-74ea2edeaa.md)
+records all findings, disputed conclusions, the inherited-interface examination,
+issue ownership and one shared final validation/review checkpoint.
+
+Implement the confirmed fixes and meaningful regression coverage; investigate
+concrete correspondence gaps and repair any defects found. Preserve the original
+external report and distinguish corrections from the reviewer's conclusions.
+Resolve optional suggestions by a reasoned disposition when they would add no
+useful assurance. No Oracle amendment, capacity increase, new language feature
+or general artifact-security framework is selected. Ordinary implementation,
+evidence collection, issue/board updates and reviewable publication are authorized.
+
+PR #354 remains the separately reviewed Rosetta delivery awaiting its existing
+merge decision; this response starts from main `247592a8fa` and does not begin a
+successor sample batch. Unrelated root edits, other worktrees and reviewer scratch
+are preserved. Selected subthreads: Astra Max for proof repair and inherited
+source/contract analysis, Sol Extra High for checkable tests and records; selected
+settings are not independently observed runtime settings. No CLI recall update
+was made.
+
 ## 2026-11-08 — Digit/prime merge and combined Rosetta delivery authorized
 
 After the ready [PR #353](https://github.com/berkeleynerd/silver/pull/353)
