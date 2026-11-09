@@ -344,6 +344,9 @@ found no missing premise in the existing semantic consumers. The unchanged
 module first passed its [complete focused check](evidence/scalar-functions-20261107/focused/20261108T172824-28123f63af08/README.md),
 then the facade import and all current modules passed the complete audit above.
 No theorem statement, domain or audit rule was changed.
+`ScalarFunctionFrameFlow` retains auxiliary parser-domain lemmas: the facade
+imports them for complete checking, while the existing semantic consumers
+establish their frame facts independently.
 
 The [three isolated compile regressions](evidence/scalar-functions-20261107/final-regression/isolated-final/README.md)
 now pass with their original deadlines, full 22-CPU allowance and unchanged

@@ -4,6 +4,26 @@
 [merged delivery](#merged-delivery--2026-11-06) supersedes earlier open/hold
 statuses below; historical checkpoints retain their original scope.
 
+## Later memory observations — 2026-11-09
+
+The [external review's S-2 observation](reviews/review-74ea2edeaa.md#info)
+records a focused `Silver.OutputBodyCertificate` rebuild at `74ea2edeaa`, with
+6,021 line occurrences. Run `20261109T121018-418daa5c6fe3` passed with no
+`--memory-mb` setting; its single aggregator process reached about **27 GB RSS**
+(the review's reported unit). Separately, the
+[scalar-function evidence](evidence/scalar-functions-20261107/README.md#complete-regression-outcome-and-source-continuation--2026-11-08)
+records **38.31 GiB RSS** for the earlier monolithic `FunctionSourceCandidate`
+before its deliberate interruption. That failed attempt preceded the reviewed
+function-source decomposition; it supplies no bound for the current leaf modules.
+
+The 6 GiB comparison allowance and 24 GiB NativeShape retry in the dated records
+belong to those workloads, not a general memory limit for current proofs. RSS
+observations are neither Lean allocation limits nor aggregate host bounds.
+Keep the automatic CPU/thread defaults; reserve resources and reduce concurrency
+when the actual host's available memory and competing heavy modules require it,
+recording the reason for that run. The review host's 91 GiB total is historical,
+not available headroom on another host.
+
 ## Authorization and order — 2026-11-06
 
 The owner instructed **“Proceed”** with two ordered packages under

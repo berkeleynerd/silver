@@ -1,5 +1,10 @@
 # Interim external review response — 2026-11-05
 
+**Follow-up status — 2026-11-09.** The later
+[structural-guard delivery](source-tree-structural-guards.md#merged-delivery--2026-11-06)
+completed #314 through PR #332 on 2026-11-06. It supersedes this historical
+response's closing instruction to keep that follow-up open in Backlog.
+
 Status: the selected repairs, complete Linux native and Lean assurance, and
 closing delivery review passed. The owner authorized merging PR #307 on
 2026-11-06, superseding the earlier draft/open hold. The owner
