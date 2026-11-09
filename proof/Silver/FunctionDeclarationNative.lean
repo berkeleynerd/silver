@@ -828,6 +828,18 @@ def Command.scoped (scope : Scope) : Command ty → Bool
   | .guard condition rejected body => condition.scoped scope && rejected.scoped scope && body.scoped scope
   | .returned value => value.scoped scope
 
+/-- Selected and indexed components require a name, not a parenthesized
+expression or an aggregate. Delta-aggregate bases remain ordinary expressions. -/
+def Expr.prefix : Expr ty → Bool
+  | .token _ | .kind _ | .empty | .full | .initial | .invalid | .capacity _ |
+    .returnStop | .variable _ | .function _ | .app _ _ | .field _ _ | .formalAt _ _ => true
+  | .number _ | .truth _ | .update _ _ _ | .updateDeclarationCount _ _ |
+    .addHiddenCalls _ _ _ _ | .appendBoolean _ _ | .typeResult _ _ _ | .stepResult _ _ |
+    .formal _ _ _ _ | .signature _ _ _ _ _ _ | .scalarBinding _ _ _ _ _ _ | .scan _ _ _ |
+    .add _ _ | .sub _ _ | .eq _ _ | .ne _ _ | .le _ _ | .gt _ _ | .eqKind _ _ |
+    .andThen _ _ | .orElse _ _ | .or _ _ | .not _ | .group _ | .ite _ _ _ | .elsif _ _ _ |
+    .declare _ | .letValue _ _ _ | .beginValue _ => false
+
 /-- The primary/operator categories reject implicit grouping. Parentheses and
 native declare expressions are retained explicitly in the syntax. -/
 def Expr.primary : Expr ty → Bool
@@ -880,13 +892,13 @@ def Expr.wellFormed : Expr ty → Bool
   | .number _ | .truth _ | .token _ | .kind _ | .empty | .full | .initial | .invalid |
     .capacity _ | .returnStop | .variable _ | .function _ => true
   | .app fn value => fn.callHead && value.value && fn.wellFormed && value.wellFormed
-  | .field _ value => value.primary && value.wellFormed
-  | .formalAt functions index => functions.primary && index.value && functions.wellFormed && index.wellFormed
+  | .field _ value => value.prefix && value.wellFormed
+  | .formalAt functions index => functions.prefix && index.value && functions.wellFormed && index.wellFormed
   | .update _ state value => state.primary && value.value && state.wellFormed && value.wellFormed
   | .updateDeclarationCount context count => context.primary && count.value && context.wellFormed && count.wellFormed
-  | .addHiddenCalls subtypes text first after => subtypes.primary && text.value && first.value && after.value &&
+  | .addHiddenCalls subtypes text first after => subtypes.prefix && text.value && first.value && after.value &&
       subtypes.wellFormed && text.wellFormed && first.wellFormed && after.wellFormed
-  | .appendBoolean frame parameter => frame.primary && parameter.primary && frame.wellFormed && parameter.wellFormed
+  | .appendBoolean frame parameter => frame.prefix && parameter.prefix && frame.wellFormed && parameter.wellFormed
   | .typeResult after scalarKind bounds => after.value && scalarKind.value && bounds.value && after.wellFormed && scalarKind.wellFormed && bounds.wellFormed
   | .stepResult state closed => state.value && closed.value && state.wellFormed && closed.wellFormed
   | .formal first after scalarKind bounds => first.value && after.value && scalarKind.value && bounds.value &&
@@ -965,5 +977,64 @@ abbrev CheckedTrees : Prop :=
   functionDeclarationBody.wellFormed = true ∧ functionDeclarationBody.scoped stateScope = true
 
 theorem checked_trees : CheckedTrees := by decide +kernel
+
+namespace StructuralControls
+
+private def state : Expr .state := .variable "state"
+private def parameter : Expr .formal := .variable "parameter"
+
+private theorem selected_and_indexed_prefixes :
+    (Expr.field .position (.group state)).wellFormed = false ∧
+    (Expr.field .position (.group (.ite (.truth true) state state))).wellFormed = false ∧
+    (Expr.field .position (.update .position state (.number 1))).wellFormed = false ∧
+    (Expr.field .typeAfter (.typeResult (.number 1) (.kind .integer) .empty)).wellFormed = false ∧
+    (Expr.formalAt (.group (.field .functions state)) (.number 1)).wellFormed = false ∧
+    (Expr.field .position state).wellFormed = true ∧
+    (Expr.field .formalFirst (.formalAt (.field .functions state) (.number 1))).wellFormed = true ∧
+    (Expr.field .constraintAfter
+      (apply3 (.function .scalarType) (.variable "text") state (.number 1))).wellFormed = true := by decide +kernel
+
+private theorem aggregate_internal_prefixes :
+    (Expr.addHiddenCalls (.group (.field .subtypes state)) (.variable "text") (.number 1) (.number 2)).wellFormed = false ∧
+    (Expr.appendBoolean (.group state) parameter).wellFormed = false ∧
+    (Expr.appendBoolean state (.group parameter)).wellFormed = false ∧
+    (Expr.addHiddenCalls (.field .subtypes state) (.variable "text") (.number 1) (.number 2)).wellFormed = true ∧
+    (Expr.appendBoolean state parameter).wellFormed = true := by decide +kernel
+
+/-- A delta-aggregate base is an expression. Nested updates also retain the
+renderer’s deliberate flattening into one aggregate. -/
+private theorem delta_aggregate_bases :
+    (Expr.update .position (.group state) (.number 1)).wellFormed = true ∧
+    (Expr.update .pure (.update .position state (.number 1)) (.truth true)).wellFormed = true ∧
+    (Expr.updateDeclarationCount (.group (.variable "context")) (.number 1)).wellFormed = true := by decide +kernel
+
+theorem not_collisions :
+    (Expr.not (.orElse (.truth true) (.truth true))).render =
+      (Expr.orElse (.not (.truth true)) (.truth true)).render ∧
+    (Expr.not (.orElse (.truth true) (.truth true))).wellFormed = false ∧
+    (Expr.orElse (.not (.truth true)) (.truth true)).wellFormed = true ∧
+    (Expr.not (.or (.truth true) (.truth true))).render =
+      (Expr.or (.not (.truth true)) (.truth true)).render ∧
+    (Expr.not (.or (.truth true) (.truth true))).wellFormed = false ∧
+    (Expr.or (.not (.truth true)) (.truth true)).wellFormed = true := by decide +kernel
+
+theorem subtraction_collision :
+    (Expr.sub (.number 10) (.sub (.number 3) (.number 1))).render =
+      (Expr.sub (.sub (.number 10) (.number 3)) (.number 1)).render ∧
+    (Expr.sub (.number 10) (.sub (.number 3) (.number 1))).wellFormed = false ∧
+    (Expr.sub (.sub (.number 10) (.number 3)) (.number 1)).wellFormed = true ∧
+    (Expr.sub (.number 10) (.group (.sub (.number 3) (.number 1)))).wellFormed = true := by
+  refine ⟨rfl, ?_⟩
+  decide +kernel
+
+theorem mixed_operators_and_nested_children :
+    (Expr.or (.orElse (.truth true) (.truth false)) (.truth true)).wellFormed = false ∧
+    (Expr.or (.group (.orElse (.truth true) (.truth false))) (.truth true)).wellFormed = true ∧
+    (Expr.andThen (.truth true) (.orElse (.truth false) (.truth true))).wellFormed = false ∧
+    (Expr.andThen (.truth true) (.group (.orElse (.truth false) (.truth true)))).wellFormed = true ∧
+    (Expr.group (.not (.orElse (.truth true) (.truth true)))).wellFormed = false ∧
+    (Expr.group (.not (.group (.orElse (.truth true) (.truth true))))).wellFormed = true := by decide +kernel
+
+end StructuralControls
 
 end Silver.Compose.FunctionDeclarationNative

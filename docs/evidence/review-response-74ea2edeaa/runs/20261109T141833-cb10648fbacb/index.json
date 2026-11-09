@@ -1,0 +1,32 @@
+[
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261109T141833-cb10648fbacb/lease",
+    "artifact": "lease.gz",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261109T141833-cb10648fbacb/lean-focused-evidence.json",
+    "artifact": "lean-focused-evidence.json.gz",
+    "sha256": "b95af0dbd3f8362677426fcdfc0a8746704efd36d6684f9737e58fbd508a0233",
+    "bytes": 4092
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261109T141833-cb10648fbacb/events.jsonl",
+    "artifact": "events.jsonl.gz",
+    "sha256": "7190b03494412be610c32e6b8c44d905fcafb50ce437bac3404426c0ab3b96c3",
+    "bytes": 109966
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261109T141833-cb10648fbacb/lean-focused.log",
+    "artifact": "lean-focused.log.gz",
+    "sha256": "0d0a468a7aff4a39766725c9c1df25471efbddef0be9abb970cff9c7f8ed4f6a",
+    "bytes": 4376
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-response-74ea2edeaa/tmp/validation/string-control-focused.log",
+    "artifact": "string-control-focused.log.gz",
+    "sha256": "d5552af9997ebc2c9a34fbf9f0e1f9fb6cc78509f684730d492f0122d0e83d4b",
+    "bytes": 4663
+  }
+]

@@ -127,6 +127,7 @@ end Main;
         text = b'S:constant String:="abc";'
         snapshot = b'X:Integer:=3;K:constant Integer:=X;'
         for guard in (b'K>3', b'3<K', b'not(K<=3)', b'(K + 0)>3',
+                      b'(K*1)>3', b'(K/1)>3', b'(1*K)>3', b'(K-0)>3',
                       b'X=5 and then K>3', b'X=5 and K>3'):
             self.check(program(text + snapshot, b'if ' + guard + b' then '
                                + output(b'S(4..K)') + b'end if;'), 2)
@@ -144,6 +145,9 @@ end Main;
                            b'A:constant array(1..2)of P:=(5,6);',
                            b'for K of A loop if K=-5 then ' + output(b'S(K..(-1))')
                            + b'end if;end loop;'), 2)
+        self.check(program(text + b'X:Integer:=5;N:constant Integer:=X;',
+                           b'for K in N..9 loop if K=-5 then '
+                           + output(b'S(K..(-1))') + b'end if;end loop;'), 2)
         self.check(program(text + b'X:Integer:=2;K:constant Integer:=X;T:String:="xy";',
                            b'if K=0 then T:=S(1..K);end if;'), 2)
         self.check(program(text + b'X:Integer:=2;K:constant Integer:=X;T:String:="xyz";',

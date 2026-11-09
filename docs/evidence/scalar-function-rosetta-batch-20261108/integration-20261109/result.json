@@ -1,0 +1,30 @@
+{
+  "main": "023a60f80b73b7306271ede2f39a414410ed2daa",
+  "original_reviewed_pr_head": "f9d3bdd15dbf854d610f7db86595b0485e662288",
+  "run_id": "20261109T203227-4742be5f3187",
+  "actual_driver_exit": 0,
+  "managed_outcome": "success",
+  "managed_duration_seconds": 5.791828582,
+  "unittest_duration_seconds": 3.673,
+  "passed_test_identities": 3,
+  "prepared_input_count": 1116,
+  "all_prepared_inputs_still_match": true,
+  "governed_sources_equal_current_main": true,
+  "samples_equal_current_main": true,
+  "accepted_rosetta_metadata_unchanged": true,
+  "rendered_files_compared": 1784,
+  "render_byte_identical": true,
+  "supported_mappings": 83,
+  "main_supported_mappings": 71,
+  "basis": "Recorded original review establishes 71-to-83 gain; metadata and its complete render remain byte-identical. Current main assurance is retained; focused tests are independent of compiler/proof tooling.",
+  "live_stage_values": {
+    "9": 1.0,
+    "10": 1.0,
+    "11": 2.0,
+    "12": 3.0,
+    "229": 1.0,
+    "234": 1.0,
+    "341": 1.0
+  },
+  "all_seven_tracked_stage_values_unchanged": true
+}

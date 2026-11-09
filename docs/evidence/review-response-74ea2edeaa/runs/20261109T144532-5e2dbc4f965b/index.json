@@ -1,0 +1,44 @@
+[
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261109T144532-5e2dbc4f965b/events.jsonl",
+    "artifact": "events.jsonl.gz",
+    "sha256": "5e7f5cabe371361062f0424d82882c5ca17fa385c9eb4644f1980c78ebc02d69",
+    "bytes": 109503
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261109T144532-5e2dbc4f965b/lean-evidence.json",
+    "artifact": "lean-evidence.json.gz",
+    "sha256": "f79aa14c111f6ece47efc5de7a4bc5aa090149bf5249ddb283ca0a52dd4065bd",
+    "bytes": 33813
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261109T144532-5e2dbc4f965b/lean-proof.log",
+    "artifact": "lean-proof.log.gz",
+    "sha256": "9c18e3850b575d27180e10d35d5ed9b3f97596bfadfd996ee72b68d55686dbed",
+    "bytes": 113767
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261109T144532-5e2dbc4f965b/lease",
+    "artifact": "lease.gz",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-response-74ea2edeaa/tmp/validation/lean-complete.log",
+    "artifact": "lean-complete.log.gz",
+    "sha256": "6df7e8cfd523f37d9c87bbe31e196e214407f9305bfaf4817902cb026025e12a",
+    "bytes": 114039
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-response-74ea2edeaa/tmp/validation/resource-samples.jsonl",
+    "artifact": "resource-samples.jsonl.gz",
+    "sha256": "13547264f5610db8ffe966575b7b76d06bc5368e74ab2d28c09183779d693df7",
+    "bytes": 298002
+  },
+  {
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-response-74ea2edeaa/tmp/validation/resource-monitor.log",
+    "artifact": "resource-monitor.log.gz",
+    "sha256": "8f7c5a11ae3d8b3dc0acd71377779ad597e900bd3959174d212bc94dbd10b469",
+    "bytes": 79425
+  }
+]

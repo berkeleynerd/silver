@@ -1,0 +1,28 @@
+{
+  "utc": "2026-11-09T13:57:12.332177+00:00",
+  "native_seed_run": "20261108T155015-d9cbdb714cbd",
+  "lean_seed_run": "20261108T172947-84b3cd350332",
+  "copies": [
+    {
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-source-integration-298/.tools",
+      "destination": "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-response-74ea2edeaa/.tools",
+      "method": "cp -a --reflink=auto, independent destination; source idle"
+    },
+    {
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-source-integration-298/.silver/linux-x86_64/proof",
+      "destination": "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-response-74ea2edeaa/.silver/linux-x86_64/proof",
+      "method": "cp -a --reflink=auto, independent destination; source idle"
+    },
+    {
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-parser-repairs-298/.silver/linux-x86_64/compiler",
+      "destination": "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-response-74ea2edeaa/.silver/linux-x86_64/compiler",
+      "method": "cp -a --reflink=auto, independent destination; source idle"
+    },
+    {
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-functions-parser-repairs-298/.silver/linux-x86_64/proof-cache",
+      "destination": "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-response-74ea2edeaa/.silver/linux-x86_64/proof-cache",
+      "method": "cp -a --reflink=auto, independent destination; source idle"
+    }
+  ],
+  "claim": "cache seed only, not validation of the new target; bootstrap and rebuild required for new installation paths"
+}

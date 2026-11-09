@@ -1,0 +1,20 @@
+{
+  "target": "6365003968a3631493e60380d71417fdc42233c3",
+  "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-response-regression",
+  "branch": "validation/review-response-regression-20261109",
+  "initial_git_status": "",
+  "host": {
+    "system": "Linux",
+    "machine": "x86_64",
+    "cpus_online": 22,
+    "cpus_allowed": 22,
+    "mem_total_kib": 65928044,
+    "mem_available_kib": 63416444
+  },
+  "sparse_patterns": [
+    "/*",
+    "!/docs/evidence/",
+    "/docs/evidence/review-response-74ea2edeaa/regression/"
+  ],
+  "tracked_git_status": ""
+}

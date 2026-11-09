@@ -12,6 +12,29 @@ changes to earlier rules and examples must be explicit and consistent. The
 [development policy](development.md) prioritizes foundations needed for the
 next capability while retaining full assurance for the current language.
 
+## External review response — validated and accepted, 2026-11-09
+
+Owner-authorized [milestone 22](https://github.com/berkeleynerd/silver/milestone/22)
+and [#355](https://github.com/berkeleynerd/silver/issues/355) cover the
+[external review of `74ea2edeaa`](docs/reviews/review-74ea2edeaa.md).
+[PR #368](https://github.com/berkeleynerd/silver/pull/368) contains the completed
+repairs and reasoned dispositions. The
+[response record](docs/external-review-response-74ea2edeaa.md) links complete
+Linux native/Lean/regression validation and final independent acceptance.
+
+Function-tree prefix and discriminating controls (#356, #357), regressions
+(#358–#360), and assessor/evidence/catalogue corrections (#361–#363) are complete.
+The inherited-interface review (#364) maps the nine named files and records its
+scope limits; the additional native-domain and formal-description repairs
+(#366, #367) are included. The shared final checkpoint passed on frozen inputs;
+no accepted repair or validation requirement remains unresolved.
+
+The existing #345 / PR #354 Rosetta delivery remains separate and awaits its
+existing owner merge decision. No new language or sample batch is selected.
+Its [2026-11-09 integration](docs/scalar-function-rosetta-batch.md#current-main-integration--2026-11-09)
+preserves this response and uses its complete validation, with only the three
+affected Rosetta tests rerun after resolving the session-history conflict.
+
 ## Near-term feature queue
 
 **Owner-selected planning order, 2026-10-30.** Prioritize useful Rosetta

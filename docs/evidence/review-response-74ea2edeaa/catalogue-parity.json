@@ -1,0 +1,10 @@
+{
+  "command": ".silver/linux-x86_64/compiler/bin/silver catalogue",
+  "driver_exit": 0,
+  "byte_equal": true,
+  "catalogue_sha256": "19708eeccfa9cc0d8f323612762af5106aee900f78ef5c0417bebcc1b3ba5d65",
+  "compiler_sha256": "f0f50feaa2970498b7412abf5c8b4c8dd49b7df4ab19f0bdbf88e0a7cad5b2f7",
+  "compiler_build_run": "20261109T141453-c6e68a2d1bb6",
+  "source_commit": "6365003968",
+  "check_date": "2026-11-09"
+}

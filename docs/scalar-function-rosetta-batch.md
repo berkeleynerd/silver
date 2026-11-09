@@ -1,6 +1,6 @@
 # Scalar-function Rosetta batch
 
-## Status and authorization — 2026-11-08
+## Status and authorization — updated 2026-11-09
 
 **All three implementation groups #342/#343/#344 are merged through
 [PR #351](https://github.com/berkeleynerd/silver/pull/351),
@@ -8,6 +8,9 @@
 [PR #353](https://github.com/berkeleynerd/silver/pull/353).
 The #345 combined Linux checkpoint and independent review passed;
 [PR #354](https://github.com/berkeleynerd/silver/pull/354) is ready for review.**
+The [current-main integration](#current-main-integration--2026-11-09) below
+records the documentation cleanup after PR #368 and the refreshed evidence
+applicability; the earlier dated checkpoints remain historical.
 The owner initially instructed **“Proceed with the planning effort we just discussed.”**
 The [dated decision](session-memory.md#2026-11-08--coherent-batch-planning-authorized)
 authorizes the batching guidance, candidate assessment, milestone/issues and
@@ -344,6 +347,7 @@ predict the cost of a new language mechanism. No successor batch is selected.
 | Narrow metadata and render | GPT-6.1 Sol / Extra High | Twelve existing-language task assessments; render adds exactly twelve mappings (71 to 83) | Agent elapsed/token/cost unavailable |
 | Combined validation and records | Lead runtime model/effort not independently exposed | 84-program/147-case inventory, three fresh Rosetta tests and matching captured inputs | Final managed test 7.214 s; application intervals recorded separately above |
 | Independent combined review | GPT-6 Astra / Max | Accepted task fidelity, exact twelve-mapping gain, three fresh/642 retained IDs, packet and final integration; no material finding | Review elapsed/token/cost unavailable |
+| Current-main record integration, 2026-11-09 | Sol Extra High evidence inventory; lead runtime not independently exposed | Preserved accepted metadata and current complete response assurance; three fresh Rosetta checks passed | 5.792 s managed interval; no new native/Lean/full-suite run |
 
 Selected settings are distinct from runtime-confirmed settings, which are not
 independently exposed. [PR #354](https://github.com/berkeleynerd/silver/pull/354)
@@ -351,6 +355,39 @@ publishes the combined result. #345 and milestone 21 remain open until the later
 owner-authorized merge; main retains its earlier coverage until then. A completed
 implementation group did not complete this combined delivery. Native macOS
 validation is not claimed.
+
+## Current-main integration — 2026-11-09
+
+The owner authorized PR #354's documentation cleanup to ride in this PR.
+Integration brings in main `023a60f80b7`, the merged external-review response,
+and resolves the session-memory conflict by retaining both dated histories.
+Compiler, proof, tooling, tests, catalogue and sample sources equal current main.
+The accepted Rosetta metadata and rendered output remain unchanged; current
+main's separate assessor-description corrections are preserved.
+
+Current assurance comes from the
+[complete response checkpoint](evidence/review-response-74ea2edeaa/README.md):
+native run `20261109T142006-5f058d0b96be` passed 18,525 checks, and Lean run
+`20261109T144532-5e2dbc4f965b` passed the complete 820-module build/audit scope and
+fresh 145,589-declaration audit. Full regression run
+`20261109T144553-8abe96c6e3ad` passed all 648 executions, covering 634 method
+definitions and the unchanged 84-program/147-case manifest. These retained
+results replace the older baseline for current-input applicability; no new
+native, Lean or full-suite run was performed for this integration.
+
+The three Rosetta test identities were rerun on the combined tree in
+`20261109T203227-4742be5f3187`: all passed, with actual driver exit 0,
+3.673 seconds of unittest execution and 5.792 seconds managed duration.
+The other 645 executions retain their applicable results from the successful
+response suite. The [integration packet](evidence/scalar-function-rosetta-batch-20261108/integration-20261109/result.json)
+records input equality and byte-identical rendering. The accepted twelve-mapping
+gain, assessment provenance and construct-stage ordering are unchanged.
+
+The prior task/domain review remains applicable to the unchanged samples.
+Documentation links, conflict resolution and evidence applicability were checked;
+this is a record integration, not a new comprehensive proof review. PR #354,
+#345 and milestone 21 remain open for the separate owner merge decision.
+No successor work or proof-runner change is selected.
 
 ## Increments and ownership
 

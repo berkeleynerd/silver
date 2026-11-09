@@ -1,5 +1,27 @@
 # Scalar-function Rosetta batch — combined checkpoint, 2026-11-08
 
+## Current-main integration — 2026-11-09
+
+PR #354 now includes main `023a60f80b7` and preserves the accepted Rosetta
+metadata/render plus current main's assessor corrections. The only merge
+conflict was in session memory; both histories are retained.
+[The integration packet](integration-20261109/result.json) records matching
+current-main compiler/proof/tool/test/sample inputs, unchanged accepted
+metadata, byte-identical rendering, and the fresh three-test Rosetta result.
+Managed run `20261109T203227-4742be5f3187` passed with actual driver exit 0:
+3.673 seconds unittest time and 5.792 seconds managed duration.
+
+Current assurance is the accepted
+[review-response checkpoint](../review-response-74ea2edeaa/README.md), including
+complete native and Lean validation and the fresh 648-execution suite with all
+84 programs / 147 executable cases. All 645 non-Rosetta executions remain
+applicable; the three affected Rosetta identities passed the new focused run.
+The older 645-identity accounting below describes the November 8 checkpoint.
+No new complete native, Lean or regression run was needed for this record and
+metadata integration. The existing PR merge hold remains in place.
+
+## Original combined checkpoint — 2026-11-08
+
 This packet records #345's final integration of twelve previously validated
 programs and their narrow Rosetta assessments. The sample groups merged in
 PRs #351/#352/#353. The metadata/render target is `c9d8f3352296503e314174ce6b552af65ba9a5e0`,

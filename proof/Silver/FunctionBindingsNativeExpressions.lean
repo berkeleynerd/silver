@@ -222,6 +222,14 @@ def Expr.scoped (locals : List (String × Ty)) : Expr ty → Bool
   | .forAllSignatures name functions body | .forAllParameters name functions body =>
       functions.scoped locals && body.scoped ((name, .number) :: locals)
 
+/-- Selection and indexing require a name; grouping an expression does not
+turn it into a name. The aggregate constructors also select their base fields. -/
+def Expr.prefix : Expr ty → Bool
+  | .variable _ | .function _ | .app _ _ | .field _ _ | .signature _ _ | .parameter _ _ => true
+  | .number _ | .natSub _ _ | .natAdd _ _ | .eq _ _ | .le _ _ | .gt _ _ |
+    .andThen _ _ | .orElse _ _ | .not _ | .group _ | .ite _ _ _ | .elsif _ _ _ |
+    .forAllSignatures _ _ _ | .forAllParameters _ _ _ | .extendFormal _ _ | .extendSignature _ _ => false
+
 def Expr.primary : Expr ty → Bool
   | .number _ | .variable _ | .function _ | .app _ _ | .field _ _
   | .signature _ _ | .parameter _ _ | .group _ => true
@@ -261,9 +269,9 @@ def Expr.functionSpine : Expr ty → Bool
 def Expr.wellFormed : Expr ty → Bool
   | .number _ | .variable _ | .function _ => true
   | .app fn arg => fn.functionSpine && fn.wellFormed && arg.expression && arg.wellFormed
-  | .field _ value => value.primary && value.wellFormed
+  | .field _ value => value.prefix && value.wellFormed
   | .signature functions index | .parameter functions index =>
-      functions.primary && functions.wellFormed && index.expression && index.wellFormed
+      functions.prefix && functions.wellFormed && index.expression && index.wellFormed
   | .natSub a b | .natAdd a b => a.simple && b.primary && a.wellFormed && b.wellFormed
   | .eq a b | .le a b | .gt a b => a.simple && b.simple && a.wellFormed && b.wellFormed
   | .not value => value.primary && value.wellFormed
@@ -273,9 +281,9 @@ def Expr.wellFormed : Expr ty → Bool
   | .ite c a b | .elsif c a b => c.expression && a.expression && (b.expression || b.isElsif) &&
       c.wellFormed && a.wellFormed && b.wellFormed
   | .forAllSignatures _ functions body | .forAllParameters _ functions body =>
-      functions.primary && functions.wellFormed && body.expression && body.wellFormed
+      functions.prefix && functions.wellFormed && body.expression && body.wellFormed
   | .extendFormal functions item | .extendSignature functions item =>
-      functions.primary && functions.wellFormed && item.expression && item.wellFormed
+      functions.prefix && functions.wellFormed && item.expression && item.wellFormed
 
 def WellFormedTrees : Prop :=
   (lookupBody.wellFormed && lookupBody.scoped [("text", .source), ("functions", .metadata),
@@ -298,5 +306,48 @@ private theorem categories :
     (Expr.group (.elsif condition (.number 0) (.number 1))).wellFormed = false ∧
     (Expr.variable (ty := .number) "i").scoped [] = false := by decide +kernel
 end PrecedenceChecks
+
+namespace StructuralControls
+
+private def functions : Expr .metadata := .variable "functions"
+private def item : Expr .formal := .variable "item"
+private def condition : Expr .truth := .eq (.number 0) (.number 0)
+
+private theorem selected_and_indexed_prefixes :
+    (Expr.field .count (.group functions)).wellFormed = false ∧
+    (Expr.field .count (.group (.ite condition functions functions))).wellFormed = false ∧
+    (Expr.field .count (.group (.extendFormal functions item))).wellFormed = false ∧
+    (Expr.signature (.group functions) (.number 1)).wellFormed = false ∧
+    (Expr.parameter (.group functions) (.number 1)).wellFormed = false ∧
+    (Expr.field .count functions).wellFormed = true ∧
+    (Expr.field .first (.signature functions (.number 1))).wellFormed = true ∧
+    (Expr.field .parameterFirst (.parameter functions (.number 1))).wellFormed = true := by decide +kernel
+
+private theorem embedded_prefixes :
+    (Expr.forAllSignatures "i" (.group functions) condition).wellFormed = false ∧
+    (Expr.forAllParameters "i" (.group functions) condition).wellFormed = false ∧
+    (Expr.extendFormal (.group functions) item).wellFormed = false ∧
+    (Expr.extendSignature (.group functions) (.variable "signature")).wellFormed = false ∧
+    (Expr.forAllSignatures "i" functions condition).wellFormed = true ∧
+    (Expr.forAllParameters "i" functions condition).wellFormed = true ∧
+    (Expr.extendFormal functions item).wellFormed = true ∧
+    (Expr.extendSignature functions (.variable "signature")).wellFormed = true := by decide +kernel
+
+private def atom : Expr .truth := .app (.function .isEmpty) (.variable "bounds")
+
+private theorem not_collision :
+    (Expr.not (.orElse atom atom)).render = (Expr.orElse (.not atom) atom).render ∧
+    (Expr.not (.orElse atom atom)).wellFormed = false ∧
+    (Expr.orElse (.not atom) atom).wellFormed = true := by decide +kernel
+
+theorem subtraction_collision :
+    (Expr.natSub (.number 10) (.natSub (.number 3) (.number 1))).render =
+      (Expr.natSub (.natSub (.number 10) (.number 3)) (.number 1)).render ∧
+    (Expr.natSub (.number 10) (.natSub (.number 3) (.number 1))).wellFormed = false ∧
+    (Expr.natSub (.natSub (.number 10) (.number 3)) (.number 1)).wellFormed = true := by
+  refine ⟨rfl, ?_⟩
+  decide +kernel
+
+end StructuralControls
 
 end Silver.FunctionBindings.Native

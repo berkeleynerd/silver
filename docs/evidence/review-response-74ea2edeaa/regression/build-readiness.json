@@ -1,0 +1,131 @@
+{
+  "actual_build_process_returncode": 0,
+  "base_commit": "6365003968a3631493e60380d71417fdc42233c3",
+  "binary_scope": "Fresh build at this installation; binary hashes identify observed artifacts, not an independent binary attestation.",
+  "build_input_fingerprint": "bd53e0f9b3dd95f45a8093753061bf4c52a752cd01f6cdcb9ff2bf7c9a490158",
+  "build_run_directory": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261109T142937-cd04c79c8452",
+  "build_run_id": "20261109T142937-cd04c79c8452",
+  "captured_at": "2026-11-09T14:31:19.920448+00:00",
+  "driver_exit_observed": 0,
+  "duration_seconds": 15.166284637,
+  "executables": {
+    "silver": {
+      "bytes": 2801296,
+      "integration_observed_sha256": "f0f50feaa2970498b7412abf5c8b4c8dd49b7df4ab19f0bdbf88e0a7cad5b2f7",
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-response-regression/.silver/linux-x86_64/compiler/bin/silver",
+      "sha256": "eb8bf88fc550d706da7a9baeca8cd641bc2c81f36e8e277747372c58e223d3ba"
+    },
+    "silver_image_adapter": {
+      "bytes": 2018376,
+      "integration_observed_sha256": "a335cd5057166f26bd0503aa9b0ca398a1be041414541224fab4ed4d800aeabc",
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-response-regression/.silver/linux-x86_64/compiler/bin/silver_image_adapter",
+      "sha256": "299ae169e22e36b3ac6cee8cf0e5949d6b27658ea5f066482b53c9ae877eb524"
+    }
+  },
+  "full_test_suite_started": false,
+  "generated_configuration": [
+    {
+      "byte_equal": false,
+      "equal_after_worktree_prefix_normalization": true,
+      "integration_sha256": "b3df674fc8004791086159fdcaba59c161fd051c738b5d01fe9c49e7b8b8a476",
+      "name": "silver_build.ads",
+      "regression_sha256": "8046b2cb4897037d74b599f2209fa1e48e744ef02cf9e96cbcc5a1fe282029e4"
+    },
+    {
+      "byte_equal": false,
+      "equal_after_worktree_prefix_normalization": true,
+      "integration_sha256": "8be58066963d7e66087b143facf9547731e90ce1c844f30ecac387f6d2d7ed43",
+      "name": "silver_image_config.ads",
+      "regression_sha256": "8bb6836967a515034188b9ffea13505a1d4a5d39735186a5592228f1d6ae80c7"
+    },
+    {
+      "byte_equal": true,
+      "equal_after_worktree_prefix_normalization": true,
+      "integration_sha256": "be5a0d9ee5d93e6fe08d4b5c653ae1a1a497fbb52191f7bb393c9d1b6bc182bf",
+      "name": "silver_library_sources.ads",
+      "regression_sha256": "be5a0d9ee5d93e6fe08d4b5c653ae1a1a497fbb52191f7bb393c9d1b6bc182bf"
+    }
+  ],
+  "managed_outcome": "success",
+  "native_proof_scope": "No native proof run in regression workspace; canonical native assurance belongs to integration workspace.",
+  "requested_workers": 2,
+  "tools": {
+    "alr": {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-response-regression/.tools/linux-x86_64/alr/bin/alr",
+      "sha256": "2e2b8de009b793ad2aed10096e162649bbcc5b0711e3c21785ebe8a1261c5d64",
+      "version": "alr 2.1.1\n",
+      "version_sha256": "bc69cbe3b96c2a756c94be2d0a337991bcd628c1cc5601f7cbeeadef8dc16d6d"
+    },
+    "alt-ergo": {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-response-regression/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/alt-ergo",
+      "sha256": "b21825912f28802662caee0005e4ea761a5087ce8c21f4dae510ae21bcc34189",
+      "version": "Alt-Ergo version 2.6.1\n",
+      "version_sha256": "c8d12ab43af43ab9747a4d676c4001682865614eb10f9079b16043a872c0801c"
+    },
+    "cvc5": {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-response-regression/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/cvc5",
+      "sha256": "eb2f46a6bc5fb8a3c81b3387fecb0e68ef5ed1a0c0c5908557254ceb8091b232",
+      "version": "This is cvc5 version 1.3.2 [git 86cecd8 on branch HEAD]\ncompiled with GCC version 11.4.0\non Dec 12 2025 19:02:38\n\nCopyright (c) 2009-2025 by the authors and their institutional\naffiliations listed at https://cvc5.github.io/people.html\n\ncvc5 is open-source and is covered by the BSD license (modified).\n\nTHIS SOFTWARE IS PROVIDED AS-IS, WITHOUT ANY WARRANTIES.\nUSE AT YOUR OWN RISK.\n\nThis version of cvc5 is linked against the following non-(L)GPL'ed\nthird party libraries.\n\n  CaDiCaL - Simplified Satisfiability Solver\n  See https://github.com/arminbiere/cadical for copyright information.\n\n  Editline Library\n  See https://thrysoee.dk/editline\n  for copyright information.\n\n  SymFPU - The Symbolic Floating Point Unit\n  See https://github.com/martin-cs/symfpu/tree/CVC4 for copyright information.\n\nThis version of cvc5 is linked against the following third party\nlibraries covered by the LGPLv3 license.\nSee licenses/lgpl-3.0.txt for more information.\n\n  GMP - Gnu Multi Precision Arithmetic Library\n  See http://gmplib.org for copyright information.\n\n  LibPoly polynomial library\n  See https://github.com/SRI-CSL/libpoly for copyright and\n  licensing information.\n\ncvc5 is statically linked against these libraries. To recompile\nthis version of cvc5 with different versions of these libraries\nfollow the instructions on https://github.com/cvc5/cvc5/blob/main/INSTALL.md\n\nSee the file COPYING (distributed with the source code, and with\nall binaries) for the full cvc5 copyright, licensing, and (lack of)\nwarranty information.\n\n",
+      "version_sha256": "3442c8075b17209e60a2c33d8c8f6b077dc85df64ed55157fb764093b203bd5e"
+    },
+    "gcc": {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-response-regression/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gcc",
+      "sha256": "238f4adafcb1425c84da6519068fdfcf33e57e406fc793e2958a9238789900de",
+      "version": "gcc (GNAT-FSF-builds) 16.1.0\nCopyright (C) 2026 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+      "version_sha256": "6808b84b61eeddc8bcedf3687cec4875007df49c9c5ceface588062e8926764b"
+    },
+    "gnat2why": {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-response-regression/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnat2why",
+      "sha256": "343682de485bb151e1817615acebab5b185504efdf2b082f1647cd41a14241f1"
+    },
+    "gnatls": {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-response-regression/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gnatls",
+      "sha256": "cdd3e2c74ca7d1f1e395d25523c3e233b206a880e4064e822f8015044d1715e2",
+      "version": "GNATLS 16.1.0\nCopyright (C) 1992-2025, Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+      "version_sha256": "ab3b70e7381b9f2a7ad8112030afdebfefff21d59eddacc17fe1c6dd2ab3627c"
+    },
+    "gnatprove": {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-response-regression/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/bin/gnatprove",
+      "sha256": "544e6da2eedc24ce87d9200d44f61e8e789726466e81e68bf8935489d7f5323e",
+      "version": "FSF 16.1.0\nWhy3 for gnatprove version 1.8.2+git\n/home/canto/src/github.com/berkeleynerd/silver/tmp/review-response-regression/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/alt-ergo: Alt-Ergo version 2.6.1\n/home/canto/src/github.com/berkeleynerd/silver/tmp/review-response-regression/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/cvc5: This is cvc5 version 1.3.2 [git 86cecd8 on branch HEAD]\n/home/canto/src/github.com/berkeleynerd/silver/tmp/review-response-regression/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/z3: Z3 version 4.15.4 - 64 bit\n",
+      "version_sha256": "99ae5dc278ac9da77dd717e3f855e2d516fadd888c04d89c3eb80a55648bcae6"
+    },
+    "gnatwhy3": {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-response-regression/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+      "sha256": "7c8c302f65a98e66159f6514045f4c2634aab5c556eea0a7d6fd1f39dc35a368"
+    },
+    "gprbuild": {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-response-regression/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/bin/gprbuild",
+      "sha256": "aff9fde5ca766d5497da9dec185cb8b96878206a0d02512aa5685e1e56d0a4d3",
+      "version": "GPRBUILD 26.0.0 (2026-04-15) (x86_64-pc-linux-gnu)\nCopyright (C) 2004-2026, AdaCore\nThis is free software; see the source for copying conditions.\nThere is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+      "version_sha256": "1b8e012ae0c0a5ec3979231f67666ff60523da207d7548048a7f276a32feb61f"
+    },
+    "python": {
+      "path": "/usr/bin/python3.14",
+      "sha256": "81d98c05d0d5ac32bc02a56e9354e7826556f94fbb2df9d399083ef38dbd1068",
+      "version": "3.14.8 (main, Oct  2 2026, 02:30:18) [GCC 14.2.0]",
+      "version_sha256": "486ab0abbd03b74c2361dfa1021fc022a3628d5600fb99894c954a6dea1495f0"
+    },
+    "why3server": {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-response-regression/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/why3server",
+      "sha256": "143e182d167d3e290c974770d0b84b5f59cf70bf331de5208a36bd650b386a80"
+    },
+    "z3": {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-response-regression/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/z3",
+      "sha256": "44c00197fc576e02775a493dad255a20bb41fa5b4c47378a5f9d090cbc1a25c5",
+      "version": "Z3 version 4.15.4 - 64 bit\n",
+      "version_sha256": "413a7dacad50549f54aad3c8fa0b904a5d591385069bfe5919cec9d7d460a5ba"
+    }
+  },
+  "trees": {
+    "catalogue": "a961c539c8ebf1efaae3d0234efa4a3057470f00",
+    "proof": "3029f3fdb5e1a16a362bbfdd2c634ce00dd93e17",
+    "references": "32dcb31ffc366f1093ed1950eb369e109e29b58d",
+    "rosetta": "5a503b2f4a0c0a9d10bb7c6dce710000003e967f",
+    "samples": "15295ce58da5f427bbf666e50dbfdeccfff9c29a",
+    "scripts": "780f21c4d79f9ce6996efee68792c803598c8892",
+    "src": "5a0a84ac1e803aa5019cfd58e72a5ecf58b6e950",
+    "tests": "58498b877fd0994f6005a4118c84c844435d1420"
+  },
+  "workers": 2
+}

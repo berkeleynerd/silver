@@ -1,0 +1,1371 @@
+{
+  "schema": 1,
+  "date": "2026-11-09",
+  "purpose": "Exact input/own-field inventory for scoped inherited-interface review; not proof execution or an automatic semantic assessment.",
+  "tracking_issues": [
+    364,
+    366
+  ],
+  "original_target": "74ea2edeaa22a13ec87d3bea83a73f2cb7695a43",
+  "worktree_base": "3f033b97d8bd13bd45260a1dbdc8d6a5d6580bc7",
+  "repair_commit": "4a95d7d782bff7fba49c2c7caa6d94a1bfd7aa90",
+  "historical_comparison_base": "10cdcd274cb91a8042be7488d51ea8e6af1e69a3",
+  "host_detected_by_dev_paths": "linux-x86_64",
+  "selected_review_settings": {
+    "model": "GPT-6 Astra",
+    "effort": "Max",
+    "live_telemetry_independently_available": false
+  },
+  "validation": {
+    "expensive_runs_started": 0,
+    "lean_repair_validation": "pending parent-coordinated focused/integrated checkpoint",
+    "focus_target": "Silver.BooleanBindingsSourceBridge",
+    "integration_target": "Silver.PredicateSourceBridge or complete shared checkpoint"
+  },
+  "governed_tree_identity": [
+    {
+      "directory": "src",
+      "original_target_tree": "4fc9679b34410eab3702cb0a69deb97e0a9a680c",
+      "worktree_base_tree": "4fc9679b34410eab3702cb0a69deb97e0a9a680c",
+      "repair_tree": "4fc9679b34410eab3702cb0a69deb97e0a9a680c",
+      "base_matches_original_target": true
+    },
+    {
+      "directory": "proof",
+      "original_target_tree": "bc8694dea8c02b78472c4901032bb7155b53a8e1",
+      "worktree_base_tree": "bc8694dea8c02b78472c4901032bb7155b53a8e1",
+      "repair_tree": "c23b181a91f2a7c21faba6147f3806dac3bc8cac",
+      "base_matches_original_target": true
+    },
+    {
+      "directory": "scripts",
+      "original_target_tree": "780f21c4d79f9ce6996efee68792c803598c8892",
+      "worktree_base_tree": "780f21c4d79f9ce6996efee68792c803598c8892",
+      "repair_tree": "780f21c4d79f9ce6996efee68792c803598c8892",
+      "base_matches_original_target": true
+    },
+    {
+      "directory": "tests",
+      "original_target_tree": "f9d6c7b1d0b30dd34e92167ef245cc63480debb7",
+      "worktree_base_tree": "f9d6c7b1d0b30dd34e92167ef245cc63480debb7",
+      "repair_tree": "f9d6c7b1d0b30dd34e92167ef245cc63480debb7",
+      "base_matches_original_target": true
+    }
+  ],
+  "named_interface_count": 9,
+  "named_interfaces": [
+    {
+      "path": "proof/Silver/ComposeContracts.lean",
+      "sha256_at_review_worktree": "f559ce2920a27c59e92d8e659d87f18157a91e2b558ea42ee2c874bab8eb7023",
+      "sha256_at_original_target": "f559ce2920a27c59e92d8e659d87f18157a91e2b558ea42ee2c874bab8eb7023",
+      "unchanged_from_original_target": true,
+      "structures": [
+        {
+          "name": "StateDomain",
+          "line": 39,
+          "own_field_count": 3,
+          "own_fields": [
+            {
+              "name": "holds",
+              "line": 40
+            },
+            {
+              "name": "valid",
+              "line": 41
+            },
+            {
+              "name": "transportScalar",
+              "line": 44
+            }
+          ]
+        },
+        {
+          "name": "NativeNames",
+          "line": 54,
+          "own_field_count": 2,
+          "own_fields": [
+            {
+              "name": "base",
+              "line": 55
+            },
+            {
+              "name": "bounds",
+              "line": 56
+            }
+          ]
+        },
+        {
+          "name": "NativeState",
+          "line": 60,
+          "own_field_count": 2,
+          "own_fields": [
+            {
+              "name": "base",
+              "line": 61
+            },
+            {
+              "name": "bounds",
+              "line": 62
+            }
+          ]
+        },
+        {
+          "name": "NativeValue",
+          "line": 81,
+          "own_field_count": 4,
+          "own_fields": [
+            {
+              "name": "base",
+              "line": 82
+            },
+            {
+              "name": "operands",
+              "line": 83
+            },
+            {
+              "name": "firstIndex",
+              "line": 84
+            },
+            {
+              "name": "lastIndex",
+              "line": 85
+            }
+          ]
+        },
+        {
+          "name": "NativeResult",
+          "line": 87,
+          "own_field_count": 3,
+          "own_fields": [
+            {
+              "name": "base",
+              "line": 88
+            },
+            {
+              "name": "firstIndex",
+              "line": 89
+            },
+            {
+              "name": "lastIndex",
+              "line": 90
+            }
+          ]
+        },
+        {
+          "name": "NativeScan",
+          "line": 92,
+          "own_field_count": 3,
+          "own_fields": [
+            {
+              "name": "base",
+              "line": 93
+            },
+            {
+              "name": "firstIndex",
+              "line": 94
+            },
+            {
+              "name": "lastIndex",
+              "line": 95
+            }
+          ]
+        },
+        {
+          "name": "Context",
+          "line": 119,
+          "own_field_count": 41,
+          "own_fields": [
+            {
+              "name": "text",
+              "line": 120
+            },
+            {
+              "name": "position",
+              "line": 121
+            },
+            {
+              "name": "first",
+              "line": 122
+            },
+            {
+              "name": "after",
+              "line": 123
+            },
+            {
+              "name": "index",
+              "line": 124
+            },
+            {
+              "name": "length",
+              "line": 125
+            },
+            {
+              "name": "remaining",
+              "line": 126
+            },
+            {
+              "name": "following",
+              "line": 127
+            },
+            {
+              "name": "limit",
+              "line": 128
+            },
+            {
+              "name": "depth",
+              "line": 129
+            },
+            {
+              "name": "chained",
+              "line": 130
+            },
+            {
+              "name": "ending",
+              "line": 131
+            },
+            {
+              "name": "nextToken",
+              "line": 132
+            },
+            {
+              "name": "names",
+              "line": 133
+            },
+            {
+              "name": "scalarNames",
+              "line": 134
+            },
+            {
+              "name": "booleans",
+              "line": 135
+            },
+            {
+              "name": "arrays",
+              "line": 136
+            },
+            {
+              "name": "initials",
+              "line": 137
+            },
+            {
+              "name": "elaborating",
+              "line": 138
+            },
+            {
+              "name": "characterElement",
+              "line": 139
+            },
+            {
+              "name": "characterObject",
+              "line": 140
+            },
+            {
+              "name": "isCharacter",
+              "line": 141
+            },
+            {
+              "name": "firstIndex",
+              "line": 142
+            },
+            {
+              "name": "lastIndex",
+              "line": 143
+            },
+            {
+              "name": "slot",
+              "line": 144
+            },
+            {
+              "name": "state",
+              "line": 145
+            },
+            {
+              "name": "value",
+              "line": 146
+            },
+            {
+              "name": "result",
+              "line": 147
+            },
+            {
+              "name": "scan",
+              "line": 148
+            },
+            {
+              "name": "capacity",
+              "line": 149
+            },
+            {
+              "name": "form",
+              "line": 150
+            },
+            {
+              "name": "token",
+              "line": 151
+            },
+            {
+              "name": "operation",
+              "line": 152
+            },
+            {
+              "name": "arguments",
+              "line": 153
+            },
+            {
+              "name": "mutable",
+              "line": 154
+            },
+            {
+              "name": "sameTarget",
+              "line": 155
+            },
+            {
+              "name": "dynamicSeen",
+              "line": 156
+            },
+            {
+              "name": "integerHidden",
+              "line": 157
+            },
+            {
+              "name": "subtypeHidden",
+              "line": 158
+            },
+            {
+              "name": "subtypeNames",
+              "line": 159
+            },
+            {
+              "name": "baseBounds",
+              "line": 160
+            }
+          ]
+        },
+        {
+          "name": "ArrayValuesDomain",
+          "line": 197,
+          "own_field_count": 6,
+          "own_fields": [
+            {
+              "name": "sourceContext",
+              "line": 199
+            },
+            {
+              "name": "resultContext",
+              "line": 200
+            },
+            {
+              "name": "positionValid",
+              "line": 201
+            },
+            {
+              "name": "parsedBound",
+              "line": 202
+            },
+            {
+              "name": "capacity",
+              "line": 203
+            },
+            {
+              "name": "used",
+              "line": 204
+            }
+          ]
+        },
+        {
+          "name": "HelperRanges",
+          "line": 248,
+          "own_field_count": 17,
+          "own_fields": [
+            {
+              "name": "skip",
+              "line": 249
+            },
+            {
+              "name": "name",
+              "line": 251
+            },
+            {
+              "name": "token",
+              "line": 253
+            },
+            {
+              "name": "lookup",
+              "line": 256
+            },
+            {
+              "name": "literal",
+              "line": 259
+            },
+            {
+              "name": "image",
+              "line": 261
+            },
+            {
+              "name": "value",
+              "line": 265
+            },
+            {
+              "name": "stringDeclaration",
+              "line": 269
+            },
+            {
+              "name": "subtypeDeclaration",
+              "line": 273
+            },
+            {
+              "name": "scalarType",
+              "line": 277
+            },
+            {
+              "name": "scalarDeclaration",
+              "line": 284
+            },
+            {
+              "name": "arrayDeclaration",
+              "line": 288
+            },
+            {
+              "name": "declaration",
+              "line": 292
+            },
+            {
+              "name": "argument",
+              "line": 296
+            },
+            {
+              "name": "declarations",
+              "line": 298
+            },
+            {
+              "name": "expressionStep",
+              "line": 300
+            },
+            {
+              "name": "expression",
+              "line": 307
+            }
+          ]
+        },
+        {
+          "name": "RangeContracts",
+          "line": 312,
+          "own_field_count": 1,
+          "own_fields": [
+            {
+              "name": "step",
+              "line": 313
+            }
+          ]
+        },
+        {
+          "name": "RawHelperEquations",
+          "line": 319,
+          "own_field_count": 66,
+          "own_fields": [
+            {
+              "name": "ranges",
+              "line": 321
+            },
+            {
+              "name": "names",
+              "line": 322
+            },
+            {
+              "name": "functionLookup",
+              "line": 324
+            },
+            {
+              "name": "formalHides",
+              "line": 328
+            },
+            {
+              "name": "fixedBounds",
+              "line": 331
+            },
+            {
+              "name": "characterLiteral",
+              "line": 337
+            },
+            {
+              "name": "guardedAt",
+              "line": 340
+            },
+            {
+              "name": "indexed",
+              "line": 344
+            },
+            {
+              "name": "characterValue",
+              "line": 350
+            },
+            {
+              "name": "concatenatedFirst",
+              "line": 356
+            },
+            {
+              "name": "concatenatedLast",
+              "line": 359
+            },
+            {
+              "name": "addBindingWithCharacter",
+              "line": 362
+            },
+            {
+              "name": "characterDeclaration",
+              "line": 369
+            },
+            {
+              "name": "scalarLookup",
+              "line": 372
+            },
+            {
+              "name": "scalarRead",
+              "line": 375
+            },
+            {
+              "name": "booleanHidesInteger",
+              "line": 380
+            },
+            {
+              "name": "booleanLookup",
+              "line": 383
+            },
+            {
+              "name": "arrayLookup",
+              "line": 386
+            },
+            {
+              "name": "scalarLiteral",
+              "line": 389
+            },
+            {
+              "name": "scalarAppend",
+              "line": 391
+            },
+            {
+              "name": "scalarEmpty",
+              "line": 393
+            },
+            {
+              "name": "imageMinimum",
+              "line": 395
+            },
+            {
+              "name": "imageMaximum",
+              "line": 397
+            },
+            {
+              "name": "nameIs",
+              "line": 399
+            },
+            {
+              "name": "callAfter",
+              "line": 402
+            },
+            {
+              "name": "skip",
+              "line": 407
+            },
+            {
+              "name": "name",
+              "line": 411
+            },
+            {
+              "name": "fixed",
+              "line": 415
+            },
+            {
+              "name": "take",
+              "line": 419
+            },
+            {
+              "name": "lookupFrom",
+              "line": 423
+            },
+            {
+              "name": "lookup",
+              "line": 427
+            },
+            {
+              "name": "literal",
+              "line": 431
+            },
+            {
+              "name": "workTail",
+              "line": 435
+            },
+            {
+              "name": "workBudget",
+              "line": 439
+            },
+            {
+              "name": "image",
+              "line": 441
+            },
+            {
+              "name": "value",
+              "line": 446
+            },
+            {
+              "name": "newName",
+              "line": 451
+            },
+            {
+              "name": "addBinding",
+              "line": 455
+            },
+            {
+              "name": "stringDeclaration",
+              "line": 461
+            },
+            {
+              "name": "scalarConstraint",
+              "line": 464
+            },
+            {
+              "name": "subtypeLookupModel",
+              "line": 468
+            },
+            {
+              "name": "subtypeLookup",
+              "line": 473
+            },
+            {
+              "name": "scalarType",
+              "line": 477
+            },
+            {
+              "name": "subtypeDeclaration",
+              "line": 481
+            },
+            {
+              "name": "scalarDeclaration",
+              "line": 484
+            },
+            {
+              "name": "arrayAdd",
+              "line": 487
+            },
+            {
+              "name": "arrayPut",
+              "line": 495
+            },
+            {
+              "name": "arrayValuesModel",
+              "line": 498
+            },
+            {
+              "name": "arrayValues",
+              "line": 502
+            },
+            {
+              "name": "booleanArrayValuesModel",
+              "line": 506
+            },
+            {
+              "name": "booleanArrayValues",
+              "line": 512
+            },
+            {
+              "name": "arrayDeclaration",
+              "line": 517
+            },
+            {
+              "name": "declaration",
+              "line": 521
+            },
+            {
+              "name": "argument",
+              "line": 525
+            },
+            {
+              "name": "declarations",
+              "line": 529
+            },
+            {
+              "name": "expressionStep",
+              "line": 533
+            },
+            {
+              "name": "tail",
+              "line": 538
+            },
+            {
+              "name": "fits",
+              "line": 543
+            },
+            {
+              "name": "comparison",
+              "line": 547
+            },
+            {
+              "name": "expression",
+              "line": 551
+            },
+            {
+              "name": "target",
+              "line": 556
+            },
+            {
+              "name": "dynamic",
+              "line": 560
+            },
+            {
+              "name": "assignmentValue",
+              "line": 564
+            },
+            {
+              "name": "output",
+              "line": 568
+            },
+            {
+              "name": "capacity",
+              "line": 572
+            },
+            {
+              "name": "readDeclarations",
+              "line": 576
+            }
+          ]
+        },
+        {
+          "name": "HelperEquations",
+          "line": 582,
+          "own_field_count": 3,
+          "own_fields": [
+            {
+              "name": "functionDeclaration",
+              "line": 586
+            },
+            {
+              "name": "booleanInitializer",
+              "line": 591
+            },
+            {
+              "name": "booleanDeclaration",
+              "line": 598
+            }
+          ]
+        },
+        {
+          "name": "LegacyHelperMeaning",
+          "line": 605,
+          "own_field_count": 8,
+          "own_fields": [
+            {
+              "name": "argument",
+              "line": 606
+            },
+            {
+              "name": "declarations",
+              "line": 608
+            },
+            {
+              "name": "target",
+              "line": 610
+            },
+            {
+              "name": "dynamic",
+              "line": 612
+            },
+            {
+              "name": "assignmentValue",
+              "line": 614
+            },
+            {
+              "name": "output",
+              "line": 616
+            },
+            {
+              "name": "comparison",
+              "line": 618
+            },
+            {
+              "name": "capacity",
+              "line": 620
+            }
+          ]
+        },
+        {
+          "name": "DefinitionEquations",
+          "line": 625,
+          "own_field_count": 8,
+          "own_fields": [
+            {
+              "name": "legacy",
+              "line": 627
+            },
+            {
+              "name": "stepRange",
+              "line": 628
+            },
+            {
+              "name": "step",
+              "line": 631
+            },
+            {
+              "name": "suffix",
+              "line": 635
+            },
+            {
+              "name": "formMember",
+              "line": 639
+            },
+            {
+              "name": "member",
+              "line": 641
+            },
+            {
+              "name": "arguments",
+              "line": 642
+            },
+            {
+              "name": "assignment",
+              "line": 643
+            }
+          ]
+        }
+      ],
+      "diff_from_10cdcd274c_to_original_target": {
+        "added_lines": 327,
+        "deleted_lines": 85
+      }
+    },
+    {
+      "path": "proof/Silver/PredicateNativeContracts.lean",
+      "sha256_at_review_worktree": "284b391102887f67fcb02d378b11027e87c7e0bde2794d1c274cfbb5a286d0fd",
+      "sha256_at_original_target": "284b391102887f67fcb02d378b11027e87c7e0bde2794d1c274cfbb5a286d0fd",
+      "unchanged_from_original_target": true,
+      "structures": [
+        {
+          "name": "Contracts",
+          "line": 11,
+          "own_field_count": 11,
+          "own_fields": [
+            {
+              "name": "comparison",
+              "line": 12
+            },
+            {
+              "name": "length",
+              "line": 14
+            },
+            {
+              "name": "booleanArray",
+              "line": 17
+            },
+            {
+              "name": "booleanAtom",
+              "line": 21
+            },
+            {
+              "name": "primary",
+              "line": 25
+            },
+            {
+              "name": "booleanFactor",
+              "line": 30
+            },
+            {
+              "name": "booleanRelation",
+              "line": 35
+            },
+            {
+              "name": "relation",
+              "line": 40
+            },
+            {
+              "name": "model",
+              "line": 45
+            },
+            {
+              "name": "condition",
+              "line": 50
+            },
+            {
+              "name": "tail",
+              "line": 55
+            }
+          ]
+        }
+      ],
+      "diff_from_10cdcd274c_to_original_target": {
+        "added_lines": 77,
+        "deleted_lines": 34
+      }
+    },
+    {
+      "path": "proof/Silver/ComposeSourceBridge.lean",
+      "sha256_at_review_worktree": "ea4c7a0333c1d02bdf7405d8cfb6cdb9c4675951079ba820474244e8ea7125fe",
+      "sha256_at_original_target": "ea4c7a0333c1d02bdf7405d8cfb6cdb9c4675951079ba820474244e8ea7125fe",
+      "unchanged_from_original_target": true,
+      "structures": [
+        {
+          "name": "CheckedSource",
+          "line": 27,
+          "own_field_count": 18,
+          "own_fields": [
+            {
+              "name": "imageLengths",
+              "line": 28
+            },
+            {
+              "name": "scalarExpressions",
+              "line": 29
+            },
+            {
+              "name": "names",
+              "line": 30
+            },
+            {
+              "name": "namesLexical",
+              "line": 31
+            },
+            {
+              "name": "inherited",
+              "line": 32
+            },
+            {
+              "name": "expressions",
+              "line": 33
+            },
+            {
+              "name": "stringHelpers",
+              "line": 34
+            },
+            {
+              "name": "arrayHelpers",
+              "line": 35
+            },
+            {
+              "name": "booleanDeclaration",
+              "line": 36
+            },
+            {
+              "name": "booleanArrayHelpers",
+              "line": 37
+            },
+            {
+              "name": "catalogue",
+              "line": 38
+            },
+            {
+              "name": "tokens",
+              "line": 39
+            },
+            {
+              "name": "declarations",
+              "line": 40
+            },
+            {
+              "name": "refinement",
+              "line": 41
+            },
+            {
+              "name": "adapters",
+              "line": 42
+            },
+            {
+              "name": "arrayLength",
+              "line": 43
+            },
+            {
+              "name": "arrayLookup",
+              "line": 44
+            },
+            {
+              "name": "arrayExtension",
+              "line": 46
+            }
+          ]
+        },
+        {
+          "name": "BooleanDeclarationInterpretation",
+          "line": 74,
+          "own_field_count": 1,
+          "own_fields": [
+            {
+              "name": "source",
+              "line": 75
+            }
+          ]
+        },
+        {
+          "name": "BooleanInitializerInterpretation",
+          "line": 86,
+          "own_field_count": 1,
+          "own_fields": [
+            {
+              "name": "source",
+              "line": 87
+            }
+          ]
+        },
+        {
+          "name": "FunctionDeclarationInterpretation",
+          "line": 100,
+          "own_field_count": 1,
+          "own_fields": [
+            {
+              "name": "source",
+              "line": 101
+            }
+          ]
+        },
+        {
+          "name": "FunctionImportMeaning",
+          "line": 110,
+          "own_field_count": 2,
+          "own_fields": [
+            {
+              "name": "lookup",
+              "line": 111
+            },
+            {
+              "name": "hides",
+              "line": 116
+            }
+          ]
+        },
+        {
+          "name": "InterpretedSource",
+          "line": 123,
+          "own_field_count": 9,
+          "own_fields": [
+            {
+              "name": "imageLengths",
+              "line": 124
+            },
+            {
+              "name": "lexical",
+              "line": 129
+            },
+            {
+              "name": "definitions",
+              "line": 133
+            },
+            {
+              "name": "booleanDeclaration",
+              "line": 135
+            },
+            {
+              "name": "booleanInitializer",
+              "line": 136
+            },
+            {
+              "name": "functionDeclaration",
+              "line": 137
+            },
+            {
+              "name": "legal",
+              "line": 138
+            },
+            {
+              "name": "step",
+              "line": 139
+            },
+            {
+              "name": "stepLegal",
+              "line": 143
+            }
+          ]
+        }
+      ],
+      "diff_from_10cdcd274c_to_original_target": {
+        "added_lines": 137,
+        "deleted_lines": 27
+      }
+    },
+    {
+      "path": "proof/Silver/PredicateNativeSourceBridge.lean",
+      "sha256_at_review_worktree": "3ce2e1aa38ceee65b88a3c4fe5b7934a32602ddb50eceefa3ebf21770d8da1f8",
+      "sha256_at_original_target": "3ce2e1aa38ceee65b88a3c4fe5b7934a32602ddb50eceefa3ebf21770d8da1f8",
+      "unchanged_from_original_target": true,
+      "structures": [
+        {
+          "name": "InterpretedSource",
+          "line": 15,
+          "own_field_count": 4,
+          "own_fields": [
+            {
+              "name": "source",
+              "line": 16
+            },
+            {
+              "name": "helpers",
+              "line": 17
+            },
+            {
+              "name": "definitions",
+              "line": 18
+            },
+            {
+              "name": "contracts",
+              "line": 19
+            }
+          ]
+        }
+      ],
+      "diff_from_10cdcd274c_to_original_target": {
+        "added_lines": 28,
+        "deleted_lines": 10
+      }
+    },
+    {
+      "path": "proof/Silver/ScalarExpressionSourceBridge.lean",
+      "sha256_at_review_worktree": "139094680556c6dbbf18cae81bac342fd537c4ef84017a5dd7f848902349e734",
+      "sha256_at_original_target": "139094680556c6dbbf18cae81bac342fd537c4ef84017a5dd7f848902349e734",
+      "unchanged_from_original_target": true,
+      "structures": [
+        {
+          "name": "InterpretedSource",
+          "line": 14,
+          "own_field_count": 2,
+          "own_fields": [
+            {
+              "name": "primitives",
+              "line": 15
+            },
+            {
+              "name": "definitions",
+              "line": 16
+            }
+          ]
+        }
+      ],
+      "diff_from_10cdcd274c_to_original_target": {
+        "added_lines": 1,
+        "deleted_lines": 1
+      }
+    },
+    {
+      "path": "proof/Silver/PredicateBodyCorrespondence.lean",
+      "sha256_at_review_worktree": "ddd61ffb78bb7cb44d5118fb6e9ee3b55cbc3ffe24fafff3201a2465d27cd190",
+      "sha256_at_original_target": "ddd61ffb78bb7cb44d5118fb6e9ee3b55cbc3ffe24fafff3201a2465d27cd190",
+      "unchanged_from_original_target": true,
+      "structures": [
+        {
+          "name": "Equations",
+          "line": 46,
+          "own_field_count": 7,
+          "own_fields": [
+            {
+              "name": "statement",
+              "line": 47
+            },
+            {
+              "name": "loop",
+              "line": 49
+            },
+            {
+              "name": "conditional",
+              "line": 51
+            },
+            {
+              "name": "alternative",
+              "line": 53
+            },
+            {
+              "name": "tailModel",
+              "line": 55
+            },
+            {
+              "name": "tail",
+              "line": 57
+            },
+            {
+              "name": "read",
+              "line": 59
+            }
+          ]
+        }
+      ],
+      "diff_from_10cdcd274c_to_original_target": {
+        "added_lines": 85,
+        "deleted_lines": 84
+      }
+    },
+    {
+      "path": "proof/Silver/PredicateNativeCorrespondence.lean",
+      "sha256_at_review_worktree": "c96b0efe66117522acc32e75be108c55ba10962f4d025c9115b7faf53aaa42ee",
+      "sha256_at_original_target": "c96b0efe66117522acc32e75be108c55ba10962f4d025c9115b7faf53aaa42ee",
+      "unchanged_from_original_target": true,
+      "structures": [
+        {
+          "name": "Equations",
+          "line": 20,
+          "own_field_count": 7,
+          "own_fields": [
+            {
+              "name": "primary",
+              "line": 21
+            },
+            {
+              "name": "booleanFactor",
+              "line": 25
+            },
+            {
+              "name": "booleanRelation",
+              "line": 29
+            },
+            {
+              "name": "relation",
+              "line": 33
+            },
+            {
+              "name": "model",
+              "line": 37
+            },
+            {
+              "name": "condition",
+              "line": 41
+            },
+            {
+              "name": "tail",
+              "line": 45
+            }
+          ]
+        }
+      ],
+      "diff_from_10cdcd274c_to_original_target": {
+        "added_lines": 207,
+        "deleted_lines": 99
+      }
+    },
+    {
+      "path": "proof/Silver/PredicateXorSourceBridge.lean",
+      "sha256_at_review_worktree": "48b4056ae17d3be38e182bdbb42b3de42cfd6b793851f395d4686fe778666fda",
+      "sha256_at_original_target": "48b4056ae17d3be38e182bdbb42b3de42cfd6b793851f395d4686fe778666fda",
+      "unchanged_from_original_target": true,
+      "structures": [
+        {
+          "name": "InterpretedSource",
+          "line": 10,
+          "own_field_count": 2,
+          "own_fields": [
+            {
+              "name": "calls",
+              "line": 11
+            },
+            {
+              "name": "equations",
+              "line": 12
+            }
+          ]
+        },
+        {
+          "name": "Checked",
+          "line": 64,
+          "own_field_count": 6,
+          "own_fields": [
+            {
+              "name": "body",
+              "line": 65
+            },
+            {
+              "name": "precedence",
+              "line": 66
+            },
+            {
+              "name": "modelSpec",
+              "line": 67
+            },
+            {
+              "name": "modelImpl",
+              "line": 68
+            },
+            {
+              "name": "runtimeSpec",
+              "line": 69
+            },
+            {
+              "name": "runtimeImpl",
+              "line": 70
+            }
+          ]
+        }
+      ],
+      "diff_from_10cdcd274c_to_original_target": {
+        "added_lines": 72,
+        "deleted_lines": 0
+      }
+    },
+    {
+      "path": "proof/Silver/BooleanBindingsSourceBridge.lean",
+      "sha256_at_review_worktree": "5c259744a8f9a8d7538adf2ebfd873dc52f71122b2a0ac3d4a8de690868306f4",
+      "sha256_at_original_target": "5c259744a8f9a8d7538adf2ebfd873dc52f71122b2a0ac3d4a8de690868306f4",
+      "unchanged_from_original_target": true,
+      "structures": [
+        {
+          "name": "InterpretedSource",
+          "line": 12,
+          "own_field_count": 3,
+          "own_fields": [
+            {
+              "name": "calls",
+              "line": 13
+            },
+            {
+              "name": "primitives",
+              "line": 14
+            },
+            {
+              "name": "definitions",
+              "line": 15
+            }
+          ]
+        }
+      ],
+      "diff_from_10cdcd274c_to_original_target": {
+        "added_lines": 34,
+        "deleted_lines": 0
+      }
+    }
+  ],
+  "selected_native_and_repair_inputs": [
+    {
+      "path": "src/silver_output_profile.adb",
+      "sha256_at_review_worktree": "036a53b4bd9a9d7c711b4ddf8d83467a6b470184bfce2ac6677b15cf4f57ef47",
+      "sha256_at_original_target": "036a53b4bd9a9d7c711b4ddf8d83467a6b470184bfce2ac6677b15cf4f57ef47",
+      "unchanged_from_original_target": true
+    },
+    {
+      "path": "src/silver_output_lexical.ads",
+      "sha256_at_review_worktree": "30ff28d51c62e822a96afc66ae8d325299ad228fc0392b885f4dc82f25783768",
+      "sha256_at_original_target": "30ff28d51c62e822a96afc66ae8d325299ad228fc0392b885f4dc82f25783768",
+      "unchanged_from_original_target": true
+    },
+    {
+      "path": "src/silver_scalar_expressions.ads",
+      "sha256_at_review_worktree": "a56fcb14e4df2e96203a0731327077bb2dc73b9337c42cc4bf293480bf3e8df4",
+      "sha256_at_original_target": "a56fcb14e4df2e96203a0731327077bb2dc73b9337c42cc4bf293480bf3e8df4",
+      "unchanged_from_original_target": true
+    },
+    {
+      "path": "src/silver_scalar_expressions.adb",
+      "sha256_at_review_worktree": "0bf741545fc672985a51dabdc1d27ba48af6a4e0d24f977c0782c0ec89579a4e",
+      "sha256_at_original_target": "0bf741545fc672985a51dabdc1d27ba48af6a4e0d24f977c0782c0ec89579a4e",
+      "unchanged_from_original_target": true
+    },
+    {
+      "path": "src/silver_array_bindings.ads",
+      "sha256_at_review_worktree": "39ee0b705e340923abacd4d5d49667d8c4b08568cdede75c23ee4e13b473baf9",
+      "sha256_at_original_target": "39ee0b705e340923abacd4d5d49667d8c4b08568cdede75c23ee4e13b473baf9",
+      "unchanged_from_original_target": true
+    },
+    {
+      "path": "src/silver_array_bindings.adb",
+      "sha256_at_review_worktree": "98f99c57932c63fcf88ccaa27191bea8b5d8016a9ffd821fe9417a7293594120",
+      "sha256_at_original_target": "98f99c57932c63fcf88ccaa27191bea8b5d8016a9ffd821fe9417a7293594120",
+      "unchanged_from_original_target": true
+    },
+    {
+      "path": "proof/Silver/BooleanBindingsNative.lean",
+      "sha256_at_review_worktree": "155929e9f97627ab14caeadd8b213ff4ede503fdc92327cc3823482a42a3ae53",
+      "sha256_at_original_target": "db3c4e4b01f9d3b87b02f2fe40276d50b76109df8aa2ce4c83f1990979a5fdb3",
+      "unchanged_from_original_target": false
+    }
+  ],
+  "inventory_limits": "Structures and own fields are extracted syntactically from the nine named files; inherited fields are mapped separately in contract-map.md. Input hashes do not imply complete source inspection or successful validation."
+}

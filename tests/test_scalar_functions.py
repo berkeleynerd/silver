@@ -39,6 +39,7 @@ class ScalarFunctionTests(unittest.TestCase):
         for declaration in (
             b'function F return Integer is begin return 0;end F;',
             b'function F()return Integer is begin return 0;end F;',
+            b'function F(X:in Integer;)return Integer is begin return X;end F;',
             b'function F(X:Integer)return Integer is begin return X;end F;',
             b'function F(X,Y:in Integer)return Integer is begin return X;end F;',
             b'function F(X:out Integer)return Integer is begin return X;end F;',
@@ -56,7 +57,7 @@ class ScalarFunctionTests(unittest.TestCase):
 
     def test_return_must_be_single_terminal_and_typed(self) -> None:
         for body in (
-            b'null;', b'if X=0 then return 0;else return X;end if;',
+            b'null;', b'return;', b'if X=0 then return 0;else return X;end if;',
             b'return X;null;', b'return X;return X;',
             b'for I in 1..2 loop return X;end loop;return X;',
             b'return True;', b'return "x";',
@@ -66,9 +67,12 @@ class ScalarFunctionTests(unittest.TestCase):
                 self.check(program(declaration, b'null;'), 2)
 
     def test_actual_arity_kinds_and_positional_association(self) -> None:
-        declarations = IDENTITY + BOOLEAN + b'R:Integer:=0;B:Boolean:=False;'
+        declarations = (IDENTITY + BOOLEAN
+                        + b'function Pair(X:in Integer;Y:in Integer)return Integer is '
+                          b'begin return X;end Pair;R:Integer:=0;B:Boolean:=False;')
         for body in (
-            b'R:=Id();', b'R:=Id(1,2);', b'R:=Id(X=>1);',
+            b'R:=Id();', b'R:=Id(1,2);', b'R:=Id(1,);', b'R:=Pair(1 2);',
+            b'R:=Id(X=>1);',
             b'R:=Id(True);', b'B:=Flip(1);', b'R:=Flip(True);',
             b'B:=Id(1);', b'R:=Id;', b'Id(1);',
         ):
@@ -232,6 +236,28 @@ class ScalarFunctionTests(unittest.TestCase):
         self.check(program(declarations, b'for I in 1..2 loop for J in 1..2 loop '
                            b'R:=Id(A(I));B:=Flip(Flags(J));end loop;end loop;'))
 
+    def test_local_hiding_is_independent_of_return_arithmetic(self) -> None:
+        # C-1's original programs reject their returns, not their local names.
+        cases = (
+            (b'A:array(0..1)of Boolean:=(True,False);', b'A', b'1',
+             b'1', b"if A(0) then Silver_IO.Put_Line(Integer'Image(R));end if;"),
+            (b'K:Integer:=2;', b'K', b'1',
+             b'K', b"Silver_IO.Put_Line(Integer'Image(R));"),
+            (b'S:constant String:="ab";', b'S', b'1', b'1',
+             b"Silver_IO.Put_Line(S);Silver_IO.Put_Line(Integer'Image(R));"),
+        )
+        for outer, local, value, actual, output in cases:
+            declarations = (outer + b'function F(X:in Integer)return Integer is '
+                            + local + b':Integer:=' + value + b';begin return ')
+            suffix = (b';end F;R:Integer:=0;begin R:=F(' + actual + b');'
+                      + output + b'end Main;')
+            prefix = b'with Silver_IO;procedure Main is pragma SPARK_Mode(On);'
+            for result, status in ((local, 0), (local + b'+X', 2),
+                                   (b'(' + local + b'+X)', 2)):
+                with self.subTest(local=local, result=result):
+                    # Grouping fixes the syntax, but not full-Integer overflow.
+                    self.check(prefix + declarations + result + suffix, status)
+
     def test_source_wide_operator_budget_spans_functions(self) -> None:
         for count, status in ((63, 0), (64, 2)):
             functions = b'subtype Small is Integer range 0..9;' + b''.join(
@@ -277,7 +303,9 @@ class ScalarFunctionTests(unittest.TestCase):
         declarations = (b'subtype Small is Integer range 0..9;'
                         b'function Next_Value(X:in Small)return Integer is begin return (X+1);end Next_Value;'
                         b'function Wrapper(X:in Small;B:in Boolean)return Integer is R:Integer:=0;'
-                        b'begin if B then R:=Next_Value(X);end if;return R;end Wrapper;'
+                        b'begin if B then R:=Next_Value(X);'
+                        b'for I in 1..X loop for J in 1..I loop '
+                        b'R:=Next_Value(J);end loop;end loop;end if;return R;end Wrapper;'
                         b'function Unused(X:in Integer)return Integer is R:Integer:=0;'
                         b'begin if X>0 then R:=(10/X);end if;return R;end Unused;'
                         b'function Zero(X:in Integer;B:in Boolean)return Integer is Spare:Integer:=7;'
@@ -294,7 +322,60 @@ class ScalarFunctionTests(unittest.TestCase):
                             for item in report['proof']))
 
     def test_native_boolean_and_integer_self_actuals(self) -> None:
-        executable, _ = self.compile(program(IDENTITY + BOOLEAN + b'R:Integer:=7;B:Boolean:=False;',
-            b'R:=Id(R);B:=Flip(B);if B then Silver_IO.Put_Line(Integer\'Image(R));end if;'),
+        declarations = (b'subtype Small is Integer range 1..10;'
+                        + IDENTITY.replace(b'Integer', b'Small') + BOOLEAN
+                        + b'R:Small:=7;B:Boolean:=False;')
+        executable, _ = self.compile(program(declarations,
+            b'for I in 1..3 loop R:=Id(R);end loop;'
+            b'B:=Flip(B);if B then Silver_IO.Put_Line(Integer\'Image(R));end if;'),
             'assigned', functions=('Id', 'Flip'))
         self.run_program(executable, b' 7\n')
+
+    def test_native_unused_function_without_main_output(self) -> None:
+        declarations = (b'subtype Small is Integer range 1..10;'
+                        b'function Unused(X:in Small)return Integer is '
+                        b'begin return (100/X);end Unused;')
+        # This remains the output-capable shell and its warnings policy.
+        executable, report = self.compile(program(declarations, b'null;'),
+                                          'static', functions=('Unused',))
+        entity = next(int(key) for key, item in report['entities'].items()
+                      if item['name'] == 'Main.Unused')
+        for section, rule in (('flow', 'SUBPROGRAM_TERMINATION'),
+                              ('proof', 'VC_DIVISION_CHECK')):
+            self.assertTrue(any(item.get('entity') == entity and item.get('rule') == rule
+                                for item in report[section]), (section, report))
+        self.run_program(executable, b'')
+
+    def test_native_hiding_and_argument_shell(self) -> None:
+        declarations = (
+            b'A:array(0..1)of Boolean:=(True,False);K:Integer:=2;S:constant String:="ab";'
+            b'function Formal_String(S:in Integer)return Integer is begin return S;end Formal_String;'
+            b'function Formal_Integer(K:in Integer)return Integer is begin return K;end Formal_Integer;'
+            b'function Main(Main:in Integer)return Integer is begin return Main;end Main;'
+            b'function Local_Integer(X:in Integer)return Integer is K:Integer:=1;'
+            b'begin return K;end Local_Integer;'
+            b'function Local_String(X:in Integer)return Integer is S:Integer:=3;'
+            b'begin return S;end Local_String;'
+            b'function Local_Array(X:in Integer)return Integer is A:Integer:=4;'
+            b'begin return A;end Local_Array;'
+            b'function Local_Name(X:in Integer)return Integer is Local_Name:Integer:=5;'
+            b'begin return Local_Name;end Local_Name;'
+            b'function Flag(Integer:in Boolean)return Boolean is begin return Integer;end Flag;'
+            b'R:Integer:=0;B:Boolean:=False;')
+        body = (b'Silver_IO.Put_Line(Input);'
+                b"R:=Formal_String(6);Silver_IO.Put_Line(Integer'Image(R));"
+                b"R:=Formal_Integer(K);Silver_IO.Put_Line(Integer'Image(R));"
+                b"R:=Main(R);Silver_IO.Put_Line(Integer'Image(R));"
+                b"R:=Local_Integer(0);Silver_IO.Put_Line(Integer'Image(R));"
+                b"R:=Local_String(0);Silver_IO.Put_Line(Integer'Image(R));"
+                b"R:=Local_Array(0);Silver_IO.Put_Line(Integer'Image(R));"
+                b"R:=Local_Name(0);Silver_IO.Put_Line(Integer'Image(R));"
+                b'B:=Flag(True);if B and then A(0) then Silver_IO.Put_Line(S);'
+                b"Silver_IO.Put_Line(Integer'Image(K));end if;")
+        executable, _ = self.compile(program(declarations, body, arguments=True),
+            'selected', functions=('Formal_String', 'Formal_Integer', 'Main',
+                                   'Local_Integer', 'Local_String', 'Local_Array', 'Local_Name', 'Flag'))
+        suffix = b' 6\n 2\n 2\n 1\n 3\n 4\n 5\nab\n 2\n'
+        self.run_program(executable, b'old\n' + suffix)
+        self.run_program(executable, b'valid\n' + suffix, (b'valid',))
+        self.run_program(executable, b'', (b'one', b'two'), 1)

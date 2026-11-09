@@ -1,5 +1,69 @@
 # Session memory
 
+## 2026-11-09 — PR #354 documentation cleanup authorized
+
+The owner allowed the cleanup to ride in any PR and explicitly clarified
+**“PR #354 documentation cleanup.”** Carry it in the existing
+[PR #354](https://github.com/berkeleynerd/silver/pull/354): integrate current
+main, preserve both dated session histories, and update delivery/evidence
+references after the external-review response merged. The existing #345
+publication scope covers these record and focused integration checks.
+
+This selects no proof-runner optimization or successor feature. PR #354's
+separate implementation merge hold remains in place. The successful complete response checkpoint is retained, and all three affected
+Rosetta tests passed in the [current-main integration](scalar-function-rosetta-batch.md#current-main-integration--2026-11-09). No new native/Lean cycle was run for this
+metadata/documentation integration.
+Unrelated worktrees and scratch are preserved. CLI recall was not updated.
+
+## 2026-11-09 — External review response validated and accepted
+
+The owner-authorized [#355 response](https://github.com/berkeleynerd/silver/issues/355)
+has complete Linux native, Lean/source and regression validation and final
+independent acceptance for [PR #368](https://github.com/berkeleynerd/silver/pull/368).
+The [response record](external-review-response-74ea2edeaa.md) retains all original
+finding dispositions, the two additional repairs, the inherited-interface scope,
+actual run evidence and final review target. The original external report remains
+unchanged; corrections and reasoned no-change decisions remain separate.
+
+The owner's resolve-all instruction authorizes ordinary response merge and
+issue/board/milestone closeout after these checks. No further approval gate was
+introduced. The final records preserve cached/full/clean/replay distinctions;
+no successful expensive validation was repeated for documentation-only closeout.
+The [independent acceptance](reviews/review-response-integration-74ea2edeaa.md)
+is bounded to its stated scope, without claiming a new comprehensive external
+review of all historical code.
+
+PR #354 still awaits its separate owner merge decision. No successor language
+feature or sample batch is selected, and no Oracle amendment or speculative
+artifact-security machinery was added. Unrelated worktrees and scratch remain
+preserved. CLI recall was not updated.
+
+## 2026-11-09 — External review response authorized before further work
+
+The owner instructed: **“Let's resolve all of the issues before proceeding to any
+additional work unless there is a strong reason not to do so.”** This selects
+[review response #355](https://github.com/berkeleynerd/silver/issues/355),
+[milestone 22](https://github.com/berkeleynerd/silver/milestone/22), ahead of any
+further feature or sample work. The [response plan](external-review-response-74ea2edeaa.md)
+records all findings, disputed conclusions, the inherited-interface examination,
+issue ownership and one shared final validation/review checkpoint.
+
+Implement the confirmed fixes and meaningful regression coverage; investigate
+concrete correspondence gaps and repair any defects found. Preserve the original
+external report and distinguish corrections from the reviewer's conclusions.
+Resolve optional suggestions by a reasoned disposition when they would add no
+useful assurance. No Oracle amendment, capacity increase, new language feature
+or general artifact-security framework is selected. Ordinary implementation,
+evidence collection, issue/board updates and reviewable publication are authorized.
+
+PR #354 remains the separately reviewed Rosetta delivery awaiting its existing
+merge decision; this response starts from main `247592a8fa` and does not begin a
+successor sample batch. Unrelated root edits, other worktrees and reviewer scratch
+are preserved. Selected subthreads: Astra Max for proof repair and inherited
+source/contract analysis, Sol Extra High for checkable tests and records; selected
+settings are not independently observed runtime settings. No CLI recall update
+was made.
+
 ## 2026-11-08 — Digit/prime examples merged; combined delivery reviewed
 
 Owner-authorized [PR #353](https://github.com/berkeleynerd/silver/pull/353)

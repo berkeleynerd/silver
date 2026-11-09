@@ -1,0 +1,120 @@
+{
+  "utc": "2026-11-09T13:56:15.156262+00:00",
+  "review_target": "74ea2edeaa22a13ec87d3bea83a73f2cb7695a43",
+  "compiler": "/home/canto/src/github.com/berkeleynerd/silver/tmp/external-review-74ea2edeaa/checkout/.silver/linux-x86_64/compiler/bin/silver",
+  "compiler_sha256": "32531113d73a15bed573e5c158d6bf629c49932de9fb4af84f241b063b2478dd",
+  "scope": "Admission-only C1 corrected controls and recount of retained reviewer ledger; no native proof/build or Lean run",
+  "lane_a_recount": {
+    "ledger_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/external-review-74ea2edeaa/lanes/A/logs/results.jsonl",
+    "ledger_sha256": "7614abab50c912e1f04449b18803f09e756c4159e56f580403289b8033f25d77",
+    "check_counts": {
+      "2": 103,
+      "0": 134
+    },
+    "run_counts": {
+      "2": 12,
+      "0": 114,
+      "1": 5
+    },
+    "successful_unique_sources": 109,
+    "admitted_without_successful_run": [
+      "q02_scanner_char_literal_double_quotes_static_control",
+      "q04_scanner_string_with_apostrophes_static_control",
+      "q06_scanner_comment_with_apostrophes_static_control",
+      "s03_call_and_bool_write_deepest",
+      "q08_scanner_nested_loop_inside_arms_static_control",
+      "q09_scanner_elsif_regions_static_control",
+      "q10_scanner_else_after_nesteds_static_control",
+      "q14_scanner_tab_and_cr_separatorss_static_control",
+      "q12_scanner_length_attribute_in_conditions_static_control",
+      "s05_deepest_foreach_bool_write",
+      "q19_scanner_bool_array_write_and_chains_static_control",
+      "q16v2_fn_if_no_call_main_if_static",
+      "q13_scanner_mixed_case_keywordss_static_control",
+      "q16v3_fn_noif_call_main_if_static",
+      "q15_scanner_boolean_array_cell_guards_static_control",
+      "q11_scanner_image_attribute_before_ifs_static_control",
+      "s04_deepest_if_arms_slice",
+      "q18_scanner_character_literal_semicolon_in_chains_static_control",
+      "q16v1_fn_if_call_static_slice_no_if",
+      "s02_function_deepest_loops",
+      "q16v4_fn_if_nonstatic_slice_no_if_in_main",
+      "q03_scanner_char_literal_apostrophes_static_control",
+      "q17_scanner_string_end_if_then_real_ifs_static_control",
+      "q05_scanner_comment_with_double_quotes_static_control",
+      "q16v5_original_decls_without_fn"
+    ]
+  },
+  "c1_probes": [
+    {
+      "case": "c09b-original",
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);A:array(0..1)of Boolean:=(True,False);function F(X:in Integer)return Integer is A:Integer:=1;begin return A+X;end F;R:Integer:=0;begin R:=F(1);if A(0) then Silver_IO.Put_Line(Integer'Image(R));end if;end Main;",
+      "source_sha256": "3423b61e6bf0ce811460ad660f1b3e8585e7d2daaf040e74419dc9b3d3fd447b",
+      "expected": 2,
+      "exit": 2,
+      "stdout": "Rejected: source is outside the Silver catalogue.\n",
+      "stderr": ""
+    },
+    {
+      "case": "c09b-hiding-control",
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);A:array(0..1)of Boolean:=(True,False);function F(X:in Integer)return Integer is A:Integer:=1;begin return A;end F;R:Integer:=0;begin R:=F(1);if A(0) then Silver_IO.Put_Line(Integer'Image(R));end if;end Main;",
+      "source_sha256": "2dcf1f8b3d9d31c9680c6acb872612eb0bb8c31adb132cf9c5f2b900da5051a9",
+      "expected": 0,
+      "exit": 0,
+      "stdout": "Accepted: silver.\n",
+      "stderr": ""
+    },
+    {
+      "case": "c09d-original",
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);K:Integer:=2;function F(X:in Integer)return Integer is K:Integer:=1;begin return K+X;end F;R:Integer:=0;begin R:=F(K);Silver_IO.Put_Line(Integer'Image(R));end Main;",
+      "source_sha256": "030090fe03b19b6537dff117148289a1fa55cc071099892d7583b06fb369176f",
+      "expected": 2,
+      "exit": 2,
+      "stdout": "Rejected: source is outside the Silver catalogue.\n",
+      "stderr": ""
+    },
+    {
+      "case": "c09d-hiding-control",
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);K:Integer:=2;function F(X:in Integer)return Integer is K:Integer:=1;begin return K;end F;R:Integer:=0;begin R:=F(K);Silver_IO.Put_Line(Integer'Image(R));end Main;",
+      "source_sha256": "bb592b300b797a705f64f6f9a0d9a2df8f0af964784e93c79faa335464d915f9",
+      "expected": 0,
+      "exit": 0,
+      "stdout": "Accepted: silver.\n",
+      "stderr": ""
+    },
+    {
+      "case": "c09e-original",
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);S:constant String:=\"ab\";function F(X:in Integer)return Integer is S:Integer:=1;begin return S+X;end F;R:Integer:=0;begin R:=F(1);Silver_IO.Put_Line(S);Silver_IO.Put_Line(Integer'Image(R));end Main;",
+      "source_sha256": "52a30b853e597b337cddba837cb749d9fd454c17477d9f2d0cd0a541910bfd7a",
+      "expected": 2,
+      "exit": 2,
+      "stdout": "Rejected: source is outside the Silver catalogue.\n",
+      "stderr": ""
+    },
+    {
+      "case": "c09e-hiding-control",
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);S:constant String:=\"ab\";function F(X:in Integer)return Integer is S:Integer:=1;begin return S;end F;R:Integer:=0;begin R:=F(1);Silver_IO.Put_Line(S);Silver_IO.Put_Line(Integer'Image(R));end Main;",
+      "source_sha256": "468efc797f9e9d3a45057691a514f73fb6e58991ecbbce889eb985a497f61c66",
+      "expected": 0,
+      "exit": 0,
+      "stdout": "Accepted: silver.\n",
+      "stderr": ""
+    }
+  ],
+  "additional_C1_report_errata": {
+    "basis": "Retained original reviewer artifacts, read 2026-11-09; no new execution claimed",
+    "interpretation": "c24b returns the excluded ungrouped X+Y expression. c24c has no function-local hiding and its original log records acceptance, contrary to the external report sentence.",
+    "artifacts": [
+      {
+        "reviewer_artifact": "/home/canto/src/github.com/berkeleynerd/silver/tmp/external-review-74ea2edeaa/lanes/COVERAGE/programs/c24b_main_object_before_function_local_same_name_RECORD",
+        "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);Y:Integer:=2;function F(X:in Integer)return Integer is Y:Integer:=1;begin return X+Y;end F;R:Integer:=0;begin R:=F(Y);Silver_IO.Put_Line(Integer'Image(R));end Main;",
+        "reviewer_check_log": "Rejected: source is outside the Silver catalogue.\n"
+      },
+      {
+        "reviewer_artifact": "/home/canto/src/github.com/berkeleynerd/silver/tmp/external-review-74ea2edeaa/lanes/COVERAGE/programs/c24c_main_object_after_function_named_like_formal_RECORD",
+        "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);function F(X:in Integer)return Integer is begin return X;end F;X:Integer:=2;R:Integer:=0;begin R:=F(X);Silver_IO.Put_Line(Integer'Image(R));end Main;",
+        "reviewer_check_log": "Accepted: silver.\n"
+      }
+    ]
+  }
+}
