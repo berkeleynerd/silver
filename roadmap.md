@@ -47,9 +47,14 @@ with the proposed small nonrecursive scalar procedures under
 when readily practical. Establish the procedure grammar, full-domain body and
 call contracts, initialization/alias rules, report capacity and source-proof
 reuse before implementation. Return multiple values is the first task driver.
-This is selected development, not admitted language; the bounded capability plan
-and implementation issues follow the scope check. No successor sample batch or
-deferred capacity research is selected.
+This is selected development, not admitted language. The
+[bounded capability plan](docs/scalar-procedures.md) and
+[#370](https://github.com/berkeleynerd/silver/issues/370), in
+[milestone 23](https://github.com/berkeleynerd/silver/milestone/23), specify one
+language increment with a source-written leading `out` initialization prefix.
+The #29 repair accompanies its final delivery. Focused native producer/helper
+checks and semantic/source integration precede one shared complete checkpoint.
+No successor sample batch or deferred capacity research is selected.
 
 **Owner-selected planning order, 2026-10-30.** Prioritize useful Rosetta
 expansion and reuse of the existing language machinery. Revisit the order after
