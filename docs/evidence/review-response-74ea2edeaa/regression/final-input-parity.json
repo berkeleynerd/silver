@@ -1,0 +1,45 @@
+{
+  "baseline": "source-input-parity.json.gz",
+  "baseline_count": 12170,
+  "captured_at": "2026-11-09T16:04:49.215514+00:00",
+  "executables": {
+    "silver": {
+      "matches_readiness": true,
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-response-regression/.silver/linux-x86_64/compiler/bin/silver",
+      "sha256": "eb8bf88fc550d706da7a9baeca8cd641bc2c81f36e8e277747372c58e223d3ba"
+    },
+    "silver_image_adapter": {
+      "matches_readiness": true,
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-response-regression/.silver/linux-x86_64/compiler/bin/silver_image_adapter",
+      "sha256": "299ae169e22e36b3ac6cee8cf0e5949d6b27658ea5f066482b53c9ae877eb524"
+    }
+  },
+  "integration": "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-response-74ea2edeaa",
+  "integration_different_from_baseline": [],
+  "integration_head": "8a9ca2afe9ae7b2486e8fc0c90bb71cb0b968547",
+  "integration_inventory_added": [],
+  "integration_inventory_removed": [],
+  "prepared_input_count": 1123,
+  "prepared_inputs_different_after_suite": [],
+  "regression": "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-response-regression",
+  "regression_base": "6365003968a3631493e60380d71417fdc42233c3",
+  "regression_different_from_baseline": [],
+  "regression_head": "7690b222f676b430d88c6510ded56a5a1aef0206",
+  "regression_inventory_added": [],
+  "regression_inventory_removed": [],
+  "root_project_files": [
+    "silver.gpr",
+    "alire.toml"
+  ],
+  "roots": [
+    "src",
+    "proof",
+    "scripts",
+    "tests",
+    "catalogue",
+    "samples",
+    "rosetta",
+    "references"
+  ],
+  "tracked_git_status": ""
+}
