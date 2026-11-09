@@ -1,0 +1,28 @@
+[
+  {
+    "command": [
+      "python3",
+      "scripts/bootstrap.py"
+    ],
+    "cwd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-response-regression",
+    "started_at": "2026-11-09T14:29:06.604899+00:00",
+    "finished_at": "2026-11-09T14:29:11.651224+00:00",
+    "duration_seconds": 5.046399691999795,
+    "returncode": 0,
+    "log": "tmp/regression-setup/bootstrap.log",
+    "log_sha256": "2a271cee694c547fef0a621c172661e9f2182a9df815f577863125d1dd843ce0"
+  },
+  {
+    "command": [
+      "python3",
+      "scripts/bootstrap_lean.py"
+    ],
+    "cwd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-response-regression",
+    "started_at": "2026-11-09T14:29:11.658442+00:00",
+    "finished_at": "2026-11-09T14:29:13.500197+00:00",
+    "duration_seconds": 1.8417617330001121,
+    "returncode": 0,
+    "log": "tmp/regression-setup/bootstrap_lean.log",
+    "log_sha256": "a1ec6b6853d63e77fb5b8bb89a2ef377794e0d6f768ca355b255c95aae7de533"
+  }
+]
