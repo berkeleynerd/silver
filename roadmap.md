@@ -31,12 +31,25 @@ no accepted repair or validation requirement remains unresolved.
 
 The #345 / PR #354 Rosetta delivery is complete on Linux, with its merge
 [authorized on 2026-11-09](docs/session-memory.md#2026-11-09--pr-354-merge-authorized-report-the-next-unit).
-No new language or sample batch is selected.
+The next owner-authorized work is the bounded Rosetta refresh repair and
+scalar-procedure scope below.
 Its [2026-11-09 integration](docs/scalar-function-rosetta-batch.md#current-main-integration--2026-11-09)
 preserves this response and uses its complete validation, with only the three
 affected Rosetta tests rerun after resolving the session-history conflict.
 
 ## Near-term feature queue
+
+**Next selection, 2026-11-09.** The owner
+[authorized](docs/session-memory.md#2026-11-09--rosetta-refresh-repair-and-next-language-increment-authorized)
+repairing [#29](https://github.com/berkeleynerd/silver/issues/29) and continuing
+with the proposed small nonrecursive scalar procedures under
+[#11](https://github.com/berkeleynerd/silver/issues/11), combining their delivery
+when readily practical. Establish the procedure grammar, full-domain body and
+call contracts, initialization/alias rules, report capacity and source-proof
+reuse before implementation. Return multiple values is the first task driver.
+This is selected development, not admitted language; the bounded capability plan
+and implementation issues follow the scope check. No successor sample batch or
+deferred capacity research is selected.
 
 **Owner-selected planning order, 2026-10-30.** Prioritize useful Rosetta
 expansion and reuse of the existing language machinery. Revisit the order after

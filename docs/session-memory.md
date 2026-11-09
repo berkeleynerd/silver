@@ -1,5 +1,33 @@
 # Session memory
 
+## 2026-11-09 — Rosetta refresh repair and next language increment authorized
+
+After the open-bug triage and scalar-procedure recommendation, the owner
+instructed **“Let's address 29 and continue language development with the next
+feature if both can be readily handled in one push.”** This authorizes the
+bounded [#29 refresh repair](https://github.com/berkeleynerd/silver/issues/29)
+and scoping the next language increment under
+[#11](https://github.com/berkeleynerd/silver/issues/11): small nonrecursive
+scalar procedures with `out` and `in out` parameters. Proceed with that
+implementation when its coherent scope and assurance approach are established;
+combine the small tooling repair with its delivery when practical. Report a
+material scope or delivery-cost change rather than silently substituting a
+different feature or expanding into general procedures.
+
+For #29, validate required cached inputs before deleting generated output,
+give clear failure diagnostics, document whole-group regeneration, and exercise
+preservation on a failed refresh. No general cache framework is selected.
+The language plan must retain actual-source correspondence, full formal domains,
+caller-state and initialization guarantees, focused complete-contract checks,
+and a shared complete validation checkpoint. Record a split and all increment
+issues together if implementation needs separate work packages. The current
+source/expression bounds, Oracle and deferred capacity research remain unchanged.
+
+Selected scoping/review setting: Astra Max for new contract and proof design;
+Sol Extra High for the refresh implementation and directly checkable work.
+These selected settings do not establish the live lead's runtime setting.
+Preserve unrelated worktrees and scratch. CLI recall was not updated.
+
 ## 2026-11-09 — PR #354 merge authorized; report the next unit
 
 The owner instructed **“Let's merge it. Then report what we should work on
