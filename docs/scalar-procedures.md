@@ -116,6 +116,12 @@ before choosing whether the existing allocation suffices. Any necessary bounded
 storage adjustment needs its own source-derived argument, documentation and
 boundary tests; it does not restart general capacity research.
 
+The [procedure capacity account](scalar-procedures-report-capacity.md) now
+derives a conservative 38,186,752-byte envelope, including separate allowances
+for copy-back and output-initialization records. It selects a 64 MiB retained
+Main allocation. Native integration, independent review and boundary validation
+of this adjustment remain pending.
+
 Managed producer probes precede report-policy changes. Inspect unused procedures,
 Integer/Boolean outputs, bounded `in out`, procedure/function composition,
 calls under Main branches/loops, copy-in/copy-back subtype boundaries and alias
@@ -157,3 +163,31 @@ remaining surface complete.
 | Date | Selected settings | Result and next check | Evidence scope |
 | --- | --- | --- | --- |
 | 2026-11-09 | Astra Max procedure design/native probes; Sol Extra High refresh repair; lead runtime not independently exposed | Established the leading output-initialization scope, identified effectful-call/capacity contracts, and started isolated #370 streams. #29 has successful focused checks; its final source/error review is completing. | Design inspection and focused Python checks only; no new procedure assurance or support. Native producer results, helper contracts and source integration remain pending. |
+| 2026-11-09 23:06–23:32 UTC | Sol Extra High refresh author; Astra Max native, semantic and source authors; lead runtime not independently exposed | Final #29 repair passed 12 tests. Procedure metadata passed 62 native checks; the selected mechanism probe passed 75 checks, and initial parser tests passed 19 admission methods. Narrow-copyback and unsafe-unused-body probes failed as expected. | Refresh evidence and native producer/metadata packets are retained under `docs/evidence/scalar-procedures-20261109/`. These are focused results, not feature completion. |
+| 2026-11-09 23:21–23:43 UTC | Astra Max semantic/source authors and native helper investigation; lead runtime not independently exposed | Call/input/copy-back contracts, metadata actual-source checks and signature interpretation passed focused Lean audits. Integrated parser implementation and drafted shared Python/native report-policy regressions. Pinned producer inspection established one initialization record per `out` formal. | Runs `20261109T232157-f50052810dba`, `20261109T232318-79e59bd00147` and `20261109T232931-d434ec47373f` cover the completed proof slices; the body/environment/source integration and complete native helper checks remain pending. |
+
+## Development checkpoint
+
+The native parser implementation at author commit `c3d6c55922` is integrated
+with its assurance explicitly pending. It checks the frozen output prefix,
+full declared body ranges, same-state actual evaluation, nonaliasing targets
+and copy-back range containment. The initial admission test run was
+`20261109T233200-ae6d07cb4d63`; it preceded the final two root test additions
+and did not execute the native compile fixture. The complete helper-contract
+checks, final test inventory and compiler-driven sample still need validation.
+
+The metadata source bridge covers the actual SPARK unit and its helper domains.
+Its signature adapter retains earlier signatures when the pooled metadata grows;
+writable-formal existence remains an explicit declaration-admission condition,
+rather than narrowing the generic metadata helper's domain. Focused source test
+run `20261109T232524-73b6b4ad9ac2` passed 16 tests, including the retained kernel
+rejection controls. These results do not yet establish correspondence for the
+new declaration and call readers.
+
+Report regressions use the same policy boundaries in Python and native tests:
+missing or duplicate output initialization, wrong owner or output name, missing
+unused-procedure coverage, failed safety checks and preservation of function
+termination requirements. Initialization classification uses only observations
+preserved by the existing report projection. The draft tests have not yet run
+against the completed native report API. No new report-auditor architecture or
+independent kernel replay is selected.

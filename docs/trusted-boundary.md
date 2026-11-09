@@ -91,7 +91,7 @@ comments and punctuation preserve the ordinary ASCII literal. This restriction
 keeps the pinned frontend premise consistent with the admitted bytes.
 
 The recorded Linux report-capacity checks used an 8 MiB process stack. `compile`
-and `run` use a 32 MiB library-level buffer for retained audit data. Their
+and `run` use a 64 MiB library-level buffer for retained audit data. Their
 one-based report slices take the auditor's direct path without a report-sized stack copy. The
 generic non-one-based path retains a rebasing copy in a separate frame; the
 driver does not use it. See the [capacity repair](report-capacity.md) and
@@ -306,6 +306,25 @@ peak-memory bound. The formal/signature pool remains source-derived; no new
 independent author-visible count limit is introduced. Earlier stack observations
 retain their recorded compiler scope. Sufficient stack and memory remain the
 existing environmental premises.
+
+## Small scalar-procedure boundary
+
+The [procedure increment](scalar-procedures.md) retains the function
+increment's tool pins, unchanged-author-source and `--no-inlining` premises.
+Every declared procedure is analyzed, including unused ones. Its exact
+source-derived inventory additionally identifies the `out` formal names for
+the successful initialization records. Function termination witnesses remain
+required; this producer emits no procedure termination witness. Procedure
+termination must instead follow from the constructive earlier-call and finite
+body semantics, as specified in the capability record.
+
+The [procedure capacity account](scalar-procedures-report-capacity.md) extends
+the retained Main envelope to 38,186,752 bytes, using a 67,108,864-byte allocation
+and matching shared file-reader bound. Runtime/null report domains remain
+262,144 bytes. This is a local storage adjustment under the existing producer
+premises, without a new general capacity, stack or proof-time claim. The
+capability and capacity records identify the still-pending implementation,
+review and final validation.
 
 ## Scalar guard refinement boundary
 
@@ -1104,7 +1123,7 @@ proof-only computations, preventing recursive stack growth during report
 processing. GNATprove still verifies all obligations of this report unit,
 including its refinement contract. The executable checks and global
 `-gnata`/`-gnato` switches are retained. Retained application audit data has a
-33,554,432-byte capacity after the streaming projection; runtime reports retain
+67,108,864-byte capacity after the streaming projection; runtime reports retain
 their separate 262,144-byte bound. The projection uses the producer's byte-oriented
 JSON token grammar and trusts its encoding of raw non-ASCII string bytes;
 it does not add a UTF-8 validator. A native
@@ -1243,7 +1262,7 @@ capacity evidence and its limits. Proof cost can differ
 by expression position. [Sequencing probes](statement-sequencing.md) produced
 314,746-byte and 469,246-byte Main reports within the source/operator limits,
 exceeding the previous application buffer. Retained application audit data now
-has a 32 MiB domain; retained runtime data stays within 262,144 bytes. The
+has a 64 MiB domain; retained runtime data stays within 262,144 bytes. The
 [capacity repair](report-capacity.md) derives their envelopes from current
 source and producer fields. A streaming reader validates the complete JSON
 and replaces only immediate `check_tree` values in flow/proof records, removing

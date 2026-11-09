@@ -1285,7 +1285,7 @@ These specifications describe byte traversal, quoted strings, nesting, audited
 fields, entities, dependencies and every emitted record, without calling the
 executable acceptance traversal. Shared elementary predicates and immutable
 tables do not replace that refinement. Retained application audit data has a
-33,554,432-byte domain; runtime data retains 262,144 bytes. These are storage
+67,108,864-byte domain; runtime data retains 262,144 bytes. These are storage
 bounds after the streaming projection of unaudited `check_tree` values, not
 limits on original evidence-file length. The original reports remain unchanged,
 and every record and policy-relevant field remains in the audited input.

@@ -229,7 +229,8 @@ declaration ::= name ":" [ "constant" ] "String" ":=" expression ";"
                 ":=" scalar_expression ";"
               | "subtype" name "is" "Integer" "range"
                 static_scalar_expression ".." static_scalar_expression ";"
-              | integer_array_declaration | boolean_array_declaration | scalar_function
+              | integer_array_declaration | boolean_array_declaration
+              | scalar_function | scalar_procedure
 integer_subtype_mark ::= "Integer" | earlier_named_integer_subtype
 ```
 
@@ -1399,6 +1400,7 @@ The catalogue uses these construct identifiers:
 | `boolean_array_object`, `boolean_array_read`, `boolean_array_assignment` | Explicitly initialized fixed-size Boolean arrays, typed indexed reads and mutable cell writes; stored flags retain no scalar or String/input facts. |
 | `integer_array_iteration` | Forward/reverse iteration over constant Integer arrays, with immutable nonstatic elements, declared component entry bounds and existing guard/statement compositions. |
 | `scalar_function`, `scalar_function_call` | Closed Integer/Boolean functions with explicit-in formals, terminal return, earlier-only calls and whole scalar assignment RHS calls. |
+| `scalar_procedure`, `scalar_procedure_call` | Closed Integer/Boolean procedures with explicit modes, leading output initialization, earlier-only calls, positional nonaliasing scalar actuals and range-checked copy-back. |
 | `named_boolean_constant`, `named_boolean_variable`, `boolean_assignment`, `boolean_expression`, `boolean_comparison` | Initialized scalar Boolean objects, snapshot copies, assignment, logical expressions and Boolean equality/inequality under the visibility, evaluation and xor restrictions above; stored flags retain no scalar or String/input facts. |
 | `integer_comparison`, `scalar_guard_refinement`, `integer_image`, `for_loop` | Bare mutable/formal/index/element names against static thresholds, current read intervals with assignment replacement and branch hulls, standard decimal Image and scoped finite loops with captured bounds and mutable widening. |
 | `expression_output`, `literal_output`, `named_output`, `concatenated_output` | Returning output calls with qualified or visible unqualified names and positional or `Item =>` actuals. |
@@ -1406,12 +1408,12 @@ The catalogue uses these construct identifiers:
 | `string_equality`, `string_choice` | Nested predicates with nonempty statements, repeated `elsif`, optional `else` and path refinement. |
 | `length_predicate`, `boolean_predicate`, `integer_literal` | Fixed-bound length comparisons, grouped short-circuit logic and bounded decimal/based integer spelling. |
 | `string_assignment` | Fixed-bound assignment, including self-copy and path-established length equality. |
-| `statement_sequence`, `basic_statement_sequence` | Nonempty finite ordered statements; basic sequences contain null, assignment, output and argument-shell Reject; general sequences also contain choices and loops. |
+| `statement_sequence`, `basic_statement_sequence` | Nonempty finite ordered statements; basic sequences contain null, assignment, scalar procedure calls, output and argument-shell Reject; general sequences also contain choices and loops. |
 
 Everything else is excluded, including derived scalar types, subtype alias chains, conversions,
 other loop forms,
 Boolean operations outside the specified fragment,
-declaration regions beyond the scalar functions above, resizable strings, other array
+declaration regions beyond the scalar subprograms above, resizable strings, other array
 operations, access types and file handles.
 The catalogue's token arrays are informative skeletons, including qualified,
 positional call examples; their construct conditions specify the context,

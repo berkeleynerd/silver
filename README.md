@@ -296,7 +296,7 @@ native package is `libc6-dev`.
 
 Use the validated **8 MiB process stack** configuration for the compiler on Linux
 (`ulimit -s 8192` in a shell where that limit is permitted). Retained application
-audit data uses a 32 MiB library-level buffer, and the auditor reads that buffer
+audit data uses a 64 MiB library-level buffer, and the auditor reads that buffer
 without a report-sized stack copy. A streaming reader validates and omits only
 unaudited proof-tree metadata; original reports remain on disk. The earlier
 2 MiB stack allocation produced

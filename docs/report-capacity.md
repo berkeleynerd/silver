@@ -3,7 +3,9 @@
 This record addresses [B1 and L4](reviews/review-343c2f8.md) for the then-current
 4096-byte String language. That repair allocated **16,777,216 bytes of retained
 report data**. The [fixed-array extension](fixed-integer-arrays-report-capacity.md)
-raises the current application allocation to **33,554,432 bytes**, retaining the
+raised that allocation to **33,554,432 bytes**. The
+[scalar-procedure extension](scalar-procedures-report-capacity.md) selects
+**67,108,864 bytes** for its conservative 38,186,752-byte envelope, retaining the
 same source budget and projection policy. Selected runtime reports retain their
 262,144-byte domain. Neither number bounds the original report file: the
 streaming reader consumes its complete JSON, replacing only immediate
