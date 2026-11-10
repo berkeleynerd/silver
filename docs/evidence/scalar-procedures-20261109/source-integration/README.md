@@ -26,7 +26,9 @@ actual inputs, settings, log and fresh axiom-audit result.
 | `20261110T060446-823a620d694f` | Low procedure helper denotations, complete native domains/traversal contracts and exact source-fragment checks (`b287c84887`, integrated as `913af1113a`); recursive/library assembly and authoritative whole-output binding remain pending | 18,973 |
 | `20261110T061920-0ed033d1b83a` | Complete reviewed-token declaration/call candidates, native fresh-frame domains, metadata-selector model/source candidate and generic statement flags | 28,691 |
 | `20261110T061700-bcf29d197bd1` | Source-derived procedure actual/copy-back flow updates (`2ee162c0ec`, integrated as `318e87ba0c`) | 21,337 |
-| `20261110T063245-b00afd12332e` | Procedure-call meaning, basic dispatch and generic body meaning (`20c73fcbe1`; integration queued after the live root source check) | 23,080 |
+| `20261110T063245-b00afd12332e` | Procedure-call meaning, basic dispatch and generic body meaning (`20c73fcbe1`, integrated as `a035dc08df`) | 23,080 |
+| `20261110T064408-2aeabef7ba81` | Checked procedure definitions, mixed callable assembly and ordinary function-body adaptation (`b54aee71f4`, integrated as `88da988dfe`) | 25,005 |
+| `20261110T064954-55833e637085` | Low declaration helper source checks against the complete reviewed output token sequence; all eleven fragments retained from `063206-2996a7ff68f7` | 15,836 |
 
 Lead source inspection found that the `035322` model tried procedures before
 functions, unlike Ada's function-first dispatcher. Its focused result remains
@@ -43,9 +45,9 @@ records. The host-local task ledger retains the earlier failed focused
 attempts as failed; this packet does not relabel or substitute for them.
 
 Actual-source alias separation and mixed declaration extraction now pass focused
-audits. Constructive procedure-body/call assembly, low declaration library
-interpretation, raw dispatcher callers and authoritative source endpoint
-integration remain pending. High declaration trees, raw complete-domain
+audits. Constructive procedure-body/call and mixed-declaration assembly now pass the
+stated focused audits. Low declaration library interpretation, outer semantic
+consumers and authoritative source endpoint integration remain pending. High declaration trees, raw complete-domain
 equations and imported-callee reductions pass the stated focused audit; the
 reviewed-token candidates now pass; authoritative certificate adapters and library assembly remain pending. Published Rosetta support remains 83 tasks.
 
@@ -59,3 +61,17 @@ explicitly record eight broader native/catalogue/evidence inputs that differ
 from the older semantic consumer branch. These are focused semantic results;
 they do not claim complete current-tree assurance. The compressed comparison
 records accompany the actual validating runs above.
+
+The `064408` immutable semantic cache snapshot was copied into the idle root
+proof workspace after `064954` ended: all 291 module sources and 4,648 artifact
+files were checked before copying, including private/server objects and Lake
+metadata. The retained cache-seed record identifies this reuse; subsequent
+Lake rehash and fresh audits remain required. The shared live certificate
+producer was neither copied nor interrupted.
+
+The `064954` axiom phase completed before the mixed-assembly cherry-pick began,
+but the runner was still finalizing. Its actual exit was successful. The
+retained input comparison confirms that all 117 audited module inputs still
+match; the four changed mixed-assembly files lie outside that target's import
+closure and have their separate `064408` evidence. This is focused applicability,
+not complete validation of the newly combined tree.
