@@ -550,6 +550,16 @@ theorem ProcedureInitializationSource.prefix_checked
     rw [shape, analysis, entry, booleansAnalysis] at checkedActuals
     exact checkedActuals
 
+/-- The native prefix-assignment bit records exactly whether source initializers
+were read; later procedure-body assignments are accounted for separately. -/
+theorem ProcedureInitializationSource.initialized_flag
+    {text frame arguments integers booleans checks booleanChecks actuals}
+    (source : ProcedureInitializationSource text frame arguments integers booleans checks booleanChecks actuals) :
+    procedureSourceInitialized text frame arguments = !actuals.isEmpty := by
+  apply Bool.eq_iff_iff.mpr
+  simpa only [procedureSourceInitialized, decide_eq_true_eq, Bool.not_eq_true',
+    List.isEmpty_eq_false_iff] using source.prefixRead.progress.2
+
 theorem ProcedureInitializationSource.initialized_out
     {text frame first after arguments integers booleans checks booleanChecks actuals}
     (source : ProcedureInitializationSource text frame arguments integers booleans checks booleanChecks actuals)

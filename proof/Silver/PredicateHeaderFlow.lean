@@ -67,8 +67,8 @@ private theorem declarations_staticFlags {text arguments state final values}
       rw [(boolean_declaration_preserves first).2.1] at ih
       exact ih
 
-  | function _ _ accepted _ ih =>
-      rw [(functionDeclarationAt_preserves_outer _ _ _ accepted).scalarNames] at ih
+  | callable _ _ accepted _ ih =>
+      rw [(callableDeclarationAt_preserves_outer _ _ _ accepted).scalarNames] at ih
       exact ih
 
 private theorem scalar_step_staticFlags {text form token state next values}
