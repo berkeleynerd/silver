@@ -6,7 +6,7 @@ with Silver_Library_Reports;
 with Silver_Output_Profile;
 procedure Library_Reports_Probe is
    Procedure_Source : constant String :=
-     "procedure Main is pragma SPARK_Mode(On);" &
+     "with Silver_IO;procedure Main is pragma SPARK_Mode(On);" &
      "function Id(X:in Integer)return Integer is begin return X;end Id;" &
      "procedure Set_Value(Value:out Integer;Flag:out Boolean;Carry:in out Integer)is " &
      "begin Value:=0;Flag:=False;Carry:=Value;end Set_Value;" &
