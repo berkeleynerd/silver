@@ -6,18 +6,22 @@ public import Silver.FunctionDeclarationPreservation
 
 namespace Silver.Compose
 
-/-- Completed function names extend the exact operation-hiding inventory;
-pending formal names remain local to the function frame. -/
+/-- The completed callable tables supply the native operation-hiding inventory.
+Order within this list has no effect on the exact name-membership predicate. -/
+def callableNames (state : ParserState) : List (Nat × Nat) :=
+  state.functions.items.map (fun item => (item.first, item.after)) ++
+    state.procedures.items.map (fun item => (item.first, item.after))
+
+/-- A completed function adds its actual name to the same hiding inventory as
+completed procedures; pending formal names remain local to the function frame. -/
 theorem functionBodyAt_hiding_or_rejected {text : Source} {outer frame : ParserState}
     {first after : Nat} {resultType : FunctionTypeResult} {arguments : Bool}
-    (correct : IntegerSubtypes.HidingCorrect text outer.subtypeNames
-      (outer.functions.items.map (fun item => (item.first, item.after))))
+    (correct : IntegerSubtypes.HidingCorrect text outer.subtypeNames (callableNames outer))
     (sameItems : frame.functions.items = outer.functions.items) :
     (functionBodyAt text outer frame first after resultType arguments).position = 0 ∨
       IntegerSubtypes.HidingCorrect text
         (functionBodyAt text outer frame first after resultType arguments).subtypeNames
-        ((functionBodyAt text outer frame first after resultType arguments).functions.items.map
-          (fun item => (item.first, item.after))) := by
+        (callableNames (functionBodyAt text outer frame first after resultType arguments)) := by
   dsimp only [functionBodyAt]
   split
   · exact .inl rfl
@@ -25,17 +29,17 @@ theorem functionBodyAt_hiding_or_rejected {text : Source} {outer frame : ParserS
     · exact .inl rfl
     · split
       · exact .inl rfl
-      · refine .inr ?_
-        simpa only [FunctionBindings.append, List.map_append, List.map_cons,
-          List.map_nil, sameItems] using IntegerSubtypes.hiding_add_other correct first after
+      · right
+        intro operation
+        simpa [callableNames, FunctionBindings.append, sameItems, List.any_append,
+          Bool.or_assoc, Bool.or_left_comm, Bool.or_comm] using
+          IntegerSubtypes.hiding_add_other correct first after operation
 
 theorem functionDeclarationAt_hiding_or_rejected {text : Source} {state : ParserState} {arguments : Bool}
-    (correct : IntegerSubtypes.HidingCorrect text state.subtypeNames
-      (state.functions.items.map (fun item => (item.first, item.after)))) :
+    (correct : IntegerSubtypes.HidingCorrect text state.subtypeNames (callableNames state)) :
     (functionDeclarationAt text state arguments).position = 0 ∨
       IntegerSubtypes.HidingCorrect text (functionDeclarationAt text state arguments).subtypeNames
-        ((functionDeclarationAt text state arguments).functions.items.map
-          (fun item => (item.first, item.after))) := by
+        (callableNames (functionDeclarationAt text state arguments)) := by
   dsimp only [functionDeclarationAt]
   split
   · exact .inl rfl
@@ -48,11 +52,10 @@ theorem functionDeclarationAt_hiding_or_rejected {text : Source} {state : Parser
       · exact functionBodyAt_hiding_or_rejected correct unchanged
 
 theorem functionDeclarationAt_hiding {text : Source} {state : ParserState} {arguments : Bool}
-    (correct : IntegerSubtypes.HidingCorrect text state.subtypeNames
-      (state.functions.items.map (fun item => (item.first, item.after))))
+    (correct : IntegerSubtypes.HidingCorrect text state.subtypeNames (callableNames state))
     (accepted : (functionDeclarationAt text state arguments).position ≠ 0) :
     IntegerSubtypes.HidingCorrect text (functionDeclarationAt text state arguments).subtypeNames
-      ((functionDeclarationAt text state arguments).functions.items.map (fun item => (item.first, item.after))) :=
+      (callableNames (functionDeclarationAt text state arguments)) :=
   (functionDeclarationAt_hiding_or_rejected correct).resolve_left accepted
 
 end Silver.Compose
