@@ -43,5 +43,6 @@ public import Silver.BranchingDisjoint
 public import Silver.ScalarFunctionFrameFlow
 public import Silver.ProcedureBindingsSourceBridge
 public import Silver.ProcedureMetadataSemantics
+public import Silver.ProcedureMetadataSourceBridge
 
 @[expose] public section
