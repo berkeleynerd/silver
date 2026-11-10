@@ -9,6 +9,7 @@ public import Silver.IntegerSubtypeBindings
 public import Silver.BooleanBindings
 public import Silver.ScalarExpressionEnvironment
 public import Silver.FunctionBindings
+public import Silver.ProcedureBindings
 
 @[expose] public section
 
@@ -89,6 +90,8 @@ structure ParserState where
   assignedInFunctions : Bool := false
   «hiding» : HiddenMarks := {}
   firstParameter : Nat := 0
+  procedures : ProcedureBindings.Metadata := {}
+  firstProcedureParameter : Nat := 0
   deriving DecidableEq, Repr
 
 def initialState : ParserState := {}

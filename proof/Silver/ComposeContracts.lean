@@ -24,7 +24,10 @@ def ValidState (text : Source) (state : ParserState) : Prop :=
     BooleanBindings.ValidEnvironment text state.booleanNames ∧
     FunctionBindings.ValidMetadata text state.functions ∧
     state.firstParameter ≤ state.functions.parameters.length + 1 ∧
-    state.firstParameter ≤ FunctionBindings.maxFormals
+    state.firstParameter ≤ FunctionBindings.maxFormals ∧
+    ProcedureBindings.ValidMetadata text state.procedures ∧
+    state.firstProcedureParameter ≤ state.procedures.parameters.length + 1 ∧
+    state.firstProcedureParameter ≤ ProcedureBindings.maxFormals
 
 theorem ValidState.booleans {text : Source} {state : ParserState}
     (valid : ValidState text state) : BooleanBindings.ValidEnvironment text state.booleanNames :=
@@ -33,6 +36,10 @@ theorem ValidState.booleans {text : Source} {state : ParserState}
 theorem ValidState.functions {text : Source} {state : ParserState}
     (valid : ValidState text state) : FunctionBindings.ValidMetadata text state.functions :=
   valid.2.2.2.2.2.2.2.2.2.1
+
+theorem ValidState.procedures {text : Source} {state : ParserState}
+    (valid : ValidState text state) : ProcedureBindings.ValidMetadata text state.procedures :=
+  valid.2.2.2.2.2.2.2.2.2.2.2.2.1
 
 /-- The state precondition actually provided by an interpreted native caller.
 The base domain remains available for the independent mathematical model. -/

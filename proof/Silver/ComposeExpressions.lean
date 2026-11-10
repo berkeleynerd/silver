@@ -32,7 +32,7 @@ inductive Ty
   | scalarNames | scalarBinding | scalarResult | scalarLiteral | interval | scalarConstraint
   | arrayMetadata | arrayInitials | arrayEnv
   | subtypeNames | subtypeBinding | callHiding | booleanNames
-  | functionMetadata | hiddenMarks
+  | functionMetadata | procedureMetadata | hiddenMarks
   | arrow (domain codomain : Ty)
   deriving DecidableEq, Repr
 
@@ -50,7 +50,8 @@ inductive Ty
   | .subtypeNames => IntegerSubtypes.Environment | .subtypeBinding => IntegerSubtypes.Binding
   | .callHiding => IntegerSubtypes.CallHiding
   | .booleanNames => BooleanBindings.Environment
-  | .functionMetadata => FunctionBindings.Metadata | .hiddenMarks => HiddenMarks
+  | .functionMetadata => FunctionBindings.Metadata | .procedureMetadata => ProcedureBindings.Metadata
+  | .hiddenMarks => HiddenMarks
   | .arrow a b => a.meaning → b.meaning
 
 def Ty.default : (ty : Ty) → ty.meaning
@@ -63,7 +64,7 @@ def Ty.default : (ty : Ty) → ty.meaning
   | Ty.interval => Integer.Interval.empty | Ty.scalarConstraint => ⟨0, Integer.Interval.empty⟩
   | Ty.arrayMetadata => [] | Ty.arrayInitials => [] | Ty.arrayEnv => {}
   | Ty.subtypeNames => {} | Ty.subtypeBinding => {} | Ty.callHiding => {} | Ty.booleanNames => []
-  | Ty.functionMetadata => {} | Ty.hiddenMarks => {}
+  | Ty.functionMetadata => {} | Ty.procedureMetadata => {} | Ty.hiddenMarks => {}
   | Ty.arrow _ b => fun _ => b.default
 
 inductive Function
@@ -399,6 +400,8 @@ def Calls.get (calls : Calls) : (symbol : Function) → symbol.type.meaning
 
 inductive Field : Ty → Ty → Type
   | stateFunctions : Field .state .functionMetadata
+  | stateProcedures : Field .state .procedureMetadata
+  | stateFirstProcedureParameter : Field .state .number
   | statePure : Field .state .truth
   | stateAssignedInFunctions : Field .state .truth
   | stateHiding : Field .state .hiddenMarks
@@ -477,7 +480,8 @@ inductive Field : Ty → Ty → Type
   | decimalValue : Field .decimal .number
 
 def Field.name : Field a b → String
-  | .stateFunctions => "functions" | .statePure => "pure"
+  | .stateFunctions => "functions" | .stateProcedures => "procedures"
+  | .stateFirstProcedureParameter => "first_procedure_parameter" | .statePure => "pure"
   | .stateAssignedInFunctions => "assigned_in_functions" | .stateHiding => "hiding"
   | .stateFirstParameter => "first_parameter"
   | .hiddenInteger => "integer_hidden" | .hiddenBoolean => "boolean_hidden"
@@ -544,7 +548,8 @@ def Field.name : Field a b → String
   | .decimalValue => "value"
 
 def Field.get : Field a b → a.meaning → b.meaning
-  | .stateFunctions, state => state.functions | .statePure, state => state.pure
+  | .stateFunctions, state => state.functions | .stateProcedures, state => state.procedures
+  | .stateFirstProcedureParameter, state => state.firstProcedureParameter | .statePure, state => state.pure
   | .stateAssignedInFunctions, state => state.assignedInFunctions
   | .stateHiding, state => state.hiding | .stateFirstParameter, state => state.firstParameter
   | .hiddenInteger, marks => marks.integerHidden | .hiddenBoolean, marks => marks.booleanHidden

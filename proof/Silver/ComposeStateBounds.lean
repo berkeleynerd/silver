@@ -27,7 +27,8 @@ theorem model_invalid_state_valid (text : Source) : ValidState text invalidState
   simp [ValidState, ValidCursor, ValidNames, NameState.Valid, invalidState, ScalarExpression.ValidEnvironment, ScalarExpression.maxBindings, ArrayBindings.ValidEnvironment, ArrayBindings.ValidMetadata, ArrayBindings.ValidInitials,
     IntegerSubtypes.ValidEnvironment, IntegerSubtypes.maxBindings,
     BooleanBindings.ValidEnvironment, BooleanBindings.maxBindings,
-    FunctionBindings.ValidMetadata, FunctionBindings.maxFormals, FunctionBindings.maxFunctions]
+    FunctionBindings.ValidMetadata, FunctionBindings.maxFormals, FunctionBindings.maxFunctions,
+    ProcedureBindings.ValidMetadata, ProcedureBindings.maxFormals, ProcedureBindings.maxProcedures]
 
 theorem model_state_position_valid (text : Source) (state : ParserState)
     (valid : ValidState text state) (position : Nat) (bound : ValidCursor text position) :
@@ -240,7 +241,9 @@ theorem model_array_reading_valid {text : Source} {state next : ParserState} {ar
         exact stateValid.2.2.2.2.2.2.2.1
       · rw [show _ = state.booleanNames from congrArg (fun s => s.booleanNames) fields,
           show _ = state.functions from congrArg (fun s => s.functions) fields,
-          show _ = state.firstParameter from congrArg (fun s => s.firstParameter) fields]
+          show _ = state.firstParameter from congrArg (fun s => s.firstParameter) fields,
+          show _ = state.procedures from congrArg (fun s => s.procedures) fields,
+          show _ = state.firstProcedureParameter from congrArg (fun s => s.firstProcedureParameter) fields]
         exact stateValid.2.2.2.2.2.2.2.2
 
 theorem model_boolean_array_reading_valid {text arguments state next}

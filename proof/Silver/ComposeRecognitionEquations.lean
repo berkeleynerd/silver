@@ -116,7 +116,8 @@ private theorem initial_valid (text : Source) : ValidState text initialState := 
   simp +instances [ValidState, ValidCursor, ValidNames, initialState, NameState.Valid, maxBindings, maxSourceLength, ScalarExpression.ValidEnvironment, ScalarExpression.maxBindings,
     ArrayBindings.ValidEnvironment, ArrayBindings.ValidMetadata, ArrayBindings.ValidInitials,
     ArrayBindings.maxBindings, ArrayBindings.maxElements, IntegerSubtypes.valid_empty, BooleanBindings.valid_empty,
-    FunctionBindings.ValidMetadata, FunctionBindings.maxFunctions, FunctionBindings.maxFormals]
+    FunctionBindings.ValidMetadata, FunctionBindings.maxFunctions, FunctionBindings.maxFormals,
+    ProcedureBindings.ValidMetadata]
 
 theorem interpreted_form (calls : Calls) (source : DefinitionEquations calls)
     (text : Source) (form : Form) : calls.function .formMember text form = formAccepts text form := by
