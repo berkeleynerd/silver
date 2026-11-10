@@ -7,15 +7,15 @@ public import Silver.PredicateBodySizing
 
 namespace Silver.Predicate.BodyNative
 
-variable {catalog : FunctionBindings.Metadata}
+variable {catalog : FunctionBindings.Metadata} {procedures : ProcedureBindings.Metadata}
 
 structure SizedBodies (primitive : Primitives) (calls : Calls) : Prop where
   conditional : ∀ text, ValidText text → ∀ context, Native.ValidContext text context → ∀ scan,
-    ValidScan text context scan → ∀ catalog, FunctionBindings.ValidMetadata text catalog → conditionalFunction.Sized primitive calls {text,context,scan,catalog}
+    ValidScan text context scan → ∀ catalog procedures, FunctionBindings.ValidMetadata text catalog → ProcedureBindings.ValidMetadata text procedures → conditionalFunction.Sized primitive calls {text,context,scan,catalog,procedures}
   alternative : ∀ text, ValidText text → ∀ context, Native.ValidContext text context → ∀ scan,
-    ValidScan text context scan → ∀ catalog, FunctionBindings.ValidMetadata text catalog → alternativeFunction.Sized primitive calls {text,context,scan,catalog}
+    ValidScan text context scan → ∀ catalog procedures, FunctionBindings.ValidMetadata text catalog → ProcedureBindings.ValidMetadata text procedures → alternativeFunction.Sized primitive calls {text,context,scan,catalog,procedures}
   tailModel : ∀ text, ValidText text → ∀ context, Native.ValidContext text context → ∀ scan stop,
-    ValidScan text context scan → ∀ catalog, FunctionBindings.ValidMetadata text catalog → tailModelBody.Sized primitive calls {text,context,scan,catalog,stop}
+    ValidScan text context scan → ∀ catalog procedures, FunctionBindings.ValidMetadata text catalog → ProcedureBindings.ValidMetadata text procedures → tailModelBody.Sized primitive calls {text,context,scan,catalog,procedures,stop}
 
 private theorem condition_true_count (text : Source) (context : ParseContext) (position : Nat) (facts : ActiveFlow) :
     (readCondition text context position facts).whenTrue.count = facts.count := (condition_counts ..).1
@@ -24,10 +24,10 @@ private theorem condition_false_count (text : Source) (context : ParseContext) (
 
 private theorem read_count (text : Source) (context : ParseContext) (scan : BodyScan) (stop : BodyStop)
     (same : scan.count = context.scalarNames.length) :
-    (readBody (catalog := catalog) text context scan stop).facts.count = context.scalarNames.length := readBody_count (catalog := catalog) text context scan stop same
+    (readBody (catalog := catalog) (procedures := procedures) text context scan stop).facts.count = context.scalarNames.length := readBody_count (catalog := catalog) (procedures := procedures) text context scan stop same
 private theorem alternative_count (text : Source) (context : ParseContext) (scan : BodyScan)
     (same : scan.count = context.scalarNames.length) :
-    (alternativeBody (catalog := catalog) text context scan).facts.count = context.scalarNames.length := alternativeBody_count (catalog := catalog) text context scan same
+    (alternativeBody (catalog := catalog) (procedures := procedures) text context scan).facts.count = context.scalarNames.length := alternativeBody_count (catalog := catalog) (procedures := procedures) text context scan same
 
 set_option maxRecDepth 10000
 set_option maxHeartbeats 2000000
@@ -53,25 +53,25 @@ private theorem model_scan_count (expression : ScanExpr) (frame : Frame)
   | invalid expression ih | invalidModel expression ih => exact ih
   | token token expression ih => exact ih
   | basic expression ih =>
-      exact (basic_count (catalog := frame.catalog) frame.text frame.context.model
+      exact (basic_count (catalog := frame.catalog) (procedures := frame.procedures) frame.text frame.context.model
         (expression.eval modelPrimitives modelCalls frame)).trans ih
   | statement expression ih =>
-      exact (statementBody_count (catalog := frame.catalog) frame.text frame.context.model
+      exact (statementBody_count (catalog := frame.catalog) (procedures := frame.procedures) frame.text frame.context.model
         (expression.eval modelPrimitives modelCalls frame) (ih.trans extent)).trans extent.symm
   | loop expression ih =>
-      exact (loopBody_count (catalog := frame.catalog) frame.text frame.context.model
+      exact (loopBody_count (catalog := frame.catalog) (procedures := frame.procedures) frame.text frame.context.model
         (expression.eval modelPrimitives modelCalls frame) (ih.trans extent)).trans extent.symm
   | conditional expression ih =>
-      exact (conditionalBody_count (catalog := frame.catalog) frame.text frame.context.model
+      exact (conditionalBody_count (catalog := frame.catalog) (procedures := frame.procedures) frame.text frame.context.model
         (expression.eval modelPrimitives modelCalls frame) (ih.trans extent)).trans extent.symm
   | alternative expression ih =>
-      exact (alternativeBody_count (catalog := frame.catalog) frame.text frame.context.model
+      exact (alternativeBody_count (catalog := frame.catalog) (procedures := frame.procedures) frame.text frame.context.model
         (expression.eval modelPrimitives modelCalls frame) (ih.trans extent)).trans extent.symm
   | tailModel stop expression ih | tail stop expression ih =>
-      exact (bodyTail_count (catalog := frame.catalog) frame.text frame.context.model
+      exact (bodyTail_count (catalog := frame.catalog) (procedures := frame.procedures) frame.text frame.context.model
         (expression.eval modelPrimitives modelCalls frame) (stop.eval frame) (ih.trans extent)).trans extent.symm
   | read stop expression ih =>
-      exact (readBody_count (catalog := frame.catalog) frame.text frame.context.model
+      exact (readBody_count (catalog := frame.catalog) (procedures := frame.procedures) frame.text frame.context.model
         (expression.eval modelPrimitives modelCalls frame) (stop.eval frame) (ih.trans extent)).trans extent.symm
 
 private theorem model_facts_count (expression : FactsExpr) (frame : Frame)
@@ -144,15 +144,15 @@ private theorem model_function_sized (fn : Function) (frame : Frame)
       ⟨counts.context, initial, counts.condition, counts.yes⟩).1⟩
 
 theorem model_sizedBodies : SizedBodies modelPrimitives modelCalls where
-  conditional text _ context cv scan sv catalog _ := by
-    exact model_function_sized conditionalFunction {text,context,scan,catalog}
+  conditional text _ context cv scan sv catalog procedures _ _ := by
+    exact model_function_sized conditionalFunction {text,context,scan,catalog,procedures}
       ⟨sv.2.2.2.compatible.count, rfl, ⟨rfl,rfl⟩, rfl⟩ (sv.2.2.count_le cv)
-  alternative text _ context cv scan sv catalog _ := by
-    exact model_function_sized alternativeFunction {text,context,scan,catalog}
+  alternative text _ context cv scan sv catalog procedures _ _ := by
+    exact model_function_sized alternativeFunction {text,context,scan,catalog,procedures}
       ⟨sv.2.2.2.compatible.count, rfl, ⟨rfl,rfl⟩, rfl⟩ (sv.2.2.count_le cv)
-  tailModel text _ context _ scan stop sv catalog _ := by
-    have count : (statementBody (catalog := catalog) text context.model scan).count = scan.count :=
-      (statementBody_count (catalog := catalog) text context.model scan sv.2.2.2.compatible.count).trans
+  tailModel text _ context _ scan stop sv catalog procedures _ _ := by
+    have count : (statementBody (catalog := catalog) (procedures := procedures) text context.model scan).count = scan.count :=
+      (statementBody_count (catalog := catalog) (procedures := procedures) text context.model scan sv.2.2.2.compatible.count).trans
         sv.2.2.2.compatible.count.symm
     dsimp +instances only [tailModelBody, ModelExpr.Sized, ScanExpr.eval, Test.eval,
       modelPrimitives, modelCalls]
