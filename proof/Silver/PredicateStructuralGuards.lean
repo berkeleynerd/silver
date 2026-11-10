@@ -300,7 +300,7 @@ def Expr.prefix : Expr α → Bool
   | .scan | .body | .context | .original | .result | .position
   | .token | .stop | .field _ _ | .stopValue _ | .initial _ | .initialFlow _
   | .nameCount _ | .completed _ | .bodyEnvironment _ | .takeToken _ _ | .invalid
-  | .contextOf _ | .bodyOf _ | .expand _ _ _ | .read _ _ _ _ => true
+  | .contextOf _ | .bodyOf _ | .expand _ _ _ | .read _ _ _ _ _ => true
   | .truth _ | .number _ | .zero _ | .nonzero _ | .not _ | .or _ _ | .orElse _ _
   | .tokenEqual _ | .choose _ _ _ | .contextValue _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
   | .bodyValue _ _ _ _ _ _ _ | .stateValue _ _ _ _ _ _ _ _ _ | .scanValue _ _ _
@@ -313,7 +313,7 @@ def Expr.primary : Expr α → Bool
   | .bodyEnvironment _ | .contextValue _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
   | .bodyValue _ _ _ _ _ _ _ | .stateValue _ _ _ _ _ _ _ _ _ | .scanValue _ _ _
   | .bodyToken _ _ | .takeToken _ _ | .invalid | .contextOf _ | .bodyOf _
-  | .expand _ _ _ | .read _ _ _ _ | .stopCase _ _ _ _ => true
+  | .expand _ _ _ | .read _ _ _ _ _ | .stopCase _ _ _ _ => true
   | .zero _ | .nonzero _ | .not _ | .or _ _ | .orElse _ _ | .tokenEqual _ => false
 
 def Expr.relation (value : Expr α) : Bool := value.primary || match value with
@@ -369,8 +369,8 @@ def Expr.wellFormed : Expr α → Bool
   | .expand ctx value originalExpr =>
       ctx.expression && value.expression && originalExpr.expression &&
       ctx.wellFormed && value.wellFormed && originalExpr.wellFormed
-  | .read ctx value boundary catalog => ctx.expression && value.expression && boundary.expression && catalog.expression &&
-      ctx.wellFormed && value.wellFormed && boundary.wellFormed && catalog.wellFormed
+  | .read ctx value boundary catalog procedures => ctx.expression && value.expression && boundary.expression && catalog.expression && procedures.expression &&
+      ctx.wellFormed && value.wellFormed && boundary.wellFormed && catalog.wellFormed && procedures.wellFormed
   | .stopCase ending alternative arm returning => ending.expression && alternative.expression && arm.expression && returning.expression &&
       ending.wellFormed && alternative.wellFormed && arm.wellFormed && returning.wellFormed
 
@@ -411,7 +411,7 @@ theorem selected_prefixes :
     (Expr.field .bodyPosition (.choose atom .body .body)).wellFormed = false ∧
     (Expr.field .bodyPosition (.bodyToken .body .token)).wellFormed = false ∧
     (Expr.bodyToken (.choose atom .body .body) .token).wellFormed = false ∧
-    (Expr.field .bodyPosition (.read .context .body .stop (.field .stateFunctions (.field .scanState .scan)))).wellFormed = true ∧
+    (Expr.field .bodyPosition (.read .context .body .stop (.field .stateFunctions (.field .scanState .scan)) (.field .stateProcedures (.field .scanState .scan)))).wellFormed = true ∧
     (Expr.field .statePosition (.field .scanState .scan)).wellFormed = true := by decide +kernel
 
 theorem categories_and_nested_children :
