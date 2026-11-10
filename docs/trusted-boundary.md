@@ -319,7 +319,7 @@ termination must instead follow from the constructive earlier-call and finite
 body semantics, as specified in the capability record.
 
 The [procedure capacity account](scalar-procedures-report-capacity.md) extends
-the retained Main envelope to 38,186,752 bytes, using a 67,108,864-byte allocation
+the retained Main envelope to 48,676,608 bytes, using a 67,108,864-byte allocation
 and matching shared file-reader bound. Runtime/null report domains remain
 262,144 bytes. This is a local storage adjustment under the existing producer
 premises, without a new general capacity, stack or proof-time claim. The

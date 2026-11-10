@@ -1529,6 +1529,14 @@ and no suppression or justification. `NAME` has Ada identifier spelling and is
 bounded by the complete-source limit. This advisory does not discharge a safety
 obligation and is not accepted for Main itself.
 
+For the procedure increment under development, these application entities also
+include declared local procedures. An unused scalar copy-back may produce the
+exact `INEFFECTIVE` flow warning `"TARGET" is set by "PROCEDURE" but not used
+after the call`, with a bare scalar target and a source-declared procedure name.
+It retains the same warning provenance and contributes no discharged check.
+The successful output-initialization records and all safety checks remain
+independently required, as detailed in the [procedure capacity account](docs/scalar-procedures-report-capacity.md).
+
 Faithful static evaluation, complete obligation/report generation, completeness
 of the accepted producer shapes and pinned solver completion for the bounded
 range/length/index/overflow/nonzero-divisor fragment remain explicit

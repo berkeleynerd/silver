@@ -1267,6 +1267,14 @@ permit Effects/AoRTE claims, without assuming a procedure postcondition. The
 policy uses the projection-preserved fields; opaque proof-tree data supplies no
 initialization evidence. Function termination records remain required.
 
+The procedure extension also classifies the exact flow warning `"TARGET" is
+set by "PROCEDURE" but not used after the call`: TARGET is a bare Ada
+identifier, and PROCEDURE is the exact name of a source-declared procedure.
+The existing `INEFFECTIVE`, application-owner, location and no-suppression
+requirements still apply. This records unused copy-back; it supplies no
+initialization or safety evidence. The producer and separate capacity charge
+are documented in the [procedure account](scalar-procedures-report-capacity.md).
+
 Every emitted application safety record must be a proved/info `VC_RANGE_CHECK`,
 `VC_LENGTH_CHECK`, `VC_OVERFLOW_CHECK`, `VC_DIVISION_CHECK` or `VC_INDEX_CHECK`,
 with filename `main.adb`, the exact Main or declared local-subprogram entity,
