@@ -168,10 +168,11 @@ remaining surface complete.
 | 2026-11-10 | Lead source inspection; Astra Max native/source repair; live lead settings not independently exposed | Found that the initial alias scan treated based-literal digits and exponent letters as identifier reads, wrongly rejecting calls such as `P(16#F#, F)`. Added discriminating positive literal controls and true-alias rejections; native repair consumes a complete scalar literal before identifier classification. | Regression commit `8265bc085d` and native repair `91fd84a7e5` are integrated. Matching source proof and affected complete-helper checks remain pending. |
 | 2026-11-10 00:12–00:20 UTC | Astra Max native/semantic/source authors; lead integration and evidence | Initial native helper/caller run finished with all 739 reported checks proved but failed the strict warning policy for a redundant initializer. Removed that initializer without changing contracts. Integrated native report API, projection plumbing and 64 MiB guards; five focused Python policy methods passed. | Initial run `20261109T233616-62a3028df4a0` remains failed and retained. [Python policy run](evidence/scalar-procedures-20261109/python-policy-tests/README.md) `20261110T001444-6cb1be2b5661` passed. Native fixtures, repaired helper success and semantic/source integration remain pending. |
 | 2026-11-10 00:28–00:40 UTC | Astra Max native/semantic/source authors; lead integration and evidence; live lead settings not independently exposed | All 21 admission-only methods passed after correcting literal test operands. Native policy mutation and report-storage boundary methods passed after adding the required IO context to the native fixture. Shared procedure-state and retained Sequence models compiled; focused semantic/call checks continue. | [Integration packet](evidence/scalar-procedures-20261109/integration-tests/README.md) retains the failed fixture run and successful checks. Complete native/Lean/source and application validation remain pending. |
+| 2026-11-10 00:40–00:54 UTC | Astra Max semantic/source authors and bounded native-author peer review; lead catalogue/test integration; live lead settings not independently exposed | Shared state/scanner/call-model and constructed semantic checks passed fresh focused audits. The native author found no consequential mismatch in four semantic/parser interfaces. Corrected inherited function-only catalogue contexts and added an admitted array/argument composition fixture whose native execution is pending. | Source run `20261110T003718-dd5e96504455` audited 30,147 declarations; [semantic run](evidence/scalar-procedures-20261109/semantic-core/README.md) `20261110T004159-c31395be0a84` audited 15,228. Catalogue build `20261110T004754-dfff438a7905` and test `20261110T004858-21e97ac0adcc` passed. Complete source/native/regression validation remains pending. |
 
 ## Development checkpoint
 
-The native parser implementation at author commit `c3d6c55922` is integrated
+The native parser implementation through author commit `91fd84a7e5` is integrated
 with its assurance explicitly pending. It checks the frozen output prefix,
 full declared body ranges, same-state actual evaluation, nonaliasing targets
 and copy-back range containment. The initial admission test run was
@@ -188,6 +189,24 @@ rather than narrowing the generic metadata helper's domain. Focused source test
 run `20261109T232524-73b6b4ad9ac2` passed 16 tests, including the retained kernel
 rejection controls. These results do not yet establish correspondence for the
 new declaration and call readers.
+
+The constructed semantic core is now integrated from author commit
+`a71e3ccfbf`, with its [focused evidence](evidence/scalar-procedures-20261109/semantic-core/README.md).
+It includes actual-prefix evaluation, full-domain body safety, unused-body
+obligations, earlier-callable environment construction, copy-back permutation
+and safe-read noninterference. Shared-state/model commit `d8400299ec` includes
+the retained `SequenceModel` repair and the initial lexical and call-admission
+models. The [bounded peer comparison](reviews/review-scalar-procedure-semantic-peer-a71e3ccfbf.md)
+found no consequential mismatch in prefix order, body entry domains, call ranges
+or earlier-body visibility; it does not discharge source correspondence.
+
+That remaining work has two owners: the source stream derives exact native
+trees, raw equations, callee interpretation, lexical alias/read correspondence
+and inherited source endpoints; the semantic stream derives constructive
+frame, sequential-prefix and declaration readings and their meanings. Both
+must meet at the same accepted declaration/call trace. No completed body or
+call law may be substituted as an assumption. The complete native, Lean/source,
+application and regression checkpoint follows these focused helper checks.
 
 Report regressions use the same policy boundaries in Python and native tests:
 missing or duplicate output initialization, wrong owner or output name, missing
