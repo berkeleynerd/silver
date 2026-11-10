@@ -197,8 +197,14 @@ obligations, earlier-callable environment construction, copy-back permutation
 and safe-read noninterference. Shared-state/model commit `d8400299ec` includes
 the retained `SequenceModel` repair and the initial lexical and call-admission
 models. The [bounded peer comparison](reviews/review-scalar-procedure-semantic-peer-a71e3ccfbf.md)
-found no consequential mismatch in prefix order, body entry domains, call ranges
-or earlier-body visibility; it does not discharge source correspondence.
+initially found no consequential mismatch in prefix order, body entry domains,
+call ranges or earlier-body visibility; it does not discharge source correspondence.
+Subsequent sequential-prefix source work found that the native prefix excluded
+immutable input formals from guard refinement. The
+[baseline probes](evidence/scalar-procedures-20261109/prefix-refinement-baseline/README.md)
+confirm the difference. The selected native/model repair passes the local
+declaration count into prefix checking, preserving ordinary formal refinement
+and the full declared input domains; its focused validation is pending.
 
 That remaining work has two owners: the source stream derives exact native
 trees, raw equations, callee interpretation, lexical alias/read correspondence
