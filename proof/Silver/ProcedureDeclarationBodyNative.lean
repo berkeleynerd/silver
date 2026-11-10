@@ -44,6 +44,7 @@ def procedureBodyBody : Command .state :=
         (.field .scalarCount (.field .scalarNames locals))) <|
     .letValue "initialized" (.gt (.field .position ready) (.field .position start)) <|
     .letValue "scan" (.app (.function .bodyOf) (.scan ready initialized (.truth false))) <|
+    .staticInitialFlow scan context <|
     .letValue "body_result" (.group (.ite initialized
       (apply6 (.function .bodyTail) text context scan .endStop (.field .functions frame) (.field .procedures frame))
       (apply6 (.function .readBody) text context scan .endStop (.field .functions frame) (.field .procedures frame)))) <|

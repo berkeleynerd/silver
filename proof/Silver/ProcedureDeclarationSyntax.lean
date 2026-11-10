@@ -749,6 +749,9 @@ def apply6 (fn : Expr (.arrow a (.arrow b (.arrow c (.arrow d (.arrow e (.arrow 
 
 inductive Command : Ty → Type
   | letValue (name : String) : Expr a → Command b → Command b
+  /-- Exact Static assertion used at the procedure body's initial flow.
+  Native verification discharges it; its checked erasure has no runtime effect. -/
+  | staticInitialFlow : Expr .bodyScan → Expr .context → Command ty → Command ty
   | beginBody : Command ty → Command ty
   | guard : Expr .truth → Expr ty → Command ty → Command ty
   | block : Command ty → Command ty
@@ -756,6 +759,7 @@ inductive Command : Ty → Type
 
 def Command.eval (calls : Calls) (locals : Locals) : Command ty → ty.meaning
   | .letValue name value body => body.eval calls (locals.set _ name (value.eval calls locals))
+  | .staticInitialFlow _ _ body => body.eval calls locals
   | .beginBody body | .block body => body.eval calls locals
   | .guard condition rejected body =>
       if condition.eval calls locals then rejected.eval calls locals else body.eval calls locals
@@ -764,6 +768,13 @@ def Command.eval (calls : Calls) (locals : Locals) : Command ty → ty.meaning
 def Command.render : Command ty → List String
   | @Command.letValue a _ name value body =>
       [name, ":", "constant"] ++ a.name ++ [":="] ++ value.render ++ [";"] ++ body.render
+  | .staticInitialFlow scan context body => ["pragma", "assert", "(", "static", "=>"] ++
+      scan.render ++ [".", "facts", ".", "count", "="] ++
+      context.render ++ [".", "scalar_names", ".", "count", "and", "then", "(", "for", "all", "index", "in"] ++
+      scan.render ++ [".", "facts", ".", "values", "'", "range", "=>"] ++
+      scan.render ++ [".", "facts", ".", "values", "(", "index", ")", "="] ++
+      context.render ++ [".", "scalar_names", ".", "items", "(", "index", ")", ".", "bounds", ")", ")", ";"] ++
+      body.render
   | .beginBody body => ["begin"] ++ body.render
   | .guard condition rejected body => ["if"] ++ condition.render ++ ["then", "return"] ++ rejected.render ++
       [";", "end", "if", ";"] ++ body.render
@@ -811,6 +822,8 @@ def Expr.scoped (scope : Scope) : Expr ty → Bool
 
 def Command.scoped (scope : Scope) : Command ty → Bool
   | @Command.letValue a _ name value body => value.scoped scope && !(scope.any (·.2 == name)) && body.scoped ((a, name) :: scope)
+  | .staticInitialFlow scan context body => !(scope.any (·.2 == "index")) &&
+      scan.scoped scope && context.scoped scope && body.scoped scope
   | .beginBody body | .block body => body.scoped scope
   | .guard condition rejected body => condition.scoped scope && rejected.scoped scope && body.scoped scope
   | .returned value => value.scoped scope
@@ -936,9 +949,41 @@ def Expr.wellFormed : Expr ty → Bool
 
 def Command.wellFormed : Command ty → Bool
   | .letValue _ value body => value.value && value.wellFormed && body.wellFormed
+  | .staticInitialFlow scan context body => scan.prefix && context.prefix &&
+      scan.wellFormed && context.wellFormed && body.wellFormed
   | .beginBody body | .block body => body.wellFormed
   | .guard condition rejected body => condition.value && rejected.value && condition.wellFormed && rejected.wellFormed && body.wellFormed
   | .returned value => value.value && value.wellFormed
+
+/-- Static erasure preserves the continuation for all linked calls and locals;
+the native proof, not this equality, discharges the written assertion. -/
+theorem static_initial_flow_erased (calls : Calls) (locals : Locals)
+    (scan : Expr .bodyScan) (context : Expr .context) (body : Command ty) :
+    (Command.staticInitialFlow scan context body).eval calls locals = body.eval calls locals := rfl
+
+/-- Controls for selected prefixes, malformed nested operands/continuations,
+missing bindings, capture and quantifier scope. -/
+theorem static_initial_flow_source_guards :
+    let scan : Expr .bodyScan := .variable "scan"
+    let context : Expr .context := .variable "context"
+    let done : Command .state := .returned .invalid
+    let scope : Scope := [(.bodyScan, "scan"), (.context, "context")]
+    (Command.staticInitialFlow scan context done).wellFormed = true ∧
+    (Command.staticInitialFlow scan context done).scoped scope = true ∧
+    (Command.staticInitialFlow (.group scan) context done).wellFormed = false ∧
+    (Command.staticInitialFlow scan (.group context) done).wellFormed = false ∧
+    (Command.staticInitialFlow
+      (.app (.group (.function .bodyOf)) (.variable "input")) context done).wellFormed = false ∧
+    (Command.staticInitialFlow scan
+      (.app (.group (.function .contextOf)) (.variable "input")) done).wellFormed = false ∧
+    (Command.staticInitialFlow scan context
+      (.returned (.letValue "result" .initial (.beginValue (.variable "result")))) : Command .state).wellFormed = false ∧
+    (Command.staticInitialFlow scan context done).scoped [(.context, "context")] = false ∧
+    (Command.staticInitialFlow scan context done).scoped [(.bodyScan, "scan")] = false ∧
+    (Command.staticInitialFlow scan context done).scoped ((.number, "index") :: scope) = false ∧
+    (Command.staticInitialFlow scan context
+      (.returned (.variable "index") : Command .number)).scoped scope = false := by
+  decide +kernel
 
 structure Frame where
   readFrame : ParserState := initialState
