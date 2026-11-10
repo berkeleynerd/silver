@@ -284,3 +284,25 @@ class ScalarProcedureTests(unittest.TestCase):
                             and item.get('rule') == 'SUBPROGRAM_TERMINATION'
                             for item in report['flow']))
 
+    def test_native_calls_compose_with_arrays_and_argument_facts(self) -> None:
+        declarations = (
+            b'subtype Small is Integer range 0..9;'
+            b'procedure Select_Value(A:in Boolean;N:in Small;X:out Small;B:out Boolean)is '
+            b'begin X:=N;B:=A;end Select_Value;'
+            b'Values:constant array(1..2)of Small:=(2,3);'
+            b'Flags:array(1..2)of Boolean:=(True,False);'
+            b'Saved:constant String:=Input;'
+            b'D:Integer range 0..1:=0;R:Small:=0;B:Boolean:=False;Q:Integer:=0;')
+        body = (
+            b'D:=1;for E of Values loop '
+            b"Select_Value(Input'Length=3 and then Flags(1),E,R,B);end loop;"
+            b'if D>0 then Q:=(1/D);end if;'
+            b'if B then Silver_IO.Put_Line(Saved);else Silver_IO.Put_Line("none");end if;'
+            b"Silver_IO.Put_Line(Integer'Image(R));Silver_IO.Put_Line(Integer'Image(Q));"
+            b"Silver_IO.Put_Line(Integer'Image(Values(1)));"
+            b'if Flags(1) then Silver_IO.Put_Line("kept");end if;')
+        executable, _ = self.compile(program(declarations, body, arguments=True), 'selected',
+                                     procedures={'Select_Value': ('X', 'B')})
+        self.run_program(executable, b'abc\n 3\n 1\n 2\nkept\n', arguments=(b'abc',))
+        self.run_program(executable, b'none\n 3\n 1\n 2\nkept\n', arguments=(b'',))
+
