@@ -70,6 +70,7 @@ theorem functionDeclarationAt_valid (text : Source) (state : ParserState) (argum
       omega
     generalize initialEq : ({initialState with
       position := opening, pure := true, subtypeNames := state.subtypeNames, functions := state.functions,
+      procedures := state.procedures,
       «hiding» := hideName text (hiddenOuter text state) first after,
       firstParameter := state.functions.parameters.length + 1} : ParserState) = initial
     generalize headerEq : parametersAt text initial arguments = header

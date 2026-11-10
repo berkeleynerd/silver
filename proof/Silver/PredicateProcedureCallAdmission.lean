@@ -1,6 +1,6 @@
 module
 
-public import Silver.PredicateBodyScanner
+public import Silver.PredicateBodyPrimitives
 public import Silver.ProcedureNameScanner
 
 @[expose] public section
