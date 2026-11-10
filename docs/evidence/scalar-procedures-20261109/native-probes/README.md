@@ -47,6 +47,22 @@ and `Compute_Store` performs ordinary checked assignment on copy-back. These
 source routes and the observed records inform the pending procedure capacity
 and discharge argument; samples alone do not establish it.
 
+The later [initialization producer packet](initialization-producer.json) retains
+three additional CFG/type sources and the exact-one output initialization
+argument. The [copy-back producer packet](copyback-producer.json) retains
+`gnat2why-expr.adb`, `why-gen-expr.adb`, and the checked-conversion/assignment
+route supporting at most one scalar copy-back range-check record per writable
+actual. Both refer to the same pinned revision; the adjacent JSON records the
+source and archive hashes.
+
+The source-derived Python report audit passed on the selected complete five-unit
+report in managed run `20261109T233222-bc34ad831870`: 75 checks, six output
+initialization witnesses and one function termination witness. Its script,
+actual log, managed events and auditor bytes are retained in
+[python-audit.tar.gz](python-audit.tar.gz), with hashes in
+[python-audit.json](python-audit.json). This is the mechanism report audit;
+expanded mutation tests and final compiler assurance are separate pending work.
+
 Native implementation/evidence work was launched as GPT-6 Astra / Max, as
 confirmed by the lead. Semantic and source-contract design uses the same
 selected model and effort.

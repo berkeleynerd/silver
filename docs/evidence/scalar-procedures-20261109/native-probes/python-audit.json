@@ -1,0 +1,13 @@
+{
+  "run": "20261109T233222-bc34ad831870",
+  "auditor_commit": "afeaa424a0",
+  "archive_sha256": "55b3b1ec5fae7ae5db614fb081bb9f960cab455c6102d411597f829fda5aa2a2",
+  "files": {
+    "audit-selected.py": "6f08dd3a824cbf75b7365908b193c4315998ed96c9b9dc0add9f48eadb9e0acc",
+    "python-audit.log": "99537e424150c5cbb06990188d55370ab6723363858f85a316042d4e60067747",
+    "check_evidence.py": "b0c67a92e7684099c5052d9da4e7e4f1d7a01df8279affb42bd7e279c3b9d01d",
+    "managed/native.log": "85e711b79cd22b5be84b50279b120c2ec027105d41439c8fdf9857d1b7c8c217",
+    "managed/lease": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "managed/events.jsonl": "7df3ff08094bfd168eee438448f2ae7772839051027d45733fe3f1177d799873"
+  }
+}
