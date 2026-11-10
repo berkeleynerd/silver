@@ -14,6 +14,15 @@ actual inputs, settings, log and fresh axiom-audit result.
 | `20261110T032117-53d98ae45fc2` | Scalar/array lexical read exclusion and Character/String literal traversal (`a0f414bfd2`, integrated as `83e8be0436`) | 8,369 |
 | `20261110T034825-2a8123f9ef80` | Procedure visibility through inherited declarations, models, loop/adapter interfaces and retained Sequence model (`c4229bbd8c`, integrated as `3e9b54cd5f`; outer body forwarding also integrated as `7e41f55581`) | 39,214 |
 | `20261110T035322-f0371cac4eee` | Mixed callable dispatch and outer-state preservation (`dc81ef414a`, integrated as `47c1e61c02`) | 14,986 |
+| `20261110T035845-3c155b0af802` | Character, indexed-element, length and compound-token read traversal (`87a2ef23a8`, integrated as `9a5b0a1c93`) | 11,296 |
+| `20261110T041546-7a374a26b150` | Corrected function-first callable dispatch and outer-state preservation (`0f1b344f90`, integrated as `3e00a7b97d`) | 14,991 |
+| `20261110T042215-69564f38c8a0` | Raw procedure-call trees, complete-domain equations and callee interpretations, including exact call source candidate (`883b26c75e`, integrated as `3b7ef28b35`); shared declaration syntax and low trees (`7f1d9d6236`, integrated as `b27ec9ae0b`) | 49,725 |
+
+Lead source inspection found that the `035322` model tried procedures before
+functions, unlike Ada's function-first dispatcher. Its focused result remains
+valid for that model slice; it never established completed source correspondence.
+The `041546` result checks the corrected order without a native-source change
+or an assumption that the two parsers are disjoint.
 
 The two cache-seed records identify copies into the integration workspace while
 both proof workspaces were idle. Complete artifact families, private/server
