@@ -120,7 +120,9 @@ The [procedure capacity account](scalar-procedures-report-capacity.md) now
 derives a conservative 38,186,752-byte envelope, including separate allowances
 for copy-back and output-initialization records. It selects a 64 MiB retained
 Main allocation. Native integration, independent review and boundary validation
-of this adjustment remain pending.
+of this adjustment are tracked separately: native policy mutations and the
+exact 64 MiB/next-byte boundary checks have passed; complete native assurance
+and independent capacity review remain pending.
 
 Managed producer probes precede report-policy changes. Inspect unused procedures,
 Integer/Boolean outputs, bounded `in out`, procedure/function composition,
@@ -169,6 +171,7 @@ remaining surface complete.
 | 2026-11-10 00:12–00:20 UTC | Astra Max native/semantic/source authors; lead integration and evidence | Initial native helper/caller run finished with all 739 reported checks proved but failed the strict warning policy for a redundant initializer. Removed that initializer without changing contracts. Integrated native report API, projection plumbing and 64 MiB guards; five focused Python policy methods passed. | Initial run `20261109T233616-62a3028df4a0` remains failed and retained. [Python policy run](evidence/scalar-procedures-20261109/python-policy-tests/README.md) `20261110T001444-6cb1be2b5661` passed. Native fixtures, repaired helper success and semantic/source integration remain pending. |
 | 2026-11-10 00:28–00:40 UTC | Astra Max native/semantic/source authors; lead integration and evidence; live lead settings not independently exposed | All 21 admission-only methods passed after correcting literal test operands. Native policy mutation and report-storage boundary methods passed after adding the required IO context to the native fixture. Shared procedure-state and retained Sequence models compiled; focused semantic/call checks continue. | [Integration packet](evidence/scalar-procedures-20261109/integration-tests/README.md) retains the failed fixture run and successful checks. Complete native/Lean/source and application validation remain pending. |
 | 2026-11-10 00:40–00:54 UTC | Astra Max semantic/source authors and bounded native-author peer review; lead catalogue/test integration; live lead settings not independently exposed | Shared state/scanner/call-model and constructed semantic checks passed fresh focused audits. The native author found no consequential mismatch in four semantic/parser interfaces. Corrected inherited function-only catalogue contexts and added an admitted array/argument composition fixture whose native execution is pending. | Source run `20261110T003718-dd5e96504455` audited 30,147 declarations; [semantic run](evidence/scalar-procedures-20261109/semantic-core/README.md) `20261110T004159-c31395be0a84` audited 15,228. Catalogue build `20261110T004754-dfff438a7905` and test `20261110T004858-21e97ac0adcc` passed. Complete source/native/regression validation remains pending. |
+| 2026-11-10 00:59–01:27 UTC | Astra Max native/semantic/source authors; lead integration; live settings not independently confirmed | Complete native call/prefix helper block passed 1,381 checks. Source work exposed inconsistent guard refinement for immutable inputs in the output prefix; corrected the local declaration count and passed five regression controls. Split pure frame properties from native record equations and checked the recursive lexical scanner over its full native domain. | Native run `20261110T002858-36ecd7c485a1` covers the earlier helper inputs; changed prefix helpers/callers need fresh proof. Source run `20261110T012022-241c8683f07a` passed four targets and a 17,037-declaration audit. Integration build `20261110T012615-5f6273a4685d` and regression `20261110T012642-4eb88a60f0f1` passed. Authoritative scanner tokens, declaration/call meanings and complete validation remain pending. |
 
 ## Development checkpoint
 
@@ -204,7 +207,11 @@ immutable input formals from guard refinement. The
 [baseline probes](evidence/scalar-procedures-20261109/prefix-refinement-baseline/README.md)
 confirm the difference. The selected native/model repair passes the local
 declaration count into prefix checking, preserving ordinary formal refinement
-and the full declared input domains; its focused validation is pending.
+and the full declared input domains. The native-author build and regression
+passed in `20261110T011921-1abbf6ac3b3b` and
+`20261110T012006-51adf33fb7b7`; the integration compiler rebuild and regression
+also passed in the runs linked from the integration packet above. Fresh complete
+proof of the changed prefix helpers and affected callers remains pending.
 
 That remaining work has two owners: the source stream derives exact native
 trees, raw equations, callee interpretation, lexical alias/read correspondence
