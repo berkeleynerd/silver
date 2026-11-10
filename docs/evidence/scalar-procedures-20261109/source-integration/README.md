@@ -18,6 +18,7 @@ actual inputs, settings, log and fresh axiom-audit result.
 | `20261110T041546-7a374a26b150` | Corrected function-first callable dispatch and outer-state preservation (`0f1b344f90`, integrated as `3e00a7b97d`) | 14,991 |
 | `20261110T042215-69564f38c8a0` | Raw procedure-call trees, complete-domain equations and callee interpretations, including exact call source candidate (`883b26c75e`, integrated as `3b7ef28b35`); shared declaration syntax and low trees (`7f1d9d6236`, integrated as `b27ec9ae0b`) | 49,725 |
 | `20261110T045337-d3c1d0e6dedf` | Procedure-body typed-tree denotation and exact model equation over every input | 16,069 |
+| `20261110T050437-8efd63aec15e` | Callable declaration consumers, outer-state bounds, initializer traces and subtype hiding (`aaeec84831`, integrated as `a909e37f89`) | 20,770 |
 
 Lead source inspection found that the `035322` model tried procedures before
 functions, unlike Ada's function-first dispatcher. Its focused result remains
