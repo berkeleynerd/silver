@@ -1,0 +1,72 @@
+{
+  "captured_at_utc": "2026-11-10T07:24:39+00:00",
+  "method": "Read-only extraction of native Token_Kind, Is_Word_Token, and Spelling definitions; comparison against committed catalogue word_tokens. No compiler/build/test invocation.",
+  "result": {
+    "silver_profile": {
+      "native_word_tokens": [
+        "begin",
+        "end",
+        "is",
+        "main",
+        "null",
+        "on",
+        "pragma",
+        "procedure",
+        "spark_mode"
+      ],
+      "missing_from_catalogue": []
+    },
+    "silver_output_profile": {
+      "native_word_tokens": [
+        "and",
+        "array",
+        "begin",
+        "boolean",
+        "character",
+        "constant",
+        "else",
+        "elsif",
+        "end",
+        "false",
+        "first_or_default",
+        "for",
+        "function",
+        "if",
+        "in",
+        "input_is_valid",
+        "integer",
+        "is",
+        "length",
+        "loop",
+        "main",
+        "not",
+        "null",
+        "of",
+        "on",
+        "or",
+        "out",
+        "pragma",
+        "procedure",
+        "put_line",
+        "range",
+        "reject",
+        "return",
+        "reverse",
+        "silver_arguments",
+        "silver_io",
+        "spark_mode",
+        "string",
+        "subtype",
+        "then",
+        "true",
+        "with",
+        "xor"
+      ],
+      "missing_from_catalogue": [
+        "function",
+        "out",
+        "return"
+      ]
+    }
+  }
+}

@@ -1,0 +1,214 @@
+{
+  "captured_at_utc": "2026-11-10T07:24:39+00:00",
+  "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370",
+  "head": "bea9085ed82e6669ae73ca60c1bf3e12e2370b81",
+  "selected_model_effort": "GPT-6 Astra / Max",
+  "live_runtime_settings": "not independently exposed",
+  "native_host": "Linux",
+  "inputs": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "12c42b163477fe3ec975946682dfc354b3ce1ba23a7621912b67db09efe0ceac"
+    },
+    {
+      "path": "oracle.md",
+      "sha256": "ef1e182ab8eedd8d259f5a7cff49a597e8b7ccfe207bdf11d7456003e0b6603a"
+    },
+    {
+      "path": "language.md",
+      "sha256": "873029a57f62a975b0103adb7eb848e703952047bbb1d245714e47d9808af809"
+    },
+    {
+      "path": "docs/scalar-procedures.md",
+      "sha256": "9abbf4ae02a6684acfc280f1b13002139c2ae463cc2e4f4a9b2427518e97e02f"
+    },
+    {
+      "path": "docs/scalar-procedures-report-capacity.md",
+      "sha256": "0e7c7ac632113c35db1e7edc933a6b4a97e28f3a85c7dc10781d1b5f4a448516"
+    },
+    {
+      "path": "src/silver_procedure_bindings.ads",
+      "sha256": "4fe043682f952570f90e0b5879c9a10be3c19016811dac957a6825e22a1f18a6"
+    },
+    {
+      "path": "src/silver_procedure_bindings.adb",
+      "sha256": "81bedcc4e10c451100348c6e5365c76078f6158ed4af75f9fe61b0e21ffeb4fa"
+    },
+    {
+      "path": "src/silver_output_profile.ads",
+      "sha256": "9823c84e840348f474a0b83d9da57b99f1f3b66f9a6040ad0c73d6cc2e9bd0a3"
+    },
+    {
+      "path": "src/silver_output_profile.adb",
+      "sha256": "7edbe0340274a03d99f2ab3cad9e7ecded721604f247c0162ffcd04b72453b9f"
+    },
+    {
+      "path": "src/silver_scalar_expressions.adb",
+      "sha256": "0bf741545fc672985a51dabdc1d27ba48af6a4e0d24f977c0782c0ec89579a4e"
+    },
+    {
+      "path": "src/silver_catalogue.adb",
+      "sha256": "a36464c5f58b3fbd7c600c4386e8b57138a1b52a4030fabf37aff8a33f0a55f0"
+    },
+    {
+      "path": "catalogue/silver.json",
+      "sha256": "7fb3b22a3463380fc736d19a5235a9e85d9333fe6658560b3163dc23fa4377b0"
+    },
+    {
+      "path": "tests/test_scalar_procedures.py",
+      "sha256": "06d38ecab40367a97c37fedac78aab4f5bbfb023441417f66709b9ab13066d6e"
+    },
+    {
+      "path": "proof/Silver/ScalarProcedureTypes.lean",
+      "sha256": "7ed00145539ac9f4f652c0a6b53317affac5543da057db95c981d3863496134e"
+    },
+    {
+      "path": "proof/Silver/ScalarProcedureSyntax.lean",
+      "sha256": "cabe3a6c99ab2eb06c5d55ba3237b5a8a3ed6532c73a07f9992c4baa038c804f"
+    },
+    {
+      "path": "proof/Silver/ScalarProcedureChecking.lean",
+      "sha256": "a1342063670b4f66abd0fb8b512a9bae2c366adc2271e20e50ac20dc7a53e6e4"
+    },
+    {
+      "path": "proof/Silver/ScalarProcedureExecution.lean",
+      "sha256": "e3cc9c8b99a9fa9035f8f7e8ab41dd54434c0673320398a06f7e2b2bf16ef08e"
+    },
+    {
+      "path": "proof/Silver/ScalarProcedureFrame.lean",
+      "sha256": "4b2d2438c7db4d4520a35dee09acab17cd8344d2b1073511c0125c10b0be1efd"
+    },
+    {
+      "path": "proof/Silver/ScalarProcedureLayout.lean",
+      "sha256": "524361eda72942d12b29f794ab8cfc9da62ebc57811e54d1bf8293ed4e37e0a6"
+    },
+    {
+      "path": "proof/Silver/ScalarProcedureDefinition.lean",
+      "sha256": "4db86dd0ed8fbe6aa57849085086728982206ff3016d4b764162efe05488cc1f"
+    },
+    {
+      "path": "proof/Silver/ScalarProcedureSemantics.lean",
+      "sha256": "c212854b16b07d6824db92e83e43c567fb80addaab420b4a149d9271c4b985a8"
+    },
+    {
+      "path": "proof/Silver/ScalarProcedureComposition.lean",
+      "sha256": "29e0732037c7ead2cceec147ed4943adf43c63772460099e0f4757d2b58d9f7f"
+    },
+    {
+      "path": "proof/Silver/PredicateComposition.lean",
+      "sha256": "62e03cf949d7ca01a3b9c3061f4adc9fc08c428a24c85a367bb4bbbfb8e5f127"
+    },
+    {
+      "path": "proof/Silver/PredicateChecks.lean",
+      "sha256": "f532c833dfb5021b62a13aaa37076b52f651cfa69c500bb494c4dd838c54e18c"
+    },
+    {
+      "path": "proof/Silver/ProcedureDeclarationReadings.lean",
+      "sha256": "9db8dfc99133178af53ffbe93f66fcfcc011436087e6775cfce5a39fc9f1164c"
+    },
+    {
+      "path": "proof/Silver/ProcedureDeclarationMeaning.lean",
+      "sha256": "8e68409b26e629d1a4eca41ed00a6cb575e0afb0dc1848f1b7255a2b25fa23db"
+    },
+    {
+      "path": "proof/Silver/ProcedureDeclarationAdmission.lean",
+      "sha256": "118a9e0b2443b236bd636bb1bc98bff975260cbd550291c04e0b3e619b8d0c16"
+    },
+    {
+      "path": "proof/Silver/ProcedurePrefixMeaning.lean",
+      "sha256": "edebd67eb2d673ad3cf337916a1ff1e2f70d5544d30cec63ae2c63e457aa3388"
+    },
+    {
+      "path": "proof/Silver/PredicateProcedureBodyShape.lean",
+      "sha256": "cd6b5e004aa31002c7e3f687e87cc775daceea6eb89cccde0c81376ce8955940"
+    },
+    {
+      "path": "proof/Silver/ProcedureNameActualsApart.lean",
+      "sha256": "ef4fff039795b327d1a9a8ce06625a71ffc293f389a9dca628a55f5ad1f12caa"
+    },
+    {
+      "path": "proof/Silver/PredicateProcedureCallMeaning.lean",
+      "sha256": "93fc33e905f82e820f73688ae3a144b3788e590e9299c345d9e7591bdce2e10d"
+    },
+    {
+      "path": "proof/Silver/PredicateProcedureUpdatesMeaning.lean",
+      "sha256": "3ec08b4fc37f59aec7a412032065afb7cde4d947930f9cd29d0c30b8055d7266"
+    },
+    {
+      "path": "proof/Silver/ProcedureDeclarationSyntax.lean",
+      "sha256": "15ef63f1d224de15eb6f238d2dc9e95ba41dcb11d61766e4c2becadcc8dd75be"
+    },
+    {
+      "path": "proof/Silver/ProcedureDeclarationNative.lean",
+      "sha256": "a3cb32b64e4461557020e50347f887f5519de366e761be59c6cf308fd912ee65"
+    },
+    {
+      "path": "proof/Silver/ProcedureDeclarationDomains.lean",
+      "sha256": "bd70af2dbe99771972bf8d5d995797ed16fea4ed60067596e9d691de5ee5d829"
+    },
+    {
+      "path": "proof/Silver/ProcedureDeclarationBodyNative.lean",
+      "sha256": "683e3f91356c18144158b4ee264a57a10abdea795e94122cb65096d170743b9d"
+    },
+    {
+      "path": "proof/Silver/ProcedureDeclarationOuterNative.lean",
+      "sha256": "31871b86e8e02c6f8b8b40eb08dcccdc9e520e60f78ac57e5c2d5c5dc1126418"
+    },
+    {
+      "path": "proof/Silver/ProcedureDeclarationHighSource.lean",
+      "sha256": "8561fb08035b65a52ac42241b9eee579a965c4b77f5bbff1436a7ab67e6d5032"
+    },
+    {
+      "path": "proof/Silver/ProcedureDeclarationHelperSource.lean",
+      "sha256": "f6b6d7ee4c173fd8e61b2d79e7e9bd547c0bdbc7d7ccc34e46ff5d095b4d7957"
+    },
+    {
+      "path": "proof/Silver/ProcedureDeclarationHelperWholeSourceCandidate.lean",
+      "sha256": "0052513d2c7646419b2a657d8d03fcc9fc0c09b4c052e170afb0da0db68c0c09"
+    },
+    {
+      "path": "proof/Silver/PredicateProcedureCallSyntax.lean",
+      "sha256": "4043f3bf4e9121c883feb897372ca619d03e8f318f84fe88a3760490e6763dd9"
+    },
+    {
+      "path": "proof/Silver/PredicateProcedureCallNative.lean",
+      "sha256": "899d688e08280641068bb31535bde6f39829b902366bc44f0f372a75dfc04b00"
+    },
+    {
+      "path": "proof/Silver/PredicateProcedureCallDomains.lean",
+      "sha256": "000bf489624cf9cfe92f95835d67ce3514718ba394d95cfe34411f76008fd3d0"
+    },
+    {
+      "path": "proof/Silver/PredicateProcedureCallSource.lean",
+      "sha256": "a43fb5b68d81653451ecd7c421d3cd3f0ebd8532d8d3b939e7335c7c556b70a7"
+    },
+    {
+      "path": "proof/Silver/PredicateProcedureCallWholeSourceCandidate.lean",
+      "sha256": "16cd1f83621a10c49fd0e6a3565df5f5fee3ce50fda3945bb049ff87c858e164"
+    },
+    {
+      "path": "proof/Silver/ProcedureBindingsNativeExpressions.lean",
+      "sha256": "3bc705897c44e01c1c865f2603ca6836686f1c38946e8eafb0b7c2fcfcd12606"
+    },
+    {
+      "path": "proof/Silver/ProcedureBindingsSourceChecks.lean",
+      "sha256": "9934a222cf0d05d24fee5278bd820ee229f19c4645f3e3a79666cfb81e782946"
+    },
+    {
+      "path": "proof/Silver/ProcedureNameNative.lean",
+      "sha256": "83477287ef4ef41f0a01fb6bcd63f387f969ffd0f0e0d4695c4acba2003c095d"
+    },
+    {
+      "path": "proof/Silver/ProcedureNameFreeNative.lean",
+      "sha256": "95f4ca4a1930ad43d2dfee12d5ae839132f4370fdab8a03334e383b903b7c81e"
+    },
+    {
+      "path": "proof/Silver/ProcedureNameSource.lean",
+      "sha256": "a089613a442bfb4aea98d2839abeee3e17db250a61f27ff2a04c873538814550"
+    },
+    {
+      "path": "proof/Silver/ProcedureNameSourceChecks.lean",
+      "sha256": "6e74b5ae281f62600ae689c50f70dbba4e36147350af8f66e152db57d5afc4bc"
+    }
+  ]
+}
