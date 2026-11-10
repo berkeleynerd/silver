@@ -1791,7 +1791,7 @@ is
    procedure Lemma_Parser_State_Equality (Left, Right : Parser_State)
      with Ghost => Static, Global => null,
        Pre => Same_Parser_State (Left, Right),
-       Post => Left = Right
+       Post => Left = Right and then Same_Parser_State (Left, Right)
    is
    begin
       --  Isolate Ada record equality from the declaration's branch context.
@@ -2154,7 +2154,13 @@ is
       Current : Literal_Position := Position;
       Parsed_Count : Array_Bindings.Element_Count := Parsed;
    begin
-      if Current = 0 then return Invalid_State; end if;
+      if Current = 0 then
+         Lemma_Parser_State_Equality
+           (Invalid_State, Boolean_Array_Values_Model
+              (Text, Source_State, Result_State, Position, Length, Parsed,
+               Mask_First, Mask_After));
+         return Invalid_State;
+      end if;
       while Parsed_Count < Length loop
          pragma Loop_Invariant (Parsed_Count in Parsed .. Length);
          pragma Loop_Invariant (Length <= Array_Bindings.Max_Elements - Source_State.Array_Names.Used);
@@ -2184,7 +2190,13 @@ is
                 with Ghost => Static;
          begin
             pragma Assert (Static => Same_Parser_State (Result, Before));
-            if Value_After = 0 then return Invalid_State; end if;
+            if Value_After = 0 then
+               Lemma_Parser_State_Equality
+                 (Invalid_State, Boolean_Array_Values_Model
+                    (Text, Source_State, Result_State, Position, Length, Parsed,
+                     Mask_First, Mask_After));
+               return Invalid_State;
+            end if;
             declare
                Next_State : constant Parser_State :=
                  Put_Array_Value (Before, 0) with Ghost => Static;
@@ -2201,7 +2213,13 @@ is
                Current := Value_After;
                if Parsed_Count < Length then
                   Current := Take_Token (Text, Current, Comma);
-                  if Current = 0 then return Invalid_State; end if;
+                  if Current = 0 then
+                     Lemma_Parser_State_Equality
+                       (Invalid_State, Boolean_Array_Values_Model
+                          (Text, Source_State, Result_State, Position, Length, Parsed,
+                           Mask_First, Mask_After));
+                     return Invalid_State;
+                  end if;
                end if;
                pragma Assert (Static => Result = Next_State
                  and then Current = Next_Position and then Parsed_Count = Next_Parsed);
@@ -2216,9 +2234,18 @@ is
            Boolean_Array_Values_Model (Text, Source_State, Result, Current, Length, Parsed_Count, Mask_First, Mask_After)
              with Ghost => Static;
       begin
-         pragma Assert (Static => Completed = (Result with delta Position => Current));
+         return Final_State : constant Parser_State :=
+           (Result with delta Position => Current)
+         do
+            pragma Assert (Static => Completed = Final_State);
+            pragma Assert (Static => Valid_State (Text, Final_State));
+            Lemma_Parser_State_Equality
+              (Final_State,
+               Boolean_Array_Values_Model
+                 (Text, Source_State, Result_State, Position, Length, Parsed,
+                  Mask_First, Mask_After));
+         end return;
       end;
-      return (Result with delta Position => Current);
    end Boolean_Array_Values_At;
 
    function Array_Declaration_At
@@ -2650,7 +2677,11 @@ is
      with Ghost => Static;
    function Body_Of (Scan : Scan_Result) return Body_Scan
      with Global => null,
-       Post => (Static => Body_Of'Result = Body_Of_Model (Scan));
+       Post => (Static => Body_Of'Result = Body_Of_Model (Scan)
+         and then Body_Of'Result.Facts.Count = Context_Of (Scan).Scalar_Names.Count
+         and then (for all Index in Body_Of'Result.Facts.Values'Range =>
+           Body_Of'Result.Facts.Values (Index) =
+             Context_Of (Scan).Scalar_Names.Items (Index).Bounds));
    function Body_Of (Scan : Scan_Result) return Body_Scan is
    begin
       return Result : Body_Scan (Scan.State.Scalar_Names.Count) do
@@ -2771,7 +2802,11 @@ is
    end Joined;
    procedure Join_Into (Left : in out Scalar_Flow; Right : Scalar_Flow)
      with Global => null, Pre => Left.Count = Right.Count,
-       Post => (Static => Left = Joined (Left'Old, Right));
+       Post => (Static => Left = Joined (Left'Old, Right)
+         and then Left.Count = Left'Old.Count
+         and then Left.Path = Paths.Join (Left'Old.Path, Right.Path)
+         and then (for all Index in Left.Values'Range =>
+           Left.Values (Index) = Scalars.Join (Left'Old.Values (Index), Right.Values (Index))));
    procedure Join_Into (Left : in out Scalar_Flow; Right : Scalar_Flow) is
    begin
       Left.Path := Paths.Join (Left.Path, Right.Path);
@@ -3216,6 +3251,27 @@ is
          (Count => Right.Count, After => 0, When_True => Right, When_False => Right));
       pragma Assert (Static => Same_Flow (Left, Right));
    end Lemma_Flow_Equality;
+
+
+   procedure Lemma_Join_Identity (Result, Before, Right : Scalar_Flow)
+     with Ghost => Static, Global => null,
+       Pre => Result.Count = Before.Count and then Before.Count = Right.Count
+         and then Result.Path = Paths.Join (Before.Path, Right.Path)
+         and then (for all Index in Result.Values'Range =>
+           Result.Values (Index) = Scalars.Join (Before.Values (Index), Right.Values (Index))),
+       Post => Same_Flow (Result, Joined (Before, Right))
+         and then Result = Joined (Before, Right)
+   is
+      Model : constant Scalar_Flow (Before.Count) := Joined (Before, Right);
+   begin
+      Lemma_Flow_Equality (Model, Joined (Before, Right));
+      pragma Assert (Static => Same_Path (Result.Path, Model.Path));
+      pragma Assert (Static =>
+        (for all Index in Result.Values'Range =>
+          Same_Interval (Result.Values (Index), Model.Values (Index))));
+      pragma Assert (Static => Same_Values (Result.Values, Model.Values));
+      pragma Assert (Static => Same_Flow (Result, Model));
+   end Lemma_Join_Identity;
 
    function Scalar_Operator (Operator : Paths.Comparison) return Scalars.Comparison is
      (case Operator is
@@ -4342,7 +4398,18 @@ is
                      pragma Assert (Static => Valid_Flow (Context, Combined.When_False));
                      Result.When_True := Right.When_True;
                      Lemma_Flow_Equality (Result.When_True, Right.When_True);
-                     Join_Into (Result.When_False, Right.When_False);
+                     declare
+                        Join_Input : constant Scalar_Flow (Active_Count) :=
+                          Result.When_False with Ghost => Static;
+                     begin
+                        Lemma_Flow_Equality (Join_Input, Result.When_False);
+                        pragma Assert (Static => Same_Flow (Join_Input, Before.When_False));
+                        Join_Into (Result.When_False, Right.When_False);
+                        Lemma_Join_Identity
+                          (Result.When_False, Join_Input, Right.When_False);
+                        pragma Assert (Static => Same_Flow
+                          (Result.When_False, Joined (Before.When_False, Right.When_False)));
+                     end;
                      pragma Assert (Static =>
                        Result.When_False = Joined (Before.When_False, Right.When_False));
                      Lemma_Flow_Equality
@@ -4355,7 +4422,18 @@ is
                      Lemma_Joined_Flow (Context, Result.When_True, Right.When_True);
                      pragma Assert (Static => Valid_Flow (Context, Combined.When_True));
                      pragma Assert (Static => Valid_Flow (Context, Combined.When_False));
-                     Join_Into (Result.When_True, Right.When_True);
+                     declare
+                        Join_Input : constant Scalar_Flow (Active_Count) :=
+                          Result.When_True with Ghost => Static;
+                     begin
+                        Lemma_Flow_Equality (Join_Input, Result.When_True);
+                        pragma Assert (Static => Same_Flow (Join_Input, Before.When_True));
+                        Join_Into (Result.When_True, Right.When_True);
+                        Lemma_Join_Identity
+                          (Result.When_True, Join_Input, Right.When_True);
+                        pragma Assert (Static => Same_Flow
+                          (Result.When_True, Joined (Before.When_True, Right.When_True)));
+                     end;
                      pragma Assert (Static =>
                        Result.When_True = Joined (Before.When_True, Right.When_True));
                      Lemma_Flow_Equality
@@ -6485,6 +6563,41 @@ is
       return Actual_After (Text, Context, Start, Scan.Facts,
                            (0, 0, Result_Type.Kind, Result_Type.Bounds));
    end Function_Return_After;
+   procedure Lemma_Function_Metadata_Append
+     (Text : String; Environment : Functions.Metadata; Item : Functions.Signature)
+     with Ghost => Static, Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Functions.Valid_Metadata (Text, Environment)
+         and then Environment.Count < Functions.Max_Functions
+         and then Item.First > 0
+         and then Valid_Name_State (Text, Item.First, Item.After)
+         and then Item.Count > 0 and then Item.Formal_First > 0
+         and then Item.Formal_First <= Environment.Parameter_Count
+         and then Item.Count <= Environment.Parameter_Count - Item.Formal_First + 1
+         and then not Scalars.Is_Empty (Item.Result_Bounds),
+       Post => Functions.Valid_Metadata (Text, Functions.Append (Environment, Item))
+   is
+   begin
+      null;
+   end Lemma_Function_Metadata_Append;
+
+   procedure Lemma_Procedure_Metadata_Append
+     (Text : String; Environment : Procedures.Metadata; Item : Procedures.Signature)
+     with Ghost => Static, Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Procedures.Valid_Metadata (Text, Environment)
+         and then Environment.Count < Procedures.Max_Procedures
+         and then Item.First > 0
+         and then Valid_Name_State (Text, Item.First, Item.After)
+         and then Item.Count > 0 and then Item.Formal_First > 0
+         and then Item.Formal_First <= Environment.Parameter_Count
+         and then Item.Count <= Environment.Parameter_Count - Item.Formal_First + 1,
+       Post => Procedures.Valid_Metadata (Text, Procedures.Append (Environment, Item))
+   is
+   begin
+      null;
+   end Lemma_Procedure_Metadata_Append;
+
    function Function_Body_At
      (Text : String; Outer : Parser_State; Frame : Parser_State;
       First, After : Literal_Position; Result_Type : Function_Type_Result;
@@ -6507,6 +6620,11 @@ is
       Arguments : Boolean) return Parser_State is
       Locals : constant Parser_State := Function_Locals (Text, Frame, Arguments);
    begin
+      Lemma_Function_Metadata_Append
+        (Text, Frame.Functions,
+         (First, After, Frame.First_Parameter,
+          Frame.Functions.Parameter_Count - Frame.First_Parameter + 1,
+          Result_Type.Kind, Result_Type.Bounds));
       if Locals.Position = 0 then return Invalid_State; end if;
       declare Bound : constant Parser_State := Parameter_Frame (Text, Locals);
       begin
@@ -6630,6 +6748,10 @@ is
                  or else not Equal_Name (Text, First, After, End_First, End_After)
                  or else Following <= Outer.Position
                then return Invalid_State; end if;
+               Lemma_Procedure_Metadata_Append
+                 (Text, Frame.Procedures,
+                  (First, After, Frame.First_Procedure_Parameter,
+                   Frame.Procedures.Parameter_Count - Frame.First_Procedure_Parameter + 1));
                return (Outer with delta Position => Following,
                  Procedures => Procedures.Append (Frame.Procedures,
                    (First, After, Frame.First_Procedure_Parameter,
