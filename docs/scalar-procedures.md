@@ -185,19 +185,28 @@ remaining surface complete.
 | 2026-11-10 06:23–06:53 UTC | Astra Max source/semantic/native authors; lead integration and bounded native-author conceptual review; live settings not independently confirmed | Source-derived actual updates, generic body meaning and checked mixed callable definitions passed. All low declaration source fragments and their repaired aggregate passed against the complete reviewed output tokens. Production native report proof retained two solver-limit failures; prepared caller-local classifier abstraction and passed its three exact annotation-policy tests. | Source integration runs `061700` (21,337), `063245` (23,080), `064408` (25,005) and `064954` (15,836) are retained with input comparisons and cache provenance. [Report caller repair](evidence/scalar-procedures-20261109/report-caller-abstraction/README.md) keeps `044716` failed; retry `064952` is pending. Low/high library composition, outer semantic consumers, authoritative adapters and final validation remain pending. |
 | 2026-11-10 06:54–07:52 UTC | Astra Max source/semantic authors and bounded independent reviewer; lead integration; live settings not independently confirmed | Low native-domain libraries, outer source meaning and complete String assurance closure passed focused audits. Admission review found catalogue C1, tracked as #372; its repair awaits the native input freeze. The first high-library gate found a missing procedure count in the inherited declaration termination measure; a proof-only repair is under focused check. Four completed output-body chunks were preserved before allocating six workers to the remaining four. | Runs `070603` (58,086), `071116` (25,909) and `071235` (26,337) are retained in the source-integration packet. Native parser run `022141` remains failed on 13 obligations; production-settings retry `074854-b82fcb5366fa` checks the nine complete affected helpers. Report retry `064952` continues. Complete native/Lean/source/regression validation and final acceptance remain pending. |
 | 2026-11-10 07:53–08:38 UTC | Astra Max source/semantic/native authors and bounded peer reviewer; lead integration; live settings not independently confirmed | High declaration library interpretation passed. Production parser retry cleared ten of thirteen failures; a minimal array-state equality annotation is under complete-helper check, with two other parser obligations still in diagnosis. Report callers retained two failed postconditions; a proof-only policy-boundary experiment passed its exact annotation controls and is running. Capacity callers passed 304 checks; the catalogue correction passed its build, exact inventory test and 33 native checks. | High library run `081333` audited 59,394 declarations. Parser `074854` and report `064952` remain failed; current trials are `082741` and `083710`. Capacity `081710` and catalogue `083333` are focused successes. Authoritative source integration, complete native/Lean/regression checks and final independent acceptance remain pending. |
+| 2026-11-10 08:39–12:45 UTC | Astra Max native/source diagnosis and independent source review; lead coordination; live settings not independently confirmed | Parser trial `093356` retained 14 failures across three helpers; report reassessment `094033` retained three caller obligations. These step-budget trials remained failed. Exact native contexts motivated bounded helper exports and diagnostic-message extraction rather than another unchanged broad retry. | [Parser repair packet](evidence/scalar-procedures-20261109/native-parser-repair/README.md) retains the failed 287/301 proof, 8/8 flow trial; [report repair packet](evidence/scalar-procedures-20261109/report-diagnostic-repair/README.md) retains the failed reassessment and its exact input. These are diagnostics, not completed assurance or timing comparisons. |
+| 2026-11-10 12:45–14:53 UTC | Astra Max native repair and independent full-domain source reviewers; lead coordination; live settings not independently confirmed | Report extraction's first mixed helper failed on empty-default encoding; explicit `Atom_Empty` arguments and exact existing lemmas repaired it. Three complete report helpers and four complete callers then passed. Parser equality-helper export passed, but direct-caller/named-return trials stayed failed; combined early-return, flow-export and join-identity helpers passed. | Report `130301` and `130958` cover 386 proof and 12 flow checks across seven complete entities on `95d4758e`. Parser `143914` covers 227 proof and 15 flow checks across nine complete helpers on `aa1f3722`. Both packets retain canonical 30-second requested policy, warm-cache scope, failed predecessors and bounded reviews. Full native/source/Lean validation remains pending. |
+| 2026-11-10 14:54–17:53 UTC | Astra Max native/source repair and independent full-domain reviewers; lead coordination; live settings not independently confirmed | Seven-caller gate retained three residuals; complete metadata helpers and the symmetric short-circuit bridge repaired the function/chain callers. The procedure still had two failures until moving its unchanged static metadata call immediately before successful return. Complete Procedure_Body_At then passed on final parser `735f4bbb`. | [Parser continuity evidence](evidence/scalar-procedures-20261109/native-parser-repair/retained-success-continuity.json) aggregates 687 proof and 43 flow checks across 22 distinct complete entities. Runs `145720` and `162446` remain failed; only their individually complete passing entities are reused, with unchanged selected source fragments and dependencies. Final run `173934` passed 28 proof and two flow checks. This is focused aggregate evidence, not a single whole-source checkpoint. |
+| 2026-11-10 17:54–18:13 UTC | Astra Max source integration; lead integration; Sol High evidence-recording role; live settings not independently confirmed | Parser `8108347e75` and report `cf2882170d` are integrated. Build `180332` passed. Source model gate `180634` failed two exact renderer controls; the established Repr import repaired reduction without changing propositions/domains. Focused typed-model/header run `180854` then passed; lead integrated the proof batch as `bfe82aeb81`. | [Bounded source handoff](evidence/scalar-procedures-20261109/native-parser-repair/README.md#subsequent-focused-source-handoff--1812-utc) retains the failure and the 59,461-declaration focused success at 22 workers/22 threads; its 1,101-input recheck and 994-module static inventory have separate scopes. Full native `181302` at 14 workers and eight changed certificate chunks were starting. Complete source/facade/axiom validation, regression coverage and independent delivery acceptance remain pending. |
 
 ## Development checkpoint
 
-The native parser implementation through author commit `91fd84a7e5` is integrated
-with its assurance explicitly pending. It checks the frozen output prefix,
+The native parser repair is integrated as `8108347e75`, on exact source
+`735f4bbb8cd0f9ecf816e17df3242113417f9ddeeafdf4bcb8ae2ecc25d41758`.
+Its [focused repair packet](evidence/scalar-procedures-20261109/native-parser-repair/README.md)
+records successful complete helper/caller coverage, including retained successes
+from failed broader gates with exact source-fragment continuity. Complete native
+and source/Lean assurance remains pending. The parser checks the frozen output prefix,
 full declared body ranges, same-state actual evaluation, nonaliasing targets
 and copy-back range containment. The initial admission test run was
 `20261109T233200-ae6d07cb4d63`; it preceded the full-range, empty-body and numeric-token test additions
 and did not execute the native compile fixture. The complete 21-method
 admission-only inventory now passes in `20261110T003856-52403809587f`.
 Both application fixtures have now passed proof, compilation and execution in the
-focused runs recorded above. Complete helper contracts and final regression
-inventory still need validation.
+focused runs recorded above. The new native parser/report helper and affected
+caller gates now pass; the final complete regression inventory and integrated
+assurance checkpoint remain pending.
 
 The metadata source bridge covers the actual SPARK unit and its helper domains.
 Its signature adapter retains earlier signatures when the pooled metadata grows;
@@ -224,16 +233,24 @@ declaration count into prefix checking, preserving ordinary formal refinement
 and the full declared input domains. The native-author build and regression
 passed in `20261110T011921-1abbf6ac3b3b` and
 `20261110T012006-51adf33fb7b7`; the integration compiler rebuild and regression
-also passed in the runs linked from the integration packet above. Fresh complete
-proof of the changed prefix helpers and affected callers remains pending.
+also passed in the runs linked from the integration packet above. The subsequent
+native repair packet records complete focused helper/caller gates; final
+integrated native and actual-source assurance remains required.
 
-That remaining work has two owners: the source stream derives exact native
-trees, raw equations, callee interpretation, lexical alias/read correspondence
-and inherited source endpoints; the semantic stream derives constructive
-frame, sequential-prefix and declaration readings and their meanings. Both
-must meet at the same accepted declaration/call trace. No completed body or
-call law may be substituted as an assumption. The complete native, Lean/source,
-application and regression checkpoint follows these focused helper checks.
+The final source batch integrates exact native trees, raw equations, callee
+interpretation, lexical alias/read correspondence and inherited endpoints with
+constructive frame, prefix and declaration readings. Focused typed-model/header
+run `20261110T180854-2aee6adef6a2` passed after the retained rendering-control
+failure; its audit excludes the whole-output shape/certificate closure.
+The [source handoff](evidence/scalar-procedures-20261109/native-parser-repair/README.md#subsequent-focused-source-handoff--1812-utc)
+retains its exact scope and input recheck. All parts must meet at the same
+accepted declaration/call trace and final source bytes. No completed body or
+call law may be substituted as an assumption. Complete native run
+`20261110T181302-a4553e500d15` and the changed certificate chunks were starting
+at this checkpoint; complete Lean/source/facade/axiom validation, final
+regressions and independent acceptance still need completed evidence.
+The authorized [#373 proof-iteration package](proof-iteration-efficiency.md)
+remains next after this delivery; no successor implementation is included here.
 
 Report regressions use the same policy boundaries in Python and native tests:
 missing or duplicate output initialization, wrong owner or output name, missing
@@ -245,7 +262,15 @@ as recorded in the
 [integration packet](evidence/scalar-procedures-20261109/integration-tests/README.md).
 The five Python policy methods passed in the focused run recorded above.
 The two compiler-driven application fixtures have passed proof, build and execution.
-The changed native helper contracts and complete final checkpoint remain pending.
+Report repair `cf2882170d` now has a
+[focused seven-entity packet](evidence/scalar-procedures-20261109/report-diagnostic-repair/README.md)
+on exact source `95d4758ea69276203ccfea127b73837701278c2770a996d30e5d6833af1a09b1`.
+Its complete helper/caller gates pass all 386 proof and 12 flow checks under the
+requested canonical compiler policy, with warm evidence retained. Native
+runtime/text/raw contracts carry this report correspondence; the file has no
+direct existing Lean model or token certificate. Final Lean capture must still
+include these exact report/auditor bytes. Complete final assurance and regression
+coverage remain pending; focused successes do not promote capability support.
 No new report-auditor architecture or independent kernel replay is selected.
 
 The integration worktree has an isolated native installation copied from the

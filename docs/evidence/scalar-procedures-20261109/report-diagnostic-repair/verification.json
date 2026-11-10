@@ -1,0 +1,39 @@
+{
+  "method": "Read-only retained artifact verification, not new proof execution or an independent semantic review.",
+  "original_manifest_checks": [
+    {
+      "manifest": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370/tmp/report-diagnostic-message/failed-124853/manifest.json",
+      "files": 165,
+      "bytes": 12271805,
+      "all_sizes_and_sha256_match": true
+    },
+    {
+      "manifest": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370/tmp/report-diagnostic-message/passed-130301/manifest.json",
+      "files": 171,
+      "bytes": 12236508,
+      "all_sizes_and_sha256_match": true
+    },
+    {
+      "manifest": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370/tmp/report-diagnostic-message/passed-130958/manifest.json",
+      "files": 176,
+      "bytes": 56057520,
+      "all_sizes_and_sha256_match": true
+    }
+  ],
+  "final_owned_hashes_match": true,
+  "complete_entities": [
+    "Silver_Library_Reports.Mixed_Diagnostic_Message",
+    "Silver_Library_Reports.Diagnostic_Message",
+    "Silver_Library_Reports.Raw_Diagnostic_Message",
+    "Silver_Library_Reports.Raw_Record_Policy",
+    "Silver_Library_Reports.Mixed_Record_Congruence",
+    "Silver_Library_Reports.Record_Policy",
+    "Silver_Library_Reports.Record_OK"
+  ],
+  "raw_report_counts_and_all_mode_match": true,
+  "passed_counts": {
+    "proof": 386,
+    "flow": 12
+  },
+  "scope": "Seven complete selected entities only; canonical requested options and warm evidence retained; no complete compiler assurance manifest."
+}

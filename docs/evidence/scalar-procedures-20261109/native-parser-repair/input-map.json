@@ -1,0 +1,1271 @@
+{
+  "purpose": "Bounded retained evidence copy; original complete packets and managed ledger remain preserved. AST/session trees intentionally omitted, not discarded or replaced.",
+  "integration_commit": "09d96c837dfa5c00aeb94c5dd4262ace477ff537",
+  "integrated_parser_commit": "8108347e75",
+  "current_parser_sha256": "735f4bbb8cd0f9ecf816e17df3242113417f9ddeeafdf4bcb8ae2ecc25d41758",
+  "gates": [
+    {
+      "packet": "helper-gate",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/helper-gate",
+      "run_id": "20261110T143914-1c2a2b56bc13",
+      "actual_exit": 0,
+      "source_sha256": "aa1f3722bedf706e3aa7906e418d68ef5087570bd2b3522c17f5bc2d9072a453",
+      "elapsed_seconds": 751.0318881849962,
+      "original_manifest_files": 194,
+      "scope": "Focused whole entities; full native/source/Lean checkpoint remains required."
+    },
+    {
+      "packet": "caller-gate",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/caller-gate",
+      "run_id": "20261110T145720-331c1a61ff8d",
+      "actual_exit": 1,
+      "source_sha256": "aa1f3722bedf706e3aa7906e418d68ef5087570bd2b3522c17f5bc2d9072a453",
+      "elapsed_seconds": 4562.1686764049955,
+      "original_manifest_files": 186,
+      "scope": "Focused whole entities; full native/source/Lean checkpoint remains required."
+    },
+    {
+      "packet": "metadata-helpers",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/helpers-gate",
+      "run_id": "20261110T161846-7016360b9ba9",
+      "actual_exit": 0,
+      "source_sha256": "ffdc4fa654056aae2c1b4d59fd1bb2b2dfae0077895158b91a1634d34ca63137",
+      "elapsed_seconds": 264.45739531599975,
+      "original_manifest_files": 171,
+      "scope": "Focused whole entities; full native/source/Lean checkpoint remains required."
+    },
+    {
+      "packet": "final-callers",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/callers-gate",
+      "run_id": "20261110T162446-2d6a4b3e4d0d",
+      "actual_exit": 1,
+      "source_sha256": "ffdc4fa654056aae2c1b4d59fd1bb2b2dfae0077895158b91a1634d34ca63137",
+      "elapsed_seconds": 4173.129014368009,
+      "original_manifest_files": 166,
+      "scope": "Focused whole entities; full native/source/Lean checkpoint remains required."
+    },
+    {
+      "packet": "procedure-tail",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/procedure-tail-draft/caller-gate",
+      "run_id": "20261110T173934-c9e374d30353",
+      "actual_exit": 0,
+      "source_sha256": "735f4bbb8cd0f9ecf816e17df3242113417f9ddeeafdf4bcb8ae2ecc25d41758",
+      "elapsed_seconds": 629.7960589489958,
+      "original_manifest_files": 156,
+      "scope": "Focused whole entities; full native/source/Lean checkpoint remains required."
+    }
+  ],
+  "archive_members": [
+    {
+      "archive_path": "original-native-handoff.md",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/README.md",
+      "size": 14162,
+      "sha256": "e9928715b8c152d4a27a4abcbaa6c5e359f8405a281fbe562a74b929d3be9d31"
+    },
+    {
+      "archive_path": "retained-success-continuity.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/retained-success-continuity.json",
+      "size": 16014,
+      "sha256": "22016d886405c8d9676cb1e443dae36945eda0800af596857ac5e9ae95c6dbc7"
+    },
+    {
+      "archive_path": "gates/helper-gate/summary.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/helper-gate/summary.json",
+      "size": 3601,
+      "sha256": "f1ad00efc608760a3a68e93385517253f334e46462ba7e3e221b86212bba2c91"
+    },
+    {
+      "archive_path": "gates/helper-gate/inputs.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/helper-gate/inputs.json",
+      "size": 1092,
+      "sha256": "4f011ae7c93cddb95cf387f38be300ca193f8994dd2d7038ae4aaf4fcd777fa4"
+    },
+    {
+      "archive_path": "gates/helper-gate/command.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/helper-gate/command.json",
+      "size": 1348,
+      "sha256": "47acd68ed0cb60907bb2e2b40a42d98998796128d4cdaa00afe4abc8078bc96a"
+    },
+    {
+      "archive_path": "gates/helper-gate/exit.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/helper-gate/exit.json",
+      "size": 1460,
+      "sha256": "dc43f94b791ae05ab86965bfa90fdef7dce8953c17799ddcc0114aaa4c5ee882"
+    },
+    {
+      "archive_path": "gates/helper-gate/proof.log",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/helper-gate/proof.log",
+      "size": 17442,
+      "sha256": "92a7a25e93e4ce7cc9d4e035904a62c2f12ef955e1708c5d971d77945c7d1add"
+    },
+    {
+      "archive_path": "gates/helper-gate/retained-manifest.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/helper-gate/retained-manifest.json",
+      "size": 29505,
+      "sha256": "4c254b29778f8580227f04ea52e28e8603248cc4d66f68ad29e2eab0e05356b1"
+    },
+    {
+      "archive_path": "gates/helper-gate/mode-audit.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/helper-gate/mode-audit.json",
+      "size": 717,
+      "sha256": "5856cea365f6f99f3b0c7deb6375e94ef11b32ba5a7e2d068c82506c964307c4"
+    },
+    {
+      "archive_path": "gates/helper-gate/warning-comparison.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/helper-gate/warning-comparison.json",
+      "size": 61,
+      "sha256": "ae9f170985e547a9e35fb36e22438a00ec1c331e22a4a8344dad864bb1aa62d8"
+    },
+    {
+      "archive_path": "gates/helper-gate/selected-checks.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/helper-gate/selected-checks.json",
+      "size": 668636,
+      "sha256": "02e0812bfa2b0dff4b5260c2d8d81709a7a48a4492bfe0f16cfdf3e884d1ee58"
+    },
+    {
+      "archive_path": "gates/helper-gate/prior-boolean-checks-mapped.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/helper-gate/prior-boolean-checks-mapped.json",
+      "size": 370402,
+      "sha256": "e7d6c1f9136ad9a8716604bc43d342cdbf0fc8fa708143c75b7e7d275522fbbd"
+    },
+    {
+      "archive_path": "gates/helper-gate/whole-helpers.lines",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/helper-gate/whole-helpers.lines",
+      "size": 9734,
+      "sha256": "1b580e7a5d8b888e95bd887509255c4c208ce31ab6b4cd6ec942ccc1309036b0"
+    },
+    {
+      "archive_path": "gates/helper-gate/reports/gnatprove.out",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/helper-gate/retained/reports/gnatprove.out",
+      "size": 43877,
+      "sha256": "86053648a32923467d73de8d9aa8ae7f2f751b3a61edf95e0c4afe0868aa06c6"
+    },
+    {
+      "archive_path": "gates/helper-gate/reports/silver_output_profile.spark",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/helper-gate/retained/reports/silver_output_profile.spark",
+      "size": 1082705,
+      "sha256": "2ed1ba6481fcb9c6d317e5e18f5317c9aa4b82bee59e40b906f67d12a8fae903"
+    },
+    {
+      "archive_path": "gates/helper-gate/reports/gnatprove.sarif",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/helper-gate/retained/reports/gnatprove.sarif",
+      "size": 304843,
+      "sha256": "8ce37e8f82f9cdab001358ccebf065db081b51b07672a207d0f1cb35792faa1b"
+    },
+    {
+      "archive_path": "gates/helper-gate/src/silver_output_profile.adb",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/helper-gate/retained/src/silver_output_profile.adb",
+      "size": 420355,
+      "sha256": "aa1f3722bedf706e3aa7906e418d68ef5087570bd2b3522c17f5bc2d9072a453"
+    },
+    {
+      "archive_path": "gates/helper-gate/src/silver_function_bindings.ads",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/helper-gate/retained/src/silver_function_bindings.ads",
+      "size": 4513,
+      "sha256": "e43fb640c38c516e6a4d0ab4e28acab9c3f71a5638237cc8b4c6c387c6d01d4b"
+    },
+    {
+      "archive_path": "gates/helper-gate/src/silver_function_bindings.adb",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/helper-gate/retained/src/silver_function_bindings.adb",
+      "size": 1365,
+      "sha256": "5bb7432136235c11a0845269bb1286439b579e30fc45e15b20bad66fe829882b"
+    },
+    {
+      "archive_path": "gates/helper-gate/src/silver_procedure_bindings.ads",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/helper-gate/retained/src/silver_procedure_bindings.ads",
+      "size": 4490,
+      "sha256": "4fe043682f952570f90e0b5879c9a10be3c19016811dac957a6825e22a1f18a6"
+    },
+    {
+      "archive_path": "gates/helper-gate/src/silver_procedure_bindings.adb",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/helper-gate/retained/src/silver_procedure_bindings.adb",
+      "size": 1383,
+      "sha256": "81bedcc4e10c451100348c6e5365c76078f6158ed4af75f9fe61b0e21ffeb4fa"
+    },
+    {
+      "archive_path": "gates/helper-gate/managed/native.log",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/helper-gate/retained/managed/native.log",
+      "size": 17270,
+      "sha256": "8b711279f6bde1e339c768113ef47332fab85158e6c42e0cbb554ab09f7be4b8"
+    },
+    {
+      "archive_path": "gates/helper-gate/managed/events.jsonl",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/helper-gate/retained/managed/events.jsonl",
+      "size": 451270,
+      "sha256": "7f88fb396991491f84eb65e9727bf6787e1a7abc58fe844e0e2ddda52a435b55"
+    },
+    {
+      "archive_path": "gates/helper-gate/generated/silver_image_config.ads",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/helper-gate/retained/generated/silver_image_config.ads",
+      "size": 487,
+      "sha256": "2a82b690fb398950a87b7bba2c3d723df2a0208770c3107a05d73ccbc7b97073"
+    },
+    {
+      "archive_path": "gates/helper-gate/generated/silver_build.ads",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/helper-gate/retained/generated/silver_build.ads",
+      "size": 1392,
+      "sha256": "7dc2b3c6826e17a0b4a8d5dab0c8a0521cd05fe307bb61e55972088c886ac52e"
+    },
+    {
+      "archive_path": "gates/helper-gate/generated/silver_library_sources.ads",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/helper-gate/retained/generated/silver_library_sources.ads",
+      "size": 18873,
+      "sha256": "be5a0d9ee5d93e6fe08d4b5c653ae1a1a497fbb52191f7bb393c9d1b6bc182bf"
+    },
+    {
+      "archive_path": "gates/helper-gate/silver.gpr",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/helper-gate/retained/silver.gpr",
+      "size": 767,
+      "sha256": "487fb033a7f3d056f6032b67ff5b57abfc16ce8e65db39a53d24d1d961b152eb"
+    },
+    {
+      "archive_path": "gates/caller-gate/summary.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/caller-gate/summary.json",
+      "size": 20091,
+      "sha256": "ec69d120463c72e648ae25ae5035e65b437446c28fbc44ba057c68d045335874"
+    },
+    {
+      "archive_path": "gates/caller-gate/inputs.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/caller-gate/inputs.json",
+      "size": 1697,
+      "sha256": "219a2068ff62a4a0582a5fe01f7babcebd0594aff8bd035e6c1e8889ae00cc51"
+    },
+    {
+      "archive_path": "gates/caller-gate/command.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/caller-gate/command.json",
+      "size": 1333,
+      "sha256": "abcc21be627cf35c28a38dab6efc280ccbbd5174956b6149e7ff2e40071df9f8"
+    },
+    {
+      "archive_path": "gates/caller-gate/exit.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/caller-gate/exit.json",
+      "size": 1446,
+      "sha256": "85ff63ce1ac9e53cbfe5a5c913468564154f4658b7e8827af24b12b4d92c5167"
+    },
+    {
+      "archive_path": "gates/caller-gate/proof.log",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/caller-gate/proof.log",
+      "size": 32031,
+      "sha256": "1bc5dcf6cc9ea1578f07a1d526936918d7569beda7f8f85b2b300a8621d9a057"
+    },
+    {
+      "archive_path": "gates/caller-gate/retained-manifest.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/caller-gate/retained-manifest.json",
+      "size": 28150,
+      "sha256": "fb9f900244ebd214723721a52ab1507d7a08a83f10cc33df279f00432298d1c7"
+    },
+    {
+      "archive_path": "gates/caller-gate/mode-audit.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/caller-gate/mode-audit.json",
+      "size": 363,
+      "sha256": "58af1fcc3635a9b006efc6f420a1c09f50e6195dc6ffa9c17c55e8765cb1eefe"
+    },
+    {
+      "archive_path": "gates/caller-gate/warning-comparison.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/caller-gate/warning-comparison.json",
+      "size": 61,
+      "sha256": "ae9f170985e547a9e35fb36e22438a00ec1c331e22a4a8344dad864bb1aa62d8"
+    },
+    {
+      "archive_path": "gates/caller-gate/selected-checks.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/caller-gate/selected-checks.json",
+      "size": 1320399,
+      "sha256": "5cf85047fd5242dff0064f86fded13024aa9a3f2bdfb1c625f7951532a4f78f5"
+    },
+    {
+      "archive_path": "gates/caller-gate/prior-original-checks-mapped.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/caller-gate/prior-original-checks-mapped.json",
+      "size": 1001534,
+      "sha256": "b25a0c7a3769388dbe20da2b79aa68d0d932e26416a190c9e6687ad3c46a29ee"
+    },
+    {
+      "archive_path": "gates/caller-gate/whole-callers.lines",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/caller-gate/whole-callers.lines",
+      "size": 16926,
+      "sha256": "64f1da7ecd12d9e02ecbd12621775f1f181f6ff5a87764fec10a060d101bb8a9"
+    },
+    {
+      "archive_path": "gates/caller-gate/reports/gnatprove.out",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/caller-gate/retained/reports/gnatprove.out",
+      "size": 44038,
+      "sha256": "9a7781e8418ee24c65414d0ca970b5569ab5feceda26a65d2eb54c193cd176b7"
+    },
+    {
+      "archive_path": "gates/caller-gate/reports/silver_output_profile.spark",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/caller-gate/retained/reports/silver_output_profile.spark",
+      "size": 1795323,
+      "sha256": "30e00df973622e674a9b5f398ca3ab26090fa31f025c22641fa23f55b4040e5e"
+    },
+    {
+      "archive_path": "gates/caller-gate/reports/gnatprove.sarif",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/caller-gate/retained/reports/gnatprove.sarif",
+      "size": 357801,
+      "sha256": "32c164c2e062a5a79e0cac3aa6b4118799430f86f4b84a8b53819366bafacbfb"
+    },
+    {
+      "archive_path": "gates/caller-gate/src/silver_output_profile.adb",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/caller-gate/retained/src/silver_output_profile.adb",
+      "size": 420355,
+      "sha256": "aa1f3722bedf706e3aa7906e418d68ef5087570bd2b3522c17f5bc2d9072a453"
+    },
+    {
+      "archive_path": "gates/caller-gate/src/silver_function_bindings.ads",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/caller-gate/retained/src/silver_function_bindings.ads",
+      "size": 4513,
+      "sha256": "e43fb640c38c516e6a4d0ab4e28acab9c3f71a5638237cc8b4c6c387c6d01d4b"
+    },
+    {
+      "archive_path": "gates/caller-gate/src/silver_function_bindings.adb",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/caller-gate/retained/src/silver_function_bindings.adb",
+      "size": 1365,
+      "sha256": "5bb7432136235c11a0845269bb1286439b579e30fc45e15b20bad66fe829882b"
+    },
+    {
+      "archive_path": "gates/caller-gate/src/silver_procedure_bindings.ads",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/caller-gate/retained/src/silver_procedure_bindings.ads",
+      "size": 4490,
+      "sha256": "4fe043682f952570f90e0b5879c9a10be3c19016811dac957a6825e22a1f18a6"
+    },
+    {
+      "archive_path": "gates/caller-gate/src/silver_procedure_bindings.adb",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/caller-gate/retained/src/silver_procedure_bindings.adb",
+      "size": 1383,
+      "sha256": "81bedcc4e10c451100348c6e5365c76078f6158ed4af75f9fe61b0e21ffeb4fa"
+    },
+    {
+      "archive_path": "gates/caller-gate/managed/native.log",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/caller-gate/retained/managed/native.log",
+      "size": 30947,
+      "sha256": "bbe965e07d2af142002592ae3614c4e753eee485bfee4ae0f7a841ff5377dc3c"
+    },
+    {
+      "archive_path": "gates/caller-gate/managed/events.jsonl",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/caller-gate/retained/managed/events.jsonl",
+      "size": 452908,
+      "sha256": "20a4713c9736296d9242e916d49ee60e9c1fe7653acfdf65b99bdca628ebca95"
+    },
+    {
+      "archive_path": "gates/caller-gate/generated/silver_image_config.ads",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/caller-gate/retained/generated/silver_image_config.ads",
+      "size": 487,
+      "sha256": "2a82b690fb398950a87b7bba2c3d723df2a0208770c3107a05d73ccbc7b97073"
+    },
+    {
+      "archive_path": "gates/caller-gate/generated/silver_build.ads",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/caller-gate/retained/generated/silver_build.ads",
+      "size": 1392,
+      "sha256": "7dc2b3c6826e17a0b4a8d5dab0c8a0521cd05fe307bb61e55972088c886ac52e"
+    },
+    {
+      "archive_path": "gates/caller-gate/generated/silver_library_sources.ads",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/caller-gate/retained/generated/silver_library_sources.ads",
+      "size": 18873,
+      "sha256": "be5a0d9ee5d93e6fe08d4b5c653ae1a1a497fbb52191f7bb393c9d1b6bc182bf"
+    },
+    {
+      "archive_path": "gates/caller-gate/silver.gpr",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/caller-gate/retained/silver.gpr",
+      "size": 767,
+      "sha256": "487fb033a7f3d056f6032b67ff5b57abfc16ce8e65db39a53d24d1d961b152eb"
+    },
+    {
+      "archive_path": "gates/metadata-helpers/summary.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/helpers-gate/summary.json",
+      "size": 2612,
+      "sha256": "b771564d9d49466e8a087e7ce17911503e89bafe04939abddc068f1bcd19b857"
+    },
+    {
+      "archive_path": "gates/metadata-helpers/inputs.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/helpers-gate/inputs.json",
+      "size": 458,
+      "sha256": "a878fc3091390d569d3a8dfc95f4de4eb98a8f917a3c55e4c30e6332ae620dee"
+    },
+    {
+      "archive_path": "gates/metadata-helpers/command.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/helpers-gate/command.json",
+      "size": 1612,
+      "sha256": "025ff0cc7b8e03067130dfa36a13f2208d5f448ba496a410cfa641632b00b894"
+    },
+    {
+      "archive_path": "gates/metadata-helpers/exit.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/helpers-gate/exit.json",
+      "size": 1725,
+      "sha256": "00dbb7c6de6f55854d177fd88132334e7d03723eff10b28317b92f2c415b3c92"
+    },
+    {
+      "archive_path": "gates/metadata-helpers/proof.log",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/helpers-gate/proof.log",
+      "size": 4652,
+      "sha256": "a121399c47f913cec3b78348ba102456c8cf2cfe529d498725aa22732ebeb37a"
+    },
+    {
+      "archive_path": "gates/metadata-helpers/retained-manifest.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/helpers-gate/retained-manifest.json",
+      "size": 25449,
+      "sha256": "63923dbabf87bf6828fb86e80ae46f2ac3c2f07847f5496b5280080647a06e9a"
+    },
+    {
+      "archive_path": "gates/metadata-helpers/warning-comparison.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/helpers-gate/warning-comparison.json",
+      "size": 2059,
+      "sha256": "1fd923ac081bc7984c0fd24f593aa266acbf20232b1084e81b35722a408aeb0e"
+    },
+    {
+      "archive_path": "gates/metadata-helpers/warnings.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/helpers-gate/warnings.json",
+      "size": 44318,
+      "sha256": "5270e97076a5809b82369d4ffd5cd99311c9f7a57923d52113b76836f9ac4bc4"
+    },
+    {
+      "archive_path": "gates/metadata-helpers/selected-checks.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/helpers-gate/selected-checks.json",
+      "size": 89834,
+      "sha256": "c7b650b716d4d76dcaaef634411d0fd8b715783914d6b9a98e99e87a12939559"
+    },
+    {
+      "archive_path": "gates/metadata-helpers/whole-helpers.lines",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/helpers-gate/whole-helpers.lines",
+      "size": 2550,
+      "sha256": "9050248345576483b79bfb25bdca8e692af81d6384ef924e5cc492e100ad60fb"
+    },
+    {
+      "archive_path": "gates/metadata-helpers/reports/gnatprove.out",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/helpers-gate/retained/reports/gnatprove.out",
+      "size": 45684,
+      "sha256": "2fbf36d0b4690f642d7b8c62b100290247e7d7d761c3bf28e5ea9dd61f9812fa"
+    },
+    {
+      "archive_path": "gates/metadata-helpers/reports/silver_procedure_bindings.spark",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/helpers-gate/retained/reports/silver_procedure_bindings.spark",
+      "size": 42711,
+      "sha256": "85ee8bdf0d5a22eb2f02d25560528206d0f67f45b8fa8e852414838b35f6ec58"
+    },
+    {
+      "archive_path": "gates/metadata-helpers/reports/silver_output_profile.spark",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/helpers-gate/retained/reports/silver_output_profile.spark",
+      "size": 428178,
+      "sha256": "07091edd6044ff8fc998935356820d5dc4282fcf8463dbac77c7adc49ffb8340"
+    },
+    {
+      "archive_path": "gates/metadata-helpers/reports/silver_function_bindings.spark",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/helpers-gate/retained/reports/silver_function_bindings.spark",
+      "size": 44148,
+      "sha256": "bf6a9e814b94a8a9d1c948df077b65ddf276e142227ecc7822d1262f3ce7ae0f"
+    },
+    {
+      "archive_path": "gates/metadata-helpers/reports/gnatprove.sarif",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/helpers-gate/retained/reports/gnatprove.sarif",
+      "size": 258317,
+      "sha256": "1104bb92fc09eaa013a6328b55a2018767ab94f1c1e99edfb081da291c035f98"
+    },
+    {
+      "archive_path": "gates/metadata-helpers/src/silver_output_profile.adb",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/helpers-gate/retained/src/silver_output_profile.adb",
+      "size": 423212,
+      "sha256": "ffdc4fa654056aae2c1b4d59fd1bb2b2dfae0077895158b91a1634d34ca63137"
+    },
+    {
+      "archive_path": "gates/metadata-helpers/src/silver_function_bindings.ads",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/helpers-gate/retained/src/silver_function_bindings.ads",
+      "size": 4513,
+      "sha256": "e43fb640c38c516e6a4d0ab4e28acab9c3f71a5638237cc8b4c6c387c6d01d4b"
+    },
+    {
+      "archive_path": "gates/metadata-helpers/src/silver_function_bindings.adb",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/helpers-gate/retained/src/silver_function_bindings.adb",
+      "size": 1365,
+      "sha256": "5bb7432136235c11a0845269bb1286439b579e30fc45e15b20bad66fe829882b"
+    },
+    {
+      "archive_path": "gates/metadata-helpers/src/silver_procedure_bindings.ads",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/helpers-gate/retained/src/silver_procedure_bindings.ads",
+      "size": 4490,
+      "sha256": "4fe043682f952570f90e0b5879c9a10be3c19016811dac957a6825e22a1f18a6"
+    },
+    {
+      "archive_path": "gates/metadata-helpers/src/silver_procedure_bindings.adb",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/helpers-gate/retained/src/silver_procedure_bindings.adb",
+      "size": 1383,
+      "sha256": "81bedcc4e10c451100348c6e5365c76078f6158ed4af75f9fe61b0e21ffeb4fa"
+    },
+    {
+      "archive_path": "gates/metadata-helpers/managed/native.log",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/helpers-gate/retained/managed/native.log",
+      "size": 4480,
+      "sha256": "beaca4665af7669bbf350ec4ad1004a7d99870e51815bbc93348bcb09de30616"
+    },
+    {
+      "archive_path": "gates/metadata-helpers/managed/events.jsonl",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/helpers-gate/retained/managed/events.jsonl",
+      "size": 452053,
+      "sha256": "c179ebc81b50bd3bb56c7d1659e853acbd0bce2adf479314f0e9b4b1cff7b240"
+    },
+    {
+      "archive_path": "gates/metadata-helpers/generated/silver_image_config.ads",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/helpers-gate/retained/generated/silver_image_config.ads",
+      "size": 487,
+      "sha256": "2a82b690fb398950a87b7bba2c3d723df2a0208770c3107a05d73ccbc7b97073"
+    },
+    {
+      "archive_path": "gates/metadata-helpers/generated/silver_build.ads",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/helpers-gate/retained/generated/silver_build.ads",
+      "size": 1392,
+      "sha256": "7dc2b3c6826e17a0b4a8d5dab0c8a0521cd05fe307bb61e55972088c886ac52e"
+    },
+    {
+      "archive_path": "gates/metadata-helpers/generated/silver_library_sources.ads",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/helpers-gate/retained/generated/silver_library_sources.ads",
+      "size": 18873,
+      "sha256": "be5a0d9ee5d93e6fe08d4b5c653ae1a1a497fbb52191f7bb393c9d1b6bc182bf"
+    },
+    {
+      "archive_path": "gates/metadata-helpers/silver.gpr",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/helpers-gate/retained/silver.gpr",
+      "size": 767,
+      "sha256": "487fb033a7f3d056f6032b67ff5b57abfc16ce8e65db39a53d24d1d961b152eb"
+    },
+    {
+      "archive_path": "gates/final-callers/summary.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/callers-gate/summary.json",
+      "size": 5520,
+      "sha256": "481bd35b77ea6d0201558749e947463f7da96923b37662a832fd850091d29e3c"
+    },
+    {
+      "archive_path": "gates/final-callers/inputs.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/callers-gate/inputs.json",
+      "size": 477,
+      "sha256": "b45e66e582e020b6e70bf46d5489bba819fa3bb8797c58407ae152a868aa9adf"
+    },
+    {
+      "archive_path": "gates/final-callers/command.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/callers-gate/command.json",
+      "size": 1513,
+      "sha256": "911b0da638fbd1cfb31109c50182e7c221046911e88bbbecbfd1338f4b04a9c4"
+    },
+    {
+      "archive_path": "gates/final-callers/exit.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/callers-gate/exit.json",
+      "size": 1625,
+      "sha256": "7271c459272e03c2cab13a9b07013bfc7a9f911278272fabc0d61f329877a210"
+    },
+    {
+      "archive_path": "gates/final-callers/proof.log",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/callers-gate/proof.log",
+      "size": 22431,
+      "sha256": "82ec5a3ca82bcb417e94b86602ce2ca31a4af3d8b91ca6d623042f208b99b9c2"
+    },
+    {
+      "archive_path": "gates/final-callers/retained-manifest.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/callers-gate/retained-manifest.json",
+      "size": 24627,
+      "sha256": "8bd55de6c44b68595e480232544035e48dca524f785682fdad9e5372d5771e31"
+    },
+    {
+      "archive_path": "gates/final-callers/warnings.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/callers-gate/warnings.json",
+      "size": 41596,
+      "sha256": "c21478b484f9039c6a408fd6040e4dd163e1ccc33a56df83577c19689b861fd6"
+    },
+    {
+      "archive_path": "gates/final-callers/selected-checks.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/callers-gate/selected-checks.json",
+      "size": 820086,
+      "sha256": "8d1fefbe3c91c036a1d9dd503611885dd13f6622e544d7c45d5acf583241cd48"
+    },
+    {
+      "archive_path": "gates/final-callers/prior-checks-mapped.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/callers-gate/prior-checks-mapped.json",
+      "size": 777453,
+      "sha256": "4b209145904625a5a22cdcb2c3c0cabd94e4e45bf319a241c7337390ce6233c2"
+    },
+    {
+      "archive_path": "gates/final-callers/retained-audit.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/callers-gate/retained-audit.json",
+      "size": 148,
+      "sha256": "7e1dac339f33114fb9b689091be5a6ddaa64c9708d684263083074f1d4efd60b"
+    },
+    {
+      "archive_path": "gates/final-callers/whole-callers.lines",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/callers-gate/whole-callers.lines",
+      "size": 11532,
+      "sha256": "8056c23ecef6a9084d8bd58c0473f9a2b00bb252117ab0085690f9543f5a7868"
+    },
+    {
+      "archive_path": "gates/final-callers/reports/gnatprove.out",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/callers-gate/retained/reports/gnatprove.out",
+      "size": 46592,
+      "sha256": "fd68671b10dde4007d445e9e961ffa3ad0c9ccedb7b1f022f3fabdea9a5e9881"
+    },
+    {
+      "archive_path": "gates/final-callers/reports/silver_output_profile.spark",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/callers-gate/retained/reports/silver_output_profile.spark",
+      "size": 1272049,
+      "sha256": "bed36f85acde6254b43b95c17bc9b229d1bf00aeba00dd63ff7966655afa417c"
+    },
+    {
+      "archive_path": "gates/final-callers/reports/gnatprove.sarif",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/callers-gate/retained/reports/gnatprove.sarif",
+      "size": 340507,
+      "sha256": "287b923756205773e84688e2bdcd8735bf13f9af667fb79562cd1bdae758bcee"
+    },
+    {
+      "archive_path": "gates/final-callers/src/silver_output_profile.adb",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/callers-gate/retained/src/silver_output_profile.adb",
+      "size": 423212,
+      "sha256": "ffdc4fa654056aae2c1b4d59fd1bb2b2dfae0077895158b91a1634d34ca63137"
+    },
+    {
+      "archive_path": "gates/final-callers/src/silver_function_bindings.ads",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/callers-gate/retained/src/silver_function_bindings.ads",
+      "size": 4513,
+      "sha256": "e43fb640c38c516e6a4d0ab4e28acab9c3f71a5638237cc8b4c6c387c6d01d4b"
+    },
+    {
+      "archive_path": "gates/final-callers/src/silver_function_bindings.adb",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/callers-gate/retained/src/silver_function_bindings.adb",
+      "size": 1365,
+      "sha256": "5bb7432136235c11a0845269bb1286439b579e30fc45e15b20bad66fe829882b"
+    },
+    {
+      "archive_path": "gates/final-callers/src/silver_procedure_bindings.ads",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/callers-gate/retained/src/silver_procedure_bindings.ads",
+      "size": 4490,
+      "sha256": "4fe043682f952570f90e0b5879c9a10be3c19016811dac957a6825e22a1f18a6"
+    },
+    {
+      "archive_path": "gates/final-callers/src/silver_procedure_bindings.adb",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/callers-gate/retained/src/silver_procedure_bindings.adb",
+      "size": 1383,
+      "sha256": "81bedcc4e10c451100348c6e5365c76078f6158ed4af75f9fe61b0e21ffeb4fa"
+    },
+    {
+      "archive_path": "gates/final-callers/managed/native.log",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/callers-gate/retained/managed/native.log",
+      "size": 21327,
+      "sha256": "cf3c9d02e92d8196cad8c5ed451459dd73e388930f29cffff4955321a95aaf14"
+    },
+    {
+      "archive_path": "gates/final-callers/managed/events.jsonl",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/callers-gate/retained/managed/events.jsonl",
+      "size": 453917,
+      "sha256": "6061301d49b6fccf724b0eb1a424acdbe40ad80e47fda44bf8416d8fae02684b"
+    },
+    {
+      "archive_path": "gates/final-callers/generated/silver_image_config.ads",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/callers-gate/retained/generated/silver_image_config.ads",
+      "size": 487,
+      "sha256": "2a82b690fb398950a87b7bba2c3d723df2a0208770c3107a05d73ccbc7b97073"
+    },
+    {
+      "archive_path": "gates/final-callers/generated/silver_build.ads",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/callers-gate/retained/generated/silver_build.ads",
+      "size": 1392,
+      "sha256": "7dc2b3c6826e17a0b4a8d5dab0c8a0521cd05fe307bb61e55972088c886ac52e"
+    },
+    {
+      "archive_path": "gates/final-callers/generated/silver_library_sources.ads",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/callers-gate/retained/generated/silver_library_sources.ads",
+      "size": 18873,
+      "sha256": "be5a0d9ee5d93e6fe08d4b5c653ae1a1a497fbb52191f7bb393c9d1b6bc182bf"
+    },
+    {
+      "archive_path": "gates/final-callers/silver.gpr",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/callers-gate/retained/silver.gpr",
+      "size": 767,
+      "sha256": "487fb033a7f3d056f6032b67ff5b57abfc16ce8e65db39a53d24d1d961b152eb"
+    },
+    {
+      "archive_path": "gates/procedure-tail/summary.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/procedure-tail-draft/caller-gate/summary.json",
+      "size": 1179,
+      "sha256": "8a806ba03644684bec25ecd9499011eabbe38882339bc171c268b72ae22bd41c"
+    },
+    {
+      "archive_path": "gates/procedure-tail/inputs.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/procedure-tail-draft/caller-gate/inputs.json",
+      "size": 333,
+      "sha256": "70f2f81ce06f619af5c1f3a7913b3ecf0d2e991387e532a1844717f83f16b8dc"
+    },
+    {
+      "archive_path": "gates/procedure-tail/command.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/procedure-tail-draft/caller-gate/command.json",
+      "size": 1672,
+      "sha256": "a8564a42873859a3b0bdde048f6588ee2999d03d20828bcc684b11586a0ee8c4"
+    },
+    {
+      "archive_path": "gates/procedure-tail/exit.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/procedure-tail-draft/caller-gate/exit.json",
+      "size": 1784,
+      "sha256": "83d7d3600629c3f1027985045b3c0572b3a05ddc6e7180d3ef5e84a38b4805cd"
+    },
+    {
+      "archive_path": "gates/procedure-tail/proof.log",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/procedure-tail-draft/caller-gate/proof.log",
+      "size": 2870,
+      "sha256": "b3684a8d873c713bb388e7dc630ce7f538362acf3a2d50273533006d9d432285"
+    },
+    {
+      "archive_path": "gates/procedure-tail/retained-manifest.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/procedure-tail-draft/caller-gate/retained-manifest.json",
+      "size": 22873,
+      "sha256": "3f168251dfbc24e01b8f1f786af9651da6f65a5430b52260bc82d4a883e6daf6"
+    },
+    {
+      "archive_path": "gates/procedure-tail/warnings.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/procedure-tail-draft/caller-gate/warnings.json",
+      "size": 41596,
+      "sha256": "b96d443f5983924fd7ea154704591c7fad71b58ef37743073faa1a585c412261"
+    },
+    {
+      "archive_path": "gates/procedure-tail/selected-checks.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/procedure-tail-draft/caller-gate/selected-checks.json",
+      "size": 122200,
+      "sha256": "8579347d820e9341d72b2fb723285b59b85e7a8b51568ef24b85be8cadc41685"
+    },
+    {
+      "archive_path": "gates/procedure-tail/prior-checks-mapped.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/procedure-tail-draft/caller-gate/prior-checks-mapped.json",
+      "size": 113465,
+      "sha256": "199edbcc6d333135511eb929d8f4a9134a006db27653bab5fff3d5e1a359020b"
+    },
+    {
+      "archive_path": "gates/procedure-tail/identity-mapping.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/procedure-tail-draft/caller-gate/identity-mapping.json",
+      "size": 5990,
+      "sha256": "1a19d15a3de2f14a1eafea7d917daac217473d754ceb95580c10d2f7f095c86c"
+    },
+    {
+      "archive_path": "gates/procedure-tail/retained-audit.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/procedure-tail-draft/caller-gate/retained-audit.json",
+      "size": 799,
+      "sha256": "c3fd801edcdd572661e57f737fc28129e6cae3e9c677b2f710299a3ffe245465"
+    },
+    {
+      "archive_path": "gates/procedure-tail/whole-procedure.lines",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/procedure-tail-draft/caller-gate/whole-procedure.lines",
+      "size": 2263,
+      "sha256": "49068839b819bd8b2faa7c0c7f2d2be0c9a512d8a5055dbac610cc5c34f7690d"
+    },
+    {
+      "archive_path": "gates/procedure-tail/reports/gnatprove.out",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/procedure-tail-draft/caller-gate/retained/reports/gnatprove.out",
+      "size": 46425,
+      "sha256": "e4a58790e10af71596c3609715dc67e5c512ff141a2c1355a252ad8b56916e00"
+    },
+    {
+      "archive_path": "gates/procedure-tail/reports/silver_output_profile.spark",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/procedure-tail-draft/caller-gate/retained/reports/silver_output_profile.spark",
+      "size": 532364,
+      "sha256": "c098f77e201d391a76da02ba3fada6ca84cfc172f046683ab0fcc50a916aadc9"
+    },
+    {
+      "archive_path": "gates/procedure-tail/reports/gnatprove.sarif",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/procedure-tail-draft/caller-gate/retained/reports/gnatprove.sarif",
+      "size": 263671,
+      "sha256": "a3ed8a4202ac3b9173f1af4cb50455b9aa5dc86a85e7b6a4529d30cd4c3a6e3b"
+    },
+    {
+      "archive_path": "gates/procedure-tail/src/silver_output_profile.adb",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/procedure-tail-draft/caller-gate/retained/src/silver_output_profile.adb",
+      "size": 423248,
+      "sha256": "735f4bbb8cd0f9ecf816e17df3242113417f9ddeeafdf4bcb8ae2ecc25d41758"
+    },
+    {
+      "archive_path": "gates/procedure-tail/src/silver_function_bindings.ads",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/procedure-tail-draft/caller-gate/retained/src/silver_function_bindings.ads",
+      "size": 4513,
+      "sha256": "e43fb640c38c516e6a4d0ab4e28acab9c3f71a5638237cc8b4c6c387c6d01d4b"
+    },
+    {
+      "archive_path": "gates/procedure-tail/src/silver_function_bindings.adb",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/procedure-tail-draft/caller-gate/retained/src/silver_function_bindings.adb",
+      "size": 1365,
+      "sha256": "5bb7432136235c11a0845269bb1286439b579e30fc45e15b20bad66fe829882b"
+    },
+    {
+      "archive_path": "gates/procedure-tail/src/silver_procedure_bindings.ads",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/procedure-tail-draft/caller-gate/retained/src/silver_procedure_bindings.ads",
+      "size": 4490,
+      "sha256": "4fe043682f952570f90e0b5879c9a10be3c19016811dac957a6825e22a1f18a6"
+    },
+    {
+      "archive_path": "gates/procedure-tail/src/silver_procedure_bindings.adb",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/procedure-tail-draft/caller-gate/retained/src/silver_procedure_bindings.adb",
+      "size": 1383,
+      "sha256": "81bedcc4e10c451100348c6e5365c76078f6158ed4af75f9fe61b0e21ffeb4fa"
+    },
+    {
+      "archive_path": "gates/procedure-tail/managed/native.log",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/procedure-tail-draft/caller-gate/retained/managed/native.log",
+      "size": 2698,
+      "sha256": "7893dfa1266e5cc0d62cb3e143eb8fb43a446380faeb7a75c46d041fc46cfc05"
+    },
+    {
+      "archive_path": "gates/procedure-tail/managed/events.jsonl",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/procedure-tail-draft/caller-gate/retained/managed/events.jsonl",
+      "size": 451844,
+      "sha256": "e2b8c63d4ec73ae786bd28db2c558609bbabddde57b962bfc1656c4ab8c1ba67"
+    },
+    {
+      "archive_path": "gates/procedure-tail/generated/silver_image_config.ads",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/procedure-tail-draft/caller-gate/retained/generated/silver_image_config.ads",
+      "size": 487,
+      "sha256": "2a82b690fb398950a87b7bba2c3d723df2a0208770c3107a05d73ccbc7b97073"
+    },
+    {
+      "archive_path": "gates/procedure-tail/generated/silver_build.ads",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/procedure-tail-draft/caller-gate/retained/generated/silver_build.ads",
+      "size": 1392,
+      "sha256": "7dc2b3c6826e17a0b4a8d5dab0c8a0521cd05fe307bb61e55972088c886ac52e"
+    },
+    {
+      "archive_path": "gates/procedure-tail/generated/silver_library_sources.ads",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/procedure-tail-draft/caller-gate/retained/generated/silver_library_sources.ads",
+      "size": 18873,
+      "sha256": "be5a0d9ee5d93e6fe08d4b5c653ae1a1a497fbb52191f7bb393c9d1b6bc182bf"
+    },
+    {
+      "archive_path": "gates/procedure-tail/silver.gpr",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/procedure-tail-draft/caller-gate/retained/silver.gpr",
+      "size": 767,
+      "sha256": "487fb033a7f3d056f6032b67ff5b57abfc16ce8e65db39a53d24d1d961b152eb"
+    },
+    {
+      "archive_path": "earlier/three-helper-093356/summary.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/three-helper-trial/summary.json",
+      "size": 14045,
+      "sha256": "1e97019ca74eebeaa5914505fbd5e1ba3f7670a1090bfb9f5c3a5149c55517d4"
+    },
+    {
+      "archive_path": "earlier/three-helper-093356/inputs.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/three-helper-trial/inputs.json",
+      "size": 1076,
+      "sha256": "416d29edd9502e201259ce5720adbaae170d23356d78f7492357919c04e0a8ed"
+    },
+    {
+      "archive_path": "earlier/three-helper-093356/command.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/three-helper-trial/command.json",
+      "size": 1435,
+      "sha256": "6ba0ec005c62abf27b3ab8fab43dd2cfde8d2dc18d97fd42cc82e885a462775c"
+    },
+    {
+      "archive_path": "earlier/three-helper-093356/exit.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/three-helper-trial/exit.json",
+      "size": 1547,
+      "sha256": "baca0bbc9aa7b9bd4be2f67b2e02dff8364bcab4d9b553300750b0aecc3de99e"
+    },
+    {
+      "archive_path": "earlier/three-helper-093356/proof.log",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/three-helper-trial/proof.log",
+      "size": 29710,
+      "sha256": "8941709c00879d1cb84cb90ad186e32f3d044f906cf956ba5f744a9564a2e6df"
+    },
+    {
+      "archive_path": "earlier/three-helper-093356/retained-manifest.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/three-helper-trial/retained-manifest.json",
+      "size": 24537,
+      "sha256": "b18f648d18e0a760bc1e844f25d8f23b7f8f42415f88d76b2b99bf6c725eac66"
+    },
+    {
+      "archive_path": "earlier/three-helper-093356/reassessment.md",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/three-helper-trial/reassessment.md",
+      "size": 6719,
+      "sha256": "89e13a7d62b8cd46a77a5ba0b94bdfd5fdddd7d55abad08f85a7aad421e46994"
+    },
+    {
+      "archive_path": "earlier/three-helper-093356/warnings-comparison.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/three-helper-trial/warnings-comparison.json",
+      "size": 63,
+      "sha256": "f9ecdb5142c6032b5e67938df84ad449df1b9e6edeb0f6fa3ea2e43dbbef2689"
+    },
+    {
+      "archive_path": "earlier/three-helper-093356/reports/silver_output_profile.spark",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/three-helper-trial/retained/reports/silver_output_profile.spark",
+      "size": 1486813,
+      "sha256": "28fad6f9cfb16b9aa084201374703b8bc31a68a2a9e3c25b40172c2852fe04a5"
+    },
+    {
+      "archive_path": "earlier/three-helper-093356/src/silver_output_profile.adb",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/three-helper-trial/retained/src/silver_output_profile.adb",
+      "size": 418204,
+      "sha256": "8e5048af07da44e4155366f510b069126c8c97241427b904dfc1a8edefb40ea4"
+    },
+    {
+      "archive_path": "earlier/equality-helper-124550/summary.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/helper/summary.json",
+      "size": 1734,
+      "sha256": "4351c852c6f87fe799bbe5cb5aea573934ddf64aada2c9d7bafec023ee1779e0"
+    },
+    {
+      "archive_path": "earlier/equality-helper-124550/command.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/helper/command.json",
+      "size": 1322,
+      "sha256": "a64a49ace395181f635183660927864894aa43be17441698950b26e46c03f944"
+    },
+    {
+      "archive_path": "earlier/equality-helper-124550/exit.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/helper/exit.json",
+      "size": 1430,
+      "sha256": "48ec37a55fb7a48492597f5723a6e884b6c3e621fc57640d5b1abe59141ff9a9"
+    },
+    {
+      "archive_path": "earlier/equality-helper-124550/proof.log",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/helper/proof.log",
+      "size": 950,
+      "sha256": "767181b710e90f3a30b67c876ed5087ebcd7e76d98e7be0794c52e07953fbdc9"
+    },
+    {
+      "archive_path": "earlier/equality-helper-124550/retained-manifest.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/helper/retained-manifest.json",
+      "size": 22508,
+      "sha256": "700f897ba7a0552fc8049bac0032055f4e6aaaabb3481ee3e08846b04b2c4761"
+    },
+    {
+      "archive_path": "earlier/equality-helper-124550/session-attempt-limits.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/helper/session-attempt-limits.json",
+      "size": 657,
+      "sha256": "aeb17010ae02c5e754fd5dd3cb2de3321970c70638707938230b717f5fc59f07"
+    },
+    {
+      "archive_path": "earlier/equality-helper-124550/warnings-comparison.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/helper/warnings-comparison.json",
+      "size": 67,
+      "sha256": "32195915209c83ba5997f7c75473cf5c8c34058712838f29971f862e5aa063dd"
+    },
+    {
+      "archive_path": "earlier/equality-helper-124550/reports/silver_output_profile.spark",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/helper/retained/reports/silver_output_profile.spark",
+      "size": 391350,
+      "sha256": "86070d0049879da28278672a881a501f1505466f1721e5ce533682f978c80e77"
+    },
+    {
+      "archive_path": "earlier/equality-helper-124550/src/silver_output_profile.adb",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/helper/retained/src/silver_output_profile.adb",
+      "size": 418245,
+      "sha256": "336cba3eac92dc2833336ec4b181ac6f614e86cd2cec3600c401304c235296cb"
+    },
+    {
+      "archive_path": "earlier/direct-callers-125615/summary.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/callers/summary.json",
+      "size": 4097,
+      "sha256": "824a6c9bdbbf56857f8b6515bd00628700a6fb4052f6b1bf00d506b214ebc251"
+    },
+    {
+      "archive_path": "earlier/direct-callers-125615/command.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/callers/command.json",
+      "size": 1393,
+      "sha256": "07eed03f3c5061275a8744f0d6805df46659bb87a94bf4028ec6dcc42b4d27ce"
+    },
+    {
+      "archive_path": "earlier/direct-callers-125615/exit.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/callers/exit.json",
+      "size": 1505,
+      "sha256": "bbcc661da1d8e85cb12a8594c76f6ba257cbfff95344e7630b90cfdbcacf6b2f"
+    },
+    {
+      "archive_path": "earlier/direct-callers-125615/proof.log",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/callers/proof.log",
+      "size": 11132,
+      "sha256": "57e8ab556b7c8a5e930a88848996e948055b2b9cc3f7f6149fa83807762613ce"
+    },
+    {
+      "archive_path": "earlier/direct-callers-125615/retained-manifest.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/callers/retained-manifest.json",
+      "size": 23401,
+      "sha256": "c1d73030fb689d63872b4c4bebb08691067675caf36aef78c251c23887f27ae1"
+    },
+    {
+      "archive_path": "earlier/direct-callers-125615/session-attempt-limits.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/callers/session-attempt-limits.json",
+      "size": 4298,
+      "sha256": "8025ea530d2a7707cbb2913d3bc97593c8227d0b301ce60045a3cd5a7ba5daeb"
+    },
+    {
+      "archive_path": "earlier/direct-callers-125615/warnings-comparison.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/callers/warnings-comparison.json",
+      "size": 67,
+      "sha256": "32195915209c83ba5997f7c75473cf5c8c34058712838f29971f862e5aa063dd"
+    },
+    {
+      "archive_path": "earlier/direct-callers-125615/reports/silver_output_profile.spark",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/callers/retained/reports/silver_output_profile.spark",
+      "size": 1024666,
+      "sha256": "4156e68ffc2d2b2d88729d2d6966214cdd4e6bbacd1cf6696f584deb83ae6eac"
+    },
+    {
+      "archive_path": "earlier/direct-callers-125615/src/silver_output_profile.adb",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/callers/retained/src/silver_output_profile.adb",
+      "size": 418245,
+      "sha256": "336cba3eac92dc2833336ec4b181ac6f614e86cd2cec3600c401304c235296cb"
+    },
+    {
+      "archive_path": "earlier/named-return-131635/summary.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/named-return/summary.json",
+      "size": 2939,
+      "sha256": "e02f36f2b617ce79484acd11f275cdc9e0d0a1fcfb5156b56d4096908369d9c2"
+    },
+    {
+      "archive_path": "earlier/named-return-131635/inputs.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/named-return/inputs.json",
+      "size": 1609,
+      "sha256": "25963e82f75638cc7fc490210e95b6d55d259fb234f7186c33cd1a413c41f5fe"
+    },
+    {
+      "archive_path": "earlier/named-return-131635/command.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/named-return/command.json",
+      "size": 1441,
+      "sha256": "299364b74a37419acd9d752c1c56d9a2053debc26730c5572ac7d49281dced08"
+    },
+    {
+      "archive_path": "earlier/named-return-131635/exit.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/named-return/exit.json",
+      "size": 1553,
+      "sha256": "aa840c8b66ea73e777026a53c53c05c3f3ec63dc61d52499894ab141b74578b1"
+    },
+    {
+      "archive_path": "earlier/named-return-131635/proof.log",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/named-return/proof.log",
+      "size": 7181,
+      "sha256": "4da4eb4628b8f723b15df2494647cb4e71619b45c85acdbded09b44350d965d0"
+    },
+    {
+      "archive_path": "earlier/named-return-131635/retained-manifest.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/named-return/retained-manifest.json",
+      "size": 22499,
+      "sha256": "4b364ef919593920ed9fb375b513ed291fd472c522426bd7e2ffd6f568d75b0d"
+    },
+    {
+      "archive_path": "earlier/named-return-131635/source-review.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/named-return/source-review.json",
+      "size": 560,
+      "sha256": "1f0c50fa66f5590c9e12759f7ee0d9216efc99acbad646dbda838c9bb2530fd7"
+    },
+    {
+      "archive_path": "earlier/named-return-131635/failed-shape-comparison.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/named-return/failed-shape-comparison.json",
+      "size": 5456,
+      "sha256": "3c14e47655198340ec602e91c196e5d6f208e44edf78d76b22f108969c169d1c"
+    },
+    {
+      "archive_path": "earlier/named-return-131635/coverage-mapping.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/named-return/coverage-mapping.json",
+      "size": 463,
+      "sha256": "d47a181accf4c6a56fcd4c8664ebdff7b77c24291ea07c26084c862bcf720ce2"
+    },
+    {
+      "archive_path": "earlier/named-return-131635/warnings-comparison.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/named-return/warnings-comparison.json",
+      "size": 67,
+      "sha256": "32195915209c83ba5997f7c75473cf5c8c34058712838f29971f862e5aa063dd"
+    },
+    {
+      "archive_path": "earlier/named-return-131635/reports/silver_output_profile.spark",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/named-return/retained/reports/silver_output_profile.spark",
+      "size": 785245,
+      "sha256": "1c62a63ce6297fd3c49f54848e411814222f26308a902f21a21502d2e717a2c6"
+    },
+    {
+      "archive_path": "earlier/named-return-131635/src/silver_output_profile.adb",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/named-return/retained/src/silver_output_profile.adb",
+      "size": 418256,
+      "sha256": "56edb5ec920312d2fcece638d3095e5164c4a67315c393e659140d1f807ce04d"
+    },
+    {
+      "archive_path": "independent-review/parser-component-drafts-review-20261110/managed-status.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-source-semantic-370/tmp/parser-component-drafts-review-20261110/managed-status.json",
+      "size": 676,
+      "sha256": "21f0ca38f203deaa6233a40ffc5fed0c7affcb521dc56440344db8fa4254aa36"
+    },
+    {
+      "archive_path": "independent-review/parser-component-drafts-review-20261110/manifest.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-source-semantic-370/tmp/parser-component-drafts-review-20261110/manifest.json",
+      "size": 1726,
+      "sha256": "bda184837efc23313b4fac336acc2c9386a37b32af488fcf6d35f60e76e5f047"
+    },
+    {
+      "archive_path": "independent-review/parser-component-drafts-review-20261110/README.md",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-source-semantic-370/tmp/parser-component-drafts-review-20261110/README.md",
+      "size": 8173,
+      "sha256": "7eb991e388d36a44f0d0748a83b886d4d849c6e296827348da9fb4111de358c9"
+    },
+    {
+      "archive_path": "independent-review/boolean-early-bridges-review-20261110/draft-inputs.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-source-semantic-370/tmp/boolean-early-bridges-review-20261110/draft-inputs.json",
+      "size": 936,
+      "sha256": "be704016960c4a244f1002420543209e41690fac5dc23482e1f6a7acb03109cb"
+    },
+    {
+      "archive_path": "independent-review/boolean-early-bridges-review-20261110/README.md",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-source-semantic-370/tmp/boolean-early-bridges-review-20261110/README.md",
+      "size": 5554,
+      "sha256": "69fb76f4fce6a043890fcdc238186974b1388e71413bda3dc2d13de6723cff30"
+    },
+    {
+      "archive_path": "independent-review/boolean-early-bridges-review-20261110/candidate.patch",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-source-semantic-370/tmp/boolean-early-bridges-review-20261110/candidate.patch",
+      "size": 2249,
+      "sha256": "1e1870aecad701c6b7c2d61f6cf226c8f874b52c4c40459bb537dfee826a8779"
+    },
+    {
+      "archive_path": "independent-review/boolean-early-bridges-review-20261110/review.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-source-semantic-370/tmp/boolean-early-bridges-review-20261110/review.json",
+      "size": 3472,
+      "sha256": "ad440a550816a07a816b550921bf8fee3097b92208e2ca552bbb19b7b3c8713c"
+    },
+    {
+      "archive_path": "independent-review/metadata-append-review-20261110/draft-inputs.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-source-semantic-370/tmp/metadata-append-review-20261110/draft-inputs.json",
+      "size": 1681,
+      "sha256": "cb43fbf30dcc774b13b9264e7953f5e044c8c16803ae8b2375218658b73eaadf"
+    },
+    {
+      "archive_path": "independent-review/metadata-append-review-20261110/README.md",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-source-semantic-370/tmp/metadata-append-review-20261110/README.md",
+      "size": 11197,
+      "sha256": "b1bd7b8a84dc9a99d9c114ede5c425deea43e95752aa1fc4295f4414ff4df878"
+    },
+    {
+      "archive_path": "independent-review/metadata-append-review-20261110/candidate.patch",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-source-semantic-370/tmp/metadata-append-review-20261110/candidate.patch",
+      "size": 3362,
+      "sha256": "693ef80d5663999e690381fc4320833bf63f61559e038d9f0c65306ca6b33e78"
+    },
+    {
+      "archive_path": "independent-review/metadata-append-review-20261110/review.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-source-semantic-370/tmp/metadata-append-review-20261110/review.json",
+      "size": 7340,
+      "sha256": "9aa77d90eab0bb808ee9608a3c0773661250929059be6f2c29bc74d11592c09d"
+    },
+    {
+      "archive_path": "independent-review/final-parser-symmetry-review-20261110/draft-inputs.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-source-semantic-370/tmp/final-parser-symmetry-review-20261110/draft-inputs.json",
+      "size": 1403,
+      "sha256": "a2b2819ee543c90096fcad2be401c384600aa59a7389ca2b2755a83685980b47"
+    },
+    {
+      "archive_path": "independent-review/final-parser-symmetry-review-20261110/or-branch-only.patch",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-source-semantic-370/tmp/final-parser-symmetry-review-20261110/or-branch-only.patch",
+      "size": 1351,
+      "sha256": "fae1ac368f053f82d0b5a4fca13d6dcfd2aca20b4067f1ec9376234036b36b7d"
+    },
+    {
+      "archive_path": "independent-review/final-parser-symmetry-review-20261110/caller-summary.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-source-semantic-370/tmp/final-parser-symmetry-review-20261110/caller-summary.json",
+      "size": 20091,
+      "sha256": "ec69d120463c72e648ae25ae5035e65b437446c28fbc44ba057c68d045335874"
+    },
+    {
+      "archive_path": "independent-review/final-parser-symmetry-review-20261110/README.md",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-source-semantic-370/tmp/final-parser-symmetry-review-20261110/README.md",
+      "size": 5900,
+      "sha256": "b52d121e6a5db8cffb2c2714d41f9970e16e32a5df6b0e7af649ade2a4e72a5c"
+    },
+    {
+      "archive_path": "independent-review/final-parser-symmetry-review-20261110/candidate.patch",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-source-semantic-370/tmp/final-parser-symmetry-review-20261110/candidate.patch",
+      "size": 4641,
+      "sha256": "e15472ca3280d43c4256b6e5b041212c744f6c98123bbb62de1ebfb7b6846276"
+    },
+    {
+      "archive_path": "independent-review/final-parser-symmetry-review-20261110/review.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-source-semantic-370/tmp/final-parser-symmetry-review-20261110/review.json",
+      "size": 2124,
+      "sha256": "63bcbd4e7464a6cf8cc051c1e16f9b432c31cf9bf7265c2fa9a72efbbe34e16a"
+    },
+    {
+      "archive_path": "independent-review/procedure-tail-review-20261110/draft-inputs.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-source-semantic-370/tmp/procedure-tail-review-20261110/draft-inputs.json",
+      "size": 1585,
+      "sha256": "5a12c817ecaffde9e54a32b594ac39ce0e288d2b9309b3a3d4d5c2d483e5053d"
+    },
+    {
+      "archive_path": "independent-review/procedure-tail-review-20261110/source-relocation.patch",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-source-semantic-370/tmp/procedure-tail-review-20261110/source-relocation.patch",
+      "size": 1500,
+      "sha256": "dc2becd308e02f021195f0ce4488a4b88a942fef66d1112629a034c24bac8bbb"
+    },
+    {
+      "archive_path": "independent-review/procedure-tail-review-20261110/README.md",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-source-semantic-370/tmp/procedure-tail-review-20261110/README.md",
+      "size": 6250,
+      "sha256": "459bd5649f747e2a798a01a2a657097a6878c42b7d2ec029e049100ea07c3ba1"
+    },
+    {
+      "archive_path": "independent-review/procedure-tail-review-20261110/candidate.patch",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-source-semantic-370/tmp/procedure-tail-review-20261110/candidate.patch",
+      "size": 1317,
+      "sha256": "0d8c782e00a1eeafe01869525f4c03d1f26685c89702ea0939b66e20aff85e2a"
+    },
+    {
+      "archive_path": "independent-review/procedure-tail-review-20261110/review.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-source-semantic-370/tmp/procedure-tail-review-20261110/review.json",
+      "size": 3253,
+      "sha256": "f8970394eae1eb47933d6ba721fcd6301c2690e83415088155eecbab0388d217"
+    }
+  ],
+  "source_handoff_archive_members": [
+    {
+      "archive_path": "original-source-handoff.md",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-source-semantic-370/tmp/final-source-integration-20261110/README.md",
+      "size": 5490,
+      "sha256": "cdde2630d4a4caa1e036c29407d38f2825097d761ccf37da659b05bd18f39bdf",
+      "qualification": "Dated collection snapshot of a live handoff document; its original may grow after collection. Native/Lean run artifacts remain separately identified."
+    },
+    {
+      "archive_path": "model-success-180854/input-recheck.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-source-semantic-370/tmp/final-source-integration-20261110/model-success-180854/input-recheck.json",
+      "size": 126,
+      "sha256": "3c033517dafee121c2c7df42e13c157c8481486f3ecd5abc21bd0e7244a74e01"
+    },
+    {
+      "archive_path": "model-success-180854/lean-focused-evidence.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-source-semantic-370/tmp/final-source-integration-20261110/model-success-180854/lean-focused-evidence.json",
+      "size": 718202,
+      "sha256": "35e5ac8f78425b3e0520d10e2abefc855569b1650f5f91cc4da825a5eae9f37f"
+    },
+    {
+      "archive_path": "model-success-180854/lean-focused.log",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-source-semantic-370/tmp/final-source-integration-20261110/model-success-180854/lean-focused.log",
+      "size": 27182,
+      "sha256": "4515d9a489a0fe55cc81f34f7612f22b1f933244271da91114491ac3386ab632"
+    },
+    {
+      "archive_path": "failed-model-180634/managed-record.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-source-semantic-370/tmp/final-source-integration-20261110/failed-model-180634/managed-record.json",
+      "size": 3278,
+      "sha256": "27d83547b7603351a60d02d3360daf90e2868da7817c610eed146bc9b2961b05"
+    },
+    {
+      "archive_path": "failed-model-180634/manifest.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-source-semantic-370/tmp/final-source-integration-20261110/failed-model-180634/manifest.json",
+      "size": 568,
+      "sha256": "69a1e520688c8f477c5fd47a1758fb2ae3ef27fe49a2140b8c7fa5ff92dd0f06"
+    },
+    {
+      "archive_path": "failed-model-180634/.silver/linux-x86_64/lean-focused.log",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-source-semantic-370/tmp/final-source-integration-20261110/failed-model-180634/.silver/linux-x86_64/lean-focused.log",
+      "size": 11324,
+      "sha256": "f8a496b7f1b7dea53e61882347dbe68d45444ec8325b7bdf00b90c9b12142db2"
+    },
+    {
+      "archive_path": "failed-model-180634/proof/Silver/FunctionDeclarationNative.lean",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-source-semantic-370/tmp/final-source-integration-20261110/failed-model-180634/proof/Silver/FunctionDeclarationNative.lean",
+      "size": 66059,
+      "sha256": "78a2adea78def58f3ea7d35c9de32891275b9a1ee23e1e7bd8b0bbe2ba5df6dc"
+    },
+    {
+      "archive_path": "failed-model-180634/proof/Silver/ProcedureDeclarationSyntax.lean",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-source-semantic-370/tmp/final-source-integration-20261110/failed-model-180634/proof/Silver/ProcedureDeclarationSyntax.lean",
+      "size": 64174,
+      "sha256": "8a97d3e7a995e1a8980e2af89d9e5a888631c0d04864f06faf90445837040ef7"
+    },
+    {
+      "archive_path": "failed-model-180634/tmp/final-source-integration-20261110/model-gate.log",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-source-semantic-370/tmp/final-source-integration-20261110/failed-model-180634/tmp/final-source-integration-20261110/model-gate.log",
+      "size": 11570,
+      "sha256": "761e8e093d937219854f44ab15c37b51f0f4e8ed1b4a79500cfecfda2f575f95"
+    }
+  ],
+  "source_handoff_scope": "Retained focused typed-model/header gate only; whole-output certificates and full actual-import/source/module/axiom checkpoint remain pending. No proof cache copied.",
+  "source_handoff_collected_at_utc": "2026-11-10T18:20:14.047324+00:00"
+}
