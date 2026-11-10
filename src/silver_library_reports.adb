@@ -1773,6 +1773,12 @@ package body Silver_Library_Reports with SPARK_Mode => On is
      with Pre => Text'First = 1 and then Text'Length <= Max_Report_Length,
        Post => (Static => Record_OK'Result = Record_Policy (Text, Item, Entities, Kind, Source => Source, Functions => Functions, Procedures => Procedures))
    is
+      --  The classifier is used only through equal field arguments here.
+      --  Keep its quantified spelling check out of this caller's proof context.
+      pragma Annotate
+        (GNATprove, Hide_Info, "Expression_Function_Body", Initializer_Message);
+      pragma Annotate
+        (GNATprove, Hide_Info, "Expression_Function_Body", Procedure_Output_Message);
       How : Span;
    begin
       if Kind = References then return Reference_OK (Text, Entities, Item, Source => Source, Functions => Functions, Procedures => Procedures); end if;
@@ -4231,6 +4237,16 @@ package body Silver_Library_Reports with SPARK_Mode => On is
          and then Record_Observation_Agreement (Raw, L, LE, Text, R, RE, Kind = Main_Advisories, Source => Source, Functions => Functions, Procedures => Procedures),
        Post => Raw_Record_Policy (Raw, L, LE, Kind, Source => Source, Functions => Functions, Procedures => Procedures) = Record_Policy (Text, R, RE, Kind, Source => Source, Functions => Functions, Procedures => Procedures)
    is
+      --  The helper lemmas below establish exact classifier equalities.
+      --  This caller only combines those facts into the complete record policy.
+      pragma Annotate
+        (GNATprove, Hide_Info, "Expression_Function_Body", Initializer_Message);
+      pragma Annotate
+        (GNATprove, Hide_Info, "Expression_Function_Body", Raw_Initializer_Message);
+      pragma Annotate
+        (GNATprove, Hide_Info, "Expression_Function_Body", Procedure_Output_Message);
+      pragma Annotate
+        (GNATprove, Hide_Info, "Expression_Function_Body", Raw_Procedure_Output_Message);
    begin
       Mixed_Initialization_Index
         (Raw, Raw_Field (Raw, Raw_Field (Raw, L, JSON_message), JSON_text),

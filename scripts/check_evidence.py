@@ -908,7 +908,9 @@ def audit_source_policy(source: Path) -> None:
     hide_info_forms = {
         ("pragma", "annotate", "(", "gnatprove", ",", "hide_info", ",",
          '"Expression_Function_Body"', ",", target, ")", ";")
-        for target in ("raw_list_spec", "list_spec")}
+        for target in ("raw_list_spec", "list_spec", "initializer_message",
+                       "raw_initializer_message", "procedure_output_message",
+                       "raw_procedure_output_message")}
     for index, (left, right) in enumerate(zip(tokens, tokens[1:])):
         hide_info = (source.name == "silver_library_reports.adb"
                      and tuple(tokens[index:index + 12]) in hide_info_forms)

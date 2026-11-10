@@ -940,7 +940,10 @@ explicitly trusted callees.
 
 The compiler source policy permits only the complete
 `pragma Annotate (GNATprove, Hide_Info, "Expression_Function_Body", F);` form
-in `silver_library_reports.adb`, where `F` is `Raw_List_Spec` or `List_Spec`.
+in `silver_library_reports.adb`, where `F` is `Raw_List_Spec`, `List_Spec`, `Initializer_Message`,
+`Raw_Initializer_Message`, `Procedure_Output_Message` or
+`Raw_Procedure_Output_Message`. The record classifiers use their existing
+proved helper equalities without expanding the quantified message checks.
 The pinned [SPARK 16.1 annotation guide](../references/spark/16.1/docs/ug/en/appendix/additional_annotate_pragmas.rst)
 documents this caller-local form: it removes the expression-function body from
 the caller's proof context. It supplies no assurance fact, changes no domain or
