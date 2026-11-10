@@ -14,7 +14,7 @@ is independent of faithful native VC generation and external solver completion. 
 namespace Silver.Predicate
 open Bindings Compose PathFacts
 
-variable {signatures : ScalarFunctions.Signatures}
+variable {signatures : ScalarFunctions.Signatures} {procedures : ScalarProcedures.Signatures}
 
 inductive Obligation
   | range (context : Context) (summary : Summary)
@@ -265,14 +265,70 @@ theorem call_obligations_discharge {shape : Shape} {analysis : Integer.Analysis}
   · simp [ScalarFunctions.Target.check, targetEq, resultEq] at targeted
   · rfl
 
+def targetObligations : ScalarFunctions.ScalarType → ScalarFunctions.Target → List Obligation
+  | .integer bounds, .integer _ target => [.scalar (.within bounds target)]
+  | .boolean, .boolean _ => []
+  | _, _ => [.impossible]
+
+theorem target_obligations_discharge {analysis : Integer.Analysis} {booleans : Boolean.Analysis}
+    {domain : ScalarFunctions.ScalarType} {target : ScalarFunctions.Target}
+    (checked : target.check analysis booleans domain = true) :
+    discharged (targetObligations domain target) = true := by
+  cases domain <;> cases target
+  · have included := (ScalarFunctions.Target.integer_check checked).2.2.2
+    simpa [targetObligations, discharged, Obligation.discharge, Integer.Obligation.discharge] using included
+  · simp [ScalarFunctions.Target.check] at checked
+  · simp [ScalarFunctions.Target.check] at checked
+  · rfl
+
+def targetsObligations : List ScalarFunctions.ScalarType → List ScalarFunctions.Target → List Obligation
+  | [], [] => []
+  | domain :: domains, target :: targets => targetObligations domain target ++ targetsObligations domains targets
+  | _, _ => [.impossible]
+
+theorem targets_obligations_discharge {analysis : Integer.Analysis} {booleans : Boolean.Analysis}
+    {domains : List ScalarFunctions.ScalarType} {targets : List ScalarFunctions.Target}
+    (checked : ScalarProcedures.checkTargets analysis booleans domains targets = true) :
+    discharged (targetsObligations domains targets) = true := by
+  induction domains generalizing targets with
+  | nil => cases targets <;> simp_all [ScalarProcedures.checkTargets, targetsObligations, discharged]
+  | cons domain domains ih =>
+      cases targets with
+      | nil => contradiction
+      | cons target targets =>
+          have both := Bool.and_eq_true_iff.mp checked
+          rw [targetsObligations, discharged_append, target_obligations_discharge both.1, ih both.2]
+          rfl
+
+/-- Input evaluation/copy-in and every output copy-back conversion are retained.
+The procedure body is discharged separately for every declared input tuple. -/
+def procedureCallObligations (procedures : ScalarProcedures.Signatures) (shape : Shape)
+    (analysis : Integer.Analysis) (flow : Flow) (booleans : Boolean.Analysis)
+    (call : ScalarProcedures.Call) : List Obligation :=
+  match call.resolve procedures with
+  | none => [.impossible]
+  | some resolved => actualsObligations shape analysis flow booleans
+      (ScalarProcedures.inputTypes resolved.signature.formals) resolved.actuals.inputs ++
+      targetsObligations (ScalarProcedures.outputTypes resolved.signature.formals) resolved.actuals.outputs
+
+theorem procedure_call_obligations_discharge {shape : Shape} {analysis : Integer.Analysis} {flow : Flow}
+    {booleans : Boolean.Analysis} {call : ScalarProcedures.Call}
+    (checked : call.check procedures shape analysis flow booleans = true) :
+    discharged (procedureCallObligations procedures shape analysis flow booleans call) = true := by
+  obtain ⟨resolved, found, _, inputs, outputs⟩ := call.check_success checked
+  simp only [procedureCallObligations, found, discharged_append,
+    actuals_obligations_discharge inputs, targets_obligations_discharge outputs, Bool.and_self]
+
 mutual
   def Statement.obligations (shape : Shape) (analysis : Integer.Analysis) (flow : Flow)
       (item : Statement) (booleans : Boolean.Analysis := {})
-      (signatures : ScalarFunctions.Signatures := []) : List Obligation :=
+      (signatures : ScalarFunctions.Signatures := [])
+      (procedures : ScalarProcedures.Signatures := []) : List Obligation :=
     match item with
     | .simple item => simpleObligations shape flow.path item flow.scalars
     | .scalarAssign update => (update.obligations flow.scalars).map Obligation.scalar
     | .callAssign update => callObligations signatures shape analysis flow booleans update
+    | .procedureCall call => procedureCallObligations procedures shape analysis flow booleans call
     | .arrayAssign update => (update.obligations flow.scalars).map Obligation.scalar
     | .booleanAssign update =>
         (if booleans.canWrite update.target then [] else [.impossible]) ++
@@ -283,35 +339,36 @@ mutual
           update.value.obligations shape analysis flow booleans
     | .reject => []
     | .choice condition yes no => condition.obligations shape analysis flow booleans ++
-        statementsObligations (signatures := signatures) shape analysis (condition.refine shape analysis flow true) yes booleans ++
-        statementsObligations (signatures := signatures) shape analysis (condition.refine shape analysis flow false) no booleans
+        statementsObligations (signatures := signatures) (procedures := procedures) shape analysis (condition.refine shape analysis flow true) yes booleans ++
+        statementsObligations (signatures := signatures) (procedures := procedures) shape analysis (condition.refine shape analysis flow false) no booleans
     | .forLoop index _ lower upper body =>
         (lower.obligations flow.scalars ++ upper.obligations flow.scalars).map Obligation.scalar ++
           match lower.infer flow.scalars, upper.infer flow.scalars with
-          | some a, some b => statementsObligations (signatures := signatures) shape
+          | some a, some b => statementsObligations (signatures := signatures) (procedures := procedures) shape
               (analysis.withIndex index (Integer.loopBounds a b))
               (loopEntry analysis flow index (Integer.loopBounds a b)) body booleans
           | _, _ => [.impossible]
     | .arrayLoop index _ array body =>
         [.scalar (.arrayIndex array array.bounds)] ++
-          statementsObligations (signatures := signatures) shape (analysis.withIndex index array.componentBounds)
+          statementsObligations (signatures := signatures) (procedures := procedures) shape (analysis.withIndex index array.componentBounds)
             (arrayLoopEntry analysis flow index array.componentBounds) body booleans
   termination_by sizeOf item
   def statementsObligations (shape : Shape) (analysis : Integer.Analysis) (flow : Flow)
       (items : List Statement) (booleans : Boolean.Analysis := {})
-      (signatures : ScalarFunctions.Signatures := []) : List Obligation :=
+      (signatures : ScalarFunctions.Signatures := [])
+      (procedures : ScalarProcedures.Signatures := []) : List Obligation :=
     match items with
     | [] => []
-    | item :: rest => item.obligations (signatures := signatures) shape analysis flow booleans ++
-        match item.check (signatures := signatures) shape analysis flow booleans with
+    | item :: rest => item.obligations (signatures := signatures) (procedures := procedures) shape analysis flow booleans ++
+        match item.check (signatures := signatures) (procedures := procedures) shape analysis flow booleans with
         | none => []
-        | some next => statementsObligations (signatures := signatures) shape analysis next rest booleans
+        | some next => statementsObligations (signatures := signatures) (procedures := procedures) shape analysis next rest booleans
   termination_by sizeOf items
 end
 
 mutual
   theorem statement_obligations_discharge {shape : Shape} {analysis : Integer.Analysis} {booleans : Boolean.Analysis} {before after : Flow} {item : Statement}
-      (checked : item.check (signatures := signatures) shape analysis before booleans = some after) : discharged (item.obligations (signatures := signatures) shape analysis before booleans) = true := by
+      (checked : item.check (signatures := signatures) (procedures := procedures) shape analysis before booleans = some after) : discharged (item.obligations (signatures := signatures) (procedures := procedures) shape analysis before booleans) = true := by
     cases item with
     | simple item =>
         simp only [Statement.check] at checked
@@ -329,6 +386,12 @@ mutual
         simp only [Statement.check] at checked
         split at checked
         · simpa only [Statement.obligations] using call_obligations_discharge (by assumption : update.check signatures shape analysis before booleans = true)
+        · contradiction
+    | procedureCall call =>
+        simp only [Statement.check] at checked
+        split at checked
+        · simpa only [Statement.obligations] using procedure_call_obligations_discharge
+            (by assumption : call.check procedures shape analysis before booleans = true)
         · contradiction
     | arrayAssign update =>
         simp only [Statement.check] at checked
@@ -395,8 +458,8 @@ mutual
   termination_by sizeOf item
 
   theorem statements_obligations_discharge {shape : Shape} {analysis : Integer.Analysis} {booleans : Boolean.Analysis} {before after : Flow} {items : List Statement}
-      (checked : checkStatements (signatures := signatures) shape analysis before items booleans = some after) :
-      discharged (statementsObligations (signatures := signatures) shape analysis before items booleans) = true := by
+      (checked : checkStatements (signatures := signatures) (procedures := procedures) shape analysis before items booleans = some after) :
+      discharged (statementsObligations (signatures := signatures) (procedures := procedures) shape analysis before items booleans) = true := by
     cases items with
     | nil => simp [statementsObligations, discharged]
     | cons item rest =>
@@ -409,8 +472,8 @@ mutual
 end
 
 theorem statements_obligations_valid {shape : Shape} {analysis : Integer.Analysis} {booleans : Boolean.Analysis} {before after : Flow} {items : List Statement}
-    (checked : checkStatements (signatures := signatures) shape analysis before items booleans = some after) :
-    ∀ check ∈ statementsObligations (signatures := signatures) shape analysis before items booleans, check.Valid := by
+    (checked : checkStatements (signatures := signatures) (procedures := procedures) shape analysis before items booleans = some after) :
+    ∀ check ∈ statementsObligations (signatures := signatures) (procedures := procedures) shape analysis before items booleans, check.Valid := by
   have all := statements_obligations_discharge checked
   simp only [discharged, List.all_eq_true] at all
   exact fun check present => Obligation.discharge_sound (all check present)
@@ -418,12 +481,13 @@ theorem statements_obligations_valid {shape : Shape} {analysis : Integer.Analysi
 def Obligation.toObligation (check : Obligation) : Semantics.Obligation := ⟨.runTimeSafety, check.discharge⟩
 
 def modeledObligations (shape : Shape) (analysis : Integer.Analysis) (before : Flow) (items : List Statement) (booleans : Boolean.Analysis := {})
-    (signatures : ScalarFunctions.Signatures := []) : List Semantics.Obligation :=
-  (statementsObligations (signatures := signatures) shape analysis before items booleans).map Obligation.toObligation
+    (signatures : ScalarFunctions.Signatures := [])
+      (procedures : ScalarProcedures.Signatures := []) : List Semantics.Obligation :=
+  (statementsObligations (signatures := signatures) (procedures := procedures) shape analysis before items booleans).map Obligation.toObligation
 
 theorem all_modeled_obligations_discharge {shape : Shape} {analysis : Integer.Analysis} {booleans : Boolean.Analysis} {before after : Flow} {items : List Statement}
-    (checked : checkStatements (signatures := signatures) shape analysis before items booleans = some after) :
-    Semantics.discharge (modeledObligations (signatures := signatures) shape analysis before items booleans) = true := by
+    (checked : checkStatements (signatures := signatures) (procedures := procedures) shape analysis before items booleans = some after) :
+    Semantics.discharge (modeledObligations (signatures := signatures) (procedures := procedures) shape analysis before items booleans) = true := by
   apply (Semantics.discharge_iff _).mpr
   intro check present
   obtain ⟨schema, member, rfl⟩ := List.mem_map.mp present

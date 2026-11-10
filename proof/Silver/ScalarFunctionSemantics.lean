@@ -24,7 +24,7 @@ mutual
     cases item with
     | simple item => cases item <;> simp_all [pureStatement, Statement.execute, executeSimpleStatement]
     | scalarAssign | callAssign | booleanAssign => simp only [Statement.execute]
-    | arrayAssign | booleanArrayAssign | reject | arrayLoop => simp only [pureStatement, Bool.false_eq_true] at pure
+    | procedureCall | arrayAssign | booleanArrayAssign | reject | arrayLoop => simp only [pureStatement, Bool.false_eq_true] at pure
     | choice condition yes no =>
         have both : pureStatements yes = true ∧ pureStatements no = true := by
           simpa only [pureStatement, Bool.and_eq_true] using pure

@@ -158,4 +158,65 @@ theorem bindActuals_inputs_readable {formals : List Formal} {actuals : List Actu
             have next := ih rest boundFollowing
             simp_all [Actual.Readable]
 
+theorem bindActuals_inputs_property {property : ScalarFunctions.Actual → Prop}
+    {formals : List Formal} {actuals : List Actual} {bound : ActualBindings}
+    (values : ∀ value, Actual.value value ∈ actuals → property value)
+    (targets : ∀ target, Actual.target target ∈ actuals → property (targetRead target))
+    (boundEq : bindActuals formals actuals = some bound) :
+    ∀ actual ∈ bound.inputs, property actual := by
+  induction formals generalizing actuals bound with
+  | nil =>
+      cases actuals with
+      | nil => cases Option.some.inj boundEq; simp
+      | cons => simp [bindActuals] at boundEq
+  | cons formal formals ih =>
+      cases actuals with
+      | nil => simp [bindActuals] at boundEq
+      | cons actual actuals =>
+          have restValues := fun value (present : Actual.value value ∈ actuals) => values value (by simp [present])
+          have restTargets := fun target (present : Actual.target target ∈ actuals) => targets target (by simp [present])
+          rcases formal with ⟨mode, domain⟩
+          cases mode <;> cases actual <;> simp only [bindActuals] at boundEq
+          all_goals try contradiction
+          all_goals
+            obtain ⟨following, boundFollowing, rfl⟩ := Option.map_eq_some_iff.mp boundEq
+            have next := ih restValues restTargets boundFollowing
+            simp_all
+
+theorem bindActuals_value_mem {formals : List Formal} {actuals : List Actual} {bound : ActualBindings}
+    (boundEq : bindActuals formals actuals = some bound) {value : ScalarFunctions.Actual}
+    (present : Actual.value value ∈ actuals) : value ∈ bound.inputs := by
+  induction formals generalizing actuals bound with
+  | nil =>
+      cases actuals with
+      | nil => contradiction
+      | cons => simp [bindActuals] at boundEq
+  | cons formal formals ih =>
+      cases actuals with
+      | nil => contradiction
+      | cons actual actuals =>
+          rcases formal with ⟨mode, domain⟩
+          cases mode with
+          | input =>
+              cases actual with
+              | target => simp [bindActuals] at boundEq
+              | value expression =>
+                  obtain ⟨following, boundFollowing, rfl⟩ := Option.map_eq_some_iff.mp boundEq
+                  rcases List.mem_cons.mp present with same | remaining
+                  · cases Actual.value.inj same
+                    exact List.mem_cons_self
+                  · exact List.mem_cons_of_mem _ (ih (bound := following) boundFollowing remaining)
+          | output =>
+              cases actual with
+              | value => simp [bindActuals] at boundEq
+              | target object =>
+                  obtain ⟨following, boundFollowing, rfl⟩ := Option.map_eq_some_iff.mp boundEq
+                  exact ih (bound := following) boundFollowing (by simpa using present)
+          | inputOutput =>
+              cases actual with
+              | value => simp [bindActuals] at boundEq
+              | target object =>
+                  obtain ⟨following, boundFollowing, rfl⟩ := Option.map_eq_some_iff.mp boundEq
+                  exact List.mem_cons_of_mem _ (ih (bound := following) boundFollowing (by simpa using present))
+
 end Silver.ScalarProcedures
