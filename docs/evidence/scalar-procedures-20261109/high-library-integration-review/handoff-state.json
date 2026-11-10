@@ -1,0 +1,53 @@
+{
+  "checked_at_utc": "2026-11-10T07:52:02.777146+00:00",
+  "head": "15643940e526021a1128fbf99db7beab3a2dc529",
+  "snapshot_head": "9148bea2ba652ef04016fe5d234419caa5f5c1e0",
+  "head_changed": true,
+  "hashes_checked": 791,
+  "changed_inputs": [
+    {
+      "path": "proof/Silver/ComposeEquations.lean",
+      "snapshot_sha256": "52905b9a3ba3e5b6fdd850a6b8c30511bd7ee3b028661a9499e161fd2272315c",
+      "handoff_sha256": "d9bb257945e7fe6201b2fdf380898c2c3c324d21e4efc02d3f60b73e5d345fd2",
+      "roles": [
+        "import-graph-only"
+      ]
+    },
+    {
+      "path": "proof/Silver/PredicateFlags.lean",
+      "snapshot_sha256": "36588cab8cb84a5ee38b8a9e271846af0df01106179934e7fe672d86773f6ff8",
+      "handoff_sha256": "acd8f2daee0f4dcd4c4dc488e169f9d852e7e887ca409e8211f0268157e17100",
+      "roles": [
+        "import-graph-only"
+      ]
+    },
+    {
+      "path": "proof/Silver/PredicateFunctionFlags.lean",
+      "snapshot_sha256": "c8567d70c0ddcb065c9f3303aa0f951d9a988c7abafb02f3740303d9c43096c0",
+      "handoff_sha256": "f482358f8124a882a70394e23dee35540aa285d9c70ec2e041a6a7e5c62b11b5",
+      "roles": [
+        "import-graph-only"
+      ]
+    },
+    {
+      "path": "proof/Silver/PredicateGrammar.lean",
+      "snapshot_sha256": "2a1cb532589e4231c59769d1c7bd4d4a9ec713147c7964a2df1c5eb175c752a6",
+      "handoff_sha256": "e3824f4933c7c9da1b56b68a06a7e5643984e931bd41d79382f3d171a489bc87",
+      "roles": [
+        "import-graph-only"
+      ]
+    },
+    {
+      "path": "proof/Silver/PredicateSelectors.lean",
+      "snapshot_sha256": "9636a32740854a485d5b22bcd5309db724b64d778d25b60c929adcb025746d54",
+      "handoff_sha256": "53544232eff5fae9af1b934cbb26aaee2a15b2140a212939df37bffd6ca70bd3",
+      "roles": [
+        "import-graph-only"
+      ]
+    }
+  ],
+  "git_status_short": " M docs/assurance.md\n M proof/Silver/ComposeEquations.lean\n?? proof/Silver/ProcedureDeclarationBodyLibrary.lean\n?? proof/Silver/ProcedureDeclarationHighSourceChecks.lean\n?? proof/Silver/ProcedureDeclarationModelSource.lean\n?? proof/Silver/ProcedureDeclarationOuterLibrary.lean\n?? proof/Silver/ProcedureDeclarationSourceBridge.lean\n?? tmp/\n",
+  "live_harness_goal": null,
+  "cli_memory_updated": false,
+  "validation_run": false
+}

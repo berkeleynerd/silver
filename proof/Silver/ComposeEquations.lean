@@ -139,6 +139,7 @@ set_option backward.dsimp.instances true in
     have subtypes := stateValid.valid.2.2.2.2.2.2.2.1.1
     have booleans := stateValid.valid.booleans.1
     have functions := stateValid.valid.functions.1
+    have procedures := stateValid.valid.procedures.1
     omega)]
   split
   · rfl
@@ -149,8 +150,8 @@ set_option backward.dsimp.instances true in
       · exact interpreted_declarations calls equations text valid (declarationAt text state arguments)
           arguments nextValid
 termination_by
-  (maxBindings + ScalarExpression.maxBindings + ArrayBindings.maxBindings + IntegerSubtypes.maxBindings + BooleanBindings.maxBindings + FunctionBindings.maxFunctions) + 1 -
-    (state.names.length + state.scalarNames.length + state.arrayNames.names.length + state.subtypeNames.items.length + state.booleanNames.length + state.functions.items.length)
+  (maxBindings + ScalarExpression.maxBindings + ArrayBindings.maxBindings + IntegerSubtypes.maxBindings + BooleanBindings.maxBindings + FunctionBindings.maxFunctions + ProcedureBindings.maxProcedures) + 1 -
+    (state.names.length + state.scalarNames.length + state.arrayNames.names.length + state.subtypeNames.items.length + state.booleanNames.length + state.functions.items.length + state.procedures.items.length)
 decreasing_by
   have count := declarationAt_count (text := text) (state := state) (arguments := arguments) (by assumption)
   have _bounded := stateValid.valid.2.1.1
@@ -160,6 +161,7 @@ decreasing_by
   have nextSubtypeBound := nextValid.valid.2.2.2.2.2.2.2.1.1
   have nextBooleanBound := nextValid.valid.booleans.1
   have nextFunctionBound := nextValid.valid.functions.1
+  have nextProcedureBound := nextValid.valid.procedures.1
   omega
 
 @[simp] theorem interpreted_output (calls : Calls) (equations : HelperEquations calls (domain := domain))

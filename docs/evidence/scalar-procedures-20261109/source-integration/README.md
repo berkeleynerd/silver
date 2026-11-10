@@ -34,6 +34,8 @@ actual inputs, settings, log and fresh axiom-audit result.
 | `20261110T071116-e7c0155734e1` | Procedure-aware source meaning, routing flags and exact metadata catalogue/count (`712182dc56`, integrated as `ad302b89ca`) | 25,909 |
 | `20261110T071235-e745bc45ad27` | Complete String bounds/actual execution closure with the declared procedure environment (`35078447dd` / `13ef354fdd`, integrated as `419a6199f3` / `15643940e5`) | 26,337 |
 
+| `20261110T081333-9812dffdd653` | High declaration body/outer library composition and model interpretation over the complete native domain; procedure-aware declaration termination measure | 59,394 |
+
 Lead source inspection found that the `035322` model tried procedures before
 functions, unlike Ada's function-first dispatcher. Its focused result remains
 valid for that model slice; it never established completed source correspondence.
@@ -51,8 +53,8 @@ attempts as failed; this packet does not relabel or substitute for them.
 Actual-source alias separation and mixed declaration extraction now pass focused
 audits. Constructive procedure-body/call and mixed-declaration assembly now pass the
 stated focused audits. Low declaration library interpretation and outer/String semantic consumers now
-pass the focused audits above. High declaration library composition and
-authoritative source endpoint integration remain pending. High declaration trees, raw complete-domain
+pass the focused audits above. High declaration library composition now passes its focused audit.
+Authoritative source endpoint integration remains pending. High declaration trees, raw complete-domain
 equations and imported-callee reductions pass the stated focused audit; the
 reviewed-token candidates now pass; authoritative certificate adapters and library assembly remain pending. Published Rosetta support remains 83 tasks.
 
@@ -95,3 +97,11 @@ Its model count theorem already included procedures. The repair adds that table
 and its existing bound without changing theorem statements, native source or
 input domains. All other completed modules remain reusable; the focused retry
 and authoritative high-library endpoint checks are pending.
+
+The `081333` result freshly audits 489 imported modules after the high declaration
+body/outer libraries and explicit model witness compiled. Initial let-binder and
+branch-normalization failures are retained in `attempts/`; the accepted repairs
+change proof elaboration only. Native source, complete domains and theorem
+statements remain unchanged. The [bounded static high-library review](../high-library-integration-review/review.md)
+found no material gap in its stated snapshot; it is distinct from this kernel
+check and from the still-pending final integration/acceptance review.
