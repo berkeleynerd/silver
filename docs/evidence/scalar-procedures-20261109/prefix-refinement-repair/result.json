@@ -1,0 +1,11 @@
+{
+  "status": "native build and five discriminating acceptance/rejection controls passed; complete changed helper/caller verification pending",
+  "build_run": "20261110T011921-1abbf6ac3b3b",
+  "test_run": "20261110T012006-51adf33fb7b7",
+  "regression_commit": "041b4de0f7",
+  "baseline_evidence_commit": "c41b4fcfcd",
+  "native_host": "linux-x86_64",
+  "repair": "Thread local Declaration_Count through prefix Step/Model/wrapper; use frozen read-frame context with the same local/formal boundary as the ordinary body. Preserve full declared input domains and frozen RHS frame.",
+  "source_sha256": "7edbe0340274a03d99f2ab3cad9e7ecded721604f247c0162ffcd04b72453b9f",
+  "remaining": "Run complete changed prefix helpers and affected declaration/body callers, native report-policy helpers/projection callers, then full compiler/source assurance and regressions."
+}

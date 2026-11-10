@@ -6362,11 +6362,13 @@ is
    --  The fixed read frame contains locals and in/in-out parameters only.
    --  Every output is appended after its actual source assignment succeeds.
    function Procedure_Prefix_Step
-     (Text : String; Read_Frame, Frame : Parser_State; Parameter : Procedures.Formal)
+     (Text : String; Read_Frame, Frame : Parser_State; Parameter : Procedures.Formal;
+      Declaration_Count : Scalar_Expressions.Binding_Count)
       return Parser_State
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
          and then Valid_State (Text, Read_Frame) and then Valid_State (Text, Frame)
+         and then Declaration_Count <= Read_Frame.Scalar_Names.Count
          and then Parameter.First > 0
          and then Valid_Name_State (Text, Parameter.First, Parameter.After)
          and then not Scalars.Is_Empty (Parameter.Bounds),
@@ -6378,11 +6380,13 @@ is
              and then Procedure_Prefix_Step'Result.First_Procedure_Parameter = Frame.First_Procedure_Parameter
              and then Procedure_Prefix_Step'Result.Scalar_Names.Count >= Frame.Scalar_Names.Count));
    function Procedure_Prefix_Step
-     (Text : String; Read_Frame, Frame : Parser_State; Parameter : Procedures.Formal)
+     (Text : String; Read_Frame, Frame : Parser_State; Parameter : Procedures.Formal;
+      Declaration_Count : Scalar_Expressions.Binding_Count)
       return Parser_State is
       First : constant Literal_Position := Skip_At (Text, Frame.Position);
       After : constant Literal_Position := Name_After (Text, First);
-      Context : constant Body_Context := Context_Of ((Read_Frame, False, False));
+      Context : constant Body_Context :=
+        (Context_Of ((Read_Frame, False, False)) with delta Declaration_Count => Declaration_Count);
       Value_After : constant Literal_Position := Actual_After
         (Text, Context, Take_Token (Text, After, Assignment), Initial_Flow (Context),
          (Parameter.First, Parameter.After, Parameter.Kind, Parameter.Bounds));
@@ -6396,11 +6400,13 @@ is
    end Procedure_Prefix_Step;
 
    function Procedure_Prefix_Model
-     (Text : String; Read_Frame, Frame : Parser_State; Index : Procedure_Parameter_Cursor)
+     (Text : String; Read_Frame, Frame : Parser_State; Index : Procedure_Parameter_Cursor;
+      Declaration_Count : Scalar_Expressions.Binding_Count)
       return Parser_State
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
          and then Valid_State (Text, Read_Frame) and then Valid_State (Text, Frame)
+         and then Declaration_Count <= Read_Frame.Scalar_Names.Count
          and then Index <= Frame.Procedures.Parameter_Count + 1,
        Post => Valid_State (Text, Procedure_Prefix_Model'Result)
          and then (Procedure_Prefix_Model'Result.Position = 0
@@ -6410,20 +6416,23 @@ is
              and then Procedure_Prefix_Model'Result.Scalar_Names.Count >= Frame.Scalar_Names.Count)),
        Subprogram_Variant => (Decreases => Procedures.Max_Formals + 1 - Index);
    function Procedure_Prefix_Model
-     (Text : String; Read_Frame, Frame : Parser_State; Index : Procedure_Parameter_Cursor)
+     (Text : String; Read_Frame, Frame : Parser_State; Index : Procedure_Parameter_Cursor;
+      Declaration_Count : Scalar_Expressions.Binding_Count)
       return Parser_State is
      (if Frame.Position = 0 then Invalid_State
       elsif Index > Frame.Procedures.Parameter_Count then Frame
       elsif Frame.Procedures.Parameters (Index).Mode /= Procedures.Output then
-        Procedure_Prefix_Model (Text, Read_Frame, Frame, Index + 1)
+        Procedure_Prefix_Model (Text, Read_Frame, Frame, Index + 1, Declaration_Count)
       else (declare Next : constant Parser_State := Procedure_Prefix_Step
-        (Text, Read_Frame, Frame, Frame.Procedures.Parameters (Index));
+        (Text, Read_Frame, Frame, Frame.Procedures.Parameters (Index), Declaration_Count);
        begin (if Next.Position = 0 then Invalid_State
-              else Procedure_Prefix_Model (Text, Read_Frame, Next, Index + 1))));
-   function Procedure_Prefix (Text : String; Frame : Parser_State) return Parser_State
+              else Procedure_Prefix_Model (Text, Read_Frame, Next, Index + 1, Declaration_Count))));
+   function Procedure_Prefix
+     (Text : String; Frame : Parser_State; Declaration_Count : Scalar_Expressions.Binding_Count) return Parser_State
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
-         and then Valid_State (Text, Frame) and then Frame.First_Procedure_Parameter > 0,
+         and then Valid_State (Text, Frame) and then Frame.First_Procedure_Parameter > 0
+         and then Declaration_Count <= Frame.Scalar_Names.Count,
        Post => (Runtime => Valid_State (Text, Procedure_Prefix'Result)
          and then (Procedure_Prefix'Result.Position = 0
            or else (Procedure_Prefix'Result.Position >= Frame.Position
@@ -6431,8 +6440,9 @@ is
              and then Procedure_Prefix'Result.Procedures = Frame.Procedures
              and then Procedure_Prefix'Result.Scalar_Names.Count >= Frame.Scalar_Names.Count)),
          Static => Procedure_Prefix'Result =
-           Procedure_Prefix_Model (Text, Frame, Frame, Frame.First_Procedure_Parameter));
-   function Procedure_Prefix (Text : String; Frame : Parser_State) return Parser_State is
+           Procedure_Prefix_Model (Text, Frame, Frame, Frame.First_Procedure_Parameter, Declaration_Count));
+   function Procedure_Prefix
+     (Text : String; Frame : Parser_State; Declaration_Count : Scalar_Expressions.Binding_Count) return Parser_State is
       Result : Parser_State := Frame;
       Index : Procedure_Parameter_Cursor := Frame.First_Procedure_Parameter;
    begin
@@ -6445,11 +6455,12 @@ is
          pragma Loop_Invariant (Result.Procedures = Frame.Procedures);
          pragma Loop_Invariant (Result.Scalar_Names.Count >= Frame.Scalar_Names.Count);
          pragma Loop_Invariant (Static =>
-           Procedure_Prefix_Model (Text, Frame, Frame, Frame.First_Procedure_Parameter) =
-             Procedure_Prefix_Model (Text, Frame, Result, Index));
+           Procedure_Prefix_Model (Text, Frame, Frame, Frame.First_Procedure_Parameter, Declaration_Count) =
+             Procedure_Prefix_Model (Text, Frame, Result, Index, Declaration_Count));
          pragma Loop_Variant (Increases => Index);
          if Frame.Procedures.Parameters (Index).Mode = Procedures.Output then
-            Result := Procedure_Prefix_Step (Text, Frame, Result, Frame.Procedures.Parameters (Index));
+            Result := Procedure_Prefix_Step
+              (Text, Frame, Result, Frame.Procedures.Parameters (Index), Declaration_Count);
             if Result.Position = 0 then return Invalid_State; end if;
          end if;
          Index := Index + 1;
@@ -6596,7 +6607,8 @@ is
          declare
             Start : constant Parser_State :=
               (Bound with delta Position => Take_Token (Text, Bound.Position, Begin_Keyword));
-            Ready : constant Parser_State := Procedure_Prefix (Text, Start);
+            Ready : constant Parser_State :=
+              Procedure_Prefix (Text, Start, Locals.Scalar_Names.Count);
          begin
             if Ready.Position = 0 then return Invalid_State; end if;
             declare

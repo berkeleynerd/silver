@@ -9,7 +9,9 @@ and effort are not independently exposed in this resumed context. Separate elaps
 token and cost measurements were not captured. No proof run was started for this
 review, and the existing native run `20261110T002858-36ecd7c485a1` remained active.
 
-No consequential mismatch found in the bounded scope:
+The initial pass concluded: **No consequential mismatch found in the bounded
+scope.** That assessment and its structural correspondences are retained below as
+history. The dated follow-up supersedes that conclusion for prefix refinability.
 
 - **Prefix frame and order:** native `Procedure_Input_Frame` skips `out` formals
   and appends initialized inputs after locals; `Procedure_Prefix` visits outputs
@@ -45,6 +47,42 @@ No consequential mismatch found in the bounded scope:
 The still-pending source construction must derive initializer/target identities,
 `functionCount`, exact earlier procedure prefixes, lexical name hiding and source
 order from accepted source. Those are expected source-correspondence obligations,
-not assumptions discharged by this peer comparison or evidence of a newly found
-semantic defect. Native complete contracts, complete Lean/source checks and final
+not assumptions discharged by this peer comparison. They remain separate from
+the confirmed prefix-refinement mismatch below. Native complete contracts, complete Lean/source checks and final
 independent critical review remain separate requirements.
+
+## 2026-11-10 follow-up: immutable input refinement in Boolean prefix RHSs
+
+The semantic/source peer identified a distinction this initial native-author pass
+missed. `Procedure_Prefix_Step` uses `Context_Of(Read_Frame)` without overriding
+`Declaration_Count`, so that count includes all input formals. `Bare_Target` then
+refines only mutable bindings; an immutable `in` formal is not guard-refinable
+within a Boolean prefix RHS. Ordinary body checking correctly sets the count to
+locals only, allowing immutable formals to refine on guarded paths.
+
+At the reviewed semantic commit, `Definition.prefixCheck` uses `inputAnalysis`,
+whose `parameterAnalysis` makes formals refinable. Therefore it models ordinary
+short-circuit refinement for immutable inputs in prefix expressions, while the
+reviewed native parser rejects such expressions when their safety needs it.
+
+Direct checks against the retained native executable confirmed all three
+controls using `subtype Den is Integer range 0..1`:
+
+- `N:in Den; B:out Boolean` with prefix
+  `B:=N>0 and then (1/N)=1;`: rejected, exit 2.
+- The same immutable-input expression in the ordinary body after prefix
+  `B:=False;`: accepted, exit 0.
+- `N:in out Den` with the guarded expression in the prefix: accepted, exit 0.
+
+The frozen-frame requirement does not imply disabling refinement inside each
+individual RHS. The recommended minimal repair is to thread the known local
+declaration count through the three prefix helpers and use it in the RHS context,
+matching the ordinary-body treatment while preserving the same frozen read frame
+and full declared formal domains. This needs fresh complete-helper checks and
+updated source correspondence; the active pre-repair proof remains evidence only
+for its original inputs. The lead selected this native correction, and the implementation now threads that
+count through the prefix helpers. Managed build `20261110T011921-1abbf6ac3b3b` and
+regression `20261110T012006-51adf33fb7b7` passed all five controls: immutable-in
+prefix, ordinary-body, in-out prefix and false short-circuit prefix accept; the
+unguarded division rejects. [Retained evidence](../evidence/scalar-procedures-20261109/prefix-refinement-repair/result.json).
+Complete changed-helper/caller verification and full assurance remain pending.
