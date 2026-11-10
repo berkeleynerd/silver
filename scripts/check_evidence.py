@@ -910,7 +910,10 @@ def audit_source_policy(source: Path) -> None:
          '"Expression_Function_Body"', ",", target, ")", ";")
         for target in ("raw_list_spec", "list_spec", "initializer_message",
                        "raw_initializer_message", "procedure_output_message",
-                       "raw_procedure_output_message")}
+                       "raw_procedure_output_message", "termination_policy",
+                       "initialization_policy", "initialization_index_model",
+                       "raw_initialization_index", "diagnostic_message",
+                       "raw_diagnostic_message", "output_message", "raw_output_message")}
     for index, (left, right) in enumerate(zip(tokens, tokens[1:])):
         hide_info = (source.name == "silver_library_reports.adb"
                      and tuple(tokens[index:index + 12]) in hide_info_forms)

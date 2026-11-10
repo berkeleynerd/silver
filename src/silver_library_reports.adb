@@ -1645,6 +1645,31 @@ package body Silver_Library_Reports with SPARK_Mode => On is
         and then Field (Text, Item, JSON_justif_msg) = Missing;
    end Initialization_OK;
 
+   --  The message clause is shared by runtime and text-model record checks.
+   --  All list kinds, entity identifiers and typed metadata remain permitted.
+   --  Share the empty actual with the mixed lemma when abstracting classifiers.
+   function Diagnostic_Message
+     (Text : String; Rule, Message : Span; Kind : List_Kind; Name : Entity_Kind;
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata) return Boolean
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length <= Max_Report_Length;
+   function Diagnostic_Message
+     (Text : String; Rule, Message : Span; Kind : List_Kind; Name : Entity_Kind;
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata) return Boolean is
+     ((String_Equal (Text, Rule, Atom_UNUSED_VARIABLE)
+            and then Is_Local_Subprogram (Name, Functions, Procedures)
+            and then Initializer_Message (Text, Message, True, Call_Name => Atom_Empty))
+           or else (String_Equal (Text, Rule, Atom_INEFFECTIVE)
+            and then
+              (Initializer_Message (Text, Message, Call_Name => Atom_Empty)
+               or else Output_Message (Text, Message)
+               or else Procedure_Output_Message (Text, Message, Source, Procedures)
+               or else (Kind in Assignment_Diagnostics | Selected_Diagnostics
+                 and then String_Equal (Text, Message, Atom_unused_assignment))
+               or else (String_Equal (Text, Message, Atom_statement_no_effect))))
+           or else (String_Equal (Text, Rule, Atom_DEAD_CODE)
+             and then String_Equal (Text, Message, Atom_statement_unreachable)));
+
    function Record_Policy (Text : String; Item, Entities : Span; Kind : List_Kind;
       Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata)
      return Boolean
@@ -1701,27 +1726,12 @@ package body Silver_Library_Reports with SPARK_Mode => On is
         and then Is_Application_Entity (Entity_Name_Spec (Text, Referenced_Entity_Spec
           (Text, Entities, Field_Spec (Text, Item, JSON_entity)), Source => Source, Functions => Functions, Procedures => Procedures), Functions, Procedures)
         and then
-          ((String_Equal (Text, Field_Spec (Text, Item, JSON_rule), Atom_UNUSED_VARIABLE)
-            and then Is_Local_Subprogram (Entity_Name_Spec (Text, Referenced_Entity_Spec
-              (Text, Entities, Field_Spec (Text, Item, JSON_entity)), Source => Source, Functions => Functions, Procedures => Procedures), Functions, Procedures)
-            and then Initializer_Message (Text, Field_Spec
-              (Text, Field_Spec (Text, Item, JSON_message), JSON_text), True))
-           or else (String_Equal (Text, Field_Spec (Text, Item, JSON_rule), Atom_INEFFECTIVE)
-            and then
-              (Initializer_Message (Text, Field_Spec
-                 (Text, Field_Spec (Text, Item, JSON_message), JSON_text))
-               or else Output_Message (Text, Field_Spec
-                 (Text, Field_Spec (Text, Item, JSON_message), JSON_text))
-               or else Procedure_Output_Message (Text, Field_Spec
-                 (Text, Field_Spec (Text, Item, JSON_message), JSON_text), Source, Procedures)
-               or else (Kind in Assignment_Diagnostics | Selected_Diagnostics
-                 and then String_Equal (Text, Field_Spec
-                   (Text, Field_Spec (Text, Item, JSON_message), JSON_text), Atom_unused_assignment))
-               or else (String_Equal (Text, Field_Spec
-                   (Text, Field_Spec (Text, Item, JSON_message), JSON_text), Atom_statement_no_effect))))
-           or else (String_Equal (Text, Field_Spec (Text, Item, JSON_rule), Atom_DEAD_CODE)
-             and then String_Equal (Text, Field_Spec
-               (Text, Field_Spec (Text, Item, JSON_message), JSON_text), Atom_statement_unreachable)))
+          Diagnostic_Message
+          (Text, Field_Spec (Text, Item, JSON_rule),
+           Field_Spec (Text, Field_Spec (Text, Item, JSON_message), JSON_text), Kind,
+           Entity_Name_Spec (Text, Referenced_Entity_Spec (Text, Entities, Field_Spec (Text, Item, JSON_entity)),
+             Source => Source, Functions => Functions, Procedures => Procedures),
+           Source, Functions, Procedures)
         and then Field_Spec (Text, Item, JSON_justification) = Missing
         and then Field_Spec (Text, Item, JSON_justified) = Missing
         and then Field_Spec (Text, Item, JSON_suppressed) = Missing
@@ -1773,12 +1783,20 @@ package body Silver_Library_Reports with SPARK_Mode => On is
      with Pre => Text'First = 1 and then Text'Length <= Max_Report_Length,
        Post => (Static => Record_OK'Result = Record_Policy (Text, Item, Entities, Kind, Source => Source, Functions => Functions, Procedures => Procedures))
    is
+      pragma Annotate
+        (GNATprove, Hide_Info, "Expression_Function_Body", Diagnostic_Message);
       --  The classifier is used only through equal field arguments here.
       --  Keep its quantified spelling check out of this caller's proof context.
       pragma Annotate
         (GNATprove, Hide_Info, "Expression_Function_Body", Initializer_Message);
       pragma Annotate
         (GNATprove, Hide_Info, "Expression_Function_Body", Procedure_Output_Message);
+      pragma Annotate
+        (GNATprove, Hide_Info, "Expression_Function_Body", Termination_Policy);
+      pragma Annotate
+        (GNATprove, Hide_Info, "Expression_Function_Body", Initialization_Policy);
+      pragma Annotate
+        (GNATprove, Hide_Info, "Expression_Function_Body", Initialization_Index_Model);
       How : Span;
    begin
       if Kind = References then return Reference_OK (Text, Entities, Item, Source => Source, Functions => Functions, Procedures => Procedures); end if;
@@ -1831,27 +1849,12 @@ package body Silver_Library_Reports with SPARK_Mode => On is
         and then Is_Application_Entity (Entity_Name (Text, Referenced_Entity
           (Text, Entities, Field (Text, Item, JSON_entity)), Source => Source, Functions => Functions, Procedures => Procedures), Functions, Procedures)
         and then
-          ((String_Equal (Text, Field (Text, Item, JSON_rule), Atom_UNUSED_VARIABLE)
-            and then Is_Local_Subprogram (Entity_Name (Text, Referenced_Entity
-              (Text, Entities, Field (Text, Item, JSON_entity)), Source => Source, Functions => Functions, Procedures => Procedures), Functions, Procedures)
-            and then Initializer_Message (Text, Field
-              (Text, Field (Text, Item, JSON_message), JSON_text), True))
-           or else (String_Equal (Text, Field (Text, Item, JSON_rule), Atom_INEFFECTIVE)
-            and then
-              (Initializer_Message (Text, Field
-                 (Text, Field (Text, Item, JSON_message), JSON_text))
-               or else Output_Message (Text, Field
-                 (Text, Field (Text, Item, JSON_message), JSON_text))
-               or else Procedure_Output_Message (Text, Field
-                 (Text, Field (Text, Item, JSON_message), JSON_text), Source, Procedures)
-               or else (Kind in Assignment_Diagnostics | Selected_Diagnostics
-                 and then String_Equal (Text, Field
-                   (Text, Field (Text, Item, JSON_message), JSON_text), Atom_unused_assignment))
-               or else (String_Equal (Text, Field
-                   (Text, Field (Text, Item, JSON_message), JSON_text), Atom_statement_no_effect))))
-           or else (String_Equal (Text, Field (Text, Item, JSON_rule), Atom_DEAD_CODE)
-             and then String_Equal (Text, Field
-               (Text, Field (Text, Item, JSON_message), JSON_text), Atom_statement_unreachable)))
+          Diagnostic_Message
+          (Text, Field (Text, Item, JSON_rule),
+           Field (Text, Field (Text, Item, JSON_message), JSON_text), Kind,
+           Entity_Name (Text, Referenced_Entity (Text, Entities, Field (Text, Item, JSON_entity)),
+             Source => Source, Functions => Functions, Procedures => Procedures),
+           Source, Functions, Procedures)
         and then Field (Text, Item, JSON_justification) = Missing
         and then Field (Text, Item, JSON_justified) = Missing
         and then Field (Text, Item, JSON_suppressed) = Missing
@@ -2800,6 +2803,29 @@ package body Silver_Library_Reports with SPARK_Mode => On is
         and then Raw_Field (Text, Item, JSON_justif_msg) = Raw_Scan.Missing)
      with Ghost => Static;
 
+   function Raw_Diagnostic_Message
+     (Text : Raw_Bytes.Sequence; Rule, Message : Raw_Scan.Span;
+      Kind : List_Kind; Name : Entity_Kind;
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata) return Boolean
+     with Ghost => Static, Global => null;
+   function Raw_Diagnostic_Message
+     (Text : Raw_Bytes.Sequence; Rule, Message : Raw_Scan.Span;
+      Kind : List_Kind; Name : Entity_Kind;
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata) return Boolean is
+     ((Raw_String_Equal (Text, Rule, Atom_UNUSED_VARIABLE)
+            and then Is_Local_Subprogram (Name, Functions, Procedures)
+            and then Raw_Initializer_Message (Text, Message, True, Call_Name => Atom_Empty))
+           or else (Raw_String_Equal (Text, Rule, Atom_INEFFECTIVE)
+            and then
+              (Raw_Initializer_Message (Text, Message, Call_Name => Atom_Empty)
+               or else Raw_Output_Message (Text, Message)
+               or else Raw_Procedure_Output_Message (Text, Message, Source, Procedures)
+               or else (Kind in Assignment_Diagnostics | Selected_Diagnostics
+                 and then Raw_String_Equal (Text, Message, Atom_unused_assignment))
+               or else (Raw_String_Equal (Text, Message, Atom_statement_no_effect))))
+           or else (Raw_String_Equal (Text, Rule, Atom_DEAD_CODE)
+             and then Raw_String_Equal (Text, Message, Atom_statement_unreachable)));
+
    function Raw_Record_Policy (Text : Raw_Bytes.Sequence; Item, Entities : Raw_Scan.Span; Kind : List_Kind;
       Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata)
      return Boolean
@@ -2855,27 +2881,12 @@ package body Silver_Library_Reports with SPARK_Mode => On is
         and then Is_Application_Entity (Raw_Entity_Name (Text, Raw_Referenced_Entity
           (Text, Entities, Raw_Field (Text, Item, JSON_entity)), Source => Source, Functions => Functions, Procedures => Procedures), Functions, Procedures)
         and then
-          ((Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_rule), Atom_UNUSED_VARIABLE)
-            and then Is_Local_Subprogram (Raw_Entity_Name (Text, Raw_Referenced_Entity
-              (Text, Entities, Raw_Field (Text, Item, JSON_entity)), Source => Source, Functions => Functions, Procedures => Procedures), Functions, Procedures)
-            and then Raw_Initializer_Message (Text, Raw_Field
-              (Text, Raw_Field (Text, Item, JSON_message), JSON_text), True))
-           or else (Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_rule), Atom_INEFFECTIVE)
-            and then
-              (Raw_Initializer_Message (Text, Raw_Field
-                 (Text, Raw_Field (Text, Item, JSON_message), JSON_text))
-               or else Raw_Output_Message (Text, Raw_Field
-                 (Text, Raw_Field (Text, Item, JSON_message), JSON_text))
-               or else Raw_Procedure_Output_Message (Text, Raw_Field
-                 (Text, Raw_Field (Text, Item, JSON_message), JSON_text), Source, Procedures)
-               or else (Kind in Assignment_Diagnostics | Selected_Diagnostics
-                 and then Raw_String_Equal (Text, Raw_Field
-                   (Text, Raw_Field (Text, Item, JSON_message), JSON_text), Atom_unused_assignment))
-               or else (Raw_String_Equal (Text, Raw_Field
-                   (Text, Raw_Field (Text, Item, JSON_message), JSON_text), Atom_statement_no_effect))))
-           or else (Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_rule), Atom_DEAD_CODE)
-             and then Raw_String_Equal (Text, Raw_Field
-               (Text, Raw_Field (Text, Item, JSON_message), JSON_text), Atom_statement_unreachable)))
+          Raw_Diagnostic_Message
+          (Text, Raw_Field (Text, Item, JSON_rule),
+           Raw_Field (Text, Raw_Field (Text, Item, JSON_message), JSON_text), Kind,
+           Raw_Entity_Name (Text, Raw_Referenced_Entity (Text, Entities, Raw_Field (Text, Item, JSON_entity)),
+             Source => Source, Functions => Functions, Procedures => Procedures),
+           Source, Functions, Procedures)
         and then Raw_Field (Text, Item, JSON_justification) = Raw_Scan.Missing
         and then Raw_Field (Text, Item, JSON_justified) = Raw_Scan.Missing
         and then Raw_Field (Text, Item, JSON_suppressed) = Raw_Scan.Missing
@@ -4228,6 +4239,44 @@ package body Silver_Library_Reports with SPARK_Mode => On is
       Mixed_Initialization_Index (Raw, L, Text, R, Source, Procedures, Name, Count - 1);
    end Mixed_Initialization_Index;
 
+   procedure Mixed_Diagnostic_Message
+     (Raw : Raw_Bytes.Sequence; L_Rule, L_Message : Raw_Scan.Span;
+      Text : String; R_Rule, R_Message : Span; Kind : List_Kind; Name : Entity_Kind;
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata)
+     with Ghost => Static, Global => null,
+       Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
+         and then Mixed_Field (Raw, L_Rule, Text, R_Rule)
+         and then Mixed_Field (Raw, L_Message, Text, R_Message),
+       Post => Raw_Diagnostic_Message
+         (Raw, L_Rule, L_Message, Kind, Name, Source, Functions, Procedures) =
+           Diagnostic_Message
+             (Text, R_Rule, R_Message, Kind, Name, Source, Functions, Procedures)
+   is
+      pragma Annotate
+        (GNATprove, Hide_Info, "Expression_Function_Body", Initializer_Message);
+      pragma Annotate
+        (GNATprove, Hide_Info, "Expression_Function_Body", Raw_Initializer_Message);
+      pragma Annotate
+        (GNATprove, Hide_Info, "Expression_Function_Body", Procedure_Output_Message);
+      pragma Annotate
+        (GNATprove, Hide_Info, "Expression_Function_Body", Raw_Procedure_Output_Message);
+      pragma Annotate
+        (GNATprove, Hide_Info, "Expression_Function_Body", Output_Message);
+      pragma Annotate
+        (GNATprove, Hide_Info, "Expression_Function_Body", Raw_Output_Message);
+   begin
+      Mixed_String_Congruence (Raw, L_Rule, Text, R_Rule, Atom_UNUSED_VARIABLE);
+      Mixed_String_Congruence (Raw, L_Rule, Text, R_Rule, Atom_INEFFECTIVE);
+      Mixed_String_Congruence (Raw, L_Rule, Text, R_Rule, Atom_DEAD_CODE);
+      Mixed_Initializer_Message (Raw, L_Message, Text, R_Message, Call_Name => Atom_Empty);
+      Mixed_Initializer_Message (Raw, L_Message, Text, R_Message, True, Call_Name => Atom_Empty);
+      Mixed_Output_Message (Raw, L_Message, Text, R_Message);
+      Mixed_Procedure_Output_Message (Raw, L_Message, Text, R_Message, Source, Procedures);
+      Mixed_String_Congruence (Raw, L_Message, Text, R_Message, Atom_unused_assignment);
+      Mixed_String_Congruence (Raw, L_Message, Text, R_Message, Atom_statement_no_effect);
+      Mixed_String_Congruence (Raw, L_Message, Text, R_Message, Atom_statement_unreachable);
+   end Mixed_Diagnostic_Message;
+
    procedure Mixed_Record_Congruence
      (Raw : Raw_Bytes.Sequence; L, LE : Raw_Scan.Span; Text : String; R, RE : Span; Kind : List_Kind;
       Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata)
@@ -4237,6 +4286,10 @@ package body Silver_Library_Reports with SPARK_Mode => On is
          and then Record_Observation_Agreement (Raw, L, LE, Text, R, RE, Kind = Main_Advisories, Source => Source, Functions => Functions, Procedures => Procedures),
        Post => Raw_Record_Policy (Raw, L, LE, Kind, Source => Source, Functions => Functions, Procedures => Procedures) = Record_Policy (Text, R, RE, Kind, Source => Source, Functions => Functions, Procedures => Procedures)
    is
+      pragma Annotate
+        (GNATprove, Hide_Info, "Expression_Function_Body", Diagnostic_Message);
+      pragma Annotate
+        (GNATprove, Hide_Info, "Expression_Function_Body", Raw_Diagnostic_Message);
       --  The helper lemmas below establish exact classifier equalities.
       --  This caller only combines those facts into the complete record policy.
       pragma Annotate
@@ -4247,6 +4300,10 @@ package body Silver_Library_Reports with SPARK_Mode => On is
         (GNATprove, Hide_Info, "Expression_Function_Body", Procedure_Output_Message);
       pragma Annotate
         (GNATprove, Hide_Info, "Expression_Function_Body", Raw_Procedure_Output_Message);
+      pragma Annotate
+        (GNATprove, Hide_Info, "Expression_Function_Body", Initialization_Index_Model);
+      pragma Annotate
+        (GNATprove, Hide_Info, "Expression_Function_Body", Raw_Initialization_Index);
    begin
       Mixed_Initialization_Index
         (Raw, Raw_Field (Raw, Raw_Field (Raw, L, JSON_message), JSON_text),
@@ -4256,9 +4313,6 @@ package body Silver_Library_Reports with SPARK_Mode => On is
       Mixed_String_Congruence
         (Raw, Raw_Field (Raw, L, JSON_rule),
          Text, Field_Spec (Text, R, JSON_rule), Atom_UNINITIALIZED);
-      Mixed_String_Congruence
-        (Raw, Raw_Field (Raw, L, JSON_rule),
-         Text, Field_Spec (Text, R, JSON_rule), Atom_UNUSED_VARIABLE);
       Mixed_String_Congruence
         (Raw, Raw_Field (Raw, L, JSON_rule),
          Text, Field_Spec (Text, R, JSON_rule), Atom_SUBPROGRAM_TERMINATION);
@@ -4305,12 +4359,6 @@ package body Silver_Library_Reports with SPARK_Mode => On is
          Text, Field_Spec (Text, R, JSON_file), Atom_silver_runtime_ads);
       Mixed_String_Congruence
         (Raw, Raw_Field (Raw, L, JSON_rule),
-         Text, Field_Spec (Text, R, JSON_rule), Atom_INEFFECTIVE);
-      Mixed_String_Congruence
-        (Raw, Raw_Field (Raw, L, JSON_rule),
-         Text, Field_Spec (Text, R, JSON_rule), Atom_DEAD_CODE);
-      Mixed_String_Congruence
-        (Raw, Raw_Field (Raw, L, JSON_rule),
          Text, Field_Spec (Text, R, JSON_rule), Atom_VC_POSTCONDITION);
       Mixed_String_Congruence
         (Raw, Raw_Field (Raw, L, JSON_rule),
@@ -4336,24 +4384,6 @@ package body Silver_Library_Reports with SPARK_Mode => On is
       Mixed_Test_Congruence
         (Raw, Raw_Field (Raw, L, JSON_rule),
          Text, Field_Spec (Text, R, JSON_rule));
-      Mixed_Test_Congruence
-        (Raw, Raw_Field (Raw, Raw_Field (Raw, L, JSON_message), JSON_text),
-         Text, Field_Spec (Text, Field_Spec (Text, R, JSON_message), JSON_text));
-      Mixed_Procedure_Output_Message
-        (Raw, Raw_Field (Raw, Raw_Field (Raw, L, JSON_message), JSON_text),
-         Text, Field_Spec (Text, Field_Spec (Text, R, JSON_message), JSON_text), Source, Procedures);
-      Mixed_String_Congruence
-        (Raw, Raw_Field (Raw, Raw_Field (Raw, L, JSON_message), JSON_text),
-         Text, Field_Spec (Text, Field_Spec (Text, R, JSON_message), JSON_text),
-         Atom_unused_assignment);
-      Mixed_String_Congruence
-        (Raw, Raw_Field (Raw, Raw_Field (Raw, L, JSON_message), JSON_text),
-         Text, Field_Spec (Text, Field_Spec (Text, R, JSON_message), JSON_text),
-         Atom_statement_no_effect);
-      Mixed_String_Congruence
-        (Raw, Raw_Field (Raw, Raw_Field (Raw, L, JSON_message), JSON_text),
-         Text, Field_Spec (Text, Field_Spec (Text, R, JSON_message), JSON_text),
-         Atom_statement_unreachable);
       if Kind = Main_Advisories then
          Mixed_String_Congruence
            (Raw, Raw_Field (Raw, L, JSON_rule), Text, Field_Spec (Text, R, JSON_rule), Atom_imprecise_image);
@@ -4378,6 +4408,25 @@ package body Silver_Library_Reports with SPARK_Mode => On is
             Text, Field_Spec (Text, Field_Spec (Text, R, JSON_unproved_status), JSON_status), Atom_unknown);
          Mixed_Empty_Object
            (Raw, Raw_Field (Raw, L, JSON_check_tree), Text, Field_Spec (Text, R, JSON_check_tree));
+      end if;
+      pragma Assert
+        (Raw_Termination_Policy (Raw, L, LE, Source => Source, Functions => Functions, Procedures => Procedures) =
+           Termination_Policy (Text, R, RE, Source => Source, Functions => Functions, Procedures => Procedures));
+      pragma Assert
+        (Raw_Initialization_Policy (Raw, L, LE, Source => Source, Functions => Functions, Procedures => Procedures) =
+           Initialization_Policy (Text, R, RE, Source => Source, Functions => Functions, Procedures => Procedures));
+      if Kind in Main_Diagnostics then
+         Mixed_Diagnostic_Message
+           (Raw, Raw_Field (Raw, L, JSON_rule),
+            Raw_Field (Raw, Raw_Field (Raw, L, JSON_message), JSON_text),
+            Text, Field_Spec (Text, R, JSON_rule),
+            Field_Spec (Text, Field_Spec (Text, R, JSON_message), JSON_text), Kind,
+            Raw_Entity_Name (Raw, Raw_Referenced_Entity (Raw, LE, Raw_Field (Raw, L, JSON_entity)),
+              Source => Source, Functions => Functions, Procedures => Procedures),
+            Source, Functions, Procedures);
+         pragma Assert
+           (Raw_Record_Policy (Raw, L, LE, Kind, Source => Source, Functions => Functions, Procedures => Procedures) =
+              Record_Policy (Text, R, RE, Kind, Source => Source, Functions => Functions, Procedures => Procedures));
       end if;
    end Mixed_Record_Congruence;
    function Reference_Observation_Agreement

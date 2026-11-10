@@ -1034,7 +1034,11 @@ class CompilerHideInfoPolicyTests(unittest.TestCase):
     def test_exact_caller_local_hide_info_targets_and_ada_layout(self) -> None:
         for target in ("Raw_List_Spec", "List_Spec", "rAw_LiSt_SpEc", "LIST_SPEC",
                        "Initializer_Message", "Raw_Initializer_Message",
-                       "Procedure_Output_Message", "Raw_Procedure_Output_Message"):
+                       "Procedure_Output_Message", "Raw_Procedure_Output_Message",
+                       "Termination_Policy", "Initialization_Policy",
+                       "Initialization_Index_Model", "Raw_Initialization_Index",
+                       "Diagnostic_Message", "Raw_Diagnostic_Message",
+                       "Output_Message", "Raw_Output_Message"):
             with self.subTest(target=target):
                 self.source('PrAgMa -- caller-local abstraction\n AnNoTaTe\n'
                             '(GnAtPrOvE, -- producer\n HiDe_InFo, "Expression_Function_Body", '

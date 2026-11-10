@@ -941,9 +941,17 @@ explicitly trusted callees.
 The compiler source policy permits only the complete
 `pragma Annotate (GNATprove, Hide_Info, "Expression_Function_Body", F);` form
 in `silver_library_reports.adb`, where `F` is `Raw_List_Spec`, `List_Spec`, `Initializer_Message`,
-`Raw_Initializer_Message`, `Procedure_Output_Message` or
-`Raw_Procedure_Output_Message`. The record classifiers use their existing
-proved helper equalities without expanding the quantified message checks.
+`Raw_Initializer_Message`, `Procedure_Output_Message`,
+`Raw_Procedure_Output_Message`, `Termination_Policy`, `Initialization_Policy`,
+`Initialization_Index_Model`, `Raw_Initialization_Index`, `Diagnostic_Message`,
+`Raw_Diagnostic_Message`, `Output_Message` or `Raw_Output_Message`. The record classifiers
+use their existing proved helper equalities without expanding the quantified
+message checks, nested witness policies or recursive initialization-index search.
+The runtime and text-model diagnostic branches share `Diagnostic_Message` over
+their corresponding field and entity observations. `Mixed_Diagnostic_Message`
+establishes its equality with the raw predicate from the existing string and
+classifier contracts. Its full typed domains include malformed/missing spans and
+all metadata values; no new source-membership or record-acceptance premise is added.
 The pinned [SPARK 16.1 annotation guide](../references/spark/16.1/docs/ug/en/appendix/additional_annotate_pragmas.rst)
 documents this caller-local form: it removes the expression-function body from
 the caller's proof context. It supplies no assurance fact, changes no domain or
