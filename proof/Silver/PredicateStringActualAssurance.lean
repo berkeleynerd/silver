@@ -119,7 +119,8 @@ these target bounds; every reached runtime grouping is safe in that same store. 
 def Program.CompleteStringBoundsSafe (source : Source) (program : Program)
     (arguments : Arguments.Runtime.Arguments) : Prop :=
   program.StringBoundsSafe source arguments ∧ RawInitializersActualBoundsSafe source program arguments ∧
-    StatementsActualBoundsSafe (functions := program.functionEnvironment) (program.actualBounds arguments) program.names
+    StatementsActualBoundsSafe (functions := program.functionEnvironment) (procedures := program.procedureEnvironment)
+      (program.actualBounds arguments) program.names
       (program.input arguments) (program.inputValid arguments) (program.initialValues arguments)
       program.statements program.initialIntegers (program.initialBooleans arguments)
 
