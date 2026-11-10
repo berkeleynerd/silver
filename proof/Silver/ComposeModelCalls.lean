@@ -60,6 +60,7 @@ def modelCalls : Calls where
     | .procedureLookup => ProcedureBindings.lookup
     | .formalHides => formalHides
     | .functionDeclaration => functionDeclarationAt
+    | .procedureDeclaration => procedureDeclarationAt
     | .addBinding => addBinding
     | .stringDeclaration => stringDeclarationAt
     | .scalarConstraint => fun text position names bounds => scalarConstraintAt text position names bounds

@@ -392,6 +392,7 @@ theorem model_helpers (ranges : RangeContracts modelCalls) :
   procedureLookup := by intros; rfl
   formalHides := by intros; rfl
   functionDeclaration := by intros; rfl
+  procedureDeclaration := by intros; rfl
   fixedBounds := model_definition_fixedBounds
   characterLiteral := model_definition_characterLiteral
   guardedAt := by

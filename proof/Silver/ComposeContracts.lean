@@ -597,6 +597,11 @@ structure HelperEquations (calls : Calls) (evaluator : Calls := lexical calls)
   functionDeclaration : ∀ text, ValidText text → ∀ state arguments,
     NativeState domain text state →
     calls.function .functionDeclaration text state arguments = functionDeclarationAt text state arguments
+  /-- Derived from the procedure declaration source and its linked body helpers.
+  Kept outside RawHelperEquations to avoid assuming the law being proved. -/
+  procedureDeclaration : ∀ text, ValidText text → ∀ state arguments,
+    NativeState domain text state →
+    calls.function .procedureDeclaration text state arguments = procedureDeclarationAt text state arguments
   /-- Derived from the checked initializer body and the condition interpreter,
   on precisely the source helper's state, cursor and masked-name domain. -/
   booleanInitializer : ∀ text, ValidText text → ∀ state position maskFirst maskAfter,

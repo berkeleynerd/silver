@@ -1825,6 +1825,7 @@ theorem normalized_helpers {domain : StateDomain} (calls : Calls)
   booleanDeclaration := source.booleanDeclaration
   booleanInitializer := source.booleanInitializer
   functionDeclaration := source.functionDeclaration
+  procedureDeclaration := source.procedureDeclaration
 
 theorem normalized_definitions (calls : Calls)
     (meaning : Compose.Lexical.Meaning calls.primitive)

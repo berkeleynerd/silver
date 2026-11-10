@@ -19,6 +19,9 @@ actual inputs, settings, log and fresh axiom-audit result.
 | `20261110T042215-69564f38c8a0` | Raw procedure-call trees, complete-domain equations and callee interpretations, including exact call source candidate (`883b26c75e`, integrated as `3b7ef28b35`); shared declaration syntax and low trees (`7f1d9d6236`, integrated as `b27ec9ae0b`) | 49,725 |
 | `20261110T045337-d3c1d0e6dedf` | Procedure-body typed-tree denotation and exact model equation over every input | 16,069 |
 | `20261110T050437-8efd63aec15e` | Callable declaration consumers, outer-state bounds, initializer traces and subtype hiding (`aaeec84831`, integrated as `a909e37f89`) | 20,770 |
+| `20261110T052202-573dd511a4b3` | High procedure-declaration tree guards, complete-domain raw equations and imported-callee reductions | 19,194 |
+| `20261110T051020-83ef994a401d` | Source-derived mixed callable traces and decoder (`8c73523274`, integrated as `68c29a625e`; root decoder/readiness bytes checked alongside it) | 24,751 |
+| `20261110T052037-615179f8f445` | Basic native procedure-call links and actual-source lexical alias separation (`b66453db37` / `ba003292d9`, integrated as `a980ca9492` / `17b065f3a9`) | 50,897 |
 
 Lead source inspection found that the `035322` model tried procedures before
 functions, unlike Ada's function-first dispatcher. Its focused result remains
@@ -34,8 +37,9 @@ and semantic-author runs retain their original worktree paths in the managed
 records. The host-local task ledger retains the earlier failed focused
 attempts as failed; this packet does not relabel or substitute for them.
 
-Full Boolean-actual alias exclusion, constructive mixed declaration/body/call
-assembly, remaining raw-helper library interpretation and authoritative source
-endpoint integration are not established by this packet. The procedure-body tree and model equation now pass their focused audit;
-its complete-domain imported-helper assembly, declaration source checks and
-authoritative connection remain pending. Published Rosetta support remains 83 tasks.
+Actual-source alias separation and mixed declaration extraction now pass focused
+audits. Constructive procedure-body/call assembly, low declaration library
+interpretation, raw dispatcher callers and authoritative source endpoint
+integration remain pending. High declaration trees, raw complete-domain
+equations and imported-callee reductions pass the stated focused audit; the
+complete source checks and library assembly remain pending. Published Rosetta support remains 83 tasks.

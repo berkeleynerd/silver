@@ -101,7 +101,7 @@ inductive Function
   | image | imageMinimum | imageMaximum
   | value
   | newName
-  | functionLookup | procedureLookup | formalHides | functionDeclaration
+  | functionLookup | procedureLookup | formalHides | functionDeclaration | procedureDeclaration
   | addBinding
   | declaration
   | stringDeclaration | scalarConstraint | scalarDeclaration | scalarLookup | scalarRead | scalarAppend | scalarEmpty | scalarLiteral | nameIs
@@ -134,6 +134,7 @@ def Function.name : Function → String
   | .procedureLookup => "procedures.lookup"
   | .formalHides => "formal_hides"
   | .functionDeclaration => "function_declaration_at"
+  | .procedureDeclaration => "procedure_declaration_at"
   | .fixedBoundsValid => "fixed_bounds_valid"
   | .characterLiteral => "character_literal_after"
   | .guardedAt => "guarded_at"
@@ -222,6 +223,7 @@ def Function.name : Function → String
   | .procedureLookup => .arrow .source (.arrow .procedureMetadata (.arrow .number (.arrow .number .number)))
   | .formalHides => .arrow .source (.arrow .state (.arrow .number (.arrow .number .truth)))
   | .functionDeclaration => .arrow .source (.arrow .state (.arrow .truth .state))
+  | .procedureDeclaration => .arrow .source (.arrow .state (.arrow .truth .state))
   | .fixedBoundsValid => .arrow .number (.arrow .truth (.arrow .truth (.arrow .integer (.arrow .integer (.arrow .number .truth)))))
   | .characterLiteral => .arrow .source (.arrow .number .number)
   | .guardedAt => .arrow .source (.arrow .number (.arrow .number (.arrow .number (.arrow .truth (.arrow .truth .truth)))))
@@ -318,6 +320,7 @@ def Calls.get (calls : Calls) : (symbol : Function) → symbol.type.meaning
   | .procedureLookup => calls.function .procedureLookup
   | .formalHides => calls.function .formalHides
   | .functionDeclaration => calls.function .functionDeclaration
+  | .procedureDeclaration => calls.function .procedureDeclaration
   | .fixedBoundsValid => calls.function .fixedBoundsValid
   | .characterLiteral => calls.function .characterLiteral
   | .guardedAt => calls.function .guardedAt
@@ -1578,17 +1581,19 @@ def declarationBody : Expr .state :=
   let scalar : Expr .state := .variable "scalar_state"
   let array : Expr .state := .variable "array_state"
   .locals <| .local "function_state" "parser_state" (.app (.app (.app (.function .functionDeclaration) text) state) arguments) <|
+    .local "procedure_state" "parser_state" (.app (.app (.app (.function .procedureDeclaration) text) state) arguments) <|
     .local "subtype_state" "parser_state" (.app (.app (.app (.function .subtypeDeclaration) text) state) arguments) <| .local "scalar_state" "parser_state" (.app (.app (.app (.function .scalarDeclaration) text) state) arguments) <|
     .local "array_state" "parser_state" (.app (.app (.app (.function .arrayDeclaration) text) state) arguments) <|
     .local "boolean_state" "parser_state" (.app (.app (.app (.function .booleanDeclaration) text) state) arguments) <|
     .local "character_state" "parser_state" (.app (.app (.app (.function .characterDeclaration) text) state) arguments) <|
     .group <| .ite (.ne (.field .statePosition (.variable "function_state")) (.number 0)) (.variable "function_state")
+      (.elsif (.ne (.field .statePosition (.variable "procedure_state")) (.number 0)) (.variable "procedure_state")
       (.elsif (.ne (.field .statePosition (.variable "subtype_state")) (.number 0)) (.variable "subtype_state")
       (.elsif (.ne (.field .statePosition scalar) (.number 0)) scalar
       (.elsif (.ne (.field .statePosition array) (.number 0)) array
       (.elsif (.ne (.field .statePosition (.variable "boolean_state")) (.number 0)) (.variable "boolean_state")
       (.elsif (.ne (.field .statePosition (.variable "character_state")) (.number 0)) (.variable "character_state")
-      (.app (.app (.app (.function .stringDeclaration) text) state) arguments))))))
+      (.app (.app (.app (.function .stringDeclaration) text) state) arguments)))))))
 
 def callAfterBody : Expr .number :=
   let text : Expr .source := .variable "text"
