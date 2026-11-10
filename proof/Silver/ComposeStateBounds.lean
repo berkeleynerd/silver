@@ -520,9 +520,9 @@ theorem model_declaration_valid (text : Source) (valid : ValidText text)
   unfold declarationAt
   dsimp only
   split
-  · exact model_procedure_declaration_valid valid stateValid
+  · exact model_function_declaration_valid valid stateValid
   · split
-    · exact model_function_declaration_valid valid stateValid
+    · exact model_procedure_declaration_valid valid stateValid
     · split
       · exact model_subtype_declaration_valid text state arguments stateValid
       · split
@@ -539,61 +539,61 @@ theorem model_declaration_advances (text : Source) (valid : ValidText text)
     (state : ParserState) (arguments : Bool) (stateValid : ValidState text state)
     (nonzero : (declarationAt text state arguments).position ≠ 0) :
     state.position < (declarationAt text state arguments).position := by
-  by_cases procedure : (procedureDeclarationAt text state arguments).position ≠ 0
-  · have selected : declarationAt text state arguments = procedureDeclarationAt text state arguments := by
+  by_cases function : (functionDeclarationAt text state arguments).position ≠ 0
+  · have selected : declarationAt text state arguments = functionDeclarationAt text state arguments := by
       dsimp only [declarationAt]
-      rw [ite_eq_left procedure]
+      rw [ite_eq_left function]
     rw [selected]
-    exact (procedureDeclarationAt_position text state arguments).2.resolve_left procedure
+    exact (functionDeclarationAt_position text state arguments).2.resolve_left function
   ·
-    by_cases function : (functionDeclarationAt text state arguments).position ≠ 0
-    · have selected : declarationAt text state arguments = functionDeclarationAt text state arguments := by
+    by_cases procedure : (procedureDeclarationAt text state arguments).position ≠ 0
+    · have selected : declarationAt text state arguments = procedureDeclarationAt text state arguments := by
         dsimp only [declarationAt]
-        rw [ite_eq_right procedure]
-        rw [ite_eq_left function]
+        rw [ite_eq_right function]
+        rw [ite_eq_left procedure]
       rw [selected]
-      exact (functionDeclarationAt_position text state arguments).2.resolve_left function
+      exact (procedureDeclarationAt_position text state arguments).2.resolve_left procedure
     · by_cases subtype : (subtypeDeclarationAt text state arguments).position ≠ 0
       · have selected : declarationAt text state arguments = subtypeDeclarationAt text state arguments := by
           dsimp only [declarationAt]
-          rw [ite_eq_right procedure]
           rw [ite_eq_right function]
+          rw [ite_eq_right procedure]
           rw [ite_eq_left subtype]
         rw [selected]
         exact model_subtype_declaration_advances text state arguments subtype
       · by_cases scalar : (scalarDeclarationAt text state arguments).position ≠ 0
         · have selected : declarationAt text state arguments = scalarDeclarationAt text state arguments := by
             dsimp only [declarationAt]
-            rw [ite_eq_right procedure]
             rw [ite_eq_right function]
+            rw [ite_eq_right procedure]
             rw [ite_eq_right subtype, ite_eq_left scalar]
           rw [selected]
           exact model_scalar_declaration_advances text state arguments scalar
         · by_cases array : (arrayDeclarationAt text state arguments).position ≠ 0
           · have selected : declarationAt text state arguments = arrayDeclarationAt text state arguments := by
               dsimp only [declarationAt]
-              rw [ite_eq_right procedure]
               rw [ite_eq_right function]
+              rw [ite_eq_right procedure]
               rw [ite_eq_right subtype, ite_eq_right scalar, ite_eq_left array]
             rw [selected]
             exact model_array_declaration_advances text state arguments array
           · by_cases boolean : (booleanDeclarationAt text state arguments).position ≠ 0
             · have selected : declarationAt text state arguments = booleanDeclarationAt text state arguments := by
-                simp only [declarationAt, procedure, function, ↓reduceIte]; split <;> simp_all
+                simp only [declarationAt, function, procedure, ↓reduceIte]; split <;> simp_all
               rw [selected]
               exact model_boolean_declaration_advances text state arguments boolean
             · by_cases character : (characterDeclarationAt text state arguments).position ≠ 0
               · have selected : declarationAt text state arguments = characterDeclarationAt text state arguments := by
                   dsimp only [declarationAt]
-                  rw [ite_eq_right procedure]
                   rw [ite_eq_right function]
+                  rw [ite_eq_right procedure]
                   rw [ite_eq_right subtype, ite_eq_right scalar, ite_eq_right array, ite_eq_right boolean, ite_eq_left character]
                 rw [selected]
                 exact model_character_declaration_advances text state arguments stateValid character
               · have selected : declarationAt text state arguments = stringDeclarationAt text state arguments := by
                   dsimp only [declarationAt]
-                  rw [ite_eq_right procedure]
                   rw [ite_eq_right function]
+                  rw [ite_eq_right procedure]
                   rw [ite_eq_right subtype, ite_eq_right scalar, ite_eq_right array, ite_eq_right boolean, ite_eq_right character]
                 rw [selected] at nonzero ⊢
                 exact model_string_declaration_advances text valid state arguments stateValid nonzero

@@ -10,15 +10,15 @@ namespace Silver.Compose
 open Named Bindings
 
 def declarationAt (text : Source) (state : ParserState) (arguments : Bool) : ParserState :=
-  let procedure := procedureDeclarationAt text state arguments
   let function := functionDeclarationAt text state arguments
+  let procedure := procedureDeclarationAt text state arguments
   let subtype := subtypeDeclarationAt text state arguments
   let scalar := scalarDeclarationAt text state arguments
   let array := arrayDeclarationAt text state arguments
   let boolean := booleanDeclarationAt text state arguments
   let character := characterDeclarationAt text state arguments
-  if procedure.position ≠ 0 then procedure
-  else if function.position ≠ 0 then function
+  if function.position ≠ 0 then function
+  else if procedure.position ≠ 0 then procedure
   else if subtype.position ≠ 0 then subtype
   else if scalar.position ≠ 0 then scalar
   else if array.position ≠ 0 then array
@@ -527,25 +527,23 @@ theorem declarationAt_count {text : Source} {state : ParserState} {arguments : B
       (declarationAt text state arguments).functions.items.length +
       (declarationAt text state arguments).procedures.items.length =
       state.names.length + state.scalarNames.length + state.arrayNames.names.length + state.subtypeNames.items.length + state.booleanNames.length + state.functions.items.length + state.procedures.items.length + 1 := by
-  by_cases procedure : (procedureDeclarationAt text state arguments).position ≠ 0
-  · have selected : declarationAt text state arguments = procedureDeclarationAt text state arguments := by
+  by_cases function : (functionDeclarationAt text state arguments).position ≠ 0
+  · have selected : declarationAt text state arguments = functionDeclarationAt text state arguments := by
       dsimp only [declarationAt]
-      rw [ite_eq_left procedure]
+      rw [ite_eq_left function]
     rw [selected]
-    have kept := procedureDeclarationAt_preserves_outer text state arguments procedure
+    have kept := functionDeclarationAt_preserves_outer text state arguments function
     rw [kept.names, kept.scalarNames, kept.arrayNames, kept.subtypeItems, kept.booleanNames,
-      kept.functions, procedureDeclarationAt_count text state arguments procedure]
+      functionDeclarationAt_count text state arguments function, kept.procedures]
     omega
-  ·
-    by_cases function : (functionDeclarationAt text state arguments).position ≠ 0
-    · have selected : declarationAt text state arguments = functionDeclarationAt text state arguments := by
+  · by_cases procedure : (procedureDeclarationAt text state arguments).position ≠ 0
+    · have selected : declarationAt text state arguments = procedureDeclarationAt text state arguments := by
         dsimp only [declarationAt]
-        rw [ite_eq_right procedure]
-        rw [ite_eq_left function]
+        rw [ite_eq_right function, ite_eq_left procedure]
       rw [selected]
-      have kept := functionDeclarationAt_preserves_outer text state arguments function
+      have kept := procedureDeclarationAt_preserves_outer text state arguments procedure
       rw [kept.names, kept.scalarNames, kept.arrayNames, kept.subtypeItems, kept.booleanNames,
-        functionDeclarationAt_count text state arguments function, kept.procedures]
+        kept.functions, procedureDeclarationAt_count text state arguments procedure]
       omega
     · by_cases subtype : (subtypeDeclarationAt text state arguments).position ≠ 0
       · have selected : declarationAt text state arguments = subtypeDeclarationAt text state arguments := by

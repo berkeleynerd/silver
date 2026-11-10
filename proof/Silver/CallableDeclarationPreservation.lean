@@ -10,15 +10,15 @@ namespace Silver.Compose
 open _root_.Silver.Compose.Expressions
 
 /-- A proof view of the native scanner's two leading declaration alternatives.
-The concrete declaration dispatcher remains procedure-first. -/
+The concrete declaration dispatcher remains function-first. -/
 def callableDeclarationAt (text : Source) (state : ParserState) (arguments : Bool) : ParserState :=
-  let procedure := procedureDeclarationAt text state arguments
-  if procedure.position ≠ 0 then procedure else functionDeclarationAt text state arguments
+  let function := functionDeclarationAt text state arguments
+  if function.position ≠ 0 then function else procedureDeclarationAt text state arguments
 
 theorem callableDeclarationAt_zero_iff (text : Source) (state : ParserState) (arguments : Bool) :
     (callableDeclarationAt text state arguments).position = 0 ↔
-      (procedureDeclarationAt text state arguments).position = 0 ∧
-      (functionDeclarationAt text state arguments).position = 0 := by
+      (functionDeclarationAt text state arguments).position = 0 ∧
+      (procedureDeclarationAt text state arguments).position = 0 := by
   dsimp only [callableDeclarationAt]
   split <;> simp_all
 
@@ -66,18 +66,18 @@ theorem callableDeclarationAt_preserves_outer (text : Source) (state : ParserSta
     (accepted : (callableDeclarationAt text state arguments).position ≠ 0) :
     CallableOuterPreserved state (callableDeclarationAt text state arguments) := by
   dsimp only [callableDeclarationAt] at accepted ⊢
-  by_cases procedure : (procedureDeclarationAt text state arguments).position ≠ 0
-  · rw [ite_eq_left procedure]
-    exact .ofProcedure (procedureDeclarationAt_preserves_outer text state arguments procedure)
-  · rw [ite_eq_right procedure] at accepted ⊢
-    exact .ofFunction (functionDeclarationAt_preserves_outer text state arguments accepted)
+  by_cases function : (functionDeclarationAt text state arguments).position ≠ 0
+  · rw [ite_eq_left function]
+    exact .ofFunction (functionDeclarationAt_preserves_outer text state arguments function)
+  · rw [ite_eq_right function] at accepted ⊢
+    exact .ofProcedure (procedureDeclarationAt_preserves_outer text state arguments accepted)
 
 theorem callableDeclarationAt_valid (text : Source) (state : ParserState) (arguments : Bool)
     (valid : ValidState text state) : ValidState text (callableDeclarationAt text state arguments) := by
   dsimp only [callableDeclarationAt]
   split
-  · exact procedureDeclarationAt_valid text state arguments valid
   · exact functionDeclarationAt_valid text state arguments valid
+  · exact procedureDeclarationAt_valid text state arguments valid
 
 theorem callableDeclarationAt_hiding {text : Source} {state : ParserState} {arguments : Bool}
     (correct : IntegerSubtypes.HidingCorrect text state.subtypeNames
@@ -86,11 +86,11 @@ theorem callableDeclarationAt_hiding {text : Source} {state : ParserState} {argu
     IntegerSubtypes.HidingCorrect text (callableDeclarationAt text state arguments).subtypeNames
       (callableNames (callableDeclarationAt text state arguments)) := by
   dsimp only [callableDeclarationAt] at accepted ⊢
-  by_cases procedure : (procedureDeclarationAt text state arguments).position ≠ 0
-  · rw [ite_eq_left procedure]
-    exact procedureDeclarationAt_hiding correct procedure
-  · rw [ite_eq_right procedure] at accepted ⊢
-    exact functionDeclarationAt_hiding correct accepted
+  by_cases function : (functionDeclarationAt text state arguments).position ≠ 0
+  · rw [ite_eq_left function]
+    exact functionDeclarationAt_hiding correct function
+  · rw [ite_eq_right function] at accepted ⊢
+    exact procedureDeclarationAt_hiding correct accepted
 
 theorem Expressions.model_callable_declaration_valid {text : Source} {state : ParserState} {arguments : Bool}
     (_textValid : ValidText text) (valid : ValidState text state) :
