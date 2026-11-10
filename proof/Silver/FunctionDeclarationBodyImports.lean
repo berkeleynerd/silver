@@ -22,7 +22,7 @@ structure BodyPartsImports (calls : Calls) (text : Source) (frame locals bound :
   initialScan : let p := bodyParts modelCalls text frame locals bound resultType
     calls .bodyOf ⟨p.start, false, false⟩ = Predicate.bodyOf ⟨p.start, false, false⟩
   bodyTail : let p := bodyParts modelCalls text frame locals bound resultType
-    calls .bodyTail text p.context (Predicate.bodyOf ⟨p.start, false, false⟩) .returnOnly frame.functions = p.scan
+    calls .bodyTail text p.context (Predicate.bodyOf ⟨p.start, false, false⟩) .returnOnly frame.functions {} = p.scan
   returnAfter : let p := bodyParts modelCalls text frame locals bound resultType
     calls .returnAfter text p.context p.scan resultType = p.returnEnd
   semicolon : let p := bodyParts modelCalls text frame locals bound resultType

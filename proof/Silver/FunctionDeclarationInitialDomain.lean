@@ -70,8 +70,11 @@ theorem declaration_initial_input (text : Source) (tv : FunctionBindings.Native.
     · change 0 ≤ _
       exact Nat.zero_le _
     · exact Nat.le_refl _
+    · exact valid.1.procedures
+    · exact Nat.zero_le _
   · constructor
-    · refine ⟨cursor, ?_, ?_, ?_, ?_, ?_, ?_, subtypes, ?_, metadata, ?_, ?_⟩
+    · refine ⟨cursor, ?_, ?_, ?_, ?_, ?_, ?_, subtypes, ?_, metadata, ?_, ?_,
+        valid.2.base.procedures, Nat.zero_le _, Nat.zero_le _⟩
       · simp [declarationInitial, initialState, Expressions.ValidNames]
       · exact .inl ⟨rfl, rfl⟩
       · exact Nat.zero_le _

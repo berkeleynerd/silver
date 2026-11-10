@@ -24,7 +24,7 @@ def bodyParts (calls : Calls) (text : Source) (frame locals bound : ParserState)
     (resultType : FunctionTypeResult) : BodyParts :=
   let start := {bound with position := calls .take text bound.position (.fixed "begin" true)}
   let context := {calls .contextOf ⟨start, false, false⟩ with declarationCount := locals.scalarNames.length}
-  let scan := calls .bodyTail text context (calls .bodyOf ⟨start, false, false⟩) .returnOnly frame.functions
+  let scan := calls .bodyTail text context (calls .bodyOf ⟨start, false, false⟩) .returnOnly frame.functions {}
   let returnEnd := calls .returnAfter text context scan resultType
   let endFirst := calls .skip text (calls .take text (calls .take text returnEnd (.fixed ";" false)) (.fixed "end" true))
   let endAfter := calls .nameAfter text endFirst
@@ -84,7 +84,7 @@ theorem body_denotation (calls : Calls) (text : Source) (outer frame : ParserSta
     functionBodyBody.eval calls ({text, outer, frame, first, after, resultType, arguments} : Frame).locals =
       bodyEquation calls text outer frame first after resultType arguments := by
   simp +instances only [functionBodyBody, bodyEquation, bodyParts, bodyFinish, bodyRejected, bodyPrefix,
-    ↓Command.eval, ↓Expr.eval, apply2, apply3, apply4, apply5,
+    ↓Command.eval, ↓Expr.eval, apply2, apply3, apply4, apply5, apply6,
     ↓local_set_here, ↓local_set_name, Frame.locals,
     Field.get, StateField.set, Token.shell, ShellToken.word, ShellToken.symbol,
     Names.Operation.name, String.reduceEq, ne_eq, not_false_eq_true, ↓reduceIte]
