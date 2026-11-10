@@ -56,6 +56,13 @@ selects its actual target and direct callee, and emits exactly that warning
 with tag `INEFFECTIVE`. Access-to-subprogram calls omit the callee, but are
 excluded from Silver. Writable actuals here are bare scalar names.
 
+`flow-control_flow_graph.adb:7021–7048` constructs one output-view vertex
+per writable scalar actual, and `flow-analysis.adb:1844–1854` visits each
+vertex once. Direct callee names retain their declaration spelling through
+`flow_types.adb:959–997` and `flow_error_messages.adb:4446–4600`; the
+classifier therefore uses that exact source spelling, even if a call uses
+different letter case.
+
 This message reports an unused copied-back value, not failed initialization
 or an unproved safety obligation. Both auditors require its exact message
 shape, a source-declared procedure callee, a valid bare target identifier,
@@ -157,6 +164,8 @@ already unaudited proof-tree metadata is omitted by the streaming projection.
 | `src/flow/flow-control_flow_graph.adb` | `d6d903a8f15e645e1de51c2b74c8b61288885b34c88e9b2ac1f5469a801684b7` |
 | `src/flow/flow-control_flow_graph-utility.adb` | `a1a7024b4b54a05995e3be0fe4312a7a144da006ab0a07a703ceb705be158c29` |
 | `src/flow/flow_types.ads` | `93e58772bb49cf2a71152a3e67b6a301a8c490600889d29b05d0eadd4b15cded` |
+| `src/flow/flow_error_messages.adb` | `b4ac784251b8cd4ea82dddabbc5e75edb2d0c2e838a7e4fc838461f23b06b7b9` |
+| `src/flow/flow_types.adb` | `8e123ecb1fe31bed685cc087caa458876f60ee6c6c5cdcc529bdd55fd9ec0cf9` |
 
 The selected native mechanism probe `20261109T231302-69a3623a0c2e` passed
 75 checks. Its mixed functions/procedures report has six successful output
