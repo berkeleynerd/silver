@@ -175,8 +175,8 @@ class ScalarProcedureTests(unittest.TestCase):
                 self.check(program(declarations, b'P(' + literal + b',' + target + b');'))
                 self.check(program(declarations, b'P(' + target + b',' + target + b');'), 2)
         boolean = (b'procedure P(A:in Boolean;X:out Boolean)is begin X:=A;end P;'
-                   b'F:Boolean:=False;')
-        for condition in (b'16#F#=15', b'"F"="F"', b"'F'='F'"):
+                   b'F:Boolean:=False;S:String:="F";C:Character:=\'F\';')
+        for condition in (b'16#F#=15', b'S="F"', b"C='F'"):
             with self.subTest(condition=condition):
                 self.check(program(boolean, b'P(' + condition + b',F);'))
 
