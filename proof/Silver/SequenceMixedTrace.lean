@@ -168,4 +168,53 @@ theorem MixedTokensAt.functionProjection {text form tokens state functions proce
   | done => exact .done
   | next head first _ ih => exact .next head first.functionProjection ih
 
+/-- Mixed declaration steps retain both checked callable catalogues. -/
+theorem MixedStepAt.checked {text form token state functions procedures next}
+    (source : MixedStepAt text form token state functions procedures next)
+    (textValid : ValidText text) (valid : ValidState text state) :
+    ScalarFunctions.DefinitionsChecked (catalogSignatures state.functions) functions ∧
+      ScalarProcedures.DefinitionsChecked (catalogSignatures next.functions)
+        (ProcedureBindings.catalogSignatures state.procedures) procedures ∧
+      catalogSignatures next.functions =
+        catalogSignatures state.functions ++ functions.map ScalarFunctions.Definition.signature ∧
+      ProcedureBindings.catalogSignatures next.procedures =
+        ProcedureBindings.catalogSignatures state.procedures ++ procedures.map ScalarProcedures.Definition.signature := by
+  cases source with
+  | declarations source => exact source.checked textValid valid
+  | other _ sameFunctions sameProcedures =>
+      exact ⟨trivial, trivial,
+        by simp only [sameFunctions, List.map_nil, List.append_nil],
+        by simp only [sameProcedures, List.map_nil, List.append_nil]⟩
+
+theorem MixedTokensAt.checked {text form tokens state functions procedures final}
+    (source : MixedTokensAt text form tokens state functions procedures final)
+    (textValid : ValidText text) (valid : ValidState text state) :
+    ScalarFunctions.DefinitionsChecked (catalogSignatures state.functions) functions ∧
+      ScalarProcedures.DefinitionsChecked (catalogSignatures final.functions)
+        (ProcedureBindings.catalogSignatures state.procedures) procedures ∧
+      catalogSignatures final.functions =
+        catalogSignatures state.functions ++ functions.map ScalarFunctions.Definition.signature ∧
+      ProcedureBindings.catalogSignatures final.procedures =
+        ProcedureBindings.catalogSignatures state.procedures ++ procedures.map ScalarProcedures.Definition.signature := by
+  induction source with
+  | done => exact ⟨trivial, trivial, (List.append_nil _).symm, (List.append_nil _).symm⟩
+  | @next token tokens state middle final event firstFunctions firstProcedures restFunctions restProcedures head first _ ih =>
+    have checked := first.checked textValid valid
+    have nextValid := model_step_valid text textValid form token state valid
+    rw [head.scanned] at nextValid
+    have following := ih nextValid
+    have firstProceduresChecked := ScalarProcedures.definitionsChecked_functions_append
+      checked.2.1 (restFunctions.map ScalarFunctions.Definition.signature)
+    rw [← following.2.2.1] at firstProceduresChecked
+    have restFunctionsChecked := following.1
+    rw [checked.2.2.1] at restFunctionsChecked
+    have restProceduresChecked := following.2.1
+    rw [checked.2.2.2] at restProceduresChecked
+    refine ⟨checked.1.append restFunctionsChecked,
+      firstProceduresChecked.append restProceduresChecked, ?_, ?_⟩
+    · rw [following.2.2.1, checked.2.2.1]
+      simp only [List.map_append, List.append_assoc]
+    · rw [following.2.2.2, checked.2.2.2]
+      simp only [List.map_append, List.append_assoc]
+
 end Silver.Sequence

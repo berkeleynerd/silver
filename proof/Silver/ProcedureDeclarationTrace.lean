@@ -337,4 +337,44 @@ theorem MixedDeclarationsAt.unique {text arguments state leftFunctions leftProce
     | procedure _ _ _ first => exact False.elim (first.accepted noProcedure)
     | other _ _ _ _ _ rest => exact ih rest
 
+/-- Every procedure is checked with the function prefix visible at its declaration. -/
+theorem MixedDeclarationsAt.procedures_checked {text arguments state functions procedures final}
+    (source : MixedDeclarationsAt text arguments state functions procedures final)
+    (textValid : ValidText text) (valid : ValidState text state) :
+    ScalarProcedures.DefinitionsChecked
+      (catalogSignatures state.functions ++ functions.map ScalarFunctions.Definition.signature)
+      (ProcedureBindings.catalogSignatures state.procedures) procedures := by
+  induction source with
+  | done => trivial
+  | procedure _ _ _ first _ ih =>
+    have following := ih (model_procedure_declaration_valid textValid valid)
+    rw [(procedureDeclarationAt_preserves_outer _ _ _ first.accepted).functions,
+      first.catalog valid] at following
+    exact ⟨ScalarProcedures.Definition.checked_functions_append (first.checked valid) _, following⟩
+  | function _ _ first _ ih =>
+    have following := ih (model_function_declaration_valid textValid valid)
+    rw [first.catalog valid,
+      (functionDeclarationAt_preserves_outer _ _ _ first.accepted).procedures] at following
+    simpa only [List.map_cons, List.append_assoc, List.singleton_append] using following
+  | other _ _ noFunction noProcedure accepted _ ih =>
+    have following := ih (model_declaration_valid _ textValid _ _ valid)
+    rw [declarationAt_functions_of_no_function noFunction accepted,
+      declarationAt_procedures_of_no_procedure noProcedure accepted] at following
+    exact following
+
+theorem MixedDeclarationsAt.checked {text arguments state functions procedures final}
+    (source : MixedDeclarationsAt text arguments state functions procedures final)
+    (textValid : ValidText text) (valid : ValidState text state) :
+    ScalarFunctions.DefinitionsChecked (catalogSignatures state.functions) functions ∧
+      ScalarProcedures.DefinitionsChecked (catalogSignatures final.functions)
+        (ProcedureBindings.catalogSignatures state.procedures) procedures ∧
+      catalogSignatures final.functions =
+        catalogSignatures state.functions ++ functions.map ScalarFunctions.Definition.signature ∧
+      ProcedureBindings.catalogSignatures final.procedures =
+        ProcedureBindings.catalogSignatures state.procedures ++ procedures.map ScalarProcedures.Definition.signature := by
+  have functionsChecked := source.functions_checked textValid valid
+  refine ⟨functionsChecked.1, ?_, functionsChecked.2, source.procedure_catalog textValid valid⟩
+  rw [functionsChecked.2]
+  exact source.procedures_checked textValid valid
+
 end Silver.Compose

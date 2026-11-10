@@ -6,6 +6,7 @@ public import Silver.ProcedurePrefixMeaning
 public import Silver.FunctionLocalAnalysis
 public import Silver.ScalarProcedureDefinition
 public import Silver.PredicateBodySound
+public import Silver.PredicateBodyMeaning
 public import Silver.PredicateBodyUnique
 public import Silver.PredicateProcedureBodyShape
 public import Silver.ScalarProcedureLayout
@@ -765,5 +766,102 @@ theorem ProcedureDeclarationSource.ready {text state arguments definition}
       header.signature (procedureHeader_signature_valid valid stages)
     rw [header.functions] at prepared
     exact prepared
+
+/-- Source frame validity and the actual body reading establish the semantic
+procedure check, including its local declarations and fixed output prefix. -/
+theorem ProcedureBodySource.checked {text frame first after arguments definition}
+    (source : ProcedureBodySource text frame first after arguments definition)
+    (valid : ValidState text frame) (closed : ClosedFunctionState frame)
+    (emptyIntegers : frame.scalarNames = []) (emptyBooleans : frame.booleanNames = [])
+    (signatureValid : ProcedureBindings.ValidSignature text frame.procedures (procedureSourceEntry frame first after))
+    (semanticSignature : (ProcedureBindings.signatureModel frame.procedures
+      (procedureSourceEntry frame first after)).Valid) :
+    definition.Checked (catalogSignatures frame.functions) (ProcedureBindings.catalogSignatures frame.procedures) := by
+  have sourceReady := source.ready valid closed emptyIntegers emptyBooleans signatureValid semanticSignature
+  cases source with
+  | @parsed integers booleans checks booleanChecks actuals items initialization ordinary =>
+    let definition := sourceProcedureDefinition
+      (ProcedureBindings.signatureModel frame.procedures (procedureSourceEntry frame first after))
+      (catalogSignatures frame.functions).length integers booleans checks booleanChecks actuals (lowerStatements items)
+    let context := procedureSourceContext text frame arguments
+    let scan := procedureSourceScan text frame arguments
+    let final := procedureSourceFinal text frame arguments
+    have frames := initialization.framesReady valid closed emptyIntegers emptyBooleans signatureValid.2.2.1
+    have contextClosed : ClosedFunctionContext context := frames.contextClosed
+    have analyses := initialization.output_analyses valid closed emptyIntegers emptyBooleans signatureValid
+    have prefixChecked := initialization.prefix_checked valid closed emptyIntegers emptyBooleans signatureValid
+      (catalogSignatures frame.functions).length (lowerStatements items)
+    have normal : NamesNormal context.names := by
+      rw [contextClosed.noNames]
+      constructor <;> simp [NamesWellTyped, Bindings.BindingEnvironment.get]
+    have names : ValidNames text context.names := frames.valid.2.1
+    have arrays : context.ArraysReady text := by
+      simp [ParseContext.ArraysReady, contextClosed.noArrays, ArrayBindings.ValidMetadata]
+    have base : ScalarMetadata.BaseReady context.scalarNames context.declarationCount :=
+      frames.contextReady.toBaseReady
+    have path : scan.facts.path = ScalarFunctions.entryContext := by
+      change initialFacts context.hasArguments = ScalarFunctions.entryContext
+      simp only [contextClosed.noArguments, initialFacts, Bool.false_eq_true, ↓reduceIte]
+      rfl
+    have bounded : scan.facts.path.Bounded := by
+      rw [path]
+      simp [ScalarFunctions.entryContext, PathFacts.Context.Bounded, PathFacts.Region.Bounded]
+    have meaning : SourceStatementsWellFormed context.hasArguments context.names.shape items
+        (ArrayBindings.booleanAnalysis context.arrayNames (BooleanBindings.analysis context.booleanNames)) ∧
+        checkStatements (signatures := catalogSignatures frame.functions)
+          (procedures := ProcedureBindings.catalogSignatures frame.procedures)
+          context.names.shape context.analysis (context.flow scan.facts) (lowerStatements items)
+          (ArrayBindings.booleanAnalysis context.arrayNames (BooleanBindings.analysis context.booleanNames)) =
+            some (context.flow final.facts) ∧ final.facts.path.Bounded := by
+      cases ordinary with
+      | initialized _ body =>
+          exact bodyTail_meaning valid.functions valid.procedures rfl normal base arrays frames.valid.booleans.1
+            names frames.flowReady.compatible bounded body
+      | uninitialized _ body =>
+          exact body_meaning valid.functions valid.procedures rfl normal base arrays frames.valid.booleans.1
+            names frames.flowReady.compatible bounded body
+    have analysis : context.analysis = definition.analysis := by
+      change ArrayFlow.analysis (procedureSourceReady text frame arguments).arrayNames.names
+        (functionScalarAnalysis (procedureSourceReady text frame arguments)
+          (functionLocals text frame arguments).scalarNames.length) = _
+      rw [frames.closed.noArrays]
+      exact analyses.1
+    have booleansAnalysis : ArrayBindings.booleanAnalysis context.arrayNames
+        (BooleanBindings.analysis context.booleanNames) = definition.booleanAnalysis := by
+      rw [contextClosed.noArrays]
+      exact analyses.2
+    have shape : context.names.shape = Bindings.emptyShape := by
+      rw [contextClosed.noNames, empty_names_shape]
+    have entry : context.flow scan.facts = definition.initialFlow := by
+      have declared : context.flow scan.facts = ⟨ScalarFunctions.entryContext, context.analysis.declared⟩ := by
+        simp only [ParseContext.flow, ParseContext.analysis, contextClosed.noArrays,
+          ArrayBindings.integerRanges, ArrayBindings.integerNames, List.filter_nil,
+          ArrayBindings.ranges_nil, ArrayFlow.analysis, ArrayFlow.ranges, ScalarMetadata.analysis]
+        change (⟨scan.facts.path, scan.facts.model.scalars⟩ : Flow) = _
+        rw [path]
+        change (⟨ScalarFunctions.entryContext, (ActiveFlow.initial context.scalarNames _).model.scalars⟩ : Flow) = _
+        rw [ActiveFlow.initial_model]
+      rw [declared, analysis]
+      rfl
+    have formed : definition.WellFormed := by
+      refine ⟨semanticSignature, frames.initializersChecked.booleanDeclarations, prefixChecked.1,
+        definition.outputReads_readable semanticSignature.2.1, ?_⟩
+      simpa only [contextClosed.noArguments, shape, booleansAnalysis, definition, sourceProcedureDefinition] using
+        lowerStatements_wellFormed meaning.1
+    refine ⟨formed, context.flow final.facts, (definition.check_iff _ _ _).mpr ⟨sourceReady, ?_⟩⟩
+    simpa only [shape, analysis, entry, booleansAnalysis, definition,
+      sourceProcedureDefinition, List.take_length] using meaning.2.1
+
+theorem ProcedureDeclarationSource.checked {text state arguments definition}
+    (source : ProcedureDeclarationSource text state arguments definition) (valid : ValidState text state) :
+    definition.Checked (catalogSignatures state.functions) (ProcedureBindings.catalogSignatures state.procedures) := by
+  cases source with
+  | parsed accepted body =>
+    have stages := procedureDeclarationAt_stages accepted
+    have ready := procedureHeader_ready valid stages
+    have checked := body.checked ready.valid ready.closed ready.emptyIntegers ready.emptyBooleans
+      ready.signature (procedureHeader_signature_valid valid stages)
+    rw [ready.functions, ready.catalogPrefix] at checked
+    exact checked
 
 end Silver.Compose
