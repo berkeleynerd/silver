@@ -5,7 +5,7 @@ public import Silver.PredicateConditionBounds
 
 @[expose] public section
 namespace Silver.Predicate
-variable {catalog : FunctionBindings.Metadata}
+variable {catalog : FunctionBindings.Metadata} {procedures : ProcedureBindings.Metadata}
 open Compose Bindings PathFacts
 
 attribute [local irreducible] ScalarExpression.read
@@ -26,7 +26,7 @@ theorem callAssignmentResult_factsBounded (context : ParseContext) (scan : BodyS
       · exact Context.empty_bounded
 
 theorem basicRaw_factsBounded (text : Source) (context : ParseContext) (scan : BodyScan)
-    (bounded : scan.facts.path.Bounded) : (basicRaw (catalog := catalog) text context scan).facts.path.Bounded := by
+    (bounded : scan.facts.path.Bounded) : (basicRaw (catalog := catalog) (procedures := procedures) text context scan).facts.path.Bounded := by
   unfold basicRaw
   cases basicKind text context scan with
   | null => exact bounded
@@ -69,22 +69,28 @@ theorem basicRaw_factsBounded (text : Source) (context : ParseContext) (scan : B
   | assignment =>
       dsimp only
       split
-      · exact Context.empty_bounded
-      · rcases stringAssignment_fields text context scan with failed | fields
+      · rcases (procedureCallBody_fields text context scan procedures).path with preserved | failed
+        · rw [preserved]
+          exact bounded
         · rw [failed]
           exact Context.empty_bounded
-        · rw [fields.2.2.1]
-          exact bounded
+      · split
+        · exact Context.empty_bounded
+        · rcases stringAssignment_fields text context scan with failed | fields
+          · rw [failed]
+            exact Context.empty_bounded
+          · rw [fields.2.2.1]
+            exact bounded
 
 theorem basicBody_factsBounded (text : Source) (context : ParseContext) (scan : BodyScan)
-    (bounded : scan.facts.path.Bounded) : (basicBody (catalog := catalog) text context scan).facts.path.Bounded := by
+    (bounded : scan.facts.path.Bounded) : (basicBody (catalog := catalog) (procedures := procedures) text context scan).facts.path.Bounded := by
   unfold basicBody
   split
   · exact Context.empty_bounded
   · dsimp only
     split
     · exact Context.empty_bounded
-    · exact basicRaw_factsBounded (catalog := catalog) text context scan bounded
+    · exact basicRaw_factsBounded (catalog := catalog) (procedures := procedures) text context scan bounded
 
 theorem branchStart_factsBounded (text : Source) (context : ParseContext) (scan : BodyScan) (keyword : String)
     (bounded : scan.facts.path.Bounded) : (branchStart text context scan keyword).1.facts.path.Bounded ∧
@@ -117,7 +123,7 @@ theorem loopAfterHeader_bounded {context : ParseContext} {before after : ActiveF
 
 mutual
   theorem statementBody_factsBounded (text : Source) (context : ParseContext) (scan : BodyScan)
-      (sv : scan.facts.path.Bounded) : (statementBody (catalog := catalog) text context scan).facts.path.Bounded := by
+      (sv : scan.facts.path.Bounded) : (statementBody (catalog := catalog) (procedures := procedures) text context scan).facts.path.Bounded := by
     rw [statementBody]
     split
     · exact Context.empty_bounded
@@ -125,11 +131,11 @@ mutual
       · exact conditionalBody_factsBounded text context scan sv
       · split
         · exact loopBody_factsBounded text context scan sv
-        · exact basicBody_factsBounded (catalog := catalog) text context scan sv
+        · exact basicBody_factsBounded (catalog := catalog) (procedures := procedures) text context scan sv
   termination_by (bodyRemaining text scan, 2)
 
   theorem loopBody_factsBounded (text : Source) (context : ParseContext) (scan : BodyScan)
-      (sv : scan.facts.path.Bounded) : (loopBody (catalog := catalog) text context scan).facts.path.Bounded := by
+      (sv : scan.facts.path.Bounded) : (loopBody (catalog := catalog) (procedures := procedures) text context scan).facts.path.Bounded := by
     rw [loopBody]
     dsimp only
     split
@@ -149,7 +155,7 @@ mutual
   termination_by (bodyRemaining text scan, 1)
 
   theorem conditionalBody_factsBounded (text : Source) (context : ParseContext) (scan : BodyScan)
-      (sv : scan.facts.path.Bounded) : (conditionalBody (catalog := catalog) text context scan).facts.path.Bounded := by
+      (sv : scan.facts.path.Bounded) : (conditionalBody (catalog := catalog) (procedures := procedures) text context scan).facts.path.Bounded := by
     rw [conditionalBody]
     dsimp only
     split
@@ -170,7 +176,7 @@ mutual
   termination_by (bodyRemaining text scan, 1)
 
   theorem alternativeBody_factsBounded (text : Source) (context : ParseContext) (scan : BodyScan)
-      (sv : scan.facts.path.Bounded) : (alternativeBody (catalog := catalog) text context scan).facts.path.Bounded := by
+      (sv : scan.facts.path.Bounded) : (alternativeBody (catalog := catalog) (procedures := procedures) text context scan).facts.path.Bounded := by
     rw [alternativeBody]
     split
     · exact Context.empty_bounded
@@ -200,7 +206,7 @@ mutual
   termination_by (bodyRemaining text scan, 1)
 
   theorem bodyTail_factsBounded (text : Source) (context : ParseContext) (scan : BodyScan) (stop : BodyStop)
-      (sv : scan.facts.path.Bounded) : (bodyTail (catalog := catalog) text context scan stop).facts.path.Bounded := by
+      (sv : scan.facts.path.Bounded) : (bodyTail (catalog := catalog) (procedures := procedures) text context scan stop).facts.path.Bounded := by
     rw [bodyTail]
     split
     · exact Context.empty_bounded
@@ -215,7 +221,7 @@ mutual
   termination_by (bodyRemaining text scan, 3)
 
   theorem readBody_factsBounded (text : Source) (context : ParseContext) (scan : BodyScan) (stop : BodyStop)
-      (sv : scan.facts.path.Bounded) : (readBody (catalog := catalog) text context scan stop).facts.path.Bounded := by
+      (sv : scan.facts.path.Bounded) : (readBody (catalog := catalog) (procedures := procedures) text context scan stop).facts.path.Bounded := by
     rw [readBody]
     try dsimp only
     split

@@ -155,6 +155,13 @@ theorem procedureActuals_unique {text context facts catalog position first last 
           cases afterSame
           simp [same, ih following]
 
+theorem ProcedureActualsAt.bounded {text context facts catalog position first last actuals after}
+    (parsed : ProcedureActualsAt text context facts catalog position first last actuals after) :
+    after ≤ text.length + 1 := by
+  induction parsed with
+  | last source _ => exact Compose.Expressions.model_fixed_valid text _ ")" false source.bounded
+  | next _ _ _ _ ih => exact ih
+
 def procedureWritableUpdate (scan : BodyScan) (parameter : ProcedureBindings.Formal)
     (target : ProcedureActualResult) : BodyScan :=
   if target.scalar = 0 then {scan with position := target.after, assigned := true}
@@ -358,5 +365,16 @@ theorem procedureCall_unique {text context scan catalog left right leftResult ri
       have actuals := procedureActuals_unique one.updates.actuals two.updates.actuals
       cases actuals
       rfl
+
+theorem procedureCallBody_bound (text : Source) (context : ParseContext) (scan : BodyScan)
+    (catalog : ProcedureBindings.Metadata)
+    (tv : Compose.Expressions.ValidText text) (nv : Compose.Expressions.ValidNames text context.names) :
+    (procedureCallBody text context scan catalog).position ≤ text.length + 1 := by
+  by_cases positive : (procedureCallBody text context scan catalog).position ≠ 0
+  · obtain ⟨call, source⟩ := procedureCall_sound tv nv positive
+    exact source.updates.actuals.bounded
+  · have zero : (procedureCallBody text context scan catalog).position = 0 := by simpa using positive
+    rw [zero]
+    exact Nat.zero_le _
 
 end Silver.Predicate

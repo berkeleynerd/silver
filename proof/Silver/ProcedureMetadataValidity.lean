@@ -9,6 +9,19 @@ namespace Silver.ProcedureBindings
 theorem valid_empty (text : Source) : ValidMetadata text {} := by
   simp [ValidMetadata, maxProcedures, maxFormals]
 
+/-- Total selection keeps the typed interval domain even for an inactive
+index; the native empty formal is included rather than ruled out. -/
+theorem parameter_bounds {text : Source} {procedures : Metadata}
+    (valid : ValidMetadata text procedures) (index : Nat) :
+    (parameter procedures index).bounds.Bounded := by
+  by_cases inside : index - 1 < procedures.parameters.length
+  · have item := valid.2.2.1 procedures.parameters[index - 1] (List.getElem_mem inside)
+    simpa only [parameter, List.getD_eq_getElem?_getD, List.getElem?_eq_getElem inside,
+      Option.getD_some] using item.2.1
+  · simp only [parameter, List.getD_eq_getElem?_getD,
+      List.getElem?_eq_none (Nat.le_of_not_gt inside), Option.getD_none, emptyFormal]
+    exact Integer.Interval.empty_bounded
+
 theorem ValidSignature.moreParameters {text : Source} {before after : Metadata} {item : Signature}
     (valid : ValidSignature text before item)
     (growth : before.parameters.length ≤ after.parameters.length) : ValidSignature text after item := by

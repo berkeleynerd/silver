@@ -7,7 +7,7 @@ public import Silver.PredicateConditionSound
 @[expose] public section
 
 namespace Silver.Predicate
-variable {catalog : FunctionBindings.Metadata}
+variable {catalog : FunctionBindings.Metadata} {procedures : ProcedureBindings.Metadata}
 open Compose Bindings PathFacts Compose.Expressions
 
 attribute [local irreducible] ScalarExpression.read
@@ -119,14 +119,14 @@ theorem loopInner_valid_environment {text : Source} {context : ParseContext} {sc
       typed, typed⟩
 
 theorem loopBody_shape {text : Source} {context : ParseContext} {scan : BodyScan}
-    (positive : (loopBody (catalog := catalog) text context scan).position ≠ 0) :
+    (positive : (loopBody (catalog := catalog) (procedures := procedures) text context scan).position ≠ 0) :
     let header := loopHeader text context scan
-    let body := readBody (catalog := catalog) text (loopInner context header) header.entry .endOnly
+    let body := readBody (catalog := catalog) (procedures := procedures) text (loopInner context header) header.entry .endOnly
     loopNameAllowed text context header = true ∧
       scan.position < header.entry.position ∧
       bodyRemaining text header.entry < bodyRemaining text scan ∧
       scan.position < body.position ∧
-      loopBody (catalog := catalog) text context scan = bodyTokens text
+      loopBody (catalog := catalog) (procedures := procedures) text context scan = bodyTokens text
         {body with facts := loopAfterHeader context scan.facts body.facts header}
         [.word "end", .word "loop", .symbol ";"] ∧
       scan.position < (bodyTokens text
@@ -159,9 +159,9 @@ theorem loopBody_shape {text : Source} {context : ParseContext} {scan : BodyScan
       · exact False.elim (positive rfl)
 
 theorem loopBody_progress (text : Source) (context : ParseContext) (scan : BodyScan)
-    (positive : (loopBody (catalog := catalog) text context scan).position ≠ 0) :
-    scan.position < (loopBody (catalog := catalog) text context scan).position := by
-  have shape := loopBody_shape (catalog := catalog) positive
+    (positive : (loopBody (catalog := catalog) (procedures := procedures) text context scan).position ≠ 0) :
+    scan.position < (loopBody (catalog := catalog) (procedures := procedures) text context scan).position := by
+  have shape := loopBody_shape (catalog := catalog) (procedures := procedures) positive
   rw [shape.2.2.2.2.1]
   exact shape.2.2.2.2.2
 
