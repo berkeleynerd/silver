@@ -19,7 +19,7 @@ private theorem lowercase_letter (byte : Nat) :
     omega
   · rfl
 
-private theorem lowercase_symbol {byte expected : Nat}
+theorem lowercase_symbol {byte expected : Nat}
     (ordinary : Named.letter expected = false) (same : lowercase byte = expected) :
     byte = expected := by
   unfold lowercase at same
@@ -56,7 +56,7 @@ private theorem identifierTail_letters {text : Source} {position count : Nat}
         Named.IdentifierTail.character (previous := false) (by omega) (Named.letter_identifier _ first)
           (by simp) rest'
 
-private theorem fixedAfter_fields {text : Source} {position : Nat} {word : String} {wordFlag : Bool}
+theorem fixedAfter_fields {text : Source} {position : Nat} {word : String} {wordFlag : Bool}
     (positionBound : position ≤ text.length + 1)
     (accepted : fixedAfter text position word wordFlag ≠ 0) :
     skipAt text position ≠ 0 ∧
