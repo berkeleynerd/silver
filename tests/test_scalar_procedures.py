@@ -164,6 +164,22 @@ class ScalarProcedureTests(unittest.TestCase):
         self.check(program(declarations, b'P(D/=0,(1/D),R);'), 2)
         self.check(program(declarations, b'if D/=0 then P(True,(1/D),R);end if;'))
 
+    def test_literal_letters_are_not_actual_variable_reads(self) -> None:
+        procedure = b'procedure P(N:in Integer;X:out Integer)is begin X:=N;end P;'
+        for literal, target in ((b'16#F#', b'F'), (b'16#Ff#', b'Ff'),
+                                (b'16#F_FFF#', b'F_FFF'), (b'1E3', b'E3'),
+                                (b'1E+3', b'E'), (b'1E4', b'E4'),
+                                (b'(-16#F#)', b'F')):
+            declarations = procedure + target + b':Integer:=0;'
+            with self.subTest(literal=literal, target=target):
+                self.check(program(declarations, b'P(' + literal + b',' + target + b');'))
+                self.check(program(declarations, b'P(' + target + b',' + target + b');'), 2)
+        boolean = (b'procedure P(A:in Boolean;X:out Boolean)is begin X:=A;end P;'
+                   b'F:Boolean:=False;')
+        for condition in (b'16#F#=15', b'"F"="F"', b"'F'='F'"):
+            with self.subTest(condition=condition):
+                self.check(program(boolean, b'P(' + condition + b',F);'))
+
     def test_boolean_output_does_not_export_predicate_facts(self) -> None:
         declarations = (b'procedure Nonzero(D:in Integer;B:out Boolean)is '
                         b'begin B:=D/=0;end Nonzero;'
