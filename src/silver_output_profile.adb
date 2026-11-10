@@ -5048,6 +5048,7 @@ is
      (Text : String; Position, After, Target_First, Target_After : Literal_Position)
       return Name_Scan_Step is
       First : constant Literal_Position := Skip_At (Text, Position);
+      Number_After : constant Literal_Position := Silver_Scalar_Literals.Read_Integer (Text, First).After;
       Word_After : Literal_Position;
       Quoted : Value_Result;
       Character_After : Literal_Position;
@@ -5062,6 +5063,10 @@ is
          Quoted := Literal_At (Text, First);
          return (if Quoted.After > First and then Quoted.After <= After
                  then (Quoted.After, True) else (0, False));
+      end if;
+      --  Based digits and exponent spellings are part of the literal token.
+      if Number_After /= 0 and then Number_After <= After then
+         return (Number_After, True);
       end if;
       --  An attribute designator is syntax, not a read of an object whose
       --  identifier happens to have the same spelling.
@@ -5334,7 +5339,7 @@ is
       Call_First, Call_After : Literal_Position) return Body_Scan is
       Index : Procedures.Formal_Index := First;
       Current : Body_Scan (Scan.Count) := Scan;
-      Before : Body_Scan (Scan.Count) := Scan;
+      Before : Body_Scan (Scan.Count);
    begin
       loop
          pragma Loop_Invariant (Index in First .. Last);
