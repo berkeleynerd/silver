@@ -92,6 +92,19 @@ class ScalarProcedureTests(unittest.TestCase):
         self.check(program(divisor.replace(b'if D>0 then ', b'').replace(b'end if;', b''),
                            b'null;'), 2)
 
+    def test_prefix_guards_refine_input_formals_like_body_guards(self) -> None:
+        subtype = b'subtype Den is Integer range 0..1;'
+        declaration = (b'procedure P(N:in Den;B:out Boolean)is '
+                       b'begin B:=N>0 and then (1/N)=1;end P;')
+        self.check(program(subtype + declaration, b'null;'))
+        self.check(program(subtype + declaration.replace(b'begin B:=', b'begin B:=False;B:='),
+                           b'null;'))
+        self.check(program(subtype + declaration.replace(b'N:in Den', b'N:in out Den'),
+                           b'null;'))
+        self.check(program(subtype + declaration.replace(b'N>0 and then', b'N=0 or else'),
+                           b'null;'))
+        self.check(program(subtype + declaration.replace(b'N>0 and then ', b''), b'null;'), 2)
+
     def test_ordinary_body_starts_with_full_declared_output_ranges(self) -> None:
         prefix = (b'subtype Small is Integer range 0..9;'
                   b'procedure P(X:out Small)is begin X:=1;')
