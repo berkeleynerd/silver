@@ -23,6 +23,7 @@ actual inputs, settings, log and fresh axiom-audit result.
 | `20261110T051020-83ef994a401d` | Source-derived mixed callable traces and decoder (`8c73523274`, integrated as `68c29a625e`; root decoder/readiness bytes checked alongside it) | 24,751 |
 | `20261110T052037-615179f8f445` | Basic native procedure-call links and actual-source lexical alias separation (`b66453db37` / `ba003292d9`, integrated as `a980ca9492` / `17b065f3a9`) | 50,897 |
 | `20261110T053117-1cc7caffd698` | Procedure body/declaration readiness derived from the source frame (`0b364e3d53`, integrated as `c10fb1637b`); ordinary-body checking remains subsequent work | 23,675 |
+| `20261110T060446-823a620d694f` | Low procedure helper denotations, complete native domains/traversal contracts and exact source-fragment checks (`b287c84887`, integrated as `913af1113a`); recursive/library assembly and authoritative whole-output binding remain pending | 18,973 |
 
 Lead source inspection found that the `035322` model tried procedures before
 functions, unlike Ada's function-first dispatcher. Its focused result remains
