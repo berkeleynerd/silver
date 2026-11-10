@@ -1,6 +1,7 @@
 module
 
 public import Silver.PredicateFunctionFlags
+public import Silver.PredicateFlags
 
 @[expose] public section
 
@@ -45,8 +46,8 @@ theorem accepted_form_unique {source : Source} {first second : Form}
   exact form_reading_unique firstRead secondRead
 
 
-theorem decoded_body {form events items scalars constants checks arrays booleans booleanChecks functions program}
-    (decoded : decodePrefix form events items scalars constants checks arrays booleans booleanChecks functions = some program) :
+theorem decoded_body {form events items scalars constants checks arrays booleans booleanChecks functions procedures program}
+    (decoded : decodePrefix form events items scalars constants checks arrays booleans booleanChecks functions procedures = some program) :
     program.statements = lowerStatements items ∧ program.hasArguments = form.hasArguments := by
   unfold decodePrefix at decoded
   split at decoded <;> cases decoded
@@ -70,17 +71,18 @@ theorem meaning_selectors {source : Source} {program : Program}
     hasArguments source = program.hasArguments ∧
       hasAssignment source = program.assignmentFlag ∧
       hasOutput source = Flag.output.statements program.statements := by
-  obtain ⟨form, events, items, _, _, _, _, domain, _, parsed, _, _, _, functions, functionTrace, decoded⟩ := meaning
+  obtain ⟨form, events, items, _, _, _, _, domain, _, parsed, _, _, _, functions, procedures, callableTrace, decoded⟩ := meaning
   have accepted := form_reading_complete ⟨domain, events, items, parsed⟩
   have body := decoded_body decoded
   have functionsEq := decoded_functions decoded
-  have flags := prefix_function_flags functionTrace
+  have proceduresEq := decoded_procedures decoded
+  have flags := prefix_callable_flags callableTrace
   have absorbs : ((prefixScan source form).assigned || (prefixScan source form).state.assignedInFunctions) =
       (prefixScan source form).assigned := by rw [flags.1, flags.2]; exact Bool.or_self _
   refine ⟨(any_form_flag accepted Form.hasArguments).trans body.2.symm, ?_, ?_⟩
-  · rw [hasAssignment, any_form_flag accepted, Program.assignmentFlag, body.1, functionsEq, statements_lower_flags]
+  · rw [hasAssignment, any_form_flag accepted, Program.assignmentFlag, body.1, functionsEq, proceduresEq, statements_lower_flags]
     have observed := form_flags domain parsed absorbs .assignment
-    simpa only [Flag.scanObserve, flags.1, Bool.or_comm] using observed
+    simpa only [Flag.scanObserve, flags.1, Bool.or_assoc, Bool.or_left_comm, Bool.or_comm] using observed
   · rw [hasOutput, any_form_flag accepted, body.1, statements_lower_flags]
     have observed := form_flags domain parsed absorbs .output
     simpa only [Flag.scanObserve, prefix_output, Bool.false_or] using observed
