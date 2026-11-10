@@ -195,6 +195,17 @@ class SilverIntegrationTests(unittest.TestCase):
             self.assertEqual(constructs[name]["conditions"]["initializer_visibility"],
                              "earlier initialized Integer constants or mutable objects, including "
                              "Integer-array components; no self, forward or cyclic reference")
+        for name in ("named_integer_constant", "named_integer_variable",
+                     "named_boolean_constant", "named_boolean_variable"):
+            self.assertIn("function/procedure", constructs[name]["conditions"]["declaration_context"])
+        for kind, atom_field, atom in (
+            ("integer", "operand_kinds", "immutable nonstatic Integer in formal in a function or procedure body"),
+            ("boolean", "primaries", "immutable Boolean in formal in a function or procedure body"),
+        ):
+            conditions = constructs[kind + "_expression"]["conditions"]
+            self.assertIn(atom, conditions[atom_field])
+            self.assertIn("procedure_" + kind + "_input_actual", conditions["positions"])
+            self.assertIn("procedure_" + kind + "_output_initializer", conditions["positions"])
         equality = constructs["string_equality"]["conditions"]
         self.assertEqual(equality["operands"], ["string_expression", "string_expression"])
         self.assertIs(equality["at_least_one_bound_name_or_image_across_operands"], True)

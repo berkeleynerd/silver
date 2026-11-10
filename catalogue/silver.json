@@ -534,7 +534,7 @@
         "constant": true,
         "initializer_required": true,
         "initializer": "boolean_expression",
-        "declaration_context": "ordered Main declarations or scalar function locals under closed initialization rules",
+        "declaration_context": "ordered Main declarations or scalar function/procedure locals under closed initialization rules",
         "visibility": "earlier initialized values and Boolean-array cells only; no self, forward or cyclic references; declarations hide predefined names in their own declaration",
         "name_rules": "shared case-insensitive declaration uniqueness and reserved-name rules; Boolean object cannot be named Boolean; True and False remain legal names",
         "copy_semantics": "snapshot of the initialized Boolean value; no retained predicate provenance",
@@ -550,7 +550,7 @@
         "constant": false,
         "initializer_required": true,
         "initializer": "boolean_expression",
-        "declaration_context": "ordered Main declarations or scalar function locals under closed initialization rules",
+        "declaration_context": "ordered Main declarations or scalar function/procedure locals under closed initialization rules",
         "visibility": "earlier initialized values and Boolean-array cells only; no self, forward or cyclic references; declarations hide predefined names in their own declaration",
         "name_rules": "shared case-insensitive declaration uniqueness and reserved-name rules; Boolean object cannot be named Boolean; True and False remain legal names",
         "copy_semantics": "snapshot of the initialized Boolean value; no retained predicate provenance",
@@ -629,7 +629,9 @@
           "boolean_array_assignment_rhs",
           "condition",
           "function_boolean_actual",
-          "function_boolean_return"
+          "function_boolean_return",
+          "procedure_boolean_input_actual",
+          "procedure_boolean_output_initializer"
         ],
         "primaries": [
           "visible predefined True or False",
@@ -637,7 +639,7 @@
           "boolean_array_read",
           "input_guard",
           "parenthesized_condition",
-          "immutable Boolean formal in a function body"
+          "immutable Boolean in formal in a function or procedure body"
         ],
         "not": "one primary; repeated negation requires grouping",
         "relations": "existing safe String, Character, length and Integer comparisons, plus Boolean equality and inequality",
@@ -826,9 +828,9 @@
         "exclude_ada_2022_reserved_words": true,
         "case_insensitive_binding": true,
         "all_declared_names_distinct_ignoring_case": true,
-        "shared_name_environment": "String, Character, Integer and Boolean objects, named Integer subtypes, Integer/Boolean arrays and scalar functions; scoped local/formal names and loop binders obey their hiding rules",
+        "shared_name_environment": "String, Character, Integer and Boolean objects, named Integer subtypes, Integer/Boolean arrays and scalar functions/procedures; scoped local/formal names and loop binders obey their hiding rules",
         "type_mark_visible": true,
-        "declaration_context": "every output shell after argument initialization when present, or a scalar function local declaration under its closed initialization rules",
+        "declaration_context": "every output shell after argument initialization when present, or a scalar function/procedure local declaration under its closed initialization rules",
         "count": "finite_within_complete_source_bound",
         "value_range": [
           -2147483648,
@@ -864,9 +866,9 @@
         "exclude_ada_2022_reserved_words": true,
         "case_insensitive_binding": true,
         "all_declared_names_distinct_ignoring_case": true,
-        "shared_name_environment": "String, Character, Integer and Boolean objects, named Integer subtypes, Integer/Boolean arrays and scalar functions; scoped local/formal names and loop binders obey their hiding rules",
+        "shared_name_environment": "String, Character, Integer and Boolean objects, named Integer subtypes, Integer/Boolean arrays and scalar functions/procedures; scoped local/formal names and loop binders obey their hiding rules",
         "type_mark_visible": true,
-        "declaration_context": "every output shell after argument initialization when present, or a scalar function local declaration under its closed initialization rules",
+        "declaration_context": "every output shell after argument initialization when present, or a scalar function/procedure local declaration under its closed initialization rules",
         "count": "finite_within_complete_source_bound",
         "value_range": [
           -2147483648,
@@ -998,7 +1000,7 @@
           "scoped_for_index",
           "scoped_for_element",
           "integer_array_read",
-          "immutable nonstatic Integer formal in a function body"
+          "immutable nonstatic Integer in formal in a function or procedure body"
         ],
         "min_operands": 1,
         "max_operands": 64,
@@ -1044,7 +1046,9 @@
           "array_assignment_rhs",
           "array_index_expression_without_array_reads",
           "function_integer_actual",
-          "function_integer_return"
+          "function_integer_return",
+          "procedure_integer_input_actual",
+          "procedure_integer_output_initializer"
         ],
         "conversions": false,
         "division": true,
