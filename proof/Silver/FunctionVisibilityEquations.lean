@@ -75,12 +75,27 @@ theorem formalHides_meaning (implementation : Implementation) (primitives : Prim
   dsimp only [formalHidesBody, Expr.eval, modelCalls]
   by_cases firstPositive : 0 < first
   · by_cases ordered : first < after
-    · congr 1
-      apply any_congr_on
-      intro item member
-      exact primitives.equalName text textValid item.first item.after first after
-        ((valid.base.2.2.2.2.2.2.2.2.2.1).2.2.1 item (List.mem_of_mem_drop member)).1
-        ⟨firstPositive, ordered, afterBound⟩
+    · have functionNames :
+          (state.functions.parameters.drop (state.firstParameter - 1)).any
+              (fun item => implementation.calls.equalName text item.first item.after first after) =
+            (state.functions.parameters.drop (state.firstParameter - 1)).any
+              (fun item => Named.equalName text item.first item.after first after) := by
+        apply any_congr_on
+        intro item member
+        exact primitives.equalName text textValid item.first item.after first after
+          (valid.base.functions.2.2.1 item (List.mem_of_mem_drop member)).1
+          ⟨firstPositive, ordered, afterBound⟩
+      have procedureNames :
+          (state.procedures.parameters.drop (state.firstProcedureParameter - 1)).any
+              (fun item => implementation.calls.equalName text item.first item.after first after) =
+            (state.procedures.parameters.drop (state.firstProcedureParameter - 1)).any
+              (fun item => Named.equalName text item.first item.after first after) := by
+        apply any_congr_on
+        intro item member
+        exact primitives.equalName text textValid item.first item.after first after
+          (valid.base.procedures.2.2.1 item (List.mem_of_mem_drop member)).1
+          ⟨firstPositive, ordered, afterBound⟩
+      rw [functionNames, procedureNames]
     · simp only [show ¬after > first from ordered, decide_false, Bool.and_false, Bool.false_and]
   · simp only [firstPositive, decide_false, Bool.false_and]
 
@@ -119,11 +134,17 @@ theorem hiddenWord_meaning (implementation : Implementation) (primitives : Primi
     apply any_congr_on
     intro span member
     exact primitives.nameIs text textValid span.1 span.2 word (table_spans text state valid.base table span member) wordValid
+  have procedureMeaning : Expr.procedureNames.eval implementation.calls {text, state, word} =
+      Expr.procedureNames.eval modelCalls {text, state, word} := by
+    apply any_congr_on
+    intro item member
+    exact primitives.nameIs text textValid item.first item.after word
+      (valid.base.procedures.2.2.2 item member).1 wordValid
   dsimp only [hiddenWordBody, Expr.eval]
   rw [functionHides_meaning implementation primitives equations text textValid state.functions
-    valid.base.2.2.2.2.2.2.2.2.2.1 word wordValid]
-  dsimp only [Expr.eval] at tableMeaning
-  rw [tableMeaning, tableMeaning, tableMeaning, tableMeaning, tableMeaning]
+    valid.base.functions word wordValid]
+  dsimp only [Expr.eval] at tableMeaning procedureMeaning
+  rw [procedureMeaning, tableMeaning, tableMeaning, tableMeaning, tableMeaning, tableMeaning]
   rfl
 
 private theorem mark_word_valid (mark : Mark) : ValidWord mark.word := by unfold ValidWord; cases mark <;> decide

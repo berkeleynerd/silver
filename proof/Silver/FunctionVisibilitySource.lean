@@ -35,6 +35,16 @@ private theorem logical_and_quantified_categories :
     (Expr.andThen (.group (.orElse atom (.andThen atom atom))) atom).wellFormed = false ∧
     (Expr.orElse (.orElse atom atom) atom).wellFormed = true := by decide +kernel
 
+private theorem procedure_quantifier_categories_and_scope :
+    (Expr.orElse .procedureNames atom).wellFormed = false ∧
+    (Expr.orElse (.group .procedureNames) atom).wellFormed = true ∧
+    (Expr.andThen .firstProcedureParameterNonzero .procedureFormalNames).wellFormed = false ∧
+    (Expr.andThen .firstProcedureParameterNonzero (.group .procedureFormalNames)).wellFormed = true ∧
+    Expr.procedureNames.scoped {word := true} = false ∧
+    Expr.procedureNames.scoped {state := true, word := true} = true ∧
+    Expr.procedureFormalNames.scoped {state := true} = false ∧
+    Expr.procedureFormalNames.scoped {state := true, positions := true} = true := by decide +kernel
+
 end StructuralControls
 
 structure Checked (tokens : List String) : Prop where

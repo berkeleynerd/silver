@@ -53,8 +53,9 @@ structure Frame where
   word : String := ""
 
 inductive Expr
-  | firstPositive | afterGreater | firstParameterNonzero
-  | catalogNames | formalNames | tableNames : Table → Expr
+  | firstPositive | afterGreater | firstParameterNonzero | firstProcedureParameterNonzero
+  | catalogNames | formalNames | procedureNames | procedureFormalNames
+  | tableNames : Table → Expr
   | functionHides | hiddenWord : Mark → Expr
   | outerMark : Mark → Expr | inputMark : Mark → Expr | inputName : Mark → Expr
   | andThen : Expr → Expr → Expr | orElse : Expr → Expr → Expr | or : Expr → Expr → Expr
@@ -67,10 +68,16 @@ def Expr.eval (calls : Calls) (frame : Frame) : Expr → Bool
   | .firstPositive => decide (frame.first > 0)
   | .afterGreater => decide (frame.after > frame.first)
   | .firstParameterNonzero => decide (frame.state.firstParameter ≠ 0)
+  | .firstProcedureParameterNonzero => decide (frame.state.firstProcedureParameter ≠ 0)
   | .catalogNames => frame.catalog.items.any fun item =>
       calls.nameIs frame.text item.first item.after (frame.word.toList.map Char.toNat)
   | .formalNames => (frame.state.functions.parameters.drop (frame.state.firstParameter - 1)).any fun item =>
       calls.equalName frame.text item.first item.after frame.first frame.after
+  | .procedureNames => frame.state.procedures.items.any fun item =>
+      calls.nameIs frame.text item.first item.after (frame.word.toList.map Char.toNat)
+  | .procedureFormalNames =>
+      (frame.state.procedures.parameters.drop (frame.state.firstProcedureParameter - 1)).any fun item =>
+        calls.equalName frame.text item.first item.after frame.first frame.after
   | .tableNames table => (table.spans frame.state).any fun span =>
       calls.nameIs frame.text span.1 span.2 (frame.word.toList.map Char.toNat)
   | .functionHides => calls.functionHides frame.text frame.state.functions frame.word
@@ -89,6 +96,7 @@ def Expr.render : Expr → List String
   | .firstPositive => ["first", ">", "0"]
   | .afterGreater => ["after", ">", "first"]
   | .firstParameterNonzero => ["state", ".", "first_parameter", "/=", "0"]
+  | .firstProcedureParameterNonzero => ["state", ".", "first_procedure_parameter", "/=", "0"]
   | .catalogNames => ["for", "some", "index", "in", "1", "..", "catalog", ".", "count", "=>"] ++
       call "name_is" [["text"], ["catalog", ".", "items", "(", "index", ")", ".", "first"],
         ["catalog", ".", "items", "(", "index", ")", ".", "after"], ["word"]]
@@ -96,6 +104,13 @@ def Expr.render : Expr → List String
       "state", ".", "functions", ".", "parameter_count", "=>"] ++
       call "equal_name" [["text"], ["state", ".", "functions", ".", "parameters", "(", "index", ")", ".", "first"],
         ["state", ".", "functions", ".", "parameters", "(", "index", ")", ".", "after"], ["first"], ["after"]]
+  | .procedureNames => ["for", "some", "index", "in", "1", "..", "state", ".", "procedures", ".", "count", "=>"] ++
+      call "name_is" [["text"], ["state", ".", "procedures", ".", "items", "(", "index", ")", ".", "first"],
+        ["state", ".", "procedures", ".", "items", "(", "index", ")", ".", "after"], ["word"]]
+  | .procedureFormalNames => ["for", "some", "index", "in", "state", ".", "first_procedure_parameter", "..",
+      "state", ".", "procedures", ".", "parameter_count", "=>"] ++
+      call "equal_name" [["text"], ["state", ".", "procedures", ".", "parameters", "(", "index", ")", ".", "first"],
+        ["state", ".", "procedures", ".", "parameters", "(", "index", ")", ".", "after"], ["first"], ["after"]]
   | .tableNames table =>
       let base := ["state", "."] ++ table.path
       ["for", "some", "i", "in", "1", ".."] ++ base ++ [".", "count", "=>"] ++
@@ -115,13 +130,14 @@ def Expr.primary : Expr → Bool
   | .functionHides | .hiddenWord _ | .outerMark _ | .inputMark _ | .inputName _ | .group _ => true
   | _ => false
 def Expr.relation : Expr → Bool
-  | .firstPositive | .afterGreater | .firstParameterNonzero => true
+  | .firstPositive | .afterGreater | .firstParameterNonzero | .firstProcedureParameterNonzero => true
   | value => value.primary
 def Expr.andHead : Expr → Bool | .andThen _ _ => true | value => value.relation
 def Expr.orElseHead : Expr → Bool | .orElse _ _ => true | value => value.relation
 def Expr.orHead : Expr → Bool | .or _ _ => true | value => value.relation
 def Expr.wellFormed : Expr → Bool
-  | .firstPositive | .afterGreater | .firstParameterNonzero | .catalogNames | .formalNames | .tableNames _ |
+  | .firstPositive | .afterGreater | .firstParameterNonzero | .firstProcedureParameterNonzero |
+      .catalogNames | .formalNames | .procedureNames | .procedureFormalNames | .tableNames _ |
       .functionHides | .hiddenWord _ | .outerMark _ | .inputMark _ | .inputName _ => true
   | .andThen left right => left.andHead && right.relation && left.wellFormed && right.wellFormed
   | .orElse left right => left.orElseHead && right.relation && left.wellFormed && right.wellFormed
@@ -137,10 +153,10 @@ structure Scope where
 
 def Expr.scoped (scope : Scope) : Expr → Bool
   | .firstPositive | .afterGreater => scope.positions
-  | .firstParameterNonzero => scope.state
+  | .firstParameterNonzero | .firstProcedureParameterNonzero => scope.state
   | .catalogNames => scope.catalog && scope.word
-  | .formalNames => scope.state && scope.positions
-  | .tableNames _ | .functionHides => scope.state && scope.word
+  | .formalNames | .procedureFormalNames => scope.state && scope.positions
+  | .tableNames _ | .functionHides | .procedureNames => scope.state && scope.word
   | .hiddenWord _ | .outerMark _ => scope.state
   | .inputMark _ => scope.flags
   | .inputName _ => scope.positions
@@ -148,9 +164,11 @@ def Expr.scoped (scope : Scope) : Expr → Bool
   | .group value => value.scoped scope
 
 def functionHidesBody : Expr := .catalogNames
-def formalHidesBody : Expr := .andThen (.andThen (.andThen .firstPositive .afterGreater)
-  .firstParameterNonzero) (.group .formalNames)
-def hiddenWordBody : Expr := .orElse (.orElse (.orElse (.orElse (.orElse .functionHides
+def formalHidesBody : Expr := .andThen (.andThen .firstPositive .afterGreater)
+  (.group (.orElse (.group (.andThen .firstParameterNonzero (.group .formalNames)))
+    (.group (.andThen .firstProcedureParameterNonzero (.group .procedureFormalNames)))))
+def hiddenWordBody : Expr := .orElse (.orElse (.orElse (.orElse (.orElse
+  (.orElse .functionHides (.group .procedureNames))
   (.group (.tableNames .strings))) (.group (.tableNames .scalars))) (.group (.tableNames .booleans)))
   (.group (.tableNames .arrays))) (.group (.tableNames .subtypes))
 
