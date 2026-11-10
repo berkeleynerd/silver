@@ -113,7 +113,7 @@ def allTokens : List ShellToken :=
    .outputExpression, .comparisonExpression, .word "null", .contextClauses,
    .word "integer", .word "for", .word "in", .word "reverse", .word "loop", .symbol "..", .word "range", .word "subtype", .word "array", .word "of", .symbol ",", .symbol "=>",
    .word "boolean", .word "true", .word "false", .word "xor", .word "character",
-   .word "function", .word "return"]
+   .word "function", .word "return", .word "out"]
 
 def ValidToken (token : ShellToken) : Prop := token ∈ allTokens
 
