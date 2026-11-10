@@ -86,9 +86,9 @@ actual. `Compute_Store` at 8311–8355 calls `Reconstruct_Actual_From_Item` with
 conversion. The selected writable actual is a bare scalar name;
 it has no component reconstruction, index, slice, tag, validity or predicate
 checks. The native source investigation identifies this reconstruction as the
-sole checked scalar copy-back conversion. `New_Assignment` at 12368–12386
+sole checked scalar copy-back conversion. `New_Assignment` at 12347–12366
 skips `Shift_Rvalue` for a bare identifier and uses an `EW_Pterm` conversion;
-its Regular branch at 12432–12442 adds only the direct assignment.
+its Regular branch at 12405–12413 adds only the direct assignment.
 `why-gen-expr.adb:1621–1657` dispatches the checked conversion once to
 `Insert_Scalar_Conversion`. That helper's `Range_Check_Applied` state prevents
 steps 3 (2750–2768) and 5 (2804–2823) from both emitting a range check. Its
