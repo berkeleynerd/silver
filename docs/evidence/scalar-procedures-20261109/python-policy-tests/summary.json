@@ -1,0 +1,23 @@
+{
+  "run_id": "20261110T001444-6cb1be2b5661",
+  "host": "linux-x86_64",
+  "outcome": "success",
+  "workers": 1,
+  "tests": 5,
+  "unittest_seconds": 0.074,
+  "managed_seconds": 2.154325804,
+  "test_process_returncode": 0,
+  "note": "Agent-authored index; adjacent compressed log/events are the original managed-run outputs.",
+  "artifacts": {
+    "events.jsonl": {
+      "retained": "events.jsonl.gz",
+      "original_sha256": "6476f63b10203475e751c1372e307323e1ed7d92002cd1ae50c4791dc342b30e",
+      "gzip_sha256": "c495423f2f5700812b4d97c2eb6194531ebf6a187c73124206adc00db5830db9"
+    },
+    "native.log": {
+      "retained": "native.log.gz",
+      "original_sha256": "306b309ff664bc220f4033bde0306a816d274006bd9e6c2a10203410254f5415",
+      "gzip_sha256": "aa6bcfc90f4f6c6b3c8fc8b1fb7fefb43485c130d24a98bac5db625966e902c5"
+    }
+  }
+}

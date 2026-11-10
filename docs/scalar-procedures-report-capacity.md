@@ -91,8 +91,9 @@ call edge, without any author postcondition.
 
 Each writable actual consumes its own preceding `(` or `,` and at least one
 identifier byte. Independently allow `floor(S/2) = 2048` copy-back records at
-2048 bytes each. Each explicit-mode formal consumes at least seven disjoint
-bytes; allow `floor(S/7) = 585` initialization records at 1024 bytes each, plus
+2048 bytes each. Each explicit-mode formal, including its preceding `(` or
+`;`, consumes at least seven disjoint bytes (`(X:in T`); an `out` formal is
+longer. Allow `floor(S/7) = 585` initialization records at 1024 bytes each, plus
 `2*S` bytes for their source-name payloads. This deliberately overcounts
 non-output formals and does not rely on fitting initialization into an older
 flow-record allowance. The record schema allowances are inherited from the

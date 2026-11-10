@@ -165,7 +165,8 @@ remaining surface complete.
 | 2026-11-09 | Astra Max procedure design/native probes; Sol Extra High refresh repair; lead runtime not independently exposed | Established the leading output-initialization scope, identified effectful-call/capacity contracts, and started isolated #370 streams. #29 has successful focused checks; its final source/error review is completing. | Design inspection and focused Python checks only; no new procedure assurance or support. Native producer results, helper contracts and source integration remain pending. |
 | 2026-11-09 23:06–23:32 UTC | Sol Extra High refresh author; Astra Max native, semantic and source authors; lead runtime not independently exposed | Final #29 repair passed 12 tests. Procedure metadata passed 62 native checks; the selected mechanism probe passed 75 checks, and initial parser tests passed 19 admission methods. Narrow-copyback and unsafe-unused-body probes failed as expected. | Refresh evidence and native producer/metadata packets are retained under `docs/evidence/scalar-procedures-20261109/`. These are focused results, not feature completion. |
 | 2026-11-09 23:21–23:43 UTC | Astra Max semantic/source authors and native helper investigation; lead runtime not independently exposed | Call/input/copy-back contracts, metadata actual-source checks and signature interpretation passed focused Lean audits. Integrated parser implementation and drafted shared Python/native report-policy regressions. Pinned producer inspection established one initialization record per `out` formal. | Runs `20261109T232157-f50052810dba`, `20261109T232318-79e59bd00147` and `20261109T232931-d434ec47373f` cover the completed proof slices; the body/environment/source integration and complete native helper checks remain pending. |
-| 2026-11-10 | Lead source inspection; Astra Max native/source repair; live lead settings not independently exposed | Found that the initial alias scan treated based-literal digits and exponent letters as identifier reads, wrongly rejecting calls such as `P(16#F#, F)`. Added discriminating positive literal controls and true-alias rejections; native repair consumes a complete scalar literal before identifier classification. | Regression commit `8265bc085d` is prepared. The native/source repair and affected complete-helper checks remain pending; the productive earlier caller check is preserved. |
+| 2026-11-10 | Lead source inspection; Astra Max native/source repair; live lead settings not independently exposed | Found that the initial alias scan treated based-literal digits and exponent letters as identifier reads, wrongly rejecting calls such as `P(16#F#, F)`. Added discriminating positive literal controls and true-alias rejections; native repair consumes a complete scalar literal before identifier classification. | Regression commit `8265bc085d` and native repair `91fd84a7e5` are integrated. Matching source proof and affected complete-helper checks remain pending. |
+| 2026-11-10 00:12–00:20 UTC | Astra Max native/semantic/source authors; lead integration and evidence | Initial native helper/caller run finished with all 739 reported checks proved but failed the strict warning policy for a redundant initializer. Removed that initializer without changing contracts. Integrated native report API, projection plumbing and 64 MiB guards; five focused Python policy methods passed. | Initial run `20261109T233616-62a3028df4a0` remains failed and retained. [Python policy run](evidence/scalar-procedures-20261109/python-policy-tests/README.md) `20261110T001444-6cb1be2b5661` passed. Native fixtures, repaired helper success and semantic/source integration remain pending. |
 
 ## Development checkpoint
 
@@ -173,7 +174,7 @@ The native parser implementation at author commit `c3d6c55922` is integrated
 with its assurance explicitly pending. It checks the frozen output prefix,
 full declared body ranges, same-state actual evaluation, nonaliasing targets
 and copy-back range containment. The initial admission test run was
-`20261109T233200-ae6d07cb4d63`; it preceded the final two root test additions
+`20261109T233200-ae6d07cb4d63`; it preceded the full-range, empty-body and numeric-token test additions
 and did not execute the native compile fixture. The complete helper-contract
 checks, final test inventory and compiler-driven sample still need validation.
 
@@ -189,8 +190,9 @@ Report regressions use the same policy boundaries in Python and native tests:
 missing or duplicate output initialization, wrong owner or output name, missing
 unused-procedure coverage, failed safety checks and preservation of function
 termination requirements. Initialization classification uses only observations
-preserved by the existing report projection. The draft tests have not yet run
-against the completed native report API. No new report-auditor architecture or
+preserved by the existing report projection. The native tests have not yet run
+against the completed native report API. The five Python policy methods passed
+in the focused run recorded above. No new report-auditor architecture or
 independent kernel replay is selected.
 
 The integration worktree has an isolated native installation copied from the
