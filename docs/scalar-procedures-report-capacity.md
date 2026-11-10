@@ -47,6 +47,23 @@ exactly once, including in unused procedures. The existing projection discards
 uses the preserved owner, rule, message and result fields, without examining
 that discarded tree.
 
+## Unused writable outputs
+
+The native application run `20261110T020944-cc6817edf6a4` exposed an omitted
+advisory: `"T" is set by "Sum_And_Diff" but not used after the call`. The
+producer at `flow-analysis.adb:1940–1984` visits an ineffective call output,
+selects its actual target and direct callee, and emits exactly that warning
+with tag `INEFFECTIVE`. Access-to-subprogram calls omit the callee, but are
+excluded from Silver. Writable actuals here are bare scalar names.
+
+This message reports an unused copied-back value, not failed initialization
+or an unproved safety obligation. Both auditors require its exact message
+shape, a source-declared procedure callee, a valid bare target identifier,
+and the existing application flow-warning provenance. The separate successful
+initialization witnesses and every safety obligation remain required. The
+[failed application packet](evidence/scalar-procedures-20261109/unused-output-advisory/README.md)
+retains the diagnosis; the fixture is kept to exercise the repaired path.
+
 ## Input and copy-back checks
 
 `Compute_Call_Args` in `gnat2why-expr.adb:4393–4590` translates each actual once.
@@ -98,7 +115,17 @@ longer. Allow `floor(S/7) = 585` initialization records at 1024 bytes each, plus
 non-output formals and does not rely on fitting initialization into an older
 flow-record allowance. The record schema allowances are inherited from the
 [retained-data account](report-capacity.md#retained-data-envelope), and the
-capacity tests serialize both new record shapes.
+capacity tests serialize these record shapes.
+
+Separately reserve one unused-output advisory per writable actual, at most
+`S/2 = 2048`, each with 1024 schema bytes. Target-name payloads are bounded
+by their disjoint actual spellings, totaling at most `S`. Deliberately allow
+a full `S` bytes of callee name in every message, even though that spelling
+also consumes the source budget. This adds `2048*1024 + S*(2048+1)` bytes;
+it does not depend on fitting these diagnostics into an older flow allowance.
+The producer's ordinary source-message deduplication prevents repeated runtime
+loop iterations or repeated visits to the same call/output from multiplying
+this source-site count.
 
 ```text
 previous function envelope                       33,149,440
@@ -106,9 +133,12 @@ additional dependency tokens: (819-512)*3*256         235,776
 copy-back records:             2048*2048           4,194,304
 output initialization:         585*1024              599,040
 output-name payload:           2*4096                  8,192
-combined envelope                                38,186,752
+previous procedure envelope                      38,186,752
+unused-output records:          2048*1024           2,097,152
+unused-output name payload:     4096*(2048+1)       8,392,704
+combined envelope                                48,676,608
 selected allocation:           64*1024*1024       67,108,864
-headroom                                         28,922,112
+headroom                                         18,432,256
 ```
 
 The shared file-reader bound must cover the same retained report domain.

@@ -40,6 +40,9 @@ package body Silver_Library_Reports with SPARK_Mode => On is
    Atom_unknown : constant String := "unknown";
    Unused_Formal_Prefix : constant String := """unused variable \""";
    Unused_Formal_Suffix : constant String := "\""""";
+   Procedure_Output_Prefix : constant String := """\""";
+   Procedure_Output_Middle : constant String := "\"" is set by \""";
+   Procedure_Output_Suffix : constant String := "\"" but not used after the call""";
    Atom_UNUSED_VARIABLE : constant String := "UNUSED_VARIABLE";
    Atom_INEFFECTIVE : constant String := "INEFFECTIVE";
    Atom_DEAD_CODE : constant String := "DEAD_CODE";
@@ -1403,15 +1406,18 @@ package body Silver_Library_Reports with SPARK_Mode => On is
 
    --  This advisory describes an unused initialized value, not a failed safety
    --  obligation. Its exact GNAT message contains one Ada name.
-   function Initializer_Message (Text : String; Item : Span; Unused_Formal : Boolean := False) return Boolean
+   function Initializer_Message (Text : String; Item : Span; Unused_Formal : Boolean := False; Call_Name : String := "") return Boolean
      with Global => null,
-       Pre => Text'First = 1 and then Text'Length <= Max_Report_Length;
+       Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
+         and then Call_Name'Length <= 4_096;
 
-   function Initializer_Message (Text : String; Item : Span; Unused_Formal : Boolean := False) return Boolean is
+   function Initializer_Message (Text : String; Item : Span; Unused_Formal : Boolean := False; Call_Name : String := "") return Boolean is
      (declare Prefix : constant String :=
-        (if Unused_Formal then Unused_Formal_Prefix else Initialization_Prefix);
+        (if Call_Name'Length > 0 then Procedure_Output_Prefix
+         elsif Unused_Formal then Unused_Formal_Prefix else Initialization_Prefix);
               Suffix : constant String :=
-        (if Unused_Formal then Unused_Formal_Suffix else Initialization_Suffix);
+        (if Call_Name'Length > 0 then Procedure_Output_Middle & Call_Name & Procedure_Output_Suffix
+         elsif Unused_Formal then Unused_Formal_Suffix else Initialization_Suffix);
       begin Valid (Text, Item)
         and then (Item.Last - Item.First) + 1 > Prefix'Length + Suffix'Length
         and then (Item.Last - Item.First) + 1 <= Prefix'Length + Suffix'Length + 4_096
@@ -1436,6 +1442,20 @@ package body Silver_Library_Reports with SPARK_Mode => On is
       or else String_Equal (Text, Item, Atom_put_unused_Flushed)
       or else String_Equal (Text, Item, Atom_put_unused_Succeeded)
       or else String_Equal (Text, Item, Atom_put_unused_Written_Bytes));
+
+   --  An unused scalar copy-back is advisory. Match a bare target name and
+   --  the exact spelling of a source-declared procedure, keeping its safety
+   --  checks and successful output-initialization witnesses independent.
+   function Procedure_Output_Message
+     (Text : String; Item : Span; Source : String; Procedures : Procedure_Metadata) return Boolean
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length <= Max_Report_Length;
+   function Procedure_Output_Message
+     (Text : String; Item : Span; Source : String; Procedures : Procedure_Metadata) return Boolean is
+     (for some P in 1 .. Procedures.Count =>
+        Source_Name_Valid (Source, Procedures.Items (P))
+        and then Initializer_Message (Text, Item,
+          Call_Name => Source (Procedures.Items (P).First .. Procedures.Items (P).After - 1)));
 
    --  All typed metadata is handled, including empty and malformed slices.
    --  Source membership supplies the stronger contiguous-pool invariant.
@@ -1692,6 +1712,8 @@ package body Silver_Library_Reports with SPARK_Mode => On is
                  (Text, Field_Spec (Text, Item, JSON_message), JSON_text))
                or else Output_Message (Text, Field_Spec
                  (Text, Field_Spec (Text, Item, JSON_message), JSON_text))
+               or else Procedure_Output_Message (Text, Field_Spec
+                 (Text, Field_Spec (Text, Item, JSON_message), JSON_text), Source, Procedures)
                or else (Kind in Assignment_Diagnostics | Selected_Diagnostics
                  and then String_Equal (Text, Field_Spec
                    (Text, Field_Spec (Text, Item, JSON_message), JSON_text), Atom_unused_assignment))
@@ -1814,6 +1836,8 @@ package body Silver_Library_Reports with SPARK_Mode => On is
                  (Text, Field (Text, Item, JSON_message), JSON_text))
                or else Output_Message (Text, Field
                  (Text, Field (Text, Item, JSON_message), JSON_text))
+               or else Procedure_Output_Message (Text, Field
+                 (Text, Field (Text, Item, JSON_message), JSON_text), Source, Procedures)
                or else (Kind in Assignment_Diagnostics | Selected_Diagnostics
                  and then String_Equal (Text, Field
                    (Text, Field (Text, Item, JSON_message), JSON_text), Atom_unused_assignment))
@@ -2654,11 +2678,13 @@ package body Silver_Library_Reports with SPARK_Mode => On is
         Raw_Bytes.Get (Text, First + SPARK.Big_Integers.To_Big_Integer (I - Expected'First)) = Expected (I)))
      with Ghost => Static;
 
-   function Raw_Initializer_Message (Text : Raw_Bytes.Sequence; Item : Raw_Scan.Span; Unused_Formal : Boolean := False) return Boolean is
+   function Raw_Initializer_Message (Text : Raw_Bytes.Sequence; Item : Raw_Scan.Span; Unused_Formal : Boolean := False; Call_Name : String := "") return Boolean is
      (declare Prefix : constant String :=
-        (if Unused_Formal then Unused_Formal_Prefix else Initialization_Prefix);
+        (if Call_Name'Length > 0 then Procedure_Output_Prefix
+         elsif Unused_Formal then Unused_Formal_Prefix else Initialization_Prefix);
               Suffix : constant String :=
-        (if Unused_Formal then Unused_Formal_Suffix else Initialization_Suffix);
+        (if Call_Name'Length > 0 then Procedure_Output_Middle & Call_Name & Procedure_Output_Suffix
+         elsif Unused_Formal then Unused_Formal_Suffix else Initialization_Suffix);
               PL : constant Raw_Scan.Offset := SPARK.Big_Integers.To_Big_Integer (Prefix'Length);
               SL : constant Raw_Scan.Offset := SPARK.Big_Integers.To_Big_Integer (Suffix'Length);
       begin Raw_Scan.Valid (Text, Item)
@@ -2672,7 +2698,7 @@ package body Silver_Library_Reports with SPARK_Mode => On is
           (if I >= Item.First + PL and then I <= Item.Last - SL then
              Raw_Bytes.Get (Text, I) in 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_'
              and then (if Raw_Bytes.Get (Text, I) = '_' then Raw_Bytes.Get (Text, I - 1) /= '_'))))
-     with Ghost => Static;
+     with Ghost => Static, Pre => Call_Name'Length <= 4_096;
 
    function Raw_Reference_Policy (Text : Raw_Bytes.Sequence; Entities, Reference : Raw_Scan.Span;
       Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata) return Boolean
@@ -2699,6 +2725,16 @@ package body Silver_Library_Reports with SPARK_Mode => On is
       or else Raw_String_Equal (Text, Item, Atom_put_unused_Flushed)
       or else Raw_String_Equal (Text, Item, Atom_put_unused_Succeeded)
       or else Raw_String_Equal (Text, Item, Atom_put_unused_Written_Bytes));
+
+   function Raw_Procedure_Output_Message
+     (Text : Raw_Bytes.Sequence; Item : Raw_Scan.Span; Source : String; Procedures : Procedure_Metadata) return Boolean
+     with Ghost => Static, Global => null;
+   function Raw_Procedure_Output_Message
+     (Text : Raw_Bytes.Sequence; Item : Raw_Scan.Span; Source : String; Procedures : Procedure_Metadata) return Boolean is
+     (for some P in 1 .. Procedures.Count =>
+        Source_Name_Valid (Source, Procedures.Items (P))
+        and then Raw_Initializer_Message (Text, Item,
+          Call_Name => Source (Procedures.Items (P).First .. Procedures.Items (P).After - 1)));
 
    function Raw_Initialization_Index
      (Text : Raw_Bytes.Sequence; Message : Raw_Scan.Span; Source : String; Procedures : Procedure_Metadata;
@@ -2824,6 +2860,8 @@ package body Silver_Library_Reports with SPARK_Mode => On is
                  (Text, Raw_Field (Text, Item, JSON_message), JSON_text))
                or else Raw_Output_Message (Text, Raw_Field
                  (Text, Raw_Field (Text, Item, JSON_message), JSON_text))
+               or else Raw_Procedure_Output_Message (Text, Raw_Field
+                 (Text, Raw_Field (Text, Item, JSON_message), JSON_text), Source, Procedures)
                or else (Kind in Assignment_Diagnostics | Selected_Diagnostics
                  and then Raw_String_Equal (Text, Raw_Field
                    (Text, Raw_Field (Text, Item, JSON_message), JSON_text), Atom_unused_assignment))
@@ -3214,16 +3252,19 @@ package body Silver_Library_Reports with SPARK_Mode => On is
    end Mixed_Output_Message;
 
    procedure Mixed_Initializer_Message
-     (Raw : Raw_Bytes.Sequence; L : Raw_Scan.Span; Text : String; R : Span; Unused_Formal : Boolean := False)
+     (Raw : Raw_Bytes.Sequence; L : Raw_Scan.Span; Text : String; R : Span; Unused_Formal : Boolean := False; Call_Name : String := "")
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
+         and then Call_Name'Length <= 4_096
          and then Mixed_Field (Raw, L, Text, R),
-       Post => Raw_Initializer_Message (Raw, L, Unused_Formal) = Initializer_Message (Text, R, Unused_Formal)
+       Post => Raw_Initializer_Message (Raw, L, Unused_Formal, Call_Name) = Initializer_Message (Text, R, Unused_Formal, Call_Name)
    is
       Prefix : constant String :=
-        (if Unused_Formal then Unused_Formal_Prefix else Initialization_Prefix);
+        (if Call_Name'Length > 0 then Procedure_Output_Prefix
+         elsif Unused_Formal then Unused_Formal_Prefix else Initialization_Prefix);
       Suffix : constant String :=
-        (if Unused_Formal then Unused_Formal_Suffix else Initialization_Suffix);
+        (if Call_Name'Length > 0 then Procedure_Output_Middle & Call_Name & Procedure_Output_Suffix
+         elsif Unused_Formal then Unused_Formal_Suffix else Initialization_Suffix);
    begin
       if Mixed_Content (Raw, L, Text, R) then
          Mixed_Byte_Correspondence (Raw, L, Text, R);
@@ -3236,6 +3277,30 @@ package body Silver_Library_Reports with SPARK_Mode => On is
          end if;
       end if;
    end Mixed_Initializer_Message;
+
+   procedure Mixed_Procedure_Output_Message
+     (Raw : Raw_Bytes.Sequence; L : Raw_Scan.Span; Text : String; R : Span;
+      Source : String; Procedures : Procedure_Metadata)
+     with Ghost => Static, Global => null,
+       Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
+         and then Mixed_Field (Raw, L, Text, R),
+       Post => Raw_Procedure_Output_Message (Raw, L, Source, Procedures) =
+         Procedure_Output_Message (Text, R, Source, Procedures)
+   is
+   begin
+      for P in 1 .. Procedures.Count loop
+         pragma Loop_Invariant (for all I in 1 .. P - 1 =>
+           (if Source_Name_Valid (Source, Procedures.Items (I)) then
+             Raw_Initializer_Message (Raw, L,
+               Call_Name => Source (Procedures.Items (I).First .. Procedures.Items (I).After - 1)) =
+             Initializer_Message (Text, R,
+               Call_Name => Source (Procedures.Items (I).First .. Procedures.Items (I).After - 1))));
+         if Source_Name_Valid (Source, Procedures.Items (P)) then
+            Mixed_Initializer_Message (Raw, L, Text, R,
+              Call_Name => Source (Procedures.Items (P).First .. Procedures.Items (P).After - 1));
+         end if;
+      end loop;
+   end Mixed_Procedure_Output_Message;
 
    procedure Mixed_Test_Congruence
      (Raw : Raw_Bytes.Sequence; L : Raw_Scan.Span; Text : String; R : Span)
@@ -4258,6 +4323,9 @@ package body Silver_Library_Reports with SPARK_Mode => On is
       Mixed_Test_Congruence
         (Raw, Raw_Field (Raw, Raw_Field (Raw, L, JSON_message), JSON_text),
          Text, Field_Spec (Text, Field_Spec (Text, R, JSON_message), JSON_text));
+      Mixed_Procedure_Output_Message
+        (Raw, Raw_Field (Raw, Raw_Field (Raw, L, JSON_message), JSON_text),
+         Text, Field_Spec (Text, Field_Spec (Text, R, JSON_message), JSON_text), Source, Procedures);
       Mixed_String_Congruence
         (Raw, Raw_Field (Raw, Raw_Field (Raw, L, JSON_message), JSON_text),
          Text, Field_Spec (Text, Field_Spec (Text, R, JSON_message), JSON_text),

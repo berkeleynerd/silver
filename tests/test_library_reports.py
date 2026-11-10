@@ -141,6 +141,32 @@ def procedure_report_mutations():
         predicate="CLAIM_POST")
 
 
+def unused_procedure_output_report():
+    data = procedure_report()
+    data["flow"].append(dict(check(), how_proved="flow", entity=1, severity="warning",
+                             file="main.adb", rule="INEFFECTIVE", message={"text":
+                                 '"Result" is set by "Set_Value" but not used after the call'}))
+    return data
+
+
+def unused_procedure_output_mutations():
+    for text in ('"Result" is set by "Unknown" but not used after the call',
+                 '"Result" is set by "Id" but not used after the call',
+                 '"Result" is set by "Set_Value" but not used after the call ',
+                 '"Result" is set by "Set_Value" but not proved after the call',
+                 '"A(1)" is set by "Set_Value" but not used after the call',
+                 '"Bad__Name" is set by "Set_Value" but not used after the call',
+                 '"1Bad" is set by "Set_Value" but not used after the call'):
+        yield text, lambda d, t=text: d["flow"][-1].update(message={"text": t})
+    yield "overlong target", lambda d: d["flow"][-1].update(message={"text":
+        '"' + 'A' * 4097 + '" is set by "Set_Value" but not used after the call'})
+    for field, value in (("severity", "medium"), ("rule", "UNINITIALIZED"),
+                         ("how_proved", "prover"), ("entity", 99), ("suppressed", "")):
+        yield f"{field}={value}", lambda d, f=field, v=value: d["flow"][-1].update({f: v})
+    yield "missing required output proof", lambda d: d["flow"].pop(1)
+    yield "unproved safety check", lambda d: d["proof"][0].update(severity="medium")
+
+
 class LibraryReportTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
@@ -191,6 +217,14 @@ end Probe;
         self.assertFalse(self.accepts(procedure_report(), kind="assignment"))
         for label, mutate in procedure_report_mutations():
             data = procedure_report()
+            mutate(data)
+            with self.subTest(label=label):
+                self.assertFalse(self.accepts(data, kind="procedures"))
+
+    def test_unused_procedure_outputs_are_exact_advisories(self) -> None:
+        self.assertTrue(self.accepts(unused_procedure_output_report(), kind="procedures"))
+        for label, mutate in unused_procedure_output_mutations():
+            data = unused_procedure_output_report()
             mutate(data)
             with self.subTest(label=label):
                 self.assertFalse(self.accepts(data, kind="procedures"))

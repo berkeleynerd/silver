@@ -117,8 +117,8 @@ storage adjustment needs its own source-derived argument, documentation and
 boundary tests; it does not restart general capacity research.
 
 The [procedure capacity account](scalar-procedures-report-capacity.md) now
-derives a conservative 38,186,752-byte envelope, including separate allowances
-for copy-back and output-initialization records. It selects a 64 MiB retained
+derives a conservative 48,676,608-byte envelope, including separate allowances
+for copy-back, output-initialization and unused-output records. It selects a 64 MiB retained
 Main allocation. Native integration, independent review and boundary validation
 of this adjustment are tracked separately: native policy mutations and the
 exact 64 MiB/next-byte boundary checks have passed; complete native assurance
@@ -175,6 +175,8 @@ remaining surface complete.
 
 | 2026-11-10 01:39–02:08 UTC | Lead scanner integration; Astra Max native/source/semantic authors; live settings not independently confirmed | All ten lexical scanner source fragments and their candidate passed, with a fresh 14,594-declaration audit. Procedure-aware visibility and constructive call readings are integrated from separately focused checks. | [Scanner candidate evidence](evidence/scalar-procedures-20261109/scanner-candidate/README.md), run `20261110T013948-d5400a83673c`; exact authoritative adapter and remaining declaration/call/body integration remain pending. |
 
+| 2026-11-10 02:09–02:21 UTC | Lead report repair; Astra Max native producer/domain review and source/semantic authors; live settings not independently confirmed | Array/argument application passed. Multi-output application proved all 74 checks but exposed an unhandled unused-procedure-output advisory. Matched the exact producer message and known callee in both auditors; policy controls and the unchanged application then passed. Native report baseline completed 3,740 checks. | [Failure and repair evidence](evidence/scalar-procedures-20261109/unused-output-advisory/README.md); repaired build `021739`, final focused rerun `022030`. Native baseline `012143` predates the advisory repair. Changed report contracts, remaining parser contracts and final source/semantic integration still need validation. |
+
 ## Development checkpoint
 
 The native parser implementation through author commit `91fd84a7e5` is integrated
@@ -184,7 +186,8 @@ and copy-back range containment. The initial admission test run was
 `20261109T233200-ae6d07cb4d63`; it preceded the full-range, empty-body and numeric-token test additions
 and did not execute the native compile fixture. The complete 21-method
 admission-only inventory now passes in `20261110T003856-52403809587f`.
-Complete helper contracts, the application compile fixture and final regression
+Both application fixtures have now passed proof, compilation and execution in the
+focused runs recorded above. Complete helper contracts and final regression
 inventory still need validation.
 
 The metadata source bridge covers the actual SPARK unit and its helper domains.

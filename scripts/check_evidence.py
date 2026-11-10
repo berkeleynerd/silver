@@ -633,6 +633,11 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                     stats["initialization_checks"] += 1
                 advisory = application and key == "flow" and not termination and not initialization
                 if advisory:
+                    unused_match = re.fullmatch(
+                        r'"([A-Za-z](?:[A-Za-z0-9]|_[A-Za-z0-9])*)" is set by "([^\"]+)"'
+                        r' but not used after the call', record.get("message", {}).get("text", ""))
+                    unused_call = (unused_match is not None and len(unused_match[1]) <= 4096
+                                   and len(unused_match[2]) <= 4096 and unused_match[2] in procedures)
                     require(record.get("severity") == "warning"
                             and record.get("how_proved") == "flow"
                             and record.get("file") == "main.adb"
@@ -651,13 +656,16 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                                            f'"{name}" is set by "{operation}" but not used after the call'
                                            for name in ("Written_Count", "Flushed", "Succeeded", "Written_Bytes")
                                            for operation in ("Put_Line", "Put")}
+                                       or unused_call
                                        or (assignment and record.get("message", {}).get("text") == "unused assignment")
                                        or (comparison and record.get("message", {}).get("text") == "statement has no effect")))
                                  or (comparison and record.get("rule") == "DEAD_CODE"
                                      and record.get("message", {}).get("text") == "this statement is never reached")),
                             "assignment: unexpected flow diagnostic")
-                    require(len(record["message"]["text"]) <= len('initialization of "" has no effect') + 4096,
-                            "assignment: initializer name exceeds source bound")
+                    limit = (len('"" is set by "" but not used after the call') + 2 * 4096 if unused_call
+                             else len('initialization of "" has no effect') + 4096)
+                    require(len(record["message"]["text"]) <= limit,
+                            "assignment: advisory names exceed source bound")
                     require(not any(field in record for field in
                                     ("justification", "justified", "suppressed", "annot_kind", "justif_msg")),
                             "assignment: suppressed or justified diagnostic")

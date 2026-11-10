@@ -191,9 +191,22 @@ class ProofEvidenceTests(unittest.TestCase):
         self.report = library_reports.procedure_report()
         self.sarif["runs"][0]["invocations"][0]["commandLine"] += " --no-inlining"
 
-    def audit_procedures(self, procedures=None) -> dict[str, int]:
+    def audit_procedures(self, procedures=None, *, unused_output=False) -> dict[str, int]:
         (self.path / "main.spark").write_text(json.dumps(self.report))
         self.refresh_reports()
+        if unused_output:
+            sarif_path = self.path / "gnatprove.sarif"
+            sarif = json.loads(sarif_path.read_text())
+            records = self.report["flow"] + self.report["proof"]
+            for result, record in zip(sarif["runs"][0]["results"], records):
+                if record.get("severity") == "warning":
+                    result.update(kind="open", level="warning")
+            sarif_path.write_text(json.dumps(sarif))
+            flow = sum(r.get("severity") == "info" for r in self.report["flow"])
+            proof = len(self.report["proof"])
+            (self.path / "gnatprove.out").write_text(
+                f"Total {flow + proof} {flow} {proof} . .\n"
+                "in unit main, 5 subprograms and packages out of 5 analyzed\n")
         if procedures is None:
             procedures = {"Set_Value": ("Value", "Flag"), "Reset": ("Value",), "Step": ()}
         return audit_reports(self.path, {"main"}, application_kind="assigned",
@@ -212,6 +225,16 @@ class ProofEvidenceTests(unittest.TestCase):
             mutate(self.report)
             with self.subTest(label=label), self.assertRaises(EvidenceError):
                 self.audit_procedures()
+
+    def test_unused_procedure_outputs_are_exact_advisories(self) -> None:
+        self.prepare_procedures()
+        self.report = library_reports.unused_procedure_output_report()
+        self.assertEqual(self.audit_procedures(unused_output=True)["assignment_advisories"], 1)
+        for label, mutate in library_reports.unused_procedure_output_mutations():
+            self.report = library_reports.unused_procedure_output_report()
+            mutate(self.report)
+            with self.subTest(label=label), self.assertRaises(EvidenceError):
+                self.audit_procedures(unused_output=True)
 
     def test_procedure_inventory_and_no_inlining_are_required(self) -> None:
         self.prepare_procedures()

@@ -137,7 +137,8 @@ def subprogram_envelope() -> int:
     return (main_envelope() + subprograms * (1024 + 512 + 2 * 256 + 32 * 160)
             + 3 * 256 * calls + 4 * SOURCE_BYTES
             + writable_actuals * MAIN_RECORD_BYTES
-            + outputs * FLOW_RECORD_BYTES + 2 * SOURCE_BYTES)
+            + outputs * FLOW_RECORD_BYTES + 2 * SOURCE_BYTES
+            + writable_actuals * (FLOW_RECORD_BYTES + SOURCE_BYTES) + SOURCE_BYTES)
 
 
 def dense_report() -> str:
@@ -187,7 +188,7 @@ class CapacityEnvelopeTests(unittest.TestCase):
         index.update(rule="VC_INDEX_CHECK", message={"text": "index check proved"})
         self.assertLessEqual(embedded_record_bytes(index), MAIN_RECORD_BYTES)
         self.assertEqual(main_envelope(), 31_822_336)
-        self.assertEqual(subprogram_envelope(), 38_186_752)
+        self.assertEqual(subprogram_envelope(), 48_676_608)
         self.assertEqual(metadata_envelope(), 55_712)
         self.assertLessEqual(metadata_envelope(), METADATA_BYTES)
         specification = (ROOT / "src/silver_library_reports.ads").read_text()
@@ -213,6 +214,10 @@ class CapacityEnvelopeTests(unittest.TestCase):
         termination.update(rule="SUBPROGRAM_TERMINATION", severity="info", message={"text":
             'implicit aspect Always_Terminates on "" has been proved, subprogram will terminate'})
         self.assertLessEqual(embedded_record_bytes(termination), FLOW_RECORD_BYTES)
+        unused_output = maximal_retained_record(flow=True)
+        unused_output.update(rule="INEFFECTIVE", severity="warning", message={"text":
+            '"" is set by "" but not used after the call'})
+        self.assertLessEqual(embedded_record_bytes(unused_output), FLOW_RECORD_BYTES)
         copyback = maximal_retained_record()
         copyback.update(rule="VC_RANGE_CHECK", message={"text": "range check proved"})
         self.assertLessEqual(embedded_record_bytes(copyback), MAIN_RECORD_BYTES)
