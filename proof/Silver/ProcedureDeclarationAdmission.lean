@@ -17,7 +17,7 @@ def procedureBodyAt (text : Source) (outer frame : ParserState) (first after : N
   let bound := procedureInputFrame text locals
   if bound.position = 0 then invalidState else
   let start := {bound with position := fixedAfter text bound.position "begin" true}
-  let ready := procedurePrefix text start
+  let ready := procedurePrefix text start locals.scalarNames.length
   if ready.position = 0 then invalidState else
   let context := {Predicate.contextOf ⟨ready, false, false⟩ with declarationCount := locals.scalarNames.length}
   let initialized := decide (ready.position > start.position)

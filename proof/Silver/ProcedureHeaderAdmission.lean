@@ -80,10 +80,10 @@ def procedureInputFrame (_text : Source) (frame : ParserState) : ParserState :=
   procedureInputFrameModel frame frame.firstProcedureParameter
 
 def procedurePrefixStep (text : Source) (readFrame frame : ParserState)
-    (parameter : ProcedureBindings.Formal) : ParserState :=
+    (parameter : ProcedureBindings.Formal) (declarationCount : Nat) : ParserState :=
   let first := skipAt text frame.position
   let after := nameAfter text first
-  let context := Predicate.contextOf ⟨readFrame, false, false⟩
+  let context := {Predicate.contextOf ⟨readFrame, false, false⟩ with declarationCount}
   let valueAfter := Predicate.actualAfter text context (fixedAfter text after ":=" false)
     (Predicate.ActiveFlow.initial context.scalarNames (Predicate.initialFacts context.hasArguments))
     ⟨parameter.first, parameter.after, parameter.kind, parameter.bounds⟩
@@ -92,21 +92,24 @@ def procedurePrefixStep (text : Source) (readFrame frame : ParserState)
       valueAfter = 0 ∨ following ≤ frame.position then invalidState
   else appendProcedureParameter {frame with position := following} parameter
 
-def procedurePrefixModel (text : Source) (readFrame frame : ParserState) (index : Nat) : ParserState :=
+def procedurePrefixModel (text : Source) (readFrame frame : ParserState)
+    (index declarationCount : Nat) : ParserState :=
   if frame.position = 0 then invalidState
   else if outside : index > frame.procedures.parameters.length then frame
   else if (ProcedureBindings.parameter frame.procedures index).mode ≠ .output then
-    procedurePrefixModel text readFrame frame (index + 1)
-  else let next := procedurePrefixStep text readFrame frame (ProcedureBindings.parameter frame.procedures index)
+    procedurePrefixModel text readFrame frame (index + 1) declarationCount
+  else
+    let next := procedurePrefixStep text readFrame frame
+      (ProcedureBindings.parameter frame.procedures index) declarationCount
     if next.position = 0 then invalidState
     else if _advanced : next.procedures.parameters.length + 1 - (index + 1) <
         frame.procedures.parameters.length + 1 - index
-      then procedurePrefixModel text readFrame next (index + 1)
+      then procedurePrefixModel text readFrame next (index + 1) declarationCount
     else invalidState
 termination_by frame.procedures.parameters.length + 1 - index
 decreasing_by all_goals first | omega | simpa only [Nat.add_sub_add_right] using _advanced
 
-def procedurePrefix (text : Source) (frame : ParserState) : ParserState :=
-  procedurePrefixModel text frame frame frame.firstProcedureParameter
+def procedurePrefix (text : Source) (frame : ParserState) (declarationCount : Nat) : ParserState :=
+  procedurePrefixModel text frame frame frame.firstProcedureParameter declarationCount
 
 end Silver.Compose
