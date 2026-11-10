@@ -13,15 +13,15 @@ inductive BooleanDeclarationsAt (text : Source) (arguments : Bool) :
     ParserState → List BooleanDeclaration → List Predicate.Obligation → ParserState → Prop
   | done {state : ParserState} : state.position ≠ 0 →
       fixedAfter text state.position "begin" true ≠ 0 → BooleanDeclarationsAt text arguments state [] [] state
-  | function {state final : ParserState} {rest : List BooleanDeclaration} {checks : List Predicate.Obligation} :
+  | callable {state final : ParserState} {rest : List BooleanDeclaration} {checks : List Predicate.Obligation} :
       state.position ≠ 0 → fixedAfter text state.position "begin" true = 0 →
-      (functionDeclarationAt text state arguments).position ≠ 0 →
-      BooleanDeclarationsAt text arguments (functionDeclarationAt text state arguments) rest checks final →
+      (callableDeclarationAt text state arguments).position ≠ 0 →
+      BooleanDeclarationsAt text arguments (callableDeclarationAt text state arguments) rest checks final →
       BooleanDeclarationsAt text arguments state rest checks final
   | string {state middle final : ParserState} {declaration : Bindings.Declaration}
       {rest : List BooleanDeclaration} {checks : List Predicate.Obligation} :
       state.position ≠ 0 → fixedAfter text state.position "begin" true = 0 →
-      (functionDeclarationAt text state arguments).position = 0 →
+      (callableDeclarationAt text state arguments).position = 0 →
       (subtypeDeclarationAt text state arguments).position = 0 →
       (scalarDeclarationAt text state arguments).position = 0 →
       (arrayDeclarationAt text state arguments).position = 0 →
@@ -32,7 +32,7 @@ inductive BooleanDeclarationsAt (text : Source) (arguments : Bool) :
   | scalar {state middle final : ParserState} {declaration : Integer.Declaration}
       {rest : List BooleanDeclaration} {checks : List Predicate.Obligation} :
       state.position ≠ 0 → fixedAfter text state.position "begin" true = 0 →
-      (functionDeclarationAt text state arguments).position = 0 →
+      (callableDeclarationAt text state arguments).position = 0 →
       (subtypeDeclarationAt text state arguments).position = 0 →
       ScalarDeclarationAt text arguments state declaration middle →
       BooleanDeclarationsAt text arguments middle rest checks final →
@@ -40,7 +40,7 @@ inductive BooleanDeclarationsAt (text : Source) (arguments : Bool) :
   | array {state middle final : ParserState} {declaration : Integer.ArrayDeclaration}
       {rest : List BooleanDeclaration} {checks : List Predicate.Obligation} :
       state.position ≠ 0 → fixedAfter text state.position "begin" true = 0 →
-      (functionDeclarationAt text state arguments).position = 0 →
+      (callableDeclarationAt text state arguments).position = 0 →
       (subtypeDeclarationAt text state arguments).position = 0 →
       (scalarDeclarationAt text state arguments).position = 0 →
       ArrayDeclarationAt text arguments state declaration middle →
@@ -50,7 +50,7 @@ inductive BooleanDeclarationsAt (text : Source) (arguments : Bool) :
   | booleanArray {state middle final : ParserState} {declaration : BooleanArrayDeclaration}
       {rest : List BooleanDeclaration} {firstChecks checks : List Predicate.Obligation} :
       state.position ≠ 0 → fixedAfter text state.position "begin" true = 0 →
-      (functionDeclarationAt text state arguments).position = 0 →
+      (callableDeclarationAt text state arguments).position = 0 →
       (subtypeDeclarationAt text state arguments).position = 0 →
       (scalarDeclarationAt text state arguments).position = 0 →
       BooleanArrayDeclarationAt text arguments state middle →
@@ -60,7 +60,7 @@ inductive BooleanDeclarationsAt (text : Source) (arguments : Bool) :
 
   | subtype {state middle final : ParserState} {rest : List BooleanDeclaration} {checks : List Predicate.Obligation} :
       state.position ≠ 0 → fixedAfter text state.position "begin" true = 0 →
-      (functionDeclarationAt text state arguments).position = 0 →
+      (callableDeclarationAt text state arguments).position = 0 →
       SubtypeDeclarationAt text arguments state middle →
       BooleanDeclarationsAt text arguments middle rest checks final →
       BooleanDeclarationsAt text arguments state rest checks final
@@ -68,7 +68,7 @@ inductive BooleanDeclarationsAt (text : Source) (arguments : Bool) :
   | boolean {state middle final : ParserState} {declaration : BooleanDeclaration}
       {rest : List BooleanDeclaration} {firstChecks checks : List Predicate.Obligation} :
       state.position ≠ 0 → fixedAfter text state.position "begin" true = 0 →
-      (functionDeclarationAt text state arguments).position = 0 →
+      (callableDeclarationAt text state arguments).position = 0 →
       (subtypeDeclarationAt text state arguments).position = 0 →
       (scalarDeclarationAt text state arguments).position = 0 →
       (arrayDeclarationAt text state arguments).position = 0 →
@@ -83,61 +83,61 @@ theorem declarations_boolean_trace {text arguments state final strings}
     ∃ declarations checks, BooleanDeclarationsAt text arguments state declarations checks final := by
   induction parsed with
   | done positive stop => exact ⟨[], [], .done positive stop⟩
-  | next positive more noFunction noSubtype noScalar noArray noBoolean first rest ih =>
+  | next positive more noCallable noSubtype noScalar noArray noBoolean first rest ih =>
       have nextValid := model_object_reading_valid textValid valid first
       obtain ⟨declarations, checks, trace⟩ := ih nextValid
-      exact ⟨declarations, checks, .string positive more noFunction noSubtype noScalar noArray noBoolean first trace⟩
-  | scalar positive more noFunction noSubtype first rest ih =>
+      exact ⟨declarations, checks, .string positive more noCallable noSubtype noScalar noArray noBoolean first trace⟩
+  | scalar positive more noCallable noSubtype first rest ih =>
       obtain ⟨declarations, checks, trace⟩ := ih (model_scalar_reading_valid valid first)
-      exact ⟨declarations, checks, .scalar positive more noFunction noSubtype first trace⟩
-  | array positive more noFunction noSubtype noScalar first rest ih =>
+      exact ⟨declarations, checks, .scalar positive more noCallable noSubtype first trace⟩
+  | array positive more noCallable noSubtype noScalar first rest ih =>
       obtain ⟨declarations, checks, trace⟩ := ih (model_array_reading_valid valid first)
-      exact ⟨declarations, checks, .array positive more noFunction noSubtype noScalar first trace⟩
-  | booleanArray positive more noFunction noSubtype noScalar first rest ih =>
+      exact ⟨declarations, checks, .array positive more noCallable noSubtype noScalar first trace⟩
+  | booleanArray positive more noCallable noSubtype noScalar first rest ih =>
       obtain ⟨declaration, firstChecks, firstTrace⟩ := boolean_array_declaration_trace textValid valid.2.1 first
       obtain ⟨declarations, checks, trace⟩ := ih (model_boolean_array_reading_valid valid first)
       exact ⟨declaration.initializations ++ declarations, firstChecks ++ checks,
-        .booleanArray positive more noFunction noSubtype noScalar first firstTrace trace⟩
-  | subtype positive more noFunction first rest ih =>
+        .booleanArray positive more noCallable noSubtype noScalar first firstTrace trace⟩
+  | subtype positive more noCallable first rest ih =>
       obtain ⟨declarations, checks, trace⟩ := ih (model_subtype_reading_valid valid first)
-      exact ⟨declarations, checks, .subtype positive more noFunction first trace⟩
-  | boolean positive more noFunction noSubtype noScalar noArray first rest ih =>
+      exact ⟨declarations, checks, .subtype positive more noCallable first trace⟩
+  | boolean positive more noCallable noSubtype noScalar noArray first rest ih =>
       obtain ⟨declaration, firstChecks, firstTrace⟩ := boolean_declaration_trace textValid valid.2.1 first
       obtain ⟨declarations, checks, trace⟩ := ih (model_boolean_reading_valid valid first)
       exact ⟨declaration :: declarations, firstChecks ++ checks,
-        .boolean positive more noFunction noSubtype noScalar noArray first firstTrace trace⟩
+        .boolean positive more noCallable noSubtype noScalar noArray first firstTrace trace⟩
 
-  | function positive more accepted _ ih =>
-      obtain ⟨declarations, checks, trace⟩ := ih (model_function_declaration_valid textValid valid)
-      exact ⟨declarations, checks, .function positive more accepted trace⟩
+  | callable positive more accepted _ ih =>
+      obtain ⟨declarations, checks, trace⟩ := ih (model_callable_declaration_valid textValid valid)
+      exact ⟨declarations, checks, .callable positive more accepted trace⟩
 
 theorem boolean_declarations_reading {text arguments state final declarations checks}
     (trace : BooleanDeclarationsAt text arguments state declarations checks final) :
     ∃ strings, DeclarationsAt text arguments state strings final := by
   induction trace with
   | done positive stop => exact ⟨[], .done positive stop⟩
-  | string positive more noFunction noSubtype noScalar noArray noBoolean first rest ih =>
+  | string positive more noCallable noSubtype noScalar noArray noBoolean first rest ih =>
       obtain ⟨strings, reading⟩ := ih
-      exact ⟨_ :: strings, .next positive more noFunction noSubtype noScalar noArray noBoolean first reading⟩
-  | scalar positive more noFunction noSubtype first rest ih =>
+      exact ⟨_ :: strings, .next positive more noCallable noSubtype noScalar noArray noBoolean first reading⟩
+  | scalar positive more noCallable noSubtype first rest ih =>
       obtain ⟨strings, reading⟩ := ih
-      exact ⟨strings, .scalar positive more noFunction noSubtype first reading⟩
-  | array positive more noFunction noSubtype noScalar first rest ih =>
+      exact ⟨strings, .scalar positive more noCallable noSubtype first reading⟩
+  | array positive more noCallable noSubtype noScalar first rest ih =>
       obtain ⟨strings, reading⟩ := ih
-      exact ⟨strings, .array positive more noFunction noSubtype noScalar first reading⟩
-  | booleanArray positive more noFunction noSubtype noScalar first raw rest ih =>
+      exact ⟨strings, .array positive more noCallable noSubtype noScalar first reading⟩
+  | booleanArray positive more noCallable noSubtype noScalar first raw rest ih =>
       obtain ⟨strings, reading⟩ := ih
-      exact ⟨strings, .booleanArray positive more noFunction noSubtype noScalar first reading⟩
-  | subtype positive more noFunction first rest ih =>
+      exact ⟨strings, .booleanArray positive more noCallable noSubtype noScalar first reading⟩
+  | subtype positive more noCallable first rest ih =>
       obtain ⟨strings, reading⟩ := ih
-      exact ⟨strings, .subtype positive more noFunction first reading⟩
-  | boolean positive more noFunction noSubtype noScalar noArray first raw rest ih =>
+      exact ⟨strings, .subtype positive more noCallable first reading⟩
+  | boolean positive more noCallable noSubtype noScalar noArray first raw rest ih =>
       obtain ⟨strings, reading⟩ := ih
-      exact ⟨strings, .boolean positive more noFunction noSubtype noScalar noArray first reading⟩
+      exact ⟨strings, .boolean positive more noCallable noSubtype noScalar noArray first reading⟩
 
-  | function positive more accepted _ ih =>
+  | callable positive more accepted _ ih =>
       obtain ⟨strings, reading⟩ := ih
-      exact ⟨strings, .function positive more accepted reading⟩
+      exact ⟨strings, .callable positive more accepted reading⟩
 
 theorem array_declaration_booleanNames {text arguments state next declaration}
     (parsed : ArrayDeclarationAt text arguments state declaration next) : next.booleanNames = state.booleanNames := by
@@ -180,9 +180,9 @@ theorem boolean_declarations_analysis {text arguments state final declarations c
       rw [booleanDeclarationsAnalysis_append]
       exact following
 
-  | function _ _ accepted _ ih =>
-      have following := ih (model_function_declaration_valid textValid valid)
-      have kept := functionDeclarationAt_preserves_outer _ _ _ accepted
+  | callable _ _ accepted _ ih =>
+      have following := ih (model_callable_declaration_valid textValid valid)
+      have kept := callableDeclarationAt_preserves_outer _ _ _ accepted
       rw [kept.arrayNames, kept.booleanNames] at following
       exact following
 
@@ -285,9 +285,9 @@ theorem boolean_declarations_valid {text arguments state final declarations chec
       · rw [Predicate.discharged_append, rawChecked, following.2.2]
         rfl
 
-  | function _ _ accepted _ ih =>
-      have kept := functionDeclarationAt_preserves_outer _ _ _ accepted
-      have following := ih (kept.names.symm ▸ normal) (model_function_declaration_valid textValid valid)
+  | callable _ _ accepted _ ih =>
+      have kept := callableDeclarationAt_preserves_outer _ _ _ accepted
+      have following := ih (kept.names.symm ▸ normal) (model_callable_declaration_valid textValid valid)
         (kept.scalarNames.symm ▸ ready) (kept.scalarNames.symm ▸ static)
       simpa only [kept.dynamicFirst, kept.arrayNames, kept.booleanNames,
         booleanDeclarationFacts, ActiveFlow.initial] using following
@@ -300,12 +300,12 @@ theorem boolean_declarations_unique {text arguments state leftState rightState l
   | done positive stop =>
       cases second with
       | done => exact ⟨rfl, rfl, rfl⟩
-      | function _ more _ _ => exact False.elim (stop more)
+      | callable _ more _ _ => exact False.elim (stop more)
       | string _ more _ _ _ _ _ _ _ | scalar _ more _ _ _ _ | array _ more _ _ _ _ _ | booleanArray _ more _ _ _ _ _ _ | subtype _ more _ _ _ | boolean _ more _ _ _ _ _ _ _ => exact False.elim (stop more)
-  | string positive more noFunction noSubtype noScalar noArray noBoolean parsed rest ih =>
+  | string positive more noCallable noSubtype noScalar noArray noBoolean parsed rest ih =>
       cases second with
       | done _ stop => exact False.elim (stop more)
-      | function _ _ accepted _ => exact False.elim (accepted noFunction)
+      | callable _ _ accepted _ => exact False.elim (accepted noCallable)
       | string _ _ _ _ _ _ _ other remaining =>
           obtain ⟨rfl, rfl⟩ := declaration_unique parsed other
           exact ih remaining
@@ -329,10 +329,10 @@ theorem boolean_declarations_unique {text arguments state leftState rightState l
           have accepted := subtype_declaration_positive other
           rw [← subtype_declaration_complete other, noSubtype] at accepted
           contradiction
-  | scalar positive more noFunction noSubtype parsed rest ih =>
+  | scalar positive more noCallable noSubtype parsed rest ih =>
       cases second with
       | done _ stop => exact False.elim (stop more)
-      | function _ _ accepted _ => exact False.elim (accepted noFunction)
+      | callable _ _ accepted _ => exact False.elim (accepted noCallable)
       | string _ _ _ _ noScalar _ _ _ _ | array _ _ _ _ noScalar _ _ | booleanArray _ _ _ _ noScalar _ _ _ | boolean _ _ _ _ noScalar _ _ _ _ =>
           have accepted := scalar_declaration_positive parsed
           rw [← scalar_declaration_complete parsed, noScalar] at accepted
@@ -344,10 +344,10 @@ theorem boolean_declarations_unique {text arguments state leftState rightState l
           have accepted := subtype_declaration_positive other
           rw [← subtype_declaration_complete other, noSubtype] at accepted
           contradiction
-  | array positive more noFunction noSubtype noScalar parsed rest ih =>
+  | array positive more noCallable noSubtype noScalar parsed rest ih =>
       cases second with
       | done _ stop => exact False.elim (stop more)
-      | function _ _ accepted _ => exact False.elim (accepted noFunction)
+      | callable _ _ accepted _ => exact False.elim (accepted noCallable)
       | string _ _ _ _ _ noArray _ _ _ | boolean _ _ _ _ _ noArray _ _ _ =>
           have accepted := array_declaration_positive parsed
           rw [← array_declaration_complete parsed, noArray] at accepted
@@ -365,10 +365,10 @@ theorem boolean_declarations_unique {text arguments state leftState rightState l
           have accepted := subtype_declaration_positive other
           rw [← subtype_declaration_complete other, noSubtype] at accepted
           contradiction
-  | booleanArray positive more noFunction noSubtype noScalar parsed checks rest ih =>
+  | booleanArray positive more noCallable noSubtype noScalar parsed checks rest ih =>
       cases second with
       | done _ stop => exact False.elim (stop more)
-      | function _ _ accepted _ => exact False.elim (accepted noFunction)
+      | callable _ _ accepted _ => exact False.elim (accepted noCallable)
       | string _ _ _ _ _ noArray _ _ _ | boolean _ _ _ _ _ noArray _ _ _ =>
           have accepted := boolean_array_declaration_positive parsed
           rw [← boolean_array_declaration_complete parsed, noArray] at accepted
@@ -389,10 +389,10 @@ theorem boolean_declarations_unique {text arguments state leftState rightState l
           obtain ⟨rfl, rfl⟩ := boolean_array_declaration_checks_unique checks otherChecks
           obtain ⟨rfl, rfl, rfl⟩ := ih remaining
           exact ⟨rfl, rfl, rfl⟩
-  | subtype positive more noFunction parsed rest ih =>
+  | subtype positive more noCallable parsed rest ih =>
       cases second with
       | done _ stop => exact False.elim (stop more)
-      | function _ _ accepted _ => exact False.elim (accepted noFunction)
+      | callable _ _ accepted _ => exact False.elim (accepted noCallable)
       | string _ _ _ noSubtype _ _ _ _ _ | scalar _ _ _ noSubtype _ _ | array _ _ _ noSubtype _ _ _ | booleanArray _ _ _ noSubtype _ _ _ _ | boolean _ _ _ noSubtype _ _ _ _ _ =>
           have accepted := subtype_declaration_positive parsed
           rw [← subtype_declaration_complete parsed, noSubtype] at accepted
@@ -401,10 +401,10 @@ theorem boolean_declarations_unique {text arguments state leftState rightState l
           have same := subtype_declaration_unique parsed other
           cases same
           exact ih remaining
-  | boolean positive more noFunction noSubtype noScalar noArray parsed checks rest ih =>
+  | boolean positive more noCallable noSubtype noScalar noArray parsed checks rest ih =>
       cases second with
       | done _ stop => exact False.elim (stop more)
-      | function _ _ accepted _ => exact False.elim (accepted noFunction)
+      | callable _ _ accepted _ => exact False.elim (accepted noCallable)
       | string _ _ _ _ _ _ noBoolean _ _ =>
           have accepted := boolean_declaration_positive parsed
           rw [← boolean_declaration_complete parsed, noBoolean] at accepted
@@ -432,16 +432,16 @@ theorem boolean_declarations_unique {text arguments state leftState rightState l
           obtain ⟨rfl, rfl, rfl⟩ := ih remaining
           exact ⟨rfl, rfl, rfl⟩
 
-  | function positive more accepted rest ih =>
+  | callable positive more accepted rest ih =>
       cases second with
       | done _ stop => exact False.elim (stop more)
-      | function _ _ _ remaining => exact ih remaining
-      | string _ _ noFunction _ _ _ _ _ _
-        | scalar _ _ noFunction _ _ _
-        | array _ _ noFunction _ _ _ _
-        | booleanArray _ _ noFunction _ _ _ _ _
-        | subtype _ _ noFunction _ _
-        | boolean _ _ noFunction _ _ _ _ _ _ =>
-          exact False.elim (accepted noFunction)
+      | callable _ _ _ remaining => exact ih remaining
+      | string _ _ noCallable _ _ _ _ _ _
+        | scalar _ _ noCallable _ _ _
+        | array _ _ noCallable _ _ _ _
+        | booleanArray _ _ noCallable _ _ _ _ _
+        | subtype _ _ noCallable _ _
+        | boolean _ _ noCallable _ _ _ _ _ _ =>
+          exact False.elim (accepted noCallable)
 
 end Silver.Compose

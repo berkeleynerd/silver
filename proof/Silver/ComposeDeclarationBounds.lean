@@ -253,8 +253,8 @@ theorem declarations_bounds {text arguments state final declarations input value
   | subtype _ _ _ first _ ih => cases first; exact ih count metadata strings static
   | boolean _ _ _ _ _ _ first _ ih => cases first; exact ih count metadata strings static
 
-  | function _ _ accepted _ ih =>
-      have kept := functionDeclarationAt_preserves_outer _ _ _ accepted
+  | callable _ _ accepted _ ih =>
+      have kept := callableDeclarationAt_preserves_outer _ _ _ accepted
       rw [kept.names, kept.scalarNames] at ih
       exact ih count metadata strings static
 
