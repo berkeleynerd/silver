@@ -1,0 +1,19 @@
+{
+  "note": "Lead-authored focused-check index; gzip payloads preserve managed runner output. This is reviewed-pin candidate validation, not authoritative-certificate completion.",
+  "run_id": "20261110T013948-d5400a83673c",
+  "outcome": "success",
+  "artifacts": {
+    "events.jsonl": {
+      "retained": "events.jsonl.gz",
+      "sha256": "527846be515627ec8c5253ec52da54f36c3b8041bf7fd8aeb99562a85829ff2e"
+    },
+    "lean-focused.log": {
+      "retained": "lean-focused.log.gz",
+      "sha256": "d4d7d83cb34b30398a81153403de60640a3f6110bdacd8b204adc0abd2f2aa61"
+    },
+    "lean-focused-evidence.json": {
+      "retained": "lean-focused-evidence.json.gz",
+      "sha256": "7c45812bb73b4dd23f40d0c4e0ab722226330cc8b8c9d87be9354e0e927f7f01"
+    }
+  }
+}

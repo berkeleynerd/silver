@@ -197,6 +197,16 @@ class CompilerSourcePolicyTests(unittest.TestCase):
             with self.subTest(unrelated=unrelated):
                 self.assertNotIn("Silver." + unrelated, closure)
 
+    def test_procedure_name_checks_join_candidates_to_authoritative_source(self):
+        candidate = self.project_import_closure("Silver.ProcedureNameSourceCandidate")
+        self.assertIn("Silver.ReviewedOutputShape", candidate)
+        self.assertIn("Silver.ProcedureNameSource", candidate)
+        self.assertFalse(any(module.endswith("Certificate") for module in candidate))
+        self.assertNotIn("Silver.OutputSourceBridge", candidate)
+        actual = self.project_import_closure("Silver.ProcedureNameSourceChecks")
+        self.assertLessEqual(candidate, actual)
+        self.assertLessEqual(self.project_import_closure("Silver.OutputSourceBridge"), actual)
+
     def test_all_bytes_have_the_explicit_compiler_alphabet(self):
         allowed = {9, 10, 13, *range(32, 127)}
         for byte in range(256):
