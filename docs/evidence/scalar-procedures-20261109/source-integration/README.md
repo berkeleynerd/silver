@@ -12,6 +12,8 @@ actual inputs, settings, log and fresh axiom-audit result.
 | `20261110T025548-509b57874b0d` | Basic procedure dispatch and lexical name-reading foundations (`bc9a88529f`, integrated as `0321d5cec6`) | 29,480 |
 | `20261110T031357-6748f291f657` | Procedure declaration extraction, initialized outputs and metadata preservation (`cc8b53e3cc`, integrated as `d8551dbc85`) | 23,870 |
 | `20261110T032117-53d98ae45fc2` | Scalar/array lexical read exclusion and Character/String literal traversal (`a0f414bfd2`, integrated as `83e8be0436`) | 8,369 |
+| `20261110T034825-2a8123f9ef80` | Procedure visibility through inherited declarations, models, loop/adapter interfaces and retained Sequence model (`c4229bbd8c`, integrated as `3e9b54cd5f`; outer body forwarding also integrated as `7e41f55581`) | 39,214 |
+| `20261110T035322-f0371cac4eee` | Mixed callable dispatch and outer-state preservation (`dc81ef414a`, integrated as `47c1e61c02`) | 14,986 |
 
 The two cache-seed records identify copies into the integration workspace while
 both proof workspaces were idle. Complete artifact families, private/server
