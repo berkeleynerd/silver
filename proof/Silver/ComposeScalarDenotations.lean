@@ -37,6 +37,7 @@ def scalarTypeEquation (calls : Calls) (text : Source) (state : ParserState) (po
       decide (calls.function .arrayLookup text state.arrayNames.names first after ≠ 0) ||
       decide (calls.function .booleanLookup text state.booleanNames first after ≠ 0) ||
       decide (calls.function .functionLookup text state.functions first after ≠ 0) ||
+      decide (calls.function .procedureLookup text state.procedures first after ≠ 0) ||
       calls.function .formalHides text state first after ||
       (state.hiding.integerHidden && calls.function .nameIs text first after "integer")
   then ⟨0, .empty⟩
@@ -62,6 +63,7 @@ def subtypeDeclarationEquation (calls : Calls) (text : Source) (state : ParserSt
       decide (calls.function .arrayLookup text state.arrayNames.names typeFirst typeAfter ≠ 0) ||
       decide (calls.function .booleanLookup text state.booleanNames typeFirst typeAfter ≠ 0) ||
       decide (calls.function .functionLookup text state.functions typeFirst typeAfter ≠ 0) ||
+      decide (calls.function .procedureLookup text state.procedures typeFirst typeAfter ≠ 0) ||
       calls.function .formalHides text state typeFirst typeAfter ||
       (state.hiding.integerHidden && calls.function .nameIs text typeFirst typeAfter "integer") ||
       (state.hiding.booleanHidden && calls.function .nameIs text typeFirst typeAfter "boolean") ||

@@ -1351,8 +1351,11 @@ def newNameBody : Expr .truth :=
   .andThen (.andThen existing
     (.not (.app (.app (.app (.app (.function .formalHides) text) state) first) after)))
     (.group (.orElse (.field .statePure state)
-      (.eq (.app (.app (.app (.app (.function .functionLookup) text)
-        (.field .stateFunctions state)) first) after) (.number 0))))
+      (.group (.andThen
+        (.eq (.app (.app (.app (.app (.function .functionLookup) text)
+          (.field .stateFunctions state)) first) after) (.number 0))
+        (.eq (.app (.app (.app (.app (.function .procedureLookup) text)
+          (.field .stateProcedures state)) first) after) (.number 0))))))
 
 def addBindingBody : Expr .state :=
   .stateBinding (.variable "state") (.variable "following")
@@ -1447,16 +1450,18 @@ def subtypeLookupModelBody : Expr .number :=
       (.app (.app (.app (.app (.app (.function .subtypeLookupModel) text) names) first) after) (.sub index (.number 1))))
 
 /-- Extend an existing left-associated rejection condition with the actual
-function/formal visibility checks. This builds ordinary guarded trees; it does
+subprogram/formal visibility checks. This builds ordinary guarded trees; it does
 not introduce a new permissive rendering constructor. -/
 def withFunctionTypeHiding (rejected : Expr .truth) (text : Expr .source)
     (state : Expr .state) (first after : Expr .number) (allMarks : Bool := true) : Expr .truth :=
   let same (word : String) := Expr.app (.app (.app (.app (.function .nameIs) text) first) after) (.word word)
   let hidden (field : Field .hiddenMarks .truth) (word : String) :=
     Expr.group (.andThen (.field field (.field .stateHiding state)) (same word))
-  let common := Expr.orElse (.orElse (.orElse rejected
+  let common := Expr.orElse (.orElse (.orElse (.orElse rejected
     (.ne (.app (.app (.app (.app (.function .functionLookup) text)
       (.field .stateFunctions state)) first) after) (.number 0)))
+    (.ne (.app (.app (.app (.app (.function .procedureLookup) text)
+      (.field .stateProcedures state)) first) after) (.number 0)))
     (.app (.app (.app (.app (.function .formalHides) text) state) first) after))
     (hidden .hiddenInteger "integer")
   if allMarks then .orElse (.orElse common (hidden .hiddenBoolean "boolean"))

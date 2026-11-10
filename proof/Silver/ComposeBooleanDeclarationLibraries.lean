@@ -35,6 +35,7 @@ structure Links (imports : Imports) (composed : Compose.Expressions.Calls) (cond
     | .subtype => composed.function .subtypeLookup text state.subtypeNames first after
     | .boolean => composed.function .booleanLookup text state.booleanNames first after
     | .function => composed.function .functionLookup text state.functions first after
+    | .procedure => composed.function .procedureLookup text state.procedures first after
   context : ∀ scan, scan.state.scalarNames.length ≤ ScalarExpression.maxBindings →
     imports.contextOf scan =
     fromNative (Adapter.contextExpr.eval BodyNative.modelCalls {scan := toScan scan})
@@ -101,6 +102,7 @@ theorem imports_meaning {imports composed condition}
     | subtype => exact interpreted_subtypeLookup composed equations text tv state.subtypeNames _ _ subtypes bounds.typeFirst bounds.typeAfter
     | boolean => exact equations.booleanLookup text tv state.booleanNames _ _ booleans bounds.typeFirst bounds.typeAfter
     | function => exact equations.functionLookup text tv state.functions _ _ functions bounds.typeFirst bounds.typeAfter
+    | procedure => exact equations.procedureLookup text tv state.procedures _ _ valid.1.procedures bounds.typeFirst bounds.typeAfter
   · rw [links.context _ scalars.1]
     rfl
   · dsimp only

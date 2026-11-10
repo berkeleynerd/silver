@@ -253,6 +253,8 @@ theorem interpreted_arrayDeclaration (calls : Calls) (laws : HelperEquations cal
     exact model_arrayParts_typeName text state vstate.1 vstate.2.2.2.2.2.2.2.1 positionZero
   have efunction := equations.functionLookup text valid state.functions parts.typeFirst parts.typeAfter
     vstate.functions positions.typeFirst positions.typeAfter
+  have eprocedure := equations.procedureLookup text valid state.procedures parts.typeFirst parts.typeAfter
+    vstate.procedures positions.typeFirst positions.typeAfter
   have eformal := equations.formalHides text valid state parts.typeFirst parts.typeAfter
     stateValid positions.typeFirst positions.typeAfter
   have ename := interpreted_newName calls equations text valid state parts.first parts.after arguments
@@ -274,7 +276,7 @@ theorem interpreted_arrayDeclaration (calls : Calls) (laws : HelperEquations cal
       equations.nameIs text valid parts.first parts.after "boolean" nameValid (by decide) (by decide),
       equations.scalarEmpty parts.lower.bounds positions.lowerBounds,
       equations.scalarEmpty parts.upper.bounds positions.upperBounds,
-      estring, escalar, earray, eboolean, esubtype, efunction, eformal,
+      estring, escalar, earray, eboolean, esubtype, efunction, eprocedure, eformal,
       equations.nameIs text valid parts.typeFirst parts.typeAfter "integer" typeNameValid (by decide) (by decide),
       equations.nameIs text valid parts.typeFirst parts.typeAfter "boolean" typeNameValid (by decide) (by decide),
       equations.nameIs text valid parts.typeFirst parts.typeAfter "character" typeNameValid (by decide) (by decide)]

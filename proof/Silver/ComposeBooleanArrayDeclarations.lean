@@ -30,6 +30,7 @@ def BooleanArrayDeclarationReady (text : Source) (state : ParserState) (argument
     ArrayBindings.lookup text state.arrayNames.names parts.typeFirst parts.typeAfter = 0 ∧
     BooleanBindings.lookup text state.booleanNames parts.typeFirst parts.typeAfter = 0 ∧
     FunctionBindings.lookup text state.functions parts.typeFirst parts.typeAfter = 0 ∧
+    ProcedureBindings.lookup text state.procedures parts.typeFirst parts.typeAfter = 0 ∧
     formalHides text state parts.typeFirst parts.typeAfter = false ∧
     (state.hiding.integerHidden = true → Named.nameIs text parts.typeFirst parts.typeAfter ("integer".toList.map Char.toNat) = false) ∧
     (state.hiding.booleanHidden = true → Named.nameIs text parts.typeFirst parts.typeAfter ("boolean".toList.map Char.toNat) = false) ∧
@@ -39,7 +40,7 @@ def BooleanArrayDeclarationReady (text : Source) (state : ParserState) (argument
 
 theorem BooleanArrayDeclarationReady.kind {text state arguments parts}
     (ready : BooleanArrayDeclarationReady text state arguments parts) : parts.isBoolean = true := by
-  rcases ready with ⟨_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, kind⟩
+  rcases ready with ⟨_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, kind⟩
   exact kind
 
 theorem arrayParts_boolean_components {text state}

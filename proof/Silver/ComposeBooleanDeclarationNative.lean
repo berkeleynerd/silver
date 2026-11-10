@@ -81,7 +81,7 @@ def Mark.hidden (mark : Mark) (state : ParserState) : Bool :=
   | .boolean => state.hiding.booleanHidden
   | .character => state.hiding.characterHidden
 
-inductive Lookup | string | scalar | array | subtype | boolean | function
+inductive Lookup | string | scalar | array | subtype | boolean | function | procedure
   deriving DecidableEq, Repr
 
 def lookup (kind : Lookup) (text : Source) (state : ParserState) (first after : Nat) : Nat :=
@@ -92,6 +92,7 @@ def lookup (kind : Lookup) (text : Source) (state : ParserState) (first after : 
   | .subtype => IntegerSubtypes.lookup text state.subtypeNames first after
   | .boolean => BooleanBindings.lookup text state.booleanNames first after
   | .function => FunctionBindings.lookup text state.functions first after
+  | .procedure => ProcedureBindings.lookup text state.procedures first after
 
 @[ext] structure Imports where
   skip : Source → Nat → Nat
@@ -240,6 +241,7 @@ def Expr.render : Expr α → List String
         | .subtype => (["lookup_subtype"], ["subtype_names"])
         | .boolean => (["lookup_boolean"], ["boolean_names"])
         | .function => (["functions", ".", "lookup"], ["functions"])
+        | .procedure => (["procedures", ".", "lookup"], ["procedures"])
       call name [["text"], ["state", "."] ++ names, first.render, after.render]
   | .contextOf => call ["context_of"] [["(", "state", ",", "false", ",", "false", ")"]]
   | .initialFlow ctx => call ["initial_flow"] [ctx.render]
@@ -416,8 +418,9 @@ def rejected : Expr Bool :=
     (.ne (.lookup .boolean (.local .typeFirst) (.local .typeAfter)) (.number 0))
   let hidden (mark : Mark) := Expr.group (.andThen (.hiddenMark mark)
     (.nameIsMark mark (.local .typeFirst) (.local .typeAfter)))
-  .orElse (.orElse (.orElse (.orElse (.orElse base
+  .orElse (.orElse (.orElse (.orElse (.orElse (.orElse base
     (.ne (.lookup .function (.local .typeFirst) (.local .typeAfter)) (.number 0)))
+    (.ne (.lookup .procedure (.local .typeFirst) (.local .typeAfter)) (.number 0)))
     (.formalHides (.local .typeFirst) (.local .typeAfter)))
     (hidden .integer)) (hidden .boolean)) (hidden .character)
 
@@ -468,6 +471,7 @@ def reject (imports : Imports) (text : Source) (state : ParserState) (arguments 
     decide (imports.lookup .subtype text state p.typeFirst p.typeAfter ≠ 0) ||
     decide (imports.lookup .boolean text state p.typeFirst p.typeAfter ≠ 0) ||
     decide (imports.lookup .function text state p.typeFirst p.typeAfter ≠ 0) ||
+    decide (imports.lookup .procedure text state p.typeFirst p.typeAfter ≠ 0) ||
     imports.formalHides text state p.typeFirst p.typeAfter ||
     (state.hiding.integerHidden && imports.nameIsMark .integer text p.typeFirst p.typeAfter) ||
     (state.hiding.booleanHidden && imports.nameIsMark .boolean text p.typeFirst p.typeAfter) ||

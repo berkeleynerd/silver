@@ -149,6 +149,7 @@ def arrayDeclarationEquation (calls : Calls) (executable : Bool)
       decide (calls.function .arrayLookup text state.arrayNames.names typeFirst typeAfter ≠ 0) ||
       decide (calls.function .booleanLookup text state.booleanNames typeFirst typeAfter ≠ 0) ||
       decide (calls.function .functionLookup text state.functions typeFirst typeAfter ≠ 0) ||
+      decide (calls.function .procedureLookup text state.procedures typeFirst typeAfter ≠ 0) ||
       calls.function .formalHides text state typeFirst typeAfter ||
       (state.hiding.integerHidden && calls.function .nameIs text typeFirst typeAfter "integer") ||
       (state.hiding.booleanHidden && calls.function .nameIs text typeFirst typeAfter "boolean") ||

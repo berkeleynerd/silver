@@ -150,6 +150,7 @@ def characterDeclarationEquation (calls : Calls) (text : Source) (state : Parser
       decide (calls.function .subtypeLookup text state.subtypeNames typeFirst typeAfter ≠ 0) ||
       decide (calls.function .booleanLookup text state.booleanNames typeFirst typeAfter ≠ 0) ||
       decide (calls.function .functionLookup text state.functions typeFirst typeAfter ≠ 0) ||
+      decide (calls.function .procedureLookup text state.procedures typeFirst typeAfter ≠ 0) ||
       calls.function .formalHides text state typeFirst typeAfter ||
       (state.hiding.integerHidden && calls.function .nameIs text typeFirst typeAfter "integer") ||
       (state.hiding.booleanHidden && calls.function .nameIs text typeFirst typeAfter "boolean") ||
@@ -177,6 +178,7 @@ theorem characterDeclaration_progress_guard (text : Source) (state : ParserState
       decide (IntegerSubtypes.lookup text state.subtypeNames parts.typeFirst parts.typeAfter ≠ 0) ||
       decide (BooleanBindings.lookup text state.booleanNames parts.typeFirst parts.typeAfter ≠ 0) ||
       decide (FunctionBindings.lookup text state.functions parts.typeFirst parts.typeAfter ≠ 0) ||
+      decide (ProcedureBindings.lookup text state.procedures parts.typeFirst parts.typeAfter ≠ 0) ||
       formalHides text state parts.typeFirst parts.typeAfter ||
       (state.hiding.integerHidden && Named.nameIs text parts.typeFirst parts.typeAfter ("integer".toList.map Char.toNat)) ||
       (state.hiding.booleanHidden && Named.nameIs text parts.typeFirst parts.typeAfter ("boolean".toList.map Char.toNat)) ||
