@@ -121,6 +121,41 @@ report envelope within the existing allocation. Its
 [bounded review](reviews/review-scalar-function-capacity-20261107.md) does not
 replace complete compiler proof or the final Lean/source audit.
 
+## Small nonrecursive scalar procedures
+
+The [procedure increment](scalar-procedures.md) is under development in #370;
+its complete native, semantic and actual-source checkpoint remains pending.
+This section records the required argument, without claiming delivered support.
+
+Each closed declaration must be checked over the full declared input and
+`in out` domains, including when Main never calls it. Its source-written leading
+assignments initialize every `out` formal in declaration order. Their RHSs read
+only initialized locals and input-bearing formals. The source bridge must connect
+the actual sequential assignments to their common pre-output frame; it cannot
+replace those assignments with arbitrary initialized output values. Ordinary
+body checking starts writable Integer formals at their full declared ranges.
+
+Calls check all inputs in the same incoming caller state. Every writable actual
+is a bare mutable scalar, and its declared range contains the complete formal
+output range. Distinct writable targets and exclusion of cross-actual reads
+establish copy-back order independence. The resulting caller state preserves
+all unrelated values and String/input facts, while written Integer targets
+receive the formal's full declared interval and Boolean targets retain no
+predicate relationship. Earlier accepted declarations and finite counted loops
+must construct a terminating execution and discharge argument; an assumed
+procedure-result oracle is insufficient.
+
+The existing native recipe uses `--no-inlining` on unchanged application source.
+The [source-selected report policy](#source-selected-application-policies)
+requires every declared procedure, successful initialization of each `out`
+formal and all emitted safety checks. Existing function termination witnesses
+remain mandatory. The pinned producer emits no procedure termination witness;
+the procedure termination argument therefore belongs to the constructed
+declaration and body semantics. The
+[producer/capacity record](scalar-procedures-report-capacity.md) derives the
+38,186,752-byte report envelope and selected 64 MiB allocation. Focused tests
+exercise these rules; they do not replace complete compiler or source proofs.
+
 ## Boolean scalar objects and expressions
 
 The [Boolean delivery checkpoint](boolean-objects.md#delivery-assurance-and-validation)
@@ -1217,12 +1252,24 @@ Admission supplies its exact source name; coverage does not accept arbitrary
 `--no-inlining` to analyze each body over its full formal domain. The exact local
 entities may carry successful `SUBPROGRAM_TERMINATION` flow records and
 `CLAIM_EFFECTS`/`CLAIM_AORTE` dependencies, with the same complete safety-check
-discharge requirements as Main. No function postcondition is assumed. Complete
-delivery validation remains pending as recorded in the capability record.
+discharge requirements as Main. No function postcondition is assumed. The
+capability record retains the completed function delivery evidence.
+
+The pending [procedure increment](scalar-procedures.md) extends that exact
+source inventory to every local procedure and its `out` formal names, including
+unused procedures. Each such formal requires exactly one `UNINITIALIZED` flow
+record with severity `info`, `how_proved = flow`, filename `main.adb`, positive
+location, its owning procedure entity and the exact message
+`initialization of "NAME" proved`. Missing or duplicate initialization, a
+different owner or formal, suppression and justification are rejected. `in out`
+formals require no such output-initialization record. Procedure call dependencies
+permit Effects/AoRTE claims, without assuming a procedure postcondition. The
+policy uses the projection-preserved fields; opaque proof-tree data supplies no
+initialization evidence. Function termination records remain required.
 
 Every emitted application safety record must be a proved/info `VC_RANGE_CHECK`,
 `VC_LENGTH_CHECK`, `VC_OVERFLOW_CHECK`, `VC_DIVISION_CHECK` or `VC_INDEX_CHECK`,
-with filename `main.adb`, the exact Main or declared local-function entity,
+with filename `main.adb`, the exact Main or declared local-subprogram entity,
 valid positive location, prover completion and no suppression or justification. Empty safety
 lists are permitted when checks were eliminated. Required coverage, progress
 and dependency fields remain checked; dependencies must identify approved
@@ -1236,7 +1283,7 @@ message `unused assignment`. All four policies additionally permit
 `INEFFECTIVE` / `statement has no effect` and `DEAD_CODE` /
 `this statement is never reached`, observed for statically known predicates.
 Every allowed advisory must have warning severity,
-flow provenance, filename `main.adb`, the exact Main or declared local-function
+flow provenance, filename `main.adb`, the exact Main or declared local-subprogram
 entity, a positive location and no suppression
 or justification. There is no independent advisory-count cap; the source grammar
 and complete report domain still constrain production. These diagnostics do not
@@ -1245,13 +1292,14 @@ waive safety checks. Repeated output permits exactly `"NAME" is set by
 `Put_Line` and NAME one of `Written_Count`,
 `Flushed`, `Succeeded` or `Written_Bytes`. Other messages remain rejected. Some legal names make GNATprove omit an advisory.
 
-Identified local functions additionally permit `UNUSED_VARIABLE` with exactly
+Identified local functions and procedures additionally permit `UNUSED_VARIABLE` with exactly
 `unused variable "NAME"`, warning severity and flow provenance. The name obeys
 the checked Ada identifier grammar and 4,096-byte source bound. The source file,
 positive location and exact local entity remain required, and suppression or
 justification is rejected. This unused-formal advisory is excluded from Main's
 entity. Its producer route and storage accounting are retained in the
-[function report-capacity record](scalar-functions-report-capacity.md).
+[function report-capacity record](scalar-functions-report-capacity.md) and
+[procedure extension](scalar-procedures-report-capacity.md).
 
 The application warning list also permits the pinned `imprecise-image` advisory
 described in the [Image producer record](for-loops-integers-image.md). Its full
