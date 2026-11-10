@@ -2,6 +2,7 @@ module
 
 public import Silver.ProcedureDeclarationAdmission
 public import Silver.PredicateNativeState
+import all Init.Data.Repr
 
 @[expose] public section
 
@@ -749,6 +750,10 @@ def apply6 (fn : Expr (.arrow a (.arrow b (.arrow c (.arrow d (.arrow e (.arrow 
 
 inductive Command : Ty → Type
   | letValue (name : String) : Expr a → Command b → Command b
+  /-- Exact Static metadata lemma call. Its native contract is checked separately;
+  the call and its arguments are erased from runtime evaluation. -/
+  | staticProcedureMetadataAppend : Expr .source → Expr .procedures → Expr .procedureSignature →
+      Command ty → Command ty
   /-- Exact Static assertion used at the procedure body's initial flow.
   Native verification discharges it; its checked erasure has no runtime effect. -/
   | staticInitialFlow : Expr .bodyScan → Expr .context → Command ty → Command ty
@@ -759,6 +764,7 @@ inductive Command : Ty → Type
 
 def Command.eval (calls : Calls) (locals : Locals) : Command ty → ty.meaning
   | .letValue name value body => body.eval calls (locals.set _ name (value.eval calls locals))
+  | .staticProcedureMetadataAppend _ _ _ body => body.eval calls locals
   | .staticInitialFlow _ _ body => body.eval calls locals
   | .beginBody body | .block body => body.eval calls locals
   | .guard condition rejected body =>
@@ -768,6 +774,9 @@ def Command.eval (calls : Calls) (locals : Locals) : Command ty → ty.meaning
 def Command.render : Command ty → List String
   | @Command.letValue a _ name value body =>
       [name, ":", "constant"] ++ a.name ++ [":="] ++ value.render ++ [";"] ++ body.render
+  | .staticProcedureMetadataAppend text environment item body =>
+      ["lemma_procedure_metadata_append", "("] ++
+      separated [text.render, environment.render, item.render] ++ [")", ";"] ++ body.render
   | .staticInitialFlow scan context body => ["pragma", "assert", "(", "static", "=>"] ++
       scan.render ++ [".", "facts", ".", "count", "="] ++
       context.render ++ [".", "scalar_names", ".", "count", "and", "then", "(", "for", "all", "index", "in"] ++
@@ -822,6 +831,8 @@ def Expr.scoped (scope : Scope) : Expr ty → Bool
 
 def Command.scoped (scope : Scope) : Command ty → Bool
   | @Command.letValue a _ name value body => value.scoped scope && !(scope.any (·.2 == name)) && body.scoped ((a, name) :: scope)
+  | .staticProcedureMetadataAppend text environment item body =>
+      text.scoped scope && environment.scoped scope && item.scoped scope && body.scoped scope
   | .staticInitialFlow scan context body => !(scope.any (·.2 == "index")) &&
       scan.scoped scope && context.scoped scope && body.scoped scope
   | .beginBody body | .block body => body.scoped scope
@@ -949,11 +960,54 @@ def Expr.wellFormed : Expr ty → Bool
 
 def Command.wellFormed : Command ty → Bool
   | .letValue _ value body => value.value && value.wellFormed && body.wellFormed
+  | .staticProcedureMetadataAppend text environment item body =>
+      text.value && environment.value && item.value &&
+      text.wellFormed && environment.wellFormed && item.wellFormed && body.wellFormed
   | .staticInitialFlow scan context body => scan.prefix && context.prefix &&
       scan.wellFormed && context.wellFormed && body.wellFormed
   | .beginBody body | .block body => body.wellFormed
   | .guard condition rejected body => condition.value && rejected.value && condition.wellFormed && rejected.wellFormed && body.wellFormed
   | .returned value => value.value && value.wellFormed
+
+/-- Erasure preserves every continuation and linked runtime interpretation.
+The native proof discharges the separately source-checked lemma contract. -/
+theorem static_procedure_metadata_append_erased (calls : Calls) (locals : Locals)
+    (text : Expr .source) (environment : Expr .procedures) (item : Expr .procedureSignature)
+    (body : Command ty) :
+    (Command.staticProcedureMetadataAppend text environment item body).eval calls locals =
+      body.eval calls locals := rfl
+
+/-- The exact call retains argument order, recursively checks all arguments and
+the continuation, and introduces no bindings into the continuation's scope. -/
+theorem static_procedure_metadata_append_source_guards :
+    let text : Expr .source := .variable "text"
+    let frame : Expr .state := .variable "frame"
+    let environment : Expr .procedures := .field .procedures frame
+    let item : Expr .procedureSignature :=
+      .procedureSignature (.number 1) (.number 2) (.number 1) (.number 1)
+    let done : Command .state := .returned .invalid
+    let scope : Scope := [(.source, "text"), (.state, "frame")]
+    (Command.staticProcedureMetadataAppend text environment item done).render =
+      ["lemma_procedure_metadata_append", "(", "text", ",", "frame", ".", "procedures", ",",
+       "(", "1", ",", "2", ",", "1", ",", "1", ")", ")", ";", "return", "invalid_state", ";"] ∧
+    (Command.staticProcedureMetadataAppend text environment item done).wellFormed = true ∧
+    (Command.staticProcedureMetadataAppend text environment item done).scoped scope = true ∧
+    (Command.staticProcedureMetadataAppend (.beginValue text) environment item done).wellFormed = false ∧
+    (Command.staticProcedureMetadataAppend text (.field .procedures (.group frame)) item done).wellFormed = false ∧
+    (Command.staticProcedureMetadataAppend text environment
+      (.procedureSignature (.number 1) (.number 2) (.number 1)
+        (.sub (.number 3) (.sub (.number 2) (.number 1)))) done).wellFormed = false ∧
+    (Command.staticProcedureMetadataAppend text environment item
+      (.returned (.letValue "value" .initial (.beginValue (.variable "value")))) : Command .state).wellFormed = false ∧
+    (Command.staticProcedureMetadataAppend text environment item done).scoped [(.state, "frame")] = false ∧
+    (Command.staticProcedureMetadataAppend text environment item done).scoped [(.source, "text")] = false ∧
+    (Command.staticProcedureMetadataAppend text environment
+      (.procedureSignature (.variable "first") (.number 2) (.number 1) (.number 1)) done).scoped scope = false ∧
+    (Command.staticProcedureMetadataAppend text environment item
+      (.returned (.variable "missing")) : Command .state).scoped scope = false ∧
+    (Command.staticProcedureMetadataAppend text environment item
+      (.returned (.variable "frame")) : Command .state).scoped scope = true := by
+  decide +kernel
 
 /-- Static erasure preserves the continuation for all linked calls and locals;
 the native proof, not this equality, discharges the written assertion. -/

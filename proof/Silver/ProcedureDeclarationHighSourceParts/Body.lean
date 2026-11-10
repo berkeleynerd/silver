@@ -20,4 +20,9 @@ theorem ordinary_0 :
     BooleanDeclarationNative.SourceChecks.ordinaryFunction item.1 Output.SourceShape.outputImplementation = some item.2 := by
   decide +kernel
 
+theorem metadata_append_header :
+    procedureHeader "lemma_procedure_metadata_append" "is" Output.SourceShape.outputImplementation =
+      some HighSourceChecks.metadataAppendHeader := by
+  decide +kernel
+
 end Silver.ProcedureDeclarationHighSourceCandidate.Parts

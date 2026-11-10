@@ -8,6 +8,11 @@ public import Silver.ComposeBooleanDeclarationSource
 namespace Silver.Compose.FunctionDeclarationNative.SourceChecks
 open Silver.SourceBridge
 
+/-- The complete Static helper header binds the erased call to its native
+contract; native verification still discharges every obligation. -/
+def metadataAppendHeader : List String := expectedTokens
+  "(Text : String; Environment : Functions.Metadata; Item : Functions.Signature) with Ghost => Static, Global => null, Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length and then Functions.Valid_Metadata (Text, Environment) and then Environment.Count < Functions.Max_Functions and then Item.First > 0 and then Valid_Name_State (Text, Item.First, Item.After) and then Item.Count > 0 and then Item.Formal_First > 0 and then Item.Formal_First <= Environment.Parameter_Count and then Item.Count <= Environment.Parameter_Count - Item.Formal_First + 1 and then not Scalars.Is_Empty (Item.Result_Bounds), Post => Functions.Valid_Metadata (Text, Functions.Append (Environment, Item))"
+
 /-- Every declared helper contract is retained, including complete static
 loop-to-model postconditions. Native proof discharge remains required. -/
 def headers : List (String × String × List String) := [
@@ -60,6 +65,7 @@ def loops : List (String × List String) := [
 
 structure Checked (tokens : List String) : Prop where
   trees : CheckedTrees
+  metadataAppend : procedureHeader "lemma_function_metadata_append" "is" tokens = some metadataAppendHeader
   headers : ∀ item ∈ headers, functionHeader item.1 item.2.1 tokens = some item.2.2
   expressions : ∀ item ∈ expressions, expressionDeclaration item.1 tokens = some (item.2.1, item.2.2)
   ordinary : ∀ item ∈ ordinary, BooleanDeclarationNative.SourceChecks.ordinaryFunction item.1 tokens = some item.2

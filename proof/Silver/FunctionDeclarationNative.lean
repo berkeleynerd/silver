@@ -2,6 +2,7 @@ module
 
 public import Silver.FunctionDeclarationAdmission
 public import Silver.PredicateNativeState
+import all Init.Data.Repr
 
 @[expose] public section
 
@@ -696,6 +697,10 @@ def parameterFrameModelBody : Expr .state :=
 
 inductive Command : Ty → Type
   | letValue (name : String) : Expr a → Command b → Command b
+  /-- Exact Static metadata lemma call. Its native contract is checked separately;
+  the call and its arguments are erased from runtime evaluation. -/
+  | staticFunctionMetadataAppend : Expr .source → Expr .metadata → Expr .signature →
+      Command ty → Command ty
   | beginBody : Command ty → Command ty
   | guard : Expr .truth → Expr ty → Command ty → Command ty
   | block : Command ty → Command ty
@@ -703,6 +708,7 @@ inductive Command : Ty → Type
 
 def Command.eval (calls : Calls) (locals : Locals) : Command ty → ty.meaning
   | .letValue name value body => body.eval calls (locals.set _ name (value.eval calls locals))
+  | .staticFunctionMetadataAppend _ _ _ body => body.eval calls locals
   | .beginBody body | .block body => body.eval calls locals
   | .guard condition rejected body =>
       if condition.eval calls locals then rejected.eval calls locals else body.eval calls locals
@@ -711,6 +717,9 @@ def Command.eval (calls : Calls) (locals : Locals) : Command ty → ty.meaning
 def Command.render : Command ty → List String
   | @Command.letValue a _ name value body =>
       [name, ":", "constant"] ++ a.name ++ [":="] ++ value.render ++ [";"] ++ body.render
+  | .staticFunctionMetadataAppend text environment item body =>
+      ["lemma_function_metadata_append", "("] ++
+      separated [text.render, environment.render, item.render] ++ [")", ";"] ++ body.render
   | .beginBody body => ["begin"] ++ body.render
   | .guard condition rejected body => ["if"] ++ condition.render ++ ["then", "return"] ++ rejected.render ++
       [";", "end", "if", ";"] ++ body.render
@@ -745,7 +754,12 @@ def functionBodyBody : Command .state :=
   let endAfter : Expr .number := .variable "end_after"
   let following : Expr .number := .variable "following"
   .letValue "locals" (apply3 (.function .functionLocals) text frame arguments) <|
-    .beginBody <| .guard (.eq (.field .position locals) (.number 0)) .invalid <|
+    .beginBody <|
+    .staticFunctionMetadataAppend text (.field .functions frame)
+      (.signature first after (.field .firstParameter frame)
+        (.add (.sub (.field .parameterCount (.field .functions frame)) (.field .firstParameter frame)) (.number 1))
+        (.field .typeKind resultType) (.field .typeBounds resultType)) <|
+    .guard (.eq (.field .position locals) (.number 0)) .invalid <|
     .block <| .letValue "bound" (apply2 (.function .parameterFrame) text locals) <|
     .beginBody <| .guard (.eq (.field .position bound) (.number 0)) .invalid <|
     .block <| .letValue "start" (.update .position bound (apply3 (.function .take) text (.field .position bound) (.token .beginKeyword))) <|
@@ -847,6 +861,8 @@ def Expr.scoped (scope : Scope) : Expr ty → Bool
 
 def Command.scoped (scope : Scope) : Command ty → Bool
   | @Command.letValue a _ name value body => value.scoped scope && body.scoped ((a, name) :: scope)
+  | .staticFunctionMetadataAppend text environment item body =>
+      text.scoped scope && environment.scoped scope && item.scoped scope && body.scoped scope
   | .beginBody body | .block body => body.scoped scope
   | .guard condition rejected body => condition.scoped scope && rejected.scoped scope && body.scoped scope
   | .returned value => value.scoped scope
@@ -949,9 +965,54 @@ def Expr.wellFormed : Expr ty → Bool
 
 def Command.wellFormed : Command ty → Bool
   | .letValue _ value body => value.value && value.wellFormed && body.wellFormed
+  | .staticFunctionMetadataAppend text environment item body =>
+      text.value && environment.value && item.value &&
+      text.wellFormed && environment.wellFormed && item.wellFormed && body.wellFormed
   | .beginBody body | .block body => body.wellFormed
   | .guard condition rejected body => condition.value && rejected.value && condition.wellFormed && rejected.wellFormed && body.wellFormed
   | .returned value => value.value && value.wellFormed
+
+/-- Erasure preserves every continuation and linked runtime interpretation.
+The native proof discharges the separately source-checked lemma contract. -/
+theorem static_function_metadata_append_erased (calls : Calls) (locals : Locals)
+    (text : Expr .source) (environment : Expr .metadata) (item : Expr .signature)
+    (body : Command ty) :
+    (Command.staticFunctionMetadataAppend text environment item body).eval calls locals =
+      body.eval calls locals := rfl
+
+/-- The exact call retains argument order, recursively checks all arguments and
+the continuation, and introduces no bindings into the continuation's scope. -/
+theorem static_function_metadata_append_source_guards :
+    let text : Expr .source := .variable "text"
+    let frame : Expr .state := .variable "frame"
+    let environment : Expr .metadata := .field .functions frame
+    let item : Expr .signature :=
+      .signature (.number 1) (.number 2) (.number 1) (.number 1) (.kind .integer) .full
+    let done : Command .state := .returned .invalid
+    let scope : Scope := [(.source, "text"), (.state, "frame")]
+    (Command.staticFunctionMetadataAppend text environment item done).render =
+      ["lemma_function_metadata_append", "(", "text", ",", "frame", ".", "functions", ",",
+       "(", "1", ",", "2", ",", "1", ",", "1", ",", "functions", ".", "integer_kind", ",",
+       "scalars", ".", "full", ")", ")", ";", "return", "invalid_state", ";"] ∧
+    (Command.staticFunctionMetadataAppend text environment item done).wellFormed = true ∧
+    (Command.staticFunctionMetadataAppend text environment item done).scoped scope = true ∧
+    (Command.staticFunctionMetadataAppend (.beginValue text) environment item done).wellFormed = false ∧
+    (Command.staticFunctionMetadataAppend text (.field .functions (.group frame)) item done).wellFormed = false ∧
+    (Command.staticFunctionMetadataAppend text environment
+      (.signature (.number 1) (.number 2) (.number 1)
+        (.sub (.number 3) (.sub (.number 2) (.number 1))) (.kind .integer) .full) done).wellFormed = false ∧
+    (Command.staticFunctionMetadataAppend text environment item
+      (.returned (.letValue "value" .initial (.beginValue (.variable "value")))) : Command .state).wellFormed = false ∧
+    (Command.staticFunctionMetadataAppend text environment item done).scoped [(.state, "frame")] = false ∧
+    (Command.staticFunctionMetadataAppend text environment item done).scoped [(.source, "text")] = false ∧
+    (Command.staticFunctionMetadataAppend text environment
+      (.signature (.variable "first") (.number 2) (.number 1) (.number 1) (.kind .integer) .full)
+      done).scoped scope = false ∧
+    (Command.staticFunctionMetadataAppend text environment item
+      (.returned (.variable "missing")) : Command .state).scoped scope = false ∧
+    (Command.staticFunctionMetadataAppend text environment item
+      (.returned (.variable "frame")) : Command .state).scoped scope = true := by
+  decide +kernel
 
 structure Frame where
   text : Source := []

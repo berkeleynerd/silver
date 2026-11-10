@@ -31,7 +31,8 @@ def procedureBodyBody : Command .state :=
   let endAfter : Expr .number := .variable "end_after"
   let following : Expr .number := .variable "following"
   .letValue "locals" (apply3 (.function .functionLocals) text frame arguments) <|
-    .beginBody <| .guard (.eq (.field .position locals) (.number 0)) .invalid <|
+    .beginBody <|
+    .guard (.eq (.field .position locals) (.number 0)) .invalid <|
     .block <| .letValue "bound" (apply2 (.function .procedureInputFrame) text locals) <|
     .beginBody <| .guard (.eq (.field .position bound) (.number 0)) .invalid <|
     .block <| .letValue "start" (.update .position bound
@@ -44,7 +45,6 @@ def procedureBodyBody : Command .state :=
         (.field .scalarCount (.field .scalarNames locals))) <|
     .letValue "initialized" (.gt (.field .position ready) (.field .position start)) <|
     .letValue "scan" (.app (.function .bodyOf) (.scan ready initialized (.truth false))) <|
-    .staticInitialFlow scan context <|
     .letValue "body_result" (.group (.ite initialized
       (apply6 (.function .bodyTail) text context scan .endStop (.field .functions frame) (.field .procedures frame))
       (apply6 (.function .readBody) text context scan .endStop (.field .functions frame) (.field .procedures frame)))) <|
@@ -57,6 +57,10 @@ def procedureBodyBody : Command .state :=
         (.eq (.field .bodyPosition bodyResult) (.number 0)) (.eq endFirst (.number 0)))
         (.le endAfter endFirst)) (.not (apply5 (.function .equal) text first after endFirst endAfter)))
         (.le following (.field .position outer))) .invalid <|
+    .staticProcedureMetadataAppend text (.field .procedures frame)
+      (.procedureSignature first after (.field .firstProcedureParameter frame)
+        (.add (.sub (.field .procedureParameterCount (.field .procedures frame))
+          (.field .firstProcedureParameter frame)) (.number 1))) <|
     .returned <| .update .subtypes
       (.update .assignedInFunctions
         (.update .hiding

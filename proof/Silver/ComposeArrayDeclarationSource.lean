@@ -58,7 +58,7 @@ abbrev Checked (tokens : List String) : Prop :=
     some rendered ∧
   Silver.SourceBridge.procedureHeader "lemma_parser_state_equality" "is" tokens =
     some (Silver.SourceBridge.expectedTokens
-      "(Left, Right : Parser_State) with Ghost => Static, Global => null, Pre => Same_Parser_State (Left, Right), Post => Left = Right")
+      "(Left, Right : Parser_State) with Ghost => Static, Global => null, Pre => Same_Parser_State (Left, Right), Post => Left = Right and then Same_Parser_State (Left, Right)")
 
 end SourceChecks
 end Silver.Compose.ArrayDeclarationNative

@@ -19,4 +19,9 @@ theorem declaration_ordinary_function_body_at :
     BooleanDeclarationNative.SourceChecks.ordinaryFunction item.1 Output.SourceShape.outputImplementation = some item.2 := by
   decide +kernel
 
+theorem declaration_metadata_append_header :
+    procedureHeader "lemma_function_metadata_append" "is" Output.SourceShape.outputImplementation =
+      some Silver.Compose.FunctionDeclarationNative.SourceChecks.metadataAppendHeader := by
+  decide +kernel
+
 end Silver.FunctionSourceCandidate.Parts

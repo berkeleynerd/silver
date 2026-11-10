@@ -9,6 +9,11 @@ public import Silver.ComposeBooleanDeclarationSource
 namespace Silver.Compose.ProcedureDeclarationNative.HighSourceChecks
 open Silver.SourceBridge
 
+/-- The complete Static helper header binds the erased call to its native
+contract; native verification still discharges every obligation. -/
+def metadataAppendHeader : List String := expectedTokens
+  "(Text : String; Environment : Procedures.Metadata; Item : Procedures.Signature) with Ghost => Static, Global => null, Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length and then Procedures.Valid_Metadata (Text, Environment) and then Environment.Count < Procedures.Max_Procedures and then Item.First > 0 and then Valid_Name_State (Text, Item.First, Item.After) and then Item.Count > 0 and then Item.Formal_First > 0 and then Item.Formal_First <= Environment.Parameter_Count and then Item.Count <= Environment.Parameter_Count - Item.Formal_First + 1, Post => Procedures.Valid_Metadata (Text, Procedures.Append (Environment, Item))"
+
 /-- Every written input binder must be in scope; guards also enforce the
 Ada operator categories and selected-component prefixes. -/
 def CheckedTrees : Prop :=
@@ -36,6 +41,7 @@ def ordinary : List (String × List String) := [
 
 structure Checked (tokens : List String) : Prop where
   trees : CheckedTrees
+  metadataAppend : procedureHeader "lemma_procedure_metadata_append" "is" tokens = some metadataAppendHeader
   headers : ∀ item ∈ headers, functionHeader item.1 item.2.1 tokens = some item.2.2
   ordinary : ∀ item ∈ ordinary,
     BooleanDeclarationNative.SourceChecks.ordinaryFunction item.1 tokens = some item.2

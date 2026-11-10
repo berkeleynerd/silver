@@ -16,6 +16,7 @@ open Silver.Compose.ProcedureDeclarationNative
 The authoritative adapter joins this candidate to the source certificate. -/
 theorem checked : HighSourceChecks.Checked Output.SourceShape.outputImplementation where
   trees := HighSourceChecks.checked_trees
+  metadataAppend := Parts.metadata_append_header
   headers := by
     intro item member
     simp only [HighSourceChecks.headers, List.mem_cons, List.mem_nil_iff, or_false] at member
