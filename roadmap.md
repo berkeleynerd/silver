@@ -39,6 +39,24 @@ affected Rosetta tests rerun after resolving the session-history conflict.
 
 ## Near-term feature queue
 
+**Authorized queue, 2026-11-10.** Complete small nonrecursive scalar procedures
+[#370](https://github.com/berkeleynerd/silver/issues/370) and its
+[#29](https://github.com/berkeleynerd/silver/issues/29) companion in
+[PR #371](https://github.com/berkeleynerd/silver/pull/371), milestone 23, first.
+The owner has selected **proof iteration efficiency** as the next unit:
+[#373](https://github.com/berkeleynerd/silver/issues/373), in
+[milestone 24](https://github.com/berkeleynerd/silver/milestone/24).
+The [bounded plan](docs/proof-iteration-efficiency.md) records one coherent
+implementation package covering consistent focused/final compiler policy,
+resource exceptions, recurring-failure identity, short feedback, proof strategy
+and scheduling, tests and complete applicable validation. All selected items
+must be implemented and validated before closeout; planning is not completion.
+Implementation starts after the current delivery, preserving its productive runs.
+This queue takes precedence over older next-work statements below. No intervening
+language expansion or successor sample batch is selected; completed predecessor
+issues #8, #246 and #39 remain closed. The canonical compiler policy and useful
+proof strategy are to be settled from focused evidence within #373.
+
 **Next selection, 2026-11-09.** The owner
 [authorized](docs/session-memory.md#2026-11-09--rosetta-refresh-repair-and-next-language-increment-authorized)
 repairing [#29](https://github.com/berkeleynerd/silver/issues/29) and continuing

@@ -1,5 +1,27 @@
 # Session memory
 
+## 2026-11-10 — Proof iteration efficiency authorized as the next unit
+
+After discussing #370's proof cost and concrete enforcement measures, the owner
+instructed **“Add this as our next unit of work. All of these optimizations
+should be implemented to resolve the relevant ticket / roadmap item.”**
+This authorizes the single coherent
+[#373 package](https://github.com/berkeleynerd/silver/issues/373), in
+[milestone 24](https://github.com/berkeleynerd/silver/milestone/24), as the next
+implementation unit after #370 and companion #29 complete in
+[PR #371](https://github.com/berkeleynerd/silver/pull/371). The
+[plan](proof-iteration-efficiency.md) records every selected optimization,
+required tests, evidence and closeout criteria. Planning alone does not complete
+the issue; all selected items require implementation and validation.
+
+Preserve the current feature's productive runs and complete assurance. This
+instruction selects no intervening language expansion and changes no Oracle,
+application proof budget, full input domain or provenance requirement. Existing
+closed predecessors #8, #246 and #39 retain their historical closure. Use the
+existing managed runners and task records; this selects no generic framework.
+No successor implementation has started in this planning change. CLI memory was
+not updated.
+
 ## 2026-11-09 — Rosetta refresh repair and next language increment authorized
 
 After the open-bug triage and scalar-procedure recommendation, the owner
