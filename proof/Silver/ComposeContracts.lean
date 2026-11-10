@@ -331,6 +331,10 @@ structure RawHelperEquations (calls : Calls) (evaluator : Calls := lexical calls
   functionLookup : ∀ text, ValidText text → ∀ catalog first after,
     FunctionBindings.ValidMetadata text catalog → ValidCursor text first → ValidCursor text after →
     calls.function .functionLookup text catalog first after = FunctionBindings.lookup text catalog first after
+  /-- Imported from the procedure metadata package over its full native domain. -/
+  procedureLookup : ∀ text, ValidText text → ∀ catalog first after,
+    ProcedureBindings.ValidMetadata text catalog → ValidCursor text first → ValidCursor text after →
+    calls.function .procedureLookup text catalog first after = ProcedureBindings.lookup text catalog first after
   /-- Imported from the checked source equation for the active formal suffix. -/
   formalHides : ∀ text, ValidText text → ∀ state first after,
     NativeState domain text state → ValidCursor text first → ValidCursor text after →

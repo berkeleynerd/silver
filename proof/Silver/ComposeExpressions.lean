@@ -101,7 +101,7 @@ inductive Function
   | image | imageMinimum | imageMaximum
   | value
   | newName
-  | functionLookup | formalHides | functionDeclaration
+  | functionLookup | procedureLookup | formalHides | functionDeclaration
   | addBinding
   | declaration
   | stringDeclaration | scalarConstraint | scalarDeclaration | scalarLookup | scalarRead | scalarAppend | scalarEmpty | scalarLiteral | nameIs
@@ -131,6 +131,7 @@ inductive Function
 
 def Function.name : Function → String
   | .functionLookup => "functions.lookup"
+  | .procedureLookup => "procedures.lookup"
   | .formalHides => "formal_hides"
   | .functionDeclaration => "function_declaration_at"
   | .fixedBoundsValid => "fixed_bounds_valid"
@@ -218,6 +219,7 @@ def Function.name : Function → String
 
 @[reducible] def Function.type : Function → Ty
   | .functionLookup => .arrow .source (.arrow .functionMetadata (.arrow .number (.arrow .number .number)))
+  | .procedureLookup => .arrow .source (.arrow .procedureMetadata (.arrow .number (.arrow .number .number)))
   | .formalHides => .arrow .source (.arrow .state (.arrow .number (.arrow .number .truth)))
   | .functionDeclaration => .arrow .source (.arrow .state (.arrow .truth .state))
   | .fixedBoundsValid => .arrow .number (.arrow .truth (.arrow .truth (.arrow .integer (.arrow .integer (.arrow .number .truth)))))
@@ -313,6 +315,7 @@ structure Calls where
 Every recognizer helper is left arbitrary. -/
 def Calls.get (calls : Calls) : (symbol : Function) → symbol.type.meaning
   | .functionLookup => calls.function .functionLookup
+  | .procedureLookup => calls.function .procedureLookup
   | .formalHides => calls.function .formalHides
   | .functionDeclaration => calls.function .functionDeclaration
   | .fixedBoundsValid => calls.function .fixedBoundsValid
@@ -864,6 +867,7 @@ def Expr.render : Expr ty → List String
   | .function .operationAfter => ["names", ".", "operation_after"]
   | .function .associationAfter => ["names", ".", "association_after"]
   | .function .functionLookup => ["functions", ".", "lookup"]
+  | .function .procedureLookup => ["procedures", ".", "lookup"]
   | .function .arrayLookup => ["array_bindings", ".", "lookup"]
   | .function .scalarLookup => ["scalar_expressions", ".", "lookup"]
   | .function .scalarRead => ["scalar_expressions", ".", "read_expression"]

@@ -69,6 +69,7 @@ theorem model_definitions :
   ranges := model_ranges
   names := base_definitions.names
   functionLookup := base_definitions.functionLookup
+  procedureLookup := base_definitions.procedureLookup
   formalHides text tv state first after sv fv av :=
     base_definitions.formalHides text tv state first after ⟨sv.valid, sv.bounds⟩ fv av
   functionDeclaration text tv state arguments sv :=

@@ -57,6 +57,7 @@ def modelCalls : Calls where
     | .value => fun text position names scalarNames integerHidden arrays initials elaborating => valueAt text position names scalarNames integerHidden arrays initials elaborating
     | .newName => newNameAllowed
     | .functionLookup => FunctionBindings.lookup
+    | .procedureLookup => ProcedureBindings.lookup
     | .formalHides => formalHides
     | .functionDeclaration => functionDeclarationAt
     | .addBinding => addBinding
