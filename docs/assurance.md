@@ -153,7 +153,7 @@ remain mandatory. The pinned producer emits no procedure termination witness;
 the procedure termination argument therefore belongs to the constructed
 declaration and body semantics. The
 [producer/capacity record](scalar-procedures-report-capacity.md) derives the
-38,186,752-byte report envelope and selected 64 MiB allocation. Focused tests
+48,676,608-byte report envelope and selected 64 MiB allocation. Focused tests
 exercise these rules; they do not replace complete compiler or source proofs.
 
 ## Boolean scalar objects and expressions

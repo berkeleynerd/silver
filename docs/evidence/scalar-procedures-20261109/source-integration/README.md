@@ -30,6 +30,10 @@ actual inputs, settings, log and fresh axiom-audit result.
 | `20261110T064408-2aeabef7ba81` | Checked procedure definitions, mixed callable assembly and ordinary function-body adaptation (`b54aee71f4`, integrated as `88da988dfe`) | 25,005 |
 | `20261110T064954-55833e637085` | Low declaration helper source checks against the complete reviewed output token sequence; all eleven fragments retained from `063206-2996a7ff68f7` | 15,836 |
 
+| `20261110T070603-10024f747dc9` | Complete low declaration library interpretations, raw-helper equations and native-domain model witness (`7e2fd967a8`, integrated as `bea9085ed8`) | 58,086 |
+| `20261110T071116-e7c0155734e1` | Procedure-aware source meaning, routing flags and exact metadata catalogue/count (`712182dc56`, integrated as `ad302b89ca`) | 25,909 |
+| `20261110T071235-e745bc45ad27` | Complete String bounds/actual execution closure with the declared procedure environment (`35078447dd` / `13ef354fdd`, integrated as `419a6199f3` / `15643940e5`) | 26,337 |
+
 Lead source inspection found that the `035322` model tried procedures before
 functions, unlike Ada's function-first dispatcher. Its focused result remains
 valid for that model slice; it never established completed source correspondence.
@@ -46,8 +50,9 @@ attempts as failed; this packet does not relabel or substitute for them.
 
 Actual-source alias separation and mixed declaration extraction now pass focused
 audits. Constructive procedure-body/call and mixed-declaration assembly now pass the
-stated focused audits. Low declaration library interpretation, outer semantic
-consumers and authoritative source endpoint integration remain pending. High declaration trees, raw complete-domain
+stated focused audits. Low declaration library interpretation and outer/String semantic consumers now
+pass the focused audits above. High declaration library composition and
+authoritative source endpoint integration remain pending. High declaration trees, raw complete-domain
 equations and imported-callee reductions pass the stated focused audit; the
 reviewed-token candidates now pass; authoritative certificate adapters and library assembly remain pending. Published Rosetta support remains 83 tasks.
 
@@ -75,3 +80,18 @@ retained input comparison confirms that all 117 audited module inputs still
 match; the four changed mixed-assembly files lie outside that target's import
 closure and have their separate `064408` evidence. This is focused applicability,
 not complete validation of the newly combined tree.
+
+The outer/String immutable delta snapshots were copied only after root run
+`071602-835249eac4a0` actually exited. Their 19 and 25 complete artifact families
+match the integrated sources; the seed record identifies the copies, including
+private/server sidecars and Lake metadata. Normal rehash and fresh audits remain
+required. The original producer stayed frozen while its first four completed
+large output-body chunks were retained and its worker reservation was raised
+for the remaining four concurrent chunks. No completed certificate was discarded.
+
+The first high-library run `071602` remains failed: `ComposeEquations` omitted
+the procedure table from its declaration-scanner capacity and termination measure.
+Its model count theorem already included procedures. The repair adds that table
+and its existing bound without changing theorem statements, native source or
+input domains. All other completed modules remain reusable; the focused retry
+and authoritative high-library endpoint checks are pending.
