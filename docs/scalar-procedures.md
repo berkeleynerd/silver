@@ -167,6 +167,7 @@ remaining surface complete.
 | 2026-11-09 23:21–23:43 UTC | Astra Max semantic/source authors and native helper investigation; lead runtime not independently exposed | Call/input/copy-back contracts, metadata actual-source checks and signature interpretation passed focused Lean audits. Integrated parser implementation and drafted shared Python/native report-policy regressions. Pinned producer inspection established one initialization record per `out` formal. | Runs `20261109T232157-f50052810dba`, `20261109T232318-79e59bd00147` and `20261109T232931-d434ec47373f` cover the completed proof slices; the body/environment/source integration and complete native helper checks remain pending. |
 | 2026-11-10 | Lead source inspection; Astra Max native/source repair; live lead settings not independently exposed | Found that the initial alias scan treated based-literal digits and exponent letters as identifier reads, wrongly rejecting calls such as `P(16#F#, F)`. Added discriminating positive literal controls and true-alias rejections; native repair consumes a complete scalar literal before identifier classification. | Regression commit `8265bc085d` and native repair `91fd84a7e5` are integrated. Matching source proof and affected complete-helper checks remain pending. |
 | 2026-11-10 00:12–00:20 UTC | Astra Max native/semantic/source authors; lead integration and evidence | Initial native helper/caller run finished with all 739 reported checks proved but failed the strict warning policy for a redundant initializer. Removed that initializer without changing contracts. Integrated native report API, projection plumbing and 64 MiB guards; five focused Python policy methods passed. | Initial run `20261109T233616-62a3028df4a0` remains failed and retained. [Python policy run](evidence/scalar-procedures-20261109/python-policy-tests/README.md) `20261110T001444-6cb1be2b5661` passed. Native fixtures, repaired helper success and semantic/source integration remain pending. |
+| 2026-11-10 00:28–00:40 UTC | Astra Max native/semantic/source authors; lead integration and evidence; live lead settings not independently exposed | All 21 admission-only methods passed after correcting literal test operands. Native policy mutation and report-storage boundary methods passed after adding the required IO context to the native fixture. Shared procedure-state and retained Sequence models compiled; focused semantic/call checks continue. | [Integration packet](evidence/scalar-procedures-20261109/integration-tests/README.md) retains the failed fixture run and successful checks. Complete native/Lean/source and application validation remain pending. |
 
 ## Development checkpoint
 
@@ -175,8 +176,10 @@ with its assurance explicitly pending. It checks the frozen output prefix,
 full declared body ranges, same-state actual evaluation, nonaliasing targets
 and copy-back range containment. The initial admission test run was
 `20261109T233200-ae6d07cb4d63`; it preceded the full-range, empty-body and numeric-token test additions
-and did not execute the native compile fixture. The complete helper-contract
-checks, final test inventory and compiler-driven sample still need validation.
+and did not execute the native compile fixture. The complete 21-method
+admission-only inventory now passes in `20261110T003856-52403809587f`.
+Complete helper contracts, the application compile fixture and final regression
+inventory still need validation.
 
 The metadata source bridge covers the actual SPARK unit and its helper domains.
 Its signature adapter retains earlier signatures when the pooled metadata grows;
@@ -190,10 +193,13 @@ Report regressions use the same policy boundaries in Python and native tests:
 missing or duplicate output initialization, wrong owner or output name, missing
 unused-procedure coverage, failed safety checks and preservation of function
 termination requirements. Initialization classification uses only observations
-preserved by the existing report projection. The native tests have not yet run
-against the completed native report API. The five Python policy methods passed
-in the focused run recorded above. No new report-auditor architecture or
-independent kernel replay is selected.
+preserved by the existing report projection. The native policy mutation tests
+and report-storage boundary tests now pass against the integrated report API,
+as recorded in the
+[integration packet](evidence/scalar-procedures-20261109/integration-tests/README.md).
+The five Python policy methods passed in the focused run recorded above.
+Native helper proofs and compiler-driven application proof/build remain pending.
+No new report-auditor architecture or independent kernel replay is selected.
 
 The integration worktree has an isolated native installation copied from the
 native-author worktree, followed by a fresh `scripts/bootstrap.py` configuration

@@ -1,0 +1,155 @@
+{
+  "note": "Agent-authored index; compressed events and logs are original managed-run output. These focused checks do not replace the complete delivery checkpoint.",
+  "runs": [
+    {
+      "run_id": "20261110T002855-07d248dec12d",
+      "outcome": "failure",
+      "workers": 2,
+      "managed_seconds": 11.355167933,
+      "scope": [
+        "-p",
+        "test_*.py",
+        "-k",
+        "literal_letters",
+        "-k",
+        "procedure_output_coverage",
+        "-k",
+        "initialization_policy_uses",
+        "-k",
+        "application_report_bound_preserves",
+        "-k",
+        "retained_record_and_whole_report",
+        "-k",
+        "subprogram_record_allowances"
+      ],
+      "artifacts": {
+        "events.jsonl": {
+          "retained": "20261110T002855-07d248dec12d/events.jsonl.gz",
+          "original_sha256": "d82943e48bef649b9279fcdf1f3baba1690f6112ed4c8a7464b28014127a95d5",
+          "gzip_sha256": "23c3b42246f22efe83382f2bc132b71e00aa0663e307c5076629274bf3145d21"
+        },
+        "native.log": {
+          "retained": "20261110T002855-07d248dec12d/native.log.gz",
+          "original_sha256": "4b06a21209b17dfb9ff85d4c5dcb0c7e4b70f687c2d46a4968dd43143be383aa",
+          "gzip_sha256": "8d07c8f7b64c03d6f6c6270c45f2f84fa7c298713d3993d4e07553e2b8fc0c08"
+        }
+      }
+    },
+    {
+      "run_id": "20261110T003131-8ba08182f350",
+      "outcome": "success",
+      "workers": 2,
+      "managed_seconds": 9.271294299,
+      "scope": [
+        "-p",
+        "test_library_reports.py",
+        "-k",
+        "procedure_output_coverage",
+        "-k",
+        "initialization_policy_uses"
+      ],
+      "artifacts": {
+        "events.jsonl": {
+          "retained": "20261110T003131-8ba08182f350/events.jsonl.gz",
+          "original_sha256": "11ccb9fd18104b0f4aaf93177b4b699919da8de293878948b8f4adc696952970",
+          "gzip_sha256": "1e4fd6d15159facb7f7468c60bc34763f3c368d29da1fc156e960d23e06c5ad2"
+        },
+        "native.log": {
+          "retained": "20261110T003131-8ba08182f350/native.log.gz",
+          "original_sha256": "c0ce69ff7b80d5473b17a102c31af3a8a9aabf61dc1e9ae7f8ff8b8547c82e07",
+          "gzip_sha256": "1c9ad219641e6c347207d42ac25b04e505a08c63aa13751c1ff3abca9515bf9e"
+        }
+      }
+    },
+    {
+      "run_id": "20261110T003417-d9fd8ac62af0",
+      "outcome": "success",
+      "workers": 2,
+      "managed_seconds": 59.710049968,
+      "scope": [
+        "-p",
+        "test_output_integrity.py",
+        "-k",
+        "application_report_capacity_accepts",
+        "-k",
+        "large_opaque_proof_trees_preserve"
+      ],
+      "artifacts": {
+        "events.jsonl": {
+          "retained": "20261110T003417-d9fd8ac62af0/events.jsonl.gz",
+          "original_sha256": "eeb5c4a31cf524b4416d47e53fc274ce32e04e11c5cbe78b1b062ca9ed0065d1",
+          "gzip_sha256": "b6dbb985cc203a798cde26955b03a318117395dc4d3074ab63e4caca7f32f535"
+        },
+        "native.log": {
+          "retained": "20261110T003417-d9fd8ac62af0/native.log.gz",
+          "original_sha256": "d8bef904e2ecbf42247cdffa0dcc8685d7b1ed731af53b640786b2b07fbe3ca2",
+          "gzip_sha256": "e25da9e281b4426410c4b153ebff8c39a6fde20ffc2180b505d5f9ab9b5f61a3"
+        }
+      }
+    },
+    {
+      "run_id": "20261110T003856-52403809587f",
+      "outcome": "success",
+      "workers": 1,
+      "managed_seconds": 33.243861635,
+      "scope": [
+        "-p",
+        "test_scalar_procedures.py",
+        "-k",
+        "test_output_and_inout_calls_are_case_insensitive",
+        "-k",
+        "test_formal_modes_names_and_closing_name",
+        "-k",
+        "test_outputs_have_ordered_unconditional_initialization",
+        "-k",
+        "test_prefix_cannot_read_any_output_or_call_a_function",
+        "-k",
+        "test_prefix_reads_locals_and_input_formals",
+        "-k",
+        "test_full_input_domain_checked_even_for_unused_procedures",
+        "-k",
+        "test_ordinary_body_starts_with_full_declared_output_ranges",
+        "-k",
+        "test_input_and_copyback_boundaries_use_declared_ranges",
+        "-k",
+        "test_inout_requires_input_fit_and_copyback_fit",
+        "-k",
+        "test_outputs_and_inout_invalidate_prior_refinements",
+        "-k",
+        "test_writable_actuals_are_bare_mutable_names",
+        "-k",
+        "test_arity_and_call_statement_positions",
+        "-k",
+        "test_duplicate_writes_and_read_write_aliases_are_rejected",
+        "-k",
+        "test_actuals_share_incoming_state",
+        "-k",
+        "test_literal_letters_are_not_actual_variable_reads",
+        "-k",
+        "test_boolean_output_does_not_export_predicate_facts",
+        "-k",
+        "test_calls_preserve_unrelated_scalar_and_input_facts",
+        "-k",
+        "test_earlier_procedure_and_function_calls_and_recursion",
+        "-k",
+        "test_procedure_frames_are_closed_and_inputs_immutable",
+        "-k",
+        "test_hiding_duplicate_names_and_immutable_formal_targets",
+        "-k",
+        "test_source_wide_operator_and_source_size_boundaries"
+      ],
+      "artifacts": {
+        "events.jsonl": {
+          "retained": "20261110T003856-52403809587f/events.jsonl.gz",
+          "original_sha256": "9291d031dbad2dde4ca42d88601ac5a8608e3f692569f5fd46ea85be7e622251",
+          "gzip_sha256": "666eb703836bde76bf0cdf9e73edb45956c567ad4998a3e3ee31697aff30c53e"
+        },
+        "native.log": {
+          "retained": "20261110T003856-52403809587f/native.log.gz",
+          "original_sha256": "8dd10036f3ecc463627d4c16d47dc5882eba7adfc251f2e75302e861c8e4fd81",
+          "gzip_sha256": "57545219ba509ac4c223d0bfb90466bab49d771a22ca06a013d75d0c44d47a42"
+        }
+      }
+    }
+  ]
+}
