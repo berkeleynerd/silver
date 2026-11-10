@@ -304,9 +304,9 @@ class SilverIntegrationTests(unittest.TestCase):
             if key.endswith("_tokens") and key != "word_tokens" and isinstance(tokens, list)
             for token in tokens if re.fullmatch(r'[a-z][a-z0-9_]*', token)
         }
-        # Boolean type/literal/operator words are represented by construct
-        # conditions rather than the top-level token templates.
-        grammar_words |= {"boolean", "true", "false", "xor"}
+        # Boolean and callable words are represented by construct conditions
+        # rather than the top-level token templates.
+        grammar_words |= {"boolean", "true", "false", "xor", "function", "return", "out"}
         self.assertEqual(set(catalogue["word_tokens"]), grammar_words)
         self.assertEqual(len(catalogue["word_tokens"]), len(grammar_words))
 

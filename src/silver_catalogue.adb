@@ -1803,6 +1803,8 @@ package body Silver_Catalogue with SPARK_Mode => On is
            | Silver_Output_Profile.Integer_Name | Silver_Output_Profile.For_Keyword
            | Silver_Output_Profile.In_Keyword | Silver_Output_Profile.Reverse_Keyword
            | Silver_Output_Profile.Loop_Keyword
+           | Silver_Output_Profile.Function_Keyword | Silver_Output_Profile.Return_Keyword
+           | Silver_Output_Profile.Out_Keyword
          then
             Put (",""" & Silver_Output_Profile.Spelling (Token) & """");
          end if;
