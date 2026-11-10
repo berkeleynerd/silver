@@ -177,6 +177,8 @@ remaining surface complete.
 
 | 2026-11-10 02:22–02:40 UTC | Astra Max semantic/source authors; lead integration; live settings not independently confirmed | Constructive frame/prefix/declaration interfaces and procedure-aware body source readings passed their focused audits. The source slice preserves ordinary body semantics while adding call reading, flow and bound preservation. | Scope run `20261110T022251-2b138acb04b3` audited 24,431 declarations; body run `20261110T023406-93c99c442f2c` audited 17,640. Full declaration/body/call assembly, native raw-library integration and authoritative endpoints remain pending. |
 
+| 2026-11-10 02:55–03:27 UTC | Astra Max semantic/source authors; lead integration; live settings not independently confirmed | Basic procedure dispatch, lexical traversal, declaration extraction and initialized-output/metadata preservation passed focused audits. The inherited lookup run has passed Boolean-array and String equations; its initial-state metadata lemma is prepared for repair after the active run exits. | [Source integration packet](evidence/scalar-procedures-20261109/source-integration/README.md) retains the five successful slices and cache transfer identities. Full Boolean-actual exclusion, mixed declaration/body/call assembly, raw-helper library interpretation and authoritative endpoints remain pending; high-level declaration trees are still drafts. |
+
 ## Development checkpoint
 
 The native parser implementation through author commit `91fd84a7e5` is integrated
