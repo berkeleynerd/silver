@@ -1,0 +1,203 @@
+{
+  "issue": "#370",
+  "native_platform": "linux-x86_64",
+  "semantic_commit": "a71e3ccfbf",
+  "prior_call_contract_commit": "8d76e3528c",
+  "successful_run": "20261110T004159-c31395be0a84",
+  "validation": "focused semantic core, layout and noninterference only",
+  "targets": [
+    "Silver.PredicateChecks",
+    "Silver.ScalarProcedureLayout",
+    "Silver.ScalarProcedureNoninterference"
+  ],
+  "axiom_audit_declarations": 15228,
+  "foundations": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "lake_workers": 8,
+  "threads_per_process": 8,
+  "cpu_allocation_reason": "Lead-coordinated 8-worker Lean share alongside native 12-worker proof and bounded root fixtures.",
+  "reviewed_proof_file_sha256": {
+    "proof/Silver/PredicateChecks.lean": "f532c833dfb5021b62a13aaa37076b52f651cfa69c500bb494c4dd838c54e18c",
+    "proof/Silver/PredicateComposition.lean": "62e03cf949d7ca01a3b9c3061f4adc9fc08c428a24c85a367bb4bbbfb8e5f127",
+    "proof/Silver/PredicateExecution.lean": "f7adfc9f90f53ae24092b0b0c2f0eaf4d350bb7f78f5deea65fd1b073b209277",
+    "proof/Silver/PredicateObligations.lean": "2640794a09a50f4e3d98e8a6fa9aa8a8fb85d3ee541a205d7a2bb715cd2369bc",
+    "proof/Silver/PredicateStatements.lean": "c6009822de097682e9cb676e298fdc1d1c0920c5430ef46f228342539aa74e64",
+    "proof/Silver/ScalarFunctionSemantics.lean": "56279912104a1168d97183b95369b0e71b25c088d50d0f7e5c5b1cca9a93e60d",
+    "proof/Silver/ScalarProcedureAliasing.lean": "9230fda49b6a574793ea8872713313129f805c1b8d72573bdf27ac7fb97080a6",
+    "proof/Silver/ScalarProcedureChecking.lean": "a1342063670b4f66abd0fb8b512a9bae2c366adc2271e20e50ac20dc7a53e6e4",
+    "proof/Silver/ScalarProcedureComposition.lean": "29e0732037c7ead2cceec147ed4943adf43c63772460099e0f4757d2b58d9f7f",
+    "proof/Silver/ScalarProcedureDefinition.lean": "4db86dd0ed8fbe6aa57849085086728982206ff3016d4b764162efe05488cc1f",
+    "proof/Silver/ScalarProcedureExecution.lean": "e3cc9c8b99a9fa9035f8f7e8ab41dd54434c0673320398a06f7e2b2bf16ef08e",
+    "proof/Silver/ScalarProcedureFrame.lean": "4b2d2438c7db4d4520a35dee09acab17cd8344d2b1073511c0125c10b0be1efd",
+    "proof/Silver/ScalarProcedureLayout.lean": "524361eda72942d12b29f794ab8cfc9da62ebc57811e54d1bf8293ed4e37e0a6",
+    "proof/Silver/ScalarProcedureNoninterference.lean": "e1cc5b4cbd4798990f63dd2188199f7c5ee6558c22ea7bb4f8863b37b05fa33c",
+    "proof/Silver/ScalarProcedureSemantics.lean": "c212854b16b07d6824db92e83e43c567fb80addaab420b4a149d9271c4b985a8",
+    "proof/Silver/ScalarProcedureSyntax.lean": "cabe3a6c99ab2eb06c5d55ba3237b5a8a3ed6532c73a07f9992c4baa038c804f",
+    "proof/Silver/ScalarProcedureTypes.lean": "7ed00145539ac9f4f652c0a6b53317affac5543da057db95c981d3863496134e"
+  },
+  "runs": [
+    {
+      "run_id": "20261109T231514-10f6c28c2e8b",
+      "state": "failure",
+      "workers": 22,
+      "reason": "",
+      "fingerprint": "6f8ad7db50da7ada05db8311d055e38e32437b25f12ada15b33706d8e521ccde",
+      "duration_seconds": 25.952906749,
+      "failure_keys": [
+        "lean:build:Silver/ScalarProcedureSyntax.lean:142:8:unsolved goals",
+        "lean:build:Silver/ScalarProcedureSyntax.lean:148:60:unsolved goals",
+        "lean:build:Silver/ScalarProcedureSyntax.lean:148:69:Invalid argument: Variable `present` is not a proposition or let-declaration"
+      ]
+    },
+    {
+      "run_id": "20261109T232157-f50052810dba",
+      "state": "success",
+      "workers": 22,
+      "reason": "",
+      "fingerprint": "1f818c9caa1c3691c16a225242ebbe3f7f9a1d1515c070a245997f09c00c7a65",
+      "duration_seconds": 39.027166852,
+      "failure_keys": []
+    },
+    {
+      "run_id": "20261109T232658-7cfaf65d32bc",
+      "state": "failure",
+      "workers": 22,
+      "reason": "",
+      "fingerprint": "69a59fbd06901d21eb12362993e79067e5e2ebf7ab2e47e7ef0c2779c25ffb23",
+      "duration_seconds": 36.866551074,
+      "failure_keys": [
+        "lean:build:Silver/PredicateExecution.lean:1001:2:unused `termination_by`, function is not recursive",
+        "lean:build:Silver/PredicateExecution.lean:249:64:Invalid argument name `procedures` for function",
+        "lean:build:Silver/PredicateExecution.lean:250:64:Invalid argument name `procedures` for function",
+        "lean:build:Silver/PredicateExecution.lean:263:74:Invalid argument name `procedures` for function",
+        "lean:build:Silver/PredicateExecution.lean:279:76:Invalid argument name `procedures` for function",
+        "lean:build:Silver/PredicateExecution.lean:284:2:unused `termination_by`, function is not recursive",
+        "lean:build:Silver/PredicateExecution.lean:296:67:Invalid argument name `procedures` for function",
+        "lean:build:Silver/PredicateExecution.lean:303:2:unused `termination_by`, function is not recursive",
+        "lean:build:Silver/PredicateExecution.lean:370:73:Invalid argument name `procedures` for function",
+        "lean:build:Silver/PredicateExecution.lean:371:73:Invalid argument name `procedures` for function",
+        "lean:build:Silver/PredicateExecution.lean:379:69:Invalid argument name `procedures` for function",
+        "lean:build:Silver/PredicateExecution.lean:388:71:Invalid argument name `procedures` for function",
+        "lean:build:Silver/PredicateExecution.lean:390:2:unused `termination_by`, function is not recursive",
+        "lean:build:Silver/PredicateExecution.lean:403:76:Invalid argument name `procedures` for function",
+        "lean:build:Silver/PredicateExecution.lean:410:2:unused `termination_by`, function is not recursive",
+        "lean:build:Silver/PredicateExecution.lean:479:71:Invalid argument name `procedures` for function",
+        "lean:build:Silver/PredicateExecution.lean:480:66:Invalid argument name `procedures` for function",
+        "lean:build:Silver/PredicateExecution.lean:486:79:Invalid argument name `procedures` for function",
+        "lean:build:Silver/PredicateExecution.lean:487:14:No goals to be solved",
+        "lean:build:Silver/PredicateExecution.lean:497:81:Invalid argument name `procedures` for function",
+        "lean:build:Silver/PredicateExecution.lean:498:16:No goals to be solved",
+        "lean:build:Silver/PredicateExecution.lean:503:2:unused `termination_by`, function is not recursive",
+        "lean:build:Silver/PredicateExecution.lean:517:68:Invalid argument name `procedures` for function",
+        "lean:build:Silver/PredicateExecution.lean:518:64:Invalid argument name `procedures` for function",
+        "lean:build:Silver/PredicateExecution.lean:519:2:unused `termination_by`, function is not recursive",
+        "lean:build:Silver/PredicateExecution.lean:804:99:Invalid argument name `procedures` for function",
+        "lean:build:Silver/PredicateExecution.lean:816:99:Invalid argument name `procedures` for function",
+        "lean:build:Silver/PredicateExecution.lean:854:96:Invalid argument name `procedures` for function",
+        "lean:build:Silver/PredicateExecution.lean:939:98:Invalid argument name `procedures` for function",
+        "lean:build:Silver/PredicateExecution.lean:963:2:unused `termination_by`, function is not recursive",
+        "lean:build:Silver/PredicateExecution.lean:987:89:Invalid argument name `procedures` for function"
+      ]
+    },
+    {
+      "run_id": "20261109T233446-be5bff811efe",
+      "state": "failure",
+      "workers": 22,
+      "reason": "",
+      "fingerprint": "0b9bf67b3d1f6ddc53807006f3e4ffd914b6f37a5c1a42eb899d818c5c71fdab",
+      "duration_seconds": 44.866108243,
+      "failure_keys": [
+        "lean:build:Silver/ScalarProcedureDefinition.lean:101:81:Ambiguous term",
+        "lean:build:Silver/ScalarProcedureDefinition.lean:107:62:Ambiguous term",
+        "lean:build:Silver/ScalarProcedureDefinition.lean:174:50:This simp argument is unused:",
+        "lean:build:Silver/ScalarProcedureDefinition.lean:186:45:Ambiguous term",
+        "lean:build:Silver/ScalarProcedureDefinition.lean:192:45:Ambiguous term",
+        "lean:build:Silver/ScalarProcedureDefinition.lean:192:59:Ambiguous term",
+        "lean:build:Silver/ScalarProcedureDefinition.lean:197:45:Ambiguous term",
+        "lean:build:Silver/ScalarProcedureDefinition.lean:197:67:Ambiguous term",
+        "lean:build:Silver/ScalarProcedureDefinition.lean:93:67:Ambiguous term",
+        "lean:build:Silver/ScalarProcedureDefinition.lean:97:68:Ambiguous term"
+      ]
+    },
+    {
+      "run_id": "20261110T001338-e93ff7fee39f",
+      "state": "failure",
+      "workers": 22,
+      "reason": "",
+      "fingerprint": "913ff53a2508e179dd39a212dee6a1f0b0aaeebfa1da58c51e680140287d06e0",
+      "duration_seconds": 27.97336613,
+      "failure_keys": [
+        "lean:build:Silver/ScalarProcedureSyntax.lean:214:27:Application type mismatch: The argument"
+      ]
+    },
+    {
+      "run_id": "20261110T002748-f1768977349b",
+      "state": "failure",
+      "workers": 8,
+      "reason": "Coordinated allocation leaves 12 workers for native proofs and 2 for root integration fixtures",
+      "fingerprint": "faa1306e88b3e1df5cfb3645ab7aa9cabcaabe549ddcb282d71beb85c2558c07",
+      "duration_seconds": 62.016928601,
+      "failure_keys": [
+        "lean:build:Silver/ScalarProcedureAliasing.lean:81:46:Type mismatch: After simplification, term",
+        "lean:build:Silver/ScalarProcedureAliasing.lean:90:46:Type mismatch: After simplification, term",
+        "lean:build:Silver/ScalarProcedureLayout.lean:104:110:This simp argument is unused:",
+        "lean:build:Silver/ScalarProcedureLayout.lean:111:110:This simp argument is unused:",
+        "lean:build:Silver/ScalarProcedureLayout.lean:167:6:Type mismatch: After simplification, term",
+        "lean:build:Silver/ScalarProcedureLayout.lean:170:6:Type mismatch",
+        "lean:build:Silver/ScalarProcedureLayout.lean:201:6:try 'simp' instead of 'simpa'",
+        "lean:build:Silver/ScalarProcedureSemantics.lean:153:74:unsolved goals",
+        "lean:build:Silver/ScalarProcedureSemantics.lean:157:13:unexpected token ':='; expected ':'",
+        "lean:build:Silver/ScalarProcedureSemantics.lean:157:7:Missing cases:",
+        "lean:build:Silver/ScalarProcedureSemantics.lean:157:7:unexpected token 'prefix'; expected '(', ':=', '|' or term",
+        "lean:build:Silver/ScalarProcedureSemantics.lean:158:86:unexpected token '.'; expected ':'",
+        "lean:build:Silver/ScalarProcedureSemantics.lean:40:83:Application type mismatch: The argument"
+      ]
+    },
+    {
+      "run_id": "20261110T003426-0d334e863bca",
+      "state": "failure",
+      "workers": 8,
+      "reason": "Coordinated allocation leaves 12 workers for native proofs and 2 for root integration fixtures",
+      "fingerprint": "b5e64229b3a368548abe4a3366631f7420aafc811212677ec6d7e3ce451474d0",
+      "duration_seconds": 116.477650853,
+      "failure_keys": [
+        "lean:build:Silver/ScalarProcedureNoninterference.lean:122:58:Application type mismatch: The argument",
+        "lean:build:Silver/ScalarProcedureNoninterference.lean:128:34:Application type mismatch: The argument",
+        "lean:build:Silver/ScalarProcedureNoninterference.lean:134:34:Application type mismatch: The argument",
+        "lean:build:Silver/ScalarProcedureNoninterference.lean:138:31:Application type mismatch: The argument",
+        "lean:build:Silver/ScalarProcedureNoninterference.lean:156:34:Application type mismatch: The argument",
+        "lean:build:Silver/ScalarProcedureNoninterference.lean:17:92:unsolved goals",
+        "lean:build:Silver/ScalarProcedureNoninterference.lean:18:2:Alternative `modulo` has not been provided",
+        "lean:build:Silver/ScalarProcedureNoninterference.lean:18:2:Alternative `remainder` has not been provided",
+        "lean:build:Silver/ScalarProcedureNoninterference.lean:196:34:Application type mismatch: The argument",
+        "lean:build:Silver/ScalarProcedureNoninterference.lean:23:19:Application type mismatch: The argument",
+        "lean:build:Silver/ScalarProcedureNoninterference.lean:36:31:Application type mismatch: The argument",
+        "lean:build:Silver/ScalarProcedureNoninterference.lean:41:31:Application type mismatch: The argument",
+        "lean:build:Silver/ScalarProcedureNoninterference.lean:43:11:unexpected identifier; expected command",
+        "lean:build:Silver/ScalarProcedureNoninterference.lean:60:31:Application type mismatch: The argument",
+        "lean:build:Silver/ScalarProcedureNoninterference.lean:78:44:Application type mismatch: The argument",
+        "lean:build:Silver/ScalarProcedureNoninterference.lean:87:44:Application type mismatch: The argument"
+      ]
+    },
+    {
+      "run_id": "20261110T004159-c31395be0a84",
+      "state": "success",
+      "workers": 8,
+      "reason": "Lead-coordinated 8-worker Lean share alongside native 12-worker proof and bounded root fixtures",
+      "fingerprint": "d9ae8758747325bb936684bbcdd9f496060bf79bf2dc1635b5e8da91eabd9c95",
+      "duration_seconds": 127.397141163,
+      "failure_keys": []
+    }
+  ],
+  "archive_sha256": "0e5fa000d1b9b82d5da2c3610efdb529b4969a55044b73b9a40f50863c11929a",
+  "inventory": "Each archived started event retains the runner input byte inventory and fingerprint. The successful lean-focused-evidence.json records the tool hashes, actual import closure, aggregate input digest and audit result.",
+  "excluded_uncompiled_work": [
+    "PredicateStringActualExecution.lean draft",
+    "PredicateStringBoundsExecution.lean draft",
+    "source-owned PredicateStringBoundsSources.lean origin patch"
+  ],
+  "outstanding": "Actual-source procedure frame/prefix/declaration/call bridges, complete native and integrated Lean/source validation, regressions and independent review. No capability support claim."
+}
