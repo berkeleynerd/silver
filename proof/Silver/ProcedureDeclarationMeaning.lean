@@ -718,4 +718,52 @@ theorem ProcedureDeclarationSource.functionCount {text state arguments definitio
     have ready := procedureHeader_ready valid (procedureDeclarationAt_stages accepted)
     rw [body.functionCount, ready.functions]
 
+/-- Local and mandatory-prefix checks, scalar source shape and the visible
+function prefix establish readiness independently of the ordinary-body check. -/
+theorem ProcedureBodySource.ready {text frame first after arguments definition}
+    (source : ProcedureBodySource text frame first after arguments definition)
+    (valid : ValidState text frame) (closed : ClosedFunctionState frame)
+    (emptyIntegers : frame.scalarNames = []) (emptyBooleans : frame.booleanNames = [])
+    (signatureValid : ProcedureBindings.ValidSignature text frame.procedures (procedureSourceEntry frame first after))
+    (semanticSignature : (ProcedureBindings.signatureModel frame.procedures
+      (procedureSourceEntry frame first after)).Valid) :
+    definition.ready (catalogSignatures frame.functions) = true := by
+  cases source with
+  | @parsed integers booleans checks booleanChecks actuals items initialization ordinary =>
+    let definition := sourceProcedureDefinition
+      (ProcedureBindings.signatureModel frame.procedures (procedureSourceEntry frame first after))
+      (catalogSignatures frame.functions).length integers booleans checks booleanChecks actuals (lowerStatements items)
+    have frames := initialization.framesReady valid closed emptyIntegers emptyBooleans signatureValid.2.2.1
+    have prefixChecked := initialization.prefix_checked valid closed emptyIntegers emptyBooleans signatureValid
+      (catalogSignatures frame.functions).length (lowerStatements items)
+    have localCheck : definition.localCheck = true :=
+      (definition.localCheck_iff).mpr ⟨frames.initializersChecked.integerDeclarations,
+        frames.initializersChecked.integerChecks, frames.initializersChecked.booleanChecks,
+        frames.initializersChecked.booleanCheck⟩
+    have scalar : definition.scalarOnly = true := by
+      change (integers.all (fun item => ScalarFunctions.scalarExpression item.value) &&
+        booleans.all (fun item => ScalarFunctions.scalarCondition item.value) &&
+        actuals.all ScalarFunctions.scalarActual && ScalarProcedures.scalarStatements (lowerStatements items)) = true
+      rw [frames.initializersChecked.scalarIntegers, frames.initializersChecked.scalarBooleans,
+        prefixChecked.2.2, ordinary.scalarOnly frames.contextClosed]
+      rfl
+    have nonempty : ScalarProcedures.outTypes definition.signature.formals ≠ [] ∨ definition.body ≠ [] := by
+      rcases ordinary.nonempty with initialized | body
+      · exact .inl (initialization.initialized_out signatureValid initialized)
+      · exact .inr body
+    exact (definition.ready_iff _).mpr ⟨localCheck, prefixChecked.2.1,
+      definition.outputCheck_of_layout semanticSignature.2.1, scalar, nonempty, Nat.le_refl _⟩
+
+theorem ProcedureDeclarationSource.ready {text state arguments definition}
+    (source : ProcedureDeclarationSource text state arguments definition) (valid : ValidState text state) :
+    definition.ready (catalogSignatures state.functions) = true := by
+  cases source with
+  | parsed accepted body =>
+    have stages := procedureDeclarationAt_stages accepted
+    have header := procedureHeader_ready valid stages
+    have prepared := body.ready header.valid header.closed header.emptyIntegers header.emptyBooleans
+      header.signature (procedureHeader_signature_valid valid stages)
+    rw [header.functions] at prepared
+    exact prepared
+
 end Silver.Compose
