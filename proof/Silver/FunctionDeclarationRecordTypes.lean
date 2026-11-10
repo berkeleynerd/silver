@@ -1,6 +1,6 @@
 module
 
-public import Silver.FunctionDeclarationImports
+public import Silver.FunctionDeclarationNative
 public import Silver.FunctionBindingsNativeEquations
 public import Silver.ProcedureBindingsNativeEquations
 

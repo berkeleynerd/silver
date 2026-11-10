@@ -1,6 +1,7 @@
 module
 
 public import Silver.FunctionDeclarationRecordTypes
+public import Silver.FunctionDeclarationImports
 public import Silver.FunctionDeclarationDomains
 public import Silver.FunctionDeclarationRecursion
 
