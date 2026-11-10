@@ -38,6 +38,7 @@ structure HeaderLinks (calls : Calls) (inherited : Expressions.Calls)
   subtypes : calls .lookupSubtype = inherited.function .subtypeLookup
   arrays : calls .lookupArray = inherited.function .arrayLookup
   functions : calls .lookupFunction = metadata.lookup
+  procedures : calls .lookupProcedure = inherited.function .procedureLookup
   appendFormal : calls .appendFormal = metadata.appendFormal
   formalHides : calls .formalHides = visibility.formalHides
   hideName : calls .hideName = visibility.hideName
@@ -87,7 +88,7 @@ theorem header_type_imports {domain calls inherited metadata visibility}
   have lexical := header_lexical source links
   have firstBound := Expressions.model_skip_valid text position bound
   have afterBound := fixedAfter_result_bound text (skipAt text position) "boolean" true (by decide)
-  refine ⟨?_, lexical.skip text tv position bound, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
+  refine ⟨?_, lexical.skip text tv position bound, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   · rw [links.scalarType]
     exact Expressions.interpreted_scalarType inherited source text tv state position native bound
   · exact lexical.take text tv _ _ _ firstBound (native_token_valid .booleanName)
@@ -110,6 +111,9 @@ theorem header_type_imports {domain calls inherited metadata visibility}
   · dsimp only
     rw [links.functions]
     exact functions.lookup text tv state.functions native.valid.2.2.2.2.2.2.2.2.2.1 _ _ firstBound afterBound
+  · dsimp only
+    rw [links.procedures]
+    exact source.procedureLookup text tv state.procedures _ _ native.valid.procedures firstBound afterBound
   · dsimp only
     rw [links.formalHides]
     exact FunctionVisibilityNative.formalHides_meaning visibility visibilityPrimitives visibilityEquations

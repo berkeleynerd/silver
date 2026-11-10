@@ -50,10 +50,18 @@ theorem functionBody_model (text : Source) (outer frame : ParserState) (first af
     (resultType : FunctionTypeResult) (arguments : Bool) :
     functionBodyBody.eval modelCalls ({text, outer, frame, first, after, resultType, arguments} : Frame).locals =
       functionBodyAt text outer frame first after resultType arguments := by
-  simp [functionBodyBody, Command.eval, Expr.eval, apply2, apply3, apply4, apply5,
+  simp [functionBodyBody, Command.eval, Expr.eval, apply2, apply3, apply4, apply5, apply6,
     Frame.locals, Locals.set, modelCalls, Field.get, StateField.set, Token.shell,
     tokenAfter, ShellToken.word, ShellToken.symbol, functionBodyAt, Bool.or_eq_true, or_assoc, IntegerSubtypes.CallHiding.add,
     Names.Operation.name, nativeContextOf, Predicate.Native.Context.model, Predicate.contextOf]
+
+/-- The generic body helper forwards both catalogs. The function body's source
+tree supplies empty procedure metadata, while its declaration frame retains the
+outer catalog for name visibility. -/
+theorem bodyTail_model (text : Source) (context : Predicate.Native.Context) (scan : Predicate.BodyScan)
+    (stop : Predicate.BodyStop) (functions : FunctionBindings.Metadata) (procedures : ProcedureBindings.Metadata) :
+    modelCalls .bodyTail text context scan stop functions procedures =
+      Predicate.bodyTail text context.model scan stop functions procedures := rfl
 
 theorem functionDeclaration_model (text : Source) (state : ParserState) (arguments : Bool) :
     functionDeclarationBody.eval modelCalls ({text, state, arguments} : Frame).locals =

@@ -13,7 +13,7 @@ namespace Silver.Compose.FunctionDeclarationNative
 set_option backward.dsimp.instances true
 
 inductive Ty
-  | number | truth | source | word | token | kind | interval | state | metadata | formal | signature | hidden | typeResult | stepResult | constraint | names | scalars | scalarBinding | booleans | subtypes | arrays | context | scan | bodyScan | flow | stop
+  | number | truth | source | word | token | kind | interval | state | metadata | procedures | formal | signature | hidden | typeResult | stepResult | constraint | names | scalars | scalarBinding | booleans | subtypes | arrays | context | scan | bodyScan | flow | stop
   | arrow (domain codomain : Ty)
   deriving DecidableEq, Repr
 
@@ -27,6 +27,7 @@ inductive Ty
   | .interval => Integer.Interval
   | .state => ParserState
   | .metadata => FunctionBindings.Metadata
+  | .procedures => ProcedureBindings.Metadata
   | .formal => FunctionBindings.Formal
   | .signature => FunctionBindings.Signature
   | .hidden => HiddenMarks
@@ -56,6 +57,7 @@ def Ty.default : (ty : Ty) → ty.meaning
   | .interval => .empty
   | .state => invalidState
   | .metadata => {}
+  | .procedures => {}
   | .formal => FunctionBindings.emptyFormal
   | .signature => FunctionBindings.emptySignature
   | .hidden => {}
@@ -85,6 +87,7 @@ def Ty.name : Ty → List String
   | .interval => ["scalars", ".", "interval"]
   | .state => ["parser_state"]
   | .metadata => ["functions", ".", "metadata"]
+  | .procedures => ["procedures", ".", "metadata"]
   | .formal => ["functions", ".", "formal"]
   | .signature => ["functions", ".", "signature"]
   | .hidden => ["hidden_marks"]
@@ -105,7 +108,7 @@ def Ty.name : Ty → List String
   | .arrow _ _ => []
 
 inductive Function
-  | skip | nameAfter | nameIs | take | newName | equal | scalarType | lookupString | lookupScalar | lookupBoolean | lookupSubtype | lookupArray | lookupFunction | formalHides | hideName | hiddenOuter | functionType | appendFormal | append | parameterStep | parametersModel | parameters | scalarDeclaration | booleanDeclaration | functionLocal | functionLocalsModel | functionLocals | scalarAppend | appendParameter | parameterFrameModel | parameterFrame | contextOf | bodyOf | bodyTail | actualAfter | returnAfter | functionBody | functionDeclaration
+  | skip | nameAfter | nameIs | take | newName | equal | scalarType | lookupString | lookupScalar | lookupBoolean | lookupSubtype | lookupArray | lookupFunction | lookupProcedure | formalHides | hideName | hiddenOuter | functionType | appendFormal | append | parameterStep | parametersModel | parameters | scalarDeclaration | booleanDeclaration | functionLocal | functionLocalsModel | functionLocals | scalarAppend | appendParameter | parameterFrameModel | parameterFrame | contextOf | bodyOf | bodyTail | actualAfter | returnAfter | functionBody | functionDeclaration
   deriving DecidableEq, Repr
 
 def Function.type : Function → Ty
@@ -122,6 +125,7 @@ def Function.type : Function → Ty
   | .lookupSubtype => .arrow .source (.arrow .subtypes (.arrow .number (.arrow .number (.number))))
   | .lookupArray => .arrow .source (.arrow .arrays (.arrow .number (.arrow .number (.number))))
   | .lookupFunction => .arrow .source (.arrow .metadata (.arrow .number (.arrow .number (.number))))
+  | .lookupProcedure => .arrow .source (.arrow .procedures (.arrow .number (.arrow .number (.number))))
   | .formalHides => .arrow .source (.arrow .state (.arrow .number (.arrow .number (.truth))))
   | .hideName => .arrow .source (.arrow .hidden (.arrow .number (.arrow .number (.hidden))))
   | .hiddenOuter => .arrow .source (.arrow .state (.hidden))
@@ -142,7 +146,7 @@ def Function.type : Function → Ty
   | .parameterFrame => .arrow .source (.arrow .state (.state))
   | .contextOf => .arrow .scan (.context)
   | .bodyOf => .arrow .scan (.bodyScan)
-  | .bodyTail => .arrow .source (.arrow .context (.arrow .bodyScan (.arrow .stop (.arrow .metadata (.bodyScan)))))
+  | .bodyTail => .arrow .source (.arrow .context (.arrow .bodyScan (.arrow .stop (.arrow .metadata (.arrow .procedures .bodyScan)))))
   | .actualAfter => .arrow .source (.arrow .context (.arrow .number (.arrow .flow (.arrow .formal (.number)))))
   | .returnAfter => .arrow .source (.arrow .context (.arrow .bodyScan (.arrow .typeResult (.number))))
   | .functionBody => .arrow .source (.arrow .state (.arrow .state (.arrow .number (.arrow .number (.arrow .typeResult (.arrow .truth (.state)))))))
@@ -162,6 +166,7 @@ def Function.name : Function → List String
   | .lookupSubtype => ["lookup_subtype"]
   | .lookupArray => ["array_bindings", ".", "lookup"]
   | .lookupFunction => ["functions", ".", "lookup"]
+  | .lookupProcedure => ["procedures", ".", "lookup"]
   | .formalHides => ["formal_hides"]
   | .hideName => ["hide_name"]
   | .hiddenOuter => ["hidden_outer"]
@@ -221,6 +226,7 @@ def modelCalls : Calls
   | .lookupSubtype => IntegerSubtypes.lookup
   | .lookupArray => ArrayBindings.lookup
   | .lookupFunction => FunctionBindings.lookup
+  | .lookupProcedure => ProcedureBindings.lookup
   | .formalHides => formalHides
   | .hideName => hideName
   | .hiddenOuter => hiddenOuter
@@ -241,7 +247,8 @@ def modelCalls : Calls
   | .parameterFrame => parameterFrame
   | .contextOf => nativeContextOf
   | .bodyOf => Predicate.bodyOf
-  | .bodyTail => fun text context scan stop functions => Predicate.bodyTail text context.model scan stop functions
+  | .bodyTail => fun text context scan stop functions procedures =>
+      Predicate.bodyTail text context.model scan stop functions procedures
   | .actualAfter => fun text context position facts parameter => Predicate.actualAfter text context.model position facts parameter
   | .returnAfter => fun text context scan resultType => functionReturnAfter text context.model scan resultType
   | .functionBody => functionBodyAt
@@ -250,6 +257,7 @@ def modelCalls : Calls
 inductive Field : Ty → Ty → Type
   | position : Field .state .number
   | functions : Field .state .metadata
+  | procedures : Field .state .procedures
   | pure : Field .state .truth
   | «hiding» : Field .state .hidden
   | firstParameter : Field .state .number
@@ -283,6 +291,7 @@ inductive Field : Ty → Ty → Type
 def Field.name : Field a b → List String
   | .position => ["position"]
   | .functions => ["functions"]
+  | .procedures => ["procedures"]
   | .pure => ["pure"]
   | .hiding => ["hiding"]
   | .firstParameter => ["first_parameter"]
@@ -316,6 +325,7 @@ def Field.name : Field a b → List String
 def Field.get : Field a b → a.meaning → b.meaning
   | .position, value => value.position
   | .functions, value => value.functions
+  | .procedures, value => value.procedures
   | .pure, value => value.pure
   | .hiding, value => value.hiding
   | .firstParameter, value => value.firstParameter
@@ -349,6 +359,7 @@ def Field.get : Field a b → a.meaning → b.meaning
 inductive StateField : Ty → Type
   | position : StateField .number
   | functions : StateField .metadata
+  | procedures : StateField .procedures
   | pure : StateField .truth
   | «hiding» : StateField .hidden
   | firstParameter : StateField .number
@@ -360,6 +371,7 @@ inductive StateField : Ty → Type
 def StateField.name : StateField ty → String
   | .position => "position"
   | .functions => "functions"
+  | .procedures => "procedures"
   | .pure => "pure"
   | .hiding => "hiding"
   | .firstParameter => "first_parameter"
@@ -371,6 +383,7 @@ def StateField.name : StateField ty → String
 def StateField.set : StateField ty → ParserState → ty.meaning → ParserState
   | .position, state, value => {state with position := value}
   | .functions, state, value => {state with functions := value}
+  | .procedures, state, value => {state with procedures := value}
   | .pure, state, value => {state with pure := value}
   | .hiding, state, value => {state with «hiding» := value}
   | .firstParameter, state, value => {state with firstParameter := value}
@@ -408,6 +421,7 @@ inductive Expr : Ty → Type
   | number : Nat → Expr .number | truth : Bool → Expr .truth
   | token : Token → Expr .token | kind : FunctionBindings.ScalarKind → Expr .kind
   | empty : Expr .interval | full : Expr .interval | initial : Expr .state | invalid : Expr .state
+  | emptyProcedures : Expr .procedures
   | capacity : Capacity → Expr .number | returnStop : Expr .stop
   | variable (name : String) : Expr ty
   | function (fn : Function) : Expr fn.type
@@ -452,6 +466,7 @@ def Locals.set (locals : Locals) (ty : Ty) (name : String) (value : ty.meaning) 
 def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
   | .number value => value | .truth value => value | .token value => value.shell | .kind value => value
   | .empty => .empty | .full => .full | .initial => initialState | .invalid => invalidState
+  | .emptyProcedures => {}
   | .capacity bound => bound.value | .returnStop => .returnOnly
   | .variable name => locals _ name | .function fn => calls fn
   | .app fn value => fn.eval calls locals (value.eval calls locals)
@@ -504,6 +519,7 @@ def Expr.render : Expr ty → List String
   | .kind .boolean => ["functions", ".", "boolean_kind"]
   | .empty => ["scalars", ".", "empty"] | .full => ["scalars", ".", "full"]
   | .initial => ["initial_state"] | .invalid => ["invalid_state"]
+  | .emptyProcedures => ["procedures", ".", "empty_metadata"]
   | .capacity bound => bound.name | .returnStop => ["return_only"]
   | .variable name => [name] | .function fn => fn.name
   | .app fn value => match fn with
@@ -565,6 +581,9 @@ def apply4 (fn : Expr (.arrow a (.arrow b (.arrow c (.arrow d e)))))
     (x : Expr a) (y : Expr b) (z : Expr c) (u : Expr d) : Expr e := .app (apply3 fn x y z) u
 def apply5 (fn : Expr (.arrow a (.arrow b (.arrow c (.arrow d (.arrow e f))))))
     (x : Expr a) (y : Expr b) (z : Expr c) (u : Expr d) (v : Expr e) : Expr f := .app (apply4 fn x y z u) v
+def apply6 (fn : Expr (.arrow a (.arrow b (.arrow c (.arrow d (.arrow e (.arrow f g)))))))
+    (x : Expr a) (y : Expr b) (z : Expr c) (u : Expr d) (v : Expr e) (w : Expr f) : Expr g :=
+  .app (apply5 fn x y z u v) w
 
 def functionTypeBody : Expr .typeResult :=
   let text : Expr .source := .variable "text"
@@ -577,7 +596,7 @@ def functionTypeBody : Expr .typeResult :=
     .letValue "after" (apply3 (.function .take) text first (.token .booleanName)) <|
     .beginValue <| .group <| .ite (.ne (.field .constraintAfter integerType) (.number 0))
       (.typeResult (.field .constraintAfter integerType) (.kind .integer) (.field .constraintBounds integerType))
-      (.elsif (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse
+      (.elsif (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse
         (.eq after (.number 0)) (.field .booleanHidden (.field .hiding state)))
         (.ne (apply4 (.function .lookupString) text (.field .names state) first after) (.number 0)))
         (.ne (apply4 (.function .lookupScalar) text (.field .scalars state) first after) (.number 0)))
@@ -585,6 +604,7 @@ def functionTypeBody : Expr .typeResult :=
         (.ne (apply4 (.function .lookupSubtype) text (.field .subtypes state) first after) (.number 0)))
         (.ne (apply4 (.function .lookupArray) text (.field .arrays state) first after) (.number 0)))
         (.ne (apply4 (.function .lookupFunction) text (.field .functions state) first after) (.number 0)))
+        (.ne (apply4 (.function .lookupProcedure) text (.field .procedures state) first after) (.number 0)))
         (apply4 (.function .formalHides) text state first after))
         (.typeResult (.number 0) (.kind .integer) .empty) (.typeResult after (.kind .boolean) .full))
 
@@ -731,8 +751,9 @@ def functionBodyBody : Command .state :=
     .block <| .letValue "start" (.update .position bound (apply3 (.function .take) text (.field .position bound) (.token .beginKeyword))) <|
     .letValue "context" (.updateDeclarationCount (.app (.function .contextOf) (.scan start (.truth false) (.truth false)))
       (.field .scalarCount (.field .scalars locals))) <|
-    .letValue "body_result" (apply5 (.function .bodyTail) text context
-      (.app (.function .bodyOf) (.scan start (.truth false) (.truth false))) .returnStop (.field .functions frame)) <|
+    .letValue "body_result" (apply6 (.function .bodyTail) text context
+      (.app (.function .bodyOf) (.scan start (.truth false) (.truth false))) .returnStop
+      (.field .functions frame) .emptyProcedures) <|
     .letValue "return_end" (apply4 (.function .returnAfter) text context bodyResult resultType) <|
     .letValue "end_first" (apply2 (.function .skip) text
       (apply3 (.function .take) text (apply3 (.function .take) text returnEnd (.token .semicolon)) (.token .endKeyword))) <|
@@ -781,8 +802,10 @@ def functionDeclarationBody : Command .state :=
     .block <| .letValue "initial"
       (.update .firstParameter
         (.update .hiding
-          (.update .functions (.update .subtypes (.update .pure (.update .position .initial opening) (.truth true)) (.field .subtypes state))
-            (.field .functions state))
+          (.update .procedures
+            (.update .functions (.update .subtypes (.update .pure (.update .position .initial opening) (.truth true)) (.field .subtypes state))
+              (.field .functions state))
+            (.field .procedures state))
           (apply4 (.function .hideName) text (apply2 (.function .hiddenOuter) text state) first after))
         (.add (.field .parameterCount (.field .functions state)) (.number 1))) <|
     .letValue "header" (apply3 (.function .parameters) text initialInput arguments) <|
@@ -798,7 +821,7 @@ values; extending a tree cannot introduce an unbound native identifier. -/
 abbrev Scope := List (Ty × String)
 
 def Expr.scoped (scope : Scope) : Expr ty → Bool
-  | .number _ | .truth _ | .token _ | .kind _ | .empty | .full | .initial | .invalid |
+  | .number _ | .truth _ | .token _ | .kind _ | .empty | .full | .initial | .invalid | .emptyProcedures |
     .capacity _ | .returnStop | .function _ => true
   | .variable name => scope.contains (ty, name)
   | .app fn value => fn.scoped scope && value.scoped scope
@@ -831,7 +854,7 @@ def Command.scoped (scope : Scope) : Command ty → Bool
 /-- Selected and indexed components require a name, not a parenthesized
 expression or an aggregate. Delta-aggregate bases remain ordinary expressions. -/
 def Expr.prefix : Expr ty → Bool
-  | .token _ | .kind _ | .empty | .full | .initial | .invalid | .capacity _ |
+  | .token _ | .kind _ | .empty | .full | .initial | .invalid | .emptyProcedures | .capacity _ |
     .returnStop | .variable _ | .function _ | .app _ _ | .field _ _ | .formalAt _ _ => true
   | .number _ | .truth _ | .update _ _ _ | .updateDeclarationCount _ _ |
     .addHiddenCalls _ _ _ _ | .appendBoolean _ _ | .typeResult _ _ _ | .stepResult _ _ |
@@ -843,7 +866,7 @@ def Expr.prefix : Expr ty → Bool
 /-- The primary/operator categories reject implicit grouping. Parentheses and
 native declare expressions are retained explicitly in the syntax. -/
 def Expr.primary : Expr ty → Bool
-  | .number _ | .truth _ | .token _ | .kind _ | .empty | .full | .initial | .invalid |
+  | .number _ | .truth _ | .token _ | .kind _ | .empty | .full | .initial | .invalid | .emptyProcedures |
     .capacity _ | .returnStop | .variable _ | .function _ | .app _ _ | .field _ _ |
     .formalAt _ _ | .update _ _ _ | .updateDeclarationCount _ _ | .addHiddenCalls _ _ _ _ |
     .appendBoolean _ _ | .typeResult _ _ _ | .stepResult _ _ | .formal _ _ _ _ |
@@ -889,7 +912,7 @@ def Expr.declarations : Expr ty → Bool
   | _ => false
 
 def Expr.wellFormed : Expr ty → Bool
-  | .number _ | .truth _ | .token _ | .kind _ | .empty | .full | .initial | .invalid |
+  | .number _ | .truth _ | .token _ | .kind _ | .empty | .full | .initial | .invalid | .emptyProcedures |
     .capacity _ | .returnStop | .variable _ | .function _ => true
   | .app fn value => fn.callHead && value.value && fn.wellFormed && value.wellFormed
   | .field _ value => value.prefix && value.wellFormed
