@@ -17,6 +17,7 @@ actual inputs, settings, log and fresh axiom-audit result.
 | `20261110T035845-3c155b0af802` | Character, indexed-element, length and compound-token read traversal (`87a2ef23a8`, integrated as `9a5b0a1c93`) | 11,296 |
 | `20261110T041546-7a374a26b150` | Corrected function-first callable dispatch and outer-state preservation (`0f1b344f90`, integrated as `3e00a7b97d`) | 14,991 |
 | `20261110T042215-69564f38c8a0` | Raw procedure-call trees, complete-domain equations and callee interpretations, including exact call source candidate (`883b26c75e`, integrated as `3b7ef28b35`); shared declaration syntax and low trees (`7f1d9d6236`, integrated as `b27ec9ae0b`) | 49,725 |
+| `20261110T045337-d3c1d0e6dedf` | Procedure-body typed-tree denotation and exact model equation over every input | 16,069 |
 
 Lead source inspection found that the `035322` model tried procedures before
 functions, unlike Ada's function-first dispatcher. Its focused result remains
@@ -34,6 +35,6 @@ attempts as failed; this packet does not relabel or substitute for them.
 
 Full Boolean-actual alias exclusion, constructive mixed declaration/body/call
 assembly, remaining raw-helper library interpretation and authoritative source
-endpoint integration are not established by this packet. The high-level
-procedure declaration trees in the integration workspace are still unvalidated
-drafts at this checkpoint. Published Rosetta support remains 83 tasks.
+endpoint integration are not established by this packet. The procedure-body tree and model equation now pass their focused audit;
+its complete-domain imported-helper assembly, declaration source checks and
+authoritative connection remain pending. Published Rosetta support remains 83 tasks.
