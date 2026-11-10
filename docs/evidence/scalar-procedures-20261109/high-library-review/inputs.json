@@ -1,0 +1,111 @@
+{
+  "started_utc": "2026-11-10T06:55:30+00:00",
+  "captured_utc": "2026-11-10T06:59:14.019058+00:00",
+  "root_commit": "802232ac9c58cd613752d2d07c3002bb0b22b754",
+  "low_commit": "b287c84887eeaa736356d6b22890c95dab1207e5",
+  "reviewer": "/root/scalar_procedures_scope",
+  "selected_model_effort": "GPT-6 Astra Max per prior parent assignment; live model/effort not independently exposed",
+  "token_cost_evidence": "Unavailable",
+  "validation": "Read-only source/API/precondition comparison; no Lean or native run for this review.",
+  "files": [
+    {
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370",
+      "path": "tmp/outer-draft/ProcedureDeclarationBodyLibrary.lean",
+      "sha256": "cb3ccae03283a880b1d6e2a18e17c7c2a7eaf2f2cfc5dfa0d4a0e9f83953eaa0",
+      "mtime_utc": "2026-11-10T04:32:02.133063+00:00"
+    },
+    {
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370",
+      "path": "tmp/outer-draft/ProcedureDeclarationOuterLibrary.lean",
+      "sha256": "6388f88424eba22604549449270ff75cd9ae6e2e1fbec99fa6b0158ada8064ae",
+      "mtime_utc": "2026-11-10T05:39:17.307171+00:00"
+    },
+    {
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370",
+      "path": "proof/Silver/ProcedureDeclarationOuterDomains.lean",
+      "sha256": "12114d3dec7e9927c5df8b5be9f002f682f24e5bf04b467cec177c4f3e6a9d5e",
+      "mtime_utc": "2026-11-10T05:51:44.431552+00:00"
+    },
+    {
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370",
+      "path": "proof/Silver/ProcedureDeclarationHighEquations.lean",
+      "sha256": "5fbecfe7dfb541806a5d0adaa06f68c5570fde3a277ba044f321605357b46e17",
+      "mtime_utc": "2026-11-10T03:27:31.064220+00:00"
+    },
+    {
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370",
+      "path": "proof/Silver/ProcedureDeclarationBodyImports.lean",
+      "sha256": "1bc026bcc7a3785d8db9f5a7f08f5f096a229097500a40573104112a496763e1",
+      "mtime_utc": "2026-11-10T05:20:49.483384+00:00"
+    },
+    {
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370",
+      "path": "proof/Silver/ProcedureDeclarationOuterImports.lean",
+      "sha256": "c6135ab49964224db94dc9a63d8a830c55bd6f5e6c685ade97a2caad426d5b66",
+      "mtime_utc": "2026-11-10T03:25:55.277795+00:00"
+    },
+    {
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370",
+      "path": "proof/Silver/FunctionDeclarationBodyDomains.lean",
+      "sha256": "44fb75e87d93e9af9e7d12c79c9dcacebbd5b0cb1c6fbd91f8a5e9fab459f3f2",
+      "mtime_utc": "2026-11-09T23:04:38.730058+00:00"
+    },
+    {
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370",
+      "path": "proof/Silver/FunctionDeclarationSourceBridge.lean",
+      "sha256": "d33cf2c4b7f0d37a813eacb59a3372fde77c57354c699dad2879c611394c9f45",
+      "mtime_utc": "2026-11-09T23:04:38.739875+00:00"
+    },
+    {
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370",
+      "path": "proof/Silver/ProcedureBindingsSourceBridge.lean",
+      "sha256": "86b44e3e0bda0b63f765bfd6710a9ec096ee748d4b3d3a48fc6c64a0c3707582",
+      "mtime_utc": "2026-11-09T23:30:28.678903+00:00"
+    },
+    {
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370",
+      "path": "src/silver_output_profile.adb",
+      "sha256": "7edbe0340274a03d99f2ab3cad9e7ecded721604f247c0162ffcd04b72453b9f",
+      "mtime_utc": "2026-11-10T01:21:34.517927+00:00"
+    },
+    {
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-body-source-370",
+      "path": "proof/Silver/ProcedureDeclarationHelperLibraries.lean",
+      "sha256": "2bc39f9a5f1a316220ecfff728bced650c8e836a6831e2dae8a45fee6761cb14",
+      "mtime_utc": "2026-11-10T04:19:27.284610+00:00"
+    },
+    {
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-body-source-370",
+      "path": "proof/Silver/ProcedureDeclarationDomains.lean",
+      "sha256": "bd70af2dbe99771972bf8d5d995797ed16fea4ed60067596e9d691de5ee5d829",
+      "mtime_utc": "2026-11-10T03:31:00.259148+00:00"
+    },
+    {
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-body-source-370",
+      "path": "proof/Silver/ProcedureDeclarationHelperEquations.lean",
+      "sha256": "a7ab437aeb54bd045076ad29f092e461850328959f54e1b354b04d7b5fdc362a",
+      "mtime_utc": "2026-11-10T05:40:28.801466+00:00"
+    },
+    {
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-body-source-370",
+      "path": "proof/Silver/ProcedureDeclarationTraversalContracts.lean",
+      "sha256": "6e76cc8a4368c8ebf27972631889236063b6b9501b8199d4b22223796a81e30e",
+      "mtime_utc": "2026-11-10T05:40:28.817466+00:00"
+    },
+    {
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-body-source-370",
+      "path": "proof/Silver/ProcedureDeclarationPrefixLibraries.lean",
+      "sha256": "fa7b6fa233717ee7cb11f22ebe12d986303d7860be0a32e0b79c78a986b90fe3",
+      "mtime_utc": "2026-11-10T06:58:43.834233+00:00"
+    },
+    {
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-body-source-370",
+      "path": "proof/Silver/ProcedureDeclarationParameterLibraries.lean",
+      "sha256": "ee053e06dfc39dcd55e44f459d1656d719a010194dfbe44a4fcbdcdd83dc1877",
+      "mtime_utc": "2026-11-10T06:49:56.065792+00:00"
+    }
+  ],
+  "finished_utc": "2026-11-10T07:00:15.050989+00:00",
+  "elapsed_seconds": 285.050989,
+  "accepted_outer_domains_match": "2425dc5580 byte-identical"
+}
