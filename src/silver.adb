@@ -84,6 +84,8 @@ procedure Silver with SPARK_Mode => On is
       declare
          Functions : constant Silver_Library_Reports.Function_Metadata :=
            Silver_Output_Profile.Local_Functions (Source);
+         Procedures : constant Silver_Library_Reports.Procedure_Metadata :=
+           Silver_Output_Profile.Local_Procedures (Source);
          Argument_Mode : constant Boolean := Silver_Output_Profile.Uses_Arguments (Source);
          Assignment_Mode : constant Boolean := Silver_Output_Profile.Uses_Assignment (Source);
          Application_Kind : constant Silver_Library_Reports.Application_Kind :=
@@ -129,7 +131,7 @@ procedure Silver with SPARK_Mode => On is
            " --checks-as-errors=on" &
            " --level=2 --prover=cvc5,z3,altergo --steps=100000 --timeout=0 --memlimit=1000 -j0" &
            " --no-loop-unrolling" &
-           (if Functions.Count > 0 then " --no-inlining" else "");
+           (if Functions.Count > 0 or else Procedures.Count > 0 then " --no-inlining" else "");
          --  The pinned native frontend must not replace a variable by an
          --  inner guard's value while losing its enclosing path facts.
          --  -gnatdM disables that optimization; runtime checks stay enabled.
@@ -174,9 +176,9 @@ procedure Silver with SPARK_Mode => On is
                  (if Output_Mode then
                     Application_Report_Read_Complete
                     and then Silver_Library_Reports.Unbounded_Application_Report_Policy
-                      (Raw_Application_Report, Application_Kind, Source, Functions)
+                      (Raw_Application_Report, Application_Kind, Source, Functions, Procedures)
                     and then Silver_Library_Reports.Application_Report_Policy
-                      (Report (1 .. Report_Last), Application_Kind, Source, Functions)
+                      (Report (1 .. Report_Last), Application_Kind, Source, Functions, Procedures)
                   else Silver_Reports.Recognizes_Null_Report (Report (1 .. Report_Last)))))
          is
          begin
@@ -194,14 +196,14 @@ procedure Silver with SPARK_Mode => On is
                if Output_Mode then
                   Silver_Report_Projection_Audit.Application
                     (Silver_Report_Reader.Raw_Bytes, Silver_Report_Reader.Projected_Bytes,
-                     Silver_Report_Reader.Report_State, Report, Report_Last, Application_Kind, Source, Functions);
+                     Silver_Report_Reader.Report_State, Report, Report_Last, Application_Kind, Source, Functions, Procedures);
                   Raw_Application_Report := Silver_Report_Reader.Raw_Bytes;
                   Application_Report_Read_Complete :=
                     Silver_Report_Reader.Report_Ended and then Silver_Report_Reader.Report_Closed;
                end if;
                Report_Complete := (if Output_Mode then
                  Silver_Library_Reports.Complete_Application_Proof
-                   (Report (1 .. Report_Last), Application_Kind, Source, Functions)
+                   (Report (1 .. Report_Last), Application_Kind, Source, Functions, Procedures)
                 else Silver_Reports.Complete_Null_Proof (Report (1 .. Report_Last)));
             end if;
          end Read_Proof;
@@ -236,10 +238,10 @@ procedure Silver with SPARK_Mode => On is
                and then (if Output_Mode then
                  Application_Report_Read_Complete
                  and then Silver_Library_Reports.Unbounded_Application_Report_Policy
-                   (Raw_Application_Report, Application_Kind, Source, Functions)
+                   (Raw_Application_Report, Application_Kind, Source, Functions, Procedures)
                  and then Silver_Libraries.Audited_Raw_Reports
                  and then Silver_Library_Reports.Application_Report_Policy
-                   (Report (1 .. Report_Last), Application_Kind, Source, Functions)
+                   (Report (1 .. Report_Last), Application_Kind, Source, Functions, Procedures)
                 else Silver_Reports.Recognizes_Null_Report (Report (1 .. Report_Last)))),
              Post => (Static => Build_Returned_Success = Success
                and then (if Success then Build_Command_Matched))
@@ -275,10 +277,10 @@ procedure Silver with SPARK_Mode => On is
                and then (if Output_Mode then
                  Application_Report_Read_Complete
                  and then Silver_Library_Reports.Unbounded_Application_Report_Policy
-                   (Raw_Application_Report, Application_Kind, Source, Functions)
+                   (Raw_Application_Report, Application_Kind, Source, Functions, Procedures)
                  and then Silver_Libraries.Audited_Raw_Reports
                  and then Silver_Library_Reports.Application_Report_Policy
-                   (Report (1 .. Report_Last), Application_Kind, Source, Functions)
+                   (Report (1 .. Report_Last), Application_Kind, Source, Functions, Procedures)
                 else Silver_Reports.Recognizes_Null_Report (Report (1 .. Report_Last))))
          is
             Status : Integer;

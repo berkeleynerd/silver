@@ -5,6 +5,7 @@ with Silver_Report_Observation_Windows;
 
 package body Silver_Library_Reports with SPARK_Mode => On is
    use SPARK.Big_Integers;
+   use type Procedure_Bindings.Parameter_Mode;
    package Observations renames Silver_Report_Observations;
    use type Observations.Nesting;
    use type Observations.Member;
@@ -83,6 +84,7 @@ package body Silver_Library_Reports with SPARK_Mode => On is
    Atom_VC_INDEX_CHECK : constant String := "VC_INDEX_CHECK";
    Atom_all : constant String := "all";
    Atom_info : constant String := "info";
+   Atom_UNINITIALIZED : constant String := "UNINITIALIZED";
    Atom_SUBPROGRAM_TERMINATION : constant String := "SUBPROGRAM_TERMINATION";
    Atom_main_adb : constant String := "main.adb";
    Atom_prover : constant String := "prover";
@@ -1013,7 +1015,7 @@ package body Silver_Library_Reports with SPARK_Mode => On is
 
    --  Every local function has its own identity; coverage and uniqueness
    --  retain the distinction between used and unused declarations.
-   subtype Entity_Kind is Natural range 0 .. 17 + Function_Bindings.Max_Functions;
+   subtype Entity_Kind is Natural range 0 .. 17 + Function_Bindings.Max_Functions + Procedure_Bindings.Max_Procedures;
    Unknown : constant Entity_Kind := 0;
    IO_Package : constant Entity_Kind := 1;
    Put_Line : constant Entity_Kind := 2;
@@ -1032,6 +1034,20 @@ package body Silver_Library_Reports with SPARK_Mode => On is
    Argument : constant Entity_Kind := 15;
    Runtime_Exit_Status : constant Entity_Kind := 16;
    Main_Entity : constant Entity_Kind := 17;
+
+   --  Keep the function IDs stable and put procedures in a disjoint block.
+   Procedure_Entity_Base : constant Entity_Kind := Main_Entity + Function_Bindings.Max_Functions;
+
+   function Is_Local_Function (Name : Entity_Kind; Functions : Function_Metadata) return Boolean is
+     (Name in Main_Entity + 1 .. Main_Entity + Functions.Count);
+   function Is_Local_Procedure (Name : Entity_Kind; Procedures : Procedure_Metadata) return Boolean is
+     (Name in Procedure_Entity_Base + 1 .. Procedure_Entity_Base + Procedures.Count);
+   function Is_Local_Subprogram
+     (Name : Entity_Kind; Functions : Function_Metadata; Procedures : Procedure_Metadata) return Boolean is
+     (Is_Local_Function (Name, Functions) or else Is_Local_Procedure (Name, Procedures));
+   function Is_Application_Entity
+     (Name : Entity_Kind; Functions : Function_Metadata; Procedures : Procedure_Metadata) return Boolean is
+     (Name = Main_Entity or else Is_Local_Subprogram (Name, Functions, Procedures));
 
    function Entity_File (Name : Entity_Kind) return String is
      (case Name is
@@ -1163,9 +1179,70 @@ package body Silver_Library_Reports with SPARK_Mode => On is
       return Unknown;
    end Function_Name;
 
+   function Source_Name_Valid
+     (Source : String; Item : Procedure_Bindings.Signature) return Boolean is
+     (Source'First = 1 and then Source'Length <= 4_096 and then Item.First >= 1 and then Item.First < Item.After
+      and then Item.After <= Source'Length + 1);
+
+   function Procedure_Spelling
+     (Text : String; Name : Span; Source : String;
+      Item : Procedure_Bindings.Signature) return Boolean
+     with Pre => Text'First = 1 and then Text'Length <= Max_Report_Length;
+   function Procedure_Spelling
+     (Text : String; Name : Span; Source : String;
+      Item : Procedure_Bindings.Signature) return Boolean is
+     (Source_Name_Valid (Source, Item) and then Valid (Text, Name)
+      and then Name.Last - Name.First = Item.After - Item.First + 6
+      and then Text (Name.First) = '"' and then Text (Name.Last) = '"'
+      and then Fold (Text (Name.First + 1)) = 'm'
+      and then Fold (Text (Name.First + 2)) = 'a'
+      and then Fold (Text (Name.First + 3)) = 'i'
+      and then Fold (Text (Name.First + 4)) = 'n'
+      and then Text (Name.First + 5) = '.'
+      and then (for all I in Item.First .. Item.After - 1 =>
+        Fold (Text (Name.First + 6 + I - Item.First)) = Fold (Source (I))));
+
+   function Procedure_Name_Model
+     (Text : String; Name : Span; Source : String; Procedures : Procedure_Metadata;
+      Count : Procedure_Bindings.Procedure_Count) return Entity_Kind
+     with Ghost => Static, Global => null,
+       Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
+         and then Count <= Procedures.Count,
+       Post => Procedure_Name_Model'Result = Unknown
+         or else Procedure_Name_Model'Result in Procedure_Entity_Base + 1 .. Procedure_Entity_Base + Count,
+       Subprogram_Variant => (Decreases => Count);
+   function Procedure_Name_Model
+     (Text : String; Name : Span; Source : String; Procedures : Procedure_Metadata;
+      Count : Procedure_Bindings.Procedure_Count) return Entity_Kind is
+     (if Count = 0 then Unknown
+      elsif Procedure_Spelling (Text, Name, Source, Procedures.Items (Count)) then Procedure_Entity_Base + Count
+      else Procedure_Name_Model (Text, Name, Source, Procedures, Count - 1));
+
+   function Procedure_Name
+     (Text : String; Name : Span; Source : String; Procedures : Procedure_Metadata) return Entity_Kind
+     with Pre => Text'First = 1 and then Text'Length <= Max_Report_Length,
+       Post => (Static => Procedure_Name'Result =
+         Procedure_Name_Model (Text, Name, Source, Procedures, Procedures.Count))
+   is
+      Count : Procedure_Bindings.Procedure_Count := Procedures.Count;
+   begin
+      while Count > 0 loop
+         pragma Loop_Invariant (Count <= Procedures.Count);
+         pragma Loop_Invariant (Static =>
+           Procedure_Name_Model (Text, Name, Source, Procedures, Procedures.Count) =
+           Procedure_Name_Model (Text, Name, Source, Procedures, Count));
+         pragma Loop_Variant (Decreases => Count);
+         if Procedure_Spelling (Text, Name, Source, Procedures.Items (Count)) then
+            return Procedure_Entity_Base + Count;
+         end if;
+         Count := Count - 1;
+      end loop;
+      return Unknown;
+   end Procedure_Name;
+
    function Termination_Message
      (Name : Entity_Kind; Source : String; Functions : Function_Metadata) return String is
-     (if Name not in Main_Entity + 1 .. Main_Entity + Functions.Count then ""
+     (if not Is_Local_Function (Name, Functions) then ""
       elsif not Source_Name_Valid (Source, Functions.Items (Name - Main_Entity)) then ""
       else "implicit aspect Always_Terminates on \""" &
         Source (Functions.Items (Name - Main_Entity).First ..
@@ -1173,12 +1250,12 @@ package body Silver_Library_Reports with SPARK_Mode => On is
         "\"" has been proved, subprogram will terminate");
 
    function Entity_Name_Spec (Text : String; Entity : Span;
-      Source : String; Functions : Function_Metadata) return Entity_Kind
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata) return Entity_Kind
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length <= Max_Report_Length;
 
    function Entity_Name_Spec (Text : String; Entity : Span;
-      Source : String; Functions : Function_Metadata) return Entity_Kind is
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata) return Entity_Kind is
      (declare Name : constant Span := Field_Spec (Text, Entity, JSON_name);
               Kind : constant Entity_Kind := (
           if Main_Spelling (Text, Name) then Main_Entity
@@ -1198,13 +1275,14 @@ package body Silver_Library_Reports with SPARK_Mode => On is
           elsif String_Equal (Text, Name, Atom_Silver_Runtime_Argument_Count) then Argument_Count
           elsif String_Equal (Text, Name, Atom_Silver_Runtime_Argument) then Argument
           elsif String_Equal (Text, Name, Atom_Silver_Runtime_Set_Exit_Status) then Runtime_Exit_Status
-          else Function_Name_Model (Text, Name, Source, Functions, Functions.Count));
+          else (if Function_Name_Model (Text, Name, Source, Functions, Functions.Count) /= Unknown then Function_Name_Model (Text, Name, Source, Functions, Functions.Count)
+           else Procedure_Name_Model (Text, Name, Source, Procedures, Procedures.Count)));
       begin (if Location_Policy (Text, Entity, Kind) then Kind else Unknown));
 
    function Entity_Name (Text : String; Entity : Span;
-      Source : String; Functions : Function_Metadata) return Entity_Kind
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata) return Entity_Kind
      with Pre => Text'First = 1 and then Text'Length <= Max_Report_Length,
-       Post => (Static => Entity_Name'Result = Entity_Name_Spec (Text, Entity, Source => Source, Functions => Functions))
+       Post => (Static => Entity_Name'Result = Entity_Name_Spec (Text, Entity, Source => Source, Functions => Functions, Procedures => Procedures))
    is
       Name : constant Span := Field (Text, Entity, JSON_name);
       Result : Entity_Kind;
@@ -1226,7 +1304,9 @@ package body Silver_Library_Reports with SPARK_Mode => On is
       elsif String_Equal (Text, Name, Atom_Silver_Runtime_Argument_Count) then Result := Argument_Count;
       elsif String_Equal (Text, Name, Atom_Silver_Runtime_Argument) then Result := Argument;
       elsif String_Equal (Text, Name, Atom_Silver_Runtime_Set_Exit_Status) then Result := Runtime_Exit_Status;
-      else Result := Function_Name (Text, Name, Source => Source, Functions => Functions);
+      else
+         Result := Function_Name (Text, Name, Source => Source, Functions => Functions);
+         if Result = Unknown then Result := Procedure_Name (Text, Name, Source, Procedures); end if;
       end if;
       if not Location_OK (Text, Entity, Result) then return Unknown; end if;
       return Result;
@@ -1292,33 +1372,33 @@ package body Silver_Library_Reports with SPARK_Mode => On is
    end Referenced_Entity;
 
    function Reference_Policy (Text : String; Entities, Reference : Span;
-      Source : String; Functions : Function_Metadata) return Boolean
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata) return Boolean
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length <= Max_Report_Length;
 
    function Reference_Policy (Text : String; Entities, Reference : Span;
-      Source : String; Functions : Function_Metadata) return Boolean is
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata) return Boolean is
      (((String_Equal (Text, Field_Spec (Text, Reference, JSON_predicate), Atom_CLAIM_POST) and then Entity_Name_Spec (Text, Referenced_Entity_Spec
-        (Text, Entities, Field_Spec (Text, Reference, JSON_arg)), Source => Source, Functions => Functions) <= Main_Entity)
+        (Text, Entities, Field_Spec (Text, Reference, JSON_arg)), Source => Source, Functions => Functions, Procedures => Procedures) <= Main_Entity)
        or else String_Equal (Text, Field_Spec (Text, Reference, JSON_predicate), Atom_CLAIM_AORTE)
        or else String_Equal (Text, Field_Spec (Text, Reference, JSON_predicate), Atom_CLAIM_EFFECTS))
       and then Entity_Name_Spec (Text, Referenced_Entity_Spec
-        (Text, Entities, Field_Spec (Text, Reference, JSON_arg)), Source => Source, Functions => Functions) /= Unknown);
+        (Text, Entities, Field_Spec (Text, Reference, JSON_arg)), Source => Source, Functions => Functions, Procedures => Procedures) /= Unknown);
 
    function Reference_OK (Text : String; Entities, Reference : Span;
-      Source : String; Functions : Function_Metadata) return Boolean
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata) return Boolean
      with Pre => Text'First = 1 and then Text'Length <= Max_Report_Length,
-       Post => (Static => Reference_OK'Result = Reference_Policy (Text, Entities, Reference, Source => Source, Functions => Functions))
+       Post => (Static => Reference_OK'Result = Reference_Policy (Text, Entities, Reference, Source => Source, Functions => Functions, Procedures => Procedures))
    is
       Predicate : constant Span := Field (Text, Reference, JSON_predicate);
       Entity : constant Span := Referenced_Entity
         (Text, Entities, Field (Text, Reference, JSON_arg));
    begin
       return ((String_Equal (Text, Predicate, Atom_CLAIM_POST)
-               and then Entity_Name (Text, Entity, Source => Source, Functions => Functions) <= Main_Entity)
+               and then Entity_Name (Text, Entity, Source => Source, Functions => Functions, Procedures => Procedures) <= Main_Entity)
               or else String_Equal (Text, Predicate, Atom_CLAIM_AORTE)
               or else String_Equal (Text, Predicate, Atom_CLAIM_EFFECTS))
-        and then Entity_Name (Text, Entity, Source => Source, Functions => Functions) /= Unknown;
+        and then Entity_Name (Text, Entity, Source => Source, Functions => Functions, Procedures => Procedures) /= Unknown;
    end Reference_OK;
 
    --  This advisory describes an unused initialized value, not a failed safety
@@ -1357,7 +1437,81 @@ package body Silver_Library_Reports with SPARK_Mode => On is
       or else String_Equal (Text, Item, Atom_put_unused_Succeeded)
       or else String_Equal (Text, Item, Atom_put_unused_Written_Bytes));
 
-   subtype List_Kind is Natural range 0 .. 10 + Function_Bindings.Max_Functions;
+   --  All typed metadata is handled, including empty and malformed slices.
+   --  Source membership supplies the stronger contiguous-pool invariant.
+   function Output_Formal
+     (Name : Entity_Kind; Index : Procedure_Bindings.Formal_Count;
+      Procedures : Procedure_Metadata) return Boolean is
+     (Is_Local_Procedure (Name, Procedures)
+      and then Index in 1 .. Procedures.Parameter_Count
+      and then Procedures.Parameters (Index).Mode = Procedure_Bindings.Output
+      and then
+        (declare Item : constant Procedure_Bindings.Signature :=
+           Procedures.Items (Name - Procedure_Entity_Base);
+         begin Item.Formal_First > 0 and then Item.Formal_First <= Procedures.Parameter_Count
+           and then Item.Count > 0
+           and then Item.Count <= Procedures.Parameter_Count - Item.Formal_First + 1
+           and then Index >= Item.Formal_First and then Index - Item.Formal_First < Item.Count));
+
+   function Required_Output
+     (Index : Procedure_Bindings.Formal_Count; Procedures : Procedure_Metadata) return Boolean is
+     (for some P in 1 .. Procedures.Count =>
+        Output_Formal (Procedure_Entity_Base + P, Index, Procedures));
+
+   function Source_Name_Valid
+     (Source : String; Item : Procedure_Bindings.Formal) return Boolean is
+     (Source'First = 1 and then Source'Length <= 4_096 and then Item.First >= 1 and then Item.First < Item.After
+      and then Item.After <= Source'Length + 1);
+
+   function Initialization_Message
+     (Source : String; Item : Procedure_Bindings.Formal) return String is
+     (if not Source_Name_Valid (Source, Item) then ""
+      else "initialization of \""" & Source (Item.First .. Item.After - 1) & "\"" proved");
+
+   function Initialization_Index_Model
+     (Text : String; Message : Span; Source : String; Procedures : Procedure_Metadata;
+      Name : Entity_Kind; Count : Procedure_Bindings.Formal_Count) return Procedure_Bindings.Formal_Count
+     with Ghost => Static, Global => null,
+       Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
+         and then Count <= Procedures.Parameter_Count,
+       Post => Initialization_Index_Model'Result <= Count,
+       Subprogram_Variant => (Decreases => Count);
+   function Initialization_Index_Model
+     (Text : String; Message : Span; Source : String; Procedures : Procedure_Metadata;
+      Name : Entity_Kind; Count : Procedure_Bindings.Formal_Count) return Procedure_Bindings.Formal_Count is
+     (if Count = 0 then 0
+      elsif Output_Formal (Name, Count, Procedures)
+        and then Source_Name_Valid (Source, Procedures.Parameters (Count))
+        and then String_Equal (Text, Message, Initialization_Message (Source, Procedures.Parameters (Count)))
+      then Count
+      else Initialization_Index_Model (Text, Message, Source, Procedures, Name, Count - 1));
+
+   function Initialization_Index
+     (Text : String; Message : Span; Source : String; Procedures : Procedure_Metadata;
+      Name : Entity_Kind) return Procedure_Bindings.Formal_Count
+     with Pre => Text'First = 1 and then Text'Length <= Max_Report_Length,
+       Post => (Static => Initialization_Index'Result = Initialization_Index_Model
+         (Text, Message, Source, Procedures, Name, Procedures.Parameter_Count))
+   is
+      Count : Procedure_Bindings.Formal_Count := Procedures.Parameter_Count;
+   begin
+      while Count > 0 loop
+         pragma Loop_Invariant (Count <= Procedures.Parameter_Count);
+         pragma Loop_Invariant (Static =>
+           Initialization_Index_Model (Text, Message, Source, Procedures, Name, Procedures.Parameter_Count) =
+           Initialization_Index_Model (Text, Message, Source, Procedures, Name, Count));
+         pragma Loop_Variant (Decreases => Count);
+         if Output_Formal (Name, Count, Procedures)
+           and then Source_Name_Valid (Source, Procedures.Parameters (Count))
+           and then String_Equal (Text, Message, Initialization_Message (Source, Procedures.Parameters (Count)))
+         then return Count; end if;
+         Count := Count - 1;
+      end loop;
+      return 0;
+   end Initialization_Index;
+
+   subtype List_Kind is Natural range
+     0 .. 10 + Function_Bindings.Max_Functions + Procedure_Bindings.Max_Formals;
    Checks : constant List_Kind := 0;
    Main_Checks : constant List_Kind := 1;
    Binding_Diagnostics : constant List_Kind := 2;
@@ -1369,18 +1523,21 @@ package body Silver_Library_Reports with SPARK_Mode => On is
    Postconditions : constant List_Kind := 8;
    Put_Postconditions : constant List_Kind := 9;
    Argument_Postconditions : constant List_Kind := 10;
-   subtype Termination_Witness is List_Kind range 11 .. List_Kind'Last;
+   subtype Termination_Witness is List_Kind range 11 .. 10 + Function_Bindings.Max_Functions;
+   Initialization_Witness_Base : constant List_Kind := Termination_Witness'Last;
+   subtype Initialization_Witness is List_Kind range Initialization_Witness_Base + 1 .. List_Kind'Last;
+   subtype Exact_Witness is List_Kind range Termination_Witness'First .. Initialization_Witness'Last;
 
    subtype Main_Diagnostics is List_Kind range Binding_Diagnostics .. Selected_Diagnostics;
    function Termination_Policy (Text : String; Item, Entities : Span;
-      Source : String; Functions : Function_Metadata) return Boolean
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata) return Boolean
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length <= Max_Report_Length;
    function Termination_Policy (Text : String; Item, Entities : Span;
-      Source : String; Functions : Function_Metadata) return Boolean is
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata) return Boolean is
      (declare Name : constant Entity_Kind := Entity_Name_Spec
-        (Text, Referenced_Entity_Spec (Text, Entities, Field_Spec (Text, Item, JSON_entity)), Source => Source, Functions => Functions);
-      begin Name in Main_Entity + 1 .. Main_Entity + Functions.Count
+        (Text, Referenced_Entity_Spec (Text, Entities, Field_Spec (Text, Item, JSON_entity)), Source => Source, Functions => Functions, Procedures => Procedures);
+      begin Is_Local_Function (Name, Functions)
         and then String_Equal (Text, Field_Spec (Text, Item, JSON_rule), Atom_SUBPROGRAM_TERMINATION)
         and then String_Equal (Text, Field_Spec (Text, Item, JSON_severity), Atom_info)
         and then String_Equal (Text, Field_Spec (Text, Item, JSON_how_proved), JSON_flow)
@@ -1397,14 +1554,14 @@ package body Silver_Library_Reports with SPARK_Mode => On is
         and then Field_Spec (Text, Item, JSON_justif_msg) = Missing);
 
    function Termination_OK (Text : String; Item, Entities : Span;
-      Source : String; Functions : Function_Metadata) return Boolean
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata) return Boolean
      with Pre => Text'First = 1 and then Text'Length <= Max_Report_Length,
-       Post => (Static => Termination_OK'Result = Termination_Policy (Text, Item, Entities, Source => Source, Functions => Functions))
+       Post => (Static => Termination_OK'Result = Termination_Policy (Text, Item, Entities, Source => Source, Functions => Functions, Procedures => Procedures))
    is
       Name : constant Entity_Kind := Entity_Name
-        (Text, Referenced_Entity (Text, Entities, Field (Text, Item, JSON_entity)), Source => Source, Functions => Functions);
+        (Text, Referenced_Entity (Text, Entities, Field (Text, Item, JSON_entity)), Source => Source, Functions => Functions, Procedures => Procedures);
    begin
-      return Name in Main_Entity + 1 .. Main_Entity + Functions.Count
+      return Is_Local_Function (Name, Functions)
         and then String_Equal (Text, Field (Text, Item, JSON_rule), Atom_SUBPROGRAM_TERMINATION)
         and then String_Equal (Text, Field (Text, Item, JSON_severity), Atom_info)
         and then String_Equal (Text, Field (Text, Item, JSON_how_proved), JSON_flow)
@@ -1421,21 +1578,75 @@ package body Silver_Library_Reports with SPARK_Mode => On is
         and then Field (Text, Item, JSON_justif_msg) = Missing;
    end Termination_OK;
 
+   function Initialization_Policy (Text : String; Item, Entities : Span;
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata) return Boolean
+     with Ghost => Static, Global => null,
+       Pre => Text'First = 1 and then Text'Length <= Max_Report_Length;
+   function Initialization_Policy (Text : String; Item, Entities : Span;
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata) return Boolean is
+     (declare Name : constant Entity_Kind := Entity_Name_Spec
+        (Text, Referenced_Entity_Spec (Text, Entities, Field_Spec (Text, Item, JSON_entity)), Source => Source, Functions => Functions, Procedures => Procedures);
+      begin Initialization_Index_Model
+          (Text, Field_Spec (Text, Field_Spec (Text, Item, JSON_message), JSON_text),
+           Source, Procedures, Name, Procedures.Parameter_Count) > 0
+        and then String_Equal (Text, Field_Spec (Text, Item, JSON_rule), Atom_UNINITIALIZED)
+        and then String_Equal (Text, Field_Spec (Text, Item, JSON_severity), Atom_info)
+        and then String_Equal (Text, Field_Spec (Text, Item, JSON_how_proved), JSON_flow)
+        and then String_Equal (Text, Field_Spec (Text, Item, JSON_file), Atom_main_adb)
+        and then Positive_Number (Text, Field_Spec (Text, Item, JSON_line))
+        and then Positive_Number (Text, Field_Spec (Text, Item, JSON_col))
+        and then Field_Spec (Text, Item, JSON_justification) = Missing
+        and then Field_Spec (Text, Item, JSON_justified) = Missing
+        and then Field_Spec (Text, Item, JSON_suppressed) = Missing
+        and then Field_Spec (Text, Item, JSON_annot_kind) = Missing
+        and then Field_Spec (Text, Item, JSON_justif_msg) = Missing);
+
+   function Initialization_OK (Text : String; Item, Entities : Span;
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata) return Boolean
+     with Pre => Text'First = 1 and then Text'Length <= Max_Report_Length,
+       Post => (Static => Initialization_OK'Result = Initialization_Policy (Text, Item, Entities, Source => Source, Functions => Functions, Procedures => Procedures))
+   is
+      Name : constant Entity_Kind := Entity_Name
+        (Text, Referenced_Entity (Text, Entities, Field (Text, Item, JSON_entity)), Source => Source, Functions => Functions, Procedures => Procedures);
+   begin
+      return Initialization_Index
+          (Text, Field (Text, Field (Text, Item, JSON_message), JSON_text),
+           Source, Procedures, Name) > 0
+        and then String_Equal (Text, Field (Text, Item, JSON_rule), Atom_UNINITIALIZED)
+        and then String_Equal (Text, Field (Text, Item, JSON_severity), Atom_info)
+        and then String_Equal (Text, Field (Text, Item, JSON_how_proved), JSON_flow)
+        and then String_Equal (Text, Field (Text, Item, JSON_file), Atom_main_adb)
+        and then Positive_Number (Text, Field (Text, Item, JSON_line))
+        and then Positive_Number (Text, Field (Text, Item, JSON_col))
+        and then Field (Text, Item, JSON_justification) = Missing
+        and then Field (Text, Item, JSON_justified) = Missing
+        and then Field (Text, Item, JSON_suppressed) = Missing
+        and then Field (Text, Item, JSON_annot_kind) = Missing
+        and then Field (Text, Item, JSON_justif_msg) = Missing;
+   end Initialization_OK;
+
    function Record_Policy (Text : String; Item, Entities : Span; Kind : List_Kind;
-      Source : String; Functions : Function_Metadata)
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata)
      return Boolean
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length <= Max_Report_Length;
 
    function Record_Policy (Text : String; Item, Entities : Span; Kind : List_Kind;
-      Source : String; Functions : Function_Metadata)
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata)
      return Boolean is
-     (if Kind = References then Reference_Policy (Text, Entities, Item, Source => Source, Functions => Functions)
+     (if Kind = References then Reference_Policy (Text, Entities, Item, Source => Source, Functions => Functions, Procedures => Procedures)
       elsif Kind in Termination_Witness then
         String_Equal (Text, Field_Spec (Text, Item, JSON_rule), Atom_SUBPROGRAM_TERMINATION)
         and then Entity_Name_Spec (Text, Referenced_Entity_Spec
-          (Text, Entities, Field_Spec (Text, Item, JSON_entity)), Source => Source, Functions => Functions) =
+          (Text, Entities, Field_Spec (Text, Item, JSON_entity)), Source => Source, Functions => Functions, Procedures => Procedures) =
             Main_Entity + Kind - Argument_Postconditions
+      elsif Kind in Initialization_Witness then
+        String_Equal (Text, Field_Spec (Text, Item, JSON_rule), Atom_UNINITIALIZED)
+        and then Initialization_Index_Model
+          (Text, Field_Spec (Text, Field_Spec (Text, Item, JSON_message), JSON_text), Source, Procedures,
+           Entity_Name_Spec (Text, Referenced_Entity_Spec (Text, Entities, Field_Spec (Text, Item, JSON_entity)),
+             Source => Source, Functions => Functions, Procedures => Procedures), Procedures.Parameter_Count) =
+          Kind - Initialization_Witness_Base
       elsif Kind = Main_Advisories then
         String_Equal (Text, Field_Spec (Text, Item, JSON_severity), Atom_warning)
         and then String_Equal (Text, Field_Spec (Text, Item, JSON_how_proved), Atom_trivial)
@@ -1460,19 +1671,19 @@ package body Silver_Library_Reports with SPARK_Mode => On is
         and then Field_Spec (Text, Item, JSON_annot_kind) = Missing
         and then Field_Spec (Text, Item, JSON_justif_msg) = Missing
       elsif Kind in Main_Diagnostics then
-        Termination_Policy (Text, Item, Entities, Source => Source, Functions => Functions) or else
+        Termination_Policy (Text, Item, Entities, Source => Source, Functions => Functions, Procedures => Procedures) or else
+        Initialization_Policy (Text, Item, Entities, Source => Source, Functions => Functions, Procedures => Procedures) or else
         (String_Equal (Text, Field_Spec (Text, Item, JSON_severity), Atom_warning)
         and then String_Equal (Text, Field_Spec (Text, Item, JSON_how_proved), JSON_flow)
         and then String_Equal (Text, Field_Spec (Text, Item, JSON_file), Atom_main_adb)
         and then Positive_Number (Text, Field_Spec (Text, Item, JSON_line))
         and then Positive_Number (Text, Field_Spec (Text, Item, JSON_col))
-        and then Entity_Name_Spec (Text, Referenced_Entity_Spec
-          (Text, Entities, Field_Spec (Text, Item, JSON_entity)), Source => Source, Functions => Functions) in Main_Entity .. Main_Entity + Functions.Count
+        and then Is_Application_Entity (Entity_Name_Spec (Text, Referenced_Entity_Spec
+          (Text, Entities, Field_Spec (Text, Item, JSON_entity)), Source => Source, Functions => Functions, Procedures => Procedures), Functions, Procedures)
         and then
           ((String_Equal (Text, Field_Spec (Text, Item, JSON_rule), Atom_UNUSED_VARIABLE)
-            and then Entity_Name_Spec (Text, Referenced_Entity_Spec
-              (Text, Entities, Field_Spec (Text, Item, JSON_entity)), Source => Source, Functions => Functions)
-                in Main_Entity + 1 .. Main_Entity + Functions.Count
+            and then Is_Local_Subprogram (Entity_Name_Spec (Text, Referenced_Entity_Spec
+              (Text, Entities, Field_Spec (Text, Item, JSON_entity)), Source => Source, Functions => Functions, Procedures => Procedures), Functions, Procedures)
             and then Initializer_Message (Text, Field_Spec
               (Text, Field_Spec (Text, Item, JSON_message), JSON_text), True))
            or else (String_Equal (Text, Field_Spec (Text, Item, JSON_rule), Atom_INEFFECTIVE)
@@ -1497,7 +1708,7 @@ package body Silver_Library_Reports with SPARK_Mode => On is
       elsif Kind in Postconditions | Put_Postconditions | Argument_Postconditions then
         String_Equal (Text, Field_Spec (Text, Item, JSON_rule), Atom_VC_POSTCONDITION)
         and then Entity_Name_Spec (Text, Referenced_Entity_Spec
-          (Text, Entities, Field_Spec (Text, Item, JSON_entity)), Source => Source, Functions => Functions) =
+          (Text, Entities, Field_Spec (Text, Item, JSON_entity)), Source => Source, Functions => Functions, Procedures => Procedures) =
             (if Kind = Postconditions then Put_Line
              elsif Kind = Put_Postconditions then Put else First_Or_Default)
       else
@@ -1518,8 +1729,8 @@ package body Silver_Library_Reports with SPARK_Mode => On is
                or else String_Equal (Text, Field_Spec (Text, Item, JSON_rule), Atom_VC_DIVISION_CHECK)
                or else String_Equal (Text, Field_Spec (Text, Item, JSON_rule), Atom_VC_INDEX_CHECK))
              and then String_Equal (Text, Field_Spec (Text, Item, JSON_file), Atom_main_adb)
-             and then Entity_Name_Spec (Text, Referenced_Entity_Spec
-               (Text, Entities, Field_Spec (Text, Item, JSON_entity)), Source => Source, Functions => Functions) in Main_Entity .. Main_Entity + Functions.Count
+             and then Is_Application_Entity (Entity_Name_Spec (Text, Referenced_Entity_Spec
+               (Text, Entities, Field_Spec (Text, Item, JSON_entity)), Source => Source, Functions => Functions, Procedures => Procedures), Functions, Procedures)
            else
              (String_Equal (Text, Field_Spec (Text, Item, JSON_how_proved), JSON_flow)
               or else String_Equal (Text, Field_Spec (Text, Item, JSON_how_proved), Atom_prover)
@@ -1532,22 +1743,30 @@ package body Silver_Library_Reports with SPARK_Mode => On is
                or else String_Equal (Text, Field_Spec (Text, Item, JSON_file), Atom_silver_arguments_adb)
                or else String_Equal (Text, Field_Spec (Text, Item, JSON_file), Atom_silver_runtime_ads))
              and then Entity_Name_Spec (Text, Referenced_Entity_Spec
-               (Text, Entities, Field_Spec (Text, Item, JSON_entity)), Source => Source, Functions => Functions) /= Unknown));
+               (Text, Entities, Field_Spec (Text, Item, JSON_entity)), Source => Source, Functions => Functions, Procedures => Procedures) /= Unknown));
 
    function Record_OK
      (Text : String; Item, Entities : Span; Kind : List_Kind;
-      Source : String; Functions : Function_Metadata) return Boolean
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata) return Boolean
      with Pre => Text'First = 1 and then Text'Length <= Max_Report_Length,
-       Post => (Static => Record_OK'Result = Record_Policy (Text, Item, Entities, Kind, Source => Source, Functions => Functions))
+       Post => (Static => Record_OK'Result = Record_Policy (Text, Item, Entities, Kind, Source => Source, Functions => Functions, Procedures => Procedures))
    is
       How : Span;
    begin
-      if Kind = References then return Reference_OK (Text, Entities, Item, Source => Source, Functions => Functions); end if;
+      if Kind = References then return Reference_OK (Text, Entities, Item, Source => Source, Functions => Functions, Procedures => Procedures); end if;
       if Kind in Termination_Witness then
          return String_Equal (Text, Field (Text, Item, JSON_rule), Atom_SUBPROGRAM_TERMINATION)
            and then Entity_Name (Text, Referenced_Entity
-             (Text, Entities, Field (Text, Item, JSON_entity)), Source => Source, Functions => Functions) =
+             (Text, Entities, Field (Text, Item, JSON_entity)), Source => Source, Functions => Functions, Procedures => Procedures) =
                Main_Entity + Kind - Argument_Postconditions;
+      end if;
+      if Kind in Initialization_Witness then
+         return String_Equal (Text, Field (Text, Item, JSON_rule), Atom_UNINITIALIZED)
+           and then Initialization_Index
+             (Text, Field (Text, Field (Text, Item, JSON_message), JSON_text), Source, Procedures,
+              Entity_Name (Text, Referenced_Entity (Text, Entities, Field (Text, Item, JSON_entity)),
+                Source => Source, Functions => Functions, Procedures => Procedures)) =
+             Kind - Initialization_Witness_Base;
       end if;
       if Kind = Main_Advisories then
          return String_Equal (Text, Field (Text, Item, JSON_severity), Atom_warning)
@@ -1574,19 +1793,19 @@ package body Silver_Library_Reports with SPARK_Mode => On is
         and then Field (Text, Item, JSON_justif_msg) = Missing;
       end if;
       if Kind in Main_Diagnostics then
-         return Termination_OK (Text, Item, Entities, Source => Source, Functions => Functions) or else
+         return Termination_OK (Text, Item, Entities, Source => Source, Functions => Functions, Procedures => Procedures) or else
+           Initialization_OK (Text, Item, Entities, Source => Source, Functions => Functions, Procedures => Procedures) or else
         (String_Equal (Text, Field (Text, Item, JSON_severity), Atom_warning)
         and then String_Equal (Text, Field (Text, Item, JSON_how_proved), JSON_flow)
         and then String_Equal (Text, Field (Text, Item, JSON_file), Atom_main_adb)
         and then Positive_Number (Text, Field (Text, Item, JSON_line))
         and then Positive_Number (Text, Field (Text, Item, JSON_col))
-        and then Entity_Name (Text, Referenced_Entity
-          (Text, Entities, Field (Text, Item, JSON_entity)), Source => Source, Functions => Functions) in Main_Entity .. Main_Entity + Functions.Count
+        and then Is_Application_Entity (Entity_Name (Text, Referenced_Entity
+          (Text, Entities, Field (Text, Item, JSON_entity)), Source => Source, Functions => Functions, Procedures => Procedures), Functions, Procedures)
         and then
           ((String_Equal (Text, Field (Text, Item, JSON_rule), Atom_UNUSED_VARIABLE)
-            and then Entity_Name (Text, Referenced_Entity
-              (Text, Entities, Field (Text, Item, JSON_entity)), Source => Source, Functions => Functions)
-                in Main_Entity + 1 .. Main_Entity + Functions.Count
+            and then Is_Local_Subprogram (Entity_Name (Text, Referenced_Entity
+              (Text, Entities, Field (Text, Item, JSON_entity)), Source => Source, Functions => Functions, Procedures => Procedures), Functions, Procedures)
             and then Initializer_Message (Text, Field
               (Text, Field (Text, Item, JSON_message), JSON_text), True))
            or else (String_Equal (Text, Field (Text, Item, JSON_rule), Atom_INEFFECTIVE)
@@ -1613,7 +1832,7 @@ package body Silver_Library_Reports with SPARK_Mode => On is
       if Kind in Postconditions | Put_Postconditions | Argument_Postconditions then
          return String_Equal (Text, Field (Text, Item, JSON_rule), Atom_VC_POSTCONDITION)
            and then Entity_Name (Text, Referenced_Entity
-             (Text, Entities, Field (Text, Item, JSON_entity)), Source => Source, Functions => Functions)
+             (Text, Entities, Field (Text, Item, JSON_entity)), Source => Source, Functions => Functions, Procedures => Procedures)
                 = (if Kind = Postconditions then Put_Line
                    elsif Kind = Put_Postconditions then Put else First_Or_Default);
       end if;
@@ -1629,8 +1848,8 @@ package body Silver_Library_Reports with SPARK_Mode => On is
            and then String_Equal (Text, Field (Text, Item, JSON_file), Atom_main_adb)
            and then Positive_Number (Text, Field (Text, Item, JSON_line))
            and then Positive_Number (Text, Field (Text, Item, JSON_col))
-           and then Entity_Name (Text, Referenced_Entity
-             (Text, Entities, Field (Text, Item, JSON_entity)), Source => Source, Functions => Functions) in Main_Entity .. Main_Entity + Functions.Count
+           and then Is_Application_Entity (Entity_Name (Text, Referenced_Entity
+             (Text, Entities, Field (Text, Item, JSON_entity)), Source => Source, Functions => Functions, Procedures => Procedures), Functions, Procedures)
            and then Field (Text, Item, JSON_justification) = Missing
            and then Field (Text, Item, JSON_justified) = Missing
            and then Field (Text, Item, JSON_suppressed) = Missing
@@ -1656,7 +1875,7 @@ package body Silver_Library_Reports with SPARK_Mode => On is
         and then Positive_Number (Text, Field (Text, Item, JSON_line))
         and then Positive_Number (Text, Field (Text, Item, JSON_col))
         and then Entity_Name (Text, Referenced_Entity
-          (Text, Entities, Field (Text, Item, JSON_entity)), Source => Source, Functions => Functions) /= Unknown;
+          (Text, Entities, Field (Text, Item, JSON_entity)), Source => Source, Functions => Functions, Procedures => Procedures) /= Unknown;
    end Record_OK;
 
    type List_Summary is record
@@ -1667,7 +1886,7 @@ package body Silver_Library_Reports with SPARK_Mode => On is
 
    function List_From
      (Text : String; Items, Entities : Span; Kind : List_Kind; Position : Offset;
-      Source : String; Functions : Function_Metadata)
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata)
      return List_Summary
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
@@ -1677,7 +1896,7 @@ package body Silver_Library_Reports with SPARK_Mode => On is
 
    function List_From
      (Text : String; Items, Entities : Span; Kind : List_Kind; Position : Offset;
-      Source : String; Functions : Function_Metadata)
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata)
      return List_Summary is
      (declare M : constant Member := Item_Spec (Text, Items, Position);
       begin
@@ -1686,9 +1905,9 @@ package body Silver_Library_Reports with SPARK_Mode => On is
            when Finished => (True, True, False),
            when Present =>
              (declare Rest : constant List_Summary :=
-                 List_From (Text, Items, Entities, Kind, M.Next, Source => Source, Functions => Functions);
-                      Good : constant Boolean := Record_Policy (Text, M.Value, Entities, Kind, Source => Source, Functions => Functions);
-              begin (Rest.Well_Formed and (Kind not in Termination_Witness or else not (Good and Rest.Has_OK)),
+                 List_From (Text, Items, Entities, Kind, M.Next, Source => Source, Functions => Functions, Procedures => Procedures);
+                      Good : constant Boolean := Record_Policy (Text, M.Value, Entities, Kind, Source => Source, Functions => Functions, Procedures => Procedures);
+              begin (Rest.Well_Formed and (Kind not in Exact_Witness or else not (Good and Rest.Has_OK)),
                      Good and Rest.Every_OK, Good or Rest.Has_OK))));
 
    function List_Policy (Summary : List_Summary; Kind : List_Kind;
@@ -1698,29 +1917,29 @@ package body Silver_Library_Reports with SPARK_Mode => On is
    function List_Policy (Summary : List_Summary; Kind : List_Kind;
                          Found : Boolean := False) return Boolean is
      (Summary.Well_Formed and then
-        (if Kind in Postconditions | Put_Postconditions | Argument_Postconditions | Termination_Witness
+        (if Kind in Postconditions | Put_Postconditions | Argument_Postconditions | Exact_Witness
          then (Found or Summary.Has_OK)
-           and then (Kind not in Termination_Witness or else not (Found and Summary.Has_OK))
+           and then (Kind not in Exact_Witness or else not (Found and Summary.Has_OK))
          else Summary.Every_OK));
 
    function List_Spec
      (Text : String; Items, Entities : Span; Kind : List_Kind;
-      Source : String; Functions : Function_Metadata) return Boolean
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata) return Boolean
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length <= Max_Report_Length;
 
    function List_Spec
      (Text : String; Items, Entities : Span; Kind : List_Kind;
-      Source : String; Functions : Function_Metadata) return Boolean is
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata) return Boolean is
      (Valid (Text, Items) and then Text (Items.First) = '['
         and then Text (Items.Last) = ']'
-        and then List_Policy (List_From (Text, Items, Entities, Kind, Items.First + 1, Source => Source, Functions => Functions), Kind));
+        and then List_Policy (List_From (Text, Items, Entities, Kind, Items.First + 1, Source => Source, Functions => Functions, Procedures => Procedures), Kind));
 
    function List_OK
      (Text : String; Items, Entities : Span; Kind : List_Kind;
-      Source : String; Functions : Function_Metadata) return Boolean
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata) return Boolean
      with Pre => Text'First = 1 and then Text'Length <= Max_Report_Length,
-       Post => (Static => List_OK'Result = List_Spec (Text, Items, Entities, Kind, Source => Source, Functions => Functions))
+       Post => (Static => List_OK'Result = List_Spec (Text, Items, Entities, Kind, Source => Source, Functions => Functions, Procedures => Procedures))
    is
       P : Offset;
       M : Member;
@@ -1733,21 +1952,21 @@ package body Silver_Library_Reports with SPARK_Mode => On is
       loop
          pragma Loop_Invariant (P in Items.First + 1 .. Text'Length + 1);
          pragma Loop_Invariant
-           (Static => List_Spec (Text, Items, Entities, Kind, Source => Source, Functions => Functions) =
-             List_Policy (List_From (Text, Items, Entities, Kind, P, Source => Source, Functions => Functions), Kind, Found));
+           (Static => List_Spec (Text, Items, Entities, Kind, Source => Source, Functions => Functions, Procedures => Procedures) =
+             List_Policy (List_From (Text, Items, Entities, Kind, P, Source => Source, Functions => Functions, Procedures => Procedures), Kind, Found));
          pragma Loop_Variant (Increases => P);
          M := Read_Item (Text, Items, P);
          case M.State is
             when Broken => return False;
             when Finished =>
-               return Kind not in Postconditions | Put_Postconditions | Argument_Postconditions | Termination_Witness or else Found;
+               return Kind not in Postconditions | Put_Postconditions | Argument_Postconditions | Exact_Witness or else Found;
             when Present =>
-               if Kind in Postconditions | Put_Postconditions | Argument_Postconditions | Termination_Witness then
-                  if Record_OK (Text, M.Value, Entities, Kind, Source => Source, Functions => Functions) then
-                     if Kind in Termination_Witness and then Found then return False; end if;
+               if Kind in Postconditions | Put_Postconditions | Argument_Postconditions | Exact_Witness then
+                  if Record_OK (Text, M.Value, Entities, Kind, Source => Source, Functions => Functions, Procedures => Procedures) then
+                     if Kind in Exact_Witness and then Found then return False; end if;
                      Found := True;
                   end if;
-               elsif not Record_OK (Text, M.Value, Entities, Kind, Source => Source, Functions => Functions) then
+               elsif not Record_OK (Text, M.Value, Entities, Kind, Source => Source, Functions => Functions, Procedures => Procedures) then
                   return False;
                end if;
                P := M.Next;
@@ -1757,7 +1976,7 @@ package body Silver_Library_Reports with SPARK_Mode => On is
 
    function Dependencies_From
      (Text : String; Items, Entities : Span; Position : Offset;
-      Source : String; Functions : Function_Metadata) return Boolean
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata) return Boolean
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
          and then Valid (Text, Items)
@@ -1766,34 +1985,34 @@ package body Silver_Library_Reports with SPARK_Mode => On is
 
    function Dependencies_From
      (Text : String; Items, Entities : Span; Position : Offset;
-      Source : String; Functions : Function_Metadata) return Boolean is
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata) return Boolean is
      (declare M : constant Member := Item_Spec (Text, Items, Position);
       begin
         (case M.State is
            when Broken => False,
            when Finished => True,
            when Present =>
-             Reference_Policy (Text, Entities, Field_Spec (Text, M.Value, JSON_claim), Source => Source, Functions => Functions)
+             Reference_Policy (Text, Entities, Field_Spec (Text, M.Value, JSON_claim), Source => Source, Functions => Functions, Procedures => Procedures)
              and then List_Spec
-               (Text, Field_Spec (Text, M.Value, JSON_assumptions), Entities, References, Source => Source, Functions => Functions)
-             and then Dependencies_From (Text, Items, Entities, M.Next, Source => Source, Functions => Functions)));
+               (Text, Field_Spec (Text, M.Value, JSON_assumptions), Entities, References, Source => Source, Functions => Functions, Procedures => Procedures)
+             and then Dependencies_From (Text, Items, Entities, M.Next, Source => Source, Functions => Functions, Procedures => Procedures)));
 
    function Dependencies_Spec (Text : String; Items, Entities : Span;
-      Source : String; Functions : Function_Metadata) return Boolean
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata) return Boolean
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length <= Max_Report_Length;
 
    function Dependencies_Spec (Text : String; Items, Entities : Span;
-      Source : String; Functions : Function_Metadata) return Boolean is
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata) return Boolean is
      (Valid (Text, Items) and then Text (Items.First) = '['
       and then Text (Items.Last) = ']'
-      and then Dependencies_From (Text, Items, Entities, Items.First + 1, Source => Source, Functions => Functions));
+      and then Dependencies_From (Text, Items, Entities, Items.First + 1, Source => Source, Functions => Functions, Procedures => Procedures));
 
    function Dependencies_OK
      (Text : String; Items, Entities : Span;
-      Source : String; Functions : Function_Metadata) return Boolean
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata) return Boolean
      with Pre => Text'First = 1 and then Text'Length <= Max_Report_Length,
-       Post => (Static => Dependencies_OK'Result = Dependencies_Spec (Text, Items, Entities, Source => Source, Functions => Functions))
+       Post => (Static => Dependencies_OK'Result = Dependencies_Spec (Text, Items, Entities, Source => Source, Functions => Functions, Procedures => Procedures))
    is
       P : Offset;
       M : Member;
@@ -1805,17 +2024,17 @@ package body Silver_Library_Reports with SPARK_Mode => On is
       loop
          pragma Loop_Invariant (P in Items.First + 1 .. Text'Length + 1);
          pragma Loop_Invariant
-           (Static => Dependencies_Spec (Text, Items, Entities, Source => Source, Functions => Functions) =
-             Dependencies_From (Text, Items, Entities, P, Source => Source, Functions => Functions));
+           (Static => Dependencies_Spec (Text, Items, Entities, Source => Source, Functions => Functions, Procedures => Procedures) =
+             Dependencies_From (Text, Items, Entities, P, Source => Source, Functions => Functions, Procedures => Procedures));
          pragma Loop_Variant (Increases => P);
          M := Read_Item (Text, Items, P);
          case M.State is
             when Broken => return False;
             when Finished => return True;
             when Present =>
-               if not Reference_OK (Text, Entities, Field (Text, M.Value, JSON_claim), Source => Source, Functions => Functions)
+               if not Reference_OK (Text, Entities, Field (Text, M.Value, JSON_claim), Source => Source, Functions => Functions, Procedures => Procedures)
                  or else not List_OK
-                   (Text, Field (Text, M.Value, JSON_assumptions), Entities, References, Source => Source, Functions => Functions)
+                   (Text, Field (Text, M.Value, JSON_assumptions), Entities, References, Source => Source, Functions => Functions, Procedures => Procedures)
                then return False; end if;
                P := M.Next;
          end case;
@@ -1823,10 +2042,10 @@ package body Silver_Library_Reports with SPARK_Mode => On is
    end Dependencies_OK;
 
    function Expected_Entity (Name : Entity_Kind; Kind : Audit_Kind;
-      Functions : Function_Metadata)
+      Functions : Function_Metadata; Procedures : Procedure_Metadata)
      return Boolean is
      ((Kind in Application_Audit and then
-        Name in Main_Entity + 1 .. Main_Entity + Functions.Count) or else
+        Is_Local_Subprogram (Name, Functions, Procedures)) or else
       (case Kind is
         when IO_Body => Name in IO_Package | Put_Line | Put | Put_Byte | Flush | Set_Exit_Status,
         when Libc_Interface => Name in Libc_Package | Put_Byte | Flush | Set_Exit_Status,
@@ -1856,7 +2075,7 @@ package body Silver_Library_Reports with SPARK_Mode => On is
         when Static_Mixed | Assignment_Mixed => Name in Main_Entity | Put_Line | Put));
 
    function Expected_Coverage (Name : Entity_Kind; Kind : Audit_Kind;
-      Functions : Function_Metadata)
+      Functions : Function_Metadata; Procedures : Procedure_Metadata)
      return String is
      (case Kind is
         when IO_Body => (if Name in IO_Package | Put_Line | Put then Atom_all else Atom_Empty),
@@ -1870,7 +2089,7 @@ package body Silver_Library_Reports with SPARK_Mode => On is
           (if Name = Runtime_Package then Atom_all
            elsif Name in Argument_Count | Argument | Runtime_Exit_Status then Atom_spec else Atom_Empty),
         when Application_Audit =>
-          (if Name in Main_Entity .. Main_Entity + Functions.Count then Atom_all else Atom_Empty));
+          (if Is_Application_Entity (Name, Functions, Procedures) then Atom_all else Atom_Empty));
 
    type Entity_Set is array (Entity_Kind) of Boolean;
    function Remember (Seen : Entity_Set; Name : Entity_Kind) return Entity_Set
@@ -1891,7 +2110,7 @@ package body Silver_Library_Reports with SPARK_Mode => On is
 
    function Map_Name (Text : String; Items, Entities : Span; M : Member;
                       Kind : Audit_Kind; Coverage : Boolean;
-      Source : String; Functions : Function_Metadata) return Entity_Kind
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata) return Entity_Kind
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
          and then M.State = Present and then Valid (Text, M.Key)
@@ -1899,22 +2118,22 @@ package body Silver_Library_Reports with SPARK_Mode => On is
 
    function Map_Name (Text : String; Items, Entities : Span; M : Member;
                       Kind : Audit_Kind; Coverage : Boolean;
-      Source : String; Functions : Function_Metadata) return Entity_Kind is
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata) return Entity_Kind is
      (if M.Key.Last - M.Key.First < 1 then Unknown
       elsif Coverage then
         (declare Name : constant Entity_Kind := Entity_Name_Spec
-            (Text, Field_Spec (Text, Entities, Text (M.Key.First + 1 .. M.Key.Last - 1)), Source => Source, Functions => Functions);
+            (Text, Field_Spec (Text, Entities, Text (M.Key.First + 1 .. M.Key.Last - 1)), Source => Source, Functions => Functions, Procedures => Procedures);
          begin
-           (if Expected_Coverage (Name, Kind, Functions => Functions)'Length = 0
-              or else not String_Equal (Text, M.Value, Expected_Coverage (Name, Kind, Functions => Functions))
+           (if Expected_Coverage (Name, Kind, Functions => Functions, Procedures => Procedures)'Length = 0
+              or else not String_Equal (Text, M.Value, Expected_Coverage (Name, Kind, Functions => Functions, Procedures => Procedures))
             then Unknown else Name))
       elsif Field_Spec (Text, Items, Text (M.Key.First + 1 .. M.Key.Last - 1)) /= M.Value
       then Unknown
-      else Entity_Name_Spec (Text, M.Value, Source => Source, Functions => Functions));
+      else Entity_Name_Spec (Text, M.Value, Source => Source, Functions => Functions, Procedures => Procedures));
 
    function Map_From (Text : String; Items, Entities : Span;
                       Kind : Audit_Kind; Coverage : Boolean; Position : Offset;
-      Source : String; Functions : Function_Metadata)
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata)
      return Entity_Summary
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
@@ -1924,7 +2143,7 @@ package body Silver_Library_Reports with SPARK_Mode => On is
 
    function Map_From (Text : String; Items, Entities : Span;
                       Kind : Audit_Kind; Coverage : Boolean; Position : Offset;
-      Source : String; Functions : Function_Metadata)
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata)
      return Entity_Summary is
      (declare M : constant Member := Member_Spec (Text, Items, Position);
       begin
@@ -1932,8 +2151,8 @@ package body Silver_Library_Reports with SPARK_Mode => On is
            when Broken => (False, False, No_Entities),
            when Finished => (True, True, No_Entities),
            when Present =>
-             (declare Name : constant Entity_Kind := Map_Name (Text, Items, Entities, M, Kind, Coverage, Source => Source, Functions => Functions);
-                      Rest : constant Entity_Summary := Map_From (Text, Items, Entities, Kind, Coverage, M.Next, Source => Source, Functions => Functions);
+             (declare Name : constant Entity_Kind := Map_Name (Text, Items, Entities, M, Kind, Coverage, Source => Source, Functions => Functions, Procedures => Procedures);
+                      Rest : constant Entity_Summary := Map_From (Text, Items, Entities, Kind, Coverage, M.Next, Source => Source, Functions => Functions, Procedures => Procedures);
               begin
                 (Rest.Well_Formed and Name /= Unknown,
                  Rest.Unique and not Rest.Seen (Name),
@@ -1941,31 +2160,31 @@ package body Silver_Library_Reports with SPARK_Mode => On is
 
    function Map_Policy (Prefix : Entity_Set; Suffix : Entity_Summary;
                         Kind : Audit_Kind; Coverage : Boolean;
-      Functions : Function_Metadata) return Boolean
+      Functions : Function_Metadata; Procedures : Procedure_Metadata) return Boolean
      with Ghost => Static, Global => null;
 
    function Map_Policy (Prefix : Entity_Set; Suffix : Entity_Summary;
                         Kind : Audit_Kind; Coverage : Boolean;
-      Functions : Function_Metadata) return Boolean is
+      Functions : Function_Metadata; Procedures : Procedure_Metadata) return Boolean is
      (Suffix.Well_Formed and then Suffix.Unique
       and then (for all Name in Entity_Kind =>
         not (Prefix (Name) and Suffix.Seen (Name))
         and ((Prefix (Name) or Suffix.Seen (Name)) =
-          (if Coverage then Expected_Coverage (Name, Kind, Functions => Functions)'Length > 0
-           else Expected_Entity (Name, Kind, Functions => Functions)))));
+          (if Coverage then Expected_Coverage (Name, Kind, Functions => Functions, Procedures => Procedures)'Length > 0
+           else Expected_Entity (Name, Kind, Functions => Functions, Procedures => Procedures)))));
 
    --  A name can move from the recursively specified suffix to the
    --  imperative prefix without changing uniqueness or exact coverage.
    procedure Advance_Map
      (Prefix : Entity_Set; Rest : Entity_Summary; Name : Entity_Kind;
       Kind : Audit_Kind; Coverage : Boolean;
-      Functions : Function_Metadata)
+      Functions : Function_Metadata; Procedures : Procedure_Metadata)
      with Ghost => Static, Global => null,
        Pre => Name /= Unknown and then not Prefix (Name),
        Post => Map_Policy
          (Prefix, (Rest.Well_Formed, Rest.Unique and not Rest.Seen (Name),
-                   Remember (Rest.Seen, Name)), Kind, Coverage, Functions => Functions) =
-         Map_Policy (Remember (Prefix, Name), Rest, Kind, Coverage, Functions => Functions)
+                   Remember (Rest.Seen, Name)), Kind, Coverage, Functions => Functions, Procedures => Procedures) =
+         Map_Policy (Remember (Prefix, Name), Rest, Kind, Coverage, Functions => Functions, Procedures => Procedures)
    is
    begin
       null;
@@ -1973,13 +2192,13 @@ package body Silver_Library_Reports with SPARK_Mode => On is
 
    procedure Finish_Map
      (Prefix : Entity_Set; Kind : Audit_Kind; Coverage : Boolean;
-      Functions : Function_Metadata)
+      Functions : Function_Metadata; Procedures : Procedure_Metadata)
      with Ghost => Static, Global => null,
        Post => Map_Policy
-         (Prefix, (True, True, No_Entities), Kind, Coverage, Functions => Functions) =
+         (Prefix, (True, True, No_Entities), Kind, Coverage, Functions => Functions, Procedures => Procedures) =
          (for all Name in Entity_Kind => Prefix (Name) =
-           (if Coverage then Expected_Coverage (Name, Kind, Functions => Functions)'Length > 0
-            else Expected_Entity (Name, Kind, Functions => Functions)))
+           (if Coverage then Expected_Coverage (Name, Kind, Functions => Functions, Procedures => Procedures)'Length > 0
+            else Expected_Entity (Name, Kind, Functions => Functions, Procedures => Procedures)))
    is
    begin
       null;
@@ -1987,23 +2206,23 @@ package body Silver_Library_Reports with SPARK_Mode => On is
 
    function Map_Spec (Text : String; Items, Entities : Span;
                       Kind : Audit_Kind; Coverage : Boolean;
-      Source : String; Functions : Function_Metadata) return Boolean
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata) return Boolean
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length <= Max_Report_Length;
 
    function Map_Spec (Text : String; Items, Entities : Span;
                       Kind : Audit_Kind; Coverage : Boolean;
-      Source : String; Functions : Function_Metadata) return Boolean is
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata) return Boolean is
      (Valid (Text, Items) and then Text (Items.First) = '{'
       and then Text (Items.Last) = '}'
       and then Map_Policy
-        (No_Entities, Map_From (Text, Items, Entities, Kind, Coverage, Items.First + 1, Source => Source, Functions => Functions), Kind, Coverage, Functions => Functions));
+        (No_Entities, Map_From (Text, Items, Entities, Kind, Coverage, Items.First + 1, Source => Source, Functions => Functions, Procedures => Procedures), Kind, Coverage, Functions => Functions, Procedures => Procedures));
 
    function Map_OK (Text : String; Items, Entities : Span;
                     Kind : Audit_Kind; Coverage : Boolean;
-      Source : String; Functions : Function_Metadata) return Boolean
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata) return Boolean
      with Pre => Text'First = 1 and then Text'Length <= Max_Report_Length,
-       Post => (Static => Map_OK'Result = Map_Spec (Text, Items, Entities, Kind, Coverage, Source => Source, Functions => Functions))
+       Post => (Static => Map_OK'Result = Map_Spec (Text, Items, Entities, Kind, Coverage, Source => Source, Functions => Functions, Procedures => Procedures))
    is
       Seen : Entity_Set := No_Entities;
       P : Offset;
@@ -2017,77 +2236,77 @@ package body Silver_Library_Reports with SPARK_Mode => On is
       loop
          pragma Loop_Invariant (P in Items.First + 1 .. Text'Length + 1);
          pragma Loop_Invariant
-           (Static => Map_Spec (Text, Items, Entities, Kind, Coverage, Source => Source, Functions => Functions) =
-             Map_Policy (Seen, Map_From (Text, Items, Entities, Kind, Coverage, P, Source => Source, Functions => Functions), Kind, Coverage, Functions => Functions));
+           (Static => Map_Spec (Text, Items, Entities, Kind, Coverage, Source => Source, Functions => Functions, Procedures => Procedures) =
+             Map_Policy (Seen, Map_From (Text, Items, Entities, Kind, Coverage, P, Source => Source, Functions => Functions, Procedures => Procedures), Kind, Coverage, Functions => Functions, Procedures => Procedures));
          pragma Loop_Variant (Increases => P);
          M := Read_Member (Text, Items, P);
          case M.State is
             when Broken => return False;
             when Finished =>
                pragma Assert (Static => Map_From
-                 (Text, Items, Entities, Kind, Coverage, P, Source => Source, Functions => Functions) =
+                 (Text, Items, Entities, Kind, Coverage, P, Source => Source, Functions => Functions, Procedures => Procedures) =
                    (True, True, No_Entities));
-               Finish_Map (Seen, Kind, Coverage, Functions => Functions);
+               Finish_Map (Seen, Kind, Coverage, Functions => Functions, Procedures => Procedures);
                exit;
             when Present =>
                if M.Key.Last - M.Key.First < 1 then return False; end if;
                if Coverage then
                   Name := Entity_Name (Text, Field
-                    (Text, Entities, Text (M.Key.First + 1 .. M.Key.Last - 1)), Source => Source, Functions => Functions);
-                  if Expected_Coverage (Name, Kind, Functions => Functions)'Length = 0
-                    or else not String_Equal (Text, M.Value, Expected_Coverage (Name, Kind, Functions => Functions))
+                    (Text, Entities, Text (M.Key.First + 1 .. M.Key.Last - 1)), Source => Source, Functions => Functions, Procedures => Procedures);
+                  if Expected_Coverage (Name, Kind, Functions => Functions, Procedures => Procedures)'Length = 0
+                    or else not String_Equal (Text, M.Value, Expected_Coverage (Name, Kind, Functions => Functions, Procedures => Procedures))
                   then return False; end if;
                else
                   if Field (Text, Items, Text (M.Key.First + 1 .. M.Key.Last - 1)) /= M.Value
                   then return False; end if;
-                  Name := Entity_Name (Text, M.Value, Source => Source, Functions => Functions);
+                  Name := Entity_Name (Text, M.Value, Source => Source, Functions => Functions, Procedures => Procedures);
                end if;
                pragma Assert
-                 (Static => Name = Map_Name (Text, Items, Entities, M, Kind, Coverage, Source => Source, Functions => Functions));
+                 (Static => Name = Map_Name (Text, Items, Entities, M, Kind, Coverage, Source => Source, Functions => Functions, Procedures => Procedures));
                if Name = Unknown or else Seen (Name) then
-                  pragma Assert (Static => not Map_Spec (Text, Items, Entities, Kind, Coverage, Source => Source, Functions => Functions));
+                  pragma Assert (Static => not Map_Spec (Text, Items, Entities, Kind, Coverage, Source => Source, Functions => Functions, Procedures => Procedures));
                   return False;
                end if;
                declare
                   Rest : constant Entity_Summary := Map_From
-                    (Text, Items, Entities, Kind, Coverage, M.Next, Source => Source, Functions => Functions)
+                    (Text, Items, Entities, Kind, Coverage, M.Next, Source => Source, Functions => Functions, Procedures => Procedures)
                     with Ghost => Static;
                begin
                   pragma Assert
-                    (Static => Map_From (Text, Items, Entities, Kind, Coverage, P, Source => Source, Functions => Functions) =
+                    (Static => Map_From (Text, Items, Entities, Kind, Coverage, P, Source => Source, Functions => Functions, Procedures => Procedures) =
                       (Rest.Well_Formed, Rest.Unique and not Rest.Seen (Name),
                        Remember (Rest.Seen, Name)));
-                  Advance_Map (Seen, Rest, Name, Kind, Coverage, Functions => Functions);
+                  Advance_Map (Seen, Rest, Name, Kind, Coverage, Functions => Functions, Procedures => Procedures);
                   pragma Assert
                     (Static => Map_Policy
-                      (Seen, Map_From (Text, Items, Entities, Kind, Coverage, P, Source => Source, Functions => Functions), Kind, Coverage, Functions => Functions) =
-                      Map_Policy (Remember (Seen, Name), Rest, Kind, Coverage, Functions => Functions));
+                      (Seen, Map_From (Text, Items, Entities, Kind, Coverage, P, Source => Source, Functions => Functions, Procedures => Procedures), Kind, Coverage, Functions => Functions, Procedures => Procedures) =
+                      Map_Policy (Remember (Seen, Name), Rest, Kind, Coverage, Functions => Functions, Procedures => Procedures));
                end;
                Seen := Remember (Seen, Name);
                P := M.Next;
          end case;
       end loop;
       return (for all Name in Entity_Kind => Seen (Name) =
-        (if Coverage then Expected_Coverage (Name, Kind, Functions => Functions)'Length > 0
-         else Expected_Entity (Name, Kind, Functions => Functions)));
+        (if Coverage then Expected_Coverage (Name, Kind, Functions => Functions, Procedures => Procedures)'Length > 0
+         else Expected_Entity (Name, Kind, Functions => Functions, Procedures => Procedures)));
    end Map_OK;
 
    function Entities_OK (Text : String; Entities : Span; Kind : Audit_Kind;
-      Source : String; Functions : Function_Metadata) return Boolean
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata) return Boolean
      with Pre => Text'First = 1 and then Text'Length <= Max_Report_Length,
-       Post => (Static => Entities_OK'Result = Map_Spec (Text, Entities, Entities, Kind, False, Source => Source, Functions => Functions))
+       Post => (Static => Entities_OK'Result = Map_Spec (Text, Entities, Entities, Kind, False, Source => Source, Functions => Functions, Procedures => Procedures))
    is
    begin
-      return Map_OK (Text, Entities, Entities, Kind, False, Source => Source, Functions => Functions);
+      return Map_OK (Text, Entities, Entities, Kind, False, Source => Source, Functions => Functions, Procedures => Procedures);
    end Entities_OK;
 
    function Coverage_OK (Text : String; Coverage, Entities : Span; Kind : Audit_Kind;
-      Source : String; Functions : Function_Metadata) return Boolean
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata) return Boolean
      with Pre => Text'First = 1 and then Text'Length <= Max_Report_Length,
-       Post => (Static => Coverage_OK'Result = Map_Spec (Text, Coverage, Entities, Kind, True, Source => Source, Functions => Functions))
+       Post => (Static => Coverage_OK'Result = Map_Spec (Text, Coverage, Entities, Kind, True, Source => Source, Functions => Functions, Procedures => Procedures))
    is
    begin
-      return Map_OK (Text, Coverage, Entities, Kind, True, Source => Source, Functions => Functions);
+      return Map_OK (Text, Coverage, Entities, Kind, True, Source => Source, Functions => Functions, Procedures => Procedures);
    end Coverage_OK;
 
    --  Policy over byte-derived fields. Array folds state universal discharge
@@ -2095,13 +2314,13 @@ package body Silver_Library_Reports with SPARK_Mode => On is
    --  uniqueness and exactly the required entity and coverage sets. None of
    --  these definitions invokes Audit_Report or its executable traversal loops.
    function Object_Policy (Text : String; Object : Span; Kind : Audit_Kind;
-      Source : String; Functions : Function_Metadata)
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata)
      return Boolean
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length <= Max_Report_Length;
 
    function Object_Policy (Text : String; Object : Span; Kind : Audit_Kind;
-      Source : String; Functions : Function_Metadata)
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata)
      return Boolean is
      (declare Entities : constant Span := Field_Spec (Text, Object, JSON_entities);
       begin
@@ -2111,10 +2330,10 @@ package body Silver_Library_Reports with SPARK_Mode => On is
         and then Empty_Array_Spec (Text, Field_Spec (Text, Object, JSON_skip_proof))
         and then Empty_Array_Spec (Text, Field_Spec (Text, Object, JSON_pragma_assume))
         and then (if Kind in Application_Audit then
-          List_Spec (Text, Field_Spec (Text, Object, JSON_warn_error), Entities, Main_Advisories, Source => Source, Functions => Functions)
+          List_Spec (Text, Field_Spec (Text, Object, JSON_warn_error), Entities, Main_Advisories, Source => Source, Functions => Functions, Procedures => Procedures)
           else Empty_Array_Spec (Text, Field_Spec (Text, Object, JSON_warn_error)))
-        and then Map_Spec (Text, Entities, Entities, Kind, False, Source => Source, Functions => Functions)
-        and then Map_Spec (Text, Field_Spec (Text, Object, JSON_spark), Entities, Kind, True, Source => Source, Functions => Functions)
+        and then Map_Spec (Text, Entities, Entities, Kind, False, Source => Source, Functions => Functions, Procedures => Procedures)
+        and then Map_Spec (Text, Field_Spec (Text, Object, JSON_spark), Entities, Kind, True, Source => Source, Functions => Functions, Procedures => Procedures)
         and then List_Spec (Text, Field_Spec (Text, Object, JSON_flow), Entities,
           (if Kind in Main_Body | Main_Put | Main_Mixed | Argument_Effects | Argument_Binding_Main
                  | Argument_Without_Query | Argument_Put_Without_Query | Argument_Mixed_Without_Query
@@ -2123,34 +2342,38 @@ package body Silver_Library_Reports with SPARK_Mode => On is
                  | Selected_Without_Query | Selected_Put_Without_Query | Selected_Mixed_Without_Query
                  | Selected_Effects_Without_Query then Selected_Diagnostics
            elsif Kind in Mutable_Audit then Assignment_Diagnostics
-           elsif Kind in Application_Audit then Binding_Diagnostics else Checks), Source => Source, Functions => Functions)
+           elsif Kind in Application_Audit then Binding_Diagnostics else Checks), Source => Source, Functions => Functions, Procedures => Procedures)
         and then List_Spec (Text, Field_Spec (Text, Object, JSON_proof), Entities,
-                           (if Kind in Application_Audit then Main_Checks else Checks), Source => Source, Functions => Functions)
+                           (if Kind in Application_Audit then Main_Checks else Checks), Source => Source, Functions => Functions, Procedures => Procedures)
         and then (if Kind in Application_Audit then
           (for all I in 1 .. Functions.Count => List_Spec
-            (Text, Field_Spec (Text, Object, JSON_flow), Entities, Argument_Postconditions + I, Source => Source, Functions => Functions)))
-        and then Dependencies_Spec (Text, Field_Spec (Text, Object, JSON_assumptions), Entities, Source => Source, Functions => Functions)
+            (Text, Field_Spec (Text, Object, JSON_flow), Entities, Argument_Postconditions + I, Source => Source, Functions => Functions, Procedures => Procedures)) and then
+          (for all I in 1 .. Procedures.Parameter_Count =>
+             (if Required_Output (I, Procedures) then List_Spec
+               (Text, Field_Spec (Text, Object, JSON_flow), Entities, Initialization_Witness_Base + I,
+                Source => Source, Functions => Functions, Procedures => Procedures))))
+        and then Dependencies_Spec (Text, Field_Spec (Text, Object, JSON_assumptions), Entities, Source => Source, Functions => Functions, Procedures => Procedures)
         and then (Kind in Libc_Interface | Argv_Interface | Application_Audit or else
           (not Empty_Array_Spec (Text, Field_Spec (Text, Object, JSON_flow))
            and then not Empty_Array_Spec (Text, Field_Spec (Text, Object, JSON_proof))
            and then List_Spec (Text, Field_Spec (Text, Object, JSON_proof), Entities,
-             (if Kind = IO_Body then Postconditions else Argument_Postconditions), Source => Source, Functions => Functions)
+             (if Kind = IO_Body then Postconditions else Argument_Postconditions), Source => Source, Functions => Functions, Procedures => Procedures)
            and then (if Kind = IO_Body then List_Spec
-             (Text, Field_Spec (Text, Object, JSON_proof), Entities, Put_Postconditions, Source => Source, Functions => Functions)))));
+             (Text, Field_Spec (Text, Object, JSON_proof), Entities, Put_Postconditions, Source => Source, Functions => Functions, Procedures => Procedures)))));
 
    function Report_Policy (Report : String; Kind : Audit_Kind;
-      Source : String; Functions : Function_Metadata) return Boolean
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata) return Boolean
      with Ghost => Static, Global => null;
 
    function Report_Policy (Report : String; Kind : Audit_Kind;
-      Source : String; Functions : Function_Metadata) return Boolean is
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata) return Boolean is
      (Report'Length in 1 .. Max_Report_Length and then
        (declare Text : constant String (1 .. Report'Length) := Report;
                 Start : constant Offset := Space_End (Text, 1);
                 Last : constant Offset := Value_Spec (Text, Start);
         begin
           Last /= 0 and then Space_End (Text, Last + 1) = Text'Length + 1
-            and then Object_Policy (Text, (Start, Last), Kind, Source => Source, Functions => Functions)));
+            and then Object_Policy (Text, (Start, Last), Kind, Source => Source, Functions => Functions, Procedures => Procedures)));
 
    --  Uncapped audit observations are functions of the original byte sequence.
    --  Their definitions do not call projection, bounded acceptance, or an
@@ -2338,12 +2561,43 @@ package body Silver_Library_Reports with SPARK_Mode => On is
       elsif Raw_Function_Spelling (Text, Name, Source, Functions.Items (Count)) then Main_Entity + Count
       else Raw_Function_Name (Text, Name, Source, Functions, Count - 1));
 
+   function Raw_Procedure_Spelling
+     (Text : Raw_Bytes.Sequence; Name : Raw_Scan.Span; Source : String;
+      Item : Procedure_Bindings.Signature) return Boolean is
+     (Source_Name_Valid (Source, Item) and then Raw_Scan.Valid (Text, Name)
+      and then Name.Last - Name.First = To_Big_Integer (Item.After - Item.First) + 6
+      and then Raw_Bytes.Get (Text, Name.First) = '"'
+      and then Raw_Bytes.Get (Text, Name.Last) = '"'
+      and then Fold (Raw_Bytes.Get (Text, Name.First + 1)) = 'm'
+      and then Fold (Raw_Bytes.Get (Text, Name.First + 2)) = 'a'
+      and then Fold (Raw_Bytes.Get (Text, Name.First + 3)) = 'i'
+      and then Fold (Raw_Bytes.Get (Text, Name.First + 4)) = 'n'
+      and then Raw_Bytes.Get (Text, Name.First + 5) = '.'
+      and then (for all I in Item.First .. Item.After - 1 =>
+        Fold (Raw_Bytes.Get (Text, Name.First + 6 + To_Big_Integer (I - Item.First))) = Fold (Source (I))))
+     with Ghost => Static;
+
+   function Raw_Procedure_Name
+     (Text : Raw_Bytes.Sequence; Name : Raw_Scan.Span; Source : String; Procedures : Procedure_Metadata;
+      Count : Procedure_Bindings.Procedure_Count) return Entity_Kind
+     with Ghost => Static, Global => null,
+       Pre => Count <= Procedures.Count,
+       Post => Raw_Procedure_Name'Result = Unknown
+         or else Raw_Procedure_Name'Result in Procedure_Entity_Base + 1 .. Procedure_Entity_Base + Count,
+       Subprogram_Variant => (Decreases => Count);
+   function Raw_Procedure_Name
+     (Text : Raw_Bytes.Sequence; Name : Raw_Scan.Span; Source : String; Procedures : Procedure_Metadata;
+      Count : Procedure_Bindings.Procedure_Count) return Entity_Kind is
+     (if Count = 0 then Unknown
+      elsif Raw_Procedure_Spelling (Text, Name, Source, Procedures.Items (Count)) then Procedure_Entity_Base + Count
+      else Raw_Procedure_Name (Text, Name, Source, Procedures, Count - 1));
+
    function Raw_Entity_Name (Text : Raw_Bytes.Sequence; Entity : Raw_Scan.Span;
-      Source : String; Functions : Function_Metadata) return Entity_Kind
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata) return Entity_Kind
      with Ghost => Static, Global => null;
 
    function Raw_Entity_Name (Text : Raw_Bytes.Sequence; Entity : Raw_Scan.Span;
-      Source : String; Functions : Function_Metadata) return Entity_Kind is
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata) return Entity_Kind is
      (declare Name : constant Raw_Scan.Span := Raw_Field (Text, Entity, JSON_name);
               Kind : constant Entity_Kind := (
           if Raw_Main_Spelling (Text, Name) then Main_Entity
@@ -2363,7 +2617,8 @@ package body Silver_Library_Reports with SPARK_Mode => On is
           elsif Raw_String_Equal (Text, Name, Atom_Silver_Runtime_Argument_Count) then Argument_Count
           elsif Raw_String_Equal (Text, Name, Atom_Silver_Runtime_Argument) then Argument
           elsif Raw_String_Equal (Text, Name, Atom_Silver_Runtime_Set_Exit_Status) then Runtime_Exit_Status
-          else Raw_Function_Name (Text, Name, Source, Functions, Functions.Count));
+          else (if Raw_Function_Name (Text, Name, Source, Functions, Functions.Count) /= Unknown then Raw_Function_Name (Text, Name, Source, Functions, Functions.Count)
+           else Raw_Procedure_Name (Text, Name, Source, Procedures, Procedures.Count)));
       begin (if Raw_Location (Text, Entity, Kind) then Kind else Unknown));
 
    function Raw_Digits (Text : Raw_Bytes.Sequence; Item : Raw_Scan.Span) return Boolean is
@@ -2420,17 +2675,17 @@ package body Silver_Library_Reports with SPARK_Mode => On is
      with Ghost => Static;
 
    function Raw_Reference_Policy (Text : Raw_Bytes.Sequence; Entities, Reference : Raw_Scan.Span;
-      Source : String; Functions : Function_Metadata) return Boolean
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata) return Boolean
      with Ghost => Static, Global => null;
 
    function Raw_Reference_Policy (Text : Raw_Bytes.Sequence; Entities, Reference : Raw_Scan.Span;
-      Source : String; Functions : Function_Metadata) return Boolean is
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata) return Boolean is
      (((Raw_String_Equal (Text, Raw_Field (Text, Reference, JSON_predicate), Atom_CLAIM_POST) and then Raw_Entity_Name (Text, Raw_Referenced_Entity
-        (Text, Entities, Raw_Field (Text, Reference, JSON_arg)), Source => Source, Functions => Functions) <= Main_Entity)
+        (Text, Entities, Raw_Field (Text, Reference, JSON_arg)), Source => Source, Functions => Functions, Procedures => Procedures) <= Main_Entity)
        or else Raw_String_Equal (Text, Raw_Field (Text, Reference, JSON_predicate), Atom_CLAIM_AORTE)
        or else Raw_String_Equal (Text, Raw_Field (Text, Reference, JSON_predicate), Atom_CLAIM_EFFECTS))
       and then Raw_Entity_Name (Text, Raw_Referenced_Entity
-        (Text, Entities, Raw_Field (Text, Reference, JSON_arg)), Source => Source, Functions => Functions) /= Unknown);
+        (Text, Entities, Raw_Field (Text, Reference, JSON_arg)), Source => Source, Functions => Functions, Procedures => Procedures) /= Unknown);
 
    function Raw_Output_Message (Text : Raw_Bytes.Sequence; Item : Raw_Scan.Span) return Boolean
      with Ghost => Static, Global => null;
@@ -2445,11 +2700,28 @@ package body Silver_Library_Reports with SPARK_Mode => On is
       or else Raw_String_Equal (Text, Item, Atom_put_unused_Succeeded)
       or else Raw_String_Equal (Text, Item, Atom_put_unused_Written_Bytes));
 
+   function Raw_Initialization_Index
+     (Text : Raw_Bytes.Sequence; Message : Raw_Scan.Span; Source : String; Procedures : Procedure_Metadata;
+      Name : Entity_Kind; Count : Procedure_Bindings.Formal_Count) return Procedure_Bindings.Formal_Count
+     with Ghost => Static, Global => null,
+       Pre => Count <= Procedures.Parameter_Count,
+       Post => Raw_Initialization_Index'Result <= Count,
+       Subprogram_Variant => (Decreases => Count);
+   function Raw_Initialization_Index
+     (Text : Raw_Bytes.Sequence; Message : Raw_Scan.Span; Source : String; Procedures : Procedure_Metadata;
+      Name : Entity_Kind; Count : Procedure_Bindings.Formal_Count) return Procedure_Bindings.Formal_Count is
+     (if Count = 0 then 0
+      elsif Output_Formal (Name, Count, Procedures)
+        and then Source_Name_Valid (Source, Procedures.Parameters (Count))
+        and then Raw_String_Equal (Text, Message, Initialization_Message (Source, Procedures.Parameters (Count)))
+      then Count
+      else Raw_Initialization_Index (Text, Message, Source, Procedures, Name, Count - 1));
+
    function Raw_Termination_Policy (Text : Raw_Bytes.Sequence; Item, Entities : Raw_Scan.Span;
-      Source : String; Functions : Function_Metadata) return Boolean is
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata) return Boolean is
      (declare Name : constant Entity_Kind := Raw_Entity_Name
-        (Text, Raw_Referenced_Entity (Text, Entities, Raw_Field (Text, Item, JSON_entity)), Source => Source, Functions => Functions);
-      begin Name in Main_Entity + 1 .. Main_Entity + Functions.Count
+        (Text, Raw_Referenced_Entity (Text, Entities, Raw_Field (Text, Item, JSON_entity)), Source => Source, Functions => Functions, Procedures => Procedures);
+      begin Is_Local_Function (Name, Functions)
         and then Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_rule), Atom_SUBPROGRAM_TERMINATION)
         and then Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_severity), Atom_info)
         and then Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_how_proved), JSON_flow)
@@ -2466,20 +2738,47 @@ package body Silver_Library_Reports with SPARK_Mode => On is
         and then Raw_Field (Text, Item, JSON_justif_msg) = Raw_Scan.Missing)
      with Ghost => Static;
 
+   function Raw_Initialization_Policy (Text : Raw_Bytes.Sequence; Item, Entities : Raw_Scan.Span;
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata) return Boolean is
+     (declare Name : constant Entity_Kind := Raw_Entity_Name
+        (Text, Raw_Referenced_Entity (Text, Entities, Raw_Field (Text, Item, JSON_entity)), Source => Source, Functions => Functions, Procedures => Procedures);
+      begin Raw_Initialization_Index
+          (Text, Raw_Field (Text, Raw_Field (Text, Item, JSON_message), JSON_text),
+           Source, Procedures, Name, Procedures.Parameter_Count) > 0
+        and then Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_rule), Atom_UNINITIALIZED)
+        and then Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_severity), Atom_info)
+        and then Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_how_proved), JSON_flow)
+        and then Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_file), Atom_main_adb)
+        and then Raw_Positive_Number (Text, Raw_Field (Text, Item, JSON_line))
+        and then Raw_Positive_Number (Text, Raw_Field (Text, Item, JSON_col))
+        and then Raw_Field (Text, Item, JSON_justification) = Raw_Scan.Missing
+        and then Raw_Field (Text, Item, JSON_justified) = Raw_Scan.Missing
+        and then Raw_Field (Text, Item, JSON_suppressed) = Raw_Scan.Missing
+        and then Raw_Field (Text, Item, JSON_annot_kind) = Raw_Scan.Missing
+        and then Raw_Field (Text, Item, JSON_justif_msg) = Raw_Scan.Missing)
+     with Ghost => Static;
+
    function Raw_Record_Policy (Text : Raw_Bytes.Sequence; Item, Entities : Raw_Scan.Span; Kind : List_Kind;
-      Source : String; Functions : Function_Metadata)
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata)
      return Boolean
      with Ghost => Static, Global => null;
 
    function Raw_Record_Policy (Text : Raw_Bytes.Sequence; Item, Entities : Raw_Scan.Span; Kind : List_Kind;
-      Source : String; Functions : Function_Metadata)
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata)
      return Boolean is
-     (if Kind = References then Raw_Reference_Policy (Text, Entities, Item, Source => Source, Functions => Functions)
+     (if Kind = References then Raw_Reference_Policy (Text, Entities, Item, Source => Source, Functions => Functions, Procedures => Procedures)
       elsif Kind in Termination_Witness then
         Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_rule), Atom_SUBPROGRAM_TERMINATION)
         and then Raw_Entity_Name (Text, Raw_Referenced_Entity
-          (Text, Entities, Raw_Field (Text, Item, JSON_entity)), Source => Source, Functions => Functions) =
+          (Text, Entities, Raw_Field (Text, Item, JSON_entity)), Source => Source, Functions => Functions, Procedures => Procedures) =
             Main_Entity + Kind - Argument_Postconditions
+      elsif Kind in Initialization_Witness then
+        Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_rule), Atom_UNINITIALIZED)
+        and then Raw_Initialization_Index
+          (Text, Raw_Field (Text, Raw_Field (Text, Item, JSON_message), JSON_text), Source, Procedures,
+           Raw_Entity_Name (Text, Raw_Referenced_Entity (Text, Entities, Raw_Field (Text, Item, JSON_entity)),
+             Source => Source, Functions => Functions, Procedures => Procedures), Procedures.Parameter_Count) =
+          Kind - Initialization_Witness_Base
       elsif Kind = Main_Advisories then
         Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_severity), Atom_warning)
         and then Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_how_proved), Atom_trivial)
@@ -2504,19 +2803,19 @@ package body Silver_Library_Reports with SPARK_Mode => On is
         and then Raw_Field (Text, Item, JSON_annot_kind) = Raw_Scan.Missing
         and then Raw_Field (Text, Item, JSON_justif_msg) = Raw_Scan.Missing
       elsif Kind in Main_Diagnostics then
-        Raw_Termination_Policy (Text, Item, Entities, Source => Source, Functions => Functions) or else
+        Raw_Termination_Policy (Text, Item, Entities, Source => Source, Functions => Functions, Procedures => Procedures) or else
+        Raw_Initialization_Policy (Text, Item, Entities, Source => Source, Functions => Functions, Procedures => Procedures) or else
         (Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_severity), Atom_warning)
         and then Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_how_proved), JSON_flow)
         and then Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_file), Atom_main_adb)
         and then Raw_Positive_Number (Text, Raw_Field (Text, Item, JSON_line))
         and then Raw_Positive_Number (Text, Raw_Field (Text, Item, JSON_col))
-        and then Raw_Entity_Name (Text, Raw_Referenced_Entity
-          (Text, Entities, Raw_Field (Text, Item, JSON_entity)), Source => Source, Functions => Functions) in Main_Entity .. Main_Entity + Functions.Count
+        and then Is_Application_Entity (Raw_Entity_Name (Text, Raw_Referenced_Entity
+          (Text, Entities, Raw_Field (Text, Item, JSON_entity)), Source => Source, Functions => Functions, Procedures => Procedures), Functions, Procedures)
         and then
           ((Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_rule), Atom_UNUSED_VARIABLE)
-            and then Raw_Entity_Name (Text, Raw_Referenced_Entity
-              (Text, Entities, Raw_Field (Text, Item, JSON_entity)), Source => Source, Functions => Functions)
-                in Main_Entity + 1 .. Main_Entity + Functions.Count
+            and then Is_Local_Subprogram (Raw_Entity_Name (Text, Raw_Referenced_Entity
+              (Text, Entities, Raw_Field (Text, Item, JSON_entity)), Source => Source, Functions => Functions, Procedures => Procedures), Functions, Procedures)
             and then Raw_Initializer_Message (Text, Raw_Field
               (Text, Raw_Field (Text, Item, JSON_message), JSON_text), True))
            or else (Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_rule), Atom_INEFFECTIVE)
@@ -2541,7 +2840,7 @@ package body Silver_Library_Reports with SPARK_Mode => On is
       elsif Kind in Postconditions | Put_Postconditions | Argument_Postconditions then
         Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_rule), Atom_VC_POSTCONDITION)
         and then Raw_Entity_Name (Text, Raw_Referenced_Entity
-          (Text, Entities, Raw_Field (Text, Item, JSON_entity)), Source => Source, Functions => Functions) =
+          (Text, Entities, Raw_Field (Text, Item, JSON_entity)), Source => Source, Functions => Functions, Procedures => Procedures) =
             (if Kind = Postconditions then Put_Line
              elsif Kind = Put_Postconditions then Put else First_Or_Default)
       else
@@ -2562,8 +2861,8 @@ package body Silver_Library_Reports with SPARK_Mode => On is
                or else Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_rule), Atom_VC_DIVISION_CHECK)
                or else Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_rule), Atom_VC_INDEX_CHECK))
              and then Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_file), Atom_main_adb)
-             and then Raw_Entity_Name (Text, Raw_Referenced_Entity
-               (Text, Entities, Raw_Field (Text, Item, JSON_entity)), Source => Source, Functions => Functions) in Main_Entity .. Main_Entity + Functions.Count
+             and then Is_Application_Entity (Raw_Entity_Name (Text, Raw_Referenced_Entity
+               (Text, Entities, Raw_Field (Text, Item, JSON_entity)), Source => Source, Functions => Functions, Procedures => Procedures), Functions, Procedures)
            else
              (Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_how_proved), JSON_flow)
               or else Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_how_proved), Atom_prover)
@@ -2576,11 +2875,11 @@ package body Silver_Library_Reports with SPARK_Mode => On is
                or else Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_file), Atom_silver_arguments_adb)
                or else Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_file), Atom_silver_runtime_ads))
              and then Raw_Entity_Name (Text, Raw_Referenced_Entity
-               (Text, Entities, Raw_Field (Text, Item, JSON_entity)), Source => Source, Functions => Functions) /= Unknown));
+               (Text, Entities, Raw_Field (Text, Item, JSON_entity)), Source => Source, Functions => Functions, Procedures => Procedures) /= Unknown));
 
    function Raw_List_From
      (Text : Raw_Bytes.Sequence; Items, Entities : Raw_Scan.Span; Kind : List_Kind; Position : Raw_Scan.Offset;
-      Source : String; Functions : Function_Metadata)
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata)
      return List_Summary
      with Ghost => Static, Global => null,
        Pre => Raw_Scan.Valid (Text, Items)
@@ -2589,7 +2888,7 @@ package body Silver_Library_Reports with SPARK_Mode => On is
 
    function Raw_List_From
      (Text : Raw_Bytes.Sequence; Items, Entities : Raw_Scan.Span; Kind : List_Kind; Position : Raw_Scan.Offset;
-      Source : String; Functions : Function_Metadata)
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata)
      return List_Summary is
      (declare M : constant Raw_Scan.Member := Raw_Scan.Item_Spec (Text, Items, Position);
       begin
@@ -2598,26 +2897,26 @@ package body Silver_Library_Reports with SPARK_Mode => On is
            when Raw_Scan.Finished => (True, True, False),
            when Raw_Scan.Present =>
              (declare Rest : constant List_Summary :=
-                 Raw_List_From (Text, Items, Entities, Kind, M.Next, Source => Source, Functions => Functions);
-                      Good : constant Boolean := Raw_Record_Policy (Text, M.Value, Entities, Kind, Source => Source, Functions => Functions);
-              begin (Rest.Well_Formed and (Kind not in Termination_Witness or else not (Good and Rest.Has_OK)),
+                 Raw_List_From (Text, Items, Entities, Kind, M.Next, Source => Source, Functions => Functions, Procedures => Procedures);
+                      Good : constant Boolean := Raw_Record_Policy (Text, M.Value, Entities, Kind, Source => Source, Functions => Functions, Procedures => Procedures);
+              begin (Rest.Well_Formed and (Kind not in Exact_Witness or else not (Good and Rest.Has_OK)),
                      Good and Rest.Every_OK, Good or Rest.Has_OK))));
 
    function Raw_List_Spec
      (Text : Raw_Bytes.Sequence; Items, Entities : Raw_Scan.Span; Kind : List_Kind;
-      Source : String; Functions : Function_Metadata) return Boolean
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata) return Boolean
      with Ghost => Static, Global => null;
 
    function Raw_List_Spec
      (Text : Raw_Bytes.Sequence; Items, Entities : Raw_Scan.Span; Kind : List_Kind;
-      Source : String; Functions : Function_Metadata) return Boolean is
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata) return Boolean is
      (Raw_Scan.Valid (Text, Items) and then Raw_Bytes.Get (Text, Items.First) = '['
         and then Raw_Bytes.Get (Text, Items.Last) = ']'
-        and then List_Policy (Raw_List_From (Text, Items, Entities, Kind, Items.First + 1, Source => Source, Functions => Functions), Kind));
+        and then List_Policy (Raw_List_From (Text, Items, Entities, Kind, Items.First + 1, Source => Source, Functions => Functions, Procedures => Procedures), Kind));
 
    function Raw_Dependencies_From
      (Text : Raw_Bytes.Sequence; Items, Entities : Raw_Scan.Span; Position : Raw_Scan.Offset;
-      Source : String; Functions : Function_Metadata) return Boolean
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata) return Boolean
      with Ghost => Static, Global => null,
        Pre => Raw_Scan.Valid (Text, Items)
          and then Position >= Items.First + 1 and then Position <= Raw_Bytes.Length (Text) + 1,
@@ -2625,32 +2924,32 @@ package body Silver_Library_Reports with SPARK_Mode => On is
 
    function Raw_Dependencies_From
      (Text : Raw_Bytes.Sequence; Items, Entities : Raw_Scan.Span; Position : Raw_Scan.Offset;
-      Source : String; Functions : Function_Metadata) return Boolean is
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata) return Boolean is
      (declare M : constant Raw_Scan.Member := Raw_Scan.Item_Spec (Text, Items, Position);
       begin
         (case M.State is
            when Raw_Scan.Broken => False,
            when Raw_Scan.Finished => True,
            when Raw_Scan.Present =>
-             Raw_Reference_Policy (Text, Entities, Raw_Field (Text, M.Value, JSON_claim), Source => Source, Functions => Functions)
+             Raw_Reference_Policy (Text, Entities, Raw_Field (Text, M.Value, JSON_claim), Source => Source, Functions => Functions, Procedures => Procedures)
              and then Raw_List_Spec
-               (Text, Raw_Field (Text, M.Value, JSON_assumptions), Entities, References, Source => Source, Functions => Functions)
-             and then Raw_Dependencies_From (Text, Items, Entities, M.Next, Source => Source, Functions => Functions)));
+               (Text, Raw_Field (Text, M.Value, JSON_assumptions), Entities, References, Source => Source, Functions => Functions, Procedures => Procedures)
+             and then Raw_Dependencies_From (Text, Items, Entities, M.Next, Source => Source, Functions => Functions, Procedures => Procedures)));
 
    function Raw_Dependencies_Spec (Text : Raw_Bytes.Sequence; Items, Entities : Raw_Scan.Span;
-      Source : String; Functions : Function_Metadata) return Boolean
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata) return Boolean
      with Ghost => Static, Global => null;
 
    function Raw_Dependencies_Spec (Text : Raw_Bytes.Sequence; Items, Entities : Raw_Scan.Span;
-      Source : String; Functions : Function_Metadata) return Boolean is
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata) return Boolean is
      (Raw_Scan.Valid (Text, Items) and then Raw_Bytes.Get (Text, Items.First) = '['
       and then Raw_Bytes.Get (Text, Items.Last) = ']'
-      and then Raw_Dependencies_From (Text, Items, Entities, Items.First + 1, Source => Source, Functions => Functions));
+      and then Raw_Dependencies_From (Text, Items, Entities, Items.First + 1, Source => Source, Functions => Functions, Procedures => Procedures));
 
    function Raw_Map_Name
      (Text : Raw_Bytes.Sequence; Items, Entities : Raw_Scan.Span; M : Raw_Scan.Member;
       Kind : Audit_Kind; Coverage : Boolean;
-      Source : String; Functions : Function_Metadata) return Entity_Kind
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata) return Entity_Kind
      with Ghost => Static, Global => null,
        Pre => M.State = Raw_Scan.Present and then Raw_Scan.Valid (Text, M.Key)
          and then Raw_Scan.Valid (Text, M.Value);
@@ -2658,22 +2957,22 @@ package body Silver_Library_Reports with SPARK_Mode => On is
    function Raw_Map_Name
      (Text : Raw_Bytes.Sequence; Items, Entities : Raw_Scan.Span; M : Raw_Scan.Member;
       Kind : Audit_Kind; Coverage : Boolean;
-      Source : String; Functions : Function_Metadata) return Entity_Kind is
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata) return Entity_Kind is
      (if M.Key.Last - M.Key.First < 1 then Unknown
       elsif Coverage then
         (declare Name : constant Entity_Kind := Raw_Entity_Name
-            (Text, Raw_Field_Key (Text, Entities, (M.Key.First + 1, M.Key.Last - 1)), Source => Source, Functions => Functions);
+            (Text, Raw_Field_Key (Text, Entities, (M.Key.First + 1, M.Key.Last - 1)), Source => Source, Functions => Functions, Procedures => Procedures);
          begin
-           (if Expected_Coverage (Name, Kind, Functions => Functions)'Length = 0
-              or else not Raw_String_Equal (Text, M.Value, Expected_Coverage (Name, Kind, Functions => Functions))
+           (if Expected_Coverage (Name, Kind, Functions => Functions, Procedures => Procedures)'Length = 0
+              or else not Raw_String_Equal (Text, M.Value, Expected_Coverage (Name, Kind, Functions => Functions, Procedures => Procedures))
             then Unknown else Name))
       elsif Raw_Field_Key (Text, Items, (M.Key.First + 1, M.Key.Last - 1)) /= M.Value
       then Unknown
-      else Raw_Entity_Name (Text, M.Value, Source => Source, Functions => Functions));
+      else Raw_Entity_Name (Text, M.Value, Source => Source, Functions => Functions, Procedures => Procedures));
 
    function Raw_Map_From (Text : Raw_Bytes.Sequence; Items, Entities : Raw_Scan.Span;
                       Kind : Audit_Kind; Coverage : Boolean; Position : Raw_Scan.Offset;
-      Source : String; Functions : Function_Metadata)
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata)
      return Entity_Summary
      with Ghost => Static, Global => null,
        Pre => Raw_Scan.Valid (Text, Items)
@@ -2682,7 +2981,7 @@ package body Silver_Library_Reports with SPARK_Mode => On is
 
    function Raw_Map_From (Text : Raw_Bytes.Sequence; Items, Entities : Raw_Scan.Span;
                       Kind : Audit_Kind; Coverage : Boolean; Position : Raw_Scan.Offset;
-      Source : String; Functions : Function_Metadata)
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata)
      return Entity_Summary is
      (declare M : constant Raw_Scan.Member := Raw_Scan.Member_Spec (Text, Items, Position);
       begin
@@ -2690,8 +2989,8 @@ package body Silver_Library_Reports with SPARK_Mode => On is
            when Raw_Scan.Broken => (False, False, No_Entities),
            when Raw_Scan.Finished => (True, True, No_Entities),
            when Raw_Scan.Present =>
-             (declare Name : constant Entity_Kind := Raw_Map_Name (Text, Items, Entities, M, Kind, Coverage, Source => Source, Functions => Functions);
-                      Rest : constant Entity_Summary := Raw_Map_From (Text, Items, Entities, Kind, Coverage, M.Next, Source => Source, Functions => Functions);
+             (declare Name : constant Entity_Kind := Raw_Map_Name (Text, Items, Entities, M, Kind, Coverage, Source => Source, Functions => Functions, Procedures => Procedures);
+                      Rest : constant Entity_Summary := Raw_Map_From (Text, Items, Entities, Kind, Coverage, M.Next, Source => Source, Functions => Functions, Procedures => Procedures);
               begin
                 (Rest.Well_Formed and Name /= Unknown,
                  Rest.Unique and not Rest.Seen (Name),
@@ -2699,24 +2998,24 @@ package body Silver_Library_Reports with SPARK_Mode => On is
 
    function Raw_Map_Spec (Text : Raw_Bytes.Sequence; Items, Entities : Raw_Scan.Span;
                       Kind : Audit_Kind; Coverage : Boolean;
-      Source : String; Functions : Function_Metadata) return Boolean
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata) return Boolean
      with Ghost => Static, Global => null;
 
    function Raw_Map_Spec (Text : Raw_Bytes.Sequence; Items, Entities : Raw_Scan.Span;
                       Kind : Audit_Kind; Coverage : Boolean;
-      Source : String; Functions : Function_Metadata) return Boolean is
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata) return Boolean is
      (Raw_Scan.Valid (Text, Items) and then Raw_Bytes.Get (Text, Items.First) = '{'
       and then Raw_Bytes.Get (Text, Items.Last) = '}'
       and then Map_Policy
-        (No_Entities, Raw_Map_From (Text, Items, Entities, Kind, Coverage, Items.First + 1, Source => Source, Functions => Functions), Kind, Coverage, Functions => Functions));
+        (No_Entities, Raw_Map_From (Text, Items, Entities, Kind, Coverage, Items.First + 1, Source => Source, Functions => Functions, Procedures => Procedures), Kind, Coverage, Functions => Functions, Procedures => Procedures));
 
    function Raw_Object_Policy (Text : Raw_Bytes.Sequence; Object : Raw_Scan.Span; Kind : Audit_Kind;
-      Source : String; Functions : Function_Metadata)
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata)
      return Boolean
      with Ghost => Static, Global => null;
 
    function Raw_Object_Policy (Text : Raw_Bytes.Sequence; Object : Raw_Scan.Span; Kind : Audit_Kind;
-      Source : String; Functions : Function_Metadata)
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata)
      return Boolean is
      (declare Entities : constant Raw_Scan.Span := Raw_Field (Text, Object, JSON_entities);
       begin
@@ -2726,10 +3025,10 @@ package body Silver_Library_Reports with SPARK_Mode => On is
         and then Raw_Empty_Array (Text, Raw_Field (Text, Object, JSON_skip_proof))
         and then Raw_Empty_Array (Text, Raw_Field (Text, Object, JSON_pragma_assume))
         and then (if Kind in Application_Audit then
-          Raw_List_Spec (Text, Raw_Field (Text, Object, JSON_warn_error), Entities, Main_Advisories, Source => Source, Functions => Functions)
+          Raw_List_Spec (Text, Raw_Field (Text, Object, JSON_warn_error), Entities, Main_Advisories, Source => Source, Functions => Functions, Procedures => Procedures)
           else Raw_Empty_Array (Text, Raw_Field (Text, Object, JSON_warn_error)))
-        and then Raw_Map_Spec (Text, Entities, Entities, Kind, False, Source => Source, Functions => Functions)
-        and then Raw_Map_Spec (Text, Raw_Field (Text, Object, JSON_spark), Entities, Kind, True, Source => Source, Functions => Functions)
+        and then Raw_Map_Spec (Text, Entities, Entities, Kind, False, Source => Source, Functions => Functions, Procedures => Procedures)
+        and then Raw_Map_Spec (Text, Raw_Field (Text, Object, JSON_spark), Entities, Kind, True, Source => Source, Functions => Functions, Procedures => Procedures)
         and then Raw_List_Spec (Text, Raw_Field (Text, Object, JSON_flow), Entities,
           (if Kind in Main_Body | Main_Put | Main_Mixed | Argument_Effects | Argument_Binding_Main
                  | Argument_Without_Query | Argument_Put_Without_Query | Argument_Mixed_Without_Query
@@ -2738,64 +3037,69 @@ package body Silver_Library_Reports with SPARK_Mode => On is
                  | Selected_Without_Query | Selected_Put_Without_Query | Selected_Mixed_Without_Query
                  | Selected_Effects_Without_Query then Selected_Diagnostics
            elsif Kind in Mutable_Audit then Assignment_Diagnostics
-           elsif Kind in Application_Audit then Binding_Diagnostics else Checks), Source => Source, Functions => Functions)
+           elsif Kind in Application_Audit then Binding_Diagnostics else Checks), Source => Source, Functions => Functions, Procedures => Procedures)
         and then Raw_List_Spec (Text, Raw_Field (Text, Object, JSON_proof), Entities,
-                           (if Kind in Application_Audit then Main_Checks else Checks), Source => Source, Functions => Functions)
+                           (if Kind in Application_Audit then Main_Checks else Checks), Source => Source, Functions => Functions, Procedures => Procedures)
         and then (if Kind in Application_Audit then
           (for all I in 1 .. Functions.Count => Raw_List_Spec
-            (Text, Raw_Field (Text, Object, JSON_flow), Entities, Argument_Postconditions + I, Source => Source, Functions => Functions)))
-        and then Raw_Dependencies_Spec (Text, Raw_Field (Text, Object, JSON_assumptions), Entities, Source => Source, Functions => Functions)
+            (Text, Raw_Field (Text, Object, JSON_flow), Entities, Argument_Postconditions + I, Source => Source, Functions => Functions, Procedures => Procedures)) and then
+          (for all I in 1 .. Procedures.Parameter_Count =>
+             (if Required_Output (I, Procedures) then Raw_List_Spec
+               (Text, Raw_Field (Text, Object, JSON_flow), Entities, Initialization_Witness_Base + I,
+                Source => Source, Functions => Functions, Procedures => Procedures))))
+        and then Raw_Dependencies_Spec (Text, Raw_Field (Text, Object, JSON_assumptions), Entities, Source => Source, Functions => Functions, Procedures => Procedures)
         and then (Kind in Libc_Interface | Argv_Interface | Application_Audit or else
           (not Raw_Empty_Array (Text, Raw_Field (Text, Object, JSON_flow))
            and then not Raw_Empty_Array (Text, Raw_Field (Text, Object, JSON_proof))
            and then Raw_List_Spec (Text, Raw_Field (Text, Object, JSON_proof), Entities,
-             (if Kind = IO_Body then Postconditions else Argument_Postconditions), Source => Source, Functions => Functions)
+             (if Kind = IO_Body then Postconditions else Argument_Postconditions), Source => Source, Functions => Functions, Procedures => Procedures)
            and then (if Kind = IO_Body then Raw_List_Spec
-             (Text, Raw_Field (Text, Object, JSON_proof), Entities, Put_Postconditions, Source => Source, Functions => Functions)))));
+             (Text, Raw_Field (Text, Object, JSON_proof), Entities, Put_Postconditions, Source => Source, Functions => Functions, Procedures => Procedures)))));
 
    function Raw_Report_Policy (Report : Raw_Bytes.Sequence; Kind : Audit_Kind;
-      Source : String; Functions : Function_Metadata) return Boolean is
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata) return Boolean is
      (declare Start : constant Raw_Scan.Offset := Raw_Scan.Space_End (Report, 1);
               Last : constant Raw_Scan.Offset := Raw_Scan.Value_Spec (Report, Start);
       begin Last /= 0
         and then Raw_Scan.Space_End (Report, Last + 1) = Raw_Bytes.Length (Report) + 1
-        and then Raw_Object_Policy (Report, (Start, Last), Kind, Source => Source, Functions => Functions))
+        and then Raw_Object_Policy (Report, (Start, Last), Kind, Source => Source, Functions => Functions, Procedures => Procedures))
      with Ghost => Static;
 
    function Unbounded_Runtime_Report_Policy
      (Report : Raw_Bytes.Sequence; Kind : Report_Kind) return Boolean is
-     (Raw_Report_Policy (Report, Audit_Of (Kind), Atom_Empty, Empty_Functions));
+     (Raw_Report_Policy (Report, Audit_Of (Kind), Atom_Empty, Empty_Functions, Empty_Procedures));
 
    function Unbounded_Application_Report_Policy
      (Report : Raw_Bytes.Sequence; Kind : Application_Kind := Argument_Output;
-      Source : String := ""; Functions : Function_Metadata := Empty_Functions) return Boolean is
+      Source : String := ""; Functions : Function_Metadata := Empty_Functions;
+      Procedures : Procedure_Metadata := Empty_Procedures) return Boolean is
      (case Kind is
-        when Static_Output => Raw_Report_Policy (Report, Binding_Main, Source => Source, Functions => Functions)
-          or else Raw_Report_Policy (Report, Static_Main, Source => Source, Functions => Functions)
-          or else Raw_Report_Policy (Report, Static_Put, Source => Source, Functions => Functions)
-          or else Raw_Report_Policy (Report, Static_Mixed, Source => Source, Functions => Functions),
-        when Argument_Output => Raw_Report_Policy (Report, Argument_Binding_Main, Source => Source, Functions => Functions)
-          or else Raw_Report_Policy (Report, Argument_Effects, Source => Source, Functions => Functions)
-          or else Raw_Report_Policy (Report, Main_Body, Source => Source, Functions => Functions)
-          or else Raw_Report_Policy (Report, Main_Put, Source => Source, Functions => Functions)
-          or else Raw_Report_Policy (Report, Main_Mixed, Source => Source, Functions => Functions)
-          or else Raw_Report_Policy (Report, Argument_Without_Query, Source => Source, Functions => Functions)
-          or else Raw_Report_Policy (Report, Argument_Put_Without_Query, Source => Source, Functions => Functions)
-          or else Raw_Report_Policy (Report, Argument_Mixed_Without_Query, Source => Source, Functions => Functions)
-          or else Raw_Report_Policy (Report, Argument_Effects_Without_Query, Source => Source, Functions => Functions),
-        when Assigned_Output => Raw_Report_Policy (Report, Assignment_Main, Source => Source, Functions => Functions)
-          or else Raw_Report_Policy (Report, Assignment_Effects, Source => Source, Functions => Functions)
-          or else Raw_Report_Policy (Report, Assignment_Put, Source => Source, Functions => Functions)
-          or else Raw_Report_Policy (Report, Assignment_Mixed, Source => Source, Functions => Functions),
-        when Selected_Output => Raw_Report_Policy (Report, Selected_Binding_Main, Source => Source, Functions => Functions)
-          or else Raw_Report_Policy (Report, Selected_Effects, Source => Source, Functions => Functions)
-          or else Raw_Report_Policy (Report, Selected_Main, Source => Source, Functions => Functions)
-          or else Raw_Report_Policy (Report, Selected_Put, Source => Source, Functions => Functions)
-          or else Raw_Report_Policy (Report, Selected_Mixed, Source => Source, Functions => Functions)
-          or else Raw_Report_Policy (Report, Selected_Without_Query, Source => Source, Functions => Functions)
-          or else Raw_Report_Policy (Report, Selected_Put_Without_Query, Source => Source, Functions => Functions)
-          or else Raw_Report_Policy (Report, Selected_Mixed_Without_Query, Source => Source, Functions => Functions)
-          or else Raw_Report_Policy (Report, Selected_Effects_Without_Query, Source => Source, Functions => Functions));
+        when Static_Output => Raw_Report_Policy (Report, Binding_Main, Source => Source, Functions => Functions, Procedures => Procedures)
+          or else Raw_Report_Policy (Report, Static_Main, Source => Source, Functions => Functions, Procedures => Procedures)
+          or else Raw_Report_Policy (Report, Static_Put, Source => Source, Functions => Functions, Procedures => Procedures)
+          or else Raw_Report_Policy (Report, Static_Mixed, Source => Source, Functions => Functions, Procedures => Procedures),
+        when Argument_Output => Raw_Report_Policy (Report, Argument_Binding_Main, Source => Source, Functions => Functions, Procedures => Procedures)
+          or else Raw_Report_Policy (Report, Argument_Effects, Source => Source, Functions => Functions, Procedures => Procedures)
+          or else Raw_Report_Policy (Report, Main_Body, Source => Source, Functions => Functions, Procedures => Procedures)
+          or else Raw_Report_Policy (Report, Main_Put, Source => Source, Functions => Functions, Procedures => Procedures)
+          or else Raw_Report_Policy (Report, Main_Mixed, Source => Source, Functions => Functions, Procedures => Procedures)
+          or else Raw_Report_Policy (Report, Argument_Without_Query, Source => Source, Functions => Functions, Procedures => Procedures)
+          or else Raw_Report_Policy (Report, Argument_Put_Without_Query, Source => Source, Functions => Functions, Procedures => Procedures)
+          or else Raw_Report_Policy (Report, Argument_Mixed_Without_Query, Source => Source, Functions => Functions, Procedures => Procedures)
+          or else Raw_Report_Policy (Report, Argument_Effects_Without_Query, Source => Source, Functions => Functions, Procedures => Procedures),
+        when Assigned_Output => Raw_Report_Policy (Report, Assignment_Main, Source => Source, Functions => Functions, Procedures => Procedures)
+          or else Raw_Report_Policy (Report, Assignment_Effects, Source => Source, Functions => Functions, Procedures => Procedures)
+          or else Raw_Report_Policy (Report, Assignment_Put, Source => Source, Functions => Functions, Procedures => Procedures)
+          or else Raw_Report_Policy (Report, Assignment_Mixed, Source => Source, Functions => Functions, Procedures => Procedures),
+        when Selected_Output => Raw_Report_Policy (Report, Selected_Binding_Main, Source => Source, Functions => Functions, Procedures => Procedures)
+          or else Raw_Report_Policy (Report, Selected_Effects, Source => Source, Functions => Functions, Procedures => Procedures)
+          or else Raw_Report_Policy (Report, Selected_Main, Source => Source, Functions => Functions, Procedures => Procedures)
+          or else Raw_Report_Policy (Report, Selected_Put, Source => Source, Functions => Functions, Procedures => Procedures)
+          or else Raw_Report_Policy (Report, Selected_Mixed, Source => Source, Functions => Functions, Procedures => Procedures)
+          or else Raw_Report_Policy (Report, Selected_Without_Query, Source => Source, Functions => Functions, Procedures => Procedures)
+          or else Raw_Report_Policy (Report, Selected_Put_Without_Query, Source => Source, Functions => Functions, Procedures => Procedures)
+          or else Raw_Report_Policy (Report, Selected_Mixed_Without_Query, Source => Source, Functions => Functions, Procedures => Procedures)
+          or else Raw_Report_Policy (Report, Selected_Effects_Without_Query, Source => Source, Functions => Functions, Procedures => Procedures));
 
    --  This agreement is about field bytes and malformed/missing observations.
    --  Raw positions and the original sequence have no storage bound.
@@ -3602,13 +3906,33 @@ package body Silver_Library_Reports with SPARK_Mode => On is
       Mixed_Function_Name (Raw, L, Text, R, Source, Functions, Count - 1);
    end Mixed_Function_Name;
 
+   procedure Mixed_Procedure_Name
+     (Raw : Raw_Bytes.Sequence; L : Raw_Scan.Span; Text : String; R : Span;
+      Source : String; Procedures : Procedure_Metadata; Count : Procedure_Bindings.Procedure_Count)
+     with Ghost => Static, Global => null,
+       Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
+         and then Mixed_Field (Raw, L, Text, R) and then Count <= Procedures.Count,
+       Post => Raw_Procedure_Name (Raw, L, Source, Procedures, Count) =
+         Procedure_Name_Model (Text, R, Source, Procedures, Count),
+       Subprogram_Variant => (Decreases => Count)
+   is
+   begin
+      if Count = 0 then return; end if;
+      if Mixed_Content (Raw, L, Text, R) then
+         Mixed_Byte_Correspondence (Raw, L, Text, R);
+      end if;
+      pragma Assert (Raw_Procedure_Spelling (Raw, L, Source, Procedures.Items (Count)) =
+        Procedure_Spelling (Text, R, Source, Procedures.Items (Count)));
+      Mixed_Procedure_Name (Raw, L, Text, R, Source, Procedures, Count - 1);
+   end Mixed_Procedure_Name;
+
    procedure Mixed_Entity_Name
      (Raw : Raw_Bytes.Sequence; L : Raw_Scan.Span; Text : String; R : Span;
-      Source : String; Functions : Function_Metadata)
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata)
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
          and then Mixed_Field (Raw, L, Text, R),
-       Post => Raw_Entity_Name (Raw, L, Source => Source, Functions => Functions) = Entity_Name_Spec (Text, R, Source => Source, Functions => Functions)
+       Post => Raw_Entity_Name (Raw, L, Source => Source, Functions => Functions, Procedures => Procedures) = Entity_Name_Spec (Text, R, Source => Source, Functions => Functions, Procedures => Procedures)
    is
       Name : constant Raw_Scan.Span := Raw_Field (Raw, L, JSON_name);
       Other : constant Span := Field_Spec (Text, R, JSON_name);
@@ -3630,11 +3954,13 @@ package body Silver_Library_Reports with SPARK_Mode => On is
           elsif Raw_String_Equal (Raw, Name, Atom_Silver_Runtime_Argument_Count) then Argument_Count
           elsif Raw_String_Equal (Raw, Name, Atom_Silver_Runtime_Argument) then Argument
           elsif Raw_String_Equal (Raw, Name, Atom_Silver_Runtime_Set_Exit_Status) then Runtime_Exit_Status
-          else Raw_Function_Name (Raw, Name, Source, Functions, Functions.Count));
+          else (if Raw_Function_Name (Raw, Name, Source, Functions, Functions.Count) /= Unknown then Raw_Function_Name (Raw, Name, Source, Functions, Functions.Count)
+           else Raw_Procedure_Name (Raw, Name, Source, Procedures, Procedures.Count)));
    begin
       Mixed_Preserved_Field (Raw, L, Text, R, JSON_name);
       Mixed_Main_Spelling (Raw, Name, Text, Other);
       Mixed_Function_Name (Raw, Name, Text, Other, Source, Functions, Functions.Count);
+      Mixed_Procedure_Name (Raw, Name, Text, Other, Source, Procedures, Procedures.Count);
       Mixed_String_Congruence (Raw, Name, Text, Other, Atom_Silver_IO);
       Mixed_String_Congruence (Raw, Name, Text, Other, Atom_Silver_IO_Put_Line);
       Mixed_String_Congruence (Raw, Name, Text, Other, Atom_Silver_IO_Put);
@@ -3738,14 +4064,14 @@ package body Silver_Library_Reports with SPARK_Mode => On is
    function Record_Observation_Agreement
      (Raw : Raw_Bytes.Sequence; L, LE : Raw_Scan.Span; Text : String; R, RE : Span;
       For_Image : Boolean := False;
-      Source : String; Functions : Function_Metadata) return Boolean
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata) return Boolean
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length <= Max_Report_Length;
 
    function Record_Observation_Agreement
      (Raw : Raw_Bytes.Sequence; L, LE : Raw_Scan.Span; Text : String; R, RE : Span;
       For_Image : Boolean := False;
-      Source : String; Functions : Function_Metadata) return Boolean is
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata) return Boolean is
      (Mixed_Field
         (Raw, Raw_Field (Raw, L, JSON_severity),
          Text, Field_Spec (Text, R, JSON_severity))
@@ -3791,9 +4117,9 @@ package body Silver_Library_Reports with SPARK_Mode => On is
           (Raw, Raw_Field (Raw, Raw_Field (Raw, L, JSON_unproved_status), JSON_status),
            Text, Field_Spec (Text, Field_Spec (Text, R, JSON_unproved_status), JSON_status)))
       and then Raw_Entity_Name
-        (Raw, Raw_Referenced_Entity (Raw, LE, Raw_Field (Raw, L, JSON_entity)), Source => Source, Functions => Functions) =
+        (Raw, Raw_Referenced_Entity (Raw, LE, Raw_Field (Raw, L, JSON_entity)), Source => Source, Functions => Functions, Procedures => Procedures) =
           Entity_Name_Spec
-            (Text, Referenced_Entity_Spec (Text, RE, Field_Spec (Text, R, JSON_entity)), Source => Source, Functions => Functions));
+            (Text, Referenced_Entity_Spec (Text, RE, Field_Spec (Text, R, JSON_entity)), Source => Source, Functions => Functions, Procedures => Procedures));
 
    procedure Mixed_Empty_Object
      (Raw : Raw_Bytes.Sequence; L : Raw_Scan.Span; Text : String; R : Span)
@@ -3813,16 +4139,42 @@ package body Silver_Library_Reports with SPARK_Mode => On is
       end if;
    end Mixed_Empty_Object;
 
+   procedure Mixed_Initialization_Index
+     (Raw : Raw_Bytes.Sequence; L : Raw_Scan.Span; Text : String; R : Span;
+      Source : String; Procedures : Procedure_Metadata;
+      Name : Entity_Kind; Count : Procedure_Bindings.Formal_Count)
+     with Ghost => Static, Global => null,
+       Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
+         and then Mixed_Field (Raw, L, Text, R) and then Count <= Procedures.Parameter_Count,
+       Post => Raw_Initialization_Index (Raw, L, Source, Procedures, Name, Count) =
+         Initialization_Index_Model (Text, R, Source, Procedures, Name, Count),
+       Subprogram_Variant => (Decreases => Count)
+   is
+   begin
+      if Count = 0 then return; end if;
+      Mixed_String_Congruence
+        (Raw, L, Text, R, Initialization_Message (Source, Procedures.Parameters (Count)));
+      Mixed_Initialization_Index (Raw, L, Text, R, Source, Procedures, Name, Count - 1);
+   end Mixed_Initialization_Index;
+
    procedure Mixed_Record_Congruence
      (Raw : Raw_Bytes.Sequence; L, LE : Raw_Scan.Span; Text : String; R, RE : Span; Kind : List_Kind;
-      Source : String; Functions : Function_Metadata)
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata)
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
          and then Kind /= References
-         and then Record_Observation_Agreement (Raw, L, LE, Text, R, RE, Kind = Main_Advisories, Source => Source, Functions => Functions),
-       Post => Raw_Record_Policy (Raw, L, LE, Kind, Source => Source, Functions => Functions) = Record_Policy (Text, R, RE, Kind, Source => Source, Functions => Functions)
+         and then Record_Observation_Agreement (Raw, L, LE, Text, R, RE, Kind = Main_Advisories, Source => Source, Functions => Functions, Procedures => Procedures),
+       Post => Raw_Record_Policy (Raw, L, LE, Kind, Source => Source, Functions => Functions, Procedures => Procedures) = Record_Policy (Text, R, RE, Kind, Source => Source, Functions => Functions, Procedures => Procedures)
    is
    begin
+      Mixed_Initialization_Index
+        (Raw, Raw_Field (Raw, Raw_Field (Raw, L, JSON_message), JSON_text),
+         Text, Field_Spec (Text, Field_Spec (Text, R, JSON_message), JSON_text), Source, Procedures,
+         Raw_Entity_Name (Raw, Raw_Referenced_Entity (Raw, LE, Raw_Field (Raw, L, JSON_entity)),
+           Source => Source, Functions => Functions, Procedures => Procedures), Procedures.Parameter_Count);
+      Mixed_String_Congruence
+        (Raw, Raw_Field (Raw, L, JSON_rule),
+         Text, Field_Spec (Text, R, JSON_rule), Atom_UNINITIALIZED);
       Mixed_String_Congruence
         (Raw, Raw_Field (Raw, L, JSON_rule),
          Text, Field_Spec (Text, R, JSON_rule), Atom_UNUSED_VARIABLE);
@@ -3833,7 +4185,7 @@ package body Silver_Library_Reports with SPARK_Mode => On is
         (Raw, Raw_Field (Raw, Raw_Field (Raw, L, JSON_message), JSON_text),
          Text, Field_Spec (Text, Field_Spec (Text, R, JSON_message), JSON_text),
          Termination_Message (Raw_Entity_Name
-           (Raw, Raw_Referenced_Entity (Raw, LE, Raw_Field (Raw, L, JSON_entity)), Source => Source, Functions => Functions), Source => Source, Functions => Functions));
+           (Raw, Raw_Referenced_Entity (Raw, LE, Raw_Field (Raw, L, JSON_entity)), Source => Source, Functions => Functions, Procedures => Procedures), Source => Source, Functions => Functions));
       Mixed_String_Congruence
         (Raw, Raw_Field (Raw, L, JSON_severity),
          Text, Field_Spec (Text, R, JSON_severity), Atom_warning);
@@ -3946,13 +4298,13 @@ package body Silver_Library_Reports with SPARK_Mode => On is
    end Mixed_Record_Congruence;
    function Reference_Observation_Agreement
      (Raw : Raw_Bytes.Sequence; L, LE : Raw_Scan.Span; Text : String; R, RE : Span;
-      Source : String; Functions : Function_Metadata) return Boolean
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata) return Boolean
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length <= Max_Report_Length;
 
    function Reference_Observation_Agreement
      (Raw : Raw_Bytes.Sequence; L, LE : Raw_Scan.Span; Text : String; R, RE : Span;
-      Source : String; Functions : Function_Metadata) return Boolean is
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata) return Boolean is
      (Mixed_Field
         (Raw, Raw_Field (Raw, L, JSON_predicate),
          Text, Field_Spec (Text, R, JSON_predicate))
@@ -3960,17 +4312,17 @@ package body Silver_Library_Reports with SPARK_Mode => On is
         (Raw, Raw_Field (Raw, L, JSON_arg),
          Text, Field_Spec (Text, R, JSON_arg))
       and then Raw_Entity_Name
-        (Raw, Raw_Referenced_Entity (Raw, LE, Raw_Field (Raw, L, JSON_arg)), Source => Source, Functions => Functions) =
+        (Raw, Raw_Referenced_Entity (Raw, LE, Raw_Field (Raw, L, JSON_arg)), Source => Source, Functions => Functions, Procedures => Procedures) =
           Entity_Name_Spec
-            (Text, Referenced_Entity_Spec (Text, RE, Field_Spec (Text, R, JSON_arg)), Source => Source, Functions => Functions));
+            (Text, Referenced_Entity_Spec (Text, RE, Field_Spec (Text, R, JSON_arg)), Source => Source, Functions => Functions, Procedures => Procedures));
 
    procedure Mixed_Reference_Congruence
      (Raw : Raw_Bytes.Sequence; L, LE : Raw_Scan.Span; Text : String; R, RE : Span;
-      Source : String; Functions : Function_Metadata)
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata)
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
-         and then Reference_Observation_Agreement (Raw, L, LE, Text, R, RE, Source => Source, Functions => Functions),
-       Post => Raw_Reference_Policy (Raw, LE, L, Source => Source, Functions => Functions) = Reference_Policy (Text, RE, R, Source => Source, Functions => Functions)
+         and then Reference_Observation_Agreement (Raw, L, LE, Text, R, RE, Source => Source, Functions => Functions, Procedures => Procedures),
+       Post => Raw_Reference_Policy (Raw, LE, L, Source => Source, Functions => Functions, Procedures => Procedures) = Reference_Policy (Text, RE, R, Source => Source, Functions => Functions, Procedures => Procedures)
    is
    begin
       Mixed_String_Congruence
@@ -3997,7 +4349,7 @@ package body Silver_Library_Reports with SPARK_Mode => On is
      (Raw : Raw_Bytes.Sequence; L, LE : Raw_Scan.Span; LP : Raw_Scan.Offset;
       Text : String; R, RE : Span; RP : Offset;
       For_References : Boolean; For_Image : Boolean := False;
-      Source : String; Functions : Function_Metadata) return Boolean
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata) return Boolean
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
          and then Raw_Scan.Valid (Raw, L) and then Valid (Text, R)
@@ -4009,7 +4361,7 @@ package body Silver_Library_Reports with SPARK_Mode => On is
      (Raw : Raw_Bytes.Sequence; L, LE : Raw_Scan.Span; LP : Raw_Scan.Offset;
       Text : String; R, RE : Span; RP : Offset;
       For_References : Boolean; For_Image : Boolean := False;
-      Source : String; Functions : Function_Metadata) return Boolean is
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata) return Boolean is
      (declare LM : constant Raw_Scan.Member := Raw_Scan.Item_Spec (Raw, L, LP);
               RM : constant Member := Item_Spec (Text, R, RP);
       begin
@@ -4018,23 +4370,23 @@ package body Silver_Library_Reports with SPARK_Mode => On is
              when Raw_Scan.Broken | Raw_Scan.Finished => True,
              when Raw_Scan.Present =>
                (if For_References then
-                  Reference_Observation_Agreement (Raw, LM.Value, LE, Text, RM.Value, RE, Source => Source, Functions => Functions)
-                else Record_Observation_Agreement (Raw, LM.Value, LE, Text, RM.Value, RE, For_Image, Source => Source, Functions => Functions))
+                  Reference_Observation_Agreement (Raw, LM.Value, LE, Text, RM.Value, RE, Source => Source, Functions => Functions, Procedures => Procedures)
+                else Record_Observation_Agreement (Raw, LM.Value, LE, Text, RM.Value, RE, For_Image, Source => Source, Functions => Functions, Procedures => Procedures))
                and then List_Items_Agreement
-                 (Raw, L, LE, LM.Next, Text, R, RE, RM.Next, For_References, For_Image, Source => Source, Functions => Functions)));
+                 (Raw, L, LE, LM.Next, Text, R, RE, RM.Next, For_References, For_Image, Source => Source, Functions => Functions, Procedures => Procedures)));
 
    procedure Mixed_List_Items_Congruence
      (Raw : Raw_Bytes.Sequence; L, LE : Raw_Scan.Span; LP : Raw_Scan.Offset;
       Text : String; R, RE : Span; RP : Offset; Kind : List_Kind;
-      Source : String; Functions : Function_Metadata)
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata)
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
          and then Raw_Scan.Valid (Raw, L) and then Valid (Text, R)
          and then LP >= L.First + 1 and then LP <= Raw_Bytes.Length (Raw) + 1
          and then RP in R.First + 1 .. Text'Length + 1
          and then List_Items_Agreement
-           (Raw, L, LE, LP, Text, R, RE, RP, Kind = References, Kind = Main_Advisories, Source => Source, Functions => Functions),
-       Post => Raw_List_From (Raw, L, LE, Kind, LP, Source => Source, Functions => Functions) = List_From (Text, R, RE, Kind, RP, Source => Source, Functions => Functions),
+           (Raw, L, LE, LP, Text, R, RE, RP, Kind = References, Kind = Main_Advisories, Source => Source, Functions => Functions, Procedures => Procedures),
+       Post => Raw_List_From (Raw, L, LE, Kind, LP, Source => Source, Functions => Functions, Procedures => Procedures) = List_From (Text, R, RE, Kind, RP, Source => Source, Functions => Functions, Procedures => Procedures),
        Subprogram_Variant => (Decreases => (Raw_Bytes.Length (Raw) + 1) - LP)
    is
       LM : constant Raw_Scan.Member := Raw_Scan.Item_Spec (Raw, L, LP);
@@ -4042,56 +4394,56 @@ package body Silver_Library_Reports with SPARK_Mode => On is
    begin
       if LM.State = Raw_Scan.Present then
          if Kind = References then
-            Mixed_Reference_Congruence (Raw, LM.Value, LE, Text, RM.Value, RE, Source => Source, Functions => Functions);
+            Mixed_Reference_Congruence (Raw, LM.Value, LE, Text, RM.Value, RE, Source => Source, Functions => Functions, Procedures => Procedures);
          else
-            Mixed_Record_Congruence (Raw, LM.Value, LE, Text, RM.Value, RE, Kind, Source => Source, Functions => Functions);
+            Mixed_Record_Congruence (Raw, LM.Value, LE, Text, RM.Value, RE, Kind, Source => Source, Functions => Functions, Procedures => Procedures);
          end if;
          Mixed_List_Items_Congruence
-           (Raw, L, LE, LM.Next, Text, R, RE, RM.Next, Kind, Source => Source, Functions => Functions);
+           (Raw, L, LE, LM.Next, Text, R, RE, RM.Next, Kind, Source => Source, Functions => Functions, Procedures => Procedures);
       end if;
    end Mixed_List_Items_Congruence;
 
    function List_Observation_Agreement
      (Raw : Raw_Bytes.Sequence; L, LE : Raw_Scan.Span; Text : String; R, RE : Span;
       For_References : Boolean; For_Image : Boolean := False;
-      Source : String; Functions : Function_Metadata) return Boolean
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata) return Boolean
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length <= Max_Report_Length;
 
    function List_Observation_Agreement
      (Raw : Raw_Bytes.Sequence; L, LE : Raw_Scan.Span; Text : String; R, RE : Span;
       For_References : Boolean; For_Image : Boolean := False;
-      Source : String; Functions : Function_Metadata) return Boolean is
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata) return Boolean is
      (Raw_Scan.Valid (Raw, L) = Valid (Text, R)
       and then (if Raw_Scan.Valid (Raw, L) then
         Raw_Bytes.Get (Raw, L.First) = Text (R.First) and then Raw_Bytes.Get (Raw, L.Last) = Text (R.Last)
         and then (if Raw_Bytes.Get (Raw, L.First) = '[' and then Raw_Bytes.Get (Raw, L.Last) = ']' then
           List_Items_Agreement
-            (Raw, L, LE, L.First + 1, Text, R, RE, R.First + 1, For_References, For_Image, Source => Source, Functions => Functions))));
+            (Raw, L, LE, L.First + 1, Text, R, RE, R.First + 1, For_References, For_Image, Source => Source, Functions => Functions, Procedures => Procedures))));
 
    procedure Mixed_List_Congruence
      (Raw : Raw_Bytes.Sequence; L, LE : Raw_Scan.Span; Text : String; R, RE : Span; Kind : List_Kind;
-      Source : String; Functions : Function_Metadata)
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata)
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
-         and then List_Observation_Agreement (Raw, L, LE, Text, R, RE, Kind = References, Kind = Main_Advisories, Source => Source, Functions => Functions),
-       Post => Raw_List_Spec (Raw, L, LE, Kind, Source => Source, Functions => Functions) = List_Spec (Text, R, RE, Kind, Source => Source, Functions => Functions)
+         and then List_Observation_Agreement (Raw, L, LE, Text, R, RE, Kind = References, Kind = Main_Advisories, Source => Source, Functions => Functions, Procedures => Procedures),
+       Post => Raw_List_Spec (Raw, L, LE, Kind, Source => Source, Functions => Functions, Procedures => Procedures) = List_Spec (Text, R, RE, Kind, Source => Source, Functions => Functions, Procedures => Procedures)
    is
    begin
       if Raw_Scan.Valid (Raw, L) and then Raw_Bytes.Get (Raw, L.First) = '[' and then Raw_Bytes.Get (Raw, L.Last) = ']' then
-         Mixed_List_Items_Congruence (Raw, L, LE, L.First + 1, Text, R, RE, R.First + 1, Kind, Source => Source, Functions => Functions);
+         Mixed_List_Items_Congruence (Raw, L, LE, L.First + 1, Text, R, RE, R.First + 1, Kind, Source => Source, Functions => Functions, Procedures => Procedures);
       end if;
    end Mixed_List_Congruence;
 
    procedure Observe_Check_Record
      (Raw : Raw_Bytes.Sequence; L, LE : Raw_Scan.Span; Text : String; R, RE : Span;
-      Source : String; Functions : Function_Metadata)
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata)
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
          and then Mixed_Field (Raw, LE, Text, RE)
          and then Projection_Observations.Check_Record
            (Raw, L, Raw_Scan.From_String (Text), Observation_Span (R)),
-       Post => Record_Observation_Agreement (Raw, L, LE, Text, R, RE, Source => Source, Functions => Functions)
+       Post => Record_Observation_Agreement (Raw, L, LE, Text, R, RE, Source => Source, Functions => Functions, Procedures => Procedures)
    is
    begin
       Mixed_Record_Field (Raw, L, Text, R, JSON_severity);
@@ -4113,18 +4465,18 @@ package body Silver_Library_Reports with SPARK_Mode => On is
         (Raw, LE, Raw_Field (Raw, L, JSON_entity), Text, RE, Field_Spec (Text, R, JSON_entity));
       Mixed_Entity_Name
         (Raw, Raw_Referenced_Entity (Raw, LE, Raw_Field (Raw, L, JSON_entity)),
-         Text, Referenced_Entity_Spec (Text, RE, Field_Spec (Text, R, JSON_entity)), Source => Source, Functions => Functions);
+         Text, Referenced_Entity_Spec (Text, RE, Field_Spec (Text, R, JSON_entity)), Source => Source, Functions => Functions, Procedures => Procedures);
    end Observe_Check_Record;
 
    procedure Observe_Preserved_Record
      (Raw : Raw_Bytes.Sequence; L, LE : Raw_Scan.Span; Text : String; R, RE : Span;
       For_Image : Boolean := False;
-      Source : String; Functions : Function_Metadata)
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata)
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
          and then Mixed_Field (Raw, LE, Text, RE)
          and then Mixed_Field (Raw, L, Text, R),
-       Post => Record_Observation_Agreement (Raw, L, LE, Text, R, RE, For_Image, Source => Source, Functions => Functions)
+       Post => Record_Observation_Agreement (Raw, L, LE, Text, R, RE, For_Image, Source => Source, Functions => Functions, Procedures => Procedures)
    is
    begin
       Mixed_Preserved_Field (Raw, L, Text, R, JSON_severity);
@@ -4146,7 +4498,7 @@ package body Silver_Library_Reports with SPARK_Mode => On is
         (Raw, LE, Raw_Field (Raw, L, JSON_entity), Text, RE, Field_Spec (Text, R, JSON_entity));
       Mixed_Entity_Name
         (Raw, Raw_Referenced_Entity (Raw, LE, Raw_Field (Raw, L, JSON_entity)),
-         Text, Referenced_Entity_Spec (Text, RE, Field_Spec (Text, R, JSON_entity)), Source => Source, Functions => Functions);
+         Text, Referenced_Entity_Spec (Text, RE, Field_Spec (Text, R, JSON_entity)), Source => Source, Functions => Functions, Procedures => Procedures);
       if For_Image then
          Mixed_Preserved_Field (Raw, L, Text, R, JSON_check_tree);
          Mixed_Preserved_Field (Raw, L, Text, R, JSON_unproved_status);
@@ -4157,11 +4509,11 @@ package body Silver_Library_Reports with SPARK_Mode => On is
 
    procedure Observe_Reference
      (Raw : Raw_Bytes.Sequence; L, LE : Raw_Scan.Span; Text : String; R, RE : Span;
-      Source : String; Functions : Function_Metadata)
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata)
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
          and then Mixed_Field (Raw, LE, Text, RE) and then Mixed_Field (Raw, L, Text, R),
-       Post => Reference_Observation_Agreement (Raw, L, LE, Text, R, RE, Source => Source, Functions => Functions)
+       Post => Reference_Observation_Agreement (Raw, L, LE, Text, R, RE, Source => Source, Functions => Functions, Procedures => Procedures)
    is
    begin
       Mixed_Preserved_Field (Raw, L, Text, R, JSON_predicate);
@@ -4170,7 +4522,7 @@ package body Silver_Library_Reports with SPARK_Mode => On is
         (Raw, LE, Raw_Field (Raw, L, JSON_arg), Text, RE, Field_Spec (Text, R, JSON_arg));
       Mixed_Entity_Name
         (Raw, Raw_Referenced_Entity (Raw, LE, Raw_Field (Raw, L, JSON_arg)),
-         Text, Referenced_Entity_Spec (Text, RE, Field_Spec (Text, R, JSON_arg)), Source => Source, Functions => Functions);
+         Text, Referenced_Entity_Spec (Text, RE, Field_Spec (Text, R, JSON_arg)), Source => Source, Functions => Functions, Procedures => Procedures);
    end Observe_Reference;
 
    procedure Item_Inside
@@ -4190,13 +4542,13 @@ package body Silver_Library_Reports with SPARK_Mode => On is
      (Raw : Raw_Bytes.Sequence; L, LE : Raw_Scan.Span; LP : Raw_Scan.Offset;
       Text : String; R, RE : Span; RP : Offset;
       For_References : Boolean; For_Image : Boolean := False;
-      Source : String; Functions : Function_Metadata)
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata)
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
          and then Mixed_Content (Raw, L, Text, R) and then Mixed_Field (Raw, LE, Text, RE)
          and then RP in R.First + 1 .. R.Last + 1
          and then LP = L.First + To_Big_Integer (RP - R.First),
-       Post => List_Items_Agreement (Raw, L, LE, LP, Text, R, RE, RP, For_References, For_Image, Source => Source, Functions => Functions),
+       Post => List_Items_Agreement (Raw, L, LE, LP, Text, R, RE, RP, For_References, For_Image, Source => Source, Functions => Functions, Procedures => Procedures),
        Subprogram_Variant => (Decreases => (Raw_Bytes.Length (Raw) + 1) - LP)
    is
       LM : constant Raw_Scan.Member := Raw_Scan.Item_Spec (Raw, L, LP);
@@ -4212,35 +4564,35 @@ package body Silver_Library_Reports with SPARK_Mode => On is
          Window_Part (Raw, L, LM.Value, Projected, Observation_Span (R), Observation_Span (RM.Value));
          Content_Bounded (Raw, LM.Value, Text, RM.Value);
          if For_References then
-            Observe_Reference (Raw, LM.Value, LE, Text, RM.Value, RE, Source => Source, Functions => Functions);
+            Observe_Reference (Raw, LM.Value, LE, Text, RM.Value, RE, Source => Source, Functions => Functions, Procedures => Procedures);
          else
-            Observe_Preserved_Record (Raw, LM.Value, LE, Text, RM.Value, RE, For_Image, Source => Source, Functions => Functions);
+            Observe_Preserved_Record (Raw, LM.Value, LE, Text, RM.Value, RE, For_Image, Source => Source, Functions => Functions, Procedures => Procedures);
          end if;
-         Observe_Preserved_Items (Raw, L, LE, LM.Next, Text, R, RE, RM.Next, For_References, For_Image, Source => Source, Functions => Functions);
+         Observe_Preserved_Items (Raw, L, LE, LM.Next, Text, R, RE, RM.Next, For_References, For_Image, Source => Source, Functions => Functions, Procedures => Procedures);
       end if;
    end Observe_Preserved_Items;
 
    procedure Observe_Preserved_List
      (Raw : Raw_Bytes.Sequence; L, LE : Raw_Scan.Span; Text : String; R, RE : Span;
       For_References : Boolean; For_Image : Boolean := False;
-      Source : String; Functions : Function_Metadata)
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata)
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
          and then Mixed_Field (Raw, L, Text, R) and then Mixed_Field (Raw, LE, Text, RE),
-       Post => List_Observation_Agreement (Raw, L, LE, Text, R, RE, For_References, For_Image, Source => Source, Functions => Functions)
+       Post => List_Observation_Agreement (Raw, L, LE, Text, R, RE, For_References, For_Image, Source => Source, Functions => Functions, Procedures => Procedures)
    is
    begin
       if Mixed_Content (Raw, L, Text, R) and then Raw_Bytes.Get (Raw, L.First) = '['
         and then Raw_Bytes.Get (Raw, L.Last) = ']'
       then
-         Observe_Preserved_Items (Raw, L, LE, L.First + 1, Text, R, RE, R.First + 1, For_References, For_Image, Source => Source, Functions => Functions);
+         Observe_Preserved_Items (Raw, L, LE, L.First + 1, Text, R, RE, R.First + 1, For_References, For_Image, Source => Source, Functions => Functions, Procedures => Procedures);
       end if;
    end Observe_Preserved_List;
 
    procedure Observe_Check_Items
      (Raw : Raw_Bytes.Sequence; L, LE : Raw_Scan.Span; LP : Raw_Scan.Offset;
       Text : String; R, RE : Span; RP : Offset;
-      Source : String; Functions : Function_Metadata)
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata)
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
          and then Raw_Scan.Valid (Raw, L) and then Valid (Text, R)
@@ -4249,7 +4601,7 @@ package body Silver_Library_Reports with SPARK_Mode => On is
          and then RP in R.First + 1 .. Text'Length + 1
          and then Projection_Observations.List_Items
            (Raw, L, LP, Raw_Scan.From_String (Text), Observation_Span (R), To_Big_Integer (RP)),
-       Post => List_Items_Agreement (Raw, L, LE, LP, Text, R, RE, RP, False, Source => Source, Functions => Functions),
+       Post => List_Items_Agreement (Raw, L, LE, LP, Text, R, RE, RP, False, Source => Source, Functions => Functions, Procedures => Procedures),
        Subprogram_Variant => (Decreases => (Raw_Bytes.Length (Raw) + 1) - LP)
    is
       LM : constant Raw_Scan.Member := Raw_Scan.Item_Spec (Raw, L, LP);
@@ -4257,33 +4609,33 @@ package body Silver_Library_Reports with SPARK_Mode => On is
    begin
       Item_Observation (Text, R, RP);
       if LM.State = Raw_Scan.Present then
-         Observe_Check_Record (Raw, LM.Value, LE, Text, RM.Value, RE, Source => Source, Functions => Functions);
-         Observe_Check_Items (Raw, L, LE, LM.Next, Text, R, RE, RM.Next, Source => Source, Functions => Functions);
+         Observe_Check_Record (Raw, LM.Value, LE, Text, RM.Value, RE, Source => Source, Functions => Functions, Procedures => Procedures);
+         Observe_Check_Items (Raw, L, LE, LM.Next, Text, R, RE, RM.Next, Source => Source, Functions => Functions, Procedures => Procedures);
       end if;
    end Observe_Check_Items;
 
    procedure Observe_Check_List
      (Raw : Raw_Bytes.Sequence; L, LE : Raw_Scan.Span; Text : String; R, RE : Span;
-      Source : String; Functions : Function_Metadata)
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata)
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
          and then Mixed_Field (Raw, LE, Text, RE)
          and then Raw_Field_Agreement
            (Raw, L, Raw_Scan.From_String (Text), Observation_Span (R), Check_List_Value),
-       Post => List_Observation_Agreement (Raw, L, LE, Text, R, RE, False, Source => Source, Functions => Functions)
+       Post => List_Observation_Agreement (Raw, L, LE, Text, R, RE, False, Source => Source, Functions => Functions, Procedures => Procedures)
    is
    begin
       if Raw_Scan.Valid (Raw, L) and then Raw_Bytes.Get (Raw, L.First) = '['
         and then Raw_Bytes.Get (Raw, L.Last) = ']'
       then
-         Observe_Check_Items (Raw, L, LE, L.First + 1, Text, R, RE, R.First + 1, Source => Source, Functions => Functions);
+         Observe_Check_Items (Raw, L, LE, L.First + 1, Text, R, RE, R.First + 1, Source => Source, Functions => Functions, Procedures => Procedures);
       end if;
    end Observe_Check_List;
 
    procedure Mixed_Map_Name
      (Raw : Raw_Bytes.Sequence; L, LE : Raw_Scan.Span; LM : Raw_Scan.Member;
       Text : String; R, RE : Span; RM : Member; Kind : Audit_Kind; Coverage : Boolean;
-      Source : String; Functions : Function_Metadata)
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata)
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
          and then Mixed_Content (Raw, L, Text, R) and then Mixed_Field (Raw, LE, Text, RE)
@@ -4292,8 +4644,8 @@ package body Silver_Library_Reports with SPARK_Mode => On is
          and then Mixed_Content (Raw, LM.Value, Text, RM.Value)
          and then Windows.Shifted_Span
            (LM.Value, Observation_Span (RM.Value), To_Big_Integer (R.First) - L.First),
-       Post => Raw_Map_Name (Raw, L, LE, LM, Kind, Coverage, Source => Source, Functions => Functions) =
-         Map_Name (Text, R, RE, RM, Kind, Coverage, Source => Source, Functions => Functions)
+       Post => Raw_Map_Name (Raw, L, LE, LM, Kind, Coverage, Source => Source, Functions => Functions, Procedures => Procedures) =
+         Map_Name (Text, R, RE, RM, Kind, Coverage, Source => Source, Functions => Functions, Procedures => Procedures)
    is
    begin
       if RM.Key.Last - RM.Key.First < 1 then return; end if;
@@ -4304,17 +4656,17 @@ package body Silver_Library_Reports with SPARK_Mode => On is
          if Coverage then
             Raw_Dynamic_Field (Raw, LE, LN, Name);
             Mixed_Preserved_Field (Raw, LE, Text, RE, Name);
-            Mixed_Entity_Name (Raw, Raw_Field (Raw, LE, Name), Text, Field_Spec (Text, RE, Name), Source => Source, Functions => Functions);
+            Mixed_Entity_Name (Raw, Raw_Field (Raw, LE, Name), Text, Field_Spec (Text, RE, Name), Source => Source, Functions => Functions, Procedures => Procedures);
             Mixed_String_Congruence
               (Raw, LM.Value, Text, RM.Value,
-               Expected_Coverage (Raw_Entity_Name (Raw, Raw_Field (Raw, LE, Name), Source => Source, Functions => Functions), Kind, Functions => Functions));
+               Expected_Coverage (Raw_Entity_Name (Raw, Raw_Field (Raw, LE, Name), Source => Source, Functions => Functions, Procedures => Procedures), Kind, Functions => Functions, Procedures => Procedures));
          else
             Raw_Dynamic_Field (Raw, L, LN, Name);
             Mixed_Field_Shift (Raw, L, Text, R, Name);
             Mixed_Preserved_Field (Raw, L, Text, R, Name);
             pragma Assert ((Raw_Field (Raw, L, Name) = LM.Value) =
                            (Field_Spec (Text, R, Name) = RM.Value));
-            Mixed_Entity_Name (Raw, LM.Value, Text, RM.Value, Source => Source, Functions => Functions);
+            Mixed_Entity_Name (Raw, LM.Value, Text, RM.Value, Source => Source, Functions => Functions, Procedures => Procedures);
          end if;
       end;
    end Mixed_Map_Name;
@@ -4322,14 +4674,14 @@ package body Silver_Library_Reports with SPARK_Mode => On is
    procedure Mixed_Map_From
      (Raw : Raw_Bytes.Sequence; L, LE : Raw_Scan.Span; LP : Raw_Scan.Offset;
       Text : String; R, RE : Span; RP : Offset; Kind : Audit_Kind; Coverage : Boolean;
-      Source : String; Functions : Function_Metadata)
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata)
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
          and then Mixed_Content (Raw, L, Text, R) and then Mixed_Field (Raw, LE, Text, RE)
          and then RP in R.First + 1 .. R.Last + 1
          and then LP = L.First + To_Big_Integer (RP - R.First),
-       Post => Raw_Map_From (Raw, L, LE, Kind, Coverage, LP, Source => Source, Functions => Functions) =
-         Map_From (Text, R, RE, Kind, Coverage, RP, Source => Source, Functions => Functions),
+       Post => Raw_Map_From (Raw, L, LE, Kind, Coverage, LP, Source => Source, Functions => Functions, Procedures => Procedures) =
+         Map_From (Text, R, RE, Kind, Coverage, RP, Source => Source, Functions => Functions, Procedures => Procedures),
        Subprogram_Variant => (Decreases => (Raw_Bytes.Length (Raw) + 1) - LP)
    is
       LM : constant Raw_Scan.Member := Raw_Scan.Member_Spec (Raw, L, LP);
@@ -4346,38 +4698,38 @@ package body Silver_Library_Reports with SPARK_Mode => On is
          Content_Bounded (Raw, LM.Key, Text, RM.Key);
          Window_Part (Raw, L, LM.Value, Projected, Observation_Span (R), Observation_Span (RM.Value));
          Content_Bounded (Raw, LM.Value, Text, RM.Value);
-         Mixed_Map_Name (Raw, L, LE, LM, Text, R, RE, RM, Kind, Coverage, Source => Source, Functions => Functions);
-         Mixed_Map_From (Raw, L, LE, LM.Next, Text, R, RE, RM.Next, Kind, Coverage, Source => Source, Functions => Functions);
+         Mixed_Map_Name (Raw, L, LE, LM, Text, R, RE, RM, Kind, Coverage, Source => Source, Functions => Functions, Procedures => Procedures);
+         Mixed_Map_From (Raw, L, LE, LM.Next, Text, R, RE, RM.Next, Kind, Coverage, Source => Source, Functions => Functions, Procedures => Procedures);
       end if;
    end Mixed_Map_From;
 
    procedure Mixed_Map
      (Raw : Raw_Bytes.Sequence; L, LE : Raw_Scan.Span; Text : String; R, RE : Span;
       Kind : Audit_Kind; Coverage : Boolean;
-      Source : String; Functions : Function_Metadata)
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata)
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
          and then Mixed_Field (Raw, L, Text, R) and then Mixed_Field (Raw, LE, Text, RE),
-       Post => Raw_Map_Spec (Raw, L, LE, Kind, Coverage, Source => Source, Functions => Functions) = Map_Spec (Text, R, RE, Kind, Coverage, Source => Source, Functions => Functions)
+       Post => Raw_Map_Spec (Raw, L, LE, Kind, Coverage, Source => Source, Functions => Functions, Procedures => Procedures) = Map_Spec (Text, R, RE, Kind, Coverage, Source => Source, Functions => Functions, Procedures => Procedures)
    is
    begin
       if Mixed_Content (Raw, L, Text, R) and then Raw_Bytes.Get (Raw, L.First) = '{'
         and then Raw_Bytes.Get (Raw, L.Last) = '}'
       then
-         Mixed_Map_From (Raw, L, LE, L.First + 1, Text, R, RE, R.First + 1, Kind, Coverage, Source => Source, Functions => Functions);
+         Mixed_Map_From (Raw, L, LE, L.First + 1, Text, R, RE, R.First + 1, Kind, Coverage, Source => Source, Functions => Functions, Procedures => Procedures);
       end if;
    end Mixed_Map;
 
    procedure Mixed_Dependencies_From
      (Raw : Raw_Bytes.Sequence; L, LE : Raw_Scan.Span; LP : Raw_Scan.Offset;
       Text : String; R, RE : Span; RP : Offset;
-      Source : String; Functions : Function_Metadata)
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata)
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
          and then Mixed_Content (Raw, L, Text, R) and then Mixed_Field (Raw, LE, Text, RE)
          and then RP in R.First + 1 .. R.Last + 1
          and then LP = L.First + To_Big_Integer (RP - R.First),
-       Post => Raw_Dependencies_From (Raw, L, LE, LP, Source => Source, Functions => Functions) = Dependencies_From (Text, R, RE, RP, Source => Source, Functions => Functions),
+       Post => Raw_Dependencies_From (Raw, L, LE, LP, Source => Source, Functions => Functions, Procedures => Procedures) = Dependencies_From (Text, R, RE, RP, Source => Source, Functions => Functions, Procedures => Procedures),
        Subprogram_Variant => (Decreases => (Raw_Bytes.Length (Raw) + 1) - LP)
    is
       LM : constant Raw_Scan.Member := Raw_Scan.Item_Spec (Raw, L, LP);
@@ -4397,49 +4749,49 @@ package body Silver_Library_Reports with SPARK_Mode => On is
          Mixed_Preserved_Field (Raw, LM.Value, Text, RM.Value, JSON_claim);
          Observe_Reference
            (Raw, Raw_Field (Raw, LM.Value, JSON_claim), LE,
-            Text, Field_Spec (Text, RM.Value, JSON_claim), RE, Source => Source, Functions => Functions);
+            Text, Field_Spec (Text, RM.Value, JSON_claim), RE, Source => Source, Functions => Functions, Procedures => Procedures);
          Mixed_Reference_Congruence
            (Raw, Raw_Field (Raw, LM.Value, JSON_claim), LE,
-            Text, Field_Spec (Text, RM.Value, JSON_claim), RE, Source => Source, Functions => Functions);
+            Text, Field_Spec (Text, RM.Value, JSON_claim), RE, Source => Source, Functions => Functions, Procedures => Procedures);
          Mixed_Preserved_Field (Raw, LM.Value, Text, RM.Value, JSON_assumptions);
          Observe_Preserved_List
            (Raw, Raw_Field (Raw, LM.Value, JSON_assumptions), LE,
-            Text, Field_Spec (Text, RM.Value, JSON_assumptions), RE, True, Source => Source, Functions => Functions);
+            Text, Field_Spec (Text, RM.Value, JSON_assumptions), RE, True, Source => Source, Functions => Functions, Procedures => Procedures);
          Mixed_List_Congruence
            (Raw, Raw_Field (Raw, LM.Value, JSON_assumptions), LE,
-            Text, Field_Spec (Text, RM.Value, JSON_assumptions), RE, References, Source => Source, Functions => Functions);
-         Mixed_Dependencies_From (Raw, L, LE, LM.Next, Text, R, RE, RM.Next, Source => Source, Functions => Functions);
+            Text, Field_Spec (Text, RM.Value, JSON_assumptions), RE, References, Source => Source, Functions => Functions, Procedures => Procedures);
+         Mixed_Dependencies_From (Raw, L, LE, LM.Next, Text, R, RE, RM.Next, Source => Source, Functions => Functions, Procedures => Procedures);
       end if;
    end Mixed_Dependencies_From;
 
    procedure Mixed_Dependencies
      (Raw : Raw_Bytes.Sequence; L, LE : Raw_Scan.Span; Text : String; R, RE : Span;
-      Source : String; Functions : Function_Metadata)
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata)
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
          and then Mixed_Field (Raw, L, Text, R) and then Mixed_Field (Raw, LE, Text, RE),
-       Post => Raw_Dependencies_Spec (Raw, L, LE, Source => Source, Functions => Functions) = Dependencies_Spec (Text, R, RE, Source => Source, Functions => Functions)
+       Post => Raw_Dependencies_Spec (Raw, L, LE, Source => Source, Functions => Functions, Procedures => Procedures) = Dependencies_Spec (Text, R, RE, Source => Source, Functions => Functions, Procedures => Procedures)
    is
    begin
       pragma Assert (Raw_Scan.Valid (Raw, L) = Valid (Text, R));
       if not Raw_Scan.Valid (Raw, L) then
-         pragma Assert (not Raw_Dependencies_Spec (Raw, L, LE, Source => Source, Functions => Functions));
-         pragma Assert (not Dependencies_Spec (Text, R, RE, Source => Source, Functions => Functions));
+         pragma Assert (not Raw_Dependencies_Spec (Raw, L, LE, Source => Source, Functions => Functions, Procedures => Procedures));
+         pragma Assert (not Dependencies_Spec (Text, R, RE, Source => Source, Functions => Functions, Procedures => Procedures));
          return;
       end if;
       pragma Assert (Mixed_Content (Raw, L, Text, R));
       pragma Assert (Raw_Bytes.Get (Raw, L.First) = Text (R.First));
       pragma Assert (Raw_Bytes.Get (Raw, L.Last) = Text (R.Last));
       if Raw_Bytes.Get (Raw, L.First) /= '[' or else Raw_Bytes.Get (Raw, L.Last) /= ']' then
-         pragma Assert (not Raw_Dependencies_Spec (Raw, L, LE, Source => Source, Functions => Functions));
-         pragma Assert (not Dependencies_Spec (Text, R, RE, Source => Source, Functions => Functions));
+         pragma Assert (not Raw_Dependencies_Spec (Raw, L, LE, Source => Source, Functions => Functions, Procedures => Procedures));
+         pragma Assert (not Dependencies_Spec (Text, R, RE, Source => Source, Functions => Functions, Procedures => Procedures));
          return;
       end if;
-      Mixed_Dependencies_From (Raw, L, LE, L.First + 1, Text, R, RE, R.First + 1, Source => Source, Functions => Functions);
-      pragma Assert (Raw_Dependencies_Spec (Raw, L, LE, Source => Source, Functions => Functions) =
-                      Raw_Dependencies_From (Raw, L, LE, L.First + 1, Source => Source, Functions => Functions));
-      pragma Assert (Dependencies_Spec (Text, R, RE, Source => Source, Functions => Functions) =
-                      Dependencies_From (Text, R, RE, R.First + 1, Source => Source, Functions => Functions));
+      Mixed_Dependencies_From (Raw, L, LE, L.First + 1, Text, R, RE, R.First + 1, Source => Source, Functions => Functions, Procedures => Procedures);
+      pragma Assert (Raw_Dependencies_Spec (Raw, L, LE, Source => Source, Functions => Functions, Procedures => Procedures) =
+                      Raw_Dependencies_From (Raw, L, LE, L.First + 1, Source => Source, Functions => Functions, Procedures => Procedures));
+      pragma Assert (Dependencies_Spec (Text, R, RE, Source => Source, Functions => Functions, Procedures => Procedures) =
+                      Dependencies_From (Text, R, RE, R.First + 1, Source => Source, Functions => Functions, Procedures => Procedures));
    end Mixed_Dependencies;
 
    function Object_Observation_Agreement
@@ -4473,19 +4825,19 @@ package body Silver_Library_Reports with SPARK_Mode => On is
 
    procedure Observe_Object_List
      (Raw : Raw_Bytes.Sequence; L, LE : Raw_Scan.Span; Text : String; R, RE : Span; Name : String;
-      Source : String; Functions : Function_Metadata)
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata)
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
          and then (Name = Projection_Observations.Flow_Name or else Name = Projection_Observations.Proof_Name)
          and then Object_Observation_Agreement (Raw, L, Text, R) and then Mixed_Field (Raw, LE, Text, RE),
        Post => List_Observation_Agreement
-         (Raw, Raw_Field (Raw, L, Name), LE, Text, Field_Spec (Text, R, Name), RE, False, Source => Source, Functions => Functions)
+         (Raw, Raw_Field (Raw, L, Name), LE, Text, Field_Spec (Text, R, Name), RE, False, Source => Source, Functions => Functions, Procedures => Procedures)
    is
    begin
       if Mixed_Content (Raw, L, Text, R) then
          Mixed_Preserved_Field (Raw, L, Text, R, Name);
          Observe_Preserved_List
-           (Raw, Raw_Field (Raw, L, Name), LE, Text, Field_Spec (Text, R, Name), RE, False, Source => Source, Functions => Functions);
+           (Raw, Raw_Field (Raw, L, Name), LE, Text, Field_Spec (Text, R, Name), RE, False, Source => Source, Functions => Functions, Procedures => Procedures);
       else
          Root_Field_Queries
            (Raw, L, L.First + 1, Raw_Scan.From_String (Text), Observation_Span (R),
@@ -4494,7 +4846,7 @@ package body Silver_Library_Reports with SPARK_Mode => On is
            (Raw, L, L.First + 1, Raw_Scan.From_String (Text), Observation_Span (R),
             To_Big_Integer (R.First) + 1, Name, Check_List_Value);
          Bounded_Field (Text, R, Name);
-         Observe_Check_List (Raw, Raw_Field (Raw, L, Name), LE, Text, Field_Spec (Text, R, Name), RE, Source => Source, Functions => Functions);
+         Observe_Check_List (Raw, Raw_Field (Raw, L, Name), LE, Text, Field_Spec (Text, R, Name), RE, Source => Source, Functions => Functions, Procedures => Procedures);
       end if;
    end Observe_Object_List;
 
@@ -4518,10 +4870,10 @@ package body Silver_Library_Reports with SPARK_Mode => On is
 
    procedure Mixed_Empty_Observed
      (Raw : Raw_Bytes.Sequence; L, LE : Raw_Scan.Span; Text : String; R, RE : Span;
-      Source : String; Functions : Function_Metadata)
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata)
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
-         and then List_Observation_Agreement (Raw, L, LE, Text, R, RE, False, Source => Source, Functions => Functions),
+         and then List_Observation_Agreement (Raw, L, LE, Text, R, RE, False, Source => Source, Functions => Functions, Procedures => Procedures),
        Post => Raw_Empty_Array (Raw, L) = Empty_Array_Spec (Text, R)
    is
    begin
@@ -4539,50 +4891,50 @@ package body Silver_Library_Reports with SPARK_Mode => On is
 
    procedure Observe_Proof_List
      (Raw : Raw_Bytes.Sequence; L, LE : Raw_Scan.Span; Text : String; R, RE : Span;
-      Source : String; Functions : Function_Metadata)
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata)
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
          and then Object_Observation_Agreement (Raw, L, Text, R)
          and then Mixed_Field (Raw, LE, Text, RE),
        Post => List_Observation_Agreement
          (Raw, Raw_Field (Raw, L, JSON_proof), LE,
-          Text, Field_Spec (Text, R, JSON_proof), RE, False, Source => Source, Functions => Functions)
+          Text, Field_Spec (Text, R, JSON_proof), RE, False, Source => Source, Functions => Functions, Procedures => Procedures)
    is
    begin
       Projection_Field_Names;
-      Observe_Object_List (Raw, L, LE, Text, R, RE, JSON_proof, Source => Source, Functions => Functions);
+      Observe_Object_List (Raw, L, LE, Text, R, RE, JSON_proof, Source => Source, Functions => Functions, Procedures => Procedures);
    end Observe_Proof_List;
 
    procedure Observe_Flow_List
      (Raw : Raw_Bytes.Sequence; L, LE : Raw_Scan.Span; Text : String; R, RE : Span;
-      Source : String; Functions : Function_Metadata)
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata)
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
          and then Object_Observation_Agreement (Raw, L, Text, R)
          and then Mixed_Field (Raw, LE, Text, RE),
        Post => List_Observation_Agreement
          (Raw, Raw_Field (Raw, L, JSON_flow), LE,
-          Text, Field_Spec (Text, R, JSON_flow), RE, False, Source => Source, Functions => Functions)
+          Text, Field_Spec (Text, R, JSON_flow), RE, False, Source => Source, Functions => Functions, Procedures => Procedures)
    is
    begin
       Projection_Field_Names;
-      Observe_Object_List (Raw, L, LE, Text, R, RE, JSON_flow, Source => Source, Functions => Functions);
+      Observe_Object_List (Raw, L, LE, Text, R, RE, JSON_flow, Source => Source, Functions => Functions, Procedures => Procedures);
    end Observe_Flow_List;
 
    --  Transfer the complete function witness requirement in a small proof
    --  context, then use its Boolean equality in the complete object policy.
    procedure Mixed_Termination_Witnesses
      (Raw : Raw_Bytes.Sequence; L, LE : Raw_Scan.Span; Text : String; R, RE : Span;
-      Source : String; Functions : Function_Metadata)
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata)
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
          and then List_Observation_Agreement
-           (Raw, L, LE, Text, R, RE, False, Source => Source, Functions => Functions),
+           (Raw, L, LE, Text, R, RE, False, Source => Source, Functions => Functions, Procedures => Procedures),
        Post =>
          (for all I in 1 .. Functions.Count => Raw_List_Spec
-           (Raw, L, LE, Argument_Postconditions + I, Source => Source, Functions => Functions)) =
+           (Raw, L, LE, Argument_Postconditions + I, Source => Source, Functions => Functions, Procedures => Procedures)) =
          (for all I in 1 .. Functions.Count => List_Spec
-           (Text, R, RE, Argument_Postconditions + I, Source => Source, Functions => Functions))
+           (Text, R, RE, Argument_Postconditions + I, Source => Source, Functions => Functions, Procedures => Procedures))
    is
       --  The callee proves exact predicate equality. Keep the quantified
       --  transfer at that predicate boundary instead of expanding its bodies.
@@ -4594,22 +4946,56 @@ package body Silver_Library_Reports with SPARK_Mode => On is
       for I in 1 .. Functions.Count loop
          Mixed_List_Congruence
            (Raw, L, LE, Text, R, RE, Argument_Postconditions + I,
-            Source => Source, Functions => Functions);
+            Source => Source, Functions => Functions, Procedures => Procedures);
          pragma Loop_Invariant (for all J in 1 .. I =>
            Raw_List_Spec (Raw, L, LE, Argument_Postconditions + J,
-             Source => Source, Functions => Functions) =
+             Source => Source, Functions => Functions, Procedures => Procedures) =
            List_Spec (Text, R, RE, Argument_Postconditions + J,
-             Source => Source, Functions => Functions));
+             Source => Source, Functions => Functions, Procedures => Procedures));
       end loop;
    end Mixed_Termination_Witnesses;
 
+   procedure Mixed_Initialization_Witnesses
+     (Raw : Raw_Bytes.Sequence; L, LE : Raw_Scan.Span; Text : String; R, RE : Span;
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata)
+     with Ghost => Static, Global => null,
+       Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
+         and then List_Observation_Agreement
+           (Raw, L, LE, Text, R, RE, False, Source => Source, Functions => Functions, Procedures => Procedures),
+       Post =>
+         (for all I in 1 .. Procedures.Parameter_Count =>
+           (if Required_Output (I, Procedures) then Raw_List_Spec
+             (Raw, L, LE, Initialization_Witness_Base + I, Source => Source, Functions => Functions, Procedures => Procedures))) =
+         (for all I in 1 .. Procedures.Parameter_Count =>
+           (if Required_Output (I, Procedures) then List_Spec
+             (Text, R, RE, Initialization_Witness_Base + I, Source => Source, Functions => Functions, Procedures => Procedures)))
+   is
+      --  The callee proves exact predicate equality. Keep the quantified
+      --  transfer at that predicate boundary instead of expanding its bodies.
+      pragma Annotate
+        (GNATprove, Hide_Info, "Expression_Function_Body", Raw_List_Spec);
+      pragma Annotate
+        (GNATprove, Hide_Info, "Expression_Function_Body", List_Spec);
+   begin
+      for I in 1 .. Procedures.Parameter_Count loop
+         Mixed_List_Congruence
+           (Raw, L, LE, Text, R, RE, Initialization_Witness_Base + I,
+            Source => Source, Functions => Functions, Procedures => Procedures);
+         pragma Loop_Invariant (for all J in 1 .. I =>
+           Raw_List_Spec (Raw, L, LE, Initialization_Witness_Base + J,
+             Source => Source, Functions => Functions, Procedures => Procedures) =
+           List_Spec (Text, R, RE, Initialization_Witness_Base + J,
+             Source => Source, Functions => Functions, Procedures => Procedures));
+      end loop;
+   end Mixed_Initialization_Witnesses;
+
    procedure Mixed_Object
      (Raw : Raw_Bytes.Sequence; L : Raw_Scan.Span; Text : String; R : Span; Kind : Audit_Kind;
-      Source : String; Functions : Function_Metadata)
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata)
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
          and then Object_Observation_Agreement (Raw, L, Text, R),
-       Post => Raw_Object_Policy (Raw, L, Kind, Source => Source, Functions => Functions) = Object_Policy (Text, R, Kind, Source => Source, Functions => Functions)
+       Post => Raw_Object_Policy (Raw, L, Kind, Source => Source, Functions => Functions, Procedures => Procedures) = Object_Policy (Text, R, Kind, Source => Source, Functions => Functions, Procedures => Procedures)
    is
       pragma Annotate
         (GNATprove, Hide_Info, "Expression_Function_Body", Raw_List_Spec);
@@ -4646,39 +5032,42 @@ package body Silver_Library_Reports with SPARK_Mode => On is
       Mixed_Empty_Preserved (Raw, Raw_Field (Raw, L, JSON_pragma_assume), Text, Field_Spec (Text, R, JSON_pragma_assume));
       Mixed_Empty_Preserved (Raw, Raw_Field (Raw, L, JSON_warn_error), Text, Field_Spec (Text, R, JSON_warn_error));
       Observe_Preserved_List
-        (Raw, Raw_Field (Raw, L, JSON_warn_error), LE, Text, Field_Spec (Text, R, JSON_warn_error), RE, False, True, Source => Source, Functions => Functions);
+        (Raw, Raw_Field (Raw, L, JSON_warn_error), LE, Text, Field_Spec (Text, R, JSON_warn_error), RE, False, True, Source => Source, Functions => Functions, Procedures => Procedures);
       Mixed_List_Congruence
-        (Raw, Raw_Field (Raw, L, JSON_warn_error), LE, Text, Field_Spec (Text, R, JSON_warn_error), RE, Main_Advisories, Source => Source, Functions => Functions);
-      Mixed_Map (Raw, LE, LE, Text, RE, RE, Kind, False, Source => Source, Functions => Functions);
-      Mixed_Map (Raw, Raw_Field (Raw, L, JSON_spark), LE, Text, Field_Spec (Text, R, JSON_spark), RE, Kind, True, Source => Source, Functions => Functions);
+        (Raw, Raw_Field (Raw, L, JSON_warn_error), LE, Text, Field_Spec (Text, R, JSON_warn_error), RE, Main_Advisories, Source => Source, Functions => Functions, Procedures => Procedures);
+      Mixed_Map (Raw, LE, LE, Text, RE, RE, Kind, False, Source => Source, Functions => Functions, Procedures => Procedures);
+      Mixed_Map (Raw, Raw_Field (Raw, L, JSON_spark), LE, Text, Field_Spec (Text, R, JSON_spark), RE, Kind, True, Source => Source, Functions => Functions, Procedures => Procedures);
       Mixed_Dependencies (Raw, Raw_Field (Raw, L, JSON_assumptions), LE,
-                          Text, Field_Spec (Text, R, JSON_assumptions), RE, Source => Source, Functions => Functions);
-      Observe_Flow_List (Raw, L, LE, Text, R, RE, Source => Source, Functions => Functions);
+                          Text, Field_Spec (Text, R, JSON_assumptions), RE, Source => Source, Functions => Functions, Procedures => Procedures);
+      Observe_Flow_List (Raw, L, LE, Text, R, RE, Source => Source, Functions => Functions, Procedures => Procedures);
       Mixed_Termination_Witnesses
         (Raw, Raw_Field (Raw, L, JSON_flow), LE,
-         Text, Field_Spec (Text, R, JSON_flow), RE, Source => Source, Functions => Functions);
-      Observe_Proof_List (Raw, L, LE, Text, R, RE, Source => Source, Functions => Functions);
-      Mixed_Empty_Observed (Raw, Raw_Field (Raw, L, JSON_flow), LE, Text, Field_Spec (Text, R, JSON_flow), RE, Source => Source, Functions => Functions);
-      Mixed_Empty_Observed (Raw, Raw_Field (Raw, L, JSON_proof), LE, Text, Field_Spec (Text, R, JSON_proof), RE, Source => Source, Functions => Functions);
+         Text, Field_Spec (Text, R, JSON_flow), RE, Source => Source, Functions => Functions, Procedures => Procedures);
+      Mixed_Initialization_Witnesses
+        (Raw, Raw_Field (Raw, L, JSON_flow), LE,
+         Text, Field_Spec (Text, R, JSON_flow), RE, Source => Source, Functions => Functions, Procedures => Procedures);
+      Observe_Proof_List (Raw, L, LE, Text, R, RE, Source => Source, Functions => Functions, Procedures => Procedures);
+      Mixed_Empty_Observed (Raw, Raw_Field (Raw, L, JSON_flow), LE, Text, Field_Spec (Text, R, JSON_flow), RE, Source => Source, Functions => Functions, Procedures => Procedures);
+      Mixed_Empty_Observed (Raw, Raw_Field (Raw, L, JSON_proof), LE, Text, Field_Spec (Text, R, JSON_proof), RE, Source => Source, Functions => Functions, Procedures => Procedures);
       Mixed_List_Congruence (Raw, Raw_Field (Raw, L, JSON_flow), LE,
-                             Text, Field_Spec (Text, R, JSON_flow), RE, Flow_Kind, Source => Source, Functions => Functions);
+                             Text, Field_Spec (Text, R, JSON_flow), RE, Flow_Kind, Source => Source, Functions => Functions, Procedures => Procedures);
       Mixed_List_Congruence (Raw, Raw_Field (Raw, L, JSON_proof), LE,
                              Text, Field_Spec (Text, R, JSON_proof), RE,
-                             (if Kind in Application_Audit then Main_Checks else Checks), Source => Source, Functions => Functions);
+                             (if Kind in Application_Audit then Main_Checks else Checks), Source => Source, Functions => Functions, Procedures => Procedures);
       Mixed_List_Congruence (Raw, Raw_Field (Raw, L, JSON_proof), LE,
                              Text, Field_Spec (Text, R, JSON_proof), RE,
-                             (if Kind = IO_Body then Postconditions else Argument_Postconditions), Source => Source, Functions => Functions);
+                             (if Kind = IO_Body then Postconditions else Argument_Postconditions), Source => Source, Functions => Functions, Procedures => Procedures);
       Mixed_List_Congruence (Raw, Raw_Field (Raw, L, JSON_proof), LE,
-                             Text, Field_Spec (Text, R, JSON_proof), RE, Put_Postconditions, Source => Source, Functions => Functions);
+                             Text, Field_Spec (Text, R, JSON_proof), RE, Put_Postconditions, Source => Source, Functions => Functions, Procedures => Procedures);
    end Mixed_Object;
 
    procedure Mixed_Report
      (Raw : Raw_Bytes.Sequence; Text : String; Kind : Audit_Kind;
-      Source : String; Functions : Function_Metadata)
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata)
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
          and then Projection_Observations.Audit_Projection_Observations (Raw, Raw_Scan.From_String (Text)),
-       Post => Raw_Report_Policy (Raw, Kind, Source => Source, Functions => Functions) = Report_Policy (Text, Kind, Source => Source, Functions => Functions)
+       Post => Raw_Report_Policy (Raw, Kind, Source => Source, Functions => Functions, Procedures => Procedures) = Report_Policy (Text, Kind, Source => Source, Functions => Functions, Procedures => Procedures)
    is
       use type Raw_Bytes.Sequence;
       Start : constant Offset := Space_End (Text, 1);
@@ -4692,85 +5081,87 @@ package body Silver_Library_Reports with SPARK_Mode => On is
       if Raw = Raw_Scan.From_String (Text) then
          if Last /= 0 and then Space_End (Text, Last + 1) = Text'Length + 1 then
             Identity_Field (Text, (Start, Last));
-            Mixed_Object (Raw, (Raw_Start, Raw_Last), Text, (Start, Last), Kind, Source => Source, Functions => Functions);
+            Mixed_Object (Raw, (Raw_Start, Raw_Last), Text, (Start, Last), Kind, Source => Source, Functions => Functions, Procedures => Procedures);
          end if;
       else
-         Mixed_Object (Raw, (Raw_Start, Raw_Last), Text, (Start, Last), Kind, Source => Source, Functions => Functions);
+         Mixed_Object (Raw, (Raw_Start, Raw_Last), Text, (Start, Last), Kind, Source => Source, Functions => Functions, Procedures => Procedures);
       end if;
    end Mixed_Report;
 
    function Runtime_Report_Policy (Report : String; Kind : Report_Kind)
      return Boolean is
      (Report'Length <= Max_Runtime_Report_Length
-      and then Report_Policy (Report, Audit_Of (Kind), Atom_Empty, Empty_Functions));
+      and then Report_Policy (Report, Audit_Of (Kind), Atom_Empty, Empty_Functions, Empty_Procedures));
 
    function Application_Report_Policy
      (Report : String; Kind : Application_Kind := Argument_Output;
-      Source : String := ""; Functions : Function_Metadata := Empty_Functions) return Boolean is
+      Source : String := ""; Functions : Function_Metadata := Empty_Functions;
+      Procedures : Procedure_Metadata := Empty_Procedures) return Boolean is
      (case Kind is
-        when Static_Output => Report_Policy (Report, Binding_Main, Source => Source, Functions => Functions)
-          or else Report_Policy (Report, Static_Main, Source => Source, Functions => Functions)
-          or else Report_Policy (Report, Static_Put, Source => Source, Functions => Functions)
-          or else Report_Policy (Report, Static_Mixed, Source => Source, Functions => Functions),
-        when Argument_Output => Report_Policy (Report, Argument_Binding_Main, Source => Source, Functions => Functions)
-          or else Report_Policy (Report, Argument_Effects, Source => Source, Functions => Functions)
-          or else Report_Policy (Report, Main_Body, Source => Source, Functions => Functions)
-          or else Report_Policy (Report, Main_Put, Source => Source, Functions => Functions)
-          or else Report_Policy (Report, Main_Mixed, Source => Source, Functions => Functions)
-          or else Report_Policy (Report, Argument_Without_Query, Source => Source, Functions => Functions)
-          or else Report_Policy (Report, Argument_Put_Without_Query, Source => Source, Functions => Functions)
-          or else Report_Policy (Report, Argument_Mixed_Without_Query, Source => Source, Functions => Functions)
-          or else Report_Policy (Report, Argument_Effects_Without_Query, Source => Source, Functions => Functions),
-        when Assigned_Output => Report_Policy (Report, Assignment_Main, Source => Source, Functions => Functions)
-          or else Report_Policy (Report, Assignment_Effects, Source => Source, Functions => Functions)
-          or else Report_Policy (Report, Assignment_Put, Source => Source, Functions => Functions)
-          or else Report_Policy (Report, Assignment_Mixed, Source => Source, Functions => Functions),
-        when Selected_Output => Report_Policy (Report, Selected_Binding_Main, Source => Source, Functions => Functions)
-          or else Report_Policy (Report, Selected_Effects, Source => Source, Functions => Functions)
-          or else Report_Policy (Report, Selected_Main, Source => Source, Functions => Functions)
-          or else Report_Policy (Report, Selected_Put, Source => Source, Functions => Functions)
-          or else Report_Policy (Report, Selected_Mixed, Source => Source, Functions => Functions)
-          or else Report_Policy (Report, Selected_Without_Query, Source => Source, Functions => Functions)
-          or else Report_Policy (Report, Selected_Put_Without_Query, Source => Source, Functions => Functions)
-          or else Report_Policy (Report, Selected_Mixed_Without_Query, Source => Source, Functions => Functions)
-          or else Report_Policy (Report, Selected_Effects_Without_Query, Source => Source, Functions => Functions));
+        when Static_Output => Report_Policy (Report, Binding_Main, Source => Source, Functions => Functions, Procedures => Procedures)
+          or else Report_Policy (Report, Static_Main, Source => Source, Functions => Functions, Procedures => Procedures)
+          or else Report_Policy (Report, Static_Put, Source => Source, Functions => Functions, Procedures => Procedures)
+          or else Report_Policy (Report, Static_Mixed, Source => Source, Functions => Functions, Procedures => Procedures),
+        when Argument_Output => Report_Policy (Report, Argument_Binding_Main, Source => Source, Functions => Functions, Procedures => Procedures)
+          or else Report_Policy (Report, Argument_Effects, Source => Source, Functions => Functions, Procedures => Procedures)
+          or else Report_Policy (Report, Main_Body, Source => Source, Functions => Functions, Procedures => Procedures)
+          or else Report_Policy (Report, Main_Put, Source => Source, Functions => Functions, Procedures => Procedures)
+          or else Report_Policy (Report, Main_Mixed, Source => Source, Functions => Functions, Procedures => Procedures)
+          or else Report_Policy (Report, Argument_Without_Query, Source => Source, Functions => Functions, Procedures => Procedures)
+          or else Report_Policy (Report, Argument_Put_Without_Query, Source => Source, Functions => Functions, Procedures => Procedures)
+          or else Report_Policy (Report, Argument_Mixed_Without_Query, Source => Source, Functions => Functions, Procedures => Procedures)
+          or else Report_Policy (Report, Argument_Effects_Without_Query, Source => Source, Functions => Functions, Procedures => Procedures),
+        when Assigned_Output => Report_Policy (Report, Assignment_Main, Source => Source, Functions => Functions, Procedures => Procedures)
+          or else Report_Policy (Report, Assignment_Effects, Source => Source, Functions => Functions, Procedures => Procedures)
+          or else Report_Policy (Report, Assignment_Put, Source => Source, Functions => Functions, Procedures => Procedures)
+          or else Report_Policy (Report, Assignment_Mixed, Source => Source, Functions => Functions, Procedures => Procedures),
+        when Selected_Output => Report_Policy (Report, Selected_Binding_Main, Source => Source, Functions => Functions, Procedures => Procedures)
+          or else Report_Policy (Report, Selected_Effects, Source => Source, Functions => Functions, Procedures => Procedures)
+          or else Report_Policy (Report, Selected_Main, Source => Source, Functions => Functions, Procedures => Procedures)
+          or else Report_Policy (Report, Selected_Put, Source => Source, Functions => Functions, Procedures => Procedures)
+          or else Report_Policy (Report, Selected_Mixed, Source => Source, Functions => Functions, Procedures => Procedures)
+          or else Report_Policy (Report, Selected_Without_Query, Source => Source, Functions => Functions, Procedures => Procedures)
+          or else Report_Policy (Report, Selected_Put_Without_Query, Source => Source, Functions => Functions, Procedures => Procedures)
+          or else Report_Policy (Report, Selected_Mixed_Without_Query, Source => Source, Functions => Functions, Procedures => Procedures)
+          or else Report_Policy (Report, Selected_Effects_Without_Query, Source => Source, Functions => Functions, Procedures => Procedures));
 
    procedure Application_Projection_Correspondence
      (Original : Raw_Bytes.Sequence; Projected : String; Kind : Application_Kind := Argument_Output;
-      Source : String := ""; Functions : Function_Metadata := Empty_Functions)
+      Source : String := ""; Functions : Function_Metadata := Empty_Functions;
+      Procedures : Procedure_Metadata := Empty_Procedures)
    is
    begin
       case Kind is
          when Static_Output =>
-            Mixed_Report (Original, Projected, Binding_Main, Source => Source, Functions => Functions);
-            Mixed_Report (Original, Projected, Static_Main, Source => Source, Functions => Functions);
-            Mixed_Report (Original, Projected, Static_Put, Source => Source, Functions => Functions);
-            Mixed_Report (Original, Projected, Static_Mixed, Source => Source, Functions => Functions);
+            Mixed_Report (Original, Projected, Binding_Main, Source => Source, Functions => Functions, Procedures => Procedures);
+            Mixed_Report (Original, Projected, Static_Main, Source => Source, Functions => Functions, Procedures => Procedures);
+            Mixed_Report (Original, Projected, Static_Put, Source => Source, Functions => Functions, Procedures => Procedures);
+            Mixed_Report (Original, Projected, Static_Mixed, Source => Source, Functions => Functions, Procedures => Procedures);
          when Argument_Output =>
-            Mixed_Report (Original, Projected, Argument_Binding_Main, Source => Source, Functions => Functions);
-            Mixed_Report (Original, Projected, Argument_Effects, Source => Source, Functions => Functions);
-            Mixed_Report (Original, Projected, Main_Body, Source => Source, Functions => Functions);
-            Mixed_Report (Original, Projected, Main_Put, Source => Source, Functions => Functions);
-            Mixed_Report (Original, Projected, Main_Mixed, Source => Source, Functions => Functions);
-            Mixed_Report (Original, Projected, Argument_Without_Query, Source => Source, Functions => Functions);
-            Mixed_Report (Original, Projected, Argument_Put_Without_Query, Source => Source, Functions => Functions);
-            Mixed_Report (Original, Projected, Argument_Mixed_Without_Query, Source => Source, Functions => Functions);
-            Mixed_Report (Original, Projected, Argument_Effects_Without_Query, Source => Source, Functions => Functions);
+            Mixed_Report (Original, Projected, Argument_Binding_Main, Source => Source, Functions => Functions, Procedures => Procedures);
+            Mixed_Report (Original, Projected, Argument_Effects, Source => Source, Functions => Functions, Procedures => Procedures);
+            Mixed_Report (Original, Projected, Main_Body, Source => Source, Functions => Functions, Procedures => Procedures);
+            Mixed_Report (Original, Projected, Main_Put, Source => Source, Functions => Functions, Procedures => Procedures);
+            Mixed_Report (Original, Projected, Main_Mixed, Source => Source, Functions => Functions, Procedures => Procedures);
+            Mixed_Report (Original, Projected, Argument_Without_Query, Source => Source, Functions => Functions, Procedures => Procedures);
+            Mixed_Report (Original, Projected, Argument_Put_Without_Query, Source => Source, Functions => Functions, Procedures => Procedures);
+            Mixed_Report (Original, Projected, Argument_Mixed_Without_Query, Source => Source, Functions => Functions, Procedures => Procedures);
+            Mixed_Report (Original, Projected, Argument_Effects_Without_Query, Source => Source, Functions => Functions, Procedures => Procedures);
          when Assigned_Output =>
-            Mixed_Report (Original, Projected, Assignment_Main, Source => Source, Functions => Functions);
-            Mixed_Report (Original, Projected, Assignment_Effects, Source => Source, Functions => Functions);
-            Mixed_Report (Original, Projected, Assignment_Put, Source => Source, Functions => Functions);
-            Mixed_Report (Original, Projected, Assignment_Mixed, Source => Source, Functions => Functions);
+            Mixed_Report (Original, Projected, Assignment_Main, Source => Source, Functions => Functions, Procedures => Procedures);
+            Mixed_Report (Original, Projected, Assignment_Effects, Source => Source, Functions => Functions, Procedures => Procedures);
+            Mixed_Report (Original, Projected, Assignment_Put, Source => Source, Functions => Functions, Procedures => Procedures);
+            Mixed_Report (Original, Projected, Assignment_Mixed, Source => Source, Functions => Functions, Procedures => Procedures);
          when Selected_Output =>
-            Mixed_Report (Original, Projected, Selected_Binding_Main, Source => Source, Functions => Functions);
-            Mixed_Report (Original, Projected, Selected_Effects, Source => Source, Functions => Functions);
-            Mixed_Report (Original, Projected, Selected_Main, Source => Source, Functions => Functions);
-            Mixed_Report (Original, Projected, Selected_Put, Source => Source, Functions => Functions);
-            Mixed_Report (Original, Projected, Selected_Mixed, Source => Source, Functions => Functions);
-            Mixed_Report (Original, Projected, Selected_Without_Query, Source => Source, Functions => Functions);
-            Mixed_Report (Original, Projected, Selected_Put_Without_Query, Source => Source, Functions => Functions);
-            Mixed_Report (Original, Projected, Selected_Mixed_Without_Query, Source => Source, Functions => Functions);
-            Mixed_Report (Original, Projected, Selected_Effects_Without_Query, Source => Source, Functions => Functions);
+            Mixed_Report (Original, Projected, Selected_Binding_Main, Source => Source, Functions => Functions, Procedures => Procedures);
+            Mixed_Report (Original, Projected, Selected_Effects, Source => Source, Functions => Functions, Procedures => Procedures);
+            Mixed_Report (Original, Projected, Selected_Main, Source => Source, Functions => Functions, Procedures => Procedures);
+            Mixed_Report (Original, Projected, Selected_Put, Source => Source, Functions => Functions, Procedures => Procedures);
+            Mixed_Report (Original, Projected, Selected_Mixed, Source => Source, Functions => Functions, Procedures => Procedures);
+            Mixed_Report (Original, Projected, Selected_Without_Query, Source => Source, Functions => Functions, Procedures => Procedures);
+            Mixed_Report (Original, Projected, Selected_Put_Without_Query, Source => Source, Functions => Functions, Procedures => Procedures);
+            Mixed_Report (Original, Projected, Selected_Mixed_Without_Query, Source => Source, Functions => Functions, Procedures => Procedures);
+            Mixed_Report (Original, Projected, Selected_Effects_Without_Query, Source => Source, Functions => Functions, Procedures => Procedures);
       end case;
    end Application_Projection_Correspondence;
 
@@ -4778,13 +5169,13 @@ package body Silver_Library_Reports with SPARK_Mode => On is
      (Original : Raw_Bytes.Sequence; Projected : String; Kind : Report_Kind)
    is
    begin
-      Mixed_Report (Original, Projected, Audit_Of (Kind), Atom_Empty, Empty_Functions);
+      Mixed_Report (Original, Projected, Audit_Of (Kind), Atom_Empty, Empty_Functions, Empty_Procedures);
    end Runtime_Projection_Correspondence;
 
    function Audit_Normalized_Report (Text : String; Kind : Audit_Kind;
-      Source : String; Functions : Function_Metadata) return Boolean
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata) return Boolean
      with Pre => Text'First = 1,
-       Post => (Static => Audit_Normalized_Report'Result = Report_Policy (Text, Kind, Source => Source, Functions => Functions))
+       Post => (Static => Audit_Normalized_Report'Result = Report_Policy (Text, Kind, Source => Source, Functions => Functions, Procedures => Procedures))
    is
    begin
       if Text'Length not in 1 .. Max_Report_Length then return False; end if;
@@ -4808,10 +5199,10 @@ package body Silver_Library_Reports with SPARK_Mode => On is
            and then Empty_Array (Text, Field (Text, Object, JSON_skip_proof))
            and then Empty_Array (Text, Field (Text, Object, JSON_pragma_assume))
            and then (if Kind in Application_Audit then
-             List_OK (Text, Field (Text, Object, JSON_warn_error), Entities, Main_Advisories, Source => Source, Functions => Functions)
+             List_OK (Text, Field (Text, Object, JSON_warn_error), Entities, Main_Advisories, Source => Source, Functions => Functions, Procedures => Procedures)
              else Empty_Array (Text, Field (Text, Object, JSON_warn_error)))
-           and then Entities_OK (Text, Entities, Kind, Source => Source, Functions => Functions)
-           and then Coverage_OK (Text, Field (Text, Object, JSON_spark), Entities, Kind, Source => Source, Functions => Functions)
+           and then Entities_OK (Text, Entities, Kind, Source => Source, Functions => Functions, Procedures => Procedures)
+           and then Coverage_OK (Text, Field (Text, Object, JSON_spark), Entities, Kind, Source => Source, Functions => Functions, Procedures => Procedures)
            and then List_OK (Text, Field (Text, Object, JSON_flow), Entities,
              (if Kind in Main_Body | Main_Put | Main_Mixed | Argument_Effects | Argument_Binding_Main
                  | Argument_Without_Query | Argument_Put_Without_Query | Argument_Mixed_Without_Query
@@ -4820,32 +5211,36 @@ package body Silver_Library_Reports with SPARK_Mode => On is
                  | Selected_Without_Query | Selected_Put_Without_Query | Selected_Mixed_Without_Query
                  | Selected_Effects_Without_Query then Selected_Diagnostics
               elsif Kind in Mutable_Audit then Assignment_Diagnostics
-              elsif Kind in Application_Audit then Binding_Diagnostics else Checks), Source => Source, Functions => Functions)
+              elsif Kind in Application_Audit then Binding_Diagnostics else Checks), Source => Source, Functions => Functions, Procedures => Procedures)
            and then List_OK (Text, Field (Text, Object, JSON_proof), Entities,
-                             (if Kind in Application_Audit then Main_Checks else Checks), Source => Source, Functions => Functions)
+                             (if Kind in Application_Audit then Main_Checks else Checks), Source => Source, Functions => Functions, Procedures => Procedures)
            and then (if Kind in Application_Audit then
           (for all I in 1 .. Functions.Count => List_OK
-            (Text, Field (Text, Object, JSON_flow), Entities, Argument_Postconditions + I, Source => Source, Functions => Functions)))
-        and then Dependencies_OK (Text, Field (Text, Object, JSON_assumptions), Entities, Source => Source, Functions => Functions)
+            (Text, Field (Text, Object, JSON_flow), Entities, Argument_Postconditions + I, Source => Source, Functions => Functions, Procedures => Procedures)) and then
+          (for all I in 1 .. Procedures.Parameter_Count =>
+             (if Required_Output (I, Procedures) then List_OK
+               (Text, Field (Text, Object, JSON_flow), Entities, Initialization_Witness_Base + I,
+                Source => Source, Functions => Functions, Procedures => Procedures))))
+        and then Dependencies_OK (Text, Field (Text, Object, JSON_assumptions), Entities, Source => Source, Functions => Functions, Procedures => Procedures)
            and then (Kind in Libc_Interface | Argv_Interface | Application_Audit or else
              (not Empty_Array (Text, Field (Text, Object, JSON_flow))
               and then not Empty_Array (Text, Field (Text, Object, JSON_proof))
               and then List_OK (Text, Field (Text, Object, JSON_proof), Entities,
-                (if Kind = IO_Body then Postconditions else Argument_Postconditions), Source => Source, Functions => Functions)
+                (if Kind = IO_Body then Postconditions else Argument_Postconditions), Source => Source, Functions => Functions, Procedures => Procedures)
               and then (if Kind = IO_Body then List_OK
-                (Text, Field (Text, Object, JSON_proof), Entities, Put_Postconditions, Source => Source, Functions => Functions))));
+                (Text, Field (Text, Object, JSON_proof), Entities, Put_Postconditions, Source => Source, Functions => Functions, Procedures => Procedures))));
       end;
    end Audit_Normalized_Report;
 
    procedure Report_Rebase_Policy
      (Report : String; Kind : Audit_Kind; Source : String;
-      Functions : Function_Metadata)
+      Functions : Function_Metadata; Procedures : Procedure_Metadata)
      with Ghost => Static, Global => null,
        Pre => Report'Length in 1 .. Max_Report_Length,
        Post =>
          (declare Text : constant String (1 .. Report'Length) := Report;
-          begin Report_Policy (Report, Kind, Source => Source, Functions => Functions) =
-            Report_Policy (Text, Kind, Source => Source, Functions => Functions))
+          begin Report_Policy (Report, Kind, Source => Source, Functions => Functions, Procedures => Procedures) =
+            Report_Policy (Text, Kind, Source => Source, Functions => Functions, Procedures => Procedures))
    is
    begin
       null;
@@ -4854,64 +5249,65 @@ package body Silver_Library_Reports with SPARK_Mode => On is
    --  Keep the uncommon rebasing copy in its own call frame. The driver and
    --  runtime-evidence reader already supply slices starting at one.
    function Audit_Rebased_Report (Report : String; Kind : Audit_Kind;
-      Source : String; Functions : Function_Metadata) return Boolean
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata) return Boolean
      with Pre => Report'Length in 1 .. Max_Report_Length,
-       Post => (Static => Audit_Rebased_Report'Result = Report_Policy (Report, Kind, Source => Source, Functions => Functions))
+       Post => (Static => Audit_Rebased_Report'Result = Report_Policy (Report, Kind, Source => Source, Functions => Functions, Procedures => Procedures))
    is
       Text : constant String (1 .. Report'Length) := Report;
    begin
-      Report_Rebase_Policy (Report, Kind, Source, Functions);
-      return Audit_Normalized_Report (Text, Kind, Source => Source, Functions => Functions);
+      Report_Rebase_Policy (Report, Kind, Source, Functions, Procedures);
+      return Audit_Normalized_Report (Text, Kind, Source => Source, Functions => Functions, Procedures => Procedures);
    end Audit_Rebased_Report;
 
    function Audit_Report (Report : String; Kind : Audit_Kind;
-      Source : String; Functions : Function_Metadata) return Boolean
-     with Post => (Static => Audit_Report'Result = Report_Policy (Report, Kind, Source => Source, Functions => Functions))
+      Source : String; Functions : Function_Metadata; Procedures : Procedure_Metadata) return Boolean
+     with Post => (Static => Audit_Report'Result = Report_Policy (Report, Kind, Source => Source, Functions => Functions, Procedures => Procedures))
    is
    begin
       if Report'Length not in 1 .. Max_Report_Length then return False; end if;
       if Report'First = 1 then
-         return Audit_Normalized_Report (Report, Kind, Source => Source, Functions => Functions);
+         return Audit_Normalized_Report (Report, Kind, Source => Source, Functions => Functions, Procedures => Procedures);
       else
-         return Audit_Rebased_Report (Report, Kind, Source => Source, Functions => Functions);
+         return Audit_Rebased_Report (Report, Kind, Source => Source, Functions => Functions, Procedures => Procedures);
       end if;
    end Audit_Report;
 
    function Complete_Runtime_Proof
      (Report : String; Kind : Report_Kind) return Boolean is
    begin
-      return Report'Length <= Max_Runtime_Report_Length and then Audit_Report (Report, Audit_Of (Kind), Atom_Empty, Empty_Functions);
+      return Report'Length <= Max_Runtime_Report_Length and then Audit_Report (Report, Audit_Of (Kind), Atom_Empty, Empty_Functions, Empty_Procedures);
    end Complete_Runtime_Proof;
    function Complete_Application_Proof
      (Report : String; Kind : Application_Kind := Argument_Output;
-      Source : String := ""; Functions : Function_Metadata := Empty_Functions) return Boolean is
+      Source : String := ""; Functions : Function_Metadata := Empty_Functions;
+      Procedures : Procedure_Metadata := Empty_Procedures) return Boolean is
    begin
       return (case Kind is
-        when Static_Output => Audit_Report (Report, Binding_Main, Source => Source, Functions => Functions)
-          or else Audit_Report (Report, Static_Main, Source => Source, Functions => Functions)
-          or else Audit_Report (Report, Static_Put, Source => Source, Functions => Functions)
-          or else Audit_Report (Report, Static_Mixed, Source => Source, Functions => Functions),
-        when Argument_Output => Audit_Report (Report, Argument_Binding_Main, Source => Source, Functions => Functions)
-          or else Audit_Report (Report, Argument_Effects, Source => Source, Functions => Functions)
-          or else Audit_Report (Report, Main_Body, Source => Source, Functions => Functions)
-          or else Audit_Report (Report, Main_Put, Source => Source, Functions => Functions)
-          or else Audit_Report (Report, Main_Mixed, Source => Source, Functions => Functions)
-          or else Audit_Report (Report, Argument_Without_Query, Source => Source, Functions => Functions)
-          or else Audit_Report (Report, Argument_Put_Without_Query, Source => Source, Functions => Functions)
-          or else Audit_Report (Report, Argument_Mixed_Without_Query, Source => Source, Functions => Functions)
-          or else Audit_Report (Report, Argument_Effects_Without_Query, Source => Source, Functions => Functions),
-        when Assigned_Output => Audit_Report (Report, Assignment_Main, Source => Source, Functions => Functions)
-          or else Audit_Report (Report, Assignment_Effects, Source => Source, Functions => Functions)
-          or else Audit_Report (Report, Assignment_Put, Source => Source, Functions => Functions)
-          or else Audit_Report (Report, Assignment_Mixed, Source => Source, Functions => Functions),
-        when Selected_Output => Audit_Report (Report, Selected_Binding_Main, Source => Source, Functions => Functions)
-          or else Audit_Report (Report, Selected_Effects, Source => Source, Functions => Functions)
-          or else Audit_Report (Report, Selected_Main, Source => Source, Functions => Functions)
-          or else Audit_Report (Report, Selected_Put, Source => Source, Functions => Functions)
-          or else Audit_Report (Report, Selected_Mixed, Source => Source, Functions => Functions)
-          or else Audit_Report (Report, Selected_Without_Query, Source => Source, Functions => Functions)
-          or else Audit_Report (Report, Selected_Put_Without_Query, Source => Source, Functions => Functions)
-          or else Audit_Report (Report, Selected_Mixed_Without_Query, Source => Source, Functions => Functions)
-          or else Audit_Report (Report, Selected_Effects_Without_Query, Source => Source, Functions => Functions));
+        when Static_Output => Audit_Report (Report, Binding_Main, Source => Source, Functions => Functions, Procedures => Procedures)
+          or else Audit_Report (Report, Static_Main, Source => Source, Functions => Functions, Procedures => Procedures)
+          or else Audit_Report (Report, Static_Put, Source => Source, Functions => Functions, Procedures => Procedures)
+          or else Audit_Report (Report, Static_Mixed, Source => Source, Functions => Functions, Procedures => Procedures),
+        when Argument_Output => Audit_Report (Report, Argument_Binding_Main, Source => Source, Functions => Functions, Procedures => Procedures)
+          or else Audit_Report (Report, Argument_Effects, Source => Source, Functions => Functions, Procedures => Procedures)
+          or else Audit_Report (Report, Main_Body, Source => Source, Functions => Functions, Procedures => Procedures)
+          or else Audit_Report (Report, Main_Put, Source => Source, Functions => Functions, Procedures => Procedures)
+          or else Audit_Report (Report, Main_Mixed, Source => Source, Functions => Functions, Procedures => Procedures)
+          or else Audit_Report (Report, Argument_Without_Query, Source => Source, Functions => Functions, Procedures => Procedures)
+          or else Audit_Report (Report, Argument_Put_Without_Query, Source => Source, Functions => Functions, Procedures => Procedures)
+          or else Audit_Report (Report, Argument_Mixed_Without_Query, Source => Source, Functions => Functions, Procedures => Procedures)
+          or else Audit_Report (Report, Argument_Effects_Without_Query, Source => Source, Functions => Functions, Procedures => Procedures),
+        when Assigned_Output => Audit_Report (Report, Assignment_Main, Source => Source, Functions => Functions, Procedures => Procedures)
+          or else Audit_Report (Report, Assignment_Effects, Source => Source, Functions => Functions, Procedures => Procedures)
+          or else Audit_Report (Report, Assignment_Put, Source => Source, Functions => Functions, Procedures => Procedures)
+          or else Audit_Report (Report, Assignment_Mixed, Source => Source, Functions => Functions, Procedures => Procedures),
+        when Selected_Output => Audit_Report (Report, Selected_Binding_Main, Source => Source, Functions => Functions, Procedures => Procedures)
+          or else Audit_Report (Report, Selected_Effects, Source => Source, Functions => Functions, Procedures => Procedures)
+          or else Audit_Report (Report, Selected_Main, Source => Source, Functions => Functions, Procedures => Procedures)
+          or else Audit_Report (Report, Selected_Put, Source => Source, Functions => Functions, Procedures => Procedures)
+          or else Audit_Report (Report, Selected_Mixed, Source => Source, Functions => Functions, Procedures => Procedures)
+          or else Audit_Report (Report, Selected_Without_Query, Source => Source, Functions => Functions, Procedures => Procedures)
+          or else Audit_Report (Report, Selected_Put_Without_Query, Source => Source, Functions => Functions, Procedures => Procedures)
+          or else Audit_Report (Report, Selected_Mixed_Without_Query, Source => Source, Functions => Functions, Procedures => Procedures)
+          or else Audit_Report (Report, Selected_Effects_Without_Query, Source => Source, Functions => Functions, Procedures => Procedures));
    end Complete_Application_Proof;
 end Silver_Library_Reports;

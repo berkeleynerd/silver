@@ -7,7 +7,7 @@ package Silver_Platform
   with SPARK_Mode => On
 is
    Max_Path_Length : constant Positive := 4_096;
-   Max_File_Length : constant Positive := 33_554_432;
+   Max_File_Length : constant Positive := 67_108_864;
 
    --  Observations of the actual libc calls, checked statically and erased
    --  from executable code even when runtime assertions are enabled.
