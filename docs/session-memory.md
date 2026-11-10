@@ -1,5 +1,21 @@
 # Session memory
 
+## 2026-11-10 — Hourly proof and project-health updates requested
+
+The owner requested **“Give me a status update on the proof runs and general
+project health every hour.”** During active delivery work, provide an hourly
+summary of active/completed/failed proof runs, material changes since the prior
+update, CPU and memory headroom, remaining delivery blockers, next actions and
+any justified ETA change. Report actual retained outcomes; an active process or
+successful focused check does not establish completed assurance.
+
+This preference does not interrupt productive runs or authorize another work
+package. The current CLI has no available scheduling interface and its app
+connector was unreachable when checked; no unattended hourly schedule was
+created. Do not imply that messages will resume automatically after the session
+stops or the VM restarts. Recheck scheduling availability before claiming it.
+CLI memory was not updated.
+
 ## 2026-11-09 — Rosetta refresh repair and next language increment authorized
 
 After the open-bug triage and scalar-procedure recommendation, the owner
