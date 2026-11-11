@@ -98,6 +98,31 @@ becomes necessary, record the increments and their issues together under
   selected item is implemented and validated, or an explicit owner scope decision
   changes the remaining work; planning publication does not close it.
 
+## Increments
+
+On 2026-11-11 the owner
+[instructed](session-memory.md#2026-11-11--proof-iteration-efficiency-split-into-increment-issues)
+that the package be worked as smaller tasks. Each checklist item above is
+delivered through an increment issue, a sub-issue of #373 in milestone 24, with
+its own scope, completion criteria and focused checks. Nothing is dropped: the
+items, the boundaries below and the one shared final checkpoint are unchanged.
+
+| Order | Increment | Checklist item | Starts |
+| --- | --- | --- | --- |
+| 1 | [#377](https://github.com/berkeleynerd/silver/issues/377) | Resource override reasons | Needs no proof run |
+| 2 | [#378](https://github.com/berkeleynerd/silver/issues/378) | Stable recurrence | Needs no proof run |
+| 3 | [#379](https://github.com/berkeleynerd/silver/issues/379) | Canonical focused/full compiler policy | After PR #371 merges |
+| 4 | [#380](https://github.com/berkeleynerd/silver/issues/380) | Final-policy readiness and small-target feedback | After #379 |
+| 5 | [#381](https://github.com/berkeleynerd/silver/issues/381) | Demonstrated proof strategy | After PR #371 merges |
+| 6 | [#382](https://github.com/berkeleynerd/silver/issues/382) | Scheduling of certificate chunks and the aggregate | After PR #371 merges |
+| 7 | [#383](https://github.com/berkeleynerd/silver/issues/383) | Guidance | After #377–#382 |
+| 8 | [#384](https://github.com/berkeleynerd/silver/issues/384) | Validation and closeout | Last |
+
+The regression tests of “Tests and guidance” belong to the increment whose
+behaviour they cover. Python under `scripts/` feeds the proof-provenance hashes,
+so no increment's runner change reaches `main` before PR #371. An increment that
+completes does not finish the package: #373 stays open until #384 closes it.
+
 ## Assurance and evidence boundaries
 
 The [Oracle](../oracle.md), admitted language, full input domains, required native

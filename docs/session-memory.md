@@ -1,5 +1,26 @@
 # Session memory
 
+## 2026-11-11 — Proof iteration efficiency split into increment issues
+
+While preparing a first Worca pipeline run, the owner instructed: **“For this
+exercise, let's discretize and use the smaller tasks despite prior guidance to
+better test Worca.”** The single-issue shape of
+[#373](https://github.com/berkeleynerd/silver/issues/373) is therefore replaced
+by eight increment issues, #377–#384, linked as its sub-issues in
+[milestone 24](https://github.com/berkeleynerd/silver/milestone/24). The
+[plan](proof-iteration-efficiency.md#increments) maps each checklist item to its
+increment and the [roadmap](../roadmap.md#near-term-feature-queue) records their
+order.
+
+The package's scope, boundaries and one shared final validation and review
+checkpoint are unchanged; #373 stays open until every increment is complete.
+This instruction changes no Oracle, application proof budget, full input domain
+or provenance requirement. It does not by itself start implementation or change
+the order after #370 / [PR #371](https://github.com/berkeleynerd/silver/pull/371):
+no increment's runner change reaches `main` before that delivery. The increments
+move from Backlog to Ready once this entry is on `main`. No implementation has
+started. CLI memory was updated.
+
 ## 2026-11-10 — Proof iteration efficiency authorized as the next unit
 
 After discussing #370's proof cost and concrete enforcement measures, the owner

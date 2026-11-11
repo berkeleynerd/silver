@@ -39,6 +39,30 @@ affected Rosetta tests rerun after resolving the session-history conflict.
 
 ## Near-term feature queue
 
+**Increments, 2026-11-11.** The owner
+[split](docs/session-memory.md#2026-11-11--proof-iteration-efficiency-split-into-increment-issues)
+proof iteration efficiency #373 into eight increment issues, in this order:
+resource override reasons
+[#377](https://github.com/berkeleynerd/silver/issues/377); stable
+repeated-failure identity
+[#378](https://github.com/berkeleynerd/silver/issues/378); canonical focused
+and full compiler policy
+[#379](https://github.com/berkeleynerd/silver/issues/379); final-policy
+readiness and small-target feedback
+[#380](https://github.com/berkeleynerd/silver/issues/380); proof strategy
+comparison [#381](https://github.com/berkeleynerd/silver/issues/381);
+certificate chunk and aggregate scheduling
+[#382](https://github.com/berkeleynerd/silver/issues/382); guidance alignment
+[#383](https://github.com/berkeleynerd/silver/issues/383); and the shared
+validation, measurements and closeout
+[#384](https://github.com/berkeleynerd/silver/issues/384). #377 and #378 need
+no proof run; #379, #381 and #382 wait for PR #371 to merge, #380 follows #379,
+#383 follows the six implementation increments and #384 is last. No increment's
+runner change reaches `main` before PR #371. The package below keeps its scope
+and its one shared final checkpoint, and #373 closes with #384. Remaining
+decisions: when the first increment starts relative to PR #371, and the
+canonical compiler policy, settled from focused evidence within #379.
+
 **Authorized queue, 2026-11-10.** Complete small nonrecursive scalar procedures
 [#370](https://github.com/berkeleynerd/silver/issues/370) and its
 [#29](https://github.com/berkeleynerd/silver/issues/29) companion in
