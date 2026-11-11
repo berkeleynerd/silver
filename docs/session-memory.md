@@ -18,8 +18,15 @@ This instruction changes no Oracle, application proof budget, full input domain
 or provenance requirement. It does not by itself start implementation or change
 the order after #370 / [PR #371](https://github.com/berkeleynerd/silver/pull/371):
 no increment's runner change reaches `main` before that delivery. The increments
-move from Backlog to Ready once this entry is on `main`. No implementation has
-started. CLI memory was updated.
+move from Backlog to Ready once this entry is on `main`.
+
+Later the same day the owner instructed **“Let's start it up.”** for the first
+increment, [#377](https://github.com/berkeleynerd/silver/issues/377), through
+the Worca pipeline with Claude models. That starts #377 before PR #371 merges:
+#377 needs no proof run, its work stays on the pipeline's branch
+`worca-cc/377-resource-override-reasons-ac96d159`, and the rule above still
+holds, so it does not reach `main` before that delivery. No other increment is
+started by this instruction. CLI memory was updated.
 
 ## 2026-11-10 — Proof iteration efficiency authorized as the next unit
 
