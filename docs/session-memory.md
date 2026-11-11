@@ -1,5 +1,29 @@
 # Session memory
 
+## 2026-11-11 — Evening pause after active validation finishes
+
+The owner instructed **“Let's pause work for the evening as soon as the
+background tasks currently running are complete.”** Let the existing native
+run `20261110T181302-a4553e500d15` and complete Lean run
+`20261110T214613-eae8ec3e5581` finish, retain their actual outcomes and required
+result audits, and then stop. This records a requested pause boundary; it does
+not claim that either active process has already finished.
+
+Do not chain another proof run, apply the prepared source/proof repairs, start
+regressions, merge PR #371 or begin #373 before the owner resumes work. Keep
+failed evidence labelled failed and preserve successful certificate artifacts,
+proof caches and proposed repair patches. The two run owners have acknowledged
+this boundary and will leave result and restart instructions in their existing
+run packets. The source-integration finding [#375](https://github.com/berkeleynerd/silver/issues/375)
+remains part of the #370 delivery, not deferred successor work.
+
+The current implementation remains in [draft PR #371](https://github.com/berkeleynerd/silver/pull/371).
+Its [capability record](scalar-procedures.md) and issue handoff distinguish
+completed evidence from pending repair, complete assurance and regression work.
+At resume, inspect the managed run summary and the final native/source packets
+before applying patches or scheduling validation. No CLI-memory update or
+unattended hourly schedule is claimed.
+
 ## 2026-11-10 — Hourly proof and project-health updates requested
 
 The owner requested **“Give me a status update on the proof runs and general
