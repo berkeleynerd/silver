@@ -53,6 +53,21 @@ current owner request also authorizes work; record it on `main` the same way
 before claiming the work, without waiting for a separate Ready transition or
 approval.
 
+**Worca experiment, from 2026-11-12.** While the owner's worca experiment runs,
+the rule in the paragraph above is suspended for the items worca works through
+from the board, the issues of
+[milestone 24](https://github.com/berkeleynerd/silver/milestone/24). For those
+items the owner moving a card to Ready is itself the authorization, without a
+prior session-memory entry on `main`: worca starts a run for the top unblocked
+Ready card, moves it to In progress and then to In review, and comments on the
+issue at each step. Agents still do not move an item to Ready themselves; they
+act as the owner's GitHub user, so the board cannot tell their move from the
+owner's. Nothing else in this document changes. If the experiment is adopted,
+this section will be changed so that the owner moving an item to Ready on the
+board is the recorded authorization; if it is dropped, this note is removed.
+The [session memory](session-memory.md) entry of 2026-11-12 records the
+decision.
+
 **Labels** carry the kind of item, so agents can filter with `gh issue list`.
 They replace GitHub's default labels.
 
