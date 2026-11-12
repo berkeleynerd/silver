@@ -693,9 +693,10 @@ owner approved deferring the full #119 derivation after an
 [independent assessment](docs/evidence/119-sequencing-assessment-20261024/README.md)
 put it at about 50% complete (range 40–65%) against its self-reported 85%, with
 the remaining half estimated at 200–415M tokens before any production package.
-Accepted #119 evidence is frozen at the R92 checkpoint `f1920759b1` in draft
-PR #121 (tag `evidence/119-r92-accepted-f1920759b1`); #119, its children and the
-open findings are deferred in Backlog, and PR #121 stays unmerged. #88–#94 keep
+Accepted #119 evidence is frozen at the R92 checkpoint `f1920759b1`, tagged
+`evidence/119-r92-accepted-f1920759b1`; #119, its children and the open findings
+are deferred in Backlog. PR #121, which carried that checkpoint, was closed
+without merging on 2026-11-12; its branch and tags are kept. #88–#94 keep
 their conditional authorization but form the later assurance-modes milestone
 (extended mode with a crude sound envelope for the silent hard limits; strict mode
 stays at 4,096 bytes until #119's rule exists). The paragraphs below record the
