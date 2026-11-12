@@ -1,5 +1,40 @@
 # Session memory
 
+## 2026-11-12 — Draft PR #121 closed without merging; #119's record stays at its tag
+
+Going through the work that remained unmerged, the owner asked for the
+disposition of the oldest open pull request,
+[PR #121](https://github.com/berkeleynerd/silver/pull/121). The planning agent
+recommended closing it without merging and keeping its branch and tags, and the
+owner said **“Let's close it.”**
+
+- **What changed.** PR #121 was closed on 2026-11-12 and was not merged. This
+  replaces only the words "stays draft" in the
+  [2026-10-24 entry](#2026-10-24--capacity-derivation-119-deferred-language-development-resumes);
+  its merge remains unauthorized.
+- **What is kept.** The accepted R92 checkpoint `f1920759b1` and its tag
+  `evidence/119-r92-accepted-f1920759b1`, the branch
+  `research/retained-tool-capacity`, the pause record
+  (`evidence/119-pause-20261024`) and the four paused author branches. Nothing
+  was deleted, and the pull request can be reopened.
+- **What does not change.** [#119](https://github.com/berkeleynerd/silver/issues/119)
+  stays deferred in Backlog with its children and findings; its completion
+  criteria and restart triggers are as recorded on 2026-10-24. The optional
+  bounded R93 cleanup session stays at the owner's discretion; if it runs, it
+  publishes as a new tag or by reopening the pull request.
+- **Why.** The pull request is a frozen research record, not work waiting to
+  merge. It holds documents and evidence only (5,446 files, about 458 MB), no
+  compiler, proof or script change. It is 1,144 commits behind `main` and
+  conflicts with it, and a restart of #119 builds its next round from the
+  tagged checkpoint.
+- **Correction to the 2026-10-24 record.** That entry says the uncommitted
+  worktree state from the pause remains in the host's `tmp/paused-backups/`
+  archive. On 2026-11-12 that folder is not on the host. Everything committed
+  is on GitHub and unaffected; work that existed only in the archive is to be
+  treated as lost unless a copy is found.
+
+CLI memory was updated.
+
 ## 2026-11-12 — Worca board experiment: the Ready rule is suspended; #377's record stays an exception
 
 The owner is trying worca, an agent pipeline tool that runs in the development
