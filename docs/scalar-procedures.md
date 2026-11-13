@@ -191,20 +191,24 @@ remaining surface complete.
 | 2026-11-10 17:54–18:13 UTC | Astra Max source integration; lead integration; Sol High evidence-recording role; live settings not independently confirmed | Parser `8108347e75` and report `cf2882170d` are integrated. Build `180332` passed. Source model gate `180634` failed two exact renderer controls; the established Repr import repaired reduction without changing propositions/domains. Focused typed-model/header run `180854` then passed; lead integrated the proof batch as `bfe82aeb81`. | [Bounded source handoff](evidence/scalar-procedures-20261109/native-parser-repair/README.md#subsequent-focused-source-handoff--1812-utc) retains the failure and the 59,461-declaration focused success at 22 workers/22 threads; its 1,101-input recheck and 994-module static inventory have separate scopes. Full native `181302` at 14 workers and eight changed certificate chunks were starting. Complete source/facade/axiom validation, regression coverage and independent delivery acceptance remain pending. |
 | 2026-11-10 18:15 – 2026-11-11 03:35 UTC | Astra Max source integration; Sol High native monitoring; selected settings, live runtime not independently confirmed | Eight source chunks and the aggregate passed. Complete Lean build then failed in eleven modules; complete native run failed one Procedure_Updates postcondition and the auditor identified two missing advisory origins. Both run owners retained exact failures and stopped at the owner's evening pause boundary. | [Failed final packets](evidence/scalar-procedures-20261109/final-attempts-20261111/README.md) preserve native `181302` (19,427/19,428 checks), Lean `214613` (no complete fresh audit), and prior successful objects. Independent delta review found the missing `out` checks, tracked as #375 within this delivery. |
 | 2026-11-13 09:16–09:23 UTC | Astra Max native/source repair and independent critical review; lead integration runtime settings not independently confirmed | Owner resumed the delivery. Preserved current-main planning records and all caches. Implemented the two reviewed procedure-spec advisory origins; five focused auditor tests pass. Native postcondition and complete handwritten source-integration repairs remain under focused work. | Auditor commit `faa9f17415`, managed test `20261113T092238-18c9ef927da9`; [bounded review](reviews/review-scalar-procedure-advisory-20261113.md). No complete assurance or new capability support is claimed. |
+| 2026-11-13 09:24–09:54 UTC | Astra Max native/source authors and independent critical reviewer; lead integration, live settings not independently confirmed | The ghost equality bridge passed 190 proof and 33 flow checks across 17 complete entities. Nine handwritten repairs passed a 62,261-declaration focused audit. Review caught a dormant native path-field loss in the draft ghost model; retaining raw fields repaired it, and its complete-domain contract and counterexample passed a 15,726-declaration audit. | [Resumption repair packet](evidence/scalar-procedures-20261109/resume-repair-20261113/README.md), native `092540`, Lean `092831` and `094850`. Integrated as `3958b2c66d` and `4553fd6a11`. Runtime code, contracts and full domains remain unchanged. Complete native/source/Lean validation is still required. |
+| 2026-11-13 09:54–10:13 UTC | Sol High final native/source monitors; Sol Extra High read-only regression/delivery preparation; lead evidence integration, live settings not independently confirmed | Ordinary build passed and complete native validation started with 14 workers. Source chunks started with eight workers, then their process disappeared without a phase exit or proof diagnostic after the ownership handoff. The exact interrupted packet and all completed objects were preserved before the unchanged resume `101154` under the continuing monitor. | Build `095342` passed; native `095455` remains active. Source `095546` is interrupted, not successful or a reported proof failure. Cause is unconfirmed; no contemporaneous OOM was observed. Final regression discovery still has 690 distinct identities; no suite was started alongside proofs. |
 
 ## Development checkpoint
 
 The owner resumed this delivery on 2026-11-13. The [retained final attempts](evidence/scalar-procedures-20261109/final-attempts-20261111/README.md)
-remain failed: the fresh native checkpoint left one `Procedure_Updates`
-postcondition unresolved, and the complete Lean build exposed missing source
-expectations and an arithmetic premise. The successful output chunks/aggregate
-and independent module objects are preserved for applicable reuse. #375 is a
-repair inside this feature delivery. The two advisory-origin omissions are now
-corrected and focused-tested in `faa9f17415`; that does not discharge the remaining
-postcondition or complete source checks. Final native/Lean assurance, regressions,
-independent acceptance and Rosetta promotion remain pending.
+remain failed. Their native `Procedure_Updates` postcondition and handwritten
+Lean integration failures now have independently reviewed repairs and successful
+[focused verification](evidence/scalar-procedures-20261109/resume-repair-20261113/README.md)
+on integrated `4553fd6a11`. The two exact advisory-origin omissions are repaired
+in `faa9f17415`. #375 remains inside this delivery and awaits the complete
+authoritative source checks. Complete native run `20261113T095455-092807e929f7`
+is active; the source pipeline is resuming after the unexplained process
+interruption recorded above. Successful matching objects and all failed evidence
+are preserved. Final native/Lean assurance, regressions, independent acceptance
+and Rosetta promotion remain pending.
 
-The native parser repair is integrated as `8108347e75`, on exact source
+The earlier native parser repair was integrated as `8108347e75`, on exact source
 `735f4bbb8cd0f9ecf816e17df3242113417f9ddeeafdf4bcb8ae2ecc25d41758`.
 Its [focused repair packet](evidence/scalar-procedures-20261109/native-parser-repair/README.md)
 records successful complete helper/caller coverage, including retained successes

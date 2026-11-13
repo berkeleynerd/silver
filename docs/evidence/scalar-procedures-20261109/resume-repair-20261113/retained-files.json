@@ -1,0 +1,40 @@
+{
+  "path_basis": "repository root",
+  "files": [
+    {
+      "path": "docs/evidence/scalar-procedures-20261109/resume-repair-20261113/lean-focused.tar.gz",
+      "bytes": 858348,
+      "sha256": "afa333eae3be65bdf9d239d19c5ed4030c207ee4999b2f3cecfa2cf50947d1e4"
+    },
+    {
+      "path": "docs/evidence/scalar-procedures-20261109/resume-repair-20261113/native-focused.tar.gz",
+      "bytes": 7999300,
+      "sha256": "240cb98c1ec75d0d00f229795b88a7342d0403be1f07cae4e2300a87e57ebaa7"
+    },
+    {
+      "path": "docs/evidence/scalar-procedures-20261109/resume-repair-20261113/review-artifacts.tar.gz",
+      "bytes": 473833,
+      "sha256": "904c0efadd6ce7c1551eb34cb3d2a5aedd6eb7082bc1f57c11e26da0b83bc355"
+    },
+    {
+      "path": "docs/evidence/scalar-procedures-20261109/resume-repair-20261113/source-interruption.tar.gz",
+      "bytes": 5341477,
+      "sha256": "5f40c8f89b98425ead6fa40cdc0fd4dc9fb80f2280a903af427481d4dcf05b78"
+    },
+    {
+      "path": "docs/reviews/review-scalar-procedures-native-equality-candidate-review-20261113.md",
+      "bytes": 3789,
+      "sha256": "c37bee821d8fe7a85207c31e10e4349a2b9a033dfa9f36be6b11357d72f4b6c2"
+    },
+    {
+      "path": "docs/reviews/review-scalar-procedures-lean-handwritten-review-20261113.md",
+      "bytes": 6218,
+      "sha256": "305f225afc2d0e241cd8075bae1d9bda8a7d0ad9fa4ef35b34393a5bc546ab97"
+    },
+    {
+      "path": "docs/reviews/review-scalar-procedures-ghost-correspondence-review-20261113.md",
+      "bytes": 6733,
+      "sha256": "35b4e0d4b73ca2a63817339afda310f32da773db2dc89b249ed119f047cf8c07"
+    }
+  ]
+}
