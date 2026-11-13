@@ -1,0 +1,510 @@
+{
+  "observed_utc": "2026-11-10T21:46:51.446306+00:00",
+  "scope": "Static inspection of retained focused reports, archive member hashes and source-fragment continuity. No tool run or complete proof audit.",
+  "native-parser-repair": {
+    "archive_members": 191,
+    "manifest_members": 191,
+    "mismatches": [],
+    "extras": [],
+    "entities": [
+      {
+        "name": "Silver_Output_Profile.Body_Of",
+        "gate": "gates/helper-gate",
+        "counts": {
+          "proof": 5,
+          "flow": 3
+        },
+        "expected_counts_match": true,
+        "non_info_selected_checks": 0,
+        "all_modes": [
+          "all"
+        ],
+        "fragment_checks": [
+          true
+        ],
+        "empty_skip_and_assume": true
+      },
+      {
+        "name": "Silver_Output_Profile.Boolean_Array_Values_At",
+        "gate": "gates/helper-gate",
+        "counts": {
+          "proof": 65,
+          "flow": 2
+        },
+        "expected_counts_match": true,
+        "non_info_selected_checks": 0,
+        "all_modes": [
+          "all"
+        ],
+        "fragment_checks": [
+          true
+        ],
+        "empty_skip_and_assume": true
+      },
+      {
+        "name": "Silver_Output_Profile.Initial_Flow",
+        "gate": "gates/helper-gate",
+        "counts": {
+          "proof": 12,
+          "flow": 3
+        },
+        "expected_counts_match": true,
+        "non_info_selected_checks": 0,
+        "all_modes": [
+          "all"
+        ],
+        "fragment_checks": [
+          true
+        ],
+        "empty_skip_and_assume": true
+      },
+      {
+        "name": "Silver_Output_Profile.Join_Into",
+        "gate": "gates/helper-gate",
+        "counts": {
+          "proof": 17,
+          "flow": 1
+        },
+        "expected_counts_match": true,
+        "non_info_selected_checks": 0,
+        "all_modes": [
+          "all"
+        ],
+        "fragment_checks": [
+          true
+        ],
+        "empty_skip_and_assume": true
+      },
+      {
+        "name": "Silver_Output_Profile.Joined",
+        "gate": "gates/helper-gate",
+        "counts": {
+          "proof": 36,
+          "flow": 2
+        },
+        "expected_counts_match": true,
+        "non_info_selected_checks": 0,
+        "all_modes": [
+          "all"
+        ],
+        "fragment_checks": [
+          true
+        ],
+        "empty_skip_and_assume": true
+      },
+      {
+        "name": "Silver_Output_Profile.Lemma_Condition_Equality",
+        "gate": "gates/helper-gate",
+        "counts": {
+          "proof": 66,
+          "flow": 1
+        },
+        "expected_counts_match": true,
+        "non_info_selected_checks": 0,
+        "all_modes": [
+          "all"
+        ],
+        "fragment_checks": [
+          true
+        ],
+        "empty_skip_and_assume": true
+      },
+      {
+        "name": "Silver_Output_Profile.Lemma_Flow_Equality",
+        "gate": "gates/helper-gate",
+        "counts": {
+          "proof": 8,
+          "flow": 1
+        },
+        "expected_counts_match": true,
+        "non_info_selected_checks": 0,
+        "all_modes": [
+          "all"
+        ],
+        "fragment_checks": [
+          true
+        ],
+        "empty_skip_and_assume": true
+      },
+      {
+        "name": "Silver_Output_Profile.Lemma_Join_Identity",
+        "gate": "gates/helper-gate",
+        "counts": {
+          "proof": 17,
+          "flow": 1
+        },
+        "expected_counts_match": true,
+        "non_info_selected_checks": 0,
+        "all_modes": [
+          "all"
+        ],
+        "fragment_checks": [
+          true
+        ],
+        "empty_skip_and_assume": true
+      },
+      {
+        "name": "Silver_Output_Profile.Lemma_Parser_State_Equality",
+        "gate": "gates/helper-gate",
+        "counts": {
+          "proof": 1,
+          "flow": 1
+        },
+        "expected_counts_match": true,
+        "non_info_selected_checks": 0,
+        "all_modes": [
+          "all"
+        ],
+        "fragment_checks": [
+          true
+        ],
+        "empty_skip_and_assume": true
+      },
+      {
+        "name": "Silver_Output_Profile.Alternative_Body",
+        "gate": "gates/caller-gate",
+        "counts": {
+          "proof": 38,
+          "flow": 4
+        },
+        "expected_counts_match": true,
+        "non_info_selected_checks": 0,
+        "all_modes": [
+          "all"
+        ],
+        "fragment_checks": [
+          true,
+          true
+        ],
+        "empty_skip_and_assume": true
+      },
+      {
+        "name": "Silver_Output_Profile.Array_Declaration_At",
+        "gate": "gates/caller-gate",
+        "counts": {
+          "proof": 57,
+          "flow": 2
+        },
+        "expected_counts_match": true,
+        "non_info_selected_checks": 0,
+        "all_modes": [
+          "all"
+        ],
+        "fragment_checks": [
+          true,
+          true
+        ],
+        "empty_skip_and_assume": true
+      },
+      {
+        "name": "Silver_Output_Profile.Conditional_Body",
+        "gate": "gates/caller-gate",
+        "counts": {
+          "proof": 36,
+          "flow": 4
+        },
+        "expected_counts_match": true,
+        "non_info_selected_checks": 0,
+        "all_modes": [
+          "all"
+        ],
+        "fragment_checks": [
+          true,
+          true
+        ],
+        "empty_skip_and_assume": true
+      },
+      {
+        "name": "Silver_Output_Profile.Read_Statements",
+        "gate": "gates/caller-gate",
+        "counts": {
+          "proof": 6,
+          "flow": 2
+        },
+        "expected_counts_match": true,
+        "non_info_selected_checks": 0,
+        "all_modes": [
+          "all"
+        ],
+        "fragment_checks": [
+          true,
+          true
+        ],
+        "empty_skip_and_assume": true
+      },
+      {
+        "name": "Silver_Function_Bindings.Append",
+        "gate": "gates/metadata-helpers",
+        "counts": {
+          "proof": 3,
+          "flow": 1
+        },
+        "expected_counts_match": true,
+        "non_info_selected_checks": 0,
+        "all_modes": [
+          "all"
+        ],
+        "fragment_checks": [
+          true,
+          true
+        ],
+        "empty_skip_and_assume": true
+      },
+      {
+        "name": "Silver_Function_Bindings.Valid_Metadata",
+        "gate": "gates/metadata-helpers",
+        "counts": {
+          "proof": 15,
+          "flow": 2
+        },
+        "expected_counts_match": true,
+        "non_info_selected_checks": 0,
+        "all_modes": [
+          "all"
+        ],
+        "fragment_checks": [
+          true,
+          true
+        ],
+        "empty_skip_and_assume": true
+      },
+      {
+        "name": "Silver_Output_Profile.Lemma_Function_Metadata_Append",
+        "gate": "gates/metadata-helpers",
+        "counts": {
+          "proof": 5,
+          "flow": 1
+        },
+        "expected_counts_match": true,
+        "non_info_selected_checks": 0,
+        "all_modes": [
+          "all"
+        ],
+        "fragment_checks": [
+          true
+        ],
+        "empty_skip_and_assume": true
+      },
+      {
+        "name": "Silver_Output_Profile.Lemma_Procedure_Metadata_Append",
+        "gate": "gates/metadata-helpers",
+        "counts": {
+          "proof": 5,
+          "flow": 1
+        },
+        "expected_counts_match": true,
+        "non_info_selected_checks": 0,
+        "all_modes": [
+          "all"
+        ],
+        "fragment_checks": [
+          true
+        ],
+        "empty_skip_and_assume": true
+      },
+      {
+        "name": "Silver_Procedure_Bindings.Append",
+        "gate": "gates/metadata-helpers",
+        "counts": {
+          "proof": 3,
+          "flow": 1
+        },
+        "expected_counts_match": true,
+        "non_info_selected_checks": 0,
+        "all_modes": [
+          "all"
+        ],
+        "fragment_checks": [
+          true,
+          true
+        ],
+        "empty_skip_and_assume": true
+      },
+      {
+        "name": "Silver_Procedure_Bindings.Valid_Metadata",
+        "gate": "gates/metadata-helpers",
+        "counts": {
+          "proof": 14,
+          "flow": 2
+        },
+        "expected_counts_match": true,
+        "non_info_selected_checks": 0,
+        "all_modes": [
+          "all"
+        ],
+        "fragment_checks": [
+          true,
+          true
+        ],
+        "empty_skip_and_assume": true
+      },
+      {
+        "name": "Silver_Output_Profile.Function_Body_At",
+        "gate": "gates/final-callers",
+        "counts": {
+          "proof": 28,
+          "flow": 2
+        },
+        "expected_counts_match": true,
+        "non_info_selected_checks": 0,
+        "all_modes": [
+          "all"
+        ],
+        "fragment_checks": [
+          true
+        ],
+        "empty_skip_and_assume": true
+      },
+      {
+        "name": "Silver_Output_Profile.Read_Chain_Into",
+        "gate": "gates/final-callers",
+        "counts": {
+          "proof": 222,
+          "flow": 4
+        },
+        "expected_counts_match": true,
+        "non_info_selected_checks": 0,
+        "all_modes": [
+          "all"
+        ],
+        "fragment_checks": [
+          true,
+          true
+        ],
+        "empty_skip_and_assume": true
+      },
+      {
+        "name": "Silver_Output_Profile.Procedure_Body_At",
+        "gate": "gates/procedure-tail",
+        "counts": {
+          "proof": 28,
+          "flow": 2
+        },
+        "expected_counts_match": true,
+        "non_info_selected_checks": 0,
+        "all_modes": [
+          "all"
+        ],
+        "fragment_checks": [
+          true
+        ],
+        "empty_skip_and_assume": true
+      }
+    ],
+    "totals": {
+      "proof": 687,
+      "flow": 43
+    }
+  },
+  "report-diagnostic-repair": {
+    "archive_members": 63,
+    "manifest_members": 63,
+    "mismatches": [],
+    "extras": [],
+    "passed-130301_source_matches": true,
+    "passed-130958_source_matches": true,
+    "entities": [
+      {
+        "name": "Diagnostic_Message",
+        "gate": "passed-130301",
+        "counts": {
+          "proof": 11,
+          "flow": 2
+        },
+        "non_info_selected_checks": 0,
+        "all_modes": [
+          "all"
+        ],
+        "empty_skip_and_assume": true
+      },
+      {
+        "name": "Raw_Diagnostic_Message",
+        "gate": "passed-130301",
+        "counts": {
+          "proof": 2,
+          "flow": 2
+        },
+        "non_info_selected_checks": 0,
+        "all_modes": [
+          "all"
+        ],
+        "empty_skip_and_assume": true
+      },
+      {
+        "name": "Mixed_Diagnostic_Message",
+        "gate": "passed-130301",
+        "counts": {
+          "proof": 13,
+          "flow": 1
+        },
+        "non_info_selected_checks": 0,
+        "all_modes": [
+          "all"
+        ],
+        "empty_skip_and_assume": true
+      },
+      {
+        "name": "Record_Policy",
+        "gate": "passed-130958",
+        "counts": {
+          "proof": 130,
+          "flow": 2
+        },
+        "non_info_selected_checks": 0,
+        "all_modes": [
+          "all"
+        ],
+        "empty_skip_and_assume": true
+      },
+      {
+        "name": "Raw_Record_Policy",
+        "gate": "passed-130958",
+        "counts": {
+          "proof": 1,
+          "flow": 2
+        },
+        "non_info_selected_checks": 0,
+        "all_modes": [
+          "all"
+        ],
+        "empty_skip_and_assume": true
+      },
+      {
+        "name": "Record_OK",
+        "gate": "passed-130958",
+        "counts": {
+          "proof": 140,
+          "flow": 2
+        },
+        "non_info_selected_checks": 0,
+        "all_modes": [
+          "all"
+        ],
+        "empty_skip_and_assume": true
+      },
+      {
+        "name": "Mixed_Record_Congruence",
+        "gate": "passed-130958",
+        "counts": {
+          "proof": 89,
+          "flow": 1
+        },
+        "non_info_selected_checks": 0,
+        "all_modes": [
+          "all"
+        ],
+        "empty_skip_and_assume": true
+      }
+    ],
+    "totals": {
+      "proof": 386,
+      "flow": 12
+    },
+    "owned_hash_matches": {
+      "src/silver_library_reports.adb": true,
+      "scripts/check_evidence.py": true,
+      "tests/test_evidence.py": true,
+      "docs/trusted-boundary.md": true
+    }
+  }
+}

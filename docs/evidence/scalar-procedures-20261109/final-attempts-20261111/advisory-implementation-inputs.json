@@ -1,0 +1,23 @@
+{
+  "scripts/check_evidence.py": {
+    "sha256": "cd93c5abc3fccad81a46a497b54e256f7e75ee7adefa396b890f426d3eef5f71",
+    "bytes": 62473
+  },
+  "tests/test_evidence.py": {
+    "sha256": "aa282edc886077c64c8563dc507be67a24d3e39e8e1cc1fb5087ca633c78f147",
+    "bytes": 108832
+  },
+  "docs/trusted-boundary.md": {
+    "sha256": "a65ec1d12be7d4ef43e0f3ce1910fc2710ca949dfa497a690144bf52ca9c397a",
+    "bytes": 112431
+  },
+  "_review": {
+    "utc": "2026-11-13T09:23:04.078111+00:00",
+    "base_commit": "c27f3ebab5fde0ac3d647fe0b36ca0a5362698a0",
+    "disposition": "Accepted by static review; no material finding. Author-managed focused tests pending at this observation.",
+    "reviewer_selected_model": "GPT-6 Astra",
+    "reviewer_selected_effort": "Max",
+    "runtime_confirmed_settings": "unavailable",
+    "token_cost": "unavailable"
+  }
+}
