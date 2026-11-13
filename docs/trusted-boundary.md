@@ -1036,10 +1036,10 @@ operators. This is an agreement about the fixed compiler's meaning, distinct
 from annotations or limitations that reduce available proof information. It
 does not establish portability to other Ada compilers.
 
-Only `silver_function_bindings.ads` in its own report,
-`silver_library_reports.adb` in its own report, and either
-`silver_output_profile.adb` or the imported `silver_function_bindings.ads` in
-the output-profile report qualify. The classifier requires the exact message,
+Only `silver_function_bindings.ads` and `silver_procedure_bindings.ads` in their
+own reports, `silver_library_reports.adb` in its own report, and
+`silver_output_profile.adb` or either imported bindings specification in the
+output-profile report qualify. The classifier requires the exact message,
 native field set, warning/trivial metadata, positive integer location, unknown
 status, empty tree and empty suppression string, together with the exact
 matching SARIF open/warning record and producer-generated external marker.

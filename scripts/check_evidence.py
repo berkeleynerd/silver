@@ -82,8 +82,10 @@ OPERATOR_REASSOCIATION_ADVISORY_TEXT = (
     'possible reassociation due to missing parentheses [operator-reassociation]')
 OPERATOR_REASSOCIATION_SOURCES = {
     "silver_function_bindings": {"silver_function_bindings.ads"},
+    "silver_procedure_bindings": {"silver_procedure_bindings.ads"},
     "silver_library_reports": {"silver_library_reports.adb"},
-    "silver_output_profile": {"silver_output_profile.adb", "silver_function_bindings.ads"},
+    "silver_output_profile": {"silver_output_profile.adb", "silver_function_bindings.ads",
+                              "silver_procedure_bindings.ads"},
 }
 # Runtime units need verification even when the compiler Main does not call them.
 # GNATprove's default only analyzes Main and its transitive dependency closure.

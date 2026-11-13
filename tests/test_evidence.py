@@ -1286,20 +1286,23 @@ class OperatorReassociationAdvisoryTests(unittest.TestCase):
             report_path.unlink()
         self.sarif = copy.deepcopy(self.initial_sarif)
         self.reports = {}
-        # Actual retained 094547 origins, including the repeated bindings-spec
-        # location. Line numbers exercise the producer shape, not policy pins.
+        # Retained 094547 and procedure 181302 origins, including the repeated
+        # bindings-spec locations. Line numbers exercise producer shape, not policy pins.
         origins = {
             "silver_function_bindings": [("silver_function_bindings.ads", 61, 38)],
+            "silver_procedure_bindings": [("silver_procedure_bindings.ads", 61, 39)],
             "silver_library_reports": [("silver_library_reports.adb", line, col) for line, col in
                                        ((1118, 52), (1126, 32), (1126, 36), (1438, 25),
                                         (1337, 64), (2482, 25), (1550, 28))],
-            "silver_output_profile": [("silver_function_bindings.ads", 61, 38)] +
+            "silver_output_profile": [("silver_function_bindings.ads", 61, 38),
+                                      ("silver_procedure_bindings.ads", 61, 39)] +
                                      [("silver_output_profile.adb", line, col) for line, col in
                                       ((4893, 88), (4916, 88), (5802, 50))],
         }
         for unit, locations in origins.items():
             report = copy.deepcopy(self.initial_report)
-            owned_file = unit + (".ads" if unit == "silver_function_bindings" else ".adb")
+            owned_file = unit + (".ads" if unit in {"silver_function_bindings", "silver_procedure_bindings"}
+                                 else ".adb")
             report["entities"] = {" 1": {"name": unit + ".Helper",
                                         "sloc": [{"file": owned_file, "line": 1, "column": 1}]}}
             report["assumptions"] = []
@@ -1321,15 +1324,15 @@ class OperatorReassociationAdvisoryTests(unittest.TestCase):
         stats = self.audit()
         self.assertEqual((stats["operator_reassociation_advisories"], stats["flow_checks"],
                           stats["proof_checks"], stats["limitation_notes"],
-                          stats["array_initialization_advisories"]), (12, 0, 3, 0, 0))
+                          stats["array_initialization_advisories"]), (14, 0, 4, 0, 0))
         self.note.update(line=2, col=3)
-        self.assertEqual(self.audit()["operator_reassociation_advisories"], 12)
+        self.assertEqual(self.audit()["operator_reassociation_advisories"], 14)
         # SARIF ordering is not semantic; matching multiplicities are mandatory.
         self.sarif["runs"][0]["results"].reverse()
         (self.path / "gnatprove.sarif").write_text(json.dumps(self.sarif))
-        self.assertEqual(audit_reports(self.path, set(self.reports))["proof_checks"], 3)
+        self.assertEqual(audit_reports(self.path, set(self.reports))["proof_checks"], 4)
         (self.path / "gnatprove.out").write_text(
-            (self.path / "gnatprove.out").read_text().replace("Total 3 0 3", "Total 15 0 15"))
+            (self.path / "gnatprove.out").read_text().replace("Total 4 0 4", "Total 18 0 18"))
         with self.assertRaisesRegex(EvidenceError, "check totals disagree"):
             audit_reports(self.path, set(self.reports))
 
@@ -1404,6 +1407,11 @@ class OperatorReassociationAdvisoryTests(unittest.TestCase):
         for unit, file in (("silver_io", "silver_io.adb"),
                            ("silver_function_bindings", "silver_library_reports.adb"),
                            ("silver_library_reports", "silver_function_bindings.ads"),
+                           ("silver_library_reports", "silver_procedure_bindings.ads"),
+                           ("silver_procedure_bindings", "silver_function_bindings.ads"),
+                           ("silver_procedure_bindings", "silver_procedure_bindings.adb"),
+                           ("silver_procedure_bindings", "./silver_procedure_bindings.ads"),
+                           ("silver_output_profile", "silver_procedure_bindings.adb"),
                            ("silver_output_profile", "silver_function_bindings.adb")):
             with self.subTest(unit=unit, file=file):
                 self.prepare_reassociation_advisories()
@@ -1448,15 +1456,16 @@ class OperatorReassociationAdvisoryTests(unittest.TestCase):
                 (self.path / "gnatprove.sarif").write_text(json.dumps(self.sarif))
                 with self.assertRaises(EvidenceError):
                     audit_reports(self.path, set(self.reports))
-        for duplicate in (False, True):
-            with self.subTest(duplicate=duplicate):
+        for duplicate, source in product((False, True),
+                                         ("silver_function_bindings.ads", "silver_procedure_bindings.ads")):
+            with self.subTest(duplicate=duplicate, source=source):
                 self.prepare_reassociation_advisories()
                 self.write_reports()
                 results = self.sarif["runs"][0]["results"]
                 # Remove/duplicate one of the two identical imported-spec notes.
                 imported = next(item for item in results if item.get("ruleId") == "operator-reassociation"
                                 and item["locations"][0]["physicalLocation"]["artifactLocation"]["uri"]
-                                    == "silver_function_bindings.ads")
+                                    == source)
                 results.append(copy.deepcopy(imported)) if duplicate else results.remove(imported)
                 (self.path / "gnatprove.sarif").write_text(json.dumps(self.sarif))
                 with self.assertRaisesRegex(EvidenceError, "diagnostic coverage disagree"):
