@@ -1103,6 +1103,7 @@ statement        ::= basic_statement | string_choice | for_loop | array_iteratio
 basic_statements ::= basic_statement { basic_statement }
 basic_statement  ::= "null" ";"
                    | call_assignment
+                   | procedure_call
                    | reject_name ";"
                    | mutable_name ":=" expression ";"
                    | mutable_character_name ":=" character_expression ";"
