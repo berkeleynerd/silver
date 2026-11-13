@@ -3180,6 +3180,13 @@ is
       and then Same_Values (Left.Values, Right.Values))
      with Ghost => Static, Global => null,
        Annotate => (GNATprove, Logical_Equal);
+   function Same_Body (Left, Right : Body_Scan) return Boolean is
+     (Left.Count = Right.Count and then Same_Flow (Left.Facts, Right.Facts)
+      and then Left.Position = Right.Position and then Left.Target = Right.Target
+      and then Left.Capacity = Right.Capacity
+      and then Left.Assigned = Right.Assigned and then Left.Output = Right.Output)
+     with Ghost => Static, Global => null,
+       Annotate => (GNATprove, Logical_Equal);
    function Same_Condition (Left, Right : Condition_Result) return Boolean is
      (Left.Count = Right.Count and then Left.After = Right.After
       and then Same_Flow (Left.When_True, Right.When_True)
@@ -3251,6 +3258,15 @@ is
          (Count => Right.Count, After => 0, When_True => Right, When_False => Right));
       pragma Assert (Static => Same_Flow (Left, Right));
    end Lemma_Flow_Equality;
+
+   procedure Lemma_Body_Equality (Left, Right : Body_Scan)
+     with Ghost => Static, Global => null,
+       Pre => Left = Right,
+       Post => Same_Body (Left, Right) and then Left = Right
+   is
+   begin
+      Lemma_Flow_Equality (Left.Facts, Right.Facts);
+   end Lemma_Body_Equality;
 
 
    procedure Lemma_Join_Identity (Result, Before, Right : Scalar_Flow)
@@ -5427,6 +5443,11 @@ is
            Procedure_Updates_Model (Text, Context, Scan.Facts, Scan, Catalog, First, Last, Call_First, Call_After) =
              Procedure_Updates_Model (Text, Context, Scan.Facts, Current, Catalog, Index, Last, Call_First, Call_After));
          pragma Loop_Variant (Increases => Index);
+         Lemma_Body_Equality
+           (Procedure_Updates_Model
+              (Text, Context, Scan.Facts, Scan, Catalog, First, Last, Call_First, Call_After),
+            Procedure_Updates_Model
+              (Text, Context, Scan.Facts, Current, Catalog, Index, Last, Call_First, Call_After));
          Before := Current;
          Current := Procedure_Update_Step
            (Text, Context, Scan.Facts, Current, Catalog.Parameters (Index), Call_First, Call_After);
