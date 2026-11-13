@@ -193,6 +193,7 @@ remaining surface complete.
 | 2026-11-13 09:16–09:23 UTC | Astra Max native/source repair and independent critical review; lead integration runtime settings not independently confirmed | Owner resumed the delivery. Preserved current-main planning records and all caches. Implemented the two reviewed procedure-spec advisory origins; five focused auditor tests pass. Native postcondition and complete handwritten source-integration repairs remain under focused work. | Auditor commit `faa9f17415`, managed test `20261113T092238-18c9ef927da9`; [bounded review](reviews/review-scalar-procedure-advisory-20261113.md). No complete assurance or new capability support is claimed. |
 | 2026-11-13 09:24–09:54 UTC | Astra Max native/source authors and independent critical reviewer; lead integration, live settings not independently confirmed | The ghost equality bridge passed 190 proof and 33 flow checks across 17 complete entities. Nine handwritten repairs passed a 62,261-declaration focused audit. Review caught a dormant native path-field loss in the draft ghost model; retaining raw fields repaired it, and its complete-domain contract and counterexample passed a 15,726-declaration audit. | [Resumption repair packet](evidence/scalar-procedures-20261109/resume-repair-20261113/README.md), native `092540`, Lean `092831` and `094850`. Integrated as `3958b2c66d` and `4553fd6a11`. Runtime code, contracts and full domains remain unchanged. Complete native/source/Lean validation is still required. |
 | 2026-11-13 09:54–10:13 UTC | Sol High final native/source monitors; Sol Extra High read-only regression/delivery preparation; lead evidence integration, live settings not independently confirmed | Ordinary build passed and complete native validation started with 14 workers. Source chunks started with eight workers, then their process disappeared without a phase exit or proof diagnostic after the ownership handoff. The exact interrupted packet and all completed objects were preserved before the unchanged resume `101154` under the continuing monitor. | Build `095342` passed; native `095455` remains active. Source `095546` is interrupted, not successful or a reported proof failure. Cause is unconfirmed; no contemporaneous OOM was observed. Final regression discovery still has 690 distinct identities; no suite was started alongside proofs. |
+| 2026-11-13 10:14–11:34 UTC | Sol High native/source monitors; Astra Max independent integration reviewer; lead confirmation and evidence | Source chunks passed their fresh audit. Independent integration review found a false alias between a qualified validity query and a same-spelled writable variable; lead admission probes confirmed it. Filed #390 inside this delivery and controlled-stopped the now-outdated native/aggregate attempts, retaining exact evidence and caches. | [Finding and stopped-checkpoint packet](evidence/scalar-procedures-20261109/qualified-validity-390-20261113/README.md). Chunk `101154` passed 22,958 declarations / 14 imports. Native `095455` and aggregate `110403` are interrupted, not complete assurance. Native/source Astra Max repair streams and discriminating regressions follow before another stable checkpoint. |
 
 ## Development checkpoint
 
@@ -202,11 +203,16 @@ Lean integration failures now have independently reviewed repairs and successful
 [focused verification](evidence/scalar-procedures-20261109/resume-repair-20261113/README.md)
 on integrated `4553fd6a11`. The two exact advisory-origin omissions are repaired
 in `faa9f17415`. #375 remains inside this delivery and awaits the complete
-authoritative source checks. Complete native run `20261113T095455-092807e929f7`
-is active; the source pipeline is resuming after the unexplained process
-interruption recorded above. Successful matching objects and all failed evidence
-are preserved. Final native/Lean assurance, regressions, independent acceptance
-and Rosetta promotion remain pending.
+authoritative source checks. The subsequent independent integration review found
+[#390](https://github.com/berkeleynerd/silver/issues/390): a qualified validity
+query falsely conflicts with a same-spelled writable local object. Lead probes
+confirmed the mismatch with the specified binding-based alias rule. The native
+`095455` and source aggregate `110403` attempts were therefore controlled-stopped;
+their [exact packets](evidence/scalar-procedures-20261109/qualified-validity-390-20261113/README.md)
+and successful chunks `101154` are preserved. Native/source repairs and focused
+complete-contract checks now precede another stable final checkpoint. Final
+native/Lean assurance, regressions, independent acceptance and Rosetta promotion
+remain pending.
 
 The earlier native parser repair was integrated as `8108347e75`, on exact source
 `735f4bbb8cd0f9ecf816e17df3242113417f9ddeeafdf4bcb8ae2ecc25d41758`.

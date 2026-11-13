@@ -170,12 +170,43 @@ class ScalarProcedureTests(unittest.TestCase):
         boolean = (b'procedure P(A:in Boolean;B:out Boolean)is begin B:=A;end P;'
                    b'B:Boolean:=False;')
         self.check(program(boolean, b'P(not B,B);'), 2)
+        sliced = (b'subtype One is Integer range 1..1;'
+                  b'procedure P(B:in Boolean;X:out One)is begin X:=1;end P;'
+                  b'S:constant String:="x";Input_Is_Valid:One:=1;Other:One:=1;')
+        self.check(program(sliced, b'P(S(1..Input_Is_Valid)="x",Input_Is_Valid);'), 2)
+        self.check(program(sliced, b'P(S(1..Input_Is_Valid)="x",Other);'))
 
     def test_actuals_share_incoming_state(self) -> None:
         declarations = (b'procedure P(B:in Boolean;N:in Integer;X:out Integer)is '
                         b'begin X:=N;end P;D:Integer range 0..1:=0;R:Integer:=0;')
         self.check(program(declarations, b'P(D/=0,(1/D),R);'), 2)
         self.check(program(declarations, b'if D/=0 then P(True,(1/D),R);end if;'))
+
+    def test_qualified_validity_selector_is_not_a_writable_variable_read(self) -> None:
+        queries = (
+            b'Silver_Arguments.Input_Is_Valid',
+            b'not (not Silver_Arguments.Input_Is_Valid) and then True',
+            b'SiLvEr_ArGuMeNtS -- package\n . -- selector\n InPuT_Is_VaLiD',
+        )
+        for kind, initial, assignment, alias in (
+            (b'Boolean', b'False', b'X:=B;', b'Input_Is_Valid'),
+            (b'Integer', b'0', b'X:=0;if B then X:=1;end if;', b'Input_Is_Valid=0'),
+        ):
+            for mode in (b'out', b'in out'):
+                for target_first in (False, True):
+                    writable = b'X:' + mode + b' ' + kind
+                    formals = (writable + b';B:in Boolean' if target_first
+                               else b'B:in Boolean;' + writable)
+                    declarations = (b'procedure Copy_Flag(' + formals + b')is begin '
+                                    + assignment + b'end Copy_Flag;'
+                                    b'Input_Is_Valid:' + kind + b':=' + initial + b';')
+                    for query in (*queries, alias):
+                        actuals = (b'Input_Is_Valid,' + query if target_first
+                                   else query + b',Input_Is_Valid')
+                        with self.subTest(kind=kind, mode=mode, target_first=target_first,
+                                          query=query):
+                            self.check(program(declarations, b'Copy_Flag(' + actuals + b');',
+                                               arguments=True), 2 if query == alias else 0)
 
     def test_literal_letters_are_not_actual_variable_reads(self) -> None:
         procedure = b'procedure P(N:in Integer;X:out Integer)is begin X:=N;end P;'
@@ -243,6 +274,12 @@ class ScalarProcedureTests(unittest.TestCase):
         local_hiding = (b'X:String:="outer";procedure P(X:out Integer)is '
                         b'begin X:=7;end P;R:Integer:=0;')
         self.check(program(local_hiding, b'P(R);'))
+        named_boolean = RESET.replace(b'Reset', b'Boolean')
+        self.check(program(named_boolean, b'null;'))
+        self.check(program(named_boolean + b'B:Boolean:=False;', b'null;'), 2)
+        self.check(program(named_boolean
+                           + b'procedure Later(X:out Integer)is B:Boolean:=False;'
+                           b'begin X:=0;end Later;', b'null;'), 2)
 
     def test_source_wide_operator_and_source_size_boundaries(self) -> None:
         declaration = (b'subtype Small is Integer range 0..9;'
@@ -305,12 +342,13 @@ class ScalarProcedureTests(unittest.TestCase):
             b'Values:constant array(1..2)of Small:=(2,3);'
             b'Flags:array(1..2)of Boolean:=(True,False);'
             b'Saved:constant String:=Input;'
-            b'D:Integer range 0..1:=0;R:Small:=0;B:Boolean:=False;Q:Integer:=0;')
+            b'D:Integer range 0..1:=0;R:Small:=0;Input_Is_Valid:Boolean:=False;Q:Integer:=0;')
         body = (
             b'D:=1;for E of Values loop '
-            b"Select_Value(Input'Length=3 and then Flags(1),E,R,B);end loop;"
+            b"Select_Value(Silver_Arguments.Input_Is_Valid and then Input'Length=3 "
+            b'and then Flags(1),E,R,Input_Is_Valid);end loop;'
             b'if D>0 then Q:=(1/D);end if;'
-            b'if B then Silver_IO.Put_Line(Saved);else Silver_IO.Put_Line("none");end if;'
+            b'if Input_Is_Valid then Silver_IO.Put_Line(Saved);else Silver_IO.Put_Line("none");end if;'
             b"Silver_IO.Put_Line(Integer'Image(R));Silver_IO.Put_Line(Integer'Image(Q));"
             b"Silver_IO.Put_Line(Integer'Image(Values(1)));"
             b'if Flags(1) then Silver_IO.Put_Line("kept");end if;')
