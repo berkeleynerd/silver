@@ -195,6 +195,7 @@ remaining surface complete.
 | 2026-11-13 09:54–10:13 UTC | Sol High final native/source monitors; Sol Extra High read-only regression/delivery preparation; lead evidence integration, live settings not independently confirmed | Ordinary build passed and complete native validation started with 14 workers. Source chunks started with eight workers, then their process disappeared without a phase exit or proof diagnostic after the ownership handoff. The exact interrupted packet and all completed objects were preserved before the unchanged resume `101154` under the continuing monitor. | Build `095342` passed; native `095455` remains active. Source `095546` is interrupted, not successful or a reported proof failure. Cause is unconfirmed; no contemporaneous OOM was observed. Final regression discovery still has 690 distinct identities; no suite was started alongside proofs. |
 | 2026-11-13 10:14–11:34 UTC | Sol High native/source monitors; Astra Max independent integration reviewer; lead confirmation and evidence | Source chunks passed their fresh audit. Independent integration review found a false alias between a qualified validity query and a same-spelled writable variable; lead admission probes confirmed it. Filed #390 inside this delivery and controlled-stopped the now-outdated native/aggregate attempts, retaining exact evidence and caches. | [Finding and stopped-checkpoint packet](evidence/scalar-procedures-20261109/qualified-validity-390-20261113/README.md). Chunk `101154` passed 22,958 declarations / 14 imports. Native `095455` and aggregate `110403` are interrupted, not complete assurance. Native/source Astra Max repair streams and discriminating regressions follow before another stable checkpoint. |
 | 2026-11-13 11:35–12:18 UTC | Astra Max native/source repair and independent critical review; Sol High final monitors and regression inventory; live settings not independently confirmed | Repaired qualified validity-selector scanning without changing contracts or the alias rule. Complete native helper/caller, Lean model/source-shape, admission and compiled composition checks passed. Integrated the reviewed repair and restarted complete native validation; final source validation follows in its separate workspace. | [Repair packet](evidence/scalar-procedures-20261109/qualified-validity-repair-20261113/README.md), implementation `51371ef82f`. Native `114106` passed 274 proof / 50 selected flow checks; Lean `115847` passed 16,839 declarations and `120538` passed 16,895. Build `115822`, four admission methods `115938` and compiled fixture `120228` passed. Complete native `121730` is running; #390 remains open pending complete assurance and final regression coverage. |
+| 2026-11-13 12:17–18:03 UTC; diagnosis resumed 21:10 UTC | Sol High native/source monitors; Astra Max focused diagnosis after handoff; live settings not independently confirmed | Output certificate passed, but complete source run exhausted host memory and lost a module with Lean exit 137; its owner then controlled-stopped only source processes. Native continued independently and failed one unchanged Array_Declaration_At assertion at the canonical 30-second limit. Exact inputs/reports, successful objects and warm caches are preserved; no full suite followed. | [Final checkpoint failure packet](evidence/scalar-procedures-20261109/final-failures-20261113/README.md). Aggregate `122134`: 16 modules/51,101 declarations passed. Complete source `152103`: 312 builds, no final audit; child exit 137 then actual exit 130 / managed interrupted. Native `121730`: 17,729/17,730 proof records proved, 1,715 flow records; strict obligation/provenance audits fail. Root resumed focused native/memory diagnosis at 21:10 after the monitor-to-lead gap; no complete retry or support claim. |
 
 ## Development checkpoint
 
@@ -213,12 +214,20 @@ their [exact packets](evidence/scalar-procedures-20261109/qualified-validity-390
 and successful chunks `101154` are preserved. The reviewed native and matching
 proof repairs are now integrated at `51371ef82f`, with successful
 [complete-contract focused checks and discriminating regressions](evidence/scalar-procedures-20261109/qualified-validity-repair-20261113/README.md).
-Complete native validation has restarted as `121730`; the source checkpoint
-uses the dense output certificate followed by one complete project audit,
-preserving matching cached work. Final native/Lean assurance, the 691-identity
-regression inventory, independent acceptance and Rosetta promotion remain
-pending. #390 and #375 remain part of this delivery until those requirements
-are satisfied.
+The [subsequent complete checkpoints](evidence/scalar-procedures-20261109/final-failures-20261113/README.md)
+did not pass. Output certificate `122134` passed its 51,101-declaration audit,
+but complete source `152103` lost one module with Lean exit 137 during global
+memory exhaustion and was then controlled-stopped (actual exit 130, managed
+interrupted); no complete audit ran. Native `121730` continued without a signal
+and failed one `Array_Declaration_At` assertion at the canonical 30-second
+limit. Strict native obligation/coverage and completed-provenance audits fail.
+Exact input/report packets, completed objects and warm state remain preserved.
+Root resumed focused native and source-memory diagnosis at 21:10 UTC before
+another expensive checkpoint; no blind complete retry or domain/obligation
+weakening is selected. No full regression suite followed. Complete native/Lean
+assurance, the 691-identity suite, independent acceptance and Rosetta promotion
+remain pending. #390 and #375 remain part of this delivery until those
+requirements are satisfied.
 
 The earlier native parser repair was integrated as `8108347e75`, on exact source
 `735f4bbb8cd0f9ecf816e17df3242113417f9ddeeafdf4bcb8ae2ecc25d41758`.
