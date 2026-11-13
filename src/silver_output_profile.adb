@@ -5169,6 +5169,15 @@ is
          return (if Word_After > First and then Word_After <= After
                  then (Word_After, True) else (First + 1, True));
       end if;
+      --  A validity selector reads no local object. Other selected names
+      --  are excluded by actual parsing; a range's second dot is not a selector.
+      Word_After :=
+        (if Text (First) = '.' and then First > 1 and then Text (First - 1) /= '.'
+         then Take_Token (Text, Take_Token (Text, First, Dot), Input_Is_Valid_Name)
+         else 0);
+      if Word_After > First and then Word_After <= After then
+         return (Word_After, True);
+      end if;
       Word_After := Name_After (Text, First);
       if Word_After > First and then Word_After <= After then
          return (Word_After, not Equal_Name (Text, First, Word_After, Target_First, Target_After));
