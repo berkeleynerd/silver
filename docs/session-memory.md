@@ -1,5 +1,65 @@
 # Session memory
 
+## 2026-11-13 — Scalar-procedure delivery resumed
+
+The owner instructed **“Please proceed.”** after the evening pause and the
+reported native and Lean validation failures. This resumes the existing
+[#370](https://github.com/berkeleynerd/silver/issues/370) /
+[#29](https://github.com/berkeleynerd/silver/issues/29) delivery in
+[PR #371](https://github.com/berkeleynerd/silver/pull/371), including
+[#375](https://github.com/berkeleynerd/silver/issues/375) as an internal delivery
+repair. The pause's prohibition on further work is lifted for this scope.
+
+Preserve failed evidence and successful caches. Diagnose the remaining native
+postcondition and advisory classifications, repair and review the handwritten
+Lean source integration, and establish focused complete-contract success before
+the stable complete validation checkpoint. Full domains, source correspondence,
+all required obligations and final regression coverage remain mandatory. Continue
+ordinary delivery records and reviewable publication under the existing scope.
+The separate worca experiment and milestone-24 work below remain preserved;
+this resumption does not take over those streams. CLI memory was not updated.
+
+## 2026-11-12 — Worca board experiment: the Ready rule is suspended; #377's record stays an exception
+
+The owner is trying worca, an agent pipeline tool that runs in the development
+sandbox, as the front end for this work. Asked whether the project board could
+drive it, and told what would have to change, the owner instructed **“385 will
+have to remain an exception for now. Otherwise, let's proceed to make these
+changes. For any changes to planning.md we should simply note, for now, that
+during the worca experiment we are suspending the rule and if we go forward with
+it we will make the change you indicate.”**
+
+- **Rule suspended for the experiment.** [Planning](planning.md#the-board) says an
+  item enters Ready only once its authorization is recorded here on `main`.
+  During the experiment the owner moving a card to Ready is itself the
+  authorization. The change indicated, to be made only if the experiment is
+  adopted, is to make that the standing rule. `planning.md` carries a dated note
+  and is otherwise unchanged.
+- **What runs.** A worca rule reads the board's Ready column and runs its issues
+  one at a time, top to bottom. It moves the card to In progress when the run
+  starts and to In review when it finishes, and comments on the issue each time.
+  Each run uses the "Silver ticket" workflow, whose approval stop still waits
+  for the owner before anything is built. A run pushes nothing, opens no pull
+  request and starts no proof run. Limits: $150 per run and four runs a day.
+- **Exception.** [#377](https://github.com/berkeleynerd/silver/issues/377) was
+  started on 2026-11-11 at the owner's direct instruction (**“Let's start it
+  up.”**). Its record is in draft
+  [PR #385](https://github.com/berkeleynerd/silver/pull/385), which stays
+  unmerged for now. #377 is In review: its change is on a local branch and is
+  not pushed, and it does not reach `main` before
+  [PR #371](https://github.com/berkeleynerd/silver/pull/371).
+- **Dependencies on the board.** The order written in
+  [#378](https://github.com/berkeleynerd/silver/issues/378)–[#384](https://github.com/berkeleynerd/silver/issues/384)
+  is now also recorded as GitHub "blocked by" relations, so a blocked card in
+  Ready is held back: #379, #381 and #382 wait for #370; #380 for #379; #383 for
+  #377–#382; #384 for #383.
+
+Two limits are the planning agent's reading, not the owner's words: the worca
+rule takes only cards of
+[milestone 24](https://github.com/berkeleynerd/silver/milestone/24), because
+other agents also use Ready, and agents do not move an item to Ready themselves.
+CLI memory was updated.
+
 ## 2026-11-11 — Evening pause after active validation finishes
 
 The owner instructed **“Let's pause work for the evening as soon as the
