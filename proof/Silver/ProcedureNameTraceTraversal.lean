@@ -30,6 +30,19 @@ theorem skipAt_idempotent (text : Source) (position : Nat) :
   rw [Cursor.remaining_triviaPosition, triviaEnd_fixed (trivia_complete _)]
   rfl
 
+theorem fixedAfter_skipped {text : Source} {position : Nat}
+    (positionBound : position ≤ text.length + 1) (word : String) (wordFlag : Bool) :
+    fixedAfter text (skipAt text position) word wordFlag = fixedAfter text position word wordFlag := by
+  by_cases zero : position = 0
+  · simp [zero, skipAt, fixedAfter]
+  have skipped := ScalarExpression.skip_bounds text position positionBound
+  have triviaPositive : Cursor.triviaPosition text position ≠ 0 := by
+    change position ≤ ScalarExpression.skip text position ∧ _ at skipped
+    simpa only [ScalarExpression.skip, zero, ↓reduceIte] using (show ScalarExpression.skip text position ≠ 0 by omega)
+  have repeated : Cursor.triviaPosition text (Cursor.triviaPosition text position) = Cursor.triviaPosition text position := by
+    simpa only [skipAt, zero, triviaPositive, ↓reduceIte] using skipAt_idempotent text position
+  simp only [fixedAfter, skipAt, zero, triviaPositive, ↓reduceIte, repeated]
+
 theorem actualNameStep_skipped {text : Source} {position limit targetFirst targetAfter : Nat}
     (positive : position ≠ 0) (before : position < limit)
     (firstPositive : skipAt text position ≠ 0) (firstBefore : skipAt text position < limit) :
@@ -66,10 +79,11 @@ theorem ActualNameFreeTrace.number {text : Source} {position first value finish 
         skipped positive before number bounded
       simpa only [step] using rest
 
-/-- Symbols outside literal and identifier starts advance one byte. The caller
-supplies the source terminal, so no semantic name-use assumption is hidden here. -/
+/-- Non-dot symbols outside literal and identifier starts advance one byte.
+Dot selectors and contiguous ranges have separate checked traversal rules. The
+caller supplies the source terminal; no semantic name-use assumption is hidden. -/
 def OrdinarySymbol (byte : Nat) : Prop :=
-  Named.letter byte = false ∧ 10 ≤ ScalarLiteral.digitValue byte ∧ byte ≠ 34 ∧ byte ≠ 39
+  Named.letter byte = false ∧ 10 ≤ ScalarLiteral.digitValue byte ∧ byte ≠ 34 ∧ byte ≠ 39 ∧ byte ≠ 46
 
 private theorem literal_not_digit (text : Source) (position : Nat)
     (digit : 10 ≤ ScalarLiteral.digitValue (Cursor.byteAt text position)) :
@@ -87,9 +101,9 @@ theorem actualNameStep_symbol {text : Source} {position first limit targetFirst 
     simp [nameAfter, Named.identifierEnd, symbol.1]
   have noNumber := literal_not_digit text first symbol.2.1
   have noCharacter : characterLiteralAfter text first = 0 := by
-    simp only [characterLiteralAfter, symbol.2.2.2, false_and, and_false, ↓reduceIte]
+    simp only [characterLiteralAfter, symbol.2.2.2.1, false_and, and_false, ↓reduceIte]
   simp [actualNameStep, skipped, positive, Nat.not_le.mpr before,
-    Nat.not_le.mpr firstBefore, noName, noNumber, noCharacter, symbol.2.2.1, symbol.2.2.2]
+    Nat.not_le.mpr firstBefore, noName, noNumber, noCharacter, symbol.2.2.1, symbol.2.2.2.1, symbol.2.2.2.2]
 
 theorem ActualNameFreeTrace.symbol {text : Source} {position first limit targetFirst targetAfter : Nat}
     (trace : ActualNameFreeTrace text limit targetFirst targetAfter position)

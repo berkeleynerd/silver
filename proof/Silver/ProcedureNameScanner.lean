@@ -6,7 +6,8 @@ public import Silver.ComposeAtomAdmission
 
 /-! The exact lexical traversal used to exclude a writable actual's spelling
 from every other actual. Numeric and quoted literals and attribute designators
-are skipped as syntax; ordinary identifiers retain the case-insensitive test. -/
+are skipped as syntax; the validity selector is skipped after a nonrange dot.
+Ordinary identifiers retain the case-insensitive test. -/
 namespace Silver.Predicate
 open Compose
 
@@ -31,10 +32,15 @@ def actualNameStep (text : Source) (position after targetFirst targetAfter : Nat
       let wordAfter := nameAfter text (skipAt text (first + 1))
       if wordAfter > first ∧ wordAfter ≤ after then ⟨wordAfter, true⟩ else ⟨first + 1, true⟩
     else
-      let wordAfter := nameAfter text first
-      if wordAfter > first ∧ wordAfter ≤ after then
-        ⟨wordAfter, !Named.equalName text first wordAfter targetFirst targetAfter⟩
-      else ⟨first + 1, true⟩
+      let selectorAfter :=
+        if Cursor.byteAt text first = 46 ∧ first > 1 ∧ Cursor.byteAt text (first - 1) ≠ 46
+        then fixedAfter text (fixedAfter text first "." false) "input_is_valid" true else 0
+      if selectorAfter > first ∧ selectorAfter ≤ after then ⟨selectorAfter, true⟩
+      else
+        let wordAfter := nameAfter text first
+        if wordAfter > first ∧ wordAfter ≤ after then
+          ⟨wordAfter, !Named.equalName text first wordAfter targetFirst targetAfter⟩
+        else ⟨first + 1, true⟩
 
 theorem actualNameStep_progress (text : Source) (position after targetFirst targetAfter : Nat)
     (positionBound : position ≤ text.length + 1) :
@@ -75,10 +81,17 @@ theorem actualNameStep_progress (text : Source) (position after targetFirst targ
               · rename_i designator
                 exact .inr ⟨by dsimp only; omega, designator.2⟩
               · exact .inr ⟨by dsimp only; omega, by dsimp only; omega⟩
-            · split
-              · rename_i identifier
-                exact .inr ⟨by dsimp only; omega, identifier.2⟩
-              · exact .inr ⟨by dsimp only; omega, by dsimp only; omega⟩
+            · generalize selected : (if Cursor.byteAt text (skipAt text position) = 46 ∧
+                  skipAt text position > 1 ∧ Cursor.byteAt text (skipAt text position - 1) ≠ 46
+                  then fixedAfter text (fixedAfter text (skipAt text position) "." false) "input_is_valid" true
+                  else 0) = selectorAfter
+              split
+              · rename_i selector
+                exact .inr ⟨by dsimp only; omega, selector.2⟩
+              · split
+                · rename_i identifier
+                  exact .inr ⟨by dsimp only; omega, identifier.2⟩
+                · exact .inr ⟨by dsimp only; omega, by dsimp only; omega⟩
 
 private theorem scalarLiteral_noDigit (text : Source) (position : Nat)
     (digit : 10 ≤ ScalarLiteral.digitValue (Cursor.byteAt text position)) :
@@ -146,10 +159,13 @@ theorem actualNameStep_identifier {text bytes : Source}
     omega
   have noCharacter : characterLiteralAfter text first = 0 := by
     simp only [characterLiteralAfter, notApostrophe, false_and, and_false, ↓reduceIte]
+  have notDot : Cursor.byteAt text first ≠ 46 := by
+    simp only [Named.letter, decide_eq_true_eq] at letter
+    omega
   have noNumber := scalarLiteral_letter text first letter
   simp only [actualNameStep, positionPositive, Nat.not_le.mpr positionBefore, or_self,
     ↓reduceIte, skipped, show ¬ first ≥ after by omega, noCharacter, noNumber,
-    ne_eq, not_true_eq_false, false_and, notDouble, notApostrophe, nameAfter,
+    ne_eq, not_true_eq_false, false_and, notDouble, notApostrophe, notDot, Nat.not_lt_zero, nameAfter,
     show finish > first from advance, finishBound, and_self]
 
 def actualNameFree (text : Source) (position after targetFirst targetAfter : Nat) : Bool :=
@@ -229,5 +245,20 @@ theorem ActualNameFreeTrace.complete {text : Source} {position after targetFirst
         Nat.ne_of_lt before, nonzero, free, Bool.not_true, Bool.false_eq_true]
       rw [dite_eq_left advanced]
       exact ih (by omega)
+
+/-- A real bare identifier equal to the writable target remains an alias.
+This applies to every identifier spelling, including Input_Is_Valid. -/
+theorem actualNameFree_identifier_alias {text bytes : Source}
+    {position first finish after targetFirst targetAfter : Nat}
+    (before : position < after) (skipped : skipAt text position = first)
+    (positive : first ≠ 0) (identifier : Named.IdentifierAt text first bytes finish)
+    (finishBound : finish ≤ after)
+    (same : Named.equalName text first finish targetFirst targetAfter = true) :
+    actualNameFree text position after targetFirst targetAfter = false := by
+  apply Bool.eq_false_iff.mpr
+  intro accepted
+  have excluded := ((actualNameFree_sound accepted).identifier before skipped positive identifier finishBound).1
+  rw [same] at excluded
+  contradiction
 
 end Silver.Predicate

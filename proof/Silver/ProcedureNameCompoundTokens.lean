@@ -9,19 +9,6 @@ public import Silver.ComposeBounds
 namespace Silver.Predicate
 open Compose
 
-theorem fixedAfter_skipped {text : Source} {position : Nat}
-    (positionBound : position ≤ text.length + 1) (word : String) (wordFlag : Bool) :
-    fixedAfter text (skipAt text position) word wordFlag = fixedAfter text position word wordFlag := by
-  by_cases zero : position = 0
-  · simp [zero, skipAt, fixedAfter]
-  have skipped := ScalarExpression.skip_bounds text position positionBound
-  have triviaPositive : Cursor.triviaPosition text position ≠ 0 := by
-    change position ≤ ScalarExpression.skip text position ∧ _ at skipped
-    simpa only [ScalarExpression.skip, zero, ↓reduceIte] using (show ScalarExpression.skip text position ≠ 0 by omega)
-  have repeated : Cursor.triviaPosition text (Cursor.triviaPosition text position) = Cursor.triviaPosition text position := by
-    simpa only [skipAt, zero, triviaPositive, ↓reduceIte] using skipAt_idempotent text position
-  simp only [fixedAfter, skipAt, zero, triviaPositive, ↓reduceIte, repeated]
-
 /-- Attribute punctuation and its designator are one scanner step. The
 at-least-two-letter premise prevents the tick from being a Character literal. -/
 theorem ActualNameFreeTrace.fixedAttribute {text : Source}

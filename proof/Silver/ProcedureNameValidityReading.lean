@@ -1,6 +1,6 @@
 module
 
-public import Silver.ProcedureNameIdentifierWords
+public import Silver.ProcedureNameSelectors
 public import Silver.ComposeBounds
 
 @[expose] public section
@@ -34,9 +34,8 @@ theorem ActualNameFreeTrace.validityOperation {text : Source}
       have dotAdvance := Compose.Expressions.model_fixed_advances text _ "." false prefixBound (by decide) dotPositive
       have callAdvance := Compose.Expressions.model_fixed_advances text _ "input_is_valid" true dotBound (by decide) accepted
       have afterPrefix := trace.fixedIdentifier (word := "silver_arguments") positionBound (by decide) prefixPositive (by omega)
-      have afterDot := afterPrefix.fixedSymbol (byte := '.') prefixBound (by unfold OrdinarySymbol; decide) dotPositive
-        (show fixedAfter text (fixedAfter text position "silver_arguments" true) "." false ≤ limit by omega)
-      exact afterDot.fixedIdentifier (word := "input_is_valid") dotBound (by decide) accepted finishBound
+      have previous := validityPrefix_previous positionBound prefixPositive
+      exact afterPrefix.validitySelector prefixBound previous.1 previous.2 accepted finishBound
     · rename_i plain
       rw [ite_eq_right plain] at finishBound ⊢
       split at accepted

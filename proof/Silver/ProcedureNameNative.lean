@@ -88,6 +88,8 @@ def stepBody : Command :=
   let quotedAfter : Expr .number := .field .valueAfter (.variable "quoted")
   let invalid : ResultExpr := .pair (.number 0) (.truth false)
   let next (position : Expr .number) : ResultExpr := .pair position (.truth true)
+  let take (position : Expr .number) (token : ShellToken) :=
+    Expr.app (.app (.app (.function .takeToken) text) position) (.token token)
   .constant "first" "literal_position" (.app (.app (.function .skip) text) position) <|
   .constant "number_after" "literal_position"
     (.field .scalarLiteralAfter (.app (.app (.function .scalarLiteral) text) first)) <|
@@ -110,6 +112,11 @@ def stepBody : Command :=
       (.app (.app (.function .skip) text) (.add first (.number 1))))
       (.result (.choice (.andThen (.gt wordAfter first) (.le wordAfter after))
         (next wordAfter) (next (.add first (.number 1)))))) <|
+  .assign "word_after" (.group (.ite
+    (.andThen (.andThen (.eq (.byteAt text first) (.character 46)) (.gt first (.number 1)))
+      (.ne (.byteAt text (.sub first (.number 1))) (.character 46)))
+    (take (take first (.symbol ".")) (.word "input_is_valid")) (.number 0))) <|
+  .guard (.andThen (.gt wordAfter first) (.le wordAfter after)) (next wordAfter) <|
   .assign "word_after" (.app (.app (.function .nameAfter) text) first) <|
   .guard (.andThen (.gt wordAfter first) (.le wordAfter after))
     (.pair wordAfter (.not (.lexEqual text first wordAfter
@@ -132,9 +139,9 @@ theorem stepBody_model (text : Source) (position after targetFirst targetAfter :
       actualNameStep text position after targetFirst targetAfter := by
   dsimp +instances only [stepBody, Command.eval, ResultExpr.eval, Expr.eval, Calls.get,
     Field.get, stepLocals, Context.locals, Locals.set, Expressions.modelCalls,
-    modelPrimitives, actualNameStep]
+    modelPrimitives, spelling, isWord, ShellToken.word, ShellToken.symbol, actualNameStep]
   simp only [reduceCtorEq, String.reduceEq, ↓reduceIte, ↓reduceDIte,
-    decide_eq_true_eq, Bool.or_eq_true, Bool.and_eq_true]
+    decide_eq_true_eq, Bool.or_eq_true, Bool.and_eq_true, and_assoc]
 
 /-- The same typed AST can be interpreted under any inherited implementation
 whose raw source equations have already been connected to the existing models.
@@ -152,10 +159,19 @@ theorem stepBody_interpreted {domain : StateDomain} (calls : Expressions.Calls)
   have characterEq := interpreted_characterLiteral calls equations text textValid (skipAt text position) firstBound
   have quotedEq := interpreted_literal calls equations text textValid (skipAt text position) firstBound
   have wordEq := interpreted_name calls equations text textValid (skipAt text position) firstBound
+  have dotValid : ValidToken (.symbol ".") := by unfold ValidToken; decide +kernel
+  have selectorValid : ValidToken (.word "input_is_valid") := by unfold ValidToken; decide +kernel
+  have dotEq := interpreted_take calls equations text textValid (skipAt text position) (.symbol ".") firstBound dotValid
+  have dotBound := equations.ranges.token text textValid (skipAt text position) (.symbol ".") firstBound dotValid
+  rw [dotEq] at dotBound
+  have selectorEq := interpreted_take calls equations text textValid
+    (fixedAfter text (skipAt text position) "." false) (.word "input_is_valid") dotBound selectorValid
+  simp only [ShellToken.word, ShellToken.symbol, spelling, isWord] at dotEq selectorEq
   dsimp +instances only [stepBody, Command.eval, ResultExpr.eval, Expr.eval, Calls.get,
     Field.get, stepLocals, Context.locals, Locals.set, lexical, modelPrimitives]
+  simp only [ShellToken.word, ShellToken.symbol]
   simp only [reduceCtorEq, String.reduceEq, ↓reduceIte, ↓reduceDIte, firstEq, numberEq,
-    characterEq, quotedEq, wordEq, decide_eq_true_eq, Bool.or_eq_true, Bool.and_eq_true]
+    characterEq, quotedEq, wordEq, dotEq, selectorEq, decide_eq_true_eq, Bool.or_eq_true, Bool.and_eq_true, and_assoc]
   unfold actualNameStep
   dsimp only
   by_cases stopped : after ≤ skipAt text position

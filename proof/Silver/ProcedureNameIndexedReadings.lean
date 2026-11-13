@@ -55,9 +55,7 @@ theorem ActualNameFreeTrace.indexedSlice {text : Source}
   have openLimit : fixedAfter text (nameAfter text (skipAt text position)) "(" false ≤ limit := by omega
   have afterOpen := afterName.fixedSymbol (byte := '(') nameBound (by unfold OrdinarySymbol; decide) opening openLimit
   obtain ⟨lowerFree, afterLower⟩ := afterOpen.scalar lowerSource (by omega) targetFound targetBound
-  have afterRange := afterLower.fixedPair (left := '.') (right := '.') lowerBounds.2.2
-    (by unfold OrdinarySymbol; decide) (by unfold OrdinarySymbol; decide) (by decide) (by decide)
-    rangePositive (show fixedAfter text (indexedParts text position names scalarNames arrays initials elaborating false).lower.after ".." false ≤ limit by omega)
+  have afterRange := afterLower.fixedRange lowerBounds.2.2 rangePositive (show fixedAfter text (indexedParts text position names scalarNames arrays initials elaborating false).lower.after ".." false ≤ limit by omega)
   obtain ⟨upperFree, afterUpper⟩ := afterRange.scalar upperSource (by omega) targetFound targetBound
   exact ⟨lowerFree, upperFree,
     afterUpper.fixedSymbol (byte := ')') upperBounds.2.2 (by unfold OrdinarySymbol; decide) closing finishBound⟩
