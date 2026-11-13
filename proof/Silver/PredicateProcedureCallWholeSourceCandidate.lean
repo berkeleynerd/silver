@@ -1,6 +1,7 @@
 module
 
 public import Silver.PredicateProcedureCallWholeSourceParts.ProcedureTargetActual
+public import Silver.PredicateProcedureCallWholeSourceParts.BodyEquality
 public import Silver.PredicateProcedureCallWholeSourceParts.ProcedureActualAfter
 public import Silver.PredicateProcedureCallWholeSourceParts.ProcedureActualsModel
 public import Silver.PredicateProcedureCallWholeSourceParts.ProcedureActualsAfter
@@ -21,6 +22,7 @@ open Silver.Predicate.ProcedureCallNative
 adapter binds that token sequence to the freshly certified Ada source. -/
 theorem checked : SourceChecks.Checked Output.SourceShape.outputImplementation where
   trees := checked_trees
+  bodyEquality := Parts.bodyEquality
   headers := by
     intro item member
     simp only [SourceChecks.headers, List.mem_cons, List.mem_nil_iff, or_false] at member
