@@ -1,0 +1,622 @@
+{
+  "schema": 1,
+  "reviewed_at_utc": "2026-11-15T18:17:41.338840+00:00",
+  "reviewed_implementation_commit": "c38f0eedc824014b8500ca51532443936e8ac35c",
+  "direct_parent_commit": "a84039320f84ceafd4e1f3bc4b8f05024efa0b46",
+  "unchanged_native_source_snapshot": "8a03ab12265d7753f6ea603817561c83f84ea596",
+  "reviewer": {
+    "independent_of_author": true,
+    "selected_model": "GPT-6 Astra",
+    "selected_effort": "Max",
+    "selection_source": "parent critical review assignment",
+    "runtime_model_effort_independently_exposed": false,
+    "total_elapsed_seconds": null,
+    "tokens_or_cost_measurement": null
+  },
+  "disposition": "Accept the bounded seven-file normalization with no material finding; complete caller/authoritative-source/project integration remains required.",
+  "production_file_checks": {
+    "proof/Silver/FunctionSourceParts/FunctionParameterLocalHeaderTokens.lean": {
+      "sha256": "54cd9d0f08e36b395c610e10e98eb6a3e2c2ba7c3d8970a5495bdb9840fbe825",
+      "matches_reviewed_commit": true,
+      "matches_run_input_and_workspace": true
+    },
+    "proof/Silver/FunctionSourceParts/DeclarationHeaderParameterStepSpec.lean": {
+      "sha256": "93e8f6a99a66c46b153507f72dc00864a466b298fac47033df670e99389581ce",
+      "matches_reviewed_commit": true,
+      "matches_run_input_and_workspace": true
+    },
+    "proof/Silver/FunctionSourceParts/DeclarationHeaderParametersModelSpec.lean": {
+      "sha256": "fc11eba57c0d09a976936e3758e3e2cfa5edfcbd6064f7d7d22e9f6ea5f76a10",
+      "matches_reviewed_commit": true,
+      "matches_run_input_and_workspace": true
+    },
+    "proof/Silver/FunctionSourceParts/DeclarationHeaderParametersAtSpec.lean": {
+      "sha256": "41186dde368c316f03669dbe58b7078af0084aa9a1d5590024b912908ddd6120",
+      "matches_reviewed_commit": true,
+      "matches_run_input_and_workspace": true
+    },
+    "proof/Silver/FunctionSourceParts/DeclarationHeaderFunctionLocalAtSpec.lean": {
+      "sha256": "9a748195a30c11e4802127cc725a1b89947162f7cdc4ffe9948b9cb9b5725b7a",
+      "matches_reviewed_commit": true,
+      "matches_run_input_and_workspace": true
+    },
+    "proof/Silver/FunctionSourceParts/DeclarationHeaderFunctionLocalsSpec.lean": {
+      "sha256": "cabda34175c490d155305d200c3e56af1370242cc5114275fdb92fe39ba6d600",
+      "matches_reviewed_commit": true,
+      "matches_run_input_and_workspace": true
+    },
+    "proof/Silver/FunctionSourceParts/DeclarationHeaderParameterFrameSpec.lean": {
+      "sha256": "f378bf45ea321eea6d1a3041a2719e5598c1898b11fd136b21e84ec960dddde2",
+      "matches_reviewed_commit": true,
+      "matches_run_input_and_workspace": true
+    }
+  },
+  "exact_owned_proof_delta": true,
+  "native_source_scripts_project_unchanged": true,
+  "previously_accepted_helpers_unchanged": [
+    "proof/Silver/FunctionSourceParts/FunctionLocalsExpectedTokens.lean",
+    "proof/Silver/FunctionSourceParts/FunctionDeclarationHeaderExpectedTokens.lean"
+  ],
+  "catalogue_scanner_reviewed_source_consumer_and_trust_helper_unchanged": true,
+  "per_header_checks": [
+    {
+      "leaf_path": "proof/Silver/FunctionSourceParts/DeclarationHeaderParameterStepSpec.lean",
+      "name": "parameter_step",
+      "catalogue_index_zero_based": 2,
+      "terminator": ";",
+      "expected_characters": 695,
+      "expected_utf8_bytes": 695,
+      "expected_token_count": 147,
+      "original_statement_byte_identical": true,
+      "statement_sha256": "cd5a5292c10952a4b1a82abb35c3486c25a0094d1cc3f71f8f6d836c617751b1",
+      "original_expected_literal_sha256": "edda0ef62f3a0a45efbcbbc6b97523b0a83a1609ca3f08f872a8588b98bdc45e",
+      "literal_occurrences_compared": 4,
+      "literal_copies_equal": true,
+      "character_lists_compared": 2,
+      "character_lists_equal_original": true,
+      "leaf_helper_and_independently_lexed_tokens_identical": true,
+      "attribute_apostrophes_retained": true,
+      "complete_reviewed_tokens": 72713,
+      "named_headers": [
+        {
+          "function_token_index_zero_based": 63111,
+          "stop_token_index_zero_based": 63260,
+          "stop": ";",
+          "header_tokens": 147
+        },
+        {
+          "function_token_index_zero_based": 63261,
+          "stop_token_index_zero_based": 63278,
+          "stop": "is",
+          "header_tokens": 15
+        }
+      ],
+      "unique_specification_header_matches_expected": true
+    },
+    {
+      "leaf_path": "proof/Silver/FunctionSourceParts/DeclarationHeaderParametersModelSpec.lean",
+      "name": "parameters_model",
+      "catalogue_index_zero_based": 4,
+      "terminator": ";",
+      "expected_characters": 742,
+      "expected_utf8_bytes": 742,
+      "expected_token_count": 153,
+      "original_statement_byte_identical": true,
+      "statement_sha256": "600dd713ce3f0244a54d4144382e031c95c244bb839b2ce23002a73687b9fc9d",
+      "original_expected_literal_sha256": "59bfd11d618ad45625a5983af88e35875c97e539df699dc0c44c74e9f7ad26bf",
+      "literal_occurrences_compared": 4,
+      "literal_copies_equal": true,
+      "character_lists_compared": 2,
+      "character_lists_equal_original": true,
+      "leaf_helper_and_independently_lexed_tokens_identical": true,
+      "attribute_apostrophes_retained": true,
+      "complete_reviewed_tokens": 72713,
+      "named_headers": [
+        {
+          "function_token_index_zero_based": 63550,
+          "stop_token_index_zero_based": 63705,
+          "stop": ";",
+          "header_tokens": 153
+        },
+        {
+          "function_token_index_zero_based": 63706,
+          "stop_token_index_zero_based": 63723,
+          "stop": "is",
+          "header_tokens": 15
+        }
+      ],
+      "unique_specification_header_matches_expected": true
+    },
+    {
+      "leaf_path": "proof/Silver/FunctionSourceParts/DeclarationHeaderParametersAtSpec.lean",
+      "name": "parameters_at",
+      "catalogue_index_zero_based": 6,
+      "terminator": ";",
+      "expected_characters": 722,
+      "expected_utf8_bytes": 722,
+      "expected_token_count": 150,
+      "original_statement_byte_identical": true,
+      "statement_sha256": "e3d06aabc8cdc222f491cee0a32f03af43b9ecda036ba8b7ae4c51a40e046076",
+      "original_expected_literal_sha256": "12692be9e71aa55e07ef1a75d4696a00a5090e5b6dfe3da40687a19bb3cf5bcd",
+      "literal_occurrences_compared": 4,
+      "literal_copies_equal": true,
+      "character_lists_compared": 2,
+      "character_lists_equal_original": true,
+      "leaf_helper_and_independently_lexed_tokens_identical": true,
+      "attribute_apostrophes_retained": true,
+      "complete_reviewed_tokens": 72713,
+      "named_headers": [
+        {
+          "function_token_index_zero_based": 63774,
+          "stop_token_index_zero_based": 63926,
+          "stop": ";",
+          "header_tokens": 150
+        },
+        {
+          "function_token_index_zero_based": 63927,
+          "stop_token_index_zero_based": 63944,
+          "stop": "is",
+          "header_tokens": 15
+        }
+      ],
+      "unique_specification_header_matches_expected": true
+    },
+    {
+      "leaf_path": "proof/Silver/FunctionSourceParts/DeclarationHeaderFunctionLocalAtSpec.lean",
+      "name": "function_local_at",
+      "catalogue_index_zero_based": 8,
+      "terminator": ";",
+      "expected_characters": 713,
+      "expected_utf8_bytes": 713,
+      "expected_token_count": 134,
+      "original_statement_byte_identical": true,
+      "statement_sha256": "03f6730548d2a9fb3552cfdb3379a9f8e9a68bd8a7a1aa11fb0a953c4e7acf92",
+      "original_expected_literal_sha256": "d5ce2189df908949c6134323a01ddd30c4a38250456567d67ee29e4ec1fc5c20",
+      "literal_occurrences_compared": 4,
+      "literal_copies_equal": true,
+      "character_lists_compared": 2,
+      "character_lists_equal_original": true,
+      "leaf_helper_and_independently_lexed_tokens_identical": true,
+      "attribute_apostrophes_retained": true,
+      "complete_reviewed_tokens": 72713,
+      "named_headers": [
+        {
+          "function_token_index_zero_based": 64124,
+          "stop_token_index_zero_based": 64260,
+          "stop": ";",
+          "header_tokens": 134
+        },
+        {
+          "function_token_index_zero_based": 64261,
+          "stop_token_index_zero_based": 64278,
+          "stop": "is",
+          "header_tokens": 15
+        }
+      ],
+      "unique_specification_header_matches_expected": true
+    },
+    {
+      "leaf_path": "proof/Silver/FunctionSourceParts/DeclarationHeaderFunctionLocalsSpec.lean",
+      "name": "function_locals",
+      "catalogue_index_zero_based": 12,
+      "terminator": ";",
+      "expected_characters": 794,
+      "expected_utf8_bytes": 794,
+      "expected_token_count": 153,
+      "original_statement_byte_identical": true,
+      "statement_sha256": "07bdf89fd998d92db9d2081de21c5d5ea92401d3b0ab79f869cb09f270ef0789",
+      "original_expected_literal_sha256": "84d26f595eed64f09579ff221d72a3f4e08a929f990a28a1f471584018553efd",
+      "literal_occurrences_compared": 4,
+      "literal_copies_equal": true,
+      "character_lists_compared": 2,
+      "character_lists_equal_original": true,
+      "leaf_helper_and_independently_lexed_tokens_identical": true,
+      "attribute_apostrophes_retained": true,
+      "complete_reviewed_tokens": 72713,
+      "named_headers": [
+        {
+          "function_token_index_zero_based": 64565,
+          "stop_token_index_zero_based": 64720,
+          "stop": ";",
+          "header_tokens": 153
+        },
+        {
+          "function_token_index_zero_based": 64721,
+          "stop_token_index_zero_based": 64738,
+          "stop": "is",
+          "header_tokens": 15
+        }
+      ],
+      "unique_specification_header_matches_expected": true
+    },
+    {
+      "leaf_path": "proof/Silver/FunctionSourceParts/DeclarationHeaderParameterFrameSpec.lean",
+      "name": "parameter_frame",
+      "catalogue_index_zero_based": 17,
+      "terminator": ";",
+      "expected_characters": 697,
+      "expected_utf8_bytes": 697,
+      "expected_token_count": 142,
+      "original_statement_byte_identical": true,
+      "statement_sha256": "b367cbc37e43e3350deccd80be9d668fe2cebfd829acd1c709d9109624fe345f",
+      "original_expected_literal_sha256": "ce78c9cada81616ff1502966d5478d88f290a6386ea94f6374b8a9f12437f11e",
+      "literal_occurrences_compared": 4,
+      "literal_copies_equal": true,
+      "character_lists_compared": 2,
+      "character_lists_equal_original": true,
+      "leaf_helper_and_independently_lexed_tokens_identical": true,
+      "attribute_apostrophes_retained": true,
+      "complete_reviewed_tokens": 72713,
+      "named_headers": [
+        {
+          "function_token_index_zero_based": 65196,
+          "stop_token_index_zero_based": 65340,
+          "stop": ";",
+          "header_tokens": 142
+        },
+        {
+          "function_token_index_zero_based": 65341,
+          "stop_token_index_zero_based": 65354,
+          "stop": "is",
+          "header_tokens": 11
+        }
+      ],
+      "unique_specification_header_matches_expected": true
+    }
+  ],
+  "verification_method": "Independent Python literal/character/token extraction, full reviewed-source unique-header extraction, source/artifact hashing and read-only proof/evidence review. No additional proof job for this review.",
+  "focused_run": {
+    "run_id": "20261115T180831-555601b89ece",
+    "host": "linux-aarch64",
+    "lean_version": "4.34.1",
+    "targets": [
+      "Silver.FunctionSourceParts.DeclarationHeaderParameterStepSpec",
+      "Silver.FunctionSourceParts.DeclarationHeaderParametersModelSpec",
+      "Silver.FunctionSourceParts.DeclarationHeaderParametersAtSpec",
+      "Silver.FunctionSourceParts.DeclarationHeaderFunctionLocalAtSpec",
+      "Silver.FunctionSourceParts.DeclarationHeaderFunctionLocalsSpec",
+      "Silver.FunctionSourceParts.DeclarationHeaderParameterFrameSpec"
+    ],
+    "scope": "focused",
+    "clean_build": false,
+    "axiom_audit": "passed",
+    "kernel_recheck": null,
+    "threads_per_process": 12,
+    "lake_workers": 1,
+    "memory_mb_per_process": 8192,
+    "phases": [
+      {
+        "phase": "build",
+        "started_at": "2026-11-15T18:08:36.054731+00:00",
+        "finished_at": "2026-11-15T18:13:54.206911+00:00",
+        "elapsed_seconds": 318.152,
+        "exit_code": 0
+      },
+      {
+        "phase": "audit",
+        "started_at": "2026-11-15T18:13:54.569736+00:00",
+        "finished_at": "2026-11-15T18:13:56.871213+00:00",
+        "elapsed_seconds": 2.301,
+        "exit_code": 0
+      }
+    ],
+    "elapsed_seconds": 326.604,
+    "inputs_digest_sha256": "fde0d54ff9d585c615e161cfe918b5ccb288d658f38b1724709d5b66400a6d62",
+    "log_sha256": "d11bb66ebb03d7c4796ceb142907bc3313f5b7f1275d804f218da8e8092f5e5b",
+    "tools_sha256": {
+      ".tools/linux-aarch64/lean/bin/lean": "79fb1d26fa5a39385d59fdc48a711a14b0710ca6480271acce99b4d177cea085",
+      ".tools/linux-aarch64/lean/bin/lake": "f80f50cbab5322e35bcb0bf88937e22e9d908b5e4e336e83ddfc30eb1506aacf"
+    }
+  },
+  "audit": {
+    "modules": [
+      "Silver.Admission",
+      "Silver.ArgumentsAdmission",
+      "Silver.ArgumentsRuntime",
+      "Silver.ArrayBindings",
+      "Silver.ArrayLayout",
+      "Silver.AxiomAudit",
+      "Silver.Bindings",
+      "Silver.BooleanArrays",
+      "Silver.BooleanBindings",
+      "Silver.BooleanModel",
+      "Silver.CertificateWitness",
+      "Silver.CharacterExpressions",
+      "Silver.ComposeAdmission",
+      "Silver.ComposeArrayExpressions",
+      "Silver.ComposeAtomAdmission",
+      "Silver.ComposeAtomReading",
+      "Silver.ComposeAtoms",
+      "Silver.ComposeBindingBounds",
+      "Silver.ComposeBooleanDeclarationNative",
+      "Silver.ComposeBooleanDeclarationSource",
+      "Silver.ComposeBounds",
+      "Silver.ComposeCharacterReading",
+      "Silver.ComposeContracts",
+      "Silver.ComposeDeclarationAdmission",
+      "Silver.ComposeExpression",
+      "Silver.ComposeExpressions",
+      "Silver.ComposeIndexedReading",
+      "Silver.ComposeStringNative",
+      "Silver.Cursor",
+      "Silver.Expressions",
+      "Silver.FunctionBindings",
+      "Silver.FunctionDeclarationAdmission",
+      "Silver.FunctionDeclarationNative",
+      "Silver.FunctionDeclarationPreservation",
+      "Silver.FunctionDeclarationSource",
+      "Silver.FunctionSourceParts.DeclarationHeaderFunctionLocalAtSpec",
+      "Silver.FunctionSourceParts.DeclarationHeaderFunctionLocalsSpec",
+      "Silver.FunctionSourceParts.DeclarationHeaderParameterFrameSpec",
+      "Silver.FunctionSourceParts.DeclarationHeaderParameterStepSpec",
+      "Silver.FunctionSourceParts.DeclarationHeaderParametersAtSpec",
+      "Silver.FunctionSourceParts.DeclarationHeaderParametersModelSpec",
+      "Silver.FunctionSourceParts.FunctionParameterLocalHeaderTokens",
+      "Silver.GuardedDecimal",
+      "Silver.IntegerArraySnapshots",
+      "Silver.IntegerArrays",
+      "Silver.IntegerChecks",
+      "Silver.IntegerComparisons",
+      "Silver.IntegerDeclarations",
+      "Silver.IntegerDivision",
+      "Silver.IntegerExpressions",
+      "Silver.IntegerImage",
+      "Silver.IntegerIntervals",
+      "Silver.IntegerIteration",
+      "Silver.IntegerLiteral",
+      "Silver.IntegerMutable",
+      "Silver.IntegerSubtypeBindings",
+      "Silver.Lexical",
+      "Silver.NamedAdmission",
+      "Silver.NamedIdentifier",
+      "Silver.Names",
+      "Silver.NamesEquations",
+      "Silver.NamesExpressions",
+      "Silver.OutputAdmission",
+      "Silver.OutputLiteral",
+      "Silver.OutputRuntime",
+      "Silver.PathBounds",
+      "Silver.PathFacts",
+      "Silver.PredicateArrayFlow",
+      "Silver.PredicateBodyFacts",
+      "Silver.PredicateBodyPrimitives",
+      "Silver.PredicateBodyScanner",
+      "Silver.PredicateCallAdmission",
+      "Silver.PredicateChecking",
+      "Silver.PredicateConditionAdmission",
+      "Silver.PredicateConditionFlow",
+      "Silver.PredicateConditionFlowValidity",
+      "Silver.PredicateCountedBoundModel",
+      "Silver.PredicateFlowBounds",
+      "Silver.PredicateFlowInvariant",
+      "Silver.PredicateFlowOperations",
+      "Silver.PredicateFlowOverlay",
+      "Silver.PredicateFlowStorage",
+      "Silver.PredicateFlowWidening",
+      "Silver.PredicateNativeState",
+      "Silver.PredicateProcedureCallAdmission",
+      "Silver.PredicateSemantics",
+      "Silver.PredicateSyntax",
+      "Silver.PredicateXorAdmission",
+      "Silver.ProcedureBindings",
+      "Silver.ProcedureDeclarationAdmission",
+      "Silver.ProcedureDeclarationModel",
+      "Silver.ProcedureDeclarationPreservation",
+      "Silver.ProcedureHeaderAdmission",
+      "Silver.ProcedureNameScanner",
+      "Silver.ReviewedOutputShape",
+      "Silver.ScalarArrayExpressionGrammar",
+      "Silver.ScalarArrayExpressionRecognition",
+      "Silver.ScalarExpression",
+      "Silver.ScalarExpressionAdmission",
+      "Silver.ScalarExpressionBounds",
+      "Silver.ScalarExpressionEnvironment",
+      "Silver.ScalarExpressionGrammar",
+      "Silver.ScalarExpressionRecognition",
+      "Silver.ScalarFlow",
+      "Silver.ScalarLiteral",
+      "Silver.SourceDeclarations",
+      "Silver.SourceLexer",
+      "Silver.StringExecution",
+      "Silver.StringIndexing",
+      "Silver.StringLengthRefinement",
+      "Silver.StringLengths",
+      "Silver.StringObjectBounds"
+    ],
+    "module_count": 112,
+    "declaration_count": 15639,
+    "foundations": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "exact_runner_log_digest_verified": true
+  },
+  "provenance": {
+    "current_input_files_verified": 1108,
+    "input_mismatches": [],
+    "workspace_input_inventory_count": 1003,
+    "artifact_inventory_count": 752,
+    "selected_current_artifacts_verified": {
+      ".lake/build/lib/lean/Silver/FunctionSourceParts/DeclarationHeaderFunctionLocalAtSpec.olean": "e1ce49ac251e815c8f71ecce7283acd1bfe20b986f62931602aff97fd515c411",
+      ".lake/build/lib/lean/Silver/FunctionSourceParts/DeclarationHeaderFunctionLocalAtSpec.olean.hash": "d21dab23cd211dfb55ff1202a1a8fc7f115e341c2a55ca0463adc289580189e8",
+      ".lake/build/lib/lean/Silver/FunctionSourceParts/DeclarationHeaderFunctionLocalAtSpec.olean.private": "cf94ca47d7da8b34a1b212528d66b07fa096438987fd99d4ae8656bc30f63755",
+      ".lake/build/lib/lean/Silver/FunctionSourceParts/DeclarationHeaderFunctionLocalAtSpec.olean.private.hash": "b898cd9d71cb6670c235c669e59f9113c3833d2f3401946c3fdca0b6ee6245ee",
+      ".lake/build/lib/lean/Silver/FunctionSourceParts/DeclarationHeaderFunctionLocalAtSpec.olean.server": "799c9f9a1dd664ca984846faa96f4297cd4640993176d4a116fa558b31768540",
+      ".lake/build/lib/lean/Silver/FunctionSourceParts/DeclarationHeaderFunctionLocalAtSpec.olean.server.hash": "3e3b16937f0f677371722fe5595a8a43b5b8e4095e1582f5e9b274abf1c07590",
+      ".lake/build/lib/lean/Silver/FunctionSourceParts/DeclarationHeaderFunctionLocalsSpec.olean": "0c5f5ba7928e7eaeb0d8f9d48750c8f2a396c9a5088649556ea21210f5485ae2",
+      ".lake/build/lib/lean/Silver/FunctionSourceParts/DeclarationHeaderFunctionLocalsSpec.olean.hash": "1e6efaeb131b6f93898264bce24d1a7111ea07cf6d2684287d3dd905e03f697f",
+      ".lake/build/lib/lean/Silver/FunctionSourceParts/DeclarationHeaderFunctionLocalsSpec.olean.private": "0c453e0871fdf5f50e4f3d74f507c4cd26dbe077c4c94c769c93a5060d4827b8",
+      ".lake/build/lib/lean/Silver/FunctionSourceParts/DeclarationHeaderFunctionLocalsSpec.olean.private.hash": "906fe0994e62e20d6e73a9867a7f2d1da8cf8a9916c78bd6f6855642b1e0c46e",
+      ".lake/build/lib/lean/Silver/FunctionSourceParts/DeclarationHeaderFunctionLocalsSpec.olean.server": "6ca01d4b57467e4d6f59f9d806d692fb6417429c1917536a9de84efa41fe7392",
+      ".lake/build/lib/lean/Silver/FunctionSourceParts/DeclarationHeaderFunctionLocalsSpec.olean.server.hash": "ce73a29ab60f8459c89b6d4a055400476f653cb6ad891e015a57e247b5cdc543",
+      ".lake/build/lib/lean/Silver/FunctionSourceParts/DeclarationHeaderParameterFrameSpec.olean": "ceadfc37ea23e5bf0a601951c901a784fa7cc616389184564008da52786896bd",
+      ".lake/build/lib/lean/Silver/FunctionSourceParts/DeclarationHeaderParameterFrameSpec.olean.hash": "c042a9c579db3bf26189814eb50e289ebbcde8cc745b26d21eb93c3c2bd91f12",
+      ".lake/build/lib/lean/Silver/FunctionSourceParts/DeclarationHeaderParameterFrameSpec.olean.private": "94fe335be3d90a702539031b0b53a273cc806a54f9cfa5e9a7c4332c3c258276",
+      ".lake/build/lib/lean/Silver/FunctionSourceParts/DeclarationHeaderParameterFrameSpec.olean.private.hash": "b9ffd97ce2c751cd716c7f88e07d02598d63aee1159ba253d8a34a5c8aa66da5",
+      ".lake/build/lib/lean/Silver/FunctionSourceParts/DeclarationHeaderParameterFrameSpec.olean.server": "9e04f47eb0c4c03a23150378a6022c53350e85c8bd7b744018cd789c0d97e488",
+      ".lake/build/lib/lean/Silver/FunctionSourceParts/DeclarationHeaderParameterFrameSpec.olean.server.hash": "e74e988821902bb75d2c19a427fa1ddd7bc0c87b05b08a567728a9f7a1acc065",
+      ".lake/build/lib/lean/Silver/FunctionSourceParts/DeclarationHeaderParameterStepSpec.olean": "f750f9442bd4718946240e9cebee7bf3a666f3b6828a966d0b1b4a3ae7764add",
+      ".lake/build/lib/lean/Silver/FunctionSourceParts/DeclarationHeaderParameterStepSpec.olean.hash": "b72501a692d2db6ab7ff296850282e861ec84b8b544fbbe003f5aed96936b8d6",
+      ".lake/build/lib/lean/Silver/FunctionSourceParts/DeclarationHeaderParameterStepSpec.olean.private": "9219356044bef850639daefce8f934f089ccb66d1bc697a576b2b5ffe35d2d8c",
+      ".lake/build/lib/lean/Silver/FunctionSourceParts/DeclarationHeaderParameterStepSpec.olean.private.hash": "a68dc22428da1a7546ef297a7a7a8bcf07437ffeee07697536124ba1a32b4fdc",
+      ".lake/build/lib/lean/Silver/FunctionSourceParts/DeclarationHeaderParameterStepSpec.olean.server": "d82b3e9e42060b58db5afd2e9134b3853b1b0267ed1ad55991e76df893c3d009",
+      ".lake/build/lib/lean/Silver/FunctionSourceParts/DeclarationHeaderParameterStepSpec.olean.server.hash": "a3e4bf77f42a4631ce79fab900bd9d9cf60176cb7e7a8bc7540cd0c5fb253481",
+      ".lake/build/lib/lean/Silver/FunctionSourceParts/DeclarationHeaderParametersAtSpec.olean": "0f400a5ed3603321834bd854e1f49c4fd3189187e9e42b71edc08a98feafdd45",
+      ".lake/build/lib/lean/Silver/FunctionSourceParts/DeclarationHeaderParametersAtSpec.olean.hash": "9e6e05988a61993514287d05ad0e0ba3ba6178a5d50e0acd65b0528648277816",
+      ".lake/build/lib/lean/Silver/FunctionSourceParts/DeclarationHeaderParametersAtSpec.olean.private": "a4f7872cbecbf040719e81924f10a4a6102c70481db575847c9ba13deb808616",
+      ".lake/build/lib/lean/Silver/FunctionSourceParts/DeclarationHeaderParametersAtSpec.olean.private.hash": "b352c5f2566d2e03ca6bd30794f3bca734c81025c3c30ff34e6a31dd8b56fe2b",
+      ".lake/build/lib/lean/Silver/FunctionSourceParts/DeclarationHeaderParametersAtSpec.olean.server": "3a063bc8025e3ffdae629d03de3ed753fe79c0ac544a6749b87c28cc56c0f309",
+      ".lake/build/lib/lean/Silver/FunctionSourceParts/DeclarationHeaderParametersAtSpec.olean.server.hash": "4a9d70fec62ae5381f5212a03a304dbf7c88efcfef35de7f9d10afc2cb267f6c",
+      ".lake/build/lib/lean/Silver/FunctionSourceParts/DeclarationHeaderParametersModelSpec.olean": "09684d19196cc06040fff7649426ed60cc43a54cbddd15af0344675ec303c043",
+      ".lake/build/lib/lean/Silver/FunctionSourceParts/DeclarationHeaderParametersModelSpec.olean.hash": "cde2a47b56830f630bc509c4708eff2724120528f85fb0eb2a789f91031ac9dd",
+      ".lake/build/lib/lean/Silver/FunctionSourceParts/DeclarationHeaderParametersModelSpec.olean.private": "9fbcd01b0d177f2ada4d03853c2e03e5137e736fa6c2a880183a8c9d26764720",
+      ".lake/build/lib/lean/Silver/FunctionSourceParts/DeclarationHeaderParametersModelSpec.olean.private.hash": "f16036a5910b3abbf4d2306ee625f11293a6af2c4653509550bb9cce081ee695",
+      ".lake/build/lib/lean/Silver/FunctionSourceParts/DeclarationHeaderParametersModelSpec.olean.server": "f414b842a4937573e5d327571e530f928c3523dc62b40a91604c06e5c019a4d7",
+      ".lake/build/lib/lean/Silver/FunctionSourceParts/DeclarationHeaderParametersModelSpec.olean.server.hash": "61933a68e1ae1edbdbd5bf8917d2b2cc96f8fba2ad45734afe62cef400f3eaeb",
+      ".lake/build/lib/lean/Silver/FunctionSourceParts/FunctionParameterLocalHeaderTokens.olean": "ff0b114fd43cf423ab52c258fb78205cb7a51b354cad8b649517c47b0b57cb92",
+      ".lake/build/lib/lean/Silver/FunctionSourceParts/FunctionParameterLocalHeaderTokens.olean.hash": "e1eb77ca790571557a29665e67389f43adfb0b758acc68d70c25071bce687b4c",
+      ".lake/build/lib/lean/Silver/FunctionSourceParts/FunctionParameterLocalHeaderTokens.olean.private": "d27fbe50b2610a854d04a49da8e6835cf83a840273c10a4c526c363394f50b14",
+      ".lake/build/lib/lean/Silver/FunctionSourceParts/FunctionParameterLocalHeaderTokens.olean.private.hash": "28daccb238166457ff53b225aa7330bff472eb11049f878806ddef841be19a83",
+      ".lake/build/lib/lean/Silver/FunctionSourceParts/FunctionParameterLocalHeaderTokens.olean.server": "36ac4ecd52ec13f466e35a261b0cedc94ca008685b08859c2e0e753cad54cbee",
+      ".lake/build/lib/lean/Silver/FunctionSourceParts/FunctionParameterLocalHeaderTokens.olean.server.hash": "1b3803948202513521816b579d7a990ad736aabda3914f192c5cb66a22182c0f"
+    },
+    "retired_control_or_probe_entries": {
+      "modules": [],
+      "inputs_sha256": [],
+      "workspace_inputs_sha256": [],
+      "artifacts_sha256": []
+    }
+  },
+  "monitor": {
+    "command": [
+      "python3",
+      "scripts/check_lean.py",
+      "--target",
+      "Silver.FunctionSourceParts.DeclarationHeaderParameterStepSpec",
+      "--target",
+      "Silver.FunctionSourceParts.DeclarationHeaderParametersModelSpec",
+      "--target",
+      "Silver.FunctionSourceParts.DeclarationHeaderParametersAtSpec",
+      "--target",
+      "Silver.FunctionSourceParts.DeclarationHeaderFunctionLocalAtSpec",
+      "--target",
+      "Silver.FunctionSourceParts.DeclarationHeaderFunctionLocalsSpec",
+      "--target",
+      "Silver.FunctionSourceParts.DeclarationHeaderParameterFrameSpec",
+      "--workers",
+      "1",
+      "--memory-mb",
+      "8192",
+      "--provenance",
+      "--task",
+      "370-parameter-local-header-capacity",
+      "--reason",
+      "Systematic bounded class repair after695-character ParameterStepSpec and834/839-character header memory failures: normalize exact expected strings for only six remaining declaration specs of at least695characters. Preserve all statements/full-source extractors, frozen src/scripts8a03ab122, prior successful helper modules/cache. One worker/default12threads/8GiB with10GiBtree/1.5GiBhost guards; certificate line buckets3GiB and native2workers coordinated."
+    ],
+    "cwd": "/home/agent/silver-worktrees/procedures-lean-370",
+    "started_at": "2026-11-15T18:08:30.698473+00:00",
+    "peak_sum_rss_kib": 4909936,
+    "peak_process_rss_kib": 3861312,
+    "minimum_mem_available_kib": 10257968,
+    "pid": 64701,
+    "returncode": 0,
+    "elapsed_seconds": 330.476705740999,
+    "finished_at": "2026-11-15T18:14:01.175164+00:00",
+    "interrupted": false
+  },
+  "predecessor_failure": {
+    "observed_failed_leaf": "DeclarationHeaderParameterStepSpec",
+    "other_five_individual_failures_claimed": false,
+    "classification": "Explicit kernel memory failure in the leaf followed by controlled interruption of caller attempt; no successful caller audit.",
+    "monitor": {
+      "command": [
+        "python3",
+        "scripts/check_lean.py",
+        "--target",
+        "Silver.FunctionSourceCandidate",
+        "--workers",
+        "1",
+        "--memory-mb",
+        "8192",
+        "--provenance",
+        "--task",
+        "370-function-source-capacity",
+        "--reason",
+        "Bounded caller gate after complete focused success of repaired loop and two largest headers on final native source; proof/src/scripts match integration1684b88fa. One Lake worker/default12threads/8192MiB; own10GiBtree/1.5GiBhost guards; stop source group on first new explicit kernel-memory failure for diagnosis. Certificate limited to3GiB line buckets; native2workers."
+      ],
+      "cwd": "/home/agent/silver-worktrees/procedures-lean-370",
+      "started_at": "2026-11-15T18:01:30.375929+00:00",
+      "peak_sum_rss_kib": 8945840,
+      "peak_process_rss_kib": 8391264,
+      "minimum_mem_available_kib": 5355040,
+      "pid": 57532,
+      "diagnostic_interruption": {
+        "pattern": "(kernel) excessive memory consumption detected",
+        "sample": {
+          "elapsed_seconds": 95.08542329500051,
+          "sum_rss_kib": 2178448,
+          "mem_available_kib": 13442384,
+          "processes": [
+            {
+              "pid": 57532,
+              "rss_kib": 82640,
+              "command": "python3 scripts/check_lean.py --target Silver.FunctionSourceCandidate --workers 1 --memory-mb 8192 --provenance --task 370-function-source-capacity --reason Bounded caller gate after complete focused success of repaired loop and two largest headers on final native source; proof/src/scripts match integration1684b88fa. One Lake worker/default12threads/8192MiB; own10GiBtree/1.5GiBhost guards; stop source group on first new explicit kernel-memory failure for diagnosis. Certificate limited to3GiB line buckets; native2workers. "
+            },
+            {
+              "pid": 57808,
+              "rss_kib": 470480,
+              "command": "/home/agent/silver-worktrees/procedures-lean-370/.tools/linux-aarch64/lean/bin/lake --rehash --reconfigure -K silverThreads=12 -K silverMemoryMb=8192 build +Silver.FunctionSourceCandidate +Silver.AxiomAudit "
+            },
+            {
+              "pid": 58582,
+              "rss_kib": 1625328,
+              "command": "/home/agent/silver-worktrees/procedures-lean-370/.tools/linux-aarch64/lean/bin/lean -j12 -M8192 -DwarningAsError=true /home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/proof/Silver/FunctionSourceParts/DeclarationHeaderParameterStepImpl.lean -o /home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/FunctionSourceParts/DeclarationHeaderParameterStepImpl.olean -i /home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/FunctionSourceParts/DeclarationHeaderParameterStepImpl.ilean -c /home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/proof/.lake/build/ir/Silver/FunctionSourceParts/DeclarationHeaderParameterStepImpl.c --setup /home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/proof/.lake/build/ir/Silver/FunctionSourceParts/DeclarationHeaderParameterStepImpl.setup.json --json "
+            }
+          ]
+        }
+      },
+      "returncode": -2,
+      "elapsed_seconds": 100.08919833900109,
+      "finished_at": "2026-11-15T18:03:10.465117+00:00",
+      "interrupted": true
+    }
+  },
+  "control_applicability": {
+    "earlier_negative_run": "20261115T173611-b27c8626e3d1",
+    "earlier_positive_run": "20261115T173725-aa334a489da8",
+    "prior_review": "review-function-header-memory.md",
+    "unchanged_mechanism_hashes": {
+      "proof/Silver/CertificateWitness.lean": "7f64ba1832d59532bdfcf56d06cfb3d9589fdb71c2e39e0bc88326b2d8757f2d",
+      "proof/Silver/SourceDeclarations.lean": "8fa7137ece364ade168a57abb4532e4f108eb9794f287c8d7bc69e9e12cb4dee",
+      "proof/Silver/SourceLexer.lean": "6c2824f4ed5b303b3a3f3ec94d8cdb650ffbd86103eef842a32a3c6f3755a8eb"
+    },
+    "same_lean_and_lake_hashes": true,
+    "scope": "Reuse of reviewed wrong-character and missing-token checks for unchanged kernel_exact, String.toList_ofList and lexical normalization mechanism. No fresh controls against these six texts and no claim that ordinary-body duplicate fixtures test header extraction. Exact full-source header statements and independent extraction are separately checked."
+  },
+  "evidence_file_sha256": {
+    "caller-failure-summary.json": "f8a62e341180499a8141663fd30e02ebdeb2e1aae94512de4849adfa78dd2258",
+    "README.md": "13a9b98fa7f79a459c27d06af39c1776838dfebce56b0a97476c02415c3b4f16",
+    "focused-success-resources.jsonl.gz": "6bf29c1aee30aa3585a38c40325924f6d115c8af66f6eebe387191d25a65a78a",
+    "focused-success-launcher.log.gz": "f43d3facd8fcb5ae85ce494ee4bd0a3bb214ea717828305626cc7780f307978b",
+    "caller-failure-resources.jsonl.gz": "3ff35d0bdd0306b8f473362056d00f33208a48f8431dc79decf602b6e59063ee",
+    "focused-success-evidence.json.gz": "1b4dbf7333a188d65c7eaae2848797642da00291f704bef5d0883c18ed3dc297",
+    "input-review.json": "ad6c7701af116572f096c52bacff8ba08439bb13ac9224bc50107dca94c0a37a",
+    "focused-success-summary.json": "f198f7fbf7c9e56c40acc31da5b5cf7cab5891a04a5ac8823e06f00d67de3081",
+    "focused-success-runner.log.gz": "85d9141b2a1575fb50c6946506c8f2bf11205fcb5e02f49b7ab810a5598aef72",
+    "caller-failure-launcher.log.gz": "b6d81b92f8857dff40435a76ddf92c7a62da0b3a8237d13928140a814aefaca2"
+  },
+  "remaining_scope": [
+    "FunctionSourceCandidate and downstream authoritative-source/facade integration.",
+    "Whole-project Lean module/axiom/provenance audit and remaining native/regression gates.",
+    "Incremental Linux aarch64 focused evidence only; no clean build, independent replay, macOS run or resource-independent guarantee."
+  ],
+  "handoff": {
+    "production_files_or_caches_modified_by_reviewer": false,
+    "additional_proof_jobs_for_this_review": false,
+    "separate_native_audit_run": "20261115T174959-94ae5c6fdf63",
+    "native_audit_status_at_review": "ongoing; no success claim",
+    "github_writes": false,
+    "cli_memory_updated": false
+  }
+}
