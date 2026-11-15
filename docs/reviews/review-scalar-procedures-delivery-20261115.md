@@ -327,3 +327,98 @@ record. No proof/build/test/application or cache-writing job, GitHub edit or
 CLI-memory update was performed by this reviewer. The live harness goal remains
 null. Broader native, complete Lean/source, build, regression and delivery
 acceptance remain pending; no additional production repair is requested here.
+
+## Addendum — predicate flow source fields, 2026-11-15
+
+**Disposition: accepted for integration and the complete-project retry; no
+material finding.** This continuation reviews
+`24115ffd292d0839716627c29c16a57be0dbb6d2` against reviewed production
+`88e3d0a9f`. Only `PredicateFlowSourceCandidate.lean` and the new
+`PredicateFlowExpectedTokens.lean` change. The
+[independent record](../evidence/scalar-procedures-20261115/delivery-review/predicate-flow-normalization-review.json)
+records exact source/data comparisons and diagnostic evidence identities.
+
+Complete run `20261115T201746-8829535d867a` remains failed/interrupted. Its three
+grouped constructor proofs reported kernel-memory failures; the subsequent
+native-helper candidate was interrupted by source-only SIGINT. The retained
+record distinguishes author-collected outer session `76081` exit 254 from
+monitored child return -2. No full audit occurred; 656 completed objects were
+retained. I matched the original failed source and retained runner log to their
+recorded identities.
+
+The exact retained 17-field probe separately checks the four counted-bound,
+eight flow and five reader propositions against the original full source. It
+failed naturally with exit 1, without interruption, reporting errors only in
+`CountedBoundNative.Checked.spec` and `FlowSourceBridge.Checked.joined`. No
+successful probe audit ran. In particular the five reader fields' lack of
+diagnostics does **not** establish audited success. Factoring their proofs tests
+the aggregation hypothesis; it is not a finding that a reader literal failed.
+
+| Confirmed failing field | Exact normalized fragment | Characters / tokens |
+| --- | --- | --- |
+| Counted-bound specification | Suffix after unchanged `CountedBoundNative.header` | 601 / 130 |
+| Joined-flow header | Long postcondition suffix after `joinedValue.render` | 776 / 226 |
+
+For both fragments, original definitions, copied literals, both complete
+character lists and helper/leaf token lists agree. Independent lexical
+extraction agrees with the token lists. The counted-bound proof retains its
+original header. The joined-flow proof retains `joinedCount.render`,
+`joinedPath.render`, `joinedValue.render`, every other literal fragment, their
+concatenation order and closing tokens. Independent extraction from all
+**72,713** reviewed implementation tokens finds exactly one matching complete
+**159-token** counted specification and **328-token** joined specification.
+Full-source header selection and singleton rejection remain kernel obligations.
+
+Each new helper uses checked `String.toList_ofList` before the unchanged
+alphabet/fuel/lexer computation. The affected constructor fields still prove
+their original complete-source equalities through `kernel_exact`; other
+constructor fields retain `decide +kernel`. No source, renderer, contract,
+domain, selector, source pin or authoritative transport changes.
+
+All five original private theorem statements and the public `checked` statement
+and assembly are byte-identical. The five added private reader lemmas state
+exactly the original `FlowReaders.Checked` fields, each proved with
+`decide +kernel`, and are assembled into the unchanged `native_readers_checked`.
+The complete scalar/String specifications, their `scalarRhs.render` and
+`stringRhs.render` pieces and closers remain unchanged in `PredicateFlowReaders`;
+no reader literal is normalized. Restoring only the three assigned constructor
+proof bodies and removing the two imports/five new private reader lemmas
+reconstructs the original candidate exactly. Boolean-binding and xor proofs
+remain untouched. No field, source contract, domain or obligation is removed,
+and no project axiom or bypass is added.
+
+Managed gate **`20261115T204311-34308bc25803` passed** the whole
+`PredicateFlowSourceCandidate`, including both new helper contracts, all five
+private reader proofs and their original caller. The fresh imported audit covers
+**132 modules / 21,861 declarations**, using only `propext`, `Classical.choice`
+and `Quot.sound`. Build/audit phases exited zero in 243.339 s / 1.302 s. Managed
+termination records success, and the monitor records exit zero with no guard
+or interruption. The author reported collecting original session `55580` with
+exit zero, relayed by the lead; this reviewer inspected retained evidence and
+did not consume that execution session.
+
+I independently checked all **1,113 input, 1,008 workspace, 3,944 artifact and
+two executable hashes**, the input digest, actual audit-module list and exact
+runner-log digest:
+`87a465b531897629bc9c6d954d1d5797cfcb69861312711ffb530c54ae21f2d2`.
+The author commit and integrated repair `451b5761a` have identical production
+proof/source/script/test bytes. The retired `PredicateFlowFieldProbe` is absent
+from production, synchronized source and the successful input/module/artifact
+inventories. Durable packet `1007c1724` matches the original inspected evidence,
+runner log and terminal summary. Artifact hashes establish
+identity; the fresh audit covers the specified imported closure.
+
+The successful candidate establishes the complete reader obligations; the failed
+probe still supplies no audited success. The combined repair does not prove that
+aggregation was the sole cause of the earlier reader-memory error. It passes
+the original complete goals under the unchanged one-worker/twelve-thread/
+8,192-MiB allocation. Sampled process/tree RSS peaks are 7,273,168 / 8,331,392 KiB;
+monitored elapsed time is 255.286 s. This is incremental focused evidence, not a
+clean build, replay or universal memory bound. Prior mechanism corruption
+controls are not claimed as new extractor or reader tests. Broader native,
+complete Lean/source, build, regression and delivery acceptance remain pending.
+
+Selected settings remain **GPT-6 Astra / Max**; runtime, token and cost telemetry
+are unavailable. The evidence record timestamps exact comparisons. This reviewer
+launched no proof/build/test/application or cache-writing job, edited no GitHub
+state and updated no CLI memory. The live harness goal remains null.
