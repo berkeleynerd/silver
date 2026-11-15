@@ -1,0 +1,25 @@
+{
+  "command": [
+    "python3",
+    "scripts/check_lean.py",
+    "--workers",
+    "1",
+    "--memory-mb",
+    "8192",
+    "--provenance",
+    "--task",
+    "370-complete-lean-recovery",
+    "--reason",
+    "Complete cached continuation on independently accepted frozen production 32c6fbca5 after exact imperative-loop literal normalization and full focused ProcedureNameSourceCandidate success 20261115T214559-235d06a3549a: actual 116 modules / 14774 declarations. Preserve original public loop statement, every imperative statement/invariant/variant/return, complete ordinaryFunction selector, other parts and semantic scanner connection. Independent critical review accepted the patch and terminal/hash evidence. Preserve all 681 completed objects, all six prior complete-failure packets and matching focused successes; all 678 objects predating this repair remain byte-identical. Textual Audit closure reaches all 1009 modules; actual whole-project module/axiom/source/provenance audit remains required. No clean build, replay or duplicate passed gate. One worker/default 12 threads/8192 MiB is justified by measured dense single-module trees near 9 GiB on the 15.8 GiB host; native audit/build completed. Existing 10 GiB source-tree/1.5 GiB host-headroom/first-memory-diagnostic source-only guards. Parent released this allocation after focused success and independent acceptance. Preserve and diagnose any new failure before another broad attempt; native source/scripts unchanged."
+  ],
+  "cwd": "/home/agent/silver-worktrees/procedures-lean-370",
+  "started_at": "2026-11-15T21:52:23.714214+00:00",
+  "peak_sum_rss_kib": 9836544,
+  "peak_process_rss_kib": 8788832,
+  "minimum_mem_available_kib": 7277152,
+  "pid": 317003,
+  "returncode": 0,
+  "elapsed_seconds": 695.7655344150007,
+  "finished_at": "2026-11-15T22:03:59.479747+00:00",
+  "interrupted": false
+}

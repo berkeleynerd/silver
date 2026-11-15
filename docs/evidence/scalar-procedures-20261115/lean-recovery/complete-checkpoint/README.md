@@ -1,5 +1,11 @@
 # Complete Lean/source checkpoint recovery — 2026-11-15
 
+The [final complete cached checkpoint](final-complete-cached/README.md) passed
+on frozen production `32c6fbca5`: actual whole-project coverage of 1,009 modules,
+162,269 audited declarations, and verified input/artifact/tool continuity. The
+preparation and intermediate outcomes below remain historical; all six failed
+complete attempts and their focused repairs are preserved separately.
+
 ## Frozen production and ordered gates
 
 At entry, this workspace's production `proof/`, `src/` and `scripts/` exactly

@@ -1,0 +1,22 @@
+{
+  "run_id": "20261115T215223-28e04bff3fce",
+  "production_revision": "32c6fbca5",
+  "verified_at": "2026-11-15T22:06:25.774716+00:00",
+  "checked_hash_counts": {
+    "inputs_sha256": 1116,
+    "workspace_inputs_sha256": 1011,
+    "artifacts_sha256": 6046,
+    "tools_sha256": 2
+  },
+  "all_captured_hashes_match": true,
+  "complete_actual_imported_modules": 1009,
+  "actual_audit_line": "Silver axiom audit passed: 162269 declarations; foundations: [propext, Classical.choice, Quot.sound]",
+  "exact_managed_log_sha256": "171b56cb0a57abd689bb711d6ab7e1d4eb06069aa11df925b01136ef8287d40d",
+  "prior_module_objects_unchanged": 681,
+  "prior_variant_hash_files_unchanged": 4082,
+  "prior_object_files_changed_or_missing": [],
+  "terminal_exec_session": 79079,
+  "terminal_exec_exit_code": 0,
+  "interrupted": false,
+  "kernel_replay_performed": false
+}
