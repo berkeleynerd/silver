@@ -53,3 +53,30 @@ frozen production bytes. No broader leaf rewrite, source/extractor change,
 relaxed obligation, larger global memory setting or complete project retry has
 been selected. The next bounded caller boundary is `FunctionSourceCandidate`,
 with a controlled stop at its first new memory-pattern failure for diagnosis.
+
+## Control applicability and next boundary
+
+The lead authorized reuse of the already retained wrong-character and omitted-
+token controls in the parent recovery packet. Their checked path is unchanged:
+`CertificateWitness.kernel_exact`, `String.toList_ofList`, `expectedTokens`,
+`lexLine`, the alphabet predicate, lexer and fresh private/transitive audit have
+identical definitions. The new helper instantiates the same closed proof
+pattern with two new exact strings and complete token lists. Independent
+comparison verifies all four copies of each string, both character lists and
+both token lists against the original source-check expectations. No new
+metaprogram, equality primitive or trusted computation is introduced. Repeating
+the identical mechanism controls would add no distinct implementation coverage.
+
+The earlier ordinary-body duplicate fixtures are not claimed as tests of the
+header extractor. `functionHeader` itself is unchanged; the two exact
+whole-source equalities freshly verify its complete unique-header result on
+all final reviewed source tokens. The public theorem statements, including
+their original indexed expected specifications, remain unchanged.
+
+The proposed next target is `Silver.FunctionSourceCandidate`, the smallest
+assembler of all inherited function-source leaves. It runs with one worker,
+default 12 threads and the existing 8 GiB threshold; its own process group is
+controlled-stopped on the first new explicit kernel-memory diagnostic, before
+spending a broad run on repeated instances. Completed objects and any original
+failure remain preserved. A failure followed by a controlled stop must be
+recorded as such, not recast as success or a merely unexplained interruption.
