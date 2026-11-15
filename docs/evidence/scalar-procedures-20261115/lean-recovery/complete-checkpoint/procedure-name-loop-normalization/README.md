@@ -49,6 +49,43 @@ speculative normalization is part of this repair.
 
 | Work | Model / effort | Current result | Available cost evidence |
 | --- | --- | --- | --- |
-| Exact procedure-name loop source normalization | Selected Astra Max; live lead setting not independently exposed | Repair prepared; complete focused gate and independent acceptance pending | Complete failed attempt 120.211 s monitored elapsed; token and whole-team costs unavailable |
+| Exact procedure-name loop source normalization | Selected Astra Max; live lead setting not independently exposed | Complete focused candidate passed; independent acceptance and whole-project continuation pending | Complete failure 120.211 s and focused success 15.018 s monitored elapsed; token and whole-team costs unavailable |
 
 Complete source/facade/module/axiom/provenance assurance remains outstanding.
+
+## Complete focused success and preserved objects
+
+Run `20261115T214559-235d06a3549a` passed on production `32c6fbca5`.
+Original execution session `80078` returned exit 0 with no interruption or guard.
+The expected-token helper built in 448 ms, the original complete loop equality
+in 3.5 s, and `ProcedureNameSourceCandidate` in 155 ms. Managed build elapsed
+was 5.643 s; the fresh audit elapsed was 0.817 s and covered **116 imported
+project modules / 14,774 declarations**, with only `propext`, `Classical.choice`
+and `Quot.sound` as foundations. The six original headers, record, step, model,
+loop and structural guards therefore pass together with the new helper.
+
+The original loop literal, imperative statements, invariants, variant, returns,
+closing tokens, complete source selector and public theorem statement remain
+unchanged. Passing the same complete equality after only checked normalization
+supports the established literal-decoding memory diagnosis. This remains
+focused partial validation, with prior dependencies preserved rather than rebuilt.
+
+The run used one worker, automatic twelve threads and 8,192 MiB. Monitored
+elapsed was 15.018 s. Five-second resource sampling recorded peak process RSS
+951,440 KiB, tree RSS 1,385,184 KiB, and minimum host availability 15,390,160 KiB;
+these samples are not a precise maximum or a general resource bound.
+
+All **1,116 input, 1,011 workspace-input, 4,082 artifact and two tool hashes**
+were reverified after original terminal collection. All **678** previous ordinary
+objects and 4,064 variant/hash files remain byte-identical. Exact managed and
+outer logs, evidence, resource samples, summary, events and hash verification are
+retained here. Exact managed log SHA-256 is
+`d24a707f0efeea9ecb7240fc3022d44905eab772195939886b2b9508104ec98f`.
+
+The textual `Silver.Audit` closure reaches all **1,009** current project modules,
+with no missing project import or unreachable module. There are 681 ordinary
+objects present and 328 modules without an object. This is preflight and object
+presence, not a complete audit. Independent critical acceptance of the patch
+and this terminal evidence, plus resource coordination, precede the next full
+cached continuation. No clean build or kernel replay was performed; the passed
+focused gate should be retained without repetition.
