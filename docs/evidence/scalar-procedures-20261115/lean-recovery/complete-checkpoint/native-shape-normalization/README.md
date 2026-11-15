@@ -59,6 +59,45 @@ objects and prior evidence; no clean build, replay or repeat of successful gates
 
 | Work | Model / effort | Current result | Available cost evidence |
 | --- | --- | --- | --- |
-| Exact failed-header normalization and source correspondence | Selected Astra Max; live lead setting not independently exposed | Six-header repair prepared; focused validation and independent acceptance pending | Complete failed attempt 665.628 s; token and whole-team costs unavailable |
+| Exact failed-header normalization and source correspondence | Selected Astra Max; live lead setting not independently exposed | Six-header repair and complete focused candidate passed; final evidence review and whole-project continuation pending | Complete failed attempt 665.628 s; focused success 285.288 s monitored elapsed; token and whole-team costs unavailable |
 
 No complete-source/facade or whole-project assurance is claimed by this record.
+
+## Complete focused success and retained continuity
+
+Run `20261115T210927-f5ecbbed5260` passed on immutable production `3c94de830`.
+The original execution session `18170` returned exit 0, with no interruption or
+guard. The new helper completed in 2.2 s, followed by the complete candidate.
+Managed build elapsed was 272.099 s and fresh audit elapsed was 1.172 s.
+The actual imported environment contains **127 project modules and 21,408 audited
+declarations**, using only `propext`, `Classical.choice` and `Quot.sound`.
+
+All six normalized header helpers and the original complete source-shape
+candidate pass together at the unchanged memory threshold. All **63** original
+private theorem statements and the original `Checked` fields/public assembly
+remain unchanged; only the six diagnosed proof bodies changed. The initial
+input-review record's count of 58 came from incomplete multiline parsing; the
+corrected inventory explicitly compares all 63 statements. This is an evidence
+count correction and changes no production proof or validation input.
+
+The run used one worker, automatic twelve Lean threads and 8,192 MiB. Sampled
+peak process RSS was 4,252,992 KiB, peak tree RSS was 5,296,592 KiB, and minimum
+host availability was 11,302,496 KiB. Monitored elapsed was 285.288 s. These are
+observed measurements for this run, not resource guarantees for other modules.
+
+After terminal collection, all **1,114 input, 1,009 workspace-input, 3,962 artifact
+and two tool hashes** were reverified. All **659** prior ordinary objects and
+3,950 variant/hash files remain byte-identical. Exact success evidence, managed
+and outer logs, resources, summary, events and verification are retained here.
+The exact managed log SHA-256 is
+`5dd4f2fbd93910de0ced79ecb108a00a2c22719a108090f9ba0120fda51c345e`.
+
+Textual `Silver.Audit` import preflight reaches all **1,007** current project
+modules with no missing project import or unreachable module. There are 661
+retained ordinary objects, with 346 modules lacking an object. This is a textual
+preflight and object-presence inventory; the complete cached continuation must
+still establish actual whole-project module coverage, axiom auditing, stable
+inputs and source correspondence. No clean build or kernel replay was performed.
+The exact patch received independent static acceptance while the focused check
+ran; independent acceptance of this terminal evidence and coordinated resource
+release precede the next complete continuation. Do not repeat the passed gate.

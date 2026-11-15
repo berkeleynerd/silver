@@ -1,6 +1,6 @@
 {
   "base": "24115ffd2",
-  "original_private_theorem_statement_count": 58,
+  "original_private_theorem_statement_count": 63,
   "all_original_theorem_statements_byte_identical": true,
   "changed_private_proof_bodies": [
     "native_boolean_factor_model_spec_header",

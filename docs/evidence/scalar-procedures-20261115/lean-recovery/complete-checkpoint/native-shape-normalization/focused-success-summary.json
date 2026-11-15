@@ -1,0 +1,27 @@
+{
+  "command": [
+    "python3",
+    "scripts/check_lean.py",
+    "--target",
+    "Silver.PredicateNativeShapeCandidate",
+    "--workers",
+    "1",
+    "--memory-mb",
+    "8192",
+    "--provenance",
+    "--task",
+    "370-native-shape-normalization",
+    "--reason",
+    "Full focused native shape candidate after six individually isolated specification-header kernel-memory failures in complete run 20261115T205032-5834a8189332. Immutable repair 3c94de830 normalizes only the six original expected literals, retains every original theorem statement, full-source extractor, native definition/contract/domain and public checked assembly, and checks all six complete helper contracts with the complete candidate. Preserve all 659 prior objects and every retained failure/success. One worker/default 12 Lean threads/8192 MiB because the productive two-worker native audit shares the 15.8 GiB host; original 10 GiB source-tree/1.5 GiB host-headroom/first-kernel-memory diagnostic source-only guards. No clean/replay or repeat of successful earlier gates. Full focused success plus independent critical acceptance required before complete cached continuation."
+  ],
+  "cwd": "/home/agent/silver-worktrees/procedures-lean-370",
+  "started_at": "2026-11-15T21:09:27.091353+00:00",
+  "peak_sum_rss_kib": 5296592,
+  "peak_process_rss_kib": 4252992,
+  "minimum_mem_available_kib": 11302496,
+  "pid": 287532,
+  "returncode": 0,
+  "elapsed_seconds": 285.28766171999814,
+  "finished_at": "2026-11-15T21:14:12.379004+00:00",
+  "interrupted": false
+}
