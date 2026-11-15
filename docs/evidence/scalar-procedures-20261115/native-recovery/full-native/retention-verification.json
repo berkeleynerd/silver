@@ -1,0 +1,8 @@
+{
+  "verified_at": "2026-11-15T21:22:41.220387+00:00",
+  "archive_members_verified": 119,
+  "manifest_report_hashes_verified": 80,
+  "direct_manifest_matches_archive": true,
+  "direct_summary_files_match_archive": true,
+  "source": "read-only terminal provenance/coverage/input/tool checks and archive-member SHA-256 verification"
+}
