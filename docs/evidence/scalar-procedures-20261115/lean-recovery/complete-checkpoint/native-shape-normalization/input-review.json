@@ -1,0 +1,66 @@
+{
+  "base": "24115ffd2",
+  "original_private_theorem_statement_count": 58,
+  "all_original_theorem_statements_byte_identical": true,
+  "changed_private_proof_bodies": [
+    "native_boolean_factor_model_spec_header",
+    "native_boolean_relation_model_spec_header",
+    "native_condition_model_spec_header",
+    "native_condition_tail_spec_header",
+    "native_primary_model_spec_header",
+    "native_relation_model_spec_header"
+  ],
+  "all_other_private_proofs_byte_identical": true,
+  "public_checked_assembly_byte_identical": true,
+  "isolated_headers": [
+    {
+      "line": 196,
+      "theorem": "native_primary_model_spec_header",
+      "definition": "primary_model_spec_header",
+      "characters": 701,
+      "tokens": 149
+    },
+    {
+      "line": 202,
+      "theorem": "native_relation_model_spec_header",
+      "definition": "relation_model_spec_header",
+      "characters": 705,
+      "tokens": 149
+    },
+    {
+      "line": 220,
+      "theorem": "native_condition_tail_spec_header",
+      "definition": "condition_tail_spec_header",
+      "characters": 948,
+      "tokens": 196
+    },
+    {
+      "line": 226,
+      "theorem": "native_condition_model_spec_header",
+      "definition": "condition_model_spec_header",
+      "characters": 709,
+      "tokens": 149
+    },
+    {
+      "line": 262,
+      "theorem": "native_boolean_factor_model_spec_header",
+      "definition": "boolean_factor_model_spec_header",
+      "characters": 729,
+      "tokens": 149
+    },
+    {
+      "line": 272,
+      "theorem": "native_boolean_relation_model_spec_header",
+      "definition": "boolean_relation_model_spec_header",
+      "characters": 737,
+      "tokens": 149
+    }
+  ],
+  "unchanged_definition_file_sha256": {
+    "proof/Silver/PredicateNativeSourceChecks.lean": "5b7f3ce573bef9bb3ad953163fc18057654a2a229d8dc8703fa9d8a4413455ce"
+  },
+  "files_sha256": {
+    "proof/Silver/PredicateNativeShapeCandidate.lean": "8da5656266a27dbc53c540dd299bfaa2e40901c42fcf02569f30a82592fa8d00",
+    "proof/Silver/PredicateNativeShapeExpectedTokens.lean": "ecaf1bc608b24ee0a7337343ba11bfe0acef2531839017fe2e2095d38277f4fc"
+  }
+}
