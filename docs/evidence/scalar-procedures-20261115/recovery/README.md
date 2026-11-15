@@ -559,3 +559,28 @@ change in integration while these test inputs are frozen.
 
 Full regression success, Rosetta/support reconciliation and final independent
 delivery acceptance remain outstanding. PR #371 remains draft.
+
+### Complete Lean accepted; regression fixture diagnosis
+
+Independent acceptance `3620b9d9b` verifies the complete Lean packet, actual
+module/declaration scope, all captured hashes, regenerated candidates, source
+bindings and continuity with the accepted native inputs. Both complete proof
+checkpoints and the final compiler build now have independent acceptance.
+
+The still-running full suite has reported one actual failure in
+`LeanModuleTests.test_output_body_chunks_reuse_objects_across_content_and_occurrence_edits`.
+The original run continues with its frozen inputs; the terminal traceback and
+complete inventory are pending. Read-only inspection found that this test's
+isolated fixture omits `CertificateJoinWitness`, which the current aggregate
+generator imports. The earlier generator change updated the companion source
+fixture but missed this module-reuse fixture. This is a concrete dependency
+omission and a likely explanation, not yet a verified resolution of the
+observed failure.
+
+A bounded patch is being prepared in the separate author worktree: add only
+that copied helper dependency and correct the cold-build count comment. All
+reuse/invalidation assertions, eleven edit variants, audit checks, memory
+settings and watchdogs remain unchanged. No production, generator or active
+suite input changes are authorized. The full traceback and a focused complete
+repair run after suite release must establish the actual result; independent
+review must account for every final test identity before delivery acceptance.
