@@ -1,0 +1,10 @@
+{
+  "at": "2026-11-15T17:41:02.522215+00:00",
+  "reason": "Root instructed controlled stop because final native source SHA9ede490b6cf72b352a39072cd37f4ef39774409c6024135487cf076567b59b9c supersedes old frozen source; required final-source validation will reuse matching objects after integrated commit arrives.",
+  "verified_pid": 12931,
+  "verified_pgid": 12931,
+  "cwd": "/home/agent/silver-workspaces/recovery-volume/certificate",
+  "command": "python3 scripts/check_lean.py --target Silver.OutputBodyCertificate --workers 1 --memory-mb 8192 --provenance --task #370-certificate-memory --reason Complete actual outputcertificate after compacthelper/fullsizejoin/kernelmutation success;16GiBARM64host and concurrentnative<=3GiB require one Lakeworker/default12Leanthreads/8192MiBthreshold. Process-tree10GiB and host1.5GiBguards; no omitted bytes/tokens/audit; sourceSHA619f4fb8e2b0f318dac7c6278d5f644198816ce7733959ed71ca03917546b2b8 ",
+  "signal": "SIGINT",
+  "not_a_memory_failure": true
+}

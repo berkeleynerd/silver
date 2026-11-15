@@ -73,6 +73,38 @@ authoritative sources: all 31 non-output sources generate byte-identical
 certificates. The unrelated stale `OutputSpecCertificate` must be refreshed by
 integration before final whole-suite acceptance; no parity test was weakened.
 
+## Superseded-source target: controlled interruption
+
+Managed target `20261115T171603-ba92994a4018` started at 17:16:03 UTC with
+one Lake worker, 12 Lean threads and an 8,192 MiB per-process threshold.
+`OutputBodyLines0` through `OutputBodyLines4` completed in 282, 229, 227, 263
+and 250 seconds respectively. The output aggregate itself had not started.
+
+At 17:41:02 UTC the lead explicitly directed a stop because the final native
+ghost-constant repair had superseded the target's source bytes. After checking
+PID 12931's command, workspace and process group, the owner sent SIGINT only to
+that group. The managed state is **interrupted / KeyboardInterrupt**, with
+1,499.508 managed seconds; the child returned -2 and the launcher exited 130.
+There was no OOM or memory-limit failure. The sampled tree peak was
+2,689,908,736 bytes (2.51 GiB), and minimum available host memory was
+10,744,905,728 bytes. No old group member remained afterward.
+
+Bucket 5 was interrupted; the aggregate and final fresh audit did not run.
+The monitor summary's automatic-guard field is null because this was the
+separately recorded required-source stop, not a resource-guard interruption.
+All completed objects remain in place; 217 artifact files were inventoried.
+The complete 1,105 original checked inputs still matched the captured hashes,
+and they and all 40 generated candidates were archived with byte verification.
+The `output-aggregate-interrupted-*` files retain the manifest, inputs,
+events and object identities; adjacent logs/resource samples retain the stop.
+
+The final native source hash is
+`9ede490b6cf72b352a39072cd37f4ef39774409c6024135487cf076567b59b9c`.
+It changes line buckets 0, 1, 3, 4 and 6. Completed bucket 2 and matching
+dependencies remain reusable through normal Lake input checks. The next run
+must first receive the lead's frozen integrated source, proof and pin commit;
+the interrupted result supplies no complete certificate assurance.
+
 ## Retention and remaining work
 
 `focused-runs.json` retains the managed events; logs, successful detailed input
@@ -90,8 +122,12 @@ other hosts' artifacts were preserved. The source stream uses a separate
 workspace and managed worker reservation; expensive runs are coordinated with
 the independent function-source and native diagnosis streams.
 
-Independent critical review, actual aggregate validation, final-source
-regeneration and complete native/Lean/source/provenance/regression checkpoints
-remain outstanding. No publication, issue closeout or capability support is
-claimed here. This named memory-design investigation selected Astra / Ultra;
-runtime model/effort telemetry was not independently available.
+The independent critical review accepted helper/core commit `a33c7cba9` without
+a material finding; its report is in the sibling Lean-recovery packet. The
+[native ghost-constant and exact-pin review](review-native-ghost-constant.md)
+also found no material issue within its bounded scope. Actual aggregate
+validation, final-source regeneration and complete native/Lean/source/
+provenance/regression checkpoints remain outstanding. No publication, issue
+closeout or capability support is claimed here. This named memory-design
+investigation selected Astra / Ultra; runtime model/effort telemetry was not
+independently available.
