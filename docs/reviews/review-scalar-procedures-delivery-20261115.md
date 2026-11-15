@@ -931,3 +931,131 @@ with no project code imported or validator/proof/build/test/application/cache
 job launched. No GitHub state or CLI memory changed; the live harness goal is
 null. The running suite and subsequent validation remain with their assigned
 owners.
+
+## Addendum — complete regression inventory and bounded repairs, 2026-11-15
+
+**Accepted for the current inputs before the final Rosetta change; no material
+finding.** Under the reviewed reuse provision in `development.md`, all **691
+distinct IDs** are accounted for: **26 fresh passes, 663 retained passes and two
+expected platform skips**. Every originally failing or fixture-affected test
+has a fresh successful result. The original complete suite remains failed;
+this is explicit composition of its applicable successes with the two complete
+affected-file reruns. The
+[independent inventory record](../evidence/scalar-procedures-20261115/delivery-review/regression-inventory-review.json)
+lists the exact fresh, retained and skipped IDs, packet identities and settings.
+Final feature acceptance still requires the twelve affected Rosetta tests on
+their final inputs and coordinated support/delivery records.
+
+| Retained execution | Actual result | Role in current coverage |
+| --- | --- | --- |
+| Full suite `20261115T220916-99f1eaeea331`, packet `485cf8800` | 691 IDs: 687 pass, two failing IDs, two expected skips; four failure results because the scalar ID has three failed subtests | Retain 663 unaffected successes and both platform skips; preserve every failure |
+| Complete `test_lean_modules.py`, `20261115T222916-4123afb6a6ad`, packet `951fe6b96` | Three pass; no failure or skip | Fresh coverage of the repaired fixture and both other methods in its file |
+| Complete unchanged `test_scalar_guards.py`, `20261115T223501-c0b18e3fdea3`, packet `eb0dcec68` | Twenty-three pass; no failure or skip | Fresh coverage under the measured, explicit 16 MiB child-stack environment |
+
+I independently parsed the original and focused logs and matched every emitted
+ID/result to its retained inventory. There are **57 distinct module paths over
+56 test source files**: nine `tests.test_shared_bindings` alias IDs are distinct
+from their direct-import counterparts. Static method inspection, including five
+inherited methods, accounts for all 682 normalized method identities. There is
+no missing, unexpected or duplicate full ID. The two actual skips match their
+existing Linux-x86_64 guards: the counted-loop frame regression and the
+190,000-argument vector regression. No scalar boundary case was skipped.
+
+The original fixture traceback confirms the predicted missing
+`Silver.CertificateJoinWitness.lean` at the first build assertion, line 217,
+before its edit loop. The repaired complete file passes on the exact reviewed
+`ad57b660…` test bytes. All eleven emitted mutation records match independently
+reconstructed source bytes, line/occurrence counts, changed SHA-256 buckets and
+reused buckets; all eight chunks retain all three recorded object variants.
+The unchanged 19 assertion sites, fresh audits, stale-source rejection and
+byte/mtime checks execute successfully. The static preparation finding is now
+resolved by terminal evidence.
+
+The scalar traceback separately retains `Storage_Error` at counts/depths
+0/2001, 1/1993 and 32/1765. Its unchanged method now passes all three exact
+4,096-byte admissions and all three 4,097-byte status-2 rejections. The child
+records a **16,777,216-byte soft / unlimited hard** stack before shell `exec`;
+its shell PID, monitor child and managed runner are the same process. The exact
+launch script preserves those limits across `exec`. Parent observations remain
+**8,388,608-byte soft / unlimited hard**. The failed separate later `/proc`
+inspection is explicitly disclosed and supplies no observation. The direct
+child record plus the retained launch script is sufficient; no successful run
+was repeated to replace the missing second observation.
+
+All **31 / 29 / 34 archive members** match their recorded sizes and hashes;
+retained original managed logs/events match the packets. All **1,316 regression
+and 2,606 native input hashes**, twelve native tools, two Lean tools and both
+compiler binaries were independently checked. Prepared and terminal inventories
+agree, and native inputs equal the already accepted complete-audit manifest.
+The only regression-input difference from the failed full suite is the reviewed
+method-local fixture repair; 1,315 inputs are unchanged. Its entire file was
+rerun. Native source, proof, generator, runner, shared harness and other test
+inputs remain unchanged. The original 85-sample manifest test and maximum
+dynamic-expression test both pass and remain applicable; sample evidence does
+not replace complete assurance.
+
+Original sessions 84822 / 87322 / 58002 were collected by the execution owner
+with exits **1 / 0 / 0**. I inspected retained records, not those sessions. The
+full managed run records exit 1; the two successful managed records have overall
+`returncode: null`, with monitor exits zero. Their automatic reservations are
+twelve workers; the Lean fixture's internal one-thread/2,048-MiB settings remain
+unchanged. All 172 / 14 / 5 resource samples reconcile with terminal summaries;
+no guard or interruption is recorded. Sampled values retain their measurement
+limits. No native proof, compiler build or whole-project Lean check was repeated.
+
+The **663 retained passes** keep their original observed environments and exact
+input scope. Increasing only the scalar rerun child's stack does not alter their
+code, fixtures or original successes. Setup documentation and CI configuration
+are not runtime inputs to these test methods. The twelve Rosetta IDs currently
+belong to the retained set; successful final-metadata reruns will instead give
+**38 fresh passes, 651 retained passes and two skips**, subject to checking their
+exact inputs and terminal evidence. No unseen future delta is accepted here.
+
+## Addendum — measured ARM64 stack environment and setup, 2026-11-15
+
+**Accepted scoped diagnosis and configuration; no material finding.** Immutable
+packet `cd8cba92a` changes only its twenty evidence files, which match the
+inspected originals. The
+[independent environment record](../evidence/scalar-procedures-20261115/delivery-review/arm64-stack-environment-review.json)
+records exact fixture reconstruction, native identities, object-code and
+executing-stack comparisons, documentation and CI scope.
+
+All 27 controlled results match the unchanged accepted binary: the three exact
+4,096-byte inputs fail at 8 MiB; at 12 MiB only count 32/depth 1765 passes; all
+three pass at 16 MiB. Every oversize companion rejects with status 2 and every
+shallow control passes. The earlier overgeneralized 12 MiB progress statement
+is corrected by the retained raw matrix. No depth, source domain, expected
+status, contract, obligation, test skip or compiler option changes.
+
+The ten held contract-wrapper/body frames sum to **6,416 bytes per grouping
+level**. I matched all **4,770 instruction words** in the retained selected
+disassembly directly to the captured AArch64 ELF object's `.text` bytes. Each
+of the three executing GDB traces independently descends **64,160 bytes over
+ten groups** along the same call route. The corresponding recursive products
+are 12,838,416 / 12,787,088 / 11,324,240 bytes; they omit startup, transient
+leaves and runtime work and are not total-stack upper bounds. They explain the
+measured failures without attributing a maximum-sized flow-vector copy to every
+level or claiming universal 16 MiB sufficiency.
+
+The existing trusted boundary already requires sufficient stack and memory and
+rejects universal interpretations of historical 8 MiB observations. Documentation
+commit `b3b24a574` correctly replaces the current general 8 MiB setup advice
+with a measured Linux ARM64 16 MiB invocation setting, requires actual-limit
+evidence, preserves historical platform/build scopes and states that the
+compiler does not raise limits automatically. Source membership and existing
+assurance premises remain unchanged.
+
+CI commit `3d8748a41` applies that soft limit only when the native test step has
+`RUNNER_OS=Linux` and `RUNNER_ARCH=ARM64`, before its unchanged command. Reversing
+that block reproduces the prior workflow exactly. Retained four-branch shell
+observations match the conditional behavior and keep their actual Linux ARM64
+host scope. They establish configuration/branch behavior, not executed GitHub
+CI or native validation on the simulated other platforms.
+
+Selected reviewer settings remain **GPT-6 Astra / Max**; live model/effort and
+token/cost telemetry are unavailable. I ran only stdlib/Git source, data, hash
+and ELF-byte inspection; no project validator, build/proof/test/application,
+debugger, disassembler or cache-writing job was launched. No GitHub state or
+CLI memory changed. Complete native and Lean/source acceptance remains
+applicable; the live harness goal is null. Final Rosetta and coordinated
+delivery review remain open, with no merge or deferred-work authorization.
