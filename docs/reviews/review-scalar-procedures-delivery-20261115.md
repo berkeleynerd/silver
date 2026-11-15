@@ -873,3 +873,61 @@ inspection, with no project validator, proof/build/test/bootstrap/application or
 cache-writing job. No GitHub state or CLI memory changed. The live harness goal
 remains null. Full-suite execution and final delivery reconciliation remain with
 the lead, outside this bounded acceptance.
+
+## Addendum — isolated output-chunk fixture dependency, 2026-11-15
+
+**Accepted bounded preparation; no material static finding.** Immutable repair
+`121eba820` adds `CertificateJoinWitness` to one method-local copied dependency
+list in `tests/test_lean_modules.py` and changes its cold-build comment from
+17 to 18 modules. Reverting exactly those two replacements reproduces the
+original file byte-for-byte, which matches validated production `32c6fbca5`.
+No other proof, native, generator, runner or test input changes. The only other
+commit addition is the diagnosis note. The
+[independent record](../evidence/scalar-procedures-20261115/delivery-review/lean-output-chunk-fixture-review.json)
+contains the exact hashes, dependency graph and preserved assertion sites.
+
+The generator imports `Silver.CertificateJoinWitness` whenever it emits an
+output-body aggregate with the eight line modules, including this small fixture.
+The original fixture omitted that helper. Its only Silver dependency chain is
+`CertificateJoinWitness → SourceLexer → Cursor → Admission → Lexical`; all
+remaining members were already copied. The aggregate, eight chunks, copied
+dependencies and independent module form an exact **18-module** fixture closure.
+The helper's other imports belong to the pinned Lean toolchain. The fixture
+uses a fresh temporary workspace and removes inherited Lean/Lake/Elan search
+overrides; the inspected toolchain paths contain no installed copy of the
+missing helper. The new dependency is therefore necessary and completes this
+fixture's project import graph.
+
+All **19 assertion call sites** within the method remain byte-identical, as do
+the complete **eleven mutation variants**: replacement, append, insertion,
+unique deletion, reordering, repetition, repeated-occurrence deletion, CRLF,
+final-newline removal, added empty line and empty source. The test still rejects
+stale certificates after authoritative-byte changes with restored mtime; checks
+the exact affected content buckets; verifies aggregate/provider invalidation;
+preserves unaffected generated-source and three object-variant bytes/mtimes;
+runs initial and per-variant fresh audits; and resets/rebuilds the original
+source after each edit. One worker/thread, 2,048 MiB, the 180-second build and
+60-second other-command watchdogs, and warning-as-error settings are unchanged.
+
+This is **not yet resolution of the reported regression failure**. At assignment,
+full suite `20261115T220916-99f1eaeea331` was still running on frozen integration
+inputs under the designated monitor; its terminal traceback was not supplied.
+The static omission must be checked against that actual failure location and
+diagnostic. After the suite releases its lease, the complete affected method
+must pass, including every edit and its `OUTPUT_BODY_CONTENT_REUSE` observations.
+No integration input was changed for this review and no reviewer test ran.
+
+The method-local patch leaves shared setup and the other test methods unchanged,
+so it supports a one-method repair rerun for this change, subject to the actual
+terminal failures and any additional input changes. No successful result is
+declared reused here. Under `development.md`, final regression acceptance still
+requires the complete **691-ID** inventory, every failed/affected test, applicable
+retained successes and the two expected platform skips. The later Rosetta edit
+has its own twelve affected tests. Final feature acceptance remains pending.
+
+Selected settings remain **GPT-6 Astra / Max**; live model/effort and token/cost
+telemetry are unavailable. I performed only immutable-source/data inspection,
+with no project code imported or validator/proof/build/test/application/cache
+job launched. No GitHub state or CLI memory changed; the live harness goal is
+null. The running suite and subsequent validation remain with their assigned
+owners.
