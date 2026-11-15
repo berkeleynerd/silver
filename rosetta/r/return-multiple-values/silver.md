@@ -1,6 +1,6 @@
 # Return multiple values
 
-**Candidate: proofs likely to discharge automatically.** Prepared delivery mapping: the cached Ada solution uses a procedure with two out parameters, and the bounded driver preserves that multiple-result behavior. Independent arithmetic and Integer Image formatting match all six manifest lines. Complete native, Lean/source-correspondence, regression/sample validation and delivery acceptance remain pending; see the proposed reconciliation record.
+**Candidate: proofs likely to discharge automatically.** The cached Ada solution uses a procedure with two out parameters, and the bounded driver preserves that multiple-result behavior. Independent arithmetic and Integer Image formatting match all six manifest lines. The unchanged sample passed admission, automatic obligation/report checks, compilation and execution in the retained 85-sample suite. The [delivery record](../../../docs/scalar-procedures.md#delivery-assurance-and-validation) separately records complete compiler assurance, actual-source correspondence and final regression coverage; the task review retains its own bounded scope.
 
 Position 59 in the [progression](../../progression.md#stage-1), in stage 1.
 
@@ -10,7 +10,7 @@ The unchanged samples/rosetta_return_multiple_values.adb defines a Main-local Su
 
 ## Proof obligations to watch
 
-- **overflow**: Each Small input spans -100 .. 100, so the sum and difference lie in -200 .. 200 over all 40,401 input pairs and fit Standard.Integer. This static task argument is separate from pending complete native/application proof validation.
+- **overflow**: Each Small input spans -100 .. 100, so the sum and difference lie in -200 .. 200 over all 40,401 input pairs and fit Standard.Integer. This static task argument is separate from the complete native/application assurance recorded for delivery.
 
 ## Language surface recorded by this assessment
 
