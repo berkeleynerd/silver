@@ -1,0 +1,52 @@
+{
+  "command": [
+    "python3",
+    "scripts/check_lean.py",
+    "--target",
+    "Silver.FunctionSourceCandidate",
+    "--workers",
+    "1",
+    "--memory-mb",
+    "8192",
+    "--provenance",
+    "--task",
+    "370-function-source-capacity",
+    "--reason",
+    "Bounded caller gate after complete focused success of repaired loop and two largest headers on final native source; proof/src/scripts match integration1684b88fa. One Lake worker/default12threads/8192MiB; own10GiBtree/1.5GiBhost guards; stop source group on first new explicit kernel-memory failure for diagnosis. Certificate limited to3GiB line buckets; native2workers."
+  ],
+  "cwd": "/home/agent/silver-worktrees/procedures-lean-370",
+  "started_at": "2026-11-15T18:01:30.375929+00:00",
+  "peak_sum_rss_kib": 8945840,
+  "peak_process_rss_kib": 8391264,
+  "minimum_mem_available_kib": 5355040,
+  "pid": 57532,
+  "diagnostic_interruption": {
+    "pattern": "(kernel) excessive memory consumption detected",
+    "sample": {
+      "elapsed_seconds": 95.08542329500051,
+      "sum_rss_kib": 2178448,
+      "mem_available_kib": 13442384,
+      "processes": [
+        {
+          "pid": 57532,
+          "rss_kib": 82640,
+          "command": "python3 scripts/check_lean.py --target Silver.FunctionSourceCandidate --workers 1 --memory-mb 8192 --provenance --task 370-function-source-capacity --reason Bounded caller gate after complete focused success of repaired loop and two largest headers on final native source; proof/src/scripts match integration1684b88fa. One Lake worker/default12threads/8192MiB; own10GiBtree/1.5GiBhost guards; stop source group on first new explicit kernel-memory failure for diagnosis. Certificate limited to3GiB line buckets; native2workers. "
+        },
+        {
+          "pid": 57808,
+          "rss_kib": 470480,
+          "command": "/home/agent/silver-worktrees/procedures-lean-370/.tools/linux-aarch64/lean/bin/lake --rehash --reconfigure -K silverThreads=12 -K silverMemoryMb=8192 build +Silver.FunctionSourceCandidate +Silver.AxiomAudit "
+        },
+        {
+          "pid": 58582,
+          "rss_kib": 1625328,
+          "command": "/home/agent/silver-worktrees/procedures-lean-370/.tools/linux-aarch64/lean/bin/lean -j12 -M8192 -DwarningAsError=true /home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/proof/Silver/FunctionSourceParts/DeclarationHeaderParameterStepImpl.lean -o /home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/FunctionSourceParts/DeclarationHeaderParameterStepImpl.olean -i /home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/FunctionSourceParts/DeclarationHeaderParameterStepImpl.ilean -c /home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/proof/.lake/build/ir/Silver/FunctionSourceParts/DeclarationHeaderParameterStepImpl.c --setup /home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/proof/.lake/build/ir/Silver/FunctionSourceParts/DeclarationHeaderParameterStepImpl.setup.json --json "
+        }
+      ]
+    }
+  },
+  "returncode": -2,
+  "elapsed_seconds": 100.08919833900109,
+  "finished_at": "2026-11-15T18:03:10.465117+00:00",
+  "interrupted": true
+}
