@@ -26,8 +26,14 @@ The retained full-run output-profile report also proves the repaired complete
 `Array_Declaration_At` helper: 56 proof and two flow records, including the
 original assertion and complete postcondition. Its `Declaration_At` caller has
 11 proof and two flow records. Both have all SPARK coverage and no helper
-warning/error or assumption records. The exact earlier progress inspection and
-report snapshot are included in the archive.
+warning/error records. Their ordinary contract-dependency claims comprise two
+records each: 126 dependency entries for `Array_Declaration_At` and 52 for
+`Declaration_At`. The complete boundary audit accepted those dependencies, and
+`pragma_assume` is empty. [The inventory erratum](helper-dependency-erratum.json)
+corrects the historical manual filter, which used scalar `entity` instead of
+nested `claim.arg` and falsely counted zero dependency records. The original
+archive and report snapshot remain unchanged; current `verification.json` adds
+only the explicit erratum annotation to its archived original.
 
 The original wrapper disappeared without an observed exit. Its last resource
 sample was 18:39:22 UTC; the owner-authorized replacement attached at 18:43:06 UTC

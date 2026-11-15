@@ -1,0 +1,88 @@
+{
+  "recorded_at": "2026-11-15T21:34:45.431112+00:00",
+  "status": "Corrects false zero counts in the historical manual progress inventory and README wording",
+  "run_id": "20261115T174959-94ae5c6fdf63",
+  "source_archive_sha256": "be7e263dcc297f4cdef08d853dbfe14f6e3a2726d51bb65337828f6fb9c0c63b",
+  "report_sha256": "2263496985de3b32893163f4ce54bb258e0dd460df98cde216b73d2a4a7db7ac",
+  "historical_progress_sha256": "1a15c2e59d5a937d677beed1a664339d8f6af7a2bd99ed7a4705a4abdc5f7f1d",
+  "historical_incorrect_filter": "row.get('entity') == entity_id",
+  "correct_filter": "row.get('claim', {}).get('arg') == entity_id",
+  "explanation": "Proof/flow records use scalar entity IDs; contract-dependency records in assumptions use claim.arg. The historical filter ignored every dependency record and falsely reported zero. Ordinary contract dependencies are distinct from pragma_assume or unapproved dependencies.",
+  "corrected_inventory": {
+    "Array_Declaration_At": {
+      "entity_id": 115,
+      "historical_incorrect_assumption_records": 0,
+      "contract_dependency_claim_records": 2,
+      "dependency_entries_total": 126,
+      "distinct_dependencies": 63,
+      "claims": [
+        {
+          "claim": {
+            "arg": 115,
+            "predicate": "CLAIM_AORTE"
+          },
+          "dependency_entries": 63,
+          "dependency_predicates": {
+            "CLAIM_POST": 17,
+            "CLAIM_EFFECTS": 23,
+            "CLAIM_AORTE": 23
+          }
+        },
+        {
+          "claim": {
+            "arg": 115,
+            "predicate": "CLAIM_POST"
+          },
+          "dependency_entries": 63,
+          "dependency_predicates": {
+            "CLAIM_POST": 17,
+            "CLAIM_EFFECTS": 23,
+            "CLAIM_AORTE": 23
+          }
+        }
+      ]
+    },
+    "Declaration_At": {
+      "entity_id": 62,
+      "historical_incorrect_assumption_records": 0,
+      "contract_dependency_claim_records": 2,
+      "dependency_entries_total": 52,
+      "distinct_dependencies": 26,
+      "claims": [
+        {
+          "claim": {
+            "arg": 62,
+            "predicate": "CLAIM_POST"
+          },
+          "dependency_entries": 26,
+          "dependency_predicates": {
+            "CLAIM_POST": 8,
+            "CLAIM_EFFECTS": 9,
+            "CLAIM_AORTE": 9
+          }
+        },
+        {
+          "claim": {
+            "arg": 62,
+            "predicate": "CLAIM_AORTE"
+          },
+          "dependency_entries": 26,
+          "dependency_predicates": {
+            "CLAIM_POST": 8,
+            "CLAIM_EFFECTS": 9,
+            "CLAIM_AORTE": 9
+          }
+        }
+      ]
+    }
+  },
+  "pragma_assume_records": 0,
+  "boundary_disposition": "Existing complete native coverage/dependency/provenance audit passed. Ordinary dependency claims remain admitted by that audit; no proof or boundary requirement is changed.",
+  "historical_material_preserved": "Original archive, raw proof reports and archived progress/verification JSON remain byte-identical. Current verification.json adds only the erratum annotation to its archived original.",
+  "selected_model": "GPT-6.1 Sol",
+  "selected_effort": "High",
+  "runtime_telemetry": "unavailable",
+  "token_cost": "unavailable",
+  "project_reports_inspected": 78,
+  "project_pragma_assume_records": 0
+}

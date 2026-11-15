@@ -172,5 +172,19 @@
   "selected_effort": "High",
   "runtime_model_effort_telemetry": "unavailable",
   "token_cost_evidence": "unavailable",
-  "scope": "Complete canonical forced cached native audit and terminal evidence checks; no Lean/source-correspondence or regression-test completion claim"
+  "scope": "Complete canonical forced cached native audit and terminal evidence checks; no Lean/source-correspondence or regression-test completion claim",
+  "contract_dependency_inventory_erratum": {
+    "file": "helper-dependency-erratum.json",
+    "corrected_claim_records": {
+      "Array_Declaration_At": 2,
+      "Declaration_At": 2
+    },
+    "corrected_dependency_entry_totals": {
+      "Array_Declaration_At": 126,
+      "Declaration_At": 52
+    },
+    "pragma_assume_records": 0,
+    "historical_zero_counts_incorrect": true,
+    "existing_complete_boundary_audit_passed": true
+  }
 }

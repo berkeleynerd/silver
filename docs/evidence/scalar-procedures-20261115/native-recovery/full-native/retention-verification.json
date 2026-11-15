@@ -4,5 +4,8 @@
   "manifest_report_hashes_verified": 80,
   "direct_manifest_matches_archive": true,
   "direct_summary_files_match_archive": true,
-  "source": "read-only terminal provenance/coverage/input/tool checks and archive-member SHA-256 verification"
+  "source": "read-only terminal provenance/coverage/input/tool checks and archive-member SHA-256 verification",
+  "historical_summary_match_observation": "direct_summary_files_match_archive records the initial retention check before this erratum; the original archived summaries are preserved.",
+  "current_verification_matches_archived_original_after_removing_erratum_annotation": true,
+  "current_erratum": "helper-dependency-erratum.json"
 }
