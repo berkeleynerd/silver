@@ -98,3 +98,27 @@ not proof success. Before the full Lean run, check the two largest inherited
 function headers with one worker/default process threads and the same 8 GiB
 threshold. Complete native validation may proceed on the fixed Ada/tool inputs.
 All final complete checks and the 691-ID regression inventory remain outstanding.
+
+### Inherited declaration-header capacity
+
+The two largest inherited declaration headers failed the 8 GiB kernel limit
+even when scheduled alone. The [targeted normalization](../lean-recovery/header-capacity/README.md)
+at `1684b88fa` preserves both public statements and complete-source extractors;
+run `20261115T175133-2b096066a6f7` passed 108 imported modules and a fresh
+15,611-declaration audit. Largest-process RSS was 4.022 GiB and process-tree
+RSS 5.025 GiB. [Independent review](../native-recovery/review-function-header-memory.md)
+accepted the exact strings, characters, tokens, unchanged statements and
+retained evidence. Existing kernel corruption controls apply to the unchanged
+normalization mechanism; ordinary-body duplicate fixtures do not test the
+separate header extractor.
+
+The subsequent focused `FunctionSourceCandidate` build passed additional
+dependencies and the shorter `FunctionTypeAt` headers, then deliberately stopped
+after `DeclarationHeaderParameterStepSpec` reached the same 8 GiB limit. It is
+interrupted, with no complete caller audit. Completed objects remain retained.
+The next bounded batch covers that failed header and five remaining declaration
+specification headers at least as long as the demonstrated 695-character case.
+Their exact statements and whole-source scanners remain required; no broader
+rewrite or language restriction is selected. The complete native audit and
+final-source line-certificate batch continue independently. Dense aggregate
+validation waits for a separate memory allocation.
