@@ -330,3 +330,30 @@ bytes; the preflight import graph reaches all 1,006 project modules. It retains
 the same resource allocation and guards alongside the unchanged native audit.
 Complete native and Lean assurance, build/regression coverage and final delivery
 acceptance remain pending.
+
+### Native-shape header failures and focused follow-up
+
+Complete continuation `20261115T205032-5834a8189332` stopped at 21:01:37 UTC
+after six explicit kernel-memory errors in `PredicateNativeShapeCandidate`.
+Each failing private theorem checks one complete specification header:
+`primary_model`, `relation_model`, `condition_tail`, `condition_model`,
+`boolean_factor_model` and `boolean_relation_model`. Their exact expected
+strings contain 701, 705, 948, 709, 729 and 737 characters respectively.
+The diagnostics identify individual equalities, so another field-isolation
+probe is unnecessary. The preceding `PredicateNativeHelpersCandidate` built
+successfully; the subsequent body-source candidate was interrupted.
+
+The author collected original session 72203: outer exit 254, monitored child
+return `-2` after the diagnostic SIGINT, and 665.628 seconds elapsed. No complete
+audit ran. Peak process/tree RSS was 8,435,184 / 9,477,264 KiB and minimum host
+availability was 6,390,096 KiB. This was the configured Lean memory threshold;
+neither the host-headroom nor tree-memory guard fired. Completed objects and
+the exact failure packet are retained by the Lean owner.
+
+The bounded repair changes only those six private proof bodies/imports and an
+isolated exact-token helper. It retains every original theorem statement,
+whole-source selector, native source definition, precondition, postcondition
+and variant. The complete native-shape candidate must pass focused validation
+and independent critical review before the next cached complete continuation.
+The productive native audit continues on its unchanged inputs. No whole-project
+or final regression success is claimed.
