@@ -58,3 +58,45 @@ threads and the unchanged 8,192 MiB threshold, with the existing source-tree,
 host-headroom and first-memory-diagnostic guards. Independent review of the
 concrete committed patch and focused evidence is required before a full retry.
 The native run and all completed caches remain untouched.
+
+## Focused result and continuation preflight
+
+Run `20261115T194603-51d997e177d8` passed on the exact production bytes committed
+as `ca1c9b2ce`. The original execution session `16284` returned exit 0 and the
+source guard recorded no interruption. The new helper built in 984 ms; the
+complete declaration candidate built in 271 s. Managed build time was 275.031 s
+and the fresh imported-environment audit took 1.485 s. It covered **101 modules
+and 14,411 declarations**, including all 47 original candidate statements,
+with only `propext`, `Classical.choice` and `Quot.sound` as foundations.
+This is focused partial validation, not a successful complete project checkpoint.
+
+The selected allocation remained one Lake worker, automatic twelve Lean threads,
+and 8,192 MiB per process. Sampled process peak was 7,504,784 KiB RSS;
+process-tree peak was 8,541,248 KiB, and minimum host availability was
+6,189,120 KiB. No source-tree, host-headroom or diagnostic guard fired.
+The monitor elapsed 285.415 s. The unchanged full-domain caller and helper
+contracts therefore passed within the existing threshold; this measurement
+does not establish an asymptotic bound or predict other modules' resource use.
+
+All 1,111 captured input, 1,006 workspace-input, 1,730 artifact and two tool hashes
+were reverified after the terminal result. The exact managed log SHA-256 is
+`9e2ed6cf35af0f5d22f0761056951ee3de301fc0ee0a637e0309feb5235b2588`.
+All **287** prior ordinary module objects and their 1,718 captured variant/hash
+files remain byte-identical. The new helper and complete candidate add two
+ordinary module objects. The retained success packet contains the original
+runner evidence, managed and outer logs, resource samples and terminal summary;
+`focused-success-verification.json` records these checks.
+
+`complete-continuation-preflight.json` confirms that the explicit textual
+`Silver.Audit` import closure still reaches all **1,004** project modules,
+including the new helper, with no missing project import or unreachable module.
+There are 289 cached ordinary module objects and 715 modules without an object.
+Object presence and textual reachability are preflight facts only. The next
+complete cached build must still freshly establish actual whole-project module
+coverage, axiom closure, stable inputs and source correspondence. No independent
+kernel replay or clean build was requested or performed. Independent critical
+review of this patch and focused result precedes that complete continuation.
+
+| Work | Model / effort | Result and remaining work | Available cost evidence |
+| --- | --- | --- | --- |
+| Exact two-fact normalization and focused candidate | Selected Astra Max for source correspondence; live lead setting not independently exposed | Unchanged 47 candidate statements, both helper contracts and complete caller passed; whole-project checkpoint pending | 285.415 s monitored native elapsed; token and whole-team cost unavailable |
