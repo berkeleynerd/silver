@@ -1,0 +1,811 @@
+{
+  "observed_at_utc": "2026-11-15T21:30:25.319988+00:00",
+  "selected_model": "gpt-6-astra",
+  "selected_effort": "max",
+  "runtime_token_cost_telemetry": "Unavailable",
+  "reviewed_native_production": "438213ec24998e3365d6fec5b1e2d01564e45b4e",
+  "frozen_native_source_commit": "8a03ab12265d7753f6ea603817561c83f84ea596",
+  "parser_sha256": "9ede490b6cf72b352a39072cd37f4ef39774409c6024135487cf076567b59b9c",
+  "native_packet": {
+    "commit": "b19d2fbffa92b3047b5d33efdb1a56979128d3d2",
+    "archive_sha256": "be7e263dcc297f4cdef08d853dbfe14f6e3a2726d51bb65337828f6fb9c0c63b",
+    "outer_checksum_count": 8,
+    "archive_member_count": 119,
+    "all_outer_and_member_hashes_match": true
+  },
+  "build_packet": {
+    "commit": "667e1513d908e221f7af5c1f138b0d5132fbb4a8",
+    "archive_sha256": "edeef0c04fc16f0f578396749789d628b3e5493145d60e4a1582329000270b64",
+    "outer_checksum_count": 7,
+    "archive_member_count": 15,
+    "all_outer_and_member_hashes_match": true
+  },
+  "source_continuity": {
+    "captured_inputs": 2606,
+    "all_prepared_begin_manifest_terminal_and_build_inputs_equal": true,
+    "all_current_input_hashes_match": true,
+    "tracked_inputs_matching_reviewed_commit": 147,
+    "native_source_scripts_and_projects_unchanged_since_frozen_source": true,
+    "source_policy_files": 138,
+    "reviewed_hide_info_forms": 26,
+    "six_complete_import_pins_and_two_project_pins_match": true,
+    "generated_runtime_constants_decode_to_exact_current_source": true
+  },
+  "tool_identities": {
+    "alt-ergo": {
+      "sha256": "09f93d6ed6f6d70ff916185ff36bbc8a41d486ce6100f2ad0d7e3d03feb7671e",
+      "version": [
+        "Alt-Ergo version 2.6.1"
+      ]
+    },
+    "cvc5": {
+      "sha256": "010d7adf505f4bd27822fbb31a6e8999c6af2a5b8339d7c0fefccd4b38978814",
+      "version": [
+        "This is cvc5 version 1.3.2 [git 86cecd8 on branch HEAD]"
+      ]
+    },
+    "gcc": {
+      "sha256": "ef4d2c23a77857bed0b8f86b7878451da2be9023988d5f5358d37f04fa3ec0fe",
+      "version": [
+        "gcc (GNAT-FSF-builds) 16.1.0"
+      ]
+    },
+    "gnat2why": {
+      "sha256": "375d0100954a66c78bace00d2229c9b96a30b6cf28845e00c4db220ba1efddb5",
+      "version": []
+    },
+    "gnatls": {
+      "sha256": "8f94099aaece72e3dfdda659b4f14fa9a83a5a71e436510097a991dfb8d5ad29",
+      "version": [
+        "GNATLS 16.1.0"
+      ]
+    },
+    "gnatprove": {
+      "sha256": "11db5cc1032d51474c2b84cc8567095c4ec4f5ae4428ff525b7bac92e7d86bc9",
+      "version": [
+        "FSF 16.1.0"
+      ]
+    },
+    "gnatwhy3": {
+      "sha256": "4a3b9e6cd3dc542ddb72dc82cfddbaa8b5da075aa27eb11f6d6a3e57fb148368",
+      "version": []
+    },
+    "gprbuild": {
+      "sha256": "fcf2bab30eff76c521a4800a7ead41615bf36b678851fb0268f6a930b6cfc0fb",
+      "version": [
+        "GPRBUILD 26.0.0 (2026-04-15) (aarch64-linux-gnu)"
+      ]
+    },
+    "python": {
+      "sha256": "12972c21012f72668e27bc493715d011f7ae3c38ae861a1365ae42f59ef11a17",
+      "version": [
+        "3.14.10 (main, Nov  3 2026, 14:39:54) [GCC 14.2.0]"
+      ]
+    },
+    "why3server": {
+      "sha256": "c778280b8b4303e99344d0ff969b589a2e0e4df9a78aab27464a7177c830ae6e",
+      "version": []
+    },
+    "z3": {
+      "sha256": "d718168cd9b69b5e73ad7124f6e5083c047c28f1b3165ddd04e3b89191319a78",
+      "version": [
+        "Z3 version 4.15.4 - 64 bit"
+      ]
+    },
+    "alr": {
+      "sha256": "73ba150498a534d1dc29d07065e0e614aa27b409fef338a0824057c015dbd833",
+      "version": [
+        "alr 2.1.1"
+      ]
+    }
+  },
+  "canonical_command": [
+    "gnatprove",
+    "-P",
+    "../../../silver.gpr",
+    "-U",
+    "--mode=all",
+    "--report=all",
+    "--warnings=error",
+    "--checks-as-errors=on",
+    "--level=2",
+    "--prover=cvc5,z3,altergo",
+    "--timeout=30",
+    "-j",
+    "2",
+    "--memcached-server=file:/home/agent/silver-workspaces/recovery-volume/integration/.silver/linux-aarch64/proof-cache/gnatprove/0d29986b9858e9838780c6ec8496c6b4fd34d53a8f06c8cf36bd393fc8ef98f0",
+    "-f",
+    "-XSILVER_HOST=linux-aarch64"
+  ],
+  "cache_state": {
+    "sessions_present": false,
+    "cache_entries_present": true
+  },
+  "report_evidence": {
+    "bound_report_hashes": 80,
+    "all_report_hashes_match": true,
+    "unit_set_matches_complete_source_inventory": true,
+    "counts": {
+      "all_coverage": 1152,
+      "units": 78,
+      "entities": 1232,
+      "flow_checks": 1715,
+      "proof_checks": 17729,
+      "assumption_entries": 2044,
+      "vendor_spec_entities": 62,
+      "imported_entities": 18
+    },
+    "boundary_notes": {
+      "trusted_math_notes": 6268,
+      "limitation_notes": 352,
+      "operator_reassociation_advisories": 25,
+      "array_initialization_advisories": 6
+    },
+    "other_information_notes": {
+      "local subprogram {0} only analyzed in the context of calls [info-unrolling-inlining]": 5,
+      "cannot unroll loop (too many loop iterations) [info-unrolling-inlining]": 5,
+      "unrolling loop [info-unrolling-inlining]": 42
+    },
+    "assumption_reference_classes": {
+      "owned": 25765,
+      "documented_runtime": 108,
+      "documented_big_integer": 4843
+    },
+    "every_report_completed_without_skips_or_pragma_assume": true,
+    "all_owned_and_documented_spec_coverage_checked": true,
+    "all_assumption_references_match_owned_or_documented_boundary": true,
+    "all_26147_spark_and_sarif_diagnostics_match_as_multisets": true,
+    "text_total_columns": [
+      19444,
+      1715,
+      17729,
+      0,
+      0
+    ],
+    "all_checks_proved_log_present": true,
+    "fresh_checker_summary_present": true,
+    "helper_results": {
+      "Array_Declaration_At": {
+        "coverage": "all",
+        "proof_checks": 56,
+        "flow_checks": 2,
+        "proof_rules": {
+          "VC_PRECONDITION": 43,
+          "VC_RANGE_CHECK": 11,
+          "VC_ASSERT": 1,
+          "VC_POSTCONDITION": 1
+        },
+        "warning_records": 0,
+        "contract_dependency_claim_records": 2,
+        "dependency_entries_total": 126,
+        "distinct_dependency_references": 63
+      },
+      "Declaration_At": {
+        "coverage": "all",
+        "proof_checks": 11,
+        "flow_checks": 2,
+        "proof_rules": {
+          "VC_PRECONDITION": 10,
+          "VC_POSTCONDITION": 1
+        },
+        "warning_records": 0,
+        "contract_dependency_claim_records": 2,
+        "dependency_entries_total": 52,
+        "distinct_dependency_references": 26
+      }
+    },
+    "units": [
+      {
+        "unit": "silver",
+        "owned_entities": 10,
+        "flow_checks": 29,
+        "proof_checks": 105
+      },
+      {
+        "unit": "silver_arguments",
+        "owned_entities": 5,
+        "flow_checks": 7,
+        "proof_checks": 11
+      },
+      {
+        "unit": "silver_array_bindings",
+        "owned_entities": 10,
+        "flow_checks": 16,
+        "proof_checks": 63
+      },
+      {
+        "unit": "silver_build",
+        "owned_entities": 1,
+        "flow_checks": 0,
+        "proof_checks": 0
+      },
+      {
+        "unit": "silver_catalogue",
+        "owned_entities": 8,
+        "flow_checks": 6,
+        "proof_checks": 27
+      },
+      {
+        "unit": "silver_function_bindings",
+        "owned_entities": 6,
+        "flow_checks": 8,
+        "proof_checks": 55
+      },
+      {
+        "unit": "silver_image_adapter",
+        "owned_entities": 7,
+        "flow_checks": 10,
+        "proof_checks": 102
+      },
+      {
+        "unit": "silver_image_config",
+        "owned_entities": 1,
+        "flow_checks": 0,
+        "proof_checks": 0
+      },
+      {
+        "unit": "silver_image_files",
+        "owned_entities": 59,
+        "flow_checks": 65,
+        "proof_checks": 129
+      },
+      {
+        "unit": "silver_image_install",
+        "owned_entities": 2,
+        "flow_checks": 16,
+        "proof_checks": 36
+      },
+      {
+        "unit": "silver_image_libc",
+        "owned_entities": 2,
+        "flow_checks": 0,
+        "proof_checks": 0
+      },
+      {
+        "unit": "silver_image_model",
+        "owned_entities": 15,
+        "flow_checks": 12,
+        "proof_checks": 180
+      },
+      {
+        "unit": "silver_image_model_templates",
+        "owned_entities": 3,
+        "flow_checks": 4,
+        "proof_checks": 15
+      },
+      {
+        "unit": "silver_image_runtime",
+        "owned_entities": 2,
+        "flow_checks": 0,
+        "proof_checks": 0
+      },
+      {
+        "unit": "silver_image_theory",
+        "owned_entities": 1,
+        "flow_checks": 0,
+        "proof_checks": 0
+      },
+      {
+        "unit": "silver_integer_image",
+        "owned_entities": 4,
+        "flow_checks": 3,
+        "proof_checks": 0
+      },
+      {
+        "unit": "silver_integer_literals",
+        "owned_entities": 14,
+        "flow_checks": 25,
+        "proof_checks": 115
+      },
+      {
+        "unit": "silver_io",
+        "owned_entities": 3,
+        "flow_checks": 12,
+        "proof_checks": 36
+      },
+      {
+        "unit": "silver_length_intervals",
+        "owned_entities": 8,
+        "flow_checks": 11,
+        "proof_checks": 9
+      },
+      {
+        "unit": "silver_libc",
+        "owned_entities": 9,
+        "flow_checks": 0,
+        "proof_checks": 0
+      },
+      {
+        "unit": "silver_libraries",
+        "owned_entities": 11,
+        "flow_checks": 44,
+        "proof_checks": 45
+      },
+      {
+        "unit": "silver_library_reports",
+        "owned_entities": 245,
+        "flow_checks": 344,
+        "proof_checks": 3420
+      },
+      {
+        "unit": "silver_library_sources",
+        "owned_entities": 1,
+        "flow_checks": 0,
+        "proof_checks": 0
+      },
+      {
+        "unit": "silver_names",
+        "owned_entities": 11,
+        "flow_checks": 21,
+        "proof_checks": 87
+      },
+      {
+        "unit": "silver_numbers",
+        "owned_entities": 3,
+        "flow_checks": 4,
+        "proof_checks": 14
+      },
+      {
+        "unit": "silver_output_lexical",
+        "owned_entities": 23,
+        "flow_checks": 43,
+        "proof_checks": 279
+      },
+      {
+        "unit": "silver_output_libc",
+        "owned_entities": 4,
+        "flow_checks": 0,
+        "proof_checks": 0
+      },
+      {
+        "unit": "silver_output_profile",
+        "owned_entities": 239,
+        "flow_checks": 494,
+        "proof_checks": 3854
+      },
+      {
+        "unit": "silver_path_facts",
+        "owned_entities": 23,
+        "flow_checks": 22,
+        "proof_checks": 10
+      },
+      {
+        "unit": "silver_platform",
+        "owned_entities": 9,
+        "flow_checks": 36,
+        "proof_checks": 132
+      },
+      {
+        "unit": "silver_procedure_bindings",
+        "owned_entities": 6,
+        "flow_checks": 8,
+        "proof_checks": 54
+      },
+      {
+        "unit": "silver_process_runtime",
+        "owned_entities": 3,
+        "flow_checks": 0,
+        "proof_checks": 1
+      },
+      {
+        "unit": "silver_profile",
+        "owned_entities": 19,
+        "flow_checks": 34,
+        "proof_checks": 151
+      },
+      {
+        "unit": "silver_report_observation_assembly",
+        "owned_entities": 4,
+        "flow_checks": 3,
+        "proof_checks": 263
+      },
+      {
+        "unit": "silver_report_observation_composition",
+        "owned_entities": 8,
+        "flow_checks": 7,
+        "proof_checks": 302
+      },
+      {
+        "unit": "silver_report_observation_items",
+        "owned_entities": 5,
+        "flow_checks": 4,
+        "proof_checks": 231
+      },
+      {
+        "unit": "silver_report_observation_traversal",
+        "owned_entities": 4,
+        "flow_checks": 3,
+        "proof_checks": 126
+      },
+      {
+        "unit": "silver_report_observation_windows",
+        "owned_entities": 15,
+        "flow_checks": 14,
+        "proof_checks": 792
+      },
+      {
+        "unit": "silver_report_observations",
+        "owned_entities": 13,
+        "flow_checks": 19,
+        "proof_checks": 292
+      },
+      {
+        "unit": "silver_report_projection",
+        "owned_entities": 13,
+        "flow_checks": 7,
+        "proof_checks": 66
+      },
+      {
+        "unit": "silver_report_projection_audit",
+        "owned_entities": 3,
+        "flow_checks": 2,
+        "proof_checks": 16
+      },
+      {
+        "unit": "silver_report_projection_bridge",
+        "owned_entities": 12,
+        "flow_checks": 7,
+        "proof_checks": 228
+      },
+      {
+        "unit": "silver_report_projection_composition",
+        "owned_entities": 7,
+        "flow_checks": 6,
+        "proof_checks": 297
+      },
+      {
+        "unit": "silver_report_projection_container_mapping",
+        "owned_entities": 3,
+        "flow_checks": 2,
+        "proof_checks": 130
+      },
+      {
+        "unit": "silver_report_projection_continuations",
+        "owned_entities": 6,
+        "flow_checks": 3,
+        "proof_checks": 307
+      },
+      {
+        "unit": "silver_report_projection_emissions",
+        "owned_entities": 6,
+        "flow_checks": 5,
+        "proof_checks": 21
+      },
+      {
+        "unit": "silver_report_projection_entry",
+        "owned_entities": 3,
+        "flow_checks": 2,
+        "proof_checks": 30
+      },
+      {
+        "unit": "silver_report_projection_item_mapping",
+        "owned_entities": 6,
+        "flow_checks": 5,
+        "proof_checks": 382
+      },
+      {
+        "unit": "silver_report_projection_keys",
+        "owned_entities": 12,
+        "flow_checks": 11,
+        "proof_checks": 428
+      },
+      {
+        "unit": "silver_report_projection_lists",
+        "owned_entities": 5,
+        "flow_checks": 4,
+        "proof_checks": 197
+      },
+      {
+        "unit": "silver_report_projection_mapping",
+        "owned_entities": 12,
+        "flow_checks": 11,
+        "proof_checks": 207
+      },
+      {
+        "unit": "silver_report_projection_member_bounds",
+        "owned_entities": 7,
+        "flow_checks": 6,
+        "proof_checks": 209
+      },
+      {
+        "unit": "silver_report_projection_member_mapping",
+        "owned_entities": 5,
+        "flow_checks": 4,
+        "proof_checks": 226
+      },
+      {
+        "unit": "silver_report_projection_member_steps",
+        "owned_entities": 12,
+        "flow_checks": 11,
+        "proof_checks": 60
+      },
+      {
+        "unit": "silver_report_projection_members",
+        "owned_entities": 16,
+        "flow_checks": 19,
+        "proof_checks": 995
+      },
+      {
+        "unit": "silver_report_projection_model",
+        "owned_entities": 92,
+        "flow_checks": 68,
+        "proof_checks": 240
+      },
+      {
+        "unit": "silver_report_projection_nonobjects",
+        "owned_entities": 5,
+        "flow_checks": 4,
+        "proof_checks": 55
+      },
+      {
+        "unit": "silver_report_projection_observations",
+        "owned_entities": 11,
+        "flow_checks": 13,
+        "proof_checks": 148
+      },
+      {
+        "unit": "silver_report_projection_parents",
+        "owned_entities": 12,
+        "flow_checks": 11,
+        "proof_checks": 86
+      },
+      {
+        "unit": "silver_report_projection_records",
+        "owned_entities": 8,
+        "flow_checks": 7,
+        "proof_checks": 306
+      },
+      {
+        "unit": "silver_report_projection_representation",
+        "owned_entities": 2,
+        "flow_checks": 1,
+        "proof_checks": 11
+      },
+      {
+        "unit": "silver_report_projection_roots",
+        "owned_entities": 6,
+        "flow_checks": 5,
+        "proof_checks": 85
+      },
+      {
+        "unit": "silver_report_projection_separators",
+        "owned_entities": 6,
+        "flow_checks": 5,
+        "proof_checks": 154
+      },
+      {
+        "unit": "silver_report_projection_spans",
+        "owned_entities": 7,
+        "flow_checks": 6,
+        "proof_checks": 158
+      },
+      {
+        "unit": "silver_report_projection_structure",
+        "owned_entities": 12,
+        "flow_checks": 10,
+        "proof_checks": 42
+      },
+      {
+        "unit": "silver_report_projection_syntax",
+        "owned_entities": 3,
+        "flow_checks": 2,
+        "proof_checks": 152
+      },
+      {
+        "unit": "silver_report_projection_tokens",
+        "owned_entities": 12,
+        "flow_checks": 7,
+        "proof_checks": 361
+      },
+      {
+        "unit": "silver_report_projection_types",
+        "owned_entities": 1,
+        "flow_checks": 0,
+        "proof_checks": 0
+      },
+      {
+        "unit": "silver_report_projection_value_mapping",
+        "owned_entities": 4,
+        "flow_checks": 3,
+        "proof_checks": 120
+      },
+      {
+        "unit": "silver_report_projection_values",
+        "owned_entities": 15,
+        "flow_checks": 9,
+        "proof_checks": 415
+      },
+      {
+        "unit": "silver_report_projection_windows",
+        "owned_entities": 4,
+        "flow_checks": 3,
+        "proof_checks": 56
+      },
+      {
+        "unit": "silver_report_reader",
+        "owned_entities": 2,
+        "flow_checks": 15,
+        "proof_checks": 51
+      },
+      {
+        "unit": "silver_report_storage",
+        "owned_entities": 1,
+        "flow_checks": 0,
+        "proof_checks": 0
+      },
+      {
+        "unit": "silver_reports",
+        "owned_entities": 18,
+        "flow_checks": 27,
+        "proof_checks": 229
+      },
+      {
+        "unit": "silver_runtime",
+        "owned_entities": 4,
+        "flow_checks": 0,
+        "proof_checks": 0
+      },
+      {
+        "unit": "silver_scalar_expressions",
+        "owned_entities": 21,
+        "flow_checks": 38,
+        "proof_checks": 190
+      },
+      {
+        "unit": "silver_scalar_literals",
+        "owned_entities": 14,
+        "flow_checks": 25,
+        "proof_checks": 118
+      },
+      {
+        "unit": "silver_scalars",
+        "owned_entities": 28,
+        "flow_checks": 27,
+        "proof_checks": 17
+      }
+    ]
+  },
+  "native_terminal": {
+    "run_id": "20261115T174959-94ae5c6fdf63",
+    "managed_outcome": "success",
+    "managed_returncode": null,
+    "native_tool_returncode": 0,
+    "sarif_invocation": {
+      "commandLine": "gnatprove -P ../../../silver.gpr -U --mode=all --report=all --warnings=error --checks-as-errors=on --level=2 --prover=cvc5,z3,altergo --timeout=30 -j 2 --memcached-server=file:/home/agent/silver-workspaces/recovery-volume/integration/.silver/linux-aarch64/proof-cache/gnatprove/0d29986b9858e9838780c6ec8496c6b4fd34d53a8f06c8cf36bd393fc8ef98f0 -f -XSILVER_HOST=linux-aarch64",
+      "endTimeUtc": "2026-11-15T21:19:26Z",
+      "exitCode": 0,
+      "executionSuccessful": true
+    },
+    "audit_phase_completed": true,
+    "original_wrapper_returncode": null,
+    "original_wrapper_status": "Unavailable; neither collected nor inferred as zero.",
+    "managed_elapsed_seconds": 12572.652785787,
+    "resource_record_count": [
+      593,
+      1875
+    ],
+    "resource_review": {
+      "series": [
+        {
+          "name": "original-wrapper/resources.jsonl",
+          "sample_count": 593,
+          "first_sample": "2026-11-15T17:49:58.871223+00:00",
+          "last_sample": "2026-11-15T18:39:22.914043+00:00",
+          "maximum_sampled_tree_rss_kib": 2463760,
+          "minimum_sampled_host_available_kib": 5437680
+        },
+        {
+          "name": "attachment/attached-resources.jsonl",
+          "sample_count": 1875,
+          "first_sample": "2026-11-15T18:43:06.548505+00:00",
+          "last_sample": "2026-11-15T21:19:29.641315+00:00",
+          "maximum_sampled_tree_rss_kib": 8052496,
+          "minimum_sampled_host_available_kib": 3561744
+        }
+      ],
+      "unobserved_sampling_gap_seconds": 223.634462,
+      "same_native_pid_and_command_at_attachment": true,
+      "attachment_identity": {
+        "pid": 22821,
+        "ppid": 1,
+        "process_group": 22821,
+        "start_ticks": 823022,
+        "state": "S",
+        "command": [
+          "python3",
+          "scripts/dev.py",
+          "prove",
+          "--full",
+          "--task",
+          "#370",
+          "--jobs",
+          "2",
+          "--reason",
+          "Complete canonical native audit on frozen integrated source 8a03ab122 after reviewed whole-helper repair. Two workers preserve headroom on 16 GiB host alongside bounded Lean checks; unchanged 30-second policy, existing canonical ARM64 cache, host available-memory monitoring."
+        ]
+      },
+      "minimum_host_guard_kib": 1572864,
+      "no_sampled_guard_threshold_crossing": true,
+      "attachment_guard_sent": false,
+      "gap_and_between_sample_extrema_unobserved": true
+    },
+    "managed_events_sha256": "a8950e1c6dad9a6cbac7d5c88ddb706480aaa485d7a55b3a211353ac5f8ad5ce",
+    "native_log_sha256": "fc103e043ad039c73b5a3a1503e38509c2152e3905dfb987ddea73c5b1be60ee"
+  },
+  "build": {
+    "run_id": "20261115T212353-b892f44c0742",
+    "managed_outcome": "success",
+    "managed_returncode": null,
+    "native_tool_returncode": 0,
+    "wrapper_summary": {
+      "command": [
+        "python3",
+        "scripts/dev.py",
+        "build",
+        "--jobs",
+        "2",
+        "--task",
+        "#370",
+        "--reason",
+        "Final delivery compiler after successful complete native audit; two workers preserve headroom for active dense Lean continuation"
+      ],
+      "cwd": "/home/agent/silver-workspaces/recovery-volume/integration",
+      "started_at": "2026-11-15T21:23:53.249530+00:00",
+      "peak_sum_rss_kib": 5104,
+      "peak_process_rss_kib": 5104,
+      "minimum_mem_available_kib": 13903760,
+      "pid": 312250,
+      "returncode": 0,
+      "elapsed_seconds": 5.00280287699934,
+      "finished_at": "2026-11-15T21:23:58.252323+00:00",
+      "interrupted": false
+    },
+    "original_session_attribution": "Author collected original session 15111 exit 0, relayed by lead. Reviewer inspected retained evidence without consuming the execution session.",
+    "managed_elapsed_seconds": 2.054618501,
+    "binary_identities": {
+      "silver": {
+        "path": "/home/agent/silver-workspaces/recovery-volume/integration/.silver/linux-aarch64/compiler/bin/silver",
+        "bytes": 2983856,
+        "sha256": "683925c9b33cda887a58ecc2ad1d0e8feedf51590653e7aee3dd2889b06267d9",
+        "executable": true
+      },
+      "silver_image_adapter": {
+        "path": "/home/agent/silver-workspaces/recovery-volume/integration/.silver/linux-aarch64/compiler/bin/silver_image_adapter",
+        "bytes": 2065784,
+        "sha256": "832aff2ba73cd07954a9e30e9b06340ee49c16d77664a5071df2540d286d1b5e",
+        "executable": true
+      }
+    },
+    "all_inputs_tools_and_80_native_report_hashes_preserved": true,
+    "log_sha256": "f5cba89c8c928f8e06d0f56f7152f385b971021e7cb064dd806421c469042a12",
+    "managed_events_sha256": "7d2bb61a50985f3bef91310daf86767d5fc96e3bb2b8554ad27ae8593803042e",
+    "scope": "Incremental compiler build; compiler compiled/bound/linked and Image adapter retained up to date. No application or regression execution.",
+    "resource_sampling": {
+      "sample_count": 2,
+      "short_build_between_samples": true,
+      "sampled_rss_is_not_actual_peak": true
+    }
+  },
+  "disposition": "Accepted complete native audit and incremental final compiler build on the reviewed native inputs, with no material finding. Full Lean/actual-source assurance, regressions, Rosetta reconciliation and final feature acceptance remain pending.",
+  "limits": [
+    "Native total excludes separately classified notes and advisories.",
+    "Complete cached native audit does not establish uncached performance.",
+    "Native original-wrapper exit is unavailable and overall managed returncode remains null.",
+    "Full Lean/actual-source assurance, regressions, Rosetta and feature acceptance remain pending.",
+    "Reviewer launched no builds, proofs, tests, bootstrap, applications or cache-writing jobs; production and GitHub state unchanged."
+  ],
+  "review_completed_at_utc": "2026-11-15T21:36:39.467428+00:00",
+  "source_policy_note": "Read the unchanged production checker/provenance policy and independently inspected frozen reports, source tokens, approved pins and dependency boundaries. No project validation program was imported or executed.",
+  "resolved_review_finding": {
+    "severity": "Evidence documentation/counting error; no production or proof defect found",
+    "description": "Historical helper inventory filtered dependency rows by scalar entity instead of nested claim.arg and incorrectly reported zero assumption records. Ordinary contract dependency claims were conflated with pragma_assume.",
+    "erratum_commit": "d4ec0bf17482354e9492ce57c9713b092400ba10",
+    "erratum_sha256": "106304ee0265ebbf93597e6f25fba72c217126292d00b9c5bc90578de89133ea",
+    "all_corrected_claim_counts_and_dependency_predicates_independently_match": true,
+    "all_78_reports_pragma_assume_empty": true,
+    "original_archive_and_119_members_preserved": true,
+    "updated_outer_checksum_count": 9,
+    "verification_adds_only_erratum_annotation": true,
+    "status": "Resolved; accepted with explicit corrected dependencies and unchanged boundary audit."
+  }
+}

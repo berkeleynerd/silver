@@ -513,3 +513,100 @@ are unavailable. The evidence records a 238.834 s interval from recorded static
 check completion through terminal-evidence acceptance, excluding earlier source
 inspection. I launched no proof/build/test/application or cache-writing job,
 edited no GitHub state and updated no CLI memory. The live harness goal is null.
+
+## Addendum — complete native audit and compiler build, 2026-11-15
+
+**Bounded acceptance after an evidence-count correction.** Native packet
+`b19d2fbff`, corrected by `d4ec0bf17`, and build packet `667e1513d` close the
+native-audit and compiler-build requirements in the earlier interim matrix.
+Complete Lean/actual-source assurance, regressions, Rosetta reconciliation and
+final feature acceptance remain pending. The
+[independent record](../evidence/scalar-procedures-20261115/delivery-review/native-build-terminal-review.json)
+records the inspected hashes, coverage, dependency classifications and limits.
+
+Native run **`20261115T174959-94ae5c6fdf63` succeeded** on Linux aarch64. Its
+native-tool phase explicitly records exit **0**; SARIF independently records
+successful execution and exit **0**. The managed audit phase completed, the
+outcome is success and failure keys are empty. The managed overall returncode
+remains **null**, and the original wrapper's exit status is **unavailable**.
+Neither is relabeled zero. The retained native log includes the fresh production
+coverage/provenance checker's successful result.
+
+I checked all **119 native archive members**, eight original outer checksums,
+the manifest's **80 report hashes**, all **2,606 prepared/begin/terminal/current
+input hashes** and all **12 executable identities**, including recorded version
+hashes. All 147 tracked native inputs match production `438213ec2` and the frozen
+native source `8a03ab122`; later Lean repairs leave these inputs unchanged. The
+parser retains SHA-256
+`9ede490b6cf72b352a39072cd37f4ef39774409c6024135487cf076567b59b9c`.
+The actual command retains `-U`, full flow/proof and reporting, warnings/checks
+as errors, level 2, CVC5/Z3/Alt-Ergo, the 30-second timeout and forced analysis.
+It used two workers and an existing result cache, with no initial sessions.
+This is a complete cached audit, not a cold-run measurement.
+
+The exact **78-unit** source inventory agrees with the reports and text summary.
+All reports reached `PROGRESS_PROOF` with no stop reason, skipped analysis or
+`pragma_assume`. Coverage comprises **1,232 entities**: 1,152 `all` entries,
+18 approved import declarations and 62 exact vendor-instance declarations with
+documented `spec` treatment. Every owned entity has required coverage. I checked
+all 2,044 dependency-claim rows and every referenced entity against the owned,
+documented runtime or exact mathematical-integer boundary. Six complete import
+pins and both project pins match. Inspection of all 138 source/configuration
+files preserves the source policy, including only the reviewed `Hide_Info`
+forms; the generated runtime constants decode to the exact current source bytes.
+
+All **19,444 required checks** are discharged: **1,715 flow / 17,729 proof**.
+Every actual flow/proof record has proved informational status, accepted proof
+origin and no justification or suppression. The **26,147** SPARK/SARIF
+diagnostics agree as multisets, and the text summary reports zero justified and
+zero unproved checks. Separately counted boundary records are 352 documented
+proof-limit notes, 6,268 vendor mathematical-integer notes, six exact array
+initialization advisories and 25 exact reassociation advisories. The remaining
+52 informational unrolling/inlining notes contribute no discharged check.
+Approved external diagnostic markers retain their exact classifications; no
+source suppression or new trust exception is admitted.
+
+The final output-profile report includes the complete repaired
+`Array_Declaration_At` helper's **56 proof / two flow** checks and its
+`Declaration_At` caller's **11 proof / two flow** checks, with full coverage and
+no helper warning/error records. Review found that the historical progress
+inventory had filtered dependency rows by `entity` instead of `claim.arg` and
+incorrectly reported zero assumption records. There are **two ordinary
+dependency-claim rows each**, containing **126 / 52 dependency entries**
+(63 / 26 distinct references). I verified every corrected count and predicate
+in erratum `d4ec0bf17`. These permitted contract dependencies are distinct from
+`pragma_assume`, which is empty in all 78 reports. The erratum preserves the
+original archive, reports and historical inventory, updates current wording and
+adds only an explicit annotation to the original verification record. Its nine
+updated outer checksums also match. The finding is resolved without a production
+change or proof rerun.
+
+Managed native elapsed time was 12,572.653 s. The original 593 resource samples
+end at **18:39:22.914 UTC**; 1,875 attachment samples begin at
+**18:43:06.549 UTC**. The **223.634-second gap remains unobserved**. The attachment
+retains the same native PID, command and process group and checks start ticks
+before monitoring or signaling. No sampled headroom threshold crossing or guard
+signal is recorded. Observed tree RSS reached 8,052,496 KiB; minimum sampled host
+availability was 3,561,744 KiB, including concurrent Lean work. These are sampled
+extrema, with no bound claimed for the gap or between samples.
+
+Compiler build **`20261115T212353-b892f44c0742` succeeded** at launch/terminal
+commit `dbfcac818`. The retained wrapper and native-tool phase each record exit
+zero, with no interruption or guard; managed outcome is success and its overall
+returncode remains null. The author collected original session `15111` exit zero,
+relayed by the lead; this reviewer inspected retained evidence. The compiler was
+compiled, bound and linked; the Image adapter was already up to date. This was
+an incremental build, taking 2.055 s managed / 5.003 s monitored. Its two samples
+do not measure the compiler's actual peak RSS.
+
+All **15 build archive members**, seven outer checksums, both executable sizes/
+hashes/execute permissions, all input/tool identities and continued identity of
+the 80 native reports check out. No application or regression execution is
+claimed by this build. The scoped native and build evidence is accepted; the
+remaining complete assurance and delivery requirements are unchanged.
+
+Selected reviewer settings remain **GPT-6 Astra / Max**; runtime model/effort and
+token/cost telemetry are unavailable. I ran only source/data inspection and hash
+comparison scripts, with no project validation program, build, proof, test,
+bootstrap, application or cache-writing job. No GitHub state or CLI memory was
+changed. The live harness goal remains null.
