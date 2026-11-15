@@ -1,0 +1,29 @@
+{
+  "command": [
+    "python3",
+    "scripts/check_lean.py",
+    "--target",
+    "Silver.FunctionSourceParts.DeclarationHeaderFunctionLocalsModelSpec",
+    "--target",
+    "Silver.FunctionSourceParts.DeclarationHeaderFunctionBodyAtSpec",
+    "--workers",
+    "1",
+    "--memory-mb",
+    "8192",
+    "--provenance",
+    "--task",
+    "370-lean-header-capacity",
+    "--reason",
+    "Focused repair of both measured 8 GiB header failures on frozen src/scripts 8a03ab122: exact expected characters/tokens normalized with proved String.toList_ofList; unchanged whole-source scanner and theorem statements. One worker/default threads/original 8 GiB allowance; 10 GiB tree and 1.5 GiB host guards; certificate dense work held, native at most two workers."
+  ],
+  "cwd": "/home/agent/silver-worktrees/procedures-lean-370",
+  "started_at": "2026-11-15T17:51:33.456634+00:00",
+  "peak_sum_rss_kib": 5269488,
+  "peak_process_rss_kib": 4217760,
+  "minimum_mem_available_kib": 11059808,
+  "pid": 26417,
+  "returncode": 0,
+  "elapsed_seconds": 140.08782627499932,
+  "finished_at": "2026-11-15T17:53:53.544445+00:00",
+  "interrupted": false
+}
