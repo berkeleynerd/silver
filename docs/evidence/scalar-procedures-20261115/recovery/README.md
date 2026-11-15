@@ -209,8 +209,8 @@ Complete Lean run `20261115T190543-9bda6434802c` stopped at 19:39:40 UTC after
 two explicit kernel-memory failures in `ComposeDeclarationSourceCandidate`:
 `declaration_fact_11` checks the 650-character parser-state record expectation;
 `declaration_fact_22` checks the 922-character state-validity expression.
-The source-only diagnostic guard sent SIGINT; the original launcher returned
-`-2` after 2,037.495 seconds. No complete audit ran. Peak sampled tree RSS was
+The source-only diagnostic guard sent SIGINT; its summary records monitored
+child return code `-2` after 2,037.495 seconds. No complete audit ran. Peak sampled tree RSS was
 8.960 GiB and minimum host availability was 3.760 GiB, so this was the Lean
 per-process limit rather than exhaustion of host headroom.
 
@@ -244,3 +244,24 @@ thread/8-GiB allocation and existing guards remain appropriate alongside the
 productive two-worker native audit on this host. No clean build, independent
 kernel replay or repeated successful focused gate was added. Whole-project
 success, final build/regressions and final delivery acceptance remain pending.
+
+### Procedure metadata-header failure and focused follow-up
+
+Complete continuation `20261115T195423-d7650f191422` stopped at 20:10:09 UTC
+on the 646-character `metadata_append_header` expectation in
+`ProcedureDeclarationHighSourceParts/Body.lean`. The existing source-only
+diagnostic guard interrupted the run after the explicit kernel-memory error,
+with monitored child return `-2` and original outer session exit 254. Elapsed
+time was 946.159 seconds; no complete audit ran. Peak process/tree RSS was
+8,394,704 / 9,184,752 KiB, with minimum available host memory 3,573,632 KiB.
+Completed declaration, procedure-frame, body and source artifacts remain
+preserved. The subsequent outer source module was interrupted, not passed.
+
+The next bounded repair changes only that header proof and a new exact-token
+helper. The separate `ordinary_0` body theorem, original header statement,
+full-source procedure selector and metadata definition remain unchanged.
+The complete `ProcedureDeclarationHighSourceCandidate`, including all its
+source fragments, must pass focused validation and independent review before
+another complete continuation. Native validation remains productive on its
+unchanged source. This is a retained failed/interrupted complete attempt,
+not completed source assurance.

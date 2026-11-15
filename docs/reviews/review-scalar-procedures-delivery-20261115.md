@@ -214,9 +214,9 @@ Managed run **`20261115T194603-51d997e177d8` passed** the new helper and complet
 candidate, then freshly audited **101 modules / 14,411 declarations**, with only
 `propext`, `Classical.choice` and `Quot.sound`. Build and audit phases exited zero
 in 275.031 s and 1.485 s. The monitor records exit zero without interruption or
-guard, and the managed terminal event records success. The author and lead
-also report collecting original execution session `16284` with exit zero; this
-reviewer did not independently consume that session. The exact durable success
+guard, and the managed terminal event records success. The author reported collecting original execution session `16284` with exit
+zero, and the lead relayed that outcome; this reviewer did not independently
+consume that session. The exact durable success
 packet is author commit `983a4c818c2cb6d842c022b2f6d038c117005702`.
 
 I independently verified all **1,111 input, 1,006 workspace, 1,730 artifact and
