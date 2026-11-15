@@ -157,3 +157,92 @@ job, reserved no workers and changed no GitHub state. Writes are confined to
 the explicitly owned report/evidence and review scratch in the separate
 worktree. Final acceptance is intentionally withheld until the outstanding
 evidence and delivery state are reviewed.
+
+## Addendum — two declaration-source expectations, 2026-11-15
+
+**Disposition: accepted for integration and the complete-project retry; no
+material finding.** This bounded continuation reviews author commit
+`ca1c9b2ce1d54d7a3a543f51a33bc9ef907d7057` against the original frozen
+`8ccbc8421` production. It changes only
+`ComposeDeclarationExpectedTokens.lean` and
+`ComposeDeclarationSourceCandidate.lean`. The
+[independent comparison record](../evidence/scalar-procedures-20261115/delivery-review/declaration-normalization-review.json)
+contains exact source hashes and extraction results. The author worktree bytes
+match that immutable commit.
+
+The earlier complete Lean run `20261115T190543-9bda6434802c` ended with two
+explicit 8 GiB kernel-memory failures in `ComposeDeclarationSourceCandidate`,
+followed by the monitor's source-only SIGINT. The stop interrupted the newly
+started contract candidate. Its retained runner log and terminal summary report
+no whole-project audit; all 287 completed objects were preserved. This replaces
+the earlier supplied active status, without converting the failure or the other
+declaration facts into audited success.
+
+| Repaired fact | Unchanged whole-source selector | Exact expected characters / tokens |
+| --- | --- | --- |
+| `declaration_fact_11` | `Lexical.SourceBridge.recordDeclaration "parser_state"` | 650 / 79 |
+| `declaration_fact_22` | `Source.expressionBody "valid_state"` | 922 / 160 |
+
+All **47** original public/private candidate theorem statements remain
+byte-identical. Removing the two added imports and restoring only those two
+proof bodies reconstructs the original candidate exactly, including its public
+`DeclarationsFor` conjunction and every sibling proof. Neither the record
+fields nor the `Valid_State` predicate clauses change.
+
+For each fact, the original goal, public conjunction and both helper literals
+agree. Both complete character lists equal the original text; the helper's and
+leaf's ordered token lists equal an independent lexical extraction. Scanning
+all **72,713** reviewed implementation tokens independently finds exactly one
+complete matching record/expression with those exact tokens. The unchanged
+record extractor retains its complete `end record` and the expression extractor
+retains its balanced complete expression; both collect all matching declarations
+and accept only a singleton. No slice or success-only source premise replaces
+the full-source goal.
+
+The new helper uses the already reviewed checked `String.toList_ofList` identity,
+then unfolds the unchanged alphabet/fuel/lexer computation under `decide +kernel`.
+The original facts rewrite that proved token equality and submit closed
+reflexivity witnesses through unchanged `kernel_exact`. The kernel still checks
+each witness at the exact original goal. Source, reviewed pin, selectors,
+`CertificateWitness`, source facade and authoritative transport are unchanged.
+No project axiom, bypass, narrowed domain, lost field or suppressed obligation
+was found. Prior corruption controls apply only to this unchanged normalization
+mechanism; no earlier ordinary-body/header controls are represented as tests of
+these record/expression extractors.
+
+Managed run **`20261115T194603-51d997e177d8` passed** the new helper and complete
+candidate, then freshly audited **101 modules / 14,411 declarations**, with only
+`propext`, `Classical.choice` and `Quot.sound`. Build and audit phases exited zero
+in 275.031 s and 1.485 s. The monitor records exit zero without interruption or
+guard, and the managed terminal event records success. The author and lead
+also report collecting original execution session `16284` with exit zero; this
+reviewer did not independently consume that session. The exact durable success
+packet is author commit `983a4c818c2cb6d842c022b2f6d038c117005702`.
+
+I independently verified all **1,111 input, 1,006 workspace, 1,730 artifact and
+two executable hashes**, the captured-input digest, exact runner-log digest
+and its emitted module list. Both repaired file hashes match `ca1c9b2ce`; the
+integrated repair `dbdec4b22` has identical production bytes. The retained
+runner log SHA-256 is
+`9e2ed6cf35af0f5d22f0761056951ee3de301fc0ee0a637e0309feb5235b2588`.
+The unchanged tool hashes match the previously reviewed control environment.
+Checking all retained artifact identities does not claim that the fresh audit
+covers modules outside this 101-module import closure.
+
+The run preserves one Lake worker, twelve Lean threads and an 8,192 MiB periodic
+per-process threshold. Sampled peak process/tree RSS is 7,504,784 / 8,541,248 KiB,
+with minimum host availability 6,189,120 KiB. These are sampled resource data,
+not a universal memory bound. This is incremental focused success, not a clean
+build, independent replay or successful whole-project checkpoint. The old
+complete attempt remains failed/interrupted. The next complete graph has
+1,004 modules after adding the helper; textual reachability and cached objects
+are preparation evidence, not completed actual-import coverage.
+
+The complete-project retry and broader native/build/regression/delivery
+acceptance remain separate. This reviewer started no duplicate proof, test,
+build or artifact-writing job and requested no further production repair.
+
+Selected settings remain **GPT-6 Astra / Max**; runtime confirmation and token/
+cost telemetry remain unavailable. Exact-data comparison was recorded at
+**2026-11-15 19:50:34.856560 UTC**; earlier review setup was not separately timed.
+No GitHub or CLI-memory update was made, and the live harness goal remains null.

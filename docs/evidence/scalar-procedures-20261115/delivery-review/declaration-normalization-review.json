@@ -1,0 +1,236 @@
+{
+  "review_target": "ca1c9b2ce1d54d7a3a543f51a33bc9ef907d7057",
+  "comparison_base": "8ccbc84210346596bc8417cbf8b6bc40f8075ed7",
+  "observed_at_utc": "2026-11-15T19:50:34.856560+00:00",
+  "selected_model": "gpt-6-astra",
+  "selected_effort": "max",
+  "runtime_telemetry": "Unavailable",
+  "production_files": {
+    "proof/Silver/ComposeDeclarationSourceCandidate.lean": {
+      "reviewed_sha256": "02e92962c3a2626d207102ac93aad0e5c4d5702ac4b9073b83aae75b537808c5",
+      "author_worktree_matches": true
+    },
+    "proof/Silver/ComposeDeclarationExpectedTokens.lean": {
+      "reviewed_sha256": "4991c3353d8c2bb1d39e9b65f7e2103d1c88520473e10c1afd59793a397cb2f0",
+      "author_worktree_matches": true
+    }
+  },
+  "production_delta": [
+    "proof/Silver/ComposeDeclarationExpectedTokens.lean",
+    "proof/Silver/ComposeDeclarationSourceCandidate.lean"
+  ],
+  "all_candidate_theorem_statements_unchanged": true,
+  "candidate_theorem_count": 47,
+  "only_two_proof_bodies_and_imports_changed": true,
+  "complete_reviewed_source_token_count": 72713,
+  "exact_data_checks": [
+    {
+      "native_name": "parser_state",
+      "candidate_fact": "declaration_fact_11",
+      "helper_theorem": "parserStateRecord",
+      "characters": 650,
+      "tokens": 79,
+      "literal_sha256": "3fa78d2826e5e526854a693f1388dff823d066542a488d352ada3417f016b958",
+      "tokens_sha256": "c1b39763f55a9a096c6258a87cf8280134e038b7e2294b7d40cede2001cea490",
+      "source_matches": 1,
+      "checks": {
+        "statement_unchanged": true,
+        "all_literal_copies_equal": true,
+        "both_character_lists_equal_original": true,
+        "helper_leaf_and_independent_tokens_equal": true,
+        "unique_complete_source_selection_equals_expected": true,
+        "character_and_token_counts_match": true,
+        "helper_uses_unchanged_full_lexer": true
+      }
+    },
+    {
+      "native_name": "valid_state",
+      "candidate_fact": "declaration_fact_22",
+      "helper_theorem": "validStateExpression",
+      "characters": 922,
+      "tokens": 160,
+      "literal_sha256": "d5bf121b697e248919bd238249e25337d499c836624f57b04ec8e7bd126a8572",
+      "tokens_sha256": "69c768270a785500493a3affdebaae9a57bc322845b12f16188911552aa3c942",
+      "source_matches": 1,
+      "checks": {
+        "statement_unchanged": true,
+        "all_literal_copies_equal": true,
+        "both_character_lists_equal_original": true,
+        "helper_leaf_and_independent_tokens_equal": true,
+        "unique_complete_source_selection_equals_expected": true,
+        "character_and_token_counts_match": true,
+        "helper_uses_unchanged_full_lexer": true
+      }
+    }
+  ],
+  "unchanged_mechanism_selectors_consumers_source": {
+    "proof/Silver/CertificateWitness.lean": true,
+    "proof/Silver/SourceDeclarations.lean": true,
+    "proof/Silver/SourceLexer.lean": true,
+    "proof/Silver/ReviewedOutputShape.lean": true,
+    "proof/Silver/ComposeSourceCandidate.lean": true,
+    "proof/Silver/ComposeSourceChecks.lean": true,
+    "src/silver_output_profile.adb": true
+  },
+  "disposition": "Accepted exact two-file declaration-source repair for integration and complete retry; no material finding. Whole-project and delivery acceptance remain pending.",
+  "validation": {
+    "reviewed_at_utc": "2026-11-15T19:53:19.685602+00:00",
+    "run_id": "20261115T194603-51d997e177d8",
+    "scope": "focused",
+    "host": "linux-aarch64",
+    "lean_version": "4.34.1",
+    "targets": [
+      "Silver.ComposeDeclarationSourceCandidate"
+    ],
+    "axiom_audit": "passed",
+    "module_count": 101,
+    "audit_lines": [
+      "Silver axiom audit passed: 14411 declarations; foundations: [propext, Classical.choice, Quot.sound]"
+    ],
+    "phases": [
+      {
+        "phase": "build",
+        "started_at": "2026-11-15T19:46:08.008176+00:00",
+        "finished_at": "2026-11-15T19:50:43.038824+00:00",
+        "elapsed_seconds": 275.031,
+        "exit_code": 0
+      },
+      {
+        "phase": "audit",
+        "started_at": "2026-11-15T19:50:43.627392+00:00",
+        "finished_at": "2026-11-15T19:50:45.112286+00:00",
+        "elapsed_seconds": 1.485,
+        "exit_code": 0
+      }
+    ],
+    "evidence_sha256": "8d27d9bd2bc61155ed5b8e4b7ab69c25c538c96b8b339f3c9e928bdbca0150aa",
+    "runner_log_uncompressed_sha256": "9e2ed6cf35af0f5d22f0761056951ee3de301fc0ee0a637e0309feb5235b2588",
+    "runner_log_matches": true,
+    "emitted_modules_equal_evidence": true,
+    "input_digest_matches": true,
+    "hash_counts_checked": {
+      "inputs_sha256": 1111,
+      "workspace_inputs_sha256": 1006,
+      "artifacts_sha256": 1730,
+      "tools_sha256": 2
+    },
+    "hash_mismatches": {
+      "inputs_sha256": [],
+      "workspace_inputs_sha256": [],
+      "artifacts_sha256": [],
+      "tools_sha256": []
+    },
+    "tools_match_previous_reviewed_control_environment": true,
+    "original_terminal_exit": "Lead reported collected original exec session 16284 exit 0; independently read monitor returncode 0 and managed success.",
+    "managed_terminal": {
+      "duration_seconds": 283.029734635,
+      "event": "finished",
+      "evidence": [
+        {
+          "original": "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused.log",
+          "resolved": "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused.log"
+        },
+        {
+          "original": "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused-evidence.json",
+          "resolved": "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused-evidence.json"
+        },
+        {
+          "original": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T194603-51d997e177d8/previous-evidence/lean-focused.log",
+          "resolved": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T194603-51d997e177d8/previous-evidence/lean-focused.log"
+        },
+        {
+          "original": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T194603-51d997e177d8/previous-evidence/lean-focused-evidence.json",
+          "resolved": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T194603-51d997e177d8/previous-evidence/lean-focused-evidence.json"
+        },
+        {
+          "original": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T194603-51d997e177d8/lean-focused.log",
+          "resolved": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T194603-51d997e177d8/lean-focused.log"
+        },
+        {
+          "original": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T194603-51d997e177d8/lean-focused-evidence.json",
+          "resolved": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T194603-51d997e177d8/lean-focused-evidence.json"
+        }
+      ],
+      "failure_keys": [],
+      "monotonic_ns": 15477564290380,
+      "outcome": "success",
+      "retained_reports": [],
+      "returncode": null,
+      "run_id": "20261115T194603-51d997e177d8",
+      "utc": "2026-11-15T19:50:46.206101+00:00"
+    },
+    "managed_events_sha256": "e77df1e8630708b66c1049d87a9a344164294047057e0946a795906fe65044ff",
+    "monitor_summary": {
+      "command": [
+        "python3",
+        "scripts/check_lean.py",
+        "--target",
+        "Silver.ComposeDeclarationSourceCandidate",
+        "--workers",
+        "1",
+        "--memory-mb",
+        "8192",
+        "--provenance",
+        "--task",
+        "370-declaration-source-memory",
+        "--reason",
+        "Focused full declaration-source caller after complete run 20261115T190543-9bda6434802c isolated exact failures in parser_state record fact 11 (650 chars/79 tokens) and valid_state expression fact 22 (922/160). Parent-authorized two-file repair normalizes only those exact expected strings via established checked character/lexer proofs. Every original theorem, full-source extractor, data/domain/contract and other fact remains unchanged; source/scripts frozen. Preserve all 287 completed objects and failed full-run evidence. One worker/default 12 threads/8192 MiB with 10 GiB tree/1.5 GiB host and diagnostic guards; native two workers separately guarded. Independent review and focused full helper/candidate success before any complete retry."
+      ],
+      "cwd": "/home/agent/silver-worktrees/procedures-lean-370",
+      "started_at": "2026-11-15T19:46:02.914884+00:00",
+      "peak_sum_rss_kib": 8541248,
+      "peak_process_rss_kib": 7504784,
+      "minimum_mem_available_kib": 6189120,
+      "pid": 154250,
+      "returncode": 0,
+      "elapsed_seconds": 285.4147733440004,
+      "finished_at": "2026-11-15T19:50:48.329650+00:00",
+      "interrupted": false
+    },
+    "monitor_summary_sha256": "2009b7d18c23146d972f9b0df4ece3475837d4372bcbb6dd2fbb9afb74e97fff",
+    "settings": {
+      "clean_build": false,
+      "mode": "focused",
+      "kernel_recheck": null,
+      "lake_workers": 1,
+      "threads_per_process": 12,
+      "memory_mb_per_process": 8192
+    },
+    "scope_note": "All retained artifacts were hashed for identity; fresh declaration audit covers only the recorded 101 imported modules."
+  },
+  "limits": [
+    "Independent Python extraction/hash checks are corroboration, not kernel proof.",
+    "No reviewer proof/build/test/application/cache-writing job.",
+    "Whole-project/delivery acceptance remains pending."
+  ],
+  "failed_complete_checkpoint": {
+    "run_id": "20261115T190543-9bda6434802c",
+    "managed_log_matches_retained_identity": true,
+    "failed_candidate_matches_original": true,
+    "kernel_memory_error_lines": [
+      "error: Silver/ComposeDeclarationSourceCandidate.lean:117:779: Tactic `decide` failed. The elaborator is able to reduce the `Decidable` instance, but the kernel fails with:",
+      "error: Silver/ComposeDeclarationSourceCandidate.lean:150:1033: Tactic `decide` failed. The elaborator is able to reduce the `Decidable` instance, but the kernel fails with:"
+    ],
+    "terminal_summary_returncode": -2,
+    "finished_at": "2026-11-15T19:39:40.531813+00:00",
+    "diagnostic_interruption_recorded": true,
+    "complete_axiom_audit_present": false,
+    "objects_retained_per_author_inventory": 287,
+    "summary_sha256": "91d1796400745103605ef5575237e954d4f501c0905258a44f5f943b61fe600c",
+    "scope": "Direct retained-log/identity/original-source check; no failed object accepted as proof."
+  },
+  "durable_packet": {
+    "commit": "983a4c818c2cb6d842c022b2f6d038c117005702",
+    "checks": {
+      "focused_evidence": true,
+      "focused_runner_log": true,
+      "focused_summary": true,
+      "failure_runner_log": true
+    },
+    "integrated_repair_commit": "dbdec4b228bbefa3c956d8aa6f572e77ce62d28f",
+    "integrated_production_diff": []
+  },
+  "review_ended_at_utc": "2026-11-15T19:54:54.696857+00:00",
+  "measured_comparison_to_completion_seconds": 259.840297,
+  "timing_scope": "From recorded exact-data comparison to bounded acceptance evidence completion; excludes earlier setup, not total review or native run time."
+}
