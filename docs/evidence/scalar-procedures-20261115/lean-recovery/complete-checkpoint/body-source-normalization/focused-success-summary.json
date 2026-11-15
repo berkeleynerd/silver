@@ -1,0 +1,27 @@
+{
+  "command": [
+    "python3",
+    "scripts/check_lean.py",
+    "--target",
+    "Silver.PredicateBodySourceCandidate",
+    "--workers",
+    "1",
+    "--memory-mb",
+    "8192",
+    "--provenance",
+    "--task",
+    "370-body-source-normalization",
+    "--reason",
+    "Full focused body source candidate after four individual equality kernel-memory failures in complete run 20261115T211741-9bb82c28fe83. Immutable810d1a8e3 normalizes only original712/633/632/762-character literals while retaining typed tailModel/readContractBody renderers, both88-character variant suffixes, concatenations, original read_body simp-only route, all108 original private statements and public checked assembly. Check all four complete normalization helper contracts and every original candidate field together. Preserve all661priorobjects and previous failure/success evidence. One worker/default12Leanthreads/8192MiB because the measured singlecandidate tree approaches9GiB on15.8GiBhost; two dense jobs would exceed available headroom. Native audit/build now complete, no concurrent-native allocation claim. Original10GiBsource-tree/1.5GiBhost-headroom/first-kernel-memory diagnostic source-onlyguards. No clean/replay/duplicate success. Full focused success and independent critical acceptance required before complete cached continuation."
+  ],
+  "cwd": "/home/agent/silver-worktrees/procedures-lean-370",
+  "started_at": "2026-11-15T21:29:52.284434+00:00",
+  "peak_sum_rss_kib": 6859408,
+  "peak_process_rss_kib": 5800992,
+  "minimum_mem_available_kib": 10238272,
+  "pid": 313242,
+  "returncode": 0,
+  "elapsed_seconds": 385.48236360100054,
+  "finished_at": "2026-11-15T21:36:17.766800+00:00",
+  "interrupted": false
+}
