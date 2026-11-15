@@ -1,0 +1,126 @@
+{
+  "regression/active-regression-checkpoint.json": {
+    "bytes": 1497,
+    "sha256": "ad563f58ba710595cc4e4c8d117abe6a1718f3f2bd4c5e7d5770eacfb577f1eb"
+  },
+  "regression/command.json": {
+    "bytes": 1362,
+    "sha256": "84b53b9b516d60a9ee074e72f749497651d7e1c89f53781e695a55c952ecf932"
+  },
+  "regression/failure-traces.txt": {
+    "bytes": 5255,
+    "sha256": "a920e04c5319f61090dff75d8e3b0d9f9cf7a92b64f41c1ce3130a05e48b3dcc"
+  },
+  "regression/input-selectors.json": {
+    "bytes": 1143,
+    "sha256": "9ec4b37ec6f0596bd1489916c3d0380e6357004e888985b116b7324c2d6a79da"
+  },
+  "regression/inventory.json": {
+    "bytes": 71628,
+    "sha256": "b202209ffdb76263e65797c57a7b1d8912a3761f1528ca0868f6e1c2d1fb30de"
+  },
+  "regression/launcher.json": {
+    "bytes": 494,
+    "sha256": "a275612785b84bf89da663509b847b2f7c10e76a1261e3e8ba2ab7ac37d6bfed"
+  },
+  "regression/launcher.log": {
+    "bytes": 1789523,
+    "sha256": "d76635b1830ecf7b2c4ce912649e094ba5ea4044ef9a8692997cc589b73d6416"
+  },
+  "regression/monitor.py": {
+    "bytes": 3185,
+    "sha256": "11f8bd99c13021c3a0223318de4504ee275455d6599eb1d7bd7cd3d0d1bf2eec"
+  },
+  "regression/original-session-terminal.json": {
+    "bytes": 207,
+    "sha256": "5aa5eff48c56630ed51486000ee3dc41dd397ded9c2c5bdc608ce38e54415194"
+  },
+  "regression/preflight-runs.json": {
+    "bytes": 216924,
+    "sha256": "746c0c48c1f2a211c16cb2613f7b66851597fff81dc1d6401f3d7e04855ad63a"
+  },
+  "regression/preparation-correction.json": {
+    "bytes": 396,
+    "sha256": "848f27a5716fb2923366ce2a533d3c7b222d9dc6d456d2463cc81357aed9fb4b"
+  },
+  "regression/prepared-binaries.json": {
+    "bytes": 553,
+    "sha256": "b5d3b749f3065c1eb19cc6e4f66d3c19810d15feee9d617a1b60046ea4a5832e"
+  },
+  "regression/prepared-lean-tools.json": {
+    "bytes": 615,
+    "sha256": "89cbdbb3b28ea14a8b9c21667e3280d122f748c641e126d746851c326118276b"
+  },
+  "regression/prepared-native-inputs.json": {
+    "bytes": 450482,
+    "sha256": "ca57e9f982a1f8c1cf74644eb2671893ab98a1d811d28c4862c80a6ff0876124"
+  },
+  "regression/prepared-native-tools.json": {
+    "bytes": 6927,
+    "sha256": "23d1594ef34f4213b5c13ad0b4cb6e5e0d3adaf51e8934897813a4ae1e7155ba"
+  },
+  "regression/prepared-regression-inputs.json": {
+    "bytes": 228351,
+    "sha256": "232915dcabbcce0f94c07ce24def40fa39f7f599a4ce50d140474e0e59f7c4c1"
+  },
+  "regression/readiness-report.md": {
+    "bytes": 6334,
+    "sha256": "f53165a344ef23a6f1ad3ac6ae6f1e9ebb85c1b838406c2dee6374d446efdf7c"
+  },
+  "regression/resources.jsonl": {
+    "bytes": 780815,
+    "sha256": "1d4d4c395c0f53c2c4ebcc3ac61c509b1c7590c1667874d58853833d5e78ed98"
+  },
+  "regression/retention-script.py": {
+    "bytes": 9640,
+    "sha256": "0b022eb18f7362675ff1c772cf220a393c72c881d5f7f6f0c737a4a6090ab20a"
+  },
+  "regression/sample-manifest.json": {
+    "bytes": 116778,
+    "sha256": "bec398ab1e86124413840542d46563618d61c314d6db409574713f851f2d63a7"
+  },
+  "regression/summary.json": {
+    "bytes": 630,
+    "sha256": "d589cd619a7825fb26beed34c6b9079fc7528bd947ffc7fb3d8d437855fb7ed6"
+  },
+  "regression/terminal-binaries.json": {
+    "bytes": 553,
+    "sha256": "b5d3b749f3065c1eb19cc6e4f66d3c19810d15feee9d617a1b60046ea4a5832e"
+  },
+  "regression/terminal-lean-tools.json": {
+    "bytes": 615,
+    "sha256": "89cbdbb3b28ea14a8b9c21667e3280d122f748c641e126d746851c326118276b"
+  },
+  "regression/terminal-managed-run.json": {
+    "bytes": 478816,
+    "sha256": "97f02138cb062db09344ec219bcf0046f6c194e13ac65cf0989e48e5ac72566b"
+  },
+  "regression/terminal-native-inputs.json": {
+    "bytes": 450482,
+    "sha256": "ca57e9f982a1f8c1cf74644eb2671893ab98a1d811d28c4862c80a6ff0876124"
+  },
+  "regression/terminal-native-tools.json": {
+    "bytes": 6927,
+    "sha256": "23d1594ef34f4213b5c13ad0b4cb6e5e0d3adaf51e8934897813a4ae1e7155ba"
+  },
+  "regression/terminal-regression-inputs.json": {
+    "bytes": 228351,
+    "sha256": "232915dcabbcce0f94c07ce24def40fa39f7f599a4ce50d140474e0e59f7c4c1"
+  },
+  "regression/test-results.json": {
+    "bytes": 174095,
+    "sha256": "d618d883bde19e4f86fc00c093d18b3a02999a5f50956d937c5aaff80369a1a1"
+  },
+  "regression/verification.json": {
+    "bytes": 3748,
+    "sha256": "e96797c2cb435191a12f6810f44ff5c0e92480f921d6d6a6e783afe28ebb0dae"
+  },
+  "managed-run/events.jsonl": {
+    "bytes": 225953,
+    "sha256": "fbd17b72896f91b717a1a2638f40dd67b9ad1e955148edad3609c3e3698f73c8"
+  },
+  "managed-run/native.log": {
+    "bytes": 1789194,
+    "sha256": "243ce0fff5f05ae4cbae6d3e337ac525f621a867dddb44dad1a6eb0f7ce0417c"
+  }
+}

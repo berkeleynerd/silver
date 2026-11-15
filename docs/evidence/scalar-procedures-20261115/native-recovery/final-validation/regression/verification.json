@@ -1,0 +1,96 @@
+{
+  "verified_at": "2026-11-15T22:25:11.393433+00:00",
+  "run_id": "20261115T220916-99f1eaeea331",
+  "host": "linux-aarch64",
+  "machine": "silver-m4pro",
+  "launch_head": "4de5d4e519b040e3208632bafb12bc0d9ffcf0f4",
+  "terminal_head": "defb4589b6a5d33dd61e9a5c415c6eb332d97ae3",
+  "original_session": 84822,
+  "original_session_exit_code": 1,
+  "managed_outcome": "failure",
+  "managed_finish": {
+    "duration_seconds": 853.962826324,
+    "error": "CalledProcessError: Command '['/usr/bin/python3', '-m', 'unittest', 'discover', '-s', 'tests', '-v']' returned non-zero exit status 1.",
+    "event": "finished",
+    "evidence": [
+      {
+        "original": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T220916-99f1eaeea331/native.log",
+        "resolved": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T220916-99f1eaeea331/native.log"
+      }
+    ],
+    "failure_keys": [],
+    "monotonic_ns": 24642007061333,
+    "outcome": "failure",
+    "retained_reports": [],
+    "returncode": 1,
+    "run_id": "20261115T220916-99f1eaeea331",
+    "utc": "2026-11-15T22:23:30.648874+00:00"
+  },
+  "wrapper": {
+    "command": [
+      "python3",
+      "scripts/dev.py",
+      "test",
+      "--task",
+      "#370",
+      "--reason",
+      "Complete final 691-case regression and 85-sample inventory; dense proof allocations released; preserve canonical application -j0"
+    ],
+    "cwd": "/home/agent/silver-workspaces/recovery-volume/integration",
+    "started_at": "2026-11-15T22:09:16.476509+00:00",
+    "peak_sum_rss_kib": 1694448,
+    "peak_process_rss_kib": 936512,
+    "minimum_mem_available_kib": 14320320,
+    "pid": 322856,
+    "returncode": 1,
+    "elapsed_seconds": 855.6070414499991,
+    "finished_at": "2026-11-15T22:23:32.083549+00:00",
+    "interrupted": false
+  },
+  "workers": 12,
+  "no_restart_or_duplicate": true,
+  "monitor_continuity": {
+    "samples": 172,
+    "maximum_sample_gap_seconds": 5.011279960999673,
+    "original_monitor_preserved": true,
+    "attachment_guard_required": false
+  },
+  "complete_test_inventory_observed": true,
+  "passed_count": 687,
+  "failing_case_count": 2,
+  "error_case_count": 0,
+  "failure_result_count": 4,
+  "skip_count": 2,
+  "sample_manifest_count": 85,
+  "manifest_sample_test_passed": true,
+  "maximum_dynamic_expression_test_passed": true,
+  "actual_skip_reasons_match_expected": true,
+  "sample_manifest_matches_launch": true,
+  "native_input_count": 2606,
+  "all_native_inputs_match_launch_and_full_audit": true,
+  "regression_input_count": 1316,
+  "all_regression_inputs_match_launch": true,
+  "native_tool_identities_match": true,
+  "lean_tool_identities_match": true,
+  "binaries_match_launch": true,
+  "native_report_hashes_valid": 80,
+  "binaries": {
+    "silver": {
+      "path": "/home/agent/silver-workspaces/recovery-volume/integration/.silver/linux-aarch64/compiler/bin/silver",
+      "bytes": 2983856,
+      "sha256": "683925c9b33cda887a58ecc2ad1d0e8feedf51590653e7aee3dd2889b06267d9",
+      "executable": true
+    },
+    "silver_image_adapter": {
+      "path": "/home/agent/silver-workspaces/recovery-volume/integration/.silver/linux-aarch64/compiler/bin/silver_image_adapter",
+      "bytes": 2065784,
+      "sha256": "832aff2ba73cd07954a9e30e9b06340ee49c16d77664a5071df2540d286d1b5e",
+      "executable": true
+    }
+  },
+  "selected_model": "GPT-6.1 Sol",
+  "selected_effort": "High",
+  "runtime_telemetry": "unavailable",
+  "token_cost": "unavailable",
+  "scope": "Original complete regression execution and exact input/tool/binary retention. Failed results remain failed; no successful repair or all-pass claim."
+}
