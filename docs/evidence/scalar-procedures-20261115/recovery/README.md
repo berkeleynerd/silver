@@ -310,3 +310,23 @@ aggregation as the explanation for the reader-constructor failure; the complete
 candidate must still validate it. The temporary probe will be retained outside
 production and retired before the full candidate gate. Native source and
 validation remain unchanged, and complete assurance remains pending.
+
+### Flow-source recovery and complete continuation
+
+The two-file repair is integrated at `451b5761a`. Its
+[focused success packet](../lean-recovery/complete-checkpoint/predicate-flow-normalization/README.md)
+retains run `20261115T204311-34308bc25803`: the whole flow-source candidate,
+both normalization helpers, all five private reader fields and their unchanged
+caller passed a fresh 132-module / 21,861-declaration audit. The monitored run
+completed in 255.286 seconds without a guard or interruption under the same
+8 GiB per-process threshold. Independent review accepted the exact source data,
+all semantic renderings, field factoring and original terminal evidence. The
+failed probe remains failed; the combined repair does not establish that proof
+aggregation was the sole cause of the earlier reader error.
+
+All 656 prior objects remain byte-identical. Complete cached continuation
+`20261115T205032-5834a8189332` starts with 658 objects on the reviewed production
+bytes; the preflight import graph reaches all 1,006 project modules. It retains
+the same resource allocation and guards alongside the unchanged native audit.
+Complete native and Lean assurance, build/regression coverage and final delivery
+acceptance remain pending.
