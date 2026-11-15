@@ -202,3 +202,24 @@ focused audits and the isolated Rosetta proposal. It identifies no new material
 static defect. Final acceptance remains withheld until the complete native and
 Lean audits, build, applicable full regression coverage and coordinated delivery
 records are available for its closing addendum.
+
+### First complete-run outcome and next focused check
+
+Complete Lean run `20261115T190543-9bda6434802c` stopped at 19:39:40 UTC after
+two explicit kernel-memory failures in `ComposeDeclarationSourceCandidate`:
+`declaration_fact_11` checks the 650-character parser-state record expectation;
+`declaration_fact_22` checks the 922-character state-validity expression.
+The source-only diagnostic guard sent SIGINT; the original launcher returned
+`-2` after 2,037.495 seconds. No complete audit ran. Peak sampled tree RSS was
+8.960 GiB and minimum host availability was 3.760 GiB, so this was the Lean
+per-process limit rather than exhaustion of host headroom.
+
+The original session outcome and failed logs are retained by the Lean owner.
+All 287 existing module objects remain preserved, including the completed
+source certificates and catalogue candidate; object presence is not a fresh
+whole-project audit. The next bounded repair normalizes only those two exact
+expectations in a separate helper and their original private proofs. Every
+public statement and complete-source extractor remains required. The complete
+declaration candidate must pass a focused audit and independent review before
+another complete run. Other prospective literals remain unchanged. The native
+audit continues independently on its original frozen inputs.
