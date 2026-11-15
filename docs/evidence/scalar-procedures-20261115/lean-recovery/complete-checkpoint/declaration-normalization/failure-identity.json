@@ -1,0 +1,14 @@
+{
+  "run_id": "20261115T190543-9bda6434802c",
+  "production_revision": "46c849d81",
+  "equivalent_published_production": "8ccbc8421",
+  "all_1110_captured_input_files_still_match_prior_focused_evidence": true,
+  "source_input_digest_sha256": "6bf8710c161d9b4d8e13e555417450a35f1a11c36f53a933943b68d62d364861",
+  "tools_sha256": {
+    ".tools/linux-aarch64/lean/bin/lean": "79fb1d26fa5a39385d59fdc48a711a14b0710ca6480271acce99b4d177cea085",
+    ".tools/linux-aarch64/lean/bin/lake": "f80f50cbab5322e35bcb0bf88937e22e9d908b5e4e336e83ddfc30eb1506aacf"
+  },
+  "exact_managed_log_sha256": "e81f4be701031aafbfba7c9f3d5be23efb7333575ce1f1504223a6ea50c11707",
+  "compiled_module_objects_retained": 287,
+  "outcome": "Two explicit kernel-memory failures in declaration_fact_11 and declaration_fact_22 followed by source-only diagnostic SIGINT; ComposeContractSourceCandidate interrupted; no whole-project audit."
+}
