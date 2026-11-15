@@ -85,4 +85,45 @@ complete cached attempt. No clean build, replay or speculative wider repair.
 
 | Work | Model / effort | Result and remaining work | Available cost evidence |
 | --- | --- | --- | --- |
-| Exact field diagnosis and bounded representation repair | Selected Astra Max; live lead setting not independently exposed | Two isolated failures confirmed; reader aggregation is a focused hypothesis; complete candidate and critical review pending | Complete failure 725.714 s, field probe 200.178 s monitored elapsed; token and whole-team cost unavailable |
+| Exact field diagnosis and bounded representation repair | Selected Astra Max; live lead setting not independently exposed | Two confirmed-field normalizations and factored reader proofs passed the complete focused candidate; critical review and whole-project checkpoint pending | Complete failure 725.714 s, field probe 200.178 s monitored elapsed; token and whole-team cost unavailable |
+
+## Complete focused result and continuation preflight
+
+Run `20261115T204311-34308bc25803` passed on exact production `24115ffd2`.
+Original execution session `55580` returned exit 0 and the monitor recorded no
+interruption or guard. The new helper built in 734 ms; the complete candidate
+built in 240 s. Managed build elapsed 243.339 s and the fresh imported-environment
+audit elapsed 1.302 s, covering **132 modules and 21,861 declarations**, with only
+`propext`, `Classical.choice` and `Quot.sound` as foundations.
+
+Both exact normalized fragments and all five private reader field lemmas now
+pass together with every original constructor and public candidate field.
+Assembling the original reader contract from separately checked identical fields
+resolved its grouped failure at the same memory threshold. This supports the
+proof-aggregation diagnosis; no isolated reader literal was claimed to fail or
+normalized. Original selectors, semantic renderings, native domains and theorem
+statements remain fixed. This is focused partial validation, not complete-project
+assurance.
+
+At one worker, automatic twelve Lean threads and 8,192 MiB, sampled process peak
+was 7,273,168 KiB RSS, tree peak 8,331,392 KiB, and minimum host availability
+8,024,224 KiB. Monitored elapsed was 255.286 s. These measurements describe this
+run and do not establish asymptotic behavior or resource limits for other modules.
+
+All **1,113 input, 1,008 workspace-input, 3,944 artifact and two tool hashes** were
+reverified after actual terminal completion. The exact managed log SHA-256 is
+`87a465b531897629bc9c6d954d1d5797cfcb69861312711ffb530c54ae21f2d2`.
+All **656** prior ordinary module objects and their 3,932 captured variant/hash
+files remain byte-identical. Helper and candidate add two objects, bringing the
+retained ordinary object total to 658. The temporary field probe is absent from
+both production and synchronized proof workspace. Exact success evidence, logs,
+resources, terminal summary and post-run hash verification are retained here.
+
+The textual `Silver.Audit` import preflight reaches all **1,006** current project
+modules with no missing project import or unreachable module, including the new
+helper. 658 objects are present and 348 modules lack an object. Presence and text
+reachability are preflight facts only. A complete cached continuation must still
+freshly audit actual whole-project module coverage, axioms, stable inputs and
+source correspondence. Independent critical acceptance of this exact repair and
+focused evidence precedes that continuation; successful focused gates need not
+be repeated and no clean build or replay was performed.

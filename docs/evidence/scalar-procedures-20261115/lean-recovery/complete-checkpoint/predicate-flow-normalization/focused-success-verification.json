@@ -1,0 +1,23 @@
+{
+  "run_id": "20261115T204311-34308bc25803",
+  "production_revision": "24115ffd2",
+  "verified_at": "2026-11-15T20:48:27.474403+00:00",
+  "checked_hash_counts": {
+    "inputs_sha256": 1113,
+    "workspace_inputs_sha256": 1008,
+    "artifacts_sha256": 3944,
+    "tools_sha256": 2
+  },
+  "focused_actual_imported_modules": 132,
+  "focused_audited_declarations": 21861,
+  "exact_managed_log_sha256": "87a465b531897629bc9c6d954d1d5797cfcb69861312711ffb530c54ae21f2d2",
+  "all_captured_hashes_match": true,
+  "prior_module_objects_unchanged": 656,
+  "prior_variant_hash_files_unchanged": 3932,
+  "prior_object_files_changed_or_missing": [],
+  "terminal_exec_session": 55580,
+  "terminal_exec_exit_code": 0,
+  "interrupted": false,
+  "kernel_replay_performed": false,
+  "diagnostic_probe_absent_from_source_and_workspace": true
+}
