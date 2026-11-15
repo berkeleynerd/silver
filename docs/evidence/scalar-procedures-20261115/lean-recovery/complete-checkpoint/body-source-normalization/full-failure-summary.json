@@ -1,0 +1,50 @@
+{
+  "command": [
+    "python3",
+    "scripts/check_lean.py",
+    "--workers",
+    "1",
+    "--memory-mb",
+    "8192",
+    "--provenance",
+    "--task",
+    "370-complete-lean-recovery",
+    "--reason",
+    "Complete cached continuation on independently accepted frozen production 3c94de830 after exact six-header normalization and focused full PredicateNativeShapeCandidate success 20261115T210927-f5ecbbed5260: actual 127 modules / 21408 declarations, all 63 original private statements and complete checked assembly preserved. Independent critical review accepted the exact source/strings/characters/tokens/extractors and terminal/hash evidence. Preserve all 661 completed objects and every prior failed/success packet; all 659 objects predating this repair remain byte-identical. Textual Audit closure reaches all 1007 modules; actual whole-project module/axiom/source/provenance audit remains required. No clean build, replay or duplicate passed gate. One worker/default 12 threads/8192 MiB shares measured 15.8 GiB host with productive two-worker native audit; original 10 GiB source-tree/1.5 GiB host-headroom/first-memory-diagnostic source-only guards. Parent released this allocation after focused success and independent acceptance. Preserve and diagnose any new failure before another broad attempt; native source/scripts unchanged."
+  ],
+  "cwd": "/home/agent/silver-worktrees/procedures-lean-370",
+  "started_at": "2026-11-15T21:17:41.373424+00:00",
+  "peak_sum_rss_kib": 9454224,
+  "peak_process_rss_kib": 8390032,
+  "minimum_mem_available_kib": 7668128,
+  "pid": 307623,
+  "diagnostic_interruption": {
+    "pattern": "(kernel) excessive memory consumption detected",
+    "sample": {
+      "elapsed_seconds": 515.5267864960006,
+      "sum_rss_kib": 1824208,
+      "mem_available_kib": 15249440,
+      "processes": [
+        {
+          "pid": 307623,
+          "rss_kib": 87440,
+          "command": "python3 scripts/check_lean.py --workers 1 --memory-mb 8192 --provenance --task 370-complete-lean-recovery --reason Complete cached continuation on independently accepted frozen production 3c94de830 after exact six-header normalization and focused full PredicateNativeShapeCandidate success 20261115T210927-f5ecbbed5260: actual 127 modules / 21408 declarations, all 63 original private statements and complete checked assembly preserved. Independent critical review accepted the exact source/strings/characters/tokens/extractors and terminal/hash evidence. Preserve all 661 completed objects and every prior failed/success packet; all 659 objects predating this repair remain byte-identical. Textual Audit closure reaches all 1007 modules; actual whole-project module/axiom/source/provenance audit remains required. No clean build, replay or duplicate passed gate. One worker/default 12 threads/8192 MiB shares measured 15.8 GiB host with productive two-worker native audit; original 10 GiB source-tree/1.5 GiB host-headroom/first-memory-diagnostic source-only guards. Parent released this allocation after focused success and independent acceptance. Preserve and diagnose any new failure before another broad attempt; native source/scripts unchanged. "
+        },
+        {
+          "pid": 307807,
+          "rss_kib": 969152,
+          "command": "/home/agent/silver-worktrees/procedures-lean-370/.tools/linux-aarch64/lean/bin/lake --rehash --reconfigure -K silverThreads=12 -K silverMemoryMb=8192 build Silver.Audit "
+        },
+        {
+          "pid": 312589,
+          "rss_kib": 767616,
+          "command": "/home/agent/silver-worktrees/procedures-lean-370/.tools/linux-aarch64/lean/bin/lean -j12 -M8192 -DwarningAsError=true /home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/proof/Silver/PredicateStructuralGuards.lean -o /home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/PredicateStructuralGuards.olean -i /home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/PredicateStructuralGuards.ilean -c /home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/proof/.lake/build/ir/Silver/PredicateStructuralGuards.c --setup /home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/proof/.lake/build/ir/Silver/PredicateStructuralGuards.setup.json --json "
+        }
+      ]
+    }
+  },
+  "returncode": -2,
+  "elapsed_seconds": 520.531618707002,
+  "finished_at": "2026-11-15T21:26:21.905062+00:00",
+  "interrupted": true
+}
