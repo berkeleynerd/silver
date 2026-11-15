@@ -185,3 +185,15 @@ who did not author these Lean changes. The separate certificate-core review
 remains at `dca1f7b48`. The live harness goal was read as null at handoff; no new
 goal or CLI memory update is claimed. All source, caches and ignored scratch
 remain in the owned native worktree. No GitHub writes, push or merge occurred.
+
+## Log retention clarification
+
+Files ending `-runner.log.gz` retain the exact managed runner log whose
+uncompressed SHA-256 appears in each corresponding successful evidence JSON.
+`log-provenance.json` verifies all four mappings against the durable managed
+run directories. Earlier `focused-success.log.gz`, `production-cleanup.log.gz`
+and `expected-tokens-normalized.log.gz` are the outer monitored launcher output;
+they additionally contain runner announcements and are not byte-identical to
+the inner runner log. The control files explicitly named `*-launcher.log.gz`
+have the same outer-output role. Independent review caught the ambiguous log
+naming; both complete observations remain retained without changing any outcome.

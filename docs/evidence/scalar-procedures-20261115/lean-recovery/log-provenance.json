@@ -1,0 +1,34 @@
+[
+  {
+    "run_id": "20261115T173223-fb4134e2af34",
+    "evidence": "focused-success-evidence.json.gz",
+    "exact_runner_log": "focused-success-runner.log.gz",
+    "uncompressed_sha256": "d87e15a7be1b74b822071b76507e55f4e1051cce6588b3d94ea76f3342a9f74e",
+    "matches_evidence_log_sha256": true,
+    "source": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T173223-fb4134e2af34/lean-focused.log"
+  },
+  {
+    "run_id": "20261115T173917-d7a06c23e3ca",
+    "evidence": "production-cleanup-evidence.json.gz",
+    "exact_runner_log": "production-cleanup-runner.log.gz",
+    "uncompressed_sha256": "2473e14ae123bc8c7a3a5b64c81c92ed31529d2ea9f5624e8377df77a96183e0",
+    "matches_evidence_log_sha256": true,
+    "source": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T173917-d7a06c23e3ca/lean-focused.log"
+  },
+  {
+    "run_id": "20261115T172007-8dc3d8f5e77f",
+    "evidence": "expected-tokens-normalized-evidence.json.gz",
+    "exact_runner_log": "expected-tokens-normalized-runner.log.gz",
+    "uncompressed_sha256": "1fc7d401023158836aca68a800237fe956413366839bfaea132474c9641f3631",
+    "matches_evidence_log_sha256": true,
+    "source": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T172007-8dc3d8f5e77f/lean-focused.log"
+  },
+  {
+    "run_id": "20261115T173725-aa334a489da8",
+    "evidence": "positive-controls-evidence.json.gz",
+    "exact_runner_log": "positive-controls-runner.log.gz",
+    "uncompressed_sha256": "2ff2c08cd30983605e96cb31da0c6e4082b1db73a53245dee05244530201e469",
+    "matches_evidence_log_sha256": true,
+    "source": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T173725-aa334a489da8/lean-focused.log"
+  }
+]
