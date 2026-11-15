@@ -1,0 +1,11 @@
+Managed run: 20261115T171250-44037e89fa98 (/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T171250-44037e89fa98)
+test_output_body_conflicting_digest_is_rejected (test_lean_source.CompilerSourcePolicyTests.test_output_body_conflicting_digest_is_rejected) ... ok
+test_output_body_content_names_preserve_exact_texts_and_every_occurrence (test_lean_source.CompilerSourcePolicyTests.test_output_body_content_names_preserve_exact_texts_and_every_occurrence) ... ok
+test_output_body_edit_locality_depends_only_on_unique_exact_texts (test_lean_source.CompilerSourcePolicyTests.test_output_body_edit_locality_depends_only_on_unique_exact_texts) ... ok
+test_output_body_split_preserves_every_line_proof_and_ordered_reconstruction (test_lean_source.CompilerSourcePolicyTests.test_output_body_split_preserves_every_line_proof_and_ordered_reconstruction) ... ok
+test_generated_certificates_and_witnesses_remain_kernel_checked (test_lean_source.NativeCertificateTests.test_generated_certificates_and_witnesses_remain_kernel_checked) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 18.513s
+
+OK

@@ -1,0 +1,13 @@
+Lean concurrency: 1 Lake workers, 12 threads per Lean process (12 available CPUs).
+Lean phase build started at 2026-11-15T17:03:33.496532+00:00
++ /home/agent/silver-workspaces/recovery-volume/certificate/.tools/linux-aarch64/lean/bin/lake --rehash --reconfigure -K silverThreads=12 -K silverMemoryMb=3072 build +Silver.CertificateReconstruction +Silver.AxiomAudit
+✔ [7/10] Built Silver.OutputProfileBodySource (106ms)
+✖ [10/10] Building Silver.CertificateReconstruction (10s)
+trace: .> LEAN_PATH=/home/agent/silver-workspaces/recovery-volume/certificate/.silver/linux-aarch64/proof/.lake/build/lib/lean /home/agent/silver-workspaces/recovery-volume/certificate/.tools/linux-aarch64/lean/bin/lean -j12 -M3072 -DwarningAsError=true /home/agent/silver-workspaces/recovery-volume/certificate/.silver/linux-aarch64/proof/Silver/CertificateReconstruction.lean -o /home/agent/silver-workspaces/recovery-volume/certificate/.silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/CertificateReconstruction.olean -i /home/agent/silver-workspaces/recovery-volume/certificate/.silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/CertificateReconstruction.ilean -c /home/agent/silver-workspaces/recovery-volume/certificate/.silver/linux-aarch64/proof/.lake/build/ir/Silver/CertificateReconstruction.c --setup /home/agent/silver-workspaces/recovery-volume/certificate/.silver/linux-aarch64/proof/.lake/build/ir/Silver/CertificateReconstruction.setup.json --json
+error: Silver/CertificateReconstruction.lean:38:2: (kernel) excessive memory consumption detected
+Some required targets logged failures:
+- Silver.CertificateReconstruction
+error: build failed
+
+Lean phase build finished at 2026-11-15T17:03:45.977891+00:00; elapsed 12.481s; exit 1
+check_lean: Lean check failed; see /home/agent/silver-workspaces/recovery-volume/certificate/.silver/linux-aarch64/lean-focused.log

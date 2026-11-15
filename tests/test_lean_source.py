@@ -272,7 +272,7 @@ class CompilerSourcePolicyTests(unittest.TestCase):
     def test_output_body_split_preserves_every_line_proof_and_ordered_reconstruction(self):
         source = (ROOT / "src/silver_output_profile.adb").read_bytes().decode("ascii")
         declarations, reconstruction = GENERATOR.generate_parts(
-            source, "outputProfileBody", "outputBodyTokens")
+            source, "outputProfileBody", "outputBodyTokens", compact_joins=True)
         lines = source.split("\n")
         self.assertEqual(len(declarations), len(lines))
         digests = [hashlib.sha256(line.encode("ascii")).hexdigest() for line in lines]
@@ -290,8 +290,8 @@ class CompilerSourcePolicyTests(unittest.TestCase):
             self.assertEqual(chunk, header + body + "end Silver.Source\n")
             recovered.extend(selected)
         self.assertEqual(len(recovered), len(set(lines)))
-        # Only single-leaf references change. All join literals/witnesses, the
-        # balanced tree and final source/token/lexer statements remain exact.
+        # Only single-leaf references change. Compact witnesses retain the same
+        # balanced tree and final source/token/lexer statements.
         for index, line in enumerate(reconstruction):
             match = re.fullmatch(r"  ReconstructionCertificate.single outputBodyTokens_line_(\d+)", line)
             if match:
@@ -394,14 +394,15 @@ class NativeCertificateTests(unittest.TestCase):
             # Compile current sources, not canonical cached helper objects. Only
             # this small dependency chain is needed; all outputs stay temporary.
             for module in ("Lexical", "Admission", "Cursor", "SourceLexer",
-                           "CertificateWitness", "AxiomAudit"):
+                           "CertificateWitness", "CertificateJoinWitness", "AxiomAudit"):
                 relative = f"Silver/{module}.lean"
                 (root / relative).write_bytes((ROOT / "proof" / relative).read_bytes())
                 result = compile_file(relative)
                 self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
 
             prelude = ("module\n\npublic import Silver.SourceLexer\n"
-                       "public meta import Silver.CertificateWitness\n\n"
+                       "public meta import Silver.CertificateWitness\n"
+                       "public meta import Silver.CertificateJoinWitness\n\n"
                        "@[expose] public section\n\n")
 
             def check(name, body, failure=None):
@@ -421,6 +422,7 @@ class NativeCertificateTests(unittest.TestCase):
                     self.assertEqual(audit.returncode, 0, output)
                     self.assertIn("Silver axiom audit passed:", output)
                     self.assertIn("SILVER_MODULE Silver.CertificateWitness", output)
+                    self.assertIn("SILVER_MODULE Silver.CertificateJoinWitness", output)
                 else:
                     self.assertNotEqual(result.returncode, 0, output)
                     self.assertRegex(output, failure)
@@ -481,6 +483,52 @@ class NativeCertificateTests(unittest.TestCase):
             self.assertEqual(explicit_values.count(before), 1)
             certificate("wrong_explicit_values", source,
                         explicit_values.replace(before, after, 1),
+                        r"\(kernel\) declaration type mismatch")
+
+            # The compact tactic constructs the existing character-list theorem;
+            # its untrusted strings still have to match the exact kernel goal.
+            for name, left, right in (("empty", "", ""),
+                                      ("crlf", "-- marker\r", "X;\n"),
+                                      ("unicode", "α", "😀")):
+                joined = left + "\n" + right
+                statement = (f"theorem Silver.compactJoin : {GENERATOR.literal(left)} ++ "
+                             f'"\\n" ++ {GENERATOR.literal(right)} = {GENERATOR.literal(joined)} := by\n')
+                witness = f"  kernel_join {GENERATOR.literal(left)} {GENERATOR.literal(right)}\n"
+                check("compact_join_" + name, statement + witness)
+                check("compact_false_goal_" + name,
+                      statement.replace(" = " + GENERATOR.literal(joined),
+                                        " = " + GENERATOR.literal(joined + "!")) + witness,
+                      r"\(kernel\) declaration type mismatch")
+
+            def compact(source):
+                return "\n".join(GENERATOR.generate(
+                    source.decode("ascii"), "fixtureSource", "fixtureTokens", compact_joins=True))
+
+            for name, source in (("empty", b""), ("no_final_lf", b"X;"),
+                                 ("mixed_endings", mixed), ("blank_lines", b"\nX;\n\n")):
+                certificate("compact_" + name, source, compact(source))
+            for name, source in (("comment_byte", mixed.replace(b"marker", b"changed")),
+                                 ("truncated_source", mixed[:-2]),
+                                 ("missing_final_lf", mixed[:-1]),
+                                 ("normalized_crlf", mixed.replace(b"\r\n", b"\n"))):
+                certificate("compact_" + name, source, compact(mixed), r"(?i)type mismatch")
+            source = b"X;\nY;\n"
+            original = compact(source)
+            for name, before, after in (
+                    ("wrong_byte", 'kernel_join "Y;" ""', 'kernel_join "Z;" ""'),
+                    ("truncated_witness", 'kernel_join "Y;" ""', 'kernel_join "Y" ""'),
+                    ("newline_boundary", 'kernel_join "Y;" ""', 'kernel_join "Y;\\n" ""')):
+                self.assertEqual(original.count(before), 1)
+                certificate("compact_" + name, source, original.replace(before, after, 1),
+                            r"\(kernel\) declaration type mismatch")
+            with mock.patch.object(GENERATOR, "_RFL_TOKEN_LIMIT", 0):
+                compact_values = compact(source)
+            certificate("compact_explicit_values", source, compact_values)
+            before = 'def fixtureTokens : Tokens :=\n  ["x", ";", "y", ";"]'
+            after = 'def fixtureTokens : Tokens :=\n  ["x", ";"]'
+            self.assertEqual(compact_values.count(before), 1)
+            certificate("compact_missing_tokens", source,
+                        compact_values.replace(before, after, 1),
                         r"\(kernel\) declaration type mismatch")
 
             # Bypass Python's byte validation to exercise the independent Lean

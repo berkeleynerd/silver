@@ -1,0 +1,22 @@
+Lean concurrency: 1 Lake workers, 12 threads per Lean process (12 available CPUs).
+Lean phase build started at 2026-11-15T17:07:37.170022+00:00
++ /home/agent/silver-workspaces/recovery-volume/certificate/.tools/linux-aarch64/lean/bin/lake --rehash --reconfigure -K silverThreads=12 -K silverMemoryMb=3072 build +Silver.CertificateReconstruction +Silver.AxiomAudit
+✔ [7/10] Built Silver.CertificateWitness (201ms)
+✔ [10/10] Built Silver.CertificateReconstruction (13s)
+Build completed successfully (10 jobs).
+
+Lean phase build finished at 2026-11-15T17:07:52.372427+00:00; elapsed 15.202s; exit 0
+Lean phase audit started at 2026-11-15T17:07:52.663147+00:00
++ /home/agent/silver-workspaces/recovery-volume/certificate/.tools/linux-aarch64/lean/bin/lake -K silverThreads=12 -K silverMemoryMb=3072 env /home/agent/silver-workspaces/recovery-volume/certificate/.tools/linux-aarch64/lean/bin/lean -DwarningAsError=true -j12 -M3072 .lake/silver-focused-audit.lean
+SILVER_MODULE Silver.Lexical
+SILVER_MODULE Silver.Admission
+SILVER_MODULE Silver.Cursor
+SILVER_MODULE Silver.SourceLexer
+SILVER_MODULE Silver.OutputProfileBodySource
+SILVER_MODULE Silver.CertificateWitness
+SILVER_MODULE Silver.CertificateReconstruction
+SILVER_MODULE Silver.AxiomAudit
+Silver axiom audit passed: 445 declarations; foundations: [propext, Classical.choice, Quot.sound]
+
+Lean phase audit finished at 2026-11-15T17:07:53.462986+00:00; elapsed 0.800s; exit 0
+Lean focused check (partial validation) and fresh axiom audit passed for linux-aarch64: /home/agent/silver-workspaces/recovery-volume/certificate/.silver/linux-aarch64/lean-focused.log

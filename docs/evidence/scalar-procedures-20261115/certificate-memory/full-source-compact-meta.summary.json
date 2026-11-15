@@ -1,0 +1,22 @@
+{
+  "command": [
+    "python3",
+    "scripts/check_lean.py",
+    "--target",
+    "Silver.CertificateReconstruction",
+    "--workers",
+    "1",
+    "--memory-mb",
+    "3072",
+    "--provenance",
+    "--task",
+    "#370-certificate-memory",
+    "--reason",
+    "Mark untrusted Exprbuilder meta as required by moduleimports; exactoriginal string_join_ofList witness for424747bytes; same1worker/default12threads/3072MiBthreshold and1.5GiBhostguard"
+  ],
+  "returncode": 0,
+  "elapsed_seconds": 23.072647594000046,
+  "peak_tree_rss_bytes": 4059185152,
+  "lowest_available_bytes": 11614683136,
+  "controlled_stop": null
+}
