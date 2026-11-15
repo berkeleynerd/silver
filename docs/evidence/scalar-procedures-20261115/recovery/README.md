@@ -526,3 +526,36 @@ frozen reviewed production with the existing measured-memory allocation and guar
 prior interrupted complete attempts remain separately retained. Complete
 Lean/source assurance, full regression coverage, Rosetta promotion and final
 feature acceptance remain pending.
+
+### Complete Lean/source checkpoint passed; final regressions active
+
+The [complete Lean packet](../lean-recovery/complete-checkpoint/final-complete-cached/README.md),
+integrated at `92e5ef282`, records successful run
+`20261115T215223-28e04bff3fce` on frozen production `1dde32cce` (author
+`32c6fbca5`). The actual fresh audit covers all 1,009 current project modules
+and 162,269 declarations, using only the three approved foundations. Source
+candidates, semantic bridges and the top-level facade are included. All captured
+input, workspace, artifact and tool hashes match; all 681 prior objects remain
+unchanged. The author collected original session 79079 exit zero, without any
+guard or interruption, after 695.766 monitored seconds. This is complete cached
+validation with a fresh whole-project audit, not a clean build or kernel replay.
+
+The dense Lean allocation and managed lease are released. The independently
+accepted native audit and final compiler build remain valid on unchanged native
+inputs. Independent review of the complete Lean packet is in progress; final
+feature acceptance remains separate from successful proof execution.
+
+The full regression/sample suite started at 22:09:16 UTC as
+`20261115T220916-99f1eaeea331`, from integration launch HEAD `4de5d4e51`. Its
+source/proof production matches the validated snapshot. Preflight discovery
+confirmed 691 distinct IDs and 85 manifest samples, with two expected
+Linux-x86-only cases inapplicable on ARM64. Those are inventory expectations;
+actual pass/failure/skip results remain pending. The runner captured 1,316
+regression inputs, all 2,606 native inputs and both matching compiler binaries.
+It uses automatic managed workers and unchanged canonical application `-j0`,
+with the 1.5-GiB host-headroom guard and no proof-tree cap. The original launcher
+remains owned through terminal collection. Only documentation/evidence may
+change in integration while these test inputs are frozen.
+
+Full regression success, Rosetta/support reconciliation and final independent
+delivery acceptance remain outstanding. PR #371 remains draft.
