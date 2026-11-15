@@ -14,7 +14,7 @@ Main iterates over the constant Positive_Input array (1, 2, 6, 12, 13, 28, 36, 9
 
 ## Language surface recorded by this assessment
 
-Put without a newline, Integer range for loops, Integer image, interval-checked Integer division, fixed-size Integer arrays, constant Integer-array iteration and named Integer subtypes and bounded components.
+Put without a newline, Integer range for loops, Integer image, interval-checked Integer division, fixed-size Integer arrays, constant Integer-array iteration and named Integer subtypes, bounded components and scalar signatures.
 
 ## External effects
 

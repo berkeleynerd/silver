@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Direct streaming needs no result buffer, dynamic String building or user procedure. Constant-array iteration supplies bounded component values, and all tests and output use the existing finite bodies. Independent expected output uses set intersection and first-list ordering. A no-match regression exercises both false flags and empty output. Scope and validation status are recorded in docs/boolean-objects.md and the linked assessment record.
 
-Position 67 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 68 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 
@@ -10,7 +10,7 @@ The driver samples/rosetta_common_list_elements.adb embeds exactly the task list
 
 ## Language surface recorded by this assessment
 
-Scalar Boolean objects and expressions, named Integer subtypes and bounded components, fixed-size Integer arrays, constant Integer-array iteration, Integer image and Put without a newline.
+Scalar Boolean objects and expressions, named Integer subtypes, bounded components and scalar signatures, fixed-size Integer arrays, constant Integer-array iteration, Integer image and Put without a newline.
 
 ## External effects
 

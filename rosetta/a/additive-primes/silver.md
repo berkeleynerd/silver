@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every composite N >= 4 has a divisor in 2..N/2; empty loops accept two and three. Three digit extractions cover the complete helper domain, and at most two earlier digits give a sum <=18, so the guard preserves the exact decimal digit sum. Main covers every required candidate below 500. Independent sieve and decimal-text expectations match all 54 selected values. No sieve array, while loop, output buffer or extra procedure is required by the task. The [reconciliation](../../../rosetta/assessment-scalar-function-batch-20261108.md) preserves the original assessment attribution and links the separately reviewed Linux application evidence; final combined integration and independent delivery status remain in the batch delivery record.
 
-Position 79 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 80 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Use samples/rosetta_additive_primes.adb: Is_Prime on 0..499 rejects zero and one
 
 ## Language surface recorded by this assessment
 
-Named Integer subtypes and bounded components, small nonrecursive scalar functions, bounded mutable Integer objects, scalar Boolean objects and expressions, Integer range for loops, interval-checked Integer division, scalar guard refinement and Integer image.
+Named Integer subtypes, bounded components and scalar signatures, small nonrecursive scalar functions, bounded mutable Integer objects, scalar Boolean objects and expressions, Integer range for loops, interval-checked Integer division, scalar guard refinement and Integer image.
 
 ## External effects
 

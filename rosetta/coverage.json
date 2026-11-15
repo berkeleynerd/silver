@@ -26,7 +26,8 @@
   "scalar-boolean-objects",
   "bounded-string-characters",
   "fixed-boolean-arrays",
-  "scalar-functions"
+  "scalar-functions",
+  "scalar-procedures"
  ],
  "tasks": {
   "100 doors": {
@@ -57825,22 +57826,30 @@
     }
    ],
    "surface": [
-    "integers",
-    "ranged-subtypes",
-    "procedures",
-    "scalar-image"
+    "scalar-procedures",
+    "named-integer-subtypes",
+    "bounded-mutable-integers",
+    "integer-image"
    ],
    "outlook": "likely",
    "risks": [
     {
      "obligation": "overflow",
-     "explanation": "The procedure's in parameters use a declared subtype such as range -1000 .. 1000, so the sum and difference provably fit in Integer without any contract."
+     "explanation": "Each Small input spans -100 .. 100, so the sum and difference lie in -200 .. 200 over all 40,401 input pairs and fit Standard.Integer. This static task argument is separate from pending complete native/application proof validation."
     }
    ],
-   "size": 20,
-   "approach": "A local procedure Sum_And_Diff takes two in parameters of a bounded integer subtype and returns two results through out parameters of type Integer. Main calls it on embedded constants 5 and 3 and prints both results with Put_Line, using 'Image and concatenation.",
-   "summary": "The only non-trivial checks are the addition and subtraction overflow checks, and the declared range on the parameter subtype discharges them; out parameters are fully assigned, so flow analysis passes.",
-   "confidence": "high"
+   "size": 27,
+   "approach": "The unchanged samples/rosetta_return_multiple_values.adb defines a Main-local Sum_And_Diff procedure with explicit in Small inputs (-100 .. 100) and out Integer Sum and Difference formals. Two source-written leading assignments compute both results; three positional calls use (5, 3), (-100, 100) and (100, 100) with distinct initialized mutable Integer output objects. Main prints each pair with Integer'Image and Silver_IO.Put_Line.",
+   "summary": "Prepared delivery mapping: the cached Ada solution uses a procedure with two out parameters, and the bounded driver preserves that multiple-result behavior. Independent arithmetic and Integer Image formatting match all six manifest lines. Complete native, Lean/source-correspondence, regression/sample validation and delivery acceptance remain pending; see the proposed reconciliation record.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-11-15",
+    "record": "assessment-scalar-procedures-20261115.md",
+    "model": "gpt-6.1-sol",
+    "effort": "xhigh",
+    "setting_evidence": "Selected GPT-6.1 Sol / Extra High for this bounded source/task reconciliation; independent live-runtime confirmation and token/cost telemetry unavailable.",
+    "method": "Static comparison of cached task revision 412999, its Ada solution, unchanged Silver source and manifest; independent exact arithmetic/output derivation, proposed metadata render and focused pure-Python Rosetta regressions. Final native/Lean/application validation and delivery acceptance remain pending."
+   }
   },
   "Reverse a string": {
    "revision": 415531,

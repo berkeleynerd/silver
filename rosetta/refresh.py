@@ -342,9 +342,10 @@ SURFACE_LABELS = {"integer-for-loops": "Integer range for loops",
                   "fixed-integer-arrays": "fixed-size Integer arrays",
                   "fixed-boolean-arrays": "fixed-size Boolean arrays",
                   "constant-integer-array-iteration": "constant Integer-array iteration",
-                  "named-integer-subtypes": "named Integer subtypes and bounded components",
+                  "named-integer-subtypes": "named Integer subtypes, bounded components and scalar signatures",
                   "scalar-boolean-objects": "scalar Boolean objects and expressions",
                   "scalar-functions": "small nonrecursive scalar functions",
+                  "scalar-procedures": "small nonrecursive scalar procedures",
                   "bounded-string-characters": "bounded String indexing and Character operations",
                   "integer-object-size-read": "Integer object Size attribute reads",
                   "integer-image": "Integer image", "booleans": "Boolean objects",
@@ -370,6 +371,7 @@ USES = {"stdin": "standard input", "files": "files", "arguments": "arguments", "
 # The question each construct's admission must answer: the decidable rule under which every program
 # using it proves automatically.
 ADMISSION = {
+    "scalar-procedures": "How do closed scalar procedures, source-written ordered out initialization, full formal-domain body checks, earlier-only calls, finite loops and same-state positional actual checks establish initialization, disjoint copy-back, preservation of unrelated caller state, exact-source correspondence, termination and complete automatic discharge?",
     "scalar-functions": "How do closed Integer/Boolean local functions, full formal-domain body checks, immutable formals, earlier-only calls, finite loops, terminal typed returns and whole scalar assignment calls preserve scope, source correspondence, universal safety, termination and complete automatic discharge without caller-visible mutation?",
     "fixed-string-replacement": "Which argument forms and source bounds guarantee valid Low/High positions, a bounded result and complete automatic discharge for the selected Replace_Slice operation, with corresponding library verification and compilation?",
     "unicode-identifiers": "Which Unicode identifier repertoire and source encoding are admitted, and how do lexer identity, Ada case folding, byte limits and frontend source correspondence agree?",
@@ -395,7 +397,7 @@ ADMISSION = {
     "exponentiation": "Which base and exponent bounds make every ** provably free of overflow?",
     "modular-types": "Which modular types, bitwise operations and shifts are admitted, and how do conversions "
                      "between modular and signed types stay in range?",
-    "named-integer-subtypes": "How do static direct-Integer subtype bounds, ordered name visibility, scalar initialization and assignment, and declared array component intervals establish range safety and automatic discharge through guards, nested loops and constant-array iteration?",
+    "named-integer-subtypes": "How do static direct-Integer subtype bounds, ordered name visibility, scalar initialization and assignment, declared array component intervals and scalar function/procedure signatures establish range safety and automatic discharge through guards, nested loops, constant-array iteration, full formal-domain checks and declared-range call results/copy-back?",
     "ranged-subtypes": "Which type and subtype declarations and conversions are admitted, and how is every "
                        "range check at assignment and conversion discharged?",
     "booleans": "Which Boolean objects, operators and Boolean-valued functions are admitted beyond today's "

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Seven successful removals would require an input >=128, so there are at most six throughout the declared factor-count domain; neither the count guard nor seven attempts per factor suppresses a required removal. Smaller primes are exhausted before any composite factor, hence only prime factors are removed and multiplicity is counted. In particular 20 removes 2, 2 and 5. Independent prime-power multiplicity and sieve expectations establish the complete 74-value sequence through 120. The [reconciliation](../../../rosetta/assessment-scalar-function-batch-20261108.md) preserves the original assessment attribution and links the separately reviewed Linux application evidence; final combined integration and independent delivery status remain in the batch delivery record.
 
-Position 80 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 81 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Use samples/rosetta_attractive_numbers.adb: Prime_Factor_Count on 1..120 visits 
 
 ## Language surface recorded by this assessment
 
-Named Integer subtypes and bounded components, small nonrecursive scalar functions, bounded mutable Integer objects, scalar Boolean objects and expressions, Integer range for loops, interval-checked Integer division, scalar guard refinement and Integer image.
+Named Integer subtypes, bounded components and scalar signatures, small nonrecursive scalar functions, bounded mutable Integer objects, scalar Boolean objects and expressions, Integer range for loops, interval-checked Integer division, scalar guard refinement and Integer image.
 
 ## External effects
 

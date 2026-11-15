@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** For positive N each quotient counts multiples strictly below N. Each numerator d*q*(q+1) is even, so division by two is exact, and subtracting the multiples of 15 removes double counting. All intermediates fit Integer over 0..1000. Demonstrations cover zero, strict boundaries, the overlap at 15, 999 and 1000. The task marks efficient 10^20 inputs as extra credit; the delivered callable domain is explicit. The [reconciliation](../../../rosetta/assessment-scalar-function-batch-20261108.md) preserves the original assessment attribution and links the separately reviewed Linux application evidence; final combined integration and independent delivery status remain in the batch delivery record.
 
-Position 69 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 70 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Use samples/rosetta_sum_multiples_of_3_and_5.adb: Sum_Multiples(N : in Input_Val
 
 ## Language surface recorded by this assessment
 
-Named Integer subtypes and bounded components, small nonrecursive scalar functions, bounded mutable Integer objects, interval-checked Integer division, scalar guard refinement, fixed-size Integer arrays, constant Integer-array iteration and Integer image.
+Named Integer subtypes, bounded components and scalar signatures, small nonrecursive scalar functions, bounded mutable Integer objects, interval-checked Integer division, scalar guard refinement, fixed-size Integer arrays, constant Integer-array iteration and Integer image.
 
 ## External effects
 

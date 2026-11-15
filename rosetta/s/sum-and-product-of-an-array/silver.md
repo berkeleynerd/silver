@@ -14,7 +14,7 @@ Main embeds the constant vector 1 through 10 in an anonymous fixed array whose c
 
 ## Language surface recorded by this assessment
 
-Bounded mutable Integer objects, fixed-size Integer arrays, constant Integer-array iteration, Integer image, scalar guard refinement and named Integer subtypes and bounded components.
+Bounded mutable Integer objects, fixed-size Integer arrays, constant Integer-array iteration, Integer image, scalar guard refinement and named Integer subtypes, bounded components and scalar signatures.
 
 ## External effects
 

@@ -1,23 +1,25 @@
 # Return multiple values
 
-**Candidate: proofs likely to discharge automatically.** The only non-trivial checks are the addition and subtraction overflow checks, and the declared range on the parameter subtype discharges them; out parameters are fully assigned, so flow analysis passes.
+**Candidate: proofs likely to discharge automatically.** Prepared delivery mapping: the cached Ada solution uses a procedure with two out parameters, and the bounded driver preserves that multiple-result behavior. Independent arithmetic and Integer Image formatting match all six manifest lines. Complete native, Lean/source-correspondence, regression/sample validation and delivery acceptance remain pending; see the proposed reconciliation record.
 
-Position 85 in the [progression](../../progression.md#stage-2), in stage 2.
+Position 59 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 
-A local procedure Sum_And_Diff takes two in parameters of a bounded integer subtype and returns two results through out parameters of type Integer. Main calls it on embedded constants 5 and 3 and prints both results with Put_Line, using 'Image and concatenation. About 20 lines.
+The unchanged samples/rosetta_return_multiple_values.adb defines a Main-local Sum_And_Diff procedure with explicit in Small inputs (-100 .. 100) and out Integer Sum and Difference formals. Two source-written leading assignments compute both results; three positional calls use (5, 3), (-100, 100) and (100, 100) with distinct initialized mutable Integer output objects. Main prints each pair with Integer'Image and Silver_IO.Put_Line. About 27 lines.
 
 ## Proof obligations to watch
 
-- **overflow**: The procedure's in parameters use a declared subtype such as range -1000 .. 1000, so the sum and difference provably fit in Integer without any contract.
+- **overflow**: Each Small input spans -100 .. 100, so the sum and difference lie in -200 .. 200 over all 40,401 input pairs and fit Standard.Integer. This static task argument is separate from pending complete native/application proof validation.
 
 ## Language surface recorded by this assessment
 
-Integers, ranged subtypes, procedures and 'Image of scalars.
+Small nonrecursive scalar procedures, named Integer subtypes, bounded components and scalar signatures, bounded mutable Integer objects and Integer image.
 
 ## External effects
 
 - **console output** (allowed): The program prints the two returned values with Silver_IO.Put_Line.
 
-Assessed on 2026-10-15 against page revision 412999 of the [task](https://rosettacode.org/wiki/Return_multiple_values) by claude-opus-5-5 at high effort; confidence high. The inclusion policy is in `rosetta/coverage.json`.
+Initially assessed on 2026-10-15 against page revision 412999 of the [task](https://rosettacode.org/wiki/Return_multiple_values) by claude-opus-5-5 at high effort; current confidence high. The inclusion policy is in `rosetta/coverage.json`.
+
+Revised on 2026-11-15 by Codex through targeted source review; see the [review record](../../assessment-scalar-procedures-20261115.md).

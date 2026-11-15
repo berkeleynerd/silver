@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Named component bounds make both indexed and foreach squares safe. A fixed-capacity vector with Count = 0 handles the required empty case, and executable guards establish accumulator containment. The driver uses only the narrow named Integer subtype and existing array/loop fragment.
 
-Position 62 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 63 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Main declares a constant six-element array of an Integer subtype 0..9, initializ
 
 ## Language surface recorded by this assessment
 
-Bounded mutable Integer objects, fixed-size Integer arrays, constant Integer-array iteration, Integer image, scalar guard refinement, named Integer subtypes and bounded components and Integer range for loops.
+Bounded mutable Integer objects, fixed-size Integer arrays, constant Integer-array iteration, Integer image, scalar guard refinement, named Integer subtypes, bounded components and scalar signatures and Integer range for loops.
 
 ## External effects
 
