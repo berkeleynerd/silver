@@ -1,0 +1,118 @@
+{
+  "validation/active-checkpoint.json": {
+    "bytes": 1153,
+    "sha256": "f7237fd9a19d0cb7f66d85698cb1746a54a9368e54f54812d1ce82ed6e289323"
+  },
+  "validation/command.json": {
+    "bytes": 707,
+    "sha256": "063b4c0c239c24fd1a9b7ab5db5c302e5fba2d07a5c4acda8e03c59e217c030e"
+  },
+  "validation/input-selectors.json": {
+    "bytes": 1143,
+    "sha256": "9ec4b37ec6f0596bd1489916c3d0380e6357004e888985b116b7324c2d6a79da"
+  },
+  "validation/inventory.json": {
+    "bytes": 419,
+    "sha256": "59d7d794590024090830c1d7386c6f6c406887d3070d054cef94f4575cae230c"
+  },
+  "validation/launcher.json": {
+    "bytes": 533,
+    "sha256": "bfdbcf303cc013fb7e345925608dc8f3c654a1af0d0a66f4061369befb2fe541"
+  },
+  "validation/launcher.log": {
+    "bytes": 29110,
+    "sha256": "0059d87ccfc1274f897d6a21037c3c072843e3803472e434ac29d278e11544a0"
+  },
+  "validation/monitor.py": {
+    "bytes": 3185,
+    "sha256": "11f8bd99c13021c3a0223318de4504ee275455d6599eb1d7bd7cd3d0d1bf2eec"
+  },
+  "validation/mutation-observations.json": {
+    "bytes": 32763,
+    "sha256": "58247ef73cd08da30aa6b2abedcaead4c05755ea4651e6e6ad88a37586c5b69a"
+  },
+  "validation/original-failure-confirmation.json": {
+    "bytes": 259,
+    "sha256": "bf2681addf9e8296fdc90d9d1ea55f30d53ba25f1f0cc3be35b8e10895d40801"
+  },
+  "validation/original-session-terminal.json": {
+    "bytes": 207,
+    "sha256": "b872aad9424337bc1eead8797c683898aa10763beebfd97e3b864c71b9651156"
+  },
+  "validation/preflight-runs.json": {
+    "bytes": 23588755,
+    "sha256": "468dc0996c43c39eeb6779c8fe793cbeea46a66fcd304c95cdda3a26b1248f78"
+  },
+  "validation/prepared-binaries.json": {
+    "bytes": 553,
+    "sha256": "b5d3b749f3065c1eb19cc6e4f66d3c19810d15feee9d617a1b60046ea4a5832e"
+  },
+  "validation/prepared-lean-tools.json": {
+    "bytes": 615,
+    "sha256": "89cbdbb3b28ea14a8b9c21667e3280d122f748c641e126d746851c326118276b"
+  },
+  "validation/prepared-native-inputs.json": {
+    "bytes": 450482,
+    "sha256": "ca57e9f982a1f8c1cf74644eb2671893ab98a1d811d28c4862c80a6ff0876124"
+  },
+  "validation/prepared-native-tools.json": {
+    "bytes": 6927,
+    "sha256": "23d1594ef34f4213b5c13ad0b4cb6e5e0d3adaf51e8934897813a4ae1e7155ba"
+  },
+  "validation/prepared-regression-inputs.json": {
+    "bytes": 228351,
+    "sha256": "e7a54a5aee5851cafb12071d5f956151d1fb24fe2ccbd02096de8340f008ec05"
+  },
+  "validation/resources.jsonl": {
+    "bytes": 11582,
+    "sha256": "eb4c657894024f7b3303ba3b985b02cdd24f59e9245f23ff35936cb9de6b6483"
+  },
+  "validation/retention-script.py": {
+    "bytes": 7891,
+    "sha256": "7d68fa8990a462861daee508b6bd72a8c329ffd4fb87b3ad38735faa3ea9d954"
+  },
+  "validation/summary.json": {
+    "bytes": 669,
+    "sha256": "99d0b734fb1fcf52e107c2eee0c17e1e80eeff748fae5da96e79b751075c84e0"
+  },
+  "validation/terminal-binaries.json": {
+    "bytes": 553,
+    "sha256": "b5d3b749f3065c1eb19cc6e4f66d3c19810d15feee9d617a1b60046ea4a5832e"
+  },
+  "validation/terminal-lean-tools.json": {
+    "bytes": 615,
+    "sha256": "89cbdbb3b28ea14a8b9c21667e3280d122f748c641e126d746851c326118276b"
+  },
+  "validation/terminal-managed-run.json": {
+    "bytes": 479159,
+    "sha256": "b6d22a38a4d609260a0e7535c782013960e933bda543b79dd854895949c26d97"
+  },
+  "validation/terminal-native-inputs.json": {
+    "bytes": 450482,
+    "sha256": "ca57e9f982a1f8c1cf74644eb2671893ab98a1d811d28c4862c80a6ff0876124"
+  },
+  "validation/terminal-native-tools.json": {
+    "bytes": 6927,
+    "sha256": "23d1594ef34f4213b5c13ad0b4cb6e5e0d3adaf51e8934897813a4ae1e7155ba"
+  },
+  "validation/terminal-regression-inputs.json": {
+    "bytes": 228351,
+    "sha256": "e7a54a5aee5851cafb12071d5f956151d1fb24fe2ccbd02096de8340f008ec05"
+  },
+  "validation/test-results.json": {
+    "bytes": 1262,
+    "sha256": "769965acb3bdfd17f8c305c78b352d46abf057078cb60b0425a209a4487ab8fb"
+  },
+  "validation/verification.json": {
+    "bytes": 2981,
+    "sha256": "13a703850a22ec5c7bded6596b56208e74af791d33e9b5b52a8eff750faaa92e"
+  },
+  "managed-run/events.jsonl": {
+    "bytes": 226138,
+    "sha256": "c52856c6f40e312da63ec374a150ba64c723bfa2379005b8f472c1872e626728"
+  },
+  "managed-run/native.log": {
+    "bytes": 28917,
+    "sha256": "9a8a3589d77a0b0d6fbd2c28649db848983c40788cd178609be474ba331cb323"
+  }
+}
