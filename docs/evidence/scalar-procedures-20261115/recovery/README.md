@@ -357,3 +357,32 @@ and variant. The complete native-shape candidate must pass focused validation
 and independent critical review before the next cached complete continuation.
 The productive native audit continues on its unchanged inputs. No whole-project
 or final regression success is claimed.
+
+### Native-shape recovery and next complete continuation
+
+The six-header repair is integrated at `438213ec2`, with its
+[focused success packet](../lean-recovery/complete-checkpoint/native-shape-normalization/README.md)
+in `fbf81c587`. Run `20261115T210927-f5ecbbed5260` passed the complete
+`PredicateNativeShapeCandidate`, all six helper contracts and all 63 original
+private source statements. Its fresh audit covers 127 modules / 21,408
+declarations with only the three approved foundations. The author collected
+original session 18170 with exit zero; no guard or interruption occurred.
+Monitored elapsed was 285.288 seconds, peak process/tree RSS was
+4,252,992 / 5,296,592 KiB, and minimum host availability was 11,302,496 KiB.
+
+Independent critical review verified the exact literals, character/token lists,
+complete-source headers, unchanged statements/selectors/contracts and all
+1,114 input / 1,009 workspace / 3,962 artifact / two executable hashes.
+The original evidence's private-statement count of 58 was a multiline-parser
+inventory error; the corrected count is 63, independently verified. It did not
+change production claims or proof results. All 659 prior objects and 3,950
+variant/hash files remain unchanged; 661 objects are now present.
+
+Complete cached continuation `20261115T211741-9bb82c28fe83` started on the
+frozen reviewed production, with all 1,007 project modules reachable from
+`Silver.Audit` in the preflight graph.
+The same one-worker/default-twelve-thread/8-GiB allocation and separate guards
+remain appropriate beside the productive two-worker native audit. All four
+failed complete attempts remain distinct from focused successes. Complete
+assurance, final compiler/regression coverage and final delivery acceptance
+remain pending.
