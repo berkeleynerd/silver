@@ -499,3 +499,30 @@ tokens. The whole `ProcedureNameSourceCandidate`, including all headers, record,
 step, model and loop fields, must pass focused validation and independent
 critical review before another complete continuation. Native/build acceptance
 remains valid; full regressions and final delivery acceptance remain pending.
+
+### Procedure-name loop recovery accepted
+
+Repair `1dde32cce` preserves the exact 677-character / 134-token loop through
+the checked character/lexer normalization. Its
+[complete focused packet](../lean-recovery/complete-checkpoint/procedure-name-loop-normalization/README.md),
+integrated at `7dcb0cf03`, records run `20261115T214559-235d06a3549a`: the entire
+`ProcedureNameSourceCandidate` passed a fresh audit of 116 modules / 14,774
+declarations with only the three approved foundations. The author collected
+original session 80078 exit zero, with no guard or interruption. The loop proof
+built in 3.5 seconds; managed build/audit took 5.643 / 0.817 seconds and monitored
+elapsed was 15.018 seconds. Peak process/tree RSS was 951,440 / 1,385,184 KiB.
+
+Independent critical review `a63b879cf` accepts the unchanged public theorem,
+complete selector, literal/character/token identities, imperative loop, both invariants,
+variant, returns and named terminator. All other source parts, models, complete
+caller and authoritative transport remain intact. The reviewer checked all
+1,116 input / 1,011 workspace / 4,082 artifact / two tool hashes, actual imported
+module set and immutable terminal packet. All 678 prior objects and 4,064
+variant/hash files remain unchanged; 681 objects are now present. The complete
+preflight graph reaches all 1,009 modules.
+
+Complete cached continuation `20261115T215223-28e04bff3fce` started on the
+frozen reviewed production with the existing measured-memory allocation and guards. All six
+prior interrupted complete attempts remain separately retained. Complete
+Lean/source assurance, full regression coverage, Rosetta promotion and final
+feature acceptance remain pending.
