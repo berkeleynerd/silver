@@ -1,0 +1,15 @@
+{
+  "base": "ca1c9b2ce",
+  "all_original_body_theorem_statements_byte_identical": true,
+  "ordinary_0_statement_and_proof_byte_identical": true,
+  "changed_proof_body": "metadata_append_header",
+  "full_source_selector": "procedureHeader \"lemma_procedure_metadata_append\" \"is\" Output.SourceShape.outputImplementation",
+  "unchanged_metadata_definition": "Silver.Compose.ProcedureDeclarationNative.HighSourceChecks.metadataAppendHeader",
+  "expected_characters": 646,
+  "expected_tokens": 138,
+  "files_sha256": {
+    "proof/Silver/ProcedureDeclarationHighSourceParts/Body.lean": "2ef96f39ad328295b9d3f0c96847ee4b5dc4b30b6e36689a589374fc7b3e70f4",
+    "proof/Silver/ProcedureDeclarationHighSourceParts/MetadataAppendExpectedTokens.lean": "3abb2a2f6ae5bec82db4feb9a46f74a7cc95e8e8576cd6f220c999478608431c"
+  },
+  "unchanged_high_source_sha256": "a77c7e596398884d5455a5c93e2e9dc04fe1cb66a3e6f6f248f309005530ea0a"
+}
