@@ -9,6 +9,11 @@ the exact 691-ID regression composition and coordinated delivery review.
 The lead may finalize Supported wording and owner-authorized issue/board/PR
 publication. This review authorizes no merge or #373/#119 implementation.
 
+The subsequent owner-directed local-only publication target `8bd416f7f` is
+also [accepted](#local-only-publication-follow-up). The proposed CI edit is
+withdrawn; CI is neither a delivery requirement nor a pending action. The
+accepted local compiler, proof and regression evidence remains applicable.
+
 ## Historical checkpoints
 
 The original disposition, completion matrix and successive addenda below are
@@ -1204,3 +1209,48 @@ run. Original command results are attributed to their execution owners. No
 GitHub state or CLI memory was changed by this reviewer. The live harness goal
 is null; the review target, accepted production revision and subsequent lead
 publication remain distinct.
+
+## Local-only publication follow-up
+
+**Accepted on 2026-11-15; no material finding.** The owner clarified:
+**“We will not be using CI. Local development here on this host.”** This
+reconfirms the README's existing local-validation policy and dormant hosted
+Actions. The proposed ARM64 CI stack edit is withdrawn. There is no remaining
+CI execution, workflow modification or credential-scope request for delivery.
+Earlier references in this report to accepted CI configuration and shell-branch
+observations are historical; the owner-directed withdrawal supersedes them as
+current instructions without changing those observations.
+
+The exact publication target is
+`8bd416f7f88729ce57710fdbf4d7537b5f188fff`. The
+[publication-delta record](../evidence/scalar-procedures-20261115/delivery-review/local-publication-delta-review.json)
+binds the ten original/reconstructed commit pairs, complete changed-path set,
+workflow identity and documentation/evidence bytes. I independently confirmed
+that reconstructed `48a3ae411` differs from preserved `17b898a8a` only in
+`.github/workflows/verify.yml`, restored byte-for-byte to last published
+`d2739f6a0`. Every corresponding unpublished commit pair likewise differs only
+in that path or has an identical tree. The preserved original branch resolves
+to `17b898a8a`; the retained withdrawn patch exactly matches its workflow
+diff. The published base remains an ancestor of the new target, allowing
+normal publication without rewriting published history or a force push.
+
+Beyond the restored workflow, the final delta changes only `development.md`,
+session memory and recovery prose, and adds three bounded publication evidence
+files. The current text accurately labels the CI proposal withdrawn and keeps
+complete local checks mandatory. Compiler/proof source, scripts, tests, samples,
+Rosetta inputs/outputs and project files are identical to the accepted tree;
+raw validation packets are unchanged. The locally measured 16 MiB environment,
+complete native and Lean/source acceptance, and **38 fresh passes + 651 retained
+passes + two expected skips = 691 IDs** therefore retain applicability. No new
+validation result is inferred from reconstruction, and original failed runs
+and all prior evidence limitations remain recorded.
+
+The GitHub rejection and workflow-scope limitation are execution-owner facts
+retained in the publication packet; this reviewer did not push or query GitHub.
+Selected settings remain **GPT-6 Astra / Max**, with live settings/token/cost
+telemetry unavailable. This follow-up used only stdlib/Git inspection and
+changed only this report and its small evidence record. No validator, proof,
+build, test, render, application, bootstrap or cache-writing job was run. No
+CLI memory was updated; the live harness goal is null. The feature-delivery
+review target remains `6f8bb0a7a`; this later publication acceptance authorizes
+no merge or #373/#119 implementation.
