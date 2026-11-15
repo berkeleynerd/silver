@@ -386,3 +386,30 @@ remain appropriate beside the productive two-worker native audit. All four
 failed complete attempts remain distinct from focused successes. Complete
 assurance, final compiler/regression coverage and final delivery acceptance
 remain pending.
+
+### Complete native checkpoint passed
+
+The [complete native packet](../native-recovery/full-native/README.md), integrated
+at `5fa307903`, retains successful run `20261115T174959-94ae5c6fdf63` on the
+unchanged native inputs. At 21:19:31 UTC its native-tool phase exited zero and
+the managed audit completed successfully. Fresh coverage and provenance checks
+accepted all 19,444 required checks: 1,715 flow and 17,729 proof checks across
+78 units / 1,232 entities. All 2,606 captured inputs, 80 report hashes and twelve
+tool identities match. The complete array-declaration helper and direct caller
+are included in this full result.
+
+This is canonical 30-second full validation using the existing result cache,
+with forced analysis and two workers; it is not a cold-run measurement. Managed
+elapsed time was 12,572.65 seconds. The original wrapper exit is unavailable,
+the managed overall returncode is null, and the earlier 224-second sampling gap
+remains explicit. Native phase exit zero, managed success, final reports and
+the verified complete manifest establish the reported outcome; no missing exit
+observation is invented. All 119 archived files and direct terminal records
+have verified hashes.
+
+The monitor released the finished native run after retaining its evidence and
+now owns the final two-worker compiler build in integration. Complete Lean run
+`20261115T211741-9bb82c28fe83` continues in its separate workspace; the full suite
+waits for the dense Lean allocation to release. Final native-evidence review,
+complete Lean/source assurance, regression coverage and coordinated delivery
+acceptance remain pending.
