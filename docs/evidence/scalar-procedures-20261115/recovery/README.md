@@ -479,3 +479,23 @@ change or proof rerun was needed for this evidence correction.
 
 Complete Lean/source assurance, full regression coverage, coordinated Rosetta
 promotion and final feature acceptance remain pending.
+
+### Procedure-name loop source failure
+
+Complete continuation `20261115T214116-f50ce45f47c2` stopped at 21:43:16 UTC
+after one isolated kernel-memory error at `ProcedureNameSourceParts/Loop.lean:20`.
+The public `loop` theorem compares the complete `actual_name_free` body selected
+from the reviewed whole source with `SourceChecks.loopBody`, one exact expected
+string. The author collected original session 3798: outer exit 254, monitored
+child return `-2` after the diagnostic SIGINT, 120.211 seconds elapsed. No
+whole-project audit ran; the next actual-parameter module was interrupted.
+Preceding predicate and procedure-name parts completed, and their objects remain
+preserved.
+
+The next bounded repair normalizes only that literal through the checked
+character/lexer route, retaining the original public theorem, complete source
+selector, loop definition, native code, invariants, variant, returns and closing
+tokens. The whole `ProcedureNameSourceCandidate`, including all headers, record,
+step, model and loop fields, must pass focused validation and independent
+critical review before another complete continuation. Native/build acceptance
+remains valid; full regressions and final delivery acceptance remain pending.
