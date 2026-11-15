@@ -28,6 +28,17 @@ preserved; [#373](https://github.com/berkeleynerd/silver/issues/373) remains the
 next package after this delivery. This instruction does not change the Oracle
 or supply final implementation-merge approval. CLI memory was not updated.
 
+The reduced-host recovery is now independently accepted for reviewable delivery
+in PR #371. The [delivery account](scalar-procedures.md#delivery-assurance-and-validation)
+and [closing review](reviews/review-scalar-procedures-delivery-20261115.md) retain
+the exact implementation, failed attempts, complete proof checks and reviewed
+final regression coverage. The measured ARM64 stack environment is documented
+in setup and CI; language domains and required obligations are unchanged.
+This completes the authorized recovery scope without merge or #373 implementation.
+Issues and milestone closure await merge; project-board access remains unavailable
+to the current token. This records work under the existing authorization, not a
+new owner decision. CLI memory was not updated.
+
 ## 2026-11-13 — Scalar-procedure delivery resumed
 
 The owner instructed **“Please proceed.”** after the evening pause and the

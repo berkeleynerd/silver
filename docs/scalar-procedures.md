@@ -12,7 +12,7 @@ bounded language package under the broader
 The small [#29 Rosetta refresh repair](https://github.com/berkeleynerd/silver/issues/29)
 accompanies its delivery with separate focused Python checks.
 
-**Validated on Linux ARM64; final delivery reconciliation is under review.**
+**Supported on Linux ARM64; final independent delivery acceptance passed.**
 The compiler, universal proofs, actual-source correspondence, capacity argument
 and complete applicable regression coverage establish the bounded rules below.
 The [delivery account](#delivery-assurance-and-validation) distinguishes complete
@@ -24,7 +24,7 @@ No broader procedures, Oracle amendment or deferred #119 research is included.
 Production `1dde32cce` completes the bounded procedure implementation and source
 proofs. The [independent delivery review](reviews/review-scalar-procedures-delivery-20261115.md)
 accepts the complete native, Lean/source and repaired regression evidence;
-closing Rosetta/current-record reconciliation is under review. Publication is
+closing Rosetta/current-record reconciliation is accepted. Publication is
 through [PR #371](https://github.com/berkeleynerd/silver/pull/371), without merge
 or implementation of the next selected package, #373.
 
@@ -54,7 +54,7 @@ or implementation of the next selected package, #373.
   Rosetta reconciliation. The [12 fresh Rosetta tests](evidence/scalar-procedures-20261115/regression-recovery/rosetta/README.md)
   replace 12 retained results after its metadata/render changes, giving the
   final inventory of 38 fresh passes, 651 retained passes and two platform skips.
-  Final applicability of that last delta is part of closing review.
+  Independent closing review accepts applicability of that last delta.
 
 The current Linux ARM64 compiler uses the documented 16 MiB process stack for
 validation and invocation. [Controlled stack observations](evidence/scalar-procedures-20261115/regression-recovery/arm64-stack/README.md)
@@ -231,7 +231,7 @@ remaining surface complete.
 
 | Date | Selected settings | Result and next check | Evidence scope |
 | --- | --- | --- | --- |
-| 2026-11-15 reduced-host recovery | Astra Max native/function-source diagnosis and critical review; Astra Ultra named certificate-memory investigation; Sol High native monitoring; Sol Extra High regression inventory and proposed Rosetta reconciliation; lead runtime not independently exposed | Native storage resolves the open-file ceiling. Complete native assurance and the final compiler build pass with independent acceptance. Complete cached Lean/source validation and its fresh whole-project module/axiom audit also have independent acceptance. Bounded repairs retain their original claims. The original full regression/sample run and both repairs are complete: all 85 samples passed, the fixture dependency repair passes, and the unchanged scalar suite passes at the documented 16 MiB stack. Independent review accepts complete pre-Rosetta coverage; the twelve Rosetta tests also pass. Final delivery reconciliation is under review. | [Recovery checkpoint](evidence/scalar-procedures-20261115/recovery/README.md) links exact failures, focused successes and independent reviews, including the native monitoring gap. All 17 source-policy tests passed at candidate refresh; the complete 691-ID run and its failures are retained. Complete proof assurance and pre-Rosetta regression coverage are independently accepted; the fresh Rosetta results and final delivery reconciliation await closing acceptance. Native timings are retained per run; whole-team token/cost totals unavailable. |
+| 2026-11-15 reduced-host recovery | Astra Max native/function-source diagnosis and critical review; Astra Ultra named certificate-memory investigation; Sol High native monitoring; Sol Extra High regression inventory and proposed Rosetta reconciliation; lead runtime not independently exposed | Native storage resolves the open-file ceiling. Complete native assurance and the final compiler build pass with independent acceptance. Complete cached Lean/source validation and its fresh whole-project module/axiom audit also have independent acceptance. Bounded repairs retain their original claims. The original full regression/sample run and both repairs are complete: all 85 samples passed, the fixture dependency repair passes, and the unchanged scalar suite passes at the documented 16 MiB stack. Independent review accepts complete pre-Rosetta coverage; the twelve Rosetta tests also pass. Final independent delivery reconciliation is accepted. | [Recovery checkpoint](evidence/scalar-procedures-20261115/recovery/README.md) links exact failures, focused successes and independent reviews, including the native monitoring gap. All 17 source-policy tests passed at candidate refresh; the complete 691-ID run and its failures are retained. Complete proof assurance, final regression coverage and delivery reconciliation are independently accepted. Native timings are retained per run; whole-team token/cost totals unavailable. |
 | 2026-11-09 | Astra Max procedure design/native probes; Sol Extra High refresh repair; lead runtime not independently exposed | Established the leading output-initialization scope, identified effectful-call/capacity contracts, and started isolated #370 streams. #29 has successful focused checks; its final source/error review is completing. | Design inspection and focused Python checks only; no new procedure assurance or support. Native producer results, helper contracts and source integration remain pending. |
 | 2026-11-09 23:06–23:32 UTC | Sol Extra High refresh author; Astra Max native, semantic and source authors; lead runtime not independently exposed | Final #29 repair passed 12 tests. Procedure metadata passed 62 native checks; the selected mechanism probe passed 75 checks, and initial parser tests passed 19 admission methods. Narrow-copyback and unsafe-unused-body probes failed as expected. | Refresh evidence and native producer/metadata packets are retained under `docs/evidence/scalar-procedures-20261109/`. These are focused results, not feature completion. |
 | 2026-11-09 23:21–23:43 UTC | Astra Max semantic/source authors and native helper investigation; lead runtime not independently exposed | Call/input/copy-back contracts, metadata actual-source checks and signature interpretation passed focused Lean audits. Integrated parser implementation and drafted shared Python/native report-policy regressions. Pinned producer inspection established one initialization record per `out` formal. | Runs `20261109T232157-f50052810dba`, `20261109T232318-79e59bd00147` and `20261109T232931-d434ec47373f` cover the completed proof slices; the body/environment/source integration and complete native helper checks remain pending. |

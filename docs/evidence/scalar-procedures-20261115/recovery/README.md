@@ -653,3 +653,30 @@ Independent review accepts the bounded environment delta. The retained
 OS/architecture condition paths on this Linux host; it is not a GitHub CI run
 or native validation of the simulated platforms. No PR checks were reported
 at this checkpoint.
+
+### Final delivery accepted — 2026-11-15
+
+Independent Astra Max review accepts integration target
+`6f8bb0a7ae372d87501012e18ca158e54a9e9f6d`, including the final Rosetta
+metadata/render and coordinated current records, with no material finding or
+unresolved technical requirement. The [closing review](../../../reviews/review-scalar-procedures-delivery-20261115.md)
+accounts for all 691 distinct IDs: **38 fresh passes + 651 applicable retained
+passes + two expected platform skips**. The original full-suite run remains
+failed. The twelve fresh Rosetta passes match the final inputs; all 1,784 rendered
+files match their retained hashes. Only Return multiple values enters Stage 1,
+raising supported mappings from 83 to 84; all 44 stage drivers remain unchanged.
+
+This completes #370 and its #29/#372/#375/#390 delivery work for reviewable
+publication in PR #371. The accepted compiler/proof production remains
+`1dde32cce`; subsequent changes are the reviewed fixture, environment, Rosetta
+metadata and documentation. Complete native and Lean/source acceptance remains
+applicable. No merge, #373 implementation or deferred #119 redesign is included.
+All managed workers and workspace writers are released.
+
+Final status wording and issue/PR publication follow this accepted target as
+administrative closeout. Issues and milestone 23 remain open for merge-dependent
+closure. A fresh project-board query returns `INSUFFICIENT_SCOPES`: the token
+lacks `read:project`, so board fields cannot be read or updated. Issue comments
+record the actual review state instead; no board update is claimed. Native macOS
+validation and unexecuted GitHub CI retain their separate scopes. The live
+harness has no goal and CLI memory was not updated.
