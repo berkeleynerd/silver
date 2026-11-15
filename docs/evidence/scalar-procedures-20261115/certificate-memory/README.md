@@ -26,7 +26,7 @@ evaluation theorem, new axiom or trusted generator result. The original
 starting revision. The new meta module is imported only by the output aggregate,
 so existing line-module and other certificate dependencies remain reusable.
 
-The actual authoritative input has **424,747 bytes**, including its exact line
+The authoritative input for the original focused probe had **424,747 bytes**, including its exact line
 endings, with SHA-256
 `619f4fb8e2b0f318dac7c6278d5f644198816ce7733959ed71ca03917546b2b8`.
 For these same bytes the old generator's split aggregate is 36,329,346 bytes;
@@ -105,6 +105,51 @@ dependencies remain reusable through normal Lake input checks. The next run
 must first receive the lead's frozen integrated source, proof and pin commit;
 the interrupted result supplies no complete certificate assurance.
 
+## Frozen final-source line audit
+
+The certificate workspace adopted frozen integration `8a03ab122` in
+`4d9998a13`. Its authoritative output body has **424,781 bytes**, with SHA-256
+`9ede490b6cf72b352a39072cd37f4ef39774409c6024135487cf076567b59b9c`.
+All 1,106 recorded inputs and all 40 generated candidates matched that snapshot.
+Final-source generator parity and the 16 Python-only source-policy methods
+passed in `20261115T174732-3c80951e2fe2`; the lead separately retained the full
+17-method run, including the native kernel controls. These replace neither the
+historical failed parity result nor the final complete-assurance checkpoint.
+
+Managed run **`20261115T175643-52d7b1fb4cb7` passed** all eight
+`Silver.OutputBodyLines0` through `Silver.OutputBodyLines7` targets and their
+fresh imported-declaration audit. It rebuilt buckets 3, 1, 0, 4, 6 and 7 in
+304, 278, 317, 322, 327 and 311 seconds respectively; buckets 2 and 5 and other
+matching dependencies were reused through normal Lake checks. The audit passed
+at 18:27:54 UTC for **14 modules / 22,993 declarations**, with only `propext`,
+`Classical.choice` and `Quot.sound`.
+
+This bounded overlap used one Lake worker, the default 12 Lean threads and a
+3,072 MiB per-process threshold, with a 4 GiB process-tree guard and a 1.5 GiB
+minimum-host-headroom guard. The complete monitored invocation took
+1,871.867 seconds; build time was 1,863.320 seconds and the fresh audit took
+2.285 seconds. Peak sampled tree RSS was **2,883,485,696 bytes (2.685 GiB)**,
+and minimum available host memory was **5,406,818,304 bytes (5.035 GiB)**.
+No guard or memory diagnostic triggered. This overlaps independent native and
+function-source work and is not a clean-build performance comparison.
+
+The [final-source line packet](final-source-lines/retention.json) retains exact
+managed events, the actual audit log and evidence, launcher output and resource
+samples. Its input archive contains all 1,106 captured repository inputs plus
+the 1,001 synchronized workspace inputs; every archived byte was checked
+against its recorded hash. Recorded inputs, artifacts and the audit log all
+matched at retention. A separate manifest inventories all 248 files in the
+current `.lake/build`, including IR and setup artifacts; these remain available
+for the later coordinated aggregate and eventual identity-checked transfer.
+
+This is a successful **line-module closure**, not a successful output aggregate
+or complete source certificate. `Silver.OutputBodyCertificate` remains held
+until the lead allocates the dense run; no proof input is changed during that
+wait. The named certificate-memory recovery retains the selected Astra / Ultra
+setting; independent runtime model/effort telemetry and token/cost totals are
+unavailable. This continuation performed monitoring and evidence retention,
+with no additional proof repair or duplicate successful check.
+
 ## Retention and remaining work
 
 `focused-runs.json` retains the managed events; logs, successful detailed input
@@ -126,7 +171,7 @@ The independent critical review accepted helper/core commit `a33c7cba9` without
 a material finding; its report is in the sibling Lean-recovery packet. The
 [native ghost-constant and exact-pin review](review-native-ghost-constant.md)
 also found no material issue within its bounded scope. Actual aggregate
-validation, final-source regeneration and complete native/Lean/source/
+validation and complete native/Lean/source/
 provenance/regression checkpoints remain outstanding. No publication, issue
 closeout or capability support is claimed here. This named memory-design
 investigation selected Astra / Ultra; runtime model/effort telemetry was not
