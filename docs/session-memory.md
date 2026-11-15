@@ -1,5 +1,18 @@
 # Session memory
 
+## 2026-11-15 — Local development and validation reconfirmed
+
+The owner clarified **“We will not be using CI. Local development here on this
+host.”** This reaffirms the existing local-validation policy and disabled hosted
+Actions recorded in the README. Validate development on this host with the
+managed local native/Lean/test workflow; CI execution or workflow changes are
+not required for this delivery. The proposed ARM64 CI stack edit is withdrawn;
+the documented 16 MiB local compiler/test setting and accepted local evidence
+remain. No additional GitHub credential scope is needed. The [publication
+record](evidence/scalar-procedures-20261115/recovery/README.md#local-only-publication)
+retains the exact reconstruction and earlier proposal as history. CLI memory
+was not updated.
+
 ## 2026-11-15 — Scalar-procedure recovery on the reduced host authorized
 
 After the readiness assessment identified the remaining native proof and Lean
@@ -33,7 +46,7 @@ in PR #371. The [delivery account](scalar-procedures.md#delivery-assurance-and-v
 and [closing review](reviews/review-scalar-procedures-delivery-20261115.md) retain
 the exact implementation, failed attempts, complete proof checks and reviewed
 final regression coverage. The measured ARM64 stack environment is documented
-in setup and CI; language domains and required obligations are unchanged.
+in local setup; language domains and required obligations are unchanged.
 This completes the authorized recovery scope without merge or #373 implementation.
 Issues and milestone closure await merge; project-board access remains unavailable
 to the current token. This records work under the existing authorization, not a

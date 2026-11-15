@@ -130,6 +130,10 @@ establish correspondence.
 
 ## Proof loop and validation
 
+Validation runs locally on this development host under the owner's policy,
+reconfirmed on 2026-11-15. Hosted CI is unused and is not a delivery requirement;
+the complete local checks and evidence rules below remain mandatory.
+
 Run from the repository root. Use `scripts/bootstrap.py` and
 `scripts/bootstrap_lean.py` when tools need installation. Moving the installation
 requires bootstrap and rebuild. During iteration, run the smallest check relevant

@@ -1,0 +1,25 @@
+{
+  "accepted_pre_publication_head": "17b898a8a33871413ca79910c2672d414c15338f",
+  "last_published_base": "d2739f6a010b1a5491ee7d6468f71bf84767def0",
+  "reconstructed_head": "48a3ae411fbd131fdd94e15b7fc1564bbe495ab3",
+  "commit_mapping": {
+    "b31ffc67e": "d1bb7ae78",
+    "3d8748a41": "c258c6294",
+    "343b01937": "6f2941306",
+    "e85eea5f1": "2332f8bd0",
+    "05e52b257": "7ee390eee",
+    "9b6a64f1e": "6955069fd",
+    "6f8bb0a7a": "5b347dbd2",
+    "eb0b15038": "7a9412e7d",
+    "e690bca08": "177e5ec71",
+    "17b898a8a": "48a3ae411"
+  },
+  "exact_tree_delta_before_owner_documentation": [
+    ".github/workflows/verify.yml"
+  ],
+  "workflow_equals_published_base": true,
+  "production_tests_rendered_outputs_and_prior_evidence_identical": true,
+  "retained_original_branch": "recovery/scalar-procedures-with-ci-workflow-20261115",
+  "owner_direction": "We will not be using CI. Local development here on this host.",
+  "disposition": "The CI proposal is withdrawn, not a pending dependency. Existing repository-wide disabled-CI/local-validation policy remains. No force push or published-history rewrite is required."
+}

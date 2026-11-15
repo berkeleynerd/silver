@@ -646,13 +646,12 @@ still requires independent applicability acceptance, followed by the isolated
 Rosetta metadata/render checks and coordinated delivery records. The original
 full-suite run remains failed; these are successful focused repair reruns.
 
-The native CI test step now applies the same soft-stack setting only for
-`RUNNER_OS=Linux` and `RUNNER_ARCH=ARM64`, then runs its unchanged test command.
-Independent review accepts the bounded environment delta. The retained
-[shell branch check](ci-stack-branch-check.json) validates syntax and all four
-OS/architecture condition paths on this Linux host; it is not a GitHub CI run
-or native validation of the simulated platforms. No PR checks were reported
-at this checkpoint.
+A proposed, unpublished native CI test-step adjustment was statically reviewed;
+the retained [shell branch check](ci-stack-branch-check.json) exercised its
+conditional locally. The owner subsequently reconfirmed local-only development
+and the proposal was withdrawn. This historical check is not a CI execution,
+a current workflow change or a remaining delivery requirement. Local tests use
+the measured 16 MiB stack environment described above.
 
 ### Final delivery accepted — 2026-11-15
 
@@ -678,5 +677,23 @@ administrative closeout. Issues and milestone 23 remain open for merge-dependent
 closure. A fresh project-board query returns `INSUFFICIENT_SCOPES`: the token
 lacks `read:project`, so board fields cannot be read or updated. Issue comments
 record the actual review state instead; no board update is claimed. Native macOS
-validation and unexecuted GitHub CI retain their separate scopes. The live
+validation retains its separate scope; CI is unused under the owner's local-development policy. The live
 harness has no goal and CLI memory was not updated.
+
+### Local-only publication
+
+After GitHub rejected the proposed workflow edit for missing `workflow` scope,
+the owner reconfirmed **“We will not be using CI. Local development here on
+this host.”** This agrees with the existing README policy: hosted Actions is
+disabled and local validation is sufficient. The CI adjustment was unnecessary
+for this delivery and is withdrawn; no credential change or CI follow-up is required.
+
+The [reconstruction record](local-publication-reconstruction.json) maps the
+unpublished commits onto the last published base while omitting only that
+workflow-path edit. Before owner-directed prose updates, the reconstructed tree
+is byte-identical to the accepted tree except `.github/workflows/verify.yml`,
+which equals the previously published file. Production, proof/test inputs,
+rendered outputs and all prior evidence are unchanged. The original branch,
+[rejected-push reason](github-workflow-rejection.json) and [withdrawn patch](withdrawn-ci-stack.patch)
+remain retained as history. This is a normal fast-forward publication and does
+not rewrite published history or infer a new validation result.
