@@ -1,0 +1,140 @@
+{
+  "review_target": "a33c7cba9da346db8be795f9dab25d44ea50bb0d",
+  "source_sha256": "619f4fb8e2b0f318dac7c6278d5f644198816ce7733959ed71ca03917546b2b8",
+  "source_bytes": 424747,
+  "line_chunks_equal": true,
+  "reconstruction_except_join_witness_equal": true,
+  "old_join_count": 7025,
+  "new_join_count": 7025,
+  "nonoutput_sources": [
+    {
+      "source": "silver_procedure_bindings.ads",
+      "unchanged": true
+    },
+    {
+      "source": "silver_procedure_bindings.adb",
+      "unchanged": true
+    },
+    {
+      "source": "silver_function_bindings.ads",
+      "unchanged": true
+    },
+    {
+      "source": "silver_function_bindings.adb",
+      "unchanged": true
+    },
+    {
+      "source": "silver_array_bindings.ads",
+      "unchanged": true
+    },
+    {
+      "source": "silver_array_bindings.adb",
+      "unchanged": true
+    },
+    {
+      "source": "silver_image_model.ads",
+      "unchanged": true
+    },
+    {
+      "source": "silver_image_model.adb",
+      "unchanged": true
+    },
+    {
+      "source": "silver_image_model_templates.ads",
+      "unchanged": true
+    },
+    {
+      "source": "silver_image_model_templates.adb",
+      "unchanged": true
+    },
+    {
+      "source": "silver_scalar_expressions.ads",
+      "unchanged": true
+    },
+    {
+      "source": "silver_scalar_expressions.adb",
+      "unchanged": true
+    },
+    {
+      "source": "silver_scalars.ads",
+      "unchanged": true
+    },
+    {
+      "source": "silver_scalar_literals.ads",
+      "unchanged": true
+    },
+    {
+      "source": "silver_scalar_literals.adb",
+      "unchanged": true
+    },
+    {
+      "source": "silver_names.ads",
+      "unchanged": true
+    },
+    {
+      "source": "silver_names.adb",
+      "unchanged": true
+    },
+    {
+      "source": "silver_path_facts.ads",
+      "unchanged": true
+    },
+    {
+      "source": "silver_integer_literals.ads",
+      "unchanged": true
+    },
+    {
+      "source": "silver_integer_literals.adb",
+      "unchanged": true
+    },
+    {
+      "source": "silver_arguments.ads",
+      "unchanged": true
+    },
+    {
+      "source": "silver_arguments.adb",
+      "unchanged": true
+    },
+    {
+      "source": "silver_runtime.ads",
+      "unchanged": true
+    },
+    {
+      "source": "silver_profile.ads",
+      "unchanged": true
+    },
+    {
+      "source": "silver_profile.adb",
+      "unchanged": true
+    },
+    {
+      "source": "silver_output_profile.ads",
+      "unchanged": true
+    },
+    {
+      "source": "silver_output_lexical.ads",
+      "unchanged": true
+    },
+    {
+      "source": "silver_output_lexical.adb",
+      "unchanged": true
+    },
+    {
+      "source": "silver_io.ads",
+      "unchanged": true
+    },
+    {
+      "source": "silver_io.adb",
+      "unchanged": true
+    },
+    {
+      "source": "silver_output_libc.ads",
+      "unchanged": true
+    }
+  ],
+  "core_hashes": {
+    "proof/Silver/CertificateJoinWitness.lean": "9d2c96d2a52eb75370e2e663cb14d5a4051a049e45ca9115bb20f4c2677ef51d",
+    "proof/generate_source_certificate.py": "a938697c3b361dc4fa3165f84571c8e751248594e172f3a4c3137dd4e5fbbd79",
+    "tests/test_lean_source.py": "879137bdea85ed30581e140ca4355d8c87fb5fc44f7014e514361ef70e8cf3ac"
+  }
+}
