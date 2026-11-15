@@ -441,3 +441,41 @@ All 661 prior objects remain preserved. Complete focused candidate success and
 independent critical review precede another cached complete continuation.
 Native/build success remains applicable; the full suite still waits for the
 dense Lean work to finish. Final delivery acceptance remains pending.
+
+### Body-source recovery and accepted native/build evidence
+
+The four-field repair is integrated at `a6c8c8afc`, with the
+[focused success packet](../lean-recovery/complete-checkpoint/body-source-normalization/README.md)
+in `afac5d059`. Run `20261115T212952-885cb9e630e5` passed the complete
+`PredicateBodySourceCandidate`, all four helper contracts and all 108 original
+private statements. Its fresh audit covers 290 modules / 38,257 declarations
+with only the three approved foundations. The author collected original session
+78053 exit zero; no guard or interruption occurred. Monitored elapsed was
+385.482 seconds, peak process/tree RSS was 5,800,992 / 6,859,408 KiB, and minimum
+host availability was 10,238,272 KiB.
+
+Independent critical acceptance `c3b84a76d` verifies the exact literals, typed
+semantic renderings, variant suffixes, unchanged statements and selectors, all
+1,115 input / 1,010 workspace / 3,974 artifact / two tool hashes, and the durable
+terminal packet. All 661 prior objects and 3,962 variant/hash files remain
+unchanged; 663 objects are now present. The complete preflight graph reaches all
+1,008 project modules. Complete cached continuation
+`20261115T214116-f50ce45f47c2` started on the frozen reviewed production,
+with one worker because a single candidate has measured roughly 9 GiB tree RSS
+on this 15.8-GiB host. Default twelve process threads, the 8-GiB threshold and
+the separate existing guards remain in force. The native run has finished;
+competing native work is no longer the reason for this reduction.
+
+Independent review `a9723e157` accepts the complete native audit and final build.
+It verifies complete coverage, every required obligation, source policy,
+contract-dependency boundaries, diagnostic classifications, provenance and
+build identities. [The dependency-count erratum](../native-recovery/full-native/helper-dependency-erratum.json)
+corrects a historical manual inventory: the two helpers each have two ordinary
+dependency-claim records, containing 126 and 52 dependency entries. Their
+dependencies are accepted by the boundary audit; all 78 reports have empty
+`pragma_assume` lists. The original archive is unchanged. The unavailable
+original native wrapper exit and monitoring gap remain explicit. No production
+change or proof rerun was needed for this evidence correction.
+
+Complete Lean/source assurance, full regression coverage, coordinated Rosetta
+promotion and final feature acceptance remain pending.
