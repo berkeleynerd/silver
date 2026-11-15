@@ -1,0 +1,27 @@
+{
+  "command": [
+    "python3",
+    "scripts/check_lean.py",
+    "--target",
+    "Silver.FunctionSourceCandidate",
+    "--workers",
+    "1",
+    "--memory-mb",
+    "8192",
+    "--provenance",
+    "--task",
+    "370-function-source-capacity",
+    "--reason",
+    "Resume bounded caller on committed 91858a579 after focused success 20261115T182359-36d64a7ff504 and independent static acceptance of ten remaining long expected-literal checks. Original statements, complete source extractors, domains, contracts and src/scripts at 8a03ab122 preserved; prior successful objects reused. One worker/default 12 threads/8192 MiB with 10 GiB process-tree and 1.5 GiB host guards; source-only controlled stop on first new explicit kernel-memory diagnostic. Parent coordinates native two workers and certificate line-only completion; dense certificate aggregate held."
+  ],
+  "cwd": "/home/agent/silver-worktrees/procedures-lean-370",
+  "started_at": "2026-11-15T18:29:09.640274+00:00",
+  "peak_sum_rss_kib": 5874320,
+  "peak_process_rss_kib": 4833360,
+  "minimum_mem_available_kib": 10319088,
+  "pid": 80541,
+  "returncode": 0,
+  "elapsed_seconds": 275.3147680480015,
+  "finished_at": "2026-11-15T18:33:44.955031+00:00",
+  "interrupted": false
+}
