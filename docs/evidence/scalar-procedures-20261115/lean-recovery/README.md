@@ -104,3 +104,84 @@ whether token-source segmentation is necessary. The segmented candidate remains
 a retained failure and is not selected for delivery. The independent certificate
 core review is separately committed at `dca1f7b48`; it is not evidence that this
 function-source recovery or complete source checkpoint has passed.
+
+## Selected two-file repair and complete focused result
+
+Implementation `81e09276c` changes only the leaf proof and adds the directly
+required `FunctionLocalsExpectedTokens` helper. The public leaf theorem is
+byte-identical to the original statement. The helper proves the exact 909-byte
+expected string's complete 171-token result, and the leaf rewrites that fact
+before checking the unchanged whole-source scanner with `kernel_exact` and a
+direct equality witness. Every one of the 72,709 reviewed source tokens remains
+in the scanner input; its complete duplicate-detecting `ordinaryFunctions` and
+singleton test are unchanged. No source pin, Ada source, scanner, expected loop
+or language/proof domain changes. `final-input-review.json` records identities.
+
+A 2 GiB normalized whole-leaf probe failed, with additional memory used during
+`decide` failure reporting; the subsequent direct-witness 4 GiB probe also failed
+its threshold. Both are retained as failures. These were smaller diagnostic
+allowances, not changes to the selected original 8 GiB recovery allocation.
+
+`20261115T173223-fb4134e2af34` passed the original leaf and helper closure at that
+8,192 MiB threshold: **107 imported modules / 15,604 declarations** freshly
+audited, with only `propext`, `Classical.choice` and `Quot.sound`. It used one
+Lake worker and default 12 Lean threads, retained all applicable semantic
+objects, and performed no independent kernel replay. Build was 74.043 s, fresh
+audit 1.088 s, managed runner 81.724 s and monitored invocation 85.077 s.
+Sampled largest process RSS was 4,860,656 KiB (**4.636 GiB**); summed RSS was
+5,987,024 KiB (**5.710 GiB**); available host memory stayed above 10,659,584 KiB
+(**10.166 GiB**). The 10 GiB source-process-tree and 1.5 GiB host-headroom guards
+did not fire. RSS samples can miss peaks and count shared pages repeatedly.
+
+The committed success packet contains exact proof/source/tool/workspace and
+artifact identities, the log, summary and resource observations. This is the
+focused source-shape theorem and imported helper/model audit, **not** a complete
+authoritative-source, facade or whole-project result.
+
+## Adversarial controls and cleanup
+
+Temporary managed controls check the frozen production bytes. The negative
+run rejects a wrong character in the full 909-character candidate with an
+explicit kernel declaration type mismatch, and rejects omission of the first
+expected token as a false proposition. Neither failure is a memory diagnostic.
+The negative run is intentionally failed; it supplies no successful audit.
+
+Positive run `20261115T173725-aa334a489da8` passes five bounded predicates:
+the exact expected body is extracted; a duplicate before it is rejected; a
+duplicate following it across an append boundary is rejected; dropping its
+first token cannot satisfy the expected body; and reversing body order cannot
+satisfy it. Its fresh audit covers 91 modules / 10,541 declarations with the same
+three foundations, under a 2,048 MiB process threshold. These controls supplement
+the complete fixed-source theorem; they do not replace universal semantics.
+
+Both temporary control modules, the initial segmented candidate and the earlier
+probe modules are removed from `proof/`. Their exact sources and diagnostics
+are retained compressed here. A final cached production-only run after removal
+passes the same 107-module / 15,604-declaration audit, with no module rebuilt.
+Its `production-cleanup-*` packet records final inputs and removal of stale
+control artifacts. This cheap refresh is specifically justified by restoring
+the production-only module inventory, not by repeating an expensive success.
+
+## Required integration and host budget
+
+The immediate new-helper consumer is the checked leaf. Its unchanged exported
+theorem is assembled by `FunctionSourceCandidate.declarations`, then transported
+to certified actual tokens by `FunctionSourceChecks.checked_source`, consumed
+through `PredicateSourceChecks`. A full assembler check imports the other
+function-source leaves; their previous unbounded-memory successes are not proof
+that all fit the reduced host. No other leaf was proactively rewritten.
+
+Recommend one Lake worker with the existing 8 GiB process threshold, default
+12 threads and actual RSS/headroom monitoring for the next complete checkpoint,
+subject to the independent output-aggregate result and concurrent native budget.
+This measured leaf fits; it is not a guarantee for every other module. Keep
+dense jobs serialized when their observed combined demand requires it. The
+complete native/source/facade/module/axiom/provenance/regression checks and any
+required final-source pin refresh remain with the lead. Changing the actual
+source/pin correctly invalidates this leaf's corresponding cached result.
+
+Independent review of this repair is assigned to the native-recovery author,
+who did not author these Lean changes. The separate certificate-core review
+remains at `dca1f7b48`. The live harness goal was read as null at handoff; no new
+goal or CLI memory update is claimed. All source, caches and ignored scratch
+remain in the owned native worktree. No GitHub writes, push or merge occurred.

@@ -1,0 +1,27 @@
+{
+  "command": [
+    "python3",
+    "scripts/check_lean.py",
+    "--target",
+    "Silver.FunctionSourceParts.DeclarationLoopFunctionLocals",
+    "--workers",
+    "1",
+    "--memory-mb",
+    "8192",
+    "--provenance",
+    "--task",
+    "370-lean-memory-recovery",
+    "--reason",
+    "Final cached focused audit after removing temporary positive/negative control modules; production proof bytes unchanged from successful173223. Require cleanup of retired module artifacts and exact final imported scope; no expensive rebuild requested."
+  ],
+  "cwd": "/home/agent/silver-worktrees/procedures-lean-370",
+  "started_at": "2026-11-15T17:39:17.567896+00:00",
+  "peak_sum_rss_kib": 56864,
+  "peak_process_rss_kib": 56864,
+  "minimum_mem_available_kib": 15136416,
+  "pid": 18780,
+  "returncode": 0,
+  "elapsed_seconds": 10.013879338000152,
+  "finished_at": "2026-11-15T17:39:27.581760+00:00",
+  "interrupted": false
+}

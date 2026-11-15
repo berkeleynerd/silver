@@ -1,0 +1,27 @@
+{
+  "command": [
+    "python3",
+    "scripts/check_lean.py",
+    "--target",
+    "Silver.FunctionSourceParts.FunctionLocalsRecoveryNegativeControls",
+    "--workers",
+    "1",
+    "--memory-mb",
+    "2048",
+    "--provenance",
+    "--task",
+    "370-lean-memory-recovery-controls",
+    "--reason",
+    "Expected controlled rejection: corrupt full909character candidate and omit first expected token; frozen production proof inputs unchanged. Small2GiB control alongside serial certificate line buckets."
+  ],
+  "cwd": "/home/agent/silver-worktrees/procedures-lean-370",
+  "started_at": "2026-11-15T17:36:11.081262+00:00",
+  "peak_sum_rss_kib": 56320,
+  "peak_process_rss_kib": 56320,
+  "minimum_mem_available_kib": 15158032,
+  "pid": 18495,
+  "returncode": 1,
+  "elapsed_seconds": 10.0221687129997,
+  "finished_at": "2026-11-15T17:36:21.103416+00:00",
+  "interrupted": false
+}

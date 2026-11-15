@@ -1,0 +1,27 @@
+{
+  "command": [
+    "python3",
+    "scripts/check_lean.py",
+    "--target",
+    "Silver.FunctionSourceParts.DeclarationLoopFunctionLocals",
+    "--workers",
+    "1",
+    "--memory-mb",
+    "4096",
+    "--provenance",
+    "--task",
+    "370-lean-memory-recovery",
+    "--reason",
+    "Normalized expectedtext passed2GiB; whole-source2GiBdiagnostic failed and decide error reporting addedmemory. Check same exact theorem/unchangedscanner with direct checked equality witness at4GiB, below original8GiBrecoveryallocation. Native released, certificate in lowRSSseriallinebuilds; actualheadroom monitored."
+  ],
+  "cwd": "/home/agent/silver-worktrees/procedures-lean-370",
+  "started_at": "2026-11-15T17:28:20.118786+00:00",
+  "peak_sum_rss_kib": 5951792,
+  "peak_process_rss_kib": 4827136,
+  "minimum_mem_available_kib": 10742192,
+  "pid": 15802,
+  "returncode": 1,
+  "elapsed_seconds": 75.07724236899958,
+  "finished_at": "2026-11-15T17:29:35.196013+00:00",
+  "interrupted": false
+}
