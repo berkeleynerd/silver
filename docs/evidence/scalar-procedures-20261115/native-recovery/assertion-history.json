@@ -1,0 +1,130 @@
+{
+  "earlier_success": {
+    "report_sha256": "30e00df973622e674a9b5f398ca3ab26090fa31f025c22641fa23f55b4040e5e",
+    "assertion": [
+      {
+        "check_col": 32,
+        "check_file": "silver_output_profile.adb",
+        "check_line": 2340,
+        "check_tree": [
+          {
+            "proof_attempts": {
+              "CVC5": {
+                "result": "High failure ()",
+                "steps": 1,
+                "time": 0
+              },
+              "Z3": {
+                "result": "Valid",
+                "steps": 73959,
+                "time": 0
+              },
+              "altergo": {
+                "result": "Step limit\nexceeded",
+                "steps": 100002,
+                "time": 0
+              }
+            },
+            "transformations": {
+              "introduce_premises": [
+                {
+                  "proof_attempts": {
+                    "CVC5_CE": {
+                      "result": "Timeout",
+                      "steps": 1,
+                      "time": 0
+                    }
+                  },
+                  "transformations": {}
+                }
+              ]
+            }
+          }
+        ],
+        "col": 32,
+        "entity": 124,
+        "file": "silver_output_profile.adb",
+        "how_proved": "prover",
+        "line": 2340,
+        "message": {
+          "text": "assertion proved"
+        },
+        "msg_id": 76,
+        "rule": "VC_ASSERT",
+        "severity": "info",
+        "stats": {
+          "Z3": {
+            "count": 1,
+            "max_steps": 73959,
+            "max_time": 0.0
+          }
+        },
+        "unproved_status": {
+          "status": "unknown"
+        }
+      }
+    ]
+  },
+  "final_failure": {
+    "report_sha256": "00bd307f403b36e08276da4cd6c8ddb529568d54ebac5afcf324f90a90624f16",
+    "assertion": [
+      {
+        "check_col": 32,
+        "check_file": "silver_output_profile.adb",
+        "check_line": 2340,
+        "check_tree": [
+          {
+            "proof_attempts": {
+              "CVC5": {
+                "result": "Timeout",
+                "steps": 1,
+                "time": 30
+              },
+              "Z3": {
+                "result": "Timeout",
+                "steps": 1,
+                "time": 30
+              },
+              "altergo": {
+                "result": "Timeout",
+                "steps": 1,
+                "time": 30
+              }
+            },
+            "transformations": {
+              "introduce_premises": [
+                {
+                  "proof_attempts": {
+                    "CVC5_CE": {
+                      "result": "Unknown\n(unknown + incomplete)",
+                      "steps": 1,
+                      "time": 0.018733
+                    }
+                  },
+                  "transformations": {}
+                }
+              ]
+            }
+          }
+        ],
+        "col": 32,
+        "entity": 117,
+        "file": "silver_output_profile.adb",
+        "how_proved": "prover",
+        "line": 2340,
+        "message": {
+          "text": "assertion might fail"
+        },
+        "msg_id": 1966,
+        "rule": "VC_ASSERT",
+        "severity": "medium",
+        "unproved_status": {
+          "memory": false,
+          "status": "limit",
+          "steps": false,
+          "time": true
+        }
+      }
+    ]
+  }
+}

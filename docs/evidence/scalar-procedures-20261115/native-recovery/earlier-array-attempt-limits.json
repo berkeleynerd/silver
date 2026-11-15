@@ -1,0 +1,79 @@
+{
+  "proof_attribute_counts": [
+    {
+      "prover": "altergo",
+      "timeout": "30",
+      "steps": "0",
+      "memory": "1000",
+      "count": 455
+    },
+    {
+      "prover": "CVC5",
+      "timeout": "30",
+      "steps": "0",
+      "memory": "1000",
+      "count": 455
+    },
+    {
+      "prover": "Z3",
+      "timeout": "30",
+      "steps": "0",
+      "memory": "1000",
+      "count": 455
+    },
+    {
+      "prover": "Trivial",
+      "timeout": "1",
+      "steps": "1",
+      "memory": "1000",
+      "count": 12
+    },
+    {
+      "prover": "altergo",
+      "timeout": "0",
+      "steps": "100000",
+      "memory": "1000",
+      "count": 1
+    },
+    {
+      "prover": "CVC5",
+      "timeout": "0",
+      "steps": "3515000",
+      "memory": "1000",
+      "count": 1
+    },
+    {
+      "prover": "Z3",
+      "timeout": "0",
+      "steps": "80450000",
+      "memory": "1000",
+      "count": 1
+    },
+    {
+      "prover": "CVC5_CE",
+      "timeout": "10",
+      "steps": "0",
+      "memory": "1000",
+      "count": 1
+    }
+  ],
+  "unproved_goal_attempts": [
+    {
+      "goal": {
+        "name": "def'vc.412.0"
+      },
+      "effective": {
+        "id": "4",
+        "name": "CVC5_CE",
+        "version": "0.0.7-gnatprove",
+        "timelimit": "10",
+        "steplimit": "0",
+        "memlimit": "1000",
+        "prover": "4"
+      },
+      "result": {
+        "status": "timeout"
+      }
+    }
+  ]
+}
