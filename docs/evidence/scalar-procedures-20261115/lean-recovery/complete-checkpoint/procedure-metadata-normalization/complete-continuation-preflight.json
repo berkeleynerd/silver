@@ -1,0 +1,12 @@
+{
+  "production_revision": "88e3d0a9f",
+  "project_modules": 1005,
+  "explicit_audit_import_closure": 1005,
+  "missing_project_imports": [],
+  "unreached_modules": [],
+  "new_helper_reached": true,
+  "cached_module_objects_present": 625,
+  "remaining_without_object": 380,
+  "textual_preflight_not_actual_complete_module_audit": true,
+  "presence_is_not_a_validation_claim": true
+}

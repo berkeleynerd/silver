@@ -66,4 +66,42 @@ precede a complete cached retry; there is no speculative additional normalizatio
 
 | Work | Model / effort | Result and remaining work | Available cost evidence |
 | --- | --- | --- | --- |
-| Exact procedure metadata-header diagnosis/repair | Selected Astra Max for source correspondence; live lead setting not independently exposed | Exact failure and bounded two-file repair identified; complete focused gate and critical review pending | Failed complete run 946.159 s monitored elapsed; token and whole-team cost unavailable |
+| Exact procedure metadata-header diagnosis/repair | Selected Astra Max for source correspondence; live lead setting not independently exposed | Exact two-file repair and complete focused source candidate passed; critical review and whole-project checkpoint pending | Failed complete run 946.159 s monitored elapsed; token and whole-team cost unavailable |
+
+## Focused success and next preflight
+
+Focused run `20261115T201355-b250e246f4ef` passed on the exact production bytes
+committed as `88e3d0a9f`. The original execution session `32187` returned exit 0;
+the monitor recorded no interruption or guard. The new helper built in 544 ms,
+the complete `Body` leaf in 8.3 s, `Outer` in 4.3 s, and the assembled candidate
+in 186 ms. Managed build elapsed 15.465 s and the fresh imported-environment
+audit elapsed 1.722 s, covering **115 modules and 16,374 declarations** with only
+`propext`, `Classical.choice` and `Quot.sound` as foundations. Thus both original
+ordinary-body checks and all original candidate fields have completed focused
+validation. This is not a successful complete-project audit.
+
+At the same one-worker/default-twelve-thread/8,192-MiB allocation, sampled process
+peak was 1,858,416 KiB RSS, process-tree peak 2,898,928 KiB, and minimum host
+availability 12,342,432 KiB. Monitored elapsed was 25.031 s. The smaller observed
+resource use applies to this exact focused run, not to other unchecked modules
+or an asymptotic claim.
+
+All **1,112 input, 1,007 workspace-input, 3,746 artifact and two tool hashes**
+were independently rechecked by the author after terminal completion. The exact
+managed log SHA-256 is
+`78e230dff57c0d363ebcd46200b653e9f2c07e54d865cb02d4649d7824d12164`.
+All **621** prior ordinary module objects and their 3,722 captured variant/hash
+files remain byte-identical. Four new ordinary objects are the helper, `Body`,
+`Outer` and complete candidate; 625 ordinary objects are now retained.
+The success packet includes unmodified runner evidence, managed/outer logs,
+resource samples and terminal summary, plus `focused-success-verification.json`.
+
+The explicit textual `Silver.Audit` import closure reaches all **1,005** project
+modules, including the new helper, without a missing project import or unreachable
+module. The 625-object presence inventory leaves 380 modules without an object.
+These are preflight facts, not actual complete module coverage or validation.
+The next complete cached run still requires fresh actual whole-project module
+coverage, axiom closure, stable input checks and source correspondence. Independent
+critical review of this exact patch and successful evidence precedes that run;
+no clean build, independent kernel replay or repeated successful focused gate
+is required by this repair.
