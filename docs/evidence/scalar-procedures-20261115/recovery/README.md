@@ -284,3 +284,29 @@ repair, and the previous complete attempts remain separately retained. The
 same measured resource allocation and guards apply alongside the native audit.
 Complete assurance, final build/regression coverage and delivery acceptance
 remain pending.
+
+### Flow-source constructor failure and field diagnosis
+
+Complete run `20261115T201746-8829535d867a` stopped at 20:29:51 UTC after
+kernel-memory errors in the counted-bound, flow and reader constructor proofs
+of `PredicateFlowSourceCandidate`. The original session returned 254 and the
+monitor recorded child return `-2` from the diagnostic SIGINT. No complete
+audit ran. All 656 completed objects were preserved; the next native-helper
+candidate was interrupted. Peak process/tree RSS was 8,401,840 / 9,443,488 KiB,
+with minimum available host memory 6,535,664 KiB.
+
+Diagnostic run `20261115T203335-d0861ad752c6` restated all 17 exact contract
+fields individually against the same complete source. It exited naturally with
+failure code 1, without interruption, after two kernel-memory errors:
+`CountedBoundNative.spec` and `FlowSourceBridge.joined`. The reader fields
+produced no diagnostics in this failed probe; they are not claimed as audited
+successes. The probe and original failed run remain diagnostic evidence.
+
+The bounded repair now targets only the long literal fragments in those two
+confirmed fields, preserving every surrounding header, semantic rendering and
+concatenation. The five unchanged reader propositions will receive individual
+private proofs, then assemble the original reader contract. That tests proof
+aggregation as the explanation for the reader-constructor failure; the complete
+candidate must still validate it. The temporary probe will be retained outside
+production and retired before the full candidate gate. Native source and
+validation remain unchanged, and complete assurance remains pending.
