@@ -584,3 +584,35 @@ settings and watchdogs remain unchanged. No production, generator or active
 suite input changes are authorized. The full traceback and a focused complete
 repair run after suite release must establish the actual result; independent
 review must account for every final test identity before delivery acceptance.
+
+### Full regressions completed; two bounded repairs under validation
+
+Run `20261115T220916-99f1eaeea331` ended at 22:23:32 UTC with original
+session 84822 exit 1 and no interruption or resource guard. The
+[immutable failed-suite packet](../native-recovery/final-validation/regression/README.md)
+accounts for all 691 IDs: 687 passed, two failing IDs and two expected
+Linux-x86-only skips. Four failure results comprise one ordinary fixture failure
+and three subtests of the scalar source-limit test. All 85 manifest samples,
+including Return multiple values, and the maximum dynamic-expression test passed.
+All 1,316 regression inputs, 2,606 native inputs, tool identities and both
+compiler binaries match launch; all 31 retained archive members verify.
+The 172 monitoring samples have a maximum interval of 5.0113 seconds, with no
+continuity gap. This terminal result supersedes the active-suite descriptions above.
+
+The original traceback confirms that the output-chunk reuse test fails at its
+initial build because the isolated fixture omits `CertificateJoinWitness.lean`.
+Repair `900941ef4` adds that dependency and corrects the fixture count comment;
+all eleven edit variants, assertions, audits and resource settings remain intact.
+Independent static review `e25853fff` accepts the repair. Complete focused
+`test_lean_modules.py` validation follows; a prepared patch is not a passing result.
+
+The three scalar source-limit subtests raise `STORAGE_ERROR` at 4,096 bytes
+with active-scalar count/parenthesis-depth pairs 0/2001, 1/1993 and 32/1765.
+The inherited process stack is 8,192 KiB. An isolated Astra Max diagnosis is
+comparing actual stack limits and ARM64 compiler frames against the existing
+[sufficient-stack environmental premise](../../../trusted-boundary.md#trusted-computing-base).
+The input domain and all boundary cases remain required; no skip, source limit
+reduction or production change has been selected. Complete native/Lean acceptance
+remains applicable to unchanged production. Final regression acceptance requires
+successful repair checks and independent complete-inventory applicability review.
+PR #371 remains draft; Rosetta promotion and final delivery acceptance are pending.
