@@ -422,3 +422,94 @@ Selected settings remain **GPT-6 Astra / Max**; runtime, token and cost telemetr
 are unavailable. The evidence record timestamps exact comparisons. This reviewer
 launched no proof/build/test/application or cache-writing job, edited no GitHub
 state and updated no CLI memory. The live harness goal remains null.
+
+## Addendum — six native shape specification headers, 2026-11-15
+
+**Bounded acceptance; no material finding.** I reviewed immutable author repair
+`3c94de8308f1570e992857b0429a7015a79478ae` against production
+`24115ffd292d0839716627c29c16a57be0dbb6d2`. Its production bytes match integrated
+`438213ec2`. Only `PredicateNativeShapeCandidate.lean` and the new
+`PredicateNativeShapeExpectedTokens.lean` change. The
+[independent record](../evidence/scalar-procedures-20261115/delivery-review/native-shape-normalization-review.json)
+contains exact comparisons and terminal evidence identities. Broader native,
+complete Lean/source, build, regression and delivery acceptance remain pending.
+
+Complete run `20261115T205032-5834a8189332` remains failed/interrupted, with no
+whole-project audit. I matched its retained failed candidate to the original
+source and its runner log to the recorded digest. The six kernel-memory errors
+at original lines 196/202/220/226/262/272 independently locate exactly the six
+assigned private equalities; no additional field probe was needed. Its
+source-only diagnostic interruption reached the subsequent
+`PredicateBodySourceCandidate`. The retained record distinguishes reported
+original session `72203` outer exit 254 from monitored child return -2.
+
+| Complete specification header | Characters / tokens |
+| --- | --- |
+| `primary_model_spec_header` | 701 / 149 |
+| `relation_model_spec_header` | 705 / 149 |
+| `condition_tail_spec_header` | 948 / 196 |
+| `condition_model_spec_header` | 709 / 149 |
+| `boolean_factor_model_spec_header` | 729 / 149 |
+| `boolean_relation_model_spec_header` | 737 / 149 |
+
+For each header, the original definition, leaf `change` literal, helper character
+literal and helper token literal agree exactly. Both complete character lists,
+the helper/leaf token lists and independent lexical extraction agree. Independent
+selection over all **72,713** reviewed implementation tokens finds exactly one
+complete matching specification header for each function. The unchanged kernel
+selector still establishes full-source extraction and singleton rejection.
+
+All parameters and defaults, Static ghost/global aspects, preconditions,
+postconditions, failure alternatives and termination variants remain intact.
+This includes the distinct `condition_tail` arguments and requirements concerning
+`Operator`, `Chained`, `Incoming`, `Original_Start` and matching flow counts.
+No native source, model, domain, expected definition, renderer, selector, source
+pin or authoritative transport changes. Each helper checks the original string
+through `String.toList_ofList`, then the unchanged alphabet, fuel and lexer with
+`decide +kernel`. Each original leaf rewrites that proved equality and uses
+`kernel_exact` at its original complete-source goal. No project axiom or bypass
+is added.
+
+I independently inventoried **63 original private theorem statements**, including
+multiline statements and direct-term proofs, plus the public `checked` theorem.
+All statements, all 63 `Checked` fields, every other private proof and the public
+assembly are byte-identical. Restoring exactly the six changed bodies and removing
+the two imports reproduces the original candidate byte-for-byte. The initial
+packet's count of 58 was an inventory error; immutable terminal packet
+`087b4622b` corrects it to 63 without changing production or validation inputs.
+
+Managed gate **`20261115T210927-f5ecbbed5260` passed** the complete
+`PredicateNativeShapeCandidate`, including all six helper contracts, original
+private source obligations and public assembly. The fresh imported audit covers
+**127 modules / 21,408 declarations**, using only `propext`, `Classical.choice`
+and `Quot.sound`. Build/audit phases exited zero in 272.099 s / 1.172 s. Managed
+termination records success; the monitor records exit zero with no guard or
+interruption. The author reported collecting original session `18170` exit zero,
+relayed by the lead. This reviewer inspected retained evidence and did not
+consume that execution session.
+
+I independently verified all **1,114 input, 1,009 workspace, 3,962 artifact and
+two executable hashes**, the input digest and the actual audit-module set. Every
+captured production input also matches the immutable reviewed commit. The exact
+runner-log digest is
+`5dd4f2fbd93910de0ced79ecb108a00a2c22719a108090f9ba0120fda51c345e`.
+All 659 prior ordinary objects and 3,950 variant/hash files remain unchanged;
+the successful inventory contains 661 ordinary objects. Artifact hashes establish
+identity; the fresh audit covers the recorded imported closure. Durable packet
+`087b4622b` matches the inspected evidence, runner/launcher logs, resources,
+terminal summary and managed events, and retains the original failed evidence.
+
+The focused run used the unchanged one-worker/twelve-thread/8,192-MiB allocation.
+Sampled process/tree RSS peaks were 4,252,992 / 5,296,592 KiB; minimum host
+availability was 11,302,496 KiB and monitored elapsed was 285.288 s. These are
+observations for this incremental focused success. No clean build, kernel replay
+or general memory bound is claimed. Prior mechanism corruption controls are
+reused; no new extractor or native regression run is claimed here. The exact
+repair is accepted for the complete cached continuation, with whole-project
+assurance and delivery still pending.
+
+Selected settings remain **GPT-6 Astra / Max**; runtime, token and cost telemetry
+are unavailable. The evidence records a 238.834 s interval from recorded static
+check completion through terminal-evidence acceptance, excluding earlier source
+inspection. I launched no proof/build/test/application or cache-writing job,
+edited no GitHub state and updated no CLI memory. The live harness goal is null.
