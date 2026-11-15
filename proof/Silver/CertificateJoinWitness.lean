@@ -10,8 +10,9 @@ public section
 /-!
 Compact untrusted witness construction for the largest source certificate.
 This constructs the existing character-list join theorem directly, avoiding
-per-character syntax elaboration. Every witness is checked by the kernel at
-the exact goal through the same auxiliary-lemma path as `decide +kernel`.
+per-character syntax elaboration. Every returned goal has a kernel-checked
+proof through the same auxiliary-lemma path as `decide +kernel`; its type-indexed
+cache may reuse an existing proof already checked at that exact goal.
 No native evaluation theorem, trusted generator result or axiom is introduced.
 -/
 
@@ -42,6 +43,5 @@ elab "kernel_join " left:str right:str : tactic => withMainContext do
     mkAuxLemma levels expected proof
   closeMainGoalUsing `kernel_join fun _ _ =>
     pure (mkConst name (levels.map Level.param))
-
 
 end Silver.CertificateJoinWitness
