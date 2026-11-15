@@ -200,20 +200,22 @@ remaining surface complete.
 
 ## Development checkpoint
 
-**Reduced-host recovery resumed, 2026-11-15.** The owner authorized recovery
-after the readiness assessment, with the decision recorded on main in
-`903dac970`. The [recovery record](evidence/scalar-procedures-20261115/recovery/README.md)
-identifies the restored implementation, current Linux ARM64 host, native-storage
-workspaces and remaining checks. Original x86_64 binary proof caches are absent.
-Mounted-filesystem descriptor exhaustion initially prevented both proof tools
-from starting; native storage resolved that problem. The native assertion and
-function-source memory failures now have successful focused repairs, preserving
-full domains and proof policy. The exact-source aggregate memory repair has
-passed its actual-size reconstruction check and independent critical review.
-The [combined checkpoint](evidence/scalar-procedures-20261115/recovery/README.md#focused-repairs-and-final-input-checkpoint)
-records the reviewed pin, regenerated candidates and remaining capacity checks.
-No complete assurance or final regression success is claimed. Preserve the historical attempts
-below and the separate worca streams.
+**Reduced-host recovery, 2026-11-15.** The owner authorized this continuation
+on main in `903dac970`. The [recovery record](evidence/scalar-procedures-20261115/recovery/README.md)
+retains the native-storage recovery, focused repairs and complete validation
+on Linux ARM64. Both complete proof checkpoints and the final compiler build
+have independent acceptance on production `1dde32cce`: native run
+`20261115T174959-94ae5c6fdf63` covers 19,444 checks, and complete Lean run
+`20261115T215223-28e04bff3fce` freshly audits all 1,009 project modules and
+162,269 declarations. These are cached complete checks, not cold runs.
+
+The [full regression run](evidence/scalar-procedures-20261115/native-recovery/final-validation/regression/README.md)
+completed with 687 passed, two failing IDs and two expected platform skips;
+all 85 samples passed. A missing isolated-fixture dependency is repaired and
+under focused validation. Three valid source-limit subtests require ARM64
+stack diagnosis under the existing resource premises. Final regression
+coverage, Rosetta reconciliation and independent delivery acceptance remain
+pending. The historical failures below and separate worca streams remain intact.
 
 The owner resumed this delivery on 2026-11-13. The [retained final attempts](evidence/scalar-procedures-20261109/final-attempts-20261111/README.md)
 remain failed. Their native `Procedure_Updates` postcondition and handwritten

@@ -123,9 +123,10 @@ replace complete compiler proof or the final Lean/source audit.
 
 ## Small nonrecursive scalar procedures
 
-The [procedure increment](scalar-procedures.md) is under development in #370;
-its complete native, semantic and actual-source checkpoint remains pending.
-This section records the required argument, without claiming delivered support.
+The [procedure increment](scalar-procedures.md#development-checkpoint) has
+independently accepted complete native and Lean/actual-source checkpoints on
+Linux ARM64. Final regression repair coverage and delivery acceptance remain
+pending in #370; these proof results alone do not claim delivered support.
 
 Each closed declaration must be checked over the full declared input and
 `in out` domains, including when Main never calls it. Its source-written leading
