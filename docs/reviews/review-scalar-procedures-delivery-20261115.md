@@ -610,3 +610,98 @@ token/cost telemetry are unavailable. I ran only source/data inspection and hash
 comparison scripts, with no project validation program, build, proof, test,
 bootstrap, application or cache-writing job. No GitHub state or CLI memory was
 changed. The live harness goal remains null.
+
+## Addendum — four body-source literal fragments, 2026-11-15
+
+**Bounded acceptance; no material finding.** I reviewed immutable repair
+`810d1a8e3` against accepted production `3c94de830`. Its production bytes match
+integrated `a6c8c8afc`. Only `PredicateBodySourceCandidate.lean` and the new
+`PredicateBodyExpectedTokens.lean` change. The
+[independent record](../evidence/scalar-procedures-20261115/delivery-review/body-source-normalization-review.json)
+contains the exact source/data comparisons and terminal identities. The accepted
+native audit and compiler build remain applicable to unchanged native inputs.
+Complete Lean/actual-source assurance, regressions, Rosetta reconciliation and
+final feature acceptance remain pending.
+
+Complete run `20261115T211741-9bb82c28fe83` remains failed/interrupted, without
+a whole-project audit. I matched its retained candidate and managed log to their
+original identities and independently mapped errors at lines 163/287/297/468
+to exactly the four repaired private equalities. The reported original session
+`15946` outer exit was 254; monitored child return was -2 after diagnostic SIGINT
+interrupted the subsequent `PredicateStructuralGuards`. These individual
+failures already identify the fields, so no probe was needed. They do not alone
+establish a literal-only memory cause.
+
+| Original equality | Normalized fragment | Characters / tokens |
+| --- | --- | --- |
+| `candidate_body_tail_model_spec` | Complete model specification header | 712 / 151 |
+| `candidate_body_body_tail_spec_header` | Prefix before the typed tail-model renderer | 633 / 135 |
+| `candidate_body_read_body_spec_header` | Prefix before the typed read-contract renderer | 632 / 135 |
+| `candidate_valid_context_body` | Complete context-validity expression | 762 / 147 |
+
+For each fragment, the original definition, leaf `change` literal, character
+theorem and token theorem contain the identical string. Both complete character
+lists and independently lexed tokens match the helper; the two explicit leaf
+token witnesses also match. The helpers check `String.toList_ofList` through
+`kernel_exact`, then retain the complete alphabet/fuel/lexer computation with
+`decide +kernel`. The original full-source equalities remain kernel obligations.
+
+Both composite headers retain the original typed expressions
+`(BodyNative.ScanExpr.tailModel .current .input).render` and
+`BodyNative.readContractBody.render`, their concatenation order and exact
+**88-character / 23-token** variant suffixes. The complete original `read_body`
+`simp only` route is byte-identical. Independent reconstruction from the unchanged
+renderers and selection over all **72,713** reviewed implementation tokens finds
+unique matching complete **151-token** model, **172-token** tail and
+**219-token** read-body specification headers, plus the complete **147-token**
+context-validity expression. The typed renderings contribute 14 / 61 tokens to
+the composite headers. No prefix-only source claim substitutes for those goals.
+
+All original parameters, metadata/context/body preconditions, runtime/Static
+postconditions, zero/failure alternatives and variants remain unchanged. In
+particular, the tail's nondecreasing position and read-body's strictly advancing
+success condition retain their distinct meanings. The validity expression keeps
+every name, environment, bounds and elaboration-dependent quantified clause.
+Native source, models, definitions, renderers, domains, selectors, duplicate
+rejection, source pins and authoritative transport remain unchanged.
+
+All **108 original private statements**, all **108 `Checked` fields**, the other
+104 private proofs and the public statement/assembly are byte-identical.
+Restoring exactly the four changed proof bodies and removing the two imports
+reproduces the original candidate. No obligation is removed, and no project
+axiom, bypass or weakened contract is introduced.
+
+Managed gate **`20261115T212952-885cb9e630e5` passed** the complete
+`PredicateBodySourceCandidate`, including all four helpers, original private
+fields and public assembly. Its fresh imported audit covers **290 modules /
+38,257 declarations**, using only `propext`, `Classical.choice` and `Quot.sound`.
+Build/audit phases exited zero in 374.980 s / 1.023 s. Managed termination is
+success; the monitor records exit zero without a guard or interruption. The
+author collected original session `78053` exit zero, relayed by the lead. This
+reviewer inspected the retained evidence and did not consume that session.
+
+I checked all **1,115 input, 1,010 workspace, 3,974 artifact and two executable
+hashes**, the input digest and actual module list. Every captured production
+input also matches the immutable reviewed commit. All 661 prior ordinary
+objects and 3,962 variant/hash files remain unchanged; 663 ordinary objects are
+now present. The runner-log digest is
+`05dc28afef1a89323bcd0ddca5b57314f4d19c280a31b4fc08909273129a4d5b`.
+Durable packet `d51f0c0ca` matches the inspected evidence, runner/launcher logs,
+resources, terminal summary and managed events, and retains the exact failed
+candidate/log. Artifact identities do not expand the fresh audit's imported
+scope into a whole-project result.
+
+The run retains one worker, automatic twelve threads and 8,192 MiB. The measured
+dense candidate's earlier roughly 9 GiB process tree on a 15.8 GiB host supplies
+the current reason for serializing dense Lean jobs; native work had finished.
+Successful sampled process/tree RSS peaks are 5,800,992 / 6,859,408 KiB, with
+10,238,272 KiB minimum host availability and 385.482 s monitored elapsed.
+These observations support this exact repair's successful focused completion;
+they are not a general memory bound, clean build or independent replay. The
+repair is accepted for the complete cached continuation, with remaining
+whole-project assurance and final delivery still pending.
+
+Selected settings remain **GPT-6 Astra / Max**; runtime, token and cost telemetry
+are unavailable. I launched no proof/build/test/application or cache-writing
+job, changed no GitHub state and updated no CLI memory. The evidence record
+timestamps the independent comparisons. The live harness goal remains null.
