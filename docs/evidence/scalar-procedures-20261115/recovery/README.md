@@ -265,3 +265,22 @@ source fragments, must pass focused validation and independent review before
 another complete continuation. Native validation remains productive on its
 unchanged source. This is a retained failed/interrupted complete attempt,
 not completed source assurance.
+
+### Procedure header recovery and next complete continuation
+
+The exact header repair is integrated at `33a7c351f`. The
+[focused packet](../lean-recovery/complete-checkpoint/procedure-metadata-normalization/README.md)
+retains successful run `20261115T201355-b250e246f4ef`: all source fragments and
+the full high-level procedure candidate, followed by a fresh audit of 115
+modules / 16,374 declarations. It completed in 25.031 monitored seconds with
+1,858,416 KiB peak process RSS and no guard or interruption. Independent critical
+review accepted the unchanged body theorem, header statement, metadata
+definition, exact 646 characters / 138 tokens and original focused evidence.
+
+All 621 previous objects remain byte-identical. The next complete cached run,
+`20261115T201746-8829535d867a`, starts with 625 objects and a preflight import
+graph reaching all 1,005 modules. Production bytes are frozen at the reviewed
+repair, and the previous complete attempts remain separately retained. The
+same measured resource allocation and guards apply alongside the native audit.
+Complete assurance, final build/regression coverage and delivery acceptance
+remain pending.
