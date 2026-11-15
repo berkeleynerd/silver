@@ -122,3 +122,35 @@ Their exact statements and whole-source scanners remain required; no broader
 rewrite or language restriction is selected. The complete native audit and
 final-source line-certificate batch continue independently. Dense aggregate
 validation waits for a separate memory allocation.
+
+### Recovered function-source and output certificate checkpoints
+
+All selected long function-source expectations now use the reviewed checked
+normalization mechanism. The [six-header batch](../lean-recovery/parameter-local-headers/README.md)
+and [remaining ten-check batch](../lean-recovery/remaining-expectations/README.md)
+passed focused audits and independent exact-data/source reviews; their records
+distinguish observed failures from same-mechanism selections. The 433-character
+selection cutoff was not asserted to be a proven memory bound. No public theorem,
+whole-source selector, native domain or source byte was weakened.
+
+The complete [function-source candidate](../lean-recovery/function-source-candidate/README.md)
+then passed run `20261115T182909-e353e1507833`: 197 imported modules, a fresh
+17,516-declaration audit and 5.60 GiB peak process-tree RSS. This refresh includes
+the unchanged function-local loop against the final reviewed source; its earlier
+old-source success alone was not treated as final-source evidence.
+
+The final-source [output certificate](../certificate-memory/README.md) passed
+run `20261115T183635-e890328a97c4`: 17 imported modules, a fresh
+51,104-declaration audit, 178.755 monitored seconds and 6.500 GiB peak tree RSS.
+It reused the successful eight-line batch (14 modules / 22,993 declarations).
+Neither run triggered its memory guard. Exact input snapshots and full cache
+artifact inventories are retained for verified transfer; complete-project Lean
+and native audits and the final regression suite remain mandatory.
+
+A fresh read-only regression discovery confirms 691 distinct test IDs across
+57 modules, unchanged from the starting inventory, and 85 manifest samples.
+Two methods are explicitly Linux-x86-only and inapplicable to this ARM64 run.
+This inventory is not a suite execution. Managed tests lease the entire host
+artifact root; nested application proofs retain canonical `-j0`, independently
+of the managed worker reservation. Run the final compiler build and full suite
+after the conflicting proof leases and dense memory allocations release.
