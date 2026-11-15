@@ -1,0 +1,18 @@
+{
+  "base": "7fa2549f8",
+  "candidate_public_statements_unchanged": true,
+  "only_candidate_boolean_declaration_proof_changed": true,
+  "impl_header_characters": 78,
+  "impl_tokens": 15,
+  "spec_aspect_characters": 674,
+  "spec_aspect_tokens": 119,
+  "full_header_tokens": 134,
+  "files_sha256": {
+    "proof/Silver/BooleanDeclarationExpectedTokens.lean": "8ba1f19ad79eab933fbb39c0e6f1e37d7a8a7ee4417700da21ee03544861a1ec",
+    "proof/Silver/ComposeHelperSourceCandidate.lean": "ecd706ab2723433c94db1fca5a2342662563962043dc47ca4328b831aaf51446"
+  },
+  "successful_run_id": "20261115T185653-905487da1ee4",
+  "all_recorded_input_files_verified": true,
+  "input_file_count": 1110,
+  "retired_probe_absent_from_source_and_workspace": true
+}

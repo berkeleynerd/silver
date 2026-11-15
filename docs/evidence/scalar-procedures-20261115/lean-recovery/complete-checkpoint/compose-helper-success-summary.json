@@ -1,0 +1,27 @@
+{
+  "command": [
+    "python3",
+    "scripts/check_lean.py",
+    "--target",
+    "Silver.ComposeHelperSourceCandidate",
+    "--workers",
+    "1",
+    "--memory-mb",
+    "8192",
+    "--provenance",
+    "--task",
+    "370-complete-lean-recovery",
+    "--reason",
+    "Recheck the complete source helper caller after focused five-field probe isolated the 674-character Boolean specification-aspect decoding failure. Two-file repair adds checked exact-character normalization only for that field, preserving original Checked statement, full-source extractor, all tokens/concatenation and four other kernel proofs. Temporary probe retired; evidence retained; independent review requested. Keep verified source/certificate caches and final native source fixed. One worker/default 12 threads/8192 MiB with 10 GiB tree/1.5 GiB host guards and first-kernel-memory diagnostic stop; native two-worker audit is separately guarded. Complete checkpoint remains gated on this focused success."
+  ],
+  "cwd": "/home/agent/silver-worktrees/procedures-lean-370",
+  "started_at": "2026-11-15T18:56:53.293452+00:00",
+  "peak_sum_rss_kib": 4570848,
+  "peak_process_rss_kib": 3533248,
+  "minimum_mem_available_kib": 11119088,
+  "pid": 115771,
+  "returncode": 0,
+  "elapsed_seconds": 195.22542221799995,
+  "finished_at": "2026-11-15T19:00:08.518859+00:00",
+  "interrupted": false
+}

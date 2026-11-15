@@ -1,0 +1,27 @@
+{
+  "command": [
+    "python3",
+    "scripts/check_lean.py",
+    "--target",
+    "Silver.BooleanDeclarationFieldProbe",
+    "--workers",
+    "1",
+    "--memory-mb",
+    "8192",
+    "--provenance",
+    "--task",
+    "370-boolean-source-diagnosis",
+    "--reason",
+    "Focused field isolation after ComposeHelperSourceCandidate line 201 memory failure. Temporary diagnostic module restates all five original Boolean declaration Checked fields unchanged, puts specHeader last for an unambiguous diagnostic, and retains the full reviewed source and original kernel proofs. No production theorem or extractor change. Avoid recompiling unrelated preceding array checks. One worker/default 12 threads/8192 MiB with 10 GiB tree/1.5 GiB host guards; all prior source/certificate objects preserved. Complete run remains blocked on this diagnosis and any required reviewed repair."
+  ],
+  "cwd": "/home/agent/silver-worktrees/procedures-lean-370",
+  "started_at": "2026-11-15T18:53:12.958545+00:00",
+  "peak_sum_rss_kib": 9533088,
+  "peak_process_rss_kib": 8391648,
+  "minimum_mem_available_kib": 5602032,
+  "pid": 113482,
+  "returncode": 1,
+  "elapsed_seconds": 70.1059223250013,
+  "finished_at": "2026-11-15T18:54:23.064454+00:00",
+  "interrupted": false
+}
