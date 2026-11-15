@@ -785,3 +785,91 @@ Selected settings remain **GPT-6 Astra / Max**; runtime model/effort and token/c
 telemetry are unavailable. No reviewer proof/build/test/application or cache-writing
 job ran, no GitHub state changed and no CLI memory was updated. The independent
 record timestamps the comparisons; the live harness goal remains null.
+
+## Addendum — complete Lean/source terminal evidence, 2026-11-15
+
+**Bounded complete-Lean acceptance; no material finding.** Managed run
+`20261115T215223-28e04bff3fce` passes the complete `Silver.Audit` project on
+Linux aarch64 with Lean 4.34.1. Frozen production `32c6fbca5`, previously reviewed
+integrated production `1dde32cce` and integrated packet revision `92e5ef282`
+have identical proof, native, runner and test inputs. Immutable packet
+`4ed965e20` matches the inspected original records. The
+[independent evidence record](../evidence/scalar-procedures-20261115/delivery-review/complete-lean-terminal-review.json)
+contains the comparisons, source mappings and terminal attribution. Accepted
+bounded repair and native/build reviews remain applicable. Final feature
+acceptance still waits for the full regression inventory, Rosetta and coordinated
+delivery records.
+
+The **fresh post-build audit** emits exactly **1,009 unique project modules**,
+equal to the immutable source inventory, current shared source inventory,
+protected workspace inventory and evidence list. Its **162,269 declarations**
+use only `propext`, `Classical.choice` and `Quot.sound`. The legacy audit/helper
+imports retain transitive private declarations; the audit selects declarations
+by origin module and checks their transitive axioms. The build's earlier audit
+output is separate from this fresh execution. Textual import reachability or
+cached-object presence does not substitute for the actual emitted module set.
+
+The complete set includes every source candidate and binding, source bridge,
+semantic connection and top-level facade, including the previously blocked
+procedure-name, procedure-call, metadata and body-source endpoints. I reused
+the accepted exact-repair reviews, which preserve the original complete
+statements, domains, selectors and contracts. No obligation was waived or
+replaced with a narrower result. All six earlier complete attempts remain
+failed/interrupted historical records; this terminal success does not relabel
+them.
+
+I independently checked all **1,116 shared-input, 1,011 workspace-input,
+6,046 compiled-artifact and two executable hashes**, plus the aggregate input
+digest. Every shared and workspace input also matches immutable `32c6fbca5`,
+including all **40 regenerated candidate files**. Handwritten workspace paths
+are regular files without intervening symlinks. The actual authoritative source
+link resolves to the author's `src/`; all **38 `include_str` bindings** resolve
+to their exact captured native files and have corresponding binary Lake input
+dependencies. Source/configuration and **1,009 retained traces** contain no
+forbidden kernel bypass; the audit's exact read-only guard remains intact.
+
+All **135 native source inputs** equal the previously accepted native manifest,
+as do all **144 overlapping Lean/native inputs**. All **147 tracked native
+inputs** match the final immutable production. In particular, the parser remains
+SHA-256 `9ede490b6cf72b352a39072cd37f4ef39774409c6024135487cf076567b59b9c`.
+This preserves the accepted complete native audit and compiler-build connection
+without repeating either validation.
+
+The actual artifact inventory contains **1,009 ordinary objects**, whose module
+names equal the complete source set. All **681 prior ordinary objects / 4,082
+variant-and-hash files** are unchanged; this continuation adds 328 ordinary
+objects. These are independently counted identities, not a count inferred from
+the 6,046 artifact entries. This is complete **incremental/cached** validation
+with fresh whole-project coverage, axiom and provenance checks. It is not a
+clean build or independent `leanchecker` replay. The documented pinned-toolchain,
+dependency-tracking and honest local-cache assumptions remain unchanged.
+
+Build and fresh audit phases exited zero in **684.761 s / 2.171 s**. The managed
+record reports success with overall `returncode: null`; the monitor records exit
+zero without guard or interruption. The author collected original session
+`79079` exit zero and directly reported it, also relayed by the lead. This
+reviewer inspected the retained evidence rather than consuming that session.
+Runner elapsed is 693.969 s and monitored elapsed is 695.766 s.
+
+The run used one Lake worker, automatic twelve Lean threads and 8,192 MiB per
+process. Measured dense-module memory on the approximately 15.8 GiB host supplies
+the existing reason for serialization; native audit/build had completed. All
+**140 resource samples** reconcile with the terminal summary, with a maximum
+sampling interval of 5.012 s. Sampled process/tree RSS peaks are
+8,788,832 / 9,836,544 KiB; minimum host availability is 7,277,152 KiB. These are
+sampled observations, not exact peaks or general memory guarantees.
+
+The immutable packet's evidence, runner and launcher logs, resources, summary
+and managed events are byte-identical to the inspected originals; its coverage
+and verification records agree with the independent checks. Managed retained
+copies also match. Exact runner-log SHA-256 is
+`171b56cb0a57abd689bb711d6ab7e1d4eb06069aa11df925b01136ef8287d40d`.
+The packet adds its nine files and a short index link/status paragraph while
+preserving all previous index text. Integrated packet bytes are identical.
+
+Selected reviewer settings remain **GPT-6 Astra / Max**; live model/effort and
+token/cost telemetry are unavailable. I ran only stdlib/Git source, data and hash
+inspection, with no project validator, proof/build/test/bootstrap/application or
+cache-writing job. No GitHub state or CLI memory changed. The live harness goal
+remains null. Full-suite execution and final delivery reconciliation remain with
+the lead, outside this bounded acceptance.
