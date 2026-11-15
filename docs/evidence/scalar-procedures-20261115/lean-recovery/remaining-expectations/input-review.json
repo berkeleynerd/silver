@@ -1,0 +1,102 @@
+{
+  "base": "c38f0eedc",
+  "files": {
+    "DeclarationOrdinaryFunctionBodyAt": {
+      "lemma": "metadataAppend",
+      "leaf": "DeclarationOrdinaryFunctionBodyAt",
+      "extractor": "procedureHeader \"lemma_function_metadata_append\" \"is\"",
+      "characters": 690,
+      "tokens": 149,
+      "public_statements_byte_identical": true,
+      "sha256": "40bb79e974900db64cddb00f45d34fca761b60764c8f1712c5a4d20b664656a6"
+    },
+    "DeclarationLoopParametersAt": {
+      "lemma": "parametersAtLoop",
+      "leaf": "DeclarationLoopParametersAt",
+      "extractor": "BooleanDeclarationNative.SourceChecks.ordinaryFunction \"parameters_at\"",
+      "characters": 887,
+      "tokens": 179,
+      "public_statements_byte_identical": true,
+      "sha256": "d72f46f54ff813aeb1fd4f56515a11004edbb5885d2478d57c1d0fd22ab81690"
+    },
+    "DeclarationLoopParameterFrame": {
+      "lemma": "parameterFrameLoop",
+      "leaf": "DeclarationLoopParameterFrame",
+      "extractor": "BooleanDeclarationNative.SourceChecks.ordinaryFunction \"parameter_frame\"",
+      "characters": 989,
+      "tokens": 196,
+      "public_statements_byte_identical": true,
+      "sha256": "4fe944f51d67d8be0822a417662498f7465b863487abec3a9f93e68356b04654"
+    },
+    "CallsActualModelSpec": {
+      "lemma": "actualModelSpec",
+      "leaf": "CallsActualModelSpec",
+      "extractor": "functionHeader \"actual_model\" \";\"",
+      "characters": 455,
+      "tokens": 98,
+      "public_statements_byte_identical": true,
+      "sha256": "ba6a2baae3e4ce08a8d4c6832aea2c320bd88d6d3f2d3054cf3749b153d687a8"
+    },
+    "CallsActualAfterSpec": {
+      "lemma": "actualAfterSpec",
+      "leaf": "CallsActualAfterSpec",
+      "extractor": "functionHeader \"actual_after\" \";\"",
+      "characters": 541,
+      "tokens": 117,
+      "public_statements_byte_identical": true,
+      "sha256": "86d44f06d87bb23231506807342d6c4d4e93bbb9855fe3cc842226fdd13ae263"
+    },
+    "CallsActualsModelSpec": {
+      "lemma": "actualsModelSpec",
+      "leaf": "CallsActualsModelSpec",
+      "extractor": "functionHeader \"actuals_model\" \";\"",
+      "characters": 660,
+      "tokens": 138,
+      "public_statements_byte_identical": true,
+      "sha256": "fe755e316cb47eb1f5b72f51d515ddd46178ec04fb06c9e779e3a1af52211c52"
+    },
+    "CallsActualsAfterSpec": {
+      "lemma": "actualsAfterSpec",
+      "leaf": "CallsActualsAfterSpec",
+      "extractor": "functionHeader \"actuals_after\" \";\"",
+      "characters": 708,
+      "tokens": 151,
+      "public_statements_byte_identical": true,
+      "sha256": "6e4dcb0db8d96909af766cabb2a61370207cec985e8fca797bcd45b636a337c6"
+    },
+    "CallsCallModelSpec": {
+      "lemma": "callModelSpec",
+      "leaf": "CallsCallModelSpec",
+      "extractor": "functionHeader \"call_model\" \";\"",
+      "characters": 508,
+      "tokens": 112,
+      "public_statements_byte_identical": true,
+      "sha256": "e7cddd45434dec937daee3e468176ea1305193f6e1b1446e023d6b268b503011"
+    },
+    "CallsReadCallSpec": {
+      "lemma": "readCallSpec",
+      "leaf": "CallsReadCallSpec",
+      "extractor": "functionHeader \"read_call\" \";\"",
+      "characters": 585,
+      "tokens": 131,
+      "public_statements_byte_identical": true,
+      "sha256": "19c035e350f5ccbec30c0a6f61d487461a718f15e2ac32532c2c539ad0f8a51a"
+    },
+    "CallsCallAssignmentBodySpec": {
+      "lemma": "callAssignmentBodySpec",
+      "leaf": "CallsCallAssignmentBodySpec",
+      "extractor": "functionHeader \"call_assignment_body\" \";\"",
+      "characters": 610,
+      "tokens": 126,
+      "public_statements_byte_identical": true,
+      "sha256": "be0b47ea1c5412c7dad7f69affa1b65e096a2840b03e0efaffac73a1e1b41a49"
+    },
+    "FunctionRemainingExpectedTokens": {
+      "sha256": "17141e654e18edcf554b4026983647d44f322569702f4743e45f801f31e37ba6"
+    }
+  },
+  "run_id": "20261115T182359-36d64a7ff504",
+  "all_recorded_inputs_match_current_files": true,
+  "input_file_count": 1109,
+  "source_scripts_equal_base_8a03ab122": true
+}

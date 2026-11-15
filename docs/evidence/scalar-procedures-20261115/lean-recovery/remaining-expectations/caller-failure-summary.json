@@ -1,0 +1,52 @@
+{
+  "command": [
+    "python3",
+    "scripts/check_lean.py",
+    "--target",
+    "Silver.FunctionSourceCandidate",
+    "--workers",
+    "1",
+    "--memory-mb",
+    "8192",
+    "--provenance",
+    "--task",
+    "370-function-source-capacity",
+    "--reason",
+    "Resume bounded caller after complete six-header/helper success 20261115T180831-555601b89ece on committed c38f0eedc. Exact full-source statements, extractors and native src/scripts at 8a03ab122 retained; prior objects reused. One worker/default 12 threads/8192 MiB, 10 GiB process-tree and 1.5 GiB host guards; source-only controlled stop at first new kernel-memory diagnostic. Parent coordinates certificate line-only 3 GiB and native two workers; reviewer exact-data acceptance recorded and evidence report finalizing concurrently."
+  ],
+  "cwd": "/home/agent/silver-worktrees/procedures-lean-370",
+  "started_at": "2026-11-15T18:16:31.062471+00:00",
+  "peak_sum_rss_kib": 9427056,
+  "peak_process_rss_kib": 8391760,
+  "minimum_mem_available_kib": 5779440,
+  "pid": 66706,
+  "diagnostic_interruption": {
+    "pattern": "(kernel) excessive memory consumption detected",
+    "sample": {
+      "elapsed_seconds": 200.24060467900017,
+      "sum_rss_kib": 2317616,
+      "mem_available_kib": 12744208,
+      "processes": [
+        {
+          "pid": 66706,
+          "rss_kib": 82960,
+          "command": "python3 scripts/check_lean.py --target Silver.FunctionSourceCandidate --workers 1 --memory-mb 8192 --provenance --task 370-function-source-capacity --reason Resume bounded caller after complete six-header/helper success 20261115T180831-555601b89ece on committed c38f0eedc. Exact full-source statements, extractors and native src/scripts at 8a03ab122 retained; prior objects reused. One worker/default 12 threads/8192 MiB, 10 GiB process-tree and 1.5 GiB host guards; source-only controlled stop at first new kernel-memory diagnostic. Parent coordinates certificate line-only 3 GiB and native two workers; reviewer exact-data acceptance recorded and evidence report finalizing concurrently. "
+        },
+        {
+          "pid": 66744,
+          "rss_kib": 952240,
+          "command": "/home/agent/silver-worktrees/procedures-lean-370/.tools/linux-aarch64/lean/bin/lake --rehash --reconfigure -K silverThreads=12 -K silverMemoryMb=8192 build +Silver.FunctionSourceCandidate +Silver.AxiomAudit "
+        },
+        {
+          "pid": 67580,
+          "rss_kib": 1282416,
+          "command": "/home/agent/silver-worktrees/procedures-lean-370/.tools/linux-aarch64/lean/bin/lean -j12 -M8192 -DwarningAsError=true /home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/proof/Silver/FunctionSourceParts/DeclarationOrdinaryFunctionDeclarationAt.lean -o /home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/FunctionSourceParts/DeclarationOrdinaryFunctionDeclarationAt.olean -i /home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/FunctionSourceParts/DeclarationOrdinaryFunctionDeclarationAt.ilean -c /home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/proof/.lake/build/ir/Silver/FunctionSourceParts/DeclarationOrdinaryFunctionDeclarationAt.c --setup /home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/proof/.lake/build/ir/Silver/FunctionSourceParts/DeclarationOrdinaryFunctionDeclarationAt.setup.json --json "
+        }
+      ]
+    }
+  },
+  "returncode": -2,
+  "elapsed_seconds": 205.24507693099986,
+  "finished_at": "2026-11-15T18:19:56.307536+00:00",
+  "interrupted": true
+}

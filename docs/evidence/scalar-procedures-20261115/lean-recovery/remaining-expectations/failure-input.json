@@ -1,0 +1,12 @@
+{
+  "revision": "c38f0eedc",
+  "run_id": "20261115T181631-ffc5a0d4c6b1",
+  "failure_file": "proof/Silver/FunctionSourceParts/DeclarationOrdinaryFunctionBodyAt.lean",
+  "failure_line": 25,
+  "failure_theorem": "declaration_metadata_append_header",
+  "expected_chars": 690,
+  "expected_tokens": 149,
+  "managed_log_sha256": "f75bd22f50ea337491285248491b774d401245f48f546b00a76f598e0a8e2985",
+  "axiom_audit": "not reached",
+  "outcome": "Explicit kernel memory failure, then source-only controlled interruption"
+}
