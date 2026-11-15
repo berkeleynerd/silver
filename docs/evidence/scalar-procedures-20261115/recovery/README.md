@@ -616,3 +616,40 @@ reduction or production change has been selected. Complete native/Lean acceptanc
 remains applicable to unchanged production. Final regression acceptance requires
 successful repair checks and independent complete-inventory applicability review.
 PR #371 remains draft; Rosetta promotion and final delivery acceptance are pending.
+
+### Regression repairs passed; final reconciliation
+
+The [complete fixture module rerun](../regression-recovery/lean-output-chunk-fixture/validation/README.md)
+`20261115T222916-4123afb6a6ad` passed all three tests, including all eleven
+original source-edit/reuse variants, with original session exit zero.
+Only the isolated test dependency list and its count comment changed.
+
+The [ARM64 diagnosis](../regression-recovery/arm64-stack/README.md) establishes
+6,416 bytes per nested group on the observed recursive parser route. All three
+original 4,096-byte cases fail at 8 MiB and pass at 16 MiB; the two deeper cases
+also fail at 12 MiB. All oversized companions still reject correctly. This is
+linear stack consumption on the measured route, separate from the earlier Lean
+proof representation/string-normalization costs. Neither observation establishes
+an asymptotic bound for the whole compiler/proof pipeline or combinatorial growth.
+
+The unchanged complete [scalar-guard module](../regression-recovery/arm64-stack/validation/README.md)
+passed all 23 tests in run `20261115T223501-c0b18e3fdea3`, original session
+58002 exit zero. The child explicitly inherited a 16 MiB soft stack with its
+unlimited hard limit preserved; the parent stayed at 8 MiB. Direct pre-exec
+resource capture and the exact launcher are retained. A separate postlaunch
+`/proc` observation raced completion and is explicitly unavailable.
+Setup and boundary documentation now record the measured ARM64 environment;
+no compiler, proof, contract, source limit or test expectation changed.
+
+Both repair packets verify all input/tool/binary identities. The final inventory
+still requires independent applicability acceptance, followed by the isolated
+Rosetta metadata/render checks and coordinated delivery records. The original
+full-suite run remains failed; these are successful focused repair reruns.
+
+The native CI test step now applies the same soft-stack setting only for
+`RUNNER_OS=Linux` and `RUNNER_ARCH=ARM64`, then runs its unchanged test command.
+Independent review accepts the bounded environment delta. The retained
+[shell branch check](ci-stack-branch-check.json) validates syntax and all four
+OS/architecture condition paths on this Linux host; it is not a GitHub CI run
+or native validation of the simulated platforms. No PR checks were reported
+at this checkpoint.
