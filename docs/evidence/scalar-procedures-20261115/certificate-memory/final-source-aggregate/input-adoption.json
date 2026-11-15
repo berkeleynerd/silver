@@ -1,0 +1,10 @@
+{
+  "frozen_commit": "8a03ab122",
+  "source_sha256": "9ede490b6cf72b352a39072cd37f4ef39774409c6024135487cf076567b59b9c",
+  "source_bytes": 424781,
+  "candidate_count": 40,
+  "candidates_equal_frozen": true,
+  "checked_input_count": 1106,
+  "all_checked_inputs_equal_frozen": true,
+  "conflict_resolution": "Two generated candidates restored exactly from frozen integration; no handwritten source conflict or extra production edit."
+}

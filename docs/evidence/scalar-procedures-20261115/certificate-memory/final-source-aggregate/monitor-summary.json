@@ -1,0 +1,24 @@
+{
+  "command": [
+    "python3",
+    "scripts/check_lean.py",
+    "--target",
+    "Silver.OutputBodyCertificate",
+    "--workers",
+    "1",
+    "--memory-mb",
+    "8192",
+    "--provenance",
+    "--task",
+    "#370-certificate-memory",
+    "--reason",
+    "Final source 9ede dense aggregate after all eight line targets passed with fresh 22993-declaration audit in 20261115T175643-52d7b1fb4cb7. Frozen 8a03ab122 inputs and matching line artifacts retained. Lead released allocation after FunctionSourceCandidate success; only native audit at two workers overlaps. One Lake worker/default 12 threads/8192 MiB; 10 GiB process-tree and 1.5 GiB host guards on 16 GiB host. No whole-project run or further source changes."
+  ],
+  "returncode": 0,
+  "elapsed_seconds": 178.7553785020009,
+  "peak_tree_rss_bytes": 6979207168,
+  "lowest_available_bytes": 9501573120,
+  "controlled_stop": null,
+  "tree_limit_mb": 10240,
+  "minimum_host_available_mb": 1536
+}

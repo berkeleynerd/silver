@@ -1,8 +1,9 @@
 # Output certificate memory recovery — 2026-11-15
 
 This is focused recovery evidence for #370 on Linux ARM64, Lean 4.34.1,
-12 available CPUs and approximately 16 GiB RAM without swap. It does not yet
-establish a successful complete output certificate or complete project assurance.
+12 available CPUs and approximately 16 GiB RAM without swap. It records the
+successful final-source output-body certificate and its fresh imported-declaration
+audit; it does not establish complete project assurance.
 The native and whole-project failures in the
 [November 13 packet](../../scalar-procedures-20261109/final-failures-20261113/README.md)
 retain their outcomes.
@@ -142,13 +143,49 @@ matched at retention. A separate manifest inventories all 248 files in the
 current `.lake/build`, including IR and setup artifacts; these remain available
 for the later coordinated aggregate and eventual identity-checked transfer.
 
-This is a successful **line-module closure**, not a successful output aggregate
-or complete source certificate. `Silver.OutputBodyCertificate` remains held
-until the lead allocates the dense run; no proof input is changed during that
+This was a successful **line-module closure**, not a successful output aggregate
+or complete source certificate. `Silver.OutputBodyCertificate` was held
+until the lead allocated the dense run below; no proof input changed during that
 wait. The named certificate-memory recovery retains the selected Astra / Ultra
 setting; independent runtime model/effort telemetry and token/cost totals are
 unavailable. This continuation performed monitoring and evidence retention,
 with no additional proof repair or duplicate successful check.
+
+## Final-source output aggregate passed
+
+After the independent `FunctionSourceCandidate` gate passed and released its
+dense allocation, the lead authorized the output aggregate. Preflight confirmed
+that all final-line captured inputs and recorded artifacts still matched. Only
+the independent two-worker native audit overlapped; no other dense Lean target
+or full regression suite ran concurrently.
+
+Managed run **`20261115T183635-e890328a97c4` passed**
+`Silver.OutputBodyCertificate` and the fresh audit of its **17-module /
+51,104-declaration** closure at 18:39:32 UTC. The only foundations were
+`propext`, `Classical.choice` and `Quot.sound`. Lake retained the matching line
+objects, built the final-source binding, and built the dense output aggregate
+in 168 reported seconds. The complete build phase took 170.111 seconds and the
+fresh audit took 1.776 seconds; the monitored invocation took 178.755 seconds.
+This is a focused cached dependency build, not a clean whole-project build.
+
+The run used one Lake worker, the default 12 Lean threads, an 8,192 MiB
+per-process threshold, a 10 GiB process-tree guard and a 1.5 GiB minimum-host
+headroom guard. Peak sampled tree RSS was **6,979,207,168 bytes (6.500 GiB)**;
+minimum available host memory was **9,501,573,120 bytes (8.849 GiB)**.
+No memory diagnostic or guard triggered. The same 424,781-byte authoritative
+source and all 1,106 captured repository inputs remained unchanged; no new
+proof repair, trust assumption, omission or weakened check was introduced.
+
+The [final aggregate packet](final-source-aggregate/retention.json) preserves
+exact managed events, actual audit log/evidence, launcher output, resource
+samples and a hash-verified input archive. Its full **264-file** `.lake/build`
+inventory and separately retained transfer archive include object variants, Lake metadata,
+generated IR and setup artifacts. Every archive member is verified against its
+recorded file hash. Integration must verify applicable inputs and every copied
+artifact before reuse; this transfer does not replace the final fresh complete
+Lean/source audit. The lead owns that checkpoint, along with native and
+regression completion. The selected Astra / Ultra investigation setting is
+unchanged; runtime model/effort telemetry and token/cost totals remain unavailable.
 
 ## Retention and remaining work
 
@@ -170,8 +207,7 @@ the independent function-source and native diagnosis streams.
 The independent critical review accepted helper/core commit `a33c7cba9` without
 a material finding; its report is in the sibling Lean-recovery packet. The
 [native ghost-constant and exact-pin review](review-native-ghost-constant.md)
-also found no material issue within its bounded scope. Actual aggregate
-validation and complete native/Lean/source/
+also found no material issue within its bounded scope. Complete native/Lean/source/
 provenance/regression checkpoints remain outstanding. No publication, issue
 closeout or capability support is claimed here. This named memory-design
 investigation selected Astra / Ultra; runtime model/effort telemetry was not

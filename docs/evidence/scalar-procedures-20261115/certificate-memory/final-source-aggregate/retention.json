@@ -1,0 +1,62 @@
+{
+  "run_id": "20261115T183635-e890328a97c4",
+  "targets": [
+    "Silver.OutputBodyCertificate"
+  ],
+  "axiom_audit": "passed",
+  "audited_modules": [
+    "Silver.Admission",
+    "Silver.AxiomAudit",
+    "Silver.CertificateJoinWitness",
+    "Silver.CertificateWitness",
+    "Silver.Cursor",
+    "Silver.Lexical",
+    "Silver.OutputBodyCertificate",
+    "Silver.OutputBodyLines0",
+    "Silver.OutputBodyLines1",
+    "Silver.OutputBodyLines2",
+    "Silver.OutputBodyLines3",
+    "Silver.OutputBodyLines4",
+    "Silver.OutputBodyLines5",
+    "Silver.OutputBodyLines6",
+    "Silver.OutputBodyLines7",
+    "Silver.OutputProfileBodySource",
+    "Silver.SourceLexer"
+  ],
+  "scope": "focused output body certificate and imported declaration audit; no whole-project assurance",
+  "source_sha256": "9ede490b6cf72b352a39072cd37f4ef39774409c6024135487cf076567b59b9c",
+  "checked_input_count": 1106,
+  "all_recorded_inputs_artifacts_and_log_match": true,
+  "archive_sha256": "88598779e851323dfad656054fd45952f31bb6d0899fa1b3761fdbbe8e153ff6",
+  "archive_members": 2107,
+  "all_archive_bytes_verified": true,
+  "build_artifact_count": 264,
+  "monitor": {
+    "command": [
+      "python3",
+      "scripts/check_lean.py",
+      "--target",
+      "Silver.OutputBodyCertificate",
+      "--workers",
+      "1",
+      "--memory-mb",
+      "8192",
+      "--provenance",
+      "--task",
+      "#370-certificate-memory",
+      "--reason",
+      "Final source 9ede dense aggregate after all eight line targets passed with fresh 22993-declaration audit in 20261115T175643-52d7b1fb4cb7. Frozen 8a03ab122 inputs and matching line artifacts retained. Lead released allocation after FunctionSourceCandidate success; only native audit at two workers overlaps. One Lake worker/default 12 threads/8192 MiB; 10 GiB process-tree and 1.5 GiB host guards on 16 GiB host. No whole-project run or further source changes."
+    ],
+    "returncode": 0,
+    "elapsed_seconds": 178.7553785020009,
+    "peak_tree_rss_bytes": 6979207168,
+    "lowest_available_bytes": 9501573120,
+    "controlled_stop": null,
+    "tree_limit_mb": 10240,
+    "minimum_host_available_mb": 1536
+  },
+  "transfer_archive": "/home/agent/silver-workspaces/recovery-volume/certificate/tmp/certificate-memory-20261115/final-source-aggregate-build.tar.gz",
+  "transfer_archive_sha256": "dd7651990bf3ca3d49a12460cdacc5295b0e30434478ae447745ec1c8e099288",
+  "transfer_archive_members": 264,
+  "transfer_archive_bytes_verified": true
+}
