@@ -74,11 +74,62 @@ No source, contract, declared domain, proof obligation or compiler/application
 policy changed for this baseline. A diagnostic checkpoint in the managed ledger
 records the failed assertion, retained evidence and next hypothesis. The
 follow-up experiment binds the same model call once as a `Ghost => Static`
-constant before the assertion. Its in-progress source edit and result are
-separate from this retained baseline evidence. The existing successful caller
-can be retained only while its complete source and the helper's exported
-contract remain unchanged. Complete assurance and the actual-source wrapper
-proof remain mandatory.
+constant before the assertion. Its separately retained result follows below.
+The existing successful caller can be retained only while its complete source
+and the helper's exported contract remain unchanged. Complete assurance and the
+actual-source wrapper proof remain mandatory.
+
+## Ghost model binding: complete helper passed
+
+`20261115T171701-f22f9fbad388` exited **0** at 17:21:57 UTC after 296.434
+launcher seconds. It selected the complete `Array_Declaration_At` with
+`--limit-subp=silver_output_profile.adb:2251`, retaining the same canonical
+all/all, level 2, three-prover, 30-second policy and two-worker reservation.
+All **56 proof and two flow records** passed; mode is `all`, progress is
+`PROGRESS_PROOF`, stop reason is `STOP_REASON_NONE`, and skip/assume lists are
+empty. All 2,606 prepared input and 12 tool hashes matched at completion.
+
+The new constant evaluates exactly `Array_Declaration_Model (Text, State,
+Arguments)` at assertion level `Static`. The unchanged assertion and equality
+lemma use that constant. The runtime initializer, exported raw-model contract
+and full precondition are unchanged. Both the model and wrapper have the same
+precondition, including permitted zero-position states. The new model-call
+precondition is proved. SPARK's predefined `Static` level is always ignored in
+runtime execution, independently of compiler switches or assertion policy.
+
+All 53 proof identities preceding the ghost tail remain unchanged. Two identical
+ghost-model calls and their two precondition checks become one constant
+initialization with one precondition check. The logical equality assertion and
+lemma precondition remain and pass; no obligation was suppressed. The generated
+assertion now compares `Result` directly with `Model_State`, without the previous
+epsilon term. Z3 proved it in 0.418491 seconds / 3,838 normalized steps; CVC5
+proved it in 4.40634 seconds / 26,338 steps. Alt-Ergo's timeout remains a failed
+solver attempt on an otherwise discharged required obligation.
+
+The run reused the canonical-only baseline session. Its retained XML still
+contains obsolete or unused earlier attempts, including the old counterexample
+timeout; the current main goal is proved and every current report check passed.
+This is incremental focused success, not a new cold measurement or complete
+assurance checkpoint. Sampled native process RSS peaked at 1,975,904 KiB, with
+at least 13,257,056 KiB host available memory in the retained samples.
+
+The baseline's complete `Declaration_At` success remains applicable: its entire
+declaration/body, the callee's exported contract, and the runtime initializer
+are byte-identical, with matching fragment hashes. No other native input changed.
+Combining these scopes gives **67 proved proof records and four flow records
+across two complete entities**; the baseline run itself remains failed.
+
+`ComposeArrayDeclarationSource.lean` now renders the exact ghost constant and
+its uses. Its universal runtime-erasure equation is unchanged; the comments
+identify the checked Static aspects and unchanged full-domain call precondition.
+The existing whole-source annotation-policy check passed. Independent review
+and focused Lean checking are still pending at this evidence snapshot.
+The smallest targets are `Silver.ComposeArrayDeclarationSource` for the wrapper,
+`Silver.ComposeHelperSourceCandidate` for exact helper/header reading after the
+reviewed source binding is refreshed, and `Silver.ComposeSourceChecks` for
+transport to authoritative source after the output certificate is updated.
+No source pin or certificate was changed in this native repair. The lead owns
+their reviewed integration and the mandatory complete native/Lean checkpoint.
 
 ## Retention
 
@@ -86,6 +137,7 @@ proof remain mandatory.
 | --- | --- |
 | `setup-and-mounted-failure.tar.gz` | Relocation/bootstrap logs; original mounted failure command, actual exit, reports, managed events and all 2,606 matching prepared inputs |
 | `fresh-baseline-failure.tar.gz` | Native-volume command, exit, resource samples, reports, both selected generated helpers/sessions, managed diagnostic, terminal verification and all 2,606 matching prepared inputs |
+| `model-constant-success.tar.gz` | Exact source delta, complete helper reports/generated session, caller-continuity and obligation mappings, terminal input/tool checks, source-review facts, commands/resources and all 2,606 matching prepared native inputs |
 
 The archives contain source/configuration inputs and tool identities, not copied
 tool binaries or a proof cache. `retained-files.json` records archive hashes,

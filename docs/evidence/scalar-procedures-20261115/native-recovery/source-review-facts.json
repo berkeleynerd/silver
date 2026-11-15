@@ -1,0 +1,21 @@
+{
+  "headers": {
+    "Array_Declaration_Model": {
+      "precondition": "Text'First = 1 and then Text'Length in 1 .. Max_Source_Length\n         and then Valid_State (Text, State)",
+      "precondition_sha256": "6ba792a44f138900f734cd4e8177b06b22736c9d9a22d8ba1766ebd8f9e55c8d",
+      "header": "   function Array_Declaration_Model\n     (Text : String; State : Parser_State; Arguments : Boolean) return Parser_State\n     with Ghost => Static, Global => null,\n       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length\n         and then Valid_State (Text, State),\n       Post => Valid_State (Text, Array_Declaration_Model'Result)\n         and then (Array_Declaration_Model'Result.Position = 0\n           or else Array_Declaration_Model'Result.Position > State.Position);"
+    },
+    "Array_Declaration_At": {
+      "precondition": "Text'First = 1 and then Text'Length in 1 .. Max_Source_Length\n         and then Valid_State (Text, State)",
+      "precondition_sha256": "6ba792a44f138900f734cd4e8177b06b22736c9d9a22d8ba1766ebd8f9e55c8d",
+      "header": "   function Array_Declaration_At\n     (Text : String; State : Parser_State; Arguments : Boolean) return Parser_State\n     with Global => null,\n       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length\n         and then Valid_State (Text, State),\n       Post => (Runtime => Valid_State (Text, Array_Declaration_At'Result)\n         and then (Array_Declaration_At'Result.Position = 0\n           or else Array_Declaration_At'Result.Position > State.Position),\n         Static => Array_Declaration_At'Result = Array_Declaration_Model (Text, State, Arguments));"
+    }
+  },
+  "preconditions_identical": true,
+  "whole_source_annotation_policy_passed": true,
+  "static_erasure_reference": "references/spark/16.1/docs/ug/en/source/specification_features.rst, Assertion Levels: predefined Static is always ignored independently of compiler options or Assertion_Policy pragmas.",
+  "changed_lean_target": "Silver.ComposeArrayDeclarationSource",
+  "reviewed_source_reading_target": "Silver.ComposeHelperSourceCandidate",
+  "authoritative_source_transport_target": "Silver.ComposeSourceChecks",
+  "lean_validation_status": "Pending integration of refreshed source binding and corresponding focused/complete checks; no new Lean success claimed."
+}

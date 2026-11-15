@@ -2336,11 +2336,11 @@ is
                      else Add_Array_Binding
                        (Text, Values, First, After, (Low.Bounds.Lower, High.Bounds.Lower),
                         State.Array_Names.Used, Length, Constant_After = 0, Following, Type_Mark.Bounds, Boolean_Elements)))))));
+      Model_State : constant Parser_State :=
+        Array_Declaration_Model (Text, State, Arguments) with Ghost => Static;
    begin
-      pragma Assert (Static => Same_Parser_State
-        (Result, Array_Declaration_Model (Text, State, Arguments)));
-      Lemma_Parser_State_Equality
-        (Result, Array_Declaration_Model (Text, State, Arguments));
+      pragma Assert (Static => Same_Parser_State (Result, Model_State));
+      Lemma_Parser_State_Equality (Result, Model_State);
       return Result;
    end Array_Declaration_At;
 

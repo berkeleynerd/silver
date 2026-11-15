@@ -12,5 +12,12 @@
     "file_members": 2629,
     "uncompressed_file_bytes": 49479116,
     "packed_bytes_match_retained_sources": true
+  },
+  "model-constant-success.tar.gz": {
+    "sha256": "58fd33afe685652320ba8bdefdfc5767557128702b0c4d4808d48071012e9bb6",
+    "bytes": 3172525,
+    "file_members": 2630,
+    "uncompressed_file_bytes": 26402155,
+    "packed_bytes_match_retained_sources": true
   }
 }

@@ -1,0 +1,26 @@
+{
+  "Array_Declaration_At_exported_contract": {
+    "lines": [
+      2251,
+      2259
+    ],
+    "sha256": "53c74e95ebfe95aa6c1c983f480acc1f57b220fa7786e125fd8497563a75262c",
+    "exact_bytes_equal": true
+  },
+  "Declaration_At_complete_declaration_and_body": {
+    "lines": [
+      2379,
+      2404
+    ],
+    "sha256": "25268ddc8bf97d5f1c93938965f7581438602ee21502aeae6eeafbc862850518",
+    "exact_bytes_equal": true
+  },
+  "Array_Declaration_At_runtime_initializer": {
+    "lines": [
+      2260,
+      2338
+    ],
+    "sha256": "9f2805fddb01fef0276db9c219fe18328e0d6134c0dc10f4b9de16198e0ca2ef",
+    "exact_bytes_equal": true
+  }
+}
