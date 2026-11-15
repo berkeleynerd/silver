@@ -671,7 +671,7 @@ publication in PR #371. The accepted compiler/proof production remains
 `1dde32cce`; subsequent changes are the reviewed fixture, environment, Rosetta
 metadata and documentation. Complete native and Lean/source acceptance remains
 applicable. No merge, #373 implementation or deferred #119 redesign is included.
-All managed workers and workspace writers are released.
+All managed validation allocations and workspace leases are released.
 
 Final status wording and issue/PR publication follow this accepted target as
 administrative closeout. Issues and milestone 23 remain open for merge-dependent
