@@ -177,7 +177,7 @@ class LeanModuleTests(unittest.TestCase):
                   for name in ("lakefile.lean", "lean-toolchain", *(
                       f"Silver/{module}.lean" for module in (
                           "Lexical", "Admission", "Cursor", "SourceLexer", "CertificateWitness",
-                          "OutputProfileBodySource", "AxiomAudit")))}
+                          "CertificateJoinWitness", "OutputProfileBodySource", "AxiomAudit")))}
         inputs[proof / "Silver/Independent.lean"] = (
             b"module\npublic theorem Silver.independent : True := True.intro\n")
         prepare_workspace(self.host, inputs)
@@ -186,7 +186,7 @@ class LeanModuleTests(unittest.TestCase):
         targets = ("Silver." + certificate, "Silver.Independent", "Silver.AxiomAudit")
 
         def build():
-            # The 17-module cold build and broad edit rebuilds need more
+            # The 18-module cold build and broad edit rebuilds need more
             # watchdog headroom than the small module probes.
             return self.lake("--rehash", "--reconfigure", "-K", "silverThreads=1",
                              "-K", "silverMemoryMb=2048", "build",
