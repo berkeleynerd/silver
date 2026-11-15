@@ -1,0 +1,14 @@
+{
+  "silver": {
+    "path": "/home/agent/silver-workspaces/recovery-volume/integration/.silver/linux-aarch64/compiler/bin/silver",
+    "bytes": 2983856,
+    "sha256": "683925c9b33cda887a58ecc2ad1d0e8feedf51590653e7aee3dd2889b06267d9",
+    "executable": true
+  },
+  "silver_image_adapter": {
+    "path": "/home/agent/silver-workspaces/recovery-volume/integration/.silver/linux-aarch64/compiler/bin/silver_image_adapter",
+    "bytes": 2065784,
+    "sha256": "832aff2ba73cd07954a9e30e9b06340ee49c16d77664a5071df2540d286d1b5e",
+    "executable": true
+  }
+}

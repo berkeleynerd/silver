@@ -1,0 +1,66 @@
+{
+  "verified_at": "2026-11-15T21:25:21.886789+00:00",
+  "run_id": "20261115T212353-b892f44c0742",
+  "host": "linux-aarch64",
+  "machine": "silver-m4pro",
+  "launch_head": "dbfcac8185700eab1392e1b2f853755c9970e673",
+  "terminal_head": "dbfcac8185700eab1392e1b2f853755c9970e673",
+  "wrapper_returncode": 0,
+  "interrupted": false,
+  "managed_outcome": "success",
+  "managed_returncode": null,
+  "native_tool_returncode": 0,
+  "workers": 2,
+  "wrapper_elapsed_seconds": 5.00280287699934,
+  "managed_elapsed_seconds": 2.054618501,
+  "input_count": 2606,
+  "all_native_inputs_match_launch_and_full_audit": true,
+  "exact_tool_identities_match": 12,
+  "full_native_manifest_still_valid": true,
+  "native_run_id": "20261115T174959-94ae5c6fdf63",
+  "native_evidence_commit": "b19d2fbff",
+  "native_report_hashes_match": 80,
+  "source_sha256": "9ede490b6cf72b352a39072cd37f4ef39774409c6024135487cf076567b59b9c",
+  "binaries": {
+    "silver": {
+      "path": "/home/agent/silver-workspaces/recovery-volume/integration/.silver/linux-aarch64/compiler/bin/silver",
+      "bytes": 2983856,
+      "sha256": "683925c9b33cda887a58ecc2ad1d0e8feedf51590653e7aee3dd2889b06267d9",
+      "executable": true
+    },
+    "silver_image_adapter": {
+      "path": "/home/agent/silver-workspaces/recovery-volume/integration/.silver/linux-aarch64/compiler/bin/silver_image_adapter",
+      "bytes": 2065784,
+      "sha256": "832aff2ba73cd07954a9e30e9b06340ee49c16d77664a5071df2540d286d1b5e",
+      "executable": true
+    }
+  },
+  "resource_summary": {
+    "command": [
+      "python3",
+      "scripts/dev.py",
+      "build",
+      "--jobs",
+      "2",
+      "--task",
+      "#370",
+      "--reason",
+      "Final delivery compiler after successful complete native audit; two workers preserve headroom for active dense Lean continuation"
+    ],
+    "cwd": "/home/agent/silver-workspaces/recovery-volume/integration",
+    "started_at": "2026-11-15T21:23:53.249530+00:00",
+    "peak_sum_rss_kib": 5104,
+    "peak_process_rss_kib": 5104,
+    "minimum_mem_available_kib": 13903760,
+    "pid": 312250,
+    "returncode": 0,
+    "elapsed_seconds": 5.00280287699934,
+    "finished_at": "2026-11-15T21:23:58.252323+00:00",
+    "interrupted": false
+  },
+  "selected_model": "GPT-6.1 Sol",
+  "selected_effort": "High",
+  "runtime_telemetry": "unavailable",
+  "token_cost": "unavailable",
+  "scope": "Successful incremental final compiler build and exact input/tool/output identity retention; no clean build or regression-test claim"
+}
