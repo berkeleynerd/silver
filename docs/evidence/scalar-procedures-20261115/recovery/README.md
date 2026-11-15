@@ -223,3 +223,24 @@ public statement and complete-source extractor remains required. The complete
 declaration candidate must pass a focused audit and independent review before
 another complete run. Other prospective literals remain unchanged. The native
 audit continues independently on its original frozen inputs.
+
+### Declaration recovery and complete continuation
+
+The two-fact repair is integrated at `dbdec4b22`, preserving all 47 original
+candidate statements. The [focused success packet](../lean-recovery/complete-checkpoint/declaration-normalization/README.md)
+retains run `20261115T194603-51d997e177d8`: 101 modules and a fresh audit of
+14,411 declarations, with the three approved foundations only. It passed under
+the same 8 GiB per-process threshold, without a guard interruption. All 1,111
+captured inputs, imported workspace files, artifacts and tools were reverified;
+all 287 previous objects remain byte-identical. Independent critical review
+accepted the exact source/token data, unchanged claims and original terminal
+evidence before the complete continuation.
+
+Complete cached run `20261115T195423-d7650f191422` began on these frozen
+production bytes with 289 retained objects and all 1,004 project modules
+reachable in the preflight import graph. It uses a new retained run directory,
+leaving the failed complete packet untouched. The one-worker/default-twelve-
+thread/8-GiB allocation and existing guards remain appropriate alongside the
+productive two-worker native audit on this host. No clean build, independent
+kernel replay or repeated successful focused gate was added. Whole-project
+success, final build/regressions and final delivery acceptance remain pending.
