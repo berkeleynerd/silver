@@ -1,5 +1,21 @@
 # Independent scalar-procedure delivery review — 2026-11-15
 
+**Current disposition: accepted for bounded feature delivery; no material
+finding or unresolved review requirement.** The final reviewed target is
+`6f8bb0a7ae372d87501012e18ca158e54a9e9f6d`, comprising the final Rosetta packet
+at `9b6a64f1e` and a one-sentence documentation clarification. The
+[final acceptance](#final-delivery-acceptance) records complete assurance,
+the exact 691-ID regression composition and coordinated delivery review.
+The lead may finalize Supported wording and owner-authorized issue/board/PR
+publication. This review authorizes no merge or #373/#119 implementation.
+
+## Historical checkpoints
+
+The original disposition, completion matrix and successive addenda below are
+preserved as historical checkpoints at their stated inputs. Their pending
+requirements are superseded by the final acceptance at the end of this report;
+they do not describe the current delivery disposition.
+
 **Interim disposition: no new material static defect identified; delivery
 acceptance remains pending.** The reviewed recovery changes preserve the earlier
 bounded integration and repair arguments. Successful focused checks do not yet
@@ -1059,3 +1075,132 @@ debugger, disassembler or cache-writing job was launched. No GitHub state or
 CLI memory changed. Complete native and Lean/source acceptance remains
 applicable; the live harness goal is null. Final Rosetta and coordinated
 delivery review remain open, with no merge or deferred-work authorization.
+
+## Final delivery acceptance
+
+**Accepted on 2026-11-15; no material finding.** This concludes the independent
+bounded delivery review of the owner-authorized #370/#29 package, including
+its reviewed #372/#375/#390 repairs. The precise target is
+`6f8bb0a7ae372d87501012e18ca158e54a9e9f6d`. It includes Rosetta proposal
+`dea5d04ad`, final follow-up `549a4d3c99` integrated as `9b6a64f1e`, and
+coordinated records `343b01937`; the last commit only clarifies a current
+capability-table sentence. The accepted production revision remains
+`32c6fbca5`. Across `src`, `proof`, `scripts`, `tests` and the project files,
+the only subsequent delta is the already accepted Lean fixture dependency
+repair in `tests/test_lean_modules.py`.
+
+The [final evidence record](../evidence/scalar-procedures-20261115/delivery-review/final-rosetta-delivery-review.json)
+binds the exact target, packet, inputs, rendered inventory, direct/discovery
+test identities, coverage sets, prior review identities and document bytes.
+Earlier semantic, source, capacity and bounded repair reviews remain the
+review basis; this closing inspection does not claim a new independent proof
+of every theorem.
+
+| Delivery requirement | Accepted final evidence |
+| --- | --- |
+| Complete native assurance | Run `20261115T174959-94ae5c6fdf63`: 19,444 required checks, 78 units and 1,232 entities, with the complete required coverage/source-policy/provenance audit and accepted dependency erratum. This retains its cached audit scope, unavailable outer wrapper exit, null overall managed return code and 223.634-second monitor gap. |
+| Compiler build | Successful incremental build `20261115T212353-b892f44c0742`; both compiler binary identities still match the accepted final regression inputs. |
+| Complete Lean and actual-source assurance | Run `20261115T215223-28e04bff3fce`: complete cached 1,009-module build and fresh whole-project audit of 162,269 declarations, with only `propext`, `Classical.choice` and `Quot.sound`. Actual-source bindings, generated candidates, provenance and artifact continuity retain their preceding independent acceptance. No clean run or independent replay is claimed; all six earlier interrupted attempts remain failures. |
+| Complete applicable regression inventory | **38 fresh passes + 651 retained passes + two expected platform skips = 691 distinct IDs**. Every original failing ID has a fresh success. The original failed full suite, the three-test fixture repair, the unchanged 23-test scalar rerun and the twelve final Rosetta passes remain separate executions with their own inputs and environments. |
+| Rosetta and coordinated support records | Exactly one precise mapping promotion, final render and twelve passing Rosetta methods on exact final inputs; capability, language, assurance, boundary, report-capacity, README and roadmap records accurately describe the accepted evidence and limits. The lead's final status/publication step follows this acceptance. |
+
+### Final Rosetta evidence and mapping
+
+All twelve files in the final Rosetta packet match the immutable target and
+integration checkout; all eleven `SHA256SUMS` entries and all retained command
+log hashes match. The recorded render and test commands exit zero on Linux
+ARM64 with Python 3.14.10. The raw test log has exactly twelve unique passing
+methods and ends `Ran 12 tests in 3.178s` / `OK`; subprocess duration is
+3.425 seconds. I matched every result to the unchanged source's AST method
+inventory. Removing only the direct-run `tests.` prefix gives the twelve exact
+`test_rosetta` discovery IDs already present in the original full inventory.
+
+All eleven recorded input sizes/hashes, the Python executable and all four
+final owned-file identities match. All **1,784** rendered pages/indexes match
+their recorded sizes/hashes in both the immutable target and integration, and
+their path set is complete. Their sorted compact-JSON inventory digest is
+`79de546605ddca5ae6039bd408d9b98b3fd8b9af6a45c3a7d1ec4433a9ce683f`.
+All 1,576 candidate-page positions agree with the progression rows. Only the
+Return multiple values page changed after the original proposal; the total
+Rosetta change remains within its forty proposed paths plus bounded evidence.
+
+An independent set-based accumulation of the rendered tasks' required
+constructs confirms all **44** stage drivers and introduced-construct lists
+are unchanged. Only **Return multiple values** changes stage, from rank
+85 / Stage 2 to rank 59 / Stage 1, increasing Stage 1 from **83 to 84**.
+No task leaves Stage 1. Only `scalar-procedures` is added to the supported
+identifiers. Stage 2 remains Law of cosines - triples, introducing `for-loops`,
+`integers`, `procedures`, `ranged-subtypes` and `scalar-image`; broader #11
+remains outside completion scope.
+
+The task's original revision/date/rubric/Opus attribution is unchanged, and
+the separately attributed targeted review retains its static/task and Python
+tooling scope. The historical 2026-11-09 assessment, cached task/Ada source,
+Silver sample and sample manifest are byte-identical. The earlier independent
+40,401-pair arithmetic and 67-byte output review therefore remains applicable,
+as does the unchanged sample's success in the original 85-sample manifest run.
+Samples do not replace the accepted complete compiler assurance.
+
+The packet preserves its evidence-collection corrections: the interleaved
+online-preflight diagnostics preceded a real terminal `ok`; the initial stage
+control omitted two existing identifiers; and the inventory attempted a
+nonexistent `tests/__init__.py` in a namespace package. These corrections did
+not change render/test inputs or repeat test execution. The failed control
+log remains failed. I read the control script as data and did not execute it.
+
+### Final inventory and coordinated records
+
+The [preceding complete-inventory acceptance](../evidence/scalar-procedures-20261115/delivery-review/regression-inventory-review.json)
+supplies 26 fresh passes, 663 retained passes and two expected skips before
+Rosetta. The twelve newly passed Rosetta IDs are an exact subset of those 663
+retained IDs. Replacing them yields **38 / 651 / 2**; the three sets are
+disjoint and their union exactly equals the original 691-ID inventory.
+The new record lists all 38 fresh IDs and both skips, binds the retained-set
+digest and links its full preceding inventory. There is no uncovered required
+ID. This is reviewed composition of applicable successes, not a successful
+rerun or relabeling of the original full suite.
+
+All **1,316** captured regression inputs were compared again with integration.
+Only `rosetta/coverage.json` and `rosetta/refresh.py` differ from the accepted
+pre-Rosetta snapshot. Relative to the original failed full suite, the only
+additional difference is the already accepted method-local Lean fixture
+repair. The whole affected test files have fresh passing coverage. Other
+captured runtime inputs and both compiler binaries are unchanged. The 651
+retained successes preserve their original observed environments; the scalar
+rerun retains its measured 16 MiB child stack and unchanged source domain.
+
+Coordinated documentation commit `343b01937` and the final one-sentence
+clarification correctly distinguish complete assurance from sample execution,
+cached checking from clean/replay claims, and successful affected-file reruns
+from the failed original suite. They retain the native exit/monitor/dependency
+limitations, six interrupted Lean attempts, two platform skips and measured
+ARM64 stack premise. The configured CI change is not reported as executed
+GitHub CI or macOS validation, and 16 MiB is not claimed as a universal bound.
+Current-language descriptions preserve the reviewed full formal domains,
+ordered source-written initialization, same-state actual checks, alias rules,
+declared-range copy-back, closed frames and earlier-only calls. No Oracle or
+admitted-domain change is hidden in the status transition.
+
+After this acceptance the lead may replace the remaining current
+closing-review-pending wording with Supported and complete the existing
+owner-authorized issue/board/PR publication and memory work. Historical failed
+and pending checkpoints remain historical. The acceptance does not extend to
+unseen executable, test, renderer, mapping or assurance-boundary changes, does
+not authorize merging PR #371, and does not start #373 or #119.
+
+The lead subsequently applied status-only closeout `eb0b15038`. A narrow
+follow-up inspection accepts its four documentation changes: Supported wording,
+roadmap/recovery acceptance and a dated memory continuation under existing
+authorization. The implementation/review target stays `6f8bb0a7a`; no
+executable, test, renderer, mapping or prior validation evidence changed.
+Issue/publication status and the reported project-board permission limitation
+are lead-collected facts; this reviewer made no GitHub query or mutation.
+
+Selected reviewer settings remain **GPT-6 Astra / Max**; independent live
+model/effort and token/cost telemetry are unavailable. I used only stdlib/Git
+inspection of retained evidence and immutable/current bytes, without a project
+validator, render, proof, build, test, bootstrap, application or cache-writing
+run. Original command results are attributed to their execution owners. No
+GitHub state or CLI memory was changed by this reviewer. The live harness goal
+is null; the review target, accepted production revision and subsequent lead
+publication remain distinct.
