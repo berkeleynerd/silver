@@ -1,0 +1,6 @@
+{
+  "test_method": "ScalarGuardTests.test_admission_exact_source_limit_with_active_scalar_counts",
+  "captured_original_check_calls": 6,
+  "all_source_bytes_match": true,
+  "all_original_expected_statuses_match": true
+}

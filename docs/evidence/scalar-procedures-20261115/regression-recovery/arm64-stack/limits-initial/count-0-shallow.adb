@@ -1,0 +1,1 @@
+with Silver_IO;procedure Main is pragma SPARK_Mode(On);begin if 0=0 then null;end if;end Main;

@@ -1,0 +1,27 @@
+Breakpoint 1 at 0x6cc54: file /home/agent/silver-workspaces/recovery-volume/integration/src/silver_output_profile.adb, line 4491.
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/aarch64-linux-gnu/libthread_db.so.1".
+
+Breakpoint 1, silver_output_profile.read_condition_into (text=..., context=..., position=..., facts=..., result=..., initials=...) at /home/agent/silver-workspaces/recovery-volume/integration/src/silver_output_profile.adb:4491
+4491	   procedure Read_Condition_Into
+Warning: the current language does not match this frame.
+FIRST_SP 281474007468928
+
+Breakpoint 1, silver_output_profile.read_condition_into (text=..., context=..., position=..., facts=..., result=..., initials=...) at /home/agent/silver-workspaces/recovery-volume/integration/src/silver_output_profile.adb:4491
+4491	   procedure Read_Condition_Into
+ELEVENTH_SP 281474007404768
+TEN_GROUP_DELTA 64160
+#0  silver_output_profile.read_condition_into (text=..., context=..., position=..., facts=..., result=..., initials=...) at /home/agent/silver-workspaces/recovery-volume/integration/src/silver_output_profile.adb:4491
+#1  0x0000aaaadb436bb4 in <silver_output_profile__read_primary_into___wrapped_statements> () at /home/agent/silver-workspaces/recovery-volume/integration/src/silver_output_profile.adb:3867
+#2  0x0000aaaadb436a44 in silver_output_profile.read_primary_into (text=..., context=..., position=..., facts=..., result=..., initials=...) at /home/agent/silver-workspaces/recovery-volume/integration/src/silver_output_profile.adb:3836
+#3  0x0000aaaadb437b8c in <silver_output_profile__read_boolean_factor_into___wrapped_statements> () at /home/agent/silver-workspaces/recovery-volume/integration/src/silver_output_profile.adb:3960
+#4  0x0000aaaadb437a34 in silver_output_profile.read_boolean_factor_into (text=..., context=..., position=..., facts=..., result=..., initials=...) at /home/agent/silver-workspaces/recovery-volume/integration/src/silver_output_profile.adb:3949
+#5  0x0000aaaadb4388cc in <silver_output_profile__read_boolean_relation_into___wrapped_statements> () at /home/agent/silver-workspaces/recovery-volume/integration/src/silver_output_profile.adb:4023
+#6  0x0000aaaadb4387a4 in silver_output_profile.read_boolean_relation_into (text=..., context=..., position=..., facts=..., result=..., initials=...) at /home/agent/silver-workspaces/recovery-volume/integration/src/silver_output_profile.adb:4013
+#7  0x0000aaaadb43abac in <silver_output_profile__read_relation_into___wrapped_statements> () at /home/agent/silver-workspaces/recovery-volume/integration/src/silver_output_profile.adb:4261
+#8  0x0000aaaadb438f1c in silver_output_profile.read_relation_into (text=..., context=..., position=..., facts=..., result=..., initials=...) at /home/agent/silver-workspaces/recovery-volume/integration/src/silver_output_profile.adb:4073
+#9  0x0000aaaadb43d0c0 in <silver_output_profile__read_condition_into___wrapped_statements> () at /home/agent/silver-workspaces/recovery-volume/integration/src/silver_output_profile.adb:4515
+#10 0x0000aaaadb43cfa4 in silver_output_profile.read_condition_into (text=..., context=..., position=..., facts=..., result=..., initials=...) at /home/agent/silver-workspaces/recovery-volume/integration/src/silver_output_profile.adb:4491
+#11 0x0000aaaadb436bb4 in <silver_output_profile__read_primary_into___wrapped_statements> () at /home/agent/silver-workspaces/recovery-volume/integration/src/silver_output_profile.adb:3867
+Accepted: silver.
+[Inferior 1 (process 465309) exited normally]
