@@ -154,3 +154,44 @@ This inventory is not a suite execution. Managed tests lease the entire host
 artifact root; nested application proofs retain canonical `-j0`, independently
 of the managed worker reservation. Run the final compiler build and full suite
 after the conflicting proof leases and dense memory allocations release.
+
+### Complete-project entry and memory diagnosis
+
+The remaining focused helper gate exposed the same literal-normalization cost
+in the Boolean declaration specification header. A five-field diagnostic
+isolated its 674-character suffix. The two-file repair at `7064c1863` retains
+the complete original theorem, all five fields, source selector and exact
+header data. The [complete helper candidate](../lean-recovery/complete-checkpoint/README.md)
+then passed run `20261115T185653-905487da1ee4`, freshly auditing 104 modules and
+14,576 declarations. The [independent review](../native-recovery/review-boolean-header-memory.md)
+accepted the repair and verified its retained input and artifact inventories.
+
+The complete cached Lean check started as
+`20261115T190543-9bda6434802c` on the production bytes now published in
+`8ccbc8421`. Its preflight import graph reaches all 1,003 project modules.
+The run uses one worker, automatic twelve process threads and an 8 GiB
+per-process threshold, with separate 10 GiB process-tree and 1.5 GiB available-
+host-memory guards. The complete native audit
+`20261115T174959-94ae5c6fdf63` continues separately with two workers and unchanged
+canonical proof settings. At this entry checkpoint both runs remain active;
+neither has a completed whole-project success. The prospective
+[literal inventory](../native-recovery/source-expectation-inventory.md) identifies
+possible diagnostic targets, not observed failures or required speculative
+repairs.
+
+The observed memory failures concern the representation and kernel reduction
+of long source expectations and reconstruction witnesses. The enlarged
+implementation exposes that cost, including in inherited function and Boolean
+checks. The same public claims and source selectors pass after checked
+normalization, and the complete output reconstruction passes after compact
+witness construction. This is evidence for a proof-representation bottleneck;
+it does not demonstrate exponential program-state growth or establish an
+asymptotic complexity bound. Procedure semantics still require their full
+composition proof, and the application's 4,096-byte source limit is unchanged.
+
+The native computation survived the loss of its original monitoring wrapper.
+Resource sampling has a retained gap from 18:39:22 to 18:43:06 UTC, after which
+an identity-checked attachment monitor restored the existing headroom guard.
+No original wrapper exit status is available. Its eventual outcome must use
+the managed phase records, complete native manifest, logs and final input/tool
+checks, with this monitoring limitation retained explicitly.
