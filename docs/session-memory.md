@@ -1,5 +1,33 @@
 # Session memory
 
+## 2026-11-15 — Scalar-procedure recovery on the reduced host authorized
+
+After the readiness assessment identified the remaining native proof and Lean
+memory failures in [#370](https://github.com/berkeleynerd/silver/issues/370), the
+owner instructed **“Proceed. The host resource capabilities have been reduced
+which may complicate recory of the current effort so spare no expense in terms
+of model or effort to right this ship.”** Resume the existing procedure and
+[#29](https://github.com/berkeleynerd/silver/issues/29) delivery in
+[PR #371](https://github.com/berkeleynerd/silver/pull/371), including its internal
+#375 and #390 repairs, through complete applicable validation, independent
+critical review and reviewable publication.
+
+Recover the published implementation and retained evidence in isolated
+worktrees. Diagnose the unresolved native assertion and Lean memory failure
+with Astra Max; use equally strong critical review and escalate a named
+unresolved question when useful. The lead's live model/effort is not independently
+exposed; selected delegated settings are recorded with their work. Model effort
+does not authorize native concurrency beyond actual host headroom. Measure
+memory and justify resource reductions for this host, preserve successful
+applicable artifacts and distinguish reconstructed evidence from fresh runs.
+
+Keep full contracts and input domains, the canonical proof policy, all required
+obligations and actual-source correspondence. Establish focused success before
+another expensive complete checkpoint. The separate worca streams remain
+preserved; [#373](https://github.com/berkeleynerd/silver/issues/373) remains the
+next package after this delivery. This instruction does not change the Oracle
+or supply final implementation-merge approval. CLI memory was not updated.
+
 ## 2026-11-13 — Scalar-procedure delivery resumed
 
 The owner instructed **“Please proceed.”** after the evening pause and the
