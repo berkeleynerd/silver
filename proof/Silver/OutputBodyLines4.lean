@@ -1581,12 +1581,6 @@ def outputBodyTokens_line_74f07307d7045463e63c14dbf9af55a43a50bcd829560373dc5f68
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputBodyTokens_line_74f2ce0a31abd69442e40989a3d6638748eb9a565451255ffb489369dc2043a8 : LineCertificate where
-  text := "        (Result, Array_Declaration_Model (Text, State, Arguments)));"
-  tokens := ["(", "result", ",", "array_declaration_model", "(", "text", ",", "state", ",", "arguments", ")", ")", ")", ";"]
-  correct := by decide +kernel
-  noNewline := by decide +kernel
-
 def outputBodyTokens_line_7c0095b0f4b544523e5f8417944e68bb760ee95e99fcdc558a7e90aa08b601bc : LineCertificate where
   text := "      and then Within_Work_Budget (Normalized (Source))"
   tokens := ["and", "then", "within_work_budget", "(", "normalized", "(", "source", ")", ")"]

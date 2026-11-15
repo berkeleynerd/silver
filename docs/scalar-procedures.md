@@ -205,11 +205,13 @@ after the readiness assessment, with the decision recorded on main in
 identifies the restored implementation, current Linux ARM64 host, native-storage
 workspaces and remaining checks. Original x86_64 binary proof caches are absent.
 Mounted-filesystem descriptor exhaustion initially prevented both proof tools
-from starting; native storage resolved the startup problem. The isolated Lean
-function-source target subsequently reached its configured memory threshold,
-after successfully rebuilding its dependencies. Native canonical-policy and
-kernel-checked memory investigations remain in progress. No new complete
-assurance or regression success is claimed. Preserve the historical attempts
+from starting; native storage resolved that problem. The native assertion and
+function-source memory failures now have successful focused repairs, preserving
+full domains and proof policy. The exact-source aggregate memory repair has
+passed its actual-size reconstruction check and independent critical review.
+The [combined checkpoint](evidence/scalar-procedures-20261115/recovery/README.md#focused-repairs-and-final-input-checkpoint)
+records the reviewed pin, regenerated candidates and remaining capacity checks.
+No complete assurance or final regression success is claimed. Preserve the historical attempts
 below and the separate worca streams.
 
 The owner resumed this delivery on 2026-11-13. The [retained final attempts](evidence/scalar-procedures-20261109/final-attempts-20261111/README.md)

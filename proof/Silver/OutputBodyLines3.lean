@@ -705,12 +705,6 @@ def outputBodyTokens_line_33ee3835cf0eb76990c38e8babd5b28147ac5f58620c59cca8701d
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputBodyTokens_line_3b00dab03b76ce4014661b3439a86f43daee849610a2b77dbcb4f97f984a0d3b : LineCertificate where
-  text := "      pragma Assert (Static => Same_Parser_State"
-  tokens := ["pragma", "assert", "(", "static", "=>", "same_parser_state"]
-  correct := by decide +kernel
-  noNewline := by decide +kernel
-
 def outputBodyTokens_line_3b03086d9211718debd5c1c5d540dfa7f5adb09ceb1fb24910b212029035628c : LineCertificate where
   text := "   --  only its five call-hiding bits enter recursive statement contexts."
   tokens := []
@@ -1686,6 +1680,12 @@ def outputBodyTokens_line_7b12c64f3aae9307d768b21afe4431e396ac1b87a25874e04fdbeb
 def outputBodyTokens_line_7b1fa8c1c43e7bedb8059b18f7f112f93c20cac3490717e2b79f924ab6f5893b : LineCertificate where
   text := "          (Text, Delimiter_After, Scalar_Names);"
   tokens := ["(", "text", ",", "delimiter_after", ",", "scalar_names", ")", ";"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def outputBodyTokens_line_7b236bf69b6e3759916fd4aebf7e4ec310da4462cea3314376e1d20cf876e59e : LineCertificate where
+  text := "        Array_Declaration_Model (Text, State, Arguments) with Ghost => Static;"
+  tokens := ["array_declaration_model", "(", "text", ",", "state", ",", "arguments", ")", "with", "ghost", "=>", "static", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 

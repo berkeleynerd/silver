@@ -1839,12 +1839,6 @@ def outputBodyTokens_line_80b392c27d4d9f15fef4d67c2cd9389e70139e148c27497d76b695
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputBodyTokens_line_80b3fabc9ec9c8557bc5318c2d5c188648f8e6eb420d8879fdeb91634e2917fe : LineCertificate where
-  text := "      Lemma_Parser_State_Equality"
-  tokens := ["lemma_parser_state_equality"]
-  correct := by decide +kernel
-  noNewline := by decide +kernel
-
 def outputBodyTokens_line_80b602fee3784fc9b5743faa6108be1cef16720e543fef0fb1b6cac8b0fdaad3 : LineCertificate where
   text := "           or else Array_Declaration_Model'Result.Position > State.Position);"
   tokens := ["or", "else", "array_declaration_model", "'", "result", ".", "position", ">", "state", ".", "position", ")", ";"]
@@ -3258,12 +3252,6 @@ def outputBodyTokens_line_f05c42a6d0f2bddaeb906ccee1b1fcd92fedc049007425f3c4aafb
 def outputBodyTokens_line_f0649b596c140f1435563a17b03fc038e0b6d89191ee754731e9bb90b4cdf970 : LineCertificate where
   text := "      else Declarations_At (Text, Declaration_At (Text, State, Arguments), Arguments));"
   tokens := ["else", "declarations_at", "(", "text", ",", "declaration_at", "(", "text", ",", "state", ",", "arguments", ")", ",", "arguments", ")", ")", ";"]
-  correct := by decide +kernel
-  noNewline := by decide +kernel
-
-def outputBodyTokens_line_f06733ff610c6fcc1d672e5de5ef1583f402ef19b87f825715081adcf0814eaa : LineCertificate where
-  text := "        (Result, Array_Declaration_Model (Text, State, Arguments));"
-  tokens := ["(", "result", ",", "array_declaration_model", "(", "text", ",", "state", ",", "arguments", ")", ")", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 

@@ -63,6 +63,12 @@ def outputBodyTokens_line_01472c1e42327f1fdeb796383238bd97664935bbab6ed5f4235258
   correct := by decide +kernel
   noNewline := by decide +kernel
 
+def outputBodyTokens_line_0153c4a42df17814670f73999f86c57f6747e999be3b0d83b8dd6fe2cb421cbd : LineCertificate where
+  text := "      Model_State : constant Parser_State :="
+  tokens := ["model_state", ":", "constant", "parser_state", ":="]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
 def outputBodyTokens_line_016984691a5cbcc87651fcac787467b290692e9a0e9cc95068f449021a1dc2e4 : LineCertificate where
   text := "      elsif Scalar_Target (Text, Context, Result.Position) /= 0 then"
   tokens := ["elsif", "scalar_target", "(", "text", ",", "context", ",", "result", ".", "position", ")", "/=", "0", "then"]
@@ -1536,6 +1542,12 @@ def outputBodyTokens_line_71918a58100fd7e3ece4827d423d580486c6a5f77ef6c8ef1f0ec6
 def outputBodyTokens_line_7192b551904e1ce78612f37a283e93f9f93ffd4af0fe49dce761dbe228f1ecab : LineCertificate where
   text := "      Original_Start : Literal_Position) return Condition_Result is"
   tokens := ["original_start", ":", "literal_position", ")", "return", "condition_result", "is"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def outputBodyTokens_line_71a4cf0092eb1b028522aceac7e1d2ac9e93e9a8e3254752a52303e7a17eed9c : LineCertificate where
+  text := "      pragma Assert (Static => Same_Parser_State (Result, Model_State));"
+  tokens := ["pragma", "assert", "(", "static", "=>", "same_parser_state", "(", "result", ",", "model_state", ")", ")", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 

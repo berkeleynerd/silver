@@ -59,3 +59,42 @@ Complete native assurance, complete Lean/source/module/axiom/provenance checking
 all applicable regression cases, final critical review and Rosetta reconciliation
 remain pending. Subsequent focused results and exact final inputs must be linked
 here before a complete-checkpoint claim.
+
+## Focused repairs and final-input checkpoint
+
+The native repair at `03141a9fe` binds the existing model expression once in a
+`Ghost => Static` constant, without changing the runtime initializer, exported
+contract, full domain or 30-second canonical proof policy. The whole helper
+passed 56 proof and two flow checks; the unchanged direct caller retains 11
+proof and two flow checks with exact continuity evidence. The corresponding
+Lean renderer passed run `20261115T173050-5f33a5830ee5`, freshly auditing 13,678
+declarations. The [independent review](../certificate-memory/review-native-ghost-constant.md)
+accepts the source, wrapper and exact reviewed-token delta.
+
+The [function-source repair](../lean-recovery/README.md) preserves the full-source
+duplicate-detecting scan and public theorem while normalizing the expected
+string through a proved character identity. Focused run
+`20261115T173223-fb4134e2af34` passed at the ordinary 8 GiB threshold; its process
+tree peaked at 5.710 GiB. Corrupt character/token and duplicate controls remain
+retained. The [certificate repair](../certificate-memory/README.md) constructs
+the existing reconstruction theorem through the checked auxiliary-lemma path.
+Its actual-size join passed at 3 GiB. These results favor a proof representation
+and string-normalization bottleneck; they do not establish an asymptotic bound
+on the entire proof pipeline or complete assurance.
+
+The old-source certificate run was deliberately interrupted after the required
+native repair invalidated its source, with no memory failure. Five completed
+line buckets, all inputs and compiled artifacts remain retained. Its final
+aggregate and audit did not run. Resume on the combined source and reuse only
+matching artifacts through normal Lake dependency checks.
+
+All 40 generated candidates were independently regenerated on the final Ada
+bytes and refreshed together; [the refresh inventory](generated-candidate-refresh.json)
+identifies the seven changed files, including the formerly stale output
+specification candidate. [The reviewed pin delta](reviewed-output-pin-delta.json)
+contains exactly one static declaration and two references to it.
+[Lean cache seed identities](lean-cache-seed.json) record matching ARM64 artifacts,
+not proof success. Before the full Lean run, check the two largest inherited
+function headers with one worker/default process threads and the same 8 GiB
+threshold. Complete native validation may proceed on the fixed Ada/tool inputs.
+All final complete checks and the 691-ID regression inventory remain outstanding.

@@ -1713,6 +1713,12 @@ def outputBodyTokens_line_863367602a902ac5e213df6359aa76dcb6f3049b1ab2a6e67f7e44
   correct := by decide +kernel
   noNewline := by decide +kernel
 
+def outputBodyTokens_line_863dca4fe9e5eb385cda60ab8471bbbc82783e784dc4ae2fd29edc79b2219595 : LineCertificate where
+  text := "      Lemma_Parser_State_Equality (Result, Model_State);"
+  tokens := ["lemma_parser_state_equality", "(", "result", ",", "model_state", ")", ";"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
 def outputBodyTokens_line_863f21e1a8a724841f91b254109a70e1334f7a5b77a8d3c8a3a6bc83bd8bf439 : LineCertificate where
   text := "           (After => After, Value_First => Names.Items (Index).Value_First,"
   tokens := ["(", "after", "=>", "after", ",", "value_first", "=>", "names", ".", "items", "(", "index", ")", ".", "value_first", ","]
