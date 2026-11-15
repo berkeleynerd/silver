@@ -1,0 +1,41 @@
+{
+  "base": "88e3d0a9f",
+  "original_candidate_theorem_statements_unchanged": true,
+  "original_boolean_and_xor_proofs_byte_identical": true,
+  "original_public_checked_assembly_byte_identical": true,
+  "changed_original_private_proofs": [
+    "counted_bound_checked",
+    "native_flow_checked",
+    "native_readers_checked"
+  ],
+  "normalization_fragments": [
+    {
+      "name": "countedSpecSuffix",
+      "characters": 601,
+      "tokens": 130
+    },
+    {
+      "name": "joinedSuffix",
+      "characters": 776,
+      "tokens": 226
+    }
+  ],
+  "new_private_reader_fields": [
+    "integer_type_word",
+    "scalar_spec",
+    "scalar_body",
+    "string_spec",
+    "string_body"
+  ],
+  "reader_fields_not_claimed_as_failed_isolated_obligations": true,
+  "all_original_header_semantic_render_and_other_literal_concatenations_preserved": true,
+  "unchanged_definition_files_sha256": {
+    "proof/Silver/PredicateCountedBoundSource.lean": "f67b56d30831566c369f00c661dd921a4c49675c7451df3a760ad5838928930b",
+    "proof/Silver/PredicateFlowSourceBridge.lean": "cb284167fc2a4a0f2e717b6ec9edc0b163e74782e2e0ab2eac04d911560a8a43",
+    "proof/Silver/PredicateFlowReaders.lean": "4b996c237fd4548b9b776ed84188fc216030705991ca11b3e6b37cf8e49bf298"
+  },
+  "files_sha256": {
+    "proof/Silver/PredicateFlowSourceCandidate.lean": "079407913661504a659995829fb7c8ac3537c76d8b1a1641dc9f61b345ffbb39",
+    "proof/Silver/PredicateFlowExpectedTokens.lean": "70fbc59f0d742eb4817264ef855bbdf284c80412987479b88051559b2d73ef22"
+  }
+}

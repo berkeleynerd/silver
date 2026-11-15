@@ -1,0 +1,50 @@
+{
+  "command": [
+    "python3",
+    "scripts/check_lean.py",
+    "--workers",
+    "1",
+    "--memory-mb",
+    "8192",
+    "--provenance",
+    "--task",
+    "370-complete-lean-recovery",
+    "--reason",
+    "Complete cached continuation on independently accepted frozen production 88e3d0a9f after exact procedure metadata-header normalization and focused full ProcedureDeclarationHighSourceCandidate success 20261115T201355-b250e246f4ef. Preserve all 625 completed objects and both prior interrupted complete-run packets; all 621 prior objects remain byte-identical. Whole textual Audit closure reaches 1005 project modules; actual full module/axiom/source/provenance audit remains required. No clean build, replay or repeated successful focused gate. One worker/default 12 threads/8192 MiB remains justified by measured dense-module memory on the 15.8 GiB host and productive two-worker native audit. Existing 10 GiB source-tree/1.5 GiB host-headroom/first-new-memory-diagnostic guards, source-only controlled stop; native inputs unchanged. Parent released this allocation after independent statement/source/token/terminal/hash acceptance. Preserve and diagnose any new failure before another complete attempt."
+  ],
+  "cwd": "/home/agent/silver-worktrees/procedures-lean-370",
+  "started_at": "2026-11-15T20:17:45.890452+00:00",
+  "peak_sum_rss_kib": 9443488,
+  "peak_process_rss_kib": 8401840,
+  "minimum_mem_available_kib": 6535664,
+  "pid": 188821,
+  "diagnostic_interruption": {
+    "pattern": "(kernel) excessive memory consumption detected",
+    "sample": {
+      "elapsed_seconds": 720.7064712189967,
+      "sum_rss_kib": 2911952,
+      "mem_available_kib": 12502352,
+      "processes": [
+        {
+          "pid": 188821,
+          "rss_kib": 85184,
+          "command": "python3 scripts/check_lean.py --workers 1 --memory-mb 8192 --provenance --task 370-complete-lean-recovery --reason Complete cached continuation on independently accepted frozen production 88e3d0a9f after exact procedure metadata-header normalization and focused full ProcedureDeclarationHighSourceCandidate success 20261115T201355-b250e246f4ef. Preserve all 625 completed objects and both prior interrupted complete-run packets; all 621 prior objects remain byte-identical. Whole textual Audit closure reaches 1005 project modules; actual full module/axiom/source/provenance audit remains required. No clean build, replay or repeated successful focused gate. One worker/default 12 threads/8192 MiB remains justified by measured dense-module memory on the 15.8 GiB host and productive two-worker native audit. Existing 10 GiB source-tree/1.5 GiB host-headroom/first-new-memory-diagnostic guards, source-only controlled stop; native inputs unchanged. Parent released this allocation after independent statement/source/token/terminal/hash acceptance. Preserve and diagnose any new failure before another complete attempt. "
+        },
+        {
+          "pid": 188883,
+          "rss_kib": 956512,
+          "command": "/home/agent/silver-worktrees/procedures-lean-370/.tools/linux-aarch64/lean/bin/lake --rehash --reconfigure -K silverThreads=12 -K silverMemoryMb=8192 build Silver.Audit "
+        },
+        {
+          "pid": 206559,
+          "rss_kib": 1870256,
+          "command": "/home/agent/silver-worktrees/procedures-lean-370/.tools/linux-aarch64/lean/bin/lean -j12 -M8192 -DwarningAsError=true /home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/proof/Silver/PredicateNativeHelpersCandidate.lean -o /home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/PredicateNativeHelpersCandidate.olean -i /home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/PredicateNativeHelpersCandidate.ilean -c /home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/proof/.lake/build/ir/Silver/PredicateNativeHelpersCandidate.c --setup /home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/proof/.lake/build/ir/Silver/PredicateNativeHelpersCandidate.setup.json --json "
+        }
+      ]
+    }
+  },
+  "returncode": -2,
+  "elapsed_seconds": 725.7136846379981,
+  "finished_at": "2026-11-15T20:29:51.604124+00:00",
+  "interrupted": true
+}
