@@ -1,0 +1,8 @@
+{
+  "recorded_at": "2026-11-15T22:35:01.298287+00:00",
+  "shell_pid": 466480,
+  "probe_pid": 466481,
+  "actual_stack_soft_bytes": 16777216,
+  "actual_stack_hard_bytes": -1,
+  "inherited_by_exec": true
+}

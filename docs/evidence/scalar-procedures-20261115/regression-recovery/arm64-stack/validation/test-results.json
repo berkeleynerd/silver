@@ -1,0 +1,154 @@
+{
+  "expected_ids": [
+    "test_scalar_guards.ScalarGuardTests.test_admission_all_comparisons_both_orders_and_outcomes",
+    "test_scalar_guards.ScalarGuardTests.test_admission_assignment_replaces_only_written_identity",
+    "test_scalar_guards.ScalarGuardTests.test_admission_bare_targets_and_static_thresholds_only",
+    "test_scalar_guards.ScalarGuardTests.test_admission_both_operands_checked_before_refinement",
+    "test_scalar_guards.ScalarGuardTests.test_admission_branch_joins_elsif_and_omitted_else",
+    "test_scalar_guards.ScalarGuardTests.test_admission_contradictions_keep_incoming_and_empty_index",
+    "test_scalar_guards.ScalarGuardTests.test_admission_endpoint_guards_and_negation",
+    "test_scalar_guards.ScalarGuardTests.test_admission_exact_source_limit_with_active_scalar_counts",
+    "test_scalar_guards.ScalarGuardTests.test_admission_image_reads_and_string_writes_use_scalar_flow",
+    "test_scalar_guards.ScalarGuardTests.test_admission_input_length_facts_survive_scalar_write",
+    "test_scalar_guards.ScalarGuardTests.test_admission_long_boolean_and_statement_tails",
+    "test_scalar_guards.ScalarGuardTests.test_admission_loop_bounds_captured_before_widening",
+    "test_scalar_guards.ScalarGuardTests.test_admission_loop_mutables_widen_at_entry_and_exit",
+    "test_scalar_guards.ScalarGuardTests.test_admission_nonzero_hulls_and_division_sign_arms",
+    "test_scalar_guards.ScalarGuardTests.test_admission_outer_index_facts_restored_and_inner_facts_discarded",
+    "test_scalar_guards.ScalarGuardTests.test_admission_precise_bounds_reveal_excluded_empty_assignment",
+    "test_scalar_guards.ScalarGuardTests.test_admission_refinement_uses_binding_identity",
+    "test_scalar_guards.ScalarGuardTests.test_admission_short_circuit_reached_flows",
+    "test_scalar_guards.ScalarGuardTests.test_native_complete_100_doors",
+    "test_scalar_guards.ScalarGuardTests.test_native_contradictory_guard_forms_and_live_scalar_updates",
+    "test_scalar_guards.ScalarGuardTests.test_native_contradictory_guard_preserves_original_source",
+    "test_scalar_guards.ScalarGuardTests.test_native_contradictory_guards_compose_with_argument_array_loops",
+    "test_scalar_guards.ScalarGuardTests.test_native_guarded_updates_division_and_captured_bounds"
+  ],
+  "observed": [
+    {
+      "id": "test_scalar_guards.ScalarGuardTests.test_admission_all_comparisons_both_orders_and_outcomes",
+      "outcome": "ok"
+    },
+    {
+      "id": "test_scalar_guards.ScalarGuardTests.test_admission_assignment_replaces_only_written_identity",
+      "outcome": "ok"
+    },
+    {
+      "id": "test_scalar_guards.ScalarGuardTests.test_admission_bare_targets_and_static_thresholds_only",
+      "outcome": "ok"
+    },
+    {
+      "id": "test_scalar_guards.ScalarGuardTests.test_admission_both_operands_checked_before_refinement",
+      "outcome": "ok"
+    },
+    {
+      "id": "test_scalar_guards.ScalarGuardTests.test_admission_branch_joins_elsif_and_omitted_else",
+      "outcome": "ok"
+    },
+    {
+      "id": "test_scalar_guards.ScalarGuardTests.test_admission_contradictions_keep_incoming_and_empty_index",
+      "outcome": "ok"
+    },
+    {
+      "id": "test_scalar_guards.ScalarGuardTests.test_admission_endpoint_guards_and_negation",
+      "outcome": "ok"
+    },
+    {
+      "id": "test_scalar_guards.ScalarGuardTests.test_admission_exact_source_limit_with_active_scalar_counts",
+      "outcome": "ok"
+    },
+    {
+      "id": "test_scalar_guards.ScalarGuardTests.test_admission_image_reads_and_string_writes_use_scalar_flow",
+      "outcome": "ok"
+    },
+    {
+      "id": "test_scalar_guards.ScalarGuardTests.test_admission_input_length_facts_survive_scalar_write",
+      "outcome": "ok"
+    },
+    {
+      "id": "test_scalar_guards.ScalarGuardTests.test_admission_long_boolean_and_statement_tails",
+      "outcome": "ok"
+    },
+    {
+      "id": "test_scalar_guards.ScalarGuardTests.test_admission_loop_bounds_captured_before_widening",
+      "outcome": "ok"
+    },
+    {
+      "id": "test_scalar_guards.ScalarGuardTests.test_admission_loop_mutables_widen_at_entry_and_exit",
+      "outcome": "ok"
+    },
+    {
+      "id": "test_scalar_guards.ScalarGuardTests.test_admission_nonzero_hulls_and_division_sign_arms",
+      "outcome": "ok"
+    },
+    {
+      "id": "test_scalar_guards.ScalarGuardTests.test_admission_outer_index_facts_restored_and_inner_facts_discarded",
+      "outcome": "ok"
+    },
+    {
+      "id": "test_scalar_guards.ScalarGuardTests.test_admission_precise_bounds_reveal_excluded_empty_assignment",
+      "outcome": "ok"
+    },
+    {
+      "id": "test_scalar_guards.ScalarGuardTests.test_admission_refinement_uses_binding_identity",
+      "outcome": "ok"
+    },
+    {
+      "id": "test_scalar_guards.ScalarGuardTests.test_admission_short_circuit_reached_flows",
+      "outcome": "ok"
+    },
+    {
+      "id": "test_scalar_guards.ScalarGuardTests.test_native_complete_100_doors",
+      "outcome": "ok"
+    },
+    {
+      "id": "test_scalar_guards.ScalarGuardTests.test_native_contradictory_guard_forms_and_live_scalar_updates",
+      "outcome": "ok"
+    },
+    {
+      "id": "test_scalar_guards.ScalarGuardTests.test_native_contradictory_guard_preserves_original_source",
+      "outcome": "ok"
+    },
+    {
+      "id": "test_scalar_guards.ScalarGuardTests.test_native_contradictory_guards_compose_with_argument_array_loops",
+      "outcome": "ok"
+    },
+    {
+      "id": "test_scalar_guards.ScalarGuardTests.test_native_guarded_updates_division_and_captured_bounds",
+      "outcome": "ok"
+    }
+  ],
+  "missing_ids": [],
+  "unexpected_ids": [],
+  "complete_inventory": true,
+  "passed": [
+    "test_scalar_guards.ScalarGuardTests.test_admission_all_comparisons_both_orders_and_outcomes",
+    "test_scalar_guards.ScalarGuardTests.test_admission_assignment_replaces_only_written_identity",
+    "test_scalar_guards.ScalarGuardTests.test_admission_bare_targets_and_static_thresholds_only",
+    "test_scalar_guards.ScalarGuardTests.test_admission_both_operands_checked_before_refinement",
+    "test_scalar_guards.ScalarGuardTests.test_admission_branch_joins_elsif_and_omitted_else",
+    "test_scalar_guards.ScalarGuardTests.test_admission_contradictions_keep_incoming_and_empty_index",
+    "test_scalar_guards.ScalarGuardTests.test_admission_endpoint_guards_and_negation",
+    "test_scalar_guards.ScalarGuardTests.test_admission_exact_source_limit_with_active_scalar_counts",
+    "test_scalar_guards.ScalarGuardTests.test_admission_image_reads_and_string_writes_use_scalar_flow",
+    "test_scalar_guards.ScalarGuardTests.test_admission_input_length_facts_survive_scalar_write",
+    "test_scalar_guards.ScalarGuardTests.test_admission_long_boolean_and_statement_tails",
+    "test_scalar_guards.ScalarGuardTests.test_admission_loop_bounds_captured_before_widening",
+    "test_scalar_guards.ScalarGuardTests.test_admission_loop_mutables_widen_at_entry_and_exit",
+    "test_scalar_guards.ScalarGuardTests.test_admission_nonzero_hulls_and_division_sign_arms",
+    "test_scalar_guards.ScalarGuardTests.test_admission_outer_index_facts_restored_and_inner_facts_discarded",
+    "test_scalar_guards.ScalarGuardTests.test_admission_precise_bounds_reveal_excluded_empty_assignment",
+    "test_scalar_guards.ScalarGuardTests.test_admission_refinement_uses_binding_identity",
+    "test_scalar_guards.ScalarGuardTests.test_admission_short_circuit_reached_flows",
+    "test_scalar_guards.ScalarGuardTests.test_native_complete_100_doors",
+    "test_scalar_guards.ScalarGuardTests.test_native_contradictory_guard_forms_and_live_scalar_updates",
+    "test_scalar_guards.ScalarGuardTests.test_native_contradictory_guard_preserves_original_source",
+    "test_scalar_guards.ScalarGuardTests.test_native_contradictory_guards_compose_with_argument_array_loops",
+    "test_scalar_guards.ScalarGuardTests.test_native_guarded_updates_division_and_captured_bounds"
+  ],
+  "failed": [],
+  "summary": [
+    "Ran 23 tests in 16.359s",
+    "OK"
+  ]
+}

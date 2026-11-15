@@ -1,0 +1,8 @@
+{
+  "recorded_at": "2026-11-15T22:36:05.846022+00:00",
+  "requested_pid": 466480,
+  "retained_live_proc_limits": false,
+  "reason": "Live process inspection assertion failed before writing its record; subsequent process inventory found original launcher already terminal. Direct monitored-child pre-exec RLIMIT_STACK capture remains available.",
+  "original_child_stack_report": "actual-child-stack.json",
+  "no_duplicate_or_rerun": true
+}

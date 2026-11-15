@@ -1,0 +1,13 @@
+{
+  "original_run": "20261115T220916-99f1eaeea331",
+  "current_input_count": 1316,
+  "original_input_count": 1316,
+  "changed": [
+    {
+      "path": "/home/agent/silver-workspaces/recovery-volume/integration/tests/test_lean_modules.py",
+      "before": "e1b5c2212a7f5b0c3d9cca93224237d5eb26e5064cc8e5573e60f958fb724c5c",
+      "after": "ad57b66045355573707a29e0a285e95c79dcff4f0a1595cb8a38e24554680163"
+    }
+  ],
+  "scalar_guard_test_unchanged": true
+}
