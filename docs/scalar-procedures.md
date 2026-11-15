@@ -199,6 +199,19 @@ remaining surface complete.
 
 ## Development checkpoint
 
+**Reduced-host recovery resumed, 2026-11-15.** The owner authorized recovery
+after the readiness assessment, with the decision recorded on main in
+`903dac970`. The [recovery record](evidence/scalar-procedures-20261115/recovery/README.md)
+identifies the restored implementation, current Linux ARM64 host, native-storage
+workspaces and remaining checks. Original x86_64 binary proof caches are absent.
+Mounted-filesystem descriptor exhaustion initially prevented both proof tools
+from starting; native storage resolved the startup problem. The isolated Lean
+function-source target subsequently reached its configured memory threshold,
+after successfully rebuilding its dependencies. Native canonical-policy and
+kernel-checked memory investigations remain in progress. No new complete
+assurance or regression success is claimed. Preserve the historical attempts
+below and the separate worca streams.
+
 The owner resumed this delivery on 2026-11-13. The [retained final attempts](evidence/scalar-procedures-20261109/final-attempts-20261111/README.md)
 remain failed. Their native `Procedure_Updates` postcondition and handwritten
 Lean integration failures now have independently reviewed repairs and successful
