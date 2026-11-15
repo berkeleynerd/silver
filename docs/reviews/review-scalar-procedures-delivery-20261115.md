@@ -246,3 +246,84 @@ Selected settings remain **GPT-6 Astra / Max**; runtime confirmation and token/
 cost telemetry remain unavailable. Exact-data comparison was recorded at
 **2026-11-15 19:50:34.856560 UTC**; earlier review setup was not separately timed.
 No GitHub or CLI-memory update was made, and the live harness goal remains null.
+
+## Addendum — procedure metadata header, 2026-11-15
+
+**Disposition: accepted for integration and the complete-project retry; no
+material finding.** Reviewed repair
+`88e3d0a9f83a3c2ebe6443a4e4948a5216c908a2` changes only
+`ProcedureDeclarationHighSourceParts/Body.lean` and its new
+`MetadataAppendExpectedTokens.lean` helper relative to reviewed production
+`ca1c9b2ce`. The
+[independent record](../evidence/scalar-procedures-20261115/delivery-review/procedure-metadata-normalization-review.json)
+contains exact identities, extraction results and the focused evidence checks.
+The author worktree matches the immutable repair.
+
+Complete continuation `20261115T195423-d7650f191422` remains failed/interrupted.
+Its retained log identifies one explicit 8 GiB kernel-memory error in
+`Body.lean:26`, at `metadata_append_header`; the monitor then interrupted the
+subsequent `Outer` module. There was no complete audit. The retained record
+distinguishes original outer session `4737` exit **254** from the monitored
+child's **-2** SIGINT result. The original failed body and high-source definition
+match the reviewed baseline, and the exact retained runner-log digest matches
+the failure identity. The record preserves 621 completed objects; their presence
+does not turn the failed module or complete run into success.
+
+Both original theorem statements and the complete `ordinary_0` declaration and
+proof remain byte-identical. Restoring only the metadata-header proof and
+removing the two added imports reconstructs the old `Body.lean` exactly.
+`HighSourceChecks.metadataAppendHeader`, its complete candidate conjunction,
+all other body/header checks, the selector, native source and scripts are
+unchanged. The `change` step expands the existing header definition; it changes
+no parameter, Static aspect, precondition or postcondition.
+
+The original definition and three copied literals agree on **646 characters**.
+Both complete character lists match that exact text. Helper, leaf and independent
+lexical extraction agree on all **138 ordered tokens**. Scanning the complete
+**72,713-token** reviewed implementation finds exactly one matching
+`lemma_procedure_metadata_append` header with the requested top-level `is`
+terminator. The unchanged `procedureHeaders` scans the full source and retains
+every matching header; `procedureHeader` still requires a singleton.
+
+The helper applies checked `String.toList_ofList` and the unchanged
+alphabet/fuel/lexer computation. The original theorem rewrites only this proved
+expected-token equality and uses unchanged `kernel_exact` at its complete goal.
+The source transport and candidate consumers remain required. No new axiom,
+kernel bypass, source slice, narrowed contract/domain or assumed completed source
+law was introduced. Prior corruption controls apply to the unchanged mechanism;
+this review does not present them as newly executed tests of this header's
+extractor. The complete fixed-source equality remains a kernel obligation.
+
+Focused run **`20261115T201355-b250e246f4ef` passed** the full
+`ProcedureDeclarationHighSourceCandidate` and a fresh **115-module /
+16,374-declaration** audit using only `propext`, `Classical.choice` and
+`Quot.sound`. The audit includes the helper, repaired `Body`, previously
+interrupted `Outer` and complete candidate. Build/audit phases exited zero in
+15.465 s / 1.722 s; managed termination records success and the monitor records
+exit zero with no guard or interruption. The author reported collecting original
+session `32187` with exit zero, relayed by the lead; this reviewer inspected the
+retained terminal evidence rather than consuming that session.
+
+I independently verified all **1,112 input, 1,007 workspace, 3,746 artifact and
+two executable hashes**, the input digest and exact emitted audit-module list.
+Both repaired files match the reviewed commit. The exact runner-log SHA-256 is
+`78e230dff57c0d363ebcd46200b653e9f2c07e54d865cb02d4649d7824d12164`.
+Durable evidence commit `7fd40b5fa` matches the inspected original evidence,
+runner log and terminal summary. Artifact hash checks establish identity; the
+fresh declaration audit covers the specified imported closure.
+
+The allocation stays one Lake worker, twelve Lean threads and 8,192 MiB per
+process. Sampled process/tree RSS peaks are 1,858,416 / 2,898,928 KiB; monitored
+elapsed time is 25.031 s. This successful proof representation gives no universal
+memory bound for other modules. It is incremental focused evidence, not complete
+assurance or independent replay. The next complete graph contains 1,005 modules;
+the author's textual reachability and retained-object inventory are preparation
+facts, separate from its required actual whole-project audit.
+
+Selected review settings remain **GPT-6 Astra / Max**; independent runtime,
+token and cost telemetry are unavailable. The exact-data comparison was recorded
+at **2026-11-15 20:16:05.039462 UTC**, with completion timing in the evidence
+record. No proof/build/test/application or cache-writing job, GitHub edit or
+CLI-memory update was performed by this reviewer. The live harness goal remains
+null. Broader native, complete Lean/source, build, regression and delivery
+acceptance remain pending; no additional production repair is requested here.

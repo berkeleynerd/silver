@@ -121,7 +121,7 @@
       "tools_sha256": []
     },
     "tools_match_previous_reviewed_control_environment": true,
-    "original_terminal_exit": "Lead reported collected original exec session 16284 exit 0; independently read monitor returncode 0 and managed success.",
+    "original_terminal_exit": "Author reported collecting original exec session 16284 exit 0, relayed by the lead; reviewer independently read monitor returncode 0 and managed success, not that execution session.",
     "managed_terminal": {
       "duration_seconds": 283.029734635,
       "event": "finished",
