@@ -413,3 +413,31 @@ now owns the final two-worker compiler build in integration. Complete Lean run
 waits for the dense Lean allocation to release. Final native-evidence review,
 complete Lean/source assurance, regression coverage and coordinated delivery
 acceptance remain pending.
+
+### Final compiler build and next body-source diagnosis
+
+Final build `20261115T212353-b892f44c0742` passed on the accepted native inputs.
+The [build packet](../native-recovery/final-validation/build/README.md), integrated
+at `00818d453`, retains observed wrapper/native-phase exits zero, managed success,
+the compiled/linked compiler and retained up-to-date Image adapter. All native
+inputs, tools and full-audit report hashes still match. This is an incremental
+build; it is not regression execution.
+
+Complete Lean continuation `20261115T211741-9bb82c28fe83` stopped at 21:26:21 UTC
+on four individual equalities in `PredicateBodySourceCandidate`: the tail-model
+specification, body-tail specification, read-body specification and valid-context
+expression. The author collected original session 15946 with outer exit 254;
+the monitored child returned `-2` after the diagnostic SIGINT. Elapsed time was
+520.532 seconds, with peak process/tree RSS 8,390,032 / 9,454,224 KiB and minimum
+host availability 7,668,128 KiB. No whole-project audit ran, and the subsequent
+structural-guard module was interrupted.
+
+The four exact long literals contain 712, 633, 632 and 762 characters. The two
+composite specifications retain their typed semantic renderings and complete
+88-character variant suffixes. The bounded repair targets only those four
+private proofs and an exact-token helper; all statements, definitions, domains,
+selectors, renderings, concatenations and termination requirements remain intact.
+All 661 prior objects remain preserved. Complete focused candidate success and
+independent critical review precede another cached complete continuation.
+Native/build success remains applicable; the full suite still waits for the
+dense Lean work to finish. Final delivery acceptance remains pending.
