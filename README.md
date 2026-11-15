@@ -294,9 +294,16 @@ requires Python 3.11+ and native development libraries: libc development files
 on Linux, or Xcode Command Line Tools on macOS. On Debian/Ubuntu, the required
 native package is `libc6-dev`.
 
-Use the validated **8 MiB process stack** configuration for the compiler on Linux
-(`ulimit -s 8192` in a shell where that limit is permitted). Retained application
-audit data uses a 64 MiB library-level buffer, and the auditor reads that buffer
+For the current Linux ARM64 compiler, use a **16 MiB process stack** for
+validation and compiler invocations (`ulimit -S -s 16384` in the invoking shell,
+where its hard limit permits this). The [ARM64 boundary measurements](docs/evidence/scalar-procedures-20261115/regression-recovery/arm64-stack/README.md)
+show all three deeply parenthesized 4,096-byte regression inputs passing at that
+setting and failing at 8 MiB; two also fail at 12 MiB. This is a measured
+configuration for these inputs and this build, not a universal stack bound.
+The compiler does not raise the process limit automatically. Earlier Linux
+8 MiB observations below retain their exact build/platform scope.
+
+Retained application audit data uses a 64 MiB library-level buffer, and the auditor reads that buffer
 without a report-sized stack copy. A streaming reader validates and omits only
 unaudited proof-tree metadata; original reports remain on disk. The earlier
 2 MiB stack allocation produced

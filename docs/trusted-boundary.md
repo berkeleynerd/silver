@@ -138,6 +138,18 @@ three 4,096-byte sources pass at an actual 8,192 KiB stack on native snapshot
 `5c84335cb5`; the third exercises the added token-context scanner. These are
 input-specific observations, not a universal stack bound or a new frame-size
 measurement.
+The [2026-11-15 Linux ARM64 observations](evidence/scalar-procedures-20261115/regression-recovery/arm64-stack/README.md)
+measure the current assertions-enabled compiler on three exact 4,096-byte
+sources with 2,001, 1,993 and 1,765 nested condition parentheses. All fail with
+`Storage_Error` at an 8,192 KiB stack; the first two also fail at 12,288 KiB;
+all pass at 16,384 KiB. Their 4,097-byte companions remain rejected as outside
+the source limit. Object-code inspection and direct debugger stack-pointer
+measurements identify 6,416 bytes per nested group along this route. These
+measurements establish the cause and a sufficient setting for these cases,
+not an all-route or cross-platform stack bound. The setup instructions now use
+16 MiB for the current Linux ARM64 compiler; the existing sufficient-stack
+premise and unchanged source membership remain in force.
+
 Per-level environment-copy redesign remains deferred with #119.
 The external
 [sequencing review](reviews/review-9b99d52.md) observed `Storage_Error` and exit
