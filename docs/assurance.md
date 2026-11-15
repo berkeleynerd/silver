@@ -123,10 +123,11 @@ replace complete compiler proof or the final Lean/source audit.
 
 ## Small nonrecursive scalar procedures
 
-The [procedure increment](scalar-procedures.md#development-checkpoint) has
-independently accepted complete native and Lean/actual-source checkpoints on
-Linux ARM64. Final regression repair coverage and delivery acceptance remain
-pending in #370; these proof results alone do not claim delivered support.
+The [procedure delivery](scalar-procedures.md#delivery-assurance-and-validation)
+records independently accepted complete native and Lean/actual-source checkpoints
+on Linux ARM64, repaired regression coverage and closing delivery reconciliation.
+The argument below applies to all admitted declarations and compositions;
+passing samples alone does not establish these guarantees.
 
 Each closed declaration must be checked over the full declared input and
 `in out` domains, including when Main never calls it. Its source-written leading
@@ -1256,7 +1257,7 @@ entities may carry successful `SUBPROGRAM_TERMINATION` flow records and
 discharge requirements as Main. No function postcondition is assumed. The
 capability record retains the completed function delivery evidence.
 
-The pending [procedure increment](scalar-procedures.md) extends that exact
+The [procedure increment](scalar-procedures.md) extends that exact
 source inventory to every local procedure and its `out` formal names, including
 unused procedures. Each such formal requires exactly one `UNINITIALIZED` flow
 record with severity `info`, `how_proved = flow`, filename `main.adb`, positive

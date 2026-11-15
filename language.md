@@ -1,10 +1,11 @@
 # Silver language specification
 
-The scalar-procedure increment below is under development in
-[#370](https://github.com/berkeleynerd/silver/issues/370). Its
-[capability record](docs/scalar-procedures.md) distinguishes the selected rules
-from pending implementation and complete assurance; no procedure delivery claim
-is made before those checks pass.
+The scalar-procedure increment below has complete Linux ARM64 proof and
+applicable regression validation in [#370](https://github.com/berkeleynerd/silver/issues/370).
+Its [delivery account](docs/scalar-procedures.md#delivery-assurance-and-validation)
+records complete native and Lean/actual-source assurance, reviewed evidence reuse
+and the closing delivery reconciliation. The rules preserve full formal domains,
+source-written output initialization and the existing source/expression budgets.
 
 The small nonrecursive scalar-function increment is recorded in the
 [delivery account](docs/scalar-functions.md#delivery-assurance-and-validation).
@@ -1530,7 +1531,7 @@ and no suppression or justification. `NAME` has Ada identifier spelling and is
 bounded by the complete-source limit. This advisory does not discharge a safety
 obligation and is not accepted for Main itself.
 
-For the procedure increment under development, these application entities also
+For the scalar-procedure increment, these application entities also
 include declared local procedures. An unused scalar copy-back may produce the
 exact `INEFFECTIVE` flow warning `"TARGET" is set by "PROCEDURE" but not used
 after the call`, with a bare scalar target and a source-declared procedure name.

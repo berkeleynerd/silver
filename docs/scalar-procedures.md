@@ -12,12 +12,78 @@ bounded language package under the broader
 The small [#29 Rosetta refresh repair](https://github.com/berkeleynerd/silver/issues/29)
 accompanies its delivery with separate focused Python checks.
 
-**Design and implementation in progress; not supported.** The compiler,
-universal proofs, actual-source correspondence, capacity argument and complete
-validation must all establish the final rules before support is claimed.
-The selected scope is a feature-sized package, not a promise of a same-day
-delivery. No broader procedures, Oracle amendment or deferred #119 research
-is selected.
+**Validated on Linux ARM64; final delivery reconciliation is under review.**
+The compiler, universal proofs, actual-source correspondence, capacity argument
+and complete applicable regression coverage establish the bounded rules below.
+The [delivery account](#delivery-assurance-and-validation) distinguishes complete
+proof checks, fresh repair results and independently accepted retained results.
+No broader procedures, Oracle amendment or deferred #119 research is included.
+
+## Delivery assurance and validation
+
+Production `1dde32cce` completes the bounded procedure implementation and source
+proofs. The [independent delivery review](reviews/review-scalar-procedures-delivery-20261115.md)
+accepts the complete native, Lean/source and repaired regression evidence;
+closing Rosetta/current-record reconciliation is under review. Publication is
+through [PR #371](https://github.com/berkeleynerd/silver/pull/371), without merge
+or implementation of the next selected package, #373.
+
+- [Complete native audit](evidence/scalar-procedures-20261115/native-recovery/full-native/README.md):
+  run `20261115T174959-94ae5c6fdf63` passes 19,444 checks (1,715 flow and
+  17,729 proof) across 78 units / 1,232 entities under the canonical full
+  policy. This is cached full validation. The unavailable original outer-wrapper
+  exit and 223.634-second monitoring gap remain explicit; native phase exit zero,
+  managed success and complete report/input/tool verification are retained.
+  Contract-dependency rows remain ordinary reviewed dependencies, not absent
+  records or assumed procedure results.
+- [Final compiler build](evidence/scalar-procedures-20261115/native-recovery/final-validation/build/README.md):
+  incremental run `20261115T212353-b892f44c0742` passes with original exit zero
+  on matching native inputs. Native audit and build have independent acceptance.
+- [Complete Lean/source checkpoint](evidence/scalar-procedures-20261115/lean-recovery/complete-checkpoint/final-complete-cached/README.md):
+  run `20261115T215223-28e04bff3fce` passes a fresh audit of all 1,009 project
+  modules and 162,269 declarations, using only `propext`, `Classical.choice`
+  and `Quot.sound`. Complete source candidates, semantic bridges and the facade
+  are included. All captured hashes verify. This is a complete cached build and
+  fresh audit, not a clean build or independent kernel replay.
+- [Regression coverage](evidence/scalar-procedures-20261115/native-recovery/final-validation/regression/README.md):
+  the original 691-ID run remains failed, with four failed results across two
+  IDs. Its 85 manifest samples all passed. The [three-test fixture repair](evidence/scalar-procedures-20261115/regression-recovery/lean-output-chunk-fixture/validation/README.md)
+  and [23 unchanged scalar tests](evidence/scalar-procedures-20261115/regression-recovery/arm64-stack/validation/README.md)
+  resolve both failing IDs. Independent review accounts for 26 fresh passes,
+  663 applicable retained passes and two expected Linux-x86-only skips before
+  Rosetta reconciliation. The [12 fresh Rosetta tests](evidence/scalar-procedures-20261115/regression-recovery/rosetta/README.md)
+  replace 12 retained results after its metadata/render changes, giving the
+  final inventory of 38 fresh passes, 651 retained passes and two platform skips.
+  Final applicability of that last delta is part of closing review.
+
+The current Linux ARM64 compiler uses the documented 16 MiB process stack for
+validation and invocation. [Controlled stack observations](evidence/scalar-procedures-20261115/regression-recovery/arm64-stack/README.md)
+explain the three boundary failures at 8 MiB and retain exact 4,096-byte successes
+and 4,097-byte rejections at 16 MiB. This is measured sufficiency for those cases,
+not a universal bound. The compiler, domains, assertions and test expectations
+are unchanged. Earlier Lean memory failures were repaired through checked proof
+representation/string normalization with the same statements and source; the
+evidence does not establish combinatorial growth or a whole-pipeline complexity bound.
+
+The unchanged [Return multiple values](../samples/rosetta_return_multiple_values.adb)
+sample passed admission, application proof/report audit, compilation and execution,
+including its input endpoints and exact six output lines. The [Rosetta account](../rosetta/assessment-scalar-procedures-20261115.md)
+adds only `scalar-procedures` and this one mapping: 83 to 84 supported mappings.
+Broad #11 stays open at Stage 2; the precise fragment does not deliver all
+procedures, ranged subtypes or scalar Image forms. The catalogue and sample
+manifest already contain the reviewed procedure forms and exact output inventory.
+#29's cache preflight preservation, #372's callable token catalogue, #375's
+handwritten `out` source correspondence and #390's qualified-validity alias
+repair are included in the complete evidence and final inventory.
+
+The owner selected this package on November 9; recovery reached these final
+checks on November 15, spanning six calendar days with recorded pauses and
+parallel work. The [recovery history](evidence/scalar-procedures-20261115/recovery/README.md)
+retains the six interrupted complete Lean attempts before the successful seventh,
+the complete native result, all focused diagnosis/repair rounds and the failed
+full regression followed by successful repair runs. Earlier November 10–13
+attempts remain historical below. This is not a sum of agent/tool elapsed times;
+whole-team token and cost totals are unavailable. No cold checkpoint is inferred.
 
 ## Concrete drivers and boundaries
 
@@ -165,7 +231,7 @@ remaining surface complete.
 
 | Date | Selected settings | Result and next check | Evidence scope |
 | --- | --- | --- | --- |
-| 2026-11-15 reduced-host recovery | Astra Max native/function-source diagnosis and critical review; Astra Ultra named certificate-memory investigation; Sol High native monitoring; Sol Extra High regression inventory and proposed Rosetta reconciliation; lead runtime not independently exposed | Native storage resolves the open-file ceiling. Complete native assurance and the final compiler build pass with independent acceptance. Complete cached Lean/source validation and its fresh whole-project module/axiom audit also have independent acceptance. Bounded repairs retain their original claims. The full regression/sample suite completed: 687 passed, two failing IDs and two expected platform skips; all 85 samples passed. The missing fixture dependency is repaired and awaiting focused validation; three scalar boundary subtests require stack diagnosis. Final delivery acceptance remains pending. | [Recovery checkpoint](evidence/scalar-procedures-20261115/recovery/README.md) links exact failures, focused successes and independent reviews, including the native monitoring gap. All 17 source-policy tests passed at candidate refresh; the complete 691-ID run and its failures are retained. Complete proof assurance is independently accepted; final regression coverage and delivery acceptance remain pending. Native timings are retained per run; whole-team token/cost totals unavailable. |
+| 2026-11-15 reduced-host recovery | Astra Max native/function-source diagnosis and critical review; Astra Ultra named certificate-memory investigation; Sol High native monitoring; Sol Extra High regression inventory and proposed Rosetta reconciliation; lead runtime not independently exposed | Native storage resolves the open-file ceiling. Complete native assurance and the final compiler build pass with independent acceptance. Complete cached Lean/source validation and its fresh whole-project module/axiom audit also have independent acceptance. Bounded repairs retain their original claims. The original full regression/sample run and both repairs are complete: all 85 samples passed, the fixture dependency repair passes, and the unchanged scalar suite passes at the documented 16 MiB stack. Independent review accepts complete pre-Rosetta coverage; the twelve Rosetta tests also pass. Final delivery reconciliation is under review. | [Recovery checkpoint](evidence/scalar-procedures-20261115/recovery/README.md) links exact failures, focused successes and independent reviews, including the native monitoring gap. All 17 source-policy tests passed at candidate refresh; the complete 691-ID run and its failures are retained. Complete proof assurance is independently accepted; final regression coverage and delivery acceptance remain pending. Native timings are retained per run; whole-team token/cost totals unavailable. |
 | 2026-11-09 | Astra Max procedure design/native probes; Sol Extra High refresh repair; lead runtime not independently exposed | Established the leading output-initialization scope, identified effectful-call/capacity contracts, and started isolated #370 streams. #29 has successful focused checks; its final source/error review is completing. | Design inspection and focused Python checks only; no new procedure assurance or support. Native producer results, helper contracts and source integration remain pending. |
 | 2026-11-09 23:06–23:32 UTC | Sol Extra High refresh author; Astra Max native, semantic and source authors; lead runtime not independently exposed | Final #29 repair passed 12 tests. Procedure metadata passed 62 native checks; the selected mechanism probe passed 75 checks, and initial parser tests passed 19 admission methods. Narrow-copyback and unsafe-unused-body probes failed as expected. | Refresh evidence and native producer/metadata packets are retained under `docs/evidence/scalar-procedures-20261109/`. These are focused results, not feature completion. |
 | 2026-11-09 23:21–23:43 UTC | Astra Max semantic/source authors and native helper investigation; lead runtime not independently exposed | Call/input/copy-back contracts, metadata actual-source checks and signature interpretation passed focused Lean audits. Integrated parser implementation and drafted shared Python/native report-policy regressions. Pinned producer inspection established one initialization record per `out` formal. | Runs `20261109T232157-f50052810dba`, `20261109T232318-79e59bd00147` and `20261109T232931-d434ec47373f` cover the completed proof slices; the body/environment/source integration and complete native helper checks remain pending. |
@@ -209,13 +275,10 @@ have independent acceptance on production `1dde32cce`: native run
 `20261115T215223-28e04bff3fce` freshly audits all 1,009 project modules and
 162,269 declarations. These are cached complete checks, not cold runs.
 
-The [full regression run](evidence/scalar-procedures-20261115/native-recovery/final-validation/regression/README.md)
-completed with 687 passed, two failing IDs and two expected platform skips;
-all 85 samples passed. A missing isolated-fixture dependency is repaired and
-under focused validation. Three valid source-limit subtests require ARM64
-stack diagnosis under the existing resource premises. Final regression
-coverage, Rosetta reconciliation and independent delivery acceptance remain
-pending. The historical failures below and separate worca streams remain intact.
+The [delivery account](#delivery-assurance-and-validation) records the successful
+repair reruns, independently reviewed retained results and current environment.
+This supersedes the historical pending/failure statuses below. The original
+failed attempts and separate worca streams remain intact.
 
 The owner resumed this delivery on 2026-11-13. The [retained final attempts](evidence/scalar-procedures-20261109/final-attempts-20261111/README.md)
 remain failed. Their native `Procedure_Updates` postcondition and handwritten

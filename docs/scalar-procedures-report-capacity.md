@@ -1,9 +1,12 @@
 # Scalar procedures: producer and report capacity
 
 Feature-local account for [#370](https://github.com/berkeleynerd/silver/issues/370),
-prepared 2026-11-09. **Implementation, independent review and final validation
-are pending.** The [capability record](scalar-procedures.md) distinguishes these
-development arguments from delivered support. This extends the
+prepared 2026-11-09 and retained for the validated delivery. The
+[independent capacity review](reviews/review-scalar-procedures-capacity-a7044d6f45.md)
+accepts the source-derived envelope under the existing producer premises.
+The [delivery account](scalar-procedures.md#delivery-assurance-and-validation)
+records complete implementation/proof checks, applicable regressions and closing
+review; this storage argument alone does not establish feature assurance. This extends the
 [scalar-function account](scalar-functions-report-capacity.md) with the same
 4,096-byte source limit, shared operator budget and pinned producer. It selects
 a 64 MiB retained Main report allocation, without starting the deferred general
@@ -177,5 +180,7 @@ compiler and do not establish compiler admission or feature completion.
 
 The native investigation selected GPT-6 Astra / Max. The lead prepared this
 account from its source inspection and the existing capacity records. Live
-runtime settings are not independently exposed. Independent capacity review,
-record-size/boundary regressions and complete feature validation remain pending.
+runtime settings are not independently exposed. The subsequent independent
+capacity review and complete delivery evidence are linked above. Historical
+probes retain their exact input scope; they are not substituted for the final
+compiler/source checks or record-size and boundary regressions.

@@ -335,8 +335,11 @@ the retained Main envelope to 48,676,608 bytes, using a 67,108,864-byte allocati
 and matching shared file-reader bound. Runtime/null report domains remain
 262,144 bytes. This is a local storage adjustment under the existing producer
 premises, without a new general capacity, stack or proof-time claim. The
-capability and capacity records identify the still-pending implementation,
-review and final validation.
+[delivery record](scalar-procedures.md#delivery-assurance-and-validation) links
+the reviewed implementation, complete native and actual-source/Lean checkpoints,
+applicable regression coverage and the measured Linux ARM64 stack environment.
+Earlier dated stack observations retain their original build/platform scope;
+sufficient stack and memory remain the existing environmental premises.
 
 ## Scalar guard refinement boundary
 

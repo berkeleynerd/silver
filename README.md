@@ -219,6 +219,16 @@ array/String signatures and expression-embedded calls remain outside this
 increment. Complete Linux native and Lean/source checkpoints passed; the delivery
 account retains accepted regression applicability and the final independent review.
 
+The [scalar-procedure delivery](docs/scalar-procedures.md#delivery-assurance-and-validation)
+adds closed Main-local Integer/Boolean procedures with explicit `in`, `out`
+and `in out` modes, ordered source-written output initialization, positional
+nonaliasing calls and range-checked copy-back. Every declared body is checked
+over its full formal domains, including unused procedures. The
+[Return multiple values driver](samples/rosetta_return_multiple_values.adb)
+returns the sum and difference through two scalar outputs. Complete native and
+Lean/source assurance and applicable regression checks pass on Linux ARM64;
+the delivery record retains final review and the explicit stack environment.
+
 The [Find square difference sample](samples/find_square_difference.adb) stores
 the first matching index and prints ` 501` followed by a newline.
 
