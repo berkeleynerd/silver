@@ -705,3 +705,83 @@ Selected settings remain **GPT-6 Astra / Max**; runtime, token and cost telemetr
 are unavailable. I launched no proof/build/test/application or cache-writing
 job, changed no GitHub state and updated no CLI memory. The evidence record
 timestamps the independent comparisons. The live harness goal remains null.
+
+## Addendum — procedure-name loop source literal, 2026-11-15
+
+**Bounded acceptance; no material finding.** I reviewed immutable repair
+`32c6fbca5` against accepted production `810d1a8e3`. Its production bytes match
+integrated `1dde32cce`. Only the proof/imports in
+`ProcedureNameSourceParts/Loop.lean` and the new `LoopExpectedTokens.lean` change.
+The [independent record](../evidence/scalar-procedures-20261115/delivery-review/procedure-name-loop-normalization-review.json)
+contains exact comparisons and terminal identities. Native audit/build acceptance
+remains applicable; complete Lean/actual-source assurance, regressions, Rosetta
+reconciliation and final feature acceptance remain pending.
+
+Complete run `20261115T214116-f50ce45f47c2` remains failed/interrupted, without
+a whole-project audit. Its retained original leaf matches the reviewed baseline,
+and the retained runner log matches its recorded digest. The single explicit
+kernel-memory diagnostic at `ProcedureNameSourceParts/Loop.lean:20:2` identifies
+the original public `Parts.loop` proof. Its preceding module completions are
+retained build progress. Reported original session `3798` returned outer exit
+254; monitored child return was -2 following source-only diagnostic SIGINT during
+the subsequent `ProcedureActualAfter`. No additional field probe was needed.
+Earlier complete failures and their bounded repairs retain their separate records.
+
+The original `SourceChecks.loopBody`, helper character/token literals and leaf
+`change` literal agree exactly: **677 characters / 134 tokens**. Both complete
+character lists, both helper/leaf token lists and independent lexical extraction
+agree. Independent selection from all **72,713** reviewed implementation tokens
+finds exactly one complete `actual_name_free` ordinary body, through its own
+`end actual_name_free;` terminator. The unchanged singleton selector still
+rejects duplicate matches and remains part of the kernel-checked equality.
+
+Every imperative statement and argument remains intact, including the initial
+range guard, range and Static model-equality loop invariants, increasing
+position variant, complete `Actual_Name_Step` call, two false returns, position
+update, true return and all nested/named closers. No source statement is replaced
+by a shorter model rendering. The new helper first checks `String.toList_ofList`
+through `kernel_exact`, then the unchanged alphabet, fuel and lexer with
+`decide +kernel`; the leaf rewrites that proved token equality and checks its
+explicit reflexive witness at the original complete-source goal.
+
+The public `loop` statement is byte-identical. Restoring its single proof body
+and removing two imports reconstructs the original leaf exactly. All nine other
+source parts, six header requirements, complete `Checked` structure and public
+assembly remain unchanged. `checked_scanner`, its full `StepDomain`, native
+equation premises, semantic transport, native body/contracts and authoritative
+source adapter remain unchanged. No obligation is removed, domain narrowed,
+assumed scanner equality introduced or project axiom added.
+
+Managed gate **`20261115T214559-235d06a3549a` passed** the complete
+`ProcedureNameSourceCandidate`: all original headers, record, step, model, loop,
+structural guards and the new helper. Its fresh imported audit covers **116
+modules / 14,774 declarations**, using only `propext`, `Classical.choice` and
+`Quot.sound`. Build/audit phases exited zero in 5.643 s / 0.817 s. The loop
+equality built in 3.5 s. Managed termination is success; the monitor records
+exit zero without a guard or interruption. The author collected original session
+`80078` exit zero, relayed by the lead and directly confirmed by the author.
+This reviewer inspected retained evidence without consuming that session.
+
+I verified all **1,116 input, 1,011 workspace, 4,082 artifact and two executable
+hashes**, the input digest and emitted module set. Every captured production input
+also matches the immutable reviewed commit. All 678 previous ordinary objects
+and 4,064 variant/hash files remain unchanged; the inventory now has 681 ordinary
+objects. The runner-log digest is
+`d24a707f0efeea9ecb7240fc3022d44905eab772195939886b2b9508104ec98f`.
+Immutable packet `dd7f23396` matches the inspected evidence, runner/launcher logs,
+resources, summary and managed events, and retains the original failed leaf/log.
+All original source parts and the complete candidate are present in the actual
+audited import set. Artifact identities do not expand that fresh audit's scope.
+
+The focused run retained one worker, automatic twelve threads and 8,192 MiB.
+Five-second sampling observed process/tree RSS of 951,440 / 1,385,184 KiB and
+15,390,160 KiB minimum host availability over 15.018 s monitored elapsed. These
+are sampled observations, not precise maxima or general memory bounds. This is
+incremental focused success, without a clean build or independent replay.
+The exact repair is accepted for the complete cached continuation; final
+whole-project assurance and feature acceptance remain pending.
+
+Selected settings remain **GPT-6 Astra / Max**; runtime model/effort and token/cost
+telemetry are unavailable. No reviewer proof/build/test/application or cache-writing
+job ran, no GitHub state changed and no CLI memory was updated. The independent
+record timestamps the comparisons; the live harness goal remains null.

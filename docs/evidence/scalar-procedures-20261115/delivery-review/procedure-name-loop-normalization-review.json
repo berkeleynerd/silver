@@ -1,0 +1,291 @@
+{
+  "review_target": "32c6fbca5cbf3bacb09b20273b16936322e3eab1",
+  "comparison_base": "810d1a8e3b0c859f6cfc3bcd496128cd8cffa91a",
+  "observed_at_utc": "2026-11-15T21:49:17.151654+00:00",
+  "selected_model": "gpt-6-astra",
+  "selected_effort": "max",
+  "runtime_token_cost_telemetry": "Unavailable",
+  "production_files": {
+    "proof/Silver/ProcedureNameSourceParts/Loop.lean": {
+      "reviewed_sha256": "e49994eaa6c1c0e853f5a9daad630d546da2dc13c30517d19840275781c3a875",
+      "author_worktree_matches": true
+    },
+    "proof/Silver/ProcedureNameSourceParts/LoopExpectedTokens.lean": {
+      "reviewed_sha256": "4fe0e919c96f039a0d3cdf872c274b886f3cc7c4908c462b9b31bbc57445aedf",
+      "author_worktree_matches": true
+    }
+  },
+  "production_delta": [
+    "proof/Silver/ProcedureNameSourceParts/Loop.lean",
+    "proof/Silver/ProcedureNameSourceParts/LoopExpectedTokens.lean"
+  ],
+  "checks": {
+    "original_public_loop_statement_byte_identical": true,
+    "only_original_proof_body_and_two_imports_change": true,
+    "all_four_original_helper_and_leaf_literals_equal": true,
+    "both_complete_character_lists_equal_original": true,
+    "helper_leaf_and_independent_lexical_tokens_equal": true,
+    "exact_character_and_token_counts": true,
+    "helper_uses_unchanged_alphabet_fuel_and_lexer": true,
+    "leaf_uses_proved_token_equality": true,
+    "leaf_keeps_complete_ordinary_function_source": true
+  },
+  "normalized_literal_characters": 677,
+  "normalized_tokens": 134,
+  "literal_sha256": "138f30ef120c727d4f061f44fa7063b71fc48040bc3080a48f0b5dd0748e8945",
+  "ordered_tokens_sha256": "e1ce53e3c4d19c8ecb68118cdd6b45894deb00b5da56a34a44ab2cdedbcc7ac5",
+  "full_source_tokens": 72713,
+  "source_headers_terminators": [
+    ";",
+    "is"
+  ],
+  "unique_complete_ordinary_function_match": true,
+  "preserved_imperative_shape": {
+    "loop_invariants": 2,
+    "loop_variants": 1,
+    "false_returns": 2,
+    "true_returns": 1,
+    "named_closing_tokens": [
+      "end",
+      "actual_name_free",
+      ";"
+    ]
+  },
+  "unchanged_source_mechanism_consumers": {
+    "proof/Silver/ProcedureNameSource.lean": true,
+    "proof/Silver/ProcedureNameSourceCandidate.lean": true,
+    "proof/Silver/ProcedureNameFreeNative.lean": true,
+    "proof/Silver/ProcedureNameSourceChecks.lean": true,
+    "proof/Silver/PredicateSourceChecks.lean": true,
+    "proof/Silver/ComposeBooleanDeclarationSource.lean": true,
+    "proof/Silver/CertificateWitness.lean": true,
+    "proof/Silver/SourceDeclarations.lean": true,
+    "proof/Silver/SourceLexer.lean": true,
+    "proof/Silver/ReviewedOutputShape.lean": true,
+    "src/silver_output_profile.adb": true,
+    "proof/Silver/ProcedureNameSourceParts/LoopImpl.lean": true,
+    "proof/Silver/ProcedureNameSourceParts/LoopSpec.lean": true,
+    "proof/Silver/ProcedureNameSourceParts/Model.lean": true,
+    "proof/Silver/ProcedureNameSourceParts/ModelImpl.lean": true,
+    "proof/Silver/ProcedureNameSourceParts/ModelSpec.lean": true,
+    "proof/Silver/ProcedureNameSourceParts/Record.lean": true,
+    "proof/Silver/ProcedureNameSourceParts/Step.lean": true,
+    "proof/Silver/ProcedureNameSourceParts/StepImpl.lean": true,
+    "proof/Silver/ProcedureNameSourceParts/StepSpec.lean": true
+  },
+  "native_parser_sha256": "9ede490b6cf72b352a39072cd37f4ef39774409c6024135487cf076567b59b9c",
+  "failed_complete_checkpoint": {
+    "recorded_identity": {
+      "run_id": "20261115T214116-f50ce45f47c2",
+      "production_revision": "810d1a8e3",
+      "equivalent_integration_production": "a6c8c8afc",
+      "verified_at": "2026-11-15T21:44:23.310988+00:00",
+      "all_prior_captured_hashes_match": {
+        "inputs_sha256": 1115,
+        "workspace_inputs_sha256": 1010,
+        "artifacts_sha256": 3974,
+        "tools_sha256": 2
+      },
+      "tools_sha256": {
+        ".tools/linux-aarch64/lean/bin/lean": "79fb1d26fa5a39385d59fdc48a711a14b0710ca6480271acce99b4d177cea085",
+        ".tools/linux-aarch64/lean/bin/lake": "f80f50cbab5322e35bcb0bf88937e22e9d908b5e4e336e83ddfc30eb1506aacf"
+      },
+      "original_exec_session": 3798,
+      "outer_launcher_exit_code": 254,
+      "monitored_child_returncode": -2,
+      "no_complete_audit": true,
+      "exact_managed_log_sha256": "6b27cac327536ab0d1db932758269998141fd2d9a927671169f30abd70c75644",
+      "compiled_module_objects_retained": 678,
+      "retained_variant_hash_files": 4064,
+      "prior_objects_byte_identical": true,
+      "failed_theorem": "Silver.ProcedureNameSourceCandidate.Parts.loop",
+      "failed_location": "ProcedureNameSourceParts/Loop.lean:20:2",
+      "outcome": "Individual actual_name_free ordinary-function equality reported explicit kernel-memory failure; source-only diagnostic SIGINT interrupted subsequent ProcedureActualAfter. No whole-project audit."
+    },
+    "failed_leaf_matches_original": true,
+    "exact_log_digest_matches": true,
+    "single_diagnostic_matches_original_loop_body": true,
+    "audit_present": false,
+    "monitor_returncode": -2,
+    "monitor_interrupted": true,
+    "monitor_summary_sha256": "1b31948a149429dad02bb84af756cff3e59ec9863c55a1f22e3a9fa89e098ef5",
+    "managed_events_sha256": "2b82255d73381cb2d24685ee19cba41af5d17111b7d1d5e7146035b4b64ba9bf",
+    "managed_terminal_outcome": "interrupted",
+    "retained_inventory_entries": 4064,
+    "retained_ordinary_objects": 678
+  },
+  "validation": {
+    "observed_at_utc": "2026-11-15T21:50:01.490642+00:00",
+    "run_id": "20261115T214559-235d06a3549a",
+    "host": "linux-aarch64",
+    "lean_version": "4.34.1",
+    "scope": "focused",
+    "targets": [
+      "Silver.ProcedureNameSourceCandidate"
+    ],
+    "module_count": 116,
+    "audit_lines": [
+      "Silver axiom audit passed: 14774 declarations; foundations: [propext, Classical.choice, Quot.sound]"
+    ],
+    "phases": [
+      {
+        "phase": "build",
+        "started_at": "2026-11-15T21:46:03.413689+00:00",
+        "finished_at": "2026-11-15T21:46:09.056721+00:00",
+        "elapsed_seconds": 5.643,
+        "exit_code": 0
+      },
+      {
+        "phase": "audit",
+        "started_at": "2026-11-15T21:46:09.761620+00:00",
+        "finished_at": "2026-11-15T21:46:10.579026+00:00",
+        "elapsed_seconds": 0.817,
+        "exit_code": 0
+      }
+    ],
+    "input_digest_matches": true,
+    "input_digest_sha256": "7179d60c18e7b55e4a19f09d132a9d3b9951bd70c7dc95e7af1f364de7ad825b",
+    "checked_hash_counts": {
+      "inputs_sha256": 1116,
+      "workspace_inputs_sha256": 1011,
+      "artifacts_sha256": 4082,
+      "tools_sha256": 2
+    },
+    "hash_mismatches": {
+      "inputs_sha256": [],
+      "workspace_inputs_sha256": [],
+      "artifacts_sha256": [],
+      "tools_sha256": []
+    },
+    "all_captured_inputs_match_immutable_review_commit": true,
+    "captured_input_commit_mismatches": [],
+    "captured_untracked_inputs": [],
+    "runner_log_matches": true,
+    "emitted_modules_equal_evidence": true,
+    "evidence_sha256": "e4b6497c5f1d0543d7dc864c04cc77201cbdcad3ecf949fa8ef4b9417aba0dc7",
+    "runner_log_uncompressed_sha256": "d24a707f0efeea9ecb7240fc3022d44905eab772195939886b2b9508104ec98f",
+    "managed_events_sha256": "f054eb4ffc31fe2247ead0acd0cf11e39a9d4339977df28fccd43c73eccf0716",
+    "managed_terminal": {
+      "duration_seconds": 12.877289173,
+      "event": "finished",
+      "evidence": [
+        {
+          "original": "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused.log",
+          "resolved": "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused.log"
+        },
+        {
+          "original": "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused-evidence.json",
+          "resolved": "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused-evidence.json"
+        },
+        {
+          "original": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T214559-235d06a3549a/previous-evidence/lean-focused.log",
+          "resolved": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T214559-235d06a3549a/previous-evidence/lean-focused.log"
+        },
+        {
+          "original": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T214559-235d06a3549a/previous-evidence/lean-focused-evidence.json",
+          "resolved": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T214559-235d06a3549a/previous-evidence/lean-focused-evidence.json"
+        },
+        {
+          "original": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T214559-235d06a3549a/lean-focused.log",
+          "resolved": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T214559-235d06a3549a/lean-focused.log"
+        },
+        {
+          "original": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T214559-235d06a3549a/lean-focused-evidence.json",
+          "resolved": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T214559-235d06a3549a/lean-focused-evidence.json"
+        }
+      ],
+      "failure_keys": [],
+      "monotonic_ns": 22403344462266,
+      "outcome": "success",
+      "retained_reports": [],
+      "returncode": null,
+      "run_id": "20261115T214559-235d06a3549a",
+      "utc": "2026-11-15T21:46:11.986275+00:00"
+    },
+    "monitor_summary_sha256": "d1157792666a31740a67039a876d9abcc2a31dc2cfb837a8bcfdae6dba01a95d",
+    "monitor_summary": {
+      "command": [
+        "python3",
+        "scripts/check_lean.py",
+        "--target",
+        "Silver.ProcedureNameSourceCandidate",
+        "--workers",
+        "1",
+        "--memory-mb",
+        "8192",
+        "--provenance",
+        "--task",
+        "370-procedure-name-loop-normalization",
+        "--reason",
+        "Full focused ProcedureNameSourceCandidate after isolated Parts.loop kernel-memory failure in complete run 20261115T214116-f50ce45f47c2. Immutable 32c6fbca5 normalizes only the original 677-character / 134-token expected imperative-loop literal. Preserve every invariant, variant, control-flow statement, return, closing token, public loop statement, complete ordinaryFunction selector, SourceChecks.loopBody, other parts and complete checked_scanner semantics. Validate the helper with the full six-header/record/step/model/loop candidate; preserve all 678 prior objects and earlier packets. One worker/default 12 Lean threads/8192 MiB is justified by measured dense single-module trees near 9 GiB on the 15.8 GiB host; native audit/build completed. Existing 10 GiB source-tree/1.5 GiB host-headroom/first-memory-diagnostic source-only guards. No clean/replay or repeated successful gate. Full focused success and independent critical acceptance precede complete cached continuation."
+      ],
+      "cwd": "/home/agent/silver-worktrees/procedures-lean-370",
+      "started_at": "2026-11-15T21:45:58.866404+00:00",
+      "peak_sum_rss_kib": 1385184,
+      "peak_process_rss_kib": 951440,
+      "minimum_mem_available_kib": 15390160,
+      "pid": 316108,
+      "returncode": 0,
+      "elapsed_seconds": 15.017629799000133,
+      "finished_at": "2026-11-15T21:46:13.884031+00:00",
+      "interrupted": false
+    },
+    "original_terminal": "Author reported collecting original session 80078 exit 0, relayed by lead. Reviewer inspected retained managed success and monitor exit 0, not that execution session.",
+    "settings": {
+      "clean_build": false,
+      "mode": "focused",
+      "kernel_recheck": null,
+      "lake_workers": 1,
+      "threads_per_process": 12,
+      "memory_mb_per_process": 8192
+    },
+    "integrated_commit": "1dde32cce242133cf9a4fd176f3c86356e7767d3",
+    "integrated_production_diff": [],
+    "prior_retained_inventory_hashes_preserved": 4064,
+    "prior_retained_ordinary_objects": 678,
+    "current_ordinary_objects": 681,
+    "scope_note": "All captured inputs and hashes establish identity; fresh audit covers the recorded imported closure. This is incremental focused success, not a whole-project audit or clean replay.",
+    "required_complete_candidate_imports": [
+      "Silver.ProcedureNameFreeNative",
+      "Silver.ProcedureNameSource",
+      "Silver.ProcedureNameSourceCandidate",
+      "Silver.ProcedureNameSourceParts.Loop",
+      "Silver.ProcedureNameSourceParts.LoopExpectedTokens",
+      "Silver.ProcedureNameSourceParts.LoopImpl",
+      "Silver.ProcedureNameSourceParts.LoopSpec",
+      "Silver.ProcedureNameSourceParts.Model",
+      "Silver.ProcedureNameSourceParts.ModelImpl",
+      "Silver.ProcedureNameSourceParts.ModelSpec",
+      "Silver.ProcedureNameSourceParts.Record",
+      "Silver.ProcedureNameSourceParts.Step",
+      "Silver.ProcedureNameSourceParts.StepImpl",
+      "Silver.ProcedureNameSourceParts.StepSpec"
+    ]
+  },
+  "disposition": "Accepted exact procedure-name loop normalization and complete focused candidate for integration and complete cached continuation; no material finding. Complete Lean/actual-source assurance, regressions, Rosetta and final feature acceptance remain pending.",
+  "scope": "Independent source/data extraction and retained-evidence inspection only. No proof/build/test/cache-writing job. Native/build acceptance remains applicable; complete Lean/source and feature acceptance remain pending.",
+  "durable_packet": {
+    "commit": "dd7f23396055e5065a9942189026370de1e9426f",
+    "checks": {
+      "focused_evidence": true,
+      "focused_runner_log": true,
+      "focused_events": true,
+      "focused_summary": true,
+      "focused_launcher": true,
+      "focused_resources": true,
+      "original_failed_leaf": true,
+      "original_failed_log": true,
+      "durable_packet_has_no_production_change": true,
+      "all_original_source_parts_helper_candidate_and_semantic_source_modules_audited": true
+    }
+  },
+  "limits": [
+    "The retained failed complete attempt remains failed/interrupted, with no whole-project audit.",
+    "Independent full-source extraction corroborates the original equality; it is not a kernel proof.",
+    "All artifact hashes were checked for identity; the fresh audit covers only the recorded 116-module imported closure.",
+    "This is incremental focused success, without a clean build, independent replay or general memory bound.",
+    "Native audit/build acceptance remains applicable to unchanged native inputs; whole-project and final feature acceptance remain pending.",
+    "Reviewer launched no proof/build/test/application or cache-writing job and made no GitHub or CLI memory change."
+  ],
+  "review_completed_at_utc": "2026-11-15T21:50:57.021261+00:00"
+}
