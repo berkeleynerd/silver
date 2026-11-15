@@ -1,0 +1,35 @@
+{
+  "platform": "Linux-7.0.14-aarch64-with-glibc2.41",
+  "rlimit_nofile": [
+    1048576,
+    1048576
+  ],
+  "trials": [
+    {
+      "path": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/procedures-lean-370/.tools/linux-aarch64/lean/lib/lean/Lake.olean",
+      "sha256": "1222d89bb05b5ecbb3783bb299192df979f4551baa37c6a5780feba53d11fdd0",
+      "error": {
+        "errno": 24,
+        "message": "[Errno 24] Too many open files: '/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/procedures-lean-370/.tools/linux-aarch64/lean/lib/lean/Lake.olean'"
+      },
+      "opened_handles": 9821,
+      "import_probe": {
+        "source": "import Lake\n#check Lake.Package\nopen Lake DSL\n",
+        "returncode": 1,
+        "stdout": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/procedures-lean-370/tmp/lean-recovery/lake-probe.lean:1:0: error: failed to open file '/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/procedures-lean-370/.tools/linux-aarch64/lean/lib/lean/Lean/Elab/AutoBound.olean.server': Too many open files\n",
+        "stderr": ""
+      }
+    },
+    {
+      "path": "/home/agent/silver-worktrees/procedures-lean-370/.tools/linux-aarch64/lean/lib/lean/Lake.olean",
+      "sha256": "1222d89bb05b5ecbb3783bb299192df979f4551baa37c6a5780feba53d11fdd0",
+      "opened_handles": 12000,
+      "import_probe": {
+        "source": "import Lake\n#check Lake.Package\nopen Lake DSL\n",
+        "returncode": 0,
+        "stdout": "Lake.Package : Type\n",
+        "stderr": ""
+      }
+    }
+  ]
+}

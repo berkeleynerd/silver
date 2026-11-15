@@ -1,0 +1,27 @@
+{
+  "command": [
+    "python3",
+    "scripts/check_lean.py",
+    "--target",
+    "Silver.FunctionSourceParts.DeclarationLoopFunctionLocals",
+    "--workers",
+    "1",
+    "--memory-mb",
+    "8192",
+    "--provenance",
+    "--task",
+    "370-lean-memory-recovery",
+    "--reason",
+    "Following two retained8192MiB whole-source failures: bounded token-segment transformers for every suffix plus kernel equality covering complete ordered reviewedsource; same theorem/extractor/fulluniqueness.1worker/default12threads on16GiBhost, native<=2jobs; certificate denseprobes held."
+  ],
+  "cwd": "/home/agent/silver-worktrees/procedures-lean-370",
+  "started_at": "2026-11-15T17:09:59.062203+00:00",
+  "peak_sum_rss_kib": 9507504,
+  "peak_process_rss_kib": 8392464,
+  "minimum_mem_available_kib": 5735568,
+  "pid": 10687,
+  "returncode": 1,
+  "elapsed_seconds": 80.14649870499943,
+  "finished_at": "2026-11-15T17:11:19.208706+00:00",
+  "interrupted": false
+}
