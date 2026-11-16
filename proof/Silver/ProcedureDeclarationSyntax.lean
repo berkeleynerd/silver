@@ -514,6 +514,9 @@ def Token.shell : Token → ShellToken
   | .returnKeyword => .word "return" | .endKeyword => .word "end" | .functionKeyword => .word "function"
   | .leftParenthesis => .symbol "(" | .isKeyword => .word "is"
 
+theorem Token.name_eq_tokenName_shell : ∀ t : Token, t.name = Expressions.tokenName t.shell := by
+  intro t; cases t <;> rfl
+
 inductive Capacity | procedures | procedureFormals | functions | formals | scalars | booleans
   deriving DecidableEq, Repr
 

@@ -1,6 +1,7 @@
 module
 
 public import Silver.ComposeAdmission
+public import Silver.ComposeExpressions
 
 @[expose] public section
 
@@ -68,6 +69,9 @@ def Token.name : Token → String
 def Token.shell : Token → ShellToken
   | .colon => .symbol ":" | .constantKeyword => .word "constant" | .booleanName => .word "boolean"
   | .assignment => .symbol ":=" | .semicolon => .symbol ";"
+
+theorem Token.name_eq_tokenName_shell : ∀ t : Token, t.name = Expressions.tokenName t.shell := by
+  intro t; cases t <;> rfl
 
 inductive Mark | integer | boolean | character
   deriving DecidableEq, Repr

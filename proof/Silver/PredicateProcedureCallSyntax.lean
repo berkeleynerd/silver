@@ -226,6 +226,9 @@ def Token.name : Token → String
 def Token.shell : Token → ShellToken
   | .leftParenthesis => .symbol "(" | .rightParenthesis => .symbol ")" | .comma => .symbol ","
 
+theorem Token.name_eq_tokenName_shell : ∀ t : Token, t.name = Expressions.tokenName t.shell := by
+  intro t; cases t <;> rfl
+
 inductive Expr : Ty → Type
   | number : Nat → Expr .number | truth : Bool → Expr .truth
   | token : Token → Expr .token

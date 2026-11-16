@@ -118,6 +118,9 @@ def Token.shell : Token → Compose.ShellToken
   | .andKeyword => .word "and" | .orKeyword => .word "or" | .thenKeyword => .word "then"
   | .elseKeyword => .word "else" | .endKeyword => .word "end"
 
+theorem Token.name_eq_tokenName_shell : ∀ t : Token, t.name = Compose.Expressions.tokenName t.shell := by
+  intro t; cases t <;> rfl
+
 def Token.isChain (token : Token) : Bool := token == .andKeyword || token == .orKeyword
 
 /-- The scanner's operator category is distinct from its lexical token kind. -/

@@ -77,8 +77,8 @@ theorem compileDefinitions_valid {functions : ScalarFunctions.Environment} {defi
     (compileDefinitions functions definitions).Valid :=
   compileFrom_valid functionValid Environment.empty_valid checked
 
-/-- Checked execution includes every mandatory out initializer and the entire
-body, over every admitted input tuple, whether or not a caller uses the definition. -/
+/-- Every definition returns fitting outputs, agrees with checked execution and
+has no effects for every fitting input tuple, whether or not a caller uses it. -/
 def DefinitionsSafe (functions : ScalarFunctions.Environment) : Environment → List Definition → Prop
   | _, [] => True
   | earlier, definition :: rest =>

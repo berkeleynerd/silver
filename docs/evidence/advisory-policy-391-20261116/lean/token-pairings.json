@@ -1,0 +1,292 @@
+{
+  "ProcedureDeclarationSyntax": {
+    "constructors": 14,
+    "pairings": {
+      "procedureKeyword": {
+        "name": "procedure_keyword",
+        "kind": "word",
+        "spelling": "procedure"
+      },
+      "outKeyword": {
+        "name": "out_keyword",
+        "kind": "word",
+        "spelling": "out"
+      },
+      "assignment": {
+        "name": "assignment",
+        "kind": "symbol",
+        "spelling": ":="
+      },
+      "booleanName": {
+        "name": "boolean_name",
+        "kind": "word",
+        "spelling": "boolean"
+      },
+      "colon": {
+        "name": "colon",
+        "kind": "symbol",
+        "spelling": ":"
+      },
+      "inKeyword": {
+        "name": "in_keyword",
+        "kind": "word",
+        "spelling": "in"
+      },
+      "semicolon": {
+        "name": "semicolon",
+        "kind": "symbol",
+        "spelling": ";"
+      },
+      "rightParenthesis": {
+        "name": "right_parenthesis",
+        "kind": "symbol",
+        "spelling": ")"
+      },
+      "beginKeyword": {
+        "name": "begin_keyword",
+        "kind": "word",
+        "spelling": "begin"
+      },
+      "returnKeyword": {
+        "name": "return_keyword",
+        "kind": "word",
+        "spelling": "return"
+      },
+      "endKeyword": {
+        "name": "end_keyword",
+        "kind": "word",
+        "spelling": "end"
+      },
+      "functionKeyword": {
+        "name": "function_keyword",
+        "kind": "word",
+        "spelling": "function"
+      },
+      "leftParenthesis": {
+        "name": "left_parenthesis",
+        "kind": "symbol",
+        "spelling": "("
+      },
+      "isKeyword": {
+        "name": "is_keyword",
+        "kind": "word",
+        "spelling": "is"
+      }
+    }
+  },
+  "PredicateProcedureCallSyntax": {
+    "constructors": 3,
+    "pairings": {
+      "leftParenthesis": {
+        "name": "left_parenthesis",
+        "kind": "symbol",
+        "spelling": "("
+      },
+      "rightParenthesis": {
+        "name": "right_parenthesis",
+        "kind": "symbol",
+        "spelling": ")"
+      },
+      "comma": {
+        "name": "comma",
+        "kind": "symbol",
+        "spelling": ","
+      }
+    }
+  },
+  "FunctionDeclarationNative": {
+    "constructors": 11,
+    "pairings": {
+      "booleanName": {
+        "name": "boolean_name",
+        "kind": "word",
+        "spelling": "boolean"
+      },
+      "colon": {
+        "name": "colon",
+        "kind": "symbol",
+        "spelling": ":"
+      },
+      "inKeyword": {
+        "name": "in_keyword",
+        "kind": "word",
+        "spelling": "in"
+      },
+      "semicolon": {
+        "name": "semicolon",
+        "kind": "symbol",
+        "spelling": ";"
+      },
+      "rightParenthesis": {
+        "name": "right_parenthesis",
+        "kind": "symbol",
+        "spelling": ")"
+      },
+      "beginKeyword": {
+        "name": "begin_keyword",
+        "kind": "word",
+        "spelling": "begin"
+      },
+      "returnKeyword": {
+        "name": "return_keyword",
+        "kind": "word",
+        "spelling": "return"
+      },
+      "endKeyword": {
+        "name": "end_keyword",
+        "kind": "word",
+        "spelling": "end"
+      },
+      "functionKeyword": {
+        "name": "function_keyword",
+        "kind": "word",
+        "spelling": "function"
+      },
+      "leftParenthesis": {
+        "name": "left_parenthesis",
+        "kind": "symbol",
+        "spelling": "("
+      },
+      "isKeyword": {
+        "name": "is_keyword",
+        "kind": "word",
+        "spelling": "is"
+      }
+    }
+  },
+  "ComposeBooleanDeclarationNative": {
+    "constructors": 5,
+    "pairings": {
+      "colon": {
+        "name": "colon",
+        "kind": "symbol",
+        "spelling": ":"
+      },
+      "constantKeyword": {
+        "name": "constant_keyword",
+        "kind": "word",
+        "spelling": "constant"
+      },
+      "booleanName": {
+        "name": "boolean_name",
+        "kind": "word",
+        "spelling": "boolean"
+      },
+      "assignment": {
+        "name": "assignment",
+        "kind": "symbol",
+        "spelling": ":="
+      },
+      "semicolon": {
+        "name": "semicolon",
+        "kind": "symbol",
+        "spelling": ";"
+      }
+    }
+  },
+  "PredicateNativeState": {
+    "constructors": 20,
+    "pairings": {
+      "leftParenthesis": {
+        "name": "left_parenthesis",
+        "kind": "symbol",
+        "spelling": "("
+      },
+      "rightParenthesis": {
+        "name": "right_parenthesis",
+        "kind": "symbol",
+        "spelling": ")"
+      },
+      "argumentsName": {
+        "name": "arguments_name",
+        "kind": "word",
+        "spelling": "silver_arguments"
+      },
+      "dot": {
+        "name": "dot",
+        "kind": "symbol",
+        "spelling": "."
+      },
+      "inputIsValid": {
+        "name": "input_is_valid_name",
+        "kind": "word",
+        "spelling": "input_is_valid"
+      },
+      "apostrophe": {
+        "name": "apostrophe",
+        "kind": "symbol",
+        "spelling": "'"
+      },
+      "lengthName": {
+        "name": "length_name",
+        "kind": "word",
+        "spelling": "length"
+      },
+      "notEqual": {
+        "name": "not_equal",
+        "kind": "symbol",
+        "spelling": "/="
+      },
+      "lessEqual": {
+        "name": "less_equal",
+        "kind": "symbol",
+        "spelling": "<="
+      },
+      "greaterEqual": {
+        "name": "greater_equal",
+        "kind": "symbol",
+        "spelling": ">="
+      },
+      "equal": {
+        "name": "equal",
+        "kind": "symbol",
+        "spelling": "="
+      },
+      "less": {
+        "name": "less",
+        "kind": "symbol",
+        "spelling": "<"
+      },
+      "greater": {
+        "name": "greater",
+        "kind": "symbol",
+        "spelling": ">"
+      },
+      "notKeyword": {
+        "name": "not_keyword",
+        "kind": "word",
+        "spelling": "not"
+      },
+      "xorKeyword": {
+        "name": "xor_keyword",
+        "kind": "word",
+        "spelling": "xor"
+      },
+      "andKeyword": {
+        "name": "and_keyword",
+        "kind": "word",
+        "spelling": "and"
+      },
+      "orKeyword": {
+        "name": "or_keyword",
+        "kind": "word",
+        "spelling": "or"
+      },
+      "thenKeyword": {
+        "name": "then_keyword",
+        "kind": "word",
+        "spelling": "then"
+      },
+      "elseKeyword": {
+        "name": "else_keyword",
+        "kind": "word",
+        "spelling": "else"
+      },
+      "endKeyword": {
+        "name": "end_keyword",
+        "kind": "word",
+        "spelling": "end"
+      }
+    }
+  }
+}

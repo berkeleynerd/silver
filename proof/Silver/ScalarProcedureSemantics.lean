@@ -139,8 +139,8 @@ theorem Definition.execute_effectless {functions : ScalarFunctions.Environment} 
   have bodyClosed : scalarStatements definition.body = true := (Bool.and_eq_true_iff.mp ready.2.2.2.1).2
   exact scalar_statements_effectless _ _ _ bodyClosed _ _ _
 
-/-- Checked local initialization, the actual mandatory prefix, the complete
-ordinary body and output reads succeed over the entire formal input domain. -/
+/-- Every fitting input tuple produces fitting outputs, agrees with checked
+execution, has no body effects and makes every output read safe. -/
 theorem Definition.execution_sound {functions : ScalarFunctions.Environment} {earlier : Environment}
     {definition : Definition} (functionValid : functions.Valid) (procedureValid : earlier.Valid)
     (checked : definition.Checked functions.signatures earlier.signatures)
