@@ -9,9 +9,25 @@ program = shared.program
 IDENTITY = b'function Id(X:in Integer)return Integer is begin return X;end Id;'
 BOOLEAN = b'function Flip(B:in Boolean)return Boolean is begin return not B;end Flip;'
 
+# A valid argument shell accepts the default, empty and printable inputs. Invalid
+# arity and non-printable input must reject before any application output.
+ARGUMENT_SILENT_RUNS = (
+    ((), b'', 0), ((b'',), b'', 0), ((b'valid',), b'', 0),
+    ((b'one', b'two'), b'', 1), ((b'\x01',), b'', 1),
+)
+ARGUMENT_OK_RUNS = (
+    ((), b'ok\n', 0), ((b'',), b'ok\n', 0), ((b'valid',), b'ok\n', 0),
+    ((b'one', b'two'), b'', 1), ((b'\x01',), b'', 1),
+)
+ARGUMENT_ECHO_RUNS = (
+    ((), b'old\n', 0), ((b'',), b'\n', 0), ((b'valid',), b'valid\n', 0),
+    ((b'one', b'two'), b'', 1), ((b'\x01',), b'', 1),
+)
+
 
 class ScalarFunctionTests(unittest.TestCase):
     check = shared.SharedBindingsTests.check
+    check_full_route = shared.SharedBindingsTests.check_full_route
     compile = shared.SharedBindingsTests.compile
     run_program = shared.SharedBindingsTests.run_program
 
@@ -22,18 +38,19 @@ class ScalarFunctionTests(unittest.TestCase):
 
     def test_typed_terminal_returns_and_assignment_calls(self) -> None:
         cases = (
-            (IDENTITY + b'R:Integer:=0;', b'R:=id(7);R:=Id(R);'),
-            (BOOLEAN + b'R:Boolean:=False;', b'R:=fLIP(True);R:=Flip(R);'),
+            (IDENTITY + b'R:Integer:=0;', b'R:=id(7);R:=Id(R);', ('Id',)),
+            (BOOLEAN + b'R:Boolean:=False;', b'R:=fLIP(True);R:=Flip(R);', ('Flip',)),
             (b'subtype Small is Integer range -2..2;'
              b'function Id(X:in Small)return Small is begin return X;end Id;'
-             b'R:Small:=0;', b'R:=Id((-2));R:=Id(2);'),
+             b'R:Small:=0;', b'R:=Id((-2));R:=Id(2);', ('Id',)),
             (b'function Select_Value(X:in Integer;B:in Boolean)return Integer is '
              b'R:Integer:=0;begin if B then R:=X;end if;return R;end Select_Value;'
-             b'R:Integer:=0;', b'R:=Select_Value(7,1<2);'),
+             b'R:Integer:=0;', b'R:=Select_Value(7,1<2);', ('Select_Value',)),
         )
-        for declarations, body in cases:
+        for declarations, body, functions in cases:
             with self.subTest(declarations=declarations):
-                self.check(program(declarations, body))
+                self.check_full_route(program(declarations, body),
+                                      kind='assigned', functions=functions)
 
     def test_formal_syntax_and_closing_names(self) -> None:
         for declaration in (
@@ -102,7 +119,7 @@ class ScalarFunctionTests(unittest.TestCase):
         self.check(program(unsafe + b'R:Integer:=0;', b'R:=F(0);'), 2)
         bounded = (b'subtype Small is Integer range 0..9;'
                    b'function F(X:in Small)return Integer is begin return (X+1);end F;')
-        self.check(program(bounded, b'null;'))
+        self.check_full_route(program(bounded, b'null;'), kind='static', functions=('F',))
         self.check(program(IDENTITY.replace(b'return X;', b'return (1/X);'), b'null;'), 2)
 
     def test_actual_and_result_ranges_use_declared_subtypes(self) -> None:
@@ -110,12 +127,14 @@ class ScalarFunctionTests(unittest.TestCase):
                        b'function F(X:in Small)return Small is begin return 0;end F;')
         for actual, status in ((b'0', 0), (b'9', 0), (b'(-1)', 2), (b'10', 2)):
             with self.subTest(actual=actual):
-                self.check(program(declaration + b'R:Small:=0;', b'R:=F(' + actual + b');'), status)
+                self.check_full_route(program(declaration + b'R:Small:=0;', b'R:=F(' + actual + b');'),
+                                      status, kind='assigned', functions=('F',))
         self.check(program(declaration + b'R:Integer range 0..8:=0;', b'R:=F(0);'), 2)
         self.check(program(IDENTITY + b'R:Integer range 0..9:=0;', b'R:=Id(0);'), 2)
         self.check(program(declaration.replace(b'return 0;', b'return 10;'), b'null;'), 2)
-        self.check(program(declaration + b'R:Small:=0;N:Integer:=0;',
-                           b'if N>=0 and then N<=9 then R:=F(N);end if;'))
+        self.check_full_route(program(declaration + b'R:Small:=0;N:Integer:=0;',
+                                     b'if N>=0 and then N<=9 then R:=F(N);end if;'),
+                              kind='assigned', functions=('F',))
         self.check(program(declaration + b'R:Small:=0;N:Integer:=0;',
                            b'R:=1;R:=F(R);N:=(1/R);'), 2)
 
@@ -131,17 +150,19 @@ class ScalarFunctionTests(unittest.TestCase):
         declarations = (b'function F(B:in Boolean;X:in Integer)return Integer is '
                         b'begin return X;end F;N:Integer range 0..1:=0;R:Integer:=0;')
         self.check(program(declarations, b'R:=F(N/=0,(1/N));'), 2)
-        self.check(program(declarations, b'if N/=0 then R:=F(True,(1/N));end if;'))
+        self.check_full_route(program(declarations, b'if N/=0 then R:=F(True,(1/N));end if;'),
+                              kind='assigned', functions=('F',))
 
     def test_boolean_result_carries_no_argument_or_input_facts(self) -> None:
         declarations = (b'function Nonzero(X:in Integer)return Boolean is '
                         b'begin return X/=0;end Nonzero;'
                         b'N:Integer range 0..1:=0;R:Integer:=0;B:Boolean:=False;')
         self.check(program(declarations, b'B:=Nonzero(N);if B then R:=(1/N);end if;'), 2)
-        self.check(program(BOOLEAN + b'B:Boolean:=False;',
-                           b'B:=Flip(not Silver_Arguments.Input_Is_Valid);'
-                           b'if B then Silver_IO.Put_Line("ok");else '
-                           b'Silver_Arguments.Reject;end if;', arguments=True))
+        self.check_full_route(program(BOOLEAN + b'B:Boolean:=False;',
+                                     b'B:=Flip(not Silver_Arguments.Input_Is_Valid);'
+                                     b'if B then Silver_IO.Put_Line("ok");else '
+                                     b'Silver_Arguments.Reject;end if;', arguments=True),
+                              kind='selected', functions=('Flip',), runs=ARGUMENT_OK_RUNS)
         # The helper's outer real guard above permits it; a stored call result
         # alone must not discharge the shell's input requirement.
         source = (b'with Silver_IO;with Silver_Arguments;procedure Main is pragma SPARK_Mode(On);'
@@ -153,11 +174,13 @@ class ScalarFunctionTests(unittest.TestCase):
     def test_boolean_actuals_use_caller_string_and_character_facts(self) -> None:
         declarations = (BOOLEAN + b'R:Boolean:=False;S:String:="ab";'
                         b"C:Character:='a';")
-        self.check(program(declarations,
-                           b'R:=Flip(S="ab");R:=Flip(C=S(1));'
-                           b"R:=Flip(S'Length=2 and then S(2)='b');"))
-        self.check(program(BOOLEAN + b'R:Boolean:=False;',
-                           b'R:=Flip(Input="old");', arguments=True))
+        self.check_full_route(program(declarations,
+                                     b'R:=Flip(S="ab");R:=Flip(C=S(1));'
+                                     b"R:=Flip(S'Length=2 and then S(2)='b');"),
+                              kind='assigned', functions=('Flip',))
+        self.check_full_route(program(BOOLEAN + b'R:Boolean:=False;',
+                                     b'R:=Flip(Input="old");', arguments=True),
+                              kind='selected', functions=('Flip',), runs=ARGUMENT_SILENT_RUNS)
         # Each actual still needs its own established String index bounds.
         self.check(program(declarations, b"R:=Flip(S(3)='b');"), 2)
 
@@ -165,14 +188,16 @@ class ScalarFunctionTests(unittest.TestCase):
         named_true = IDENTITY.replace(b'Id', b'True')
         named_boolean = IDENTITY.replace(b'Id', b'Boolean')
         result = b'function F(X:in Integer)return Boolean is begin return '
-        self.check(program(named_true + result + b'False;end F;', b'null;'))
+        self.check_full_route(program(named_true + result + b'False;end F;', b'null;'),
+                              kind='static', functions=('True', 'F'))
         self.check(program(named_true + result + b'True;end F;', b'null;'), 2)
         self.check(program(named_boolean + BOOLEAN, b'null;'), 2)
 
     def test_earlier_calls_and_recursion_rejection(self) -> None:
         wrapper = (b'function Twice(X:in Integer)return Integer is R:Integer:=0;'
                    b'begin R:=Id(X);R:=Id(R);return R;end Twice;')
-        self.check(program(IDENTITY + wrapper + b'R:Integer:=0;', b'R:=Twice(7);'))
+        self.check_full_route(program(IDENTITY + wrapper + b'R:Integer:=0;', b'R:=Twice(7);'),
+                              kind='assigned', functions=('Id', 'Twice'))
         self.check(program(wrapper + IDENTITY, b'null;'), 2)
         self_call = (b'function F(X:in Integer)return Integer is R:Integer:=0;'
                      b'begin R:=F(X);return R;end F;')
@@ -183,7 +208,7 @@ class ScalarFunctionTests(unittest.TestCase):
     def test_local_initializers_are_independent_exact_snapshots(self) -> None:
         body = (b'function F(X:in Integer)return Integer is A:Integer:=7;'
                 b'K:constant Integer:=A;begin A:=X;return K;end F;')
-        self.check(program(body, b'null;'))
+        self.check_full_route(program(body, b'null;'), kind='assigned', functions=('F',))
         for locals_ in (b'A:Integer:=X;', b'B:Boolean:=X=0;', b'A:Integer:=Outer;',
                         b'A:Integer:=Id(0);', b'X:Integer:=0;',
                         b'subtype S is Integer range 0..9;A:S:=0;'):
@@ -215,7 +240,7 @@ class ScalarFunctionTests(unittest.TestCase):
         declaration = (b'function F(X:in Integer)return Integer is R:Integer:=0;begin '
                        b'if X>0 then for I in 1..2 loop R:=(1/X);end loop;end if;'
                        b'return R;end F;')
-        self.check(program(declaration, b'null;'))
+        self.check_full_route(program(declaration, b'null;'), kind='assigned', functions=('F',))
         self.check(program(declaration.replace(b'X>0', b'X/=0'), b'null;'), 2)
 
     def test_hiding_and_duplicate_names(self) -> None:
@@ -233,20 +258,21 @@ class ScalarFunctionTests(unittest.TestCase):
     def test_existing_array_actuals_and_nested_loops(self) -> None:
         declarations = (IDENTITY + BOOLEAN + b'R:Integer:=0;B:Boolean:=False;'
                         b'A:array(1..2)of Integer:=(4,5);Flags:array(1..2)of Boolean:=(True,False);')
-        self.check(program(declarations, b'for I in 1..2 loop for J in 1..2 loop '
-                           b'R:=Id(A(I));B:=Flip(Flags(J));end loop;end loop;'))
+        self.check_full_route(program(declarations, b'for I in 1..2 loop for J in 1..2 loop '
+                                     b'R:=Id(A(I));B:=Flip(Flags(J));end loop;end loop;'),
+                              kind='assigned', functions=('Id', 'Flip'))
 
     def test_local_hiding_is_independent_of_return_arithmetic(self) -> None:
         # C-1's original programs reject their returns, not their local names.
         cases = (
             (b'A:array(0..1)of Boolean:=(True,False);', b'A', b'1',
-             b'1', b"if A(0) then Silver_IO.Put_Line(Integer'Image(R));end if;"),
+             b'1', b"if A(0) then Silver_IO.Put_Line(Integer'Image(R));end if;", b' 1\n'),
             (b'K:Integer:=2;', b'K', b'1',
-             b'K', b"Silver_IO.Put_Line(Integer'Image(R));"),
+             b'K', b"Silver_IO.Put_Line(Integer'Image(R));", b' 1\n'),
             (b'S:constant String:="ab";', b'S', b'1', b'1',
-             b"Silver_IO.Put_Line(S);Silver_IO.Put_Line(Integer'Image(R));"),
+             b"Silver_IO.Put_Line(S);Silver_IO.Put_Line(Integer'Image(R));", b'ab\n 1\n'),
         )
-        for outer, local, value, actual, output in cases:
+        for outer, local, value, actual, output, expected_output in cases:
             declarations = (outer + b'function F(X:in Integer)return Integer is '
                             + local + b':Integer:=' + value + b';begin return ')
             suffix = (b';end F;R:Integer:=0;begin R:=F(' + actual + b');'
@@ -256,7 +282,9 @@ class ScalarFunctionTests(unittest.TestCase):
                                    (b'(' + local + b'+X)', 2)):
                 with self.subTest(local=local, result=result):
                     # Grouping fixes the syntax, but not full-Integer overflow.
-                    self.check(prefix + declarations + result + suffix, status)
+                    self.check_full_route(prefix + declarations + result + suffix, status,
+                                          kind='assigned', functions=('F',),
+                                          runs=(((), expected_output, 0),))
 
     def test_source_wide_operator_budget_spans_functions(self) -> None:
         for count, status in ((63, 0), (64, 2)):
@@ -268,7 +296,8 @@ class ScalarFunctionTests(unittest.TestCase):
             # assignments keep each expression below its operand budget.
             body = b'R:=(R+0);' * (count - 2)
             with self.subTest(count=count):
-                self.check(program(functions + b'R:Integer range 0..1:=0;', body), status)
+                self.check_full_route(program(functions + b'R:Integer range 0..1:=0;', body),
+                                      status, kind='assigned', functions=('F0', 'F1'))
 
     def test_dense_formals_and_complete_source_bound(self) -> None:
         formals = b';'.join(b'P' + str(i).encode() + b':in Integer' for i in range(150))
@@ -276,7 +305,7 @@ class ScalarFunctionTests(unittest.TestCase):
         source = program(declaration, b'null;')
         self.assertLess(len(source), 4096)
         padded = source + b' ' * (4096 - len(source))
-        self.check(padded)
+        self.check_full_route(padded, kind='static', functions=('F',))
         self.check(padded + b' ', 2)
 
     def test_dense_locals_and_function_list(self) -> None:
@@ -285,7 +314,7 @@ class ScalarFunctionTests(unittest.TestCase):
                        b'function F(X:in Integer)return Integer is ' + locals_ +
                        b'begin return X;end F;')
         self.assertLess(len(program(declaration, b'null;')), 4096)
-        self.check(program(declaration, b'null;'))
+        self.check_full_route(program(declaration, b'null;'), kind='static', functions=('F',))
         functions = b''
         count = 0
         while True:
@@ -297,7 +326,8 @@ class ScalarFunctionTests(unittest.TestCase):
             functions = candidate
             count += 1
         self.assertGreater(count, 30)
-        self.check(program(functions, b'null;'))
+        self.check_full_route(program(functions, b'null;'), kind='static',
+                              functions=tuple(f'F{i}' for i in range(count)))
 
     def test_native_ordered_calls_snapshot_and_full_unused_coverage(self) -> None:
         declarations = (b'subtype Small is Integer range 0..9;'

@@ -4,6 +4,7 @@ import tempfile
 import unittest
 
 from tests import test_shared_bindings as shared
+from tests import test_scalar_functions as scalar_functions
 
 program = shared.program
 RESET = b'procedure Reset(X:out Integer)is begin X:=0;end Reset;'
@@ -14,6 +15,7 @@ FLAG = b'procedure Flip(B:in out Boolean)is begin B:=not B;end Flip;'
 
 class ScalarProcedureTests(unittest.TestCase):
     check = shared.SharedBindingsTests.check
+    check_full_route = shared.SharedBindingsTests.check_full_route
     compile = shared.SharedBindingsTests.compile
     run_program = shared.SharedBindingsTests.run_program
 
@@ -23,9 +25,11 @@ class ScalarProcedureTests(unittest.TestCase):
         self.source = Path(temporary.name).resolve() / 'procedures.adb'
 
     def test_output_and_inout_calls_are_case_insensitive(self) -> None:
-        self.check(program(RESET + FLAG + b'R:Integer:=7;B:Boolean:=False;',
-                           b'rESET(R);fLIP(B);'))
-        self.check(program(PAIR + b'A:Integer:=0;B:Integer:=0;', b'Pair(7,A,B);'))
+        self.check_full_route(program(RESET + FLAG + b'R:Integer:=7;B:Boolean:=False;',
+                                     b'rESET(R);fLIP(B);'),
+                              kind='assigned', procedures={'Reset': ('X',), 'Flip': ()})
+        self.check_full_route(program(PAIR + b'A:Integer:=0;B:Integer:=0;', b'Pair(7,A,B);'),
+                              kind='assigned', procedures={'Pair': ('X', 'Y')})
 
     def test_formal_modes_names_and_closing_name(self) -> None:
         for declaration in (
@@ -44,7 +48,8 @@ class ScalarProcedureTests(unittest.TestCase):
         ):
             with self.subTest(declaration=declaration):
                 self.check(program(declaration, b'null;'), 2)
-        self.check(program(b'procedure P(X:in out Integer)is begin null;end P;', b'null;'))
+        self.check_full_route(program(b'procedure P(X:in out Integer)is begin null;end P;', b'null;'),
+                              kind='static', procedures={'P': ()})
 
     def test_outputs_have_ordered_unconditional_initialization(self) -> None:
         prefix = b'procedure P(X:out Integer;Y:out Integer)is begin '
@@ -56,7 +61,8 @@ class ScalarProcedureTests(unittest.TestCase):
         ):
             with self.subTest(body=body):
                 self.check(program(prefix + body + b'end P;', b'null;'), 2)
-        self.check(program(prefix + b'X:=0;Y:=1;X:=Y;Y:=X;end P;', b'null;'))
+        self.check_full_route(program(prefix + b'X:=0;Y:=1;X:=Y;Y:=X;end P;', b'null;'),
+                              kind='assigned', procedures={'P': ('X', 'Y')})
 
     def test_prefix_cannot_read_any_output_or_call_a_function(self) -> None:
         identity = b'function Id(N:in Integer)return Integer is begin return N;end Id;'
@@ -73,11 +79,13 @@ class ScalarProcedureTests(unittest.TestCase):
         declaration = (b'procedure P(N:in Integer;X:out Integer;Y:in out Integer)is '
                        b'K:Integer:=7;begin X:=N;Y:=K;X:=Y;end P;'
                        b'R:Integer:=0;S:Integer:=0;')
-        self.check(program(declaration, b'P(3,R,S);'))
+        self.check_full_route(program(declaration, b'P(3,R,S);'),
+                              kind='assigned', procedures={'P': ('X',)})
         boolean = (b'procedure P(A:in Boolean;B:out Boolean;C:in out Boolean)is '
                    b'begin B:=A and then C;C:=not C;end P;'
                    b'B:Boolean:=False;C:Boolean:=True;')
-        self.check(program(boolean, b'P(True,B,C);'))
+        self.check_full_route(program(boolean, b'P(True,B,C);'),
+                              kind='assigned', procedures={'P': ('B',)})
 
     def test_full_input_domain_checked_even_for_unused_procedures(self) -> None:
         unsafe = (b'procedure P(N:in Integer;X:out Integer)is '
@@ -85,10 +93,10 @@ class ScalarProcedureTests(unittest.TestCase):
         self.check(program(unsafe, b'null;'), 2)
         self.check(program(unsafe + b'R:Integer:=0;', b'P(0,R);'), 2)
         safe = b'subtype Small is Integer range 0..9;' + unsafe.replace(b'N:in Integer', b'N:in Small')
-        self.check(program(safe, b'null;'))
+        self.check_full_route(program(safe, b'null;'), kind='assigned', procedures={'P': ('X',)})
         divisor = (b'procedure P(D:in Integer;X:out Integer)is '
                    b'begin X:=0;if D>0 then X:=(10/D);end if;end P;')
-        self.check(program(divisor, b'null;'))
+        self.check_full_route(program(divisor, b'null;'), kind='assigned', procedures={'P': ('X',)})
         self.check(program(divisor.replace(b'if D>0 then ', b'').replace(b'end if;', b''),
                            b'null;'), 2)
 
@@ -96,30 +104,35 @@ class ScalarProcedureTests(unittest.TestCase):
         subtype = b'subtype Den is Integer range 0..1;'
         declaration = (b'procedure P(N:in Den;B:out Boolean)is '
                        b'begin B:=N>0 and then (1/N)=1;end P;')
-        self.check(program(subtype + declaration, b'null;'))
-        self.check(program(subtype + declaration.replace(b'begin B:=', b'begin B:=False;B:='),
-                           b'null;'))
-        self.check(program(subtype + declaration.replace(b'N:in Den', b'N:in out Den'),
-                           b'null;'))
-        self.check(program(subtype + declaration.replace(b'N>0 and then', b'N=0 or else'),
-                           b'null;'))
+        self.check_full_route(program(subtype + declaration, b'null;'),
+                              kind='assigned', procedures={'P': ('B',)})
+        self.check_full_route(program(subtype + declaration.replace(b'begin B:=', b'begin B:=False;B:='),
+                                     b'null;'), kind='assigned', procedures={'P': ('B',)})
+        self.check_full_route(program(subtype + declaration.replace(b'N:in Den', b'N:in out Den'),
+                                     b'null;'), kind='assigned', procedures={'P': ('B',)})
+        self.check_full_route(program(subtype + declaration.replace(b'N>0 and then', b'N=0 or else'),
+                                     b'null;'), kind='assigned', procedures={'P': ('B',)})
         self.check(program(subtype + declaration.replace(b'N>0 and then ', b''), b'null;'), 2)
 
     def test_ordinary_body_starts_with_full_declared_output_ranges(self) -> None:
         prefix = (b'subtype Small is Integer range 0..9;'
                   b'procedure P(X:out Small)is begin X:=1;')
         self.check(program(prefix + b'X:=(X+1);end P;', b'null;'), 2)
-        self.check(program(prefix + b'if X<9 then X:=(X+1);end if;end P;', b'null;'))
-        self.check(program(prefix + b'X:=1;X:=(X+1);end P;', b'null;'))
+        self.check_full_route(program(prefix + b'if X<9 then X:=(X+1);end if;end P;', b'null;'),
+                              kind='assigned', procedures={'P': ('X',)})
+        self.check_full_route(program(prefix + b'X:=1;X:=(X+1);end P;', b'null;'),
+                              kind='assigned', procedures={'P': ('X',)})
 
     def test_input_and_copyback_boundaries_use_declared_ranges(self) -> None:
         declaration = (b'subtype Small is Integer range 0..9;'
                        b'procedure P(N:in Small;X:out Small)is begin X:=N;end P;')
         for actual, expected in ((b'0', 0), (b'9', 0), (b'(-1)', 2), (b'10', 2)):
             with self.subTest(actual=actual):
-                self.check(program(declaration + b'R:Small:=0;',
-                                   b'P(' + actual + b',R);'), expected)
-        self.check(program(declaration + b'R:Integer:=0;', b'P(0,R);'))
+                self.check_full_route(program(declaration + b'R:Small:=0;',
+                                             b'P(' + actual + b',R);'), expected,
+                                      kind='assigned', procedures={'P': ('X',)})
+        self.check_full_route(program(declaration + b'R:Integer:=0;', b'P(0,R);'),
+                              kind='assigned', procedures={'P': ('X',)})
         self.check(program(declaration + b'R:Integer range 0..8:=0;', b'P(0,R);'), 2)
         self.check(program(RESET + b'R:Integer range 0..9:=0;', b'Reset(R);'), 2)
         self.check(program(declaration.replace(b'X:=N;', b'X:=10;'), b'null;'), 2)
@@ -127,9 +140,11 @@ class ScalarProcedureTests(unittest.TestCase):
     def test_inout_requires_input_fit_and_copyback_fit(self) -> None:
         declaration = (b'subtype Small is Integer range 0..9;'
                        b'procedure P(X:in out Small)is begin X:=0;end P;')
-        self.check(program(declaration + b'R:Small:=0;', b'P(R);'))
+        self.check_full_route(program(declaration + b'R:Small:=0;', b'P(R);'),
+                              kind='assigned', procedures={'P': ()})
         self.check(program(declaration + b'R:Integer:=0;', b'P(R);'), 2)
-        self.check(program(declaration + b'R:Integer:=0;', b'R:=0;P(R);'))
+        self.check_full_route(program(declaration + b'R:Integer:=0;', b'R:=0;P(R);'),
+                              kind='assigned', procedures={'P': ()})
         self.check(program(declaration + b'R:Integer range 0..8:=0;', b'P(R);'), 2)
 
     def test_outputs_and_inout_invalidate_prior_refinements(self) -> None:
@@ -137,7 +152,8 @@ class ScalarProcedureTests(unittest.TestCase):
                        b'procedure P(X:out Small)is begin X:=5;end P;'
                        b'R:Small:=0;Q:Integer:=0;')
         self.check(program(declaration, b'R:=1;P(R);Q:=(1/R);'), 2)
-        self.check(program(declaration, b'P(R);if R>0 then Q:=(1/R);end if;'))
+        self.check_full_route(program(declaration, b'P(R);if R>0 then Q:=(1/R);end if;'),
+                              kind='assigned', procedures={'P': ('X',)})
         self.check(program(declaration.replace(b'X:out Small', b'X:in out Small'),
                            b'R:=1;P(R);Q:=(1/R);'), 2)
 
@@ -164,7 +180,8 @@ class ScalarProcedureTests(unittest.TestCase):
                      b'Pair(S,R,S);'):
             with self.subTest(body=body):
                 self.check(program(declarations, body), 2)
-        self.check(program(declarations, b'Pair(0,R,S);'))
+        self.check_full_route(program(declarations, b'Pair(0,R,S);'),
+                              kind='assigned', procedures={'Pair': ('X', 'Y')})
         self.check(program(PAIR + b'R:Integer range 0..9:=0;S:Integer:=0;',
                            b'Pair((R+0),S,R);'), 2)
         boolean = (b'procedure P(A:in Boolean;B:out Boolean)is begin B:=A;end P;'
@@ -174,13 +191,15 @@ class ScalarProcedureTests(unittest.TestCase):
                   b'procedure P(B:in Boolean;X:out One)is begin X:=1;end P;'
                   b'S:constant String:="x";Input_Is_Valid:One:=1;Other:One:=1;')
         self.check(program(sliced, b'P(S(1..Input_Is_Valid)="x",Input_Is_Valid);'), 2)
-        self.check(program(sliced, b'P(S(1..Input_Is_Valid)="x",Other);'))
+        self.check_full_route(program(sliced, b'P(S(1..Input_Is_Valid)="x",Other);'),
+                              kind='assigned', procedures={'P': ('X',)})
 
     def test_actuals_share_incoming_state(self) -> None:
         declarations = (b'procedure P(B:in Boolean;N:in Integer;X:out Integer)is '
                         b'begin X:=N;end P;D:Integer range 0..1:=0;R:Integer:=0;')
         self.check(program(declarations, b'P(D/=0,(1/D),R);'), 2)
-        self.check(program(declarations, b'if D/=0 then P(True,(1/D),R);end if;'))
+        self.check_full_route(program(declarations, b'if D/=0 then P(True,(1/D),R);end if;'),
+                              kind='assigned', procedures={'P': ('X',)})
 
     def test_qualified_validity_selector_is_not_a_writable_variable_read(self) -> None:
         queries = (
@@ -205,8 +224,11 @@ class ScalarProcedureTests(unittest.TestCase):
                                    else query + b',Input_Is_Valid')
                         with self.subTest(kind=kind, mode=mode, target_first=target_first,
                                           query=query):
-                            self.check(program(declarations, b'Copy_Flag(' + actuals + b');',
-                                               arguments=True), 2 if query == alias else 0)
+                            self.check_full_route(
+                                program(declarations, b'Copy_Flag(' + actuals + b');', arguments=True),
+                                2 if query == alias else 0, kind='selected',
+                                procedures={'Copy_Flag': ('X',) if mode == b'out' else ()},
+                                runs=scalar_functions.ARGUMENT_SILENT_RUNS)
 
     def test_literal_letters_are_not_actual_variable_reads(self) -> None:
         procedure = b'procedure P(N:in Integer;X:out Integer)is begin X:=N;end P;'
@@ -216,13 +238,15 @@ class ScalarProcedureTests(unittest.TestCase):
                                 (b'(-16#F#)', b'F')):
             declarations = procedure + target + b':Integer:=0;'
             with self.subTest(literal=literal, target=target):
-                self.check(program(declarations, b'P(' + literal + b',' + target + b');'))
+                self.check_full_route(program(declarations, b'P(' + literal + b',' + target + b');'),
+                                      kind='assigned', procedures={'P': ('X',)})
                 self.check(program(declarations, b'P(' + target + b',' + target + b');'), 2)
         boolean = (b'procedure P(A:in Boolean;X:out Boolean)is begin X:=A;end P;'
                    b'F:Boolean:=False;S:String:="F";C:Character:=\'F\';')
         for condition in (b'16#F#=15', b'S="F"', b"C='F'"):
             with self.subTest(condition=condition):
-                self.check(program(boolean, b'P(' + condition + b',F);'))
+                self.check_full_route(program(boolean, b'P(' + condition + b',F);'),
+                                      kind='assigned', procedures={'P': ('X',)})
 
     def test_boolean_output_does_not_export_predicate_facts(self) -> None:
         declarations = (b'procedure Nonzero(D:in Integer;B:out Boolean)is '
@@ -233,16 +257,21 @@ class ScalarProcedureTests(unittest.TestCase):
 
     def test_calls_preserve_unrelated_scalar_and_input_facts(self) -> None:
         declarations = RESET + b'D:Integer range 0..1:=0;R:Integer:=0;Q:Integer:=0;'
-        self.check(program(declarations,
-                           b'if D>0 then Reset(R);Q:=(1/D);end if;'))
-        self.check(program(RESET + b'R:Integer:=0;',
-                           b'Reset(R);Silver_IO.Put_Line(Input);', arguments=True))
+        self.check_full_route(program(declarations,
+                                     b'if D>0 then Reset(R);Q:=(1/D);end if;'),
+                              kind='assigned', procedures={'Reset': ('X',)})
+        self.check_full_route(program(RESET + b'R:Integer:=0;',
+                                     b'Reset(R);Silver_IO.Put_Line(Input);', arguments=True),
+                              kind='selected', procedures={'Reset': ('X',)},
+                              runs=scalar_functions.ARGUMENT_ECHO_RUNS)
 
     def test_earlier_procedure_and_function_calls_and_recursion(self) -> None:
         identity = b'function Id(N:in Integer)return Integer is begin return N;end Id;'
         wrapper = (b'procedure Wrapper(N:in Integer;X:out Integer)is '
                    b'begin X:=0;Reset(X);X:=Id(N);end Wrapper;')
-        self.check(program(identity + RESET + wrapper + b'R:Integer:=0;', b'Wrapper(7,R);'))
+        self.check_full_route(program(identity + RESET + wrapper + b'R:Integer:=0;', b'Wrapper(7,R);'),
+                              kind='assigned', functions=('Id',),
+                              procedures={'Reset': ('X',), 'Wrapper': ('X',)})
         self.check(program(identity + wrapper + RESET, b'null;'), 2)
         recursive = b'procedure P(X:out Integer)is begin X:=0;P(X);end P;'
         self.check(program(recursive, b'null;'), 2)
@@ -273,9 +302,11 @@ class ScalarProcedureTests(unittest.TestCase):
         self.check(program(RESET + wrapper, b'null;'), 2)
         local_hiding = (b'X:String:="outer";procedure P(X:out Integer)is '
                         b'begin X:=7;end P;R:Integer:=0;')
-        self.check(program(local_hiding, b'P(R);'))
+        self.check_full_route(program(local_hiding, b'P(R);'),
+                              kind='assigned', procedures={'P': ('X',)})
         named_boolean = RESET.replace(b'Reset', b'Boolean')
-        self.check(program(named_boolean, b'null;'))
+        self.check_full_route(program(named_boolean, b'null;'),
+                              kind='assigned', procedures={'Boolean': ('X',)})
         self.check(program(named_boolean + b'B:Boolean:=False;', b'null;'), 2)
         self.check(program(named_boolean
                            + b'procedure Later(X:out Integer)is B:Boolean:=False;'
@@ -287,10 +318,11 @@ class ScalarProcedureTests(unittest.TestCase):
                        b'R:Integer range 0..1:=0;')
         for count, expected in ((63, 0), (64, 2)):
             with self.subTest(count=count):
-                self.check(program(declaration, b'R:=(R+0);' * (count - 1)), expected)
+                self.check_full_route(program(declaration, b'R:=(R+0);' * (count - 1)), expected,
+                                      kind='assigned', procedures={'P': ('X',)})
         source = program(RESET, b'null;')
         source += b' ' * (4096 - len(source))
-        self.check(source)
+        self.check_full_route(source, kind='assigned', procedures={'Reset': ('X',)})
         self.check(source + b' ', 2)
 
     def test_native_multiple_outputs_inout_and_unused_full_domain(self) -> None:

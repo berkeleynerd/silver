@@ -1,0 +1,135 @@
+{
+  "status": "external-review history matched to current unchanged fixtures; no repaired-compiler claim",
+  "archive_name": "artifacts-repair-impact.tar.gz",
+  "archive_sha256": "46db212f23b6731b8118db74cb668ec9846933599e3590962718c0c9951d9144",
+  "archive_member": "artifacts/lanes/S2-refute/tables/suite-fixture-full-route.txt",
+  "review_target": "877c382f6d07c1e0a2573d4cf70fa13876a399b4",
+  "fixtures": [
+    {
+      "fixture_id": "tests/test_scalar_procedures.py::test_qualified_validity_selector_is_not_a_writable_variable_read::check[15]",
+      "source_sha256": "01a1aab274b518ecf917a7f5b3d6bb2c2934a201546be7d407efbae57057a9ec",
+      "reviewer_kind": "procedure",
+      "reviewer_refused_rule": "UNUSED_INITIAL_VALUE",
+      "reviewer_job": "20261116T131253-076209935-S2-refute-db4918"
+    },
+    {
+      "fixture_id": "tests/test_scalar_procedures.py::test_formal_modes_names_and_closing_name::check[13]",
+      "source_sha256": "039f0e07c931fbaa7b18de1714ce3c6ea04777b7b4b753b2bc5d51334125045e",
+      "reviewer_kind": "procedure",
+      "reviewer_refused_rule": "INOUT_ONLY_READ",
+      "reviewer_job": "20261116T015139-106271080-lead-5b9a21"
+    },
+    {
+      "fixture_id": "tests/test_scalar_procedures.py::test_qualified_validity_selector_is_not_a_writable_variable_read::check[31]",
+      "source_sha256": "04c4c7129ee54bae2095f136d9be522651485e7a87cc6120ca8785a8a651ece1",
+      "reviewer_kind": "procedure",
+      "reviewer_refused_rule": "UNUSED_INITIAL_VALUE",
+      "reviewer_job": "20261116T131253-206242643-S2-refute-335d95"
+    },
+    {
+      "fixture_id": "tests/test_scalar_procedures.py::test_qualified_validity_selector_is_not_a_writable_variable_read::check[27]",
+      "source_sha256": "128a7f22886c4436bf0a00bad770858fe7435692dea61fd2ea1e63105621acd2",
+      "reviewer_kind": "procedure",
+      "reviewer_refused_rule": "UNUSED_INITIAL_VALUE",
+      "reviewer_job": "20261116T131253-748795560-S2-refute-391b9f"
+    },
+    {
+      "fixture_id": "tests/test_scalar_procedures.py::test_inout_requires_input_fit_and_copyback_fit::check[3]",
+      "source_sha256": "1e829603b3f8e9064b32f5562f455348a5c66ebe9b4f37a562e66544561eb91d",
+      "reviewer_kind": "procedure",
+      "reviewer_refused_rule": "UNUSED_INITIAL_VALUE",
+      "reviewer_job": "20261116T131254-313833644-S2-refute-f9b789"
+    },
+    {
+      "fixture_id": "tests/test_scalar_procedures.py::test_inout_requires_input_fit_and_copyback_fit::check[1]",
+      "source_sha256": "22bc4a7017fa9a8a83d46331c3c3214e94d9c4829fa4dd2835bbdb82c20e1e12",
+      "reviewer_kind": "procedure",
+      "reviewer_refused_rule": "UNUSED_INITIAL_VALUE",
+      "reviewer_job": "20261116T041724-660857458-CH1-specific-acdfc7"
+    },
+    {
+      "fixture_id": "tests/test_scalar_procedures.py::test_qualified_validity_selector_is_not_a_writable_variable_read::check[10]",
+      "source_sha256": "33f9ba43e0fcf23153ae15b1f7e935012c8f3f23aa58db92220fca40981914e8",
+      "reviewer_kind": "procedure",
+      "reviewer_refused_rule": "UNUSED_INITIAL_VALUE",
+      "reviewer_job": "20261116T131255-396183227-S2-refute-b281e9"
+    },
+    {
+      "fixture_id": "tests/test_scalar_procedures.py::test_qualified_validity_selector_is_not_a_writable_variable_read::check[26]",
+      "source_sha256": "3612909eafcad48866cf8db24457fc7d72710d32a93b891b1de5bae0f3cdbac0",
+      "reviewer_kind": "procedure",
+      "reviewer_refused_rule": "UNUSED_INITIAL_VALUE",
+      "reviewer_job": "20261116T131255-668996269-S2-refute-fc6d38"
+    },
+    {
+      "fixture_id": "tests/test_scalar_procedures.py::test_qualified_validity_selector_is_not_a_writable_variable_read::check[9]",
+      "source_sha256": "49bd04b809f0ca3003b9652b0865d949d16d2d96e37134c1cde9b05476fd2df8",
+      "reviewer_kind": "procedure",
+      "reviewer_refused_rule": "UNUSED_INITIAL_VALUE",
+      "reviewer_job": "20261116T041725-141262458-CH1-specific-299037"
+    },
+    {
+      "fixture_id": "tests/test_scalar_procedures.py::test_prefix_reads_locals_and_input_formals::check[1]",
+      "source_sha256": "4d2d7d345003c209555b368a698d1ae0b9b37df73db871a79ddd081dabf158f0",
+      "reviewer_kind": "procedure",
+      "reviewer_refused_rule": "UNUSED_INITIAL_VALUE",
+      "reviewer_job": "20261116T041724-988292625-CH1-specific-b7d6d7"
+    },
+    {
+      "fixture_id": "tests/test_scalar_procedures.py::test_prefix_guards_refine_input_formals_like_body_guards::check[3]",
+      "source_sha256": "c95e3f111eb7a4ff2cc7017fdb4f48553028857879a253dbba32a0c3a5afac6c",
+      "reviewer_kind": "procedure",
+      "reviewer_refused_rule": "INOUT_ONLY_READ",
+      "reviewer_job": "20261116T041724-832250042-CH1-specific-edcc79"
+    },
+    {
+      "fixture_id": "tests/test_scalar_procedures.py::test_qualified_validity_selector_is_not_a_writable_variable_read::check[14]",
+      "source_sha256": "caef060856835e7c6d60884728a086019c5aa6918607a7e4ad25218f42dd198b",
+      "reviewer_kind": "procedure",
+      "reviewer_refused_rule": "UNUSED_INITIAL_VALUE",
+      "reviewer_job": "20261116T131302-496656939-S2-refute-34d574"
+    },
+    {
+      "fixture_id": "tests/test_scalar_functions.py::test_local_initializers_are_independent_exact_snapshots::check[1]",
+      "source_sha256": "ccb3d926ca781f586065e2bb37a079690c5bc9e55a6bc1d53a1af340cb4b3e1d",
+      "reviewer_kind": "function",
+      "reviewer_refused_rule": "UNUSED_INITIAL_VALUE",
+      "reviewer_job": "20261116T041820-241289610-CH1-specific-fd8dc2"
+    },
+    {
+      "fixture_id": "tests/test_scalar_procedures.py::test_qualified_validity_selector_is_not_a_writable_variable_read::check[30]",
+      "source_sha256": "ccd3b2a2fdae8da5db05edddb982f1c816e4c7635ee80642d576d78ebff35906",
+      "reviewer_kind": "procedure",
+      "reviewer_refused_rule": "UNUSED_INITIAL_VALUE",
+      "reviewer_job": "20261116T131302-773115356-S2-refute-72ca3c"
+    },
+    {
+      "fixture_id": "tests/test_scalar_procedures.py::test_qualified_validity_selector_is_not_a_writable_variable_read::check[11]",
+      "source_sha256": "d1a2034e4b17e623b9604e663c33ec39e8fedc6a8b93c9619730bc6530f9b0d2",
+      "reviewer_kind": "procedure",
+      "reviewer_refused_rule": "UNUSED_INITIAL_VALUE",
+      "reviewer_job": "20261116T131302-912336814-S2-refute-d0cf00"
+    },
+    {
+      "fixture_id": "tests/test_scalar_procedures.py::test_qualified_validity_selector_is_not_a_writable_variable_read::check[13]",
+      "source_sha256": "d369cf2204fd3b0a7f02d7d416c49c763d79a1c42021b771d031342eec643338",
+      "reviewer_kind": "procedure",
+      "reviewer_refused_rule": "UNUSED_INITIAL_VALUE",
+      "reviewer_job": "20261116T131303-050191689-S2-refute-278c2f"
+    },
+    {
+      "fixture_id": "tests/test_scalar_procedures.py::test_qualified_validity_selector_is_not_a_writable_variable_read::check[29]",
+      "source_sha256": "ed11d2ad8ab1326aef3abd9fc038fcacb0dc983ff793eae3fba88c5609402208",
+      "reviewer_kind": "procedure",
+      "reviewer_refused_rule": "UNUSED_INITIAL_VALUE",
+      "reviewer_job": "20261116T131303-732559065-S2-refute-5b071c"
+    },
+    {
+      "fixture_id": "tests/test_scalar_procedures.py::test_qualified_validity_selector_is_not_a_writable_variable_read::check[25]",
+      "source_sha256": "f7c17bdf8d1b902bc9d1092ce4ca35fffdb79ad6f32ecadc2b11dd9da71fc240",
+      "reviewer_kind": "procedure",
+      "reviewer_refused_rule": "UNUSED_INITIAL_VALUE",
+      "reviewer_job": "20261116T131304-280311357-S2-refute-0b50cd"
+    }
+  ]
+}
