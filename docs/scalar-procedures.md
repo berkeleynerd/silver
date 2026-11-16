@@ -12,14 +12,41 @@ bounded language package under the broader
 The small [#29 Rosetta refresh repair](https://github.com/berkeleynerd/silver/issues/29)
 accompanies its delivery with separate focused Python checks.
 
-**Supported on Linux ARM64; final independent delivery acceptance passed.**
-The compiler, universal proofs, actual-source correspondence, capacity argument
-and complete applicable regression coverage establish the bounded rules below.
+**November 15 delivery validated on Linux ARM64; #391 repair in progress.**
+The November 16 external review found admitted formal-use shapes rejected after
+successful proof. The owner authorized the additive report-policy repair below;
+the earlier checkpoints remain evidence for their exact historical inputs.
 The [delivery account](#delivery-assurance-and-validation) distinguishes complete
 proof checks, fresh repair results and independently accepted retained results.
 No broader procedures, Oracle amendment or deferred #119 research is included.
 
 ## Delivery assurance and validation
+
+### External review repair — 2026-11-16
+
+[#391](https://github.com/berkeleynerd/silver/issues/391) identifies two omitted
+flow advisories, including a function shape already admitted on main. Both
+auditors now classify `INOUT_ONLY_READ` / `"NAME" is not modified, could be IN`
+only for a declared procedure's `in out` formal, and `UNUSED_INITIAL_VALUE` /
+`unused initial value of "NAME"` only for a declared procedure's `in`/`in out`
+or function's `in` formal. The owner must be that declared local subprogram,
+never Main; formal spelling is exact. Warning severity, flow provenance,
+`main.adb`, positive location and absence of suppression/justification remain
+mandatory. Neither columns nor record order binds the formal. Existing
+unused-variable/copy-back warnings, initialization and termination witnesses,
+and all safety checks retain their requirements.
+
+The [repair packet](evidence/advisory-policy-391-20261116/README.md) records the
+mutation tests, full-route/output twins for all 88 positive admission-only
+subprogram fixtures, additive verdict controls, capacity derivation, five
+token-table lemmas and bounded record corrections. The 64 MiB allocation is
+unchanged; the current producer envelope is 49,279,744 bytes. Focused checks
+precede refreshed complete native and Lean checkpoints and a single complete
+suite run on the repaired inputs. Those final repair checks are pending here;
+the November 15 results below do not validate changed inputs. Publication stops
+for an external check of the repaired head before merge.
+
+### Retained delivery checkpoint — 2026-11-15
 
 Production `1dde32cce` completes the bounded procedure implementation and source
 proofs. The [independent delivery review](reviews/review-scalar-procedures-delivery-20261115.md)
@@ -183,13 +210,17 @@ storage adjustment needs its own source-derived argument, documentation and
 boundary tests; it does not restart general capacity research.
 
 The [procedure capacity account](scalar-procedures-report-capacity.md) now
-derives a conservative 48,676,608-byte envelope, including separate allowances
-for copy-back, output-initialization and unused-output records. It selects a 64 MiB retained
+derives a conservative 49,279,744-byte envelope, including separate allowances
+for copy-back, output-initialization, unused-output and formal-dependence records.
+It retains the 64 MiB
 Main allocation. Native integration, independent review and boundary validation
 of this adjustment are tracked separately: native policy mutations and the
 exact 64 MiB/next-byte boundary checks have passed. The
 [bounded independent capacity review](reviews/review-scalar-procedures-capacity-a7044d6f45.md)
-found no material defect; the [current complete native audit](evidence/scalar-procedures-20261115/native-recovery/full-native/README.md) now passes on the final native inputs.
+found no material defect in the earlier 48,676,608-byte account; the
+[November 15 complete native audit](evidence/scalar-procedures-20261115/native-recovery/full-native/README.md)
+passes on those retained inputs. The #391 addition and current validation are
+recorded separately above.
 
 Managed producer probes precede report-policy changes. Inspect unused procedures,
 Integer/Boolean outputs, bounded `in out`, procedure/function composition,

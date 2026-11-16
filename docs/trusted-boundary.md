@@ -1192,42 +1192,83 @@ Unrecognized metadata is skipped within bounds. Neither checker authenticates
 arbitrary JSON or replaces trusted GNATprove completeness and provenance.
 
 `Complete_Application_Proof` takes an `Application_Kind` derived from the same
-source grammar used for admission: static, argument, assigned or selected
-output. Its independent ghost policy and executable traversal require completed
-Main analysis, full Main coverage and no skipped/assumed/suppressed checks. Every
+source grammar used for admission (static, argument, assigned or selected
+output), the source bytes, and the declared function/procedure metadata. Its
+independent ghost policy and executable traversal require completed analysis,
+full coverage of Main and every declared local subprogram, including unused
+ones, and no skipped/assumed/suppressed checks. Every
 emitted safety record must be proved/info `VC_RANGE_CHECK`, `VC_LENGTH_CHECK`,
 `VC_OVERFLOW_CHECK`, `VC_DIVISION_CHECK` or `VC_INDEX_CHECK`,
-with prover completion, Main filename/entity and a positive location. Static
+with prover completion, filename `main.adb`, the exact Main or declared local
+subprogram entity and a positive location. Static
 folding may leave no safety checks. Static/assigned report shapes contain Main
 with neither, either or both of Put and Put_Line. Argument/selected shapes additionally
 permit Main with First_Or_Default and Reject, independently including or omitting
 Input_Is_Valid and each output operation, or Main
-alone after producer elimination. A path can establish validity without a query;
-a shell need not output. Each permitted entity set is checked exactly. Every dependency must name an approved entity and effects,
-postcondition or absence-of-runtime-error claim.
+alone after producer elimination. Every such runtime alternative additionally
+requires all declared local functions and procedures. A path can establish
+validity without a query; a shell need not output. Each permitted entity set is
+checked exactly. Every dependency must name an approved entity and claim;
+local subprogram dependencies permit only effects and absence-of-runtime-error
+claims, while the selected runtime permits its documented postconditions too.
+The `--no-inlining` route analyzes each local body over its full formal domain.
+Each function requires its exact successful `SUBPROGRAM_TERMINATION` witness.
+Each procedure `out` formal requires exactly one successful `UNINITIALIZED`
+flow/info record `initialization of "NAME" proved`, with its exact declared
+owner and formal spelling, `main.adb`, a positive location and no suppression
+or justification. No corresponding procedure termination record is required
+or supplied; `in out` formals require no output-initialization witness.
 
 All output kinds permit finite lists of exact `INEFFECTIVE` initializer advisories:
 `initialization of "NAME" has no effect`, with the checked identifier grammar.
 Only assigned/selected kinds additionally permit the exact `unused assignment`
 message. All four kinds also permit the exact `INEFFECTIVE` message
 `statement has no effect` and `DEAD_CODE` message `this statement is never reached`,
-observed for statically known comparisons. Every allowed record requires warning severity, flow provenance, Main
-filename/entity, positive locations and no suppression or justification. There
+observed for statically known comparisons. These flow advisories require warning
+severity, flow provenance, `main.adb`, the exact Main or declared local-subprogram
+entity, positive locations and no suppression or justification. There
 is no separate advisory-count cap. Initializers still establish bounds when
 their bytes are unused; these messages do not waive safety checks. Legal names
 such as `Dummy` or `Unused_Result` may make GNATprove omit a diagnostic.
 Repeated-output advisories are restricted to the exact `INEFFECTIVE` message
 `"NAME" is set by "OPERATION" but not used after the call`, where OPERATION is
 `Put` or `Put_Line` and NAME is one of
-`Written_Count`, `Flushed`, `Succeeded` or `Written_Bytes`. Other messages remain
-rejected; all provenance and suppression checks also apply to these eight messages.
+`Written_Count`, `Flushed`, `Succeeded` or `Written_Bytes`. All provenance and
+suppression checks also apply to these eight messages. The exact `INEFFECTIVE`
+unused-copy-back message additionally permits a bare target identifier and the
+exact declared procedure callee in `"TARGET" is set by "PROCEDURE" but not used
+after the call`. It supplies no initialization or safety evidence.
+
+Identified local functions and procedures additionally permit `UNUSED_VARIABLE`
+with exactly `unused variable "NAME"`, where NAME has the checked Ada identifier
+shape and source-length bound. The new `INOUT_ONLY_READ` rule accepts only
+`"NAME" is not modified, could be IN` for a procedure's `in out` formal;
+`UNUSED_INITIAL_VALUE` accepts only `unused initial value of "NAME"` for a
+procedure's `in` or `in out` formal, or a function's `in` formal. These two rules
+require the exact declared formal spelling and eligible mode of the declared
+local owner, never Main. They retain warning severity, flow provenance,
+`main.adb`, positive location and absence of every suppression/justification
+field. Columns and record order do not bind formals. Mutation tests exercise
+these restrictions; the SPARK executable/ghost refinement shares the message
+classifier and does not independently prove that its acceptance is narrow enough.
+
+The warning list separately classifies the pinned `imprecise-image` advisory
+(including only the producer's `Image`, `image` or `IMAGE` spelling) and the
+exact `array-initialization` message `initialization of an array in FOR loop is
+handled imprecisely [array-initialization]`. Both require their exact producer
+state: warning severity, trivial provenance, `main.adb`, positive location,
+unknown status, no entity or justification, empty suppression string and empty
+proof tree, with the corresponding SARIF classification. These notes withhold
+information and waive no check. Other diagnostics remain rejected.
 
 No-output sequences and static elimination can produce Main alone with or
 without length/range/index/overflow/division checks or advisories. The checker retains
-complete Main coverage, all emitted check requirements and approved dependency references.
+complete Main/local-subprogram coverage, all emitted check requirements and approved dependency references.
 The external producer premise, rather than accepting arbitrary entity omissions,
-justifies this finite set of report shapes. The Python evidence helper applies
-the same policies and cross-checks SARIF records and totals.
+justifies this finite set of report shapes. The Python evidence helper mirrors
+the policy for genuine reports of the pinned producer and cross-checks SARIF
+records and totals. This does not claim equivalence for fabricated or escaped-key
+JSON; neither auditor's JSON handling changes for this repair.
 
 Automatic completion relies on faithful and complete range, length, index, overflow
 and nonzero-divisor obligation generation and the accepted entity/advisory/check shapes. Applicable static

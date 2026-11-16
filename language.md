@@ -1497,13 +1497,13 @@ safety record must be a proved/info `VC_RANGE_CHECK`, `VC_LENGTH_CHECK`,
 suppression. Length checks require the fixed-bound argument; their absence through
 static elimination is no longer a prerequisite for supporting copies.
 
-Function-bearing programs use GNATprove's `--no-inlining` analysis on the same
-author source. Each declared function, including an unused function, is checked
+Subprogram-bearing programs use GNATprove's `--no-inlining` analysis on the same
+author source. Each declared subprogram, including an unused one, is checked
 over its complete formal domain. The application report must cover Main and
-every source-declared local function exactly; the same safety classes and
+every source-declared local function and procedure exactly; the same safety classes and
 discharge requirements apply to their records. Successful
 `SUBPROGRAM_TERMINATION` flow records establish the reported termination checks.
-Local dependencies may name only the identified functions' effect and
+Local dependencies may name only the identified subprograms' effect and
 absence-of-runtime-error claims; no authored function contract is introduced.
 
 All output policies classify finite lists of the exact `INEFFECTIVE` initializer
@@ -1514,22 +1514,34 @@ produced by statically known predicates. Repeated output additionally permits on
 the four exact `INEFFECTIVE` messages naming the overwritten ghost outputs
 `Written_Count`, `Flushed`, `Succeeded` and `Written_Bytes` of either `Put` or
 `Put_Line` (eight exact messages). These flow advisories retain a location in
-`main.adb`, the exact Main or declared local-function entity, flow
+`main.adb`, the exact Main or declared local-subprogram entity, flow
 provenance and no suppression. Initializers still establish object bounds even when
-their bytes are unused. The warning list additionally permits only the exact producer
+their bytes are unused. The warning list additionally permits the exact producer
 `imprecise-image` advisory, including its full message with exactly the producer's
 `Image`, `image` or `IMAGE` spelling and its producer state; it never
 discharges or removes a safety check. The [assurance policy](docs/assurance.md)
-specifies its native/SARIF classification. Other warnings in the audited reports
-fail; naming conventions that make GNATprove omit an advisory do not change
-membership.
+specifies its native/SARIF classification. It also permits the exact
+`array-initialization` message `initialization of an array in FOR loop is handled
+imprecisely [array-initialization]` with the same producer warning state. This
+withholds a flow initialization fact and replaces no initialization or safety
+obligation. Other warnings in the audited reports fail; naming conventions that
+make GNATprove omit an advisory do not change membership.
 
-An identified local function may additionally carry the exact `UNUSED_VARIABLE`
+An identified local function or procedure may additionally carry the exact `UNUSED_VARIABLE`
 message `unused variable "NAME"` for an unused formal. It retains warning severity,
-flow provenance, a positive location in `main.adb`, the declared function's entity
+flow provenance, a positive location in `main.adb`, the declared subprogram's entity
 and no suppression or justification. `NAME` has Ada identifier spelling and is
 bounded by the complete-source limit. This advisory does not discharge a safety
 obligation and is not accepted for Main itself.
+
+Two further flow advisories require the exact declared spelling of a formal of
+their declared local-subprogram owner, never Main. `INOUT_ONLY_READ` accepts
+only `"NAME" is not modified, could be IN` for a procedure's `in out` formal.
+`UNUSED_INITIAL_VALUE` accepts only `unused initial value of "NAME"` for a
+procedure's `in` or `in out` formal, or a function's `in` formal. Both require
+warning severity, flow provenance, a positive location in `main.adb`, and no
+suppression or justification field. Neither column equality nor record order
+binds a formal. These advisories add no discharged check and waive none.
 
 For the scalar-procedure increment, these application entities also
 include declared local procedures. An unused scalar copy-back may produce the

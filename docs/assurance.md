@@ -93,8 +93,8 @@ list. These obligations and the constructed environment are consumed by the
 existing program execution and obligation endpoints, rather than considering
 only functions reached by the sample or Main's execution.
 
-The source path retains all declarations through `FunctionDeclarationsAt` and
-`Sequence.FunctionTokensAt`. Their checkedness and uniqueness results feed
+The source path retains the ordered function and procedure declarations through
+`MixedDeclarationsAt` and `Sequence.MixedTokensAt`. Their checkedness and uniqueness results feed
 `Predicate.form_reading_valid` and `SourceMeaning`, tying the ordered
 typed definitions to the admitted author source. The metadata, visibility,
 formal/local declaration, body and return readers have corresponding source
@@ -1258,8 +1258,9 @@ discharge requirements as Main. No function postcondition is assumed. The
 capability record retains the completed function delivery evidence.
 
 The [procedure increment](scalar-procedures.md) extends that exact
-source inventory to every local procedure and its `out` formal names, including
-unused procedures. Each such formal requires exactly one `UNINITIALIZED` flow
+source inventory to every local procedure and the exact spelling and mode of
+every subprogram formal, including unused declarations. Each procedure `out`
+formal requires exactly one `UNINITIALIZED` flow
 record with severity `info`, `how_proved = flow`, filename `main.adb`, positive
 location, its owning procedure entity and the exact message
 `initialization of "NAME" proved`. Missing or duplicate initialization, a
@@ -1311,6 +1312,20 @@ entity. Its producer route and storage accounting are retained in the
 [function report-capacity record](scalar-functions-report-capacity.md) and
 [procedure extension](scalar-procedures-report-capacity.md).
 
+`INOUT_ONLY_READ` and `UNUSED_INITIAL_VALUE` are separately classified flow
+warnings. The former accepts only `"NAME" is not modified, could be IN` for a
+procedure's `in out` formal; the latter accepts only `unused initial value of
+"NAME"` for a procedure's `in` or `in out` formal, or a function's `in` formal.
+Both require the declared local owner, never Main, and the exact declared formal
+spelling and eligible mode, warning severity, flow provenance, filename
+`main.adb`, a positive location and no suppression or justification field.
+Formal binding does not compare columns or depend on record order. These
+dependence-graph advisories replace no check; the separate initialization,
+termination and safety requirements remain. The executable/ghost refinement
+shares `Diagnostic_Message`, so it cannot establish that these classifications
+are sufficiently narrow. Mutation tests guard their owner, formal/mode,
+template and provenance restrictions in both auditors.
+
 The application warning list also permits the pinned `imprecise-image` advisory
 described in the [Image producer record](for-loops-integers-image.md). Its full
 message is accepted only with the producer's exact `Image`, `image` or `IMAGE`
@@ -1324,6 +1339,14 @@ do not suppress a required safety check. Runtime warning policies stay unchanged
 The raw-byte policy and its correspondence with the projected report include
 these warning records, whose complete bytes are preserved by projection.
 
+The same warning list also accepts only the exact `array-initialization` rule
+and message `initialization of an array in FOR loop is handled imprecisely
+[array-initialization]`, with the same warning/trivial provenance, `main.adb`,
+positive location, unknown status, absent entity and justification, empty
+suppression string and empty proof tree. Its matching SARIF classification is
+checked. This information-loss note withholds a flow initialization fact; every
+required initialization and safety check remains mandatory.
+
 A bare-Main report may have an empty flow list and may contain proved safety
 checks and approved dependencies. Sequencing removed the earlier nonempty-flow
 and empty-proof/dependency conditions for that entity shape, while retaining
@@ -1333,8 +1356,10 @@ any combination of Input_Is_Valid, Put and Put_Line. Positive-length predicates 
 establish validity without a query, and a shell need not output. Main alone
 remains the producer-elimination alternative. Each permitted set is exact;
 unknown, missing-within-a-set or duplicate entities remain rejected. Native tests
-use genuine reports and mutations; the Python evidence helper applies the same
-policies and additionally checks SARIF consistency and totals. The finite sets
+use genuine reports and mutations; the Python evidence helper mirrors the
+policy for genuine reports of the pinned producer and additionally checks SARIF
+consistency and totals. This is not an equivalence claim for fabricated or
+escaped-key JSON. The finite sets
 and permitted producer elimination remain an explicit tool-format premise.
 
 The bounded, nonrecursive executable scanners have SPARK-proved equality to
@@ -1555,11 +1580,15 @@ protected proof modules, bindings or configuration. Exact source correspondence
 comes from the kernel-checked reconstruction and semantic proofs, not hashes
 alone. The [partition record](lean-compartmentalization.md) documents this reuse.
 
-Generated reconstruction joins use `kernel_exact` to elaborate their explicit
-equality witness independently, then check it at the exact goal type through
-Lean's synchronous checked auxiliary-lemma mechanism. A cached auxiliary proof
-is reusable only for that same type. This avoids repeated elaborator conversion
-without changing source data, final correspondence statements or allowed axioms;
+Generated reconstruction joins use two checked witness paths. `kernel_exact`
+elaborates an explicit equality witness independently; `kernel_join`, used by
+the largest source certificate, constructs the `string_join_ofList` witness
+directly from character-list terms for two supplied string literals. Both check
+the candidate at the exact goal type through Lean's synchronous checked
+auxiliary-lemma mechanism. A cached auxiliary proof is reusable only for that
+same type. The strings and generated terms are untrusted candidates. These paths
+avoid repeated syntax elaboration/conversion without changing source data,
+final correspondence statements or allowed axioms;
 the [reconstruction record](lean-join-optimization.md) gives the implementation,
 negative controls and measurement scope.
 

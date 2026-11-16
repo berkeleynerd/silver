@@ -100,7 +100,18 @@ For each authorized increment:
    it never replaces initialization or safety checks. Its
    [producer/capacity account](docs/fixed-integer-arrays-report-capacity.md) covers
    repeated nested-loop notes within the unchanged source/operator budgets.
-   Other diagnostics remain rejected. A new accepted obligation class
+   Declared local functions and procedures also admit the exact unused-formal
+   `UNUSED_VARIABLE` advisory, and procedure calls admit the exact `INEFFECTIVE`
+   unused-copy-back message with a declared procedure callee. The exact
+   `INOUT_ONLY_READ` message `"NAME" is not modified, could be IN` requires a
+   procedure's `in out` formal; `UNUSED_INITIAL_VALUE` / `unused initial value
+   of "NAME"` requires a procedure's `in` or `in out` formal, or a function's
+   `in` formal. These two rules bind the exact declared owner and formal spelling,
+   never Main, with warning severity, flow provenance, `main.adb`, positive
+   location and no suppression or justification. Every procedure `out` formal
+   still requires its separate successful initialization witness; every function
+   still requires its termination witness. Other diagnostics remain rejected.
+   A new accepted obligation class
    needs a corresponding semantic/discharge argument, not just report handling.
    The [shared-binding checkpoint](docs/shared-bindings.md) records the completed
    assurance and validation for that earlier policy; the

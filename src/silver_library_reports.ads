@@ -93,8 +93,17 @@ package Silver_Library_Reports with SPARK_Mode => On is
    --  selected results additionally permit the exact unused-assignment advisory.
    --  All sequence forms permit the exact ineffective/unreachable-statement
    --  advisories from constant-folded comparisons and loops, and four exact unused ghost
-   --  output messages from each of Put and Put_Line. The warning list permits
-   --  only the pinned Image advisory, with exactly the producer's Image, image
+   --  output messages from each of Put and Put_Line. Local functions/procedures
+   --  also permit the exact UNUSED_VARIABLE unused-formal advisory. The exact
+   --  INEFFECTIVE unused-copy-back message names a declared procedure callee.
+   --  INOUT_ONLY_READ accepts only '"NAME" is not modified, could be IN' for
+   --  a procedure in out formal. UNUSED_INITIAL_VALUE accepts only
+   --  'unused initial value of "NAME"' for procedure in/in out or function in.
+   --  Both bind exact declared owner/formal spelling, never Main, with warning
+   --  severity, flow provenance, main.adb, positive locations and no suppression
+   --  or justification. Formal binding uses neither columns nor record order.
+   --  The warning list permits the exact array-initialization information-loss
+   --  note and the pinned Image advisory, with the producer's Image, image
    --  or IMAGE spelling in its message and the exact producer state,
    --  no entity or justification, empty suppression string and empty proof tree.
    --  Other diagnostics are rejected.

@@ -134,11 +134,16 @@ def subprogram_envelope() -> int:
     calls = SOURCE_BYTES // 5
     writable_actuals = SOURCE_BYTES // 2
     outputs = SOURCE_BYTES // 7
+    # The two new dependence rules are mutually exclusive for each scalar
+    # formal. UNUSED_VARIABLE can coexist with INOUT_ONLY_READ and remains
+    # charged in the older flow allowance; charge the new record separately.
+    formal_advisories = SOURCE_BYTES // 7
     return (main_envelope() + subprograms * (1024 + 512 + 2 * 256 + 32 * 160)
             + 3 * 256 * calls + 4 * SOURCE_BYTES
             + writable_actuals * MAIN_RECORD_BYTES
             + outputs * FLOW_RECORD_BYTES + 2 * SOURCE_BYTES
-            + writable_actuals * (FLOW_RECORD_BYTES + SOURCE_BYTES) + SOURCE_BYTES)
+            + writable_actuals * (FLOW_RECORD_BYTES + SOURCE_BYTES) + SOURCE_BYTES
+            + formal_advisories * FLOW_RECORD_BYTES + SOURCE_BYTES)
 
 
 def dense_report() -> str:
@@ -188,7 +193,7 @@ class CapacityEnvelopeTests(unittest.TestCase):
         index.update(rule="VC_INDEX_CHECK", message={"text": "index check proved"})
         self.assertLessEqual(embedded_record_bytes(index), MAIN_RECORD_BYTES)
         self.assertEqual(main_envelope(), 31_822_336)
-        self.assertEqual(subprogram_envelope(), 48_676_608)
+        self.assertEqual(subprogram_envelope(), 49_279_744)
         self.assertEqual(metadata_envelope(), 55_712)
         self.assertLessEqual(metadata_envelope(), METADATA_BYTES)
         specification = (ROOT / "src/silver_library_reports.ads").read_text()
@@ -218,6 +223,17 @@ class CapacityEnvelopeTests(unittest.TestCase):
         unused_output.update(rule="INEFFECTIVE", severity="warning", message={"text":
             '"" is set by "" but not used after the call'})
         self.assertLessEqual(embedded_record_bytes(unused_output), FLOW_RECORD_BYTES)
+        for rule, message in (
+                ("INOUT_ONLY_READ", '"" is not modified, could be IN'),
+                ("UNUSED_INITIAL_VALUE", 'unused initial value of ""')):
+            formal_advisory = maximal_retained_record(flow=True)
+            formal_advisory.update(rule=rule, message={"text": message})
+            with self.subTest(rule=rule):
+                self.assertLessEqual(embedded_record_bytes(formal_advisory), FLOW_RECORD_BYTES)
+                # One exact declaration-name payload per record, no escaping.
+                formal_advisory["message"]["text"] = message.replace('""', '"' + 'N' * SOURCE_BYTES + '"')
+                self.assertLessEqual(embedded_record_bytes(formal_advisory),
+                                     FLOW_RECORD_BYTES + SOURCE_BYTES)
         copyback = maximal_retained_record()
         copyback.update(rule="VC_RANGE_CHECK", message={"text": "range check proved"})
         self.assertLessEqual(embedded_record_bytes(copyback), MAIN_RECORD_BYTES)

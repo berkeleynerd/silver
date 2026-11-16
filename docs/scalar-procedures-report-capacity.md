@@ -105,6 +105,35 @@ array declarations nor array writes, so they do not increase the inherited
 nested-array advisory multiplier. Safety and automatic discharge still need
 their complete semantic, actual-source and native proofs.
 
+## Formal dependence advisories — repair #391
+
+The pinned `flow-analysis.adb:850–1034` visits final export vertices and emits
+`INOUT_ONLY_READ` / `"NAME" is not modified, could be IN` for an unwritten
+scalar `in out` formal. `Collect_Imports_And_Objects` at 1227–1239 collects
+effective imports from their dependence paths to final uses;
+`Warn_On_Ineffective_Imports` at 1372–1445 emits `UNUSED_INITIAL_VALUE` /
+`unused initial value of "NAME"` once per member of the ineffective-import
+set. Its caller at 1558–1560 subtracts effective, suppressed and unused objects.
+These are dependence advisories, not failed checks or replacement evidence.
+
+Both auditors bind these two rules to the exact declared local owner and formal
+spelling, never Main. `INOUT_ONLY_READ` requires a procedure `in out` formal;
+`UNUSED_INITIAL_VALUE` requires procedure `in`/`in out` or function `in`.
+Both require warning severity, flow provenance, `main.adb`, positive location,
+and no suppression or justification. Columns and record order are irrelevant.
+The existing `UNUSED_VARIABLE` and unused-copy-back classifications, function
+termination witnesses, procedure output-initialization witnesses and all safety
+checks remain unchanged.
+
+An unwritten scalar `in out` formal retains its initial value at its final
+export, making that import effective, so it cannot also receive
+`UNUSED_INITIAL_VALUE`. Each formal therefore receives at most one of the two
+new records. It can receive both `UNUSED_VARIABLE` and `INOUT_ONLY_READ` when
+unmentioned: the former retains its inherited flow-record/name charge, and the
+latter receives the new separate charge below. Do not collapse those two records
+into a single allowance. The scalar-function case of unused initial value was
+already admitted before procedures and is repaired by the same policy addition.
+
 ## Conservative retained storage
 
 Let `S = 4096`. Functions and procedures jointly consume more than 32 disjoint
@@ -137,6 +166,15 @@ The producer's ordinary source-message deduplication prevents repeated runtime
 loop iterations or repeated visits to the same call/output from multiplying
 this source-site count.
 
+For the new formal advisories, independently reuse the minimum seven-byte
+explicit-mode formal reservation `(X:in T`, including its disjoint opening
+delimiter. At most `floor(S/7) = 585` formals contribute one new record each.
+Reserve 1024 schema bytes per record and a further `S` bytes for their exact
+formal-name payloads: each name appears once in its record and the declaration
+name spans are disjoint. Ada identifier bytes need no JSON escaping. This gives
+`585*1024 + 4096 = 603,136` additional bytes, independently of the older flow
+allowance and the separate output-initialization/copy-back charges.
+
 ```text
 previous function envelope                       33,149,440
 additional dependency tokens: (819-512)*3*256         235,776
@@ -146,9 +184,12 @@ output-name payload:           2*4096                  8,192
 previous procedure envelope                      38,186,752
 unused-output records:          2048*1024           2,097,152
 unused-output name payload:     4096*(2048+1)       8,392,704
-combined envelope                                48,676,608
+previous combined envelope                       48,676,608
+formal dependence advisories:   585*1024              599,040
+formal-name payload:            4096                    4,096
+combined envelope                                49,279,744
 selected allocation:           64*1024*1024       67,108,864
-headroom                                         18,432,256
+headroom                                         17,829,120
 ```
 
 The shared file-reader bound must cover the same retained report domain.
