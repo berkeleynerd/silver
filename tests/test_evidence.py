@@ -1113,7 +1113,9 @@ class CompilerHideInfoPolicyTests(unittest.TestCase):
                        "Termination_Policy", "Initialization_Policy",
                        "Initialization_Index_Model", "Raw_Initialization_Index",
                        "Diagnostic_Message", "Raw_Diagnostic_Message",
-                       "Output_Message", "Raw_Output_Message"):
+                       "Output_Message", "Raw_Output_Message",
+                       "Formal_Advisory_Message", "Raw_Formal_Advisory_Message",
+                       "Object_Policy", "Raw_Object_Policy"):
             with self.subTest(target=target):
                 self.source('PrAgMa -- caller-local abstraction\n AnNoTaTe\n'
                             '(GnAtPrOvE, -- producer\n HiDe_InFo, "Expression_Function_Body", '
@@ -1124,31 +1126,36 @@ class CompilerHideInfoPolicyTests(unittest.TestCase):
         audit_source_policy(self.path)
 
     def test_hide_info_requires_exact_complete_pragma(self) -> None:
-        safe = 'pragma Annotate (GNATprove, Hide_Info, "Expression_Function_Body", Raw_List_Spec);'
-        mutations = (safe.replace("GNATprove", "Other_Tool"),
-                     safe.replace("Hide_Info", "False_Positive"),
-                     safe.replace("Hide_Info", "Assume"),
-                     safe.replace("Raw_List_Spec", "Other_Spec"),
-                     safe.replace("Raw_List_Spec", "Pkg.Raw_List_Spec"),
-                     safe.replace("Expression_Function_Body", "expression_function_body"),
-                     safe.replace("Expression_Function_Body", "Expression_Function_Body "),
-                     safe.replace('"Expression_Function_Body"', '"Expression_Function_Body"""'),
-                     safe.replace(', Raw_List_Spec', ''),
-                     safe.replace('Raw_List_Spec)', 'Raw_List_Spec, List_Spec)'),
-                     safe.replace(');', ')'), safe.replace(');', ';'),
-                     safe.replace(');', '));'), safe.replace(');', ') Extra;'))
-        for annotation in mutations:
-            with self.subTest(annotation=annotation):
-                self.source(annotation)
-                with self.assertRaisesRegex(EvidenceError, "forbidden.*annotate"):
-                    audit_source_policy(self.path)
-        self.source(safe)
-        for filename in ("main.adb", "silver_library_reports.ads", "other.adb"):
-            with self.subTest(filename=filename):
-                other = self.path.with_name(filename)
-                other.write_bytes(self.path.read_bytes())
-                with self.assertRaisesRegex(EvidenceError, "forbidden.*annotate"):
-                    audit_source_policy(other)
+        for target in ("Raw_List_Spec", "Formal_Advisory_Message",
+                       "Raw_Formal_Advisory_Message", "Object_Policy", "Raw_Object_Policy"):
+            safe = f'pragma Annotate (GNATprove, Hide_Info, "Expression_Function_Body", {target});'
+            mutations = (safe.replace("GNATprove", "Other_Tool"),
+                         safe.replace("Hide_Info", "False_Positive"),
+                         safe.replace("Hide_Info", "Assume"),
+                         safe.replace(target, "Other_Spec"),
+                         safe.replace(target, f"Pkg.{target}"),
+                         safe.replace("Expression_Function_Body", "expression_function_body"),
+                         safe.replace("Expression_Function_Body", "Expression_Function_Body "),
+                         safe.replace('"Expression_Function_Body"', '"Expression_Function_Body"""'),
+                         safe.replace(f', {target}', ''),
+                         safe.replace(f'{target})', f'{target}, List_Spec)'),
+                         safe.replace(');', ')'), safe.replace(');', ';'),
+                         safe.replace(');', '));'), safe.replace(');', ') Extra;'))
+            for annotation in mutations:
+                with self.subTest(target=target, annotation=annotation):
+                    self.source(annotation)
+                    with self.assertRaisesRegex(EvidenceError, "forbidden.*annotate"):
+                        audit_source_policy(self.path)
+            self.source(safe)
+            for filename in ("main.adb", "silver_library_reports.ads", "other.adb"):
+                with self.subTest(target=target, filename=filename):
+                    other = self.path.with_name(filename)
+                    other.write_bytes(self.path.read_bytes())
+                    with self.assertRaisesRegex(EvidenceError, "forbidden.*annotate"):
+                        audit_source_policy(other)
+
+    def test_current_report_body_uses_reviewed_source_policy(self) -> None:
+        audit_source_policy(Path(__file__).resolve().parents[1] / "src/silver_library_reports.adb")
 
     def test_allowed_hide_info_does_not_exempt_other_directives(self) -> None:
         safe = 'pragma Annotate (GNATprove, Hide_Info, "Expression_Function_Body", List_Spec);\n'

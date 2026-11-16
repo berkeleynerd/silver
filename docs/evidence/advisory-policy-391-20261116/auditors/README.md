@@ -191,3 +191,39 @@ of those contracts or definitions. Earlier successful formal-helper checks also
 remain applicable. The next required checkpoint is complete native proof and
 build on the integrated annotation commit, followed by complete Lean and the
 full suite on the final stable inputs. The lead coordinates those runs.
+
+## Source-policy allowlist follow-up
+
+During the next complete native run, the lead found that the compiler source
+policy still omitted the four new reviewed `Hide_Info` targets. The old Python
+auditor rejects the exact annotated report body with `forbidden
+assumption/check-policy pragma annotate`; the focused proof run does not execute
+that complete source audit. The active integration inputs and productive proof
+run were left untouched while this repair was prepared in the separate native
+worktree. Its actual completion remains a separate evidence record.
+
+The follow-up adds only `formal_advisory_message`,
+`raw_formal_advisory_message`, `object_policy` and `raw_object_policy` to the
+existing target tuple. The exact complete pragma shape and
+`silver_library_reports.adb` restriction remain unchanged; no other annotation,
+suppression directive or source file gains acceptance. Ada sources, contracts,
+domains and proof obligations are unchanged by this follow-up.
+
+The Python auditor suite passes 79 tests in 1.381 s. Existing positive tests
+cover the four new targets with Ada case/comment/layout variants. Existing
+negative tests now apply 14 malformed/unreviewed pragma variants and three
+wrong-file variants to each new target as well as `Raw_List_Spec`. A new test
+audits the actual current report body, covering the integration omission that
+the prior synthetic fixtures missed. The other forbidden-directive tests remain.
+`source-policy-followup.json` and its archive retain the before-fix rejection,
+exact old/new auditor and source hashes, bounded diff and successful test log.
+The production diff is checked to contain exactly the four-name extension.
+Independent Astra Max review found no issue with the exact diff and confirmed
+the repaired checker accepts the actual report body. A cheap read-only policy
+scan also accepts every current integration source/generated Ada file using
+the isolated repaired checker; its file hashes are retained. This is source
+policy preflight, not a proof, report audit or completed provenance claim.
+
+Changing the auditor changes recorded native/Lean input provenance. After
+integration, complete assurance still requires a new full native audit and the
+final Lean checkpoint on those inputs; matching solver work can be reused.
