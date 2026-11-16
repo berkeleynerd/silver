@@ -1,0 +1,165 @@
+{
+  "review_target": "877c382f6d07c1e0a2573d4cf70fa13876a399b4",
+  "archive": "artifacts-stage1.tar.gz",
+  "archive_sha256": "f72f2715f3c50949fd9927cb7e221def3f61f10dffa6012896f2a0aa6a75a215",
+  "cases": [
+    {
+      "name": "hello",
+      "job": "20261116T014747-962817553-lead-89c989",
+      "kind": "static",
+      "functions": [],
+      "procedures": {},
+      "formals": {},
+      "sha256": {
+        "main.adb": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7",
+        "reports/main~1.spark": "19f9f016577b9014df078dff99b23d8863f11f4194690a77101384634bd88729",
+        "reports/silver_io.spark": "08e1ded7337435466c0befb500ee056096c0110f0d6db9e49afdf13a1bf85518",
+        "reports/silver_arguments.spark": "91ac759dd6d340b1ecf79c42406426ca5fded9acf59fcada3b4ce56cd5782126",
+        "reports/silver_output_libc.spark": "025c257d9d2335d9d8204b4544a01a3296ecaebb94d212d1a923536792c42ce4",
+        "reports/silver_runtime.spark": "3eb5019f08b5fa66ff3468e7f2751982faa52a8372102d16d8238602c7373b25",
+        "reports/gnatprove.out": "b70823ece8958c1466864a6928e61d90c34aea0f21153cea9dd899edcb2d4f90",
+        "reports/gnatprove.sarif": "44ddbd8c51e8fa41af2cc128dfddb2fe7fc41c3a2f18ecc7528877db0ad96f6d"
+      }
+    },
+    {
+      "name": "copy",
+      "job": "20261116T015130-855765659-lead-09a6ad",
+      "kind": "assigned",
+      "functions": [],
+      "procedures": {
+        "Copy": [
+          "Target"
+        ]
+      },
+      "formals": {
+        "Copy": [
+          [
+            "Source",
+            "in"
+          ],
+          [
+            "Target",
+            "out"
+          ]
+        ]
+      },
+      "sha256": {
+        "main.adb": "d3d1a216c94ac8b9979bd6df74cb2ea6cc6f2665361aaca3ff01a4fe0b39cb16",
+        "reports/main~1.spark": "36cf8e5ed34ce5f4ca6a8543c6cba51cd9bf0220266f46976d839a958ae58720",
+        "reports/silver_io.spark": "58edd0648f4d530ef4b5a19173c0aa0c1f75a5b2c191c3911216cfba1913e72d",
+        "reports/silver_arguments.spark": "8df976a065ee3dde5dd235612bfd7396b0efe8d726e5ba23f2374f4b95520db7",
+        "reports/silver_output_libc.spark": "81d9bbf34d88d2ebed329742fc0281c5c8334af23e681688e2d78eea9d95f1ef",
+        "reports/silver_runtime.spark": "2abf5d91829b951b3fbf4f5ad2158ca28fb83887a15a27700583a0fbea6e97c0",
+        "reports/gnatprove.out": "c2e43499919f5c8f8e2e539fde07d82980e57ea3ad79b68531036eda88e35b8d",
+        "reports/gnatprove.sarif": "8a25dcca3ef4fbc6434cd4c7eac6b9c7d04147e0fc8efffa64b9504db4518076"
+      }
+    },
+    {
+      "name": "clear",
+      "job": "20261116T015133-605664494-lead-6b447c",
+      "kind": "assigned",
+      "functions": [],
+      "procedures": {
+        "Clear": [
+          "Value"
+        ]
+      },
+      "formals": {
+        "Clear": [
+          [
+            "Value",
+            "out"
+          ]
+        ]
+      },
+      "sha256": {
+        "main.adb": "15ec91a5f96a625f89f20258e748ad06906cea17d010fd3005971389abd7dc5d",
+        "reports/main~1.spark": "a54a06caf9b3f3f1f7f7722f2c35d96202ba6e730309ac0df13b0e30eaef31f3",
+        "reports/silver_io.spark": "9168eee1d132a3ce00856e418d6b2af2d480efed02dc69a09214e34cb42d3d49",
+        "reports/silver_arguments.spark": "3ad7be2583b470f769277f639492de51477b31ec3358c9491e580e56d5365566",
+        "reports/silver_output_libc.spark": "7bd1855280198c695bc027fcc14bb4d5175e04c466490799c9e4b40cc6c19d9e",
+        "reports/silver_runtime.spark": "9f179844e66873206f03200788fc28df39a3750a7ae188dde857fa630de6d2a0",
+        "reports/gnatprove.out": "b3189040a9e807e4641e4d00e60bb7274892f9588169e1f94a8eec9b73b5f260",
+        "reports/gnatprove.sarif": "73752e59b04fa441159562d631d3876bf4ffa1fac94aa679d9a76a45ccf97e2d"
+      }
+    },
+    {
+      "name": "function",
+      "job": "20261116T015136-359212537-lead-20b5d8",
+      "kind": "assigned",
+      "functions": [
+        "Zero"
+      ],
+      "procedures": {},
+      "formals": {
+        "Zero": [
+          [
+            "N",
+            "in"
+          ]
+        ]
+      },
+      "sha256": {
+        "main.adb": "a5eb7f4f75f97cfc1da517105a548dc77693ca03c45986ae314258647f0bfb42",
+        "reports/main~1.spark": "03796d7cce47dac48ec9670595437e3f5dbfce5b8de6a6637d809bcc488592df",
+        "reports/silver_io.spark": "d2e9a46c0eb17b30bd41a89b808f80cb2037511df8a2661edb6cb6f5cc75dd29",
+        "reports/silver_arguments.spark": "5d5a18eedc60b322e67d030cdbeeece23e8626e622452cf12b5194a9ddc043a9",
+        "reports/silver_output_libc.spark": "3fe0baa41009e11c0677b064e70534483d2797d3b6bdec877623332238d4029c",
+        "reports/silver_runtime.spark": "aa81a82bed68770df269b5680a142895e863f6353a0d5ae596552b838c3ae661",
+        "reports/gnatprove.out": "f76bee0c6671d3b31fece4670b38fe9b2dcd2326692f08d25fa4bf66d5595c78",
+        "reports/gnatprove.sarif": "7c26aac33f6fdc9af8a36be3943c4a718c115120e731fb49fd1510e043d875d0"
+      }
+    },
+    {
+      "name": "main_advisories",
+      "job": "20261116T041926-932437558-CH2-mechanis-2c81e0",
+      "kind": "selected",
+      "functions": [],
+      "procedures": {},
+      "formals": {},
+      "sha256": {
+        "main.adb": "dc049356f552081f04fdb664c9c95e6aceabe19834bda21b0e30d1f2118be612",
+        "reports/main~1.spark": "922918938900f8282ba850d334a219187ecd44cbdae9baeffec6d88638053bb8",
+        "reports/silver_io.spark": "c2732b69a48f876f3845341669a75e558b734d6f4ca9420a61c98fe82f0da993",
+        "reports/silver_arguments.spark": "dadbdb9157cdcbfead00dc623c07a44011a05152b77de037876c3b3a79946445",
+        "reports/silver_output_libc.spark": "e7675289d0233140ef462e3f36145861515b7338d74fa5a49208cb0baf7d0c8d",
+        "reports/silver_runtime.spark": "7b415bbab608da2ab362e562568bc1aec29ec1a6448fcaca7b585655857473e6",
+        "reports/gnatprove.out": "ba6c01ba16608181263a43816a884b1acedf8249d22a4ddc270fff61358f5c0c",
+        "reports/gnatprove.sarif": "f3ddb4e33d1e7463c159e59d36f8ceaaa0204a5fe748b0860e6df135bbf81125"
+      }
+    },
+    {
+      "name": "argument_procedure",
+      "job": "20261116T045041-305474119-A2a-e91658",
+      "kind": "argument",
+      "functions": [],
+      "procedures": {
+        "P": [
+          "X"
+        ]
+      },
+      "formals": {
+        "P": [
+          [
+            "N",
+            "in"
+          ],
+          [
+            "X",
+            "out"
+          ]
+        ]
+      },
+      "sha256": {
+        "main.adb": "5773a23dfe82584ae83a459e735be6b19454a121208e516a648509fbc0580a0e",
+        "reports/main~1.spark": "2f6b05c317013c3f2cd7bdf3f7bdd1c34afcb6a1acc59fef464b62586efbb896",
+        "reports/silver_io.spark": "1af307a9d69905b1c657b2d622bb507edff2d97ebd9cb1b0ae5cf8bb9987c24a",
+        "reports/silver_arguments.spark": "5cf52ee6183cebcdaeed47d3b6fc43e324bc3e895963a58038b3f3533acf0673",
+        "reports/silver_output_libc.spark": "54797dd63a69ee5479745bbea1f7b1510bf02e3cb7d16a200be73b66fb9e7967",
+        "reports/silver_runtime.spark": "6fefe5cd2fcf013d60299cdcfcb09e477982337a4ff48ed1687e02364b3a06b3",
+        "reports/gnatprove.out": "e6b647e902f9c4cd175acc45aed62fdba37f4b912913ca61b592e8694db3de6f",
+        "reports/gnatprove.sarif": "ec6ecd19fe2e656231526d9a2daf95ed9b5b33c59fbf27841ddadf982d9a68e1"
+      }
+    }
+  ]
+}

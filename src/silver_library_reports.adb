@@ -44,6 +44,8 @@ package body Silver_Library_Reports with SPARK_Mode => On is
    Procedure_Output_Middle : constant String := "\"" is set by \""";
    Procedure_Output_Suffix : constant String := "\"" but not used after the call""";
    Atom_UNUSED_VARIABLE : constant String := "UNUSED_VARIABLE";
+   Atom_INOUT_ONLY_READ : constant String := "INOUT_ONLY_READ";
+   Atom_UNUSED_INITIAL_VALUE : constant String := "UNUSED_INITIAL_VALUE";
    Atom_INEFFECTIVE : constant String := "INEFFECTIVE";
    Atom_DEAD_CODE : constant String := "DEAD_CODE";
    Atom_statement_no_effect : constant String := "statement has no effect";
@@ -1530,6 +1532,71 @@ package body Silver_Library_Reports with SPARK_Mode => On is
       return 0;
    end Initialization_Index;
 
+   --  These flow advisories identify a declared formal, not a safety check.
+   --  Like Output_Formal, the owner predicates are total over typed metadata,
+   --  including empty or malformed slices of the shared parameter pool.
+   function Procedure_Input_Formal
+     (Name : Entity_Kind; Index : Procedure_Bindings.Formal_Count;
+      Procedures : Procedure_Metadata; Only_Read : Boolean) return Boolean is
+     (Is_Local_Procedure (Name, Procedures)
+      and then Index in 1 .. Procedures.Parameter_Count
+      and then (if Only_Read
+        then Procedures.Parameters (Index).Mode = Procedure_Bindings.Input_Output
+        else Procedures.Parameters (Index).Mode in Procedure_Bindings.Input | Procedure_Bindings.Input_Output)
+      and then
+        (declare Item : constant Procedure_Bindings.Signature :=
+           Procedures.Items (Name - Procedure_Entity_Base);
+         begin Item.Formal_First > 0 and then Item.Formal_First <= Procedures.Parameter_Count
+           and then Item.Count > 0
+           and then Item.Count <= Procedures.Parameter_Count - Item.Formal_First + 1
+           and then Index >= Item.Formal_First and then Index - Item.Formal_First < Item.Count));
+
+   --  Every admitted function formal has explicit mode in; the function
+   --  metadata consequently has no mode field.
+   function Function_Input_Formal
+     (Name : Entity_Kind; Index : Function_Bindings.Formal_Count;
+      Functions : Function_Metadata) return Boolean is
+     (Is_Local_Function (Name, Functions)
+      and then Index in 1 .. Functions.Parameter_Count
+      and then
+        (declare Item : constant Function_Bindings.Signature := Functions.Items (Name - Main_Entity);
+         begin Item.Formal_First > 0 and then Item.Formal_First <= Functions.Parameter_Count
+           and then Item.Count > 0
+           and then Item.Count <= Functions.Parameter_Count - Item.Formal_First + 1
+           and then Index >= Item.Formal_First and then Index - Item.Formal_First < Item.Count));
+
+   function Formal_Name_Valid (Source : String; First, After : Natural) return Boolean is
+     (Source'First = 1 and then Source'Length <= 4_096
+      and then First >= 1 and then First < After and then After <= Source'Length + 1);
+
+   function Formal_Advisory_Text
+     (Source : String; First, After : Natural; Only_Read : Boolean) return String is
+     (if not Formal_Name_Valid (Source, First, After) then ""
+      elsif Only_Read then "\""" & Source (First .. After - 1) & "\"" is not modified, could be IN"
+      else "unused initial value of \""" & Source (First .. After - 1) & "\""");
+
+   function Formal_Advisory_Message
+     (Text : String; Message : Span; Name : Entity_Kind; Source : String;
+      Functions : Function_Metadata; Procedures : Procedure_Metadata;
+      Only_Read : Boolean) return Boolean
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length <= Max_Report_Length;
+   function Formal_Advisory_Message
+     (Text : String; Message : Span; Name : Entity_Kind; Source : String;
+      Functions : Function_Metadata; Procedures : Procedure_Metadata;
+      Only_Read : Boolean) return Boolean is
+     ((for some I in 1 .. Procedures.Parameter_Count =>
+        Procedure_Input_Formal (Name, I, Procedures, Only_Read)
+        and then Formal_Name_Valid (Source, Procedures.Parameters (I).First, Procedures.Parameters (I).After)
+        and then String_Equal (Text, Message, Formal_Advisory_Text
+          (Source, Procedures.Parameters (I).First, Procedures.Parameters (I).After, Only_Read)))
+      or else (not Only_Read and then
+        (for some I in 1 .. Functions.Parameter_Count =>
+          Function_Input_Formal (Name, I, Functions)
+          and then Formal_Name_Valid (Source, Functions.Parameters (I).First, Functions.Parameters (I).After)
+          and then String_Equal (Text, Message, Formal_Advisory_Text
+            (Source, Functions.Parameters (I).First, Functions.Parameters (I).After, False)))));
+
    subtype List_Kind is Natural range
      0 .. 10 + Function_Bindings.Max_Functions + Procedure_Bindings.Max_Formals;
    Checks : constant List_Kind := 0;
@@ -1659,6 +1726,10 @@ package body Silver_Library_Reports with SPARK_Mode => On is
      ((String_Equal (Text, Rule, Atom_UNUSED_VARIABLE)
             and then Is_Local_Subprogram (Name, Functions, Procedures)
             and then Initializer_Message (Text, Message, True, Call_Name => Atom_Empty))
+           or else (String_Equal (Text, Rule, Atom_INOUT_ONLY_READ)
+             and then Formal_Advisory_Message (Text, Message, Name, Source, Functions, Procedures, True))
+           or else (String_Equal (Text, Rule, Atom_UNUSED_INITIAL_VALUE)
+             and then Formal_Advisory_Message (Text, Message, Name, Source, Functions, Procedures, False))
            or else (String_Equal (Text, Rule, Atom_INEFFECTIVE)
             and then
               (Initializer_Message (Text, Message, Call_Name => Atom_Empty)
@@ -2803,6 +2874,27 @@ package body Silver_Library_Reports with SPARK_Mode => On is
         and then Raw_Field (Text, Item, JSON_justif_msg) = Raw_Scan.Missing)
      with Ghost => Static;
 
+   function Raw_Formal_Advisory_Message
+     (Text : Raw_Bytes.Sequence; Message : Raw_Scan.Span; Name : Entity_Kind; Source : String;
+      Functions : Function_Metadata; Procedures : Procedure_Metadata;
+      Only_Read : Boolean) return Boolean
+     with Ghost => Static, Global => null;
+   function Raw_Formal_Advisory_Message
+     (Text : Raw_Bytes.Sequence; Message : Raw_Scan.Span; Name : Entity_Kind; Source : String;
+      Functions : Function_Metadata; Procedures : Procedure_Metadata;
+      Only_Read : Boolean) return Boolean is
+     ((for some I in 1 .. Procedures.Parameter_Count =>
+        Procedure_Input_Formal (Name, I, Procedures, Only_Read)
+        and then Formal_Name_Valid (Source, Procedures.Parameters (I).First, Procedures.Parameters (I).After)
+        and then Raw_String_Equal (Text, Message, Formal_Advisory_Text
+          (Source, Procedures.Parameters (I).First, Procedures.Parameters (I).After, Only_Read)))
+      or else (not Only_Read and then
+        (for some I in 1 .. Functions.Parameter_Count =>
+          Function_Input_Formal (Name, I, Functions)
+          and then Formal_Name_Valid (Source, Functions.Parameters (I).First, Functions.Parameters (I).After)
+          and then Raw_String_Equal (Text, Message, Formal_Advisory_Text
+            (Source, Functions.Parameters (I).First, Functions.Parameters (I).After, False)))));
+
    function Raw_Diagnostic_Message
      (Text : Raw_Bytes.Sequence; Rule, Message : Raw_Scan.Span;
       Kind : List_Kind; Name : Entity_Kind;
@@ -2815,6 +2907,10 @@ package body Silver_Library_Reports with SPARK_Mode => On is
      ((Raw_String_Equal (Text, Rule, Atom_UNUSED_VARIABLE)
             and then Is_Local_Subprogram (Name, Functions, Procedures)
             and then Raw_Initializer_Message (Text, Message, True, Call_Name => Atom_Empty))
+           or else (Raw_String_Equal (Text, Rule, Atom_INOUT_ONLY_READ)
+             and then Raw_Formal_Advisory_Message (Text, Message, Name, Source, Functions, Procedures, True))
+           or else (Raw_String_Equal (Text, Rule, Atom_UNUSED_INITIAL_VALUE)
+             and then Raw_Formal_Advisory_Message (Text, Message, Name, Source, Functions, Procedures, False))
            or else (Raw_String_Equal (Text, Rule, Atom_INEFFECTIVE)
             and then
               (Raw_Initializer_Message (Text, Message, Call_Name => Atom_Empty)
@@ -4239,6 +4335,37 @@ package body Silver_Library_Reports with SPARK_Mode => On is
       Mixed_Initialization_Index (Raw, L, Text, R, Source, Procedures, Name, Count - 1);
    end Mixed_Initialization_Index;
 
+   procedure Mixed_Formal_Advisory_Message
+     (Raw : Raw_Bytes.Sequence; L : Raw_Scan.Span; Text : String; R : Span;
+      Name : Entity_Kind; Source : String; Functions : Function_Metadata;
+      Procedures : Procedure_Metadata; Only_Read : Boolean)
+     with Ghost => Static, Global => null,
+       Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
+         and then Mixed_Field (Raw, L, Text, R),
+       Post => Raw_Formal_Advisory_Message (Raw, L, Name, Source, Functions, Procedures, Only_Read) =
+         Formal_Advisory_Message (Text, R, Name, Source, Functions, Procedures, Only_Read)
+   is
+   begin
+      for P in 1 .. Procedures.Parameter_Count loop
+         pragma Loop_Invariant (for all I in 1 .. P - 1 =>
+           Raw_String_Equal (Raw, L, Formal_Advisory_Text
+             (Source, Procedures.Parameters (I).First, Procedures.Parameters (I).After, Only_Read)) =
+           String_Equal (Text, R, Formal_Advisory_Text
+             (Source, Procedures.Parameters (I).First, Procedures.Parameters (I).After, Only_Read)));
+         Mixed_String_Congruence (Raw, L, Text, R, Formal_Advisory_Text
+           (Source, Procedures.Parameters (P).First, Procedures.Parameters (P).After, Only_Read));
+      end loop;
+      for P in 1 .. Functions.Parameter_Count loop
+         pragma Loop_Invariant (for all I in 1 .. P - 1 =>
+           Raw_String_Equal (Raw, L, Formal_Advisory_Text
+             (Source, Functions.Parameters (I).First, Functions.Parameters (I).After, False)) =
+           String_Equal (Text, R, Formal_Advisory_Text
+             (Source, Functions.Parameters (I).First, Functions.Parameters (I).After, False)));
+         Mixed_String_Congruence (Raw, L, Text, R, Formal_Advisory_Text
+           (Source, Functions.Parameters (P).First, Functions.Parameters (P).After, False));
+      end loop;
+   end Mixed_Formal_Advisory_Message;
+
    procedure Mixed_Diagnostic_Message
      (Raw : Raw_Bytes.Sequence; L_Rule, L_Message : Raw_Scan.Span;
       Text : String; R_Rule, R_Message : Span; Kind : List_Kind; Name : Entity_Kind;
@@ -4261,17 +4388,25 @@ package body Silver_Library_Reports with SPARK_Mode => On is
       pragma Annotate
         (GNATprove, Hide_Info, "Expression_Function_Body", Raw_Procedure_Output_Message);
       pragma Annotate
+        (GNATprove, Hide_Info, "Expression_Function_Body", Formal_Advisory_Message);
+      pragma Annotate
+        (GNATprove, Hide_Info, "Expression_Function_Body", Raw_Formal_Advisory_Message);
+      pragma Annotate
         (GNATprove, Hide_Info, "Expression_Function_Body", Output_Message);
       pragma Annotate
         (GNATprove, Hide_Info, "Expression_Function_Body", Raw_Output_Message);
    begin
       Mixed_String_Congruence (Raw, L_Rule, Text, R_Rule, Atom_UNUSED_VARIABLE);
+      Mixed_String_Congruence (Raw, L_Rule, Text, R_Rule, Atom_INOUT_ONLY_READ);
+      Mixed_String_Congruence (Raw, L_Rule, Text, R_Rule, Atom_UNUSED_INITIAL_VALUE);
       Mixed_String_Congruence (Raw, L_Rule, Text, R_Rule, Atom_INEFFECTIVE);
       Mixed_String_Congruence (Raw, L_Rule, Text, R_Rule, Atom_DEAD_CODE);
       Mixed_Initializer_Message (Raw, L_Message, Text, R_Message, Call_Name => Atom_Empty);
       Mixed_Initializer_Message (Raw, L_Message, Text, R_Message, True, Call_Name => Atom_Empty);
       Mixed_Output_Message (Raw, L_Message, Text, R_Message);
       Mixed_Procedure_Output_Message (Raw, L_Message, Text, R_Message, Source, Procedures);
+      Mixed_Formal_Advisory_Message (Raw, L_Message, Text, R_Message, Name, Source, Functions, Procedures, True);
+      Mixed_Formal_Advisory_Message (Raw, L_Message, Text, R_Message, Name, Source, Functions, Procedures, False);
       Mixed_String_Congruence (Raw, L_Message, Text, R_Message, Atom_unused_assignment);
       Mixed_String_Congruence (Raw, L_Message, Text, R_Message, Atom_statement_no_effect);
       Mixed_String_Congruence (Raw, L_Message, Text, R_Message, Atom_statement_unreachable);

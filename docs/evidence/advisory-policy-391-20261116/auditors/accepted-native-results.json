@@ -1,0 +1,275 @@
+{
+  "baseline_commit": "877c382f6d07c1e0a2573d4cf70fa13876a399b4",
+  "baseline_build_run": "20261116T224834-8bb169fa0548",
+  "repaired_test_run": "20261116T224802-ca1cbe3b87c0",
+  "baseline_binary_sha256": "c3c238dc02b9122d137b635cac9447b816e1e09adde344f48547bd5fd623e833",
+  "baseline_source_sha256": "95d4758ea69276203ccfea127b73837701278c2770a996d30e5d6833af1a09b1",
+  "repaired_source_sha256": "3f761cd823acc39ddbf904626ac2b8ea3f71938ccbc0071825f99fe608a5842c",
+  "scope": "baseline run here; repaired verdicts from successful native test run on the same fixture bytes",
+  "cases": [
+    {
+      "case": "hello",
+      "old_verdicts": {
+        "main": "accepted",
+        "silver_io": "accepted",
+        "silver_output_libc": "accepted",
+        "silver_arguments": "accepted",
+        "silver_runtime": "accepted"
+      },
+      "repaired_verdicts": {
+        "main": "accepted",
+        "silver_io": "accepted",
+        "silver_output_libc": "accepted",
+        "silver_arguments": "accepted",
+        "silver_runtime": "accepted"
+      }
+    },
+    {
+      "case": "copy",
+      "old_verdicts": {
+        "main": "accepted",
+        "silver_io": "accepted",
+        "silver_output_libc": "accepted",
+        "silver_arguments": "accepted",
+        "silver_runtime": "accepted"
+      },
+      "repaired_verdicts": {
+        "main": "accepted",
+        "silver_io": "accepted",
+        "silver_output_libc": "accepted",
+        "silver_arguments": "accepted",
+        "silver_runtime": "accepted"
+      }
+    },
+    {
+      "case": "clear",
+      "old_verdicts": {
+        "main": "accepted",
+        "silver_io": "accepted",
+        "silver_output_libc": "accepted",
+        "silver_arguments": "accepted",
+        "silver_runtime": "accepted"
+      },
+      "repaired_verdicts": {
+        "main": "accepted",
+        "silver_io": "accepted",
+        "silver_output_libc": "accepted",
+        "silver_arguments": "accepted",
+        "silver_runtime": "accepted"
+      }
+    },
+    {
+      "case": "function",
+      "old_verdicts": {
+        "main": "accepted",
+        "silver_io": "accepted",
+        "silver_output_libc": "accepted",
+        "silver_arguments": "accepted",
+        "silver_runtime": "accepted"
+      },
+      "repaired_verdicts": {
+        "main": "accepted",
+        "silver_io": "accepted",
+        "silver_output_libc": "accepted",
+        "silver_arguments": "accepted",
+        "silver_runtime": "accepted"
+      }
+    },
+    {
+      "case": "main_advisories",
+      "old_verdicts": {
+        "main": "accepted",
+        "silver_io": "accepted",
+        "silver_output_libc": "accepted",
+        "silver_arguments": "accepted",
+        "silver_runtime": "accepted"
+      },
+      "repaired_verdicts": {
+        "main": "accepted",
+        "silver_io": "accepted",
+        "silver_output_libc": "accepted",
+        "silver_arguments": "accepted",
+        "silver_runtime": "accepted"
+      }
+    },
+    {
+      "case": "argument_procedure",
+      "old_verdicts": {
+        "main": "accepted",
+        "silver_io": "accepted",
+        "silver_output_libc": "accepted",
+        "silver_arguments": "accepted",
+        "silver_runtime": "accepted"
+      },
+      "repaired_verdicts": {
+        "main": "accepted",
+        "silver_io": "accepted",
+        "silver_output_libc": "accepted",
+        "silver_arguments": "accepted",
+        "silver_runtime": "accepted"
+      }
+    }
+  ],
+  "new_rule_controls": [
+    {
+      "kind": "static",
+      "rule": "INOUT_ONLY_READ",
+      "owner": 3,
+      "formal": "Carry",
+      "old": "rejected",
+      "repaired": "accepted"
+    },
+    {
+      "kind": "static",
+      "rule": "INOUT_ONLY_READ",
+      "owner": 5,
+      "formal": "Carry",
+      "old": "rejected",
+      "repaired": "accepted"
+    },
+    {
+      "kind": "static",
+      "rule": "UNUSED_INITIAL_VALUE",
+      "owner": 3,
+      "formal": "Carry",
+      "old": "rejected",
+      "repaired": "accepted"
+    },
+    {
+      "kind": "static",
+      "rule": "UNUSED_INITIAL_VALUE",
+      "owner": 3,
+      "formal": "Seed",
+      "old": "rejected",
+      "repaired": "accepted"
+    },
+    {
+      "kind": "static",
+      "rule": "UNUSED_INITIAL_VALUE",
+      "owner": 2,
+      "formal": "X",
+      "old": "rejected",
+      "repaired": "accepted"
+    },
+    {
+      "kind": "argument",
+      "rule": "INOUT_ONLY_READ",
+      "owner": 3,
+      "formal": "Carry",
+      "old": "rejected",
+      "repaired": "accepted"
+    },
+    {
+      "kind": "argument",
+      "rule": "INOUT_ONLY_READ",
+      "owner": 5,
+      "formal": "Carry",
+      "old": "rejected",
+      "repaired": "accepted"
+    },
+    {
+      "kind": "argument",
+      "rule": "UNUSED_INITIAL_VALUE",
+      "owner": 3,
+      "formal": "Carry",
+      "old": "rejected",
+      "repaired": "accepted"
+    },
+    {
+      "kind": "argument",
+      "rule": "UNUSED_INITIAL_VALUE",
+      "owner": 3,
+      "formal": "Seed",
+      "old": "rejected",
+      "repaired": "accepted"
+    },
+    {
+      "kind": "argument",
+      "rule": "UNUSED_INITIAL_VALUE",
+      "owner": 2,
+      "formal": "X",
+      "old": "rejected",
+      "repaired": "accepted"
+    },
+    {
+      "kind": "assigned",
+      "rule": "INOUT_ONLY_READ",
+      "owner": 3,
+      "formal": "Carry",
+      "old": "rejected",
+      "repaired": "accepted"
+    },
+    {
+      "kind": "assigned",
+      "rule": "INOUT_ONLY_READ",
+      "owner": 5,
+      "formal": "Carry",
+      "old": "rejected",
+      "repaired": "accepted"
+    },
+    {
+      "kind": "assigned",
+      "rule": "UNUSED_INITIAL_VALUE",
+      "owner": 3,
+      "formal": "Carry",
+      "old": "rejected",
+      "repaired": "accepted"
+    },
+    {
+      "kind": "assigned",
+      "rule": "UNUSED_INITIAL_VALUE",
+      "owner": 3,
+      "formal": "Seed",
+      "old": "rejected",
+      "repaired": "accepted"
+    },
+    {
+      "kind": "assigned",
+      "rule": "UNUSED_INITIAL_VALUE",
+      "owner": 2,
+      "formal": "X",
+      "old": "rejected",
+      "repaired": "accepted"
+    },
+    {
+      "kind": "selected",
+      "rule": "INOUT_ONLY_READ",
+      "owner": 3,
+      "formal": "Carry",
+      "old": "rejected",
+      "repaired": "accepted"
+    },
+    {
+      "kind": "selected",
+      "rule": "INOUT_ONLY_READ",
+      "owner": 5,
+      "formal": "Carry",
+      "old": "rejected",
+      "repaired": "accepted"
+    },
+    {
+      "kind": "selected",
+      "rule": "UNUSED_INITIAL_VALUE",
+      "owner": 3,
+      "formal": "Carry",
+      "old": "rejected",
+      "repaired": "accepted"
+    },
+    {
+      "kind": "selected",
+      "rule": "UNUSED_INITIAL_VALUE",
+      "owner": 3,
+      "formal": "Seed",
+      "old": "rejected",
+      "repaired": "accepted"
+    },
+    {
+      "kind": "selected",
+      "rule": "UNUSED_INITIAL_VALUE",
+      "owner": 2,
+      "formal": "X",
+      "old": "rejected",
+      "repaired": "accepted"
+    }
+  ]
+}

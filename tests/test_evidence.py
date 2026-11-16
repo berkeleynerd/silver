@@ -46,7 +46,7 @@ class ProofEvidenceTests(unittest.TestCase):
         }
         (self.path / "gnatprove.out").write_text("Total . . . . .\nin unit main, 1 subprograms and packages out of 1 analyzed\n")
 
-    def refresh_reports(self) -> None:
+    def refresh_reports(self, *, fill_defaults: bool = True) -> None:
         """Build mutually consistent producer reports; mutations happen after this."""
         summary = []
         diagnostics = []
@@ -61,14 +61,15 @@ class ProofEvidenceTests(unittest.TestCase):
             proof += len(report["proof"])
             for kind in ("flow", "proof", "warn_error"):
                 for record in report[kind]:
-                    for key, value in {"file": path.stem + ".adb", "line": 1, "col": 1,
-                                       "rule": "VC_ASSERT", "entity": 1,
-                                       "message": {"text": "assertion proved"}}.items():
-                        record.setdefault(key, value)
-                    diagnostics.append({"ruleId": record["rule"], "kind": "pass", "level": "none",
-                                        "message": record["message"], "locations": [{"physicalLocation": {
-                                            "artifactLocation": {"uri": record["file"]},
-                                            "region": {"startLine": record["line"], "startColumn": record["col"]}}}]})
+                    if fill_defaults:
+                        for key, value in {"file": path.stem + ".adb", "line": 1, "col": 1,
+                                           "rule": "VC_ASSERT", "entity": 1,
+                                           "message": {"text": "assertion proved"}}.items():
+                            record.setdefault(key, value)
+                    diagnostics.append({"ruleId": record.get("rule"), "kind": "pass", "level": "none",
+                                        "message": record.get("message"), "locations": [{"physicalLocation": {
+                                            "artifactLocation": {"uri": record.get("file")},
+                                            "region": {"startLine": record.get("line"), "startColumn": record.get("col")}}}]})
             path.write_text(json.dumps(report))
         summary.insert(0, f"Total {flow + proof} {flow} {proof} . .")
         (self.path / "gnatprove.out").write_text("\n".join(summary) + "\n")
@@ -191,9 +192,10 @@ class ProofEvidenceTests(unittest.TestCase):
         self.report = library_reports.procedure_report()
         self.sarif["runs"][0]["invocations"][0]["commandLine"] += " --no-inlining"
 
-    def audit_procedures(self, procedures=None, *, unused_output=False) -> dict[str, int]:
+    def audit_procedures(self, procedures=None, *, unused_output=False,
+                         kind="assigned", formals=None, fill_defaults=True) -> dict[str, int]:
         (self.path / "main.spark").write_text(json.dumps(self.report))
-        self.refresh_reports()
+        self.refresh_reports(fill_defaults=fill_defaults)
         if unused_output:
             sarif_path = self.path / "gnatprove.sarif"
             sarif = json.loads(sarif_path.read_text())
@@ -209,8 +211,9 @@ class ProofEvidenceTests(unittest.TestCase):
                 "in unit main, 5 subprograms and packages out of 5 analyzed\n")
         if procedures is None:
             procedures = {"Set_Value": ("Value", "Flag"), "Reset": ("Value",), "Step": ()}
-        return audit_reports(self.path, {"main"}, application_kind="assigned",
-                             application_functions=("Id",), application_procedures=procedures)
+        return audit_reports(self.path, {"main"}, application_kind=kind,
+                             application_functions=("Id",), application_procedures=procedures,
+                             application_formals=formals)
 
     def test_procedures_require_each_output_and_preserve_function_termination(self) -> None:
         self.prepare_procedures()
@@ -235,6 +238,78 @@ class ProofEvidenceTests(unittest.TestCase):
             mutate(self.report)
             with self.subTest(label=label), self.assertRaises(EvidenceError):
                 self.audit_procedures(unused_output=True)
+
+    def test_formal_advisories_bind_exact_owner_mode_name_and_record(self) -> None:
+        self.prepare_procedures()
+        for kind in ("static", "argument", "assigned", "selected"):
+            self.report = library_reports.procedure_kind_report(kind)
+            self.assertEqual(self.audit_procedures(kind=kind)["assignment_advisories"], 0)
+            for rule, owner, name in library_reports.FORMAL_ADVISORIES:
+                base = library_reports.formal_advisory_report(kind, rule, owner, name)
+                self.report = copy.deepcopy(base)
+                with self.subTest(kind=kind, rule=rule, owner=owner, name=name):
+                    self.assertEqual(self.audit_procedures(kind=kind, unused_output=True,
+                        formals=library_reports.PROCEDURE_FORMALS)["assignment_advisories"], 1)
+                for label, mutate in library_reports.formal_advisory_mutations(rule, owner, name):
+                    self.report = copy.deepcopy(base)
+                    mutate(self.report)
+                    with self.subTest(kind=kind, rule=rule, owner=owner, name=name, mutation=label):
+                        with self.assertRaises(EvidenceError):
+                            self.audit_procedures(kind=kind, unused_output=True, fill_defaults=False,
+                                                  formals=library_reports.PROCEDURE_FORMALS)
+
+    def test_formal_advisories_require_an_independent_source_inventory(self) -> None:
+        self.prepare_procedures()
+        self.report = library_reports.formal_advisory_report("assigned", "INOUT_ONLY_READ", 5, "Carry")
+        for formals in (None, {}, {"Step": (("Other", "in out"),)}, {"Step": (("Carry", "in"),)}):
+            with self.subTest(formals=formals), self.assertRaises(EvidenceError):
+                self.audit_procedures(unused_output=True, formals=formals)
+        invalid = (
+            {"Main": (("Carry", "in out"),)},
+            {"Unknown": (("Carry", "in out"),)},
+            {"Id": (("X", "in out"),)},
+            {"Id": (("X", "out"),)},
+            {"Step": (("Carry", "invalid"),)},
+            {"Step": (("Carry", "in out"), ("carry", "in"))},
+            {"Step": (("Carry", "in out"),), "step": (("Carry", "in out"),)},
+            {"Step": (("Bad__Name", "in out"),)},
+            {"Step": (("X" * 4097, "in out"),)},
+            {"Step": [("Carry", "in out")]},
+            {"Set_Value": (("Carry", "in out"),)},
+            {"Reset": (("Value", "in"),)},
+        )
+        for formals in invalid:
+            with self.subTest(formals=formals), self.assertRaisesRegex(EvidenceError, "source formal inventory"):
+                self.audit_procedures(unused_output=True, formals=formals)
+
+    def test_formal_advisories_do_not_pin_location_or_record_order(self) -> None:
+        self.prepare_procedures()
+        self.report = library_reports.formal_advisory_report("argument", "INOUT_ONLY_READ", 5, "Carry")
+        self.report["flow"][-1].update(line=57, col=999)
+        self.report["flow"].reverse()
+        self.report["entities"] = dict(reversed(self.report["entities"].items()))
+        self.report["assumptions"] = []
+        self.assertEqual(self.audit_procedures(kind="argument", unused_output=True,
+            formals=library_reports.PROCEDURE_FORMALS)["assignment_advisories"], 1)
+
+    def test_genuine_previously_accepted_reports_keep_their_verdicts(self) -> None:
+        baseline = {row["case"]: row["stats"] for row in json.loads(
+            (library_reports.ACCEPTED_REPORTS / "accepted-python-results.json").read_text())}
+        for case, files in library_reports.accepted_report_cases():
+            with tempfile.TemporaryDirectory(prefix="silver-accepted-reports-") as directory:
+                path = Path(directory)
+                for name, data in files.items():
+                    if name.startswith("reports/"):
+                        (path / Path(name).name).write_bytes(data)
+                arguments = dict(application_kind=case["kind"], indexed_main=True,
+                    application_functions=tuple(case["functions"]),
+                    application_procedures={p: tuple(v) for p, v in case["procedures"].items()})
+                for formals in (None, {p: tuple(map(tuple, v)) for p, v in case["formals"].items()}):
+                    with self.subTest(case=case["name"], formals=formals):
+                        stats = audit_reports(path,
+                            {"main", "silver_io", "silver_output_libc", "silver_arguments", "silver_runtime"},
+                            {"silver_output_libc", "silver_runtime"}, application_formals=formals, **arguments)
+                        self.assertEqual(stats, baseline[case["name"]])
 
     def test_procedure_inventory_and_no_inlining_are_required(self) -> None:
         self.prepare_procedures()

@@ -313,11 +313,17 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                   application_kind: str | None = None,
                   application_functions: tuple[str, ...] = (),
                   application_procedures: Mapping[str, tuple[str, ...]] | None = None,
+                  application_formals: Mapping[str, tuple[tuple[str, str], ...]] | None = None,
                   indexed_main: bool = False,
                   proof_instance: tuple[int, int, int] | None = None,
                   proof_instances: dict[str, tuple[int, int, int]] | None = None,
                   signed_conversion_instance: tuple[int, int, int] | None = None) -> dict[str, int]:
-    """Fail closed on missing coverage, skipped work, assumptions or failures."""
+    """Audit reports against trusted source inventories supplied by the caller.
+
+    ``application_formals`` supplies exact declared names and modes independently
+    of reports. It is needed only for the two formal flow-advisory rules; omitting
+    it preserves the pre-existing acceptance policy.
+    """
     require(bool(expected_units), "no implementation units selected for auditing")
     require(not indexed_main or "main" in expected_units,
             "indexed Main audit requires Main")
@@ -377,6 +383,27 @@ def audit_reports(report_dir: Path, expected_units: set[str],
     require(len(procedure_names) == len(procedures) and not (function_names & procedure_names),
             "application: duplicate source subprogram name")
     callable_names = function_names | procedure_names
+    # The older inventories identify function names and procedure outputs only.
+    # Formal advisories need an independent source inventory with exact spelling
+    # and mode; never infer it from the report's message or entity declarations.
+    formals = {} if application_formals is None else application_formals
+    require(isinstance(formals, Mapping)
+            and all(isinstance(owner, str) and "main." + owner.lower() in callable_names
+                    and isinstance(items, tuple)
+                    and all(isinstance(item, tuple) and len(item) == 2
+                            and isinstance(item[0], str) and len(item[0]) <= 4096
+                            and re.fullmatch(identifier, item[0]) is not None
+                            and item[1] in ("in", "out", "in out") for item in items)
+                    and len({item[0].lower() for item in items}) == len(items)
+                    for owner, items in formals.items())
+            and sum(len(items) for items in formals.values()) <= 4096 // 7,
+            "application: invalid source formal inventory")
+    source_formals = {"main." + owner.lower(): items for owner, items in formals.items()}
+    require(len(source_formals) == len(formals)
+            and all(all(mode == "in" for _, mode in items) if owner in function_names
+                    else {name for name, mode in items if mode == "out"} == set(procedure_outputs[owner])
+                    for owner, items in source_formals.items()),
+            "application: inconsistent source formal inventory")
     if application_kind is not None:
         require("main" in expected_units, "application audit requires Main")
         stats["assignment_advisories"] = 0
@@ -640,6 +667,17 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                         r' but not used after the call', record.get("message", {}).get("text", ""))
                     unused_call = (unused_match is not None and len(unused_match[1]) <= 4096
                                    and len(unused_match[2]) <= 4096 and unused_match[2] in procedures)
+                    owner = entities.get(f" {record.get('entity')}", entities.get(str(record.get("entity")), {}))
+                    owner_name = owner.get("name", "").lower()
+                    inout_only_read = (record.get("rule") == "INOUT_ONLY_READ"
+                        and owner_name in procedure_names
+                        and any(mode == "in out" and record.get("message") == {
+                            "text": f'"{name}" is not modified, could be IN'}
+                            for name, mode in source_formals.get(owner_name, ())))
+                    unused_initial_value = (record.get("rule") == "UNUSED_INITIAL_VALUE"
+                        and any(mode in ("in", "in out") and record.get("message") == {
+                            "text": f'unused initial value of "{name}"'}
+                            for name, mode in source_formals.get(owner_name, ())))
                     require(record.get("severity") == "warning"
                             and record.get("how_proved") == "flow"
                             and record.get("file") == "main.adb"
@@ -647,7 +685,8 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                             and type(record.get("col")) is int and record["col"] > 0
                             and type(record.get("entity")) is int and record["entity"] > 0
                             and entities.get(f" {record['entity']}", entities.get(str(record["entity"]))) in application_entities.values()
-                            and ((record.get("rule") == "UNUSED_VARIABLE"
+                            and (inout_only_read or unused_initial_value
+                                 or (record.get("rule") == "UNUSED_VARIABLE"
                                   and entities.get(f" {record['entity']}", entities.get(str(record["entity"]))) in (local_entities | procedure_entities).values()
                                   and re.fullmatch(r'unused variable "[A-Za-z]([A-Za-z0-9]|_[A-Za-z0-9])*"',
                                                    record.get("message", {}).get("text", "")) is not None)
