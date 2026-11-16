@@ -227,3 +227,59 @@ policy preflight, not a proof, report audit or completed provenance claim.
 Changing the auditor changes recorded native/Lean input provenance. After
 integration, complete assurance still requires a new full native audit and the
 final Lean checkpoint on those inputs; matching solver work can be reused.
+
+The preserved run `20261116T231645-98dfa4e47215` then completed at integration
+head `66e04090d`: GNATprove proved all 19,515 checks across 78 units
+(1,724 flow and 17,791 proof), including all 353 flow and 3,482 proof checks
+in `Silver_Library_Reports`. The following source-policy audit rejected the
+old allowlist exactly as predicted. Original terminal session 99543 returned
+one after 508.943 s; native inputs remained stable, the guard did not fire,
+and build did not start. No completed provenance manifest was issued. Peak
+sampled tree RSS was 5,046,896 KiB and minimum available memory was
+11,146,400 KiB. This run remains failed despite successful obligation discharge.
+
+`native-source-policy-failure.json` and its archive retain the actual outcome,
+all completed reports and Why3 sessions, source/generated/script bytes,
+generated `Mixed_Report` task, input identities, logs, resources and postflight.
+Previous reports already retained in the earlier correspondence-failure archive
+are not duplicated. Before integration or an expensive retry, the isolated
+repaired checker also passed `audit_sources` over these completed reports using
+the exact captured canonical command (1.005 s). The retained
+`native-source-policy-preflight.json` records full report and source coverage.
+Its checker hash differs from the old run input identity, so this preflight
+does not claim completed content-bound native provenance. The final managed
+full audit remains required after the four-name checker repair is integrated.
+
+## Complete native checkpoint
+
+Integration head `d60bd8a899fcc66e5ef40112423b7f94b2e4becc` includes the
+reviewed four-name checker repair. Run `20261116T232749-c8fb976a6d5c`
+completed the canonical full native proof and both source/report audits in
+19.090 s. All 19,515 checks passed: 1,724 flow and 17,791 proof across 78
+units. `Silver_Library_Reports` passed all 353 flow and 3,482 proof checks.
+The new completed provenance manifest matches all 2,606 input hashes,
+12 tool identities and 80 report hashes. A fresh `validate_provenance` call
+confirmed the current source, scripts, reports, tools, projects and command
+identities. The repaired Ada and checker hashes match the reviewed values.
+
+This is a complete audit using retained matching sessions and solver cache,
+not a cold proof run. The exact comparison with the prior all-proved run
+shows that only `scripts/check_evidence.py` changed among the native inputs;
+source, contracts, projects and tools remained unchanged. The original
+integration workspace and productive cache were preserved throughout.
+All 12 workers were available, the soft stack was 16 MiB, and the canonical
+30-second CVC5/Z3/Alt-Ergo policy remained unchanged. Peak sampled proof-tree
+RSS was 553,328 KiB and minimum available memory was 15,373,024 KiB.
+
+The successful audit released build `20261116T232809-cb888d4b7deb`, which
+recompiled the affected Ada units and linked `silver` in 1.699 s. The Image
+adapter was already current. Both stages retained matching native inputs;
+neither resource guard fired. Original supervisor terminal session 35541
+completed with exit zero. `native-complete.json` and its archive preserve
+the completed manifest, reports, Why3 sessions, actual source/generated/script
+bytes, command and cache-state records, logs, resource samples, input comparison
+and postflight. Archive member hashes were checked after creation.
+
+Complete Lean and the final full regression/sample suite are still separate
+requirements. The lead owns their final stable input selection and release of
+the held full-suite run; native success does not substitute for those checks.
