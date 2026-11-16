@@ -5337,6 +5337,11 @@ package body Silver_Library_Reports with SPARK_Mode => On is
          and then Projection_Observations.Audit_Projection_Observations (Raw, Raw_Scan.From_String (Text)),
        Post => Raw_Report_Policy (Raw, Kind, Source => Source, Functions => Functions, Procedures => Procedures) = Report_Policy (Text, Kind, Source => Source, Functions => Functions, Procedures => Procedures)
    is
+      --  Reuse Mixed_Object's exact policy equality at the report boundary.
+      pragma Annotate
+        (GNATprove, Hide_Info, "Expression_Function_Body", Raw_Object_Policy);
+      pragma Annotate
+        (GNATprove, Hide_Info, "Expression_Function_Body", Object_Policy);
       use type Raw_Bytes.Sequence;
       Start : constant Offset := Space_End (Text, 1);
       Last : constant Offset := Value_Spec (Text, Start);

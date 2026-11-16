@@ -137,3 +137,57 @@ to this subthread. Token/cost measurements are unavailable. The lead reports an
 independent Astra Max review of the exact Ada/Python hashes in the focused
 summary, with no actionable defect. Final integrated review and publication
 remain owned by the lead.
+
+## Integrated correspondence failure and focused repair
+
+The first complete native checkpoint, `20261116T225639-1d97eb007a5a`,
+ran in the original integration workspace with its retained canonical cache.
+It failed after 653.163 s on one obligation: the `Mixed_Report` postcondition
+at line 5338, with `Object_Policy` expanded from line 2480. All 353 flow
+checks and 3,481 of 3,482 proof checks in this unit passed. CVC5 and Z3
+reached the canonical 30-second limit on the remaining check; Alt-Ergo
+reported high failure. The original terminal session 77798 completed with
+exit one. The build and full suite did not run.
+
+`native-correspondence-failure.json` records the failure and resources.
+The accompanying archive preserves every canonical `.spark` report and Why3
+session, the failing generated task and `Mixed_Object` task, source/script
+bytes, previous report identities, managed history, terminal log, input hashes,
+resource samples and postflight. Native inputs remained unchanged throughout
+the run; the intervening integration commit `c45fe22dc` changed Lean only.
+All 12 workers were available. Peak sampled tree RSS was 6,510,128 KiB and
+minimum available memory was 9,762,752 KiB; the 1.5 GiB headroom guard did
+not fire. This remains failed evidence, not a completed native audit.
+
+Independent Astra Max review and the lead agreed on a local abstraction repair:
+hide the expression bodies of `Raw_Object_Policy` and `Object_Policy` inside
+`Mixed_Report`, so its wrapper proof uses `Mixed_Object`'s already proved
+exact policy equality. The edit contains one comment and two `Hide_Info`
+annotations, five lines total. It changes no contract, input domain, policy
+definition, runtime instruction or control-flow branch. Removing those exact
+five lines restores the repaired advisory body from `2288af600` byte for byte
+(SHA-256 `3f761cd823acc39ddbf904626ac2b8ea3f71938ccbc0071825f99fe608a5842c`).
+This is distinct from the original pre-advisory implementation at `877c382f6d`.
+The annotated body has SHA-256
+`204a3aef6442a3708a54d081d75680e24c3b8ddae0e96c074dc1c3de14e81e70`.
+
+Focused run `20261116T231315-0432a9be858c` selected every line of the complete
+`Mixed_Report` declaration, contract and body. It passed 353 flow and all
+18 selected proof checks in 41.205 s under the unchanged canonical policy,
+12 workers and 16 MiB stack. All 66 selected Why3 goal nodes are proved;
+both identity and projected-report branches and all permitted empty/malformed
+states remain covered. Original terminal session 11577 completed with exit
+zero. Native input hashes remained stable, and the resource guard did not fire.
+`native-correspondence-focused.json` and its archive retain the exact selection,
+source comparison, reports, generated task, session, command, resources and
+managed history. Existing vendor Big_Integer validity warnings, recursion/
+variant limitations and reassociation notes remain distinct from obligations.
+
+Matching neighbor contracts from the complete failed run are reused:
+`Mixed_Object` passed 1 flow and 52 proof checks; application projection
+correspondence passed 1 and 28; runtime projection correspondence passed 1 and
+3; `Audit_Normalized_Report` passed 5 and 48. The local annotations change none
+of those contracts or definitions. Earlier successful formal-helper checks also
+remain applicable. The next required checkpoint is complete native proof and
+build on the integrated annotation commit, followed by complete Lean and the
+full suite on the final stable inputs. The lead coordinates those runs.
