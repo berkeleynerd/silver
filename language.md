@@ -4,7 +4,9 @@ The scalar-procedure increment below has complete Linux ARM64 proof and
 applicable regression validation in [#370](https://github.com/berkeleynerd/silver/issues/370).
 Its [delivery account](docs/scalar-procedures.md#delivery-assurance-and-validation)
 records complete native and Lean/actual-source assurance, reviewed evidence reuse
-and the closing delivery reconciliation. The rules preserve full formal domains,
+and the closing delivery reconciliation for that checkpoint, followed by the
+November 16 [#391 repair](docs/evidence/advisory-policy-391-20261116/README.md)
+of omitted formal flow advisories and its validation state. The rules preserve full formal domains,
 source-written output initialization and the existing source/expression budgets.
 
 The small nonrecursive scalar-function increment is recorded in the

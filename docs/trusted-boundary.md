@@ -308,9 +308,11 @@ source-derived entity inventory, safety records, termination witnesses and
 local dependency policy are described in the
 [assurance argument](assurance.md#small-nonrecursive-scalar-functions).
 
-The [producer/capacity account](scalar-functions-report-capacity.md) bounds the
-combined Main/local-function report at 33,149,440 bytes within the existing
-33,554,432-byte allocation. Its source-byte charges and pinned-producer
+The [producer/capacity account](scalar-functions-report-capacity.md) originally
+bounded the Main/local-function report at 33,149,440 bytes within its then-selected
+33,554,432-byte allocation. The #391 formal-advisory allowance is now covered
+by the combined procedure account's 49,279,744-byte envelope and 64 MiB allocation.
+The original source-byte charges and pinned-producer
 serialization premises received a
 [bounded independent review](reviews/review-scalar-function-capacity-20261107.md).
 The added metadata allowances are a storage argument, not a proof-time or
@@ -324,14 +326,15 @@ existing environmental premises.
 The [procedure increment](scalar-procedures.md) retains the function
 increment's tool pins, unchanged-author-source and `--no-inlining` premises.
 Every declared procedure is analyzed, including unused ones. Its exact
-source-derived inventory additionally identifies the `out` formal names for
-the successful initialization records. Function termination witnesses remain
+source-derived inventory identifies each formal's exact name and mode for the
+two formal-dependence advisories, and `out` formal names for the successful
+initialization records. Function termination witnesses remain
 required; this producer emits no procedure termination witness. Procedure
 termination must instead follow from the constructive earlier-call and finite
 body semantics, as specified in the capability record.
 
 The [procedure capacity account](scalar-procedures-report-capacity.md) extends
-the retained Main envelope to 48,676,608 bytes, using a 67,108,864-byte allocation
+the retained Main envelope to 49,279,744 bytes, using a 67,108,864-byte allocation
 and matching shared file-reader bound. Runtime/null report domains remain
 262,144 bytes. This is a local storage adjustment under the existing producer
 premises, without a new general capacity, stack or proof-time claim. The
