@@ -11,12 +11,15 @@ contained only the unrelated untracked `tmp/` directory, which was preserved.
 
 ## Exact owned source scope
 
+This table records the initial focused snapshot. The dated follow-up below
+records the Boolean theorem's subsequent move without changing its statement.
+
 | File under `proof/Silver/` | Change |
 | --- | --- |
 | `ProcedureDeclarationSyntax.lean` | `ProcedureDeclarationNative.Token.name_eq_tokenName_shell`, 14 constructors |
 | `PredicateProcedureCallSyntax.lean` | `Predicate.ProcedureCallNative.Token.name_eq_tokenName_shell`, 3 constructors |
 | `FunctionDeclarationNative.lean` | `FunctionDeclarationNative.Token.name_eq_tokenName_shell`, 11 constructors |
-| `ComposeBooleanDeclarationNative.lean` | `BooleanDeclarationNative.Token.name_eq_tokenName_shell`, 5 constructors; explicit `ComposeExpressions` import |
+| `ComposeBooleanDeclarationNative.lean` (original focused location) | `BooleanDeclarationNative.Token.name_eq_tokenName_shell`, 5 constructors; the dated repair moves the unchanged theorem to `ComposeBooleanDeclarationDomain.lean` and removes the added import |
 | `PredicateNativeState.lean` | `Predicate.Native.Token.name_eq_tokenName_shell`, 20 constructors |
 | `ScalarProcedureComposition.lean` | `DefinitionsSafe` docstring only |
 | `ScalarProcedureSemantics.lean` | `Definition.execution_sound` docstring only |
@@ -129,3 +132,35 @@ with a fresh whole-project source/module/axiom/provenance audit. The retained
 workspace and all existing objects remain available for that run. Publication,
 issue bookkeeping and final external review remain with the lead. This subthread
 did not update CLI memory, push, merge or begin #373.
+
+## 2026-11-16 follow-up — restore the Boolean module's import boundary
+
+The first complete cached attempt on integrated implementation
+`2288af60031763d808b8cd1e024f8fcf7cdc7135` revealed a downstream namespace
+ambiguity caused by the added public canonical-name import. The attempt also
+crossed its actual aggregate RSS monitoring guard with 12 simultaneous Lean
+processes. [The complete-check packet](complete/README.md) retains the exact
+failure, frozen inputs, original terminal and resource observations; it is not a
+successful complete checkpoint.
+
+Following the parent-assigned Astra Max diagnosis and explicit bounded repair
+authorization, the Boolean theorem now resides in
+`proof/Silver/ComposeBooleanDeclarationDomain.lean`, in a separate
+`Silver.Compose.BooleanDeclarationNative` namespace block immediately before
+the existing `.Libraries` namespace. That module already imports both required
+tables. The exact theorem text, fully qualified name, type and proof are
+unchanged. `ComposeBooleanDeclarationNative.lean` is restored byte for byte to
+the `877c382f6d` baseline, removing only the new import and moved theorem.
+No import or warning suppression was added; the former public dependency graph
+and all pre-existing statements are preserved.
+
+[The repair preservation record](complete/import-repair-preservation.json)
+checks the two-file transformation. The other four token lemmas and both
+corrected docstrings are unchanged. Historical manifests and the initial
+source-preservation record continue to describe their actual checked snapshot.
+The next focused target is `Silver.ComposeBooleanDeclarationDomain`, which
+includes both the restored native module and the previously failing meaning
+module. Its proof run is pending release of the native audit's reservation;
+the selected allocation is two workers, automatic threads and the retained
+8192 MiB threshold, with the same memory guards. No repaired-target success or
+successful complete refresh is claimed in this commit.

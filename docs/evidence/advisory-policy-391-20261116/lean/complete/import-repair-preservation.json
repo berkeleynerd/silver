@@ -1,0 +1,14 @@
+{
+  "baseline_commit": "877c382f6d07c1e0a2573d4cf70fa13876a399b4",
+  "pre_repair_head": "2288af60031763d808b8cd1e024f8fcf7cdc7135",
+  "native_module_restored_byte_for_byte_to_baseline": true,
+  "domain_other_bytes_unchanged": true,
+  "theorem_text_unchanged": true,
+  "qualified_name": "Silver.Compose.BooleanDeclarationNative.Token.name_eq_tokenName_shell",
+  "source_files": {
+    "proof/Silver/ComposeBooleanDeclarationNative.lean": "400646b7b53c86f94e30488fa399386c3975bddc476aae6d595e279dbc1fbbd8",
+    "proof/Silver/ComposeBooleanDeclarationDomain.lean": "ae550349e505e9d60f64eede0afe0675764cfba1f05c248e8ad20f74641e5e00"
+  },
+  "no_import_added": true,
+  "no_existing_statement_changed": true
+}

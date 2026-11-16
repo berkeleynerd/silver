@@ -8,6 +8,13 @@ public import Silver.PredicateOuterReadiness
 
 /-! Exact native preconditions at the Boolean initializer site, including
 elaboration over snapshots contained in mutable declared bounds. -/
+namespace Silver.Compose.BooleanDeclarationNative
+
+theorem Token.name_eq_tokenName_shell : ∀ t : Token, t.name = Expressions.tokenName t.shell := by
+  intro t; cases t <;> rfl
+
+end Silver.Compose.BooleanDeclarationNative
+
 namespace Silver.Compose.BooleanDeclarationNative.Libraries
 open Predicate Compose.Expressions
 
