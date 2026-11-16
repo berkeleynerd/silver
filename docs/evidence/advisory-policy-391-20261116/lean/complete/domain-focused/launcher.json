@@ -1,0 +1,29 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "scripts/check_lean.py",
+    "--target",
+    "Silver.ComposeBooleanDeclarationDomain",
+    "--workers",
+    "2",
+    "--memory-mb",
+    "8192",
+    "--provenance",
+    "--task",
+    "#391",
+    "--reason",
+    "Focused Boolean token theorem relocation on c45fe22dc8d9834eac0688976279b79255af849c. Native module restored exactly; unchanged theorem moved into the existing domain module with no added imports, QName changes or warning suppression. Complete prior attempt measured 11.225 GiB aggregate RSS at 12 workers on this 16 GiB host; select two workers and automatic threads for the full focused Domain closure, covering Native and Meaning. Native may use the remaining ten managed workers. Retained 8192 MiB periodic per-process threshold and 10 GiB RSS-tree/1.5 GiB host MemAvailable guards; no clean/replay."
+  ],
+  "cwd": "/home/agent/silver-worktrees/procedures-lean-370",
+  "launcher_pid": 74755,
+  "runner_pid": 74756,
+  "runner_pgid": 74756,
+  "started_utc": "2026-11-16T23:10:39.991250+00:00",
+  "sample_interval_seconds": 2,
+  "tree_rss_guard_kib": 10485760,
+  "host_available_guard_kib": 1572864,
+  "guard_trigger": null,
+  "returncode": 0,
+  "finished_utc": "2026-11-16T23:11:08.049196+00:00",
+  "elapsed_seconds": 28.058
+}

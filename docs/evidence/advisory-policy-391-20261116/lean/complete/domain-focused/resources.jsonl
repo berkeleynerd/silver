@@ -1,0 +1,15 @@
+{"elapsed_seconds": 0.001, "tree_rss_kib": 4416, "host_available_kib": 15823936, "processes": {"74756": [74755, 4416, "python3"]}}
+{"elapsed_seconds": 2.002, "tree_rss_kib": 98528, "host_available_kib": 15741408, "processes": {"74756": [74755, 71040, "python3"], "74776": [74756, 27488, "python3"]}}
+{"elapsed_seconds": 4.003, "tree_rss_kib": 98288, "host_available_kib": 15741344, "processes": {"74756": [74755, 71040, "python3"], "74793": [74756, 27248, "python3"]}}
+{"elapsed_seconds": 6.005, "tree_rss_kib": 1592768, "host_available_kib": 15409792, "processes": {"74756": [74755, 93712, "python3"], "74794": [74756, 959232, "lake"], "74802": [74794, 539824, "lean"]}}
+{"elapsed_seconds": 8.016, "tree_rss_kib": 1651712, "host_available_kib": 15357872, "processes": {"74756": [74755, 93712, "python3"], "74794": [74756, 959232, "lake"], "74802": [74794, 598768, "lean"]}}
+{"elapsed_seconds": 10.018, "tree_rss_kib": 1651792, "host_available_kib": 15361552, "processes": {"74756": [74755, 93712, "python3"], "74794": [74756, 959232, "lake"], "74802": [74794, 598848, "lean"]}}
+{"elapsed_seconds": 12.021, "tree_rss_kib": 1833664, "host_available_kib": 15190672, "processes": {"74756": [74755, 93712, "python3"], "74794": [74756, 942208, "lake"], "74837": [74794, 797744, "lean"]}}
+{"elapsed_seconds": 14.023, "tree_rss_kib": 2138480, "host_available_kib": 15291088, "processes": {"74756": [74755, 93712, "python3"], "74794": [74756, 941760, "lake"], "74870": [74794, 557584, "lean"], "74872": [74794, 545424, "lean"]}}
+{"elapsed_seconds": 16.029, "tree_rss_kib": 2207328, "host_available_kib": 15227808, "processes": {"74756": [74755, 93712, "python3"], "74794": [74756, 936624, "lake"], "74934": [74794, 585328, "lean"], "74943": [74794, 591664, "lean"]}}
+{"elapsed_seconds": 18.039, "tree_rss_kib": 2223488, "host_available_kib": 15202624, "processes": {"74756": [74755, 93712, "python3"], "74794": [74756, 936624, "lake"], "74934": [74794, 595248, "lean"], "74943": [74794, 597904, "lean"]}}
+{"elapsed_seconds": 20.05, "tree_rss_kib": 2239376, "host_available_kib": 15186960, "processes": {"74756": [74755, 93712, "python3"], "74794": [74756, 936624, "lake"], "74934": [74794, 596032, "lean"], "74943": [74794, 613008, "lean"]}}
+{"elapsed_seconds": 22.052, "tree_rss_kib": 1600512, "host_available_kib": 15429184, "processes": {"74756": [74755, 93712, "python3"], "74794": [74756, 937744, "lake"], "75030": [74794, 569056, "lean"]}}
+{"elapsed_seconds": 24.055, "tree_rss_kib": 93840, "host_available_kib": 15726800, "processes": {"74756": [74755, 93840, "python3"]}}
+{"elapsed_seconds": 26.056, "tree_rss_kib": 2762464, "host_available_kib": 15366944, "processes": {"74756": [74755, 99840, "python3"], "75041": [74756, 877744, "lake"], "75045": [75041, 1784880, "lean"]}}
+{"elapsed_seconds": 28.058, "tree_rss_kib": 0, "host_available_kib": 15758976, "processes": {"74756": [74755, 0, "python3"]}}

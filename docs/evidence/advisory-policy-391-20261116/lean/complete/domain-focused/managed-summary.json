@@ -1,0 +1,50 @@
+{
+  "run_id": "20261116T231040-cddd7187b7b8",
+  "task": "#391",
+  "kind": "lean",
+  "scope": [
+    "Silver.ComposeBooleanDeclarationDomain"
+  ],
+  "state": "success",
+  "active": false,
+  "workers": 2,
+  "directory": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261116T231040-cddd7187b7b8",
+  "fingerprint": "8b06115dab579e900142658ef94bc2d923b9f2fdfde4c3dcc8baa1671fc32860",
+  "command": [
+    "/usr/bin/python3",
+    "/home/agent/silver-worktrees/procedures-lean-370/scripts/check_lean.py",
+    "--target",
+    "Silver.ComposeBooleanDeclarationDomain",
+    "--workers",
+    "2",
+    "--memory-mb",
+    "8192",
+    "--provenance",
+    "--task",
+    "#391",
+    "--reason",
+    "Focused Boolean token theorem relocation on c45fe22dc8d9834eac0688976279b79255af849c. Native module restored exactly; unchanged theorem moved into the existing domain module with no added imports, QName changes or warning suppression. Complete prior attempt measured 11.225 GiB aggregate RSS at 12 workers on this 16 GiB host; select two workers and automatic threads for the full focused Domain closure, covering Native and Meaning. Native may use the remaining ten managed workers. Retained 8192 MiB periodic per-process threshold and 10 GiB RSS-tree/1.5 GiB host MemAvailable guards; no clean/replay."
+  ],
+  "reason": "Focused Boolean token theorem relocation on c45fe22dc8d9834eac0688976279b79255af849c. Native module restored exactly; unchanged theorem moved into the existing domain module with no added imports, QName changes or warning suppression. Complete prior attempt measured 11.225 GiB aggregate RSS at 12 workers on this 16 GiB host; select two workers and automatic threads for the full focused Domain closure, covering Native and Meaning. Native may use the remaining ten managed workers. Retained 8192 MiB periodic per-process threshold and 10 GiB RSS-tree/1.5 GiB host MemAvailable guards; no clean/replay.",
+  "worktree": "/home/agent/silver-worktrees/procedures-lean-370",
+  "resources": [
+    "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/proof",
+    "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused.log",
+    "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused-evidence.json"
+  ],
+  "started_at": "2026-11-16T23:10:40.233023+00:00",
+  "finished_at": "2026-11-16T23:11:08.039721+00:00",
+  "duration_seconds": 27.806521679,
+  "returncode": null,
+  "error": null,
+  "failure_keys": [],
+  "evidence": [
+    "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused.log",
+    "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused-evidence.json",
+    "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261116T231040-cddd7187b7b8/previous-evidence/lean-focused.log",
+    "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261116T231040-cddd7187b7b8/previous-evidence/lean-focused-evidence.json",
+    "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261116T231040-cddd7187b7b8/lean-focused.log",
+    "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261116T231040-cddd7187b7b8/lean-focused-evidence.json"
+  ],
+  "retained_report_count": 0
+}

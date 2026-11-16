@@ -158,9 +158,23 @@ and all pre-existing statements are preserved.
 checks the two-file transformation. The other four token lemmas and both
 corrected docstrings are unchanged. Historical manifests and the initial
 source-preservation record continue to describe their actual checked snapshot.
-The next focused target is `Silver.ComposeBooleanDeclarationDomain`, which
+The selected focused target was `Silver.ComposeBooleanDeclarationDomain`, which
 includes both the restored native module and the previously failing meaning
-module. Its proof run is pending release of the native audit's reservation;
-the selected allocation is two workers, automatic threads and the retained
-8192 MiB threshold, with the same memory guards. No repaired-target success or
-successful complete refresh is claimed in this commit.
+module. It waited for release of the native audit's reservation before running
+with two workers, automatic threads and the retained 8192 MiB threshold, with
+the same memory guards. The subsequent success is recorded below; a successful
+complete refresh remains outstanding.
+
+## 2026-11-16 focused relocation gate — passed
+
+Run `20261116T231040-cddd7187b7b8` on accepted repair head
+`c45fe22dc8d9834eac0688976279b79255af849c` passed the single domain target and
+a fresh audit of its actual 141-module closure: 15,713 declarations and only
+`[propext, Classical.choice, Quot.sound]`. The unchanged previously failing
+meaning module built successfully without a warning suppression or source
+edit. Two workers/default 12 threads/8192 MiB gave a sampled peak RSS tree of
+2.634 GiB and host available-memory minimum of 14.483 GiB; neither guard fired.
+The original tool terminal `93277` was collected with exit 0. Detailed exact
+input/tool/artifact verification, timings and retained logs are in the
+[focused packet](complete/domain-focused/README.md). This is focused evidence;
+the full refresh waits for the native repair's final captured bytes.

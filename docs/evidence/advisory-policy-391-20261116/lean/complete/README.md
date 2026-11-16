@@ -50,8 +50,10 @@ the explicitly authorized two-file move described in
 exact scope. Subthread-wide time/token/cost measurements are unavailable;
 actual native timings and resource samples are retained above.
 
-The native full audit owns the worker allocation at this handoff. The repaired
-`Silver.ComposeBooleanDeclarationDomain` focused target is pending, selected
-at two workers/default threads/8192 MiB in response to the observed 12-worker
-aggregate guard. A complete cached refresh remains required after focused
-success and final-source integration. No successful complete audit is claimed.
+The native full audit owned the worker allocation at that handoff. After its
+release, the repaired `Silver.ComposeBooleanDeclarationDomain` target passed
+at two workers/default threads/8192 MiB, selected in response to the observed
+12-worker aggregate guard. The [focused packet](domain-focused/README.md)
+records its exact scope and fresh audit. A complete cached refresh remains
+required after the native repair's final-source integration. No successful
+complete audit is claimed.
