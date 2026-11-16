@@ -38,8 +38,10 @@ toolchain validation.
 
 [Five finite Lean lemmas](lean/README.md) check all 53 token-table name/shell
 pairs, with two docstring corrections and no changed existing theorem statement.
-One explicit Boolean-module import was needed; the first failed focused attempt
-is retained. No source pin or certificate changes are introduced.
+The Boolean theorem lives in the existing domain module, which already imports
+both tables. An initial new import caused a downstream ambiguity and was removed;
+the failed attempts and focused relocation success are retained. No existing
+theorem, source pin or certificate definition changes are introduced.
 
 The diagnostics are synchronized across the language, assurance, trusted
 boundary, development policy, auditor spec comment, capability records and
@@ -80,15 +82,24 @@ Lean objects; no cold build or independent kernel replay is selected.
 | Work | Settings evidence | Current result |
 | --- | --- | --- |
 | Lead integration, documents and capacity | Live lead model/effort not independently exposed | Authorization recorded; documents and capacity derivation prepared; two direct capacity schema tests pass. |
-| Auditor implementation and mutations | Inherited subthread settings not exposed in recovered context; project policy applies | Exact predicates and source inventory implemented; focused native helper/caller verification in progress. |
+| Auditor implementation and mutations | Inherited subthread settings not exposed in recovered context; project policy applies | Complete helper/caller gates pass; all 19,515 native checks and the complete report/source/provenance audit pass on final implementation `d60bd8a89`. Native auditor tests: 42 methods; Python auditor tests: 79 methods. |
 | Full-route twins | Inherited subthread settings not exposed in recovered context | Complete static capture and source-preservation checks pass; actual toolchain run awaits integration. |
-| Token lemmas and docstrings | Recovered selection/runtime unavailable; project requires Astra Max for this proof work | Focused seven-target cached build and fresh 162-module / 22,708-declaration axiom audit pass; first missing-import attempt retained. |
+| Token lemmas and docstrings | Recovered selection/runtime unavailable; project requires Astra Max for this proof work | Initial focused batch and final Boolean relocation gate pass. Complete refresh is running with one worker after measured dense overlap exceeded the aggregate RSS guard at two workers; default 12 threads/process retained. |
 | Independent critical review | Explicitly selected GPT-6 Astra / Max; runtime confirmation unavailable | Acceptance predicates, mixed/raw proof, capacity and finite token proofs reviewed; closing integrated target pending. |
 
+The [native packet](auditors/README.md) retains complete run
+`20261116T232749-c8fb976a6d5c`: 1,724 flow and 17,791 proof checks, zero unproved,
+with 2,606 captured inputs, 12 tool identities and 80 report hashes independently
+verified. It reused retained sessions/cache (19.090 seconds); the following
+incremental build passed in 1.699 seconds. Both original terminal exits were
+collected. All 30 unchanged genuine reports from six previously successful
+programs retain their old native and Python verdicts; Python statistics also
+match. These reports were re-audited, not claimed as fresh program runs.
+
 The [Lean packet](lean/README.md) retains exact phase/terminal timing, memory,
-input/tool/object hashes and the failed attempt. Whole-team token and monetary
-cost totals are unavailable. Focused results do not establish final assurance.
-Outstanding checks are the complete auditor unit, genuine accepted-report
-additivity controls, refreshed complete native and Lean checkpoints, and the
-owner-required complete suite in one invocation on the stable repaired inputs.
-The published repaired head then returns for the required external check.
+input/tool/object hashes and failed attempts. Whole-team token and monetary
+cost totals are unavailable. Outstanding checks are the complete Lean refresh
+and the owner-required complete suite in one invocation on frozen implementation
+`d60bd8a899fcc66e5ef40112423b7f94b2e4becc`, followed by closing evidence review.
+Later evidence-only commits preserve those governed inputs. The published
+repaired head then returns for the required external check.
