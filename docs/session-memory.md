@@ -1,5 +1,37 @@
 # Session memory
 
+## 2026-11-16 — External review repair of PR #371 authorized
+
+The owner explicitly authorized repairing blocker [#391](https://github.com/berkeleynerd/silver/issues/391)
+and the bounded record/test/token-table items in the two November 16 external
+review comments on [PR #371](https://github.com/berkeleynerd/silver/pull/371).
+The lead read the issue and both comments in full before implementation. Accept
+`INOUT_ONLY_READ` and `UNUSED_INITIAL_VALUE` through exact declared-subprogram,
+formal spelling/mode, message and provenance checks in the existing Ada and
+Python auditors. Preserve every previously successful verdict and the admitted
+language. Production implementation changes stay in `silver_library_reports.adb`
+and `check_evidence.py`; do not change the Lean-embedded bindings packages.
+
+Include the requested mutation coverage, full-route/output twins for every
+positive admission-only function/procedure fixture, independently derived report
+capacity charges, synchronized diagnostic descriptions, specified record fixes,
+two corrected Lean docstrings and five one-line token-name correspondence
+lemmas. The untracked `tmp/external-review-877c382f6d/` remains review input and
+must not be committed; reviewer output predictions require independent sampling.
+
+Refresh the complete native and Lean checkpoints after focused helper checks,
+and run the complete suite in one run on the repaired head. Retain failed
+attempts and report actual host, cached/clean scope and exact final commit.
+Validation remains local on this host. No kernel replay is selected; if later
+justified, request it explicitly because its memory on this host is unmeasured.
+
+Do not narrow admission, align fabricated/escaped-key JSON handling, require
+AoRTE report claims, add an advisory driver summary, add procedure termination
+checks/theorems, restructure DefinitionsSafe/deep safety, or change the Oracle.
+No merge or successor work is authorized. Push the repaired, validated PR head,
+then stop for the owner's required external check. Current direct authorization
+controls this PR-branch repair; CLI memory was not updated.
+
 ## 2026-11-15 — Local development and validation reconfirmed
 
 The owner clarified **“We will not be using CI. Local development here on this
