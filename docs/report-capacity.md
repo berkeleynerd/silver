@@ -6,7 +6,7 @@ report data**. The [fixed-array extension](fixed-integer-arrays-report-capacity.
 raised that allocation to **33,554,432 bytes**. The
 [scalar-procedure extension](scalar-procedures-report-capacity.md) selects
 **67,108,864 bytes** for its conservative 49,279,744-byte envelope, including the
-unused-copy-back and formal-dependence advisories repaired in #391, retaining the
+earlier unused-copy-back allowance and the formal-dependence advisories added by #391, retaining the
 same source budget and projection policy. Selected runtime reports retain their
 262,144-byte domain. Neither number bounds the original report file: the
 streaming reader consumes its complete JSON, replacing only immediate
