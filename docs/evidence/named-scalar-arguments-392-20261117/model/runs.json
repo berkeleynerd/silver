@@ -1,0 +1,184 @@
+[
+  {
+    "run_id": "20261117T020908-6a835d48803d",
+    "state": "interrupted",
+    "scope": [
+      "Silver.PredicateAssociationAdmission",
+      "Silver.ScalarAssociations"
+    ],
+    "workers": 12,
+    "duration_seconds": null,
+    "failure_keys": []
+  },
+  {
+    "run_id": "20261117T020927-d539f1795c66",
+    "state": "interrupted",
+    "scope": [
+      "Silver.PredicateAssociationAdmission",
+      "Silver.ScalarAssociations"
+    ],
+    "workers": 12,
+    "duration_seconds": null,
+    "failure_keys": []
+  },
+  {
+    "run_id": "20261117T022212-a3fd73a6de45",
+    "state": "failure",
+    "scope": [
+      "Silver.PredicateAssociationAdmission",
+      "Silver.ScalarAssociations"
+    ],
+    "workers": 12,
+    "duration_seconds": 4.25217896,
+    "failure_keys": [
+      "lean:build:Silver/ScalarAssociations.lean:118:2:`simp` made no progress",
+      "lean:build:Silver/ScalarAssociations.lean:57:47:unsolved goals",
+      "lean:build:Silver/ScalarAssociations.lean:66:3:unknown tactic"
+    ]
+  },
+  {
+    "run_id": "20261117T022259-8869775e59dc",
+    "state": "failure",
+    "scope": [
+      "Silver.PredicateAssociationAdmission",
+      "Silver.ScalarAssociations"
+    ],
+    "workers": 12,
+    "duration_seconds": 3.935541918,
+    "failure_keys": [
+      "lean:build:Silver/ScalarAssociations.lean:66:17:unexpected token ':'; expected '(', '_' or identifier"
+    ]
+  },
+  {
+    "run_id": "20261117T022405-0bcd5eda4806",
+    "state": "failure",
+    "scope": [
+      "Silver.PredicateAssociationAdmission",
+      "Silver.ScalarAssociations"
+    ],
+    "workers": 12,
+    "duration_seconds": 4.213006668,
+    "failure_keys": [
+      "lean:build:Silver/PredicateAssociationAdmission.lean:108:33:omega could not prove the goal:",
+      "lean:build:Silver/PredicateAssociationAdmission.lean:110:28:This simp argument is unused:",
+      "lean:build:Silver/PredicateAssociationAdmission.lean:119:10:omega could not prove the goal:",
+      "lean:build:Silver/PredicateAssociationAdmission.lean:121:0:unused `termination_by`, function is not recursive",
+      "lean:build:Silver/PredicateAssociationAdmission.lean:135:6:`simp` made no progress",
+      "lean:build:Silver/PredicateAssociationAdmission.lean:155:6:`simp` made no progress",
+      "lean:build:Silver/PredicateAssociationAdmission.lean:171:12:Unknown identifier `Compose.Expressions.model_fixed_valid`",
+      "lean:build:Silver/PredicateAssociationAdmission.lean:184:12:Unknown identifier `Compose.Expressions.model_fixed_valid`",
+      "lean:build:Silver/PredicateAssociationAdmission.lean:200:6:`simp` made no progress",
+      "lean:build:Silver/PredicateAssociationAdmission.lean:212:8:Type mismatch",
+      "lean:build:Silver/PredicateAssociationAdmission.lean:225:6:`simp` made no progress",
+      "lean:build:Silver/PredicateAssociationAdmission.lean:237:8:Type mismatch",
+      "lean:build:Silver/PredicateAssociationAdmission.lean:82:33:omega could not prove the goal:",
+      "lean:build:Silver/PredicateAssociationAdmission.lean:84:28:This simp argument is unused:",
+      "lean:build:Silver/PredicateAssociationAdmission.lean:93:10:omega could not prove the goal:",
+      "lean:build:Silver/PredicateAssociationAdmission.lean:95:0:unused `termination_by`, function is not recursive"
+    ]
+  },
+  {
+    "run_id": "20261117T022514-42fc7bfcf9b3",
+    "state": "failure",
+    "scope": [
+      "Silver.PredicateAssociationAdmission",
+      "Silver.ScalarAssociations"
+    ],
+    "workers": 12,
+    "duration_seconds": 3.866951377,
+    "failure_keys": []
+  },
+  {
+    "run_id": "20261117T022605-79e819f235b6",
+    "state": "failure",
+    "scope": [
+      "Silver.PredicateAssociationAdmission",
+      "Silver.ScalarAssociations"
+    ],
+    "workers": 8,
+    "duration_seconds": 4.695554086,
+    "failure_keys": [
+      "lean:build:Silver/PredicateAssociationAdmission.lean:123:6:Type mismatch: After simplification, term",
+      "lean:build:Silver/PredicateAssociationAdmission.lean:138:6:Type mismatch: After simplification, term"
+    ]
+  },
+  {
+    "run_id": "20261117T022640-c0173da55173",
+    "state": "failure",
+    "scope": [
+      "Silver.PredicateAssociationAdmission",
+      "Silver.ScalarAssociations"
+    ],
+    "workers": 8,
+    "duration_seconds": 4.628964127,
+    "failure_keys": [
+      "lean:build:Silver/PredicateAssociationAdmission.lean:125:6:Type mismatch: After simplification, term",
+      "lean:build:Silver/PredicateAssociationAdmission.lean:142:6:Type mismatch: After simplification, term"
+    ]
+  },
+  {
+    "run_id": "20261117T022721-c1af3e63fac5",
+    "state": "failure",
+    "scope": [
+      "Silver.PredicateAssociationAdmission",
+      "Silver.ScalarAssociations"
+    ],
+    "workers": 8,
+    "duration_seconds": 4.523142336,
+    "failure_keys": [
+      "lean:build:Silver/PredicateAssociationAdmission.lean:121:44:This simp argument is unused:",
+      "lean:build:Silver/PredicateAssociationAdmission.lean:122:43:omega could not prove the goal:",
+      "lean:build:Silver/PredicateAssociationAdmission.lean:122:50:Application type mismatch: The argument",
+      "lean:build:Silver/PredicateAssociationAdmission.lean:126:8:Type mismatch: After simplification, term",
+      "lean:build:Silver/PredicateAssociationAdmission.lean:136:45:This simp argument is unused:",
+      "lean:build:Silver/PredicateAssociationAdmission.lean:137:44:omega could not prove the goal:",
+      "lean:build:Silver/PredicateAssociationAdmission.lean:137:51:Application type mismatch: The argument",
+      "lean:build:Silver/PredicateAssociationAdmission.lean:141:8:Type mismatch: After simplification, term"
+    ]
+  },
+  {
+    "run_id": "20261117T022800-f7813e859a93",
+    "state": "failure",
+    "scope": [
+      "Silver.PredicateAssociationAdmission",
+      "Silver.ScalarAssociations"
+    ],
+    "workers": 8,
+    "duration_seconds": 4.470116711,
+    "failure_keys": [
+      "lean:build:Silver/PredicateAssociationAdmission.lean:122:23:This simp argument is unused:",
+      "lean:build:Silver/PredicateAssociationAdmission.lean:123:43:omega could not prove the goal:",
+      "lean:build:Silver/PredicateAssociationAdmission.lean:123:50:Application type mismatch: The argument",
+      "lean:build:Silver/PredicateAssociationAdmission.lean:138:23:This simp argument is unused:",
+      "lean:build:Silver/PredicateAssociationAdmission.lean:139:44:omega could not prove the goal:",
+      "lean:build:Silver/PredicateAssociationAdmission.lean:139:51:Application type mismatch: The argument"
+    ]
+  },
+  {
+    "run_id": "20261117T022843-2c4cb884eab4",
+    "state": "failure",
+    "scope": [
+      "Silver.PredicateAssociationAdmission",
+      "Silver.ScalarAssociations"
+    ],
+    "workers": 8,
+    "duration_seconds": 4.477651211,
+    "failure_keys": [
+      "lean:build:Silver/PredicateAssociationAdmission.lean:122:10:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+      "lean:build:Silver/PredicateAssociationAdmission.lean:122:23:`if_pos` has been deprecated: Use `ite_eq_left` instead",
+      "lean:build:Silver/PredicateAssociationAdmission.lean:138:10:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+      "lean:build:Silver/PredicateAssociationAdmission.lean:138:23:`if_pos` has been deprecated: Use `ite_eq_left` instead"
+    ]
+  },
+  {
+    "run_id": "20261117T022858-568cc2722567",
+    "state": "success",
+    "scope": [
+      "Silver.PredicateAssociationAdmission",
+      "Silver.ScalarAssociations"
+    ],
+    "workers": 8,
+    "duration_seconds": 6.075883253,
+    "failure_keys": []
+  }
+]
