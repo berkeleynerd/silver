@@ -68,6 +68,19 @@ board is the recorded authorization; if it is dropped, this note is removed.
 The [session memory](session-memory.md) entry of 2026-11-12 records the
 decision.
 
+**Worca workflow chain, from 2026-11-17.** For work that travels the Silver workflow
+chain on Worca ([#396](https://github.com/berkeleynerd/silver/issues/396)), the
+owner's approval at a Worca approval gate is the authorization. The gate shows
+the issues' scope and completion criteria and the exact entry to be recorded;
+on approval the workflow's recording step commits that dated entry to the
+[session memory](session-memory.md) on `main` and comments on each issue with the
+commit. The entry is the record of an authorization already given at the gate,
+so the work may be claimed once it is on `main`, without a separate pull request
+or approval. Such an authorization covers the named issues as they read at
+approval and nothing else; it never amends a guarantee, and merge remains a
+separate decision. Agents do not approve a gate. The session memory entry of
+2026-11-17 records the decision.
+
 **Labels** carry the kind of item, so agents can filter with `gh issue list`.
 They replace GitHub's default labels.
 
