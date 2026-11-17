@@ -130,8 +130,11 @@ no swap):
   of 49,919 declarations. The
   [independent source review](reviews/review-named-scalar-source-20261117.md)
   found no static correspondence or domain defect in the frozen candidate slice
-  and checked its complete 76,980-token pin against native source. Final
-  candidate checking and the complete integrated audit remain pending.
+  and checked its complete 76,980-token pin against native source. The final
+  three-candidate union passed with a fresh audit of 243 modules and 20,793
+  declarations. Two stale proof scripts required a bounded repair; their failed
+  run and the independently reviewed successful checks are retained. Complete
+  integrated assurance remains pending.
 - The [behavior packet](evidence/named-scalar-arguments-392-20261117/behavior/README.md)
   records all 16 final named methods passing in 35.218 seconds, including full-route
   positives, source-size endpoints and discriminating rejection controls. The

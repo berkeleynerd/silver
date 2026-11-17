@@ -146,3 +146,103 @@ gap. Full integrated native/Lean obligation coverage, source provenance and the
 final regression inventory remain the lead's validation scope. The documented
 restricted Ada/frontend interpretation, native call-legality, external-tool and
 local-cache premises are retained. No new exception to the Oracle was inferred.
+
+## Repair addendum — 2026-11-17
+
+**No static finding in the two-script repair; both repaired-target checking and
+the fresh three-candidate union audit passed.** Statements, domains, axioms,
+native source, reviewed pin and proof budgets are unchanged. The original failed
+batch remains failed historical evidence; complete integrated assurance remains
+separate from these successful focused checks.
+The selected reviewer setting remains GPT-6 Astra, Max, with the same runtime
+telemetry limitations as the original review. No validation job was run by the
+reviewer.
+
+The original candidate run `20261117T033146-10e4c23dfa78` finished with exit 1
+after 1396.656 seconds, without interruption or a resource-guard trigger. I
+independently inspected its terminal and retained summary. The two failures were
+the stale hard-coded `change` target in `CallsActualsModelSpec` and looping
+simplification of the procedure wrapper's loop-membership list. The new
+marker/tail/advance/function-loop/payload/update component parts passed, but
+the combined audit was not executed. The exact failed inputs and logs are in
+`docs/evidence/named-scalar-arguments-392-20261117/source/candidate-r1-failed/`.
+
+Reviewed exact patch:
+`docs/evidence/named-scalar-arguments-392-20261117/source/candidate-two-script-repair.patch.gz`,
+decoded SHA256 `c710d03a447fcbf4fdefb5c1184334037f875429ae3a52ebaa32d77da0c90d47`.
+I reproduced that patch from its retained before files and the current source
+bytes and verified the accompanying before/after hashes:
+
+| File | Before SHA256 | Reviewed repair SHA256 |
+| --- | --- | --- |
+| `proof/Silver/FunctionSourceParts/CallsActualsModelSpec.lean` | `fe755e316cb47eb1f5b72f51d515ddd46178ec04fb06c9e779e3a1af52211c52` | `2d64bdfc3511a3c9064eab00cf59d396581e43713fd23162a75ccaef3c124076` |
+| `proof/Silver/PredicateProcedureCallWholeSourceCandidate.lean` | `181dc8c8e51697bcf434ab537bd9740825a48e1960c22ef1f26c55271ea2b5e7` | `29215f2c28882ca473b163aac5c8d7b2f46045c72d8f57974a4acb8be424afff` |
+
+The first repair preserves the exact complete `calls_actualsModel_spec` theorem
+statement and proves it with `decide +kernel`. It removes the obsolete token
+witness, which still included the former recursive wrapper's variant, and the
+two imports used only by that witness. The current complete header remains
+checked; no native contract or semantic definition is altered. Its existing
+`maxRecDepth 100000` and `maxHeartbeats 10000000` settings are unchanged.
+
+The procedure wrapper replaces the looping simplifier call with three direct
+`List.mem_cons` cases. It still quantifies over every member of the unchanged
+`SourceChecks.loops`, uses the same three component certificates, and eliminates
+the impossible empty-list tail. No branch, checked-source field or proposition
+is removed; no new budget setting is introduced.
+
+I independently verified all retained failure-packet artifact hashes and all
+**1,142/1,142** archived input hashes against the managed start record. Comparing
+current inputs with that record found exactly the two intended script changes.
+The native source remains `de017ca…`; the complete pin remains `7d034eaa…`.
+The revised 25-file inventory at
+`tmp/named-source-392/tmp/source-candidates-392/owned-final-files-r2.json`, SHA256
+`09787536ba1d1a12a9ee04c2ddafec263adc4d91e2856d9d85999e7db55b9b01`,
+matches current bytes. Its byte-identical retained copy is
+`docs/evidence/named-scalar-arguments-392-20261117/source/final-owned-files.json`.
+All 25 source-file hashes also match source-only commit `a07ace6f0`. The inventory
+includes the newly owned header-proof file while preserving the original
+immutable 24-file inventory as historical evidence.
+
+The source author subsequently retained two successful Linux aarch64 / Lean
+4.34.1 focused runs beneath the same evidence directory:
+
+- `candidate-repair-check/`, run `20261117T040126-ff9bd176a52b`: the complete
+  `Silver.FunctionSourceParts.CallsActualsModelSpec` and
+  `Silver.PredicateProcedureCallWholeSourceCandidate` targets rebuilt and passed.
+  Its fresh audit covered **151 imported modules and 19,120 declarations**.
+  The launcher exited 0 after **15.023 seconds**, without interruption.
+  Evidence-file SHA256:
+  `ed17fddfba85d14d0b68508a074aa76d3a7913392c5d8f3b04a9bc1bf65a4fca`.
+- `candidate-union-check/`, run `20261117T040233-3ed92ba6662c`: the original union
+  of `Silver.PredicateAssociationWholeSourceCandidate`,
+  `Silver.FunctionSourceCandidate` and
+  `Silver.PredicateProcedureCallWholeSourceCandidate` passed, with the function
+  aggregator newly rebuilt. Its fresh audit covered **243 imported modules and
+  20,793 declarations**, including every module from the repaired-target run.
+  The launcher exited 0 after **10.017 seconds**, without interruption.
+  Evidence-file SHA256:
+  `5ddca21fd9df387a12934f7804655b69006b13295e57143467b8dcf8b06faa4a`.
+
+Both audits report exactly `[propext, Classical.choice, Quot.sound]` as allowed
+foundations. Their recorded allocation was **8 automatic Lake workers, 12
+threads and 8192 MiB per process**. Both build/audit phases exited 0; the managed
+event records finish successfully with no failure keys.
+
+For **each** successful packet I independently verified all ten retained
+snapshot hashes, the focused log hash, every **1,142/1,142 repository input**
+and **1,037/1,037 workspace input** in the archives, and the module coverage
+against the audit log. The managed start inputs agree with the evidence, and
+both runs captured identical repository/workspace input maps. All 25 reviewed
+source files, the unchanged final native source and the complete pin match the
+successful captured inputs. The packet author's separate verification records
+report rehashing two tool binaries and 6,202 build artifacts; I did not rehash
+those live tools or artifacts independently.
+
+These results close the repair and focused candidate-union checks. They reused
+matching cached successes and ran fresh axiom audits; both explicitly record
+`clean_build: false` and `kernel_recheck: null`. They do not constitute a clean
+rebuild or independent kernel replay. Complete integrated native/Lean obligation
+coverage, authoritative-source provenance and final regressions remain the
+lead's separate validation scope. This addendum does not certify completion of
+that integrated work or close #392.
