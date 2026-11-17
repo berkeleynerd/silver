@@ -280,13 +280,18 @@ provide setup, evidence auditing and tests. GNATprove verifies the compiler.
 Lean connects the restricted recognizer source to the language model and the
 runtime wrappers to their effect models. Every output shell selects a complete
 application report policy: static, argument, assigned or selected result. Emitted
-Main safety checks must all be proved range, length, index, scalar overflow or
-nonzero-divisor checks under their selected policy. All output forms
+Main and declared local-subprogram safety checks must all be proved range,
+length, index, scalar overflow or nonzero-divisor checks under their selected policy. All output forms
 precisely classify initializer advisories; assignment-bearing forms additionally
 classify the exact unused-assignment advisory. All sequence policies classify
 two exact statically known predicate advisories and four exact overwritten ghost-output
-messages for each of Put and Put_Line.
-Selected library reports
+messages for each of Put and Put_Line. Local subprograms also permit the exact
+unused-formal advisory, and unused-copy-back advisories name a declared procedure.
+The additional `INOUT_ONLY_READ` and `UNUSED_INITIAL_VALUE` flow advisories bind
+the exact declared local owner, formal spelling and eligible mode. The warning
+list separately classifies the pinned Image and array-initialization notes.
+These advisories discharge no checks; the [assurance policy](docs/assurance.md#source-selected-application-policies)
+specifies their exact messages and producer requirements. Selected library reports
 remain mandatory. Frontend elimination, faithful obligation generation and
 pinned solver completion remain explicit tool premises.
 Application authors supply no contracts or proof annotations. Every emitted
