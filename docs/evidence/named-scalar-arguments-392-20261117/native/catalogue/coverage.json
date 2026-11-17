@@ -1,0 +1,31 @@
+{
+  "scope": "Whole changed exporter and caller; complete native/feature assurance remains separate",
+  "coverage": [
+    {
+      "helper": "Export_Constructs",
+      "selector_file": "src/silver_catalogue.adb",
+      "selector_line": 38,
+      "managed_run": "20261117T032921-f38b729850b7",
+      "original_returncode": 0,
+      "source_sha256": "2e46a16831e048dd64299a7bb31e554e9e478e7daa1a1eb79922be2bc34ccfab",
+      "native_report_sha256": "0d7f4f47b599220f417da34f951287914b4850e8fbe9b315833fb9dc8d77c6c5",
+      "summary_total_checks": 1,
+      "generated_proof_checks": 0,
+      "generated_flow_messages": 1,
+      "whole_subprogram_spark_status": "all"
+    },
+    {
+      "helper": "Export",
+      "selector_file": "src/silver_catalogue.ads",
+      "selector_line": 2,
+      "managed_run": "20261117T032925-b5754f351131",
+      "original_returncode": 0,
+      "source_sha256": "2e46a16831e048dd64299a7bb31e554e9e478e7daa1a1eb79922be2bc34ccfab",
+      "native_report_sha256": "4e89855a46191e075e95af61d44e84ab9a0638d02c448b38ef56d619ccf91b80",
+      "summary_total_checks": 0,
+      "generated_proof_checks": 0,
+      "generated_flow_messages": 0,
+      "whole_subprogram_spark_status": "all"
+    }
+  ]
+}

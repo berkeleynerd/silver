@@ -1,0 +1,265 @@
+Managed run: 20261117T021524-7cd50f30e0ae (/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261117T021524-7cd50f30e0ae)
+Phase 1 of 3: generation of data representation information ...
+Phase 2 of 3: generation of Global contracts ...
+Phase 3 of 3: flow analysis and proof ...
+ info: analyzing call to "Match_Byte" in context
+--> silver_image_model.adb:63:10
+
+ info: analyzing call to "Match_Byte" in context
+--> silver_image_model.adb:64:10
+
+ info: analyzing call to "Match_Byte" in context
+--> silver_image_model.adb:66:10
+
+ info: analyzing call to "Match_Byte" in context
+--> silver_image_model.adb:68:23
+
+ info: analyzing call to "Match_Byte" in context
+--> silver_image_model.adb:69:23
+
+ info: analyzing call to "Match_Byte" in context
+--> silver_image_model.adb:70:24
+
+ info: analyzing call to "Match_Byte" in context
+--> silver_image_model.adb:71:24
+
+ info: analyzing call to "Match_Byte" in context
+--> silver_image_model.adb:72:24
+
+ info: analyzing call to "Match_Byte" in context
+--> silver_image_model.adb:74:16
+
+ info: analyzing call to "Match_Byte" in context
+--> silver_image_model.adb:75:16
+
+ info: analyzing call to "Match_Byte" in context
+--> silver_image_model.adb:76:16
+
+ info: analyzing call to "Match_Byte" in context
+--> silver_image_model.adb:77:16
+
+ info: analyzing call to "Match_Byte" in context
+--> silver_image_model.adb:78:16
+
+ info: analyzing call to "Match_Byte" in context
+--> silver_image_model.adb:81:10
+
+ info: analyzing call to "Match_Byte" in context
+--> silver_image_model.adb:91:07
+
+ info: analyzing call to "Match_Byte" in context
+--> silver_image_model.adb:119:07
+
+ info: analyzing call to "Match_Byte" in context
+--> silver_image_model.adb:160:16
+
+ info: analyzing call to "Match_Byte" in context
+--> silver_image_model.adb:170:16
+
+ info: analyzing call to "Match_Byte" in context
+--> silver_image_model.adb:189:16
+
+ info: analyzing call to "Match_Byte" in context
+--> silver_image_model.adb:192:16
+
+ info: analyzing call to "End_Theory" in context
+--> silver_image_model.adb:203:16
+
+ info: analyzing call to "Match_Byte" in context
+--> silver_image_model.adb:213:16
+
+ info: analyzing call to "Match_Byte" in context
+--> silver_image_model.adb:221:16
+
+ info: analyzing call to "Match_Byte" in context
+--> silver_image_model.adb:236:16
+
+ info: analyzing call to "Match_Byte" in context
+--> silver_image_model.adb:251:16
+
+ info: analyzing call to "Match_Byte" in context
+--> silver_image_model.adb:265:22
+
+ info: analyzing call to "Match_Byte" in context
+--> silver_image_model.adb:270:19
+
+ info: analyzing call to "Match_Byte" in context
+--> silver_image_model.adb:278:16
+
+ info: analyzing call to "End_String" in context
+--> silver_image_model.adb:301:16
+
+ info: analyzing call to "Structural" in context
+--> silver_image_model.adb:351:16
+
+ info: analyzing call to "Match_Byte" in context
+--> silver_image_model.adb:365:16
+
+ info: analyzing call to "Structural" in context
+--> silver_image_model.adb:367:33
+ info: no contextual analysis of "Release_Workspace" (call returns unconstrained type)
+--> silver_image_adapter.adb:128:30
+ info: analyzing call to "Failure" in context
+--> silver.adb:80:10
+
+ info: analyzing call to "Failure" in context
+--> silver.adb:294:19
+
+ info: analyzing call to "Failure" in context
+--> silver.adb:319:13
+
+ info: analyzing call to "Failure" in context
+--> silver.adb:332:13
+
+ info: analyzing call to "Failure" in context
+--> silver.adb:344:16
+
+ info: analyzing call to "Failure" in context
+--> silver.adb:353:13
+
+ info: analyzing call to "Failure" in context
+--> silver.adb:359:13
+
+ info: analyzing call to "Failure" in context
+--> silver.adb:364:13
+
+ info: analyzing call to "Failure" in context
+--> silver.adb:368:13
+
+ info: analyzing call to "Failure" in context
+--> silver.adb:374:16
+
+ info: analyzing call to "Failure" in context
+--> silver.adb:384:16
+
+ info: analyzing call to "Failure" in context
+--> silver.adb:392:13
+
+ info: analyzing call to "Failure" in context
+--> silver.adb:397:13
+
+ info: analyzing call to "Failure" in context
+--> silver.adb:402:13
+
+ info: analyzing call to "Failure" in context
+--> silver.adb:412:16
+
+ info: analyzing call to "Failure" in context
+--> silver.adb:429:07
+
+ info: analyzing call to "Failure" in context
+--> silver.adb:442:10
+
+ info: analyzing call to "Failure" in context
+--> silver.adb:447:13
+
+ info: analyzing call to "Failure" in context
+--> silver.adb:453:10
+
+ info: analyzing call to "Failure" in context
+--> silver.adb:458:10
+
+ info: analyzing call to "Failure" in context
+--> silver.adb:462:10
+
+ info: analyzing call to "Failure" in context
+--> silver.adb:468:10
+ info: no contextual analysis of "Concatenated_Last" (in potentially unevaluated context)
+--> silver_output_profile.adb:1222:45
+
+ info: no contextual analysis of "Concatenated_Last" (in potentially unevaluated context)
+--> silver_output_profile.adb:1234:22
+
+ info: implicit aspect Always_Terminates on "Actuals_After" has been proved, subprogram will terminate
+--> silver_output_profile.adb:5150:13
+
+ info: data dependencies proved
+--> silver_output_profile.adb:5154:11
+
+ info: overflow check proved
+--> silver_output_profile.adb:5156:41
+
+ info: precondition proved
+--> silver_output_profile.adb:5156:54
+
+ info: precondition proved
+--> silver_output_profile.adb:5158:28
+
+ info: postcondition proved
+--> silver_output_profile.adb:5160:28
+
+ info: overflow check proved
+--> silver_output_profile.adb:5161:68
+
+ info: precondition proved
+--> silver_output_profile.adb:5163:12
+
+ info: loop invariant initialization proved
+--> silver_output_profile.adb:5174:33
+
+ info: loop invariant preservation proved
+--> silver_output_profile.adb:5174:33
+
+ info: loop invariant initialization proved
+--> silver_output_profile.adb:5175:33
+
+ info: loop invariant preservation proved
+--> silver_output_profile.adb:5175:33
+
+ info: overflow check proved
+--> silver_output_profile.adb:5175:53
+
+ info: loop invariant initialization proved
+--> silver_output_profile.adb:5176:33
+
+ info: loop invariant preservation proved
+--> silver_output_profile.adb:5176:33
+
+ info: precondition proved
+--> silver_output_profile.adb:5178:12
+
+ info: loop invariant initialization proved
+--> silver_output_profile.adb:5178:12
+
+ medium: loop invariant might not be preserved by an arbitrary iteration
+--> silver_output_profile.adb:5178:12
+ 5178 |               Actuals_Model (Text, Context, Position, Facts, Catalog, First, Last) =
+      |               ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      :
+ 5180 |                   (Text, Context, Cursor, Facts, Catalog, First, Last, Index, Named, Seen));
+      |                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      + provers reached time and memory limit before completing the proof
+
+ info: precondition proved
+--> silver_output_profile.adb:5179:14
+
+ info: loop variant proved
+--> silver_output_profile.adb:5181:31
+
+ info: precondition proved
+--> silver_output_profile.adb:5183:12
+
+ info: index check proved
+--> silver_output_profile.adb:5185:64
+
+ info: precondition proved
+--> silver_output_profile.adb:5186:23
+
+ info: index check proved
+--> silver_output_profile.adb:5187:96
+
+ info: index check proved
+--> silver_output_profile.adb:5189:30
+
+ info: precondition proved
+--> silver_output_profile.adb:5192:38
+
+ info: precondition proved
+--> silver_output_profile.adb:5193:20
+
+ info: range check proved
+--> silver_output_profile.adb:5195:25
+Summary logged in /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-native-392/.silver/linux-aarch64/compiler/obj/explore/named-392/gnatprove/gnatprove.out
+gnatprove: unproved check messages considered as errors
+ERROR: Command ["gnatprove", "-P", "../../../silver.gpr", "--subdirs=explore/named-392", "-U", "--mode=all", "--report=all", "--warnings=error", "--checks-as-errors=on", "--level=2", "--prover=cvc5,z3,altergo", "--timeout=30", "--limit-subp=silver_output_profile.adb:5150", "-XSILVER_HOST=linux-aarch64", "-j12"] exited with code 1
+development command: Command '['/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-native-392/.tools/linux-aarch64/alr/bin/alr', '-s', '/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-native-392/.tools/linux-aarch64/alire/settings', '-C', '/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-native-392/.silver/linux-aarch64/toolchain', '-n', '--no-tty', 'exec', '--', 'gnatprove', '-P', '../../../silver.gpr', '--subdirs=explore/named-392', '-U', '--mode=all', '--report=all', '--warnings=error', '--checks-as-errors=on', '--level=2', '--prover=cvc5,z3,altergo', '--timeout=30', '--limit-subp=silver_output_profile.adb:5150', '-XSILVER_HOST=linux-aarch64', '-j12']' returned non-zero exit status 1.

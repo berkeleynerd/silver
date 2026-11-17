@@ -1,0 +1,31 @@
+{
+  "helper": "Actuals_Model",
+  "selector_line": 5138,
+  "source_sha256": "7dd36ab8d8e4d7503464f437c3cbadfca037dc2212aa9a7e45183489a211eeec",
+  "command": [
+    "/usr/bin/python3",
+    "scripts/dev.py",
+    "tool",
+    "--task",
+    "#392",
+    "--reason",
+    "Whole Actuals_Model contract and every selected obligation over full declared domains; named scalar associations; canonical all/all level2 cvc5,z3,altergo 30-second policy; 16 MiB stack; automatic available workers; sequential focused batch, not complete validation",
+    "--",
+    "gnatprove",
+    "-P",
+    "../../../silver.gpr",
+    "--subdirs=explore/named-392",
+    "-U",
+    "--mode=all",
+    "--report=all",
+    "--warnings=error",
+    "--checks-as-errors=on",
+    "--level=2",
+    "--prover=cvc5,z3,altergo",
+    "--timeout=30",
+    "--limit-subp=silver_output_profile.adb:5138",
+    "-XSILVER_HOST=linux-aarch64"
+  ],
+  "cwd": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-native-392",
+  "stack_bytes": 16777216
+}
