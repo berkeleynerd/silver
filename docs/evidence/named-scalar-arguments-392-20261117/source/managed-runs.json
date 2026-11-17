@@ -448,5 +448,116 @@
       "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261117T025518-ab3bc42b687e/lean-focused-evidence.json"
     ],
     "retained_report_count": 0
+  },
+  {
+    "run_id": "20261117T030746-bf872a6a0f4d",
+    "task": "#392",
+    "kind": "lean",
+    "scope": [
+      "Silver.PredicateAssociationHelpers",
+      "Silver.PredicateFunctionCallGhostSource",
+      "Silver.PredicateFunctionCallLibraries",
+      "Silver.PredicateProcedureCallLibraries"
+    ],
+    "state": "success",
+    "active": false,
+    "workers": 8,
+    "directory": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261117T030746-bf872a6a0f4d",
+    "fingerprint": "888dada8987956591e7a09fd36e26c9c767456127b0dbebc3589051233bdaaec",
+    "command": [
+      "/usr/bin/python3",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/scripts/check_lean.py",
+      "--task",
+      "#392",
+      "--target",
+      "Silver.PredicateAssociationHelpers",
+      "--target",
+      "Silver.PredicateFunctionCallGhostSource",
+      "--target",
+      "Silver.PredicateFunctionCallLibraries",
+      "--target",
+      "Silver.PredicateProcedureCallLibraries",
+      "--provenance",
+      "--workers",
+      "8",
+      "--reason",
+      "Root-authorized native shared Mark_Formal full-domain helper, changed function tail/wrapper and standalone recurrence now passed. First focused source check of typed delta helper, full-index subtype domain, explicit shared marker import identities in function/procedure tails, and no-Hide_Info Ghost representation. Semantic markFormal unchanged. Eight workers coexist with native four; no complete-source pin/candidate/full checkpoint or clean/replay."
+    ],
+    "reason": "Root-authorized native shared Mark_Formal full-domain helper, changed function tail/wrapper and standalone recurrence now passed. First focused source check of typed delta helper, full-index subtype domain, explicit shared marker import identities in function/procedure tails, and no-Hide_Info Ghost representation. Semantic markFormal unchanged. Eight workers coexist with native four; no complete-source pin/candidate/full checkpoint or clean/replay.",
+    "worktree": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392",
+    "resources": [
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/lean-focused.log",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/lean-focused-evidence.json"
+    ],
+    "started_at": "2026-11-17T03:07:46.881102+00:00",
+    "finished_at": "2026-11-17T03:09:01.958367+00:00",
+    "duration_seconds": 75.077049578,
+    "returncode": null,
+    "error": null,
+    "failure_keys": [],
+    "evidence": [
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/lean-focused.log",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/lean-focused-evidence.json",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261117T030746-bf872a6a0f4d/previous-evidence/lean-focused.log",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261117T030746-bf872a6a0f4d/previous-evidence/lean-focused-evidence.json",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261117T030746-bf872a6a0f4d/lean-focused.log",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261117T030746-bf872a6a0f4d/lean-focused-evidence.json"
+    ],
+    "retained_report_count": 0
+  },
+  {
+    "run_id": "20261117T031315-44bc724a3e70",
+    "task": "#392",
+    "kind": "lean",
+    "scope": [
+      "Silver.PredicateAssociationSource",
+      "Silver.PredicateFunctionCallSource",
+      "Silver.PredicateProcedureCallSource"
+    ],
+    "state": "success",
+    "active": false,
+    "workers": 8,
+    "directory": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261117T031315-44bc724a3e70",
+    "fingerprint": "90bf229a28fe4f8381131969c5e972dec4ba8d99135d3e99433b7e107b6905e7",
+    "command": [
+      "/usr/bin/python3",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/scripts/check_lean.py",
+      "--task",
+      "#392",
+      "--target",
+      "Silver.PredicateAssociationSource",
+      "--target",
+      "Silver.PredicateFunctionCallSource",
+      "--target",
+      "Silver.PredicateProcedureCallSource",
+      "--provenance",
+      "--workers",
+      "8",
+      "--reason",
+      "Shared marker source helper/library gate passed with49,919-declaration audit. New focused source-definition check connects native finite-store read_mark to the typed marker, accounts for its delta/function shared parentheses, and binds validated Actuals_After exact Ghost call before state updates; refreshed procedure loop Mark_Formal tokens. Eight workers coexist with native four. Complete source pin/candidates remain gated on remaining native helper batch."
+    ],
+    "reason": "Shared marker source helper/library gate passed with49,919-declaration audit. New focused source-definition check connects native finite-store read_mark to the typed marker, accounts for its delta/function shared parentheses, and binds validated Actuals_After exact Ghost call before state updates; refreshed procedure loop Mark_Formal tokens. Eight workers coexist with native four. Complete source pin/candidates remain gated on remaining native helper batch.",
+    "worktree": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392",
+    "resources": [
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/lean-focused.log",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/lean-focused-evidence.json"
+    ],
+    "started_at": "2026-11-17T03:13:15.426720+00:00",
+    "finished_at": "2026-11-17T03:13:24.656721+00:00",
+    "duration_seconds": 9.229804712,
+    "returncode": null,
+    "error": null,
+    "failure_keys": [],
+    "evidence": [
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/lean-focused.log",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/lean-focused-evidence.json",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261117T031315-44bc724a3e70/previous-evidence/lean-focused.log",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261117T031315-44bc724a3e70/previous-evidence/lean-focused-evidence.json",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261117T031315-44bc724a3e70/lean-focused.log",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261117T031315-44bc724a3e70/lean-focused-evidence.json"
+    ],
+    "retained_report_count": 0
   }
 ]

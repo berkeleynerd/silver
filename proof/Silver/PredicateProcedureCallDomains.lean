@@ -92,6 +92,8 @@ GNATprove must establish legality of every executed native call. -/
 noncomputable def totalizeCalls (calls : Calls) : Calls := by
   classical
   exact fun
+    | .markFormal => fun seen formal => if AssociationNative.MarkDomain formal then
+        calls .markFormal seen formal else modelCalls .markFormal seen formal
     | .skip => fun text position =>
         if CursorDomain text position then calls .skip text position else modelCalls .skip text position
     | .nameAfter => fun text position =>
@@ -171,6 +173,7 @@ noncomputable def totalizeCalls (calls : Calls) : Calls := by
 /-- Only separately checked imported functions occur here. No completed
 procedure-target, recursive-actuals, update, callee or call law is assumed. -/
 structure ImportsMeaning (calls : Calls) : Prop where
+  markFormal : totalizeCalls calls .markFormal = modelCalls .markFormal
   skip : totalizeCalls calls .skip = modelCalls .skip
   nameAfter : totalizeCalls calls .nameAfter = modelCalls .nameAfter
   namesLookup : totalizeCalls calls .namesLookup = modelCalls .namesLookup

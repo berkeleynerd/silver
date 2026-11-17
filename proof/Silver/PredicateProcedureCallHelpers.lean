@@ -61,7 +61,7 @@ theorem normalized_actualsTail_at (meaning : ImportsMeaning calls) (defs : Defin
           ({text,context,position,facts,catalog,first,last,ordinal,named,seen} : Frame).locals := by
         dsimp +instances only [List.foldr, Token.shell, actualsTailBody, Expr.eval, Frame.locals, Locals.set,
           Field.get, apply3, apply5, apply7, apply10]
-        simp only [meaning.token, meaning.association, normalized_actual meaning defs, reduceCtorEq,
+        simp only [meaning.token, meaning.association, meaning.markFormal, normalized_actual meaning defs, reduceCtorEq,
           String.reduceEq, ↓reduceIte, ↓reduceDIte]
         by_cases final : ordinal = last
         · simp only [final, decide_true, ↓reduceIte]
@@ -197,7 +197,7 @@ theorem normalized_updatesTail_at (meaning : ImportsMeaning calls) (defs : Defin
           ({text,context,incoming,scan,catalog,first,last,ordinal,named,seen,callFirst,callAfter} : Frame).locals := by
         dsimp +instances only [List.foldr, Token.shell, updatesTailBody, Expr.eval, Frame.locals, Locals.set,
           Field.get, ScanField.set, apply4, apply7, apply10, apply12]
-        simp only [meaning.bodyToken, meaning.invalidModel, meaning.association, normalized_update meaning defs,
+        simp only [meaning.bodyToken, meaning.invalidModel, meaning.association, meaning.markFormal, normalized_update meaning defs,
           reduceCtorEq, String.reduceEq, ↓reduceIte, ↓reduceDIte]
         by_cases final : ordinal = last
         · simp only [final, decide_true, ↓reduceIte]

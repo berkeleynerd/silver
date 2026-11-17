@@ -13,7 +13,7 @@ namespace Silver.Predicate.AssociationNative
 open Compose
 
 inductive Ty
-  | number | truth | source | token | functions | procedures | functionFormal | procedureFormal | association
+  | number | truth | source | token | functions | procedures | functionFormal | procedureFormal | association | formalSet
   | arrow (domain codomain : Ty)
   deriving DecidableEq, Repr
 
@@ -27,6 +27,7 @@ inductive Ty
   | .functionFormal => FunctionBindings.Formal
   | .procedureFormal => ProcedureBindings.Formal
   | .association => ActualAssociation
+  | .formalSet => FormalSet
   | .arrow a b => a.meaning → b.meaning
 
 def Ty.default : (ty : Ty) → ty.meaning
@@ -39,6 +40,7 @@ def Ty.default : (ty : Ty) → ty.meaning
   | .functionFormal => FunctionBindings.emptyFormal
   | .procedureFormal => ProcedureBindings.emptyFormal
   | .association => invalidAssociation
+  | .formalSet => noFormals
   | .arrow _ b => fun _ => b.default
 
 def Ty.name : Ty → List String
@@ -51,6 +53,7 @@ def Ty.name : Ty → List String
   | .functionFormal => ["functions", ".", "formal"]
   | .procedureFormal => ["procedures", ".", "formal"]
   | .association => ["actual_association"]
+  | .formalSet => ["formal_set"]
   | .arrow _ _ => []
 
 def arrows (args : List Ty) (result : Ty) : Ty := args.foldr Ty.arrow result
@@ -58,10 +61,11 @@ def arrows (args : List Ty) (result : Ty) : Ty := args.foldr Ty.arrow result
 inductive Function
   | skip | nameAfter | equalName | token
   | functionFormalModel | functionFormalAt | procedureFormalModel | procedureFormalAt
-  | functionAssociation | procedureAssociation
+  | functionAssociation | procedureAssociation | markFormal
   deriving DecidableEq, Repr
 
 def Function.type : Function → Ty
+  | .markFormal => arrows [.formalSet, .number] .formalSet
   | .skip | .nameAfter => arrows [.source, .number] .number
   | .equalName => arrows [.source, .number, .number, .number, .number] .truth
   | .token => arrows [.source, .number, .token] .number
@@ -71,6 +75,7 @@ def Function.type : Function → Ty
   | .procedureAssociation => arrows [.source, .number, .procedures, .number, .number, .number, .truth] .association
 
 def Function.name : Function → List String
+  | .markFormal => ["mark_formal"]
   | .skip => ["skip_at"]
   | .nameAfter => ["name_after"]
   | .equalName => ["equal_name"]
@@ -130,6 +135,7 @@ inductive Expr : Ty → Type
   | functionParameter : Expr .functions → Expr .number → Expr .functionFormal
   | procedureParameter : Expr .procedures → Expr .number → Expr .procedureFormal
   | association : Expr .number → Expr .number → Expr .truth → Expr .association
+  | deltaSeen : Expr .formalSet → Expr .number → Expr .formalSet
   | add : Expr .number → Expr .number → Expr .number
   | eq : Expr .number → Expr .number → Expr .truth
   | ne : Expr .number → Expr .number → Expr .truth
@@ -161,6 +167,7 @@ def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
   | .functionParameter catalog index => FunctionBindings.parameter (catalog.eval calls locals) (index.eval calls locals)
   | .procedureParameter catalog index => ProcedureBindings.parameter (catalog.eval calls locals) (index.eval calls locals)
   | .association formal payload named => ⟨formal.eval calls locals, payload.eval calls locals, named.eval calls locals⟩
+  | .deltaSeen seenExpr formalExpr => Predicate.markFormal (seenExpr.eval calls locals) (formalExpr.eval calls locals)
   | .add left right => left.eval calls locals + right.eval calls locals
   | .eq left right => decide (left.eval calls locals = right.eval calls locals)
   | .ne left right => decide (left.eval calls locals ≠ right.eval calls locals)
@@ -187,6 +194,7 @@ def Expr.render : Expr ty → List String
       catalog.render ++ [".", "parameters", "("] ++ index.render ++ [")"]
   | .association formal payload named =>
       ["("] ++ formal.render ++ [","] ++ payload.render ++ [","] ++ named.render ++ [")"]
+  | .deltaSeen seenExpr formalExpr => ["("] ++ seenExpr.render ++ ["with", "delta"] ++ formalExpr.render ++ ["=>", "true", ")"]
   | .add left right => left.render ++ ["+"] ++ right.render
   | .eq left right => left.render ++ ["="] ++ right.render
   | .ne left right => left.render ++ ["/="] ++ right.render
@@ -233,6 +241,7 @@ def Expr.scoped (scope : Scope) : Expr ty → Bool
   | .field _ value => value.scoped scope
   | .functionParameter catalog index | .procedureParameter catalog index => catalog.scoped scope && index.scoped scope
   | .association formal payload named => formal.scoped scope && payload.scoped scope && named.scoped scope
+  | .deltaSeen seenExpr formalExpr => seenExpr.scoped scope && formalExpr.scoped scope
   | .add left right | .eq left right | .ne left right | .le left right | .gt left right |
     .andThen left right | .orElse left right => left.scoped scope && right.scoped scope
   | .not value | .group value | .declare value | .beginValue value => value.scoped scope
@@ -246,7 +255,7 @@ def Expr.prefix : Expr ty → Bool
   | _ => false
 
 def Expr.primary : Expr ty → Bool
-  | .number _ | .truth _ | .association _ _ _ | .group _ => true
+  | .number _ | .truth _ | .association _ _ _ | .deltaSeen _ _ | .group _ => true
   | value => value.prefix
 
 def Expr.simple : Expr ty → Bool
@@ -280,6 +289,7 @@ def Expr.wellFormed : Expr ty → Bool
   | .field _ value => value.wellFormed && value.prefix
   | .functionParameter catalog index | .procedureParameter catalog index =>
       catalog.wellFormed && catalog.prefix && index.wellFormed && index.expression
+  | .deltaSeen seenExpr formalExpr => seenExpr.prefix && formalExpr.expression && seenExpr.wellFormed && formalExpr.wellFormed
   | .association formal payload named => formal.wellFormed && formal.expression &&
       payload.wellFormed && payload.expression && named.wellFormed && named.expression
   | .add left right => left.wellFormed && left.simple && right.wellFormed && right.primary

@@ -241,6 +241,7 @@ def callBody : Command .scan :=
       .returned (apply8 (.function .updates) text context (.update .position scan start) catalog first last start after)
 
 def modelCalls : Calls
+  | .markFormal => Predicate.markFormal
   | .skip => skipAt
   | .nameAfter => nameAfter
   | .namesLookup => lookupName

@@ -95,10 +95,11 @@ def arrows (args : List Ty) (result : Ty) : Ty := args.foldr Ty.arrow result
 
 inductive Function
   | skip | nameAfter | namesLookup | scalarLookup | booleanLookup | arrayLookup | procedureLookup | token | isEmpty | included | scalarTarget | booleanTarget | functionActual | nameFree | invalid | invalidModel | bodyToken | target | actual | actualsModel | actuals | update | updatesModel | updates | callee | call
-  | association | actualsTail | payloadsFreeModel | payloadsFree | updatesTail | nameFreeModel
+  | association | actualsTail | payloadsFreeModel | payloadsFree | updatesTail | markFormal | nameFreeModel
   deriving DecidableEq, Repr
 
 def Function.type : Function → Ty
+  | .markFormal => arrows [.formalSet, .number] .formalSet
   | .skip => arrows [.source, .number] .number
   | .nameAfter => arrows [.source, .number] .number
   | .namesLookup => arrows [.source, .names, .number, .number] .number
@@ -132,6 +133,7 @@ def Function.type : Function → Ty
   | .updatesTail => arrows [.source, .context, .flow, .scan, .metadata, .number, .number, .number, .truth, .formalSet, .number, .number] .scan
 
 def Function.name : Function → List String
+  | .markFormal => ["mark_formal"]
   | .skip => ["skip_at"]
   | .nameAfter => ["name_after"]
   | .namesLookup => ["lookup_name"]
@@ -311,7 +313,7 @@ def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
   | .kind value => value | .mode value => value | .invalidActual => invalidProcedureActual
   | .noFormals => Predicate.noFormals
   | .seenAt seen formal => seen.eval calls locals (formal.eval calls locals)
-  | .markSeen seen formal => markFormal (seen.eval calls locals) (formal.eval calls locals)
+  | .markSeen seen formal => calls .markFormal (seen.eval calls locals) (formal.eval calls locals)
   | .variable name => locals _ name | .function fn => calls fn
   | .app fn value => fn.eval calls locals (value.eval calls locals)
   | .field projection value => projection.get (value.eval calls locals)
@@ -351,7 +353,7 @@ def Expr.render : Expr ty → List String
   | .invalidActual => ["invalid_procedure_actual"]
   | .noFormals => ["no_formals"]
   | .seenAt seen formal => seen.render ++ ["("] ++ formal.render ++ [")"]
-  | .markSeen seen formal => ["("] ++ seen.render ++ ["with", "delta"] ++ formal.render ++ ["=>", "true", ")"]
+  | .markSeen seen formal => ["mark_formal", "("] ++ seen.render ++ [","] ++ formal.render ++ [")"]
   | .variable name => [name] | .function fn => fn.name
   | .app fn value => match fn with
     | .app _ _ => fn.render.dropLast ++ [","] ++ value.render ++ [")"]
@@ -503,7 +505,8 @@ def Expr.wellFormed : Expr ty → Bool
   | .number _ | .truth _ | .token _ | .kind _ | .mode _ | .invalidActual | .noFormals | .variable _ | .function _ => true
   | .app fn value => fn.callHead && value.value && fn.wellFormed && value.wellFormed
   | .field _ value => value.prefix && value.wellFormed
-  | .formalAt catalog index | .signatureAt catalog index | .seenAt catalog index | .markSeen catalog index => catalog.prefix && index.value && catalog.wellFormed && index.wellFormed
+  | .formalAt catalog index | .signatureAt catalog index | .seenAt catalog index => catalog.prefix && index.value && catalog.wellFormed && index.wellFormed
+  | .markSeen seenExpr formalExpr => seenExpr.value && formalExpr.value && seenExpr.wellFormed && formalExpr.wellFormed
   | .scalarMutable names index | .declaredBounds names index | .booleanMutable names index => names.prefix && index.value && names.wellFormed && index.wellFormed
   | .valueAt facts index => facts.prefix && index.value && facts.wellFormed && index.wellFormed
   | .replace facts index bounds => facts.prefix && index.value && bounds.value && facts.wellFormed && index.wellFormed && bounds.wellFormed

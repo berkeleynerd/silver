@@ -7,6 +7,9 @@ public import Silver.PredicateAssociationSyntax
 namespace Silver.Predicate.AssociationNative
 open Compose
 
+def markFormalBody : Expr .formalSet :=
+  .deltaSeen (.variable "seen") (.variable "formal")
+
 def functionFormalBody : Expr .number :=
   let text : Expr .source := .variable "text"
   let catalog : Expr .functions := .variable "catalog"
@@ -80,6 +83,7 @@ def procedureAssociationBody : Expr .association :=
         (.elsif named .invalidAssociation (.association ordinal position (.truth false))))
 
 def modelCalls : Calls
+  | .markFormal => Predicate.markFormal
   | .skip => skipAt
   | .nameAfter => Compose.nameAfter
   | .equalName => Named.equalName
@@ -100,6 +104,8 @@ structure Frame where
   named : Bool := false
   nameFirst : Nat := 0
   nameAfter : Nat := 0
+  seen : FormalSet := noFormals
+  formal : Nat := 0
 
 def Frame.locals (frame : Frame) : Locals :=
   ((fun (ty : Ty) (_ : String) => ty.default) : Locals)
@@ -113,6 +119,8 @@ def Frame.locals (frame : Frame) : Locals :=
     |> fun locals => Locals.set locals .truth "named" frame.named
     |> fun locals => Locals.set locals .number "name_first" frame.nameFirst
     |> fun locals => Locals.set locals .number "name_after" frame.nameAfter
+    |> fun locals => Locals.set locals .formalSet "seen" frame.seen
+    |> fun locals => Locals.set locals .number "formal" frame.formal
 
 def formalScope (metadata : Ty) : Scope :=
   [(.source, "text"), (metadata, "catalog"), (.number, "first"), (.number, "last"),
@@ -121,7 +129,10 @@ def associationScope (metadata : Ty) : Scope :=
   [(.source, "text"), (.number, "position"), (metadata, "catalog"), (.number, "first"),
     (.number, "last"), (.number, "ordinal"), (.truth, "named")]
 
+def markScope : Scope := [(.formalSet, "seen"), (.number, "formal")]
+
 abbrev CheckedTrees : Prop :=
+  markFormalBody.wellFormed = true ∧ markFormalBody.scoped markScope = true ∧
   functionFormalBody.wellFormed = true ∧ functionFormalBody.scoped (formalScope .functions) = true ∧
   procedureFormalBody.wellFormed = true ∧ procedureFormalBody.scoped (formalScope .procedures) = true ∧
   functionAssociationBody.wellFormed = true ∧ functionAssociationBody.scoped (associationScope .functions) = true ∧
@@ -141,6 +152,10 @@ theorem undeclared_or_wrong_catalog_rejected :
     (Expr.variable (ty := .number) "payload").scoped (associationScope .functions) = false ∧
     (Expr.variable (ty := .procedures) "catalog").scoped (associationScope .functions) = false ∧
     (Expr.field .formal (.group (.variable "choice"))).wellFormed = false := by decide +kernel
+
+theorem mark_scope_and_prefix :
+    markFormalBody.scoped [(.number, "seen"), (.number, "formal")] = false ∧
+    (Expr.deltaSeen (.group (.variable "seen")) (.variable "formal")).wellFormed = false := by decide +kernel
 
 theorem arrow_token_paired : Token.arrow.name = Expressions.tokenName (.symbol "=>") := rfl
 

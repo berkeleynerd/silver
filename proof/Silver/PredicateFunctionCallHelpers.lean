@@ -56,6 +56,8 @@ def TokenDomain (text : Source) (position : Nat) (token : ShellToken) : Prop :=
 remain arbitrary; model values outside those domains only totalize the formal
 interpretation. Native proof must establish legality of every executed call. -/
 structure ImportsMeaning (imports : Imports) : Prop where
+  markFormal : ∀ seen formal, AssociationNative.MarkDomain formal →
+    imports.markFormal seen formal = modelImports.markFormal seen formal
   skip : ∀ text position, CursorDomain text position →
     imports.skip text position = modelImports.skip text position
   nameAfter : ∀ text position, CursorDomain text position →
@@ -106,7 +108,9 @@ noncomputable def totalizeImports (imports : Imports) : Imports := by
     association := fun text position catalog first last ordinal named =>
       if AssociationNative.FunctionAssociationDomain text position catalog first last ordinal then
         imports.association text position catalog first last ordinal named
-      else modelImports.association text position catalog first last ordinal named }
+      else modelImports.association text position catalog first last ordinal named
+    markFormal := fun seen formal => if AssociationNative.MarkDomain formal then
+      imports.markFormal seen formal else modelImports.markFormal seen formal }
 
 theorem totalizeImports_eq_model {imports : Imports} (meaning : ImportsMeaning imports) :
     totalizeImports imports = modelImports := by
@@ -180,6 +184,12 @@ theorem totalizeImports_eq_model {imports : Imports} (meaning : ImportsMeaning i
     simp only [totalizeImports]
     split
     · exact meaning.association text position catalog first last ordinal named ‹_›
+    · rfl
+
+  · funext seen formal
+    simp only [totalizeImports]
+    split
+    · exact meaning.markFormal seen formal ‹_›
     · rfl
 
 theorem model_imports_meaning : ImportsMeaning modelImports := by

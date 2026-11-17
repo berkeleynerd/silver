@@ -18,6 +18,8 @@ variable {domain : Compose.Expressions.StateDomain}
 from its own checked expression, rather than assumed as a parser result. -/
 structure ImportsLinks (imports : Imports) (composed : Compose.Expressions.Calls)
     (predicate : Native.Calls) : Prop where
+  markFormal : ∃ associations, AssociationNative.DefinitionEquations associations ∧
+    imports.markFormal = associations .markFormal
   skip : imports.skip = predicate.skip
   nameAfter : imports.nameAfter = predicate.nameAfter
   namesLookup : imports.namesLookup = predicate.lookup
@@ -41,6 +43,10 @@ theorem imports_meaning {imports composed predicate}
     (helpers : Native.HelperMeaning predicate) (defs : Native.DefinitionEquations predicate)
     (contracts : Native.Contracts predicate) (links : ImportsLinks imports composed predicate) :
     ImportsMeaning imports where
+  markFormal seen formal valid := by
+    obtain ⟨associations, definitions, observed⟩ := links.markFormal
+    rw [observed]
+    exact AssociationNative.markFormal_meaning definitions seen formal valid
   skip text position valid := by
     rw [links.skip]
     exact helpers.skip text valid.1 position valid.2
@@ -149,6 +155,7 @@ theorem linked_assignment {assignment composed predicate}
 theorem model_imports_links :
     ImportsLinks {modelImports with token := Compose.Expressions.modelCalls.function .takeToken}
       Compose.Expressions.modelCalls Native.modelCalls where
+  markFormal := ⟨AssociationNative.modelCalls, AssociationNative.model_definitions, rfl⟩
   skip := rfl
   nameAfter := rfl
   namesLookup := rfl

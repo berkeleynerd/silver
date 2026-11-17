@@ -13,6 +13,8 @@ variable {domain : Compose.Expressions.StateDomain}
 /-- Native helper identity and previously checked source interfaces. The
 procedure-call meanings themselves are conclusions of DefinitionEquations. -/
 structure ImportsLinks (calls : Calls) (inherited : Compose.Expressions.Calls) (predicate : Native.Calls) : Prop where
+  markFormal : ∃ associations, AssociationNative.DefinitionEquations associations ∧
+    calls .markFormal = associations .markFormal
   skip : calls .skip = predicate.skip
   nameAfter : calls .nameAfter = predicate.nameAfter
   namesLookup : calls .namesLookup = predicate.lookup
@@ -61,6 +63,16 @@ theorem imports_meaning {calls inherited predicate}
     (helpers : Native.HelperMeaning predicate) (defs : Native.DefinitionEquations predicate)
     (contracts : Native.Contracts predicate) (links : ImportsLinks calls inherited predicate) :
     ImportsMeaning calls where
+  markFormal := by
+    classical
+    funext seen formal
+    dsimp only [totalizeCalls]
+    split
+    · rename_i valid
+      obtain ⟨associations, definitions, observed⟩ := links.markFormal
+      rw [observed]
+      exact AssociationNative.markFormal_meaning definitions seen formal valid
+    · rfl
   skip := by
     classical
     funext text position
@@ -292,6 +304,7 @@ theorem linked_call {callee call inherited predicate}
 theorem model_imports_links
     (source : Compose.Expressions.RawHelperEquations Compose.Expressions.modelCalls (domain := domain)) :
     ImportsLinks modelCalls Compose.Expressions.modelCalls Native.modelCalls where
+  markFormal := ⟨AssociationNative.modelCalls, AssociationNative.model_definitions, rfl⟩
   skip := rfl
   nameAfter := rfl
   namesLookup := rfl

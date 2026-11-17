@@ -27,6 +27,7 @@ open Compose FunctionBindings
   included : Integer.Interval → Integer.Interval → Bool
   invalid : BodyScan → BodyScan
   association : Source → Nat → Metadata → Nat → Nat → Nat → Bool → ActualAssociation
+  markFormal : FormalSet → Nat → FormalSet
 
 @[ext] structure Calls where
   actual : Source → Native.Context → Nat → ActiveFlow → Formal → Nat
@@ -177,7 +178,7 @@ def Expr.eval (imports : Imports) (calls : Calls) (frame : Frame) : Expr α → 
   | .associationNamed node => (node.eval imports calls frame).named
   | .noFormals => Predicate.noFormals
   | .seenAt setExpr formalExpr => (setExpr.eval imports calls frame) (formalExpr.eval imports calls frame)
-  | .markSeen setExpr formalExpr => markFormal (setExpr.eval imports calls frame) (formalExpr.eval imports calls frame)
+  | .markSeen setExpr formalExpr => imports.markFormal (setExpr.eval imports calls frame) (formalExpr.eval imports calls frame)
   | .truth literal => literal
   | .callee => frame.callee | .start => frame.start | .scalar => frame.scalar | .flag => frame.flag
   | .intervalValue => frame.intervalValue | .intervalBounds => frame.intervalBounds
@@ -280,7 +281,7 @@ def Expr.render : Expr α → List String
   | .associationNamed node => node.render ++ [".", "named"]
   | .noFormals => ["no_formals"]
   | .seenAt setExpr formalExpr => setExpr.render ++ ["("] ++ formalExpr.render ++ [")"]
-  | .markSeen setExpr formalExpr => ["("] ++ setExpr.render ++ ["with", "delta"] ++ formalExpr.render ++ ["=>", "true", ")"]
+  | .markSeen setExpr formalExpr => call ["mark_formal"] [setExpr.render, formalExpr.render]
   | .truth literal => [if literal then "true" else "false"]
   | .intervalValue => ["value"] | .intervalBounds => ["bounds"]
   | .lower node => node.render ++ [".", "lower"]
@@ -361,7 +362,8 @@ def Expr.prefix : Expr α → Bool
   | .loopCursor | .loopIndex => true
   | .ordinal | .named | .seen | .associationValue | .associationFormal _ | .associationPayload _
   | .associationNamed _ | .noFormals | .seenAt _ _ | .actualsTail _ _ _ _ _ _ | .association _ _ _ _ _ => true
-  | .truth _ | .markSeen _ _ | .letAssociation _ _ => false
+  | .markSeen _ _ => true
+  | .truth _ | .letAssociation _ _ => false
   | .position | .scanPosition | .first | .last | .after | .callee | .start | .scalar | .flag
   | .intervalValue | .intervalBounds | .lower _ | .upper _
   | .value | .called | .parameter | .item | .kind _
@@ -414,7 +416,7 @@ def Expr.wellFormed : Expr α → Bool
   | .ordinal | .named | .seen | .associationValue | .noFormals | .truth _ => true
   | .associationFormal node | .associationPayload node | .associationNamed node => node.prefix && node.wellFormed
   | .seenAt setExpr formalExpr => setExpr.prefix && formalExpr.simple && setExpr.wellFormed && formalExpr.wellFormed
-  | .markSeen setExpr formalExpr => setExpr.prefix && formalExpr.simple && setExpr.wellFormed && formalExpr.wellFormed
+  | .markSeen setExpr formalExpr => setExpr.simple && formalExpr.simple && setExpr.wellFormed && formalExpr.wellFormed
   | .actualsTail cursor firstExpr lastExpr ordinalExpr namedExpr seenExpr =>
       cursor.simple && firstExpr.simple && lastExpr.simple && ordinalExpr.simple && namedExpr.simple && seenExpr.simple &&
       cursor.wellFormed && firstExpr.wellFormed && lastExpr.wellFormed && ordinalExpr.wellFormed && namedExpr.wellFormed && seenExpr.wellFormed
@@ -588,6 +590,7 @@ def modelImports : Imports where
   included := Integer.Interval.included
   invalid := Predicate.invalidBody
   association := functionAssociation
+  markFormal := Predicate.markFormal
 
 def modelCalls : Calls where
   actual := fun text context position facts parameter => actualAfter text context.model position facts parameter

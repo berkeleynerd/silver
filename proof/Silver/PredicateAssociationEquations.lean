@@ -43,6 +43,11 @@ theorem FormalStorage.read_mark (storage : FormalStorage) (index : Nat)
     simp [FormalStorage.read, inside, markFormal,
       ScalarAssociations.markFormal, different]
 
+/-- The only native delta expression, interpreted over all stored cells. -/
+theorem markFormal_model (seen : FormalSet) (formal : Nat) :
+    markFormalBody.eval modelCalls ({seen,formal} : Frame).locals = markFormal seen formal := by
+  simp [markFormalBody, Expr.eval, Frame.locals, Locals.set]
+
 theorem functionFormal_model (text : Source) (catalog : FunctionBindings.Metadata)
     (first last nameFirst nameAfter : Nat) (ordered : first ≤ last) :
     functionFormalBody.eval modelCalls ({text,functions := catalog,first,last,nameFirst,nameAfter} : Frame).locals =

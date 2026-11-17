@@ -14,6 +14,10 @@ set_option backward.dsimp.instances true
 set_option maxRecDepth 10000
 set_option maxHeartbeats 2000000
 
+/-- Mark_Formal has no Pre; its index subtype is the complete input restriction. -/
+def MarkDomain (formal : Nat) : Prop :=
+  0 < formal ∧ formal ≤ FunctionBindings.maxFormals
+
 def CursorDomain (text : Source) (position : Nat) : Prop :=
   Expressions.ValidText text ∧ Expressions.ValidCursor text position
 
@@ -48,6 +52,8 @@ does not assert uniqueness of formal spellings or successful resolution. -/
 noncomputable def totalizeCalls (calls : Calls) : Calls := by
   classical
   exact fun
+    | .markFormal => fun seen formal =>
+        if MarkDomain formal then calls .markFormal seen formal else modelCalls .markFormal seen formal
     | .skip => fun text position =>
         if CursorDomain text position then calls .skip text position else modelCalls .skip text position
     | .nameAfter => fun text position =>
@@ -90,6 +96,8 @@ structure ImportsMeaning (calls : Calls) : Prop where
   token : totalizeCalls calls .token = modelCalls .token
 
 structure DefinitionEquations (calls : Calls) : Prop where
+  markFormal : ∀ seen formal, MarkDomain formal →
+    calls .markFormal seen formal = markFormalBody.eval (totalizeCalls calls) ({seen,formal} : Frame).locals
   functionFormalModel : ∀ text catalog first last nameFirst nameAfter,
     FunctionFormalDomain text catalog first last nameFirst nameAfter →
     calls .functionFormalModel text catalog first last nameFirst nameAfter =
@@ -116,6 +124,17 @@ structure DefinitionEquations (calls : Calls) : Prop where
       procedureAssociationBody.eval (totalizeCalls calls) ({text,position,procedures := catalog,first,last,ordinal,named} : Frame).locals
 
 variable {calls : Calls}
+
+theorem normalized_markFormal (defs : DefinitionEquations calls) :
+    totalizeCalls calls .markFormal = modelCalls .markFormal := by
+  classical
+  funext seen formal
+  change (if MarkDomain formal then _ else _) = _
+  split
+  · rename_i valid
+    rw [defs.markFormal seen formal valid]
+    simp [markFormalBody, Expr.eval, Frame.locals, Locals.set, modelCalls]
+  · rfl
 
 theorem normalized_functionFormalModel_at (meaning : ImportsMeaning calls) (defs : DefinitionEquations calls)
     (text : Source) (catalog : FunctionBindings.Metadata) (first last nameFirst nameAfter : Nat) :
@@ -252,6 +271,9 @@ theorem model_imports_meaning : ImportsMeaning modelCalls := by
   constructor <;> rw [totalize_model]
 
 theorem model_definitions : DefinitionEquations modelCalls where
+  markFormal seen formal _ := by
+    rw [totalize_model]
+    exact (markFormal_model seen formal).symm
   functionFormalModel text catalog first last nameFirst nameAfter valid := by
     rw [totalize_model]
     exact (functionFormal_model text catalog first last nameFirst nameAfter valid.2.2.2.1).symm

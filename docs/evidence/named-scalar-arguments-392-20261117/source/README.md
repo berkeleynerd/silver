@@ -100,3 +100,55 @@ It did not import complete reviewed-pin candidates. The native checker then
 reported the two Hide_Info annotations must precede `begin`, so the source ghost
 body placement is being brought into agreement with that correction. The helper
 semantics and contract remain unchanged; final candidate checks remain pending.
+
+The two caller-local Hide_Info annotations were subsequently removed. They did
+not resolve the native recurrence proof. The owner-authorized shared
+`Mark_Formal` repair instead gives all native model and runtime updates the same
+pure function identity, avoiding distinct generated array-map terms. Native
+whole-helper contracts and the standalone function recurrence passed before
+the loop consumed that helper; the native stream retains those exact results.
+
+The source marker tree retains the sole delta expression and its exact native
+index subtype domain, with no added precondition. Function and procedure trees
+now call an explicitly linked `Mark_Formal`; their mathematical meaning remains
+`markFormal`. The complete source declaration preserves the pointwise result
+postcondition. `markFormal_storage` connects the typed expression to
+`FormalStorage.read_mark` over every native array cell. The marker's Ada delta
+aggregate shares the expression function's outer parentheses, so the source
+check restores that exact shell after the standard balanced-body extraction.
+
+Focused shared-marker checkpoint `20261117T030746-bf872a6a0f4d` passed all helper
+and library targets: 338 imported modules, 49,919 declarations, standard
+foundations only; 8 workers/default 12 threads alongside native 4 workers.
+Build 66.759 s and fresh audit 1.716 s. The [log](mark-helpers-libraries.log),
+[provenance](mark-helpers-libraries-evidence.json), and
+[exact inputs](mark-helpers-libraries-inputs.tar.gz) are retained. All 1,141
+archived input bytes match the recorded hashes; source files subsequently
+changed for the loop binding were reconstructed from their known exact edits
+and checked against those hashes before archiving, not asserted to match.
+
+Focused source-definition checkpoint `20261117T031315-44bc724a3e70` then passed:
+123 imported modules and 18,902 declarations, standard foundations only;
+8 workers/default 12 threads; build 2.480 s, audit 0.831 s. This includes the
+finite-storage connection and exact typed advance-call placement before the
+validated function loop changes cursor, Seen or Named. It still does not check
+the complete reviewed-pin candidate. [Log](mark-source-definitions.log),
+[provenance](mark-source-definitions-evidence.json), and
+[1,142 rehashed exact repository inputs](mark-source-definitions-inputs.tar.gz)
+are retained. Both original terminals completed with exit zero and released
+their reservations.
+
+For the eventual complete source checkpoint, the lead and source author chose
+one Lake worker with default 12 Lean threads and the existing 8,192 MiB per
+process threshold and measured RSS/host guards. This is a current resource
+choice: at the 03:08 UTC inventory, changing the complete output pin invalidates
+177 transitive dependents, including 154 candidate/part modules. The two known
+dense candidates are independent siblings and can overlap. Native output source
+had grown from 424,781 to 450,194 bytes (+5.983%); MemAvailable was 9,497,344 kB
+while native/source focused work ran, with no swap. The previous complete run
+measured 7.136 GiB plus 1.697 GiB concurrent children and 1.164 GiB Lake, exceeding
+the 10 GiB tree guard; its one-worker continuation passed at 8.601 GiB peak.
+A later added function-loop source part increases the affected graph; the final
+lead inventory must use the final source. Serialize the dense checkpoint after
+other writers release, retain successful objects, and reassess if a continuation
+is needed. This does not claim that the complete checkpoint has run.

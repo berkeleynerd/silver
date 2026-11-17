@@ -63,6 +63,12 @@ theorem imports_meaning {calls inherited predicate}
       rfl
     · rfl
 
+theorem markFormal_meaning {calls : Calls} (defs : DefinitionEquations calls)
+    (seen : FormalSet) (formal : Nat) (valid : MarkDomain formal) :
+    calls .markFormal seen formal = markFormal seen formal := by
+  have result := congrFun (congrFun (normalized_markFormal defs) seen) formal
+  simpa only [totalizeCalls, modelCalls, valid, ↓reduceIte] using result
+
 theorem functionAssociation_meaning {calls inherited predicate}
     (source : Expressions.RawHelperEquations inherited (domain := domain))
     (helpers : Native.HelperMeaning predicate) (links : ImportsLinks calls inherited predicate)
