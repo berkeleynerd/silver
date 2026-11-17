@@ -110,9 +110,53 @@ mandatory kernel replay or global proof-budget increase is selected.
 
 ## Work record
 
-Scoping on Linux ARM64 selected Astra Extra High for the feature comparison and
-Astra Max for call/source-proof diagnosis. Lead runtime identity and whole-team
-cost are not independently exposed. This initial record includes read-only
-source/task inspection, not new compiler acceptance, proof or execution results.
-Implementation, producer observations, focused evidence and final validation
-will be linked here and on #392. CLI memory was not updated.
+The implementation uses the existing source-derived 585-slot formal pool and
+retains formal-order call semantics. Native code scans written associations,
+checks distinct complete coverage and applies procedure updates in written order;
+the semantic proof reorders the paired formals/payloads without changing source.
+There is no additional author-visible association-count limit.
+
+Focused evidence on Linux aarch64 `silver-m4pro` (12 CPUs, about 16 GiB RAM,
+no swap):
+
+- The [semantic model packet](evidence/named-scalar-arguments-392-20261117/model/progress.md)
+  records a final focused audit of 314 modules and 26,420 declarations. The
+  [independent critical review](reviews/review-named-scalar-semantics-20261117.md)
+  found no defect in its 19-module slice and independently verified all 1,119
+  captured input hashes.
+- The [source helper/library packet](evidence/named-scalar-arguments-392-20261117/source/README.md)
+  records full-domain helper interpretations and a fresh audit of 49,840
+  declarations. Final native-source candidate binding remains pending.
+- The [behavior packet](evidence/named-scalar-arguments-392-20261117/behavior/README.md)
+  records all 15 named methods passing in 32.099 seconds, including full-route
+  positives, source-size endpoints and discriminating rejection controls. The
+  Named parameters sample compiled with unchanged source and produced its four
+  independently derived output lines. Its five-unit report audit counted 20
+  flow checks, 51 proof checks and the required function termination witness;
+  existing advisories suffice. This is focused behavior evidence, not the final
+  repository suite.
+- The [producer inspection](evidence/named-scalar-arguments-392-20261117/producer/README.md)
+  and [capacity extension](scalar-procedures-report-capacity.md#named-scalar-associations--392)
+  derive an unchanged 49,279,744-byte retained-report envelope in 64 MiB. Selectors
+  add source bytes while preserving each actual's delimiter/payload reservation.
+
+The remaining native recurrence proof encountered separately translated array
+updates with finite element equations, obstructing recursive-function map
+congruence. A bounded `Hide_Info` experiment did not resolve that issue; its
+annotations and source-policy allowance were withdrawn, with failed attempts
+and passing experimental-policy controls retained as history. The independently
+reviewed next repair uses one shared executable mark operation with a complete
+pointwise contract, checked before the tail recurrence and its loop caller.
+No unproved lemma is consumed and no domain, obligation or proof budget is weakened.
+
+The [setup record](evidence/named-scalar-arguments-392-20261117/setup/README.md)
+records the native-filesystem Lean overlays and unchanged donor caches. Native
+behavior runs used a 16 MiB process stack. Native workers were reduced to four
+only while concurrent focused Lean checks used the remaining allocation; exclusive
+checks return to automatic allocation. Exact run records distinguish rebuilt
+units, retained dependencies and fresh declaration audits. Complete native,
+actual-source, whole-suite and final-review checkpoints remain pending.
+
+Selected source/native/semantic design settings are Astra Max; the bounded
+scope comparison used Astra Extra High. Lead runtime identity and whole-team
+cost are not independently exposed. CLI memory was not updated.

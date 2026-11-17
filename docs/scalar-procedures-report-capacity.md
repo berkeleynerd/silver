@@ -225,3 +225,24 @@ runtime settings are not independently exposed. The subsequent independent
 capacity review and complete delivery evidence are linked above. Historical
 probes retain their exact input scope; they are not substituted for the final
 compiler/source checks or record-size and boundary regressions.
+
+## Named scalar associations — #392
+
+The [association producer inspection](evidence/named-scalar-arguments-392-20261117/producer/README.md)
+connects the existing call translation and flow vertices to GNAT's formal/actual
+iterator. It visits payload expressions in formal declaration order even when
+the author writes named associations in another order. Each actual still has
+one selected formal and follows the same scalar conversion, copy-back and flow
+routes. Selector labels are not extra evaluated expressions or output vertices.
+No new report class or record multiplicity follows from named notation.
+
+The source-byte reservations above remain valid without a new term. Each actual
+still has a distinct preceding `(` or `,` and at least one payload token byte;
+its selector and `=>` add source bytes without replacing either reserved byte.
+No defaults or omitted actuals are admitted. Five bytes still lower-bound a
+procedure call, seven bytes still lower-bound each explicit-mode formal, and
+formal declaration spans and per-call callee names retain their existing charges.
+Therefore the combined retained-report envelope stays **49,279,744 bytes**, with
+**17,829,120 bytes** of headroom in **67,108,864 bytes**. Producer observations
+corroborate the account; complete named-association validation is recorded in the
+[capability record](named-scalar-arguments.md) when it finishes.

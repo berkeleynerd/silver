@@ -1417,7 +1417,6 @@
         "explicit_in_purpose": "one-name Integer formals consume at least seven disjoint bytes and Boolean formals thirteen, preserving existing binding capacities",
         "excluded": [
           "zero-formal functions",
-          "named actuals",
           "default formals",
           "out/in out",
           "overloads",
@@ -1436,7 +1435,8 @@
       "conditions": {
         "position": "whole RHS of assignment to an existing mutable scalar Integer/Boolean object; result kind matches target",
         "callee": "visible earlier completely accepted function, not hidden by a local value or loop binder",
-        "actuals": "positional, one per formal; existing scalar expressions or Boolean conditions in caller scope; no nested calls",
+        "actuals": "positional, named in arbitrary order, or positional prefix followed by named suffix; exactly one actual per formal; existing scalar expressions or Boolean conditions in caller scope; no nested calls",
+        "selectors": "callee formal names, case-insensitive; unknown, duplicate or missing selectors and positional-after-named are rejected; labels are not caller reads",
         "actual_state": "all actuals checked independently in the same incoming state; Boolean outcomes do not refine other actuals",
         "integer_actual": "nonempty interval contained in formal subtype",
         "integer_result": "declared result subtype interval must fit target declared bounds and replaces target flow interval",
@@ -1481,7 +1481,6 @@
         "initialization_purpose": "a source-written prefix establishes initialized body state without general path-dependent definite-assignment analysis; full-range entry reuses the complete-domain frame rule",
         "excluded": [
           "zero-formal or input-only procedures",
-          "named actuals",
           "default formals",
           "overloads",
           "forward declarations",
@@ -1500,7 +1499,8 @@
       "conditions": {
         "position": "standalone statement in Main or an admitted scalar procedure body, including branches and finite loops",
         "callee": "visible earlier completely accepted procedure, not hidden by a local value or loop binder",
-        "actuals": "positional, one per formal; in actuals use existing scalar expressions or Boolean conditions in caller scope; no nested calls",
+        "actuals": "positional, named in arbitrary order, or positional prefix followed by named suffix; exactly one actual per formal; in actuals use existing scalar expressions or Boolean conditions in caller scope; no nested calls",
+        "selectors": "callee formal names, case-insensitive; unknown, duplicate or missing selectors and positional-after-named are rejected; labels are not caller reads",
         "writable_actuals": "existing mutable bare Integer/Boolean names of the matching kind; no constants, immutable formals, loop binders or array components",
         "actual_state": "all input actuals checked independently in the same incoming state; Boolean outcomes do not refine other actuals",
         "integer_input": "in and in out actual intervals are nonempty and contained in their formal subtype",

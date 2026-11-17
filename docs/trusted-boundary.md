@@ -344,6 +344,25 @@ applicable regression coverage and the measured Linux ARM64 stack environment.
 Earlier dated stack observations retain their original build/platform scope;
 sufficient stack and memory remain the existing environmental premises.
 
+## Named scalar argument boundary
+
+[Named scalar associations](named-scalar-arguments.md) add no external tool or
+runtime dependency. The original source, including selector spelling and written
+argument order, is sent unchanged to GNATprove and GNAT. The inherited Ada/SPARK
+frontend premise includes binding each association to the declared formal;
+Silver's source-to-formal permutation argument independently preserves its own
+admission model and payload checks. All input payloads use the incoming state,
+and conservative alias restrictions make writable copy-back independent of order.
+No specific argument evaluation order is promised.
+
+The [producer inspection](evidence/named-scalar-arguments-392-20261117/producer/README.md)
+records the selected call iterator and the existing conversion/flow routes.
+Named selectors do not add payload evaluations or copy-back vertices. The
+[capacity derivation](scalar-procedures-report-capacity.md#named-scalar-associations--392)
+retains the current envelope and 64 MiB allocation under the same producer
+premises. Diagnostic policy is unchanged. Complete #392 source/native validation
+is pending and is tracked in the capability record.
+
 ## Scalar guard refinement boundary
 
 The [guard delivery](scalar-guard-refinement.md#delivery-assurance-and-validation)

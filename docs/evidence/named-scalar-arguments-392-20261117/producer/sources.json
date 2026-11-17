@@ -1,0 +1,26 @@
+[
+  {
+    "file": "sem_util.adb",
+    "repository": "https://github.com/gcc-mirror/gcc",
+    "revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+    "path": "gcc/ada/sem_util.adb",
+    "sha256": "27440cef1797aee98a033d63d84756aae9fbab5110e706c30c79ecdbb8e21bc4",
+    "archive_sha256": "a24733495a97e6949d2b27bfcc6ee6c2f334bd3774250208b8f3e73abef217bc"
+  },
+  {
+    "file": "sem_util.ads",
+    "repository": "https://github.com/gcc-mirror/gcc",
+    "revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+    "path": "gcc/ada/sem_util.ads",
+    "sha256": "4c0c8999db1aaf3aaeea9cde90c366e00b2c01b9c439b6c11a07eb1dabf77778",
+    "archive_sha256": "34e9f1d678c679cf52dd0851c45d1a1834f8c3756d9d7810a3b2eab6f57de94b"
+  },
+  {
+    "file": "spark_atree.ads",
+    "repository": "https://github.com/AdaCore/spark2014",
+    "revision": "42554fc241fcd1fdf08d3a2feccb3f86912acbc0",
+    "path": "src/why/spark_atree.ads",
+    "sha256": "d74809b7b9482dc77ee3a99fda536ae4607946793ff481fa59e1307949a3fdf5",
+    "archive_sha256": "04a5bd814f49e5a9e9ae871eee8bc6c69cfb6cce9cd6c13bac3ce3d7cc4a117b"
+  }
+]

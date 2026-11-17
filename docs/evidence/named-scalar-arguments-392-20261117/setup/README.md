@@ -1,0 +1,91 @@
+# Named scalar arguments: host setup and sample expectations
+
+Actual host: `silver-m4pro`, Linux aarch64, 12 managed CPUs, approximately
+16 GiB RAM, no swap. The checkout path is a host mount, not evidence of macOS
+execution. This record describes setup and static expectations, not complete
+feature validation.
+
+## Isolated workspaces and tools
+
+The four new worktrees are under the main checkout's untracked `tmp/`:
+`named-arguments-392` (lead integration/tests), `named-native-392`,
+`named-model-392` and `named-source-392`. Existing delivery worktrees, original
+Worca records and untracked external-review material are preserved.
+
+The native recovery volume initially had about 5.7 GiB free. The new source
+worktrees were therefore placed on the larger host mount. Native artifacts use
+a real bind mount from
+`/home/agent/silver-workspaces/recovery-volume/named-392-native-artifacts`
+at the native worktree's `.silver/linux-aarch64`. This is not a symbolic link.
+Its tool installation is an independent copy of the pinned release files;
+`scripts/bootstrap.py` regenerated that worktree's configuration and validated
+GNAT/GNATprove 16.1.0 and Alire package gprbuild 26.0.1 (binary reports 26.0.0).
+The copied Alire index updated during setup; selected tool versions are unchanged.
+The first native compiler build is fresh for this new installation root.
+
+Both new Lean installations initially used independent regular copies on the
+host mount. `bootstrap_lean.py` validated Lean 4.34.1. The first focused model
+attempts then failed before compiling the new model: Lake reported an unknown
+namespace and the runner hit `Errno 24`, too many open files. The shell's open-file
+limit was 1,048,576; the required Lake objects existed. Failed managed runs and
+their logs are retained in the [model record](../model/progress.md).
+
+The working layout now binds the retained native-filesystem Lean installation
+read-only at each new worktree's `.tools/linux-aarch64/lean`. Each proof workspace
+is an independent writable overlay: the retained #391 proof workspace supplies
+the immutable lower layer, and private upper/work directories under
+`/home/agent/silver-workspaces/recovery-volume/named-392-lean-overlays/` receive
+all new writes. The old donor is
+`/home/agent/silver-worktrees/procedures-lean-370`; all ordinary, server and private
+Lean objects and Lake metadata remain available. These are ordinary mounted
+directories at the runner's expected paths, not symbolic links. No donor is a
+writer workspace for this task. Original host-mounted copies remain under
+`lean-host-mount-copy` and `proof-host-mount-retained` for diagnosis.
+
+The next managed invocation loaded Lake and reached normal model elaboration;
+the shared association helpers subsequently passed a fresh audit. This supports
+the workspace-layout diagnosis, not a general performance claim. An attempted
+private loop-filesystem setup could not create its device node; its unused,
+task-created image was removed. The successful bind/overlay layout needs no loop
+device. Setup installed the standard mount/filesystem utilities; no repository
+runner, policy or tool pin was changed to bypass validation.
+
+Retained donor identities at setup:
+
+| Input | SHA-256 |
+| --- | --- |
+| `.silver/linux-aarch64/proof/.silver-cache-tools.json` | `f55c3f66a737dd818fc055670cbf3e122da8094dcd6f39db9064da62458201f7` |
+| Lean executable | `79fb1d26fa5a39385d59fdc48a711a14b0710ca6480271acce99b4d177cea085` |
+| Lake executable | `f80f50cbab5322e35bcb0bf88937e22e9d908b5e4e336e83ddfc30eb1506aacf` |
+
+Copied/retained objects are cache seeds. Each managed check synchronizes its
+current source inputs and freshly audits actual declarations; a seed alone is
+not new assurance. Concurrent native focused work uses four workers, with the
+remaining automatic grant available to light Lean targets and default process
+threads. This reduction is for the current concurrent workload, not a new default.
+Dense integrated checkpoints remain serialized as actual headroom requires.
+
+## Independent sample expectations
+
+The proposed `samples/rosetta_named_parameters.adb` uses subtraction over
+`Small = -100 .. 100`, returning `Difference = -200 .. 200`. Exact integer
+arithmetic gives the full range `[-200, 200]`; an independent Python enumeration
+confirmed this for all 40,401 input pairs. Enumeration is an expectation check,
+not the universal compiler proof.
+
+The positional call `(5, 3)`, reordered named call `(Right => 3, Left => 5)`
+and mixed call `(5, Right => 3)` all bind `Left = 5`, `Right = 3`, returning `2`.
+`(Right => 5, Left => 3)` returns `-2`, making an incorrect source-order mapping
+observable. Standard Integer Image adds a leading space for positive `2` and
+none for negative `-2`. Including source-written labels and newlines gives:
+
+```text
+Positional: 2
+Named, reordered: 2
+Mixed: 2
+Reversed values:-2
+```
+
+The sample manifest records those exact bytes, empty stderr and exit status zero.
+Full-route compilation/execution remains required before claiming the sample
+validated or promoting its Rosetta mapping.

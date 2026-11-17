@@ -1,5 +1,9 @@
 # Small nonrecursive scalar functions
 
+The later [named-scalar-arguments increment #392](named-scalar-arguments.md)
+extends call association syntax while preserving the function domains and
+semantics below. Its validation is tracked separately from this original delivery.
+
 **Complete on Linux and independently accepted, 2026-11-08.** Existing
 [#298](https://github.com/berkeleynerd/silver/issues/298), in
 [milestone 20](https://github.com/berkeleynerd/silver/milestone/20), **Small
@@ -67,7 +71,10 @@ its complete checkpoints and final review status are recorded below.
 - Ordinary Main-local function bodies appear in the ordered declaration list.
   Each has a nonempty formal list, one name per formal and explicit `in`.
   Types are visible predefined Integer/Boolean or earlier named Integer
-  subtypes. Actuals are positional. There are no defaults, overloads, forward
+  subtypes. Actuals may be positional, named in arbitrary order, or a positional
+  prefix followed by named associations, each formal exactly once under the
+  [association rules](../language.md#named-scalar-argument-associations).
+  There are no defaults, overloads, forward
   declarations or nested function declarations.
 - Calls are the whole RHS of assignments to existing mutable scalar Integer
   or Boolean objects. Calls are absent from initializers, arithmetic, guards,
