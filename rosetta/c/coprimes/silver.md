@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The exact GCD is reached within twenty steps because every two active updates at least halve B. Coprime therefore implements absence of a common factor above one throughout its full signed formal-domain product. The five primary pairs are printed first as false, true, false, true, false; eight further cases cover signs, zero and bounds. Main needs the already admitted Put operation, scalar Boolean objects and fixed Integer arrays; broad procedures and while loops are absent. The [reconciliation](../../../rosetta/assessment-scalar-function-batch-20261108.md) preserves the original assessment attribution and links the separately reviewed Linux application evidence; final combined integration and independent delivery status remain in the batch delivery record.
 
-Position 82 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 83 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

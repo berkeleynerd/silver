@@ -360,8 +360,12 @@ records the selected call iterator and the existing conversion/flow routes.
 Named selectors do not add payload evaluations or copy-back vertices. The
 [capacity derivation](scalar-procedures-report-capacity.md#named-scalar-associations--392)
 retains the current envelope and 64 MiB allocation under the same producer
-premises. Diagnostic policy is unchanged. Complete #392 native validation passed;
-the actual-source checkpoint remains pending in the capability record.
+premises. Diagnostic policy is unchanged. Complete #392 native and
+Lean/actual-source checkpoints passed, including the whole-project module/axiom
+audit. The [capability record](named-scalar-arguments.md#delivery-assurance-and-validation)
+links their exact evidence and retains the pending whole suite and final
+independent review. These results preserve the frontend and environmental
+premises above.
 
 ## Scalar guard refinement boundary
 

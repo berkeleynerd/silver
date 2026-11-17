@@ -1,0 +1,489 @@
+{
+  "registry": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897",
+  "host": "linux-aarch64",
+  "machine": "silver-m4pro",
+  "runs": [
+    {
+      "run_id": "20261117T033524-4250165f9b34",
+      "task": "named-392-final-focused-behavior",
+      "kind": "test",
+      "scope": [
+        "-p",
+        "test_named_scalar_arguments.py"
+      ],
+      "state": "success",
+      "active": false,
+      "workers": 4,
+      "directory": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261117T033524-4250165f9b34",
+      "fingerprint": "6742b08d71740f0317a53161336289dfbac60c7f424df15ec7f3cba67d5fddf5",
+      "command": [
+        "/usr/bin/python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v",
+        "-p",
+        "test_named_scalar_arguments.py"
+      ],
+      "reason": "Execute all 16 named-argument methods after final shared Mark_Formal rebuild; four workers alongside guarded serial source certificate batch",
+      "worktree": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-native-392",
+      "resources": [
+        "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-native-392/.silver/linux-aarch64"
+      ],
+      "started_at": "2026-11-17T03:35:24.715016+00:00",
+      "finished_at": "2026-11-17T03:36:00.446582+00:00",
+      "duration_seconds": 35.731518309,
+      "returncode": null,
+      "error": null,
+      "failure_keys": [],
+      "evidence": [
+        "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261117T033524-4250165f9b34/native.log"
+      ],
+      "retained_report_count": 0
+    },
+    {
+      "run_id": "20261117T033625-fc16dd2501f6",
+      "task": "named-392-final-catalogue-parity",
+      "kind": "test",
+      "scope": [
+        "-p",
+        "test_silver.py",
+        "-k",
+        "test_catalogue_is_json"
+      ],
+      "state": "success",
+      "active": false,
+      "workers": 4,
+      "directory": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261117T033625-fc16dd2501f6",
+      "fingerprint": "b56e305e738d6fa461899916569402274475e288b837618e62784e8db0d9528c",
+      "command": [
+        "/usr/bin/python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v",
+        "-p",
+        "test_silver.py",
+        "-k",
+        "test_catalogue_is_json"
+      ],
+      "reason": "Check compiled catalogue against final JSON after exporter repair; four workers alongside guarded serial source certificates",
+      "worktree": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-native-392",
+      "resources": [
+        "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-native-392/.silver/linux-aarch64"
+      ],
+      "started_at": "2026-11-17T03:36:26.154764+00:00",
+      "finished_at": "2026-11-17T03:36:26.631861+00:00",
+      "duration_seconds": 0.477046541,
+      "returncode": null,
+      "error": null,
+      "failure_keys": [],
+      "evidence": [
+        "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261117T033625-fc16dd2501f6/native.log"
+      ],
+      "retained_report_count": 0
+    },
+    {
+      "run_id": "20261117T040126-ff9bd176a52b",
+      "task": "#392-source-candidates",
+      "kind": "lean",
+      "scope": [
+        "Silver.FunctionSourceParts.CallsActualsModelSpec",
+        "Silver.PredicateProcedureCallWholeSourceCandidate"
+      ],
+      "state": "success",
+      "active": false,
+      "workers": 8,
+      "directory": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261117T040126-ff9bd176a52b",
+      "fingerprint": "e082f22b0f36eb9c41d3b944d9bcad2aaf79c8a31b356571a8dcbe13b854ec62",
+      "command": [
+        "/usr/bin/python3",
+        "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/scripts/check_lean.py",
+        "--memory-mb",
+        "8192",
+        "--provenance",
+        "--task",
+        "#392-source-candidates",
+        "--reason",
+        "Bounded two-script repair after retained run 20261117T033146-10e4c23dfa78: current Actuals_Model header by kernel reduction and three direct procedure-loop membership cases. Complete statements, domains, native bytes, reviewed pin and budgets unchanged. Only two light scripts invalidated; automatic available workers alongside native four workers, default threads, existing 10 GiB tree and 1.5 GiB host guards. Preserve cached successes; no clean or replay.",
+        "--target",
+        "Silver.FunctionSourceParts.CallsActualsModelSpec",
+        "--target",
+        "Silver.PredicateProcedureCallWholeSourceCandidate"
+      ],
+      "reason": "Bounded two-script repair after retained run 20261117T033146-10e4c23dfa78: current Actuals_Model header by kernel reduction and three direct procedure-loop membership cases. Complete statements, domains, native bytes, reviewed pin and budgets unchanged. Only two light scripts invalidated; automatic available workers alongside native four workers, default threads, existing 10 GiB tree and 1.5 GiB host guards. Preserve cached successes; no clean or replay.",
+      "worktree": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392",
+      "resources": [
+        "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof",
+        "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/lean-focused.log",
+        "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/lean-focused-evidence.json"
+      ],
+      "started_at": "2026-11-17T04:01:26.291990+00:00",
+      "finished_at": "2026-11-17T04:01:39.707145+00:00",
+      "duration_seconds": 13.414983631,
+      "returncode": null,
+      "error": null,
+      "failure_keys": [],
+      "evidence": [
+        "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/lean-focused.log",
+        "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/lean-focused-evidence.json",
+        "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261117T040126-ff9bd176a52b/previous-evidence/lean-focused.log",
+        "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261117T040126-ff9bd176a52b/lean-focused.log",
+        "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261117T040126-ff9bd176a52b/lean-focused-evidence.json"
+      ],
+      "retained_report_count": 0
+    },
+    {
+      "run_id": "20261117T040233-3ed92ba6662c",
+      "task": "#392-source-candidates",
+      "kind": "lean",
+      "scope": [
+        "Silver.FunctionSourceCandidate",
+        "Silver.PredicateAssociationWholeSourceCandidate",
+        "Silver.PredicateProcedureCallWholeSourceCandidate"
+      ],
+      "state": "success",
+      "active": false,
+      "workers": 8,
+      "directory": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261117T040233-3ed92ba6662c",
+      "fingerprint": "27f4b288461fabe38639bdb15188705c64ae885d03ded70948df6f7a054a127c",
+      "command": [
+        "/usr/bin/python3",
+        "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/scripts/check_lean.py",
+        "--memory-mb",
+        "8192",
+        "--provenance",
+        "--task",
+        "#392-source-candidates",
+        "--reason",
+        "Both repaired complete candidate modules passed run 20261117T040126-ff9bd176a52b with fresh 19120-declaration audit. Recheck the original three-candidate union after the retained two-script failure, now using matching cached parts and complete source statements. Only the function aggregator may newly build; automatic available workers alongside native four workers, default threads, existing 10 GiB tree and 1.5 GiB host guards. No native, pin, contract or budget changes; preserve all objects, no clean or replay.",
+        "--target",
+        "Silver.PredicateAssociationWholeSourceCandidate",
+        "--target",
+        "Silver.FunctionSourceCandidate",
+        "--target",
+        "Silver.PredicateProcedureCallWholeSourceCandidate"
+      ],
+      "reason": "Both repaired complete candidate modules passed run 20261117T040126-ff9bd176a52b with fresh 19120-declaration audit. Recheck the original three-candidate union after the retained two-script failure, now using matching cached parts and complete source statements. Only the function aggregator may newly build; automatic available workers alongside native four workers, default threads, existing 10 GiB tree and 1.5 GiB host guards. No native, pin, contract or budget changes; preserve all objects, no clean or replay.",
+      "worktree": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392",
+      "resources": [
+        "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof",
+        "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/lean-focused.log",
+        "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/lean-focused-evidence.json"
+      ],
+      "started_at": "2026-11-17T04:02:33.287123+00:00",
+      "finished_at": "2026-11-17T04:02:42.254021+00:00",
+      "duration_seconds": 8.966731588,
+      "returncode": null,
+      "error": null,
+      "failure_keys": [],
+      "evidence": [
+        "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/lean-focused.log",
+        "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/lean-focused-evidence.json",
+        "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261117T040233-3ed92ba6662c/previous-evidence/lean-focused.log",
+        "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261117T040233-3ed92ba6662c/previous-evidence/lean-focused-evidence.json",
+        "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261117T040233-3ed92ba6662c/lean-focused.log",
+        "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261117T040233-3ed92ba6662c/lean-focused-evidence.json"
+      ],
+      "retained_report_count": 0
+    },
+    {
+      "run_id": "20261117T034048-8c22c1e6a33d",
+      "task": "named-392-complete-native",
+      "kind": "prove",
+      "scope": [
+        "compiler"
+      ],
+      "state": "active",
+      "active": true,
+      "workers": 4,
+      "directory": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261117T034048-8c22c1e6a33d",
+      "fingerprint": "34239b5706c8cecd67406f9f63840d5647c070cb95e7fbd06c9a9c4c908ee47b",
+      "command": [
+        "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-native-392/.tools/linux-aarch64/alr/bin/alr",
+        "-s",
+        "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-native-392/.tools/linux-aarch64/alire/settings",
+        "-C",
+        "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-native-392/.silver/linux-aarch64/toolchain",
+        "-n",
+        "--no-tty",
+        "exec",
+        "--",
+        "gnatprove",
+        "-P",
+        "../../../silver.gpr",
+        "-U",
+        "--mode=all",
+        "--report=all",
+        "--warnings=error",
+        "--checks-as-errors=on",
+        "--level=2",
+        "--prover=cvc5,z3,altergo",
+        "--timeout=30",
+        "-j",
+        "4",
+        "--memcached-server=file:/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-native-392/.silver/linux-aarch64/proof-cache/gnatprove/0d29986b9858e9838780c6ec8496c6b4fd34d53a8f06c8cf36bd393fc8ef98f0",
+        "-f",
+        "-XSILVER_HOST=linux-aarch64"
+      ],
+      "reason": "All 26 whole-helper scopes and catalogue scopes passed and independent applicability review cleared final source; complete audit on f4ed7cd51 exact native inputs; four workers alongside guarded serial Lean candidate batch on 16GiB no-swap host; private canonical solver-cache overlay with no inherited reports or sessions; unchanged proof policy and 16MiB stack",
+      "worktree": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-native-392",
+      "resources": [
+        "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-native-392/.silver/linux-aarch64/toolchain",
+        "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-native-392/.silver/linux-aarch64/compiler/obj",
+        "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-native-392/.silver/linux-aarch64/compiler/bin",
+        "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-native-392/.silver/linux-aarch64/proof-containers/obj",
+        "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-native-392/.silver/linux-aarch64/proof-cache/gnatprove"
+      ],
+      "started_at": "2026-11-17T03:40:48.788078+00:00",
+      "finished_at": null,
+      "duration_seconds": null,
+      "returncode": null,
+      "error": null,
+      "failure_keys": [],
+      "evidence": [
+        "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-native-392/.silver/linux-aarch64/compiler/obj/gnatprove"
+      ],
+      "retained_report_count": 0
+    }
+  ],
+  "notes": [
+    {
+      "event": "checkpoint",
+      "monotonic_ns": 17071592033890,
+      "next_check": "After independent critical acceptance and root resource coordination, continue the complete cached project on frozen production 88e3d0a9f in a new complete-project-after-procedure-metadata directory, preserving both failed complete runs and all successful objects. No clean/replay or duplicate focused gate. New failure requires exact diagnosis before another full run.",
+      "summary": "Procedure metadata repair 88e3d0a9f and success evidence 7fd40b5fa: focused complete ProcedureDeclarationHighSourceCandidate run 20261115T201355-b250e246f4ef passed 115 modules / 16374 declarations with standard foundations only. Original session 32187 terminal exit 0 collected, no interruption/guard. All 1112/1007/3746/2 input/workspace/artifact/tool hashes verified; all 621 prior objects unchanged. Textual Audit closure reaches all 1005 modules; 625 objects retained. Independent review pending; no active Lean job.",
+      "task": "370-complete-lean-recovery",
+      "utc": "2026-11-15T20:17:20.233845+00:00",
+      "worktree": "/home/agent/silver-worktrees/procedures-lean-370"
+    },
+    {
+      "event": "diagnostic",
+      "kind": "lean",
+      "monotonic_ns": 18007609361503,
+      "next_step": "Run one temporary focused probe restating all 17 original field propositions separately over the same complete SourceShape.bodyTokens: four counted-bound fields, eight flow fields and five reader fields. Identify exact diagnostics before any production normalization. Preserve every semantic rendering and source selector. Retire probe, then apply only confirmed-field normalization in the candidate plus isolated helper; complete focused candidate and independent critical review before any broad retry.",
+      "run_id": "20261115T201746-8829535d867a",
+      "scope": "complete",
+      "summary": "Complete continuation on reviewed 88e3d0a9f passed procedure helper whole-source, character-source and scalar-body source modules, then PredicateFlowSourceCandidate failed three grouped constructors at lines 36, 39 and 42: counted_bound_checked, native_flow_checked, native_readers_checked. Explicit 8 GiB kernel-memory diagnostics, followed by source-only SIGINT interrupting PredicateNativeHelpersCandidate. Original session 76081 outer exit 254 / monitored child -2, no complete audit. Exact logs/resources and input/tool/object identities retained in predicate-flow-normalization. Constructor failures do not identify their exact fields.",
+      "task": "370-complete-lean-recovery",
+      "utc": "2026-11-15T20:32:56.251169+00:00"
+    },
+    {
+      "event": "diagnostic",
+      "kind": "lean",
+      "monotonic_ns": 19890396059067,
+      "next_step": "Normalize only these six exact failed specification-header literals with the established checked character/lexer path, leaving all original statements, source selectors, semantic definitions, pre/postconditions and variants unchanged. Proposed two files are PredicateNativeShapeCandidate and isolated PredicateNativeShapeExpectedTokens. Full native-shape candidate focused gate covers every helper and original source fact; independent critical review before complete retry.",
+      "run_id": "20261115T205032-5834a8189332",
+      "scope": "complete",
+      "summary": "Complete continuation on reviewed 24115ffd2 passed PredicateNativeHelpersCandidate in 236 s, then PredicateNativeShapeCandidate reported six direct header equality kernel-memory failures: primary_model, relation_model, condition_tail, condition_model, boolean_factor_model, boolean_relation_model specification headers, at lines196/202/220/226/262/272. Exact single expected literal in each; no grouped-field ambiguity. Session72203 terminal outer254/child-2 collected after diagnostic SIGINT interrupted subsequent PredicateBodySourceCandidate; no complete audit. Exact logs/source/input/tool/object evidence preserved in native-shape-normalization.",
+      "task": "370-complete-lean-recovery",
+      "utc": "2026-11-15T21:04:19.037867+00:00"
+    },
+    {
+      "event": "checkpoint",
+      "monotonic_ns": 946388070242,
+      "next_check": "Add the explicit ComposeExpressions import in the owned Boolean module, then retry the same bounded batch with automatic CPUs and retained 8192 MiB threshold; no full/clean/replay.",
+      "summary": "Focused seven-target attempt 20261116T223346-5ebf93d9061c failed only because BooleanDeclarationNative did not import ComposeExpressions; exact inputs, original terminal and resource observations retained. All 53 pairings match the canonical table; no resource guard fired.",
+      "task": "#391",
+      "utc": "2026-11-16T22:34:46.851532+00:00",
+      "worktree": "/home/agent/silver-worktrees/procedures-lean-370"
+    },
+    {
+      "event": "checkpoint",
+      "monotonic_ns": 1174546882893,
+      "next_check": "Lead integrates native repair and this bounded commit; once final inputs are stable, run the complete cached Lean checkpoint on the retained workspace with a fresh whole-project audit. No replay or clean build selected.",
+      "summary": "Bounded token-table/docstring changes committed after focused success 20261116T223447-56ea60aaf296: seven targets, 162 imported modules, 22708 declarations, standard foundations only; exact 1116 repository inputs, 1011 workspace inputs, 6046 artifacts and two tools verified. Failed first import attempt retained. Original terminals collected; no guards; no current Lean writer.",
+      "task": "#391",
+      "utc": "2026-11-16T22:38:35.010344+00:00",
+      "worktree": "/home/agent/silver-worktrees/procedures-lean-370"
+    },
+    {
+      "event": "checkpoint",
+      "monotonic_ns": 1921567079040,
+      "next_check": "Parent integrates ef3b4ff10, then native worktree switches clean tracked bytes to exact integrated head at original cache path. Await complete Lean reservation release before native --full, build and final full suite; no duplicate whole-unit exploratory proof.",
+      "summary": "Implementation ef3b4ff10 is frozen. Complete focused helper/caller proof passed670 checks; native42 and Python78 tests pass. Six original accepted report sets preserve30 native verdicts and identical Python stats; baseline rejects20 newly admitted formal advisory controls. One multiline test-harness failure retained and fixed without production edits.",
+      "task": "#391-auditors",
+      "utc": "2026-11-16T22:51:02.030541+00:00",
+      "worktree": "/home/agent/silver-workspaces/recovery-volume/native"
+    },
+    {
+      "event": "checkpoint",
+      "monotonic_ns": 2172152505202,
+      "next_check": "Astra Max read-only review chooses minimal import/namespace repair; parent authorizes focused batch and new allocation after source integration. No automatic retry, clean build or replay.",
+      "summary": "Complete cached attempt 20261116T225232-a8d95d91b22a on exact 2288af600 was controlled-interrupted by actual 10 GiB RSS-tree guard at 11.225 GiB; host MemAvailable 9.687 GiB. Prior sole diagnostic: ambiguous Expressions namespace at ComposeBooleanDeclarationMeaning:13 after new public import. Original session 98276 terminal collected; no live process group. 19 completed jobs retained; 996 primary objects unchanged; 13 interrupted-target objects absent and listed in retained packet.",
+      "task": "#391",
+      "utc": "2026-11-16T22:55:12.615967+00:00",
+      "worktree": "/home/agent/silver-worktrees/procedures-lean-370"
+    },
+    {
+      "event": "checkpoint",
+      "monotonic_ns": 3261703887596,
+      "next_check": "Parent integrates focused evidence and final independently reviewed native annotation repair, then supplies frozen head/resource release for one complete cached Lean check at two workers/default12threads/8192MiB with retained guards. Reuse unchanged focused Domain/token success.",
+      "summary": "Boolean relocation focused gate passed 20261116T231040-cddd7187b7b8 on c45fe22dc: one Domain target, 141 actual imported modules, 15713 declarations, standard foundations only. Original session 93277 terminal exit0 collected. Two workers/default12threads/8192MiB; peak RSS-tree2.634GiB, host minimum14.483GiB, no guard. All1116 repository/1011 workspace/6013 artifact/two tool hashes verified; evidence-only commit2476a99d8. No complete Lean launch.",
+      "task": "#391",
+      "utc": "2026-11-16T23:13:22.167348+00:00",
+      "worktree": "/home/agent/silver-worktrees/procedures-lean-370"
+    },
+    {
+      "event": "diagnostic",
+      "kind": "prove",
+      "monotonic_ns": 3382481813612,
+      "next_step": "Integrate the bounded annotation repair after source/coverage review, then perform canonical complete native proof/build and remaining complete Lean/full-suite checks on frozen final inputs; no relaxed settings or domains.",
+      "run_id": "20261116T225639-1d97eb007a5a",
+      "scope": [
+        "compiler"
+      ],
+      "summary": "Sole full-native failure was Mixed_Report postcondition at 5338:16. Independent Astra Max and lead diagnosis: inline Object_Policy quantifiers obscure the already proved exact Mixed_Object equality. All neighboring contracts passed. Two local Hide_Info annotations preserve contracts/domains/runtime. Whole Mixed_Report run 20261116T231315-0432a9be858c now passes 353 flow and 18 proof checks, 66/66 Why3 goals. Failure, generated task, source, session, input and resource evidence retained in docs/evidence/advisory-policy-391-20261116/auditors/native-correspondence-failure.tar.gz; focused evidence beside it.",
+      "task": "#391-native-complete",
+      "utc": "2026-11-16T23:15:22.945273+00:00"
+    },
+    {
+      "event": "diagnostic",
+      "kind": "prove",
+      "monotonic_ns": 4178756649408,
+      "next_step": "Mandatory complete native proof/audit provenance refresh on integrated d60bd8a89 with original matching solver sessions/cache; build follows only on audit success, then complete Lean and final full suite. Current refresh run 20261116T232749-c8fb976a6d5c active with 12 workers and canonical policy.",
+      "run_id": "20261116T231645-98dfa4e47215",
+      "scope": [
+        "compiler"
+      ],
+      "summary": "GNATprove passed all 19515 checks (1724 flow, 17791 proof; 78 units) but subsequent source audit rejected four reviewed Hide_Info target names omitted from check_evidence.py whitelist. No completed proof manifest/build. Exact failure and old inputs retained in auditors/native-source-policy-failure packet. Reviewed four-name checker fix 4982da11a passed 79 Python tests, source-policy preflight on all 138 Ada files, and cheap full audit_sources over completed current reports. All Ada/contracts/projects/tools unchanged; only auditor input provenance changes.",
+      "task": "#391-native-complete-retry",
+      "utc": "2026-11-16T23:28:39.220108+00:00"
+    },
+    {
+      "event": "checkpoint",
+      "monotonic_ns": 4544701570500,
+      "next_check": "Parent authorized one-worker cached continuation with default12threads8192MiB, sameguards and unchanged d60 inputs. Add argv/module attribution to2s samples, preserve both priorattempts, no clean/replay or duplicate focused success.",
+      "summary": "Complete attempt20261116T233051-b2fd2290a41d on exactd60bd8a89 was guard-interrupted after88.239s: concurrent dense ComposeContractSourceCandidate/ComposeDeclarationSourceCandidate setup, one Lean7.136GiB+other1.697GiB+Lake1.164GiB reached10.089GiBtree; host6.699GiB. Zero proof diagnostics; full audit notstarted. Originalterminal70474collected; all998pre-run objects byte-identical and retained.",
+      "task": "#391",
+      "utc": "2026-11-16T23:34:45.165033+00:00",
+      "worktree": "/home/agent/silver-worktrees/procedures-lean-370"
+    },
+    {
+      "event": "checkpoint",
+      "monotonic_ns": 7855967970870,
+      "next_check": "Parent owns full regression suite already authorized after Lean release, integration of final evidence, independent acceptance and publication; no new Lean/source changes or repeated success checks.",
+      "summary": "Complete cached Lean checkpoint 20261116T233445-6dce1a7dbb80 passed on frozen d60bd8a899fcc66e5ef40112423b7f94b2e4becc: exact1009 project/workspace/manifest/actual-audit modules,162274 declarations,standard foundations only; all1116 repository inputs matchGit snapshot and1011 workspace/6046 artifact/2 tool/log hashes verified. Original terminal85539 exit0 collected; reservationreleased, no guards; 8.601334GiBpeak tree,7.725693GiBhost minimum. Earlier interruptions retained.",
+      "task": "#391",
+      "utc": "2026-11-17T00:29:56.431432+00:00",
+      "worktree": "/home/agent/silver-worktrees/procedures-lean-370"
+    },
+    {
+      "event": "diagnostic",
+      "kind": "tool-gnatprove",
+      "monotonic_ns": 14732322224607,
+      "next_step": "Bind the original Actuals_Model value once as an existing-pattern Static ghost constant and use that constant in the same loop invariant; preserve all contracts, input domains, runtime statements and canonical policy. Rerun the whole Actuals_After helper with4workers for actual concurrent Lean allocation; if unresolved, inspect a smaller explicit step equation before another complete helper retry.",
+      "run_id": "20261117T021524-7cd50f30e0ae",
+      "scope": [
+        "mode:all",
+        "project:../../../silver.gpr",
+        "--limit-subp=silver_output_profile.adb:5150"
+      ],
+      "summary": "Whole Actuals_After failed only preservation of recursive-model equality invariant at source5178; initialization, runtime safety, postcondition and termination passed. Source/model helper counterparts passed earlier. Why3 VC199 timed out in CVC5/Z3 and exhausted Alt-Ergo memory; no counterexample. Exact source, native reports, gnat-json and Why3 session retained in actuals-after-r1.tar.gz. The loop mirrors the recursive branch, but the invariant repeatedly exposes the wrapper initial model expression.",
+      "task": "#392",
+      "utc": "2026-11-17T02:24:32.785682+00:00"
+    },
+    {
+      "event": "diagnostic",
+      "kind": "tool-gnatprove",
+      "monotonic_ns": 15119043536625,
+      "next_step": "Inspect recursive-tail unfolding and Seen delta correspondence using a separately proved full-domain Static ghost one-step equation; obtain that focused lemma success before retrying Actuals_After. Preserve runtime semantics, total domain, all obligations and canonical 30-second policy; coordinate any new proof helper/source shape with source author.",
+      "run_id": "20261117T022532-ff4258486bca",
+      "scope": [
+        "mode:all",
+        "project:../../../silver.gpr",
+        "--limit-subp=silver_output_profile.adb:5150"
+      ],
+      "summary": "Second complete Actuals_After attempt retains the sole loop-invariant preservation failure. Binding initial model to Expected proved its initialization/precondition but did not fix preservation; all runtime checks, postcondition and termination still pass. Exact source, reports, gnat-json and Why3 session archived in actuals-after-r2.tar.gz. No new whole-helper retry authorized by elapsed time alone.",
+      "task": "#392",
+      "utc": "2026-11-17T02:30:59.506995+00:00"
+    },
+    {
+      "event": "diagnostic",
+      "kind": "tool-gnatprove",
+      "monotonic_ns": 15594089422518,
+      "next_step": "Inspect the model definition axiom guard and imported expression-body expansion, and seek a bounded explicit model-unfold equation or established information-hiding repair with full proof/source review. Do not repeat the loop or raise budget. Early root-owned behavior probes may use a fresh build independently of incomplete compiler proof.",
+      "run_id": "20261117T023511-79803c3004b6",
+      "scope": [
+        "mode:all",
+        "project:../../../silver.gpr",
+        "--limit-subp=silver_output_profile.adb:5151"
+      ],
+      "summary": "The separately selected complete Static advance lemma fails only its exact recurrence postcondition; all input/pre/range/index checks pass. This removes imperative loop updates and mutable Seen from the failing equation. Generated input contains Function_Actuals_Tail_Model definition axiom, so model body availability alone is not disproved. Exact source, generated input and session preserved in advance-lemma-r1.tar.gz; unproved lemma is not consumed.",
+      "task": "#392",
+      "utc": "2026-11-17T02:38:54.552881+00:00"
+    },
+    {
+      "event": "checkpoint",
+      "monotonic_ns": 16450422529343,
+      "next_check": "Integrate semantic commit with source-owned Fields and the source/native changes; finish remaining whole-helper source/native checks before root shared complete assurance checkpoint. No semantic rerun needed unless inputs or integration invalidate coverage.",
+      "summary": "Semantic model chain committed at 3983a1c93 after 24bc775bc and 78e61f3e2. Focused run 20261117T024754-5841dfd88330 passed all changed semantic consumers and fresh audit: 314 modules, 26420 declarations, 12 workers/12 threads. Exact 1119-input digest and archived bytes verified. Source-owned PredicateProcedureCallFields draft remains uncommitted here and is byte-identical to source author copy. Failed attempts and final evidence retained under model/.",
+      "task": "#392",
+      "utc": "2026-11-17T02:53:10.885991+00:00",
+      "worktree": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-model-392"
+    },
+    {
+      "event": "diagnostic",
+      "kind": "tool-gnatprove",
+      "monotonic_ns": 16610972303087,
+      "next_step": "Move the same reviewed Function_Association and Actual_Model Hide_Info annotations immediately after is, before begin, matching the pinned guide and report auditor. Recheck the entire standalone lemma with unchanged contract/domain and canonical policy using four workers alongside focused Lean. No loop consumption before complete success.",
+      "run_id": "20261117T025010-0841790d63ef",
+      "scope": [
+        "mode:all",
+        "project:../../../silver.gpr",
+        "--limit-subp=silver_output_profile.adb:5151"
+      ],
+      "summary": "Whole standalone advance lemma exited 1 at flow analysis in 6 seconds: both Hide_Info annotations were after begin, and GNATprove requires declaration-region placement. No recurrence VC was attempted. Exact source, original logs, result and managed record retained in advance-lemma-r2-placement.tar.gz.",
+      "task": "#392",
+      "utc": "2026-11-17T02:55:51.435759+00:00"
+    },
+    {
+      "event": "diagnostic",
+      "kind": "tool-gnatprove",
+      "monotonic_ns": 16961590959504,
+      "next_step": "Independently review shared pure Mark_Formal used by model/lemma/loop versus existing checked Logical_Equal fixed-array pattern. First prove any new helper over every Formal_Set and valid Formal_Index, then the changed tail and complete advance lemma under unchanged canonical policy. Keep source frozen for lead behavior tests; do not consume unproved lemma or repeat unchanged failed proof.",
+      "run_id": "20261117T025551-c79f975d17c7",
+      "scope": [
+        "mode:all",
+        "project:../../../silver.gpr",
+        "--limit-subp=silver_output_profile.adb:5151"
+      ],
+      "summary": "Correct declaration-region Hide_Info retry still fails only standalone recurrence postcondition; 17 of 18 total checks pass. Exact failed source/reports/generated input/session archived in advance-lemma-r3.tar.gz. Generated model and lemma delta aggregates use distinct function symbols20197 and20357, each specifying in-range component equality and bounds; pinned Array__1 extensionality is triggered by eq_ext. Local hiding removed two theories but did not address map congruence.",
+      "task": "#392",
+      "utc": "2026-11-17T03:01:42.054418+00:00"
+    },
+    {
+      "event": "diagnostic",
+      "kind": "lean",
+      "monotonic_ns": 20506787627736,
+      "next_step": "Preserve complete statements, domains, native bytes, pin and budgets. Kernel-reduce current Actuals_Model header; split procedure loop membership directly. Check both repaired modules, then original cached union for fresh audit. Automatic available workers for light invalidation, retain existing memory guards and cached successes.",
+      "run_id": "20261117T033146-10e4c23dfa78",
+      "scope": [
+        "Silver.FunctionSourceCandidate",
+        "Silver.PredicateAssociationWholeSourceCandidate",
+        "Silver.PredicateProcedureCallWholeSourceCandidate"
+      ],
+      "summary": "Final-pin candidate build failed in two local scripts: obsolete recursive Actuals_Model header proof and procedure loop-membership simp recursion. All new individual parts and association whole candidate compiled; no union audit ran. Exact 1142 inputs, logs, guard samples and original 24-file ownership snapshot retained under source/candidate-r1-failed.",
+      "task": "#392-source-candidates",
+      "utc": "2026-11-17T04:00:47.251085+00:00"
+    },
+    {
+      "event": "checkpoint",
+      "monotonic_ns": 20681681452986,
+      "next_check": "Commit final25 source-owned files and evidence, excluding borrowed native/model dependencies. Lead integrates and supplies combined head; preserve source branch, borrowed bytes and original cache before complete managed Lean assurance on exact combined inputs.",
+      "summary": "Final reviewed-pin candidate union passed 20261117T040233-3ed92ba6662c: 243 modules,20793 declarations, standard foundations only, after complete repaired-module gate 20261117T040126-ff9bd176a52b. Exact input/workspace/tool/artifact hashes rechecked and archives retained. Failed first batch and immutable24-file inventory preserved; final source-owned inventory25 files.",
+      "task": "#392-source-candidates",
+      "utc": "2026-11-17T04:03:42.144914+00:00",
+      "worktree": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392"
+    }
+  ],
+  "available_cpus": 12,
+  "reserved_workers": 4,
+  "diagnostics_required": [],
+  "total_runs": 165,
+  "omitted_completed_runs": 160
+}

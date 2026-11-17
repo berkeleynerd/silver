@@ -1,0 +1,26 @@
+{
+  "command": [
+    "python3",
+    "scripts/check_lean.py",
+    "--workers",
+    "1",
+    "--memory-mb",
+    "8192",
+    "--provenance",
+    "--task",
+    "#392-complete-lean",
+    "--reason",
+    "Complete assurance on combined c7388ab5d038ccbce9635ffaeec7df9189369366 after all focused native/helper/source gates and independent review. All 1142 focused inputs and 1182 relevant tree files match combined Git blobs. Retain original nativefs overlay and all cached successes. Serialize remaining dense candidates: prior sibling overlap exceeded 10 GiB and serial continuation peaked 8.601 GiB; native source grew 5.983 percent and native complete run uses four workers. One Lake worker, default 12 threads, 8192 MiB threshold, existing 10 GiB tree and 1.5 GiB host guards, 5-second attributed memory and disk samples. No clean or replay."
+  ],
+  "cwd": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392",
+  "started_at": "2026-11-17T04:06:26.656155+00:00",
+  "peak_sum_rss_kib": 9457536,
+  "peak_process_rss_kib": 8855264,
+  "minimum_mem_available_kib": 5451056,
+  "minimum_disk_available_bytes": 1850736640,
+  "pid": 401235,
+  "returncode": 1,
+  "elapsed_seconds": 9211.330813434,
+  "finished_at": "2026-11-17T06:39:57.986995+00:00",
+  "interrupted": false
+}

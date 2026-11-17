@@ -1,31 +1,26 @@
 # Session memory
 
-## 2026-11-17 — Named scalar implementation checkpoint
+## 2026-11-17 — Named scalar proof checkpoints complete; final suite next
 
-The owner-selected #392 scope is unchanged. The
-[capability record](named-scalar-arguments.md#work-record) links focused semantic,
-source-helper, behavior and independent review evidence. The named sample has
-completed proof/build/output checks; the feature still awaits complete native,
-actual-source and whole-suite validation. Independent reviews found and repaired
-a draft catalogue-export omission and added Boolean/procedure-body regression
-coverage; final execution of those additions remains pending.
+The owner-selected #392 scope is unchanged. Complete native proof/audit and
+Lean actual-source/module/axiom checks passed on the combined implementation
+`c7388ab5d038ccbce9635ffaeec7df9189369366`, and independent review accepted
+both evidence slices. The [capability record](named-scalar-arguments.md#delivery-assurance-and-validation)
+links exact inputs, focused checks, retained failures and fresh/cached scope.
+The final complete regression suite and closing review remain outstanding.
 
-A native recurrence proof required a shared checked visited-set mark operation
-because separately translated array updates lacked the map identity needed by
-recursive-function congruence. The
-[independent diagnosis](reviews/review-named-native-recurrence-20261117.md)
-records the evidence and bounded repair. Its complete helper and recurrence
-checks passed under the unchanged policy. The unsuccessful annotation experiment
-was removed rather than expanding the source-policy allowance. This routine
-repair changes no owner scope, language domain, Oracle guarantee or proof budget.
+The original complete Lean attempt hit its internal memory threshold. The
+unchanged complete module passed with one process thread under the same limit;
+the subsequent complete cached check and fresh audit passed. This required no
+source repair, weaker theorem, domain change or budget increase. The earlier
+scheduling pause and failed attempt remain recorded separately. Reduced
+concurrency is justified for these runs, not a permanent default.
 
-Retained worktrees, donor tools and caches remain preserved. Private native/Lean
-overlays isolate new writes. The final dense Lean run will use one Lake worker
-with default process threads because the current changed dependency graph can
-otherwise overlap the two previously measured dense certificates on this no-swap
-16 GiB host; this is a run-specific resource decision, not a new default.
-The issue holds live progress; #373 and PR #385 remain deferred/held. CLI memory
-was not updated. No #392 merge is authorized by this checkpoint.
+The precise Rosetta construct and Named parameters assessment are prepared for
+the final frozen suite. Broad stage #11 remains open. Preserve #373 recovery,
+the PR #385 hold, unrelated worktrees and donor caches. Publication remains
+within the existing authorization; no #392 merge is authorized. CLI memory was
+not updated, and project-board access still lacks `read:project`.
 
 ## 2026-11-17 — Named scalar arguments selected while Worca recovery awaits
 

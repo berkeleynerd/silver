@@ -1,0 +1,134 @@
+[
+  {
+    "path": "/home/agent/silver-workspaces/recovery-volume/delivery-review",
+    "regular_files": 28968,
+    "logical_bytes": 566714014,
+    "allocated_bytes": 640262144,
+    "directories": 7500,
+    "symlinks": 0,
+    "nested_tool_or_artifact_directories": [
+      "docs/evidence/scalar-functions-20261107/native-checkpoint/parameter-frame-entry-guard/source/.silver"
+    ],
+    "active_managed_references": [],
+    "mount_or_overlay_reference": false,
+    "process_references": [],
+    "head": "8671d0955c29677c18ab0cfd33b6037a5fedc44e",
+    "git_status": [
+      "?? tmp/"
+    ],
+    "directory_allocated_bytes": 31301632,
+    "estimated_total_allocated_bytes": 671563776,
+    "nested_evidence_artifacts": {
+      "docs/evidence/scalar-functions-20261107/native-checkpoint/parameter-frame-entry-guard/source/.silver": [
+        {
+          "path": "linux-x86_64/toolchain/alire.toml.gz",
+          "bytes": 284
+        },
+        {
+          "path": "linux-x86_64/generated/silver_library_sources.ads.gz",
+          "bytes": 3590
+        },
+        {
+          "path": "linux-x86_64/generated/silver_image_config.ads.gz",
+          "bytes": 379
+        },
+        {
+          "path": "linux-x86_64/generated/silver_build.ads.gz",
+          "bytes": 435
+        },
+        {
+          "path": "linux-x86_64/toolchain/alire/alire.lock.gz",
+          "bytes": 1601
+        }
+      ]
+    }
+  },
+  {
+    "path": "/home/agent/silver-workspaces/recovery-volume/rosetta",
+    "regular_files": 28955,
+    "logical_bytes": 564807600,
+    "allocated_bytes": 638349312,
+    "directories": 7502,
+    "symlinks": 0,
+    "nested_tool_or_artifact_directories": [
+      "docs/evidence/scalar-functions-20261107/native-checkpoint/parameter-frame-entry-guard/source/.silver"
+    ],
+    "active_managed_references": [],
+    "mount_or_overlay_reference": false,
+    "process_references": [],
+    "head": "549a4d3c99d9b021ce2e38e724266df08443b06c",
+    "git_status": [
+      "?? tmp/"
+    ],
+    "directory_allocated_bytes": 31309824,
+    "estimated_total_allocated_bytes": 669659136,
+    "nested_evidence_artifacts": {
+      "docs/evidence/scalar-functions-20261107/native-checkpoint/parameter-frame-entry-guard/source/.silver": [
+        {
+          "path": "linux-x86_64/toolchain/alire.toml.gz",
+          "bytes": 284
+        },
+        {
+          "path": "linux-x86_64/generated/silver_library_sources.ads.gz",
+          "bytes": 3590
+        },
+        {
+          "path": "linux-x86_64/generated/silver_image_config.ads.gz",
+          "bytes": 379
+        },
+        {
+          "path": "linux-x86_64/generated/silver_build.ads.gz",
+          "bytes": 435
+        },
+        {
+          "path": "linux-x86_64/toolchain/alire/alire.lock.gz",
+          "bytes": 1601
+        }
+      ]
+    }
+  },
+  {
+    "path": "/home/agent/silver-workspaces/recovery-volume/stack",
+    "regular_files": 29136,
+    "logical_bytes": 573785261,
+    "allocated_bytes": 647753728,
+    "directories": 7514,
+    "symlinks": 0,
+    "nested_tool_or_artifact_directories": [
+      "docs/evidence/scalar-functions-20261107/native-checkpoint/parameter-frame-entry-guard/source/.silver"
+    ],
+    "active_managed_references": [],
+    "mount_or_overlay_reference": false,
+    "process_references": [],
+    "head": "cd8cba92a16338d128b91011d3585a576056d02b",
+    "git_status": [
+      "?? docs/evidence/scalar-procedures-20261115/regression-recovery/arm64-stack/tmp/"
+    ],
+    "directory_allocated_bytes": 31363072,
+    "estimated_total_allocated_bytes": 679116800,
+    "nested_evidence_artifacts": {
+      "docs/evidence/scalar-functions-20261107/native-checkpoint/parameter-frame-entry-guard/source/.silver": [
+        {
+          "path": "linux-x86_64/toolchain/alire.toml.gz",
+          "bytes": 284
+        },
+        {
+          "path": "linux-x86_64/generated/silver_library_sources.ads.gz",
+          "bytes": 3590
+        },
+        {
+          "path": "linux-x86_64/generated/silver_image_config.ads.gz",
+          "bytes": 379
+        },
+        {
+          "path": "linux-x86_64/generated/silver_build.ads.gz",
+          "bytes": 435
+        },
+        {
+          "path": "linux-x86_64/toolchain/alire/alire.lock.gz",
+          "bytes": 1601
+        }
+      ]
+    }
+  }
+]

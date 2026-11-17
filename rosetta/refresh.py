@@ -346,6 +346,7 @@ SURFACE_LABELS = {"integer-for-loops": "Integer range for loops",
                   "scalar-boolean-objects": "scalar Boolean objects and expressions",
                   "scalar-functions": "small nonrecursive scalar functions",
                   "scalar-procedures": "small nonrecursive scalar procedures",
+                  "named-scalar-arguments": "named scalar arguments",
                   "bounded-string-characters": "bounded String indexing and Character operations",
                   "integer-object-size-read": "Integer object Size attribute reads",
                   "integer-image": "Integer image", "booleans": "Boolean objects",
@@ -371,7 +372,8 @@ USES = {"stdin": "standard input", "files": "files", "arguments": "arguments", "
 # The question each construct's admission must answer: the decidable rule under which every program
 # using it proves automatically.
 ADMISSION = {
-    "scalar-procedures": "How do closed scalar procedures, source-written ordered out initialization, full formal-domain body checks, earlier-only calls, finite loops and same-state positional actual checks establish initialization, disjoint copy-back, preservation of unrelated caller state, exact-source correspondence, termination and complete automatic discharge?",
+    "named-scalar-arguments": "How do case-insensitive selectors, unique complete formal coverage and source-order to formal-order correspondence preserve payload checking in the incoming state, alias exclusion, copy-back and automatic discharge for reordered and mixed scalar calls?",
+    "scalar-procedures": "How do closed scalar procedures, source-written ordered out initialization, full formal-domain body checks, earlier-only calls, finite loops and same-state actual checks establish initialization, disjoint copy-back, preservation of unrelated caller state, exact-source correspondence, termination and complete automatic discharge?",
     "scalar-functions": "How do closed Integer/Boolean local functions, full formal-domain body checks, immutable formals, earlier-only calls, finite loops, terminal typed returns and whole scalar assignment calls preserve scope, source correspondence, universal safety, termination and complete automatic discharge without caller-visible mutation?",
     "fixed-string-replacement": "Which argument forms and source bounds guarantee valid Low/High positions, a bounded result and complete automatic discharge for the selected Replace_Slice operation, with corresponding library verification and compilation?",
     "unicode-identifiers": "Which Unicode identifier repertoire and source encoding are admitted, and how do lexer identity, Ada case folding, byte limits and frontend source correspondence agree?",

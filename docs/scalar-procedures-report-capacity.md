@@ -244,5 +244,8 @@ procedure call, seven bytes still lower-bound each explicit-mode formal, and
 formal declaration spans and per-call callee names retain their existing charges.
 Therefore the combined retained-report envelope stays **49,279,744 bytes**, with
 **17,829,120 bytes** of headroom in **67,108,864 bytes**. Producer observations
-corroborate the account; complete named-association validation is recorded in the
-[capability record](named-scalar-arguments.md) when it finishes.
+corroborate the account. The
+[capability record](named-scalar-arguments.md#delivery-assurance-and-validation)
+links the complete native and Lean/actual-source results separately from the
+still-pending whole suite and final independent review. The numerical envelope
+and producer premises above are unchanged.

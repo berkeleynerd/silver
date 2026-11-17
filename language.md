@@ -1,9 +1,11 @@
 # Silver language specification
 
-The named-scalar-arguments extension below is being implemented and validated
-under [#392](https://github.com/berkeleynerd/silver/issues/392). Its
-[capability record](docs/named-scalar-arguments.md) distinguishes the selected
-rules from completed assurance and records the remaining checkpoint.
+The named-scalar-arguments extension below has passed complete Linux native
+and Lean/actual-source checkpoints under
+[#392](https://github.com/berkeleynerd/silver/issues/392). Its
+[capability record](docs/named-scalar-arguments.md#delivery-assurance-and-validation)
+records those results separately from the whole suite and final independent
+review, which remain pending. Delivery is not yet complete.
 
 The scalar-procedure increment below has complete Linux ARM64 proof and
 applicable regression validation in [#370](https://github.com/berkeleynerd/silver/issues/370).

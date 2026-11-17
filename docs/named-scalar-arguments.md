@@ -8,9 +8,12 @@ procedures after reporting the Worca #377/#378 work unavailable. The
 selects [#392](https://github.com/berkeleynerd/silver/issues/392), in
 [milestone 25](https://github.com/berkeleynerd/silver/milestone/25), as the next
 language capability. [Stage #393](https://github.com/berkeleynerd/silver/issues/393)
-tracks its precise Rosetta construct; broad #11 remains separate. This record
-specifies authorized work, not delivered support. [#373](https://github.com/berkeleynerd/silver/issues/373) remains open
-pending recovery; its implementations and the hold on draft PR #385 are preserved.
+tracks its precise Rosetta construct; broad #11 remains separate. The
+implementation has complete Linux native and Lean/actual-source checkpoints;
+[delivery remains pending](#delivery-assurance-and-validation) the whole
+suite and final independent review. [#373](https://github.com/berkeleynerd/silver/issues/373)
+remains open pending recovery; its implementations and the hold on draft PR #385
+are preserved.
 
 Add ordinary Ada named associations to calls of existing Integer/Boolean scalar
 functions and procedures. Retain fully positional calls; admit fully named
@@ -133,8 +136,9 @@ no swap):
   and checked its complete 76,980-token pin against native source. The final
   three-candidate union passed with a fresh audit of 243 modules and 20,793
   declarations. Two stale proof scripts required a bounded repair; their failed
-  run and the independently reviewed successful checks are retained. Complete
-  integrated assurance remains pending.
+  run and the independently reviewed successful checks are retained. The
+  later [complete checkpoint](#delivery-assurance-and-validation)
+  separately establishes integrated actual-source assurance.
 - The [behavior packet](evidence/named-scalar-arguments-392-20261117/behavior/README.md)
   records all 16 final named methods passing in 35.218 seconds, including full-route
   positives, source-size endpoints and discriminating rejection controls. The
@@ -170,11 +174,15 @@ It reports local frame sizes, not a universal stack bound or a memory improvemen
 Final behavior and catalogue parity checks passed after rebuilding both changed
 Ada units.
 
+## Delivery assurance and validation
+
 The [setup record](evidence/named-scalar-arguments-392-20261117/setup/README.md)
 records the native-filesystem Lean overlays and unchanged donor caches. Native
-behavior runs used a 16 MiB process stack. Native workers were reduced to four
-only while concurrent focused Lean checks used the remaining allocation; exclusive
-checks return to automatic allocation. Exact run records distinguish rebuilt
+behavior runs used a 16 MiB process stack. Native proofs used four workers to
+share the host with Lean. During the complete checkpoint, the original Lean
+process group was temporarily stopped to avoid overlapping dense memory peaks,
+then resumed unchanged after native proof/build completed. The post-audit build
+reconsidered resources and used automatic allocation. Exact run records distinguish rebuilt
 units, retained dependencies and fresh declaration audits. The
 [complete native packet](evidence/named-scalar-arguments-392-20261117/complete-native/README.md)
 records successful run `20261117T034048-8c22c1e6a33d`: 78 units, 1,252 entities,
@@ -183,8 +191,37 @@ accepted. It generated fresh reports and sessions with a seeded solver-cache
 overlay; actual cache hits are unobserved. The post-audit build
 `20261117T055412-08a00820e2ef` passed with both binaries up to date and an automatic
 11-worker reservation. Its 147 tracked native inputs match the combined source
-snapshot. Complete actual-source, whole-suite and final-review checkpoints remain
-pending.
+snapshot.
+
+The [complete Lean packet](evidence/named-scalar-arguments-392-20261117/complete-lean/README.md)
+retains the original run `20261117T040626-c2b89a81f8a6`, which passed the
+source-candidate chains but failed in `ComposeModelHelperEquations` at the
+8,192 MiB kernel memory threshold, without completing the audit. It used one
+Lake worker and the default 12 process threads. Its same process resumed at
+`2026-11-17T05:55:26.052388Z` after a 3,776.511-second internal resource-scheduling
+pause. That pause belongs only to this failed run.
+
+The unchanged complete-module serial gate `20261117T064503-a6b27d1c4b6a`
+then passed, covering 142 modules and 15,893 declarations, with 96.563 seconds
+of build time and a 2.068-second audit. No source, theorem statement, domain or
+proof budget changed for the memory repair.
+
+Final complete run `20261117T064945-d458c99ae977` passed the actual-source and
+whole-project module/axiom audit, freshly auditing 1,035 modules and 166,332 declarations with only
+`propext`, `Classical.choice` and `Quot.sound`. It used one Lake worker, one
+process thread and the unchanged 8,192 MiB internal per-process memory setting,
+with the same external 10 GiB process-tree RSS and 1.5 GiB host-available-memory
+guards. Its wrapper elapsed time was 25.027 seconds; recorded peak process and
+process-tree RSS were 2,628,960 KiB and 3,722,736 KiB. This successful run was not
+paused. Inputs were unchanged; matching objects were retained while outstanding consumers
+rebuilt. The packet records exact
+provenance and fresh/cached applicability; this is not a clean rebuild or
+independent kernel-replay claim.
+
+The whole repository suite on frozen final inputs and final independent
+integration/evidence review remain pending. The focused behavior packet above
+does not replace either checkpoint. These proof results therefore do not yet
+establish completed delivery or a validated publication. No merge is authorized.
 
 Selected source/native/semantic design settings are Astra Max; the bounded
 scope comparison used Astra Extra High. Lead runtime identity and whole-team
