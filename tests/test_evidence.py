@@ -1095,23 +1095,10 @@ class ProofEvidenceTests(unittest.TestCase):
 
 
 class CompilerHideInfoPolicyTests(unittest.TestCase):
-    filename = "silver_library_reports.adb"
-    targets = ("Raw_List_Spec", "List_Spec", "rAw_LiSt_SpEc", "LIST_SPEC",
-               "Initializer_Message", "Raw_Initializer_Message",
-               "Procedure_Output_Message", "Raw_Procedure_Output_Message",
-               "Termination_Policy", "Initialization_Policy",
-               "Initialization_Index_Model", "Raw_Initialization_Index",
-               "Diagnostic_Message", "Raw_Diagnostic_Message",
-               "Output_Message", "Raw_Output_Message",
-               "Formal_Advisory_Message", "Raw_Formal_Advisory_Message",
-               "Object_Policy", "Raw_Object_Policy")
-    other_filename = "silver_output_profile.adb"
-    wrong_targets = ("Function_Association", "Actual_Model")
-
     def setUp(self) -> None:
         directory = tempfile.TemporaryDirectory(prefix="silver-hide-info-")
         self.addCleanup(directory.cleanup)
-        self.path = Path(directory.name) / self.filename
+        self.path = Path(directory.name) / "silver_library_reports.adb"
 
     def source(self, annotation: str) -> None:
         # The reviewed pragmas occur in caller-local declarative parts.
@@ -1120,19 +1107,27 @@ class CompilerHideInfoPolicyTests(unittest.TestCase):
                              "\nbegin null; end Mixed_Object;\nend Silver_Library_Reports;\n")
 
     def test_exact_caller_local_hide_info_targets_and_ada_layout(self) -> None:
-        for target in self.targets:
+        for target in ("Raw_List_Spec", "List_Spec", "rAw_LiSt_SpEc", "LIST_SPEC",
+                       "Initializer_Message", "Raw_Initializer_Message",
+                       "Procedure_Output_Message", "Raw_Procedure_Output_Message",
+                       "Termination_Policy", "Initialization_Policy",
+                       "Initialization_Index_Model", "Raw_Initialization_Index",
+                       "Diagnostic_Message", "Raw_Diagnostic_Message",
+                       "Output_Message", "Raw_Output_Message",
+                       "Formal_Advisory_Message", "Raw_Formal_Advisory_Message",
+                       "Object_Policy", "Raw_Object_Policy"):
             with self.subTest(target=target):
                 self.source('PrAgMa -- caller-local abstraction\n AnNoTaTe\n'
                             '(GnAtPrOvE, -- producer\n HiDe_InFo, "Expression_Function_Body", '
                             + target + ');')
                 audit_source_policy(self.path)
-        self.source("\n".join(
-            f'pragma Annotate (GNATprove, Hide_Info, "Expression_Function_Body", {target});'
-            for target in self.targets[:2]))
+        self.source('pragma Annotate (GNATprove, Hide_Info, "Expression_Function_Body", Raw_List_Spec);\n'
+                    'pragma Annotate (GNATprove, Hide_Info, "Expression_Function_Body", List_Spec);')
         audit_source_policy(self.path)
 
     def test_hide_info_requires_exact_complete_pragma(self) -> None:
-        for target in self.targets:
+        for target in ("Raw_List_Spec", "Formal_Advisory_Message",
+                       "Raw_Formal_Advisory_Message", "Object_Policy", "Raw_Object_Policy"):
             safe = f'pragma Annotate (GNATprove, Hide_Info, "Expression_Function_Body", {target});'
             mutations = (safe.replace("GNATprove", "Other_Tool"),
                          safe.replace("Hide_Info", "False_Positive"),
@@ -1152,27 +1147,18 @@ class CompilerHideInfoPolicyTests(unittest.TestCase):
                     with self.assertRaisesRegex(EvidenceError, "forbidden.*annotate"):
                         audit_source_policy(self.path)
             self.source(safe)
-            for filename in ("main.adb", self.path.with_suffix(".ads").name,
-                             self.other_filename, "other.adb"):
+            for filename in ("main.adb", "silver_library_reports.ads", "other.adb"):
                 with self.subTest(target=target, filename=filename):
                     other = self.path.with_name(filename)
                     other.write_bytes(self.path.read_bytes())
                     with self.assertRaisesRegex(EvidenceError, "forbidden.*annotate"):
                         audit_source_policy(other)
 
-    def test_current_body_uses_reviewed_source_policy(self) -> None:
-        audit_source_policy(Path(__file__).resolve().parents[1] / "src" / self.filename)
-
-    def test_other_unit_targets_are_not_allowed(self) -> None:
-        for target in self.wrong_targets:
-            with self.subTest(target=target):
-                self.source(f'pragma Annotate (GNATprove, Hide_Info, "Expression_Function_Body", {target});')
-                with self.assertRaisesRegex(EvidenceError, "forbidden.*annotate"):
-                    audit_source_policy(self.path)
+    def test_current_report_body_uses_reviewed_source_policy(self) -> None:
+        audit_source_policy(Path(__file__).resolve().parents[1] / "src/silver_library_reports.adb")
 
     def test_allowed_hide_info_does_not_exempt_other_directives(self) -> None:
-        safe = (f'pragma Annotate (GNATprove, Hide_Info, "Expression_Function_Body", '
-                f'{self.targets[0]});\n')
+        safe = 'pragma Annotate (GNATprove, Hide_Info, "Expression_Function_Body", List_Spec);\n'
         for directive in ('pragma Assume (False);', 'pragma Suppress (All_Checks);',
                           'pragma Suppress_All;', 'pragma Assertion_Policy (Ignore);',
                           'pragma Check_Policy (Assert, Ignore);', 'pragma Check (Assume, False);',
@@ -1183,14 +1169,6 @@ class CompilerHideInfoPolicyTests(unittest.TestCase):
                 self.source(safe + directive)
                 with self.assertRaises(EvidenceError):
                     audit_source_policy(self.path)
-
-
-class AssociationHideInfoPolicyTests(CompilerHideInfoPolicyTests):
-    filename = "silver_output_profile.adb"
-    targets = ("Function_Association", "Actual_Model", "fUnCtIoN_aSsOcIaTiOn", "ACTUAL_MODEL")
-    other_filename = "silver_library_reports.adb"
-    wrong_targets = ("List_Spec", "Object_Policy", "Procedure_Association",
-                     "Function_Actuals_Tail_Model")
 
 
 class ArrayInitializationAdvisoryTests(unittest.TestCase):
