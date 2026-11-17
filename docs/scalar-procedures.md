@@ -4,8 +4,8 @@ The later [named-scalar-arguments increment #392](named-scalar-arguments.md)
 extends function/procedure association syntax while preserving this delivery's
 formal domains, initialization and copy-back rules. Its
 [complete native and Lean/actual-source checkpoints](named-scalar-arguments.md#delivery-assurance-and-validation)
-are separate from this original delivery; its whole suite and final independent
-review remain pending.
+are separate from this original delivery, with its passed complete suite and
+independent closing review recorded in that capability account.
 
 ## Authorization and delivery scope
 

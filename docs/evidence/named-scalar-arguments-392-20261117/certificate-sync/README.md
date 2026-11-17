@@ -28,13 +28,18 @@ proof run. This is an omitted repository-artifact update, not evidence that the
 actual-source proof used stale candidates.
 
 All nine files were synchronized together to the independently verified hashes
-after the original suite finished. Next run the complete `test_lean_source.py` file (17
-methods, including the native certificate probe). Then run a fresh unfiltered
-715-test suite on a newly committed/frozen snapshot. No test or contract is
+after the original suite finished, in commit `20e055be873f04a05d520b4e50f0e066515b7d4f`.
+The complete `test_lean_source.py` file passed: [run
+`20261117T072514-b9c195a48c9c`](focused/summary.json), 17 methods in 20.469 seconds,
+including the native certificate probe, with no skips. Original terminal 78512
+was collected with exit zero. The fresh unfiltered [715-test suite](../complete-suite/README.md) then passed
+on that committed/frozen snapshot: 713 passes and two expected platform skips
+in 1,160.908 seconds. The strict collector verified every exact test ID and
+unchanged inputs and binaries. No test or contract is
 weakened. The original failure and repair checks remain separate records.
 
 Diagnosis used Astra Max for source correspondence and independent critical
 review; monitoring used Sol High. These are selected assignments, with live
-model/effort and token/cost telemetry unavailable. Scratch generation took
+model/effort and token/cost telemetry unavailable. Scratch generation and comparison took
 0.397 seconds; no proof/build/test was run for the diagnosis itself. CLI memory
 was not updated.

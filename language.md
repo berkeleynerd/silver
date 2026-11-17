@@ -4,8 +4,9 @@ The named-scalar-arguments extension below has passed complete Linux native
 and Lean/actual-source checkpoints under
 [#392](https://github.com/berkeleynerd/silver/issues/392). Its
 [capability record](docs/named-scalar-arguments.md#delivery-assurance-and-validation)
-records those results separately from the whole suite and final independent
-review, which remain pending. Delivery is not yet complete.
+records the complete regression result, independent closing review, failed
+attempts and their repairs. Named scalar arguments are supported within the
+rules below.
 
 The scalar-procedure increment below has complete Linux ARM64 proof and
 applicable regression validation in [#370](https://github.com/berkeleynerd/silver/issues/370).

@@ -1,0 +1,12 @@
+{
+  "files_sha256": {
+    "README.md": "df2d4a7773ea02f102f6a6b4f315d59d3f2a7afddacb803e3f438869c80fa569",
+    "archive-verification.json": "c8218b6033124ff209caf50afa63e5c4e550356fe764525a216fdea3615016dc",
+    "exact-outcomes.json": "f319bacd25fe6e3c18e619be78e56d75f32072528625165e9b6d1a0aa23b7f7c",
+    "monitor-samples.jsonl.gz": "1b01a2e44636541ce82476bfb9feb5bb9c01badcd24175aca05c79cb709e9907",
+    "monitor-summary.json": "07ca516e8eccd790f2605e73e570b3d62a75bf1c4677a3e6c38093227dd0fcb5",
+    "original-terminal-result.json": "596cbad01551a9d7d3d90a1c014d449b92c8201547dd2653309307d48542a435",
+    "suite-evidence.tar.gz": "52312bb6e4ee1acff38a5741cf6ff9d64af47d5b27c3cb8f055cde65bba3cde4",
+    "summary.json": "bd17c1a44a29e7a36795f7f4fbc069c343f2eb8571c3611348e99ddd3459525c"
+  }
+}

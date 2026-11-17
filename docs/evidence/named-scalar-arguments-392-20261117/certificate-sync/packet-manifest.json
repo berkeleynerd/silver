@@ -1,0 +1,19 @@
+{
+  "files_sha256": {
+    "README.md": "3ededf2420268e581edbf05b428d13120ce1cb8ff4b6789674abca0296540408",
+    "comparison.json": "6c53ccd46365658662582ef138424cf83a5331c7db54c31dfcb1ed93e7bc0d92",
+    "failed-full-suite/frozen-inputs.json.gz": "b4845b033d0ecf4687ed901898568c4c990d90ebabbbbe4d1c03b53ff5b589b7",
+    "failed-full-suite/managed-events.jsonl.gz": "d4d6792faa5b99de7e21ada83c031bf2068be8530cd751dbd047d7365f08cb37",
+    "failed-full-suite/monitor-samples.jsonl.gz": "83fea8dab73c45cb5075f1d6f6e2a21ea7a540a835311107a7f523af46d83b35",
+    "failed-full-suite/monitor-summary.json": "05b8825eb4e0cc698de4933bacb2483676c49750ddcad31477615972e0355086",
+    "failed-full-suite/native.log.gz": "1ed490a438385f1b31024722be504930262695f0ffdb7c9ee28bdaf2d3662313",
+    "failed-full-suite/original-terminal-result.json": "ee06df76f5d10b248b9cc2e1238fc6b768f0dddddd432a0382e0c79d1c7dda63",
+    "failed-full-suite/original-terminal.log.gz": "d8767bc7a1d7379a6dfd56b9fd54313f9137eb3fdafc62a254ed562da7ee9822",
+    "failed-full-suite/summary.json": "b4cc5d4c2bab5fab3360239483b7b00dff7e12c7e4fac2810012806f0a9610e1",
+    "focused/managed-events.jsonl.gz": "094457bf319529dffdd2ff6487f0824428fa5eebfb0f92c743f4a8470e902f5c",
+    "focused/native.log.gz": "0e7b2b5b67f67120a1ff1454045a31fcdfeb78802a1862c6a3c8115dd82dca9b",
+    "focused/original-terminal-result.json": "81123e03f93f86d9ff2398fadbf0cc09bd84bd51b57a2cd3813f7513ace1c1ff",
+    "focused/original-terminal.log.gz": "82c876da98d1551f4e8e46b6ec7ed00b27e1c733f40c3cfe39338721fc5cb65d",
+    "focused/summary.json": "69b36eb985b4f1383edd99967aac55ed73d602584524a156aec13c39ba0c550b"
+  }
+}

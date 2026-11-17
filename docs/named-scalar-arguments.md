@@ -9,9 +9,9 @@ selects [#392](https://github.com/berkeleynerd/silver/issues/392), in
 [milestone 25](https://github.com/berkeleynerd/silver/milestone/25), as the next
 language capability. [Stage #393](https://github.com/berkeleynerd/silver/issues/393)
 tracks its precise Rosetta construct; broad #11 remains separate. The
-implementation has complete Linux native and Lean/actual-source checkpoints;
-[delivery remains pending](#delivery-assurance-and-validation) the whole
-suite and final independent review. [#373](https://github.com/berkeleynerd/silver/issues/373)
+bounded capability is supported; the [delivery record](#delivery-assurance-and-validation)
+retains complete Linux native/Lean assurance, the passed whole suite and closing
+independent review. [#373](https://github.com/berkeleynerd/silver/issues/373)
 remains open pending recovery; its implementations and the hold on draft PR #385
 are preserved.
 
@@ -218,10 +218,39 @@ rebuilt. The packet records exact
 provenance and fresh/cached applicability; this is not a clean rebuild or
 independent kernel-replay claim.
 
-The whole repository suite on frozen final inputs and final independent
-integration/evidence review remain pending. The focused behavior packet above
-does not replace either checkpoint. These proof results therefore do not yet
-establish completed delivery or a validated publication. No merge is authorized.
+The first complete suite ran all 715 methods but exposed two failing source-policy
+methods (three failure records): the nine tracked output-body certificate copies
+had not been synchronized with the freshly generated, successfully audited
+workspace. The [synchronization record](evidence/named-scalar-arguments-392-20261117/certificate-sync/README.md)
+retains that failed run and the independently verified nine-file repair at
+`20e055be873f04a05d520b4e50f0e066515b7d4f`. Every replacement exactly matches the
+successful complete proof's generated inputs; effective native and Lean inputs
+are unchanged. All 17 source-policy methods then passed, including the native
+certificate probe. The fresh complete suite then passed on that repaired frozen head.
+
+The [final complete suite](evidence/named-scalar-arguments-392-20261117/complete-suite/README.md),
+run `20261117T072619-37479dd61ba9`, passed **715 tests in 1,160.908 seconds:
+713 passes and two expected Linux x86-64-only skips**. All eight native Lean
+probes executed. The exact inventory includes all 16 named-scalar methods and
+86 manifest samples / 149 execution cases. This was fresh test execution using
+retained validated compiler/tool binaries, with automatic 12-worker allocation
+and the observed 16 MiB process stack. Every captured input, native manifest and
+binary matched after the run; no results from the failed suite substitute for
+this complete success.
+
+The [closing independent review](reviews/review-named-scalar-delivery-20261117.md)
+records exact targets, evidence applicability and the disposition of the
+certificate synchronization finding. The stable tested implementation is
+`20e055be873f04a05d520b4e50f0e066515b7d4f`; subsequent closeout changes contain
+documentation/evidence only. The precise Rosetta mapping adds Named parameters,
+raising supported task mappings from 84 to 85; broad functions, procedures and
+array stages remain separate. Issue-open-to-final-validation elapsed time was
+5 hours 50 minutes 16 seconds, including overlapping work, failed attempts and
+the recorded scheduling pause. It is not CPU time or model cost. The checkpoint
+used one complete native attempt, two complete Lean attempts (failed then cached
+success), and two complete suites (failed then fresh success), plus the recorded
+focused checks. Local Linux validation is complete; CI and independent kernel
+replay were not run. Publication is authorized; merge is not.
 
 Selected source/native/semantic design settings are Astra Max; the bounded
 scope comparison used Astra Extra High. Lead runtime identity and whole-team

@@ -363,8 +363,8 @@ retains the current envelope and 64 MiB allocation under the same producer
 premises. Diagnostic policy is unchanged. Complete #392 native and
 Lean/actual-source checkpoints passed, including the whole-project module/axiom
 audit. The [capability record](named-scalar-arguments.md#delivery-assurance-and-validation)
-links their exact evidence and retains the pending whole suite and final
-independent review. These results preserve the frontend and environmental
+links their exact evidence, passed complete suite and independent closing
+review. These results preserve the frontend and environmental
 premises above.
 
 ## Scalar guard refinement boundary

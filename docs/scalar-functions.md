@@ -3,8 +3,8 @@
 The later [named-scalar-arguments increment #392](named-scalar-arguments.md)
 extends call association syntax while preserving the function domains and
 semantics below. Its [complete native and Lean/actual-source checkpoints](named-scalar-arguments.md#delivery-assurance-and-validation)
-are separate from this original delivery; its whole suite and final independent
-review remain pending.
+are separate from this original delivery, with its passed complete suite and
+independent closing review recorded in that capability account.
 
 **Complete on Linux and independently accepted, 2026-11-08.** Existing
 [#298](https://github.com/berkeleynerd/silver/issues/298), in

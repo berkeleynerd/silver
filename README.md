@@ -236,8 +236,9 @@ every formal is supplied exactly once. The [Named parameters driver](samples/ros
 uses a noncommutative function to distinguish bindings. Full formal domains,
 same-incoming-state input checks, conservative aliases, range-checked copy-back,
 exact source and existing budgets are preserved. Complete Linux native and
-Lean/actual-source checkpoints passed; the whole suite and final independent
-review remain pending. This evidence is separate from the original deliveries.
+Lean/actual-source checkpoints and the complete regression suite passed, with
+independent review recorded in the capability account. This evidence is separate
+from the original deliveries.
 
 The [Find square difference sample](samples/find_square_difference.adb) stores
 the first matching index and prints ` 501` followed by a newline.

@@ -190,8 +190,8 @@ passed with all 19,726 checks proved. The
 also passed, including source correspondence and the whole-project module/axiom
 audit. The abstract permutation argument and focused checks alone do not
 establish that correspondence. The [capability record](named-scalar-arguments.md#delivery-assurance-and-validation)
-retains the exact checkpoint inputs and distinguishes the still-pending whole
-suite and final independent review.
+retains the exact checkpoint inputs, passed complete suite and independent
+closing review, including the repaired checked-in certificate synchronization.
 
 ## Boolean scalar objects and expressions
 

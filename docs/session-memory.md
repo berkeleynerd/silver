@@ -1,26 +1,29 @@
 # Session memory
 
-## 2026-11-17 — Named scalar proof checkpoints complete; final suite next
+## 2026-11-17 — Named scalar arguments validated for reviewable publication
 
-The owner-selected #392 scope is unchanged. Complete native proof/audit and
-Lean actual-source/module/axiom checks passed on the combined implementation
-`c7388ab5d038ccbce9635ffaeec7df9189369366`, and independent review accepted
-both evidence slices. The [capability record](named-scalar-arguments.md#delivery-assurance-and-validation)
-links exact inputs, focused checks, retained failures and fresh/cached scope.
-The final complete regression suite and closing review remain outstanding.
+The owner-selected #392 capability is complete on Linux aarch64. The
+[delivery account](named-scalar-arguments.md#delivery-assurance-and-validation)
+links complete native/Lean/source assurance, a fresh complete suite on repaired
+head `20e055be873f04a05d520b4e50f0e066515b7d4f`, and the
+[closing independent review](reviews/review-named-scalar-delivery-20261117.md).
+Closing documentation/evidence is separate from the frozen implementation.
 
-The original complete Lean attempt hit its internal memory threshold. The
-unchanged complete module passed with one process thread under the same limit;
-the subsequent complete cached check and fresh audit passed. This required no
-source repair, weaker theorem, domain change or budget increase. The earlier
-scheduling pause and failed attempt remain recorded separately. Reduced
-concurrency is justified for these runs, not a permanent default.
+The original Lean memory failure cleared with reduced process threading under
+the unchanged limit; this did not require source or theorem repair. The first
+full suite caught nine stale checked-in generated certificates. Synchronizing
+them to the already audited workspace passed focused source-policy checks and
+then the fresh full suite. Both failures remain in the evidence; no obligation,
+input domain, test or proof budget was weakened. Run-specific concurrency is not
+a new default for future work.
 
-The precise Rosetta construct and Named parameters assessment are prepared for
-the final frozen suite. Broad stage #11 remains open. Preserve #373 recovery,
-the PR #385 hold, unrelated worktrees and donor caches. Publication remains
-within the existing authorization; no #392 merge is authorized. CLI memory was
-not updated, and project-board access still lacks `read:project`.
+The precise named-scalar-arguments Rosetta construct and Named parameters sample
+are delivered through #392 and stage #393. Broad stage #11 remains open. Publish
+the validated branch/PR under the existing authorization and stop without merge.
+Preserve #373 recovery, the PR #385 hold, unrelated worktrees and donor caches.
+No next capability is authorized by this closeout. All validation was local;
+no CI or independent kernel replay was selected. CLI memory was not updated,
+and project-board access still lacks `read:project`.
 
 ## 2026-11-17 — Named scalar arguments selected while Worca recovery awaits
 

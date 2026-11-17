@@ -1,0 +1,59 @@
+{
+  "host": "Linux-7.0.14-aarch64-with-glibc2.41",
+  "sample_count": 33,
+  "interval_seconds": 35,
+  "first_sample": "2026-11-17T07:27:01.590132+00:00",
+  "last_sample_time": "2026-11-17T07:45:41.870610+00:00",
+  "run": "20261117T072619-37479dd61ba9",
+  "root_pid": 699206,
+  "root_alive_last": false,
+  "peak_sampled_tree_rss_sum_kib": 2524272,
+  "minimum_sampled_mem_available_kib": 14667184,
+  "minimum_sampled_available_disk_bytes": {
+    ".": 673908514816,
+    "/home/agent/silver-workspaces/recovery-volume": 1599913984,
+    "/tmp": 4060405760
+  },
+  "scope_limits": [
+    "Monitoring began after suite launch.",
+    "RSS is a sampled process-tree sum and may double count shared memory; not an exact peak.",
+    "Log parsing is progress only; root collector owns exact IDs, results and actual exit.",
+    "No suite/proof/build runs or signals issued by monitor."
+  ],
+  "last_sample": {
+    "timestamp": "2026-11-17T07:45:41.870610+00:00",
+    "root_pid": 699206,
+    "root_alive": false,
+    "tree_process_count": 0,
+    "tree_rss_sum_kib": 0,
+    "largest_process": null,
+    "mem_available_kib": 15485712,
+    "swap_total_kib": 0,
+    "swap_free_kib": 0,
+    "filesystems": {
+      ".": {
+        "available_bytes": 673908523008,
+        "total_bytes": 999995129856,
+        "available_inodes": 2286170624
+      },
+      "/home/agent/silver-workspaces/recovery-volume": {
+        "available_bytes": 1923215360,
+        "total_bytes": 33501757440,
+        "available_inodes": 1550052
+      },
+      "/tmp": {
+        "available_bytes": 4149157888,
+        "total_bytes": 20957446144,
+        "available_inodes": 1048274
+      }
+    },
+    "log_bytes": 1817531,
+    "observed_test_results": 699,
+    "observed_errors": [],
+    "tail": [
+      "",
+      "OK (skipped=2)"
+    ],
+    "process_tree": []
+  }
+}
