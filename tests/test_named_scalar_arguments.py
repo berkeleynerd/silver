@@ -52,6 +52,25 @@ class NamedScalarArgumentTests(unittest.TestCase):
         self.check_full_route(program(declaration, body), kind='assigned',
                               functions=('Pick',), runs=(((), b' 7\n 9\n 9\n', 0),))
 
+    def test_boolean_results_inout_and_nested_procedure_calls(self) -> None:
+        declaration = (
+            b'function Both(First:in Boolean;Second:in Boolean)return Boolean is '
+            b'begin return First and Second;end Both;'
+            b'procedure Flip(Enabled:in Boolean;Flag:in out Boolean)is begin '
+            b'if Enabled then Flag:=not Flag;else null;end if;end Flip;'
+            b'procedure Wrap(Enabled:in Boolean;Flag:in out Boolean)is begin '
+            b'Flip(Flag=>Flag,Enabled=>Enabled);end Wrap;'
+            b'B:Boolean:=False;R:Boolean:=False;')
+        observation = (b'if B then ' + output(b'"true"')
+                       + b'else ' + output(b'"false"') + b'end if;')
+        body = (b'R:=Both(Second=>True,First=>True);Wrap(Flag=>B,Enabled=>R);'
+                + observation
+                + b'R:=Both(True,Second=>False);Wrap(R,Flag=>B);' + observation
+                + b'Wrap(Flag=>B,Enabled=>True);' + observation)
+        self.check_full_route(program(declaration, body), kind='assigned',
+                              functions=('Both',), procedures={'Flip': (), 'Wrap': ()},
+                              runs=(((), b'true\ntrue\nfalse\n', 0),))
+
     def test_procedure_modes_retain_selected_formal_and_copyback(self) -> None:
         declaration = (
             b'subtype Digit is Integer range 0..9;'
