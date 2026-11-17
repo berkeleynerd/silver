@@ -1,5 +1,19 @@
 # Session memory
 
+## 2026-11-17 — Work on #397 and #398 authorized at the Worca gate
+
+The owner approved **“Authorize this work”** on a Worca approval card on 2026-11-17 at 23:26 UTC (Worca run `df60f2ef`). Under the
+[gate rule](planning.md#the-board), that approval is the authorization. It covers the work these issues describe, as
+they read at the time of approval:
+
+- [#397](https://github.com/berkeleynerd/silver/issues/397) review-07422ad claims-1: [low] Correct the named-parameters sample capability (text hash `dd806579911a1d7b`)
+- [#398](https://github.com/berkeleynerd/silver/issues/398) review-07422ad info-items: [info] Correct wording and range tests; defer repeated parsing (text hash `320a6753e41f88ef`)
+
+It authorizes nothing else: no merge, no amendment of a guarantee and no work on another issue. The existing
+validation, review and merge rules apply to the result. The Worca UI ran without sign-in, so the approval is
+not tied to an authenticated identity. This entry was written by the workflow's recording step; CLI memory
+was not updated.
+
 ## 2026-11-17 — Approval at a Worca gate authorizes work in the workflow chain
 
 While the Silver workflow chain on Worca was being built
