@@ -1,0 +1,27 @@
+{
+  "backing": "/home/agent/silver-workspaces/recovery-volume/rosetta-relocated-backing-392",
+  "copied_and_verified": true,
+  "destination": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/retained-source-checkouts-392/rosetta",
+  "entries": 36456,
+  "git": {
+    "head": "549a4d3c99d9b021ce2e38e724266df08443b06c",
+    "status": "?? tmp/rosetta-reconciliation/baseline-stages.json\n?? tmp/rosetta-reconciliation/changed-paths.txt\n?? tmp/rosetta-reconciliation/handoff.json\n?? tmp/rosetta-reconciliation/original-return-multiple-values.json\n?? tmp/rosetta-reconciliation/render-comparison.json\n?? tmp/rosetta-reconciliation/source-inputs.json"
+  },
+  "mount": "/home/agent/silver-workspaces/recovery-volume/rosetta none[/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/retained-source-checkouts-392/rosetta] virtiofs",
+  "mounted": true,
+  "original_path_preserved": true,
+  "post_mount_verified": true,
+  "reference_checks": {
+    "active_run_ids": [
+      "20261117T034048-8c22c1e6a33d",
+      "20261117T040626-c2b89a81f8a6"
+    ],
+    "no_mount_reference": true,
+    "no_root_tools_or_artifacts": true,
+    "process_references": []
+  },
+  "regular_bytes": 564807600,
+  "regular_files": 28955,
+  "source": "/home/agent/silver-workspaces/recovery-volume/rosetta",
+  "utc": "2026-11-17T05:41:22.434047+00:00"
+}

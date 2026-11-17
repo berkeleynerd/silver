@@ -135,3 +135,29 @@ sudo mount --bind \
 
 This was source-checkout storage relocation, not a tool installation move or
 new compiler/proof validation. The preserved copy remains outside Git staging.
+
+At 05:41:34 UTC the same procedure preserved the inactive source-only `rosetta`
+checkout at the sibling host-copy path `retained-source-checkouts-392/rosetta`.
+The remaining Lean-output assessment estimated about 0.5 GiB of further writes,
+so this relocation provided working headroom while retaining all active caches.
+The estimate is not an output-size bound or a proof result.
+
+All 36,456 entries, including 28,955 regular files (564,807,600 bytes), modes,
+owners, symlink targets, Git HEAD `549a4d3c99d9b021ce2e38e724266df08443b06c`
+and six untracked Rosetta-reconciliation files matched before and after copying,
+through the mounted original path, and before reclaiming the verified old
+backing. Live process, managed-lease and mount-reference checks found no user
+of the inactive checkout; it had no root `.silver` or `.tools`. Complete
+[verification records](retained-rosetta-relocation/relocation-result.json), the
+compressed inventory and the exact relocation script are retained. Native-volume
+free space then measured 2,521,255,936 bytes. Active validation and all donor
+caches were unchanged.
+
+Restore this additional runtime bind after a sandbox restart, before using
+the retained old Rosetta checkout:
+
+```sh
+sudo mount --bind \
+  /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/retained-source-checkouts-392/rosetta \
+  /home/agent/silver-workspaces/recovery-volume/rosetta
+```
