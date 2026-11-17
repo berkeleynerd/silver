@@ -946,20 +946,24 @@ def audit_source_policy(source: Path) -> None:
                  "check", "annotate", "warnings"}
     # Caller-local Hide_Info removes these expression bodies from the proof
     # context; it supplies no facts and leaves every obligation required.
+    hide_info_targets = {
+        "silver_library_reports.adb": (
+            "raw_list_spec", "list_spec", "initializer_message",
+            "raw_initializer_message", "procedure_output_message",
+            "raw_procedure_output_message", "termination_policy",
+            "initialization_policy", "initialization_index_model",
+            "raw_initialization_index", "diagnostic_message",
+            "raw_diagnostic_message", "output_message", "raw_output_message",
+            "formal_advisory_message", "raw_formal_advisory_message",
+            "object_policy", "raw_object_policy"),
+        "silver_output_profile.adb": ("function_association", "actual_model"),
+    }
     hide_info_forms = {
         ("pragma", "annotate", "(", "gnatprove", ",", "hide_info", ",",
          '"Expression_Function_Body"', ",", target, ")", ";")
-        for target in ("raw_list_spec", "list_spec", "initializer_message",
-                       "raw_initializer_message", "procedure_output_message",
-                       "raw_procedure_output_message", "termination_policy",
-                       "initialization_policy", "initialization_index_model",
-                       "raw_initialization_index", "diagnostic_message",
-                       "raw_diagnostic_message", "output_message", "raw_output_message",
-                       "formal_advisory_message", "raw_formal_advisory_message",
-                       "object_policy", "raw_object_policy")}
+        for target in hide_info_targets.get(source.name, ())}
     for index, (left, right) in enumerate(zip(tokens, tokens[1:])):
-        hide_info = (source.name == "silver_library_reports.adb"
-                     and tuple(tokens[index:index + 12]) in hide_info_forms)
+        hide_info = tuple(tokens[index:index + 12]) in hide_info_forms
         require(left != "pragma" or right not in forbidden or hide_info,
                 f"{source}: forbidden assumption/check-policy pragma {right}")
     for index, token in enumerate(tokens):
