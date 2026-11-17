@@ -1,0 +1,112 @@
+[
+  {
+    "run_id": "20261117T034048-8c22c1e6a33d",
+    "task": "named-392-complete-native",
+    "kind": "prove",
+    "scope": [
+      "compiler"
+    ],
+    "state": "success",
+    "active": false,
+    "workers": 4,
+    "directory": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261117T034048-8c22c1e6a33d",
+    "fingerprint": "34239b5706c8cecd67406f9f63840d5647c070cb95e7fbd06c9a9c4c908ee47b",
+    "command": [
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-native-392/.tools/linux-aarch64/alr/bin/alr",
+      "-s",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-native-392/.tools/linux-aarch64/alire/settings",
+      "-C",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-native-392/.silver/linux-aarch64/toolchain",
+      "-n",
+      "--no-tty",
+      "exec",
+      "--",
+      "gnatprove",
+      "-P",
+      "../../../silver.gpr",
+      "-U",
+      "--mode=all",
+      "--report=all",
+      "--warnings=error",
+      "--checks-as-errors=on",
+      "--level=2",
+      "--prover=cvc5,z3,altergo",
+      "--timeout=30",
+      "-j",
+      "4",
+      "--memcached-server=file:/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-native-392/.silver/linux-aarch64/proof-cache/gnatprove/0d29986b9858e9838780c6ec8496c6b4fd34d53a8f06c8cf36bd393fc8ef98f0",
+      "-f",
+      "-XSILVER_HOST=linux-aarch64"
+    ],
+    "reason": "All 26 whole-helper scopes and catalogue scopes passed and independent applicability review cleared final source; complete audit on f4ed7cd51 exact native inputs; four workers alongside guarded serial Lean candidate batch on 16GiB no-swap host; private canonical solver-cache overlay with no inherited reports or sessions; unchanged proof policy and 16MiB stack",
+    "worktree": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-native-392",
+    "resources": [
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-native-392/.silver/linux-aarch64/toolchain",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-native-392/.silver/linux-aarch64/compiler/obj",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-native-392/.silver/linux-aarch64/compiler/bin",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-native-392/.silver/linux-aarch64/proof-containers/obj",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-native-392/.silver/linux-aarch64/proof-cache/gnatprove"
+    ],
+    "started_at": "2026-11-17T03:40:48.788078+00:00",
+    "finished_at": "2026-11-17T05:53:49.792386+00:00",
+    "duration_seconds": 7981.004189556,
+    "returncode": null,
+    "error": null,
+    "failure_keys": [],
+    "evidence": [
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-native-392/.silver/linux-aarch64/compiler/obj/gnatprove",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261117T034048-8c22c1e6a33d/native.log",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-native-392/.silver/linux-aarch64/compiler/obj/gnatprove/proof-provenance.json",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261117T034048-8c22c1e6a33d/proof-evidence"
+    ],
+    "retained_report_count": 0
+  },
+  {
+    "run_id": "20261117T055412-08a00820e2ef",
+    "task": "named-392-complete-native-build",
+    "kind": "build",
+    "scope": [
+      "compiler"
+    ],
+    "state": "success",
+    "active": false,
+    "workers": 11,
+    "directory": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261117T055412-08a00820e2ef",
+    "fingerprint": "ef58511beabcb6f48c120fc27dba5ae42acf5831f534efba8e20fcd189cee4ba",
+    "command": [
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-native-392/.tools/linux-aarch64/alr/bin/alr",
+      "-s",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-native-392/.tools/linux-aarch64/alire/settings",
+      "-C",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-native-392/.silver/linux-aarch64/toolchain",
+      "-n",
+      "--no-tty",
+      "exec",
+      "--",
+      "gprbuild",
+      "-P",
+      "../../../silver.gpr",
+      "-p",
+      "-j11",
+      "-XSILVER_HOST=linux-aarch64"
+    ],
+    "reason": "Build after successful complete native audit on unchanged frozen source; automatic available workers reconsidered with only one paused guarded serial Lean reservation and ample host memory; 16MiB stack",
+    "worktree": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-native-392",
+    "resources": [
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-native-392/.silver/linux-aarch64/toolchain",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-native-392/.silver/linux-aarch64/compiler/obj",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-native-392/.silver/linux-aarch64/compiler/bin",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-native-392/.silver/linux-aarch64/proof-containers/obj"
+    ],
+    "started_at": "2026-11-17T05:54:12.158225+00:00",
+    "finished_at": "2026-11-17T05:54:13.375479+00:00",
+    "duration_seconds": 1.217194459,
+    "returncode": null,
+    "error": null,
+    "failure_keys": [],
+    "evidence": [
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261117T055412-08a00820e2ef/native.log"
+    ],
+    "retained_report_count": 0
+  }
+]

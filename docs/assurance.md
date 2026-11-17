@@ -184,8 +184,10 @@ flow. No argument can supply a refinement used to admit another argument.
 
 The focused semantic checks are retained in the
 [model packet](evidence/named-scalar-arguments-392-20261117/model/progress.md).
-The complete native and actual-source checkpoints for #392 remain pending;
-the abstract permutation argument does not replace source correspondence.
+The [complete native checkpoint](evidence/named-scalar-arguments-392-20261117/complete-native/README.md)
+passed with all 19,726 checks proved. The complete actual-source checkpoint for
+#392 remains pending; the abstract permutation argument does not replace source
+correspondence.
 
 ## Boolean scalar objects and expressions
 

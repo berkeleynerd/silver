@@ -175,8 +175,16 @@ records the native-filesystem Lean overlays and unchanged donor caches. Native
 behavior runs used a 16 MiB process stack. Native workers were reduced to four
 only while concurrent focused Lean checks used the remaining allocation; exclusive
 checks return to automatic allocation. Exact run records distinguish rebuilt
-units, retained dependencies and fresh declaration audits. Complete native,
-actual-source, whole-suite and final-review checkpoints remain pending.
+units, retained dependencies and fresh declaration audits. The
+[complete native packet](evidence/named-scalar-arguments-392-20261117/complete-native/README.md)
+records successful run `20261117T034048-8c22c1e6a33d`: 78 units, 1,252 entities,
+1,751 flow checks and 17,975 proof checks, with complete coverage and provenance
+accepted. It generated fresh reports and sessions with a seeded solver-cache
+overlay; actual cache hits are unobserved. The post-audit build
+`20261117T055412-08a00820e2ef` passed with both binaries up to date and an automatic
+11-worker reservation. Its 147 tracked native inputs match the combined source
+snapshot. Complete actual-source, whole-suite and final-review checkpoints remain
+pending.
 
 Selected source/native/semantic design settings are Astra Max; the bounded
 scope comparison used Astra Extra High. Lead runtime identity and whole-team

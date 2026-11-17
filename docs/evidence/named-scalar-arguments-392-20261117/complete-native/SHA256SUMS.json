@@ -1,0 +1,21 @@
+{
+  "README.md": "8e95a617f4b4fe74214bafea9c5d37844c079d664c4213e20af8c9df2047d7d0",
+  "audit-verification.json": "a0872522064a5c8141bc743aa18c23a60ffb1d9137a6303430d9248ddfc6e951",
+  "build-events.jsonl.gz": "739b04a4ce744dc4dd911561046cf6706d6d77b8f919b4f8e6e5732b3ed8e142",
+  "build-native.log.gz": "e699df7d47366b245324aaefcd334ec3c9361c49e97f4c0ab00e22e074b2c748",
+  "collect.py": "0f1da704b52b8089d34b69c314468e9bb3a1ca4c7508c666d87851c6f4bab3ee",
+  "finalize.py": "5595a037cd3b0a63c71b69eb225d7a1509ff58e423bfbe5c9306fd42eee95f20",
+  "initial-state.json": "5865ee331a650635847c78fe72454b166b544de0706235dc482686e52f0f0a2c",
+  "managed-runs.json": "877f1f5d7b80601f453774e0b7c89f12d2fcc435b9f70974b49274dedd8da141",
+  "monitor.py": "593a7bb95ff259b5d094ddc3be1a310ed1711b903fdee34084941ce8993eb4df",
+  "monitoring.jsonl.gz": "f71192d35ba0e2cbe96fb2a45035fa44d3fd1ba474e35489fbad212cdd357cfa",
+  "native-reports.tar.gz": "ca284df81a99fd0607b73b4eca65101822ab4c06e856e38423d5ec333ac4af77",
+  "original-terminal-exits.json": "a2c85dc8f6b48fe0cdcf91ae0d33e5fff4109b7b2e4f6b5ddb91635f3a102e02",
+  "progress.jsonl.gz": "9f0f84d22aab94f266c7ee4ac0d92f98fb0fae39bab465f087bc00f2709af2a6",
+  "progress.py": "c1ca7d47a2e584f64bf8246f79086fd9455d3a93941bd2f226e5c3e42aaebc25",
+  "proof-inputs.json": "eaf688fcd65e998352f002e4de06fa5a0b77e957934fac4321c3e23519d36144",
+  "proof-provenance.json": "52bdffd61861b9c9a30e0a10b06bc02d329532416570a7c9408787042aacd957",
+  "prove-events.jsonl.gz": "af35aff60471abcd0752dc9d9b03c389cc0061ac2774fa055deaebe02a333aeb",
+  "prove-native.log.gz": "6c085d0305e4ec5192a5bbc419a98e3f3a8193b28d4738668cb260da5e8b7445",
+  "tracked-inputs-at-commit.json": "acdad3cc0cef59954688f15b1c3d99b79ec5fca0ddeb662f17c01b4f001406f6"
+}

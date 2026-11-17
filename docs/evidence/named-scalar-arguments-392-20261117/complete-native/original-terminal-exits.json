@@ -1,0 +1,14 @@
+{
+  "prove": {
+    "session_id": 87037,
+    "exit_code": 0,
+    "source": "Lead collected original exec session and reported exit 0 to collector at 2026-11-17 05:53:49 UTC; the session is lead-local.",
+    "reported_stdout_summary": "Success: all checks proved (19726); Complete GNATprove evidence: 78 units, 1252 entities, 1751 flow_checks, 17975 proof_checks."
+  },
+  "build": {
+    "session_id": 53113,
+    "exit_code": 0,
+    "source": "Collector directly resumed original exec session with write_stdin and observed exit_code 0.",
+    "stdout_after_managed_run": "gprbuild: \"silver\" up to date\ngprbuild: \"silver_image_adapter\" up to date\n"
+  }
+}
