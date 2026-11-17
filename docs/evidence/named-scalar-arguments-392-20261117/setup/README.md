@@ -102,3 +102,36 @@ of these entries does not establish reuse or success, especially across source
 paths. The complete native run must regenerate/audit current reports and record
 its actual initial cache/session state. Exploratory runs continue in their
 separate `explore/named-392` directory and do not use this canonical cache.
+
+## Native-disk headroom during complete validation
+
+At 2026-11-17 04:35:46 UTC, the inactive source-only worktree
+`/home/agent/silver-workspaces/recovery-volume/regression-391` was copied to
+`/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/retained-source-checkouts-392/regression-391`.
+It had no `.silver` or `.tools` directory, no active managed lease, and no
+role as a cache donor. All 36,701 entries, including 29,179 regular files
+(593,338,882 bytes), modes and symlink targets were checked before and after
+copying. The original Git HEAD and both untracked full-route inventory files
+were preserved.
+
+A bind mount keeps the original worktree path and Git registration valid.
+The original backing directory was reclaimed only after verifying the mounted
+copy again and confirming unchanged Git state. The
+[verification records](retained-source-relocation/relocation-result.json)
+and compressed complete inventory are retained here. Native-volume free space
+then measured 2,549,444,608 bytes. Neither active proof workspace, the native
+canonical/exploratory caches, nor any immutable Lean/cache donor was changed.
+The complete native and Lean runs continued on their original inputs.
+
+The host-volume copy is persistent; this bind mount is runtime state. If a
+new sandbox has mounted the recovery volume but has not restored this binding,
+restore it before using that old worktree:
+
+```sh
+sudo mount --bind \
+  /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/retained-source-checkouts-392/regression-391 \
+  /home/agent/silver-workspaces/recovery-volume/regression-391
+```
+
+This was source-checkout storage relocation, not a tool installation move or
+new compiler/proof validation. The preserved copy remains outside Git staging.

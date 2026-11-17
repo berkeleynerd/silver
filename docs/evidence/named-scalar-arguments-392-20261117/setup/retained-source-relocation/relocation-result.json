@@ -1,0 +1,17 @@
+{
+  "source": "/home/agent/silver-workspaces/recovery-volume/regression-391",
+  "destination": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/retained-source-checkouts-392/regression-391",
+  "head": "f214cd0557436105a345de9511b33b997e1fbb9c",
+  "git_status": "?? tmp/full-route-391/after-inventory.json\n?? tmp/full-route-391/baseline-inventory.json\n",
+  "entries": 36701,
+  "regular_files": 29179,
+  "regular_bytes": 593338882,
+  "copied_and_verified": true,
+  "mounted": true,
+  "time_utc": "2026-11-17T04:35:46Z",
+  "original_path_preserved": true,
+  "post_mount_verified": true,
+  "mount": "/home/agent/silver-workspaces/recovery-volume/regression-391 none[/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/retained-source-checkouts-392/regression-391] virtiofs",
+  "verified_old_backing_removed": true,
+  "native_disk_free_bytes": 2549444608
+}
