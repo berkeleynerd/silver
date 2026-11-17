@@ -1,5 +1,23 @@
 # Session memory
 
+## 2026-11-17 — Approval at a Worca gate authorizes work in the workflow chain
+
+While the Silver workflow chain on Worca was being built
+([#396](https://github.com/berkeleynerd/silver/issues/396)), the owner required
+that every authorization be asked for in the Worca UI, with what must be read
+presented there, and decided: **“I agree that my approval at the Worca gate is
+the authorization.”** Asked whether the recording entry should land through a
+pull request or directly, the owner decided: **“I agree that the card should be
+the only step.”** The owner also stated that LAN sign-in for the Worca UI is
+not required at this point.
+
+[Planning](planning.md#the-board) now states the rule. For work that travels
+the chain, a gate approval authorizes the named issues as they read at approval;
+the workflow's recording step commits a dated entry here on `main` and comments
+on each issue. It authorizes nothing else, amends no guarantee, and leaves merge
+a separate decision. No work is authorized by this entry itself. CLI memory was
+not updated.
+
 ## 2026-11-17 — Named scalar arguments selected while Worca recovery awaits
 
 After authorizing the next-work handoff with **“Proceed”**, the owner reported
