@@ -87,18 +87,18 @@ history; it does not claim any current compiler result. The compact
 archive hash, member, original reviewer job/rule and matching fixture for each.
 No review archive or unrelated scratch directory is included in this evidence.
 
-## Validation and remaining work
+## Initial isolated validation
 
 On Linux ARM64, the fixture capture confirms the complete source/verdict match,
 all 88 compile plans, all formal-inventory consistency checks and all 196
 expected execution cases. Python byte-compilation and `git diff --check` pass.
 
-No compiler, prover, native build or real test job was started in this isolated
+No compiler, prover, native build or real test job was started in the initial isolated
 worktree: it has no bootstrapped tools, and the lead reserved repaired-compiler
-validation for integration. The integrated focused tests and the owner's
-required single complete final-suite invocation remain to be run and recorded
-by the lead against the repaired head. This inventory must not be cited as
-successful toolchain evidence.
+validation for integration. At that handoff, the integrated checks and the
+owner's single complete final-suite invocation were still pending. The static
+inventory alone is not successful toolchain evidence; the subsequent actual
+execution is recorded below.
 
 Reproduce the inventory without invoking a toolchain:
 
@@ -107,3 +107,22 @@ python3 docs/evidence/advisory-policy-391-20261116/full-route/inventory.py
 python3 -m py_compile tests/test_shared_bindings.py tests/test_scalar_functions.py tests/test_scalar_procedures.py
 git diff --check
 ```
+
+## Single complete suite — passed, 2026-11-17
+
+The [complete suite packet](../suite/README.md) records run
+`20261117T002818-40d684ec306c` at repaired head
+`e8921bd091a4b0552de45d8205277008c236ba7a`, with unchanged implementation
+`d60bd8a899fcc66e5ef40112423b7f94b2e4becc`. All 33 methods covering these
+88 original fixtures passed, including every one of the 18 previously refused
+fixtures. All 196 planned execution cases therefore completed with their exact
+output/status assertions. The complete suite ran all 699 expected IDs in one
+invocation: 697 passes and two expected Linux-x86-64-only skips.
+
+The managed child exited 0. A separate post-run collector normalized nine
+imported IDs incorrectly and exited 1; its original code and failure are
+retained. Independent exact-ID reconciliation of the original log establishes
+complete coverage without another test invocation or changed assertion.
+All frozen source/test/fixture hashes and compiler binaries remained unchanged.
+This was fresh Linux ARM64 execution using retained build/prover caches and the
+documented 16 MiB stack, not a cold build or native macOS validation.

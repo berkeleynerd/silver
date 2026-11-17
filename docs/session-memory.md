@@ -1,5 +1,22 @@
 # Session memory
 
+## 2026-11-17 — External-review repair validated; stop for the external check
+
+The owner-authorized [#391 repair](https://github.com/berkeleynerd/silver/issues/391)
+has completed the focused gates, complete native and Lean refreshes, and one
+complete suite invocation on frozen repaired inputs. The
+[repair packet](evidence/advisory-policy-391-20261116/README.md) and
+[closing review](reviews/review-advisory-policy-391-20261117.md) retain exact
+implementation/evidence identities, cached and fresh scope, failures and their
+dispositions, including the post-run collector-ID defect resolved from the
+original complete test log. This does not introduce a new authorization.
+
+Publish through the existing PR #371 branch with `Fixes #391`, then stop for the
+owner's required external check of that exact head. Do not merge, request kernel
+replay or CI, or start #373. Preserve the untracked external-review material and
+other worktrees. Issue #391 records status; project-board access lacks
+`read:project`. CLI memory was not updated.
+
 ## 2026-11-16 — External review repair of PR #371 authorized
 
 The owner explicitly authorized repairing blocker [#391](https://github.com/berkeleynerd/silver/issues/391)

@@ -39,12 +39,14 @@ affected Rosetta tests rerun after resolving the session-history conflict.
 
 ## Near-term feature queue
 
-**Current delivery, 2026-11-16.** The owner authorized the bounded external-review
+**Current delivery, validated 2026-11-17.** The owner authorized the bounded external-review
 repair [#391](https://github.com/berkeleynerd/silver/issues/391) on PR #371:
 two precisely bound flow advisories, full-route subprogram fixtures, five token
-lemmas and record corrections. Focused checks precede refreshed complete native,
-Lean and single-run suite validation. Stop after publication for the required
-external check; do not merge or start the successor package.
+lemmas and record corrections. Focused checks, complete native and Lean refreshes,
+and the single complete suite passed on Linux ARM64; the
+[repair packet](docs/evidence/advisory-policy-391-20261116/README.md) records actual
+cached/fresh scope and independent acceptance. Stop after publication for the
+required external check; do not merge or start the successor package.
 
 **Retained delivery, 2026-11-15.** Small nonrecursive scalar procedures
 [#370](https://github.com/berkeleynerd/silver/issues/370) and the
@@ -133,8 +135,8 @@ and deferred capacity work retain their scope.
 ### Small nonrecursive scalar procedures
 
 The owner-selected #370 / #29 package has retained Linux ARM64 delivery validation;
-the November 16 external review's #391 blocker is under authorized repair before
-another external check and merge. It includes #372's catalogue repair, #375's handwritten
+the November 16 external review's #391 repair now has complete local validation
+and awaits another external check before merge. It includes #372's catalogue repair, #375's handwritten
 source-token correspondence and #390's qualified-validity alias correction.
 The [delivery account](docs/scalar-procedures.md#delivery-assurance-and-validation)
 connects the complete native/Lean checkpoints, the failed original regression

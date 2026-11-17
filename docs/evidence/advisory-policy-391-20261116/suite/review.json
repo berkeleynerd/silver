@@ -1,0 +1,28 @@
+{
+  "status": "accepted",
+  "reviewer": "/root/review_391",
+  "recorded_at_utc": "2026-11-17T00:54:55.480885+00:00",
+  "scope": "Independent completeness review of the one original full-suite invocation and retained evidence",
+  "findings": [],
+  "verified": {
+    "original_log_exact_unique_ids": 699,
+    "outcome_per_id": 1,
+    "passed": 697,
+    "documented_linux_x86_64_only_skips": 2,
+    "meaningful_prefixed_ids_preserved": 9,
+    "single_managed_test_phase_exit": 0,
+    "outer_collector_only_exit": 1,
+    "all_frozen_native_and_binary_hashes_match": true,
+    "full_route_fixture_and_sample_coverage": "passed",
+    "archive_sha256": "6a8c8b22700550ab49f91ebcf7b527fc93f598a77e0827538d03525191dd8566",
+    "archive_members_matched_to_retained_originals": 169
+  },
+  "disposition": "Single-run suite completeness accepted. No further test or proof run required for this review.",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Max",
+  "runtime_identity_confirmed": false,
+  "measured_review_phase_seconds": 246,
+  "recorded_review_portions_total_seconds": 1013,
+  "other_elapsed_token_and_monetary_cost": "Unavailable",
+  "complete_review_record": "../../../reviews/review-advisory-policy-391-20261117.md"
+}

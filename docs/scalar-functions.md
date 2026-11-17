@@ -375,10 +375,14 @@ to procedure `in out` formals. Existing accepted diagnostics and all required
 checks are preserved. This does not narrow the language or change the binding
 packages embedded in Lean.
 
-The [repair packet](evidence/advisory-policy-391-20261116/README.md) tracks exact
+The [repair packet](evidence/advisory-policy-391-20261116/README.md) records exact
 mutation/additivity checks, full-route/output twins for the 24 positive
 admission-only function fixtures (alongside 64 procedure fixtures), the capacity
-update and refreshed native/Lean/suite checkpoints. The current combined
+update and successful complete native/Lean checkpoints and single full-suite
+invocation on Linux ARM64. All 24 function twins and 64 procedure twins pass.
+The [closing review](reviews/review-advisory-policy-391-20261117.md) records exact
+evidence scope and the collector-ID failure resolved from the original suite log.
+The current combined
 49,279,744-byte envelope fits the existing 64 MiB allocation. The earlier
 delivery results below remain historical; they do not validate the changed
 auditor inputs. The repaired head requires the owner's external check before

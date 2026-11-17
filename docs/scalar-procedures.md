@@ -12,7 +12,7 @@ bounded language package under the broader
 The small [#29 Rosetta refresh repair](https://github.com/berkeleynerd/silver/issues/29)
 accompanies its delivery with separate focused Python checks.
 
-**November 15 delivery validated on Linux ARM64; #391 repair in progress.**
+**Delivery and #391 repair validated on Linux ARM64; external check pending.**
 The November 16 external review found admitted formal-use shapes rejected after
 successful proof. The owner authorized the additive report-policy repair below;
 the earlier checkpoints remain evidence for their exact historical inputs.
@@ -41,10 +41,13 @@ mutation tests, full-route/output twins for all 88 positive admission-only
 subprogram fixtures, additive verdict controls, capacity derivation, five
 token-table lemmas and bounded record corrections. The 64 MiB allocation is
 unchanged; the current producer envelope is 49,279,744 bytes. Focused checks
-precede refreshed complete native and Lean checkpoints and a single complete
-suite run on the repaired inputs. Those final repair checks are pending here;
-the November 15 results below do not validate changed inputs. Publication stops
-for an external check of the repaired head before merge.
+preceded successful complete native and Lean refreshes, followed by one complete
+suite invocation on the frozen repaired inputs: 697 passes and two expected
+platform skips. All 88 full-route twins and 85 samples passed. The packet records
+cached proof scope, the fresh full suite, and the separate collector-ID failure
+resolved from the original log. The [closing review](reviews/review-advisory-policy-391-20261117.md)
+records independent acceptance. The November 15 results below remain historical;
+publication stops for an external check of the repaired head before merge.
 
 ### Retained delivery checkpoint — 2026-11-15
 
