@@ -1,5 +1,32 @@
 # Session memory
 
+## 2026-11-17 — Named scalar implementation checkpoint
+
+The owner-selected #392 scope is unchanged. The
+[capability record](named-scalar-arguments.md#work-record) links focused semantic,
+source-helper, behavior and independent review evidence. The named sample has
+completed proof/build/output checks; the feature still awaits complete native,
+actual-source and whole-suite validation. Independent reviews found and repaired
+a draft catalogue-export omission and added Boolean/procedure-body regression
+coverage; final execution of those additions remains pending.
+
+A native recurrence proof required a shared checked visited-set mark operation
+because separately translated array updates lacked the map identity needed by
+recursive-function congruence. The
+[independent diagnosis](reviews/review-named-native-recurrence-20261117.md)
+records the evidence and bounded repair. Its complete helper and recurrence
+checks passed under the unchanged policy. The unsuccessful annotation experiment
+was removed rather than expanding the source-policy allowance. This routine
+repair changes no owner scope, language domain, Oracle guarantee or proof budget.
+
+Retained worktrees, donor tools and caches remain preserved. Private native/Lean
+overlays isolate new writes. The final dense Lean run will use one Lake worker
+with default process threads because the current changed dependency graph can
+otherwise overlap the two previously measured dense certificates on this no-swap
+16 GiB host; this is a run-specific resource decision, not a new default.
+The issue holds live progress; #373 and PR #385 remain deferred/held. CLI memory
+was not updated. No #392 merge is authorized by this checkpoint.
+
 ## 2026-11-17 — Named scalar arguments selected while Worca recovery awaits
 
 After authorizing the next-work handoff with **“Proceed”**, the owner reported

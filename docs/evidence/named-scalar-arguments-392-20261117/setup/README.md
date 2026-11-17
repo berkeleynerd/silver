@@ -89,3 +89,16 @@ Reversed values:-2
 The sample manifest records those exact bytes, empty stderr and exit status zero.
 Full-route compilation/execution remains required before claiming the sample
 validated or promoting its Rosetta mapping.
+
+## Final native cache preparation
+
+The matching Alire lock permits retaining the prior canonical solver cache as
+an immutable overlay lower layer. A task-private writable upper/work pair is
+mounted at the new native worktree's expected canonical cache path; exact paths
+and the matching lock digest are in [native-cache.json](native-cache.json).
+The old integration worktree and its cache are untouched. No native report or
+session was copied. GNATprove determines cache matching and validity; presence
+of these entries does not establish reuse or success, especially across source
+paths. The complete native run must regenerate/audit current reports and record
+its actual initial cache/session state. Exploratory runs continue in their
+separate `explore/named-392` directory and do not use this canonical cache.
