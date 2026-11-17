@@ -12,7 +12,7 @@ bounded language package under the broader
 The small [#29 Rosetta refresh repair](https://github.com/berkeleynerd/silver/issues/29)
 accompanies its delivery with separate focused Python checks.
 
-**Delivery and #391 repair validated on Linux ARM64; external check pending.**
+**Delivery and #391 repair validated on Linux ARM64 and merged, 2026-11-17.**
 The November 16 external review found admitted formal-use shapes rejected after
 successful proof. The owner authorized the additive report-policy repair below;
 the earlier checkpoints remain evidence for their exact historical inputs.
@@ -21,6 +21,18 @@ proof checks, fresh repair results and independently accepted retained results.
 No broader procedures, Oracle amendment or deferred #119 research is included.
 
 ## Delivery assurance and validation
+
+### Merge closeout — 2026-11-17
+
+The owner's [merge instruction](session-memory.md#2026-11-17--scalar-procedures-merged-next-work-assessment)
+superseded the earlier hold. [PR #371](https://github.com/berkeleynerd/silver/pull/371)
+merged as `50b6e2a5429290bc9a844dcd96e3dd60e27eafa7` from validated head
+`45bebb50d74b534b6a24deccdccb793f3e77bbb8`. The complete trees match, so the
+recorded validation remains applicable without reruns. No new external-review
+result is claimed. All six milestone-23 issues and the milestone are closed;
+broad stage #11 remains open at Stage 2. The next package is proof iteration
+efficiency #373, beginning with the existing Worca work's
+[handoff and review](proof-iteration-efficiency.md#current-handoff--2026-11-17).
 
 ### External review repair — 2026-11-16
 
@@ -46,8 +58,9 @@ suite invocation on the frozen repaired inputs: 697 passes and two expected
 platform skips. All 88 full-route twins and 85 samples passed. The packet records
 cached proof scope, the fresh full suite, and the separate collector-ID failure
 resolved from the original log. The [closing review](reviews/review-advisory-policy-391-20261117.md)
-records independent acceptance. The November 15 results below remain historical;
-publication stops for an external check of the repaired head before merge.
+records independent acceptance. The November 15 results below remain historical.
+Publication initially stopped for the external check; the subsequent owner
+instruction and merge are recorded above.
 
 ### Retained delivery checkpoint — 2026-11-15
 

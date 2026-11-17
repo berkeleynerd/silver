@@ -39,21 +39,24 @@ affected Rosetta tests rerun after resolving the session-history conflict.
 
 ## Near-term feature queue
 
-**Current delivery, validated 2026-11-17.** The owner authorized the bounded external-review
+**Current delivery, merged 2026-11-17.** The owner authorized the bounded external-review
 repair [#391](https://github.com/berkeleynerd/silver/issues/391) on PR #371:
 two precisely bound flow advisories, full-route subprogram fixtures, five token
 lemmas and record corrections. Focused checks, complete native and Lean refreshes,
 and the single complete suite passed on Linux ARM64; the
 [repair packet](docs/evidence/advisory-policy-391-20261116/README.md) records actual
-cached/fresh scope and independent acceptance. Stop after publication for the
-required external check; do not merge or start the successor package.
+cached/fresh scope and independent acceptance. The owner's
+[subsequent merge instruction](docs/session-memory.md#2026-11-17--scalar-procedures-merged-next-work-assessment)
+superseded the merge hold. PR #371 merged as `50b6e2a542`; its tree equals
+validated head `45bebb50d7`. All six milestone-23 issues and the milestone are
+closed. No new external-review result is claimed.
 
 **Retained delivery, 2026-11-15.** Small nonrecursive scalar procedures
 [#370](https://github.com/berkeleynerd/silver/issues/370) and the
 [#29](https://github.com/berkeleynerd/silver/issues/29) companion have complete
 Linux ARM64 validation in [PR #371](https://github.com/berkeleynerd/silver/pull/371),
 milestone 23. The [delivery account](docs/scalar-procedures.md#delivery-assurance-and-validation)
-records accepted proof, regression and final delivery evidence. PR publication does not authorize merge.
+records accepted proof, regression and final delivery evidence.
 The owner has selected **proof iteration efficiency** as the next unit:
 [#373](https://github.com/berkeleynerd/silver/issues/373), in
 [milestone 24](https://github.com/berkeleynerd/silver/milestone/24).
@@ -62,7 +65,14 @@ implementation package covering consistent focused/final compiler policy,
 resource exceptions, recurring-failure identity, short feedback, proof strategy
 and scheduling, tests and complete applicable validation. All selected items
 must be implemented and validated before closeout; planning is not completion.
-Implementation starts after the current delivery, preserving its productive runs.
+The existing eight increments #377–#384 retain one shared final checkpoint.
+The immediate next step is handoff, review and integration of Worca's existing
+#377 implementation, then reconciliation of its overlapping #378 implementation.
+Those local-only branches are not present in this checkout; preserve their
+ownership and obtain their evidence before review. #379 is the first unstarted
+coding increment. The [handoff record](docs/proof-iteration-efficiency.md#current-handoff--2026-11-17)
+links the recorded status; draft PR #385 remains held. This assessment starts no
+successor implementation.
 This queue takes precedence over older next-work statements below. No intervening
 language expansion or successor sample batch is selected; completed predecessor
 issues #8, #246 and #39 remain closed. The canonical compiler policy and useful
@@ -134,9 +144,10 @@ and deferred capacity work retain their scope.
 
 ### Small nonrecursive scalar procedures
 
-The owner-selected #370 / #29 package has retained Linux ARM64 delivery validation;
-the November 16 external review's #391 repair now has complete local validation
-and awaits another external check before merge. It includes #372's catalogue repair, #375's handwritten
+The owner-selected #370 / #29 package and the November 16 external review's
+#391 repair have complete local Linux ARM64 validation and merged through
+PR #371 on November 17. Milestone 23 is complete. The delivery includes
+#372's catalogue repair, #375's handwritten
 source-token correspondence and #390's qualified-validity alias correction.
 The [delivery account](docs/scalar-procedures.md#delivery-assurance-and-validation)
 connects the complete native/Lean checkpoints, the failed original regression
@@ -147,8 +158,8 @@ The precise `scalar-procedures` fragment adds one faithful Rosetta mapping,
 **Return multiple values**, taking supported mappings from 83 to 84. Broad
 [#11](https://github.com/berkeleynerd/silver/issues/11) stays open at Stage 2
 for its remaining procedure/ranged-subtype/Image forms. No successor language
-feature is selected. Proof iteration efficiency #373 is next after this delivery
-and has not started; the separate milestone-24 worca streams remain preserved.
+feature is selected. Proof iteration efficiency #373 is next; the existing
+milestone-24 Worca implementations need handoff and integration as described above.
 
 ### Small nonrecursive scalar functions
 

@@ -10,12 +10,12 @@ records the authorization. [#373](https://github.com/berkeleynerd/silver/issues/
 in [milestone 24](https://github.com/berkeleynerd/silver/milestone/24), owns one
 coherent tooling and proof-workflow package with one shared final checkpoint.
 
-Complete scalar procedures [#370](https://github.com/berkeleynerd/silver/issues/370)
-and its [#29](https://github.com/berkeleynerd/silver/issues/29) companion in
-[PR #371](https://github.com/berkeleynerd/silver/pull/371) first. Preserve productive
-runs and their evidence; successor implementation does not start during that
-delivery. No intervening language expansion is selected. Successor implementation
-and validation remain pending.
+Scalar procedures [#370](https://github.com/berkeleynerd/silver/issues/370)
+and its [#29](https://github.com/berkeleynerd/silver/issues/29) companion merged in
+[PR #371](https://github.com/berkeleynerd/silver/pull/371) on 2026-11-17.
+Preserve their evidence and the separately authorized Worca implementations
+below. No intervening language expansion is selected. Current-main integration
+and complete successor validation remain pending.
 
 Closed [#8](https://github.com/berkeleynerd/silver/issues/8),
 [#246](https://github.com/berkeleynerd/silver/issues/246) and
@@ -24,6 +24,29 @@ not reopened work. Build on the existing [iteration controls](proof-iteration.md
 [development policy](../development.md#proof-loop-and-validation) and managed
 `dev.py` / `check_lean.py` runners. Use their task records, caches and reservations;
 no generic scheduler, telemetry service or proof-identity framework is selected.
+
+## Current handoff — 2026-11-17
+
+The existing eight increments #377–#384 retain one shared final checkpoint in
+#384. [#377's issue record](https://github.com/berkeleynerd/silver/issues/377#issuecomment-6821158029)
+reports Worca's local implementation at `5e91e71be5`, with focused tests passed
+and review/integration outstanding. [#378's record](https://github.com/berkeleynerd/silver/issues/378#issuecomment-6834054115)
+reports local implementation `f4b7a9e75c`, focused successes and a remaining
+selector-family recurrence gap. Both branches are absent from this checkout and
+the current GitHub branch list; obtain their exact commits and evidence before
+review. Integrate serially because their runner and test changes overlap.
+
+[#379](https://github.com/berkeleynerd/silver/issues/379) is the first unstarted
+coding increment: establish the canonical focused/full compiler policy and
+experimental-result classification. Start from the delivered #371 policy and
+evidence; its native recovery retained the canonical 30-second policy. The
+historical mismatch below does not by itself justify larger budgets.
+
+The owner's current request authorizes this assessment, without taking over
+the Worca streams or lifting the explicit hold on draft
+[PR #385](https://github.com/berkeleynerd/silver/pull/385). No successor code is
+changed in this closeout. All milestone-24 issues remain open. Board access lacks
+`read:project`; issue-recorded status is not independently verified board status.
 
 ## Problem and decisions to settle
 

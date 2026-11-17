@@ -1,5 +1,38 @@
 # Session memory
 
+## 2026-11-17 — Scalar procedures merged; next-work assessment
+
+The owner instructed **“Let's merge and then determine what is the next unit
+of work we should undertake.”** This supersedes the earlier PR #371 merge hold
+and authorizes merge, ordinary closeout and successor assessment. No new
+external-review result was observed or is claimed.
+
+[PR #371](https://github.com/berkeleynerd/silver/pull/371) merged at
+`50b6e2a5429290bc9a844dcd96e3dd60e27eafa7`, from validated head
+`45bebb50d74b534b6a24deccdccb793f3e77bbb8`, on 2026-11-17 at 01:03:20 UTC.
+The merge tree equals that head exactly. Existing local Linux ARM64
+[validation](evidence/advisory-policy-391-20261116/README.md) remains applicable;
+no proof, build or test rerun was needed for the merge. The six issues #370,
+#29, #372, #375, #390 and #391 are closed, and milestone 23 is closed. Broad
+stage #11 remains open. Project-board access still lacks `read:project`, so
+current board status is not independently verified.
+
+The next package remains [#373](https://github.com/berkeleynerd/silver/issues/373),
+proof iteration efficiency. The immediate recommendation is to obtain and
+review/integrate the existing Worca #377 branch, then reconcile the overlapping
+#378 branch; #379 is the first unstarted coding increment. Their issue records
+report local-only implementations, absent from this checkout and the current
+GitHub branch list. That does not establish that the work is lost. Preserve
+Worca ownership and the explicit hold on draft PR #385; this assessment starts
+no successor implementation and does not take over those streams. The
+[current plan](proof-iteration-efficiency.md#current-handoff--2026-11-17) links
+the handoff records. No intervening language expansion is selected.
+
+The main checkout was fast-forwarded on host `silver-m4pro` (Linux aarch64).
+Untracked review material, other worktrees and caches are preserved. Closeout
+documentation receives link, consistency and whitespace checks only. CLI memory
+was not updated.
+
 ## 2026-11-17 — External-review repair validated; stop for the external check
 
 The owner-authorized [#391 repair](https://github.com/berkeleynerd/silver/issues/391)
