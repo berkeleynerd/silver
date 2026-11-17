@@ -180,5 +180,32 @@
     "workers": 8,
     "duration_seconds": 6.075883253,
     "failure_keys": []
+  },
+  {
+    "run_id": "20261117T023312-8d900ef779b7",
+    "state": "failure",
+    "scope": [
+      "Silver.PredicateAssociationBounds",
+      "Silver.PredicateFunctionCallReadings",
+      "Silver.PredicateProcedureCallReadings"
+    ],
+    "workers": 12,
+    "duration_seconds": 14.338000715,
+    "failure_keys": [
+      "lean:build:Silver/PredicateAssociationBounds.lean:53:6:omega could not prove the goal:",
+      "lean:build:Silver/PredicateAssociationBounds.lean:73:6:omega could not prove the goal:"
+    ]
+  },
+  {
+    "run_id": "20261117T023346-8dfb9c9cfe64",
+    "state": "success",
+    "scope": [
+      "Silver.PredicateAssociationBounds",
+      "Silver.PredicateFunctionCallReadings",
+      "Silver.PredicateProcedureCallReadings"
+    ],
+    "workers": 12,
+    "duration_seconds": 7.002851878,
+    "failure_keys": []
   }
 ]

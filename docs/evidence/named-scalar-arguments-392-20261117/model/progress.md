@@ -56,3 +56,10 @@ were 8 Lake workers and 12 process threads alongside the native 4-worker run.
 The explicit `ite_eq_left`/`ite_eq_right` proof rewrites resolved the source
 branch simplifier issue. See `association-helpers-evidence.json`, the retained
 log and `runs.json` for exact input hashes, failed attempts and timings.
+
+Call readings success: `20261117T023346-8dfb9c9cfe64` passed cursor bounds, function
+and procedure source traces, soundness, uniqueness, complete selections and
+canonical readings, together with both executable admission models and count
+properties. Automatic12 workers/12 threads; fresh audit11,170 declarations.
+The first attempt compiled all admissions/properties and needed only explicit
+record-projection reduction in two cursor-order proofs.

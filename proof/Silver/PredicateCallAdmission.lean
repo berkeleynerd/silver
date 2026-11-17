@@ -2,6 +2,7 @@ module
 
 public import Silver.PredicateConditionAdmission
 public import Silver.FunctionBindings
+public import Silver.PredicateAssociationAdmission
 
 @[expose] public section
 
@@ -41,21 +42,38 @@ theorem actualAfter_zero (text : Source) (context : ParseContext)
       · simp [ScalarExpression.parseArraysFuel, ScalarExpression.skip, ScalarExpression.summarizeArrays]
     simp [scalar, ScalarExpression.invalid]
 
+def functionActualsTailModel (text : Source) (context : ParseContext) (position : Nat)
+    (facts : ActiveFlow) (catalog : FunctionBindings.Metadata) (first last ordinal : Nat)
+    (named : Bool) (seen : FormalSet) : Nat :=
+  let association := functionAssociation text position catalog first last ordinal named
+  if association.formal = 0 ∨ seen association.formal then 0
+  else
+    let after := actualAfter text context association.payloadFirst facts
+      (FunctionBindings.parameter catalog association.formal)
+    if after = 0 then 0
+    else if ordinal = last then fixedAfter text after ")" false
+    else if fixedAfter text after "," false = 0 then 0
+    else if _within : ordinal < last then
+      functionActualsTailModel text context (fixedAfter text after "," false) facts catalog
+        first last (ordinal + 1) association.named (markFormal seen association.formal)
+    else 0
+termination_by last - ordinal
+
 def actualsAfter (text : Source) (context : ParseContext) (position : Nat)
     (facts : ActiveFlow) (catalog : FunctionBindings.Metadata) (first last : Nat) : Nat :=
-  let after := actualAfter text context position facts (FunctionBindings.parameter catalog first)
-  if after = 0 then 0
-  else if first = last then fixedAfter text after ")" false
-  else if _within : first < last then
-    actualsAfter text context (fixedAfter text after "," false) facts catalog (first + 1) last
-  else 0
-termination_by last - first
+  functionActualsTailModel text context position facts catalog first last first false noFormals
+
+theorem functionActualsTailModel_zero (text : Source) (context : ParseContext)
+    (facts : ActiveFlow) (catalog : FunctionBindings.Metadata) (first last ordinal : Nat)
+    (named : Bool) (seen : FormalSet) :
+    functionActualsTailModel text context 0 facts catalog first last ordinal named seen = 0 := by
+  rw [functionActualsTailModel, functionAssociation_zero]
+  rfl
 
 theorem actualsAfter_zero (text : Source) (context : ParseContext)
     (facts : ActiveFlow) (catalog : FunctionBindings.Metadata) (first last : Nat) :
-    actualsAfter text context 0 facts catalog first last = 0 := by
-  rw [actualsAfter, actualAfter_zero]
-  rfl
+    actualsAfter text context 0 facts catalog first last = 0 :=
+  functionActualsTailModel_zero ..
 
 def calleeAt (text : Source) (context : ParseContext) (position : Nat)
     (catalog : FunctionBindings.Metadata) : Nat :=

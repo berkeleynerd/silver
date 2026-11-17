@@ -5,7 +5,7 @@ public import Silver.ProcedureNameScanner
 
 @[expose] public section
 
-/-! Positional procedure-call admission makes two passes over the actuals.
+/-! Procedure-call admission makes two passes over the source associations.
 Every input read uses the original flow, while the second pass accumulates
 declared output ranges only after the lexical alias checks succeed. -/
 namespace Silver.Predicate
@@ -45,27 +45,64 @@ def procedureActualAfter (text : Source) (context : ParseContext) (position : Na
     actualAfter text context position facts ⟨parameter.first, parameter.after, parameter.kind, parameter.bounds⟩
   else (procedureTargetActual text context position facts parameter).after
 
+def procedureActualsTailModel (text : Source) (context : ParseContext) (position : Nat)
+    (facts : ActiveFlow) (catalog : ProcedureBindings.Metadata) (first last ordinal : Nat)
+    (named : Bool) (seen : FormalSet) : Nat :=
+  let association := procedureAssociation text position catalog first last ordinal named
+  if association.formal = 0 ∨ seen association.formal then 0
+  else
+    let after := procedureActualAfter text context association.payloadFirst facts
+      (ProcedureBindings.parameter catalog association.formal)
+    if after = 0 then 0
+    else if ordinal = last then fixedAfter text after ")" false
+    else if fixedAfter text after "," false = 0 then 0
+    else if _within : ordinal < last then
+      procedureActualsTailModel text context (fixedAfter text after "," false) facts catalog
+        first last (ordinal + 1) association.named (markFormal seen association.formal)
+    else 0
+termination_by last - ordinal
+
 def procedureActualsAfter (text : Source) (context : ParseContext) (position : Nat)
     (facts : ActiveFlow) (catalog : ProcedureBindings.Metadata) (first last : Nat) : Nat :=
-  let after := procedureActualAfter text context position facts (ProcedureBindings.parameter catalog first)
-  if after = 0 then 0
-  else if first = last then fixedAfter text after ")" false
-  else if fixedAfter text after "," false = 0 then 0
-  else if _within : first < last then
-    procedureActualsAfter text context (fixedAfter text after "," false) facts catalog (first + 1) last
-  else 0
-termination_by last - first
+  procedureActualsTailModel text context position facts catalog first last first false noFormals
+
+/-- Replay the same associations, skipping selector labels. Only the exact
+writable actual's own payload span is exempt from the lexical exclusion check. -/
+def procedurePayloadsFreeModel (text : Source) (context : ParseContext) (position : Nat)
+    (incoming : ActiveFlow) (catalog : ProcedureBindings.Metadata) (first last ordinal : Nat)
+    (named : Bool) (callAfter targetFirst targetAfter : Nat) : Bool :=
+  let association := procedureAssociation text position catalog first last ordinal named
+  if callAfter = 0 ∨ association.formal = 0 then false
+  else
+    let after := procedureActualAfter text context association.payloadFirst incoming
+      (ProcedureBindings.parameter catalog association.formal)
+    if after = 0 then false
+    else if !((skipAt text association.payloadFirst == targetFirst && after == targetAfter) ||
+        actualNameFree text association.payloadFirst after targetFirst targetAfter) then false
+    else if ordinal = last then fixedAfter text after ")" false == callAfter
+    else if fixedAfter text after "," false = 0 then false
+    else if _within : ordinal < last then
+      procedurePayloadsFreeModel text context (fixedAfter text after "," false) incoming catalog
+        first last (ordinal + 1) association.named callAfter targetFirst targetAfter
+    else false
+termination_by last - ordinal
+
+def procedurePayloadsFree (text : Source) (context : ParseContext) (position : Nat)
+    (incoming : ActiveFlow) (catalog : ProcedureBindings.Metadata) (first last : Nat)
+    (callAfter targetFirst targetAfter : Nat) : Bool :=
+  procedurePayloadsFreeModel text context position incoming catalog first last first false
+    callAfter targetFirst targetAfter
 
 def procedureUpdateStep (text : Source) (context : ParseContext) (incoming : ActiveFlow) (scan : BodyScan)
-    (parameter : ProcedureBindings.Formal) (callFirst callAfter : Nat) : BodyScan :=
+    (parameter : ProcedureBindings.Formal) (catalog : ProcedureBindings.Metadata)
+    (first last callFirst callAfter : Nat) : BodyScan :=
   if parameter.mode = .input then
     let after := procedureActualAfter text context scan.position incoming parameter
     if after ≤ scan.position then invalidBody scan else {scan with position := after}
   else
     let target := procedureTargetActual text context scan.position incoming parameter
     if target.after = 0 ∨ target.first < callFirst ∨ target.after > callAfter ∨
-        !actualNameFree text callFirst target.first target.first target.after ∨
-        !actualNameFree text target.after callAfter target.first target.after
+        !procedurePayloadsFree text context callFirst incoming catalog first last callAfter target.first target.after
       then invalidBody scan
     else if target.scalar = 0 then {scan with position := target.after, assigned := true}
     else {scan with
@@ -73,18 +110,28 @@ def procedureUpdateStep (text : Source) (context : ParseContext) (incoming : Act
       assigned := true
       facts := scan.facts.replace target.scalar parameter.bounds}
 
+def procedureUpdatesTailModel (text : Source) (context : ParseContext) (incoming : ActiveFlow) (scan : BodyScan)
+    (catalog : ProcedureBindings.Metadata) (first last ordinal : Nat) (named : Bool) (seen : FormalSet)
+    (callFirst callAfter : Nat) : BodyScan :=
+  let association := procedureAssociation text scan.position catalog first last ordinal named
+  if association.formal = 0 ∨ seen association.formal then invalidBody scan
+  else
+    let next := procedureUpdateStep text context incoming {scan with position := association.payloadFirst}
+      (ProcedureBindings.parameter catalog association.formal) catalog first last callFirst callAfter
+    if next.position = 0 then invalidBody scan
+    else if ordinal = last then bodyToken text next (.symbol ")")
+    else
+      let following := bodyToken text next (.symbol ",")
+      if following.position = 0 then invalidBody scan
+      else if _within : ordinal < last then
+        procedureUpdatesTailModel text context incoming following catalog first last (ordinal + 1)
+          association.named (markFormal seen association.formal) callFirst callAfter
+      else invalidBody scan
+termination_by last - ordinal
+
 def procedureUpdatesModel (text : Source) (context : ParseContext) (incoming : ActiveFlow) (scan : BodyScan)
     (catalog : ProcedureBindings.Metadata) (first last callFirst callAfter : Nat) : BodyScan :=
-  let next := procedureUpdateStep text context incoming scan (ProcedureBindings.parameter catalog first) callFirst callAfter
-  if next.position = 0 then invalidBody scan
-  else if first = last then bodyToken text next (.symbol ")")
-  else
-    let following := bodyToken text next (.symbol ",")
-    if following.position = 0 then invalidBody scan
-    else if _within : first < last then
-      procedureUpdatesModel text context incoming following catalog (first + 1) last callFirst callAfter
-    else invalidBody scan
-termination_by last - first
+  procedureUpdatesTailModel text context incoming scan catalog first last first false noFormals callFirst callAfter
 
 def procedureUpdates (text : Source) (context : ParseContext) (scan : BodyScan)
     (catalog : ProcedureBindings.Metadata) (first last callFirst callAfter : Nat) : BodyScan :=

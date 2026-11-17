@@ -43,16 +43,22 @@ theorem procedureActualAfter_zero (text : Source) (context : ParseContext)
   · rw [procedureTargetActual_zero]
     rfl
 
+theorem procedureActualsTailModel_zero (text : Source) (context : ParseContext)
+    (facts : ActiveFlow) (catalog : ProcedureBindings.Metadata) (first last ordinal : Nat)
+    (named : Bool) (seen : FormalSet) :
+    procedureActualsTailModel text context 0 facts catalog first last ordinal named seen = 0 := by
+  rw [procedureActualsTailModel, procedureAssociation_zero]
+  rfl
+
 theorem procedureActualsAfter_zero (text : Source) (context : ParseContext)
     (facts : ActiveFlow) (catalog : ProcedureBindings.Metadata) (first last : Nat) :
-    procedureActualsAfter text context 0 facts catalog first last = 0 := by
-  rw [procedureActualsAfter, procedureActualAfter_zero]
-  rfl
+    procedureActualsAfter text context 0 facts catalog first last = 0 :=
+  procedureActualsTailModel_zero ..
 
 theorem procedureUpdateStep_count (text : Source) (context : ParseContext)
     (incoming : ActiveFlow) (scan : BodyScan) (parameter : ProcedureBindings.Formal)
-    (callFirst callAfter : Nat) :
-    (procedureUpdateStep text context incoming scan parameter callFirst callAfter).count = scan.count := by
+    (catalog : ProcedureBindings.Metadata) (first last callFirst callAfter : Nat) :
+    (procedureUpdateStep text context incoming scan parameter catalog first last callFirst callAfter).count = scan.count := by
   dsimp only [procedureUpdateStep]
   split
   · split <;> rfl
@@ -62,24 +68,31 @@ theorem procedureUpdateStep_count (text : Source) (context : ParseContext)
       · rfl
       · exact ActiveFlow.replace_count ..
 
-theorem procedureUpdatesModel_count (text : Source) (context : ParseContext)
+theorem procedureUpdatesTailModel_count (text : Source) (context : ParseContext)
     (incoming : ActiveFlow) (scan : BodyScan) (catalog : ProcedureBindings.Metadata)
-    (first last callFirst callAfter : Nat) :
-    (procedureUpdatesModel text context incoming scan catalog first last callFirst callAfter).count = scan.count := by
-  rw [procedureUpdatesModel]
+    (first last ordinal : Nat) (named : Bool) (seen : FormalSet) (callFirst callAfter : Nat) :
+    (procedureUpdatesTailModel text context incoming scan catalog first last ordinal named seen callFirst callAfter).count = scan.count := by
+  rw [procedureUpdatesTailModel]
   dsimp only
   split
   · rfl
   · split
-    · exact procedureUpdateStep_count ..
+    · rfl
     · split
-      · rfl
+      · exact procedureUpdateStep_count ..
       · split
-        · exact (procedureUpdatesModel_count text context incoming _ catalog (first + 1) last callFirst callAfter).trans
-            (procedureUpdateStep_count text context incoming scan _ callFirst callAfter)
         · rfl
-termination_by last - first
-decreasing_by omega
+        · split
+          · exact (procedureUpdatesTailModel_count text context incoming _ catalog first last (ordinal + 1)
+              _ _ callFirst callAfter).trans (procedureUpdateStep_count ..)
+          · rfl
+termination_by last - ordinal
+
+theorem procedureUpdatesModel_count (text : Source) (context : ParseContext)
+    (incoming : ActiveFlow) (scan : BodyScan) (catalog : ProcedureBindings.Metadata)
+    (first last callFirst callAfter : Nat) :
+    (procedureUpdatesModel text context incoming scan catalog first last callFirst callAfter).count = scan.count :=
+  procedureUpdatesTailModel_count ..
 
 theorem procedureCallBody_count (text : Source) (context : ParseContext) (scan : BodyScan)
     (catalog : ProcedureBindings.Metadata) :

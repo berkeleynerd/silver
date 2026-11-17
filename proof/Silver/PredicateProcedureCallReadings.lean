@@ -94,17 +94,214 @@ theorem procedureActual_unique {text context position facts parameter left right
       | input mode _ => exact False.elim (notInput mode)
       | target => rfl
 
+structure ProcedureActualSource where
+  position : Nat
+  after : Nat
+  actual : ScalarProcedures.Actual
+
+/-- The trace is in written order, while its keys retain the selected formal.
+Every payload is read under the same incoming flow. -/
+inductive ProcedureActualsTailAt (text : Source) (context : ParseContext) (facts : ActiveFlow)
+    (catalog : ProcedureBindings.Metadata) (first last : Nat) :
+    Nat → Nat → Bool → FormalSet → List (ScalarAssociations.Entry ProcedureActualSource) → Nat → Prop
+  | last {position named seen actual after} :
+      (procedureAssociation text position catalog first last last named).formal ≠ 0 →
+      seen (procedureAssociation text position catalog first last last named).formal = false →
+      ProcedureActualAt text context (procedureAssociation text position catalog first last last named).payloadFirst
+        facts (ProcedureBindings.parameter catalog
+          (procedureAssociation text position catalog first last last named).formal) actual after →
+      fixedAfter text after ")" false ≠ 0 →
+      ProcedureActualsTailAt text context facts catalog first last position last named seen
+        [((procedureAssociation text position catalog first last last named).formal,
+          ⟨(procedureAssociation text position catalog first last last named).payloadFirst, after, actual⟩)]
+        (fixedAfter text after ")" false)
+  | next {position ordinal named seen actual after rest result} : ordinal < last →
+      (procedureAssociation text position catalog first last ordinal named).formal ≠ 0 →
+      seen (procedureAssociation text position catalog first last ordinal named).formal = false →
+      ProcedureActualAt text context (procedureAssociation text position catalog first last ordinal named).payloadFirst
+        facts (ProcedureBindings.parameter catalog
+          (procedureAssociation text position catalog first last ordinal named).formal) actual after →
+      fixedAfter text after "," false ≠ 0 →
+      ProcedureActualsTailAt text context facts catalog first last (fixedAfter text after "," false)
+        (ordinal + 1) (procedureAssociation text position catalog first last ordinal named).named
+        (markFormal seen (procedureAssociation text position catalog first last ordinal named).formal) rest result →
+      ProcedureActualsTailAt text context facts catalog first last position ordinal named seen
+        (((procedureAssociation text position catalog first last ordinal named).formal,
+          ⟨(procedureAssociation text position catalog first last ordinal named).payloadFirst, after, actual⟩) :: rest) result
+
+theorem procedureActualsTail_sound {text context facts catalog position first last ordinal named seen}
+    (tv : Compose.Expressions.ValidText text) (nv : Compose.Expressions.ValidNames text context.names)
+    (bounded : position ≤ text.length + 1)
+    (accepted : procedureActualsTailModel text context position facts catalog first last ordinal named seen ≠ 0) :
+    ∃ entries, ProcedureActualsTailAt text context facts catalog first last position ordinal named seen entries
+      (procedureActualsTailModel text context position facts catalog first last ordinal named seen) := by
+  rw [procedureActualsTailModel] at accepted ⊢
+  dsimp only at accepted ⊢
+  split at accepted
+  · contradiction
+  · rename_i selection
+    have nonzero : (procedureAssociation text position catalog first last ordinal named).formal ≠ 0 :=
+      fun zero => selection (Or.inl zero)
+    have fresh : seen (procedureAssociation text position catalog first last ordinal named).formal = false :=
+      Bool.of_not_eq_true (fun duplicate => selection (Or.inr duplicate))
+    simp only [selection, ↓reduceIte]
+    split at accepted
+    · contradiction
+    · rename_i positive
+      obtain ⟨actual, parsed⟩ := procedureActual_sound tv nv
+        (procedureAssociation_payload_bound text position catalog first last ordinal named bounded) positive
+      simp only [positive, ↓reduceIte]
+      split at accepted
+      · rename_i same
+        subst ordinal
+        simp only [↓reduceIte] at accepted ⊢
+        exact ⟨_, .last nonzero fresh parsed accepted⟩
+      · rename_i different
+        simp only [different, ↓reduceIte]
+        split at accepted
+        · contradiction
+        · rename_i comma
+          simp only [comma, ↓reduceIte]
+          split at accepted
+          · rename_i within
+            simp only [within, ↓reduceDIte]
+            obtain ⟨rest, following⟩ := procedureActualsTail_sound tv nv
+              (Compose.Expressions.model_fixed_valid text _ "," false parsed.bounded) accepted
+            exact ⟨_, .next within nonzero fresh parsed comma following⟩
+          · contradiction
+termination_by last - ordinal
+
+theorem ProcedureActualsTailAt.unique {text context facts catalog position first last ordinal named seen left right leftAfter rightAfter}
+    (one : ProcedureActualsTailAt text context facts catalog first last position ordinal named seen left leftAfter)
+    (two : ProcedureActualsTailAt text context facts catalog first last position ordinal named seen right rightAfter) :
+    left = right := by
+  induction one generalizing right rightAfter with
+  | last _ _ parsed _ =>
+      cases two with
+      | last _ _ other _ =>
+          obtain ⟨same, afterSame⟩ := procedureActual_unique parsed other
+          cases same
+          cases afterSame
+          rfl
+      | next within => omega
+  | next within _ _ parsed _ rest ih =>
+      cases two with
+      | last => omega
+      | next _ _ _ other _ following =>
+          obtain ⟨same, afterSame⟩ := procedureActual_unique parsed other
+          cases afterSame
+          simp [same, ih following]
+
+theorem ProcedureActualsTailAt.positive {text context facts catalog position first last ordinal named seen entries after}
+    (parsed : ProcedureActualsTailAt text context facts catalog first last position ordinal named seen entries after) : after ≠ 0 := by
+  induction parsed with
+  | last _ _ _ positive => exact positive
+  | next _ _ _ _ _ _ ih => exact ih
+
+theorem ProcedureActualsTailAt.bounded {text context facts catalog position first last ordinal named seen entries after}
+    (parsed : ProcedureActualsTailAt text context facts catalog first last position ordinal named seen entries after) :
+    after ≤ text.length + 1 := by
+  induction parsed with
+  | last _ _ source _ => exact Compose.Expressions.model_fixed_valid text _ ")" false source.bounded
+  | next _ _ _ _ _ _ ih => exact ih
+
+theorem ProcedureActualsTailAt.ordinal_bound {text context facts catalog position first last ordinal named seen entries after}
+    (parsed : ProcedureActualsTailAt text context facts catalog first last position ordinal named seen entries after) :
+    ordinal ≤ last := by
+  cases parsed with
+  | last => exact Nat.le_refl _
+  | next within => exact Nat.le_of_lt within
+
+theorem ProcedureActualsTailAt.length {text context facts catalog position first last ordinal named seen entries after}
+    (parsed : ProcedureActualsTailAt text context facts catalog first last position ordinal named seen entries after) :
+    entries.length = last - ordinal + 1 := by
+  induction parsed with
+  | last => simp
+  | next within _ _ _ _ _ ih => simp only [List.length_cons]; omega
+
+theorem ProcedureActualsTailAt.fresh {text context facts catalog position first last ordinal named seen entries after}
+    (parsed : ProcedureActualsTailAt text context facts catalog first last position ordinal named seen entries after) :
+    ScalarAssociations.FreshSelections seen (entries.map Prod.fst) := by
+  induction parsed with
+  | last _ fresh _ _ => exact .cons fresh .nil
+  | next _ _ fresh _ _ _ ih => exact .cons fresh ih
+
+theorem ProcedureActualsTailAt.inside {text context facts catalog position first last ordinal named seen entries after}
+    (parsed : ProcedureActualsTailAt text context facts catalog first last position ordinal named seen entries after)
+    (lower : first ≤ ordinal) :
+    ∀ formal ∈ entries.map Prod.fst, first ≤ formal ∧ formal ≤ last := by
+  induction parsed with
+  | last selected _ _ _ =>
+      intro formal present
+      have same := List.mem_singleton.mp present
+      subst formal
+      exact procedureAssociation_formal ⟨lower, Nat.le_refl _⟩ selected
+  | next within selected _ _ _ rest ih =>
+      intro formal present
+      rcases List.mem_cons.mp present with same | later
+      · subst formal
+        exact procedureAssociation_formal ⟨lower, Nat.le_of_lt within⟩ selected
+      · exact ih (by omega) formal later
+
+theorem ProcedureActualsTailAt.payloads {text context facts catalog position first last ordinal named seen entries after}
+    (parsed : ProcedureActualsTailAt text context facts catalog first last position ordinal named seen entries after) :
+    ∀ entry ∈ entries, ProcedureActualAt text context entry.2.position facts
+      (ProcedureBindings.parameter catalog entry.1) entry.2.actual entry.2.after := by
+  induction parsed with
+  | last _ _ source _ =>
+      intro entry present
+      have same := List.mem_singleton.mp present
+      subst entry
+      exact source
+  | next _ _ _ source _ rest ih =>
+      intro entry present
+      rcases List.mem_cons.mp present with same | later
+      · subst entry
+        exact source
+      · exact ih entry later
+
+def defaultProcedureActual : ProcedureActualSource := ⟨0, 0, .value defaultFunctionActual⟩
+
+def arrangeProcedureActuals (entries : List (ScalarAssociations.Entry ProcedureActualSource))
+    (first last : Nat) : List ScalarProcedures.Actual :=
+  (ScalarAssociations.arrange defaultProcedureActual entries first (last - first + 1)).map (fun entry => entry.2.actual)
+
+theorem ProcedureActualsTailAt.complete {text context facts catalog position first last named seen entries after}
+    (parsed : ProcedureActualsTailAt text context facts catalog first last position first named seen entries after) :
+    (entries.map Prod.fst).Perm (List.range' first (last - first + 1)) := by
+  apply ScalarAssociations.selections_complete parsed.fresh.nodup
+  · simpa only [List.length_map] using parsed.length
+  · intro formal present
+    have inside := parsed.inside (Nat.le_refl _) formal present
+    have ordered := parsed.ordinal_bound
+    omega
+
+theorem ProcedureActualsTailAt.forall_payloads {text context facts catalog position first last ordinal named seen entries after}
+    (parsed : ProcedureActualsTailAt text context facts catalog first last position ordinal named seen entries after)
+    {property : Nat → ScalarProcedures.Actual → Prop}
+    (one : ∀ position formal actual after,
+      ProcedureActualAt text context position facts (ProcedureBindings.parameter catalog formal) actual after →
+      property formal actual) : ∀ entry ∈ entries, property entry.1 entry.2.actual := by
+  induction parsed with
+  | last _ _ source _ =>
+      intro entry present
+      have same := List.mem_singleton.mp present
+      subst entry
+      exact one _ _ _ _ source
+  | next _ _ _ source _ rest ih =>
+      intro entry present
+      rcases List.mem_cons.mp present with same | later
+      · subst entry
+        exact one _ _ _ _ source
+      · exact ih entry later
+
+/-- The external call meaning stays in formal order; the source trace separately
+records arbitrary named order and the positional-prefix/named-suffix state. -/
 inductive ProcedureActualsAt (text : Source) (context : ParseContext) (facts : ActiveFlow)
     (catalog : ProcedureBindings.Metadata) : Nat → Nat → Nat → List ScalarProcedures.Actual → Nat → Prop
-  | last {position first actual after} :
-      ProcedureActualAt text context position facts (ProcedureBindings.parameter catalog first) actual after →
-      fixedAfter text after ")" false ≠ 0 →
-      ProcedureActualsAt text context facts catalog position first first [actual] (fixedAfter text after ")" false)
-  | next {position first last actual after rest result} : first < last →
-      ProcedureActualAt text context position facts (ProcedureBindings.parameter catalog first) actual after →
-      fixedAfter text after "," false ≠ 0 →
-      ProcedureActualsAt text context facts catalog (fixedAfter text after "," false) (first + 1) last rest result →
-      ProcedureActualsAt text context facts catalog position first last (actual :: rest) result
+  | actuals {position first last entries after} :
+      ProcedureActualsTailAt text context facts catalog first last position first false noFormals entries after →
+      ProcedureActualsAt text context facts catalog position first last (arrangeProcedureActuals entries first last) after
 
 theorem procedureActuals_sound {text context facts catalog position first last}
     (tv : Compose.Expressions.ValidText text) (nv : Compose.Expressions.ValidNames text context.names)
@@ -112,55 +309,42 @@ theorem procedureActuals_sound {text context facts catalog position first last}
     (accepted : procedureActualsAfter text context position facts catalog first last ≠ 0) :
     ∃ actuals, ProcedureActualsAt text context facts catalog position first last actuals
       (procedureActualsAfter text context position facts catalog first last) := by
-  rw [procedureActualsAfter] at accepted ⊢
-  try dsimp only at accepted ⊢
-  split at accepted
-  · contradiction
-  · rename_i positive
-    obtain ⟨actual, parsed⟩ := procedureActual_sound tv nv bounded positive
-    simp only [positive, ↓reduceIte]
-    split at accepted
-    · rename_i same
-      subst last
-      simp only [↓reduceIte] at accepted ⊢
-      exact ⟨[actual], .last parsed accepted⟩
-    · rename_i different
-      simp only [different, ↓reduceIte]
-      split at accepted
-      · contradiction
-      · rename_i comma
-        simp only [comma, ↓reduceIte]
-        split at accepted
-        · rename_i within
-          simp only [within, ↓reduceDIte]
-          obtain ⟨rest, following⟩ := procedureActuals_sound tv nv
-            (Compose.Expressions.model_fixed_valid text _ "," false parsed.bounded) accepted
-          exact ⟨actual :: rest, .next within parsed comma following⟩
-        · contradiction
-termination_by last - first
+  obtain ⟨entries, parsed⟩ := procedureActualsTail_sound tv nv bounded accepted
+  exact ⟨arrangeProcedureActuals entries first last, .actuals parsed⟩
 
 theorem procedureActuals_unique {text context facts catalog position first last left right leftAfter rightAfter}
     (one : ProcedureActualsAt text context facts catalog position first last left leftAfter)
     (two : ProcedureActualsAt text context facts catalog position first last right rightAfter) : left = right := by
-  induction one generalizing right rightAfter with
-  | last parsed _ =>
+  cases one with
+  | actuals source =>
       cases two with
-      | last other _ => simp [(procedureActual_unique parsed other).1]
-      | next within _ _ _ => omega
-  | next within parsed _ rest ih =>
-      cases two with
-      | last => omega
-      | next _ other _ following =>
-          obtain ⟨same, afterSame⟩ := procedureActual_unique parsed other
-          cases afterSame
-          simp [same, ih following]
+      | actuals other => rw [source.unique other]
+
+theorem ProcedureActualsAt.forall_payloads {text context facts catalog position first last actuals after}
+    (parsed : ProcedureActualsAt text context facts catalog position first last actuals after)
+    {property : ScalarProcedures.Actual → Prop}
+    (one : ∀ position formal actual after,
+      ProcedureActualAt text context position facts (ProcedureBindings.parameter catalog formal) actual after → property actual) :
+    ∀ actual ∈ actuals, property actual := by
+  cases parsed with
+  | actuals source =>
+      have original := source.forall_payloads one
+      have arranged := ScalarAssociations.arrange_all defaultProcedureActual source.fresh.nodup source.complete original
+      intro actual present
+      obtain ⟨entry, member, same⟩ := List.mem_map.mp present
+      subst actual
+      exact arranged entry member
+
+theorem ProcedureActualsAt.positive {text context facts catalog position first last actuals after}
+    (parsed : ProcedureActualsAt text context facts catalog position first last actuals after) : after ≠ 0 := by
+  cases parsed with
+  | actuals source => exact source.positive
 
 theorem ProcedureActualsAt.bounded {text context facts catalog position first last actuals after}
     (parsed : ProcedureActualsAt text context facts catalog position first last actuals after) :
     after ≤ text.length + 1 := by
-  induction parsed with
-  | last source _ => exact Compose.Expressions.model_fixed_valid text _ ")" false source.bounded
-  | next _ _ _ _ ih => exact ih
+  cases parsed with
+  | actuals source => exact source.bounded
 
 def procedureWritableUpdate (scan : BodyScan) (parameter : ProcedureBindings.Formal)
     (target : ProcedureActualResult) : BodyScan :=
@@ -170,48 +354,42 @@ def procedureWritableUpdate (scan : BodyScan) (parameter : ProcedureBindings.For
     assigned := true
     facts := scan.facts.replace target.scalar parameter.bounds}
 
-/-- Each writable update keeps both accepted lexical traversals. They are
-source evidence to be interpreted against other actuals, not an assumed
-semantic nonaliasing law. -/
+/-- The replay follows associations from the original call start and invokes
+the existing lexical scanner only on payloads. Selector labels are never reads. -/
 inductive ProcedureUpdateAt (text : Source) (context : ParseContext) (incoming : ActiveFlow)
-    (parameter : ProcedureBindings.Formal) (callFirst callAfter : Nat) :
-    BodyScan → ScalarProcedures.Actual → BodyScan → Prop
+    (parameter : ProcedureBindings.Formal) (catalog : ProcedureBindings.Metadata)
+    (first last callFirst callAfter : Nat) : BodyScan → ScalarProcedures.Actual → BodyScan → Prop
   | input {scan actual after} : parameter.mode = .input →
       ActualAt text context scan.position incoming (procedureInputFormal parameter) actual after →
       scan.position < after →
-      ProcedureUpdateAt text context incoming parameter callFirst callAfter scan (.value actual)
+      ProcedureUpdateAt text context incoming parameter catalog first last callFirst callAfter scan (.value actual)
         {scan with position := after}
   | writable {scan} : parameter.mode ≠ .input →
       (procedureTargetActual text context scan.position incoming parameter).after ≠ 0 →
       callFirst ≤ (procedureTargetActual text context scan.position incoming parameter).first →
       (procedureTargetActual text context scan.position incoming parameter).after ≤ callAfter →
-      ActualNameFreeTrace text
+      procedurePayloadsFree text context callFirst incoming catalog first last callAfter
         (procedureTargetActual text context scan.position incoming parameter).first
-        (procedureTargetActual text context scan.position incoming parameter).first
-        (procedureTargetActual text context scan.position incoming parameter).after callFirst →
-      ActualNameFreeTrace text callAfter
-        (procedureTargetActual text context scan.position incoming parameter).first
-        (procedureTargetActual text context scan.position incoming parameter).after
-        (procedureTargetActual text context scan.position incoming parameter).after →
-      ProcedureUpdateAt text context incoming parameter callFirst callAfter scan
+        (procedureTargetActual text context scan.position incoming parameter).after = true →
+      ProcedureUpdateAt text context incoming parameter catalog first last callFirst callAfter scan
         (.target (procedureTargetIdentity context (procedureTargetActual text context scan.position incoming parameter)))
         (procedureWritableUpdate scan parameter (procedureTargetActual text context scan.position incoming parameter))
 
-theorem ProcedureUpdateAt.actual {text context incoming parameter callFirst callAfter scan actual result}
-    (parsed : ProcedureUpdateAt text context incoming parameter callFirst callAfter scan actual result) :
+theorem ProcedureUpdateAt.actual {text context incoming parameter catalog first last callFirst callAfter scan actual result}
+    (parsed : ProcedureUpdateAt text context incoming parameter catalog first last callFirst callAfter scan actual result) :
     ProcedureActualAt text context scan.position incoming parameter actual result.position := by
   cases parsed with
   | input mode payload _ => exact .input mode payload
-  | writable mode positive _ _ _ _ =>
+  | writable mode positive _ _ _ =>
       dsimp only [procedureWritableUpdate]
       split <;> exact .target mode positive
 
-theorem procedureUpdateStep_reading {text context incoming parameter callFirst callAfter scan}
+theorem procedureUpdateStep_reading {text context incoming parameter catalog first last callFirst callAfter scan}
     (tv : Compose.Expressions.ValidText text) (nv : Compose.Expressions.ValidNames text context.names)
     (bounded : scan.position ≤ text.length + 1)
-    (accepted : (procedureUpdateStep text context incoming scan parameter callFirst callAfter).position ≠ 0) :
-    ∃ actual, ProcedureUpdateAt text context incoming parameter callFirst callAfter scan actual
-      (procedureUpdateStep text context incoming scan parameter callFirst callAfter) := by
+    (accepted : (procedureUpdateStep text context incoming scan parameter catalog first last callFirst callAfter).position ≠ 0) :
+    ∃ actual, ProcedureUpdateAt text context incoming parameter catalog first last callFirst callAfter scan actual
+      (procedureUpdateStep text context incoming scan parameter catalog first last callFirst callAfter) := by
   unfold procedureUpdateStep at accepted ⊢
   split at accepted
   · rename_i input
@@ -233,52 +411,117 @@ theorem procedureUpdateStep_reading {text context incoming parameter callFirst c
     · contradiction
     · rename_i good
       simp only [good, ↓reduceIte]
-      have beforeFree : actualNameFree text callFirst
-          (procedureTargetActual text context scan.position incoming parameter).first
-          (procedureTargetActual text context scan.position incoming parameter).first
-          (procedureTargetActual text context scan.position incoming parameter).after = true := by
-        apply Bool.of_not_eq_false
-        intro failed
-        apply good
-        simp only [failed, Bool.not_false, or_true, true_or]
-      have afterFree : actualNameFree text
-          (procedureTargetActual text context scan.position incoming parameter).after callAfter
+      have free : procedurePayloadsFree text context callFirst incoming catalog first last callAfter
           (procedureTargetActual text context scan.position incoming parameter).first
           (procedureTargetActual text context scan.position incoming parameter).after = true := by
         apply Bool.of_not_eq_false
         intro failed
         apply good
         simp only [failed, Bool.not_false, or_true]
-      refine ⟨_, ProcedureUpdateAt.writable output ?_ ?_ ?_
-        (actualNameFree_sound beforeFree) (actualNameFree_sound afterFree)⟩
+      refine ⟨_, ProcedureUpdateAt.writable output ?_ ?_ ?_ free⟩
       · intro zero
         exact good (Or.inl zero)
       · exact Nat.le_of_not_gt (fun low => good (Or.inr (Or.inl low)))
       · exact Nat.le_of_not_gt (fun high => good (Or.inr (Or.inr (Or.inl high))))
 
+inductive ProcedureUpdatesTailAt (text : Source) (context : ParseContext) (incoming : ActiveFlow)
+    (catalog : ProcedureBindings.Metadata) (first last callFirst callAfter : Nat) :
+    BodyScan → Nat → Bool → FormalSet → List (ScalarAssociations.Entry ProcedureActualSource) → BodyScan → Prop
+  | last {scan named seen actual next} :
+      (procedureAssociation text scan.position catalog first last last named).formal ≠ 0 →
+      seen (procedureAssociation text scan.position catalog first last last named).formal = false →
+      ProcedureUpdateAt text context incoming
+        (ProcedureBindings.parameter catalog (procedureAssociation text scan.position catalog first last last named).formal)
+        catalog first last callFirst callAfter
+        {scan with position := (procedureAssociation text scan.position catalog first last last named).payloadFirst} actual next →
+      fixedAfter text next.position ")" false ≠ 0 →
+      ProcedureUpdatesTailAt text context incoming catalog first last callFirst callAfter scan last named seen
+        [((procedureAssociation text scan.position catalog first last last named).formal,
+          ⟨(procedureAssociation text scan.position catalog first last last named).payloadFirst, next.position, actual⟩)]
+        (bodyToken text next (.symbol ")"))
+  | next {scan ordinal named seen actual next rest result} : ordinal < last →
+      (procedureAssociation text scan.position catalog first last ordinal named).formal ≠ 0 →
+      seen (procedureAssociation text scan.position catalog first last ordinal named).formal = false →
+      ProcedureUpdateAt text context incoming
+        (ProcedureBindings.parameter catalog (procedureAssociation text scan.position catalog first last ordinal named).formal)
+        catalog first last callFirst callAfter
+        {scan with position := (procedureAssociation text scan.position catalog first last ordinal named).payloadFirst} actual next →
+      fixedAfter text next.position "," false ≠ 0 →
+      ProcedureUpdatesTailAt text context incoming catalog first last callFirst callAfter
+        (bodyToken text next (.symbol ",")) (ordinal + 1)
+        (procedureAssociation text scan.position catalog first last ordinal named).named
+        (markFormal seen (procedureAssociation text scan.position catalog first last ordinal named).formal) rest result →
+      ProcedureUpdatesTailAt text context incoming catalog first last callFirst callAfter scan ordinal named seen
+        (((procedureAssociation text scan.position catalog first last ordinal named).formal,
+          ⟨(procedureAssociation text scan.position catalog first last ordinal named).payloadFirst, next.position, actual⟩) :: rest) result
+
+theorem ProcedureUpdatesTailAt.actuals {text context incoming catalog first last callFirst callAfter scan ordinal named seen entries result}
+    (parsed : ProcedureUpdatesTailAt text context incoming catalog first last callFirst callAfter scan ordinal named seen entries result) :
+    ProcedureActualsTailAt text context incoming catalog first last scan.position ordinal named seen entries result.position := by
+  induction parsed with
+  | last selected fresh step closed => exact .last selected fresh step.actual closed
+  | next within selected fresh step comma following ih => exact .next within selected fresh step.actual comma ih
+
+theorem procedureUpdatesTail_reading {text context incoming scan catalog first last ordinal named seen callFirst callAfter}
+    (tv : Compose.Expressions.ValidText text) (nv : Compose.Expressions.ValidNames text context.names)
+    (bounded : scan.position ≤ text.length + 1)
+    (accepted : (procedureUpdatesTailModel text context incoming scan catalog first last ordinal named seen callFirst callAfter).position ≠ 0) :
+    ∃ entries, ProcedureUpdatesTailAt text context incoming catalog first last callFirst callAfter scan ordinal named seen entries
+      (procedureUpdatesTailModel text context incoming scan catalog first last ordinal named seen callFirst callAfter) := by
+  rw [procedureUpdatesTailModel] at accepted ⊢
+  dsimp only at accepted ⊢
+  split at accepted
+  · contradiction
+  · rename_i selection
+    have nonzero : (procedureAssociation text scan.position catalog first last ordinal named).formal ≠ 0 :=
+      fun zero => selection (Or.inl zero)
+    have fresh : seen (procedureAssociation text scan.position catalog first last ordinal named).formal = false :=
+      Bool.of_not_eq_true (fun duplicate => selection (Or.inr duplicate))
+    simp only [selection, ↓reduceIte]
+    split at accepted
+    · contradiction
+    · rename_i nextPositive
+      simp only [nextPositive, ↓reduceIte]
+      obtain ⟨actual, source⟩ := procedureUpdateStep_reading tv nv
+        (procedureAssociation_payload_bound text scan.position catalog first last ordinal named bounded) nextPositive
+      split at accepted
+      · rename_i same
+        subst ordinal
+        simp only [↓reduceIte] at accepted ⊢
+        exact ⟨_, .last nonzero fresh source accepted⟩
+      · rename_i different
+        simp only [different, ↓reduceIte]
+        split at accepted
+        · contradiction
+        · rename_i comma
+          simp only [comma, ↓reduceIte]
+          split at accepted
+          · rename_i within
+            simp only [within, ↓reduceDIte]
+            obtain ⟨rest, following⟩ := procedureUpdatesTail_reading
+              (scan := bodyToken text
+                (procedureUpdateStep text context incoming
+                  {scan with position := (procedureAssociation text scan.position catalog first last ordinal named).payloadFirst}
+                  (ProcedureBindings.parameter catalog (procedureAssociation text scan.position catalog first last ordinal named).formal)
+                  catalog first last callFirst callAfter) (.symbol ",")) tv nv
+              (Compose.Expressions.model_fixed_valid text _ "," false source.actual.bounded) accepted
+            exact ⟨_, .next within nonzero fresh source comma following⟩
+          · contradiction
+termination_by last - ordinal
+
 inductive ProcedureUpdatesAt (text : Source) (context : ParseContext) (incoming : ActiveFlow)
     (catalog : ProcedureBindings.Metadata) (callFirst callAfter : Nat) :
     BodyScan → Nat → Nat → List ScalarProcedures.Actual → BodyScan → Prop
-  | last {scan first actual next} :
-      ProcedureUpdateAt text context incoming (ProcedureBindings.parameter catalog first)
-        callFirst callAfter scan actual next →
-      fixedAfter text next.position ")" false ≠ 0 →
-      ProcedureUpdatesAt text context incoming catalog callFirst callAfter scan first first [actual]
-        (bodyToken text next (.symbol ")"))
-  | next {scan first last actual next rest result} : first < last →
-      ProcedureUpdateAt text context incoming (ProcedureBindings.parameter catalog first)
-        callFirst callAfter scan actual next →
-      fixedAfter text next.position "," false ≠ 0 →
-      ProcedureUpdatesAt text context incoming catalog callFirst callAfter
-        (bodyToken text next (.symbol ",")) (first + 1) last rest result →
-      ProcedureUpdatesAt text context incoming catalog callFirst callAfter scan first last (actual :: rest) result
+  | updates {scan first last entries result} :
+      ProcedureUpdatesTailAt text context incoming catalog first last callFirst callAfter scan first false noFormals entries result →
+      ProcedureUpdatesAt text context incoming catalog callFirst callAfter scan first last
+        (arrangeProcedureActuals entries first last) result
 
 theorem ProcedureUpdatesAt.actuals {text context incoming catalog callFirst callAfter scan first last actuals result}
     (parsed : ProcedureUpdatesAt text context incoming catalog callFirst callAfter scan first last actuals result) :
     ProcedureActualsAt text context incoming catalog scan.position first last actuals result.position := by
-  induction parsed with
-  | last step closed => exact .last step.actual closed
-  | next within step comma following ih => exact .next within step.actual comma ih
+  cases parsed with
+  | updates source => exact .actuals source.actuals
 
 theorem procedureUpdates_reading {text context incoming scan catalog first last callFirst callAfter}
     (tv : Compose.Expressions.ValidText text) (nv : Compose.Expressions.ValidNames text context.names)
@@ -286,35 +529,8 @@ theorem procedureUpdates_reading {text context incoming scan catalog first last 
     (accepted : (procedureUpdatesModel text context incoming scan catalog first last callFirst callAfter).position ≠ 0) :
     ∃ actuals, ProcedureUpdatesAt text context incoming catalog callFirst callAfter scan first last actuals
       (procedureUpdatesModel text context incoming scan catalog first last callFirst callAfter) := by
-  rw [procedureUpdatesModel] at accepted ⊢
-  dsimp only at accepted ⊢
-  split at accepted
-  · contradiction
-  · rename_i nextPositive
-    simp only [nextPositive, ↓reduceIte]
-    obtain ⟨actual, source⟩ := procedureUpdateStep_reading tv nv bounded nextPositive
-    split at accepted
-    · rename_i same
-      subst last
-      simp only [↓reduceIte] at accepted ⊢
-      exact ⟨[actual], .last source accepted⟩
-    · rename_i different
-      simp only [different, ↓reduceIte]
-      split at accepted
-      · contradiction
-      · rename_i comma
-        simp only [comma, ↓reduceIte]
-        split at accepted
-        · rename_i within
-          simp only [within, ↓reduceDIte]
-          obtain ⟨rest, following⟩ := procedureUpdates_reading
-            (scan := bodyToken text
-              (procedureUpdateStep text context incoming scan (ProcedureBindings.parameter catalog first) callFirst callAfter)
-              (.symbol ",")) tv nv
-            (Compose.Expressions.model_fixed_valid text _ "," false source.actual.bounded) accepted
-          exact ⟨actual :: rest, .next within source comma following⟩
-        · contradiction
-termination_by last - first
+  obtain ⟨entries, source⟩ := procedureUpdatesTail_reading tv nv bounded accepted
+  exact ⟨arrangeProcedureActuals entries first last, .updates source⟩
 
 structure ProcedureCallAt (text : Source) (context : ParseContext) (scan : BodyScan)
     (catalog : ProcedureBindings.Metadata) (call : ScalarProcedures.Call) (result : BodyScan) : Prop where

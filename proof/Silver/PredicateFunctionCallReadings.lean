@@ -1,6 +1,7 @@
 module
 
 public import Silver.PredicateCallAdmission
+public import Silver.PredicateAssociationBounds
 public import Silver.PredicateBodyScanner
 public import Silver.PredicateConditionSound
 public import Silver.PredicateConditionUnique
@@ -163,18 +164,186 @@ theorem actual_unique {text context position facts formal left right leftAfter r
       | integer other _ _ _ => simp [kind] at other
       | boolean _ other => exact congrArg ScalarFunctions.Actual.boolean (condition_unique parsed other)
 
-/-- Every argument keeps the same incoming flow. Delimiters, order and exact
-arity are retained independently from the call scanner's result. -/
+/-- The trace is in written order, while its keys retain the selected formal.
+Every payload is read under the same incoming flow. -/
+inductive ActualsTailAt (text : Source) (context : ParseContext) (facts : ActiveFlow)
+    (catalog : FunctionBindings.Metadata) (first last : Nat) :
+    Nat → Nat → Bool → FormalSet → List (ScalarAssociations.Entry ScalarFunctions.Actual) → Nat → Prop
+  | last {position named seen actual after} :
+      (functionAssociation text position catalog first last last named).formal ≠ 0 →
+      seen (functionAssociation text position catalog first last last named).formal = false →
+      ActualAt text context (functionAssociation text position catalog first last last named).payloadFirst
+        facts (FunctionBindings.parameter catalog
+          (functionAssociation text position catalog first last last named).formal) actual after →
+      fixedAfter text after ")" false ≠ 0 →
+      ActualsTailAt text context facts catalog first last position last named seen
+        [((functionAssociation text position catalog first last last named).formal, actual)]
+        (fixedAfter text after ")" false)
+  | next {position ordinal named seen actual after rest result} : ordinal < last →
+      (functionAssociation text position catalog first last ordinal named).formal ≠ 0 →
+      seen (functionAssociation text position catalog first last ordinal named).formal = false →
+      ActualAt text context (functionAssociation text position catalog first last ordinal named).payloadFirst
+        facts (FunctionBindings.parameter catalog
+          (functionAssociation text position catalog first last ordinal named).formal) actual after →
+      fixedAfter text after "," false ≠ 0 →
+      ActualsTailAt text context facts catalog first last (fixedAfter text after "," false)
+        (ordinal + 1) (functionAssociation text position catalog first last ordinal named).named
+        (markFormal seen (functionAssociation text position catalog first last ordinal named).formal) rest result →
+      ActualsTailAt text context facts catalog first last position ordinal named seen
+        (((functionAssociation text position catalog first last ordinal named).formal, actual) :: rest) result
+
+theorem actualsTail_sound {text context facts catalog position first last ordinal named seen}
+    (tv : Compose.Expressions.ValidText text) (nv : Compose.Expressions.ValidNames text context.names)
+    (bounded : position ≤ text.length + 1)
+    (accepted : functionActualsTailModel text context position facts catalog first last ordinal named seen ≠ 0) :
+    ∃ entries, ActualsTailAt text context facts catalog first last position ordinal named seen entries
+      (functionActualsTailModel text context position facts catalog first last ordinal named seen) := by
+  rw [functionActualsTailModel] at accepted ⊢
+  dsimp only at accepted ⊢
+  split at accepted
+  · contradiction
+  · rename_i selection
+    have nonzero : (functionAssociation text position catalog first last ordinal named).formal ≠ 0 :=
+      fun zero => selection (Or.inl zero)
+    have fresh : seen (functionAssociation text position catalog first last ordinal named).formal = false :=
+      Bool.of_not_eq_true (fun duplicate => selection (Or.inr duplicate))
+    simp only [selection, ↓reduceIte]
+    split at accepted
+    · contradiction
+    · rename_i positive
+      obtain ⟨actual, parsed⟩ := actual_sound tv nv
+        (functionAssociation_payload_bound text position catalog first last ordinal named bounded) positive
+      simp only [positive, ↓reduceIte]
+      split at accepted
+      · rename_i same
+        subst ordinal
+        simp only [↓reduceIte] at accepted ⊢
+        exact ⟨_, .last nonzero fresh parsed accepted⟩
+      · rename_i different
+        simp only [different, ↓reduceIte]
+        split at accepted
+        · contradiction
+        · rename_i comma
+          simp only [comma, ↓reduceIte]
+          split at accepted
+          · rename_i within
+            simp only [within, ↓reduceDIte]
+            obtain ⟨rest, following⟩ := actualsTail_sound tv nv
+              (Compose.Expressions.model_fixed_valid text _ "," false parsed.bounded) accepted
+            exact ⟨_, .next within nonzero fresh parsed comma following⟩
+          · contradiction
+termination_by last - ordinal
+
+theorem ActualsTailAt.unique {text context facts catalog position first last ordinal named seen left right leftAfter rightAfter}
+    (one : ActualsTailAt text context facts catalog first last position ordinal named seen left leftAfter)
+    (two : ActualsTailAt text context facts catalog first last position ordinal named seen right rightAfter) :
+    left = right := by
+  induction one generalizing right rightAfter with
+  | last _ _ parsed _ =>
+      cases two with
+      | last _ _ other _ => simp [(actual_unique parsed other).1]
+      | next within => omega
+  | next within _ _ parsed _ rest ih =>
+      cases two with
+      | last => omega
+      | next _ _ _ other _ following =>
+          obtain ⟨same, afterSame⟩ := actual_unique parsed other
+          cases afterSame
+          simp [same, ih following]
+
+theorem ActualsTailAt.positive {text context facts catalog position first last ordinal named seen entries after}
+    (parsed : ActualsTailAt text context facts catalog first last position ordinal named seen entries after) : after ≠ 0 := by
+  induction parsed with
+  | last _ _ _ positive => exact positive
+  | next _ _ _ _ _ _ ih => exact ih
+
+theorem ActualsTailAt.bounded {text context facts catalog position first last ordinal named seen entries after}
+    (parsed : ActualsTailAt text context facts catalog first last position ordinal named seen entries after) :
+    after ≤ text.length + 1 := by
+  induction parsed with
+  | last _ _ source _ => exact Compose.Expressions.model_fixed_valid text _ ")" false source.bounded
+  | next _ _ _ _ _ _ ih => exact ih
+
+theorem ActualsTailAt.ordinal_bound {text context facts catalog position first last ordinal named seen entries after}
+    (parsed : ActualsTailAt text context facts catalog first last position ordinal named seen entries after) :
+    ordinal ≤ last := by
+  cases parsed with
+  | last => exact Nat.le_refl _
+  | next within => exact Nat.le_of_lt within
+
+theorem ActualsTailAt.length {text context facts catalog position first last ordinal named seen entries after}
+    (parsed : ActualsTailAt text context facts catalog first last position ordinal named seen entries after) :
+    entries.length = last - ordinal + 1 := by
+  induction parsed with
+  | last => simp
+  | next within _ _ _ _ _ ih => simp only [List.length_cons]; omega
+
+theorem ActualsTailAt.fresh {text context facts catalog position first last ordinal named seen entries after}
+    (parsed : ActualsTailAt text context facts catalog first last position ordinal named seen entries after) :
+    ScalarAssociations.FreshSelections seen (entries.map Prod.fst) := by
+  induction parsed with
+  | last _ fresh _ _ => exact .cons fresh .nil
+  | next _ _ fresh _ _ _ ih => exact .cons fresh ih
+
+theorem ActualsTailAt.inside {text context facts catalog position first last ordinal named seen entries after}
+    (parsed : ActualsTailAt text context facts catalog first last position ordinal named seen entries after)
+    (lower : first ≤ ordinal) :
+    ∀ formal ∈ entries.map Prod.fst, first ≤ formal ∧ formal ≤ last := by
+  induction parsed with
+  | last selected _ _ _ =>
+      intro formal present
+      have same := List.mem_singleton.mp present
+      subst formal
+      exact functionAssociation_formal ⟨lower, Nat.le_refl _⟩ selected
+  | next within selected _ _ _ rest ih =>
+      intro formal present
+      rcases List.mem_cons.mp present with same | later
+      · subst formal
+        exact functionAssociation_formal ⟨lower, Nat.le_of_lt within⟩ selected
+      · exact ih (by omega) formal later
+
+def defaultFunctionActual : ScalarFunctions.Actual := .integer (.literal 0)
+
+def arrangeFunctionActuals (entries : List (ScalarAssociations.Entry ScalarFunctions.Actual))
+    (first last : Nat) : List ScalarFunctions.Actual :=
+  (ScalarAssociations.arrange defaultFunctionActual entries first (last - first + 1)).map Prod.snd
+
+theorem ActualsTailAt.complete {text context facts catalog position first last named seen entries after}
+    (parsed : ActualsTailAt text context facts catalog first last position first named seen entries after) :
+    (entries.map Prod.fst).Perm (List.range' first (last - first + 1)) := by
+  apply ScalarAssociations.selections_complete parsed.fresh.nodup
+  · simpa only [List.length_map] using parsed.length
+  · intro formal present
+    have inside := parsed.inside (Nat.le_refl _) formal present
+    have ordered := parsed.ordinal_bound
+    omega
+
+theorem ActualsTailAt.forall_payloads {text context facts catalog position first last ordinal named seen entries after}
+    (parsed : ActualsTailAt text context facts catalog first last position ordinal named seen entries after)
+    {property : Nat → ScalarFunctions.Actual → Prop}
+    (one : ∀ position formal actual after,
+      ActualAt text context position facts (FunctionBindings.parameter catalog formal) actual after →
+      property formal actual) : ∀ entry ∈ entries, property entry.1 entry.2 := by
+  induction parsed with
+  | last _ _ source _ =>
+      intro entry present
+      have same := List.mem_singleton.mp present
+      subst entry
+      exact one _ _ _ _ source
+  | next _ _ _ source _ rest ih =>
+      intro entry present
+      rcases List.mem_cons.mp present with same | later
+      · subst entry
+        exact one _ _ _ _ source
+      · exact ih entry later
+
+/-- The external call meaning stays in formal order; the source trace separately
+records arbitrary named order and the positional-prefix/named-suffix state. -/
 inductive ActualsAt (text : Source) (context : ParseContext) (facts : ActiveFlow)
     (catalog : FunctionBindings.Metadata) : Nat → Nat → Nat → List ScalarFunctions.Actual → Nat → Prop
-  | last {position first actual after} :
-      ActualAt text context position facts (FunctionBindings.parameter catalog first) actual after →
-      fixedAfter text after ")" false ≠ 0 →
-      ActualsAt text context facts catalog position first first [actual] (fixedAfter text after ")" false)
-  | next {position first last actual after rest result} : first < last →
-      ActualAt text context position facts (FunctionBindings.parameter catalog first) actual after →
-      ActualsAt text context facts catalog (fixedAfter text after "," false) (first + 1) last rest result →
-      ActualsAt text context facts catalog position first last (actual :: rest) result
+  | actuals {position first last entries after} :
+      ActualsTailAt text context facts catalog first last position first false noFormals entries after →
+      ActualsAt text context facts catalog position first last (arrangeFunctionActuals entries first last) after
 
 theorem actuals_sound {text context facts catalog position first last}
     (tv : Compose.Expressions.ValidText text) (nv : Compose.Expressions.ValidNames text context.names)
@@ -182,58 +351,42 @@ theorem actuals_sound {text context facts catalog position first last}
     (accepted : actualsAfter text context position facts catalog first last ≠ 0) :
     ∃ actuals, ActualsAt text context facts catalog position first last actuals
       (actualsAfter text context position facts catalog first last) := by
-  rw [actualsAfter] at accepted ⊢
-  try dsimp only at accepted ⊢
-  split at accepted
-  · contradiction
-  · rename_i positive
-    obtain ⟨actual, parsed⟩ := actual_sound tv nv bounded positive
-    simp only [positive, ↓reduceIte]
-    split at accepted
-    · rename_i same
-      subst last
-      simp only [↓reduceIte] at accepted ⊢
-      exact ⟨[actual], .last parsed accepted⟩
-    · rename_i different
-      simp only [different, ↓reduceIte] at accepted ⊢
-      split at accepted
-      · rename_i within
-        simp only [within, ↓reduceDIte]
-        obtain ⟨rest, following⟩ := actuals_sound tv nv
-          (Compose.Expressions.model_fixed_valid text _ "," false parsed.bounded) accepted
-        exact ⟨actual :: rest, .next within parsed following⟩
-      · contradiction
-termination_by last - first
+  obtain ⟨entries, parsed⟩ := actualsTail_sound tv nv bounded accepted
+  exact ⟨arrangeFunctionActuals entries first last, .actuals parsed⟩
 
 theorem actuals_unique {text context facts catalog position first last left right leftAfter rightAfter}
     (one : ActualsAt text context facts catalog position first last left leftAfter)
-    (two : ActualsAt text context facts catalog position first last right rightAfter) :
-    left = right := by
-  induction one generalizing right rightAfter with
-  | last parsed _ =>
+    (two : ActualsAt text context facts catalog position first last right rightAfter) : left = right := by
+  cases one with
+  | actuals source =>
       cases two with
-      | last other _ => simp [(actual_unique parsed other).1]
-      | next within _ _ => omega
-  | next within parsed rest ih =>
-      cases two with
-      | last => omega
-      | next _ other following =>
-          obtain ⟨same, afterSame⟩ := actual_unique parsed other
-          cases afterSame
-          simp [same, ih following]
+      | actuals other => rw [source.unique other]
+
+theorem ActualsAt.forall_payloads {text context facts catalog position first last actuals after}
+    (parsed : ActualsAt text context facts catalog position first last actuals after)
+    {property : ScalarFunctions.Actual → Prop}
+    (one : ∀ position formal actual after,
+      ActualAt text context position facts (FunctionBindings.parameter catalog formal) actual after → property actual) :
+    ∀ actual ∈ actuals, property actual := by
+  cases parsed with
+  | actuals source =>
+      have original := source.forall_payloads one
+      have arranged := ScalarAssociations.arrange_all defaultFunctionActual source.fresh.nodup source.complete original
+      intro actual present
+      obtain ⟨entry, member, same⟩ := List.mem_map.mp present
+      subst actual
+      exact arranged entry member
 
 theorem actuals_positive {text context facts catalog position first last actuals after}
     (parsed : ActualsAt text context facts catalog position first last actuals after) : after ≠ 0 := by
-  induction parsed with
-  | last _ positive => exact positive
-  | next _ _ _ ih => exact ih
+  cases parsed with
+  | actuals source => exact source.positive
 
 theorem actuals_bounded {text context facts catalog position first last actuals after}
     (parsed : ActualsAt text context facts catalog position first last actuals after) :
     after ≤ text.length + 1 := by
-  induction parsed with
-  | last source _ => exact Compose.Expressions.model_fixed_valid text _ ")" false source.bounded
-  | next _ _ _ ih => exact ih
+  cases parsed with
+  | actuals source => exact source.bounded
 
 structure CallAt (text : Source) (context : ParseContext) (position : Nat)
     (facts : ActiveFlow) (catalog : FunctionBindings.Metadata) (call : ScalarFunctions.Call)
