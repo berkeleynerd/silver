@@ -1,5 +1,27 @@
 # Complete cached Lean refresh for #391
 
+## Final result — passed on the frozen repaired implementation
+
+The [serialized complete checkpoint](attempt-3/README.md) passed on
+`d60bd8a899fcc66e5ef40112423b7f94b2e4becc` in managed run
+`20261116T233445-6dce1a7dbb80`. All **1,009 modules and 162,274 declarations**
+were freshly audited with only `[propext, Classical.choice, Quot.sound]`.
+All input, tool, workspace, artifact and log hashes were independently inspected;
+all 40 generated candidates and 32 authoritative sources are covered. Original
+terminal `85539` returned 0 and the reservation was released. This is a cached
+complete build and fresh audit, with no clean build or independent replay.
+
+After the first interruption and the successful Domain-focused gate below,
+the [two-worker complete attempt](attempt-2/README.md) on the final repaired
+implementation hit the measured aggregate RSS guard without a proof diagnostic.
+All 998 pre-run primary objects survived unchanged. The lead authorized
+serialization based on that observed overlap. The final run used one worker,
+automatic 12 threads and the retained 8192 MiB periodic per-process threshold;
+peak sampled tree RSS was 8.601334 GiB and minimum host available memory was
+7.725693 GiB. Neither retained guard fired. Full details and provenance are in
+[the successful packet](attempt-3/README.md). The earlier records below describe
+their historical snapshots and results.
+
 ## First attempt — retained interruption
 
 The frozen implementation was `2288af60031763d808b8cd1e024f8fcf7cdc7135`.
@@ -54,6 +76,6 @@ The native full audit owned the worker allocation at that handoff. After its
 release, the repaired `Silver.ComposeBooleanDeclarationDomain` target passed
 at two workers/default threads/8192 MiB, selected in response to the observed
 12-worker aggregate guard. The [focused packet](domain-focused/README.md)
-records its exact scope and fresh audit. A complete cached refresh remains
-required after the native repair's final-source integration. No successful
-complete audit is claimed.
+records its exact scope and fresh audit. At that historical handoff, a complete
+cached refresh remained required after the native repair's final-source
+integration. The final success is recorded above.

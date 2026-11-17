@@ -1,0 +1,45 @@
+{
+  "run_id": "20261116T233445-6dce1a7dbb80",
+  "task": "#391",
+  "kind": "lean",
+  "scope": "complete",
+  "state": "success",
+  "active": false,
+  "workers": 1,
+  "directory": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261116T233445-6dce1a7dbb80",
+  "fingerprint": "c110aa9d74a804240900369c3dc950d3ee6a7d743cbaf81c6f2955fd3b06be35",
+  "command": [
+    "/usr/bin/python3",
+    "/home/agent/silver-worktrees/procedures-lean-370/scripts/check_lean.py",
+    "--workers",
+    "1",
+    "--memory-mb",
+    "8192",
+    "--provenance",
+    "--task",
+    "#391",
+    "--reason",
+    "Serialized cached continuation on unchanged frozen d60bd8a899fcc66e5ef40112423b7f94b2e4becc. Actual previous two-worker attempt 20261116T233051-b2fd2290a41d overlapped ComposeContractSourceCandidate/ComposeDeclarationSourceCandidate setup; measured Lean7.136 GiB plus otherLean1.697 GiB plus Lake1.164 GiB crossed10 GiB aggregate RSS guard at88.186s, with host6.699 GiB. No proof diagnostic; all998 prior objects remain byte-identical. Parent authorized one worker with automatic12 threads and 8192 MiB periodic per-process threshold, same10 GiB tree/1.5 GiB host guards. All1116 captured inputs matchGitHEAD and32 embedded sources remain unchanged. Retain prior attempts and add own-process argv/module sampling. No native/test overlap, source change, repeated focused success, clean build or replay."
+  ],
+  "reason": "Serialized cached continuation on unchanged frozen d60bd8a899fcc66e5ef40112423b7f94b2e4becc. Actual previous two-worker attempt 20261116T233051-b2fd2290a41d overlapped ComposeContractSourceCandidate/ComposeDeclarationSourceCandidate setup; measured Lean7.136 GiB plus otherLean1.697 GiB plus Lake1.164 GiB crossed10 GiB aggregate RSS guard at88.186s, with host6.699 GiB. No proof diagnostic; all998 prior objects remain byte-identical. Parent authorized one worker with automatic12 threads and 8192 MiB periodic per-process threshold, same10 GiB tree/1.5 GiB host guards. All1116 captured inputs matchGitHEAD and32 embedded sources remain unchanged. Retain prior attempts and add own-process argv/module sampling. No native/test overlap, source change, repeated focused success, clean build or replay.",
+  "worktree": "/home/agent/silver-worktrees/procedures-lean-370",
+  "resources": [
+    "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/proof",
+    "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-proof.log",
+    "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-evidence.json"
+  ],
+  "started_at": "2026-11-16T23:34:45.882149+00:00",
+  "finished_at": "2026-11-17T00:25:15.542422+00:00",
+  "duration_seconds": 3029.660132236,
+  "returncode": null,
+  "error": null,
+  "failure_keys": [],
+  "evidence": [
+    "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-proof.log",
+    "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-evidence.json",
+    "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261116T233445-6dce1a7dbb80/previous-evidence/lean-proof.log",
+    "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261116T233445-6dce1a7dbb80/lean-proof.log",
+    "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261116T233445-6dce1a7dbb80/lean-evidence.json"
+  ],
+  "retained_report_count": 0
+}

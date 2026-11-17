@@ -1,0 +1,27 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "scripts/check_lean.py",
+    "--workers",
+    "2",
+    "--memory-mb",
+    "8192",
+    "--provenance",
+    "--task",
+    "#391",
+    "--reason",
+    "Complete cached Lean checkpoint on frozen reviewed implementation d60bd8a899fcc66e5ef40112423b7f94b2e4becc after native full success and focused Boolean Domain success 20261116T231040-cddd7187b7b8. All1116 captured inputs match Git HEAD; all32 embedded authoritative source bytes remain unchanged. Retain all998 current primary objects. Actual previous12-worker aggregate RSS guard reached11.225 GiB on16 GiB host; focused2-worker peak was2.634 GiB. Select2 workers with automatic12 threads for remaining dense overlap; no native proof/test run competes. Retain8192 MiB periodic per-process threshold and 10 GiB RSS-tree/1.5 GiB host MemAvailable monitoring guards, not hard OS caps. No repeated focused success, clean build or replay."
+  ],
+  "cwd": "/home/agent/silver-worktrees/procedures-lean-370",
+  "launcher_pid": 109040,
+  "runner_pid": 109041,
+  "runner_pgid": 109041,
+  "started_utc": "2026-11-16T23:30:51.112119+00:00",
+  "sample_interval_seconds": 2,
+  "tree_rss_guard_kib": 10485760,
+  "host_available_guard_kib": 1572864,
+  "guard_trigger": "aggregate process-tree RSS exceeded 10 GiB",
+  "returncode": -2,
+  "finished_utc": "2026-11-16T23:32:19.350583+00:00",
+  "elapsed_seconds": 88.239
+}

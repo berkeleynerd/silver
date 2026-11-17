@@ -177,4 +177,22 @@ edit. Two workers/default 12 threads/8192 MiB gave a sampled peak RSS tree of
 The original tool terminal `93277` was collected with exit 0. Detailed exact
 input/tool/artifact verification, timings and retained logs are in the
 [focused packet](complete/domain-focused/README.md). This is focused evidence;
-the full refresh waits for the native repair's final captured bytes.
+the full refresh at that handoff waited for the native repair's final captured
+bytes. Its later complete success is recorded below.
+
+## 2026-11-17 complete cached refresh — passed
+
+The complete checkpoint on frozen repaired implementation
+`d60bd8a899fcc66e5ef40112423b7f94b2e4becc` passed in run
+`20261116T233445-6dce1a7dbb80`: **1,009 actual modules, 162,274 declarations**,
+with only `[propext, Classical.choice, Quot.sound]`. The final check used one
+worker after measured aggregate memory overlap interrupted the two-worker
+attempt, retaining automatic 12 threads and the 8192 MiB per-process threshold.
+No guard fired; original terminal `85539` returned 0 and released its reservation.
+All 1,116 repository input hashes match the frozen Git snapshot; all workspace,
+artifact, tool and log hashes also match. The fresh whole-project audit covers
+the 40 generated candidates and 32 authoritative embedded sources. The
+[complete packet](complete/README.md) retains both historical interruptions,
+the successful final provenance, exact resource observations and cache checks.
+The parent owns the subsequent regression suite and publication. No clean build,
+independent replay, source change or duplicate focused success was performed.
