@@ -1,0 +1,42 @@
+{
+  "run_id": "20261116T225232-a8d95d91b22a",
+  "task": "#391",
+  "kind": "lean",
+  "scope": "complete",
+  "state": "interrupted",
+  "active": false,
+  "workers": 12,
+  "directory": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261116T225232-a8d95d91b22a",
+  "fingerprint": "a6a9513aec32dbd22abc37e75796d775a0d267afa4414ffc43e91a6deb6a5ebc",
+  "command": [
+    "/usr/bin/python3",
+    "/home/agent/silver-worktrees/procedures-lean-370/scripts/check_lean.py",
+    "--memory-mb",
+    "8192",
+    "--provenance",
+    "--task",
+    "#391",
+    "--reason",
+    "Complete cached Lean checkpoint on frozen integrated implementation 2288af60031763d808b8cd1e024f8fcf7cdc7135 after focused native/Lean success. All captured inputs match that commit; all embedded source bytes remain unchanged from the prior complete success. Preserve all retained objects; automatic available workers and threads on Linux ARM64, with no native proof overlap. Retained 8192 MiB periodic per-process threshold, 10 GiB aggregate RSS-tree and 1.5 GiB host MemAvailable monitoring guards; not hard OS caps. No clean build or replay."
+  ],
+  "reason": "Complete cached Lean checkpoint on frozen integrated implementation 2288af60031763d808b8cd1e024f8fcf7cdc7135 after focused native/Lean success. All captured inputs match that commit; all embedded source bytes remain unchanged from the prior complete success. Preserve all retained objects; automatic available workers and threads on Linux ARM64, with no native proof overlap. Retained 8192 MiB periodic per-process threshold, 10 GiB aggregate RSS-tree and 1.5 GiB host MemAvailable monitoring guards; not hard OS caps. No clean build or replay.",
+  "worktree": "/home/agent/silver-worktrees/procedures-lean-370",
+  "resources": [
+    "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/proof",
+    "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-proof.log",
+    "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-evidence.json"
+  ],
+  "started_at": "2026-11-16T22:52:32.586590+00:00",
+  "finished_at": "2026-11-16T22:52:44.457273+00:00",
+  "duration_seconds": 11.870321256,
+  "returncode": null,
+  "error": "KeyboardInterrupt: ",
+  "failure_keys": [],
+  "evidence": [
+    "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-proof.log",
+    "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-evidence.json",
+    "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261116T225232-a8d95d91b22a/previous-evidence/lean-proof.log",
+    "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261116T225232-a8d95d91b22a/previous-evidence/lean-evidence.json"
+  ],
+  "retained_report_count": 1
+}

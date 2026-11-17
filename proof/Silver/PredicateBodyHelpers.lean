@@ -14,7 +14,7 @@ unchecked scanner. -/
 namespace Silver.Predicate.BodyNative
 open Compose
 
-variable {catalog : FunctionBindings.Metadata}
+variable {catalog : FunctionBindings.Metadata} {procedures : ProcedureBindings.Metadata}
 
 def bodyTokens : List ShellToken :=
   [.word "if", .word "for", .word "then", .word "end", .word "elsif", .word "else", .word "return", .symbol ";"]
@@ -28,8 +28,8 @@ structure HelperMeaning (primitive : Primitives) : Prop where
     ValidScan text context scan → ∀ token, token ∈ bodyTokens →
     primitive.bodyToken text context scan token = Predicate.bodyToken text scan token
   basic : ∀ text, ValidText text → ∀ context, Native.ValidContext text context →
-    ∀ scan, ValidScan text context scan → ∀ catalog, FunctionBindings.ValidMetadata text catalog →
-    primitive.basic text context scan catalog = basicBody text context.model scan catalog
+    ∀ scan, ValidScan text context scan → ∀ catalog procedures, FunctionBindings.ValidMetadata text catalog → ProcedureBindings.ValidMetadata text procedures →
+    primitive.basic text context scan catalog procedures = basicBody text context.model scan catalog procedures
   predicate : ∀ text, ValidText text → ∀ context, Native.ValidContext text context →
     ∀ position, position ≤ text.length + 1 → ∀ facts, Native.ValidFlow context facts →
     primitive.predicate text context position facts = readCondition text context.model position facts
@@ -48,9 +48,9 @@ noncomputable def totalize (primitive : Primitives) : Primitives := by
     bodyToken := fun text context scan token =>
       if ValidText text ∧ Native.ValidContext text context ∧ ValidScan text context scan ∧ token ∈ bodyTokens then
         primitive.bodyToken text context scan token else Predicate.bodyToken text scan token
-    basic := fun text context scan catalog =>
-      if ValidText text ∧ Native.ValidContext text context ∧ ValidScan text context scan ∧ FunctionBindings.ValidMetadata text catalog then
-        primitive.basic text context scan catalog else basicBody text context.model scan catalog
+    basic := fun text context scan catalog procedures =>
+      if ValidText text ∧ Native.ValidContext text context ∧ ValidScan text context scan ∧ FunctionBindings.ValidMetadata text catalog ∧ ProcedureBindings.ValidMetadata text procedures then
+        primitive.basic text context scan catalog procedures else basicBody text context.model scan catalog procedures
     predicate := fun text context position facts =>
       if ValidText text ∧ Native.ValidContext text context ∧ position ≤ text.length + 1 ∧ Native.ValidFlow context facts then
         primitive.predicate text context position facts else readCondition text context.model position facts
@@ -68,10 +68,10 @@ theorem totalize_token (primitive : Primitives) (text : Source) (tv : ValidText 
 
 theorem totalize_basic (primitive : Primitives) (text : Source) (tv : ValidText text)
     (context : Native.Context) (cv : Native.ValidContext text context) (scan : BodyScan)
-    (sv : ValidScan text context scan) (fv : FunctionBindings.ValidMetadata text catalog) :
-    (totalize primitive).basic text context scan catalog = primitive.basic text context scan catalog := by
+    (sv : ValidScan text context scan) (fv : FunctionBindings.ValidMetadata text catalog) (pv : ProcedureBindings.ValidMetadata text procedures) :
+    (totalize primitive).basic text context scan catalog procedures = primitive.basic text context scan catalog procedures := by
   classical
-  simp only [totalize, tv, cv, sv, fv, and_self, ↓reduceIte]
+  simp only [totalize, tv, cv, sv, fv, pv, and_self, ↓reduceIte]
 
 theorem totalize_predicate (primitive : Primitives) (text : Source) (tv : ValidText text)
     (context : Native.Context) (cv : Native.ValidContext text context) (position : Nat)
@@ -98,11 +98,11 @@ theorem totalize_eq_model (primitive : Primitives) (meaning : HelperMeaning prim
       exact meaning.bodyToken text valid.1 context valid.2.1 scan valid.2.2.1 token valid.2.2.2
     · rfl
   have basics : (totalize primitive).basic = modelPrimitives.basic := by
-    funext text context scan catalog
+    funext text context scan catalog procedures
     dsimp only [totalize, modelPrimitives]
     split
     · rename_i valid
-      exact meaning.basic text valid.1 context valid.2.1 scan valid.2.2.1 catalog valid.2.2.2
+      exact meaning.basic text valid.1 context valid.2.1 scan valid.2.2.1 catalog procedures valid.2.2.2.1 valid.2.2.2.2
     · rfl
   have predicates : (totalize primitive).predicate = modelPrimitives.predicate := by
     funext text context position facts
@@ -149,20 +149,20 @@ extensions. Every recursive callee remains arbitrary. -/
 structure DefinitionEquations (primitive : Primitives) (calls : Calls) : Prop where
   sized : SizedBodies (totalize primitive) calls
   statement : ∀ text, ValidText text → ∀ context, Native.ValidContext text context → ∀ scan,
-    ValidScan text context scan → ∀ catalog, FunctionBindings.ValidMetadata text catalog → calls.statement text context scan catalog = statementEval (totalize primitive) calls {text,context,scan,catalog}
+    ValidScan text context scan → ∀ catalog procedures, FunctionBindings.ValidMetadata text catalog → ProcedureBindings.ValidMetadata text procedures → calls.statement text context scan catalog procedures = statementEval (totalize primitive) calls {text,context,scan,catalog,procedures}
   loop : ∀ text, ValidText text → ∀ context, Native.ValidContext text context → ∀ scan,
-    ValidScan text context scan → ∀ catalog, FunctionBindings.ValidMetadata text catalog → calls.loop text context scan catalog = LoopNative.evalWith (LoopNative.totalizeImports primitive.loop) calls.read text context scan catalog
+    ValidScan text context scan → ∀ catalog procedures, FunctionBindings.ValidMetadata text catalog → ProcedureBindings.ValidMetadata text procedures → calls.loop text context scan catalog procedures = LoopNative.evalWith (LoopNative.totalizeImports primitive.loop) calls.read text context scan catalog procedures
   conditional : ∀ text, ValidText text → ∀ context, Native.ValidContext text context → ∀ scan,
-    ValidScan text context scan → ∀ catalog, FunctionBindings.ValidMetadata text catalog → calls.conditional text context scan catalog = conditionalFunction.eval (totalize primitive) calls {text,context,scan,catalog}
+    ValidScan text context scan → ∀ catalog procedures, FunctionBindings.ValidMetadata text catalog → ProcedureBindings.ValidMetadata text procedures → calls.conditional text context scan catalog procedures = conditionalFunction.eval (totalize primitive) calls {text,context,scan,catalog,procedures}
   alternative : ∀ text, ValidText text → ∀ context, Native.ValidContext text context → ∀ scan,
-    ValidScan text context scan → ∀ catalog, FunctionBindings.ValidMetadata text catalog → calls.alternative text context scan catalog = alternativeFunction.eval (totalize primitive) calls {text,context,scan,catalog}
+    ValidScan text context scan → ∀ catalog procedures, FunctionBindings.ValidMetadata text catalog → ProcedureBindings.ValidMetadata text procedures → calls.alternative text context scan catalog procedures = alternativeFunction.eval (totalize primitive) calls {text,context,scan,catalog,procedures}
   tailModel : ∀ text, ValidText text → ∀ context, Native.ValidContext text context → ∀ scan stop,
-    ValidScan text context scan → ∀ catalog, FunctionBindings.ValidMetadata text catalog → calls.tailModel text context scan stop catalog = tailModelBody.eval (totalize primitive) calls {text,context,scan,catalog,stop}
+    ValidScan text context scan → ∀ catalog procedures, FunctionBindings.ValidMetadata text catalog → ProcedureBindings.ValidMetadata text procedures → calls.tailModel text context scan stop catalog procedures = tailModelBody.eval (totalize primitive) calls {text,context,scan,catalog,procedures,stop}
   tail : ∀ text, ValidText text → ∀ context, Native.ValidContext text context → ∀ scan stop,
-    ValidScan text context scan → ∀ catalog, FunctionBindings.ValidMetadata text catalog → calls.tail text context scan stop catalog =
-      (ScanExpr.tailModel .current .input).eval (totalize primitive) calls {text,context,scan,catalog,stop}
+    ValidScan text context scan → ∀ catalog procedures, FunctionBindings.ValidMetadata text catalog → ProcedureBindings.ValidMetadata text procedures → calls.tail text context scan stop catalog procedures =
+      (ScanExpr.tailModel .current .input).eval (totalize primitive) calls {text,context,scan,catalog,procedures,stop}
   read : ∀ text, ValidText text → ∀ context, Native.ValidContext text context → ∀ scan stop,
-    ValidScan text context scan → ∀ catalog, FunctionBindings.ValidMetadata text catalog → calls.read text context scan stop catalog = readContractBody.eval (totalize primitive) calls {text,context,scan,catalog,stop}
+    ValidScan text context scan → ∀ catalog procedures, FunctionBindings.ValidMetadata text catalog → ProcedureBindings.ValidMetadata text procedures → calls.read text context scan stop catalog procedures = readContractBody.eval (totalize primitive) calls {text,context,scan,catalog,procedures,stop}
 
 theorem equations_of_definitions (primitive : Primitives) (calls : Calls)
     (meaning : HelperMeaning primitive) (definitions : DefinitionEquations primitive calls) : Equations calls := by
@@ -181,7 +181,7 @@ theorem model_helper_meaning : HelperMeaning modelPrimitives where
   loop := LoopNative.model_imports_meaning
   token _ _ _ _ _ _ := rfl
   bodyToken _ _ _ _ _ _ _ _ := rfl
-  basic _ _ _ _ _ _ _ _ := rfl
+  basic _ _ _ _ _ _ _ _ _ _ := rfl
   predicate _ _ _ _ _ _ _ _ := rfl
   invalidModel _ _ := rfl
   invalid _ _ := rfl

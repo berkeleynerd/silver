@@ -1,0 +1,10 @@
+test_exact_compiler_origins_and_duplicate_location_are_separate_from_checks (test_evidence.OperatorReassociationAdvisoryTests.test_exact_compiler_origins_and_duplicate_location_are_separate_from_checks) ... ok
+test_reassociation_cannot_replace_or_hide_required_work (test_evidence.OperatorReassociationAdvisoryTests.test_reassociation_cannot_replace_or_hide_required_work) ... ok
+test_reassociation_rejects_applications_and_unreviewed_origin_pairs (test_evidence.OperatorReassociationAdvisoryTests.test_reassociation_rejects_applications_and_unreviewed_origin_pairs) ... ok
+test_reassociation_requires_exact_native_fields_and_values (test_evidence.OperatorReassociationAdvisoryTests.test_reassociation_requires_exact_native_fields_and_values) ... ok
+test_reassociation_requires_exact_sarif_shape_and_multiplicity (test_evidence.OperatorReassociationAdvisoryTests.test_reassociation_requires_exact_sarif_shape_and_multiplicity) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.212s
+
+OK

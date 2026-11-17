@@ -1,0 +1,174 @@
+{
+  "result": "all linked files exist in isolated branch or integration",
+  "capability_delivery_anchor": "delivery-assurance-and-validation; confirmed forthcoming by lead, separate integrated delivery record",
+  "links": [
+    {
+      "from": "rosetta/assessment-scalar-procedures-20261115.md",
+      "target": "#final-validation-addendum",
+      "exists_in_isolated_branch": true,
+      "exists_in_integration": false,
+      "anchor": "final-validation-addendum"
+    },
+    {
+      "from": "rosetta/assessment-scalar-procedures-20261115.md",
+      "target": "../docs/scalar-procedures.md#delivery-assurance-and-validation",
+      "exists_in_isolated_branch": true,
+      "exists_in_integration": true,
+      "anchor": "delivery-assurance-and-validation"
+    },
+    {
+      "from": "rosetta/assessment-scalar-procedures-20261115.md",
+      "target": "../docs/scalar-procedures.md",
+      "exists_in_isolated_branch": true,
+      "exists_in_integration": true,
+      "anchor": ""
+    },
+    {
+      "from": "rosetta/assessment-scalar-procedures-20261115.md",
+      "target": "r/return-multiple-values/task.wiki",
+      "exists_in_isolated_branch": true,
+      "exists_in_integration": true,
+      "anchor": ""
+    },
+    {
+      "from": "rosetta/assessment-scalar-procedures-20261115.md",
+      "target": "r/return-multiple-values/ada.wiki",
+      "exists_in_isolated_branch": true,
+      "exists_in_integration": true,
+      "anchor": ""
+    },
+    {
+      "from": "rosetta/assessment-scalar-procedures-20261115.md",
+      "target": "r/return-multiple-values/ada-1.ada",
+      "exists_in_isolated_branch": true,
+      "exists_in_integration": true,
+      "anchor": ""
+    },
+    {
+      "from": "rosetta/assessment-scalar-procedures-20261115.md",
+      "target": "../samples/rosetta_return_multiple_values.adb",
+      "exists_in_isolated_branch": true,
+      "exists_in_integration": true,
+      "anchor": ""
+    },
+    {
+      "from": "rosetta/assessment-scalar-procedures-20261115.md",
+      "target": "assessment-scalar-procedures-20261109.md",
+      "exists_in_isolated_branch": true,
+      "exists_in_integration": true,
+      "anchor": ""
+    },
+    {
+      "from": "rosetta/assessment-scalar-procedures-20261115.md",
+      "target": "../docs/scalar-procedures.md#delivery-assurance-and-validation",
+      "exists_in_isolated_branch": true,
+      "exists_in_integration": true,
+      "anchor": "delivery-assurance-and-validation"
+    },
+    {
+      "from": "rosetta/assessment-scalar-procedures-20261115.md",
+      "target": "../docs/evidence/scalar-procedures-20261115/regression-recovery/rosetta/README.md",
+      "exists_in_isolated_branch": true,
+      "exists_in_integration": false,
+      "anchor": ""
+    },
+    {
+      "from": "rosetta/assessment-scalar-procedures-20261115.md",
+      "target": "../docs/evidence/scalar-procedures-20261115/native-recovery/full-native/README.md",
+      "exists_in_isolated_branch": false,
+      "exists_in_integration": true,
+      "anchor": ""
+    },
+    {
+      "from": "rosetta/assessment-scalar-procedures-20261115.md",
+      "target": "../docs/evidence/scalar-procedures-20261115/lean-recovery/complete-checkpoint/final-complete-cached/README.md",
+      "exists_in_isolated_branch": false,
+      "exists_in_integration": true,
+      "anchor": ""
+    },
+    {
+      "from": "rosetta/assessment-scalar-procedures-20261115.md",
+      "target": "../development.md#proof-loop-and-validation",
+      "exists_in_isolated_branch": true,
+      "exists_in_integration": true,
+      "anchor": "proof-loop-and-validation"
+    },
+    {
+      "from": "rosetta/assessment-scalar-procedures-20261115.md",
+      "target": "assessment-scalar-procedures-20261109.md",
+      "exists_in_isolated_branch": true,
+      "exists_in_integration": true,
+      "anchor": ""
+    },
+    {
+      "from": "docs/evidence/scalar-procedures-20261115/regression-recovery/rosetta/README.md",
+      "target": "../../../../scalar-procedures.md#delivery-assurance-and-validation",
+      "exists_in_isolated_branch": true,
+      "exists_in_integration": true,
+      "anchor": "delivery-assurance-and-validation"
+    },
+    {
+      "from": "docs/evidence/scalar-procedures-20261115/regression-recovery/rosetta/README.md",
+      "target": "../../../../../rosetta/assessment-scalar-procedures-20261115.md#final-validation-addendum",
+      "exists_in_isolated_branch": true,
+      "exists_in_integration": false,
+      "anchor": "final-validation-addendum"
+    },
+    {
+      "from": "docs/evidence/scalar-procedures-20261115/regression-recovery/rosetta/README.md",
+      "target": "controls.json",
+      "exists_in_isolated_branch": true,
+      "exists_in_integration": false,
+      "anchor": ""
+    },
+    {
+      "from": "docs/evidence/scalar-procedures-20261115/regression-recovery/rosetta/README.md",
+      "target": "check-controls.py",
+      "exists_in_isolated_branch": true,
+      "exists_in_integration": false,
+      "anchor": ""
+    },
+    {
+      "from": "docs/evidence/scalar-procedures-20261115/regression-recovery/rosetta/README.md",
+      "target": "generated-file-hashes.json",
+      "exists_in_isolated_branch": true,
+      "exists_in_integration": false,
+      "anchor": ""
+    },
+    {
+      "from": "docs/evidence/scalar-procedures-20261115/regression-recovery/rosetta/README.md",
+      "target": "commands.json",
+      "exists_in_isolated_branch": true,
+      "exists_in_integration": false,
+      "anchor": ""
+    },
+    {
+      "from": "docs/evidence/scalar-procedures-20261115/regression-recovery/rosetta/README.md",
+      "target": "tests.log",
+      "exists_in_isolated_branch": true,
+      "exists_in_integration": false,
+      "anchor": ""
+    },
+    {
+      "from": "rosetta/r/return-multiple-values/silver.md",
+      "target": "../../../docs/scalar-procedures.md#delivery-assurance-and-validation",
+      "exists_in_isolated_branch": true,
+      "exists_in_integration": true,
+      "anchor": "delivery-assurance-and-validation"
+    },
+    {
+      "from": "rosetta/r/return-multiple-values/silver.md",
+      "target": "../../progression.md#stage-1",
+      "exists_in_isolated_branch": true,
+      "exists_in_integration": true,
+      "anchor": "stage-1"
+    },
+    {
+      "from": "rosetta/r/return-multiple-values/silver.md",
+      "target": "../../assessment-scalar-procedures-20261115.md",
+      "exists_in_isolated_branch": true,
+      "exists_in_integration": false,
+      "anchor": ""
+    }
+  ]
+}

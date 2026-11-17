@@ -1,0 +1,27 @@
+{
+  "command": [
+    "python3",
+    "scripts/check_lean.py",
+    "--target",
+    "Silver.FunctionSourceParts.FunctionLocalsRecoveryPositiveControls",
+    "--workers",
+    "1",
+    "--memory-mb",
+    "2048",
+    "--provenance",
+    "--task",
+    "370-lean-memory-recovery-controls",
+    "--reason",
+    "Bounded controls on frozen production helper: exact body accepted, duplicate named bodies before and across append boundary rejected, dropped token and reordered body rejected; 2 GiB process threshold."
+  ],
+  "cwd": "/home/agent/silver-worktrees/procedures-lean-370",
+  "started_at": "2026-11-15T17:37:24.804664+00:00",
+  "peak_sum_rss_kib": 56576,
+  "peak_process_rss_kib": 56576,
+  "minimum_mem_available_kib": 15126528,
+  "pid": 18581,
+  "returncode": 0,
+  "elapsed_seconds": 10.003742128999875,
+  "finished_at": "2026-11-15T17:37:34.808395+00:00",
+  "interrupted": false
+}

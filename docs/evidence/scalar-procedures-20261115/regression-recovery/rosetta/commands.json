@@ -1,0 +1,140 @@
+[
+  {
+    "phase": "render",
+    "command": [
+      "/usr/bin/python3",
+      "rosetta/refresh.py",
+      "--render"
+    ],
+    "environment": {
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "started_utc": "2026-11-15T22:39:38.718095+00:00",
+    "finished_utc": "2026-11-15T22:39:39.223580+00:00",
+    "elapsed_seconds": 0.5054065840013209,
+    "returncode": 0,
+    "log": "render.log",
+    "log_sha256": "39625523462b2e836190cc218492b1bc1c50492a10f752cb2fffa6797ae18dc8"
+  },
+  {
+    "phase": "tests",
+    "command": [
+      "/usr/bin/python3",
+      "-m",
+      "unittest",
+      "tests.test_rosetta",
+      "-v"
+    ],
+    "environment": {
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "started_utc": "2026-11-15T22:39:39.223671+00:00",
+    "finished_utc": "2026-11-15T22:39:42.648603+00:00",
+    "elapsed_seconds": 3.424863918000483,
+    "returncode": 0,
+    "log": "tests.log",
+    "log_sha256": "7acb0224cabab3379ca9acaf70f0c6357d0b5774627640dba1306e5422ae61c8",
+    "test_results": [
+      {
+        "id": "tests.test_rosetta.RosettaRefreshTests.test_complete_cache_rebuilds_groups_and_still_renders_without_cache",
+        "status": "passed",
+        "output": "... ok"
+      },
+      {
+        "id": "tests.test_rosetta.RosettaRefreshTests.test_incomplete_late_subpage_metadata_preserves_output",
+        "status": "passed",
+        "output": "... ok"
+      },
+      {
+        "id": "tests.test_rosetta.RosettaRefreshTests.test_invalid_utf8_late_solution_subpage_preserves_output",
+        "status": "passed",
+        "output": "... ok"
+      },
+      {
+        "id": "tests.test_rosetta.RosettaRefreshTests.test_invalid_utf8_late_task_page_preserves_output",
+        "status": "passed",
+        "output": "... ok"
+      },
+      {
+        "id": "tests.test_rosetta.RosettaRefreshTests.test_malformed_json_metadata_preserves_output",
+        "status": "passed",
+        "output": "... ok"
+      },
+      {
+        "id": "tests.test_rosetta.RosettaRefreshTests.test_missing_late_solution_subpage_preserves_output",
+        "status": "passed",
+        "output": "... ok"
+      },
+      {
+        "id": "tests.test_rosetta.RosettaRefreshTests.test_missing_late_task_index_metadata_preserves_output",
+        "status": "passed",
+        "output": "... ok"
+      },
+      {
+        "id": "tests.test_rosetta.RosettaRefreshTests.test_missing_late_task_page_preserves_output",
+        "status": "passed",
+        "output": "... ok"
+      },
+      {
+        "id": "tests.test_rosetta.RosettaRefreshTests.test_online_incomplete_download_reports_page_and_preserves_output",
+        "status": "passed",
+        "output": "... Programming_Tasks: 2 pages\nDraft_Programming_Tasks: 0 pages\nAda/Omit: 0 pages\nAda: 2 pages\nSPARK: 2 pages\nFreeBASIC: 0 pages\nPhix: 0 pages\nok"
+      },
+      {
+        "id": "tests.test_rosetta.RosettaRenderTests.test_pending_design_has_no_stage_and_is_not_an_oracle_exclusion",
+        "status": "passed",
+        "output": "An unsettled design must not silently become a zero-construct candidate. ... ok"
+      },
+      {
+        "id": "tests.test_rosetta.RosettaRenderTests.test_render_is_identical_across_hash_seeds",
+        "status": "passed",
+        "output": "Exercise the real CLI and all current assessments without downloaded pages. ... ok"
+      },
+      {
+        "id": "tests.test_rosetta.RosettaRenderTests.test_risk_counts_are_per_sample_and_ties_are_alphabetical",
+        "status": "passed",
+        "output": "A duplicated risk cannot crowd a tied risk out of the four-item summary. ... ok"
+      }
+    ],
+    "complete_expected_id_inventory": true,
+    "collector_diagnostic": {
+      "initial_collection": "failed to recognize interleaved diagnostic output before terminal ok on test_online_incomplete_download_reports_page_and_preserves_output",
+      "correction": "Retained terminal log reparsed for terminal ok; exact unique 12-ID inventory checked against unittest loader without executing tests again.",
+      "test_execution_repeated": false
+    }
+  },
+  {
+    "phase": "controls",
+    "command": [
+      "/usr/bin/python3",
+      "docs/evidence/scalar-procedures-20261115/regression-recovery/rosetta/check-controls.py"
+    ],
+    "environment": {
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "started_utc": "2026-11-15T22:40:25.591274+00:00",
+    "finished_utc": "2026-11-15T22:40:26.432348+00:00",
+    "elapsed_seconds": 0.8409198749977804,
+    "returncode": 1,
+    "log": "controls-failed-input-inventory.log",
+    "log_sha256": "7d44eb89b188c720fccfb7e71434c0edd60ab34d3ca5e492569d785732dda43e",
+    "preparation_diagnostic": "Initial control expected only three Stage 2 identifiers; actual unchanged baseline/final driver introduces for-loops and integers as well. Assertion corrected to all five; no renderer, mapping or test input changed.",
+    "failure_diagnostic": "Control inventory incorrectly expected tests/__init__.py; tests is a namespace package. Removed nonexistent file from inventory; no render or test input changed."
+  },
+  {
+    "phase": "controls",
+    "command": [
+      "/usr/bin/python3",
+      "docs/evidence/scalar-procedures-20261115/regression-recovery/rosetta/check-controls.py"
+    ],
+    "environment": {
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "started_utc": "2026-11-15T22:40:41.476701+00:00",
+    "finished_utc": "2026-11-15T22:40:42.270404+00:00",
+    "elapsed_seconds": 0.7936324590009463,
+    "returncode": 0,
+    "log": "controls.log",
+    "log_sha256": "5c440efe252fab252d55396e0bdf00fe17ed3fda4c64c6a503c358af6f2fceb7"
+  }
+]

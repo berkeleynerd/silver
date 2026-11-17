@@ -1,0 +1,16 @@
+{
+  "base": "810d1a8e3",
+  "original_public_loop_statement_byte_identical": true,
+  "full_source_selector_unchanged": true,
+  "original_loop_body_definition_unchanged": true,
+  "normalized_characters": 677,
+  "normalized_tokens": 134,
+  "unchanged_definition_and_caller_sha256": {
+    "proof/Silver/ProcedureNameSource.lean": "a089613a442bfb4aea98d2839abeee3e17db250a61f27ff2a04c873538814550",
+    "proof/Silver/ProcedureNameSourceCandidate.lean": "257a560bab64fa8cf7eade0456e77f45655bb551da046bdf775d02a06a94c48a"
+  },
+  "files_sha256": {
+    "proof/Silver/ProcedureNameSourceParts/Loop.lean": "e49994eaa6c1c0e853f5a9daad630d546da2dc13c30517d19840275781c3a875",
+    "proof/Silver/ProcedureNameSourceParts/LoopExpectedTokens.lean": "4fe0e919c96f039a0d3cdf872c274b886f3cc7c4908c462b9b31bbc57445aedf"
+  }
+}

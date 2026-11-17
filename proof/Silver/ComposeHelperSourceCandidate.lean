@@ -6,6 +6,8 @@ public import Silver.ComposeContracts
 public import Silver.ComposeBooleanDeclarationSource
 public import Silver.ComposeBooleanArraySourceCandidate
 public import Silver.ReviewedOutputShape
+public import Silver.BooleanDeclarationExpectedTokens
+meta import Silver.CertificateWitness
 import all Init.Data.Repr
 
 @[expose] public section
@@ -198,7 +200,15 @@ theorem candidate_boolean_array_helpers :
 native contracts, independently matched against the reviewed complete source. -/
 theorem candidate_boolean_declaration :
     BooleanDeclarationNative.SourceChecks.Checked Output.SourceShape.outputImplementation := by
-  constructor <;> decide +kernel
+  constructor
+  · decide +kernel
+  · decide +kernel
+  · decide +kernel
+  · change functionHeader "boolean_declaration_at" ";" Output.SourceShape.outputImplementation =
+      some (BooleanDeclarationNative.SourceChecks.implHeader ++ expectedTokens "with Global => null, Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length and then Valid_State (Text, State), Post => Valid_State (Text, Boolean_Declaration_At'Result) and then (Boolean_Declaration_At'Result.Position = 0 or else (Boolean_Declaration_At'Result.Position > State.Position and then Boolean_Declaration_At'Result.Functions = State.Functions and then Boolean_Declaration_At'Result.Procedures = State.Procedures and then Boolean_Declaration_At'Result.First_Procedure_Parameter = State.First_Procedure_Parameter and then Boolean_Declaration_At'Result.First_Parameter = State.First_Parameter and then Boolean_Declaration_At'Result.Pure = State.Pure))")
+    rw [BooleanDeclarationExpectedTokens.specAspects]
+    kernel_exact (Eq.refl (some ["(", "text", ":", "string", ";", "state", ":", "parser_state", ";", "arguments", ":", "boolean", ")", "return", "parser_state", "with", "global", "=>", "null", ",", "pre", "=>", "text", "'", "first", "=", "1", "and", "then", "text", "'", "length", "in", "1", "..", "max_source_length", "and", "then", "valid_state", "(", "text", ",", "state", ")", ",", "post", "=>", "valid_state", "(", "text", ",", "boolean_declaration_at", "'", "result", ")", "and", "then", "(", "boolean_declaration_at", "'", "result", ".", "position", "=", "0", "or", "else", "(", "boolean_declaration_at", "'", "result", ".", "position", ">", "state", ".", "position", "and", "then", "boolean_declaration_at", "'", "result", ".", "functions", "=", "state", ".", "functions", "and", "then", "boolean_declaration_at", "'", "result", ".", "procedures", "=", "state", ".", "procedures", "and", "then", "boolean_declaration_at", "'", "result", ".", "first_procedure_parameter", "=", "state", ".", "first_procedure_parameter", "and", "then", "boolean_declaration_at", "'", "result", ".", "first_parameter", "=", "state", ".", "first_parameter", "and", "then", "boolean_declaration_at", "'", "result", ".", "pure", "=", "state", ".", "pure", ")", ")"]))
+  · decide +kernel
 
 
 /-- Complete String helper source trees, native subtypes, defaults and contracts.

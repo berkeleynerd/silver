@@ -17,23 +17,24 @@ structure Primitives where
   loop : LoopNative.Imports
   token : Source → Nat → ShellToken → Nat
   bodyToken : Source → Native.Context → BodyScan → ShellToken → BodyScan
-  basic : Source → Native.Context → BodyScan → FunctionBindings.Metadata → BodyScan
+  basic : Source → Native.Context → BodyScan → FunctionBindings.Metadata → ProcedureBindings.Metadata → BodyScan
   predicate : Source → Native.Context → Nat → ActiveFlow → ConditionResult
   invalidModel : BodyScan → BodyScan
   invalid : BodyScan → BodyScan
   joinInto : ActiveFlow → ActiveFlow → ActiveFlow
 
 structure Calls where
-  statement : Source → Native.Context → BodyScan → FunctionBindings.Metadata → BodyScan
-  loop : Source → Native.Context → BodyScan → FunctionBindings.Metadata → BodyScan
-  conditional : Source → Native.Context → BodyScan → FunctionBindings.Metadata → BodyScan
-  alternative : Source → Native.Context → BodyScan → FunctionBindings.Metadata → BodyScan
-  tailModel : Source → Native.Context → BodyScan → BodyStop → FunctionBindings.Metadata → BodyScan
-  tail : Source → Native.Context → BodyScan → BodyStop → FunctionBindings.Metadata → BodyScan
-  read : Source → Native.Context → BodyScan → BodyStop → FunctionBindings.Metadata → BodyScan
+  statement : Source → Native.Context → BodyScan → FunctionBindings.Metadata → ProcedureBindings.Metadata → BodyScan
+  loop : Source → Native.Context → BodyScan → FunctionBindings.Metadata → ProcedureBindings.Metadata → BodyScan
+  conditional : Source → Native.Context → BodyScan → FunctionBindings.Metadata → ProcedureBindings.Metadata → BodyScan
+  alternative : Source → Native.Context → BodyScan → FunctionBindings.Metadata → ProcedureBindings.Metadata → BodyScan
+  tailModel : Source → Native.Context → BodyScan → BodyStop → FunctionBindings.Metadata → ProcedureBindings.Metadata → BodyScan
+  tail : Source → Native.Context → BodyScan → BodyStop → FunctionBindings.Metadata → ProcedureBindings.Metadata → BodyScan
+  read : Source → Native.Context → BodyScan → BodyStop → FunctionBindings.Metadata → ProcedureBindings.Metadata → BodyScan
 
 structure Frame where
   catalog : FunctionBindings.Metadata
+  procedures : ProcedureBindings.Metadata
   text : Source
   context : Native.Context
   scan : BodyScan
@@ -74,14 +75,14 @@ def ScanExpr.eval (primitive : Primitives) (calls : Calls) (frame : Frame) : Sca
   | .invalid value => primitive.invalid (value.eval primitive calls frame)
   | .invalidModel value => primitive.invalidModel (value.eval primitive calls frame)
   | .token tok value => primitive.bodyToken frame.text frame.context (value.eval primitive calls frame) tok
-  | .basic value => primitive.basic frame.text frame.context (value.eval primitive calls frame) frame.catalog
-  | .statement value => calls.statement frame.text frame.context (value.eval primitive calls frame) frame.catalog
-  | .loop value => calls.loop frame.text frame.context (value.eval primitive calls frame) frame.catalog
-  | .conditional value => calls.conditional frame.text frame.context (value.eval primitive calls frame) frame.catalog
-  | .alternative value => calls.alternative frame.text frame.context (value.eval primitive calls frame) frame.catalog
-  | .tailModel stop value => calls.tailModel frame.text frame.context (value.eval primitive calls frame) (stop.eval frame) frame.catalog
-  | .tail stop value => calls.tail frame.text frame.context (value.eval primitive calls frame) (stop.eval frame) frame.catalog
-  | .read stop value => calls.read frame.text frame.context (value.eval primitive calls frame) (stop.eval frame) frame.catalog
+  | .basic value => primitive.basic frame.text frame.context (value.eval primitive calls frame) frame.catalog frame.procedures
+  | .statement value => calls.statement frame.text frame.context (value.eval primitive calls frame) frame.catalog frame.procedures
+  | .loop value => calls.loop frame.text frame.context (value.eval primitive calls frame) frame.catalog frame.procedures
+  | .conditional value => calls.conditional frame.text frame.context (value.eval primitive calls frame) frame.catalog frame.procedures
+  | .alternative value => calls.alternative frame.text frame.context (value.eval primitive calls frame) frame.catalog frame.procedures
+  | .tailModel stop value => calls.tailModel frame.text frame.context (value.eval primitive calls frame) (stop.eval frame) frame.catalog frame.procedures
+  | .tail stop value => calls.tail frame.text frame.context (value.eval primitive calls frame) (stop.eval frame) frame.catalog frame.procedures
+  | .read stop value => calls.read frame.text frame.context (value.eval primitive calls frame) (stop.eval frame) frame.catalog frame.procedures
 
 def call := Compose.Expressions.call
 
@@ -90,14 +91,14 @@ def ScanExpr.render : ScanExpr → List String
   | .invalid value => call "invalid_body" [value.render]
   | .invalidModel value => call "invalid_body_model" [value.render]
   | .token tok value => call "body_token" [["text"], ["context"], value.render, [Compose.Expressions.tokenName tok]]
-  | .basic value => call "basic_body" [["text"], ["context"], value.render, ["catalog"]]
-  | .statement value => call "statement_body" [["text"], ["context"], value.render, ["catalog"]]
-  | .loop value => call "loop_body" [["text"], ["context"], value.render, ["catalog"]]
-  | .conditional value => call "conditional_body" [["text"], ["context"], value.render, ["catalog"]]
-  | .alternative value => call "alternative_body" [["text"], ["context"], value.render, ["catalog"]]
-  | .tailModel stop value => call "body_tail_model" [["text"], ["context"], value.render, stop.render, ["catalog"]]
-  | .tail stop value => call "body_tail" [["text"], ["context"], value.render, stop.render, ["catalog"]]
-  | .read stop value => call "read_body" [["text"], ["context"], value.render, stop.render, ["catalog"]]
+  | .basic value => call "basic_body" [["text"], ["context"], value.render, ["catalog"], ["procedure_catalog"]]
+  | .statement value => call "statement_body" [["text"], ["context"], value.render, ["catalog"], ["procedure_catalog"]]
+  | .loop value => call "loop_body" [["text"], ["context"], value.render, ["catalog"], ["procedure_catalog"]]
+  | .conditional value => call "conditional_body" [["text"], ["context"], value.render, ["catalog"], ["procedure_catalog"]]
+  | .alternative value => call "alternative_body" [["text"], ["context"], value.render, ["catalog"], ["procedure_catalog"]]
+  | .tailModel stop value => call "body_tail_model" [["text"], ["context"], value.render, stop.render, ["catalog"], ["procedure_catalog"]]
+  | .tail stop value => call "body_tail" [["text"], ["context"], value.render, stop.render, ["catalog"], ["procedure_catalog"]]
+  | .read stop value => call "read_body" [["text"], ["context"], value.render, stop.render, ["catalog"], ["procedure_catalog"]]
 
 inductive FactsExpr
   | result | yes | whenTrue | whenFalse
@@ -306,19 +307,19 @@ def modelPrimitives : Primitives where
   loop := LoopNative.modelImports
   token := tokenAfter
   bodyToken text _ scan token := Predicate.bodyToken text scan token
-  basic text context scan catalog := basicBody text context.model scan catalog
+  basic text context scan catalog procedures := basicBody text context.model scan catalog procedures
   predicate text context position facts := readCondition text context.model position facts
   invalidModel := invalidBody
   invalid := invalidBody
   joinInto := ActiveFlow.join
 
 def modelCalls : Calls where
-  statement text context scan catalog := statementBody text context.model scan catalog
-  loop text context scan catalog := loopBody text context.model scan catalog
-  conditional text context scan catalog := conditionalBody text context.model scan catalog
-  alternative text context scan catalog := alternativeBody text context.model scan catalog
-  tailModel text context scan stop catalog := bodyTail text context.model scan stop catalog
-  tail text context scan stop catalog := bodyTail text context.model scan stop catalog
-  read text context scan stop catalog := readBody text context.model scan stop catalog
+  statement text context scan catalog procedures := statementBody text context.model scan catalog procedures
+  loop text context scan catalog procedures := loopBody text context.model scan catalog procedures
+  conditional text context scan catalog procedures := conditionalBody text context.model scan catalog procedures
+  alternative text context scan catalog procedures := alternativeBody text context.model scan catalog procedures
+  tailModel text context scan stop catalog procedures := bodyTail text context.model scan stop catalog procedures
+  tail text context scan stop catalog procedures := bodyTail text context.model scan stop catalog procedures
+  read text context scan stop catalog procedures := readBody text context.model scan stop catalog procedures
 
 end Silver.Predicate.BodyNative

@@ -1,0 +1,568 @@
+{
+  "review_completed_at_utc": "2026-11-15T22:14:38.572014+00:00",
+  "reviewer": {
+    "role": "independent critical delivery reviewer",
+    "selected_model": "GPT-6 Astra",
+    "selected_effort": "Max",
+    "live_model_effort_telemetry": "unavailable",
+    "token_cost_telemetry": "unavailable",
+    "live_harness_goal": null
+  },
+  "disposition": "Accepted complete incremental Lean/source checkpoint and retained evidence, with no material finding. Native audit/build acceptance remains applicable. Final feature acceptance remains pending regressions, Rosetta and coordinated delivery records.",
+  "scope": "Read-only retained-evidence and immutable-source review using stdlib/Git extraction and hashing. No project validator, proof, build, test, bootstrap, application or cache-writing job; no GitHub or CLI-memory change.",
+  "production_revision": "32c6fbca5cbf3bacb09b20273b16936322e3eab1",
+  "integrated_production_revision": "1dde32cce242133cf9a4fd176f3c86356e7767d3",
+  "integrated_packet_revision": "92e5ef282750d6d36a54627f0b3bff1a94c2f6fc",
+  "production_equivalence": {
+    "paths": [
+      "proof",
+      "src",
+      "scripts",
+      "tests",
+      "silver.gpr",
+      "alire.toml"
+    ],
+    "differences": []
+  },
+  "run": {
+    "run_id": "20261115T215223-28e04bff3fce",
+    "host": "linux-aarch64",
+    "lean_version": "4.34.1",
+    "scope": "complete",
+    "targets": [
+      "Silver.Audit"
+    ],
+    "mode": "incremental",
+    "clean_build": false,
+    "kernel_recheck": null,
+    "axiom_audit": "passed",
+    "lake_workers": 1,
+    "threads_per_process": 12,
+    "available_cpus": 12,
+    "memory_mb_per_process": 8192,
+    "phases": [
+      {
+        "phase": "build",
+        "started_at": "2026-11-15T21:52:28.150731+00:00",
+        "finished_at": "2026-11-15T22:03:52.912190+00:00",
+        "elapsed_seconds": 684.761,
+        "exit_code": 0
+      },
+      {
+        "phase": "audit",
+        "started_at": "2026-11-15T22:03:53.922881+00:00",
+        "finished_at": "2026-11-15T22:03:56.094166+00:00",
+        "elapsed_seconds": 2.171,
+        "exit_code": 0
+      }
+    ],
+    "elapsed_seconds": 693.969,
+    "commands": [
+      [
+        "/home/agent/silver-worktrees/procedures-lean-370/.tools/linux-aarch64/lean/bin/lake",
+        "--rehash",
+        "--reconfigure",
+        "-K",
+        "silverThreads=12",
+        "-K",
+        "silverMemoryMb=8192",
+        "build",
+        "Silver.Audit"
+      ],
+      [
+        "/home/agent/silver-worktrees/procedures-lean-370/.tools/linux-aarch64/lean/bin/lake",
+        "-K",
+        "silverThreads=12",
+        "-K",
+        "silverMemoryMb=8192",
+        "env",
+        "/home/agent/silver-worktrees/procedures-lean-370/.tools/linux-aarch64/lean/bin/lean",
+        "-DwarningAsError=true",
+        "-j12",
+        "-M8192",
+        "Silver/Audit.lean"
+      ]
+    ]
+  },
+  "identities": {
+    "checked_hash_counts": {
+      "inputs_sha256": 1116,
+      "workspace_inputs_sha256": 1011,
+      "artifacts_sha256": 6046,
+      "tools_sha256": 2
+    },
+    "hash_mismatches": {
+      "inputs_sha256": [],
+      "workspace_inputs_sha256": [],
+      "artifacts_sha256": [],
+      "tools_sha256": []
+    },
+    "input_digest_sha256": "7179d60c18e7b55e4a19f09d132a9d3b9951bd70c7dc95e7af1f364de7ad825b",
+    "input_digest_matches": true,
+    "all_1116_captured_inputs_match_immutable_production": true,
+    "all_1011_workspace_inputs_match_immutable_production": true,
+    "all_40_generated_candidates_match_immutable_production": true,
+    "workspace_inputs_are_regular_non_symlink_paths": true,
+    "candidate_sources": {
+      "Silver/ProcedureBindingsSpecCertificate.lean": "silver_procedure_bindings.ads",
+      "Silver/ProcedureBindingsBodyCertificate.lean": "silver_procedure_bindings.adb",
+      "Silver/FunctionBindingsSpecCertificate.lean": "silver_function_bindings.ads",
+      "Silver/FunctionBindingsBodyCertificate.lean": "silver_function_bindings.adb",
+      "Silver/ArrayBindingsSpecCertificate.lean": "silver_array_bindings.ads",
+      "Silver/ArrayBindingsBodyCertificate.lean": "silver_array_bindings.adb",
+      "Silver/ImageModelSpecCertificate.lean": "silver_image_model.ads",
+      "Silver/ImageModelBodyCertificate.lean": "silver_image_model.adb",
+      "Silver/ImageModelTemplatesSpecCertificate.lean": "silver_image_model_templates.ads",
+      "Silver/ImageModelTemplatesBodyCertificate.lean": "silver_image_model_templates.adb",
+      "Silver/ScalarExpressionSpecCertificate.lean": "silver_scalar_expressions.ads",
+      "Silver/ScalarExpressionBodyCertificate.lean": "silver_scalar_expressions.adb",
+      "Silver/ScalarsSpecCertificate.lean": "silver_scalars.ads",
+      "Silver/ScalarLiteralSpecCertificate.lean": "silver_scalar_literals.ads",
+      "Silver/ScalarLiteralBodyCertificate.lean": "silver_scalar_literals.adb",
+      "Silver/NamesSpecCertificate.lean": "silver_names.ads",
+      "Silver/NamesBodyCertificate.lean": "silver_names.adb",
+      "Silver/PathFactsSpecCertificate.lean": "silver_path_facts.ads",
+      "Silver/IntegerLiteralSpecCertificate.lean": "silver_integer_literals.ads",
+      "Silver/IntegerLiteralBodyCertificate.lean": "silver_integer_literals.adb",
+      "Silver/ProfileSpecCertificate.lean": "silver_profile.ads",
+      "Silver/ProfileBodyCertificate.lean": "silver_profile.adb",
+      "Silver/OutputSpecCertificate.lean": "silver_output_profile.ads",
+      "Silver/OutputBodyCertificate.lean": "silver_output_profile.adb",
+      "Silver/OutputLexicalSpecCertificate.lean": "silver_output_lexical.ads",
+      "Silver/OutputLexicalBodyCertificate.lean": "silver_output_lexical.adb",
+      "Silver/IOSpecCertificate.lean": "silver_io.ads",
+      "Silver/IOBodyCertificate.lean": "silver_io.adb",
+      "Silver/OutputLibcCertificate.lean": "silver_output_libc.ads",
+      "Silver/ArgumentsSpecCertificate.lean": "silver_arguments.ads",
+      "Silver/ArgumentsBodyCertificate.lean": "silver_arguments.adb",
+      "Silver/RuntimeSpecCertificate.lean": "silver_runtime.ads",
+      "Silver/OutputBodyLines0.lean": "silver_output_profile.adb",
+      "Silver/OutputBodyLines1.lean": "silver_output_profile.adb",
+      "Silver/OutputBodyLines2.lean": "silver_output_profile.adb",
+      "Silver/OutputBodyLines3.lean": "silver_output_profile.adb",
+      "Silver/OutputBodyLines4.lean": "silver_output_profile.adb",
+      "Silver/OutputBodyLines5.lean": "silver_output_profile.adb",
+      "Silver/OutputBodyLines6.lean": "silver_output_profile.adb",
+      "Silver/OutputBodyLines7.lean": "silver_output_profile.adb"
+    },
+    "evidence_sha256": "79c09bc160510a9a4c6a732b98e8780fc2c764a9616caad25e04c50f260925f0",
+    "runner_log_sha256": "171b56cb0a57abd689bb711d6ab7e1d4eb06069aa11df925b01136ef8287d40d",
+    "managed_retained_evidence_and_log_equal_originals": true,
+    "original_payload_hashes": {
+      "complete-success-evidence.json": "79c09bc160510a9a4c6a732b98e8780fc2c764a9616caad25e04c50f260925f0",
+      "complete-success-runner.log": "171b56cb0a57abd689bb711d6ab7e1d4eb06069aa11df925b01136ef8287d40d",
+      "complete-run-events.jsonl": "3dab3413d185b2095e5683ff2cadb8699feb866effed27b0f47248b1ed7f6e87",
+      "complete-success-launcher.log": "3fcf4f71ac516fcc4f8d8f91458b865d64a1087c09e4ed9dd87fe80f41d9e095",
+      "complete-success-resources.jsonl": "8f483fd1cb00b80ddf6394d007d92cb8be6bc01fb947938fb9ea7a8da39fddfc",
+      "complete-success-summary.json": "96fd143e1d87a003fe94a055f6dadb672cd21d3be2833610a9b0bbdff418f538"
+    },
+    "tool_hashes": {
+      ".tools/linux-aarch64/lean/bin/lean": "79fb1d26fa5a39385d59fdc48a711a14b0710ca6480271acce99b4d177cea085",
+      ".tools/linux-aarch64/lean/bin/lake": "f80f50cbab5322e35bcb0bf88937e22e9d908b5e4e336e83ddfc30eb1506aacf"
+    }
+  },
+  "complete_coverage": {
+    "module_count": 1009,
+    "actual_fresh_audit_equals_immutable_shared_workspace_and_recorded_module_sets": true,
+    "fresh_module_entries_have_no_duplicates": true,
+    "fresh_module_set_sha256": "44d1a1c0a6103cbb92adebc6382f913f6c17d94335c98fcb9c49b0cc4ad2ed84",
+    "fresh_declaration_count": 162269,
+    "fresh_audit_line": "Silver axiom audit passed: 162269 declarations; foundations: [propext, Classical.choice, Quot.sound]",
+    "allowed_axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "build_jobs_reported": 1048,
+    "ordinary_objects": 1009,
+    "ordinary_object_modules_equal_complete_source_set": true,
+    "required_endpoint_examples": [
+      "Silver",
+      "Silver.Audit",
+      "Silver.AxiomAudit",
+      "Silver.Current",
+      "Silver.SourceBridge",
+      "Silver.OutputSourceBridge",
+      "Silver.NamedSourceBridge",
+      "Silver.ArgumentsSourceBridge",
+      "Silver.ComposeSourceBridge",
+      "Silver.PredicateCorrespondence",
+      "Silver.PredicateNativeSourceBridge",
+      "Silver.ProcedureBindingsSourceBridge",
+      "Silver.ProcedureMetadataSourceBridge",
+      "Silver.ProcedureMetadataSemantics",
+      "Silver.ScalarFunctionFrameFlow",
+      "Silver.ProcedureNameSourceCandidate",
+      "Silver.ProcedureNameSourceParts.LoopExpectedTokens",
+      "Silver.PredicateProcedureCallWholeSourceCandidate",
+      "Silver.PredicateBodySourceCandidate",
+      "Silver.SourceCertificates"
+    ],
+    "legacy_audit_and_helper_load_transitive_private_declarations": true,
+    "audit_checks_origin_modules_and_collects_transitive_axioms": true,
+    "retained_object_hashes_preserved": 4082,
+    "retained_ordinary_objects_preserved": 681,
+    "new_ordinary_objects": 328,
+    "prior_focused_packet": "dd7f23396055e5065a9942189026370de1e9426f"
+  },
+  "source_continuity": {
+    "authoritative_symlink": "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/src",
+    "resolved_authoritative_source": "/home/agent/silver-worktrees/procedures-lean-370/src",
+    "native_packet": "b19d2fbffa92b3047b5d33efdb1a56979128d3d2",
+    "native_manifest_sha256": "e990f8509c534516221e435c85aaaf7a40e2961c39b9b25970c3e662dffe2d2d",
+    "native_source_input_count": 135,
+    "native_source_inventories_and_hashes_equal": true,
+    "overlapping_lean_native_inputs_equal_count": 144,
+    "all_native_tracked_inputs_match_immutable_production_count": 147,
+    "source_bindings_and_binary_lake_dependencies": [
+      {
+        "module": "Silver.ArgumentsBodySource",
+        "native_source": "src/silver_arguments.adb",
+        "lake_binary_dependency": "argumentsBodySource",
+        "source_sha256": "74271048db16452bb5b6329f44c70151f73afdfebb089fe4a2a99e66e3b45918"
+      },
+      {
+        "module": "Silver.ArgumentsSpecSource",
+        "native_source": "src/silver_arguments.ads",
+        "lake_binary_dependency": "argumentsSpecSource",
+        "source_sha256": "5991cb89d0af92506704109882e6f464edda3f781713e9a38a33829b97d78032"
+      },
+      {
+        "module": "Silver.ArrayBindingsBodySource",
+        "native_source": "src/silver_array_bindings.adb",
+        "lake_binary_dependency": "arrayBindingsBodySource",
+        "source_sha256": "98f99c57932c63fcf88ccaa27191bea8b5d8016a9ffd821fe9417a7293594120"
+      },
+      {
+        "module": "Silver.ArrayBindingsSpecSource",
+        "native_source": "src/silver_array_bindings.ads",
+        "lake_binary_dependency": "arrayBindingsSpecSource",
+        "source_sha256": "39ee0b705e340923abacd4d5d49667d8c4b08568cdede75c23ee4e13b473baf9"
+      },
+      {
+        "module": "Silver.FunctionBindingsBodySource",
+        "native_source": "src/silver_function_bindings.adb",
+        "lake_binary_dependency": "functionBindingsBodySource",
+        "source_sha256": "5bb7432136235c11a0845269bb1286439b579e30fc45e15b20bad66fe829882b"
+      },
+      {
+        "module": "Silver.FunctionBindingsSpecSource",
+        "native_source": "src/silver_function_bindings.ads",
+        "lake_binary_dependency": "functionBindingsSpecSource",
+        "source_sha256": "e43fb640c38c516e6a4d0ab4e28acab9c3f71a5638237cc8b4c6c387c6d01d4b"
+      },
+      {
+        "module": "Silver.ImageFilesBodySource",
+        "native_source": "src/silver_image_files.adb",
+        "lake_binary_dependency": "imageFilesBodySource",
+        "source_sha256": "c40a07f04e9e154c9a9ea8f4caa81c010e4e3f872d978a83ce3844c25a516166"
+      },
+      {
+        "module": "Silver.ImageFilesSpecSource",
+        "native_source": "src/silver_image_files.ads",
+        "lake_binary_dependency": "imageFilesSpecSource",
+        "source_sha256": "b3946b8fb79f10ee8b50abad284f4c084ee314952f4217786f14cf81a37e054a"
+      },
+      {
+        "module": "Silver.ImageModelBodySource",
+        "native_source": "src/silver_image_model.adb",
+        "lake_binary_dependency": "imageModelBodySource",
+        "source_sha256": "e27b5209f1ef197ebbb989ddd5a5012e5a60c04e1bb17a36af0314ee0abb1283"
+      },
+      {
+        "module": "Silver.ImageModelSpecSource",
+        "native_source": "src/silver_image_model.ads",
+        "lake_binary_dependency": "imageModelSpecSource",
+        "source_sha256": "2a815072627462f51178df6b276fa1e865762cda05524dbb2dfe4ec62365177d"
+      },
+      {
+        "module": "Silver.ImageModelTemplatesBodySource",
+        "native_source": "src/silver_image_model_templates.adb",
+        "lake_binary_dependency": "imageModelTemplatesBodySource",
+        "source_sha256": "c17ac93034127b56efdf69654753296d132c729b5aaca4f013e6be86dce8a47b"
+      },
+      {
+        "module": "Silver.ImageModelTemplatesSpecSource",
+        "native_source": "src/silver_image_model_templates.ads",
+        "lake_binary_dependency": "imageModelTemplatesSpecSource",
+        "source_sha256": "e2a86057062c4829550935ecb9317fc77426d803eef8b2a6f550deed11dea584"
+      },
+      {
+        "module": "Silver.ImageTheorySpecSource",
+        "native_source": "src/silver_image_theory.ads",
+        "lake_binary_dependency": "imageTheorySpecSource",
+        "source_sha256": "3d5568bd9768672525d1a1a77ef15a84d6ac44375979dbeb2a7c216602ad34ce"
+      },
+      {
+        "module": "Silver.IntegerImageSpecSource",
+        "native_source": "src/silver_integer_image.ads",
+        "lake_binary_dependency": "integerImageSpecSource",
+        "source_sha256": "4a6918009b46ef5a735b6990a8655b841a85559a22b880169e09840e4caee578"
+      },
+      {
+        "module": "Silver.IntegerLiteralBodySource",
+        "native_source": "src/silver_integer_literals.adb",
+        "lake_binary_dependency": "integerLiteralBodySource",
+        "source_sha256": "fa6fcf71c05c92a0f2b4ac7038e676c0ea3e120994206581b7f66ec7cf5d8077"
+      },
+      {
+        "module": "Silver.IntegerLiteralSpecSource",
+        "native_source": "src/silver_integer_literals.ads",
+        "lake_binary_dependency": "integerLiteralSpecSource",
+        "source_sha256": "c3e00aba56bff45a8e44a2992f3600785e1d541a25eeedf9cd13aff4a631a787"
+      },
+      {
+        "module": "Silver.IoBodySource",
+        "native_source": "src/silver_io.adb",
+        "lake_binary_dependency": "ioBodySource",
+        "source_sha256": "e82a62f420651e7ad9de80ffe485e929ac9b5d48348f97d6b766440357dda358"
+      },
+      {
+        "module": "Silver.IoSpecSource",
+        "native_source": "src/silver_io.ads",
+        "lake_binary_dependency": "ioSpecSource",
+        "source_sha256": "691565e501e458a5cb280b468cb5947b7548128483169f9ba171d4024379802c"
+      },
+      {
+        "module": "Silver.LengthIntervalsBodySource",
+        "native_source": "src/silver_length_intervals.adb",
+        "lake_binary_dependency": "lengthIntervalsBodySource",
+        "source_sha256": "d4ee9c074c57596e6e6140e1cf9b312ebb08b5728462095c6a71551c05ac230d"
+      },
+      {
+        "module": "Silver.LengthIntervalsSpecSource",
+        "native_source": "src/silver_length_intervals.ads",
+        "lake_binary_dependency": "lengthIntervalsSpecSource",
+        "source_sha256": "cf7be4d58adfbdfed7aca773493641df738ff5cbff90003e0bab5e6909985017"
+      },
+      {
+        "module": "Silver.NamesBodySource",
+        "native_source": "src/silver_names.adb",
+        "lake_binary_dependency": "namesBodySource",
+        "source_sha256": "5cec31ffea84ab9a67761946e1cab1a60d6423225e69a6faa60f9313c6a58f36"
+      },
+      {
+        "module": "Silver.NamesSpecSource",
+        "native_source": "src/silver_names.ads",
+        "lake_binary_dependency": "namesSpecSource",
+        "source_sha256": "81bdb9e846004da31a2a41a18fd820e73a44c040cc0fb7370aa27a6634634944"
+      },
+      {
+        "module": "Silver.OutputLexicalBodySource",
+        "native_source": "src/silver_output_lexical.adb",
+        "lake_binary_dependency": "outputLexicalBodySource",
+        "source_sha256": "f2bb3e0d79050e8a89104ac5387f33274a3f0f977c43485ce1571515b68448fc"
+      },
+      {
+        "module": "Silver.OutputLexicalSpecSource",
+        "native_source": "src/silver_output_lexical.ads",
+        "lake_binary_dependency": "outputLexicalSpecSource",
+        "source_sha256": "30ff28d51c62e822a96afc66ae8d325299ad228fc0392b885f4dc82f25783768"
+      },
+      {
+        "module": "Silver.OutputLibcSpecSource",
+        "native_source": "src/silver_output_libc.ads",
+        "lake_binary_dependency": "outputLibcSource",
+        "source_sha256": "7c595fa7d94c4b21d39b271ba6df51ebed440a6342314c503fbf91319cd10229"
+      },
+      {
+        "module": "Silver.OutputProfileBodySource",
+        "native_source": "src/silver_output_profile.adb",
+        "lake_binary_dependency": "outputProfileBodySource",
+        "source_sha256": "9ede490b6cf72b352a39072cd37f4ef39774409c6024135487cf076567b59b9c"
+      },
+      {
+        "module": "Silver.OutputProfileSpecSource",
+        "native_source": "src/silver_output_profile.ads",
+        "lake_binary_dependency": "outputProfileSpecSource",
+        "source_sha256": "9823c84e840348f474a0b83d9da57b99f1f3b66f9a6040ad0c73d6cc2e9bd0a3"
+      },
+      {
+        "module": "Silver.PathFactsSpecSource",
+        "native_source": "src/silver_path_facts.ads",
+        "lake_binary_dependency": "pathFactsSpecSource",
+        "source_sha256": "43da04920a5489a0c3727e473c8802b38dd38fc87f0fce33eaca61ee8505f0d8"
+      },
+      {
+        "module": "Silver.ProcedureBindingsBodySource",
+        "native_source": "src/silver_procedure_bindings.adb",
+        "lake_binary_dependency": "procedureBindingsBodySource",
+        "source_sha256": "81bedcc4e10c451100348c6e5365c76078f6158ed4af75f9fe61b0e21ffeb4fa"
+      },
+      {
+        "module": "Silver.ProcedureBindingsSpecSource",
+        "native_source": "src/silver_procedure_bindings.ads",
+        "lake_binary_dependency": "procedureBindingsSpecSource",
+        "source_sha256": "4fe043682f952570f90e0b5879c9a10be3c19016811dac957a6825e22a1f18a6"
+      },
+      {
+        "module": "Silver.ProfileBodySource",
+        "native_source": "src/silver_profile.adb",
+        "lake_binary_dependency": "profileBodySource",
+        "source_sha256": "0a4173d5e37f7561e21c89e1e15f931728c721b4fb6f8fb3b667c5334798cff4"
+      },
+      {
+        "module": "Silver.ProfileSpecSource",
+        "native_source": "src/silver_profile.ads",
+        "lake_binary_dependency": "profileSpecSource",
+        "source_sha256": "15f2b737ff4e29e191583b4ae57ad9f5661fa1322fa6cd113080f201539b79c6"
+      },
+      {
+        "module": "Silver.RuntimeSpecSource",
+        "native_source": "src/silver_runtime.ads",
+        "lake_binary_dependency": "runtimeSpecSource",
+        "source_sha256": "53f6791b0e7484703639eece0f87acb680c1d4f12b06e044f69244f0ce1b6ea7"
+      },
+      {
+        "module": "Silver.ScalarExpressionBodySource",
+        "native_source": "src/silver_scalar_expressions.adb",
+        "lake_binary_dependency": "scalarExpressionBodySource",
+        "source_sha256": "0bf741545fc672985a51dabdc1d27ba48af6a4e0d24f977c0782c0ec89579a4e"
+      },
+      {
+        "module": "Silver.ScalarExpressionSpecSource",
+        "native_source": "src/silver_scalar_expressions.ads",
+        "lake_binary_dependency": "scalarExpressionSpecSource",
+        "source_sha256": "a56fcb14e4df2e96203a0731327077bb2dc73b9337c42cc4bf293480bf3e8df4"
+      },
+      {
+        "module": "Silver.ScalarLiteralBodySource",
+        "native_source": "src/silver_scalar_literals.adb",
+        "lake_binary_dependency": "scalarLiteralBodySource",
+        "source_sha256": "5726c09a6319aed7084ebcf4b91aa05e4ad2baf91a3cd426e1a218d6d974767d"
+      },
+      {
+        "module": "Silver.ScalarLiteralSpecSource",
+        "native_source": "src/silver_scalar_literals.ads",
+        "lake_binary_dependency": "scalarLiteralSpecSource",
+        "source_sha256": "ed5a7331833943d26f26e6fd93e312d4f0c3b3d0e17363327ecc709de85fa13b"
+      },
+      {
+        "module": "Silver.ScalarsSpecSource",
+        "native_source": "src/silver_scalars.ads",
+        "lake_binary_dependency": "scalarsSpecSource",
+        "source_sha256": "7f472f411b085813775e0c5da708d3d9c0941ffd49e45675fa8fe12649ed6667"
+      }
+    ],
+    "source_and_config_kernel_policy_files_checked": 1010,
+    "source_and_config_hash_inventory_sha256": "dd0f168d57cd53b85b1ff5404a98abccbfd18f82298f06367a43ade6896a0721",
+    "retained_trace_files_checked": 1009,
+    "retained_trace_hash_inventory_sha256": "f60eb1eeb6c64a193d8a9b9f7a61635b6f5416b04ab9c2b3b4beb487e304b87c",
+    "kernel_policy_violations": []
+  },
+  "terminal": {
+    "managed_terminal": {
+      "duration_seconds": 693.935732122,
+      "event": "finished",
+      "evidence": [
+        {
+          "original": "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-proof.log",
+          "resolved": "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-proof.log"
+        },
+        {
+          "original": "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-evidence.json",
+          "resolved": "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-evidence.json"
+        },
+        {
+          "original": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T215223-28e04bff3fce/previous-evidence/lean-proof.log",
+          "resolved": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T215223-28e04bff3fce/previous-evidence/lean-proof.log"
+        },
+        {
+          "original": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T215223-28e04bff3fce/lean-proof.log",
+          "resolved": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T215223-28e04bff3fce/lean-proof.log"
+        },
+        {
+          "original": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T215223-28e04bff3fce/lean-evidence.json",
+          "resolved": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T215223-28e04bff3fce/lean-evidence.json"
+        }
+      ],
+      "failure_keys": [],
+      "monotonic_ns": 23469247904732,
+      "outcome": "success",
+      "retained_reports": [],
+      "returncode": null,
+      "run_id": "20261115T215223-28e04bff3fce",
+      "utc": "2026-11-15T22:03:57.889717+00:00"
+    },
+    "monitor_summary": {
+      "command": [
+        "python3",
+        "scripts/check_lean.py",
+        "--workers",
+        "1",
+        "--memory-mb",
+        "8192",
+        "--provenance",
+        "--task",
+        "370-complete-lean-recovery",
+        "--reason",
+        "Complete cached continuation on independently accepted frozen production 32c6fbca5 after exact imperative-loop literal normalization and full focused ProcedureNameSourceCandidate success 20261115T214559-235d06a3549a: actual 116 modules / 14774 declarations. Preserve original public loop statement, every imperative statement/invariant/variant/return, complete ordinaryFunction selector, other parts and semantic scanner connection. Independent critical review accepted the patch and terminal/hash evidence. Preserve all 681 completed objects, all six prior complete-failure packets and matching focused successes; all 678 objects predating this repair remain byte-identical. Textual Audit closure reaches all 1009 modules; actual whole-project module/axiom/source/provenance audit remains required. No clean build, replay or duplicate passed gate. One worker/default 12 threads/8192 MiB is justified by measured dense single-module trees near 9 GiB on the 15.8 GiB host; native audit/build completed. Existing 10 GiB source-tree/1.5 GiB host-headroom/first-memory-diagnostic source-only guards. Parent released this allocation after focused success and independent acceptance. Preserve and diagnose any new failure before another broad attempt; native source/scripts unchanged."
+      ],
+      "cwd": "/home/agent/silver-worktrees/procedures-lean-370",
+      "started_at": "2026-11-15T21:52:23.714214+00:00",
+      "peak_sum_rss_kib": 9836544,
+      "peak_process_rss_kib": 8788832,
+      "minimum_mem_available_kib": 7277152,
+      "pid": 317003,
+      "returncode": 0,
+      "elapsed_seconds": 695.7655344150007,
+      "finished_at": "2026-11-15T22:03:59.479747+00:00",
+      "interrupted": false
+    },
+    "original_execution_session": 79079,
+    "original_execution_exit_code": 0,
+    "original_execution_attribution": "Author collected original session 79079 exit 0 and directly reported it; lead relayed it. Reviewer inspected retained originals and immutable packet, not that execution session.",
+    "phase_commands_and_terminal_events_match_evidence": true,
+    "no_guard_or_interruption_recorded": true,
+    "resource_sample_count": 140,
+    "maximum_sample_gap_seconds": 5.011435585998697,
+    "resource_summary_matches_samples": true,
+    "resource_observations_are_sampled_not_general_bounds": true,
+    "worker_reason": "Measured dense single-module process trees near 9 GiB on the approximately 15.8 GiB host require serialization; native audit/build had completed. Automatic twelve process threads retained."
+  },
+  "durable_packet": {
+    "commit": "4ed965e206c2a744931895d949ad4b73294d7b0a",
+    "path": "docs/evidence/scalar-procedures-20261115/lean-recovery/complete-checkpoint/final-complete-cached/",
+    "file_hashes": {
+      "README.md": "7cae6abc43d64997a32f5171a00425798a6ad661a3e1de9a2c4c99872a398c6c",
+      "complete-module-coverage.json": "26844b51ab088aeba46e2ad3113527ac5b7718ad68d870105b2314b4c20b4d03",
+      "complete-run-events.jsonl.gz": "0ae2d91caaaaa859c0f8928eab80cf13e086be122f37d04d9a9da26f65261162",
+      "complete-success-evidence.json.gz": "9109a35995259c15dd064bb10bcb65c505713fdd953b0250f03bc744bbcffe40",
+      "complete-success-launcher.log.gz": "13fa93badc0b29305d5ae5a5d931a7841c322416353d43525a12c6cafd84f435",
+      "complete-success-resources.jsonl.gz": "7ca55d6d400aa721f028c14b40a346f647589cd41b7bedf2fa5c7d4ef17b7aa2",
+      "complete-success-runner.log.gz": "047a26cb287a80d142e35fb5957466adc09aa44c1aa7f687a211138dd4303fd6",
+      "complete-success-summary.json": "96fd143e1d87a003fe94a055f6dadb672cd21d3be2833610a9b0bbdff418f538",
+      "complete-success-verification.json": "7316a9b7ce0899af70f02b5bad4631247b7ef5bc304caa52500bb95cbf68cabf"
+    },
+    "original_payload_matches": {
+      "complete-run-events.jsonl.gz": true,
+      "complete-success-evidence.json.gz": true,
+      "complete-success-launcher.log.gz": true,
+      "complete-success-resources.jsonl.gz": true,
+      "complete-success-runner.log.gz": true,
+      "complete-success-summary.json": true
+    },
+    "coverage_record_matches": true,
+    "verification_record_matches": true,
+    "packet_changes_only_add_its_nine_files_and_link_from_index": true,
+    "packet_index_preserves_all_prior_text": true,
+    "packet_index_sha256": "c9599510dba7443e7be356fbcb8bc0b7e0ad6ef656f58a8e42e90e5d62bf7281",
+    "integrated_packet_bytes_identical": true
+  },
+  "six_prior_complete_attempts_remain_failed_or_interrupted": [
+    "20261115T190543-9bda6434802c",
+    "20261115T195423-d7650f191422",
+    "20261115T201746-8829535d867a",
+    "20261115T205032-5834a8189332",
+    "20261115T211741-9bb82c28fe83",
+    "20261115T214116-f50ce45f47c2"
+  ],
+  "limits": [
+    "Complete incremental/cached project validation with fresh whole-project audit; no clean build or independent leanchecker replay.",
+    "Imported cached proofs rely on the pinned Lean/Lake toolchain, dependency tracking and honest local cache/traces as documented in the trusted boundary.",
+    "Source and contract repairs and prior native/build assurance are reused from accepted bounded reviews; this does not repeat their historical review.",
+    "Resource values are sampled observations, not exact peaks or general memory guarantees.",
+    "Managed overall returncode is null with outcome success; actual build/audit and monitor exits are zero. Original execution-session exit zero is author-collected and attributed.",
+    "Full regression inventory, Rosetta and coordinated delivery records remain outside this bounded acceptance."
+  ]
+}

@@ -1,0 +1,50 @@
+[
+  {
+    "definition": "body_body_tail_model_spec_header",
+    "literal_fragments": [
+      {
+        "characters": 712,
+        "tokens": 151
+      }
+    ],
+    "semantic_rendering": null
+  },
+  {
+    "definition": "body_body_tail_spec_header",
+    "literal_fragments": [
+      {
+        "characters": 633,
+        "tokens": 135
+      },
+      {
+        "characters": 88,
+        "tokens": 23
+      }
+    ],
+    "semantic_rendering": "(BodyNative.ScanExpr.tailModel .current .input).render ++ (Source.lexLine \") , Subprogram_Variant => (Decreases => (Text'Last + 1) - Scan.Position, Decreases => 4)\").getD []"
+  },
+  {
+    "definition": "body_read_body_spec_header",
+    "literal_fragments": [
+      {
+        "characters": 632,
+        "tokens": 135
+      },
+      {
+        "characters": 88,
+        "tokens": 23
+      }
+    ],
+    "semantic_rendering": "BodyNative.readContractBody.render ++ (Source.lexLine \") , Subprogram_Variant => (Decreases => (Text'Last + 1) - Scan.Position, Decreases => 3)\").getD []"
+  },
+  {
+    "definition": "valid_context_expression",
+    "literal_fragments": [
+      {
+        "characters": 762,
+        "tokens": 147
+      }
+    ],
+    "semantic_rendering": null
+  }
+]

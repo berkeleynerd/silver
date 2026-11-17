@@ -1,0 +1,104 @@
+{
+  "run_id": "20261116T231315-0432a9be858c",
+  "original_terminal_session": 11577,
+  "terminal_exit_collected": 0,
+  "launch_head": "2288af60031763d808b8cd1e024f8fcf7cdc7135",
+  "platform": "Linux aarch64",
+  "workers": 12,
+  "stack_bytes": 16777216,
+  "stage": {
+    "stage": "mixed-report",
+    "command": [
+      "/usr/bin/python3",
+      "scripts/dev.py",
+      "tool",
+      "--task",
+      "#391-native-correspondence",
+      "--reason",
+      "Whole Mixed_Report complete contract after independent Astra Max diagnosis: two local policy-body abstraction annotations reuse already proved Mixed_Object equality; unchanged contracts/domains/runtime, all 12 workers available after Lean release; 16 MiB stack and canonical proof settings",
+      "--",
+      "gnatprove",
+      "-P",
+      "../../../silver.gpr",
+      "--subdirs=explore/advisory-policy-391-20261116",
+      "-u",
+      "silver_library_reports.adb",
+      "--limit-lines=../../../tmp/advisory-policy-391-20261116/mixed-report/whole-subprogram.lines",
+      "--mode=all",
+      "--report=all",
+      "--warnings=error",
+      "--checks-as-errors=on",
+      "--level=2",
+      "--prover=cvc5,z3,altergo",
+      "--timeout=30",
+      "-XSILVER_HOST=linux-aarch64"
+    ],
+    "started_at": "2026-11-16T23:13:15.317354+00:00",
+    "pid": 75419,
+    "returncode": 0,
+    "duration_seconds": 41.20516160199986,
+    "finished_at": "2026-11-16T23:13:56.522527+00:00",
+    "guard_fired": [],
+    "inputs_stable": true
+  },
+  "selection": {
+    "selected_subprogram": "Mixed_Report",
+    "first_line": 5332,
+    "last_line": 5362,
+    "selection": "Every line of the declaration, complete contract, local declarations and complete body",
+    "unchanged_direct_neighbor_evidence": {
+      "run_id": "20261116T225639-1d97eb007a5a",
+      "Mixed_Object": {
+        "flow": 1,
+        "proof": 52
+      },
+      "Application_Projection_Correspondence": {
+        "flow": 1,
+        "proof": 28
+      },
+      "Runtime_Projection_Correspondence": {
+        "flow": 1,
+        "proof": 3
+      },
+      "Audit_Normalized_Report": {
+        "flow": 5,
+        "proof": 48
+      }
+    },
+    "review": "Independent Astra Max and lead agree local annotations preserve exact contracts, input domains, runtime and both branches"
+  },
+  "source_comparison": {
+    "baseline_commit": "2288af60031763d808b8cd1e024f8fcf7cdc7135",
+    "baseline_sha256": "3f761cd823acc39ddbf904626ac2b8ea3f71938ccbc0071825f99fe608a5842c",
+    "repaired_sha256": "204a3aef6442a3708a54d081d75680e24c3b8ddae0e96c074dc1c3de14e81e70",
+    "only_changes": "One comment and two local GNATprove Hide_Info Expression_Function_Body annotations in Mixed_Report",
+    "remove_exact_annotation_text_restores_baseline_bytes": true,
+    "unchanged_python_sha256": "56cd80e1b174d97c7fb1ac53e964b120ad56ee75e13c0eece1ca45e774781e8d"
+  },
+  "flow": {
+    "info": 353
+  },
+  "proof": {
+    "info": 18
+  },
+  "proof_owners": {
+    "Silver_Library_Reports.Mixed_Report": 18
+  },
+  "warn_error": {
+    "operator-reassociation": 13,
+    "contracts-recursive": 15,
+    "numeric-variant": 25,
+    "error": 714
+  },
+  "selected_session_goal_count": 66,
+  "selected_session_unproved_goals": 0,
+  "peak_sampled_tree_rss_kib": 1816304,
+  "min_sampled_available_kib": 14201344,
+  "input_count": 2606,
+  "archive": {
+    "filename": "native-correspondence-focused.tar.gz",
+    "sha256": "584dfb93e5d7105bad9085c9b9dd17ba91e422768b1d7592569374143db7a878",
+    "bytes": 1189333,
+    "files": 37
+  }
+}

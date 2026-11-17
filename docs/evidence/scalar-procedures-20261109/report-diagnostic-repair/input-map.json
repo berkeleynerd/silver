@@ -1,0 +1,412 @@
+{
+  "purpose": "Bounded retained evidence copy; original complete source packets and ledger preserved. No Why3 AST/session tree copied.",
+  "integration_commit": "09d96c837dfa5c00aeb94c5dd4262ace477ff537",
+  "report_commit": "cf2882170d",
+  "current_report_sha256": "95d4758ea69276203ccfea127b73837701278c2770a996d30e5d6833af1a09b1",
+  "gates": [
+    {
+      "packet": "failed-124853",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370/tmp/report-diagnostic-message/failed-124853",
+      "run_id": "20261110T124853-cd6e71459ff8",
+      "outcome": "failure",
+      "duration_seconds": 229.979957479,
+      "source_sha256": "070b0ee0037450da0f1bf2a64cd37231f55040be2d941f3b0ace46f1247a812d"
+    },
+    {
+      "packet": "passed-130301",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370/tmp/report-diagnostic-message/passed-130301",
+      "run_id": "20261110T130301-47f2c90a6790",
+      "outcome": "success",
+      "duration_seconds": 272.295537846,
+      "source_sha256": "95d4758ea69276203ccfea127b73837701278c2770a996d30e5d6833af1a09b1"
+    },
+    {
+      "packet": "passed-130958",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370/tmp/report-diagnostic-message/passed-130958",
+      "run_id": "20261110T130958-9ca30fc7ebf9",
+      "outcome": "success",
+      "duration_seconds": 1806.952555866,
+      "source_sha256": "95d4758ea69276203ccfea127b73837701278c2770a996d30e5d6833af1a09b1"
+    }
+  ],
+  "archive_members": [
+    {
+      "archive_path": "original/README.md",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370/tmp/report-diagnostic-message/README.md",
+      "size": 5781,
+      "sha256": "d727fc7a86cb094187c24460488a23fa772ca760150bbe31ec5b1d67c6150d8c"
+    },
+    {
+      "archive_path": "original/final-audit.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370/tmp/report-diagnostic-message/final-audit.json",
+      "size": 2882,
+      "sha256": "3b25e03e2d74d12e1be4faa2aab4db386a72420031a66a1dfc3d23bd6e0fc2ed"
+    },
+    {
+      "archive_path": "original/explicit-empty.patch",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370/tmp/report-diagnostic-message/explicit-empty.patch",
+      "size": 3111,
+      "sha256": "2e65d9ed82eff38022bb56e1449692512747a45b4626878b4121798c3dcbc4f7"
+    },
+    {
+      "archive_path": "original/empty-default-context.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370/tmp/report-diagnostic-message/empty-default-context.json",
+      "size": 123508,
+      "sha256": "d7188df3b4add88931700e07b66b37bc70626ab831ffaa7223f11d5d3deb627a"
+    },
+    {
+      "archive_path": "original/explicit-empty-context.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370/tmp/report-diagnostic-message/explicit-empty-context.json",
+      "size": 921,
+      "sha256": "25b98a7089b3fffcd200d0debb06a8751fb2d6ac8b33d33267198b6394733dd1"
+    },
+    {
+      "archive_path": "gates/failed-124853/manifest.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370/tmp/report-diagnostic-message/failed-124853/manifest.json",
+      "size": 47989,
+      "sha256": "ec8595f1fafaec92932b19deb88637895cf526386774146d7db64fefe93e4359"
+    },
+    {
+      "archive_path": "gates/failed-124853/summary.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370/tmp/report-diagnostic-message/failed-124853/summary.json",
+      "size": 71963,
+      "sha256": "031b8406c83148acd560ae720d9827a95551ae84d55a49a5693d6348610e0875"
+    },
+    {
+      "archive_path": "gates/failed-124853/before.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370/tmp/report-diagnostic-message/failed-124853/before.json",
+      "size": 400,
+      "sha256": "d2ffa08832e16cdd20b940f8198b7779c577808527b4b562b089030963989df1"
+    },
+    {
+      "archive_path": "gates/failed-124853/silver.gpr",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370/tmp/report-diagnostic-message/failed-124853/silver.gpr",
+      "size": 767,
+      "sha256": "487fb033a7f3d056f6032b67ff5b57abfc16ce8e65db39a53d24d1d961b152eb"
+    },
+    {
+      "archive_path": "gates/failed-124853/new-helpers.lines",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370/tmp/report-diagnostic-message/failed-124853/new-helpers.lines",
+      "size": 2592,
+      "sha256": "8c0a9da70cf50594ed2dd27ca936c4a9e4bb7cd9a1702be9b137dc4f851e7864"
+    },
+    {
+      "archive_path": "gates/failed-124853/changed-policies-callers.lines",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370/tmp/report-diagnostic-message/failed-124853/changed-policies-callers.lines",
+      "size": 15936,
+      "sha256": "9c787784dc49d1fb328b06aee7f539d6f28a948cbee3ac24f9b799477d3e90a1"
+    },
+    {
+      "archive_path": "gates/failed-124853/run/native.log",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370/tmp/report-diagnostic-message/failed-124853/run/native.log",
+      "size": 3286,
+      "sha256": "772003ca0126e7877bc0adf62204bd2d2f6b71fb1139f02810a3b1d593a1d14e"
+    },
+    {
+      "archive_path": "gates/failed-124853/run/events.jsonl",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370/tmp/report-diagnostic-message/failed-124853/run/events.jsonl",
+      "size": 451429,
+      "sha256": "ce2208ab477a484bcaa4b586400cfed6d58ac16b3748f9c147e573838346e586"
+    },
+    {
+      "archive_path": "gates/failed-124853/reports/gnatprove.out",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370/tmp/report-diagnostic-message/failed-124853/gnatprove/gnatprove.out",
+      "size": 45630,
+      "sha256": "df717e1cd2c911717b4cfe9b39dd95dafeca4a8adb8ee37cd752fca77f455a77"
+    },
+    {
+      "archive_path": "gates/failed-124853/reports/silver_library_reports.spark",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370/tmp/report-diagnostic-message/failed-124853/gnatprove/silver_library_reports.spark",
+      "size": 721735,
+      "sha256": "6337ed59547f2891987c2632e5d26aa1d56ea85380c4409c0296e72851f1bdf9"
+    },
+    {
+      "archive_path": "gates/failed-124853/reports/gnatprove.sarif",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370/tmp/report-diagnostic-message/failed-124853/gnatprove/gnatprove.sarif",
+      "size": 348104,
+      "sha256": "b0c46b21dcb91933f858c002b92e3371b2f1e9663ddf4afb58d169e010a5b554"
+    },
+    {
+      "archive_path": "gates/failed-124853/src/silver_library_reports.adb",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370/tmp/report-diagnostic-message/failed-124853/src/silver_library_reports.adb",
+      "size": 324173,
+      "sha256": "070b0ee0037450da0f1bf2a64cd37231f55040be2d941f3b0ace46f1247a812d"
+    },
+    {
+      "archive_path": "gates/failed-124853/scripts/check_evidence.py",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370/tmp/report-diagnostic-message/failed-124853/scripts/check_evidence.py",
+      "size": 62342,
+      "sha256": "bed6337ae6b7fa65dff44296a7fbf632eafb326fa832dbcb70335ddca46e54bd"
+    },
+    {
+      "archive_path": "gates/failed-124853/tests/test_evidence.py",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370/tmp/report-diagnostic-message/failed-124853/tests/test_evidence.py",
+      "size": 108025,
+      "sha256": "63c6da790cafcbf4f54bc36c776f4a2deb7a31706ffb76d21cf19509a0141e54"
+    },
+    {
+      "archive_path": "gates/failed-124853/docs/trusted-boundary.md",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370/tmp/report-diagnostic-message/failed-124853/docs/trusted-boundary.md",
+      "size": 112404,
+      "sha256": "953ce4d7c5b88c7faaa4a39c92fe00cb1fc222d085e2adbcecaa1de9cda0f05f"
+    },
+    {
+      "archive_path": "gates/passed-130301/manifest.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370/tmp/report-diagnostic-message/passed-130301/manifest.json",
+      "size": 50583,
+      "sha256": "5410f3203b3f0b3ca3fa17bc67db8e4107a541799956b7898dccccbea7c8ca6f"
+    },
+    {
+      "archive_path": "gates/passed-130301/summary.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370/tmp/report-diagnostic-message/passed-130301/summary.json",
+      "size": 77890,
+      "sha256": "9049133466cc62c72c8afbabdd801d5f9bdbdd5e878ca29881b07bcc7a65dec7"
+    },
+    {
+      "archive_path": "gates/passed-130301/before.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370/tmp/report-diagnostic-message/passed-130301/before.json",
+      "size": 400,
+      "sha256": "d2ffa08832e16cdd20b940f8198b7779c577808527b4b562b089030963989df1"
+    },
+    {
+      "archive_path": "gates/passed-130301/silver.gpr",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370/tmp/report-diagnostic-message/passed-130301/silver.gpr",
+      "size": 767,
+      "sha256": "487fb033a7f3d056f6032b67ff5b57abfc16ce8e65db39a53d24d1d961b152eb"
+    },
+    {
+      "archive_path": "gates/passed-130301/new-helpers.lines",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370/tmp/report-diagnostic-message/passed-130301/new-helpers.lines",
+      "size": 2656,
+      "sha256": "2d8bf5af9956a995213e7d25131edfed8ef6208b0e0a0bbda6d437b3d0aea80c"
+    },
+    {
+      "archive_path": "gates/passed-130301/changed-policies-callers.lines",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370/tmp/report-diagnostic-message/passed-130301/changed-policies-callers.lines",
+      "size": 15936,
+      "sha256": "6d1925394afa2b9a2915baf4cde04a59c52f048aeeb66b44db1b7dd6d8c08f7e"
+    },
+    {
+      "archive_path": "gates/passed-130301/run/native.log",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370/tmp/report-diagnostic-message/passed-130301/run/native.log",
+      "size": 2638,
+      "sha256": "aeaa205fd5f9ac1f2c1f6c0ef746b3eaf5ea564431ad25772e82cc1fcfa6fb8e"
+    },
+    {
+      "archive_path": "gates/passed-130301/run/events.jsonl",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370/tmp/report-diagnostic-message/passed-130301/run/events.jsonl",
+      "size": 450358,
+      "sha256": "6efb261817029eff86bbe4eb2f87e0f52f3bee568fb019f5a74819865b702e63"
+    },
+    {
+      "archive_path": "gates/passed-130301/reports/gnatprove.out",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370/tmp/report-diagnostic-message/passed-130301/gnatprove/gnatprove.out",
+      "size": 45625,
+      "sha256": "fac599e65fe518234e31e46bfc539e8ccb4d4348fe022f4009b874215f999876"
+    },
+    {
+      "archive_path": "gates/passed-130301/reports/silver_library_reports.spark",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370/tmp/report-diagnostic-message/passed-130301/gnatprove/silver_library_reports.spark",
+      "size": 731697,
+      "sha256": "7b3d8a7dd530fdd5ac189536567219b0d7b126682d001f1200f822cde2706131"
+    },
+    {
+      "archive_path": "gates/passed-130301/reports/gnatprove.sarif",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370/tmp/report-diagnostic-message/passed-130301/gnatprove/gnatprove.sarif",
+      "size": 348731,
+      "sha256": "f07624a7dcb21230f364a707a9062aa04d860c0461d16da290b0e583271ba903"
+    },
+    {
+      "archive_path": "gates/passed-130301/src/silver_library_reports.adb",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370/tmp/report-diagnostic-message/passed-130301/src/silver_library_reports.adb",
+      "size": 324543,
+      "sha256": "95d4758ea69276203ccfea127b73837701278c2770a996d30e5d6833af1a09b1"
+    },
+    {
+      "archive_path": "gates/passed-130301/scripts/check_evidence.py",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370/tmp/report-diagnostic-message/passed-130301/scripts/check_evidence.py",
+      "size": 62342,
+      "sha256": "bed6337ae6b7fa65dff44296a7fbf632eafb326fa832dbcb70335ddca46e54bd"
+    },
+    {
+      "archive_path": "gates/passed-130301/tests/test_evidence.py",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370/tmp/report-diagnostic-message/passed-130301/tests/test_evidence.py",
+      "size": 108025,
+      "sha256": "63c6da790cafcbf4f54bc36c776f4a2deb7a31706ffb76d21cf19509a0141e54"
+    },
+    {
+      "archive_path": "gates/passed-130301/docs/trusted-boundary.md",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370/tmp/report-diagnostic-message/passed-130301/docs/trusted-boundary.md",
+      "size": 112404,
+      "sha256": "953ce4d7c5b88c7faaa4a39c92fe00cb1fc222d085e2adbcecaa1de9cda0f05f"
+    },
+    {
+      "archive_path": "gates/passed-130958/manifest.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370/tmp/report-diagnostic-message/passed-130958/manifest.json",
+      "size": 52503,
+      "sha256": "fdb3fd3cdc2febbdac9c47c9ca792a90a9f0fca394ffc96a061f552df5c44c67"
+    },
+    {
+      "archive_path": "gates/passed-130958/summary.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370/tmp/report-diagnostic-message/passed-130958/summary.json",
+      "size": 885578,
+      "sha256": "0f09cc58aa405b66fe82c18508db07e702a9e736c9a47eff11e737f0f6697a6a"
+    },
+    {
+      "archive_path": "gates/passed-130958/before.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370/tmp/report-diagnostic-message/passed-130958/before.json",
+      "size": 400,
+      "sha256": "d2ffa08832e16cdd20b940f8198b7779c577808527b4b562b089030963989df1"
+    },
+    {
+      "archive_path": "gates/passed-130958/silver.gpr",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370/tmp/report-diagnostic-message/passed-130958/silver.gpr",
+      "size": 767,
+      "sha256": "487fb033a7f3d056f6032b67ff5b57abfc16ce8e65db39a53d24d1d961b152eb"
+    },
+    {
+      "archive_path": "gates/passed-130958/new-helpers.lines",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370/tmp/report-diagnostic-message/passed-130958/new-helpers.lines",
+      "size": 2656,
+      "sha256": "2d8bf5af9956a995213e7d25131edfed8ef6208b0e0a0bbda6d437b3d0aea80c"
+    },
+    {
+      "archive_path": "gates/passed-130958/changed-policies-callers.lines",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370/tmp/report-diagnostic-message/passed-130958/changed-policies-callers.lines",
+      "size": 15936,
+      "sha256": "6d1925394afa2b9a2915baf4cde04a59c52f048aeeb66b44db1b7dd6d8c08f7e"
+    },
+    {
+      "archive_path": "gates/passed-130958/run/native.log",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370/tmp/report-diagnostic-message/passed-130958/run/native.log",
+      "size": 25215,
+      "sha256": "1cbcd28671f4281b9fa0f229c72703ce7e25bc2771a18de6336cb067a5a0d8a8"
+    },
+    {
+      "archive_path": "gates/passed-130958/run/events.jsonl",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370/tmp/report-diagnostic-message/passed-130958/run/events.jsonl",
+      "size": 450420,
+      "sha256": "2d13800c44e9ac0454dd2e212ade6e296ad667f2550eaf51058d90e8323b7e25"
+    },
+    {
+      "archive_path": "gates/passed-130958/reports/gnatprove.out",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370/tmp/report-diagnostic-message/passed-130958/gnatprove/gnatprove.out",
+      "size": 46301,
+      "sha256": "830d30e8fc7fdc1182ce566fce00380b157d34b6d54ead92d9e115a24a17da00"
+    },
+    {
+      "archive_path": "gates/passed-130958/reports/silver_library_reports.spark",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370/tmp/report-diagnostic-message/passed-130958/gnatprove/silver_library_reports.spark",
+      "size": 1432435,
+      "sha256": "57027c45ed9135d156c1ad9ab7b8c80e1b13ddf1319208f151fa979c4a849a2c"
+    },
+    {
+      "archive_path": "gates/passed-130958/reports/gnatprove.sarif",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370/tmp/report-diagnostic-message/passed-130958/gnatprove/gnatprove.sarif",
+      "size": 451019,
+      "sha256": "5678b22cfb712e16ab85b8ef97e04cb515db3ae836a41270e319328abd3c3893"
+    },
+    {
+      "archive_path": "gates/passed-130958/src/silver_library_reports.adb",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370/tmp/report-diagnostic-message/passed-130958/src/silver_library_reports.adb",
+      "size": 324543,
+      "sha256": "95d4758ea69276203ccfea127b73837701278c2770a996d30e5d6833af1a09b1"
+    },
+    {
+      "archive_path": "gates/passed-130958/scripts/check_evidence.py",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370/tmp/report-diagnostic-message/passed-130958/scripts/check_evidence.py",
+      "size": 62342,
+      "sha256": "bed6337ae6b7fa65dff44296a7fbf632eafb326fa832dbcb70335ddca46e54bd"
+    },
+    {
+      "archive_path": "gates/passed-130958/tests/test_evidence.py",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370/tmp/report-diagnostic-message/passed-130958/tests/test_evidence.py",
+      "size": 108025,
+      "sha256": "63c6da790cafcbf4f54bc36c776f4a2deb7a31706ffb76d21cf19509a0141e54"
+    },
+    {
+      "archive_path": "gates/passed-130958/docs/trusted-boundary.md",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370/tmp/report-diagnostic-message/passed-130958/docs/trusted-boundary.md",
+      "size": 112404,
+      "sha256": "953ce4d7c5b88c7faaa4a39c92fe00cb1fc222d085e2adbcecaa1de9cda0f05f"
+    },
+    {
+      "archive_path": "independent-review/source-impact.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370/tmp/report-diagnostic-message/independent-review/source-impact.json",
+      "size": 1862,
+      "sha256": "526458c6140f9f35d06cfdbcf11118a5eb1b324108d4650a43e1df3b49ae5a7b"
+    },
+    {
+      "archive_path": "independent-review/explicit-empty-review.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370/tmp/report-diagnostic-message/independent-review/explicit-empty-review.json",
+      "size": 6125,
+      "sha256": "8e3d5aab2628932cded3dfac919e38f3495de97f00936d39983ccd02e61f67b5"
+    },
+    {
+      "archive_path": "independent-review/explicit-empty-review.md",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370/tmp/report-diagnostic-message/independent-review/explicit-empty-review.md",
+      "size": 4471,
+      "sha256": "04b79bd09b51794f0476a231396f64865ab58d465c85cff4942240020a09c2dd"
+    },
+    {
+      "archive_path": "independent-review/README.md",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370/tmp/report-diagnostic-message/independent-review/README.md",
+      "size": 8734,
+      "sha256": "702f9a745c3206c4ab6ea89eb599e1739e88092f4f4202b4feecb70156611e70"
+    },
+    {
+      "archive_path": "independent-review/exact-extraction.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370/tmp/report-diagnostic-message/independent-review/exact-extraction.json",
+      "size": 2333,
+      "sha256": "2175ca62371a01014495d53294c689fb0ab9d8a8cb90e2b42b12e84043025a7e"
+    },
+    {
+      "archive_path": "earlier/094033/README.md",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-tuning/report-reassessment-094033/README.md",
+      "size": 8822,
+      "sha256": "7116c50f56440f927c03ecc8ef15bb3c7c37a3ac87c7ab5ee09842a90bccc6ff"
+    },
+    {
+      "archive_path": "earlier/094033/manifest.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-tuning/report-reassessment-094033/manifest.json",
+      "size": 8471,
+      "sha256": "f364a190d18b533e6a581d307bfee6b3eef1415a9da462eb0b28cbb437d08998"
+    },
+    {
+      "archive_path": "earlier/094033/context-and-leaves.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-tuning/report-reassessment-094033/context-and-leaves.json",
+      "size": 3288,
+      "sha256": "6bf1aec08507d80d24862dbaccacdc87087e025cfbab45e78f13ce635fb02a57"
+    },
+    {
+      "archive_path": "earlier/094033/normalized-complete-diagnostics.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-tuning/report-reassessment-094033/normalized-complete-diagnostics.json",
+      "size": 280,
+      "sha256": "87a30144bceee8b499b6680e67ac350a4f437b5f3332c0081040134706eec9d7"
+    },
+    {
+      "archive_path": "earlier/094033/normalized-message-clause.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-tuning/report-reassessment-094033/normalized-message-clause.json",
+      "size": 3667,
+      "sha256": "4a348856bd964192985320b81810e5f3d7f1eca202831ef9f0076c225afd7baa"
+    },
+    {
+      "archive_path": "earlier/094033/run/native.log",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-tuning/report-reassessment-094033/run/native.log",
+      "size": 21040,
+      "sha256": "adf50674df73044b247b2b8722af6fd22e005879509276b2f1a7d612dfb72100"
+    },
+    {
+      "archive_path": "earlier/094033/run/events.jsonl",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-tuning/report-reassessment-094033/run/events.jsonl",
+      "size": 451994,
+      "sha256": "357bedb7dddb1aca1c34713027d28c6880f9cc40906b86c02dd4376cbf12af3a"
+    },
+    {
+      "archive_path": "earlier/094033/reports/silver_library_reports.spark",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-tuning/report-reassessment-094033/gnatprove/silver_library_reports.spark",
+      "size": 1223644,
+      "sha256": "4fcfba0d312c113c4ff47433f17d35f85b103784dc57526de06a72e2864f20e9"
+    }
+  ]
+}

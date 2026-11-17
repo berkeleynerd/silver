@@ -15,6 +15,7 @@ open Named Bindings
 def hiddenWord (text : Source) (state : ParserState) (word : String) : Bool :=
   let bytes := word.toList.map Char.toNat
   functionHides text state.functions word ||
+    state.procedures.items.any (fun item => nameIs text item.first item.after bytes) ||
     state.names.any (fun item => nameIs text item.first item.after bytes) ||
     state.scalarNames.any (fun item => nameIs text item.first item.after bytes) ||
     state.booleanNames.any (fun item => nameIs text item.first item.after bytes) ||
@@ -52,7 +53,8 @@ def functionTypeAt (text : Source) (state : ParserState) (position : Nat) : Func
       BooleanBindings.lookup text state.booleanNames first after ≠ 0 ∨
       IntegerSubtypes.lookup text state.subtypeNames first after ≠ 0 ∨
       ArrayBindings.lookup text state.arrayNames.names first after ≠ 0 ∨
-      FunctionBindings.lookup text state.functions first after ≠ 0 ∨ formalHides text state first after
+      FunctionBindings.lookup text state.functions first after ≠ 0 ∨
+      ProcedureBindings.lookup text state.procedures first after ≠ 0 ∨ formalHides text state first after
     then ⟨0, .integer, .empty⟩ else ⟨after, .boolean, .full⟩
 
 structure ParameterStepResult where
@@ -169,7 +171,7 @@ def functionDeclarationAt (text : Source) (state : ParserState) (arguments : Boo
       state.functions.parameters.length = FunctionBindings.maxFormals then invalidState else
   let initial := {initialState with
     position := opening, pure := true,
-    subtypeNames := state.subtypeNames, functions := state.functions,
+    subtypeNames := state.subtypeNames, functions := state.functions, procedures := state.procedures,
     «hiding» := hideName text (hiddenOuter text state) first after,
     firstParameter := state.functions.parameters.length + 1}
   let header := parametersAt text initial arguments

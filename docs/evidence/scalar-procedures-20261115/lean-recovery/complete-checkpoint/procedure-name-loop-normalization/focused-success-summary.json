@@ -1,0 +1,27 @@
+{
+  "command": [
+    "python3",
+    "scripts/check_lean.py",
+    "--target",
+    "Silver.ProcedureNameSourceCandidate",
+    "--workers",
+    "1",
+    "--memory-mb",
+    "8192",
+    "--provenance",
+    "--task",
+    "370-procedure-name-loop-normalization",
+    "--reason",
+    "Full focused ProcedureNameSourceCandidate after isolated Parts.loop kernel-memory failure in complete run 20261115T214116-f50ce45f47c2. Immutable 32c6fbca5 normalizes only the original 677-character / 134-token expected imperative-loop literal. Preserve every invariant, variant, control-flow statement, return, closing token, public loop statement, complete ordinaryFunction selector, SourceChecks.loopBody, other parts and complete checked_scanner semantics. Validate the helper with the full six-header/record/step/model/loop candidate; preserve all 678 prior objects and earlier packets. One worker/default 12 Lean threads/8192 MiB is justified by measured dense single-module trees near 9 GiB on the 15.8 GiB host; native audit/build completed. Existing 10 GiB source-tree/1.5 GiB host-headroom/first-memory-diagnostic source-only guards. No clean/replay or repeated successful gate. Full focused success and independent critical acceptance precede complete cached continuation."
+  ],
+  "cwd": "/home/agent/silver-worktrees/procedures-lean-370",
+  "started_at": "2026-11-15T21:45:58.866404+00:00",
+  "peak_sum_rss_kib": 1385184,
+  "peak_process_rss_kib": 951440,
+  "minimum_mem_available_kib": 15390160,
+  "pid": 316108,
+  "returncode": 0,
+  "elapsed_seconds": 15.017629799000133,
+  "finished_at": "2026-11-15T21:46:13.884031+00:00",
+  "interrupted": false
+}

@@ -1,0 +1,27 @@
+{
+  "command": [
+    "python3",
+    "scripts/check_lean.py",
+    "--target",
+    "Silver.FunctionSourceParts.FunctionLocalsExpectedTokensProbe",
+    "--workers",
+    "1",
+    "--memory-mb",
+    "2048",
+    "--provenance",
+    "--task",
+    "370-lean-memory-recovery",
+    "--reason",
+    "Isolate909character expectedTokens computation from whole-source scanning after scan64memory failure;2GiBprobe withwarmsemanticimports,oneworker/default12threads;noobligationweakened."
+  ],
+  "cwd": "/home/agent/silver-worktrees/procedures-lean-370",
+  "started_at": "2026-11-15T17:13:33.815942+00:00",
+  "peak_sum_rss_kib": 3003984,
+  "peak_process_rss_kib": 1958096,
+  "minimum_mem_available_kib": 13430704,
+  "pid": 12366,
+  "returncode": 1,
+  "elapsed_seconds": 15.024630674000036,
+  "finished_at": "2026-11-15T17:13:48.840563+00:00",
+  "interrupted": false
+}

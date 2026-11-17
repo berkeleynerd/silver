@@ -83,6 +83,7 @@ class SilverIntegrationTests(unittest.TestCase):
                          "scalar_integer_literal", "named_integer_constant", "named_integer_variable",
                          "named_boolean_constant", "named_boolean_variable", "boolean_expression",
                          "boolean_assignment", "boolean_comparison", "scalar_function", "scalar_function_call",
+                         "scalar_procedure", "scalar_procedure_call",
                          "integer_range_constraint", "named_integer_subtype", "integer_assignment", "integer_expression",
                          "integer_array_object", "integer_array_read", "integer_array_assignment",
                          "boolean_array_object", "boolean_array_read", "boolean_array_assignment",
@@ -136,6 +137,7 @@ class SilverIntegrationTests(unittest.TestCase):
         self.assertEqual(sequence["minimum"], 1)
         self.assertEqual(sequence["items"], ["null_statement", "character_assignment", "string_element_assignment",
                                          "string_assignment", "integer_assignment", "boolean_assignment", "scalar_function_call",
+                                         "scalar_procedure_call",
                                          "integer_array_assignment", "boolean_array_assignment", "expression_output",
                                          "string_choice", "argument_rejection", "for_loop", "integer_array_iteration"])
         self.assertEqual(sequence["argument_rejection_context"], "argument-input shell only")
@@ -161,7 +163,8 @@ class SilverIntegrationTests(unittest.TestCase):
                              ["named_string_constant", "named_string_variable", "named_integer_constant",
                               "named_integer_variable", "named_boolean_constant", "named_boolean_variable",
                               "named_integer_subtype", "integer_array_object", "boolean_array_object",
-                              "named_character_constant", "named_character_variable", "scalar_function"])
+                              "named_character_constant", "named_character_variable", "scalar_function",
+                              "scalar_procedure"])
             self.assertEqual(declarations["minimum"], 0)
             self.assertEqual(declarations["count"], "finite_within_complete_source_bound")
             self.assertEqual(declarations["initializers"], [*initializers, "integer_expression", "boolean_expression",
@@ -192,6 +195,17 @@ class SilverIntegrationTests(unittest.TestCase):
             self.assertEqual(constructs[name]["conditions"]["initializer_visibility"],
                              "earlier initialized Integer constants or mutable objects, including "
                              "Integer-array components; no self, forward or cyclic reference")
+        for name in ("named_integer_constant", "named_integer_variable",
+                     "named_boolean_constant", "named_boolean_variable"):
+            self.assertIn("function/procedure", constructs[name]["conditions"]["declaration_context"])
+        for kind, atom_field, atom in (
+            ("integer", "operand_kinds", "immutable nonstatic Integer in formal in a function or procedure body"),
+            ("boolean", "primaries", "immutable Boolean in formal in a function or procedure body"),
+        ):
+            conditions = constructs[kind + "_expression"]["conditions"]
+            self.assertIn(atom, conditions[atom_field])
+            self.assertIn("procedure_" + kind + "_input_actual", conditions["positions"])
+            self.assertIn("procedure_" + kind + "_output_initializer", conditions["positions"])
         equality = constructs["string_equality"]["conditions"]
         self.assertEqual(equality["operands"], ["string_expression", "string_expression"])
         self.assertIs(equality["at_least_one_bound_name_or_image_across_operands"], True)
@@ -290,9 +304,9 @@ class SilverIntegrationTests(unittest.TestCase):
             if key.endswith("_tokens") and key != "word_tokens" and isinstance(tokens, list)
             for token in tokens if re.fullmatch(r'[a-z][a-z0-9_]*', token)
         }
-        # Boolean type/literal/operator words are represented by construct
-        # conditions rather than the top-level token templates.
-        grammar_words |= {"boolean", "true", "false", "xor"}
+        # Boolean and callable words are represented by construct conditions
+        # rather than the top-level token templates.
+        grammar_words |= {"boolean", "true", "false", "xor", "function", "return", "out"}
         self.assertEqual(set(catalogue["word_tokens"]), grammar_words)
         self.assertEqual(len(catalogue["word_tokens"]), len(grammar_words))
 

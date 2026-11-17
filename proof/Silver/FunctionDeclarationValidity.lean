@@ -14,7 +14,8 @@ private theorem function_invalid_valid (text : Source) : ValidState text invalid
     ArrayBindings.ValidEnvironment, ArrayBindings.ValidMetadata, ArrayBindings.ValidInitials,
     IntegerSubtypes.ValidEnvironment, IntegerSubtypes.maxBindings,
     BooleanBindings.ValidEnvironment, BooleanBindings.maxBindings,
-    FunctionBindings.ValidMetadata, FunctionBindings.maxFunctions, FunctionBindings.maxFormals]
+    FunctionBindings.ValidMetadata, FunctionBindings.maxFunctions, FunctionBindings.maxFormals,
+    ProcedureBindings.ValidMetadata, ProcedureBindings.maxProcedures, ProcedureBindings.maxFormals]
 
 theorem functionBodyAt_valid (text : Source) (outer frame : ParserState)
     (first after : Nat) (resultType : FunctionTypeResult) (arguments : Bool)
@@ -69,6 +70,7 @@ theorem functionDeclarationAt_valid (text : Source) (state : ParserState) (argum
       omega
     generalize initialEq : ({initialState with
       position := opening, pure := true, subtypeNames := state.subtypeNames, functions := state.functions,
+      procedures := state.procedures,
       «hiding» := hideName text (hiddenOuter text state) first after,
       firstParameter := state.functions.parameters.length + 1} : ParserState) = initial
     generalize headerEq : parametersAt text initial arguments = header

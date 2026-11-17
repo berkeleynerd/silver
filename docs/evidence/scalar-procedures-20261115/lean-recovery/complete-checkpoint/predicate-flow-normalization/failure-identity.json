@@ -1,0 +1,23 @@
+{
+  "run_id": "20261115T201746-8829535d867a",
+  "production_revision": "88e3d0a9f",
+  "equivalent_integration_production": "33a7c351f",
+  "all_1112_prior_captured_input_hashes_still_match": true,
+  "tools_sha256": {
+    ".tools/linux-aarch64/lean/bin/lean": "79fb1d26fa5a39385d59fdc48a711a14b0710ca6480271acce99b4d177cea085",
+    ".tools/linux-aarch64/lean/bin/lake": "f80f50cbab5322e35bcb0bf88937e22e9d908b5e4e336e83ddfc30eb1506aacf"
+  },
+  "failed_private_theorems": [
+    "counted_bound_checked",
+    "native_flow_checked",
+    "native_readers_checked"
+  ],
+  "original_exec_session": 76081,
+  "outer_launcher_exit_code": 254,
+  "monitored_child_returncode": -2,
+  "no_complete_audit": true,
+  "exact_managed_log_sha256": "f6b4e7dc6f722ab09405de6272b3b58e1750ab31c062b36f7918ea93c4b2037c",
+  "compiled_module_objects_retained": 656,
+  "retained_variant_hash_files": 3932,
+  "outcome": "Three explicit kernel-memory failures in grouped constructor proofs; source-only diagnostic SIGINT interrupted subsequent PredicateNativeHelpersCandidate. No exact failed field or successful full audit is inferred."
+}

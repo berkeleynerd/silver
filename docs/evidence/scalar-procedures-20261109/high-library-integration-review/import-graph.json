@@ -1,0 +1,3467 @@
+{
+  "snapshot_utc": "2026-11-10T07:50:21.527898+00:00",
+  "head": "9148bea2ba652ef04016fe5d234419caa5f5c1e0",
+  "method": "Static Python import-line scan only; no Lean, build, or project-script execution. The eight named scratch endpoints/support modules override corresponding proof modules; all other imports use proof/Silver.",
+  "roots": [
+    "Silver.ProcedureDeclarationSourceBridge",
+    "Silver.ProcedureDeclarationModelSource",
+    "Silver.ComposeSourceBridge",
+    "Silver.PredicateInheritedReady",
+    "Silver.ProcedureMetadataSourceBridge",
+    "Silver.PredicateSourceChecks"
+  ],
+  "overlays": {
+    "Silver.ComposeSourceBridge": "tmp/outer-draft/ComposeSourceBridge.lean",
+    "Silver.PredicateInheritedReady": "tmp/outer-draft/PredicateInheritedReady.lean",
+    "Silver.ProcedureMetadataSourceBridge": "tmp/outer-draft/ProcedureMetadataSourceBridge.lean",
+    "Silver.PredicateSourceChecks": "tmp/outer-draft/PredicateSourceChecks.lean",
+    "Silver.ProcedureMetadataMeaning": "tmp/outer-draft/ProcedureMetadataMeaning.lean",
+    "Silver.ProcedureMetadataSourceChecks": "tmp/outer-draft/ProcedureMetadataSourceChecks.lean",
+    "Silver.PredicateProcedureCallSourceChecks": "tmp/outer-draft/PredicateProcedureCallSourceChecks.lean",
+    "Silver.ProcedureDeclarationHelperSourceChecks": "tmp/outer-draft/ProcedureDeclarationHelperSourceChecks.lean"
+  },
+  "reachable_modules": 785,
+  "missing_project_imports": [],
+  "cycles": [],
+  "edges": {
+    "Silver.Admission": [
+      "Silver.Lexical"
+    ],
+    "Silver.ArgumentsAdmission": [
+      "Silver.NamedAdmission"
+    ],
+    "Silver.ArgumentsBodyCertificate": [
+      "Silver.SourceLexer",
+      "Silver.CertificateWitness",
+      "Silver.ArgumentsBodySource"
+    ],
+    "Silver.ArgumentsBodySource": [],
+    "Silver.ArgumentsEquations": [
+      "Silver.ArgumentsAdmission",
+      "Silver.NamedEquations",
+      "Silver.ConcatEquations"
+    ],
+    "Silver.ArgumentsExpressions": [
+      "Silver.ArgumentsEquations",
+      "Silver.NamedExpressions",
+      "Silver.ConcatExpressions",
+      "Silver.OutputExpressions"
+    ],
+    "Silver.ArgumentsRuntime": [
+      "Silver.OutputRuntime"
+    ],
+    "Silver.ArgumentsSourceBridge": [
+      "Silver.NamedSourceBridge",
+      "Silver.ArgumentsSpecCertificate",
+      "Silver.ArgumentsBodyCertificate",
+      "Silver.RuntimeSpecCertificate",
+      "Silver.ArgumentsRuntime",
+      "Silver.ArgumentsExpressions"
+    ],
+    "Silver.ArgumentsSpecCertificate": [
+      "Silver.SourceLexer",
+      "Silver.CertificateWitness",
+      "Silver.ArgumentsSpecSource"
+    ],
+    "Silver.ArgumentsSpecSource": [],
+    "Silver.ArrayBindings": [
+      "Silver.IntegerArrays",
+      "Silver.NamedIdentifier",
+      "Silver.BooleanArrays",
+      "Silver.BooleanBindings"
+    ],
+    "Silver.ArrayBindingsBodyCertificate": [
+      "Silver.SourceLexer",
+      "Silver.CertificateWitness",
+      "Silver.ArrayBindingsBodySource"
+    ],
+    "Silver.ArrayBindingsBodySource": [],
+    "Silver.ArrayBindingsNativeEquations": [
+      "Silver.ArrayBindingsNativeExpressions"
+    ],
+    "Silver.ArrayBindingsNativeExpressions": [
+      "Silver.ArrayBindingsRead"
+    ],
+    "Silver.ArrayBindingsOrdered": [
+      "Silver.ArrayBindingsNativeEquations"
+    ],
+    "Silver.ArrayBindingsRead": [
+      "Silver.ArrayBindings"
+    ],
+    "Silver.ArrayBindingsSourceBridge": [
+      "Silver.ArrayBindingsSourceChecks"
+    ],
+    "Silver.ArrayBindingsSourceChecks": [
+      "Silver.ArrayBindingsNativeEquations",
+      "Silver.SourceDeclarations",
+      "Silver.ArrayBindingsSpecCertificate",
+      "Silver.ArrayBindingsBodyCertificate"
+    ],
+    "Silver.ArrayBindingsSpecCertificate": [
+      "Silver.SourceLexer",
+      "Silver.CertificateWitness",
+      "Silver.ArrayBindingsSpecSource"
+    ],
+    "Silver.ArrayBindingsSpecSource": [],
+    "Silver.ArrayLayout": [
+      "Silver.IntegerIntervals"
+    ],
+    "Silver.AssignmentAdmission": [
+      "Silver.NamedSemantics",
+      "Silver.GuardedDecimal"
+    ],
+    "Silver.AssignmentEquations": [
+      "Silver.AssignmentAdmission",
+      "Silver.GuardedEquations",
+      "Silver.NamedEquations"
+    ],
+    "Silver.AssignmentExpressions": [
+      "Silver.AssignmentEquations",
+      "Silver.ConcatExpressions"
+    ],
+    "Silver.Bindings": [
+      "Silver.ArgumentsRuntime",
+      "Silver.IntegerExpressions",
+      "Silver.IntegerImage",
+      "Silver.CharacterExpressions"
+    ],
+    "Silver.BooleanArrayAssignments": [
+      "Silver.PredicateChecking"
+    ],
+    "Silver.BooleanArrays": [
+      "Silver.BooleanModel",
+      "Silver.IntegerChecks",
+      "Silver.IntegerArrays"
+    ],
+    "Silver.BooleanBindings": [
+      "Silver.BooleanModel",
+      "Silver.NamedIdentifier"
+    ],
+    "Silver.BooleanBindingsNative": [
+      "Silver.BooleanBindings",
+      "Silver.ComposeExpressions",
+      "Silver.ComposeBounds",
+      "Silver.SourceDeclarations"
+    ],
+    "Silver.BooleanBindingsSourceBridge": [
+      "Silver.BooleanBindingsNative"
+    ],
+    "Silver.BooleanBindingsSourceChecks": [
+      "Silver.BooleanBindingsNative"
+    ],
+    "Silver.BooleanDeclarationObligations": [
+      "Silver.BooleanDeclarations",
+      "Silver.PredicateObligations"
+    ],
+    "Silver.BooleanDeclarations": [
+      "Silver.PredicateChecking"
+    ],
+    "Silver.BooleanFreezing": [
+      "Silver.PredicateChecking",
+      "Silver.StringFreezing"
+    ],
+    "Silver.BooleanFreezingChecks": [
+      "Silver.BooleanFreezing",
+      "Silver.ScalarExpressionConstants"
+    ],
+    "Silver.BooleanModel": [
+      "Silver.IntegerIntervals"
+    ],
+    "Silver.BooleanShapeExtension": [
+      "Silver.PredicateChecking"
+    ],
+    "Silver.BranchingAdmission": [
+      "Silver.NamedAdmission"
+    ],
+    "Silver.BranchingEquations": [
+      "Silver.BranchingAdmission",
+      "Silver.NamedEquations"
+    ],
+    "Silver.BranchingExpressions": [
+      "Silver.BranchingEquations",
+      "Silver.ArgumentsExpressions"
+    ],
+    "Silver.CallableDeclarationPreservation": [
+      "Silver.ProcedureDeclarationValidity",
+      "Silver.ProcedureDeclarationHiding",
+      "Silver.FunctionDeclarationValidity"
+    ],
+    "Silver.CertificateWitness": [],
+    "Silver.CharacterExpressions": [
+      "Silver.StringIndexing"
+    ],
+    "Silver.ComposeAdmission": [
+      "Silver.ComposeDeclarationAdmission",
+      "Silver.FunctionDeclarationPreservation",
+      "Silver.ProcedureDeclarationPreservation"
+    ],
+    "Silver.ComposeArrayChecks": [
+      "Silver.ComposeArrayElaboration"
+    ],
+    "Silver.ComposeArrayDeclarationSource": [
+      "Silver.ComposeArrayExpressions",
+      "Silver.ComposeBooleanDeclarationSource"
+    ],
+    "Silver.ComposeArrayDeclarations": [
+      "Silver.ComposeSubtypeDeclarations",
+      "Silver.IntegerArraySnapshots"
+    ],
+    "Silver.ComposeArrayDenotations": [
+      "Silver.ComposeArrayExpressions",
+      "Silver.ComposeModelCalls",
+      "Silver.CertificateWitness"
+    ],
+    "Silver.ComposeArrayElaboration": [
+      "Silver.ComposeArrayDeclarations"
+    ],
+    "Silver.ComposeArrayEquations": [
+      "Silver.ComposeHelperEquations"
+    ],
+    "Silver.ComposeArrayExpressions": [
+      "Silver.ComposeExpressions"
+    ],
+    "Silver.ComposeArrayModel": [
+      "Silver.ComposeArrayDenotations",
+      "Silver.ComposeArrayNativeBounds"
+    ],
+    "Silver.ComposeArrayNativeBounds": [
+      "Silver.ComposeContracts",
+      "Silver.ComposeArrayElaboration",
+      "Silver.ComposeStateBounds",
+      "Silver.PredicateNativeRanges"
+    ],
+    "Silver.ComposeArrayStore": [
+      "Silver.ComposeArrayElaboration",
+      "Silver.ComposeBooleanArrayElaboration",
+      "Silver.ComposeFrozenSemantics"
+    ],
+    "Silver.ComposeAtomAdmission": [
+      "Silver.ComposeExpression",
+      "Silver.Names",
+      "Silver.ScalarExpressionAdmission",
+      "Silver.StringLengths",
+      "Silver.ArrayBindings",
+      "Silver.IntegerSubtypeBindings",
+      "Silver.BooleanBindings",
+      "Silver.ScalarExpressionEnvironment",
+      "Silver.FunctionBindings",
+      "Silver.ProcedureBindings"
+    ],
+    "Silver.ComposeAtomReading": [
+      "Silver.ComposeAtomAdmission"
+    ],
+    "Silver.ComposeAtoms": [
+      "Silver.ComposeCharacterReading",
+      "Silver.StringExecution"
+    ],
+    "Silver.ComposeBindingBounds": [
+      "Silver.ComposeAtomReading",
+      "Silver.StringObjectBounds"
+    ],
+    "Silver.ComposeBooleanArrayDeclarations": [
+      "Silver.ComposeArrayDeclarations"
+    ],
+    "Silver.ComposeBooleanArrayElaboration": [
+      "Silver.ComposeBooleanArrayDeclarations",
+      "Silver.ComposeArrayElaboration"
+    ],
+    "Silver.ComposeBooleanArrayHeaderChecks": [
+      "Silver.ComposeArrayChecks",
+      "Silver.ComposeBooleanArrayElaboration"
+    ],
+    "Silver.ComposeBooleanArraySource": [
+      "Silver.ComposeArrayExpressions",
+      "Silver.ComposeBooleanInitializerNative"
+    ],
+    "Silver.ComposeBooleanArraySourceCandidate": [
+      "Silver.ComposeBooleanArraySource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.ComposeBooleanArrayTrace": [
+      "Silver.ComposeBooleanTrace",
+      "Silver.ComposeBooleanArrayElaboration"
+    ],
+    "Silver.ComposeBooleanDeclarationCondition": [
+      "Silver.ComposeBooleanDeclarationDomain",
+      "Silver.PredicateNativeHelpers"
+    ],
+    "Silver.ComposeBooleanDeclarationDomain": [
+      "Silver.ComposeBooleanDeclarationMeaning",
+      "Silver.PredicateNativeState",
+      "Silver.PredicateOuterReadiness"
+    ],
+    "Silver.ComposeBooleanDeclarationLibraries": [
+      "Silver.ComposeBooleanDeclarationCondition",
+      "Silver.ComposeHelperEquations",
+      "Silver.PredicateNativeHelpers",
+      "Silver.PredicateAdapterEnvironment"
+    ],
+    "Silver.ComposeBooleanDeclarationMeaning": [
+      "Silver.ComposeBooleanDeclarationNative",
+      "Silver.ComposeBounds"
+    ],
+    "Silver.ComposeBooleanDeclarationNative": [
+      "Silver.ComposeAdmission"
+    ],
+    "Silver.ComposeBooleanDeclarationSource": [
+      "Silver.ComposeBooleanDeclarationNative",
+      "Silver.SourceDeclarations"
+    ],
+    "Silver.ComposeBooleanDeclarations": [
+      "Silver.ComposeAdmission"
+    ],
+    "Silver.ComposeBooleanInitializerLibraries": [
+      "Silver.ComposeBooleanInitializerNative",
+      "Silver.ComposeBooleanDeclarationDomain",
+      "Silver.PredicateNativeHelpers",
+      "Silver.PredicateAdapterEnvironment"
+    ],
+    "Silver.ComposeBooleanInitializerNative": [
+      "Silver.ComposeBooleanDeclarationNative",
+      "Silver.SourceDeclarations"
+    ],
+    "Silver.ComposeBooleanRegionTrace": [
+      "Silver.ComposeBooleanArrayTrace",
+      "Silver.ComposeDeclarationContext",
+      "Silver.PredicateOuterReadiness"
+    ],
+    "Silver.ComposeBooleanTrace": [
+      "Silver.ComposeDeclarations",
+      "Silver.ComposeStateBounds",
+      "Silver.PredicateConditionSound",
+      "Silver.PredicateConditionValidity",
+      "Silver.PredicateConditionUnique",
+      "Silver.PredicateScalarHeaderReady",
+      "Silver.BooleanFreezingChecks",
+      "Silver.BooleanShapeExtension",
+      "Silver.BooleanDeclarationObligations"
+    ],
+    "Silver.ComposeBoundTracking": [
+      "Silver.ComposeBindingBounds"
+    ],
+    "Silver.ComposeBounds": [
+      "Silver.ComposeAdmission"
+    ],
+    "Silver.ComposeCatalogueSourceCandidate": [
+      "Silver.SourceDeclarations",
+      "Silver.ComposeArrayDeclarationSource",
+      "Silver.ComposeContracts",
+      "Silver.ComposeBooleanDeclarationSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.ComposeCharacterBounds": [
+      "Silver.ComposeCharacterProperties",
+      "Silver.ComposeBounds"
+    ],
+    "Silver.ComposeCharacterDeclarations": [
+      "Silver.ComposeStringDeclarations",
+      "Silver.ComposeCharacterProperties"
+    ],
+    "Silver.ComposeCharacterProperties": [
+      "Silver.ComposeCharacterReading",
+      "Silver.StringFreezing"
+    ],
+    "Silver.ComposeCharacterReading": [
+      "Silver.ComposeIndexedReading"
+    ],
+    "Silver.ComposeContractSourceCandidate": [
+      "Silver.SourceDeclarations",
+      "Silver.ComposeArrayDeclarationSource",
+      "Silver.ComposeContracts",
+      "Silver.ComposeBooleanDeclarationSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.ComposeContracts": [
+      "Silver.ComposeExpressions",
+      "Silver.ComposeStringNative",
+      "Silver.ComposeArrayExpressions",
+      "Silver.ComposeBounds"
+    ],
+    "Silver.ComposeCoreHelperEquations": [
+      "Silver.ComposeContracts",
+      "Silver.ComposeStringPrimitiveEquations"
+    ],
+    "Silver.ComposeDeclarationAdmission": [
+      "Silver.ComposeAtoms",
+      "Silver.ComposeBindingBounds",
+      "Silver.PredicateConditionAdmission"
+    ],
+    "Silver.ComposeDeclarationBounds": [
+      "Silver.ComposeDeclarations",
+      "Silver.ComposeDeclarationContext",
+      "Silver.ComposeStringBoundSafety"
+    ],
+    "Silver.ComposeDeclarationContext": [
+      "Silver.ComposeObjectDeclarations"
+    ],
+    "Silver.ComposeDeclarationSourceCandidate": [
+      "Silver.SourceDeclarations",
+      "Silver.ComposeArrayDeclarationSource",
+      "Silver.ComposeContracts",
+      "Silver.ComposeBooleanDeclarationSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.ComposeDeclarations": [
+      "Silver.ComposeObjectDeclarations",
+      "Silver.ComposeScalarDeclarations",
+      "Silver.ComposeArrayElaboration",
+      "Silver.ComposeBooleanArrayElaboration",
+      "Silver.ComposeBooleanDeclarations",
+      "Silver.CallableDeclarationPreservation"
+    ],
+    "Silver.ComposeDecode": [
+      "Silver.ComposeGrammar",
+      "Silver.NamedDisjoint"
+    ],
+    "Silver.ComposeEquations": [
+      "Silver.ComposeArrayEquations"
+    ],
+    "Silver.ComposeEvaluation": [
+      "Silver.ComposeLexical",
+      "Silver.ComposeContracts",
+      "Silver.ComposeArrayDenotations",
+      "Silver.ComposeStringNative"
+    ],
+    "Silver.ComposeExpression": [
+      "Silver.GuardedDecimal",
+      "Silver.Bindings"
+    ],
+    "Silver.ComposeExpressionSourceCandidate": [
+      "Silver.SourceDeclarations",
+      "Silver.ComposeArrayDeclarationSource",
+      "Silver.ComposeContracts",
+      "Silver.ComposeBooleanDeclarationSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.ComposeExpressions": [
+      "Silver.ComposeAdmission",
+      "Silver.NamesEquations",
+      "Silver.ScalarExpressionEnvironment"
+    ],
+    "Silver.ComposeFrozenSemantics": [
+      "Silver.ComposeSemantics",
+      "Silver.StringFreezing",
+      "Silver.ScalarExpressionConstants"
+    ],
+    "Silver.ComposeGrammar": [
+      "Silver.ComposeMain"
+    ],
+    "Silver.ComposeGuardedSliceEquations": [
+      "Silver.ComposeCoreHelperEquations",
+      "Silver.ComposeStringEquations"
+    ],
+    "Silver.ComposeHelperEquations": [
+      "Silver.ComposeContracts",
+      "Silver.ComposeCoreHelperEquations",
+      "Silver.ComposeStringHelperEquations",
+      "Silver.ComposeStringDeclarationEquation",
+      "Silver.ComposeNativeRecordBounds",
+      "Silver.ComposeScalarDenotations",
+      "Silver.ComposeArrayDenotations",
+      "Silver.ComposeArrayNativeBounds",
+      "Silver.ComposeArrayModel",
+      "Silver.ComposeStateBounds",
+      "Silver.ComposeNameBridge",
+      "Silver.ScalarExpressionNativeTypes"
+    ],
+    "Silver.ComposeHelperSourceCandidate": [
+      "Silver.SourceDeclarations",
+      "Silver.ComposeArrayDeclarationSource",
+      "Silver.ComposeContracts",
+      "Silver.ComposeBooleanDeclarationSource",
+      "Silver.ComposeBooleanArraySourceCandidate",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.ComposeIndexedReading": [
+      "Silver.ComposeAtomReading"
+    ],
+    "Silver.ComposeInitializerTrace": [
+      "Silver.ComposeDeclarations",
+      "Silver.ComposeSubtypeChecks",
+      "Silver.ComposeArrayChecks",
+      "Silver.ComposeBooleanArrayHeaderChecks",
+      "Silver.StringObligations"
+    ],
+    "Silver.ComposeLexical": [
+      "Silver.ComposeExpressions",
+      "Silver.GuardedExpressions"
+    ],
+    "Silver.ComposeMain": [
+      "Silver.ComposeDeclarations",
+      "Silver.GuardedObligations"
+    ],
+    "Silver.ComposeModel": [
+      "Silver.ComposeModelEquations",
+      "Silver.ComposeModelRanges",
+      "Silver.ComposeModelLegal"
+    ],
+    "Silver.ComposeModelCalls": [
+      "Silver.ComposeContracts",
+      "Silver.ComposeArrayExpressions"
+    ],
+    "Silver.ComposeModelEquations": [
+      "Silver.ComposeModelHelperEquations",
+      "Silver.ComposeRecognitionEquations"
+    ],
+    "Silver.ComposeModelHelperEquations": [
+      "Silver.ComposeModelRecursion",
+      "Silver.ComposeStateBounds",
+      "Silver.ComposeNameBridge",
+      "Silver.ComposeSubtypeModelEquations",
+      "Silver.ComposeArrayModel",
+      "Silver.ComposeStringDenotations"
+    ],
+    "Silver.ComposeModelLegal": [
+      "Silver.ComposeModelCalls",
+      "Silver.ComposeEvaluation",
+      "Silver.ComposeSubtypeLookupLegal"
+    ],
+    "Silver.ComposeModelRanges": [
+      "Silver.ComposeModelCalls",
+      "Silver.ComposeNativeRecordBounds",
+      "Silver.ComposeNativeStateBounds"
+    ],
+    "Silver.ComposeModelRecursion": [
+      "Silver.ComposeModelCalls"
+    ],
+    "Silver.ComposeNameBridge": [
+      "Silver.ComposeBounds",
+      "Silver.NamedDisjoint"
+    ],
+    "Silver.ComposeNativeRecordBounds": [
+      "Silver.ComposeNativeValueBounds"
+    ],
+    "Silver.ComposeNativeStateBounds": [
+      "Silver.ComposeDeclarationBounds",
+      "Silver.ComposeStateBounds",
+      "Silver.ComposeNativeValueBounds"
+    ],
+    "Silver.ComposeNativeValueBounds": [
+      "Silver.ComposeContracts"
+    ],
+    "Silver.ComposeObjectDeclarations": [
+      "Silver.ComposeCharacterDeclarations"
+    ],
+    "Silver.ComposeObligations": [
+      "Silver.ComposeMain"
+    ],
+    "Silver.ComposeRecognitionEquations": [
+      "Silver.ComposeEquations"
+    ],
+    "Silver.ComposeScalarDeclarations": [
+      "Silver.ComposeSubtypeDeclarations",
+      "Silver.ScalarExpressionConstants",
+      "Silver.ComposeFrozenSemantics",
+      "Silver.IntegerArraySnapshots"
+    ],
+    "Silver.ComposeScalarDenotations": [
+      "Silver.ComposeContracts"
+    ],
+    "Silver.ComposeScalarTrace": [
+      "Silver.ComposeDeclarations",
+      "Silver.ComposeDeclarationContext"
+    ],
+    "Silver.ComposeSemantics": [
+      "Silver.ComposeAdmission",
+      "Silver.StringExecution"
+    ],
+    "Silver.ComposeSourceBridge": [
+      "Silver.ComposeSourceChecks",
+      "Silver.ComposeEquations",
+      "Silver.LexicalSourceBridge",
+      "Silver.NamesSourceBridge",
+      "Silver.ScalarExpressionSourceBridge",
+      "Silver.ComposeEvaluation",
+      "Silver.IntegerImageNativeSource",
+      "Silver.ComposeBooleanDeclarationLibraries",
+      "Silver.ComposeBooleanInitializerLibraries",
+      "Silver.FunctionDeclarationSourceBridge",
+      "Silver.ProcedureLookupMeaning",
+      "Silver.ProcedureDeclarationSourceBridge",
+      "Silver.ProcedureDeclarationHighSourceChecks",
+      "Silver.ProcedureDeclarationHelperSourceChecks"
+    ],
+    "Silver.ComposeSourceCandidate": [
+      "Silver.ComposeExpressionSourceCandidate",
+      "Silver.ComposeCatalogueSourceCandidate",
+      "Silver.ComposeDeclarationSourceCandidate",
+      "Silver.ComposeContractSourceCandidate",
+      "Silver.ComposeHelperSourceCandidate"
+    ],
+    "Silver.ComposeSourceChecks": [
+      "Silver.ComposeSourceCandidate",
+      "Silver.OutputSourceBridge"
+    ],
+    "Silver.ComposeStateBounds": [
+      "Silver.ComposeContracts",
+      "Silver.FunctionDeclarationValidity",
+      "Silver.ProcedureDeclarationValidity",
+      "Silver.ComposeScalarDeclarations",
+      "Silver.ComposeArrayElaboration",
+      "Silver.ComposeBooleanArrayElaboration",
+      "Silver.ComposeBooleanDeclarations",
+      "Silver.ComposeObjectDeclarations",
+      "Silver.ComposeCharacterBounds"
+    ],
+    "Silver.ComposeStringAtomBounds": [
+      "Silver.ComposeAtoms",
+      "Silver.ComposeBoundTracking"
+    ],
+    "Silver.ComposeStringBoundSafety": [
+      "Silver.ComposeStringBounds"
+    ],
+    "Silver.ComposeStringBounds": [
+      "Silver.ComposeStringAtomBounds",
+      "Silver.ComposeSemantics"
+    ],
+    "Silver.ComposeStringDeclarationEquation": [
+      "Silver.ComposeContracts",
+      "Silver.CertificateWitness"
+    ],
+    "Silver.ComposeStringDeclarations": [
+      "Silver.ComposeFrozenSemantics"
+    ],
+    "Silver.ComposeStringDenotations": [
+      "Silver.ComposeModelCalls",
+      "Silver.ComposeStringEquations"
+    ],
+    "Silver.ComposeStringEquations": [
+      "Silver.ComposeContracts",
+      "Silver.ComposeStateBounds"
+    ],
+    "Silver.ComposeStringHelperEquations": [
+      "Silver.ComposeCoreHelperEquations",
+      "Silver.ComposeStringEquations",
+      "Silver.ComposeGuardedSliceEquations",
+      "Silver.ComposeNativeRecordBounds",
+      "Silver.ComposeArrayNativeBounds",
+      "Silver.ComposeCharacterBounds"
+    ],
+    "Silver.ComposeStringNative": [
+      "Silver.ComposeExpressions",
+      "Silver.ComposeBooleanDeclarationSource"
+    ],
+    "Silver.ComposeStringPrimitiveEquations": [
+      "Silver.ComposeContracts"
+    ],
+    "Silver.ComposeSubtypeChecks": [
+      "Silver.ComposeSubtypeDeclarations"
+    ],
+    "Silver.ComposeSubtypeDeclarations": [
+      "Silver.ComposeBounds",
+      "Silver.ScalarExpressionConstants"
+    ],
+    "Silver.ComposeSubtypeLookupLegal": [
+      "Silver.ComposeModelCalls",
+      "Silver.ComposeEvaluation",
+      "Silver.ComposeSubtypeDeclarations"
+    ],
+    "Silver.ComposeSubtypeModelEquations": [
+      "Silver.ComposeModelCalls",
+      "Silver.ComposeScalarDenotations",
+      "Silver.ComposeNameBridge"
+    ],
+    "Silver.ConcatAdmission": [
+      "Silver.NamedAdmission"
+    ],
+    "Silver.ConcatEquations": [
+      "Silver.ConcatAdmission",
+      "Silver.NamedEquations"
+    ],
+    "Silver.ConcatExpressions": [
+      "Silver.ConcatEquations",
+      "Silver.OutputExpressions"
+    ],
+    "Silver.Cursor": [
+      "Silver.Admission"
+    ],
+    "Silver.Expressions": [
+      "Silver.Cursor"
+    ],
+    "Silver.FunctionBindings": [
+      "Silver.IntegerIntervals",
+      "Silver.NamedIdentifier"
+    ],
+    "Silver.FunctionBindingsBodyCertificate": [
+      "Silver.SourceLexer",
+      "Silver.CertificateWitness",
+      "Silver.FunctionBindingsBodySource"
+    ],
+    "Silver.FunctionBindingsBodySource": [],
+    "Silver.FunctionBindingsNativeEquations": [
+      "Silver.FunctionBindingsNativeExpressions"
+    ],
+    "Silver.FunctionBindingsNativeExpressions": [
+      "Silver.FunctionBindings"
+    ],
+    "Silver.FunctionBindingsSourceBridge": [
+      "Silver.FunctionBindingsSourceChecks"
+    ],
+    "Silver.FunctionBindingsSourceChecks": [
+      "Silver.FunctionBindingsNativeEquations",
+      "Silver.SourceDeclarations",
+      "Silver.FunctionBindingsSpecCertificate",
+      "Silver.FunctionBindingsBodyCertificate"
+    ],
+    "Silver.FunctionBindingsSpecCertificate": [
+      "Silver.SourceLexer",
+      "Silver.CertificateWitness",
+      "Silver.FunctionBindingsSpecSource"
+    ],
+    "Silver.FunctionBindingsSpecSource": [],
+    "Silver.FunctionBodyFrameReadiness": [
+      "Silver.FunctionFrameValidity",
+      "Silver.PredicateInitialFlowValidity"
+    ],
+    "Silver.FunctionBodyMeaning": [
+      "Silver.FunctionLocalAnalysis",
+      "Silver.PredicateBodyMeaning",
+      "Silver.PredicateBodySound",
+      "Silver.PredicateBodyFlowPreservation"
+    ],
+    "Silver.FunctionBodySource": [
+      "Silver.FunctionBodyMeaning"
+    ],
+    "Silver.FunctionDeclarationAdmission": [
+      "Silver.ComposeDeclarationAdmission",
+      "Silver.PredicateBodyScanner"
+    ],
+    "Silver.FunctionDeclarationBodyDomains": [
+      "Silver.FunctionDeclarationOrdinaryEquations",
+      "Silver.FunctionBodyFrameReadiness"
+    ],
+    "Silver.FunctionDeclarationBodyEquations": [
+      "Silver.FunctionDeclarationNative"
+    ],
+    "Silver.FunctionDeclarationBodyImports": [
+      "Silver.FunctionDeclarationBodyModel",
+      "Silver.FunctionDeclarationHeaderEquations"
+    ],
+    "Silver.FunctionDeclarationBodyLibrary": [
+      "Silver.FunctionDeclarationLibraries",
+      "Silver.FunctionDeclarationBodyDomains",
+      "Silver.PredicateAdapterEnvironment",
+      "Silver.ProcedureMetadataValidity"
+    ],
+    "Silver.FunctionDeclarationBodyModel": [
+      "Silver.FunctionDeclarationBodyEquations",
+      "Silver.FunctionDeclarationDenotations"
+    ],
+    "Silver.FunctionDeclarationComposition": [
+      "Silver.FunctionDeclarationBodyImports",
+      "Silver.FunctionDeclarationOuterEquations"
+    ],
+    "Silver.FunctionDeclarationDenotations": [
+      "Silver.FunctionDeclarationNative"
+    ],
+    "Silver.FunctionDeclarationDomains": [
+      "Silver.FunctionDeclarationNative",
+      "Silver.PredicateScalarHeaderReady"
+    ],
+    "Silver.FunctionDeclarationFrameEquations": [
+      "Silver.FunctionDeclarationRecordTypes",
+      "Silver.FunctionDeclarationImports",
+      "Silver.FunctionDeclarationDomains",
+      "Silver.FunctionDeclarationRecursion"
+    ],
+    "Silver.FunctionDeclarationHeaderEquations": [
+      "Silver.FunctionDeclarationStepImports",
+      "Silver.FunctionDeclarationTypeSpan"
+    ],
+    "Silver.FunctionDeclarationHeaderLibraries": [
+      "Silver.FunctionDeclarationHeaderEquations",
+      "Silver.FunctionVisibilityEquations",
+      "Silver.FunctionBindingsSourceBridge",
+      "Silver.ComposeHelperEquations"
+    ],
+    "Silver.FunctionDeclarationHiding": [
+      "Silver.FunctionDeclarationPreservation"
+    ],
+    "Silver.FunctionDeclarationImports": [
+      "Silver.FunctionDeclarationDenotations"
+    ],
+    "Silver.FunctionDeclarationInitialDomain": [
+      "Silver.FunctionDeclarationOuterEquations"
+    ],
+    "Silver.FunctionDeclarationLibraries": [
+      "Silver.FunctionDeclarationHeaderLibraries",
+      "Silver.FunctionDeclarationTraversalContracts",
+      "Silver.FunctionDeclarationInitialDomain"
+    ],
+    "Silver.FunctionDeclarationMeaning": [
+      "Silver.FunctionDeclarationReadings",
+      "Silver.PredicateFunctionCallReadings"
+    ],
+    "Silver.FunctionDeclarationModelContracts": [
+      "Silver.FunctionDeclarationTraversalContracts",
+      "Silver.FunctionDeclarationStateRecords",
+      "Silver.FunctionBodyFrameReadiness",
+      "Silver.PredicateNativeRanges"
+    ],
+    "Silver.FunctionDeclarationModelSource": [
+      "Silver.FunctionDeclarationSourceBridge",
+      "Silver.FunctionDeclarationModelContracts"
+    ],
+    "Silver.FunctionDeclarationNative": [
+      "Silver.FunctionDeclarationAdmission",
+      "Silver.PredicateNativeState"
+    ],
+    "Silver.FunctionDeclarationOrdinaryEquations": [
+      "Silver.FunctionDeclarationComposition"
+    ],
+    "Silver.FunctionDeclarationOuterEquations": [
+      "Silver.FunctionDeclarationHeaderEquations"
+    ],
+    "Silver.FunctionDeclarationPreservation": [
+      "Silver.FunctionDeclarationAdmission"
+    ],
+    "Silver.FunctionDeclarationReadings": [
+      "Silver.ComposeBooleanRegionTrace",
+      "Silver.ComposeInitializerTrace",
+      "Silver.ScalarFunctionDefinition"
+    ],
+    "Silver.FunctionDeclarationRecordTypes": [
+      "Silver.FunctionDeclarationNative",
+      "Silver.FunctionBindingsNativeEquations",
+      "Silver.ProcedureBindingsNativeEquations"
+    ],
+    "Silver.FunctionDeclarationRecursion": [
+      "Silver.FunctionDeclarationDenotations",
+      "Silver.FunctionHeaderValidity",
+      "Silver.ComposeBounds"
+    ],
+    "Silver.FunctionDeclarationReturnLibrary": [
+      "Silver.FunctionDeclarationLibraries",
+      "Silver.PredicateFunctionCallHelpers"
+    ],
+    "Silver.FunctionDeclarationSource": [
+      "Silver.FunctionDeclarationNative",
+      "Silver.ComposeBooleanDeclarationSource"
+    ],
+    "Silver.FunctionDeclarationSourceBridge": [
+      "Silver.FunctionDeclarationBodyLibrary",
+      "Silver.FunctionDeclarationReturnLibrary",
+      "Silver.FunctionDeclarationSource",
+      "Silver.FunctionDeclarationStateRecords",
+      "Silver.PredicateBodyLibraries"
+    ],
+    "Silver.FunctionDeclarationStateRecords": [
+      "Silver.FunctionDeclarationHeaderEquations"
+    ],
+    "Silver.FunctionDeclarationStepImports": [
+      "Silver.FunctionDeclarationFrameEquations"
+    ],
+    "Silver.FunctionDeclarationTraversalContracts": [
+      "Silver.FunctionDeclarationOrdinaryEquations"
+    ],
+    "Silver.FunctionDeclarationTypeSpan": [
+      "Silver.FunctionDeclarationRecursion"
+    ],
+    "Silver.FunctionDeclarationValidity": [
+      "Silver.FunctionHeaderValidity",
+      "Silver.ComposeContracts"
+    ],
+    "Silver.FunctionDeclarationsTrace": [
+      "Silver.ProcedureDeclarationTrace"
+    ],
+    "Silver.FunctionFrameValidity": [
+      "Silver.ComposeStateBounds",
+      "Silver.PredicateScalarHeaderReady"
+    ],
+    "Silver.FunctionHeaderSource": [
+      "Silver.FunctionBodySource"
+    ],
+    "Silver.FunctionHeaderValidity": [
+      "Silver.FunctionDeclarationPreservation",
+      "Silver.FunctionMetadataValidity"
+    ],
+    "Silver.FunctionInitializerShape": [
+      "Silver.FunctionDeclarationMeaning",
+      "Silver.PredicateFunctionCallMeaning",
+      "Silver.ScalarFunctionFrozenBoolean"
+    ],
+    "Silver.FunctionLocalAnalysis": [
+      "Silver.FunctionInitializerShape",
+      "Silver.FunctionParameterMeaning",
+      "Silver.PredicateScalarGuardMeaning"
+    ],
+    "Silver.FunctionMetadataValidity": [
+      "Silver.FunctionBindings"
+    ],
+    "Silver.FunctionParameterMeaning": [
+      "Silver.FunctionParameterReadings",
+      "Silver.PredicateFunctionCallReadings",
+      "Silver.ScalarFunctionDefinition"
+    ],
+    "Silver.FunctionParameterReadings": [
+      "Silver.FunctionBodyFrameReadiness"
+    ],
+    "Silver.FunctionSourceCandidate": [
+      "Silver.FunctionDeclarationSource",
+      "Silver.FunctionVisibilitySource",
+      "Silver.PredicateFunctionCallSource",
+      "Silver.ReviewedOutputShape",
+      "Silver.FunctionSourceParts.DeclarationHeaderFunctionTypeAtSpec",
+      "Silver.FunctionSourceParts.DeclarationHeaderFunctionTypeAtImpl",
+      "Silver.FunctionSourceParts.DeclarationHeaderParameterStepSpec",
+      "Silver.FunctionSourceParts.DeclarationHeaderParameterStepImpl",
+      "Silver.FunctionSourceParts.DeclarationHeaderParametersModelSpec",
+      "Silver.FunctionSourceParts.DeclarationHeaderParametersModelImpl",
+      "Silver.FunctionSourceParts.DeclarationHeaderParametersAtSpec",
+      "Silver.FunctionSourceParts.DeclarationHeaderParametersAtImpl",
+      "Silver.FunctionSourceParts.DeclarationHeaderFunctionLocalAtSpec",
+      "Silver.FunctionSourceParts.DeclarationHeaderFunctionLocalAtImpl",
+      "Silver.FunctionSourceParts.DeclarationHeaderFunctionLocalsModelSpec",
+      "Silver.FunctionSourceParts.DeclarationHeaderFunctionLocalsModelImpl",
+      "Silver.FunctionSourceParts.DeclarationHeaderFunctionLocalsSpec",
+      "Silver.FunctionSourceParts.DeclarationHeaderFunctionLocalsImpl",
+      "Silver.FunctionSourceParts.DeclarationHeaderAppendParameterImpl",
+      "Silver.FunctionSourceParts.DeclarationHeaderParameterFrameModelSpec",
+      "Silver.FunctionSourceParts.DeclarationHeaderParameterFrameModelImpl",
+      "Silver.FunctionSourceParts.DeclarationHeaderParameterFrameSpec",
+      "Silver.FunctionSourceParts.DeclarationHeaderParameterFrameImpl",
+      "Silver.FunctionSourceParts.DeclarationHeaderFunctionReturnAfterSpec",
+      "Silver.FunctionSourceParts.DeclarationHeaderFunctionReturnAfterImpl",
+      "Silver.FunctionSourceParts.DeclarationHeaderFunctionBodyAtSpec",
+      "Silver.FunctionSourceParts.DeclarationHeaderFunctionBodyAtImpl",
+      "Silver.FunctionSourceParts.DeclarationHeaderFunctionDeclarationAtSpec",
+      "Silver.FunctionSourceParts.DeclarationHeaderFunctionDeclarationAtImpl",
+      "Silver.FunctionSourceParts.DeclarationExpressionFunctionTypeAt",
+      "Silver.FunctionSourceParts.DeclarationExpressionParameterStep",
+      "Silver.FunctionSourceParts.DeclarationExpressionParametersModel",
+      "Silver.FunctionSourceParts.DeclarationExpressionFunctionLocalAt",
+      "Silver.FunctionSourceParts.DeclarationExpressionFunctionLocalsModel",
+      "Silver.FunctionSourceParts.DeclarationExpressionAppendParameter",
+      "Silver.FunctionSourceParts.DeclarationExpressionParameterFrameModel",
+      "Silver.FunctionSourceParts.DeclarationOrdinaryFunctionReturnAfter",
+      "Silver.FunctionSourceParts.DeclarationOrdinaryFunctionBodyAt",
+      "Silver.FunctionSourceParts.DeclarationOrdinaryFunctionDeclarationAt",
+      "Silver.FunctionSourceParts.DeclarationLoopParametersAt",
+      "Silver.FunctionSourceParts.DeclarationLoopFunctionLocals",
+      "Silver.FunctionSourceParts.DeclarationLoopParameterFrame",
+      "Silver.FunctionSourceParts.DeclarationTypeResult",
+      "Silver.FunctionSourceParts.DeclarationStepResult",
+      "Silver.FunctionSourceParts.DeclarationParameterCursor",
+      "Silver.FunctionSourceParts.VisibilityFunctionHides",
+      "Silver.FunctionSourceParts.VisibilityFunctionHidesHeader",
+      "Silver.FunctionSourceParts.VisibilityFormalHides",
+      "Silver.FunctionSourceParts.VisibilityFormalHidesHeader",
+      "Silver.FunctionSourceParts.VisibilityHiddenWord",
+      "Silver.FunctionSourceParts.VisibilityHiddenWordHeader",
+      "Silver.FunctionSourceParts.VisibilityHiddenOuter",
+      "Silver.FunctionSourceParts.VisibilityHiddenOuterHeader",
+      "Silver.FunctionSourceParts.VisibilityHideName",
+      "Silver.FunctionSourceParts.VisibilityHideNameHeader",
+      "Silver.FunctionSourceParts.CallsIncludedImpl",
+      "Silver.FunctionSourceParts.CallsIncludedBody",
+      "Silver.FunctionSourceParts.CallsActualModelSpec",
+      "Silver.FunctionSourceParts.CallsActualModelImpl",
+      "Silver.FunctionSourceParts.CallsActualAfterSpec",
+      "Silver.FunctionSourceParts.CallsActualAfterImpl",
+      "Silver.FunctionSourceParts.CallsActualsModelSpec",
+      "Silver.FunctionSourceParts.CallsActualsModelImpl",
+      "Silver.FunctionSourceParts.CallsActualsAfterSpec",
+      "Silver.FunctionSourceParts.CallsActualsAfterImpl",
+      "Silver.FunctionSourceParts.CallsCalleeAtSpec",
+      "Silver.FunctionSourceParts.CallsCalleeAtImpl",
+      "Silver.FunctionSourceParts.CallsCallModelSpec",
+      "Silver.FunctionSourceParts.CallsCallModelImpl",
+      "Silver.FunctionSourceParts.CallsReadCallSpec",
+      "Silver.FunctionSourceParts.CallsReadCallImpl",
+      "Silver.FunctionSourceParts.CallsCallAssignmentResultSpec",
+      "Silver.FunctionSourceParts.CallsCallAssignmentResultImpl",
+      "Silver.FunctionSourceParts.CallsCallAssignmentModelSpec",
+      "Silver.FunctionSourceParts.CallsCallAssignmentModelImpl",
+      "Silver.FunctionSourceParts.CallsCallAssignmentBodySpec",
+      "Silver.FunctionSourceParts.CallsCallAssignmentBodyImpl",
+      "Silver.FunctionSourceParts.CallsActualModelBody",
+      "Silver.FunctionSourceParts.CallsActualsModelBody",
+      "Silver.FunctionSourceParts.CallsCalleeAtBody",
+      "Silver.FunctionSourceParts.CallsCallModelBody",
+      "Silver.FunctionSourceParts.CallsCallAssignmentResultBody",
+      "Silver.FunctionSourceParts.CallsCallAssignmentModelBody",
+      "Silver.FunctionSourceParts.CallsCallAssignmentBodyBody"
+    ],
+    "Silver.FunctionSourceChecks": [
+      "Silver.FunctionSourceCandidate",
+      "Silver.OutputSourceBridge",
+      "Silver.FunctionBindingsSourceChecks"
+    ],
+    "Silver.FunctionSourceParts.CallsActualAfterImpl": [
+      "Silver.PredicateFunctionCallSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.CallsActualAfterSpec": [
+      "Silver.PredicateFunctionCallSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.CallsActualModelBody": [
+      "Silver.PredicateFunctionCallSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.CallsActualModelImpl": [
+      "Silver.PredicateFunctionCallSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.CallsActualModelSpec": [
+      "Silver.PredicateFunctionCallSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.CallsActualsAfterImpl": [
+      "Silver.PredicateFunctionCallSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.CallsActualsAfterSpec": [
+      "Silver.PredicateFunctionCallSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.CallsActualsModelBody": [
+      "Silver.PredicateFunctionCallSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.CallsActualsModelImpl": [
+      "Silver.PredicateFunctionCallSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.CallsActualsModelSpec": [
+      "Silver.PredicateFunctionCallSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.CallsCallAssignmentBodyBody": [
+      "Silver.PredicateFunctionCallSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.CallsCallAssignmentBodyImpl": [
+      "Silver.PredicateFunctionCallSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.CallsCallAssignmentBodySpec": [
+      "Silver.PredicateFunctionCallSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.CallsCallAssignmentModelBody": [
+      "Silver.PredicateFunctionCallSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.CallsCallAssignmentModelImpl": [
+      "Silver.PredicateFunctionCallSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.CallsCallAssignmentModelSpec": [
+      "Silver.PredicateFunctionCallSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.CallsCallAssignmentResultBody": [
+      "Silver.PredicateFunctionCallSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.CallsCallAssignmentResultImpl": [
+      "Silver.PredicateFunctionCallSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.CallsCallAssignmentResultSpec": [
+      "Silver.PredicateFunctionCallSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.CallsCallModelBody": [
+      "Silver.PredicateFunctionCallSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.CallsCallModelImpl": [
+      "Silver.PredicateFunctionCallSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.CallsCallModelSpec": [
+      "Silver.PredicateFunctionCallSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.CallsCalleeAtBody": [
+      "Silver.PredicateFunctionCallSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.CallsCalleeAtImpl": [
+      "Silver.PredicateFunctionCallSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.CallsCalleeAtSpec": [
+      "Silver.PredicateFunctionCallSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.CallsIncludedBody": [
+      "Silver.PredicateFunctionCallSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.CallsIncludedImpl": [
+      "Silver.PredicateFunctionCallSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.CallsReadCallImpl": [
+      "Silver.PredicateFunctionCallSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.CallsReadCallSpec": [
+      "Silver.PredicateFunctionCallSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.DeclarationExpressionAppendParameter": [
+      "Silver.FunctionDeclarationSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.DeclarationExpressionFunctionLocalAt": [
+      "Silver.FunctionDeclarationSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.DeclarationExpressionFunctionLocalsModel": [
+      "Silver.FunctionDeclarationSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.DeclarationExpressionFunctionTypeAt": [
+      "Silver.FunctionDeclarationSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.DeclarationExpressionParameterFrameModel": [
+      "Silver.FunctionDeclarationSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.DeclarationExpressionParameterStep": [
+      "Silver.FunctionDeclarationSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.DeclarationExpressionParametersModel": [
+      "Silver.FunctionDeclarationSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.DeclarationHeaderAppendParameterImpl": [
+      "Silver.FunctionDeclarationSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.DeclarationHeaderFunctionBodyAtImpl": [
+      "Silver.FunctionDeclarationSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.DeclarationHeaderFunctionBodyAtSpec": [
+      "Silver.FunctionDeclarationSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.DeclarationHeaderFunctionDeclarationAtImpl": [
+      "Silver.FunctionDeclarationSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.DeclarationHeaderFunctionDeclarationAtSpec": [
+      "Silver.FunctionDeclarationSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.DeclarationHeaderFunctionLocalAtImpl": [
+      "Silver.FunctionDeclarationSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.DeclarationHeaderFunctionLocalAtSpec": [
+      "Silver.FunctionDeclarationSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.DeclarationHeaderFunctionLocalsImpl": [
+      "Silver.FunctionDeclarationSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.DeclarationHeaderFunctionLocalsModelImpl": [
+      "Silver.FunctionDeclarationSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.DeclarationHeaderFunctionLocalsModelSpec": [
+      "Silver.FunctionDeclarationSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.DeclarationHeaderFunctionLocalsSpec": [
+      "Silver.FunctionDeclarationSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.DeclarationHeaderFunctionReturnAfterImpl": [
+      "Silver.FunctionDeclarationSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.DeclarationHeaderFunctionReturnAfterSpec": [
+      "Silver.FunctionDeclarationSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.DeclarationHeaderFunctionTypeAtImpl": [
+      "Silver.FunctionDeclarationSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.DeclarationHeaderFunctionTypeAtSpec": [
+      "Silver.FunctionDeclarationSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.DeclarationHeaderParameterFrameImpl": [
+      "Silver.FunctionDeclarationSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.DeclarationHeaderParameterFrameModelImpl": [
+      "Silver.FunctionDeclarationSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.DeclarationHeaderParameterFrameModelSpec": [
+      "Silver.FunctionDeclarationSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.DeclarationHeaderParameterFrameSpec": [
+      "Silver.FunctionDeclarationSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.DeclarationHeaderParameterStepImpl": [
+      "Silver.FunctionDeclarationSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.DeclarationHeaderParameterStepSpec": [
+      "Silver.FunctionDeclarationSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.DeclarationHeaderParametersAtImpl": [
+      "Silver.FunctionDeclarationSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.DeclarationHeaderParametersAtSpec": [
+      "Silver.FunctionDeclarationSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.DeclarationHeaderParametersModelImpl": [
+      "Silver.FunctionDeclarationSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.DeclarationHeaderParametersModelSpec": [
+      "Silver.FunctionDeclarationSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.DeclarationLoopFunctionLocals": [
+      "Silver.FunctionDeclarationSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.DeclarationLoopParameterFrame": [
+      "Silver.FunctionDeclarationSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.DeclarationLoopParametersAt": [
+      "Silver.FunctionDeclarationSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.DeclarationOrdinaryFunctionBodyAt": [
+      "Silver.FunctionDeclarationSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.DeclarationOrdinaryFunctionDeclarationAt": [
+      "Silver.FunctionDeclarationSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.DeclarationOrdinaryFunctionReturnAfter": [
+      "Silver.FunctionDeclarationSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.DeclarationParameterCursor": [
+      "Silver.FunctionDeclarationSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.DeclarationStepResult": [
+      "Silver.FunctionDeclarationSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.DeclarationTypeResult": [
+      "Silver.FunctionDeclarationSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.VisibilityFormalHides": [
+      "Silver.FunctionVisibilitySource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.VisibilityFormalHidesHeader": [
+      "Silver.FunctionVisibilitySource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.VisibilityFunctionHides": [
+      "Silver.FunctionVisibilitySource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.VisibilityFunctionHidesHeader": [
+      "Silver.FunctionVisibilitySource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.VisibilityHiddenOuter": [
+      "Silver.FunctionVisibilitySource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.VisibilityHiddenOuterHeader": [
+      "Silver.FunctionVisibilitySource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.VisibilityHiddenWord": [
+      "Silver.FunctionVisibilitySource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.VisibilityHiddenWordHeader": [
+      "Silver.FunctionVisibilitySource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.VisibilityHideName": [
+      "Silver.FunctionVisibilitySource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceParts.VisibilityHideNameHeader": [
+      "Silver.FunctionVisibilitySource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.FunctionSourceUnique": [
+      "Silver.FunctionHeaderSource",
+      "Silver.PredicateBodyUnique"
+    ],
+    "Silver.FunctionVisibilityEquations": [
+      "Silver.FunctionVisibilitySource",
+      "Silver.ComposeContracts",
+      "Silver.FunctionDeclarationDomains"
+    ],
+    "Silver.FunctionVisibilityNative": [
+      "Silver.FunctionDeclarationAdmission",
+      "Silver.FunctionBindingsNativeEquations",
+      "Silver.SourceDeclarations"
+    ],
+    "Silver.FunctionVisibilitySource": [
+      "Silver.FunctionVisibilityNative"
+    ],
+    "Silver.GuardedAdmission": [
+      "Silver.GuardedDecimal"
+    ],
+    "Silver.GuardedDecimal": [
+      "Silver.ArgumentsAdmission"
+    ],
+    "Silver.GuardedEquations": [
+      "Silver.GuardedAdmission",
+      "Silver.ArgumentsEquations"
+    ],
+    "Silver.GuardedExpressions": [
+      "Silver.GuardedEquations",
+      "Silver.ArgumentsExpressions",
+      "Silver.AssignmentExpressions",
+      "Silver.BranchingExpressions"
+    ],
+    "Silver.GuardedObligations": [
+      "Silver.GuardedSemantics",
+      "Silver.Semantics"
+    ],
+    "Silver.GuardedSemantics": [
+      "Silver.GuardedAdmission",
+      "Silver.NamedSemantics",
+      "Silver.ArgumentsRuntime"
+    ],
+    "Silver.IOBodyCertificate": [
+      "Silver.SourceLexer",
+      "Silver.CertificateWitness",
+      "Silver.IoBodySource"
+    ],
+    "Silver.IOSpecCertificate": [
+      "Silver.SourceLexer",
+      "Silver.CertificateWitness",
+      "Silver.IoSpecSource"
+    ],
+    "Silver.IntegerArraySnapshots": [
+      "Silver.IntegerMutable"
+    ],
+    "Silver.IntegerArrays": [
+      "Silver.IntegerChecks",
+      "Silver.IntegerArraySnapshots"
+    ],
+    "Silver.IntegerChecks": [
+      "Silver.IntegerMutable",
+      "Silver.StringIndexing"
+    ],
+    "Silver.IntegerComparisons": [
+      "Silver.IntegerIntervals"
+    ],
+    "Silver.IntegerDeclarations": [
+      "Silver.IntegerExpressions"
+    ],
+    "Silver.IntegerDivision": [
+      "Silver.IntegerIntervals"
+    ],
+    "Silver.IntegerExpressions": [
+      "Silver.IntegerDivision",
+      "Silver.ArrayLayout"
+    ],
+    "Silver.IntegerImage": [
+      "Silver.IntegerIntervals"
+    ],
+    "Silver.IntegerImageLength": [
+      "Silver.IntegerImage"
+    ],
+    "Silver.IntegerImageNative": [
+      "Silver.IntegerImageLength"
+    ],
+    "Silver.IntegerImageNativeCapture": [
+      "Silver.SourceLexer",
+      "Silver.IntegerImageSpecSource",
+      "Silver.CertificateWitness"
+    ],
+    "Silver.IntegerImageNativeExpressions": [
+      "Silver.IntegerImageNative"
+    ],
+    "Silver.IntegerImageNativeSource": [
+      "Silver.IntegerImageNativeExpressions",
+      "Silver.IntegerImageNativeCapture",
+      "Silver.ScalarsNativeSourceBridge",
+      "Silver.SourceDeclarations"
+    ],
+    "Silver.IntegerImageSpecSource": [],
+    "Silver.IntegerIntervals": [],
+    "Silver.IntegerIteration": [
+      "Silver.IntegerChecks"
+    ],
+    "Silver.IntegerLiteral": [
+      "Silver.GuardedDecimal"
+    ],
+    "Silver.IntegerLiteralBodyCertificate": [
+      "Silver.SourceLexer",
+      "Silver.CertificateWitness",
+      "Silver.IntegerLiteralBodySource"
+    ],
+    "Silver.IntegerLiteralBodySource": [],
+    "Silver.IntegerLiteralEquations": [
+      "Silver.IntegerLiteralExpressions"
+    ],
+    "Silver.IntegerLiteralExpressions": [
+      "Silver.IntegerLiteral",
+      "Silver.Expressions"
+    ],
+    "Silver.IntegerLiteralSourceBridge": [
+      "Silver.IntegerLiteralSourceChecks"
+    ],
+    "Silver.IntegerLiteralSourceChecks": [
+      "Silver.IntegerLiteralEquations",
+      "Silver.IntegerLiteralSourceShape",
+      "Silver.SourceDeclarations",
+      "Silver.IntegerLiteralSpecCertificate",
+      "Silver.IntegerLiteralBodyCertificate",
+      "Silver.ProfileSpecCertificate",
+      "Silver.ProfileBodyCertificate",
+      "Silver.ReviewedSourceShape",
+      "Silver.Precedence"
+    ],
+    "Silver.IntegerLiteralSourceShape": [],
+    "Silver.IntegerLiteralSpecCertificate": [
+      "Silver.SourceLexer",
+      "Silver.CertificateWitness",
+      "Silver.IntegerLiteralSpecSource"
+    ],
+    "Silver.IntegerLiteralSpecSource": [],
+    "Silver.IntegerMutable": [
+      "Silver.IntegerDeclarations"
+    ],
+    "Silver.IntegerSubtypeBindings": [
+      "Silver.NamedIdentifier",
+      "Silver.Names",
+      "Silver.IntegerIntervals"
+    ],
+    "Silver.IoBodySource": [],
+    "Silver.IoSpecSource": [],
+    "Silver.LengthIntervalExpressions": [
+      "Silver.LengthIntervalModel"
+    ],
+    "Silver.LengthIntervalModel": [
+      "Silver.PredicateStatements",
+      "Silver.PathNativeEquations"
+    ],
+    "Silver.LengthIntervalPrecedence": [
+      "Silver.LengthIntervalExpressions"
+    ],
+    "Silver.LengthIntervalsBodySource": [],
+    "Silver.LengthIntervalsCapture": [
+      "Silver.SourceLexer",
+      "Silver.LengthIntervalsSpecSource",
+      "Silver.LengthIntervalsBodySource",
+      "Silver.CertificateWitness"
+    ],
+    "Silver.LengthIntervalsSource": [
+      "Silver.LengthIntervalPrecedence",
+      "Silver.LengthIntervalsCapture",
+      "Silver.PathFactsSourceBridge",
+      "Silver.SourceDeclarations"
+    ],
+    "Silver.LengthIntervalsSpecSource": [],
+    "Silver.Lexical": [],
+    "Silver.LexicalSourceBridge": [
+      "Silver.ArgumentsSourceBridge",
+      "Silver.SourceDeclarations",
+      "Silver.GuardedExpressions"
+    ],
+    "Silver.NamedAdmission": [
+      "Silver.NamedIdentifier"
+    ],
+    "Silver.NamedDisjoint": [
+      "Silver.NamedSemantics"
+    ],
+    "Silver.NamedEquations": [
+      "Silver.NamedAdmission",
+      "Silver.OutputEquations"
+    ],
+    "Silver.NamedExpressions": [
+      "Silver.NamedEquations",
+      "Silver.OutputExpressions"
+    ],
+    "Silver.NamedIdentifier": [
+      "Silver.OutputAdmission"
+    ],
+    "Silver.NamedSemantics": [
+      "Silver.NamedAdmission",
+      "Silver.OutputRuntime"
+    ],
+    "Silver.NamedSourceBridge": [
+      "Silver.OutputSourceBridge",
+      "Silver.NamedExpressions"
+    ],
+    "Silver.Names": [
+      "Silver.Cursor"
+    ],
+    "Silver.NamesBodyCertificate": [
+      "Silver.SourceLexer",
+      "Silver.CertificateWitness",
+      "Silver.NamesBodySource"
+    ],
+    "Silver.NamesBodySource": [],
+    "Silver.NamesEquations": [
+      "Silver.NamesExpressions"
+    ],
+    "Silver.NamesExpressions": [
+      "Silver.Names",
+      "Silver.Expressions"
+    ],
+    "Silver.NamesSourceBridge": [
+      "Silver.NamesEquations",
+      "Silver.NamesSourceChecks"
+    ],
+    "Silver.NamesSourceChecks": [
+      "Silver.NamesExpressions",
+      "Silver.NamesSourceShape",
+      "Silver.SourceDeclarations",
+      "Silver.NamesSpecCertificate",
+      "Silver.NamesBodyCertificate",
+      "Silver.OutputLexicalSpecCertificate",
+      "Silver.ProfileSpecCertificate"
+    ],
+    "Silver.NamesSourceShape": [],
+    "Silver.NamesSpecCertificate": [
+      "Silver.SourceLexer",
+      "Silver.CertificateWitness",
+      "Silver.NamesSpecSource"
+    ],
+    "Silver.NamesSpecSource": [],
+    "Silver.OutputAdmission": [
+      "Silver.OutputLiteral",
+      "Silver.Cursor"
+    ],
+    "Silver.OutputBodyCertificate": [
+      "Silver.SourceLexer",
+      "Silver.CertificateWitness",
+      "Silver.OutputProfileBodySource",
+      "Silver.OutputBodyLines0",
+      "Silver.OutputBodyLines1",
+      "Silver.OutputBodyLines2",
+      "Silver.OutputBodyLines3",
+      "Silver.OutputBodyLines4",
+      "Silver.OutputBodyLines5",
+      "Silver.OutputBodyLines6",
+      "Silver.OutputBodyLines7"
+    ],
+    "Silver.OutputBodyLines0": [
+      "Silver.SourceLexer",
+      "Silver.CertificateWitness"
+    ],
+    "Silver.OutputBodyLines1": [
+      "Silver.SourceLexer",
+      "Silver.CertificateWitness"
+    ],
+    "Silver.OutputBodyLines2": [
+      "Silver.SourceLexer",
+      "Silver.CertificateWitness"
+    ],
+    "Silver.OutputBodyLines3": [
+      "Silver.SourceLexer",
+      "Silver.CertificateWitness"
+    ],
+    "Silver.OutputBodyLines4": [
+      "Silver.SourceLexer",
+      "Silver.CertificateWitness"
+    ],
+    "Silver.OutputBodyLines5": [
+      "Silver.SourceLexer",
+      "Silver.CertificateWitness"
+    ],
+    "Silver.OutputBodyLines6": [
+      "Silver.SourceLexer",
+      "Silver.CertificateWitness"
+    ],
+    "Silver.OutputBodyLines7": [
+      "Silver.SourceLexer",
+      "Silver.CertificateWitness"
+    ],
+    "Silver.OutputEquations": [
+      "Silver.OutputAdmission",
+      "Silver.Uniqueness",
+      "Silver.Expressions"
+    ],
+    "Silver.OutputExpressions": [
+      "Silver.OutputEquations",
+      "Silver.RecursiveBridge"
+    ],
+    "Silver.OutputLexicalBodyCertificate": [
+      "Silver.SourceLexer",
+      "Silver.CertificateWitness",
+      "Silver.OutputLexicalBodySource"
+    ],
+    "Silver.OutputLexicalBodySource": [],
+    "Silver.OutputLexicalSpecCertificate": [
+      "Silver.SourceLexer",
+      "Silver.CertificateWitness",
+      "Silver.OutputLexicalSpecSource"
+    ],
+    "Silver.OutputLexicalSpecSource": [],
+    "Silver.OutputLibcCertificate": [
+      "Silver.SourceLexer",
+      "Silver.CertificateWitness",
+      "Silver.OutputLibcSpecSource"
+    ],
+    "Silver.OutputLibcSpecSource": [],
+    "Silver.OutputLiteral": [
+      "Silver.Admission"
+    ],
+    "Silver.OutputProfileBodySource": [],
+    "Silver.OutputProfileSpecSource": [],
+    "Silver.OutputRuntime": [
+      "Silver.OutputLiteral"
+    ],
+    "Silver.OutputSourceBridge": [
+      "Silver.SourceBridge",
+      "Silver.OutputSpecCertificate",
+      "Silver.OutputBodyCertificate",
+      "Silver.OutputLexicalSpecCertificate",
+      "Silver.OutputLexicalBodyCertificate",
+      "Silver.IOSpecCertificate",
+      "Silver.IOBodyCertificate",
+      "Silver.OutputLibcCertificate",
+      "Silver.OutputExpressions",
+      "Silver.OutputRuntime",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.OutputSpecCertificate": [
+      "Silver.SourceLexer",
+      "Silver.CertificateWitness",
+      "Silver.OutputProfileSpecSource"
+    ],
+    "Silver.PathBounds": [
+      "Silver.PredicateChecking"
+    ],
+    "Silver.PathFacts": [
+      "Silver.Bindings"
+    ],
+    "Silver.PathFactsSourceBridge": [
+      "Silver.PathFactsSourceChecks"
+    ],
+    "Silver.PathFactsSourceChecks": [
+      "Silver.PathNativeEquations",
+      "Silver.PathNativePrecedence",
+      "Silver.PathFactsSpecCertificate",
+      "Silver.PathFactsSourceShape",
+      "Silver.SourceDeclarations"
+    ],
+    "Silver.PathFactsSourceShape": [],
+    "Silver.PathFactsSpecCertificate": [
+      "Silver.SourceLexer",
+      "Silver.CertificateWitness",
+      "Silver.PathFactsSpecSource"
+    ],
+    "Silver.PathFactsSpecSource": [],
+    "Silver.PathNativeEquations": [
+      "Silver.PathNativeExpressions"
+    ],
+    "Silver.PathNativeExpressions": [
+      "Silver.PathNativeModel"
+    ],
+    "Silver.PathNativeModel": [
+      "Silver.PathBounds"
+    ],
+    "Silver.PathNativePrecedence": [
+      "Silver.PathNativeExpressions"
+    ],
+    "Silver.Precedence": [
+      "Silver.Expressions"
+    ],
+    "Silver.PredicateAdapter": [
+      "Silver.PredicateBodyCorrespondence",
+      "Silver.PathNativeModel",
+      "Silver.PredicateOuterReadiness"
+    ],
+    "Silver.PredicateAdapterEnvironment": [
+      "Silver.PredicateAdapter",
+      "Silver.ScalarEnvironmentSourceBridge",
+      "Silver.PredicateFlowSourceBridge",
+      "Silver.ComposeHelperEquations",
+      "Silver.ComposeModelCalls"
+    ],
+    "Silver.PredicateAdapterSourceCandidate": [
+      "Silver.PredicateAdapter"
+    ],
+    "Silver.PredicateAdmission": [
+      "Silver.ComposeGrammar",
+      "Silver.PredicateConditionAdmission"
+    ],
+    "Silver.PredicateArrayBodyNative": [
+      "Silver.PredicateScalarBodyNative"
+    ],
+    "Silver.PredicateArrayBodySource": [
+      "Silver.PredicateArrayBodyNative",
+      "Silver.PredicateScalarBodyHelpers",
+      "Silver.ArrayBindingsNativeEquations",
+      "Silver.SourceDeclarations"
+    ],
+    "Silver.PredicateArrayFlow": [
+      "Silver.ArrayBindings",
+      "Silver.PredicateFlowWidening"
+    ],
+    "Silver.PredicateBasicEquations": [
+      "Silver.PredicateBasicExpressions"
+    ],
+    "Silver.PredicateBasicExpressions": [
+      "Silver.PredicateBodyAdmission",
+      "Silver.PredicateBooleanBodyNative",
+      "Silver.PredicateBooleanArrayBodyNative",
+      "Silver.PredicateScalarBodyNative",
+      "Silver.PredicateArrayBodyNative",
+      "Silver.PredicateNativeState",
+      "Silver.LengthIntervalModel"
+    ],
+    "Silver.PredicateBasicHelpers": [
+      "Silver.PredicateBasicSizing",
+      "Silver.PredicateFlowReaderLibraries",
+      "Silver.PredicateBooleanBodyHelpers",
+      "Silver.PredicateScalarBodyHelpers",
+      "Silver.PredicateArrayBodySource"
+    ],
+    "Silver.PredicateBasicLibraries": [
+      "Silver.PredicateBooleanBodyLibraries",
+      "Silver.PredicateBooleanArrayBodyLibraries",
+      "Silver.PredicateBasicHelpers",
+      "Silver.PredicateFunctionCallLibraries",
+      "Silver.PredicateProcedureCallLibraries",
+      "Silver.PredicateNativeLibraries",
+      "Silver.PredicateAdapterEnvironment"
+    ],
+    "Silver.PredicateBasicReadings": [
+      "Silver.PredicateFunctionCallMeaning",
+      "Silver.PredicateSourceSyntax",
+      "Silver.PredicateBodyProperties",
+      "Silver.PredicateConditionUnique",
+      "Silver.PredicateConditionSound",
+      "Silver.PredicateConditionValidity",
+      "Silver.ArrayBindingsOrdered",
+      "Silver.PredicateFlowInvariant",
+      "Silver.PredicateStringAssignmentMeaning"
+    ],
+    "Silver.PredicateBasicSizing": [
+      "Silver.PredicateBasicEquations",
+      "Silver.PredicateProcedureCallProperties"
+    ],
+    "Silver.PredicateBasicSourceCandidate": [
+      "Silver.PredicateBasicExpressions"
+    ],
+    "Silver.PredicateBasicStepMeaning": [
+      "Silver.PredicateBasicStepReadings",
+      "Silver.PredicateProcedureCallMeaning"
+    ],
+    "Silver.PredicateBasicStepReadings": [
+      "Silver.PredicateBasicReadings",
+      "Silver.PredicateProcedureCallReadings"
+    ],
+    "Silver.PredicateBodyAdmission": [
+      "Silver.PredicateAdmission",
+      "Silver.PredicateComposition",
+      "Silver.PredicateSourceSyntax",
+      "Silver.PredicateBodyScanner"
+    ],
+    "Silver.PredicateBodyBinderSeparation": [
+      "Silver.PredicateBodyReadings",
+      "Silver.PredicateLoopProperties"
+    ],
+    "Silver.PredicateBodyBounds": [
+      "Silver.PredicateBodyControls",
+      "Silver.PredicateConditionBounds"
+    ],
+    "Silver.PredicateBodyCandidates": [
+      "Silver.PredicateBodyExpressions"
+    ],
+    "Silver.PredicateBodyControls": [
+      "Silver.PredicateBodyProperties",
+      "Silver.PredicateProcedureCallFields"
+    ],
+    "Silver.PredicateBodyCorrespondence": [
+      "Silver.PredicateBodyEquations",
+      "Silver.PredicateBodyBounds",
+      "Silver.PredicateBodyFlowPreservation"
+    ],
+    "Silver.PredicateBodyEquations": [
+      "Silver.PredicateBodyExpressions"
+    ],
+    "Silver.PredicateBodyExpressions": [
+      "Silver.PredicateBodyProperties",
+      "Silver.PredicateNativeState",
+      "Silver.PredicateBodyWrappers",
+      "Silver.PredicateLoopNative"
+    ],
+    "Silver.PredicateBodyFacts": [
+      "Silver.PredicateChecking",
+      "Silver.IntegerIteration"
+    ],
+    "Silver.PredicateBodyFlow": [
+      "Silver.PredicateBodyScanner",
+      "Silver.PredicateConditionFlow",
+      "Silver.PredicateProcedureCallProperties"
+    ],
+    "Silver.PredicateBodyFlowPreservation": [
+      "Silver.PredicateBodyFlowValidity",
+      "Silver.PredicateLoopFlowValidity"
+    ],
+    "Silver.PredicateBodyFlowValidity": [
+      "Silver.PredicateStringAssignmentFields",
+      "Silver.PredicateBodyFlow",
+      "Silver.PredicateBodyProperties",
+      "Silver.PredicateConditionFlowValidity"
+    ],
+    "Silver.PredicateBodyHelpers": [
+      "Silver.PredicateBodyModelSizing",
+      "Silver.PredicateLoopImports"
+    ],
+    "Silver.PredicateBodyLibraries": [
+      "Silver.PredicateBodyHelpers",
+      "Silver.PredicateBasicLibraries",
+      "Silver.PredicateNativeLibraries",
+      "Silver.PredicateLoopHelpers",
+      "Silver.PredicateLoopSizing"
+    ],
+    "Silver.PredicateBodyMeaning": [
+      "Silver.PredicateBodyBinderSeparation",
+      "Silver.PredicateConditionValidity",
+      "Silver.PredicateConditionSound",
+      "Silver.PredicateBodyBounds",
+      "Silver.PredicateBodyFlow",
+      "Silver.PredicateFlowInvariant",
+      "Silver.PredicateBasicStepMeaning"
+    ],
+    "Silver.PredicateBodyModelSizing": [
+      "Silver.PredicateBodyCorrespondence",
+      "Silver.PredicateBodySizing"
+    ],
+    "Silver.PredicateBodyPrimitives": [
+      "Silver.ComposeDeclarationAdmission",
+      "Silver.PredicateConditionAdmission",
+      "Silver.PredicateBodyFacts",
+      "Silver.PredicateCallAdmission",
+      "Silver.PredicateFlowWidening",
+      "Silver.PredicateCountedBoundModel"
+    ],
+    "Silver.PredicateBodyProperties": [
+      "Silver.PredicateProcedureCallReadings",
+      "Silver.PredicateBodyScanner",
+      "Silver.PredicateLoopProperties",
+      "Silver.PredicateBodyFlow",
+      "Silver.ComposeCharacterBounds",
+      "Silver.PredicateStringAssignmentFields"
+    ],
+    "Silver.PredicateBodyReadings": [
+      "Silver.PredicateBasicStepReadings"
+    ],
+    "Silver.PredicateBodyScanner": [
+      "Silver.ComposeDeclarationAdmission",
+      "Silver.PredicateConditionAdmission",
+      "Silver.PredicateBodyFacts",
+      "Silver.PredicateCallAdmission",
+      "Silver.PredicateFlowWidening",
+      "Silver.PredicateCountedBoundModel",
+      "Silver.PredicateProcedureCallAdmission"
+    ],
+    "Silver.PredicateBodySizing": [
+      "Silver.PredicateBodyExpressions"
+    ],
+    "Silver.PredicateBodySound": [
+      "Silver.PredicateBodyReadings"
+    ],
+    "Silver.PredicateBodySourceCandidate": [
+      "Silver.PredicateSourceRequirements"
+    ],
+    "Silver.PredicateBodyUnique": [
+      "Silver.PredicateBodyReadings"
+    ],
+    "Silver.PredicateBodyWrappers": [
+      "Silver.PredicateBodyAdmission",
+      "Silver.PredicateBodyFlow",
+      "Silver.SourceDeclarations"
+    ],
+    "Silver.PredicateBooleanArrayBodyHelpers": [
+      "Silver.PredicateBooleanArrayBodyNative",
+      "Silver.PredicateBodyControls",
+      "Silver.PredicateBodyWrappers"
+    ],
+    "Silver.PredicateBooleanArrayBodyLibraries": [
+      "Silver.PredicateBooleanArrayBodyHelpers",
+      "Silver.PredicateNativeHelpers",
+      "Silver.ComposeEquations"
+    ],
+    "Silver.PredicateBooleanArrayBodyNative": [
+      "Silver.PredicateBodyAdmission",
+      "Silver.PredicateNativeState"
+    ],
+    "Silver.PredicateBooleanArrayBodySource": [
+      "Silver.PredicateBooleanArrayBodyNative",
+      "Silver.SourceDeclarations"
+    ],
+    "Silver.PredicateBooleanBodyHelpers": [
+      "Silver.PredicateBooleanBodyNative",
+      "Silver.PredicateBodyControls",
+      "Silver.PredicateBodyWrappers"
+    ],
+    "Silver.PredicateBooleanBodyLibraries": [
+      "Silver.PredicateBooleanBodyHelpers",
+      "Silver.PredicateNativeHelpers",
+      "Silver.ComposeEquations"
+    ],
+    "Silver.PredicateBooleanBodyNative": [
+      "Silver.PredicateBodyAdmission",
+      "Silver.PredicateNativeState"
+    ],
+    "Silver.PredicateBooleanBodySource": [
+      "Silver.PredicateBooleanBodyNative",
+      "Silver.SourceDeclarations"
+    ],
+    "Silver.PredicateBooleanHeader": [
+      "Silver.PredicateHeader",
+      "Silver.ComposeBooleanRegionTrace"
+    ],
+    "Silver.PredicateCallAdmission": [
+      "Silver.PredicateConditionAdmission",
+      "Silver.FunctionBindings"
+    ],
+    "Silver.PredicateCharacterReadings": [
+      "Silver.PredicateConditionAdmission",
+      "Silver.ComposeCharacterProperties",
+      "Silver.PathBounds"
+    ],
+    "Silver.PredicateCharacterSourceCandidate": [
+      "Silver.PredicateNativeSourceChecks",
+      "Silver.PredicateSourceShape",
+      "Silver.PredicateXorNative"
+    ],
+    "Silver.PredicateChecking": [
+      "Silver.PathFacts",
+      "Silver.PredicateSemantics",
+      "Silver.StringLengthRefinement",
+      "Silver.ScalarFlow"
+    ],
+    "Silver.PredicateComposition": [
+      "Silver.ScalarFunctionComposition",
+      "Silver.ScalarProcedureComposition",
+      "Silver.PredicateExecution",
+      "Silver.PredicateObligations",
+      "Silver.SequenceEffects",
+      "Silver.PredicateArrayFlow",
+      "Silver.BooleanDeclarationObligations"
+    ],
+    "Silver.PredicateConditionAdmission": [
+      "Silver.ComposeAtomAdmission",
+      "Silver.PredicateChecking",
+      "Silver.IntegerLiteral",
+      "Silver.PredicateFlowOverlay",
+      "Silver.PredicateArrayFlow",
+      "Silver.IntegerSubtypeBindings",
+      "Silver.PredicateXorAdmission"
+    ],
+    "Silver.PredicateConditionBounds": [
+      "Silver.PredicateCharacterReadings",
+      "Silver.PredicateFlowOperations",
+      "Silver.PathBounds"
+    ],
+    "Silver.PredicateConditionFlow": [
+      "Silver.PredicateConditionAdmission",
+      "Silver.PredicateFlowOperations"
+    ],
+    "Silver.PredicateConditionFlowValidity": [
+      "Silver.PredicateConditionFlow",
+      "Silver.PredicateFlowBounds"
+    ],
+    "Silver.PredicateConditionMeaning": [
+      "Silver.PredicateConditionReadings"
+    ],
+    "Silver.PredicateConditionReadings": [
+      "Silver.PredicateReadings",
+      "Silver.PredicateCharacterReadings"
+    ],
+    "Silver.PredicateConditionSound": [
+      "Silver.PredicateConditionReadings"
+    ],
+    "Silver.PredicateConditionUnique": [
+      "Silver.PredicateConditionReadings"
+    ],
+    "Silver.PredicateConditionValidity": [
+      "Silver.PredicateConditionReadings",
+      "Silver.PredicateConditionMeaning",
+      "Silver.PathBounds",
+      "Silver.PredicateFlowInvariant",
+      "Silver.PredicateConditionFlow",
+      "Silver.PredicateScalarGuardMeaning",
+      "Silver.ArrayBindingsNativeEquations"
+    ],
+    "Silver.PredicateCountedBoundModel": [
+      "Silver.PredicateConditionAdmission",
+      "Silver.ScalarExpressionAdmission"
+    ],
+    "Silver.PredicateCountedBoundSource": [
+      "Silver.PredicateCountedBoundModel",
+      "Silver.PredicateFlowReaders",
+      "Silver.SourceDeclarations"
+    ],
+    "Silver.PredicateEquations": [
+      "Silver.PredicateBodyLibraries",
+      "Silver.PredicateOuterModel"
+    ],
+    "Silver.PredicateExecution": [
+      "Silver.PredicateStatements",
+      "Silver.ScalarCallExecution",
+      "Silver.ScalarProcedureExecution",
+      "Silver.SequenceExecution"
+    ],
+    "Silver.PredicateFlags": [
+      "Silver.PredicateGrammar"
+    ],
+    "Silver.PredicateFlowBounds": [
+      "Silver.PredicateFlowWidening"
+    ],
+    "Silver.PredicateFlowCopy": [
+      "Silver.PredicateFlowOperations"
+    ],
+    "Silver.PredicateFlowInvariant": [
+      "Silver.PredicateFlowOverlay",
+      "Silver.PredicateFlowOperations"
+    ],
+    "Silver.PredicateFlowOperations": [
+      "Silver.PredicateFlowStorage"
+    ],
+    "Silver.PredicateFlowOverlay": [
+      "Silver.PredicateFlowStorage"
+    ],
+    "Silver.PredicateFlowReaderLibraries": [
+      "Silver.PredicateFlowReaders",
+      "Silver.ScalarExpressionNativeEquations",
+      "Silver.ComposeHelperEquations",
+      "Silver.ComposeModelCalls",
+      "Silver.BooleanBindingsSourceBridge"
+    ],
+    "Silver.PredicateFlowReaders": [
+      "Silver.PredicateFlowSourceBridge",
+      "Silver.PredicateNativeState"
+    ],
+    "Silver.PredicateFlowSourceBridge": [
+      "Silver.PredicateFlowWidening",
+      "Silver.ScalarEnvironmentSourceBridge",
+      "Silver.SourceDeclarations"
+    ],
+    "Silver.PredicateFlowSourceCandidate": [
+      "Silver.BooleanBindingsSourceChecks",
+      "Silver.PredicateXorSourceBridge",
+      "Silver.PredicateCountedBoundSource",
+      "Silver.PredicateFlowReaders",
+      "Silver.PredicateCharacterSourceCandidate"
+    ],
+    "Silver.PredicateFlowStorage": [
+      "Silver.ScalarFlow",
+      "Silver.ScalarExpressionEnvironment"
+    ],
+    "Silver.PredicateFlowWidening": [
+      "Silver.PredicateFlowInvariant"
+    ],
+    "Silver.PredicateFunctionCallEquations": [
+      "Silver.PredicateFunctionCallNative"
+    ],
+    "Silver.PredicateFunctionCallHelpers": [
+      "Silver.PredicateFunctionCallEquations",
+      "Silver.FunctionBindingsNativeEquations"
+    ],
+    "Silver.PredicateFunctionCallLibraries": [
+      "Silver.PredicateFunctionCallHelpers",
+      "Silver.PredicateScalarBodyHelpers",
+      "Silver.FunctionBindingsSourceBridge",
+      "Silver.PredicateNativeHelpers",
+      "Silver.PredicateNativeLibraries",
+      "Silver.PredicateBooleanBodyLibraries"
+    ],
+    "Silver.PredicateFunctionCallMeaning": [
+      "Silver.PredicateFunctionCallReadings",
+      "Silver.PredicateConditionValidity",
+      "Silver.PredicateFlowInvariant",
+      "Silver.ScalarFunctionDefinition"
+    ],
+    "Silver.PredicateFunctionCallNative": [
+      "Silver.PredicateBodyScanner",
+      "Silver.PredicateNativeState"
+    ],
+    "Silver.PredicateFunctionCallReadings": [
+      "Silver.PredicateCallAdmission",
+      "Silver.PredicateBodyScanner",
+      "Silver.PredicateConditionSound",
+      "Silver.PredicateConditionUnique",
+      "Silver.ScalarCallChecking"
+    ],
+    "Silver.PredicateFunctionCallSource": [
+      "Silver.PredicateFunctionCallEquations",
+      "Silver.SourceDeclarations"
+    ],
+    "Silver.PredicateFunctionFlags": [
+      "Silver.PredicateFlags"
+    ],
+    "Silver.PredicateGrammar": [
+      "Silver.PredicateHeaderFlow",
+      "Silver.PredicateBooleanHeader",
+      "Silver.ComposeArrayStore",
+      "Silver.SequenceFunctionTrace"
+    ],
+    "Silver.PredicateHeader": [
+      "Silver.PredicateShell",
+      "Silver.PredicateHeaderDecode",
+      "Silver.SequenceScalarTrace",
+      "Silver.SequenceInitializerTrace",
+      "Silver.SequenceArrayReady"
+    ],
+    "Silver.PredicateHeaderDecode": [
+      "Silver.PredicateBodyAdmission",
+      "Silver.ComposeDecode",
+      "Silver.SequenceContext"
+    ],
+    "Silver.PredicateHeaderFlow": [
+      "Silver.PredicateHeader",
+      "Silver.PredicateScalarGuardMeaning",
+      "Silver.ComposeDeclarationContext"
+    ],
+    "Silver.PredicateInheritedReady": [
+      "Silver.PredicateOuterReadiness",
+      "Silver.ComposeModel",
+      "Silver.ComposeSourceBridge",
+      "Silver.FunctionDeclarationModelSource",
+      "Silver.ProcedureDeclarationModelSource"
+    ],
+    "Silver.PredicateInitialFlowValidity": [
+      "Silver.PredicateConditionFlowValidity",
+      "Silver.PredicateScalarHeaderReady"
+    ],
+    "Silver.PredicateLoopCandidate": [
+      "Silver.PredicateLoopNative"
+    ],
+    "Silver.PredicateLoopFlowValidity": [
+      "Silver.PredicateLoopProperties",
+      "Silver.PredicateConditionFlowValidity",
+      "Silver.PredicateFlowWidening"
+    ],
+    "Silver.PredicateLoopHelpers": [
+      "Silver.PredicateLoopImports",
+      "Silver.PredicateNativeLibraries",
+      "Silver.PredicateFlowReaderLibraries",
+      "Silver.PredicateAdapterEnvironment",
+      "Silver.PredicateBodyWrappers",
+      "Silver.ComposeModelCalls",
+      "Silver.ComposeLexical",
+      "Silver.ScalarExpressionNativeEquations",
+      "Silver.PredicateArrayBodySource",
+      "Silver.PredicateCountedBoundSource"
+    ],
+    "Silver.PredicateLoopImports": [
+      "Silver.PredicateLoopNative",
+      "Silver.ComposeContracts",
+      "Silver.PredicateBodyControls"
+    ],
+    "Silver.PredicateLoopNative": [
+      "Silver.PredicateLoopProperties",
+      "Silver.PredicateNativeState",
+      "Silver.PredicateFlowCopy"
+    ],
+    "Silver.PredicateLoopProperties": [
+      "Silver.PredicateBodyScanner",
+      "Silver.ComposeStringDeclarations",
+      "Silver.PredicateConditionSound"
+    ],
+    "Silver.PredicateLoopSizing": [
+      "Silver.PredicateLoopImports",
+      "Silver.PredicateBodyFlow"
+    ],
+    "Silver.PredicateNativeBodies": [
+      "Silver.PredicateNativeExpressions"
+    ],
+    "Silver.PredicateNativeContracts": [
+      "Silver.PredicateNativeCorrespondence"
+    ],
+    "Silver.PredicateNativeCorrespondence": [
+      "Silver.PredicateNativeModel"
+    ],
+    "Silver.PredicateNativeEquations": [
+      "Silver.PredicateNativePrecedence"
+    ],
+    "Silver.PredicateNativeExpressions": [
+      "Silver.PredicateNativeState",
+      "Silver.IntegerLiteral"
+    ],
+    "Silver.PredicateNativeHelpers": [
+      "Silver.PredicateNativeModelSizing",
+      "Silver.PredicateNativeWorkers",
+      "Silver.ScalarExpressionNativeTypes"
+    ],
+    "Silver.PredicateNativeHelpersCandidate": [
+      "Silver.PredicateNativeScalarHelpers",
+      "Silver.PredicateNativeWorkers",
+      "Silver.PredicateSourceShape"
+    ],
+    "Silver.PredicateNativeLibraries": [
+      "Silver.PredicateNativeHelpers",
+      "Silver.PredicateFlowReaderLibraries",
+      "Silver.PredicateNativeScalarHelpers",
+      "Silver.PredicateXorSourceBridge",
+      "Silver.BooleanBindingsSourceBridge",
+      "Silver.ArrayBindingsSourceBridge",
+      "Silver.ComposeLexical",
+      "Silver.ComposeModelCalls",
+      "Silver.ComposeEquations",
+      "Silver.ComposeStringHelperEquations",
+      "Silver.IntegerLiteralEquations",
+      "Silver.LengthIntervalExpressions"
+    ],
+    "Silver.PredicateNativeModel": [
+      "Silver.PredicateNativeEquations",
+      "Silver.PredicateNativeProgress"
+    ],
+    "Silver.PredicateNativeModelSizing": [
+      "Silver.PredicateNativeContracts",
+      "Silver.PredicateNativeSizing"
+    ],
+    "Silver.PredicateNativePrecedence": [
+      "Silver.PredicateNativeBodies"
+    ],
+    "Silver.PredicateNativeProgress": [
+      "Silver.PredicateNativeRanges"
+    ],
+    "Silver.PredicateNativeRanges": [
+      "Silver.PredicateConditionSound",
+      "Silver.PredicateConditionBounds",
+      "Silver.ComposeBounds"
+    ],
+    "Silver.PredicateNativeScalarHelpers": [
+      "Silver.PredicateNativeState",
+      "Silver.PredicateFlowSourceBridge",
+      "Silver.ScalarsNativeSourceBridge"
+    ],
+    "Silver.PredicateNativeShapeCandidate": [
+      "Silver.PredicateNativeSourceChecks",
+      "Silver.PredicateCharacterSourceCandidate"
+    ],
+    "Silver.PredicateNativeSizing": [
+      "Silver.PredicateNativeEquations",
+      "Silver.PredicateConditionFlow"
+    ],
+    "Silver.PredicateNativeSourceChecks": [
+      "Silver.PredicateNativeBodies",
+      "Silver.PredicateNativeWorkers",
+      "Silver.PredicateFlowReaders",
+      "Silver.PredicateNativeScalarHelpers",
+      "Silver.SourceDeclarations"
+    ],
+    "Silver.PredicateNativeState": [
+      "Silver.PredicateConditionAdmission",
+      "Silver.PredicateFlowInvariant",
+      "Silver.PredicateConditionFlowValidity",
+      "Silver.PathBounds",
+      "Silver.BooleanBindings",
+      "Silver.IntegerSubtypeBindings",
+      "Silver.ComposeContracts",
+      "Silver.ScalarExpressionEnvironment"
+    ],
+    "Silver.PredicateNativeWorkers": [
+      "Silver.PredicateNativeSizing",
+      "Silver.SourceDeclarations"
+    ],
+    "Silver.PredicateObligations": [
+      "Silver.PredicateStatements",
+      "Silver.ComposeObligations",
+      "Silver.StringObligations"
+    ],
+    "Silver.PredicateOuterCandidates": [
+      "Silver.PredicateOuterExpressions"
+    ],
+    "Silver.PredicateOuterEquations": [
+      "Silver.PredicateOuterExpressions",
+      "Silver.ComposeEquations",
+      "Silver.ComposeLexical",
+      "Silver.PredicateOuterReadiness"
+    ],
+    "Silver.PredicateOuterExpressions": [
+      "Silver.PredicateBodyAdmission",
+      "Silver.ComposeExpressions",
+      "Silver.PredicateBodyCorrespondence"
+    ],
+    "Silver.PredicateOuterModel": [
+      "Silver.PredicateOuterEquations",
+      "Silver.PredicateAdapter",
+      "Silver.ComposeModelEquations",
+      "Silver.ComposeModelRanges",
+      "Silver.PredicateInheritedReady"
+    ],
+    "Silver.PredicateOuterReadiness": [
+      "Silver.PredicateInitialFlowValidity",
+      "Silver.ComposeStateBounds",
+      "Silver.CallableDeclarationPreservation",
+      "Silver.ComposeScalarDeclarations",
+      "Silver.ComposeNativeStateBounds"
+    ],
+    "Silver.PredicateProcedureBodyShape": [
+      "Silver.PredicateBodyReadings",
+      "Silver.PredicateFunctionCallMeaning",
+      "Silver.ScalarProcedureDefinition"
+    ],
+    "Silver.PredicateProcedureCallAdmission": [
+      "Silver.PredicateBodyPrimitives",
+      "Silver.ProcedureNameScanner"
+    ],
+    "Silver.PredicateProcedureCallDomains": [
+      "Silver.PredicateProcedureCallEquations",
+      "Silver.PredicateFunctionCallHelpers",
+      "Silver.PredicateScalarBodyHelpers",
+      "Silver.ProcedureBindingsNativeEquations",
+      "Silver.ProcedureNameFreeNative"
+    ],
+    "Silver.PredicateProcedureCallEquations": [
+      "Silver.PredicateProcedureCallNative"
+    ],
+    "Silver.PredicateProcedureCallFields": [
+      "Silver.PredicateProcedureCallProperties"
+    ],
+    "Silver.PredicateProcedureCallHelpers": [
+      "Silver.PredicateProcedureCallDomains"
+    ],
+    "Silver.PredicateProcedureCallLibraries": [
+      "Silver.PredicateProcedureCallHelpers",
+      "Silver.PredicateFunctionCallLibraries",
+      "Silver.PredicateAdapterEnvironment"
+    ],
+    "Silver.PredicateProcedureCallMeaning": [
+      "Silver.PredicateProcedureUpdatesMeaning"
+    ],
+    "Silver.PredicateProcedureCallNative": [
+      "Silver.PredicateProcedureCallSyntax"
+    ],
+    "Silver.PredicateProcedureCallProperties": [
+      "Silver.PredicateProcedureCallAdmission"
+    ],
+    "Silver.PredicateProcedureCallReadings": [
+      "Silver.PredicateFunctionCallReadings",
+      "Silver.PredicateProcedureCallProperties",
+      "Silver.ProcedureMetadataSemantics",
+      "Silver.ScalarProcedureSyntax"
+    ],
+    "Silver.PredicateProcedureCallSource": [
+      "Silver.PredicateProcedureCallEquations",
+      "Silver.ComposeBooleanDeclarationSource"
+    ],
+    "Silver.PredicateProcedureCallSourceChecks": [
+      "Silver.PredicateProcedureCallWholeSourceCandidate",
+      "Silver.OutputSourceBridge"
+    ],
+    "Silver.PredicateProcedureCallSyntax": [
+      "Silver.PredicateProcedureCallAdmission",
+      "Silver.PredicateNativeState"
+    ],
+    "Silver.PredicateProcedureCallWholeSourceCandidate": [
+      "Silver.PredicateProcedureCallWholeSourceParts.ProcedureTargetActual",
+      "Silver.PredicateProcedureCallWholeSourceParts.ProcedureActualAfter",
+      "Silver.PredicateProcedureCallWholeSourceParts.ProcedureActualsModel",
+      "Silver.PredicateProcedureCallWholeSourceParts.ProcedureActualsAfter",
+      "Silver.PredicateProcedureCallWholeSourceParts.ProcedureUpdateStep",
+      "Silver.PredicateProcedureCallWholeSourceParts.ProcedureUpdatesModel",
+      "Silver.PredicateProcedureCallWholeSourceParts.ProcedureUpdates",
+      "Silver.PredicateProcedureCallWholeSourceParts.ProcedureCalleeAt",
+      "Silver.PredicateProcedureCallWholeSourceParts.ProcedureCallBody",
+      "Silver.PredicateProcedureCallWholeSourceParts.ActualResult",
+      "Silver.PredicateProcedureCallWholeSourceParts.InvalidActual"
+    ],
+    "Silver.PredicateProcedureCallWholeSourceParts.ActualResult": [
+      "Silver.PredicateProcedureCallSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.PredicateProcedureCallWholeSourceParts.InvalidActual": [
+      "Silver.PredicateProcedureCallSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.PredicateProcedureCallWholeSourceParts.ProcedureActualAfter": [
+      "Silver.PredicateProcedureCallSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.PredicateProcedureCallWholeSourceParts.ProcedureActualsAfter": [
+      "Silver.PredicateProcedureCallSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.PredicateProcedureCallWholeSourceParts.ProcedureActualsModel": [
+      "Silver.PredicateProcedureCallSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.PredicateProcedureCallWholeSourceParts.ProcedureCallBody": [
+      "Silver.PredicateProcedureCallSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.PredicateProcedureCallWholeSourceParts.ProcedureCalleeAt": [
+      "Silver.PredicateProcedureCallSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.PredicateProcedureCallWholeSourceParts.ProcedureTargetActual": [
+      "Silver.PredicateProcedureCallSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.PredicateProcedureCallWholeSourceParts.ProcedureUpdateStep": [
+      "Silver.PredicateProcedureCallSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.PredicateProcedureCallWholeSourceParts.ProcedureUpdates": [
+      "Silver.PredicateProcedureCallSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.PredicateProcedureCallWholeSourceParts.ProcedureUpdatesModel": [
+      "Silver.PredicateProcedureCallSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.PredicateProcedureTargetMeaning": [
+      "Silver.PredicateProcedureCallReadings",
+      "Silver.PredicateFunctionCallMeaning",
+      "Silver.ScalarProcedureChecking"
+    ],
+    "Silver.PredicateProcedureUpdatesMeaning": [
+      "Silver.PredicateProcedureTargetMeaning",
+      "Silver.ProcedureNameActualsApart"
+    ],
+    "Silver.PredicateReadings": [
+      "Silver.PredicateConditionAdmission",
+      "Silver.ComposeBounds",
+      "Silver.ComposeSemantics"
+    ],
+    "Silver.PredicateScalarBodyCandidate": [
+      "Silver.PredicateScalarBodySource",
+      "Silver.PredicateBooleanBodySource",
+      "Silver.PredicateBooleanArrayBodySource",
+      "Silver.PredicateArrayBodySource",
+      "Silver.PredicateSourceShape"
+    ],
+    "Silver.PredicateScalarBodyHelpers": [
+      "Silver.PredicateScalarBodyNative",
+      "Silver.ComposeEquations",
+      "Silver.PredicateFlowReaderLibraries",
+      "Silver.PredicateBodyWrappers",
+      "Silver.PredicateBodyControls"
+    ],
+    "Silver.PredicateScalarBodyNative": [
+      "Silver.PredicateBodyAdmission",
+      "Silver.PredicateNativeState",
+      "Silver.ComposeContracts",
+      "Silver.PredicateBodyFlow"
+    ],
+    "Silver.PredicateScalarBodySource": [
+      "Silver.PredicateScalarBodyNative",
+      "Silver.SourceDeclarations"
+    ],
+    "Silver.PredicateScalarGuardMeaning": [
+      "Silver.PredicateConditionReadings",
+      "Silver.PredicateFlowInvariant"
+    ],
+    "Silver.PredicateScalarHeaderReady": [
+      "Silver.PredicateFlowInvariant"
+    ],
+    "Silver.PredicateSelectors": [
+      "Silver.PredicateFunctionFlags"
+    ],
+    "Silver.PredicateSemantics": [
+      "Silver.PredicateSyntax"
+    ],
+    "Silver.PredicateShell": [
+      "Silver.PredicateBodySound",
+      "Silver.PredicateBodyMeaning",
+      "Silver.ComposeStateBounds",
+      "Silver.PredicateBodyUnique",
+      "Silver.SequenceContext"
+    ],
+    "Silver.PredicateSourceBridge": [
+      "Silver.PredicateSourceChecks",
+      "Silver.PredicateAdapterEnvironment",
+      "Silver.IntegerLiteralSourceBridge",
+      "Silver.LengthIntervalsSource",
+      "Silver.ScalarExpressionSourceBridge",
+      "Silver.ScalarEnvironmentSourceBridge",
+      "Silver.ScalarsNativeSourceBridge",
+      "Silver.PredicateEquations",
+      "Silver.ComposeModel"
+    ],
+    "Silver.PredicateSourceCandidate": [
+      "Silver.PredicateSourceRequirements",
+      "Silver.PredicateCharacterSourceCandidate",
+      "Silver.PredicateScalarBodyCandidate",
+      "Silver.PredicateFlowSourceCandidate",
+      "Silver.PredicateNativeHelpersCandidate",
+      "Silver.PredicateNativeShapeCandidate",
+      "Silver.PredicateBodySourceCandidate"
+    ],
+    "Silver.PredicateSourceChecks": [
+      "Silver.ComposeSourceBridge",
+      "Silver.PredicateSourceCandidate",
+      "Silver.PredicateNativePrecedence",
+      "Silver.PredicateStructuralGuards",
+      "Silver.FunctionSourceChecks",
+      "Silver.ProcedureNameSourceChecks",
+      "Silver.PredicateProcedureCallSourceChecks",
+      "Silver.ProcedureMetadataSourceChecks"
+    ],
+    "Silver.PredicateSourceRequirements": [
+      "Silver.PredicateNativeSourceChecks",
+      "Silver.PredicateBasicSourceCandidate",
+      "Silver.PredicateBooleanBodySource",
+      "Silver.PredicateBooleanArrayBodySource",
+      "Silver.BooleanBindingsSourceChecks",
+      "Silver.PredicateXorSourceBridge",
+      "Silver.PredicateScalarBodySource",
+      "Silver.PredicateArrayBodySource",
+      "Silver.PredicateCountedBoundSource",
+      "Silver.PredicateBodyWrappers",
+      "Silver.PredicateBodyCandidates",
+      "Silver.PredicateLoopCandidate",
+      "Silver.PredicateAdapterSourceCandidate",
+      "Silver.PredicateAdapterEnvironment",
+      "Silver.PredicateOuterCandidates",
+      "Silver.PredicateSourceShape"
+    ],
+    "Silver.PredicateSourceShape": [
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.PredicateSourceSyntax": [
+      "Silver.PredicateComposition"
+    ],
+    "Silver.PredicateStatements": [
+      "Silver.PredicateChecking",
+      "Silver.ScalarCallChecking",
+      "Silver.ScalarProcedureChecking",
+      "Silver.PredicateBodyFacts",
+      "Silver.SequenceSyntax",
+      "Silver.IntegerIteration",
+      "Silver.IntegerMutable",
+      "Silver.IntegerArrays",
+      "Silver.BooleanArrayAssignments"
+    ],
+    "Silver.PredicateStringAssignmentFields": [
+      "Silver.PredicateBodyScanner"
+    ],
+    "Silver.PredicateStringAssignmentMeaning": [
+      "Silver.PredicateStringAssignmentReadings",
+      "Silver.PredicateBodyProperties",
+      "Silver.PredicateFlowInvariant"
+    ],
+    "Silver.PredicateStringAssignmentReadings": [
+      "Silver.PredicateBodyAdmission",
+      "Silver.ComposeGrammar",
+      "Silver.ComposeCharacterBounds",
+      "Silver.PredicateCharacterReadings",
+      "Silver.PredicateReadings"
+    ],
+    "Silver.PredicateStructuralGuards": [
+      "Silver.PredicateScalarBodyNative",
+      "Silver.PredicateNativeScalarHelpers",
+      "Silver.PredicateAdapter"
+    ],
+    "Silver.PredicateSyntax": [
+      "Silver.ComposeExpression",
+      "Silver.IntegerChecks",
+      "Silver.IntegerComparisons",
+      "Silver.StringExecution",
+      "Silver.BooleanModel",
+      "Silver.BooleanArrays"
+    ],
+    "Silver.PredicateXorAdmission": [
+      "Silver.ComposeAtomAdmission"
+    ],
+    "Silver.PredicateXorNative": [
+      "Silver.PredicateXorAdmission",
+      "Silver.SourceDeclarations"
+    ],
+    "Silver.PredicateXorSourceBridge": [
+      "Silver.PredicateXorNative",
+      "Silver.ComposeStringPrimitiveEquations"
+    ],
+    "Silver.ProcedureBindings": [
+      "Silver.FunctionBindings"
+    ],
+    "Silver.ProcedureBindingsBodyCertificate": [
+      "Silver.SourceLexer",
+      "Silver.CertificateWitness",
+      "Silver.ProcedureBindingsBodySource"
+    ],
+    "Silver.ProcedureBindingsBodySource": [],
+    "Silver.ProcedureBindingsNativeEquations": [
+      "Silver.ProcedureBindingsNativeExpressions"
+    ],
+    "Silver.ProcedureBindingsNativeExpressions": [
+      "Silver.ProcedureBindings"
+    ],
+    "Silver.ProcedureBindingsSourceBridge": [
+      "Silver.ProcedureBindingsSourceChecks",
+      "Silver.ProcedureMetadataValidity"
+    ],
+    "Silver.ProcedureBindingsSourceChecks": [
+      "Silver.ProcedureBindingsNativeEquations",
+      "Silver.SourceDeclarations",
+      "Silver.ProcedureBindingsSpecCertificate",
+      "Silver.ProcedureBindingsBodyCertificate"
+    ],
+    "Silver.ProcedureBindingsSpecCertificate": [
+      "Silver.SourceLexer",
+      "Silver.CertificateWitness",
+      "Silver.ProcedureBindingsSpecSource"
+    ],
+    "Silver.ProcedureBindingsSpecSource": [],
+    "Silver.ProcedureDeclarationAdmission": [
+      "Silver.ProcedureHeaderAdmission"
+    ],
+    "Silver.ProcedureDeclarationBodyImports": [
+      "Silver.ProcedureDeclarationBodyNative"
+    ],
+    "Silver.ProcedureDeclarationBodyLibrary": [
+      "Silver.ProcedureDeclarationHelperLibraries",
+      "Silver.ProcedureDeclarationHighEquations",
+      "Silver.FunctionDeclarationMeaning"
+    ],
+    "Silver.ProcedureDeclarationBodyNative": [
+      "Silver.ProcedureDeclarationSyntax"
+    ],
+    "Silver.ProcedureDeclarationDenotations": [
+      "Silver.ProcedureDeclarationNative"
+    ],
+    "Silver.ProcedureDeclarationDomains": [
+      "Silver.ProcedureDeclarationNative",
+      "Silver.FunctionDeclarationHeaderEquations",
+      "Silver.ProcedureFrameRecordTypes"
+    ],
+    "Silver.ProcedureDeclarationFrameEquations": [
+      "Silver.ProcedureDeclarationDomains",
+      "Silver.ProcedureDeclarationRecursion"
+    ],
+    "Silver.ProcedureDeclarationHelperEquations": [
+      "Silver.ProcedureDeclarationStepImports",
+      "Silver.ProcedureDeclarationFrameEquations"
+    ],
+    "Silver.ProcedureDeclarationHelperLibraries": [
+      "Silver.ProcedureDeclarationPrefixLibraries",
+      "Silver.ProcedureDeclarationTraversalContracts",
+      "Silver.FunctionDeclarationSourceBridge"
+    ],
+    "Silver.ProcedureDeclarationHelperModel": [
+      "Silver.ProcedureDeclarationPrefixEquations",
+      "Silver.ProcedureDeclarationMeaning",
+      "Silver.FunctionDeclarationStateRecords",
+      "Silver.FunctionDeclarationInitialDomain"
+    ],
+    "Silver.ProcedureDeclarationHelperModelSource": [
+      "Silver.ProcedureDeclarationHelperLibraries",
+      "Silver.ProcedureDeclarationTraversalModel",
+      "Silver.FunctionDeclarationModelSource"
+    ],
+    "Silver.ProcedureDeclarationHelperSource": [
+      "Silver.ProcedureDeclarationNative",
+      "Silver.ComposeBooleanDeclarationSource"
+    ],
+    "Silver.ProcedureDeclarationHelperSourceChecks": [
+      "Silver.ProcedureDeclarationHelperWholeSourceCandidate",
+      "Silver.OutputSourceBridge"
+    ],
+    "Silver.ProcedureDeclarationHelperWholeSourceCandidate": [
+      "Silver.ProcedureDeclarationHelperWholeSourceParts.ProcedureParameterStep",
+      "Silver.ProcedureDeclarationHelperWholeSourceParts.ProcedureParametersModel",
+      "Silver.ProcedureDeclarationHelperWholeSourceParts.ProcedureParametersAt",
+      "Silver.ProcedureDeclarationHelperWholeSourceParts.AppendProcedureParameter",
+      "Silver.ProcedureDeclarationHelperWholeSourceParts.ProcedureInputFrameModel",
+      "Silver.ProcedureDeclarationHelperWholeSourceParts.ProcedureInputFrame",
+      "Silver.ProcedureDeclarationHelperWholeSourceParts.ProcedurePrefixStep",
+      "Silver.ProcedureDeclarationHelperWholeSourceParts.ProcedurePrefixModel",
+      "Silver.ProcedureDeclarationHelperWholeSourceParts.ProcedurePrefix",
+      "Silver.ProcedureDeclarationHelperWholeSourceParts.StepResult",
+      "Silver.ProcedureDeclarationHelperWholeSourceParts.ParameterCursor"
+    ],
+    "Silver.ProcedureDeclarationHelperWholeSourceParts.AppendProcedureParameter": [
+      "Silver.ProcedureDeclarationHelperSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.ProcedureDeclarationHelperWholeSourceParts.ParameterCursor": [
+      "Silver.ProcedureDeclarationHelperSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.ProcedureDeclarationHelperWholeSourceParts.ProcedureInputFrame": [
+      "Silver.ProcedureDeclarationHelperSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.ProcedureDeclarationHelperWholeSourceParts.ProcedureInputFrameModel": [
+      "Silver.ProcedureDeclarationHelperSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.ProcedureDeclarationHelperWholeSourceParts.ProcedureParameterStep": [
+      "Silver.ProcedureDeclarationHelperSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.ProcedureDeclarationHelperWholeSourceParts.ProcedureParametersAt": [
+      "Silver.ProcedureDeclarationHelperSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.ProcedureDeclarationHelperWholeSourceParts.ProcedureParametersModel": [
+      "Silver.ProcedureDeclarationHelperSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.ProcedureDeclarationHelperWholeSourceParts.ProcedurePrefix": [
+      "Silver.ProcedureDeclarationHelperSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.ProcedureDeclarationHelperWholeSourceParts.ProcedurePrefixModel": [
+      "Silver.ProcedureDeclarationHelperSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.ProcedureDeclarationHelperWholeSourceParts.ProcedurePrefixStep": [
+      "Silver.ProcedureDeclarationHelperSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.ProcedureDeclarationHelperWholeSourceParts.StepResult": [
+      "Silver.ProcedureDeclarationHelperSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.ProcedureDeclarationHiding": [
+      "Silver.ProcedureDeclarationPreservation",
+      "Silver.FunctionDeclarationHiding"
+    ],
+    "Silver.ProcedureDeclarationHighEquations": [
+      "Silver.ProcedureDeclarationBodyImports",
+      "Silver.ProcedureDeclarationOuterImports",
+      "Silver.FunctionDeclarationHeaderEquations"
+    ],
+    "Silver.ProcedureDeclarationHighSource": [
+      "Silver.ProcedureDeclarationBodyNative",
+      "Silver.ProcedureDeclarationOuterNative",
+      "Silver.ComposeBooleanDeclarationSource"
+    ],
+    "Silver.ProcedureDeclarationHighSourceCandidate": [
+      "Silver.ProcedureDeclarationHighSourceParts.BodySpec",
+      "Silver.ProcedureDeclarationHighSourceParts.BodyImpl",
+      "Silver.ProcedureDeclarationHighSourceParts.OuterSpec",
+      "Silver.ProcedureDeclarationHighSourceParts.OuterImpl",
+      "Silver.ProcedureDeclarationHighSourceParts.Body",
+      "Silver.ProcedureDeclarationHighSourceParts.Outer"
+    ],
+    "Silver.ProcedureDeclarationHighSourceChecks": [
+      "Silver.ProcedureDeclarationHighSourceCandidate",
+      "Silver.OutputSourceBridge"
+    ],
+    "Silver.ProcedureDeclarationHighSourceParts.Body": [
+      "Silver.ProcedureDeclarationHighSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.ProcedureDeclarationHighSourceParts.BodyImpl": [
+      "Silver.ProcedureDeclarationHighSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.ProcedureDeclarationHighSourceParts.BodySpec": [
+      "Silver.ProcedureDeclarationHighSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.ProcedureDeclarationHighSourceParts.Outer": [
+      "Silver.ProcedureDeclarationHighSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.ProcedureDeclarationHighSourceParts.OuterImpl": [
+      "Silver.ProcedureDeclarationHighSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.ProcedureDeclarationHighSourceParts.OuterSpec": [
+      "Silver.ProcedureDeclarationHighSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.ProcedureDeclarationMeaning": [
+      "Silver.ProcedureDeclarationReadings",
+      "Silver.ProcedureHeaderValidity",
+      "Silver.ProcedurePrefixMeaning",
+      "Silver.FunctionLocalAnalysis",
+      "Silver.ScalarProcedureDefinition",
+      "Silver.PredicateBodySound",
+      "Silver.PredicateBodyMeaning",
+      "Silver.PredicateBodyUnique",
+      "Silver.PredicateProcedureBodyShape",
+      "Silver.ScalarProcedureLayout",
+      "Silver.ProcedureDeclarationPreservation"
+    ],
+    "Silver.ProcedureDeclarationModel": [
+      "Silver.ProcedureDeclarationAdmission"
+    ],
+    "Silver.ProcedureDeclarationModelSource": [
+      "Silver.ProcedureDeclarationSourceBridge",
+      "Silver.ProcedureDeclarationHelperModelSource"
+    ],
+    "Silver.ProcedureDeclarationNative": [
+      "Silver.ProcedureDeclarationSyntax"
+    ],
+    "Silver.ProcedureDeclarationOuterDomains": [
+      "Silver.ProcedureDeclarationHighEquations",
+      "Silver.FunctionHeaderValidity"
+    ],
+    "Silver.ProcedureDeclarationOuterImports": [
+      "Silver.ProcedureDeclarationOuterNative"
+    ],
+    "Silver.ProcedureDeclarationOuterLibrary": [
+      "Silver.ProcedureDeclarationBodyLibrary",
+      "Silver.ProcedureDeclarationOuterDomains"
+    ],
+    "Silver.ProcedureDeclarationOuterNative": [
+      "Silver.ProcedureDeclarationSyntax"
+    ],
+    "Silver.ProcedureDeclarationParameterLibraries": [
+      "Silver.ProcedureDeclarationHelperEquations",
+      "Silver.FunctionDeclarationHeaderLibraries",
+      "Silver.ProcedureBindingsSourceBridge"
+    ],
+    "Silver.ProcedureDeclarationPrefixEquations": [
+      "Silver.ProcedureDeclarationPrefixImports"
+    ],
+    "Silver.ProcedureDeclarationPrefixImports": [
+      "Silver.ProcedureDeclarationHelperEquations",
+      "Silver.FunctionDeclarationBodyDomains"
+    ],
+    "Silver.ProcedureDeclarationPrefixLibraries": [
+      "Silver.ProcedureDeclarationParameterLibraries",
+      "Silver.ProcedureDeclarationPrefixEquations",
+      "Silver.FunctionDeclarationInitialDomain",
+      "Silver.PredicateAdapterEnvironment",
+      "Silver.PredicateFunctionCallHelpers",
+      "Silver.PredicateNativeRanges"
+    ],
+    "Silver.ProcedureDeclarationPreservation": [
+      "Silver.ProcedureDeclarationModel"
+    ],
+    "Silver.ProcedureDeclarationReadings": [
+      "Silver.ProcedureDeclarationModel",
+      "Silver.ProcedurePrefixReadings",
+      "Silver.FunctionDeclarationReadings",
+      "Silver.FunctionDeclarationMeaning"
+    ],
+    "Silver.ProcedureDeclarationRecursion": [
+      "Silver.ProcedureDeclarationDenotations",
+      "Silver.ProcedureFrameValidity",
+      "Silver.FunctionDeclarationRecursion"
+    ],
+    "Silver.ProcedureDeclarationSourceBridge": [
+      "Silver.ProcedureDeclarationOuterLibrary",
+      "Silver.ProcedureDeclarationHighSource",
+      "Silver.FunctionDeclarationStateRecords"
+    ],
+    "Silver.ProcedureDeclarationStepImports": [
+      "Silver.ProcedureDeclarationDenotations"
+    ],
+    "Silver.ProcedureDeclarationSyntax": [
+      "Silver.ProcedureDeclarationAdmission",
+      "Silver.PredicateNativeState"
+    ],
+    "Silver.ProcedureDeclarationTrace": [
+      "Silver.ScalarProcedureComposition",
+      "Silver.FunctionSourceUnique",
+      "Silver.ProcedureDeclarationMeaning"
+    ],
+    "Silver.ProcedureDeclarationTraversalContracts": [
+      "Silver.ProcedureDeclarationDomains"
+    ],
+    "Silver.ProcedureDeclarationTraversalModel": [
+      "Silver.ProcedureDeclarationHelperModel",
+      "Silver.ProcedureDeclarationTraversalContracts"
+    ],
+    "Silver.ProcedureDeclarationValidity": [
+      "Silver.ProcedureHeaderValidity",
+      "Silver.ProcedureDeclarationPreservation",
+      "Silver.ComposeContracts"
+    ],
+    "Silver.ProcedureFrameMeaning": [
+      "Silver.ProcedureFrameReadings",
+      "Silver.ProcedureMetadataSemantics",
+      "Silver.FunctionParameterMeaning",
+      "Silver.ScalarProcedureFrame"
+    ],
+    "Silver.ProcedureFrameReadings": [
+      "Silver.ProcedureFrameValidity"
+    ],
+    "Silver.ProcedureFrameRecordTypes": [
+      "Silver.ProcedureFrameValidity",
+      "Silver.FunctionDeclarationRecordTypes"
+    ],
+    "Silver.ProcedureFrameValidity": [
+      "Silver.ProcedureHeaderAdmission"
+    ],
+    "Silver.ProcedureHeaderAdmission": [
+      "Silver.FunctionDeclarationAdmission"
+    ],
+    "Silver.ProcedureHeaderValidity": [
+      "Silver.ProcedureHeaderAdmission",
+      "Silver.FunctionHeaderValidity",
+      "Silver.ProcedureMetadataValidity"
+    ],
+    "Silver.ProcedureLookupMeaning": [
+      "Silver.ComposeContracts",
+      "Silver.ProcedureBindingsSourceBridge"
+    ],
+    "Silver.ProcedureMetadataMeaning": [
+      "Silver.ProcedureMetadataNative",
+      "Silver.PredicateSelectors",
+      "Silver.PredicateOuterReadiness"
+    ],
+    "Silver.ProcedureMetadataNative": [
+      "Silver.PredicateBodyAdmission"
+    ],
+    "Silver.ProcedureMetadataSemantics": [
+      "Silver.ProcedureMetadataValidity",
+      "Silver.ScalarProcedureTypes"
+    ],
+    "Silver.ProcedureMetadataSource": [
+      "Silver.ProcedureMetadataNative",
+      "Silver.ComposeBooleanDeclarationSource"
+    ],
+    "Silver.ProcedureMetadataSourceBridge": [
+      "Silver.ProcedureMetadataSourceChecks",
+      "Silver.ProcedureMetadataMeaning",
+      "Silver.PredicateSourceBridge"
+    ],
+    "Silver.ProcedureMetadataSourceCandidate": [
+      "Silver.ProcedureMetadataSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.ProcedureMetadataSourceChecks": [
+      "Silver.ProcedureMetadataSourceCandidate",
+      "Silver.OutputSourceBridge"
+    ],
+    "Silver.ProcedureMetadataValidity": [
+      "Silver.ProcedureBindings"
+    ],
+    "Silver.ProcedureNameActualReadings": [
+      "Silver.ProcedureNameConditionReadings"
+    ],
+    "Silver.ProcedureNameActualsApart": [
+      "Silver.ProcedureNameAliasOrigins"
+    ],
+    "Silver.ProcedureNameAliasOrigins": [
+      "Silver.ProcedureNameActualReadings"
+    ],
+    "Silver.ProcedureNameArrayReadings": [
+      "Silver.ProcedureNameScalarReadings"
+    ],
+    "Silver.ProcedureNameAttributes": [
+      "Silver.ProcedureNameTerminals",
+      "Silver.ProcedureNameLiteralTraversal"
+    ],
+    "Silver.ProcedureNameBooleanReadings": [
+      "Silver.ProcedureNameTargets",
+      "Silver.ProcedureNameCharacterReadings",
+      "Silver.PredicateConditionReadings",
+      "Silver.PredicateFlowInvariant"
+    ],
+    "Silver.ProcedureNameCharacterReadings": [
+      "Silver.ProcedureNameArrayReadings",
+      "Silver.ProcedureNameTerminals",
+      "Silver.ProcedureNameLiteralTraversal",
+      "Silver.ComposeCharacterBounds"
+    ],
+    "Silver.ProcedureNameCompoundTokens": [
+      "Silver.ProcedureNameAttributes",
+      "Silver.ProcedureNamePunctuation",
+      "Silver.ComposeBounds"
+    ],
+    "Silver.ProcedureNameConditionBounds": [
+      "Silver.ProcedureNameLengthReadings",
+      "Silver.PredicateNativeProgress"
+    ],
+    "Silver.ProcedureNameConditionCursors": [
+      "Silver.ProcedureNameConditionBounds",
+      "Silver.ProcedureNameStringCursors"
+    ],
+    "Silver.ProcedureNameConditionReadings": [
+      "Silver.ProcedureNameRelationReadings",
+      "Silver.ProcedureNameValidityReading"
+    ],
+    "Silver.ProcedureNameConditionTokens": [
+      "Silver.ProcedureNameCompoundTokens",
+      "Silver.ProcedureNameIdentifierWords",
+      "Silver.PredicateConditionSound"
+    ],
+    "Silver.ProcedureNameFreeNative": [
+      "Silver.ProcedureNameNative"
+    ],
+    "Silver.ProcedureNameIdentifierWords": [
+      "Silver.ProcedureNameTerminals"
+    ],
+    "Silver.ProcedureNameIdentity": [
+      "Silver.ProcedureNameScanner"
+    ],
+    "Silver.ProcedureNameImageReadings": [
+      "Silver.ProcedureNameCharacterReadings",
+      "Silver.ProcedureNameCompoundTokens"
+    ],
+    "Silver.ProcedureNameIndexedReadings": [
+      "Silver.ProcedureNameCharacterReadings",
+      "Silver.ProcedureNameCompoundTokens"
+    ],
+    "Silver.ProcedureNameLengthLiterals": [
+      "Silver.ProcedureNameReadings",
+      "Silver.IntegerLiteral"
+    ],
+    "Silver.ProcedureNameLengthReadings": [
+      "Silver.ProcedureNameCompoundTokens",
+      "Silver.ProcedureNameLengthLiterals",
+      "Silver.PredicateReadings"
+    ],
+    "Silver.ProcedureNameLiteralTraversal": [
+      "Silver.ProcedureNameReadings",
+      "Silver.ComposeCharacterReading"
+    ],
+    "Silver.ProcedureNameNative": [
+      "Silver.ProcedureNameScanner",
+      "Silver.ComposeCoreHelperEquations",
+      "Silver.ComposeModelCalls"
+    ],
+    "Silver.ProcedureNamePunctuation": [
+      "Silver.ProcedureNameTerminals"
+    ],
+    "Silver.ProcedureNameReadings": [
+      "Silver.ProcedureNameIdentity",
+      "Silver.ProcedureNameTraceTraversal"
+    ],
+    "Silver.ProcedureNameRelationReadings": [
+      "Silver.ProcedureNameConditionCursors",
+      "Silver.ProcedureNameConditionTokens",
+      "Silver.ProcedureNameStringReadings",
+      "Silver.ProcedureNameBooleanReadings"
+    ],
+    "Silver.ProcedureNameScalarReadings": [
+      "Silver.ProcedureNameReadings",
+      "Silver.ScalarExpressionAdmission",
+      "Silver.ScalarProcedureSyntax"
+    ],
+    "Silver.ProcedureNameScanner": [
+      "Silver.ComposeAtomAdmission"
+    ],
+    "Silver.ProcedureNameSource": [
+      "Silver.ProcedureNameFreeNative",
+      "Silver.ComposeBooleanDeclarationSource"
+    ],
+    "Silver.ProcedureNameSourceCandidate": [
+      "Silver.ProcedureNameSource",
+      "Silver.ReviewedOutputShape",
+      "Silver.ProcedureNameSourceParts.StepSpec",
+      "Silver.ProcedureNameSourceParts.StepImpl",
+      "Silver.ProcedureNameSourceParts.ModelSpec",
+      "Silver.ProcedureNameSourceParts.ModelImpl",
+      "Silver.ProcedureNameSourceParts.LoopSpec",
+      "Silver.ProcedureNameSourceParts.LoopImpl",
+      "Silver.ProcedureNameSourceParts.Record",
+      "Silver.ProcedureNameSourceParts.Step",
+      "Silver.ProcedureNameSourceParts.Model",
+      "Silver.ProcedureNameSourceParts.Loop"
+    ],
+    "Silver.ProcedureNameSourceChecks": [
+      "Silver.ProcedureNameSourceCandidate",
+      "Silver.OutputSourceBridge"
+    ],
+    "Silver.ProcedureNameSourceParts.Loop": [
+      "Silver.ProcedureNameSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.ProcedureNameSourceParts.LoopImpl": [
+      "Silver.ProcedureNameSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.ProcedureNameSourceParts.LoopSpec": [
+      "Silver.ProcedureNameSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.ProcedureNameSourceParts.Model": [
+      "Silver.ProcedureNameSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.ProcedureNameSourceParts.ModelImpl": [
+      "Silver.ProcedureNameSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.ProcedureNameSourceParts.ModelSpec": [
+      "Silver.ProcedureNameSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.ProcedureNameSourceParts.Record": [
+      "Silver.ProcedureNameSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.ProcedureNameSourceParts.Step": [
+      "Silver.ProcedureNameSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.ProcedureNameSourceParts.StepImpl": [
+      "Silver.ProcedureNameSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.ProcedureNameSourceParts.StepSpec": [
+      "Silver.ProcedureNameSource",
+      "Silver.ReviewedOutputShape"
+    ],
+    "Silver.ProcedureNameStringCursors": [
+      "Silver.ComposeSemantics",
+      "Silver.ComposeBounds"
+    ],
+    "Silver.ProcedureNameStringReadings": [
+      "Silver.ProcedureNameIndexedReadings",
+      "Silver.ProcedureNameImageReadings",
+      "Silver.ProcedureNameStringCursors"
+    ],
+    "Silver.ProcedureNameTargets": [
+      "Silver.ProcedureNameReadings",
+      "Silver.PredicateProcedureCallReadings"
+    ],
+    "Silver.ProcedureNameTerminals": [
+      "Silver.ProcedureNameScalarReadings",
+      "Silver.ComposeCharacterReading",
+      "Silver.NamedDisjoint"
+    ],
+    "Silver.ProcedureNameTraceTraversal": [
+      "Silver.ProcedureNameScanner"
+    ],
+    "Silver.ProcedureNameValidityReading": [
+      "Silver.ProcedureNameIdentifierWords",
+      "Silver.ComposeBounds"
+    ],
+    "Silver.ProcedurePrefixMeaning": [
+      "Silver.ProcedurePrefixReadings",
+      "Silver.PredicateFunctionCallMeaning",
+      "Silver.FunctionInitializerShape",
+      "Silver.ScalarProcedureNoninterference"
+    ],
+    "Silver.ProcedurePrefixReadings": [
+      "Silver.ProcedureFrameMeaning",
+      "Silver.PredicateFunctionCallReadings"
+    ],
+    "Silver.ProfileBodyCertificate": [
+      "Silver.SourceLexer",
+      "Silver.CertificateWitness",
+      "Silver.ProfileBodySource"
+    ],
+    "Silver.ProfileBodySource": [],
+    "Silver.ProfileSpecCertificate": [
+      "Silver.SourceLexer",
+      "Silver.CertificateWitness",
+      "Silver.ProfileSpecSource"
+    ],
+    "Silver.ProfileSpecSource": [],
+    "Silver.RecursiveBridge": [
+      "Silver.Expressions",
+      "Silver.Uniqueness"
+    ],
+    "Silver.ReviewedOutputShape": [],
+    "Silver.ReviewedSourceShape": [
+      "Silver.SourceLexer"
+    ],
+    "Silver.RuntimeSpecCertificate": [
+      "Silver.SourceLexer",
+      "Silver.CertificateWitness",
+      "Silver.RuntimeSpecSource"
+    ],
+    "Silver.RuntimeSpecSource": [],
+    "Silver.ScalarArrayExpressionGrammar": [
+      "Silver.ScalarExpressionRecognition"
+    ],
+    "Silver.ScalarArrayExpressionRecognition": [
+      "Silver.ScalarArrayExpressionGrammar"
+    ],
+    "Silver.ScalarCallChecking": [
+      "Silver.ScalarCallSyntax",
+      "Silver.PredicateChecking"
+    ],
+    "Silver.ScalarCallExecution": [
+      "Silver.ScalarCallChecking"
+    ],
+    "Silver.ScalarCallSyntax": [
+      "Silver.ScalarFunctionTypes",
+      "Silver.PredicateSyntax"
+    ],
+    "Silver.ScalarEnvironmentSourceBridge": [
+      "Silver.ScalarExpressionEnvironment",
+      "Silver.SourceDeclarations",
+      "Silver.ScalarExpressionSpecCertificate"
+    ],
+    "Silver.ScalarExpression": [
+      "Silver.ScalarLiteral",
+      "Silver.IntegerExpressions",
+      "Silver.ArrayBindings",
+      "Silver.NamedIdentifier"
+    ],
+    "Silver.ScalarExpressionAdmission": [
+      "Silver.ScalarArrayExpressionRecognition",
+      "Silver.ScalarExpressionEnvironment"
+    ],
+    "Silver.ScalarExpressionBodyCertificate": [
+      "Silver.SourceLexer",
+      "Silver.CertificateWitness",
+      "Silver.ScalarExpressionBodySource"
+    ],
+    "Silver.ScalarExpressionBodySource": [],
+    "Silver.ScalarExpressionBounds": [
+      "Silver.ScalarExpression"
+    ],
+    "Silver.ScalarExpressionConstants": [
+      "Silver.ScalarExpressionAdmission",
+      "Silver.IntegerMutable"
+    ],
+    "Silver.ScalarExpressionEnvironment": [
+      "Silver.ScalarExpression"
+    ],
+    "Silver.ScalarExpressionGrammar": [
+      "Silver.ScalarExpressionBounds"
+    ],
+    "Silver.ScalarExpressionNativeAlgebra": [
+      "Silver.ScalarExpressionNativeModel"
+    ],
+    "Silver.ScalarExpressionNativeArrayAlgebra": [
+      "Silver.ScalarExpressionNativeRecursion"
+    ],
+    "Silver.ScalarExpressionNativeArrayAtoms": [
+      "Silver.ScalarExpressionNativeArrayAlgebra"
+    ],
+    "Silver.ScalarExpressionNativeArrayRecursion": [
+      "Silver.ScalarExpressionNativeArrayAtoms"
+    ],
+    "Silver.ScalarExpressionNativeDenotations": [
+      "Silver.ScalarExpressionNativeExpressions"
+    ],
+    "Silver.ScalarExpressionNativeEquations": [
+      "Silver.ScalarExpressionNativeDenotations",
+      "Silver.ScalarExpressionNativeTypes",
+      "Silver.ScalarExpressionNativeArrayRecursion"
+    ],
+    "Silver.ScalarExpressionNativeExpressions": [
+      "Silver.ScalarExpressionNativeModel"
+    ],
+    "Silver.ScalarExpressionNativeModel": [
+      "Silver.ScalarExpressionAdmission",
+      "Silver.ArrayBindingsNativeEquations"
+    ],
+    "Silver.ScalarExpressionNativeRecursion": [
+      "Silver.ScalarExpressionNativeAlgebra"
+    ],
+    "Silver.ScalarExpressionNativeTypes": [
+      "Silver.ScalarExpressionNativeRecursion"
+    ],
+    "Silver.ScalarExpressionRecognition": [
+      "Silver.ScalarExpressionGrammar"
+    ],
+    "Silver.ScalarExpressionSourceBridge": [
+      "Silver.ScalarExpressionNativeEquations",
+      "Silver.ScalarExpressionSourceChecks",
+      "Silver.ArrayBindingsSourceBridge"
+    ],
+    "Silver.ScalarExpressionSourceChecks": [
+      "Silver.ScalarExpressionNativeExpressions",
+      "Silver.ScalarExpressionSourceShape",
+      "Silver.SourceDeclarations",
+      "Silver.ScalarExpressionSpecCertificate",
+      "Silver.ScalarExpressionBodyCertificate",
+      "Silver.ScalarEnvironmentSourceBridge"
+    ],
+    "Silver.ScalarExpressionSourceShape": [],
+    "Silver.ScalarExpressionSpecCertificate": [
+      "Silver.SourceLexer",
+      "Silver.CertificateWitness",
+      "Silver.ScalarExpressionSpecSource"
+    ],
+    "Silver.ScalarExpressionSpecSource": [],
+    "Silver.ScalarFlow": [
+      "Silver.IntegerMutable",
+      "Silver.IntegerComparisons",
+      "Silver.PathFacts"
+    ],
+    "Silver.ScalarFunctionComposition": [
+      "Silver.ScalarFunctionSemantics"
+    ],
+    "Silver.ScalarFunctionDefinition": [
+      "Silver.ScalarFunctionFrame",
+      "Silver.PredicateExecution",
+      "Silver.BooleanDeclarationObligations"
+    ],
+    "Silver.ScalarFunctionFrame": [
+      "Silver.ScalarFunctionTypes"
+    ],
+    "Silver.ScalarFunctionFrozenBoolean": [
+      "Silver.ScalarFunctionDefinition",
+      "Silver.BooleanFreezing"
+    ],
+    "Silver.ScalarFunctionSemantics": [
+      "Silver.ScalarFunctionDefinition"
+    ],
+    "Silver.ScalarFunctionTypes": [
+      "Silver.IntegerMutable",
+      "Silver.BooleanModel"
+    ],
+    "Silver.ScalarLiteral": [
+      "Silver.GuardedDecimal"
+    ],
+    "Silver.ScalarProcedureAliasing": [
+      "Silver.ScalarProcedureExecution"
+    ],
+    "Silver.ScalarProcedureChecking": [
+      "Silver.ScalarProcedureSyntax",
+      "Silver.ScalarCallChecking"
+    ],
+    "Silver.ScalarProcedureComposition": [
+      "Silver.ScalarProcedureSemantics",
+      "Silver.ScalarProcedureAliasing"
+    ],
+    "Silver.ScalarProcedureDefinition": [
+      "Silver.ScalarProcedureFrame",
+      "Silver.ScalarFunctionDefinition"
+    ],
+    "Silver.ScalarProcedureExecution": [
+      "Silver.ScalarProcedureChecking",
+      "Silver.ScalarCallExecution"
+    ],
+    "Silver.ScalarProcedureFrame": [
+      "Silver.ScalarProcedureExecution",
+      "Silver.ScalarFunctionFrame"
+    ],
+    "Silver.ScalarProcedureLayout": [
+      "Silver.ScalarProcedureDefinition"
+    ],
+    "Silver.ScalarProcedureNoninterference": [
+      "Silver.ScalarProcedureExecution"
+    ],
+    "Silver.ScalarProcedureSemantics": [
+      "Silver.ScalarProcedureDefinition",
+      "Silver.ScalarFunctionSemantics"
+    ],
+    "Silver.ScalarProcedureSyntax": [
+      "Silver.ScalarProcedureTypes",
+      "Silver.ScalarCallSyntax"
+    ],
+    "Silver.ScalarProcedureTypes": [
+      "Silver.ScalarFunctionTypes"
+    ],
+    "Silver.ScalarsNativeEquations": [
+      "Silver.ScalarsNativeExpressions"
+    ],
+    "Silver.ScalarsNativeExpressions": [
+      "Silver.IntegerComparisons",
+      "Silver.IntegerDivision"
+    ],
+    "Silver.ScalarsNativeSourceBridge": [
+      "Silver.ScalarsNativeSourceChecks"
+    ],
+    "Silver.ScalarsNativeSourceChecks": [
+      "Silver.ScalarsNativeEquations",
+      "Silver.ScalarsSpecCertificate",
+      "Silver.SourceDeclarations"
+    ],
+    "Silver.ScalarsSpecCertificate": [
+      "Silver.SourceLexer",
+      "Silver.CertificateWitness",
+      "Silver.ScalarsSpecSource"
+    ],
+    "Silver.ScalarsSpecSource": [],
+    "Silver.Semantics": [
+      "Silver.Admission"
+    ],
+    "Silver.SequenceAdmission": [
+      "Silver.ComposeGrammar",
+      "Silver.SequenceSyntax"
+    ],
+    "Silver.SequenceArrayReady": [
+      "Silver.SequenceSubtypeReady",
+      "Silver.ComposeArrayElaboration"
+    ],
+    "Silver.SequenceContext": [
+      "Silver.SequenceTokens"
+    ],
+    "Silver.SequenceEffects": [
+      "Silver.SequenceSemantics"
+    ],
+    "Silver.SequenceExecution": [
+      "Silver.SequenceSemantics"
+    ],
+    "Silver.SequenceFunctionTrace": [
+      "Silver.FunctionDeclarationsTrace",
+      "Silver.SequenceSubtypeReady"
+    ],
+    "Silver.SequenceInitializerTrace": [
+      "Silver.SequenceSubtypeReady",
+      "Silver.ComposeInitializerTrace"
+    ],
+    "Silver.SequenceScalarTrace": [
+      "Silver.SequenceSubtypeReady",
+      "Silver.ComposeScalarTrace"
+    ],
+    "Silver.SequenceSemantics": [
+      "Silver.SequenceSyntax"
+    ],
+    "Silver.SequenceSubtypeReady": [
+      "Silver.SequenceTokens"
+    ],
+    "Silver.SequenceSyntax": [
+      "Silver.ComposeMain"
+    ],
+    "Silver.SequenceTokens": [
+      "Silver.SequenceAdmission"
+    ],
+    "Silver.SourceBridge": [
+      "Silver.ProfileSpecCertificate",
+      "Silver.ProfileBodyCertificate",
+      "Silver.SourceDeclarations",
+      "Silver.Precedence",
+      "Silver.Uniqueness",
+      "Silver.SupportedTools",
+      "Silver.ReviewedSourceShape",
+      "Silver.RecursiveBridge"
+    ],
+    "Silver.SourceDeclarations": [
+      "Silver.SourceLexer"
+    ],
+    "Silver.SourceLexer": [
+      "Silver.Cursor"
+    ],
+    "Silver.StringExecution": [
+      "Silver.StringLengths"
+    ],
+    "Silver.StringFreezing": [
+      "Silver.StringExecution",
+      "Silver.ComposeExpression"
+    ],
+    "Silver.StringIndexing": [
+      "Silver.IntegerExpressions",
+      "Silver.OutputLiteral"
+    ],
+    "Silver.StringLengthRefinement": [
+      "Silver.StringLengths",
+      "Silver.PathFacts"
+    ],
+    "Silver.StringLengths": [
+      "Silver.Bindings"
+    ],
+    "Silver.StringObjectBounds": [
+      "Silver.IntegerIntervals"
+    ],
+    "Silver.StringObligations": [
+      "Silver.StringLengths",
+      "Silver.IntegerChecks"
+    ],
+    "Silver.SupportedTools": [
+      "Silver.Semantics"
+    ],
+    "Silver.Uniqueness": [
+      "Silver.Cursor"
+    ]
+  }
+}

@@ -2,16 +2,33 @@
 from __future__ import annotations
 
 import copy
+import hashlib
 import json
 from itertools import product
 from pathlib import Path
 import subprocess
+import tarfile
 import tempfile
 import unittest
 
 from scripts.platforms import alire_command, native_layout, tool_environment
 
 ROOT = Path(__file__).resolve().parents[1]
+ACCEPTED_REPORTS = ROOT / "docs/evidence/advisory-policy-391-20261116/auditors"
+
+
+def accepted_report_cases():
+    """Unmodified producer bytes, with source inventory independent of reports."""
+    manifest = json.loads((ACCEPTED_REPORTS / "accepted-reports.json").read_text())
+    with tarfile.open(ACCEPTED_REPORTS / "accepted-reports.tar.gz") as archive:
+        for case in manifest["cases"]:
+            files = {}
+            for name, digest in case["sha256"].items():
+                data = archive.extractfile(f'{case["name"]}/{name}').read()
+                if hashlib.sha256(data).hexdigest() != digest:
+                    raise AssertionError(f'changed accepted-report fixture: {case["name"]}/{name}')
+                files[name] = data
+            yield case, files
 
 
 def entity(name: str) -> dict:
@@ -94,6 +111,159 @@ def assignment_call_report() -> dict:
     return data
 
 
+def procedure_report() -> dict:
+    """Inventory from Procedure_Source in library_reports_probe.adb."""
+    data = assignment_report(False)
+    for index, name in enumerate(("Id", "Set_Value", "Reset", "Step"), 2):
+        key = f" {index}"
+        data["entities"][key] = {"name": f"Main.{name}", "sloc": [
+            {"file": "main.adb", "line": 1, "column": index * 50}]}
+        data["spark"][key] = "all"
+    data["flow"] = [dict(check(), how_proved="flow", entity=2,
+        file="main.adb", rule="SUBPROGRAM_TERMINATION", message={"text":
+            'implicit aspect Always_Terminates on "Id" has been proved, subprogram will terminate'})]
+    for owner, name in ((3, "Value"), (3, "Flag"), (4, "Value")):
+        data["flow"].append(dict(check(), how_proved="flow", entity=owner,
+            file="main.adb", rule="UNINITIALIZED",
+            message={"text": f'initialization of "{name}" proved'}))
+    data["proof"] = [dict(check(), entity=3, file="main.adb", rule="VC_RANGE_CHECK",
+                          message={"text": "range check proved"})]
+    data["assumptions"] = [{"claim": {"arg": 1, "predicate": "CLAIM_AORTE"},
+        "assumptions": [{"arg": 2, "predicate": "CLAIM_AORTE"},
+                        {"arg": 3, "predicate": "CLAIM_EFFECTS"},
+                        {"arg": 4, "predicate": "CLAIM_AORTE"}]}]
+    return data
+
+
+PROCEDURE_FORMALS = {
+    "Id": (("X", "in"),),
+    "Set_Value": (("Value", "out"), ("Flag", "out"), ("Carry", "in out"), ("Seed", "in")),
+    "Reset": (("Value", "out"),),
+    "Step": (("Carry", "in out"),),
+}
+FORMAL_ADVISORIES = (
+    ("INOUT_ONLY_READ", 3, "Carry"),
+    ("INOUT_ONLY_READ", 5, "Carry"),
+    ("UNUSED_INITIAL_VALUE", 3, "Carry"),
+    ("UNUSED_INITIAL_VALUE", 3, "Seed"),
+    ("UNUSED_INITIAL_VALUE", 2, "X"),
+)
+
+
+def formal_advisory_text(rule: str, name: str) -> str:
+    if rule == "INOUT_ONLY_READ":
+        return f'"{name}" is not modified, could be IN'
+    assert rule == "UNUSED_INITIAL_VALUE"
+    return f'unused initial value of "{name}"'
+
+
+def procedure_kind_report(kind: str) -> dict:
+    """Keep genuine application callee sets in each procedure-containing base."""
+    data = procedure_report()
+    if kind == "static":
+        names = ("Silver_IO.Put_Line",)
+    elif kind in ("argument", "selected"):
+        names = ("Silver_IO.Put_Line", "Silver_Arguments.First_Or_Default",
+                 "Silver_Arguments.Input_Is_Valid", "Silver_Arguments.Reject")
+    else:
+        assert kind == "assigned"
+        names = ()
+    for index, name in enumerate(names, 6):
+        data["entities"][f" {index}"] = entity(name)
+    return data
+
+
+def formal_advisory_report(kind: str, rule: str, owner: int, name: str) -> dict:
+    data = procedure_kind_report(kind)
+    data["flow"].append(dict(check(), severity="warning", how_proved="flow",
+                             entity=owner, file="main.adb", rule=rule,
+                             message={"text": formal_advisory_text(rule, name)}))
+    return data
+
+
+def formal_advisory_mutations(rule: str, owner: int, name: str):
+    """Independent negative boundaries, shared by both auditor test suites."""
+    other_rule = "UNUSED_INITIAL_VALUE" if rule == "INOUT_ONLY_READ" else "INOUT_ONLY_READ"
+    for field, value in (("entity", 1), ("entity", 6), ("entity", 99),
+                         ("severity", "info"), ("severity", "medium"),
+                         ("how_proved", "prover"), ("how_proved", "trivial"),
+                         ("file", "other.adb"), ("line", 0), ("line", -1),
+                         ("line", True), ("col", 0), ("col", -1), ("col", "1"),
+                         ("rule", other_rule)):
+        yield f"{field}={value!r}", lambda d, f=field, v=value: d["flow"][-1].update({f: v})
+    for field in ("justification", "justified", "suppressed", "annot_kind", "justif_msg"):
+        for value in ("", False, None, "reviewed"):
+            yield f"{field}={value!r}", lambda d, f=field, v=value: d["flow"][-1].update({f: v})
+    for wrong in (name.lower(), "Unknown", "Value"):
+        yield f"wrong formal {wrong}", lambda d, n=wrong: d["flow"][-1].update(
+            message={"text": formal_advisory_text(rule, n)})
+    for text in (formal_advisory_text(other_rule, name),
+                 formal_advisory_text(rule, name) + " ",
+                 formal_advisory_text(rule, name).replace('"', "'")):
+        yield text, lambda d, t=text: d["flow"][-1].update(message={"text": t})
+    yield "other local owner", lambda d: d["flow"][-1].update(entity=3 if owner == 2 else 2)
+    yield "out formal", lambda d: d["flow"][-1].update(entity=4,
+        message={"text": formal_advisory_text(rule, "Value")})
+    if rule == "INOUT_ONLY_READ":
+        yield "function input", lambda d: d["flow"][-1].update(entity=2,
+            message={"text": formal_advisory_text(rule, "X")})
+        yield "procedure input", lambda d: d["flow"][-1].update(entity=3,
+            message={"text": formal_advisory_text(rule, "Seed")})
+    for field in ("entity", "rule", "message", "severity", "how_proved", "file", "line", "col"):
+        yield f"missing {field}", lambda d, f=field: d["flow"][-1].pop(f)
+    for key in ("proof", "warn_error"):
+        yield f"record in {key}", lambda d, k=key: d[k].append(d["flow"].pop())
+
+
+def procedure_report_mutations():
+    """Shared policy boundaries for the Python and native auditors."""
+    yield "missing initialization", lambda d: d["flow"].pop()
+    yield "duplicate initialization", lambda d: d["flow"].append(copy.deepcopy(d["flow"][1]))
+    yield "missing function termination", lambda d: d["flow"].pop(0)
+    for field, value in (("entity", 1), ("entity", 2), ("entity", 5),
+                         ("severity", "warning"), ("how_proved", "prover"),
+                         ("file", "other.adb"), ("line", 0), ("col", 0),
+                         ("suppressed", "")):
+        yield f"initialization {field}={value!r}", lambda d, f=field, v=value: d["flow"][1].update({f: v})
+    for name in ("value", "Carry", "Unknown"):
+        yield f"initialization name {name}", lambda d, n=name: d["flow"][1].update(
+            message={"text": f'initialization of "{n}" proved'})
+    yield "wrong owner for Flag", lambda d: d["flow"][2].update(entity=4)
+    yield "procedure termination", lambda d: d["flow"][0].update(entity=5, message={"text":
+        'implicit aspect Always_Terminates on "Step" has been proved, subprogram will terminate'})
+    yield "unproved procedure safety", lambda d: d["proof"][0].update(severity="medium")
+    yield "missing unused procedure coverage", lambda d: d["spark"].pop(" 5")
+    yield "unknown procedure", lambda d: d["entities"][" 5"].update(name="Main.Unknown")
+    yield "procedure postcondition dependency", lambda d: d["assumptions"][0]["assumptions"][1].update(
+        predicate="CLAIM_POST")
+
+
+def unused_procedure_output_report():
+    data = procedure_report()
+    data["flow"].append(dict(check(), how_proved="flow", entity=1, severity="warning",
+                             file="main.adb", rule="INEFFECTIVE", message={"text":
+                                 '"Result" is set by "Set_Value" but not used after the call'}))
+    return data
+
+
+def unused_procedure_output_mutations():
+    for text in ('"Result" is set by "Unknown" but not used after the call',
+                 '"Result" is set by "Id" but not used after the call',
+                 '"Result" is set by "Set_Value" but not used after the call ',
+                 '"Result" is set by "Set_Value" but not proved after the call',
+                 '"A(1)" is set by "Set_Value" but not used after the call',
+                 '"Bad__Name" is set by "Set_Value" but not used after the call',
+                 '"1Bad" is set by "Set_Value" but not used after the call'):
+        yield text, lambda d, t=text: d["flow"][-1].update(message={"text": t})
+    yield "overlong target", lambda d: d["flow"][-1].update(message={"text":
+        '"' + 'A' * 4097 + '" is set by "Set_Value" but not used after the call'})
+    for field, value in (("severity", "medium"), ("rule", "UNINITIALIZED"),
+                         ("how_proved", "prover"), ("entity", 99), ("suppressed", "")):
+        yield f"{field}={value}", lambda d, f=field, v=value: d["flow"][-1].update({f: v})
+    yield "missing required output proof", lambda d: d["flow"].pop(1)
+    yield "unproved safety check", lambda d: d["proof"][0].update(severity="medium")
+
+
 class LibraryReportTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
@@ -123,11 +293,15 @@ end Probe;
     def tearDownClass(cls) -> None:
         cls.temp.cleanup()
 
-    def accepts(self, value: dict | str, interface: bool = False, *, kind: str | None = None) -> bool:
+    def accepts(self, value: dict | str, interface: bool = False, *, kind: str | None = None,
+                application_source: str | None = None) -> bool:
         source = value if isinstance(value, str) else json.dumps(value)
-        result = subprocess.run([self.directory / "library_reports_probe",
-                                 kind if kind else "interface" if interface else "body"],
-                                input=source + "\n", capture_output=True, text=True, timeout=10)
+        command = [self.directory / "library_reports_probe",
+                   kind if kind else "interface" if interface else "body"]
+        if application_source is not None:
+            command.append(application_source)
+        result = subprocess.run(command,
+                                input=source, capture_output=True, text=True, timeout=10)
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertIn(result.stdout, ("accepted\n", "rejected\n"))
         return result.stdout == "accepted\n"
@@ -138,6 +312,65 @@ end Probe;
                 self.assertTrue(self.accepts(main_report(count), kind="main"))
                 self.assertFalse(self.accepts(main_report(count), kind="body"))
         self.assertFalse(self.accepts(report(), kind="main"))
+
+    def test_procedure_output_coverage_and_function_termination(self) -> None:
+        self.assertTrue(self.accepts(procedure_report(), kind="procedures"))
+        self.assertFalse(self.accepts(procedure_report(), kind="assignment"))
+        for label, mutate in procedure_report_mutations():
+            data = procedure_report()
+            mutate(data)
+            with self.subTest(label=label):
+                self.assertFalse(self.accepts(data, kind="procedures"))
+
+    def test_unused_procedure_outputs_are_exact_advisories(self) -> None:
+        self.assertTrue(self.accepts(unused_procedure_output_report(), kind="procedures"))
+        for label, mutate in unused_procedure_output_mutations():
+            data = unused_procedure_output_report()
+            mutate(data)
+            with self.subTest(label=label):
+                self.assertFalse(self.accepts(data, kind="procedures"))
+
+    def test_formal_advisories_bind_exact_owner_mode_name_and_record(self) -> None:
+        for kind in ("static", "argument", "assigned", "selected"):
+            probe = "procedures" if kind == "assigned" else f"procedures-{kind}"
+            self.assertTrue(self.accepts(procedure_kind_report(kind), kind=probe))
+            for rule, owner, name in FORMAL_ADVISORIES:
+                base = formal_advisory_report(kind, rule, owner, name)
+                with self.subTest(kind=kind, rule=rule, owner=owner, name=name):
+                    self.assertTrue(self.accepts(base, kind=probe))
+                for label, mutate in formal_advisory_mutations(rule, owner, name):
+                    data = copy.deepcopy(base)
+                    mutate(data)
+                    with self.subTest(kind=kind, rule=rule, owner=owner, name=name, mutation=label):
+                        self.assertFalse(self.accepts(data, kind=probe))
+
+    def test_formal_advisories_do_not_pin_location_or_record_order(self) -> None:
+        data = formal_advisory_report("argument", "INOUT_ONLY_READ", 5, "Carry")
+        data["flow"][-1].update(line=57, col=999)
+        data["flow"].reverse()
+        data["entities"] = dict(reversed(data["entities"].items()))
+        data["assumptions"] = []
+        self.assertTrue(self.accepts(data, kind="procedures-argument"))
+
+    def test_genuine_previously_accepted_reports_keep_their_verdicts(self) -> None:
+        for case, files in accepted_report_cases():
+            probe = "procedures" if case["kind"] == "assigned" else f'procedures-{case["kind"]}'
+            with self.subTest(case=case["name"]):
+                self.assertTrue(self.accepts(files["reports/main~1.spark"].decode(), kind=probe,
+                                             application_source=files["main.adb"].decode()))
+            for unit, kind in (("silver_io", "body"), ("silver_output_libc", "interface"),
+                               ("silver_arguments", "arguments"), ("silver_runtime", "runtime")):
+                with self.subTest(case=case["name"], unit=unit):
+                    self.assertTrue(self.accepts(files[f"reports/{unit}.spark"].decode(), kind=kind))
+
+    def test_initialization_policy_uses_projection_preserved_fields(self) -> None:
+        data = procedure_report()
+        for record in data["flow"]:
+            record["check_tree"] = {"producer_details": [{"not_used_by_flow_policy": True}]}
+        self.assertTrue(self.accepts(data, kind="procedures"))
+        for record in data["flow"]:
+            record["check_tree"] = {}
+        self.assertTrue(self.accepts(data, kind="procedures"))
 
     def test_main_entity_preserves_admitted_procedure_casing(self) -> None:
         for letters in product(*[(c.lower(), c.upper()) for c in "main"]):
@@ -706,7 +939,7 @@ end Probe;
 
     def test_application_report_bound_preserves_runtime_domain(self) -> None:
         data = json.dumps(assignment_report(False))
-        padded = data + " " * (33_554_432 - len(data))
+        padded = data + " " * (67_108_864 - len(data))
         self.assertTrue(self.accepts(padded, kind="static"))
         self.assertFalse(self.accepts(padded + " ", kind="static"))
         runtime = json.dumps(report())

@@ -1,0 +1,6 @@
+Lean phase build started at 2026-11-16T23:30:55.652580+00:00
++ /home/agent/silver-worktrees/procedures-lean-370/.tools/linux-aarch64/lean/bin/lake --rehash --reconfigure -K silverThreads=12 -K silverMemoryMb=8192 build Silver.Audit
+✔ [219/230] Built Silver.ComposeArrayDeclarationSource (202ms)
+✔ [221/230] Built Silver.ComposeBooleanInitializerNative (214ms)
+
+Lean phase build interrupted after 83.677s: KeyboardInterrupt

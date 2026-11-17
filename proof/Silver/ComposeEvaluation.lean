@@ -1524,6 +1524,7 @@ theorem normalized_rawHelpers {domain : StateDomain} (calls : Calls)
     (source : RawHelperEquations calls calls domain) (legal : LegalHelpers calls domain) :
     RawHelperEquations calls (domain := domain) where
   functionLookup := source.functionLookup
+  procedureLookup := source.procedureLookup
   formalHides := source.formalHides
   ranges := source.ranges
   names := source.names
@@ -1824,6 +1825,7 @@ theorem normalized_helpers {domain : StateDomain} (calls : Calls)
   booleanDeclaration := source.booleanDeclaration
   booleanInitializer := source.booleanInitializer
   functionDeclaration := source.functionDeclaration
+  procedureDeclaration := source.procedureDeclaration
 
 theorem normalized_definitions (calls : Calls)
     (meaning : Compose.Lexical.Meaning calls.primitive)

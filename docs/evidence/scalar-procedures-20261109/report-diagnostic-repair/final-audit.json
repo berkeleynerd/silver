@@ -1,0 +1,95 @@
+{
+  "selected_proof_checks": 386,
+  "selected_flow_checks": 12,
+  "complete_selected_entities": 7,
+  "unchanged_approved_operator_reassociation_advisories": [
+    {
+      "check_tree": {},
+      "col": 25,
+      "file": "silver_library_reports.adb",
+      "how_proved": "trivial",
+      "line": 1687,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {},
+      "col": 25,
+      "file": "silver_library_reports.adb",
+      "how_proved": "trivial",
+      "line": 2842,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {},
+      "col": 28,
+      "file": "silver_library_reports.adb",
+      "how_proved": "trivial",
+      "line": 1807,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    }
+  ],
+  "advisory_origin_signatures": [
+    [
+      "Record_Policy",
+      "Main_Entity + Kind - Argument_Postconditions",
+      25,
+      "operator-reassociation",
+      "possible reassociation due to missing parentheses [operator-reassociation]"
+    ],
+    [
+      "Raw_Record_Policy",
+      "Main_Entity + Kind - Argument_Postconditions",
+      25,
+      "operator-reassociation",
+      "possible reassociation due to missing parentheses [operator-reassociation]"
+    ],
+    [
+      "Record_OK",
+      "Main_Entity + Kind - Argument_Postconditions;",
+      28,
+      "operator-reassociation",
+      "possible reassociation due to missing parentheses [operator-reassociation]"
+    ]
+  ],
+  "owned_hashes": {
+    "src/silver_library_reports.adb": "95d4758ea69276203ccfea127b73837701278c2770a996d30e5d6833af1a09b1",
+    "scripts/check_evidence.py": "bed6337ae6b7fa65dff44296a7fbf632eafb326fa832dbcb70335ddca46e54bd",
+    "tests/test_evidence.py": "63c6da790cafcbf4f54bc36c776f4a2deb7a31706ffb76d21cf19509a0141e54",
+    "docs/trusted-boundary.md": "953ce4d7c5b88c7faaa4a39c92fe00cb1fc222d085e2adbcecaa1de9cda0f05f"
+  },
+  "canonical_proof_options": [
+    "-U",
+    "--mode=all",
+    "--report=all",
+    "--warnings=error",
+    "--checks-as-errors=on",
+    "--level=2",
+    "--prover=cvc5,z3,altergo",
+    "--timeout=30"
+  ],
+  "scope": "Focused full-entity evidence; final complete native manifest and integrated Lean checkpoint remain pending."
+}

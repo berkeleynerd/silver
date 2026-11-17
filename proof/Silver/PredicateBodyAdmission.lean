@@ -15,7 +15,7 @@ def expandBody (before : ParserState) (scan : BodyScan) : ScanResult :=
     scan.assigned, scan.output⟩
 
 def readStatements (text : Source) (scan : ScanResult) : ScanResult :=
-  let result := readBody text (contextOf scan) (bodyOf scan) .endOnly scan.state.functions
+  let result := readBody text (contextOf scan) (bodyOf scan) .endOnly scan.state.functions scan.state.procedures
   if result.position = 0 ∨ !completed result.facts.path then invalidScan else expandBody scan.state result
 
 inductive Form | direct | argument

@@ -1,0 +1,33 @@
+{
+  "target": "bfe82aeb81b0d16a867cee440561dd8a37ade6b4",
+  "observed_utc": "2026-11-10T21:50:07.150186+00:00",
+  "finding": "F1: incomplete handwritten Out_Keyword source-catalogue integration",
+  "native_enum_token_count": 145,
+  "expected_enum_token_count": 143,
+  "native_enum_suffix": [
+    "character_name",
+    ",",
+    "function_keyword",
+    ",",
+    "return_keyword",
+    ",",
+    "out_keyword",
+    ")"
+  ],
+  "expected_enum_suffix": [
+    "xor_keyword",
+    ",",
+    "character_name",
+    ",",
+    "function_keyword",
+    ",",
+    "return_keyword",
+    ")"
+  ],
+  "enum_equal": false,
+  "out_is_in_allTokens": true,
+  "out_is_in_wordTokenAlternatives": false,
+  "out_is_in_first_eleven": false,
+  "counterexample": "Expressions.isWord (.word \"out\") = true, but decide ((.word \"out\") \u2208 wordTokens) = false. Hence the final clause of candidate_token_mapping is false at this target.",
+  "scope": "Static list/definition comparison, not a Lean execution. Both stale handwritten requirements are outside generated source-certificate candidates."
+}

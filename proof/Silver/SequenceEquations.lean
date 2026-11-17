@@ -361,7 +361,7 @@ private theorem initial_valid (text : Source) : ValidScan text initialScan := by
     Compose.Expressions.ValidNames, initialScan, initialState, Named.NameState.Valid, maxBindings, maxSourceLength,
     ScalarExpression.validEnvironment_empty, ArrayBindings.ValidEnvironment,
     ArrayBindings.ValidMetadata, ArrayBindings.ValidInitials, IntegerSubtypes.valid_empty, BooleanBindings.valid_empty,
-    FunctionBindings.ValidMetadata]
+    FunctionBindings.ValidMetadata, ProcedureBindings.ValidMetadata]
 
 theorem interpreted_form (calls : Calls) (helpers : HelperMeaning calls)
     (equations : DefinitionEquations calls) (text : Source) (form : Form) :

@@ -1,6 +1,8 @@
 module
 
-public import Silver.PredicateFlags
+public import Silver.PredicateStatementFlags
+public import Silver.PredicateShell
+public import Silver.SequenceMixedTrace
 
 @[expose] public section
 
@@ -12,6 +14,7 @@ mutual
     | .simple item => flag.simple item
     | .scalarAssign _ | .callAssign _ | .arrayAssign _ | .booleanAssign _ | .booleanArrayAssign _ =>
         flag == .assignment
+    | .procedureCall call => (flag == .assignment) && call.actuals.any Flag.actualWrite
     | .reject => false
     | .choice _ yes no => flag.statements yes || flag.statements no
     | .forLoop _ _ _ _ body | .arrayLoop _ _ _ body => flag.statements body
@@ -28,6 +31,7 @@ mutual
     cases item with
     | simple item => simp only [SourceStatement.lower, Flag.statement, Flag.source]
     | callAssign update => simp only [SourceStatement.lower, Flag.statement, Flag.source]
+    | procedureCall call => simp only [SourceStatement.lower, Flag.statement, Flag.source]
     | scalarAssign update => simp only [SourceStatement.lower, Flag.statement, Flag.source]
     | booleanAssign update => simp only [SourceStatement.lower, Flag.statement, Flag.source]
     | booleanArrayAssign update => simp only [SourceStatement.lower, Flag.statement, Flag.source]
@@ -61,7 +65,8 @@ end
 
 def Program.assignmentFlag (program : Program) : Bool :=
   Flag.assignment.statements program.statements ||
-    program.functions.any (fun definition => Flag.assignment.statements definition.body)
+    program.functions.any (fun definition => Flag.assignment.statements definition.body) ||
+    program.procedures.any (fun definition => !definition.initializers.isEmpty || Flag.assignment.statements definition.body)
 
 private theorem array_functionAssignments_preserved {text arguments state declaration final}
     (source : ArrayDeclarationAt text arguments state declaration final) :
@@ -77,12 +82,13 @@ private theorem booleanArray_functionAssignments_preserved {text arguments state
   have fields := congrArg ParserState.assignedInFunctions (boolean_array_declaration_fields source)
   exact fields
 
-private theorem declarationAt_functionAssignments_of_no_function {text state arguments}
+private theorem declarationAt_functionAssignments_of_no_callable {text state arguments}
+    (noProcedure : (procedureDeclarationAt text state arguments).position = 0)
     (noFunction : (functionDeclarationAt text state arguments).position = 0)
     (accepted : (declarationAt text state arguments).position ≠ 0) :
     (declarationAt text state arguments).assignedInFunctions = state.assignedInFunctions := by
   dsimp only [declarationAt] at accepted ⊢
-  rw [ite_eq_right (not_not_intro noFunction)] at accepted ⊢
+  rw [ite_eq_right (not_not_intro noFunction), ite_eq_right (not_not_intro noProcedure)] at accepted ⊢
   split at accepted
   · rename_i positive
     rw [ite_eq_left positive]
@@ -172,57 +178,97 @@ theorem _root_.Silver.Compose.FunctionDeclarationSource.assignment {text state a
       have stages := functionDeclarationAt_stages accepted
       rw [stages.equation, functionBodyAt_assignment stages.body, body.assignment]
 
-theorem _root_.Silver.Compose.FunctionDeclarationsAt.assignments {text arguments state definitions final}
-    (source : FunctionDeclarationsAt text arguments state definitions final) :
+theorem _root_.Silver.Compose.ProcedureOrdinarySource.flags {text frame arguments items}
+    (source : ProcedureOrdinarySource text frame arguments items) (flag : Flag) :
+    flag.observe (procedureSourceFinal text frame arguments) =
+      (flag.observe (procedureSourceScan text frame arguments) || flag.sources items) := by
+  cases source with
+  | initialized _ body => exact bodyTail_flags body flag
+  | uninitialized _ body => exact body_flags body flag
+
+theorem _root_.Silver.Compose.ProcedureBodySource.assignment {text frame first after arguments definition}
+    (source : ProcedureBodySource text frame first after arguments definition) :
+    (procedureSourceFinal text frame arguments).assigned =
+      (!definition.initializers.isEmpty || Flag.assignment.statements definition.body) := by
+  cases source with
+  | parsed initialization ordinary =>
+      have observed := ordinary.flags .assignment
+      simpa only [Flag.observe, procedureSourceScan, bodyOf, initialization.initialized_flag,
+        sourceProcedureDefinition, statements_lower_flags] using observed
+
+theorem _root_.Silver.Compose.ProcedureDeclarationSource.assignment {text state arguments definition}
+    (source : ProcedureDeclarationSource text state arguments definition) :
+    (procedureDeclarationAt text state arguments).assignedInFunctions =
+      (state.assignedInFunctions ||
+        (!definition.initializers.isEmpty || Flag.assignment.statements definition.body)) := by
+  cases source with
+  | parsed accepted body =>
+      have stages := procedureDeclarationAt_stages accepted
+      rw [stages.equation, procedureBodyAt_assigned stages.body, body.assignment]
+
+theorem _root_.Silver.Compose.MixedDeclarationsAt.assignments {text arguments state functions procedures final}
+    (source : MixedDeclarationsAt text arguments state functions procedures final) :
     final.assignedInFunctions =
-      (state.assignedInFunctions || definitions.any (fun definition => Flag.assignment.statements definition.body)) := by
+      (state.assignedInFunctions || functions.any (fun definition => Flag.assignment.statements definition.body) ||
+        procedures.any (fun definition => !definition.initializers.isEmpty || Flag.assignment.statements definition.body)) := by
   induction source with
   | done => simp only [List.any_nil, Bool.or_false]
+  | procedure _ _ _ first _ ih =>
+      rw [ih, first.assignment]
+      simp [List.any_cons, Bool.or_assoc, Bool.or_left_comm]
   | function _ _ first _ ih =>
       rw [ih, first.assignment]
       simp only [List.any_cons, Bool.or_assoc]
-  | other _ _ noFunction accepted _ ih =>
-      rw [ih, declarationAt_functionAssignments_of_no_function noFunction accepted]
+  | other _ _ noFunction noProcedure accepted _ ih =>
+      rw [ih, declarationAt_functionAssignments_of_no_callable noProcedure noFunction accepted]
 
-theorem _root_.Silver.Sequence.FunctionStepAt.assignments {text form token state definitions next event}
-    (source : Sequence.FunctionStepAt text form token state definitions next)
+theorem _root_.Silver.Sequence.MixedStepAt.assignments {text form token state functions procedures next event}
+    (source : Sequence.MixedStepAt text form token state functions procedures next)
     (parsed : StepAt text form token state next event) :
     next.assignedInFunctions =
-      (state.assignedInFunctions || definitions.any (fun definition => Flag.assignment.statements definition.body)) := by
+      (state.assignedInFunctions || functions.any (fun definition => Flag.assignment.statements definition.body) ||
+        procedures.any (fun definition => !definition.initializers.isEmpty || Flag.assignment.statements definition.body)) := by
   cases source with
   | declarations source => exact source.assignments
-  | other ordinary _ =>
+  | other ordinary _ _ =>
       simpa only [List.any_nil, Bool.or_false] using step_functionAssignments_preserved ordinary parsed
 
-theorem _root_.Silver.Sequence.FunctionTokensAt.assignments {text form tokens state definitions final}
-    (source : Sequence.FunctionTokensAt text form tokens state definitions final) :
+theorem _root_.Silver.Sequence.MixedTokensAt.assignments {text form tokens state functions procedures final}
+    (source : Sequence.MixedTokensAt text form tokens state functions procedures final) :
     final.assignedInFunctions =
-      (state.assignedInFunctions || definitions.any (fun definition => Flag.assignment.statements definition.body)) := by
+      (state.assignedInFunctions || functions.any (fun definition => Flag.assignment.statements definition.body) ||
+        procedures.any (fun definition => !definition.initializers.isEmpty || Flag.assignment.statements definition.body)) := by
   induction source with
   | done => simp only [List.any_nil, Bool.or_false]
   | next head first _ ih =>
       rw [ih, first.assignments head]
-      simp only [List.any_append, Bool.or_assoc]
+      simp [List.any_append, Bool.or_assoc, Bool.or_left_comm, Bool.or_comm]
 
-theorem _root_.Silver.Sequence.FunctionTokensAt.scan_assigned {text form tokens state definitions final}
-    (source : Sequence.FunctionTokensAt text form tokens state definitions final)
+theorem _root_.Silver.Sequence.MixedTokensAt.scan_assigned {text form tokens state functions procedures final}
+    (source : Sequence.MixedTokensAt text form tokens state functions procedures final)
     (assigned output : Bool) (absorbs : (assigned || state.assignedInFunctions) = assigned) :
     (scanTokens text form tokens ⟨state, assigned, output⟩).assigned =
-      (assigned || definitions.any (fun definition => Flag.assignment.statements definition.body)) := by
+      (assigned || functions.any (fun definition => Flag.assignment.statements definition.body) ||
+        procedures.any (fun definition => !definition.initializers.isEmpty || Flag.assignment.statements definition.body)) := by
   induction source generalizing assigned with
   | done => simp only [scanTokens, List.any_nil, Bool.or_false]
-  | @next token tokens state middle final event firstDefinitions restDefinitions head first _ ih =>
+  | @next token tokens state middle final event firstFunctions firstProcedures restFunctions restProcedures head first _ ih =>
       have kept := first.assignments head
       have following := ih (assigned || middle.assignedInFunctions) (by simp only [Bool.or_assoc, Bool.or_self])
       rw [scanTokens, head.scanned]
       change (scanTokens text form tokens ⟨middle, assigned || middle.assignedInFunctions, output⟩).assigned = _
-      rw [following, kept, List.any_append]
+      rw [following, kept, List.any_append, List.any_append]
       simp only [← Bool.or_assoc, absorbs]
+      simp [Bool.or_assoc, Bool.or_left_comm, Bool.or_comm]
 
-theorem prefix_function_flags {text form definitions}
-    (source : Sequence.FunctionTokensAt text form.helper form.prefix initialState definitions (prefixScan text form).state) :
-    (prefixScan text form).assigned = definitions.any (fun definition => Flag.assignment.statements definition.body) ∧
-    (prefixScan text form).state.assignedInFunctions = definitions.any (fun definition => Flag.assignment.statements definition.body) := by
+theorem prefix_callable_flags {text form functions procedures}
+    (source : Sequence.MixedTokensAt text form.helper form.prefix initialState functions procedures (prefixScan text form).state) :
+    (prefixScan text form).assigned =
+        (functions.any (fun definition => Flag.assignment.statements definition.body) ||
+          procedures.any (fun definition => !definition.initializers.isEmpty || Flag.assignment.statements definition.body)) ∧
+      (prefixScan text form).state.assignedInFunctions =
+        (functions.any (fun definition => Flag.assignment.statements definition.body) ||
+          procedures.any (fun definition => !definition.initializers.isEmpty || Flag.assignment.statements definition.body)) := by
   have fields := source.assignments
   have scanned := source.scan_assigned false false rfl
   exact ⟨by simpa only [prefixScan, initialScan, Bool.false_or] using scanned,

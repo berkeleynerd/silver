@@ -1,0 +1,510 @@
+{
+  "registry": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897",
+  "host": "linux-aarch64",
+  "machine": "silver-m4pro",
+  "runs": [
+    {
+      "run_id": "20261115T165547-487f2bc8f563",
+      "task": "370-lean-memory-recovery",
+      "kind": "lean",
+      "scope": [
+        "Silver.FunctionSourceParts.DeclarationLoopFunctionLocals"
+      ],
+      "state": "failure",
+      "active": false,
+      "workers": 1,
+      "directory": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T165547-487f2bc8f563",
+      "fingerprint": "fb9ee74b9380da11abbe7a5e519b4cc32bce12226838b502c75dd785da0d7dc6",
+      "command": [
+        "/usr/bin/python3",
+        "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/procedures-lean-370/scripts/check_lean.py",
+        "--target",
+        "Silver.FunctionSourceParts.DeclarationLoopFunctionLocals",
+        "--workers",
+        "1",
+        "--memory-mb",
+        "8192",
+        "--provenance",
+        "--task",
+        "370-lean-memory-recovery",
+        "--reason",
+        "Reduced 16 GiB linux-aarch64 host; no retained Lean objects; isolate prior exit-137 module with one Lake worker, automatic twelve Lean threads, 8 GiB per-process threshold; native stream reserved at most two workers/~3 GiB."
+      ],
+      "reason": "Reduced 16 GiB linux-aarch64 host; no retained Lean objects; isolate prior exit-137 module with one Lake worker, automatic twelve Lean threads, 8 GiB per-process threshold; native stream reserved at most two workers/~3 GiB.",
+      "worktree": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/procedures-lean-370",
+      "resources": [
+        "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/procedures-lean-370/.silver/linux-aarch64/proof",
+        "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/procedures-lean-370/.silver/linux-aarch64/lean-focused.log",
+        "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/procedures-lean-370/.silver/linux-aarch64/lean-focused-evidence.json"
+      ],
+      "started_at": "2026-11-15T16:55:47.481107+00:00",
+      "finished_at": "2026-11-15T16:55:53.035317+00:00",
+      "duration_seconds": 5.554173503,
+      "returncode": 1,
+      "error": null,
+      "failure_keys": [
+        "lean:build:lakefile.lean:2:5:unknown namespace `Lake`",
+        "lean:build:lakefile.lean:4:0:unexpected identifier; expected command",
+        "lean:build:lakefile.lean:57:17:unexpected identifier; expected 'abbrev', 'axiom', 'binder_predicate', 'builtin_initialize', 'class', 'coinductive', 'def', 'elab', 'elab_rules', 'example', 'inductive', 'infix', 'infixl', 'infixr', 'initialize', 'instance', 'macro', 'macro_rules', 'notation', 'opaque', 'postfix', 'prefix', 'structure', 'syntax' or 'theorem'"
+      ],
+      "evidence": [
+        "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/procedures-lean-370/.silver/linux-aarch64/lean-focused.log",
+        "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/procedures-lean-370/.silver/linux-aarch64/lean-focused-evidence.json"
+      ],
+      "retained_report_count": 1
+    },
+    {
+      "run_id": "20261115T165905-63175dfe05b0",
+      "task": "370-lean-memory-recovery",
+      "kind": "lean",
+      "scope": [
+        "Silver.FunctionSourceParts.DeclarationLoopFunctionLocals"
+      ],
+      "state": "failure",
+      "active": false,
+      "workers": 1,
+      "directory": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T165905-63175dfe05b0",
+      "fingerprint": "6f72c312a73776672c1053a7c3ca0b9a33b1718cc550197131edda3f3dc5c885",
+      "command": [
+        "/usr/bin/python3",
+        "/home/agent/silver-worktrees/procedures-lean-370/scripts/check_lean.py",
+        "--target",
+        "Silver.FunctionSourceParts.DeclarationLoopFunctionLocals",
+        "--workers",
+        "1",
+        "--memory-mb",
+        "8192",
+        "--provenance",
+        "--task",
+        "370-lean-memory-recovery",
+        "--reason",
+        "Reduced 16 GiB linux-aarch64 host; native overlay avoids reproduced mounted-file descriptor ceiling; no retained Lean objects; isolate prior exit-137 module with one Lake worker, automatic twelve Lean threads, 8 GiB per-process threshold; native stream at most two workers/~3 GiB."
+      ],
+      "reason": "Reduced 16 GiB linux-aarch64 host; native overlay avoids reproduced mounted-file descriptor ceiling; no retained Lean objects; isolate prior exit-137 module with one Lake worker, automatic twelve Lean threads, 8 GiB per-process threshold; native stream at most two workers/~3 GiB.",
+      "worktree": "/home/agent/silver-worktrees/procedures-lean-370",
+      "resources": [
+        "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/proof",
+        "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused.log",
+        "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused-evidence.json"
+      ],
+      "started_at": "2026-11-15T16:59:05.038933+00:00",
+      "finished_at": "2026-11-15T17:02:26.858261+00:00",
+      "duration_seconds": 201.819281555,
+      "returncode": 1,
+      "error": null,
+      "failure_keys": [
+        "lean:build:Silver/FunctionSourceParts/DeclarationLoopFunctionLocals.lean:20:2:Tactic `decide` failed. The elaborator is able to reduce the `Decidable` instance, but the kernel fails with:"
+      ],
+      "evidence": [
+        "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused.log",
+        "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused-evidence.json"
+      ],
+      "retained_report_count": 1
+    },
+    {
+      "run_id": "20261115T170455-8e0ce0beef23",
+      "task": "370-lean-memory-recovery",
+      "kind": "lean",
+      "scope": [
+        "Silver.FunctionSourceParts.DeclarationLoopFunctionLocals"
+      ],
+      "state": "failure",
+      "active": false,
+      "workers": 1,
+      "directory": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T170455-8e0ce0beef23",
+      "fingerprint": "dabb91993fd46bf25f27a91f66425d077151d4955bcb5997effe23acffc60bc8",
+      "command": [
+        "/usr/bin/python3",
+        "/home/agent/silver-worktrees/procedures-lean-370/scripts/check_lean.py",
+        "--target",
+        "Silver.FunctionSourceParts.DeclarationLoopFunctionLocals",
+        "--workers",
+        "1",
+        "--memory-mb",
+        "8192",
+        "--provenance",
+        "--task",
+        "370-lean-memory-recovery",
+        "--reason",
+        "Focused response to retained8192MiB kernel-memory failure: unchanged complete source theorem with checked direct equality witness; one worker/default12threads on16GiBhost; native at most2workers; certificate dense probes held; retained semantic dependencies."
+      ],
+      "reason": "Focused response to retained8192MiB kernel-memory failure: unchanged complete source theorem with checked direct equality witness; one worker/default12threads on16GiBhost; native at most2workers; certificate dense probes held; retained semantic dependencies.",
+      "worktree": "/home/agent/silver-worktrees/procedures-lean-370",
+      "resources": [
+        "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/proof",
+        "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused.log",
+        "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused-evidence.json"
+      ],
+      "started_at": "2026-11-15T17:04:55.630071+00:00",
+      "finished_at": "2026-11-15T17:05:34.303680+00:00",
+      "duration_seconds": 38.673522143,
+      "returncode": 1,
+      "error": null,
+      "failure_keys": [
+        "lean:build:Silver/FunctionSourceParts/DeclarationLoopFunctionLocals.lean:21:2:(kernel) excessive memory consumption detected"
+      ],
+      "evidence": [
+        "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused.log",
+        "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused-evidence.json",
+        "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T170455-8e0ce0beef23/previous-evidence/lean-focused.log"
+      ],
+      "retained_report_count": 1
+    },
+    {
+      "run_id": "20261115T170959-0a23c44dd3b7",
+      "task": "370-lean-memory-recovery",
+      "kind": "lean",
+      "scope": [
+        "Silver.FunctionSourceParts.DeclarationLoopFunctionLocals"
+      ],
+      "state": "failure",
+      "active": false,
+      "workers": 1,
+      "directory": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T170959-0a23c44dd3b7",
+      "fingerprint": "da9e93606f95c494bad73384d3c6ad15585cca23ab6c17773fc970dbccf8d20e",
+      "command": [
+        "/usr/bin/python3",
+        "/home/agent/silver-worktrees/procedures-lean-370/scripts/check_lean.py",
+        "--target",
+        "Silver.FunctionSourceParts.DeclarationLoopFunctionLocals",
+        "--workers",
+        "1",
+        "--memory-mb",
+        "8192",
+        "--provenance",
+        "--task",
+        "370-lean-memory-recovery",
+        "--reason",
+        "Following two retained8192MiB whole-source failures: bounded token-segment transformers for every suffix plus kernel equality covering complete ordered reviewedsource; same theorem/extractor/fulluniqueness.1worker/default12threads on16GiBhost, native<=2jobs; certificate denseprobes held."
+      ],
+      "reason": "Following two retained8192MiB whole-source failures: bounded token-segment transformers for every suffix plus kernel equality covering complete ordered reviewedsource; same theorem/extractor/fulluniqueness.1worker/default12threads on16GiBhost, native<=2jobs; certificate denseprobes held.",
+      "worktree": "/home/agent/silver-worktrees/procedures-lean-370",
+      "resources": [
+        "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/proof",
+        "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused.log",
+        "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused-evidence.json"
+      ],
+      "started_at": "2026-11-15T17:09:59.313864+00:00",
+      "finished_at": "2026-11-15T17:11:16.508576+00:00",
+      "duration_seconds": 77.194652162,
+      "returncode": 1,
+      "error": null,
+      "failure_keys": [
+        "lean:build:Silver/FunctionSourceParts/DeclarationLoopFunctionLocalsSegments.lean:540:2:(kernel) excessive memory consumption detected",
+        "lean:build:Silver/FunctionSourceParts/DeclarationLoopFunctionLocalsSegments.lean:608:2:(kernel) excessive memory consumption detected",
+        "lean:build:Silver/FunctionSourceParts/DeclarationLoopFunctionLocalsSegments.lean:614:2:`simp` made no progress"
+      ],
+      "evidence": [
+        "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused.log",
+        "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused-evidence.json",
+        "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T170959-0a23c44dd3b7/previous-evidence/lean-focused.log"
+      ],
+      "retained_report_count": 1
+    },
+    {
+      "run_id": "20261115T171334-eae8950dfde6",
+      "task": "370-lean-memory-recovery",
+      "kind": "lean",
+      "scope": [
+        "Silver.FunctionSourceParts.FunctionLocalsExpectedTokensProbe"
+      ],
+      "state": "failure",
+      "active": false,
+      "workers": 1,
+      "directory": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T171334-eae8950dfde6",
+      "fingerprint": "135dccd69a96faf286f53787153c7de3b77bed7ed01e40dcc6503acd4f0e3d8c",
+      "command": [
+        "/usr/bin/python3",
+        "/home/agent/silver-worktrees/procedures-lean-370/scripts/check_lean.py",
+        "--target",
+        "Silver.FunctionSourceParts.FunctionLocalsExpectedTokensProbe",
+        "--workers",
+        "1",
+        "--memory-mb",
+        "2048",
+        "--provenance",
+        "--task",
+        "370-lean-memory-recovery",
+        "--reason",
+        "Isolate909character expectedTokens computation from whole-source scanning after scan64memory failure;2GiBprobe withwarmsemanticimports,oneworker/default12threads;noobligationweakened."
+      ],
+      "reason": "Isolate909character expectedTokens computation from whole-source scanning after scan64memory failure;2GiBprobe withwarmsemanticimports,oneworker/default12threads;noobligationweakened.",
+      "worktree": "/home/agent/silver-worktrees/procedures-lean-370",
+      "resources": [
+        "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/proof",
+        "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused.log",
+        "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused-evidence.json"
+      ],
+      "started_at": "2026-11-15T17:13:34.065150+00:00",
+      "finished_at": "2026-11-15T17:13:45.352720+00:00",
+      "duration_seconds": 11.287484131,
+      "returncode": 1,
+      "error": null,
+      "failure_keys": [
+        "lean:build:Silver/FunctionSourceParts/FunctionLocalsExpectedTokensProbe.lean:10:2:(kernel) excessive memory consumption detected",
+        "lean:build:Silver/FunctionSourceParts/FunctionLocalsExpectedTokensProbe.lean:8:9:(kernel) excessive memory consumption detected"
+      ],
+      "evidence": [
+        "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused.log",
+        "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused-evidence.json",
+        "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T171334-eae8950dfde6/previous-evidence/lean-focused.log"
+      ],
+      "retained_report_count": 1
+    },
+    {
+      "run_id": "20261115T172007-8dc3d8f5e77f",
+      "task": "370-lean-memory-recovery",
+      "kind": "lean",
+      "scope": [
+        "Silver.FunctionSourceParts.FunctionLocalsExpectedTokensProbe"
+      ],
+      "state": "success",
+      "active": false,
+      "workers": 1,
+      "directory": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T172007-8dc3d8f5e77f",
+      "fingerprint": "6b187faf56705053c95d72355042a7a8aeee0d10e365caea1518b0fef230cd1d",
+      "command": [
+        "/usr/bin/python3",
+        "/home/agent/silver-worktrees/procedures-lean-370/scripts/check_lean.py",
+        "--target",
+        "Silver.FunctionSourceParts.FunctionLocalsExpectedTokensProbe",
+        "--workers",
+        "1",
+        "--memory-mb",
+        "2048",
+        "--provenance",
+        "--task",
+        "370-lean-memory-recovery",
+        "--reason",
+        "Focused2GiBresponse to isolated expectedTokens failure: checked String.toList_ofList rewrites exact909character text to fullcharacterlist before unchanged lexer computation; one worker/default12threads; aggregate8GiBallocated separately."
+      ],
+      "reason": "Focused2GiBresponse to isolated expectedTokens failure: checked String.toList_ofList rewrites exact909character text to fullcharacterlist before unchanged lexer computation; one worker/default12threads; aggregate8GiBallocated separately.",
+      "worktree": "/home/agent/silver-worktrees/procedures-lean-370",
+      "resources": [
+        "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/proof",
+        "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused.log",
+        "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused-evidence.json"
+      ],
+      "started_at": "2026-11-15T17:20:07.868560+00:00",
+      "finished_at": "2026-11-15T17:20:18.875473+00:00",
+      "duration_seconds": 11.006779297,
+      "returncode": null,
+      "error": null,
+      "failure_keys": [],
+      "evidence": [
+        "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused.log",
+        "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused-evidence.json",
+        "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T172007-8dc3d8f5e77f/previous-evidence/lean-focused.log",
+        "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T172007-8dc3d8f5e77f/lean-focused.log",
+        "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T172007-8dc3d8f5e77f/lean-focused-evidence.json"
+      ],
+      "retained_report_count": 0
+    },
+    {
+      "run_id": "20261115T172417-c18104b5d112",
+      "task": "370-lean-memory-recovery",
+      "kind": "lean",
+      "scope": [
+        "Silver.FunctionSourceParts.DeclarationLoopFunctionLocals"
+      ],
+      "state": "failure",
+      "active": false,
+      "workers": 1,
+      "directory": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T172417-c18104b5d112",
+      "fingerprint": "704391f9a844e382800d2fec8e919f36d1f6b646e03077b34d7f24e6471c7be7",
+      "command": [
+        "/usr/bin/python3",
+        "/home/agent/silver-worktrees/procedures-lean-370/scripts/check_lean.py",
+        "--target",
+        "Silver.FunctionSourceParts.DeclarationLoopFunctionLocals",
+        "--workers",
+        "1",
+        "--memory-mb",
+        "2048",
+        "--provenance",
+        "--task",
+        "370-lean-memory-recovery",
+        "--reason",
+        "Original full-source statement and duplicate-detecting scanner, only proven expected-token normalization; isolated normalization passed at2GiB. One worker/default12threads, native workload released; certificate aggregate separately allocated8GiB."
+      ],
+      "reason": "Original full-source statement and duplicate-detecting scanner, only proven expected-token normalization; isolated normalization passed at2GiB. One worker/default12threads, native workload released; certificate aggregate separately allocated8GiB.",
+      "worktree": "/home/agent/silver-worktrees/procedures-lean-370",
+      "resources": [
+        "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/proof",
+        "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused.log",
+        "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused-evidence.json"
+      ],
+      "started_at": "2026-11-15T17:24:17.239315+00:00",
+      "finished_at": "2026-11-15T17:25:35.322099+00:00",
+      "duration_seconds": 78.082654245,
+      "returncode": 1,
+      "error": null,
+      "failure_keys": [
+        "lean:build:Silver/FunctionSourceParts/DeclarationLoopFunctionLocals.lean:18:8:(kernel) excessive memory consumption detected",
+        "lean:build:Silver/FunctionSourceParts/DeclarationLoopFunctionLocals.lean:24:2:Tactic `decide` failed. The elaborator is able to reduce the `Decidable` instance, but the kernel fails with:"
+      ],
+      "evidence": [
+        "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused.log",
+        "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused-evidence.json",
+        "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T172417-c18104b5d112/previous-evidence/lean-focused.log",
+        "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T172417-c18104b5d112/previous-evidence/lean-focused-evidence.json"
+      ],
+      "retained_report_count": 1
+    },
+    {
+      "run_id": "20261115T172820-add546158c86",
+      "task": "370-lean-memory-recovery",
+      "kind": "lean",
+      "scope": [
+        "Silver.FunctionSourceParts.DeclarationLoopFunctionLocals"
+      ],
+      "state": "failure",
+      "active": false,
+      "workers": 1,
+      "directory": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T172820-add546158c86",
+      "fingerprint": "3b99a56c8e7af544571156f1196bc15bc84fc0bc7c1930b3482c6885f7ba69f3",
+      "command": [
+        "/usr/bin/python3",
+        "/home/agent/silver-worktrees/procedures-lean-370/scripts/check_lean.py",
+        "--target",
+        "Silver.FunctionSourceParts.DeclarationLoopFunctionLocals",
+        "--workers",
+        "1",
+        "--memory-mb",
+        "4096",
+        "--provenance",
+        "--task",
+        "370-lean-memory-recovery",
+        "--reason",
+        "Normalized expectedtext passed2GiB; whole-source2GiBdiagnostic failed and decide error reporting addedmemory. Check same exact theorem/unchangedscanner with direct checked equality witness at4GiB, below original8GiBrecoveryallocation. Native released, certificate in lowRSSseriallinebuilds; actualheadroom monitored."
+      ],
+      "reason": "Normalized expectedtext passed2GiB; whole-source2GiBdiagnostic failed and decide error reporting addedmemory. Check same exact theorem/unchangedscanner with direct checked equality witness at4GiB, below original8GiBrecoveryallocation. Native released, certificate in lowRSSseriallinebuilds; actualheadroom monitored.",
+      "worktree": "/home/agent/silver-worktrees/procedures-lean-370",
+      "resources": [
+        "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/proof",
+        "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused.log",
+        "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused-evidence.json"
+      ],
+      "started_at": "2026-11-15T17:28:20.382510+00:00",
+      "finished_at": "2026-11-15T17:29:34.708988+00:00",
+      "duration_seconds": 74.326415119,
+      "returncode": 1,
+      "error": null,
+      "failure_keys": [
+        "lean:build:Silver/FunctionSourceParts/DeclarationLoopFunctionLocals.lean:19:8:(kernel) excessive memory consumption detected",
+        "lean:build:Silver/FunctionSourceParts/DeclarationLoopFunctionLocals.lean:25:2:(kernel) excessive memory consumption detected"
+      ],
+      "evidence": [
+        "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused.log",
+        "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused-evidence.json",
+        "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T172820-add546158c86/previous-evidence/lean-focused.log"
+      ],
+      "retained_report_count": 1
+    },
+    {
+      "run_id": "20261115T173223-fb4134e2af34",
+      "task": "370-lean-memory-recovery",
+      "kind": "lean",
+      "scope": [
+        "Silver.FunctionSourceParts.DeclarationLoopFunctionLocals"
+      ],
+      "state": "success",
+      "active": false,
+      "workers": 1,
+      "directory": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T173223-fb4134e2af34",
+      "fingerprint": "b042db584a0a121045d0915d62105976e46fc452ee27ab9a7d88b63997340889",
+      "command": [
+        "/usr/bin/python3",
+        "/home/agent/silver-worktrees/procedures-lean-370/scripts/check_lean.py",
+        "--target",
+        "Silver.FunctionSourceParts.DeclarationLoopFunctionLocals",
+        "--workers",
+        "1",
+        "--memory-mb",
+        "8192",
+        "--provenance",
+        "--task",
+        "370-lean-memory-recovery",
+        "--reason",
+        "Same exact normalized source theorem after measured 2/4 GiB failures; original 8 GiB recovery allowance, not a global limit change. One worker/default 12 threads; certificate confirmed bucket 3 of 8 at 1.85 GiB tree with aggregate distant. Native full check held; own process tree guard 10 GiB and host available guard 1.5 GiB."
+      ],
+      "reason": "Same exact normalized source theorem after measured 2/4 GiB failures; original 8 GiB recovery allowance, not a global limit change. One worker/default 12 threads; certificate confirmed bucket 3 of 8 at 1.85 GiB tree with aggregate distant. Native full check held; own process tree guard 10 GiB and host available guard 1.5 GiB.",
+      "worktree": "/home/agent/silver-worktrees/procedures-lean-370",
+      "resources": [
+        "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/proof",
+        "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused.log",
+        "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused-evidence.json"
+      ],
+      "started_at": "2026-11-15T17:32:23.961370+00:00",
+      "finished_at": "2026-11-15T17:33:45.658123+00:00",
+      "duration_seconds": 81.696608289,
+      "returncode": null,
+      "error": null,
+      "failure_keys": [],
+      "evidence": [
+        "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused.log",
+        "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused-evidence.json",
+        "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T173223-fb4134e2af34/previous-evidence/lean-focused.log",
+        "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T173223-fb4134e2af34/lean-focused.log",
+        "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T173223-fb4134e2af34/lean-focused-evidence.json"
+      ],
+      "retained_report_count": 0
+    },
+    {
+      "run_id": "20261115T173917-d7a06c23e3ca",
+      "task": "370-lean-memory-recovery",
+      "kind": "lean",
+      "scope": [
+        "Silver.FunctionSourceParts.DeclarationLoopFunctionLocals"
+      ],
+      "state": "success",
+      "active": false,
+      "workers": 1,
+      "directory": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T173917-d7a06c23e3ca",
+      "fingerprint": "b042db584a0a121045d0915d62105976e46fc452ee27ab9a7d88b63997340889",
+      "command": [
+        "/usr/bin/python3",
+        "/home/agent/silver-worktrees/procedures-lean-370/scripts/check_lean.py",
+        "--target",
+        "Silver.FunctionSourceParts.DeclarationLoopFunctionLocals",
+        "--workers",
+        "1",
+        "--memory-mb",
+        "8192",
+        "--provenance",
+        "--task",
+        "370-lean-memory-recovery",
+        "--reason",
+        "Final cached focused audit after removing temporary positive/negative control modules; production proof bytes unchanged from successful173223. Require cleanup of retired module artifacts and exact final imported scope; no expensive rebuild requested."
+      ],
+      "reason": "Final cached focused audit after removing temporary positive/negative control modules; production proof bytes unchanged from successful173223. Require cleanup of retired module artifacts and exact final imported scope; no expensive rebuild requested.",
+      "worktree": "/home/agent/silver-worktrees/procedures-lean-370",
+      "resources": [
+        "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/proof",
+        "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused.log",
+        "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused-evidence.json"
+      ],
+      "started_at": "2026-11-15T17:39:17.830003+00:00",
+      "finished_at": "2026-11-15T17:39:26.732811+00:00",
+      "duration_seconds": 8.902646046,
+      "returncode": null,
+      "error": null,
+      "failure_keys": [],
+      "evidence": [
+        "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused.log",
+        "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused-evidence.json",
+        "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T173917-d7a06c23e3ca/previous-evidence/lean-focused.log",
+        "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T173917-d7a06c23e3ca/previous-evidence/lean-focused-evidence.json",
+        "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T173917-d7a06c23e3ca/lean-focused.log",
+        "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T173917-d7a06c23e3ca/lean-focused-evidence.json"
+      ],
+      "retained_report_count": 0
+    }
+  ],
+  "notes": [],
+  "available_cpus": 12,
+  "reserved_workers": 0,
+  "diagnostics_required": [],
+  "total_runs": 10,
+  "omitted_completed_runs": 0
+}

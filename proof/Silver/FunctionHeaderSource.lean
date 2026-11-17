@@ -26,7 +26,7 @@ instance (text : Source) (state : ParserState) (arguments : Bool) :
 def functionHeaderInitial (text : Source) (state : ParserState) : ParserState :=
   {initialState with
     position := fixedAfter text (functionNameAfter text state) "(" false, pure := true,
-    subtypeNames := state.subtypeNames, functions := state.functions,
+    subtypeNames := state.subtypeNames, functions := state.functions, procedures := state.procedures,
     «hiding» := hideName text (hiddenOuter text state) (functionNameFirst text state) (functionNameAfter text state),
     firstParameter := state.functions.parameters.length + 1}
 
@@ -110,7 +110,8 @@ theorem functionHeader_ready {text state arguments}
   have initialValid : ValidState text initial := by
     refine ⟨fixedAfter_result_bound text _ "(" false (by decide), empty.2.1, empty.2.2.1,
       empty.2.2.2.1, Nat.le_refl _, empty.2.2.2.2.2.1, empty.2.2.2.2.2.2.1,
-      valid.2.2.2.2.2.2.2.1, empty.booleans, valid.functions, Nat.le_refl _, cap⟩
+      valid.2.2.2.2.2.2.2.1, empty.booleans, valid.functions, Nat.le_refl _, cap,
+      valid.procedures, Nat.zero_le _, Nat.zero_le _⟩
   have headerValid : ValidState text header := parametersModel_state_valid initialValid
   have frameValid : ValidState text frame := model_state_position_valid text header headerValid _
     (fixedAfter_result_bound text _ "is" true (by decide))

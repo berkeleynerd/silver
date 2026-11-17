@@ -15,6 +15,7 @@ mutual
     | simple (item : Sequence.SimpleStatement)
     | scalarAssign (update : Integer.Assignment)
     | callAssign (update : ScalarFunctions.Assignment)
+    | procedureCall (call : ScalarProcedures.Call)
     | arrayAssign (update : Integer.ArrayAssignment)
     | booleanAssign (update : BooleanAssignment)
     | booleanArrayAssign (update : BooleanArrayAssignment)
@@ -35,6 +36,7 @@ mutual
     | .simple item => .simple item
     | .scalarAssign update => .scalarAssign update
     | .callAssign update => .callAssign update
+    | .procedureCall call => .procedureCall call
     | .arrayAssign update => .arrayAssign update
     | .booleanAssign update => .booleanAssign update
     | .booleanArrayAssign update => .booleanArrayAssign update
@@ -58,12 +60,16 @@ mutual
   def SourceStatement.execute (input : Source) (valid : Bool) (values : Values) (item : SourceStatement)
       (integers : Integer.Store := Integer.emptyStore)
       (booleans : Boolean.Store := Boolean.emptyStore)
-      (functions : ScalarFunctions.Environment := .empty) : Execution :=
+      (functions : ScalarFunctions.Environment := .empty)
+      (procedures : ScalarProcedures.Environment := .empty) : Execution :=
     match item with
     | .simple item => executeSimpleStatement input values item integers booleans
     | .scalarAssign update => ⟨values, [], update.execute integers, booleans⟩
     | .callAssign update =>
         let result := update.execute functions.values ⟨values, input, valid, integers, booleans⟩
+        ⟨result.values, [], result.integers, result.booleans⟩
+    | .procedureCall call =>
+        let result := call.execute procedures ⟨values, input, valid, integers, booleans⟩
         ⟨result.values, [], result.integers, result.booleans⟩
     | .arrayAssign update => ⟨values, [], update.execute integers, booleans⟩
     | .booleanAssign update =>
@@ -73,16 +79,16 @@ mutual
         ⟨values, [], integers, update.execute values input valid integers booleans⟩
     | .reject => ⟨values, [.reject], integers, booleans⟩
     | .choice condition yes tail =>
-        if condition.evaluate values input valid integers booleans then executeSourceStatements (functions := functions) input valid values yes integers booleans
-        else tail.execute (functions := functions) input valid values integers booleans
+        if condition.evaluate values input valid integers booleans then executeSourceStatements (functions := functions) (procedures := procedures) input valid values yes integers booleans
+        else tail.execute (functions := functions) (procedures := procedures) input valid values integers booleans
     | .forLoop index reverse lower upper body =>
         executeIterations (fun current currentIntegers flags value =>
-          let result := executeSourceStatements (functions := functions) input valid current body (Integer.put currentIntegers index value) flags
+          let result := executeSourceStatements (functions := functions) (procedures := procedures) input valid current body (Integer.put currentIntegers index value) flags
           result.restoreIndex index currentIntegers) values integers booleans
           (Integer.iterationValues reverse (lower.evaluate integers) (upper.evaluate integers))
     | .arrayLoop index reverse array body =>
         executeIterations (fun current currentIntegers flags component =>
-          let result := executeSourceStatements (functions := functions) input valid current body
+          let result := executeSourceStatements (functions := functions) (procedures := procedures) input valid current body
             (Integer.put currentIntegers index (array.project currentIntegers component)) flags
           result.restoreIndex index currentIntegers) values integers booleans
           (Integer.iterationValues reverse array.bounds.lower array.bounds.upper)
@@ -90,23 +96,25 @@ mutual
   def SourceAlternative.execute (input : Source) (valid : Bool) (values : Values) (tail : SourceAlternative)
       (integers : Integer.Store := Integer.emptyStore)
       (booleans : Boolean.Store := Boolean.emptyStore)
-      (functions : ScalarFunctions.Environment := .empty) : Execution :=
+      (functions : ScalarFunctions.Environment := .empty)
+      (procedures : ScalarProcedures.Environment := .empty) : Execution :=
     match tail with
     | .absent => ⟨values, [], integers, booleans⟩
-    | .otherwise items => executeSourceStatements (functions := functions) input valid values items integers booleans
+    | .otherwise items => executeSourceStatements (functions := functions) (procedures := procedures) input valid values items integers booleans
     | .elsif condition yes tail =>
-        if condition.evaluate values input valid integers booleans then executeSourceStatements (functions := functions) input valid values yes integers booleans
-        else tail.execute (functions := functions) input valid values integers booleans
+        if condition.evaluate values input valid integers booleans then executeSourceStatements (functions := functions) (procedures := procedures) input valid values yes integers booleans
+        else tail.execute (functions := functions) (procedures := procedures) input valid values integers booleans
   termination_by sizeOf tail
   def executeSourceStatements (input : Source) (valid : Bool) (values : Values) (items : List SourceStatement)
       (integers : Integer.Store := Integer.emptyStore)
       (booleans : Boolean.Store := Boolean.emptyStore)
-      (functions : ScalarFunctions.Environment := .empty) : Execution :=
+      (functions : ScalarFunctions.Environment := .empty)
+      (procedures : ScalarProcedures.Environment := .empty) : Execution :=
     match items with
     | [] => ⟨values, [], integers, booleans⟩
     | item :: rest =>
-        let first := item.execute (functions := functions) input valid values integers booleans
-        let following := executeSourceStatements (functions := functions) input valid first.values rest first.integers first.booleans
+        let first := item.execute (functions := functions) (procedures := procedures) input valid values integers booleans
+        let following := executeSourceStatements (functions := functions) (procedures := procedures) input valid first.values rest first.integers first.booleans
         ⟨following.values, first.effects ++ following.effects, following.integers, following.booleans⟩
   termination_by sizeOf items
 end
@@ -115,58 +123,62 @@ mutual
   theorem SourceStatement.lower_execute (item : SourceStatement) (input : Source) (valid : Bool) (values : Values)
       (integers : Integer.Store := Integer.emptyStore)
       (booleans : Boolean.Store := Boolean.emptyStore)
-      (functions : ScalarFunctions.Environment := .empty) :
-      item.lower.execute (functions := functions) input valid values integers booleans = item.execute (functions := functions) input valid values integers booleans := by
+      (functions : ScalarFunctions.Environment := .empty)
+      (procedures : ScalarProcedures.Environment := .empty) :
+      item.lower.execute (functions := functions) (procedures := procedures) input valid values integers booleans = item.execute (functions := functions) (procedures := procedures) input valid values integers booleans := by
     cases item with
     | simple item => simp only [SourceStatement.lower, Statement.execute, SourceStatement.execute]
     | scalarAssign update | callAssign update => simp only [SourceStatement.lower, Statement.execute, SourceStatement.execute]
+    | procedureCall call => simp only [SourceStatement.lower, Statement.execute, SourceStatement.execute]
     | arrayAssign update | booleanAssign update | booleanArrayAssign update =>
         simp only [SourceStatement.lower, Statement.execute, SourceStatement.execute]
     | reject => simp only [SourceStatement.lower, Statement.execute, SourceStatement.execute]
     | choice condition yes tail =>
-        have yesEq := lowerStatements_execute (functions := functions) yes input valid values integers booleans
-        have noEq := SourceAlternative.lower_execute (functions := functions) tail input valid values integers booleans
+        have yesEq := lowerStatements_execute (functions := functions) (procedures := procedures) yes input valid values integers booleans
+        have noEq := SourceAlternative.lower_execute (functions := functions) (procedures := procedures) tail input valid values integers booleans
         simp only [SourceStatement.lower, Statement.execute, SourceStatement.execute, yesEq, noEq]
     | forLoop index reverse lower upper body =>
         simp only [SourceStatement.lower, Statement.execute, SourceStatement.execute]
         congr 1
         funext current currentIntegers flags value
-        rw [lowerStatements_execute (functions := functions) body input valid current (Integer.put currentIntegers index value) flags]
+        rw [lowerStatements_execute (functions := functions) (procedures := procedures) body input valid current (Integer.put currentIntegers index value) flags]
     | arrayLoop index reverse array body =>
         simp only [SourceStatement.lower, Statement.execute, SourceStatement.execute]
         congr 1
         funext current currentIntegers flags component
-        rw [lowerStatements_execute (functions := functions) body input valid current
+        rw [lowerStatements_execute (functions := functions) (procedures := procedures) body input valid current
           (Integer.put currentIntegers index (array.project currentIntegers component)) flags]
   termination_by sizeOf item
   theorem SourceAlternative.lower_execute (tail : SourceAlternative) (input : Source) (valid : Bool) (values : Values)
       (integers : Integer.Store := Integer.emptyStore)
       (booleans : Boolean.Store := Boolean.emptyStore)
-      (functions : ScalarFunctions.Environment := .empty) :
-      executeStatements (functions := functions) input valid values tail.lower integers booleans = tail.execute (functions := functions) input valid values integers booleans := by
+      (functions : ScalarFunctions.Environment := .empty)
+      (procedures : ScalarProcedures.Environment := .empty) :
+      executeStatements (functions := functions) (procedures := procedures) input valid values tail.lower integers booleans = tail.execute (functions := functions) (procedures := procedures) input valid values integers booleans := by
     cases tail with
     | absent => simp only [SourceAlternative.lower, executeStatements, SourceAlternative.execute]
     | otherwise items =>
-        have equal := lowerStatements_execute (functions := functions) items input valid values integers booleans
+        have equal := lowerStatements_execute (functions := functions) (procedures := procedures) items input valid values integers booleans
         simpa only [SourceAlternative.lower, SourceAlternative.execute] using equal
     | elsif condition yes tail =>
-        have yesEq := lowerStatements_execute (functions := functions) yes input valid values integers booleans
-        have noEq := SourceAlternative.lower_execute (functions := functions) tail input valid values integers booleans
+        have yesEq := lowerStatements_execute (functions := functions) (procedures := procedures) yes input valid values integers booleans
+        have noEq := SourceAlternative.lower_execute (functions := functions) (procedures := procedures) tail input valid values integers booleans
         simp only [SourceAlternative.lower, executeStatements, Statement.execute, SourceAlternative.execute, List.append_nil,
           yesEq, noEq]
   termination_by sizeOf tail
   theorem lowerStatements_execute (items : List SourceStatement) (input : Source) (valid : Bool) (values : Values)
       (integers : Integer.Store := Integer.emptyStore)
       (booleans : Boolean.Store := Boolean.emptyStore)
-      (functions : ScalarFunctions.Environment := .empty) :
-      executeStatements (functions := functions) input valid values (lowerStatements items) integers booleans = executeSourceStatements (functions := functions) input valid values items integers booleans := by
+      (functions : ScalarFunctions.Environment := .empty)
+      (procedures : ScalarProcedures.Environment := .empty) :
+      executeStatements (functions := functions) (procedures := procedures) input valid values (lowerStatements items) integers booleans = executeSourceStatements (functions := functions) (procedures := procedures) input valid values items integers booleans := by
     cases items with
     | nil => simp only [lowerStatements, executeStatements, executeSourceStatements]
     | cons item rest =>
-        have firstEq := SourceStatement.lower_execute (functions := functions) item input valid values integers booleans
-        have restEq := lowerStatements_execute (functions := functions) rest input valid (item.execute (functions := functions) input valid values integers booleans).values
-          (item.execute (functions := functions) input valid values integers booleans).integers
-          (item.execute (functions := functions) input valid values integers booleans).booleans
+        have firstEq := SourceStatement.lower_execute (functions := functions) (procedures := procedures) item input valid values integers booleans
+        have restEq := lowerStatements_execute (functions := functions) (procedures := procedures) rest input valid (item.execute (functions := functions) (procedures := procedures) input valid values integers booleans).values
+          (item.execute (functions := functions) (procedures := procedures) input valid values integers booleans).integers
+          (item.execute (functions := functions) (procedures := procedures) input valid values integers booleans).booleans
         simp only [lowerStatements, executeStatements, executeSourceStatements, firstEq, restEq]
   termination_by sizeOf items
 end
@@ -181,6 +193,7 @@ mutual
     | .simple item => SimpleWellFormed shape item
     | .scalarAssign update => update.target ≠ 0
     | .callAssign update => update.target.identity ≠ 0 ∧ update.call.Readable hasArguments shape booleans
+    | .procedureCall call => call.Readable hasArguments shape booleans
     | .arrayAssign _ => True
     | .booleanAssign update => booleans.canWrite update.target = true ∧
         update.value.Grammatical ∧ update.value.Readable hasArguments shape booleans
@@ -214,6 +227,7 @@ mutual
     cases item with
     | simple item => simpa only [SourceStatement.lower, Statement.WellFormed, SourceStatement.WellFormed] using valid
     | scalarAssign update | callAssign update => simpa only [SourceStatement.lower, Statement.WellFormed, SourceStatement.WellFormed] using valid
+    | procedureCall call => simpa only [SourceStatement.lower, Statement.WellFormed, SourceStatement.WellFormed] using valid
     | arrayAssign update => simp only [SourceStatement.lower, Statement.WellFormed]
     | booleanAssign update | booleanArrayAssign update =>
         simpa only [SourceStatement.lower, Statement.WellFormed, SourceStatement.WellFormed] using valid

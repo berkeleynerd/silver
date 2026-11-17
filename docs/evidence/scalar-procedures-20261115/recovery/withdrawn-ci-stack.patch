@@ -1,0 +1,18 @@
+diff --git a/.github/workflows/verify.yml b/.github/workflows/verify.yml
+index 19ea9ddb3..e992a67ee 100644
+--- a/.github/workflows/verify.yml
++++ b/.github/workflows/verify.yml
+@@ -36,7 +36,12 @@ jobs:
+       - name: Build the verified SPARK compiler
+         run: python3 scripts/dev.py build
+       - name: Test admission, evidence rejection, source identity and execution
+-        run: python3 scripts/dev.py test
++        run: |
++          # Match the measured Linux ARM64 stack environment in README.md.
++          if [ "$RUNNER_OS" = Linux ] && [ "$RUNNER_ARCH" = ARM64 ]; then
++            ulimit -S -s 16384
++          fi
++          python3 scripts/dev.py test
+       - name: Retain native proof evidence
+         if: always()
+         uses: actions/upload-artifact@v4

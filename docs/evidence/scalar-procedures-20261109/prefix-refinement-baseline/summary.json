@@ -1,0 +1,30 @@
+{
+  "run_id": "20261110T010044-1b40996e99ec",
+  "note": "Agent-authored index. Managed run success confirms the old mismatch; it is not a repair success.",
+  "artifacts": {
+    "events.jsonl": {
+      "original_sha256": "d718ebbd894fdfd7e041d3d306a278ecf32314ea7db245547d9a44c88fa9c894",
+      "gzip_sha256": "d087873e5ae59a941a7557445c4215cf00034103df016c7be5e6c722e0594c8f"
+    },
+    "native.log": {
+      "original_sha256": "e1833b4ef5de0ded8269f36689595d8b4d1f9905eae63603d3a8ebc235057a26",
+      "gzip_sha256": "f56f5f500616045d75fd3d699ff260756fe3093cb87933bcfc08f03effc9dda4"
+    },
+    "check-prefix-refinement.py": {
+      "original_sha256": "1aad9a68bdec64e34350c4a00ad02216397e1c2924b04b1f302547967310ecaa",
+      "gzip_sha256": "5f7e2568c43a6d49d4846abe9a0d67221815f274b828ab4f29034fd0ba02164b"
+    },
+    "body_in.adb": {
+      "original_sha256": "650f2435b9ac30c055d212c92ceb341b725bb6a1491a11a61ddef42186d23d1b",
+      "gzip_sha256": "0440ffaf538bc8efe1eb38b56d649fc490da1a7fd8c584babe9fcf0ae872b3e9"
+    },
+    "prefix_inout.adb": {
+      "original_sha256": "c95e3f111eb7a4ff2cc7017fdb4f48553028857879a253dbba32a0c3a5afac6c",
+      "gzip_sha256": "66f134b7c4db19cdf7439640b2605727176e826de7e2ba8c421fa5d0afb9fc6e"
+    },
+    "prefix_in.adb": {
+      "original_sha256": "92a53cb94858f16bd83a92851a02edb471dba31f2e5c1c68c8922bc63eb5f707",
+      "gzip_sha256": "2770b4cdf0f32c02a34147b00fa523b3f81f343ba968198ea49af60527952657"
+    }
+  }
+}

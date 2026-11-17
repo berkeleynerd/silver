@@ -1,0 +1,11 @@
+{
+  "utc": "2026-11-10T01:38:47.580512+00:00",
+  "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-visibility-370/.silver/linux-x86_64/proof/.lake/build",
+  "destination": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370/.silver/linux-x86_64/proof/.lake/build",
+  "files": 514,
+  "bytes": 69738107,
+  "source_commit": "e65d2c7027",
+  "source_run": "20261110T012814-501bdbda3dd1",
+  "source_result": "success",
+  "note": "Both proof caches idle. Copy newer artifact families and Lake metadata from the successful four-target visibility build; normal dependency validation and fresh audits remain required."
+}

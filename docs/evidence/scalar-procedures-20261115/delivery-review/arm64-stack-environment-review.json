@@ -1,0 +1,213 @@
+{
+  "review_completed_at_utc": "2026-11-15T22:43:56.574150+00:00",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Max",
+  "live_runtime_token_cost_telemetry": "unavailable",
+  "disposition": "Accepted scoped ARM64 environment diagnosis and documentation/CI configuration, with no material finding. The unchanged complete scalar-suite success and whole inventory composition are reviewed separately. No universal stack bound or 8 MiB success is claimed.",
+  "scope": "Independent stdlib/Git retained-source, data, hash and ELF-byte inspection only; no project validator, proof, build, test, application, debugger, disassembler or cache-writing job launched.",
+  "packet_commit": "cd8cba92a16338d128b91011d3585a576056d02b",
+  "packet_path": "docs/evidence/scalar-procedures-20261115/regression-recovery/arm64-stack/",
+  "packet_file_count": 20,
+  "packet_file_hashes": {
+    "README.md": "d9c4af5914769ba770ffb25dad3859c61c3e9579ddde7be01a92a2e521da3fed",
+    "frame-instructions.json": "4507eb64d7f7e6ab2f1bb419ef8ec22a4982a775eb55f18a9ea8e64dd9ddac7d",
+    "frames.gdb": "fbb312374073cccd8d085d52be605bea4be2aefe4b0163ed07e15bc99dace22e",
+    "gdb-count-0.txt": "105660a8ef62720a536a1389773c0611bbd7838a4ff32819ebd5f0c3531a26a7",
+    "gdb-count-1.txt": "df36a40780f4572007263cb4682d4fdeee6c4d2ad1f35512de6110abebb2333b",
+    "gdb-count-32.txt": "e6c6e4b1b739b04275365b9aac460acc79dffad548b5d4a1481617aa944b11ab",
+    "limits-initial/count-0-exact.adb": "30a2f956d3cca35d6aeef1b3f83155fa27dfea1acd750ad957d908470d1f4398",
+    "limits-initial/count-0-over.adb": "0d08c559b1eddf3cfb3aa30a168b2574991a120231aa6b5afb130d1016595091",
+    "limits-initial/count-0-shallow.adb": "68c6ccda993e376cd89586af08c8b2fde9b5bcc25242890e826d260c662ab636",
+    "limits-initial/count-1-exact.adb": "3e2e24986df42537b7ccef972865786da527c3deed52b4a06a39951e27786c13",
+    "limits-initial/count-1-over.adb": "21094d829cd5bfe94479806c93ad9226c828a57f0b9c8742210c7405fe3ce0b9",
+    "limits-initial/count-1-shallow.adb": "7a4269647973451cbaddff82c5ff8271566227054db926283cd7710becb84685",
+    "limits-initial/count-32-exact.adb": "c38f905d4716bd49ab43fd89d7222a3815bb43aee6dbde9be8514e22db118235",
+    "limits-initial/count-32-over.adb": "45a693c265a7f326ab3e3a41de8dbebfbf7f3b6b3baa2def97f592a1348752b1",
+    "limits-initial/count-32-shallow.adb": "2c3587b716c4066263b06892d5f43e2a52cb3919b1ac8c2ed81a6fc9676063ac",
+    "limits-initial/results.json": "fa99848e298b32e1af947b595f64967c0a2be1bf2103edfde0d2315c01515caa",
+    "probe.py": "b672427461e96f72e32667e399887e9b333052245863ad002aef476d422ed629",
+    "provenance.json": "8c721000ce4591c9e8ae3bcf0c44fcfa7211a8f95cb112b8faea8e51271b4448",
+    "recursive-frames.disassembly.txt.gz": "090ff7e5051065379646a0c61bb909b36276c01b88ba3d79b4a64c62f62fdc91",
+    "source-identity.json": "4e2da2112ca55cd32cdd0f45de1ff3a39f785df6746df24bc85bd765b52e173e"
+  },
+  "immutable_packet_equals_inspected_originals": true,
+  "packet_only_changes_evidence": true,
+  "captured_source_object_binary_hashes_match_current_and_immutable_source": true,
+  "binary_sha256": "683925c9b33cda887a58ecc2ad1d0e8feedf51590653e7aee3dd2889b06267d9",
+  "cases": [
+    {
+      "active_scalars": 0,
+      "depth": 2001,
+      "source_bytes": 4096,
+      "source_sha256": "30a2f956d3cca35d6aeef1b3f83155fa27dfea1acd750ad957d908470d1f4398",
+      "recursive_group_bytes": 12838416,
+      "exact_returncodes_by_stack_kib": {
+        "8192": 1,
+        "12288": 1,
+        "16384": 0
+      }
+    },
+    {
+      "active_scalars": 1,
+      "depth": 1993,
+      "source_bytes": 4096,
+      "source_sha256": "3e2e24986df42537b7ccef972865786da527c3deed52b4a06a39951e27786c13",
+      "recursive_group_bytes": 12787088,
+      "exact_returncodes_by_stack_kib": {
+        "8192": 1,
+        "12288": 1,
+        "16384": 0
+      }
+    },
+    {
+      "active_scalars": 32,
+      "depth": 1765,
+      "source_bytes": 4096,
+      "source_sha256": "c38f905d4716bd49ab43fd89d7222a3815bb43aee6dbde9be8514e22db118235",
+      "recursive_group_bytes": 11324240,
+      "exact_returncodes_by_stack_kib": {
+        "8192": 1,
+        "12288": 0,
+        "16384": 0
+      }
+    }
+  ],
+  "all_27_results_and_nine_exact_fixture_bytes_independently_reconstructed": true,
+  "all_nine_oversize_invocations_reject_2": true,
+  "all_nine_shallow_controls_accept_0": true,
+  "controlled_child_only_limits_and_parent_unchanged": true,
+  "object_sha256": "fb80b7f2bca0370d40b5021177193337de41c60966f28ef584b44b1d51bfefc9",
+  "retained_disassembly_instructions_matched_to_elf_text_bytes": 4770,
+  "held_recursive_frame_allocations": [
+    {
+      "symbol": "silver_output_profile__read_primary_into",
+      "bytes": 400,
+      "prologue": "   22b28:\ta9a77bfd \tstp\tx29, x30, [sp, #-400]!"
+    },
+    {
+      "symbol": "silver_output_profile__read_primary_into___wrapped_statements.46",
+      "bytes": 880,
+      "prologue": "   22f98:\td10dc3ff \tsub\tsp, sp, #0x370"
+    },
+    {
+      "symbol": "silver_output_profile__read_condition_into",
+      "bytes": 400,
+      "prologue": "   290a0:\ta9a77bfd \tstp\tx29, x30, [sp, #-400]!"
+    },
+    {
+      "symbol": "silver_output_profile__read_boolean_factor_into",
+      "bytes": 400,
+      "prologue": "   23b30:\ta9a77bfd \tstp\tx29, x30, [sp, #-400]!"
+    },
+    {
+      "symbol": "silver_output_profile__read_boolean_factor_into___wrapped_statements.47",
+      "bytes": 864,
+      "prologue": "   23f88:\td10d83ff \tsub\tsp, sp, #0x360"
+    },
+    {
+      "symbol": "silver_output_profile__read_boolean_relation_into",
+      "bytes": 400,
+      "prologue": "   24888:\ta9a77bfd \tstp\tx29, x30, [sp, #-400]!"
+    },
+    {
+      "symbol": "silver_output_profile__read_boolean_relation_into___wrapped_statements.48",
+      "bytes": 256,
+      "prologue": "   24cf8:\ta9b07bfd \tstp\tx29, x30, [sp, #-256]!"
+    },
+    {
+      "symbol": "silver_output_profile__read_relation_into",
+      "bytes": 400,
+      "prologue": "   25000:\ta9a77bfd \tstp\tx29, x30, [sp, #-400]!"
+    },
+    {
+      "symbol": "silver_output_profile__read_relation_into___wrapped_statements.49",
+      "bytes": 2368,
+      "prologue": "   25490:\td12503ff \tsub\tsp, sp, #0x940"
+    },
+    {
+      "symbol": "silver_output_profile__read_condition_into___wrapped_statements.52",
+      "bytes": 48,
+      "prologue": "   294f8:\ta9bd7bfd \tstp\tx29, x30, [sp, #-48]!"
+    }
+  ],
+  "observed_per_group_bytes": 6416,
+  "direct_executing_stack_measurements": [
+    {
+      "active_scalars": 0,
+      "first_sp": 281474007468928,
+      "eleventh_sp": 281474007404768,
+      "ten_group_delta": 64160
+    },
+    {
+      "active_scalars": 1,
+      "first_sp": 281474540853136,
+      "eleventh_sp": 281474540788976,
+      "ten_group_delta": 64160
+    },
+    {
+      "active_scalars": 32,
+      "first_sp": 281474608569840,
+      "eleventh_sp": 281474608505680,
+      "ten_group_delta": 64160
+    }
+  ],
+  "frame_claim_limit": "The held ten-frame route and three measured inputs only; recursive products omit startup, transient leaves, runtime and other routes and are not total-stack upper bounds.",
+  "existing_boundary": [
+    "docs/trusted-boundary.md:99-147",
+    "docs/trusted-boundary.md:350-358",
+    "docs/assurance.md:1174-1181"
+  ],
+  "no_new_premise_membership_contract_or_obligation_change": true,
+  "documentation_commit": "b3b24a57479524685dd78dc33c149d167f240d92",
+  "documentation_hashes": {
+    "README.md": "45bd34c78d0d354cbf3f06cd320a446c38429393669a11b86ad37ce060d2695b",
+    "development.md": "c49c9e27eb81df537e24ffef9a27eb0c5fc6754206bf765f9906f341d6924de7",
+    "docs/trusted-boundary.md": "3e63409c6fdff19dcf0963e75145f310db9f9f9d383ef30e6b054824c8f2f42a"
+  },
+  "documentation_corrects_current_arm64_guidance_and_preserves_historical_scope": true,
+  "ci_commit": "3d8748a414aa40884239a9a96286da5c9f7185fa",
+  "ci_configuration_sha256": "a0f3635ecaed487515aaeb0e6779faaaca6ebf716cea212495ce8375e85b6e24",
+  "ci_only_native_linux_arm64_soft_stack_changes": true,
+  "ci_branch_evidence_sha256": "2b98b6fd0766b7562f2f140add7e51cc1caa531c80adcc8d4a11ba46e8511b4b",
+  "ci_branch_evidence": {
+    "scope": "shell syntax and four conditional paths only; not GitHub CI or native validation of simulated platforms",
+    "script": "# Match the measured Linux ARM64 stack environment in README.md.\nif [ \"$RUNNER_OS\" = Linux ] && [ \"$RUNNER_ARCH\" = ARM64 ]; then\n  ulimit -S -s 16384\nfi\npython3 scripts/dev.py test\n",
+    "results": [
+      {
+        "simulated_runner_os": "Linux",
+        "simulated_runner_arch": "ARM64",
+        "actual_host": "Linux ARM64",
+        "output": "(16777216, -1)",
+        "status": 0
+      },
+      {
+        "simulated_runner_os": "Linux",
+        "simulated_runner_arch": "X64",
+        "actual_host": "Linux ARM64",
+        "output": "(8388608, -1)",
+        "status": 0
+      },
+      {
+        "simulated_runner_os": "macOS",
+        "simulated_runner_arch": "ARM64",
+        "actual_host": "Linux ARM64",
+        "output": "(8388608, -1)",
+        "status": 0
+      },
+      {
+        "simulated_runner_os": "macOS",
+        "simulated_runner_arch": "X64",
+        "actual_host": "Linux ARM64",
+        "output": "(8388608, -1)",
+        "status": 0
+      }
+    ]
+  },
+  "ci_scope": "Configuration and retained Linux ARM64 shell-branch simulation only; no GitHub CI execution or native validation of other simulated platforms.",
+  "limits": [
+    "The original full-suite and 8/12 MiB failures remain failures.",
+    "16 MiB is a sufficient measured setting for the exact current ARM64 cases, not a universal minimum or maximum.",
+    "No source depth, expected status, test skip, permanent environment setting or production compiler change was introduced.",
+    "Deferred capacity redesign and resource-exception status handling remain separate work."
+  ]
+}

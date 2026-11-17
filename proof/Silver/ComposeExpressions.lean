@@ -32,7 +32,7 @@ inductive Ty
   | scalarNames | scalarBinding | scalarResult | scalarLiteral | interval | scalarConstraint
   | arrayMetadata | arrayInitials | arrayEnv
   | subtypeNames | subtypeBinding | callHiding | booleanNames
-  | functionMetadata | hiddenMarks
+  | functionMetadata | procedureMetadata | hiddenMarks
   | arrow (domain codomain : Ty)
   deriving DecidableEq, Repr
 
@@ -50,7 +50,8 @@ inductive Ty
   | .subtypeNames => IntegerSubtypes.Environment | .subtypeBinding => IntegerSubtypes.Binding
   | .callHiding => IntegerSubtypes.CallHiding
   | .booleanNames => BooleanBindings.Environment
-  | .functionMetadata => FunctionBindings.Metadata | .hiddenMarks => HiddenMarks
+  | .functionMetadata => FunctionBindings.Metadata | .procedureMetadata => ProcedureBindings.Metadata
+  | .hiddenMarks => HiddenMarks
   | .arrow a b => a.meaning → b.meaning
 
 def Ty.default : (ty : Ty) → ty.meaning
@@ -63,7 +64,7 @@ def Ty.default : (ty : Ty) → ty.meaning
   | Ty.interval => Integer.Interval.empty | Ty.scalarConstraint => ⟨0, Integer.Interval.empty⟩
   | Ty.arrayMetadata => [] | Ty.arrayInitials => [] | Ty.arrayEnv => {}
   | Ty.subtypeNames => {} | Ty.subtypeBinding => {} | Ty.callHiding => {} | Ty.booleanNames => []
-  | Ty.functionMetadata => {} | Ty.hiddenMarks => {}
+  | Ty.functionMetadata => {} | Ty.procedureMetadata => {} | Ty.hiddenMarks => {}
   | Ty.arrow _ b => fun _ => b.default
 
 inductive Function
@@ -100,7 +101,7 @@ inductive Function
   | image | imageMinimum | imageMaximum
   | value
   | newName
-  | functionLookup | formalHides | functionDeclaration
+  | functionLookup | procedureLookup | formalHides | functionDeclaration | procedureDeclaration
   | addBinding
   | declaration
   | stringDeclaration | scalarConstraint | scalarDeclaration | scalarLookup | scalarRead | scalarAppend | scalarEmpty | scalarLiteral | nameIs
@@ -130,8 +131,10 @@ inductive Function
 
 def Function.name : Function → String
   | .functionLookup => "functions.lookup"
+  | .procedureLookup => "procedures.lookup"
   | .formalHides => "formal_hides"
   | .functionDeclaration => "function_declaration_at"
+  | .procedureDeclaration => "procedure_declaration_at"
   | .fixedBoundsValid => "fixed_bounds_valid"
   | .characterLiteral => "character_literal_after"
   | .guardedAt => "guarded_at"
@@ -217,8 +220,10 @@ def Function.name : Function → String
 
 @[reducible] def Function.type : Function → Ty
   | .functionLookup => .arrow .source (.arrow .functionMetadata (.arrow .number (.arrow .number .number)))
+  | .procedureLookup => .arrow .source (.arrow .procedureMetadata (.arrow .number (.arrow .number .number)))
   | .formalHides => .arrow .source (.arrow .state (.arrow .number (.arrow .number .truth)))
   | .functionDeclaration => .arrow .source (.arrow .state (.arrow .truth .state))
+  | .procedureDeclaration => .arrow .source (.arrow .state (.arrow .truth .state))
   | .fixedBoundsValid => .arrow .number (.arrow .truth (.arrow .truth (.arrow .integer (.arrow .integer (.arrow .number .truth)))))
   | .characterLiteral => .arrow .source (.arrow .number .number)
   | .guardedAt => .arrow .source (.arrow .number (.arrow .number (.arrow .number (.arrow .truth (.arrow .truth .truth)))))
@@ -312,8 +317,10 @@ structure Calls where
 Every recognizer helper is left arbitrary. -/
 def Calls.get (calls : Calls) : (symbol : Function) → symbol.type.meaning
   | .functionLookup => calls.function .functionLookup
+  | .procedureLookup => calls.function .procedureLookup
   | .formalHides => calls.function .formalHides
   | .functionDeclaration => calls.function .functionDeclaration
+  | .procedureDeclaration => calls.function .procedureDeclaration
   | .fixedBoundsValid => calls.function .fixedBoundsValid
   | .characterLiteral => calls.function .characterLiteral
   | .guardedAt => calls.function .guardedAt
@@ -399,6 +406,8 @@ def Calls.get (calls : Calls) : (symbol : Function) → symbol.type.meaning
 
 inductive Field : Ty → Ty → Type
   | stateFunctions : Field .state .functionMetadata
+  | stateProcedures : Field .state .procedureMetadata
+  | stateFirstProcedureParameter : Field .state .number
   | statePure : Field .state .truth
   | stateAssignedInFunctions : Field .state .truth
   | stateHiding : Field .state .hiddenMarks
@@ -477,7 +486,8 @@ inductive Field : Ty → Ty → Type
   | decimalValue : Field .decimal .number
 
 def Field.name : Field a b → String
-  | .stateFunctions => "functions" | .statePure => "pure"
+  | .stateFunctions => "functions" | .stateProcedures => "procedures"
+  | .stateFirstProcedureParameter => "first_procedure_parameter" | .statePure => "pure"
   | .stateAssignedInFunctions => "assigned_in_functions" | .stateHiding => "hiding"
   | .stateFirstParameter => "first_parameter"
   | .hiddenInteger => "integer_hidden" | .hiddenBoolean => "boolean_hidden"
@@ -544,7 +554,8 @@ def Field.name : Field a b → String
   | .decimalValue => "value"
 
 def Field.get : Field a b → a.meaning → b.meaning
-  | .stateFunctions, state => state.functions | .statePure, state => state.pure
+  | .stateFunctions, state => state.functions | .stateProcedures, state => state.procedures
+  | .stateFirstProcedureParameter, state => state.firstProcedureParameter | .statePure, state => state.pure
   | .stateAssignedInFunctions, state => state.assignedInFunctions
   | .stateHiding, state => state.hiding | .stateFirstParameter, state => state.firstParameter
   | .hiddenInteger, marks => marks.integerHidden | .hiddenBoolean, marks => marks.booleanHidden
@@ -797,7 +808,7 @@ def tokenName : ShellToken → String
     | "if" => "if_keyword" | "input_is_valid" => "input_is_valid_name" | "then" => "then_keyword"
     | "else" => "else_keyword" | "elsif" => "elsif_keyword" | "reject" => "reject_name" | "&" => "ampersand"
     | "and" => "and_keyword" | "or" => "or_keyword" | "not" => "not_keyword"
-    | "function" => "function_keyword" | "return" => "return_keyword"
+    | "function" => "function_keyword" | "return" => "return_keyword" | "out" => "out_keyword"
     | "character" => "character_name"
     | "boolean" => "boolean_name" | "true" => "true_name" | "false" => "false_name" | "xor" => "xor_keyword"
     | "/=" => "not_equal" | "<" => "less" | ">" => "greater" | ">=" => "greater_equal" | "'" => "apostrophe" | "length" => "length_name"
@@ -859,6 +870,7 @@ def Expr.render : Expr ty → List String
   | .function .operationAfter => ["names", ".", "operation_after"]
   | .function .associationAfter => ["names", ".", "association_after"]
   | .function .functionLookup => ["functions", ".", "lookup"]
+  | .function .procedureLookup => ["procedures", ".", "lookup"]
   | .function .arrayLookup => ["array_bindings", ".", "lookup"]
   | .function .scalarLookup => ["scalar_expressions", ".", "lookup"]
   | .function .scalarRead => ["scalar_expressions", ".", "read_expression"]
@@ -1342,8 +1354,11 @@ def newNameBody : Expr .truth :=
   .andThen (.andThen existing
     (.not (.app (.app (.app (.app (.function .formalHides) text) state) first) after)))
     (.group (.orElse (.field .statePure state)
-      (.eq (.app (.app (.app (.app (.function .functionLookup) text)
-        (.field .stateFunctions state)) first) after) (.number 0))))
+      (.group (.andThen
+        (.eq (.app (.app (.app (.app (.function .functionLookup) text)
+          (.field .stateFunctions state)) first) after) (.number 0))
+        (.eq (.app (.app (.app (.app (.function .procedureLookup) text)
+          (.field .stateProcedures state)) first) after) (.number 0))))))
 
 def addBindingBody : Expr .state :=
   .stateBinding (.variable "state") (.variable "following")
@@ -1438,16 +1453,18 @@ def subtypeLookupModelBody : Expr .number :=
       (.app (.app (.app (.app (.app (.function .subtypeLookupModel) text) names) first) after) (.sub index (.number 1))))
 
 /-- Extend an existing left-associated rejection condition with the actual
-function/formal visibility checks. This builds ordinary guarded trees; it does
+subprogram/formal visibility checks. This builds ordinary guarded trees; it does
 not introduce a new permissive rendering constructor. -/
 def withFunctionTypeHiding (rejected : Expr .truth) (text : Expr .source)
     (state : Expr .state) (first after : Expr .number) (allMarks : Bool := true) : Expr .truth :=
   let same (word : String) := Expr.app (.app (.app (.app (.function .nameIs) text) first) after) (.word word)
   let hidden (field : Field .hiddenMarks .truth) (word : String) :=
     Expr.group (.andThen (.field field (.field .stateHiding state)) (same word))
-  let common := Expr.orElse (.orElse (.orElse rejected
+  let common := Expr.orElse (.orElse (.orElse (.orElse rejected
     (.ne (.app (.app (.app (.app (.function .functionLookup) text)
       (.field .stateFunctions state)) first) after) (.number 0)))
+    (.ne (.app (.app (.app (.app (.function .procedureLookup) text)
+      (.field .stateProcedures state)) first) after) (.number 0)))
     (.app (.app (.app (.app (.function .formalHides) text) state) first) after))
     (hidden .hiddenInteger "integer")
   if allMarks then .orElse (.orElse common (hidden .hiddenBoolean "boolean"))
@@ -1564,17 +1581,19 @@ def declarationBody : Expr .state :=
   let scalar : Expr .state := .variable "scalar_state"
   let array : Expr .state := .variable "array_state"
   .locals <| .local "function_state" "parser_state" (.app (.app (.app (.function .functionDeclaration) text) state) arguments) <|
+    .local "procedure_state" "parser_state" (.app (.app (.app (.function .procedureDeclaration) text) state) arguments) <|
     .local "subtype_state" "parser_state" (.app (.app (.app (.function .subtypeDeclaration) text) state) arguments) <| .local "scalar_state" "parser_state" (.app (.app (.app (.function .scalarDeclaration) text) state) arguments) <|
     .local "array_state" "parser_state" (.app (.app (.app (.function .arrayDeclaration) text) state) arguments) <|
     .local "boolean_state" "parser_state" (.app (.app (.app (.function .booleanDeclaration) text) state) arguments) <|
     .local "character_state" "parser_state" (.app (.app (.app (.function .characterDeclaration) text) state) arguments) <|
     .group <| .ite (.ne (.field .statePosition (.variable "function_state")) (.number 0)) (.variable "function_state")
+      (.elsif (.ne (.field .statePosition (.variable "procedure_state")) (.number 0)) (.variable "procedure_state")
       (.elsif (.ne (.field .statePosition (.variable "subtype_state")) (.number 0)) (.variable "subtype_state")
       (.elsif (.ne (.field .statePosition scalar) (.number 0)) scalar
       (.elsif (.ne (.field .statePosition array) (.number 0)) array
       (.elsif (.ne (.field .statePosition (.variable "boolean_state")) (.number 0)) (.variable "boolean_state")
       (.elsif (.ne (.field .statePosition (.variable "character_state")) (.number 0)) (.variable "character_state")
-      (.app (.app (.app (.function .stringDeclaration) text) state) arguments))))))
+      (.app (.app (.app (.function .stringDeclaration) text) state) arguments)))))))
 
 def callAfterBody : Expr .number :=
   let text : Expr .source := .variable "text"

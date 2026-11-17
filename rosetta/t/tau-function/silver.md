@@ -15,7 +15,7 @@ Use samples/rosetta_tau_function.adb: Tau(N : in Positive_Input), N in 1..100, r
 
 ## Language surface recorded by this assessment
 
-Named Integer subtypes and bounded components, small nonrecursive scalar functions, bounded mutable Integer objects, Integer range for loops, interval-checked Integer division, scalar guard refinement and Integer image.
+Named Integer subtypes, bounded components and scalar signatures, small nonrecursive scalar functions, bounded mutable Integer objects, Integer range for loops, interval-checked Integer division, scalar guard refinement and Integer image.
 
 ## External effects
 

@@ -1,0 +1,27 @@
+{
+  "command": [
+    "python3",
+    "scripts/check_lean.py",
+    "--target",
+    "Silver.FunctionSourceParts.DeclarationLoopFunctionLocals",
+    "--workers",
+    "1",
+    "--memory-mb",
+    "8192",
+    "--provenance",
+    "--task",
+    "370-lean-memory-recovery",
+    "--reason",
+    "Same exact normalized source theorem after measured 2/4 GiB failures; original 8 GiB recovery allowance, not a global limit change. One worker/default 12 threads; certificate confirmed bucket 3 of 8 at 1.85 GiB tree with aggregate distant. Native full check held; own process tree guard 10 GiB and host available guard 1.5 GiB."
+  ],
+  "cwd": "/home/agent/silver-worktrees/procedures-lean-370",
+  "started_at": "2026-11-15T17:32:23.701380+00:00",
+  "peak_sum_rss_kib": 5987024,
+  "peak_process_rss_kib": 4860656,
+  "minimum_mem_available_kib": 10659584,
+  "pid": 17902,
+  "returncode": 0,
+  "elapsed_seconds": 85.07684654100012,
+  "finished_at": "2026-11-15T17:33:48.778213+00:00",
+  "interrupted": false
+}

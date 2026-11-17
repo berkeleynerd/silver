@@ -1,4 +1,5 @@
 with Silver_Function_Bindings;
+with Silver_Procedure_Bindings;
 with Silver_Report_Observations;
 with Silver_Report_Projection_Observations;
 
@@ -6,10 +7,13 @@ package Silver_Library_Reports with SPARK_Mode => On is
    package Function_Bindings renames Silver_Function_Bindings;
    subtype Function_Metadata is Function_Bindings.Metadata;
    Empty_Functions : constant Function_Metadata := Function_Bindings.Empty_Metadata;
+   package Procedure_Bindings renames Silver_Procedure_Bindings;
+   subtype Procedure_Metadata is Procedure_Bindings.Metadata;
+   Empty_Procedures : constant Procedure_Metadata := Procedure_Bindings.Empty_Metadata;
    --  Source-bounded application sequences can produce many proved checks and
    --  exact ghost-output and repeated array-loop advisories. This capacity uses
    --  the documented pinned producer envelope; it is not an additional statement-count restriction.
-   Max_Report_Length : constant Positive := 33_554_432;
+   Max_Report_Length : constant Positive := 67_108_864;
    Max_Runtime_Report_Length : constant Positive := 262_144;
    type Report_Kind is
      (Library_Body, Imported_Interface, Arguments_Body, Runtime_Interface);
@@ -22,7 +26,8 @@ package Silver_Library_Reports with SPARK_Mode => On is
      with Ghost => Static, Global => null;
    function Application_Report_Policy
      (Report : String; Kind : Application_Kind := Argument_Output;
-      Source : String := ""; Functions : Function_Metadata := Empty_Functions) return Boolean
+      Source : String := ""; Functions : Function_Metadata := Empty_Functions;
+      Procedures : Procedure_Metadata := Empty_Procedures) return Boolean
      with Ghost => Static, Global => null;
 
    --  The complete audit policy over mathematical original-report bytes.
@@ -33,7 +38,8 @@ package Silver_Library_Reports with SPARK_Mode => On is
    function Unbounded_Application_Report_Policy
      (Report : Silver_Report_Observations.Bytes.Sequence;
       Kind : Application_Kind := Argument_Output;
-      Source : String := ""; Functions : Function_Metadata := Empty_Functions) return Boolean
+      Source : String := ""; Functions : Function_Metadata := Empty_Functions;
+      Procedures : Procedure_Metadata := Empty_Procedures) return Boolean
      with Ghost => Static, Global => null;
 
    --  The original report is an unbounded mathematical byte sequence. Only
@@ -42,13 +48,14 @@ package Silver_Library_Reports with SPARK_Mode => On is
    procedure Application_Projection_Correspondence
      (Original : Silver_Report_Observations.Bytes.Sequence; Projected : String;
       Kind : Application_Kind := Argument_Output;
-      Source : String := ""; Functions : Function_Metadata := Empty_Functions)
+      Source : String := ""; Functions : Function_Metadata := Empty_Functions;
+      Procedures : Procedure_Metadata := Empty_Procedures)
      with Ghost => Static, Global => null,
        Pre => Projected'First = 1 and then Projected'Length <= Max_Report_Length
          and then Silver_Report_Projection_Observations.Audit_Projection_Observations
            (Original, Silver_Report_Observations.From_String (Projected)),
-       Post => Unbounded_Application_Report_Policy (Original, Kind, Source, Functions) =
-         Application_Report_Policy (Projected, Kind, Source, Functions);
+       Post => Unbounded_Application_Report_Policy (Original, Kind, Source, Functions, Procedures) =
+         Application_Report_Policy (Projected, Kind, Source, Functions, Procedures);
 
    procedure Runtime_Projection_Correspondence
      (Original : Silver_Report_Observations.Bytes.Sequence; Projected : String; Kind : Report_Kind)
@@ -73,19 +80,30 @@ package Silver_Library_Reports with SPARK_Mode => On is
      (Report : String; Kind : Report_Kind) return Boolean
      with Global => null,
        Post => (Static => Complete_Runtime_Proof'Result = Runtime_Report_Policy (Report, Kind));
-   --  Source membership selects Main, every declared local function, and the
-   --  applicable runtime callees. Every local function has distinct all coverage,
-   --  even if unused, and exactly one successful implicit termination record.
+   --  Source membership selects Main, every declared local subprogram, and the
+   --  applicable runtime callees. Every local subprogram has distinct all coverage,
+   --  even if unused. Functions require one successful implicit termination record;
+   --  each procedure out formal requires one successful initialization record with
+   --  its exact owner and source-case name. Inout formals need no such witness.
    --  Every emitted safety check must be a proved range, length, overflow,
-   --  nonzero-divisor or index check for Main or an identified local function.
+   --  nonzero-divisor or index check for Main or an identified local subprogram.
    --  Local dependency references permit only effects and absence-of-run-time-error
-   --  claims; no function postcondition is introduced by this report policy.
+   --  claims; no author postcondition is introduced by this report policy.
    --  All output forms permit exact ineffective-initialization advisories; assigned and
    --  selected results additionally permit the exact unused-assignment advisory.
    --  All sequence forms permit the exact ineffective/unreachable-statement
    --  advisories from constant-folded comparisons and loops, and four exact unused ghost
-   --  output messages from each of Put and Put_Line. The warning list permits
-   --  only the pinned Image advisory, with exactly the producer's Image, image
+   --  output messages from each of Put and Put_Line. Local functions/procedures
+   --  also permit the exact UNUSED_VARIABLE unused-formal advisory. The exact
+   --  INEFFECTIVE unused-copy-back message names a declared procedure callee.
+   --  INOUT_ONLY_READ accepts only '"NAME" is not modified, could be IN' for
+   --  a procedure in out formal. UNUSED_INITIAL_VALUE accepts only
+   --  'unused initial value of "NAME"' for procedure in/in out or function in.
+   --  Both bind exact declared owner/formal spelling, never Main, with warning
+   --  severity, flow provenance, main.adb, positive locations and no suppression
+   --  or justification. Formal binding uses neither columns nor record order.
+   --  The warning list permits the exact array-initialization information-loss
+   --  note and the pinned Image advisory, with the producer's Image, image
    --  or IMAGE spelling in its message and the exact producer state,
    --  no entity or justification, empty suppression string and empty proof tree.
    --  Other diagnostics are rejected.
@@ -95,7 +113,8 @@ package Silver_Library_Reports with SPARK_Mode => On is
    --  argument sequences may retain the three argument callees without IO.
    function Complete_Application_Proof
      (Report : String; Kind : Application_Kind := Argument_Output;
-      Source : String := ""; Functions : Function_Metadata := Empty_Functions) return Boolean
+      Source : String := ""; Functions : Function_Metadata := Empty_Functions;
+      Procedures : Procedure_Metadata := Empty_Procedures) return Boolean
      with Global => null,
-       Post => (Static => Complete_Application_Proof'Result = Application_Report_Policy (Report, Kind, Source, Functions));
+       Post => (Static => Complete_Application_Proof'Result = Application_Report_Policy (Report, Kind, Source, Functions, Procedures));
 end Silver_Library_Reports;

@@ -1,0 +1,11 @@
+{
+  "project_modules": 1009,
+  "explicit_audit_import_closure": 1009,
+  "missing_project_imports": [],
+  "unreached_modules": [],
+  "cached_module_objects_present": 1009,
+  "remaining_without_object": 0,
+  "presence_is_not_a_validation_claim": true,
+  "actual_audit_imported_modules": 1009,
+  "actual_audit_matches_entire_project": true
+}

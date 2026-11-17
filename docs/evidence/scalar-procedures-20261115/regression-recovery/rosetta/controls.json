@@ -1,0 +1,162 @@
+{
+  "baseline_commit": "8ccbc84210346596bc8417cbf8b6bc40f8075ed7",
+  "original_proposal_commit": "dea5d04ad708d2c0d710b99c276a8b27526f975e",
+  "host": "Linux-7.0.14-aarch64-with-glibc2.41",
+  "machine": "aarch64",
+  "python": "3.14.10 (main, Nov  3 2026, 14:39:54) [GCC 14.2.0]",
+  "python_executable": "/usr/bin/python3",
+  "python_executable_sha256": "12972c21012f72668e27bc493715d011f7ae3c38ae861a1365ae42f59ef11a17",
+  "inputs": {
+    "rosetta/assess.js": {
+      "bytes": 37667,
+      "sha256": "05627863702ab88699cf8308bbd2a2feba0344bd1a97a0ad90eda70bd6bbec4c"
+    },
+    "rosetta/assessment-scalar-procedures-20261109.md": {
+      "bytes": 3616,
+      "sha256": "22d5283154d4d03a569fb76ce40fe463694adba4c479a533edc13db498507f78"
+    },
+    "rosetta/coverage.json": {
+      "bytes": 3779647,
+      "sha256": "0ea529d93ec5b88c7b4d07eccb348e4f3ab37fb9edf77314be303f88f66eda39"
+    },
+    "rosetta/manifest.json": {
+      "bytes": 1097738,
+      "sha256": "c007b4a67439be22b242e6104f5e41998d5aa3ca1a7174cfe3cc6de7927b452f"
+    },
+    "rosetta/r/return-multiple-values/ada-1.ada": {
+      "bytes": 437,
+      "sha256": "7623bbe0b4a448ad95470982209bdf7ed0e7bf0e53bbf861246b29f97fdbb0b4"
+    },
+    "rosetta/r/return-multiple-values/ada.wiki": {
+      "bytes": 919,
+      "sha256": "2b7783f650a27f0b714aa8c7eed49574deaae4b6716e3b01a86d7c06747eb955"
+    },
+    "rosetta/r/return-multiple-values/task.wiki": {
+      "bytes": 166,
+      "sha256": "02c8b55b03d49f1f3a7881db3dce5de9d6517c69d55dd3498bddefd195e20b5f"
+    },
+    "rosetta/refresh.py": {
+      "bytes": 61465,
+      "sha256": "1f07550b8adef94a2456f6f7b1f2831436005e40a4c0a6fb34f10c3ffbf17f60"
+    },
+    "samples/manifest.json": {
+      "bytes": 116778,
+      "sha256": "bec398ab1e86124413840542d46563618d61c314d6db409574713f851f2d63a7"
+    },
+    "samples/rosetta_return_multiple_values.adb": {
+      "bytes": 912,
+      "sha256": "fe82cee9e09fb5911c02049998bb580defec6168af792664427231880c7b547d"
+    },
+    "tests/test_rosetta.py": {
+      "bytes": 12933,
+      "sha256": "90a625bccc1fac8cab7dc822eb2866812d83ff8a08995c44682815207b10bbf4"
+    }
+  },
+  "render_inputs": [
+    "rosetta/manifest.json",
+    "rosetta/coverage.json",
+    "rosetta/refresh.py"
+  ],
+  "changed_task_assessments": [
+    "Return multiple values"
+  ],
+  "metadata_fields_changed_since_proposal": [
+    "risks",
+    "summary",
+    "review"
+  ],
+  "supported_added": [
+    "scalar-procedures"
+  ],
+  "supported_removed": [],
+  "stage_1_before": 83,
+  "stage_1_after": 84,
+  "stages_before": 44,
+  "stages_after": 44,
+  "entered_stage_1": [
+    "Return multiple values"
+  ],
+  "left_stage_1": [],
+  "changed_task_stages": [
+    "Return multiple values"
+  ],
+  "return_multiple_values_before": {
+    "rank": 85,
+    "stage": 2
+  },
+  "return_multiple_values_after": {
+    "rank": 59,
+    "stage": 1
+  },
+  "stage_drivers_and_introduced_constructs_unchanged": true,
+  "stage_2": {
+    "title": "Law of cosines - triples",
+    "introduces": [
+      "for-loops",
+      "integers",
+      "procedures",
+      "ranged-subtypes",
+      "scalar-image"
+    ]
+  },
+  "broad_stage_issue_11_must_remain_open": true,
+  "original_attribution": {
+    "revision": 412999,
+    "assessed": "2026-10-15",
+    "rubric": 2,
+    "tier": "deep",
+    "model": "claude-opus-5-5",
+    "effort": "high"
+  },
+  "historical_pending_assessment_unchanged": true,
+  "changed_proposal_paths": [
+    "rosetta.md",
+    "rosetta/a/additive-primes/silver.md",
+    "rosetta/a/array-concatenation/silver.md",
+    "rosetta/a/attractive-numbers/silver.md",
+    "rosetta/assess.js",
+    "rosetta/assessment-scalar-procedures-20261115.md",
+    "rosetta/c/common-list-elements/silver.md",
+    "rosetta/c/coprimes/silver.md",
+    "rosetta/c/cross-compilation/silver.md",
+    "rosetta/coverage.json",
+    "rosetta/d/draw-the-empire-state-building/silver.md",
+    "rosetta/e/elementary-cellular-automaton/silver.md",
+    "rosetta/f/factorial/silver.md",
+    "rosetta/f/factors-of-an-integer/silver.md",
+    "rosetta/f/fibonacci-sequence/silver.md",
+    "rosetta/g/greatest-common-divisor/silver.md",
+    "rosetta/h/happy-numbers/silver.md",
+    "rosetta/l/law-of-cosines-triples/silver.md",
+    "rosetta/l/leap-year/silver.md",
+    "rosetta/l/least-common-multiple/silver.md",
+    "rosetta/l/literals/integer/silver.md",
+    "rosetta/m/multiplication-tables/silver.md",
+    "rosetta/n/naming-conventions/silver.md",
+    "rosetta/p/palindrome-detection/silver.md",
+    "rosetta/p/primality-by-trial-division/silver.md",
+    "rosetta/progression.md",
+    "rosetta/r/return-multiple-values/silver.md",
+    "rosetta/refresh.py",
+    "rosetta/s/selectively-replace-multiple-instances-of-a-character-within-a-string/silver.md",
+    "rosetta/s/sieve-of-eratosthenes/silver.md",
+    "rosetta/s/sign-of-an-integer-signum/silver.md",
+    "rosetta/s/sort-an-integer-array/silver.md",
+    "rosetta/s/sorting-algorithms/bubble-sort/silver.md",
+    "rosetta/s/special-pythagorean-triplet/silver.md",
+    "rosetta/s/sum-and-product-of-an-array/silver.md",
+    "rosetta/s/sum-digits-of-an-integer/silver.md",
+    "rosetta/s/sum-multiples-of-3-and-5/silver.md",
+    "rosetta/s/sum-of-divisors/silver.md",
+    "rosetta/s/sum-of-squares/silver.md",
+    "rosetta/t/tau-function/silver.md"
+  ],
+  "sample_source_bytes": 912,
+  "sample_source_sha256": "fe82cee9e09fb5911c02049998bb580defec6168af792664427231880c7b547d",
+  "expected_stdout_bytes": 67,
+  "expected_stdout_sha256": "4af8f788ee41cd6f93e9d9f7bd4c98550618eeea59c5f53f16329781b8cd138a",
+  "exact_input_pairs_checked": 40401,
+  "generated_file_count": 1784,
+  "generated_inventory_sha256": "79de546605ddca5ae6039bd408d9b98b3fd8b9af6a45c3a7d1ec4433a9ce683f",
+  "result": "all controls passed"
+}

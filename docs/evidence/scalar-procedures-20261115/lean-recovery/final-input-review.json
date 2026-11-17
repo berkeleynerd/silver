@@ -1,0 +1,13 @@
+{
+  "implementation_commit": "81e09276c",
+  "original_theorem_statement_byte_identical": true,
+  "retired_or_control_modules_present": [],
+  "sha256": {
+    "proof/Silver/FunctionSourceParts/DeclarationLoopFunctionLocals.lean": "45eaf9319360555ebd868887480a9f5fa1b289bd058ec7621707ba09a278d560",
+    "proof/Silver/FunctionSourceParts/FunctionLocalsExpectedTokens.lean": "d8460db722d511aae77e3b12ca0648902f2cbd105ff0bb37c424ef7edc574899",
+    "proof/Silver/ComposeBooleanDeclarationSource.lean": "4c1238f90784ac4cf6c2b0e98c39d694eba7a93a97e1ce59923b7eff185050e3",
+    "proof/Silver/FunctionDeclarationSource.lean": "62068d58257af8c56535b5c94036af5901e9dab8cfbe8c959a060ee30d316d65",
+    "proof/Silver/ReviewedOutputShape.lean": "823ab519a1d93cde0beefcf8a98cff1342e070abd544513c5b179439c6ee3716",
+    "src/silver_output_profile.adb": "619f4fb8e2b0f318dac7c6278d5f644198816ce7733959ed71ca03917546b2b8"
+  }
+}

@@ -1,0 +1,464 @@
+{
+  "review_target": "8ccbc84210346596bc8417cbf8b6bc40f8075ed7",
+  "observed_at_utc": "2026-11-15T19:33:43.408712+00:00",
+  "first_recorded_observation_utc": "2026-11-15T19:30:27.471217+00:00",
+  "host": "Linux-7.0.14-aarch64-with-glibc2.41",
+  "cpus": 12,
+  "selected_model": "gpt-6-astra",
+  "selected_effort": "max",
+  "setting_evidence": "Lead confirmed explicit spawn selection; runtime settings/token/cost not independently exposed.",
+  "historical_review_continuity": {
+    "catalogue_372": {
+      "reviewed_commit": "bfe82aeb81b0d16a867cee440561dd8a37ade6b4",
+      "files": {
+        "src/silver_catalogue.adb": {
+          "reviewed_sha256": "0a89693a789c19a30c6c8b8abf72d4531c60f6012afeb918022b9569ec20f932",
+          "frozen_sha256": "0a89693a789c19a30c6c8b8abf72d4531c60f6012afeb918022b9569ec20f932",
+          "equal": true
+        },
+        "catalogue/silver.json": {
+          "reviewed_sha256": "f8b3348555ea1d13f486836ae62b313248fe0833fe705e6c03a96228ac5a48ab",
+          "frozen_sha256": "f8b3348555ea1d13f486836ae62b313248fe0833fe705e6c03a96228ac5a48ab",
+          "equal": true
+        },
+        "tests/test_silver.py": {
+          "reviewed_sha256": "eb1aaa31aa61f02676531443c2a3006e6199699983d98c5aa58f2dd856084304",
+          "frozen_sha256": "eb1aaa31aa61f02676531443c2a3006e6199699983d98c5aa58f2dd856084304",
+          "equal": true
+        }
+      }
+    },
+    "refresh_29": {
+      "reviewed_commit": "791b1224232a1f7b77faf8c33375c0e085f90c53",
+      "files": {
+        "rosetta/refresh.py": {
+          "reviewed_sha256": "e63aef342970f588b690e34fa2faae0718e2499ece544031254d93724c8b5c7b",
+          "frozen_sha256": "e63aef342970f588b690e34fa2faae0718e2499ece544031254d93724c8b5c7b",
+          "equal": true
+        },
+        "tests/test_rosetta.py": {
+          "reviewed_sha256": "90a625bccc1fac8cab7dc822eb2866812d83ff8a08995c44682815207b10bbf4",
+          "frozen_sha256": "90a625bccc1fac8cab7dc822eb2866812d83ff8a08995c44682815207b10bbf4",
+          "equal": true
+        }
+      }
+    },
+    "qualified_validity_390": {
+      "reviewed_commit": "51371ef82f4af511a1e22f02d614081fcf44459e",
+      "files": {
+        "tests/test_scalar_procedures.py": {
+          "reviewed_sha256": "a277542428d89fa12fcda20bd170497e99213aab54943de166726cc1e88a433c",
+          "frozen_sha256": "a277542428d89fa12fcda20bd170497e99213aab54943de166726cc1e88a433c",
+          "equal": true
+        },
+        "proof/Silver/ProcedureNameScanner.lean": {
+          "reviewed_sha256": "6e6a0f838d30ed2f784f58f710298788d03d08f0ad70976ed939685a5ebbecd1",
+          "frozen_sha256": "6e6a0f838d30ed2f784f58f710298788d03d08f0ad70976ed939685a5ebbecd1",
+          "equal": true
+        },
+        "proof/Silver/ProcedureNameNative.lean": {
+          "reviewed_sha256": "cd964105c508c786ad32550f841736eea9221559ec4be7beb4464df8a3866d91",
+          "frozen_sha256": "cd964105c508c786ad32550f841736eea9221559ec4be7beb4464df8a3866d91",
+          "equal": true
+        },
+        "proof/Silver/ProcedureNameTraceTraversal.lean": {
+          "reviewed_sha256": "cd06379e6b7c4094f0bc920220a983c7f5853c6c92b3caf9fe08a0d75221c07a",
+          "frozen_sha256": "cd06379e6b7c4094f0bc920220a983c7f5853c6c92b3caf9fe08a0d75221c07a",
+          "equal": true
+        },
+        "proof/Silver/ProcedureNameCompoundTokens.lean": {
+          "reviewed_sha256": "9a6a2499b4aac04f7cb1a07fe4f6d0df7da4a3b5cf4e299747d1002cfad4a221",
+          "frozen_sha256": "9a6a2499b4aac04f7cb1a07fe4f6d0df7da4a3b5cf4e299747d1002cfad4a221",
+          "equal": true
+        },
+        "proof/Silver/ProcedureNameSelectors.lean": {
+          "reviewed_sha256": "b7900bd3028946d834dc9b973fecfb17df9f3b13b959d8f54deae28487a48d03",
+          "frozen_sha256": "b7900bd3028946d834dc9b973fecfb17df9f3b13b959d8f54deae28487a48d03",
+          "equal": true
+        },
+        "proof/Silver/ProcedureNamePunctuation.lean": {
+          "reviewed_sha256": "3ea46e11887717fd01cc09add10c65380b613c747d5ac27bf40326b482c717a8",
+          "frozen_sha256": "3ea46e11887717fd01cc09add10c65380b613c747d5ac27bf40326b482c717a8",
+          "equal": true
+        },
+        "proof/Silver/ProcedureNameIndexedReadings.lean": {
+          "reviewed_sha256": "41d5c67a429473d65b3c187f7700d86367f8206d33b0d7f4e4298914cf0d3b9e",
+          "frozen_sha256": "41d5c67a429473d65b3c187f7700d86367f8206d33b0d7f4e4298914cf0d3b9e",
+          "equal": true
+        },
+        "proof/Silver/ProcedureNameValidityReading.lean": {
+          "reviewed_sha256": "6d262fe5b75d4656cf047fcd0c668625e03e23717a88faa2a5917d6b746ea9d5",
+          "frozen_sha256": "6d262fe5b75d4656cf047fcd0c668625e03e23717a88faa2a5917d6b746ea9d5",
+          "equal": true
+        }
+      }
+    },
+    "handwritten_375": {
+      "reviewed_commit": "4553fd6a11d97dfc6df9c52c766ec6921ce44e33",
+      "files": {
+        "proof/Silver/PredicateSourceRequirements.lean": {
+          "reviewed_sha256": "6c00a05b24b3bb4df6380ca42ed9552b03b4491c773cde1b7cb5b9cc5bd9bd97",
+          "frozen_sha256": "6c00a05b24b3bb4df6380ca42ed9552b03b4491c773cde1b7cb5b9cc5bd9bd97",
+          "equal": true
+        },
+        "proof/Silver/ComposeCatalogueSourceCandidate.lean": {
+          "reviewed_sha256": "77cd2efa6a213c36d754f7fbf23b663429b4400dd19d462fb44011e20a975571",
+          "frozen_sha256": "77cd2efa6a213c36d754f7fbf23b663429b4400dd19d462fb44011e20a975571",
+          "equal": true
+        }
+      }
+    },
+    "native_ghost": {
+      "reviewed_commit": "d19baabc5d1e6c21d453df48e92f1b08cf7358b5",
+      "files": {
+        "src/silver_output_profile.adb": {
+          "reviewed_sha256": "9ede490b6cf72b352a39072cd37f4ef39774409c6024135487cf076567b59b9c",
+          "frozen_sha256": "9ede490b6cf72b352a39072cd37f4ef39774409c6024135487cf076567b59b9c",
+          "equal": true
+        },
+        "proof/Silver/ComposeArrayDeclarationSource.lean": {
+          "reviewed_sha256": "246533f0f2339c89a56560450d446bf027e7d3b6b6989d68e3a36ff254dd15f4",
+          "frozen_sha256": "246533f0f2339c89a56560450d446bf027e7d3b6b6989d68e3a36ff254dd15f4",
+          "equal": true
+        }
+      }
+    },
+    "certificate_core": {
+      "reviewed_commit": "a33c7cba9da346db8be795f9dab25d44ea50bb0d",
+      "files": {
+        "proof/Silver/CertificateJoinWitness.lean": {
+          "reviewed_sha256": "9d2c96d2a52eb75370e2e663cb14d5a4051a049e45ca9115bb20f4c2677ef51d",
+          "frozen_sha256": "9d2c96d2a52eb75370e2e663cb14d5a4051a049e45ca9115bb20f4c2677ef51d",
+          "equal": true
+        },
+        "proof/generate_source_certificate.py": {
+          "reviewed_sha256": "a938697c3b361dc4fa3165f84571c8e751248594e172f3a4c3137dd4e5fbbd79",
+          "frozen_sha256": "a938697c3b361dc4fa3165f84571c8e751248594e172f3a4c3137dd4e5fbbd79",
+          "equal": true
+        },
+        "tests/test_lean_source.py": {
+          "reviewed_sha256": "879137bdea85ed30581e140ca4355d8c87fb5fc44f7014e514361ef70e8cf3ac",
+          "frozen_sha256": "879137bdea85ed30581e140ca4355d8c87fb5fc44f7014e514361ef70e8cf3ac",
+          "equal": true
+        }
+      }
+    },
+    "function_local": {
+      "reviewed_commit": "81e09276c9cd16d18665aea034cbb56acb72ccc4",
+      "files": {
+        "proof/Silver/FunctionSourceParts/DeclarationLoopFunctionLocals.lean": {
+          "reviewed_sha256": "45eaf9319360555ebd868887480a9f5fa1b289bd058ec7621707ba09a278d560",
+          "frozen_sha256": "45eaf9319360555ebd868887480a9f5fa1b289bd058ec7621707ba09a278d560",
+          "equal": true
+        },
+        "proof/Silver/FunctionSourceParts/FunctionLocalsExpectedTokens.lean": {
+          "reviewed_sha256": "d8460db722d511aae77e3b12ca0648902f2cbd105ff0bb37c424ef7edc574899",
+          "frozen_sha256": "d8460db722d511aae77e3b12ca0648902f2cbd105ff0bb37c424ef7edc574899",
+          "equal": true
+        }
+      }
+    },
+    "function_headers": {
+      "reviewed_commit": "e70ad1ffd37f6cf1a15e08b4d26b91e6d758ca7c",
+      "files": {
+        "proof/Silver/FunctionSourceParts/DeclarationHeaderFunctionLocalsModelSpec.lean": {
+          "reviewed_sha256": "a6b035e1f8a1fe1a50bb8e4a1d187d740b08a5307f49f607fb71db785514f7e1",
+          "frozen_sha256": "a6b035e1f8a1fe1a50bb8e4a1d187d740b08a5307f49f607fb71db785514f7e1",
+          "equal": true
+        },
+        "proof/Silver/FunctionSourceParts/DeclarationHeaderFunctionBodyAtSpec.lean": {
+          "reviewed_sha256": "3dc0f51595dcfd7ae7c553c542c4347fe63acb7039b93debd05b58386e3473fd",
+          "frozen_sha256": "3dc0f51595dcfd7ae7c553c542c4347fe63acb7039b93debd05b58386e3473fd",
+          "equal": true
+        },
+        "proof/Silver/FunctionSourceParts/FunctionDeclarationHeaderExpectedTokens.lean": {
+          "reviewed_sha256": "74e566f3965b6c38d3ab70da63004f5887b079fbb36267cf1fbee8f8edc46517",
+          "frozen_sha256": "74e566f3965b6c38d3ab70da63004f5887b079fbb36267cf1fbee8f8edc46517",
+          "equal": true
+        }
+      }
+    },
+    "parameter_local_headers": {
+      "reviewed_commit": "c38f0eedc824014b8500ca51532443936e8ac35c",
+      "files": {
+        "proof/Silver/FunctionSourceParts/DeclarationHeaderParameterStepSpec.lean": {
+          "reviewed_sha256": "93e8f6a99a66c46b153507f72dc00864a466b298fac47033df670e99389581ce",
+          "frozen_sha256": "93e8f6a99a66c46b153507f72dc00864a466b298fac47033df670e99389581ce",
+          "equal": true
+        },
+        "proof/Silver/FunctionSourceParts/DeclarationHeaderParametersModelSpec.lean": {
+          "reviewed_sha256": "fc11eba57c0d09a976936e3758e3e2cfa5edfcbd6064f7d7d22e9f6ea5f76a10",
+          "frozen_sha256": "fc11eba57c0d09a976936e3758e3e2cfa5edfcbd6064f7d7d22e9f6ea5f76a10",
+          "equal": true
+        },
+        "proof/Silver/FunctionSourceParts/DeclarationHeaderParametersAtSpec.lean": {
+          "reviewed_sha256": "41186dde368c316f03669dbe58b7078af0084aa9a1d5590024b912908ddd6120",
+          "frozen_sha256": "41186dde368c316f03669dbe58b7078af0084aa9a1d5590024b912908ddd6120",
+          "equal": true
+        },
+        "proof/Silver/FunctionSourceParts/DeclarationHeaderFunctionLocalAtSpec.lean": {
+          "reviewed_sha256": "9a748195a30c11e4802127cc725a1b89947162f7cdc4ffe9948b9cb9b5725b7a",
+          "frozen_sha256": "9a748195a30c11e4802127cc725a1b89947162f7cdc4ffe9948b9cb9b5725b7a",
+          "equal": true
+        },
+        "proof/Silver/FunctionSourceParts/DeclarationHeaderFunctionLocalsSpec.lean": {
+          "reviewed_sha256": "cabda34175c490d155305d200c3e56af1370242cc5114275fdb92fe39ba6d600",
+          "frozen_sha256": "cabda34175c490d155305d200c3e56af1370242cc5114275fdb92fe39ba6d600",
+          "equal": true
+        },
+        "proof/Silver/FunctionSourceParts/DeclarationHeaderParameterFrameSpec.lean": {
+          "reviewed_sha256": "f378bf45ea321eea6d1a3041a2719e5598c1898b11fd136b21e84ec960dddde2",
+          "frozen_sha256": "f378bf45ea321eea6d1a3041a2719e5598c1898b11fd136b21e84ec960dddde2",
+          "equal": true
+        },
+        "proof/Silver/FunctionSourceParts/FunctionParameterLocalHeaderTokens.lean": {
+          "reviewed_sha256": "54cd9d0f08e36b395c610e10e98eb6a3e2c2ba7c3d8970a5495bdb9840fbe825",
+          "frozen_sha256": "54cd9d0f08e36b395c610e10e98eb6a3e2c2ba7c3d8970a5495bdb9840fbe825",
+          "equal": true
+        }
+      }
+    },
+    "remaining_expectations": {
+      "reviewed_commit": "91858a579dab2218b385c8b9a4f9dae8f934bca0",
+      "files": {
+        "proof/Silver/FunctionSourceParts/DeclarationOrdinaryFunctionBodyAt.lean": {
+          "reviewed_sha256": "40bb79e974900db64cddb00f45d34fca761b60764c8f1712c5a4d20b664656a6",
+          "frozen_sha256": "40bb79e974900db64cddb00f45d34fca761b60764c8f1712c5a4d20b664656a6",
+          "equal": true
+        },
+        "proof/Silver/FunctionSourceParts/DeclarationLoopParametersAt.lean": {
+          "reviewed_sha256": "d72f46f54ff813aeb1fd4f56515a11004edbb5885d2478d57c1d0fd22ab81690",
+          "frozen_sha256": "d72f46f54ff813aeb1fd4f56515a11004edbb5885d2478d57c1d0fd22ab81690",
+          "equal": true
+        },
+        "proof/Silver/FunctionSourceParts/DeclarationLoopParameterFrame.lean": {
+          "reviewed_sha256": "4fe944f51d67d8be0822a417662498f7465b863487abec3a9f93e68356b04654",
+          "frozen_sha256": "4fe944f51d67d8be0822a417662498f7465b863487abec3a9f93e68356b04654",
+          "equal": true
+        },
+        "proof/Silver/FunctionSourceParts/CallsActualModelSpec.lean": {
+          "reviewed_sha256": "ba6a2baae3e4ce08a8d4c6832aea2c320bd88d6d3f2d3054cf3749b153d687a8",
+          "frozen_sha256": "ba6a2baae3e4ce08a8d4c6832aea2c320bd88d6d3f2d3054cf3749b153d687a8",
+          "equal": true
+        },
+        "proof/Silver/FunctionSourceParts/CallsActualAfterSpec.lean": {
+          "reviewed_sha256": "86d44f06d87bb23231506807342d6c4d4e93bbb9855fe3cc842226fdd13ae263",
+          "frozen_sha256": "86d44f06d87bb23231506807342d6c4d4e93bbb9855fe3cc842226fdd13ae263",
+          "equal": true
+        },
+        "proof/Silver/FunctionSourceParts/CallsActualsModelSpec.lean": {
+          "reviewed_sha256": "fe755e316cb47eb1f5b72f51d515ddd46178ec04fb06c9e779e3a1af52211c52",
+          "frozen_sha256": "fe755e316cb47eb1f5b72f51d515ddd46178ec04fb06c9e779e3a1af52211c52",
+          "equal": true
+        },
+        "proof/Silver/FunctionSourceParts/CallsActualsAfterSpec.lean": {
+          "reviewed_sha256": "6e4dcb0db8d96909af766cabb2a61370207cec985e8fca797bcd45b636a337c6",
+          "frozen_sha256": "6e4dcb0db8d96909af766cabb2a61370207cec985e8fca797bcd45b636a337c6",
+          "equal": true
+        },
+        "proof/Silver/FunctionSourceParts/CallsCallModelSpec.lean": {
+          "reviewed_sha256": "e7cddd45434dec937daee3e468176ea1305193f6e1b1446e023d6b268b503011",
+          "frozen_sha256": "e7cddd45434dec937daee3e468176ea1305193f6e1b1446e023d6b268b503011",
+          "equal": true
+        },
+        "proof/Silver/FunctionSourceParts/CallsReadCallSpec.lean": {
+          "reviewed_sha256": "19c035e350f5ccbec30c0a6f61d487461a718f15e2ac32532c2c539ad0f8a51a",
+          "frozen_sha256": "19c035e350f5ccbec30c0a6f61d487461a718f15e2ac32532c2c539ad0f8a51a",
+          "equal": true
+        },
+        "proof/Silver/FunctionSourceParts/CallsCallAssignmentBodySpec.lean": {
+          "reviewed_sha256": "be0b47ea1c5412c7dad7f69affa1b65e096a2840b03e0efaffac73a1e1b41a49",
+          "frozen_sha256": "be0b47ea1c5412c7dad7f69affa1b65e096a2840b03e0efaffac73a1e1b41a49",
+          "equal": true
+        },
+        "proof/Silver/FunctionSourceParts/FunctionRemainingExpectedTokens.lean": {
+          "reviewed_sha256": "17141e654e18edcf554b4026983647d44f322569702f4743e45f801f31e37ba6",
+          "frozen_sha256": "17141e654e18edcf554b4026983647d44f322569702f4743e45f801f31e37ba6",
+          "equal": true
+        }
+      }
+    },
+    "boolean_header": {
+      "reviewed_commit": "46c849d818699d8d7d87d6fb099b12d4e5d19c62",
+      "files": {
+        "proof/Silver/BooleanDeclarationExpectedTokens.lean": {
+          "reviewed_sha256": "8ba1f19ad79eab933fbb39c0e6f1e37d7a8a7ee4417700da21ee03544861a1ec",
+          "frozen_sha256": "8ba1f19ad79eab933fbb39c0e6f1e37d7a8a7ee4417700da21ee03544861a1ec",
+          "equal": true
+        },
+        "proof/Silver/ComposeHelperSourceCandidate.lean": {
+          "reviewed_sha256": "ecd706ab2723433c94db1fca5a2342662563962043dc47ca4328b831aaf51446",
+          "frozen_sha256": "ecd706ab2723433c94db1fca5a2342662563962043dc47ca4328b831aaf51446",
+          "equal": true
+        }
+      }
+    }
+  },
+  "generated_candidate_continuity": {
+    "record_sha256": "954a0cefd084a5dfb4315f92e3b805bf976fa9a30af63492c7af2340d28a6567",
+    "source_matches": true,
+    "generator_matches": true,
+    "candidates_checked": 40,
+    "mismatches": [],
+    "scope": "Hash comparison to retained generation record; no generator or proof run."
+  },
+  "focused_run_applicability": [
+    {
+      "run_id": "20261115T182909-e353e1507833",
+      "evidence_path": "lean-recovery/function-source-candidate/focused-success-evidence.json.gz",
+      "evidence_sha256": "6efc03dbd2bc07b680215e271e38d89c34820d177e1adfee98d6f10d74f7eb8f",
+      "runner_log_path": "lean-recovery/function-source-candidate/focused-success-runner.log.gz",
+      "runner_log_uncompressed_sha256": "8fc14e614312bce112d96ebbacfa131fa1ba6fc6c53f115ee24e30dc4b735b8a",
+      "runner_log_matches_evidence": true,
+      "scope": "focused",
+      "host": "linux-aarch64",
+      "lean_version": "4.34.1",
+      "module_count": 197,
+      "recorded_modules_equal_log": true,
+      "audit_message": [
+        "Silver axiom audit passed: 17516 declarations; foundations: [propext, Classical.choice, Quot.sound]"
+      ],
+      "all_phases_exit_zero": true,
+      "input_count": 1109,
+      "captured_input_mismatches": [
+        "proof/Silver/ComposeHelperSourceCandidate.lean"
+      ],
+      "imported_proof_mismatches": [],
+      "final_boolean_helper_absent_in_earlier_snapshot": true,
+      "settings": {
+        "clean_build": false,
+        "mode": "focused",
+        "kernel_recheck": null,
+        "lake_workers": 1,
+        "threads_per_process": 12,
+        "memory_mb_per_process": 8192
+      }
+    },
+    {
+      "run_id": "20261115T185653-905487da1ee4",
+      "evidence_path": "lean-recovery/complete-checkpoint/compose-helper-success-evidence.json.gz",
+      "evidence_sha256": "28090d1e286b7ce9446c086246e942d0bf1058a7321d27b7c698bb2421d2b5ef",
+      "runner_log_path": "lean-recovery/complete-checkpoint/compose-helper-success-runner.log.gz",
+      "runner_log_uncompressed_sha256": "bcfecbbc994f51eeaa2d9b96982e35fab0db3a9629f2162654875a21e78c6d1b",
+      "runner_log_matches_evidence": true,
+      "scope": "focused",
+      "host": "linux-aarch64",
+      "lean_version": "4.34.1",
+      "module_count": 104,
+      "recorded_modules_equal_log": true,
+      "audit_message": [
+        "Silver axiom audit passed: 14576 declarations; foundations: [propext, Classical.choice, Quot.sound]"
+      ],
+      "all_phases_exit_zero": true,
+      "input_count": 1110,
+      "captured_input_mismatches": [],
+      "imported_proof_mismatches": [],
+      "final_boolean_helper_absent_in_earlier_snapshot": false,
+      "settings": {
+        "clean_build": false,
+        "mode": "focused",
+        "kernel_recheck": null,
+        "lake_workers": 1,
+        "threads_per_process": 12,
+        "memory_mb_per_process": 8192
+      }
+    },
+    {
+      "run_id": "20261115T183635-e890328a97c4",
+      "evidence_path": "certificate-memory/final-source-aggregate/lean-focused-evidence.json",
+      "evidence_sha256": "607ebc7459ca9211116b76808e0ec030b7667bd3de991fc446d2e5b3a8b0051f",
+      "runner_log_path": "certificate-memory/final-source-aggregate/lean-focused.log",
+      "runner_log_uncompressed_sha256": "31bcfcaaa3f1b5153ccd7d9d8b5a01fa1391d7de47c6ec46b074ccbcf7abd101",
+      "runner_log_matches_evidence": true,
+      "scope": "focused",
+      "host": "linux-aarch64",
+      "lean_version": "4.34.1",
+      "module_count": 17,
+      "recorded_modules_equal_log": true,
+      "audit_message": [
+        "Silver axiom audit passed: 51104 declarations; foundations: [propext, Classical.choice, Quot.sound]"
+      ],
+      "all_phases_exit_zero": true,
+      "input_count": 1106,
+      "captured_input_mismatches": [
+        "proof/Silver/ComposeHelperSourceCandidate.lean",
+        "proof/Silver/FunctionSourceParts/CallsActualAfterSpec.lean",
+        "proof/Silver/FunctionSourceParts/CallsActualModelSpec.lean",
+        "proof/Silver/FunctionSourceParts/CallsActualsAfterSpec.lean",
+        "proof/Silver/FunctionSourceParts/CallsActualsModelSpec.lean",
+        "proof/Silver/FunctionSourceParts/CallsCallAssignmentBodySpec.lean",
+        "proof/Silver/FunctionSourceParts/CallsCallModelSpec.lean",
+        "proof/Silver/FunctionSourceParts/CallsReadCallSpec.lean",
+        "proof/Silver/FunctionSourceParts/DeclarationHeaderFunctionBodyAtSpec.lean",
+        "proof/Silver/FunctionSourceParts/DeclarationHeaderFunctionLocalAtSpec.lean",
+        "proof/Silver/FunctionSourceParts/DeclarationHeaderFunctionLocalsModelSpec.lean",
+        "proof/Silver/FunctionSourceParts/DeclarationHeaderFunctionLocalsSpec.lean",
+        "proof/Silver/FunctionSourceParts/DeclarationHeaderParameterFrameSpec.lean",
+        "proof/Silver/FunctionSourceParts/DeclarationHeaderParameterStepSpec.lean",
+        "proof/Silver/FunctionSourceParts/DeclarationHeaderParametersAtSpec.lean",
+        "proof/Silver/FunctionSourceParts/DeclarationHeaderParametersModelSpec.lean",
+        "proof/Silver/FunctionSourceParts/DeclarationLoopParameterFrame.lean",
+        "proof/Silver/FunctionSourceParts/DeclarationLoopParametersAt.lean",
+        "proof/Silver/FunctionSourceParts/DeclarationOrdinaryFunctionBodyAt.lean"
+      ],
+      "imported_proof_mismatches": [],
+      "final_boolean_helper_absent_in_earlier_snapshot": true,
+      "settings": {
+        "clean_build": false,
+        "mode": "focused",
+        "kernel_recheck": null,
+        "lake_workers": 1,
+        "threads_per_process": 12,
+        "memory_mb_per_process": 8192
+      }
+    }
+  ],
+  "proposed_rosetta": {
+    "proposed_commit": "dea5d04ad708d2c0d710b99c276a8b27526f975e",
+    "changed_assessments": [
+      "Return multiple values"
+    ],
+    "supported_added": [
+      "scalar-procedures"
+    ],
+    "supported_removed": [],
+    "task_count_preserved": true,
+    "sample_sha256": "fe82cee9e09fb5911c02049998bb580defec6168af792664427231880c7b547d",
+    "sample_bytes": 912,
+    "expected_stdout": "Sum: 8\nDifference: 2\nSum: 0\nDifference:-200\nSum: 200\nDifference: 0\n",
+    "expected_stdout_sha256": "4af8f788ee41cd6f93e9d9f7bd4c98550618eeea59c5f53f16329781b8cd138a",
+    "manifest_output_matches": true,
+    "status": "Proposed mapping only; no final application or feature acceptance."
+  },
+  "limitations": [
+    "Static review and existing-evidence inspection only; no validation execution.",
+    "No complete native/Lean/build/regression success supplied at this observation.",
+    "No independent kernel replay or cold run required or performed."
+  ],
+  "regression_inventory_continuity": {
+    "author_discovery_at": "2026-11-15T18:34:38.870038+00:00",
+    "author_discovery_head": "094d70c304492308dce97787c3558e938ac22103",
+    "author_inventory_sha256": "6db0638d2ac5fb699f7b50b81392cc2bcd18a1e0457b593d86fb89e9d197abfa",
+    "case_count": 691,
+    "distinct_count": 691,
+    "module_count": 57,
+    "sample_count": 85,
+    "test_or_sample_manifest_changes_since_discovery": [],
+    "decorator_skips": [
+      {
+        "id": "test_counted_bound_review.CountedBoundReviewTests.test_maximal_nested_loops_keep_filter_scratch_out_of_frames",
+        "reason": "8 MiB stack evidence is native Linux x86-64"
+      },
+      {
+        "id": "test_output_integrity.OutputIntegrityTests.test_large_argument_vector_with_eight_mib_stack",
+        "reason": "the retained 8 MiB / 190,000-argument regression is Linux x86-64"
+      }
+    ],
+    "scope": "Existing inventory comparison and static skip-decorator inspection; reviewer did not discover or execute the suite.",
+    "same_distinct_ids_as_durable_baseline": true,
+    "same_id_order_as_durable_baseline": false
+  },
+  "interim_review_observation_ended_at_utc": "2026-11-15T19:37:13.952587+00:00",
+  "measured_observation_interval_seconds": 406.48137,
+  "timing_scope": "Interval from first recorded observation to interim evidence completion; excludes earlier reading/setup and is not active reasoning, native tool time, or total review elapsed."
+}

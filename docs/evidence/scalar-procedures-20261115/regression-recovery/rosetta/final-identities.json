@@ -1,0 +1,98 @@
+{
+  "checked_utc": "2026-11-15T22:44:43.687258+00:00",
+  "changed_owned_paths_since_proposal": {
+    "rosetta/assess.js": {
+      "bytes": 37667,
+      "sha256": "05627863702ab88699cf8308bbd2a2feba0344bd1a97a0ad90eda70bd6bbec4c"
+    },
+    "rosetta/assessment-scalar-procedures-20261115.md": {
+      "bytes": 13260,
+      "sha256": "718fb1965b4999b53da015d86f5f76710905b19aa48557787bd84571c8e918a6"
+    },
+    "rosetta/coverage.json": {
+      "bytes": 3779647,
+      "sha256": "0ea529d93ec5b88c7b4d07eccb348e4f3ab37fb9edf77314be303f88f66eda39"
+    },
+    "rosetta/r/return-multiple-values/silver.md": {
+      "bytes": 2215,
+      "sha256": "e4aeeb3dd3c528f986256ba771a8e3b12044fd272ed451bfde48a1cb0eb48023"
+    }
+  },
+  "all_recorded_render_and_test_inputs_match": true,
+  "all_1784_generated_outputs_match": true,
+  "all_retained_command_logs_match": true,
+  "exact_12_unique_test_ids_passed": true,
+  "post_test_edits": "Assessment record and bounded evidence prose only; render/test input bytes unchanged.",
+  "lead_release": "Received after independent acceptance of pre-Rosetta full 691-ID coverage: 26 fresh passes, 663 retained passes, 2 expected skips.",
+  "final_coverage_arithmetic": {
+    "fresh_passes": 38,
+    "retained_passes": 651,
+    "expected_skips": 2,
+    "distinct_ids": 691
+  },
+  "final_integrated_feature_delivery_review": "separate lead-owned review after coordinated documents",
+  "control_script_sha256": "ee65eecb53b206c1e11f44720e968cf2b8942d3a1c9faf20aa1381341518c946",
+  "full_suite_inventory_id_correspondence": [
+    {
+      "executed_id": "tests.test_rosetta.RosettaRefreshTests.test_complete_cache_rebuilds_groups_and_still_renders_without_cache",
+      "full_suite_id": "test_rosetta.RosettaRefreshTests.test_complete_cache_rebuilds_groups_and_still_renders_without_cache",
+      "status": "passed"
+    },
+    {
+      "executed_id": "tests.test_rosetta.RosettaRefreshTests.test_incomplete_late_subpage_metadata_preserves_output",
+      "full_suite_id": "test_rosetta.RosettaRefreshTests.test_incomplete_late_subpage_metadata_preserves_output",
+      "status": "passed"
+    },
+    {
+      "executed_id": "tests.test_rosetta.RosettaRefreshTests.test_invalid_utf8_late_solution_subpage_preserves_output",
+      "full_suite_id": "test_rosetta.RosettaRefreshTests.test_invalid_utf8_late_solution_subpage_preserves_output",
+      "status": "passed"
+    },
+    {
+      "executed_id": "tests.test_rosetta.RosettaRefreshTests.test_invalid_utf8_late_task_page_preserves_output",
+      "full_suite_id": "test_rosetta.RosettaRefreshTests.test_invalid_utf8_late_task_page_preserves_output",
+      "status": "passed"
+    },
+    {
+      "executed_id": "tests.test_rosetta.RosettaRefreshTests.test_malformed_json_metadata_preserves_output",
+      "full_suite_id": "test_rosetta.RosettaRefreshTests.test_malformed_json_metadata_preserves_output",
+      "status": "passed"
+    },
+    {
+      "executed_id": "tests.test_rosetta.RosettaRefreshTests.test_missing_late_solution_subpage_preserves_output",
+      "full_suite_id": "test_rosetta.RosettaRefreshTests.test_missing_late_solution_subpage_preserves_output",
+      "status": "passed"
+    },
+    {
+      "executed_id": "tests.test_rosetta.RosettaRefreshTests.test_missing_late_task_index_metadata_preserves_output",
+      "full_suite_id": "test_rosetta.RosettaRefreshTests.test_missing_late_task_index_metadata_preserves_output",
+      "status": "passed"
+    },
+    {
+      "executed_id": "tests.test_rosetta.RosettaRefreshTests.test_missing_late_task_page_preserves_output",
+      "full_suite_id": "test_rosetta.RosettaRefreshTests.test_missing_late_task_page_preserves_output",
+      "status": "passed"
+    },
+    {
+      "executed_id": "tests.test_rosetta.RosettaRefreshTests.test_online_incomplete_download_reports_page_and_preserves_output",
+      "full_suite_id": "test_rosetta.RosettaRefreshTests.test_online_incomplete_download_reports_page_and_preserves_output",
+      "status": "passed"
+    },
+    {
+      "executed_id": "tests.test_rosetta.RosettaRenderTests.test_pending_design_has_no_stage_and_is_not_an_oracle_exclusion",
+      "full_suite_id": "test_rosetta.RosettaRenderTests.test_pending_design_has_no_stage_and_is_not_an_oracle_exclusion",
+      "status": "passed"
+    },
+    {
+      "executed_id": "tests.test_rosetta.RosettaRenderTests.test_render_is_identical_across_hash_seeds",
+      "full_suite_id": "test_rosetta.RosettaRenderTests.test_render_is_identical_across_hash_seeds",
+      "status": "passed"
+    },
+    {
+      "executed_id": "tests.test_rosetta.RosettaRenderTests.test_risk_counts_are_per_sample_and_ties_are_alphabetical",
+      "full_suite_id": "test_rosetta.RosettaRenderTests.test_risk_counts_are_per_sample_and_ties_are_alphabetical",
+      "status": "passed"
+    }
+  ],
+  "id_correspondence_reason": "Direct module execution uses tests.test_rosetta; unittest discovery in the full suite uses test_rosetta. Both name the same unchanged tests/test_rosetta.py class and method."
+}

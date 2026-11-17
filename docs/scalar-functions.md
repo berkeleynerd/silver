@@ -363,6 +363,31 @@ below. This proof checkpoint does not authorize implementation merge.
 
 ## Delivery assurance and validation
 
+The November 16 external review found that the function shape of
+[#391](https://github.com/berkeleynerd/silver/issues/391) was already admitted on
+main but failed report auditing after successful proof. The authorized PR #371
+repair accepts only `UNUSED_INITIAL_VALUE` / `unused initial value of "NAME"`
+for an exact declared function `in` formal and its local owner, never Main,
+with warning severity, flow provenance, `main.adb`, positive location and no
+suppression or justification. The same addition covers procedure `in`/`in out`
+formals; `INOUT_ONLY_READ` / `"NAME" is not modified, could be IN` is restricted
+to procedure `in out` formals. Existing accepted diagnostics and all required
+checks are preserved. This does not narrow the language or change the binding
+packages embedded in Lean.
+
+The [repair packet](evidence/advisory-policy-391-20261116/README.md) records exact
+mutation/additivity checks, full-route/output twins for the 24 positive
+admission-only function fixtures (alongside 64 procedure fixtures), the capacity
+update and successful complete native/Lean checkpoints and single full-suite
+invocation on Linux ARM64. All 24 function twins and 64 procedure twins pass.
+The [closing review](reviews/review-advisory-policy-391-20261117.md) records exact
+evidence scope and the collector-ID failure resolved from the original suite log.
+The current combined
+49,279,744-byte envelope fits the existing 64 MiB allocation. The earlier
+delivery results below remain historical; they do not validate the changed
+auditor inputs. The repaired head requires the owner's external check before
+merge.
+
 **2026-11-08: complete Linux assurance, accepted regression coverage and
 independent delivery acceptance.** Implementation merge is owner-authorized.
 Issues #298, #340, #341, #347, #348, #349 and

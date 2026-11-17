@@ -1,0 +1,27 @@
+{
+  "command": [
+    "python3",
+    "scripts/check_lean.py",
+    "--target",
+    "Silver.FunctionSourceParts.DeclarationLoopFunctionLocals",
+    "--workers",
+    "1",
+    "--memory-mb",
+    "8192",
+    "--provenance",
+    "--task",
+    "370-lean-memory-recovery",
+    "--reason",
+    "Focused response to retained8192MiB kernel-memory failure: unchanged complete source theorem with checked direct equality witness; one worker/default12threads on16GiBhost; native at most2workers; certificate dense probes held; retained semantic dependencies."
+  ],
+  "cwd": "/home/agent/silver-worktrees/procedures-lean-370",
+  "started_at": "2026-11-15T17:04:55.356529+00:00",
+  "peak_sum_rss_kib": 9400752,
+  "peak_process_rss_kib": 8392880,
+  "minimum_mem_available_kib": 5688128,
+  "pid": 9304,
+  "returncode": 1,
+  "elapsed_seconds": 40.060370436000085,
+  "finished_at": "2026-11-15T17:05:35.416884+00:00",
+  "interrupted": false
+}

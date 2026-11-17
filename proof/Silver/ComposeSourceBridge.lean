@@ -10,6 +10,10 @@ public import Silver.IntegerImageNativeSource
 public import Silver.ComposeBooleanDeclarationLibraries
 public import Silver.ComposeBooleanInitializerLibraries
 public import Silver.FunctionDeclarationSourceBridge
+public import Silver.ProcedureLookupMeaning
+public import Silver.ProcedureDeclarationSourceBridge
+public import Silver.ProcedureDeclarationHighSourceChecks
+public import Silver.ProcedureDeclarationHelperSourceChecks
 
 @[expose] public section
 
@@ -25,6 +29,9 @@ open Silver.SourceBridge
 open Silver.Compose.Expressions
 
 structure CheckedSource : Prop where
+  procedureMetadata : ProcedureBindings.SourceChecks.CheckedSource
+  procedureDeclarations : ProcedureDeclarationNative.HighSourceChecks.Checked Source.outputBodyTokens
+  procedureDeclarationHelpers : ProcedureDeclarationNative.HelperSourceChecks.Checked Source.outputBodyTokens
   imageLengths : Integer.Image.NativeSource.CheckedSource
   scalarExpressions : ScalarExpression.SourceChecks.CheckedSource
   names : Names.SourceBridge.CheckedSource
@@ -47,6 +54,9 @@ structure CheckedSource : Prop where
     (names.extend info).active = names.active ++ [info]
 
 theorem checked_source : CheckedSource where
+  procedureMetadata := ProcedureBindings.SourceChecks.checked_source
+  procedureDeclarations := Silver.ProcedureDeclarationHighSourceChecks.checked_source
+  procedureDeclarationHelpers := Silver.ProcedureDeclarationHelperSourceChecks.checked_source
   imageLengths := Integer.Image.NativeSource.checked_source
   scalarExpressions := ScalarExpression.SourceChecks.checked_source
   names := Names.SourceBridge.checked_source
@@ -105,7 +115,15 @@ structure FunctionDeclarationInterpretation (calls : Expressions.Calls) : Prop w
       calls.function .functionLookup = interpreted.metadata.lookup ∧
       calls.function .formalHides = interpreted.visibility.formalHides
 
-/-- The two imported function-library meanings are supplied only after
+/-- Procedure admission is interpreted from its native declaration tree and
+the low helpers; the resulting whole-scanner equality is not an input. -/
+structure ProcedureDeclarationInterpretation (calls : Expressions.Calls) : Prop where
+  source : ∃ (native : ProcedureDeclarationNative.Calls)
+      (interpreted : ProcedureDeclarationNative.InterpretedSource native),
+    interpreted.helpers.ordinarySource.inherited = calls ∧
+      calls.function .procedureDeclaration = native .procedureDeclaration
+
+/-- Imported subprogram-library meanings are supplied only after
 interpreting the directly linked metadata and visibility implementations. -/
 structure FunctionImportMeaning (calls : Expressions.Calls) : Prop where
   lookup : ∀ text, Expressions.ValidText text → ∀ catalog first after,
@@ -113,6 +131,11 @@ structure FunctionImportMeaning (calls : Expressions.Calls) : Prop where
     Expressions.ValidCursor text after →
     calls.function .functionLookup text catalog first after =
       FunctionBindings.lookup text catalog first after
+  procedureLookup : ∀ text, Expressions.ValidText text → ∀ catalog first after,
+    ProcedureBindings.ValidMetadata text catalog → Expressions.ValidCursor text first →
+    Expressions.ValidCursor text after →
+    calls.function .procedureLookup text catalog first after =
+      ProcedureBindings.lookup text catalog first after
   hides : ∀ text, Expressions.ValidText text → ∀ state first after,
     Expressions.NativeState Predicate.OuterReadiness.domain text state →
     Expressions.ValidCursor text first → Expressions.ValidCursor text after →
@@ -135,6 +158,10 @@ structure InterpretedSource (calls : Expressions.Calls) : Prop where
   booleanDeclaration : BooleanDeclarationInterpretation calls
   booleanInitializer : BooleanInitializerInterpretation calls
   functionDeclaration : FunctionDeclarationInterpretation calls
+  procedureDeclaration : ProcedureDeclarationInterpretation calls
+  procedureMetadata : ∃ metadata : ProcedureBindings.Native.Calls,
+    ProcedureBindings.SourceBridge.InterpretedSource metadata ∧
+      calls.function .procedureLookup = metadata.lookup
   legal : Expressions.LegalHelpers calls Predicate.OuterReadiness.domain
   step : ∀ text, Expressions.ValidText text → ∀ form token state,
     NativeForm form → Expressions.ValidToken token → Predicate.OuterReadiness.ValidState text state →
@@ -169,6 +196,13 @@ theorem interpreted_equations (calls : Expressions.Calls)
     split <;> rfl
   obtain ⟨native, functionSource, _, declarationLink, lookupLink, hidesLink⟩ :=
     source.functionDeclaration.source
+  have procedureLookup : ∀ text, Expressions.ValidText text → ∀ catalog first after,
+      ProcedureBindings.ValidMetadata text catalog → Expressions.ValidCursor text first →
+      Expressions.ValidCursor text after →
+      calls.function .procedureLookup text catalog first after =
+        ProcedureBindings.lookup text catalog first after := by
+    obtain ⟨metadata, interpreted, linked⟩ := source.procedureMetadata
+    exact Expressions.procedure_lookup_meaning calls metadata interpreted linked
   have lookup : ∀ text, Expressions.ValidText text → ∀ catalog first after,
       FunctionBindings.ValidMetadata text catalog → Expressions.ValidCursor text first →
       Expressions.ValidCursor text after →
@@ -188,10 +222,11 @@ theorem interpreted_equations (calls : Expressions.Calls)
       functionSource.visibilityPrimitives functionSource.visibilityEquations text valid state
       ⟨ready.valid, ready.base.ready, ready.bounds⟩ first after firstBound afterBound
   let raw := Expressions.normalized_rawHelpers calls (interpreted_primitives calls source)
-    {source.definitions ⟨lookup, hides⟩ with
+    {source.definitions ⟨lookup, procedureLookup, hides⟩ with
       imageMinimum := minimum
       imageMaximum := maximum
       functionLookup := lookup
+      procedureLookup := procedureLookup
       formalHides := hides} source.legal
   exact {
     toRawHelperEquations := raw
@@ -207,6 +242,12 @@ theorem interpreted_equations (calls : Expressions.Calls)
       intro text valid state arguments ready
       rw [declarationLink]
       exact FunctionDeclarationNative.interpreted_native_declaration functionSource text valid
+        state arguments ⟨ready.valid, ready.base.ready, ready.bounds⟩
+    procedureDeclaration := by
+      obtain ⟨native, procedureSource, _, declarationLink⟩ := source.procedureDeclaration.source
+      intro text valid state arguments ready
+      rw [declarationLink]
+      exact ProcedureDeclarationNative.interpreted_native_declaration procedureSource text valid
         state arguments ⟨ready.valid, ready.base.ready, ready.bounds⟩
     booleanInitializer := by
       obtain ⟨imports, predicate, helpers, definitions, contracts, links, equation⟩ :=

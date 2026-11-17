@@ -1,0 +1,512 @@
+{
+  "review_target": "3c94de8308f1570e992857b0429a7015a79478ae",
+  "comparison_base": "24115ffd292d0839716627c29c16a57be0dbb6d2",
+  "observed_at_utc": "2026-11-15T21:13:53.966612+00:00",
+  "selected_model": "gpt-6-astra",
+  "selected_effort": "max",
+  "runtime_token_cost_telemetry": "Unavailable",
+  "production_files": {
+    "proof/Silver/PredicateNativeShapeCandidate.lean": {
+      "reviewed_sha256": "8da5656266a27dbc53c540dd299bfaa2e40901c42fcf02569f30a82592fa8d00",
+      "author_worktree_matches": true
+    },
+    "proof/Silver/PredicateNativeShapeExpectedTokens.lean": {
+      "reviewed_sha256": "ecaf1bc608b24ee0a7337343ba11bfe0acef2531839017fe2e2095d38277f4fc",
+      "author_worktree_matches": true
+    }
+  },
+  "production_delta": [
+    "proof/Silver/PredicateNativeShapeCandidate.lean",
+    "proof/Silver/PredicateNativeShapeExpectedTokens.lean"
+  ],
+  "original_private_statement_count": 63,
+  "original_statement_checks_including_public_checked": {
+    "native_validityCallWord": true,
+    "native_same_interval_header": true,
+    "native_same_interval_body": true,
+    "native_same_path_header": true,
+    "native_same_path_body": true,
+    "native_same_values_header": true,
+    "native_same_values_body": true,
+    "native_same_flow_header": true,
+    "native_same_flow_body": true,
+    "native_same_condition_header": true,
+    "native_same_condition_body": true,
+    "native_lemma_condition_equality_impl": true,
+    "native_lemma_flow_equality_impl": true,
+    "native_valid_condition_header": true,
+    "native_valid_condition_body": true,
+    "native_summary_of_body": true,
+    "native_bound_of_body": true,
+    "native_binding_summary_body": true,
+    "native_scalar_comparison_at_body": true,
+    "native_character_condition_body": true,
+    "native_character_condition_spec_header": true,
+    "native_character_condition_impl_header": true,
+    "native_length_at_body": true,
+    "native_primary_model_body": true,
+    "native_relation_model_body": true,
+    "native_chain_token_body": true,
+    "native_chain_after_body": true,
+    "native_condition_tail_body": true,
+    "native_condition_model_body": true,
+    "native_summary_of_impl_header": true,
+    "native_bound_of_impl_header": true,
+    "native_binding_summary_impl_header": true,
+    "native_scalar_comparison_at_spec_header": true,
+    "native_scalar_comparison_at_impl_header": true,
+    "native_length_at_spec_header": true,
+    "native_length_at_impl_header": true,
+    "native_primary_model_spec_header": true,
+    "native_primary_model_impl_header": true,
+    "native_relation_model_spec_header": true,
+    "native_relation_model_impl_header": true,
+    "native_chain_token_spec_header": true,
+    "native_chain_token_impl_header": true,
+    "native_chain_after_spec_header": true,
+    "native_chain_after_impl_header": true,
+    "native_condition_tail_spec_header": true,
+    "native_condition_tail_impl_header": true,
+    "native_condition_model_spec_header": true,
+    "native_condition_model_impl_header": true,
+    "native_comparison_result_declaration": true,
+    "native_length_result_declaration": true,
+    "native_boolean_array_after_body": true,
+    "native_boolean_array_after_spec_header": true,
+    "native_boolean_array_after_impl_header": true,
+    "native_boolean_atom_after_body": true,
+    "native_boolean_atom_after_spec_header": true,
+    "native_boolean_atom_after_impl_header": true,
+    "native_boolean_factor_model_body": true,
+    "native_boolean_factor_model_spec_header": true,
+    "native_boolean_factor_model_impl_header": true,
+    "native_boolean_relation_model_body": true,
+    "native_boolean_relation_model_spec_header": true,
+    "native_boolean_relation_model_impl_header": true,
+    "native_chain_kind_declaration": true,
+    "checked": true
+  },
+  "checked_field_count": 63,
+  "all_original_fields_have_their_original_private_proofs": true,
+  "changed_private_proof_bodies": [
+    "native_primary_model_spec_header",
+    "native_relation_model_spec_header",
+    "native_condition_tail_spec_header",
+    "native_condition_model_spec_header",
+    "native_boolean_factor_model_spec_header",
+    "native_boolean_relation_model_spec_header"
+  ],
+  "only_six_assigned_proof_bodies_and_two_imports_change": true,
+  "public_checked_statement_and_assembly_unchanged": true,
+  "new_helper_theorem_count": 12,
+  "normalized_headers": [
+    {
+      "definition": "primary_model_spec_header",
+      "private_theorem": "native_primary_model_spec_header",
+      "characters": 701,
+      "tokens": 149,
+      "literal_sha256": "91f367d96e18f6019354940411a05b55d80aabfdbe4d0371cc7aca5fe16f1b41",
+      "ordered_tokens_sha256": "bedd051e46197e5b598b5dfc7cdf0f6d7086d4ba63e8dc7b0005a195b401eaaf",
+      "full_source_header_terminators": [
+        ";",
+        "is"
+      ],
+      "selected_specification_headers": 1,
+      "checks": {
+        "all_four_original_helper_and_leaf_literals_equal": true,
+        "both_complete_character_lists_equal_original": true,
+        "helper_leaf_and_independent_tokens_equal": true,
+        "unique_complete_source_header_equals_expected": true,
+        "complete_character_and_token_counts_match": true,
+        "helper_uses_unchanged_full_lexer": true,
+        "leaf_rewrites_proved_tokens": true,
+        "leaf_keeps_full_source_selector": true
+      }
+    },
+    {
+      "definition": "relation_model_spec_header",
+      "private_theorem": "native_relation_model_spec_header",
+      "characters": 705,
+      "tokens": 149,
+      "literal_sha256": "cfe7d5feef77875d40364a938f8ed4ec11af2889b53bc8be4cb8e6fb5a4a7ca0",
+      "ordered_tokens_sha256": "a45e7e215582a226f1e160d427550a0bbd6e3201cdbdb02aa2f41adec9ed2956",
+      "full_source_header_terminators": [
+        ";",
+        "is"
+      ],
+      "selected_specification_headers": 1,
+      "checks": {
+        "all_four_original_helper_and_leaf_literals_equal": true,
+        "both_complete_character_lists_equal_original": true,
+        "helper_leaf_and_independent_tokens_equal": true,
+        "unique_complete_source_header_equals_expected": true,
+        "complete_character_and_token_counts_match": true,
+        "helper_uses_unchanged_full_lexer": true,
+        "leaf_rewrites_proved_tokens": true,
+        "leaf_keeps_full_source_selector": true
+      }
+    },
+    {
+      "definition": "condition_tail_spec_header",
+      "private_theorem": "native_condition_tail_spec_header",
+      "characters": 948,
+      "tokens": 196,
+      "literal_sha256": "c051de8e7343d13ac7ffa8355a35da5a12c2cd0aa1150bf36e1fa8e50cd2d13b",
+      "ordered_tokens_sha256": "b6bb17110758d06fc25440b16750c34090ac45eadc08151229501456020c5f11",
+      "full_source_header_terminators": [
+        ";",
+        "is"
+      ],
+      "selected_specification_headers": 1,
+      "checks": {
+        "all_four_original_helper_and_leaf_literals_equal": true,
+        "both_complete_character_lists_equal_original": true,
+        "helper_leaf_and_independent_tokens_equal": true,
+        "unique_complete_source_header_equals_expected": true,
+        "complete_character_and_token_counts_match": true,
+        "helper_uses_unchanged_full_lexer": true,
+        "leaf_rewrites_proved_tokens": true,
+        "leaf_keeps_full_source_selector": true
+      }
+    },
+    {
+      "definition": "condition_model_spec_header",
+      "private_theorem": "native_condition_model_spec_header",
+      "characters": 709,
+      "tokens": 149,
+      "literal_sha256": "8dc39364baf9a1ff57625c950444e8b3b48c4d38ee66d52f89bfad62099b84eb",
+      "ordered_tokens_sha256": "0475fbe4a4c3a77722dfa8cf0a50efbf78438e1423b36c61076849a5fa1f435b",
+      "full_source_header_terminators": [
+        ";",
+        "is"
+      ],
+      "selected_specification_headers": 1,
+      "checks": {
+        "all_four_original_helper_and_leaf_literals_equal": true,
+        "both_complete_character_lists_equal_original": true,
+        "helper_leaf_and_independent_tokens_equal": true,
+        "unique_complete_source_header_equals_expected": true,
+        "complete_character_and_token_counts_match": true,
+        "helper_uses_unchanged_full_lexer": true,
+        "leaf_rewrites_proved_tokens": true,
+        "leaf_keeps_full_source_selector": true
+      }
+    },
+    {
+      "definition": "boolean_factor_model_spec_header",
+      "private_theorem": "native_boolean_factor_model_spec_header",
+      "characters": 729,
+      "tokens": 149,
+      "literal_sha256": "d339b78840b2a1f5980f8d3b5ab01921e3d8ed2b10dacdeef70d06e4be822ea2",
+      "ordered_tokens_sha256": "dcf62293756b9ae1b2ecb33fadcd74e28c8551bfdbc112aee632bbe652572fb8",
+      "full_source_header_terminators": [
+        ";",
+        "is"
+      ],
+      "selected_specification_headers": 1,
+      "checks": {
+        "all_four_original_helper_and_leaf_literals_equal": true,
+        "both_complete_character_lists_equal_original": true,
+        "helper_leaf_and_independent_tokens_equal": true,
+        "unique_complete_source_header_equals_expected": true,
+        "complete_character_and_token_counts_match": true,
+        "helper_uses_unchanged_full_lexer": true,
+        "leaf_rewrites_proved_tokens": true,
+        "leaf_keeps_full_source_selector": true
+      }
+    },
+    {
+      "definition": "boolean_relation_model_spec_header",
+      "private_theorem": "native_boolean_relation_model_spec_header",
+      "characters": 737,
+      "tokens": 149,
+      "literal_sha256": "f453ca77e7ef64644dbc7064c3861a6ce301226bb7662e1e2affbc754517c7ee",
+      "ordered_tokens_sha256": "909e507791b53b6dd3b88fcad48da04c3943db3529cd95398e6c3f2ed181b63b",
+      "full_source_header_terminators": [
+        ";",
+        "is"
+      ],
+      "selected_specification_headers": 1,
+      "checks": {
+        "all_four_original_helper_and_leaf_literals_equal": true,
+        "both_complete_character_lists_equal_original": true,
+        "helper_leaf_and_independent_tokens_equal": true,
+        "unique_complete_source_header_equals_expected": true,
+        "complete_character_and_token_counts_match": true,
+        "helper_uses_unchanged_full_lexer": true,
+        "leaf_rewrites_proved_tokens": true,
+        "leaf_keeps_full_source_selector": true
+      }
+    }
+  ],
+  "full_reviewed_source_token_count": 72713,
+  "unchanged_source_mechanism_consumers": {
+    "proof/Silver/PredicateNativeSourceChecks.lean": true,
+    "proof/Silver/PredicateSourceShape.lean": true,
+    "proof/Silver/PredicateSourceChecks.lean": true,
+    "proof/Silver/PredicateSourceCandidate.lean": true,
+    "proof/Silver/PredicateCharacterSourceCandidate.lean": true,
+    "proof/Silver/CertificateWitness.lean": true,
+    "proof/Silver/SourceDeclarations.lean": true,
+    "proof/Silver/SourceLexer.lean": true,
+    "proof/Silver/ReviewedOutputShape.lean": true,
+    "src/silver_output_profile.adb": true
+  },
+  "native_parser_sha256": "9ede490b6cf72b352a39072cd37f4ef39774409c6024135487cf076567b59b9c",
+  "failed_complete_checkpoint": {
+    "recorded_identity": {
+      "run_id": "20261115T205032-5834a8189332",
+      "production_revision": "24115ffd2",
+      "equivalent_integration_production": "451b5761a",
+      "all_1113_prior_captured_input_hashes_still_match": true,
+      "tools_sha256": {
+        ".tools/linux-aarch64/lean/bin/lean": "79fb1d26fa5a39385d59fdc48a711a14b0710ca6480271acce99b4d177cea085",
+        ".tools/linux-aarch64/lean/bin/lake": "f80f50cbab5322e35bcb0bf88937e22e9d908b5e4e336e83ddfc30eb1506aacf"
+      },
+      "isolated_failed_headers": [
+        {
+          "line": 196,
+          "theorem": "native_primary_model_spec_header",
+          "definition": "primary_model_spec_header",
+          "characters": 701,
+          "tokens": 149
+        },
+        {
+          "line": 202,
+          "theorem": "native_relation_model_spec_header",
+          "definition": "relation_model_spec_header",
+          "characters": 705,
+          "tokens": 149
+        },
+        {
+          "line": 220,
+          "theorem": "native_condition_tail_spec_header",
+          "definition": "condition_tail_spec_header",
+          "characters": 948,
+          "tokens": 196
+        },
+        {
+          "line": 226,
+          "theorem": "native_condition_model_spec_header",
+          "definition": "condition_model_spec_header",
+          "characters": 709,
+          "tokens": 149
+        },
+        {
+          "line": 262,
+          "theorem": "native_boolean_factor_model_spec_header",
+          "definition": "boolean_factor_model_spec_header",
+          "characters": 729,
+          "tokens": 149
+        },
+        {
+          "line": 272,
+          "theorem": "native_boolean_relation_model_spec_header",
+          "definition": "boolean_relation_model_spec_header",
+          "characters": 737,
+          "tokens": 149
+        }
+      ],
+      "original_exec_session": 72203,
+      "outer_launcher_exit_code": 254,
+      "monitored_child_returncode": -2,
+      "no_complete_audit": true,
+      "exact_managed_log_sha256": "0e57e3707a539921ed8eac74ec461d0d298a77c2b7352abb3c13cce34ea105e1",
+      "compiled_module_objects_retained": 659,
+      "retained_variant_hash_files": 3950,
+      "outcome": "Six direct specification-header equalities failed with explicit kernel-memory errors; source-only diagnostic SIGINT interrupted subsequent PredicateBodySourceCandidate. Native helper candidate completed; no whole-project audit."
+    },
+    "exact_failed_candidate_matches_original": true,
+    "exact_log_sha256_matches": true,
+    "diagnostic_lines": [
+      196,
+      202,
+      220,
+      226,
+      262,
+      272
+    ],
+    "independently_located_private_theorems": [
+      "native_primary_model_spec_header",
+      "native_relation_model_spec_header",
+      "native_condition_tail_spec_header",
+      "native_condition_model_spec_header",
+      "native_boolean_factor_model_spec_header",
+      "native_boolean_relation_model_spec_header"
+    ],
+    "audit_present": false,
+    "monitor_summary_sha256": "f6c414091be36b710fa7cf1879b6566a1f8e5c460c2c5935e43efaaa5a3cfbe5",
+    "monitor_returncode": -2,
+    "monitor_interrupted": true,
+    "elapsed_seconds": 665.6280004430009,
+    "managed_events_sha256": "dc3fae3b19cb39abfbf374aca481905e3edf6ae43774513b59659588346ef43c",
+    "managed_terminal_outcome": "interrupted",
+    "retained_inventory_entries": 3950,
+    "retained_ordinary_objects": 659
+  },
+  "evidence_count_correction": {
+    "patch_input_review_private_theorem_count": 58,
+    "independently_verified_private_theorem_count": 63,
+    "note": "Corrected immutable terminal packet reports 63; all 63 private statements, including multiline and direct-term proofs, independently compared without changing production."
+  },
+  "validation": {
+    "observed_at_utc": "2026-11-15T21:16:13.127836+00:00",
+    "run_id": "20261115T210927-f5ecbbed5260",
+    "host": "linux-aarch64",
+    "lean_version": "4.34.1",
+    "scope": "focused",
+    "targets": [
+      "Silver.PredicateNativeShapeCandidate"
+    ],
+    "module_count": 127,
+    "audit_lines": [
+      "Silver axiom audit passed: 21408 declarations; foundations: [propext, Classical.choice, Quot.sound]"
+    ],
+    "phases": [
+      {
+        "phase": "build",
+        "started_at": "2026-11-15T21:09:32.139441+00:00",
+        "finished_at": "2026-11-15T21:14:04.238837+00:00",
+        "elapsed_seconds": 272.099,
+        "exit_code": 0
+      },
+      {
+        "phase": "audit",
+        "started_at": "2026-11-15T21:14:05.014544+00:00",
+        "finished_at": "2026-11-15T21:14:06.186492+00:00",
+        "elapsed_seconds": 1.172,
+        "exit_code": 0
+      }
+    ],
+    "input_digest_matches": true,
+    "input_digest_sha256": "297611d4b39d25c3c0d0be4c19a38bb45467c825ec0e343475c3e9909b264c2c",
+    "checked_hash_counts": {
+      "inputs_sha256": 1114,
+      "workspace_inputs_sha256": 1009,
+      "artifacts_sha256": 3962,
+      "tools_sha256": 2
+    },
+    "hash_mismatches": {
+      "inputs_sha256": [],
+      "workspace_inputs_sha256": [],
+      "artifacts_sha256": [],
+      "tools_sha256": []
+    },
+    "all_captured_inputs_match_immutable_review_commit": true,
+    "captured_input_commit_mismatches": [],
+    "captured_untracked_inputs": [],
+    "runner_log_matches": true,
+    "emitted_modules_equal_evidence": true,
+    "evidence_sha256": "393d4ddad28f1ac4bb20ab22e0a8c525b103feed863fe2589391675fe8cb11fa",
+    "runner_log_uncompressed_sha256": "5dd4f2fbd93910de0ced79ecb108a00a2c22719a108090f9ba0120fda51c345e",
+    "managed_events_sha256": "9bbd43203679e3e6001c66cd7ba6f24a8ed17deeba64b9efb6db2e1d5a308053",
+    "managed_terminal": {
+      "duration_seconds": 280.356715384,
+      "event": "finished",
+      "evidence": [
+        {
+          "original": "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused.log",
+          "resolved": "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused.log"
+        },
+        {
+          "original": "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused-evidence.json",
+          "resolved": "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused-evidence.json"
+        },
+        {
+          "original": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T210927-f5ecbbed5260/previous-evidence/lean-focused.log",
+          "resolved": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T210927-f5ecbbed5260/previous-evidence/lean-focused.log"
+        },
+        {
+          "original": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T210927-f5ecbbed5260/previous-evidence/lean-focused-evidence.json",
+          "resolved": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T210927-f5ecbbed5260/previous-evidence/lean-focused-evidence.json"
+        },
+        {
+          "original": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T210927-f5ecbbed5260/lean-focused.log",
+          "resolved": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T210927-f5ecbbed5260/lean-focused.log"
+        },
+        {
+          "original": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T210927-f5ecbbed5260/lean-focused-evidence.json",
+          "resolved": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T210927-f5ecbbed5260/lean-focused-evidence.json"
+        }
+      ],
+      "failure_keys": [],
+      "monotonic_ns": 20479076756848,
+      "outcome": "success",
+      "retained_reports": [],
+      "returncode": null,
+      "run_id": "20261115T210927-f5ecbbed5260",
+      "utc": "2026-11-15T21:14:07.718567+00:00"
+    },
+    "monitor_summary_sha256": "25fe2422f5257752260fb707fe2885bbf527c81f672a31130606d67ff23f02d4",
+    "monitor_summary": {
+      "command": [
+        "python3",
+        "scripts/check_lean.py",
+        "--target",
+        "Silver.PredicateNativeShapeCandidate",
+        "--workers",
+        "1",
+        "--memory-mb",
+        "8192",
+        "--provenance",
+        "--task",
+        "370-native-shape-normalization",
+        "--reason",
+        "Full focused native shape candidate after six individually isolated specification-header kernel-memory failures in complete run 20261115T205032-5834a8189332. Immutable repair 3c94de830 normalizes only the six original expected literals, retains every original theorem statement, full-source extractor, native definition/contract/domain and public checked assembly, and checks all six complete helper contracts with the complete candidate. Preserve all 659 prior objects and every retained failure/success. One worker/default 12 Lean threads/8192 MiB because the productive two-worker native audit shares the 15.8 GiB host; original 10 GiB source-tree/1.5 GiB host-headroom/first-kernel-memory diagnostic source-only guards. No clean/replay or repeat of successful earlier gates. Full focused success plus independent critical acceptance required before complete cached continuation."
+      ],
+      "cwd": "/home/agent/silver-worktrees/procedures-lean-370",
+      "started_at": "2026-11-15T21:09:27.091353+00:00",
+      "peak_sum_rss_kib": 5296592,
+      "peak_process_rss_kib": 4252992,
+      "minimum_mem_available_kib": 11302496,
+      "pid": 287532,
+      "returncode": 0,
+      "elapsed_seconds": 285.28766171999814,
+      "finished_at": "2026-11-15T21:14:12.379004+00:00",
+      "interrupted": false
+    },
+    "original_terminal": "Author reported collecting original session 18170 exit 0, relayed by lead. Reviewer inspected retained managed success and monitor exit 0, not that execution session.",
+    "settings": {
+      "clean_build": false,
+      "mode": "focused",
+      "kernel_recheck": null,
+      "lake_workers": 1,
+      "threads_per_process": 12,
+      "memory_mb_per_process": 8192
+    },
+    "integrated_commit": "438213ec24998e3365d6fec5b1e2d01564e45b4e",
+    "integrated_production_diff": [],
+    "prior_retained_inventory_hashes_preserved": 3950,
+    "prior_retained_ordinary_objects": 659,
+    "current_ordinary_objects": 661,
+    "scope_note": "All captured inputs and hashes establish identity; fresh audit covers the recorded imported closure. This is incremental focused success, not a whole-project audit or clean replay."
+  },
+  "disposition": "Accepted exact six-header native-shape normalization for integration and complete cached continuation; no material finding. Whole-project and delivery acceptance remain pending.",
+  "scope": "Independent extraction and existing evidence inspection only; no proof/build/test or cache mutation. Broad delivery acceptance remains pending.",
+  "durable_packet": {
+    "commit": "087b4622b2d31a0b7072cf6a267e57998f7ce1be",
+    "checks": {
+      "focused_evidence": true,
+      "focused_runner_log": true,
+      "focused_events": true,
+      "focused_summary": true,
+      "focused_launcher": true,
+      "focused_resources": true,
+      "original_failed_candidate": true,
+      "original_failed_log": true,
+      "private_theorem_inventory_corrected_to_63": true,
+      "exact_six_changed_bodies_recorded": true,
+      "durable_packet_has_no_production_change": true
+    }
+  },
+  "limits": [
+    "Independent source extraction corroborates the original full-source goals; it is not a kernel proof.",
+    "All artifact hashes were checked for identity; the fresh audit covers only the recorded 127-module imported closure.",
+    "Incremental focused success is not a clean replay, full-project assurance or general memory bound.",
+    "No reviewer proof/build/test/application or cache-writing job; no GitHub changes or CLI memory updates."
+  ],
+  "review_ended_at_utc": "2026-11-15T21:17:52.800358+00:00",
+  "measured_terminal_review_interval_seconds": 238.833746,
+  "timing_scope": "Recorded completion of static checks through terminal-evidence acceptance; excludes earlier source inspection and is not active reasoning or native run time.",
+  "parent_report_prefix_checked_at_commit": "fbf81c587b14ebfa9809d9f728728c7cb9957f15"
+}

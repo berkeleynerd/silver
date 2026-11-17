@@ -1,0 +1,282 @@
+{
+  "verified_at_utc": "2026-11-17T00:28:26.605239+00:00",
+  "run_id": "20261116T233445-6dce1a7dbb80",
+  "implementation_commit": "d60bd8a899fcc66e5ef40112423b7f94b2e4becc",
+  "all_captured_inputs_match_commit": true,
+  "verified_manifest_counts": {
+    "inputs_sha256": 1116,
+    "workspace_inputs_sha256": 1011,
+    "tools_sha256": 2,
+    "artifacts_sha256": 6046
+  },
+  "log_sha256": "bf2b356183e75e629d803ea0180082c9b3dac327d474a2cb65b030b71579a6fb",
+  "inputs_digest_sha256": "b6f83b0aa0395d585f1e97004eda9d7884b7abdf4d1cec79fbf05a3d766d67a0",
+  "actual_project_manifest_workspace_module_count": 1009,
+  "module_sets_equal": true,
+  "declarations": 162274,
+  "foundations": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "generated_candidate_count": 40,
+  "generated_candidates": [
+    "Silver/ArgumentsBodyCertificate.lean",
+    "Silver/ArgumentsSpecCertificate.lean",
+    "Silver/ArrayBindingsBodyCertificate.lean",
+    "Silver/ArrayBindingsSpecCertificate.lean",
+    "Silver/FunctionBindingsBodyCertificate.lean",
+    "Silver/FunctionBindingsSpecCertificate.lean",
+    "Silver/IOBodyCertificate.lean",
+    "Silver/IOSpecCertificate.lean",
+    "Silver/ImageModelBodyCertificate.lean",
+    "Silver/ImageModelSpecCertificate.lean",
+    "Silver/ImageModelTemplatesBodyCertificate.lean",
+    "Silver/ImageModelTemplatesSpecCertificate.lean",
+    "Silver/IntegerLiteralBodyCertificate.lean",
+    "Silver/IntegerLiteralSpecCertificate.lean",
+    "Silver/NamesBodyCertificate.lean",
+    "Silver/NamesSpecCertificate.lean",
+    "Silver/OutputBodyCertificate.lean",
+    "Silver/OutputBodyLines0.lean",
+    "Silver/OutputBodyLines1.lean",
+    "Silver/OutputBodyLines2.lean",
+    "Silver/OutputBodyLines3.lean",
+    "Silver/OutputBodyLines4.lean",
+    "Silver/OutputBodyLines5.lean",
+    "Silver/OutputBodyLines6.lean",
+    "Silver/OutputBodyLines7.lean",
+    "Silver/OutputLexicalBodyCertificate.lean",
+    "Silver/OutputLexicalSpecCertificate.lean",
+    "Silver/OutputLibcCertificate.lean",
+    "Silver/OutputSpecCertificate.lean",
+    "Silver/PathFactsSpecCertificate.lean",
+    "Silver/ProcedureBindingsBodyCertificate.lean",
+    "Silver/ProcedureBindingsSpecCertificate.lean",
+    "Silver/ProfileBodyCertificate.lean",
+    "Silver/ProfileSpecCertificate.lean",
+    "Silver/RuntimeSpecCertificate.lean",
+    "Silver/ScalarExpressionBodyCertificate.lean",
+    "Silver/ScalarExpressionSpecCertificate.lean",
+    "Silver/ScalarLiteralBodyCertificate.lean",
+    "Silver/ScalarLiteralSpecCertificate.lean",
+    "Silver/ScalarsSpecCertificate.lean"
+  ],
+  "embedded_source_count": 32,
+  "authoritative_source_bindings": [
+    {
+      "module": "Silver/ArgumentsBodySource.lean",
+      "source": "silver_arguments.adb",
+      "sha256": "74271048db16452bb5b6329f44c70151f73afdfebb089fe4a2a99e66e3b45918"
+    },
+    {
+      "module": "Silver/ArgumentsSpecSource.lean",
+      "source": "silver_arguments.ads",
+      "sha256": "5991cb89d0af92506704109882e6f464edda3f781713e9a38a33829b97d78032"
+    },
+    {
+      "module": "Silver/ArrayBindingsBodySource.lean",
+      "source": "silver_array_bindings.adb",
+      "sha256": "98f99c57932c63fcf88ccaa27191bea8b5d8016a9ffd821fe9417a7293594120"
+    },
+    {
+      "module": "Silver/ArrayBindingsSpecSource.lean",
+      "source": "silver_array_bindings.ads",
+      "sha256": "39ee0b705e340923abacd4d5d49667d8c4b08568cdede75c23ee4e13b473baf9"
+    },
+    {
+      "module": "Silver/FunctionBindingsBodySource.lean",
+      "source": "silver_function_bindings.adb",
+      "sha256": "5bb7432136235c11a0845269bb1286439b579e30fc45e15b20bad66fe829882b"
+    },
+    {
+      "module": "Silver/FunctionBindingsSpecSource.lean",
+      "source": "silver_function_bindings.ads",
+      "sha256": "e43fb640c38c516e6a4d0ab4e28acab9c3f71a5638237cc8b4c6c387c6d01d4b"
+    },
+    {
+      "module": "Silver/ImageModelBodySource.lean",
+      "source": "silver_image_model.adb",
+      "sha256": "e27b5209f1ef197ebbb989ddd5a5012e5a60c04e1bb17a36af0314ee0abb1283"
+    },
+    {
+      "module": "Silver/ImageModelSpecSource.lean",
+      "source": "silver_image_model.ads",
+      "sha256": "2a815072627462f51178df6b276fa1e865762cda05524dbb2dfe4ec62365177d"
+    },
+    {
+      "module": "Silver/ImageModelTemplatesBodySource.lean",
+      "source": "silver_image_model_templates.adb",
+      "sha256": "c17ac93034127b56efdf69654753296d132c729b5aaca4f013e6be86dce8a47b"
+    },
+    {
+      "module": "Silver/ImageModelTemplatesSpecSource.lean",
+      "source": "silver_image_model_templates.ads",
+      "sha256": "e2a86057062c4829550935ecb9317fc77426d803eef8b2a6f550deed11dea584"
+    },
+    {
+      "module": "Silver/IntegerLiteralBodySource.lean",
+      "source": "silver_integer_literals.adb",
+      "sha256": "fa6fcf71c05c92a0f2b4ac7038e676c0ea3e120994206581b7f66ec7cf5d8077"
+    },
+    {
+      "module": "Silver/IntegerLiteralSpecSource.lean",
+      "source": "silver_integer_literals.ads",
+      "sha256": "c3e00aba56bff45a8e44a2992f3600785e1d541a25eeedf9cd13aff4a631a787"
+    },
+    {
+      "module": "Silver/IoBodySource.lean",
+      "source": "silver_io.adb",
+      "sha256": "e82a62f420651e7ad9de80ffe485e929ac9b5d48348f97d6b766440357dda358"
+    },
+    {
+      "module": "Silver/IoSpecSource.lean",
+      "source": "silver_io.ads",
+      "sha256": "691565e501e458a5cb280b468cb5947b7548128483169f9ba171d4024379802c"
+    },
+    {
+      "module": "Silver/NamesBodySource.lean",
+      "source": "silver_names.adb",
+      "sha256": "5cec31ffea84ab9a67761946e1cab1a60d6423225e69a6faa60f9313c6a58f36"
+    },
+    {
+      "module": "Silver/NamesSpecSource.lean",
+      "source": "silver_names.ads",
+      "sha256": "81bdb9e846004da31a2a41a18fd820e73a44c040cc0fb7370aa27a6634634944"
+    },
+    {
+      "module": "Silver/OutputLexicalBodySource.lean",
+      "source": "silver_output_lexical.adb",
+      "sha256": "f2bb3e0d79050e8a89104ac5387f33274a3f0f977c43485ce1571515b68448fc"
+    },
+    {
+      "module": "Silver/OutputLexicalSpecSource.lean",
+      "source": "silver_output_lexical.ads",
+      "sha256": "30ff28d51c62e822a96afc66ae8d325299ad228fc0392b885f4dc82f25783768"
+    },
+    {
+      "module": "Silver/OutputLibcSpecSource.lean",
+      "source": "silver_output_libc.ads",
+      "sha256": "7c595fa7d94c4b21d39b271ba6df51ebed440a6342314c503fbf91319cd10229"
+    },
+    {
+      "module": "Silver/OutputProfileBodySource.lean",
+      "source": "silver_output_profile.adb",
+      "sha256": "9ede490b6cf72b352a39072cd37f4ef39774409c6024135487cf076567b59b9c"
+    },
+    {
+      "module": "Silver/OutputProfileSpecSource.lean",
+      "source": "silver_output_profile.ads",
+      "sha256": "9823c84e840348f474a0b83d9da57b99f1f3b66f9a6040ad0c73d6cc2e9bd0a3"
+    },
+    {
+      "module": "Silver/PathFactsSpecSource.lean",
+      "source": "silver_path_facts.ads",
+      "sha256": "43da04920a5489a0c3727e473c8802b38dd38fc87f0fce33eaca61ee8505f0d8"
+    },
+    {
+      "module": "Silver/ProcedureBindingsBodySource.lean",
+      "source": "silver_procedure_bindings.adb",
+      "sha256": "81bedcc4e10c451100348c6e5365c76078f6158ed4af75f9fe61b0e21ffeb4fa"
+    },
+    {
+      "module": "Silver/ProcedureBindingsSpecSource.lean",
+      "source": "silver_procedure_bindings.ads",
+      "sha256": "4fe043682f952570f90e0b5879c9a10be3c19016811dac957a6825e22a1f18a6"
+    },
+    {
+      "module": "Silver/ProfileBodySource.lean",
+      "source": "silver_profile.adb",
+      "sha256": "0a4173d5e37f7561e21c89e1e15f931728c721b4fb6f8fb3b667c5334798cff4"
+    },
+    {
+      "module": "Silver/ProfileSpecSource.lean",
+      "source": "silver_profile.ads",
+      "sha256": "15f2b737ff4e29e191583b4ae57ad9f5661fa1322fa6cd113080f201539b79c6"
+    },
+    {
+      "module": "Silver/RuntimeSpecSource.lean",
+      "source": "silver_runtime.ads",
+      "sha256": "53f6791b0e7484703639eece0f87acb680c1d4f12b06e044f69244f0ce1b6ea7"
+    },
+    {
+      "module": "Silver/ScalarExpressionBodySource.lean",
+      "source": "silver_scalar_expressions.adb",
+      "sha256": "0bf741545fc672985a51dabdc1d27ba48af6a4e0d24f977c0782c0ec89579a4e"
+    },
+    {
+      "module": "Silver/ScalarExpressionSpecSource.lean",
+      "source": "silver_scalar_expressions.ads",
+      "sha256": "a56fcb14e4df2e96203a0731327077bb2dc73b9337c42cc4bf293480bf3e8df4"
+    },
+    {
+      "module": "Silver/ScalarLiteralBodySource.lean",
+      "source": "silver_scalar_literals.adb",
+      "sha256": "5726c09a6319aed7084ebcf4b91aa05e4ad2baf91a3cd426e1a218d6d974767d"
+    },
+    {
+      "module": "Silver/ScalarLiteralSpecSource.lean",
+      "source": "silver_scalar_literals.ads",
+      "sha256": "ed5a7331833943d26f26e6fd93e312d4f0c3b3d0e17363327ecc709de85fa13b"
+    },
+    {
+      "module": "Silver/ScalarsSpecSource.lean",
+      "source": "silver_scalars.ads",
+      "sha256": "7f472f411b085813775e0c5da708d3d9c0941ffd49e45675fa8fe12649ed6667"
+    }
+  ],
+  "authoritative_source_link_correct": true,
+  "diagnostics": [],
+  "original_tool_session_id": 85539,
+  "original_terminal_exit": 0,
+  "original_terminal_collected": true,
+  "process_group_released": true,
+  "managed_state": "success",
+  "managed_active": false,
+  "no_active_lean_run": true,
+  "workers": 1,
+  "threads_per_process": 12,
+  "memory_mb_per_process": 8192,
+  "guard_trigger": null,
+  "resource_sample_count": 1511,
+  "peak_tree_rss_gib": 8.601333618164062,
+  "minimum_host_available_gib": 7.7256927490234375,
+  "supervised_elapsed_seconds": 3029.938,
+  "build_elapsed_seconds": 3020.479,
+  "audit_elapsed_seconds": 2.133,
+  "successful_logged_silver_builds": 290,
+  "preexisting_primary_object_count": 998,
+  "missing_preexisting_primary_objects": [],
+  "unchanged_preexisting_primary_object_count": 983,
+  "changed_preexisting_primary_objects": [
+    ".silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/ComposeBooleanDeclarationLibraries.olean",
+    ".silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/FunctionDeclarationBodyEquations.olean",
+    ".silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/FunctionDeclarationHeaderLibraries.olean",
+    ".silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/FunctionDeclarationImports.olean",
+    ".silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/FunctionDeclarationNative.olean",
+    ".silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/PredicateAdapterSourceCandidate.olean",
+    ".silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/PredicateBasicSourceCandidate.olean",
+    ".silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/PredicateBodyCandidates.olean",
+    ".silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/PredicateCharacterSourceCandidate.olean",
+    ".silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/PredicateNativeLibraries.olean",
+    ".silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/PredicateProcedureCallSyntax.olean",
+    ".silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/ProcedureDeclarationBodyNative.olean",
+    ".silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/ProcedureDeclarationDenotations.olean",
+    ".silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/ProcedureDeclarationOuterNative.olean",
+    ".silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/ProcedureDeclarationSyntax.olean"
+  ],
+  "current_primary_object_count": 1009,
+  "new_primary_objects": [
+    ".silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/ComposeArrayDenotations.olean",
+    ".silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/ComposeBooleanArraySourceCandidate.olean",
+    ".silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/ComposeCatalogueSourceCandidate.olean",
+    ".silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/ComposeContractSourceCandidate.olean",
+    ".silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/ComposeDeclarationSourceCandidate.olean",
+    ".silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/ComposeExpressionSourceCandidate.olean",
+    ".silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/ComposeScalarDenotations.olean",
+    ".silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/FunctionDeclarationDenotations.olean",
+    ".silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/PredicateLoopNative.olean",
+    ".silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/PredicateNativePrecedence.olean",
+    ".silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/PredicateSourceSyntax.olean"
+  ]
+}

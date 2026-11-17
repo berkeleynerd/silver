@@ -1,0 +1,26 @@
+{
+  "base": "46c849d81",
+  "all_original_theorem_statements_byte_identical": true,
+  "changed_proof_bodies": [
+    "declaration_fact_11",
+    "declaration_fact_22"
+  ],
+  "entries": [
+    {
+      "fact": "declaration_fact_11",
+      "lemma": "parserStateRecord",
+      "characters": 650,
+      "tokens": 79
+    },
+    {
+      "fact": "declaration_fact_22",
+      "lemma": "validStateExpression",
+      "characters": 922,
+      "tokens": 160
+    }
+  ],
+  "files_sha256": {
+    "proof/Silver/ComposeDeclarationSourceCandidate.lean": "02e92962c3a2626d207102ac93aad0e5c4d5702ac4b9073b83aae75b537808c5",
+    "proof/Silver/ComposeDeclarationExpectedTokens.lean": "4991c3353d8c2bb1d39e9b65f7e2103d1c88520473e10c1afd59793a397cb2f0"
+  }
+}

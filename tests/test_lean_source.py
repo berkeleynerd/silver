@@ -24,7 +24,8 @@ EMBEDDED = ("silver_profile.ads", "silver_profile.adb", "silver_output_profile.a
             "silver_path_facts.ads", "silver_names.ads", "silver_names.adb",
             "silver_scalar_expressions.ads", "silver_scalar_expressions.adb",
             "silver_array_bindings.ads", "silver_array_bindings.adb",
-            "silver_function_bindings.ads", "silver_function_bindings.adb", "silver_scalars.ads",
+            "silver_function_bindings.ads", "silver_function_bindings.adb",
+            "silver_procedure_bindings.ads", "silver_procedure_bindings.adb", "silver_scalars.ads",
             "silver_scalar_literals.ads", "silver_scalar_literals.adb",
             "silver_image_model.ads", "silver_image_model.adb",
             "silver_image_model_templates.ads", "silver_image_model_templates.adb")
@@ -38,7 +39,8 @@ CERTIFICATE_MODULES = (
     "NamesSpecCertificate", "NamesBodyCertificate",
     "ScalarExpressionSpecCertificate", "ScalarExpressionBodyCertificate",
     "ArrayBindingsSpecCertificate", "ArrayBindingsBodyCertificate",
-    "FunctionBindingsSpecCertificate", "FunctionBindingsBodyCertificate", "ScalarsSpecCertificate",
+    "FunctionBindingsSpecCertificate", "FunctionBindingsBodyCertificate",
+    "ProcedureBindingsSpecCertificate", "ProcedureBindingsBodyCertificate", "ScalarsSpecCertificate",
     "ScalarLiteralSpecCertificate", "ScalarLiteralBodyCertificate",
     "ImageModelSpecCertificate", "ImageModelBodyCertificate",
     "ImageModelTemplatesSpecCertificate", "ImageModelTemplatesBodyCertificate",
@@ -195,6 +197,16 @@ class CompilerSourcePolicyTests(unittest.TestCase):
             with self.subTest(unrelated=unrelated):
                 self.assertNotIn("Silver." + unrelated, closure)
 
+    def test_procedure_name_checks_join_candidates_to_authoritative_source(self):
+        candidate = self.project_import_closure("Silver.ProcedureNameSourceCandidate")
+        self.assertIn("Silver.ReviewedOutputShape", candidate)
+        self.assertIn("Silver.ProcedureNameSource", candidate)
+        self.assertFalse(any(module.endswith("Certificate") for module in candidate))
+        self.assertNotIn("Silver.OutputSourceBridge", candidate)
+        actual = self.project_import_closure("Silver.ProcedureNameSourceChecks")
+        self.assertLessEqual(candidate, actual)
+        self.assertLessEqual(self.project_import_closure("Silver.OutputSourceBridge"), actual)
+
     def test_all_bytes_have_the_explicit_compiler_alphabet(self):
         allowed = {9, 10, 13, *range(32, 127)}
         for byte in range(256):
@@ -260,7 +272,7 @@ class CompilerSourcePolicyTests(unittest.TestCase):
     def test_output_body_split_preserves_every_line_proof_and_ordered_reconstruction(self):
         source = (ROOT / "src/silver_output_profile.adb").read_bytes().decode("ascii")
         declarations, reconstruction = GENERATOR.generate_parts(
-            source, "outputProfileBody", "outputBodyTokens")
+            source, "outputProfileBody", "outputBodyTokens", compact_joins=True)
         lines = source.split("\n")
         self.assertEqual(len(declarations), len(lines))
         digests = [hashlib.sha256(line.encode("ascii")).hexdigest() for line in lines]
@@ -278,8 +290,8 @@ class CompilerSourcePolicyTests(unittest.TestCase):
             self.assertEqual(chunk, header + body + "end Silver.Source\n")
             recovered.extend(selected)
         self.assertEqual(len(recovered), len(set(lines)))
-        # Only single-leaf references change. All join literals/witnesses, the
-        # balanced tree and final source/token/lexer statements remain exact.
+        # Only single-leaf references change. Compact witnesses retain the same
+        # balanced tree and final source/token/lexer statements.
         for index, line in enumerate(reconstruction):
             match = re.fullmatch(r"  ReconstructionCertificate.single outputBodyTokens_line_(\d+)", line)
             if match:
@@ -382,14 +394,15 @@ class NativeCertificateTests(unittest.TestCase):
             # Compile current sources, not canonical cached helper objects. Only
             # this small dependency chain is needed; all outputs stay temporary.
             for module in ("Lexical", "Admission", "Cursor", "SourceLexer",
-                           "CertificateWitness", "AxiomAudit"):
+                           "CertificateWitness", "CertificateJoinWitness", "AxiomAudit"):
                 relative = f"Silver/{module}.lean"
                 (root / relative).write_bytes((ROOT / "proof" / relative).read_bytes())
                 result = compile_file(relative)
                 self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
 
             prelude = ("module\n\npublic import Silver.SourceLexer\n"
-                       "public meta import Silver.CertificateWitness\n\n"
+                       "public meta import Silver.CertificateWitness\n"
+                       "public meta import Silver.CertificateJoinWitness\n\n"
                        "@[expose] public section\n\n")
 
             def check(name, body, failure=None):
@@ -409,6 +422,7 @@ class NativeCertificateTests(unittest.TestCase):
                     self.assertEqual(audit.returncode, 0, output)
                     self.assertIn("Silver axiom audit passed:", output)
                     self.assertIn("SILVER_MODULE Silver.CertificateWitness", output)
+                    self.assertIn("SILVER_MODULE Silver.CertificateJoinWitness", output)
                 else:
                     self.assertNotEqual(result.returncode, 0, output)
                     self.assertRegex(output, failure)
@@ -469,6 +483,52 @@ class NativeCertificateTests(unittest.TestCase):
             self.assertEqual(explicit_values.count(before), 1)
             certificate("wrong_explicit_values", source,
                         explicit_values.replace(before, after, 1),
+                        r"\(kernel\) declaration type mismatch")
+
+            # The compact tactic constructs the existing character-list theorem;
+            # its untrusted strings still have to match the exact kernel goal.
+            for name, left, right in (("empty", "", ""),
+                                      ("crlf", "-- marker\r", "X;\n"),
+                                      ("unicode", "α", "😀")):
+                joined = left + "\n" + right
+                statement = (f"theorem Silver.compactJoin : {GENERATOR.literal(left)} ++ "
+                             f'"\\n" ++ {GENERATOR.literal(right)} = {GENERATOR.literal(joined)} := by\n')
+                witness = f"  kernel_join {GENERATOR.literal(left)} {GENERATOR.literal(right)}\n"
+                check("compact_join_" + name, statement + witness)
+                check("compact_false_goal_" + name,
+                      statement.replace(" = " + GENERATOR.literal(joined),
+                                        " = " + GENERATOR.literal(joined + "!")) + witness,
+                      r"\(kernel\) declaration type mismatch")
+
+            def compact(source):
+                return "\n".join(GENERATOR.generate(
+                    source.decode("ascii"), "fixtureSource", "fixtureTokens", compact_joins=True))
+
+            for name, source in (("empty", b""), ("no_final_lf", b"X;"),
+                                 ("mixed_endings", mixed), ("blank_lines", b"\nX;\n\n")):
+                certificate("compact_" + name, source, compact(source))
+            for name, source in (("comment_byte", mixed.replace(b"marker", b"changed")),
+                                 ("truncated_source", mixed[:-2]),
+                                 ("missing_final_lf", mixed[:-1]),
+                                 ("normalized_crlf", mixed.replace(b"\r\n", b"\n"))):
+                certificate("compact_" + name, source, compact(mixed), r"(?i)type mismatch")
+            source = b"X;\nY;\n"
+            original = compact(source)
+            for name, before, after in (
+                    ("wrong_byte", 'kernel_join "Y;" ""', 'kernel_join "Z;" ""'),
+                    ("truncated_witness", 'kernel_join "Y;" ""', 'kernel_join "Y" ""'),
+                    ("newline_boundary", 'kernel_join "Y;" ""', 'kernel_join "Y;\\n" ""')):
+                self.assertEqual(original.count(before), 1)
+                certificate("compact_" + name, source, original.replace(before, after, 1),
+                            r"\(kernel\) declaration type mismatch")
+            with mock.patch.object(GENERATOR, "_RFL_TOKEN_LIMIT", 0):
+                compact_values = compact(source)
+            certificate("compact_explicit_values", source, compact_values)
+            before = 'def fixtureTokens : Tokens :=\n  ["x", ";", "y", ";"]'
+            after = 'def fixtureTokens : Tokens :=\n  ["x", ";"]'
+            self.assertEqual(compact_values.count(before), 1)
+            certificate("compact_missing_tokens", source,
+                        compact_values.replace(before, after, 1),
                         r"\(kernel\) declaration type mismatch")
 
             # Bypass Python's byte validation to exercise the independent Lean

@@ -30,6 +30,8 @@ structure TypeImports (calls : Calls) (text : Source) (state : ParserState) (pos
     calls .lookupArray text state.arrayNames.names first after = ArrayBindings.lookup text state.arrayNames.names first after
   functions : let first := skipAt text position; let after := fixedAfter text first "boolean" true
     calls .lookupFunction text state.functions first after = FunctionBindings.lookup text state.functions first after
+  procedures : let first := skipAt text position; let after := fixedAfter text first "boolean" true
+    calls .lookupProcedure text state.procedures first after = ProcedureBindings.lookup text state.procedures first after
   formals : let first := skipAt text position; let after := fixedAfter text first "boolean" true
     calls .formalHides text state first after = formalHides text state first after
 
@@ -42,7 +44,7 @@ theorem functionType_imports (calls : Calls) (text : Source) (state : ParserStat
   simp [functionTypeBody, Expr.eval, apply2, apply3, apply4, Frame.locals, Locals.set,
     Field.get, imports.scalarType, imports.skip, taken,
     Token.shell, ShellToken.word, imports.strings, imports.scalars, imports.booleans,
-    imports.subtypes, imports.arrays, imports.functions, imports.formals, functionTypeAt,
+    imports.subtypes, imports.arrays, imports.functions, imports.procedures, imports.formals, functionTypeAt,
     Bool.or_eq_true, or_assoc]
 
 /-- Append_Parameter has no Valid_State precondition. Its only imported call

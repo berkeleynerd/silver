@@ -9,6 +9,7 @@ public import Silver.IntegerSubtypeBindings
 public import Silver.BooleanBindings
 public import Silver.ScalarExpressionEnvironment
 public import Silver.FunctionBindings
+public import Silver.ProcedureBindings
 
 @[expose] public section
 
@@ -89,6 +90,8 @@ structure ParserState where
   assignedInFunctions : Bool := false
   «hiding» : HiddenMarks := {}
   firstParameter : Nat := 0
+  procedures : ProcedureBindings.Metadata := {}
+  firstProcedureParameter : Nat := 0
   deriving DecidableEq, Repr
 
 def initialState : ParserState := {}
@@ -101,9 +104,13 @@ def functionHides (text : Source) (catalog : FunctionBindings.Metadata) (word : 
   catalog.items.any fun item => Named.nameIs text item.first item.after (word.toList.map Char.toNat)
 
 def formalHides (text : Source) (state : ParserState) (first after : Nat) : Bool :=
-  decide (0 < first ∧ first < after ∧ state.firstParameter ≠ 0) &&
-    (state.functions.parameters.drop (state.firstParameter - 1)).any
-      (fun item => Named.equalName text item.first item.after first after)
+  decide (0 < first ∧ first < after) &&
+    ((decide (state.firstParameter ≠ 0) &&
+      (state.functions.parameters.drop (state.firstParameter - 1)).any
+        (fun item => Named.equalName text item.first item.after first after)) ||
+     (decide (state.firstProcedureParameter ≠ 0) &&
+      (state.procedures.parameters.drop (state.firstProcedureParameter - 1)).any
+        (fun item => Named.equalName text item.first item.after first after)))
 
 inductive Form
   | direct | assignment | argument | guardedArgument | branching | guardedBranching | result | guardedResult

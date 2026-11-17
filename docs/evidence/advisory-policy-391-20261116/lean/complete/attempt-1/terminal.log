@@ -1,0 +1,40 @@
+Lean concurrency: 12 Lake workers, 12 threads per Lean process (12 available CPUs).
+Lean phase build started at 2026-11-16T22:52:36.843356+00:00
++ /home/agent/silver-worktrees/procedures-lean-370/.tools/linux-aarch64/lean/bin/lake --rehash --reconfigure -K silverThreads=12 -K silverMemoryMb=8192 build Silver.Audit
+✔ [346/394] Built Silver.ComposeArrayDeclarationSource (287ms)
+✔ [347/395] Built Silver.ComposeBooleanInitializerNative (426ms)
+✔ [348/395] Built Silver.ComposeModelCalls (507ms)
+✖ [349/395] Building Silver.ComposeBooleanDeclarationMeaning (507ms)
+trace: .> LEAN_PATH=/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/proof/.lake/build/lib/lean /home/agent/silver-worktrees/procedures-lean-370/.tools/linux-aarch64/lean/bin/lean -j12 -M8192 -DwarningAsError=true /home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/proof/Silver/ComposeBooleanDeclarationMeaning.lean -o /home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/ComposeBooleanDeclarationMeaning.olean -i /home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/ComposeBooleanDeclarationMeaning.ilean -c /home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/proof/.lake/build/ir/Silver/ComposeBooleanDeclarationMeaning.c --setup /home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/proof/.lake/build/ir/Silver/ComposeBooleanDeclarationMeaning.setup.json --json
+error: Silver/ComposeBooleanDeclarationMeaning.lean:13:15: Ambiguous namespace `Expressions`: it is interpreted as `_root_.Silver.Compose.Expressions` because this `open` occurs inside `namespace Silver.Compose.BooleanDeclarationNative`, while `_root_.Silver.Expressions` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.Silver.Compose.Expressions`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+✔ [350/395] Built Silver.ComposeStringPrimitiveEquations (1.3s)
+✔ [351/395] Built Silver.ComposeStringDeclarationEquation (1.4s)
+✔ [353/395] Built Silver.ComposeNativeValueBounds (1.7s)
+✔ [354/400] Built Silver.ComposeBooleanArraySource (568ms)
+✔ [355/400] Built Silver.ComposeDeclarationBounds (1.7s)
+✔ [356/400] Built Silver.ComposeGrammar (1.6s)
+✔ [360/400] Built Silver.PredicateAdmission (447ms)
+✔ [374/422] Built Silver.ComposeNativeRecordBounds (641ms)
+✔ [380/429] Built Silver.ComposeCoreHelperEquations (1.1s)
+✔ [381/429] Built Silver.ScalarFunctionComposition (576ms)
+✔ [396/451] Built Silver.PredicateNativeExpressions (3.0s)
+✔ [397/451] Built Silver.SequenceEffects (732ms)
+✔ [398/453] Built Silver.FunctionDeclarationRecordTypes (708ms)
+✔ [399/453] Built Silver.FunctionDeclarationDomains (759ms)
+✔ [400/456] Built Silver.PredicateNativeBodies (899ms)
+✔ [401/456] Built Silver.PredicateComposition (833ms)
+
+Lean phase build interrupted after 7.613s: KeyboardInterrupt
+Traceback (most recent call last):
+  File "/home/agent/silver-worktrees/procedures-lean-370/scripts/check_lean.py", line 641, in <module>
+    main()
+    ~~~~^^
+  File "/home/agent/silver-worktrees/procedures-lean-370/scripts/check_lean.py", line 568, in main
+    result = run_logged(command, cwd=host.proof, env=environment,
+                        destination=destination, pass_fds=run.pass_fds)
+  File "/home/agent/silver-worktrees/procedures-lean-370/scripts/check_lean.py", line 381, in run_logged
+    while chunk := process.stdout.read1(65536):
+                   ~~~~~~~~~~~~~~~~~~~~^^^^^^^
+KeyboardInterrupt

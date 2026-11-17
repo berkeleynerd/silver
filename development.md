@@ -100,7 +100,18 @@ For each authorized increment:
    it never replaces initialization or safety checks. Its
    [producer/capacity account](docs/fixed-integer-arrays-report-capacity.md) covers
    repeated nested-loop notes within the unchanged source/operator budgets.
-   Other diagnostics remain rejected. A new accepted obligation class
+   Declared local functions and procedures also admit the exact unused-formal
+   `UNUSED_VARIABLE` advisory, and procedure calls admit the exact `INEFFECTIVE`
+   unused-copy-back message with a declared procedure callee. The exact
+   `INOUT_ONLY_READ` message `"NAME" is not modified, could be IN` requires a
+   procedure's `in out` formal; `UNUSED_INITIAL_VALUE` / `unused initial value
+   of "NAME"` requires a procedure's `in` or `in out` formal, or a function's
+   `in` formal. These two rules bind the exact declared owner and formal spelling,
+   never Main, with warning severity, flow provenance, `main.adb`, positive
+   location and no suppression or justification. Every procedure `out` formal
+   still requires its separate successful initialization witness; every function
+   still requires its termination witness. Other diagnostics remain rejected.
+   A new accepted obligation class
    needs a corresponding semantic/discharge argument, not just report handling.
    The [shared-binding checkpoint](docs/shared-bindings.md) records the completed
    assurance and validation for that earlier policy; the
@@ -129,6 +140,10 @@ operators and the modeled equations. Regenerating a matching pin alone does not
 establish correspondence.
 
 ## Proof loop and validation
+
+Validation runs locally on this development host under the owner's policy,
+reconfirmed on 2026-11-15. Hosted CI is unused and is not a delivery requirement;
+the complete local checks and evidence rules below remain mandatory.
 
 Run from the repository root. Use `scripts/bootstrap.py` and
 `scripts/bootstrap_lean.py` when tools need installation. Moving the installation
@@ -278,6 +293,12 @@ python3 scripts/dev.py build
 python3 scripts/dev.py test
 python3 scripts/check_lean.py
 ```
+
+For the current Linux ARM64 compiler, set the invoking shell's stack to
+16 MiB (`ulimit -S -s 16384`, where permitted) before native regression/compiler
+checks. The [setup guidance](README.md#set-up-verify-and-build) links the exact
+boundary measurements; this environment setting is not a universal stack bound
+or a change to source membership. Capture the actual limit with run evidence.
 
 The regression and sample-test requirement may be satisfied by a completed
 full-suite run plus successful repair reruns when a recorded independent review

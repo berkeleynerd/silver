@@ -1,0 +1,39 @@
+{
+  "outcome": "accepted",
+  "stats": {
+    "units": 78,
+    "entities": 1239,
+    "flow_checks": 1724,
+    "proof_checks": 17791,
+    "limitation_notes": 352,
+    "imported_entities": 18,
+    "trusted_math_notes": 6268,
+    "vendor_spec_entities": 62,
+    "array_initialization_advisories": 6,
+    "operator_reassociation_advisories": 27
+  },
+  "seconds": 1.0048038340000858,
+  "source_root": "/home/agent/silver-workspaces/recovery-volume/integration",
+  "auditor_path": "/home/agent/silver-workspaces/recovery-volume/native/scripts/check_evidence.py",
+  "auditor_sha256": "905742ba77e86fcf5b2e60c8e820ac00545e3e59283d5f25a4dac10242bb26f3",
+  "captured_input_auditor_sha256": "56cd80e1b174d97c7fb1ac53e964b120ad56ee75e13c0eece1ca45e774781e8d",
+  "captured_command": [
+    "gnatprove",
+    "-P",
+    "../../../silver.gpr",
+    "-U",
+    "--mode=all",
+    "--report=all",
+    "--warnings=error",
+    "--checks-as-errors=on",
+    "--level=2",
+    "--prover=cvc5,z3,altergo",
+    "--timeout=30",
+    "-j",
+    "12",
+    "--memcached-server=file:/home/agent/silver-workspaces/recovery-volume/integration/.silver/linux-aarch64/proof-cache/gnatprove/0d29986b9858e9838780c6ec8496c6b4fd34d53a8f06c8cf36bd393fc8ef98f0",
+    "-f",
+    "-XSILVER_HOST=linux-aarch64"
+  ],
+  "scope": "Cheap updated source/report policy audit over completed native results, before final integration/provenance refresh; not completed content-bound native proof provenance."
+}

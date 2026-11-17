@@ -103,11 +103,14 @@ class SupportedSampleTests(unittest.TestCase):
                 # and its advisories, including Character and String elements.
                 assignment = bool({"string_assignment", "integer_assignment", "integer_array_assignment",
                                    "boolean_assignment", "boolean_array_assignment", "character_assignment", "string_element_assignment",
-                                   "scalar_function_call"}
+                                   "scalar_function_call", "scalar_procedure_call"}
                                   & set(sample["capabilities"]))
                 output = "runtime_context" in sample["capabilities"]
                 functions = tuple(sample.get("application_functions", []))
-                self.assert_application_proof_policy(reports[0], output=output, functions=bool(functions))
+                procedures = {name: tuple(outputs) for name, outputs in
+                              sample.get("application_procedures", {}).items()}
+                self.assert_application_proof_policy(reports[0], output=output,
+                                                     functions=bool(functions or procedures))
                 units = {snapshots[0].stem}
                 if output:
                     units |= {"silver_io", "silver_output_libc", "silver_arguments", "silver_runtime"}
@@ -116,7 +119,8 @@ class SupportedSampleTests(unittest.TestCase):
                                            application_kind=("selected" if assignment else "argument")
                                            if "argument_context" in sample["capabilities"]
                                            else ("assigned" if assignment else "static") if output else None,
-                                           indexed_main=True, application_functions=functions)
+                                           indexed_main=True, application_functions=functions,
+                                           **({'application_procedures': procedures} if procedures else {}))
                 self.assertEqual(statistics["units"], len(units))
                 if output:
                     self.assertGreater(statistics["proof_checks"], 0)

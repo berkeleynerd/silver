@@ -16,6 +16,14 @@ namespace Silver.Predicate
 variable {catalog : FunctionBindings.Metadata}
 open Compose Bindings PathFacts
 
+theorem procedureCalleeAt_empty (text : Source) (context : ParseContext) (position : Nat) :
+    procedureCalleeAt text context position {} = 0 := by
+  dsimp only [procedureCalleeAt]
+  split
+  · rfl
+  · rfl
+
+
 set_option backward.dsimp.instances true
 
 abbrev outputStart (text : Source) (context : ParseContext) (scan : BodyScan) : BodyScan :=
@@ -118,7 +126,7 @@ theorem basicRaw_string {text context scan}
     (kind : basicKind text context scan = .assignment)
     (positive : (basicRaw (catalog := catalog) text context scan).position ≠ 0) :
     basicRaw (catalog := catalog) text context scan = stringAssignmentBody text context scan := by
-  simp only [basicRaw, kind] at positive ⊢
+  simp only [basicRaw, kind, procedureCalleeAt_empty, ne_eq, not_true_eq_false, ↓reduceIte] at positive ⊢
   split at positive
   · exact False.elim (positive rfl)
   · rename_i impure

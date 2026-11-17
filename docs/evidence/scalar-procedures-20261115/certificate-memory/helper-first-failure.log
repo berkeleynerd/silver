@@ -1,0 +1,25 @@
+Lean concurrency: 1 Lake workers, 12 threads per Lean process (12 available CPUs).
+Lean phase build started at 2026-11-15T17:01:23.112434+00:00
++ /home/agent/silver-workspaces/recovery-volume/certificate/.tools/linux-aarch64/lean/bin/lake --rehash --reconfigure -K silverThreads=12 -K silverMemoryMb=2048 build +Silver.CertificateReconstruction +Silver.AxiomAudit
+info: silverProof: no previous manifest, creating one from scratch
+info: toolchain not updated; already up-to-date
+✔ [2/7] Built Silver.Lexical (645ms)
+✔ [3/7] Built Silver.AxiomAudit (1.9s)
+✔ [4/7] Built Silver.Admission (231ms)
+✔ [5/7] Built Silver.Cursor (411ms)
+✔ [6/7] Built Silver.SourceLexer (1.4s)
+✖ [7/7] Building Silver.CertificateReconstruction (146ms)
+trace: .> LEAN_PATH=/home/agent/silver-workspaces/recovery-volume/certificate/.silver/linux-aarch64/proof/.lake/build/lib/lean /home/agent/silver-workspaces/recovery-volume/certificate/.tools/linux-aarch64/lean/bin/lean -j12 -M2048 -DwarningAsError=true /home/agent/silver-workspaces/recovery-volume/certificate/.silver/linux-aarch64/proof/Silver/CertificateReconstruction.lean -o /home/agent/silver-workspaces/recovery-volume/certificate/.silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/CertificateReconstruction.olean -i /home/agent/silver-workspaces/recovery-volume/certificate/.silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/CertificateReconstruction.ilean -c /home/agent/silver-workspaces/recovery-volume/certificate/.silver/linux-aarch64/proof/.lake/build/ir/Silver/CertificateReconstruction.c --setup /home/agent/silver-workspaces/recovery-volume/certificate/.silver/linux-aarch64/proof/.lake/build/ir/Silver/CertificateReconstruction.setup.json --json
+error: Silver/CertificateReconstruction.lean:23:2: Type mismatch: After simplification, term
+  joined
+ has type
+  @Eq (List UInt8) (left.toByteArray.data.toList ++ [10] ++ right.toByteArray.data.toList) text.toByteArray.data.toList
+but is expected to have type
+  @Eq (List UInt8) (left.toByteArray.data.toList ++ "\n".toByteArray.data.toList ++ right.toByteArray.data.toList)
+    text.toByteArray.data.toList
+Some required targets logged failures:
+- Silver.CertificateReconstruction
+error: build failed
+
+Lean phase build finished at 2026-11-15T17:01:30.734052+00:00; elapsed 7.622s; exit 1
+check_lean: Lean check failed; see /home/agent/silver-workspaces/recovery-volume/certificate/.silver/linux-aarch64/lean-focused.log

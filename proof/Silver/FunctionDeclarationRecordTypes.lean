@@ -1,7 +1,8 @@
 module
 
-public import Silver.FunctionDeclarationImports
+public import Silver.FunctionDeclarationNative
 public import Silver.FunctionBindingsNativeEquations
+public import Silver.ProcedureBindingsNativeEquations
 
 @[expose] public section
 
@@ -59,9 +60,11 @@ structure StateRecord (state : ParserState) : Prop where
   dynamicAfter : CursorType state.dynamicAfter
   target : state.target ≤ maxBindings
   capacity : state.capacity ≤ maxSourceLength
+  procedures : ProcedureBindings.Native.MetadataType state.procedures
+  firstProcedureParameter : state.firstProcedureParameter ≤ ProcedureBindings.maxFormals
 
 theorem invalid_state_record : StateRecord invalidState := by
-  constructor <;> simp [invalidState, CursorType, FunctionBindings.Native.MetadataType,
+  constructor <;> simp [invalidState, CursorType, FunctionBindings.Native.MetadataType, ProcedureBindings.Native.MetadataType,
     StringEnvironmentType, ScalarEnvironmentType, ArrayEnvironmentType,
     SubtypeEnvironmentType, BooleanEnvironmentType]
 

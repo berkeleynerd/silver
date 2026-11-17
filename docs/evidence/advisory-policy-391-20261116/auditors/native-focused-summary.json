@@ -1,0 +1,74 @@
+{
+  "run_id": "20261116T223829-a66b58aff2d9",
+  "original_terminal_session": 8963,
+  "terminal_exit_code": 0,
+  "outcome": "success",
+  "duration_seconds": 291.150957472,
+  "workers": 12,
+  "stack_kib": 16384,
+  "host": "linux-aarch64",
+  "flow_checks": 353,
+  "proof_checks": 317,
+  "sessions": {
+    "procedure_input_formal": {
+      "goal_nodes": 8,
+      "unproved_goal_nodes": 0
+    },
+    "function_input_formal": {
+      "goal_nodes": 4,
+      "unproved_goal_nodes": 0
+    },
+    "formal_name_valid": {
+      "goal_nodes": 5,
+      "unproved_goal_nodes": 0
+    },
+    "formal_advisory_text": {
+      "goal_nodes": 18,
+      "unproved_goal_nodes": 0
+    },
+    "formal_advisory_message": {
+      "goal_nodes": 36,
+      "unproved_goal_nodes": 0
+    },
+    "diagnostic_message": {
+      "goal_nodes": 35,
+      "unproved_goal_nodes": 0
+    },
+    "raw_formal_advisory_message": {
+      "goal_nodes": 31,
+      "unproved_goal_nodes": 0
+    },
+    "raw_diagnostic_message": {
+      "goal_nodes": 16,
+      "unproved_goal_nodes": 0
+    },
+    "mixed_formal_advisory_message": {
+      "goal_nodes": 119,
+      "unproved_goal_nodes": 0
+    },
+    "mixed_diagnostic_message": {
+      "goal_nodes": 84,
+      "unproved_goal_nodes": 0
+    },
+    "record_ok": {
+      "goal_nodes": 320,
+      "unproved_goal_nodes": 0
+    },
+    "mixed_record_congruence": {
+      "goal_nodes": 467,
+      "unproved_goal_nodes": 0
+    }
+  },
+  "input_sha256": {
+    "src/silver_library_reports.adb": "3f761cd823acc39ddbf904626ac2b8ea3f71938ccbc0071825f99fe608a5842c",
+    "src/silver_library_reports.ads": "687ae837d4e1607f6f64cfd23dd54cd9fea2bc9927055b9c81b675032733c50b",
+    "scripts/check_evidence.py": "56cd80e1b174d97c7fb1ac53e964b120ad56ee75e13c0eece1ca45e774781e8d"
+  },
+  "warning_rules": {
+    "operator-reassociation": 13,
+    "contracts-recursive": 15,
+    "numeric-variant": 25,
+    "error": 714
+  },
+  "scope": "complete selected helper/caller contracts and unit flow; not complete native audit"
+}

@@ -4,6 +4,7 @@ public import Silver.PredicateOuterReadiness
 public import Silver.ComposeModel
 public import Silver.ComposeSourceBridge
 public import Silver.FunctionDeclarationModelSource
+public import Silver.ProcedureDeclarationModelSource
 
 @[expose] public section
 
@@ -69,10 +70,13 @@ theorem model_definitions :
   ranges := model_ranges
   names := base_definitions.names
   functionLookup := base_definitions.functionLookup
+  procedureLookup := base_definitions.procedureLookup
   formalHides text tv state first after sv fv av :=
     base_definitions.formalHides text tv state first after ⟨sv.valid, sv.bounds⟩ fv av
   functionDeclaration text tv state arguments sv :=
     base_definitions.functionDeclaration text tv state arguments ⟨sv.valid, sv.bounds⟩
+  procedureDeclaration text tv state arguments sv :=
+    base_definitions.procedureDeclaration text tv state arguments ⟨sv.valid, sv.bounds⟩
   fixedBounds := base_definitions.fixedBounds
   characterLiteral := base_definitions.characterLiteral
   guardedAt := base_definitions.guardedAt
@@ -232,6 +236,8 @@ theorem model_interpreted :
     unfold LengthSummary.ofImage
     split <;> exact ⟨rfl, rfl⟩
   lexical := ⟨Guarded.Expressions.modelCalls, fixedAt, rfl, Lexical.model_interpreted⟩
+  procedureMetadata := ⟨ProcedureBindings.Native.modelCalls,
+    ProcedureBindings.SourceBridge.model_interpreted, rfl⟩
   definitions := fun _ => model_definitions.toRawHelperEquations
   booleanDeclaration := by
     refine { source := ?_ }
@@ -259,6 +265,18 @@ theorem model_interpreted :
     exact ⟨⟨Compose.FunctionDeclarationNative.modelCalls,
       Compose.FunctionDeclarationNative.model_interpreted OuterReadiness.domain inherited exactDomain,
       rfl, rfl, rfl, rfl⟩⟩
+  procedureDeclaration := by
+    let inherited : Compose.FunctionDeclarationNative.InheritedEquations
+        Compose.Expressions.modelCalls OuterReadiness.domain :=
+      { toRawHelperEquations := model_definitions.toRawHelperEquations
+        booleanDeclaration := model_definitions.booleanDeclaration }
+    let exactDomain : Compose.FunctionDeclarationNative.ExactDomain OuterReadiness.domain :=
+      { state := fun _ _ =>
+          ⟨fun valid => ⟨valid.base, valid.ready, valid.bounds⟩,
+           fun valid => ⟨valid.base, valid.ready, valid.bounds⟩⟩ }
+    exact ⟨⟨Compose.ProcedureDeclarationNative.modelCalls,
+      Compose.ProcedureDeclarationNative.model_interpreted OuterReadiness.domain inherited exactDomain,
+      rfl, rfl⟩⟩
   legal := model_legal
   step text tv form token state _ tokenValid sv :=
     (Compose.Expressions.model_definitions Compose.Expressions.model_ranges).step

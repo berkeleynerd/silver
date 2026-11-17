@@ -1,0 +1,41 @@
+{
+  "integration_head_at_capture": "0ffe531e486ecd3089cf8a9d4f3202367b2d17e5",
+  "native_source_commit_from_accepted_evidence": "1dde32cce",
+  "binary_sha256": "683925c9b33cda887a58ecc2ad1d0e8feedf51590653e7aee3dd2889b06267d9",
+  "files_sha256": {
+    "src/silver_output_profile.adb": "9ede490b6cf72b352a39072cd37f4ef39774409c6024135487cf076567b59b9c",
+    "src/silver_output_profile.ads": "9823c84e840348f474a0b83d9da57b99f1f3b66f9a6040ad0c73d6cc2e9bd0a3",
+    "src/silver_scalar_expressions.adb": "0bf741545fc672985a51dabdc1d27ba48af6a4e0d24f977c0782c0ec89579a4e",
+    "src/silver_scalar_expressions.ads": "a56fcb14e4df2e96203a0731327077bb2dc73b9337c42cc4bf293480bf3e8df4",
+    "tests/test_scalar_guards.py": "e95bc216f4d8b6517c28b79c06e99cb54ac4925a7459e067ec6cdf6ef47a36db",
+    "tests/test_shared_bindings.py": "14c59d80237e70a9ba9cb6b30acd747655187f58b314a7c70af43fbe77094a4a",
+    "tests/test_silver.py": "eb1aaa31aa61f02676531443c2a3006e6199699983d98c5aa58f2dd856084304",
+    "silver.gpr": "487fb033a7f3d056f6032b67ff5b57abfc16ce8e65db39a53d24d1d961b152eb",
+    ".silver/linux-aarch64/compiler/obj/silver_output_profile.ali": "bbab14c0a6e8cb0221e26f433a4a533689dcf6e2e1f8a239b8edbcad87c29912",
+    ".silver/linux-aarch64/compiler/obj/silver_output_profile.o": "fb80b7f2bca0370d40b5021177193337de41c60966f28ef584b44b1d51bfefc9",
+    ".silver/linux-aarch64/compiler/bin/silver": "683925c9b33cda887a58ecc2ad1d0e8feedf51590653e7aee3dd2889b06267d9"
+  },
+  "platform": "Linux-7.0.14-aarch64-with-glibc2.41",
+  "machine": "aarch64",
+  "python": "3.14.10",
+  "cpu_affinity_count": 12,
+  "stack_limit_bytes": [
+    8388608,
+    -1
+  ],
+  "compiler_arguments_from_ali": [
+    "-gnatA",
+    "-gnat2022",
+    "-gnata",
+    "-gnato",
+    "-g",
+    "-mlittle-endian",
+    "-mabi=lp64"
+  ],
+  "tools": {
+    "gcc": "gcc (GNAT-FSF-builds) 16.1.0",
+    "gdb": "GNU gdb (GDB) 17.2",
+    "objdump": "GNU objdump (GNU Binutils) 2.46.1"
+  },
+  "snapshot_note": "Read-only use of accepted integration binary/object; no bootstrap, compiler build, native proof or Lean run performed."
+}

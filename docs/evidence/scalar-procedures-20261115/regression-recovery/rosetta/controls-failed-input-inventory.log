@@ -1,0 +1,17 @@
+Traceback (most recent call last):
+  File "/home/agent/silver-workspaces/recovery-volume/rosetta/docs/evidence/scalar-procedures-20261115/regression-recovery/rosetta/check-controls.py", line 147, in <module>
+    main()
+    ~~~~^^
+  File "/home/agent/silver-workspaces/recovery-volume/rosetta/docs/evidence/scalar-procedures-20261115/regression-recovery/rosetta/check-controls.py", line 107, in main
+    inputs = inventory(['rosetta/manifest.json', 'rosetta/coverage.json', 'rosetta/refresh.py',
+                        'rosetta/assess.js', 'tests/test_rosetta.py', 'tests/__init__.py',
+    ...<3 lines>...
+                        'rosetta/r/return-multiple-values/ada-1.ada',
+                        'rosetta/assessment-scalar-procedures-20261109.md'])
+  File "/home/agent/silver-workspaces/recovery-volume/rosetta/docs/evidence/scalar-procedures-20261115/regression-recovery/rosetta/check-controls.py", line 29, in inventory
+    return {path: {'bytes': (ROOT / path).stat().st_size,
+                            ~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/pathlib/__init__.py", line 654, in stat
+    return os.stat(self, follow_symlinks=follow_symlinks)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/home/agent/silver-workspaces/recovery-volume/rosetta/tests/__init__.py'

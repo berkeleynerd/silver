@@ -1,0 +1,25 @@
+{
+  "path_basis": "repository root",
+  "files": [
+    {
+      "path": "docs/evidence/scalar-procedures-20261109/qualified-validity-390-20261113/finding-review.tar.gz",
+      "bytes": 28913,
+      "sha256": "100dad6737b2896f3ca089600cd5fb7ebb04fb5e94117bef8f18bb58878d9dc1"
+    },
+    {
+      "path": "docs/evidence/scalar-procedures-20261109/qualified-validity-390-20261113/native-interruption.tar.gz",
+      "bytes": 3283260,
+      "sha256": "04eb468db08126c23f87c9404c182147a915e5f131781ad3d4e7c77e831f319b"
+    },
+    {
+      "path": "docs/evidence/scalar-procedures-20261109/qualified-validity-390-20261113/source-progress-and-stop.tar.gz",
+      "bytes": 6748192,
+      "sha256": "2b9edbbfc1b1e3d68fe31d48684275cc16ff82bf77b22012c127ae326072a391"
+    },
+    {
+      "path": "docs/reviews/review-scalar-procedures-integration-4553fd6a11.md",
+      "bytes": 13404,
+      "sha256": "b01f1a1df9a857d40c0c7e703f862a11b6bac8442d7a7064883419a778d44b6a"
+    }
+  ]
+}

@@ -20,6 +20,7 @@ from scripts.check_evidence import (BIG_INTEGER_VALIDITY_TEXT, SEQUENCE_NAME, SE
                                     SIGNED_CONVERSION_UNIT, SIGNED_CONVERSION_NAME,
                                     audit_signed_conversion_instance, signed_conversion_entities)
 from scripts.platforms import HostLayout
+from tests import test_library_reports as library_reports
 
 
 class ProofEvidenceTests(unittest.TestCase):
@@ -45,7 +46,7 @@ class ProofEvidenceTests(unittest.TestCase):
         }
         (self.path / "gnatprove.out").write_text("Total . . . . .\nin unit main, 1 subprograms and packages out of 1 analyzed\n")
 
-    def refresh_reports(self) -> None:
+    def refresh_reports(self, *, fill_defaults: bool = True) -> None:
         """Build mutually consistent producer reports; mutations happen after this."""
         summary = []
         diagnostics = []
@@ -60,14 +61,15 @@ class ProofEvidenceTests(unittest.TestCase):
             proof += len(report["proof"])
             for kind in ("flow", "proof", "warn_error"):
                 for record in report[kind]:
-                    for key, value in {"file": path.stem + ".adb", "line": 1, "col": 1,
-                                       "rule": "VC_ASSERT", "entity": 1,
-                                       "message": {"text": "assertion proved"}}.items():
-                        record.setdefault(key, value)
-                    diagnostics.append({"ruleId": record["rule"], "kind": "pass", "level": "none",
-                                        "message": record["message"], "locations": [{"physicalLocation": {
-                                            "artifactLocation": {"uri": record["file"]},
-                                            "region": {"startLine": record["line"], "startColumn": record["col"]}}}]})
+                    if fill_defaults:
+                        for key, value in {"file": path.stem + ".adb", "line": 1, "col": 1,
+                                           "rule": "VC_ASSERT", "entity": 1,
+                                           "message": {"text": "assertion proved"}}.items():
+                            record.setdefault(key, value)
+                    diagnostics.append({"ruleId": record.get("rule"), "kind": "pass", "level": "none",
+                                        "message": record.get("message"), "locations": [{"physicalLocation": {
+                                            "artifactLocation": {"uri": record.get("file")},
+                                            "region": {"startLine": record.get("line"), "startColumn": record.get("col")}}}]})
             path.write_text(json.dumps(report))
         summary.insert(0, f"Total {flow + proof} {flow} {proof} . .")
         (self.path / "gnatprove.out").write_text("\n".join(summary) + "\n")
@@ -185,6 +187,147 @@ class ProofEvidenceTests(unittest.TestCase):
                 self.audit_functions(names)
         with self.assertRaisesRegex(EvidenceError, "requires an application"):
             audit_reports(self.path, {"main"}, application_functions=("MiXeD",))
+
+    def prepare_procedures(self) -> None:
+        self.report = library_reports.procedure_report()
+        self.sarif["runs"][0]["invocations"][0]["commandLine"] += " --no-inlining"
+
+    def audit_procedures(self, procedures=None, *, unused_output=False,
+                         kind="assigned", formals=None, fill_defaults=True) -> dict[str, int]:
+        (self.path / "main.spark").write_text(json.dumps(self.report))
+        self.refresh_reports(fill_defaults=fill_defaults)
+        if unused_output:
+            sarif_path = self.path / "gnatprove.sarif"
+            sarif = json.loads(sarif_path.read_text())
+            records = self.report["flow"] + self.report["proof"]
+            for result, record in zip(sarif["runs"][0]["results"], records):
+                if record.get("severity") == "warning":
+                    result.update(kind="open", level="warning")
+            sarif_path.write_text(json.dumps(sarif))
+            flow = sum(r.get("severity") == "info" for r in self.report["flow"])
+            proof = len(self.report["proof"])
+            (self.path / "gnatprove.out").write_text(
+                f"Total {flow + proof} {flow} {proof} . .\n"
+                "in unit main, 5 subprograms and packages out of 5 analyzed\n")
+        if procedures is None:
+            procedures = {"Set_Value": ("Value", "Flag"), "Reset": ("Value",), "Step": ()}
+        return audit_reports(self.path, {"main"}, application_kind=kind,
+                             application_functions=("Id",), application_procedures=procedures,
+                             application_formals=formals)
+
+    def test_procedures_require_each_output_and_preserve_function_termination(self) -> None:
+        self.prepare_procedures()
+        stats = self.audit_procedures()
+        self.assertEqual(stats["entities"], 5)
+        self.assertEqual(stats["initialization_checks"], 3)
+        self.assertEqual(stats["termination_checks"], 1)
+        self.assertEqual(stats["flow_checks"], 4)
+        self.assertEqual(stats["proof_checks"], 1)
+        for label, mutate in library_reports.procedure_report_mutations():
+            self.report = library_reports.procedure_report()
+            mutate(self.report)
+            with self.subTest(label=label), self.assertRaises(EvidenceError):
+                self.audit_procedures()
+
+    def test_unused_procedure_outputs_are_exact_advisories(self) -> None:
+        self.prepare_procedures()
+        self.report = library_reports.unused_procedure_output_report()
+        self.assertEqual(self.audit_procedures(unused_output=True)["assignment_advisories"], 1)
+        for label, mutate in library_reports.unused_procedure_output_mutations():
+            self.report = library_reports.unused_procedure_output_report()
+            mutate(self.report)
+            with self.subTest(label=label), self.assertRaises(EvidenceError):
+                self.audit_procedures(unused_output=True)
+
+    def test_formal_advisories_bind_exact_owner_mode_name_and_record(self) -> None:
+        self.prepare_procedures()
+        for kind in ("static", "argument", "assigned", "selected"):
+            self.report = library_reports.procedure_kind_report(kind)
+            self.assertEqual(self.audit_procedures(kind=kind)["assignment_advisories"], 0)
+            for rule, owner, name in library_reports.FORMAL_ADVISORIES:
+                base = library_reports.formal_advisory_report(kind, rule, owner, name)
+                self.report = copy.deepcopy(base)
+                with self.subTest(kind=kind, rule=rule, owner=owner, name=name):
+                    self.assertEqual(self.audit_procedures(kind=kind, unused_output=True,
+                        formals=library_reports.PROCEDURE_FORMALS)["assignment_advisories"], 1)
+                for label, mutate in library_reports.formal_advisory_mutations(rule, owner, name):
+                    self.report = copy.deepcopy(base)
+                    mutate(self.report)
+                    with self.subTest(kind=kind, rule=rule, owner=owner, name=name, mutation=label):
+                        with self.assertRaises(EvidenceError):
+                            self.audit_procedures(kind=kind, unused_output=True, fill_defaults=False,
+                                                  formals=library_reports.PROCEDURE_FORMALS)
+
+    def test_formal_advisories_require_an_independent_source_inventory(self) -> None:
+        self.prepare_procedures()
+        self.report = library_reports.formal_advisory_report("assigned", "INOUT_ONLY_READ", 5, "Carry")
+        for formals in (None, {}, {"Step": (("Other", "in out"),)}, {"Step": (("Carry", "in"),)}):
+            with self.subTest(formals=formals), self.assertRaises(EvidenceError):
+                self.audit_procedures(unused_output=True, formals=formals)
+        invalid = (
+            {"Main": (("Carry", "in out"),)},
+            {"Unknown": (("Carry", "in out"),)},
+            {"Id": (("X", "in out"),)},
+            {"Id": (("X", "out"),)},
+            {"Step": (("Carry", "invalid"),)},
+            {"Step": (("Carry", "in out"), ("carry", "in"))},
+            {"Step": (("Carry", "in out"),), "step": (("Carry", "in out"),)},
+            {"Step": (("Bad__Name", "in out"),)},
+            {"Step": (("X" * 4097, "in out"),)},
+            {"Step": [("Carry", "in out")]},
+            {"Set_Value": (("Carry", "in out"),)},
+            {"Reset": (("Value", "in"),)},
+        )
+        for formals in invalid:
+            with self.subTest(formals=formals), self.assertRaisesRegex(EvidenceError, "source formal inventory"):
+                self.audit_procedures(unused_output=True, formals=formals)
+
+    def test_formal_advisories_do_not_pin_location_or_record_order(self) -> None:
+        self.prepare_procedures()
+        self.report = library_reports.formal_advisory_report("argument", "INOUT_ONLY_READ", 5, "Carry")
+        self.report["flow"][-1].update(line=57, col=999)
+        self.report["flow"].reverse()
+        self.report["entities"] = dict(reversed(self.report["entities"].items()))
+        self.report["assumptions"] = []
+        self.assertEqual(self.audit_procedures(kind="argument", unused_output=True,
+            formals=library_reports.PROCEDURE_FORMALS)["assignment_advisories"], 1)
+
+    def test_genuine_previously_accepted_reports_keep_their_verdicts(self) -> None:
+        baseline = {row["case"]: row["stats"] for row in json.loads(
+            (library_reports.ACCEPTED_REPORTS / "accepted-python-results.json").read_text())}
+        for case, files in library_reports.accepted_report_cases():
+            with tempfile.TemporaryDirectory(prefix="silver-accepted-reports-") as directory:
+                path = Path(directory)
+                for name, data in files.items():
+                    if name.startswith("reports/"):
+                        (path / Path(name).name).write_bytes(data)
+                arguments = dict(application_kind=case["kind"], indexed_main=True,
+                    application_functions=tuple(case["functions"]),
+                    application_procedures={p: tuple(v) for p, v in case["procedures"].items()})
+                for formals in (None, {p: tuple(map(tuple, v)) for p, v in case["formals"].items()}):
+                    with self.subTest(case=case["name"], formals=formals):
+                        stats = audit_reports(path,
+                            {"main", "silver_io", "silver_output_libc", "silver_arguments", "silver_runtime"},
+                            {"silver_output_libc", "silver_runtime"}, application_formals=formals, **arguments)
+                        self.assertEqual(stats, baseline[case["name"]])
+
+    def test_procedure_inventory_and_no_inlining_are_required(self) -> None:
+        self.prepare_procedures()
+        for inventory in ({}, {"Set_Value": ("Value", "Flag"), "Reset": ("Value",)},
+                          {"Set_Value": ("Value",), "Reset": ("Value",), "Step": ()},
+                          {"Set_Value": ("Value", "Flag"), "Reset": ("Value",), "Step": ("Carry",)}):
+            with self.subTest(inventory=inventory), self.assertRaises(EvidenceError):
+                self.audit_procedures(inventory)
+        self.sarif["runs"][0]["invocations"][0]["commandLine"] = "gnatprove --mode=all --report=all"
+        with self.assertRaisesRegex(EvidenceError, "no-inlining"):
+            self.audit_procedures()
+
+    def test_initialization_witness_ignores_projected_check_tree(self) -> None:
+        self.prepare_procedures()
+        for tree in ({"producer_details": [{"not_used_by_flow_policy": True}]}, {}):
+            for record in self.report["flow"]:
+                record["check_tree"] = tree
+            self.assertEqual(self.audit_procedures()["initialization_checks"], 3)
 
     def prepare_assignment(self, **advisory_changes: object) -> None:
         self.report["assumptions"] = []
@@ -964,7 +1107,15 @@ class CompilerHideInfoPolicyTests(unittest.TestCase):
                              "\nbegin null; end Mixed_Object;\nend Silver_Library_Reports;\n")
 
     def test_exact_caller_local_hide_info_targets_and_ada_layout(self) -> None:
-        for target in ("Raw_List_Spec", "List_Spec", "rAw_LiSt_SpEc", "LIST_SPEC"):
+        for target in ("Raw_List_Spec", "List_Spec", "rAw_LiSt_SpEc", "LIST_SPEC",
+                       "Initializer_Message", "Raw_Initializer_Message",
+                       "Procedure_Output_Message", "Raw_Procedure_Output_Message",
+                       "Termination_Policy", "Initialization_Policy",
+                       "Initialization_Index_Model", "Raw_Initialization_Index",
+                       "Diagnostic_Message", "Raw_Diagnostic_Message",
+                       "Output_Message", "Raw_Output_Message",
+                       "Formal_Advisory_Message", "Raw_Formal_Advisory_Message",
+                       "Object_Policy", "Raw_Object_Policy"):
             with self.subTest(target=target):
                 self.source('PrAgMa -- caller-local abstraction\n AnNoTaTe\n'
                             '(GnAtPrOvE, -- producer\n HiDe_InFo, "Expression_Function_Body", '
@@ -975,31 +1126,36 @@ class CompilerHideInfoPolicyTests(unittest.TestCase):
         audit_source_policy(self.path)
 
     def test_hide_info_requires_exact_complete_pragma(self) -> None:
-        safe = 'pragma Annotate (GNATprove, Hide_Info, "Expression_Function_Body", Raw_List_Spec);'
-        mutations = (safe.replace("GNATprove", "Other_Tool"),
-                     safe.replace("Hide_Info", "False_Positive"),
-                     safe.replace("Hide_Info", "Assume"),
-                     safe.replace("Raw_List_Spec", "Other_Spec"),
-                     safe.replace("Raw_List_Spec", "Pkg.Raw_List_Spec"),
-                     safe.replace("Expression_Function_Body", "expression_function_body"),
-                     safe.replace("Expression_Function_Body", "Expression_Function_Body "),
-                     safe.replace('"Expression_Function_Body"', '"Expression_Function_Body"""'),
-                     safe.replace(', Raw_List_Spec', ''),
-                     safe.replace('Raw_List_Spec)', 'Raw_List_Spec, List_Spec)'),
-                     safe.replace(');', ')'), safe.replace(');', ';'),
-                     safe.replace(');', '));'), safe.replace(');', ') Extra;'))
-        for annotation in mutations:
-            with self.subTest(annotation=annotation):
-                self.source(annotation)
-                with self.assertRaisesRegex(EvidenceError, "forbidden.*annotate"):
-                    audit_source_policy(self.path)
-        self.source(safe)
-        for filename in ("main.adb", "silver_library_reports.ads", "other.adb"):
-            with self.subTest(filename=filename):
-                other = self.path.with_name(filename)
-                other.write_bytes(self.path.read_bytes())
-                with self.assertRaisesRegex(EvidenceError, "forbidden.*annotate"):
-                    audit_source_policy(other)
+        for target in ("Raw_List_Spec", "Formal_Advisory_Message",
+                       "Raw_Formal_Advisory_Message", "Object_Policy", "Raw_Object_Policy"):
+            safe = f'pragma Annotate (GNATprove, Hide_Info, "Expression_Function_Body", {target});'
+            mutations = (safe.replace("GNATprove", "Other_Tool"),
+                         safe.replace("Hide_Info", "False_Positive"),
+                         safe.replace("Hide_Info", "Assume"),
+                         safe.replace(target, "Other_Spec"),
+                         safe.replace(target, f"Pkg.{target}"),
+                         safe.replace("Expression_Function_Body", "expression_function_body"),
+                         safe.replace("Expression_Function_Body", "Expression_Function_Body "),
+                         safe.replace('"Expression_Function_Body"', '"Expression_Function_Body"""'),
+                         safe.replace(f', {target}', ''),
+                         safe.replace(f'{target})', f'{target}, List_Spec)'),
+                         safe.replace(');', ')'), safe.replace(');', ';'),
+                         safe.replace(');', '));'), safe.replace(');', ') Extra;'))
+            for annotation in mutations:
+                with self.subTest(target=target, annotation=annotation):
+                    self.source(annotation)
+                    with self.assertRaisesRegex(EvidenceError, "forbidden.*annotate"):
+                        audit_source_policy(self.path)
+            self.source(safe)
+            for filename in ("main.adb", "silver_library_reports.ads", "other.adb"):
+                with self.subTest(target=target, filename=filename):
+                    other = self.path.with_name(filename)
+                    other.write_bytes(self.path.read_bytes())
+                    with self.assertRaisesRegex(EvidenceError, "forbidden.*annotate"):
+                        audit_source_policy(other)
+
+    def test_current_report_body_uses_reviewed_source_policy(self) -> None:
+        audit_source_policy(Path(__file__).resolve().parents[1] / "src/silver_library_reports.adb")
 
     def test_allowed_hide_info_does_not_exempt_other_directives(self) -> None:
         safe = 'pragma Annotate (GNATprove, Hide_Info, "Expression_Function_Body", List_Spec);\n'
@@ -1212,20 +1368,23 @@ class OperatorReassociationAdvisoryTests(unittest.TestCase):
             report_path.unlink()
         self.sarif = copy.deepcopy(self.initial_sarif)
         self.reports = {}
-        # Actual retained 094547 origins, including the repeated bindings-spec
-        # location. Line numbers exercise the producer shape, not policy pins.
+        # Retained 094547 and procedure 181302 origins, including the repeated
+        # bindings-spec locations. Line numbers exercise producer shape, not policy pins.
         origins = {
             "silver_function_bindings": [("silver_function_bindings.ads", 61, 38)],
+            "silver_procedure_bindings": [("silver_procedure_bindings.ads", 61, 39)],
             "silver_library_reports": [("silver_library_reports.adb", line, col) for line, col in
                                        ((1118, 52), (1126, 32), (1126, 36), (1438, 25),
                                         (1337, 64), (2482, 25), (1550, 28))],
-            "silver_output_profile": [("silver_function_bindings.ads", 61, 38)] +
+            "silver_output_profile": [("silver_function_bindings.ads", 61, 38),
+                                      ("silver_procedure_bindings.ads", 61, 39)] +
                                      [("silver_output_profile.adb", line, col) for line, col in
                                       ((4893, 88), (4916, 88), (5802, 50))],
         }
         for unit, locations in origins.items():
             report = copy.deepcopy(self.initial_report)
-            owned_file = unit + (".ads" if unit == "silver_function_bindings" else ".adb")
+            owned_file = unit + (".ads" if unit in {"silver_function_bindings", "silver_procedure_bindings"}
+                                 else ".adb")
             report["entities"] = {" 1": {"name": unit + ".Helper",
                                         "sloc": [{"file": owned_file, "line": 1, "column": 1}]}}
             report["assumptions"] = []
@@ -1247,15 +1406,15 @@ class OperatorReassociationAdvisoryTests(unittest.TestCase):
         stats = self.audit()
         self.assertEqual((stats["operator_reassociation_advisories"], stats["flow_checks"],
                           stats["proof_checks"], stats["limitation_notes"],
-                          stats["array_initialization_advisories"]), (12, 0, 3, 0, 0))
+                          stats["array_initialization_advisories"]), (14, 0, 4, 0, 0))
         self.note.update(line=2, col=3)
-        self.assertEqual(self.audit()["operator_reassociation_advisories"], 12)
+        self.assertEqual(self.audit()["operator_reassociation_advisories"], 14)
         # SARIF ordering is not semantic; matching multiplicities are mandatory.
         self.sarif["runs"][0]["results"].reverse()
         (self.path / "gnatprove.sarif").write_text(json.dumps(self.sarif))
-        self.assertEqual(audit_reports(self.path, set(self.reports))["proof_checks"], 3)
+        self.assertEqual(audit_reports(self.path, set(self.reports))["proof_checks"], 4)
         (self.path / "gnatprove.out").write_text(
-            (self.path / "gnatprove.out").read_text().replace("Total 3 0 3", "Total 15 0 15"))
+            (self.path / "gnatprove.out").read_text().replace("Total 4 0 4", "Total 18 0 18"))
         with self.assertRaisesRegex(EvidenceError, "check totals disagree"):
             audit_reports(self.path, set(self.reports))
 
@@ -1330,6 +1489,11 @@ class OperatorReassociationAdvisoryTests(unittest.TestCase):
         for unit, file in (("silver_io", "silver_io.adb"),
                            ("silver_function_bindings", "silver_library_reports.adb"),
                            ("silver_library_reports", "silver_function_bindings.ads"),
+                           ("silver_library_reports", "silver_procedure_bindings.ads"),
+                           ("silver_procedure_bindings", "silver_function_bindings.ads"),
+                           ("silver_procedure_bindings", "silver_procedure_bindings.adb"),
+                           ("silver_procedure_bindings", "./silver_procedure_bindings.ads"),
+                           ("silver_output_profile", "silver_procedure_bindings.adb"),
                            ("silver_output_profile", "silver_function_bindings.adb")):
             with self.subTest(unit=unit, file=file):
                 self.prepare_reassociation_advisories()
@@ -1374,15 +1538,16 @@ class OperatorReassociationAdvisoryTests(unittest.TestCase):
                 (self.path / "gnatprove.sarif").write_text(json.dumps(self.sarif))
                 with self.assertRaises(EvidenceError):
                     audit_reports(self.path, set(self.reports))
-        for duplicate in (False, True):
-            with self.subTest(duplicate=duplicate):
+        for duplicate, source in product((False, True),
+                                         ("silver_function_bindings.ads", "silver_procedure_bindings.ads")):
+            with self.subTest(duplicate=duplicate, source=source):
                 self.prepare_reassociation_advisories()
                 self.write_reports()
                 results = self.sarif["runs"][0]["results"]
                 # Remove/duplicate one of the two identical imported-spec notes.
                 imported = next(item for item in results if item.get("ruleId") == "operator-reassociation"
                                 and item["locations"][0]["physicalLocation"]["artifactLocation"]["uri"]
-                                    == "silver_function_bindings.ads")
+                                    == source)
                 results.append(copy.deepcopy(imported)) if duplicate else results.remove(imported)
                 (self.path / "gnatprove.sarif").write_text(json.dumps(self.sarif))
                 with self.assertRaisesRegex(EvidenceError, "diagnostic coverage disagree"):

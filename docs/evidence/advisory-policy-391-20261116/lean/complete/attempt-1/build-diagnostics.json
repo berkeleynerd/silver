@@ -1,0 +1,88 @@
+{
+  "guard_sample_elapsed_seconds": 12.018,
+  "peak_tree_rss_gib": 11.224838256835938,
+  "host_available_at_guard_gib": 9.687332153320312,
+  "largest_child_sample_rss_gib": 1.44683837890625,
+  "completed_build_jobs": [
+    [
+      "Silver.ComposeArrayDeclarationSource",
+      "287ms"
+    ],
+    [
+      "Silver.ComposeBooleanInitializerNative",
+      "426ms"
+    ],
+    [
+      "Silver.ComposeModelCalls",
+      "507ms"
+    ],
+    [
+      "Silver.ComposeStringPrimitiveEquations",
+      "1.3s"
+    ],
+    [
+      "Silver.ComposeStringDeclarationEquation",
+      "1.4s"
+    ],
+    [
+      "Silver.ComposeNativeValueBounds",
+      "1.7s"
+    ],
+    [
+      "Silver.ComposeBooleanArraySource",
+      "568ms"
+    ],
+    [
+      "Silver.ComposeDeclarationBounds",
+      "1.7s"
+    ],
+    [
+      "Silver.ComposeGrammar",
+      "1.6s"
+    ],
+    [
+      "Silver.PredicateAdmission",
+      "447ms"
+    ],
+    [
+      "Silver.ComposeNativeRecordBounds",
+      "641ms"
+    ],
+    [
+      "Silver.ComposeCoreHelperEquations",
+      "1.1s"
+    ],
+    [
+      "Silver.ScalarFunctionComposition",
+      "576ms"
+    ],
+    [
+      "Silver.PredicateNativeExpressions",
+      "3.0s"
+    ],
+    [
+      "Silver.SequenceEffects",
+      "732ms"
+    ],
+    [
+      "Silver.FunctionDeclarationRecordTypes",
+      "708ms"
+    ],
+    [
+      "Silver.FunctionDeclarationDomains",
+      "759ms"
+    ],
+    [
+      "Silver.PredicateNativeBodies",
+      "899ms"
+    ],
+    [
+      "Silver.PredicateComposition",
+      "833ms"
+    ]
+  ],
+  "all_diagnostics": [
+    "error: Silver/ComposeBooleanDeclarationMeaning.lean:13:15: Ambiguous namespace `Expressions`: it is interpreted as `_root_.Silver.Compose.Expressions` because this `open` occurs inside `namespace Silver.Compose.BooleanDeclarationNative`, while `_root_.Silver.Expressions` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.Silver.Compose.Expressions`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`."
+  ],
+  "current_primary_objects": 996
+}

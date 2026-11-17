@@ -1,0 +1,8 @@
+{
+  "run_id": "20261115T184604-a5d7f98394c3",
+  "production_revision": "7fa2549f8",
+  "failure": "Silver/ComposeHelperSourceCandidate.lean:201:18 candidate_boolean_declaration",
+  "field": "not yet isolated",
+  "log_sha256": "97619d79f9e534ef3726fc0ccb04f69f5b9db131ac5034bc9c06ad1163b462d0",
+  "status": "kernel memory failure; normal failing exit 1; no guard or controlled interruption; audit not reached"
+}

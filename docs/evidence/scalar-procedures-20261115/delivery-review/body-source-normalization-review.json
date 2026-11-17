@@ -1,0 +1,485 @@
+{
+  "review_target": "810d1a8e3b0c859f6cfc3bcd496128cd8cffa91a",
+  "comparison_base": "3c94de8308f1570e992857b0429a7015a79478ae",
+  "observed_at_utc": "2026-11-15T21:35:28.418983+00:00",
+  "selected_model": "gpt-6-astra",
+  "selected_effort": "max",
+  "runtime_token_cost_telemetry": "Unavailable",
+  "production_files": {
+    "proof/Silver/PredicateBodySourceCandidate.lean": {
+      "reviewed_sha256": "0de322c671825f94bba547ed54fa1fd793d4a5bea0197ec88f4876a3a9f70900",
+      "author_worktree_matches": true
+    },
+    "proof/Silver/PredicateBodyExpectedTokens.lean": {
+      "reviewed_sha256": "c15266ef96996b7ca337f15718155a5ab760ba3e34d96af327a8ad1bfb6698c4",
+      "author_worktree_matches": true
+    }
+  },
+  "production_delta": [
+    "proof/Silver/PredicateBodyExpectedTokens.lean",
+    "proof/Silver/PredicateBodySourceCandidate.lean"
+  ],
+  "original_private_statement_count": 108,
+  "original_statement_checks_including_public_checked": {
+    "candidate_bodyWrappers": true,
+    "candidate_adapterWrappers": true,
+    "candidate_lemma_joined_flow_spec": true,
+    "candidate_lemma_joined_flow_impl": true,
+    "candidate_basic_body_body": true,
+    "candidate_statement_body_body": true,
+    "candidate_loop_body_body": true,
+    "candidate_conditional_body_body": true,
+    "candidate_alternative_body_body": true,
+    "candidate_body_tail_model_body": true,
+    "candidate_body_tail_model_spec": true,
+    "candidate_body_tail_model_impl": true,
+    "candidate_read_body_body": true,
+    "candidate_context_of_body": true,
+    "candidate_expand_body_body": true,
+    "candidate_at_body_stop_body": true,
+    "candidate_read_statements_body": true,
+    "candidate_tokens_body": true,
+    "candidate_scan_step_body": true,
+    "candidate_scan_suffix_body": true,
+    "candidate_form_result_body": true,
+    "candidate_is_member_body": true,
+    "candidate_has_arguments_body": true,
+    "candidate_has_assignment_body": true,
+    "candidate_has_output_body": true,
+    "candidate_spec_tokens_spec_header": true,
+    "candidate_spec_is_member_spec_header": true,
+    "candidate_spec_has_arguments_spec_header": true,
+    "candidate_spec_has_assignment_spec_header": true,
+    "candidate_spec_has_output_spec_header": true,
+    "candidate_spec_accepts_spec_header": true,
+    "candidate_spec_uses_arguments_spec_header": true,
+    "candidate_spec_uses_assignment_spec_header": true,
+    "candidate_spec_uses_output_spec_header": true,
+    "candidate_spec_spelling_spec_header": true,
+    "candidate_spec_is_word_token_spec_header": true,
+    "candidate_spec_is_argument_form_impl_header": true,
+    "candidate_body_basic_body_spec_header": true,
+    "candidate_body_basic_body_impl_header": true,
+    "candidate_body_statement_body_spec_header": true,
+    "candidate_body_statement_body_impl_header": true,
+    "candidate_body_loop_body_spec_header": true,
+    "candidate_body_loop_body_impl_header": true,
+    "candidate_body_conditional_body_spec_header": true,
+    "candidate_body_conditional_body_impl_header": true,
+    "candidate_body_alternative_body_spec_header": true,
+    "candidate_body_alternative_body_impl_header": true,
+    "candidate_body_body_tail_spec_header": true,
+    "candidate_body_body_tail_impl_header": true,
+    "candidate_body_read_body_spec_header": true,
+    "candidate_body_read_body_impl_header": true,
+    "candidate_body_context_of_impl_header": true,
+    "candidate_body_body_of_impl_header": true,
+    "candidate_body_expand_body_impl_header": true,
+    "candidate_body_body_token_spec_header": true,
+    "candidate_body_body_token_impl_header": true,
+    "candidate_body_at_body_stop_spec_header": true,
+    "candidate_body_at_body_stop_impl_header": true,
+    "candidate_body_read_statements_spec_header": true,
+    "candidate_body_read_statements_impl_header": true,
+    "candidate_body_tokens_impl_header": true,
+    "candidate_body_scan_step_spec_header": true,
+    "candidate_body_scan_step_impl_header": true,
+    "candidate_body_scan_suffix_spec_header": true,
+    "candidate_body_scan_suffix_impl_header": true,
+    "candidate_body_form_result_spec_header": true,
+    "candidate_body_form_result_impl_header": true,
+    "candidate_body_is_member_impl_header": true,
+    "candidate_body_has_arguments_impl_header": true,
+    "candidate_body_has_assignment_impl_header": true,
+    "candidate_body_has_output_impl_header": true,
+    "candidate_body_read_form_spec_header": true,
+    "candidate_body_read_form_impl_header": true,
+    "candidate_body_valid_context_spec_header": true,
+    "candidate_body_valid_context_impl_header": true,
+    "candidate_body_valid_body_spec_header": true,
+    "candidate_body_valid_body_impl_header": true,
+    "candidate_body_accepts_impl_header": true,
+    "candidate_body_uses_arguments_impl_header": true,
+    "candidate_body_uses_assignment_impl_header": true,
+    "candidate_body_uses_output_impl_header": true,
+    "candidate_body_spelling_impl_header": true,
+    "candidate_body_is_word_token_impl_header": true,
+    "candidate_scan_result_declaration": true,
+    "candidate_body_context_declaration": true,
+    "candidate_body_scan_declaration": true,
+    "candidate_body_stop_declaration": true,
+    "candidate_form_kind_declaration": true,
+    "candidate_token_kind_declaration": true,
+    "candidate_token_sequence_declaration": true,
+    "candidate_initial_scan_declaration": true,
+    "candidate_invalid_scan_declaration": true,
+    "candidate_max_source_length_declaration": true,
+    "candidate_max_expression_operands_declaration": true,
+    "candidate_max_concatenations_declaration": true,
+    "candidate_max_bindings_declaration": true,
+    "candidate_token_index_declaration": true,
+    "candidate_binding_count_declaration": true,
+    "candidate_binding_index_declaration": true,
+    "candidate_operand_count_declaration": true,
+    "candidate_concatenation_count_declaration": true,
+    "candidate_valid_flow_body": true,
+    "candidate_valid_flow_header": true,
+    "candidate_included_body": true,
+    "candidate_included_header": true,
+    "candidate_string_target_declaration": true,
+    "candidate_valid_context_body": true,
+    "candidate_valid_body_body": true,
+    "checked": true
+  },
+  "checked_field_count": 108,
+  "changed_private_proof_bodies": [
+    "candidate_body_tail_model_spec",
+    "candidate_body_body_tail_spec_header",
+    "candidate_body_read_body_spec_header",
+    "candidate_valid_context_body"
+  ],
+  "only_four_assigned_proof_bodies_and_two_imports_change": true,
+  "public_checked_statement_and_assembly_unchanged": true,
+  "read_body_original_simp_only_route_preserved": true,
+  "new_helper_theorem_count": 8,
+  "normalized_fragments": [
+    {
+      "private_theorem": "candidate_body_tail_model_spec",
+      "definition": "body_body_tail_model_spec_header",
+      "helper": "tailModelSpec",
+      "characters": 712,
+      "tokens": 151,
+      "literal_sha256": "59d6e3f0fc43b9c35ca991c1b205f935b78e6004d8c1bb1177cdd3f062c98969",
+      "ordered_tokens_sha256": "1c37ba2929b4c7404c42f45ca00c18dff4a11f032611bf0ec93d39258a4e0732",
+      "checks": {
+        "all_four_original_helper_and_leaf_literals_equal": true,
+        "both_complete_character_lists_equal_original": true,
+        "helper_tokens_equal_independent_lexical_tokens": true,
+        "complete_character_and_token_counts_match": true,
+        "helper_uses_unchanged_full_lexer": true,
+        "leaf_rewrites_proved_tokens": true,
+        "leaf_retains_complete_source_tokens": true,
+        "leaf_witness_tokens_equal_helper": true,
+        "unique_complete_source_equals_expected": true
+      }
+    },
+    {
+      "private_theorem": "candidate_body_body_tail_spec_header",
+      "definition": "body_body_tail_spec_header",
+      "helper": "bodyTailPrefix",
+      "characters": 633,
+      "tokens": 135,
+      "literal_sha256": "3d226558994a5e3b3e44390b095c3c4394a3dc2bf934de67c10af93c03e408b0",
+      "ordered_tokens_sha256": "2d9bcae5ee911e815e1f88fd0ee89d99964cd17c6949a9d9eac2dba1368b008f",
+      "checks": {
+        "all_four_original_helper_and_leaf_literals_equal": true,
+        "both_complete_character_lists_equal_original": true,
+        "helper_tokens_equal_independent_lexical_tokens": true,
+        "complete_character_and_token_counts_match": true,
+        "helper_uses_unchanged_full_lexer": true,
+        "leaf_rewrites_proved_tokens": true,
+        "leaf_retains_complete_source_tokens": true,
+        "original_typed_renderer_concat_suffix_and_closer_retained": true,
+        "original_variant_suffix_exact": true,
+        "complete_selector_still_kernel_decided": true,
+        "unique_complete_source_with_original_typed_render_equals_expected": true
+      }
+    },
+    {
+      "private_theorem": "candidate_body_read_body_spec_header",
+      "definition": "body_read_body_spec_header",
+      "helper": "readBodyPrefix",
+      "characters": 632,
+      "tokens": 135,
+      "literal_sha256": "d15cc43403ea66835bb7b709eb43a9f0ca9df543af4546b68b0d0ca39c430509",
+      "ordered_tokens_sha256": "31c20b5c80153c52c0fb240ce489afd3fc7928bc3db7440a55808e0956714322",
+      "checks": {
+        "all_four_original_helper_and_leaf_literals_equal": true,
+        "both_complete_character_lists_equal_original": true,
+        "helper_tokens_equal_independent_lexical_tokens": true,
+        "complete_character_and_token_counts_match": true,
+        "helper_uses_unchanged_full_lexer": true,
+        "leaf_rewrites_proved_tokens": true,
+        "leaf_retains_complete_source_tokens": true,
+        "original_typed_renderer_concat_suffix_and_closer_retained": true,
+        "original_variant_suffix_exact": true,
+        "complete_selector_still_kernel_decided": true,
+        "unique_complete_source_with_original_typed_render_equals_expected": true
+      }
+    },
+    {
+      "private_theorem": "candidate_valid_context_body",
+      "definition": "valid_context_expression",
+      "helper": "validContextExpression",
+      "characters": 762,
+      "tokens": 147,
+      "literal_sha256": "daa67c987d3d80c4f7f86ca135f97de1e122dd9877ba2657f3ca78fc6e7d6abe",
+      "ordered_tokens_sha256": "2b13e4a32ecbbd227fc9295053348fc65de826f45e891ab38e6b7e0a89860777",
+      "checks": {
+        "all_four_original_helper_and_leaf_literals_equal": true,
+        "both_complete_character_lists_equal_original": true,
+        "helper_tokens_equal_independent_lexical_tokens": true,
+        "complete_character_and_token_counts_match": true,
+        "helper_uses_unchanged_full_lexer": true,
+        "leaf_rewrites_proved_tokens": true,
+        "leaf_retains_complete_source_tokens": true,
+        "leaf_witness_tokens_equal_helper": true,
+        "unique_complete_source_equals_expected": true
+      }
+    }
+  ],
+  "full_reviewed_source_token_count": 72713,
+  "complete_source_selections": {
+    "body_tail_model": {
+      "kind": "specification",
+      "tokens": 151,
+      "unique_complete_match": true
+    },
+    "body_tail": {
+      "kind": "specification",
+      "tokens": 172,
+      "preserved_render_tokens": 14,
+      "variant_suffix_characters": 88,
+      "variant_suffix_tokens": 23,
+      "unique_complete_match": true
+    },
+    "read_body": {
+      "kind": "specification",
+      "tokens": 219,
+      "preserved_render_tokens": 61,
+      "variant_suffix_characters": 88,
+      "variant_suffix_tokens": 23,
+      "unique_complete_match": true
+    },
+    "valid_context": {
+      "kind": "expression",
+      "tokens": 147,
+      "unique_complete_match": true
+    }
+  },
+  "unchanged_source_mechanism_consumers": {
+    "proof/Silver/PredicateSourceRequirements.lean": true,
+    "proof/Silver/PredicateBodyExpressions.lean": true,
+    "proof/Silver/PredicateSourceShape.lean": true,
+    "proof/Silver/PredicateSourceChecks.lean": true,
+    "proof/Silver/PredicateSourceCandidate.lean": true,
+    "proof/Silver/CertificateWitness.lean": true,
+    "proof/Silver/SourceDeclarations.lean": true,
+    "proof/Silver/SourceLexer.lean": true,
+    "proof/Silver/ReviewedOutputShape.lean": true,
+    "src/silver_output_profile.adb": true
+  },
+  "native_parser_sha256": "9ede490b6cf72b352a39072cd37f4ef39774409c6024135487cf076567b59b9c",
+  "failed_complete_checkpoint": {
+    "recorded_identity": {
+      "run_id": "20261115T211741-9bb82c28fe83",
+      "production_revision": "3c94de830",
+      "equivalent_integration_production": "438213ec2",
+      "verified_at": "2026-11-15T21:27:10.103886+00:00",
+      "all_prior_captured_hashes_match": {
+        "inputs_sha256": 1114,
+        "workspace_inputs_sha256": 1009,
+        "artifacts_sha256": 3962,
+        "tools_sha256": 2
+      },
+      "tools_sha256": {
+        ".tools/linux-aarch64/lean/bin/lean": "79fb1d26fa5a39385d59fdc48a711a14b0710ca6480271acce99b4d177cea085",
+        ".tools/linux-aarch64/lean/bin/lake": "f80f50cbab5322e35bcb0bf88937e22e9d908b5e4e336e83ddfc30eb1506aacf"
+      },
+      "original_exec_session": 15946,
+      "outer_launcher_exit_code": 254,
+      "monitored_child_returncode": -2,
+      "no_complete_audit": true,
+      "exact_managed_log_sha256": "89dde835943d4fcda5eb5682779e0ff0f8ffac84685a82530033219e82844653",
+      "compiled_module_objects_retained": 661,
+      "retained_variant_hash_files": 3962,
+      "prior_objects_byte_identical": true,
+      "failed_theorems": {
+        "163": "candidate_body_tail_model_spec",
+        "287": "candidate_body_body_tail_spec_header",
+        "297": "candidate_body_read_body_spec_header",
+        "468": "candidate_valid_context_body"
+      },
+      "outcome": "Four individual body-source equalities reported explicit kernel-memory failure; source-only diagnostic SIGINT interrupted subsequent PredicateStructuralGuards. No whole-project audit."
+    },
+    "failed_source_matches_original": true,
+    "exact_log_digest_matches": true,
+    "diagnostic_lines": [
+      163,
+      287,
+      297,
+      468
+    ],
+    "independently_located_theorems": [
+      "candidate_body_tail_model_spec",
+      "candidate_body_body_tail_spec_header",
+      "candidate_body_read_body_spec_header",
+      "candidate_valid_context_body"
+    ],
+    "audit_present": false,
+    "monitor_returncode": -2,
+    "monitor_interrupted": true,
+    "monitor_summary_sha256": "b01c73bf8d1d377a8b0ec00fe10c9ac13bcdab6da50f66bf909d9e1d2a221514",
+    "managed_events_sha256": "82976b95302b9ac9be5795a5e63442ba503f340bcd085a1c75da2a0993ea6d30",
+    "managed_terminal_outcome": "interrupted",
+    "retained_inventory_entries": 3962,
+    "retained_ordinary_objects": 661
+  },
+  "validation": {
+    "observed_at_utc": "2026-11-15T21:38:38.466216+00:00",
+    "run_id": "20261115T212952-885cb9e630e5",
+    "host": "linux-aarch64",
+    "lean_version": "4.34.1",
+    "scope": "focused",
+    "targets": [
+      "Silver.PredicateBodySourceCandidate"
+    ],
+    "module_count": 290,
+    "audit_lines": [
+      "Silver axiom audit passed: 38257 declarations; foundations: [propext, Classical.choice, Quot.sound]"
+    ],
+    "phases": [
+      {
+        "phase": "build",
+        "started_at": "2026-11-15T21:29:56.834255+00:00",
+        "finished_at": "2026-11-15T21:36:11.814074+00:00",
+        "elapsed_seconds": 374.98,
+        "exit_code": 0
+      },
+      {
+        "phase": "audit",
+        "started_at": "2026-11-15T21:36:12.529944+00:00",
+        "finished_at": "2026-11-15T21:36:13.553279+00:00",
+        "elapsed_seconds": 1.023,
+        "exit_code": 0
+      }
+    ],
+    "input_digest_matches": true,
+    "input_digest_sha256": "37f17b7b8525457cb7090f890a7b923c450c627a985e211ac2fd35bc356a79b2",
+    "checked_hash_counts": {
+      "inputs_sha256": 1115,
+      "workspace_inputs_sha256": 1010,
+      "artifacts_sha256": 3974,
+      "tools_sha256": 2
+    },
+    "hash_mismatches": {
+      "inputs_sha256": [],
+      "workspace_inputs_sha256": [],
+      "artifacts_sha256": [],
+      "tools_sha256": []
+    },
+    "all_captured_inputs_match_immutable_review_commit": true,
+    "captured_input_commit_mismatches": [],
+    "captured_untracked_inputs": [],
+    "runner_log_matches": true,
+    "emitted_modules_equal_evidence": true,
+    "evidence_sha256": "fca46d53ffb203425267d2841be906d186a53b9cff1c91e327597f77ec861f2d",
+    "runner_log_uncompressed_sha256": "05dc28afef1a89323bcd0ddca5b57314f4d19c280a31b4fc08909273129a4d5b",
+    "managed_events_sha256": "79cd09107f0d89effc9819b3435d435d263aa0ab8de45e57758738013d902b17",
+    "managed_terminal": {
+      "duration_seconds": 382.454090182,
+      "event": "finished",
+      "evidence": [
+        {
+          "original": "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused.log",
+          "resolved": "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused.log"
+        },
+        {
+          "original": "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused-evidence.json",
+          "resolved": "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused-evidence.json"
+        },
+        {
+          "original": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T212952-885cb9e630e5/previous-evidence/lean-focused.log",
+          "resolved": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T212952-885cb9e630e5/previous-evidence/lean-focused.log"
+        },
+        {
+          "original": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T212952-885cb9e630e5/previous-evidence/lean-focused-evidence.json",
+          "resolved": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T212952-885cb9e630e5/previous-evidence/lean-focused-evidence.json"
+        },
+        {
+          "original": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T212952-885cb9e630e5/lean-focused.log",
+          "resolved": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T212952-885cb9e630e5/lean-focused.log"
+        },
+        {
+          "original": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T212952-885cb9e630e5/lean-focused-evidence.json",
+          "resolved": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T212952-885cb9e630e5/lean-focused-evidence.json"
+        }
+      ],
+      "failure_keys": [],
+      "monotonic_ns": 21806341166481,
+      "outcome": "success",
+      "retained_reports": [],
+      "returncode": null,
+      "run_id": "20261115T212952-885cb9e630e5",
+      "utc": "2026-11-15T21:36:14.982979+00:00"
+    },
+    "monitor_summary_sha256": "a296fd211084a7028acc63ef74be6635236c0655eefee489aac043d6b273b76a",
+    "monitor_summary": {
+      "command": [
+        "python3",
+        "scripts/check_lean.py",
+        "--target",
+        "Silver.PredicateBodySourceCandidate",
+        "--workers",
+        "1",
+        "--memory-mb",
+        "8192",
+        "--provenance",
+        "--task",
+        "370-body-source-normalization",
+        "--reason",
+        "Full focused body source candidate after four individual equality kernel-memory failures in complete run 20261115T211741-9bb82c28fe83. Immutable810d1a8e3 normalizes only original712/633/632/762-character literals while retaining typed tailModel/readContractBody renderers, both88-character variant suffixes, concatenations, original read_body simp-only route, all108 original private statements and public checked assembly. Check all four complete normalization helper contracts and every original candidate field together. Preserve all661priorobjects and previous failure/success evidence. One worker/default12Leanthreads/8192MiB because the measured singlecandidate tree approaches9GiB on15.8GiBhost; two dense jobs would exceed available headroom. Native audit/build now complete, no concurrent-native allocation claim. Original10GiBsource-tree/1.5GiBhost-headroom/first-kernel-memory diagnostic source-onlyguards. No clean/replay/duplicate success. Full focused success and independent critical acceptance required before complete cached continuation."
+      ],
+      "cwd": "/home/agent/silver-worktrees/procedures-lean-370",
+      "started_at": "2026-11-15T21:29:52.284434+00:00",
+      "peak_sum_rss_kib": 6859408,
+      "peak_process_rss_kib": 5800992,
+      "minimum_mem_available_kib": 10238272,
+      "pid": 313242,
+      "returncode": 0,
+      "elapsed_seconds": 385.48236360100054,
+      "finished_at": "2026-11-15T21:36:17.766800+00:00",
+      "interrupted": false
+    },
+    "original_terminal": "Author reported collecting original session 78053 exit 0, relayed by lead. Reviewer inspected retained managed success and monitor exit 0, not that execution session.",
+    "settings": {
+      "clean_build": false,
+      "mode": "focused",
+      "kernel_recheck": null,
+      "lake_workers": 1,
+      "threads_per_process": 12,
+      "memory_mb_per_process": 8192
+    },
+    "integrated_commit": "a6c8c8afc8e6241e8f47312b219d8f2850d40b3f",
+    "integrated_production_diff": [],
+    "prior_retained_inventory_hashes_preserved": 3962,
+    "prior_retained_ordinary_objects": 661,
+    "current_ordinary_objects": 663,
+    "scope_note": "All captured inputs and hashes establish identity; fresh audit covers the recorded imported closure. This is incremental focused success, not a whole-project audit or clean replay."
+  },
+  "disposition": "Accepted exact four-fragment body-source normalization for integration and complete cached continuation; no material finding. Complete Lean/actual-source assurance, regressions, Rosetta and final feature acceptance remain pending.",
+  "scope": "Independent source/data extraction and retained-evidence inspection only. No proof/build/test/cache-writing job. Complete Lean/source and feature acceptance remain pending.",
+  "durable_packet": {
+    "commit": "d51f0c0ca9bb26029979b69f3eaa08ae465d8dd1",
+    "checks": {
+      "focused_evidence": true,
+      "focused_runner_log": true,
+      "focused_events": true,
+      "focused_summary": true,
+      "focused_launcher": true,
+      "focused_resources": true,
+      "original_failed_candidate": true,
+      "original_failed_log": true,
+      "durable_packet_has_no_production_change": true
+    }
+  },
+  "limits": [
+    "Independent extraction corroborates the original full-source obligations; it is not a kernel proof.",
+    "The original typed renderers, variant suffixes and read_body simplification route remain unchanged.",
+    "Every artifact hash was checked for identity; the fresh audit covers only the recorded 290-module imported closure.",
+    "This is incremental focused success, without a clean build, independent replay or general memory bound.",
+    "Complete native/build acceptance remains valid on unchanged native inputs; complete Lean/source and feature acceptance are still pending.",
+    "Reviewer launched no proof/build/test/application or cache-writing job and made no GitHub or CLI memory change."
+  ],
+  "review_completed_at_utc": "2026-11-15T21:39:16.102831+00:00"
+}

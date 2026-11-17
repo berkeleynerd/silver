@@ -243,8 +243,8 @@ theorem totalizeImports_eq_model {imports : Imports} (meaning : ImportsMeaning i
   · exact meaning.emptyFacts
 
 theorem evalWith_of_meaning {imports : Imports} (meaning : ImportsMeaning imports)
-    (read : Reader) (text : Source) (context : Native.Context) (scan : BodyScan) (catalog : FunctionBindings.Metadata) :
-    evalWith (totalizeImports imports) read text context scan catalog = eval read text context scan catalog := by
+    (read : Reader) (text : Source) (context : Native.Context) (scan : BodyScan) (catalog : FunctionBindings.Metadata) (procedures : ProcedureBindings.Metadata) :
+    evalWith (totalizeImports imports) read text context scan catalog procedures = eval read text context scan catalog procedures := by
   rw [totalizeImports_eq_model meaning, evalWith_model]
 
 theorem model_imports_meaning : ImportsMeaning modelImports where

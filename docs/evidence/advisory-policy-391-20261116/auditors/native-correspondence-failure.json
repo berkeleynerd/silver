@@ -1,0 +1,236 @@
+{
+  "run_id": "20261116T225639-1d97eb007a5a",
+  "original_terminal_session": 77798,
+  "terminal_exit_collected": 1,
+  "launch_head": "2288af60031763d808b8cd1e024f8fcf7cdc7135",
+  "finished_head": "c45fe22dc (Lean-only changes, native inputs unchanged)",
+  "platform": "Linux aarch64",
+  "workers": 12,
+  "stack_bytes": 16777216,
+  "stage": {
+    "stage": "prove",
+    "command": [
+      "/usr/bin/python3",
+      "scripts/dev.py",
+      "prove",
+      "--full",
+      "--task",
+      "#391-native-complete",
+      "--reason",
+      "Final integrated 2288af600 after complete focused helper/caller success and independent review; original integration sessions/cache preserved, 12 available workers after Lean release, 16 MiB stack and 1.5 GiB host-headroom guard; canonical proof policy"
+    ],
+    "started_at": "2026-11-16T22:56:39.322458+00:00",
+    "pid": 19400,
+    "returncode": 1,
+    "duration_seconds": 653.1627908940004,
+    "finished_at": "2026-11-16T23:07:32.485261+00:00",
+    "guard_fired": [],
+    "inputs_stable": true
+  },
+  "native_source_sha256": "3f761cd823acc39ddbf904626ac2b8ea3f71938ccbc0071825f99fe608a5842c",
+  "input_count": 2606,
+  "unit_counts": {
+    "flow": {
+      "info": 353
+    },
+    "proof": {
+      "info": 3481,
+      "medium": 1
+    }
+  },
+  "affected_subprograms": {
+    "Mixed_Report": {
+      "flow": {
+        "info": 1
+      },
+      "proof": {
+        "info": 17,
+        "medium": 1
+      }
+    },
+    "Mixed_Object": {
+      "flow": {
+        "info": 1
+      },
+      "proof": {
+        "info": 52
+      }
+    },
+    "Application_Projection_Correspondence": {
+      "flow": {
+        "info": 1
+      },
+      "proof": {
+        "info": 28
+      }
+    },
+    "Runtime_Projection_Correspondence": {
+      "flow": {
+        "info": 1
+      },
+      "proof": {
+        "info": 3
+      }
+    },
+    "Audit_Normalized_Report": {
+      "flow": {
+        "info": 5
+      },
+      "proof": {
+        "info": 48
+      }
+    }
+  },
+  "failure": [
+    {
+      "check_col": 16,
+      "check_file": "silver_library_reports.adb",
+      "check_line": 5338,
+      "check_tree": [
+        {
+          "proof_attempts": {},
+          "transformations": {}
+        },
+        {
+          "proof_attempts": {},
+          "transformations": {}
+        },
+        {
+          "proof_attempts": {},
+          "transformations": {}
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Timeout",
+              "steps": 1,
+              "time": 30
+            },
+            "Z3": {
+              "result": "Timeout",
+              "steps": 1,
+              "time": 30
+            },
+            "altergo": {
+              "result": "High failure (unrecognized prover answer)",
+              "steps": 1,
+              "time": 14.1281
+            }
+          },
+          "transformations": {
+            "introduce_premises": [
+              {
+                "proof_attempts": {},
+                "transformations": {}
+              }
+            ]
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "High failure (signaled)",
+              "steps": 1,
+              "time": 0.007481
+            },
+            "Z3": {
+              "result": "Valid",
+              "steps": 2544,
+              "time": 0.217144
+            },
+            "altergo": {
+              "result": "High failure (signaled)",
+              "steps": 1,
+              "time": 0.007102
+            }
+          },
+          "transformations": {}
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "High failure (signaled)",
+              "steps": 1,
+              "time": 0.010521
+            },
+            "Z3": {
+              "result": "Valid",
+              "steps": 2060,
+              "time": 0.155058
+            },
+            "altergo": {
+              "result": "High failure (signaled)",
+              "steps": 1,
+              "time": 0.01456
+            }
+          },
+          "transformations": {}
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 2411,
+              "time": 0.108437
+            },
+            "Z3": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 0.047729
+            },
+            "altergo": {
+              "result": "Valid",
+              "steps": 574,
+              "time": 0.20674
+            }
+          },
+          "transformations": {}
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 4428,
+              "time": 0.357444
+            },
+            "Z3": {
+              "result": "Valid",
+              "steps": 2002,
+              "time": 0.132322
+            },
+            "altergo": {
+              "result": "High failure (signaled)",
+              "steps": 1,
+              "time": 0.00936
+            }
+          },
+          "transformations": {}
+        }
+      ],
+      "col": 16,
+      "entity": 220,
+      "file": "silver_library_reports.adb",
+      "how_proved": "prover",
+      "line": 5338,
+      "message": {
+        "text": "postcondition might fail, cannot prove Object_Policy (Text, (Start, Last), Kind, Source => Source, Functions => Functions, Procedures => Procedures)"
+      },
+      "msg_id": 3834,
+      "rule": "VC_POSTCONDITION",
+      "severity": "medium",
+      "unproved_status": {
+        "memory": false,
+        "status": "limit",
+        "steps": false,
+        "time": true
+      }
+    }
+  ],
+  "maximum_sampled_tree_rss_kib": 6510128,
+  "minimum_sampled_available_kib": 9762752,
+  "next_focused_check": "Two local Hide_Info Expression_Function_Body annotations for Raw_Object_Policy and Object_Policy in Mixed_Report, complete contract and body; canonical solver policy unchanged. Independent Astra Max review and lead approved; no runtime/domain/contract change. Retain successful neighbors because contracts and definitions unchanged.",
+  "archive": {
+    "filename": "native-correspondence-failure.tar.gz",
+    "sha256": "f994e922240cb011d8a55dfe69cf88b55c6cbe37ac2b19340740ace9eb98efa8"
+  }
+}

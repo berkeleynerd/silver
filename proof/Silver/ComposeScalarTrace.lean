@@ -14,15 +14,15 @@ inductive ScalarDeclarationsAt (text : Source) (arguments : Bool) :
     ParserState → List Integer.Declaration → ParserState → Prop
   | done {state : ParserState} : state.position ≠ 0 →
       fixedAfter text state.position "begin" true ≠ 0 → ScalarDeclarationsAt text arguments state [] state
-  | function {state final : ParserState} {rest : List Integer.Declaration}  :
+  | callable {state final : ParserState} {rest : List Integer.Declaration}  :
       state.position ≠ 0 → fixedAfter text state.position "begin" true = 0 →
-      (functionDeclarationAt text state arguments).position ≠ 0 →
-      ScalarDeclarationsAt text arguments (functionDeclarationAt text state arguments) rest final →
+      (callableDeclarationAt text state arguments).position ≠ 0 →
+      ScalarDeclarationsAt text arguments (callableDeclarationAt text state arguments) rest final →
       ScalarDeclarationsAt text arguments state rest final
   | string {state middle final : ParserState} {declaration : Bindings.Declaration}
       {rest : List Integer.Declaration} :
       state.position ≠ 0 → fixedAfter text state.position "begin" true = 0 →
-      (functionDeclarationAt text state arguments).position = 0 →
+      (callableDeclarationAt text state arguments).position = 0 →
       (subtypeDeclarationAt text state arguments).position = 0 →
       (scalarDeclarationAt text state arguments).position = 0 →
       (arrayDeclarationAt text state arguments).position = 0 →
@@ -33,7 +33,7 @@ inductive ScalarDeclarationsAt (text : Source) (arguments : Bool) :
   | scalar {state middle final : ParserState} {declaration : Integer.Declaration}
       {rest : List Integer.Declaration} :
       state.position ≠ 0 → fixedAfter text state.position "begin" true = 0 →
-      (functionDeclarationAt text state arguments).position = 0 →
+      (callableDeclarationAt text state arguments).position = 0 →
       (subtypeDeclarationAt text state arguments).position = 0 →
       ScalarDeclarationAt text arguments state declaration middle →
       ScalarDeclarationsAt text arguments middle rest final →
@@ -41,7 +41,7 @@ inductive ScalarDeclarationsAt (text : Source) (arguments : Bool) :
   | array {state middle final : ParserState} {declaration : Integer.ArrayDeclaration}
       {rest : List Integer.Declaration} :
       state.position ≠ 0 → fixedAfter text state.position "begin" true = 0 →
-      (functionDeclarationAt text state arguments).position = 0 →
+      (callableDeclarationAt text state arguments).position = 0 →
       (subtypeDeclarationAt text state arguments).position = 0 →
       (scalarDeclarationAt text state arguments).position = 0 →
       ArrayDeclarationAt text arguments state declaration middle →
@@ -50,7 +50,7 @@ inductive ScalarDeclarationsAt (text : Source) (arguments : Bool) :
 
   | booleanArray {state middle final : ParserState} {rest : List Integer.Declaration} :
       state.position ≠ 0 → fixedAfter text state.position "begin" true = 0 →
-      (functionDeclarationAt text state arguments).position = 0 →
+      (callableDeclarationAt text state arguments).position = 0 →
       (subtypeDeclarationAt text state arguments).position = 0 →
       (scalarDeclarationAt text state arguments).position = 0 →
       BooleanArrayDeclarationAt text arguments state middle →
@@ -59,14 +59,14 @@ inductive ScalarDeclarationsAt (text : Source) (arguments : Bool) :
 
   | subtype {state middle final : ParserState} {rest : List Integer.Declaration} :
       state.position ≠ 0 → fixedAfter text state.position "begin" true = 0 →
-      (functionDeclarationAt text state arguments).position = 0 →
+      (callableDeclarationAt text state arguments).position = 0 →
       SubtypeDeclarationAt text arguments state middle →
       ScalarDeclarationsAt text arguments middle rest final →
       ScalarDeclarationsAt text arguments state rest final
 
   | boolean {state middle final : ParserState} {rest : List Integer.Declaration} :
       state.position ≠ 0 → fixedAfter text state.position "begin" true = 0 →
-      (functionDeclarationAt text state arguments).position = 0 →
+      (callableDeclarationAt text state arguments).position = 0 →
       (subtypeDeclarationAt text state arguments).position = 0 →
       (scalarDeclarationAt text state arguments).position = 0 →
       (arrayDeclarationAt text state arguments).position = 0 →
@@ -79,29 +79,29 @@ theorem declarations_scalar_trace {text : Source} {arguments : Bool} {state fina
     ∃ values, ScalarDeclarationsAt text arguments state values final := by
   induction parsed with
   | done positive stop => exact ⟨[], .done positive stop⟩
-  | next positive more noFunction noSubtype noScalar noArray noBoolean first rest ih =>
+  | next positive more noCallable noSubtype noScalar noArray noBoolean first rest ih =>
       obtain ⟨values, reading⟩ := ih
-      exact ⟨values, .string positive more noFunction noSubtype noScalar noArray noBoolean first reading⟩
-  | scalar positive more noFunction noSubtype first rest ih =>
+      exact ⟨values, .string positive more noCallable noSubtype noScalar noArray noBoolean first reading⟩
+  | scalar positive more noCallable noSubtype first rest ih =>
       obtain ⟨values, reading⟩ := ih
-      exact ⟨_ :: values, .scalar positive more noFunction noSubtype first reading⟩
-  | array positive more noFunction noSubtype noScalar first rest ih =>
+      exact ⟨_ :: values, .scalar positive more noCallable noSubtype first reading⟩
+  | array positive more noCallable noSubtype noScalar first rest ih =>
       obtain ⟨values, reading⟩ := ih
-      exact ⟨values, .array positive more noFunction noSubtype noScalar first reading⟩
-  | booleanArray positive more noFunction noSubtype noScalar first rest ih =>
+      exact ⟨values, .array positive more noCallable noSubtype noScalar first reading⟩
+  | booleanArray positive more noCallable noSubtype noScalar first rest ih =>
       obtain ⟨values, reading⟩ := ih
-      exact ⟨values, .booleanArray positive more noFunction noSubtype noScalar first reading⟩
-  | subtype positive more noFunction first rest ih =>
+      exact ⟨values, .booleanArray positive more noCallable noSubtype noScalar first reading⟩
+  | subtype positive more noCallable first rest ih =>
       obtain ⟨values, reading⟩ := ih
-      exact ⟨values, .subtype positive more noFunction first reading⟩
+      exact ⟨values, .subtype positive more noCallable first reading⟩
 
-  | boolean positive more noFunction noSubtype noScalar noArray first rest ih =>
+  | boolean positive more noCallable noSubtype noScalar noArray first rest ih =>
       obtain ⟨values, reading⟩ := ih
-      exact ⟨values, .boolean positive more noFunction noSubtype noScalar noArray first reading⟩
+      exact ⟨values, .boolean positive more noCallable noSubtype noScalar noArray first reading⟩
 
-  | function positive more accepted _ ih =>
+  | callable positive more accepted _ ih =>
       obtain ⟨values, reading⟩ := ih
-      exact ⟨values, .function positive more accepted reading⟩
+      exact ⟨values, .callable positive more accepted reading⟩
 
 theorem scalar_declarations_static {text : Source} {arguments : Bool} {state final : ParserState}
     {values : List Integer.Declaration} (parsed : ScalarDeclarationsAt text arguments state values final)
@@ -126,8 +126,8 @@ theorem scalar_declarations_static {text : Source} {arguments : Bool} {state fin
 
   | subtype _ _ _ first _ ih => cases first; exact ih static
 
-  | function _ _ accepted _ ih =>
-      rw [(functionDeclarationAt_preserves_outer _ _ _ accepted).scalarNames] at ih
+  | callable _ _ accepted _ ih =>
+      rw [(callableDeclarationAt_preserves_outer _ _ _ accepted).scalarNames] at ih
       exact ih static
 
 theorem scalar_declarations_source_bounds {text : Source} {arguments : Bool} {state final : ParserState}
@@ -157,8 +157,8 @@ theorem scalar_declarations_source_bounds {text : Source} {arguments : Bool} {st
 
   | subtype _ _ _ first _ ih => cases first; exact ih elaborated
 
-  | function _ _ accepted _ ih =>
-      rw [(functionDeclarationAt_preserves_outer _ _ _ accepted).scalarNames] at ih
+  | callable _ _ accepted _ ih =>
+      rw [(callableDeclarationAt_preserves_outer _ _ _ accepted).scalarNames] at ih
       exact ih elaborated
 
 theorem scalar_declarations_count_bound {text : Source} {arguments : Bool} {state final : ParserState}
@@ -182,8 +182,8 @@ theorem scalar_declarations_count_bound {text : Source} {arguments : Bool} {stat
 
   | subtype _ _ _ first _ ih => cases first; exact ih bounded
 
-  | function _ _ accepted _ ih =>
-      rw [(functionDeclarationAt_preserves_outer _ _ _ accepted).scalarNames] at ih
+  | callable _ _ accepted _ ih =>
+      rw [(callableDeclarationAt_preserves_outer _ _ _ accepted).scalarNames] at ih
       exact ih bounded
 
 theorem scalar_declarations_subtypes_valid {text arguments state final values}
@@ -206,10 +206,10 @@ theorem scalar_declarations_subtypes_valid {text arguments state final values}
       rw [(boolean_array_declaration_preserves first).2.2.2] at ih
       exact ih valid
 
-  | function _ _ accepted _ ih =>
+  | callable _ _ accepted _ ih =>
       apply ih
       simpa only [IntegerSubtypes.ValidEnvironment,
-        (functionDeclarationAt_preserves_outer _ _ _ accepted).subtypeItems] using valid
+        (callableDeclarationAt_preserves_outer _ _ _ accepted).subtypeItems] using valid
 
 theorem scalar_declarations_checked {text : Source} {arguments : Bool} {state final : ParserState}
     {values : List Integer.Declaration} (parsed : ScalarDeclarationsAt text arguments state values final)
@@ -242,8 +242,8 @@ theorem scalar_declarations_checked {text : Source} {arguments : Bool} {state fi
       cases first
       exact ih static bounded nextSubtypes
 
-  | function _ _ accepted _ ih =>
-      have kept := functionDeclarationAt_preserves_outer _ _ _ accepted
+  | callable _ _ accepted _ ih =>
+      have kept := callableDeclarationAt_preserves_outer _ _ _ accepted
       rw [kept.scalarNames] at ih
       apply ih static bounded
       simpa only [IntegerSubtypes.ValidEnvironment, kept.subtypeItems] using subtypes
@@ -281,8 +281,8 @@ theorem scalar_declarations_objects {text : Source} {arguments : Bool} {state fi
       cases first
       exact ih exact bounded nextSubtypes
 
-  | function _ _ accepted _ ih =>
-      have kept := functionDeclarationAt_preserves_outer _ _ _ accepted
+  | callable _ _ accepted _ ih =>
+      have kept := callableDeclarationAt_preserves_outer _ _ _ accepted
       rw [kept.scalarNames] at ih
       apply ih exact bounded
       simpa only [IntegerSubtypes.ValidEnvironment, kept.subtypeItems] using subtypes
@@ -314,8 +314,8 @@ theorem scalar_declarations_declared_bounds {text : Source} {arguments : Bool} {
       cases first
       exact ih valid nextSubtypes
 
-  | function _ _ accepted _ ih =>
-      have kept := functionDeclarationAt_preserves_outer _ _ _ accepted
+  | callable _ _ accepted _ ih =>
+      have kept := callableDeclarationAt_preserves_outer _ _ _ accepted
       rw [kept.scalarNames] at ih
       apply ih valid
       simpa only [IntegerSubtypes.ValidEnvironment, kept.subtypeItems] using subtypes
@@ -327,12 +327,12 @@ theorem scalar_declarations_unique {text : Source} {arguments : Bool} {state lef
   | done positive stop =>
       cases second with
       | done => exact ⟨rfl, rfl⟩
-      | function _ more _ _ => exact False.elim (stop more)
+      | callable _ more _ _ => exact False.elim (stop more)
       | string _ more _ _ _ _ _ _ _ | scalar _ more _ _ _ _ | array _ more _ _ _ _ _ | booleanArray _ more _ _ _ _ _ | subtype _ more _ _ _ | boolean _ more _ _ _ _ _ _ => exact False.elim (stop more)
-  | string positive more noFunction noSubtype noScalar noArray noBoolean parsed rest ih =>
+  | string positive more noCallable noSubtype noScalar noArray noBoolean parsed rest ih =>
       cases second with
       | done _ stop => exact False.elim (stop more)
-      | function _ _ accepted _ => exact False.elim (accepted noFunction)
+      | callable _ _ accepted _ => exact False.elim (accepted noCallable)
       | string _ _ _ _ _ _ _ other remaining =>
           obtain ⟨rfl, rfl⟩ := declaration_unique parsed other
           exact ih remaining
@@ -357,10 +357,10 @@ theorem scalar_declarations_unique {text : Source} {arguments : Bool} {state lef
           rw [← subtype_declaration_complete other, noSubtype] at accepted
           contradiction
 
-  | scalar positive more noFunction noSubtype parsed rest ih =>
+  | scalar positive more noCallable noSubtype parsed rest ih =>
       cases second with
       | done _ stop => exact False.elim (stop more)
-      | function _ _ accepted _ => exact False.elim (accepted noFunction)
+      | callable _ _ accepted _ => exact False.elim (accepted noCallable)
       | string _ _ _ _ noScalar _ _ _ _ | array _ _ _ _ noScalar _ _ | booleanArray _ _ _ _ noScalar _ _ | boolean _ _ _ _ noScalar _ _ _ =>
           have accepted := scalar_declaration_positive parsed
           rw [← scalar_declaration_complete parsed, noScalar] at accepted
@@ -374,10 +374,10 @@ theorem scalar_declarations_unique {text : Source} {arguments : Bool} {state lef
           rw [← subtype_declaration_complete other, noSubtype] at accepted
           contradiction
 
-  | array positive more noFunction noSubtype noScalar parsed rest ih =>
+  | array positive more noCallable noSubtype noScalar parsed rest ih =>
       cases second with
       | done _ stop => exact False.elim (stop more)
-      | function _ _ accepted _ => exact False.elim (accepted noFunction)
+      | callable _ _ accepted _ => exact False.elim (accepted noCallable)
       | string _ _ _ _ _ noArray _ _ _ | boolean _ _ _ _ _ noArray _ _ =>
           have accepted := array_declaration_positive parsed
           rw [← array_declaration_complete parsed, noArray] at accepted
@@ -397,10 +397,10 @@ theorem scalar_declarations_unique {text : Source} {arguments : Bool} {state lef
           contradiction
 
       | booleanArray _ _ _ _ _ other _ => exact False.elim (array_declaration_kinds_disjoint parsed other)
-  | booleanArray positive more noFunction noSubtype noScalar parsed rest ih =>
+  | booleanArray positive more noCallable noSubtype noScalar parsed rest ih =>
       cases second with
       | done _ stop => exact False.elim (stop more)
-      | function _ _ accepted _ => exact False.elim (accepted noFunction)
+      | callable _ _ accepted _ => exact False.elim (accepted noCallable)
       | string _ _ _ _ _ noArray _ _ _ | boolean _ _ _ _ _ noArray _ _ =>
           have accepted := boolean_array_declaration_positive parsed
           rw [← boolean_array_declaration_complete parsed, noArray] at accepted
@@ -420,10 +420,10 @@ theorem scalar_declarations_unique {text : Source} {arguments : Bool} {state lef
           contradiction
 
       | array _ _ _ _ _ other _ => exact False.elim (array_declaration_kinds_disjoint other parsed)
-  | subtype positive more noFunction parsed rest ih =>
+  | subtype positive more noCallable parsed rest ih =>
       cases second with
       | done _ stop => exact False.elim (stop more)
-      | function _ _ accepted _ => exact False.elim (accepted noFunction)
+      | callable _ _ accepted _ => exact False.elim (accepted noCallable)
       | string _ _ _ noSubtype _ _ _ _ _ | scalar _ _ _ noSubtype _ _ | array _ _ _ noSubtype _ _ _ | booleanArray _ _ _ noSubtype _ _ _ | boolean _ _ _ noSubtype _ _ _ _ =>
           have accepted := subtype_declaration_positive parsed
           rw [← subtype_declaration_complete parsed, noSubtype] at accepted
@@ -433,10 +433,10 @@ theorem scalar_declarations_unique {text : Source} {arguments : Bool} {state lef
           cases same
           exact ih remaining
 
-  | boolean positive more noFunction noSubtype noScalar noArray parsed rest ih =>
+  | boolean positive more noCallable noSubtype noScalar noArray parsed rest ih =>
       cases second with
       | done _ stop => exact False.elim (stop more)
-      | function _ _ accepted _ => exact False.elim (accepted noFunction)
+      | callable _ _ accepted _ => exact False.elim (accepted noCallable)
       | string _ _ _ _ _ _ noBoolean _ _ =>
           have accepted := boolean_declaration_positive parsed
           rw [← boolean_declaration_complete parsed, noBoolean] at accepted
@@ -462,16 +462,16 @@ theorem scalar_declarations_unique {text : Source} {arguments : Bool} {state lef
           cases same
           exact ih remaining
 
-  | function positive more accepted rest ih =>
+  | callable positive more accepted rest ih =>
       cases second with
       | done _ stop => exact False.elim (stop more)
-      | function _ _ _ remaining => exact ih remaining
-      | string _ _ noFunction _ _ _ _ _ _
-        | scalar _ _ noFunction _ _ _
-        | array _ _ noFunction _ _ _ _
-        | booleanArray _ _ noFunction _ _ _ _
-        | subtype _ _ noFunction _ _
-        | boolean _ _ noFunction _ _ _ _ _ =>
-          exact False.elim (accepted noFunction)
+      | callable _ _ _ remaining => exact ih remaining
+      | string _ _ noCallable _ _ _ _ _ _
+        | scalar _ _ noCallable _ _ _
+        | array _ _ noCallable _ _ _ _
+        | booleanArray _ _ noCallable _ _ _ _
+        | subtype _ _ noCallable _ _
+        | boolean _ _ noCallable _ _ _ _ _ =>
+          exact False.elim (accepted noCallable)
 
 end Silver.Compose

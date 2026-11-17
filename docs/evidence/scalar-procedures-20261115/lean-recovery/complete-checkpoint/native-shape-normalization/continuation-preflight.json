@@ -1,0 +1,9 @@
+{
+  "project_modules": 1007,
+  "explicit_audit_import_closure": 1007,
+  "missing_project_imports": [],
+  "unreached_modules": [],
+  "cached_module_objects_present": 661,
+  "remaining_without_object": 346,
+  "presence_is_not_a_validation_claim": true
+}

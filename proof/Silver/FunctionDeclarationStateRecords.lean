@@ -22,8 +22,8 @@ that enter through the existing complete native state domain. -/
 theorem native_state_record (text : Source) (tv : FunctionBindings.Native.ValidText text)
     (state : ParserState) (valid : NativeValidState text state) : StateRecord state := by
   rcases valid.base with ⟨position, names, dynamic, target, capacity, scalars, arrays,
-    subtypes, booleans, metadata, firstParameter, parameterCapacity⟩
-  refine ⟨cursor_type text tv _ position, ?_, parameterCapacity, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, capacity⟩
+    subtypes, booleans, metadata, firstParameter, parameterCapacity, procedureMetadata, procedureFirst, procedureCapacity⟩
+  refine ⟨cursor_type text tv _ position, ?_, parameterCapacity, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, capacity, ?_, procedureCapacity⟩
   · refine ⟨metadata.1, metadata.2.1, ?_, ?_⟩
     · intro item member
       have itemValid := metadata.2.2.1 item member
@@ -74,6 +74,16 @@ theorem native_state_record (text : Source) (tv : FunctionBindings.Native.ValidT
       exact Nat.zero_le _
     · exact (span_types text tv _ _ span).2
   · exact Nat.le_trans target names.1
+  · refine ⟨procedureMetadata.1, procedureMetadata.2.1, ?_, ?_⟩
+    · intro item member
+      have itemValid := procedureMetadata.2.2.1 item member
+      have name := span_types text tv item.first item.after itemValid.1
+      exact ⟨name.1, name.2, itemValid.2.1⟩
+    · intro item member
+      rcases procedureMetadata.2.2.2 item member with ⟨span, countPositive, firstPositive, firstBound, countBound⟩
+      have name := span_types text tv item.first item.after span
+      have count := procedureMetadata.2.1
+      exact ⟨name.1, name.2, by omega, by omega⟩
 
 theorem StateInput.ofNative {text state} (tv : FunctionBindings.Native.ValidText text)
     (valid : NativeValidState text state) : StateInput text state :=

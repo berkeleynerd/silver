@@ -1,0 +1,48 @@
+{
+  "run_id": "20261115T212353-b892f44c0742",
+  "task": "#370",
+  "kind": "build",
+  "scope": [
+    "compiler"
+  ],
+  "state": "success",
+  "active": false,
+  "workers": 2,
+  "directory": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T212353-b892f44c0742",
+  "fingerprint": "1a2632fd3ea2219b765bc42c20d9b54f94299f7317e4fc5b16401fc23f452d1e",
+  "command": [
+    "/home/agent/silver-workspaces/recovery-volume/integration/.tools/linux-aarch64/alr/bin/alr",
+    "-s",
+    "/home/agent/silver-workspaces/recovery-volume/integration/.tools/linux-aarch64/alire/settings",
+    "-C",
+    "/home/agent/silver-workspaces/recovery-volume/integration/.silver/linux-aarch64/toolchain",
+    "-n",
+    "--no-tty",
+    "exec",
+    "--",
+    "gprbuild",
+    "-P",
+    "../../../silver.gpr",
+    "-p",
+    "-j2",
+    "-XSILVER_HOST=linux-aarch64"
+  ],
+  "reason": "Final delivery compiler after successful complete native audit; two workers preserve headroom for active dense Lean continuation",
+  "worktree": "/home/agent/silver-workspaces/recovery-volume/integration",
+  "resources": [
+    "/home/agent/silver-workspaces/recovery-volume/integration/.silver/linux-aarch64/toolchain",
+    "/home/agent/silver-workspaces/recovery-volume/integration/.silver/linux-aarch64/compiler/obj",
+    "/home/agent/silver-workspaces/recovery-volume/integration/.silver/linux-aarch64/compiler/bin",
+    "/home/agent/silver-workspaces/recovery-volume/integration/.silver/linux-aarch64/proof-containers/obj"
+  ],
+  "started_at": "2026-11-15T21:23:53.480208+00:00",
+  "finished_at": "2026-11-15T21:23:55.534892+00:00",
+  "duration_seconds": 2.054618501,
+  "returncode": null,
+  "error": null,
+  "failure_keys": [],
+  "evidence": [
+    "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T212353-b892f44c0742/native.log"
+  ],
+  "retained_report_count": 0
+}

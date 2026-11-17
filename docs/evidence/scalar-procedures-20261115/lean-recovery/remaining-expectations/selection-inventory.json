@@ -1,0 +1,72 @@
+[
+  {
+    "lemma": "metadataAppend",
+    "leaf": "DeclarationOrdinaryFunctionBodyAt",
+    "extractor": "procedureHeader \"lemma_function_metadata_append\" \"is\"",
+    "characters": 690,
+    "tokens": 149
+  },
+  {
+    "lemma": "parametersAtLoop",
+    "leaf": "DeclarationLoopParametersAt",
+    "extractor": "BooleanDeclarationNative.SourceChecks.ordinaryFunction \"parameters_at\"",
+    "characters": 887,
+    "tokens": 179
+  },
+  {
+    "lemma": "parameterFrameLoop",
+    "leaf": "DeclarationLoopParameterFrame",
+    "extractor": "BooleanDeclarationNative.SourceChecks.ordinaryFunction \"parameter_frame\"",
+    "characters": 989,
+    "tokens": 196
+  },
+  {
+    "lemma": "actualModelSpec",
+    "leaf": "CallsActualModelSpec",
+    "extractor": "functionHeader \"actual_model\" \";\"",
+    "characters": 455,
+    "tokens": 98
+  },
+  {
+    "lemma": "actualAfterSpec",
+    "leaf": "CallsActualAfterSpec",
+    "extractor": "functionHeader \"actual_after\" \";\"",
+    "characters": 541,
+    "tokens": 117
+  },
+  {
+    "lemma": "actualsModelSpec",
+    "leaf": "CallsActualsModelSpec",
+    "extractor": "functionHeader \"actuals_model\" \";\"",
+    "characters": 660,
+    "tokens": 138
+  },
+  {
+    "lemma": "actualsAfterSpec",
+    "leaf": "CallsActualsAfterSpec",
+    "extractor": "functionHeader \"actuals_after\" \";\"",
+    "characters": 708,
+    "tokens": 151
+  },
+  {
+    "lemma": "callModelSpec",
+    "leaf": "CallsCallModelSpec",
+    "extractor": "functionHeader \"call_model\" \";\"",
+    "characters": 508,
+    "tokens": 112
+  },
+  {
+    "lemma": "readCallSpec",
+    "leaf": "CallsReadCallSpec",
+    "extractor": "functionHeader \"read_call\" \";\"",
+    "characters": 585,
+    "tokens": 131
+  },
+  {
+    "lemma": "callAssignmentBodySpec",
+    "leaf": "CallsCallAssignmentBodySpec",
+    "extractor": "functionHeader \"call_assignment_body\" \";\"",
+    "characters": 610,
+    "tokens": 126
+  }
+]

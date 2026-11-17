@@ -494,7 +494,11 @@ def joinedHeader : List String :=
 
 def joinIntoHeader : List String :=
   expectedTokens "(Left : in out Scalar_Flow; Right : Scalar_Flow) with Global => null, Pre => Left.Count = Right.Count, Post => (Static => Left =" ++
-  joinIntoBody.render ++ [")"]
+  joinIntoBody.render ++
+  expectedTokens "and then Left.Count = Left'Old.Count and then Left.Path = Paths.Join (Left'Old.Path, Right.Path) and then (for all Index in Left.Values'Range => Left.Values (Index) = Scalars.Join (Left'Old.Values (Index), Right.Values (Index))))"
+
+def lemmaJoinIdentityHeader : List String := expectedTokens
+  "(Result, Before, Right : Scalar_Flow) with Ghost => Static, Global => null, Pre => Result.Count = Before.Count and then Before.Count = Right.Count and then Result.Path = Paths.Join (Before.Path, Right.Path) and then (for all Index in Result.Values'Range => Result.Values (Index) = Scalars.Join (Before.Values (Index), Right.Values (Index))), Post => Same_Flow (Result, Joined (Before, Right)) and then Result = Joined (Before, Right)"
 
 def widenedHeader : List String :=
   expectedTokens "(Context : Body_Context; Facts : in out Scalar_Flow) with Global => null, Pre => Facts.Count = Context.Scalar_Names.Count, Post => Facts.Path =" ++
@@ -510,6 +514,7 @@ structure Checked (tokens : List String) : Prop where
   initial : functionHeader "initial_flow" ";" tokens = some initialHeader
   joined : functionHeader "joined" ";" tokens = some joinedHeader
   joinInto : procedureHeader "join_into" ";" tokens = some joinIntoHeader
+  lemmaJoinIdentity : procedureHeader "lemma_join_identity" "is" tokens = some lemmaJoinIdentityHeader
   widened : procedureHeader "widen_into" ";" tokens = some widenedHeader
   reading : functionHeader "reading_names" ";" tokens = some readingHeader
   vector : typeDeclaration "interval_vector" tokens =

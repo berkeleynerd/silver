@@ -7,7 +7,10 @@ found no material finding at `9469d5632b`; the later
 [delivery record](scalar-functions.md#delivery-assurance-and-validation) retains
 complete native/Lean validation and final review status. This extends the
 [Boolean-array envelope](boolean-arrays-report-capacity.md)
-without changing the 4,096-byte source limit or 32 MiB Main report allocation.
+without changing the 4,096-byte source limit or its then-selected 32 MiB Main
+report allocation. The current combined language uses the procedure account's
+64 MiB allocation; the #391 update below adds the previously omitted function
+advisory without narrowing admission.
 It records inspected producer routes under the existing trusted-tool premises,
 not a proof of the producer or a substitute for final delivery acceptance.
 
@@ -119,6 +122,28 @@ this route needs no independent additional maximum. Classification remains
 limited to exact local-function entities and the pinned message. The bounded
 policy/capacity review above is complete. The delivery record links the later
 complete native/Lean results and their exact review scope.
+
+### Unused initial values — repair #391
+
+The exact `UNUSED_INITIAL_VALUE` message `unused initial value of "NAME"`
+also occurs for an admitted function `in` formal whose entry value reaches no
+result. Both auditors now bind it to the exact declared function owner and
+formal spelling, warning severity, flow provenance, `main.adb`, a positive
+location and no suppression or justification. Main and nonformal names are
+excluded. `INOUT_ONLY_READ` / `"NAME" is not modified, could be IN` is accepted
+only for a declared procedure `in out` formal; the combined procedure policy
+also accepts unused initial values for procedure `in`/`in out` formals.
+No existing accepted diagnostic or required check is removed.
+
+The [combined capacity account](scalar-procedures-report-capacity.md#formal-dependence-advisories--repair-391)
+derives one additional record per formal from the pinned producer sets, at
+`floor(4096/7)*1024 + 4096 = 603,136` bytes including disjoint name payloads.
+It separately preserves the existing `UNUSED_VARIABLE` charge, including its
+coexistence with `INOUT_ONLY_READ` on an unmentioned procedure `in out` formal.
+Applying that conservative additional allowance to the historical function
+envelope alone gives 33,752,576 bytes, exceeding its old 32 MiB selection; the
+current 64 MiB allocation covers the complete 49,279,744-byte combined envelope.
+The old function calculation above is historical, not the current storage bound.
 
 ## Inspected inputs and observations
 

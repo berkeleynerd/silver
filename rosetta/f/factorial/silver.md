@@ -15,7 +15,7 @@ Use samples/rosetta_factorial.adb: Factorial(N : in Factorial_Argument) returns 
 
 ## Language surface recorded by this assessment
 
-Named Integer subtypes and bounded components, small nonrecursive scalar functions, bounded mutable Integer objects, Integer range for loops, scalar guard refinement and Integer image.
+Named Integer subtypes, bounded components and scalar signatures, small nonrecursive scalar functions, bounded mutable Integer objects, Integer range for loops, scalar guard refinement and Integer image.
 
 ## External effects
 

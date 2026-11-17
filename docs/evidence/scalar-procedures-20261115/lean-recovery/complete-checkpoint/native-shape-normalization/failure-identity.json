@@ -1,0 +1,62 @@
+{
+  "run_id": "20261115T205032-5834a8189332",
+  "production_revision": "24115ffd2",
+  "equivalent_integration_production": "451b5761a",
+  "all_1113_prior_captured_input_hashes_still_match": true,
+  "tools_sha256": {
+    ".tools/linux-aarch64/lean/bin/lean": "79fb1d26fa5a39385d59fdc48a711a14b0710ca6480271acce99b4d177cea085",
+    ".tools/linux-aarch64/lean/bin/lake": "f80f50cbab5322e35bcb0bf88937e22e9d908b5e4e336e83ddfc30eb1506aacf"
+  },
+  "isolated_failed_headers": [
+    {
+      "line": 196,
+      "theorem": "native_primary_model_spec_header",
+      "definition": "primary_model_spec_header",
+      "characters": 701,
+      "tokens": 149
+    },
+    {
+      "line": 202,
+      "theorem": "native_relation_model_spec_header",
+      "definition": "relation_model_spec_header",
+      "characters": 705,
+      "tokens": 149
+    },
+    {
+      "line": 220,
+      "theorem": "native_condition_tail_spec_header",
+      "definition": "condition_tail_spec_header",
+      "characters": 948,
+      "tokens": 196
+    },
+    {
+      "line": 226,
+      "theorem": "native_condition_model_spec_header",
+      "definition": "condition_model_spec_header",
+      "characters": 709,
+      "tokens": 149
+    },
+    {
+      "line": 262,
+      "theorem": "native_boolean_factor_model_spec_header",
+      "definition": "boolean_factor_model_spec_header",
+      "characters": 729,
+      "tokens": 149
+    },
+    {
+      "line": 272,
+      "theorem": "native_boolean_relation_model_spec_header",
+      "definition": "boolean_relation_model_spec_header",
+      "characters": 737,
+      "tokens": 149
+    }
+  ],
+  "original_exec_session": 72203,
+  "outer_launcher_exit_code": 254,
+  "monitored_child_returncode": -2,
+  "no_complete_audit": true,
+  "exact_managed_log_sha256": "0e57e3707a539921ed8eac74ec461d0d298a77c2b7352abb3c13cce34ea105e1",
+  "compiled_module_objects_retained": 659,
+  "retained_variant_hash_files": 3950,
+  "outcome": "Six direct specification-header equalities failed with explicit kernel-memory errors; source-only diagnostic SIGINT interrupted subsequent PredicateBodySourceCandidate. Native helper candidate completed; no whole-project audit."
+}

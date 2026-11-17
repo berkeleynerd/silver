@@ -3,6 +3,7 @@ module
 public import Silver.FunctionDeclarationLibraries
 public import Silver.FunctionDeclarationBodyDomains
 public import Silver.PredicateAdapterEnvironment
+public import Silver.ProcedureMetadataValidity
 
 @[expose] public section
 
@@ -27,11 +28,11 @@ theorem model_tail_input (text : Source) (tv : FunctionBindings.Native.ValidText
     (context : Predicate.Native.Context) (cv : Predicate.Native.ValidContext text context)
     (scan : Predicate.BodyScan) (sv : BodyScanInput text context scan)
     (catalog : FunctionBindings.Metadata) (fv : FunctionBindings.ValidMetadata text catalog) :
-    BodyScanInput text context (Predicate.bodyTail text context.model scan .returnOnly catalog) :=
-  ⟨Predicate.bodyTail_bound text context.model scan .returnOnly tv cv.1 sv.1,
-    Predicate.bodyTail_controls text context.model scan .returnOnly sv.2.1,
-    Predicate.bodyTail_factsBounded text context.model scan .returnOnly sv.2.2.1,
-    Predicate.bodyTail_flowReady text context.model scan .returnOnly fv cv.base sv.2.2.2 cv.2.2.1⟩
+    BodyScanInput text context (Predicate.bodyTail text context.model scan .returnOnly catalog {}) :=
+  ⟨Predicate.bodyTail_bound (procedures := {}) text context.model scan .returnOnly tv cv.1 sv.1,
+    Predicate.bodyTail_controls (procedures := {}) text context.model scan .returnOnly sv.2.1,
+    Predicate.bodyTail_factsBounded (procedures := {}) text context.model scan .returnOnly sv.2.2.1,
+    Predicate.bodyTail_flowReady text context.model scan .returnOnly fv (ProcedureBindings.valid_empty text) cv.base sv.2.2.2 cv.2.2.1⟩
 
 theorem body_parts_library_imports {domain calls inherited metadata visibility}
     (source : Expressions.RawHelperEquations inherited (domain := domain))
@@ -57,7 +58,7 @@ theorem body_parts_library_imports {domain calls inherited metadata visibility}
   have contextValid : Predicate.Native.ValidContext text context := body_context_valid text start _ startValid.2 count
   have initialValid := body_initial_valid text start locals.scalarNames.length startValid.2
   have scanValid := model_tail_input text tv context contextValid (Predicate.bodyOf ⟨start, false, false⟩) initialValid frame.functions metadataValid
-  let scan := Predicate.bodyTail text context.model (Predicate.bodyOf ⟨start, false, false⟩) .returnOnly frame.functions
+  let scan := Predicate.bodyTail text context.model (Predicate.bodyOf ⟨start, false, false⟩) .returnOnly frame.functions {}
   have returnValid : ReturnInput text context scan resultType := ⟨contextValid, scanValid, resultTyped⟩
   have returnMeaning := interpreted_returnAfter calls equations text tv context scan resultType returnValid
     (returns text tv context scan resultType returnValid)
@@ -84,6 +85,7 @@ theorem body_parts_library_imports {domain calls inherited metadata visibility}
     exact Predicate.Adapter.Wrappers.bodyOf_interpreted modelEquations refinement _ startValid.1.scalars.1
   · rw [bodyLinks.tail]
     exact Predicate.BodyNative.tail_executable_unique reader readerSource text tv context contextValid _ .returnOnly initialValid metadataValid
+      (ProcedureBindings.valid_empty text)
 
 theorem body_library_imports {domain calls inherited metadata visibility}
     (source : InheritedEquations inherited domain)

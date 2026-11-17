@@ -1,0 +1,153 @@
+{
+  "observed_at_utc": "2026-11-15T23:03:20.564516+00:00",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Max",
+  "live_model_effort_and_token_cost_telemetry": "unavailable",
+  "live_harness_goal": null,
+  "owner_direction": "We will not be using CI. Local development here on this host.",
+  "disposition": "Accepted bounded local-only publication delta; no material finding. Complete local feature assurance and 38 fresh / 651 retained / 2 expected-skip regression applicability remain accepted. CI proposal is withdrawn and is neither a delivery requirement nor pending work or a credential-scope request.",
+  "scope": "Read-only stdlib/Git inspection of the exact reconstruction and owner-directed documentation delta; no proof, build, test, renderer, project validator, application, bootstrap or cache-writing run, and no GitHub action.",
+  "feature_delivery_review_target": "6f8bb0a7ae372d87501012e18ca158e54a9e9f6d",
+  "accepted_pre_publication_head": "17b898a8a33871413ca79910c2672d414c15338f",
+  "publication_review_target": "8bd416f7f88729ce57710fdbf4d7537b5f188fff",
+  "last_published_base": "d2739f6a010b1a5491ee7d6468f71bf84767def0",
+  "reconstructed_head": "48a3ae411fbd131fdd94e15b7fc1564bbe495ab3",
+  "commit_mapping": [
+    {
+      "original": "b31ffc67e72ee31628ce57e321daec88ad504f4e",
+      "reconstructed": "d1bb7ae78e56e871c0844dd411d6627e5db3e7d8",
+      "tree_difference": []
+    },
+    {
+      "original": "3d8748a414aa40884239a9a96286da5c9f7185fa",
+      "reconstructed": "c258c629418000d3d5afc7385fe03d5e69ceb532",
+      "tree_difference": [
+        ".github/workflows/verify.yml"
+      ]
+    },
+    {
+      "original": "343b0193774f700f1cd2244ed55f5809d8d7a1da",
+      "reconstructed": "6f294130697fac050e2a018c2ed37f71da20bf32",
+      "tree_difference": [
+        ".github/workflows/verify.yml"
+      ]
+    },
+    {
+      "original": "e85eea5f1f04dfb6daea4638d288c8d7c4b97e8e",
+      "reconstructed": "2332f8bd0b5be954728bcb716285cf35e53ffb63",
+      "tree_difference": [
+        ".github/workflows/verify.yml"
+      ]
+    },
+    {
+      "original": "05e52b257e7504d26aa666239bc0d87adf427b09",
+      "reconstructed": "7ee390eee5b584a20bf3d4e46e02aba4401d5b19",
+      "tree_difference": [
+        ".github/workflows/verify.yml"
+      ]
+    },
+    {
+      "original": "9b6a64f1ef83f7936f09126c2d38c3650f01fb13",
+      "reconstructed": "6955069fd32988c43832110b2db3d361dc317c8e",
+      "tree_difference": [
+        ".github/workflows/verify.yml"
+      ]
+    },
+    {
+      "original": "6f8bb0a7ae372d87501012e18ca158e54a9e9f6d",
+      "reconstructed": "5b347dbd2c8e9affe464c59492ec16bd4e942b6b",
+      "tree_difference": [
+        ".github/workflows/verify.yml"
+      ]
+    },
+    {
+      "original": "eb0b15038bdf9a8a2f1d0a521cc0f81a30d50e6f",
+      "reconstructed": "7a9412e7dd40972e2bf04cded43b5dbb6779dab0",
+      "tree_difference": [
+        ".github/workflows/verify.yml"
+      ]
+    },
+    {
+      "original": "e690bca08023c18dd321277d4cb951a88e28349d",
+      "reconstructed": "177e5ec71a267464f75099e36f049a276b446891",
+      "tree_difference": [
+        ".github/workflows/verify.yml"
+      ]
+    },
+    {
+      "original": "17b898a8a33871413ca79910c2672d414c15338f",
+      "reconstructed": "48a3ae411fbd131fdd94e15b7fc1564bbe495ab3",
+      "tree_difference": [
+        ".github/workflows/verify.yml"
+      ]
+    }
+  ],
+  "all_ten_commit_pairs_have_only_workflow_or_empty_tree_delta": true,
+  "full_reconstructed_tree_difference": [
+    ".github/workflows/verify.yml"
+  ],
+  "workflow_matches_last_published_base": {
+    "bytes": 3534,
+    "sha256": "14518516a22738707de2e4343630be53a889dbc827fb0fabe02a9df007ea421e"
+  },
+  "original_reviewed_branch": "recovery/scalar-procedures-with-ci-workflow-20261115",
+  "original_branch_resolves_to_pre_publication_head": true,
+  "published_base_is_ancestor_of_target": true,
+  "publication_requires_no_force_push_or_published_history_rewrite": true,
+  "final_tree_difference_from_pre_publication_head": [
+    ".github/workflows/verify.yml",
+    "development.md",
+    "docs/evidence/scalar-procedures-20261115/recovery/README.md",
+    "docs/evidence/scalar-procedures-20261115/recovery/github-workflow-rejection.json",
+    "docs/evidence/scalar-procedures-20261115/recovery/local-publication-reconstruction.json",
+    "docs/evidence/scalar-procedures-20261115/recovery/withdrawn-ci-stack.patch",
+    "docs/session-memory.md"
+  ],
+  "final_changed_file_identities": {
+    ".github/workflows/verify.yml": {
+      "bytes": 3534,
+      "sha256": "14518516a22738707de2e4343630be53a889dbc827fb0fabe02a9df007ea421e"
+    },
+    "development.md": {
+      "bytes": 30491,
+      "sha256": "d7a10a9ede46416b8ea9be1474a9b8dc3ecdbabaccfb2f2344285fbf61d01794"
+    },
+    "docs/evidence/scalar-procedures-20261115/recovery/README.md": {
+      "bytes": 44468,
+      "sha256": "adbf409f70454e4cdc2efef6e87d4683dc852012e31e04dcd50ada1879b31e93"
+    },
+    "docs/evidence/scalar-procedures-20261115/recovery/github-workflow-rejection.json": {
+      "bytes": 678,
+      "sha256": "10677378b95f4d5da66637111412d6f1882ed6c13671f11eefb6324a94694fb8"
+    },
+    "docs/evidence/scalar-procedures-20261115/recovery/local-publication-reconstruction.json": {
+      "bytes": 1126,
+      "sha256": "9448cead4fddb1bad6e129118bd35cb5a8dbacba1ff471a0a0342fd394ebee68"
+    },
+    "docs/evidence/scalar-procedures-20261115/recovery/withdrawn-ci-stack.patch": {
+      "bytes": 777,
+      "sha256": "5fbe3c4f7add44aee2a104fd8b617403ea2342acc561297a44e8941fb014bbdc"
+    },
+    "docs/session-memory.md": {
+      "bytes": 377001,
+      "sha256": "e888ae9f976c2f2723a96a9b0f8034eb347fd24258186412b4efe2203d5e5e45"
+    }
+  },
+  "withdrawn_patch_exactly_matches_original_workflow_diff": true,
+  "compiler_proof_scripts_tests_samples_rosetta_and_project_files_identical": true,
+  "raw_validation_packets_unchanged": true,
+  "current_documentation": "development.md and session memory reconfirm the existing README local-validation policy. Recovery prose labels the prior workflow proposal and local shell-branch check historical and withdrawn. Mandatory complete local evidence rules and measured Linux ARM64 16 MiB environment are unchanged.",
+  "prior_review_treatment": "Earlier CI configuration acceptance and shell-branch observations remain historical facts, superseded as current instructions by the owner-directed withdrawal. They do not establish CI execution or a remaining CI obligation.",
+  "push_rejection_attribution": "Remote rejection and token workflow-scope limitation are execution-owner retained facts in github-workflow-rejection.json. Reviewer inspected the record and exact local Git states; reviewer did not push or query GitHub.",
+  "limits": [
+    "No new validation result inferred from history reconstruction.",
+    "Original failed complete runs and all retained evidence limitations remain unchanged.",
+    "No merge, #373 implementation or #119 redesign authorized."
+  ],
+  "reviewer_actions": {
+    "validation_runs": 0,
+    "github_mutations": 0,
+    "production_changes": false,
+    "cli_memory_updated": false
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "observed_utc": "2026-11-10T21:45:29.267008+00:00",
+  "scope": "Read-only candidate lexical/JSON comparisons; no Lean kernel, native proof, build or tests executed.",
+  "outputSpecification": {
+    "candidate_tokens": 720,
+    "pinned_tokens": 720,
+    "equal": true,
+    "source_sha256": "9823c84e840348f474a0b83d9da57b99f1f3b66f9a6040ad0c73d6cc2e9bd0a3"
+  },
+  "outputImplementation": {
+    "candidate_tokens": 72447,
+    "pinned_tokens": 72447,
+    "equal": true,
+    "source_sha256": "735f4bbb8cd0f9ecf816e17df3242113417f9ddeeafdf4bcb8ae2ecc25d41758"
+  },
+  "catalogue": {
+    "changed_keys": [
+      "word_tokens"
+    ],
+    "added_words": [
+      "function",
+      "out",
+      "return"
+    ],
+    "removed_words": [],
+    "distinct": true
+  }
+}

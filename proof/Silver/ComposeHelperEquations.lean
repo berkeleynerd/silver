@@ -298,7 +298,7 @@ termination_by text.length + 1 - position
     calls.function .newName text state first after arguments = newNameAllowed text state first after arguments := by
   rw [equations.newName text valid state first after arguments stateValid firstValid afterValid]
   dsimp +instances only [newNameBody, Expr.eval, Context.locals, lexical, modelPrimitives, Calls.get, Field.get, newNameAllowed]
-  simp only [interpreted_lookup calls equations text valid state.names first after stateValid.nativeNames firstValid afterValid, equations.scalarLookup text valid state.scalarNames first after stateValid.valid.2.2.2.2.2.1 firstValid afterValid, equations.arrayLookup text valid state.arrayNames.names first after (state_array_metadata stateValid.valid) firstValid afterValid, interpreted_subtypeLookup calls equations text valid state.subtypeNames first after stateValid.valid.2.2.2.2.2.2.2.1 firstValid afterValid, equations.booleanLookup text valid state.booleanNames first after stateValid.valid.booleans firstValid afterValid, equations.functionLookup text valid state.functions first after stateValid.valid.functions firstValid afterValid, equations.formalHides text valid state first after stateValid firstValid afterValid, Bool.and_assoc, Bool.decide_and]
+  simp only [interpreted_lookup calls equations text valid state.names first after stateValid.nativeNames firstValid afterValid, equations.scalarLookup text valid state.scalarNames first after stateValid.valid.2.2.2.2.2.1 firstValid afterValid, equations.arrayLookup text valid state.arrayNames.names first after (state_array_metadata stateValid.valid) firstValid afterValid, interpreted_subtypeLookup calls equations text valid state.subtypeNames first after stateValid.valid.2.2.2.2.2.2.2.1 firstValid afterValid, equations.booleanLookup text valid state.booleanNames first after stateValid.valid.booleans firstValid afterValid, equations.functionLookup text valid state.functions first after stateValid.valid.functions firstValid afterValid, equations.procedureLookup text valid state.procedures first after stateValid.valid.procedures firstValid afterValid, equations.formalHides text valid state first after stateValid firstValid afterValid, Bool.and_assoc, Bool.decide_and]
 
 @[simp] theorem interpreted_addBinding (calls : Calls) (equations : RawHelperEquations calls (domain := domain))
     (text : Source) (valid : ValidText text) (state : ParserState) (first after : Nat) (value : ValueResult)
@@ -372,6 +372,8 @@ termination_by text.length + 1 - position
       context.valid.booleans btypeFirst btype,
     equations.functionLookup text valid state.functions parts.typeFirst parts.typeAfter
       context.valid.functions btypeFirst btype,
+    equations.procedureLookup text valid state.procedures parts.typeFirst parts.typeAfter
+      context.valid.procedures btypeFirst btype,
     equations.formalHides text valid state parts.typeFirst parts.typeAfter context btypeFirst btype]
   by_cases typeAbsent : parts.typeAfter = 0
   · simp [typeAbsent, characterDeclarationAt, characterDeclarationRejected, parts]
@@ -694,10 +696,12 @@ attribute [local irreducible] expressionAt
     stateValid.valid.booleans firstBound afterBound
   have ef := equations.functionLookup text valid state.functions first after
     stateValid.valid.functions firstBound afterBound
+  have ep := equations.procedureLookup text valid state.procedures first after
+    stateValid.valid.procedures firstBound afterBound
   have eh := equations.formalHides text valid state first after stateValid firstBound afterBound
   rw [equations.scalarType text valid state position stateValid bound, scalarType_denotation]
   dsimp +instances only [scalarTypeEquation, lexical]
-  rw [es, en, el, ec, ea, et, eb, ef, eh]
+  rw [es, en, el, ec, ea, et, eb, ef, ep, eh]
   by_cases invalid : first = 0 ∨ after ≤ first
   · rcases invalid with zero | backwards
     · have actualZero : skipAt text position = 0 := zero
@@ -753,12 +757,14 @@ attribute [local irreducible] expressionAt
     stateValid.valid.booleans btf bta
   have efunction := equations.functionLookup text valid state.functions typeFirst typeAfter
     stateValid.valid.functions btf bta
+  have eprocedure := equations.procedureLookup text valid state.procedures typeFirst typeAfter
+    stateValid.valid.procedures btf bta
   have eformal := equations.formalHides text valid state typeFirst typeAfter stateValid btf bta
   have eb := equations.scalarEmpty constraint.bounds cp
   rw [equations.subtypeDeclaration text valid state arguments stateValid, subtypeDeclaration_denotation]
   change subtypeDeclarationEquation calls text state arguments = _
   dsimp only [subtypeDeclarationEquation]
-  rw [ep, ef, ea, em, etf, eta, ec, ee, en, er, es, ei, ear, ebool, efunction, eformal, eb]
+  rw [ep, ef, ea, em, etf, eta, ec, ee, en, er, es, ei, ear, ebool, efunction, eprocedure, eformal, eb]
   by_cases typeAbsent : typeAfter = 0
   · have actualZero := typeAbsent
     dsimp only [subtypeAfter, first, after, marker, typeFirst, typeAfter] at actualZero

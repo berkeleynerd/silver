@@ -1,0 +1,27 @@
+{
+  "command": [
+    "python3",
+    "scripts/check_lean.py",
+    "--target",
+    "Silver.PredicateFlowFieldProbe",
+    "--workers",
+    "1",
+    "--memory-mb",
+    "8192",
+    "--provenance",
+    "--task",
+    "370-predicate-flow-source-diagnosis",
+    "--reason",
+    "Parent-authorized exact field isolation after full run 20261115T201746-8829535d867a reported kernel-memory failure in three grouped PredicateFlowSourceCandidate constructors. Temporary single module restates all 17 complete original fields individually: four counted-bound, eight flow and five reader checks, against the identical complete SourceShape.bodyTokens and original definitions/renderings. Production candidate and all native/source/scripts unchanged. Identify failed fields before any normalization, preserve 656 completed objects and all failed-run evidence, then retire probe before production gate. One worker/default 12 threads/8192 MiB on 15.8 GiB host with native two-worker run; existing 10 GiB tree/1.5 GiB host/first-memory diagnostic guards. No complete retry until confirmed-field repair, full candidate success and independent critical review."
+  ],
+  "cwd": "/home/agent/silver-worktrees/procedures-lean-370",
+  "started_at": "2026-11-15T20:33:34.823826+00:00",
+  "peak_sum_rss_kib": 9569776,
+  "peak_process_rss_kib": 8392816,
+  "minimum_mem_available_kib": 5725936,
+  "pid": 211771,
+  "returncode": 1,
+  "elapsed_seconds": 200.1780885119988,
+  "finished_at": "2026-11-15T20:36:55.001900+00:00",
+  "interrupted": false
+}

@@ -219,6 +219,16 @@ array/String signatures and expression-embedded calls remain outside this
 increment. Complete Linux native and Lean/source checkpoints passed; the delivery
 account retains accepted regression applicability and the final independent review.
 
+The [scalar-procedure delivery](docs/scalar-procedures.md#delivery-assurance-and-validation)
+adds closed Main-local Integer/Boolean procedures with explicit `in`, `out`
+and `in out` modes, ordered source-written output initialization, positional
+nonaliasing calls and range-checked copy-back. Every declared body is checked
+over its full formal domains, including unused procedures. The
+[Return multiple values driver](samples/rosetta_return_multiple_values.adb)
+returns the sum and difference through two scalar outputs. Complete native and
+Lean/source assurance and applicable regression checks pass on Linux ARM64;
+the delivery record retains final review and the explicit stack environment.
+
 The [Find square difference sample](samples/find_square_difference.adb) stores
 the first matching index and prints ` 501` followed by a newline.
 
@@ -270,13 +280,18 @@ provide setup, evidence auditing and tests. GNATprove verifies the compiler.
 Lean connects the restricted recognizer source to the language model and the
 runtime wrappers to their effect models. Every output shell selects a complete
 application report policy: static, argument, assigned or selected result. Emitted
-Main safety checks must all be proved range, length, index, scalar overflow or
-nonzero-divisor checks under their selected policy. All output forms
+Main and declared local-subprogram safety checks must all be proved range,
+length, index, scalar overflow or nonzero-divisor checks under their selected policy. All output forms
 precisely classify initializer advisories; assignment-bearing forms additionally
 classify the exact unused-assignment advisory. All sequence policies classify
 two exact statically known predicate advisories and four exact overwritten ghost-output
-messages for each of Put and Put_Line.
-Selected library reports
+messages for each of Put and Put_Line. Local subprograms also permit the exact
+unused-formal advisory, and unused-copy-back advisories name a declared procedure.
+The additional `INOUT_ONLY_READ` and `UNUSED_INITIAL_VALUE` flow advisories bind
+the exact declared local owner, formal spelling and eligible mode. The warning
+list separately classifies the pinned Image and array-initialization notes.
+These advisories discharge no checks; the [assurance policy](docs/assurance.md#source-selected-application-policies)
+specifies their exact messages and producer requirements. Selected library reports
 remain mandatory. Frontend elimination, faithful obligation generation and
 pinned solver completion remain explicit tool premises.
 Application authors supply no contracts or proof annotations. Every emitted
@@ -294,9 +309,16 @@ requires Python 3.11+ and native development libraries: libc development files
 on Linux, or Xcode Command Line Tools on macOS. On Debian/Ubuntu, the required
 native package is `libc6-dev`.
 
-Use the validated **8 MiB process stack** configuration for the compiler on Linux
-(`ulimit -s 8192` in a shell where that limit is permitted). Retained application
-audit data uses a 32 MiB library-level buffer, and the auditor reads that buffer
+For the current Linux ARM64 compiler, use a **16 MiB process stack** for
+validation and compiler invocations (`ulimit -S -s 16384` in the invoking shell,
+where its hard limit permits this). The [ARM64 boundary measurements](docs/evidence/scalar-procedures-20261115/regression-recovery/arm64-stack/README.md)
+show all three deeply parenthesized 4,096-byte regression inputs passing at that
+setting and failing at 8 MiB; two also fail at 12 MiB. This is a measured
+configuration for these inputs and this build, not a universal stack bound.
+The compiler does not raise the process limit automatically. Earlier Linux
+8 MiB observations below retain their exact build/platform scope.
+
+Retained application audit data uses a 64 MiB library-level buffer, and the auditor reads that buffer
 without a report-sized stack copy. A streaming reader validates and omits only
 unaudited proof-tree metadata; original reports remain on disk. The earlier
 2 MiB stack allocation produced

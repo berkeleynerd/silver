@@ -1,0 +1,34 @@
+{
+  "expected_ids": [
+    "test_lean_modules.LeanModuleTests.test_legacy_audits_reject_private_axiom_behind_module_import",
+    "test_lean_modules.LeanModuleTests.test_output_body_chunks_reuse_objects_across_content_and_occurrence_edits",
+    "test_lean_modules.LeanModuleTests.test_proof_reuse_and_public_source_invalidation"
+  ],
+  "observed": [
+    {
+      "id": "test_lean_modules.LeanModuleTests.test_legacy_audits_reject_private_axiom_behind_module_import",
+      "outcome": "ok"
+    },
+    {
+      "id": "test_lean_modules.LeanModuleTests.test_output_body_chunks_reuse_objects_across_content_and_occurrence_edits",
+      "outcome": "ok"
+    },
+    {
+      "id": "test_lean_modules.LeanModuleTests.test_proof_reuse_and_public_source_invalidation",
+      "outcome": "ok"
+    }
+  ],
+  "missing_ids": [],
+  "unexpected_ids": [],
+  "complete_inventory": true,
+  "passed": [
+    "test_lean_modules.LeanModuleTests.test_legacy_audits_reject_private_axiom_behind_module_import",
+    "test_lean_modules.LeanModuleTests.test_output_body_chunks_reuse_objects_across_content_and_occurrence_edits",
+    "test_lean_modules.LeanModuleTests.test_proof_reuse_and_public_source_invalidation"
+  ],
+  "failed": [],
+  "summary": [
+    "Ran 3 tests in 62.286s",
+    "OK"
+  ]
+}

@@ -475,6 +475,7 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("          ""integer_assignment"",");
       Put_Line ("          ""boolean_assignment"",");
       Put_Line ("          ""scalar_function_call"",");
+      Put_Line ("          ""scalar_procedure_call"",");
       Put_Line ("          ""integer_array_assignment"",");
       Put_Line ("          ""boolean_array_assignment"",");
       Put_Line ("          ""expression_output"",");
@@ -523,6 +524,7 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("          ""integer_assignment"",");
       Put_Line ("          ""boolean_assignment"",");
       Put_Line ("          ""scalar_function_call"",");
+      Put_Line ("          ""scalar_procedure_call"",");
       Put_Line ("          ""integer_array_assignment"",");
       Put_Line ("          ""boolean_array_assignment"",");
       Put_Line ("          ""expression_output"",");
@@ -570,7 +572,7 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("        ""constant"": true,");
       Put_Line ("        ""initializer_required"": true,");
       Put_Line ("        ""initializer"": ""boolean_expression"",");
-      Put_Line ("        ""declaration_context"": ""ordered Main declarations or scalar function locals under closed initialization rules"",");
+      Put_Line ("        ""declaration_context"": ""ordered Main declarations or scalar function/procedure locals under closed initialization rules"",");
       Put_Line ("        ""visibility"": ""earlier initialized values and Boolean-array cells only; no self, forward or cyclic references; declarations hide predefined names in their own declaration"",");
       Put_Line ("        ""name_rules"": ""shared case-insensitive declaration uniqueness and reserved-name rules; Boolean object cannot be named Boolean; True and False remain legal names"",");
       Put_Line ("        ""copy_semantics"": ""snapshot of the initialized Boolean value; no retained predicate provenance"",");
@@ -586,7 +588,7 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("        ""constant"": false,");
       Put_Line ("        ""initializer_required"": true,");
       Put_Line ("        ""initializer"": ""boolean_expression"",");
-      Put_Line ("        ""declaration_context"": ""ordered Main declarations or scalar function locals under closed initialization rules"",");
+      Put_Line ("        ""declaration_context"": ""ordered Main declarations or scalar function/procedure locals under closed initialization rules"",");
       Put_Line ("        ""visibility"": ""earlier initialized values and Boolean-array cells only; no self, forward or cyclic references; declarations hide predefined names in their own declaration"",");
       Put_Line ("        ""name_rules"": ""shared case-insensitive declaration uniqueness and reserved-name rules; Boolean object cannot be named Boolean; True and False remain legal names"",");
       Put_Line ("        ""copy_semantics"": ""snapshot of the initialized Boolean value; no retained predicate provenance"",");
@@ -665,7 +667,9 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("          ""boolean_array_assignment_rhs"",");
       Put_Line ("          ""condition"",");
       Put_Line ("          ""function_boolean_actual"",");
-      Put_Line ("          ""function_boolean_return""");
+      Put_Line ("          ""function_boolean_return"",");
+      Put_Line ("          ""procedure_boolean_input_actual"",");
+      Put_Line ("          ""procedure_boolean_output_initializer""");
       Put_Line ("        ],");
       Put_Line ("        ""primaries"": [");
       Put_Line ("          ""visible predefined True or False"",");
@@ -673,7 +677,7 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("          ""boolean_array_read"",");
       Put_Line ("          ""input_guard"",");
       Put_Line ("          ""parenthesized_condition"",");
-      Put_Line ("          ""immutable Boolean formal in a function body""");
+      Put_Line ("          ""immutable Boolean in formal in a function or procedure body""");
       Put_Line ("        ],");
       Put_Line ("        ""not"": ""one primary; repeated negation requires grouping"",");
       Put_Line ("        ""relations"": ""existing safe String, Character, length and Integer comparisons, plus Boolean equality and inequality"",");
@@ -862,9 +866,9 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("        ""exclude_ada_2022_reserved_words"": true,");
       Put_Line ("        ""case_insensitive_binding"": true,");
       Put_Line ("        ""all_declared_names_distinct_ignoring_case"": true,");
-      Put_Line ("        ""shared_name_environment"": ""String, Character, Integer and Boolean objects, named Integer subtypes, Integer/Boolean arrays and scalar functions; scoped local/formal names and loop binders obey their hiding rules"",");
+      Put_Line ("        ""shared_name_environment"": ""String, Character, Integer and Boolean objects, named Integer subtypes, Integer/Boolean arrays and scalar functions/procedures; scoped local/formal names and loop binders obey their hiding rules"",");
       Put_Line ("        ""type_mark_visible"": true,");
-      Put_Line ("        ""declaration_context"": ""every output shell after argument initialization when present, or a scalar function local declaration under its closed initialization rules"",");
+      Put_Line ("        ""declaration_context"": ""every output shell after argument initialization when present, or a scalar function/procedure local declaration under its closed initialization rules"",");
       Put_Line ("        ""count"": ""finite_within_complete_source_bound"",");
       Put_Line ("        ""value_range"": [");
       Put_Line ("          -2147483648,");
@@ -900,9 +904,9 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("        ""exclude_ada_2022_reserved_words"": true,");
       Put_Line ("        ""case_insensitive_binding"": true,");
       Put_Line ("        ""all_declared_names_distinct_ignoring_case"": true,");
-      Put_Line ("        ""shared_name_environment"": ""String, Character, Integer and Boolean objects, named Integer subtypes, Integer/Boolean arrays and scalar functions; scoped local/formal names and loop binders obey their hiding rules"",");
+      Put_Line ("        ""shared_name_environment"": ""String, Character, Integer and Boolean objects, named Integer subtypes, Integer/Boolean arrays and scalar functions/procedures; scoped local/formal names and loop binders obey their hiding rules"",");
       Put_Line ("        ""type_mark_visible"": true,");
-      Put_Line ("        ""declaration_context"": ""every output shell after argument initialization when present, or a scalar function local declaration under its closed initialization rules"",");
+      Put_Line ("        ""declaration_context"": ""every output shell after argument initialization when present, or a scalar function/procedure local declaration under its closed initialization rules"",");
       Put_Line ("        ""count"": ""finite_within_complete_source_bound"",");
       Put_Line ("        ""value_range"": [");
       Put_Line ("          -2147483648,");
@@ -927,7 +931,8 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("        ""uses"": [");
       Put_Line ("          ""scalar constant or mutable object subtype mark"",");
       Put_Line ("          ""fixed anonymous Integer-array component mark"",");
-      Put_Line ("          ""scalar function formal or result subtype mark""");
+      Put_Line ("          ""scalar function formal or result subtype mark"",");
+      Put_Line ("          ""scalar procedure formal subtype mark""");
       Put_Line ("        ],");
       Put_Line ("        ""object_local_range"": ""optional nonempty static subset of the named subtype"",");
       Put_Line ("        ""name_rules"": ""case-insensitive distinct names across every declaration; same reserved-name exclusions as Integer objects; parent Integer must remain visible"",");
@@ -1033,7 +1038,7 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("          ""scoped_for_index"",");
       Put_Line ("          ""scoped_for_element"",");
       Put_Line ("          ""integer_array_read"",");
-      Put_Line ("          ""immutable nonstatic Integer formal in a function body""");
+      Put_Line ("          ""immutable nonstatic Integer in formal in a function or procedure body""");
       Put_Line ("        ],");
       Put_Line ("        ""min_operands"": 1,");
       Put_Line ("        ""max_operands"": 64,");
@@ -1079,7 +1084,9 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("          ""array_assignment_rhs"",");
       Put_Line ("          ""array_index_expression_without_array_reads"",");
       Put_Line ("          ""function_integer_actual"",");
-      Put_Line ("          ""function_integer_return""");
+      Put_Line ("          ""function_integer_return"",");
+      Put_Line ("          ""procedure_integer_input_actual"",");
+      Put_Line ("          ""procedure_integer_output_initializer""");
       Put_Line ("        ],");
       Put_Line ("        ""conversions"": false,");
       Put_Line ("        ""division"": true,");
@@ -1473,7 +1480,7 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("        ""integer_result"": ""declared result subtype interval must fit target declared bounds and replaces target flow interval"",");
       Put_Line ("        ""boolean_result"": ""no retained argument, scalar, String-bound or input-validity facts"",");
       Put_Line ("        ""frame"": ""read all actuals before destination update; preserve every other caller store and fact"",");
-      Put_Line ("        ""composition"": ""Main sequences, branches, counted loops and constant Integer-array iteration; pure scalar function bodies may call earlier functions"",");
+      Put_Line ("        ""composition"": ""Main sequences, branches, counted loops and constant Integer-array iteration; pure scalar function bodies and scalar procedure bodies may call earlier functions"",");
       Put_Line ("        ""excluded_positions"": [");
       Put_Line ("          ""initializer"",");
       Put_Line ("          ""arithmetic"",");
@@ -1486,6 +1493,70 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("          ""other actual""");
       Put_Line ("        ],");
       Put_Line ("        ""scope_purpose"": ""keep calls outside existing expression grammar and respect Ada argument-evaluation freedom""");
+      Put_Line ("      }");
+      Put_Line ("    },");
+      Put_Line ("    {");
+      Put_Line ("      ""id"": ""scalar_procedure"",");
+      Put_Line ("      ""ada_kind"": ""subprogram_body"",");
+      Put_Line ("      ""conditions"": {");
+      Put_Line ("        ""declaration_context"": ""ordered Main declarations in either output shell, after argument initialization when present"",");
+      Put_Line ("        ""formal_list"": ""nonempty; exactly one name per formal; explicit in, out or in out; at least one writable formal; no default"",");
+      Put_Line ("        ""formal_types"": [");
+      Put_Line ("          ""visible predefined Integer"",");
+      Put_Line ("          ""earlier visible named Integer subtype"",");
+      Put_Line ("          ""visible predefined Boolean""");
+      Put_Line ("        ],");
+      Put_Line ("        ""locals"": ""initialized Integer/Boolean scalar constants or variables; no formal, captured-object or call reads during initialization"",");
+      Put_Line ("        ""output_initialization"": ""one unconditional assignment per out formal immediately after begin, in formal declaration order, before ordinary statements"",");
+      Put_Line ("        ""prefix_inputs"": ""initialized locals and in/in out formals in the same frozen pre-output frame; no out reads or function calls"",");
+      Put_Line ("        ""body_entry"": ""every writable Integer formal has its full declared range; narrower prefix output intervals are not retained"",");
+      Put_Line ("        ""body"": ""local scalar assignments, earlier-function call assignments, earlier-procedure call statements, null, pure scalar/Boolean conditions and finite counted loops; no return statements; at least one ordinary statement when there are no out-prefix assignments"",");
+      Put_Line ("        ""formal_domain"": ""full product of declared in and in out subtype domains, independently of actual callers, including unused procedures"",");
+      Put_Line ("        ""visibility"": ""case-insensitive distinct Main declarations; formal/local names distinct and cannot collide with earlier subtype names; unavailable out formals still hide outer names; local values and loop binders may hide callees"",");
+      Put_Line ("        ""calls"": ""only earlier completely accepted functions and procedures; functions cannot call procedures in this fragment"",");
+      Put_Line ("        ""effects"": ""only explicit writable actuals change at the caller; no outer capture, I/O, input acquisition/query or Reject in a procedure"",");
+      Put_Line ("        ""budgets"": ""4096 complete source bytes; existing 64 expression operands and source-wide 63 arithmetic/concatenation operators across all bodies; pooled source-derived signature/formal storage"",");
+      Put_Line ("        ""initialization_purpose"": ""a source-written prefix establishes initialized body state without general path-dependent definite-assignment analysis; full-range entry reuses the complete-domain frame rule"",");
+      Put_Line ("        ""excluded"": [");
+      Put_Line ("          ""zero-formal or input-only procedures"",");
+      Put_Line ("          ""named actuals"",");
+      Put_Line ("          ""default formals"",");
+      Put_Line ("          ""overloads"",");
+      Put_Line ("          ""forward declarations"",");
+      Put_Line ("          ""nested subprograms"",");
+      Put_Line ("          ""recursion"",");
+      Put_Line ("          ""early returns"",");
+      Put_Line ("          ""String/Character/array signatures or locals"",");
+      Put_Line ("          ""local subtype declarations"",");
+      Put_Line ("          ""author contracts or annotations""");
+      Put_Line ("        ]");
+      Put_Line ("      }");
+      Put_Line ("    },");
+      Put_Line ("    {");
+      Put_Line ("      ""id"": ""scalar_procedure_call"",");
+      Put_Line ("      ""ada_kind"": ""procedure_call_statement"",");
+      Put_Line ("      ""conditions"": {");
+      Put_Line ("        ""position"": ""standalone statement in Main or an admitted scalar procedure body, including branches and finite loops"",");
+      Put_Line ("        ""callee"": ""visible earlier completely accepted procedure, not hidden by a local value or loop binder"",");
+      Put_Line ("        ""actuals"": ""positional, one per formal; in actuals use existing scalar expressions or Boolean conditions in caller scope; no nested calls"",");
+      Put_Line ("        ""writable_actuals"": ""existing mutable bare Integer/Boolean names of the matching kind; no constants, immutable formals, loop binders or array components"",");
+      Put_Line ("        ""actual_state"": ""all input actuals checked independently in the same incoming state; Boolean outcomes do not refine other actuals"",");
+      Put_Line ("        ""integer_input"": ""in and in out actual intervals are nonempty and contained in their formal subtype"",");
+      Put_Line ("        ""integer_copyback"": ""each out/in out formal entire declared range is contained in the actual object declared range"",");
+      Put_Line ("        ""aliasing"": ""writable targets are pairwise distinct by kind and binding identity; no writable target occurs in another actual read expression"",");
+      Put_Line ("        ""flow_after_call"": ""replace each written Integer target interval with its formal declared range; Boolean outputs carry no retained predicate facts"",");
+      Put_Line ("        ""frame"": ""evaluate all inputs before copy-back; update only writable targets; preserve all other stores and facts; disjointness makes copy-back order independent"",");
+      Put_Line ("        ""scope_purpose"": ""make multiple caller updates and copy-in/copy-out checks explicit without alias-sensitive or relational output summaries"",");
+      Put_Line ("        ""excluded_positions"": [");
+      Put_Line ("          ""function body"",");
+      Put_Line ("          ""initializer"",");
+      Put_Line ("          ""expression"",");
+      Put_Line ("          ""condition"",");
+      Put_Line ("          ""output/Image"",");
+      Put_Line ("          ""subscript"",");
+      Put_Line ("          ""loop bound"",");
+      Put_Line ("          ""other actual""");
+      Put_Line ("        ]");
       Put_Line ("      }");
       Put_Line ("    }");
       Put_Line ("  ],");
@@ -1530,7 +1601,8 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("          ""boolean_array_object"",");
       Put_Line ("          ""named_character_constant"",");
       Put_Line ("          ""named_character_variable"",");
-      Put_Line ("          ""scalar_function""");
+      Put_Line ("          ""scalar_function"",");
+      Put_Line ("          ""scalar_procedure""");
       Put_Line ("        ],");
       Put_Line ("        ""minimum"": 0,");
       Put_Line ("        ""count"": ""finite_within_complete_source_bound"",");
@@ -1583,7 +1655,8 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("          ""boolean_array_object"",");
       Put_Line ("          ""named_character_constant"",");
       Put_Line ("          ""named_character_variable"",");
-      Put_Line ("          ""scalar_function""");
+      Put_Line ("          ""scalar_function"",");
+      Put_Line ("          ""scalar_procedure""");
       Put_Line ("        ],");
       Put_Line ("        ""minimum"": 0,");
       Put_Line ("        ""count"": ""finite_within_complete_source_bound"",");
@@ -1730,6 +1803,8 @@ package body Silver_Catalogue with SPARK_Mode => On is
            | Silver_Output_Profile.Integer_Name | Silver_Output_Profile.For_Keyword
            | Silver_Output_Profile.In_Keyword | Silver_Output_Profile.Reverse_Keyword
            | Silver_Output_Profile.Loop_Keyword
+           | Silver_Output_Profile.Function_Keyword | Silver_Output_Profile.Return_Keyword
+           | Silver_Output_Profile.Out_Keyword
          then
             Put (",""" & Silver_Output_Profile.Spelling (Token) & """");
          end if;

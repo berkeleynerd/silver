@@ -5,12 +5,13 @@ package body Silver_Report_Projection_Audit with SPARK_Mode => On is
    procedure Application
      (Raw, Emitted : Bytes.Sequence; Current : Silver_Report_Projection.State;
       Buffer : String; Last : Natural; Kind : Reports.Application_Kind;
-      Source : String := ""; Functions : Reports.Function_Metadata := Reports.Empty_Functions)
+      Source : String := ""; Functions : Reports.Function_Metadata := Reports.Empty_Functions;
+      Procedures : Reports.Procedure_Metadata := Reports.Empty_Procedures)
    is
    begin
       Silver_Report_Projection_Composition.Actual_Projection (Raw);
       Silver_Report_Projection_Representation.From_Buffer (Emitted, Buffer, Last);
-      Reports.Application_Projection_Correspondence (Raw, Buffer (1 .. Last), Kind, Source, Functions);
+      Reports.Application_Projection_Correspondence (Raw, Buffer (1 .. Last), Kind, Source, Functions, Procedures);
    end Application;
 
    procedure Runtime

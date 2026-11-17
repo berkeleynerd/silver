@@ -1,0 +1,351 @@
+{
+  "review_completed_at_utc": "2026-11-15T22:26:28.475350+00:00",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Max",
+  "live_model_effort_and_token_cost_telemetry": "unavailable",
+  "live_harness_goal": null,
+  "repair_commit": "121eba820b16fc1b3c4b82c803845d7472151627",
+  "validated_production_commit": "32c6fbca5cbf3bacb09b20273b16936322e3eab1",
+  "disposition": "Accepted bounded fixture dependency repair with no material static finding and unchanged test strength. The observed full-suite failure is not yet attributed or resolved; original terminal traceback and complete focused-method success remain required.",
+  "scope": "Static immutable-source/data inspection only, without importing project code or running proof, build, test, bootstrap, application, project-validator or cache-writing jobs. No integration source, GitHub state or CLI memory changed.",
+  "changed_test": "tests/test_lean_modules.py",
+  "affected_test_id": "test_lean_modules.LeanModuleTests.test_output_body_chunks_reuse_objects_across_content_and_occurrence_edits",
+  "test_file_before_sha256": "e1b5c2212a7f5b0c3d9cca93224237d5eb26e5064cc8e5573e60f958fb724c5c",
+  "test_file_after_sha256": "ad57b66045355573707a29e0a285e95c79dcff4f0a1595cb8a38e24554680163",
+  "exact_edit": {
+    "added_dependency": "CertificateJoinWitness",
+    "comment_module_count_before": 17,
+    "comment_module_count_after": 18,
+    "reverting_only_dependency_and_comment_reconstructs_original_file": true,
+    "original_file_equals_complete_lean_checkpoint_revision": true,
+    "all_other_proof_native_generator_runner_and_test_bytes_unchanged": true,
+    "only_other_commit_change_is_diagnosis_note": true
+  },
+  "dependency_review": {
+    "copied_dependencies_after": [
+      "Lexical",
+      "Admission",
+      "Cursor",
+      "SourceLexer",
+      "CertificateWitness",
+      "CertificateJoinWitness",
+      "OutputProfileBodySource",
+      "AxiomAudit"
+    ],
+    "fixture_project_modules": [
+      "Admission",
+      "AxiomAudit",
+      "CertificateJoinWitness",
+      "CertificateWitness",
+      "Cursor",
+      "Independent",
+      "Lexical",
+      "OutputBodyCertificate",
+      "OutputBodyLines0",
+      "OutputBodyLines1",
+      "OutputBodyLines2",
+      "OutputBodyLines3",
+      "OutputBodyLines4",
+      "OutputBodyLines5",
+      "OutputBodyLines6",
+      "OutputBodyLines7",
+      "OutputProfileBodySource",
+      "SourceLexer"
+    ],
+    "fixture_project_module_count": 18,
+    "complete_project_import_graph": {
+      "Admission": [
+        "Lexical"
+      ],
+      "AxiomAudit": [],
+      "CertificateJoinWitness": [
+        "SourceLexer"
+      ],
+      "CertificateWitness": [],
+      "Cursor": [
+        "Admission"
+      ],
+      "Lexical": [],
+      "OutputBodyCertificate": [
+        "SourceLexer",
+        "CertificateWitness",
+        "CertificateJoinWitness",
+        "OutputProfileBodySource",
+        "OutputBodyLines0",
+        "OutputBodyLines1",
+        "OutputBodyLines2",
+        "OutputBodyLines3",
+        "OutputBodyLines4",
+        "OutputBodyLines5",
+        "OutputBodyLines6",
+        "OutputBodyLines7"
+      ],
+      "OutputBodyLines0": [
+        "SourceLexer",
+        "CertificateWitness"
+      ],
+      "OutputBodyLines1": [
+        "SourceLexer",
+        "CertificateWitness"
+      ],
+      "OutputBodyLines2": [
+        "SourceLexer",
+        "CertificateWitness"
+      ],
+      "OutputBodyLines3": [
+        "SourceLexer",
+        "CertificateWitness"
+      ],
+      "OutputBodyLines4": [
+        "SourceLexer",
+        "CertificateWitness"
+      ],
+      "OutputBodyLines5": [
+        "SourceLexer",
+        "CertificateWitness"
+      ],
+      "OutputBodyLines6": [
+        "SourceLexer",
+        "CertificateWitness"
+      ],
+      "OutputBodyLines7": [
+        "SourceLexer",
+        "CertificateWitness"
+      ],
+      "OutputProfileBodySource": [],
+      "SourceLexer": [
+        "Cursor"
+      ],
+      "Independent": []
+    },
+    "external_imports": {
+      "Admission": [],
+      "AxiomAudit": [
+        "Lean"
+      ],
+      "CertificateJoinWitness": [
+        "Lean.Elab.Tactic.ElabTerm",
+        "Lean.Elab.ElabRules",
+        "Lean.Meta.Tactic.AuxLemma"
+      ],
+      "CertificateWitness": [
+        "Lean.Elab.Tactic.ElabTerm",
+        "Lean.Elab.ElabRules",
+        "Lean.Meta.Tactic.AuxLemma"
+      ],
+      "Cursor": [],
+      "Lexical": [
+        "Std"
+      ],
+      "OutputBodyCertificate": [],
+      "OutputBodyLines0": [],
+      "OutputBodyLines1": [],
+      "OutputBodyLines2": [],
+      "OutputBodyLines3": [],
+      "OutputBodyLines4": [],
+      "OutputBodyLines5": [],
+      "OutputBodyLines6": [],
+      "OutputBodyLines7": [],
+      "OutputProfileBodySource": [],
+      "SourceLexer": []
+    },
+    "immutable_module_source_hashes": {
+      "Admission": "7c756102bc689b108aa0d5b2c41a68868d07f21230282891d776ef0994f2faf2",
+      "AxiomAudit": "47cb06e63dd120cf1db5ca14f39c3743500c6032d5f68d6e797106cb2903cb7b",
+      "CertificateJoinWitness": "9d2c96d2a52eb75370e2e663cb14d5a4051a049e45ca9115bb20f4c2677ef51d",
+      "CertificateWitness": "7f64ba1832d59532bdfcf56d06cfb3d9589fdb71c2e39e0bc88326b2d8757f2d",
+      "Cursor": "c5316bac7eb2a733fcda3787d23ee16e8e3b963ef31f6b7e26d285eb7e517ac3",
+      "Lexical": "bd6025d6dc26fd8d984de90bc4a00b63e30d76c27e3db086358aeaa5712ad372",
+      "OutputBodyCertificate": "4b3b71d41c870fba990135e97aef879843ffd151c8ace41ebbfa9abe39338b33",
+      "OutputBodyLines0": "a80dcfda31e3dbe086f8d01ae61afa2ece5cd5e9485bbbed662d5a6ff7b26c5b",
+      "OutputBodyLines1": "a128e27e381b112a0a83f9b0dc6a969e06900ff7502fd03379366c5d51600ea4",
+      "OutputBodyLines2": "bb6ae778f44f5b57d0e9d6ba6a4c089696461c52e949052d748f4c5ae580ddfe",
+      "OutputBodyLines3": "58428b5e84f04866dfc0827447cf279b97eea3cc18f59faae11ccc89280ffb67",
+      "OutputBodyLines4": "4b99fafd1194a2831b738ab072ea825021db78b50023ed44994787e357e772e8",
+      "OutputBodyLines5": "f0a66754b2ff7617f06c607560d94d774bde6d94ac72c8eb8ef82fb57564e306",
+      "OutputBodyLines6": "f1c82287737a40f61734ffd75d1f2cbd2f66b9e27335209ca51f95ef5e288ad4",
+      "OutputBodyLines7": "a9a5f622c7061e1b4e9e466680e26ae382ddcb29876953435a5e6425dbcb476e",
+      "OutputProfileBodySource": "35ef9119ab63f6e20483c936107241bc997f9f3378181beb45f7ed7bab72938f",
+      "SourceLexer": "6c2824f4ed5b303b3a3f3ec94d8cdb650ffbd86103eef842a32a3c6f3755a8eb"
+    },
+    "only_missing_original_fixture_dependency": "CertificateJoinWitness",
+    "generator_imports_helper_for_every_output_body_aggregate_including_small_fixtures": true,
+    "existing_dependency_chain": [
+      "CertificateJoinWitness",
+      "SourceLexer",
+      "Cursor",
+      "Admission",
+      "Lexical"
+    ],
+    "isolated_temporary_workspace_and_search_configuration": true,
+    "installed_helper_paths_checked_absent": [
+      "/home/agent/silver-worktrees/procedures-lean-370/.tools/linux-aarch64/lean/lib/lean/Silver/CertificateJoinWitness.olean",
+      "/home/agent/silver-worktrees/procedures-lean-370/.tools/linux-aarch64/lean/src/lean/Silver/CertificateJoinWitness.lean"
+    ],
+    "generator_sha256": "a938697c3b361dc4fa3165f84571c8e751248594e172f3a4c3137dd4e5fbbd79",
+    "environment_source_sha256": "ae72d6967ebf458c4ccfccfd53d6a59da08767901f29e1ba1917dc2ad5623dff"
+  },
+  "test_strength": {
+    "class_test_methods_unchanged": [
+      "test_proof_reuse_and_public_source_invalidation",
+      "test_legacy_audits_reject_private_axiom_behind_module_import",
+      "test_output_body_chunks_reuse_objects_across_content_and_occurrence_edits"
+    ],
+    "method_assertion_count": 19,
+    "unchanged_assertion_sites": [
+      {
+        "line": 211,
+        "assertion": "assert_success",
+        "expression": "self.assert_success(result)"
+      },
+      {
+        "line": 212,
+        "assertion": "assertIn",
+        "expression": "self.assertIn(\"Silver axiom audit passed:\", result.stdout)"
+      },
+      {
+        "line": 214,
+        "assertion": "assertIn",
+        "expression": "self.assertIn(\"SILVER_MODULE Silver.\" + module, result.stdout)"
+      },
+      {
+        "line": 217,
+        "assertion": "assert_success",
+        "expression": "self.assert_success(build())"
+      },
+      {
+        "line": 223,
+        "assertion": "assertEqual",
+        "expression": "self.assertEqual(source_identities(), before_sources)"
+      },
+      {
+        "line": 224,
+        "assertion": "assert_success",
+        "expression": "self.assert_success(build())"
+      },
+      {
+        "line": 225,
+        "assertion": "assertEqual",
+        "expression": "self.assertEqual({module: self.objects(module) for module in before_objects}, before_objects)"
+      },
+      {
+        "line": 252,
+        "assertion": "assertNotEqual",
+        "expression": "self.assertNotEqual(stale.returncode, 0, stale.stdout + stale.stderr)"
+      },
+      {
+        "line": 253,
+        "assertion": "assertIn",
+        "expression": "self.assertIn(\"OutputBodyCertificate\", stale.stdout + stale.stderr)"
+      },
+      {
+        "line": 255,
+        "assertion": "assertEqual",
+        "expression": "self.assertEqual(self.objects(module), before_objects[module], module)"
+      },
+      {
+        "line": 261,
+        "assertion": "assertEqual",
+        "expression": "self.assertEqual({module for module in chunks\n                                  if after_sources[module][0] != before_sources[module][0]}, affected_chunks)"
+      },
+      {
+        "line": 263,
+        "assertion": "assertNotEqual",
+        "expression": "self.assertNotEqual(after_sources[certificate][0], before_sources[certificate][0])"
+      },
+      {
+        "line": 264,
+        "assertion": "assert_success",
+        "expression": "self.assert_success(build())"
+      },
+      {
+        "line": 265,
+        "assertion": "assertNotEqual",
+        "expression": "self.assertNotEqual(self.objects(\"OutputProfileBodySource\")[\".olean\"][0],\n                                    before_objects[\"OutputProfileBodySource\"][\".olean\"][0])"
+      },
+      {
+        "line": 267,
+        "assertion": "assertNotEqual",
+        "expression": "self.assertNotEqual(self.objects(certificate)[\".olean\"][0],\n                                    before_objects[certificate][\".olean\"][0])"
+      },
+      {
+        "line": 271,
+        "assertion": "assertEqual",
+        "expression": "self.assertEqual(self.objects(module), before_objects[module], module)"
+      },
+      {
+        "line": 273,
+        "assertion": "assertEqual",
+        "expression": "self.assertEqual(after_sources[module], before_sources[module], module)"
+      },
+      {
+        "line": 275,
+        "assertion": "assertNotEqual",
+        "expression": "self.assertNotEqual(self.objects(module)[\".olean\"][0],\n                                            before_objects[module][\".olean\"][0], module)"
+      },
+      {
+        "line": 292,
+        "assertion": "assert_success",
+        "expression": "self.assert_success(build())"
+      }
+    ],
+    "unchanged_mutation_variants": [
+      "replace",
+      "append",
+      "insert",
+      "delete_unique",
+      "reorder",
+      "repeat",
+      "delete_repeated_occurrence",
+      "crlf",
+      "remove_final_newline",
+      "add_empty_line",
+      "empty_source"
+    ],
+    "object_variants": [
+      ".olean",
+      ".olean.server",
+      ".olean.private"
+    ],
+    "source_mtime_restoration_and_stale_certificate_rejection_unchanged": true,
+    "all_source_bytes_object_bytes_and_mtime_reuse_checks_unchanged": true,
+    "affected_bucket_and_authoritative_provider_aggregate_invalidation_unchanged": true,
+    "initial_and_per_variant_fresh_audits_unchanged": true,
+    "per_variant_original_source_reset_and_rebuild_unchanged": true,
+    "build_timeout_seconds": 180,
+    "other_command_timeout_seconds": 60,
+    "lake_workers": 1,
+    "lean_threads": 1,
+    "memory_mb": 2048,
+    "warning_as_error": true
+  },
+  "diagnosis_note": {
+    "path": "docs/evidence/scalar-procedures-20261115/regression-recovery/lean-output-chunk-fixture/README.md",
+    "sha256": "28310dbf3de262411114586e981c51aff80b142cc06909fa9d6c29005b5734bd",
+    "all_five_frozen_input_hashes_match": true,
+    "frozen_input_hashes": {
+      "tests/test_lean_modules.py": "e1b5c2212a7f5b0c3d9cca93224237d5eb26e5064cc8e5573e60f958fb724c5c",
+      "proof/generate_source_certificate.py": "a938697c3b361dc4fa3165f84571c8e751248594e172f3a4c3137dd4e5fbbd79",
+      "proof/Silver/CertificateJoinWitness.lean": "9d2c96d2a52eb75370e2e663cb14d5a4051a049e45ca9115bb20f4c2677ef51d",
+      "scripts/check_lean.py": "f5a44f63da311b850478b89a808a28d41878bdc1b959142b8bafb531bab31f11",
+      "proof/lakefile.lean": "d8c8f5ccac0d754dfdf4dfac83ea0d20536eef687f037750f2e13280bc0c2cd3"
+    }
+  },
+  "pending_original_run": {
+    "run_id": "20261115T220916-99f1eaeea331",
+    "original_session": 84822,
+    "state_at_assignment": "Still running, as reported by lead; native_monitor owns execution.",
+    "reported_failure": "Named output-body cache method FAIL; terminal traceback not supplied.",
+    "terminal_traceback_inspected": false,
+    "failure_attribution_confirmed": false,
+    "repaired_focused_run_inspected": false,
+    "test_failure_resolved": false
+  },
+  "required_follow_up": [
+    "Inspect original full-suite terminal traceback; confirm the actual failure location and diagnostic rather than inferring it from this static omission.",
+    "Run and retain the complete affected method after the full suite releases its lease, including all eleven mutations, fresh audits and OUTPUT_BODY_CONTENT_REUSE observations.",
+    "Independently reconcile all 691 final test IDs after terminal evidence, every failed or affected test, retained successes, and the two expected platform skips under development.md.",
+    "Account separately for the twelve tests affected by subsequent Rosetta metadata changes; feature acceptance remains pending."
+  ],
+  "reuse_boundary": "The patch changes only one method-local copied dependency list and its comment. Class/global setup and the other methods are unchanged. This supports a one-method repair rerun for this patch, subject to the original terminal inventory and any additional failures or final input changes; no passing result is declared reused here."
+}

@@ -1,0 +1,16 @@
+{
+  "base": "8a03ab122",
+  "files": {
+    "DeclarationHeaderFunctionLocalsModelSpec": {
+      "public_statement_byte_identical": true,
+      "sha256": "a6b035e1f8a1fe1a50bb8e4a1d187d740b08a5307f49f607fb71db785514f7e1"
+    },
+    "DeclarationHeaderFunctionBodyAtSpec": {
+      "public_statement_byte_identical": true,
+      "sha256": "3dc0f51595dcfd7ae7c553c542c4347fe63acb7039b93debd05b58386e3473fd"
+    },
+    "FunctionDeclarationHeaderExpectedTokens": {
+      "sha256": "74e566f3965b6c38d3ab70da63004f5887b079fbb36267cf1fbee8f8edc46517"
+    }
+  }
+}

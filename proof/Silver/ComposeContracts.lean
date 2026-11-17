@@ -24,7 +24,10 @@ def ValidState (text : Source) (state : ParserState) : Prop :=
     BooleanBindings.ValidEnvironment text state.booleanNames ∧
     FunctionBindings.ValidMetadata text state.functions ∧
     state.firstParameter ≤ state.functions.parameters.length + 1 ∧
-    state.firstParameter ≤ FunctionBindings.maxFormals
+    state.firstParameter ≤ FunctionBindings.maxFormals ∧
+    ProcedureBindings.ValidMetadata text state.procedures ∧
+    state.firstProcedureParameter ≤ state.procedures.parameters.length + 1 ∧
+    state.firstProcedureParameter ≤ ProcedureBindings.maxFormals
 
 theorem ValidState.booleans {text : Source} {state : ParserState}
     (valid : ValidState text state) : BooleanBindings.ValidEnvironment text state.booleanNames :=
@@ -33,6 +36,10 @@ theorem ValidState.booleans {text : Source} {state : ParserState}
 theorem ValidState.functions {text : Source} {state : ParserState}
     (valid : ValidState text state) : FunctionBindings.ValidMetadata text state.functions :=
   valid.2.2.2.2.2.2.2.2.2.1
+
+theorem ValidState.procedures {text : Source} {state : ParserState}
+    (valid : ValidState text state) : ProcedureBindings.ValidMetadata text state.procedures :=
+  valid.2.2.2.2.2.2.2.2.2.2.2.2.1
 
 /-- The state precondition actually provided by an interpreted native caller.
 The base domain remains available for the independent mathematical model. -/
@@ -106,7 +113,7 @@ def allTokens : List ShellToken :=
    .outputExpression, .comparisonExpression, .word "null", .contextClauses,
    .word "integer", .word "for", .word "in", .word "reverse", .word "loop", .symbol "..", .word "range", .word "subtype", .word "array", .word "of", .symbol ",", .symbol "=>",
    .word "boolean", .word "true", .word "false", .word "xor", .word "character",
-   .word "function", .word "return"]
+   .word "function", .word "return", .word "out"]
 
 def ValidToken (token : ShellToken) : Prop := token ∈ allTokens
 
@@ -324,6 +331,10 @@ structure RawHelperEquations (calls : Calls) (evaluator : Calls := lexical calls
   functionLookup : ∀ text, ValidText text → ∀ catalog first after,
     FunctionBindings.ValidMetadata text catalog → ValidCursor text first → ValidCursor text after →
     calls.function .functionLookup text catalog first after = FunctionBindings.lookup text catalog first after
+  /-- Imported from the procedure metadata package over its full native domain. -/
+  procedureLookup : ∀ text, ValidText text → ∀ catalog first after,
+    ProcedureBindings.ValidMetadata text catalog → ValidCursor text first → ValidCursor text after →
+    calls.function .procedureLookup text catalog first after = ProcedureBindings.lookup text catalog first after
   /-- Imported from the checked source equation for the active formal suffix. -/
   formalHides : ∀ text, ValidText text → ∀ state first after,
     NativeState domain text state → ValidCursor text first → ValidCursor text after →
@@ -586,6 +597,11 @@ structure HelperEquations (calls : Calls) (evaluator : Calls := lexical calls)
   functionDeclaration : ∀ text, ValidText text → ∀ state arguments,
     NativeState domain text state →
     calls.function .functionDeclaration text state arguments = functionDeclarationAt text state arguments
+  /-- Derived from the procedure declaration source and its linked body helpers.
+  Kept outside RawHelperEquations to avoid assuming the law being proved. -/
+  procedureDeclaration : ∀ text, ValidText text → ∀ state arguments,
+    NativeState domain text state →
+    calls.function .procedureDeclaration text state arguments = procedureDeclarationAt text state arguments
   /-- Derived from the checked initializer body and the condition interpreter,
   on precisely the source helper's state, cursor and masked-name domain. -/
   booleanInitializer : ∀ text, ValidText text → ∀ state position maskFirst maskAfter,

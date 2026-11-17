@@ -1,12 +1,41 @@
 with Ada.Text_IO;
+with Ada.Text_IO.Text_Streams;
+with Ada.Streams;
 with Ada.Command_Line;
 with Ada.Strings.Unbounded;
-with Ada.Strings.Unbounded.Text_IO;
 with Silver_Library_Reports;
+with Silver_Output_Profile;
 procedure Library_Reports_Probe is
-   --  Avoid Ada.Text_IO.Get_Line's recursive stack growth for large fixtures.
-   Input : constant Ada.Strings.Unbounded.Unbounded_String :=
-     Ada.Strings.Unbounded.Text_IO.Get_Line;
+   Procedure_Source : constant String :=
+     "with Silver_IO;procedure Main is pragma SPARK_Mode(On);" &
+     "function Id(X:in Integer)return Integer is begin return X;end Id;" &
+     "procedure Set_Value(Value:out Integer;Flag:out Boolean;Carry:in out Integer;Seed:in Integer)is " &
+     "begin Value:=0;Flag:=False;Carry:=Value;end Set_Value;" &
+     "procedure Reset(Value:out Integer)is begin Value:=0;end Reset;" &
+     "procedure Step(Carry:in out Integer)is begin null;end Step;" &
+     "begin null;end Main;";
+   --  Preserve complete multiline producer bytes, and avoid recursive line
+   --  input stack growth for large fixtures.
+   function Read_Report return Ada.Strings.Unbounded.Unbounded_String is
+      use type Ada.Streams.Stream_Element_Offset;
+      Stream : constant Ada.Text_IO.Text_Streams.Stream_Access :=
+        Ada.Text_IO.Text_Streams.Stream (Ada.Text_IO.Standard_Input);
+      Bytes : Ada.Streams.Stream_Element_Array (1 .. 8_192);
+      Last : Ada.Streams.Stream_Element_Offset;
+      Block : String (1 .. 8_192);
+      Result : Ada.Strings.Unbounded.Unbounded_String;
+   begin
+      loop
+         Ada.Streams.Read (Stream.all, Bytes, Last);
+         for I in 1 .. Last loop
+            Block (Natural (I)) := Character'Val (Bytes (I));
+         end loop;
+         Ada.Strings.Unbounded.Append (Result, Block (1 .. Natural (Last)));
+         exit when Last < Bytes'Last;
+      end loop;
+      return Result;
+   end Read_Report;
+   Input : constant Ada.Strings.Unbounded.Unbounded_String := Read_Report;
    Report : constant String := Ada.Strings.Unbounded.To_String (Input);
    Kind : constant Silver_Library_Reports.Report_Kind :=
      (if Ada.Command_Line.Argument (1) = "body"
@@ -20,6 +49,30 @@ procedure Library_Reports_Probe is
      (Silver_Library_Reports.Complete_Application_Proof
         (Text, Silver_Library_Reports.Static_Output));
 begin
+   if Ada.Command_Line.Argument (1) = "procedures"
+     or else Ada.Command_Line.Argument (1) = "procedures-static"
+     or else Ada.Command_Line.Argument (1) = "procedures-argument"
+     or else Ada.Command_Line.Argument (1) = "procedures-selected"
+   then
+      declare
+         Source : constant String :=
+           (if Ada.Command_Line.Argument_Count = 2 then Ada.Command_Line.Argument (2) else Procedure_Source);
+         Policy : constant Silver_Library_Reports.Application_Kind :=
+           (if Ada.Command_Line.Argument (1) = "procedures-static" then Silver_Library_Reports.Static_Output
+            elsif Ada.Command_Line.Argument (1) = "procedures-argument" then Silver_Library_Reports.Argument_Output
+            elsif Ada.Command_Line.Argument (1) = "procedures-selected" then Silver_Library_Reports.Selected_Output
+            else Silver_Library_Reports.Assigned_Output);
+      begin
+         pragma Assert (Silver_Output_Profile.Accepts (Source));
+         Ada.Text_IO.Put_Line
+           (if Silver_Library_Reports.Complete_Application_Proof
+              (Report, Policy, Source => Source,
+               Functions => Silver_Output_Profile.Local_Functions (Source),
+               Procedures => Silver_Output_Profile.Local_Procedures (Source))
+            then "accepted" else "rejected");
+      end;
+      return;
+   end if;
    if Ada.Command_Line.Argument (1) = "rebased" then
       declare
          Rebased : constant String (37 .. 36 + Report'Length) := Report;

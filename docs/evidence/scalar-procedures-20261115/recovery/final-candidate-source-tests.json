@@ -1,0 +1,20 @@
+{
+  "implementation_commit": "8a03ab122",
+  "command": [
+    "python3",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-p",
+    "test_lean_source.py",
+    "-v"
+  ],
+  "exit_code": 0,
+  "tests": 17,
+  "elapsed_seconds": 21.352,
+  "native_host": "linux-aarch64",
+  "log_sha256": "fe536f437533e166556d5043696ed206b0d2522d48e407dc82a8ad3be63a692e",
+  "scope": "Full source-policy module, regenerated candidate parity, native kernel acceptance/rejection controls; not complete project assurance or full regression inventory."
+}

@@ -1,0 +1,27 @@
+{
+  "command": [
+    "python3",
+    "scripts/check_lean.py",
+    "--target",
+    "Silver.FunctionSourceParts.DeclarationLoopFunctionLocals",
+    "--workers",
+    "1",
+    "--memory-mb",
+    "8192",
+    "--provenance",
+    "--task",
+    "370-lean-memory-recovery",
+    "--reason",
+    "Reduced 16 GiB linux-aarch64 host; no retained Lean objects; isolate prior exit-137 module with one Lake worker, automatic twelve Lean threads, 8 GiB per-process threshold; native stream reserved at most two workers/~3 GiB."
+  ],
+  "cwd": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/procedures-lean-370",
+  "started_at": "2026-11-15T16:55:47.213851+00:00",
+  "peak_sum_rss_kib": 49424,
+  "peak_process_rss_kib": 49424,
+  "minimum_mem_available_kib": 15880560,
+  "pid": 4406,
+  "returncode": 1,
+  "elapsed_seconds": 10.019810963000054,
+  "finished_at": "2026-11-15T16:55:57.233657+00:00",
+  "interrupted": false
+}

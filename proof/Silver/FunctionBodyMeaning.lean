@@ -37,7 +37,7 @@ theorem sourceFunctionDefinition_checked
       parameterBooleans booleans.length signature.formals (booleanBodyAnalysis booleans))
     (entry : context.flow scan.facts = ⟨entryContext, context.analysis.declared⟩)
     (resultType : formalType formal = signature.result)
-    (body : BodyTailAt (catalog := catalog) text context .returnOnly scan items resultScan)
+    (body : BodyTailAt (catalog := catalog) (procedures := {}) text context .returnOnly scan items resultScan)
     (result : ActualAt text context returnPosition resultScan.facts formal returned returnAfter) :
     (sourceFunctionDefinition signature integers booleans checks booleanChecks items returned).Checked
       (catalogSignatures catalog) := by
@@ -52,9 +52,9 @@ theorem sourceFunctionDefinition_checked
     simp [ParseContext.ArraysReady, closed.noArrays, ArrayBindings.ValidMetadata]
   have base : ScalarMetadata.BaseReady context.scalarNames context.declarationCount :=
     (bodyMode ▸ ready).toBaseReady
-  have meaning := bodyTail_meaning metadata bodyMode normal base arraysReady booleanCount
+  have meaning := bodyTail_meaning metadata (ProcedureBindings.valid_empty text) bodyMode normal base arraysReady booleanCount
     namesValid initial.compatible bounded body
-  have finalReady := bodyTail_flowReady text context scan .returnOnly metadata ready initial environment
+  have finalReady := bodyTail_flowReady text context scan .returnOnly metadata (ProcedureBindings.valid_empty text) ready initial environment
   rw [bodyTail_complete body] at finalReady
   have returnedMeaning := actual_meaning normal namesValid ready arraysReady finalReady.compatible meaning.2.2 result
   have bodyShape := bodyTail_source_scalar closed body
@@ -81,7 +81,8 @@ theorem sourceFunctionDefinition_checked
   refine ⟨formed, context.flow resultScan.facts, (definition.check_iff _ _).mpr ?_⟩
   refine ⟨initialized.integerDeclarations, initialized.integerChecks, initialized.booleanChecks,
     initialized.booleanCheck, bodyShape.1, ?_, ?_⟩
-  · simpa only [shape, scalarAnalysis, entryFlow, boolAnalysis, definition, sourceFunctionDefinition] using meaning.2.1
+  · simpa only [shape, scalarAnalysis, entryFlow, boolAnalysis, definition, sourceFunctionDefinition,
+      ProcedureBindings.catalogSignatures, List.map_nil] using meaning.2.1
   · simpa only [shape, scalarAnalysis, boolAnalysis, resultType, definition, sourceFunctionDefinition] using returnedMeaning.2
 
 end Silver.Compose

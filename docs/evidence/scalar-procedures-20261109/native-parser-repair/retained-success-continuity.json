@@ -1,0 +1,561 @@
+{
+  "utc": "2026-11-10T17:52:04.744729+00:00",
+  "current_source_sha256": "735f4bbb8cd0f9ecf816e17df3242113417f9ddeeafdf4bcb8ae2ecc25d41758",
+  "entities": [
+    {
+      "entity": "Silver_Output_Profile.Body_Of",
+      "gate": "helper-gate",
+      "source_sha256": "aa1f3722bedf706e3aa7906e418d68ef5087570bd2b3522c17f5bc2d9072a453",
+      "run_id": "20261110T143914-1c2a2b56bc13",
+      "passed_checks": {
+        "proof": 5,
+        "flow": 3
+      },
+      "unchanged_source_fragments": [
+        {
+          "old_lines": [
+            2678,
+            2695
+          ],
+          "current_lines": [
+            2678,
+            2695
+          ],
+          "sha256": "328ca76df8e0c6d207faa9a4ca62f63b4217032027b5cd31386563be44a43aa4"
+        }
+      ]
+    },
+    {
+      "entity": "Silver_Output_Profile.Boolean_Array_Values_At",
+      "gate": "helper-gate",
+      "source_sha256": "aa1f3722bedf706e3aa7906e418d68ef5087570bd2b3522c17f5bc2d9072a453",
+      "run_id": "20261110T143914-1c2a2b56bc13",
+      "passed_checks": {
+        "proof": 65,
+        "flow": 2
+      },
+      "unchanged_source_fragments": [
+        {
+          "old_lines": [
+            2121,
+            2249
+          ],
+          "current_lines": [
+            2121,
+            2249
+          ],
+          "sha256": "65d23f10cf54c2b74f4e14b83447a57a50833741330a8fc350579798fb9597ca"
+        }
+      ]
+    },
+    {
+      "entity": "Silver_Output_Profile.Initial_Flow",
+      "gate": "helper-gate",
+      "source_sha256": "aa1f3722bedf706e3aa7906e418d68ef5087570bd2b3522c17f5bc2d9072a453",
+      "run_id": "20261110T143914-1c2a2b56bc13",
+      "passed_checks": {
+        "proof": 12,
+        "flow": 3
+      },
+      "unchanged_source_fragments": [
+        {
+          "old_lines": [
+            2653,
+            2671
+          ],
+          "current_lines": [
+            2653,
+            2671
+          ],
+          "sha256": "61fdb33acd1590da410bfa96dc04eb4b53f1d3fb550721138ee4fb97a904dd70"
+        }
+      ]
+    },
+    {
+      "entity": "Silver_Output_Profile.Join_Into",
+      "gate": "helper-gate",
+      "source_sha256": "aa1f3722bedf706e3aa7906e418d68ef5087570bd2b3522c17f5bc2d9072a453",
+      "run_id": "20261110T143914-1c2a2b56bc13",
+      "passed_checks": {
+        "proof": 17,
+        "flow": 1
+      },
+      "unchanged_source_fragments": [
+        {
+          "old_lines": [
+            2803,
+            2822
+          ],
+          "current_lines": [
+            2803,
+            2822
+          ],
+          "sha256": "472635962247fb286f68226ed8f4926ff0eec53fd9db6ab21218514530677b52"
+        }
+      ]
+    },
+    {
+      "entity": "Silver_Output_Profile.Joined",
+      "gate": "helper-gate",
+      "source_sha256": "aa1f3722bedf706e3aa7906e418d68ef5087570bd2b3522c17f5bc2d9072a453",
+      "run_id": "20261110T143914-1c2a2b56bc13",
+      "passed_checks": {
+        "proof": 36,
+        "flow": 2
+      },
+      "unchanged_source_fragments": [
+        {
+          "old_lines": [
+            2767,
+            2802
+          ],
+          "current_lines": [
+            2767,
+            2802
+          ],
+          "sha256": "fc29c437adad42446aa371f47f430ba2cf41232e0dde309b0addf708308fefcf"
+        }
+      ]
+    },
+    {
+      "entity": "Silver_Output_Profile.Lemma_Condition_Equality",
+      "gate": "helper-gate",
+      "source_sha256": "aa1f3722bedf706e3aa7906e418d68ef5087570bd2b3522c17f5bc2d9072a453",
+      "run_id": "20261110T143914-1c2a2b56bc13",
+      "passed_checks": {
+        "proof": 66,
+        "flow": 1
+      },
+      "unchanged_source_fragments": [
+        {
+          "old_lines": [
+            3190,
+            3239
+          ],
+          "current_lines": [
+            3190,
+            3239
+          ],
+          "sha256": "46997cf8beffb7813ebb84f5607262805dc9bd17f4aba1257834bcd84a7c0a79"
+        }
+      ]
+    },
+    {
+      "entity": "Silver_Output_Profile.Lemma_Flow_Equality",
+      "gate": "helper-gate",
+      "source_sha256": "aa1f3722bedf706e3aa7906e418d68ef5087570bd2b3522c17f5bc2d9072a453",
+      "run_id": "20261110T143914-1c2a2b56bc13",
+      "passed_checks": {
+        "proof": 8,
+        "flow": 1
+      },
+      "unchanged_source_fragments": [
+        {
+          "old_lines": [
+            3241,
+            3253
+          ],
+          "current_lines": [
+            3241,
+            3253
+          ],
+          "sha256": "a663012128ff1343e9a5235bb34fd2103e623f6441d57c27fdeb7c1f998fef3e"
+        }
+      ]
+    },
+    {
+      "entity": "Silver_Output_Profile.Lemma_Join_Identity",
+      "gate": "helper-gate",
+      "source_sha256": "aa1f3722bedf706e3aa7906e418d68ef5087570bd2b3522c17f5bc2d9072a453",
+      "run_id": "20261110T143914-1c2a2b56bc13",
+      "passed_checks": {
+        "proof": 17,
+        "flow": 1
+      },
+      "unchanged_source_fragments": [
+        {
+          "old_lines": [
+            3256,
+            3274
+          ],
+          "current_lines": [
+            3256,
+            3274
+          ],
+          "sha256": "9c0863491d235844964a36c05bcf6bf99f031b855e218d2712670911c24d4624"
+        }
+      ]
+    },
+    {
+      "entity": "Silver_Output_Profile.Lemma_Parser_State_Equality",
+      "gate": "helper-gate",
+      "source_sha256": "aa1f3722bedf706e3aa7906e418d68ef5087570bd2b3522c17f5bc2d9072a453",
+      "run_id": "20261110T143914-1c2a2b56bc13",
+      "passed_checks": {
+        "proof": 1,
+        "flow": 1
+      },
+      "unchanged_source_fragments": [
+        {
+          "old_lines": [
+            1791,
+            1800
+          ],
+          "current_lines": [
+            1791,
+            1800
+          ],
+          "sha256": "e414fb3e0db8c7aaf611668c1713437ce2bd591d66c2207ef82ecb59908dad8f"
+        }
+      ]
+    },
+    {
+      "entity": "Silver_Output_Profile.Alternative_Body",
+      "gate": "caller-gate",
+      "source_sha256": "aa1f3722bedf706e3aa7906e418d68ef5087570bd2b3522c17f5bc2d9072a453",
+      "run_id": "20261110T145720-331c1a61ff8d",
+      "passed_checks": {
+        "proof": 38,
+        "flow": 4
+      },
+      "unchanged_source_fragments": [
+        {
+          "old_lines": [
+            5633,
+            5643
+          ],
+          "current_lines": [
+            5644,
+            5654
+          ],
+          "sha256": "6ebaad7a708cefc78c121c3c632f7090df1c9c486a9d8407fde2d2b916bc88ee"
+        },
+        {
+          "old_lines": [
+            5932,
+            5966
+          ],
+          "current_lines": [
+            5943,
+            5977
+          ],
+          "sha256": "b1073fa3bcb8aa898da94ca8d7f2573e81128dd5c6cde3806d62c90d3da55040"
+        }
+      ]
+    },
+    {
+      "entity": "Silver_Output_Profile.Array_Declaration_At",
+      "gate": "caller-gate",
+      "source_sha256": "aa1f3722bedf706e3aa7906e418d68ef5087570bd2b3522c17f5bc2d9072a453",
+      "run_id": "20261110T145720-331c1a61ff8d",
+      "passed_checks": {
+        "proof": 57,
+        "flow": 2
+      },
+      "unchanged_source_fragments": [
+        {
+          "old_lines": [
+            2251,
+            2259
+          ],
+          "current_lines": [
+            2251,
+            2259
+          ],
+          "sha256": "53c74e95ebfe95aa6c1c983f480acc1f57b220fa7786e125fd8497563a75262c"
+        },
+        {
+          "old_lines": [
+            2260,
+            2345
+          ],
+          "current_lines": [
+            2260,
+            2345
+          ],
+          "sha256": "92d25d9ef889652748c9cb971de9aa46a16098f2819d915ed21c352456fad72a"
+        }
+      ]
+    },
+    {
+      "entity": "Silver_Output_Profile.Conditional_Body",
+      "gate": "caller-gate",
+      "source_sha256": "aa1f3722bedf706e3aa7906e418d68ef5087570bd2b3522c17f5bc2d9072a453",
+      "run_id": "20261110T145720-331c1a61ff8d",
+      "passed_checks": {
+        "proof": 36,
+        "flow": 4
+      },
+      "unchanged_source_fragments": [
+        {
+          "old_lines": [
+            5622,
+            5632
+          ],
+          "current_lines": [
+            5633,
+            5643
+          ],
+          "sha256": "d94b856a9af2efc5738be6c8ff3dc72b4c6b5a249c63aa00cade202fc698cdc1"
+        },
+        {
+          "old_lines": [
+            5904,
+            5930
+          ],
+          "current_lines": [
+            5915,
+            5941
+          ],
+          "sha256": "01db72c6699966de51ff0d8f56d94d2f22c609fed9227eba93efec9593a9f465"
+        }
+      ]
+    },
+    {
+      "entity": "Silver_Output_Profile.Read_Statements",
+      "gate": "caller-gate",
+      "source_sha256": "aa1f3722bedf706e3aa7906e418d68ef5087570bd2b3522c17f5bc2d9072a453",
+      "run_id": "20261110T145720-331c1a61ff8d",
+      "passed_checks": {
+        "proof": 6,
+        "flow": 2
+      },
+      "unchanged_source_fragments": [
+        {
+          "old_lines": [
+            6754,
+            6759
+          ],
+          "current_lines": [
+            6809,
+            6814
+          ],
+          "sha256": "ba9a23ce459617129bc68daa65d1cc092112c28e41ba161b770e04d2096c51e3"
+        },
+        {
+          "old_lines": [
+            6760,
+            6768
+          ],
+          "current_lines": [
+            6815,
+            6823
+          ],
+          "sha256": "aa20db797efac024cc9177781307a675d4155d2e2df285d33e479bbf3e13d958"
+        }
+      ]
+    },
+    {
+      "entity": "Silver_Function_Bindings.Append",
+      "gate": "final-parser-draft/helpers-gate",
+      "source_sha256": "ffdc4fa654056aae2c1b4d59fd1bb2b2dfae0077895158b91a1634d34ca63137",
+      "run_id": "20261110T161846-7016360b9ba9",
+      "passed_checks": {
+        "proof": 3,
+        "flow": 1
+      },
+      "unchanged_source_fragments": [
+        {
+          "entire_source_file": "src/silver_function_bindings.ads",
+          "sha256": "e43fb640c38c516e6a4d0ab4e28acab9c3f71a5638237cc8b4c6c387c6d01d4b"
+        },
+        {
+          "entire_source_file": "src/silver_function_bindings.adb",
+          "sha256": "5bb7432136235c11a0845269bb1286439b579e30fc45e15b20bad66fe829882b"
+        }
+      ]
+    },
+    {
+      "entity": "Silver_Function_Bindings.Valid_Metadata",
+      "gate": "final-parser-draft/helpers-gate",
+      "source_sha256": "ffdc4fa654056aae2c1b4d59fd1bb2b2dfae0077895158b91a1634d34ca63137",
+      "run_id": "20261110T161846-7016360b9ba9",
+      "passed_checks": {
+        "proof": 15,
+        "flow": 2
+      },
+      "unchanged_source_fragments": [
+        {
+          "entire_source_file": "src/silver_function_bindings.ads",
+          "sha256": "e43fb640c38c516e6a4d0ab4e28acab9c3f71a5638237cc8b4c6c387c6d01d4b"
+        },
+        {
+          "entire_source_file": "src/silver_function_bindings.adb",
+          "sha256": "5bb7432136235c11a0845269bb1286439b579e30fc45e15b20bad66fe829882b"
+        }
+      ]
+    },
+    {
+      "entity": "Silver_Output_Profile.Lemma_Function_Metadata_Append",
+      "gate": "final-parser-draft/helpers-gate",
+      "source_sha256": "ffdc4fa654056aae2c1b4d59fd1bb2b2dfae0077895158b91a1634d34ca63137",
+      "run_id": "20261110T161846-7016360b9ba9",
+      "passed_checks": {
+        "proof": 5,
+        "flow": 1
+      },
+      "unchanged_source_fragments": [
+        {
+          "old_lines": [
+            6566,
+            6582
+          ],
+          "current_lines": [
+            6566,
+            6582
+          ],
+          "sha256": "d3d8eacb8c7eeac9a713a542d8ade4b078f7b8f7f25b00678810f73fe09a02a3"
+        }
+      ]
+    },
+    {
+      "entity": "Silver_Output_Profile.Lemma_Procedure_Metadata_Append",
+      "gate": "final-parser-draft/helpers-gate",
+      "source_sha256": "ffdc4fa654056aae2c1b4d59fd1bb2b2dfae0077895158b91a1634d34ca63137",
+      "run_id": "20261110T161846-7016360b9ba9",
+      "passed_checks": {
+        "proof": 5,
+        "flow": 1
+      },
+      "unchanged_source_fragments": [
+        {
+          "old_lines": [
+            6584,
+            6599
+          ],
+          "current_lines": [
+            6584,
+            6599
+          ],
+          "sha256": "1ca7ed3a4034364f31e14fca78dd91240fefa60c154f217b9eabf349611bf806"
+        }
+      ]
+    },
+    {
+      "entity": "Silver_Procedure_Bindings.Append",
+      "gate": "final-parser-draft/helpers-gate",
+      "source_sha256": "ffdc4fa654056aae2c1b4d59fd1bb2b2dfae0077895158b91a1634d34ca63137",
+      "run_id": "20261110T161846-7016360b9ba9",
+      "passed_checks": {
+        "proof": 3,
+        "flow": 1
+      },
+      "unchanged_source_fragments": [
+        {
+          "entire_source_file": "src/silver_procedure_bindings.ads",
+          "sha256": "4fe043682f952570f90e0b5879c9a10be3c19016811dac957a6825e22a1f18a6"
+        },
+        {
+          "entire_source_file": "src/silver_procedure_bindings.adb",
+          "sha256": "81bedcc4e10c451100348c6e5365c76078f6158ed4af75f9fe61b0e21ffeb4fa"
+        }
+      ]
+    },
+    {
+      "entity": "Silver_Procedure_Bindings.Valid_Metadata",
+      "gate": "final-parser-draft/helpers-gate",
+      "source_sha256": "ffdc4fa654056aae2c1b4d59fd1bb2b2dfae0077895158b91a1634d34ca63137",
+      "run_id": "20261110T161846-7016360b9ba9",
+      "passed_checks": {
+        "proof": 14,
+        "flow": 2
+      },
+      "unchanged_source_fragments": [
+        {
+          "entire_source_file": "src/silver_procedure_bindings.ads",
+          "sha256": "4fe043682f952570f90e0b5879c9a10be3c19016811dac957a6825e22a1f18a6"
+        },
+        {
+          "entire_source_file": "src/silver_procedure_bindings.adb",
+          "sha256": "81bedcc4e10c451100348c6e5365c76078f6158ed4af75f9fe61b0e21ffeb4fa"
+        }
+      ]
+    },
+    {
+      "entity": "Silver_Output_Profile.Function_Body_At",
+      "gate": "final-parser-draft/callers-gate",
+      "source_sha256": "ffdc4fa654056aae2c1b4d59fd1bb2b2dfae0077895158b91a1634d34ca63137",
+      "run_id": "20261110T162446-2d6a4b3e4d0d",
+      "passed_checks": {
+        "proof": 28,
+        "flow": 2
+      },
+      "unchanged_source_fragments": [
+        {
+          "old_lines": [
+            6601,
+            6668
+          ],
+          "current_lines": [
+            6601,
+            6668
+          ],
+          "sha256": "6b243dd214d5fd10f080c688f6c110e679d9eec783a106e85da3cdfc9472df0a"
+        }
+      ]
+    },
+    {
+      "entity": "Silver_Output_Profile.Read_Chain_Into",
+      "gate": "final-parser-draft/callers-gate",
+      "source_sha256": "ffdc4fa654056aae2c1b4d59fd1bb2b2dfae0077895158b91a1634d34ca63137",
+      "run_id": "20261110T162446-2d6a4b3e4d0d",
+      "passed_checks": {
+        "proof": 222,
+        "flow": 4
+      },
+      "unchanged_source_fragments": [
+        {
+          "old_lines": [
+            3805,
+            3819
+          ],
+          "current_lines": [
+            3805,
+            3819
+          ],
+          "sha256": "bcfed771a17a99b6d30c2d0922fdc04204d9bf16a0d42e39cb6d6c4e029df360"
+        },
+        {
+          "old_lines": [
+            4259,
+            4474
+          ],
+          "current_lines": [
+            4259,
+            4474
+          ],
+          "sha256": "3526355d99d0ec0ea746aaa0ae547dd744147693918c7596e664b6ece8d70c8a"
+        }
+      ]
+    },
+    {
+      "entity": "Silver_Output_Profile.Procedure_Body_At",
+      "gate": "final-parser-draft/procedure-tail-draft/caller-gate",
+      "source_sha256": "735f4bbb8cd0f9ecf816e17df3242113417f9ddeeafdf4bcb8ae2ecc25d41758",
+      "run_id": "20261110T173934-c9e374d30353",
+      "passed_checks": {
+        "proof": 28,
+        "flow": 2
+      },
+      "unchanged_source_fragments": [
+        {
+          "old_lines": [
+            6702,
+            6774
+          ],
+          "current_lines": [
+            6702,
+            6774
+          ],
+          "sha256": "6abdb46a5a9a77a9e2df5f7462d64c5826ed18a53a234bfcbee42b7b679de2e0"
+        }
+      ]
+    }
+  ],
+  "entity_count": 22,
+  "passed_counts": {
+    "proof": 687,
+    "flow": 43
+  },
+  "qualification": "All required focused helpers, dependencies and affected callers pass at the listed inputs; earlier successes have exact unchanged selected source fragments. This aggregate is not a single complete whole-source run. Final current-source native provenance, all obligations and Lean/source assurance remain parent-owned and required."
+}

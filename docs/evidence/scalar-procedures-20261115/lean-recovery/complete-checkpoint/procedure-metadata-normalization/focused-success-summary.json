@@ -1,0 +1,27 @@
+{
+  "command": [
+    "python3",
+    "scripts/check_lean.py",
+    "--target",
+    "Silver.ProcedureDeclarationHighSourceCandidate",
+    "--workers",
+    "1",
+    "--memory-mb",
+    "8192",
+    "--provenance",
+    "--task",
+    "370-procedure-metadata-source-memory",
+    "--reason",
+    "Focused complete procedure declaration source candidate after full run 20261115T195423-d7650f191422 failed only metadata_append_header in Body.lean with explicit 8 GiB kernel memory exhaustion. Parent-authorized two-file repair normalizes exactly the unchanged 646-character/138-token procedure metadata header through reviewed checked character/lexer identities; preserves ordinary_0 byte-for-byte, both theorem statements, metadata definition and full-source selector. Full candidate gate covers helper and all body/outer source fragments. Preserve 621 objects and original failed evidence; no native source/script edits. One worker/default 12 threads/8192 MiB on 15.8 GiB host with productive native two-worker audit, 10 GiB tree/1.5 GiB host/first-memory diagnostic guards. Independent review and focused success before any complete retry."
+  ],
+  "cwd": "/home/agent/silver-worktrees/procedures-lean-370",
+  "started_at": "2026-11-15T20:13:55.133710+00:00",
+  "peak_sum_rss_kib": 2898928,
+  "peak_process_rss_kib": 1858416,
+  "minimum_mem_available_kib": 12342432,
+  "pid": 184509,
+  "returncode": 0,
+  "elapsed_seconds": 25.03105801199854,
+  "finished_at": "2026-11-15T20:14:20.164760+00:00",
+  "interrupted": false
+}

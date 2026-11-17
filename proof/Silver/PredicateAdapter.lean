@@ -39,7 +39,7 @@ def stopOf (token : ShellToken) : BodyStop :=
 def adapterEval (calls : BodyNative.Calls) (text : Source) (scan : ScanResult)
     (stop : ShellToken) : ScanResult :=
   let context := contextOf scan
-  let result := calls.read text context (bodyOf scan) (stopOf stop) scan.state.functions
+  let result := calls.read text context (bodyOf scan) (stopOf stop) scan.state.functions scan.state.procedures
   if result.position = 0 ∨ !completed result.facts.path then invalidScan else expand context result scan.state
 
 @[simp] theorem contextOf_model (scan : ScanResult) : (contextOf scan).model = Predicate.contextOf scan := rfl
@@ -101,7 +101,7 @@ theorem adapter_unique (calls : BodyNative.Calls) (equations : BodyNative.Equati
   unfold adapterEval
   dsimp only
   rw [BodyNative.read_unique calls equations text tv _ (context_valid text scan sv) _ _
-    (body_valid text scan sv) sv.base.functions]
+    (body_valid text scan sv) sv.base.functions sv.base.procedures]
   rfl
 
 theorem model_adapter_valid (text : Source) (tv : Expressions.ValidText text)
@@ -113,7 +113,7 @@ theorem model_adapter_valid (text : Source) (tv : Expressions.ValidText text)
   · exact invalidScan_valid text
   · exact ⟨expand_valid text _ _ (context_valid text scan sv)
       (BodyNative.model_read_valid text tv _ (context_valid text scan sv) _ _
-        (body_valid text scan sv) sv.base.functions) scan.state sv.base,
+        (body_valid text scan sv) sv.base.functions sv.base.procedures) scan.state sv.base,
       sv.ready.bodyEnvironment, sv.bounds⟩
 
 theorem readStatements_valid (text : Source) (tv : Expressions.ValidText text)
@@ -134,6 +134,7 @@ inductive Field : Type → Type → Type
   | stateArrays : Field ParserState ArrayBindings.Env
   | stateSubtypes : Field ParserState IntegerSubtypes.Environment
   | stateFunctions : Field ParserState FunctionBindings.Metadata
+  | stateProcedures : Field ParserState ProcedureBindings.Metadata
   | statePure : Field ParserState Bool
   | stateHiding : Field ParserState HiddenMarks
   | hiddenTrue : Field HiddenMarks Bool
@@ -165,6 +166,7 @@ inductive Field : Type → Type → Type
 def Field.eval : Field α β → α → β
   | .scanState => ScanResult.state | .scanAssigned => ScanResult.assigned | .scanOutput => ScanResult.output
   | .stateFunctions => ParserState.functions
+  | .stateProcedures => ParserState.procedures
   | .statePure => ParserState.pure
   | .stateHiding => ParserState.hiding
   | .hiddenTrue => HiddenMarks.trueHidden
@@ -189,6 +191,7 @@ def Field.eval : Field α β → α → β
 
 def Field.name : Field α β → String
   | .scanState => "state" | .scanAssigned => "assigned" | .scanOutput => "output"
+  | .stateProcedures => "procedures"
   | .stateFunctions => "functions" | .statePure => "pure" | .stateHiding => "hiding"
   | .hiddenTrue => "true_hidden" | .hiddenFalse => "false_hidden" | .hiddenInteger => "integer_hidden"
   | .stateScalarNames | .contextScalarNames => "scalar_names"
@@ -250,7 +253,7 @@ inductive Expr : Type → Type 1
   | contextOf (scan : Expr ScanResult) : Expr Native.Context
   | bodyOf (scan : Expr ScanResult) : Expr BodyScan
   | expand (context : Expr Native.Context) (scan : Expr BodyScan) (original : Expr ParserState) : Expr ScanResult
-  | read (context : Expr Native.Context) (scan : Expr BodyScan) (stop : Expr BodyStop) (catalog : Expr FunctionBindings.Metadata) : Expr BodyScan
+  | read (context : Expr Native.Context) (scan : Expr BodyScan) (stop : Expr BodyStop) (catalog : Expr FunctionBindings.Metadata) (procedures : Expr ProcedureBindings.Metadata) : Expr BodyScan
   | stopCase (ending alternative arm returning : Expr Bool) : Expr Bool
 
 def initialFlow (context : Native.Context) : ActiveFlow :=
@@ -325,7 +328,7 @@ def Expr.eval (calls : BodyNative.Calls) (frame : Frame)
   | .contextOf input => Adapter.contextOf (input.eval calls frame bodyOfCall initialFlowCall takeTokenCall)
   | .bodyOf input => bodyOfCall (input.eval calls frame bodyOfCall initialFlowCall takeTokenCall)
   | .expand ctx input originalExpr => Adapter.expand (ctx.eval calls frame bodyOfCall initialFlowCall takeTokenCall) (input.eval calls frame bodyOfCall initialFlowCall takeTokenCall) (originalExpr.eval calls frame bodyOfCall initialFlowCall takeTokenCall)
-  | .read ctx input boundary catalog => calls.read frame.text (ctx.eval calls frame bodyOfCall initialFlowCall takeTokenCall) (input.eval calls frame bodyOfCall initialFlowCall takeTokenCall) (boundary.eval calls frame bodyOfCall initialFlowCall takeTokenCall) (catalog.eval calls frame bodyOfCall initialFlowCall takeTokenCall)
+  | .read ctx input boundary catalog procedures => calls.read frame.text (ctx.eval calls frame bodyOfCall initialFlowCall takeTokenCall) (input.eval calls frame bodyOfCall initialFlowCall takeTokenCall) (boundary.eval calls frame bodyOfCall initialFlowCall takeTokenCall) (catalog.eval calls frame bodyOfCall initialFlowCall takeTokenCall) (procedures.eval calls frame bodyOfCall initialFlowCall takeTokenCall)
   | .stopCase ending alternative arm returning => match frame.stop with
       | .endOnly => ending.eval calls frame bodyOfCall initialFlowCall takeTokenCall | .elseOnly => alternative.eval calls frame bodyOfCall initialFlowCall takeTokenCall | .arm => arm.eval calls frame bodyOfCall initialFlowCall takeTokenCall
       | .returnOnly => returning.eval calls frame bodyOfCall initialFlowCall takeTokenCall
@@ -375,7 +378,7 @@ def Expr.render : Expr α → List String
   | .contextOf input => Expressions.call "context_of" [input.render]
   | .bodyOf input => Expressions.call "body_of" [input.render]
   | .expand ctx input originalExpr => Expressions.call "expand_body" [ctx.render, input.render, originalExpr.render]
-  | .read ctx input boundary catalog => Expressions.call "read_body" [["text"], ctx.render, input.render, boundary.render, catalog.render]
+  | .read ctx input boundary catalog procedures => Expressions.call "read_body" [["text"], ctx.render, input.render, boundary.render, catalog.render, procedures.render]
   | .stopCase ending alternative arm returning => ["(", "case", "stop", "is", "when", "return_only", "=>"] ++ returning.render ++
       [",", "when", "end_only", "=>"] ++ ending.render ++
       [",", "when", "else_only", "=>"] ++ alternative.render ++ [",", "when", "arm_boundary", "=>"] ++ arm.render ++ [")"]
@@ -435,7 +438,7 @@ def Function.render (fn : Function) : List String :=
 
 def adapterFunction : Function :=
   ⟨.contextOf .scan,
-   .read .context (.bodyOf .scan) (.choose (.tokenEqual (.word "else")) (.stopValue .elseOnly) (.stopValue .endOnly)) (.field .stateFunctions (.field .scanState .scan)),
+   .read .context (.bodyOf .scan) (.choose (.tokenEqual (.word "else")) (.stopValue .elseOnly) (.stopValue .endOnly)) (.field .stateFunctions (.field .scanState .scan)) (.field .stateProcedures (.field .scanState .scan)),
    .choose (.orElse (.zero (.field .bodyPosition .result)) (.not (.completed (.field .flowPath (.field .bodyFacts .result)))))
      .invalid (.expand .context .result (.field .scanState .scan))⟩
 

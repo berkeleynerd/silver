@@ -13,6 +13,8 @@ public import Silver.ArrayBindingsSpecCertificate
 public import Silver.ArrayBindingsBodyCertificate
 public import Silver.FunctionBindingsSpecCertificate
 public import Silver.FunctionBindingsBodyCertificate
+public import Silver.ProcedureBindingsSpecCertificate
+public import Silver.ProcedureBindingsBodyCertificate
 public import Silver.ScalarExpressionBodyCertificate
 
 public import Silver.NamesSpecCertificate

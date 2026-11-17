@@ -1,0 +1,24 @@
+{
+  "run_id": "20261116T223447-56ea60aaf296",
+  "module_count": 162,
+  "inputs_verified": 1116,
+  "workspace_inputs_verified": 1011,
+  "compiled_artifacts_verified": 6046,
+  "tools_verified": 2,
+  "preexisting_primary_objects": 1009,
+  "missing_preexisting_primary_objects": [],
+  "changed_primary_objects": [
+    ".silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/ComposeBooleanDeclarationNative.olean",
+    ".silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/FunctionDeclarationNative.olean",
+    ".silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/PredicateNativeState.olean",
+    ".silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/PredicateProcedureCallSyntax.olean",
+    ".silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/ProcedureDeclarationSyntax.olean"
+  ],
+  "unchanged_primary_objects": 1004,
+  "peak_tree_rss_gib": 3.01622,
+  "minimum_host_available_gib": 14.11351,
+  "sample_count": 17,
+  "guard_trigger": null,
+  "original_tool_session_id": 15669,
+  "failure_original_tool_session_id": 14238
+}

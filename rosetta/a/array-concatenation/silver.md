@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The two fixed copy ranges cover every result index once, yielding (-3, 0, 5, 5, 8, -1, 2). The source uses indexed copies rather than a general whole-array concatenation operation. The exact source passed admission, complete required application/library proof audit, build and manifest execution in integration run 20261107T164659-9f6192441d21; the linked assessment records the evidence scope. The linked delivery record carries the independent closing review status.
 
-Position 71 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 72 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Main declares Element range -9 .. 9, First = (-3, 0, 5, 5), Second = (8, -1, 2) 
 
 ## Language surface recorded by this assessment
 
-Put without a newline, Integer range for loops, immutable Integer arithmetic, Integer image, fixed-size Integer arrays and named Integer subtypes and bounded components.
+Put without a newline, Integer range for loops, immutable Integer arithmetic, Integer image, fixed-size Integer arrays and named Integer subtypes, bounded components and scalar signatures.
 
 ## External effects
 

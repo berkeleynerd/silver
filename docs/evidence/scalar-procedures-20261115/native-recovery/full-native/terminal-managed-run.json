@@ -1,0 +1,62 @@
+{
+  "run_id": "20261115T174959-94ae5c6fdf63",
+  "task": "#370",
+  "kind": "prove",
+  "scope": [
+    "compiler"
+  ],
+  "state": "success",
+  "active": false,
+  "workers": 2,
+  "directory": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T174959-94ae5c6fdf63",
+  "fingerprint": "93c2c6130028249fe8673044c01d98b79344ee7a473a3148ceea451a725b1af6",
+  "command": [
+    "/home/agent/silver-workspaces/recovery-volume/integration/.tools/linux-aarch64/alr/bin/alr",
+    "-s",
+    "/home/agent/silver-workspaces/recovery-volume/integration/.tools/linux-aarch64/alire/settings",
+    "-C",
+    "/home/agent/silver-workspaces/recovery-volume/integration/.silver/linux-aarch64/toolchain",
+    "-n",
+    "--no-tty",
+    "exec",
+    "--",
+    "gnatprove",
+    "-P",
+    "../../../silver.gpr",
+    "-U",
+    "--mode=all",
+    "--report=all",
+    "--warnings=error",
+    "--checks-as-errors=on",
+    "--level=2",
+    "--prover=cvc5,z3,altergo",
+    "--timeout=30",
+    "-j",
+    "2",
+    "--memcached-server=file:/home/agent/silver-workspaces/recovery-volume/integration/.silver/linux-aarch64/proof-cache/gnatprove/0d29986b9858e9838780c6ec8496c6b4fd34d53a8f06c8cf36bd393fc8ef98f0",
+    "-f",
+    "-XSILVER_HOST=linux-aarch64"
+  ],
+  "reason": "Complete canonical native audit on frozen integrated source 8a03ab122 after reviewed whole-helper repair. Two workers preserve headroom on 16 GiB host alongside bounded Lean checks; unchanged 30-second policy, existing canonical ARM64 cache, host available-memory monitoring.",
+  "worktree": "/home/agent/silver-workspaces/recovery-volume/integration",
+  "resources": [
+    "/home/agent/silver-workspaces/recovery-volume/integration/.silver/linux-aarch64/toolchain",
+    "/home/agent/silver-workspaces/recovery-volume/integration/.silver/linux-aarch64/compiler/obj",
+    "/home/agent/silver-workspaces/recovery-volume/integration/.silver/linux-aarch64/compiler/bin",
+    "/home/agent/silver-workspaces/recovery-volume/integration/.silver/linux-aarch64/proof-containers/obj",
+    "/home/agent/silver-workspaces/recovery-volume/integration/.silver/linux-aarch64/proof-cache/gnatprove"
+  ],
+  "started_at": "2026-11-15T17:49:59.074339+00:00",
+  "finished_at": "2026-11-15T21:19:31.727291+00:00",
+  "duration_seconds": 12572.652785787,
+  "returncode": null,
+  "error": null,
+  "failure_keys": [],
+  "evidence": [
+    "/home/agent/silver-workspaces/recovery-volume/integration/.silver/linux-aarch64/compiler/obj/gnatprove",
+    "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T174959-94ae5c6fdf63/native.log",
+    "/home/agent/silver-workspaces/recovery-volume/integration/.silver/linux-aarch64/compiler/obj/gnatprove/proof-provenance.json",
+    "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T174959-94ae5c6fdf63/proof-evidence"
+  ],
+  "retained_report_count": 0
+}

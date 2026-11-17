@@ -1,0 +1,17 @@
+{
+  "run": "20261109T233616-62a3028df4a0",
+  "status": "failure",
+  "reason": "warnings=error rejects redundant Before initializer at5337; no unproved checks",
+  "source_commit": "c3d6c55922",
+  "source_sha256": "80c644b5965f7bc0bf7d962e31791b3bc53b03ac7f2861ff7397aab7069ca81d",
+  "selected_region": [
+    5034,
+    5511
+  ],
+  "selected_checks": 739,
+  "prover_checks": 252,
+  "flow_checks": 487,
+  "basic_body_checks": 68,
+  "archive_sha256": "ad1abd47012ebdb238af44a3f6429325c0eb9535179960f2bf44173d7d1880ab",
+  "remaining": "Remove redundant initializer and fix numeric-literal alias false rejection, then recheck full changed helpers/callers. Prefix/header/shared callers/report helpers and complete assurance pending."
+}

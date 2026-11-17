@@ -1,0 +1,89 @@
+{
+  "source_before_sha256": "619f4fb8e2b0f318dac7c6278d5f644198816ce7733959ed71ca03917546b2b8",
+  "source_after_sha256": "9ede490b6cf72b352a39072cd37f4ef39774409c6024135487cf076567b59b9c",
+  "old_token_count": 72709,
+  "new_token_count": 72713,
+  "changes": [
+    {
+      "operation": "insert",
+      "old_range": [
+        22752,
+        22752
+      ],
+      "new_range": [
+        22752,
+        22770
+      ],
+      "old_tokens": [],
+      "new_tokens": [
+        "model_state",
+        ":",
+        "constant",
+        "parser_state",
+        ":=",
+        "array_declaration_model",
+        "(",
+        "text",
+        ",",
+        "state",
+        ",",
+        "arguments",
+        ")",
+        "with",
+        "ghost",
+        "=>",
+        "static",
+        ";"
+      ]
+    },
+    {
+      "operation": "replace",
+      "old_range": [
+        22762,
+        22770
+      ],
+      "new_range": [
+        22780,
+        22781
+      ],
+      "old_tokens": [
+        "array_declaration_model",
+        "(",
+        "text",
+        ",",
+        "state",
+        ",",
+        "arguments",
+        ")"
+      ],
+      "new_tokens": [
+        "model_state"
+      ]
+    },
+    {
+      "operation": "replace",
+      "old_range": [
+        22777,
+        22785
+      ],
+      "new_range": [
+        22788,
+        22789
+      ],
+      "old_tokens": [
+        "array_declaration_model",
+        "(",
+        "text",
+        ",",
+        "state",
+        ",",
+        "arguments",
+        ")"
+      ],
+      "new_tokens": [
+        "model_state"
+      ]
+    }
+  ],
+  "scope": "Exact pin update for reviewed Static model constant; semantic wrapper adaptation and complete source checks remain required."
+}

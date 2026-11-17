@@ -1,0 +1,27 @@
+{
+  "command": [
+    "python3",
+    "scripts/check_lean.py",
+    "--target",
+    "Silver.ComposeHelperSourceCandidate",
+    "--workers",
+    "1",
+    "--memory-mb",
+    "8192",
+    "--provenance",
+    "--task",
+    "370-complete-lean-recovery",
+    "--reason",
+    "Smallest remaining final-ghost-annotation source-pin gate on frozen production 7fa2549f8, after generic renderer focused success and hash-verified certificate/full-family cache transfer. Preserve 197 matching function modules; cache union 209 objects. Parent released dense allocation after confirming native scoped guard; native two workers elsewhere. One Lake worker/default 12 threads/8192 MiB with 10 GiB source-tree, 1.5 GiB host guards and first-kernel-memory diagnostic stop. Follow with complete cached source/module/axiom/provenance audit only after focused success; no replay."
+  ],
+  "cwd": "/home/agent/silver-worktrees/procedures-lean-370",
+  "started_at": "2026-11-15T18:46:04.147832+00:00",
+  "peak_sum_rss_kib": 9134080,
+  "peak_process_rss_kib": 8384912,
+  "minimum_mem_available_kib": 5654144,
+  "pid": 108034,
+  "returncode": 1,
+  "elapsed_seconds": 265.39178971,
+  "finished_at": "2026-11-15T18:50:29.539610+00:00",
+  "interrupted": false
+}

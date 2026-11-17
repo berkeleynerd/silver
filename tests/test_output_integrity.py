@@ -267,7 +267,7 @@ class OutputIntegrityTests(unittest.TestCase):
         fixture = self.fixtures / "main~1.spark"
         original = fixture.read_bytes()
         self.addCleanup(fixture.write_bytes, original)
-        maximum = original + b" " * (33_554_432 - len(original))
+        maximum = original + b" " * (67_108_864 - len(original))
         fixture.write_bytes(maximum)
         result, _ = self.run_scenario({})
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)

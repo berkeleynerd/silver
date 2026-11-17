@@ -32,7 +32,7 @@ def declarationRejected (calls : Calls) (text : Source) (state : ParserState) (a
 def declarationInitial (calls : Calls) (text : Source) (state : ParserState) (parts : DeclarationParts) : ParserState :=
   {initialState with
     position := parts.opening, pure := true,
-    subtypeNames := state.subtypeNames, functions := state.functions,
+    subtypeNames := state.subtypeNames, functions := state.functions, procedures := state.procedures,
     «hiding» := calls .hideName text (calls .hiddenOuter text state) parts.first parts.after,
     firstParameter := state.functions.parameters.length + 1}
 

@@ -437,6 +437,7 @@
           "integer_assignment",
           "boolean_assignment",
           "scalar_function_call",
+          "scalar_procedure_call",
           "integer_array_assignment",
           "boolean_array_assignment",
           "expression_output",
@@ -485,6 +486,7 @@
           "integer_assignment",
           "boolean_assignment",
           "scalar_function_call",
+          "scalar_procedure_call",
           "integer_array_assignment",
           "boolean_array_assignment",
           "expression_output",
@@ -532,7 +534,7 @@
         "constant": true,
         "initializer_required": true,
         "initializer": "boolean_expression",
-        "declaration_context": "ordered Main declarations or scalar function locals under closed initialization rules",
+        "declaration_context": "ordered Main declarations or scalar function/procedure locals under closed initialization rules",
         "visibility": "earlier initialized values and Boolean-array cells only; no self, forward or cyclic references; declarations hide predefined names in their own declaration",
         "name_rules": "shared case-insensitive declaration uniqueness and reserved-name rules; Boolean object cannot be named Boolean; True and False remain legal names",
         "copy_semantics": "snapshot of the initialized Boolean value; no retained predicate provenance",
@@ -548,7 +550,7 @@
         "constant": false,
         "initializer_required": true,
         "initializer": "boolean_expression",
-        "declaration_context": "ordered Main declarations or scalar function locals under closed initialization rules",
+        "declaration_context": "ordered Main declarations or scalar function/procedure locals under closed initialization rules",
         "visibility": "earlier initialized values and Boolean-array cells only; no self, forward or cyclic references; declarations hide predefined names in their own declaration",
         "name_rules": "shared case-insensitive declaration uniqueness and reserved-name rules; Boolean object cannot be named Boolean; True and False remain legal names",
         "copy_semantics": "snapshot of the initialized Boolean value; no retained predicate provenance",
@@ -627,7 +629,9 @@
           "boolean_array_assignment_rhs",
           "condition",
           "function_boolean_actual",
-          "function_boolean_return"
+          "function_boolean_return",
+          "procedure_boolean_input_actual",
+          "procedure_boolean_output_initializer"
         ],
         "primaries": [
           "visible predefined True or False",
@@ -635,7 +639,7 @@
           "boolean_array_read",
           "input_guard",
           "parenthesized_condition",
-          "immutable Boolean formal in a function body"
+          "immutable Boolean in formal in a function or procedure body"
         ],
         "not": "one primary; repeated negation requires grouping",
         "relations": "existing safe String, Character, length and Integer comparisons, plus Boolean equality and inequality",
@@ -824,9 +828,9 @@
         "exclude_ada_2022_reserved_words": true,
         "case_insensitive_binding": true,
         "all_declared_names_distinct_ignoring_case": true,
-        "shared_name_environment": "String, Character, Integer and Boolean objects, named Integer subtypes, Integer/Boolean arrays and scalar functions; scoped local/formal names and loop binders obey their hiding rules",
+        "shared_name_environment": "String, Character, Integer and Boolean objects, named Integer subtypes, Integer/Boolean arrays and scalar functions/procedures; scoped local/formal names and loop binders obey their hiding rules",
         "type_mark_visible": true,
-        "declaration_context": "every output shell after argument initialization when present, or a scalar function local declaration under its closed initialization rules",
+        "declaration_context": "every output shell after argument initialization when present, or a scalar function/procedure local declaration under its closed initialization rules",
         "count": "finite_within_complete_source_bound",
         "value_range": [
           -2147483648,
@@ -862,9 +866,9 @@
         "exclude_ada_2022_reserved_words": true,
         "case_insensitive_binding": true,
         "all_declared_names_distinct_ignoring_case": true,
-        "shared_name_environment": "String, Character, Integer and Boolean objects, named Integer subtypes, Integer/Boolean arrays and scalar functions; scoped local/formal names and loop binders obey their hiding rules",
+        "shared_name_environment": "String, Character, Integer and Boolean objects, named Integer subtypes, Integer/Boolean arrays and scalar functions/procedures; scoped local/formal names and loop binders obey their hiding rules",
         "type_mark_visible": true,
-        "declaration_context": "every output shell after argument initialization when present, or a scalar function local declaration under its closed initialization rules",
+        "declaration_context": "every output shell after argument initialization when present, or a scalar function/procedure local declaration under its closed initialization rules",
         "count": "finite_within_complete_source_bound",
         "value_range": [
           -2147483648,
@@ -889,7 +893,8 @@
         "uses": [
           "scalar constant or mutable object subtype mark",
           "fixed anonymous Integer-array component mark",
-          "scalar function formal or result subtype mark"
+          "scalar function formal or result subtype mark",
+          "scalar procedure formal subtype mark"
         ],
         "object_local_range": "optional nonempty static subset of the named subtype",
         "name_rules": "case-insensitive distinct names across every declaration; same reserved-name exclusions as Integer objects; parent Integer must remain visible",
@@ -995,7 +1000,7 @@
           "scoped_for_index",
           "scoped_for_element",
           "integer_array_read",
-          "immutable nonstatic Integer formal in a function body"
+          "immutable nonstatic Integer in formal in a function or procedure body"
         ],
         "min_operands": 1,
         "max_operands": 64,
@@ -1041,7 +1046,9 @@
           "array_assignment_rhs",
           "array_index_expression_without_array_reads",
           "function_integer_actual",
-          "function_integer_return"
+          "function_integer_return",
+          "procedure_integer_input_actual",
+          "procedure_integer_output_initializer"
         ],
         "conversions": false,
         "division": true,
@@ -1435,7 +1442,7 @@
         "integer_result": "declared result subtype interval must fit target declared bounds and replaces target flow interval",
         "boolean_result": "no retained argument, scalar, String-bound or input-validity facts",
         "frame": "read all actuals before destination update; preserve every other caller store and fact",
-        "composition": "Main sequences, branches, counted loops and constant Integer-array iteration; pure scalar function bodies may call earlier functions",
+        "composition": "Main sequences, branches, counted loops and constant Integer-array iteration; pure scalar function bodies and scalar procedure bodies may call earlier functions",
         "excluded_positions": [
           "initializer",
           "arithmetic",
@@ -1448,6 +1455,70 @@
           "other actual"
         ],
         "scope_purpose": "keep calls outside existing expression grammar and respect Ada argument-evaluation freedom"
+      }
+    },
+    {
+      "id": "scalar_procedure",
+      "ada_kind": "subprogram_body",
+      "conditions": {
+        "declaration_context": "ordered Main declarations in either output shell, after argument initialization when present",
+        "formal_list": "nonempty; exactly one name per formal; explicit in, out or in out; at least one writable formal; no default",
+        "formal_types": [
+          "visible predefined Integer",
+          "earlier visible named Integer subtype",
+          "visible predefined Boolean"
+        ],
+        "locals": "initialized Integer/Boolean scalar constants or variables; no formal, captured-object or call reads during initialization",
+        "output_initialization": "one unconditional assignment per out formal immediately after begin, in formal declaration order, before ordinary statements",
+        "prefix_inputs": "initialized locals and in/in out formals in the same frozen pre-output frame; no out reads or function calls",
+        "body_entry": "every writable Integer formal has its full declared range; narrower prefix output intervals are not retained",
+        "body": "local scalar assignments, earlier-function call assignments, earlier-procedure call statements, null, pure scalar/Boolean conditions and finite counted loops; no return statements; at least one ordinary statement when there are no out-prefix assignments",
+        "formal_domain": "full product of declared in and in out subtype domains, independently of actual callers, including unused procedures",
+        "visibility": "case-insensitive distinct Main declarations; formal/local names distinct and cannot collide with earlier subtype names; unavailable out formals still hide outer names; local values and loop binders may hide callees",
+        "calls": "only earlier completely accepted functions and procedures; functions cannot call procedures in this fragment",
+        "effects": "only explicit writable actuals change at the caller; no outer capture, I/O, input acquisition/query or Reject in a procedure",
+        "budgets": "4096 complete source bytes; existing 64 expression operands and source-wide 63 arithmetic/concatenation operators across all bodies; pooled source-derived signature/formal storage",
+        "initialization_purpose": "a source-written prefix establishes initialized body state without general path-dependent definite-assignment analysis; full-range entry reuses the complete-domain frame rule",
+        "excluded": [
+          "zero-formal or input-only procedures",
+          "named actuals",
+          "default formals",
+          "overloads",
+          "forward declarations",
+          "nested subprograms",
+          "recursion",
+          "early returns",
+          "String/Character/array signatures or locals",
+          "local subtype declarations",
+          "author contracts or annotations"
+        ]
+      }
+    },
+    {
+      "id": "scalar_procedure_call",
+      "ada_kind": "procedure_call_statement",
+      "conditions": {
+        "position": "standalone statement in Main or an admitted scalar procedure body, including branches and finite loops",
+        "callee": "visible earlier completely accepted procedure, not hidden by a local value or loop binder",
+        "actuals": "positional, one per formal; in actuals use existing scalar expressions or Boolean conditions in caller scope; no nested calls",
+        "writable_actuals": "existing mutable bare Integer/Boolean names of the matching kind; no constants, immutable formals, loop binders or array components",
+        "actual_state": "all input actuals checked independently in the same incoming state; Boolean outcomes do not refine other actuals",
+        "integer_input": "in and in out actual intervals are nonempty and contained in their formal subtype",
+        "integer_copyback": "each out/in out formal entire declared range is contained in the actual object declared range",
+        "aliasing": "writable targets are pairwise distinct by kind and binding identity; no writable target occurs in another actual read expression",
+        "flow_after_call": "replace each written Integer target interval with its formal declared range; Boolean outputs carry no retained predicate facts",
+        "frame": "evaluate all inputs before copy-back; update only writable targets; preserve all other stores and facts; disjointness makes copy-back order independent",
+        "scope_purpose": "make multiple caller updates and copy-in/copy-out checks explicit without alias-sensitive or relational output summaries",
+        "excluded_positions": [
+          "function body",
+          "initializer",
+          "expression",
+          "condition",
+          "output/Image",
+          "subscript",
+          "loop bound",
+          "other actual"
+        ]
       }
     }
   ],
@@ -1486,7 +1557,8 @@
           "boolean_array_object",
           "named_character_constant",
           "named_character_variable",
-          "scalar_function"
+          "scalar_function",
+          "scalar_procedure"
         ],
         "minimum": 0,
         "count": "finite_within_complete_source_bound",
@@ -1539,7 +1611,8 @@
           "boolean_array_object",
           "named_character_constant",
           "named_character_variable",
-          "scalar_function"
+          "scalar_function",
+          "scalar_procedure"
         ],
         "minimum": 0,
         "count": "finite_within_complete_source_bound",
@@ -1623,7 +1696,7 @@
   "identifier_bytes": [48,49,50,51,52,53,54,55,56,57,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,95,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122],
   "comment_prefix": "--",
   "comment_end_bytes": [10,13],
-  "word_tokens": ["procedure","main","is","pragma","spark_mode","on","begin","null","end","with","silver_io","put_line","constant","string","silver_arguments","first_or_default","if","input_is_valid","then","else","elsif","reject","and","or","not","length","integer","for","in","reverse","loop","use","item","default","put","image","range","array","of","subtype","boolean","true","false","xor","character"],
+  "word_tokens": ["procedure","main","is","pragma","spark_mode","on","begin","null","end","with","silver_io","put_line","constant","string","silver_arguments","first_or_default","if","input_is_valid","then","else","elsif","reject","and","or","not","length","integer","for","in","reverse","loop","function","return","out","use","item","default","put","image","range","array","of","subtype","boolean","true","false","xor","character"],
   "casefold_bytes": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,177,178,179,180,181,182,183,184,185,186,187,188,189,190,191,192,193,194,195,196,197,198,199,200,201,202,203,204,205,206,207,208,209,210,211,212,213,214,215,216,217,218,219,220,221,222,223,224,225,226,227,228,229,230,231,232,233,234,235,236,237,238,239,240,241,242,243,244,245,246,247,248,249,250,251,252,253,254,255],
   "null_tokens": ["procedure","main","is","pragma","spark_mode","(","on",")",";","begin","null",";","end","main",";"],
   "with_clause_tokens": ["with","<package_list>",";"],

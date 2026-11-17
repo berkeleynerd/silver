@@ -39,10 +39,21 @@ affected Rosetta tests rerun after resolving the session-history conflict.
 
 ## Near-term feature queue
 
-**Authorized queue, 2026-11-10.** Complete small nonrecursive scalar procedures
-[#370](https://github.com/berkeleynerd/silver/issues/370) and its
-[#29](https://github.com/berkeleynerd/silver/issues/29) companion in
-[PR #371](https://github.com/berkeleynerd/silver/pull/371), milestone 23, first.
+**Current delivery, validated 2026-11-17.** The owner authorized the bounded external-review
+repair [#391](https://github.com/berkeleynerd/silver/issues/391) on PR #371:
+two precisely bound flow advisories, full-route subprogram fixtures, five token
+lemmas and record corrections. Focused checks, complete native and Lean refreshes,
+and the single complete suite passed on Linux ARM64; the
+[repair packet](docs/evidence/advisory-policy-391-20261116/README.md) records actual
+cached/fresh scope and independent acceptance. Stop after publication for the
+required external check; do not merge or start the successor package.
+
+**Retained delivery, 2026-11-15.** Small nonrecursive scalar procedures
+[#370](https://github.com/berkeleynerd/silver/issues/370) and the
+[#29](https://github.com/berkeleynerd/silver/issues/29) companion have complete
+Linux ARM64 validation in [PR #371](https://github.com/berkeleynerd/silver/pull/371),
+milestone 23. The [delivery account](docs/scalar-procedures.md#delivery-assurance-and-validation)
+records accepted proof, regression and final delivery evidence. PR publication does not authorize merge.
 The owner has selected **proof iteration efficiency** as the next unit:
 [#373](https://github.com/berkeleynerd/silver/issues/373), in
 [milestone 24](https://github.com/berkeleynerd/silver/milestone/24).
@@ -57,7 +68,7 @@ language expansion or successor sample batch is selected; completed predecessor
 issues #8, #246 and #39 remain closed. The canonical compiler policy and useful
 proof strategy are to be settled from focused evidence within #373.
 
-**Next selection, 2026-11-09.** The owner
+**Historical selection, 2026-11-09.** The owner
 [authorized](docs/session-memory.md#2026-11-09--rosetta-refresh-repair-and-next-language-increment-authorized)
 repairing [#29](https://github.com/berkeleynerd/silver/issues/29) and continuing
 with the proposed small nonrecursive scalar procedures under
@@ -65,9 +76,14 @@ with the proposed small nonrecursive scalar procedures under
 when readily practical. Establish the procedure grammar, full-domain body and
 call contracts, initialization/alias rules, report capacity and source-proof
 reuse before implementation. Return multiple values is the first task driver.
-This is selected development, not admitted language; the bounded capability plan
-and implementation issues follow the scope check. No successor sample batch or
-deferred capacity research is selected.
+This is selected development, not admitted language. The
+[bounded capability plan](docs/scalar-procedures.md) and
+[#370](https://github.com/berkeleynerd/silver/issues/370), in
+[milestone 23](https://github.com/berkeleynerd/silver/milestone/23), specify one
+language increment with a source-written leading `out` initialization prefix.
+The #29 repair accompanies its final delivery. Focused native producer/helper
+checks and semantic/source integration precede one shared complete checkpoint.
+No successor sample batch or deferred capacity research is selected.
 
 **Owner-selected planning order, 2026-10-30.** Prioritize useful Rosetta
 expansion and reuse of the existing language machinery. Revisit the order after
@@ -107,7 +123,7 @@ merged through PR #337 after its tutorial checkpoint. The owner
 [selects #298 next on 2026-11-07](docs/session-memory.md#2026-11-07--small-nonrecursive-functions-selected).
 Candidate samples need faithful implementations before any coverage gain is
 claimed. The expanded opportunity inventory remains outside this commitment.
-No language feature after #298 is selected. The sample-only successor begins
+At that historical checkpoint no language feature after #298 was selected. The sample-only successor begins
 with owner-selected #342 on the accepted #298 baseline; all three sample groups
 are merged after validation and review. #345 has passed the combined affected
 checks and narrow Rosetta assessment/render; independent acceptance passed in PR #354.
@@ -115,6 +131,24 @@ Existing source and expression budgets, assurance requirements, broad stages
 and deferred capacity work retain their scope.
 
 ## Current development sequence
+
+### Small nonrecursive scalar procedures
+
+The owner-selected #370 / #29 package has retained Linux ARM64 delivery validation;
+the November 16 external review's #391 repair now has complete local validation
+and awaits another external check before merge. It includes #372's catalogue repair, #375's handwritten
+source-token correspondence and #390's qualified-validity alias correction.
+The [delivery account](docs/scalar-procedures.md#delivery-assurance-and-validation)
+connects the complete native/Lean checkpoints, the failed original regression
+run and independently reviewed successful repair coverage. Current source,
+expression and full formal-domain rules remain unchanged by recovery.
+
+The precise `scalar-procedures` fragment adds one faithful Rosetta mapping,
+**Return multiple values**, taking supported mappings from 83 to 84. Broad
+[#11](https://github.com/berkeleynerd/silver/issues/11) stays open at Stage 2
+for its remaining procedure/ranged-subtype/Image forms. No successor language
+feature is selected. Proof iteration efficiency #373 is next after this delivery
+and has not started; the separate milestone-24 worca streams remain preserved.
 
 ### Small nonrecursive scalar functions
 
@@ -1215,6 +1249,7 @@ sequence.
 | Boolean scalar objects and expressions | Supported | Initialized scalar Boolean objects, assignment and eager/short-circuit expressions; no retained scalar predicate facts through flags, no xor inside xor operands; [delivery assurance and validation](docs/boolean-objects.md#delivery-assurance-and-validation). | [Sequence of primes](samples/rosetta_sequence_of_primes_by_trial_division.adb), [Square but not cube](samples/rosetta_square_but_not_cube.adb), [Common list elements](samples/rosetta_common_list_elements.adb) |
 | Bounded String indexing and Character operations | Supported | Printable-ASCII Character values and typed comparisons, fixed-bound String indexed reads/writes and bounded slices, preserving actual/null bounds, sliding and snapshots; [complete Linux assurance and validation](docs/bounded-string-characters.md#repaired-delivery-checkpoint--2026-11-05). | [Reversal](samples/rosetta_reverse_a_string.adb), [palindromes](samples/rosetta_palindrome_detection.adb), [selective replacement](samples/rosetta_selective_character_replacement.adb) |
 | Fixed-size Boolean arrays | Supported | Explicitly initialized anonymous one-dimensional predefined Boolean arrays, safe scalar-only indexes and mutable component writes; exact snapshots and typed stored flags without retained predicate facts. [Linux evidence and closing confirmation](docs/boolean-arrays.md#delivery-assurance-and-validation--2026-11-07). Broad arrays/booleans and Boolean iteration/`others` remain separate. | [Sieve through 100](samples/rosetta_sieve_of_eratosthenes.adb), [elementary cellular automata](samples/rosetta_elementary_cellular_automaton.adb) |
+| Small nonrecursive scalar procedures | Supported | Explicit scalar parameter modes, source-written output initialization, positional nonaliasing calls and range-checked copy-back; [complete Linux evidence](docs/scalar-procedures.md#delivery-assurance-and-validation). Broad procedures remain separate. | [Return multiple values](samples/rosetta_return_multiple_values.adb) |
 
 The output target covers admitted literals and bounded command-line
 messages; the text `Hello, world!` receives no special treatment. String literals do not imply support for

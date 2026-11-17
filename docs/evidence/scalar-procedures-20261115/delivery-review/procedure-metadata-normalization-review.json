@@ -1,0 +1,227 @@
+{
+  "review_target": "88e3d0a9f83a3c2ebe6443a4e4948a5216c908a2",
+  "comparison_base": "ca1c9b2ce1d54d7a3a543f51a33bc9ef907d7057",
+  "observed_at_utc": "2026-11-15T20:16:05.039462+00:00",
+  "selected_model": "gpt-6-astra",
+  "selected_effort": "max",
+  "runtime_token_cost_telemetry": "Unavailable",
+  "production_files": {
+    "proof/Silver/ProcedureDeclarationHighSourceParts/Body.lean": {
+      "reviewed_sha256": "2ef96f39ad328295b9d3f0c96847ee4b5dc4b30b6e36689a589374fc7b3e70f4",
+      "author_worktree_matches": true
+    },
+    "proof/Silver/ProcedureDeclarationHighSourceParts/MetadataAppendExpectedTokens.lean": {
+      "reviewed_sha256": "3abb2a2f6ae5bec82db4feb9a46f74a7cc95e8e8576cd6f220c999478608431c",
+      "author_worktree_matches": true
+    }
+  },
+  "production_delta": [
+    "proof/Silver/ProcedureDeclarationHighSourceParts/Body.lean",
+    "proof/Silver/ProcedureDeclarationHighSourceParts/MetadataAppendExpectedTokens.lean"
+  ],
+  "checks": {
+    "both_original_theorem_statements_unchanged": true,
+    "ordinary_0_entire_declaration_and_proof_unchanged": true,
+    "only_header_proof_and_two_imports_change": true,
+    "all_four_literals_equal": true,
+    "both_character_lists_equal_original": true,
+    "helper_leaf_and_independent_tokens_equal": true,
+    "unique_complete_source_header_equals_expected": true,
+    "counts_match": true,
+    "helper_uses_unchanged_full_lexer": true
+  },
+  "literal_characters": 646,
+  "ordered_tokens": 138,
+  "literal_sha256": "f2109ff5561fad0cee614df7c4fca2483b3748c9cf965411f9800638adb1eaf6",
+  "tokens_sha256": "92e5578477aac779c4a929dea544e250f3ec907f25108e33035d01a9b9cdcfe8",
+  "full_reviewed_source_token_count": 72713,
+  "selected_header_count": 1,
+  "unchanged_source_mechanism_consumers": {
+    "proof/Silver/ProcedureDeclarationHighSource.lean": true,
+    "proof/Silver/ProcedureDeclarationHighSourceCandidate.lean": true,
+    "proof/Silver/ProcedureDeclarationHighSourceChecks.lean": true,
+    "proof/Silver/CertificateWitness.lean": true,
+    "proof/Silver/SourceDeclarations.lean": true,
+    "proof/Silver/SourceLexer.lean": true,
+    "proof/Silver/ReviewedOutputShape.lean": true,
+    "src/silver_output_profile.adb": true
+  },
+  "failed_complete_checkpoint": {
+    "identity": {
+      "run_id": "20261115T195423-d7650f191422",
+      "production_revision": "ca1c9b2ce",
+      "equivalent_integration_production": "dbdec4b22",
+      "focused_evidence_input_digest": "998070875ca49aa7c0a76c831923df0aa9e7a8ba325328110b83bba4db05b6d2",
+      "all_1111_prior_captured_input_hashes_still_match": true,
+      "tools_sha256": {
+        ".tools/linux-aarch64/lean/bin/lean": "79fb1d26fa5a39385d59fdc48a711a14b0710ca6480271acce99b4d177cea085",
+        ".tools/linux-aarch64/lean/bin/lake": "f80f50cbab5322e35bcb0bf88937e22e9d908b5e4e336e83ddfc30eb1506aacf"
+      },
+      "failure": "ProcedureDeclarationHighSourceParts/Body.lean:26:2 metadata_append_header: explicit kernel excessive memory consumption",
+      "expected_literal_characters": 646,
+      "original_exec_session": 4737,
+      "outer_launcher_exit_code": 254,
+      "monitored_child_returncode": -2,
+      "no_complete_audit": true,
+      "exact_managed_log_sha256": "9851d43ed1b26530239f5e5ab55aac9302b8ca0d05af589586479cc67c489f2f",
+      "compiled_module_objects_retained": 621,
+      "retained_variant_hash_files": 3722,
+      "outcome": "Explicit 8 GiB kernel-memory failure followed by source-only diagnostic SIGINT; subsequent Outer module interrupted; no complete assurance result."
+    },
+    "summary_returncode": -2,
+    "summary_finished_at": "2026-11-15T20:10:09.056202+00:00",
+    "managed_log_sha256": "9851d43ed1b26530239f5e5ab55aac9302b8ca0d05af589586479cc67c489f2f",
+    "failed_body_matches_original": true,
+    "original_high_source_unchanged": true,
+    "audit_present": false,
+    "errors": [
+      "error: Silver/ProcedureDeclarationHighSourceParts/Body.lean:26:2: Tactic `decide` failed. The elaborator is able to reduce the `Decidable` instance, but the kernel fails with:"
+    ]
+  },
+  "validation": {
+    "observed_at_utc": "2026-11-15T20:16:39.997703+00:00",
+    "run_id": "20261115T201355-b250e246f4ef",
+    "host": "linux-aarch64",
+    "lean_version": "4.34.1",
+    "scope": "focused",
+    "targets": [
+      "Silver.ProcedureDeclarationHighSourceCandidate"
+    ],
+    "module_count": 115,
+    "audit_lines": [
+      "Silver axiom audit passed: 16374 declarations; foundations: [propext, Classical.choice, Quot.sound]"
+    ],
+    "original_failed_and_interrupted_leaves_in_audit": [
+      "Silver.ProcedureDeclarationHighSourceCandidate",
+      "Silver.ProcedureDeclarationHighSourceParts.MetadataAppendExpectedTokens",
+      "Silver.ProcedureDeclarationHighSourceParts.Body",
+      "Silver.ProcedureDeclarationHighSourceParts.Outer"
+    ],
+    "phases": [
+      {
+        "phase": "build",
+        "started_at": "2026-11-15T20:14:00.244438+00:00",
+        "finished_at": "2026-11-15T20:14:15.709618+00:00",
+        "elapsed_seconds": 15.465,
+        "exit_code": 0
+      },
+      {
+        "phase": "audit",
+        "started_at": "2026-11-15T20:14:16.461812+00:00",
+        "finished_at": "2026-11-15T20:14:18.183777+00:00",
+        "elapsed_seconds": 1.722,
+        "exit_code": 0
+      }
+    ],
+    "recorded_input_digest_matches": true,
+    "input_digest_sha256": "fa2a7aef2ee3887862a8020edb2c34f82e6912f7c31a41781cbf62964a457c81",
+    "checked_hash_counts": {
+      "inputs_sha256": 1112,
+      "workspace_inputs_sha256": 1007,
+      "artifacts_sha256": 3746,
+      "tools_sha256": 2
+    },
+    "hash_mismatches": {
+      "inputs_sha256": [],
+      "workspace_inputs_sha256": [],
+      "artifacts_sha256": [],
+      "tools_sha256": []
+    },
+    "runner_log_matches": true,
+    "emitted_modules_equal_evidence": true,
+    "evidence_sha256": "9022a9d8476aefa68b412c2965c43f18868f4d1b0e33291c8324fa9b63989f45",
+    "runner_log_uncompressed_sha256": "78e230dff57c0d363ebcd46200b653e9f2c07e54d865cb02d4649d7824d12164",
+    "tools_match_prior_reviewed_control_environment": true,
+    "managed_events_sha256": "6c299f6e7712e96adb5b2797735ca29b4dedc9cb1d43a8a350c4904ffd819d7e",
+    "managed_terminal": {
+      "duration_seconds": 24.267615511,
+      "event": "finished",
+      "evidence": [
+        {
+          "original": "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused.log",
+          "resolved": "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused.log"
+        },
+        {
+          "original": "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused-evidence.json",
+          "resolved": "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused-evidence.json"
+        },
+        {
+          "original": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T201355-b250e246f4ef/previous-evidence/lean-focused.log",
+          "resolved": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T201355-b250e246f4ef/previous-evidence/lean-focused.log"
+        },
+        {
+          "original": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T201355-b250e246f4ef/previous-evidence/lean-focused-evidence.json",
+          "resolved": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T201355-b250e246f4ef/previous-evidence/lean-focused-evidence.json"
+        },
+        {
+          "original": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T201355-b250e246f4ef/lean-focused.log",
+          "resolved": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T201355-b250e246f4ef/lean-focused.log"
+        },
+        {
+          "original": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T201355-b250e246f4ef/lean-focused-evidence.json",
+          "resolved": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T201355-b250e246f4ef/lean-focused-evidence.json"
+        }
+      ],
+      "failure_keys": [],
+      "monotonic_ns": 16891029513012,
+      "outcome": "success",
+      "retained_reports": [],
+      "returncode": null,
+      "run_id": "20261115T201355-b250e246f4ef",
+      "utc": "2026-11-15T20:14:19.671324+00:00"
+    },
+    "monitor_summary_sha256": "5857b367bd4f75b86818b7ec3933cad283a9a540b82f46228ac18fb66b136ded",
+    "monitor_summary": {
+      "command": [
+        "python3",
+        "scripts/check_lean.py",
+        "--target",
+        "Silver.ProcedureDeclarationHighSourceCandidate",
+        "--workers",
+        "1",
+        "--memory-mb",
+        "8192",
+        "--provenance",
+        "--task",
+        "370-procedure-metadata-source-memory",
+        "--reason",
+        "Focused complete procedure declaration source candidate after full run 20261115T195423-d7650f191422 failed only metadata_append_header in Body.lean with explicit 8 GiB kernel memory exhaustion. Parent-authorized two-file repair normalizes exactly the unchanged 646-character/138-token procedure metadata header through reviewed checked character/lexer identities; preserves ordinary_0 byte-for-byte, both theorem statements, metadata definition and full-source selector. Full candidate gate covers helper and all body/outer source fragments. Preserve 621 objects and original failed evidence; no native source/script edits. One worker/default 12 threads/8192 MiB on 15.8 GiB host with productive native two-worker audit, 10 GiB tree/1.5 GiB host/first-memory diagnostic guards. Independent review and focused success before any complete retry."
+      ],
+      "cwd": "/home/agent/silver-worktrees/procedures-lean-370",
+      "started_at": "2026-11-15T20:13:55.133710+00:00",
+      "peak_sum_rss_kib": 2898928,
+      "peak_process_rss_kib": 1858416,
+      "minimum_mem_available_kib": 12342432,
+      "pid": 184509,
+      "returncode": 0,
+      "elapsed_seconds": 25.03105801199854,
+      "finished_at": "2026-11-15T20:14:20.164760+00:00",
+      "interrupted": false
+    },
+    "original_terminal": "Author reported collecting original session 32187 exit 0; lead relayed. Reviewer independently inspected managed success and monitor exit 0, not that execution session.",
+    "settings": {
+      "clean_build": false,
+      "mode": "focused",
+      "kernel_recheck": null,
+      "lake_workers": 1,
+      "threads_per_process": 12,
+      "memory_mb_per_process": 8192
+    },
+    "scope_note": "Retained artifact hashes establish identity; the fresh audit covers only the recorded imported closure."
+  },
+  "disposition": "Accepted exact two-file procedure metadata-header repair for integration and complete retry; no material finding. Whole-project and delivery acceptance remain pending.",
+  "scope": "Independent extraction and existing evidence inspection only; no proof/build/test or cache mutation. Broad delivery acceptance remains pending.",
+  "durable_packet": {
+    "commit": "7fd40b5fa260d93a53832d07e4cf0c27c510ce63",
+    "checks": {
+      "focused_evidence": true,
+      "focused_runner_log": true,
+      "focused_summary": true,
+      "failed_runner_log": true
+    }
+  },
+  "review_first_recorded_observation_utc": "2026-11-15T20:14:59.810868+00:00",
+  "review_ended_at_utc": "2026-11-15T20:18:18.760722+00:00",
+  "measured_observation_interval_seconds": 198.949854,
+  "timing_scope": "First recorded observation through bounded acceptance evidence completion; excludes earlier setup, not active reasoning or native run time."
+}

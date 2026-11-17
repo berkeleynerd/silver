@@ -1,0 +1,27 @@
+{
+  "command": [
+    "python3",
+    "scripts/check_lean.py",
+    "--target",
+    "Silver.ComposeDeclarationSourceCandidate",
+    "--workers",
+    "1",
+    "--memory-mb",
+    "8192",
+    "--provenance",
+    "--task",
+    "370-declaration-source-memory",
+    "--reason",
+    "Focused full declaration-source caller after complete run 20261115T190543-9bda6434802c isolated exact failures in parser_state record fact 11 (650 chars/79 tokens) and valid_state expression fact 22 (922/160). Parent-authorized two-file repair normalizes only those exact expected strings via established checked character/lexer proofs. Every original theorem, full-source extractor, data/domain/contract and other fact remains unchanged; source/scripts frozen. Preserve all 287 completed objects and failed full-run evidence. One worker/default 12 threads/8192 MiB with 10 GiB tree/1.5 GiB host and diagnostic guards; native two workers separately guarded. Independent review and focused full helper/candidate success before any complete retry."
+  ],
+  "cwd": "/home/agent/silver-worktrees/procedures-lean-370",
+  "started_at": "2026-11-15T19:46:02.914884+00:00",
+  "peak_sum_rss_kib": 8541248,
+  "peak_process_rss_kib": 7504784,
+  "minimum_mem_available_kib": 6189120,
+  "pid": 154250,
+  "returncode": 0,
+  "elapsed_seconds": 285.4147733440004,
+  "finished_at": "2026-11-15T19:50:48.329650+00:00",
+  "interrupted": false
+}

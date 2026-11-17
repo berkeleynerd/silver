@@ -1,0 +1,12 @@
+{
+  "utc": "2026-11-10T01:34:49.365684+00:00",
+  "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-source-370/.silver/linux-x86_64/proof/.lake/build",
+  "destination": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370/.silver/linux-x86_64/proof/.lake/build",
+  "files": 13505,
+  "bytes": 1647691502,
+  "source_head": "7734a3dcbbc210ba82f0f288548347a905b2a4c0",
+  "source_latest_run": "20261110T013028-7409c3da61fc",
+  "source_latest_result": "failure",
+  "source_preceding_passing_scanner_run": "20261110T012022-241c8683f07a",
+  "note": "Both caches idle; copy complete object families and Lake trace/hash metadata. Includes successful objects from focused runs that later failed. Normal Lake dependency checks and fresh audits remain required; no assurance transferred by copying."
+}

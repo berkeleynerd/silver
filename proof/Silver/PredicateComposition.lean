@@ -1,6 +1,7 @@
 module
 
 public import Silver.ScalarFunctionComposition
+public import Silver.ScalarProcedureComposition
 public import Silver.PredicateExecution
 public import Silver.PredicateObligations
 public import Silver.SequenceEffects
@@ -30,10 +31,14 @@ structure Program where
   booleanDeclarations : List BooleanDeclaration := []
   booleanInitializerChecks : List Obligation := []
   functions : List ScalarFunctions.Definition := []
+  procedures : List ScalarProcedures.Definition := []
   deriving Repr
 
 def Program.functionEnvironment (program : Program) : ScalarFunctions.Environment :=
   ScalarFunctions.compileDefinitions program.functions
+
+def Program.procedureEnvironment (program : Program) : ScalarProcedures.Environment :=
+  ScalarProcedures.compileDefinitions program.functionEnvironment program.procedures
 
 def Program.initialContext (program : Program) : Context :=
   if program.hasArguments then Context.initial maxSourceLength
@@ -86,7 +91,7 @@ def Program.checkBody (program : Program) : Option Flow :=
       Integer.discharged program.initializerChecks = true ∧
       (ArrayBindings.ValidInitials program.arrays.values ∧
         ArrayBindings.InitialsFit program.arrays.names program.arrays.values) then
-    checkStatements (signatures := program.functionEnvironment.signatures) program.names.shape program.bodyAnalysis program.initialFlow program.statements program.bodyBooleanAnalysis
+    checkStatements (signatures := program.functionEnvironment.signatures) (procedures := program.procedureEnvironment.signatures) program.names.shape program.bodyAnalysis program.initialFlow program.statements program.bodyBooleanAnalysis
   else none
 
 theorem Program.checkBody_iff (program : Program) (after : Flow) :
@@ -95,24 +100,25 @@ theorem Program.checkBody_iff (program : Program) (after : Flow) :
       Integer.discharged program.initializerChecks = true ∧
       (ArrayBindings.ValidInitials program.arrays.values ∧
         ArrayBindings.InitialsFit program.arrays.names program.arrays.values) ∧
-      checkStatements (signatures := program.functionEnvironment.signatures) program.names.shape program.bodyAnalysis program.initialFlow program.statements program.bodyBooleanAnalysis = some after := by
+      checkStatements (signatures := program.functionEnvironment.signatures) (procedures := program.procedureEnvironment.signatures) program.names.shape program.bodyAnalysis program.initialFlow program.statements program.bodyBooleanAnalysis = some after := by
   simp only [checkBody]
   split <;> simp_all
 
 def Program.execute (program : Program) (arguments : Arguments.Runtime.Arguments) : Execution :=
   executeStatements (program.input arguments) (program.inputValid arguments)
-    (program.initialValues arguments) program.statements program.initialIntegers (program.initialBooleans arguments) program.functionEnvironment
+    (program.initialValues arguments) program.statements program.initialIntegers (program.initialBooleans arguments) program.functionEnvironment program.procedureEnvironment
 
 def Program.checkedExecute (program : Program) (arguments : Arguments.Runtime.Arguments) : Option Execution :=
   checkedStatements (program.input arguments) (program.inputValid arguments)
-    (program.initialValues arguments) program.statements program.initialIntegers (program.initialBooleans arguments) program.functionEnvironment
+    (program.initialValues arguments) program.statements program.initialIntegers (program.initialBooleans arguments) program.functionEnvironment program.procedureEnvironment
 
 def Program.InitializersValid (program : Program) : Prop :=
   DeclarationsValid emptyShape program.declarations program.names.shape ∧
     BooleanDeclarationsWellFormed program.hasArguments program.names.shape {} program.booleanDeclarations ∧
     checkBooleanDeclarations program.names.shape Integer.Analysis.empty program.booleanInitialFlow
       {} program.booleanDeclarations = true ∧ discharged program.booleanInitializerChecks = true ∧
-    ScalarFunctions.DefinitionsChecked [] program.functions
+    ScalarFunctions.DefinitionsChecked [] program.functions ∧
+    ScalarProcedures.DefinitionsChecked program.functionEnvironment.signatures [] program.procedures
 
 def Program.Valid (program : Program) : Prop :=
   program.InitializersValid ∧
@@ -122,7 +128,17 @@ def Program.Valid (program : Program) : Prop :=
 
 theorem Program.functions_valid {program : Program} (valid : program.Valid) :
     program.functionEnvironment.Valid :=
-  ScalarFunctions.compileDefinitions_valid valid.1.2.2.2.2
+  ScalarFunctions.compileDefinitions_valid valid.1.2.2.2.2.1
+
+theorem Program.procedures_valid {program : Program} (valid : program.Valid) :
+    program.procedureEnvironment.Valid :=
+  ScalarProcedures.compileDefinitions_valid (program.functions_valid valid) valid.1.2.2.2.2.2
+
+/-- Every procedure body is covered over its whole formal domain, including
+definitions that are never reached by Main. -/
+theorem Program.procedures_safe {program : Program} (valid : program.Valid) :
+    ScalarProcedures.DefinitionsSafe program.functionEnvironment .empty program.procedures :=
+  ScalarProcedures.checked_definitions_safe (program.functions_valid valid) valid.1.2.2.2.2.2
 
 theorem selected_invalid (fallback : Source) (arguments : Arguments.Runtime.Arguments)
     (invalid : Arguments.Runtime.inputIsValid arguments = false) : selected fallback arguments = [] := by
@@ -208,7 +224,7 @@ theorem Program.execution_sound {program : Program} (valid : program.Valid)
       program.checkedExecute arguments = some (program.execute arguments) := by
   obtain ⟨after, checked, _⟩ := valid.2.2.2.2.2
   have bodyChecked := ((program.checkBody_iff after).mp checked).2.2.2
-  have sound := statements_execution_sound (program.functions_valid valid) (booleans := program.initialBooleans arguments) valid.2.2.2.2.1 bodyChecked
+  have sound := statements_execution_sound_with_procedures (program.functions_valid valid) (program.procedures_valid valid) (booleans := program.initialBooleans arguments) valid.2.2.2.2.1 bodyChecked
     (program.initial_fits valid arguments) (program.input_domain arguments).2
     ⟨program.initial_allowed arguments, program.initial_integer_fits valid⟩ (program.initial_integer_fits valid)
   exact ⟨sound.state, sound.effects, sound.agreement⟩
@@ -218,7 +234,7 @@ theorem Program.scalar_execution_invariant {program : Program} (valid : program.
     Integer.Fits program.bodyRanges (program.execute arguments).integers := by
   obtain ⟨after, checked, _⟩ := valid.2.2.2.2.2
   have bodyChecked := ((program.checkBody_iff after).mp checked).2.2.2
-  exact (statements_execution_sound (program.functions_valid valid) (booleans := program.initialBooleans arguments) valid.2.2.2.2.1 bodyChecked
+  exact (statements_execution_sound_with_procedures (program.functions_valid valid) (program.procedures_valid valid) (booleans := program.initialBooleans arguments) valid.2.2.2.2.1 bodyChecked
     (program.initial_fits valid arguments) (program.input_domain arguments).2
     ⟨program.initial_allowed arguments, program.initial_integer_fits valid⟩ (program.initial_integer_fits valid)).declared
 
@@ -227,7 +243,7 @@ theorem Program.current_scalar_execution_invariant {program : Program} (valid : 
     (arguments : Arguments.Runtime.Arguments) :
     Integer.Fits after.scalars (program.execute arguments).integers := by
   have bodyChecked := ((program.checkBody_iff after).mp checked).2.2.2
-  exact (statements_execution_sound (program.functions_valid valid) (booleans := program.initialBooleans arguments) valid.2.2.2.2.1 bodyChecked
+  exact (statements_execution_sound_with_procedures (program.functions_valid valid) (program.procedures_valid valid) (booleans := program.initialBooleans arguments) valid.2.2.2.2.1 bodyChecked
     (program.initial_fits valid arguments) (program.input_domain arguments).2
     ⟨program.initial_allowed arguments, program.initial_integer_fits valid⟩
     (program.initial_integer_fits valid)).scalars
@@ -238,14 +254,14 @@ theorem Program.immutable_snapshot_preserved {program : Program} (valid : progra
     (program.execute arguments).integers index = program.initialIntegers index := by
   obtain ⟨after, checked, _⟩ := valid.2.2.2.2.2
   have bodyChecked := ((program.checkBody_iff after).mp checked).2.2.2
-  exact statements_unchanged (functions := program.functionEnvironment) bodyChecked readonly
+  exact statements_unchanged (functions := program.functionEnvironment) (procedures := program.procedureEnvironment) bodyChecked readonly
 
 theorem Program.immutable_boolean_preserved {program : Program} (valid : program.Valid)
     {index : Nat} (readonly : program.bodyBooleanAnalysis.mutable index = false)
     (arguments : Arguments.Runtime.Arguments) :
     (program.execute arguments).booleans index = program.initialBooleans arguments index := by
   obtain ⟨after, checked, _⟩ := valid.2.2.2.2.2
-  exact statements_booleans_unchanged (functions := program.functionEnvironment) (((program.checkBody_iff after).mp checked).2.2.2) readonly
+  exact statements_booleans_unchanged (functions := program.functionEnvironment) (procedures := program.procedureEnvironment) (((program.checkBody_iff after).mp checked).2.2.2) readonly
 
 theorem Program.invalid_trace {program : Program} (valid : program.Valid)
     (arguments : Arguments.Runtime.Arguments) (invalid : program.inputValid arguments = false) :
@@ -254,7 +270,7 @@ theorem Program.invalid_trace {program : Program} (valid : program.Valid)
   have allowed := program.initial_allowed arguments
   rw [invalid] at allowed
   have bodyChecked := ((program.checkBody_iff after).mp checked).2.2.2
-  have behavior := completed_invalid_rejected (program.functions_valid valid) (booleans := program.initialBooleans arguments) valid.2.2.2.2.1 bodyChecked
+  have behavior := completed_invalid_rejected_with_procedures (program.functions_valid valid) (program.procedures_valid valid) (booleans := program.initialBooleans arguments) valid.2.2.2.2.1 bodyChecked
     (program.initial_fits valid arguments) (program.input_domain arguments).2
     ⟨allowed, program.initial_integer_fits valid⟩ finished (program.initial_integer_fits valid)
   simpa only [Program.execute, invalid] using behavior
@@ -322,12 +338,13 @@ def scalarObligation (check : Integer.Obligation) : Semantics.Obligation :=
   ⟨.runTimeSafety, check.discharge⟩
 
 def Program.obligations (program : Program) : List Semantics.Obligation :=
-  (ScalarFunctions.definitionsObligations [] program.functions).map Obligation.toObligation ++
+  ((ScalarFunctions.definitionsObligations [] program.functions).map Obligation.toObligation ++
+    (ScalarProcedures.definitionsObligations program.functionEnvironment.signatures [] program.procedures).map Obligation.toObligation) ++
   ((declarationChecks program).map Compose.Check.toObligation ++
     (integerDeclarationChecks program ++ program.initializerChecks).map scalarObligation ++
     ((program.booleanInitializerChecks ++ booleanDeclarationObligations program.names.shape
       Integer.Analysis.empty program.booleanInitialFlow {} program.booleanDeclarations).map Obligation.toObligation) ++
-    modeledObligations (signatures := program.functionEnvironment.signatures) program.names.shape program.bodyAnalysis program.initialFlow program.statements program.bodyBooleanAnalysis)
+    modeledObligations (signatures := program.functionEnvironment.signatures) (procedures := program.procedureEnvironment.signatures) program.names.shape program.bodyAnalysis program.initialFlow program.statements program.bodyBooleanAnalysis)
 
 theorem Program.declaration_checks_valid {program : Program} (valid : program.Valid) :
     ∀ check ∈ declarationChecks program, check.Valid := by
@@ -366,8 +383,11 @@ theorem Program.all_obligations_discharge {program : Program} (valid : program.V
   apply (Semantics.discharge_iff _).mpr
   intro check member
   rcases List.mem_append.mp member with functions | ordinary
-  · obtain ⟨schema, present, rfl⟩ := List.mem_map.mp functions
-    exact List.all_eq_true.mp (ScalarFunctions.definitions_obligations_discharge valid.1.2.2.2.2) schema present
+  · rcases List.mem_append.mp functions with functions | procedures
+    · obtain ⟨schema, present, rfl⟩ := List.mem_map.mp functions
+      exact List.all_eq_true.mp (ScalarFunctions.definitions_obligations_discharge valid.1.2.2.2.2.1) schema present
+    · obtain ⟨schema, present, rfl⟩ := List.mem_map.mp procedures
+      exact List.all_eq_true.mp (ScalarProcedures.definitions_obligations_discharge valid.1.2.2.2.2.2) schema present
   · have member := ordinary
     rcases List.mem_append.mp member with declarations | body
     · rcases List.mem_append.mp declarations with earlier | booleans

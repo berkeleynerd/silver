@@ -1,5 +1,67 @@
 # Session memory
 
+## 2026-11-17 — External-review repair validated; stop for the external check
+
+The owner-authorized [#391 repair](https://github.com/berkeleynerd/silver/issues/391)
+has completed the focused gates, complete native and Lean refreshes, and one
+complete suite invocation on frozen repaired inputs. The
+[repair packet](evidence/advisory-policy-391-20261116/README.md) and
+[closing review](reviews/review-advisory-policy-391-20261117.md) retain exact
+implementation/evidence identities, cached and fresh scope, failures and their
+dispositions, including the post-run collector-ID defect resolved from the
+original complete test log. This does not introduce a new authorization.
+
+Publish through the existing PR #371 branch with `Fixes #391`, then stop for the
+owner's required external check of that exact head. Do not merge, request kernel
+replay or CI, or start #373. Preserve the untracked external-review material and
+other worktrees. Issue #391 records status; project-board access lacks
+`read:project`. CLI memory was not updated.
+
+## 2026-11-16 — External review repair of PR #371 authorized
+
+The owner explicitly authorized repairing blocker [#391](https://github.com/berkeleynerd/silver/issues/391)
+and the bounded record/test/token-table items in the two November 16 external
+review comments on [PR #371](https://github.com/berkeleynerd/silver/pull/371).
+The lead read the issue and both comments in full before implementation. Accept
+`INOUT_ONLY_READ` and `UNUSED_INITIAL_VALUE` through exact declared-subprogram,
+formal spelling/mode, message and provenance checks in the existing Ada and
+Python auditors. Preserve every previously successful verdict and the admitted
+language. Production implementation changes stay in `silver_library_reports.adb`
+and `check_evidence.py`; do not change the Lean-embedded bindings packages.
+
+Include the requested mutation coverage, full-route/output twins for every
+positive admission-only function/procedure fixture, independently derived report
+capacity charges, synchronized diagnostic descriptions, specified record fixes,
+two corrected Lean docstrings and five one-line token-name correspondence
+lemmas. The untracked `tmp/external-review-877c382f6d/` remains review input and
+must not be committed; reviewer output predictions require independent sampling.
+
+Refresh the complete native and Lean checkpoints after focused helper checks,
+and run the complete suite in one run on the repaired head. Retain failed
+attempts and report actual host, cached/clean scope and exact final commit.
+Validation remains local on this host. No kernel replay is selected; if later
+justified, request it explicitly because its memory on this host is unmeasured.
+
+Do not narrow admission, align fabricated/escaped-key JSON handling, require
+AoRTE report claims, add an advisory driver summary, add procedure termination
+checks/theorems, restructure DefinitionsSafe/deep safety, or change the Oracle.
+No merge or successor work is authorized. Push the repaired, validated PR head,
+then stop for the owner's required external check. Current direct authorization
+controls this PR-branch repair; CLI memory was not updated.
+
+## 2026-11-15 — Local development and validation reconfirmed
+
+The owner clarified **“We will not be using CI. Local development here on this
+host.”** This reaffirms the existing local-validation policy and disabled hosted
+Actions recorded in the README. Validate development on this host with the
+managed local native/Lean/test workflow; CI execution or workflow changes are
+not required for this delivery. The proposed ARM64 CI stack edit is withdrawn;
+the documented 16 MiB local compiler/test setting and accepted local evidence
+remain. No additional GitHub credential scope is needed. The [publication
+record](evidence/scalar-procedures-20261115/recovery/README.md#local-only-publication)
+retains the exact reconstruction and earlier proposal as history. CLI memory
+was not updated.
+
 ## 2026-11-15 — Scalar-procedure recovery on the reduced host authorized
 
 After the readiness assessment identified the remaining native proof and Lean
@@ -27,6 +89,36 @@ another expensive complete checkpoint. The separate worca streams remain
 preserved; [#373](https://github.com/berkeleynerd/silver/issues/373) remains the
 next package after this delivery. This instruction does not change the Oracle
 or supply final implementation-merge approval. CLI memory was not updated.
+
+The reduced-host recovery is now independently accepted for reviewable delivery
+in PR #371. The [delivery account](scalar-procedures.md#delivery-assurance-and-validation)
+and [closing review](reviews/review-scalar-procedures-delivery-20261115.md) retain
+the exact implementation, failed attempts, complete proof checks and reviewed
+final regression coverage. The measured ARM64 stack environment is documented
+in local setup; language domains and required obligations are unchanged.
+This completes the authorized recovery scope without merge or #373 implementation.
+Issues and milestone closure await merge; project-board access remains unavailable
+to the current token. This records work under the existing authorization, not a
+new owner decision. CLI memory was not updated.
+
+## 2026-11-13 — Scalar-procedure delivery resumed
+
+The owner instructed **“Please proceed.”** after the evening pause and the
+reported native and Lean validation failures. This resumes the existing
+[#370](https://github.com/berkeleynerd/silver/issues/370) /
+[#29](https://github.com/berkeleynerd/silver/issues/29) delivery in
+[PR #371](https://github.com/berkeleynerd/silver/pull/371), including
+[#375](https://github.com/berkeleynerd/silver/issues/375) as an internal delivery
+repair. The pause's prohibition on further work is lifted for this scope.
+
+Preserve failed evidence and successful caches. Diagnose the remaining native
+postcondition and advisory classifications, repair and review the handwritten
+Lean source integration, and establish focused complete-contract success before
+the stable complete validation checkpoint. Full domains, source correspondence,
+all required obligations and final regression coverage remain mandatory. Continue
+ordinary delivery records and reviewable publication under the existing scope.
+The separate worca experiment and milestone-24 work below remain preserved;
+this resumption does not take over those streams. CLI memory was not updated.
 
 ## 2026-11-12 — Worca board experiment: the Ready rule is suspended; #377's record stays an exception
 
@@ -68,6 +160,46 @@ rule takes only cards of
 [milestone 24](https://github.com/berkeleynerd/silver/milestone/24), because
 other agents also use Ready, and agents do not move an item to Ready themselves.
 CLI memory was updated.
+
+## 2026-11-11 — Evening pause after active validation finishes
+
+The owner instructed **“Let's pause work for the evening as soon as the
+background tasks currently running are complete.”** Let the existing native
+run `20261110T181302-a4553e500d15` and complete Lean run
+`20261110T214613-eae8ec3e5581` finish, retain their actual outcomes and required
+result audits, and then stop. This records a requested pause boundary; it does
+not claim that either active process has already finished.
+
+Do not chain another proof run, apply the prepared source/proof repairs, start
+regressions, merge PR #371 or begin #373 before the owner resumes work. Keep
+failed evidence labelled failed and preserve successful certificate artifacts,
+proof caches and proposed repair patches. The two run owners have acknowledged
+this boundary and will leave result and restart instructions in their existing
+run packets. The source-integration finding [#375](https://github.com/berkeleynerd/silver/issues/375)
+remains part of the #370 delivery, not deferred successor work.
+
+The current implementation remains in [draft PR #371](https://github.com/berkeleynerd/silver/pull/371).
+Its [capability record](scalar-procedures.md) and issue handoff distinguish
+completed evidence from pending repair, complete assurance and regression work.
+At resume, inspect the managed run summary and the final native/source packets
+before applying patches or scheduling validation. No CLI-memory update or
+unattended hourly schedule is claimed.
+
+## 2026-11-10 — Hourly proof and project-health updates requested
+
+The owner requested **“Give me a status update on the proof runs and general
+project health every hour.”** During active delivery work, provide an hourly
+summary of active/completed/failed proof runs, material changes since the prior
+update, CPU and memory headroom, remaining delivery blockers, next actions and
+any justified ETA change. Report actual retained outcomes; an active process or
+successful focused check does not establish completed assurance.
+
+This preference does not interrupt productive runs or authorize another work
+package. The current CLI has no available scheduling interface and its app
+connector was unreachable when checked; no unattended hourly schedule was
+created. Do not imply that messages will resume automatically after the session
+stops or the VM restarts. Recheck scheduling availability before claiming it.
+CLI memory was not updated.
 
 ## 2026-11-10 — Proof iteration efficiency authorized as the next unit
 

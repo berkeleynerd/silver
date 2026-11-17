@@ -1,0 +1,321 @@
+{
+  "time_utc": "2026-11-13T09:22:09.040936+00:00",
+  "commit": "c27f3ebab5fde0ac3d647fe0b36ca0a5362698a0",
+  "source_review_base_implementation": "bfe82aeb81",
+  "qualification": "Read-only static classification review; failed native run remains failed; no proof/test/build run launched.",
+  "input_hashes": {
+    "src/silver_procedure_bindings.ads": {
+      "sha256": "4fe043682f952570f90e0b5879c9a10be3c19016811dac957a6825e22a1f18a6",
+      "bytes": 4490
+    },
+    "src/silver_profile.ads": {
+      "sha256": "15f2b737ff4e29e191583b4ae57ad9f5661fa1322fa6cd113080f201539b79c6",
+      "bytes": 3529
+    },
+    "scripts/check_evidence.py": {
+      "sha256": "bed6337ae6b7fa65dff44296a7fbf632eafb326fa832dbcb70335ddca46e54bd",
+      "bytes": 62342,
+      "snapshot": "Initial inspected committed bytes reconstructed via git show after author concurrently applied reviewed change; implemented bytes retained separately."
+    },
+    "tests/test_evidence.py": {
+      "sha256": "63c6da790cafcbf4f54bc36c776f4a2deb7a31706ffb76d21cf19509a0141e54",
+      "bytes": 108025,
+      "snapshot": "Initial inspected committed bytes reconstructed via git show after author concurrently applied reviewed change; implemented bytes retained separately."
+    },
+    "proof/Silver/ProcedureBindingsNativeExpressions.lean": {
+      "sha256": "3bc705897c44e01c1c865f2603ca6836686f1c38946e8eafb0b7c2fcfcd12606",
+      "bytes": 19463
+    },
+    "proof/Silver/ProcedureBindingsNativeEquations.lean": {
+      "sha256": "decb868c6d14f6675df2ced9c19391ce6da94b2353809ca1ab6bcd587be8b65a",
+      "bytes": 12684
+    },
+    "proof/Silver/ProcedureBindingsSourceChecks.lean": {
+      "sha256": "9934a222cf0d05d24fee5278bd820ee229f19c4645f3e3a79666cfb81e782946",
+      "bytes": 14113
+    },
+    "docs/trusted-boundary.md": {
+      "sha256": "953ce4d7c5b88c7faaa4a39c92fe00cb1fc222d085e2adbcecaa1de9cda0f05f",
+      "bytes": 112404,
+      "snapshot": "Initial inspected committed bytes reconstructed via git show after author concurrently applied reviewed change; implemented bytes retained separately."
+    }
+  },
+  "retained_reports": {
+    "silver_procedure_bindings": {
+      "report_sha256": "985feaacb4add89d7eab10eb31fb45ce46bb7aed82581e4ebc300152c4510559",
+      "counts": {
+        "flow": 8,
+        "proof": 54,
+        "warn_error": 3
+      },
+      "advisories": [
+        {
+          "check_tree": {},
+          "col": 39,
+          "file": "silver_procedure_bindings.ads",
+          "how_proved": "trivial",
+          "line": 61,
+          "message": {
+            "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+          },
+          "rule": "operator-reassociation",
+          "severity": "warning",
+          "suppressed": "",
+          "unproved_status": {
+            "status": "unknown"
+          }
+        }
+      ],
+      "skip_lists": {
+        "skip_flow_proof": [],
+        "skip_proof": [],
+        "pragma_assume": []
+      },
+      "noninfo_required": [],
+      "valid_metadata_checks": [
+        {
+          "section": "flow",
+          "file": "silver_procedure_bindings.ads",
+          "line": 44,
+          "col": 13,
+          "rule": "SUBPROGRAM_TERMINATION",
+          "severity": "info",
+          "how_proved": "flow"
+        },
+        {
+          "section": "flow",
+          "file": "silver_procedure_bindings.ads",
+          "line": 45,
+          "col": 11,
+          "rule": "GLOBAL_WRONG",
+          "severity": "info",
+          "how_proved": "flow"
+        },
+        {
+          "section": "proof",
+          "file": "silver_procedure_bindings.ads",
+          "line": 49,
+          "col": 33,
+          "rule": "VC_INDEX_CHECK",
+          "severity": "info",
+          "how_proved": "prover"
+        },
+        {
+          "section": "proof",
+          "file": "silver_procedure_bindings.ads",
+          "line": 51,
+          "col": 42,
+          "rule": "VC_INDEX_CHECK",
+          "severity": "info",
+          "how_proved": "prover"
+        },
+        {
+          "section": "proof",
+          "file": "silver_procedure_bindings.ads",
+          "line": 51,
+          "col": 75,
+          "rule": "VC_INDEX_CHECK",
+          "severity": "info",
+          "how_proved": "prover"
+        },
+        {
+          "section": "proof",
+          "file": "silver_procedure_bindings.ads",
+          "line": 50,
+          "col": 19,
+          "rule": "VC_PRECONDITION",
+          "severity": "info",
+          "how_proved": "prover"
+        },
+        {
+          "section": "proof",
+          "file": "silver_procedure_bindings.ads",
+          "line": 52,
+          "col": 71,
+          "rule": "VC_INDEX_CHECK",
+          "severity": "info",
+          "how_proved": "prover"
+        },
+        {
+          "section": "proof",
+          "file": "silver_procedure_bindings.ads",
+          "line": 54,
+          "col": 28,
+          "rule": "VC_INDEX_CHECK",
+          "severity": "info",
+          "how_proved": "prover"
+        },
+        {
+          "section": "proof",
+          "file": "silver_procedure_bindings.ads",
+          "line": 56,
+          "col": 37,
+          "rule": "VC_INDEX_CHECK",
+          "severity": "info",
+          "how_proved": "prover"
+        },
+        {
+          "section": "proof",
+          "file": "silver_procedure_bindings.ads",
+          "line": 56,
+          "col": 65,
+          "rule": "VC_INDEX_CHECK",
+          "severity": "info",
+          "how_proved": "prover"
+        },
+        {
+          "section": "proof",
+          "file": "silver_procedure_bindings.ads",
+          "line": 55,
+          "col": 19,
+          "rule": "VC_PRECONDITION",
+          "severity": "info",
+          "how_proved": "prover"
+        },
+        {
+          "section": "proof",
+          "file": "silver_procedure_bindings.ads",
+          "line": 57,
+          "col": 37,
+          "rule": "VC_INDEX_CHECK",
+          "severity": "info",
+          "how_proved": "prover"
+        },
+        {
+          "section": "proof",
+          "file": "silver_procedure_bindings.ads",
+          "line": 58,
+          "col": 37,
+          "rule": "VC_INDEX_CHECK",
+          "severity": "info",
+          "how_proved": "prover"
+        },
+        {
+          "section": "proof",
+          "file": "silver_procedure_bindings.ads",
+          "line": 59,
+          "col": 37,
+          "rule": "VC_INDEX_CHECK",
+          "severity": "info",
+          "how_proved": "prover"
+        },
+        {
+          "section": "proof",
+          "file": "silver_procedure_bindings.ads",
+          "line": 60,
+          "col": 37,
+          "rule": "VC_INDEX_CHECK",
+          "severity": "info",
+          "how_proved": "prover"
+        },
+        {
+          "section": "proof",
+          "file": "silver_procedure_bindings.ads",
+          "line": 61,
+          "col": 59,
+          "rule": "VC_INDEX_CHECK",
+          "severity": "info",
+          "how_proved": "prover"
+        }
+      ]
+    },
+    "silver_output_profile": {
+      "report_sha256": "503354b1dd701686cf6888ce8f060897c882ac7671c874188594048580a573c8",
+      "counts": {
+        "flow": 491,
+        "proof": 3841,
+        "warn_error": 94
+      },
+      "advisories": [
+        {
+          "check_tree": {},
+          "col": 39,
+          "file": "silver_procedure_bindings.ads",
+          "how_proved": "trivial",
+          "line": 61,
+          "message": {
+            "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+          },
+          "rule": "operator-reassociation",
+          "severity": "warning",
+          "suppressed": "",
+          "unproved_status": {
+            "status": "unknown"
+          }
+        }
+      ],
+      "skip_lists": {
+        "skip_flow_proof": [],
+        "skip_proof": [],
+        "pragma_assume": []
+      },
+      "noninfo_required": [
+        {
+          "file": "silver_output_profile.adb",
+          "line": 5412,
+          "col": 20,
+          "rule": "VC_POSTCONDITION",
+          "severity": "medium",
+          "message": {
+            "text": "postcondition might fail, cannot prove Procedure_Updates'Result = Procedure_Updates_Model (Text, Context, Scan.Facts, Scan, Catalog, First, Last, Call_First, Call_After)"
+          }
+        }
+      ]
+    }
+  },
+  "matching_sarif": [
+    {
+      "ruleId": "operator-reassociation",
+      "kind": "open",
+      "level": "warning",
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "locations": [
+        {
+          "physicalLocation": {
+            "artifactLocation": {
+              "uri": "silver_procedure_bindings.ads"
+            },
+            "region": {
+              "startLine": 61,
+              "startColumn": 39
+            }
+          }
+        }
+      ],
+      "suppressions": [
+        {
+          "kind": "external"
+        }
+      ]
+    },
+    {
+      "ruleId": "operator-reassociation",
+      "kind": "open",
+      "level": "warning",
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "locations": [
+        {
+          "physicalLocation": {
+            "artifactLocation": {
+              "uri": "silver_procedure_bindings.ads"
+            },
+            "region": {
+              "startLine": 61,
+              "startColumn": 39
+            }
+          }
+        }
+      ],
+      "suppressions": [
+        {
+          "kind": "external"
+        }
+      ]
+    }
+  ],
+  "sarif_sha256": "e31e5deb30284f7f5eae8be873a4c59d3522ef0f90356f4861bf2dba383f3aa9"
+}

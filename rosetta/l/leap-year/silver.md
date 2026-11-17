@@ -10,7 +10,7 @@ Main iterates over a constant Gregorian_Year array bounded 1 .. 2400, containing
 
 ## Language surface recorded by this assessment
 
-Put without a newline, Integer image, interval-checked Integer division, fixed-size Integer arrays, constant Integer-array iteration and named Integer subtypes and bounded components.
+Put without a newline, Integer image, interval-checked Integer division, fixed-size Integer arrays, constant Integer-array iteration and named Integer subtypes, bounded components and scalar signatures.
 
 ## External effects
 

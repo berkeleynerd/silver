@@ -1,0 +1,50 @@
+{
+  "command": [
+    "python3",
+    "scripts/check_lean.py",
+    "--workers",
+    "1",
+    "--memory-mb",
+    "8192",
+    "--provenance",
+    "--task",
+    "370-complete-lean-recovery",
+    "--reason",
+    "Complete cached source/facade/module/axiom/provenance checkpoint on accepted frozen production ca1c9b2ce after independently reviewed exact declaration normalization and focused complete ComposeDeclarationSourceCandidate success (20261115T194603-51d997e177d8), retaining every original statement and all new helper contracts. Preserve all 287 original objects plus two newly passed modules, successful 197-module function caller and hash-verified 17-module certificate cache; textual Audit closure reaches all 1004 modules with 289 objects present; no identical-success focused repetition, clean build or replay. One worker/default 12 Lean threads/8192 MiB on 16 GiB host, with 10 GiB source-tree and 1.5 GiB host guards and controlled source-only stop at first new kernel-memory diagnostic. Native two-worker audit has independent scoped monitor; parent released this sole dense allocation. Preserve every failure and successful object, diagnose before broad retry."
+  ],
+  "cwd": "/home/agent/silver-worktrees/procedures-lean-370",
+  "started_at": "2026-11-15T19:54:22.896947+00:00",
+  "peak_sum_rss_kib": 9184752,
+  "peak_process_rss_kib": 8394704,
+  "minimum_mem_available_kib": 3573632,
+  "pid": 161238,
+  "diagnostic_interruption": {
+    "pattern": "(kernel) excessive memory consumption detected",
+    "sample": {
+      "elapsed_seconds": 941.155389032001,
+      "sum_rss_kib": 1486368,
+      "mem_available_kib": 11400048,
+      "processes": [
+        {
+          "pid": 161238,
+          "rss_kib": 85376,
+          "command": "python3 scripts/check_lean.py --workers 1 --memory-mb 8192 --provenance --task 370-complete-lean-recovery --reason Complete cached source/facade/module/axiom/provenance checkpoint on accepted frozen production ca1c9b2ce after independently reviewed exact declaration normalization and focused complete ComposeDeclarationSourceCandidate success (20261115T194603-51d997e177d8), retaining every original statement and all new helper contracts. Preserve all 287 original objects plus two newly passed modules, successful 197-module function caller and hash-verified 17-module certificate cache; textual Audit closure reaches all 1004 modules with 289 objects present; no identical-success focused repetition, clean build or replay. One worker/default 12 Lean threads/8192 MiB on 16 GiB host, with 10 GiB source-tree and 1.5 GiB host guards and controlled source-only stop at first new kernel-memory diagnostic. Native two-worker audit has independent scoped monitor; parent released this sole dense allocation. Preserve every failure and successful object, diagnose before broad retry. "
+        },
+        {
+          "pid": 161438,
+          "rss_kib": 588608,
+          "command": "/home/agent/silver-worktrees/procedures-lean-370/.tools/linux-aarch64/lean/bin/lake --rehash --reconfigure -K silverThreads=12 -K silverMemoryMb=8192 build Silver.Audit "
+        },
+        {
+          "pid": 181587,
+          "rss_kib": 812384,
+          "command": "/home/agent/silver-worktrees/procedures-lean-370/.tools/linux-aarch64/lean/bin/lean -j12 -M8192 -DwarningAsError=true /home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/proof/Silver/ProcedureDeclarationHighSourceParts/Outer.lean -o /home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/ProcedureDeclarationHighSourceParts/Outer.olean -i /home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/ProcedureDeclarationHighSourceParts/Outer.ilean -c /home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/proof/.lake/build/ir/Silver/ProcedureDeclarationHighSourceParts/Outer.c --setup /home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/proof/.lake/build/ir/Silver/ProcedureDeclarationHighSourceParts/Outer.setup.json --json "
+        }
+      ]
+    }
+  },
+  "returncode": -2,
+  "elapsed_seconds": 946.1592584929986,
+  "finished_at": "2026-11-15T20:10:09.056202+00:00",
+  "interrupted": true
+}

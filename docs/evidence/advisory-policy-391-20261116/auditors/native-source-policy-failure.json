@@ -1,0 +1,56 @@
+{
+  "run_id": "20261116T231645-98dfa4e47215",
+  "original_terminal_session": 99543,
+  "terminal_exit_collected": 1,
+  "launch_head": "66e04090d283c900fcefbf5c9470b7e2244113b7",
+  "stage": {
+    "stage": "prove",
+    "command": [
+      "/usr/bin/python3",
+      "scripts/dev.py",
+      "prove",
+      "--full",
+      "--task",
+      "#391-native-complete-retry",
+      "--reason",
+      "Final integrated 66e04090d after failed full run 20261116T225639-1d97eb007a5a: sole Mixed_Report obligation repaired by reviewed local policy abstraction; whole Mixed_Report focused run 20261116T231315-0432a9be858c passed all 371 checks. Matching helper/callee/caller successes reused; original integration sessions/cache preserved, 12 available workers, 16 MiB stack and 1.5 GiB host-headroom guard; canonical proof policy"
+    ],
+    "started_at": "2026-11-16T23:16:45.673172+00:00",
+    "pid": 76624,
+    "returncode": 1,
+    "duration_seconds": 508.942777493,
+    "finished_at": "2026-11-16T23:25:14.615961+00:00",
+    "guard_fired": [],
+    "inputs_stable": true
+  },
+  "proof_results": {
+    "checks": 19515,
+    "counts": {
+      "flow": 1724,
+      "proof": 17791
+    },
+    "units": 78,
+    "unproved_checks": 0,
+    "library_unit": {
+      "flow": {
+        "info": 353
+      },
+      "proof": {
+        "info": 3482
+      }
+    }
+  },
+  "failure": "Source-policy audit rejected the new reviewed Hide_Info targets absent from the old four-name whitelist; GNATprove passed, but no complete proof provenance was issued. Build did not run.",
+  "completed_proof_manifest_exists": false,
+  "peak_sampled_tree_rss_kib": 5046896,
+  "minimum_sampled_available_kib": 11146400,
+  "source_sha256": "204a3aef6442a3708a54d081d75680e24c3b8ddae0e96c074dc1c3de14e81e70",
+  "old_auditor_sha256": "56cd80e1b174d97c7fb1ac53e964b120ad56ee75e13c0eece1ca45e774781e8d",
+  "archive": {
+    "filename": "native-source-policy-failure.tar.gz",
+    "bytes": 13338308,
+    "sha256": "588320f26878c10df87345341d8ead1fe0b82391391b6d6c8ee760460ef750f5",
+    "files": 2570
+  },
+  "retention": "All current reports, Why3 sessions, source/generated/script bytes, failing audit log, inputs/resources/postflight and managed events. Previous reports remain in the earlier committed correspondence-failure archive and live managed history; no duplicate previous-report copy here."
+}

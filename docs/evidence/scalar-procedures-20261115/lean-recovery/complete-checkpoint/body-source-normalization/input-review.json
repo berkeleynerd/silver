@@ -1,0 +1,52 @@
+{
+  "base": "3c94de830",
+  "original_private_theorem_statement_count": 108,
+  "all_original_theorem_statements_byte_identical": true,
+  "changed_private_proof_bodies": [
+    "candidate_body_body_tail_spec_header",
+    "candidate_body_read_body_spec_header",
+    "candidate_body_tail_model_spec",
+    "candidate_valid_context_body"
+  ],
+  "all_other_private_proofs_byte_identical": true,
+  "checked_fields_and_public_assembly_byte_identical": true,
+  "read_body_simp_only_route_byte_identical": true,
+  "normalized_fragments": [
+    {
+      "theorem": "candidate_body_tail_model_spec",
+      "definition": "body_body_tail_model_spec_header",
+      "normalized_characters": 712,
+      "normalized_tokens": 151,
+      "preserved_render_and_suffix": null
+    },
+    {
+      "theorem": "candidate_body_body_tail_spec_header",
+      "definition": "body_body_tail_spec_header",
+      "normalized_characters": 633,
+      "normalized_tokens": 135,
+      "preserved_render_and_suffix": "(BodyNative.ScanExpr.tailModel .current .input).render ++ (Source.lexLine \") , Subprogram_Variant => (Decreases => (Text'Last + 1) - Scan.Position, Decreases => 4)\").getD []"
+    },
+    {
+      "theorem": "candidate_body_read_body_spec_header",
+      "definition": "body_read_body_spec_header",
+      "normalized_characters": 632,
+      "normalized_tokens": 135,
+      "preserved_render_and_suffix": "BodyNative.readContractBody.render ++ (Source.lexLine \") , Subprogram_Variant => (Decreases => (Text'Last + 1) - Scan.Position, Decreases => 3)\").getD []"
+    },
+    {
+      "theorem": "candidate_valid_context_body",
+      "definition": "valid_context_expression",
+      "normalized_characters": 762,
+      "normalized_tokens": 147,
+      "preserved_render_and_suffix": null
+    }
+  ],
+  "unchanged_definition_files_sha256": {
+    "proof/Silver/PredicateSourceRequirements.lean": "6c00a05b24b3bb4df6380ca42ed9552b03b4491c773cde1b7cb5b9cc5bd9bd97",
+    "proof/Silver/PredicateBodyExpressions.lean": "c71cb13ec2bbba89d6bd7ae76efcd88428762470ac2b6a861d3618580405a193"
+  },
+  "files_sha256": {
+    "proof/Silver/PredicateBodySourceCandidate.lean": "0de322c671825f94bba547ed54fa1fd793d4a5bea0197ec88f4876a3a9f70900",
+    "proof/Silver/PredicateBodyExpectedTokens.lean": "c15266ef96996b7ca337f15718155a5ab760ba3e34d96af327a8ad1bfb6698c4"
+  }
+}

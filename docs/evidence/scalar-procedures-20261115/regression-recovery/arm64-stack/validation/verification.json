@@ -1,0 +1,95 @@
+{
+  "verified_at": "2026-11-15T22:36:38.966541+00:00",
+  "run_id": "20261115T223501-c0b18e3fdea3",
+  "host": "linux-aarch64",
+  "machine": "silver-m4pro",
+  "original_session": 58002,
+  "original_session_exit_code": 0,
+  "managed_outcome": "success",
+  "managed_finish": {
+    "duration_seconds": 16.722581508,
+    "event": "finished",
+    "evidence": [
+      {
+        "original": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T223501-c0b18e3fdea3/native.log",
+        "resolved": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T223501-c0b18e3fdea3/native.log"
+      }
+    ],
+    "failure_keys": [],
+    "monotonic_ns": 25349583009545,
+    "outcome": "success",
+    "retained_reports": [],
+    "returncode": null,
+    "run_id": "20261115T223501-c0b18e3fdea3",
+    "utc": "2026-11-15T22:35:18.224823+00:00"
+  },
+  "launch_head": "d2739f6a010b1a5491ee7d6468f71bf84767def0",
+  "terminal_head": "d2739f6a010b1a5491ee7d6468f71bf84767def0",
+  "workers": 12,
+  "monitor": {
+    "command": [
+      "sh",
+      "tmp/stack-validation-20261115/launch-child.sh"
+    ],
+    "cwd": "/home/agent/silver-workspaces/recovery-volume/integration",
+    "started_at": "2026-11-15T22:35:01.255792+00:00",
+    "peak_sum_rss_kib": 539744,
+    "peak_process_rss_kib": 71136,
+    "minimum_mem_available_kib": 15206848,
+    "pid": 466480,
+    "returncode": 0,
+    "elapsed_seconds": 20.02708838399849,
+    "finished_at": "2026-11-15T22:35:21.282878+00:00",
+    "interrupted": false
+  },
+  "resource_sample_count": 5,
+  "maximum_sample_gap_seconds": 5.012543836000987,
+  "no_restart_or_duplicate": true,
+  "complete_test_inventory": true,
+  "case_count": 23,
+  "passed_count": 23,
+  "nonpassing_count": 0,
+  "original_failed_run": "20261115T220916-99f1eaeea331",
+  "original_boundary_stack_failure_retained": true,
+  "native_input_count": 2606,
+  "all_native_inputs_match_launch_and_full_audit": true,
+  "regression_input_count": 1316,
+  "all_regression_inputs_match_launch": true,
+  "native_tool_identities_match": true,
+  "lean_tool_identities_match": true,
+  "binaries_match_launch": true,
+  "native_report_hashes_valid": 80,
+  "selected_model": "GPT-6.1 Sol",
+  "selected_effort": "High",
+  "runtime_telemetry": "unavailable",
+  "token_cost": "unavailable",
+  "scope": "Complete unchanged 23-case test_scalar_guards.py under explicit 16 MiB child soft stack and unlimited hard stack; parent remains 8 MiB/unlimited. Original 8 MiB failures remain failed. No full-suite/native/whole-project Lean rerun, compiler build or production/harness repair claim.",
+  "actual_monitored_child_stack": {
+    "recorded_at": "2026-11-15T22:35:01.298287+00:00",
+    "shell_pid": 466480,
+    "probe_pid": 466481,
+    "actual_stack_soft_bytes": 16777216,
+    "actual_stack_hard_bytes": -1,
+    "inherited_by_exec": true
+  },
+  "original_parent_stack": {
+    "captured_at": "2026-11-15T22:34:51.011250+00:00",
+    "probe_pid": 466449,
+    "shell_pid": 466447,
+    "soft_bytes": 8388608,
+    "hard_bytes": -1,
+    "proc_self_limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              unlimited            unlimited            seconds   \nMax file size             unlimited            unlimited            bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             64887                64887                processes \nMax open files            1048576              1048576              files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         unlimited            unlimited            bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       64887                64887                signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      unlimited            unlimited            us        \n"
+  },
+  "terminal_parent_stack": {
+    "recorded_at": "2026-11-15T22:36:05.845945+00:00",
+    "soft_bytes": 8388608,
+    "hard_bytes": -1,
+    "proc_self_limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              unlimited            unlimited            seconds   \nMax file size             unlimited            unlimited            bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             64887                64887                processes \nMax open files            1048576              1048576              files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         unlimited            unlimited            bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       64887                64887                signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      unlimited            unlimited            us        \n"
+  },
+  "child_soft_limit_only": true,
+  "parent_limits_unchanged": true,
+  "postlaunch_live_proc_record_retained": false,
+  "postlaunch_proc_gap": "Separate live /proc inspection did not produce a retained record before process termination; direct pre-exec child resource.getrlimit and unchanged exec script establish inherited stack limits.",
+  "exact_boundary_test_passed": true,
+  "boundary_checks_necessarily_executed_if_test_passed": "Unchanged method loops over counts 0/1/32, checking each 4096-byte source acceptance and 4097-byte rejection (expected 2). No subtest failure or skip occurred."
+}

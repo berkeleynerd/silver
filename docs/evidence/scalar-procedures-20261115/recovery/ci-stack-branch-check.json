@@ -1,0 +1,34 @@
+{
+  "scope": "shell syntax and four conditional paths only; not GitHub CI or native validation of simulated platforms",
+  "script": "# Match the measured Linux ARM64 stack environment in README.md.\nif [ \"$RUNNER_OS\" = Linux ] && [ \"$RUNNER_ARCH\" = ARM64 ]; then\n  ulimit -S -s 16384\nfi\npython3 scripts/dev.py test\n",
+  "results": [
+    {
+      "simulated_runner_os": "Linux",
+      "simulated_runner_arch": "ARM64",
+      "actual_host": "Linux ARM64",
+      "output": "(16777216, -1)",
+      "status": 0
+    },
+    {
+      "simulated_runner_os": "Linux",
+      "simulated_runner_arch": "X64",
+      "actual_host": "Linux ARM64",
+      "output": "(8388608, -1)",
+      "status": 0
+    },
+    {
+      "simulated_runner_os": "macOS",
+      "simulated_runner_arch": "ARM64",
+      "actual_host": "Linux ARM64",
+      "output": "(8388608, -1)",
+      "status": 0
+    },
+    {
+      "simulated_runner_os": "macOS",
+      "simulated_runner_arch": "X64",
+      "actual_host": "Linux ARM64",
+      "output": "(8388608, -1)",
+      "status": 0
+    }
+  ]
+}

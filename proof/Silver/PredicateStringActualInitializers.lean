@@ -328,10 +328,10 @@ inductive ActualHeaderBoundsTrace (text : Source) (arguments : Bool)
       List Obligation → ParserState → Prop
   | done {state values bounds} :
       ActualHeaderBoundsTrace text arguments input inputValid state values bounds [] [] [] state
-  | function {state final values bounds strings booleans checks} :
-      (functionDeclarationAt text state arguments).position ≠ 0 →
+  | callable {state final values bounds strings booleans checks} :
+      (callableDeclarationAt text state arguments).position ≠ 0 →
       ActualHeaderBoundsTrace text arguments input inputValid
-        (functionDeclarationAt text state arguments) values bounds strings booleans checks final →
+        (callableDeclarationAt text state arguments) values bounds strings booleans checks final →
       ActualHeaderBoundsTrace text arguments input inputValid state values bounds strings booleans checks final
   | string {state middle final values bounds declaration strings booleans checks} :
       DeclarationAt text arguments state declaration middle →
@@ -383,7 +383,7 @@ theorem RawHeaderBoundsTrace.actual_bounds
         state values bounds strings booleans checks final := by
   induction trace generalizing bounds with
   | done positive stop => exact ⟨compatible, .done⟩
-  | string positive more noFunction noSubtype noScalar noArray noBoolean first raw tail ih =>
+  | string positive more noCallable noSubtype noScalar noArray noBoolean first raw tail ih =>
       have nextMetadata := declaration_bounds textBound inputBound count metadata stringsFit static first
       have nextCount := declaration_count_bound count first
       obtain ⟨bound, declarationValid, shape⟩ := declaration_shape metadata.normal static first
@@ -396,21 +396,21 @@ theorem RawHeaderBoundsTrace.actual_bounds
       rcases raw with string | character
       · exact Or.inl (raw_string_initializer_actualBounds compatible string)
       · exact Or.inr (raw_character_initializer_actualBounds compatible character)
-  | @scalar state middle final values declaration strings booleans checks positive more noFunction noSubtype first tail ih =>
+  | @scalar state middle final values declaration strings booleans checks positive more noCallable noSubtype first tail ih =>
       have nextStatic := scalar_declaration_static static first
       have names : middle.names = state.names := by cases first; rfl
       obtain ⟨finalCompatible, actualTail⟩ := ih
         (names.symm ▸ count) (names.symm ▸ metadata) (names.symm ▸ stringsFit)
         nextStatic (names.symm ▸ compatible)
       exact ⟨finalCompatible, .scalar first actualTail⟩
-  | array positive more noFunction noSubtype noScalar first tail ih =>
+  | array positive more noCallable noSubtype noScalar first tail ih =>
       have names := (array_declaration_preserves first).1
       have scalars := (array_declaration_preserves first).2
       obtain ⟨finalCompatible, actualTail⟩ := ih
         (names.symm ▸ count) (names.symm ▸ metadata) (names.symm ▸ stringsFit)
         (scalars.symm ▸ static) (names.symm ▸ compatible)
       exact ⟨finalCompatible, .array first actualTail⟩
-  | booleanArray positive more noFunction noSubtype noScalar first source raw tail ih =>
+  | booleanArray positive more noCallable noSubtype noScalar first source raw tail ih =>
       have names := (boolean_array_declaration_preserves first).1
       have scalars := (boolean_array_declaration_preserves first).2.1
       obtain ⟨finalCompatible, actualTail⟩ := ih
@@ -418,14 +418,14 @@ theorem RawHeaderBoundsTrace.actual_bounds
         (scalars.symm ▸ static) (names.symm ▸ compatible)
       exact ⟨finalCompatible, .booleanArray first source
         (raw_boolean_array_initializer_actualBounds compatible raw) actualTail⟩
-  | @subtype state middle final values strings booleans checks positive more noFunction first tail ih =>
+  | @subtype state middle final values strings booleans checks positive more noCallable first tail ih =>
       have names : middle.names = state.names := by cases first; rfl
       have scalars : middle.scalarNames = state.scalarNames := by cases first; rfl
       obtain ⟨finalCompatible, actualTail⟩ := ih
         (names.symm ▸ count) (names.symm ▸ metadata) (names.symm ▸ stringsFit)
         (scalars.symm ▸ static) (names.symm ▸ compatible)
       exact ⟨finalCompatible, .subtype first actualTail⟩
-  | boolean positive more noFunction noSubtype noScalar noArray first source raw tail ih =>
+  | boolean positive more noCallable noSubtype noScalar noArray first source raw tail ih =>
       have names := (boolean_declaration_preserves first).1
       have scalars := (boolean_declaration_preserves first).2.1
       obtain ⟨finalCompatible, actualTail⟩ := ih
@@ -434,11 +434,11 @@ theorem RawHeaderBoundsTrace.actual_bounds
       exact ⟨finalCompatible, .boolean first source
         (raw_boolean_initializer_actualBounds compatible raw) actualTail⟩
 
-  | function _ _ accepted _ ih =>
-      have fields := functionDeclarationAt_preserves_outer _ _ _ accepted
+  | callable _ _ accepted _ ih =>
+      have fields := callableDeclarationAt_preserves_outer _ _ _ accepted
       obtain ⟨finalCompatible, actualTail⟩ := ih
         (fields.names.symm ▸ count) (fields.names.symm ▸ metadata) (fields.names.symm ▸ stringsFit)
         (fields.scalarNames.symm ▸ static) (fields.names.symm ▸ compatible)
-      exact ⟨finalCompatible, .function accepted actualTail⟩
+      exact ⟨finalCompatible, .callable accepted actualTail⟩
 
 end Silver.Predicate

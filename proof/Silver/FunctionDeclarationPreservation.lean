@@ -22,6 +22,8 @@ structure FunctionOuterPreserved (before after : ParserState) : Prop where
   subtypeFalseHidden : after.subtypeNames.falseHidden = before.subtypeNames.falseHidden
   pure : after.pure = before.pure
   firstParameter : after.firstParameter = before.firstParameter
+  procedures : after.procedures = before.procedures
+  firstProcedureParameter : after.firstProcedureParameter = before.firstProcedureParameter
 
 theorem functionBodyAt_outer_or_rejected (text : Source) (outer frame : ParserState)
     (first after : Nat) (resultType : FunctionTypeResult) (arguments : Bool) :
@@ -34,7 +36,7 @@ theorem functionBodyAt_outer_or_rejected (text : Source) (outer frame : ParserSt
     · exact .inl rfl
     · split
       · exact .inl rfl
-      · exact .inr ⟨rfl, rfl, rfl, rfl, rfl, rfl, rfl, rfl, rfl, rfl, rfl, rfl, rfl⟩
+      · exact .inr ⟨rfl, rfl, rfl, rfl, rfl, rfl, rfl, rfl, rfl, rfl, rfl, rfl, rfl, rfl, rfl⟩
 
 theorem functionDeclarationAt_outer_or_rejected (text : Source) (state : ParserState) (arguments : Bool) :
     (functionDeclarationAt text state arguments).position = 0 ∨

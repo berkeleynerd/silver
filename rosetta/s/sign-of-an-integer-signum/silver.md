@@ -10,7 +10,7 @@ Use samples/rosetta_signum.adb: Signum(X : in Integer) returns the named Integer
 
 ## Language surface recorded by this assessment
 
-Named Integer subtypes and bounded components, small nonrecursive scalar functions, bounded mutable Integer objects, fixed-size Integer arrays, constant Integer-array iteration and Integer image.
+Named Integer subtypes, bounded components and scalar signatures, small nonrecursive scalar functions, bounded mutable Integer objects, fixed-size Integer arrays, constant Integer-array iteration and Integer image.
 
 ## External effects
 

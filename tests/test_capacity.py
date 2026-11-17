@@ -125,6 +125,27 @@ def metadata_envelope() -> int:
             + (5 * 32 + 12) * 160 + 1024)
 
 
+def subprogram_envelope() -> int:
+    # Functions and procedures share the source-bound entity budget. Procedure
+    # calls can be five bytes; writable actuals add a separate copy-back check.
+    # Charge output initialization separately instead of relying on overlap
+    # with the older flow allowance. See scalar-procedures-report-capacity.md.
+    subprograms = SOURCE_BYTES // 32
+    calls = SOURCE_BYTES // 5
+    writable_actuals = SOURCE_BYTES // 2
+    outputs = SOURCE_BYTES // 7
+    # The two new dependence rules are mutually exclusive for each scalar
+    # formal. UNUSED_VARIABLE can coexist with INOUT_ONLY_READ and remains
+    # charged in the older flow allowance; charge the new record separately.
+    formal_advisories = SOURCE_BYTES // 7
+    return (main_envelope() + subprograms * (1024 + 512 + 2 * 256 + 32 * 160)
+            + 3 * 256 * calls + 4 * SOURCE_BYTES
+            + writable_actuals * MAIN_RECORD_BYTES
+            + outputs * FLOW_RECORD_BYTES + 2 * SOURCE_BYTES
+            + writable_actuals * (FLOW_RECORD_BYTES + SOURCE_BYTES) + SOURCE_BYTES
+            + formal_advisories * FLOW_RECORD_BYTES + SOURCE_BYTES)
+
+
 def dense_report() -> str:
     """A producer-shaped adversarial witness, not universal proof evidence."""
     result = assignment_call_report()
@@ -172,6 +193,7 @@ class CapacityEnvelopeTests(unittest.TestCase):
         index.update(rule="VC_INDEX_CHECK", message={"text": "index check proved"})
         self.assertLessEqual(embedded_record_bytes(index), MAIN_RECORD_BYTES)
         self.assertEqual(main_envelope(), 31_822_336)
+        self.assertEqual(subprogram_envelope(), 49_279_744)
         self.assertEqual(metadata_envelope(), 55_712)
         self.assertLessEqual(metadata_envelope(), METADATA_BYTES)
         specification = (ROOT / "src/silver_library_reports.ads").read_text()
@@ -182,10 +204,39 @@ class CapacityEnvelopeTests(unittest.TestCase):
         platform_limit = int(re.search(r"Max_File_Length\s*:\s*constant Positive\s*:=\s*([\d_]+)",
                                       (ROOT / "src/silver_platform.ads").read_text())[1].replace("_", ""))
         self.assertLessEqual(main_envelope(), report_limit)
+        self.assertLessEqual(subprogram_envelope(), report_limit)
         self.assertGreaterEqual(platform_limit, report_limit)
         for proof_count, flow_count in ((36, 12), (11, 7), (0, 0)):
             self.assertLessEqual(proof_count * MAIN_RECORD_BYTES + flow_count * FLOW_RECORD_BYTES
                                  + METADATA_BYTES, runtime_limit)
+
+    def test_subprogram_record_allowances_exclude_separately_charged_names(self) -> None:
+        initialization = maximal_retained_record(flow=True)
+        initialization.update(rule="UNINITIALIZED", severity="info",
+                              message={"text": 'initialization of "" proved'})
+        self.assertLessEqual(embedded_record_bytes(initialization), FLOW_RECORD_BYTES)
+        termination = maximal_retained_record(flow=True)
+        termination.update(rule="SUBPROGRAM_TERMINATION", severity="info", message={"text":
+            'implicit aspect Always_Terminates on "" has been proved, subprogram will terminate'})
+        self.assertLessEqual(embedded_record_bytes(termination), FLOW_RECORD_BYTES)
+        unused_output = maximal_retained_record(flow=True)
+        unused_output.update(rule="INEFFECTIVE", severity="warning", message={"text":
+            '"" is set by "" but not used after the call'})
+        self.assertLessEqual(embedded_record_bytes(unused_output), FLOW_RECORD_BYTES)
+        for rule, message in (
+                ("INOUT_ONLY_READ", '"" is not modified, could be IN'),
+                ("UNUSED_INITIAL_VALUE", 'unused initial value of ""')):
+            formal_advisory = maximal_retained_record(flow=True)
+            formal_advisory.update(rule=rule, message={"text": message})
+            with self.subTest(rule=rule):
+                self.assertLessEqual(embedded_record_bytes(formal_advisory), FLOW_RECORD_BYTES)
+                # One exact declaration-name payload per record, no escaping.
+                formal_advisory["message"]["text"] = message.replace('""', '"' + 'N' * SOURCE_BYTES + '"')
+                self.assertLessEqual(embedded_record_bytes(formal_advisory),
+                                     FLOW_RECORD_BYTES + SOURCE_BYTES)
+        copyback = maximal_retained_record()
+        copyback.update(rule="VC_RANGE_CHECK", message={"text": "range check proved"})
+        self.assertLessEqual(embedded_record_bytes(copyback), MAIN_RECORD_BYTES)
 
     def test_dense_review_source_is_admitted_and_maximal_credit_report_exceeds_old_limit(self) -> None:
         import tempfile

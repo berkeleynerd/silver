@@ -1,0 +1,30 @@
+{
+  "scope": "Focused repair evidence; not complete validation",
+  "implementation": "51371ef82f",
+  "files": {
+    "independent-review.tar.gz": {
+      "bytes": 369948,
+      "sha256": "a85f9aae5e012c169e00fdeabdb56e22eec70d9924b69f223bdc88c8925f22fe"
+    },
+    "managed-runs.tar.gz": {
+      "bytes": 849853,
+      "sha256": "493b3819c52154a2017b530bae6112ceebcdd339a5a80b21a6f5b145369cb605"
+    },
+    "native-focused.tar.gz": {
+      "bytes": 234701,
+      "sha256": "d7c10354ddcd9758940de02f0769b43e027a5f719488b213667d9c207a6022a3"
+    },
+    "regression-inventory.tar.gz": {
+      "bytes": 22772,
+      "sha256": "be5681bb186a5467beac9f33c296776ee6b0daa2bab95d0906f816434cbf97e2"
+    },
+    "regressions.tar.gz": {
+      "bytes": 19464,
+      "sha256": "4db9891b668376422580e23f92735c3aaadc44f6b5f486f7904e401d35d33cc0"
+    },
+    "source-focused.tar.gz": {
+      "bytes": 9589307,
+      "sha256": "af8466d6007fe5d9d06e957cdfbe68f4cb8424a76cef0bc94120a45eeb535953"
+    }
+  }
+}

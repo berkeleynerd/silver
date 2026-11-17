@@ -91,7 +91,7 @@ comments and punctuation preserve the ordinary ASCII literal. This restriction
 keeps the pinned frontend premise consistent with the admitted bytes.
 
 The recorded Linux report-capacity checks used an 8 MiB process stack. `compile`
-and `run` use a 32 MiB library-level buffer for retained audit data. Their
+and `run` use a 64 MiB library-level buffer for retained audit data. Their
 one-based report slices take the auditor's direct path without a report-sized stack copy. The
 generic non-one-based path retains a rebasing copy in a separate frame; the
 driver does not use it. See the [capacity repair](report-capacity.md) and
@@ -138,6 +138,18 @@ three 4,096-byte sources pass at an actual 8,192 KiB stack on native snapshot
 `5c84335cb5`; the third exercises the added token-context scanner. These are
 input-specific observations, not a universal stack bound or a new frame-size
 measurement.
+The [2026-11-15 Linux ARM64 observations](evidence/scalar-procedures-20261115/regression-recovery/arm64-stack/README.md)
+measure the current assertions-enabled compiler on three exact 4,096-byte
+sources with 2,001, 1,993 and 1,765 nested condition parentheses. All fail with
+`Storage_Error` at an 8,192 KiB stack; the first two also fail at 12,288 KiB;
+all pass at 16,384 KiB. Their 4,097-byte companions remain rejected as outside
+the source limit. Object-code inspection and direct debugger stack-pointer
+measurements identify 6,416 bytes per nested group along this route. These
+measurements establish the cause and a sufficient setting for these cases,
+not an all-route or cross-platform stack bound. The setup instructions now use
+16 MiB for the current Linux ARM64 compiler; the existing sufficient-stack
+premise and unchanged source membership remain in force.
+
 Per-level environment-copy redesign remains deferred with #119.
 The external
 [sequencing review](reviews/review-9b99d52.md) observed `Storage_Error` and exit
@@ -296,9 +308,11 @@ source-derived entity inventory, safety records, termination witnesses and
 local dependency policy are described in the
 [assurance argument](assurance.md#small-nonrecursive-scalar-functions).
 
-The [producer/capacity account](scalar-functions-report-capacity.md) bounds the
-combined Main/local-function report at 33,149,440 bytes within the existing
-33,554,432-byte allocation. Its source-byte charges and pinned-producer
+The [producer/capacity account](scalar-functions-report-capacity.md) originally
+bounded the Main/local-function report at 33,149,440 bytes within its then-selected
+33,554,432-byte allocation. The #391 formal-advisory allowance is now covered
+by the combined procedure account's 49,279,744-byte envelope and 64 MiB allocation.
+The original source-byte charges and pinned-producer
 serialization premises received a
 [bounded independent review](reviews/review-scalar-function-capacity-20261107.md).
 The added metadata allowances are a storage argument, not a proof-time or
@@ -306,6 +320,29 @@ peak-memory bound. The formal/signature pool remains source-derived; no new
 independent author-visible count limit is introduced. Earlier stack observations
 retain their recorded compiler scope. Sufficient stack and memory remain the
 existing environmental premises.
+
+## Small scalar-procedure boundary
+
+The [procedure increment](scalar-procedures.md) retains the function
+increment's tool pins, unchanged-author-source and `--no-inlining` premises.
+Every declared procedure is analyzed, including unused ones. Its exact
+source-derived inventory identifies each formal's exact name and mode for the
+two formal-dependence advisories, and `out` formal names for the successful
+initialization records. Function termination witnesses remain
+required; this producer emits no procedure termination witness. Procedure
+termination must instead follow from the constructive earlier-call and finite
+body semantics, as specified in the capability record.
+
+The [procedure capacity account](scalar-procedures-report-capacity.md) extends
+the retained Main envelope to 49,279,744 bytes, using a 67,108,864-byte allocation
+and matching shared file-reader bound. Runtime/null report domains remain
+262,144 bytes. This is a local storage adjustment under the existing producer
+premises, without a new general capacity, stack or proof-time claim. The
+[delivery record](scalar-procedures.md#delivery-assurance-and-validation) links
+the reviewed implementation, complete native and actual-source/Lean checkpoints,
+applicable regression coverage and the measured Linux ARM64 stack environment.
+Earlier dated stack observations retain their original build/platform scope;
+sufficient stack and memory remain the existing environmental premises.
 
 ## Scalar guard refinement boundary
 
@@ -921,7 +958,18 @@ explicitly trusted callees.
 
 The compiler source policy permits only the complete
 `pragma Annotate (GNATprove, Hide_Info, "Expression_Function_Body", F);` form
-in `silver_library_reports.adb`, where `F` is `Raw_List_Spec` or `List_Spec`.
+in `silver_library_reports.adb`, where `F` is `Raw_List_Spec`, `List_Spec`, `Initializer_Message`,
+`Raw_Initializer_Message`, `Procedure_Output_Message`,
+`Raw_Procedure_Output_Message`, `Termination_Policy`, `Initialization_Policy`,
+`Initialization_Index_Model`, `Raw_Initialization_Index`, `Diagnostic_Message`,
+`Raw_Diagnostic_Message`, `Output_Message` or `Raw_Output_Message`. The record classifiers
+use their existing proved helper equalities without expanding the quantified
+message checks, nested witness policies or recursive initialization-index search.
+The runtime and text-model diagnostic branches share `Diagnostic_Message` over
+their corresponding field and entity observations. `Mixed_Diagnostic_Message`
+establishes its equality with the raw predicate from the existing string and
+classifier contracts. Its full typed domains include malformed/missing spans and
+all metadata values; no new source-membership or record-acceptance premise is added.
 The pinned [SPARK 16.1 annotation guide](../references/spark/16.1/docs/ug/en/appendix/additional_annotate_pragmas.rst)
 documents this caller-local form: it removes the expression-function body from
 the caller's proof context. It supplies no assurance fact, changes no domain or
@@ -1006,10 +1054,10 @@ operators. This is an agreement about the fixed compiler's meaning, distinct
 from annotations or limitations that reduce available proof information. It
 does not establish portability to other Ada compilers.
 
-Only `silver_function_bindings.ads` in its own report,
-`silver_library_reports.adb` in its own report, and either
-`silver_output_profile.adb` or the imported `silver_function_bindings.ads` in
-the output-profile report qualify. The classifier requires the exact message,
+Only `silver_function_bindings.ads` and `silver_procedure_bindings.ads` in their
+own reports, `silver_library_reports.adb` in its own report, and
+`silver_output_profile.adb` or either imported bindings specification in the
+output-profile report qualify. The classifier requires the exact message,
 native field set, warning/trivial metadata, positive integer location, unknown
 status, empty tree and empty suppression string, together with the exact
 matching SARIF open/warning record and producer-generated external marker.
@@ -1104,7 +1152,7 @@ proof-only computations, preventing recursive stack growth during report
 processing. GNATprove still verifies all obligations of this report unit,
 including its refinement contract. The executable checks and global
 `-gnata`/`-gnato` switches are retained. Retained application audit data has a
-33,554,432-byte capacity after the streaming projection; runtime reports retain
+67,108,864-byte capacity after the streaming projection; runtime reports retain
 their separate 262,144-byte bound. The projection uses the producer's byte-oriented
 JSON token grammar and trusts its encoding of raw non-ASCII string bytes;
 it does not add a UTF-8 validator. A native
@@ -1147,42 +1195,83 @@ Unrecognized metadata is skipped within bounds. Neither checker authenticates
 arbitrary JSON or replaces trusted GNATprove completeness and provenance.
 
 `Complete_Application_Proof` takes an `Application_Kind` derived from the same
-source grammar used for admission: static, argument, assigned or selected
-output. Its independent ghost policy and executable traversal require completed
-Main analysis, full Main coverage and no skipped/assumed/suppressed checks. Every
+source grammar used for admission (static, argument, assigned or selected
+output), the source bytes, and the declared function/procedure metadata. Its
+independent ghost policy and executable traversal require completed analysis,
+full coverage of Main and every declared local subprogram, including unused
+ones, and no skipped/assumed/suppressed checks. Every
 emitted safety record must be proved/info `VC_RANGE_CHECK`, `VC_LENGTH_CHECK`,
 `VC_OVERFLOW_CHECK`, `VC_DIVISION_CHECK` or `VC_INDEX_CHECK`,
-with prover completion, Main filename/entity and a positive location. Static
+with prover completion, filename `main.adb`, the exact Main or declared local
+subprogram entity and a positive location. Static
 folding may leave no safety checks. Static/assigned report shapes contain Main
 with neither, either or both of Put and Put_Line. Argument/selected shapes additionally
 permit Main with First_Or_Default and Reject, independently including or omitting
 Input_Is_Valid and each output operation, or Main
-alone after producer elimination. A path can establish validity without a query;
-a shell need not output. Each permitted entity set is checked exactly. Every dependency must name an approved entity and effects,
-postcondition or absence-of-runtime-error claim.
+alone after producer elimination. Every such runtime alternative additionally
+requires all declared local functions and procedures. A path can establish
+validity without a query; a shell need not output. Each permitted entity set is
+checked exactly. Every dependency must name an approved entity and claim;
+local subprogram dependencies permit only effects and absence-of-runtime-error
+claims, while the selected runtime permits its documented postconditions too.
+The `--no-inlining` route analyzes each local body over its full formal domain.
+Each function requires its exact successful `SUBPROGRAM_TERMINATION` witness.
+Each procedure `out` formal requires exactly one successful `UNINITIALIZED`
+flow/info record `initialization of "NAME" proved`, with its exact declared
+owner and formal spelling, `main.adb`, a positive location and no suppression
+or justification. No corresponding procedure termination record is required
+or supplied; `in out` formals require no output-initialization witness.
 
 All output kinds permit finite lists of exact `INEFFECTIVE` initializer advisories:
 `initialization of "NAME" has no effect`, with the checked identifier grammar.
 Only assigned/selected kinds additionally permit the exact `unused assignment`
 message. All four kinds also permit the exact `INEFFECTIVE` message
 `statement has no effect` and `DEAD_CODE` message `this statement is never reached`,
-observed for statically known comparisons. Every allowed record requires warning severity, flow provenance, Main
-filename/entity, positive locations and no suppression or justification. There
+observed for statically known comparisons. These flow advisories require warning
+severity, flow provenance, `main.adb`, the exact Main or declared local-subprogram
+entity, positive locations and no suppression or justification. There
 is no separate advisory-count cap. Initializers still establish bounds when
 their bytes are unused; these messages do not waive safety checks. Legal names
 such as `Dummy` or `Unused_Result` may make GNATprove omit a diagnostic.
 Repeated-output advisories are restricted to the exact `INEFFECTIVE` message
 `"NAME" is set by "OPERATION" but not used after the call`, where OPERATION is
 `Put` or `Put_Line` and NAME is one of
-`Written_Count`, `Flushed`, `Succeeded` or `Written_Bytes`. Other messages remain
-rejected; all provenance and suppression checks also apply to these eight messages.
+`Written_Count`, `Flushed`, `Succeeded` or `Written_Bytes`. All provenance and
+suppression checks also apply to these eight messages. The exact `INEFFECTIVE`
+unused-copy-back message additionally permits a bare target identifier and the
+exact declared procedure callee in `"TARGET" is set by "PROCEDURE" but not used
+after the call`. It supplies no initialization or safety evidence.
+
+Identified local functions and procedures additionally permit `UNUSED_VARIABLE`
+with exactly `unused variable "NAME"`, where NAME has the checked Ada identifier
+shape and source-length bound. The new `INOUT_ONLY_READ` rule accepts only
+`"NAME" is not modified, could be IN` for a procedure's `in out` formal;
+`UNUSED_INITIAL_VALUE` accepts only `unused initial value of "NAME"` for a
+procedure's `in` or `in out` formal, or a function's `in` formal. These two rules
+require the exact declared formal spelling and eligible mode of the declared
+local owner, never Main. They retain warning severity, flow provenance,
+`main.adb`, positive location and absence of every suppression/justification
+field. Columns and record order do not bind formals. Mutation tests exercise
+these restrictions; the SPARK executable/ghost refinement shares the message
+classifier and does not independently prove that its acceptance is narrow enough.
+
+The warning list separately classifies the pinned `imprecise-image` advisory
+(including only the producer's `Image`, `image` or `IMAGE` spelling) and the
+exact `array-initialization` message `initialization of an array in FOR loop is
+handled imprecisely [array-initialization]`. Both require their exact producer
+state: warning severity, trivial provenance, `main.adb`, positive location,
+unknown status, no entity or justification, empty suppression string and empty
+proof tree, with the corresponding SARIF classification. These notes withhold
+information and waive no check. Other diagnostics remain rejected.
 
 No-output sequences and static elimination can produce Main alone with or
 without length/range/index/overflow/division checks or advisories. The checker retains
-complete Main coverage, all emitted check requirements and approved dependency references.
+complete Main/local-subprogram coverage, all emitted check requirements and approved dependency references.
 The external producer premise, rather than accepting arbitrary entity omissions,
-justifies this finite set of report shapes. The Python evidence helper applies
-the same policies and cross-checks SARIF records and totals.
+justifies this finite set of report shapes. The Python evidence helper mirrors
+the policy for genuine reports of the pinned producer and cross-checks SARIF
+records and totals. This does not claim equivalence for fabricated or escaped-key
+JSON; neither auditor's JSON handling changes for this repair.
 
 Automatic completion relies on faithful and complete range, length, index, overflow
 and nonzero-divisor obligation generation and the accepted entity/advisory/check shapes. Applicable static
@@ -1243,7 +1332,7 @@ capacity evidence and its limits. Proof cost can differ
 by expression position. [Sequencing probes](statement-sequencing.md) produced
 314,746-byte and 469,246-byte Main reports within the source/operator limits,
 exceeding the previous application buffer. Retained application audit data now
-has a 32 MiB domain; retained runtime data stays within 262,144 bytes. The
+has a 64 MiB domain; retained runtime data stays within 262,144 bytes. The
 [capacity repair](report-capacity.md) derives their envelopes from current
 source and producer fields. A streaming reader validates the complete JSON
 and replaces only immediate `check_tree` values in flow/proof records, removing

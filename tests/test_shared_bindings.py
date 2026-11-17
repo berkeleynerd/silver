@@ -46,7 +46,50 @@ class SharedBindingsTests(unittest.TestCase):
         self.assertEqual(result.returncode, expected, result.stdout)
         self.assertEqual(self.source.read_bytes(), source)
 
-    def compile(self, source: bytes, kind: str, *, functions: tuple[str, ...] = ()) -> tuple[Path, dict]:
+    def check_full_route(self, source: bytes, expected: int = 0, *, kind: str,
+                         functions: tuple[str, ...] = (),
+                         procedures: dict[str, tuple[str, ...]] | None = None,
+                         runs: tuple[tuple[tuple[bytes, ...], bytes, int], ...] = (((), b'', 0),)) -> None:
+        """Keep admission verdicts and take each positive, unchanged fixture to output."""
+        self.check(source, expected)
+        if expected != 0:
+            return
+        # These fixtures use explicit, one-name scalar formals. Read their
+        # source headers, not producer diagnostics, to provide the auditor's
+        # exact owner/name/mode inventory. This determines no output expectation.
+        identifier = rb'[A-Za-z](?:[A-Za-z0-9]|_[A-Za-z0-9])*'
+        text = re.sub(rb'--[^\r\n]*|"(?:""|[^"])*"|\'[^\']\'', b' ', source)
+        headers = re.findall(rb'\b(function|procedure)\s+(' + identifier
+                             + rb')\s*\(([^)]*)\)', text, re.IGNORECASE)
+        procedure_outputs = procedures or {}
+        self.assertEqual({name.decode() for _, name, _ in headers},
+                         set(functions) | procedure_outputs.keys())
+        self.assertEqual(len(headers), len(functions) + len(procedure_outputs))
+        formals = {}
+        for declaration, owner, parameters in headers:
+            name = owner.decode()
+            self.assertEqual(declaration.lower(), b'function' if name in functions else b'procedure')
+            entries = []
+            for parameter in parameters.split(b';'):
+                match = re.fullmatch(rb'\s*(' + identifier + rb')\s*:\s*(in\s+out|in|out)\s+'
+                                     + identifier + rb'\s*', parameter, re.IGNORECASE)
+                self.assertIsNotNone(match, parameter)
+                entries.append((match[1].decode(), ' '.join(match[2].decode().lower().split())))
+            formals[name] = tuple(entries)
+            if name in functions:
+                self.assertTrue(all(mode == 'in' for _, mode in entries))
+            else:
+                self.assertEqual(tuple(formal for formal, mode in entries if mode == 'out'),
+                                 procedure_outputs[name])
+        executable, _ = self.compile(source, kind, functions=functions,
+                                     procedures=procedures, formals=formals)
+        for arguments, output, status in runs:
+            with self.subTest(arguments=arguments):
+                self.run_program(executable, output, arguments, status)
+
+    def compile(self, source: bytes, kind: str, *, functions: tuple[str, ...] = (),
+                procedures: dict[str, tuple[str, ...]] | None = None,
+                formals: dict[str, tuple[tuple[str, str], ...]] | None = None) -> tuple[Path, dict]:
         self.source.write_bytes(source)
         result = invoke('compile', self.source)
         self.assertEqual(result.returncode, 0, result.stdout)
@@ -62,7 +105,11 @@ class SharedBindingsTests(unittest.TestCase):
         reports = workspace / 'obj/gnatprove'
         audit_reports(reports, {'main', 'silver_io', 'silver_output_libc',
                                 'silver_arguments', 'silver_runtime'},
-                      {'silver_output_libc', 'silver_runtime'}, application_kind=kind, application_functions=functions, indexed_main=True)
+                      {'silver_output_libc', 'silver_runtime'}, application_kind=kind,
+                      application_functions=functions,
+                      **({'application_procedures': procedures} if procedures is not None else {}),
+                      **({'application_formals': formals} if formals is not None else {}),
+                      indexed_main=True)
         return executable, json.loads((reports / 'main~1.spark').read_text())
 
     def run_program(self, executable: Path, expected: bytes,

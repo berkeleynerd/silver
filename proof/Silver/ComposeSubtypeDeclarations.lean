@@ -201,6 +201,7 @@ inductive ScalarTypeAt (text : Source) (state : ParserState) (position : Nat) :
       ArrayBindings.lookup text state.arrayNames.names first after = 0 →
       BooleanBindings.lookup text state.booleanNames first after = 0 →
       FunctionBindings.lookup text state.functions first after = 0 →
+      ProcedureBindings.lookup text state.procedures first after = 0 →
       formalHides text state first after = false →
       (state.hiding.integerHidden && Named.nameIs text first after ("integer".toList.map Char.toNat)) = false →
       Named.nameIs text first after ("integer".toList.map Char.toNat) = true →
@@ -213,6 +214,7 @@ inductive ScalarTypeAt (text : Source) (state : ParserState) (position : Nat) :
       ArrayBindings.lookup text state.arrayNames.names first after = 0 →
       BooleanBindings.lookup text state.booleanNames first after = 0 →
       FunctionBindings.lookup text state.functions first after = 0 →
+      ProcedureBindings.lookup text state.procedures first after = 0 →
       formalHides text state first after = false →
       (state.hiding.integerHidden && Named.nameIs text first after ("integer".toList.map Char.toNat)) = false →
       Named.nameIs text first after ("integer".toList.map Char.toNat) = false →
@@ -229,24 +231,24 @@ theorem scalarTypeAt_sound (text : Source) (state : ParserState) (position : Nat
   · rename_i ready
     have good := ready
     simp only [not_or, Nat.not_le, ne_eq, Decidable.not_not, Bool.not_eq_true] at good
-    rcases good with ⟨first, advance, strings, scalars, arrays, booleans, functions, formals, visible⟩
+    rcases good with ⟨first, advance, strings, scalars, arrays, booleans, functions, procedures, formals, visible⟩
     split
     · rename_i integer
-      exact .integer rfl rfl first advance strings scalars arrays booleans functions formals visible integer
+      exact .integer rfl rfl first advance strings scalars arrays booleans functions procedures formals visible integer
     · rename_i named
       split
       · rename_i found
-        exact .named rfl rfl first advance strings scalars arrays booleans functions formals visible
+        exact .named rfl rfl first advance strings scalars arrays booleans functions procedures formals visible
           (Bool.eq_false_iff.mpr named) rfl found
       · simp_all
 
 theorem scalarTypeAt_complete {text state position result}
     (reading : ScalarTypeAt text state position result) : scalarTypeAt text state position = result := by
   cases reading with
-  | integer first after positive advance strings scalars arrays booleans functions formals visible integer =>
+  | integer first after positive advance strings scalars arrays booleans functions procedures formals visible integer =>
       subst first; subst after
       simp_all [scalarTypeAt, Nat.not_le.mpr advance]
-  | named first after positive advance strings scalars arrays booleans functions formals visible integer target nonzero =>
+  | named first after positive advance strings scalars arrays booleans functions procedures formals visible integer target nonzero =>
       subst first; subst after; subst target
       simp_all [scalarTypeAt, Nat.not_le.mpr advance]
 
@@ -261,7 +263,7 @@ theorem ScalarTypeAt.nonempty {text state position result}
     (valid : IntegerSubtypes.ValidEnvironment text state.subtypeNames) : result.bounds.lower ≤ result.bounds.upper := by
   cases reading with
   | integer => exact (by decide : Integer.Interval.full.lower ≤ Integer.Interval.full.upper)
-  | @named first after target _ _ _ _ _ _ _ _ _ _ _ _ found nonzero =>
+  | @named first after target _ _ _ _ _ _ _ _ _ _ _ _ _ found nonzero =>
       have bound := IntegerSubtypes.lookup_bound text state.subtypeNames first after
       rw [← found] at bound
       exact (valid.2 _ (subtypeBinding_mem (by omega) bound)).2.2.2.2
@@ -281,6 +283,7 @@ def SubtypeDeclarationReady (text : Source) (state : ParserState) (arguments : B
     ArrayBindings.lookup text state.arrayNames.names parts.typeFirst parts.typeAfter = 0 ∧
     BooleanBindings.lookup text state.booleanNames parts.typeFirst parts.typeAfter = 0 ∧
     FunctionBindings.lookup text state.functions parts.typeFirst parts.typeAfter = 0 ∧
+    ProcedureBindings.lookup text state.procedures parts.typeFirst parts.typeAfter = 0 ∧
     formalHides text state parts.typeFirst parts.typeAfter = false ∧
     (state.hiding.integerHidden && Named.nameIs text parts.typeFirst parts.typeAfter ("integer".toList.map Char.toNat)) = false ∧
     (state.hiding.booleanHidden && Named.nameIs text parts.typeFirst parts.typeAfter ("boolean".toList.map Char.toNat)) = false ∧
@@ -297,7 +300,7 @@ theorem subtype_declaration_complete {text arguments state next}
     (reading : SubtypeDeclarationAt text arguments state next) : subtypeDeclarationAt text state arguments = next := by
   cases reading with
   | declaration parts ready _ =>
-      rcases ready with ⟨allowed, own, count, after, range, constraint, following, nonempty, strings, scalars, arrays, booleans, functions, formals, integer, boolean, character⟩
+      rcases ready with ⟨allowed, own, count, after, range, constraint, following, nonempty, strings, scalars, arrays, booleans, functions, procedures, formals, integer, boolean, character⟩
       simp_all [subtypeDeclarationAt, Nat.not_le.mpr following]
       intro rejected
       rcases rejected with hidden | hidden | hidden <;> simp_all

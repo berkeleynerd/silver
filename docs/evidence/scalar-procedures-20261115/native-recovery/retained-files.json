@@ -1,0 +1,23 @@
+{
+  "setup-and-mounted-failure.tar.gz": {
+    "sha256": "bba15574d837dc92fee73d73beca10520064758a6850009966082abb6a652f4e",
+    "bytes": 1149672,
+    "file_members": 2618,
+    "uncompressed_file_bytes": 6324062,
+    "packed_bytes_match_retained_sources": true
+  },
+  "fresh-baseline-failure.tar.gz": {
+    "sha256": "d6825340f3cd86bd834da17a8a3af6cf774d289da6c2f3239fed344aece237e5",
+    "bytes": 5277858,
+    "file_members": 2629,
+    "uncompressed_file_bytes": 49479116,
+    "packed_bytes_match_retained_sources": true
+  },
+  "model-constant-success.tar.gz": {
+    "sha256": "58fd33afe685652320ba8bdefdfc5767557128702b0c4d4808d48071012e9bb6",
+    "bytes": 3172525,
+    "file_members": 2630,
+    "uncompressed_file_bytes": 26402155,
+    "packed_bytes_match_retained_sources": true
+  }
+}

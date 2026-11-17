@@ -2848,6 +2848,36 @@
         "stderr": "",
         "exit_status": 0
       }
+    },
+    {
+      "source": "rosetta_return_multiple_values.adb",
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "named_integer_subtype",
+        "scalar_procedure",
+        "scalar_procedure_call",
+        "named_integer_variable",
+        "integer_assignment",
+        "integer_expression",
+        "integer_image",
+        "string_concatenation",
+        "expression_output",
+        "statement_sequence"
+      ],
+      "application_procedures": {
+        "Sum_And_Diff": [
+          "Sum",
+          "Difference"
+        ]
+      },
+      "specification": "../language.md#small-nonrecursive-scalar-procedures",
+      "expected": {
+        "stdout": "Sum: 8\nDifference: 2\nSum: 0\nDifference:-200\nSum: 200\nDifference: 0\n",
+        "stderr": "",
+        "exit_status": 0
+      }
     }
   ]
 }

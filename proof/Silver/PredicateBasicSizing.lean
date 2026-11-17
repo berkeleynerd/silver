@@ -1,6 +1,7 @@
 module
 
 public import Silver.PredicateBasicEquations
+public import Silver.PredicateProcedureCallProperties
 
 @[expose] public section
 
@@ -26,9 +27,10 @@ def Command.Sized (primitive : Primitives) (frame : Frame) (next : Frame → Pro
   | .choose test yes no => if test.eval primitive frame then yes.Sized primitive frame next else no.Sized primitive frame next
 
 def SizedBasic (primitive : Primitives) (text : Source) (context : Native.Context) (scan : BodyScan)
-    (catalog : FunctionBindings.Metadata := {}) : Prop :=
+    (catalog : FunctionBindings.Metadata := {})
+    (procedures : ProcedureBindings.Metadata := {}) : Prop :=
   scan.count ≤ ScalarExpression.maxBindings ∧
-    basicCommands.Sized primitive ⟨text,context,scan,scan,{},{},{},catalog⟩ (fun _ => True)
+    basicCommands.Sized primitive ⟨text,context,scan,scan,{},{},{},catalog,procedures⟩ (fun _ => True)
 
 private theorem callAssignment_count (text : Source) (context : ParseContext)
     (scan : BodyScan) (catalog : FunctionBindings.Metadata) :
@@ -47,6 +49,7 @@ private theorem model_update_count (frame : Frame) (value : Update) :
       · dsimp only [modelPrimitives, booleanAssignmentBody]
         split <;> rfl
       · exact scalarAssignment_count ..
+  · exact procedureCallBody_count ..
   · exact scalarAssignment_count ..
   · dsimp only [Update.eval, modelPrimitives, booleanAssignmentBody]
     split <;> rfl
@@ -79,7 +82,8 @@ private theorem model_command_sized (command : Command) (frame : Frame)
 
 theorem model_sizedBasic (text : Source) (context : Native.Context) (scan : BodyScan)
     (capacity : scan.count ≤ ScalarExpression.maxBindings)
-    (catalog : FunctionBindings.Metadata := {}) : SizedBasic modelPrimitives text context scan catalog :=
+    (catalog : FunctionBindings.Metadata := {})
+    (procedures : ProcedureBindings.Metadata := {}) : SizedBasic modelPrimitives text context scan catalog procedures :=
   ⟨capacity, model_command_sized basicCommands _ rfl _ (fun _ _ => trivial)⟩
 
 end Silver.Predicate.BasicNative

@@ -1,0 +1,10 @@
+{
+  "time_utc": "2026-11-15T22:58:38.060368+00:00",
+  "attempted_head": "17b898a8a33871413ca79910c2672d414c15338f",
+  "published_head": "d2739f6a010b1a5491ee7d6468f71bf84767def0",
+  "action": "git push origin HEAD:feat/scalar-procedures-370-20261109",
+  "result": "remote rejected",
+  "reason": "refusing to allow an OAuth App to create or update workflow .github/workflows/verify.yml without workflow scope",
+  "retained_branch": "recovery/scalar-procedures-with-ci-workflow-20261115",
+  "scope": "The GitHub credential cannot publish the workflow path. The reviewed workflow patch is retained separately; no weaker proof/test result or successful CI execution is inferred."
+}

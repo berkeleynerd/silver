@@ -1,0 +1,36 @@
+Managed run: 20261115T171000-56b7d9a59bdb (/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T171000-56b7d9a59bdb)
+test_all_bytes_have_the_explicit_compiler_alphabet (test_lean_source.CompilerSourcePolicyTests.test_all_bytes_have_the_explicit_compiler_alphabet) ... ok
+test_authoritative_bindings_are_not_generated (test_lean_source.CompilerSourcePolicyTests.test_authoritative_bindings_are_not_generated) ... ok
+test_checked_in_certificates_equal_regeneration (test_lean_source.CompilerSourcePolicyTests.test_checked_in_certificates_equal_regeneration) ... 
+  test_checked_in_certificates_equal_regeneration (test_lean_source.CompilerSourcePolicyTests.test_checked_in_certificates_equal_regeneration) (source='silver_output_profile.ads') ... FAIL
+test_compose_candidate_has_no_authoritative_source_dependencies (test_lean_source.CompilerSourcePolicyTests.test_compose_candidate_has_no_authoritative_source_dependencies) ... ok
+test_compose_source_checks_retain_authoritative_dependencies (test_lean_source.CompilerSourcePolicyTests.test_compose_source_checks_retain_authoritative_dependencies) ... ok
+test_current_compiler_sources_satisfy_byte_policy (test_lean_source.CompilerSourcePolicyTests.test_current_compiler_sources_satisfy_byte_policy) ... ok
+test_embedded_source_lists_and_lake_dependencies_agree (test_lean_source.CompilerSourcePolicyTests.test_embedded_source_lists_and_lake_dependencies_agree) ... ok
+test_hidden_declarations_fail_before_certificate_generation (test_lean_source.CompilerSourcePolicyTests.test_hidden_declarations_fail_before_certificate_generation) ... ok
+test_include_str_is_confined_to_the_source_bindings (test_lean_source.CompilerSourcePolicyTests.test_include_str_is_confined_to_the_source_bindings) ... ok
+test_only_audit_roots_use_legacy_full_imports (test_lean_source.CompilerSourcePolicyTests.test_only_audit_roots_use_legacy_full_imports) ... ok
+test_output_body_conflicting_digest_is_rejected (test_lean_source.CompilerSourcePolicyTests.test_output_body_conflicting_digest_is_rejected) ... ok
+test_output_body_content_names_preserve_exact_texts_and_every_occurrence (test_lean_source.CompilerSourcePolicyTests.test_output_body_content_names_preserve_exact_texts_and_every_occurrence) ... ok
+test_output_body_edit_locality_depends_only_on_unique_exact_texts (test_lean_source.CompilerSourcePolicyTests.test_output_body_edit_locality_depends_only_on_unique_exact_texts) ... ok
+test_output_body_split_preserves_every_line_proof_and_ordered_reconstruction (test_lean_source.CompilerSourcePolicyTests.test_output_body_split_preserves_every_line_proof_and_ordered_reconstruction) ... ok
+test_procedure_name_checks_join_candidates_to_authoritative_source (test_lean_source.CompilerSourcePolicyTests.test_procedure_name_checks_join_candidates_to_authoritative_source) ... ok
+test_unsupported_literal_syntax_cannot_hide_declarations (test_lean_source.CompilerSourcePolicyTests.test_unsupported_literal_syntax_cannot_hide_declarations) ... ok
+test_generated_certificates_and_witnesses_remain_kernel_checked (test_lean_source.NativeCertificateTests.test_generated_certificates_and_witnesses_remain_kernel_checked) ... ok
+
+======================================================================
+FAIL: test_checked_in_certificates_equal_regeneration (test_lean_source.CompilerSourcePolicyTests.test_checked_in_certificates_equal_regeneration) (source='silver_output_profile.ads')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/silver-workspaces/recovery-volume/certificate/tests/test_lean_source.py", line 266, in test_checked_in_certificates_equal_regeneration
+    self.assertTrue(candidate.read_bytes() == checked_in.read_bytes(),
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                    f"{module} differs from regenerated source certificate")
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : OutputSpecCertificate differs from regenerated source certificate
+
+----------------------------------------------------------------------
+Ran 17 tests in 23.782s
+
+FAILED (failures=1)
+development command: Command '['/usr/bin/python3', '-m', 'unittest', 'discover', '-s', 'tests', '-v', '-p', 'test_lean_source.py']' returned non-zero exit status 1.

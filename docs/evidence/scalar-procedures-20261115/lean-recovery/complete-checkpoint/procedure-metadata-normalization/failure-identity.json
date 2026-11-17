@@ -1,0 +1,21 @@
+{
+  "run_id": "20261115T195423-d7650f191422",
+  "production_revision": "ca1c9b2ce",
+  "equivalent_integration_production": "dbdec4b22",
+  "focused_evidence_input_digest": "998070875ca49aa7c0a76c831923df0aa9e7a8ba325328110b83bba4db05b6d2",
+  "all_1111_prior_captured_input_hashes_still_match": true,
+  "tools_sha256": {
+    ".tools/linux-aarch64/lean/bin/lean": "79fb1d26fa5a39385d59fdc48a711a14b0710ca6480271acce99b4d177cea085",
+    ".tools/linux-aarch64/lean/bin/lake": "f80f50cbab5322e35bcb0bf88937e22e9d908b5e4e336e83ddfc30eb1506aacf"
+  },
+  "failure": "ProcedureDeclarationHighSourceParts/Body.lean:26:2 metadata_append_header: explicit kernel excessive memory consumption",
+  "expected_literal_characters": 646,
+  "original_exec_session": 4737,
+  "outer_launcher_exit_code": 254,
+  "monitored_child_returncode": -2,
+  "no_complete_audit": true,
+  "exact_managed_log_sha256": "9851d43ed1b26530239f5e5ab55aac9302b8ca0d05af589586479cc67c489f2f",
+  "compiled_module_objects_retained": 621,
+  "retained_variant_hash_files": 3722,
+  "outcome": "Explicit 8 GiB kernel-memory failure followed by source-only diagnostic SIGINT; subsequent Outer module interrupted; no complete assurance result."
+}

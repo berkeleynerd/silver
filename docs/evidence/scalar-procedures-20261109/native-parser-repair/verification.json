@@ -1,0 +1,66 @@
+{
+  "method": "Read-only artifact checks; no compiler, prover, application execution or new runner.",
+  "original_gate_manifest_checks": [
+    {
+      "manifest": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/helper-gate/retained-manifest.json",
+      "files": 194,
+      "bytes": 37697046,
+      "all_sizes_and_sha256_match": true
+    },
+    {
+      "manifest": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/caller-gate/retained-manifest.json",
+      "files": 186,
+      "bytes": 109959668,
+      "all_sizes_and_sha256_match": true
+    },
+    {
+      "manifest": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/helpers-gate/retained-manifest.json",
+      "files": 171,
+      "bytes": 6585288,
+      "all_sizes_and_sha256_match": true
+    },
+    {
+      "manifest": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/callers-gate/retained-manifest.json",
+      "files": 166,
+      "bytes": 48625702,
+      "all_sizes_and_sha256_match": true
+    },
+    {
+      "manifest": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-native-370/tmp/procedure-probes/parser-production-20261110/parser-equality-export-canonical/complete-parser-candidate/final-parser-draft/procedure-tail-draft/caller-gate/retained-manifest.json",
+      "files": 156,
+      "bytes": 13648174,
+      "all_sizes_and_sha256_match": true
+    }
+  ],
+  "continuity_entities": [
+    "Silver_Output_Profile.Body_Of",
+    "Silver_Output_Profile.Boolean_Array_Values_At",
+    "Silver_Output_Profile.Initial_Flow",
+    "Silver_Output_Profile.Join_Into",
+    "Silver_Output_Profile.Joined",
+    "Silver_Output_Profile.Lemma_Condition_Equality",
+    "Silver_Output_Profile.Lemma_Flow_Equality",
+    "Silver_Output_Profile.Lemma_Join_Identity",
+    "Silver_Output_Profile.Lemma_Parser_State_Equality",
+    "Silver_Output_Profile.Alternative_Body",
+    "Silver_Output_Profile.Array_Declaration_At",
+    "Silver_Output_Profile.Conditional_Body",
+    "Silver_Output_Profile.Read_Statements",
+    "Silver_Function_Bindings.Append",
+    "Silver_Function_Bindings.Valid_Metadata",
+    "Silver_Output_Profile.Lemma_Function_Metadata_Append",
+    "Silver_Output_Profile.Lemma_Procedure_Metadata_Append",
+    "Silver_Procedure_Bindings.Append",
+    "Silver_Procedure_Bindings.Valid_Metadata",
+    "Silver_Output_Profile.Function_Body_At",
+    "Silver_Output_Profile.Read_Chain_Into",
+    "Silver_Output_Profile.Procedure_Body_At"
+  ],
+  "source_fragments_and_dependency_files_match_final": true,
+  "raw_report_counts_and_all_mode_match": true,
+  "passed_counts": {
+    "proof": 687,
+    "flow": 43
+  },
+  "scope": "Focused aggregate only; unchanged selected fragments and complete entity results, not a single final whole-source run or final provenance audit."
+}

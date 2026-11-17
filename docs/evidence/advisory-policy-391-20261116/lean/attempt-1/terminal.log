@@ -1,0 +1,12 @@
+Lean concurrency: 12 Lake workers, 12 threads per Lean process (12 available CPUs).
+Lean phase build started at 2026-11-16T22:33:51.155367+00:00
++ /home/agent/silver-worktrees/procedures-lean-370/.tools/linux-aarch64/lean/bin/lake --rehash --reconfigure -K silverThreads=12 -K silverMemoryMb=8192 build +Silver.ProcedureDeclarationSyntax +Silver.PredicateProcedureCallSyntax +Silver.FunctionDeclarationNative +Silver.ComposeBooleanDeclarationNative +Silver.PredicateNativeState +Silver.ScalarProcedureComposition +Silver.ScalarProcedureSemantics +Silver.AxiomAudit
+✖ [138/163] Building Silver.ComposeBooleanDeclarationNative (5.4s)
+trace: .> LEAN_PATH=/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/proof/.lake/build/lib/lean /home/agent/silver-worktrees/procedures-lean-370/.tools/linux-aarch64/lean/bin/lean -j12 -M8192 -DwarningAsError=true /home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/proof/Silver/ComposeBooleanDeclarationNative.lean -o /home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/ComposeBooleanDeclarationNative.olean -i /home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/ComposeBooleanDeclarationNative.ilean -c /home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/proof/.lake/build/ir/Silver/ComposeBooleanDeclarationNative.c --setup /home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/proof/.lake/build/ir/Silver/ComposeBooleanDeclarationNative.setup.json --json
+error: Silver/ComposeBooleanDeclarationNative.lean:72:62: Unknown identifier `Expressions.tokenName`
+Some required targets logged failures:
+- Silver.ComposeBooleanDeclarationNative
+error: build failed
+
+Lean phase build finished at 2026-11-16T22:33:58.864489+00:00; elapsed 7.709s; exit 1
+check_lean: Lean check failed; see /home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused.log

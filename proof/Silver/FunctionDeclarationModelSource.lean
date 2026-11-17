@@ -57,6 +57,7 @@ theorem model_links : OrdinaryLinks modelCalls Expressions.modelCalls FunctionBi
   subtypes := rfl
   arrays := rfl
   functions := rfl
+  procedures := rfl
   appendFormal := rfl
   formalHides := rfl
   hideName := rfl

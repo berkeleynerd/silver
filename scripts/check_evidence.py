@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import argparse
 from collections import Counter
+from collections.abc import Mapping
 import hashlib
 import json
 from pathlib import Path
@@ -81,8 +82,10 @@ OPERATOR_REASSOCIATION_ADVISORY_TEXT = (
     'possible reassociation due to missing parentheses [operator-reassociation]')
 OPERATOR_REASSOCIATION_SOURCES = {
     "silver_function_bindings": {"silver_function_bindings.ads"},
+    "silver_procedure_bindings": {"silver_procedure_bindings.ads"},
     "silver_library_reports": {"silver_library_reports.adb"},
-    "silver_output_profile": {"silver_output_profile.adb", "silver_function_bindings.ads"},
+    "silver_output_profile": {"silver_output_profile.adb", "silver_function_bindings.ads",
+                              "silver_procedure_bindings.ads"},
 }
 # Runtime units need verification even when the compiler Main does not call them.
 # GNATprove's default only analyzes Main and its transitive dependency closure.
@@ -309,11 +312,18 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                   effective_command: list[str] | None = None,
                   application_kind: str | None = None,
                   application_functions: tuple[str, ...] = (),
+                  application_procedures: Mapping[str, tuple[str, ...]] | None = None,
+                  application_formals: Mapping[str, tuple[tuple[str, str], ...]] | None = None,
                   indexed_main: bool = False,
                   proof_instance: tuple[int, int, int] | None = None,
                   proof_instances: dict[str, tuple[int, int, int]] | None = None,
                   signed_conversion_instance: tuple[int, int, int] | None = None) -> dict[str, int]:
-    """Fail closed on missing coverage, skipped work, assumptions or failures."""
+    """Audit reports against trusted source inventories supplied by the caller.
+
+    ``application_formals`` supplies exact declared names and modes independently
+    of reports. It is needed only for the two formal flow-advisory rules; omitting
+    it preserves the pre-existing acceptance policy.
+    """
     require(bool(expected_units), "no implementation units selected for auditing")
     require(not indexed_main or "main" in expected_units,
             "indexed Main audit requires Main")
@@ -354,11 +364,52 @@ def audit_reports(report_dir: Path, expected_units: set[str],
     function_names = {"main." + name.lower() for name in application_functions}
     require(len(function_names) == len(application_functions),
             "application: duplicate source function name")
+    procedures = {} if application_procedures is None else application_procedures
+    require(isinstance(procedures, Mapping)
+            and (not procedures or application_kind is not None),
+            "application procedure inventory requires an application policy")
+    identifier = r"[A-Za-z]([A-Za-z0-9]|_[A-Za-z0-9])*"
+    require(len(procedures) <= 4096 // 32
+            and all(isinstance(name, str) and re.fullmatch(identifier, name) is not None
+                    and isinstance(outputs, tuple)
+                    and all(isinstance(output, str) and re.fullmatch(identifier, output) is not None
+                            for output in outputs)
+                    and len({output.lower() for output in outputs}) == len(outputs)
+                    for name, outputs in procedures.items())
+            and sum(len(outputs) for outputs in procedures.values()) <= 4096 // 7,
+            "application: invalid source procedure inventory")
+    procedure_outputs = {"main." + name.lower(): outputs for name, outputs in procedures.items()}
+    procedure_names = set(procedure_outputs)
+    require(len(procedure_names) == len(procedures) and not (function_names & procedure_names),
+            "application: duplicate source subprogram name")
+    callable_names = function_names | procedure_names
+    # The older inventories identify function names and procedure outputs only.
+    # Formal advisories need an independent source inventory with exact spelling
+    # and mode; never infer it from the report's message or entity declarations.
+    formals = {} if application_formals is None else application_formals
+    require(isinstance(formals, Mapping)
+            and all(isinstance(owner, str) and "main." + owner.lower() in callable_names
+                    and isinstance(items, tuple)
+                    and all(isinstance(item, tuple) and len(item) == 2
+                            and isinstance(item[0], str) and len(item[0]) <= 4096
+                            and re.fullmatch(identifier, item[0]) is not None
+                            and item[1] in ("in", "out", "in out") for item in items)
+                    and len({item[0].lower() for item in items}) == len(items)
+                    for owner, items in formals.items())
+            and sum(len(items) for items in formals.values()) <= 4096 // 7,
+            "application: invalid source formal inventory")
+    source_formals = {"main." + owner.lower(): items for owner, items in formals.items()}
+    require(len(source_formals) == len(formals)
+            and all(all(mode == "in" for _, mode in items) if owner in function_names
+                    else {name for name, mode in items if mode == "out"} == set(procedure_outputs[owner])
+                    for owner, items in source_formals.items()),
+            "application: inconsistent source formal inventory")
     if application_kind is not None:
         require("main" in expected_units, "application audit requires Main")
         stats["assignment_advisories"] = 0
         stats["image_advisories"] = 0
         stats["termination_checks"] = 0
+        stats["initialization_checks"] = 0
     reports = {unit: read_json(report_dir / name) for unit, name in report_names.items()}
     owned_names: set[str] = set()
     owned_locations: dict[str, set[str]] = {}
@@ -399,11 +450,19 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                              if value.get("name", "").lower() == "main"}
             local_entities = {key: value for key, value in entities.items()
                               if value.get("name", "").lower() in function_names}
-            application_entities = main_entities | local_entities
+            procedure_entities = {key: value for key, value in entities.items()
+                                  if value.get("name", "").lower() in procedure_names}
+            require(len(procedure_entities) == len(procedure_names)
+                    and {item.get("name", "").lower() for item in procedure_entities.values()} == procedure_names,
+                    "application: missing or duplicate source procedure entity")
+            application_entities = main_entities | local_entities | procedure_entities
             require(len(local_entities) == len(function_names)
                     and {item.get("name", "").lower() for item in local_entities.values()} == function_names,
                     "application: missing or duplicate source function entity")
             termination_entities: set[str] = set()
+            initialization_entities: set[tuple[str, str]] = set()
+            expected_initializations = {(key, output) for key, value in procedure_entities.items()
+                                        for output in procedure_outputs[value["name"].lower()]}
             output_callees = {"Silver_IO.Put_Line", "Silver_IO.Put"}
             callees = {name: "silver_io.ads" for name in output_callees}
             if application_kind in ("argument", "selected"):
@@ -481,9 +540,9 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                 entity = entities.get(f" {reference.get('arg')}", entities.get(str(reference.get("arg"))))
                 require(isinstance(entity, dict), f"{unit}: assumption references unknown entity")
                 name = entity.get("name")
-                if application and name.lower() in function_names:
+                if application and name.lower() in callable_names:
                     require(reference["predicate"] in {"CLAIM_AORTE", "CLAIM_EFFECTS"},
-                            "application: local function has an unapproved claim")
+                            "application: local subprogram has an unapproved claim")
                 locations = entity.get("sloc", [])
                 trusted_runtime = name in TRUSTED_RUNTIME_CALLEES and bool(locations) and all(
                     Path(location["file"]).name == TRUSTED_RUNTIME_CALLEES[name]
@@ -578,8 +637,47 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                             "application: unexpected function termination record")
                     termination_entities.add(entity_key)
                     stats["termination_checks"] += 1
-                advisory = application and key == "flow" and not termination
+                initialization = (application and key == "flow"
+                                  and record.get("rule") == "UNINITIALIZED")
+                if initialization:
+                    entity_key = f" {record.get('entity')}"
+                    if entity_key not in entities:
+                        entity_key = str(record.get("entity"))
+                    procedure = procedure_entities.get(entity_key)
+                    outputs = (() if procedure is None else procedure_outputs[procedure["name"].lower()])
+                    matching = [output for output in outputs
+                                if record.get("message") == {"text": f'initialization of "{output}" proved'}]
+                    require(procedure is not None and len(matching) == 1
+                            and (entity_key, matching[0]) not in initialization_entities
+                            and record.get("severity") == "info"
+                            and record.get("how_proved") == "flow"
+                            and record.get("file") == "main.adb"
+                            and type(record.get("line")) is int and record["line"] > 0
+                            and type(record.get("col")) is int and record["col"] > 0
+                            and type(record.get("entity")) is int and record["entity"] > 0
+                            and not any(field in record for field in
+                                        ("justification", "justified", "suppressed", "annot_kind", "justif_msg")),
+                            "application: unexpected procedure output initialization record")
+                    initialization_entities.add((entity_key, matching[0]))
+                    stats["initialization_checks"] += 1
+                advisory = application and key == "flow" and not termination and not initialization
                 if advisory:
+                    unused_match = re.fullmatch(
+                        r'"([A-Za-z](?:[A-Za-z0-9]|_[A-Za-z0-9])*)" is set by "([^\"]+)"'
+                        r' but not used after the call', record.get("message", {}).get("text", ""))
+                    unused_call = (unused_match is not None and len(unused_match[1]) <= 4096
+                                   and len(unused_match[2]) <= 4096 and unused_match[2] in procedures)
+                    owner = entities.get(f" {record.get('entity')}", entities.get(str(record.get("entity")), {}))
+                    owner_name = owner.get("name", "").lower()
+                    inout_only_read = (record.get("rule") == "INOUT_ONLY_READ"
+                        and owner_name in procedure_names
+                        and any(mode == "in out" and record.get("message") == {
+                            "text": f'"{name}" is not modified, could be IN'}
+                            for name, mode in source_formals.get(owner_name, ())))
+                    unused_initial_value = (record.get("rule") == "UNUSED_INITIAL_VALUE"
+                        and any(mode in ("in", "in out") and record.get("message") == {
+                            "text": f'unused initial value of "{name}"'}
+                            for name, mode in source_formals.get(owner_name, ())))
                     require(record.get("severity") == "warning"
                             and record.get("how_proved") == "flow"
                             and record.get("file") == "main.adb"
@@ -587,8 +685,9 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                             and type(record.get("col")) is int and record["col"] > 0
                             and type(record.get("entity")) is int and record["entity"] > 0
                             and entities.get(f" {record['entity']}", entities.get(str(record["entity"]))) in application_entities.values()
-                            and ((record.get("rule") == "UNUSED_VARIABLE"
-                                  and entities.get(f" {record['entity']}", entities.get(str(record["entity"]))) in local_entities.values()
+                            and (inout_only_read or unused_initial_value
+                                 or (record.get("rule") == "UNUSED_VARIABLE"
+                                  and entities.get(f" {record['entity']}", entities.get(str(record["entity"]))) in (local_entities | procedure_entities).values()
                                   and re.fullmatch(r'unused variable "[A-Za-z]([A-Za-z0-9]|_[A-Za-z0-9])*"',
                                                    record.get("message", {}).get("text", "")) is not None)
                                  or (record.get("rule") == "INEFFECTIVE"
@@ -598,13 +697,16 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                                            f'"{name}" is set by "{operation}" but not used after the call'
                                            for name in ("Written_Count", "Flushed", "Succeeded", "Written_Bytes")
                                            for operation in ("Put_Line", "Put")}
+                                       or unused_call
                                        or (assignment and record.get("message", {}).get("text") == "unused assignment")
                                        or (comparison and record.get("message", {}).get("text") == "statement has no effect")))
                                  or (comparison and record.get("rule") == "DEAD_CODE"
                                      and record.get("message", {}).get("text") == "this statement is never reached")),
                             "assignment: unexpected flow diagnostic")
-                    require(len(record["message"]["text"]) <= len('initialization of "" has no effect') + 4096,
-                            "assignment: initializer name exceeds source bound")
+                    limit = (len('"" is set by "" but not used after the call') + 2 * 4096 if unused_call
+                             else len('initialization of "" has no effect') + 4096)
+                    require(len(record["message"]["text"]) <= limit,
+                            "assignment: advisory names exceed source bound")
                     require(not any(field in record for field in
                                     ("justification", "justified", "suppressed", "annot_kind", "justif_msg")),
                             "assignment: suppressed or justified diagnostic")
@@ -667,9 +769,11 @@ def audit_reports(report_dir: Path, expected_units: set[str],
         if application:
             require(termination_entities == local_entities.keys(),
                     "application: missing source function termination coverage")
+            require(initialization_entities == expected_initializations,
+                    "application: missing source procedure output initialization coverage")
         stats["units"] += 1
         stats["entities"] += len(own_entities)
-        stats["flow_checks"] += len(termination_entities) if application else len(report["flow"])
+        stats["flow_checks"] += (len(termination_entities) + len(initialization_entities)) if application else len(report["flow"])
         stats["proof_checks"] += len(report["proof"])
 
     sarif = read_json(report_dir / "gnatprove.sarif")
@@ -704,8 +808,8 @@ def audit_reports(report_dir: Path, expected_units: set[str],
     for option, expected in (("--mode", "all"), ("--report", "all")):
         values = [argument.split("=", 1)[1] for argument in arguments if argument.startswith(option + "=")]
         require(values == [expected], f"conflicting/repeated {option} configuration")
-    require(not application_functions or "--no-inlining" in arguments,
-            "application: function proofs require modular no-inlining analysis")
+    require(not callable_names or "--no-inlining" in arguments,
+            "application: subprogram proofs require modular no-inlining analysis")
     results = run.get("results")
     require(isinstance(results, list), "missing SARIF results")
     sarif_diagnostics: Counter = Counter()
@@ -845,7 +949,14 @@ def audit_source_policy(source: Path) -> None:
     hide_info_forms = {
         ("pragma", "annotate", "(", "gnatprove", ",", "hide_info", ",",
          '"Expression_Function_Body"', ",", target, ")", ";")
-        for target in ("raw_list_spec", "list_spec")}
+        for target in ("raw_list_spec", "list_spec", "initializer_message",
+                       "raw_initializer_message", "procedure_output_message",
+                       "raw_procedure_output_message", "termination_policy",
+                       "initialization_policy", "initialization_index_model",
+                       "raw_initialization_index", "diagnostic_message",
+                       "raw_diagnostic_message", "output_message", "raw_output_message",
+                       "formal_advisory_message", "raw_formal_advisory_message",
+                       "object_policy", "raw_object_policy")}
     for index, (left, right) in enumerate(zip(tokens, tokens[1:])):
         hide_info = (source.name == "silver_library_reports.adb"
                      and tuple(tokens[index:index + 12]) in hide_info_forms)

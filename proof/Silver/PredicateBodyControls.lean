@@ -1,10 +1,11 @@
 module
 
 public import Silver.PredicateBodyProperties
+public import Silver.PredicateProcedureCallFields
 
 @[expose] public section
 namespace Silver.Predicate
-variable {catalog : FunctionBindings.Metadata}
+variable {catalog : FunctionBindings.Metadata} {procedures : ProcedureBindings.Metadata}
 open Compose Bindings PathFacts Compose.Expressions
 
 attribute [local irreducible] ScalarExpression.read
@@ -38,7 +39,7 @@ theorem callAssignmentResult_controls (context : ParseContext) (scan : BodyScan)
       · exact ⟨Nat.zero_le _, Nat.zero_le _⟩
 
 theorem basicRaw_controls (text : Source) (context : ParseContext) (scan : BodyScan)
-    (valid : Controls context scan) : Controls context (basicRaw (catalog := catalog) text context scan) := by
+    (valid : Controls context scan) : Controls context (basicRaw (catalog := catalog) (procedures := procedures) text context scan) := by
   unfold basicRaw
   cases basicKind text context scan with
   | null => exact valid
@@ -81,29 +82,32 @@ theorem basicRaw_controls (text : Source) (context : ParseContext) (scan : BodyS
   | assignment =>
       dsimp only
       split
-      · exact ⟨Nat.zero_le _, Nat.zero_le _⟩
-      · have targetBound : (targetAt text (parserState context scan) false).target ≤ context.names.length := by
-          unfold targetAt
-          dsimp only
-          split
-          · exact Nat.zero_le _
-          · exact model_lookup_valid text context.names _ _
-        rcases stringAssignment_fields text context scan with failed | fields
-        · rw [failed]
-          exact ⟨Nat.zero_le _, Nat.zero_le _⟩
-        · change _ ∧ _
-          rw [fields.1, fields.2.1]
-          exact ⟨targetBound, valid.2⟩
+      · have fields := procedureCallBody_fields text context scan procedures
+        exact ⟨Nat.le_trans fields.target valid.1, Nat.le_trans fields.capacity valid.2⟩
+      · split
+        · exact ⟨Nat.zero_le _, Nat.zero_le _⟩
+        · have targetBound : (targetAt text (parserState context scan) false).target ≤ context.names.length := by
+            unfold targetAt
+            dsimp only
+            split
+            · exact Nat.zero_le _
+            · exact model_lookup_valid text context.names _ _
+          rcases stringAssignment_fields text context scan with failed | fields
+          · rw [failed]
+            exact ⟨Nat.zero_le _, Nat.zero_le _⟩
+          · change _ ∧ _
+            rw [fields.1, fields.2.1]
+            exact ⟨targetBound, valid.2⟩
 
 theorem basicBody_controls (text : Source) (context : ParseContext) (scan : BodyScan)
-    (valid : Controls context scan) : Controls context (basicBody (catalog := catalog) text context scan) := by
+    (valid : Controls context scan) : Controls context (basicBody (catalog := catalog) (procedures := procedures) text context scan) := by
   unfold basicBody
   split
   · exact ⟨Nat.zero_le _, Nat.zero_le _⟩
   · dsimp only
     split
     · exact ⟨Nat.zero_le _, Nat.zero_le _⟩
-    · exact basicRaw_controls (catalog := catalog) text context scan valid
+    · exact basicRaw_controls (catalog := catalog) (procedures := procedures) text context scan valid
 
 theorem branchStart_controls (text : Source) (context : ParseContext) (scan : BodyScan) (keyword : String)
     (valid : Controls context scan) : Controls context (branchStart text context scan keyword).1 := valid
@@ -111,7 +115,7 @@ theorem branchStart_controls (text : Source) (context : ParseContext) (scan : Bo
 mutual
   theorem statementBody_controls (text : Source) (context : ParseContext) (scan : BodyScan)
       (sv : Controls context scan) :
-      Controls context (statementBody (catalog := catalog) text context scan) := by
+      Controls context (statementBody (catalog := catalog) (procedures := procedures) text context scan) := by
     rw [statementBody]
     split
     · exact ⟨Nat.zero_le _, Nat.zero_le _⟩
@@ -119,11 +123,11 @@ mutual
       · exact conditionalBody_controls text context scan sv
       · split
         · exact loopBody_controls text context scan sv
-        · exact basicBody_controls (catalog := catalog) text context scan sv
+        · exact basicBody_controls (catalog := catalog) (procedures := procedures) text context scan sv
   termination_by (bodyRemaining text scan, 2)
 
   theorem loopBody_controls (text : Source) (context : ParseContext) (scan : BodyScan)
-      (sv : Controls context scan) : Controls context (loopBody (catalog := catalog) text context scan) := by
+      (sv : Controls context scan) : Controls context (loopBody (catalog := catalog) (procedures := procedures) text context scan) := by
     rw [loopBody]
     dsimp only
     split
@@ -142,7 +146,7 @@ mutual
 
   theorem conditionalBody_controls (text : Source) (context : ParseContext) (scan : BodyScan)
       (sv : Controls context scan) :
-      Controls context (conditionalBody (catalog := catalog) text context scan) := by
+      Controls context (conditionalBody (catalog := catalog) (procedures := procedures) text context scan) := by
     rw [conditionalBody]
     try dsimp only
     split
@@ -162,7 +166,7 @@ mutual
 
   theorem alternativeBody_controls (text : Source) (context : ParseContext) (scan : BodyScan)
       (sv : Controls context scan) :
-      Controls context (alternativeBody (catalog := catalog) text context scan) := by
+      Controls context (alternativeBody (catalog := catalog) (procedures := procedures) text context scan) := by
     rw [alternativeBody]
     split
     · exact ⟨Nat.zero_le _, Nat.zero_le _⟩
@@ -192,7 +196,7 @@ mutual
 
   theorem bodyTail_controls (text : Source) (context : ParseContext) (scan : BodyScan) (stop : BodyStop)
       (sv : Controls context scan) :
-      Controls context (bodyTail (catalog := catalog) text context scan stop) := by
+      Controls context (bodyTail (catalog := catalog) (procedures := procedures) text context scan stop) := by
     rw [bodyTail]
     split
     · exact ⟨Nat.zero_le _, Nat.zero_le _⟩
@@ -208,7 +212,7 @@ mutual
 
   theorem readBody_controls (text : Source) (context : ParseContext) (scan : BodyScan) (stop : BodyStop)
       (sv : Controls context scan) :
-      Controls context (readBody (catalog := catalog) text context scan stop) := by
+      Controls context (readBody (catalog := catalog) (procedures := procedures) text context scan stop) := by
     rw [readBody]
     try dsimp only
     split

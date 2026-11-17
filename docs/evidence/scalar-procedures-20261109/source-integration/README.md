@@ -1,0 +1,107 @@
+# Procedure source integration checkpoints
+
+These focused Linux x86-64 runs establish the named proof slices only. The
+complete native/Lean/source checkpoint, final regressions and independent
+acceptance review remain pending. Each compressed managed record retains its
+actual inputs, settings, log and fresh axiom-audit result.
+
+| Run | Checked slice | Fresh audited declarations |
+| --- | --- | --- |
+| `20261110T022251-2b138acb04b3` | Constructive local/input/output frame and sequential-prefix interfaces (`0655214aa9`, integrated as `bbf3f06b55`) | 24,431 |
+| `20261110T023406-93c99c442f2c` | Procedure-aware body source readings, flow and bounds (`162fe7ae3b`, integrated as `08b3da690b`) | 17,640 |
+| `20261110T025548-509b57874b0d` | Basic procedure dispatch and lexical name-reading foundations (`bc9a88529f`, integrated as `0321d5cec6`) | 29,480 |
+| `20261110T031357-6748f291f657` | Procedure declaration extraction, initialized outputs and metadata preservation (`cc8b53e3cc`, integrated as `d8551dbc85`) | 23,870 |
+| `20261110T032117-53d98ae45fc2` | Scalar/array lexical read exclusion and Character/String literal traversal (`a0f414bfd2`, integrated as `83e8be0436`) | 8,369 |
+| `20261110T034825-2a8123f9ef80` | Procedure visibility through inherited declarations, models, loop/adapter interfaces and retained Sequence model (`c4229bbd8c`, integrated as `3e9b54cd5f`; outer body forwarding also integrated as `7e41f55581`) | 39,214 |
+| `20261110T035322-f0371cac4eee` | Mixed callable dispatch and outer-state preservation (`dc81ef414a`, integrated as `47c1e61c02`) | 14,986 |
+| `20261110T035845-3c155b0af802` | Character, indexed-element, length and compound-token read traversal (`87a2ef23a8`, integrated as `9a5b0a1c93`) | 11,296 |
+| `20261110T041546-7a374a26b150` | Corrected function-first callable dispatch and outer-state preservation (`0f1b344f90`, integrated as `3e00a7b97d`) | 14,991 |
+| `20261110T042215-69564f38c8a0` | Raw procedure-call trees, complete-domain equations and callee interpretations, including exact call source candidate (`883b26c75e`, integrated as `3b7ef28b35`); shared declaration syntax and low trees (`7f1d9d6236`, integrated as `b27ec9ae0b`) | 49,725 |
+| `20261110T045337-d3c1d0e6dedf` | Procedure-body typed-tree denotation and exact model equation over every input | 16,069 |
+| `20261110T050437-8efd63aec15e` | Callable declaration consumers, outer-state bounds, initializer traces and subtype hiding (`aaeec84831`, integrated as `a909e37f89`) | 20,770 |
+| `20261110T052202-573dd511a4b3` | High procedure-declaration tree guards, complete-domain raw equations and imported-callee reductions | 19,194 |
+| `20261110T051020-83ef994a401d` | Source-derived mixed callable traces and decoder (`8c73523274`, integrated as `68c29a625e`; root decoder/readiness bytes checked alongside it) | 24,751 |
+| `20261110T052037-615179f8f445` | Basic native procedure-call links and actual-source lexical alias separation (`b66453db37` / `ba003292d9`, integrated as `a980ca9492` / `17b065f3a9`) | 50,897 |
+| `20261110T053117-1cc7caffd698` | Procedure body/declaration readiness derived from the source frame (`0b364e3d53`, integrated as `c10fb1637b`); ordinary-body checking remains subsequent work | 23,675 |
+| `20261110T060446-823a620d694f` | Low procedure helper denotations, complete native domains/traversal contracts and exact source-fragment checks (`b287c84887`, integrated as `913af1113a`); recursive/library assembly and authoritative whole-output binding remain pending | 18,973 |
+| `20261110T061920-0ed033d1b83a` | Complete reviewed-token declaration/call candidates, native fresh-frame domains, metadata-selector model/source candidate and generic statement flags | 28,691 |
+| `20261110T061700-bcf29d197bd1` | Source-derived procedure actual/copy-back flow updates (`2ee162c0ec`, integrated as `318e87ba0c`) | 21,337 |
+| `20261110T063245-b00afd12332e` | Procedure-call meaning, basic dispatch and generic body meaning (`20c73fcbe1`, integrated as `a035dc08df`) | 23,080 |
+| `20261110T064408-2aeabef7ba81` | Checked procedure definitions, mixed callable assembly and ordinary function-body adaptation (`b54aee71f4`, integrated as `88da988dfe`) | 25,005 |
+| `20261110T064954-55833e637085` | Low declaration helper source checks against the complete reviewed output token sequence; all eleven fragments retained from `063206-2996a7ff68f7` | 15,836 |
+
+| `20261110T070603-10024f747dc9` | Complete low declaration library interpretations, raw-helper equations and native-domain model witness (`7e2fd967a8`, integrated as `bea9085ed8`) | 58,086 |
+| `20261110T071116-e7c0155734e1` | Procedure-aware source meaning, routing flags and exact metadata catalogue/count (`712182dc56`, integrated as `ad302b89ca`) | 25,909 |
+| `20261110T071235-e745bc45ad27` | Complete String bounds/actual execution closure with the declared procedure environment (`35078447dd` / `13ef354fdd`, integrated as `419a6199f3` / `15643940e5`) | 26,337 |
+
+| `20261110T081333-9812dffdd653` | High declaration body/outer library composition and model interpretation over the complete native domain; procedure-aware declaration termination measure | 59,394 |
+
+Lead source inspection found that the `035322` model tried procedures before
+functions, unlike Ada's function-first dispatcher. Its focused result remains
+valid for that model slice; it never established completed source correspondence.
+The `041546` result checks the corrected order without a native-source change
+or an assumption that the two parsers are disjoint.
+
+The two cache-seed records identify copies into the integration workspace while
+both proof workspaces were idle. Complete artifact families, private/server
+objects and Lake traces were retained; subsequent Lake checks and fresh audits
+remain required. These copies are not independent replay. The source-author
+and semantic-author runs retain their original worktree paths in the managed
+records. The host-local task ledger retains the earlier failed focused
+attempts as failed; this packet does not relabel or substitute for them.
+
+Actual-source alias separation and mixed declaration extraction now pass focused
+audits. Constructive procedure-body/call and mixed-declaration assembly now pass the
+stated focused audits. Low declaration library interpretation and outer/String semantic consumers now
+pass the focused audits above. High declaration library composition now passes its focused audit.
+Authoritative source endpoint integration remains pending. High declaration trees, raw complete-domain
+equations and imported-callee reductions pass the stated focused audit; the
+reviewed-token candidates now pass; authoritative certificate adapters and library assembly remain pending. Published Rosetta support remains 83 tasks.
+
+The isolated source-author semantic commit worktree reused the exact consumer
+proof results instead of rerunning them beside its frozen certificate producer.
+The statement-flag handoff (`be21d555d1`, integrated as `8f75021d44`) matches
+all 195 imported modules and 342 applicable retained inputs. The updates and
+generic-body handoffs match all 202 and 232 audited Lean modules respectively,
+the actual procedure parser, and Lean runner/build inputs. Their comparisons
+explicitly record eight broader native/catalogue/evidence inputs that differ
+from the older semantic consumer branch. These are focused semantic results;
+they do not claim complete current-tree assurance. The compressed comparison
+records accompany the actual validating runs above.
+
+The `064408` immutable semantic cache snapshot was copied into the idle root
+proof workspace after `064954` ended: all 291 module sources and 4,648 artifact
+files were checked before copying, including private/server objects and Lake
+metadata. The retained cache-seed record identifies this reuse; subsequent
+Lake rehash and fresh audits remain required. The shared live certificate
+producer was neither copied nor interrupted.
+
+The `064954` axiom phase completed before the mixed-assembly cherry-pick began,
+but the runner was still finalizing. Its actual exit was successful. The
+retained input comparison confirms that all 117 audited module inputs still
+match; the four changed mixed-assembly files lie outside that target's import
+closure and have their separate `064408` evidence. This is focused applicability,
+not complete validation of the newly combined tree.
+
+The outer/String immutable delta snapshots were copied only after root run
+`071602-835249eac4a0` actually exited. Their 19 and 25 complete artifact families
+match the integrated sources; the seed record identifies the copies, including
+private/server sidecars and Lake metadata. Normal rehash and fresh audits remain
+required. The original producer stayed frozen while its first four completed
+large output-body chunks were retained and its worker reservation was raised
+for the remaining four concurrent chunks. No completed certificate was discarded.
+
+The first high-library run `071602` remains failed: `ComposeEquations` omitted
+the procedure table from its declaration-scanner capacity and termination measure.
+Its model count theorem already included procedures. The repair adds that table
+and its existing bound without changing theorem statements, native source or
+input domains. All other completed modules remain reusable; the focused retry
+and authoritative high-library endpoint checks are pending.
+
+The `081333` result freshly audits 489 imported modules after the high declaration
+body/outer libraries and explicit model witness compiled. Initial let-binder and
+branch-normalization failures are retained in `attempts/`; the accepted repairs
+change proof elaboration only. Native source, complete domains and theorem
+statements remain unchanged. The [bounded static high-library review](../high-library-integration-review/review.md)
+found no material gap in its stated snapshot; it is distinct from this kernel
+check and from the still-pending final integration/acceptance review.

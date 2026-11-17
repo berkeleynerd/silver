@@ -181,6 +181,8 @@ def arrayDeclarationBody (executable : Bool) : Expr .state :=
      .ne hiddenBoolean (.number 0),
      .ne (.app (.app (.app (.app (.function .functionLookup) text)
        (.field .stateFunctions state)) (.variable "type_first")) (.variable "type_after")) (.number 0),
+     .ne (.app (.app (.app (.app (.function .procedureLookup) text)
+       (.field .stateProcedures state)) (.variable "type_first")) (.variable "type_after")) (.number 0),
      .app (.app (.app (.app (.function .formalHides) text) state)
        (.variable "type_first")) (.variable "type_after"),
      .group (.andThen (.field .hiddenInteger (.field .stateHiding state))

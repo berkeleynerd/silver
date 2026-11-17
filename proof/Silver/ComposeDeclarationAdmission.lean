@@ -18,7 +18,8 @@ def newNameAllowed (text : Source) (state : ParserState) (first after : Nat) (ar
       BooleanBindings.lookup text state.booleanNames first after = 0 ∧
       IntegerSubtypes.lookup text state.subtypeNames first after = 0) &&
     !formalHides text state first after &&
-    (state.pure || decide (FunctionBindings.lookup text state.functions first after = 0))
+    (state.pure || decide (FunctionBindings.lookup text state.functions first after = 0 ∧
+      ProcedureBindings.lookup text state.procedures first after = 0))
 
 def addBinding (state : ParserState) (first after : Nat) (value : ValueResult)
     (mutable : Bool) (following : Nat) (characterObject : Bool := false) : ParserState :=
@@ -111,6 +112,7 @@ def characterDeclarationRejected (text : Source) (state : ParserState) (argument
       IntegerSubtypes.lookup text state.subtypeNames parts.typeFirst parts.typeAfter ≠ 0 ∨
       BooleanBindings.lookup text state.booleanNames parts.typeFirst parts.typeAfter ≠ 0 ∨
         FunctionBindings.lookup text state.functions parts.typeFirst parts.typeAfter ≠ 0 ∨
+        ProcedureBindings.lookup text state.procedures parts.typeFirst parts.typeAfter ≠ 0 ∨
         formalHides text state parts.typeFirst parts.typeAfter ∨
         (state.hiding.integerHidden && Named.nameIs text parts.typeFirst parts.typeAfter ("integer".toList.map Char.toNat)) ∨
         (state.hiding.booleanHidden && Named.nameIs text parts.typeFirst parts.typeAfter ("boolean".toList.map Char.toNat)) ∨
@@ -149,6 +151,7 @@ def scalarTypeAt (text : Source) (state : ParserState) (position : Nat) : Scalar
       ArrayBindings.lookup text state.arrayNames.names first after ≠ 0 ∨
       BooleanBindings.lookup text state.booleanNames first after ≠ 0 ∨
       FunctionBindings.lookup text state.functions first after ≠ 0 ∨
+      ProcedureBindings.lookup text state.procedures first after ≠ 0 ∨
       formalHides text state first after ∨
       (state.hiding.integerHidden && Named.nameIs text first after ("integer".toList.map Char.toNat))
   then ⟨0, .empty⟩
@@ -189,6 +192,7 @@ def subtypeDeclarationAt (text : Source) (state : ParserState) (arguments : Bool
         ArrayBindings.lookup text state.arrayNames.names parts.typeFirst parts.typeAfter ≠ 0 ∨
         BooleanBindings.lookup text state.booleanNames parts.typeFirst parts.typeAfter ≠ 0 ∨
         FunctionBindings.lookup text state.functions parts.typeFirst parts.typeAfter ≠ 0 ∨
+        ProcedureBindings.lookup text state.procedures parts.typeFirst parts.typeAfter ≠ 0 ∨
         formalHides text state parts.typeFirst parts.typeAfter ∨
         (state.hiding.integerHidden && Named.nameIs text parts.typeFirst parts.typeAfter ("integer".toList.map Char.toNat)) ∨
         (state.hiding.booleanHidden && Named.nameIs text parts.typeFirst parts.typeAfter ("boolean".toList.map Char.toNat)) ∨
@@ -381,6 +385,7 @@ def arrayDeclarationAt (text : Source) (state : ParserState) (arguments : Bool) 
         ArrayBindings.lookup text state.arrayNames.names parts.typeFirst parts.typeAfter ≠ 0 ∨
         BooleanBindings.lookup text state.booleanNames parts.typeFirst parts.typeAfter ≠ 0 ∨
         FunctionBindings.lookup text state.functions parts.typeFirst parts.typeAfter ≠ 0 ∨
+        ProcedureBindings.lookup text state.procedures parts.typeFirst parts.typeAfter ≠ 0 ∨
         formalHides text state parts.typeFirst parts.typeAfter ∨
         (state.hiding.integerHidden && Named.nameIs text parts.typeFirst parts.typeAfter ("integer".toList.map Char.toNat)) ∨
         (state.hiding.booleanHidden && Named.nameIs text parts.typeFirst parts.typeAfter ("boolean".toList.map Char.toNat)) ∨
@@ -428,7 +433,8 @@ def booleanDeclarationReady (text : Source) (state : ParserState) (arguments : B
       ArrayBindings.lookup text state.arrayNames.names parts.typeFirst parts.typeAfter = 0 ∧
       IntegerSubtypes.lookup text state.subtypeNames parts.typeFirst parts.typeAfter = 0 ∧
       BooleanBindings.lookup text state.booleanNames parts.typeFirst parts.typeAfter = 0 ∧
-      FunctionBindings.lookup text state.functions parts.typeFirst parts.typeAfter = 0) &&
+      FunctionBindings.lookup text state.functions parts.typeFirst parts.typeAfter = 0 ∧
+      ProcedureBindings.lookup text state.procedures parts.typeFirst parts.typeAfter = 0) &&
     !formalHides text state parts.typeFirst parts.typeAfter &&
     !(state.hiding.integerHidden && Named.nameIs text parts.typeFirst parts.typeAfter ("integer".toList.map Char.toNat)) &&
     !(state.hiding.booleanHidden && Named.nameIs text parts.typeFirst parts.typeAfter ("boolean".toList.map Char.toNat)) &&

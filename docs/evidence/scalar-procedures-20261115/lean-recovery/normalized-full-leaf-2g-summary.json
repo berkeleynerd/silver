@@ -1,0 +1,27 @@
+{
+  "command": [
+    "python3",
+    "scripts/check_lean.py",
+    "--target",
+    "Silver.FunctionSourceParts.DeclarationLoopFunctionLocals",
+    "--workers",
+    "1",
+    "--memory-mb",
+    "2048",
+    "--provenance",
+    "--task",
+    "370-lean-memory-recovery",
+    "--reason",
+    "Original full-source statement and duplicate-detecting scanner, only proven expected-token normalization; isolated normalization passed at2GiB. One worker/default12threads, native workload released; certificate aggregate separately allocated8GiB."
+  ],
+  "cwd": "/home/agent/silver-worktrees/procedures-lean-370",
+  "started_at": "2026-11-15T17:24:16.978980+00:00",
+  "peak_sum_rss_kib": 5753600,
+  "peak_process_rss_kib": 4733696,
+  "minimum_mem_available_kib": 10662288,
+  "pid": 15403,
+  "returncode": 1,
+  "elapsed_seconds": 80.07554508000067,
+  "finished_at": "2026-11-15T17:25:37.054526+00:00",
+  "interrupted": false
+}

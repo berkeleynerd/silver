@@ -1,5 +1,14 @@
 # Silver language specification
 
+The scalar-procedure increment below has complete Linux ARM64 proof and
+applicable regression validation in [#370](https://github.com/berkeleynerd/silver/issues/370).
+Its [delivery account](docs/scalar-procedures.md#delivery-assurance-and-validation)
+records complete native and Lean/actual-source assurance, reviewed evidence reuse
+and the closing delivery reconciliation for that checkpoint, followed by the
+November 16 [#391 repair](docs/evidence/advisory-policy-391-20261116/README.md)
+of omitted formal flow advisories and its validation state. The rules preserve full formal domains,
+source-written output initialization and the existing source/expression budgets.
+
 The small nonrecursive scalar-function increment is recorded in the
 [delivery account](docs/scalar-functions.md#delivery-assurance-and-validation).
 Its complete Linux native and Lean/source checkpoints and applicable regression
@@ -223,7 +232,8 @@ declaration ::= name ":" [ "constant" ] "String" ":=" expression ";"
                 ":=" scalar_expression ";"
               | "subtype" name "is" "Integer" "range"
                 static_scalar_expression ".." static_scalar_expression ";"
-              | integer_array_declaration | boolean_array_declaration | scalar_function
+              | integer_array_declaration | boolean_array_declaration
+              | scalar_function | scalar_procedure
 integer_subtype_mark ::= "Integer" | earlier_named_integer_subtype
 ```
 
@@ -271,7 +281,8 @@ through 2147483647. A named subtype declaration has the form
 Integer directly, and introduces a static nonempty range contained in Integer.
 It constrains Integer values without creating a distinct type. Earlier named
 subtypes may be used in scalar constant or mutable declarations, fixed
-array component marks and scalar function parameter/result marks. Subtype alias chains, derived types, conversions and
+array component marks, scalar function parameter/result marks and scalar
+procedure parameter marks. Subtype alias chains, derived types, conversions and
 subtype attributes, including `S'Image`, are excluded.
 The new subtype's name cannot be `Integer`, ignoring case. This is a Silver
 scope restriction that keeps the predefined parent distinct from declared
@@ -558,6 +569,101 @@ all Main/function arithmetic and concatenation share the 63-operator budget;
 Boolean logic/comparisons do not consume that budget. No budget resets at a
 function boundary. Pooled signature/formal storage follows source length and
 adds no independent function/formal count restriction.
+
+### Small nonrecursive scalar procedures
+
+Procedures are local to Main, among its ordered declarations and after argument
+initialization when present. The selected forms are:
+
+```text
+scalar_procedure ::= "procedure" name "(" procedure_formal
+                     { ";" procedure_formal } ")" "is" { function_local }
+                     "begin" output_initialization_prefix
+                     { procedure_statement } "end" name ";"
+procedure_formal ::= name ":" parameter_mode function_type
+parameter_mode   ::= "in" | "out" | "in" "out"
+procedure_call   ::= visible_earlier_procedure "(" procedure_actual
+                     { "," procedure_actual } ")" ";"
+```
+
+Each formal has one name, an explicit mode and no default. There is at least one
+formal and at least one `out` or `in out` formal. `function_type` and
+`function_local` reuse the Integer/Boolean and initialized-local rules above.
+There are no inline formal range constraints, overloads, forward declarations,
+nested subprograms, named/default associations, String/Character/array signatures
+or local subtype declarations. These first-fragment scope restrictions keep the
+signature, frame and source-capacity rules bounded; they are not Ada rules.
+
+`output_initialization_prefix` consists of exactly one ordinary assignment for
+each `out` formal, in formal declaration order, immediately after `begin`.
+It is empty when there are no `out` formals; in that case at least one ordinary
+body statement is required, because Ada statement lists are nonempty. No null statement, call, condition,
+loop or assignment to another target may intervene. Each RHS uses the existing
+Integer expression or pure Boolean condition grammar. It can read initialized
+locals and `in`/`in out` formals, but no `out` formal, including one initialized
+earlier in this prefix. Function calls are excluded from prefix RHSs. All prefix
+expressions are checked in the same pre-output frame; each Integer result must
+have a nonempty interval contained in its output formal's declared range.
+
+The prefix gives an explicit initialization boundary without general
+path-dependent definite-assignment analysis. Ordinary body analysis then starts
+each writable Integer formal at its full declared range, regardless of the
+prefix RHS interval. This conservative entry rule reuses the complete-domain
+frame analysis. Later ordinary assignments and guards refine those ranges in
+the usual way. For example, an `out` formal of range `0 .. 9` initialized to `1`
+still needs a guard before an ordinary `(X + 1)` assignment back to X; an ordinary
+post-prefix `X := 1;` establishes the usual narrower flow fact.
+
+`procedure_statement` admits local scalar assignment, function-call assignment,
+procedure call, null, pure scalar/Boolean conditionals and counted loops,
+recursively. The frame is closed: no outer object reads or writes, output,
+input acquisition/query, Reject, local Strings/Characters/arrays or return
+statements. Local initializers cannot read formals, captured values or calls.
+`in` formals are immutable; `in out` and initialized `out` formals are mutable.
+Procedure bodies may call only earlier completely accepted subprograms.
+Function bodies keep their current scope and cannot call procedures in this
+increment. Earlier-only calls and finite loops establish termination.
+
+Case-insensitive name hiding and distinct-declaration rules apply across
+procedures, functions and other Main declarations. Formal/local names are
+distinct within a procedure and cannot collide with earlier subtype names.
+Unavailable output formals still hide identically named outer objects and
+operations while prefix RHSs are checked. Locals and loop binders can hide
+earlier callable names. Each closing procedure name matches its opening name.
+Every procedure, including an unused one, is checked over the full product of
+the declared `in` and `in out` domains; calls cannot narrow that obligation.
+
+Calls are standalone statements in Main and admitted procedure bodies, including
+branches and finite loops. Positional actuals match every formal exactly once.
+An `in` actual is an ordinary Integer expression or Boolean condition in the
+caller scope. An `out` or `in out` actual is an existing mutable bare scalar name
+of the same kind; constants, immutable formals, loop indexes/elements, parenthesized
+names and array components cannot be writable actuals. No call can occur inside
+another actual. These restrictions make the initial copy-back and alias rule
+explicit without general lvalue or alias analysis.
+
+Check every input actual against the same incoming state. Integer `in` and
+`in out` actual intervals must be nonempty and contained in the formal range;
+Boolean outcomes cannot refine another actual. For every writable Integer
+actual, the formal's entire declared range must fit the actual object's declared
+range. In particular, `in out` requires both incoming containment and outgoing
+containment. These requirements apply even in unreachable arms or empty loops,
+preserving the existing nonempty-expression and frontend-acceptance rules.
+
+Writable targets must be pairwise distinct by kind and binding identity.
+A writable target cannot occur in another actual's read expression; its own
+`in out` incoming read is permitted. This conservative rule excludes conflicting
+copy-back and avoids depending on an argument or copy-back evaluation order.
+All inputs are evaluated before caller updates. On return, each written Integer
+target receives the corresponding formal's full declared interval, discarding
+its previous target refinement. Boolean results retain no predicate relation.
+Every other caller value, String/array store and path fact is preserved.
+
+All Main, function and procedure declarations and bodies share the existing
+4,096-byte source and 63-operator limits. Existing per-expression limits remain;
+no budget resets at a procedure boundary. Signature/formal storage is pooled and
+derived from the admitted source spellings. Report capacity and exact native
+initialization/copy-back obligations are recorded with the capability evidence.
 
 ### Character objects and fixed-bound String indexing
 
@@ -1000,6 +1106,7 @@ statement        ::= basic_statement | string_choice | for_loop | array_iteratio
 basic_statements ::= basic_statement { basic_statement }
 basic_statement  ::= "null" ";"
                    | call_assignment
+                   | procedure_call
                    | reject_name ";"
                    | mutable_name ":=" expression ";"
                    | mutable_character_name ":=" character_expression ";"
@@ -1297,6 +1404,7 @@ The catalogue uses these construct identifiers:
 | `boolean_array_object`, `boolean_array_read`, `boolean_array_assignment` | Explicitly initialized fixed-size Boolean arrays, typed indexed reads and mutable cell writes; stored flags retain no scalar or String/input facts. |
 | `integer_array_iteration` | Forward/reverse iteration over constant Integer arrays, with immutable nonstatic elements, declared component entry bounds and existing guard/statement compositions. |
 | `scalar_function`, `scalar_function_call` | Closed Integer/Boolean functions with explicit-in formals, terminal return, earlier-only calls and whole scalar assignment RHS calls. |
+| `scalar_procedure`, `scalar_procedure_call` | Closed Integer/Boolean procedures with explicit modes, leading output initialization, earlier-only calls, positional nonaliasing scalar actuals and range-checked copy-back. |
 | `named_boolean_constant`, `named_boolean_variable`, `boolean_assignment`, `boolean_expression`, `boolean_comparison` | Initialized scalar Boolean objects, snapshot copies, assignment, logical expressions and Boolean equality/inequality under the visibility, evaluation and xor restrictions above; stored flags retain no scalar or String/input facts. |
 | `integer_comparison`, `scalar_guard_refinement`, `integer_image`, `for_loop` | Bare mutable/formal/index/element names against static thresholds, current read intervals with assignment replacement and branch hulls, standard decimal Image and scoped finite loops with captured bounds and mutable widening. |
 | `expression_output`, `literal_output`, `named_output`, `concatenated_output` | Returning output calls with qualified or visible unqualified names and positional or `Item =>` actuals. |
@@ -1304,12 +1412,12 @@ The catalogue uses these construct identifiers:
 | `string_equality`, `string_choice` | Nested predicates with nonempty statements, repeated `elsif`, optional `else` and path refinement. |
 | `length_predicate`, `boolean_predicate`, `integer_literal` | Fixed-bound length comparisons, grouped short-circuit logic and bounded decimal/based integer spelling. |
 | `string_assignment` | Fixed-bound assignment, including self-copy and path-established length equality. |
-| `statement_sequence`, `basic_statement_sequence` | Nonempty finite ordered statements; basic sequences contain null, assignment, output and argument-shell Reject; general sequences also contain choices and loops. |
+| `statement_sequence`, `basic_statement_sequence` | Nonempty finite ordered statements; basic sequences contain null, assignment, scalar procedure calls, output and argument-shell Reject; general sequences also contain choices and loops. |
 
 Everything else is excluded, including derived scalar types, subtype alias chains, conversions,
 other loop forms,
 Boolean operations outside the specified fragment,
-declaration regions beyond the scalar functions above, resizable strings, other array
+declaration regions beyond the scalar subprograms above, resizable strings, other array
 operations, access types and file handles.
 The catalogue's token arrays are informative skeletons, including qualified,
 positional call examples; their construct conditions specify the context,
@@ -1391,13 +1499,13 @@ safety record must be a proved/info `VC_RANGE_CHECK`, `VC_LENGTH_CHECK`,
 suppression. Length checks require the fixed-bound argument; their absence through
 static elimination is no longer a prerequisite for supporting copies.
 
-Function-bearing programs use GNATprove's `--no-inlining` analysis on the same
-author source. Each declared function, including an unused function, is checked
+Subprogram-bearing programs use GNATprove's `--no-inlining` analysis on the same
+author source. Each declared subprogram, including an unused one, is checked
 over its complete formal domain. The application report must cover Main and
-every source-declared local function exactly; the same safety classes and
+every source-declared local function and procedure exactly; the same safety classes and
 discharge requirements apply to their records. Successful
 `SUBPROGRAM_TERMINATION` flow records establish the reported termination checks.
-Local dependencies may name only the identified functions' effect and
+Local dependencies may name only the identified subprograms' effect and
 absence-of-runtime-error claims; no authored function contract is introduced.
 
 All output policies classify finite lists of the exact `INEFFECTIVE` initializer
@@ -1408,22 +1516,42 @@ produced by statically known predicates. Repeated output additionally permits on
 the four exact `INEFFECTIVE` messages naming the overwritten ghost outputs
 `Written_Count`, `Flushed`, `Succeeded` and `Written_Bytes` of either `Put` or
 `Put_Line` (eight exact messages). These flow advisories retain a location in
-`main.adb`, the exact Main or declared local-function entity, flow
+`main.adb`, the exact Main or declared local-subprogram entity, flow
 provenance and no suppression. Initializers still establish object bounds even when
-their bytes are unused. The warning list additionally permits only the exact producer
+their bytes are unused. The warning list additionally permits the exact producer
 `imprecise-image` advisory, including its full message with exactly the producer's
 `Image`, `image` or `IMAGE` spelling and its producer state; it never
 discharges or removes a safety check. The [assurance policy](docs/assurance.md)
-specifies its native/SARIF classification. Other warnings in the audited reports
-fail; naming conventions that make GNATprove omit an advisory do not change
-membership.
+specifies its native/SARIF classification. It also permits the exact
+`array-initialization` message `initialization of an array in FOR loop is handled
+imprecisely [array-initialization]` with the same producer warning state. This
+withholds a flow initialization fact and replaces no initialization or safety
+obligation. Other warnings in the audited reports fail; naming conventions that
+make GNATprove omit an advisory do not change membership.
 
-An identified local function may additionally carry the exact `UNUSED_VARIABLE`
+An identified local function or procedure may additionally carry the exact `UNUSED_VARIABLE`
 message `unused variable "NAME"` for an unused formal. It retains warning severity,
-flow provenance, a positive location in `main.adb`, the declared function's entity
+flow provenance, a positive location in `main.adb`, the declared subprogram's entity
 and no suppression or justification. `NAME` has Ada identifier spelling and is
 bounded by the complete-source limit. This advisory does not discharge a safety
 obligation and is not accepted for Main itself.
+
+Two further flow advisories require the exact declared spelling of a formal of
+their declared local-subprogram owner, never Main. `INOUT_ONLY_READ` accepts
+only `"NAME" is not modified, could be IN` for a procedure's `in out` formal.
+`UNUSED_INITIAL_VALUE` accepts only `unused initial value of "NAME"` for a
+procedure's `in` or `in out` formal, or a function's `in` formal. Both require
+warning severity, flow provenance, a positive location in `main.adb`, and no
+suppression or justification field. Neither column equality nor record order
+binds a formal. These advisories add no discharged check and waive none.
+
+For the scalar-procedure increment, these application entities also
+include declared local procedures. An unused scalar copy-back may produce the
+exact `INEFFECTIVE` flow warning `"TARGET" is set by "PROCEDURE" but not used
+after the call`, with a bare scalar target and a source-declared procedure name.
+It retains the same warning provenance and contributes no discharged check.
+The successful output-initialization records and all safety checks remain
+independently required, as detailed in the [procedure capacity account](docs/scalar-procedures-report-capacity.md).
 
 Faithful static evaluation, complete obligation/report generation, completeness
 of the accepted producer shapes and pinned solver completion for the bounded

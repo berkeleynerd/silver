@@ -1,0 +1,14 @@
+{
+  "utc": "2026-11-10T08:37:11.803499+00:00",
+  "baseline_sha256": "8faeadd71baffc66b66eeb58d31af1a35694fac1ecd5bd6c4eb47700f1b34588",
+  "candidate_sha256": "7bbe9b5e829313e232c113a77ccb50736f84819546663b1c9ee348ff3b1974a6",
+  "scope": "read-only proposed two-caller proof repair; no native run or annotation-policy change",
+  "result": "No soundness/domain/behavior blocker found in inspected delta; solver completion unestablished",
+  "selected_settings": "Source role historically Astra Max; live model/effort not independently exposed",
+  "elapsed": "Not independently instrumented; bounded source inspection only",
+  "token_cost": "Unavailable",
+  "baseline_origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370/tmp/report-policy-branch-repair/silver_library_reports.before.adb",
+  "candidate_origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-370/tmp/report-policy-branch-repair/silver_library_reports.candidate.adb",
+  "live_root_at_retention_sha256": "7bbe9b5e829313e232c113a77ccb50736f84819546663b1c9ee348ff3b1974a6",
+  "retention_note": "Root promoted the reviewed candidate while this read-only review continued; the baseline is preserved exact before.adb from its failed-run packet, matching the inspected initial diff."
+}

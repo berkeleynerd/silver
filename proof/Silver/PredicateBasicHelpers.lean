@@ -69,6 +69,12 @@ structure HelperMeaning (primitive : Primitives) : Prop where
   callAssignment : ∀ text context scan catalog, ScalarAssignmentDomain text context scan →
     FunctionBindings.ValidMetadata text catalog →
     primitive.callAssignment text context scan catalog = callAssignmentBody text context.model scan catalog
+  procedureCallee : ∀ text context position procedures, TargetDomain text context position →
+    ProcedureBindings.ValidMetadata text procedures →
+    primitive.procedureCallee text context position procedures = procedureCalleeAt text context.model position procedures
+  procedureCall : ∀ text context scan procedures, ScalarAssignmentDomain text context scan →
+    ProcedureBindings.ValidMetadata text procedures →
+    primitive.procedureCall text context scan procedures = procedureCallBody text context.model scan procedures
   booleanTarget : ∀ text context position, TargetDomain text context position →
     primitive.booleanTarget text context position = Predicate.booleanTarget text context.model position
   booleanAssignment : ∀ text context scan, ScalarAssignmentDomain text context scan →
@@ -116,6 +122,12 @@ noncomputable def totalize (primitive : Primitives) : Primitives := by
     callAssignment := fun text context scan catalog =>
       if ScalarAssignmentDomain text context scan ∧ FunctionBindings.ValidMetadata text catalog then
         primitive.callAssignment text context scan catalog else callAssignmentBody text context.model scan catalog
+    procedureCallee := fun text context position procedures =>
+      if TargetDomain text context position ∧ ProcedureBindings.ValidMetadata text procedures then
+        primitive.procedureCallee text context position procedures else procedureCalleeAt text context.model position procedures
+    procedureCall := fun text context scan procedures =>
+      if ScalarAssignmentDomain text context scan ∧ ProcedureBindings.ValidMetadata text procedures then
+        primitive.procedureCall text context scan procedures else procedureCallBody text context.model scan procedures
     booleanTarget := fun text context position => if TargetDomain text context position then
       primitive.booleanTarget text context position else Predicate.booleanTarget text context.model position
     booleanAssignment := fun text context scan => if ScalarAssignmentDomain text context scan then
@@ -212,6 +224,18 @@ theorem totalize_equations {primitive : Primitives} (meaning : HelperMeaning pri
     split
     · exact meaning.callAssignment text context scan catalog (And.left ‹_›) (And.right ‹_›)
     · rfl
+  procedureCallee := by
+    funext text context position procedures
+    dsimp only [totalize]
+    split
+    · exact meaning.procedureCallee text context position procedures (And.left ‹_›) (And.right ‹_›)
+    · rfl
+  procedureCall := by
+    funext text context scan procedures
+    dsimp only [totalize]
+    split
+    · exact meaning.procedureCall text context scan procedures (And.left ‹_›) (And.right ‹_›)
+    · rfl
   booleanTarget := by
     funext text context position
     dsimp only [totalize]
@@ -251,9 +275,10 @@ theorem totalize_eq_model {primitive : Primitives} (meaning : HelperMeaning prim
 
 theorem basicEval_normalized {primitive : Primitives} (meaning : HelperMeaning primitive)
     (text : Source) (context : Native.Context) (scan : BodyScan)
-    (catalog : FunctionBindings.Metadata := {}) :
-    basicEval (totalize primitive) text context scan catalog = basicBody text context.model scan catalog :=
-  basicEval_of_equations (totalize_equations meaning) text context scan catalog
+    (catalog : FunctionBindings.Metadata := {})
+    (procedures : ProcedureBindings.Metadata := {}) :
+    basicEval (totalize primitive) text context scan catalog procedures = basicBody text context.model scan catalog procedures :=
+  basicEval_of_equations (totalize_equations meaning) text context scan catalog procedures
 
 theorem model_helper_meaning : HelperMeaning modelPrimitives where
   callAfter _ _ _ _ _ _ _ _ _ := rfl
@@ -269,6 +294,8 @@ theorem model_helper_meaning : HelperMeaning modelPrimitives where
   scalarTarget _ _ _ _ := rfl
   scalarAssignment _ _ _ _ := rfl
   callAssignment _ _ _ _ _ _ := rfl
+  procedureCallee _ _ _ _ _ _ := rfl
+  procedureCall _ _ _ _ _ _ := rfl
   booleanTarget _ _ _ _ := rfl
   booleanAssignment _ _ _ _ := rfl
   arrayTarget _ _ _ _ := rfl

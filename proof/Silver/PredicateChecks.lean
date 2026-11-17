@@ -96,12 +96,13 @@ theorem Check.fragment_discharge {check : Check} (fragment : check.InFragment) :
 def Check.toObligation (check : Check) : Semantics.Obligation := ⟨.runTimeSafety, check.discharge⟩
 
 def Program.checks (program : Program) : List Check :=
-  (ScalarFunctions.definitionsObligations [] program.functions).map Check.path ++
+  ((ScalarFunctions.definitionsObligations [] program.functions).map Check.path ++
+    (ScalarProcedures.definitionsObligations program.functionEnvironment.signatures [] program.procedures).map Check.path) ++
   ((declarationChecks program).map Check.declaration ++
     (integerDeclarationChecks program ++ program.initializerChecks).map Check.scalarDeclaration ++
     ((program.booleanInitializerChecks ++ booleanDeclarationObligations program.names.shape
       Integer.Analysis.empty program.booleanInitialFlow {} program.booleanDeclarations).map Check.path) ++
-    (statementsObligations (signatures := program.functionEnvironment.signatures) program.names.shape program.bodyAnalysis program.initialFlow program.statements program.bodyBooleanAnalysis).map Check.path)
+    (statementsObligations (signatures := program.functionEnvironment.signatures) (procedures := program.procedureEnvironment.signatures) program.names.shape program.bodyAnalysis program.initialFlow program.statements program.bodyBooleanAnalysis).map Check.path)
 
 theorem Program.declaration_checks_fragment {program : Program} (valid : program.Valid) :
     ∀ check ∈ declarationChecks program, check.InFragment := by
@@ -117,8 +118,11 @@ theorem Program.checks_fragment {program : Program} (valid : program.Valid) :
     ∀ check ∈ program.checks, check.InFragment := by
   intro check member
   rcases List.mem_append.mp member with functions | ordinary
-  · obtain ⟨schema, present, rfl⟩ := List.mem_map.mp functions
-    exact List.all_eq_true.mp (ScalarFunctions.definitions_obligations_discharge valid.1.2.2.2.2) schema present
+  · rcases List.mem_append.mp functions with functions | procedures
+    · obtain ⟨schema, present, rfl⟩ := List.mem_map.mp functions
+      exact List.all_eq_true.mp (ScalarFunctions.definitions_obligations_discharge valid.1.2.2.2.2.1) schema present
+    · obtain ⟨schema, present, rfl⟩ := List.mem_map.mp procedures
+      exact List.all_eq_true.mp (ScalarProcedures.definitions_obligations_discharge valid.1.2.2.2.2.2) schema present
   · have member := ordinary
     rcases List.mem_append.mp member with declarations | path
     · rcases List.mem_append.mp declarations with declarations | boolean

@@ -1,0 +1,190 @@
+{
+  "verified_at": "2026-11-15T21:21:02.113274+00:00",
+  "run_id": "20261115T174959-94ae5c6fdf63",
+  "host": "linux-aarch64",
+  "machine": "silver-m4pro",
+  "frozen_source_commit": "8a03ab12265d7753f6ea603817561c83f84ea596",
+  "current_integration_head": "edd8cd843cd089ba633a348c10c597c8f863dd26",
+  "output_source_sha256": "9ede490b6cf72b352a39072cd37f4ef39774409c6024135487cf076567b59b9c",
+  "managed_outcome": "success",
+  "managed_returncode": null,
+  "native_duration_seconds": 12572.652785787,
+  "native_tool_returncode": 0,
+  "audit_phase_completed": true,
+  "validation_mode": "full",
+  "initial_cache_state": {
+    "sessions_present": false,
+    "cache_entries_present": true
+  },
+  "original_wrapper_exit_status": null,
+  "coverage_stats": {
+    "units": 78,
+    "entities": 1232,
+    "flow_checks": 1715,
+    "proof_checks": 17729,
+    "limitation_notes": 352,
+    "imported_entities": 18,
+    "trusted_math_notes": 6268,
+    "vendor_spec_entities": 62,
+    "array_initialization_advisories": 6,
+    "operator_reassociation_advisories": 25
+  },
+  "verification_error": null,
+  "native_input_comparison": {
+    "prepared_count": 2606,
+    "final_count": 2606,
+    "changed": [],
+    "added": [],
+    "removed": []
+  },
+  "report_count": 80,
+  "tool_identity_count": 12,
+  "phases": [
+    {
+      "event": "phase-start",
+      "monotonic_ns": 8230438299091,
+      "phase": "preflight",
+      "run_id": "20261115T174959-94ae5c6fdf63",
+      "utc": "2026-11-15T17:49:59.080114+00:00"
+    },
+    {
+      "event": "phase-end",
+      "monotonic_ns": 8231196779216,
+      "phase": "preflight",
+      "run_id": "20261115T174959-94ae5c6fdf63",
+      "utc": "2026-11-15T17:49:59.838591+00:00"
+    },
+    {
+      "event": "phase-start",
+      "monotonic_ns": 8231443297300,
+      "phase": "native-tool",
+      "run_id": "20261115T174959-94ae5c6fdf63",
+      "utc": "2026-11-15T17:50:00.085108+00:00"
+    },
+    {
+      "event": "phase-end",
+      "monotonic_ns": 20799252529126,
+      "phase": "native-tool",
+      "returncode": 0,
+      "run_id": "20261115T174959-94ae5c6fdf63",
+      "utc": "2026-11-15T21:19:27.894305+00:00"
+    },
+    {
+      "event": "phase-start",
+      "monotonic_ns": 20799255577376,
+      "phase": "audit",
+      "run_id": "20261115T174959-94ae5c6fdf63",
+      "utc": "2026-11-15T21:19:27.897390+00:00"
+    },
+    {
+      "event": "phase-end",
+      "monotonic_ns": 20803081650544,
+      "phase": "audit",
+      "run_id": "20261115T174959-94ae5c6fdf63",
+      "utc": "2026-11-15T21:19:31.723455+00:00"
+    },
+    {
+      "duration_seconds": 12572.652785787,
+      "event": "finished",
+      "evidence": [
+        {
+          "original": "/home/agent/silver-workspaces/recovery-volume/integration/.silver/linux-aarch64/compiler/obj/gnatprove",
+          "resolved": "/home/agent/silver-workspaces/recovery-volume/integration/.silver/linux-aarch64/compiler/obj/gnatprove"
+        },
+        {
+          "original": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T174959-94ae5c6fdf63/native.log",
+          "resolved": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T174959-94ae5c6fdf63/native.log"
+        },
+        {
+          "original": "/home/agent/silver-workspaces/recovery-volume/integration/.silver/linux-aarch64/compiler/obj/gnatprove/proof-provenance.json",
+          "resolved": "/home/agent/silver-workspaces/recovery-volume/integration/.silver/linux-aarch64/compiler/obj/gnatprove/proof-provenance.json"
+        },
+        {
+          "original": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T174959-94ae5c6fdf63/proof-evidence",
+          "resolved": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T174959-94ae5c6fdf63/proof-evidence"
+        }
+      ],
+      "failure_keys": [],
+      "monotonic_ns": 20803085477044,
+      "outcome": "success",
+      "retained_reports": [],
+      "returncode": null,
+      "run_id": "20261115T174959-94ae5c6fdf63",
+      "utc": "2026-11-15T21:19:31.727291+00:00"
+    }
+  ],
+  "resource_series": [
+    {
+      "file": "resources.jsonl",
+      "sample_count": 593,
+      "first_sample": "2026-11-15T17:49:58.871223+00:00",
+      "last_sample": "2026-11-15T18:39:22.914043+00:00",
+      "sampled_max_tree_rss_kib": 2463760,
+      "sampled_min_host_available_kib": 5437680
+    },
+    {
+      "file": "attached-resources.jsonl",
+      "sample_count": 1875,
+      "first_sample": "2026-11-15T18:43:06.548505+00:00",
+      "last_sample": "2026-11-15T21:19:29.641315+00:00",
+      "sampled_max_tree_rss_kib": 8052496,
+      "sampled_min_host_available_kib": 3561744
+    }
+  ],
+  "attachment": {
+    "attached_at": "2026-11-15T18:43:06.544210+00:00",
+    "monitor_pid": 105970,
+    "identity": {
+      "pid": 22821,
+      "ppid": 1,
+      "process_group": 22821,
+      "start_ticks": 823022,
+      "state": "S",
+      "command": [
+        "python3",
+        "scripts/dev.py",
+        "prove",
+        "--full",
+        "--task",
+        "#370",
+        "--jobs",
+        "2",
+        "--reason",
+        "Complete canonical native audit on frozen integrated source 8a03ab122 after reviewed whole-helper repair. Two workers preserve headroom on 16 GiB host alongside bounded Lean checks; unchanged 30-second policy, existing canonical ARM64 cache, host available-memory monitoring."
+      ]
+    },
+    "minimum_host_available_kib": 1572864,
+    "interval_seconds": 5,
+    "original_wrapper_pid": 22794,
+    "original_sampler_last_at": "2026-11-15T18:39:22.914043+00:00",
+    "original_wrapper_status": "disappeared; exit status unavailable",
+    "reason": "Root explicitly authorized replacement attachment after original wrapper disappeared; no proof restart"
+  },
+  "attachment_terminal": {
+    "finished_at": "2026-11-15T21:19:34.651547+00:00",
+    "reason": "verified native PID no longer exists; actual original wrapper/tool exit unavailable to this monitor",
+    "guard_sent": false,
+    "elapsed_attachment_seconds": 9388.107225727,
+    "original_wrapper_returncode": null,
+    "tool_returncode": null
+  },
+  "selected_monitor_model": "GPT-6.1 Sol",
+  "selected_effort": "High",
+  "runtime_model_effort_telemetry": "unavailable",
+  "token_cost_evidence": "unavailable",
+  "scope": "Complete canonical forced cached native audit and terminal evidence checks; no Lean/source-correspondence or regression-test completion claim",
+  "contract_dependency_inventory_erratum": {
+    "file": "helper-dependency-erratum.json",
+    "corrected_claim_records": {
+      "Array_Declaration_At": 2,
+      "Declaration_At": 2
+    },
+    "corrected_dependency_entry_totals": {
+      "Array_Declaration_At": 126,
+      "Declaration_At": 52
+    },
+    "pragma_assume_records": 0,
+    "historical_zero_counts_incorrect": true,
+    "existing_complete_boundary_audit_passed": true
+  }
+}

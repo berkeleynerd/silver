@@ -1,0 +1,28 @@
+{
+  "reviewed_native_commit": "d19baabc5d1e6c21d453df48e92f1b08cf7358b5",
+  "root_integrated_commit": "03141a9fe",
+  "exact_fragment_hashes": {
+    "caller": "25268ddc8bf97d5f1c93938965f7581438602ee21502aeae6eeafbc862850518",
+    "exported_contract": "53c74e95ebfe95aa6c1c983f480acc1f57b220fa7786e125fd8497563a75262c",
+    "runtime_declaration_and_initializer": "b017976bcacf09a63c2d1e53c7bb8497c3a326521c7b507ce614ab8c1b959748"
+  },
+  "old_source_sha256": "619f4fb8e2b0f318dac7c6278d5f644198816ce7733959ed71ca03917546b2b8",
+  "new_source_sha256": "9ede490b6cf72b352a39072cd37f4ef39774409c6024135487cf076567b59b9c",
+  "independent_old_pin_equals_old_source_tokens": true,
+  "independent_new_pin_equals_new_source_tokens": true,
+  "all_other_pin_bytes_unchanged": true,
+  "pin_counts": [
+    72709,
+    72713
+  ],
+  "pin_delta_reconstructs_new_tokens_exactly": true,
+  "reviewed_output_pin_sha256": "191e1d95d40e1d0c85765093acc7aec80ad17c7b7cce2d6eb8c51eb5cb2b2684",
+  "native_archive_inputs_compared": 2606,
+  "only_native_input_changed": "src/silver_output_profile.adb",
+  "exact_renderer_new_ghost_tail_token_count": 45,
+  "model_wrapper_preconditions_equal": true,
+  "current_whole_helper_proof_info_records": 56,
+  "current_whole_helper_flow_info_records": 2,
+  "retained_complete_caller_proof_info_records": 11,
+  "retained_complete_caller_flow_info_records": 2
+}

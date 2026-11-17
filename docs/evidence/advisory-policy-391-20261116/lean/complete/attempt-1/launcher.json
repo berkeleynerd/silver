@@ -1,0 +1,25 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "scripts/check_lean.py",
+    "--memory-mb",
+    "8192",
+    "--provenance",
+    "--task",
+    "#391",
+    "--reason",
+    "Complete cached Lean checkpoint on frozen integrated implementation 2288af60031763d808b8cd1e024f8fcf7cdc7135 after focused native/Lean success. All captured inputs match that commit; all embedded source bytes remain unchanged from the prior complete success. Preserve all retained objects; automatic available workers and threads on Linux ARM64, with no native proof overlap. Retained 8192 MiB periodic per-process threshold, 10 GiB aggregate RSS-tree and 1.5 GiB host MemAvailable monitoring guards; not hard OS caps. No clean build or replay."
+  ],
+  "cwd": "/home/agent/silver-worktrees/procedures-lean-370",
+  "launcher_pid": 18075,
+  "runner_pid": 18076,
+  "runner_pgid": 18076,
+  "started_utc": "2026-11-16T22:52:32.343292+00:00",
+  "sample_interval_seconds": 2,
+  "tree_rss_guard_kib": 10485760,
+  "host_available_guard_kib": 1572864,
+  "guard_trigger": "aggregate process-tree RSS exceeded 10 GiB",
+  "returncode": -2,
+  "finished_utc": "2026-11-16T22:52:44.478400+00:00",
+  "elapsed_seconds": 12.135
+}

@@ -1,0 +1,113 @@
+{
+  "safe": {
+    "runs": [
+      {
+        "id": "20261109T230757-42be539035fc",
+        "outcome": "success"
+      },
+      {
+        "id": "20261109T231106-b3085fae798c",
+        "outcome": "success"
+      },
+      {
+        "id": "20261109T231257-93c50ed12d14",
+        "outcome": "success"
+      }
+    ],
+    "source_bytes": 1730,
+    "archive": "safe.tar.gz",
+    "sha256": "fd7af86cf2db6a4d7796384b4de8aaa849c17646d0ef371aed92d1b1aa4b5b85",
+    "source_sha256": "3288c4e7d5ea4baae9ff38c6a6966507e4f1a0f518a0ef955cfb338eb577f8a2",
+    "flow_rules": {
+      "UNINITIALIZED": 6,
+      "INEFFECTIVE": 6,
+      "SUBPROGRAM_TERMINATION": 1
+    },
+    "safety_rules": {
+      "VC_DIVISION_CHECK": 1,
+      "VC_RANGE_CHECK": 1
+    },
+    "all_entities": [
+      "Main.Sum_And_Diff",
+      "Main.Compose",
+      "Main.Update",
+      "Main.Identity",
+      "Main.Unused",
+      "Main"
+    ]
+  },
+  "selected": {
+    "runs": [
+      {
+        "id": "20261109T231302-69a3623a0c2e",
+        "outcome": "success"
+      }
+    ],
+    "source_bytes": 1738,
+    "archive": "selected.tar.gz",
+    "sha256": "2b593d3ef276672cadda5a67db94c55801026656556cda93b4ffbb94737fa0c8",
+    "source_sha256": "4377e3c7180ea2fb17988e3d438fa2bb88bd3e3ebee60061680179e213355259",
+    "flow_rules": {
+      "UNINITIALIZED": 6,
+      "INEFFECTIVE": 6,
+      "SUBPROGRAM_TERMINATION": 1
+    },
+    "safety_rules": {
+      "VC_DIVISION_CHECK": 1,
+      "VC_RANGE_CHECK": 1
+    },
+    "all_entities": [
+      "Main.Sum_And_Diff",
+      "Main.Compose",
+      "Main.Update",
+      "Main.Identity",
+      "Main.Unused",
+      "Main"
+    ]
+  },
+  "narrow-copyback": {
+    "runs": [
+      {
+        "id": "20261109T230848-d6b6b68c9e33",
+        "outcome": "failure"
+      }
+    ],
+    "source_bytes": 376,
+    "archive": "narrow-copyback.tar.gz",
+    "sha256": "ff536581bcdc0fd13877b5e771b4d6e13fd6af3e9b525ce56e975d91a7698dff",
+    "source_sha256": "6685ad088b880eef4aa094c4fbfd7583178157ce8d29a5fdea1e8364c1dc677c",
+    "flow_rules": {
+      "INEFFECTIVE": 4,
+      "UNINITIALIZED": 1
+    },
+    "safety_rules": {
+      "VC_RANGE_CHECK": 1
+    },
+    "all_entities": [
+      "Main.Set_Value",
+      "Main"
+    ]
+  },
+  "unused-full-domain": {
+    "runs": [
+      {
+        "id": "20261109T231054-f768820edfee",
+        "outcome": "failure"
+      }
+    ],
+    "source_bytes": 238,
+    "archive": "unused-full-domain.tar.gz",
+    "sha256": "d586cdd6b078cb7a552e26e337fb8b9862df567d56931daa0bebcdafa69ef038",
+    "source_sha256": "b102a006d0bdfcad60e12c9a0a7d376fbcc0f34573ded4e98e672e8ce80b1d99",
+    "flow_rules": {
+      "UNINITIALIZED": 1
+    },
+    "safety_rules": {
+      "VC_OVERFLOW_CHECK": 1
+    },
+    "all_entities": [
+      "Main.Unused",
+      "Main"
+    ]
+  }
+}

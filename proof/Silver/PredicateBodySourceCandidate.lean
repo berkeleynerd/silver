@@ -1,6 +1,8 @@
 module
 
 public import Silver.PredicateSourceRequirements
+public import Silver.PredicateBodyExpectedTokens
+meta import Silver.CertificateWitness
 import all Init.Data.Repr
 
 @[expose] public section
@@ -160,7 +162,10 @@ private theorem candidate_body_tail_model_body : Source.expressionBody "body_tai
   decide +kernel
 
 private theorem candidate_body_tail_model_spec : functionHeader "body_tail_model" ";" SourceShape.bodyTokens = some body_body_tail_model_spec_header := by
-  decide +kernel
+  change functionHeader "body_tail_model" ";" SourceShape.bodyTokens =
+    some (Silver.SourceBridge.expectedTokens "(Text : String; Context : Body_Context; Scan : Body_Scan; Stop : Body_Stop; Catalog : Functions.Metadata; Procedure_Catalog : Procedures.Metadata) return Body_Scan with Ghost => Static, Global => null, Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length and then Functions.Valid_Metadata (Text, Catalog) and then Procedures.Valid_Metadata (Text, Procedure_Catalog) and then Valid_Context (Text, Context) and then Valid_Body (Text, Context, Scan), Post => Valid_Body (Text, Context, Body_Tail_Model'Result) and then (Body_Tail_Model'Result.Position = 0 or else Body_Tail_Model'Result.Position >= Scan.Position), Subprogram_Variant => (Decreases => (Text'Last + 1) - Scan.Position, Decreases => 3)")
+  rw [BodyExpectedTokens.tailModelSpec]
+  kernel_exact (Eq.refl (some ["(", "text", ":", "string", ";", "context", ":", "body_context", ";", "scan", ":", "body_scan", ";", "stop", ":", "body_stop", ";", "catalog", ":", "functions", ".", "metadata", ";", "procedure_catalog", ":", "procedures", ".", "metadata", ")", "return", "body_scan", "with", "ghost", "=>", "static", ",", "global", "=>", "null", ",", "pre", "=>", "text", "'", "first", "=", "1", "and", "then", "text", "'", "length", "in", "1", "..", "max_source_length", "and", "then", "functions", ".", "valid_metadata", "(", "text", ",", "catalog", ")", "and", "then", "procedures", ".", "valid_metadata", "(", "text", ",", "procedure_catalog", ")", "and", "then", "valid_context", "(", "text", ",", "context", ")", "and", "then", "valid_body", "(", "text", ",", "context", ",", "scan", ")", ",", "post", "=>", "valid_body", "(", "text", ",", "context", ",", "body_tail_model", "'", "result", ")", "and", "then", "(", "body_tail_model", "'", "result", ".", "position", "=", "0", "or", "else", "body_tail_model", "'", "result", ".", "position", ">=", "scan", ".", "position", ")", ",", "subprogram_variant", "=>", "(", "decreases", "=>", "(", "text", "'", "last", "+", "1", ")", "-", "scan", ".", "position", ",", "decreases", "=>", "3", ")"]))
 
 private theorem candidate_body_tail_model_impl : functionHeader "body_tail_model" "is" SourceShape.bodyTokens = some body_body_tail_impl_header := by
   decide +kernel
@@ -284,6 +289,11 @@ private theorem candidate_body_alternative_body_impl_header : functionHeader "al
   decide +kernel
 
 private theorem candidate_body_body_tail_spec_header : functionHeader "body_tail" ";" SourceShape.bodyTokens = some body_body_tail_spec_header := by
+  unfold body_body_tail_spec_header
+  change functionHeader "body_tail" ";" SourceShape.bodyTokens =
+    some (Silver.SourceBridge.expectedTokens "(Text : String; Context : Body_Context; Scan : Body_Scan; Stop : Body_Stop; Catalog : Functions.Metadata; Procedure_Catalog : Procedures.Metadata) return Body_Scan with Global => null, Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length and then Functions.Valid_Metadata (Text, Catalog) and then Procedures.Valid_Metadata (Text, Procedure_Catalog) and then Valid_Context (Text, Context) and then Valid_Body (Text, Context, Scan), Post => (Runtime => Valid_Body (Text, Context, Body_Tail'Result) and then (Body_Tail'Result.Position = 0 or else Body_Tail'Result.Position >= Scan.Position), Static => Body_Tail'Result =" ++
+      (BodyNative.ScanExpr.tailModel .current .input).render ++ (Source.lexLine ") , Subprogram_Variant => (Decreases => (Text'Last + 1) - Scan.Position, Decreases => 4)").getD [])
+  rw [BodyExpectedTokens.bodyTailPrefix]
   decide +kernel
 
 private theorem candidate_body_body_tail_impl_header : functionHeader "body_tail" "is" SourceShape.bodyTokens = some body_body_tail_impl_header := by
@@ -291,6 +301,10 @@ private theorem candidate_body_body_tail_impl_header : functionHeader "body_tail
 
 private theorem candidate_body_read_body_spec_header : functionHeader "read_body" ";" SourceShape.bodyTokens = some body_read_body_spec_header := by
   unfold body_read_body_spec_header
+  change functionHeader "read_body" ";" SourceShape.bodyTokens =
+    some (Silver.SourceBridge.expectedTokens "(Text : String; Context : Body_Context; Scan : Body_Scan; Stop : Body_Stop; Catalog : Functions.Metadata; Procedure_Catalog : Procedures.Metadata) return Body_Scan with Global => null, Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length and then Functions.Valid_Metadata (Text, Catalog) and then Procedures.Valid_Metadata (Text, Procedure_Catalog) and then Valid_Context (Text, Context) and then Valid_Body (Text, Context, Scan), Post => (Runtime => Valid_Body (Text, Context, Read_Body'Result) and then (Read_Body'Result.Position = 0 or else Read_Body'Result.Position > Scan.Position), Static => Read_Body'Result =" ++
+      BodyNative.readContractBody.render ++ (Source.lexLine ") , Subprogram_Variant => (Decreases => (Text'Last + 1) - Scan.Position, Decreases => 3)").getD [])
+  rw [BodyExpectedTokens.readBodyPrefix]
   simp only [BodyNative.readContractBody, BodyNative.ModelExpr.render.eq_def,
     BodyNative.ModelExpr.renderElse.eq_def, BodyNative.ScanExpr.render,
     BodyNative.Test.render, BodyNative.StopRef.render]
@@ -465,7 +479,10 @@ private theorem candidate_string_target_declaration : Lexical.SourceBridge.recor
   decide +kernel
 
 private theorem candidate_valid_context_body : Source.expressionBody "valid_context" SourceShape.bodyTokens = some valid_context_expression := by
-  decide +kernel
+  change Source.expressionBody "valid_context" SourceShape.bodyTokens =
+    some (Silver.SourceBridge.expectedTokens "Valid_Names (Text, Context.Names) and then Scalar_Expressions.Valid_Environment (Text, Context.Scalar_Names) and then Array_Bindings.Valid_Metadata (Text, Context.Array_Names) and then Valid_Booleans (Text, Context.Boolean_Names) and then Valid_Name_State (Text, Context.Mask_First, Context.Mask_After) and then Valid_Declaration_Values (Context.Scalar_Names, Context.Declaration_Count) and then Valid_Mutable_Bounds (Context.Scalar_Names) and then (for all Index in 1 .. Context.Scalar_Names.Count => (if Context.Scalar_Names.Items (Index).Mutable and then not Context.Elaborating then Context.Scalar_Names.Items (Index).Bounds = Context.Scalar_Names.Items (Index).Declared_Bounds)) and then Valid_Name_State (Text, Context.Dynamic_First, Context.Dynamic_After)")
+  rw [BodyExpectedTokens.validContextExpression]
+  kernel_exact (Eq.refl (some ["valid_names", "(", "text", ",", "context", ".", "names", ")", "and", "then", "scalar_expressions", ".", "valid_environment", "(", "text", ",", "context", ".", "scalar_names", ")", "and", "then", "array_bindings", ".", "valid_metadata", "(", "text", ",", "context", ".", "array_names", ")", "and", "then", "valid_booleans", "(", "text", ",", "context", ".", "boolean_names", ")", "and", "then", "valid_name_state", "(", "text", ",", "context", ".", "mask_first", ",", "context", ".", "mask_after", ")", "and", "then", "valid_declaration_values", "(", "context", ".", "scalar_names", ",", "context", ".", "declaration_count", ")", "and", "then", "valid_mutable_bounds", "(", "context", ".", "scalar_names", ")", "and", "then", "(", "for", "all", "index", "in", "1", "..", "context", ".", "scalar_names", ".", "count", "=>", "(", "if", "context", ".", "scalar_names", ".", "items", "(", "index", ")", ".", "mutable", "and", "then", "not", "context", ".", "elaborating", "then", "context", ".", "scalar_names", ".", "items", "(", "index", ")", ".", "bounds", "=", "context", ".", "scalar_names", ".", "items", "(", "index", ")", ".", "declared_bounds", ")", ")", "and", "then", "valid_name_state", "(", "text", ",", "context", ".", "dynamic_first", ",", "context", ".", "dynamic_after", ")"]))
 
 private theorem candidate_valid_body_body : Source.expressionBody "valid_body" SourceShape.bodyTokens = some valid_body_expression := by
   decide +kernel

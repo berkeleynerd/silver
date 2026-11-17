@@ -1,0 +1,101 @@
+{
+  "launch_head": "d60bd8a899fcc66e5ef40112423b7f94b2e4becc",
+  "platform": "Linux aarch64",
+  "workers": 12,
+  "stack_bytes": 16777216,
+  "original_terminal_session": 35541,
+  "terminal_exit_collected": 0,
+  "proof_run_id": "20261116T232749-c8fb976a6d5c",
+  "build_run_id": "20261116T232809-cb888d4b7deb",
+  "stages": [
+    {
+      "stage": "prove",
+      "command": [
+        "/usr/bin/python3",
+        "scripts/dev.py",
+        "prove",
+        "--full",
+        "--task",
+        "#391-native-provenance",
+        "--reason",
+        "Final integrated d60bd8a89: previous full run 20261116T231645-98dfa4e47215 proved all 19515 checks but failed old source-policy whitelist. Reviewed four-name checker extension passes 79 Python tests, all 138 Ada source-policy inputs and full report audit preflight. Only checker input bytes changed; all native source/contracts/projects/tools unchanged. Complete native provenance refresh remains required, with original matching sessions/cache, 12 available workers, 16 MiB stack, canonical proof policy and 1.5 GiB headroom guard."
+      ],
+      "started_at": "2026-11-16T23:27:49.550093+00:00",
+      "pid": 106489,
+      "returncode": 0,
+      "duration_seconds": 19.089847758999895,
+      "finished_at": "2026-11-16T23:28:08.639952+00:00",
+      "guard_fired": [],
+      "inputs_stable": true
+    },
+    {
+      "stage": "build",
+      "command": [
+        "/usr/bin/python3",
+        "scripts/dev.py",
+        "build",
+        "--task",
+        "#391-build",
+        "--reason",
+        "Build frozen repaired native inputs after successful complete audit; original integration path and automatic available workers"
+      ],
+      "started_at": "2026-11-16T23:28:08.820896+00:00",
+      "pid": 108834,
+      "returncode": 0,
+      "duration_seconds": 1.6994007089997467,
+      "finished_at": "2026-11-16T23:28:10.520311+00:00",
+      "guard_fired": [],
+      "inputs_stable": true
+    }
+  ],
+  "provenance": {
+    "complete": true,
+    "mode": "full",
+    "initial_state": {
+      "sessions_present": true,
+      "cache_entries_present": true
+    },
+    "input_count": 2606,
+    "tools_count": 12,
+    "report_hash_count": 80,
+    "source_sha256": "204a3aef6442a3708a54d081d75680e24c3b8ddae0e96c074dc1c3de14e81e70",
+    "auditor_sha256": "905742ba77e86fcf5b2e60c8e820ac00545e3e59283d5f25a4dac10242bb26f3",
+    "fresh_validate_provenance_passed": true,
+    "input_report_tool_project_and_command_identity_checks": "passed"
+  },
+  "proof_results": {
+    "checks": 19515,
+    "counts": {
+      "flow": 1724,
+      "proof": 17791
+    },
+    "units": 78,
+    "unproved_checks": 0,
+    "library_unit": {
+      "flow": {
+        "info": 353
+      },
+      "proof": {
+        "info": 3482
+      }
+    }
+  },
+  "resources": {
+    "prove": {
+      "peak_sampled_tree_rss_kib": 553328,
+      "minimum_sampled_available_kib": 15373024
+    },
+    "build": {
+      "peak_sampled_tree_rss_kib": 4416,
+      "minimum_sampled_available_kib": 15813520
+    }
+  },
+  "compiler_executable_sha256": "6af90a7588444f63c31ffcb5166b2a2e45af2cc741c691db7c2626e46503d1ce",
+  "validation_scope": "Complete canonical native proof/audit with matching retained sessions/cache, then native build. This is not a cold proof run. Full suite remains held pending complete Lean and parent final-head instruction.",
+  "archive": {
+    "filename": "native-complete.tar.gz",
+    "bytes": 11149605,
+    "files": 2497,
+    "sha256": "bc37adfaa4f8b265f7083dbe2422e3a90876690c61be669df8d469680f5cadc6"
+  }
+}

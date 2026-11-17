@@ -25,7 +25,7 @@ structure Calls (_inherited : Compose.Expressions.Calls) where
   basicPrimitives : BasicNative.Primitives
   loopImports : LoopNative.Imports
   loopScalars : ScalarExpression.Native.Calls
-  basic : Source → Native.Context → BodyScan → FunctionBindings.Metadata → BodyScan
+  basic : Source → Native.Context → BodyScan → FunctionBindings.Metadata → ProcedureBindings.Metadata → BodyScan
   flowLibraries : FlowSourceBridge.Calls
   initial : FlowSourceBridge.Context → FlowSourceBridge.FlowStorage
   bodyWrapperModels : Adapter.Wrappers.Calls
@@ -79,14 +79,14 @@ structure Definitions (calls : Calls inherited) : Prop where
   loopScalarEquations : ScalarExpression.Native.Equations calls.loopScalars
   loopLinks : LoopNative.Links calls.loopImports inherited calls.loopScalars
   basicSized : ∀ text, BodyNative.ValidText text → ∀ context, Native.ValidContext text context →
-    ∀ scan, BodyNative.ValidScan text context scan → ∀ catalog, FunctionBindings.ValidMetadata text catalog →
-      BasicNative.SizedBasic (BasicNative.totalize calls.basicPrimitives) text context scan catalog
+    ∀ scan, BodyNative.ValidScan text context scan → ∀ catalog procedures, FunctionBindings.ValidMetadata text catalog → ProcedureBindings.ValidMetadata text procedures →
+      BasicNative.SizedBasic (BasicNative.totalize calls.basicPrimitives) text context scan catalog procedures
   loopSized : ∀ text, BodyNative.ValidText text → ∀ context, Native.ValidContext text context →
-    ∀ scan, BodyNative.ValidScan text context scan → ∀ catalog, FunctionBindings.ValidMetadata text catalog →
-      LoopNative.SizedLoop (LoopNative.totalizeImports calls.loopImports) calls.body.read text context scan catalog
+    ∀ scan, BodyNative.ValidScan text context scan → ∀ catalog procedures, FunctionBindings.ValidMetadata text catalog → ProcedureBindings.ValidMetadata text procedures →
+      LoopNative.SizedLoop (LoopNative.totalizeImports calls.loopImports) calls.body.read text context scan catalog procedures
   basic : ∀ text, BodyNative.ValidText text → ∀ context, Native.ValidContext text context →
-    ∀ scan, BodyNative.ValidScan text context scan → ∀ catalog, FunctionBindings.ValidMetadata text catalog → calls.basic text context scan catalog =
-      BasicNative.basicEval (BasicNative.totalize calls.basicPrimitives) text context scan catalog
+    ∀ scan, BodyNative.ValidScan text context scan → ∀ catalog procedures, FunctionBindings.ValidMetadata text catalog → ProcedureBindings.ValidMetadata text procedures → calls.basic text context scan catalog procedures =
+      BasicNative.basicEval (BasicNative.totalize calls.basicPrimitives) text context scan catalog procedures
   body : BodyNative.DefinitionEquations (bodyPrimitives calls) calls.body
 
 section
@@ -119,10 +119,10 @@ theorem body_helpers (lexical : Compose.Lexical.Meaning inherited.primitive) :
   bodyToken text tv context cv scan sv token valid :=
     Adapter.Wrappers.token_interpreted (wrapper_models calls helpers definitions) definitions.wrappers
       text context scan token ⟨tv,cv,sv,BodyNative.bodyToken_valid token valid⟩ (bodyToken_fixed token valid)
-  basic text tv context cv scan sv catalog fv := by
+  basic text tv context cv scan sv catalog procedures fv pv := by
     dsimp only [bodyPrimitives]
-    rw [definitions.basic text tv context cv scan sv catalog fv]
-    exact BasicNative.basicEval_normalized (basic_helpers calls helpers definitions) text context scan catalog
+    rw [definitions.basic text tv context cv scan sv catalog procedures fv pv]
+    exact BasicNative.basicEval_normalized (basic_helpers calls helpers definitions) text context scan catalog procedures
   predicate text tv context cv position pv facts fv :=
     Native.condition_of_source_equations (predicate_helpers calls helpers definitions)
       definitions.predicates definitions.predicateContracts text tv context cv position pv facts fv
@@ -154,7 +154,7 @@ def modelCalls : Calls Compose.Expressions.modelCalls where
     bodyToken := (Adapter.Wrappers.modelCalls BodyNative.modelCalls).token}
   loopImports := {LoopNative.modelImports with bodyToken := (Adapter.Wrappers.modelCalls BodyNative.modelCalls).token}
   loopScalars := ScalarExpression.Native.modelCalls
-  basic text context scan catalog := basicBody text context.model scan catalog
+  basic text context scan catalog procedures := basicBody text context.model scan catalog procedures
   flowLibraries := FlowSourceBridge.modelCalls
   initial := FlowSourceBridge.initialStorage FlowSourceBridge.modelCalls
   bodyWrapperModels := Adapter.Wrappers.modelCalls BodyNative.modelCalls
@@ -178,7 +178,7 @@ theorem model_body_helpers
     Adapter.Wrappers.token_interpreted (Adapter.Wrappers.model_equations BodyNative.modelCalls)
       (Adapter.Wrappers.model_refinement _) text context scan token
       ⟨tv,cv,sv,BodyNative.bodyToken_valid token valid⟩ (bodyToken_fixed token valid)
-  basic _ _ _ _ _ _ _ _ := rfl
+  basic _ _ _ _ _ _ _ _ _ _ := rfl
   predicate _ _ _ _ _ _ _ _ := rfl
   invalidModel _ _ := rfl
   invalid _ _ := rfl
@@ -220,18 +220,18 @@ theorem model_definitions
   loopScalarPrimitives := ScalarExpression.Native.model_primitives
   loopScalarEquations := ScalarExpression.Native.model_equations
   loopLinks := LoopNative.model_links helpers
-  basicSized text _ context cv scan sv catalog _ := by
+  basicSized text _ context cv scan sv catalog procedures _ _ := by
     rw [BasicNative.totalize_eq_model (BasicNative.HelperMeaning.of_inherited helpers
       Native.model_helper_meaning Native.model_definition_equations Native.model_contracts (model_basic_links helpers))]
-    exact BasicNative.model_sizedBasic text context scan (sv.2.2.count_le cv) catalog
-  loopSized text _ context cv scan sv catalog _ := by
+    exact BasicNative.model_sizedBasic text context scan (sv.2.2.count_le cv) catalog procedures
+  loopSized text _ context cv scan sv catalog procedures _ _ := by
     have importsMeaning : LoopNative.ImportsMeaning modelCalls.loopImports := (model_body_helpers helpers lexical).loop
     rw [LoopNative.totalizeImports_eq_model importsMeaning]
-    exact LoopNative.model_sizedLoop text context scan catalog sv.2.2.2.compatible.count cv.2.2.1.1
-  basic text _ context _ scan _ catalog _ :=
+    exact LoopNative.model_sizedLoop text context scan catalog procedures sv.2.2.2.compatible.count cv.2.2.1.1
+  basic text _ context _ scan _ catalog procedures _ _ :=
     (BasicNative.basicEval_normalized
       (BasicNative.HelperMeaning.of_inherited helpers
-      Native.model_helper_meaning Native.model_definition_equations Native.model_contracts (model_basic_links helpers)) text context scan catalog).symm
+      Native.model_helper_meaning Native.model_definition_equations Native.model_contracts (model_basic_links helpers)) text context scan catalog procedures).symm
   body := by
     have normalized := BodyNative.totalize_eq_model (bodyPrimitives modelCalls) (model_body_helpers helpers lexical)
     have bodySame : modelCalls.body = BodyNative.modelCalls := rfl

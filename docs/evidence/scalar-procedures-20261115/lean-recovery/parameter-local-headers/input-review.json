@@ -1,0 +1,48 @@
+{
+  "base": "8a03ab122",
+  "run_id": "20261115T180831-555601b89ece",
+  "all_recorded_inputs_match_current_files": true,
+  "input_file_count": 1108,
+  "source_scripts_equal_base": true,
+  "files": {
+    "DeclarationHeaderParameterStepSpec": {
+      "public_statement_byte_identical": true,
+      "expected_characters": 695,
+      "complete_tokens": 147,
+      "sha256": "93e8f6a99a66c46b153507f72dc00864a466b298fac47033df670e99389581ce"
+    },
+    "DeclarationHeaderParametersModelSpec": {
+      "public_statement_byte_identical": true,
+      "expected_characters": 742,
+      "complete_tokens": 153,
+      "sha256": "fc11eba57c0d09a976936e3758e3e2cfa5edfcbd6064f7d7d22e9f6ea5f76a10"
+    },
+    "DeclarationHeaderParametersAtSpec": {
+      "public_statement_byte_identical": true,
+      "expected_characters": 722,
+      "complete_tokens": 150,
+      "sha256": "41186dde368c316f03669dbe58b7078af0084aa9a1d5590024b912908ddd6120"
+    },
+    "DeclarationHeaderFunctionLocalAtSpec": {
+      "public_statement_byte_identical": true,
+      "expected_characters": 713,
+      "complete_tokens": 134,
+      "sha256": "9a748195a30c11e4802127cc725a1b89947162f7cdc4ffe9948b9cb9b5725b7a"
+    },
+    "DeclarationHeaderFunctionLocalsSpec": {
+      "public_statement_byte_identical": true,
+      "expected_characters": 794,
+      "complete_tokens": 153,
+      "sha256": "cabda34175c490d155305d200c3e56af1370242cc5114275fdb92fe39ba6d600"
+    },
+    "DeclarationHeaderParameterFrameSpec": {
+      "public_statement_byte_identical": true,
+      "expected_characters": 697,
+      "complete_tokens": 142,
+      "sha256": "f378bf45ea321eea6d1a3041a2719e5598c1898b11fd136b21e84ec960dddde2"
+    },
+    "FunctionParameterLocalHeaderTokens": {
+      "sha256": "54cd9d0f08e36b395c610e10e98eb6a3e2c2ba7c3d8970a5495bdb9840fbe825"
+    }
+  }
+}

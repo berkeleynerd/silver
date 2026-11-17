@@ -252,7 +252,8 @@ theorem model_refinement (models : Calls) : Refinement models models :=
 
 def bodyHeader : List String := expectedTokens "(Scan : Scan_Result) return Body_Scan"
 def bodySpec : List String := bodyHeader ++ expectedTokens
-  "with Global => null, Post => (Static => Body_Of'Result =" ++ Rhs.bodyOf.render ++ [")"]
+  "with Global => null, Post => (Static => Body_Of'Result =" ++ Rhs.bodyOf.render ++
+  expectedTokens "and then Body_Of'Result.Facts.Count = Context_Of (Scan).Scalar_Names.Count and then (for all Index in Body_Of'Result.Facts.Values'Range => Body_Of'Result.Facts.Values (Index) = Context_Of (Scan).Scalar_Names.Items (Index).Bounds))"
 
 def tokenHeader : List String := expectedTokens
   "(Text : String; Context : Body_Context; Scan : Body_Scan; Token : Token_Kind) return Body_Scan"

@@ -21,6 +21,8 @@ public import Silver.ArrayBindingsSpecSource
 public import Silver.ArrayBindingsBodySource
 public import Silver.FunctionBindingsSpecSource
 public import Silver.FunctionBindingsBodySource
+public import Silver.ProcedureBindingsSpecSource
+public import Silver.ProcedureBindingsBodySource
 
 public import Silver.NamesSpecSource
 public import Silver.NamesBodySource

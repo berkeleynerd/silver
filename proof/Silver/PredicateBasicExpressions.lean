@@ -29,6 +29,8 @@ structure Primitives where
   scalarTarget : Source → Native.Context → Nat → Nat
   scalarAssignment : Source → Native.Context → BodyScan → BodyScan
   callAssignment : Source → Native.Context → BodyScan → FunctionBindings.Metadata → BodyScan
+  procedureCallee : Source → Native.Context → Nat → ProcedureBindings.Metadata → Nat
+  procedureCall : Source → Native.Context → BodyScan → ProcedureBindings.Metadata → BodyScan
   booleanTarget : Source → Native.Context → Nat → Nat
   booleanAssignment : Source → Native.Context → BodyScan → BodyScan
   arrayTarget : Source → Native.Context → Nat → Nat
@@ -47,17 +49,19 @@ structure Frame where
   target : ScalarBodyNative.StringTargetResult := {}
   characterValue : ValueResult := {}
   catalog : FunctionBindings.Metadata := {}
+  procedures : ProcedureBindings.Metadata := {}
 
 def bindingSummary (info : Compose.BindingInfo) : LengthSummary := .ofExact info.bound.summary
 
 inductive Test
   | operation (value : Names.Operation)
-  | pure | impure
+  | pure | impure | procedureCallee
   | zeroResult | nonadvancing | present (token : ShellToken) | hasArguments
   | zeroValue | zeroCharacter | characterTarget | invalidInput | notFits | zeroTarget | notSameLength | scalarTarget | booleanTarget | arrayTarget | booleanArrayTarget
   | orElse (left right : Test) | andThen (left right : Test)
 
 def Test.eval (primitive : Primitives) (frame : Frame) : Test → Bool
+  | .procedureCallee => decide (primitive.procedureCallee frame.text frame.context frame.result.position frame.procedures ≠ 0)
   | .pure => frame.context.pure
   | .impure => !frame.context.pure
   | .operation value => decide (primitive.callAfter frame.text frame.context.names frame.result.position value frame.context.scalarNames frame.context.arrayNames (frame.context.subtypeHiding.get value) frame.context.booleanNames ≠ 0)
@@ -84,6 +88,7 @@ def Test.eval (primitive : Primitives) (frame : Frame) : Test → Bool
 def call := Compose.Expressions.call
 
 def Test.render : Test → List String
+  | .procedureCallee => call "procedure_callee_at" [["text"], ["context"], ["result", ".", "position"], ["procedure_catalog"]] ++ ["/=", "0"]
   | .pure => ["context", ".", "pure"]
   | .impure => ["not", "context", ".", "pure"]
   | .operation value => call "call_after" [["text"], ["context", ".", "names"], ["result", ".", "position"], (Compose.Expressions.Expr.operation value).render, ["context", ".", "scalar_names"], ["context", ".", "array_names"], ["context", ".", "subtype_hiding", "("] ++ (Compose.Expressions.Expr.operation value).render ++ [")"], ["context", ".", "boolean_names"]] ++ ["/=", "0"]
@@ -112,6 +117,7 @@ def Test.render : Test → List String
 inductive Update
   | operation (value : Names.Operation) | association
   | callAssignment (boolean : Bool)
+  | procedureCall
   | token (token : ShellToken)
   | valueAfter | characterAfter | statePosition | stateTarget | output | assigned | rejected | scalarAssignment | booleanAssignment | arrayAssignment | booleanArrayAssignment
 
@@ -121,6 +127,7 @@ def Update.eval (primitive : Primitives) (frame : Frame) : Update → BodyScan
       if called.position ≠ 0 then called
       else if boolean then primitive.booleanAssignment frame.text frame.context frame.result
       else primitive.scalarAssignment frame.text frame.context frame.result
+  | .procedureCall => primitive.procedureCall frame.text frame.context frame.result frame.procedures
   | .operation value => {frame.result with position := primitive.callAfter frame.text frame.context.names frame.result.position value frame.context.scalarNames frame.context.arrayNames (frame.context.subtypeHiding.get value) frame.context.booleanNames}
   | .association => {frame.result with position := primitive.associationAfter frame.text frame.result.position false}
   | .token tok => primitive.bodyToken frame.text frame.context frame.result tok
@@ -143,6 +150,7 @@ def Update.render : Update → List String
       [";", "begin", "result", ":=", "(", "if", "called", ".", "position", "/=", "0", "then", "called", "else"] ++
       call (if boolean then "boolean_assignment_body" else "scalar_assignment_body")
         [["text"], ["context"], ["result"]] ++ [")", ";", "end", ";"]
+  | .procedureCall => ["result", ":="] ++ call "procedure_call_body" [["text"], ["context"], ["result"], ["procedure_catalog"]] ++ [";"]
   | .operation value => ["result", ".", "position", ":="] ++ call "call_after" [["text"], ["context", ".", "names"], ["result", ".", "position"], (Compose.Expressions.Expr.operation value).render, ["context", ".", "scalar_names"], ["context", ".", "array_names"], ["context", ".", "subtype_hiding", "("] ++ (Compose.Expressions.Expr.operation value).render ++ [")"], ["context", ".", "boolean_names"]] ++ [";"]
   | .association => ["result", ".", "position", ":=", "names", "."] ++ call "association_after" [["text"], ["result", ".", "position"], ["false"]] ++ [";"]
   | .token tok => ["result", ":="] ++ call "body_token"
@@ -238,7 +246,8 @@ def dispatchCommands : Command :=
             (.choose (.andThen .impure .arrayTarget)
               (.choose .booleanArrayTarget (.update .booleanArrayAssignment) (.update .arrayAssignment))
               (.choose .booleanTarget (.update (.callAssignment true))
-                (.choose .pure .returnInvalid assignmentCommands)))))))
+                (.choose .procedureCallee (.update .procedureCall)
+                  (.choose .pure .returnInvalid assignmentCommands))))))))
 def basicCommands : Command := .list [guard .zeroResult, dispatchCommands,
   .update (.token (.symbol ";")), guard .nonadvancing, .returnResult]
 
@@ -247,8 +256,9 @@ def basicRender : List String :=
     "target", ":", "string_target_result", ";", "character_value", ":", "value_result", ";", "begin"] ++ basicCommands.render ++ ["end", "basic_body", ";"]
 
 def basicEval (primitive : Primitives) (text : Source) (context : Native.Context) (scan : BodyScan)
-    (catalog : FunctionBindings.Metadata := {}) : BodyScan :=
-  basicCommands.eval primitive ⟨text, context, scan, scan, {}, {}, {}, catalog⟩ (fun _ => primitive.invalid scan)
+    (catalog : FunctionBindings.Metadata := {})
+    (procedures : ProcedureBindings.Metadata := {}) : BodyScan :=
+  basicCommands.eval primitive ⟨text, context, scan, scan, {}, {}, {}, catalog, procedures⟩ (fun _ => primitive.invalid scan)
 
 def modelPrimitives : Primitives where
   callAfter := fun text names position operation scalarNames arrays hidden booleans => Compose.callAfter text names position operation scalarNames arrays hidden booleans
@@ -264,6 +274,8 @@ def modelPrimitives : Primitives where
   scalarTarget := fun text context position => Predicate.scalarTarget text context.model position
   scalarAssignment := fun text context scan => scalarAssignmentBody text context.model scan
   callAssignment := fun text context scan catalog => callAssignmentBody text context.model scan catalog
+  procedureCallee := fun text context position procedures => procedureCalleeAt text context.model position procedures
+  procedureCall := fun text context scan procedures => procedureCallBody text context.model scan procedures
   booleanTarget := fun text context position => Predicate.booleanTarget text context.model position
   booleanAssignment := fun text context scan => booleanAssignmentBody text context.model scan
   arrayTarget := fun text context position => Predicate.arrayTarget text context.model position

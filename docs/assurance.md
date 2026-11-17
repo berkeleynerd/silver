@@ -93,8 +93,8 @@ list. These obligations and the constructed environment are consumed by the
 existing program execution and obligation endpoints, rather than considering
 only functions reached by the sample or Main's execution.
 
-The source path retains all declarations through `FunctionDeclarationsAt` and
-`Sequence.FunctionTokensAt`. Their checkedness and uniqueness results feed
+The source path retains the ordered function and procedure declarations through
+`MixedDeclarationsAt` and `Sequence.MixedTokensAt`. Their checkedness and uniqueness results feed
 `Predicate.form_reading_valid` and `SourceMeaning`, tying the ordered
 typed definitions to the admitted author source. The metadata, visibility,
 formal/local declaration, body and return readers have corresponding source
@@ -120,6 +120,44 @@ all safety checks and the permitted local Effects/AoRTE dependencies. The
 report envelope within the existing allocation. Its
 [bounded review](reviews/review-scalar-function-capacity-20261107.md) does not
 replace complete compiler proof or the final Lean/source audit.
+
+## Small nonrecursive scalar procedures
+
+The [procedure delivery](scalar-procedures.md#delivery-assurance-and-validation)
+records independently accepted complete native and Lean/actual-source checkpoints
+on Linux ARM64, repaired regression coverage and closing delivery reconciliation.
+The argument below applies to all admitted declarations and compositions;
+passing samples alone does not establish these guarantees.
+
+Each closed declaration must be checked over the full declared input and
+`in out` domains, including when Main never calls it. Its source-written leading
+assignments initialize every `out` formal in declaration order. Their RHSs read
+only initialized locals and input-bearing formals. The source bridge must connect
+the actual sequential assignments to their common pre-output frame; it cannot
+replace those assignments with arbitrary initialized output values. Ordinary
+body checking starts writable Integer formals at their full declared ranges.
+
+Calls check all inputs in the same incoming caller state. Every writable actual
+is a bare mutable scalar, and its declared range contains the complete formal
+output range. Distinct writable targets and exclusion of cross-actual reads
+establish copy-back order independence. The resulting caller state preserves
+all unrelated values and String/input facts, while written Integer targets
+receive the formal's full declared interval and Boolean targets retain no
+predicate relationship. Earlier accepted declarations and finite counted loops
+must construct a terminating execution and discharge argument; an assumed
+procedure-result oracle is insufficient.
+
+The existing native recipe uses `--no-inlining` on unchanged application source.
+The [source-selected report policy](#source-selected-application-policies)
+requires every declared procedure, successful initialization of each `out`
+formal and all emitted safety checks. Existing function termination witnesses
+remain mandatory. The pinned producer emits no procedure termination witness;
+the procedure termination argument therefore belongs to the constructed
+declaration and body semantics. The
+[producer/capacity record](scalar-procedures-report-capacity.md) derives the
+49,279,744-byte report envelope, including the #391 formal advisories, and
+unchanged 64 MiB allocation. Focused tests
+exercise these rules; they do not replace complete compiler or source proofs.
 
 ## Boolean scalar objects and expressions
 
@@ -1217,12 +1255,33 @@ Admission supplies its exact source name; coverage does not accept arbitrary
 `--no-inlining` to analyze each body over its full formal domain. The exact local
 entities may carry successful `SUBPROGRAM_TERMINATION` flow records and
 `CLAIM_EFFECTS`/`CLAIM_AORTE` dependencies, with the same complete safety-check
-discharge requirements as Main. No function postcondition is assumed. Complete
-delivery validation remains pending as recorded in the capability record.
+discharge requirements as Main. No function postcondition is assumed. The
+capability record retains the completed function delivery evidence.
+
+The [procedure increment](scalar-procedures.md) extends that exact
+source inventory to every local procedure and the exact spelling and mode of
+every subprogram formal, including unused declarations. Each procedure `out`
+formal requires exactly one `UNINITIALIZED` flow
+record with severity `info`, `how_proved = flow`, filename `main.adb`, positive
+location, its owning procedure entity and the exact message
+`initialization of "NAME" proved`. Missing or duplicate initialization, a
+different owner or formal, suppression and justification are rejected. `in out`
+formals require no such output-initialization record. Procedure call dependencies
+permit Effects/AoRTE claims, without assuming a procedure postcondition. The
+policy uses the projection-preserved fields; opaque proof-tree data supplies no
+initialization evidence. Function termination records remain required.
+
+The procedure extension also classifies the exact flow warning `"TARGET" is
+set by "PROCEDURE" but not used after the call`: TARGET is a bare Ada
+identifier, and PROCEDURE is the exact name of a source-declared procedure.
+The existing `INEFFECTIVE`, application-owner, location and no-suppression
+requirements still apply. This records unused copy-back; it supplies no
+initialization or safety evidence. The producer and separate capacity charge
+are documented in the [procedure account](scalar-procedures-report-capacity.md).
 
 Every emitted application safety record must be a proved/info `VC_RANGE_CHECK`,
 `VC_LENGTH_CHECK`, `VC_OVERFLOW_CHECK`, `VC_DIVISION_CHECK` or `VC_INDEX_CHECK`,
-with filename `main.adb`, the exact Main or declared local-function entity,
+with filename `main.adb`, the exact Main or declared local-subprogram entity,
 valid positive location, prover completion and no suppression or justification. Empty safety
 lists are permitted when checks were eliminated. Required coverage, progress
 and dependency fields remain checked; dependencies must identify approved
@@ -1236,7 +1295,7 @@ message `unused assignment`. All four policies additionally permit
 `INEFFECTIVE` / `statement has no effect` and `DEAD_CODE` /
 `this statement is never reached`, observed for statically known predicates.
 Every allowed advisory must have warning severity,
-flow provenance, filename `main.adb`, the exact Main or declared local-function
+flow provenance, filename `main.adb`, the exact Main or declared local-subprogram
 entity, a positive location and no suppression
 or justification. There is no independent advisory-count cap; the source grammar
 and complete report domain still constrain production. These diagnostics do not
@@ -1245,13 +1304,28 @@ waive safety checks. Repeated output permits exactly `"NAME" is set by
 `Put_Line` and NAME one of `Written_Count`,
 `Flushed`, `Succeeded` or `Written_Bytes`. Other messages remain rejected. Some legal names make GNATprove omit an advisory.
 
-Identified local functions additionally permit `UNUSED_VARIABLE` with exactly
+Identified local functions and procedures additionally permit `UNUSED_VARIABLE` with exactly
 `unused variable "NAME"`, warning severity and flow provenance. The name obeys
 the checked Ada identifier grammar and 4,096-byte source bound. The source file,
 positive location and exact local entity remain required, and suppression or
 justification is rejected. This unused-formal advisory is excluded from Main's
 entity. Its producer route and storage accounting are retained in the
-[function report-capacity record](scalar-functions-report-capacity.md).
+[function report-capacity record](scalar-functions-report-capacity.md) and
+[procedure extension](scalar-procedures-report-capacity.md).
+
+`INOUT_ONLY_READ` and `UNUSED_INITIAL_VALUE` are separately classified flow
+warnings. The former accepts only `"NAME" is not modified, could be IN` for a
+procedure's `in out` formal; the latter accepts only `unused initial value of
+"NAME"` for a procedure's `in` or `in out` formal, or a function's `in` formal.
+Both require the declared local owner, never Main, and the exact declared formal
+spelling and eligible mode, warning severity, flow provenance, filename
+`main.adb`, a positive location and no suppression or justification field.
+Formal binding does not compare columns or depend on record order. These
+dependence-graph advisories replace no check; the separate initialization,
+termination and safety requirements remain. The executable/ghost refinement
+shares `Diagnostic_Message`, so it cannot establish that these classifications
+are sufficiently narrow. Mutation tests guard their owner, formal/mode,
+template and provenance restrictions in both auditors.
 
 The application warning list also permits the pinned `imprecise-image` advisory
 described in the [Image producer record](for-loops-integers-image.md). Its full
@@ -1266,6 +1340,14 @@ do not suppress a required safety check. Runtime warning policies stay unchanged
 The raw-byte policy and its correspondence with the projected report include
 these warning records, whose complete bytes are preserved by projection.
 
+The same warning list also accepts only the exact `array-initialization` rule
+and message `initialization of an array in FOR loop is handled imprecisely
+[array-initialization]`, with the same warning/trivial provenance, `main.adb`,
+positive location, unknown status, absent entity and justification, empty
+suppression string and empty proof tree. Its matching SARIF classification is
+checked. This information-loss note withholds a flow initialization fact; every
+required initialization and safety check remains mandatory.
+
 A bare-Main report may have an empty flow list and may contain proved safety
 checks and approved dependencies. Sequencing removed the earlier nonempty-flow
 and empty-proof/dependency conditions for that entity shape, while retaining
@@ -1275,8 +1357,10 @@ any combination of Input_Is_Valid, Put and Put_Line. Positive-length predicates 
 establish validity without a query, and a shell need not output. Main alone
 remains the producer-elimination alternative. Each permitted set is exact;
 unknown, missing-within-a-set or duplicate entities remain rejected. Native tests
-use genuine reports and mutations; the Python evidence helper applies the same
-policies and additionally checks SARIF consistency and totals. The finite sets
+use genuine reports and mutations; the Python evidence helper mirrors the
+policy for genuine reports of the pinned producer and additionally checks SARIF
+consistency and totals. This is not an equivalence claim for fabricated or
+escaped-key JSON. The finite sets
 and permitted producer elimination remain an explicit tool-format premise.
 
 The bounded, nonrecursive executable scanners have SPARK-proved equality to
@@ -1285,7 +1369,7 @@ These specifications describe byte traversal, quoted strings, nesting, audited
 fields, entities, dependencies and every emitted record, without calling the
 executable acceptance traversal. Shared elementary predicates and immutable
 tables do not replace that refinement. Retained application audit data has a
-33,554,432-byte domain; runtime data retains 262,144 bytes. These are storage
+67,108,864-byte domain; runtime data retains 262,144 bytes. These are storage
 bounds after the streaming projection of unaudited `check_tree` values, not
 limits on original evidence-file length. The original reports remain unchanged,
 and every record and policy-relevant field remains in the audited input.
@@ -1497,11 +1581,15 @@ protected proof modules, bindings or configuration. Exact source correspondence
 comes from the kernel-checked reconstruction and semantic proofs, not hashes
 alone. The [partition record](lean-compartmentalization.md) documents this reuse.
 
-Generated reconstruction joins use `kernel_exact` to elaborate their explicit
-equality witness independently, then check it at the exact goal type through
-Lean's synchronous checked auxiliary-lemma mechanism. A cached auxiliary proof
-is reusable only for that same type. This avoids repeated elaborator conversion
-without changing source data, final correspondence statements or allowed axioms;
+Generated reconstruction joins use two checked witness paths. `kernel_exact`
+elaborates an explicit equality witness independently; `kernel_join`, used by
+the largest source certificate, constructs the `string_join_ofList` witness
+directly from character-list terms for two supplied string literals. Both check
+the candidate at the exact goal type through Lean's synchronous checked
+auxiliary-lemma mechanism. A cached auxiliary proof is reusable only for that
+same type. The strings and generated terms are untrusted candidates. These paths
+avoid repeated syntax elaboration/conversion without changing source data,
+final correspondence statements or allowed axioms;
 the [reconstruction record](lean-join-optimization.md) gives the implementation,
 negative controls and measurement scope.
 

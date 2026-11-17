@@ -140,6 +140,7 @@ theorem model_definition_declarations : ∀ text, ValidText text → ∀ state a
       have subtypes := stateValid.2.2.2.2.2.2.2.1.1
       have booleans := stateValid.booleans.1
       have functions := stateValid.functions.1
+      have procedures := stateValid.procedures.1
       omega)]
   dsimp +instances only [declarationsBody, Expr.eval, Context.locals, modelCalls, Calls.get, Field.get, spelling, isWord]
   simp only [decide_eq_true_eq, ite_not]

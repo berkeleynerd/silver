@@ -15,24 +15,26 @@ structure FunctionLocalsPreserved (before after : ParserState) : Prop where
   arrayNames : after.arrayNames = before.arrayNames
   subtypeNames : after.subtypeNames = before.subtypeNames
   functions : after.functions = before.functions
+  procedures : after.procedures = before.procedures
   dynamicFirst : after.dynamicFirst = before.dynamicFirst
   dynamicAfter : after.dynamicAfter = before.dynamicAfter
   pure : after.pure = before.pure
   firstParameter : after.firstParameter = before.firstParameter
+  firstProcedureParameter : after.firstProcedureParameter = before.firstProcedureParameter
 
 theorem FunctionLocalsAt.preserves {text arguments state final integers booleans checks booleanChecks}
     (source : FunctionLocalsAt text arguments state integers booleans checks booleanChecks final) :
     FunctionLocalsPreserved state final := by
   induction source with
-  | done => exact ⟨rfl, rfl, rfl, rfl, rfl, rfl, rfl, rfl⟩
+  | done => exact ⟨rfl, rfl, rfl, rfl, rfl, rfl, rfl, rfl, rfl, rfl⟩
   | integer _ _ first _ _ _ ih =>
       cases first
-      exact ⟨ih.names, ih.arrayNames, ih.subtypeNames, ih.functions, ih.dynamicFirst,
-        ih.dynamicAfter, ih.pure, ih.firstParameter⟩
+      exact ⟨ih.names, ih.arrayNames, ih.subtypeNames, ih.functions, ih.procedures, ih.dynamicFirst,
+        ih.dynamicAfter, ih.pure, ih.firstParameter, ih.firstProcedureParameter⟩
   | boolean _ _ _ first _ _ _ ih =>
       cases first
-      exact ⟨ih.names, ih.arrayNames, ih.subtypeNames, ih.functions, ih.dynamicFirst,
-        ih.dynamicAfter, ih.pure, ih.firstParameter⟩
+      exact ⟨ih.names, ih.arrayNames, ih.subtypeNames, ih.functions, ih.procedures, ih.dynamicFirst,
+        ih.dynamicAfter, ih.pure, ih.firstParameter, ih.firstProcedureParameter⟩
 
 theorem FunctionLocalsAt.valid {text arguments state final integers booleans checks booleanChecks}
     (source : FunctionLocalsAt text arguments state integers booleans checks booleanChecks final)

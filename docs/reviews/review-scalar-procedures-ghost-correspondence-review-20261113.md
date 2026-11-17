@@ -1,0 +1,33 @@
+# Bounded ghost-call source correspondence review — 2026-11-13
+
+Review scope is the five-file scratch `ghost-integration.patch` for native parser SHA-256 `0bd0f4f21ae9faef7b3a4ab3bf64388b43cd1d7bf2780a40a4b353fc33b49a08`. It adds source/model correspondence for Same_Body, Lemma_Body_Equality and their sole new Static call. The initial inspected GhostSource module was SHA-256 `9a23da361c9595732dcb3e0a385e90c113ab8bf001f39793225554cd2491c3b3`; the exact file is preserved under `ghost-first-proposal/`.
+
+## G1 — Preserve dormant native path fields before equality projection
+
+**Confirmed material correspondence finding; author acknowledged and is repairing the scratch proposal.** The initial `modelSameFlow` compared `ActiveFlow.path : PathFacts.Context`, and its `fromStorage` argument also used that projected path type. This type stores an optional valid interval, whereas actual `Silver_Path_Facts.Context` stores Lower and Upper even when Valid_Reachable is false. Native Same_Path compares both dormant fields. Therefore a predicate over only the projected BodyScan cannot reflect the native equality predicate over its entire declared domain.
+
+Concrete typed counterexample: Count=0, otherwise identical bodies, and raw native paths `(0,0,False,False,True)` and `(1,1,False,False,True)`. Native Same_Path/Same_Flow/Same_Body are false; both paths project to the same `(none,False,True)` semantic context, so projected model equality is true. `ghost-path-projection-counterexample.json` records direct evaluation of the inspected field comparisons and projection. The existing `PathNativeModel.Context` already retains all five raw fields and its `Context.model` explicitly erases dormant bounds.
+
+This is a defect in the proposed exact full-domain source model, not a counterexample to the native helper contract. That helper assumes raw equality, so the unequal pair does not satisfy its precondition. No native source/domain repair is called for. The bounded repair is a local raw body/flow representation using the existing native path context, complete constrained values, and all scalar body fields. Prove the helper's equality and contract over that raw domain, then prove only forward projection preservation to BodyScan. Do not restrict to reachable, canonical-path or positive-count states, and do not claim equality reflection after information has been erased.
+
+## Independently checked unchanged parts
+
+`ghost-static-comparisons.json` records independent cheap token comparison. The proposed complete parser pin equals the candidate generator's lexical output for the exact native candidate: 72,447 old tokens become 72,644, with precisely 95/53/49 inserted tokens and no replacements/deletions. Replaying the listed insertions reconstructs the new pin exactly. This is static parity, not a Lean kernel certificate.
+
+The full Procedure_Updates loop expectation retains its old prefix and suffix exactly; the only addition is the 49-token Lemma_Body_Equality call after the existing loop variant. Its first argument is Procedure_Updates_Model with original Scan/First, its second with Current/Index; both retain Text, Context, Scan.Facts, Catalog, Last and the two call bounds. The constructed tokens match the unique native ordinary body exactly. Typed call expressions retain scope and precedence guards, including negative controls for declaration-shaped arguments and missing scan/current bindings. The node names only this helper and erases for arbitrary calls, locals and continuation without adding a semantic equality assumption.
+
+The source class adds complete Same_Body expression/header/aspect checks and exact Lemma_Body_Equality header/named-body checks. The source-candidate facade requires its dedicated leaf, and the unchanged actual-source adapter transports the stronger class through `actual_complete_shape`; Predicate.SourceChecks still requires that adapter. Original loop contracts, source extractors and runtime refinement equality are unchanged. Complete native discharge remains responsible for the Logical_Equal annotation and ghost-call preconditions, and final Lean/source/provenance auditing remains required.
+
+## Review settings and status
+
+Selected setting: GPT-6 Astra / Max. Runtime settings, token and cost telemetry are unavailable. This follow-up's first UTC observation was 09:37:33; direct counterexample and parity records were saved at 09:42:45 UTC. No proof/build/test job was launched by the reviewer. The source author's running focused gate captures none of this scratch proposal and remains unaffected. All reviewer writes are confined to the owned scratch directory. G1 repair and exact final disposition are pending below.
+
+## G1 corrected-draft re-review
+
+The corrected GhostSource SHA-256 is `bb86b7757a1ab3081dd4ad7a78c089f571de97335786083440f6b4ad9b627fcd`; all five revised input identities and the exact patch are retained under `ghost-corrected-proposal/`, `ghost-corrected-proposal.patch` and `ghost-corrected-inputs.json`. This is still a scratch candidate, separate from tracked implementation and captured running inputs.
+
+G1 is **statically addressed**. `RawFlow.path` now uses the existing `PathFacts.Native.Context`, preserving all five path fields before comparison. `RawFlow.values` is the complete constrained vector; `RawBody` retains position, target, capacity, facts, assigned and output, with count derived from the actual constrained store length. `RawStorage` enumerates exactly `1 .. Count`, and its count/extensionality arguments work with Count=0. Domains quantify over arbitrary raw records and storage, without a Valid_Body, reachability or canonical-dormant-field assumption. The native subtype bounds are not narrowed.
+
+The full equality theorem and helper contract now compare raw values. The concrete model instantiation proves its own raw equality meaning; it does not depend on a new unproved project-specific premise. `projection_preserved` derives only equal raw values imply equal projected BodyScan values. The new `dormant_bounds_distinguished` theorem retains the exact Count=0 counterexample and states both equal projections and false native-model equality. Thus no inverse projection is assumed.
+
+The four other file hashes are unchanged from the reviewed proposal, so the exact helper source checks, typed sole call, source adapter requirement, loop parity and pin comparisons above remain applicable. The corrected delta has no remaining material static blocker. The author was told to perform the focused kernel gate; **final acceptance is pending successful verification of these corrected bytes**, followed by the required complete actual-source/native/provenance checkpoints. No reviewer proof run was started.

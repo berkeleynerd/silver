@@ -1,0 +1,113 @@
+{
+  "registry": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897",
+  "host": "linux-aarch64",
+  "machine": "silver-m4pro",
+  "runs": [
+    {
+      "run_id": "20261115T173611-b27c8626e3d1",
+      "task": "370-lean-memory-recovery-controls",
+      "kind": "lean",
+      "scope": [
+        "Silver.FunctionSourceParts.FunctionLocalsRecoveryNegativeControls"
+      ],
+      "state": "failure",
+      "active": false,
+      "workers": 1,
+      "directory": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T173611-b27c8626e3d1",
+      "fingerprint": "5ba70fee67d358cf25a1830fa699324239c08f1b5e45f0e79f1e6e6830574b88",
+      "command": [
+        "/usr/bin/python3",
+        "/home/agent/silver-worktrees/procedures-lean-370/scripts/check_lean.py",
+        "--target",
+        "Silver.FunctionSourceParts.FunctionLocalsRecoveryNegativeControls",
+        "--workers",
+        "1",
+        "--memory-mb",
+        "2048",
+        "--provenance",
+        "--task",
+        "370-lean-memory-recovery-controls",
+        "--reason",
+        "Expected controlled rejection: corrupt full909character candidate and omit first expected token; frozen production proof inputs unchanged. Small2GiB control alongside serial certificate line buckets."
+      ],
+      "reason": "Expected controlled rejection: corrupt full909character candidate and omit first expected token; frozen production proof inputs unchanged. Small2GiB control alongside serial certificate line buckets.",
+      "worktree": "/home/agent/silver-worktrees/procedures-lean-370",
+      "resources": [
+        "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/proof",
+        "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused.log",
+        "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused-evidence.json"
+      ],
+      "started_at": "2026-11-15T17:36:11.342081+00:00",
+      "finished_at": "2026-11-15T17:36:18.585287+00:00",
+      "duration_seconds": 7.243103295,
+      "returncode": 1,
+      "error": null,
+      "failure_keys": [
+        "lean:build:Silver/FunctionSourceParts/FunctionLocalsRecoveryNegativeControls.lean:11:2:(kernel) declaration type mismatch, '_private.Silver.FunctionSourceParts.FunctionLocalsRecoveryNegativeControls.0.Silver.FunctionSourceCandidate.Parts.RecoveryControls.wrongCharacterCandidate._proof_1_1' has type",
+        "lean:build:Silver/FunctionSourceParts/FunctionLocalsRecoveryNegativeControls.lean:15:2:Tactic `decide` proved that the proposition"
+      ],
+      "evidence": [
+        "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused.log",
+        "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused-evidence.json",
+        "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T173611-b27c8626e3d1/previous-evidence/lean-focused.log",
+        "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T173611-b27c8626e3d1/previous-evidence/lean-focused-evidence.json"
+      ],
+      "retained_report_count": 1
+    },
+    {
+      "run_id": "20261115T173725-aa334a489da8",
+      "task": "370-lean-memory-recovery-controls",
+      "kind": "lean",
+      "scope": [
+        "Silver.FunctionSourceParts.FunctionLocalsRecoveryPositiveControls"
+      ],
+      "state": "success",
+      "active": false,
+      "workers": 1,
+      "directory": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T173725-aa334a489da8",
+      "fingerprint": "d4c81b98cb510f97400afebd46f75670725e449718316a6c3234b8eb1c5433c9",
+      "command": [
+        "/usr/bin/python3",
+        "/home/agent/silver-worktrees/procedures-lean-370/scripts/check_lean.py",
+        "--target",
+        "Silver.FunctionSourceParts.FunctionLocalsRecoveryPositiveControls",
+        "--workers",
+        "1",
+        "--memory-mb",
+        "2048",
+        "--provenance",
+        "--task",
+        "370-lean-memory-recovery-controls",
+        "--reason",
+        "Bounded controls on frozen production helper: exact body accepted, duplicate named bodies before and across append boundary rejected, dropped token and reordered body rejected; 2 GiB process threshold."
+      ],
+      "reason": "Bounded controls on frozen production helper: exact body accepted, duplicate named bodies before and across append boundary rejected, dropped token and reordered body rejected; 2 GiB process threshold.",
+      "worktree": "/home/agent/silver-worktrees/procedures-lean-370",
+      "resources": [
+        "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/proof",
+        "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused.log",
+        "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused-evidence.json"
+      ],
+      "started_at": "2026-11-15T17:37:25.061745+00:00",
+      "finished_at": "2026-11-15T17:37:34.356843+00:00",
+      "duration_seconds": 9.294948879,
+      "returncode": null,
+      "error": null,
+      "failure_keys": [],
+      "evidence": [
+        "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused.log",
+        "/home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/lean-focused-evidence.json",
+        "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T173725-aa334a489da8/previous-evidence/lean-focused.log",
+        "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T173725-aa334a489da8/lean-focused.log",
+        "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261115T173725-aa334a489da8/lean-focused-evidence.json"
+      ],
+      "retained_report_count": 0
+    }
+  ],
+  "notes": [],
+  "available_cpus": 12,
+  "reserved_workers": 1,
+  "diagnostics_required": [],
+  "total_runs": 2,
+  "omitted_completed_runs": 0
+}

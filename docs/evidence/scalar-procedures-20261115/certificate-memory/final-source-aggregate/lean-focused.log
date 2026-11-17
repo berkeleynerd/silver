@@ -1,0 +1,29 @@
+Lean phase build started at 2026-11-15T18:36:40.005257+00:00
++ /home/agent/silver-workspaces/recovery-volume/certificate/.tools/linux-aarch64/lean/bin/lake --rehash --reconfigure -K silverThreads=12 -K silverMemoryMb=8192 build +Silver.OutputBodyCertificate +Silver.AxiomAudit
+✔ [9/19] Built Silver.OutputProfileBodySource (107ms)
+✔ [19/19] Built Silver.OutputBodyCertificate (168s)
+Build completed successfully (19 jobs).
+
+Lean phase build finished at 2026-11-15T18:39:30.116102+00:00; elapsed 170.111s; exit 0
+Lean phase audit started at 2026-11-15T18:39:30.483002+00:00
++ /home/agent/silver-workspaces/recovery-volume/certificate/.tools/linux-aarch64/lean/bin/lake -K silverThreads=12 -K silverMemoryMb=8192 env /home/agent/silver-workspaces/recovery-volume/certificate/.tools/linux-aarch64/lean/bin/lean -DwarningAsError=true -j12 -M8192 .lake/silver-focused-audit.lean
+SILVER_MODULE Silver.Lexical
+SILVER_MODULE Silver.Admission
+SILVER_MODULE Silver.Cursor
+SILVER_MODULE Silver.SourceLexer
+SILVER_MODULE Silver.CertificateWitness
+SILVER_MODULE Silver.CertificateJoinWitness
+SILVER_MODULE Silver.OutputProfileBodySource
+SILVER_MODULE Silver.OutputBodyLines0
+SILVER_MODULE Silver.OutputBodyLines1
+SILVER_MODULE Silver.OutputBodyLines2
+SILVER_MODULE Silver.OutputBodyLines3
+SILVER_MODULE Silver.OutputBodyLines4
+SILVER_MODULE Silver.OutputBodyLines5
+SILVER_MODULE Silver.OutputBodyLines6
+SILVER_MODULE Silver.OutputBodyLines7
+SILVER_MODULE Silver.OutputBodyCertificate
+SILVER_MODULE Silver.AxiomAudit
+Silver axiom audit passed: 51104 declarations; foundations: [propext, Classical.choice, Quot.sound]
+
+Lean phase audit finished at 2026-11-15T18:39:32.258856+00:00; elapsed 1.776s; exit 0

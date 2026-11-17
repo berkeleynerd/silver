@@ -1,0 +1,27 @@
+{
+  "command": [
+    "python3",
+    "scripts/check_lean.py",
+    "--target",
+    "Silver.PredicateFlowSourceCandidate",
+    "--workers",
+    "1",
+    "--memory-mb",
+    "8192",
+    "--provenance",
+    "--task",
+    "370-predicate-flow-source-memory",
+    "--reason",
+    "Focused complete PredicateFlowSourceCandidate after exact 17-field diagnostic 20261115T203335-d0861ad752c6 confirmed only CountedBound.spec and Flow.joined kernel-memory failures. Parent-authorized two-file repair normalizes only their exact 601-character/130-token and 776-character/226-token fragments, preserving all original headers, semantic renderings, concatenations, source selectors and statements. Five reader fields had no individual diagnostic; private exact field proofs now assemble the original reader Checked statement to test aggregation without unconfirmed reader normalization. Probe retired; preserve all 656 objects and original failed evidence. One worker/default 12 threads/8192 MiB on 15.8 GiB host with productive native two-worker run; 10 GiB tree/1.5 GiB host/first-memory guards. Complete helper/field/caller audit and independent critical review before any full retry; native source/scripts unchanged."
+  ],
+  "cwd": "/home/agent/silver-worktrees/procedures-lean-370",
+  "started_at": "2026-11-15T20:43:11.323480+00:00",
+  "peak_sum_rss_kib": 8331392,
+  "peak_process_rss_kib": 7273168,
+  "minimum_mem_available_kib": 8024224,
+  "pid": 239414,
+  "returncode": 0,
+  "elapsed_seconds": 255.28602237200175,
+  "finished_at": "2026-11-15T20:47:26.609489+00:00",
+  "interrupted": false
+}

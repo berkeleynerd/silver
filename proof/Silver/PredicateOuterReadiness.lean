@@ -2,6 +2,7 @@ module
 
 public import Silver.PredicateInitialFlowValidity
 public import Silver.ComposeStateBounds
+public import Silver.CallableDeclarationPreservation
 public import Silver.ComposeScalarDeclarations
 public import Silver.ComposeNativeStateBounds
 
@@ -38,7 +39,8 @@ theorem initial_valid (text : Source) : ValidState text initialState := by
     ScalarExpression.ValidEnvironment, ScalarExpression.maxBindings,
     ArrayBindings.ValidEnvironment, ArrayBindings.ValidMetadata, ArrayBindings.ValidInitials,
     IntegerSubtypes.ValidEnvironment, BooleanBindings.ValidEnvironment, BooleanBindings.maxBindings,
-    FunctionBindings.ValidMetadata, FunctionBindings.maxFormals, FunctionBindings.maxFunctions]
+    FunctionBindings.ValidMetadata, FunctionBindings.maxFormals, FunctionBindings.maxFunctions,
+    ProcedureBindings.ValidMetadata, ProcedureBindings.maxFormals, ProcedureBindings.maxProcedures]
 
 theorem invalid_valid (text : Source) : ValidState text invalidState :=
   ⟨Compose.Expressions.model_invalid_state_valid text, ScalarMetadata.headerReady_empty, namesBoundsValid_empty⟩
@@ -115,11 +117,10 @@ theorem booleanDeclaration_ready (text : Source) (state : ParserState) (argument
 theorem declaration_ready (text : Source) (state : ParserState) (arguments : Bool)
     (ready : ScalarMetadata.HeaderReady state.scalarNames) :
     ScalarMetadata.HeaderReady (declarationAt text state arguments).scalarNames := by
-  unfold declarationAt
-  dsimp only
+  rw [declarationAt_callable_equation]
   split
   · rename_i accepted
-    rw [(functionDeclarationAt_preserves_outer _ _ _ accepted).scalarNames]
+    rw [(callableDeclarationAt_preserves_outer _ _ _ accepted).scalarNames]
     exact ready
   · split
     · exact subtypeDeclaration_ready text state arguments ready

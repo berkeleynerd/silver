@@ -1,0 +1,30 @@
+{
+  "run_id": "20261115T171603-ba92994a4018",
+  "managed_outcome": "interrupted",
+  "managed_duration_seconds": 1499.50779334,
+  "launcher_exit": 130,
+  "child_returncode": -2,
+  "reason": "Required native-source invalidation; explicit root-coordinated stop, no resource failure",
+  "completed_line_modules": [
+    "Silver.OutputBodyLines0",
+    "Silver.OutputBodyLines1",
+    "Silver.OutputBodyLines2",
+    "Silver.OutputBodyLines3",
+    "Silver.OutputBodyLines4"
+  ],
+  "interrupted_line_module": "Silver.OutputBodyLines5",
+  "aggregate_started": false,
+  "fresh_audit_ran": false,
+  "original_input_hashes_match": true,
+  "checked_input_count": 1105,
+  "generated_candidates": 40,
+  "archive_sha256": "3f069cdb5599e29a1d094d7e95efb9f07b5e0ed8ee490d849bf89346ecb9d73c",
+  "archive_bytes": 4042193,
+  "archive_members": 1146,
+  "all_archive_bytes_verified": true,
+  "source_sha256": "619f4fb8e2b0f318dac7c6278d5f644198816ce7733959ed71ca03917546b2b8",
+  "next_source_sha256": "9ede490b6cf72b352a39072cd37f4ef39774409c6024135487cf076567b59b9c",
+  "still_matching_completed_line_buckets": [
+    2
+  ]
+}

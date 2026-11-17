@@ -1,0 +1,31 @@
+{
+  "run_id": "20261115T203335-d0861ad752c6",
+  "original_exec_session": 99284,
+  "outer_and_child_exit_code": 1,
+  "interrupted": false,
+  "diagnostic_lines": [
+    [
+      "29",
+      "2"
+    ],
+    [
+      "42",
+      "2"
+    ]
+  ],
+  "confirmed_failed_fields": [
+    "CountedBoundNative.Checked.spec",
+    "FlowSourceBridge.Checked.joined"
+  ],
+  "reader_fields_without_diagnostics": [
+    "integerTypeWord",
+    "scalarSpec",
+    "scalarBody",
+    "stringSpec",
+    "stringBody"
+  ],
+  "failed_probe_does_not_establish_audited_field_success": true,
+  "exact_managed_log_sha256": "dca7f923ba8d85378a2551e1b935bbf9429590320423d9bf084237af4660931a",
+  "probe_sha256": "3e4cb7ce07b0310a47c94e282b848ce1bb54e5f4483ac270a50ebbdf40486590",
+  "next_repair": "Normalize only the long literal fragment of each confirmed failed field; split five exact reader fields into private checked lemmas and assemble original Checked proof. Preserve all source selectors, original statements and concatenated semantic renderings; full candidate audit still required."
+}

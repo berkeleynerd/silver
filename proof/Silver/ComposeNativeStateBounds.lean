@@ -130,11 +130,10 @@ theorem model_argument_bounds (text : Source) (state : ParserState)
 theorem model_declaration_bounds (text : Source) (valid : ValidText text)
     (state : ParserState) (arguments : Bool) (metadata : NamesBoundsValid state.names) :
     NamesBoundsValid (declarationAt text state arguments).names := by
-  unfold declarationAt
-  dsimp only
+  rw [declarationAt_callable_equation]
   split
   · rename_i accepted
-    rw [(functionDeclarationAt_preserves_outer _ _ _ accepted).names]
+    rw [(callableDeclarationAt_preserves_outer _ _ _ accepted).names]
     exact metadata
   · split
     · exact model_subtype_declaration_bounds text state arguments metadata

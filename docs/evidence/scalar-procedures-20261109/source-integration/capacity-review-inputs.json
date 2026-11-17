@@ -1,0 +1,20 @@
+{
+  "reviewed_at": "2026-11-10T04:51:44.378019+00:00",
+  "head": "a7044d6f45dd375b6874f6f78d1a3246b6d95d7a",
+  "files": {
+    "docs/scalar-procedures-report-capacity.md": "f416a61ce6e329fcb1b65afd5a9aeea97a55364affc7ec8c7854d3f0bf6acb0c",
+    "docs/scalar-functions-report-capacity.md": "315bef043c91175088c9a0c7f0547da4c7a57c5b871cec8a5e6e5db51cc912af",
+    "docs/report-capacity.md": "dd223f41f3c7162ed22664b14392139c8dd538c437048488b70c2f50f99361c4",
+    "src/silver_library_reports.adb": "9ba127cb34b531ffc527be192dd4815f4d3dc2d76813e882e38d12df981bff86",
+    "src/silver_library_reports.ads": "687ae837d4e1607f6f64cfd23dd54cd9fea2bc9927055b9c81b675032733c50b",
+    "src/silver_platform.ads": "bc09421f220120e7b3b0966f9b2f15c27bdab48a1a714e7e5e9562f9c14fa997",
+    "src/silver_output_profile.adb": "7edbe0340274a03d99f2ab3cad9e7ecded721604f247c0162ffcd04b72453b9f",
+    "src/silver_procedure_bindings.ads": "4fe043682f952570f90e0b5879c9a10be3c19016811dac957a6825e22a1f18a6",
+    "scripts/check_evidence.py": "c1fc34a50bc89ef53daa04b4d98b8d485517a25851063753a249480ec49a2523",
+    "tests/test_capacity.py": "d50c9dd5cb3b498f94fdef0209c25810941a97c3ad6748ba38e065ffe418a57e",
+    "tests/test_evidence.py": "3a2ee88c0c92477fcc7d74bb9e775a9e3e6ff4d63b40a512fd588237cb3b29c0",
+    "tests/test_library_reports.py": "8bfd2053eecaaadbbedad3e473f461d1e03dac159bbf9889fefce1bbd1e483f5"
+  },
+  "source_mutations": false,
+  "new_native_runs": false
+}

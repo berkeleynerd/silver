@@ -19,7 +19,7 @@ structure Calls where
   basicPrimitives : BasicNative.Primitives
   loopImports : LoopNative.Imports
   loopScalars : ScalarExpression.Native.Calls
-  basic : Source → Native.Context → BodyScan → FunctionBindings.Metadata → BodyScan
+  basic : Source → Native.Context → BodyScan → FunctionBindings.Metadata → ProcedureBindings.Metadata → BodyScan
   flowLibraries : FlowSourceBridge.Calls
   initial : FlowSourceBridge.Context → FlowSourceBridge.FlowStorage
   bodyWrapperModels : Adapter.Wrappers.Calls
@@ -118,7 +118,7 @@ def modelCalls : Calls where
     bodyToken := (Adapter.Wrappers.modelCalls BodyNative.modelCalls).token}
   loopImports := {LoopNative.modelImports with bodyToken := (Adapter.Wrappers.modelCalls BodyNative.modelCalls).token}
   loopScalars := ScalarExpression.Native.modelCalls
-  basic text context scan catalog := basicBody text context.model scan catalog
+  basic text context scan catalog procedures := basicBody text context.model scan catalog procedures
   flowLibraries := FlowSourceBridge.modelCalls
   initial := FlowSourceBridge.initialStorage FlowSourceBridge.modelCalls
   bodyWrapperModels := Adapter.Wrappers.modelCalls BodyNative.modelCalls

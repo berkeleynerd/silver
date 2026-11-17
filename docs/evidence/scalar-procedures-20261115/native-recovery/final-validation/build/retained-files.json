@@ -1,0 +1,62 @@
+{
+  "build/binary-identities.json": {
+    "bytes": 553,
+    "sha256": "b5d3b749f3065c1eb19cc6e4f66d3c19810d15feee9d617a1b60046ea4a5832e"
+  },
+  "build/command.json": {
+    "bytes": 745,
+    "sha256": "86f7961f6e61c187055d8574ea381f392d2c1968044a58aff75c7cb9b0d38af3"
+  },
+  "build/final-inputs.json": {
+    "bytes": 450482,
+    "sha256": "ca57e9f982a1f8c1cf74644eb2671893ab98a1d811d28c4862c80a6ff0876124"
+  },
+  "build/launcher.json": {
+    "bytes": 518,
+    "sha256": "94521b9b0d6ce4eb1d54b00d6184c7ddb3506978decbf285a33fb21917e30c75"
+  },
+  "build/launcher.log": {
+    "bytes": 388,
+    "sha256": "ef871ba97b604a98d1deba4bc23999e9805afcd3eadaeefe62ea5bd06bc5967f"
+  },
+  "build/monitor.py": {
+    "bytes": 3185,
+    "sha256": "11f8bd99c13021c3a0223318de4504ee275455d6599eb1d7bd7cd3d0d1bf2eec"
+  },
+  "build/preflight-runs.json": {
+    "bytes": 195993,
+    "sha256": "29e1831c6673cf3c7653733ed1a92d193f3bc0df7a7fd098aba1b250ed71c117"
+  },
+  "build/prepared-inputs.json": {
+    "bytes": 450482,
+    "sha256": "ca57e9f982a1f8c1cf74644eb2671893ab98a1d811d28c4862c80a6ff0876124"
+  },
+  "build/resources.jsonl": {
+    "bytes": 496,
+    "sha256": "a272b8ceb283a1e2087e118535cb98f57b555d83da96c9cc94f2c3b1c62bac66"
+  },
+  "build/summary.json": {
+    "bytes": 648,
+    "sha256": "27b9d46754a67bf126c19ebc4b76d9dd3ef3eea4b24da450153f93ead5e5bc71"
+  },
+  "build/terminal-managed-run.json": {
+    "bytes": 1981,
+    "sha256": "ff24f9a4abe24d95d4437394b4b0b6971c3cbd1e945ebbc800aedba7a0e54aa8"
+  },
+  "build/terminal-tools.json": {
+    "bytes": 6927,
+    "sha256": "23d1594ef34f4213b5c13ad0b4cb6e5e0d3adaf51e8934897813a4ae1e7155ba"
+  },
+  "build/verification.json": {
+    "bytes": 2493,
+    "sha256": "f66783dec288f293386df1593860acb2f5da259600c3aac759633cfb2f3deeed"
+  },
+  "managed-run/events.jsonl": {
+    "bytes": 450541,
+    "sha256": "7d2bb61a50985f3bef91310daf86767d5fc96e3bb2b8554ad27ae8593803042e"
+  },
+  "managed-run/native.log": {
+    "bytes": 195,
+    "sha256": "f5cba89c8c928f8e06d0f56f7152f385b971021e7cb064dd806421c469042a12"
+  }
+}

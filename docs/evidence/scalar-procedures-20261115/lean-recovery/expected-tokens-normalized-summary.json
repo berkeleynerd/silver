@@ -1,0 +1,27 @@
+{
+  "command": [
+    "python3",
+    "scripts/check_lean.py",
+    "--target",
+    "Silver.FunctionSourceParts.FunctionLocalsExpectedTokensProbe",
+    "--workers",
+    "1",
+    "--memory-mb",
+    "2048",
+    "--provenance",
+    "--task",
+    "370-lean-memory-recovery",
+    "--reason",
+    "Focused2GiBresponse to isolated expectedTokens failure: checked String.toList_ofList rewrites exact909character text to fullcharacterlist before unchanged lexer computation; one worker/default12threads; aggregate8GiBallocated separately."
+  ],
+  "cwd": "/home/agent/silver-worktrees/procedures-lean-370",
+  "started_at": "2026-11-15T17:20:07.597025+00:00",
+  "peak_sum_rss_kib": 2558000,
+  "peak_process_rss_kib": 1580176,
+  "minimum_mem_available_kib": 13180320,
+  "pid": 14286,
+  "returncode": 0,
+  "elapsed_seconds": 15.014245299000322,
+  "finished_at": "2026-11-15T17:20:22.611258+00:00",
+  "interrupted": false
+}

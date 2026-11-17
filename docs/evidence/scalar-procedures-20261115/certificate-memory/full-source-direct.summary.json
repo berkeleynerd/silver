@@ -1,0 +1,22 @@
+{
+  "command": [
+    "python3",
+    "scripts/check_lean.py",
+    "--target",
+    "Silver.CertificateReconstruction",
+    "--workers",
+    "1",
+    "--memory-mb",
+    "3072",
+    "--provenance",
+    "--task",
+    "#370-certificate-memory",
+    "--reason",
+    "Single actual424747-byte topjoin with direct kernel_exact literal witness; distinguish UTF8encode cost from simple byte append. Root allocated1worker/3GiBthreshold on16GiBhost; default12threads and1.5GiBhostheadroomguard; no complete certificate claim"
+  ],
+  "returncode": 1,
+  "elapsed_seconds": 18.094722675000412,
+  "peak_tree_rss_bytes": 4267278336,
+  "lowest_available_bytes": 11161092096,
+  "controlled_stop": null
+}

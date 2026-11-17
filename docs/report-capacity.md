@@ -3,7 +3,10 @@
 This record addresses [B1 and L4](reviews/review-343c2f8.md) for the then-current
 4096-byte String language. That repair allocated **16,777,216 bytes of retained
 report data**. The [fixed-array extension](fixed-integer-arrays-report-capacity.md)
-raises the current application allocation to **33,554,432 bytes**, retaining the
+raised that allocation to **33,554,432 bytes**. The
+[scalar-procedure extension](scalar-procedures-report-capacity.md) selects
+**67,108,864 bytes** for its conservative 49,279,744-byte envelope, including the
+earlier unused-copy-back allowance and the formal-dependence advisories added by #391, retaining the
 same source budget and projection policy. Selected runtime reports retain their
 262,144-byte domain. Neither number bounds the original report file: the
 streaming reader consumes its complete JSON, replacing only immediate
@@ -90,7 +93,7 @@ diagnostic. Path-copy vertices do not multiply unreachable messages, and
 messages are deduplicated by source position, message and severity. Output
 calls can add four named ghost-output advisories. Charging at most six messages
 against the three bytes of `Put`, and two against every other source byte,
-gives the loose `2*S` bound. The only accepted advisory with a user-defined
+gives the loose `2*S` bound. In that original String fragment the only accepted advisory with a user-defined
 name is initialization; declaration uniqueness and message deduplication bound
 its aggregate identifier text by source bytes. The additional `2*S` charge
 overcounts that text; legal identifiers require no JSON escaping.
@@ -396,8 +399,31 @@ The [array producer review](fixed-integer-arrays-report-capacity.md) charges
 aggregate components and indexed occurrences jointly with earlier expression
 roots/comparisons, and accounts for an array-loop initialization note at each
 enclosing-loop/write pair. The resulting retained Main envelope is
-**25,084,928 bytes**. Main and the shared platform reader use **33,554,432 bytes**;
+**25,084,928 bytes**. That delivery gave Main and the shared platform reader
+**33,554,432 bytes**;
 runtime and null-report policies remain at **262,144 bytes**. This is a
 feature-local allocation, preserving the source/operator budgets and existing
 projection. It does not reopen deferred #119 research or claim that an observed
 report exceeded the old allocation.
+
+## Scalar procedure extension
+
+The [procedure account](scalar-procedures-report-capacity.md) preserves the
+joint scalar-subprogram entity budget and raises the call-edge allowance for
+five-byte procedure calls. It separately charges copy-back range checks and
+successful output initialization, unused-copy-back warnings, and the exact
+`INOUT_ONLY_READ` / `UNUSED_INITIAL_VALUE` formal advisories. The latter require
+exact declared owner/formal spelling and eligible mode, warning/flow provenance,
+`main.adb`, positive location and no suppression or justification. The new
+`585*1024 + 4096 = 603,136` byte charge covers one of those two records per
+formal separately from the existing `UNUSED_VARIABLE` allowance; an unmentioned
+`in out` formal can emit both unused-variable and read-only advisories.
+
+The current envelope is **49,279,744 bytes** in the unchanged
+**67,108,864-byte** allocation, leaving **17,829,120 bytes**. The earlier
+38,186,752-byte value preceded unused-copy-back accounting, whose envelope was
+48,676,608 bytes. The complete source budget and streaming projection remain
+unchanged. The [capability record](scalar-procedures.md#delivery-assurance-and-validation)
+retains the completed November 15 validation and independent review and the
+separate #391 repair checkpoint; this storage calculation alone establishes
+neither compiler assurance nor a process-memory bound.

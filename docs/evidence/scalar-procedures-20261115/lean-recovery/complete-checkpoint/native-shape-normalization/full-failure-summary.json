@@ -1,0 +1,50 @@
+{
+  "command": [
+    "python3",
+    "scripts/check_lean.py",
+    "--workers",
+    "1",
+    "--memory-mb",
+    "8192",
+    "--provenance",
+    "--task",
+    "370-complete-lean-recovery",
+    "--reason",
+    "Complete cached continuation on independently accepted frozen production 24115ffd2 after exact confirmed flow-fragment normalization and reader-field proof factoring; full focused PredicateFlowSourceCandidate run 20261115T204311-34308bc25803 passed 132 modules / 21861 declarations. Independent critical review verified source statements/renderings, all input/workspace/artifact/tool hashes, terminal result and diagnostic-probe retirement. Preserve all 658 completed objects and every earlier failed/probe/success packet. Textual Audit closure reaches all 1006 current modules; fresh actual whole-project module/axiom/source/provenance audit remains required. No clean build, replay or duplicate successful focused gate. One worker/default 12 threads/8192 MiB on the measured 15.8 GiB host with productive native two-worker run; original 10 GiB source-tree/1.5 GiB host-headroom/first-memory-diagnostic source-only guards. Parent released this allocation after successful focused gate and independent acceptance. Native source/scripts unchanged. Preserve and diagnose any new failure before another broad attempt."
+  ],
+  "cwd": "/home/agent/silver-worktrees/procedures-lean-370",
+  "started_at": "2026-11-15T20:50:31.886140+00:00",
+  "peak_sum_rss_kib": 9477264,
+  "peak_process_rss_kib": 8435184,
+  "minimum_mem_available_kib": 6390096,
+  "pid": 257807,
+  "diagnostic_interruption": {
+    "pattern": "(kernel) excessive memory consumption detected",
+    "sample": {
+      "elapsed_seconds": 660.6253489400005,
+      "sum_rss_kib": 2664048,
+      "mem_available_kib": 13662048,
+      "processes": [
+        {
+          "pid": 257807,
+          "rss_kib": 87280,
+          "command": "python3 scripts/check_lean.py --workers 1 --memory-mb 8192 --provenance --task 370-complete-lean-recovery --reason Complete cached continuation on independently accepted frozen production 24115ffd2 after exact confirmed flow-fragment normalization and reader-field proof factoring; full focused PredicateFlowSourceCandidate run 20261115T204311-34308bc25803 passed 132 modules / 21861 declarations. Independent critical review verified source statements/renderings, all input/workspace/artifact/tool hashes, terminal result and diagnostic-probe retirement. Preserve all 658 completed objects and every earlier failed/probe/success packet. Textual Audit closure reaches all 1006 current modules; fresh actual whole-project module/axiom/source/provenance audit remains required. No clean build, replay or duplicate successful focused gate. One worker/default 12 threads/8192 MiB on the measured 15.8 GiB host with productive native two-worker run; original 10 GiB source-tree/1.5 GiB host-headroom/first-memory-diagnostic source-only guards. Parent released this allocation after successful focused gate and independent acceptance. Native source/scripts unchanged. Preserve and diagnose any new failure before another broad attempt. "
+        },
+        {
+          "pid": 257901,
+          "rss_kib": 955248,
+          "command": "/home/agent/silver-worktrees/procedures-lean-370/.tools/linux-aarch64/lean/bin/lake --rehash --reconfigure -K silverThreads=12 -K silverMemoryMb=8192 build Silver.Audit "
+        },
+        {
+          "pid": 270447,
+          "rss_kib": 1621520,
+          "command": "/home/agent/silver-worktrees/procedures-lean-370/.tools/linux-aarch64/lean/bin/lean -j12 -M8192 -DwarningAsError=true /home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/proof/Silver/PredicateBodySourceCandidate.lean -o /home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/PredicateBodySourceCandidate.olean -i /home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/PredicateBodySourceCandidate.ilean -c /home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/proof/.lake/build/ir/Silver/PredicateBodySourceCandidate.c --setup /home/agent/silver-worktrees/procedures-lean-370/.silver/linux-aarch64/proof/.lake/build/ir/Silver/PredicateBodySourceCandidate.setup.json --json "
+        }
+      ]
+    }
+  },
+  "returncode": -2,
+  "elapsed_seconds": 665.6280004430009,
+  "finished_at": "2026-11-15T21:01:37.514129+00:00",
+  "interrupted": true
+}

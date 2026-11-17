@@ -1,0 +1,98 @@
+{
+  "run_id": "20261116T225232-a8d95d91b22a",
+  "state": "interrupted",
+  "failure_keys": [],
+  "original_tool_session_id": 98276,
+  "original_terminal_collected": true,
+  "guard_trigger": "aggregate process-tree RSS exceeded 10 GiB",
+  "peak_tree_rss_gib": 11.224838256835938,
+  "minimum_host_available_gib": 9.687332153320312,
+  "peak_processes": {
+    "18076": [
+      18075,
+      92672,
+      "python3"
+    ],
+    "18114": [
+      18076,
+      967168,
+      "lake"
+    ],
+    "18157": [
+      18114,
+      943360,
+      "lean"
+    ],
+    "18164": [
+      18114,
+      595792,
+      "lean"
+    ],
+    "18285": [
+      18114,
+      1416880,
+      "lean"
+    ],
+    "18309": [
+      18114,
+      1517120,
+      "lean"
+    ],
+    "18337": [
+      18114,
+      890432,
+      "lean"
+    ],
+    "18343": [
+      18114,
+      1190016,
+      "lean"
+    ],
+    "18459": [
+      18114,
+      729888,
+      "lean"
+    ],
+    "18512": [
+      18114,
+      1009824,
+      "lean"
+    ],
+    "18603": [
+      18114,
+      626144,
+      "lean"
+    ],
+    "18613": [
+      18114,
+      604944,
+      "lean"
+    ],
+    "18708": [
+      18114,
+      582720,
+      "lean"
+    ],
+    "18712": [
+      18114,
+      603136,
+      "lean"
+    ]
+  },
+  "missing_preexisting_objects": [
+    ".silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/ComposeArrayDenotations.olean",
+    ".silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/ComposeBooleanArraySourceCandidate.olean",
+    ".silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/ComposeBooleanDeclarationMeaning.olean",
+    ".silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/ComposeCatalogueSourceCandidate.olean",
+    ".silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/ComposeContractSourceCandidate.olean",
+    ".silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/ComposeDeclarationSourceCandidate.olean",
+    ".silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/ComposeExpressionSourceCandidate.olean",
+    ".silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/ComposeScalarDenotations.olean",
+    ".silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/ComposeStateBounds.olean",
+    ".silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/FunctionDeclarationDenotations.olean",
+    ".silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/PredicateLoopNative.olean",
+    ".silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/PredicateNativePrecedence.olean",
+    ".silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/PredicateSourceSyntax.olean"
+  ],
+  "changed_preexisting_primary_objects": []
+}

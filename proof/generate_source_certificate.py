@@ -20,6 +20,8 @@ _RFL_TOKEN_LIMIT = 32_768
 OUTPUT_BODY_LINE_MODULES = tuple(f"OutputBodyLines{index}" for index in range(8))
 
 SOURCE_BINDINGS = (
+    ("silver_procedure_bindings.ads", "procedureBindingsSpec", "procedureBindingsSpecTokens"),
+    ("silver_procedure_bindings.adb", "procedureBindingsBody", "procedureBindingsBodyTokens"),
     ("silver_function_bindings.ads", "functionBindingsSpec", "functionBindingsSpecTokens"),
     ("silver_function_bindings.adb", "functionBindingsBody", "functionBindingsBodyTokens"),
     ("silver_array_bindings.ads", "arrayBindingsSpec", "arrayBindingsSpecTokens"),
@@ -132,7 +134,8 @@ def validate_source_bytes(source: bytes, filename: str) -> None:
 
 
 def generate_parts(source: str, profile: str, prefix: str, *,
-                   line_names: list[str] | None = None) -> tuple[list[list[str]], list[str]]:
+                   line_names: list[str] | None = None,
+                   compact_joins: bool = False) -> tuple[list[list[str]], list[str]]:
     validate_source_bytes(source.encode("utf-8"), profile)
     output: list[str] = []
     declarations: list[list[str]] = []
@@ -176,12 +179,17 @@ def generate_parts(source: str, profile: str, prefix: str, *,
             if len(text) > 32_768:
                 depth = 100_000 * ((len(text) + 32_767) // 32_768)
                 output.append(f"set_option maxRecDepth {depth} in")
+            left_text = chr(10).join(lines[start:middle])
+            right_text = chr(10).join(lines[middle:end])
+            witness = ([f"    (by kernel_join {literal(left_text)} {literal(right_text)})"]
+                       if compact_joins else [
+                           f"    (by kernel_exact (string_join_ofList {characters_literal(left_text)}",
+                           f"      {characters_literal(right_text)}))"])
             output.extend([
                 f"def {name} : ReconstructionCertificate :=",
                 f"  ReconstructionCertificate.join {left} {right}",
                 f"    {literal(text)}",
-                f"    (by kernel_exact (string_join_ofList {characters_literal(chr(10).join(lines[start:middle]))}",
-                f"      {characters_literal(chr(10).join(lines[middle:end]))}))",
+                *witness,
                 "",
             ])
         return name
@@ -229,7 +237,8 @@ def generate_output_body_parts(source: str, profile: str,
         texts[digest] = line
         digests.append(digest)
     names = [f"{prefix}_line_{digest}" for digest in digests]
-    declarations, reconstruction = generate_parts(source, profile, prefix, line_names=names)
+    declarations, reconstruction = generate_parts(
+        source, profile, prefix, line_names=names, compact_joins=True)
     unique = dict(zip(digests, declarations, strict=True))
     chunks: list[list[list[str]]] = [[] for _ in OUTPUT_BODY_LINE_MODULES]
     for digest, declaration in sorted(unique.items()):
@@ -237,8 +246,8 @@ def generate_output_body_parts(source: str, profile: str,
     return chunks, reconstruction
 
 
-def generate(source: str, profile: str, prefix: str) -> list[str]:
-    declarations, reconstruction = generate_parts(source, profile, prefix)
+def generate(source: str, profile: str, prefix: str, *, compact_joins: bool = False) -> list[str]:
+    declarations, reconstruction = generate_parts(source, profile, prefix, compact_joins=compact_joins)
     return [line for declaration in declarations for line in declaration] + reconstruction
 
 
@@ -249,6 +258,7 @@ def module_header(binding_module: str | None = None,
         "",
         "public import Silver.SourceLexer",
         "public meta import Silver.CertificateWitness",
+        *(["public meta import Silver.CertificateJoinWitness"] if line_modules else []),
         *([f"public import Silver.{binding_module}"] if binding_module else []),
         *(f"public import Silver.{module}" for module in line_modules),
         "",

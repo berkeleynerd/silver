@@ -1,0 +1,5307 @@
+{
+  "status": "expectation inventory; toolchain validation is recorded separately",
+  "baseline": "877c382f6d07c1e0a2573d4cf70fa13876a399b4",
+  "comparison": "all original source bytes, verdicts and per-method check order are unchanged",
+  "source_verdict_sha256": "c5914feb3a63dc0eb036aec96dd96c9f47a68fdb3bbe127184f38fdf28cd4176",
+  "original_checks": 288,
+  "negative_checks": 200,
+  "positive_fixtures": 88,
+  "positive_by_file": {
+    "tests/test_scalar_functions.py": 24,
+    "tests/test_scalar_procedures.py": 64
+  },
+  "policy_kinds": {
+    "assigned": 55,
+    "selected": 27,
+    "static": 6
+  },
+  "expected_execution_cases": 196,
+  "test_sources": {
+    "tests/test_scalar_functions.py": "fe66f5bd04d7751c36fbeb85be2fba9337b4467f72ea28fa39f656625c79d0b5",
+    "tests/test_scalar_procedures.py": "8d8ec7d6ba36485b50d8b36e20341f4edf165092308d8e7a9c46ff5fc2fec29f",
+    "tests/test_shared_bindings.py": "64ebe3f893f8431e3bfac0a992417565b25da2a3bc4f4c30d3750873a07ada4a"
+  },
+  "fixtures": [
+    {
+      "file": "tests/test_scalar_functions.py",
+      "method": "test_actual_and_result_ranges_use_declared_subtypes",
+      "line": 130,
+      "check_ordinal": 1,
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);subtype Small is Integer range 0..9;function F(X:in Small)return Small is begin return 0;end F;R:Small:=0;begin R:=F(0);end Main;",
+      "source_sha256": "f40cdbbf63179800ff17a575597aaf47c57a4b5c70c8c263bc7dbf22b5c7fd2a",
+      "expected": 0,
+      "full_route": {
+        "kind": "assigned",
+        "functions": [
+          "F"
+        ],
+        "procedures": null,
+        "formals": {
+          "F": [
+            [
+              "X",
+              "in"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          }
+        ]
+      },
+      "original_line": 113,
+      "fixture_id": "tests/test_scalar_functions.py::test_actual_and_result_ranges_use_declared_subtypes::check[1]"
+    },
+    {
+      "file": "tests/test_scalar_functions.py",
+      "method": "test_actual_and_result_ranges_use_declared_subtypes",
+      "line": 130,
+      "check_ordinal": 2,
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);subtype Small is Integer range 0..9;function F(X:in Small)return Small is begin return 0;end F;R:Small:=0;begin R:=F(9);end Main;",
+      "source_sha256": "a85972d6b889ae7678523713e4f2d04f9f9a929f28675a279b1ad000390e9b21",
+      "expected": 0,
+      "full_route": {
+        "kind": "assigned",
+        "functions": [
+          "F"
+        ],
+        "procedures": null,
+        "formals": {
+          "F": [
+            [
+              "X",
+              "in"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          }
+        ]
+      },
+      "original_line": 113,
+      "fixture_id": "tests/test_scalar_functions.py::test_actual_and_result_ranges_use_declared_subtypes::check[2]"
+    },
+    {
+      "file": "tests/test_scalar_functions.py",
+      "method": "test_actual_and_result_ranges_use_declared_subtypes",
+      "line": 135,
+      "check_ordinal": 8,
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);subtype Small is Integer range 0..9;function F(X:in Small)return Small is begin return 0;end F;R:Small:=0;N:Integer:=0;begin if N>=0 and then N<=9 then R:=F(N);end if;end Main;",
+      "source_sha256": "f0c459ff6dd15ff13d6a93d0807c875d5e3fe70614d943e7aca57210675b8566",
+      "expected": 0,
+      "full_route": {
+        "kind": "assigned",
+        "functions": [
+          "F"
+        ],
+        "procedures": null,
+        "formals": {
+          "F": [
+            [
+              "X",
+              "in"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          }
+        ]
+      },
+      "original_line": 117,
+      "fixture_id": "tests/test_scalar_functions.py::test_actual_and_result_ranges_use_declared_subtypes::check[8]"
+    },
+    {
+      "file": "tests/test_scalar_functions.py",
+      "method": "test_actuals_share_incoming_state_without_cross_argument_refinement",
+      "line": 153,
+      "check_ordinal": 2,
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);function F(B:in Boolean;X:in Integer)return Integer is begin return X;end F;N:Integer range 0..1:=0;R:Integer:=0;begin if N/=0 then R:=F(True,(1/N));end if;end Main;",
+      "source_sha256": "538efe4f8836503a5047fb482d32b5c45d5626a1528769b72317ed94c7b626aa",
+      "expected": 0,
+      "full_route": {
+        "kind": "assigned",
+        "functions": [
+          "F"
+        ],
+        "procedures": null,
+        "formals": {
+          "F": [
+            [
+              "B",
+              "in"
+            ],
+            [
+              "X",
+              "in"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          }
+        ]
+      },
+      "original_line": 134,
+      "fixture_id": "tests/test_scalar_functions.py::test_actuals_share_incoming_state_without_cross_argument_refinement::check[2]"
+    },
+    {
+      "file": "tests/test_scalar_functions.py",
+      "method": "test_boolean_actuals_use_caller_string_and_character_facts",
+      "line": 177,
+      "check_ordinal": 1,
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);function Flip(B:in Boolean)return Boolean is begin return not B;end Flip;R:Boolean:=False;S:String:=\"ab\";C:Character:='a';begin R:=Flip(S=\"ab\");R:=Flip(C=S(1));R:=Flip(S'Length=2 and then S(2)='b');end Main;",
+      "source_sha256": "5860c27679b97813bac785ae5fa7318e5640c061588ff9739af2d4ca46332523",
+      "expected": 0,
+      "full_route": {
+        "kind": "assigned",
+        "functions": [
+          "Flip"
+        ],
+        "procedures": null,
+        "formals": {
+          "Flip": [
+            [
+              "B",
+              "in"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          }
+        ]
+      },
+      "original_line": 156,
+      "fixture_id": "tests/test_scalar_functions.py::test_boolean_actuals_use_caller_string_and_character_facts::check[1]"
+    },
+    {
+      "file": "tests/test_scalar_functions.py",
+      "method": "test_boolean_actuals_use_caller_string_and_character_facts",
+      "line": 181,
+      "check_ordinal": 2,
+      "source": "with Silver_IO;with Silver_Arguments;procedure Main is pragma SPARK_Mode(On);Input:constant String:=Silver_Arguments.First_Or_Default(\"old\");function Flip(B:in Boolean)return Boolean is begin return not B;end Flip;R:Boolean:=False;begin if Silver_Arguments.Input_Is_Valid then R:=Flip(Input=\"old\");else Silver_Arguments.Reject;end if;end Main;",
+      "source_sha256": "4fe54746b795588de363190e00a3cd3c168db5869ac846392949e263550ec76e",
+      "expected": 0,
+      "full_route": {
+        "kind": "selected",
+        "functions": [
+          "Flip"
+        ],
+        "procedures": null,
+        "formals": {
+          "Flip": [
+            [
+              "B",
+              "in"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              ""
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              "valid"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              "one",
+              "two"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 1
+          },
+          {
+            "arguments": [
+              "\u0001"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 1
+          }
+        ]
+      },
+      "original_line": 159,
+      "fixture_id": "tests/test_scalar_functions.py::test_boolean_actuals_use_caller_string_and_character_facts::check[2]"
+    },
+    {
+      "file": "tests/test_scalar_functions.py",
+      "method": "test_boolean_result_carries_no_argument_or_input_facts",
+      "line": 161,
+      "check_ordinal": 2,
+      "source": "with Silver_IO;with Silver_Arguments;procedure Main is pragma SPARK_Mode(On);Input:constant String:=Silver_Arguments.First_Or_Default(\"old\");function Flip(B:in Boolean)return Boolean is begin return not B;end Flip;B:Boolean:=False;begin if Silver_Arguments.Input_Is_Valid then B:=Flip(not Silver_Arguments.Input_Is_Valid);if B then Silver_IO.Put_Line(\"ok\");else Silver_Arguments.Reject;end if;else Silver_Arguments.Reject;end if;end Main;",
+      "source_sha256": "c966691b55c6c711303581da07621699c7e1d97b23e1e95b55aa07720149d79e",
+      "expected": 0,
+      "full_route": {
+        "kind": "selected",
+        "functions": [
+          "Flip"
+        ],
+        "procedures": null,
+        "formals": {
+          "Flip": [
+            [
+              "B",
+              "in"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "ok\n",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              ""
+            ],
+            "stdout": "ok\n",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              "valid"
+            ],
+            "stdout": "ok\n",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              "one",
+              "two"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 1
+          },
+          {
+            "arguments": [
+              "\u0001"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 1
+          }
+        ]
+      },
+      "original_line": 141,
+      "fixture_id": "tests/test_scalar_functions.py::test_boolean_result_carries_no_argument_or_input_facts::check[2]"
+    },
+    {
+      "file": "tests/test_scalar_functions.py",
+      "method": "test_dense_formals_and_complete_source_bound",
+      "line": 308,
+      "check_ordinal": 1,
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);function F(P0:in Integer;P1:in Integer;P2:in Integer;P3:in Integer;P4:in Integer;P5:in Integer;P6:in Integer;P7:in Integer;P8:in Integer;P9:in Integer;P10:in Integer;P11:in Integer;P12:in Integer;P13:in Integer;P14:in Integer;P15:in Integer;P16:in Integer;P17:in Integer;P18:in Integer;P19:in Integer;P20:in Integer;P21:in Integer;P22:in Integer;P23:in Integer;P24:in Integer;P25:in Integer;P26:in Integer;P27:in Integer;P28:in Integer;P29:in Integer;P30:in Integer;P31:in Integer;P32:in Integer;P33:in Integer;P34:in Integer;P35:in Integer;P36:in Integer;P37:in Integer;P38:in Integer;P39:in Integer;P40:in Integer;P41:in Integer;P42:in Integer;P43:in Integer;P44:in Integer;P45:in Integer;P46:in Integer;P47:in Integer;P48:in Integer;P49:in Integer;P50:in Integer;P51:in Integer;P52:in Integer;P53:in Integer;P54:in Integer;P55:in Integer;P56:in Integer;P57:in Integer;P58:in Integer;P59:in Integer;P60:in Integer;P61:in Integer;P62:in Integer;P63:in Integer;P64:in Integer;P65:in Integer;P66:in Integer;P67:in Integer;P68:in Integer;P69:in Integer;P70:in Integer;P71:in Integer;P72:in Integer;P73:in Integer;P74:in Integer;P75:in Integer;P76:in Integer;P77:in Integer;P78:in Integer;P79:in Integer;P80:in Integer;P81:in Integer;P82:in Integer;P83:in Integer;P84:in Integer;P85:in Integer;P86:in Integer;P87:in Integer;P88:in Integer;P89:in Integer;P90:in Integer;P91:in Integer;P92:in Integer;P93:in Integer;P94:in Integer;P95:in Integer;P96:in Integer;P97:in Integer;P98:in Integer;P99:in Integer;P100:in Integer;P101:in Integer;P102:in Integer;P103:in Integer;P104:in Integer;P105:in Integer;P106:in Integer;P107:in Integer;P108:in Integer;P109:in Integer;P110:in Integer;P111:in Integer;P112:in Integer;P113:in Integer;P114:in Integer;P115:in Integer;P116:in Integer;P117:in Integer;P118:in Integer;P119:in Integer;P120:in Integer;P121:in Integer;P122:in Integer;P123:in Integer;P124:in Integer;P125:in Integer;P126:in Integer;P127:in Integer;P128:in Integer;P129:in Integer;P130:in Integer;P131:in Integer;P132:in Integer;P133:in Integer;P134:in Integer;P135:in Integer;P136:in Integer;P137:in Integer;P138:in Integer;P139:in Integer;P140:in Integer;P141:in Integer;P142:in Integer;P143:in Integer;P144:in Integer;P145:in Integer;P146:in Integer;P147:in Integer;P148:in Integer;P149:in Integer)return Integer is begin return P149;end F;begin null;end Main;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              ",
+      "source_sha256": "5af85ea7da6eb2e9a7a80d4b83c8dee38e8bb6beb527b83974176178911c83f8",
+      "expected": 0,
+      "full_route": {
+        "kind": "static",
+        "functions": [
+          "F"
+        ],
+        "procedures": null,
+        "formals": {
+          "F": [
+            [
+              "P0",
+              "in"
+            ],
+            [
+              "P1",
+              "in"
+            ],
+            [
+              "P2",
+              "in"
+            ],
+            [
+              "P3",
+              "in"
+            ],
+            [
+              "P4",
+              "in"
+            ],
+            [
+              "P5",
+              "in"
+            ],
+            [
+              "P6",
+              "in"
+            ],
+            [
+              "P7",
+              "in"
+            ],
+            [
+              "P8",
+              "in"
+            ],
+            [
+              "P9",
+              "in"
+            ],
+            [
+              "P10",
+              "in"
+            ],
+            [
+              "P11",
+              "in"
+            ],
+            [
+              "P12",
+              "in"
+            ],
+            [
+              "P13",
+              "in"
+            ],
+            [
+              "P14",
+              "in"
+            ],
+            [
+              "P15",
+              "in"
+            ],
+            [
+              "P16",
+              "in"
+            ],
+            [
+              "P17",
+              "in"
+            ],
+            [
+              "P18",
+              "in"
+            ],
+            [
+              "P19",
+              "in"
+            ],
+            [
+              "P20",
+              "in"
+            ],
+            [
+              "P21",
+              "in"
+            ],
+            [
+              "P22",
+              "in"
+            ],
+            [
+              "P23",
+              "in"
+            ],
+            [
+              "P24",
+              "in"
+            ],
+            [
+              "P25",
+              "in"
+            ],
+            [
+              "P26",
+              "in"
+            ],
+            [
+              "P27",
+              "in"
+            ],
+            [
+              "P28",
+              "in"
+            ],
+            [
+              "P29",
+              "in"
+            ],
+            [
+              "P30",
+              "in"
+            ],
+            [
+              "P31",
+              "in"
+            ],
+            [
+              "P32",
+              "in"
+            ],
+            [
+              "P33",
+              "in"
+            ],
+            [
+              "P34",
+              "in"
+            ],
+            [
+              "P35",
+              "in"
+            ],
+            [
+              "P36",
+              "in"
+            ],
+            [
+              "P37",
+              "in"
+            ],
+            [
+              "P38",
+              "in"
+            ],
+            [
+              "P39",
+              "in"
+            ],
+            [
+              "P40",
+              "in"
+            ],
+            [
+              "P41",
+              "in"
+            ],
+            [
+              "P42",
+              "in"
+            ],
+            [
+              "P43",
+              "in"
+            ],
+            [
+              "P44",
+              "in"
+            ],
+            [
+              "P45",
+              "in"
+            ],
+            [
+              "P46",
+              "in"
+            ],
+            [
+              "P47",
+              "in"
+            ],
+            [
+              "P48",
+              "in"
+            ],
+            [
+              "P49",
+              "in"
+            ],
+            [
+              "P50",
+              "in"
+            ],
+            [
+              "P51",
+              "in"
+            ],
+            [
+              "P52",
+              "in"
+            ],
+            [
+              "P53",
+              "in"
+            ],
+            [
+              "P54",
+              "in"
+            ],
+            [
+              "P55",
+              "in"
+            ],
+            [
+              "P56",
+              "in"
+            ],
+            [
+              "P57",
+              "in"
+            ],
+            [
+              "P58",
+              "in"
+            ],
+            [
+              "P59",
+              "in"
+            ],
+            [
+              "P60",
+              "in"
+            ],
+            [
+              "P61",
+              "in"
+            ],
+            [
+              "P62",
+              "in"
+            ],
+            [
+              "P63",
+              "in"
+            ],
+            [
+              "P64",
+              "in"
+            ],
+            [
+              "P65",
+              "in"
+            ],
+            [
+              "P66",
+              "in"
+            ],
+            [
+              "P67",
+              "in"
+            ],
+            [
+              "P68",
+              "in"
+            ],
+            [
+              "P69",
+              "in"
+            ],
+            [
+              "P70",
+              "in"
+            ],
+            [
+              "P71",
+              "in"
+            ],
+            [
+              "P72",
+              "in"
+            ],
+            [
+              "P73",
+              "in"
+            ],
+            [
+              "P74",
+              "in"
+            ],
+            [
+              "P75",
+              "in"
+            ],
+            [
+              "P76",
+              "in"
+            ],
+            [
+              "P77",
+              "in"
+            ],
+            [
+              "P78",
+              "in"
+            ],
+            [
+              "P79",
+              "in"
+            ],
+            [
+              "P80",
+              "in"
+            ],
+            [
+              "P81",
+              "in"
+            ],
+            [
+              "P82",
+              "in"
+            ],
+            [
+              "P83",
+              "in"
+            ],
+            [
+              "P84",
+              "in"
+            ],
+            [
+              "P85",
+              "in"
+            ],
+            [
+              "P86",
+              "in"
+            ],
+            [
+              "P87",
+              "in"
+            ],
+            [
+              "P88",
+              "in"
+            ],
+            [
+              "P89",
+              "in"
+            ],
+            [
+              "P90",
+              "in"
+            ],
+            [
+              "P91",
+              "in"
+            ],
+            [
+              "P92",
+              "in"
+            ],
+            [
+              "P93",
+              "in"
+            ],
+            [
+              "P94",
+              "in"
+            ],
+            [
+              "P95",
+              "in"
+            ],
+            [
+              "P96",
+              "in"
+            ],
+            [
+              "P97",
+              "in"
+            ],
+            [
+              "P98",
+              "in"
+            ],
+            [
+              "P99",
+              "in"
+            ],
+            [
+              "P100",
+              "in"
+            ],
+            [
+              "P101",
+              "in"
+            ],
+            [
+              "P102",
+              "in"
+            ],
+            [
+              "P103",
+              "in"
+            ],
+            [
+              "P104",
+              "in"
+            ],
+            [
+              "P105",
+              "in"
+            ],
+            [
+              "P106",
+              "in"
+            ],
+            [
+              "P107",
+              "in"
+            ],
+            [
+              "P108",
+              "in"
+            ],
+            [
+              "P109",
+              "in"
+            ],
+            [
+              "P110",
+              "in"
+            ],
+            [
+              "P111",
+              "in"
+            ],
+            [
+              "P112",
+              "in"
+            ],
+            [
+              "P113",
+              "in"
+            ],
+            [
+              "P114",
+              "in"
+            ],
+            [
+              "P115",
+              "in"
+            ],
+            [
+              "P116",
+              "in"
+            ],
+            [
+              "P117",
+              "in"
+            ],
+            [
+              "P118",
+              "in"
+            ],
+            [
+              "P119",
+              "in"
+            ],
+            [
+              "P120",
+              "in"
+            ],
+            [
+              "P121",
+              "in"
+            ],
+            [
+              "P122",
+              "in"
+            ],
+            [
+              "P123",
+              "in"
+            ],
+            [
+              "P124",
+              "in"
+            ],
+            [
+              "P125",
+              "in"
+            ],
+            [
+              "P126",
+              "in"
+            ],
+            [
+              "P127",
+              "in"
+            ],
+            [
+              "P128",
+              "in"
+            ],
+            [
+              "P129",
+              "in"
+            ],
+            [
+              "P130",
+              "in"
+            ],
+            [
+              "P131",
+              "in"
+            ],
+            [
+              "P132",
+              "in"
+            ],
+            [
+              "P133",
+              "in"
+            ],
+            [
+              "P134",
+              "in"
+            ],
+            [
+              "P135",
+              "in"
+            ],
+            [
+              "P136",
+              "in"
+            ],
+            [
+              "P137",
+              "in"
+            ],
+            [
+              "P138",
+              "in"
+            ],
+            [
+              "P139",
+              "in"
+            ],
+            [
+              "P140",
+              "in"
+            ],
+            [
+              "P141",
+              "in"
+            ],
+            [
+              "P142",
+              "in"
+            ],
+            [
+              "P143",
+              "in"
+            ],
+            [
+              "P144",
+              "in"
+            ],
+            [
+              "P145",
+              "in"
+            ],
+            [
+              "P146",
+              "in"
+            ],
+            [
+              "P147",
+              "in"
+            ],
+            [
+              "P148",
+              "in"
+            ],
+            [
+              "P149",
+              "in"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          }
+        ]
+      },
+      "original_line": 279,
+      "fixture_id": "tests/test_scalar_functions.py::test_dense_formals_and_complete_source_bound::check[1]"
+    },
+    {
+      "file": "tests/test_scalar_functions.py",
+      "method": "test_dense_locals_and_function_list",
+      "line": 317,
+      "check_ordinal": 1,
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);subtype T is Integer range 0..9;function F(X:in Integer)return Integer is L0:T:=0;L1:T:=0;L2:T:=0;L3:T:=0;L4:T:=0;L5:T:=0;L6:T:=0;L7:T:=0;L8:T:=0;L9:T:=0;L10:T:=0;L11:T:=0;L12:T:=0;L13:T:=0;L14:T:=0;L15:T:=0;L16:T:=0;L17:T:=0;L18:T:=0;L19:T:=0;L20:T:=0;L21:T:=0;L22:T:=0;L23:T:=0;L24:T:=0;L25:T:=0;L26:T:=0;L27:T:=0;L28:T:=0;L29:T:=0;L30:T:=0;L31:T:=0;L32:T:=0;L33:T:=0;L34:T:=0;L35:T:=0;L36:T:=0;L37:T:=0;L38:T:=0;L39:T:=0;L40:T:=0;L41:T:=0;L42:T:=0;L43:T:=0;L44:T:=0;L45:T:=0;L46:T:=0;L47:T:=0;L48:T:=0;L49:T:=0;L50:T:=0;L51:T:=0;L52:T:=0;L53:T:=0;L54:T:=0;L55:T:=0;L56:T:=0;L57:T:=0;L58:T:=0;L59:T:=0;L60:T:=0;L61:T:=0;L62:T:=0;L63:T:=0;L64:T:=0;L65:T:=0;L66:T:=0;L67:T:=0;L68:T:=0;L69:T:=0;L70:T:=0;L71:T:=0;L72:T:=0;L73:T:=0;L74:T:=0;L75:T:=0;L76:T:=0;L77:T:=0;L78:T:=0;L79:T:=0;L80:T:=0;L81:T:=0;L82:T:=0;L83:T:=0;L84:T:=0;L85:T:=0;L86:T:=0;L87:T:=0;L88:T:=0;L89:T:=0;L90:T:=0;L91:T:=0;L92:T:=0;L93:T:=0;L94:T:=0;L95:T:=0;L96:T:=0;L97:T:=0;L98:T:=0;L99:T:=0;L100:T:=0;L101:T:=0;L102:T:=0;L103:T:=0;L104:T:=0;L105:T:=0;L106:T:=0;L107:T:=0;L108:T:=0;L109:T:=0;L110:T:=0;L111:T:=0;L112:T:=0;L113:T:=0;L114:T:=0;L115:T:=0;L116:T:=0;L117:T:=0;L118:T:=0;L119:T:=0;L120:T:=0;L121:T:=0;L122:T:=0;L123:T:=0;L124:T:=0;L125:T:=0;L126:T:=0;L127:T:=0;L128:T:=0;L129:T:=0;L130:T:=0;L131:T:=0;L132:T:=0;L133:T:=0;L134:T:=0;L135:T:=0;L136:T:=0;L137:T:=0;L138:T:=0;L139:T:=0;L140:T:=0;L141:T:=0;L142:T:=0;L143:T:=0;L144:T:=0;L145:T:=0;L146:T:=0;L147:T:=0;L148:T:=0;L149:T:=0;L150:T:=0;L151:T:=0;L152:T:=0;L153:T:=0;L154:T:=0;L155:T:=0;L156:T:=0;L157:T:=0;L158:T:=0;L159:T:=0;L160:T:=0;L161:T:=0;L162:T:=0;L163:T:=0;L164:T:=0;L165:T:=0;L166:T:=0;L167:T:=0;L168:T:=0;L169:T:=0;L170:T:=0;L171:T:=0;L172:T:=0;L173:T:=0;L174:T:=0;L175:T:=0;L176:T:=0;L177:T:=0;L178:T:=0;L179:T:=0;L180:T:=0;L181:T:=0;L182:T:=0;L183:T:=0;L184:T:=0;L185:T:=0;L186:T:=0;L187:T:=0;L188:T:=0;L189:T:=0;L190:T:=0;L191:T:=0;L192:T:=0;L193:T:=0;L194:T:=0;L195:T:=0;L196:T:=0;L197:T:=0;L198:T:=0;L199:T:=0;L200:T:=0;L201:T:=0;L202:T:=0;L203:T:=0;L204:T:=0;L205:T:=0;L206:T:=0;L207:T:=0;L208:T:=0;L209:T:=0;L210:T:=0;L211:T:=0;L212:T:=0;L213:T:=0;L214:T:=0;L215:T:=0;L216:T:=0;L217:T:=0;L218:T:=0;L219:T:=0;L220:T:=0;L221:T:=0;L222:T:=0;L223:T:=0;L224:T:=0;L225:T:=0;L226:T:=0;L227:T:=0;L228:T:=0;L229:T:=0;L230:T:=0;L231:T:=0;L232:T:=0;L233:T:=0;L234:T:=0;L235:T:=0;L236:T:=0;L237:T:=0;L238:T:=0;L239:T:=0;L240:T:=0;L241:T:=0;L242:T:=0;L243:T:=0;L244:T:=0;L245:T:=0;L246:T:=0;L247:T:=0;L248:T:=0;L249:T:=0;begin return X;end F;begin null;end Main;",
+      "source_sha256": "ba1c1dc1612832747b87d5a51ad2874fe75c9a68efdd6a07f23162e7340e6822",
+      "expected": 0,
+      "full_route": {
+        "kind": "static",
+        "functions": [
+          "F"
+        ],
+        "procedures": null,
+        "formals": {
+          "F": [
+            [
+              "X",
+              "in"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          }
+        ]
+      },
+      "original_line": 288,
+      "fixture_id": "tests/test_scalar_functions.py::test_dense_locals_and_function_list::check[1]"
+    },
+    {
+      "file": "tests/test_scalar_functions.py",
+      "method": "test_dense_locals_and_function_list",
+      "line": 329,
+      "check_ordinal": 2,
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);function F0(X:in Integer)return Integer is begin return X;end F0;function F1(X:in Integer)return Integer is begin return X;end F1;function F2(X:in Integer)return Integer is begin return X;end F2;function F3(X:in Integer)return Integer is begin return X;end F3;function F4(X:in Integer)return Integer is begin return X;end F4;function F5(X:in Integer)return Integer is begin return X;end F5;function F6(X:in Integer)return Integer is begin return X;end F6;function F7(X:in Integer)return Integer is begin return X;end F7;function F8(X:in Integer)return Integer is begin return X;end F8;function F9(X:in Integer)return Integer is begin return X;end F9;function F10(X:in Integer)return Integer is begin return X;end F10;function F11(X:in Integer)return Integer is begin return X;end F11;function F12(X:in Integer)return Integer is begin return X;end F12;function F13(X:in Integer)return Integer is begin return X;end F13;function F14(X:in Integer)return Integer is begin return X;end F14;function F15(X:in Integer)return Integer is begin return X;end F15;function F16(X:in Integer)return Integer is begin return X;end F16;function F17(X:in Integer)return Integer is begin return X;end F17;function F18(X:in Integer)return Integer is begin return X;end F18;function F19(X:in Integer)return Integer is begin return X;end F19;function F20(X:in Integer)return Integer is begin return X;end F20;function F21(X:in Integer)return Integer is begin return X;end F21;function F22(X:in Integer)return Integer is begin return X;end F22;function F23(X:in Integer)return Integer is begin return X;end F23;function F24(X:in Integer)return Integer is begin return X;end F24;function F25(X:in Integer)return Integer is begin return X;end F25;function F26(X:in Integer)return Integer is begin return X;end F26;function F27(X:in Integer)return Integer is begin return X;end F27;function F28(X:in Integer)return Integer is begin return X;end F28;function F29(X:in Integer)return Integer is begin return X;end F29;function F30(X:in Integer)return Integer is begin return X;end F30;function F31(X:in Integer)return Integer is begin return X;end F31;function F32(X:in Integer)return Integer is begin return X;end F32;function F33(X:in Integer)return Integer is begin return X;end F33;function F34(X:in Integer)return Integer is begin return X;end F34;function F35(X:in Integer)return Integer is begin return X;end F35;function F36(X:in Integer)return Integer is begin return X;end F36;function F37(X:in Integer)return Integer is begin return X;end F37;function F38(X:in Integer)return Integer is begin return X;end F38;function F39(X:in Integer)return Integer is begin return X;end F39;function F40(X:in Integer)return Integer is begin return X;end F40;function F41(X:in Integer)return Integer is begin return X;end F41;function F42(X:in Integer)return Integer is begin return X;end F42;function F43(X:in Integer)return Integer is begin return X;end F43;function F44(X:in Integer)return Integer is begin return X;end F44;function F45(X:in Integer)return Integer is begin return X;end F45;function F46(X:in Integer)return Integer is begin return X;end F46;function F47(X:in Integer)return Integer is begin return X;end F47;function F48(X:in Integer)return Integer is begin return X;end F48;function F49(X:in Integer)return Integer is begin return X;end F49;function F50(X:in Integer)return Integer is begin return X;end F50;function F51(X:in Integer)return Integer is begin return X;end F51;function F52(X:in Integer)return Integer is begin return X;end F52;function F53(X:in Integer)return Integer is begin return X;end F53;function F54(X:in Integer)return Integer is begin return X;end F54;function F55(X:in Integer)return Integer is begin return X;end F55;function F56(X:in Integer)return Integer is begin return X;end F56;function F57(X:in Integer)return Integer is begin return X;end F57;function F58(X:in Integer)return Integer is begin return X;end F58;function F59(X:in Integer)return Integer is begin return X;end F59;begin null;end Main;",
+      "source_sha256": "a6375b82ba8b51f35e0f24e7c33368b111f33eec312d1ad624e3d35b5e58d113",
+      "expected": 0,
+      "full_route": {
+        "kind": "static",
+        "functions": [
+          "F0",
+          "F1",
+          "F2",
+          "F3",
+          "F4",
+          "F5",
+          "F6",
+          "F7",
+          "F8",
+          "F9",
+          "F10",
+          "F11",
+          "F12",
+          "F13",
+          "F14",
+          "F15",
+          "F16",
+          "F17",
+          "F18",
+          "F19",
+          "F20",
+          "F21",
+          "F22",
+          "F23",
+          "F24",
+          "F25",
+          "F26",
+          "F27",
+          "F28",
+          "F29",
+          "F30",
+          "F31",
+          "F32",
+          "F33",
+          "F34",
+          "F35",
+          "F36",
+          "F37",
+          "F38",
+          "F39",
+          "F40",
+          "F41",
+          "F42",
+          "F43",
+          "F44",
+          "F45",
+          "F46",
+          "F47",
+          "F48",
+          "F49",
+          "F50",
+          "F51",
+          "F52",
+          "F53",
+          "F54",
+          "F55",
+          "F56",
+          "F57",
+          "F58",
+          "F59"
+        ],
+        "procedures": null,
+        "formals": {
+          "F0": [
+            [
+              "X",
+              "in"
+            ]
+          ],
+          "F1": [
+            [
+              "X",
+              "in"
+            ]
+          ],
+          "F2": [
+            [
+              "X",
+              "in"
+            ]
+          ],
+          "F3": [
+            [
+              "X",
+              "in"
+            ]
+          ],
+          "F4": [
+            [
+              "X",
+              "in"
+            ]
+          ],
+          "F5": [
+            [
+              "X",
+              "in"
+            ]
+          ],
+          "F6": [
+            [
+              "X",
+              "in"
+            ]
+          ],
+          "F7": [
+            [
+              "X",
+              "in"
+            ]
+          ],
+          "F8": [
+            [
+              "X",
+              "in"
+            ]
+          ],
+          "F9": [
+            [
+              "X",
+              "in"
+            ]
+          ],
+          "F10": [
+            [
+              "X",
+              "in"
+            ]
+          ],
+          "F11": [
+            [
+              "X",
+              "in"
+            ]
+          ],
+          "F12": [
+            [
+              "X",
+              "in"
+            ]
+          ],
+          "F13": [
+            [
+              "X",
+              "in"
+            ]
+          ],
+          "F14": [
+            [
+              "X",
+              "in"
+            ]
+          ],
+          "F15": [
+            [
+              "X",
+              "in"
+            ]
+          ],
+          "F16": [
+            [
+              "X",
+              "in"
+            ]
+          ],
+          "F17": [
+            [
+              "X",
+              "in"
+            ]
+          ],
+          "F18": [
+            [
+              "X",
+              "in"
+            ]
+          ],
+          "F19": [
+            [
+              "X",
+              "in"
+            ]
+          ],
+          "F20": [
+            [
+              "X",
+              "in"
+            ]
+          ],
+          "F21": [
+            [
+              "X",
+              "in"
+            ]
+          ],
+          "F22": [
+            [
+              "X",
+              "in"
+            ]
+          ],
+          "F23": [
+            [
+              "X",
+              "in"
+            ]
+          ],
+          "F24": [
+            [
+              "X",
+              "in"
+            ]
+          ],
+          "F25": [
+            [
+              "X",
+              "in"
+            ]
+          ],
+          "F26": [
+            [
+              "X",
+              "in"
+            ]
+          ],
+          "F27": [
+            [
+              "X",
+              "in"
+            ]
+          ],
+          "F28": [
+            [
+              "X",
+              "in"
+            ]
+          ],
+          "F29": [
+            [
+              "X",
+              "in"
+            ]
+          ],
+          "F30": [
+            [
+              "X",
+              "in"
+            ]
+          ],
+          "F31": [
+            [
+              "X",
+              "in"
+            ]
+          ],
+          "F32": [
+            [
+              "X",
+              "in"
+            ]
+          ],
+          "F33": [
+            [
+              "X",
+              "in"
+            ]
+          ],
+          "F34": [
+            [
+              "X",
+              "in"
+            ]
+          ],
+          "F35": [
+            [
+              "X",
+              "in"
+            ]
+          ],
+          "F36": [
+            [
+              "X",
+              "in"
+            ]
+          ],
+          "F37": [
+            [
+              "X",
+              "in"
+            ]
+          ],
+          "F38": [
+            [
+              "X",
+              "in"
+            ]
+          ],
+          "F39": [
+            [
+              "X",
+              "in"
+            ]
+          ],
+          "F40": [
+            [
+              "X",
+              "in"
+            ]
+          ],
+          "F41": [
+            [
+              "X",
+              "in"
+            ]
+          ],
+          "F42": [
+            [
+              "X",
+              "in"
+            ]
+          ],
+          "F43": [
+            [
+              "X",
+              "in"
+            ]
+          ],
+          "F44": [
+            [
+              "X",
+              "in"
+            ]
+          ],
+          "F45": [
+            [
+              "X",
+              "in"
+            ]
+          ],
+          "F46": [
+            [
+              "X",
+              "in"
+            ]
+          ],
+          "F47": [
+            [
+              "X",
+              "in"
+            ]
+          ],
+          "F48": [
+            [
+              "X",
+              "in"
+            ]
+          ],
+          "F49": [
+            [
+              "X",
+              "in"
+            ]
+          ],
+          "F50": [
+            [
+              "X",
+              "in"
+            ]
+          ],
+          "F51": [
+            [
+              "X",
+              "in"
+            ]
+          ],
+          "F52": [
+            [
+              "X",
+              "in"
+            ]
+          ],
+          "F53": [
+            [
+              "X",
+              "in"
+            ]
+          ],
+          "F54": [
+            [
+              "X",
+              "in"
+            ]
+          ],
+          "F55": [
+            [
+              "X",
+              "in"
+            ]
+          ],
+          "F56": [
+            [
+              "X",
+              "in"
+            ]
+          ],
+          "F57": [
+            [
+              "X",
+              "in"
+            ]
+          ],
+          "F58": [
+            [
+              "X",
+              "in"
+            ]
+          ],
+          "F59": [
+            [
+              "X",
+              "in"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          }
+        ]
+      },
+      "original_line": 300,
+      "fixture_id": "tests/test_scalar_functions.py::test_dense_locals_and_function_list::check[2]"
+    },
+    {
+      "file": "tests/test_scalar_functions.py",
+      "method": "test_earlier_calls_and_recursion_rejection",
+      "line": 199,
+      "check_ordinal": 1,
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);function Id(X:in Integer)return Integer is begin return X;end Id;function Twice(X:in Integer)return Integer is R:Integer:=0;begin R:=Id(X);R:=Id(R);return R;end Twice;R:Integer:=0;begin R:=Twice(7);end Main;",
+      "source_sha256": "a0a04783387b9d1aebcb8b9b62298b2a29ad425a2608b6451a26ecc14bbadb79",
+      "expected": 0,
+      "full_route": {
+        "kind": "assigned",
+        "functions": [
+          "Id",
+          "Twice"
+        ],
+        "procedures": null,
+        "formals": {
+          "Id": [
+            [
+              "X",
+              "in"
+            ]
+          ],
+          "Twice": [
+            [
+              "X",
+              "in"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          }
+        ]
+      },
+      "original_line": 175,
+      "fixture_id": "tests/test_scalar_functions.py::test_earlier_calls_and_recursion_rejection::check[1]"
+    },
+    {
+      "file": "tests/test_scalar_functions.py",
+      "method": "test_existing_array_actuals_and_nested_loops",
+      "line": 261,
+      "check_ordinal": 1,
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);function Id(X:in Integer)return Integer is begin return X;end Id;function Flip(B:in Boolean)return Boolean is begin return not B;end Flip;R:Integer:=0;B:Boolean:=False;A:array(1..2)of Integer:=(4,5);Flags:array(1..2)of Boolean:=(True,False);begin for I in 1..2 loop for J in 1..2 loop R:=Id(A(I));B:=Flip(Flags(J));end loop;end loop;end Main;",
+      "source_sha256": "6f1688b30a452523558d4bd3ee837845933d0b85450ba2a0c8ca9e0418ceffeb",
+      "expected": 0,
+      "full_route": {
+        "kind": "assigned",
+        "functions": [
+          "Id",
+          "Flip"
+        ],
+        "procedures": null,
+        "formals": {
+          "Id": [
+            [
+              "X",
+              "in"
+            ]
+          ],
+          "Flip": [
+            [
+              "B",
+              "in"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          }
+        ]
+      },
+      "original_line": 236,
+      "fixture_id": "tests/test_scalar_functions.py::test_existing_array_actuals_and_nested_loops::check[1]"
+    },
+    {
+      "file": "tests/test_scalar_functions.py",
+      "method": "test_formals_are_immutable_and_guard_refinable",
+      "line": 243,
+      "check_ordinal": 2,
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);function F(X:in Integer)return Integer is R:Integer:=0;begin if X>0 then for I in 1..2 loop R:=(1/X);end loop;end if;return R;end F;begin null;end Main;",
+      "source_sha256": "29636c1b6bced642163ffb93acd837f56e2db8f5a9f7d42e5093d3232e6fb626",
+      "expected": 0,
+      "full_route": {
+        "kind": "assigned",
+        "functions": [
+          "F"
+        ],
+        "procedures": null,
+        "formals": {
+          "F": [
+            [
+              "X",
+              "in"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          }
+        ]
+      },
+      "original_line": 218,
+      "fixture_id": "tests/test_scalar_functions.py::test_formals_are_immutable_and_guard_refinable::check[2]"
+    },
+    {
+      "file": "tests/test_scalar_functions.py",
+      "method": "test_full_formal_domain_is_checked_even_if_unused",
+      "line": 122,
+      "check_ordinal": 3,
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);subtype Small is Integer range 0..9;function F(X:in Small)return Integer is begin return (X+1);end F;begin null;end Main;",
+      "source_sha256": "c4fa56602233d0d5aa18e887ac38feb22b7972d2cfcb2f585b498e0b145d4fb7",
+      "expected": 0,
+      "full_route": {
+        "kind": "static",
+        "functions": [
+          "F"
+        ],
+        "procedures": null,
+        "formals": {
+          "F": [
+            [
+              "X",
+              "in"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          }
+        ]
+      },
+      "original_line": 105,
+      "fixture_id": "tests/test_scalar_functions.py::test_full_formal_domain_is_checked_even_if_unused::check[3]"
+    },
+    {
+      "file": "tests/test_scalar_functions.py",
+      "method": "test_function_names_hide_predefined_names_in_later_closed_frames",
+      "line": 191,
+      "check_ordinal": 1,
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);function True(X:in Integer)return Integer is begin return X;end True;function F(X:in Integer)return Boolean is begin return False;end F;begin null;end Main;",
+      "source_sha256": "c190ada1ffeadf34b69c67062979d60c8b0a0ed67cfcefd39784f727e8787e3a",
+      "expected": 0,
+      "full_route": {
+        "kind": "static",
+        "functions": [
+          "True",
+          "F"
+        ],
+        "procedures": null,
+        "formals": {
+          "True": [
+            [
+              "X",
+              "in"
+            ]
+          ],
+          "F": [
+            [
+              "X",
+              "in"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          }
+        ]
+      },
+      "original_line": 168,
+      "fixture_id": "tests/test_scalar_functions.py::test_function_names_hide_predefined_names_in_later_closed_frames::check[1]"
+    },
+    {
+      "file": "tests/test_scalar_functions.py",
+      "method": "test_local_hiding_is_independent_of_return_arithmetic",
+      "line": 285,
+      "check_ordinal": 1,
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);A:array(0..1)of Boolean:=(True,False);function F(X:in Integer)return Integer is A:Integer:=1;begin return A;end F;R:Integer:=0;begin R:=F(1);if A(0) then Silver_IO.Put_Line(Integer'Image(R));end if;end Main;",
+      "source_sha256": "2dcf1f8b3d9d31c9680c6acb872612eb0bb8c31adb132cf9c5f2b900da5051a9",
+      "expected": 0,
+      "full_route": {
+        "kind": "assigned",
+        "functions": [
+          "F"
+        ],
+        "procedures": null,
+        "formals": {
+          "F": [
+            [
+              "X",
+              "in"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": " 1\n",
+            "stderr": "",
+            "exit_status": 0
+          }
+        ]
+      },
+      "original_line": 259,
+      "fixture_id": "tests/test_scalar_functions.py::test_local_hiding_is_independent_of_return_arithmetic::check[1]"
+    },
+    {
+      "file": "tests/test_scalar_functions.py",
+      "method": "test_local_hiding_is_independent_of_return_arithmetic",
+      "line": 285,
+      "check_ordinal": 4,
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);K:Integer:=2;function F(X:in Integer)return Integer is K:Integer:=1;begin return K;end F;R:Integer:=0;begin R:=F(K);Silver_IO.Put_Line(Integer'Image(R));end Main;",
+      "source_sha256": "bb592b300b797a705f64f6f9a0d9a2df8f0af964784e93c79faa335464d915f9",
+      "expected": 0,
+      "full_route": {
+        "kind": "assigned",
+        "functions": [
+          "F"
+        ],
+        "procedures": null,
+        "formals": {
+          "F": [
+            [
+              "X",
+              "in"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": " 1\n",
+            "stderr": "",
+            "exit_status": 0
+          }
+        ]
+      },
+      "original_line": 259,
+      "fixture_id": "tests/test_scalar_functions.py::test_local_hiding_is_independent_of_return_arithmetic::check[4]"
+    },
+    {
+      "file": "tests/test_scalar_functions.py",
+      "method": "test_local_hiding_is_independent_of_return_arithmetic",
+      "line": 285,
+      "check_ordinal": 7,
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);S:constant String:=\"ab\";function F(X:in Integer)return Integer is S:Integer:=1;begin return S;end F;R:Integer:=0;begin R:=F(1);Silver_IO.Put_Line(S);Silver_IO.Put_Line(Integer'Image(R));end Main;",
+      "source_sha256": "468efc797f9e9d3a45057691a514f73fb6e58991ecbbce889eb985a497f61c66",
+      "expected": 0,
+      "full_route": {
+        "kind": "assigned",
+        "functions": [
+          "F"
+        ],
+        "procedures": null,
+        "formals": {
+          "F": [
+            [
+              "X",
+              "in"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "ab\n 1\n",
+            "stderr": "",
+            "exit_status": 0
+          }
+        ]
+      },
+      "original_line": 259,
+      "fixture_id": "tests/test_scalar_functions.py::test_local_hiding_is_independent_of_return_arithmetic::check[7]"
+    },
+    {
+      "file": "tests/test_scalar_functions.py",
+      "method": "test_local_initializers_are_independent_exact_snapshots",
+      "line": 211,
+      "check_ordinal": 1,
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);function F(X:in Integer)return Integer is A:Integer:=7;K:constant Integer:=A;begin A:=X;return K;end F;begin null;end Main;",
+      "source_sha256": "ccb3d926ca781f586065e2bb37a079690c5bc9e55a6bc1d53a1af340cb4b3e1d",
+      "expected": 0,
+      "full_route": {
+        "kind": "assigned",
+        "functions": [
+          "F"
+        ],
+        "procedures": null,
+        "formals": {
+          "F": [
+            [
+              "X",
+              "in"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          }
+        ]
+      },
+      "original_line": 186,
+      "fixture_id": "tests/test_scalar_functions.py::test_local_initializers_are_independent_exact_snapshots::check[1]"
+    },
+    {
+      "file": "tests/test_scalar_functions.py",
+      "method": "test_source_wide_operator_budget_spans_functions",
+      "line": 299,
+      "check_ordinal": 1,
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);subtype Small is Integer range 0..9;function F0(X:in Small)return Integer is begin return (X+1);end F0;function F1(X:in Small)return Integer is begin return (X+1);end F1;R:Integer range 0..1:=0;begin R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);end Main;",
+      "source_sha256": "1f2b0614a4042b78eeab4c68fa32ce6cc7d9e0437c2eba9ec6603e33f69e5c61",
+      "expected": 0,
+      "full_route": {
+        "kind": "assigned",
+        "functions": [
+          "F0",
+          "F1"
+        ],
+        "procedures": null,
+        "formals": {
+          "F0": [
+            [
+              "X",
+              "in"
+            ]
+          ],
+          "F1": [
+            [
+              "X",
+              "in"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          }
+        ]
+      },
+      "original_line": 271,
+      "fixture_id": "tests/test_scalar_functions.py::test_source_wide_operator_budget_spans_functions::check[1]"
+    },
+    {
+      "file": "tests/test_scalar_functions.py",
+      "method": "test_typed_terminal_returns_and_assignment_calls",
+      "line": 52,
+      "check_ordinal": 1,
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);function Id(X:in Integer)return Integer is begin return X;end Id;R:Integer:=0;begin R:=id(7);R:=Id(R);end Main;",
+      "source_sha256": "3b3ab884f592607157c6779c0611aad73addcc54bfe2a658747cda2c55f2d685",
+      "expected": 0,
+      "full_route": {
+        "kind": "assigned",
+        "functions": [
+          "Id"
+        ],
+        "procedures": null,
+        "formals": {
+          "Id": [
+            [
+              "X",
+              "in"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          }
+        ]
+      },
+      "original_line": 36,
+      "fixture_id": "tests/test_scalar_functions.py::test_typed_terminal_returns_and_assignment_calls::check[1]"
+    },
+    {
+      "file": "tests/test_scalar_functions.py",
+      "method": "test_typed_terminal_returns_and_assignment_calls",
+      "line": 52,
+      "check_ordinal": 2,
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);function Flip(B:in Boolean)return Boolean is begin return not B;end Flip;R:Boolean:=False;begin R:=fLIP(True);R:=Flip(R);end Main;",
+      "source_sha256": "7d1f72be04a4ed65d293512fa0b645adde1930994c676a558120e1771f2cbd79",
+      "expected": 0,
+      "full_route": {
+        "kind": "assigned",
+        "functions": [
+          "Flip"
+        ],
+        "procedures": null,
+        "formals": {
+          "Flip": [
+            [
+              "B",
+              "in"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          }
+        ]
+      },
+      "original_line": 36,
+      "fixture_id": "tests/test_scalar_functions.py::test_typed_terminal_returns_and_assignment_calls::check[2]"
+    },
+    {
+      "file": "tests/test_scalar_functions.py",
+      "method": "test_typed_terminal_returns_and_assignment_calls",
+      "line": 52,
+      "check_ordinal": 3,
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);subtype Small is Integer range -2..2;function Id(X:in Small)return Small is begin return X;end Id;R:Small:=0;begin R:=Id((-2));R:=Id(2);end Main;",
+      "source_sha256": "fe5fab0703610111fdffbb8daa5ac4a34c36e00db019f1f66d599e2493221658",
+      "expected": 0,
+      "full_route": {
+        "kind": "assigned",
+        "functions": [
+          "Id"
+        ],
+        "procedures": null,
+        "formals": {
+          "Id": [
+            [
+              "X",
+              "in"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          }
+        ]
+      },
+      "original_line": 36,
+      "fixture_id": "tests/test_scalar_functions.py::test_typed_terminal_returns_and_assignment_calls::check[3]"
+    },
+    {
+      "file": "tests/test_scalar_functions.py",
+      "method": "test_typed_terminal_returns_and_assignment_calls",
+      "line": 52,
+      "check_ordinal": 4,
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);function Select_Value(X:in Integer;B:in Boolean)return Integer is R:Integer:=0;begin if B then R:=X;end if;return R;end Select_Value;R:Integer:=0;begin R:=Select_Value(7,1<2);end Main;",
+      "source_sha256": "f9b4830061af0cf190e665eebd28a9a3febcd6017d4f7acdb9adea791180089c",
+      "expected": 0,
+      "full_route": {
+        "kind": "assigned",
+        "functions": [
+          "Select_Value"
+        ],
+        "procedures": null,
+        "formals": {
+          "Select_Value": [
+            [
+              "X",
+              "in"
+            ],
+            [
+              "B",
+              "in"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          }
+        ]
+      },
+      "original_line": 36,
+      "fixture_id": "tests/test_scalar_functions.py::test_typed_terminal_returns_and_assignment_calls::check[4]"
+    },
+    {
+      "file": "tests/test_scalar_procedures.py",
+      "method": "test_actuals_share_incoming_state",
+      "line": 201,
+      "check_ordinal": 2,
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);procedure P(B:in Boolean;N:in Integer;X:out Integer)is begin X:=N;end P;D:Integer range 0..1:=0;R:Integer:=0;begin if D/=0 then P(True,(1/D),R);end if;end Main;",
+      "source_sha256": "70489904bb22e8bbdf2c72c2e6d743711e627e6b1e833c96e2d1a8643cb8b70b",
+      "expected": 0,
+      "full_route": {
+        "kind": "assigned",
+        "functions": [],
+        "procedures": {
+          "P": [
+            "X"
+          ]
+        },
+        "formals": {
+          "P": [
+            [
+              "B",
+              "in"
+            ],
+            [
+              "N",
+              "in"
+            ],
+            [
+              "X",
+              "out"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          }
+        ]
+      },
+      "original_line": 183,
+      "fixture_id": "tests/test_scalar_procedures.py::test_actuals_share_incoming_state::check[2]"
+    },
+    {
+      "file": "tests/test_scalar_procedures.py",
+      "method": "test_calls_preserve_unrelated_scalar_and_input_facts",
+      "line": 260,
+      "check_ordinal": 1,
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);procedure Reset(X:out Integer)is begin X:=0;end Reset;D:Integer range 0..1:=0;R:Integer:=0;Q:Integer:=0;begin if D>0 then Reset(R);Q:=(1/D);end if;end Main;",
+      "source_sha256": "e4aa452ac439132aa8344ad289e6dcd4c49b73c1160d87a896fcaa1f0cae4899",
+      "expected": 0,
+      "full_route": {
+        "kind": "assigned",
+        "functions": [],
+        "procedures": {
+          "Reset": [
+            "X"
+          ]
+        },
+        "formals": {
+          "Reset": [
+            [
+              "X",
+              "out"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          }
+        ]
+      },
+      "original_line": 236,
+      "fixture_id": "tests/test_scalar_procedures.py::test_calls_preserve_unrelated_scalar_and_input_facts::check[1]"
+    },
+    {
+      "file": "tests/test_scalar_procedures.py",
+      "method": "test_calls_preserve_unrelated_scalar_and_input_facts",
+      "line": 263,
+      "check_ordinal": 2,
+      "source": "with Silver_IO;with Silver_Arguments;procedure Main is pragma SPARK_Mode(On);Input:constant String:=Silver_Arguments.First_Or_Default(\"old\");procedure Reset(X:out Integer)is begin X:=0;end Reset;R:Integer:=0;begin if Silver_Arguments.Input_Is_Valid then Reset(R);Silver_IO.Put_Line(Input);else Silver_Arguments.Reject;end if;end Main;",
+      "source_sha256": "ad598a47996bf8e2bd84c7a8463e0c0030af0fbd018edf6a919266a251c62f50",
+      "expected": 0,
+      "full_route": {
+        "kind": "selected",
+        "functions": [],
+        "procedures": {
+          "Reset": [
+            "X"
+          ]
+        },
+        "formals": {
+          "Reset": [
+            [
+              "X",
+              "out"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "old\n",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              ""
+            ],
+            "stdout": "\n",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              "valid"
+            ],
+            "stdout": "valid\n",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              "one",
+              "two"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 1
+          },
+          {
+            "arguments": [
+              "\u0001"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 1
+          }
+        ]
+      },
+      "original_line": 238,
+      "fixture_id": "tests/test_scalar_procedures.py::test_calls_preserve_unrelated_scalar_and_input_facts::check[2]"
+    },
+    {
+      "file": "tests/test_scalar_procedures.py",
+      "method": "test_duplicate_writes_and_read_write_aliases_are_rejected",
+      "line": 183,
+      "check_ordinal": 5,
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);procedure Pair(N:in Integer;X:out Integer;Y:out Integer)is begin X:=N;Y:=N;end Pair;R:Integer:=0;S:Integer:=0;begin Pair(0,R,S);end Main;",
+      "source_sha256": "7c1c7e34491236218d40d942c5080890026e708f35c17392bf69a05abd6ab4ef",
+      "expected": 0,
+      "full_route": {
+        "kind": "assigned",
+        "functions": [],
+        "procedures": {
+          "Pair": [
+            "X",
+            "Y"
+          ]
+        },
+        "formals": {
+          "Pair": [
+            [
+              "N",
+              "in"
+            ],
+            [
+              "X",
+              "out"
+            ],
+            [
+              "Y",
+              "out"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          }
+        ]
+      },
+      "original_line": 167,
+      "fixture_id": "tests/test_scalar_procedures.py::test_duplicate_writes_and_read_write_aliases_are_rejected::check[5]"
+    },
+    {
+      "file": "tests/test_scalar_procedures.py",
+      "method": "test_duplicate_writes_and_read_write_aliases_are_rejected",
+      "line": 194,
+      "check_ordinal": 9,
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);subtype One is Integer range 1..1;procedure P(B:in Boolean;X:out One)is begin X:=1;end P;S:constant String:=\"x\";Input_Is_Valid:One:=1;Other:One:=1;begin P(S(1..Input_Is_Valid)=\"x\",Other);end Main;",
+      "source_sha256": "5cc2b149e2c4a55d285ececc88ecebecf30391ab804fe2a6d8531fa410251a52",
+      "expected": 0,
+      "full_route": {
+        "kind": "assigned",
+        "functions": [],
+        "procedures": {
+          "P": [
+            "X"
+          ]
+        },
+        "formals": {
+          "P": [
+            [
+              "B",
+              "in"
+            ],
+            [
+              "X",
+              "out"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          }
+        ]
+      },
+      "original_line": 177,
+      "fixture_id": "tests/test_scalar_procedures.py::test_duplicate_writes_and_read_write_aliases_are_rejected::check[9]"
+    },
+    {
+      "file": "tests/test_scalar_procedures.py",
+      "method": "test_earlier_procedure_and_function_calls_and_recursion",
+      "line": 272,
+      "check_ordinal": 1,
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);function Id(N:in Integer)return Integer is begin return N;end Id;procedure Reset(X:out Integer)is begin X:=0;end Reset;procedure Wrapper(N:in Integer;X:out Integer)is begin X:=0;Reset(X);X:=Id(N);end Wrapper;R:Integer:=0;begin Wrapper(7,R);end Main;",
+      "source_sha256": "91c10239fb7fdf0f0202c6c9538b64aa7c4ec780cb1ec128871ac8224cf27b18",
+      "expected": 0,
+      "full_route": {
+        "kind": "assigned",
+        "functions": [
+          "Id"
+        ],
+        "procedures": {
+          "Reset": [
+            "X"
+          ],
+          "Wrapper": [
+            "X"
+          ]
+        },
+        "formals": {
+          "Id": [
+            [
+              "N",
+              "in"
+            ]
+          ],
+          "Reset": [
+            [
+              "X",
+              "out"
+            ]
+          ],
+          "Wrapper": [
+            [
+              "N",
+              "in"
+            ],
+            [
+              "X",
+              "out"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          }
+        ]
+      },
+      "original_line": 245,
+      "fixture_id": "tests/test_scalar_procedures.py::test_earlier_procedure_and_function_calls_and_recursion::check[1]"
+    },
+    {
+      "file": "tests/test_scalar_procedures.py",
+      "method": "test_formal_modes_names_and_closing_name",
+      "line": 51,
+      "check_ordinal": 13,
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);procedure P(X:in out Integer)is begin null;end P;begin null;end Main;",
+      "source_sha256": "039f0e07c931fbaa7b18de1714ce3c6ea04777b7b4b753b2bc5d51334125045e",
+      "expected": 0,
+      "full_route": {
+        "kind": "static",
+        "functions": [],
+        "procedures": {
+          "P": []
+        },
+        "formals": {
+          "P": [
+            [
+              "X",
+              "in out"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          }
+        ]
+      },
+      "original_line": 47,
+      "fixture_id": "tests/test_scalar_procedures.py::test_formal_modes_names_and_closing_name::check[13]"
+    },
+    {
+      "file": "tests/test_scalar_procedures.py",
+      "method": "test_full_input_domain_checked_even_for_unused_procedures",
+      "line": 96,
+      "check_ordinal": 3,
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);subtype Small is Integer range 0..9;procedure P(N:in Small;X:out Integer)is begin X:=(N+1);end P;begin null;end Main;",
+      "source_sha256": "fb2059c3ebba4b5d43537779722707598ed94fc9c7bcbad2ee31ed4e64969a38",
+      "expected": 0,
+      "full_route": {
+        "kind": "assigned",
+        "functions": [],
+        "procedures": {
+          "P": [
+            "X"
+          ]
+        },
+        "formals": {
+          "P": [
+            [
+              "N",
+              "in"
+            ],
+            [
+              "X",
+              "out"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          }
+        ]
+      },
+      "original_line": 88,
+      "fixture_id": "tests/test_scalar_procedures.py::test_full_input_domain_checked_even_for_unused_procedures::check[3]"
+    },
+    {
+      "file": "tests/test_scalar_procedures.py",
+      "method": "test_full_input_domain_checked_even_for_unused_procedures",
+      "line": 99,
+      "check_ordinal": 4,
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);procedure P(D:in Integer;X:out Integer)is begin X:=0;if D>0 then X:=(10/D);end if;end P;begin null;end Main;",
+      "source_sha256": "5de1534fc85877bb3458a9c5459add0b069a3781f01cc76d721b6ac88bcd597a",
+      "expected": 0,
+      "full_route": {
+        "kind": "assigned",
+        "functions": [],
+        "procedures": {
+          "P": [
+            "X"
+          ]
+        },
+        "formals": {
+          "P": [
+            [
+              "D",
+              "in"
+            ],
+            [
+              "X",
+              "out"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          }
+        ]
+      },
+      "original_line": 91,
+      "fixture_id": "tests/test_scalar_procedures.py::test_full_input_domain_checked_even_for_unused_procedures::check[4]"
+    },
+    {
+      "file": "tests/test_scalar_procedures.py",
+      "method": "test_hiding_duplicate_names_and_immutable_formal_targets",
+      "line": 305,
+      "check_ordinal": 6,
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);X:String:=\"outer\";procedure P(X:out Integer)is begin X:=7;end P;R:Integer:=0;begin P(R);end Main;",
+      "source_sha256": "e185a3fdde57ab22c6b9c1082d6e9f33a0d5b88ef6bc3f21707d32a0dd1f03ec",
+      "expected": 0,
+      "full_route": {
+        "kind": "assigned",
+        "functions": [],
+        "procedures": {
+          "P": [
+            "X"
+          ]
+        },
+        "formals": {
+          "P": [
+            [
+              "X",
+              "out"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          }
+        ]
+      },
+      "original_line": 276,
+      "fixture_id": "tests/test_scalar_procedures.py::test_hiding_duplicate_names_and_immutable_formal_targets::check[6]"
+    },
+    {
+      "file": "tests/test_scalar_procedures.py",
+      "method": "test_hiding_duplicate_names_and_immutable_formal_targets",
+      "line": 308,
+      "check_ordinal": 7,
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);procedure Boolean(X:out Integer)is begin X:=0;end Boolean;begin null;end Main;",
+      "source_sha256": "8321a26db7ebf979a394950195bc5adae571e354ff013a0a957872d5cd8d240a",
+      "expected": 0,
+      "full_route": {
+        "kind": "assigned",
+        "functions": [],
+        "procedures": {
+          "Boolean": [
+            "X"
+          ]
+        },
+        "formals": {
+          "Boolean": [
+            [
+              "X",
+              "out"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          }
+        ]
+      },
+      "original_line": 278,
+      "fixture_id": "tests/test_scalar_procedures.py::test_hiding_duplicate_names_and_immutable_formal_targets::check[7]"
+    },
+    {
+      "file": "tests/test_scalar_procedures.py",
+      "method": "test_inout_requires_input_fit_and_copyback_fit",
+      "line": 143,
+      "check_ordinal": 1,
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);subtype Small is Integer range 0..9;procedure P(X:in out Small)is begin X:=0;end P;R:Small:=0;begin P(R);end Main;",
+      "source_sha256": "22bc4a7017fa9a8a83d46331c3c3214e94d9c4829fa4dd2835bbdb82c20e1e12",
+      "expected": 0,
+      "full_route": {
+        "kind": "assigned",
+        "functions": [],
+        "procedures": {
+          "P": []
+        },
+        "formals": {
+          "P": [
+            [
+              "X",
+              "in out"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          }
+        ]
+      },
+      "original_line": 130,
+      "fixture_id": "tests/test_scalar_procedures.py::test_inout_requires_input_fit_and_copyback_fit::check[1]"
+    },
+    {
+      "file": "tests/test_scalar_procedures.py",
+      "method": "test_inout_requires_input_fit_and_copyback_fit",
+      "line": 146,
+      "check_ordinal": 3,
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);subtype Small is Integer range 0..9;procedure P(X:in out Small)is begin X:=0;end P;R:Integer:=0;begin R:=0;P(R);end Main;",
+      "source_sha256": "1e829603b3f8e9064b32f5562f455348a5c66ebe9b4f37a562e66544561eb91d",
+      "expected": 0,
+      "full_route": {
+        "kind": "assigned",
+        "functions": [],
+        "procedures": {
+          "P": []
+        },
+        "formals": {
+          "P": [
+            [
+              "X",
+              "in out"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          }
+        ]
+      },
+      "original_line": 132,
+      "fixture_id": "tests/test_scalar_procedures.py::test_inout_requires_input_fit_and_copyback_fit::check[3]"
+    },
+    {
+      "file": "tests/test_scalar_procedures.py",
+      "method": "test_input_and_copyback_boundaries_use_declared_ranges",
+      "line": 131,
+      "check_ordinal": 1,
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);subtype Small is Integer range 0..9;procedure P(N:in Small;X:out Small)is begin X:=N;end P;R:Small:=0;begin P(0,R);end Main;",
+      "source_sha256": "934e3a8708d99091621317f90fc869544cc328c25576df2f3f2259bea9326846",
+      "expected": 0,
+      "full_route": {
+        "kind": "assigned",
+        "functions": [],
+        "procedures": {
+          "P": [
+            "X"
+          ]
+        },
+        "formals": {
+          "P": [
+            [
+              "N",
+              "in"
+            ],
+            [
+              "X",
+              "out"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          }
+        ]
+      },
+      "original_line": 120,
+      "fixture_id": "tests/test_scalar_procedures.py::test_input_and_copyback_boundaries_use_declared_ranges::check[1]"
+    },
+    {
+      "file": "tests/test_scalar_procedures.py",
+      "method": "test_input_and_copyback_boundaries_use_declared_ranges",
+      "line": 131,
+      "check_ordinal": 2,
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);subtype Small is Integer range 0..9;procedure P(N:in Small;X:out Small)is begin X:=N;end P;R:Small:=0;begin P(9,R);end Main;",
+      "source_sha256": "569964abc2acd36de79af13bf543de1c094739caa8b2b4ef63dd0bfc7ea90204",
+      "expected": 0,
+      "full_route": {
+        "kind": "assigned",
+        "functions": [],
+        "procedures": {
+          "P": [
+            "X"
+          ]
+        },
+        "formals": {
+          "P": [
+            [
+              "N",
+              "in"
+            ],
+            [
+              "X",
+              "out"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          }
+        ]
+      },
+      "original_line": 120,
+      "fixture_id": "tests/test_scalar_procedures.py::test_input_and_copyback_boundaries_use_declared_ranges::check[2]"
+    },
+    {
+      "file": "tests/test_scalar_procedures.py",
+      "method": "test_input_and_copyback_boundaries_use_declared_ranges",
+      "line": 134,
+      "check_ordinal": 5,
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);subtype Small is Integer range 0..9;procedure P(N:in Small;X:out Small)is begin X:=N;end P;R:Integer:=0;begin P(0,R);end Main;",
+      "source_sha256": "92847013bbcba14701c7160debc87ae297d92bdee87ce72fe2184b7229299de4",
+      "expected": 0,
+      "full_route": {
+        "kind": "assigned",
+        "functions": [],
+        "procedures": {
+          "P": [
+            "X"
+          ]
+        },
+        "formals": {
+          "P": [
+            [
+              "N",
+              "in"
+            ],
+            [
+              "X",
+              "out"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          }
+        ]
+      },
+      "original_line": 122,
+      "fixture_id": "tests/test_scalar_procedures.py::test_input_and_copyback_boundaries_use_declared_ranges::check[5]"
+    },
+    {
+      "file": "tests/test_scalar_procedures.py",
+      "method": "test_literal_letters_are_not_actual_variable_reads",
+      "line": 241,
+      "check_ordinal": 1,
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);procedure P(N:in Integer;X:out Integer)is begin X:=N;end P;F:Integer:=0;begin P(16#F#,F);end Main;",
+      "source_sha256": "0861972797f3fdd5a76a44ef043eabbe1025dbc8e8626fff7d8454a9124cb2d0",
+      "expected": 0,
+      "full_route": {
+        "kind": "assigned",
+        "functions": [],
+        "procedures": {
+          "P": [
+            "X"
+          ]
+        },
+        "formals": {
+          "P": [
+            [
+              "N",
+              "in"
+            ],
+            [
+              "X",
+              "out"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          }
+        ]
+      },
+      "original_line": 219,
+      "fixture_id": "tests/test_scalar_procedures.py::test_literal_letters_are_not_actual_variable_reads::check[1]"
+    },
+    {
+      "file": "tests/test_scalar_procedures.py",
+      "method": "test_literal_letters_are_not_actual_variable_reads",
+      "line": 241,
+      "check_ordinal": 3,
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);procedure P(N:in Integer;X:out Integer)is begin X:=N;end P;Ff:Integer:=0;begin P(16#Ff#,Ff);end Main;",
+      "source_sha256": "1d6da910a6b96f87fe318e0ca88402b725b5afff6300d12ecd5be5df841cb70e",
+      "expected": 0,
+      "full_route": {
+        "kind": "assigned",
+        "functions": [],
+        "procedures": {
+          "P": [
+            "X"
+          ]
+        },
+        "formals": {
+          "P": [
+            [
+              "N",
+              "in"
+            ],
+            [
+              "X",
+              "out"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          }
+        ]
+      },
+      "original_line": 219,
+      "fixture_id": "tests/test_scalar_procedures.py::test_literal_letters_are_not_actual_variable_reads::check[3]"
+    },
+    {
+      "file": "tests/test_scalar_procedures.py",
+      "method": "test_literal_letters_are_not_actual_variable_reads",
+      "line": 241,
+      "check_ordinal": 5,
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);procedure P(N:in Integer;X:out Integer)is begin X:=N;end P;F_FFF:Integer:=0;begin P(16#F_FFF#,F_FFF);end Main;",
+      "source_sha256": "76b2bbf6cd460c8d2db55755abfbb50e359ebf98b265f08bbf8d2c4ed6493e51",
+      "expected": 0,
+      "full_route": {
+        "kind": "assigned",
+        "functions": [],
+        "procedures": {
+          "P": [
+            "X"
+          ]
+        },
+        "formals": {
+          "P": [
+            [
+              "N",
+              "in"
+            ],
+            [
+              "X",
+              "out"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          }
+        ]
+      },
+      "original_line": 219,
+      "fixture_id": "tests/test_scalar_procedures.py::test_literal_letters_are_not_actual_variable_reads::check[5]"
+    },
+    {
+      "file": "tests/test_scalar_procedures.py",
+      "method": "test_literal_letters_are_not_actual_variable_reads",
+      "line": 241,
+      "check_ordinal": 7,
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);procedure P(N:in Integer;X:out Integer)is begin X:=N;end P;E3:Integer:=0;begin P(1E3,E3);end Main;",
+      "source_sha256": "435b20c773b18d2ee050d737e0d42aaa8c278b64585160159d7ceab9c50cbcec",
+      "expected": 0,
+      "full_route": {
+        "kind": "assigned",
+        "functions": [],
+        "procedures": {
+          "P": [
+            "X"
+          ]
+        },
+        "formals": {
+          "P": [
+            [
+              "N",
+              "in"
+            ],
+            [
+              "X",
+              "out"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          }
+        ]
+      },
+      "original_line": 219,
+      "fixture_id": "tests/test_scalar_procedures.py::test_literal_letters_are_not_actual_variable_reads::check[7]"
+    },
+    {
+      "file": "tests/test_scalar_procedures.py",
+      "method": "test_literal_letters_are_not_actual_variable_reads",
+      "line": 241,
+      "check_ordinal": 9,
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);procedure P(N:in Integer;X:out Integer)is begin X:=N;end P;E:Integer:=0;begin P(1E+3,E);end Main;",
+      "source_sha256": "518ed3693133628fd367f0736f2cb3d7b83dc7a0a4a720eba8b4f198cb06e666",
+      "expected": 0,
+      "full_route": {
+        "kind": "assigned",
+        "functions": [],
+        "procedures": {
+          "P": [
+            "X"
+          ]
+        },
+        "formals": {
+          "P": [
+            [
+              "N",
+              "in"
+            ],
+            [
+              "X",
+              "out"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          }
+        ]
+      },
+      "original_line": 219,
+      "fixture_id": "tests/test_scalar_procedures.py::test_literal_letters_are_not_actual_variable_reads::check[9]"
+    },
+    {
+      "file": "tests/test_scalar_procedures.py",
+      "method": "test_literal_letters_are_not_actual_variable_reads",
+      "line": 241,
+      "check_ordinal": 11,
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);procedure P(N:in Integer;X:out Integer)is begin X:=N;end P;E4:Integer:=0;begin P(1E4,E4);end Main;",
+      "source_sha256": "cc1ec4926f67394de9a7842a0a79faf42bd40ba00127915fa141fe4108f23b18",
+      "expected": 0,
+      "full_route": {
+        "kind": "assigned",
+        "functions": [],
+        "procedures": {
+          "P": [
+            "X"
+          ]
+        },
+        "formals": {
+          "P": [
+            [
+              "N",
+              "in"
+            ],
+            [
+              "X",
+              "out"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          }
+        ]
+      },
+      "original_line": 219,
+      "fixture_id": "tests/test_scalar_procedures.py::test_literal_letters_are_not_actual_variable_reads::check[11]"
+    },
+    {
+      "file": "tests/test_scalar_procedures.py",
+      "method": "test_literal_letters_are_not_actual_variable_reads",
+      "line": 241,
+      "check_ordinal": 13,
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);procedure P(N:in Integer;X:out Integer)is begin X:=N;end P;F:Integer:=0;begin P((-16#F#),F);end Main;",
+      "source_sha256": "6815045ab8bdc3622e5474a7dd21707c01212bfaa5dcf874d52840f10e237bb4",
+      "expected": 0,
+      "full_route": {
+        "kind": "assigned",
+        "functions": [],
+        "procedures": {
+          "P": [
+            "X"
+          ]
+        },
+        "formals": {
+          "P": [
+            [
+              "N",
+              "in"
+            ],
+            [
+              "X",
+              "out"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          }
+        ]
+      },
+      "original_line": 219,
+      "fixture_id": "tests/test_scalar_procedures.py::test_literal_letters_are_not_actual_variable_reads::check[13]"
+    },
+    {
+      "file": "tests/test_scalar_procedures.py",
+      "method": "test_literal_letters_are_not_actual_variable_reads",
+      "line": 248,
+      "check_ordinal": 15,
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);procedure P(A:in Boolean;X:out Boolean)is begin X:=A;end P;F:Boolean:=False;S:String:=\"F\";C:Character:='F';begin P(16#F#=15,F);end Main;",
+      "source_sha256": "ac14504d37dc2043760568eee5135f981c8d363d3f8d31e7a70fa38d90778cc3",
+      "expected": 0,
+      "full_route": {
+        "kind": "assigned",
+        "functions": [],
+        "procedures": {
+          "P": [
+            "X"
+          ]
+        },
+        "formals": {
+          "P": [
+            [
+              "A",
+              "in"
+            ],
+            [
+              "X",
+              "out"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          }
+        ]
+      },
+      "original_line": 225,
+      "fixture_id": "tests/test_scalar_procedures.py::test_literal_letters_are_not_actual_variable_reads::check[15]"
+    },
+    {
+      "file": "tests/test_scalar_procedures.py",
+      "method": "test_literal_letters_are_not_actual_variable_reads",
+      "line": 248,
+      "check_ordinal": 16,
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);procedure P(A:in Boolean;X:out Boolean)is begin X:=A;end P;F:Boolean:=False;S:String:=\"F\";C:Character:='F';begin P(S=\"F\",F);end Main;",
+      "source_sha256": "97084e6ebdac88da8beb1983bded78ffbb5cdc15dbe54f6f50313deb0226cade",
+      "expected": 0,
+      "full_route": {
+        "kind": "assigned",
+        "functions": [],
+        "procedures": {
+          "P": [
+            "X"
+          ]
+        },
+        "formals": {
+          "P": [
+            [
+              "A",
+              "in"
+            ],
+            [
+              "X",
+              "out"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          }
+        ]
+      },
+      "original_line": 225,
+      "fixture_id": "tests/test_scalar_procedures.py::test_literal_letters_are_not_actual_variable_reads::check[16]"
+    },
+    {
+      "file": "tests/test_scalar_procedures.py",
+      "method": "test_literal_letters_are_not_actual_variable_reads",
+      "line": 248,
+      "check_ordinal": 17,
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);procedure P(A:in Boolean;X:out Boolean)is begin X:=A;end P;F:Boolean:=False;S:String:=\"F\";C:Character:='F';begin P(C='F',F);end Main;",
+      "source_sha256": "e89bb218f7d1b7a7dca16ff0398d5bced6701654235b842242b8c19d58dad1d6",
+      "expected": 0,
+      "full_route": {
+        "kind": "assigned",
+        "functions": [],
+        "procedures": {
+          "P": [
+            "X"
+          ]
+        },
+        "formals": {
+          "P": [
+            [
+              "A",
+              "in"
+            ],
+            [
+              "X",
+              "out"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          }
+        ]
+      },
+      "original_line": 225,
+      "fixture_id": "tests/test_scalar_procedures.py::test_literal_letters_are_not_actual_variable_reads::check[17]"
+    },
+    {
+      "file": "tests/test_scalar_procedures.py",
+      "method": "test_ordinary_body_starts_with_full_declared_output_ranges",
+      "line": 121,
+      "check_ordinal": 2,
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);subtype Small is Integer range 0..9;procedure P(X:out Small)is begin X:=1;if X<9 then X:=(X+1);end if;end P;begin null;end Main;",
+      "source_sha256": "1a354acbaf5c8dfb0c34241a51261c68c46ddb7dd44dc9eb150372c231ee44d0",
+      "expected": 0,
+      "full_route": {
+        "kind": "assigned",
+        "functions": [],
+        "procedures": {
+          "P": [
+            "X"
+          ]
+        },
+        "formals": {
+          "P": [
+            [
+              "X",
+              "out"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          }
+        ]
+      },
+      "original_line": 112,
+      "fixture_id": "tests/test_scalar_procedures.py::test_ordinary_body_starts_with_full_declared_output_ranges::check[2]"
+    },
+    {
+      "file": "tests/test_scalar_procedures.py",
+      "method": "test_ordinary_body_starts_with_full_declared_output_ranges",
+      "line": 123,
+      "check_ordinal": 3,
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);subtype Small is Integer range 0..9;procedure P(X:out Small)is begin X:=1;X:=1;X:=(X+1);end P;begin null;end Main;",
+      "source_sha256": "0e1fece4ba46f1d79dc5e7699169f6d10ebbc37519d649619a35d88cf03ae87c",
+      "expected": 0,
+      "full_route": {
+        "kind": "assigned",
+        "functions": [],
+        "procedures": {
+          "P": [
+            "X"
+          ]
+        },
+        "formals": {
+          "P": [
+            [
+              "X",
+              "out"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          }
+        ]
+      },
+      "original_line": 113,
+      "fixture_id": "tests/test_scalar_procedures.py::test_ordinary_body_starts_with_full_declared_output_ranges::check[3]"
+    },
+    {
+      "file": "tests/test_scalar_procedures.py",
+      "method": "test_output_and_inout_calls_are_case_insensitive",
+      "line": 28,
+      "check_ordinal": 1,
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);procedure Reset(X:out Integer)is begin X:=0;end Reset;procedure Flip(B:in out Boolean)is begin B:=not B;end Flip;R:Integer:=7;B:Boolean:=False;begin rESET(R);fLIP(B);end Main;",
+      "source_sha256": "35b2dd0aa886fb82201381d635dcec3aad5eb41c2af12e66b8ebaa0a67d7d115",
+      "expected": 0,
+      "full_route": {
+        "kind": "assigned",
+        "functions": [],
+        "procedures": {
+          "Reset": [
+            "X"
+          ],
+          "Flip": []
+        },
+        "formals": {
+          "Reset": [
+            [
+              "X",
+              "out"
+            ]
+          ],
+          "Flip": [
+            [
+              "B",
+              "in out"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          }
+        ]
+      },
+      "original_line": 26,
+      "fixture_id": "tests/test_scalar_procedures.py::test_output_and_inout_calls_are_case_insensitive::check[1]"
+    },
+    {
+      "file": "tests/test_scalar_procedures.py",
+      "method": "test_output_and_inout_calls_are_case_insensitive",
+      "line": 31,
+      "check_ordinal": 2,
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);procedure Pair(N:in Integer;X:out Integer;Y:out Integer)is begin X:=N;Y:=N;end Pair;A:Integer:=0;B:Integer:=0;begin Pair(7,A,B);end Main;",
+      "source_sha256": "1910fa561247106e4a1a699b8e535d753b1e4446f7258496a020a513def0604b",
+      "expected": 0,
+      "full_route": {
+        "kind": "assigned",
+        "functions": [],
+        "procedures": {
+          "Pair": [
+            "X",
+            "Y"
+          ]
+        },
+        "formals": {
+          "Pair": [
+            [
+              "N",
+              "in"
+            ],
+            [
+              "X",
+              "out"
+            ],
+            [
+              "Y",
+              "out"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          }
+        ]
+      },
+      "original_line": 28,
+      "fixture_id": "tests/test_scalar_procedures.py::test_output_and_inout_calls_are_case_insensitive::check[2]"
+    },
+    {
+      "file": "tests/test_scalar_procedures.py",
+      "method": "test_outputs_and_inout_invalidate_prior_refinements",
+      "line": 155,
+      "check_ordinal": 2,
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);subtype Small is Integer range 0..9;procedure P(X:out Small)is begin X:=5;end P;R:Small:=0;Q:Integer:=0;begin P(R);if R>0 then Q:=(1/R);end if;end Main;",
+      "source_sha256": "aeac6ba10084713fbcf16a56e23449d83a718def01154da848cf1ee29f044f61",
+      "expected": 0,
+      "full_route": {
+        "kind": "assigned",
+        "functions": [],
+        "procedures": {
+          "P": [
+            "X"
+          ]
+        },
+        "formals": {
+          "P": [
+            [
+              "X",
+              "out"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          }
+        ]
+      },
+      "original_line": 140,
+      "fixture_id": "tests/test_scalar_procedures.py::test_outputs_and_inout_invalidate_prior_refinements::check[2]"
+    },
+    {
+      "file": "tests/test_scalar_procedures.py",
+      "method": "test_outputs_have_ordered_unconditional_initialization",
+      "line": 64,
+      "check_ordinal": 9,
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);procedure P(X:out Integer;Y:out Integer)is begin X:=0;Y:=1;X:=Y;Y:=X;end P;begin null;end Main;",
+      "source_sha256": "7f7ede1cdbf9ea2e09577f27a7273097419690a5fb9a22e484c534fc83a0b37c",
+      "expected": 0,
+      "full_route": {
+        "kind": "assigned",
+        "functions": [],
+        "procedures": {
+          "P": [
+            "X",
+            "Y"
+          ]
+        },
+        "formals": {
+          "P": [
+            [
+              "X",
+              "out"
+            ],
+            [
+              "Y",
+              "out"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          }
+        ]
+      },
+      "original_line": 59,
+      "fixture_id": "tests/test_scalar_procedures.py::test_outputs_have_ordered_unconditional_initialization::check[9]"
+    },
+    {
+      "file": "tests/test_scalar_procedures.py",
+      "method": "test_prefix_guards_refine_input_formals_like_body_guards",
+      "line": 107,
+      "check_ordinal": 1,
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);subtype Den is Integer range 0..1;procedure P(N:in Den;B:out Boolean)is begin B:=N>0 and then (1/N)=1;end P;begin null;end Main;",
+      "source_sha256": "92a53cb94858f16bd83a92851a02edb471dba31f2e5c1c68c8922bc63eb5f707",
+      "expected": 0,
+      "full_route": {
+        "kind": "assigned",
+        "functions": [],
+        "procedures": {
+          "P": [
+            "B"
+          ]
+        },
+        "formals": {
+          "P": [
+            [
+              "N",
+              "in"
+            ],
+            [
+              "B",
+              "out"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          }
+        ]
+      },
+      "original_line": 99,
+      "fixture_id": "tests/test_scalar_procedures.py::test_prefix_guards_refine_input_formals_like_body_guards::check[1]"
+    },
+    {
+      "file": "tests/test_scalar_procedures.py",
+      "method": "test_prefix_guards_refine_input_formals_like_body_guards",
+      "line": 109,
+      "check_ordinal": 2,
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);subtype Den is Integer range 0..1;procedure P(N:in Den;B:out Boolean)is begin B:=False;B:=N>0 and then (1/N)=1;end P;begin null;end Main;",
+      "source_sha256": "650f2435b9ac30c055d212c92ceb341b725bb6a1491a11a61ddef42186d23d1b",
+      "expected": 0,
+      "full_route": {
+        "kind": "assigned",
+        "functions": [],
+        "procedures": {
+          "P": [
+            "B"
+          ]
+        },
+        "formals": {
+          "P": [
+            [
+              "N",
+              "in"
+            ],
+            [
+              "B",
+              "out"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          }
+        ]
+      },
+      "original_line": 100,
+      "fixture_id": "tests/test_scalar_procedures.py::test_prefix_guards_refine_input_formals_like_body_guards::check[2]"
+    },
+    {
+      "file": "tests/test_scalar_procedures.py",
+      "method": "test_prefix_guards_refine_input_formals_like_body_guards",
+      "line": 111,
+      "check_ordinal": 3,
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);subtype Den is Integer range 0..1;procedure P(N:in out Den;B:out Boolean)is begin B:=N>0 and then (1/N)=1;end P;begin null;end Main;",
+      "source_sha256": "c95e3f111eb7a4ff2cc7017fdb4f48553028857879a253dbba32a0c3a5afac6c",
+      "expected": 0,
+      "full_route": {
+        "kind": "assigned",
+        "functions": [],
+        "procedures": {
+          "P": [
+            "B"
+          ]
+        },
+        "formals": {
+          "P": [
+            [
+              "N",
+              "in out"
+            ],
+            [
+              "B",
+              "out"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          }
+        ]
+      },
+      "original_line": 102,
+      "fixture_id": "tests/test_scalar_procedures.py::test_prefix_guards_refine_input_formals_like_body_guards::check[3]"
+    },
+    {
+      "file": "tests/test_scalar_procedures.py",
+      "method": "test_prefix_guards_refine_input_formals_like_body_guards",
+      "line": 113,
+      "check_ordinal": 4,
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);subtype Den is Integer range 0..1;procedure P(N:in Den;B:out Boolean)is begin B:=N=0 or else (1/N)=1;end P;begin null;end Main;",
+      "source_sha256": "7c210c3b7baca5703d25b6b06e8cb5e2810c38dc9bc5b27c4af4b6eb4ddde48d",
+      "expected": 0,
+      "full_route": {
+        "kind": "assigned",
+        "functions": [],
+        "procedures": {
+          "P": [
+            "B"
+          ]
+        },
+        "formals": {
+          "P": [
+            [
+              "N",
+              "in"
+            ],
+            [
+              "B",
+              "out"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          }
+        ]
+      },
+      "original_line": 104,
+      "fixture_id": "tests/test_scalar_procedures.py::test_prefix_guards_refine_input_formals_like_body_guards::check[4]"
+    },
+    {
+      "file": "tests/test_scalar_procedures.py",
+      "method": "test_prefix_reads_locals_and_input_formals",
+      "line": 82,
+      "check_ordinal": 1,
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);procedure P(N:in Integer;X:out Integer;Y:in out Integer)is K:Integer:=7;begin X:=N;Y:=K;X:=Y;end P;R:Integer:=0;S:Integer:=0;begin P(3,R,S);end Main;",
+      "source_sha256": "4d2d7d345003c209555b368a698d1ae0b9b37df73db871a79ddd081dabf158f0",
+      "expected": 0,
+      "full_route": {
+        "kind": "assigned",
+        "functions": [],
+        "procedures": {
+          "P": [
+            "X"
+          ]
+        },
+        "formals": {
+          "P": [
+            [
+              "N",
+              "in"
+            ],
+            [
+              "X",
+              "out"
+            ],
+            [
+              "Y",
+              "in out"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          }
+        ]
+      },
+      "original_line": 76,
+      "fixture_id": "tests/test_scalar_procedures.py::test_prefix_reads_locals_and_input_formals::check[1]"
+    },
+    {
+      "file": "tests/test_scalar_procedures.py",
+      "method": "test_prefix_reads_locals_and_input_formals",
+      "line": 87,
+      "check_ordinal": 2,
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);procedure P(A:in Boolean;B:out Boolean;C:in out Boolean)is begin B:=A and then C;C:=not C;end P;B:Boolean:=False;C:Boolean:=True;begin P(True,B,C);end Main;",
+      "source_sha256": "8d8750062387435a2f63a3445432847b9b23bfb9af5b3b1bc934b4984e748ac0",
+      "expected": 0,
+      "full_route": {
+        "kind": "assigned",
+        "functions": [],
+        "procedures": {
+          "P": [
+            "B"
+          ]
+        },
+        "formals": {
+          "P": [
+            [
+              "A",
+              "in"
+            ],
+            [
+              "B",
+              "out"
+            ],
+            [
+              "C",
+              "in out"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          }
+        ]
+      },
+      "original_line": 80,
+      "fixture_id": "tests/test_scalar_procedures.py::test_prefix_reads_locals_and_input_formals::check[2]"
+    },
+    {
+      "file": "tests/test_scalar_procedures.py",
+      "method": "test_qualified_validity_selector_is_not_a_writable_variable_read",
+      "line": 227,
+      "check_ordinal": 1,
+      "source": "with Silver_IO;with Silver_Arguments;procedure Main is pragma SPARK_Mode(On);Input:constant String:=Silver_Arguments.First_Or_Default(\"old\");procedure Copy_Flag(B:in Boolean;X:out Boolean)is begin X:=B;end Copy_Flag;Input_Is_Valid:Boolean:=False;begin if Silver_Arguments.Input_Is_Valid then Copy_Flag(Silver_Arguments.Input_Is_Valid,Input_Is_Valid);else Silver_Arguments.Reject;end if;end Main;",
+      "source_sha256": "564304680ddfbe5425f6766a15f8e53402ff1e64a3b3e5d2ca294d8bff2caf15",
+      "expected": 0,
+      "full_route": {
+        "kind": "selected",
+        "functions": [],
+        "procedures": {
+          "Copy_Flag": [
+            "X"
+          ]
+        },
+        "formals": {
+          "Copy_Flag": [
+            [
+              "B",
+              "in"
+            ],
+            [
+              "X",
+              "out"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              ""
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              "valid"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              "one",
+              "two"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 1
+          },
+          {
+            "arguments": [
+              "\u0001"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 1
+          }
+        ]
+      },
+      "original_line": 208,
+      "fixture_id": "tests/test_scalar_procedures.py::test_qualified_validity_selector_is_not_a_writable_variable_read::check[1]"
+    },
+    {
+      "file": "tests/test_scalar_procedures.py",
+      "method": "test_qualified_validity_selector_is_not_a_writable_variable_read",
+      "line": 227,
+      "check_ordinal": 2,
+      "source": "with Silver_IO;with Silver_Arguments;procedure Main is pragma SPARK_Mode(On);Input:constant String:=Silver_Arguments.First_Or_Default(\"old\");procedure Copy_Flag(B:in Boolean;X:out Boolean)is begin X:=B;end Copy_Flag;Input_Is_Valid:Boolean:=False;begin if Silver_Arguments.Input_Is_Valid then Copy_Flag(not (not Silver_Arguments.Input_Is_Valid) and then True,Input_Is_Valid);else Silver_Arguments.Reject;end if;end Main;",
+      "source_sha256": "c220fb6e536176ecc2f8c78ea3c00e4e0e17d9ab326ea4c04b643065f51accd9",
+      "expected": 0,
+      "full_route": {
+        "kind": "selected",
+        "functions": [],
+        "procedures": {
+          "Copy_Flag": [
+            "X"
+          ]
+        },
+        "formals": {
+          "Copy_Flag": [
+            [
+              "B",
+              "in"
+            ],
+            [
+              "X",
+              "out"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              ""
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              "valid"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              "one",
+              "two"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 1
+          },
+          {
+            "arguments": [
+              "\u0001"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 1
+          }
+        ]
+      },
+      "original_line": 208,
+      "fixture_id": "tests/test_scalar_procedures.py::test_qualified_validity_selector_is_not_a_writable_variable_read::check[2]"
+    },
+    {
+      "file": "tests/test_scalar_procedures.py",
+      "method": "test_qualified_validity_selector_is_not_a_writable_variable_read",
+      "line": 227,
+      "check_ordinal": 3,
+      "source": "with Silver_IO;with Silver_Arguments;procedure Main is pragma SPARK_Mode(On);Input:constant String:=Silver_Arguments.First_Or_Default(\"old\");procedure Copy_Flag(B:in Boolean;X:out Boolean)is begin X:=B;end Copy_Flag;Input_Is_Valid:Boolean:=False;begin if Silver_Arguments.Input_Is_Valid then Copy_Flag(SiLvEr_ArGuMeNtS -- package\n . -- selector\n InPuT_Is_VaLiD,Input_Is_Valid);else Silver_Arguments.Reject;end if;end Main;",
+      "source_sha256": "28f72a19e44c4cc9c3fb2be97f3eae18a94278df38357a7bf7f0d8d343924e53",
+      "expected": 0,
+      "full_route": {
+        "kind": "selected",
+        "functions": [],
+        "procedures": {
+          "Copy_Flag": [
+            "X"
+          ]
+        },
+        "formals": {
+          "Copy_Flag": [
+            [
+              "B",
+              "in"
+            ],
+            [
+              "X",
+              "out"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              ""
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              "valid"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              "one",
+              "two"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 1
+          },
+          {
+            "arguments": [
+              "\u0001"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 1
+          }
+        ]
+      },
+      "original_line": 208,
+      "fixture_id": "tests/test_scalar_procedures.py::test_qualified_validity_selector_is_not_a_writable_variable_read::check[3]"
+    },
+    {
+      "file": "tests/test_scalar_procedures.py",
+      "method": "test_qualified_validity_selector_is_not_a_writable_variable_read",
+      "line": 227,
+      "check_ordinal": 5,
+      "source": "with Silver_IO;with Silver_Arguments;procedure Main is pragma SPARK_Mode(On);Input:constant String:=Silver_Arguments.First_Or_Default(\"old\");procedure Copy_Flag(X:out Boolean;B:in Boolean)is begin X:=B;end Copy_Flag;Input_Is_Valid:Boolean:=False;begin if Silver_Arguments.Input_Is_Valid then Copy_Flag(Input_Is_Valid,Silver_Arguments.Input_Is_Valid);else Silver_Arguments.Reject;end if;end Main;",
+      "source_sha256": "2c643fdd07d0d8a3ee7a27de5e8c280c7801e05b0e1923f7129e8db254543056",
+      "expected": 0,
+      "full_route": {
+        "kind": "selected",
+        "functions": [],
+        "procedures": {
+          "Copy_Flag": [
+            "X"
+          ]
+        },
+        "formals": {
+          "Copy_Flag": [
+            [
+              "X",
+              "out"
+            ],
+            [
+              "B",
+              "in"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              ""
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              "valid"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              "one",
+              "two"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 1
+          },
+          {
+            "arguments": [
+              "\u0001"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 1
+          }
+        ]
+      },
+      "original_line": 208,
+      "fixture_id": "tests/test_scalar_procedures.py::test_qualified_validity_selector_is_not_a_writable_variable_read::check[5]"
+    },
+    {
+      "file": "tests/test_scalar_procedures.py",
+      "method": "test_qualified_validity_selector_is_not_a_writable_variable_read",
+      "line": 227,
+      "check_ordinal": 6,
+      "source": "with Silver_IO;with Silver_Arguments;procedure Main is pragma SPARK_Mode(On);Input:constant String:=Silver_Arguments.First_Or_Default(\"old\");procedure Copy_Flag(X:out Boolean;B:in Boolean)is begin X:=B;end Copy_Flag;Input_Is_Valid:Boolean:=False;begin if Silver_Arguments.Input_Is_Valid then Copy_Flag(Input_Is_Valid,not (not Silver_Arguments.Input_Is_Valid) and then True);else Silver_Arguments.Reject;end if;end Main;",
+      "source_sha256": "d7f8b1036788a2b44f8462fdf621ce8592eb94ee7dcf73cba6ac8976021fd4c8",
+      "expected": 0,
+      "full_route": {
+        "kind": "selected",
+        "functions": [],
+        "procedures": {
+          "Copy_Flag": [
+            "X"
+          ]
+        },
+        "formals": {
+          "Copy_Flag": [
+            [
+              "X",
+              "out"
+            ],
+            [
+              "B",
+              "in"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              ""
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              "valid"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              "one",
+              "two"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 1
+          },
+          {
+            "arguments": [
+              "\u0001"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 1
+          }
+        ]
+      },
+      "original_line": 208,
+      "fixture_id": "tests/test_scalar_procedures.py::test_qualified_validity_selector_is_not_a_writable_variable_read::check[6]"
+    },
+    {
+      "file": "tests/test_scalar_procedures.py",
+      "method": "test_qualified_validity_selector_is_not_a_writable_variable_read",
+      "line": 227,
+      "check_ordinal": 7,
+      "source": "with Silver_IO;with Silver_Arguments;procedure Main is pragma SPARK_Mode(On);Input:constant String:=Silver_Arguments.First_Or_Default(\"old\");procedure Copy_Flag(X:out Boolean;B:in Boolean)is begin X:=B;end Copy_Flag;Input_Is_Valid:Boolean:=False;begin if Silver_Arguments.Input_Is_Valid then Copy_Flag(Input_Is_Valid,SiLvEr_ArGuMeNtS -- package\n . -- selector\n InPuT_Is_VaLiD);else Silver_Arguments.Reject;end if;end Main;",
+      "source_sha256": "393031e498f1a0dea7097c0bcd68d432c25d15cfd71a1a408f1134637c488b89",
+      "expected": 0,
+      "full_route": {
+        "kind": "selected",
+        "functions": [],
+        "procedures": {
+          "Copy_Flag": [
+            "X"
+          ]
+        },
+        "formals": {
+          "Copy_Flag": [
+            [
+              "X",
+              "out"
+            ],
+            [
+              "B",
+              "in"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              ""
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              "valid"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              "one",
+              "two"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 1
+          },
+          {
+            "arguments": [
+              "\u0001"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 1
+          }
+        ]
+      },
+      "original_line": 208,
+      "fixture_id": "tests/test_scalar_procedures.py::test_qualified_validity_selector_is_not_a_writable_variable_read::check[7]"
+    },
+    {
+      "file": "tests/test_scalar_procedures.py",
+      "method": "test_qualified_validity_selector_is_not_a_writable_variable_read",
+      "line": 227,
+      "check_ordinal": 9,
+      "source": "with Silver_IO;with Silver_Arguments;procedure Main is pragma SPARK_Mode(On);Input:constant String:=Silver_Arguments.First_Or_Default(\"old\");procedure Copy_Flag(B:in Boolean;X:in out Boolean)is begin X:=B;end Copy_Flag;Input_Is_Valid:Boolean:=False;begin if Silver_Arguments.Input_Is_Valid then Copy_Flag(Silver_Arguments.Input_Is_Valid,Input_Is_Valid);else Silver_Arguments.Reject;end if;end Main;",
+      "source_sha256": "49bd04b809f0ca3003b9652b0865d949d16d2d96e37134c1cde9b05476fd2df8",
+      "expected": 0,
+      "full_route": {
+        "kind": "selected",
+        "functions": [],
+        "procedures": {
+          "Copy_Flag": []
+        },
+        "formals": {
+          "Copy_Flag": [
+            [
+              "B",
+              "in"
+            ],
+            [
+              "X",
+              "in out"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              ""
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              "valid"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              "one",
+              "two"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 1
+          },
+          {
+            "arguments": [
+              "\u0001"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 1
+          }
+        ]
+      },
+      "original_line": 208,
+      "fixture_id": "tests/test_scalar_procedures.py::test_qualified_validity_selector_is_not_a_writable_variable_read::check[9]"
+    },
+    {
+      "file": "tests/test_scalar_procedures.py",
+      "method": "test_qualified_validity_selector_is_not_a_writable_variable_read",
+      "line": 227,
+      "check_ordinal": 10,
+      "source": "with Silver_IO;with Silver_Arguments;procedure Main is pragma SPARK_Mode(On);Input:constant String:=Silver_Arguments.First_Or_Default(\"old\");procedure Copy_Flag(B:in Boolean;X:in out Boolean)is begin X:=B;end Copy_Flag;Input_Is_Valid:Boolean:=False;begin if Silver_Arguments.Input_Is_Valid then Copy_Flag(not (not Silver_Arguments.Input_Is_Valid) and then True,Input_Is_Valid);else Silver_Arguments.Reject;end if;end Main;",
+      "source_sha256": "33f9ba43e0fcf23153ae15b1f7e935012c8f3f23aa58db92220fca40981914e8",
+      "expected": 0,
+      "full_route": {
+        "kind": "selected",
+        "functions": [],
+        "procedures": {
+          "Copy_Flag": []
+        },
+        "formals": {
+          "Copy_Flag": [
+            [
+              "B",
+              "in"
+            ],
+            [
+              "X",
+              "in out"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              ""
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              "valid"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              "one",
+              "two"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 1
+          },
+          {
+            "arguments": [
+              "\u0001"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 1
+          }
+        ]
+      },
+      "original_line": 208,
+      "fixture_id": "tests/test_scalar_procedures.py::test_qualified_validity_selector_is_not_a_writable_variable_read::check[10]"
+    },
+    {
+      "file": "tests/test_scalar_procedures.py",
+      "method": "test_qualified_validity_selector_is_not_a_writable_variable_read",
+      "line": 227,
+      "check_ordinal": 11,
+      "source": "with Silver_IO;with Silver_Arguments;procedure Main is pragma SPARK_Mode(On);Input:constant String:=Silver_Arguments.First_Or_Default(\"old\");procedure Copy_Flag(B:in Boolean;X:in out Boolean)is begin X:=B;end Copy_Flag;Input_Is_Valid:Boolean:=False;begin if Silver_Arguments.Input_Is_Valid then Copy_Flag(SiLvEr_ArGuMeNtS -- package\n . -- selector\n InPuT_Is_VaLiD,Input_Is_Valid);else Silver_Arguments.Reject;end if;end Main;",
+      "source_sha256": "d1a2034e4b17e623b9604e663c33ec39e8fedc6a8b93c9619730bc6530f9b0d2",
+      "expected": 0,
+      "full_route": {
+        "kind": "selected",
+        "functions": [],
+        "procedures": {
+          "Copy_Flag": []
+        },
+        "formals": {
+          "Copy_Flag": [
+            [
+              "B",
+              "in"
+            ],
+            [
+              "X",
+              "in out"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              ""
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              "valid"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              "one",
+              "two"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 1
+          },
+          {
+            "arguments": [
+              "\u0001"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 1
+          }
+        ]
+      },
+      "original_line": 208,
+      "fixture_id": "tests/test_scalar_procedures.py::test_qualified_validity_selector_is_not_a_writable_variable_read::check[11]"
+    },
+    {
+      "file": "tests/test_scalar_procedures.py",
+      "method": "test_qualified_validity_selector_is_not_a_writable_variable_read",
+      "line": 227,
+      "check_ordinal": 13,
+      "source": "with Silver_IO;with Silver_Arguments;procedure Main is pragma SPARK_Mode(On);Input:constant String:=Silver_Arguments.First_Or_Default(\"old\");procedure Copy_Flag(X:in out Boolean;B:in Boolean)is begin X:=B;end Copy_Flag;Input_Is_Valid:Boolean:=False;begin if Silver_Arguments.Input_Is_Valid then Copy_Flag(Input_Is_Valid,Silver_Arguments.Input_Is_Valid);else Silver_Arguments.Reject;end if;end Main;",
+      "source_sha256": "d369cf2204fd3b0a7f02d7d416c49c763d79a1c42021b771d031342eec643338",
+      "expected": 0,
+      "full_route": {
+        "kind": "selected",
+        "functions": [],
+        "procedures": {
+          "Copy_Flag": []
+        },
+        "formals": {
+          "Copy_Flag": [
+            [
+              "X",
+              "in out"
+            ],
+            [
+              "B",
+              "in"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              ""
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              "valid"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              "one",
+              "two"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 1
+          },
+          {
+            "arguments": [
+              "\u0001"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 1
+          }
+        ]
+      },
+      "original_line": 208,
+      "fixture_id": "tests/test_scalar_procedures.py::test_qualified_validity_selector_is_not_a_writable_variable_read::check[13]"
+    },
+    {
+      "file": "tests/test_scalar_procedures.py",
+      "method": "test_qualified_validity_selector_is_not_a_writable_variable_read",
+      "line": 227,
+      "check_ordinal": 14,
+      "source": "with Silver_IO;with Silver_Arguments;procedure Main is pragma SPARK_Mode(On);Input:constant String:=Silver_Arguments.First_Or_Default(\"old\");procedure Copy_Flag(X:in out Boolean;B:in Boolean)is begin X:=B;end Copy_Flag;Input_Is_Valid:Boolean:=False;begin if Silver_Arguments.Input_Is_Valid then Copy_Flag(Input_Is_Valid,not (not Silver_Arguments.Input_Is_Valid) and then True);else Silver_Arguments.Reject;end if;end Main;",
+      "source_sha256": "caef060856835e7c6d60884728a086019c5aa6918607a7e4ad25218f42dd198b",
+      "expected": 0,
+      "full_route": {
+        "kind": "selected",
+        "functions": [],
+        "procedures": {
+          "Copy_Flag": []
+        },
+        "formals": {
+          "Copy_Flag": [
+            [
+              "X",
+              "in out"
+            ],
+            [
+              "B",
+              "in"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              ""
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              "valid"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              "one",
+              "two"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 1
+          },
+          {
+            "arguments": [
+              "\u0001"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 1
+          }
+        ]
+      },
+      "original_line": 208,
+      "fixture_id": "tests/test_scalar_procedures.py::test_qualified_validity_selector_is_not_a_writable_variable_read::check[14]"
+    },
+    {
+      "file": "tests/test_scalar_procedures.py",
+      "method": "test_qualified_validity_selector_is_not_a_writable_variable_read",
+      "line": 227,
+      "check_ordinal": 15,
+      "source": "with Silver_IO;with Silver_Arguments;procedure Main is pragma SPARK_Mode(On);Input:constant String:=Silver_Arguments.First_Or_Default(\"old\");procedure Copy_Flag(X:in out Boolean;B:in Boolean)is begin X:=B;end Copy_Flag;Input_Is_Valid:Boolean:=False;begin if Silver_Arguments.Input_Is_Valid then Copy_Flag(Input_Is_Valid,SiLvEr_ArGuMeNtS -- package\n . -- selector\n InPuT_Is_VaLiD);else Silver_Arguments.Reject;end if;end Main;",
+      "source_sha256": "01a1aab274b518ecf917a7f5b3d6bb2c2934a201546be7d407efbae57057a9ec",
+      "expected": 0,
+      "full_route": {
+        "kind": "selected",
+        "functions": [],
+        "procedures": {
+          "Copy_Flag": []
+        },
+        "formals": {
+          "Copy_Flag": [
+            [
+              "X",
+              "in out"
+            ],
+            [
+              "B",
+              "in"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              ""
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              "valid"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              "one",
+              "two"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 1
+          },
+          {
+            "arguments": [
+              "\u0001"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 1
+          }
+        ]
+      },
+      "original_line": 208,
+      "fixture_id": "tests/test_scalar_procedures.py::test_qualified_validity_selector_is_not_a_writable_variable_read::check[15]"
+    },
+    {
+      "file": "tests/test_scalar_procedures.py",
+      "method": "test_qualified_validity_selector_is_not_a_writable_variable_read",
+      "line": 227,
+      "check_ordinal": 17,
+      "source": "with Silver_IO;with Silver_Arguments;procedure Main is pragma SPARK_Mode(On);Input:constant String:=Silver_Arguments.First_Or_Default(\"old\");procedure Copy_Flag(B:in Boolean;X:out Integer)is begin X:=0;if B then X:=1;end if;end Copy_Flag;Input_Is_Valid:Integer:=0;begin if Silver_Arguments.Input_Is_Valid then Copy_Flag(Silver_Arguments.Input_Is_Valid,Input_Is_Valid);else Silver_Arguments.Reject;end if;end Main;",
+      "source_sha256": "f11f77a116075754307d57e56fd6e29dbceb28fb4728e97bb2641fad4db8826e",
+      "expected": 0,
+      "full_route": {
+        "kind": "selected",
+        "functions": [],
+        "procedures": {
+          "Copy_Flag": [
+            "X"
+          ]
+        },
+        "formals": {
+          "Copy_Flag": [
+            [
+              "B",
+              "in"
+            ],
+            [
+              "X",
+              "out"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              ""
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              "valid"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              "one",
+              "two"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 1
+          },
+          {
+            "arguments": [
+              "\u0001"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 1
+          }
+        ]
+      },
+      "original_line": 208,
+      "fixture_id": "tests/test_scalar_procedures.py::test_qualified_validity_selector_is_not_a_writable_variable_read::check[17]"
+    },
+    {
+      "file": "tests/test_scalar_procedures.py",
+      "method": "test_qualified_validity_selector_is_not_a_writable_variable_read",
+      "line": 227,
+      "check_ordinal": 18,
+      "source": "with Silver_IO;with Silver_Arguments;procedure Main is pragma SPARK_Mode(On);Input:constant String:=Silver_Arguments.First_Or_Default(\"old\");procedure Copy_Flag(B:in Boolean;X:out Integer)is begin X:=0;if B then X:=1;end if;end Copy_Flag;Input_Is_Valid:Integer:=0;begin if Silver_Arguments.Input_Is_Valid then Copy_Flag(not (not Silver_Arguments.Input_Is_Valid) and then True,Input_Is_Valid);else Silver_Arguments.Reject;end if;end Main;",
+      "source_sha256": "5046a63ee79397545d5b6c8c2c25c3f30273c15db495b70f2be7e272709cb616",
+      "expected": 0,
+      "full_route": {
+        "kind": "selected",
+        "functions": [],
+        "procedures": {
+          "Copy_Flag": [
+            "X"
+          ]
+        },
+        "formals": {
+          "Copy_Flag": [
+            [
+              "B",
+              "in"
+            ],
+            [
+              "X",
+              "out"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              ""
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              "valid"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              "one",
+              "two"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 1
+          },
+          {
+            "arguments": [
+              "\u0001"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 1
+          }
+        ]
+      },
+      "original_line": 208,
+      "fixture_id": "tests/test_scalar_procedures.py::test_qualified_validity_selector_is_not_a_writable_variable_read::check[18]"
+    },
+    {
+      "file": "tests/test_scalar_procedures.py",
+      "method": "test_qualified_validity_selector_is_not_a_writable_variable_read",
+      "line": 227,
+      "check_ordinal": 19,
+      "source": "with Silver_IO;with Silver_Arguments;procedure Main is pragma SPARK_Mode(On);Input:constant String:=Silver_Arguments.First_Or_Default(\"old\");procedure Copy_Flag(B:in Boolean;X:out Integer)is begin X:=0;if B then X:=1;end if;end Copy_Flag;Input_Is_Valid:Integer:=0;begin if Silver_Arguments.Input_Is_Valid then Copy_Flag(SiLvEr_ArGuMeNtS -- package\n . -- selector\n InPuT_Is_VaLiD,Input_Is_Valid);else Silver_Arguments.Reject;end if;end Main;",
+      "source_sha256": "a013f0e70ae2a4f233b6f3e923c23127bbc5716ae15355ddc06d60c304a22c45",
+      "expected": 0,
+      "full_route": {
+        "kind": "selected",
+        "functions": [],
+        "procedures": {
+          "Copy_Flag": [
+            "X"
+          ]
+        },
+        "formals": {
+          "Copy_Flag": [
+            [
+              "B",
+              "in"
+            ],
+            [
+              "X",
+              "out"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              ""
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              "valid"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              "one",
+              "two"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 1
+          },
+          {
+            "arguments": [
+              "\u0001"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 1
+          }
+        ]
+      },
+      "original_line": 208,
+      "fixture_id": "tests/test_scalar_procedures.py::test_qualified_validity_selector_is_not_a_writable_variable_read::check[19]"
+    },
+    {
+      "file": "tests/test_scalar_procedures.py",
+      "method": "test_qualified_validity_selector_is_not_a_writable_variable_read",
+      "line": 227,
+      "check_ordinal": 21,
+      "source": "with Silver_IO;with Silver_Arguments;procedure Main is pragma SPARK_Mode(On);Input:constant String:=Silver_Arguments.First_Or_Default(\"old\");procedure Copy_Flag(X:out Integer;B:in Boolean)is begin X:=0;if B then X:=1;end if;end Copy_Flag;Input_Is_Valid:Integer:=0;begin if Silver_Arguments.Input_Is_Valid then Copy_Flag(Input_Is_Valid,Silver_Arguments.Input_Is_Valid);else Silver_Arguments.Reject;end if;end Main;",
+      "source_sha256": "22e72b391d87bca1c42b22790df80526425e607818fa4580e365bfd4e75d8752",
+      "expected": 0,
+      "full_route": {
+        "kind": "selected",
+        "functions": [],
+        "procedures": {
+          "Copy_Flag": [
+            "X"
+          ]
+        },
+        "formals": {
+          "Copy_Flag": [
+            [
+              "X",
+              "out"
+            ],
+            [
+              "B",
+              "in"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              ""
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              "valid"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              "one",
+              "two"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 1
+          },
+          {
+            "arguments": [
+              "\u0001"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 1
+          }
+        ]
+      },
+      "original_line": 208,
+      "fixture_id": "tests/test_scalar_procedures.py::test_qualified_validity_selector_is_not_a_writable_variable_read::check[21]"
+    },
+    {
+      "file": "tests/test_scalar_procedures.py",
+      "method": "test_qualified_validity_selector_is_not_a_writable_variable_read",
+      "line": 227,
+      "check_ordinal": 22,
+      "source": "with Silver_IO;with Silver_Arguments;procedure Main is pragma SPARK_Mode(On);Input:constant String:=Silver_Arguments.First_Or_Default(\"old\");procedure Copy_Flag(X:out Integer;B:in Boolean)is begin X:=0;if B then X:=1;end if;end Copy_Flag;Input_Is_Valid:Integer:=0;begin if Silver_Arguments.Input_Is_Valid then Copy_Flag(Input_Is_Valid,not (not Silver_Arguments.Input_Is_Valid) and then True);else Silver_Arguments.Reject;end if;end Main;",
+      "source_sha256": "2983b6a66215feffde615f81a9da5a21d8123efcd0e68756b3f22c3a6494dbd5",
+      "expected": 0,
+      "full_route": {
+        "kind": "selected",
+        "functions": [],
+        "procedures": {
+          "Copy_Flag": [
+            "X"
+          ]
+        },
+        "formals": {
+          "Copy_Flag": [
+            [
+              "X",
+              "out"
+            ],
+            [
+              "B",
+              "in"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              ""
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              "valid"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              "one",
+              "two"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 1
+          },
+          {
+            "arguments": [
+              "\u0001"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 1
+          }
+        ]
+      },
+      "original_line": 208,
+      "fixture_id": "tests/test_scalar_procedures.py::test_qualified_validity_selector_is_not_a_writable_variable_read::check[22]"
+    },
+    {
+      "file": "tests/test_scalar_procedures.py",
+      "method": "test_qualified_validity_selector_is_not_a_writable_variable_read",
+      "line": 227,
+      "check_ordinal": 23,
+      "source": "with Silver_IO;with Silver_Arguments;procedure Main is pragma SPARK_Mode(On);Input:constant String:=Silver_Arguments.First_Or_Default(\"old\");procedure Copy_Flag(X:out Integer;B:in Boolean)is begin X:=0;if B then X:=1;end if;end Copy_Flag;Input_Is_Valid:Integer:=0;begin if Silver_Arguments.Input_Is_Valid then Copy_Flag(Input_Is_Valid,SiLvEr_ArGuMeNtS -- package\n . -- selector\n InPuT_Is_VaLiD);else Silver_Arguments.Reject;end if;end Main;",
+      "source_sha256": "c2cf018d9b1f7f6602a29116a1254396410aba58133e4308a542853ed6842df7",
+      "expected": 0,
+      "full_route": {
+        "kind": "selected",
+        "functions": [],
+        "procedures": {
+          "Copy_Flag": [
+            "X"
+          ]
+        },
+        "formals": {
+          "Copy_Flag": [
+            [
+              "X",
+              "out"
+            ],
+            [
+              "B",
+              "in"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              ""
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              "valid"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              "one",
+              "two"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 1
+          },
+          {
+            "arguments": [
+              "\u0001"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 1
+          }
+        ]
+      },
+      "original_line": 208,
+      "fixture_id": "tests/test_scalar_procedures.py::test_qualified_validity_selector_is_not_a_writable_variable_read::check[23]"
+    },
+    {
+      "file": "tests/test_scalar_procedures.py",
+      "method": "test_qualified_validity_selector_is_not_a_writable_variable_read",
+      "line": 227,
+      "check_ordinal": 25,
+      "source": "with Silver_IO;with Silver_Arguments;procedure Main is pragma SPARK_Mode(On);Input:constant String:=Silver_Arguments.First_Or_Default(\"old\");procedure Copy_Flag(B:in Boolean;X:in out Integer)is begin X:=0;if B then X:=1;end if;end Copy_Flag;Input_Is_Valid:Integer:=0;begin if Silver_Arguments.Input_Is_Valid then Copy_Flag(Silver_Arguments.Input_Is_Valid,Input_Is_Valid);else Silver_Arguments.Reject;end if;end Main;",
+      "source_sha256": "f7c17bdf8d1b902bc9d1092ce4ca35fffdb79ad6f32ecadc2b11dd9da71fc240",
+      "expected": 0,
+      "full_route": {
+        "kind": "selected",
+        "functions": [],
+        "procedures": {
+          "Copy_Flag": []
+        },
+        "formals": {
+          "Copy_Flag": [
+            [
+              "B",
+              "in"
+            ],
+            [
+              "X",
+              "in out"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              ""
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              "valid"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              "one",
+              "two"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 1
+          },
+          {
+            "arguments": [
+              "\u0001"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 1
+          }
+        ]
+      },
+      "original_line": 208,
+      "fixture_id": "tests/test_scalar_procedures.py::test_qualified_validity_selector_is_not_a_writable_variable_read::check[25]"
+    },
+    {
+      "file": "tests/test_scalar_procedures.py",
+      "method": "test_qualified_validity_selector_is_not_a_writable_variable_read",
+      "line": 227,
+      "check_ordinal": 26,
+      "source": "with Silver_IO;with Silver_Arguments;procedure Main is pragma SPARK_Mode(On);Input:constant String:=Silver_Arguments.First_Or_Default(\"old\");procedure Copy_Flag(B:in Boolean;X:in out Integer)is begin X:=0;if B then X:=1;end if;end Copy_Flag;Input_Is_Valid:Integer:=0;begin if Silver_Arguments.Input_Is_Valid then Copy_Flag(not (not Silver_Arguments.Input_Is_Valid) and then True,Input_Is_Valid);else Silver_Arguments.Reject;end if;end Main;",
+      "source_sha256": "3612909eafcad48866cf8db24457fc7d72710d32a93b891b1de5bae0f3cdbac0",
+      "expected": 0,
+      "full_route": {
+        "kind": "selected",
+        "functions": [],
+        "procedures": {
+          "Copy_Flag": []
+        },
+        "formals": {
+          "Copy_Flag": [
+            [
+              "B",
+              "in"
+            ],
+            [
+              "X",
+              "in out"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              ""
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              "valid"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              "one",
+              "two"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 1
+          },
+          {
+            "arguments": [
+              "\u0001"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 1
+          }
+        ]
+      },
+      "original_line": 208,
+      "fixture_id": "tests/test_scalar_procedures.py::test_qualified_validity_selector_is_not_a_writable_variable_read::check[26]"
+    },
+    {
+      "file": "tests/test_scalar_procedures.py",
+      "method": "test_qualified_validity_selector_is_not_a_writable_variable_read",
+      "line": 227,
+      "check_ordinal": 27,
+      "source": "with Silver_IO;with Silver_Arguments;procedure Main is pragma SPARK_Mode(On);Input:constant String:=Silver_Arguments.First_Or_Default(\"old\");procedure Copy_Flag(B:in Boolean;X:in out Integer)is begin X:=0;if B then X:=1;end if;end Copy_Flag;Input_Is_Valid:Integer:=0;begin if Silver_Arguments.Input_Is_Valid then Copy_Flag(SiLvEr_ArGuMeNtS -- package\n . -- selector\n InPuT_Is_VaLiD,Input_Is_Valid);else Silver_Arguments.Reject;end if;end Main;",
+      "source_sha256": "128a7f22886c4436bf0a00bad770858fe7435692dea61fd2ea1e63105621acd2",
+      "expected": 0,
+      "full_route": {
+        "kind": "selected",
+        "functions": [],
+        "procedures": {
+          "Copy_Flag": []
+        },
+        "formals": {
+          "Copy_Flag": [
+            [
+              "B",
+              "in"
+            ],
+            [
+              "X",
+              "in out"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              ""
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              "valid"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              "one",
+              "two"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 1
+          },
+          {
+            "arguments": [
+              "\u0001"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 1
+          }
+        ]
+      },
+      "original_line": 208,
+      "fixture_id": "tests/test_scalar_procedures.py::test_qualified_validity_selector_is_not_a_writable_variable_read::check[27]"
+    },
+    {
+      "file": "tests/test_scalar_procedures.py",
+      "method": "test_qualified_validity_selector_is_not_a_writable_variable_read",
+      "line": 227,
+      "check_ordinal": 29,
+      "source": "with Silver_IO;with Silver_Arguments;procedure Main is pragma SPARK_Mode(On);Input:constant String:=Silver_Arguments.First_Or_Default(\"old\");procedure Copy_Flag(X:in out Integer;B:in Boolean)is begin X:=0;if B then X:=1;end if;end Copy_Flag;Input_Is_Valid:Integer:=0;begin if Silver_Arguments.Input_Is_Valid then Copy_Flag(Input_Is_Valid,Silver_Arguments.Input_Is_Valid);else Silver_Arguments.Reject;end if;end Main;",
+      "source_sha256": "ed11d2ad8ab1326aef3abd9fc038fcacb0dc983ff793eae3fba88c5609402208",
+      "expected": 0,
+      "full_route": {
+        "kind": "selected",
+        "functions": [],
+        "procedures": {
+          "Copy_Flag": []
+        },
+        "formals": {
+          "Copy_Flag": [
+            [
+              "X",
+              "in out"
+            ],
+            [
+              "B",
+              "in"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              ""
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              "valid"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              "one",
+              "two"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 1
+          },
+          {
+            "arguments": [
+              "\u0001"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 1
+          }
+        ]
+      },
+      "original_line": 208,
+      "fixture_id": "tests/test_scalar_procedures.py::test_qualified_validity_selector_is_not_a_writable_variable_read::check[29]"
+    },
+    {
+      "file": "tests/test_scalar_procedures.py",
+      "method": "test_qualified_validity_selector_is_not_a_writable_variable_read",
+      "line": 227,
+      "check_ordinal": 30,
+      "source": "with Silver_IO;with Silver_Arguments;procedure Main is pragma SPARK_Mode(On);Input:constant String:=Silver_Arguments.First_Or_Default(\"old\");procedure Copy_Flag(X:in out Integer;B:in Boolean)is begin X:=0;if B then X:=1;end if;end Copy_Flag;Input_Is_Valid:Integer:=0;begin if Silver_Arguments.Input_Is_Valid then Copy_Flag(Input_Is_Valid,not (not Silver_Arguments.Input_Is_Valid) and then True);else Silver_Arguments.Reject;end if;end Main;",
+      "source_sha256": "ccd3b2a2fdae8da5db05edddb982f1c816e4c7635ee80642d576d78ebff35906",
+      "expected": 0,
+      "full_route": {
+        "kind": "selected",
+        "functions": [],
+        "procedures": {
+          "Copy_Flag": []
+        },
+        "formals": {
+          "Copy_Flag": [
+            [
+              "X",
+              "in out"
+            ],
+            [
+              "B",
+              "in"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              ""
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              "valid"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              "one",
+              "two"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 1
+          },
+          {
+            "arguments": [
+              "\u0001"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 1
+          }
+        ]
+      },
+      "original_line": 208,
+      "fixture_id": "tests/test_scalar_procedures.py::test_qualified_validity_selector_is_not_a_writable_variable_read::check[30]"
+    },
+    {
+      "file": "tests/test_scalar_procedures.py",
+      "method": "test_qualified_validity_selector_is_not_a_writable_variable_read",
+      "line": 227,
+      "check_ordinal": 31,
+      "source": "with Silver_IO;with Silver_Arguments;procedure Main is pragma SPARK_Mode(On);Input:constant String:=Silver_Arguments.First_Or_Default(\"old\");procedure Copy_Flag(X:in out Integer;B:in Boolean)is begin X:=0;if B then X:=1;end if;end Copy_Flag;Input_Is_Valid:Integer:=0;begin if Silver_Arguments.Input_Is_Valid then Copy_Flag(Input_Is_Valid,SiLvEr_ArGuMeNtS -- package\n . -- selector\n InPuT_Is_VaLiD);else Silver_Arguments.Reject;end if;end Main;",
+      "source_sha256": "04c4c7129ee54bae2095f136d9be522651485e7a87cc6120ca8785a8a651ece1",
+      "expected": 0,
+      "full_route": {
+        "kind": "selected",
+        "functions": [],
+        "procedures": {
+          "Copy_Flag": []
+        },
+        "formals": {
+          "Copy_Flag": [
+            [
+              "X",
+              "in out"
+            ],
+            [
+              "B",
+              "in"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              ""
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              "valid"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          },
+          {
+            "arguments": [
+              "one",
+              "two"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 1
+          },
+          {
+            "arguments": [
+              "\u0001"
+            ],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 1
+          }
+        ]
+      },
+      "original_line": 208,
+      "fixture_id": "tests/test_scalar_procedures.py::test_qualified_validity_selector_is_not_a_writable_variable_read::check[31]"
+    },
+    {
+      "file": "tests/test_scalar_procedures.py",
+      "method": "test_source_wide_operator_and_source_size_boundaries",
+      "line": 321,
+      "check_ordinal": 1,
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);subtype Small is Integer range 0..9;procedure P(N:in Small;X:out Integer)is begin X:=(N+1);end P;R:Integer range 0..1:=0;begin R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);R:=(R+0);end Main;",
+      "source_sha256": "59e3426c59beda07a94ea1571683fac43332c817db6b545c4f6d99b8112f1bbd",
+      "expected": 0,
+      "full_route": {
+        "kind": "assigned",
+        "functions": [],
+        "procedures": {
+          "P": [
+            "X"
+          ]
+        },
+        "formals": {
+          "P": [
+            [
+              "N",
+              "in"
+            ],
+            [
+              "X",
+              "out"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          }
+        ]
+      },
+      "original_line": 290,
+      "fixture_id": "tests/test_scalar_procedures.py::test_source_wide_operator_and_source_size_boundaries::check[1]"
+    },
+    {
+      "file": "tests/test_scalar_procedures.py",
+      "method": "test_source_wide_operator_and_source_size_boundaries",
+      "line": 325,
+      "check_ordinal": 3,
+      "source": "with Silver_IO;procedure Main is pragma SPARK_Mode(On);procedure Reset(X:out Integer)is begin X:=0;end Reset;begin null;end Main;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               ",
+      "source_sha256": "8f3ecd742e37b718bedb6b9a1e1ed0b9104cf3cd3e084450cc42a23bb1920ef3",
+      "expected": 0,
+      "full_route": {
+        "kind": "assigned",
+        "functions": [],
+        "procedures": {
+          "Reset": [
+            "X"
+          ]
+        },
+        "formals": {
+          "Reset": [
+            [
+              "X",
+              "out"
+            ]
+          ]
+        },
+        "runs": [
+          {
+            "arguments": [],
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 0
+          }
+        ]
+      },
+      "original_line": 293,
+      "fixture_id": "tests/test_scalar_procedures.py::test_source_wide_operator_and_source_size_boundaries::check[3]"
+    }
+  ]
+}

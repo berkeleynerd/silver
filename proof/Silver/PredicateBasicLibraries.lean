@@ -4,6 +4,7 @@ public import Silver.PredicateBooleanBodyLibraries
 public import Silver.PredicateBooleanArrayBodyLibraries
 public import Silver.PredicateBasicHelpers
 public import Silver.PredicateFunctionCallLibraries
+public import Silver.PredicateProcedureCallLibraries
 public import Silver.PredicateNativeLibraries
 public import Silver.PredicateAdapterEnvironment
 
@@ -46,6 +47,7 @@ structure Links (primitive : Primitives) (inherited : Compose.Expressions.Calls)
     primitive.target = calls.stringTarget ∧ primitive.scalarTarget = calls.target ∧
     primitive.scalarAssignment = calls.assignment ∧ primitive.invalid = body.invalid
   functionBodies : FunctionCallNative.Links primitive.callAssignment inherited predicate
+  procedureBodies : ProcedureCallNative.Links primitive.procedureCallee primitive.procedureCall inherited predicate
   booleanBodies : ∃ body calls,
     BodyWrappers.DefinitionEquations body ∧
     BooleanBodyNative.DefinitionEquations (BooleanBodyNative.inheritedImports inherited predicate body) calls ∧
@@ -135,6 +137,12 @@ theorem HelperMeaning.of_inherited {primitive : Primitives} {inherited : Compose
   callAssignment text context scan catalog valid metadata :=
     FunctionCallNative.linked_assignment source predicateHelpers predicateDefinitions predicateContracts
       links.functionBodies text context scan catalog ⟨valid, metadata⟩
+  procedureCallee text context position procedures valid metadata :=
+    ProcedureCallNative.linked_callee source predicateHelpers predicateDefinitions predicateContracts
+      links.procedureBodies text context position procedures valid metadata
+  procedureCall text context scan procedures valid metadata :=
+    ProcedureCallNative.linked_call source predicateHelpers predicateDefinitions predicateContracts
+      links.procedureBodies text context scan procedures valid metadata
   booleanTarget text context position valid := by
     obtain ⟨body, calls, invalid, definitions, observed, _⟩ := links.booleanBodies
     rw [observed]
@@ -214,6 +222,7 @@ theorem model_links (source : Compose.Expressions.RawHelperEquations Compose.Exp
         exact (ScalarBodyNative.assignmentEval_model ..).symm
       assignment := fun _ _ _ _ => rfl }
   functionBodies := FunctionCallNative.model_links source
+  procedureBodies := ProcedureCallNative.model_links source
   booleanBodies := ⟨BodyWrappers.modelCalls, BooleanBodyNative.modelCalls,
     BodyWrappers.model_definitions, BooleanBodyNative.inherited_model_definitions source, rfl, rfl⟩
   arrayBodies := by

@@ -38,7 +38,7 @@ inductive FunctionBodySource (text : Source) (frame : ParserState) (first after 
       ParameterFramesAt (functionLocals text frame arguments)
         (functionLocals text frame arguments).firstParameter
         (parameterFrame text (functionLocals text frame arguments)) →
-      BodyTailAt (catalog := frame.functions) text (functionSourceContext text frame arguments) .returnOnly
+      BodyTailAt (catalog := frame.functions) (procedures := {}) text (functionSourceContext text frame arguments) .returnOnly
         (functionSourceScan text frame arguments) items (functionSourceFinal text frame arguments) →
       ActualAt text (functionSourceContext text frame arguments)
         (fixedAfter text (functionSourceFinal text frame arguments).position "return" true)
@@ -172,7 +172,7 @@ theorem functionBodyAt_source {text outer frame first after resultType arguments
   have boundValid := parameterFrameModel_valid
     (functionLocals text frame arguments).firstParameter localValid firstPositive
   have namesValid : ValidNames text (functionSourceContext text frame arguments).names := boundValid.2.1
-  obtain ⟨items, body⟩ := bodyTail_sound text (functionSourceContext text frame arguments)
+  obtain ⟨items, body⟩ := bodyTail_sound (catalog := frame.functions) (procedures := {}) text (functionSourceContext text frame arguments)
     (functionSourceScan text frame arguments) .returnOnly textValid namesValid
     (fixedAfter_result_bound text _ "begin" true (by decide)) stages.2.2.1
   obtain ⟨returned, result⟩ := actual_sound textValid namesValid

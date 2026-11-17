@@ -102,6 +102,7 @@ theorem declarations :
     Compose.FunctionDeclarationNative.SourceChecks.Checked
       Output.SourceShape.outputImplementation where
   trees := Compose.FunctionDeclarationNative.checked_trees
+  metadataAppend := Parts.declaration_metadata_append_header
   headers := by
     intro item present
     simp only [Silver.Compose.FunctionDeclarationNative.SourceChecks.headers, List.mem_cons, List.mem_nil_iff, or_false] at present
