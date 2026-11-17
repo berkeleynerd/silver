@@ -161,3 +161,26 @@ sudo mount --bind \
   /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/retained-source-checkouts-392/rosetta \
   /home/agent/silver-workspaces/recovery-volume/rosetta
 ```
+
+## Native-suite Lean probes
+
+Before the complete suite, inspection found that the native compiler worktree
+had no Lean installation. Six existing tests would then call `skipTest` at
+runtime: the actual axiom audit, module removal, Lake settings, embedded-Ada
+invalidation, generated certificates and module boundaries. Static discovery
+alone identifies the two ARM64 platform skips, so it did not establish that
+these six tool-dependent tests could run.
+
+The same pinned donor installation above is now bound read-only at
+`tmp/named-native-392/.tools/linux-aarch64/lean`. The authenticated distribution
+archive was copied to that worktree's host-mounted tools directory;
+`scripts/bootstrap_lean.py` verified its published digest and Lean 4.34.1.
+Lean, Lake and leanchecker binary hashes match the donor exactly. This setup
+launched no tests, complete proof or kernel replay and did not modify the donor.
+The six tests will build their own small isolated probes during the final suite.
+
+[Setup evidence](native-suite-lean-tools.json) records the read-only mount,
+archive/binary hashes and bootstrap output. A subsequent read-only provenance
+check verified all 2,622 native inputs and 12 native tool identities; the complete
+native manifest is unchanged. The final suite must still report actual execution
+of these methods and only the two expected platform skips.
