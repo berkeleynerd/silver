@@ -2,6 +2,7 @@ module
 
 public import Silver.PredicateFunctionCallEquations
 public import Silver.FunctionBindingsNativeEquations
+public import Silver.PredicateAssociationHelpers
 
 @[expose] public section
 
@@ -81,6 +82,10 @@ structure ImportsMeaning (imports : Imports) : Prop where
     imports.included left right = modelImports.included left right
   invalid : ∀ scan, scan.count ≤ ScalarExpression.maxBindings →
     imports.invalid scan = modelImports.invalid scan
+  association : ∀ text position catalog first last ordinal named,
+    AssociationNative.FunctionAssociationDomain text position catalog first last ordinal →
+    imports.association text position catalog first last ordinal named =
+      modelImports.association text position catalog first last ordinal named
 
 noncomputable def totalizeImports (imports : Imports) : Imports := by
   classical
@@ -97,7 +102,11 @@ noncomputable def totalizeImports (imports : Imports) : Imports := by
     scalar := fun text context position facts => if ReadDomain text context position facts then imports.scalar text context position facts else modelImports.scalar text context position facts
     isEmpty := fun bounds => if bounds.Bounded then imports.isEmpty bounds else modelImports.isEmpty bounds
     included := fun left right => if left.Bounded ∧ right.Bounded then imports.included left right else modelImports.included left right
-    invalid := fun scan => if scan.count ≤ ScalarExpression.maxBindings then imports.invalid scan else modelImports.invalid scan }
+    invalid := fun scan => if scan.count ≤ ScalarExpression.maxBindings then imports.invalid scan else modelImports.invalid scan
+    association := fun text position catalog first last ordinal named =>
+      if AssociationNative.FunctionAssociationDomain text position catalog first last ordinal then
+        imports.association text position catalog first last ordinal named
+      else modelImports.association text position catalog first last ordinal named }
 
 theorem totalizeImports_eq_model {imports : Imports} (meaning : ImportsMeaning imports) :
     totalizeImports imports = modelImports := by
@@ -167,6 +176,11 @@ theorem totalizeImports_eq_model {imports : Imports} (meaning : ImportsMeaning i
     split
     · exact meaning.invalid scan ‹_›
     · rfl
+  · funext text position catalog first last ordinal named
+    simp only [totalizeImports]
+    split
+    · exact meaning.association text position catalog first last ordinal named ‹_›
+    · rfl
 
 theorem model_imports_meaning : ImportsMeaning modelImports := by
   constructor <;> intros <;> rfl
@@ -180,6 +194,11 @@ def ActualsDomain (text : Source) (context : Native.Context) (position : Nat)
     (facts : ActiveFlow) (catalog : Metadata) (first last : Nat) : Prop :=
   ReadDomain text context position facts ∧ ValidMetadata text catalog ∧
     0 < first ∧ first ≤ last ∧ last ≤ catalog.parameters.length
+
+def ActualsTailDomain (text : Source) (context : Native.Context) (position : Nat)
+    (facts : ActiveFlow) (catalog : Metadata) (first last ordinal : Nat) : Prop :=
+  ReadDomain text context position facts ∧ ValidMetadata text catalog ∧
+    0 < first ∧ first ≤ ordinal ∧ ordinal ≤ last ∧ last ≤ catalog.parameters.length
 
 def CalleeDomain (text : Source) (context : Native.Context) (position : Nat)
     (catalog : Metadata) : Prop := TargetDomain text context position ∧ ValidMetadata text catalog
@@ -208,6 +227,10 @@ noncomputable def totalizeCalls (calls : Calls) : Calls := by
       calls.actual text context position facts parameter else modelCalls.actual text context position facts parameter
     actuals := fun text context position facts catalog first last => if ActualsDomain text context position facts catalog first last then
       calls.actuals text context position facts catalog first last else modelCalls.actuals text context position facts catalog first last
+    actualsTail := fun text context position facts catalog first last ordinal named seen =>
+      if ActualsTailDomain text context position facts catalog first last ordinal then
+        calls.actualsTail text context position facts catalog first last ordinal named seen
+      else modelCalls.actualsTail text context position facts catalog first last ordinal named seen
     callee := fun text context position catalog => if CalleeDomain text context position catalog then
       calls.callee text context position catalog else modelCalls.callee text context position catalog
     callModel := fun text context position facts catalog => if CallDomain text context position facts catalog then
@@ -229,6 +252,11 @@ structure DefinitionEquations (imports : Imports) (calls : Calls)
   actuals : ∀ text context position facts catalog first last, ActualsDomain text context position facts catalog first last →
     calls.actuals text context position facts catalog first last =
       actualsBody.eval (totalizeImports imports) (totalizeCalls calls) {text, context, position, facts, catalog, first, last}
+  actualsTail : ∀ text context position facts catalog first last ordinal named seen,
+    ActualsTailDomain text context position facts catalog first last ordinal →
+    calls.actualsTail text context position facts catalog first last ordinal named seen =
+      actualsTailBody.eval (totalizeImports imports) (totalizeCalls calls)
+        {text, context, position, facts, catalog, first, last, ordinal, named, seen}
   callee : ∀ text context position catalog, CalleeDomain text context position catalog →
     calls.callee text context position catalog =
       calleeBody.eval (totalizeImports imports) (totalizeCalls calls) {text, context, position, catalog}
@@ -299,47 +327,71 @@ theorem normalized_result (meaning : ImportsMeaning imports)
     exact assignmentResult_model ..
   · rfl
 
-/-- The exact native recursive equation has one shorter remaining formal
-suffix. No callee-result or whole-reader equality is assumed. -/
-theorem normalized_actuals_at (meaning : ImportsMeaning imports)
+/-- Recursion counts written actuals, independently of the selected formal.
+Every recursive call retains the same signature slice and incoming facts. -/
+theorem normalized_actualsTail_at (meaning : ImportsMeaning imports)
     (defs : DefinitionEquations imports calls assignment)
     (text : Source) (context : Native.Context) (position : Nat) (facts : ActiveFlow)
-    (catalog : Metadata) (first last : Nat) :
-    (totalizeCalls calls).actuals text context position facts catalog first last =
-      modelCalls.actuals text context position facts catalog first last := by
+    (catalog : Metadata) (first last ordinal : Nat) (named : Bool) (seen : FormalSet) :
+    (totalizeCalls calls).actualsTail text context position facts catalog first last ordinal named seen =
+      modelCalls.actualsTail text context position facts catalog first last ordinal named seen := by
   classical
-  change (if ActualsDomain text context position facts catalog first last then _ else _) = _
+  change (if ActualsTailDomain text context position facts catalog first last ordinal then _ else _) = _
   split
   · rename_i valid
-    rw [defs.actuals text context position facts catalog first last valid, totalizeImports_eq_model meaning]
-    dsimp only [actualsBody, Expr.eval]
-    simp only [normalized_actual meaning defs]
-    change (if decide (actualAfter text context.model position facts (parameter catalog first) = 0) then 0
-      else if decide (first = last) then _ else _) = actualsAfter text context.model position facts catalog first last
-    rw [actualsAfter]
-    by_cases zero : actualAfter text context.model position facts (parameter catalog first) = 0
-    · simp only [zero, decide_true, ↓reduceIte]
-    · by_cases final : first = last
-      · subst last
-        simp only [zero, decide_false, decide_true, Bool.false_eq_true, ↓reduceIte]
-        rfl
-      · have advancing : first < last := by have ordered := valid.2.2.2.1; omega
-        simp only [zero, final, advancing, decide_false, Bool.false_eq_true, ↓reduceIte, ↓reduceDIte]
-        by_cases comma : fixedAfter text
-            (actualAfter text context.model position facts (parameter catalog first)) "," false = 0
-        · simp only [modelImports, modelCalls, tokenAfter, ShellToken.symbol, comma, decide_true,
-            ↓reduceIte, actualsAfter_zero]
-        · simp only [modelImports, modelCalls, tokenAfter, ShellToken.symbol, comma, decide_false,
-            Bool.false_eq_true, ↓reduceIte]
-          exact normalized_actuals_at meaning defs text context _ facts catalog (first + 1) last
+    rw [defs.actualsTail text context position facts catalog first last ordinal named seen valid,
+      totalizeImports_eq_model meaning]
+    dsimp +instances only [actualsTailBody, Expr.eval, modelImports]
+    simp only [normalized_actual meaning defs, modelCalls]
+    change (if decide ((functionAssociation text position catalog first last ordinal named).formal = 0) ||
+      seen (functionAssociation text position catalog first last ordinal named).formal then _ else _) =
+      functionActualsTailModel text context.model position facts catalog first last ordinal named seen
+    rw [functionActualsTailModel]
+    simp only [Bool.or_eq_true, decide_eq_true_eq]
+    by_cases bad : (functionAssociation text position catalog first last ordinal named).formal = 0 ∨
+        seen (functionAssociation text position catalog first last ordinal named).formal
+    · simp only [bad, ↓reduceIte]
+    · simp only [bad, ↓reduceIte]
+      by_cases zero : actualAfter text context.model
+          (functionAssociation text position catalog first last ordinal named).payloadFirst facts
+          (parameter catalog (functionAssociation text position catalog first last ordinal named).formal) = 0
+      · simp only [zero, ↓reduceIte]
+      · simp only [zero, ↓reduceIte]
+        by_cases final : ordinal = last
+        · simp only [final, ↓reduceIte]
+          rfl
+        · have advancing : ordinal < last := by have ordered := valid.2.2.2.2.1; omega
+          simp only [final, advancing, ↓reduceIte, ↓reduceDIte]
+          by_cases comma : fixedAfter text
+              (actualAfter text context.model (functionAssociation text position catalog first last ordinal named).payloadFirst facts
+                (parameter catalog (functionAssociation text position catalog first last ordinal named).formal)) "," false = 0
+          · simp only [tokenAfter, ShellToken.symbol, comma, ↓reduceIte]
+          · simp only [tokenAfter, ShellToken.symbol, comma, ↓reduceIte]
+            exact normalized_actualsTail_at meaning defs text context _ facts catalog first last (ordinal + 1)
+              (functionAssociation text position catalog first last ordinal named).named
+              (markFormal seen (functionAssociation text position catalog first last ordinal named).formal)
   · rfl
-termination_by last - first
+termination_by last - ordinal
+decreasing_by omega
+
+theorem normalized_actualsTail (meaning : ImportsMeaning imports)
+    (defs : DefinitionEquations imports calls assignment) :
+    (totalizeCalls calls).actualsTail = modelCalls.actualsTail := by
+  funext text context position facts catalog first last ordinal named seen
+  exact normalized_actualsTail_at meaning defs text context position facts catalog first last ordinal named seen
 
 theorem normalized_actuals (meaning : ImportsMeaning imports)
     (defs : DefinitionEquations imports calls assignment) :
     (totalizeCalls calls).actuals = modelCalls.actuals := by
+  classical
   funext text context position facts catalog first last
-  exact normalized_actuals_at meaning defs text context position facts catalog first last
+  change (if ActualsDomain text context position facts catalog first last then _ else _) = _
+  split
+  · rename_i valid
+    rw [defs.actuals text context position facts catalog first last valid]
+    simp only [actualsBody, Expr.eval, normalized_actualsTail meaning defs]
+    rfl
+  · rfl
 
 theorem normalized_callModel (meaning : ImportsMeaning imports)
     (defs : DefinitionEquations imports calls assignment) :
@@ -401,6 +453,7 @@ theorem totalizeCalls_eq_model (meaning : ImportsMeaning imports)
   apply Calls.ext
   · exact normalized_actual meaning defs
   · exact normalized_actuals meaning defs
+  · exact normalized_actualsTail meaning defs
   · exact normalized_callee meaning defs
   · exact normalized_callModel meaning defs
   · exact normalized_readCall meaning defs
@@ -432,6 +485,9 @@ theorem model_definitions_of_meaning (meaning : ImportsMeaning imports) :
   actuals text context position facts catalog first last valid := by
     rw [totalizeImports_eq_model meaning, model_calls_totalize]
     exact (actuals_model text context position facts catalog first last valid.2.2.2.1).symm
+  actualsTail text context position facts catalog first last ordinal named seen valid := by
+    rw [totalizeImports_eq_model meaning, model_calls_totalize]
+    exact (actualsTail_model text context position facts catalog first last ordinal named seen valid.2.2.2.2.1).symm
   callee text context position catalog _ := by
     rw [totalizeImports_eq_model meaning, model_calls_totalize]
     exact (callee_model ..).symm

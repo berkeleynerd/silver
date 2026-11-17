@@ -2,6 +2,7 @@ module
 
 public import Silver.PredicateBodyScanner
 public import Silver.PredicateNativeState
+public import Silver.PredicateAssociationAdmission
 
 @[expose] public section
 
@@ -25,10 +26,12 @@ open Compose FunctionBindings
   isEmpty : Integer.Interval → Bool
   included : Integer.Interval → Integer.Interval → Bool
   invalid : BodyScan → BodyScan
+  association : Source → Nat → Metadata → Nat → Nat → Nat → Bool → ActualAssociation
 
 @[ext] structure Calls where
   actual : Source → Native.Context → Nat → ActiveFlow → Formal → Nat
   actuals : Source → Native.Context → Nat → ActiveFlow → Metadata → Nat → Nat → Nat
+  actualsTail : Source → Native.Context → Nat → ActiveFlow → Metadata → Nat → Nat → Nat → Bool → FormalSet → Nat
   callee : Source → Native.Context → Nat → Metadata → Nat
   callModel : Source → Native.Context → Nat → ActiveFlow → Metadata → CallResult
   readCall : Source → Native.Context → Nat → ActiveFlow → Metadata → CallResult
@@ -40,12 +43,18 @@ structure Frame where
   text : Source := []
   context : Native.Context := {names := [], dynamicFirst := 0, dynamicAfter := 0}
   position : Nat := 0
+  cursor : Nat := 0
+  index : Nat := 0
   facts : ActiveFlow := ⟨PathFacts.Context.empty, []⟩
   catalog : Metadata := {}
   parameter : Formal := emptyFormal
   scan : BodyScan := ⟨0, 0, 0, ⟨PathFacts.Context.empty, []⟩, false, false⟩
   first : Nat := 0
   last : Nat := 0
+  ordinal : Nat := 0
+  named : Bool := false
+  seen : FormalSet := noFormals
+  association : ActualAssociation := invalidAssociation
   after : Nat := 0
   callee : Nat := 0
   start : Nat := 0
@@ -59,9 +68,22 @@ structure Frame where
 
 inductive Expr : Type → Type 1
   | position : Expr Nat
+  | loopCursor : Expr Nat
+  | loopIndex : Expr Nat
   | scanPosition : Expr Nat
   | first : Expr Nat
   | last : Expr Nat
+  | ordinal : Expr Nat
+  | named : Expr Bool
+  | seen : Expr FormalSet
+  | associationValue : Expr ActualAssociation
+  | associationFormal : Expr ActualAssociation → Expr Nat
+  | associationPayload : Expr ActualAssociation → Expr Nat
+  | associationNamed : Expr ActualAssociation → Expr Bool
+  | noFormals : Expr FormalSet
+  | seenAt : Expr FormalSet → Expr Nat → Expr Bool
+  | markSeen : Expr FormalSet → Expr Nat → Expr FormalSet
+  | truth : Bool → Expr Bool
   | after : Expr Nat
   | callee : Expr Nat
   | start : Expr Nat
@@ -107,6 +129,8 @@ inductive Expr : Type → Type 1
   | readConditionAfter : Expr Nat → Expr Nat
   | actual : Expr Nat → Expr Formal → Expr Nat
   | actuals : Expr Nat → Expr Nat → Expr Nat → Expr Nat
+  | actualsTail : Expr Nat → Expr Nat → Expr Nat → Expr Nat → Expr Bool → Expr FormalSet → Expr Nat
+  | association : Expr Nat → Expr Nat → Expr Nat → Expr Nat → Expr Bool → Expr ActualAssociation
   | calleeAt : Expr Nat → Expr Nat
   | callModel : Expr Nat → Expr CallResult
   | readCall : Expr Nat → Expr CallResult
@@ -140,10 +164,21 @@ inductive Expr : Type → Type 1
   | letStart : Expr Nat → Expr α → Expr α
   | letItem : Expr Signature → Expr α → Expr α
   | letValue : Expr ScalarExpression.Result → Expr α → Expr α
+  | letAssociation : Expr ActualAssociation → Expr α → Expr α
 
 def Expr.eval (imports : Imports) (calls : Calls) (frame : Frame) : Expr α → α
+  | .loopCursor => frame.cursor | .loopIndex => frame.index
   | .position => frame.position | .scanPosition => frame.scan.position
   | .first => frame.first | .last => frame.last | .after => frame.after
+  | .ordinal => frame.ordinal | .named => frame.named | .seen => frame.seen
+  | .associationValue => frame.association
+  | .associationFormal node => (node.eval imports calls frame).formal
+  | .associationPayload node => (node.eval imports calls frame).payloadFirst
+  | .associationNamed node => (node.eval imports calls frame).named
+  | .noFormals => Predicate.noFormals
+  | .seenAt setExpr formalExpr => (setExpr.eval imports calls frame) (formalExpr.eval imports calls frame)
+  | .markSeen setExpr formalExpr => markFormal (setExpr.eval imports calls frame) (formalExpr.eval imports calls frame)
+  | .truth literal => literal
   | .callee => frame.callee | .start => frame.start | .scalar => frame.scalar | .flag => frame.flag
   | .intervalValue => frame.intervalValue | .intervalBounds => frame.intervalBounds
   | .lower node => (node.eval imports calls frame).lower
@@ -180,6 +215,12 @@ def Expr.eval (imports : Imports) (calls : Calls) (frame : Frame) : Expr α → 
   | .readConditionAfter cursor => (imports.condition frame.text frame.context (cursor.eval imports calls frame) frame.facts).after
   | .actual cursor formalExpr => calls.actual frame.text frame.context (cursor.eval imports calls frame) frame.facts (formalExpr.eval imports calls frame)
   | .actuals cursor startExpr endExpr => calls.actuals frame.text frame.context (cursor.eval imports calls frame) frame.facts frame.catalog (startExpr.eval imports calls frame) (endExpr.eval imports calls frame)
+  | .actualsTail cursor firstExpr lastExpr ordinalExpr namedExpr seenExpr => calls.actualsTail frame.text frame.context
+      (cursor.eval imports calls frame) frame.facts frame.catalog (firstExpr.eval imports calls frame)
+      (lastExpr.eval imports calls frame) (ordinalExpr.eval imports calls frame) (namedExpr.eval imports calls frame) (seenExpr.eval imports calls frame)
+  | .association cursor firstExpr lastExpr ordinalExpr namedExpr => imports.association frame.text
+      (cursor.eval imports calls frame) frame.catalog (firstExpr.eval imports calls frame)
+      (lastExpr.eval imports calls frame) (ordinalExpr.eval imports calls frame) (namedExpr.eval imports calls frame)
   | .calleeAt cursor => calls.callee frame.text frame.context (cursor.eval imports calls frame) frame.catalog
   | .callModel cursor => calls.callModel frame.text frame.context (cursor.eval imports calls frame) frame.scan.facts frame.catalog
   | .readCall cursor => calls.readCall frame.text frame.context (cursor.eval imports calls frame) frame.scan.facts frame.catalog
@@ -215,21 +256,32 @@ def Expr.eval (imports : Imports) (calls : Calls) (frame : Frame) : Expr α → 
   | .letStart node body => body.eval imports calls {frame with start := node.eval imports calls frame}
   | .letItem node body => body.eval imports calls {frame with item := node.eval imports calls frame}
   | .letValue node body => body.eval imports calls {frame with value := node.eval imports calls frame}
+  | .letAssociation node body => body.eval imports calls {frame with association := node.eval imports calls frame}
 
 def call (name : List String) (arguments : List (List String)) : List String :=
   name ++ ["("] ++ (arguments.intersperse [","]).flatten ++ [")"]
 
 def Expr.local : Expr α → Bool
-  | .letFirst _ _ | .letAfter _ _ | .letCallee _ _ | .letStart _ _ | .letItem _ _ | .letValue _ _ => true
+  | .letFirst _ _ | .letAfter _ _ | .letCallee _ _ | .letStart _ _ | .letItem _ _ | .letValue _ _ | .letAssociation _ _ => true
   | _ => false
 
 def localRender (name : String) (typeName node body : List String) (more : Bool) : List String :=
   [name, ":", "constant"] ++ typeName ++ [":="] ++ node ++ [";"] ++ (if more then [] else ["begin"]) ++ body
 
 def Expr.render : Expr α → List String
+  | .loopCursor => ["cursor"] | .loopIndex => ["index"]
   | .position => ["position"] | .scanPosition => ["scan", ".", "position"]
   | .first => ["first"] | .last => ["last"] | .after => ["after"] | .callee => ["callee"]
   | .start => ["start"] | .scalar => ["scalar"] | .flag => ["flag"]
+  | .ordinal => ["ordinal"] | .named => ["named"] | .seen => ["seen"]
+  | .associationValue => ["association"]
+  | .associationFormal node => node.render ++ [".", "formal"]
+  | .associationPayload node => node.render ++ [".", "payload_first"]
+  | .associationNamed node => node.render ++ [".", "named"]
+  | .noFormals => ["no_formals"]
+  | .seenAt setExpr formalExpr => setExpr.render ++ ["("] ++ formalExpr.render ++ [")"]
+  | .markSeen setExpr formalExpr => ["("] ++ setExpr.render ++ ["with", "delta"] ++ formalExpr.render ++ ["=>", "true", ")"]
+  | .truth literal => [if literal then "true" else "false"]
   | .intervalValue => ["value"] | .intervalBounds => ["bounds"]
   | .lower node => node.render ++ [".", "lower"]
   | .upper node => node.render ++ [".", "upper"]
@@ -262,6 +314,10 @@ def Expr.render : Expr α → List String
   | .readConditionAfter cursor => call ["condition_model"] [["text"], ["context"], cursor.render, ["facts"]] ++ [".", "after"]
   | .actual cursor formalExpr => call ["actual_model"] [["text"], ["context"], cursor.render, ["facts"], formalExpr.render]
   | .actuals cursor startExpr endExpr => call ["actuals_model"] [["text"], ["context"], cursor.render, ["facts"], ["catalog"], startExpr.render, endExpr.render]
+  | .actualsTail cursor firstExpr lastExpr ordinalExpr namedExpr seenExpr => call ["function_actuals_tail_model"]
+      [["text"], ["context"], cursor.render, ["facts"], ["catalog"], firstExpr.render, lastExpr.render, ordinalExpr.render, namedExpr.render, seenExpr.render]
+  | .association cursor firstExpr lastExpr ordinalExpr namedExpr => call ["function_association"]
+      [["text"], cursor.render, ["catalog"], firstExpr.render, lastExpr.render, ordinalExpr.render, namedExpr.render]
   | .calleeAt cursor => call ["callee_at"] [["text"], ["context"], cursor.render, ["catalog"]]
   | .callModel cursor => call ["call_model"] [["text"], ["context"], cursor.render, ["scan", ".", "facts"], ["catalog"]]
   | .readCall cursor => call ["read_call"] [["text"], ["context"], cursor.render, ["scan", ".", "facts"], ["catalog"]]
@@ -296,11 +352,16 @@ def Expr.render : Expr α → List String
   | .letStart node body => localRender "start" ["literal_position"] node.render body.render body.local
   | .letItem node body => localRender "item" ["functions", ".", "signature"] node.render body.render body.local
   | .letValue node body => localRender "value" ["scalar_expressions", ".", "expression_result"] node.render body.render body.local
+  | .letAssociation node body => localRender "association" ["actual_association"] node.render body.render body.local
 
 
 /-- Prefixes of selected components must render names. Explicit groups and
 record aggregates are primaries, but cannot be selected without qualification. -/
 def Expr.prefix : Expr α → Bool
+  | .loopCursor | .loopIndex => true
+  | .ordinal | .named | .seen | .associationValue | .associationFormal _ | .associationPayload _
+  | .associationNamed _ | .noFormals | .seenAt _ _ | .actualsTail _ _ _ _ _ _ | .association _ _ _ _ _ => true
+  | .truth _ | .markSeen _ _ | .letAssociation _ _ => false
   | .position | .scanPosition | .first | .last | .after | .callee | .start | .scalar | .flag
   | .intervalValue | .intervalBounds | .lower _ | .upper _
   | .value | .called | .parameter | .item | .kind _
@@ -319,6 +380,10 @@ def Expr.prefix : Expr α → Bool
 /-- Fail closed when adding a new operator: bare arithmetic, conditions and
 local declarations must never be mistaken for atomic Ada expressions. -/
 def Expr.primary : Expr α → Bool
+  | .loopCursor | .loopIndex => true
+  | .ordinal | .named | .seen | .associationValue | .associationFormal _ | .associationPayload _
+  | .associationNamed _ | .noFormals | .seenAt _ _ | .actualsTail _ _ _ _ _ _ | .association _ _ _ _ _
+  | .truth _ | .markSeen _ _ => true
   | .position | .scanPosition | .first | .last | .after | .callee | .start | .scalar | .flag
   | .intervalValue | .intervalBounds | .lower _ | .upper _
   | .value | .called | .parameter | .item | .number _ | .kind _
@@ -345,6 +410,18 @@ def Expr.orHead : Expr α → Bool | .orElse _ _ => true | node => node.relation
 def Expr.isElsif : Expr α → Bool | .elsif _ _ _ => true | _ => false
 
 def Expr.wellFormed : Expr α → Bool
+  | .loopCursor | .loopIndex => true
+  | .ordinal | .named | .seen | .associationValue | .noFormals | .truth _ => true
+  | .associationFormal node | .associationPayload node | .associationNamed node => node.prefix && node.wellFormed
+  | .seenAt setExpr formalExpr => setExpr.prefix && formalExpr.simple && setExpr.wellFormed && formalExpr.wellFormed
+  | .markSeen setExpr formalExpr => setExpr.prefix && formalExpr.simple && setExpr.wellFormed && formalExpr.wellFormed
+  | .actualsTail cursor firstExpr lastExpr ordinalExpr namedExpr seenExpr =>
+      cursor.simple && firstExpr.simple && lastExpr.simple && ordinalExpr.simple && namedExpr.simple && seenExpr.simple &&
+      cursor.wellFormed && firstExpr.wellFormed && lastExpr.wellFormed && ordinalExpr.wellFormed && namedExpr.wellFormed && seenExpr.wellFormed
+  | .association cursor firstExpr lastExpr ordinalExpr namedExpr =>
+      cursor.simple && firstExpr.simple && lastExpr.simple && ordinalExpr.simple && namedExpr.simple &&
+      cursor.wellFormed && firstExpr.wellFormed && lastExpr.wellFormed && ordinalExpr.wellFormed && namedExpr.wellFormed
+  | .letAssociation node body => node.simple && node.wellFormed && (body.local || body.simple) && body.wellFormed
   | .position | .scanPosition | .first | .last | .after | .callee | .start | .scalar | .flag
   | .value | .called | .parameter | .item | .number _ | .kind _ | .invalidCall
   | .intervalValue | .intervalBounds | .invalidBody | .assignedInteger | .assignedBoolean => true
@@ -383,6 +460,19 @@ def Scope.bind (scope : Scope) (name : String) (kindExpr : Nat) : Scope :=
   (name, kindExpr) :: scope.filter (fun entry => entry.1 != name)
 
 def Expr.scoped (scope : Scope) : Expr α → Bool
+  | .loopCursor => ("cursor", 0) ∈ scope | .loopIndex => ("index", 0) ∈ scope
+  | .ordinal => ("ordinal", 0) ∈ scope | .named => ("named", 11) ∈ scope
+  | .seen => ("seen", 12) ∈ scope | .associationValue => ("association", 13) ∈ scope
+  | .noFormals | .truth _ => true
+  | .associationFormal node | .associationPayload node | .associationNamed node => node.scoped scope
+  | .seenAt setExpr formalExpr | .markSeen setExpr formalExpr => setExpr.scoped scope && formalExpr.scoped scope
+  | .actualsTail cursor firstExpr lastExpr ordinalExpr namedExpr seenExpr =>
+      decide (("text", 5) ∈ scope ∧ ("context", 6) ∈ scope ∧ ("facts", 7) ∈ scope ∧ ("catalog", 8) ∈ scope) &&
+      cursor.scoped scope && firstExpr.scoped scope && lastExpr.scoped scope && ordinalExpr.scoped scope && namedExpr.scoped scope && seenExpr.scoped scope
+  | .association cursor firstExpr lastExpr ordinalExpr namedExpr =>
+      decide (("text", 5) ∈ scope ∧ ("catalog", 8) ∈ scope) &&
+      cursor.scoped scope && firstExpr.scoped scope && lastExpr.scoped scope && ordinalExpr.scoped scope && namedExpr.scoped scope
+  | .letAssociation node body => node.scoped scope && body.scoped (scope.bind "association" 13)
   | .intervalValue => ("value", 10) ∈ scope | .intervalBounds => ("bounds", 10) ∈ scope
   | .position => ("position", 0) ∈ scope | .scanPosition => ("scan", 9) ∈ scope
   | .first => ("first", 0) ∈ scope | .last => ("last", 0) ∈ scope | .after => ("after", 0) ∈ scope
@@ -436,12 +526,20 @@ def actualBody : Expr Nat :=
         (.not (.included (.valueBounds .value) (.formalBounds .parameter))))
         (.number 0) (.valueAfter .value))
 
+def actualsTailBody : Expr Nat :=
+  .locals <| .letAssociation (.association .position .first .last .ordinal .named) <|
+    .group <| .ite (.orElse (.eq (.associationFormal .associationValue) (.number 0))
+      (.seenAt .seen (.associationFormal .associationValue))) (.number 0)
+      (.group <| .locals <| .letAfter (.actual (.associationPayload .associationValue)
+        (.parameterAt (.associationFormal .associationValue))) <|
+        .group <| .ite (.eq .after (.number 0)) (.number 0)
+          (.elsif (.eq .ordinal .last) (.token .after (.symbol ")"))
+            (.elsif (.eq (.token .after (.symbol ",")) (.number 0)) (.number 0)
+              (.actualsTail (.token .after (.symbol ",")) .first .last (.add .ordinal (.number 1))
+                (.associationNamed .associationValue) (.markSeen .seen (.associationFormal .associationValue))))))
+
 def actualsBody : Expr Nat :=
-  .locals <| .letAfter (.actual .position (.parameterAt .first)) <|
-    .group <| .ite (.eq .after (.number 0)) (.number 0)
-      (.elsif (.eq .first .last) (.token .after (.symbol ")"))
-        (.elsif (.eq (.token .after (.symbol ",")) (.number 0)) (.number 0)
-          (.actuals (.token .after (.symbol ",")) (.add .first (.number 1)) .last)))
+  .actualsTail .position .first .last .first (.truth false) .noFormals
 
 def calleeBody : Expr Nat :=
   .locals <| .letFirst (.skip .position) <| .letAfter (.nameAfter .first) <|
@@ -489,10 +587,13 @@ def modelImports : Imports where
   isEmpty := Integer.Interval.isEmpty
   included := Integer.Interval.included
   invalid := Predicate.invalidBody
+  association := functionAssociation
 
 def modelCalls : Calls where
   actual := fun text context position facts parameter => actualAfter text context.model position facts parameter
   actuals := fun text context position facts catalog first last => actualsAfter text context.model position facts catalog first last
+  actualsTail := fun text context position facts catalog first last ordinal named seen =>
+    functionActualsTailModel text context.model position facts catalog first last ordinal named seen
   callee := fun text context position catalog => calleeAt text context.model position catalog
   callModel := fun text context position facts catalog => Predicate.readCall text context.model position facts catalog
   readCall := fun text context position facts catalog => Predicate.readCall text context.model position facts catalog

@@ -1,6 +1,7 @@
 module
 
 public import Silver.PredicateFunctionCallHelpers
+public import Silver.PredicateAssociationLibraries
 public import Silver.PredicateScalarBodyHelpers
 public import Silver.FunctionBindingsSourceBridge
 public import Silver.PredicateNativeHelpers
@@ -32,6 +33,8 @@ structure ImportsLinks (imports : Imports) (composed : Compose.Expressions.Calls
   included : ∀ left right, left.Bounded → right.Bounded →
     imports.included left right = includedBody.eval imports modelCalls {intervalValue := left, intervalBounds := right}
   invalid : ∃ body, BodyWrappers.DefinitionEquations body ∧ imports.invalid = body.invalidModel
+  association : ∃ associations, AssociationNative.ImportsLinks associations composed predicate ∧
+    AssociationNative.DefinitionEquations associations ∧ imports.association = associations .functionAssociation
 
 theorem imports_meaning {imports composed predicate}
     (source : Compose.Expressions.RawHelperEquations composed (domain := domain))
@@ -90,6 +93,12 @@ theorem imports_meaning {imports composed predicate}
     obtain ⟨body, definitions, observed⟩ := links.invalid
     rw [observed]
     exact BodyWrappers.invalidModel_meaning definitions scan valid
+
+  association text position catalog first last ordinal named valid := by
+    obtain ⟨associations, imported, definitions, observed⟩ := links.association
+    rw [observed]
+    exact AssociationNative.functionAssociation_meaning source helpers imported definitions
+      text position catalog first last ordinal named valid
 
 /-- Scalar and Boolean assignment targets already have separately checked
 source definitions. The two predicates retain their complete native domains. -/
@@ -153,6 +162,8 @@ theorem model_imports_links :
   isEmpty := rfl
   included left right _ _ := (included_model left right).symm
   invalid := ⟨BodyWrappers.modelCalls, BodyWrappers.model_definitions, rfl⟩
+  association := ⟨AssociationNative.modelCalls, AssociationNative.model_imports_links,
+    AssociationNative.model_definitions, rfl⟩
 
 theorem model_target_links
     (source : Compose.Expressions.RawHelperEquations Compose.Expressions.modelCalls (domain := domain)) :

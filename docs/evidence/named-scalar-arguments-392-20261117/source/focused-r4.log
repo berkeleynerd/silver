@@ -1,0 +1,183 @@
+Lean phase build started at 2026-11-17T02:46:24.913355+00:00
++ /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.tools/linux-aarch64/lean/bin/lake --rehash --reconfigure -K silverThreads=12 build +Silver.PredicateAssociationHelpers +Silver.PredicateFunctionCallGhostSource +Silver.PredicateProcedureCallHelpers +Silver.AxiomAudit
+✔ [234/252] Built Silver.PredicateAssociationBounds (245ms)
+✔ [235/252] Built Silver.PredicateProcedureCallProperties (358ms)
+✔ [236/252] Built Silver.PredicateProcedureCallFields (312ms)
+✔ [237/252] Built Silver.PredicateFunctionCallReadings (647ms)
+✔ [238/252] Built Silver.PredicateBodyFlow (1.1s)
+✔ [239/252] Built Silver.PredicateFunctionCallNative (1.6s)
+✔ [240/252] Built Silver.PredicateProcedureCallReadings (858ms)
+✔ [241/252] Built Silver.PredicateBodyWrappers (506ms)
+✔ [242/252] Built Silver.PredicateScalarBodyNative (618ms)
+✔ [243/252] Built Silver.PredicateBodyProperties (1.4s)
+✔ [244/252] Built Silver.PredicateBodyControls (1.1s)
+✔ [245/252] Built Silver.PredicateAssociationEquations (4.4s)
+✔ [246/252] Built Silver.PredicateScalarBodyHelpers (389ms)
+✔ [247/252] Built Silver.PredicateFunctionCallEquations (3.8s)
+✖ [248/252] Building Silver.PredicateAssociationHelpers (8.3s)
+trace: .> LEAN_PATH=/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/lib/lean /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.tools/linux-aarch64/lean/bin/lean -j12 -DwarningAsError=true /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/Silver/PredicateAssociationHelpers.lean -o /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/PredicateAssociationHelpers.olean -i /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/PredicateAssociationHelpers.ilean -c /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/ir/Silver/PredicateAssociationHelpers.c --setup /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/ir/Silver/PredicateAssociationHelpers.setup.json --json
+error: Silver/PredicateAssociationHelpers.lean:139:8: Tactic `rfl` failed: The left-hand side
+  first
+is not definitionally equal to the right-hand side
+  if
+      Named.equalName text (FunctionBindings.parameter catalog first).first
+          (FunctionBindings.parameter catalog first).after nameFirst nameAfter =
+        true then
+    first
+  else
+    if first = last then 0
+    else if _within : first < last then functionFormalModel text catalog (first + 1) last nameFirst nameAfter else 0
+
+case neg.isTrue
+calls : Calls
+meaning : ImportsMeaning calls
+defs : DefinitionEquations calls
+text : Source
+catalog : FunctionBindings.Metadata
+first last nameFirst nameAfter : Nat
+valid : FunctionFormalDomain text catalog first last nameFirst nameAfter
+bad : ¬(nameFirst = 0 ∨ nameAfter ≤ nameFirst)
+h✝ :
+  modelCalls Function.equalName text (FunctionBindings.parameter catalog first).first
+      (FunctionBindings.parameter catalog first).after nameFirst nameAfter =
+    true
+⊢ first =
+    if
+        Named.equalName text (FunctionBindings.parameter catalog first).first
+            (FunctionBindings.parameter catalog first).after nameFirst nameAfter =
+          true then
+      first
+    else
+      if first = last then 0
+      else if _within : first < last then functionFormalModel text catalog (first + 1) last nameFirst nameAfter else 0
+error: Silver/PredicateAssociationHelpers.lean:141:8: unsolved goals
+case pos
+calls : Calls
+meaning : ImportsMeaning calls
+defs : DefinitionEquations calls
+text : Source
+catalog : FunctionBindings.Metadata
+first last nameFirst nameAfter : Nat
+valid : FunctionFormalDomain text catalog first last nameFirst nameAfter
+bad : ¬(nameFirst = 0 ∨ nameAfter ≤ nameFirst)
+h✝ :
+  ¬modelCalls Function.equalName text (FunctionBindings.parameter catalog first).first
+        (FunctionBindings.parameter catalog first).after nameFirst nameAfter =
+      true
+final : first = last
+⊢ 0 =
+    if
+        Named.equalName text (FunctionBindings.parameter catalog last).first
+            (FunctionBindings.parameter catalog last).after nameFirst nameAfter =
+          true then
+      last
+    else 0
+error: Silver/PredicateAssociationHelpers.lean:144:10: Type mismatch
+  normalized_functionFormalModel_at meaning defs text catalog (first + 1) last nameFirst nameAfter
+has type
+  totalizeCalls calls Function.functionFormalModel text catalog (first + 1) last nameFirst nameAfter =
+    modelCalls Function.functionFormalModel text catalog (first + 1) last nameFirst nameAfter
+but is expected to have type
+  totalizeCalls calls Function.functionFormalModel text catalog (first + 1) last nameFirst nameAfter =
+    if
+        Named.equalName text (FunctionBindings.parameter catalog first).first
+            (FunctionBindings.parameter catalog first).after nameFirst nameAfter =
+          true then
+      first
+    else functionFormalModel text catalog (first + 1) last nameFirst nameAfter
+error: Silver/PredicateAssociationHelpers.lean:146:0: unused termination hints, function is not recursive
+error: Silver/PredicateAssociationHelpers.lean:168:8: Tactic `rfl` failed: The left-hand side
+  first
+is not definitionally equal to the right-hand side
+  if
+      Named.equalName text (ProcedureBindings.parameter catalog first).first
+          (ProcedureBindings.parameter catalog first).after nameFirst nameAfter =
+        true then
+    first
+  else
+    if first = last then 0
+    else if _within : first < last then procedureFormalModel text catalog (first + 1) last nameFirst nameAfter else 0
+
+case neg.isTrue
+calls : Calls
+meaning : ImportsMeaning calls
+defs : DefinitionEquations calls
+text : Source
+catalog : ProcedureBindings.Metadata
+first last nameFirst nameAfter : Nat
+valid : ProcedureFormalDomain text catalog first last nameFirst nameAfter
+bad : ¬(nameFirst = 0 ∨ nameAfter ≤ nameFirst)
+h✝ :
+  modelCalls Function.equalName text (ProcedureBindings.parameter catalog first).first
+      (ProcedureBindings.parameter catalog first).after nameFirst nameAfter =
+    true
+⊢ first =
+    if
+        Named.equalName text (ProcedureBindings.parameter catalog first).first
+            (ProcedureBindings.parameter catalog first).after nameFirst nameAfter =
+          true then
+      first
+    else
+      if first = last then 0
+      else if _within : first < last then procedureFormalModel text catalog (first + 1) last nameFirst nameAfter else 0
+error: Silver/PredicateAssociationHelpers.lean:170:8: unsolved goals
+case pos
+calls : Calls
+meaning : ImportsMeaning calls
+defs : DefinitionEquations calls
+text : Source
+catalog : ProcedureBindings.Metadata
+first last nameFirst nameAfter : Nat
+valid : ProcedureFormalDomain text catalog first last nameFirst nameAfter
+bad : ¬(nameFirst = 0 ∨ nameAfter ≤ nameFirst)
+h✝ :
+  ¬modelCalls Function.equalName text (ProcedureBindings.parameter catalog first).first
+        (ProcedureBindings.parameter catalog first).after nameFirst nameAfter =
+      true
+final : first = last
+⊢ 0 =
+    if
+        Named.equalName text (ProcedureBindings.parameter catalog last).first
+            (ProcedureBindings.parameter catalog last).after nameFirst nameAfter =
+          true then
+      last
+    else 0
+error: Silver/PredicateAssociationHelpers.lean:173:10: Type mismatch
+  normalized_procedureFormalModel_at meaning defs text catalog (first + 1) last nameFirst nameAfter
+has type
+  totalizeCalls calls Function.procedureFormalModel text catalog (first + 1) last nameFirst nameAfter =
+    modelCalls Function.procedureFormalModel text catalog (first + 1) last nameFirst nameAfter
+but is expected to have type
+  totalizeCalls calls Function.procedureFormalModel text catalog (first + 1) last nameFirst nameAfter =
+    if
+        Named.equalName text (ProcedureBindings.parameter catalog first).first
+            (ProcedureBindings.parameter catalog first).after nameFirst nameAfter =
+          true then
+      first
+    else procedureFormalModel text catalog (first + 1) last nameFirst nameAfter
+error: Silver/PredicateAssociationHelpers.lean:175:0: unused termination hints, function is not recursive
+error: Silver/PredicateAssociationHelpers.lean:197:4: Type mismatch: After simplification, term
+  result
+ has type
+  @Eq (List.foldr Ty.arrow Ty.number []).meaning
+    (calls Function.functionFormalModel text catalog first last nameFirst nameAfter)
+    (modelCalls Function.functionFormalModel text catalog first last nameFirst nameAfter)
+but is expected to have type
+  @Eq (List.foldr Ty.arrow Ty.number []).meaning
+    (calls Function.functionFormalModel text catalog first last nameFirst nameAfter)
+    (modelCalls Function.functionFormalAt text catalog first last nameFirst nameAfter)
+error: Silver/PredicateAssociationHelpers.lean:209:4: Type mismatch: After simplification, term
+  result
+ has type
+  @Eq (List.foldr Ty.arrow Ty.number []).meaning
+    (calls Function.procedureFormalModel text catalog first last nameFirst nameAfter)
+    (modelCalls Function.procedureFormalModel text catalog first last nameFirst nameAfter)
+but is expected to have type
+  @Eq (List.foldr Ty.arrow Ty.number []).meaning
+    (calls Function.procedureFormalModel text catalog first last nameFirst nameAfter)
+    (modelCalls Function.procedureFormalAt text catalog first last nameFirst nameAfter)
+Some required targets logged failures:
+- Silver.PredicateAssociationHelpers
+error: build failed
+
+Lean phase build finished at 2026-11-17T02:46:38.940875+00:00; elapsed 14.028s; exit 1

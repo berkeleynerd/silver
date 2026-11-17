@@ -1,0 +1,346 @@
+Lean phase build started at 2026-11-17T02:50:16.216896+00:00
++ /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.tools/linux-aarch64/lean/bin/lake --rehash --reconfigure -K silverThreads=12 build +Silver.PredicateAssociationHelpers +Silver.PredicateFunctionCallGhostSource +Silver.PredicateProcedureCallHelpers +Silver.AxiomAudit
+✔ [248/252] Built Silver.PredicateAssociationHelpers (8.3s)
+✖ [249/252] Building Silver.PredicateFunctionCallHelpers (6.1s)
+trace: .> LEAN_PATH=/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/lib/lean /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.tools/linux-aarch64/lean/bin/lean -j12 -DwarningAsError=true /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/Silver/PredicateFunctionCallHelpers.lean -o /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/PredicateFunctionCallHelpers.olean -i /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/PredicateFunctionCallHelpers.ilean -c /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/ir/Silver/PredicateFunctionCallHelpers.c --setup /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/ir/Silver/PredicateFunctionCallHelpers.setup.json --json
+error: Silver/PredicateFunctionCallHelpers.lean:345:8: Tactic `rewrite` failed: motive is not type correct:
+  fun _a =>
+    (if
+          (decide ((modelImports.association text position catalog first last ordinal named).formal = 0) ||
+              seen (modelImports.association text position catalog first last ordinal named).formal) =
+            true then
+        0
+      else
+        if
+            decide
+                (_a text context (modelImports.association text position catalog first last ordinal named).payloadFirst
+                    facts
+                    (parameter catalog
+                      (modelImports.association text position catalog first last ordinal named).formal) =
+                  0) =
+              true then
+          0
+        else
+          if decide (ordinal = last) = true then
+            modelImports.token text
+              (_a text context (modelImports.association text position catalog first last ordinal named).payloadFirst
+                facts
+                (parameter catalog (modelImports.association text position catalog first last ordinal named).formal))
+              (ShellToken.symbol ")")
+          else
+            if
+                decide
+                    (modelImports.token text
+                        (_a text context
+                          (modelImports.association text position catalog first last ordinal named).payloadFirst facts
+                          (parameter catalog
+                            (modelImports.association text position catalog first last ordinal named).formal))
+                        (ShellToken.symbol ",") =
+                      0) =
+                  true then
+              0
+            else
+              (totalizeCalls calls).actualsTail text context
+                (modelImports.token text
+                  (_a text context
+                    (modelImports.association text position catalog first last ordinal named).payloadFirst facts
+                    (parameter catalog
+                      (modelImports.association text position catalog first last ordinal named).formal))
+                  (ShellToken.symbol ","))
+                facts catalog first last (ordinal + 1)
+                (modelImports.association text position catalog first last ordinal named).named
+                (markFormal seen (modelImports.association text position catalog first last ordinal named).formal)) =
+      modelCalls.actualsTail text context position facts catalog first last ordinal named seen
+Error: Application type mismatch: The argument
+  instDecidableEqBool
+    (Expr.eval modelImports (totalizeCalls calls)
+      {
+        text :=
+          { text := text, context := context, position := position, facts := facts, catalog := catalog, first := first,
+              last := last, ordinal := ordinal, named := named, seen := seen,
+              association := modelImports.association text position catalog first last ordinal named }.text,
+        context :=
+          { text := text, context := context, position := position, facts := facts, catalog := catalog, first := first,
+              last := last, ordinal := ordinal, named := named, seen := seen,
+              association := modelImports.association text position catalog first last ordinal named }.context,
+        position :=
+          { text := text, context := context, position := position, facts := facts, catalog := catalog, first := first,
+              last := last, ordinal := ordinal, named := named, seen := seen,
+              association := modelImports.association text position catalog first last ordinal named }.position,
+        facts :=
+          { text := text, context := context, position := position, facts := facts, catalog := catalog, first := first,
+              last := last, ordinal := ordinal, named := named, seen := seen,
+              association := modelImports.association text position catalog first last ordinal named }.facts,
+        catalog :=
+          { text := text, context := context, position := position, facts := facts, catalog := catalog, first := first,
+              last := last, ordinal := ordinal, named := named, seen := seen,
+              association := modelImports.association text position catalog first last ordinal named }.catalog,
+        first :=
+          { text := text, context := context, position := position, facts := facts, catalog := catalog, first := first,
+              last := last, ordinal := ordinal, named := named, seen := seen,
+              association := modelImports.association text position catalog first last ordinal named }.first,
+        last :=
+          { text := text, context := context, position := position, facts := facts, catalog := catalog, first := first,
+              last := last, ordinal := ordinal, named := named, seen := seen,
+              association := modelImports.association text position catalog first last ordinal named }.last,
+        ordinal :=
+          { text := text, context := context, position := position, facts := facts, catalog := catalog, first := first,
+              last := last, ordinal := ordinal, named := named, seen := seen,
+              association := modelImports.association text position catalog first last ordinal named }.ordinal,
+        named :=
+          { text := text, context := context, position := position, facts := facts, catalog := catalog, first := first,
+              last := last, ordinal := ordinal, named := named, seen := seen,
+              association := modelImports.association text position catalog first last ordinal named }.named,
+        seen :=
+          { text := text, context := context, position := position, facts := facts, catalog := catalog, first := first,
+              last := last, ordinal := ordinal, named := named, seen := seen,
+              association := modelImports.association text position catalog first last ordinal named }.seen,
+        association :=
+          { text := text, context := context, position := position, facts := facts, catalog := catalog, first := first,
+              last := last, ordinal := ordinal, named := named, seen := seen,
+              association := modelImports.association text position catalog first last ordinal named }.association,
+        after :=
+          Expr.eval modelImports (totalizeCalls calls)
+            { text := text, context := context, position := position, facts := facts, catalog := catalog,
+              first := first, last := last, ordinal := ordinal, named := named, seen := seen,
+              association := modelImports.association text position catalog first last ordinal named }
+            (Expr.associationValue.associationPayload.actual Expr.associationValue.associationFormal.parameterAt) }
+      (Expr.after.eq (Expr.number 0)))
+    true
+has type
+  Decidable
+    (Expr.eval modelImports (totalizeCalls calls)
+        {
+          text :=
+            { text := text, context := context, position := position, facts := facts, catalog := catalog,
+                first := first, last := last, ordinal := ordinal, named := named, seen := seen,
+                association := modelImports.association text position catalog first last ordinal named }.text,
+          context :=
+            { text := text, context := context, position := position, facts := facts, catalog := catalog,
+                first := first, last := last, ordinal := ordinal, named := named, seen := seen,
+                association := modelImports.association text position catalog first last ordinal named }.context,
+          position :=
+            { text := text, context := context, position := position, facts := facts, catalog := catalog,
+                first := first, last := last, ordinal := ordinal, named := named, seen := seen,
+                association := modelImports.association text position catalog first last ordinal named }.position,
+          facts :=
+            { text := text, context := context, position := position, facts := facts, catalog := catalog,
+                first := first, last := last, ordinal := ordinal, named := named, seen := seen,
+                association := modelImports.association text position catalog first last ordinal named }.facts,
+          catalog :=
+            { text := text, context := context, position := position, facts := facts, catalog := catalog,
+                first := first, last := last, ordinal := ordinal, named := named, seen := seen,
+                association := modelImports.association text position catalog first last ordinal named }.catalog,
+          first :=
+            { text := text, context := context, position := position, facts := facts, catalog := catalog,
+                first := first, last := last, ordinal := ordinal, named := named, seen := seen,
+                association := modelImports.association text position catalog first last ordinal named }.first,
+          last :=
+            { text := text, context := context, position := position, facts := facts, catalog := catalog,
+                first := first, last := last, ordinal := ordinal, named := named, seen := seen,
+                association := modelImports.association text position catalog first last ordinal named }.last,
+          ordinal :=
+            { text := text, context := context, position := position, facts := facts, catalog := catalog,
+                first := first, last := last, ordinal := ordinal, named := named, seen := seen,
+                association := modelImports.association text position catalog first last ordinal named }.ordinal,
+          named :=
+            { text := text, context := context, position := position, facts := facts, catalog := catalog,
+                first := first, last := last, ordinal := ordinal, named := named, seen := seen,
+                association := modelImports.association text position catalog first last ordinal named }.named,
+          seen :=
+            { text := text, context := context, position := position, facts := facts, catalog := catalog,
+                first := first, last := last, ordinal := ordinal, named := named, seen := seen,
+                association := modelImports.association text position catalog first last ordinal named }.seen,
+          association :=
+            { text := text, context := context, position := position, facts := facts, catalog := catalog,
+                first := first, last := last, ordinal := ordinal, named := named, seen := seen,
+                association := modelImports.association text position catalog first last ordinal named }.association,
+          after :=
+            Expr.eval modelImports (totalizeCalls calls)
+              { text := text, context := context, position := position, facts := facts, catalog := catalog,
+                first := first, last := last, ordinal := ordinal, named := named, seen := seen,
+                association := modelImports.association text position catalog first last ordinal named }
+              (Expr.associationValue.associationPayload.actual Expr.associationValue.associationFormal.parameterAt) }
+        (Expr.after.eq (Expr.number 0)) =
+      true)
+but is expected to have type
+  Decidable
+    (decide
+        (_a text context (modelImports.association text position catalog first last ordinal named).payloadFirst facts
+            (parameter catalog (modelImports.association text position catalog first last ordinal named).formal) =
+          0) =
+      true)
+in the application
+  @ite Nat
+    (decide
+        (_a text context (modelImports.association text position catalog first last ordinal named).payloadFirst facts
+            (parameter catalog (modelImports.association text position catalog first last ordinal named).formal) =
+          0) =
+      true)
+    (instDecidableEqBool
+      (Expr.eval modelImports (totalizeCalls calls)
+        {
+          text :=
+            { text := text, context := context, position := position, facts := facts, catalog := catalog,
+                first := first, last := last, ordinal := ordinal, named := named, seen := seen,
+                association := modelImports.association text position catalog first last ordinal named }.text,
+          context :=
+            { text := text, context := context, position := position, facts := facts, catalog := catalog,
+                first := first, last := last, ordinal := ordinal, named := named, seen := seen,
+                association := modelImports.association text position catalog first last ordinal named }.context,
+          position :=
+            { text := text, context := context, position := position, facts := facts, catalog := catalog,
+                first := first, last := last, ordinal := ordinal, named := named, seen := seen,
+                association := modelImports.association text position catalog first last ordinal named }.position,
+          facts :=
+            { text := text, context := context, position := position, facts := facts, catalog := catalog,
+                first := first, last := last, ordinal := ordinal, named := named, seen := seen,
+                association := modelImports.association text position catalog first last ordinal named }.facts,
+          catalog :=
+            { text := text, context := context, position := position, facts := facts, catalog := catalog,
+                first := first, last := last, ordinal := ordinal, named := named, seen := seen,
+                association := modelImports.association text position catalog first last ordinal named }.catalog,
+          first :=
+            { text := text, context := context, position := position, facts := facts, catalog := catalog,
+                first := first, last := last, ordinal := ordinal, named := named, seen := seen,
+                association := modelImports.association text position catalog first last ordinal named }.first,
+          last :=
+            { text := text, context := context, position := position, facts := facts, catalog := catalog,
+                first := first, last := last, ordinal := ordinal, named := named, seen := seen,
+                association := modelImports.association text position catalog first last ordinal named }.last,
+          ordinal :=
+            { text := text, context := context, position := position, facts := facts, catalog := catalog,
+                first := first, last := last, ordinal := ordinal, named := named, seen := seen,
+                association := modelImports.association text position catalog first last ordinal named }.ordinal,
+          named :=
+            { text := text, context := context, position := position, facts := facts, catalog := catalog,
+                first := first, last := last, ordinal := ordinal, named := named, seen := seen,
+                association := modelImports.association text position catalog first last ordinal named }.named,
+          seen :=
+            { text := text, context := context, position := position, facts := facts, catalog := catalog,
+                first := first, last := last, ordinal := ordinal, named := named, seen := seen,
+                association := modelImports.association text position catalog first last ordinal named }.seen,
+          association :=
+            { text := text, context := context, position := position, facts := facts, catalog := catalog,
+                first := first, last := last, ordinal := ordinal, named := named, seen := seen,
+                association := modelImports.association text position catalog first last ordinal named }.association,
+          after :=
+            Expr.eval modelImports (totalizeCalls calls)
+              { text := text, context := context, position := position, facts := facts, catalog := catalog,
+                first := first, last := last, ordinal := ordinal, named := named, seen := seen,
+                association := modelImports.association text position catalog first last ordinal named }
+              (Expr.associationValue.associationPayload.actual Expr.associationValue.associationFormal.parameterAt) }
+        (Expr.after.eq (Expr.number 0)))
+      true)
+
+Explanation: The rewrite tactic rewrites an expression 'e' using an equality 'a = b' by the following process. First, it looks for all 'a' in 'e'. Second, it tries to abstract these occurrences of 'a' to create a function 'm := fun _a => ...', called the *motive*, with the property that 'm a' is definitionally equal to 'e'. Third, we observe that 'congrArg' implies that 'm a = m b', which can be used with lemmas such as 'Eq.mpr' to change the goal. However, if 'e' depends on specific properties of 'a', then the motive 'm' might not typecheck.
+
+Possible solutions: use rewrite's 'occs' configuration option to limit which occurrences are rewritten, or use 'simp' or 'conv' mode, which have strategies for certain kinds of dependencies (these tactics can handle proofs and 'Decidable' instances whose types depend on the rewritten term, and 'simp' can apply user-defined '@[congr]' theorems as well).
+
+case isTrue
+imports : Imports
+calls : Calls
+assignment : Source → Native.Context → BodyScan → Metadata → BodyScan
+meaning : ImportsMeaning imports
+defs : DefinitionEquations imports calls assignment
+text : Source
+context : Native.Context
+position : Nat
+facts : ActiveFlow
+catalog : Metadata
+first last ordinal : Nat
+named : Bool
+seen : FormalSet
+valid : ActualsTailDomain text context position facts catalog first last ordinal
+⊢ (if
+        (decide ((modelImports.association text position catalog first last ordinal named).formal = 0) ||
+            seen (modelImports.association text position catalog first last ordinal named).formal) =
+          true then
+      0
+    else
+      if
+          decide
+              ((totalizeCalls calls).actual text context
+                  (modelImports.association text position catalog first last ordinal named).payloadFirst facts
+                  (parameter catalog (modelImports.association text position catalog first last ordinal named).formal) =
+                0) =
+            true then
+        0
+      else
+        if decide (ordinal = last) = true then
+          modelImports.token text
+            ((totalizeCalls calls).actual text context
+              (modelImports.association text position catalog first last ordinal named).payloadFirst facts
+              (parameter catalog (modelImports.association text position catalog first last ordinal named).formal))
+            (ShellToken.symbol ")")
+        else
+          if
+              decide
+                  (modelImports.token text
+                      ((totalizeCalls calls).actual text context
+                        (modelImports.association text position catalog first last ordinal named).payloadFirst facts
+                        (parameter catalog
+                          (modelImports.association text position catalog first last ordinal named).formal))
+                      (ShellToken.symbol ",") =
+                    0) =
+                true then
+            0
+          else
+            (totalizeCalls calls).actualsTail text context
+              (modelImports.token text
+                ((totalizeCalls calls).actual text context
+                  (modelImports.association text position catalog first last ordinal named).payloadFirst facts
+                  (parameter catalog (modelImports.association text position catalog first last ordinal named).formal))
+                (ShellToken.symbol ","))
+              facts catalog first last (ordinal + 1)
+              (modelImports.association text position catalog first last ordinal named).named
+              (markFormal seen (modelImports.association text position catalog first last ordinal named).formal)) =
+    modelCalls.actualsTail text context position facts catalog first last ordinal named seen
+
+Note: The target expression is not type-correct under the `implicit` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.
+Full error:
+  Application type mismatch: The argument
+    instDecidableEqNat
+      (Expr.eval modelImports (totalizeCalls calls)
+        { text := text, context := context, position := position, facts := facts, catalog := catalog, first := first,
+          last := last, ordinal := ordinal, named := named, seen := seen,
+          association := modelImports.association text position catalog first last ordinal named }
+        Expr.associationValue.associationFormal)
+      (Expr.eval modelImports (totalizeCalls calls)
+        { text := text, context := context, position := position, facts := facts, catalog := catalog, first := first,
+          last := last, ordinal := ordinal, named := named, seen := seen,
+          association := modelImports.association text position catalog first last ordinal named }
+        (Expr.number 0))
+  has type
+    Decidable
+      (Expr.eval modelImports (totalizeCalls calls)
+          { text := text, context := context, position := position, facts := facts, catalog := catalog, first := first,
+            last := last, ordinal := ordinal, named := named, seen := seen,
+            association := modelImports.association text position catalog first last ordinal named }
+          Expr.associationValue.associationFormal =
+        Expr.eval modelImports (totalizeCalls calls)
+          { text := text, context := context, position := position, facts := facts, catalog := catalog, first := first,
+            last := last, ordinal := ordinal, named := named, seen := seen,
+            association := modelImports.association text position catalog first last ordinal named }
+          (Expr.number 0))
+  but is expected to have type
+    Decidable ((modelImports.association text position catalog first last ordinal named).formal = 0)
+  in the application
+    @decide ((modelImports.association text position catalog first last ordinal named).formal = 0)
+      (instDecidableEqNat
+        (Expr.eval modelImports (totalizeCalls calls)
+          { text := text, context := context, position := position, facts := facts, catalog := catalog, first := first,
+            last := last, ordinal := ordinal, named := named, seen := seen,
+            association := modelImports.association text position catalog first last ordinal named }
+          Expr.associationValue.associationFormal)
+        (Expr.eval modelImports (totalizeCalls calls)
+          { text := text, context := context, position := position, facts := facts, catalog := catalog, first := first,
+            last := last, ordinal := ordinal, named := named, seen := seen,
+            association := modelImports.association text position catalog first last ordinal named }
+          (Expr.number 0)))
+error: Silver/PredicateFunctionCallHelpers.lean:374:0: unused termination hints, function is not recursive
+Some required targets logged failures:
+- Silver.PredicateFunctionCallHelpers
+error: build failed
+
+Lean phase build finished at 2026-11-17T02:50:31.956150+00:00; elapsed 15.739s; exit 1

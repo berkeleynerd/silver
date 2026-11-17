@@ -1,0 +1,478 @@
+Lean phase build started at 2026-11-17T02:30:31.967391+00:00
++ /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.tools/linux-aarch64/lean/bin/lake --rehash --reconfigure -K silverThreads=12 build +Silver.PredicateAssociationHelpers +Silver.PredicateFunctionCallEquations +Silver.PredicateProcedureCallEquations +Silver.AxiomAudit
+✔ [88/117] Built Silver.ScalarAssociations (179ms)
+✔ [89/117] Built Silver.PredicateAssociationAdmission (320ms)
+✔ [90/117] Built Silver.PredicateCallAdmission (220ms)
+✔ [91/117] Built Silver.PredicateBodyPrimitives (183ms)
+✔ [92/117] Built Silver.PredicateProcedureCallAdmission (312ms)
+✔ [93/117] Built Silver.PredicateBodyScanner (536ms)
+✔ [94/117] Built Silver.FunctionDeclarationAdmission (257ms)
+✔ [95/117] Built Silver.ProcedureHeaderAdmission (256ms)
+✔ [96/117] Built Silver.ProcedureDeclarationAdmission (168ms)
+✔ [97/117] Built Silver.ProcedureDeclarationModel (217ms)
+✔ [98/117] Built Silver.FunctionDeclarationPreservation (781ms)
+✔ [99/117] Built Silver.ProcedureDeclarationPreservation (869ms)
+✔ [100/117] Built Silver.ComposeAdmission (3.9s)
+✔ [101/117] Built Silver.ComposeBounds (1.4s)
+✔ [102/117] Built Silver.ComposeBooleanDeclarationNative (5.6s)
+✔ [103/117] Built Silver.ComposeBooleanDeclarationSource (172ms)
+✔ [104/117] Built Silver.ComposeExpressions (8.4s)
+✔ [105/117] Built Silver.PredicateAssociationSyntax (650ms)
+✖ [106/117] Building Silver.PredicateAssociationNative (380ms)
+trace: .> LEAN_PATH=/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/lib/lean /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.tools/linux-aarch64/lean/bin/lean -j12 -DwarningAsError=true /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/Silver/PredicateAssociationNative.lean -o /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/PredicateAssociationNative.olean -i /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/PredicateAssociationNative.ilean -c /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/ir/Silver/PredicateAssociationNative.c --setup /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/ir/Silver/PredicateAssociationNative.setup.json --json
+error: Silver/PredicateAssociationNative.lean:105:15: Invalid field notation: Type of
+  ty
+is not known; cannot resolve field `default`
+
+Hint: Consider replacing the field projection with a call to one of the following:
+  • `default`
+  • `instInhabitedBool.default`
+  • `instInhabitedForInStep.default`
+  • `instInhabitedNonScalar.default`
+  • `instInhabitedOrdering.default`
+  • `instInhabitedPNonScalar.default`
+  • `instInhabitedTask.default`
+  • `instInhabitedTrue.default`
+  • `ByteArray.instInhabitedIterator.default`
+  • `IO.instInhabitedTaskState.default`
+  • `Lean.instInhabitedNameGenerator.default`
+  • `Std.instInhabitedFormat.default`
+  • `Std.instInhabitedSlot.default`
+  • `System.instInhabitedFilePath.default`
+  • `Task.Priority.default`
+  • `IO.FS.instInhabitedStream.default`
+  • `IO.FS.instInhabitedSystemTime.default`
+  • `Lean.Grind.instInhabitedConfig.default`
+  • `Lean.Grind.instInhabitedIntInterval.default`
+  • `Lean.Macro.instInhabitedMethods.default`
+  • `Lean.Macro.instInhabitedState.default`
+  • `Lean.Meta.TransparencyMode.default`
+  • `Lean.Meta.instInhabitedEtaStructMode.default`
+  • `Lean.Meta.instInhabitedOccurrences.default`
+  • `Lean.Meta.instInhabitedTransparencyMode.default`
+  • `Lean.Try.instInhabitedConfig.default`
+  • `Std.Format.instInhabitedFlattenBehavior.default`
+  • `Std.Format.instInhabitedSpaceResult.default`
+  • `Std.Http.instInhabitedChunk.default`
+  • `Std.Http.instInhabitedExtensions.default`
+  • `Std.Http.instInhabitedHeaders.default`
+  • `Std.Http.instInhabitedMethod.default`
+  • `Std.Http.instInhabitedRequest.default`
+  • `Std.Http.instInhabitedRequestTarget.default`
+  • `Std.Http.instInhabitedResponse.default`
+  • `Std.Http.instInhabitedStatus.default`
+  • `Std.Http.instInhabitedTrailer.default`
+  • `Std.Http.instInhabitedURI.default`
+  • `Std.Http.instInhabitedURIReference.default`
+  • `Std.Http.instInhabitedVersion.default`
+  • `Std.Net.instInhabitedAddressFamily.default`
+  • `Std.Net.instInhabitedIPAddr.default`
+  • `Std.Net.instInhabitedIPv4Addr.default`
+  • `Std.Net.instInhabitedIPv6Addr.default`
+  • `Std.Net.instInhabitedInterfaceAddress.default`
+  • `Std.Net.instInhabitedMACAddr.default`
+  • `Std.Net.instInhabitedSocketAddress.default`
+  • `Std.Net.instInhabitedSocketAddressV4.default`
+  • `Std.Net.instInhabitedSocketAddressV6.default`
+  • `Std.Time.instInhabitedDayPeriod.default`
+  • `Std.Time.instInhabitedDayPeriodSymbols.default`
+  • `Std.Time.instInhabitedExtendedDayPeriod.default`
+  • `Std.Time.instInhabitedFormatConfig.default`
+  • `Std.Time.instInhabitedFraction.default`
+  • `Std.Time.instInhabitedGenericFormat.default`
+  • `Std.Time.instInhabitedModifier.default`
+  • `Std.Time.instInhabitedNumber.default`
+  • `Std.Time.instInhabitedOffsetO.default`
+  • `Std.Time.instInhabitedOffsetX.default`
+  • `Std.Time.instInhabitedOffsetZ.default`
+  • `Std.Time.instInhabitedPlainDateTime.default`
+  • `Std.Time.instInhabitedText.default`
+  • `Std.Time.instInhabitedTimeZone.default`
+  • `Std.Time.instInhabitedTimestamp.default`
+  • `Std.Time.instInhabitedWallTime.default`
+  • `Std.Time.instInhabitedWeekday.default`
+  • `Std.Time.instInhabitedYear.default`
+  • `Std.Time.instInhabitedZoneId.default`
+  • `Std.Time.instInhabitedZoneName.default`
+  • `String.Legacy.instInhabitedIterator.default`
+  • `String.Slice.instInhabitedByteIterator.default`
+  • `String.Slice.instInhabitedPosIterator.default`
+  • `String.Slice.instInhabitedRevPosIterator.default`
+  • `String.Slice.instInhabitedRevSplitIterator.default`
+  • `String.Slice.instInhabitedSplitInclusiveIterator.default`
+  • `String.Slice.instInhabitedSplitIterator.default`
+  • `Int.Internal.Linear.instInhabitedExpr.default`
+  • `Lean.Data.AC.instInhabitedExpr.default`
+  • `Lean.Grind.AC.instInhabitedExpr.default`
+  • `Lean.Grind.AC.instInhabitedSeq.default`
+  • `Lean.Grind.CommRing.instInhabitedExpr.default`
+  • `Lean.Grind.CommRing.instInhabitedMon.default`
+  • `Lean.Grind.CommRing.instInhabitedPoly.default`
+  • `Lean.Grind.CommRing.instInhabitedPower.default`
+  • `Lean.Grind.Linarith.instInhabitedExpr.default`
+  • `Lean.Meta.DSimp.instInhabitedConfig.default`
+  • `Lean.Meta.Simp.instInhabitedConfig.default`
+  • `Lean.Parser.Tactic.instInhabitedMCasesPat.default`
+  • `Lean.Parser.Tactic.instInhabitedMRefinePat.default`
+  • `Nat.Internal.Linear.instInhabitedExpr.default`
+  • `Nat.Internal.SOM.instInhabitedExpr.default`
+  • `Expressions.Ty.default`
+  • `Names.Native.Context.default`
+  • `Names.Native.Ty.default`
+  • `Ty.default`
+  • `Std.Async.System.instInhabitedCPUInfo.default`
+  • `Std.Async.System.instInhabitedCPUTimes.default`
+  • `Std.Async.System.instInhabitedEnvironment.default`
+  • `Std.Async.System.instInhabitedGroupId.default`
+  • `Std.Async.System.instInhabitedGroupInfo.default`
+  • `Std.Async.System.instInhabitedOSInfo.default`
+  • `Std.Async.System.instInhabitedSystemUser.default`
+  • `Std.Async.System.instInhabitedUserId.default`
+  • `Std.DHashMap.Internal.instInhabitedAssocList.default`
+  • `Std.DTreeMap.Internal.instInhabitedImpl.default`
+  • `Std.Http.Body.instInhabitedEmpty.default`
+  • `Std.Http.Request.instInhabitedHead.default`
+  • `Std.Http.Response.instInhabitedHead.default`
+  • `Std.Http.URI.instInhabitedAuthority.default`
+  • `Std.Http.URI.instInhabitedBuilder.default`
+  • `Std.Http.URI.instInhabitedHost.default`
+  • `Std.Http.URI.instInhabitedPath.default`
+  • `Std.Http.URI.instInhabitedPort.default`
+  • `Std.Http.URI.instInhabitedRelativeRef.default`
+  • `Std.Http.URI.instInhabitedUserInfo.default`
+  • `Std.IO.Process.instInhabitedPId.default`
+  • `Std.IO.Process.instInhabitedResourceUsageStats.default`
+  • `Std.Sat.AIG.instInhabitedDecl.default`
+  • `Std.Sat.AIG.instInhabitedFanin.default`
+  • `Std.Time.Database.TZdb.default`
+  • `Std.Time.Database.WindowsDb.default`
+  • `Std.Time.Internal.instInhabitedUnitVal.default`
+  • `Std.Time.TimeZone.instInhabitedLocalTimeType.default`
+  • `Std.Time.TimeZone.instInhabitedStdWall.default`
+  • `Std.Time.TimeZone.instInhabitedTransition.default`
+  • `Std.Time.TimeZone.instInhabitedUTLocal.default`
+  • `Std.Time.TimeZone.instInhabitedZoneRules.default`
+  • `Std.Time.Year.instInhabitedEra.default`
+  • `String.Slice.Pattern.instInhabitedSearchStep.default`
+  • `Lean.Elab.Tactic.BVDecide.SolverMode.default`
+  • `Std.Http.Protocol.H1.instInhabitedEvent.default`
+  • `Std.Http.Protocol.H1.instInhabitedRedirectBodyAction.default`
+  • `Std.Http.Protocol.H1.instInhabitedRedirectOutcome.default`
+  • `Std.Internal.UV.System.instInhabitedCPUInfo.default`
+  • `Std.Internal.UV.System.instInhabitedCPUTimes.default`
+  • `Std.Internal.UV.System.instInhabitedGroupInfo.default`
+  • `Std.Internal.UV.System.instInhabitedPasswdInfo.default`
+  • `Std.Internal.UV.System.instInhabitedRUsage.default`
+  • `Std.Internal.UV.System.instInhabitedUnameInfo.default`
+  • `Std.Tactic.BVDecide.LRAT.instInhabitedAction.default`
+  • `Std.Time.TimeZone.TZif.instInhabitedHeader.default`
+  • `Std.Time.TimeZone.TZif.instInhabitedLeapSecond.default`
+  • `Std.Time.TimeZone.TZif.instInhabitedLocalTimeType.default`
+  • `Std.Time.TimeZone.TZif.instInhabitedTZif.default`
+  • `Std.Time.TimeZone.TZif.instInhabitedTZifV1.default`
+  • `Std.Time.TimeZone.TZif.instInhabitedTZifV2.default`
+  • `String.Slice.Pattern.ForwardSliceSearcher.instInhabited.default`
+  • `String.Slice.Pattern.ToBackwardSearcher.instInhabitedDefaultBackwardSearcher.default`
+  • `String.Slice.Pattern.ToForwardSearcher.instInhabitedDefaultForwardSearcher.default`
+  • `Std.Http.Protocol.H1.Reader.instInhabitedBodyState.default`
+  • `Std.Http.Protocol.H1.Reader.instInhabitedState.default`
+  • `Std.Http.Protocol.H1.Writer.instInhabitedState.default`
+  • `Std.Tactic.BVDecide.LRAT.Internal.instInhabitedAssignment.default`
+  • `Std.Tactic.BVDecide.LRAT.Internal.instInhabitedResult.default`
+✔ [108/117] Built Silver.ComposeStringNative (2.0s)
+✔ [109/117] Built Silver.ComposeArrayExpressions (2.4s)
+✔ [110/117] Built Silver.ComposeContracts (693ms)
+✔ [112/117] Built Silver.PredicateNativeState (467ms)
+✖ [113/117] Building Silver.PredicateFunctionCallNative (860ms)
+trace: .> LEAN_PATH=/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/lib/lean /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.tools/linux-aarch64/lean/bin/lean -j12 -DwarningAsError=true /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/Silver/PredicateFunctionCallNative.lean -o /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/PredicateFunctionCallNative.olean -i /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/PredicateFunctionCallNative.ilean -c /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/ir/Silver/PredicateFunctionCallNative.c --setup /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/ir/Silver/PredicateFunctionCallNative.setup.json --json
+error: Silver/PredicateFunctionCallNative.lean:176:11: Application type mismatch: The argument
+  value
+has type
+  Expr ScalarExpression.Result
+of sort `Type 1` but is expected to have type
+  Bool
+of sort `Type` in the application
+  truth value
+error: Silver/PredicateFunctionCallNative.lean:278:11: Application type mismatch: The argument
+  value
+has type
+  Expr ScalarExpression.Result
+of sort `Type 1` but is expected to have type
+  Bool
+of sort `Type` in the application
+  truth value
+error: Silver/PredicateFunctionCallNative.lean:405:2: Tactic `cases` failed with a nested error:
+Dependent elimination failed: Failed to solve equation
+  (Nat → Bool) = Nat
+at case `position` after processing
+  _, (seenAt _ _)
+the dependent pattern matcher can solve the following kinds of equations
+- <var> = <term> and <term> = <var>
+- <term> = <term> where the terms are definitionally equal
+- <constructor> = <constructor>, examples: List.cons x xs = List.cons y ys, and List.cons x xs = List.nil
+error: Silver/PredicateFunctionCallNative.lean:454:2: Tactic `cases` failed with a nested error:
+Dependent elimination failed: Failed to solve equation
+  (Nat → Bool) = Nat
+at case `position` after processing
+  _, (seenAt _ _)
+the dependent pattern matcher can solve the following kinds of equations
+- <var> = <term> and <term> = <var>
+- <term> = <term> where the terms are definitionally equal
+- <constructor> = <constructor>, examples: List.cons x xs = List.cons y ys, and List.cons x xs = List.nil
+error: Silver/PredicateFunctionCallNative.lean:605:77: Tactic `decide` failed for proposition
+  Expr.value.group.valueAfter.wellFormed = false ∧
+    (Expr.intervalValue.empty.ite Expr.called Expr.called).group.callAfter.wellFormed = false ∧
+      ((Expr.number 1).makeCall (Expr.kind ScalarKind.integer) Expr.intervalBounds).callAfter.wellFormed = false ∧
+        Expr.parameter.group.formalKind.wellFormed = false ∧
+          Expr.intervalValue.group.lower.wellFormed = false ∧
+            Expr.value.valueAfter.wellFormed = true ∧
+              Expr.position.readCall.callAfter.wellFormed = true ∧
+                (Expr.number 1).parameterAt.formalBounds.wellFormed = true ∧
+                  Expr.position.readCall.callBounds.lower.wellFormed = true
+because its `Decidable` instance
+  instDecidableAnd
+did not reduce to `isTrue` or `isFalse`.
+
+Reduction got stuck at the `Decidable` instance
+  match Expr.value.group.valueAfter.wellFormed, false with
+  | false, false => isTrue ⋯
+  | false, true => isFalse ⋯
+  | true, false => isFalse ⋯
+  | true, true => isTrue ⋯
+✔ [115/117] Built Silver.PredicateProcedureCallSyntax (1.1s)
+✔ [116/117] Built Silver.PredicateProcedureCallNative (311ms)
+✖ [117/117] Building Silver.PredicateProcedureCallEquations (811ms)
+trace: .> LEAN_PATH=/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/lib/lean /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.tools/linux-aarch64/lean/bin/lean -j12 -DwarningAsError=true /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/Silver/PredicateProcedureCallEquations.lean -o /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/PredicateProcedureCallEquations.olean -i /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/PredicateProcedureCallEquations.ilean -c /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/ir/Silver/PredicateProcedureCallEquations.c --setup /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/ir/Silver/PredicateProcedureCallEquations.setup.json --json
+error: Silver/PredicateProcedureCallEquations.lean:125:2: unsolved goals
+case pos
+text : Source
+context : Native.Context
+position : Nat
+incoming : ActiveFlow
+catalog : ProcedureBindings.Metadata
+first last ordinal : Nat
+named : Bool
+callAfter targetFirst targetAfter : Nat
+ordered : ordinal ≤ last
+final : ordinal = last
+⊢ (if callAfter = 0 ∨ (procedureAssociation text position catalog first last last named).formal = 0 then false
+      else
+        if
+            procedureActualAfter text context.model
+                (procedureAssociation text position catalog first last last named).payloadFirst incoming
+                (ProcedureBindings.parameter catalog
+                  (procedureAssociation text position catalog first last last named).formal) =
+              0 then
+          false
+        else
+          if
+              (decide
+                      (skipAt text (procedureAssociation text position catalog first last last named).payloadFirst =
+                        targetFirst) &&
+                    decide
+                      (procedureActualAfter text context.model
+                          (procedureAssociation text position catalog first last last named).payloadFirst incoming
+                          (ProcedureBindings.parameter catalog
+                            (procedureAssociation text position catalog first last last named).formal) =
+                        targetAfter) ||
+                  actualNameFree text (procedureAssociation text position catalog first last last named).payloadFirst
+                    (procedureActualAfter text context.model
+                      (procedureAssociation text position catalog first last last named).payloadFirst incoming
+                      (ProcedureBindings.parameter catalog
+                        (procedureAssociation text position catalog first last last named).formal))
+                    targetFirst targetAfter) =
+                false then
+            false
+          else
+            decide
+              (fixedAfter text
+                  (procedureActualAfter text context.model
+                    (procedureAssociation text position catalog first last last named).payloadFirst incoming
+                    (ProcedureBindings.parameter catalog
+                      (procedureAssociation text position catalog first last last named).formal))
+                  ")" false =
+                callAfter)) =
+      true ↔
+    (if callAfter = 0 ∨ (procedureAssociation text position catalog first last last named).formal = 0 then false
+      else
+        if
+            procedureActualAfter text context.model
+                (procedureAssociation text position catalog first last last named).payloadFirst incoming
+                (ProcedureBindings.parameter catalog
+                  (procedureAssociation text position catalog first last last named).formal) =
+              0 then
+          false
+        else
+          if
+              (skipAt text (procedureAssociation text position catalog first last last named).payloadFirst ==
+                      targetFirst &&
+                    procedureActualAfter text context.model
+                        (procedureAssociation text position catalog first last last named).payloadFirst incoming
+                        (ProcedureBindings.parameter catalog
+                          (procedureAssociation text position catalog first last last named).formal) ==
+                      targetAfter ||
+                  actualNameFree text (procedureAssociation text position catalog first last last named).payloadFirst
+                    (procedureActualAfter text context.model
+                      (procedureAssociation text position catalog first last last named).payloadFirst incoming
+                      (ProcedureBindings.parameter catalog
+                        (procedureAssociation text position catalog first last last named).formal))
+                    targetFirst targetAfter) =
+                false then
+            false
+          else
+            fixedAfter text
+                (procedureActualAfter text context.model
+                  (procedureAssociation text position catalog first last last named).payloadFirst incoming
+                  (ProcedureBindings.parameter catalog
+                    (procedureAssociation text position catalog first last last named).formal))
+                ")" false ==
+              callAfter) =
+      true
+error: Silver/PredicateProcedureCallEquations.lean:126:2: unsolved goals
+case neg
+text : Source
+context : Native.Context
+position : Nat
+incoming : ActiveFlow
+catalog : ProcedureBindings.Metadata
+first last ordinal : Nat
+named : Bool
+callAfter targetFirst targetAfter : Nat
+ordered : ordinal ≤ last
+final : ¬ordinal = last
+before : ordinal < last
+⊢ (if callAfter = 0 ∨ (procedureAssociation text position catalog first last ordinal named).formal = 0 then false
+      else
+        if
+            procedureActualAfter text context.model
+                (procedureAssociation text position catalog first last ordinal named).payloadFirst incoming
+                (ProcedureBindings.parameter catalog
+                  (procedureAssociation text position catalog first last ordinal named).formal) =
+              0 then
+          false
+        else
+          if
+              (decide
+                      (skipAt text (procedureAssociation text position catalog first last ordinal named).payloadFirst =
+                        targetFirst) &&
+                    decide
+                      (procedureActualAfter text context.model
+                          (procedureAssociation text position catalog first last ordinal named).payloadFirst incoming
+                          (ProcedureBindings.parameter catalog
+                            (procedureAssociation text position catalog first last ordinal named).formal) =
+                        targetAfter) ||
+                  actualNameFree text (procedureAssociation text position catalog first last ordinal named).payloadFirst
+                    (procedureActualAfter text context.model
+                      (procedureAssociation text position catalog first last ordinal named).payloadFirst incoming
+                      (ProcedureBindings.parameter catalog
+                        (procedureAssociation text position catalog first last ordinal named).formal))
+                    targetFirst targetAfter) =
+                false then
+            false
+          else
+            if
+                fixedAfter text
+                    (procedureActualAfter text context.model
+                      (procedureAssociation text position catalog first last ordinal named).payloadFirst incoming
+                      (ProcedureBindings.parameter catalog
+                        (procedureAssociation text position catalog first last ordinal named).formal))
+                    "," false =
+                  0 then
+              false
+            else
+              procedurePayloadsFreeModel text context.model
+                (fixedAfter text
+                  (procedureActualAfter text context.model
+                    (procedureAssociation text position catalog first last ordinal named).payloadFirst incoming
+                    (ProcedureBindings.parameter catalog
+                      (procedureAssociation text position catalog first last ordinal named).formal))
+                  "," false)
+                incoming catalog first last (ordinal + 1)
+                (procedureAssociation text position catalog first last ordinal named).named callAfter targetFirst
+                targetAfter) =
+      true ↔
+    (if callAfter = 0 ∨ (procedureAssociation text position catalog first last ordinal named).formal = 0 then false
+      else
+        if
+            procedureActualAfter text context.model
+                (procedureAssociation text position catalog first last ordinal named).payloadFirst incoming
+                (ProcedureBindings.parameter catalog
+                  (procedureAssociation text position catalog first last ordinal named).formal) =
+              0 then
+          false
+        else
+          if
+              (skipAt text (procedureAssociation text position catalog first last ordinal named).payloadFirst ==
+                      targetFirst &&
+                    procedureActualAfter text context.model
+                        (procedureAssociation text position catalog first last ordinal named).payloadFirst incoming
+                        (ProcedureBindings.parameter catalog
+                          (procedureAssociation text position catalog first last ordinal named).formal) ==
+                      targetAfter ||
+                  actualNameFree text (procedureAssociation text position catalog first last ordinal named).payloadFirst
+                    (procedureActualAfter text context.model
+                      (procedureAssociation text position catalog first last ordinal named).payloadFirst incoming
+                      (ProcedureBindings.parameter catalog
+                        (procedureAssociation text position catalog first last ordinal named).formal))
+                    targetFirst targetAfter) =
+                false then
+            false
+          else
+            if
+                fixedAfter text
+                    (procedureActualAfter text context.model
+                      (procedureAssociation text position catalog first last ordinal named).payloadFirst incoming
+                      (ProcedureBindings.parameter catalog
+                        (procedureAssociation text position catalog first last ordinal named).formal))
+                    "," false =
+                  0 then
+              false
+            else
+              procedurePayloadsFreeModel text context.model
+                (fixedAfter text
+                  (procedureActualAfter text context.model
+                    (procedureAssociation text position catalog first last ordinal named).payloadFirst incoming
+                    (ProcedureBindings.parameter catalog
+                      (procedureAssociation text position catalog first last ordinal named).formal))
+                  "," false)
+                incoming catalog first last (ordinal + 1)
+                (procedureAssociation text position catalog first last ordinal named).named callAfter targetFirst
+                targetAfter) =
+      true
+error: Silver/PredicateProcedureCallEquations.lean:123:4: This simp argument is unused:
+  Bool.and_eq_true
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [reduceCtorEq, String.reduceEq, ↓reduceIte, ↓reduceDIte, decide_eq_true_eq, Bool.or_eq_true,
+    Bool.not_eq_true', beq_iff_eq]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+error: Silver/PredicateProcedureCallEquations.lean:123:41: This simp argument is unused:
+  beq_iff_eq
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [reduceCtorEq, String.reduceEq, ↓reduceIte, ↓reduceDIte, decide_eq_true_eq, Bool.or_eq_true,
+    Bool.and_eq_true, Bool.not_eq_true']
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+error: Silver/PredicateProcedureCallEquations.lean:125:34: This simp argument is unused:
+  decide_eq_true_eq
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [final, ↓reduceIte, beq_iff_eq]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+error: Silver/PredicateProcedureCallEquations.lean:125:53: This simp argument is unused:
+  beq_iff_eq
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [final, ↓reduceIte, decide_eq_true_eq]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Some required targets logged failures:
+- Silver.PredicateAssociationNative
+- Silver.PredicateFunctionCallNative
+- Silver.PredicateProcedureCallEquations
+error: build failed
+
+Lean phase build finished at 2026-11-17T02:30:54.932761+00:00; elapsed 22.965s; exit 1

@@ -16,6 +16,8 @@ def callScope : Scope := [("text", 5), ("context", 6), ("position", 0), ("facts"
 abbrev CheckedTrees : Prop :=
   includedBody.wellFormed = true ∧ includedBody.scoped [("value", 10), ("bounds", 10)] = true ∧
   actualBody.wellFormed = true ∧ actualBody.scoped (("parameter", 3) :: callScope) = true ∧
+  actualsTailBody.wellFormed = true ∧
+  actualsTailBody.scoped (("first", 0) :: ("last", 0) :: ("ordinal", 0) :: ("named", 11) :: ("seen", 12) :: callScope) = true ∧
   actualsBody.wellFormed = true ∧ actualsBody.scoped (("first", 0) :: ("last", 0) :: callScope) = true ∧
   calleeBody.wellFormed = true ∧ calleeBody.scoped callScope = true ∧
   callBody.wellFormed = true ∧ callBody.scoped callScope = true ∧
@@ -80,21 +82,24 @@ theorem actual_model (text : Source) (context : Native.Context) (position : Nat)
   dsimp +instances only [actualBody, Expr.eval, modelImports, actualAfter]
   simp only [Bool.or_eq_true, Bool.not_eq_true', decide_eq_true_eq, or_assoc]
 
+theorem actualsTail_model (text : Source) (context : Native.Context) (position : Nat)
+    (facts : ActiveFlow) (catalog : Metadata) (first last ordinal : Nat) (named : Bool) (seen : FormalSet)
+    (ordered : ordinal ≤ last) :
+    actualsTailBody.eval modelImports modelCalls {text, context, position, facts, catalog, first, last, ordinal, named, seen} =
+      functionActualsTailModel text context.model position facts catalog first last ordinal named seen := by
+  rw [functionActualsTailModel]
+  dsimp +instances only [actualsTailBody, Expr.eval, modelImports, modelCalls, tokenAfter, ShellToken.symbol]
+  simp only [Bool.or_eq_true, decide_eq_true_eq]
+  by_cases final : ordinal = last
+  · simp only [final, ↓reduceIte]
+  · have advancing : ordinal < last := by omega
+    simp only [final, advancing, ↓reduceIte, ↓reduceDIte]
+
 theorem actuals_model (text : Source) (context : Native.Context) (position : Nat)
-    (facts : ActiveFlow) (catalog : Metadata) (first last : Nat) (ordered : first ≤ last) :
+    (facts : ActiveFlow) (catalog : Metadata) (first last : Nat) (_ordered : first ≤ last) :
     actualsBody.eval modelImports modelCalls {text, context, position, facts, catalog, first, last} =
       actualsAfter text context.model position facts catalog first last := by
-  rw [actualsAfter]
-  dsimp +instances only [actualsBody, Expr.eval, modelImports, modelCalls, tokenAfter, ShellToken.symbol]
-  by_cases zero : actualAfter text context.model position facts (parameter catalog first) = 0
-  · simp_all +instances
-  · by_cases final : first = last
-    · simp_all +instances
-    · have advancing : first < last := by omega
-      by_cases comma : fixedAfter text
-          (actualAfter text context.model position facts (parameter catalog first)) "," false = 0
-      · simp_all +instances [actualsAfter_zero]
-      · simp_all +instances
+  rfl
 
 theorem callee_model (text : Source) (context : Native.Context) (position : Nat)
     (catalog : Metadata) :

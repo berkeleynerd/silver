@@ -32,7 +32,9 @@ structure ImportsLinks (calls : Calls) (inherited : Compose.Expressions.Calls) (
     FunctionCallNative.DefinitionEquations imported functions assignment ∧
     calls .functionActual = functions.actual
   nameFree : ∃ step model scan, ProcedureNameNative.FreeDefinitionEquations inherited step model scan ∧
-    calls .nameFree = scan
+    calls .nameFree = scan ∧ calls .nameFreeModel = model
+  association : ∃ associations, AssociationNative.ImportsLinks associations inherited predicate ∧
+    AssociationNative.DefinitionEquations associations ∧ calls .association = associations .procedureAssociation
   invalid : ∃ body, BodyWrappers.DefinitionEquations body ∧
     calls .invalid = body.invalid ∧ calls .invalidModel = body.invalidModel
   bodyToken : ∃ models wrappers body,
@@ -194,10 +196,32 @@ theorem imports_meaning {calls inherited predicate}
     dsimp only [totalizeCalls]
     split
     · rename_i valid
-      obtain ⟨step, model, scan, definitions, observed⟩ := links.nameFree
+      obtain ⟨step, model, scan, definitions, observed, _⟩ := links.nameFree
       rw [observed]
       exact ProcedureNameNative.interpreted_free inherited source step model scan definitions text
         position after targetFirst targetAfter valid
+    · rfl
+  nameFreeModel := by
+    classical
+    funext text position after targetFirst targetAfter
+    dsimp only [totalizeCalls]
+    split
+    · rename_i valid
+      obtain ⟨step, model, scan, definitions, _, observed⟩ := links.nameFree
+      rw [observed]
+      exact ProcedureNameNative.interpreted_freeModel inherited source step model scan definitions text
+        position after targetFirst targetAfter valid
+    · rfl
+  association := by
+    classical
+    funext text position catalog first last ordinal named
+    dsimp only [totalizeCalls]
+    split
+    · rename_i valid
+      obtain ⟨associations, imported, definitions, observed⟩ := links.association
+      rw [observed]
+      exact AssociationNative.procedureAssociation_meaning source helpers imported definitions
+        text position catalog first last ordinal named valid
     · rfl
   invalid := by
     classical
@@ -286,7 +310,9 @@ theorem model_imports_links
     FunctionCallNative.model_definitions_of_meaning
       (FunctionCallNative.imports_meaning source Native.model_helper_meaning
         Native.model_definition_equations Native.model_contracts FunctionCallNative.model_imports_links), rfl⟩
-  nameFree := ⟨_, _, _, ProcedureNameNative.model_definitions, rfl⟩
+  nameFree := ⟨_, _, _, ProcedureNameNative.model_definitions, rfl, rfl⟩
+  association := ⟨AssociationNative.modelCalls, AssociationNative.model_imports_links,
+    AssociationNative.model_definitions, rfl⟩
   invalid := ⟨_, BodyWrappers.model_definitions, rfl, rfl⟩
   bodyToken := by
     refine ⟨_, _, BodyNative.modelCalls, Adapter.Wrappers.model_raw_equations source _,

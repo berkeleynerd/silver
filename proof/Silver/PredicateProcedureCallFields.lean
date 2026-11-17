@@ -36,8 +36,8 @@ theorem StableCallFields.token {before after : BodyScan} (stable : StableCallFie
 
 theorem procedureUpdateStep_fields (text : Source) (context : ParseContext)
     (incoming : ActiveFlow) (scan : BodyScan) (parameter : ProcedureBindings.Formal)
-    (callFirst callAfter : Nat) :
-    StableCallFields scan (procedureUpdateStep text context incoming scan parameter callFirst callAfter) := by
+    (catalog : ProcedureBindings.Metadata) (first last callFirst callAfter : Nat) :
+    StableCallFields scan (procedureUpdateStep text context incoming scan parameter catalog first last callFirst callAfter) := by
   dsimp only [procedureUpdateStep]
   split
   · split
@@ -49,24 +49,40 @@ theorem procedureUpdateStep_fields (text : Source) (context : ParseContext)
       · exact ⟨Nat.le_refl _, Nat.le_refl _, .inl rfl⟩
       · exact ⟨Nat.le_refl _, Nat.le_refl _, .inl (ActiveFlow.replace_path scan.facts _ _)⟩
 
-theorem procedureUpdatesModel_fields (text : Source) (context : ParseContext)
+theorem procedureUpdatesTailModel_fields (text : Source) (context : ParseContext)
     (incoming : ActiveFlow) (scan : BodyScan) (catalog : ProcedureBindings.Metadata)
-    (first last callFirst callAfter : Nat) :
-    StableCallFields scan (procedureUpdatesModel text context incoming scan catalog first last callFirst callAfter) := by
-  rw [procedureUpdatesModel]
+    (first last ordinal : Nat) (named : Bool) (seen : FormalSet) (callFirst callAfter : Nat) :
+    StableCallFields scan
+      (procedureUpdatesTailModel text context incoming scan catalog first last ordinal named seen callFirst callAfter) := by
+  rw [procedureUpdatesTailModel]
   dsimp only
   split
   · exact .invalid scan
-  · split
-    · exact (procedureUpdateStep_fields text context incoming scan _ callFirst callAfter).token text _
+  · let association := procedureAssociation text scan.position catalog first last ordinal named
+    have moved : StableCallFields scan {scan with position := association.payloadFirst} :=
+      ⟨Nat.le_refl _, Nat.le_refl _, .inl rfl⟩
+    have step := moved.trans (procedureUpdateStep_fields text context incoming
+      {scan with position := association.payloadFirst} (ProcedureBindings.parameter catalog association.formal)
+      catalog first last callFirst callAfter)
+    split
+    · exact .invalid scan
     · split
-      · exact .invalid scan
+      · exact step.token text _
       · split
-        · exact ((procedureUpdateStep_fields text context incoming scan _ callFirst callAfter).token text _).trans
-            (procedureUpdatesModel_fields text context incoming _ catalog (first + 1) last callFirst callAfter)
         · exact .invalid scan
-termination_by last - first
+        · split
+          · exact (step.token text _).trans
+              (procedureUpdatesTailModel_fields text context incoming _ catalog first last (ordinal + 1)
+                association.named (markFormal seen association.formal) callFirst callAfter)
+          · exact .invalid scan
+termination_by last - ordinal
 decreasing_by omega
+
+theorem procedureUpdatesModel_fields (text : Source) (context : ParseContext)
+    (incoming : ActiveFlow) (scan : BodyScan) (catalog : ProcedureBindings.Metadata)
+    (first last callFirst callAfter : Nat) :
+    StableCallFields scan (procedureUpdatesModel text context incoming scan catalog first last callFirst callAfter) :=
+  procedureUpdatesTailModel_fields ..
 
 theorem procedureCallBody_fields (text : Source) (context : ParseContext) (scan : BodyScan)
     (catalog : ProcedureBindings.Metadata) : StableCallFields scan (procedureCallBody text context scan catalog) := by

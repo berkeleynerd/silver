@@ -1,0 +1,452 @@
+[
+  {
+    "run_id": "20261117T024152-355ce247a59d",
+    "task": "#392",
+    "kind": "lean",
+    "scope": [
+      "Silver.PredicateAssociationHelpers",
+      "Silver.PredicateFunctionCallGhostSource",
+      "Silver.PredicateProcedureCallHelpers"
+    ],
+    "state": "failure",
+    "active": false,
+    "workers": 12,
+    "directory": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261117T024152-355ce247a59d",
+    "fingerprint": "4605c5f8b4fc9c4bb0b5adc8bac5fe8b4d204700d9994cda5f7cb41ddba0fc93",
+    "command": [
+      "/usr/bin/python3",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/scripts/check_lean.py",
+      "--task",
+      "#392",
+      "--target",
+      "Silver.PredicateAssociationHelpers",
+      "--target",
+      "Silver.PredicateFunctionCallGhostSource",
+      "--target",
+      "Silver.PredicateProcedureCallHelpers",
+      "--provenance",
+      "--reason",
+      "Focused source helper normalization after r2: replace function-valued local environment field notation with explicit Locals.set, then check previously drafted full-domain function/procedure helper equations and approved Ghost advance identity. Function/procedure equation builds already passed and remain cached except typed loop-cursor/index additions required by the Ghost call. Shared managed pool idle: default available workers/threads. No source certificate/full checkpoint, clean or replay."
+    ],
+    "reason": "Focused source helper normalization after r2: replace function-valued local environment field notation with explicit Locals.set, then check previously drafted full-domain function/procedure helper equations and approved Ghost advance identity. Function/procedure equation builds already passed and remain cached except typed loop-cursor/index additions required by the Ghost call. Shared managed pool idle: default available workers/threads. No source certificate/full checkpoint, clean or replay.",
+    "worktree": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392",
+    "resources": [
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/lean-focused.log",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/lean-focused-evidence.json"
+    ],
+    "started_at": "2026-11-17T02:41:52.757717+00:00",
+    "finished_at": "2026-11-17T02:43:42.812855+00:00",
+    "duration_seconds": 110.055044719,
+    "returncode": 1,
+    "error": null,
+    "failure_keys": [
+      "lean:build:Silver/PredicateAssociationEquations.lean:37:2:unsolved goals",
+      "lean:build:Silver/PredicateAssociationEquations.lean:38:43:This simp argument is unused:",
+      "lean:build:Silver/PredicateAssociationEquations.lean:55:2:unsolved goals",
+      "lean:build:Silver/PredicateAssociationEquations.lean:56:2:unsolved goals",
+      "lean:build:Silver/PredicateAssociationEquations.lean:68:2:unsolved goals",
+      "lean:build:Silver/PredicateAssociationEquations.lean:69:2:unsolved goals",
+      "lean:build:Silver/PredicateAssociationEquations.lean:75:76:unsolved goals",
+      "lean:build:Silver/PredicateAssociationEquations.lean:84:77:unsolved goals",
+      "lean:build:Silver/PredicateFunctionCallNative.lean:170:2:Tactic `cases` failed with a nested error:",
+      "lean:build:Silver/PredicateFunctionCallNative.lean:272:2:Tactic `cases` failed with a nested error:",
+      "lean:build:Silver/PredicateFunctionCallNative.lean:413:2:Tactic `cases` failed with a nested error:",
+      "lean:build:Silver/PredicateFunctionCallNative.lean:463:2:Tactic `cases` failed with a nested error:",
+      "lean:build:Silver/PredicateFunctionCallNative.lean:572:6:Local variable 'cursor' resembles constructor 'Silver.Predicate.FunctionCallNative.Expr.cursor' - write '.cursor' (with a dot) or 'Silver.Predicate.FunctionCallNative.Expr.cursor' to use the constructor.",
+      "lean:build:Silver/PredicateFunctionCallNative.lean:615:77:Tactic `decide` failed for proposition",
+      "lean:build:Silver/PredicateFunctionCallReadings.lean:187:2:Tactic `split` failed: Could not split an `if` or `match` expression in the type",
+      "lean:build:Silver/PredicateFunctionCallReadings.lean:206:0:unused `termination_by`, function is not recursive",
+      "lean:build:Silver/PredicateProcedureCallProperties.lean:49:29:Tactic `rewrite` failed: Did not find an occurrence of the pattern",
+      "lean:build:Silver/PredicateProcedureCallProperties.lean:55:62:Application type mismatch: The argument",
+      "lean:build:Silver/PredicateProcedureCallProperties.lean:70:2:`dsimp` made no progress",
+      "lean:build:Silver/PredicateProcedureCallProperties.lean:81:0:unused termination hints, function is not recursive"
+    ],
+    "evidence": [
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/lean-focused.log",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/lean-focused-evidence.json",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261117T024152-355ce247a59d/previous-evidence/lean-focused.log"
+    ],
+    "retained_report_count": 1
+  },
+  {
+    "run_id": "20261117T024622-f4c0a17df1fb",
+    "task": "#392",
+    "kind": "lean",
+    "scope": [
+      "Silver.PredicateAssociationHelpers",
+      "Silver.PredicateFunctionCallGhostSource",
+      "Silver.PredicateProcedureCallHelpers"
+    ],
+    "state": "failure",
+    "active": false,
+    "workers": 12,
+    "directory": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261117T024622-f4c0a17df1fb",
+    "fingerprint": "6e777f7211c9ccb381455c24c5bebe125b0d83a12bc606552d672e2df842e34d",
+    "command": [
+      "/usr/bin/python3",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/scripts/check_lean.py",
+      "--task",
+      "#392",
+      "--target",
+      "Silver.PredicateAssociationHelpers",
+      "--target",
+      "Silver.PredicateFunctionCallGhostSource",
+      "--target",
+      "Silver.PredicateProcedureCallHelpers",
+      "--provenance",
+      "--reason",
+      "Focused source helper check after r3 diagnosis: unfold every nested typed application helper, simplify FormalStorage dependent conjunction, rename ghost-only AST constructors without changing rendered tokens, and import exact committed78e semantic consumers. Shared pool idle; default available CPUs/threads. No full checkpoint, clean build or replay."
+    ],
+    "reason": "Focused source helper check after r3 diagnosis: unfold every nested typed application helper, simplify FormalStorage dependent conjunction, rename ghost-only AST constructors without changing rendered tokens, and import exact committed78e semantic consumers. Shared pool idle; default available CPUs/threads. No full checkpoint, clean build or replay.",
+    "worktree": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392",
+    "resources": [
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/lean-focused.log",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/lean-focused-evidence.json"
+    ],
+    "started_at": "2026-11-17T02:46:22.388753+00:00",
+    "finished_at": "2026-11-17T02:46:38.945720+00:00",
+    "duration_seconds": 16.556877674,
+    "returncode": 1,
+    "error": null,
+    "failure_keys": [
+      "lean:build:Silver/PredicateAssociationHelpers.lean:139:8:Tactic `rfl` failed: The left-hand side",
+      "lean:build:Silver/PredicateAssociationHelpers.lean:141:8:unsolved goals",
+      "lean:build:Silver/PredicateAssociationHelpers.lean:144:10:Type mismatch",
+      "lean:build:Silver/PredicateAssociationHelpers.lean:146:0:unused termination hints, function is not recursive",
+      "lean:build:Silver/PredicateAssociationHelpers.lean:168:8:Tactic `rfl` failed: The left-hand side",
+      "lean:build:Silver/PredicateAssociationHelpers.lean:170:8:unsolved goals",
+      "lean:build:Silver/PredicateAssociationHelpers.lean:173:10:Type mismatch",
+      "lean:build:Silver/PredicateAssociationHelpers.lean:175:0:unused termination hints, function is not recursive",
+      "lean:build:Silver/PredicateAssociationHelpers.lean:197:4:Type mismatch: After simplification, term",
+      "lean:build:Silver/PredicateAssociationHelpers.lean:209:4:Type mismatch: After simplification, term"
+    ],
+    "evidence": [
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/lean-focused.log",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/lean-focused-evidence.json",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261117T024622-f4c0a17df1fb/previous-evidence/lean-focused.log"
+    ],
+    "retained_report_count": 1
+  },
+  {
+    "run_id": "20261117T025013-57bee7adf2f0",
+    "task": "#392",
+    "kind": "lean",
+    "scope": [
+      "Silver.PredicateAssociationHelpers",
+      "Silver.PredicateFunctionCallGhostSource",
+      "Silver.PredicateProcedureCallHelpers"
+    ],
+    "state": "failure",
+    "active": false,
+    "workers": 8,
+    "directory": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261117T025013-57bee7adf2f0",
+    "fingerprint": "032fe29e9e7b082a549395b7b0a8f78088fbae2fa1dbea5661302708c541ca34",
+    "command": [
+      "/usr/bin/python3",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/scripts/check_lean.py",
+      "--task",
+      "#392",
+      "--target",
+      "Silver.PredicateAssociationHelpers",
+      "--target",
+      "Silver.PredicateFunctionCallGhostSource",
+      "--target",
+      "Silver.PredicateProcedureCallHelpers",
+      "--provenance",
+      "--workers",
+      "8",
+      "--reason",
+      "Focused source normalization after r4: unfold modelCalls dispatch for equal-name branch synchronization and formal-at wrapper aliases. Includes drafted exact Ghost declaration/body annotations with pending native contract success. Eight workers retain four for concurrent native advance-lemma proof; default twelve Lean threads. No complete candidate/full checkpoint or clean/replay."
+    ],
+    "reason": "Focused source normalization after r4: unfold modelCalls dispatch for equal-name branch synchronization and formal-at wrapper aliases. Includes drafted exact Ghost declaration/body annotations with pending native contract success. Eight workers retain four for concurrent native advance-lemma proof; default twelve Lean threads. No complete candidate/full checkpoint or clean/replay.",
+    "worktree": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392",
+    "resources": [
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/lean-focused.log",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/lean-focused-evidence.json"
+    ],
+    "started_at": "2026-11-17T02:50:13.588286+00:00",
+    "finished_at": "2026-11-17T02:50:31.960595+00:00",
+    "duration_seconds": 18.372214884,
+    "returncode": 1,
+    "error": null,
+    "failure_keys": [
+      "lean:build:Silver/PredicateFunctionCallHelpers.lean:345:8:Tactic `rewrite` failed: motive is not type correct:",
+      "lean:build:Silver/PredicateFunctionCallHelpers.lean:374:0:unused termination hints, function is not recursive"
+    ],
+    "evidence": [
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/lean-focused.log",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/lean-focused-evidence.json",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261117T025013-57bee7adf2f0/previous-evidence/lean-focused.log"
+    ],
+    "retained_report_count": 1
+  },
+  {
+    "run_id": "20261117T025118-b38b3e0ffc1d",
+    "task": "#392",
+    "kind": "lean",
+    "scope": [
+      "Silver.PredicateFunctionCallGhostSource",
+      "Silver.PredicateProcedureCallHelpers"
+    ],
+    "state": "failure",
+    "active": false,
+    "workers": 8,
+    "directory": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261117T025118-b38b3e0ffc1d",
+    "fingerprint": "0e01817798b0ae9a5478417b6eb5fd8501aad902bb5f8c9d13a1ad44341c2a35",
+    "command": [
+      "/usr/bin/python3",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/scripts/check_lean.py",
+      "--task",
+      "#392",
+      "--target",
+      "Silver.PredicateFunctionCallGhostSource",
+      "--target",
+      "Silver.PredicateProcedureCallHelpers",
+      "--provenance",
+      "--workers",
+      "8",
+      "--reason",
+      "Focused function tail normalization after r5: explicitly unfold dependent instances in the typed expression interpreter, then apply existing actual normalization by simp congruence rather than ill-typed rewrite. Association helper success retained. Eight workers coexist with native four; default twelve Lean threads; no full/candidate checkpoint or clean/replay."
+    ],
+    "reason": "Focused function tail normalization after r5: explicitly unfold dependent instances in the typed expression interpreter, then apply existing actual normalization by simp congruence rather than ill-typed rewrite. Association helper success retained. Eight workers coexist with native four; default twelve Lean threads; no full/candidate checkpoint or clean/replay.",
+    "worktree": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392",
+    "resources": [
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/lean-focused.log",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/lean-focused-evidence.json"
+    ],
+    "started_at": "2026-11-17T02:51:18.577025+00:00",
+    "finished_at": "2026-11-17T02:51:28.442911+00:00",
+    "duration_seconds": 9.865790796,
+    "returncode": 1,
+    "error": null,
+    "failure_keys": [
+      "lean:build:Silver/PredicateFunctionCallHelpers.lean:368:23:This simp argument is unused:",
+      "lean:build:Silver/PredicateFunctionCallHelpers.lean:369:23:This simp argument is unused:"
+    ],
+    "evidence": [
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/lean-focused.log",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/lean-focused-evidence.json",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261117T025118-b38b3e0ffc1d/previous-evidence/lean-focused.log"
+    ],
+    "retained_report_count": 1
+  },
+  {
+    "run_id": "20261117T025148-1bd2eec7103c",
+    "task": "#392",
+    "kind": "lean",
+    "scope": [
+      "Silver.PredicateFunctionCallGhostSource",
+      "Silver.PredicateProcedureCallHelpers"
+    ],
+    "state": "failure",
+    "active": false,
+    "workers": 8,
+    "directory": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261117T025148-1bd2eec7103c",
+    "fingerprint": "e6470ebf0d55163be24c134cd8cc5afec76a2587792ec8b9d61cfcc85e62b8e8",
+    "command": [
+      "/usr/bin/python3",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/scripts/check_lean.py",
+      "--task",
+      "#392",
+      "--target",
+      "Silver.PredicateFunctionCallGhostSource",
+      "--target",
+      "Silver.PredicateProcedureCallHelpers",
+      "--provenance",
+      "--workers",
+      "8",
+      "--reason",
+      "Function tail normalization mathematical proof now elaborates; remove two newly redundant modelImports simp arguments rejected by warning-as-error. Continue same bounded Ghost/procedure helper closure with successful association/equation objects retained. Eight workers reserve four for native lemma; no complete/candidate checkpoint, clean or replay."
+    ],
+    "reason": "Function tail normalization mathematical proof now elaborates; remove two newly redundant modelImports simp arguments rejected by warning-as-error. Continue same bounded Ghost/procedure helper closure with successful association/equation objects retained. Eight workers reserve four for native lemma; no complete/candidate checkpoint, clean or replay.",
+    "worktree": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392",
+    "resources": [
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/lean-focused.log",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/lean-focused-evidence.json"
+    ],
+    "started_at": "2026-11-17T02:51:48.315024+00:00",
+    "finished_at": "2026-11-17T02:52:00.145451+00:00",
+    "duration_seconds": 11.830334714,
+    "returncode": 1,
+    "error": null,
+    "failure_keys": [
+      "lean:build:Silver/PredicateFunctionCallGhostSource.lean:84:2:Type mismatch: After simplification, term",
+      "lean:build:Silver/PredicateFunctionCallGhostSource.lean:85:5:`if_neg` has been deprecated: Use `ite_eq_right` instead"
+    ],
+    "evidence": [
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/lean-focused.log",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/lean-focused-evidence.json",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261117T025148-1bd2eec7103c/previous-evidence/lean-focused.log"
+    ],
+    "retained_report_count": 1
+  },
+  {
+    "run_id": "20261117T025233-794b55c28d00",
+    "task": "#392",
+    "kind": "lean",
+    "scope": [
+      "Silver.PredicateFunctionCallGhostSource",
+      "Silver.PredicateFunctionCallLibraries",
+      "Silver.PredicateProcedureCallLibraries"
+    ],
+    "state": "failure",
+    "active": false,
+    "workers": 8,
+    "directory": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261117T025233-794b55c28d00",
+    "fingerprint": "afe9a24f6abd364ebe9e7b3e7bd3bf7bc432fb57514916d04c50c7becd94dc67",
+    "command": [
+      "/usr/bin/python3",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/scripts/check_lean.py",
+      "--task",
+      "#392",
+      "--target",
+      "Silver.PredicateFunctionCallGhostSource",
+      "--target",
+      "Silver.PredicateFunctionCallLibraries",
+      "--target",
+      "Silver.PredicateProcedureCallLibraries",
+      "--provenance",
+      "--workers",
+      "8",
+      "--reason",
+      "Association/function/procedure full-domain helper equations now compile. Repair Ghost recurrence final simplification without deprecated if_neg, and first-check the library links to exact source helper identities. Retain helper successes; eight workers leave four for native whole-lemma proof, default twelve Lean threads. No full/candidate checkpoint or clean/replay."
+    ],
+    "reason": "Association/function/procedure full-domain helper equations now compile. Repair Ghost recurrence final simplification without deprecated if_neg, and first-check the library links to exact source helper identities. Retain helper successes; eight workers leave four for native whole-lemma proof, default twelve Lean threads. No full/candidate checkpoint or clean/replay.",
+    "worktree": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392",
+    "resources": [
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/lean-focused.log",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/lean-focused-evidence.json"
+    ],
+    "started_at": "2026-11-17T02:52:33.684934+00:00",
+    "finished_at": "2026-11-17T02:53:08.207985+00:00",
+    "duration_seconds": 34.522862391,
+    "returncode": 1,
+    "error": null,
+    "failure_keys": [
+      "lean:build:Silver/PredicateAssociationLibraries.lean:91:54:Unknown identifier `Expressions.modelCalls`",
+      "lean:build:Silver/PredicateBodyFlowValidity.lean:197:62:Application type mismatch: The argument",
+      "lean:build:Silver/PredicateBodyFlowValidity.lean:212:8:(kernel) unknown constant 'Silver.Predicate.procedureUpdateStep_flowReady'",
+      "lean:build:Silver/PredicateBodyFlowValidity.lean:220:2:`dsimp` made no progress",
+      "lean:build:Silver/PredicateBodyFlowValidity.lean:230:0:unused termination hints, function is not recursive"
+    ],
+    "evidence": [
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/lean-focused.log",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/lean-focused-evidence.json",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261117T025233-794b55c28d00/previous-evidence/lean-focused.log"
+    ],
+    "retained_report_count": 1
+  },
+  {
+    "run_id": "20261117T025347-51f686bdde03",
+    "task": "#392",
+    "kind": "lean",
+    "scope": [
+      "Silver.PredicateFunctionCallGhostSource",
+      "Silver.PredicateFunctionCallLibraries",
+      "Silver.PredicateProcedureCallLibraries"
+    ],
+    "state": "success",
+    "active": false,
+    "workers": 8,
+    "directory": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261117T025347-51f686bdde03",
+    "fingerprint": "31982e9bfc7793475b9576d5a7cbd0da036144bc5fba09b7eb45f01ec93fdba1",
+    "command": [
+      "/usr/bin/python3",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/scripts/check_lean.py",
+      "--task",
+      "#392",
+      "--target",
+      "Silver.PredicateFunctionCallGhostSource",
+      "--target",
+      "Silver.PredicateFunctionCallLibraries",
+      "--target",
+      "Silver.PredicateProcedureCallLibraries",
+      "--provenance",
+      "--workers",
+      "8",
+      "--reason",
+      "Ghost source structural/model checks now compile. Import exact verified semantic consumer commit3983a1c93 for changed procedure update signature and add the missing direct ComposeModelCalls import to association library witness. First library closure continuation retains all successful helper objects; eight workers reserve four for native proof. No full/candidate checkpoint or clean/replay."
+    ],
+    "reason": "Ghost source structural/model checks now compile. Import exact verified semantic consumer commit3983a1c93 for changed procedure update signature and add the missing direct ComposeModelCalls import to association library witness. First library closure continuation retains all successful helper objects; eight workers reserve four for native proof. No full/candidate checkpoint or clean/replay.",
+    "worktree": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392",
+    "resources": [
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/lean-focused.log",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/lean-focused-evidence.json"
+    ],
+    "started_at": "2026-11-17T02:53:47.232764+00:00",
+    "finished_at": "2026-11-17T02:54:01.426960+00:00",
+    "duration_seconds": 14.194052049,
+    "returncode": null,
+    "error": null,
+    "failure_keys": [],
+    "evidence": [
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/lean-focused.log",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/lean-focused-evidence.json",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261117T025347-51f686bdde03/previous-evidence/lean-focused.log",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261117T025347-51f686bdde03/lean-focused.log",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261117T025347-51f686bdde03/lean-focused-evidence.json"
+    ],
+    "retained_report_count": 0
+  },
+  {
+    "run_id": "20261117T025518-ab3bc42b687e",
+    "task": "#392",
+    "kind": "lean",
+    "scope": [
+      "Silver.PredicateAssociationSource",
+      "Silver.PredicateFunctionCallSource",
+      "Silver.PredicateProcedureCallSource"
+    ],
+    "state": "success",
+    "active": false,
+    "workers": 8,
+    "directory": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261117T025518-ab3bc42b687e",
+    "fingerprint": "892fe7a50ea1861cd89629da504d5666528c062721c64ccd0cfe220704175762",
+    "command": [
+      "/usr/bin/python3",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/scripts/check_lean.py",
+      "--task",
+      "#392",
+      "--target",
+      "Silver.PredicateAssociationSource",
+      "--target",
+      "Silver.PredicateFunctionCallSource",
+      "--target",
+      "Silver.PredicateProcedureCallSource",
+      "--provenance",
+      "--workers",
+      "8",
+      "--reason",
+      "Helper/library gate passed20261117T025347-51f686bdde03. First bounded compilation of new Source.Checked structures, exact header/body specifications and procedure Ghost-call rendering, without importing reviewed-pin source candidates. Eight workers retain four for concurrent native lemma; default twelve Lean threads; matching helper successes retained."
+    ],
+    "reason": "Helper/library gate passed20261117T025347-51f686bdde03. First bounded compilation of new Source.Checked structures, exact header/body specifications and procedure Ghost-call rendering, without importing reviewed-pin source candidates. Eight workers retain four for concurrent native lemma; default twelve Lean threads; matching helper successes retained.",
+    "worktree": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392",
+    "resources": [
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/lean-focused.log",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/lean-focused-evidence.json"
+    ],
+    "started_at": "2026-11-17T02:55:18.911893+00:00",
+    "finished_at": "2026-11-17T02:55:27.193721+00:00",
+    "duration_seconds": 8.281641963,
+    "returncode": null,
+    "error": null,
+    "failure_keys": [],
+    "evidence": [
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/lean-focused.log",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/lean-focused-evidence.json",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261117T025518-ab3bc42b687e/previous-evidence/lean-focused.log",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261117T025518-ab3bc42b687e/previous-evidence/lean-focused-evidence.json",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261117T025518-ab3bc42b687e/lean-focused.log",
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-aarch64/e513549bff0f5897/runs/20261117T025518-ab3bc42b687e/lean-focused-evidence.json"
+    ],
+    "retained_report_count": 0
+  }
+]
