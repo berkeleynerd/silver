@@ -63,3 +63,56 @@ canonical readings, together with both executable admission models and count
 properties. Automatic12 workers/12 threads; fresh audit11,170 declarations.
 The first attempt compiled all admissions/properties and needed only explicit
 record-projection reduction in two cursor-order proofs.
+
+## Completed semantic consumers
+
+`20261117T024754-5841dfd88330` passed the function/procedure call-meaning targets,
+statement flags, scalar procedure body shape and String-bound origin consumers.
+Its fresh transitive module/axiom audit checked 314 modules and 26,420
+declarations with only the existing foundations `propext`, `Classical.choice`
+and `Quot.sound`. The managed run took 19.766 seconds; the proof runner reports
+19.835 seconds including its outer setup. Build and audit phases took 14.981
+and 1.360 seconds. The automatic grant was 12 Lake workers and 12 process
+threads, with no competing reservation at launch. Cached dependencies were
+retained; no independent kernel replay or complete source check was requested.
+
+The final argument establishes:
+
+- Function arguments retain their original formal association when arranged
+  in declaration order. Each expression is checked against the same incoming
+  flow; the arrangement introduces no default or missing actual.
+- Procedure payload spans have strictly increasing endpoints in written order.
+  The alias replay checks each payload and excludes selector labels. Its exact
+  own-span exception cannot waive another occurrence. These facts imply
+  pairwise writable-target separation and exclusion from other input reads.
+- Paired formal domains and actuals may be permuted together. Input checks
+  retain the incoming flow, and updates to distinct scalar cells commute.
+  This connects the source-order update scanner with the existing formal-order
+  procedure call meaning, including copy-in/copy-back and full declared domains.
+- Flow readiness, assignment flags, body shape and String-bound origins
+  survive the association-aware scanner and canonical arrangement.
+
+Earlier consumer attempts remain failed in `runs.json` and the managed ledger.
+They exposed stale consumer arities, source-position inference, record and
+Boolean reductions, and dependent elimination of paired associations. The last
+two attempts isolated the remaining tail-meaning mismatch: the helper needed
+the scan at the selected payload position and the actual next scan record.
+Supplying those exact records discharged the existing claim; no contract,
+source domain or obligation was weakened. These focused iterations did not
+start the expensive integrated checkpoint.
+
+`call-meaning-evidence.json` and `call-meaning.log` retain the passing result.
+`semantic-inputs-sha256.json` and `semantic-inputs.tar.gz` retain all 1,119 input
+files captured by that run. Their digest was recomputed from the current
+worktree and matched the passing evidence exactly before retention. Every
+changed semantic module appears in the audited import closure. The `attempts/`
+directory retains the run events and available per-run logs, including the
+failed and interrupted attempts; the shared ledger retains their other files.
+
+The checked inputs include the source author's draft
+`PredicateProcedureCallFields.lean`, byte-identical to that author's worktree
+at handoff. It remains owned and committed by the source author; this semantic
+commit excludes it. The other ten changed semantic consumers and the two
+earlier model commits form the semantic integration chain. Root still owns the
+complete combined native, actual-source Lean and regression checkpoints and
+independent review. This focused success alone does not deliver #392.

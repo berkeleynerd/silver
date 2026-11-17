@@ -178,8 +178,8 @@ theorem basic_flags {text context scan item result} (parsed : BasicAt (catalog :
       cases flag <;> simp only [Flag.observe, fields.2.2.2.1, fields.2.2.2.2,
         Flag.simple, Bool.or_true, Bool.or_false]
 
-theorem ProcedureUpdateAt.flags {text context incoming parameter callFirst callAfter scan actual result}
-    (parsed : ProcedureUpdateAt text context incoming parameter callFirst callAfter scan actual result)
+theorem ProcedureUpdateAt.flags {text context incoming parameter catalog first last callFirst callAfter scan actual result}
+    (parsed : ProcedureUpdateAt text context incoming parameter catalog first last callFirst callAfter scan actual result)
     (flag : Flag) : flag.observe result =
       (flag.observe scan || ((flag == .assignment) && Flag.actualWrite actual)) := by
   cases parsed with
@@ -188,17 +188,29 @@ theorem ProcedureUpdateAt.flags {text context incoming parameter callFirst callA
       unfold procedureWritableUpdate
       split <;> cases flag <;> simp [Flag.observe, Flag.actualWrite]
 
+theorem ProcedureUpdatesTailAt.flags
+    {text context incoming catalog first last callFirst callAfter scan ordinal named seen entries result}
+    (parsed : ProcedureUpdatesTailAt text context incoming catalog first last callFirst callAfter scan ordinal named seen entries result)
+    (flag : Flag) : flag.observe result =
+      (flag.observe scan || ((flag == .assignment) && entries.any (fun entry => Flag.actualWrite entry.2.actual))) := by
+  induction parsed with
+  | last _ _ step _ =>
+      rw [bodyToken_flags, step.flags]
+      cases flag <;> simp only [List.any_cons, List.any_nil, Bool.or_false, Flag.observe]
+  | next _ _ _ step _ _ ih =>
+      rw [ih, bodyToken_flags, step.flags]
+      cases flag <;> simp only [List.any_cons, Bool.or_assoc, Bool.and_or_distrib_left, Flag.observe]
+
 theorem ProcedureUpdatesAt.flags {text context incoming catalog callFirst callAfter scan first last actuals result}
     (parsed : ProcedureUpdatesAt text context incoming catalog callFirst callAfter scan first last actuals result)
     (flag : Flag) : flag.observe result =
       (flag.observe scan || ((flag == .assignment) && actuals.any Flag.actualWrite)) := by
-  induction parsed with
-  | last step _ =>
-      rw [bodyToken_flags, step.flags]
-      simp only [List.any_cons, List.any_nil, Bool.or_false]
-  | next _ step _ _ ih =>
-      rw [ih, bodyToken_flags, step.flags]
-      cases flag == .assignment <;> simp [List.any_cons, Bool.or_assoc]
+  cases parsed with
+  | updates source =>
+      have observed := source.flags flag
+      have same := (ScalarAssociations.arrange_permutation defaultProcedureActual
+        source.actuals.fresh.nodup source.actuals.complete).any_eq (f := fun entry => Flag.actualWrite entry.2.actual)
+      simpa only [arrangeProcedureActuals, List.any_map, Function.comp_def, same] using observed
 
 theorem ProcedureCallAt.flags {text context scan procedures call result}
     (parsed : ProcedureCallAt text context scan procedures call result) (flag : Flag) :

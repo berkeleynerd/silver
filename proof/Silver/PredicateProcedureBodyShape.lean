@@ -22,10 +22,8 @@ theorem procedureActuals_source_scalar {text context facts procedures position f
     (closed : ClosedFunctionContext context)
     (parsed : ProcedureActualsAt text context facts procedures position first last actuals after) :
     actuals.all ScalarProcedures.scalarActual = true := by
-  induction parsed with
-  | last reading _ =>
-      simpa only [List.all_cons, List.all_nil, Bool.and_true] using procedureActual_source_scalar closed reading
-  | next _ reading _ _ ih => exact Bool.and_eq_true_iff.mpr ⟨procedureActual_source_scalar closed reading, ih⟩
+  apply List.all_eq_true.mpr
+  exact parsed.forall_payloads (fun _ _ _ _ payload => procedureActual_source_scalar closed payload)
 
 private theorem closed_basicKinds {text context scan} (closed : ClosedFunctionContext context) :
     basicKind text context scan = .null ∨ basicKind text context scan = .scalarAssignment ∨

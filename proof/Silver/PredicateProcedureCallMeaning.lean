@@ -38,7 +38,8 @@ theorem ProcedureCallAt.meaning {text context scan catalog call result}
     omega
   have arguments := source.updates.meaning
     (scan := {scan with position := fixedAfter text (nameAfter text (skipAt text scan.position)) "(" false})
-    normal nv base arraysReady booleansBound compatible bounded bodyMode compatible.count valid
+    normal nv base arraysReady booleansBound compatible bounded bodyMode compatible.count valid rfl
+    (fixedAfter_result_bound text _ "(" false (by decide))
   rw [count] at arguments
   obtain ⟨bound, bindings, readable, inputs, outputs, changed⟩ := arguments.binding
   have resolved : call.resolve (ProcedureBindings.catalogSignatures catalog) =

@@ -8,7 +8,8 @@
     ],
     "workers": 12,
     "duration_seconds": null,
-    "failure_keys": []
+    "failure_keys": [],
+    "reason": "Focused full-domain association helper models before call semantics integration"
   },
   {
     "run_id": "20261117T020927-d539f1795c66",
@@ -19,7 +20,8 @@
     ],
     "workers": 12,
     "duration_seconds": null,
-    "failure_keys": []
+    "failure_keys": [],
+    "reason": "Resume focused association helper check after interrupted launch; no completed evidence exists"
   },
   {
     "run_id": "20261117T022212-a3fd73a6de45",
@@ -34,7 +36,8 @@
       "lean:build:Silver/ScalarAssociations.lean:118:2:`simp` made no progress",
       "lean:build:Silver/ScalarAssociations.lean:57:47:unsolved goals",
       "lean:build:Silver/ScalarAssociations.lean:66:3:unknown tactic"
-    ]
+    ],
+    "reason": "Retry same focused helpers after relocating pinned tools to nativefs and isolated overlay proof workspace; previous Lake import/open-file setup failure compiled no models"
   },
   {
     "run_id": "20261117T022259-8869775e59dc",
@@ -47,7 +50,8 @@
     "duration_seconds": 3.935541918,
     "failure_keys": [
       "lean:build:Silver/ScalarAssociations.lean:66:17:unexpected token ':'; expected '(', '_' or identifier"
-    ]
+    ],
+    "reason": "Focused helper repair uses core by_cases and explicit map equality after first elaboration feedback"
   },
   {
     "run_id": "20261117T022405-0bcd5eda4806",
@@ -75,7 +79,8 @@
       "lean:build:Silver/PredicateAssociationAdmission.lean:84:28:This simp argument is unused:",
       "lean:build:Silver/PredicateAssociationAdmission.lean:93:10:omega could not prove the goal:",
       "lean:build:Silver/PredicateAssociationAdmission.lean:95:0:unused `termination_by`, function is not recursive"
-    ]
+    ],
+    "reason": "Focused syntax repair changes reserved exists binder to selectedAlready; coverage proof and full domain unchanged"
   },
   {
     "run_id": "20261117T022514-42fc7bfcf9b3",
@@ -86,7 +91,8 @@
     ],
     "workers": 12,
     "duration_seconds": 3.866951377,
-    "failure_keys": []
+    "failure_keys": [],
+    "reason": "Focused resolver proof repair synchronizes case splits and imports the existing cursor bounds; no model algorithm or domain changes"
   },
   {
     "run_id": "20261117T022605-79e819f235b6",
@@ -100,7 +106,8 @@
     "failure_keys": [
       "lean:build:Silver/PredicateAssociationAdmission.lean:123:6:Type mismatch: After simplification, term",
       "lean:build:Silver/PredicateAssociationAdmission.lean:138:6:Type mismatch: After simplification, term"
-    ]
+    ],
+    "reason": "Keep resolver admission below ComposeBounds; move cursor lemmas into separate semantic module to break dependency cycle"
   },
   {
     "run_id": "20261117T022640-c0173da55173",
@@ -114,7 +121,8 @@
     "failure_keys": [
       "lean:build:Silver/PredicateAssociationAdmission.lean:125:6:Type mismatch: After simplification, term",
       "lean:build:Silver/PredicateAssociationAdmission.lean:142:6:Type mismatch: After simplification, term"
-    ]
+    ],
+    "reason": "Focused remaining resolver bounds repair names source branch hypotheses explicitly"
   },
   {
     "run_id": "20261117T022721-c1af3e63fac5",
@@ -134,7 +142,8 @@
       "lean:build:Silver/PredicateAssociationAdmission.lean:137:44:omega could not prove the goal:",
       "lean:build:Silver/PredicateAssociationAdmission.lean:137:51:Application type mismatch: The argument",
       "lean:build:Silver/PredicateAssociationAdmission.lean:141:8:Type mismatch: After simplification, term"
-    ]
+    ],
+    "reason": "Diagnosed duplicate expression split in conjunction; explicit position/arrow/named cases now synchronize both formal-bound goals"
   },
   {
     "run_id": "20261117T022800-f7813e859a93",
@@ -152,7 +161,8 @@
       "lean:build:Silver/PredicateAssociationAdmission.lean:138:23:This simp argument is unused:",
       "lean:build:Silver/PredicateAssociationAdmission.lean:139:44:omega could not prove the goal:",
       "lean:build:Silver/PredicateAssociationAdmission.lean:139:51:Application type mismatch: The argument"
-    ]
+    ],
+    "reason": "Focused resolver proof repair expands local lets before branch simplification and normalizes Boolean coercion"
   },
   {
     "run_id": "20261117T022843-2c4cb884eab4",
@@ -168,7 +178,8 @@
       "lean:build:Silver/PredicateAssociationAdmission.lean:122:23:`if_pos` has been deprecated: Use `ite_eq_left` instead",
       "lean:build:Silver/PredicateAssociationAdmission.lean:138:10:`if_neg` has been deprecated: Use `ite_eq_right` instead",
       "lean:build:Silver/PredicateAssociationAdmission.lean:138:23:`if_pos` has been deprecated: Use `ite_eq_left` instead"
-    ]
+    ],
+    "reason": "Focused resolver diagnostic replaces simplifier selection with explicit if rewrites for the known source arrow branch"
   },
   {
     "run_id": "20261117T022858-568cc2722567",
@@ -179,7 +190,8 @@
     ],
     "workers": 8,
     "duration_seconds": 6.075883253,
-    "failure_keys": []
+    "failure_keys": [],
+    "reason": "Focused successful resolver rewrite uses pinned Lean nondeprecated ite_eq_right/ite_eq_left names"
   },
   {
     "run_id": "20261117T023312-8d900ef779b7",
@@ -194,7 +206,8 @@
     "failure_keys": [
       "lean:build:Silver/PredicateAssociationBounds.lean:53:6:omega could not prove the goal:",
       "lean:build:Silver/PredicateAssociationBounds.lean:73:6:omega could not prove the goal:"
-    ]
+    ],
+    "reason": "Focused full-domain cursor, named association trace soundness, unique readings and complete canonical selection; source helper slot released"
   },
   {
     "run_id": "20261117T023346-8dfb9c9cfe64",
@@ -206,6 +219,164 @@
     ],
     "workers": 12,
     "duration_seconds": 7.002851878,
-    "failure_keys": []
+    "failure_keys": [],
+    "reason": "Focused cursor proof reduces selected record projection before arithmetic; native definitions and domains unchanged"
+  },
+  {
+    "run_id": "20261117T023603-784276ed56a2",
+    "state": "failure",
+    "scope": [
+      "Silver.PredicateFunctionCallMeaning",
+      "Silver.PredicateProcedureBodyShape",
+      "Silver.PredicateProcedureCallMeaning",
+      "Silver.PredicateStatementFlags",
+      "Silver.PredicateStringBoundsSources"
+    ],
+    "workers": 8,
+    "duration_seconds": 42.00109827,
+    "failure_keys": [
+      "lean:build:Silver/PredicateBodyFlowValidity.lean:197:62:Application type mismatch: The argument",
+      "lean:build:Silver/PredicateBodyFlowValidity.lean:212:8:(kernel) unknown constant 'Silver.Predicate.procedureUpdateStep_flowReady'",
+      "lean:build:Silver/PredicateBodyFlowValidity.lean:220:2:`dsimp` made no progress",
+      "lean:build:Silver/PredicateBodyFlowValidity.lean:230:0:unused termination hints, function is not recursive",
+      "lean:build:Silver/PredicateFunctionCallMeaning.lean:80:2:Too many variable names provided at alternative `actuals`: 6 provided, but 3 expected",
+      "lean:build:Silver/PredicateFunctionCallMeaning.lean:81:27:Unknown identifier `source.forall_payloads`",
+      "lean:build:Silver/PredicateProcedureCallFields.lean:40:84:Application type mismatch: The argument",
+      "lean:build:Silver/PredicateProcedureCallFields.lean:57:2:`dsimp` made no progress",
+      "lean:build:Silver/PredicateProcedureCallFields.lean:68:0:unused termination hints, function is not recursive",
+      "lean:build:Silver/ProcedureNameActualReadings.lean:130:11:failed to infer `have` declaration type",
+      "lean:build:Silver/ProcedureNameActualReadings.lean:130:66:don't know how to synthesize placeholder for argument `catalog`",
+      "lean:build:Silver/ProcedureNameActualReadings.lean:130:68:don't know how to synthesize placeholder for argument `first`",
+      "lean:build:Silver/ProcedureNameActualReadings.lean:130:70:don't know how to synthesize placeholder for argument `last`",
+      "lean:build:Silver/ProcedureNameActualReadings.lean:130:72:don't know how to synthesize placeholder for argument `ordinal`",
+      "lean:build:Silver/ProcedureNameActualReadings.lean:130:74:don't know how to synthesize placeholder for argument `named`",
+      "lean:build:Silver/ProcedureNameActualReadings.lean:155:11:failed to infer `have` declaration type",
+      "lean:build:Silver/ProcedureNameActualReadings.lean:155:54:don't know how to synthesize placeholder for argument `position`",
+      "lean:build:Silver/ProcedureNameActualReadings.lean:184:35:don't know how to synthesize placeholder for argument `position`",
+      "lean:build:Silver/ProcedureNameActualReadings.lean:184:55:don't know how to synthesize placeholder",
+      "lean:build:Silver/ProcedureNameActualReadings.lean:185:34:don't know how to synthesize placeholder for argument `position`",
+      "lean:build:Silver/ProcedureNameActualReadings.lean:185:36:don't know how to synthesize placeholder for argument `after`"
+    ],
+    "reason": "Focused canonical call typing, payload-only alias separation, source/formal output-flow permutation and directly affected semantic consumers; concurrent native helper has4workers"
+  },
+  {
+    "run_id": "20261117T023800-3b3be4488b77",
+    "state": "failure",
+    "scope": [
+      "Silver.PredicateFunctionCallMeaning",
+      "Silver.PredicateProcedureBodyShape",
+      "Silver.PredicateProcedureCallMeaning",
+      "Silver.PredicateStatementFlags",
+      "Silver.PredicateStringBoundsSources"
+    ],
+    "workers": 12,
+    "duration_seconds": 12.857160839,
+    "failure_keys": [
+      "lean:build:Silver/PredicateStatementFlags.lean:200:27:unsolved goals",
+      "lean:build:Silver/PredicateStatementFlags.lean:213:6:Type mismatch: After simplification, term",
+      "lean:build:Silver/ProcedureNameActualReadings.lean:144:37:omega could not prove the goal:",
+      "lean:build:Silver/ProcedureNameActualReadings.lean:186:62:`simp` made no progress",
+      "lean:build:Silver/ProcedureNameActualReadings.lean:190:10:Type mismatch: After simplification, term",
+      "lean:build:Silver/ProcedureNameActualReadings.lean:202:62:`simp` made no progress",
+      "lean:build:Silver/ProcedureNameActualReadings.lean:203:42:This simp argument is unused:",
+      "lean:build:Silver/ProcedureNameActualReadings.lean:203:49:This simp argument is unused:",
+      "lean:build:Silver/ProcedureNameActualReadings.lean:203:69:This simp argument is unused:",
+      "lean:build:Silver/ProcedureNameActualReadings.lean:207:12:Type mismatch: After simplification, term"
+    ],
+    "reason": "Focused semantic repairs make tagged-span cursors explicit, adopt source-owner Fields draft and adapt full-domain flow readiness to association tail state"
+  },
+  {
+    "run_id": "20261117T023909-02c3d548e07a",
+    "state": "failure",
+    "scope": [
+      "Silver.PredicateFunctionCallMeaning",
+      "Silver.PredicateProcedureBodyShape",
+      "Silver.PredicateProcedureCallMeaning",
+      "Silver.PredicateStatementFlags",
+      "Silver.PredicateStringBoundsSources"
+    ],
+    "workers": 12,
+    "duration_seconds": 7.078758045,
+    "failure_keys": [
+      "lean:build:Silver/ProcedureNameAliasOrigins.lean:76:14:Function expected at"
+    ],
+    "reason": "Focused semantic proof repairs parenthesize replay Boolean, reduce tagged endpoint projection and use Boolean distributivity for statement flags"
+  },
+  {
+    "run_id": "20261117T023945-033243c67418",
+    "state": "failure",
+    "scope": [
+      "Silver.PredicateFunctionCallMeaning",
+      "Silver.PredicateProcedureBodyShape",
+      "Silver.PredicateProcedureCallMeaning",
+      "Silver.PredicateStatementFlags",
+      "Silver.PredicateStringBoundsSources"
+    ],
+    "workers": 12,
+    "duration_seconds": 4.314870877,
+    "failure_keys": [
+      "lean:build:Silver/ProcedureNameActualsApart.lean:85:10:Tactic `rewrite` failed: Did not find an occurrence of the pattern",
+      "lean:build:Silver/ProcedureNameActualsApart.lean:89:29:This simp argument is unused:",
+      "lean:build:Silver/ProcedureNameActualsApart.lean:89:41:This simp argument is unused:",
+      "lean:build:Silver/ProcedureNameActualsApart.lean:92:14:Tactic `rewrite` failed: Did not find an occurrence of the pattern"
+    ],
+    "reason": "Focused target-origin induction uses its retained writable hypothesis; alias reader and statement flags now compile"
+  },
+  {
+    "run_id": "20261117T024022-74ae8010ee6f",
+    "state": "failure",
+    "scope": [
+      "Silver.PredicateFunctionCallMeaning",
+      "Silver.PredicateProcedureBodyShape",
+      "Silver.PredicateProcedureCallMeaning",
+      "Silver.PredicateStatementFlags",
+      "Silver.PredicateStringBoundsSources"
+    ],
+    "workers": 12,
+    "duration_seconds": 4.315376127,
+    "failure_keys": [
+      "lean:build:Silver/PredicateProcedureUpdatesMeaning.lean:112:18:Tactic `apply` failed: could not unify the conclusion of `congrArg fun ranges => ?m.459`",
+      "lean:build:Silver/PredicateProcedureUpdatesMeaning.lean:137:6:Dependent elimination failed: Failed to solve equation",
+      "lean:build:Silver/PredicateProcedureUpdatesMeaning.lean:144:6:Dependent elimination failed: Failed to solve equation",
+      "lean:build:Silver/PredicateProcedureUpdatesMeaning.lean:249:12:Application type mismatch: The argument",
+      "lean:build:Silver/PredicateProcedureUpdatesMeaning.lean:254:12:Application type mismatch: The argument",
+      "lean:build:Silver/PredicateProcedureUpdatesMeaning.lean:300:12:Type mismatch: After simplification, term",
+      "lean:build:Silver/PredicateProcedureUpdatesMeaning.lean:301:12:Type mismatch: After simplification, term",
+      "lean:build:Silver/PredicateProcedureUpdatesMeaning.lean:302:6:Type mismatch: After simplification, term"
+    ],
+    "reason": "Focused pairwise alias proof respects constructor case reductions; each target origin and payload-only replay now compile"
+  },
+  {
+    "run_id": "20261117T024526-2c8941a93706",
+    "state": "failure",
+    "scope": [
+      "Silver.PredicateFunctionCallMeaning",
+      "Silver.PredicateProcedureBodyShape",
+      "Silver.PredicateProcedureCallMeaning",
+      "Silver.PredicateStatementFlags",
+      "Silver.PredicateStringBoundsSources"
+    ],
+    "workers": 12,
+    "duration_seconds": 4.21432696,
+    "failure_keys": [
+      "lean:build:Silver/PredicateProcedureUpdatesMeaning.lean:252:22:Application type mismatch: The argument",
+      "lean:build:Silver/PredicateProcedureUpdatesMeaning.lean:258:22:Application type mismatch: The argument"
+    ],
+    "reason": "Focused final procedure-meaning repair destructs association pairs before dependent elimination and normalizes the proven flow/map equalities; source slot released"
+  },
+  {
+    "run_id": "20261117T024754-5841dfd88330",
+    "state": "success",
+    "scope": [
+      "Silver.PredicateFunctionCallMeaning",
+      "Silver.PredicateProcedureBodyShape",
+      "Silver.PredicateProcedureCallMeaning",
+      "Silver.PredicateStatementFlags",
+      "Silver.PredicateStringBoundsSources"
+    ],
+    "workers": 12,
+    "duration_seconds": 19.766476926,
+    "failure_keys": [],
+    "reason": "Focused final tail meaning binds the payload-position scan and actual next record explicitly; source and root policy-control slots released"
   }
 ]
