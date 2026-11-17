@@ -8,8 +8,8 @@ procedures after reporting the Worca #377/#378 work unavailable. The
 selects [#392](https://github.com/berkeleynerd/silver/issues/392), in
 [milestone 25](https://github.com/berkeleynerd/silver/milestone/25), as the next
 language capability. [Stage #393](https://github.com/berkeleynerd/silver/issues/393)
-tracks its precise Rosetta construct; broad #11 remains separate. This record specifies authorized work, not delivered
-support. [#373](https://github.com/berkeleynerd/silver/issues/373) remains open
+tracks its precise Rosetta construct; broad #11 remains separate. This record
+specifies authorized work, not delivered support. [#373](https://github.com/berkeleynerd/silver/issues/373) remains open
 pending recovery; its implementations and the hold on draft PR #385 are preserved.
 
 Add ordinary Ada named associations to calls of existing Integer/Boolean scalar
@@ -126,8 +126,12 @@ no swap):
   found no defect in its 19-module slice and independently verified all 1,119
   captured input hashes.
 - The [source helper/library packet](evidence/named-scalar-arguments-392-20261117/source/README.md)
-  records full-domain helper interpretations and a fresh audit of 49,840
-  declarations. Final native-source candidate binding remains pending.
+  records full-domain helper interpretations and a fresh marker-helper audit
+  of 49,919 declarations. The
+  [independent source review](reviews/review-named-scalar-source-20261117.md)
+  found no static correspondence or domain defect in the frozen candidate slice
+  and checked its complete 76,980-token pin against native source. Final
+  candidate checking and the complete integrated audit remain pending.
 - The [behavior packet](evidence/named-scalar-arguments-392-20261117/behavior/README.md)
   records all 16 final named methods passing in 35.218 seconds, including full-route
   positives, source-size endpoints and discriminating rejection controls. The
