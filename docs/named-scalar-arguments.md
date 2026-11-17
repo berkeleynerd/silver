@@ -7,7 +7,8 @@ procedures after reporting the Worca #377/#378 work unavailable. The
 [dated instruction](session-memory.md#2026-11-17--named-scalar-arguments-selected-while-worca-recovery-awaits)
 selects [#392](https://github.com/berkeleynerd/silver/issues/392), in
 [milestone 25](https://github.com/berkeleynerd/silver/milestone/25), as the next
-language capability. This record specifies authorized work, not delivered
+language capability. [Stage #393](https://github.com/berkeleynerd/silver/issues/393)
+tracks its precise Rosetta construct; broad #11 remains separate. This record specifies authorized work, not delivered
 support. [#373](https://github.com/berkeleynerd/silver/issues/373) remains open
 pending recovery; its implementations and the hold on draft PR #385 are preserved.
 
@@ -149,7 +150,10 @@ repair uses one shared executable mark operation with a complete pointwise
 contract, checked before the tail recurrence and its loop caller. All 26 planned
 whole-subprogram scopes passed, covering 506 checks; the
 [native coverage ledger](evidence/named-scalar-arguments-392-20261117/native/coverage.md)
-records exact captured inputs and applicability. The catalogue exporter and its
+records exact captured inputs and applicability. The
+[independent native review](reviews/review-named-scalar-native-20261117.md)
+verified complete scope, unchanged dependency closures and final-source applicability.
+The catalogue exporter and its
 caller also passed their complete selected scopes. No unproved lemma is consumed
 and no domain, obligation or proof budget is weakened.
 
