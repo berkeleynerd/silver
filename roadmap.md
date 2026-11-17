@@ -39,6 +39,20 @@ affected Rosetta tests rerun after resolving the session-history conflict.
 
 ## Near-term feature queue
 
+**Current work, selected 2026-11-17.** The owner selected **named scalar
+arguments** for existing functions and procedures, with reordered named calls
+and positional-prefix/named-suffix calls, after confirming that Worca's #377/#378
+work is unavailable pending recovery. [#392](https://github.com/berkeleynerd/silver/issues/392),
+in [milestone 25](https://github.com/berkeleynerd/silver/milestone/25), owns the
+bounded [capability plan](docs/named-scalar-arguments.md). Named parameters is the
+faithful task driver. Defaults, new parameter types and effects are excluded;
+full-domain checking, conservative aliases, exact-source assurance and one
+shared complete validation checkpoint remain required. This is authorized work,
+not yet supported language. The
+[dated selection](docs/session-memory.md#2026-11-17--named-scalar-arguments-selected-while-worca-recovery-awaits)
+changes the immediate order below; #373 remains unfinished pending recovery,
+and draft PR #385 stays held.
+
 **Current delivery, merged 2026-11-17.** The owner authorized the bounded external-review
 repair [#391](https://github.com/berkeleynerd/silver/issues/391) on PR #371:
 two precisely bound flow advisories, full-route subprogram fixtures, five token
@@ -57,7 +71,7 @@ closed. No new external-review result is claimed.
 Linux ARM64 validation in [PR #371](https://github.com/berkeleynerd/silver/pull/371),
 milestone 23. The [delivery account](docs/scalar-procedures.md#delivery-assurance-and-validation)
 records accepted proof, regression and final delivery evidence.
-The owner has selected **proof iteration efficiency** as the next unit:
+The owner previously selected **proof iteration efficiency** as the next unit:
 [#373](https://github.com/berkeleynerd/silver/issues/373), in
 [milestone 24](https://github.com/berkeleynerd/silver/milestone/24).
 The [bounded plan](docs/proof-iteration-efficiency.md) records one coherent
@@ -72,9 +86,8 @@ Those local-only branches are not present in this checkout; preserve their
 ownership and obtain their evidence before review. #379 is the first unstarted
 coding increment. The [handoff record](docs/proof-iteration-efficiency.md#current-handoff--2026-11-17)
 links the recorded status; draft PR #385 remains held. This assessment starts no
-successor implementation.
-This queue takes precedence over older next-work statements below. No intervening
-language expansion or successor sample batch is selected; completed predecessor
+successor implementation at that assessment. The later named-argument selection
+above now takes precedence while recovery awaits. Completed predecessor
 issues #8, #246 and #39 remain closed. The canonical compiler policy and useful
 proof strategy are to be settled from focused evidence within #373.
 
@@ -158,8 +171,9 @@ The precise `scalar-procedures` fragment adds one faithful Rosetta mapping,
 **Return multiple values**, taking supported mappings from 83 to 84. Broad
 [#11](https://github.com/berkeleynerd/silver/issues/11) stays open at Stage 2
 for its remaining procedure/ranged-subtype/Image forms. No successor language
-feature is selected. Proof iteration efficiency #373 is next; the existing
-milestone-24 Worca implementations need handoff and integration as described above.
+feature was selected at that merge checkpoint. Named scalar arguments #392 is
+now selected above while the existing milestone-24 Worca implementations await
+recovery, handoff and integration.
 
 ### Small nonrecursive scalar functions
 

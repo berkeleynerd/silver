@@ -27,6 +27,13 @@ no generic scheduler, telemetry service or proof-identity framework is selected.
 
 ## Current handoff — 2026-11-17
 
+The owner subsequently confirmed the Worca artifacts unavailable and selected
+[named scalar arguments #392](named-scalar-arguments.md) as the immediate language
+work while recovery awaits. This package and all eight increments remain open;
+the implementations and explicit PR #385 hold are preserved. The remaining
+handoff below applies when the original branches and evidence become available.
+No #373 implementation was started during the current recovery investigation.
+
 The existing eight increments #377–#384 retain one shared final checkpoint in
 #384. [#377's issue record](https://github.com/berkeleynerd/silver/issues/377#issuecomment-6821158029)
 reports Worca's local implementation at `5e91e71be5`, with focused tests passed

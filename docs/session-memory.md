@@ -1,5 +1,38 @@
 # Session memory
 
+## 2026-11-17 — Named scalar arguments selected while Worca recovery awaits
+
+After authorizing the next-work handoff with **“Proceed”**, the owner reported
+the Worca #377/#378 artifacts **“unfortunately unavailable”** and suggested
+working on the next language feature while recovery awaits. Asked to choose a
+concrete scope, the owner selected **“Named scalar arguments (recommended): reuse
+the existing call semantics and support Rosetta’s Named parameters task.”** The
+question explicitly covered existing scalar functions and procedures, reordered
+named calls and positional-prefix/named-suffix calls, with defaults left for later.
+
+This authorizes the bounded implementation, full assurance, tests and reviewable
+publication of [#392](https://github.com/berkeleynerd/silver/issues/392), in
+[milestone 25](https://github.com/berkeleynerd/silver/milestone/25). The
+[capability plan](named-scalar-arguments.md) records complete matching, unchanged
+full-domain and incoming-state rules, payload-aware aliases and source
+correspondence. No new parameter types, defaults, effects, source-budget increase
+or Oracle amendment is selected. Use one shared complete validation checkpoint
+after focused checks. Local Linux validation remains required; no CI or mandatory
+kernel replay is requested.
+
+The proof-iteration package #373 and all eight increments remain unfinished and
+open. Preserve the unavailable Worca implementations and their review records;
+do not silently recreate them. Draft PR #385's explicit hold remains. This
+changes the immediate work order while recovery awaits. Read-only #379 policy
+inventory found no reason to raise the canonical 30-second compiler budget;
+no tooling implementation or proof run was started in that investigation.
+
+Current host is `silver-m4pro`, Linux aarch64, with 12 available managed CPUs
+and no active worker reservations at startup. Reassess memory and resource grants
+for each run; previous one-worker settings are not permanent defaults. Untracked
+review files, retained worktrees and caches remain preserved. CLI memory was not
+updated; project-board access still lacks `read:project`.
+
 ## 2026-11-17 — Scalar procedures merged; next-work assessment
 
 The owner instructed **“Let's merge and then determine what is the next unit
