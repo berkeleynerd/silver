@@ -18,8 +18,24 @@ replace complete compiler proof or the final whole-suite checkpoint.
 
 Managed events/logs, the tested source snapshots and the corrected probe are
 retained here. The [sample packet](sample/summary.json) retains all original
-SPARK/SARIF reports, source and output with hashes. The compiler source still
-contains an unconsumed ghost lemma with a pending native proof; behavior success
-does not erase that failure. Each application uses a newly created workspace,
+SPARK/SARIF reports, source and output with hashes. Those early snapshots predate the final shared mark operation; the later
+whole-helper native checks discharge that recurrence proof, and the final
+behavior runs below execute the compiled shared-mark implementation. Each application uses a newly created workspace,
 while the compiler build and retained Lean dependencies use caches as described.
 The later shared checkpoint must validate the final combined source.
+
+## Final implementation behavior checks
+
+The final incremental rebuild `20261117T033259-3ca6b2ad891b` recompiled both
+`silver_output_profile.adb` and `silver_catalogue.adb`, rebound/relinked Silver
+and retained the unchanged Image adapter. It was not a clean build.
+
+`20261117T033524-4250165f9b34` freshly passed all **16** named-argument methods
+in **35.218 seconds**, including the added Boolean-return, Boolean `in out`
+and procedure-to-procedure composition fixture. Positive programs use new
+application proof/build workspaces and check exact output; boundary/negative
+cases check admission. `20261117T033625-fc16dd2501f6` passed the compiled
+catalogue/JSON parity test. Both used four reserved workers alongside the
+guarded single-worker source-certificate batch, on the same Linux host and
+16 MiB stack. Final tested inputs are retained as `final-*.gz`; these checks
+still do not substitute for the integrated assurance and complete suite.

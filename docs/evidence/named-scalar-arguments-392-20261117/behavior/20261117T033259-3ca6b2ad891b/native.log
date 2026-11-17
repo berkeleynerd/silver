@@ -1,0 +1,9 @@
+Compile
+   [Ada]          silver_catalogue.adb
+   [Ada]          silver_output_profile.adb
+Bind
+   [gprbind]      silver.bexch
+   [Ada]          silver.ali
+Link
+   [link]         silver.adb
+gprbuild: "silver_image_adapter" up to date

@@ -1,0 +1,37 @@
+
+.silver/linux-aarch64/compiler/obj/silver_output_profile.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+000000000002fdd8 <silver_output_profile__mark_formal___wrapped_statements.65>:
+   2fdd8:	d10a03ff 	sub	sp, sp, #0x280
+   2fddc:	a9007bfd 	stp	x29, x30, [sp]
+   2fde0:	910003fd 	mov	x29, sp
+   2fde4:	a90153f3 	stp	x19, x20, [sp, #16]
+   2fde8:	aa0803f4 	mov	x20, x8
+   2fdec:	aa1203f3 	mov	x19, x18
+   2fdf0:	f90017f2 	str	x18, [sp, #40]
+   2fdf4:	f9400261 	ldr	x1, [x19]
+   2fdf8:	9100c3e0 	add	x0, sp, #0x30
+   2fdfc:	aa0103e3 	mov	x3, x1
+   2fe00:	d2804921 	mov	x1, #0x249                 	// #585
+   2fe04:	aa0103e2 	mov	x2, x1
+   2fe08:	aa0303e1 	mov	x1, x3
+   2fe0c:	94000000 	bl	0 <memcpy>
+   2fe10:	b9400a60 	ldr	w0, [x19, #8]
+   2fe14:	93407c00 	sxtw	x0, w0
+   2fe18:	9100bfe1 	add	x1, sp, #0x2f
+   2fe1c:	52800022 	mov	w2, #0x1                   	// #1
+   2fe20:	38206822 	strb	w2, [x1, x0]
+   2fe24:	aa1403e3 	mov	x3, x20
+   2fe28:	9100c3e0 	add	x0, sp, #0x30
+   2fe2c:	d2804921 	mov	x1, #0x249                 	// #585
+   2fe30:	aa0103e2 	mov	x2, x1
+   2fe34:	aa0003e1 	mov	x1, x0
+   2fe38:	aa0303e0 	mov	x0, x3
+   2fe3c:	94000000 	bl	0 <memcpy>
+   2fe40:	a9407bfd 	ldp	x29, x30, [sp]
+   2fe44:	a94153f3 	ldp	x19, x20, [sp, #16]
+   2fe48:	910a03ff 	add	sp, sp, #0x280
+   2fe4c:	d65f03c0 	ret

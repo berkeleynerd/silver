@@ -128,7 +128,7 @@ no swap):
   records full-domain helper interpretations and a fresh audit of 49,840
   declarations. Final native-source candidate binding remains pending.
 - The [behavior packet](evidence/named-scalar-arguments-392-20261117/behavior/README.md)
-  records all 15 named methods passing in 32.099 seconds, including full-route
+  records all 16 final named methods passing in 35.218 seconds, including full-route
   positives, source-size endpoints and discriminating rejection controls. The
   Named parameters sample compiled with unchanged source and produced its four
   independently derived output lines. Its five-unit report audit counted 20
@@ -140,14 +140,24 @@ no swap):
   derive an unchanged 49,279,744-byte retained-report envelope in 64 MiB. Selectors
   add source bytes while preserving each actual's delimiter/payload reservation.
 
-The remaining native recurrence proof encountered separately translated array
+The native recurrence proof initially encountered separately translated array
 updates with finite element equations, obstructing recursive-function map
 congruence. A bounded `Hide_Info` experiment did not resolve that issue; its
 annotations and source-policy allowance were withdrawn, with failed attempts
-and passing experimental-policy controls retained as history. The independently
-reviewed next repair uses one shared executable mark operation with a complete
-pointwise contract, checked before the tail recurrence and its loop caller.
-No unproved lemma is consumed and no domain, obligation or proof budget is weakened.
+and passing experimental-policy controls retained as history. The completed
+repair uses one shared executable mark operation with a complete pointwise
+contract, checked before the tail recurrence and its loop caller. All 26 planned
+whole-subprogram scopes passed, covering 506 checks; the
+[native coverage ledger](evidence/named-scalar-arguments-392-20261117/native/coverage.md)
+records exact captured inputs and applicability. The catalogue exporter and its
+caller also passed their complete selected scopes. No unproved lemma is consumed
+and no domain, obligation or proof budget is weakened.
+
+The [compiled storage inspection](evidence/named-scalar-arguments-392-20261117/stack/README.md)
+accounts for the 585-slot visited set and transient by-value mark operation.
+It reports local frame sizes, not a universal stack bound or a memory improvement.
+Final behavior and catalogue parity checks passed after rebuilding both changed
+Ada units.
 
 The [setup record](evidence/named-scalar-arguments-392-20261117/setup/README.md)
 records the native-filesystem Lean overlays and unchanged donor caches. Native
