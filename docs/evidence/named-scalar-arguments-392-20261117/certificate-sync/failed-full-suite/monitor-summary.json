@@ -1,0 +1,66 @@
+{
+  "host": "Linux-7.0.14-aarch64-with-glibc2.41",
+  "sample_count": 30,
+  "interval_seconds": 35,
+  "first_sample": "2026-11-17T07:07:09.856143+00:00",
+  "last_sample": {
+    "timestamp": "2026-11-17T07:24:05.158495+00:00",
+    "root_pid": 505788,
+    "root_alive": false,
+    "tree_process_count": 0,
+    "tree_rss_sum_kib": 0,
+    "largest_process": null,
+    "mem_available_kib": 15480368,
+    "swap_total_kib": 0,
+    "swap_free_kib": 0,
+    "filesystems": {
+      ".": {
+        "available_bytes": 673926770688,
+        "total_bytes": 999995129856,
+        "available_inodes": 2286348824
+      },
+      "/home/agent/silver-workspaces/recovery-volume": {
+        "available_bytes": 1977540608,
+        "total_bytes": 33501757440,
+        "available_inodes": 1551811
+      },
+      "/tmp": {
+        "available_bytes": 4161814528,
+        "total_bytes": 20957446144,
+        "available_inodes": 1048272
+      }
+    },
+    "log_bytes": 1820840,
+    "observed_test_results": 699,
+    "observed_errors": [
+      "  test_checked_in_certificates_equal_regeneration (test_lean_source.CompilerSourcePolicyTests.test_checked_in_certificates_equal_regeneration) (source='silver_output_profile.adb') ... FAIL",
+      "test_checked_in_certificates_equal_regeneration (test_lean_source.CompilerSourcePolicyTests.test_checked_in_certificates_equal_regeneration) ... FAIL",
+      "test_output_body_split_preserves_every_line_proof_and_ordered_reconstruction (test_lean_source.CompilerSourcePolicyTests.test_output_body_split_preserves_every_line_proof_and_ordered_reconstruction) ... FAIL",
+      "FAIL: test_checked_in_certificates_equal_regeneration (test_lean_source.CompilerSourcePolicyTests.test_checked_in_certificates_equal_regeneration) (source='silver_output_profile.adb')",
+      "FAIL: test_checked_in_certificates_equal_regeneration (test_lean_source.CompilerSourcePolicyTests.test_checked_in_certificates_equal_regeneration)",
+      "FAIL: test_output_body_split_preserves_every_line_proof_and_ordered_reconstruction (test_lean_source.CompilerSourcePolicyTests.test_output_body_split_preserves_every_line_proof_and_ordered_reconstruction)",
+      "FAILED (failures=3, skipped=2)"
+    ],
+    "tail": [
+      "FAILED (failures=3, skipped=2)",
+      "development command: Command '['/usr/bin/python3', '-m', 'unittest', 'discover', '-s', 'tests', '-v']' returned non-zero exit status 1."
+    ],
+    "process_tree": []
+  },
+  "run": "20261117T070433-0b21916222cf",
+  "root_pid": 505788,
+  "root_alive_last": false,
+  "peak_sampled_tree_rss_sum_kib": 1786224,
+  "minimum_sampled_mem_available_kib": 13966592,
+  "minimum_sampled_available_disk_bytes": {
+    ".": 673926762496,
+    "/home/agent/silver-workspaces/recovery-volume": 1688641536,
+    "/tmp": 4097953792
+  },
+  "scope_limits": [
+    "Monitoring began after suite launch.",
+    "RSS is a sampled process-tree sum and may double count shared memory; not an exact peak.",
+    "Log parsing is progress only; root collector owns exact IDs, results and actual exit.",
+    "No suite/proof/build runs or signals issued by monitor."
+  ]
+}
