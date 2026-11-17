@@ -1,0 +1,29 @@
+{
+  "command": [
+    "python3",
+    "scripts/check_lean.py",
+    "--memory-mb",
+    "8192",
+    "--provenance",
+    "--task",
+    "#392-source-candidates",
+    "--reason",
+    "Both repaired complete candidate modules passed run 20261117T040126-ff9bd176a52b with fresh 19120-declaration audit. Recheck the original three-candidate union after the retained two-script failure, now using matching cached parts and complete source statements. Only the function aggregator may newly build; automatic available workers alongside native four workers, default threads, existing 10 GiB tree and 1.5 GiB host guards. No native, pin, contract or budget changes; preserve all objects, no clean or replay.",
+    "--target",
+    "Silver.PredicateAssociationWholeSourceCandidate",
+    "--target",
+    "Silver.FunctionSourceCandidate",
+    "--target",
+    "Silver.PredicateProcedureCallWholeSourceCandidate"
+  ],
+  "cwd": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392",
+  "started_at": "2026-11-17T04:02:32.974761+00:00",
+  "peak_sum_rss_kib": 1211024,
+  "peak_process_rss_kib": 1076864,
+  "minimum_mem_available_kib": 13249904,
+  "pid": 397676,
+  "returncode": 0,
+  "elapsed_seconds": 10.017191254999489,
+  "finished_at": "2026-11-17T04:02:42.991941+00:00",
+  "interrupted": false
+}

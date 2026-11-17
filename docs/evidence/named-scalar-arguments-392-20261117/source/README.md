@@ -152,3 +152,76 @@ A later added function-loop source part increases the affected graph; the final
 lead inventory must use the final source. Serialize the dense checkpoint after
 other writers release, retain successful objects, and reassess if a continuation
 is needed. This does not claim that the complete checkpoint has run.
+
+The first final-pin candidate batch `20261117T033146-10e4c23dfa78` failed before
+its union audit. All new association, marker, function tail/advance/loop and
+procedure payload/alias/update parts compiled; the association whole candidate
+compiled. Two local proof scripts failed: `CallsActualsModelSpec` still expanded
+the old recursive wrapper header, including its removed subprogram variant;
+the procedure whole-candidate loop membership simplifier traversed the large
+embedded token payloads and exceeded the default recursion depth. This is a
+failed batch, not a candidate-union success. The complete original output,
+managed start/events, resource samples, original 24-file ownership inventory and
+all 1,142 rehashed input files are retained in [candidate-r1-failed](candidate-r1-failed/verification.json).
+Build time was 1,390.308 s (managed 1,392.892 s). Peak tree RSS was 6,639,264 KiB,
+peak process RSS 5,574,192 KiB and minimum host available memory 8,911,744 KiB;
+no resource interruption occurred.
+
+The bounded diagnostic repair preserves both complete theorem statements,
+all domains, source bytes, the reviewed pin, all three procedure loop parts and
+existing budgets. Replace the stale function-header proof body with kernel
+reduction of its current declared statement and remove its two obsolete proof
+imports. Replace broad simplification of procedure loop membership with three
+constructor membership cases. First check those two modules over their complete
+statements; then repeat the original cached candidate union for a fresh audit.
+Only those light scripts and the function aggregator are newly affected, so the
+retry uses automatic available workers, default threads and the existing memory
+guards. The native complete run holds four workers; the managed runner currently
+has eight available. No dense source pin or native input changed, and no cache
+is cleaned or replayed. A new final inventory will include the added function
+header file; the failed 24-file inventory remains immutable.
+
+The two bounded repairs passed their complete focused check in
+`20261117T040126-ff9bd176a52b`: 151 modules, 19,120 declarations and standard
+foundations only. Build 5.924 s; fresh audit 1.009 s; runner elapsed 13.523 s.
+The original three-candidate union then passed in
+`20261117T040233-3ed92ba6662c`: 243 modules and 20,793 declarations, standard
+foundations only; build 1.916 s, fresh audit 0.893 s, runner elapsed 9.081 s.
+Both used eight automatically allocated workers, default twelve threads and
+8,192 MiB per-process threshold alongside four native workers. The guards did
+not interrupt either run. Their respective peak tree RSS values were
+2,344,544 KiB and 1,211,024 KiB; minimum available host memory was 12,912,864 KiB
+and 13,249,904 KiB. The successful candidates reuse the preserved individual
+parts from the failed first batch; no clean build or replay is claimed.
+
+[Repair evidence](candidate-repair-check/evidence.json) and
+[union evidence](candidate-union-check/evidence.json) retain the exact commands,
+logs, managed events and resource samples. For each success, all 1,142
+repository inputs, 1,037 workspace inputs, two tools, 6,202 artifacts and the
+saved log were independently rehashed against provenance. Repository and
+workspace input archives were rehashed again after capture. The
+[two-file patch](candidate-two-script-repair.patch.gz),
+[before/after hashes](candidate-two-script-repair-hashes.json), and
+[final 25-file ownership inventory](final-owned-files.json) distinguish the
+bounded repair from the retained failed 24-file snapshot. Only source-owned
+files and this evidence belong in the source commit; borrowed semantic and
+native dependencies remain excluded.
+
+Independent read-only source review confirmed that the two repairs preserve
+complete statements, domains, axioms and budgets. It independently rehashed all
+1,142 failed-run inputs and found exactly those two changed proof files. The
+native output implementation remains SHA256
+`de017ca035a5ffd358d5fa98646d017dfe4ef54bd822fafc40743a9a8ae66f53`,
+and the reviewed complete output pin remains
+`7d034eaaa79d6f3175ebd957eda8a493b6e2290d1904e654bac8469cd1616383`.
+The catalogue dependency is
+`2e46a16831e048dd64299a7bb31e554e9e478e7daa1a1eb79922be2bc34ccfab`.
+The lead maintains the independent review report and its final disposition.
+
+This closes the source-owned focused candidate work. The complete integrated
+Lean source/provenance and axiom/coverage check remains outstanding on the
+lead's combined commit; it must use the exact integrated bytes and preserve this
+cache. The native complete checkpoint is separately lead-owned. Source
+correspondence/diagnosis selected the project Astra Max category; runtime
+model/effort and token/cost measurements are not independently exposed. No CLI
+memory update or publication is claimed.

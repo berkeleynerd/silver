@@ -210,13 +210,13 @@ def updatesCall : StaticCall :=
   let callAfter : Expr .number := .variable "call_after"
   ⟨apply9 (.function .updatesModel) text context (.field .scanFacts scan) scan catalog
       (.variable "first") last callFirst callAfter,
-   apply9 (.function .updatesModel) text context (.field .scanFacts scan) (.variable "current") catalog
-      (.variable "index") last callFirst callAfter⟩
+   apply12 (.function .updatesTail) text context (.field .scanFacts scan) (.variable "current") catalog
+      (.variable "first") last (.variable "index") (.variable "named") (.variable "seen") callFirst callAfter⟩
 
 def updatesScope : Scope :=
   [(.source, "text"), (.context, "context"), (.scan, "scan"), (.scan, "current"),
    (.metadata, "catalog"), (.number, "first"), (.number, "index"), (.number, "last"),
-   (.number, "call_first"), (.number, "call_after")]
+   (.number, "call_first"), (.number, "call_after"), (.truth, "named"), (.formalSet, "seen")]
 
 theorem updates_call_checked :
     updatesCall.wellFormed = true ∧ updatesCall.scoped updatesScope = true ∧
