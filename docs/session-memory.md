@@ -1,5 +1,16 @@
 # Session memory
 
+## 2026-11-18 — Pull request #402 merged at the Worca merge gate
+
+The owner approved the merge of [#402](https://github.com/berkeleynerd/silver/pull/402) (Correct named-argument claims and strengthen range tests) on a Worca approval card on 2026-11-18 at 16:20 UTC (Worca run `2f30cf14`).
+It was merged as `faad5a628ad90a803191257e633d291dfb31751d`. The externally reviewed commit is `9b5b2d99aaf6f4bfca5226b36af744502b095990`; the merged head is `9b5b2d99aaf6f4bfca5226b36af744502b095990`.
+Issues closed by the merge: #397. The response to the review is at https://github.com/berkeleynerd/silver/pull/402#issuecomment-6984451220.
+
+The card was offered only because the response rated the pull request ready as it stood, no blocker or medium finding was open,
+no check was failing and the head matched the reviewed commit apart from record files. The Worca UI ran without sign-in, so the
+approval is not tied to an authenticated identity. Where the pull request delivers a capability, the roadmap's delivery record is
+still owed; this entry does not replace it. Written by the workflow's merge step; CLI memory was not updated.
+
 ## 2026-11-17 — Work on #397 and #398 authorized at the Worca gate
 
 The owner approved **“Authorize this work”** on a Worca approval card on 2026-11-17 at 23:26 UTC (Worca run `df60f2ef`). Under the
