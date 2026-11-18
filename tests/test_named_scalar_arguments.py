@@ -144,6 +144,28 @@ class NamedScalarArgumentTests(unittest.TestCase):
             with self.subTest(objects=objects, actuals=args):
                 self.check(program(procedure + objects, b'P(' + args + b');'), 2)
 
+    def test_function_disjoint_ranges_follow_named_formal(self) -> None:
+        declaration = (b'subtype Low is Integer range 0..9;'
+                       b'subtype High is Integer range 40..59;'
+                       b'function F(L:in Low;H:in High)return Integer is '
+                       b'begin return (L+H);end F;R:Integer:=0;')
+        # Binding by written position reverses both reordered verdicts.
+        for args, expected in ((b'5,50', 0), (b'50,5', 2),
+                               (b'H=>50,L=>5', 0), (b'H=>5,L=>50', 2)):
+            with self.subTest(actuals=args):
+                self.check(program(declaration, b'R:=F(' + args + b');'), expected)
+
+    def test_procedure_disjoint_ranges_follow_named_formal(self) -> None:
+        declaration = (b'subtype Low is Integer range 0..9;'
+                       b'subtype High is Integer range 40..59;'
+                       b'procedure P(L:in Low;H:in High;Result:out Integer)is '
+                       b'begin Result:=(L+H);end P;R:Integer:=0;')
+        for args, expected in ((b'5,50,R', 0), (b'50,5,R', 2),
+                               (b'H=>50,L=>5,Result=>R', 0),
+                               (b'H=>5,L=>50,Result=>R', 2)):
+            with self.subTest(actuals=args):
+                self.check(program(declaration, b'P(' + args + b');'), expected)
+
     def test_named_inout_preserves_both_containment_checks(self) -> None:
         declaration = (b'subtype Small is Integer range 0..9;'
                        b'procedure P(X:in out Small)is begin X:=0;end P;')

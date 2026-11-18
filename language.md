@@ -672,6 +672,12 @@ target receives the corresponding formal's full declared interval, discarding
 its previous target refinement. Boolean results retain no predicate relation.
 Every other caller value, String/array store and path fact is preserved.
 
+All Main, function and procedure declarations and bodies share the existing
+4,096-byte source and 63-operator limits. Existing per-expression limits remain;
+no budget resets at a procedure boundary. Signature/formal storage is pooled and
+derived from the admitted source spellings. Report capacity and exact native
+initialization/copy-back obligations are recorded with the capability evidence.
+
 ### Named scalar argument associations
 
 Calls of the admitted scalar functions and procedures accept fully positional
@@ -707,12 +713,6 @@ The function in [Named parameters](samples/rosetta_named_parameters.adb) makes
 these bindings observable. The same association syntax applies to existing
 procedure `in`, `out` and `in out` formals, subject to their unchanged payload
 and alias rules.
-
-All Main, function and procedure declarations and bodies share the existing
-4,096-byte source and 63-operator limits. Existing per-expression limits remain;
-no budget resets at a procedure boundary. Signature/formal storage is pooled and
-derived from the admitted source spellings. Report capacity and exact native
-initialization/copy-back obligations are recorded with the capability evidence.
 
 ### Character objects and fixed-bound String indexing
 

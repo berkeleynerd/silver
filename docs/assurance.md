@@ -163,7 +163,7 @@ exercise these rules; they do not replace complete compiler or source proofs.
 
 The [named scalar increment](named-scalar-arguments.md) retains the existing
 formal-order function and procedure semantics. It adds source readings for
-positional, named and mixed actual lists. `ScalarAssociations.FreshSelections`
+positional, named and mixed actual lists. `ScalarAssociations.FreshSelections.nodup`
 proves distinct selected formal indices; `selections_complete` derives complete
 coverage from distinctness, the callee slice bounds and exact argument count.
 `arrange_permutation` then proves that formal-order payloads are a permutation
