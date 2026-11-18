@@ -1,5 +1,37 @@
 # Session memory
 
+## 2026-11-17 — Work on #397 and #398 authorized at the Worca gate
+
+The owner approved **“Authorize this work”** on a Worca approval card on 2026-11-17 at 23:26 UTC (Worca run `df60f2ef`). Under the
+[gate rule](planning.md#the-board), that approval is the authorization. It covers the work these issues describe, as
+they read at the time of approval:
+
+- [#397](https://github.com/berkeleynerd/silver/issues/397) review-07422ad claims-1: [low] Correct the named-parameters sample capability (text hash `dd806579911a1d7b`)
+- [#398](https://github.com/berkeleynerd/silver/issues/398) review-07422ad info-items: [info] Correct wording and range tests; defer repeated parsing (text hash `320a6753e41f88ef`)
+
+It authorizes nothing else: no merge, no amendment of a guarantee and no work on another issue. The existing
+validation, review and merge rules apply to the result. The Worca UI ran without sign-in, so the approval is
+not tied to an authenticated identity. This entry was written by the workflow's recording step; CLI memory
+was not updated.
+
+## 2026-11-17 — Approval at a Worca gate authorizes work in the workflow chain
+
+While the Silver workflow chain on Worca was being built
+([#396](https://github.com/berkeleynerd/silver/issues/396)), the owner required
+that every authorization be asked for in the Worca UI, with what must be read
+presented there, and decided: **“I agree that my approval at the Worca gate is
+the authorization.”** Asked whether the recording entry should land through a
+pull request or directly, the owner decided: **“I agree that the card should be
+the only step.”** The owner also stated that LAN sign-in for the Worca UI is
+not required at this point.
+
+[Planning](planning.md#the-board) now states the rule. For work that travels
+the chain, a gate approval authorizes the named issues as they read at approval;
+the workflow's recording step commits a dated entry here on `main` and comments
+on each issue. It authorizes nothing else, amends no guarantee, and leaves merge
+a separate decision. No work is authorized by this entry itself. CLI memory was
+not updated.
+
 ## 2026-11-17 — Named scalar arguments validated for reviewable publication
 
 The owner-selected #392 capability is complete on Linux aarch64. The
