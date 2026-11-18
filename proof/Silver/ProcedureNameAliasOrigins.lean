@@ -43,65 +43,37 @@ theorem procedureWritableUpdate_position (scan : BodyScan) (parameter : Procedur
   unfold procedureWritableUpdate
   split <;> rfl
 
-/-- Every retained writable actual has its own accepted prior exclusion,
-starting at the original call's opening parenthesis. -/
-theorem ProcedureUpdateAt.targetOrigin {text context incoming parameter callFirst callAfter scan object result}
-    (source : ProcedureUpdateAt text context incoming parameter callFirst callAfter scan (.target object) result)
-    (positionBound : scan.position ≤ text.length + 1) :
-    ∃ first after, scan.position ≤ first ∧ CellSpelling text context first after (targetCell object) ∧
-      ActualNameFreeTrace text first first after callFirst := by
+/-- A writable payload retains the source spelling and the complete replay
+that checked every other payload, including inputs before this occurrence. -/
+theorem ProcedureUpdateAt.targetOrigin {text context incoming parameter catalog first last callFirst callAfter scan object result}
+    (source : ProcedureUpdateAt text context incoming parameter catalog first last callFirst callAfter scan (.target object) result) :
+    ∃ nameFirst, CellSpelling text context nameFirst result.position (targetCell object) ∧
+      procedurePayloadsFree text context callFirst incoming catalog first last callAfter nameFirst result.position = true := by
   cases source with
-  | writable _ accepted _ _ before _ =>
-      have skipped := ScalarExpression.skip_bounds text scan.position positionBound
-      change scan.position ≤ skipAt text scan.position ∧ skipAt text scan.position ≤ text.length + 1 at skipped
-      exact ⟨_, _, by rw [procedureTargetActual_first accepted]; exact skipped.1,
-        procedureTargetActual_spelling accepted, before⟩
+  | writable _ accepted _ _ free =>
+      simp only [procedureWritableUpdate_position]
+      exact ⟨_, procedureTargetActual_spelling accepted, free⟩
 
-theorem ProcedureUpdatesAt.targetOrigin {text context incoming catalog callFirst callAfter scan first last actuals result object}
-    (source : ProcedureUpdatesAt text context incoming catalog callFirst callAfter scan first last actuals result)
-    (positionBound : scan.position ≤ text.length + 1) (member : Actual.target object ∈ actuals) :
-    ∃ nameFirst nameAfter, scan.position ≤ nameFirst ∧ CellSpelling text context nameFirst nameAfter (targetCell object) ∧
-      ActualNameFreeTrace text nameFirst nameFirst nameAfter callFirst := by
+theorem ProcedureUpdatesTailAt.targetOrigin
+    {text context incoming catalog first last callFirst callAfter scan ordinal named seen entries result entry object}
+    (source : ProcedureUpdatesTailAt text context incoming catalog first last callFirst callAfter scan ordinal named seen entries result)
+    (member : entry ∈ entries) (writable : entry.2.actual = .target object) :
+    ∃ nameFirst, CellSpelling text context nameFirst entry.2.after (targetCell object) ∧
+      procedurePayloadsFree text context callFirst incoming catalog first last callAfter nameFirst entry.2.after = true := by
   induction source with
-  | last step _ =>
+  | last _ _ step _ =>
       have same := List.mem_singleton.mp member
-      rw [← same] at step
-      exact step.targetOrigin positionBound
-  | @next scan first last actual next actuals result _ step comma rest ih =>
+      subst entry
+      dsimp only at writable ⊢
+      rw [writable] at step
+      exact step.targetOrigin
+  | next _ _ _ step _ rest ih =>
       rcases List.mem_cons.mp member with same | later
-      · rw [← same] at step
-        exact step.targetOrigin positionBound
-      · have stepAdvance := step.actual.advance positionBound
-        have commaAdvance := Compose.Expressions.model_fixed_advances text _ "," false step.actual.bounded (by decide) comma
-        have commaBound := fixedAfter_result_bound text next.position "," false (by decide)
-        obtain ⟨nameFirst, nameAfter, ordered, spelling, before⟩ := ih commaBound later
-        refine ⟨nameFirst, nameAfter, ?_, spelling, before⟩
-        change fixedAfter text _ "," false ≤ nameFirst at ordered
-        omega
-
-/-- Prefix traversal is constructed from the already processed source actuals.
-It converts a later writable actual's native prior check to the current
-actual's cursor; no semantic separation is assumed. -/
-def ActualPrefixAt (text : Source) (context : ParseContext) (callFirst position : Nat) : Prop :=
-  ∀ first after cell, position ≤ first → CellSpelling text context first after cell → cell.InScalarNamespace →
-    ActualNameFreeTrace text first first after callFirst → ActualNameFreeTrace text first first after position
-
-theorem ActualPrefixAt.start (text : Source) (context : ParseContext) (position : Nat) :
-    ActualPrefixAt text context position position := by
-  intro first after cell ordered spelling bounded source
-  exact source
-
-theorem ActualPrefixAt.next {text context callFirst position facts parameter actual after}
-    (prior : ActualPrefixAt text context callFirst position)
-    (source : ProcedureActualAt text context position facts parameter actual after)
-    (positionBound : position ≤ text.length + 1) (comma : fixedAfter text after "," false ≠ 0) :
-    ActualPrefixAt text context callFirst (fixedAfter text after "," false) := by
-  intro first finish cell ordered spelling bounded before
-  have stepAdvance := source.advance positionBound
-  have commaAdvance := Compose.Expressions.model_fixed_advances text after "," false source.bounded (by decide) comma
-  have atStart := prior first finish cell (by omega) spelling bounded before
-  obtain ⟨_, afterActual⟩ := atStart.procedureActual source positionBound (by omega) spelling bounded
-  exact afterActual.fixedSymbol (byte := ',') source.bounded (by unfold OrdinarySymbol; decide) comma ordered
+      · subst entry
+        dsimp only at writable ⊢
+        rw [writable] at step
+        exact step.targetOrigin
+      · exact ih later
 
 theorem target_apart_avoids (object : ScalarFunctions.Target) (actual : ScalarProcedures.Actual) :
     Actual.apart (.target object) actual = Actual.avoids (targetCell object) actual := by

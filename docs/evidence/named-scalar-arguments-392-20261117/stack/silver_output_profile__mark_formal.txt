@@ -1,0 +1,76 @@
+
+.silver/linux-aarch64/compiler/obj/silver_output_profile.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+000000000002fe50 <silver_output_profile__mark_formal>:
+   2fe50:	d10ac3ff 	sub	sp, sp, #0x2b0
+   2fe54:	a9007bfd 	stp	x29, x30, [sp]
+   2fe58:	910003fd 	mov	x29, sp
+   2fe5c:	a90153f3 	stp	x19, x20, [sp, #16]
+   2fe60:	f90013f5 	str	x21, [sp, #32]
+   2fe64:	aa0803f3 	mov	x19, x8
+   2fe68:	f9001fe0 	str	x0, [sp, #56]
+   2fe6c:	b90037e1 	str	w1, [sp, #52]
+   2fe70:	910ac3e0 	add	x0, sp, #0x2b0
+   2fe74:	f90153e0 	str	x0, [sp, #672]
+   2fe78:	f9401fe0 	ldr	x0, [sp, #56]
+   2fe7c:	f9014be0 	str	x0, [sp, #656]
+   2fe80:	b94037e0 	ldr	w0, [sp, #52]
+   2fe84:	b9029be0 	str	w0, [sp, #664]
+   2fe88:	910a43e0 	add	x0, sp, #0x290
+   2fe8c:	910103e1 	add	x1, sp, #0x40
+   2fe90:	aa0103e8 	mov	x8, x1
+   2fe94:	aa0003f2 	mov	x18, x0
+   2fe98:	97ffffd0 	bl	2fdd8 <silver_output_profile__mark_formal___wrapped_statements.65>
+   2fe9c:	52800021 	mov	w1, #0x1                   	// #1
+   2fea0:	52800020 	mov	w0, #0x1                   	// #1
+   2fea4:	b902afe0 	str	w0, [sp, #684]
+   2fea8:	b942afe0 	ldr	w0, [sp, #684]
+   2feac:	7109241f 	cmp	w0, #0x249
+   2feb0:	540002cc 	b.gt	2ff08 <silver_output_profile__mark_formal+0xb8>
+   2feb4:	b982afe0 	ldrsw	x0, [sp, #684]
+   2feb8:	9100ffe2 	add	x2, sp, #0x3f
+   2febc:	38606842 	ldrb	w2, [x2, x0]
+   2fec0:	b9429be0 	ldr	w0, [sp, #664]
+   2fec4:	b942afe3 	ldr	w3, [sp, #684]
+   2fec8:	6b00007f 	cmp	w3, w0
+   2fecc:	540000c0 	b.eq	2fee4 <silver_output_profile__mark_formal+0x94>  // b.none
+   2fed0:	b982afe0 	ldrsw	x0, [sp, #684]
+   2fed4:	f9414be3 	ldr	x3, [sp, #656]
+   2fed8:	8b000060 	add	x0, x3, x0
+   2fedc:	385ff000 	ldurb	w0, [x0, #-1]
+   2fee0:	14000002 	b	2fee8 <silver_output_profile__mark_formal+0x98>
+   2fee4:	52800020 	mov	w0, #0x1                   	// #1
+   2fee8:	6b02001f 	cmp	w0, w2
+   2feec:	54000060 	b.eq	2fef8 <silver_output_profile__mark_formal+0xa8>  // b.none
+   2fef0:	52800001 	mov	w1, #0x0                   	// #0
+   2fef4:	14000005 	b	2ff08 <silver_output_profile__mark_formal+0xb8>
+   2fef8:	b942afe0 	ldr	w0, [sp, #684]
+   2fefc:	11000400 	add	w0, w0, #0x1
+   2ff00:	b902afe0 	str	w0, [sp, #684]
+   2ff04:	17ffffe9 	b	2fea8 <silver_output_profile__mark_formal+0x58>
+   2ff08:	52000020 	eor	w0, w1, #0x1
+   2ff0c:	12001c00 	and	w0, w0, #0xff
+   2ff10:	7100001f 	cmp	w0, #0x0
+   2ff14:	54000100 	b.eq	2ff34 <silver_output_profile__mark_formal+0xe4>  // b.none
+   2ff18:	90000000 	adrp	x0, 0 <silver_output_profile__token_kindH>
+   2ff1c:	91000014 	add	x20, x0, #0x0
+   2ff20:	90000000 	adrp	x0, 0 <silver_output_profile__token_kindH>
+   2ff24:	91000015 	add	x21, x0, #0x0
+   2ff28:	aa1403e0 	mov	x0, x20
+   2ff2c:	aa1503e1 	mov	x1, x21
+   2ff30:	94000000 	bl	0 <system__assertions__raise_assert_failure>
+   2ff34:	aa1303e3 	mov	x3, x19
+   2ff38:	910103e0 	add	x0, sp, #0x40
+   2ff3c:	d2804921 	mov	x1, #0x249                 	// #585
+   2ff40:	aa0103e2 	mov	x2, x1
+   2ff44:	aa0003e1 	mov	x1, x0
+   2ff48:	aa0303e0 	mov	x0, x3
+   2ff4c:	94000000 	bl	0 <memcpy>
+   2ff50:	a9407bfd 	ldp	x29, x30, [sp]
+   2ff54:	a94153f3 	ldp	x19, x20, [sp, #16]
+   2ff58:	f94013f5 	ldr	x21, [sp, #32]
+   2ff5c:	910ac3ff 	add	sp, sp, #0x2b0
+   2ff60:	d65f03c0 	ret

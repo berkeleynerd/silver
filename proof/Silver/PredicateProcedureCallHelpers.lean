@@ -44,46 +44,59 @@ theorem normalized_actual (meaning : ImportsMeaning calls) (defs : DefinitionEqu
       _ = _ := actual_model ..
   · rfl
 
-/-- The source recursive model is interpreted by its remaining formal suffix.
-The recursive call stays arbitrary until this induction establishes its meaning. -/
-theorem normalized_actualsModel_at (meaning : ImportsMeaning calls) (defs : DefinitionEquations calls)
+/-- The ordinal counts written actuals; selection retains the fixed formal
+slice and incoming flow, including all rejection branches. -/
+theorem normalized_actualsTail_at (meaning : ImportsMeaning calls) (defs : DefinitionEquations calls)
     (text : Source) (context : Native.Context) (position : Nat) (facts : ActiveFlow)
-    (catalog : ProcedureBindings.Metadata) (first last : Nat) :
-    totalizeCalls calls .actualsModel text context position facts catalog first last =
-      modelCalls .actualsModel text context position facts catalog first last := by
+    (catalog : ProcedureBindings.Metadata) (first last ordinal : Nat) (named : Bool) (seen : FormalSet) :
+    totalizeCalls calls .actualsTail text context position facts catalog first last ordinal named seen =
+      modelCalls .actualsTail text context position facts catalog first last ordinal named seen := by
   classical
+  change (if ActualsTailDomain text context position facts catalog first last ordinal then _ else _) = _
+  split
+  · rename_i valid
+    rw [defs.actualsTail text context position facts catalog first last ordinal named seen valid]
+    calc
+      _ = actualsTailBody.eval modelCalls
+          ({text,context,position,facts,catalog,first,last,ordinal,named,seen} : Frame).locals := by
+        dsimp +instances only [List.foldr, Token.shell, actualsTailBody, Expr.eval, Frame.locals, Locals.set,
+          Field.get, apply3, apply5, apply7, apply10]
+        simp only [meaning.token, meaning.association, meaning.markFormal, normalized_actual meaning defs, reduceCtorEq,
+          String.reduceEq, ↓reduceIte, ↓reduceDIte]
+        by_cases final : ordinal = last
+        · simp only [final, decide_true, ↓reduceIte]
+        · have advancing : ordinal < last := by have ordered := valid.2.2.2.2.1; omega
+          have recurse := normalized_actualsTail_at meaning defs text context
+            (tokenAfter text (procedureActualAfter text context.model
+              (procedureAssociation text position catalog first last ordinal named).payloadFirst facts
+              (ProcedureBindings.parameter catalog (procedureAssociation text position catalog first last ordinal named).formal)) (.symbol ","))
+            facts catalog first last (ordinal + 1)
+            (procedureAssociation text position catalog first last ordinal named).named
+            (markFormal seen (procedureAssociation text position catalog first last ordinal named).formal)
+          simp only [final, decide_false, Bool.false_eq_true, ↓reduceIte, modelCalls] at recurse ⊢
+          rw [recurse]
+      _ = _ := actualsTail_model text context position facts catalog first last ordinal named seen valid.2.2.2.2.1
+  · rfl
+termination_by last - ordinal
+decreasing_by omega
+
+theorem normalized_actualsTail (meaning : ImportsMeaning calls) (defs : DefinitionEquations calls) :
+    totalizeCalls calls .actualsTail = modelCalls .actualsTail := by
+  funext text context position facts catalog first last ordinal named seen
+  exact normalized_actualsTail_at meaning defs text context position facts catalog first last ordinal named seen
+
+theorem normalized_actualsModel (meaning : ImportsMeaning calls) (defs : DefinitionEquations calls) :
+    totalizeCalls calls .actualsModel = modelCalls .actualsModel := by
+  classical
+  funext text context position facts catalog first last
   change (if ActualsDomain text context position facts catalog first last then _ else _) = _
   split
   · rename_i valid
     rw [defs.actualsModel text context position facts catalog first last valid]
-    dsimp +instances only [List.foldr, Token.shell, actualsBody, Expr.eval, Frame.locals, Locals.set, Field.get,
-      apply3, apply5, apply7]
-    simp only [meaning.token, normalized_actual meaning defs, reduceCtorEq,
-      String.reduceEq, ↓reduceIte, ↓reduceDIte]
-    simp only [modelCalls]
-    rw [procedureActualsAfter]
-    by_cases zero : procedureActualAfter text context.model position facts (ProcedureBindings.parameter catalog first) = 0
-    · simp only [zero, decide_true, ↓reduceIte]
-    · by_cases final : first = last
-      · subst last
-        simp only [zero, decide_false, decide_true, Bool.false_eq_true, ↓reduceIte]
-        rfl
-      · have advancing : first < last := by have ordered := valid.2.2.2.1; omega
-        simp only [zero, final, advancing, decide_false, Bool.false_eq_true, ↓reduceIte, ↓reduceDIte]
-        by_cases comma : fixedAfter text
-            (procedureActualAfter text context.model position facts (ProcedureBindings.parameter catalog first)) "," false = 0
-        · simp only [tokenAfter, ShellToken.symbol, comma, decide_true, ↓reduceIte]
-        · simp only [tokenAfter, ShellToken.symbol, comma, decide_false,
-            Bool.false_eq_true, ↓reduceIte]
-          exact normalized_actualsModel_at meaning defs text context _ facts catalog (first + 1) last
+    dsimp +instances only [List.foldr, actualsBody, Expr.eval, Frame.locals, apply10]
+    rw [normalized_actualsTail meaning defs]
+    rfl
   · rfl
-termination_by last - first
-decreasing_by omega
-
-theorem normalized_actualsModel (meaning : ImportsMeaning calls) (defs : DefinitionEquations calls) :
-    totalizeCalls calls .actualsModel = modelCalls .actualsModel := by
-  funext text context position facts catalog first last
-  exact normalized_actualsModel_at meaning defs text context position facts catalog first last
 
 theorem normalized_actuals (meaning : ImportsMeaning calls) (defs : DefinitionEquations calls) :
     totalizeCalls calls .actuals = modelCalls .actuals := by
@@ -98,65 +111,128 @@ theorem normalized_actuals (meaning : ImportsMeaning calls) (defs : DefinitionEq
     simpa only [totalizeCalls, modelCalls, valid, ↓reduceIte] using result
   · rfl
 
+theorem normalized_payloadsFreeModel_at (meaning : ImportsMeaning calls) (defs : DefinitionEquations calls)
+    (text : Source) (context : Native.Context) (position : Nat) (incoming : ActiveFlow)
+    (catalog : ProcedureBindings.Metadata) (first last ordinal : Nat) (named : Bool)
+    (callAfter targetFirst targetAfter : Nat) :
+    totalizeCalls calls .payloadsFreeModel text context position incoming catalog first last ordinal named callAfter targetFirst targetAfter =
+      modelCalls .payloadsFreeModel text context position incoming catalog first last ordinal named callAfter targetFirst targetAfter := by
+  classical
+  change (if PayloadsFreeModelDomain text context position incoming catalog first last ordinal callAfter targetFirst targetAfter then _ else _) = _
+  split
+  · rename_i valid
+    rw [defs.payloadsFreeModel text context position incoming catalog first last ordinal named callAfter targetFirst targetAfter valid]
+    calc
+      _ = payloadsFreeBody.eval modelCalls
+          ({text,context,position,incoming,catalog,first,last,ordinal,named,callAfter,targetFirst,targetAfter} : Frame).locals := by
+        dsimp +instances only [List.foldr, Token.shell, payloadsFreeBody, Expr.eval, Frame.locals, Locals.set,
+          Field.get, apply2, apply3, apply5, apply7, apply12]
+        simp only [meaning.skip, meaning.token, meaning.nameFreeModel, meaning.association,
+          normalized_actual meaning defs, reduceCtorEq, String.reduceEq, ↓reduceIte, ↓reduceDIte]
+        by_cases final : ordinal = last
+        · simp only [final, decide_true, ↓reduceIte]
+        · have advancing : ordinal < last := by have ordered := valid.1.2.2.2.2.1; omega
+          have recurse := normalized_payloadsFreeModel_at meaning defs text context
+            (tokenAfter text (procedureActualAfter text context.model
+              (procedureAssociation text position catalog first last ordinal named).payloadFirst incoming
+              (ProcedureBindings.parameter catalog (procedureAssociation text position catalog first last ordinal named).formal)) (.symbol ","))
+            incoming catalog first last (ordinal + 1)
+            (procedureAssociation text position catalog first last ordinal named).named callAfter targetFirst targetAfter
+          simp only [final, decide_false, Bool.false_eq_true, ↓reduceIte, modelCalls] at recurse ⊢
+          rw [recurse]
+      _ = _ := payloadsFree_model text context position incoming catalog first last ordinal named callAfter targetFirst targetAfter valid.1.2.2.2.2.1
+  · rfl
+termination_by last - ordinal
+decreasing_by omega
+
+theorem normalized_payloadsFreeModel (meaning : ImportsMeaning calls) (defs : DefinitionEquations calls) :
+    totalizeCalls calls .payloadsFreeModel = modelCalls .payloadsFreeModel := by
+  funext text context position incoming catalog first last ordinal named callAfter targetFirst targetAfter
+  exact normalized_payloadsFreeModel_at meaning defs text context position incoming catalog first last ordinal named callAfter targetFirst targetAfter
+
+theorem normalized_payloadsFree (meaning : ImportsMeaning calls) (defs : DefinitionEquations calls) :
+    totalizeCalls calls .payloadsFree = modelCalls .payloadsFree := by
+  classical
+  funext text context position incoming catalog first last callAfter targetFirst targetAfter
+  change (if PayloadsFreeDomain text context position incoming catalog first last callAfter targetFirst targetAfter then _ else _) = _
+  split
+  · rename_i valid
+    rw [defs.payloadsFree text context position incoming catalog first last callAfter targetFirst targetAfter valid]
+    have inner : PayloadsFreeModelDomain text context position incoming catalog first last first callAfter targetFirst targetAfter :=
+      ⟨⟨valid.1.1, valid.1.2.1, valid.1.2.2.1, Nat.le_refl _, valid.1.2.2.2⟩, valid.2⟩
+    have result := normalized_payloadsFreeModel_at meaning defs text context position incoming catalog first last first false callAfter targetFirst targetAfter
+    simpa only [totalizeCalls, modelCalls, inner, ↓reduceIte, procedurePayloadsFree] using result
+  · rfl
+
 theorem normalized_update (meaning : ImportsMeaning calls) (defs : DefinitionEquations calls) :
     totalizeCalls calls .update = modelCalls .update := by
   classical
-  funext text context incoming scan parameter callFirst callAfter
-  change (if UpdateDomain text context incoming scan parameter callFirst callAfter then _ else _) = _
+  funext text context incoming scan parameter catalog first last callFirst callAfter
+  change (if UpdateDomain text context incoming scan parameter catalog first last callFirst callAfter then _ else _) = _
   split
   · rename_i valid
-    rw [defs.update text context incoming scan parameter callFirst callAfter valid]
+    rw [defs.update text context incoming scan parameter catalog first last callFirst callAfter valid]
     calc
-      _ = updateBody.eval modelCalls ({text,context,incoming,scan,parameter,callFirst,callAfter} : Frame).locals := by
-        dsimp +instances only [List.foldr, Token.shell, updateBody, Command.eval, Expr.eval, apply5,
+      _ = updateBody.eval modelCalls ({text,context,incoming,scan,parameter,catalog,first,last,callFirst,callAfter} : Frame).locals := by
+        dsimp +instances only [List.foldr, Token.shell, updateBody, Command.eval, Expr.eval, apply5, apply10,
           Frame.locals, Locals.set, Field.get, ScanField.set]
-        simp only [meaning.nameFree, meaning.invalid, normalized_actual meaning defs, normalized_target meaning defs]
+        simp only [meaning.invalid, normalized_payloadsFree meaning defs,
+          normalized_actual meaning defs, normalized_target meaning defs]
       _ = _ := update_model ..
   · rfl
 
-theorem normalized_updatesModel_at (meaning : ImportsMeaning calls) (defs : DefinitionEquations calls)
+theorem normalized_updatesTail_at (meaning : ImportsMeaning calls) (defs : DefinitionEquations calls)
     (text : Source) (context : Native.Context) (incoming : ActiveFlow) (scan : BodyScan)
-    (catalog : ProcedureBindings.Metadata) (first last callFirst callAfter : Nat) :
-    totalizeCalls calls .updatesModel text context incoming scan catalog first last callFirst callAfter =
-      modelCalls .updatesModel text context incoming scan catalog first last callFirst callAfter := by
+    (catalog : ProcedureBindings.Metadata) (first last ordinal : Nat) (named : Bool) (seen : FormalSet)
+    (callFirst callAfter : Nat) :
+    totalizeCalls calls .updatesTail text context incoming scan catalog first last ordinal named seen callFirst callAfter =
+      modelCalls .updatesTail text context incoming scan catalog first last ordinal named seen callFirst callAfter := by
   classical
+  change (if UpdatesTailDomain text context incoming scan catalog first last ordinal callFirst callAfter then _ else _) = _
+  split
+  · rename_i valid
+    rw [defs.updatesTail text context incoming scan catalog first last ordinal named seen callFirst callAfter valid]
+    calc
+      _ = updatesTailBody.eval modelCalls
+          ({text,context,incoming,scan,catalog,first,last,ordinal,named,seen,callFirst,callAfter} : Frame).locals := by
+        dsimp +instances only [List.foldr, Token.shell, updatesTailBody, Expr.eval, Frame.locals, Locals.set,
+          Field.get, ScanField.set, apply4, apply7, apply10, apply12]
+        simp only [meaning.bodyToken, meaning.invalidModel, meaning.association, meaning.markFormal, normalized_update meaning defs,
+          reduceCtorEq, String.reduceEq, ↓reduceIte, ↓reduceDIte]
+        by_cases final : ordinal = last
+        · simp only [final, decide_true, ↓reduceIte]
+        · have advancing : ordinal < last := by have ordered := valid.2.2.2.2.2.1; omega
+          have recurse := normalized_updatesTail_at meaning defs text context incoming
+            (bodyToken text (procedureUpdateStep text context.model incoming
+              {scan with position := (procedureAssociation text scan.position catalog first last ordinal named).payloadFirst}
+              (ProcedureBindings.parameter catalog (procedureAssociation text scan.position catalog first last ordinal named).formal)
+              catalog first last callFirst callAfter) (.symbol ","))
+            catalog first last (ordinal + 1) (procedureAssociation text scan.position catalog first last ordinal named).named
+            (markFormal seen (procedureAssociation text scan.position catalog first last ordinal named).formal) callFirst callAfter
+          simp only [final, decide_false, Bool.false_eq_true, ↓reduceIte, modelCalls] at recurse ⊢
+          rw [recurse]
+      _ = _ := updatesTail_model text context incoming scan catalog first last ordinal named seen callFirst callAfter valid.2.2.2.2.2.1
+  · rfl
+termination_by last - ordinal
+decreasing_by omega
+
+theorem normalized_updatesTail (meaning : ImportsMeaning calls) (defs : DefinitionEquations calls) :
+    totalizeCalls calls .updatesTail = modelCalls .updatesTail := by
+  funext text context incoming scan catalog first last ordinal named seen callFirst callAfter
+  exact normalized_updatesTail_at meaning defs text context incoming scan catalog first last ordinal named seen callFirst callAfter
+
+theorem normalized_updatesModel (meaning : ImportsMeaning calls) (defs : DefinitionEquations calls) :
+    totalizeCalls calls .updatesModel = modelCalls .updatesModel := by
+  classical
+  funext text context incoming scan catalog first last callFirst callAfter
   change (if UpdatesModelDomain text context incoming scan catalog first last callFirst callAfter then _ else _) = _
   split
   · rename_i valid
     rw [defs.updatesModel text context incoming scan catalog first last callFirst callAfter valid]
-    dsimp +instances only [List.foldr, Token.shell, updatesBody, Expr.eval, Frame.locals, Locals.set, Field.get,
-      apply4, apply7, apply9]
-    simp only [meaning.bodyToken, meaning.invalidModel, normalized_update meaning defs,
-      reduceCtorEq, String.reduceEq, ↓reduceIte, ↓reduceDIte]
-    change (if decide ((procedureUpdateStep text context.model incoming scan
-      (ProcedureBindings.parameter catalog first) callFirst callAfter).position = 0) then _
-      else if decide (first = last) then _ else _) =
-      procedureUpdatesModel text context.model incoming scan catalog first last callFirst callAfter
-    rw [procedureUpdatesModel]
-    by_cases zero : (procedureUpdateStep text context.model incoming scan
-        (ProcedureBindings.parameter catalog first) callFirst callAfter).position = 0
-    · simp only [zero, decide_true, ↓reduceIte]
-      rfl
-    · by_cases final : first = last
-      · subst last
-        simp only [zero, decide_false, decide_true, Bool.false_eq_true, ↓reduceIte]
-        rfl
-      · have advancing : first < last := by have ordered := valid.2.2.2.2.1; omega
-        simp only [zero, final, advancing, decide_false, Bool.false_eq_true, ↓reduceIte, ↓reduceDIte]
-        by_cases comma : (bodyToken text (procedureUpdateStep text context.model incoming scan
-            (ProcedureBindings.parameter catalog first) callFirst callAfter) (.symbol ",")).position = 0
-        · simp only [modelCalls, comma, decide_true, ↓reduceIte]
-        · simp only [modelCalls, comma, decide_false, Bool.false_eq_true, ↓reduceIte]
-          exact normalized_updatesModel_at meaning defs text context incoming _ catalog
-            (first + 1) last callFirst callAfter
+    dsimp +instances only [List.foldr, updatesBody, Expr.eval, Frame.locals, apply12]
+    rw [normalized_updatesTail meaning defs]
+    rfl
   · rfl
-termination_by last - first
-decreasing_by omega
-
-theorem normalized_updatesModel (meaning : ImportsMeaning calls) (defs : DefinitionEquations calls) :
-    totalizeCalls calls .updatesModel = modelCalls .updatesModel := by
-  funext text context incoming scan catalog first last callFirst callAfter
-  exact normalized_updatesModel_at meaning defs text context incoming scan catalog first last callFirst callAfter
 
 theorem normalized_updates (meaning : ImportsMeaning calls) (defs : DefinitionEquations calls) :
     totalizeCalls calls .updates = modelCalls .updates := by

@@ -1,5 +1,13 @@
 # Silver language specification
 
+The named-scalar-arguments extension below has passed complete Linux native
+and Lean/actual-source checkpoints under
+[#392](https://github.com/berkeleynerd/silver/issues/392). Its
+[capability record](docs/named-scalar-arguments.md#delivery-assurance-and-validation)
+records the complete regression result, independent closing review, failed
+attempts and their repairs. Named scalar arguments are supported within the
+rules below.
+
 The scalar-procedure increment below has complete Linux ARM64 proof and
 applicable regression validation in [#370](https://github.com/berkeleynerd/silver/issues/370).
 Its [delivery account](docs/scalar-procedures.md#delivery-assurance-and-validation)
@@ -488,7 +496,9 @@ scalar_function ::= "function" name "(" formal { ";" formal } ")"
                     "return" function_result ";" "end" name ";"
 formal          ::= name ":" "in" function_type
 function_type   ::= integer_subtype_mark | "Boolean"
-function_call   ::= visible_earlier_function "(" actual { "," actual } ")"
+function_call   ::= visible_earlier_function "(" scalar_association
+                    { "," scalar_association } ")"
+scalar_association ::= [ formal_selector "=>" ] actual
 call_assignment ::= mutable_integer_name ":=" function_call ";"
                   | mutable_boolean_name ":=" function_call ";"
 ```
@@ -496,7 +506,7 @@ call_assignment ::= mutable_integer_name ":=" function_call ";"
 Each formal has exactly one name, explicit `in` and no default. There is at
 least one formal. Integer marks resolve to visible predefined Integer or an
 earlier named Integer subtype; Boolean resolves to the visible predefined type.
-Inline range constraints, zero-formal functions, named actuals, overloads,
+Inline range constraints, zero-formal functions, overloads,
 forward declarations and nested functions are excluded. These are Silver scope
 restrictions. Explicit `in` and single-name formals also preserve the existing
 source-derived binding capacities: even `X:in T;` consumes seven bytes and
@@ -550,7 +560,8 @@ initializer, arithmetic, guard, output/Image, subscript, loop bound, return,
 array-cell assignment or another actual. This restriction keeps calls outside
 the current expression grammar. Integer actuals use existing scalar expressions;
 Boolean actuals use existing conditions in the caller's permitted scope.
-Actuals are positional and match every formal exactly once. All are checked
+Actuals use the [scalar association rules](#named-scalar-argument-associations)
+and match every formal exactly once. All are checked
 against the same incoming state, before assignment: Boolean outcomes do not
 refine later actuals, because Ada does not require an argument evaluation order.
 Integer actual intervals must be nonempty and contained in formal subtypes.
@@ -582,15 +593,16 @@ scalar_procedure ::= "procedure" name "(" procedure_formal
                      { procedure_statement } "end" name ";"
 procedure_formal ::= name ":" parameter_mode function_type
 parameter_mode   ::= "in" | "out" | "in" "out"
-procedure_call   ::= visible_earlier_procedure "(" procedure_actual
-                     { "," procedure_actual } ")" ";"
+procedure_call   ::= visible_earlier_procedure "(" procedure_association
+                     { "," procedure_association } ")" ";"
+procedure_association ::= [ formal_selector "=>" ] procedure_actual
 ```
 
 Each formal has one name, an explicit mode and no default. There is at least one
 formal and at least one `out` or `in out` formal. `function_type` and
 `function_local` reuse the Integer/Boolean and initialized-local rules above.
 There are no inline formal range constraints, overloads, forward declarations,
-nested subprograms, named/default associations, String/Character/array signatures
+nested subprograms, default formals, String/Character/array signatures
 or local subtype declarations. These first-fragment scope restrictions keep the
 signature, frame and source-capacity rules bounded; they are not Ada rules.
 
@@ -634,7 +646,8 @@ Every procedure, including an unused one, is checked over the full product of
 the declared `in` and `in out` domains; calls cannot narrow that obligation.
 
 Calls are standalone statements in Main and admitted procedure bodies, including
-branches and finite loops. Positional actuals match every formal exactly once.
+branches and finite loops. The [scalar association rules](#named-scalar-argument-associations)
+match every formal exactly once.
 An `in` actual is an ordinary Integer expression or Boolean condition in the
 caller scope. An `out` or `in out` actual is an existing mutable bare scalar name
 of the same kind; constants, immutable formals, loop indexes/elements, parenthesized
@@ -658,6 +671,42 @@ All inputs are evaluated before caller updates. On return, each written Integer
 target receives the corresponding formal's full declared interval, discarding
 its previous target refinement. Boolean results retain no predicate relation.
 Every other caller value, String/array store and path fact is preserved.
+
+### Named scalar argument associations
+
+Calls of the admitted scalar functions and procedures accept fully positional
+actuals, fully named actuals in any order, and a positional prefix followed by
+a named suffix. A positional actual binds the next formal in declaration order.
+Once a named association appears, every remaining actual must be named. Each
+formal is supplied exactly once; unknown, duplicate or missing selectors are
+rejected. A named selector cannot repeat a formal already supplied positionally.
+
+The selector before `=>` names a formal of the selected callee, comparing whole
+identifiers without ASCII case distinctions. It does not resolve as a caller
+variable, even if a caller declaration has the same spelling or a different
+type. The two characters of `=>` are contiguous; ordinary comments and
+whitespace may surround the token. The expression or writable name after it
+is the actual's payload and follows the existing rules for that formal's kind,
+mode and range. Defaults and omitted actuals are not admitted.
+
+All payloads use the same incoming caller state. Named ordering supplies no
+evaluation-order guarantee and does not allow one actual's facts to justify
+another. Procedure alias checks inspect payload reads and writable targets;
+selector labels are not reads. Each output update remains paired with its
+selected formal, and all existing nonaliasing and copy-back requirements apply.
+The compiler proves and compiles the original source, including its association
+order, without replacing it with positional source.
+
+```ada
+Result := Subtract (5, 3);
+Result := Subtract (Right => 3, Left => 5);
+Result := Subtract (5, Right => 3);
+```
+
+The function in [Named parameters](samples/rosetta_named_parameters.adb) makes
+these bindings observable. The same association syntax applies to existing
+procedure `in`, `out` and `in out` formals, subject to their unchanged payload
+and alias rules.
 
 All Main, function and procedure declarations and bodies share the existing
 4,096-byte source and 63-operator limits. Existing per-expression limits remain;
@@ -1404,7 +1453,7 @@ The catalogue uses these construct identifiers:
 | `boolean_array_object`, `boolean_array_read`, `boolean_array_assignment` | Explicitly initialized fixed-size Boolean arrays, typed indexed reads and mutable cell writes; stored flags retain no scalar or String/input facts. |
 | `integer_array_iteration` | Forward/reverse iteration over constant Integer arrays, with immutable nonstatic elements, declared component entry bounds and existing guard/statement compositions. |
 | `scalar_function`, `scalar_function_call` | Closed Integer/Boolean functions with explicit-in formals, terminal return, earlier-only calls and whole scalar assignment RHS calls. |
-| `scalar_procedure`, `scalar_procedure_call` | Closed Integer/Boolean procedures with explicit modes, leading output initialization, earlier-only calls, positional nonaliasing scalar actuals and range-checked copy-back. |
+| `scalar_procedure`, `scalar_procedure_call` | Closed Integer/Boolean procedures with explicit modes, leading output initialization, earlier-only calls, positional/named nonaliasing scalar actuals and range-checked copy-back. |
 | `named_boolean_constant`, `named_boolean_variable`, `boolean_assignment`, `boolean_expression`, `boolean_comparison` | Initialized scalar Boolean objects, snapshot copies, assignment, logical expressions and Boolean equality/inequality under the visibility, evaluation and xor restrictions above; stored flags retain no scalar or String/input facts. |
 | `integer_comparison`, `scalar_guard_refinement`, `integer_image`, `for_loop` | Bare mutable/formal/index/element names against static thresholds, current read intervals with assignment replacement and branch hulls, standard decimal Image and scoped finite loops with captured bounds and mutable widening. |
 | `expression_output`, `literal_output`, `named_output`, `concatenated_output` | Returning output calls with qualified or visible unqualified names and positional or `Item =>` actuals. |

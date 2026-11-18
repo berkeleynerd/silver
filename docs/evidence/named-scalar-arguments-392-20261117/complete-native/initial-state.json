@@ -1,0 +1,12 @@
+{
+  "head": "f4ed7cd513047df7c8a24c04b3fd107ee704db1c",
+  "host": "silver-m4pro",
+  "platform": "Linux aarch64",
+  "stack_kib": "16384",
+  "reports_exist": false,
+  "spark_reports": 0,
+  "why3sessions": 0,
+  "cache_seed_files": 179821,
+  "source_sha256": "de017ca035a5ffd358d5fa98646d017dfe4ef54bd822fafc40743a9a8ae66f53",
+  "reason": "Four native workers alongside guarded serial Lean source-candidate batch on 16GiB no-swap host; private immutable-lower cache overlay, no inherited native reports/sessions."
+}

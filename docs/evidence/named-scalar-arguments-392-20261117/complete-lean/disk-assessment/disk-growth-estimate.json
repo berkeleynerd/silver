@@ -1,0 +1,6189 @@
+{
+  "summary": {
+    "method": "Conservative current-vs-retained-donor source change reverse-import closure, plus authoritative native source binding roots; remaining estimates exclude modules with >=14 existing upper artifact files. Artifact-file presence is not a freshness or successful-check claim.",
+    "source_modules": 1035,
+    "changed_source_modules": 68,
+    "new_modules": 26,
+    "affected_closure_modules": 611,
+    "estimated_not_yet_fully_materialized_affected": 320,
+    "remaining_affected_prior_logical_bytes": 341437948,
+    "remaining_affected_prior_allocated_bytes": 356929536,
+    "all_lower_not_fully_materialized_modules": 744,
+    "all_lower_not_fully_materialized_logical_bytes": 995841388,
+    "all_lower_not_fully_materialized_allocated_bytes": 1031958528,
+    "largest_remaining_affected": [
+      {
+        "module": "Silver.PredicateStringBoundsSources",
+        "logical": 16022579,
+        "allocated": 16068608,
+        "files": 16
+      },
+      {
+        "module": "Silver.ProcedureNameConditionReadings",
+        "logical": 14431429,
+        "allocated": 14479360,
+        "files": 16
+      },
+      {
+        "module": "Silver.SequenceConditionValidity",
+        "logical": 12514515,
+        "allocated": 12558336,
+        "files": 16
+      },
+      {
+        "module": "Silver.PredicateBodyMeaning",
+        "logical": 11811520,
+        "allocated": 11862016,
+        "files": 16
+      },
+      {
+        "module": "Silver.ProcedureDeclarationSyntax",
+        "logical": 9922823,
+        "allocated": 9973760,
+        "files": 16
+      },
+      {
+        "module": "Silver.PredicateStatementFlags",
+        "logical": 8277239,
+        "allocated": 8331264,
+        "files": 16
+      },
+      {
+        "module": "Silver.PredicateStringBoundsExecution",
+        "logical": 7874155,
+        "allocated": 7921664,
+        "files": 16
+      },
+      {
+        "module": "Silver.ProcedurePrefixMeaning",
+        "logical": 6953832,
+        "allocated": 7000064,
+        "files": 16
+      },
+      {
+        "module": "Silver.PredicateFunctionCallMeaning",
+        "logical": 6319256,
+        "allocated": 6369280,
+        "files": 16
+      },
+      {
+        "module": "Silver.PredicateBodyUnique",
+        "logical": 5828980,
+        "allocated": 5873664,
+        "files": 16
+      },
+      {
+        "module": "Silver.ComposeExecution",
+        "logical": 5222271,
+        "allocated": 5271552,
+        "files": 16
+      },
+      {
+        "module": "Silver.ProcedureDeclarationDenotations",
+        "logical": 5169924,
+        "allocated": 5210112,
+        "files": 16
+      },
+      {
+        "module": "Silver.ProcedureDeclarationBodyNative",
+        "logical": 4614272,
+        "allocated": 4657152,
+        "files": 16
+      },
+      {
+        "module": "Silver.ProcedureDeclarationHelperSource",
+        "logical": 4523675,
+        "allocated": 4571136,
+        "files": 16
+      },
+      {
+        "module": "Silver.PredicateBasicEquations",
+        "logical": 4406200,
+        "allocated": 4452352,
+        "files": 16
+      },
+      {
+        "module": "Silver.PredicateBooleanArrayBodyNative",
+        "logical": 4214415,
+        "allocated": 4263936,
+        "files": 16
+      },
+      {
+        "module": "Silver.PredicateSourceRequirements",
+        "logical": 4175436,
+        "allocated": 4222976,
+        "files": 16
+      },
+      {
+        "module": "Silver.ProcedureDeclarationOuterNative",
+        "logical": 4093888,
+        "allocated": 4145152,
+        "files": 16
+      }
+    ],
+    "known_dense_prior_sizes": {
+      "Silver.ComposeCatalogueSourceCandidate": {
+        "logical": 632607,
+        "allocated": 675840,
+        "files": 16
+      },
+      "Silver.ComposeExpressionSourceCandidate": {
+        "logical": 170400,
+        "allocated": 217088,
+        "files": 16
+      },
+      "Silver.ComposeContractSourceCandidate": {
+        "logical": 448796,
+        "allocated": 499712,
+        "files": 16
+      },
+      "Silver.ComposeDeclarationSourceCandidate": {
+        "logical": 252534,
+        "allocated": 303104,
+        "files": 16
+      },
+      "Silver.ComposeBooleanArraySourceCandidate": {
+        "logical": 96277,
+        "allocated": 139264,
+        "files": 16
+      },
+      "Silver.PredicateCharacterSourceCandidate": {
+        "logical": 2786545,
+        "allocated": 2834432,
+        "files": 16
+      },
+      "Silver.PredicateScalarBodyCandidate": {
+        "logical": 206478,
+        "allocated": 253952,
+        "files": 16
+      },
+      "Silver.PredicateNativeHelpersCandidate": {
+        "logical": 134980,
+        "allocated": 188416,
+        "files": 16
+      },
+      "Silver.PredicateFlowSourceCandidate": {
+        "logical": 212391,
+        "allocated": 262144,
+        "files": 16
+      },
+      "Silver.PredicateNativeShapeCandidate": {
+        "logical": 755551,
+        "allocated": 806912,
+        "files": 16
+      },
+      "Silver.PredicateBodySourceCandidate": {
+        "logical": 812657,
+        "allocated": 860160,
+        "files": 16
+      }
+    }
+  },
+  "changed": [
+    "Silver.PredicateProcedureCallHelpers",
+    "Silver.OutputBodyLines1",
+    "Silver.OutputBodyLines4",
+    "Silver.PredicateProcedureCallLibraries",
+    "Silver.PredicateProcedureCallDomains",
+    "Silver.PredicateProcedureCallMeaning",
+    "Silver.ProcedureNameActualsApart",
+    "Silver.PredicateFunctionCallMeaning",
+    "Silver.PredicateProcedureCallNative",
+    "Silver.PredicateProcedureCallFields",
+    "Silver.ProcedureNameAliasOrigins",
+    "Silver.ProcedureNameActualReadings",
+    "Silver.PredicateProcedureUpdatesMeaning",
+    "Silver.OutputBodyCertificate",
+    "Silver.PredicateProcedureBodyShape",
+    "Silver.OutputBodyLines3",
+    "Silver.PredicateFunctionCallHelpers",
+    "Silver.PredicateProcedureCallProperties",
+    "Silver.PredicateProcedureCallWholeSourceCandidate",
+    "Silver.PredicateProcedureCallAdmission",
+    "Silver.PredicateStatementFlags",
+    "Silver.OutputBodyLines7",
+    "Silver.PredicateFunctionCallLibraries",
+    "Silver.OutputBodyLines2",
+    "Silver.PredicateProcedureCallGhostSource",
+    "Silver.PredicateProcedureCallSyntax",
+    "Silver.PredicateBodyFlowValidity",
+    "Silver.PredicateStringBoundsSources",
+    "Silver.PredicateFunctionCallNative",
+    "Silver.PredicateProcedureCallSource",
+    "Silver.ReviewedOutputShape",
+    "Silver.PredicateProcedureCallEquations",
+    "Silver.PredicateFunctionCallReadings",
+    "Silver.PredicateProcedureCallReadings",
+    "Silver.PredicateFunctionCallSource",
+    "Silver.OutputBodyLines6",
+    "Silver.PredicateFunctionCallEquations",
+    "Silver.FunctionSourceCandidate",
+    "Silver.OutputBodyLines5",
+    "Silver.OutputBodyLines0",
+    "Silver.PredicateCallAdmission",
+    "Silver.PredicateFunctionCallGhostSource",
+    "Silver.PredicateAssociationWholeSourceCandidate",
+    "Silver.ScalarAssociations",
+    "Silver.PredicateAssociationHelpers",
+    "Silver.PredicateAssociationSource",
+    "Silver.PredicateAssociationSyntax",
+    "Silver.PredicateAssociationLibraries",
+    "Silver.PredicateAssociationAdmission",
+    "Silver.PredicateAssociationEquations",
+    "Silver.PredicateAssociationBounds",
+    "Silver.PredicateAssociationNative",
+    "Silver.PredicateProcedureCallWholeSourceParts.ProcedurePayloadsFree",
+    "Silver.PredicateProcedureCallWholeSourceParts.ProcedurePayloadsFreeModel",
+    "Silver.PredicateProcedureCallWholeSourceParts.ProcedureActualsTailModel",
+    "Silver.PredicateProcedureCallWholeSourceParts.ProcedureUpdatesTailModel",
+    "Silver.FunctionSourceParts.CallsActualsModelSpec",
+    "Silver.FunctionSourceParts.CallsActualsAdvance",
+    "Silver.FunctionSourceParts.CallsActualsTailModel",
+    "Silver.FunctionSourceParts.CallsActualsAfterLoop",
+    "Silver.PredicateAssociationWholeSourceParts.Types",
+    "Silver.PredicateAssociationWholeSourceParts.ProcedureFormalAt",
+    "Silver.PredicateAssociationWholeSourceParts.FunctionFormalModel",
+    "Silver.PredicateAssociationWholeSourceParts.FunctionFormalAt",
+    "Silver.PredicateAssociationWholeSourceParts.ProcedureAssociation",
+    "Silver.PredicateAssociationWholeSourceParts.ProcedureFormalModel",
+    "Silver.PredicateAssociationWholeSourceParts.MarkFormal",
+    "Silver.PredicateAssociationWholeSourceParts.FunctionAssociation"
+  ],
+  "affected": [
+    "Silver",
+    "Silver.ArgumentsExamples",
+    "Silver.ArgumentsSourceBridge",
+    "Silver.AssignmentExamples",
+    "Silver.Audit",
+    "Silver.AuthoritativeSource",
+    "Silver.BooleanBindingsNative",
+    "Silver.BooleanBindingsSourceBridge",
+    "Silver.BooleanBindingsSourceChecks",
+    "Silver.BooleanDeclarationObligations",
+    "Silver.BranchingExamples",
+    "Silver.CallableDeclarationPreservation",
+    "Silver.ComposeAdmission",
+    "Silver.ComposeArrayChecks",
+    "Silver.ComposeArrayDeclarationSource",
+    "Silver.ComposeArrayDeclarations",
+    "Silver.ComposeArrayDenotations",
+    "Silver.ComposeArrayElaboration",
+    "Silver.ComposeArrayEquations",
+    "Silver.ComposeArrayExpressions",
+    "Silver.ComposeArrayModel",
+    "Silver.ComposeArrayNativeBounds",
+    "Silver.ComposeArrayStore",
+    "Silver.ComposeBooleanArrayDeclarations",
+    "Silver.ComposeBooleanArrayElaboration",
+    "Silver.ComposeBooleanArrayHeaderChecks",
+    "Silver.ComposeBooleanArraySource",
+    "Silver.ComposeBooleanArraySourceCandidate",
+    "Silver.ComposeBooleanArrayTrace",
+    "Silver.ComposeBooleanDeclarationCandidate",
+    "Silver.ComposeBooleanDeclarationCondition",
+    "Silver.ComposeBooleanDeclarationDomain",
+    "Silver.ComposeBooleanDeclarationLibraries",
+    "Silver.ComposeBooleanDeclarationMeaning",
+    "Silver.ComposeBooleanDeclarationNative",
+    "Silver.ComposeBooleanDeclarationSource",
+    "Silver.ComposeBooleanDeclarations",
+    "Silver.ComposeBooleanInitializerLibraries",
+    "Silver.ComposeBooleanInitializerNative",
+    "Silver.ComposeBooleanRegionTrace",
+    "Silver.ComposeBooleanTrace",
+    "Silver.ComposeBounds",
+    "Silver.ComposeCatalogueSourceCandidate",
+    "Silver.ComposeCharacterBounds",
+    "Silver.ComposeCharacterDeclarations",
+    "Silver.ComposeContractSourceCandidate",
+    "Silver.ComposeContracts",
+    "Silver.ComposeCoreHelperEquations",
+    "Silver.ComposeDeclarationBounds",
+    "Silver.ComposeDeclarationContext",
+    "Silver.ComposeDeclarationSourceCandidate",
+    "Silver.ComposeDeclarations",
+    "Silver.ComposeDecode",
+    "Silver.ComposeEquations",
+    "Silver.ComposeEvaluation",
+    "Silver.ComposeExamples",
+    "Silver.ComposeExecution",
+    "Silver.ComposeExpressionSourceCandidate",
+    "Silver.ComposeExpressions",
+    "Silver.ComposeFrozenSemantics",
+    "Silver.ComposeGrammar",
+    "Silver.ComposeGuardedSliceEquations",
+    "Silver.ComposeHelperEquations",
+    "Silver.ComposeHelperSourceCandidate",
+    "Silver.ComposeInitializerTrace",
+    "Silver.ComposeLexical",
+    "Silver.ComposeMain",
+    "Silver.ComposeModel",
+    "Silver.ComposeModelCalls",
+    "Silver.ComposeModelEquations",
+    "Silver.ComposeModelHelperEquations",
+    "Silver.ComposeModelLegal",
+    "Silver.ComposeModelRanges",
+    "Silver.ComposeModelRecursion",
+    "Silver.ComposeNameBridge",
+    "Silver.ComposeNativeRecordBounds",
+    "Silver.ComposeNativeStateBounds",
+    "Silver.ComposeNativeValueBounds",
+    "Silver.ComposeObjectDeclarations",
+    "Silver.ComposeObligations",
+    "Silver.ComposeRecognitionEquations",
+    "Silver.ComposeScalarDeclarations",
+    "Silver.ComposeScalarDenotations",
+    "Silver.ComposeScalarTrace",
+    "Silver.ComposeSemantics",
+    "Silver.ComposeSourceBridge",
+    "Silver.ComposeSourceCandidate",
+    "Silver.ComposeSourceChecks",
+    "Silver.ComposeStateBounds",
+    "Silver.ComposeStringBoundEquivalence",
+    "Silver.ComposeStringBoundSafety",
+    "Silver.ComposeStringBounds",
+    "Silver.ComposeStringDeclarationEquation",
+    "Silver.ComposeStringDeclarations",
+    "Silver.ComposeStringDenotations",
+    "Silver.ComposeStringEquations",
+    "Silver.ComposeStringHelperEquations",
+    "Silver.ComposeStringNative",
+    "Silver.ComposeStringOrigins",
+    "Silver.ComposeStringPrimitiveEquations",
+    "Silver.ComposeStringRuntimeBounds",
+    "Silver.ComposeSubtypeChecks",
+    "Silver.ComposeSubtypeDeclarations",
+    "Silver.ComposeSubtypeLookupLegal",
+    "Silver.ComposeSubtypeModelEquations",
+    "Silver.ConcatExamples",
+    "Silver.Current",
+    "Silver.FunctionBodyFrameReadiness",
+    "Silver.FunctionBodyMeaning",
+    "Silver.FunctionBodySource",
+    "Silver.FunctionDeclarationAdmission",
+    "Silver.FunctionDeclarationBodyDomains",
+    "Silver.FunctionDeclarationBodyEquations",
+    "Silver.FunctionDeclarationBodyImports",
+    "Silver.FunctionDeclarationBodyLibrary",
+    "Silver.FunctionDeclarationBodyModel",
+    "Silver.FunctionDeclarationComposition",
+    "Silver.FunctionDeclarationDenotations",
+    "Silver.FunctionDeclarationDomains",
+    "Silver.FunctionDeclarationFrameEquations",
+    "Silver.FunctionDeclarationHeaderEquations",
+    "Silver.FunctionDeclarationHeaderLibraries",
+    "Silver.FunctionDeclarationHiding",
+    "Silver.FunctionDeclarationImports",
+    "Silver.FunctionDeclarationInitialDomain",
+    "Silver.FunctionDeclarationLibraries",
+    "Silver.FunctionDeclarationMeaning",
+    "Silver.FunctionDeclarationModelContracts",
+    "Silver.FunctionDeclarationModelSource",
+    "Silver.FunctionDeclarationNative",
+    "Silver.FunctionDeclarationOrdinaryEquations",
+    "Silver.FunctionDeclarationOuterEquations",
+    "Silver.FunctionDeclarationPreservation",
+    "Silver.FunctionDeclarationReadings",
+    "Silver.FunctionDeclarationRecordTypes",
+    "Silver.FunctionDeclarationRecursion",
+    "Silver.FunctionDeclarationReturnLibrary",
+    "Silver.FunctionDeclarationSource",
+    "Silver.FunctionDeclarationSourceBridge",
+    "Silver.FunctionDeclarationStateRecords",
+    "Silver.FunctionDeclarationStepImports",
+    "Silver.FunctionDeclarationTraversalContracts",
+    "Silver.FunctionDeclarationTypeSpan",
+    "Silver.FunctionDeclarationValidity",
+    "Silver.FunctionDeclarationsTrace",
+    "Silver.FunctionFrameValidity",
+    "Silver.FunctionHeaderSource",
+    "Silver.FunctionHeaderValidity",
+    "Silver.FunctionInitializerShape",
+    "Silver.FunctionLocalAnalysis",
+    "Silver.FunctionParameterMeaning",
+    "Silver.FunctionParameterReadings",
+    "Silver.FunctionSourceCandidate",
+    "Silver.FunctionSourceChecks",
+    "Silver.FunctionSourceParts.CallsActualAfterImpl",
+    "Silver.FunctionSourceParts.CallsActualAfterSpec",
+    "Silver.FunctionSourceParts.CallsActualModelBody",
+    "Silver.FunctionSourceParts.CallsActualModelImpl",
+    "Silver.FunctionSourceParts.CallsActualModelSpec",
+    "Silver.FunctionSourceParts.CallsActualsAdvance",
+    "Silver.FunctionSourceParts.CallsActualsAfterImpl",
+    "Silver.FunctionSourceParts.CallsActualsAfterLoop",
+    "Silver.FunctionSourceParts.CallsActualsAfterSpec",
+    "Silver.FunctionSourceParts.CallsActualsModelBody",
+    "Silver.FunctionSourceParts.CallsActualsModelImpl",
+    "Silver.FunctionSourceParts.CallsActualsModelSpec",
+    "Silver.FunctionSourceParts.CallsActualsTailModel",
+    "Silver.FunctionSourceParts.CallsCallAssignmentBodyBody",
+    "Silver.FunctionSourceParts.CallsCallAssignmentBodyImpl",
+    "Silver.FunctionSourceParts.CallsCallAssignmentBodySpec",
+    "Silver.FunctionSourceParts.CallsCallAssignmentModelBody",
+    "Silver.FunctionSourceParts.CallsCallAssignmentModelImpl",
+    "Silver.FunctionSourceParts.CallsCallAssignmentModelSpec",
+    "Silver.FunctionSourceParts.CallsCallAssignmentResultBody",
+    "Silver.FunctionSourceParts.CallsCallAssignmentResultImpl",
+    "Silver.FunctionSourceParts.CallsCallAssignmentResultSpec",
+    "Silver.FunctionSourceParts.CallsCallModelBody",
+    "Silver.FunctionSourceParts.CallsCallModelImpl",
+    "Silver.FunctionSourceParts.CallsCallModelSpec",
+    "Silver.FunctionSourceParts.CallsCalleeAtBody",
+    "Silver.FunctionSourceParts.CallsCalleeAtImpl",
+    "Silver.FunctionSourceParts.CallsCalleeAtSpec",
+    "Silver.FunctionSourceParts.CallsIncludedBody",
+    "Silver.FunctionSourceParts.CallsIncludedImpl",
+    "Silver.FunctionSourceParts.CallsReadCallImpl",
+    "Silver.FunctionSourceParts.CallsReadCallSpec",
+    "Silver.FunctionSourceParts.DeclarationExpressionAppendParameter",
+    "Silver.FunctionSourceParts.DeclarationExpressionFunctionLocalAt",
+    "Silver.FunctionSourceParts.DeclarationExpressionFunctionLocalsModel",
+    "Silver.FunctionSourceParts.DeclarationExpressionFunctionTypeAt",
+    "Silver.FunctionSourceParts.DeclarationExpressionParameterFrameModel",
+    "Silver.FunctionSourceParts.DeclarationExpressionParameterStep",
+    "Silver.FunctionSourceParts.DeclarationExpressionParametersModel",
+    "Silver.FunctionSourceParts.DeclarationHeaderAppendParameterImpl",
+    "Silver.FunctionSourceParts.DeclarationHeaderFunctionBodyAtImpl",
+    "Silver.FunctionSourceParts.DeclarationHeaderFunctionBodyAtSpec",
+    "Silver.FunctionSourceParts.DeclarationHeaderFunctionDeclarationAtImpl",
+    "Silver.FunctionSourceParts.DeclarationHeaderFunctionDeclarationAtSpec",
+    "Silver.FunctionSourceParts.DeclarationHeaderFunctionLocalAtImpl",
+    "Silver.FunctionSourceParts.DeclarationHeaderFunctionLocalAtSpec",
+    "Silver.FunctionSourceParts.DeclarationHeaderFunctionLocalsImpl",
+    "Silver.FunctionSourceParts.DeclarationHeaderFunctionLocalsModelImpl",
+    "Silver.FunctionSourceParts.DeclarationHeaderFunctionLocalsModelSpec",
+    "Silver.FunctionSourceParts.DeclarationHeaderFunctionLocalsSpec",
+    "Silver.FunctionSourceParts.DeclarationHeaderFunctionReturnAfterImpl",
+    "Silver.FunctionSourceParts.DeclarationHeaderFunctionReturnAfterSpec",
+    "Silver.FunctionSourceParts.DeclarationHeaderFunctionTypeAtImpl",
+    "Silver.FunctionSourceParts.DeclarationHeaderFunctionTypeAtSpec",
+    "Silver.FunctionSourceParts.DeclarationHeaderParameterFrameImpl",
+    "Silver.FunctionSourceParts.DeclarationHeaderParameterFrameModelImpl",
+    "Silver.FunctionSourceParts.DeclarationHeaderParameterFrameModelSpec",
+    "Silver.FunctionSourceParts.DeclarationHeaderParameterFrameSpec",
+    "Silver.FunctionSourceParts.DeclarationHeaderParameterStepImpl",
+    "Silver.FunctionSourceParts.DeclarationHeaderParameterStepSpec",
+    "Silver.FunctionSourceParts.DeclarationHeaderParametersAtImpl",
+    "Silver.FunctionSourceParts.DeclarationHeaderParametersAtSpec",
+    "Silver.FunctionSourceParts.DeclarationHeaderParametersModelImpl",
+    "Silver.FunctionSourceParts.DeclarationHeaderParametersModelSpec",
+    "Silver.FunctionSourceParts.DeclarationLoopFunctionLocals",
+    "Silver.FunctionSourceParts.DeclarationLoopParameterFrame",
+    "Silver.FunctionSourceParts.DeclarationLoopParametersAt",
+    "Silver.FunctionSourceParts.DeclarationOrdinaryFunctionBodyAt",
+    "Silver.FunctionSourceParts.DeclarationOrdinaryFunctionDeclarationAt",
+    "Silver.FunctionSourceParts.DeclarationOrdinaryFunctionReturnAfter",
+    "Silver.FunctionSourceParts.DeclarationParameterCursor",
+    "Silver.FunctionSourceParts.DeclarationStepResult",
+    "Silver.FunctionSourceParts.DeclarationTypeResult",
+    "Silver.FunctionSourceParts.VisibilityFormalHides",
+    "Silver.FunctionSourceParts.VisibilityFormalHidesHeader",
+    "Silver.FunctionSourceParts.VisibilityFunctionHides",
+    "Silver.FunctionSourceParts.VisibilityFunctionHidesHeader",
+    "Silver.FunctionSourceParts.VisibilityHiddenOuter",
+    "Silver.FunctionSourceParts.VisibilityHiddenOuterHeader",
+    "Silver.FunctionSourceParts.VisibilityHiddenWord",
+    "Silver.FunctionSourceParts.VisibilityHiddenWordHeader",
+    "Silver.FunctionSourceParts.VisibilityHideName",
+    "Silver.FunctionSourceParts.VisibilityHideNameHeader",
+    "Silver.FunctionSourceUnique",
+    "Silver.FunctionVisibilityEquations",
+    "Silver.FunctionVisibilityNative",
+    "Silver.FunctionVisibilitySource",
+    "Silver.LengthIntervalExpressions",
+    "Silver.LengthIntervalModel",
+    "Silver.LengthIntervalPrecedence",
+    "Silver.LengthIntervalsSource",
+    "Silver.LexicalSourceBridge",
+    "Silver.NamedExamples",
+    "Silver.NamedSourceBridge",
+    "Silver.OutputBodyCertificate",
+    "Silver.OutputBodyLines0",
+    "Silver.OutputBodyLines1",
+    "Silver.OutputBodyLines2",
+    "Silver.OutputBodyLines3",
+    "Silver.OutputBodyLines4",
+    "Silver.OutputBodyLines5",
+    "Silver.OutputBodyLines6",
+    "Silver.OutputBodyLines7",
+    "Silver.OutputProfileBodySource",
+    "Silver.OutputSourceBridge",
+    "Silver.PredicateAdapter",
+    "Silver.PredicateAdapterEnvironment",
+    "Silver.PredicateAdapterSourceCandidate",
+    "Silver.PredicateAdmission",
+    "Silver.PredicateArrayBodyNative",
+    "Silver.PredicateArrayBodySource",
+    "Silver.PredicateAssociationAdmission",
+    "Silver.PredicateAssociationBounds",
+    "Silver.PredicateAssociationEquations",
+    "Silver.PredicateAssociationHelpers",
+    "Silver.PredicateAssociationLibraries",
+    "Silver.PredicateAssociationNative",
+    "Silver.PredicateAssociationSource",
+    "Silver.PredicateAssociationSyntax",
+    "Silver.PredicateAssociationWholeSourceCandidate",
+    "Silver.PredicateAssociationWholeSourceParts.FunctionAssociation",
+    "Silver.PredicateAssociationWholeSourceParts.FunctionFormalAt",
+    "Silver.PredicateAssociationWholeSourceParts.FunctionFormalModel",
+    "Silver.PredicateAssociationWholeSourceParts.MarkFormal",
+    "Silver.PredicateAssociationWholeSourceParts.ProcedureAssociation",
+    "Silver.PredicateAssociationWholeSourceParts.ProcedureFormalAt",
+    "Silver.PredicateAssociationWholeSourceParts.ProcedureFormalModel",
+    "Silver.PredicateAssociationWholeSourceParts.Types",
+    "Silver.PredicateBasicEquations",
+    "Silver.PredicateBasicExpressions",
+    "Silver.PredicateBasicHelpers",
+    "Silver.PredicateBasicLibraries",
+    "Silver.PredicateBasicReadings",
+    "Silver.PredicateBasicSizing",
+    "Silver.PredicateBasicSourceCandidate",
+    "Silver.PredicateBasicStepMeaning",
+    "Silver.PredicateBasicStepReadings",
+    "Silver.PredicateBodyAdmission",
+    "Silver.PredicateBodyBinderSeparation",
+    "Silver.PredicateBodyBounds",
+    "Silver.PredicateBodyCandidates",
+    "Silver.PredicateBodyControls",
+    "Silver.PredicateBodyCorrespondence",
+    "Silver.PredicateBodyEquations",
+    "Silver.PredicateBodyExpressions",
+    "Silver.PredicateBodyFlow",
+    "Silver.PredicateBodyFlowPreservation",
+    "Silver.PredicateBodyFlowValidity",
+    "Silver.PredicateBodyHelpers",
+    "Silver.PredicateBodyLibraries",
+    "Silver.PredicateBodyMeaning",
+    "Silver.PredicateBodyModelSizing",
+    "Silver.PredicateBodyPrimitives",
+    "Silver.PredicateBodyProperties",
+    "Silver.PredicateBodyReadings",
+    "Silver.PredicateBodyScanner",
+    "Silver.PredicateBodySizing",
+    "Silver.PredicateBodySound",
+    "Silver.PredicateBodySourceCandidate",
+    "Silver.PredicateBodyUnique",
+    "Silver.PredicateBodyWrappers",
+    "Silver.PredicateBooleanArrayBodyHelpers",
+    "Silver.PredicateBooleanArrayBodyLibraries",
+    "Silver.PredicateBooleanArrayBodyNative",
+    "Silver.PredicateBooleanArrayBodySource",
+    "Silver.PredicateBooleanBodyHelpers",
+    "Silver.PredicateBooleanBodyLibraries",
+    "Silver.PredicateBooleanBodyNative",
+    "Silver.PredicateBooleanBodySource",
+    "Silver.PredicateBooleanHeader",
+    "Silver.PredicateCallAdmission",
+    "Silver.PredicateCharacterSourceCandidate",
+    "Silver.PredicateChecks",
+    "Silver.PredicateComposition",
+    "Silver.PredicateConditionMeaning",
+    "Silver.PredicateConditionReadings",
+    "Silver.PredicateConditionSound",
+    "Silver.PredicateConditionUnique",
+    "Silver.PredicateConditionValidity",
+    "Silver.PredicateCorrespondence",
+    "Silver.PredicateCountedBoundSource",
+    "Silver.PredicateEquations",
+    "Silver.PredicateExamples",
+    "Silver.PredicateExecution",
+    "Silver.PredicateFlags",
+    "Silver.PredicateFlowReaderLibraries",
+    "Silver.PredicateFlowReaders",
+    "Silver.PredicateFlowSourceCandidate",
+    "Silver.PredicateFunctionCallEquations",
+    "Silver.PredicateFunctionCallGhostSource",
+    "Silver.PredicateFunctionCallHelpers",
+    "Silver.PredicateFunctionCallLibraries",
+    "Silver.PredicateFunctionCallMeaning",
+    "Silver.PredicateFunctionCallNative",
+    "Silver.PredicateFunctionCallReadings",
+    "Silver.PredicateFunctionCallSource",
+    "Silver.PredicateFunctionFlags",
+    "Silver.PredicateGrammar",
+    "Silver.PredicateHeader",
+    "Silver.PredicateHeaderDecode",
+    "Silver.PredicateHeaderFlow",
+    "Silver.PredicateInheritedReady",
+    "Silver.PredicateLoopCandidate",
+    "Silver.PredicateLoopFlowValidity",
+    "Silver.PredicateLoopHelpers",
+    "Silver.PredicateLoopImports",
+    "Silver.PredicateLoopNative",
+    "Silver.PredicateLoopProperties",
+    "Silver.PredicateLoopSizing",
+    "Silver.PredicateNativeBodies",
+    "Silver.PredicateNativeContracts",
+    "Silver.PredicateNativeCorrespondence",
+    "Silver.PredicateNativeEquations",
+    "Silver.PredicateNativeExpressions",
+    "Silver.PredicateNativeHelpers",
+    "Silver.PredicateNativeHelpersCandidate",
+    "Silver.PredicateNativeLibraries",
+    "Silver.PredicateNativeModel",
+    "Silver.PredicateNativeModelSizing",
+    "Silver.PredicateNativePrecedence",
+    "Silver.PredicateNativeProgress",
+    "Silver.PredicateNativeRanges",
+    "Silver.PredicateNativeScalarHelpers",
+    "Silver.PredicateNativeShapeCandidate",
+    "Silver.PredicateNativeSizing",
+    "Silver.PredicateNativeSourceBridge",
+    "Silver.PredicateNativeSourceChecks",
+    "Silver.PredicateNativeState",
+    "Silver.PredicateNativeWorkers",
+    "Silver.PredicateObligations",
+    "Silver.PredicateOuterCandidates",
+    "Silver.PredicateOuterEquations",
+    "Silver.PredicateOuterExpressions",
+    "Silver.PredicateOuterModel",
+    "Silver.PredicateOuterReadiness",
+    "Silver.PredicateProcedureBodyShape",
+    "Silver.PredicateProcedureCallAdmission",
+    "Silver.PredicateProcedureCallDomains",
+    "Silver.PredicateProcedureCallEquations",
+    "Silver.PredicateProcedureCallFields",
+    "Silver.PredicateProcedureCallGhostSource",
+    "Silver.PredicateProcedureCallHelpers",
+    "Silver.PredicateProcedureCallLibraries",
+    "Silver.PredicateProcedureCallMeaning",
+    "Silver.PredicateProcedureCallNative",
+    "Silver.PredicateProcedureCallProperties",
+    "Silver.PredicateProcedureCallReadings",
+    "Silver.PredicateProcedureCallSource",
+    "Silver.PredicateProcedureCallSourceChecks",
+    "Silver.PredicateProcedureCallSyntax",
+    "Silver.PredicateProcedureCallWholeSourceCandidate",
+    "Silver.PredicateProcedureCallWholeSourceParts.ActualResult",
+    "Silver.PredicateProcedureCallWholeSourceParts.BodyEquality",
+    "Silver.PredicateProcedureCallWholeSourceParts.InvalidActual",
+    "Silver.PredicateProcedureCallWholeSourceParts.ProcedureActualAfter",
+    "Silver.PredicateProcedureCallWholeSourceParts.ProcedureActualsAfter",
+    "Silver.PredicateProcedureCallWholeSourceParts.ProcedureActualsModel",
+    "Silver.PredicateProcedureCallWholeSourceParts.ProcedureActualsTailModel",
+    "Silver.PredicateProcedureCallWholeSourceParts.ProcedureCallBody",
+    "Silver.PredicateProcedureCallWholeSourceParts.ProcedureCalleeAt",
+    "Silver.PredicateProcedureCallWholeSourceParts.ProcedurePayloadsFree",
+    "Silver.PredicateProcedureCallWholeSourceParts.ProcedurePayloadsFreeModel",
+    "Silver.PredicateProcedureCallWholeSourceParts.ProcedureTargetActual",
+    "Silver.PredicateProcedureCallWholeSourceParts.ProcedureUpdateStep",
+    "Silver.PredicateProcedureCallWholeSourceParts.ProcedureUpdates",
+    "Silver.PredicateProcedureCallWholeSourceParts.ProcedureUpdatesModel",
+    "Silver.PredicateProcedureCallWholeSourceParts.ProcedureUpdatesTailModel",
+    "Silver.PredicateProcedureTargetMeaning",
+    "Silver.PredicateProcedureUpdatesMeaning",
+    "Silver.PredicateReadings",
+    "Silver.PredicateScalarBodyCandidate",
+    "Silver.PredicateScalarBodyHelpers",
+    "Silver.PredicateScalarBodyNative",
+    "Silver.PredicateScalarBodySource",
+    "Silver.PredicateScalarGuardMeaning",
+    "Silver.PredicateSelectors",
+    "Silver.PredicateShell",
+    "Silver.PredicateSourceBridge",
+    "Silver.PredicateSourceCandidate",
+    "Silver.PredicateSourceChecks",
+    "Silver.PredicateSourceRequirements",
+    "Silver.PredicateSourceShape",
+    "Silver.PredicateSourceSyntax",
+    "Silver.PredicateStatementFlags",
+    "Silver.PredicateStatements",
+    "Silver.PredicateStringActualAssurance",
+    "Silver.PredicateStringActualBounds",
+    "Silver.PredicateStringActualExecution",
+    "Silver.PredicateStringActualInitializers",
+    "Silver.PredicateStringAssignmentFields",
+    "Silver.PredicateStringAssignmentMeaning",
+    "Silver.PredicateStringAssignmentReadings",
+    "Silver.PredicateStringBoundChecks",
+    "Silver.PredicateStringBoundsAssurance",
+    "Silver.PredicateStringBoundsExecution",
+    "Silver.PredicateStringBoundsSources",
+    "Silver.PredicateStructuralGuards",
+    "Silver.PredicateXorSourceBridge",
+    "Silver.ProcedureDeclarationAdmission",
+    "Silver.ProcedureDeclarationBodyImports",
+    "Silver.ProcedureDeclarationBodyLibrary",
+    "Silver.ProcedureDeclarationBodyNative",
+    "Silver.ProcedureDeclarationDenotations",
+    "Silver.ProcedureDeclarationDomains",
+    "Silver.ProcedureDeclarationFrameEquations",
+    "Silver.ProcedureDeclarationHelperEquations",
+    "Silver.ProcedureDeclarationHelperLibraries",
+    "Silver.ProcedureDeclarationHelperModel",
+    "Silver.ProcedureDeclarationHelperModelSource",
+    "Silver.ProcedureDeclarationHelperSource",
+    "Silver.ProcedureDeclarationHelperSourceChecks",
+    "Silver.ProcedureDeclarationHelperWholeSourceCandidate",
+    "Silver.ProcedureDeclarationHelperWholeSourceParts.AppendProcedureParameter",
+    "Silver.ProcedureDeclarationHelperWholeSourceParts.ParameterCursor",
+    "Silver.ProcedureDeclarationHelperWholeSourceParts.ProcedureInputFrame",
+    "Silver.ProcedureDeclarationHelperWholeSourceParts.ProcedureInputFrameModel",
+    "Silver.ProcedureDeclarationHelperWholeSourceParts.ProcedureParameterStep",
+    "Silver.ProcedureDeclarationHelperWholeSourceParts.ProcedureParametersAt",
+    "Silver.ProcedureDeclarationHelperWholeSourceParts.ProcedureParametersModel",
+    "Silver.ProcedureDeclarationHelperWholeSourceParts.ProcedurePrefix",
+    "Silver.ProcedureDeclarationHelperWholeSourceParts.ProcedurePrefixModel",
+    "Silver.ProcedureDeclarationHelperWholeSourceParts.ProcedurePrefixStep",
+    "Silver.ProcedureDeclarationHelperWholeSourceParts.StepResult",
+    "Silver.ProcedureDeclarationHiding",
+    "Silver.ProcedureDeclarationHighEquations",
+    "Silver.ProcedureDeclarationHighSource",
+    "Silver.ProcedureDeclarationHighSourceCandidate",
+    "Silver.ProcedureDeclarationHighSourceChecks",
+    "Silver.ProcedureDeclarationHighSourceParts.Body",
+    "Silver.ProcedureDeclarationHighSourceParts.BodyImpl",
+    "Silver.ProcedureDeclarationHighSourceParts.BodySpec",
+    "Silver.ProcedureDeclarationHighSourceParts.Outer",
+    "Silver.ProcedureDeclarationHighSourceParts.OuterImpl",
+    "Silver.ProcedureDeclarationHighSourceParts.OuterSpec",
+    "Silver.ProcedureDeclarationMeaning",
+    "Silver.ProcedureDeclarationModel",
+    "Silver.ProcedureDeclarationModelSource",
+    "Silver.ProcedureDeclarationNative",
+    "Silver.ProcedureDeclarationOuterDomains",
+    "Silver.ProcedureDeclarationOuterImports",
+    "Silver.ProcedureDeclarationOuterLibrary",
+    "Silver.ProcedureDeclarationOuterNative",
+    "Silver.ProcedureDeclarationParameterLibraries",
+    "Silver.ProcedureDeclarationPrefixEquations",
+    "Silver.ProcedureDeclarationPrefixImports",
+    "Silver.ProcedureDeclarationPrefixLibraries",
+    "Silver.ProcedureDeclarationPreservation",
+    "Silver.ProcedureDeclarationReadings",
+    "Silver.ProcedureDeclarationRecursion",
+    "Silver.ProcedureDeclarationSourceBridge",
+    "Silver.ProcedureDeclarationStepImports",
+    "Silver.ProcedureDeclarationSyntax",
+    "Silver.ProcedureDeclarationTrace",
+    "Silver.ProcedureDeclarationTraversalContracts",
+    "Silver.ProcedureDeclarationTraversalModel",
+    "Silver.ProcedureDeclarationValidity",
+    "Silver.ProcedureFrameMeaning",
+    "Silver.ProcedureFrameReadings",
+    "Silver.ProcedureFrameRecordTypes",
+    "Silver.ProcedureFrameValidity",
+    "Silver.ProcedureHeaderAdmission",
+    "Silver.ProcedureHeaderValidity",
+    "Silver.ProcedureLookupMeaning",
+    "Silver.ProcedureMetadataMeaning",
+    "Silver.ProcedureMetadataNative",
+    "Silver.ProcedureMetadataSource",
+    "Silver.ProcedureMetadataSourceBridge",
+    "Silver.ProcedureMetadataSourceCandidate",
+    "Silver.ProcedureMetadataSourceChecks",
+    "Silver.ProcedureNameActualReadings",
+    "Silver.ProcedureNameActualsApart",
+    "Silver.ProcedureNameAliasOrigins",
+    "Silver.ProcedureNameBooleanReadings",
+    "Silver.ProcedureNameCharacterReadings",
+    "Silver.ProcedureNameCompoundTokens",
+    "Silver.ProcedureNameConditionBounds",
+    "Silver.ProcedureNameConditionCursors",
+    "Silver.ProcedureNameConditionReadings",
+    "Silver.ProcedureNameConditionTokens",
+    "Silver.ProcedureNameFreeNative",
+    "Silver.ProcedureNameImageReadings",
+    "Silver.ProcedureNameIndexedReadings",
+    "Silver.ProcedureNameLengthReadings",
+    "Silver.ProcedureNameNative",
+    "Silver.ProcedureNamePunctuation",
+    "Silver.ProcedureNameRelationReadings",
+    "Silver.ProcedureNameSelectors",
+    "Silver.ProcedureNameSource",
+    "Silver.ProcedureNameSourceCandidate",
+    "Silver.ProcedureNameSourceChecks",
+    "Silver.ProcedureNameSourceParts.Loop",
+    "Silver.ProcedureNameSourceParts.LoopImpl",
+    "Silver.ProcedureNameSourceParts.LoopSpec",
+    "Silver.ProcedureNameSourceParts.Model",
+    "Silver.ProcedureNameSourceParts.ModelImpl",
+    "Silver.ProcedureNameSourceParts.ModelSpec",
+    "Silver.ProcedureNameSourceParts.Record",
+    "Silver.ProcedureNameSourceParts.Step",
+    "Silver.ProcedureNameSourceParts.StepImpl",
+    "Silver.ProcedureNameSourceParts.StepSpec",
+    "Silver.ProcedureNameStringCursors",
+    "Silver.ProcedureNameStringReadings",
+    "Silver.ProcedureNameTargets",
+    "Silver.ProcedureNameValidityReading",
+    "Silver.ProcedurePrefixMeaning",
+    "Silver.ProcedurePrefixReadings",
+    "Silver.ReviewedOutputShape",
+    "Silver.ScalarAssociations",
+    "Silver.ScalarFunctionComposition",
+    "Silver.ScalarFunctionDefinition",
+    "Silver.ScalarFunctionFrameFlow",
+    "Silver.ScalarFunctionFrozenBoolean",
+    "Silver.ScalarFunctionSemantics",
+    "Silver.ScalarProcedureComposition",
+    "Silver.ScalarProcedureDefinition",
+    "Silver.ScalarProcedureLayout",
+    "Silver.ScalarProcedureSemantics",
+    "Silver.SequenceAdmission",
+    "Silver.SequenceArrayReady",
+    "Silver.SequenceBasics",
+    "Silver.SequenceBodyContext",
+    "Silver.SequenceConditionValidity",
+    "Silver.SequenceConditions",
+    "Silver.SequenceContext",
+    "Silver.SequenceEffects",
+    "Silver.SequenceEquations",
+    "Silver.SequenceExecution",
+    "Silver.SequenceExpressions",
+    "Silver.SequenceFormDisjoint",
+    "Silver.SequenceFullEquations",
+    "Silver.SequenceFunctionTrace",
+    "Silver.SequenceGrammar",
+    "Silver.SequenceHeader",
+    "Silver.SequenceInitializerTrace",
+    "Silver.SequenceLists",
+    "Silver.SequenceMain",
+    "Silver.SequenceMixedTrace",
+    "Silver.SequenceModel",
+    "Silver.SequenceModelRanges",
+    "Silver.SequenceNativeCorrespondence",
+    "Silver.SequenceNativeEquations",
+    "Silver.SequenceNativeExpressions",
+    "Silver.SequenceNativeModel",
+    "Silver.SequenceNativeProjected",
+    "Silver.SequenceNativeProjection",
+    "Silver.SequenceNativeState",
+    "Silver.SequenceNativeUnique",
+    "Silver.SequenceObligations",
+    "Silver.SequenceScalarTrace",
+    "Silver.SequenceSelectors",
+    "Silver.SequenceSemantics",
+    "Silver.SequenceShell",
+    "Silver.SequenceSubtypeReady",
+    "Silver.SequenceSyntax",
+    "Silver.SequenceTokens",
+    "Silver.Source",
+    "Silver.SourceCertificates"
+  ],
+  "remaining": {
+    "Silver": {
+      "logical": 668030,
+      "allocated": 720896,
+      "files": 16
+    },
+    "Silver.ArgumentsExamples": {
+      "logical": 309257,
+      "allocated": 356352,
+      "files": 16
+    },
+    "Silver.ArgumentsSourceBridge": {
+      "logical": 136157,
+      "allocated": 184320,
+      "files": 16
+    },
+    "Silver.AssignmentExamples": {
+      "logical": 289325,
+      "allocated": 339968,
+      "files": 16
+    },
+    "Silver.Audit": {
+      "logical": 906705,
+      "allocated": 933888,
+      "files": 8
+    },
+    "Silver.BooleanBindingsSourceChecks": {
+      "logical": 163249,
+      "allocated": 217088,
+      "files": 16
+    },
+    "Silver.BranchingExamples": {
+      "logical": 312280,
+      "allocated": 360448,
+      "files": 16
+    },
+    "Silver.ComposeArrayChecks": {
+      "logical": 266686,
+      "allocated": 311296,
+      "files": 16
+    },
+    "Silver.ComposeArrayStore": {
+      "logical": 492922,
+      "allocated": 540672,
+      "files": 16
+    },
+    "Silver.ComposeBooleanArrayHeaderChecks": {
+      "logical": 207321,
+      "allocated": 258048,
+      "files": 16
+    },
+    "Silver.ComposeBooleanArraySource": {
+      "logical": 1243653,
+      "allocated": 1290240,
+      "files": 16
+    },
+    "Silver.ComposeBooleanArraySourceCandidate": {
+      "logical": 96277,
+      "allocated": 139264,
+      "files": 16
+    },
+    "Silver.ComposeBooleanArrayTrace": {
+      "logical": 1044911,
+      "allocated": 1097728,
+      "files": 16
+    },
+    "Silver.ComposeBooleanDeclarationCandidate": {
+      "logical": 1312175,
+      "allocated": 1359872,
+      "files": 16
+    },
+    "Silver.ComposeBooleanDeclarationCondition": {
+      "logical": 170905,
+      "allocated": 221184,
+      "files": 16
+    },
+    "Silver.ComposeBooleanDeclarationDomain": {
+      "logical": 315191,
+      "allocated": 364544,
+      "files": 16
+    },
+    "Silver.ComposeBooleanDeclarationLibraries": {
+      "logical": 773618,
+      "allocated": 819200,
+      "files": 16
+    },
+    "Silver.ComposeBooleanDeclarationMeaning": {
+      "logical": 369822,
+      "allocated": 421888,
+      "files": 16
+    },
+    "Silver.ComposeBooleanInitializerLibraries": {
+      "logical": 373219,
+      "allocated": 417792,
+      "files": 16
+    },
+    "Silver.ComposeBooleanInitializerNative": {
+      "logical": 525055,
+      "allocated": 577536,
+      "files": 16
+    },
+    "Silver.ComposeBooleanRegionTrace": {
+      "logical": 1459874,
+      "allocated": 1507328,
+      "files": 16
+    },
+    "Silver.ComposeBooleanTrace": {
+      "logical": 353608,
+      "allocated": 397312,
+      "files": 16
+    },
+    "Silver.ComposeCatalogueSourceCandidate": {
+      "logical": 632607,
+      "allocated": 675840,
+      "files": 16
+    },
+    "Silver.ComposeContractSourceCandidate": {
+      "logical": 448796,
+      "allocated": 499712,
+      "files": 16
+    },
+    "Silver.ComposeDeclarationSourceCandidate": {
+      "logical": 252534,
+      "allocated": 303104,
+      "files": 16
+    },
+    "Silver.ComposeDecode": {
+      "logical": 1549856,
+      "allocated": 1601536,
+      "files": 16
+    },
+    "Silver.ComposeEvaluation": {
+      "logical": 2783997,
+      "allocated": 2834432,
+      "files": 16
+    },
+    "Silver.ComposeExamples": {
+      "logical": 498421,
+      "allocated": 544768,
+      "files": 16
+    },
+    "Silver.ComposeExecution": {
+      "logical": 5222271,
+      "allocated": 5271552,
+      "files": 16
+    },
+    "Silver.ComposeExpressionSourceCandidate": {
+      "logical": 170400,
+      "allocated": 217088,
+      "files": 16
+    },
+    "Silver.ComposeHelperSourceCandidate": {
+      "logical": 487871,
+      "allocated": 536576,
+      "files": 16
+    },
+    "Silver.ComposeInitializerTrace": {
+      "logical": 1225069,
+      "allocated": 1273856,
+      "files": 16
+    },
+    "Silver.ComposeModel": {
+      "logical": 127596,
+      "allocated": 180224,
+      "files": 16
+    },
+    "Silver.ComposeModelEquations": {
+      "logical": 616240,
+      "allocated": 663552,
+      "files": 16
+    },
+    "Silver.ComposeModelHelperEquations": {
+      "logical": 3197546,
+      "allocated": 3244032,
+      "files": 16
+    },
+    "Silver.ComposeModelLegal": {
+      "logical": 2533581,
+      "allocated": 2576384,
+      "files": 16
+    },
+    "Silver.ComposeModelRanges": {
+      "logical": 161973,
+      "allocated": 208896,
+      "files": 16
+    },
+    "Silver.ComposeModelRecursion": {
+      "logical": 1448958,
+      "allocated": 1499136,
+      "files": 16
+    },
+    "Silver.ComposeRecognitionEquations": {
+      "logical": 1294676,
+      "allocated": 1343488,
+      "files": 16
+    },
+    "Silver.ComposeScalarTrace": {
+      "logical": 1067707,
+      "allocated": 1118208,
+      "files": 16
+    },
+    "Silver.ComposeSourceBridge": {
+      "logical": 1003065,
+      "allocated": 1048576,
+      "files": 16
+    },
+    "Silver.ComposeSourceCandidate": {
+      "logical": 88415,
+      "allocated": 135168,
+      "files": 16
+    },
+    "Silver.ComposeSourceChecks": {
+      "logical": 138188,
+      "allocated": 188416,
+      "files": 16
+    },
+    "Silver.ComposeStringBoundEquivalence": {
+      "logical": 240927,
+      "allocated": 286720,
+      "files": 16
+    },
+    "Silver.ComposeStringDenotations": {
+      "logical": 637531,
+      "allocated": 684032,
+      "files": 16
+    },
+    "Silver.ComposeStringOrigins": {
+      "logical": 365853,
+      "allocated": 413696,
+      "files": 16
+    },
+    "Silver.ComposeStringRuntimeBounds": {
+      "logical": 475021,
+      "allocated": 520192,
+      "files": 16
+    },
+    "Silver.ComposeSubtypeChecks": {
+      "logical": 183697,
+      "allocated": 233472,
+      "files": 16
+    },
+    "Silver.ComposeSubtypeLookupLegal": {
+      "logical": 351575,
+      "allocated": 401408,
+      "files": 16
+    },
+    "Silver.ComposeSubtypeModelEquations": {
+      "logical": 1469655,
+      "allocated": 1519616,
+      "files": 16
+    },
+    "Silver.ConcatExamples": {
+      "logical": 323052,
+      "allocated": 372736,
+      "files": 16
+    },
+    "Silver.Current": {
+      "logical": 691375,
+      "allocated": 737280,
+      "files": 16
+    },
+    "Silver.FunctionBodyFrameReadiness": {
+      "logical": 212591,
+      "allocated": 262144,
+      "files": 16
+    },
+    "Silver.FunctionBodyMeaning": {
+      "logical": 319552,
+      "allocated": 364544,
+      "files": 16
+    },
+    "Silver.FunctionBodySource": {
+      "logical": 576114,
+      "allocated": 622592,
+      "files": 16
+    },
+    "Silver.FunctionDeclarationBodyDomains": {
+      "logical": 169841,
+      "allocated": 212992,
+      "files": 16
+    },
+    "Silver.FunctionDeclarationBodyEquations": {
+      "logical": 2935340,
+      "allocated": 2985984,
+      "files": 16
+    },
+    "Silver.FunctionDeclarationBodyImports": {
+      "logical": 379082,
+      "allocated": 430080,
+      "files": 16
+    },
+    "Silver.FunctionDeclarationBodyLibrary": {
+      "logical": 360543,
+      "allocated": 409600,
+      "files": 16
+    },
+    "Silver.FunctionDeclarationBodyModel": {
+      "logical": 86942,
+      "allocated": 131072,
+      "files": 16
+    },
+    "Silver.FunctionDeclarationComposition": {
+      "logical": 350677,
+      "allocated": 397312,
+      "files": 16
+    },
+    "Silver.FunctionDeclarationDenotations": {
+      "logical": 3971260,
+      "allocated": 4022272,
+      "files": 16
+    },
+    "Silver.FunctionDeclarationDomains": {
+      "logical": 230297,
+      "allocated": 274432,
+      "files": 16
+    },
+    "Silver.FunctionDeclarationFrameEquations": {
+      "logical": 354122,
+      "allocated": 397312,
+      "files": 16
+    },
+    "Silver.FunctionDeclarationHeaderEquations": {
+      "logical": 500148,
+      "allocated": 548864,
+      "files": 16
+    },
+    "Silver.FunctionDeclarationHeaderLibraries": {
+      "logical": 1089898,
+      "allocated": 1142784,
+      "files": 16
+    },
+    "Silver.FunctionDeclarationImports": {
+      "logical": 425721,
+      "allocated": 471040,
+      "files": 16
+    },
+    "Silver.FunctionDeclarationInitialDomain": {
+      "logical": 326582,
+      "allocated": 376832,
+      "files": 16
+    },
+    "Silver.FunctionDeclarationLibraries": {
+      "logical": 434426,
+      "allocated": 483328,
+      "files": 16
+    },
+    "Silver.FunctionDeclarationMeaning": {
+      "logical": 703776,
+      "allocated": 753664,
+      "files": 16
+    },
+    "Silver.FunctionDeclarationModelContracts": {
+      "logical": 527447,
+      "allocated": 573440,
+      "files": 16
+    },
+    "Silver.FunctionDeclarationModelSource": {
+      "logical": 383148,
+      "allocated": 434176,
+      "files": 16
+    },
+    "Silver.FunctionDeclarationOrdinaryEquations": {
+      "logical": 209599,
+      "allocated": 253952,
+      "files": 16
+    },
+    "Silver.FunctionDeclarationOuterEquations": {
+      "logical": 463251,
+      "allocated": 512000,
+      "files": 16
+    },
+    "Silver.FunctionDeclarationReadings": {
+      "logical": 432846,
+      "allocated": 479232,
+      "files": 16
+    },
+    "Silver.FunctionDeclarationRecordTypes": {
+      "logical": 270907,
+      "allocated": 315392,
+      "files": 16
+    },
+    "Silver.FunctionDeclarationRecursion": {
+      "logical": 571897,
+      "allocated": 618496,
+      "files": 16
+    },
+    "Silver.FunctionDeclarationReturnLibrary": {
+      "logical": 172715,
+      "allocated": 221184,
+      "files": 16
+    },
+    "Silver.FunctionDeclarationSourceBridge": {
+      "logical": 493462,
+      "allocated": 540672,
+      "files": 16
+    },
+    "Silver.FunctionDeclarationStateRecords": {
+      "logical": 411360,
+      "allocated": 458752,
+      "files": 16
+    },
+    "Silver.FunctionDeclarationStepImports": {
+      "logical": 680973,
+      "allocated": 733184,
+      "files": 16
+    },
+    "Silver.FunctionDeclarationTraversalContracts": {
+      "logical": 136327,
+      "allocated": 188416,
+      "files": 16
+    },
+    "Silver.FunctionDeclarationTypeSpan": {
+      "logical": 195301,
+      "allocated": 245760,
+      "files": 16
+    },
+    "Silver.FunctionDeclarationsTrace": {
+      "logical": 221428,
+      "allocated": 274432,
+      "files": 16
+    },
+    "Silver.FunctionFrameValidity": {
+      "logical": 731650,
+      "allocated": 774144,
+      "files": 16
+    },
+    "Silver.FunctionHeaderSource": {
+      "logical": 555638,
+      "allocated": 606208,
+      "files": 16
+    },
+    "Silver.FunctionInitializerShape": {
+      "logical": 358459,
+      "allocated": 401408,
+      "files": 16
+    },
+    "Silver.FunctionLocalAnalysis": {
+      "logical": 487153,
+      "allocated": 532480,
+      "files": 16
+    },
+    "Silver.FunctionParameterMeaning": {
+      "logical": 452064,
+      "allocated": 503808,
+      "files": 16
+    },
+    "Silver.FunctionParameterReadings": {
+      "logical": 220215,
+      "allocated": 270336,
+      "files": 16
+    },
+    "Silver.FunctionSourceChecks": {
+      "logical": 190986,
+      "allocated": 237568,
+      "files": 16
+    },
+    "Silver.FunctionSourceUnique": {
+      "logical": 485593,
+      "allocated": 536576,
+      "files": 16
+    },
+    "Silver.FunctionVisibilityEquations": {
+      "logical": 422435,
+      "allocated": 466944,
+      "files": 16
+    },
+    "Silver.LengthIntervalPrecedence": {
+      "logical": 809342,
+      "allocated": 860160,
+      "files": 16
+    },
+    "Silver.LengthIntervalsSource": {
+      "logical": 1746696,
+      "allocated": 1794048,
+      "files": 16
+    },
+    "Silver.LexicalSourceBridge": {
+      "logical": 114733,
+      "allocated": 167936,
+      "files": 16
+    },
+    "Silver.NamedExamples": {
+      "logical": 244517,
+      "allocated": 290816,
+      "files": 16
+    },
+    "Silver.NamedSourceBridge": {
+      "logical": 309647,
+      "allocated": 360448,
+      "files": 16
+    },
+    "Silver.OutputSourceBridge": {
+      "logical": 246550,
+      "allocated": 294912,
+      "files": 16
+    },
+    "Silver.PredicateAdapterSourceCandidate": {
+      "logical": 2645655,
+      "allocated": 2695168,
+      "files": 16
+    },
+    "Silver.PredicateArrayBodyNative": {
+      "logical": 3196504,
+      "allocated": 3248128,
+      "files": 16
+    },
+    "Silver.PredicateArrayBodySource": {
+      "logical": 664416,
+      "allocated": 708608,
+      "files": 16
+    },
+    "Silver.PredicateBasicEquations": {
+      "logical": 4406200,
+      "allocated": 4452352,
+      "files": 16
+    },
+    "Silver.PredicateBasicExpressions": {
+      "logical": 2956642,
+      "allocated": 3006464,
+      "files": 16
+    },
+    "Silver.PredicateBasicHelpers": {
+      "logical": 1049911,
+      "allocated": 1097728,
+      "files": 16
+    },
+    "Silver.PredicateBasicLibraries": {
+      "logical": 863100,
+      "allocated": 913408,
+      "files": 16
+    },
+    "Silver.PredicateBasicReadings": {
+      "logical": 1752671,
+      "allocated": 1802240,
+      "files": 16
+    },
+    "Silver.PredicateBasicSizing": {
+      "logical": 426837,
+      "allocated": 479232,
+      "files": 16
+    },
+    "Silver.PredicateBasicSourceCandidate": {
+      "logical": 3402734,
+      "allocated": 3448832,
+      "files": 16
+    },
+    "Silver.PredicateBasicStepMeaning": {
+      "logical": 324425,
+      "allocated": 376832,
+      "files": 16
+    },
+    "Silver.PredicateBasicStepReadings": {
+      "logical": 353298,
+      "allocated": 401408,
+      "files": 16
+    },
+    "Silver.PredicateBodyBinderSeparation": {
+      "logical": 2533767,
+      "allocated": 2580480,
+      "files": 16
+    },
+    "Silver.PredicateBodyCandidates": {
+      "logical": 2467821,
+      "allocated": 2514944,
+      "files": 16
+    },
+    "Silver.PredicateBodyHelpers": {
+      "logical": 1087455,
+      "allocated": 1138688,
+      "files": 16
+    },
+    "Silver.PredicateBodyLibraries": {
+      "logical": 760207,
+      "allocated": 811008,
+      "files": 16
+    },
+    "Silver.PredicateBodyMeaning": {
+      "logical": 11811520,
+      "allocated": 11862016,
+      "files": 16
+    },
+    "Silver.PredicateBodyModelSizing": {
+      "logical": 497699,
+      "allocated": 544768,
+      "files": 16
+    },
+    "Silver.PredicateBodyReadings": {
+      "logical": 1418657,
+      "allocated": 1466368,
+      "files": 16
+    },
+    "Silver.PredicateBodySizing": {
+      "logical": 182767,
+      "allocated": 233472,
+      "files": 16
+    },
+    "Silver.PredicateBodySound": {
+      "logical": 1930138,
+      "allocated": 1978368,
+      "files": 16
+    },
+    "Silver.PredicateBodySourceCandidate": {
+      "logical": 812657,
+      "allocated": 860160,
+      "files": 16
+    },
+    "Silver.PredicateBodyUnique": {
+      "logical": 5828980,
+      "allocated": 5873664,
+      "files": 16
+    },
+    "Silver.PredicateBooleanArrayBodyHelpers": {
+      "logical": 301250,
+      "allocated": 344064,
+      "files": 16
+    },
+    "Silver.PredicateBooleanArrayBodyLibraries": {
+      "logical": 259499,
+      "allocated": 311296,
+      "files": 16
+    },
+    "Silver.PredicateBooleanArrayBodyNative": {
+      "logical": 4214415,
+      "allocated": 4263936,
+      "files": 16
+    },
+    "Silver.PredicateBooleanArrayBodySource": {
+      "logical": 229634,
+      "allocated": 278528,
+      "files": 16
+    },
+    "Silver.PredicateBooleanBodySource": {
+      "logical": 227396,
+      "allocated": 274432,
+      "files": 16
+    },
+    "Silver.PredicateBooleanHeader": {
+      "logical": 860106,
+      "allocated": 913408,
+      "files": 16
+    },
+    "Silver.PredicateCharacterSourceCandidate": {
+      "logical": 2786545,
+      "allocated": 2834432,
+      "files": 16
+    },
+    "Silver.PredicateChecks": {
+      "logical": 841039,
+      "allocated": 888832,
+      "files": 16
+    },
+    "Silver.PredicateConditionMeaning": {
+      "logical": 593148,
+      "allocated": 638976,
+      "files": 16
+    },
+    "Silver.PredicateConditionValidity": {
+      "logical": 3481207,
+      "allocated": 3530752,
+      "files": 16
+    },
+    "Silver.PredicateCorrespondence": {
+      "logical": 593036,
+      "allocated": 638976,
+      "files": 16
+    },
+    "Silver.PredicateCountedBoundSource": {
+      "logical": 1116967,
+      "allocated": 1171456,
+      "files": 16
+    },
+    "Silver.PredicateEquations": {
+      "logical": 703347,
+      "allocated": 749568,
+      "files": 16
+    },
+    "Silver.PredicateExamples": {
+      "logical": 357535,
+      "allocated": 405504,
+      "files": 16
+    },
+    "Silver.PredicateFlags": {
+      "logical": 379942,
+      "allocated": 434176,
+      "files": 16
+    },
+    "Silver.PredicateFlowSourceCandidate": {
+      "logical": 212391,
+      "allocated": 262144,
+      "files": 16
+    },
+    "Silver.PredicateFunctionCallMeaning": {
+      "logical": 6319256,
+      "allocated": 6369280,
+      "files": 16
+    },
+    "Silver.PredicateFunctionFlags": {
+      "logical": 1145732,
+      "allocated": 1191936,
+      "files": 16
+    },
+    "Silver.PredicateGrammar": {
+      "logical": 1331051,
+      "allocated": 1384448,
+      "files": 16
+    },
+    "Silver.PredicateHeader": {
+      "logical": 564016,
+      "allocated": 610304,
+      "files": 16
+    },
+    "Silver.PredicateHeaderDecode": {
+      "logical": 640867,
+      "allocated": 679936,
+      "files": 16
+    },
+    "Silver.PredicateHeaderFlow": {
+      "logical": 489257,
+      "allocated": 536576,
+      "files": 16
+    },
+    "Silver.PredicateInheritedReady": {
+      "logical": 612815,
+      "allocated": 663552,
+      "files": 16
+    },
+    "Silver.PredicateLoopCandidate": {
+      "logical": 3244039,
+      "allocated": 3293184,
+      "files": 16
+    },
+    "Silver.PredicateLoopHelpers": {
+      "logical": 1126315,
+      "allocated": 1179648,
+      "files": 16
+    },
+    "Silver.PredicateLoopImports": {
+      "logical": 478892,
+      "allocated": 524288,
+      "files": 16
+    },
+    "Silver.PredicateLoopSizing": {
+      "logical": 1370154,
+      "allocated": 1421312,
+      "files": 16
+    },
+    "Silver.PredicateNativeHelpersCandidate": {
+      "logical": 134980,
+      "allocated": 188416,
+      "files": 16
+    },
+    "Silver.PredicateNativeShapeCandidate": {
+      "logical": 755551,
+      "allocated": 806912,
+      "files": 16
+    },
+    "Silver.PredicateNativeSourceBridge": {
+      "logical": 199366,
+      "allocated": 245760,
+      "files": 16
+    },
+    "Silver.PredicateNativeSourceChecks": {
+      "logical": 1536564,
+      "allocated": 1585152,
+      "files": 16
+    },
+    "Silver.PredicateOuterCandidates": {
+      "logical": 1204173,
+      "allocated": 1253376,
+      "files": 16
+    },
+    "Silver.PredicateOuterEquations": {
+      "logical": 1046107,
+      "allocated": 1093632,
+      "files": 16
+    },
+    "Silver.PredicateOuterExpressions": {
+      "logical": 1940666,
+      "allocated": 1990656,
+      "files": 16
+    },
+    "Silver.PredicateOuterModel": {
+      "logical": 3455657,
+      "allocated": 3502080,
+      "files": 16
+    },
+    "Silver.PredicateProcedureBodyShape": {
+      "logical": 2419234,
+      "allocated": 2465792,
+      "files": 16
+    },
+    "Silver.PredicateProcedureCallMeaning": {
+      "logical": 266495,
+      "allocated": 315392,
+      "files": 16
+    },
+    "Silver.PredicateProcedureCallSourceChecks": {
+      "logical": 115881,
+      "allocated": 167936,
+      "files": 16
+    },
+    "Silver.PredicateProcedureTargetMeaning": {
+      "logical": 452432,
+      "allocated": 503808,
+      "files": 16
+    },
+    "Silver.PredicateProcedureUpdatesMeaning": {
+      "logical": 675842,
+      "allocated": 724992,
+      "files": 16
+    },
+    "Silver.PredicateScalarBodyCandidate": {
+      "logical": 206478,
+      "allocated": 253952,
+      "files": 16
+    },
+    "Silver.PredicateScalarBodySource": {
+      "logical": 224928,
+      "allocated": 274432,
+      "files": 16
+    },
+    "Silver.PredicateScalarGuardMeaning": {
+      "logical": 1141761,
+      "allocated": 1191936,
+      "files": 16
+    },
+    "Silver.PredicateSelectors": {
+      "logical": 646510,
+      "allocated": 696320,
+      "files": 16
+    },
+    "Silver.PredicateShell": {
+      "logical": 384619,
+      "allocated": 434176,
+      "files": 16
+    },
+    "Silver.PredicateSourceBridge": {
+      "logical": 641414,
+      "allocated": 684032,
+      "files": 16
+    },
+    "Silver.PredicateSourceCandidate": {
+      "logical": 344314,
+      "allocated": 389120,
+      "files": 16
+    },
+    "Silver.PredicateSourceChecks": {
+      "logical": 483639,
+      "allocated": 528384,
+      "files": 16
+    },
+    "Silver.PredicateSourceRequirements": {
+      "logical": 4175436,
+      "allocated": 4222976,
+      "files": 16
+    },
+    "Silver.PredicateSourceShape": {
+      "logical": 18937,
+      "allocated": 69632,
+      "files": 16
+    },
+    "Silver.PredicateStatementFlags": {
+      "logical": 8277239,
+      "allocated": 8331264,
+      "files": 16
+    },
+    "Silver.PredicateStringActualAssurance": {
+      "logical": 649536,
+      "allocated": 700416,
+      "files": 16
+    },
+    "Silver.PredicateStringActualBounds": {
+      "logical": 686473,
+      "allocated": 737280,
+      "files": 16
+    },
+    "Silver.PredicateStringActualExecution": {
+      "logical": 1374557,
+      "allocated": 1421312,
+      "files": 16
+    },
+    "Silver.PredicateStringActualInitializers": {
+      "logical": 1351165,
+      "allocated": 1400832,
+      "files": 16
+    },
+    "Silver.PredicateStringAssignmentMeaning": {
+      "logical": 515679,
+      "allocated": 557056,
+      "files": 16
+    },
+    "Silver.PredicateStringAssignmentReadings": {
+      "logical": 409721,
+      "allocated": 458752,
+      "files": 16
+    },
+    "Silver.PredicateStringBoundChecks": {
+      "logical": 543688,
+      "allocated": 589824,
+      "files": 16
+    },
+    "Silver.PredicateStringBoundsAssurance": {
+      "logical": 299861,
+      "allocated": 348160,
+      "files": 16
+    },
+    "Silver.PredicateStringBoundsExecution": {
+      "logical": 7874155,
+      "allocated": 7921664,
+      "files": 16
+    },
+    "Silver.PredicateStringBoundsSources": {
+      "logical": 16022579,
+      "allocated": 16068608,
+      "files": 16
+    },
+    "Silver.PredicateStructuralGuards": {
+      "logical": 2492676,
+      "allocated": 2535424,
+      "files": 16
+    },
+    "Silver.ProcedureDeclarationBodyImports": {
+      "logical": 458097,
+      "allocated": 503808,
+      "files": 16
+    },
+    "Silver.ProcedureDeclarationBodyLibrary": {
+      "logical": 619651,
+      "allocated": 667648,
+      "files": 16
+    },
+    "Silver.ProcedureDeclarationBodyNative": {
+      "logical": 4614272,
+      "allocated": 4657152,
+      "files": 16
+    },
+    "Silver.ProcedureDeclarationDenotations": {
+      "logical": 5169924,
+      "allocated": 5210112,
+      "files": 16
+    },
+    "Silver.ProcedureDeclarationDomains": {
+      "logical": 108782,
+      "allocated": 155648,
+      "files": 16
+    },
+    "Silver.ProcedureDeclarationFrameEquations": {
+      "logical": 370310,
+      "allocated": 421888,
+      "files": 16
+    },
+    "Silver.ProcedureDeclarationHelperEquations": {
+      "logical": 279374,
+      "allocated": 323584,
+      "files": 16
+    },
+    "Silver.ProcedureDeclarationHelperLibraries": {
+      "logical": 379923,
+      "allocated": 434176,
+      "files": 16
+    },
+    "Silver.ProcedureDeclarationHelperModel": {
+      "logical": 373981,
+      "allocated": 421888,
+      "files": 16
+    },
+    "Silver.ProcedureDeclarationHelperModelSource": {
+      "logical": 346582,
+      "allocated": 397312,
+      "files": 16
+    },
+    "Silver.ProcedureDeclarationHelperSource": {
+      "logical": 4523675,
+      "allocated": 4571136,
+      "files": 16
+    },
+    "Silver.ProcedureDeclarationHelperSourceChecks": {
+      "logical": 113410,
+      "allocated": 159744,
+      "files": 16
+    },
+    "Silver.ProcedureDeclarationHelperWholeSourceCandidate": {
+      "logical": 312339,
+      "allocated": 364544,
+      "files": 16
+    },
+    "Silver.ProcedureDeclarationHelperWholeSourceParts.AppendProcedureParameter": {
+      "logical": 93429,
+      "allocated": 147456,
+      "files": 16
+    },
+    "Silver.ProcedureDeclarationHelperWholeSourceParts.ParameterCursor": {
+      "logical": 83580,
+      "allocated": 131072,
+      "files": 16
+    },
+    "Silver.ProcedureDeclarationHelperWholeSourceParts.ProcedureInputFrame": {
+      "logical": 95851,
+      "allocated": 147456,
+      "files": 16
+    },
+    "Silver.ProcedureDeclarationHelperWholeSourceParts.ProcedureInputFrameModel": {
+      "logical": 97311,
+      "allocated": 151552,
+      "files": 16
+    },
+    "Silver.ProcedureDeclarationHelperWholeSourceParts.ProcedureParameterStep": {
+      "logical": 97061,
+      "allocated": 147456,
+      "files": 16
+    },
+    "Silver.ProcedureDeclarationHelperWholeSourceParts.ProcedureParametersAt": {
+      "logical": 95880,
+      "allocated": 147456,
+      "files": 16
+    },
+    "Silver.ProcedureDeclarationHelperWholeSourceParts.ProcedureParametersModel": {
+      "logical": 97311,
+      "allocated": 151552,
+      "files": 16
+    },
+    "Silver.ProcedureDeclarationHelperWholeSourceParts.ProcedurePrefix": {
+      "logical": 95771,
+      "allocated": 143360,
+      "files": 16
+    },
+    "Silver.ProcedureDeclarationHelperWholeSourceParts.ProcedurePrefixModel": {
+      "logical": 97245,
+      "allocated": 151552,
+      "files": 16
+    },
+    "Silver.ProcedureDeclarationHelperWholeSourceParts.ProcedurePrefixStep": {
+      "logical": 95913,
+      "allocated": 147456,
+      "files": 16
+    },
+    "Silver.ProcedureDeclarationHelperWholeSourceParts.StepResult": {
+      "logical": 83502,
+      "allocated": 131072,
+      "files": 16
+    },
+    "Silver.ProcedureDeclarationHighEquations": {
+      "logical": 154437,
+      "allocated": 200704,
+      "files": 16
+    },
+    "Silver.ProcedureDeclarationHighSource": {
+      "logical": 816729,
+      "allocated": 860160,
+      "files": 16
+    },
+    "Silver.ProcedureDeclarationHighSourceCandidate": {
+      "logical": 140262,
+      "allocated": 188416,
+      "files": 16
+    },
+    "Silver.ProcedureDeclarationHighSourceChecks": {
+      "logical": 110406,
+      "allocated": 163840,
+      "files": 16
+    },
+    "Silver.ProcedureDeclarationHighSourceParts.Body": {
+      "logical": 112228,
+      "allocated": 163840,
+      "files": 16
+    },
+    "Silver.ProcedureDeclarationHighSourceParts.BodyImpl": {
+      "logical": 87297,
+      "allocated": 139264,
+      "files": 16
+    },
+    "Silver.ProcedureDeclarationHighSourceParts.BodySpec": {
+      "logical": 87297,
+      "allocated": 139264,
+      "files": 16
+    },
+    "Silver.ProcedureDeclarationHighSourceParts.Outer": {
+      "logical": 87008,
+      "allocated": 139264,
+      "files": 16
+    },
+    "Silver.ProcedureDeclarationHighSourceParts.OuterImpl": {
+      "logical": 87316,
+      "allocated": 139264,
+      "files": 16
+    },
+    "Silver.ProcedureDeclarationHighSourceParts.OuterSpec": {
+      "logical": 87316,
+      "allocated": 139264,
+      "files": 16
+    },
+    "Silver.ProcedureDeclarationMeaning": {
+      "logical": 1491860,
+      "allocated": 1531904,
+      "files": 16
+    },
+    "Silver.ProcedureDeclarationModelSource": {
+      "logical": 339939,
+      "allocated": 389120,
+      "files": 16
+    },
+    "Silver.ProcedureDeclarationNative": {
+      "logical": 836544,
+      "allocated": 884736,
+      "files": 16
+    },
+    "Silver.ProcedureDeclarationOuterDomains": {
+      "logical": 303646,
+      "allocated": 352256,
+      "files": 16
+    },
+    "Silver.ProcedureDeclarationOuterImports": {
+      "logical": 306059,
+      "allocated": 352256,
+      "files": 16
+    },
+    "Silver.ProcedureDeclarationOuterLibrary": {
+      "logical": 389987,
+      "allocated": 438272,
+      "files": 16
+    },
+    "Silver.ProcedureDeclarationOuterNative": {
+      "logical": 4093888,
+      "allocated": 4145152,
+      "files": 16
+    },
+    "Silver.ProcedureDeclarationParameterLibraries": {
+      "logical": 1019641,
+      "allocated": 1064960,
+      "files": 16
+    },
+    "Silver.ProcedureDeclarationPrefixEquations": {
+      "logical": 320300,
+      "allocated": 364544,
+      "files": 16
+    },
+    "Silver.ProcedureDeclarationPrefixImports": {
+      "logical": 597976,
+      "allocated": 651264,
+      "files": 16
+    },
+    "Silver.ProcedureDeclarationPrefixLibraries": {
+      "logical": 402225,
+      "allocated": 450560,
+      "files": 16
+    },
+    "Silver.ProcedureDeclarationReadings": {
+      "logical": 371180,
+      "allocated": 421888,
+      "files": 16
+    },
+    "Silver.ProcedureDeclarationRecursion": {
+      "logical": 364688,
+      "allocated": 405504,
+      "files": 16
+    },
+    "Silver.ProcedureDeclarationSourceBridge": {
+      "logical": 330626,
+      "allocated": 380928,
+      "files": 16
+    },
+    "Silver.ProcedureDeclarationStepImports": {
+      "logical": 671709,
+      "allocated": 716800,
+      "files": 16
+    },
+    "Silver.ProcedureDeclarationSyntax": {
+      "logical": 9922823,
+      "allocated": 9973760,
+      "files": 16
+    },
+    "Silver.ProcedureDeclarationTrace": {
+      "logical": 891579,
+      "allocated": 942080,
+      "files": 16
+    },
+    "Silver.ProcedureDeclarationTraversalContracts": {
+      "logical": 171807,
+      "allocated": 221184,
+      "files": 16
+    },
+    "Silver.ProcedureDeclarationTraversalModel": {
+      "logical": 655645,
+      "allocated": 704512,
+      "files": 16
+    },
+    "Silver.ProcedureFrameMeaning": {
+      "logical": 1036939,
+      "allocated": 1085440,
+      "files": 16
+    },
+    "Silver.ProcedureFrameReadings": {
+      "logical": 246116,
+      "allocated": 294912,
+      "files": 16
+    },
+    "Silver.ProcedureFrameRecordTypes": {
+      "logical": 168910,
+      "allocated": 217088,
+      "files": 16
+    },
+    "Silver.ProcedureFrameValidity": {
+      "logical": 245406,
+      "allocated": 294912,
+      "files": 16
+    },
+    "Silver.ProcedureLookupMeaning": {
+      "logical": 87659,
+      "allocated": 135168,
+      "files": 16
+    },
+    "Silver.ProcedureMetadataMeaning": {
+      "logical": 368704,
+      "allocated": 413696,
+      "files": 16
+    },
+    "Silver.ProcedureMetadataNative": {
+      "logical": 1092390,
+      "allocated": 1142784,
+      "files": 16
+    },
+    "Silver.ProcedureMetadataSource": {
+      "logical": 217471,
+      "allocated": 262144,
+      "files": 16
+    },
+    "Silver.ProcedureMetadataSourceBridge": {
+      "logical": 584248,
+      "allocated": 630784,
+      "files": 16
+    },
+    "Silver.ProcedureMetadataSourceCandidate": {
+      "logical": 128022,
+      "allocated": 176128,
+      "files": 16
+    },
+    "Silver.ProcedureMetadataSourceChecks": {
+      "logical": 140486,
+      "allocated": 192512,
+      "files": 16
+    },
+    "Silver.ProcedureNameActualReadings": {
+      "logical": 440068,
+      "allocated": 487424,
+      "files": 16
+    },
+    "Silver.ProcedureNameActualsApart": {
+      "logical": 360651,
+      "allocated": 413696,
+      "files": 16
+    },
+    "Silver.ProcedureNameAliasOrigins": {
+      "logical": 393580,
+      "allocated": 442368,
+      "files": 16
+    },
+    "Silver.ProcedureNameBooleanReadings": {
+      "logical": 585297,
+      "allocated": 634880,
+      "files": 16
+    },
+    "Silver.ProcedureNameCharacterReadings": {
+      "logical": 362764,
+      "allocated": 413696,
+      "files": 16
+    },
+    "Silver.ProcedureNameCompoundTokens": {
+      "logical": 214868,
+      "allocated": 262144,
+      "files": 16
+    },
+    "Silver.ProcedureNameConditionBounds": {
+      "logical": 587655,
+      "allocated": 630784,
+      "files": 16
+    },
+    "Silver.ProcedureNameConditionCursors": {
+      "logical": 726459,
+      "allocated": 774144,
+      "files": 16
+    },
+    "Silver.ProcedureNameConditionReadings": {
+      "logical": 14431429,
+      "allocated": 14479360,
+      "files": 16
+    },
+    "Silver.ProcedureNameConditionTokens": {
+      "logical": 214371,
+      "allocated": 262144,
+      "files": 16
+    },
+    "Silver.ProcedureNameImageReadings": {
+      "logical": 387919,
+      "allocated": 438272,
+      "files": 16
+    },
+    "Silver.ProcedureNameIndexedReadings": {
+      "logical": 287846,
+      "allocated": 339968,
+      "files": 16
+    },
+    "Silver.ProcedureNameLengthReadings": {
+      "logical": 227876,
+      "allocated": 278528,
+      "files": 16
+    },
+    "Silver.ProcedureNamePunctuation": {
+      "logical": 407747,
+      "allocated": 458752,
+      "files": 16
+    },
+    "Silver.ProcedureNameRelationReadings": {
+      "logical": 479774,
+      "allocated": 528384,
+      "files": 16
+    },
+    "Silver.ProcedureNameSelectors": {
+      "logical": 1019037,
+      "allocated": 1064960,
+      "files": 16
+    },
+    "Silver.ProcedureNameSource": {
+      "logical": 208463,
+      "allocated": 258048,
+      "files": 16
+    },
+    "Silver.ProcedureNameSourceCandidate": {
+      "logical": 123573,
+      "allocated": 176128,
+      "files": 16
+    },
+    "Silver.ProcedureNameSourceChecks": {
+      "logical": 110612,
+      "allocated": 163840,
+      "files": 16
+    },
+    "Silver.ProcedureNameSourceParts.Loop": {
+      "logical": 100421,
+      "allocated": 151552,
+      "files": 16
+    },
+    "Silver.ProcedureNameSourceParts.LoopImpl": {
+      "logical": 85200,
+      "allocated": 135168,
+      "files": 16
+    },
+    "Silver.ProcedureNameSourceParts.LoopSpec": {
+      "logical": 85200,
+      "allocated": 135168,
+      "files": 16
+    },
+    "Silver.ProcedureNameSourceParts.Model": {
+      "logical": 80966,
+      "allocated": 126976,
+      "files": 16
+    },
+    "Silver.ProcedureNameSourceParts.ModelImpl": {
+      "logical": 85222,
+      "allocated": 135168,
+      "files": 16
+    },
+    "Silver.ProcedureNameSourceParts.ModelSpec": {
+      "logical": 85222,
+      "allocated": 135168,
+      "files": 16
+    },
+    "Silver.ProcedureNameSourceParts.Record": {
+      "logical": 80654,
+      "allocated": 126976,
+      "files": 16
+    },
+    "Silver.ProcedureNameSourceParts.Step": {
+      "logical": 82463,
+      "allocated": 126976,
+      "files": 16
+    },
+    "Silver.ProcedureNameSourceParts.StepImpl": {
+      "logical": 85200,
+      "allocated": 135168,
+      "files": 16
+    },
+    "Silver.ProcedureNameSourceParts.StepSpec": {
+      "logical": 85200,
+      "allocated": 135168,
+      "files": 16
+    },
+    "Silver.ProcedureNameStringCursors": {
+      "logical": 257162,
+      "allocated": 303104,
+      "files": 16
+    },
+    "Silver.ProcedureNameStringReadings": {
+      "logical": 621134,
+      "allocated": 667648,
+      "files": 16
+    },
+    "Silver.ProcedureNameTargets": {
+      "logical": 270748,
+      "allocated": 315392,
+      "files": 16
+    },
+    "Silver.ProcedureNameValidityReading": {
+      "logical": 177417,
+      "allocated": 229376,
+      "files": 16
+    },
+    "Silver.ProcedurePrefixMeaning": {
+      "logical": 6953832,
+      "allocated": 7000064,
+      "files": 16
+    },
+    "Silver.ProcedurePrefixReadings": {
+      "logical": 893448,
+      "allocated": 937984,
+      "files": 16
+    },
+    "Silver.ScalarFunctionFrameFlow": {
+      "logical": 140699,
+      "allocated": 188416,
+      "files": 16
+    },
+    "Silver.ScalarFunctionFrozenBoolean": {
+      "logical": 406178,
+      "allocated": 450560,
+      "files": 16
+    },
+    "Silver.ScalarProcedureLayout": {
+      "logical": 619090,
+      "allocated": 667648,
+      "files": 16
+    },
+    "Silver.SequenceAdmission": {
+      "logical": 1554829,
+      "allocated": 1605632,
+      "files": 16
+    },
+    "Silver.SequenceArrayReady": {
+      "logical": 361150,
+      "allocated": 409600,
+      "files": 16
+    },
+    "Silver.SequenceBasics": {
+      "logical": 445218,
+      "allocated": 491520,
+      "files": 16
+    },
+    "Silver.SequenceBodyContext": {
+      "logical": 1248142,
+      "allocated": 1294336,
+      "files": 16
+    },
+    "Silver.SequenceConditionValidity": {
+      "logical": 12514515,
+      "allocated": 12558336,
+      "files": 16
+    },
+    "Silver.SequenceConditions": {
+      "logical": 1286680,
+      "allocated": 1331200,
+      "files": 16
+    },
+    "Silver.SequenceContext": {
+      "logical": 327988,
+      "allocated": 376832,
+      "files": 16
+    },
+    "Silver.SequenceEquations": {
+      "logical": 2507271,
+      "allocated": 2555904,
+      "files": 16
+    },
+    "Silver.SequenceExpressions": {
+      "logical": 2645710,
+      "allocated": 2691072,
+      "files": 16
+    },
+    "Silver.SequenceFormDisjoint": {
+      "logical": 373179,
+      "allocated": 417792,
+      "files": 16
+    },
+    "Silver.SequenceFullEquations": {
+      "logical": 581798,
+      "allocated": 622592,
+      "files": 16
+    },
+    "Silver.SequenceFunctionTrace": {
+      "logical": 436903,
+      "allocated": 483328,
+      "files": 16
+    },
+    "Silver.SequenceGrammar": {
+      "logical": 398253,
+      "allocated": 450560,
+      "files": 16
+    },
+    "Silver.SequenceHeader": {
+      "logical": 279911,
+      "allocated": 331776,
+      "files": 16
+    },
+    "Silver.SequenceInitializerTrace": {
+      "logical": 305723,
+      "allocated": 352256,
+      "files": 16
+    },
+    "Silver.SequenceLists": {
+      "logical": 395719,
+      "allocated": 446464,
+      "files": 16
+    },
+    "Silver.SequenceMain": {
+      "logical": 1467441,
+      "allocated": 1515520,
+      "files": 16
+    },
+    "Silver.SequenceMixedTrace": {
+      "logical": 597916,
+      "allocated": 647168,
+      "files": 16
+    },
+    "Silver.SequenceModel": {
+      "logical": 3094094,
+      "allocated": 3141632,
+      "files": 16
+    },
+    "Silver.SequenceModelRanges": {
+      "logical": 434987,
+      "allocated": 487424,
+      "files": 16
+    },
+    "Silver.SequenceNativeCorrespondence": {
+      "logical": 741713,
+      "allocated": 790528,
+      "files": 16
+    },
+    "Silver.SequenceNativeEquations": {
+      "logical": 514695,
+      "allocated": 565248,
+      "files": 16
+    },
+    "Silver.SequenceNativeExpressions": {
+      "logical": 2638416,
+      "allocated": 2686976,
+      "files": 16
+    },
+    "Silver.SequenceNativeModel": {
+      "logical": 1478490,
+      "allocated": 1531904,
+      "files": 16
+    },
+    "Silver.SequenceNativeProjected": {
+      "logical": 198303,
+      "allocated": 245760,
+      "files": 16
+    },
+    "Silver.SequenceNativeProjection": {
+      "logical": 682417,
+      "allocated": 733184,
+      "files": 16
+    },
+    "Silver.SequenceNativeState": {
+      "logical": 937520,
+      "allocated": 987136,
+      "files": 16
+    },
+    "Silver.SequenceNativeUnique": {
+      "logical": 997018,
+      "allocated": 1048576,
+      "files": 16
+    },
+    "Silver.SequenceObligations": {
+      "logical": 1036939,
+      "allocated": 1085440,
+      "files": 16
+    },
+    "Silver.SequenceScalarTrace": {
+      "logical": 644546,
+      "allocated": 692224,
+      "files": 16
+    },
+    "Silver.SequenceSelectors": {
+      "logical": 1712691,
+      "allocated": 1765376,
+      "files": 16
+    },
+    "Silver.SequenceShell": {
+      "logical": 262834,
+      "allocated": 307200,
+      "files": 16
+    },
+    "Silver.SequenceSubtypeReady": {
+      "logical": 434654,
+      "allocated": 483328,
+      "files": 16
+    },
+    "Silver.SequenceTokens": {
+      "logical": 588728,
+      "allocated": 634880,
+      "files": 16
+    }
+  },
+  "all_not_upper": {
+    "Silver": {
+      "logical": 668030,
+      "allocated": 720896,
+      "files": 16
+    },
+    "Silver/ImageModelTemplateFragments": {
+      "logical": 42304,
+      "allocated": 90112,
+      "files": 16
+    },
+    "Silver/ScalarLiteralEquations": {
+      "logical": 1406366,
+      "allocated": 1458176,
+      "files": 16
+    },
+    "Silver/ComposeArrayChecks": {
+      "logical": 266686,
+      "allocated": 311296,
+      "files": 16
+    },
+    "Silver/ComposeHelperSourceCandidate": {
+      "logical": 487871,
+      "allocated": 536576,
+      "files": 16
+    },
+    "Silver/ComposeCatalogueSourceCandidate": {
+      "logical": 632607,
+      "allocated": 675840,
+      "files": 16
+    },
+    "Silver/PredicateConditionAdmission": {
+      "logical": 2346926,
+      "allocated": 2400256,
+      "files": 16
+    },
+    "Silver/SequenceObligations": {
+      "logical": 1036939,
+      "allocated": 1085440,
+      "files": 16
+    },
+    "Silver/PredicateFlowWidening": {
+      "logical": 208376,
+      "allocated": 258048,
+      "files": 16
+    },
+    "Silver/FunctionBindingsBodySource": {
+      "logical": 19125,
+      "allocated": 73728,
+      "files": 16
+    },
+    "Silver/ProcedureDeclarationHelperEquations": {
+      "logical": 279374,
+      "allocated": 323584,
+      "files": 16
+    },
+    "Silver/ReviewedSourceShape": {
+      "logical": 4822719,
+      "allocated": 4866048,
+      "files": 16
+    },
+    "Silver/ArgumentsDisjoint": {
+      "logical": 655659,
+      "allocated": 696320,
+      "files": 16
+    },
+    "Silver/ImageModelTheorySpelling": {
+      "logical": 412682,
+      "allocated": 462848,
+      "files": 16
+    },
+    "Silver/ProcedureNameSourceChecks": {
+      "logical": 110612,
+      "allocated": 163840,
+      "files": 16
+    },
+    "Silver/Expressions": {
+      "logical": 4745617,
+      "allocated": 4792320,
+      "files": 16
+    },
+    "Silver/PredicateCharacterReadings": {
+      "logical": 278327,
+      "allocated": 323584,
+      "files": 16
+    },
+    "Silver/ComposeExecution": {
+      "logical": 5222271,
+      "allocated": 5271552,
+      "files": 16
+    },
+    "Silver/FunctionDeclarationInitialDomain": {
+      "logical": 326582,
+      "allocated": 376832,
+      "files": 16
+    },
+    "Silver/ImageModelStringResult": {
+      "logical": 407167,
+      "allocated": 454656,
+      "files": 16
+    },
+    "Silver/IntegerChecks": {
+      "logical": 1758816,
+      "allocated": 1810432,
+      "files": 16
+    },
+    "Silver/PredicateOuterCandidates": {
+      "logical": 1204173,
+      "allocated": 1253376,
+      "files": 16
+    },
+    "Silver/ProcedureDeclarationHighSource": {
+      "logical": 816729,
+      "allocated": 860160,
+      "files": 16
+    },
+    "Silver/ScalarFunctionTypes": {
+      "logical": 720278,
+      "allocated": 774144,
+      "files": 16
+    },
+    "Silver/LengthIntervalsCapture": {
+      "logical": 3654384,
+      "allocated": 3702784,
+      "files": 16
+    },
+    "Silver/Precedence": {
+      "logical": 387047,
+      "allocated": 434176,
+      "files": 16
+    },
+    "Silver/FunctionDeclarationRecursion": {
+      "logical": 571897,
+      "allocated": 618496,
+      "files": 16
+    },
+    "Silver/ProcedureDeclarationHelperSourceChecks": {
+      "logical": 113410,
+      "allocated": 159744,
+      "files": 16
+    },
+    "Silver/ImageModelInitialSource": {
+      "logical": 1297541,
+      "allocated": 1339392,
+      "files": 16
+    },
+    "Silver/SequenceNativeProjected": {
+      "logical": 198303,
+      "allocated": 245760,
+      "files": 16
+    },
+    "Silver/ArrayBindingsSourceChecks": {
+      "logical": 315863,
+      "allocated": 364544,
+      "files": 16
+    },
+    "Silver/ProcedureNameLengthLiterals": {
+      "logical": 162963,
+      "allocated": 208896,
+      "files": 16
+    },
+    "Silver/ArrayLayout": {
+      "logical": 627006,
+      "allocated": 679936,
+      "files": 16
+    },
+    "Silver/FunctionBindingsNativeExpressions": {
+      "logical": 2827178,
+      "allocated": 2879488,
+      "files": 16
+    },
+    "Silver/ProcedureDeclarationHelperModelSource": {
+      "logical": 346582,
+      "allocated": 397312,
+      "files": 16
+    },
+    "Silver/FunctionVisibilityEquations": {
+      "logical": 422435,
+      "allocated": 466944,
+      "files": 16
+    },
+    "Silver/ImageModelTemplatesSpecCertificate": {
+      "logical": 662798,
+      "allocated": 708608,
+      "files": 16
+    },
+    "Silver/ImageModelJsonSyntax": {
+      "logical": 744392,
+      "allocated": 798720,
+      "files": 16
+    },
+    "Silver/ProcedureNamePunctuation": {
+      "logical": 407747,
+      "allocated": 458752,
+      "files": 16
+    },
+    "Silver/ScalarExpressionSourceChecks": {
+      "logical": 232795,
+      "allocated": 282624,
+      "files": 16
+    },
+    "Silver/PredicateConditionFlowValidity": {
+      "logical": 908624,
+      "allocated": 954368,
+      "files": 16
+    },
+    "Silver/PredicateBooleanArrayBodyLibraries": {
+      "logical": 259499,
+      "allocated": 311296,
+      "files": 16
+    },
+    "Silver/ComposeExpressionSourceCandidate": {
+      "logical": 170400,
+      "allocated": 217088,
+      "files": 16
+    },
+    "Silver/SequenceAdmission": {
+      "logical": 1554829,
+      "allocated": 1605632,
+      "files": 16
+    },
+    "Silver/ProcedureMetadataSourceChecks": {
+      "logical": 140486,
+      "allocated": 192512,
+      "files": 16
+    },
+    "Silver/NamesBodySource": {
+      "logical": 43199,
+      "allocated": 98304,
+      "files": 16
+    },
+    "Silver/ProcedureNameStringReadings": {
+      "logical": 621134,
+      "allocated": 667648,
+      "files": 16
+    },
+    "Silver/FunctionDeclarationDomains": {
+      "logical": 230297,
+      "allocated": 274432,
+      "files": 16
+    },
+    "Silver/ProcedureBindingsBodySource": {
+      "logical": 19202,
+      "allocated": 73728,
+      "files": 16
+    },
+    "Silver/AssignmentDisjoint": {
+      "logical": 666433,
+      "allocated": 712704,
+      "files": 16
+    },
+    "Silver/OutputLibcCertificate": {
+      "logical": 1255009,
+      "allocated": 1306624,
+      "files": 16
+    },
+    "Silver/ScalarLiteralSpecSource": {
+      "logical": 20352,
+      "allocated": 73728,
+      "files": 16
+    },
+    "Silver/IntegerLiteralSpecSource": {
+      "logical": 19574,
+      "allocated": 73728,
+      "files": 16
+    },
+    "Silver/ProcedureBindingsSpecSource": {
+      "logical": 28591,
+      "allocated": 81920,
+      "files": 16
+    },
+    "Silver/ProcedureMetadataNative": {
+      "logical": 1092390,
+      "allocated": 1142784,
+      "files": 16
+    },
+    "Silver/ImageFilesSource": {
+      "logical": 2724948,
+      "allocated": 2772992,
+      "files": 16
+    },
+    "Silver/PredicateFlowStorage": {
+      "logical": 711127,
+      "allocated": 753664,
+      "files": 16
+    },
+    "Silver/ImageModelDocumentTraceProperties": {
+      "logical": 320382,
+      "allocated": 364544,
+      "files": 16
+    },
+    "Silver/BranchingExpressions": {
+      "logical": 3425390,
+      "allocated": 3477504,
+      "files": 16
+    },
+    "Silver/PredicateSelectors": {
+      "logical": 646510,
+      "allocated": 696320,
+      "files": 16
+    },
+    "Silver/BooleanShapeExtension": {
+      "logical": 357392,
+      "allocated": 409600,
+      "files": 16
+    },
+    "Silver/ProfileSpecSource": {
+      "logical": 25429,
+      "allocated": 77824,
+      "files": 16
+    },
+    "Silver/ImageModelIdNormalization": {
+      "logical": 358885,
+      "allocated": 409600,
+      "files": 16
+    },
+    "Silver/IntegerImageRefinement": {
+      "logical": 201180,
+      "allocated": 249856,
+      "files": 16
+    },
+    "Silver/PathFacts": {
+      "logical": 758497,
+      "allocated": 798720,
+      "files": 16
+    },
+    "Silver/PredicateConditionFlow": {
+      "logical": 592099,
+      "allocated": 638976,
+      "files": 16
+    },
+    "Silver/SequenceFullEquations": {
+      "logical": 581798,
+      "allocated": 622592,
+      "files": 16
+    },
+    "Silver/ProcedureFrameReadings": {
+      "logical": 246116,
+      "allocated": 294912,
+      "files": 16
+    },
+    "Silver/ArrayBindingsSourceBridge": {
+      "logical": 78175,
+      "allocated": 126976,
+      "files": 16
+    },
+    "Silver/SequenceScalarTrace": {
+      "logical": 644546,
+      "allocated": 692224,
+      "files": 16
+    },
+    "Silver/IntegerSubtypeBindings": {
+      "logical": 804447,
+      "allocated": 856064,
+      "files": 16
+    },
+    "Silver/PredicateStringAssignmentReadings": {
+      "logical": 409721,
+      "allocated": 458752,
+      "files": 16
+    },
+    "Silver/PredicateFlowOverlay": {
+      "logical": 258437,
+      "allocated": 303104,
+      "files": 16
+    },
+    "Silver/ScalarExpression": {
+      "logical": 1359096,
+      "allocated": 1413120,
+      "files": 16
+    },
+    "Silver/ProcedureNameConditionBounds": {
+      "logical": 587655,
+      "allocated": 630784,
+      "files": 16
+    },
+    "Silver/BranchingAdmission": {
+      "logical": 1516318,
+      "allocated": 1564672,
+      "files": 16
+    },
+    "Silver/OutputExpressions": {
+      "logical": 2883899,
+      "allocated": 2932736,
+      "files": 16
+    },
+    "Silver/IntegerImageNativeSource": {
+      "logical": 336911,
+      "allocated": 385024,
+      "files": 16
+    },
+    "Silver/FunctionDeclarationSourceBridge": {
+      "logical": 493462,
+      "allocated": 540672,
+      "files": 16
+    },
+    "Silver/SequenceMixedTrace": {
+      "logical": 597916,
+      "allocated": 647168,
+      "files": 16
+    },
+    "Silver/AssignmentSemantics": {
+      "logical": 3913346,
+      "allocated": 3952640,
+      "files": 16
+    },
+    "Silver/NamedDisjoint": {
+      "logical": 1085395,
+      "allocated": 1134592,
+      "files": 16
+    },
+    "Silver/IntegerIteration": {
+      "logical": 319260,
+      "allocated": 368640,
+      "files": 16
+    },
+    "Silver/PredicateSourceChecks": {
+      "logical": 483639,
+      "allocated": 528384,
+      "files": 16
+    },
+    "Silver/PredicateBodyReadings": {
+      "logical": 1418657,
+      "allocated": 1466368,
+      "files": 16
+    },
+    "Silver/ImageModelFinishSource": {
+      "logical": 219821,
+      "allocated": 266240,
+      "files": 16
+    },
+    "Silver/SequenceNativeEquations": {
+      "logical": 514695,
+      "allocated": 565248,
+      "files": 16
+    },
+    "Silver/PredicateFlowBounds": {
+      "logical": 103741,
+      "allocated": 147456,
+      "files": 16
+    },
+    "Silver/IntegerArraySnapshots": {
+      "logical": 415371,
+      "allocated": 466944,
+      "files": 16
+    },
+    "Silver/PredicateStringBoundChecks": {
+      "logical": 543688,
+      "allocated": 589824,
+      "files": 16
+    },
+    "Silver/PredicateEquations": {
+      "logical": 703347,
+      "allocated": 749568,
+      "files": 16
+    },
+    "Silver/StringFreezing": {
+      "logical": 462557,
+      "allocated": 516096,
+      "files": 16
+    },
+    "Silver/ComposeModelHelperEquations": {
+      "logical": 3197546,
+      "allocated": 3244032,
+      "files": 16
+    },
+    "Silver/ImageModelTemplateIndex": {
+      "logical": 867197,
+      "allocated": 921600,
+      "files": 16
+    },
+    "Silver/SequenceBodyContext": {
+      "logical": 1248142,
+      "allocated": 1294336,
+      "files": 16
+    },
+    "Silver/OutputRuntime": {
+      "logical": 1597889,
+      "allocated": 1642496,
+      "files": 16
+    },
+    "Silver/PredicateSourceRequirements": {
+      "logical": 4175436,
+      "allocated": 4222976,
+      "files": 16
+    },
+    "Silver/ImageModelTheoryOffsets": {
+      "logical": 598212,
+      "allocated": 647168,
+      "files": 16
+    },
+    "Silver/PredicateHeaderDecode": {
+      "logical": 640867,
+      "allocated": 679936,
+      "files": 16
+    },
+    "Silver/PredicateBodyBinderSeparation": {
+      "logical": 2533767,
+      "allocated": 2580480,
+      "files": 16
+    },
+    "Silver/FunctionDeclarationModelContracts": {
+      "logical": 527447,
+      "allocated": 573440,
+      "files": 16
+    },
+    "Silver/ScalarProcedureNoninterference": {
+      "logical": 1007489,
+      "allocated": 1056768,
+      "files": 16
+    },
+    "Silver/NamedIdentifier": {
+      "logical": 1322948,
+      "allocated": 1372160,
+      "files": 16
+    },
+    "Silver/IntegerLiteralSourceBridge": {
+      "logical": 73666,
+      "allocated": 122880,
+      "files": 16
+    },
+    "Silver/ArgumentsSpecCertificate": {
+      "logical": 1119814,
+      "allocated": 1163264,
+      "files": 16
+    },
+    "Silver/FunctionDeclarationBodyEquations": {
+      "logical": 2935340,
+      "allocated": 2985984,
+      "files": 16
+    },
+    "Silver/ImageModelCanonicalRead": {
+      "logical": 1706673,
+      "allocated": 1757184,
+      "files": 16
+    },
+    "Silver/ProcedureDeclarationSyntax": {
+      "logical": 9922823,
+      "allocated": 9973760,
+      "files": 16
+    },
+    "Silver/OutputSourceBridge": {
+      "logical": 246550,
+      "allocated": 294912,
+      "files": 16
+    },
+    "Silver/FunctionInitializerShape": {
+      "logical": 358459,
+      "allocated": 401408,
+      "files": 16
+    },
+    "Silver/PredicateFlags": {
+      "logical": 379942,
+      "allocated": 434176,
+      "files": 16
+    },
+    "Silver/PredicateBasicSizing": {
+      "logical": 426837,
+      "allocated": 479232,
+      "files": 16
+    },
+    "Silver/Admission": {
+      "logical": 622384,
+      "allocated": 675840,
+      "files": 16
+    },
+    "Silver/ImageModelWideQuotedResult": {
+      "logical": 538388,
+      "allocated": 589824,
+      "files": 16
+    },
+    "Silver/ScalarLiteralExpressions": {
+      "logical": 3743693,
+      "allocated": 3796992,
+      "files": 16
+    },
+    "Silver/ImageModelWideTheorySpelling": {
+      "logical": 200208,
+      "allocated": 245760,
+      "files": 16
+    },
+    "Silver/FunctionBindingsBodyCertificate": {
+      "logical": 1746048,
+      "allocated": 1794048,
+      "files": 16
+    },
+    "Silver/IntegerLiteralSourceChecks": {
+      "logical": 251667,
+      "allocated": 299008,
+      "files": 16
+    },
+    "Silver/ScalarProcedureTypes": {
+      "logical": 460351,
+      "allocated": 507904,
+      "files": 16
+    },
+    "Silver/ProcedureNameRelationReadings": {
+      "logical": 479774,
+      "allocated": 528384,
+      "files": 16
+    },
+    "Silver/ScalarLiteralSourceShape": {
+      "logical": 5741173,
+      "allocated": 5791744,
+      "files": 16
+    },
+    "Silver/ConcatSemantics": {
+      "logical": 2315645,
+      "allocated": 2363392,
+      "files": 16
+    },
+    "Silver/ScalarArrayExpressionGrammar": {
+      "logical": 905808,
+      "allocated": 954368,
+      "files": 16
+    },
+    "Silver/ComposeBooleanDeclarationLibraries": {
+      "logical": 773618,
+      "allocated": 819200,
+      "files": 16
+    },
+    "Silver/GuardedDisjoint": {
+      "logical": 2817871,
+      "allocated": 2867200,
+      "files": 16
+    },
+    "Silver/ProcedureNameStringCursors": {
+      "logical": 257162,
+      "allocated": 303104,
+      "files": 16
+    },
+    "Silver/PredicateNativeShapeExpectedTokens": {
+      "logical": 364980,
+      "allocated": 413696,
+      "files": 16
+    },
+    "Silver/PredicateBooleanArrayBodyNative": {
+      "logical": 4214415,
+      "allocated": 4263936,
+      "files": 16
+    },
+    "Silver/Semantics": {
+      "logical": 1199390,
+      "allocated": 1249280,
+      "files": 16
+    },
+    "Silver/ImageModelDocumentSelection": {
+      "logical": 302356,
+      "allocated": 352256,
+      "files": 16
+    },
+    "Silver/PredicateBasicStepReadings": {
+      "logical": 353298,
+      "allocated": 401408,
+      "files": 16
+    },
+    "Silver/FunctionMetadataValidity": {
+      "logical": 155966,
+      "allocated": 208896,
+      "files": 16
+    },
+    "Silver/PredicateInheritedReady": {
+      "logical": 612815,
+      "allocated": 663552,
+      "files": 16
+    },
+    "Silver/PathNativePrecedence": {
+      "logical": 814869,
+      "allocated": 872448,
+      "files": 16
+    },
+    "Silver/ImageModelTheoryAcceptance": {
+      "logical": 273721,
+      "allocated": 323584,
+      "files": 16
+    },
+    "Silver/PredicateConditionValidity": {
+      "logical": 3481207,
+      "allocated": 3530752,
+      "files": 16
+    },
+    "Silver/FunctionHeaderSource": {
+      "logical": 555638,
+      "allocated": 606208,
+      "files": 16
+    },
+    "Silver/ComposeBindingBounds": {
+      "logical": 333021,
+      "allocated": 380928,
+      "files": 16
+    },
+    "Silver/ComposeInitializerTrace": {
+      "logical": 1225069,
+      "allocated": 1273856,
+      "files": 16
+    },
+    "Silver/OutputAdmission": {
+      "logical": 1393418,
+      "allocated": 1445888,
+      "files": 16
+    },
+    "Silver/ArrayBindings": {
+      "logical": 1566207,
+      "allocated": 1613824,
+      "files": 16
+    },
+    "Silver/BranchingSemantics": {
+      "logical": 4068359,
+      "allocated": 4116480,
+      "files": 16
+    },
+    "Silver/ProcedureNameSource": {
+      "logical": 208463,
+      "allocated": 258048,
+      "files": 16
+    },
+    "Silver/SequenceNativeExpressions": {
+      "logical": 2638416,
+      "allocated": 2686976,
+      "files": 16
+    },
+    "Silver/PredicateProcedureCallMeaning": {
+      "logical": 266495,
+      "allocated": 315392,
+      "files": 16
+    },
+    "Silver/BranchingDisjoint": {
+      "logical": 3986919,
+      "allocated": 4030464,
+      "files": 16
+    },
+    "Silver/ProcedureDeclarationOuterImports": {
+      "logical": 306059,
+      "allocated": 352256,
+      "files": 16
+    },
+    "Silver/PredicateFlowOperations": {
+      "logical": 291736,
+      "allocated": 335872,
+      "files": 16
+    },
+    "Silver/SequenceModel": {
+      "logical": 3094094,
+      "allocated": 3141632,
+      "files": 16
+    },
+    "Silver/OutputEquations": {
+      "logical": 811019,
+      "allocated": 856064,
+      "files": 16
+    },
+    "Silver/ProcedureNameLiteralTraversal": {
+      "logical": 254774,
+      "allocated": 303104,
+      "files": 16
+    },
+    "Silver/ProcedureBindingsSourceChecks": {
+      "logical": 253925,
+      "allocated": 299008,
+      "files": 16
+    },
+    "Silver/ImageModelFieldArrayBody": {
+      "logical": 340703,
+      "allocated": 389120,
+      "files": 16
+    },
+    "Silver/ImageModelTemplatesBodySource": {
+      "logical": 100553,
+      "allocated": 155648,
+      "files": 16
+    },
+    "Silver/BooleanFreezing": {
+      "logical": 725723,
+      "allocated": 778240,
+      "files": 16
+    },
+    "Silver/PredicateSourceShape": {
+      "logical": 18937,
+      "allocated": 69632,
+      "files": 16
+    },
+    "Silver/ProcedureNameArrayReadings": {
+      "logical": 615284,
+      "allocated": 663552,
+      "files": 16
+    },
+    "Silver/ImageModelScannerSource": {
+      "logical": 1161984,
+      "allocated": 1208320,
+      "files": 16
+    },
+    "Silver/ProcedureNameScanner": {
+      "logical": 1042756,
+      "allocated": 1093632,
+      "files": 16
+    },
+    "Silver/PredicateBooleanBodySource": {
+      "logical": 227396,
+      "allocated": 274432,
+      "files": 16
+    },
+    "Silver/BooleanDeclarationExpectedTokens": {
+      "logical": 88121,
+      "allocated": 131072,
+      "files": 16
+    },
+    "Silver/IntegerArrays": {
+      "logical": 1222114,
+      "allocated": 1273856,
+      "files": 16
+    },
+    "Silver/ComposeBooleanTrace": {
+      "logical": 353608,
+      "allocated": 397312,
+      "files": 16
+    },
+    "Silver/ProcedureDeclarationPrefixEquations": {
+      "logical": 320300,
+      "allocated": 364544,
+      "files": 16
+    },
+    "Silver/ProcedureDeclarationPrefixLibraries": {
+      "logical": 402225,
+      "allocated": 450560,
+      "files": 16
+    },
+    "Silver/ImageModelJsonNormalization": {
+      "logical": 351912,
+      "allocated": 397312,
+      "files": 16
+    },
+    "Silver/ScalarExpressionNativeTypes": {
+      "logical": 260777,
+      "allocated": 307200,
+      "files": 16
+    },
+    "Silver/ImageFilesBodySource": {
+      "logical": 36715,
+      "allocated": 90112,
+      "files": 16
+    },
+    "Silver/ImageModelProducerSyntax": {
+      "logical": 817656,
+      "allocated": 864256,
+      "files": 16
+    },
+    "Silver/IntegerLiteralSpecCertificate": {
+      "logical": 1678718,
+      "allocated": 1728512,
+      "files": 16
+    },
+    "Silver/PredicateStructuralGuards": {
+      "logical": 2492676,
+      "allocated": 2535424,
+      "files": 16
+    },
+    "Silver/ImageModelTemplateData": {
+      "logical": 43868770,
+      "allocated": 43921408,
+      "files": 16
+    },
+    "Silver/ScalarArrayExpressionRecognition": {
+      "logical": 1746610,
+      "allocated": 1802240,
+      "files": 16
+    },
+    "Silver/ImageModelByteCount": {
+      "logical": 647890,
+      "allocated": 692224,
+      "files": 16
+    },
+    "Silver/ComposeBooleanInitializerNative": {
+      "logical": 525055,
+      "allocated": 577536,
+      "files": 16
+    },
+    "Silver/FunctionDeclarationBodyDomains": {
+      "logical": 169841,
+      "allocated": 212992,
+      "files": 16
+    },
+    "Silver/OutputLexicalSpecCertificate": {
+      "logical": 18239498,
+      "allocated": 18288640,
+      "files": 16
+    },
+    "Silver/ProcedureDeclarationHelperModel": {
+      "logical": 373981,
+      "allocated": 421888,
+      "files": 16
+    },
+    "Silver/ComposeCharacterReading": {
+      "logical": 808234,
+      "allocated": 856064,
+      "files": 16
+    },
+    "Silver/PathNativeEquations": {
+      "logical": 1530310,
+      "allocated": 1581056,
+      "files": 16
+    },
+    "Silver/ProcedureDeclarationMeaning": {
+      "logical": 1491860,
+      "allocated": 1531904,
+      "files": 16
+    },
+    "Silver/FunctionBodyFrameReadiness": {
+      "logical": 212591,
+      "allocated": 262144,
+      "files": 16
+    },
+    "Silver/BooleanModel": {
+      "logical": 232360,
+      "allocated": 282624,
+      "files": 16
+    },
+    "Silver/BooleanBindingsSourceChecks": {
+      "logical": 163249,
+      "allocated": 217088,
+      "files": 16
+    },
+    "Silver/ProcedureDeclarationHelperWholeSourceCandidate": {
+      "logical": 312339,
+      "allocated": 364544,
+      "files": 16
+    },
+    "Silver/PredicateConditionMeaning": {
+      "logical": 593148,
+      "allocated": 638976,
+      "files": 16
+    },
+    "Silver/ArgumentsRuntime": {
+      "logical": 1931033,
+      "allocated": 1982464,
+      "files": 16
+    },
+    "Silver/ScalarsNativeSourceBridge": {
+      "logical": 86423,
+      "allocated": 131072,
+      "files": 16
+    },
+    "Silver/ProfileSpecCertificate": {
+      "logical": 3729875,
+      "allocated": 3772416,
+      "files": 16
+    },
+    "Silver/ImageFilesSpliceGuards": {
+      "logical": 133309,
+      "allocated": 180224,
+      "files": 16
+    },
+    "Silver/ImageModelTokenScan": {
+      "logical": 893011,
+      "allocated": 942080,
+      "files": 16
+    },
+    "Silver/PredicateXorNative": {
+      "logical": 2523155,
+      "allocated": 2564096,
+      "files": 16
+    },
+    "Silver/ProcedureNameTargets": {
+      "logical": 270748,
+      "allocated": 315392,
+      "files": 16
+    },
+    "Silver/SequenceLists": {
+      "logical": 395719,
+      "allocated": 446464,
+      "files": 16
+    },
+    "Silver/PredicateScalarBodyCandidate": {
+      "logical": 206478,
+      "allocated": 253952,
+      "files": 16
+    },
+    "Silver/AssignmentExpressions": {
+      "logical": 3651711,
+      "allocated": 3694592,
+      "files": 16
+    },
+    "Silver/BooleanArrayAssignments": {
+      "logical": 247303,
+      "allocated": 299008,
+      "files": 16
+    },
+    "Silver/ScalarFunctionFrameFlow": {
+      "logical": 140699,
+      "allocated": 188416,
+      "files": 16
+    },
+    "Silver/ProfileBodySource": {
+      "logical": 46418,
+      "allocated": 102400,
+      "files": 16
+    },
+    "Silver/ImageModelStringSource": {
+      "logical": 345286,
+      "allocated": 389120,
+      "files": 16
+    },
+    "Silver/ProcedureLookupMeaning": {
+      "logical": 87659,
+      "allocated": 135168,
+      "files": 16
+    },
+    "Silver/ScalarExpressionBodyCertificate": {
+      "logical": 19919907,
+      "allocated": 19968000,
+      "files": 16
+    },
+    "Silver/IoSpecSource": {
+      "logical": 21288,
+      "allocated": 77824,
+      "files": 16
+    },
+    "Silver/FunctionDeclarationStateRecords": {
+      "logical": 411360,
+      "allocated": 458752,
+      "files": 16
+    },
+    "Silver/PathNativeExpressions": {
+      "logical": 3309693,
+      "allocated": 3354624,
+      "files": 16
+    },
+    "Silver/IntegerExpressions": {
+      "logical": 1679731,
+      "allocated": 1724416,
+      "files": 16
+    },
+    "Silver/GuardedMain": {
+      "logical": 1666460,
+      "allocated": 1712128,
+      "files": 16
+    },
+    "Silver/PathFactsSourceBridge": {
+      "logical": 328255,
+      "allocated": 376832,
+      "files": 16
+    },
+    "Silver/PredicateOuterModel": {
+      "logical": 3455657,
+      "allocated": 3502080,
+      "files": 16
+    },
+    "Silver/ImageFileSplice": {
+      "logical": 1213567,
+      "allocated": 1261568,
+      "files": 16
+    },
+    "Silver/ProcedureNameBooleanReadings": {
+      "logical": 585297,
+      "allocated": 634880,
+      "files": 16
+    },
+    "Silver/ProcedureDeclarationStepImports": {
+      "logical": 671709,
+      "allocated": 716800,
+      "files": 16
+    },
+    "Silver/FunctionBindings": {
+      "logical": 821424,
+      "allocated": 868352,
+      "files": 16
+    },
+    "Silver/PredicateScalarHeaderReady": {
+      "logical": 163383,
+      "allocated": 212992,
+      "files": 16
+    },
+    "Silver/ArrayBindingsBodySource": {
+      "logical": 22795,
+      "allocated": 77824,
+      "files": 16
+    },
+    "Silver/ScalarExpressionNativeArrayAlgebra": {
+      "logical": 1150043,
+      "allocated": 1200128,
+      "files": 16
+    },
+    "Silver/ScalarExpressionEnvironment": {
+      "logical": 270373,
+      "allocated": 315392,
+      "files": 16
+    },
+    "Silver/ProcedureNameAliasOrigins": {
+      "logical": 393580,
+      "allocated": 442368,
+      "files": 16
+    },
+    "Silver/ScalarLiteralSourceChecks": {
+      "logical": 252845,
+      "allocated": 303104,
+      "files": 16
+    },
+    "Silver/FunctionSourceUnique": {
+      "logical": 485593,
+      "allocated": 536576,
+      "files": 16
+    },
+    "Silver/ProcedureNameConditionReadings": {
+      "logical": 14431429,
+      "allocated": 14479360,
+      "files": 16
+    },
+    "Silver/PredicateSourceCandidate": {
+      "logical": 344314,
+      "allocated": 389120,
+      "files": 16
+    },
+    "Silver/PathNativeModel": {
+      "logical": 899941,
+      "allocated": 950272,
+      "files": 16
+    },
+    "Silver/AssignmentEquations": {
+      "logical": 984370,
+      "allocated": 1032192,
+      "files": 16
+    },
+    "Silver/ImageModelCharacter": {
+      "logical": 162856,
+      "allocated": 208896,
+      "files": 16
+    },
+    "Silver/ImageModelStructuralNesting": {
+      "logical": 3794415,
+      "allocated": 3842048,
+      "files": 16
+    },
+    "Silver/IntegerImageNativeExpressions": {
+      "logical": 1553879,
+      "allocated": 1605632,
+      "files": 16
+    },
+    "Silver/ImageModelScanTrace": {
+      "logical": 119343,
+      "allocated": 163840,
+      "files": 16
+    },
+    "Silver/FunctionDeclarationHeaderLibraries": {
+      "logical": 1089898,
+      "allocated": 1142784,
+      "files": 16
+    },
+    "Silver/FunctionDeclarationTraversalContracts": {
+      "logical": 136327,
+      "allocated": 188416,
+      "files": 16
+    },
+    "Silver/ImageModelTemplateSelectors": {
+      "logical": 196552,
+      "allocated": 241664,
+      "files": 16
+    },
+    "Silver/Current": {
+      "logical": 691375,
+      "allocated": 737280,
+      "files": 16
+    },
+    "Silver/PredicateOuterExpressions": {
+      "logical": 1940666,
+      "allocated": 1990656,
+      "files": 16
+    },
+    "Silver/CharacterExpressions": {
+      "logical": 766710,
+      "allocated": 815104,
+      "files": 16
+    },
+    "Silver/ScalarsSpecSource": {
+      "logical": 41170,
+      "allocated": 94208,
+      "files": 16
+    },
+    "Silver/PredicateFlowCopy": {
+      "logical": 249548,
+      "allocated": 299008,
+      "files": 16
+    },
+    "Silver/SourceDeclarations": {
+      "logical": 486478,
+      "allocated": 536576,
+      "files": 16
+    },
+    "Silver/FunctionFrameValidity": {
+      "logical": 731650,
+      "allocated": 774144,
+      "files": 16
+    },
+    "Silver/NamedExpressions": {
+      "logical": 6572637,
+      "allocated": 6623232,
+      "files": 16
+    },
+    "Silver/SequenceFormDisjoint": {
+      "logical": 373179,
+      "allocated": 417792,
+      "files": 16
+    },
+    "Silver/ImageModelSourceShape": {
+      "logical": 6453188,
+      "allocated": 6508544,
+      "files": 16
+    },
+    "Silver/ScalarFlow": {
+      "logical": 836966,
+      "allocated": 884736,
+      "files": 16
+    },
+    "Silver/ImageModelMatcher": {
+      "logical": 211599,
+      "allocated": 258048,
+      "files": 16
+    },
+    "Silver/ScalarProcedureSyntax": {
+      "logical": 1347441,
+      "allocated": 1396736,
+      "files": 16
+    },
+    "Silver/LexicalSourceBridge": {
+      "logical": 114733,
+      "allocated": 167936,
+      "files": 16
+    },
+    "Silver/ScalarExpressionSpecCertificate": {
+      "logical": 5563115,
+      "allocated": 5615616,
+      "files": 16
+    },
+    "Silver/ImageModelJsonErasure": {
+      "logical": 821571,
+      "allocated": 868352,
+      "files": 16
+    },
+    "Silver/PredicateArrayBodyNative": {
+      "logical": 3196504,
+      "allocated": 3248128,
+      "files": 16
+    },
+    "Silver/ImageRefinementEndpoint": {
+      "logical": 234364,
+      "allocated": 278528,
+      "files": 16
+    },
+    "Silver/StringLengths": {
+      "logical": 836994,
+      "allocated": 888832,
+      "files": 16
+    },
+    "Silver/GuardedExamples": {
+      "logical": 120767,
+      "allocated": 167936,
+      "files": 16
+    },
+    "Silver/ProcedureDeclarationTraversalContracts": {
+      "logical": 171807,
+      "allocated": 221184,
+      "files": 16
+    },
+    "Silver/SequenceModelRanges": {
+      "logical": 434987,
+      "allocated": 487424,
+      "files": 16
+    },
+    "Silver/GuardedAdmission": {
+      "logical": 2562528,
+      "allocated": 2609152,
+      "files": 16
+    },
+    "Silver/IntegerLiteralSourceShape": {
+      "logical": 5468707,
+      "allocated": 5521408,
+      "files": 16
+    },
+    "Silver/PredicateStringAssignmentMeaning": {
+      "logical": 515679,
+      "allocated": 557056,
+      "files": 16
+    },
+    "Silver/ScalarCallChecking": {
+      "logical": 515869,
+      "allocated": 565248,
+      "files": 16
+    },
+    "Silver/ImageModelJsonDelimiters": {
+      "logical": 378914,
+      "allocated": 425984,
+      "files": 16
+    },
+    "Silver/ComposeDeclarationSourceCandidate": {
+      "logical": 252534,
+      "allocated": 303104,
+      "files": 16
+    },
+    "Silver/FunctionDeclarationReturnLibrary": {
+      "logical": 172715,
+      "allocated": 221184,
+      "files": 16
+    },
+    "Silver/PredicateBasicExpressions": {
+      "logical": 2956642,
+      "allocated": 3006464,
+      "files": 16
+    },
+    "Silver/GuardedSemantics": {
+      "logical": 1485756,
+      "allocated": 1531904,
+      "files": 16
+    },
+    "Silver/RuntimeSpecSource": {
+      "logical": 17805,
+      "allocated": 69632,
+      "files": 16
+    },
+    "Silver/ProcedureBindingsBodyCertificate": {
+      "logical": 1753087,
+      "allocated": 1798144,
+      "files": 16
+    },
+    "Silver/ScalarExpressionNativeDenotations": {
+      "logical": 2330315,
+      "allocated": 2379776,
+      "files": 16
+    },
+    "Silver/SequenceConditionValidity": {
+      "logical": 12514515,
+      "allocated": 12558336,
+      "files": 16
+    },
+    "Silver/PredicateBodyMeaning": {
+      "logical": 11811520,
+      "allocated": 11862016,
+      "files": 16
+    },
+    "Silver/PredicateStringBoundsExecution": {
+      "logical": 7874155,
+      "allocated": 7921664,
+      "files": 16
+    },
+    "Silver/ProcedureFrameRecordTypes": {
+      "logical": 168910,
+      "allocated": 217088,
+      "files": 16
+    },
+    "Silver/PredicateNativeHelpersCandidate": {
+      "logical": 134980,
+      "allocated": 188416,
+      "files": 16
+    },
+    "Silver/ImageModelTemplateSchema": {
+      "logical": 1209526,
+      "allocated": 1257472,
+      "files": 16
+    },
+    "Silver/PredicateFunctionCallMeaning": {
+      "logical": 6319256,
+      "allocated": 6369280,
+      "files": 16
+    },
+    "Silver/ImageModelDecodedSource": {
+      "logical": 317333,
+      "allocated": 364544,
+      "files": 16
+    },
+    "Silver/ScalarsSpecCertificate": {
+      "logical": 9620145,
+      "allocated": 9662464,
+      "files": 16
+    },
+    "Silver/SequenceConditions": {
+      "logical": 1286680,
+      "allocated": 1331200,
+      "files": 16
+    },
+    "Silver/ScalarExpressionSpecSource": {
+      "logical": 30362,
+      "allocated": 86016,
+      "files": 16
+    },
+    "Silver/ImageModelJsonFields": {
+      "logical": 883373,
+      "allocated": 937984,
+      "files": 16
+    },
+    "Silver/IntegerLiteralEquations": {
+      "logical": 1252557,
+      "allocated": 1302528,
+      "files": 16
+    },
+    "Silver/ArgumentsEquations": {
+      "logical": 870251,
+      "allocated": 917504,
+      "files": 16
+    },
+    "Silver/ComposeEvaluation": {
+      "logical": 2783997,
+      "allocated": 2834432,
+      "files": 16
+    },
+    "Silver/ComposeBooleanInitializerLibraries": {
+      "logical": 373219,
+      "allocated": 417792,
+      "files": 16
+    },
+    "Silver/ImageModelJsonSimulation": {
+      "logical": 1596303,
+      "allocated": 1638400,
+      "files": 16
+    },
+    "Silver/ScalarProcedureExecution": {
+      "logical": 549187,
+      "allocated": 602112,
+      "files": 16
+    },
+    "Silver/NamedSemantics": {
+      "logical": 780912,
+      "allocated": 831488,
+      "files": 16
+    },
+    "Silver/ImageModelTheoryNative": {
+      "logical": 2102573,
+      "allocated": 2150400,
+      "files": 16
+    },
+    "Silver/ComposeStringOrigins": {
+      "logical": 365853,
+      "allocated": 413696,
+      "files": 16
+    },
+    "Silver/FunctionBindingsNativeEquations": {
+      "logical": 782818,
+      "allocated": 827392,
+      "files": 16
+    },
+    "Silver/ScalarProcedureAliasing": {
+      "logical": 350128,
+      "allocated": 397312,
+      "files": 16
+    },
+    "Silver/ConcatDisjoint": {
+      "logical": 783090,
+      "allocated": 831488,
+      "files": 16
+    },
+    "Silver/ImageModelTemplatesBodyCertificate": {
+      "logical": 11526676,
+      "allocated": 11575296,
+      "files": 16
+    },
+    "Silver/ArgumentsExamples": {
+      "logical": 309257,
+      "allocated": 356352,
+      "files": 16
+    },
+    "Silver/SourceBridge": {
+      "logical": 379494,
+      "allocated": 430080,
+      "files": 16
+    },
+    "Silver/ComposeStringRuntimeBounds": {
+      "logical": 475021,
+      "allocated": 520192,
+      "files": 16
+    },
+    "Silver/SequenceNativeModel": {
+      "logical": 1478490,
+      "allocated": 1531904,
+      "files": 16
+    },
+    "Silver/ProcedureNameAttributes": {
+      "logical": 364661,
+      "allocated": 413696,
+      "files": 16
+    },
+    "Silver/NamedEquations": {
+      "logical": 887496,
+      "allocated": 933888,
+      "files": 16
+    },
+    "Silver/ImageModelDocumentSplice": {
+      "logical": 388900,
+      "allocated": 434176,
+      "files": 16
+    },
+    "Silver/ProcedureMetadataSourceCandidate": {
+      "logical": 128022,
+      "allocated": 176128,
+      "files": 16
+    },
+    "Silver/AssignmentExamples": {
+      "logical": 289325,
+      "allocated": 339968,
+      "files": 16
+    },
+    "Silver/IntegerDivision": {
+      "logical": 1269524,
+      "allocated": 1323008,
+      "files": 16
+    },
+    "Silver/BooleanDeclarations": {
+      "logical": 975360,
+      "allocated": 1024000,
+      "files": 16
+    },
+    "Silver/ComposeBooleanDeclarationCondition": {
+      "logical": 170905,
+      "allocated": 221184,
+      "files": 16
+    },
+    "Silver/ComposeBooleanRegionTrace": {
+      "logical": 1459874,
+      "allocated": 1507328,
+      "files": 16
+    },
+    "Silver/FunctionDeclarationRecordTypes": {
+      "logical": 270907,
+      "allocated": 315392,
+      "files": 16
+    },
+    "Silver/LengthIntervalsBodySource": {
+      "logical": 20610,
+      "allocated": 73728,
+      "files": 16
+    },
+    "Silver/ImageModelDocumentEffects": {
+      "logical": 427615,
+      "allocated": 475136,
+      "files": 16
+    },
+    "Silver/ProcedureNameLengthReadings": {
+      "logical": 227876,
+      "allocated": 278528,
+      "files": 16
+    },
+    "Silver/PredicateBodySizing": {
+      "logical": 182767,
+      "allocated": 233472,
+      "files": 16
+    },
+    "Silver/PredicateLoopImports": {
+      "logical": 478892,
+      "allocated": 524288,
+      "files": 16
+    },
+    "Silver/PredicateBodyLibraries": {
+      "logical": 760207,
+      "allocated": 811008,
+      "files": 16
+    },
+    "Silver/FunctionDeclarationReadings": {
+      "logical": 432846,
+      "allocated": 479232,
+      "files": 16
+    },
+    "Silver/ImageModelDocumentTheory": {
+      "logical": 293242,
+      "allocated": 335872,
+      "files": 16
+    },
+    "Silver/PredicateLoopSizing": {
+      "logical": 1370154,
+      "allocated": 1421312,
+      "files": 16
+    },
+    "Silver/ProcedurePrefixMeaning": {
+      "logical": 6953832,
+      "allocated": 7000064,
+      "files": 16
+    },
+    "Silver/ImageConsumerEndpoint": {
+      "logical": 178113,
+      "allocated": 225280,
+      "files": 16
+    },
+    "Silver/PredicateInitialFlowValidity": {
+      "logical": 155789,
+      "allocated": 200704,
+      "files": 16
+    },
+    "Silver/ProcedureDeclarationHelperLibraries": {
+      "logical": 379923,
+      "allocated": 434176,
+      "files": 16
+    },
+    "Silver/FunctionSourceChecks": {
+      "logical": 190986,
+      "allocated": 237568,
+      "files": 16
+    },
+    "Silver/PredicateNativeSourceBridge": {
+      "logical": 199366,
+      "allocated": 245760,
+      "files": 16
+    },
+    "Silver/IntegerLiteral": {
+      "logical": 1819882,
+      "allocated": 1867776,
+      "files": 16
+    },
+    "Silver/BooleanFreezingChecks": {
+      "logical": 590264,
+      "allocated": 638976,
+      "files": 16
+    },
+    "Silver/ImageModelDocumentEntries": {
+      "logical": 476487,
+      "allocated": 520192,
+      "files": 16
+    },
+    "Silver/ScalarFunctionFrozenBoolean": {
+      "logical": 406178,
+      "allocated": 450560,
+      "files": 16
+    },
+    "Silver/GuardedDecimal": {
+      "logical": 938561,
+      "allocated": 991232,
+      "files": 16
+    },
+    "Silver/PredicateBodySound": {
+      "logical": 1930138,
+      "allocated": 1978368,
+      "files": 16
+    },
+    "Silver/ImageFilesCapture": {
+      "logical": 12892118,
+      "allocated": 12939264,
+      "files": 16
+    },
+    "Silver/ProcedureNameConditionCursors": {
+      "logical": 726459,
+      "allocated": 774144,
+      "files": 16
+    },
+    "Silver/ComposeBooleanDeclarationDomain": {
+      "logical": 315191,
+      "allocated": 364544,
+      "files": 16
+    },
+    "Silver/ArrayBindingsNativeEquations": {
+      "logical": 1419336,
+      "allocated": 1470464,
+      "files": 16
+    },
+    "Silver/ArrayBindingsSpecSource": {
+      "logical": 33226,
+      "allocated": 86016,
+      "files": 16
+    },
+    "Silver/ScalarLiteralSpecCertificate": {
+      "logical": 1848182,
+      "allocated": 1892352,
+      "files": 16
+    },
+    "Silver/ScalarLiteralBodyCertificate": {
+      "logical": 14285941,
+      "allocated": 14327808,
+      "files": 16
+    },
+    "Silver/Bindings": {
+      "logical": 2476495,
+      "allocated": 2527232,
+      "files": 16
+    },
+    "Silver/IntegerIntervals": {
+      "logical": 1361196,
+      "allocated": 1413120,
+      "files": 16
+    },
+    "Silver/ImageModelWideFields": {
+      "logical": 344539,
+      "allocated": 393216,
+      "files": 16
+    },
+    "Silver/SequenceNativeUnique": {
+      "logical": 997018,
+      "allocated": 1048576,
+      "files": 16
+    },
+    "Silver/ImageModelStringNative": {
+      "logical": 1956209,
+      "allocated": 2007040,
+      "files": 16
+    },
+    "Silver/ProcedureBindingsSpecCertificate": {
+      "logical": 5107550,
+      "allocated": 5152768,
+      "files": 16
+    },
+    "Silver/ProcedureDeclarationSourceBridge": {
+      "logical": 330626,
+      "allocated": 380928,
+      "files": 16
+    },
+    "Silver/PredicateStringBoundsAssurance": {
+      "logical": 299861,
+      "allocated": 348160,
+      "files": 16
+    },
+    "Silver/ImageModelNameSource": {
+      "logical": 105417,
+      "allocated": 159744,
+      "files": 16
+    },
+    "Silver/PredicateSemantics": {
+      "logical": 783330,
+      "allocated": 827392,
+      "files": 16
+    },
+    "Silver/ImageModelJsonComposition": {
+      "logical": 506703,
+      "allocated": 557056,
+      "files": 16
+    },
+    "Silver/ProcedureBindingsNativeExpressions": {
+      "logical": 2804753,
+      "allocated": 2854912,
+      "files": 16
+    },
+    "Silver/ProcedureFrameMeaning": {
+      "logical": 1036939,
+      "allocated": 1085440,
+      "files": 16
+    },
+    "Silver/ProcedureMetadataSourceBridge": {
+      "logical": 584248,
+      "allocated": 630784,
+      "files": 16
+    },
+    "Silver/ImageModelTheoryCuts": {
+      "logical": 618486,
+      "allocated": 663552,
+      "files": 16
+    },
+    "Silver/ScalarLiteral": {
+      "logical": 1941808,
+      "allocated": 1994752,
+      "files": 16
+    },
+    "Silver/ScalarsNativeExpressions": {
+      "logical": 3859855,
+      "allocated": 3903488,
+      "files": 16
+    },
+    "Silver/ImageModelTheoryScan": {
+      "logical": 367861,
+      "allocated": 413696,
+      "files": 16
+    },
+    "Silver/RuntimeSpecCertificate": {
+      "logical": 1047505,
+      "allocated": 1093632,
+      "files": 16
+    },
+    "Silver/PredicateFunctionFlags": {
+      "logical": 1145732,
+      "allocated": 1191936,
+      "files": 16
+    },
+    "Silver/ScalarExpressionNativeAlgebra": {
+      "logical": 1087643,
+      "allocated": 1142784,
+      "files": 16
+    },
+    "Silver/OutputProfileSpecSource": {
+      "logical": 30097,
+      "allocated": 81920,
+      "files": 16
+    },
+    "Silver/PredicateBodyExpectedTokens": {
+      "logical": 251279,
+      "allocated": 294912,
+      "files": 16
+    },
+    "Silver/GuardedEquations": {
+      "logical": 1512488,
+      "allocated": 1560576,
+      "files": 16
+    },
+    "Silver/ComposeAtomReading": {
+      "logical": 536297,
+      "allocated": 581632,
+      "files": 16
+    },
+    "Silver/PredicateChecking": {
+      "logical": 1629053,
+      "allocated": 1675264,
+      "files": 16
+    },
+    "Silver/ComposeSubtypeChecks": {
+      "logical": 183697,
+      "allocated": 233472,
+      "files": 16
+    },
+    "Silver/PredicateGrammar": {
+      "logical": 1331051,
+      "allocated": 1384448,
+      "files": 16
+    },
+    "Silver/NamesEquations": {
+      "logical": 2583147,
+      "allocated": 2629632,
+      "files": 16
+    },
+    "Silver/PredicateStringActualExecution": {
+      "logical": 1374557,
+      "allocated": 1421312,
+      "files": 16
+    },
+    "Silver/GuardedObligations": {
+      "logical": 383907,
+      "allocated": 434176,
+      "files": 16
+    },
+    "Silver/ScalarCallSyntax": {
+      "logical": 494455,
+      "allocated": 540672,
+      "files": 16
+    },
+    "Silver/PredicateConditionBounds": {
+      "logical": 569977,
+      "allocated": 622592,
+      "files": 16
+    },
+    "Silver/ScalarExpressionSourceBridge": {
+      "logical": 146912,
+      "allocated": 200704,
+      "files": 16
+    },
+    "Silver/ProcedureDeclarationPrefixImports": {
+      "logical": 597976,
+      "allocated": 651264,
+      "files": 16
+    },
+    "Silver/PredicateLoopHelpers": {
+      "logical": 1126315,
+      "allocated": 1179648,
+      "files": 16
+    },
+    "Silver/ImageModelDocumentFooter": {
+      "logical": 178765,
+      "allocated": 229376,
+      "files": 16
+    },
+    "Silver/ProcedureNameSelectors": {
+      "logical": 1019037,
+      "allocated": 1064960,
+      "files": 16
+    },
+    "Silver/ConcatExpressions": {
+      "logical": 6581330,
+      "allocated": 6631424,
+      "files": 16
+    },
+    "Silver/PredicateScalarGuardMeaning": {
+      "logical": 1141761,
+      "allocated": 1191936,
+      "files": 16
+    },
+    "Silver/ArrayBindingsBodyCertificate": {
+      "logical": 3281328,
+      "allocated": 3325952,
+      "files": 16
+    },
+    "Silver/ImageModelBodyCertificate": {
+      "logical": 17482153,
+      "allocated": 17526784,
+      "files": 16
+    },
+    "Silver/ComposeRecognitionEquations": {
+      "logical": 1294676,
+      "allocated": 1343488,
+      "files": 16
+    },
+    "Silver/FunctionDeclarationBodyModel": {
+      "logical": 86942,
+      "allocated": 131072,
+      "files": 16
+    },
+    "Silver/PredicateStringActualAssurance": {
+      "logical": 649536,
+      "allocated": 700416,
+      "files": 16
+    },
+    "Silver/StringExecution": {
+      "logical": 419791,
+      "allocated": 466944,
+      "files": 16
+    },
+    "Silver/ScalarExpressionNativeArrayRecursion": {
+      "logical": 885680,
+      "allocated": 933888,
+      "files": 16
+    },
+    "Silver/FunctionDeclarationOrdinaryEquations": {
+      "logical": 209599,
+      "allocated": 253952,
+      "files": 16
+    },
+    "Silver/FunctionBindingsSourceChecks": {
+      "logical": 252824,
+      "allocated": 299008,
+      "files": 16
+    },
+    "Silver/ImageModelClone": {
+      "logical": 4405518,
+      "allocated": 4452352,
+      "files": 16
+    },
+    "Silver/ScalarProcedureLayout": {
+      "logical": 619090,
+      "allocated": 667648,
+      "files": 16
+    },
+    "Silver/IntegerLiteralBodyCertificate": {
+      "logical": 13619258,
+      "allocated": 13664256,
+      "files": 16
+    },
+    "Silver/NamedAdmission": {
+      "logical": 1611696,
+      "allocated": 1654784,
+      "files": 16
+    },
+    "Silver/ProcedureDeclarationTraversalModel": {
+      "logical": 655645,
+      "allocated": 704512,
+      "files": 16
+    },
+    "Silver/PathFactsSourceChecks": {
+      "logical": 1916532,
+      "allocated": 1961984,
+      "files": 16
+    },
+    "Silver/ArgumentsBodySource": {
+      "logical": 18861,
+      "allocated": 73728,
+      "files": 16
+    },
+    "Silver/ImageModelQuotedString": {
+      "logical": 287326,
+      "allocated": 335872,
+      "files": 16
+    },
+    "Silver/PredicateSyntax": {
+      "logical": 1369962,
+      "allocated": 1417216,
+      "files": 16
+    },
+    "Silver/ComposeSubtypeLookupLegal": {
+      "logical": 351575,
+      "allocated": 401408,
+      "files": 16
+    },
+    "Silver/PredicateFlowSourceBridge": {
+      "logical": 1962792,
+      "allocated": 2011136,
+      "files": 16
+    },
+    "Silver/ProcedureNameIdentifierWords": {
+      "logical": 518137,
+      "allocated": 561152,
+      "files": 16
+    },
+    "Silver/ImageModelSelectedMeaning": {
+      "logical": 247991,
+      "allocated": 294912,
+      "files": 16
+    },
+    "Silver/SequenceContext": {
+      "logical": 327988,
+      "allocated": 376832,
+      "files": 16
+    },
+    "Silver/BooleanArrays": {
+      "logical": 485002,
+      "allocated": 528384,
+      "files": 16
+    },
+    "Silver/FunctionDeclarationStepImports": {
+      "logical": 680973,
+      "allocated": 733184,
+      "files": 16
+    },
+    "Silver/ImageModelCloneMeaning": {
+      "logical": 439445,
+      "allocated": 487424,
+      "files": 16
+    },
+    "Silver/ScalarExpressionNativeEquations": {
+      "logical": 1547439,
+      "allocated": 1597440,
+      "files": 16
+    },
+    "Silver/StringIndexing": {
+      "logical": 505704,
+      "allocated": 552960,
+      "files": 16
+    },
+    "Silver/ComposeBooleanArrayTrace": {
+      "logical": 1044911,
+      "allocated": 1097728,
+      "files": 16
+    },
+    "Silver/ImageModelWideTheoryScan": {
+      "logical": 186352,
+      "allocated": 237568,
+      "files": 16
+    },
+    "Silver/ImageModelJsonArrays": {
+      "logical": 324435,
+      "allocated": 372736,
+      "files": 16
+    },
+    "Silver/ConcatExamples": {
+      "logical": 323052,
+      "allocated": 372736,
+      "files": 16
+    },
+    "Silver/IntegerMutable": {
+      "logical": 735074,
+      "allocated": 786432,
+      "files": 16
+    },
+    "Silver/FunctionParameterReadings": {
+      "logical": 220215,
+      "allocated": 270336,
+      "files": 16
+    },
+    "Silver/ComposeDecode": {
+      "logical": 1549856,
+      "allocated": 1601536,
+      "files": 16
+    },
+    "Silver/ComposeSubtypeModelEquations": {
+      "logical": 1469655,
+      "allocated": 1519616,
+      "files": 16
+    },
+    "Silver/ImageModelStringNormalization": {
+      "logical": 489102,
+      "allocated": 536576,
+      "files": 16
+    },
+    "Silver/LengthIntervalsSource": {
+      "logical": 1746696,
+      "allocated": 1794048,
+      "files": 16
+    },
+    "Silver/FunctionParameterMeaning": {
+      "logical": 452064,
+      "allocated": 503808,
+      "files": 16
+    },
+    "Silver/ScalarExpressionAdmission": {
+      "logical": 349916,
+      "allocated": 405504,
+      "files": 16
+    },
+    "Silver/FunctionBodySource": {
+      "logical": 576114,
+      "allocated": 622592,
+      "files": 16
+    },
+    "Silver/ImageModelFinishNative": {
+      "logical": 1473838,
+      "allocated": 1523712,
+      "files": 16
+    },
+    "Silver/ProcedureMetadataValidity": {
+      "logical": 166659,
+      "allocated": 217088,
+      "files": 16
+    },
+    "Silver/ImageModelSpecCertificate": {
+      "logical": 3862478,
+      "allocated": 3911680,
+      "files": 16
+    },
+    "Silver/ComposeCharacterProperties": {
+      "logical": 236423,
+      "allocated": 282624,
+      "files": 16
+    },
+    "Silver/ComposeStringDenotations": {
+      "logical": 637531,
+      "allocated": 684032,
+      "files": 16
+    },
+    "Silver/SequenceNativeCorrespondence": {
+      "logical": 741713,
+      "allocated": 790528,
+      "files": 16
+    },
+    "Silver/ImageModelWideTheoryFields": {
+      "logical": 422157,
+      "allocated": 466944,
+      "files": 16
+    },
+    "Silver/ImageModelWideString": {
+      "logical": 550427,
+      "allocated": 598016,
+      "files": 16
+    },
+    "Silver/PredicateShell": {
+      "logical": 384619,
+      "allocated": 434176,
+      "files": 16
+    },
+    "Silver/FunctionDeclarationMeaning": {
+      "logical": 703776,
+      "allocated": 753664,
+      "files": 16
+    },
+    "Silver/PredicateBooleanArrayBodyHelpers": {
+      "logical": 301250,
+      "allocated": 344064,
+      "files": 16
+    },
+    "Silver/FunctionDeclarationFrameEquations": {
+      "logical": 354122,
+      "allocated": 397312,
+      "files": 16
+    },
+    "Silver/ImageModelConsumeNative": {
+      "logical": 1134511,
+      "allocated": 1179648,
+      "files": 16
+    },
+    "Silver/ImageModelEmissionLiveness": {
+      "logical": 98830,
+      "allocated": 147456,
+      "files": 16
+    },
+    "Silver/AxiomAudit": {
+      "logical": 308696,
+      "allocated": 331776,
+      "files": 8
+    },
+    "Silver/PredicateNativeSourceChecks": {
+      "logical": 1536564,
+      "allocated": 1585152,
+      "files": 16
+    },
+    "Silver/BooleanBindings": {
+      "logical": 449956,
+      "allocated": 499712,
+      "files": 16
+    },
+    "Silver/SequenceSelectors": {
+      "logical": 1712691,
+      "allocated": 1765376,
+      "files": 16
+    },
+    "Silver/ProcedureDeclarationBodyImports": {
+      "logical": 458097,
+      "allocated": 503808,
+      "files": 16
+    },
+    "Silver/PredicateBasicEquations": {
+      "logical": 4406200,
+      "allocated": 4452352,
+      "files": 16
+    },
+    "Silver/PathFactsSpecCertificate": {
+      "logical": 8557254,
+      "allocated": 8605696,
+      "files": 16
+    },
+    "Silver/ImageModelDocumentSpan": {
+      "logical": 482121,
+      "allocated": 532480,
+      "files": 16
+    },
+    "Silver/LengthIntervalsSpecSource": {
+      "logical": 18428,
+      "allocated": 73728,
+      "files": 16
+    },
+    "Silver/ArrayBindingsOrdered": {
+      "logical": 119699,
+      "allocated": 172032,
+      "files": 16
+    },
+    "Silver/ImageModelNormalExact": {
+      "logical": 2036375,
+      "allocated": 2084864,
+      "files": 16
+    },
+    "Silver/PredicateBasicReadings": {
+      "logical": 1752671,
+      "allocated": 1802240,
+      "files": 16
+    },
+    "Silver/SequenceHeader": {
+      "logical": 279911,
+      "allocated": 331776,
+      "files": 16
+    },
+    "Silver/IOSpecCertificate": {
+      "logical": 1878500,
+      "allocated": 1925120,
+      "files": 16
+    },
+    "Silver/ImageModelDocumentScan": {
+      "logical": 492117,
+      "allocated": 540672,
+      "files": 16
+    },
+    "Silver/OutputLiteral": {
+      "logical": 24013,
+      "allocated": 73728,
+      "files": 16
+    },
+    "Silver/SourceLexer": {
+      "logical": 810566,
+      "allocated": 856064,
+      "files": 16
+    },
+    "Silver/FunctionDeclarationsTrace": {
+      "logical": 221428,
+      "allocated": 274432,
+      "files": 16
+    },
+    "Silver/ComposeStringAtomBounds": {
+      "logical": 757925,
+      "allocated": 806912,
+      "files": 16
+    },
+    "Silver/PredicateExamples": {
+      "logical": 357535,
+      "allocated": 405504,
+      "files": 16
+    },
+    "Silver/ComposeDeclarationAdmission": {
+      "logical": 2625276,
+      "allocated": 2674688,
+      "files": 16
+    },
+    "Silver/ProcedureFrameValidity": {
+      "logical": 245406,
+      "allocated": 294912,
+      "files": 16
+    },
+    "Silver/SequenceNativeProjection": {
+      "logical": 682417,
+      "allocated": 733184,
+      "files": 16
+    },
+    "Silver/PredicateCorrespondence": {
+      "logical": 593036,
+      "allocated": 638976,
+      "files": 16
+    },
+    "Silver/PredicateFlowSourceCandidate": {
+      "logical": 212391,
+      "allocated": 262144,
+      "files": 16
+    },
+    "Silver/IntegerImageLength": {
+      "logical": 373198,
+      "allocated": 425984,
+      "files": 16
+    },
+    "Silver/ComposeStringBoundEquivalence": {
+      "logical": 240927,
+      "allocated": 286720,
+      "files": 16
+    },
+    "Silver/PredicateBodyHelpers": {
+      "logical": 1087455,
+      "allocated": 1138688,
+      "files": 16
+    },
+    "Silver/ProcedureDeclarationReadings": {
+      "logical": 371180,
+      "allocated": 421888,
+      "files": 16
+    },
+    "Silver/AssignmentAdmission": {
+      "logical": 711010,
+      "allocated": 757760,
+      "files": 16
+    },
+    "Silver/ProcedureNameActualReadings": {
+      "logical": 440068,
+      "allocated": 487424,
+      "files": 16
+    },
+    "Silver/PredicateStringActualInitializers": {
+      "logical": 1351165,
+      "allocated": 1400832,
+      "files": 16
+    },
+    "Silver/FunctionBindingsSpecSource": {
+      "logical": 28636,
+      "allocated": 81920,
+      "files": 16
+    },
+    "Silver/ProfileBodyCertificate": {
+      "logical": 11930648,
+      "allocated": 11980800,
+      "files": 16
+    },
+    "Silver/ComposeExpression": {
+      "logical": 460323,
+      "allocated": 507904,
+      "files": 16
+    },
+    "Silver/IntegerImageTheory": {
+      "logical": 666480,
+      "allocated": 708608,
+      "files": 16
+    },
+    "Silver/PredicateBooleanArrayBodySource": {
+      "logical": 229634,
+      "allocated": 278528,
+      "files": 16
+    },
+    "Silver/ComposeAtomAdmission": {
+      "logical": 4100552,
+      "allocated": 4149248,
+      "files": 16
+    },
+    "Silver/ProcedureNameTraceTraversal": {
+      "logical": 366764,
+      "allocated": 413696,
+      "files": 16
+    },
+    "Silver/ImageModelConsumerBoundary": {
+      "logical": 221783,
+      "allocated": 266240,
+      "files": 16
+    },
+    "Silver/SequenceEquations": {
+      "logical": 2507271,
+      "allocated": 2555904,
+      "files": 16
+    },
+    "Silver/FunctionDeclarationTypeSpan": {
+      "logical": 195301,
+      "allocated": 245760,
+      "files": 16
+    },
+    "Silver/NamesSourceChecks": {
+      "logical": 210525,
+      "allocated": 258048,
+      "files": 16
+    },
+    "Silver/PredicateNativeShapeCandidate": {
+      "logical": 755551,
+      "allocated": 806912,
+      "files": 16
+    },
+    "Silver/IntegerLiteralExpressions": {
+      "logical": 3692504,
+      "allocated": 3743744,
+      "files": 16
+    },
+    "Silver/PredicateProcedureUpdatesMeaning": {
+      "logical": 675842,
+      "allocated": 724992,
+      "files": 16
+    },
+    "Silver/ImageTheorySpecSource": {
+      "logical": 18824,
+      "allocated": 73728,
+      "files": 16
+    },
+    "Silver/SequenceTokens": {
+      "logical": 588728,
+      "allocated": 634880,
+      "files": 16
+    },
+    "Silver/PredicateCountedBoundModel": {
+      "logical": 129377,
+      "allocated": 176128,
+      "files": 16
+    },
+    "Silver/PathFactsSpecSource": {
+      "logical": 38036,
+      "allocated": 90112,
+      "files": 16
+    },
+    "Silver/PathFactsSourceShape": {
+      "logical": 2974569,
+      "allocated": 3031040,
+      "files": 16
+    },
+    "Silver/ImageModelAtomResult": {
+      "logical": 424507,
+      "allocated": 475136,
+      "files": 16
+    },
+    "Silver/ImageModelMatcherNative": {
+      "logical": 1127509,
+      "allocated": 1171456,
+      "files": 16
+    },
+    "Silver/RecursiveBridge": {
+      "logical": 1406712,
+      "allocated": 1454080,
+      "files": 16
+    },
+    "Silver/FunctionBindingsSpecCertificate": {
+      "logical": 5156518,
+      "allocated": 5206016,
+      "files": 16
+    },
+    "Silver/PredicateBodyUnique": {
+      "logical": 5828980,
+      "allocated": 5873664,
+      "files": 16
+    },
+    "Silver/PredicateBasicSourceCandidate": {
+      "logical": 3402734,
+      "allocated": 3448832,
+      "files": 16
+    },
+    "Silver/ProcedureNameSourceCandidate": {
+      "logical": 123573,
+      "allocated": 176128,
+      "files": 16
+    },
+    "Silver/ScalarExpressionConstants": {
+      "logical": 466938,
+      "allocated": 512000,
+      "files": 16
+    },
+    "Silver/ComposeScalarTrace": {
+      "logical": 1067707,
+      "allocated": 1118208,
+      "files": 16
+    },
+    "Silver/ImageModelWideSimulation": {
+      "logical": 1910675,
+      "allocated": 1957888,
+      "files": 16
+    },
+    "Silver/ProcedureNameConditionTokens": {
+      "logical": 214371,
+      "allocated": 262144,
+      "files": 16
+    },
+    "Silver/FunctionDeclarationBodyImports": {
+      "logical": 379082,
+      "allocated": 430080,
+      "files": 16
+    },
+    "Silver/PredicateBooleanHeader": {
+      "logical": 860106,
+      "allocated": 913408,
+      "files": 16
+    },
+    "Silver/ImageModelRootScan": {
+      "logical": 867548,
+      "allocated": 917504,
+      "files": 16
+    },
+    "Silver/NamesSpecSource": {
+      "logical": 22550,
+      "allocated": 77824,
+      "files": 16
+    },
+    "Silver/ComposeModelLegal": {
+      "logical": 2533581,
+      "allocated": 2576384,
+      "files": 16
+    },
+    "Silver/PredicateCharacterSourceCandidate": {
+      "logical": 2786545,
+      "allocated": 2834432,
+      "files": 16
+    },
+    "Silver/PredicateBodyModelSizing": {
+      "logical": 497699,
+      "allocated": 544768,
+      "files": 16
+    },
+    "Silver/ImageModelScannerSyntax": {
+      "logical": 3863769,
+      "allocated": 3915776,
+      "files": 16
+    },
+    "Silver/ProcedureBindingsSourceBridge": {
+      "logical": 78408,
+      "allocated": 122880,
+      "files": 16
+    },
+    "Silver/ArgumentsSourceBridge": {
+      "logical": 136157,
+      "allocated": 184320,
+      "files": 16
+    },
+    "Silver/CertificateJoinWitness": {
+      "logical": 457224,
+      "allocated": 503808,
+      "files": 16
+    },
+    "Silver/ImageModelSpecSource": {
+      "logical": 25439,
+      "allocated": 77824,
+      "files": 16
+    },
+    "Silver/FunctionBodyMeaning": {
+      "logical": 319552,
+      "allocated": 364544,
+      "files": 16
+    },
+    "Silver/NamesSpecCertificate": {
+      "logical": 2581110,
+      "allocated": 2625536,
+      "files": 16
+    },
+    "Silver/ScalarsNativeEquations": {
+      "logical": 2159678,
+      "allocated": 2207744,
+      "files": 16
+    },
+    "Silver/ScalarExpressionRecognition": {
+      "logical": 945782,
+      "allocated": 991232,
+      "files": 16
+    },
+    "Silver/ImageFilesSplice": {
+      "logical": 1774394,
+      "allocated": 1822720,
+      "files": 16
+    },
+    "Silver/ImageModelIdRun": {
+      "logical": 328315,
+      "allocated": 376832,
+      "files": 16
+    },
+    "Silver/PredicateBodyCandidates": {
+      "logical": 2467821,
+      "allocated": 2514944,
+      "files": 16
+    },
+    "Silver/ImageModelDocumentAllSelected": {
+      "logical": 441584,
+      "allocated": 491520,
+      "files": 16
+    },
+    "Silver/ScalarLiteralBodySource": {
+      "logical": 54693,
+      "allocated": 110592,
+      "files": 16
+    },
+    "Silver/ArgumentsAdmission": {
+      "logical": 1455567,
+      "allocated": 1499136,
+      "files": 16
+    },
+    "Silver/ComposeModelRanges": {
+      "logical": 161973,
+      "allocated": 208896,
+      "files": 16
+    },
+    "Silver/FunctionDeclarationHeaderEquations": {
+      "logical": 500148,
+      "allocated": 548864,
+      "files": 16
+    },
+    "Silver/ProcedureDeclarationModelSource": {
+      "logical": 339939,
+      "allocated": 389120,
+      "files": 16
+    },
+    "Silver/ImageModelCodeUnitSpelling": {
+      "logical": 907798,
+      "allocated": 954368,
+      "files": 16
+    },
+    "Silver/ImageFilesTrace": {
+      "logical": 2614526,
+      "allocated": 2662400,
+      "files": 16
+    },
+    "Silver/PredicateStringBoundsSources": {
+      "logical": 16022579,
+      "allocated": 16068608,
+      "files": 16
+    },
+    "Silver/ImageModelStringScan": {
+      "logical": 778178,
+      "allocated": 827392,
+      "files": 16
+    },
+    "Silver/ProcedureDeclarationTrace": {
+      "logical": 891579,
+      "allocated": 942080,
+      "files": 16
+    },
+    "Silver/SequenceGrammar": {
+      "logical": 398253,
+      "allocated": 450560,
+      "files": 16
+    },
+    "Silver/ComposeArrayStore": {
+      "logical": 492922,
+      "allocated": 540672,
+      "files": 16
+    },
+    "Silver/Cursor": {
+      "logical": 937543,
+      "allocated": 991232,
+      "files": 16
+    },
+    "Silver/ProcedureNameCompoundTokens": {
+      "logical": 214868,
+      "allocated": 262144,
+      "files": 16
+    },
+    "Silver/ProcedureMetadataSemantics": {
+      "logical": 352873,
+      "allocated": 405504,
+      "files": 16
+    },
+    "Silver/ProcedureDeclarationOuterLibrary": {
+      "logical": 389987,
+      "allocated": 438272,
+      "files": 16
+    },
+    "Silver/ProcedureNameValidityReading": {
+      "logical": 177417,
+      "allocated": 229376,
+      "files": 16
+    },
+    "Silver/ComposeBooleanArraySourceCandidate": {
+      "logical": 96277,
+      "allocated": 139264,
+      "files": 16
+    },
+    "Silver/ComposeContractSourceCandidate": {
+      "logical": 448796,
+      "allocated": 499712,
+      "files": 16
+    },
+    "Silver/ScalarProcedureFrame": {
+      "logical": 645924,
+      "allocated": 700416,
+      "files": 16
+    },
+    "Silver/PredicateBasicLibraries": {
+      "logical": 863100,
+      "allocated": 913408,
+      "files": 16
+    },
+    "Silver/ArrayBindingsSpecCertificate": {
+      "logical": 6977145,
+      "allocated": 7020544,
+      "files": 16
+    },
+    "Silver/FunctionDeclarationBodyLibrary": {
+      "logical": 360543,
+      "allocated": 409600,
+      "files": 16
+    },
+    "Silver/ImageModelNames": {
+      "logical": 290717,
+      "allocated": 335872,
+      "files": 16
+    },
+    "Silver/ComposeAtoms": {
+      "logical": 954860,
+      "allocated": 1007616,
+      "files": 16
+    },
+    "Silver/PredicateStringActualBounds": {
+      "logical": 686473,
+      "allocated": 737280,
+      "files": 16
+    },
+    "Silver/ProcedureDeclarationHelperSource": {
+      "logical": 4523675,
+      "allocated": 4571136,
+      "files": 16
+    },
+    "Silver/ImageModelInsertion": {
+      "logical": 235924,
+      "allocated": 282624,
+      "files": 16
+    },
+    "Silver/ComposeModelEquations": {
+      "logical": 616240,
+      "allocated": 663552,
+      "files": 16
+    },
+    "Silver/FunctionBindingsSourceBridge": {
+      "logical": 76263,
+      "allocated": 122880,
+      "files": 16
+    },
+    "Silver/ScalarFunctionFrame": {
+      "logical": 455349,
+      "allocated": 507904,
+      "files": 16
+    },
+    "Silver/ScalarProcedureChecking": {
+      "logical": 492334,
+      "allocated": 544768,
+      "files": 16
+    },
+    "Silver/ImageModelExactEmission": {
+      "logical": 173274,
+      "allocated": 221184,
+      "files": 16
+    },
+    "Silver/IntegerDeclarations": {
+      "logical": 385455,
+      "allocated": 430080,
+      "files": 16
+    },
+    "Silver/ProcedureNameIndexedReadings": {
+      "logical": 287846,
+      "allocated": 339968,
+      "files": 16
+    },
+    "Silver/StringObligations": {
+      "logical": 526471,
+      "allocated": 577536,
+      "files": 16
+    },
+    "Silver/FunctionLocalAnalysis": {
+      "logical": 487153,
+      "allocated": 532480,
+      "files": 16
+    },
+    "Silver/IntegerImage": {
+      "logical": 576290,
+      "allocated": 630784,
+      "files": 16
+    },
+    "Silver/CertificateWitness": {
+      "logical": 379253,
+      "allocated": 434176,
+      "files": 16
+    },
+    "Silver/ImageModelDocumentHeader": {
+      "logical": 382714,
+      "allocated": 430080,
+      "files": 16
+    },
+    "Silver/ScalarExpressionGrammar": {
+      "logical": 1093686,
+      "allocated": 1138688,
+      "files": 16
+    },
+    "Silver/ProcedureDeclarationParameterLibraries": {
+      "logical": 1019641,
+      "allocated": 1064960,
+      "files": 16
+    },
+    "Silver/SupportedTools": {
+      "logical": 179195,
+      "allocated": 229376,
+      "files": 16
+    },
+    "Silver/PredicateOuterEquations": {
+      "logical": 1046107,
+      "allocated": 1093632,
+      "files": 16
+    },
+    "Silver/ComposeBooleanArraySource": {
+      "logical": 1243653,
+      "allocated": 1290240,
+      "files": 16
+    },
+    "Silver/ProcedureNameScalarReadings": {
+      "logical": 929246,
+      "allocated": 974848,
+      "files": 16
+    },
+    "Silver/ProcedureDeclarationBodyNative": {
+      "logical": 4614272,
+      "allocated": 4657152,
+      "files": 16
+    },
+    "Silver/ImageModelDocumentAcceptance": {
+      "logical": 559621,
+      "allocated": 602112,
+      "files": 16
+    },
+    "Silver/ImageModelTemplatesSpecSource": {
+      "logical": 16942,
+      "allocated": 69632,
+      "files": 16
+    },
+    "Silver/PredicateAdapterSourceCandidate": {
+      "logical": 2645655,
+      "allocated": 2695168,
+      "files": 16
+    },
+    "Silver/ImageModelStringObservations": {
+      "logical": 106689,
+      "allocated": 155648,
+      "files": 16
+    },
+    "Silver/ScalarExpressionBounds": {
+      "logical": 1092364,
+      "allocated": 1138688,
+      "files": 16
+    },
+    "Silver/PredicateFlowExpectedTokens": {
+      "logical": 152495,
+      "allocated": 196608,
+      "files": 16
+    },
+    "Silver/PredicateHeaderFlow": {
+      "logical": 489257,
+      "allocated": 536576,
+      "files": 16
+    },
+    "Silver/NamesSourceShape": {
+      "logical": 4446630,
+      "allocated": 4501504,
+      "files": 16
+    },
+    "Silver/PredicateBasicHelpers": {
+      "logical": 1049911,
+      "allocated": 1097728,
+      "files": 16
+    },
+    "Silver/ArgumentsExpressions": {
+      "logical": 7629259,
+      "allocated": 7680000,
+      "files": 16
+    },
+    "Silver/PredicateProcedureBodyShape": {
+      "logical": 2419234,
+      "allocated": 2465792,
+      "files": 16
+    },
+    "Silver/ComposeBooleanDeclarationCandidate": {
+      "logical": 1312175,
+      "allocated": 1359872,
+      "files": 16
+    },
+    "Silver/SequenceArrayReady": {
+      "logical": 361150,
+      "allocated": 409600,
+      "files": 16
+    },
+    "Silver/IntegerLiteralBodySource": {
+      "logical": 52980,
+      "allocated": 106496,
+      "files": 16
+    },
+    "Silver/StringLengthRefinement": {
+      "logical": 303851,
+      "allocated": 356352,
+      "files": 16
+    },
+    "Silver/ProcedurePrefixReadings": {
+      "logical": 893448,
+      "allocated": 937984,
+      "files": 16
+    },
+    "Silver/BranchingExamples": {
+      "logical": 312280,
+      "allocated": 360448,
+      "files": 16
+    },
+    "Silver/ImageModelSelectedTemplate": {
+      "logical": 148138,
+      "allocated": 196608,
+      "files": 16
+    },
+    "Silver/SequenceNativeState": {
+      "logical": 937520,
+      "allocated": 987136,
+      "files": 16
+    },
+    "Silver/ImageModelBodySource": {
+      "logical": 62259,
+      "allocated": 114688,
+      "files": 16
+    },
+    "Silver/ImageFilesSpecSource": {
+      "logical": 28676,
+      "allocated": 81920,
+      "files": 16
+    },
+    "Silver/NamedSourceBridge": {
+      "logical": 309647,
+      "allocated": 360448,
+      "files": 16
+    },
+    "Silver/SequenceSubtypeReady": {
+      "logical": 434654,
+      "allocated": 483328,
+      "files": 16
+    },
+    "Silver/NamesSourceBridge": {
+      "logical": 38919,
+      "allocated": 81920,
+      "files": 16
+    },
+    "Silver/ProcedureDeclarationOuterNative": {
+      "logical": 4093888,
+      "allocated": 4145152,
+      "files": 16
+    },
+    "Silver/ProcedureDeclarationDenotations": {
+      "logical": 5169924,
+      "allocated": 5210112,
+      "files": 16
+    },
+    "Silver/SequenceMain": {
+      "logical": 1467441,
+      "allocated": 1515520,
+      "files": 16
+    },
+    "Silver/PredicateBodySourceCandidate": {
+      "logical": 812657,
+      "allocated": 860160,
+      "files": 16
+    },
+    "Silver/ImageModelJsonMeaning": {
+      "logical": 923220,
+      "allocated": 974848,
+      "files": 16
+    },
+    "Silver/ImageModelScannerGuards": {
+      "logical": 424381,
+      "allocated": 475136,
+      "files": 16
+    },
+    "Silver/ProcedureDeclarationOuterDomains": {
+      "logical": 303646,
+      "allocated": 352256,
+      "files": 16
+    },
+    "Silver/ProcedureBindingsNativeEquations": {
+      "logical": 748476,
+      "allocated": 794624,
+      "files": 16
+    },
+    "Silver/OutputLexicalSpecSource": {
+      "logical": 63433,
+      "allocated": 114688,
+      "files": 16
+    },
+    "Silver/PredicateArrayFlow": {
+      "logical": 250797,
+      "allocated": 299008,
+      "files": 16
+    },
+    "Silver/ImageModelMatcherSource": {
+      "logical": 289834,
+      "allocated": 335872,
+      "files": 16
+    },
+    "Silver/ImageModelNumberScan": {
+      "logical": 398006,
+      "allocated": 446464,
+      "files": 16
+    },
+    "Silver/ImageModelDocumentFinish": {
+      "logical": 311194,
+      "allocated": 360448,
+      "files": 16
+    },
+    "Silver/ImageModelStructuralSteps": {
+      "logical": 543459,
+      "allocated": 593920,
+      "files": 16
+    },
+    "Silver/ScalarExpressionNativeExpressions": {
+      "logical": 5356030,
+      "allocated": 5406720,
+      "files": 16
+    },
+    "Silver/ImageModelNativeHelpers": {
+      "logical": 144871,
+      "allocated": 192512,
+      "files": 16
+    },
+    "Silver/ComposeBoundTracking": {
+      "logical": 345256,
+      "allocated": 389120,
+      "files": 16
+    },
+    "Silver/ProcedureDeclarationFrameEquations": {
+      "logical": 370310,
+      "allocated": 421888,
+      "files": 16
+    },
+    "Silver/IntegerImageSpecSource": {
+      "logical": 18798,
+      "allocated": 73728,
+      "files": 16
+    },
+    "Silver/ConcatEquations": {
+      "logical": 759056,
+      "allocated": 806912,
+      "files": 16
+    },
+    "Silver/Lexical": {
+      "logical": 567808,
+      "allocated": 618496,
+      "files": 16
+    },
+    "Silver/ComposeModel": {
+      "logical": 127596,
+      "allocated": 180224,
+      "files": 16
+    },
+    "Silver/PredicateProcedureCallSourceChecks": {
+      "logical": 115881,
+      "allocated": 167936,
+      "files": 16
+    },
+    "Silver/GuardedExpressions": {
+      "logical": 7685022,
+      "allocated": 7737344,
+      "files": 16
+    },
+    "Silver/ComposeSourceChecks": {
+      "logical": 138188,
+      "allocated": 188416,
+      "files": 16
+    },
+    "Silver/PredicateHeader": {
+      "logical": 564016,
+      "allocated": 610304,
+      "files": 16
+    },
+    "Silver/ImageModelCoreState": {
+      "logical": 1774329,
+      "allocated": 1818624,
+      "files": 16
+    },
+    "Silver/ArrayBindingsNativeExpressions": {
+      "logical": 3386464,
+      "allocated": 3432448,
+      "files": 16
+    },
+    "Silver/ComposeBooleanArrayHeaderChecks": {
+      "logical": 207321,
+      "allocated": 258048,
+      "files": 16
+    },
+    "Silver/IOBodyCertificate": {
+      "logical": 3311777,
+      "allocated": 3362816,
+      "files": 16
+    },
+    "Silver/SequenceBasics": {
+      "logical": 445218,
+      "allocated": 491520,
+      "files": 16
+    },
+    "Silver/PathBounds": {
+      "logical": 375568,
+      "allocated": 425984,
+      "files": 16
+    },
+    "Silver/ComposeModelRecursion": {
+      "logical": 1448958,
+      "allocated": 1499136,
+      "files": 16
+    },
+    "Silver/ScalarExpressionNativeRecursion": {
+      "logical": 848868,
+      "allocated": 897024,
+      "files": 16
+    },
+    "Silver/PredicateXorAdmission": {
+      "logical": 567573,
+      "allocated": 618496,
+      "files": 16
+    },
+    "Silver/ArgumentsSemantics": {
+      "logical": 1136202,
+      "allocated": 1187840,
+      "files": 16
+    },
+    "Silver/ArrayBindingsRead": {
+      "logical": 608538,
+      "allocated": 655360,
+      "files": 16
+    },
+    "Silver/ArgumentsBodyCertificate": {
+      "logical": 1770458,
+      "allocated": 1818624,
+      "files": 16
+    },
+    "Silver/ImageModelDecodedNative": {
+      "logical": 2142240,
+      "allocated": 2187264,
+      "files": 16
+    },
+    "Silver/ImageFilesEndpoint": {
+      "logical": 141496,
+      "allocated": 188416,
+      "files": 16
+    },
+    "Silver/ComposeExamples": {
+      "logical": 498421,
+      "allocated": 544768,
+      "files": 16
+    },
+    "Silver/FunctionDeclarationComposition": {
+      "logical": 350677,
+      "allocated": 397312,
+      "files": 16
+    },
+    "Silver/ComposeSourceBridge": {
+      "logical": 1003065,
+      "allocated": 1048576,
+      "files": 16
+    },
+    "Silver/PredicateChecks": {
+      "logical": 841039,
+      "allocated": 888832,
+      "files": 16
+    },
+    "Silver/ComposeDeclarationExpectedTokens": {
+      "logical": 155331,
+      "allocated": 204800,
+      "files": 16
+    },
+    "Silver/ProcedureMetadataSource": {
+      "logical": 217471,
+      "allocated": 262144,
+      "files": 16
+    },
+    "Silver/ImageModelTemplateValidity": {
+      "logical": 1427028,
+      "allocated": 1474560,
+      "files": 16
+    },
+    "Silver/PredicateBodyFacts": {
+      "logical": 108146,
+      "allocated": 163840,
+      "files": 16
+    },
+    "Silver/ProcedureDeclarationNative": {
+      "logical": 836544,
+      "allocated": 884736,
+      "files": 16
+    },
+    "Silver/PredicateBasicStepMeaning": {
+      "logical": 324425,
+      "allocated": 376832,
+      "files": 16
+    },
+    "Silver/ScalarsNativeSourceChecks": {
+      "logical": 3956392,
+      "allocated": 4001792,
+      "files": 16
+    },
+    "Silver/ImageModelTheorySpan": {
+      "logical": 586391,
+      "allocated": 630784,
+      "files": 16
+    },
+    "Silver/ArgumentsSpecSource": {
+      "logical": 18210,
+      "allocated": 73728,
+      "files": 16
+    },
+    "Silver/PredicateSourceBridge": {
+      "logical": 641414,
+      "allocated": 684032,
+      "files": 16
+    },
+    "Silver/OutputLexicalBodyCertificate": {
+      "logical": 12014442,
+      "allocated": 12062720,
+      "files": 16
+    },
+    "Silver/ProcedureNameTerminals": {
+      "logical": 468194,
+      "allocated": 516096,
+      "files": 16
+    },
+    "Silver/ProcedureNameReadings": {
+      "logical": 63873,
+      "allocated": 110592,
+      "files": 16
+    },
+    "Silver/ProcedureBindings": {
+      "logical": 809372,
+      "allocated": 860160,
+      "files": 16
+    },
+    "Silver/ImageModelRefinement": {
+      "logical": 409180,
+      "allocated": 454656,
+      "files": 16
+    },
+    "Silver/ScalarEnvironmentSourceBridge": {
+      "logical": 1042680,
+      "allocated": 1085440,
+      "files": 16
+    },
+    "Silver/PredicateFlowInvariant": {
+      "logical": 273296,
+      "allocated": 323584,
+      "files": 16
+    },
+    "Silver/ImageModelJsonSpelling": {
+      "logical": 480438,
+      "allocated": 532480,
+      "files": 16
+    },
+    "Silver/ScalarExpressionNativeArrayAtoms": {
+      "logical": 1030052,
+      "allocated": 1081344,
+      "files": 16
+    },
+    "Silver/SequenceFunctionTrace": {
+      "logical": 436903,
+      "allocated": 483328,
+      "files": 16
+    },
+    "Silver/FunctionDeclarationImports": {
+      "logical": 425721,
+      "allocated": 471040,
+      "files": 16
+    },
+    "Silver/ImageModelNameNative": {
+      "logical": 391957,
+      "allocated": 442368,
+      "files": 16
+    },
+    "Silver/FunctionDeclarationModelSource": {
+      "logical": 383148,
+      "allocated": 434176,
+      "files": 16
+    },
+    "Silver/ImageModelWideNormalization": {
+      "logical": 351787,
+      "allocated": 397312,
+      "files": 16
+    },
+    "Silver/StringObjectBounds": {
+      "logical": 561020,
+      "allocated": 610304,
+      "files": 16
+    },
+    "Silver/ImageModelJsonSplice": {
+      "logical": 207671,
+      "allocated": 253952,
+      "files": 16
+    },
+    "Silver/SequenceInitializerTrace": {
+      "logical": 305723,
+      "allocated": 352256,
+      "files": 16
+    },
+    "Silver/NamedExamples": {
+      "logical": 244517,
+      "allocated": 290816,
+      "files": 16
+    },
+    "Silver/NamesBodyCertificate": {
+      "logical": 10531411,
+      "allocated": 10579968,
+      "files": 16
+    },
+    "Silver/FunctionDeclarationDenotations": {
+      "logical": 3971260,
+      "allocated": 4022272,
+      "files": 16
+    },
+    "Silver/ImageModelTemplateSource": {
+      "logical": 929037,
+      "allocated": 970752,
+      "files": 16
+    },
+    "Silver/FunctionDeclarationLibraries": {
+      "logical": 434426,
+      "allocated": 483328,
+      "files": 16
+    },
+    "Silver/IntegerComparisons": {
+      "logical": 744161,
+      "allocated": 794624,
+      "files": 16
+    },
+    "Silver/ScalarExpressionSourceShape": {
+      "logical": 8870978,
+      "allocated": 8921088,
+      "files": 16
+    },
+    "Silver/ImageModelHexSource": {
+      "logical": 499771,
+      "allocated": 544768,
+      "files": 16
+    },
+    "Silver/OutputSpecCertificate": {
+      "logical": 4860793,
+      "allocated": 4911104,
+      "files": 16
+    },
+    "Silver/NamesExpressions": {
+      "logical": 4225120,
+      "allocated": 4272128,
+      "files": 16
+    },
+    "Silver/FunctionDeclarationOuterEquations": {
+      "logical": 463251,
+      "allocated": 512000,
+      "files": 16
+    },
+    "Silver/IntegerImageNative": {
+      "logical": 175631,
+      "allocated": 221184,
+      "files": 16
+    },
+    "Silver/ScalarLiteralSourceBridge": {
+      "logical": 73477,
+      "allocated": 122880,
+      "files": 16
+    },
+    "Silver/ProcedureDeclarationHighSourceCandidate": {
+      "logical": 140262,
+      "allocated": 188416,
+      "files": 16
+    },
+    "Silver/Uniqueness": {
+      "logical": 315722,
+      "allocated": 360448,
+      "files": 16
+    },
+    "Silver/ImageModelJsonCanonical": {
+      "logical": 967674,
+      "allocated": 1024000,
+      "files": 16
+    },
+    "Silver/ProcedureDeclarationHighSourceChecks": {
+      "logical": 110406,
+      "allocated": 163840,
+      "files": 16
+    },
+    "Silver/ImageModelTheorySource": {
+      "logical": 247723,
+      "allocated": 294912,
+      "files": 16
+    },
+    "Silver/ProcedureMetadataMeaning": {
+      "logical": 368704,
+      "allocated": 413696,
+      "files": 16
+    },
+    "Silver/ConcatAdmission": {
+      "logical": 180475,
+      "allocated": 229376,
+      "files": 16
+    },
+    "Silver/ComposeSourceCandidate": {
+      "logical": 88415,
+      "allocated": 135168,
+      "files": 16
+    },
+    "Silver/ProcedureNameCharacterReadings": {
+      "logical": 362764,
+      "allocated": 413696,
+      "files": 16
+    },
+    "Silver/IoBodySource": {
+      "logical": 24744,
+      "allocated": 77824,
+      "files": 16
+    },
+    "Silver/ProcedureNameActualsApart": {
+      "logical": 360651,
+      "allocated": 413696,
+      "files": 16
+    },
+    "Silver/ImageModelTheorySplice": {
+      "logical": 826249,
+      "allocated": 868352,
+      "files": 16
+    },
+    "Silver/ImageProducerEndpoint": {
+      "logical": 307218,
+      "allocated": 356352,
+      "files": 16
+    },
+    "Silver/ComposeIndexedReading": {
+      "logical": 754493,
+      "allocated": 806912,
+      "files": 16
+    },
+    "Silver/ScalarCallExecution": {
+      "logical": 880656,
+      "allocated": 925696,
+      "files": 16
+    },
+    "Silver/SequenceExpressions": {
+      "logical": 2645710,
+      "allocated": 2691072,
+      "files": 16
+    },
+    "Silver/ProcedureDeclarationRecursion": {
+      "logical": 364688,
+      "allocated": 405504,
+      "files": 16
+    },
+    "Silver/ImageModelJsonBodies": {
+      "logical": 267160,
+      "allocated": 311296,
+      "files": 16
+    },
+    "Silver/OutputLibcSpecSource": {
+      "logical": 19450,
+      "allocated": 73728,
+      "files": 16
+    },
+    "Silver/PredicateProcedureTargetMeaning": {
+      "logical": 452432,
+      "allocated": 503808,
+      "files": 16
+    },
+    "Silver/BranchingMain": {
+      "logical": 1269202,
+      "allocated": 1323008,
+      "files": 16
+    },
+    "Silver/OutputLexicalBodySource": {
+      "logical": 48680,
+      "allocated": 102400,
+      "files": 16
+    },
+    "Silver/ProcedureDeclarationHighEquations": {
+      "logical": 154437,
+      "allocated": 200704,
+      "files": 16
+    },
+    "Silver/IntegerImageNativeCapture": {
+      "logical": 1738319,
+      "allocated": 1781760,
+      "files": 16
+    },
+    "Silver/SequenceShell": {
+      "logical": 262834,
+      "allocated": 307200,
+      "files": 16
+    },
+    "Silver/Names": {
+      "logical": 1699588,
+      "allocated": 1753088,
+      "files": 16
+    },
+    "Silver/ScalarExpressionBodySource": {
+      "logical": 73309,
+      "allocated": 126976,
+      "files": 16
+    },
+    "Silver/ImageFilesSourceShape": {
+      "logical": 4387573,
+      "allocated": 4435968,
+      "files": 16
+    },
+    "Silver/PredicateStatementFlags": {
+      "logical": 8277239,
+      "allocated": 8331264,
+      "files": 16
+    },
+    "Silver/ImageModelStructuralNative": {
+      "logical": 1277040,
+      "allocated": 1327104,
+      "files": 16
+    },
+    "Silver/ComposeBooleanDeclarationMeaning": {
+      "logical": 369822,
+      "allocated": 421888,
+      "files": 16
+    },
+    "Silver/PredicateCountedBoundSource": {
+      "logical": 1116967,
+      "allocated": 1171456,
+      "files": 16
+    },
+    "Silver/ProcedureNameImageReadings": {
+      "logical": 387919,
+      "allocated": 438272,
+      "files": 16
+    },
+    "Silver/LengthIntervalPrecedence": {
+      "logical": 809342,
+      "allocated": 860160,
+      "files": 16
+    },
+    "Silver/ImageModelStringEncoding": {
+      "logical": 587361,
+      "allocated": 638976,
+      "files": 16
+    },
+    "Silver/ProcedureDeclarationBodyLibrary": {
+      "logical": 619651,
+      "allocated": 667648,
+      "files": 16
+    },
+    "Silver/ProcedureNameIdentity": {
+      "logical": 168749,
+      "allocated": 217088,
+      "files": 16
+    },
+    "Silver/PredicateArrayBodySource": {
+      "logical": 664416,
+      "allocated": 708608,
+      "files": 16
+    },
+    "Silver/ImageModelTheoryFields": {
+      "logical": 553646,
+      "allocated": 602112,
+      "files": 16
+    },
+    "Silver/ImageModelTheoryRefinement": {
+      "logical": 454120,
+      "allocated": 503808,
+      "files": 16
+    },
+    "Silver/Audit": {
+      "logical": 906705,
+      "allocated": 933888,
+      "files": 8
+    },
+    "Silver/PredicateLoopCandidate": {
+      "logical": 3244039,
+      "allocated": 3293184,
+      "files": 16
+    },
+    "Silver/ImageModelMatcherDeath": {
+      "logical": 974991,
+      "allocated": 1024000,
+      "files": 16
+    },
+    "Silver/BranchingEquations": {
+      "logical": 725988,
+      "allocated": 774144,
+      "files": 16
+    },
+    "Silver/PredicateScalarBodySource": {
+      "logical": 224928,
+      "allocated": 274432,
+      "files": 16
+    },
+    "Silver/ProcedureDeclarationDomains": {
+      "logical": 108782,
+      "allocated": 155648,
+      "files": 16
+    },
+    "Silver/ScalarExpressionNativeModel": {
+      "logical": 928859,
+      "allocated": 974848,
+      "files": 16
+    },
+    "Silver/ProcedureNameSourceParts/LoopExpectedTokens": {
+      "logical": 95146,
+      "allocated": 139264,
+      "files": 16
+    },
+    "Silver/ProcedureNameSourceParts/Step": {
+      "logical": 82463,
+      "allocated": 126976,
+      "files": 16
+    },
+    "Silver/ProcedureNameSourceParts/ModelSpec": {
+      "logical": 85222,
+      "allocated": 135168,
+      "files": 16
+    },
+    "Silver/ProcedureNameSourceParts/LoopSpec": {
+      "logical": 85200,
+      "allocated": 135168,
+      "files": 16
+    },
+    "Silver/ProcedureNameSourceParts/LoopImpl": {
+      "logical": 85200,
+      "allocated": 135168,
+      "files": 16
+    },
+    "Silver/ProcedureNameSourceParts/Record": {
+      "logical": 80654,
+      "allocated": 126976,
+      "files": 16
+    },
+    "Silver/ProcedureNameSourceParts/StepImpl": {
+      "logical": 85200,
+      "allocated": 135168,
+      "files": 16
+    },
+    "Silver/ProcedureNameSourceParts/Model": {
+      "logical": 80966,
+      "allocated": 126976,
+      "files": 16
+    },
+    "Silver/ProcedureNameSourceParts/ModelImpl": {
+      "logical": 85222,
+      "allocated": 135168,
+      "files": 16
+    },
+    "Silver/ProcedureNameSourceParts/Loop": {
+      "logical": 100421,
+      "allocated": 151552,
+      "files": 16
+    },
+    "Silver/ProcedureNameSourceParts/StepSpec": {
+      "logical": 85200,
+      "allocated": 135168,
+      "files": 16
+    },
+    "Silver/ProcedureDeclarationHelperWholeSourceParts/AppendProcedureParameter": {
+      "logical": 93429,
+      "allocated": 147456,
+      "files": 16
+    },
+    "Silver/ProcedureDeclarationHelperWholeSourceParts/ProcedureParametersModel": {
+      "logical": 97311,
+      "allocated": 151552,
+      "files": 16
+    },
+    "Silver/ProcedureDeclarationHelperWholeSourceParts/ProcedurePrefixStep": {
+      "logical": 95913,
+      "allocated": 147456,
+      "files": 16
+    },
+    "Silver/ProcedureDeclarationHelperWholeSourceParts/ProcedurePrefix": {
+      "logical": 95771,
+      "allocated": 143360,
+      "files": 16
+    },
+    "Silver/ProcedureDeclarationHelperWholeSourceParts/ParameterCursor": {
+      "logical": 83580,
+      "allocated": 131072,
+      "files": 16
+    },
+    "Silver/ProcedureDeclarationHelperWholeSourceParts/ProcedureInputFrameModel": {
+      "logical": 97311,
+      "allocated": 151552,
+      "files": 16
+    },
+    "Silver/ProcedureDeclarationHelperWholeSourceParts/ProcedureParameterStep": {
+      "logical": 97061,
+      "allocated": 147456,
+      "files": 16
+    },
+    "Silver/ProcedureDeclarationHelperWholeSourceParts/ProcedureInputFrame": {
+      "logical": 95851,
+      "allocated": 147456,
+      "files": 16
+    },
+    "Silver/ProcedureDeclarationHelperWholeSourceParts/StepResult": {
+      "logical": 83502,
+      "allocated": 131072,
+      "files": 16
+    },
+    "Silver/ProcedureDeclarationHelperWholeSourceParts/ProcedureParametersAt": {
+      "logical": 95880,
+      "allocated": 147456,
+      "files": 16
+    },
+    "Silver/ProcedureDeclarationHelperWholeSourceParts/ProcedurePrefixModel": {
+      "logical": 97245,
+      "allocated": 151552,
+      "files": 16
+    },
+    "Silver/ProcedureDeclarationHighSourceParts/BodySpec": {
+      "logical": 87297,
+      "allocated": 139264,
+      "files": 16
+    },
+    "Silver/ProcedureDeclarationHighSourceParts/MetadataAppendExpectedTokens": {
+      "logical": 95141,
+      "allocated": 139264,
+      "files": 16
+    },
+    "Silver/ProcedureDeclarationHighSourceParts/OuterImpl": {
+      "logical": 87316,
+      "allocated": 139264,
+      "files": 16
+    },
+    "Silver/ProcedureDeclarationHighSourceParts/Outer": {
+      "logical": 87008,
+      "allocated": 139264,
+      "files": 16
+    },
+    "Silver/ProcedureDeclarationHighSourceParts/BodyImpl": {
+      "logical": 87297,
+      "allocated": 139264,
+      "files": 16
+    },
+    "Silver/ProcedureDeclarationHighSourceParts/Body": {
+      "logical": 112228,
+      "allocated": 163840,
+      "files": 16
+    },
+    "Silver/ProcedureDeclarationHighSourceParts/OuterSpec": {
+      "logical": 87316,
+      "allocated": 139264,
+      "files": 16
+    },
+    "Silver/FunctionSourceParts/FunctionLocalsExpectedTokens": {
+      "logical": 103060,
+      "allocated": 147456,
+      "files": 16
+    },
+    "Silver/FunctionSourceParts/FunctionDeclarationHeaderExpectedTokens": {
+      "logical": 162026,
+      "allocated": 208896,
+      "files": 16
+    },
+    "Silver/FunctionSourceParts/FunctionRemainingExpectedTokens": {
+      "logical": 560393,
+      "allocated": 606208,
+      "files": 16
+    },
+    "Silver/FunctionSourceParts/FunctionParameterLocalHeaderTokens": {
+      "logical": 349982,
+      "allocated": 393216,
+      "files": 16
+    }
+  }
+}

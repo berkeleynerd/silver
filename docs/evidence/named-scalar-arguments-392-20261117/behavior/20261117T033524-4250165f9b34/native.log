@@ -1,0 +1,21 @@
+test_actuals_share_incoming_state_in_every_order (test_named_scalar_arguments.NamedScalarArgumentTests.test_actuals_share_incoming_state_in_every_order) ... ok
+test_boolean_results_inout_and_nested_procedure_calls (test_named_scalar_arguments.NamedScalarArgumentTests.test_boolean_results_inout_and_nested_procedure_calls) ... ok
+test_duplicate_missing_unknown_and_invalid_mixed_associations (test_named_scalar_arguments.NamedScalarArgumentTests.test_duplicate_missing_unknown_and_invalid_mixed_associations) ... ok
+test_function_actual_reads_assignment_targets_incoming_value (test_named_scalar_arguments.NamedScalarArgumentTests.test_function_actual_reads_assignment_targets_incoming_value) ... ok
+test_function_positional_named_reordered_mixed_and_case (test_named_scalar_arguments.NamedScalarArgumentTests.test_function_positional_named_reordered_mixed_and_case) ... ok
+test_many_reordered_formals_and_complete_source_boundary (test_named_scalar_arguments.NamedScalarArgumentTests.test_many_reordered_formals_and_complete_source_boundary) ... ok
+test_mixed_integer_boolean_signature (test_named_scalar_arguments.NamedScalarArgumentTests.test_mixed_integer_boolean_signature) ... ok
+test_named_calls_in_functions_procedures_branches_and_loops (test_named_scalar_arguments.NamedScalarArgumentTests.test_named_calls_in_functions_procedures_branches_and_loops) ... ok
+test_named_inout_preserves_both_containment_checks (test_named_scalar_arguments.NamedScalarArgumentTests.test_named_inout_preserves_both_containment_checks) ... ok
+test_named_payload_literals_and_nested_reads (test_named_scalar_arguments.NamedScalarArgumentTests.test_named_payload_literals_and_nested_reads) ... ok
+test_named_payload_preserves_qualified_validity_alias_rule (test_named_scalar_arguments.NamedScalarArgumentTests.test_named_payload_preserves_qualified_validity_alias_rule) ... ok
+test_named_writable_targets_remain_distinct (test_named_scalar_arguments.NamedScalarArgumentTests.test_named_writable_targets_remain_distinct) ... ok
+test_procedure_modes_retain_selected_formal_and_copyback (test_named_scalar_arguments.NamedScalarArgumentTests.test_procedure_modes_retain_selected_formal_and_copyback) ... ok
+test_selector_names_are_not_caller_reads (test_named_scalar_arguments.NamedScalarArgumentTests.test_selector_names_are_not_caller_reads) ... ok
+test_types_and_ranges_follow_named_formal (test_named_scalar_arguments.NamedScalarArgumentTests.test_types_and_ranges_follow_named_formal) ... ok
+test_unreachable_named_calls_still_check_complete_rules (test_named_scalar_arguments.NamedScalarArgumentTests.test_unreachable_named_calls_still_check_complete_rules) ... ok
+
+----------------------------------------------------------------------
+Ran 16 tests in 35.218s
+
+OK

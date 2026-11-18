@@ -1,0 +1,15 @@
+
+.silver/linux-aarch64/compiler/obj/silver_output_profile.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000036f98 <silver_output_profile__procedure_updates___wrapped_statements__B_59__B13174b___finalizer.79>:
+   36f98:	a9be7bfd 	stp	x29, x30, [sp, #-32]!
+   36f9c:	910003fd 	mov	x29, sp
+   36fa0:	aa1203e0 	mov	x0, x18
+   36fa4:	f9000ff2 	str	x18, [sp, #24]
+   36fa8:	91006000 	add	x0, x0, #0x18
+   36fac:	94000000 	bl	0 <system__secondary_stack__ss_release>
+   36fb0:	a8c27bfd 	ldp	x29, x30, [sp], #32
+   36fb4:	d65f03c0 	ret

@@ -36,6 +36,33 @@ theorem actual_meaning {text context position facts formal actual after}
       exact ⟨⟨meaning.grammatical, meaning.readable⟩,
         by simpa only [formalType, kind, ScalarFunctions.Actual.check] using meaning.checked⟩
 
+private theorem checkActuals_entries {context : ParseContext} {facts : ActiveFlow}
+    {catalog : FunctionBindings.Metadata} {entries : List (ScalarAssociations.Entry ScalarFunctions.Actual)}
+    {first count : Nat}
+    (keys : entries.map Prod.fst = List.range' first count)
+    (checked : ∀ entry ∈ entries,
+      entry.2.check context.names.shape context.analysis (context.flow facts)
+        (ArrayBindings.booleanAnalysis context.arrayNames (BooleanBindings.analysis context.booleanNames))
+        (formalType (FunctionBindings.parameter catalog entry.1)) = true) :
+    ScalarFunctions.checkActuals context.names.shape context.analysis (context.flow facts)
+      (ArrayBindings.booleanAnalysis context.arrayNames (BooleanBindings.analysis context.booleanNames))
+      (formalTypes catalog first count) (entries.map Prod.snd) = true := by
+  induction count generalizing first entries with
+  | zero =>
+      have empty : entries = [] := List.map_eq_nil_iff.mp keys
+      subst entries
+      rfl
+  | succ count ih =>
+      cases entries with
+      | nil => simp at keys
+      | cons entry entries =>
+          have parts : entry.1 = first ∧ entries.map Prod.fst = List.range' (first + 1) count := by
+            simpa only [List.map_cons, List.range'_succ, List.cons.injEq] using keys
+          have head := checked entry (List.mem_cons_self ..)
+          rw [parts.1] at head
+          have tail := ih parts.2 (fun item member => checked item (List.mem_cons_of_mem _ member))
+          simp only [formalTypes, List.map_cons, ScalarFunctions.checkActuals, head, tail, Bool.and_self]
+
 theorem actuals_meaning {text context facts catalog position first last actuals after}
     (normal : NamesNormal context.names)
     (nv : Compose.Expressions.ValidNames text context.names)
@@ -49,23 +76,16 @@ theorem actuals_meaning {text context facts catalog position first last actuals 
     ScalarFunctions.checkActuals context.names.shape context.analysis (context.flow facts)
       (ArrayBindings.booleanAnalysis context.arrayNames (BooleanBindings.analysis context.booleanNames))
       (formalTypes catalog first (last - first + 1)) actuals = true := by
-  induction parsed with
-  | last source _ =>
-      have meaning := actual_meaning normal nv base arraysReady compatible bounded source
-      simp only [List.mem_singleton, forall_eq, Nat.sub_self, formalTypes,
-        ScalarFunctions.checkActuals, meaning.2, Bool.and_self, and_true]
-      exact meaning.1
-  | @next position first last actual after rest result within source following ih =>
-      have meaning := actual_meaning normal nv base arraysReady compatible bounded source
-      have remaining : last - first = last - (first + 1) + 1 := by omega
-      refine ⟨?_, ?_⟩
-      · intro value present
-        rcases List.mem_cons.mp present with same | tail
-        · simpa only [same] using meaning.1
-        · exact ih.1 value tail
-      · simp only [formalTypes, ScalarFunctions.checkActuals, meaning.2, Bool.true_and]
-        rw [remaining]
-        exact ih.2
+  cases parsed with
+  | actuals source =>
+      have entryMeaning := source.forall_payloads (fun _ _ _ _ payload =>
+        actual_meaning normal nv base arraysReady compatible bounded payload)
+      have arranged := ScalarAssociations.arrange_all defaultFunctionActual source.fresh.nodup source.complete entryMeaning
+      refine ⟨?_, checkActuals_entries (ScalarAssociations.arrange_keys ..) (fun entry member => (arranged entry member).2)⟩
+      intro actual present
+      obtain ⟨entry, member, same⟩ := List.mem_map.mp present
+      subst actual
+      exact (arranged entry member).1
 
 theorem call_meaning {text context position facts catalog call result}
     (normal : NamesNormal context.names)
@@ -215,9 +235,14 @@ theorem actuals_source_scalar {text context facts catalog position first last ac
     (closed : ClosedFunctionContext context)
     (parsed : ActualsAt text context facts catalog position first last actuals after) :
     actuals.all ScalarFunctions.scalarActual = true := by
-  induction parsed with
-  | last source _ => simp only [List.all_cons, List.all_nil, Bool.and_true]; exact actual_source_scalar closed source
-  | next _ source _ ih => exact Bool.and_eq_true_iff.mpr ⟨actual_source_scalar closed source, ih⟩
-
+  cases parsed with
+  | actuals source =>
+      have original := source.forall_payloads (fun _ _ _ _ payload => actual_source_scalar closed payload)
+      have arranged := ScalarAssociations.arrange_all defaultFunctionActual source.fresh.nodup source.complete original
+      apply List.all_eq_true.mpr
+      intro actual present
+      obtain ⟨entry, member, same⟩ := List.mem_map.mp present
+      subst actual
+      exact arranged entry member
 
 end Silver.Predicate

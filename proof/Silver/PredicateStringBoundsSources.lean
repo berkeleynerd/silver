@@ -258,16 +258,7 @@ theorem actual_boundsOrigin {text context position facts formal actual after}
 theorem actuals_boundsOrigin {text context facts catalog position first last actuals after}
     (source : ActualsAt text context facts catalog position first last actuals after) :
     ∀ actual ∈ actuals, CallActualBoundsOrigin context.names actual := by
-  induction source with
-  | last first _ =>
-      intro actual present
-      rcases List.mem_singleton.mp present with rfl
-      exact actual_boundsOrigin first
-  | next _ first _ ih =>
-      intro actual present
-      rcases List.mem_cons.mp present with rfl | present
-      · exact actual_boundsOrigin first
-      · exact ih actual present
+  exact source.forall_payloads (fun _ _ _ _ payload => actual_boundsOrigin payload)
 
 theorem basic_boundsOrigin {text context scan item result}
     (parsed : BasicAt (catalog := catalog) text context scan item result) : item.lower.BoundsOrigin context.names := by
@@ -295,16 +286,7 @@ theorem procedureActual_boundsOrigin {text context position facts formal actual 
 theorem procedureActuals_boundsOrigin {text context facts catalog position first last actuals after}
     (source : ProcedureActualsAt text context facts catalog position first last actuals after) :
     ∀ actual ∈ actuals, ProcedureActualBoundsOrigin context.names actual := by
-  induction source with
-  | last reading _ =>
-      intro actual member
-      rcases List.mem_singleton.mp member with rfl
-      exact procedureActual_boundsOrigin reading
-  | next _ reading _ rest ih =>
-      intro actual member
-      rcases List.mem_cons.mp member with rfl | later
-      · exact procedureActual_boundsOrigin reading
-      · exact ih actual later
+  exact source.forall_payloads (fun _ _ _ _ payload => procedureActual_boundsOrigin payload)
 
 theorem basicStep_boundsOrigin {text context scan item result catalog procedures}
     (source : BasicStepAt text context scan item result catalog procedures) : item.lower.BoundsOrigin context.names := by

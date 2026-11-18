@@ -1,0 +1,33 @@
+{
+  "scope": "Frozen pending third source commit; proof files only, final evidence will accompany it. Borrowed semantic and native inputs excluded.",
+  "core_source_commits": [
+    "a5e7c3fd7",
+    "d3399feb4"
+  ],
+  "files_sha256": {
+    "proof/Silver/FunctionSourceCandidate.lean": "c2cf94bd9029ea23766b6bd341b36a3726ca735b5b96b2e0df80c093d46c7607",
+    "proof/Silver/FunctionSourceParts/CallsActualsAdvance.lean": "6a05178a525d9fba9056c06eac66f1a5e1a389bcdaa08b5f82ea9daf75887086",
+    "proof/Silver/FunctionSourceParts/CallsActualsAfterLoop.lean": "a95fa869e8c3c5c927a8a10e9a6daec8a5030ea5b091ef7d9d698b44c4497fd5",
+    "proof/Silver/FunctionSourceParts/CallsActualsTailModel.lean": "dcb3f85101428b5a0e3a00a59d23987529bff3d22aaffbf47243b2107d52a0cc",
+    "proof/Silver/PredicateAssociationSource.lean": "4a5a329c8c8b2433c41fc2c7174d570f6c0d0445ee685b3058dd03c9e86f2350",
+    "proof/Silver/PredicateAssociationWholeSourceCandidate.lean": "e5e728b40e1e7925a89d922dff004793ec8e2eb05bd34e9f2d51bc1007bb1c2a",
+    "proof/Silver/PredicateAssociationWholeSourceParts/FunctionAssociation.lean": "28eab7895b96d5a7f75ba1b0ec0ba714daf67f6bc1a09df62dae64bd90c2bec9",
+    "proof/Silver/PredicateAssociationWholeSourceParts/FunctionFormalAt.lean": "0b5b272f42bf223bd032cc8076e5085bf229365a10ecf42745fa75e73fb5424e",
+    "proof/Silver/PredicateAssociationWholeSourceParts/FunctionFormalModel.lean": "391186cb8b415c45a001a01b33cc0d5ca6dd7101b70720d044d3af1d4371dd30",
+    "proof/Silver/PredicateAssociationWholeSourceParts/MarkFormal.lean": "ccb92b52a17f2d5c5cd1ba7441409672ccd110ffa048926bceebe03123ff1ed1",
+    "proof/Silver/PredicateAssociationWholeSourceParts/ProcedureAssociation.lean": "08aa35e66fe655a73e0ba99bc92d285d9f43aa6d54fbff8d24eadd42d92b82cd",
+    "proof/Silver/PredicateAssociationWholeSourceParts/ProcedureFormalAt.lean": "4763eb6e013782ff78d7761ece6c86762d184fbe4a156021d75a07e2ae85bfbf",
+    "proof/Silver/PredicateAssociationWholeSourceParts/ProcedureFormalModel.lean": "73417f26dc4bc4b159b4ace1947f279baf13a0573b3d66c7cb166c14a6ae4c8c",
+    "proof/Silver/PredicateAssociationWholeSourceParts/Types.lean": "719451553d23bb67a22a091dbe2ca2ca1d707d260b70984ba324b0b067326599",
+    "proof/Silver/PredicateFunctionCallGhostSource.lean": "af474f3e42964dfbfeca110997d31097dac9b6d7c3882ccb89a71a2a02c84c9a",
+    "proof/Silver/PredicateFunctionCallSource.lean": "0bcf7ee817802f9ce1637a287e54c0e8696cc058822bbeb8c090d87c2d864958",
+    "proof/Silver/PredicateProcedureCallGhostSource.lean": "b3c5fc3aa7e1964c5cef6dd3643229bd77b7343f420020cf390e76bd14e04bbd",
+    "proof/Silver/PredicateProcedureCallSource.lean": "47081db6d1e635a1bb3b12489e3c66f0e48bc15cfc1aefffe09b991ca22ef376",
+    "proof/Silver/PredicateProcedureCallWholeSourceCandidate.lean": "181dc8c8e51697bcf434ab537bd9740825a48e1960c22ef1f26c55271ea2b5e7",
+    "proof/Silver/PredicateProcedureCallWholeSourceParts/ProcedureActualsTailModel.lean": "b5cab8ecf03051d95446b36ef33c5c8b57e886111f4ede4740c8cc78523a109e",
+    "proof/Silver/PredicateProcedureCallWholeSourceParts/ProcedurePayloadsFree.lean": "90b05c68a6370508d8b73c92f131c5f9302ecd54db25a9cf59b4cdc99a731d38",
+    "proof/Silver/PredicateProcedureCallWholeSourceParts/ProcedurePayloadsFreeModel.lean": "e734276604f187b9d569ea937f14b7816cef3c3829fc49fa1e19e1b6e85919b3",
+    "proof/Silver/PredicateProcedureCallWholeSourceParts/ProcedureUpdatesTailModel.lean": "4a8bc124f2212ece8aeee1bbade5654c5ea2a7fba50d33d5866099c7b3a8d5bf",
+    "proof/Silver/ReviewedOutputShape.lean": "7d034eaaa79d6f3175ebd957eda8a493b6e2290d1904e654bac8469cd1616383"
+  }
+}

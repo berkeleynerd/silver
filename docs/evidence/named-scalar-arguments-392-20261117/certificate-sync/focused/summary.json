@@ -1,0 +1,9 @@
+{
+  "head": "20e055be8",
+  "run_id": "20261117T072514-b9c195a48c9c",
+  "tests": 17,
+  "seconds": 20.469,
+  "outcome": "success",
+  "skipped": 0,
+  "scope": "complete test_lean_source.py; native probe executed"
+}

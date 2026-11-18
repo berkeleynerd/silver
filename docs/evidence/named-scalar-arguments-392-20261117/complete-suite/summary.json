@@ -1,0 +1,19 @@
+{
+  "run_id": "20261117T072619-37479dd61ba9",
+  "head": "20e055be873f04a05d520b4e50f0e066515b7d4f",
+  "outcome": "success",
+  "tests": 715,
+  "passed": 713,
+  "skipped": 2,
+  "test_seconds": 1160.908,
+  "started_utc": "2026-11-17T07:26:19.784801+00:00",
+  "finished_utc": "2026-11-17T07:45:41.273649+00:00",
+  "issue_opened_utc": "2026-11-17T01:55:25+00:00",
+  "issue_open_to_validation_seconds": 21016.273649,
+  "host": "silver-m4pro",
+  "platform": "Linux aarch64",
+  "available_cpus": 12,
+  "reserved_workers": 12,
+  "stack_soft_bytes": 16777216,
+  "run_mode": "Fresh complete test execution; retained compiler/tool binaries; no cold cache claim"
+}

@@ -1,0 +1,31 @@
+{
+  "command": [
+    "python3",
+    "scripts/check_lean.py",
+    "--workers",
+    "1",
+    "--memory-mb",
+    "8192",
+    "--provenance",
+    "--task",
+    "#392-source-candidates",
+    "--reason",
+    "All26 output-profile helper/caller scopes and2catalogue scopes passed on exact final native inputs. Focused complete source-candidate check with validated typed helper/source semantics and updated full output pin. Current pin invalidates178dependents/155candidate parts;450194B native source grew5.983percent. Independent dense sibling overlap previously exceeded10GiBtree; single-worker continuation peaked8.601GiB. Serial1Lake worker/default12threads8192MiB, external10GiBtree/1.5GiBhost guards with5s attributed samples; retain objects, no clean/replay.",
+    "--target",
+    "Silver.PredicateAssociationWholeSourceCandidate",
+    "--target",
+    "Silver.FunctionSourceCandidate",
+    "--target",
+    "Silver.PredicateProcedureCallWholeSourceCandidate"
+  ],
+  "cwd": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392",
+  "started_at": "2026-11-17T03:31:46.173148+00:00",
+  "peak_sum_rss_kib": 6639264,
+  "peak_process_rss_kib": 5574192,
+  "minimum_mem_available_kib": 8911744,
+  "pid": 348396,
+  "returncode": 1,
+  "elapsed_seconds": 1396.655587748999,
+  "finished_at": "2026-11-17T03:55:02.828739+00:00",
+  "interrupted": false
+}

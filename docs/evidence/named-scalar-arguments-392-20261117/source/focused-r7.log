@@ -1,0 +1,31 @@
+Lean phase build started at 2026-11-17T02:51:50.821964+00:00
++ /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.tools/linux-aarch64/lean/bin/lake --rehash --reconfigure -K silverThreads=12 build +Silver.PredicateFunctionCallGhostSource +Silver.PredicateProcedureCallHelpers +Silver.AxiomAudit
+✔ [249/252] Built Silver.PredicateFunctionCallHelpers (6.2s)
+✖ [250/252] Building Silver.PredicateFunctionCallGhostSource (269ms)
+trace: .> LEAN_PATH=/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/lib/lean /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.tools/linux-aarch64/lean/bin/lean -j12 -DwarningAsError=true /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/Silver/PredicateFunctionCallGhostSource.lean -o /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/PredicateFunctionCallGhostSource.olean -i /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/PredicateFunctionCallGhostSource.ilean -c /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/ir/Silver/PredicateFunctionCallGhostSource.c --setup /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/ir/Silver/PredicateFunctionCallGhostSource.setup.json --json
+error: Silver/PredicateFunctionCallGhostSource.lean:85:5: `if_neg` has been deprecated: Use `ite_eq_right` instead
+error: Silver/PredicateFunctionCallGhostSource.lean:84:2: Type mismatch: After simplification, term
+  if_neg comma
+ has type
+  @Eq Nat
+    (if fixedAfter text after "," false = 0 then 0
+    else
+      functionActualsTailModel text context.model (fixedAfter text after "," false) facts catalog first last
+        (ordinal + 1) association.named (markFormal seen association.formal))
+    (functionActualsTailModel text context.model (fixedAfter text after "," false) facts catalog first last
+      (ordinal + 1) association.named (markFormal seen association.formal))
+but is expected to have type
+  @Eq Nat
+    (if fixedAfter text after "," false = 0 then 0
+    else
+      functionActualsTailModel text context.model (fixedAfter text after "," false) facts catalog first last
+        (ordinal + 1) association.named (markFormal seen association.formal))
+    (functionActualsTailModel text context.model (fixedAfter text after "," false) facts catalog first last
+      (ordinal + 1) association.named (markFormal seen association.formal))
+✔ [251/252] Built Silver.PredicateProcedureCallDomains (711ms)
+✔ [252/252] Built Silver.PredicateProcedureCallHelpers (1.0s)
+Some required targets logged failures:
+- Silver.PredicateFunctionCallGhostSource
+error: build failed
+
+Lean phase build finished at 2026-11-17T02:52:00.141130+00:00; elapsed 9.319s; exit 1

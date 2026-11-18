@@ -1,0 +1,30 @@
+{
+  "implementation_commit": "c7388ab5d038ccbce9635ffaeec7df9189369366",
+  "complete_run_id": "20261117T064945-d458c99ae977",
+  "repository_inputs_matching_current_and_git_blobs": 1142,
+  "focused_and_complete_repository_inputs_identical": true,
+  "complete_actual_audit_modules": 1035,
+  "workspace_project_modules": 1035,
+  "complete_module_coverage_exact": true,
+  "fresh_audited_declarations": 166332,
+  "audit_foundations": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "successful_packet_verified_counts": {
+    "repository_inputs": 1142,
+    "workspace_inputs": 1037,
+    "tools": 2,
+    "artifacts": 6202
+  },
+  "packet_verification_sha256": {
+    "failed-full-run": "445ba24dbea46215c87b89c2ba419e8c61dac6e79f76e6b5094f54fe31c80df3",
+    "model-helper-serial": "027dce5dc2cbbb870d4dc4eaf8427f83313fe7cabee37c787bc9ea90659baa23",
+    "final-run": "eaf454234193eba55b0776ea0af425755e32a481d5021a59864432a10d8407fd"
+  },
+  "all_retained_packet_snapshot_files_rehashed": true,
+  "independent_kernel_replay": false,
+  "source_changes_after_implementation": false,
+  "native_validation_and_regression_suite_owner": "root; separately recorded"
+}

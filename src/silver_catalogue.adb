@@ -1455,7 +1455,6 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("        ""explicit_in_purpose"": ""one-name Integer formals consume at least seven disjoint bytes and Boolean formals thirteen, preserving existing binding capacities"",");
       Put_Line ("        ""excluded"": [");
       Put_Line ("          ""zero-formal functions"",");
-      Put_Line ("          ""named actuals"",");
       Put_Line ("          ""default formals"",");
       Put_Line ("          ""out/in out"",");
       Put_Line ("          ""overloads"",");
@@ -1474,7 +1473,8 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("      ""conditions"": {");
       Put_Line ("        ""position"": ""whole RHS of assignment to an existing mutable scalar Integer/Boolean object; result kind matches target"",");
       Put_Line ("        ""callee"": ""visible earlier completely accepted function, not hidden by a local value or loop binder"",");
-      Put_Line ("        ""actuals"": ""positional, one per formal; existing scalar expressions or Boolean conditions in caller scope; no nested calls"",");
+      Put_Line ("        ""actuals"": ""positional, named in arbitrary order, or positional prefix followed by named suffix; exactly one actual per formal; existing scalar expressions or Boolean conditions in caller scope; no nested calls"",");
+      Put_Line ("        ""selectors"": ""callee formal names, case-insensitive; unknown, duplicate or missing selectors and positional-after-named are rejected; labels are not caller reads"",");
       Put_Line ("        ""actual_state"": ""all actuals checked independently in the same incoming state; Boolean outcomes do not refine other actuals"",");
       Put_Line ("        ""integer_actual"": ""nonempty interval contained in formal subtype"",");
       Put_Line ("        ""integer_result"": ""declared result subtype interval must fit target declared bounds and replaces target flow interval"",");
@@ -1519,7 +1519,6 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("        ""initialization_purpose"": ""a source-written prefix establishes initialized body state without general path-dependent definite-assignment analysis; full-range entry reuses the complete-domain frame rule"",");
       Put_Line ("        ""excluded"": [");
       Put_Line ("          ""zero-formal or input-only procedures"",");
-      Put_Line ("          ""named actuals"",");
       Put_Line ("          ""default formals"",");
       Put_Line ("          ""overloads"",");
       Put_Line ("          ""forward declarations"",");
@@ -1538,7 +1537,8 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("      ""conditions"": {");
       Put_Line ("        ""position"": ""standalone statement in Main or an admitted scalar procedure body, including branches and finite loops"",");
       Put_Line ("        ""callee"": ""visible earlier completely accepted procedure, not hidden by a local value or loop binder"",");
-      Put_Line ("        ""actuals"": ""positional, one per formal; in actuals use existing scalar expressions or Boolean conditions in caller scope; no nested calls"",");
+      Put_Line ("        ""actuals"": ""positional, named in arbitrary order, or positional prefix followed by named suffix; exactly one actual per formal; in actuals use existing scalar expressions or Boolean conditions in caller scope; no nested calls"",");
+      Put_Line ("        ""selectors"": ""callee formal names, case-insensitive; unknown, duplicate or missing selectors and positional-after-named are rejected; labels are not caller reads"",");
       Put_Line ("        ""writable_actuals"": ""existing mutable bare Integer/Boolean names of the matching kind; no constants, immutable formals, loop binders or array components"",");
       Put_Line ("        ""actual_state"": ""all input actuals checked independently in the same incoming state; Boolean outcomes do not refine other actuals"",");
       Put_Line ("        ""integer_input"": ""in and in out actual intervals are nonempty and contained in their formal subtype"",");

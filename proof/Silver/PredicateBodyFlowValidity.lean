@@ -192,9 +192,9 @@ theorem procedureTargetActual_flowReady (text : Source) (context : ParseContext)
 
 theorem procedureUpdateStep_flowReady (text : Source) (context : ParseContext)
     (incoming : ActiveFlow) (scan : BodyScan) (parameter : ProcedureBindings.Formal)
-    (callFirst callAfter : Nat) (typed : parameter.bounds.Bounded)
+    (catalog : ProcedureBindings.Metadata) (first last callFirst callAfter : Nat) (typed : parameter.bounds.Bounded)
     (ready : scan.FlowReady context) :
-    (procedureUpdateStep text context incoming scan parameter callFirst callAfter).FlowReady context := by
+    (procedureUpdateStep text context incoming scan parameter catalog first last callFirst callAfter).FlowReady context := by
   dsimp only [procedureUpdateStep]
   split
   · split
@@ -209,26 +209,38 @@ theorem procedureUpdateStep_flowReady (text : Source) (context : ParseContext)
         exact procedureTargetActual_flowReady text context scan.position incoming scan parameter ready typed
           (fun zero => admitted (Or.inl zero)) scalar
 
+theorem procedureUpdatesTailModel_flowReady (text : Source) (context : ParseContext)
+    (incoming : ActiveFlow) (scan : BodyScan) (catalog : ProcedureBindings.Metadata)
+    (first last ordinal : Nat) (named : Bool) (seen : FormalSet) (callFirst callAfter : Nat)
+    (valid : ProcedureBindings.ValidMetadata text catalog) (ready : scan.FlowReady context) :
+    (procedureUpdatesTailModel text context incoming scan catalog first last ordinal named seen callFirst callAfter).FlowReady context := by
+  rw [procedureUpdatesTailModel]
+  dsimp only
+  split
+  · exact invalidBody_flowReady ready
+  · let association := procedureAssociation text scan.position catalog first last ordinal named
+    have step := procedureUpdateStep_flowReady text context incoming
+      {scan with position := association.payloadFirst} (ProcedureBindings.parameter catalog association.formal)
+      catalog first last callFirst callAfter (ProcedureBindings.parameter_bounds valid association.formal) ready
+    split
+    · exact invalidBody_flowReady ready
+    · split
+      · exact step
+      · split
+        · exact invalidBody_flowReady ready
+        · split
+          · exact procedureUpdatesTailModel_flowReady text context incoming _ catalog first last (ordinal + 1)
+              association.named (markFormal seen association.formal) callFirst callAfter valid step
+          · exact invalidBody_flowReady ready
+termination_by last - ordinal
+
 theorem procedureUpdatesModel_flowReady (text : Source) (context : ParseContext)
     (incoming : ActiveFlow) (scan : BodyScan) (catalog : ProcedureBindings.Metadata)
     (first last callFirst callAfter : Nat) (valid : ProcedureBindings.ValidMetadata text catalog)
     (ready : scan.FlowReady context) :
-    (procedureUpdatesModel text context incoming scan catalog first last callFirst callAfter).FlowReady context := by
-  have step := procedureUpdateStep_flowReady text context incoming scan
-    (ProcedureBindings.parameter catalog first) callFirst callAfter (ProcedureBindings.parameter_bounds valid first) ready
-  rw [procedureUpdatesModel]
-  dsimp only
-  split
-  · exact invalidBody_flowReady ready
-  · split
-    · exact step
-    · split
-      · exact invalidBody_flowReady ready
-      · split
-        · exact procedureUpdatesModel_flowReady text context incoming _ catalog (first + 1) last callFirst callAfter valid step
-        · exact invalidBody_flowReady ready
-termination_by last - first
-decreasing_by omega
+    (procedureUpdatesModel text context incoming scan catalog first last callFirst callAfter).FlowReady context :=
+  procedureUpdatesTailModel_flowReady text context incoming scan catalog first last first false noFormals
+    callFirst callAfter valid ready
 
 theorem procedureCallBody_flowReady (text : Source) (context : ParseContext) (scan : BodyScan)
     (catalog : ProcedureBindings.Metadata) (valid : ProcedureBindings.ValidMetadata text catalog)

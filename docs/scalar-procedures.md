@@ -1,5 +1,12 @@
 # Small nonrecursive scalar procedures
 
+The later [named-scalar-arguments increment #392](named-scalar-arguments.md)
+extends function/procedure association syntax while preserving this delivery's
+formal domains, initialization and copy-back rules. Its
+[complete native and Lean/actual-source checkpoints](named-scalar-arguments.md#delivery-assurance-and-validation)
+are separate from this original delivery, with its passed complete suite and
+independent closing review recorded in that capability account.
+
 ## Authorization and delivery scope
 
 Owner-selected on 2026-11-09 after the scalar-function Rosetta delivery.
@@ -171,10 +178,12 @@ Function bodies retain their current scope and cannot call procedures in this
 increment. Admit a procedure only after its entire body and closing name pass.
 Earlier-only calls and finite loops exclude recursion and establish termination.
 
-Calls use positional actuals. A writable actual is an existing mutable bare
+Calls use positional, named or positional-prefix/named-suffix actuals under the
+[association rules](../language.md#named-scalar-argument-associations). Selectors
+are formal labels, not caller reads. A writable actual is an existing mutable bare
 Integer/Boolean name; components, constants, immutable formals and loop indexes
 are excluded as writable actuals. General aggregates/signatures, String and array
-parameters, nested declarations, early return, named/default associations,
+parameters, nested declarations, early return, default formals,
 capture, external effects, input queries and Reject stay outside this fragment.
 These are first-fragment scope restrictions, not inherited Ada restrictions.
 

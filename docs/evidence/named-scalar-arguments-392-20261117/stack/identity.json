@@ -1,0 +1,10 @@
+{
+  "object_sha256": "7d05960be26c5c8a0ff50773d78ff0c8159abd4049d7c53664e6d8199d0327f5",
+  "source_sha256": "de017ca035a5ffd358d5fa98646d017dfe4ef54bd822fafc40743a9a8ae66f53",
+  "symbols": [
+    "silver_output_profile__actuals_after",
+    "silver_output_profile__procedure_actuals_after",
+    "silver_output_profile__procedure_updates",
+    "silver_output_profile__mark_formal"
+  ]
+}

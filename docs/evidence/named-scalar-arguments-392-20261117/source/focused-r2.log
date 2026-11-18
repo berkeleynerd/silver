@@ -1,0 +1,16 @@
+Lean phase build started at 2026-11-17T02:35:06.366349+00:00
++ /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.tools/linux-aarch64/lean/bin/lake --rehash --reconfigure -K silverThreads=12 build +Silver.PredicateAssociationHelpers +Silver.PredicateFunctionCallEquations +Silver.PredicateProcedureCallEquations +Silver.AxiomAudit
+✖ [112/117] Building Silver.PredicateAssociationNative (418ms)
+trace: .> LEAN_PATH=/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/lib/lean /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.tools/linux-aarch64/lean/bin/lean -j12 -DwarningAsError=true /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/Silver/PredicateAssociationNative.lean -o /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/PredicateAssociationNative.olean -i /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/PredicateAssociationNative.ilean -c /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/ir/Silver/PredicateAssociationNative.c --setup /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/ir/Silver/PredicateAssociationNative.setup.json --json
+error: Silver/PredicateAssociationNative.lean:106:7: Invalid field `set`: The environment does not contain `Function.set`, so it is not possible to project the field `set` from an expression
+  fun ty x => ty.default
+of type
+  (ty : Ty) → String → ty.meaning
+✔ [115/117] Built Silver.PredicateProcedureCallEquations (921ms)
+✔ [116/117] Built Silver.PredicateFunctionCallNative (1.5s)
+✔ [117/117] Built Silver.PredicateFunctionCallEquations (3.6s)
+Some required targets logged failures:
+- Silver.PredicateAssociationNative
+error: build failed
+
+Lean phase build finished at 2026-11-17T02:35:12.728214+00:00; elapsed 6.362s; exit 1

@@ -83,13 +83,12 @@ class ScalarFunctionTests(unittest.TestCase):
                 declaration = b'function F(X:in Integer)return Integer is begin ' + body + b'end F;'
                 self.check(program(declaration, b'null;'), 2)
 
-    def test_actual_arity_kinds_and_positional_association(self) -> None:
+    def test_actual_arity_and_kinds(self) -> None:
         declarations = (IDENTITY + BOOLEAN
                         + b'function Pair(X:in Integer;Y:in Integer)return Integer is '
                           b'begin return X;end Pair;R:Integer:=0;B:Boolean:=False;')
         for body in (
             b'R:=Id();', b'R:=Id(1,2);', b'R:=Id(1,);', b'R:=Pair(1 2);',
-            b'R:=Id(X=>1);',
             b'R:=Id(True);', b'B:=Flip(1);', b'R:=Flip(True);',
             b'B:=Id(1);', b'R:=Id;', b'Id(1);',
         ):

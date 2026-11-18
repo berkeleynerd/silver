@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The program implements all 256 local transition rules by their eight decoded bits, reads a separate unchanged generation and wraps both edges, as the cached task requires. Width, initial state and rule choices are static source configuration within Silver's budgets; the demonstration selects width 21, 16 rows and rules 90, 30 and 122. Independent expected rows use neighborhood bit shifts. Native driver execution is retained separately from complete resulting-language assurance; the [mapping record](../../assessment-boolean-arrays-20261106.md) records the bounded interpretation and historical provenance.
 
-Position 83 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 84 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

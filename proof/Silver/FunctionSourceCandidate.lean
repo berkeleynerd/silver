@@ -3,6 +3,10 @@ module
 public import Silver.FunctionDeclarationSource
 public import Silver.FunctionVisibilitySource
 public import Silver.PredicateFunctionCallSource
+public import Silver.PredicateAssociationWholeSourceCandidate
+public import Silver.FunctionSourceParts.CallsActualsTailModel
+public import Silver.FunctionSourceParts.CallsActualsAdvance
+public import Silver.FunctionSourceParts.CallsActualsAfterLoop
 public import Silver.ReviewedOutputShape
 import all Init.Data.Repr
 
@@ -180,6 +184,11 @@ theorem calls :
     Predicate.FunctionCallNative.SourceChecks.Checked
       Output.SourceShape.outputImplementation where
   trees := Predicate.FunctionCallNative.checked_trees
+  associations := PredicateAssociationWholeSourceCandidate.checked
+  advance := ⟨Parts.calls_actuals_advance_spec, Parts.calls_actuals_advance_impl, Parts.calls_actuals_advance_body⟩
+  actualsTailModel_spec := Parts.calls_actualsTailModel_spec
+  actualsTailModel_impl := Parts.calls_actualsTailModel_impl
+  actuals_tail_model_body := Parts.calls_actuals_tail_model_body
   included_impl := Parts.calls_included_impl
   included_body := Parts.calls_included_body
   actualModel_spec := Parts.calls_actualModel_spec
@@ -190,6 +199,7 @@ theorem calls :
   actualsModel_impl := Parts.calls_actualsModel_impl
   actualsAfter_spec := Parts.calls_actualsAfter_spec
   actualsAfter_impl := Parts.calls_actualsAfter_impl
+  actualsAfter_body := Parts.calls_actualsAfter_body
   calleeAt_spec := Parts.calls_calleeAt_spec
   calleeAt_impl := Parts.calls_calleeAt_impl
   callModel_spec := Parts.calls_callModel_spec

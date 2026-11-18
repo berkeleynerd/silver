@@ -1,0 +1,24 @@
+{
+  "command": [
+    "python3",
+    "scripts/check_lean.py",
+    "--workers",
+    "1",
+    "--threads",
+    "1",
+    "--memory-mb",
+    "8192",
+    "--provenance",
+    "--task",
+    "#392-complete-lean",
+    "--reason",
+    "Root-authorized complete cached checkpoint after retained complete failure 20261117T040626-c2b89a81f8a6 at internal memory threshold. Unchanged whole-module diagnostic 20261117T064503-a6b27d1c4b6a passed with one process thread, same 8192 MiB limit and fresh audit. All 1142 repository inputs rehashed unchanged; retain matching successful proof artifacts and use reduced process concurrency for remaining integration and fresh full axiom/coverage audit. Existing 10 GiB tree and 1.5 GiB host guards, 5-second memory/disk samples. No source, contract, domain, axiom or proof budget changes; no clean or replay. Preserve original failed history; a new failure requires reassessment before retry."
+  ],
+  "cwd": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392",
+  "started_at": "2026-11-17T06:49:45.699210+00:00",
+  "peak_sum_rss_kib": 0,
+  "peak_process_rss_kib": 0,
+  "minimum_mem_available_kib": 9223372036854775808,
+  "minimum_disk_available_bytes": 9223372036854775808,
+  "pid": 503514
+}

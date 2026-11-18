@@ -1,0 +1,83 @@
+{
+  "verified_utc": "2026-11-17T05:54:45.120289+00:00",
+  "host": "linux-aarch64",
+  "machine": "silver-m4pro",
+  "worktree": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-native-392",
+  "commit": "f4ed7cd513047df7c8a24c04b3fd107ee704db1c",
+  "managed_run": "20261117T034048-8c22c1e6a33d",
+  "stats": {
+    "units": 78,
+    "entities": 1252,
+    "flow_checks": 1751,
+    "proof_checks": 17975,
+    "limitation_notes": 357,
+    "imported_entities": 18,
+    "trusted_math_notes": 6268,
+    "vendor_spec_entities": 62,
+    "array_initialization_advisories": 6,
+    "operator_reassociation_advisories": 27
+  },
+  "input_hashes_verified": 2622,
+  "tool_identities_verified": 12,
+  "report_hashes_verified": 80,
+  "tracked_inputs_match_commit": 147,
+  "manifest_matches_proof_inputs": true,
+  "archive_content_hashes_verified": true,
+  "initial_state": {
+    "sessions_present": false,
+    "cache_entries_present": true
+  },
+  "events_terminal": [
+    {
+      "event": "phase-start",
+      "phase": "native-tool",
+      "state": null,
+      "returncode": null,
+      "utc": "2026-11-17T03:40:50.126597+00:00",
+      "error": null
+    },
+    {
+      "event": "phase-end",
+      "phase": "native-tool",
+      "state": null,
+      "returncode": 0,
+      "utc": "2026-11-17T05:53:45.663681+00:00",
+      "error": null
+    },
+    {
+      "event": "phase-start",
+      "phase": "audit",
+      "state": null,
+      "returncode": null,
+      "utc": "2026-11-17T05:53:45.666861+00:00",
+      "error": null
+    },
+    {
+      "event": "phase-end",
+      "phase": "audit",
+      "state": null,
+      "returncode": null,
+      "utc": "2026-11-17T05:53:49.776683+00:00",
+      "error": null
+    },
+    {
+      "event": "finished",
+      "phase": null,
+      "state": null,
+      "returncode": null,
+      "utc": "2026-11-17T05:53:49.792386+00:00",
+      "error": null
+    }
+  ],
+  "post_build_verification": {
+    "verified_utc": "2026-11-17T05:55:35.338701+00:00",
+    "native_manifest_still_valid": true,
+    "build_input_hashes_match_proof": true,
+    "build_tool_identities_match_proof": true,
+    "build_workers_actual": 11,
+    "binary_sha256": {
+      "silver": "c8564820c277d6b5128df7b1eba4e5b69f5c97177242f6854f263c6e8203b860",
+      "silver_image_adapter": "33160ab0c15f675a5c2dd6001731f5a1e33770525f84268bcb66aa0677818f70"
+    }
+  }
+}

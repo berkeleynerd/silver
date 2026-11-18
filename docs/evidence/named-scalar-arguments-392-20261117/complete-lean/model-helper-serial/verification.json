@@ -1,0 +1,24 @@
+{
+  "run_id": "20261117T064503-a6b27d1c4b6a",
+  "outcome": "success",
+  "verified_counts": {
+    "repository_inputs": 1142,
+    "workspace_inputs": 1037,
+    "tools": 2,
+    "artifacts": 6202
+  },
+  "archived_inputs_rehashed": true,
+  "log_rehashed": true,
+  "snapshot_sha256": {
+    "evidence.json": "5704c57136fd1b227be51ec0977035d174d6b772eeb1dcd5d37a5d917eadc587",
+    "inputs.tar.gz": "95f5b63f65e944975f7767384540d91515d92a30af943a53461b38f432a58bb2",
+    "launcher.json": "55f83df045de4a206d90f9dcf9603667e5f909aaaea1316156df9724c38c86b6",
+    "launcher.log": "61db98f64053c5b794f60a0c1e40105638d6f8574d4197d384cda73a08122273",
+    "lean-focused.log": "ca3a5b7cc5811b76444df243e9317442f2d08e1756cbcdd9137d3052d04d59fb",
+    "managed-events.jsonl.gz": "27def71d5b897a618e6b2d54d24c1d68712b20821e6b82a7988d4e6f69139678",
+    "resource-monitor.py": "4ae00596c76bd0e942a750297061720653ec87c22e0fc19628276952a21d7073",
+    "resources.jsonl": "1d9260401fd5a028871dea396328e7f11cc93e0ff484942b5561febe332bfcc9",
+    "summary.json": "df12cf22dad4317931e79ffb3375e58824aad5363cb61a3349b3e6a6b41bb86f",
+    "workspace-inputs.tar.gz": "8162b5e935836617ae3ab3bad14003cfd6453dfab90392f48078841018d1f8af"
+  }
+}

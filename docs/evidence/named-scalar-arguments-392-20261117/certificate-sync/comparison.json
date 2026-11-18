@@ -1,0 +1,112 @@
+{
+  "root_worktree": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-arguments-392",
+  "root_commit": "dd0c9faad108f9bab2448db2ce1b692d72d0ea3c",
+  "validation_worktree": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392",
+  "validation_commit": "c7388ab5d038ccbce9635ffaeec7df9189369366",
+  "complete_lean_run_id": "20261117T064945-d458c99ae977",
+  "complete_evidence_sha256": "045f9af86cd23578231928213257a0116648e3499b653cb516716ddc69948ce3",
+  "authoritative_source_sha256": "de017ca035a5ffd358d5fa98646d017dfe4ef54bd822fafc40743a9a8ae66f53",
+  "generator_sha256": "a938697c3b361dc4fa3165f84571c8e751248594e172f3a4c3137dd4e5fbbd79",
+  "source_and_generator_match_complete_provenance": true,
+  "scratch_generation_command": [
+    "python3",
+    "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-arguments-392/proof/generate_source_certificate.py",
+    "--source",
+    "silver_output_profile.adb",
+    "--output",
+    "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-arguments-392/tmp/named-output-sync-diagnosis-392/regenerated/proof/Silver/OutputBodyCertificate.lean"
+  ],
+  "outputs": [
+    {
+      "file": "proof/Silver/OutputBodyCertificate.lean",
+      "checked_in_sha256": "4b3b71d41c870fba990135e97aef879843ffd151c8ace41ebbfa9abe39338b33",
+      "regenerated_and_audited_sha256": "0cee230d88dad8c4ee4bc5ada64926c740f66ee67b3033d4c1c81bba12dab406",
+      "checked_in_bytes": 14405162,
+      "regenerated_bytes": 15329982,
+      "fresh_equals_archived_and_live_audited": true,
+      "excluded_from_lean_shared_inputs": true
+    },
+    {
+      "file": "proof/Silver/OutputBodyLines0.lean",
+      "checked_in_sha256": "a80dcfda31e3dbe086f8d01ae61afa2ece5cd5e9485bbbed662d5a6ff7b26c5b",
+      "regenerated_and_audited_sha256": "dda1201d7f92f5812b1b0c1bc78c8adb90764e2f80b92312d90082ffdeb11208",
+      "checked_in_bytes": 212485,
+      "regenerated_bytes": 222214,
+      "fresh_equals_archived_and_live_audited": true,
+      "excluded_from_lean_shared_inputs": true
+    },
+    {
+      "file": "proof/Silver/OutputBodyLines1.lean",
+      "checked_in_sha256": "a128e27e381b112a0a83f9b0dc6a969e06900ff7502fd03379366c5d51600ea4",
+      "regenerated_and_audited_sha256": "dad026c47a831b128196fcd5f7611938e90379c9288dc4a5c87b2084fdfff4f0",
+      "checked_in_bytes": 198781,
+      "regenerated_bytes": 206948,
+      "fresh_equals_archived_and_live_audited": true,
+      "excluded_from_lean_shared_inputs": true
+    },
+    {
+      "file": "proof/Silver/OutputBodyLines2.lean",
+      "checked_in_sha256": "bb6ae778f44f5b57d0e9d6ba6a4c089696461c52e949052d748f4c5ae580ddfe",
+      "regenerated_and_audited_sha256": "ca48fc4712ad6e6d53cef929f8f6bc780484244d6c38f9d84385b97dc7752343",
+      "checked_in_bytes": 201272,
+      "regenerated_bytes": 212070,
+      "fresh_equals_archived_and_live_audited": true,
+      "excluded_from_lean_shared_inputs": true
+    },
+    {
+      "file": "proof/Silver/OutputBodyLines3.lean",
+      "checked_in_sha256": "58428b5e84f04866dfc0827447cf279b97eea3cc18f59faae11ccc89280ffb67",
+      "regenerated_and_audited_sha256": "f42fdd7c975dc6160e960044e8543fa8bab53db46be3966f9c94e90b4d84796f",
+      "checked_in_bytes": 215775,
+      "regenerated_bytes": 227397,
+      "fresh_equals_archived_and_live_audited": true,
+      "excluded_from_lean_shared_inputs": true
+    },
+    {
+      "file": "proof/Silver/OutputBodyLines4.lean",
+      "checked_in_sha256": "4b99fafd1194a2831b738ab072ea825021db78b50023ed44994787e357e772e8",
+      "regenerated_and_audited_sha256": "9a652e6e16a8c208814d86de786180889c479f678653db5ca9530e5eebfa5eb6",
+      "checked_in_bytes": 208468,
+      "regenerated_bytes": 219382,
+      "fresh_equals_archived_and_live_audited": true,
+      "excluded_from_lean_shared_inputs": true
+    },
+    {
+      "file": "proof/Silver/OutputBodyLines5.lean",
+      "checked_in_sha256": "f0a66754b2ff7617f06c607560d94d774bde6d94ac72c8eb8ef82fb57564e306",
+      "regenerated_and_audited_sha256": "1bb4e79e7a5f23b34b45a85a0d3a844215aba656a5bc680090bfb8834cdf05b8",
+      "checked_in_bytes": 204589,
+      "regenerated_bytes": 216176,
+      "fresh_equals_archived_and_live_audited": true,
+      "excluded_from_lean_shared_inputs": true
+    },
+    {
+      "file": "proof/Silver/OutputBodyLines6.lean",
+      "checked_in_sha256": "f1c82287737a40f61734ffd75d1f2cbd2f66b9e27335209ca51f95ef5e288ad4",
+      "regenerated_and_audited_sha256": "924dda27b7486adf92fc57860e5a701835f56b9604cc9aaff98cf05bd1b9d931",
+      "checked_in_bytes": 208825,
+      "regenerated_bytes": 215132,
+      "fresh_equals_archived_and_live_audited": true,
+      "excluded_from_lean_shared_inputs": true
+    },
+    {
+      "file": "proof/Silver/OutputBodyLines7.lean",
+      "checked_in_sha256": "a9a5f622c7061e1b4e9e466680e26ae382ddcb29876953435a5e6425dbcb476e",
+      "regenerated_and_audited_sha256": "016124082eccbfb82267b180a334e6be99e8541f6be8881ed02e643fa3251838",
+      "checked_in_bytes": 213769,
+      "regenerated_bytes": 220371,
+      "fresh_equals_archived_and_live_audited": true,
+      "excluded_from_lean_shared_inputs": true
+    }
+  ],
+  "proposed_scope": 9,
+  "native_source_changes": false,
+  "handwritten_proof_changes": false,
+  "generator_changes": false,
+  "lean_shared_input_hashes_change": false,
+  "native_proof_input_hashes_change": false,
+  "audited_workspace_input_hashes_change": false,
+  "tracked_files_edited": false,
+  "proof_build_or_tests_run": false,
+  "scratch_generation_and_comparison_elapsed_seconds": 0.39693754199834075
+}

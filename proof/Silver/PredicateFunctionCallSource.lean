@@ -2,6 +2,8 @@ module
 
 public import Silver.PredicateFunctionCallEquations
 public import Silver.SourceDeclarations
+public import Silver.PredicateAssociationSource
+public import Silver.PredicateFunctionCallGhostSource
 
 @[expose] public section
 
@@ -22,8 +24,11 @@ def actualAfterSpec : List String := expectedTokens
 def actualAfterImpl : List String := expectedTokens
   "(Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow; Parameter : Functions.Formal) return Literal_Position"
 
-def actualsModelSpec : List String := expectedTokens
-  "(Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow; Catalog : Functions.Metadata; First, Last : Functions.Formal_Index) return Literal_Position with Ghost => Static, Global => null, Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length and then Position <= Text'Last + 1 and then Valid_Context (Text, Context) and then Valid_Flow (Context, Facts) and then Functions.Valid_Metadata (Text, Catalog) and then First <= Last and then Last <= Catalog.Parameter_Count, Post => Actuals_Model'Result = 0 or else Actuals_Model'Result in Position + 1 .. Text'Last + 1, Subprogram_Variant => (Decreases => Last - First)"
+def actualsTailModelSpec : List String := ["(", "text", ":", "string", ";", "context", ":", "body_context", ";", "position", ":", "literal_position", ";", "facts", ":", "scalar_flow", ";", "catalog", ":", "functions", ".", "metadata", ";", "first", ",", "last", ",", "ordinal", ":", "functions", ".", "formal_index", ";", "named", ":", "boolean", ";", "seen", ":", "formal_set", ")", "return", "literal_position", "with", "ghost", "=>", "static", ",", "global", "=>", "null", ",", "pre", "=>", "text", "'", "first", "=", "1", "and", "then", "text", "'", "length", "in", "1", "..", "max_source_length", "and", "then", "position", "<=", "text", "'", "last", "+", "1", "and", "then", "valid_context", "(", "text", ",", "context", ")", "and", "then", "valid_flow", "(", "context", ",", "facts", ")", "and", "then", "functions", ".", "valid_metadata", "(", "text", ",", "catalog", ")", "and", "then", "first", "<=", "ordinal", "and", "then", "ordinal", "<=", "last", "and", "then", "last", "<=", "catalog", ".", "parameter_count", ",", "post", "=>", "function_actuals_tail_model", "'", "result", "=", "0", "or", "else", "function_actuals_tail_model", "'", "result", "in", "position", "+", "1", "..", "text", "'", "last", "+", "1", ",", "subprogram_variant", "=>", "(", "decreases", "=>", "last", "-", "ordinal", ")"]
+
+def actualsTailModelImpl : List String := ["(", "text", ":", "string", ";", "context", ":", "body_context", ";", "position", ":", "literal_position", ";", "facts", ":", "scalar_flow", ";", "catalog", ":", "functions", ".", "metadata", ";", "first", ",", "last", ",", "ordinal", ":", "functions", ".", "formal_index", ";", "named", ":", "boolean", ";", "seen", ":", "formal_set", ")", "return", "literal_position"]
+
+def actualsModelSpec : List String := ["(", "text", ":", "string", ";", "context", ":", "body_context", ";", "position", ":", "literal_position", ";", "facts", ":", "scalar_flow", ";", "catalog", ":", "functions", ".", "metadata", ";", "first", ",", "last", ":", "functions", ".", "formal_index", ")", "return", "literal_position", "with", "ghost", "=>", "static", ",", "global", "=>", "null", ",", "pre", "=>", "text", "'", "first", "=", "1", "and", "then", "text", "'", "length", "in", "1", "..", "max_source_length", "and", "then", "position", "<=", "text", "'", "last", "+", "1", "and", "then", "valid_context", "(", "text", ",", "context", ")", "and", "then", "valid_flow", "(", "context", ",", "facts", ")", "and", "then", "functions", ".", "valid_metadata", "(", "text", ",", "catalog", ")", "and", "then", "first", "<=", "last", "and", "then", "last", "<=", "catalog", ".", "parameter_count", ",", "post", "=>", "actuals_model", "'", "result", "=", "0", "or", "else", "actuals_model", "'", "result", "in", "position", "+", "1", "..", "text", "'", "last", "+", "1"]
 
 def actualsModelImpl : List String := expectedTokens
   "(Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow; Catalog : Functions.Metadata; First, Last : Functions.Formal_Index) return Literal_Position"
@@ -70,8 +75,16 @@ def callAssignmentBodySpec : List String := expectedTokens
 def callAssignmentBodyImpl : List String := expectedTokens
   "(Text : String; Context : Body_Context; Scan : Body_Scan; Catalog : Functions.Metadata) return Body_Scan"
 
+/-- The complete executable loop retains the checked typed Static call at its exact location. -/
+def actualsAfterBody : List String := ["index", ":", "functions", ".", "formal_index", ":=", "first", ";", "cursor", ":", "literal_position", ":=", "position", ";", "named", ":", "boolean", ":=", "false", ";", "seen", ":", "formal_set", ":=", "no_formals", ";", "expected", ":", "constant", "literal_position", ":=", "actuals_model", "(", "text", ",", "context", ",", "position", ",", "facts", ",", "catalog", ",", "first", ",", "last", ")", "with", "ghost", "=>", "static", ";", "begin", "loop", "pragma", "loop_invariant", "(", "index", "in", "first", "..", "last", ")", ";", "pragma", "loop_invariant", "(", "cursor", "<=", "text", "'", "last", "+", "1", ")", ";", "pragma", "loop_invariant", "(", "cursor", ">=", "position", ")", ";", "pragma", "loop_invariant", "(", "static", "=>", "expected", "=", "function_actuals_tail_model", "(", "text", ",", "context", ",", "cursor", ",", "facts", ",", "catalog", ",", "first", ",", "last", ",", "index", ",", "named", ",", "seen", ")", ")", ";", "pragma", "loop_variant", "(", "increases", "=>", "index", ")", ";", "declare", "association", ":", "constant", "actual_association", ":=", "function_association", "(", "text", ",", "cursor", ",", "catalog", ",", "first", ",", "last", ",", "index", ",", "named", ")", ";", "after", ",", "following", ":", "literal_position", ";", "begin", "if", "association", ".", "formal", "=", "0", "or", "else", "seen", "(", "association", ".", "formal", ")", "then", "return", "0", ";", "end", "if", ";", "after", ":=", "actual_after", "(", "text", ",", "context", ",", "association", ".", "payload_first", ",", "facts", ",", "catalog", ".", "parameters", "(", "association", ".", "formal", ")", ")", ";", "if", "after", "=", "0", "then", "return", "0", ";", "end", "if", ";", "if", "index", "=", "last", "then", "return", "take_token", "(", "text", ",", "after", ",", "right_parenthesis", ")", ";", "end", "if", ";", "following", ":=", "take_token", "(", "text", ",", "after", ",", "comma", ")", ";", "if", "following", "=", "0", "then", "return", "0", ";", "end", "if", ";"] ++ ActualsAdvance.loopCall.render ++ ["cursor", ":=", "following", ";", "seen", ":=", "mark_formal", "(", "seen", ",", "association", ".", "formal", ")", ";", "named", ":=", "association", ".", "named", ";", "end", ";", "index", ":=", "index", "+", "1", ";", "end", "loop", ";", "end", "actuals_after", ";"]
+
 structure Checked (tokens : List String) : Prop where
   trees : CheckedTrees
+  associations : AssociationNative.SourceChecks.Checked tokens
+  advance : ActualsAdvance.Checked tokens
+  actualsTailModel_spec : functionHeader "function_actuals_tail_model" ";" tokens = some actualsTailModelSpec
+  actualsTailModel_impl : functionHeader "function_actuals_tail_model" "is" tokens = some actualsTailModelImpl
+  actuals_tail_model_body : Source.expressionBody "function_actuals_tail_model" tokens = some actualsTailBody.render
   included_impl : functionHeader "included" "is" tokens =
     some (expectedTokens "(Value, Bounds : Scalars.Interval) return Boolean")
   included_body : Source.expressionBody "included" tokens = some includedBody.render
@@ -83,6 +96,7 @@ structure Checked (tokens : List String) : Prop where
   actualsModel_impl : functionHeader "actuals_model" "is" tokens = some actualsModelImpl
   actualsAfter_spec : functionHeader "actuals_after" ";" tokens = some actualsAfterSpec
   actualsAfter_impl : functionHeader "actuals_after" "is" tokens = some actualsAfterImpl
+  actualsAfter_body : Compose.BooleanDeclarationNative.SourceChecks.ordinaryFunction "actuals_after" tokens = some actualsAfterBody
   calleeAt_spec : functionHeader "callee_at" ";" tokens = some calleeAtSpec
   calleeAt_impl : functionHeader "callee_at" "is" tokens = some calleeAtImpl
   callModel_spec : functionHeader "call_model" ";" tokens = some callModelSpec

@@ -1,0 +1,33 @@
+{
+  "helper": "Export",
+  "selector_file": "src/silver_catalogue.ads",
+  "selector_line": 2,
+  "source_file": "src/silver_catalogue.adb",
+  "source_sha256": "2e46a16831e048dd64299a7bb31e554e9e478e7daa1a1eb79922be2bc34ccfab",
+  "command": [
+    "/usr/bin/python3",
+    "scripts/dev.py",
+    "tool",
+    "--task",
+    "#392",
+    "--reason",
+    "Whole Export contract and every selected obligation over full declared domains; named scalar associations; canonical all/all level2 cvc5,z3,altergo 30-second policy; 16 MiB stack; automatic available workers; sequential focused batch, not complete validation",
+    "--",
+    "gnatprove",
+    "-P",
+    "../../../silver.gpr",
+    "--subdirs=explore/named-392",
+    "-U",
+    "--mode=all",
+    "--report=all",
+    "--warnings=error",
+    "--checks-as-errors=on",
+    "--level=2",
+    "--prover=cvc5,z3,altergo",
+    "--timeout=30",
+    "--limit-subp=silver_catalogue.ads:2",
+    "-XSILVER_HOST=linux-aarch64"
+  ],
+  "cwd": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-native-392",
+  "stack_bytes": 16777216
+}

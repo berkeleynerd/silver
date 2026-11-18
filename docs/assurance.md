@@ -159,6 +159,40 @@ declaration and body semantics. The
 unchanged 64 MiB allocation. Focused tests
 exercise these rules; they do not replace complete compiler or source proofs.
 
+## Named scalar argument associations
+
+The [named scalar increment](named-scalar-arguments.md) retains the existing
+formal-order function and procedure semantics. It adds source readings for
+positional, named and mixed actual lists. `ScalarAssociations.FreshSelections`
+proves distinct selected formal indices; `selections_complete` derives complete
+coverage from distinctness, the callee slice bounds and exact argument count.
+`arrange_permutation` then proves that formal-order payloads are a permutation
+of the source-order pairs. The resolver searches only the called signature's
+slice and uses deterministic first-match behavior over the complete metadata
+domain; its helper proofs do not assume that `Valid_Metadata` implies unique
+formal names.
+
+Function readings transfer each payload's checked type and range through that
+permutation, using one incoming caller flow. Procedure readings retain payload
+spans separately from selector spans. Their alias replay therefore checks real
+payload reads, including nested expressions, without interpreting selector names
+as caller reads. `ProcedureActualsMeaning.permutation` reorders paired formals
+and actuals together; `target_after_commute` establishes that updates to distinct
+writable cells commute. `ProcedureCallAt.meaning` consumes those source-derived
+facts to retain checked input bindings, copy-back ranges and the caller's final
+flow. No argument can supply a refinement used to admit another argument.
+
+The focused semantic checks are retained in the
+[model packet](evidence/named-scalar-arguments-392-20261117/model/progress.md).
+The [complete native checkpoint](evidence/named-scalar-arguments-392-20261117/complete-native/README.md)
+passed with all 19,726 checks proved. The
+[complete Lean/actual-source checkpoint](evidence/named-scalar-arguments-392-20261117/complete-lean/README.md)
+also passed, including source correspondence and the whole-project module/axiom
+audit. The abstract permutation argument and focused checks alone do not
+establish that correspondence. The [capability record](named-scalar-arguments.md#delivery-assurance-and-validation)
+retains the exact checkpoint inputs, passed complete suite and independent
+closing review, including the repaired checked-in certificate synchronization.
+
 ## Boolean scalar objects and expressions
 
 The [Boolean delivery checkpoint](boolean-objects.md#delivery-assurance-and-validation)

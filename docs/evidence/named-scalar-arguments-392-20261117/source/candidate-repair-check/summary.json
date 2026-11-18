@@ -1,0 +1,27 @@
+{
+  "command": [
+    "python3",
+    "scripts/check_lean.py",
+    "--memory-mb",
+    "8192",
+    "--provenance",
+    "--task",
+    "#392-source-candidates",
+    "--reason",
+    "Bounded two-script repair after retained run 20261117T033146-10e4c23dfa78: current Actuals_Model header by kernel reduction and three direct procedure-loop membership cases. Complete statements, domains, native bytes, reviewed pin and budgets unchanged. Only two light scripts invalidated; automatic available workers alongside native four workers, default threads, existing 10 GiB tree and 1.5 GiB host guards. Preserve cached successes; no clean or replay.",
+    "--target",
+    "Silver.FunctionSourceParts.CallsActualsModelSpec",
+    "--target",
+    "Silver.PredicateProcedureCallWholeSourceCandidate"
+  ],
+  "cwd": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392",
+  "started_at": "2026-11-17T04:01:25.967049+00:00",
+  "peak_sum_rss_kib": 2344544,
+  "peak_process_rss_kib": 1081008,
+  "minimum_mem_available_kib": 12912864,
+  "pid": 396944,
+  "returncode": 0,
+  "elapsed_seconds": 15.022912590997294,
+  "finished_at": "2026-11-17T04:01:40.989947+00:00",
+  "interrupted": false
+}

@@ -1,0 +1,12 @@
+{
+  "native_output_sha256": "de017ca035a5ffd358d5fa98646d017dfe4ef54bd822fafc40743a9a8ae66f53",
+  "native_output_bytes": 450194,
+  "native_output_tokens": 76980,
+  "reviewed_output_shape_sha256": "7d034eaaa79d6f3175ebd957eda8a493b6e2290d1904e654bac8469cd1616383",
+  "reviewed_shape_transitive_dependents": 178,
+  "candidate_or_part_dependents": 155,
+  "catalogue_source_sha256": "2e46a16831e048dd64299a7bb31e554e9e478e7daa1a1eb79922be2bc34ccfab",
+  "catalogue_commit": "eabd7127f",
+  "native_prerequisite": "All26 output-profile helper/model/walker/caller scopes passed; native author confirmation after032207-69c04762d371",
+  "note": "Reviewed complete token pin updated with validated typed resolver/marker/tail/alias/update interpretation and pending exact source candidate checks. Native output-profile and catalogue files are borrowed integration inputs, excluded from source commits."
+}

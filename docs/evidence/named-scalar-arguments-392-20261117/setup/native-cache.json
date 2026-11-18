@@ -1,0 +1,8 @@
+{
+  "lock_sha256": "0d29986b9858e9838780c6ec8496c6b4fd34d53a8f06c8cf36bd393fc8ef98f0",
+  "lower_read_only_layer": "/home/agent/silver-workspaces/recovery-volume/integration/.silver/linux-aarch64/proof-cache/gnatprove/0d29986b9858e9838780c6ec8496c6b4fd34d53a8f06c8cf36bd393fc8ef98f0",
+  "private_upper": "/home/agent/silver-workspaces/recovery-volume/named-392-native-cache-overlay/upper",
+  "private_work": "/home/agent/silver-workspaces/recovery-volume/named-392-native-cache-overlay/work",
+  "mount": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-native-392/.silver/linux-aarch64/proof-cache/gnatprove/0d29986b9858e9838780c6ec8496c6b4fd34d53a8f06c8cf36bd393fc8ef98f0",
+  "reason": "Reuse retained solver-cache entries without modifying the previous worktree or its cache; GNATprove retains responsibility for matching and validity. No canonical report/session is copied, so this does not establish cache hits or proof success."
+}

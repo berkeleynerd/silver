@@ -1,6 +1,7 @@
 module
 
 public import Silver.PredicateFunctionCallHelpers
+public import Silver.PredicateAssociationLibraries
 public import Silver.PredicateScalarBodyHelpers
 public import Silver.FunctionBindingsSourceBridge
 public import Silver.PredicateNativeHelpers
@@ -17,6 +18,8 @@ variable {domain : Compose.Expressions.StateDomain}
 from its own checked expression, rather than assumed as a parser result. -/
 structure ImportsLinks (imports : Imports) (composed : Compose.Expressions.Calls)
     (predicate : Native.Calls) : Prop where
+  markFormal : ∃ associations, AssociationNative.DefinitionEquations associations ∧
+    imports.markFormal = associations .markFormal
   skip : imports.skip = predicate.skip
   nameAfter : imports.nameAfter = predicate.nameAfter
   namesLookup : imports.namesLookup = predicate.lookup
@@ -32,12 +35,18 @@ structure ImportsLinks (imports : Imports) (composed : Compose.Expressions.Calls
   included : ∀ left right, left.Bounded → right.Bounded →
     imports.included left right = includedBody.eval imports modelCalls {intervalValue := left, intervalBounds := right}
   invalid : ∃ body, BodyWrappers.DefinitionEquations body ∧ imports.invalid = body.invalidModel
+  association : ∃ associations, AssociationNative.ImportsLinks associations composed predicate ∧
+    AssociationNative.DefinitionEquations associations ∧ imports.association = associations .functionAssociation
 
 theorem imports_meaning {imports composed predicate}
     (source : Compose.Expressions.RawHelperEquations composed (domain := domain))
     (helpers : Native.HelperMeaning predicate) (defs : Native.DefinitionEquations predicate)
     (contracts : Native.Contracts predicate) (links : ImportsLinks imports composed predicate) :
     ImportsMeaning imports where
+  markFormal seen formal valid := by
+    obtain ⟨associations, definitions, observed⟩ := links.markFormal
+    rw [observed]
+    exact AssociationNative.markFormal_meaning definitions seen formal valid
   skip text position valid := by
     rw [links.skip]
     exact helpers.skip text valid.1 position valid.2
@@ -91,6 +100,12 @@ theorem imports_meaning {imports composed predicate}
     rw [observed]
     exact BodyWrappers.invalidModel_meaning definitions scan valid
 
+  association text position catalog first last ordinal named valid := by
+    obtain ⟨associations, imported, definitions, observed⟩ := links.association
+    rw [observed]
+    exact AssociationNative.functionAssociation_meaning source helpers imported definitions
+      text position catalog first last ordinal named valid
+
 /-- Scalar and Boolean assignment targets already have separately checked
 source definitions. The two predicates retain their complete native domains. -/
 structure TargetLinks (calls : Calls) (composed : Compose.Expressions.Calls) (predicate : Native.Calls) : Prop where
@@ -140,6 +155,7 @@ theorem linked_assignment {assignment composed predicate}
 theorem model_imports_links :
     ImportsLinks {modelImports with token := Compose.Expressions.modelCalls.function .takeToken}
       Compose.Expressions.modelCalls Native.modelCalls where
+  markFormal := ⟨AssociationNative.modelCalls, AssociationNative.model_definitions, rfl⟩
   skip := rfl
   nameAfter := rfl
   namesLookup := rfl
@@ -153,6 +169,8 @@ theorem model_imports_links :
   isEmpty := rfl
   included left right _ _ := (included_model left right).symm
   invalid := ⟨BodyWrappers.modelCalls, BodyWrappers.model_definitions, rfl⟩
+  association := ⟨AssociationNative.modelCalls, AssociationNative.model_imports_links,
+    AssociationNative.model_definitions, rfl⟩
 
 theorem model_target_links
     (source : Compose.Expressions.RawHelperEquations Compose.Expressions.modelCalls (domain := domain)) :

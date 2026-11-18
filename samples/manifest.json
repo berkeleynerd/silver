@@ -2878,6 +2878,33 @@
         "stderr": "",
         "exit_status": 0
       }
+    },
+    {
+      "source": "rosetta_named_parameters.adb",
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "named_integer_subtype",
+        "scalar_function",
+        "scalar_function_call",
+        "named_integer_variable",
+        "integer_assignment",
+        "integer_expression",
+        "integer_image",
+        "string_concatenation",
+        "expression_output",
+        "statement_sequence"
+      ],
+      "application_functions": [
+        "Subtract"
+      ],
+      "specification": "../language.md#named-scalar-argument-associations",
+      "expected": {
+        "stdout": "Positional: 2\nNamed, reordered: 2\nMixed: 2\nReversed values:-2\n",
+        "stderr": "",
+        "exit_status": 0
+      }
     }
   ]
 }

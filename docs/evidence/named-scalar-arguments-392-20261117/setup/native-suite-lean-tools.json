@@ -1,0 +1,19 @@
+{
+  "donor": "/home/agent/silver-worktrees/procedures-lean-370/.tools/linux-aarch64/lean",
+  "target": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-native-392/.tools/linux-aarch64/lean",
+  "archive": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-native-392/.tools/linux-aarch64/lean-4.34.1-linux_aarch64.zip",
+  "distribution_sha256": "b4bcf1d79f1b5859c04625058d3707701d87a65815f7f0686a1f14df821954c5",
+  "tools_sha256": {
+    "lean": "79fb1d26fa5a39385d59fdc48a711a14b0710ca6480271acce99b4d177cea085",
+    "lake": "f80f50cbab5322e35bcb0bf88937e22e9d908b5e4e336e83ddfc30eb1506aacf",
+    "leanchecker": "3cf6c1aba13e4cc8ea71c802c49c7a2cde225764a9d0a3959adb5af92e9edc97"
+  },
+  "bootstrap_stdout": "Lean (version 4.34.1, aarch64-unknown-linux-gnu, commit 5045d0056413266e57c625dcd7c365b10e377c52, Release)\nProof tool ready for linux-aarch64: /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-native-392/.tools/linux-aarch64/lean/bin/lake\n",
+  "bootstrap_stderr": "",
+  "mount": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-native-392/.tools/linux-aarch64/lean overlay[/home/agent/silver-worktrees/procedures-lean-370/.tools/linux-aarch64/lean] overlay ro,relatime,lowerdir=/run/bundles/c6ccee653cc5e3d2203018b9929eb55f1a2b663dd49b2a73a3b213200c68f50e/mounts/1:/run/bundles/c6ccee653cc5e3d2203018b9929eb55f1a2b663dd49b2a73a3b213200c68f50e/mounts/2:/run/bundles/c6ccee653cc5e3d2203018b9929eb55f1a2b663dd49b2a73a3b213200c68f50e/mounts/3:/run/bundles/c6ccee653cc5e3d2203018b9929eb55f1a2b663dd49b2a73a3b213200c68f50e/mounts/4:/run/bundles/c6ccee653cc5e3d2203018b9929eb55f1a2b663dd49b2a73a3b213200c68f50e/mounts/5:/run/bundles/c6ccee653cc5e3d2203018b9929eb55f1a2b663dd49b2a73a3b213200c68f50e/mounts/6:/run/bundles/c6ccee653cc5e3d2203018b9929eb55f1a2b663dd49b2a73a3b213200c68f50e/mounts/7:/run/bundles/c6ccee653cc5e3d2203018b9929eb55f1a2b663dd49b2a73a3b213200c68f50e/mounts/8:/run/bundles/c6ccee653cc5e3d2203018b9929eb55f1a2b663dd49b2a73a3b213200c68f50e/mounts/9,upperdir=/run/bundles/c6ccee653cc5e3d2203018b9929eb55f1a2b663dd49b2a73a3b213200c68f50e/mounts/0/upper,workdir=/run/bundles/c6ccee653cc5e3d2203018b9929eb55f1a2b663dd49b2a73a3b213200c68f50e/mounts/0/work,index=off,metacopy=off,nouserxattr",
+  "reason": "Full suite needs six native Lean probe methods; avoid missing-installation skips. Pinned donor bound read-only; isolated test roots will build their own small probes. No complete proof or replay run here.",
+  "native_provenance_still_valid": true,
+  "native_manifest_sha256": "52bdffd61861b9c9a30e0a10b06bc02d329532416570a7c9408787042aacd957",
+  "native_inputs_verified": 2622,
+  "native_tools_verified": 12
+}

@@ -1,0 +1,57 @@
+Lean phase build started at 2026-11-17T02:52:36.202123+00:00
++ /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.tools/linux-aarch64/lean/bin/lake --rehash --reconfigure -K silverThreads=12 build +Silver.PredicateFunctionCallGhostSource +Silver.PredicateFunctionCallLibraries +Silver.PredicateProcedureCallLibraries +Silver.AxiomAudit
+✔ [291/328] Built Silver.PredicateNativeProgress (340ms)
+✔ [292/328] Built Silver.PredicateXorSourceBridge (254ms)
+✔ [293/328] Built Silver.LengthIntervalModel (288ms)
+✔ [302/331] Built Silver.PredicateFunctionCallGhostSource (427ms)
+✔ [303/331] Built Silver.ComposeLexical (487ms)
+✖ [304/334] Building Silver.PredicateBodyFlowValidity (382ms)
+trace: .> LEAN_PATH=/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/lib/lean /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.tools/linux-aarch64/lean/bin/lean -j12 -DwarningAsError=true /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/Silver/PredicateBodyFlowValidity.lean -o /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/PredicateBodyFlowValidity.olean -i /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/PredicateBodyFlowValidity.ilean -c /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/ir/Silver/PredicateBodyFlowValidity.c --setup /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/ir/Silver/PredicateBodyFlowValidity.setup.json --json
+error: Silver/PredicateBodyFlowValidity.lean:197:62: Application type mismatch: The argument
+  callFirst
+has type
+  Nat
+but is expected to have type
+  ProcedureBindings.Metadata
+in the application
+  procedureUpdateStep text context incoming scan parameter callFirst
+error: Silver/PredicateBodyFlowValidity.lean:220:2: `dsimp` made no progress
+error: Silver/PredicateBodyFlowValidity.lean:230:0: unused termination hints, function is not recursive
+error: Silver/PredicateBodyFlowValidity.lean:212:8: (kernel) unknown constant 'Silver.Predicate.procedureUpdateStep_flowReady'
+✔ [308/345] Built Silver.PredicateLoopFlowValidity (464ms)
+✔ [310/345] Built Silver.ComposeDeclarationContext (225ms)
+✔ [314/345] Built Silver.LengthIntervalExpressions (946ms)
+✔ [315/345] Built Silver.ComposeStringBounds (363ms)
+✔ [316/345] Built Silver.PredicateNativeExpressions (1.6s)
+✔ [317/345] Built Silver.PredicateBodyBounds (1.5s)
+✔ [318/345] Built Silver.ComposeStringBoundSafety (347ms)
+✔ [319/345] Built Silver.PredicateNativeBodies (290ms)
+✔ [320/345] Built Silver.ComposeDeclarationBounds (722ms)
+✔ [321/345] Built Silver.PredicateBooleanBodyNative (2.5s)
+✔ [322/345] Built Silver.PredicateBooleanBodyHelpers (272ms)
+✔ [323/345] Built Silver.PredicateNativePrecedence (1.1s)
+✔ [324/345] Built Silver.ComposeNativeStateBounds (1.8s)
+✔ [325/345] Built Silver.PredicateNativeScalarHelpers (7.5s)
+✔ [326/345] Built Silver.PredicateOuterReadiness (3.7s)
+✔ [327/345] Built Silver.PredicateLoopNative (12s)
+✔ [328/345] Built Silver.PredicateBodyExpressions (955ms)
+✔ [329/345] Built Silver.PredicateNativeEquations (12s)
+✔ [330/345] Built Silver.PredicateNativeSizing (230ms)
+✔ [331/345] Built Silver.PredicateNativeWorkers (460ms)
+✔ [332/345] Built Silver.PredicateBodyEquations (2.3s)
+✔ [336/345] Built Silver.PredicateNativeModel (1.2s)
+✔ [337/345] Built Silver.PredicateNativeCorrespondence (1.0s)
+✔ [338/345] Built Silver.PredicateNativeContracts (198ms)
+✔ [339/345] Built Silver.PredicateNativeModelSizing (11s)
+✔ [340/345] Built Silver.PredicateNativeHelpers (439ms)
+✖ [341/345] Building Silver.PredicateAssociationLibraries (238ms)
+trace: .> LEAN_PATH=/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/lib/lean /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.tools/linux-aarch64/lean/bin/lean -j12 -DwarningAsError=true /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/Silver/PredicateAssociationLibraries.lean -o /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/PredicateAssociationLibraries.olean -i /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/PredicateAssociationLibraries.ilean -c /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/ir/Silver/PredicateAssociationLibraries.c --setup /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/ir/Silver/PredicateAssociationLibraries.setup.json --json
+error: Silver/PredicateAssociationLibraries.lean:91:54: Unknown identifier `Expressions.modelCalls`
+✔ [342/345] Built Silver.PredicateBooleanBodyLibraries (250ms)
+✔ [343/345] Built Silver.PredicateNativeLibraries (923ms)
+Some required targets logged failures:
+- Silver.PredicateBodyFlowValidity
+- Silver.PredicateAssociationLibraries
+error: build failed
+
+Lean phase build finished at 2026-11-17T02:53:08.203281+00:00; elapsed 32.001s; exit 1

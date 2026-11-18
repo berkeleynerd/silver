@@ -4936,6 +4936,205 @@ is
          end;
       end if;
    end Actual_After;
+
+   --  Each formal consumes at least seven disjoint source bytes. This set
+   --  records selected formal slots, without copying actuals or their source.
+   type Formal_Set is array (Functions.Formal_Index) of Boolean;
+   No_Formals : constant Formal_Set := (others => False);
+   function Mark_Formal (Seen : Formal_Set; Formal : Functions.Formal_Index) return Formal_Set
+     with Global => null,
+       Post => (for all Index in Functions.Formal_Index =>
+         Mark_Formal'Result (Index) = (if Index = Formal then True else Seen (Index)));
+   function Mark_Formal (Seen : Formal_Set; Formal : Functions.Formal_Index) return Formal_Set is
+     (Seen with delta Formal => True);
+   type Actual_Association is record
+      Formal : Functions.Formal_Count;
+      Payload_First : Literal_Position;
+      Named : Boolean;
+   end record;
+   Invalid_Association : constant Actual_Association := (0, 0, False);
+
+   function Function_Formal_Model
+     (Text : String; Catalog : Functions.Metadata; First, Last : Functions.Formal_Index;
+      Name_First, Name_After : Literal_Position) return Functions.Formal_Count
+     with Ghost => Static, Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Functions.Valid_Metadata (Text, Catalog)
+         and then First <= Last and then Last <= Catalog.Parameter_Count
+         and then Name_First <= Text'Last + 1 and then Name_After <= Text'Last + 1,
+       Post => Function_Formal_Model'Result = 0
+         or else Function_Formal_Model'Result in First .. Last,
+       Subprogram_Variant => (Decreases => Last - First);
+   function Function_Formal_Model
+     (Text : String; Catalog : Functions.Metadata; First, Last : Functions.Formal_Index;
+      Name_First, Name_After : Literal_Position) return Functions.Formal_Count is
+     (if Name_First = 0 or else Name_After <= Name_First then 0
+      elsif Equal_Name (Text, Catalog.Parameters (First).First,
+                        Catalog.Parameters (First).After, Name_First, Name_After)
+      then First
+      elsif First = Last then 0
+      else Function_Formal_Model (Text, Catalog, First + 1, Last, Name_First, Name_After));
+   function Function_Formal_At
+     (Text : String; Catalog : Functions.Metadata; First, Last : Functions.Formal_Index;
+      Name_First, Name_After : Literal_Position) return Functions.Formal_Count
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Functions.Valid_Metadata (Text, Catalog)
+         and then First <= Last and then Last <= Catalog.Parameter_Count
+         and then Name_First <= Text'Last + 1 and then Name_After <= Text'Last + 1,
+       Post => (Runtime => Function_Formal_At'Result = 0
+         or else Function_Formal_At'Result in First .. Last,
+         Static => Function_Formal_At'Result =
+           Function_Formal_Model (Text, Catalog, First, Last, Name_First, Name_After));
+   function Function_Formal_At
+     (Text : String; Catalog : Functions.Metadata; First, Last : Functions.Formal_Index;
+      Name_First, Name_After : Literal_Position) return Functions.Formal_Count is
+      Index : Functions.Formal_Index := First;
+   begin
+      if Name_First = 0 or else Name_After <= Name_First then return 0; end if;
+      loop
+         pragma Loop_Invariant (Index in First .. Last);
+         pragma Loop_Invariant (Static =>
+           Function_Formal_Model (Text, Catalog, First, Last, Name_First, Name_After) =
+             Function_Formal_Model (Text, Catalog, Index, Last, Name_First, Name_After));
+         pragma Loop_Variant (Increases => Index);
+         if Equal_Name (Text, Catalog.Parameters (Index).First,
+                        Catalog.Parameters (Index).After, Name_First, Name_After)
+         then return Index; end if;
+         if Index = Last then return 0; end if;
+         Index := Index + 1;
+      end loop;
+   end Function_Formal_At;
+
+   function Procedure_Formal_Model
+     (Text : String; Catalog : Procedures.Metadata; First, Last : Procedures.Formal_Index;
+      Name_First, Name_After : Literal_Position) return Procedures.Formal_Count
+     with Ghost => Static, Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Procedures.Valid_Metadata (Text, Catalog)
+         and then First <= Last and then Last <= Catalog.Parameter_Count
+         and then Name_First <= Text'Last + 1 and then Name_After <= Text'Last + 1,
+       Post => Procedure_Formal_Model'Result = 0
+         or else Procedure_Formal_Model'Result in First .. Last,
+       Subprogram_Variant => (Decreases => Last - First);
+   function Procedure_Formal_Model
+     (Text : String; Catalog : Procedures.Metadata; First, Last : Procedures.Formal_Index;
+      Name_First, Name_After : Literal_Position) return Procedures.Formal_Count is
+     (if Name_First = 0 or else Name_After <= Name_First then 0
+      elsif Equal_Name (Text, Catalog.Parameters (First).First,
+                        Catalog.Parameters (First).After, Name_First, Name_After)
+      then First
+      elsif First = Last then 0
+      else Procedure_Formal_Model (Text, Catalog, First + 1, Last, Name_First, Name_After));
+   function Procedure_Formal_At
+     (Text : String; Catalog : Procedures.Metadata; First, Last : Procedures.Formal_Index;
+      Name_First, Name_After : Literal_Position) return Procedures.Formal_Count
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Procedures.Valid_Metadata (Text, Catalog)
+         and then First <= Last and then Last <= Catalog.Parameter_Count
+         and then Name_First <= Text'Last + 1 and then Name_After <= Text'Last + 1,
+       Post => (Runtime => Procedure_Formal_At'Result = 0
+         or else Procedure_Formal_At'Result in First .. Last,
+         Static => Procedure_Formal_At'Result =
+           Procedure_Formal_Model (Text, Catalog, First, Last, Name_First, Name_After));
+   function Procedure_Formal_At
+     (Text : String; Catalog : Procedures.Metadata; First, Last : Procedures.Formal_Index;
+      Name_First, Name_After : Literal_Position) return Procedures.Formal_Count is
+      Index : Procedures.Formal_Index := First;
+   begin
+      if Name_First = 0 or else Name_After <= Name_First then return 0; end if;
+      loop
+         pragma Loop_Invariant (Index in First .. Last);
+         pragma Loop_Invariant (Static =>
+           Procedure_Formal_Model (Text, Catalog, First, Last, Name_First, Name_After) =
+             Procedure_Formal_Model (Text, Catalog, Index, Last, Name_First, Name_After));
+         pragma Loop_Variant (Increases => Index);
+         if Equal_Name (Text, Catalog.Parameters (Index).First,
+                        Catalog.Parameters (Index).After, Name_First, Name_After)
+         then return Index; end if;
+         if Index = Last then return 0; end if;
+         Index := Index + 1;
+      end loop;
+   end Procedure_Formal_At;
+
+   function Function_Association
+     (Text : String; Position : Literal_Position; Catalog : Functions.Metadata;
+      First, Last, Ordinal : Functions.Formal_Index; Named : Boolean) return Actual_Association
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Position <= Text'Last + 1 and then Functions.Valid_Metadata (Text, Catalog)
+         and then First <= Ordinal and then Ordinal <= Last and then Last <= Catalog.Parameter_Count,
+       Post => Function_Association'Result.Payload_First <= Text'Last + 1
+         and then (Function_Association'Result.Formal = 0
+           or else (Function_Association'Result.Formal in First .. Last
+             and then Function_Association'Result.Payload_First >= Position));
+   function Function_Association
+     (Text : String; Position : Literal_Position; Catalog : Functions.Metadata;
+      First, Last, Ordinal : Functions.Formal_Index; Named : Boolean) return Actual_Association is
+     (declare Name_First : constant Literal_Position := Skip_At (Text, Position);
+              Name_End : constant Literal_Position := Name_After (Text, Name_First);
+              Payload : constant Literal_Position := Take_Token (Text, Name_End, Arrow);
+      begin (if Position = 0 then Invalid_Association
+       elsif Payload /= 0 then
+         (Function_Formal_At (Text, Catalog, First, Last, Name_First, Name_End), Payload, True)
+       elsif Named then Invalid_Association
+       else (Ordinal, Position, False)));
+
+   function Procedure_Association
+     (Text : String; Position : Literal_Position; Catalog : Procedures.Metadata;
+      First, Last, Ordinal : Procedures.Formal_Index; Named : Boolean) return Actual_Association
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Position <= Text'Last + 1 and then Procedures.Valid_Metadata (Text, Catalog)
+         and then First <= Ordinal and then Ordinal <= Last and then Last <= Catalog.Parameter_Count,
+       Post => Procedure_Association'Result.Payload_First <= Text'Last + 1
+         and then (Procedure_Association'Result.Formal = 0
+           or else (Procedure_Association'Result.Formal in First .. Last
+             and then Procedure_Association'Result.Payload_First >= Position));
+   function Procedure_Association
+     (Text : String; Position : Literal_Position; Catalog : Procedures.Metadata;
+      First, Last, Ordinal : Procedures.Formal_Index; Named : Boolean) return Actual_Association is
+     (declare Name_First : constant Literal_Position := Skip_At (Text, Position);
+              Name_End : constant Literal_Position := Name_After (Text, Name_First);
+              Payload : constant Literal_Position := Take_Token (Text, Name_End, Arrow);
+      begin (if Position = 0 then Invalid_Association
+       elsif Payload /= 0 then
+         (Procedure_Formal_At (Text, Catalog, First, Last, Name_First, Name_End), Payload, True)
+       elsif Named then Invalid_Association
+       else (Ordinal, Position, False)));
+
+   function Function_Actuals_Tail_Model
+     (Text : String; Context : Body_Context; Position : Literal_Position;
+      Facts : Scalar_Flow; Catalog : Functions.Metadata;
+      First, Last, Ordinal : Functions.Formal_Index; Named : Boolean; Seen : Formal_Set)
+      return Literal_Position
+     with Ghost => Static, Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Position <= Text'Last + 1 and then Valid_Context (Text, Context)
+         and then Valid_Flow (Context, Facts) and then Functions.Valid_Metadata (Text, Catalog)
+         and then First <= Ordinal and then Ordinal <= Last and then Last <= Catalog.Parameter_Count,
+       Post => Function_Actuals_Tail_Model'Result = 0
+         or else Function_Actuals_Tail_Model'Result in Position + 1 .. Text'Last + 1,
+       Subprogram_Variant => (Decreases => Last - Ordinal);
+   function Function_Actuals_Tail_Model
+     (Text : String; Context : Body_Context; Position : Literal_Position;
+      Facts : Scalar_Flow; Catalog : Functions.Metadata;
+      First, Last, Ordinal : Functions.Formal_Index; Named : Boolean; Seen : Formal_Set)
+      return Literal_Position is
+     (declare Association : constant Actual_Association :=
+        Function_Association (Text, Position, Catalog, First, Last, Ordinal, Named);
+      begin (if Association.Formal = 0 or else Seen (Association.Formal) then 0
+       else (declare After : constant Literal_Position := Actual_Model
+         (Text, Context, Association.Payload_First, Facts, Catalog.Parameters (Association.Formal));
+        begin (if After = 0 then 0
+         elsif Ordinal = Last then Take_Token (Text, After, Right_Parenthesis)
+         elsif Take_Token (Text, After, Comma) = 0 then 0
+         else Function_Actuals_Tail_Model
+           (Text, Context, Take_Token (Text, After, Comma), Facts, Catalog,
+            First, Last, Ordinal + 1, Association.Named,
+            Mark_Formal (Seen, Association.Formal))))));
+
    function Actuals_Model
      (Text : String; Context : Body_Context; Position : Literal_Position;
       Facts : Scalar_Flow; Catalog : Functions.Metadata;
@@ -4947,19 +5146,46 @@ is
          and then Functions.Valid_Metadata (Text, Catalog)
          and then First <= Last and then Last <= Catalog.Parameter_Count,
        Post => Actuals_Model'Result = 0
-         or else Actuals_Model'Result in Position + 1 .. Text'Last + 1,
-       Subprogram_Variant => (Decreases => Last - First);
+         or else Actuals_Model'Result in Position + 1 .. Text'Last + 1;
    function Actuals_Model
      (Text : String; Context : Body_Context; Position : Literal_Position;
       Facts : Scalar_Flow; Catalog : Functions.Metadata;
       First, Last : Functions.Formal_Index) return Literal_Position is
-     (declare After : constant Literal_Position :=
-        Actual_Model (Text, Context, Position, Facts, Catalog.Parameters (First));
-      begin (if After = 0 then 0
-       elsif First = Last then Take_Token (Text, After, Right_Parenthesis)
-       elsif Take_Token (Text, After, Comma) = 0 then 0
-       else Actuals_Model (Text, Context, Take_Token (Text, After, Comma),
-                           Facts, Catalog, First + 1, Last)));
+     (Function_Actuals_Tail_Model
+        (Text, Context, Position, Facts, Catalog, First, Last, First, False, No_Formals));
+
+   procedure Lemma_Function_Actuals_Advance
+     (Text : String; Context : Body_Context; Position : Literal_Position;
+      Facts : Scalar_Flow; Catalog : Functions.Metadata;
+      First, Last, Ordinal : Functions.Formal_Index; Named : Boolean; Seen : Formal_Set;
+      Association : Actual_Association; After : Literal_Position)
+     with Ghost => Static, Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Position <= Text'Last + 1 and then Valid_Context (Text, Context)
+         and then Valid_Flow (Context, Facts) and then Functions.Valid_Metadata (Text, Catalog)
+         and then First <= Ordinal and then Ordinal < Last and then Last <= Catalog.Parameter_Count
+         and then Association = Function_Association (Text, Position, Catalog, First, Last, Ordinal, Named)
+         and then Association.Formal in First .. Last
+         and then Association.Payload_First <= Text'Last + 1 and then not Seen (Association.Formal)
+         and then After /= 0 and then After <= Text'Last + 1
+         and then After = Actual_Model
+           (Text, Context, Association.Payload_First, Facts, Catalog.Parameters (Association.Formal))
+         and then Take_Token (Text, After, Comma) /= 0,
+       Post => Function_Actuals_Tail_Model
+         (Text, Context, Position, Facts, Catalog, First, Last, Ordinal, Named, Seen) =
+           Function_Actuals_Tail_Model
+             (Text, Context, Take_Token (Text, After, Comma), Facts, Catalog,
+              First, Last, Ordinal + 1, Association.Named,
+              Mark_Formal (Seen, Association.Formal));
+   procedure Lemma_Function_Actuals_Advance
+     (Text : String; Context : Body_Context; Position : Literal_Position;
+      Facts : Scalar_Flow; Catalog : Functions.Metadata;
+      First, Last, Ordinal : Functions.Formal_Index; Named : Boolean; Seen : Formal_Set;
+      Association : Actual_Association; After : Literal_Position) is
+   begin
+      null;
+   end Lemma_Function_Actuals_Advance;
+
    function Actuals_After
      (Text : String; Context : Body_Context; Position : Literal_Position;
       Facts : Scalar_Flow; Catalog : Functions.Metadata;
@@ -4980,19 +5206,37 @@ is
       First, Last : Functions.Formal_Index) return Literal_Position is
       Index : Functions.Formal_Index := First;
       Cursor : Literal_Position := Position;
+      Named : Boolean := False;
+      Seen : Formal_Set := No_Formals;
+      Expected : constant Literal_Position :=
+        Actuals_Model (Text, Context, Position, Facts, Catalog, First, Last) with Ghost => Static;
    begin
       loop
          pragma Loop_Invariant (Index in First .. Last);
          pragma Loop_Invariant (Cursor <= Text'Last + 1);
+         pragma Loop_Invariant (Cursor >= Position);
          pragma Loop_Invariant (Static =>
-           Actuals_Model (Text, Context, Position, Facts, Catalog, First, Last) =
-             Actuals_Model (Text, Context, Cursor, Facts, Catalog, Index, Last));
+           Expected = Function_Actuals_Tail_Model
+               (Text, Context, Cursor, Facts, Catalog, First, Last, Index, Named, Seen));
          pragma Loop_Variant (Increases => Index);
-         Cursor := Actual_After (Text, Context, Cursor, Facts, Catalog.Parameters (Index));
-         if Cursor = 0 then return 0; end if;
-         if Index = Last then return Take_Token (Text, Cursor, Right_Parenthesis); end if;
-         Cursor := Take_Token (Text, Cursor, Comma);
-         if Cursor = 0 then return 0; end if;
+         declare Association : constant Actual_Association :=
+           Function_Association (Text, Cursor, Catalog, First, Last, Index, Named);
+            After, Following : Literal_Position;
+         begin
+            if Association.Formal = 0 or else Seen (Association.Formal) then return 0; end if;
+            After := Actual_After
+              (Text, Context, Association.Payload_First, Facts, Catalog.Parameters (Association.Formal));
+            if After = 0 then return 0; end if;
+            if Index = Last then return Take_Token (Text, After, Right_Parenthesis); end if;
+            Following := Take_Token (Text, After, Comma);
+            if Following = 0 then return 0; end if;
+            Lemma_Function_Actuals_Advance
+              (Text, Context, Cursor, Facts, Catalog, First, Last,
+               Index, Named, Seen, Association, After);
+            Cursor := Following;
+            Seen := Mark_Formal (Seen, Association.Formal);
+            Named := Association.Named;
+         end;
          Index := Index + 1;
       end loop;
    end Actuals_After;
@@ -5294,6 +5538,37 @@ is
         Actual_After (Text, Context, Position, Facts,
           (Parameter.First, Parameter.After, Parameter.Kind, Parameter.Bounds))
       else Procedure_Target_Actual (Text, Context, Position, Facts, Parameter).After);
+   function Procedure_Actuals_Tail_Model
+     (Text : String; Context : Body_Context; Position : Literal_Position;
+      Facts : Scalar_Flow; Catalog : Procedures.Metadata;
+      First, Last, Ordinal : Procedures.Formal_Index; Named : Boolean; Seen : Formal_Set)
+      return Literal_Position
+     with Ghost => Static, Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Position <= Text'Last + 1 and then Valid_Context (Text, Context)
+         and then Valid_Flow (Context, Facts) and then Procedures.Valid_Metadata (Text, Catalog)
+         and then First <= Ordinal and then Ordinal <= Last and then Last <= Catalog.Parameter_Count,
+       Post => Procedure_Actuals_Tail_Model'Result = 0
+         or else Procedure_Actuals_Tail_Model'Result in Position + 1 .. Text'Last + 1,
+       Subprogram_Variant => (Decreases => Last - Ordinal);
+   function Procedure_Actuals_Tail_Model
+     (Text : String; Context : Body_Context; Position : Literal_Position;
+      Facts : Scalar_Flow; Catalog : Procedures.Metadata;
+      First, Last, Ordinal : Procedures.Formal_Index; Named : Boolean; Seen : Formal_Set)
+      return Literal_Position is
+     (declare Association : constant Actual_Association :=
+        Procedure_Association (Text, Position, Catalog, First, Last, Ordinal, Named);
+      begin (if Association.Formal = 0 or else Seen (Association.Formal) then 0
+       else (declare After : constant Literal_Position := Procedure_Actual_After
+         (Text, Context, Association.Payload_First, Facts, Catalog.Parameters (Association.Formal));
+        begin (if After = 0 then 0
+         elsif Ordinal = Last then Take_Token (Text, After, Right_Parenthesis)
+         elsif Take_Token (Text, After, Comma) = 0 then 0
+         else Procedure_Actuals_Tail_Model
+           (Text, Context, Take_Token (Text, After, Comma), Facts, Catalog,
+            First, Last, Ordinal + 1, Association.Named,
+            Mark_Formal (Seen, Association.Formal))))));
+
    function Procedure_Actuals_Model
      (Text : String; Context : Body_Context; Position : Literal_Position;
       Facts : Scalar_Flow; Catalog : Procedures.Metadata;
@@ -5305,19 +5580,13 @@ is
          and then Procedures.Valid_Metadata (Text, Catalog)
          and then First <= Last and then Last <= Catalog.Parameter_Count,
        Post => Procedure_Actuals_Model'Result = 0
-         or else Procedure_Actuals_Model'Result in Position + 1 .. Text'Last + 1,
-       Subprogram_Variant => (Decreases => Last - First);
+         or else Procedure_Actuals_Model'Result in Position + 1 .. Text'Last + 1;
    function Procedure_Actuals_Model
      (Text : String; Context : Body_Context; Position : Literal_Position;
       Facts : Scalar_Flow; Catalog : Procedures.Metadata;
       First, Last : Procedures.Formal_Index) return Literal_Position is
-     (declare After : constant Literal_Position :=
-        Procedure_Actual_After (Text, Context, Position, Facts, Catalog.Parameters (First));
-      begin (if After = 0 then 0
-       elsif First = Last then Take_Token (Text, After, Right_Parenthesis)
-       elsif Take_Token (Text, After, Comma) = 0 then 0
-       else Procedure_Actuals_Model (Text, Context, Take_Token (Text, After, Comma),
-                                    Facts, Catalog, First + 1, Last)));
+     (Procedure_Actuals_Tail_Model
+        (Text, Context, Position, Facts, Catalog, First, Last, First, False, No_Formals));
    function Procedure_Actuals_After
      (Text : String; Context : Body_Context; Position : Literal_Position;
       Facts : Scalar_Flow; Catalog : Procedures.Metadata;
@@ -5338,16 +5607,28 @@ is
       First, Last : Procedures.Formal_Index) return Literal_Position is
       Index : Procedures.Formal_Index := First;
       Cursor : Literal_Position := Position;
+      Named : Boolean := False;
+      Seen : Formal_Set := No_Formals;
    begin
       loop
          pragma Loop_Invariant (Index in First .. Last);
          pragma Loop_Invariant (Cursor <= Text'Last + 1);
+         pragma Loop_Invariant (Cursor >= Position);
          pragma Loop_Invariant (Static =>
            Procedure_Actuals_Model (Text, Context, Position, Facts, Catalog, First, Last) =
-             Procedure_Actuals_Model (Text, Context, Cursor, Facts, Catalog, Index, Last));
+             Procedure_Actuals_Tail_Model
+               (Text, Context, Cursor, Facts, Catalog, First, Last, Index, Named, Seen));
          pragma Loop_Variant (Increases => Index);
-         Cursor := Procedure_Actual_After (Text, Context, Cursor, Facts, Catalog.Parameters (Index));
-         if Cursor = 0 then return 0; end if;
+         declare Association : constant Actual_Association :=
+           Procedure_Association (Text, Cursor, Catalog, First, Last, Index, Named);
+         begin
+            if Association.Formal = 0 or else Seen (Association.Formal) then return 0; end if;
+            Cursor := Procedure_Actual_After
+              (Text, Context, Association.Payload_First, Facts, Catalog.Parameters (Association.Formal));
+            if Cursor = 0 then return 0; end if;
+            Seen := Mark_Formal (Seen, Association.Formal);
+            Named := Association.Named;
+         end;
          if Index = Last then return Take_Token (Text, Cursor, Right_Parenthesis); end if;
          Cursor := Take_Token (Text, Cursor, Comma);
          if Cursor = 0 then return 0; end if;
@@ -5355,20 +5636,113 @@ is
       end loop;
    end Procedure_Actuals_After;
 
+   --  Replay associations to inspect only actual payloads. A selector is a
+   --  callee-formal label even when its spelling is a writable caller name.
+   --  The unique-association pass owns Seen; this pass checks every payload.
+   function Procedure_Payloads_Free_Model
+     (Text : String; Context : Body_Context; Position : Literal_Position;
+      Incoming : Scalar_Flow; Catalog : Procedures.Metadata;
+      First, Last, Ordinal : Procedures.Formal_Index; Named : Boolean;
+      Call_After, Target_First, Target_After : Literal_Position) return Boolean
+     with Ghost => Static, Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Position <= Text'Last + 1 and then Valid_Context (Text, Context)
+         and then Valid_Flow (Context, Incoming) and then Procedures.Valid_Metadata (Text, Catalog)
+         and then First <= Ordinal and then Ordinal <= Last and then Last <= Catalog.Parameter_Count
+         and then Call_After <= Text'Last + 1
+         and then Target_First > 0 and then Valid_Name_State (Text, Target_First, Target_After),
+       Subprogram_Variant => (Decreases => Last - Ordinal);
+   function Procedure_Payloads_Free_Model
+     (Text : String; Context : Body_Context; Position : Literal_Position;
+      Incoming : Scalar_Flow; Catalog : Procedures.Metadata;
+      First, Last, Ordinal : Procedures.Formal_Index; Named : Boolean;
+      Call_After, Target_First, Target_After : Literal_Position) return Boolean is
+     (declare Association : constant Actual_Association :=
+        Procedure_Association (Text, Position, Catalog, First, Last, Ordinal, Named);
+      begin (if Call_After = 0 or else Association.Formal = 0 then False
+       else (declare After : constant Literal_Position := Procedure_Actual_After
+         (Text, Context, Association.Payload_First, Incoming, Catalog.Parameters (Association.Formal));
+        begin (if After = 0 then False
+         elsif not ((Skip_At (Text, Association.Payload_First) = Target_First and then After = Target_After)
+           or else Actual_Name_Free_Model
+             (Text, Association.Payload_First, After, Target_First, Target_After)) then False
+         elsif Ordinal = Last then Take_Token (Text, After, Right_Parenthesis) = Call_After
+         elsif Take_Token (Text, After, Comma) = 0 then False
+         else Procedure_Payloads_Free_Model
+           (Text, Context, Take_Token (Text, After, Comma), Incoming, Catalog,
+            First, Last, Ordinal + 1, Association.Named, Call_After, Target_First, Target_After)))));
+   function Procedure_Payloads_Free
+     (Text : String; Context : Body_Context; Position : Literal_Position;
+      Incoming : Scalar_Flow; Catalog : Procedures.Metadata; First, Last : Procedures.Formal_Index;
+      Call_After, Target_First, Target_After : Literal_Position) return Boolean
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Position <= Text'Last + 1 and then Valid_Context (Text, Context)
+         and then Valid_Flow (Context, Incoming) and then Procedures.Valid_Metadata (Text, Catalog)
+         and then First <= Last and then Last <= Catalog.Parameter_Count
+         and then Call_After <= Text'Last + 1
+         and then Target_First > 0 and then Valid_Name_State (Text, Target_First, Target_After),
+       Post => (Static => Procedure_Payloads_Free'Result = Procedure_Payloads_Free_Model
+         (Text, Context, Position, Incoming, Catalog, First, Last, First, False,
+          Call_After, Target_First, Target_After));
+   function Procedure_Payloads_Free
+     (Text : String; Context : Body_Context; Position : Literal_Position;
+      Incoming : Scalar_Flow; Catalog : Procedures.Metadata; First, Last : Procedures.Formal_Index;
+      Call_After, Target_First, Target_After : Literal_Position) return Boolean is
+      Index : Procedures.Formal_Index := First;
+      Cursor : Literal_Position := Position;
+      Named : Boolean := False;
+   begin
+      loop
+         pragma Loop_Invariant (Index in First .. Last);
+         pragma Loop_Invariant (Cursor <= Text'Last + 1);
+         pragma Loop_Invariant (Static =>
+           Procedure_Payloads_Free_Model
+             (Text, Context, Position, Incoming, Catalog, First, Last, First, False,
+              Call_After, Target_First, Target_After) =
+           Procedure_Payloads_Free_Model
+             (Text, Context, Cursor, Incoming, Catalog, First, Last, Index, Named,
+              Call_After, Target_First, Target_After));
+         pragma Loop_Variant (Increases => Index);
+         declare Association : constant Actual_Association :=
+           Procedure_Association (Text, Cursor, Catalog, First, Last, Index, Named);
+         begin
+            if Call_After = 0 or else Association.Formal = 0 then return False; end if;
+            declare After : constant Literal_Position := Procedure_Actual_After
+              (Text, Context, Association.Payload_First, Incoming, Catalog.Parameters (Association.Formal));
+            begin
+               if After = 0 then return False; end if;
+               if not ((Skip_At (Text, Association.Payload_First) = Target_First and then After = Target_After)
+                 or else Actual_Name_Free
+                   (Text, Association.Payload_First, After, Target_First, Target_After))
+               then return False; end if;
+               if Index = Last then return Take_Token (Text, After, Right_Parenthesis) = Call_After; end if;
+               Cursor := Take_Token (Text, After, Comma);
+               if Cursor = 0 then return False; end if;
+               Named := Association.Named;
+            end;
+         end;
+         Index := Index + 1;
+      end loop;
+   end Procedure_Payloads_Free;
+
    function Procedure_Update_Step
      (Text : String; Context : Body_Context; Incoming : Scalar_Flow; Scan : Body_Scan;
-      Parameter : Procedures.Formal; Call_First, Call_After : Literal_Position) return Body_Scan
+      Parameter : Procedures.Formal; Catalog : Procedures.Metadata; First, Last : Procedures.Formal_Index;
+      Call_First, Call_After : Literal_Position) return Body_Scan
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
          and then Valid_Context (Text, Context) and then Valid_Body (Text, Context, Scan)
-         and then Valid_Flow (Context, Incoming)
+         and then Valid_Flow (Context, Incoming) and then Procedures.Valid_Metadata (Text, Catalog)
+         and then First <= Last and then Last <= Catalog.Parameter_Count
          and then Call_First <= Text'Last + 1 and then Call_After <= Text'Last + 1,
        Post => Valid_Body (Text, Context, Procedure_Update_Step'Result)
          and then (Procedure_Update_Step'Result.Position = 0
            or else Procedure_Update_Step'Result.Position > Scan.Position);
    function Procedure_Update_Step
      (Text : String; Context : Body_Context; Incoming : Scalar_Flow; Scan : Body_Scan;
-      Parameter : Procedures.Formal; Call_First, Call_After : Literal_Position) return Body_Scan is
+      Parameter : Procedures.Formal; Catalog : Procedures.Metadata; First, Last : Procedures.Formal_Index;
+      Call_First, Call_After : Literal_Position) return Body_Scan is
    begin
       if Parameter.Mode = Procedures.Input then
          declare After : constant Literal_Position :=
@@ -5382,8 +5756,9 @@ is
            Procedure_Target_Actual (Text, Context, Scan.Position, Incoming, Parameter);
          begin
             if Target.After = 0 or else Target.First < Call_First or else Target.After > Call_After
-              or else not Actual_Name_Free (Text, Call_First, Target.First, Target.First, Target.After)
-              or else not Actual_Name_Free (Text, Target.After, Call_After, Target.First, Target.After)
+              or else not Procedure_Payloads_Free
+                (Text, Context, Call_First, Incoming, Catalog, First, Last,
+                 Call_After, Target.First, Target.After)
             then return Invalid_Body (Scan); end if;
             if Target.Scalar = 0 then
                return (Scan with delta Position => Target.After, Assigned => True);
@@ -5395,6 +5770,39 @@ is
          end;
       end if;
    end Procedure_Update_Step;
+
+   function Procedure_Updates_Tail_Model
+     (Text : String; Context : Body_Context; Incoming : Scalar_Flow; Scan : Body_Scan;
+      Catalog : Procedures.Metadata; First, Last, Ordinal : Procedures.Formal_Index;
+      Named : Boolean; Seen : Formal_Set; Call_First, Call_After : Literal_Position) return Body_Scan
+     with Ghost => Static, Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_Context (Text, Context) and then Valid_Body (Text, Context, Scan)
+         and then Valid_Flow (Context, Incoming) and then Procedures.Valid_Metadata (Text, Catalog)
+         and then First <= Ordinal and then Ordinal <= Last and then Last <= Catalog.Parameter_Count
+         and then Call_First <= Text'Last + 1 and then Call_After <= Text'Last + 1,
+       Post => Valid_Body (Text, Context, Procedure_Updates_Tail_Model'Result)
+         and then (Procedure_Updates_Tail_Model'Result.Position = 0
+           or else Procedure_Updates_Tail_Model'Result.Position > Scan.Position),
+       Subprogram_Variant => (Decreases => Last - Ordinal);
+   function Procedure_Updates_Tail_Model
+     (Text : String; Context : Body_Context; Incoming : Scalar_Flow; Scan : Body_Scan;
+      Catalog : Procedures.Metadata; First, Last, Ordinal : Procedures.Formal_Index;
+      Named : Boolean; Seen : Formal_Set; Call_First, Call_After : Literal_Position) return Body_Scan is
+     (declare Association : constant Actual_Association :=
+        Procedure_Association (Text, Scan.Position, Catalog, First, Last, Ordinal, Named);
+      begin (if Association.Formal = 0 or else Seen (Association.Formal) then Invalid_Body_Model (Scan)
+       else (declare Next : constant Body_Scan := Procedure_Update_Step
+         (Text, Context, Incoming, (Scan with delta Position => Association.Payload_First),
+          Catalog.Parameters (Association.Formal), Catalog, First, Last, Call_First, Call_After);
+        begin (if Next.Position = 0 then Invalid_Body_Model (Scan)
+         elsif Ordinal = Last then Body_Token (Text, Context, Next, Right_Parenthesis)
+         else (declare Following : constant Body_Scan := Body_Token (Text, Context, Next, Comma);
+           begin (if Following.Position = 0 then Invalid_Body_Model (Scan)
+            else Procedure_Updates_Tail_Model
+              (Text, Context, Incoming, Following, Catalog, First, Last, Ordinal + 1,
+               Association.Named, Mark_Formal (Seen, Association.Formal), Call_First, Call_After)))))));
+
    function Procedure_Updates_Model
      (Text : String; Context : Body_Context; Incoming : Scalar_Flow; Scan : Body_Scan;
       Catalog : Procedures.Metadata; First, Last : Procedures.Formal_Index;
@@ -5407,20 +5815,14 @@ is
          and then Call_First <= Text'Last + 1 and then Call_After <= Text'Last + 1,
        Post => Valid_Body (Text, Context, Procedure_Updates_Model'Result)
          and then (Procedure_Updates_Model'Result.Position = 0
-           or else Procedure_Updates_Model'Result.Position > Scan.Position),
-       Subprogram_Variant => (Decreases => Last - First);
+           or else Procedure_Updates_Model'Result.Position > Scan.Position);
    function Procedure_Updates_Model
      (Text : String; Context : Body_Context; Incoming : Scalar_Flow; Scan : Body_Scan;
       Catalog : Procedures.Metadata; First, Last : Procedures.Formal_Index;
       Call_First, Call_After : Literal_Position) return Body_Scan is
-     (declare Next : constant Body_Scan := Procedure_Update_Step
-       (Text, Context, Incoming, Scan, Catalog.Parameters (First), Call_First, Call_After);
-      begin (if Next.Position = 0 then Invalid_Body_Model (Scan)
-       elsif First = Last then Body_Token (Text, Context, Next, Right_Parenthesis)
-       else (declare Following : constant Body_Scan := Body_Token (Text, Context, Next, Comma);
-         begin (if Following.Position = 0 then Invalid_Body_Model (Scan)
-          else Procedure_Updates_Model (Text, Context, Incoming, Following, Catalog,
-                                         First + 1, Last, Call_First, Call_After)))));
+     (Procedure_Updates_Tail_Model
+        (Text, Context, Incoming, Scan, Catalog, First, Last, First, False, No_Formals,
+         Call_First, Call_After));
    function Procedure_Updates
      (Text : String; Context : Body_Context; Scan : Body_Scan;
       Catalog : Procedures.Metadata; First, Last : Procedures.Formal_Index;
@@ -5443,6 +5845,8 @@ is
       Index : Procedures.Formal_Index := First;
       Current : Body_Scan (Scan.Count) := Scan;
       Before : Body_Scan (Scan.Count);
+      Named : Boolean := False;
+      Seen : Formal_Set := No_Formals;
    begin
       loop
          pragma Loop_Invariant (Index in First .. Last);
@@ -5450,17 +5854,29 @@ is
          pragma Loop_Invariant (Current.Position >= Scan.Position);
          pragma Loop_Invariant (Static =>
            Procedure_Updates_Model (Text, Context, Scan.Facts, Scan, Catalog, First, Last, Call_First, Call_After) =
-             Procedure_Updates_Model (Text, Context, Scan.Facts, Current, Catalog, Index, Last, Call_First, Call_After));
+             Procedure_Updates_Tail_Model
+               (Text, Context, Scan.Facts, Current, Catalog, First, Last, Index, Named, Seen,
+                Call_First, Call_After));
          pragma Loop_Variant (Increases => Index);
          Lemma_Body_Equality
            (Procedure_Updates_Model
               (Text, Context, Scan.Facts, Scan, Catalog, First, Last, Call_First, Call_After),
-            Procedure_Updates_Model
-              (Text, Context, Scan.Facts, Current, Catalog, Index, Last, Call_First, Call_After));
+            Procedure_Updates_Tail_Model
+              (Text, Context, Scan.Facts, Current, Catalog, First, Last, Index, Named, Seen,
+               Call_First, Call_After));
          Before := Current;
-         Current := Procedure_Update_Step
-           (Text, Context, Scan.Facts, Current, Catalog.Parameters (Index), Call_First, Call_After);
-         if Current.Position = 0 then return Invalid_Body (Before); end if;
+         declare Association : constant Actual_Association :=
+           Procedure_Association (Text, Current.Position, Catalog, First, Last, Index, Named);
+         begin
+            if Association.Formal = 0 or else Seen (Association.Formal) then return Invalid_Body (Before); end if;
+            Current.Position := Association.Payload_First;
+            Current := Procedure_Update_Step
+              (Text, Context, Scan.Facts, Current, Catalog.Parameters (Association.Formal),
+               Catalog, First, Last, Call_First, Call_After);
+            if Current.Position = 0 then return Invalid_Body (Before); end if;
+            Seen := Mark_Formal (Seen, Association.Formal);
+            Named := Association.Named;
+         end;
          if Index = Last then return Body_Token (Text, Context, Current, Right_Parenthesis); end if;
          Current := Body_Token (Text, Context, Current, Comma);
          if Current.Position = 0 then return Invalid_Body (Before); end if;

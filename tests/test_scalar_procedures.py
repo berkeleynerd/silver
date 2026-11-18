@@ -168,7 +168,7 @@ class ScalarProcedureTests(unittest.TestCase):
 
     def test_arity_and_call_statement_positions(self) -> None:
         declarations = RESET + b'R:Integer:=0;'
-        for body in (b'Reset();', b'Reset(R,R);', b'Reset(R,);', b'Reset(X=>R);',
+        for body in (b'Reset();', b'Reset(R,R);', b'Reset(R,);',
                      b'Reset;', b'R:=Reset(R);', b'R:=(Reset(R)+1);'):
             with self.subTest(body=body):
                 self.check(program(declarations, body), 2)

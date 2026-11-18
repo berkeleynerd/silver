@@ -128,6 +128,8 @@ def metadata_envelope() -> int:
 def subprogram_envelope() -> int:
     # Functions and procedures share the source-bound entity budget. Procedure
     # calls can be five bytes; writable actuals add a separate copy-back check.
+    # Named selectors add source bytes; each actual still reserves its own
+    # opening delimiter and payload byte, so the same maxima cover #392.
     # Charge output initialization separately instead of relying on overlap
     # with the older flow allowance. See scalar-procedures-report-capacity.md.
     subprograms = SOURCE_BYTES // 32

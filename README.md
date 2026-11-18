@@ -219,7 +219,7 @@ array/String signatures and expression-embedded calls remain outside this
 increment. Complete Linux native and Lean/source checkpoints passed; the delivery
 account retains accepted regression applicability and the final independent review.
 
-The [scalar-procedure delivery](docs/scalar-procedures.md#delivery-assurance-and-validation)
+The original [scalar-procedure delivery](docs/scalar-procedures.md#delivery-assurance-and-validation)
 adds closed Main-local Integer/Boolean procedures with explicit `in`, `out`
 and `in out` modes, ordered source-written output initialization, positional
 nonaliasing calls and range-checked copy-back. Every declared body is checked
@@ -228,6 +228,17 @@ over its full formal domains, including unused procedures. The
 returns the sum and difference through two scalar outputs. Complete native and
 Lean/source assurance and applicable regression checks pass on Linux ARM64;
 the delivery record retains final review and the explicit stack environment.
+
+The later [named scalar arguments increment #392](docs/named-scalar-arguments.md#delivery-assurance-and-validation)
+extends both functions and procedures with fully named calls in any order and
+positional-prefix/named-suffix calls. Selectors match formal names ignoring case;
+every formal is supplied exactly once. The [Named parameters driver](samples/rosetta_named_parameters.adb)
+uses a noncommutative function to distinguish bindings. Full formal domains,
+same-incoming-state input checks, conservative aliases, range-checked copy-back,
+exact source and existing budgets are preserved. Complete Linux native and
+Lean/actual-source checkpoints and the complete regression suite passed, with
+independent review recorded in the capability account. This evidence is separate
+from the original deliveries.
 
 The [Find square difference sample](samples/find_square_difference.adb) stores
 the first matching index and prints ` 501` followed by a newline.

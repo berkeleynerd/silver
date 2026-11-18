@@ -92,42 +92,119 @@ theorem ActualNameFreeTrace.procedureActual {text : Source} {context : ParseCont
       obtain ⟨apart, following⟩ := name.apart spelling trace (by omega) finishBound
       exact ⟨by simp only [Actual.avoids, bne_iff_ne]; exact apart, following⟩
 
-theorem ProcedureActualsAt.advance {text context facts catalog position first last actuals after}
-    (source : ProcedureActualsAt text context facts catalog position first last actuals after)
+theorem ProcedureActualsTailAt.advance {text context facts catalog position first last ordinal named seen entries after}
+    (source : ProcedureActualsTailAt text context facts catalog first last position ordinal named seen entries after)
     (positionBound : position ≤ text.length + 1) : position < after := by
   induction source with
-  | last reading closed =>
-      have one := reading.advance positionBound
+  | last selected _ reading closed =>
+      have payloadOrder := procedureAssociation_payload_order positionBound selected
+      have one := reading.advance (procedureAssociation_payload_bound _ _ _ _ _ _ _ positionBound)
       have close := Compose.Expressions.model_fixed_advances text _ ")" false reading.bounded (by decide) closed
       omega
-  | next _ reading comma rest ih =>
-      have one := reading.advance positionBound
+  | next _ selected _ reading comma rest ih =>
+      have payloadOrder := procedureAssociation_payload_order positionBound selected
+      have one := reading.advance (procedureAssociation_payload_bound _ _ _ _ _ _ _ positionBound)
       have delimiter := Compose.Expressions.model_fixed_advances text _ "," false reading.bounded (by decide) comma
       have restAdvance := ih (fixedAfter_result_bound text _ "," false (by decide))
       omega
 
-theorem ActualNameFreeTrace.procedureActuals {text : Source} {context : ParseContext} {facts : ActiveFlow}
-    {catalog : ProcedureBindings.Metadata} {position first last limit targetFirst targetAfter after : Nat}
-    {actuals : List ScalarProcedures.Actual} {target : Cell}
-    (trace : ActualNameFreeTrace text limit targetFirst targetAfter position)
+theorem ProcedureActualsAt.advance {text context facts catalog position first last actuals after}
     (source : ProcedureActualsAt text context facts catalog position first last actuals after)
-    (positionBound : position ≤ text.length + 1) (finishBound : after ≤ limit)
-    (spelling : CellSpelling text context targetFirst targetAfter target) (targetBound : target.InScalarNamespace) :
-    actuals.all (Actual.avoids target) = true ∧ ActualNameFreeTrace text limit targetFirst targetAfter after := by
+    (positionBound : position ≤ text.length + 1) : position < after := by
+  cases source with
+  | actuals source => exact source.advance positionBound
+
+/-- Each retained payload lies after the start of its source tail and strictly
+before the tail's closing cursor. These are source positions, not values. -/
+theorem ProcedureActualsTailAt.locations {text context facts catalog position first last ordinal named seen entries after}
+    (source : ProcedureActualsTailAt text context facts catalog first last position ordinal named seen entries after)
+    (positionBound : position ≤ text.length + 1) :
+    ∀ entry ∈ entries, position ≤ entry.2.position ∧ entry.2.position < entry.2.after ∧
+      entry.2.after < after ∧ entry.2.position ≤ text.length + 1 := by
   induction source with
-  | last reading closed =>
-      have closeAdvance := Compose.Expressions.model_fixed_advances text _ ")" false reading.bounded (by decide) closed
-      obtain ⟨free, afterActual⟩ := trace.procedureActual reading positionBound (by omega) spelling targetBound
-      exact ⟨by simp only [List.all_cons, free, List.all_nil, Bool.and_self],
-        afterActual.fixedSymbol (byte := ')') reading.bounded (by unfold OrdinarySymbol; decide) closed finishBound⟩
-  | @next position first last actual after actuals result _ reading comma rest ih =>
+  | @last position named seen actual after selected _ reading closed =>
+      intro entry present
+      have same := List.mem_singleton.mp present
+      subst entry
+      have payloadOrder := procedureAssociation_payload_order positionBound selected
+      have payloadBound := procedureAssociation_payload_bound text position catalog first last last named positionBound
+      have one := reading.advance payloadBound
+      have close := Compose.Expressions.model_fixed_advances text _ ")" false reading.bounded (by decide) closed
+      exact ⟨payloadOrder, one, close, payloadBound⟩
+  | @next position ordinal named seen actual after entries result _ selected _ reading comma rest ih =>
+      intro entry present
+      have payloadOrder := procedureAssociation_payload_order positionBound selected
+      have payloadBound := procedureAssociation_payload_bound text position catalog first last ordinal named positionBound
+      have one := reading.advance payloadBound
+      have delimiter := Compose.Expressions.model_fixed_advances text _ "," false reading.bounded (by decide) comma
+      have commaBound := fixedAfter_result_bound text after "," false (by decide)
+      have restAdvance := rest.advance commaBound
+      rcases List.mem_cons.mp present with same | later
+      · subst entry
+        exact ⟨payloadOrder, one, by dsimp only; omega, payloadBound⟩
+      · have location := ih commaBound entry later
+        exact ⟨by omega, location.2⟩
+
+theorem ProcedureActualsTailAt.after_order {text context facts catalog position first last ordinal named seen entries after}
+    (source : ProcedureActualsTailAt text context facts catalog first last position ordinal named seen entries after)
+    (positionBound : position ≤ text.length + 1) :
+    entries.Pairwise (fun left right => left.2.after < right.2.after) := by
+  induction source with
+  | last => exact List.pairwise_singleton _ _
+  | @next position ordinal named seen actual after entries result _ _ _ reading comma rest ih =>
       have commaBound := fixedAfter_result_bound text after "," false (by decide)
       have commaAdvance := Compose.Expressions.model_fixed_advances text _ "," false reading.bounded (by decide) comma
-      have restAdvance := rest.advance commaBound
-      obtain ⟨free, afterActual⟩ := trace.procedureActual reading positionBound (by omega) spelling targetBound
-      have afterComma := afterActual.fixedSymbol (byte := ',') reading.bounded (by unfold OrdinarySymbol; decide) comma
-        (by change fixedAfter text after "," false ≤ limit; omega)
-      obtain ⟨restFree, following⟩ := ih afterComma commaBound finishBound
-      exact ⟨by simp only [List.all_cons, free, restFree, Bool.and_self], following⟩
+      apply List.pairwise_cons.mpr
+      refine ⟨?_, ih commaBound⟩
+      intro entry present
+      have location := rest.locations commaBound entry present
+      dsimp only
+      omega
+
+/-- Replay and admission select the same formal and reader at every source
+position. Its success exposes the actual lexical exclusion for every payload. -/
+theorem ProcedureActualsTailAt.replayFree {text context facts catalog position first last ordinal named seen entries after}
+    (source : ProcedureActualsTailAt text context facts catalog first last position ordinal named seen entries after)
+    {callAfter targetFirst targetAfter : Nat}
+    (accepted : procedurePayloadsFreeModel text context position facts catalog first last ordinal named
+      callAfter targetFirst targetAfter = true) :
+    ∀ entry ∈ entries,
+      (skipAt text entry.2.position = targetFirst ∧ entry.2.after = targetAfter) ∨
+      actualNameFree text entry.2.position entry.2.after targetFirst targetAfter = true := by
+  induction source with
+  | @last position named seen actual after selected _ reading closed =>
+      rw [procedurePayloadsFreeModel] at accepted
+      dsimp only at accepted
+      simp only [selected, or_false, reading.equation, reading.positive, ↓reduceIte] at accepted
+      split at accepted
+      · contradiction
+      · split at accepted
+        · contradiction
+        · rename_i checked
+          have good : ((skipAt text (procedureAssociation text position catalog first last last named).payloadFirst == targetFirst && after == targetAfter) ||
+              actualNameFree text (procedureAssociation text position catalog first last last named).payloadFirst after targetFirst targetAfter) = true := by
+            exact Bool.of_not_eq_false (fun no => checked (by simp only [no, Bool.not_false]))
+          intro entry present
+          have same := List.mem_singleton.mp present
+          subst entry
+          simpa only [Bool.or_eq_true, Bool.and_eq_true, beq_iff_eq] using good
+  | @next position ordinal named seen actual after entries result within selected _ reading comma rest ih =>
+      rw [procedurePayloadsFreeModel] at accepted
+      dsimp only at accepted
+      simp only [selected, or_false, reading.equation, reading.positive, ↓reduceIte] at accepted
+      split at accepted
+      · contradiction
+      · split at accepted
+        · contradiction
+        · rename_i checked
+          have good : ((skipAt text (procedureAssociation text position catalog first last ordinal named).payloadFirst == targetFirst && after == targetAfter) ||
+              actualNameFree text (procedureAssociation text position catalog first last ordinal named).payloadFirst after targetFirst targetAfter) = true := by
+            exact Bool.of_not_eq_false (fun no => checked (by simp only [no, Bool.not_false]))
+          simp only [Nat.ne_of_lt within, ↓reduceIte] at accepted
+          intro entry present
+          rcases List.mem_cons.mp present with same | later
+          · subst entry
+            simpa only [Bool.or_eq_true, Bool.and_eq_true, beq_iff_eq] using good
+          · exact ih accepted entry later
 
 end Silver.Predicate

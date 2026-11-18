@@ -1,0 +1,279 @@
+
+.silver/linux-aarch64/compiler/obj/silver_output_profile.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000035028 <silver_output_profile__procedure_actuals_after>:
+   35028:	a9a77bfd 	stp	x29, x30, [sp, #-400]!
+   3502c:	910003fd 	mov	x29, sp
+   35030:	a90153f3 	stp	x19, x20, [sp, #16]
+   35034:	a9025bf5 	stp	x21, x22, [sp, #32]
+   35038:	a90363f7 	stp	x23, x24, [sp, #48]
+   3503c:	a9046bf9 	stp	x25, x26, [sp, #64]
+   35040:	f9002bfb 	str	x27, [sp, #80]
+   35044:	a91407e0 	stp	x0, x1, [sp, #320]
+   35048:	f9009fe2 	str	x2, [sp, #312]
+   3504c:	b90137e3 	str	w3, [sp, #308]
+   35050:	f90097e4 	str	x4, [sp, #296]
+   35054:	f90093e5 	str	x5, [sp, #288]
+   35058:	b90133e6 	str	w6, [sp, #304]
+   3505c:	b9011fe7 	str	w7, [sp, #284]
+   35060:	910643e1 	add	x1, sp, #0x190
+   35064:	910503e0 	add	x0, sp, #0x140
+   35068:	f900c7e1 	str	x1, [sp, #392]
+   3506c:	f900bbe0 	str	x0, [sp, #368]
+   35070:	f9409fe0 	ldr	x0, [sp, #312]
+   35074:	f900b3e0 	str	x0, [sp, #352]
+   35078:	b94137e0 	ldr	w0, [sp, #308]
+   3507c:	b9017fe0 	str	w0, [sp, #380]
+   35080:	f94097e0 	ldr	x0, [sp, #296]
+   35084:	f900afe0 	str	x0, [sp, #344]
+   35088:	f94093e0 	ldr	x0, [sp, #288]
+   3508c:	f900b7e0 	str	x0, [sp, #360]
+   35090:	b94133e0 	ldr	w0, [sp, #304]
+   35094:	b90183e0 	str	w0, [sp, #384]
+   35098:	b9411fe0 	ldr	w0, [sp, #284]
+   3509c:	b9017be0 	str	w0, [sp, #376]
+   350a0:	f940a7e0 	ldr	x0, [sp, #328]
+   350a4:	b9400002 	ldr	w2, [x0]
+   350a8:	f940a7e0 	ldr	x0, [sp, #328]
+   350ac:	b9400400 	ldr	w0, [x0, #4]
+   350b0:	b90187e0 	str	w0, [sp, #388]
+   350b4:	b94187e0 	ldr	w0, [sp, #388]
+   350b8:	6b02001f 	cmp	w0, w2
+   350bc:	540002ab 	b.lt	35110 <silver_output_profile__procedure_actuals_after+0xe8>  // b.tstop
+   350c0:	b94187e0 	ldr	w0, [sp, #388]
+   350c4:	93407c00 	sxtw	x0, w0
+   350c8:	aa0003ec 	mov	x12, x0
+   350cc:	937ffc00 	asr	x0, x0, #63
+   350d0:	aa0003ed 	mov	x13, x0
+   350d4:	93407c40 	sxtw	x0, w2
+   350d8:	aa0003e8 	mov	x8, x0
+   350dc:	937ffc00 	asr	x0, x0, #63
+   350e0:	aa0003e9 	mov	x9, x0
+   350e4:	eb080181 	subs	x1, x12, x8
+   350e8:	da0901a0 	sbc	x0, x13, x9
+   350ec:	aa0103ee 	mov	x14, x1
+   350f0:	aa0003ef 	mov	x15, x0
+   350f4:	d2800020 	mov	x0, #0x1                   	// #1
+   350f8:	ab0001c1 	adds	x1, x14, x0
+   350fc:	d2800000 	mov	x0, #0x0                   	// #0
+   35100:	9a0001e0 	adc	x0, x15, x0
+   35104:	f9003be1 	str	x1, [sp, #112]
+   35108:	f9003fe0 	str	x0, [sp, #120]
+   3510c:	14000002 	b	35114 <silver_output_profile__procedure_actuals_after+0xec>
+   35110:	a9077fff 	stp	xzr, xzr, [sp, #112]
+   35114:	f940afe0 	ldr	x0, [sp, #344]
+   35118:	b9400000 	ldr	w0, [x0]
+   3511c:	93407c00 	sxtw	x0, w0
+   35120:	aa0003ea 	mov	x10, x0
+   35124:	d280000b 	mov	x11, #0x0                   	// #0
+   35128:	d37afd41 	lsr	x1, x10, #58
+   3512c:	d37ae577 	lsl	x23, x11, #6
+   35130:	aa1703e0 	mov	x0, x23
+   35134:	8b000020 	add	x0, x1, x0
+   35138:	aa0003f7 	mov	x23, x0
+   3513c:	d37ae556 	lsl	x22, x10, #6
+   35140:	f940afe0 	ldr	x0, [sp, #344]
+   35144:	b9400000 	ldr	w0, [x0]
+   35148:	93407c00 	sxtw	x0, w0
+   3514c:	aa0003f4 	mov	x20, x0
+   35150:	d2800015 	mov	x21, #0x0                   	// #0
+   35154:	d37afe81 	lsr	x1, x20, #58
+   35158:	d37ae6a0 	lsl	x0, x21, #6
+   3515c:	f90037e0 	str	x0, [sp, #104]
+   35160:	f94037e0 	ldr	x0, [sp, #104]
+   35164:	8b000020 	add	x0, x1, x0
+   35168:	f90037e0 	str	x0, [sp, #104]
+   3516c:	d37ae680 	lsl	x0, x20, #6
+   35170:	f90033e0 	str	x0, [sp, #96]
+   35174:	f940afe0 	ldr	x0, [sp, #344]
+   35178:	b9400000 	ldr	w0, [x0]
+   3517c:	93407c00 	sxtw	x0, w0
+   35180:	91000800 	add	x0, x0, #0x2
+   35184:	d37df000 	lsl	x0, x0, #3
+   35188:	aa0003f2 	mov	x18, x0
+   3518c:	d2800013 	mov	x19, #0x0                   	// #0
+   35190:	d37dfe40 	lsr	x0, x18, #61
+   35194:	d37df27b 	lsl	x27, x19, #3
+   35198:	aa1b03e1 	mov	x1, x27
+   3519c:	8b010000 	add	x0, x0, x1
+   351a0:	aa0003fb 	mov	x27, x0
+   351a4:	d37df25a 	lsl	x26, x18, #3
+   351a8:	b94187e0 	ldr	w0, [sp, #388]
+   351ac:	6b02001f 	cmp	w0, w2
+   351b0:	b94187e0 	ldr	w0, [sp, #388]
+   351b4:	6b02001f 	cmp	w0, w2
+   351b8:	540001cb 	b.lt	351f0 <silver_output_profile__procedure_actuals_after+0x1c8>  // b.tstop
+   351bc:	b94187e0 	ldr	w0, [sp, #388]
+   351c0:	93407c01 	sxtw	x1, w0
+   351c4:	93407c40 	sxtw	x0, w2
+   351c8:	cb000020 	sub	x0, x1, x0
+   351cc:	91000400 	add	x0, x0, #0x1
+   351d0:	aa0003f0 	mov	x16, x0
+   351d4:	d2800011 	mov	x17, #0x0                   	// #0
+   351d8:	d37dfe00 	lsr	x0, x16, #61
+   351dc:	d37df239 	lsl	x25, x17, #3
+   351e0:	aa1903e1 	mov	x1, x25
+   351e4:	8b010000 	add	x0, x0, x1
+   351e8:	aa0003f9 	mov	x25, x0
+   351ec:	d37df218 	lsl	x24, x16, #3
+   351f0:	b94187e0 	ldr	w0, [sp, #388]
+   351f4:	6b02001f 	cmp	w0, w2
+   351f8:	7100045f 	cmp	w2, #0x1
+   351fc:	54000120 	b.eq	35220 <silver_output_profile__procedure_actuals_after+0x1f8>  // b.none
+   35200:	90000000 	adrp	x0, 0 <silver_output_profile__token_kindH>
+   35204:	91000000 	add	x0, x0, #0x0
+   35208:	f90083e0 	str	x0, [sp, #256]
+   3520c:	90000000 	adrp	x0, 0 <silver_output_profile__token_kindH>
+   35210:	91000000 	add	x0, x0, #0x0
+   35214:	f90087e0 	str	x0, [sp, #264]
+   35218:	a95007e0 	ldp	x0, x1, [sp, #256]
+   3521c:	94000000 	bl	0 <system__assertions__raise_assert_failure>
+   35220:	a9470fe2 	ldp	x2, x3, [sp, #112]
+   35224:	2a0203e0 	mov	w0, w2
+   35228:	7100001f 	cmp	w0, #0x0
+   3522c:	5400008d 	b.le	3523c <silver_output_profile__procedure_actuals_after+0x214>
+   35230:	2a0203e0 	mov	w0, w2
+   35234:	7140041f 	cmp	w0, #0x1, lsl #12
+   35238:	5400012d 	b.le	3525c <silver_output_profile__procedure_actuals_after+0x234>
+   3523c:	90000000 	adrp	x0, 0 <silver_output_profile__token_kindH>
+   35240:	91000000 	add	x0, x0, #0x0
+   35244:	f9007be0 	str	x0, [sp, #240]
+   35248:	90000000 	adrp	x0, 0 <silver_output_profile__token_kindH>
+   3524c:	91000000 	add	x0, x0, #0x0
+   35250:	f9007fe0 	str	x0, [sp, #248]
+   35254:	a94f07e0 	ldp	x0, x1, [sp, #240]
+   35258:	94000000 	bl	0 <system__assertions__raise_assert_failure>
+   3525c:	b94187e1 	ldr	w1, [sp, #388]
+   35260:	12b00000 	mov	w0, #0x7fffffff            	// #2147483647
+   35264:	6b00003f 	cmp	w1, w0
+   35268:	540000a1 	b.ne	3527c <silver_output_profile__procedure_actuals_after+0x254>  // b.any
+   3526c:	5282bb81 	mov	w1, #0x15dc                	// #5596
+   35270:	90000000 	adrp	x0, 0 <silver_output_profile__token_kindH>
+   35274:	91000000 	add	x0, x0, #0x0
+   35278:	94000000 	bl	0 <__gnat_rcheck_CE_Overflow_Check>
+   3527c:	b94187e0 	ldr	w0, [sp, #388]
+   35280:	11000401 	add	w1, w0, #0x1
+   35284:	b9417fe0 	ldr	w0, [sp, #380]
+   35288:	6b00003f 	cmp	w1, w0
+   3528c:	5400012a 	b.ge	352b0 <silver_output_profile__procedure_actuals_after+0x288>  // b.tcont
+   35290:	90000000 	adrp	x0, 0 <silver_output_profile__token_kindH>
+   35294:	91000000 	add	x0, x0, #0x0
+   35298:	f90073e0 	str	x0, [sp, #224]
+   3529c:	90000000 	adrp	x0, 0 <silver_output_profile__token_kindH>
+   352a0:	91000000 	add	x0, x0, #0x0
+   352a4:	f90077e0 	str	x0, [sp, #232]
+   352a8:	a94e07e0 	ldp	x0, x1, [sp, #224]
+   352ac:	94000000 	bl	0 <system__assertions__raise_assert_failure>
+   352b0:	f940b3e0 	ldr	x0, [sp, #352]
+   352b4:	aa0003e2 	mov	x2, x0
+   352b8:	a95407e0 	ldp	x0, x1, [sp, #320]
+   352bc:	94000000 	bl	1bbb0 <silver_output_profile__valid_context>
+   352c0:	12001c00 	and	w0, w0, #0xff
+   352c4:	52000000 	eor	w0, w0, #0x1
+   352c8:	12001c00 	and	w0, w0, #0xff
+   352cc:	7100001f 	cmp	w0, #0x0
+   352d0:	54000120 	b.eq	352f4 <silver_output_profile__procedure_actuals_after+0x2cc>  // b.none
+   352d4:	90000000 	adrp	x0, 0 <silver_output_profile__token_kindH>
+   352d8:	91000000 	add	x0, x0, #0x0
+   352dc:	f9006be0 	str	x0, [sp, #208]
+   352e0:	90000000 	adrp	x0, 0 <silver_output_profile__token_kindH>
+   352e4:	91000000 	add	x0, x0, #0x0
+   352e8:	f9006fe0 	str	x0, [sp, #216]
+   352ec:	a94d07e0 	ldp	x0, x1, [sp, #208]
+   352f0:	94000000 	bl	0 <system__assertions__raise_assert_failure>
+   352f4:	f940b3e0 	ldr	x0, [sp, #352]
+   352f8:	f940afe1 	ldr	x1, [sp, #344]
+   352fc:	94000000 	bl	52980 <silver_output_profile__valid_flow>
+   35300:	12001c00 	and	w0, w0, #0xff
+   35304:	52000000 	eor	w0, w0, #0x1
+   35308:	12001c00 	and	w0, w0, #0xff
+   3530c:	7100001f 	cmp	w0, #0x0
+   35310:	54000120 	b.eq	35334 <silver_output_profile__procedure_actuals_after+0x30c>  // b.none
+   35314:	90000000 	adrp	x0, 0 <silver_output_profile__token_kindH>
+   35318:	91000000 	add	x0, x0, #0x0
+   3531c:	f90063e0 	str	x0, [sp, #192]
+   35320:	90000000 	adrp	x0, 0 <silver_output_profile__token_kindH>
+   35324:	91000000 	add	x0, x0, #0x0
+   35328:	f90067e0 	str	x0, [sp, #200]
+   3532c:	a94c07e0 	ldp	x0, x1, [sp, #192]
+   35330:	94000000 	bl	0 <system__assertions__raise_assert_failure>
+   35334:	f940b7e0 	ldr	x0, [sp, #360]
+   35338:	aa0003e2 	mov	x2, x0
+   3533c:	a95407e0 	ldp	x0, x1, [sp, #320]
+   35340:	94000000 	bl	0 <silver_procedure_bindings__valid_metadata>
+   35344:	12001c00 	and	w0, w0, #0xff
+   35348:	52000000 	eor	w0, w0, #0x1
+   3534c:	12001c00 	and	w0, w0, #0xff
+   35350:	7100001f 	cmp	w0, #0x0
+   35354:	54000120 	b.eq	35378 <silver_output_profile__procedure_actuals_after+0x350>  // b.none
+   35358:	90000000 	adrp	x0, 0 <silver_output_profile__token_kindH>
+   3535c:	91000000 	add	x0, x0, #0x0
+   35360:	f9005be0 	str	x0, [sp, #176]
+   35364:	90000000 	adrp	x0, 0 <silver_output_profile__token_kindH>
+   35368:	91000000 	add	x0, x0, #0x0
+   3536c:	f9005fe0 	str	x0, [sp, #184]
+   35370:	a94b07e0 	ldp	x0, x1, [sp, #176]
+   35374:	94000000 	bl	0 <system__assertions__raise_assert_failure>
+   35378:	b94183e1 	ldr	w1, [sp, #384]
+   3537c:	b9417be0 	ldr	w0, [sp, #376]
+   35380:	6b00003f 	cmp	w1, w0
+   35384:	5400012d 	b.le	353a8 <silver_output_profile__procedure_actuals_after+0x380>
+   35388:	90000000 	adrp	x0, 0 <silver_output_profile__token_kindH>
+   3538c:	91000000 	add	x0, x0, #0x0
+   35390:	f90053e0 	str	x0, [sp, #160]
+   35394:	90000000 	adrp	x0, 0 <silver_output_profile__token_kindH>
+   35398:	91000000 	add	x0, x0, #0x0
+   3539c:	f90057e0 	str	x0, [sp, #168]
+   353a0:	a94a07e0 	ldp	x0, x1, [sp, #160]
+   353a4:	94000000 	bl	0 <system__assertions__raise_assert_failure>
+   353a8:	f940b7e0 	ldr	x0, [sp, #360]
+   353ac:	b9480400 	ldr	w0, [x0, #2052]
+   353b0:	b9417be1 	ldr	w1, [sp, #376]
+   353b4:	6b00003f 	cmp	w1, w0
+   353b8:	5400012d 	b.le	353dc <silver_output_profile__procedure_actuals_after+0x3b4>
+   353bc:	90000000 	adrp	x0, 0 <silver_output_profile__token_kindH>
+   353c0:	91000000 	add	x0, x0, #0x0
+   353c4:	f9004be0 	str	x0, [sp, #144]
+   353c8:	90000000 	adrp	x0, 0 <silver_output_profile__token_kindH>
+   353cc:	91000000 	add	x0, x0, #0x0
+   353d0:	f9004fe0 	str	x0, [sp, #152]
+   353d4:	a94907e0 	ldp	x0, x1, [sp, #144]
+   353d8:	94000000 	bl	0 <system__assertions__raise_assert_failure>
+   353dc:	910563e0 	add	x0, sp, #0x158
+   353e0:	aa0003f2 	mov	x18, x0
+   353e4:	97fffe35 	bl	34cb8 <silver_output_profile__procedure_actuals_after___wrapped_statements.76>
+   353e8:	7100001f 	cmp	w0, #0x0
+   353ec:	54000300 	b.eq	3544c <silver_output_profile__procedure_actuals_after+0x424>  // b.none
+   353f0:	b9417fe1 	ldr	w1, [sp, #380]
+   353f4:	6b00003f 	cmp	w1, w0
+   353f8:	540001aa 	b.ge	3542c <silver_output_profile__procedure_actuals_after+0x404>  // b.tcont
+   353fc:	b94187e2 	ldr	w2, [sp, #388]
+   35400:	12b00001 	mov	w1, #0x7fffffff            	// #2147483647
+   35404:	6b01005f 	cmp	w2, w1
+   35408:	540000a1 	b.ne	3541c <silver_output_profile__procedure_actuals_after+0x3f4>  // b.any
+   3540c:	5282bc21 	mov	w1, #0x15e1                	// #5601
+   35410:	90000000 	adrp	x0, 0 <silver_output_profile__token_kindH>
+   35414:	91000000 	add	x0, x0, #0x0
+   35418:	94000000 	bl	0 <__gnat_rcheck_CE_Overflow_Check>
+   3541c:	b94187e1 	ldr	w1, [sp, #388]
+   35420:	11000421 	add	w1, w1, #0x1
+   35424:	6b00003f 	cmp	w1, w0
+   35428:	5400012a 	b.ge	3544c <silver_output_profile__procedure_actuals_after+0x424>  // b.tcont
+   3542c:	90000000 	adrp	x0, 0 <silver_output_profile__token_kindH>
+   35430:	91000000 	add	x0, x0, #0x0
+   35434:	f90043e0 	str	x0, [sp, #128]
+   35438:	90000000 	adrp	x0, 0 <silver_output_profile__token_kindH>
+   3543c:	91000000 	add	x0, x0, #0x0
+   35440:	f90047e0 	str	x0, [sp, #136]
+   35444:	a94807e0 	ldp	x0, x1, [sp, #128]
+   35448:	94000000 	bl	0 <system__assertions__raise_assert_failure>
+   3544c:	a94153f3 	ldp	x19, x20, [sp, #16]
+   35450:	a9425bf5 	ldp	x21, x22, [sp, #32]
+   35454:	a94363f7 	ldp	x23, x24, [sp, #48]
+   35458:	a9446bf9 	ldp	x25, x26, [sp, #64]
+   3545c:	f9402bfb 	ldr	x27, [sp, #80]
+   35460:	a8d97bfd 	ldp	x29, x30, [sp], #400
+   35464:	d65f03c0 	ret

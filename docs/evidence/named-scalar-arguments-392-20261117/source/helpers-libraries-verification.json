@@ -1,0 +1,12 @@
+{
+  "run_id": "20261117T025347-51f686bdde03",
+  "verified": {
+    "inputs_sha256": 1140,
+    "workspace_inputs_sha256": 1035,
+    "tools_sha256": 2
+  },
+  "log_verified": true,
+  "artifact_hashes_retained_in_evidence": 6100,
+  "modules": 338,
+  "note": "Focused helper/library validation. Complete candidate/source certificate/native proof remains pending. Artifact inventory retained; subsequent focused runs may replace matching cache files."
+}

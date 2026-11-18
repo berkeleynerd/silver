@@ -13,6 +13,8 @@ variable {domain : Compose.Expressions.StateDomain}
 /-- Native helper identity and previously checked source interfaces. The
 procedure-call meanings themselves are conclusions of DefinitionEquations. -/
 structure ImportsLinks (calls : Calls) (inherited : Compose.Expressions.Calls) (predicate : Native.Calls) : Prop where
+  markFormal : ∃ associations, AssociationNative.DefinitionEquations associations ∧
+    calls .markFormal = associations .markFormal
   skip : calls .skip = predicate.skip
   nameAfter : calls .nameAfter = predicate.nameAfter
   namesLookup : calls .namesLookup = predicate.lookup
@@ -32,7 +34,9 @@ structure ImportsLinks (calls : Calls) (inherited : Compose.Expressions.Calls) (
     FunctionCallNative.DefinitionEquations imported functions assignment ∧
     calls .functionActual = functions.actual
   nameFree : ∃ step model scan, ProcedureNameNative.FreeDefinitionEquations inherited step model scan ∧
-    calls .nameFree = scan
+    calls .nameFree = scan ∧ calls .nameFreeModel = model
+  association : ∃ associations, AssociationNative.ImportsLinks associations inherited predicate ∧
+    AssociationNative.DefinitionEquations associations ∧ calls .association = associations .procedureAssociation
   invalid : ∃ body, BodyWrappers.DefinitionEquations body ∧
     calls .invalid = body.invalid ∧ calls .invalidModel = body.invalidModel
   bodyToken : ∃ models wrappers body,
@@ -59,6 +63,16 @@ theorem imports_meaning {calls inherited predicate}
     (helpers : Native.HelperMeaning predicate) (defs : Native.DefinitionEquations predicate)
     (contracts : Native.Contracts predicate) (links : ImportsLinks calls inherited predicate) :
     ImportsMeaning calls where
+  markFormal := by
+    classical
+    funext seen formal
+    dsimp only [totalizeCalls]
+    split
+    · rename_i valid
+      obtain ⟨associations, definitions, observed⟩ := links.markFormal
+      rw [observed]
+      exact AssociationNative.markFormal_meaning definitions seen formal valid
+    · rfl
   skip := by
     classical
     funext text position
@@ -194,10 +208,32 @@ theorem imports_meaning {calls inherited predicate}
     dsimp only [totalizeCalls]
     split
     · rename_i valid
-      obtain ⟨step, model, scan, definitions, observed⟩ := links.nameFree
+      obtain ⟨step, model, scan, definitions, observed, _⟩ := links.nameFree
       rw [observed]
       exact ProcedureNameNative.interpreted_free inherited source step model scan definitions text
         position after targetFirst targetAfter valid
+    · rfl
+  nameFreeModel := by
+    classical
+    funext text position after targetFirst targetAfter
+    dsimp only [totalizeCalls]
+    split
+    · rename_i valid
+      obtain ⟨step, model, scan, definitions, _, observed⟩ := links.nameFree
+      rw [observed]
+      exact ProcedureNameNative.interpreted_freeModel inherited source step model scan definitions text
+        position after targetFirst targetAfter valid
+    · rfl
+  association := by
+    classical
+    funext text position catalog first last ordinal named
+    dsimp only [totalizeCalls]
+    split
+    · rename_i valid
+      obtain ⟨associations, imported, definitions, observed⟩ := links.association
+      rw [observed]
+      exact AssociationNative.procedureAssociation_meaning source helpers imported definitions
+        text position catalog first last ordinal named valid
     · rfl
   invalid := by
     classical
@@ -268,6 +304,7 @@ theorem linked_call {callee call inherited predicate}
 theorem model_imports_links
     (source : Compose.Expressions.RawHelperEquations Compose.Expressions.modelCalls (domain := domain)) :
     ImportsLinks modelCalls Compose.Expressions.modelCalls Native.modelCalls where
+  markFormal := ⟨AssociationNative.modelCalls, AssociationNative.model_definitions, rfl⟩
   skip := rfl
   nameAfter := rfl
   namesLookup := rfl
@@ -286,7 +323,9 @@ theorem model_imports_links
     FunctionCallNative.model_definitions_of_meaning
       (FunctionCallNative.imports_meaning source Native.model_helper_meaning
         Native.model_definition_equations Native.model_contracts FunctionCallNative.model_imports_links), rfl⟩
-  nameFree := ⟨_, _, _, ProcedureNameNative.model_definitions, rfl⟩
+  nameFree := ⟨_, _, _, ProcedureNameNative.model_definitions, rfl, rfl⟩
+  association := ⟨AssociationNative.modelCalls, AssociationNative.model_imports_links,
+    AssociationNative.model_definitions, rfl⟩
   invalid := ⟨_, BodyWrappers.model_definitions, rfl, rfl⟩
   bodyToken := by
     refine ⟨_, _, BodyNative.modelCalls, Adapter.Wrappers.model_raw_equations source _,

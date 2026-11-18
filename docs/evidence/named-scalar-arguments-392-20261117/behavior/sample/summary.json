@@ -1,0 +1,51 @@
+{
+  "source_sha256": "ffd7f4cdb7b34b838bf1e291f012cff2901ab9e437647a3b8e2784fd868d92b4",
+  "compiler_sha256": "f7df4eafa214b58bb583f05053c7f6646920136959868d0d0c0332ba2320034e",
+  "native_source_sha256": "ab1327dbb71d67448518ff965642c157062e3e12378ccb80f9911f3159297ba0",
+  "exit_status": 0,
+  "stdout": "Positional: 2\nNamed, reordered: 2\nMixed: 2\nReversed values:-2\n",
+  "stderr": "",
+  "counts": {
+    "units": 5,
+    "entities": 18,
+    "flow_checks": 20,
+    "proof_checks": 51,
+    "limitation_notes": 0,
+    "imported_entities": 6,
+    "trusted_math_notes": 0,
+    "vendor_spec_entities": 0,
+    "array_initialization_advisories": 0,
+    "operator_reassociation_advisories": 0,
+    "assignment_advisories": 13,
+    "image_advisories": 4,
+    "termination_checks": 1,
+    "initialization_checks": 0
+  },
+  "workspace": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-native-392/.silver/linux-aarch64/program-DITFEE",
+  "reports": {
+    "silver_runtime.spark": {
+      "bytes": 1692,
+      "sha256": "7cbf7a7179e3892fbf60c5ad36a29da6698d26cb6761aba749e80f6dd1b302d5"
+    },
+    "main~1.spark": {
+      "bytes": 18766,
+      "sha256": "1a6aea09782daf53fdfa0503303051548a799d74b3e9dd4193e371535bf5c80b"
+    },
+    "silver_output_libc.spark": {
+      "bytes": 1715,
+      "sha256": "d06cde918d6bedb489d5b8a5ac3d4623390c6379a0dd8d5ddf30eb1e2999a06f"
+    },
+    "gnatprove.sarif": {
+      "bytes": 57885,
+      "sha256": "dc49eba64239bf69b8b9e8222b774d5eea529c1e5223dfcff1c6a113a0480880"
+    },
+    "silver_io.spark": {
+      "bytes": 83232,
+      "sha256": "a6a6c3a230c9b419e5ad917ceb468d4822cbc0e97600adcc91a3ae09d74641d8"
+    },
+    "silver_arguments.spark": {
+      "bytes": 33838,
+      "sha256": "ec953a4383b888fb16bb4bb9e0d6a1ede366bef613c1fb448f82e1763e8b38c8"
+    }
+  }
+}

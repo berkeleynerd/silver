@@ -32,6 +32,31 @@ on each issue. It authorizes nothing else, amends no guarantee, and leaves merge
 a separate decision. No work is authorized by this entry itself. CLI memory was
 not updated.
 
+## 2026-11-17 — Named scalar arguments validated for reviewable publication
+
+The owner-selected #392 capability is complete on Linux aarch64. The
+[delivery account](named-scalar-arguments.md#delivery-assurance-and-validation)
+links complete native/Lean/source assurance, a fresh complete suite on repaired
+head `20e055be873f04a05d520b4e50f0e066515b7d4f`, and the
+[closing independent review](reviews/review-named-scalar-delivery-20261117.md).
+Closing documentation/evidence is separate from the frozen implementation.
+
+The original Lean memory failure cleared with reduced process threading under
+the unchanged limit; this did not require source or theorem repair. The first
+full suite caught nine stale checked-in generated certificates. Synchronizing
+them to the already audited workspace passed focused source-policy checks and
+then the fresh full suite. Both failures remain in the evidence; no obligation,
+input domain, test or proof budget was weakened. Run-specific concurrency is not
+a new default for future work.
+
+The precise named-scalar-arguments Rosetta construct and Named parameters sample
+are delivered through #392 and stage #393. Broad stage #11 remains open. Publish
+the validated branch/PR under the existing authorization and stop without merge.
+Preserve #373 recovery, the PR #385 hold, unrelated worktrees and donor caches.
+No next capability is authorized by this closeout. All validation was local;
+no CI or independent kernel replay was selected. CLI memory was not updated,
+and project-board access still lacks `read:project`.
+
 ## 2026-11-17 — Named scalar arguments selected while Worca recovery awaits
 
 After authorizing the next-work handoff with **“Proceed”**, the owner reported

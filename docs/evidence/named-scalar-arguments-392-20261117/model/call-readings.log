@@ -1,0 +1,120 @@
+Lean phase build started at 2026-11-17T02:33:48.766580+00:00
++ /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-model-392/.tools/linux-aarch64/lean/bin/lake --rehash --reconfigure -K silverThreads=12 build +Silver.PredicateAssociationBounds +Silver.PredicateFunctionCallReadings +Silver.PredicateProcedureCallReadings +Silver.AxiomAudit
+✔ [106/108] Built Silver.PredicateAssociationBounds (188ms)
+✔ [107/108] Built Silver.PredicateFunctionCallReadings (558ms)
+✔ [108/108] Built Silver.PredicateProcedureCallReadings (769ms)
+Build completed successfully (108 jobs).
+
+Lean phase build finished at 2026-11-17T02:33:51.677125+00:00; elapsed 2.911s; exit 0
+Lean phase audit started at 2026-11-17T02:33:51.979831+00:00
++ /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-model-392/.tools/linux-aarch64/lean/bin/lake -K silverThreads=12 env /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-model-392/.tools/linux-aarch64/lean/bin/lean -DwarningAsError=true -j12 .lake/silver-focused-audit.lean
+SILVER_MODULE Silver.Lexical
+SILVER_MODULE Silver.Admission
+SILVER_MODULE Silver.OutputLiteral
+SILVER_MODULE Silver.Cursor
+SILVER_MODULE Silver.OutputAdmission
+SILVER_MODULE Silver.NamedIdentifier
+SILVER_MODULE Silver.NamedAdmission
+SILVER_MODULE Silver.ArgumentsAdmission
+SILVER_MODULE Silver.GuardedDecimal
+SILVER_MODULE Silver.OutputRuntime
+SILVER_MODULE Silver.ArgumentsRuntime
+SILVER_MODULE Silver.IntegerIntervals
+SILVER_MODULE Silver.IntegerDivision
+SILVER_MODULE Silver.ArrayLayout
+SILVER_MODULE Silver.IntegerExpressions
+SILVER_MODULE Silver.IntegerImage
+SILVER_MODULE Silver.StringIndexing
+SILVER_MODULE Silver.CharacterExpressions
+SILVER_MODULE Silver.Bindings
+SILVER_MODULE Silver.ComposeExpression
+SILVER_MODULE Silver.Names
+SILVER_MODULE Silver.ScalarLiteral
+SILVER_MODULE Silver.IntegerDeclarations
+SILVER_MODULE Silver.IntegerMutable
+SILVER_MODULE Silver.IntegerChecks
+SILVER_MODULE Silver.IntegerArraySnapshots
+SILVER_MODULE Silver.IntegerArrays
+SILVER_MODULE Silver.BooleanModel
+SILVER_MODULE Silver.BooleanArrays
+SILVER_MODULE Silver.BooleanBindings
+SILVER_MODULE Silver.ArrayBindings
+SILVER_MODULE Silver.ScalarExpression
+SILVER_MODULE Silver.ScalarExpressionBounds
+SILVER_MODULE Silver.ScalarExpressionGrammar
+SILVER_MODULE Silver.ScalarExpressionRecognition
+SILVER_MODULE Silver.ScalarArrayExpressionGrammar
+SILVER_MODULE Silver.ScalarArrayExpressionRecognition
+SILVER_MODULE Silver.ScalarExpressionEnvironment
+SILVER_MODULE Silver.ScalarExpressionAdmission
+SILVER_MODULE Silver.StringLengths
+SILVER_MODULE Silver.IntegerSubtypeBindings
+SILVER_MODULE Silver.FunctionBindings
+SILVER_MODULE Silver.ProcedureBindings
+SILVER_MODULE Silver.ComposeAtomAdmission
+SILVER_MODULE Silver.PathFacts
+SILVER_MODULE Silver.IntegerComparisons
+SILVER_MODULE Silver.StringExecution
+SILVER_MODULE Silver.PredicateSyntax
+SILVER_MODULE Silver.PredicateSemantics
+SILVER_MODULE Silver.StringLengthRefinement
+SILVER_MODULE Silver.ScalarFlow
+SILVER_MODULE Silver.PredicateChecking
+SILVER_MODULE Silver.IntegerLiteral
+SILVER_MODULE Silver.PredicateFlowStorage
+SILVER_MODULE Silver.PredicateFlowOverlay
+SILVER_MODULE Silver.PredicateFlowOperations
+SILVER_MODULE Silver.PredicateFlowInvariant
+SILVER_MODULE Silver.PredicateFlowWidening
+SILVER_MODULE Silver.PredicateArrayFlow
+SILVER_MODULE Silver.PredicateXorAdmission
+SILVER_MODULE Silver.PredicateConditionAdmission
+SILVER_MODULE Silver.ScalarAssociations
+SILVER_MODULE Silver.PredicateAssociationAdmission
+SILVER_MODULE Silver.ComposeAtomReading
+SILVER_MODULE Silver.ComposeIndexedReading
+SILVER_MODULE Silver.ComposeCharacterReading
+SILVER_MODULE Silver.ComposeAtoms
+SILVER_MODULE Silver.StringObjectBounds
+SILVER_MODULE Silver.ComposeBindingBounds
+SILVER_MODULE Silver.ComposeDeclarationAdmission
+SILVER_MODULE Silver.IntegerIteration
+SILVER_MODULE Silver.PredicateBodyFacts
+SILVER_MODULE Silver.PredicateCallAdmission
+SILVER_MODULE Silver.PredicateCountedBoundModel
+SILVER_MODULE Silver.PredicateBodyPrimitives
+SILVER_MODULE Silver.ProcedureNameScanner
+SILVER_MODULE Silver.PredicateProcedureCallAdmission
+SILVER_MODULE Silver.PredicateBodyScanner
+SILVER_MODULE Silver.FunctionDeclarationAdmission
+SILVER_MODULE Silver.FunctionDeclarationPreservation
+SILVER_MODULE Silver.ProcedureHeaderAdmission
+SILVER_MODULE Silver.ProcedureDeclarationAdmission
+SILVER_MODULE Silver.ProcedureDeclarationModel
+SILVER_MODULE Silver.ProcedureDeclarationPreservation
+SILVER_MODULE Silver.ComposeAdmission
+SILVER_MODULE Silver.ComposeBounds
+SILVER_MODULE Silver.PredicateAssociationBounds
+SILVER_MODULE Silver.ComposeSemantics
+SILVER_MODULE Silver.PredicateReadings
+SILVER_MODULE Silver.StringFreezing
+SILVER_MODULE Silver.ComposeCharacterProperties
+SILVER_MODULE Silver.PathBounds
+SILVER_MODULE Silver.PredicateCharacterReadings
+SILVER_MODULE Silver.PredicateConditionReadings
+SILVER_MODULE Silver.PredicateConditionSound
+SILVER_MODULE Silver.PredicateConditionUnique
+SILVER_MODULE Silver.ScalarFunctionTypes
+SILVER_MODULE Silver.ScalarCallSyntax
+SILVER_MODULE Silver.ScalarCallChecking
+SILVER_MODULE Silver.PredicateFunctionCallReadings
+SILVER_MODULE Silver.PredicateProcedureCallProperties
+SILVER_MODULE Silver.ProcedureMetadataValidity
+SILVER_MODULE Silver.ScalarProcedureTypes
+SILVER_MODULE Silver.ProcedureMetadataSemantics
+SILVER_MODULE Silver.ScalarProcedureSyntax
+SILVER_MODULE Silver.PredicateProcedureCallReadings
+SILVER_MODULE Silver.AxiomAudit
+Silver axiom audit passed: 11170 declarations; foundations: [propext, Classical.choice, Quot.sound]
+
+Lean phase audit finished at 2026-11-17T02:33:52.670257+00:00; elapsed 0.690s; exit 0

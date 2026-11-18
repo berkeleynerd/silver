@@ -44,11 +44,15 @@ arguments** for existing functions and procedures, with reordered named calls
 and positional-prefix/named-suffix calls, after confirming that Worca's #377/#378
 work is unavailable pending recovery. [#392](https://github.com/berkeleynerd/silver/issues/392),
 in [milestone 25](https://github.com/berkeleynerd/silver/milestone/25), owns the
-bounded [capability plan](docs/named-scalar-arguments.md). Named parameters is the
+bounded [capability plan](docs/named-scalar-arguments.md), with precise Rosetta
+[stage #393](https://github.com/berkeleynerd/silver/issues/393). Named parameters is the
 faithful task driver. Defaults, new parameter types and effects are excluded;
 full-domain checking, conservative aliases, exact-source assurance and one
-shared complete validation checkpoint remain required. This is authorized work,
-not yet supported language. The
+shared complete validation checkpoint remain required. The implementation has
+passed the complete Linux native and Lean/actual-source checkpoints; the
+[capability record](docs/named-scalar-arguments.md#delivery-assurance-and-validation)
+records the passed complete suite and independent closing review. Named scalar
+arguments are supported; the precise mapping adds one Rosetta task (84 to 85). The
 [dated selection](docs/session-memory.md#2026-11-17--named-scalar-arguments-selected-while-worca-recovery-awaits)
 changes the immediate order below; #373 remains unfinished pending recovery,
 and draft PR #385 stays held.
@@ -1274,7 +1278,8 @@ sequence.
 | Boolean scalar objects and expressions | Supported | Initialized scalar Boolean objects, assignment and eager/short-circuit expressions; no retained scalar predicate facts through flags, no xor inside xor operands; [delivery assurance and validation](docs/boolean-objects.md#delivery-assurance-and-validation). | [Sequence of primes](samples/rosetta_sequence_of_primes_by_trial_division.adb), [Square but not cube](samples/rosetta_square_but_not_cube.adb), [Common list elements](samples/rosetta_common_list_elements.adb) |
 | Bounded String indexing and Character operations | Supported | Printable-ASCII Character values and typed comparisons, fixed-bound String indexed reads/writes and bounded slices, preserving actual/null bounds, sliding and snapshots; [complete Linux assurance and validation](docs/bounded-string-characters.md#repaired-delivery-checkpoint--2026-11-05). | [Reversal](samples/rosetta_reverse_a_string.adb), [palindromes](samples/rosetta_palindrome_detection.adb), [selective replacement](samples/rosetta_selective_character_replacement.adb) |
 | Fixed-size Boolean arrays | Supported | Explicitly initialized anonymous one-dimensional predefined Boolean arrays, safe scalar-only indexes and mutable component writes; exact snapshots and typed stored flags without retained predicate facts. [Linux evidence and closing confirmation](docs/boolean-arrays.md#delivery-assurance-and-validation--2026-11-07). Broad arrays/booleans and Boolean iteration/`others` remain separate. | [Sieve through 100](samples/rosetta_sieve_of_eratosthenes.adb), [elementary cellular automata](samples/rosetta_elementary_cellular_automaton.adb) |
-| Small nonrecursive scalar procedures | Supported | Explicit scalar parameter modes, source-written output initialization, positional nonaliasing calls and range-checked copy-back; [complete Linux evidence](docs/scalar-procedures.md#delivery-assurance-and-validation). Broad procedures remain separate. | [Return multiple values](samples/rosetta_return_multiple_values.adb) |
+| Small nonrecursive scalar procedures | Supported | Explicit scalar parameter modes, source-written output initialization, nonaliasing scalar calls and range-checked copy-back; [original delivery evidence](docs/scalar-procedures.md#delivery-assurance-and-validation). The named/mixed extension is recorded separately below. Broad procedures remain separate. | [Return multiple values](samples/rosetta_return_multiple_values.adb) |
+| Named scalar arguments | Supported | Fully positional, reordered fully named and positional-prefix/named-suffix calls of existing Integer/Boolean scalar functions and procedures; case-insensitive callee-formal selectors, every formal exactly once, unchanged full domains, incoming-state checks, aliases, copy-back, source and budgets. [Complete native/Lean/suite evidence and closing review](docs/named-scalar-arguments.md#delivery-assurance-and-validation); precise [stage #393](https://github.com/berkeleynerd/silver/issues/393). Defaults remain excluded; broad functions/procedures and arrays (#11/#12) remain separate. | [Named parameters](samples/rosetta_named_parameters.adb) |
 
 The output target covers admitted literals and bounded command-line
 messages; the text `Hello, world!` receives no special treatment. String literals do not imply support for

@@ -24,11 +24,34 @@ def ActualsDomain (text : Source) (context : Native.Context) (position : Nat)
   ReadDomain text context position facts ∧ ProcedureBindings.ValidMetadata text catalog ∧
     0 < first ∧ first ≤ last ∧ last ≤ catalog.parameters.length
 
+def ActualsTailDomain (text : Source) (context : Native.Context) (position : Nat)
+    (facts : ActiveFlow) (catalog : ProcedureBindings.Metadata) (first last ordinal : Nat) : Prop :=
+  ReadDomain text context position facts ∧ ProcedureBindings.ValidMetadata text catalog ∧
+    0 < first ∧ first ≤ ordinal ∧ ordinal ≤ last ∧ last ≤ catalog.parameters.length
+
+def PayloadsFreeModelDomain (text : Source) (context : Native.Context) (position : Nat)
+    (incoming : ActiveFlow) (catalog : ProcedureBindings.Metadata) (first last ordinal callAfter targetFirst targetAfter : Nat) : Prop :=
+  ActualsTailDomain text context position incoming catalog first last ordinal ∧
+    Expressions.ValidCursor text callAfter ∧ Expressions.ValidName text targetFirst targetAfter
+
+def PayloadsFreeDomain (text : Source) (context : Native.Context) (position : Nat)
+    (incoming : ActiveFlow) (catalog : ProcedureBindings.Metadata) (first last callAfter targetFirst targetAfter : Nat) : Prop :=
+  ActualsDomain text context position incoming catalog first last ∧
+    Expressions.ValidCursor text callAfter ∧ Expressions.ValidName text targetFirst targetAfter
+
 def UpdateDomain (text : Source) (context : Native.Context) (incoming : ActiveFlow)
-    (scan : BodyScan) (parameter : ProcedureBindings.Formal) (callFirst callAfter : Nat) : Prop :=
+    (scan : BodyScan) (parameter : ProcedureBindings.Formal) (catalog : ProcedureBindings.Metadata)
+    (first last callFirst callAfter : Nat) : Prop :=
   AssignmentDomain text context scan ∧ Native.ValidFlow context incoming ∧
-    ProcedureBindings.Native.FormalType parameter ∧
+    ProcedureBindings.Native.FormalType parameter ∧ ProcedureBindings.ValidMetadata text catalog ∧
+    0 < first ∧ first ≤ last ∧ last ≤ catalog.parameters.length ∧
     Expressions.ValidCursor text callFirst ∧ Expressions.ValidCursor text callAfter
+
+def UpdatesTailDomain (text : Source) (context : Native.Context) (incoming : ActiveFlow)
+    (scan : BodyScan) (catalog : ProcedureBindings.Metadata) (first last ordinal callFirst callAfter : Nat) : Prop :=
+  AssignmentDomain text context scan ∧ Native.ValidFlow context incoming ∧
+    ProcedureBindings.ValidMetadata text catalog ∧ 0 < first ∧ first ≤ ordinal ∧ ordinal ≤ last ∧
+    last ≤ catalog.parameters.length ∧ Expressions.ValidCursor text callFirst ∧ Expressions.ValidCursor text callAfter
 
 def UpdatesModelDomain (text : Source) (context : Native.Context) (incoming : ActiveFlow)
     (scan : BodyScan) (catalog : ProcedureBindings.Metadata) (first last callFirst callAfter : Nat) : Prop :=
@@ -69,6 +92,8 @@ GNATprove must establish legality of every executed native call. -/
 noncomputable def totalizeCalls (calls : Calls) : Calls := by
   classical
   exact fun
+    | .markFormal => fun seen formal => if AssociationNative.MarkDomain formal then
+        calls .markFormal seen formal else modelCalls .markFormal seen formal
     | .skip => fun text position =>
         if CursorDomain text position then calls .skip text position else modelCalls .skip text position
     | .nameAfter => fun text position =>
@@ -97,6 +122,27 @@ noncomputable def totalizeCalls (calls : Calls) : Calls := by
         if FunctionCallNative.ActualDomain text context position facts parameter then calls .functionActual text context position facts parameter else modelCalls .functionActual text context position facts parameter
     | .nameFree => fun text position after targetFirst targetAfter =>
         if ProcedureNameNative.StepDomain text position after targetFirst targetAfter then calls .nameFree text position after targetFirst targetAfter else modelCalls .nameFree text position after targetFirst targetAfter
+    | .nameFreeModel => fun text position after targetFirst targetAfter =>
+        if ProcedureNameNative.StepDomain text position after targetFirst targetAfter then calls .nameFreeModel text position after targetFirst targetAfter else modelCalls .nameFreeModel text position after targetFirst targetAfter
+    | .association => fun text position catalog first last ordinal named =>
+        if AssociationNative.ProcedureAssociationDomain text position catalog first last ordinal then
+          calls .association text position catalog first last ordinal named else modelCalls .association text position catalog first last ordinal named
+    | .actualsTail => fun text context position facts catalog first last ordinal named seen =>
+        if ActualsTailDomain text context position facts catalog first last ordinal then
+          calls .actualsTail text context position facts catalog first last ordinal named seen
+        else modelCalls .actualsTail text context position facts catalog first last ordinal named seen
+    | .payloadsFreeModel => fun text context position incoming catalog first last ordinal named callAfter targetFirst targetAfter =>
+        if PayloadsFreeModelDomain text context position incoming catalog first last ordinal callAfter targetFirst targetAfter then
+          calls .payloadsFreeModel text context position incoming catalog first last ordinal named callAfter targetFirst targetAfter
+        else modelCalls .payloadsFreeModel text context position incoming catalog first last ordinal named callAfter targetFirst targetAfter
+    | .payloadsFree => fun text context position incoming catalog first last callAfter targetFirst targetAfter =>
+        if PayloadsFreeDomain text context position incoming catalog first last callAfter targetFirst targetAfter then
+          calls .payloadsFree text context position incoming catalog first last callAfter targetFirst targetAfter
+        else modelCalls .payloadsFree text context position incoming catalog first last callAfter targetFirst targetAfter
+    | .updatesTail => fun text context incoming scan catalog first last ordinal named seen callFirst callAfter =>
+        if UpdatesTailDomain text context incoming scan catalog first last ordinal callFirst callAfter then
+          calls .updatesTail text context incoming scan catalog first last ordinal named seen callFirst callAfter
+        else modelCalls .updatesTail text context incoming scan catalog first last ordinal named seen callFirst callAfter
     | .invalid => fun scan =>
         if scan.count ≤ ScalarExpression.maxBindings then calls .invalid scan else modelCalls .invalid scan
     | .invalidModel => fun scan =>
@@ -111,8 +157,10 @@ noncomputable def totalizeCalls (calls : Calls) : Calls := by
         if ActualsDomain text context position facts catalog first last then calls .actualsModel text context position facts catalog first last else modelCalls .actualsModel text context position facts catalog first last
     | .actuals => fun text context position facts catalog first last =>
         if ActualsDomain text context position facts catalog first last then calls .actuals text context position facts catalog first last else modelCalls .actuals text context position facts catalog first last
-    | .update => fun text context incoming scan parameter callFirst callAfter =>
-        if UpdateDomain text context incoming scan parameter callFirst callAfter then calls .update text context incoming scan parameter callFirst callAfter else modelCalls .update text context incoming scan parameter callFirst callAfter
+    | .update => fun text context incoming scan parameter catalog first last callFirst callAfter =>
+        if UpdateDomain text context incoming scan parameter catalog first last callFirst callAfter then
+          calls .update text context incoming scan parameter catalog first last callFirst callAfter
+        else modelCalls .update text context incoming scan parameter catalog first last callFirst callAfter
     | .updatesModel => fun text context incoming scan catalog first last callFirst callAfter =>
         if UpdatesModelDomain text context incoming scan catalog first last callFirst callAfter then calls .updatesModel text context incoming scan catalog first last callFirst callAfter else modelCalls .updatesModel text context incoming scan catalog first last callFirst callAfter
     | .updates => fun text context scan catalog first last callFirst callAfter =>
@@ -125,6 +173,7 @@ noncomputable def totalizeCalls (calls : Calls) : Calls := by
 /-- Only separately checked imported functions occur here. No completed
 procedure-target, recursive-actuals, update, callee or call law is assumed. -/
 structure ImportsMeaning (calls : Calls) : Prop where
+  markFormal : totalizeCalls calls .markFormal = modelCalls .markFormal
   skip : totalizeCalls calls .skip = modelCalls .skip
   nameAfter : totalizeCalls calls .nameAfter = modelCalls .nameAfter
   namesLookup : totalizeCalls calls .namesLookup = modelCalls .namesLookup
@@ -139,6 +188,8 @@ structure ImportsMeaning (calls : Calls) : Prop where
   booleanTarget : totalizeCalls calls .booleanTarget = modelCalls .booleanTarget
   functionActual : totalizeCalls calls .functionActual = modelCalls .functionActual
   nameFree : totalizeCalls calls .nameFree = modelCalls .nameFree
+  nameFreeModel : totalizeCalls calls .nameFreeModel = modelCalls .nameFreeModel
+  association : totalizeCalls calls .association = modelCalls .association
   invalid : totalizeCalls calls .invalid = modelCalls .invalid
   invalidModel : totalizeCalls calls .invalidModel = modelCalls .invalidModel
   bodyToken : totalizeCalls calls .bodyToken = modelCalls .bodyToken
@@ -155,9 +206,28 @@ structure DefinitionEquations (calls : Calls) : Prop where
   actualsModel : ∀ text context position facts catalog first last, ActualsDomain text context position facts catalog first last →
     calls .actualsModel text context position facts catalog first last =
       actualsBody.eval (totalizeCalls calls) ({text,context,position,facts,catalog,first,last} : Frame).locals
-  update : ∀ text context incoming scan parameter callFirst callAfter, UpdateDomain text context incoming scan parameter callFirst callAfter →
-    calls .update text context incoming scan parameter callFirst callAfter =
-      updateBody.eval (totalizeCalls calls) ({text,context,incoming,scan,parameter,callFirst,callAfter} : Frame).locals
+  actualsTail : ∀ text context position facts catalog first last ordinal named seen,
+    ActualsTailDomain text context position facts catalog first last ordinal →
+    calls .actualsTail text context position facts catalog first last ordinal named seen =
+      actualsTailBody.eval (totalizeCalls calls) ({text,context,position,facts,catalog,first,last,ordinal,named,seen} : Frame).locals
+  payloadsFreeModel : ∀ text context position incoming catalog first last ordinal named callAfter targetFirst targetAfter,
+    PayloadsFreeModelDomain text context position incoming catalog first last ordinal callAfter targetFirst targetAfter →
+    calls .payloadsFreeModel text context position incoming catalog first last ordinal named callAfter targetFirst targetAfter =
+      payloadsFreeBody.eval (totalizeCalls calls)
+        ({text,context,position,incoming,catalog,first,last,ordinal,named,callAfter,targetFirst,targetAfter} : Frame).locals
+  payloadsFree : ∀ text context position incoming catalog first last callAfter targetFirst targetAfter,
+    PayloadsFreeDomain text context position incoming catalog first last callAfter targetFirst targetAfter →
+    calls .payloadsFree text context position incoming catalog first last callAfter targetFirst targetAfter =
+      calls .payloadsFreeModel text context position incoming catalog first last first false callAfter targetFirst targetAfter
+  update : ∀ text context incoming scan parameter catalog first last callFirst callAfter,
+    UpdateDomain text context incoming scan parameter catalog first last callFirst callAfter →
+    calls .update text context incoming scan parameter catalog first last callFirst callAfter =
+      updateBody.eval (totalizeCalls calls) ({text,context,incoming,scan,parameter,catalog,first,last,callFirst,callAfter} : Frame).locals
+  updatesTail : ∀ text context incoming scan catalog first last ordinal named seen callFirst callAfter,
+    UpdatesTailDomain text context incoming scan catalog first last ordinal callFirst callAfter →
+    calls .updatesTail text context incoming scan catalog first last ordinal named seen callFirst callAfter =
+      updatesTailBody.eval (totalizeCalls calls)
+        ({text,context,incoming,scan,catalog,first,last,ordinal,named,seen,callFirst,callAfter} : Frame).locals
   updatesModel : ∀ text context incoming scan catalog first last callFirst callAfter, UpdatesModelDomain text context incoming scan catalog first last callFirst callAfter →
     calls .updatesModel text context incoming scan catalog first last callFirst callAfter =
       updatesBody.eval (totalizeCalls calls) ({text,context,incoming,scan,catalog,first,last,callFirst,callAfter} : Frame).locals
@@ -193,9 +263,19 @@ theorem model_definitions : DefinitionEquations modelCalls where
   actualsModel text context position facts catalog first last valid := by
     rw [model_calls_totalize]
     exact (actuals_model text context position facts catalog first last valid.2.2.2.1).symm
-  update text context incoming scan parameter callFirst callAfter _ := by
+  actualsTail text context position facts catalog first last ordinal named seen valid := by
+    rw [model_calls_totalize]
+    exact (actualsTail_model text context position facts catalog first last ordinal named seen valid.2.2.2.2.1).symm
+  payloadsFreeModel text context position incoming catalog first last ordinal named callAfter targetFirst targetAfter valid := by
+    rw [model_calls_totalize]
+    exact (payloadsFree_model text context position incoming catalog first last ordinal named callAfter targetFirst targetAfter valid.1.2.2.2.2.1).symm
+  payloadsFree := by intros; rfl
+  update text context incoming scan parameter catalog first last callFirst callAfter _ := by
     rw [model_calls_totalize]
     exact (update_model ..).symm
+  updatesTail text context incoming scan catalog first last ordinal named seen callFirst callAfter valid := by
+    rw [model_calls_totalize]
+    exact (updatesTail_model text context incoming scan catalog first last ordinal named seen callFirst callAfter valid.2.2.2.2.2.1).symm
   updatesModel text context incoming scan catalog first last callFirst callAfter valid := by
     rw [model_calls_totalize]
     exact (updates_model text context incoming scan catalog first last callFirst callAfter valid.2.2.2.2.1).symm

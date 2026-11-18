@@ -1,0 +1,457 @@
+Lean phase build started at 2026-11-17T02:41:55.255269+00:00
++ /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.tools/linux-aarch64/lean/bin/lake --rehash --reconfigure -K silverThreads=12 build +Silver.PredicateAssociationHelpers +Silver.PredicateFunctionCallGhostSource +Silver.PredicateProcedureCallHelpers +Silver.AxiomAudit
+✔ [138/205] Built Silver.ComposeBooleanDeclarations (314ms)
+✖ [139/210] Building Silver.PredicateProcedureCallProperties (371ms)
+trace: .> LEAN_PATH=/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/lib/lean /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.tools/linux-aarch64/lean/bin/lean -j12 -DwarningAsError=true /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/Silver/PredicateProcedureCallProperties.lean -o /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/PredicateProcedureCallProperties.olean -i /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/PredicateProcedureCallProperties.ilean -c /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/ir/Silver/PredicateProcedureCallProperties.c --setup /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/ir/Silver/PredicateProcedureCallProperties.setup.json --json
+error: Silver/PredicateProcedureCallProperties.lean:49:29: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  procedureActualAfter ?text ?context 0 ?facts ?parameter
+in the target expression
+  procedureActualsTailModel text context 0 facts catalog first last first false noFormals = 0
+
+text : Source
+context : ParseContext
+facts : ActiveFlow
+catalog : ProcedureBindings.Metadata
+first last : Nat
+⊢ procedureActualsTailModel text context 0 facts catalog first last first false noFormals = 0
+error: Silver/PredicateProcedureCallProperties.lean:55:62: Application type mismatch: The argument
+  callFirst
+has type
+  Nat
+but is expected to have type
+  ProcedureBindings.Metadata
+in the application
+  procedureUpdateStep text context incoming scan parameter callFirst
+error: Silver/PredicateProcedureCallProperties.lean:70:2: `dsimp` made no progress
+error: Silver/PredicateProcedureCallProperties.lean:81:0: unused termination hints, function is not recursive
+✔ [141/210] Built Silver.ComposeCharacterBounds (436ms)
+✔ [143/210] Built Silver.FunctionHeaderValidity (523ms)
+✔ [144/210] Built Silver.FunctionDeclarationHiding (603ms)
+✔ [145/210] Built Silver.PredicateAssociationNative (749ms)
+✔ [146/210] Built Silver.ComposeSemantics (841ms)
+✔ [147/210] Built Silver.ComposeNameBridge (467ms)
+✔ [148/210] Built Silver.ComposeStringPrimitiveEquations (1.0s)
+✔ [149/210] Built Silver.ComposeModelCalls (639ms)
+✔ [150/228] Built Silver.ProcedureDeclarationHiding (471ms)
+✔ [151/228] Built Silver.ComposeStringDeclarationEquation (1.2s)
+✔ [164/235] Built Silver.ProcedureHeaderValidity (690ms)
+✔ [165/235] Built Silver.PredicateReadings (386ms)
+✔ [169/236] Built Silver.ComposeFrozenSemantics (439ms)
+✔ [170/236] Built Silver.FunctionDeclarationValidity (908ms)
+✔ [173/236] Built Silver.ComposeNativeValueBounds (1.6s)
+✔ [175/246] Built Silver.ComposeCoreHelperEquations (880ms)
+✖ [178/251] Building Silver.PredicateAssociationEquations (1.3s)
+trace: .> LEAN_PATH=/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/lib/lean /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.tools/linux-aarch64/lean/bin/lean -j12 -DwarningAsError=true /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/Silver/PredicateAssociationEquations.lean -o /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/PredicateAssociationEquations.olean -i /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/PredicateAssociationEquations.ilean -c /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/ir/Silver/PredicateAssociationEquations.c --setup /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/ir/Silver/PredicateAssociationEquations.setup.json --json
+error: Silver/PredicateAssociationEquations.lean:37:2: unsolved goals
+case pos
+storage : FormalStorage
+index : Nat
+bound : 0 < index ∧ index ≤ FunctionBindings.maxFormals
+selected : Nat
+inside : 0 < selected ∧ selected ≤ FunctionBindings.maxFormals
+positive : 0 < selected
+restore : selected - 1 + 1 = selected
+⊢ (if h : True ∧ True then if selected = index then true else storage ⟨selected - 1, ⋯⟩ else false) =
+    if selected = index then true else if h : True ∧ True then storage ⟨selected - 1, ⋯⟩ else false
+error: Silver/PredicateAssociationEquations.lean:38:43: This simp argument is unused:
+  ↓reduceDIte
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [FormalStorage.read, inside, FormalStorage.mark, markFormal, ScalarAssociations.markFormal]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+error: Silver/PredicateAssociationEquations.lean:55:2: unsolved goals
+case pos
+text : Source
+catalog : FunctionBindings.Metadata
+first last nameFirst nameAfter : Nat
+ordered : first ≤ last
+final : first = last
+⊢ (if nameFirst = 0 ∨ nameAfter ≤ nameFirst then 0
+    else
+      if
+          Expr.eval modelCalls
+              ((((((((((Locals.set (fun ty x => ty.default) Ty.source "text" text).set Ty.functions "catalog"
+                                                catalog).set
+                                            Ty.procedures "catalog" { }).set
+                                        Ty.number "position" 0).set
+                                    Ty.number "first" last).set
+                                Ty.number "last" last).set
+                            Ty.number "ordinal" 0).set
+                        Ty.truth "named" false).set
+                    Ty.number "name_first" nameFirst).set
+                Ty.number "name_after" nameAfter)
+              (apply3 (Expr.function Function.equalName) (Expr.variable "text")
+                (Expr.field Field.functionFirst ((Expr.variable "catalog").functionParameter (Expr.variable "first")))
+                (Expr.field Field.functionAfter ((Expr.variable "catalog").functionParameter (Expr.variable "first"))))
+              nameFirst nameAfter =
+            true then
+        last
+      else 0) =
+    if nameFirst = 0 ∨ nameAfter ≤ nameFirst then 0
+    else
+      if
+          Named.equalName text (FunctionBindings.parameter catalog last).first
+              (FunctionBindings.parameter catalog last).after nameFirst nameAfter =
+            true then
+        last
+      else 0
+error: Silver/PredicateAssociationEquations.lean:56:2: unsolved goals
+case neg
+text : Source
+catalog : FunctionBindings.Metadata
+first last nameFirst nameAfter : Nat
+ordered : first ≤ last
+final : ¬first = last
+advancing : first < last
+⊢ (if nameFirst = 0 ∨ nameAfter ≤ nameFirst then 0
+    else
+      if
+          Expr.eval modelCalls
+              ((((((((((Locals.set (fun ty x => ty.default) Ty.source "text" text).set Ty.functions "catalog"
+                                                catalog).set
+                                            Ty.procedures "catalog" { }).set
+                                        Ty.number "position" 0).set
+                                    Ty.number "first" first).set
+                                Ty.number "last" last).set
+                            Ty.number "ordinal" 0).set
+                        Ty.truth "named" false).set
+                    Ty.number "name_first" nameFirst).set
+                Ty.number "name_after" nameAfter)
+              (apply3 (Expr.function Function.equalName) (Expr.variable "text")
+                (Expr.field Field.functionFirst ((Expr.variable "catalog").functionParameter (Expr.variable "first")))
+                (Expr.field Field.functionAfter ((Expr.variable "catalog").functionParameter (Expr.variable "first"))))
+              nameFirst nameAfter =
+            true then
+        first
+      else
+        Expr.eval modelCalls
+          ((((((((((Locals.set (fun ty x => ty.default) Ty.source "text" text).set Ty.functions "catalog" catalog).set
+                                        Ty.procedures "catalog" { }).set
+                                    Ty.number "position" 0).set
+                                Ty.number "first" first).set
+                            Ty.number "last" last).set
+                        Ty.number "ordinal" 0).set
+                    Ty.truth "named" false).set
+                Ty.number "name_first" nameFirst).set
+            Ty.number "name_after" nameAfter)
+          (apply3 (Expr.function Function.functionFormalModel) (Expr.variable "text") (Expr.variable "catalog")
+            ((Expr.variable "first").add (Expr.number 1)))
+          last nameFirst nameAfter) =
+    if nameFirst = 0 ∨ nameAfter ≤ nameFirst then 0
+    else
+      if
+          Named.equalName text (FunctionBindings.parameter catalog first).first
+              (FunctionBindings.parameter catalog first).after nameFirst nameAfter =
+            true then
+        first
+      else functionFormalModel text catalog (first + 1) last nameFirst nameAfter
+error: Silver/PredicateAssociationEquations.lean:68:2: unsolved goals
+case pos
+text : Source
+catalog : ProcedureBindings.Metadata
+first last nameFirst nameAfter : Nat
+ordered : first ≤ last
+final : first = last
+⊢ (if nameFirst = 0 ∨ nameAfter ≤ nameFirst then 0
+    else
+      if
+          Expr.eval modelCalls
+              ((((((((((Locals.set (fun ty x => ty.default) Ty.source "text" text).set Ty.functions "catalog" { }).set
+                                            Ty.procedures "catalog" catalog).set
+                                        Ty.number "position" 0).set
+                                    Ty.number "first" last).set
+                                Ty.number "last" last).set
+                            Ty.number "ordinal" 0).set
+                        Ty.truth "named" false).set
+                    Ty.number "name_first" nameFirst).set
+                Ty.number "name_after" nameAfter)
+              (apply3 (Expr.function Function.equalName) (Expr.variable "text")
+                (Expr.field Field.procedureFirst ((Expr.variable "catalog").procedureParameter (Expr.variable "first")))
+                (Expr.field Field.procedureAfter
+                  ((Expr.variable "catalog").procedureParameter (Expr.variable "first"))))
+              nameFirst nameAfter =
+            true then
+        last
+      else 0) =
+    if nameFirst = 0 ∨ nameAfter ≤ nameFirst then 0
+    else
+      if
+          Named.equalName text (ProcedureBindings.parameter catalog last).first
+              (ProcedureBindings.parameter catalog last).after nameFirst nameAfter =
+            true then
+        last
+      else 0
+error: Silver/PredicateAssociationEquations.lean:69:2: unsolved goals
+case neg
+text : Source
+catalog : ProcedureBindings.Metadata
+first last nameFirst nameAfter : Nat
+ordered : first ≤ last
+final : ¬first = last
+advancing : first < last
+⊢ (if nameFirst = 0 ∨ nameAfter ≤ nameFirst then 0
+    else
+      if
+          Expr.eval modelCalls
+              ((((((((((Locals.set (fun ty x => ty.default) Ty.source "text" text).set Ty.functions "catalog" { }).set
+                                            Ty.procedures "catalog" catalog).set
+                                        Ty.number "position" 0).set
+                                    Ty.number "first" first).set
+                                Ty.number "last" last).set
+                            Ty.number "ordinal" 0).set
+                        Ty.truth "named" false).set
+                    Ty.number "name_first" nameFirst).set
+                Ty.number "name_after" nameAfter)
+              (apply3 (Expr.function Function.equalName) (Expr.variable "text")
+                (Expr.field Field.procedureFirst ((Expr.variable "catalog").procedureParameter (Expr.variable "first")))
+                (Expr.field Field.procedureAfter
+                  ((Expr.variable "catalog").procedureParameter (Expr.variable "first"))))
+              nameFirst nameAfter =
+            true then
+        first
+      else
+        Expr.eval modelCalls
+          ((((((((((Locals.set (fun ty x => ty.default) Ty.source "text" text).set Ty.functions "catalog" { }).set
+                                        Ty.procedures "catalog" catalog).set
+                                    Ty.number "position" 0).set
+                                Ty.number "first" first).set
+                            Ty.number "last" last).set
+                        Ty.number "ordinal" 0).set
+                    Ty.truth "named" false).set
+                Ty.number "name_first" nameFirst).set
+            Ty.number "name_after" nameAfter)
+          (apply3 (Expr.function Function.procedureFormalModel) (Expr.variable "text") (Expr.variable "catalog")
+            ((Expr.variable "first").add (Expr.number 1)))
+          last nameFirst nameAfter) =
+    if nameFirst = 0 ∨ nameAfter ≤ nameFirst then 0
+    else
+      if
+          Named.equalName text (ProcedureBindings.parameter catalog first).first
+              (ProcedureBindings.parameter catalog first).after nameFirst nameAfter =
+            true then
+        first
+      else procedureFormalModel text catalog (first + 1) last nameFirst nameAfter
+error: Silver/PredicateAssociationEquations.lean:75:76: unsolved goals
+text : Source
+position : Nat
+catalog : FunctionBindings.Metadata
+first last ordinal : Nat
+named : Bool
+⊢ (if position = 0 then invalidAssociation
+    else
+      if fixedAfter text (nameAfter text (skipAt text position)) "=>" false ≠ 0 then
+        {
+          formal :=
+            Expr.eval modelCalls
+              (((((((((((((Locals.set (fun ty x => ty.default) Ty.source "text" text).set Ty.functions "catalog"
+                                                            catalog).set
+                                                        Ty.procedures "catalog" { }).set
+                                                    Ty.number "position" position).set
+                                                Ty.number "first" first).set
+                                            Ty.number "last" last).set
+                                        Ty.number "ordinal" ordinal).set
+                                    Ty.truth "named" named).set
+                                Ty.number "name_first" 0).set
+                            Ty.number "name_after" 0).set
+                        Ty.number "name_first" (skipAt text position)).set
+                    Ty.number "name_end" (nameAfter text (skipAt text position))).set
+                Ty.number "payload" (fixedAfter text (nameAfter text (skipAt text position)) "=>" false))
+              (apply5 (Expr.function Function.functionFormalAt) (Expr.variable "text") (Expr.variable "catalog")
+                (Expr.variable "first") (Expr.variable "last") (Expr.variable "name_first"))
+              (nameAfter text (skipAt text position)),
+          payloadFirst := fixedAfter text (nameAfter text (skipAt text position)) "=>" false, named := true }
+      else if named = true then invalidAssociation else { formal := ordinal, payloadFirst := position }) =
+    if position = 0 then invalidAssociation
+    else
+      if fixedAfter text (nameAfter text (skipAt text position)) "=>" false ≠ 0 then
+        {
+          formal :=
+            functionFormalModel text catalog first last (skipAt text position) (nameAfter text (skipAt text position)),
+          payloadFirst := fixedAfter text (nameAfter text (skipAt text position)) "=>" false, named := true }
+      else if named = true then invalidAssociation else { formal := ordinal, payloadFirst := position }
+error: Silver/PredicateAssociationEquations.lean:84:77: unsolved goals
+text : Source
+position : Nat
+catalog : ProcedureBindings.Metadata
+first last ordinal : Nat
+named : Bool
+⊢ (if position = 0 then invalidAssociation
+    else
+      if fixedAfter text (nameAfter text (skipAt text position)) "=>" false ≠ 0 then
+        {
+          formal :=
+            Expr.eval modelCalls
+              (((((((((((((Locals.set (fun ty x => ty.default) Ty.source "text" text).set Ty.functions "catalog"
+                                                            { }).set
+                                                        Ty.procedures "catalog" catalog).set
+                                                    Ty.number "position" position).set
+                                                Ty.number "first" first).set
+                                            Ty.number "last" last).set
+                                        Ty.number "ordinal" ordinal).set
+                                    Ty.truth "named" named).set
+                                Ty.number "name_first" 0).set
+                            Ty.number "name_after" 0).set
+                        Ty.number "name_first" (skipAt text position)).set
+                    Ty.number "name_end" (nameAfter text (skipAt text position))).set
+                Ty.number "payload" (fixedAfter text (nameAfter text (skipAt text position)) "=>" false))
+              (apply5 (Expr.function Function.procedureFormalAt) (Expr.variable "text") (Expr.variable "catalog")
+                (Expr.variable "first") (Expr.variable "last") (Expr.variable "name_first"))
+              (nameAfter text (skipAt text position)),
+          payloadFirst := fixedAfter text (nameAfter text (skipAt text position)) "=>" false, named := true }
+      else if named = true then invalidAssociation else { formal := ordinal, payloadFirst := position }) =
+    if position = 0 then invalidAssociation
+    else
+      if fixedAfter text (nameAfter text (skipAt text position)) "=>" false ≠ 0 then
+        {
+          formal :=
+            procedureFormalModel text catalog first last (skipAt text position) (nameAfter text (skipAt text position)),
+          payloadFirst := fixedAfter text (nameAfter text (skipAt text position)) "=>" false, named := true }
+      else if named = true then invalidAssociation else { formal := ordinal, payloadFirst := position }
+✖ [180/251] Building Silver.PredicateFunctionCallNative (2.1s)
+trace: .> LEAN_PATH=/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/lib/lean /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.tools/linux-aarch64/lean/bin/lean -j12 -DwarningAsError=true /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/Silver/PredicateFunctionCallNative.lean -o /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/PredicateFunctionCallNative.olean -i /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/PredicateFunctionCallNative.ilean -c /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/ir/Silver/PredicateFunctionCallNative.c --setup /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/ir/Silver/PredicateFunctionCallNative.setup.json --json
+error: Silver/PredicateFunctionCallNative.lean:170:2: Tactic `cases` failed with a nested error:
+Dependent elimination failed: Failed to solve equation
+  Nat = Bool
+at case `named` after processing
+  _, (parameterAt _)
+the dependent pattern matcher can solve the following kinds of equations
+- <var> = <term> and <term> = <var>
+- <term> = <term> where the terms are definitionally equal
+- <constructor> = <constructor>, examples: List.cons x xs = List.cons y ys, and List.cons x xs = List.nil
+error: Silver/PredicateFunctionCallNative.lean:272:2: Tactic `cases` failed with a nested error:
+Dependent elimination failed: Failed to solve equation
+  Nat = Bool
+at case `named` after processing
+  _, (parameterAt _)
+the dependent pattern matcher can solve the following kinds of equations
+- <var> = <term> and <term> = <var>
+- <term> = <term> where the terms are definitionally equal
+- <constructor> = <constructor>, examples: List.cons x xs = List.cons y ys, and List.cons x xs = List.nil
+error: Silver/PredicateFunctionCallNative.lean:413:2: Tactic `cases` failed with a nested error:
+Dependent elimination failed: Failed to solve equation
+  Nat = Bool
+at case `named` after processing
+  _, (actualsTail _ _ _ _ _ _)
+the dependent pattern matcher can solve the following kinds of equations
+- <var> = <term> and <term> = <var>
+- <term> = <term> where the terms are definitionally equal
+- <constructor> = <constructor>, examples: List.cons x xs = List.cons y ys, and List.cons x xs = List.nil
+error: Silver/PredicateFunctionCallNative.lean:463:2: Tactic `cases` failed with a nested error:
+Dependent elimination failed: Failed to solve equation
+  Nat = Bool
+at case `named` after processing
+  _, (actual _ _)
+the dependent pattern matcher can solve the following kinds of equations
+- <var> = <term> and <term> = <var>
+- <term> = <term> where the terms are definitionally equal
+- <constructor> = <constructor>, examples: List.cons x xs = List.cons y ys, and List.cons x xs = List.nil
+error: Silver/PredicateFunctionCallNative.lean:572:6: Local variable 'cursor' resembles constructor 'Silver.Predicate.FunctionCallNative.Expr.cursor' - write '.cursor' (with a dot) or 'Silver.Predicate.FunctionCallNative.Expr.cursor' to use the constructor.
+
+Note: This linter can be disabled with `set_option linter.constructorNameAsVariable false`
+error: Silver/PredicateFunctionCallNative.lean:615:77: Tactic `decide` failed for proposition
+  Expr.value.group.valueAfter.wellFormed = false ∧
+    (Expr.intervalValue.empty.ite Expr.called Expr.called).group.callAfter.wellFormed = false ∧
+      ((Expr.number 1).makeCall (Expr.kind ScalarKind.integer) Expr.intervalBounds).callAfter.wellFormed = false ∧
+        Expr.parameter.group.formalKind.wellFormed = false ∧
+          Expr.intervalValue.group.lower.wellFormed = false ∧
+            Expr.value.valueAfter.wellFormed = true ∧
+              Expr.position.readCall.callAfter.wellFormed = true ∧
+                (Expr.number 1).parameterAt.formalBounds.wellFormed = true ∧
+                  Expr.position.readCall.callBounds.lower.wellFormed = true
+because its `Decidable` instance
+  instDecidableAnd
+did not reduce to `isTrue` or `isFalse`.
+
+Reduction got stuck at the `Decidable` instance
+  match Expr.value.group.valueAfter.wellFormed, false with
+  | false, false => isTrue ⋯
+  | false, true => isFalse ⋯
+  | true, false => isFalse ⋯
+  | true, true => isTrue ⋯
+✔ [184/251] Built Silver.ComposeNativeRecordBounds (483ms)
+✔ [187/251] Built Silver.ComposeStringDeclarations (738ms)
+✔ [188/251] Built Silver.ComposeSubtypeDeclarations (2.3s)
+✔ [189/251] Built Silver.BooleanBindingsNative (1.1s)
+✔ [190/251] Built Silver.PredicateStringAssignmentFields (427ms)
+✔ [191/251] Built Silver.PredicateConditionReadings (1.3s)
+✔ [192/251] Built Silver.PredicateFlowReaders (1.5s)
+✔ [193/251] Built Silver.BooleanBindingsSourceBridge (254ms)
+✔ [194/251] Built Silver.ComposeCharacterDeclarations (649ms)
+✔ [195/251] Built Silver.ProcedureDeclarationValidity (1.0s)
+✔ [196/251] Built Silver.ComposeObjectDeclarations (988ms)
+✔ [197/251] Built Silver.CallableDeclarationPreservation (521ms)
+✔ [198/251] Built Silver.PredicateConditionSound (1.7s)
+✔ [199/251] Built Silver.ProcedureNameNative (2.6s)
+✔ [200/251] Built Silver.ComposeArrayDenotations (3.8s)
+✔ [201/251] Built Silver.PredicateLoopProperties (462ms)
+✔ [202/251] Built Silver.PredicateNativeRanges (605ms)
+✔ [203/251] Built Silver.PredicateConditionUnique (2.6s)
+✔ [204/251] Built Silver.ProcedureNameFreeNative (632ms)
+✖ [205/251] Building Silver.PredicateFunctionCallReadings (333ms)
+trace: .> LEAN_PATH=/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/lib/lean /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.tools/linux-aarch64/lean/bin/lean -j12 -DwarningAsError=true /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/Silver/PredicateFunctionCallReadings.lean -o /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/PredicateFunctionCallReadings.olean -i /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/PredicateFunctionCallReadings.ilean -c /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/ir/Silver/PredicateFunctionCallReadings.c --setup /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/ir/Silver/PredicateFunctionCallReadings.setup.json --json
+error: Silver/PredicateFunctionCallReadings.lean:187:2: Tactic `split` failed: Could not split an `if` or `match` expression in the type
+  functionActualsTailModel text context position facts catalog first last first false noFormals ≠ 0
+of `accepted`
+
+Hint: Use `set_option trace.split.failure true` to display additional diagnostic information
+
+text : Source
+context : ParseContext
+facts : ActiveFlow
+catalog : FunctionBindings.Metadata
+position first last : Nat
+tv : Expressions.ValidText text
+nv : Expressions.ValidNames text context.names
+bounded : position ≤ List.length text + 1
+accepted : functionActualsTailModel text context position facts catalog first last first false noFormals ≠ 0
+⊢ ∃ actuals,
+    ActualsAt text context facts catalog position first last actuals
+      (functionActualsTailModel text context position facts catalog first last first false noFormals)
+error: Silver/PredicateFunctionCallReadings.lean:206:0: unused `termination_by`, function is not recursive
+✔ [209/251] Built Silver.ComposeArrayDeclarations (4.2s)
+✔ [210/251] Built Silver.ComposeArrayElaboration (304ms)
+✔ [211/251] Built Silver.ComposeScalarDeclarations (6.7s)
+✔ [212/251] Built Silver.ComposeBooleanArrayDeclarations (3.0s)
+✔ [213/251] Built Silver.ComposeBooleanArrayElaboration (361ms)
+✔ [214/251] Built Silver.ComposeDeclarations (4.0s)
+✔ [215/251] Built Silver.ComposeMain (313ms)
+✔ [216/251] Built Silver.ComposeObligations (348ms)
+✔ [217/251] Built Silver.ComposeGrammar (761ms)
+✔ [218/251] Built Silver.PredicateAdmission (151ms)
+✔ [219/251] Built Silver.SequenceSyntax (950ms)
+✔ [220/251] Built Silver.ComposeStateBounds (6.5s)
+✔ [221/251] Built Silver.SequenceSemantics (868ms)
+✔ [222/251] Built Silver.SequenceEffects (418ms)
+✔ [223/251] Built Silver.PredicateStatements (1.9s)
+✔ [224/251] Built Silver.SequenceExecution (995ms)
+✔ [225/251] Built Silver.PredicateObligations (1.4s)
+✔ [226/251] Built Silver.BooleanDeclarationObligations (174ms)
+✔ [227/251] Built Silver.ComposeArrayNativeBounds (4.7s)
+✔ [228/251] Built Silver.PredicateExecution (4.8s)
+✔ [229/251] Built Silver.ComposeArrayModel (1.9s)
+✔ [230/251] Built Silver.ScalarFunctionDefinition (466ms)
+✔ [231/251] Built Silver.ScalarProcedureDefinition (363ms)
+✔ [232/251] Built Silver.ScalarFunctionSemantics (498ms)
+✔ [233/251] Built Silver.ScalarFunctionComposition (218ms)
+✔ [234/251] Built Silver.ScalarProcedureSemantics (522ms)
+✔ [235/251] Built Silver.ScalarProcedureComposition (217ms)
+✔ [236/251] Built Silver.PredicateComposition (358ms)
+✔ [237/251] Built Silver.PredicateSourceSyntax (1.5s)
+✔ [238/251] Built Silver.PredicateBodyAdmission (238ms)
+✔ [241/251] Built Silver.ComposeScalarDenotations (46s)
+✔ [242/251] Built Silver.ComposeStringEquations (41s)
+✔ [243/251] Built Silver.ComposeGuardedSliceEquations (2.1s)
+✔ [244/251] Built Silver.ComposeStringHelperEquations (413ms)
+✔ [245/251] Built Silver.ComposeHelperEquations (9.4s)
+✔ [246/251] Built Silver.PredicateFlowReaderLibraries (246ms)
+✔ [247/251] Built Silver.ComposeArrayEquations (2.5s)
+✔ [248/251] Built Silver.ComposeEquations (33s)
+Some required targets logged failures:
+- Silver.PredicateProcedureCallProperties
+- Silver.PredicateAssociationEquations
+- Silver.PredicateFunctionCallNative
+- Silver.PredicateFunctionCallReadings
+error: build failed
+
+Lean phase build finished at 2026-11-17T02:43:42.807499+00:00; elapsed 107.552s; exit 1

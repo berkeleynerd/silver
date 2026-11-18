@@ -55,7 +55,7 @@ def actualBody : Expr .number :=
         (.field .formalKind parameter) (.field .formalBounds parameter)))
     (.field .actualAfter (apply5 (.function .target) text context position facts parameter))
 
-def actualsBody : Expr .number :=
+def actualsTailBody : Expr .number :=
   let text : Expr .source := .variable "text"
   let context : Expr .context := .variable "context"
   let position : Expr .number := .variable "position"
@@ -63,13 +63,65 @@ def actualsBody : Expr .number :=
   let catalog : Expr .metadata := .variable "catalog"
   let first : Expr .number := .variable "first"
   let last : Expr .number := .variable "last"
+  let ordinal : Expr .number := .variable "ordinal"
+  let named : Expr .truth := .variable "named"
+  let seen : Expr .formalSet := .variable "seen"
+  let association : Expr .association := .variable "association"
+  let formal := Expr.field .associationFormal association
+  let payload := Expr.field .associationPayload association
   let after : Expr .number := .variable "after"
   let comma := apply3 (.function .token) text after (.token .comma)
-  .declare <| .letValue "after" (apply5 (.function .actual) text context position facts (.formalAt catalog first)) <|
-    .beginValue <| .group <| .ite (.eq after (.number 0)) (.number 0)
-      (.elsif (.eq first last) (apply3 (.function .token) text after (.token .rightParenthesis))
-        (.elsif (.eq comma (.number 0)) (.number 0)
-          (apply7 (.function .actualsModel) text context comma facts catalog (.add first (.number 1)) last)))
+  .declare <| .letValue "association"
+    (apply7 (.function .association) text position catalog first last ordinal named) <|
+    .beginValue <| .group <| .ite (.orElse (.eq formal (.number 0)) (.seenAt seen formal)) (.number 0)
+      (.group <| .declare <| .letValue "after"
+        (apply5 (.function .actual) text context payload facts (.formalAt catalog formal)) <|
+        .beginValue <| .group <| .ite (.eq after (.number 0)) (.number 0)
+          (.elsif (.eq ordinal last) (apply3 (.function .token) text after (.token .rightParenthesis))
+            (.elsif (.eq comma (.number 0)) (.number 0)
+              (apply10 (.function .actualsTail) text context comma facts catalog first last
+                (.add ordinal (.number 1)) (.field .associationNamed association) (.markSeen seen formal)))))
+
+def actualsBody : Expr .number :=
+  apply10 (.function .actualsTail) (.variable "text") (.variable "context") (.variable "position")
+    (.variable "facts") (.variable "catalog") (.variable "first") (.variable "last")
+    (.variable "first") (.truth false) .noFormals
+
+/-- A selected formal's label never reaches Actual_Name_Free_Model. Replay
+checks each payload under the same incoming flow and exempts exactly the
+writable actual's own source span. -/
+def payloadsFreeBody : Expr .truth :=
+  let text : Expr .source := .variable "text"
+  let context : Expr .context := .variable "context"
+  let position : Expr .number := .variable "position"
+  let incoming : Expr .flow := .variable "incoming"
+  let catalog : Expr .metadata := .variable "catalog"
+  let first : Expr .number := .variable "first"
+  let last : Expr .number := .variable "last"
+  let ordinal : Expr .number := .variable "ordinal"
+  let named : Expr .truth := .variable "named"
+  let callAfter : Expr .number := .variable "call_after"
+  let targetFirst : Expr .number := .variable "target_first"
+  let targetAfter : Expr .number := .variable "target_after"
+  let association : Expr .association := .variable "association"
+  let formal := Expr.field .associationFormal association
+  let payload := Expr.field .associationPayload association
+  let after : Expr .number := .variable "after"
+  let comma := apply3 (.function .token) text after (.token .comma)
+  .declare <| .letValue "association"
+    (apply7 (.function .association) text position catalog first last ordinal named) <|
+    .beginValue <| .group <| .ite (.orElse (.eq callAfter (.number 0)) (.eq formal (.number 0))) (.truth false)
+      (.group <| .declare <| .letValue "after"
+        (apply5 (.function .actual) text context payload incoming (.formalAt catalog formal)) <|
+        .beginValue <| .group <| .ite (.eq after (.number 0)) (.truth false)
+          (.elsif (.not (.group (.orElse
+            (.group (.andThen (.eq (apply2 (.function .skip) text payload) targetFirst) (.eq after targetAfter)))
+            (apply5 (.function .nameFreeModel) text payload after targetFirst targetAfter)))) (.truth false)
+            (.elsif (.eq ordinal last)
+              (.eq (apply3 (.function .token) text after (.token .rightParenthesis)) callAfter)
+              (.elsif (.eq comma (.number 0)) (.truth false)
+                (apply12 (.function .payloadsFreeModel) text context comma incoming catalog first last
+                  (.add ordinal (.number 1)) (.field .associationNamed association) callAfter targetFirst targetAfter)))))
 
 def updateBody : Command .scan :=
   let text : Expr .source := .variable "text"
@@ -77,6 +129,9 @@ def updateBody : Command .scan :=
   let incoming : Expr .flow := .variable "incoming"
   let scan : Expr .scan := .variable "scan"
   let parameter : Expr .formal := .variable "parameter"
+  let catalog : Expr .metadata := .variable "catalog"
+  let firstFormal : Expr .number := .variable "first"
+  let lastFormal : Expr .number := .variable "last"
   let callFirst : Expr .number := .variable "call_first"
   let callAfter : Expr .number := .variable "call_after"
   let after : Expr .number := .variable "after"
@@ -94,16 +149,16 @@ def updateBody : Command .scan :=
     (.block <| .letValue "target" ["procedure_actual_result"]
       (apply5 (.function .target) text context (.field .scanPosition scan) incoming parameter) <|
       .beginBody <| .guard
-        (.orElse (.orElse (.orElse (.orElse
+        (.orElse (.orElse (.orElse
           (.eq targetAfter (.number 0)) (.lt first callFirst)) (.gt targetAfter callAfter))
-          (.not (apply5 (.function .nameFree) text callFirst first first targetAfter)))
-          (.not (apply5 (.function .nameFree) text targetAfter callAfter first targetAfter)))
+          (.not (apply10 (.function .payloadsFree) text context callFirst incoming catalog firstFormal lastFormal
+            callAfter first targetAfter)))
         rejected <|
         .branch (.eq scalar (.number 0)) (.returned advanced)
           (.returned (.update .facts advanced
             (.replace (.field .scanFacts scan) scalar (.field .formalBounds parameter)))))
 
-def updatesBody : Expr .scan :=
+def updatesTailBody : Expr .scan :=
   let text : Expr .source := .variable "text"
   let context : Expr .context := .variable "context"
   let incoming : Expr .flow := .variable "incoming"
@@ -111,20 +166,36 @@ def updatesBody : Expr .scan :=
   let catalog : Expr .metadata := .variable "catalog"
   let first : Expr .number := .variable "first"
   let last : Expr .number := .variable "last"
+  let ordinal : Expr .number := .variable "ordinal"
+  let named : Expr .truth := .variable "named"
+  let seen : Expr .formalSet := .variable "seen"
   let callFirst : Expr .number := .variable "call_first"
   let callAfter : Expr .number := .variable "call_after"
+  let association : Expr .association := .variable "association"
+  let formal := Expr.field .associationFormal association
+  let payload := Expr.field .associationPayload association
   let next : Expr .scan := .variable "next"
   let following : Expr .scan := .variable "following"
   let rejected := Expr.app (.function .invalidModel) scan
-  .declare <| .letValue "next"
-    (apply7 (.function .update) text context incoming scan (.formalAt catalog first) callFirst callAfter) <|
-    .beginValue <| .group <| .ite (.eq (.field .scanPosition next) (.number 0)) rejected
-      (.elsif (.eq first last) (apply4 (.function .bodyToken) text context next (.token .rightParenthesis))
-        (.group <| .declare <| .letValue "following"
-          (apply4 (.function .bodyToken) text context next (.token .comma)) <|
-          .beginValue <| .group <| .ite (.eq (.field .scanPosition following) (.number 0)) rejected
-            (apply9 (.function .updatesModel) text context incoming following catalog
-              (.add first (.number 1)) last callFirst callAfter)))
+  .declare <| .letValue "association"
+    (apply7 (.function .association) text (.field .scanPosition scan) catalog first last ordinal named) <|
+    .beginValue <| .group <| .ite (.orElse (.eq formal (.number 0)) (.seenAt seen formal)) rejected
+      (.group <| .declare <| .letValue "next"
+        (apply10 (.function .update) text context incoming (.update .position scan payload)
+          (.formalAt catalog formal) catalog first last callFirst callAfter) <|
+        .beginValue <| .group <| .ite (.eq (.field .scanPosition next) (.number 0)) rejected
+          (.elsif (.eq ordinal last) (apply4 (.function .bodyToken) text context next (.token .rightParenthesis))
+            (.group <| .declare <| .letValue "following"
+              (apply4 (.function .bodyToken) text context next (.token .comma)) <|
+              .beginValue <| .group <| .ite (.eq (.field .scanPosition following) (.number 0)) rejected
+                (apply12 (.function .updatesTail) text context incoming following catalog first last
+                  (.add ordinal (.number 1)) (.field .associationNamed association) (.markSeen seen formal)
+                  callFirst callAfter))))
+
+def updatesBody : Expr .scan :=
+  apply12 (.function .updatesTail) (.variable "text") (.variable "context") (.variable "incoming")
+    (.variable "scan") (.variable "catalog") (.variable "first") (.variable "last") (.variable "first")
+    (.truth false) .noFormals (.variable "call_first") (.variable "call_after")
 
 def calleeBody : Expr .number :=
   let text : Expr .source := .variable "text"
@@ -170,6 +241,7 @@ def callBody : Command .scan :=
       .returned (apply8 (.function .updates) text context (.update .position scan start) catalog first last start after)
 
 def modelCalls : Calls
+  | .markFormal => Predicate.markFormal
   | .skip => skipAt
   | .nameAfter => nameAfter
   | .namesLookup => lookupName
@@ -183,15 +255,24 @@ def modelCalls : Calls
   | .scalarTarget => fun text context position => Predicate.scalarTarget text context.model position
   | .booleanTarget => fun text context position => Predicate.booleanTarget text context.model position
   | .functionActual => fun text context position facts parameter => actualAfter text context.model position facts parameter
-  | .nameFree => actualNameFree
+  | .nameFree | .nameFreeModel => actualNameFree
+  | .association => procedureAssociation
   | .invalid | .invalidModel => invalidBody
   | .bodyToken => fun text _ scan token => Predicate.bodyToken text scan token
   | .target => fun text context position facts parameter => procedureTargetActual text context.model position facts parameter
   | .actual => fun text context position facts parameter => procedureActualAfter text context.model position facts parameter
   | .actualsModel | .actuals => fun text context position facts catalog first last =>
       procedureActualsAfter text context.model position facts catalog first last
-  | .update => fun text context incoming scan parameter callFirst callAfter =>
-      procedureUpdateStep text context.model incoming scan parameter callFirst callAfter
+  | .actualsTail => fun text context position facts catalog first last ordinal named seen =>
+      procedureActualsTailModel text context.model position facts catalog first last ordinal named seen
+  | .payloadsFreeModel => fun text context position incoming catalog first last ordinal named callAfter targetFirst targetAfter =>
+      procedurePayloadsFreeModel text context.model position incoming catalog first last ordinal named callAfter targetFirst targetAfter
+  | .payloadsFree => fun text context position incoming catalog first last callAfter targetFirst targetAfter =>
+      procedurePayloadsFree text context.model position incoming catalog first last callAfter targetFirst targetAfter
+  | .update => fun text context incoming scan parameter catalog first last callFirst callAfter =>
+      procedureUpdateStep text context.model incoming scan parameter catalog first last callFirst callAfter
+  | .updatesTail => fun text context incoming scan catalog first last ordinal named seen callFirst callAfter =>
+      procedureUpdatesTailModel text context.model incoming scan catalog first last ordinal named seen callFirst callAfter
   | .updatesModel => fun text context incoming scan catalog first last callFirst callAfter =>
       procedureUpdatesModel text context.model incoming scan catalog first last callFirst callAfter
   | .updates => fun text context scan catalog first last callFirst callAfter =>
@@ -210,6 +291,11 @@ structure Frame where
   parameter : ProcedureBindings.Formal := ProcedureBindings.emptyFormal
   first : Nat := 0
   last : Nat := 0
+  ordinal : Nat := 0
+  named : Bool := false
+  seen : FormalSet := noFormals
+  targetFirst : Nat := 0
+  targetAfter : Nat := 0
   callFirst : Nat := 0
   callAfter : Nat := 0
 
@@ -218,7 +304,10 @@ def Frame.locals (frame : Frame) : Locals
   | .context, _ => frame.context
   | .number, name => if name = "position" then frame.position else if name = "first" then frame.first else
       if name = "last" then frame.last else if name = "call_first" then frame.callFirst else
-      if name = "call_after" then frame.callAfter else 0
+      if name = "call_after" then frame.callAfter else if name = "ordinal" then frame.ordinal else
+      if name = "target_first" then frame.targetFirst else if name = "target_after" then frame.targetAfter else 0
+  | .truth, _ => frame.named
+  | .formalSet, _ => frame.seen
   | .flow, name => if name = "incoming" then frame.incoming else frame.facts
   | .scan, _ => frame.scan
   | .metadata, _ => frame.catalog

@@ -1,0 +1,23 @@
+Lean phase build started at 2026-11-17T02:51:21.083695+00:00
++ /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.tools/linux-aarch64/lean/bin/lake --rehash --reconfigure -K silverThreads=12 build +Silver.PredicateFunctionCallGhostSource +Silver.PredicateProcedureCallHelpers +Silver.AxiomAudit
+✖ [249/252] Building Silver.PredicateFunctionCallHelpers (6.1s)
+trace: .> LEAN_PATH=/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/lib/lean /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.tools/linux-aarch64/lean/bin/lean -j12 -DwarningAsError=true /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/Silver/PredicateFunctionCallHelpers.lean -o /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/PredicateFunctionCallHelpers.olean -i /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/lib/lean/Silver/PredicateFunctionCallHelpers.ilean -c /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/ir/Silver/PredicateFunctionCallHelpers.c --setup /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.silver/linux-aarch64/proof/.lake/build/ir/Silver/PredicateFunctionCallHelpers.setup.json --json
+error: Silver/PredicateFunctionCallHelpers.lean:368:23: This simp argument is unused:
+  modelImports
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [tokenAfter, ShellToken.symbol, comma, ↓reduceIte]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+error: Silver/PredicateFunctionCallHelpers.lean:369:23: This simp argument is unused:
+  modelImports
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [tokenAfter, ShellToken.symbol, comma, ↓reduceIte]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Some required targets logged failures:
+- Silver.PredicateFunctionCallHelpers
+error: build failed
+
+Lean phase build finished at 2026-11-17T02:51:28.438500+00:00; elapsed 7.355s; exit 1

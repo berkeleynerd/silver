@@ -1,0 +1,17 @@
+Lean concurrency: 1 Lake workers, 12 threads per Lean process (12 available CPUs).
+Lean phase build started at 2026-11-17T04:06:29.885868+00:00
++ /Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/named-source-392/.tools/linux-aarch64/lean/bin/lake --rehash --reconfigure -K silverThreads=12 -K silverMemoryMb=8192 build Silver.Audit
+✔ [92/107] Built Silver.OutputProfileBodySource (115ms)
+✔ [105/111] Built Silver.AuthoritativeSource (103ms)
+✔ [109/112] Built Silver.OutputBodyLines0 (310s)
+✔ [110/113] Built Silver.OutputBodyLines1 (275s)
+✔ [111/114] Built Silver.OutputBodyLines2 (291s)
+✔ [112/115] Built Silver.OutputBodyLines3 (321s)
+✔ [113/116] Built Silver.OutputBodyLines4 (317s)
+✔ [114/118] Built Silver.OutputBodyLines5 (298s)
+✔ [115/119] Built Silver.OutputBodyLines6 (310s)
+✔ [116/120] Built Silver.OutputBodyLines7 (318s)
+✔ [118/126] Built Silver.OutputBodyCertificate (188s)
+✔ [124/126] Built Silver.SourceCertificates (641ms)
+✔ [125/137] Built Silver.Source (255ms)
+✔ [219/226] Built Silver.ComposeArrayDeclarationSource (273ms)

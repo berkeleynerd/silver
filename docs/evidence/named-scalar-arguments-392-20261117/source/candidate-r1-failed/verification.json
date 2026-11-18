@@ -1,0 +1,27 @@
+{
+  "run_id": "20261117T033146-10e4c23dfa78",
+  "outcome": "failure",
+  "audit_executed": false,
+  "source_input_count": 1142,
+  "source_bytes_verified_against_managed_start": true,
+  "archive_rehashed": true,
+  "before_sha256": {
+    "proof/Silver/FunctionSourceParts/CallsActualsModelSpec.lean": "fe755e316cb47eb1f5b72f51d515ddd46178ec04fb06c9e779e3a1af52211c52",
+    "proof/Silver/PredicateProcedureCallWholeSourceCandidate.lean": "181dc8c8e51697bcf434ab537bd9740825a48e1960c22ef1f26c55271ea2b5e7"
+  },
+  "artifacts_sha256": {
+    "before/proof/Silver/FunctionSourceParts/CallsActualsModelSpec.lean": "fe755e316cb47eb1f5b72f51d515ddd46178ec04fb06c9e779e3a1af52211c52",
+    "before/proof/Silver/PredicateProcedureCallWholeSourceCandidate.lean": "181dc8c8e51697bcf434ab537bd9740825a48e1960c22ef1f26c55271ea2b5e7",
+    "disk.jsonl": "098b286614a09766e1bcb3c4bd595b84d354dc06425ec93c9c1987835718f855",
+    "frozen-inputs.json": "2c31240b06394670ddffdba52e4ec239a94cd1247e393d47803ecf1d34e3442b",
+    "inputs.tar.gz": "4c6af1cf156b2365ca6480815d3a447cc0248ae3eba09d6f019eb201e09c8034",
+    "launcher.json": "9f2d97cd321114084718e8e469dae0c603fdca7c3f4f18b6854e77d5c3e87dbf",
+    "launcher.log": "01d3abed6d35b724f710de464927f814fa350d3869961dbce5e1c8e0e475a2b0",
+    "lean-focused.log": "3e3da57a25da3dfdbd87bc8c4014181f7df69b8b33ae4fcf00eb8a02f2f22d8d",
+    "managed-events.jsonl.gz": "8df896e0099bc114ce0dab23ecb7831dd954e0ae4cbb103f5cb6673b2cd52527",
+    "managed-start.json": "6d87f53e0e6df5aaddae46491799228daef8997279fb2a37e1bae42f523025e0",
+    "owned-final-files.json": "d128cad943d673284ac569ce6a3e351840e4a00cb0bfa249026784d56c47813f",
+    "resources.jsonl": "41c845b70805a1458b8fb96bdfd8c2dc8afa1bb443db3d378ba7f402899292c0",
+    "summary.json": "7fc1f2a6d5dcc942b05952dcf3dd4efc5e6507d241f4c10dbaaccc429e87e3ad"
+  }
+}
