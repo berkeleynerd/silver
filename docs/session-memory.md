@@ -1,5 +1,18 @@
 # Session memory
 
+## 2026-11-18 — Work on #400 authorized at the Worca gate
+
+The owner approved **“Authorize this work”** on a Worca approval card on 2026-11-18 at 17:14 UTC (Worca run `c683b3ed`). Under the
+[gate rule](planning.md#the-board), that approval is the authorization. It covers the work these issues describe, as
+they read at the time of approval:
+
+- [#400](https://github.com/berkeleynerd/silver/issues/400) Bounded text buffer samples: deliver four drivers and reconcile assessments (text hash `97b60f2d1c9eb350`)
+
+It authorizes nothing else: no merge, no amendment of a guarantee and no work on another issue. The existing
+validation, review and merge rules apply to the result. The Worca UI ran without sign-in, so the approval is
+not tied to an authenticated identity. This entry was written by the workflow's recording step; CLI memory
+was not updated.
+
 ## 2026-11-18 — Pull request #402 merged at the Worca merge gate
 
 The owner approved the merge of [#402](https://github.com/berkeleynerd/silver/pull/402) (Correct named-argument claims and strengthen range tests) on a Worca approval card on 2026-11-18 at 16:20 UTC (Worca run `2f30cf14`).
