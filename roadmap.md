@@ -39,6 +39,23 @@ affected Rosetta tests rerun after resolving the session-history conflict.
 
 ## Near-term feature queue
 
+**Samples-only work, authorized 2026-11-18.** The owner requested development
+of [#400](https://github.com/berkeleynerd/silver/issues/400),
+[Bounded text buffer samples](docs/bounded-string-building-samples.md), including
+several-character append and prepend with whole-literal refusal, complete
+99-bottles lyrics and repeat-five. The implementation composes existing String,
+Character, loop and output rules. The precise Rosetta identifier
+`bounded-string-building` describes initialized buffers; broad `string-building`
+and [#395](https://github.com/berkeleynerd/silver/issues/395) retain their remaining
+scope. Final combined validation and closing review remain required. GitHub
+issue and Stage-field updates are left for after merge by the workflow operator.
+The [focused implementation packet](docs/evidence/bounded-string-building-400-20261118/README.md)
+records the four successful sample routes, boundary/control probes and render:
+Stage 1 grows from 85 to 89 task mappings, while existing construct Stage values
+stay unchanged. Complete final validation and evidence applicability remain pending.
+This work chooses no successor queue order and preserves #373 recovery and the
+PR #385 hold.
+
 **Current work, selected 2026-11-17.** The owner selected **named scalar
 arguments** for existing functions and procedures, with reordered named calls
 and positional-prefix/named-suffix calls, after confirming that Worca's #377/#378

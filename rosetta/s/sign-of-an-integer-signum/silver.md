@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The three branches partition the full Integer domain without negating X, so both signed endpoints are handled. All required examples are present. This Integer representation has no distinct signed zero, so the representation-dependent signed-zero clause does not apply. Fixed Integer arrays and constant element iteration suffice; no case statement or broad array/function identifier is required. The [reconciliation](../../../rosetta/assessment-scalar-function-batch-20261108.md) preserves the original assessment attribution and links the separately reviewed Linux application evidence; final combined integration and independent delivery status remain in the batch delivery record.
 
-Position 58 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 61 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

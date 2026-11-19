@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All values for -99..100 are tiny, so types and a guard on the accumulator should discharge every check, but the carried accumulator and nested loops need careful program shape, hence plausible rather than likely.
 
-Position 229 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 230 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

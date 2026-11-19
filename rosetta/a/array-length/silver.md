@@ -1,12 +1,12 @@
 # Array length
 
-**Candidate: proofs likely to discharge automatically.** The array length is a static attribute of a constant array of fixed-size strings, and printing it needs only a bounded image conversion, so every check follows from declarations.
+**Candidate: proofs likely to discharge automatically.** String array components are outside the present fixed Integer/Boolean array fragments, and array Length separately refused. Integer-array counting admission does not establish the required String-array example or execution. No faithful current-language alternative was measured, and these refused approaches do not prove every possible algorithm impossible. The original surface mapping is retained for separate coverage reconciliation; these observations add no delivered sample or supported task mapping in this batch.
 
-Position 101 in the [progression](../../progression.md#stage-4), in stage 4.
+Position 102 in the [progression](../../progression.md#stage-4), in stage 4, which adds string building.
 
 ## Approach
 
-Declare a constant one-dimensional array of two fixed-length Strings, which needs a common element length, so use a bounded record or two equal-padded strings, e.g. Fruit_Name subtype String (1 .. 6) with apple padded to 6 characters. Print the array's 'Length through Natural'Image concatenated onto a fixed label with Put_Line. All indices and lengths are static, so no loop or guard is needed. About 22 lines.
+The primary example requires an array containing the exact text values apple and orange. Planning probes separately test String array components and the array Length attribute; both refuse. A counted Integer-array alternative admits but does not meet this String-array requirement. Padding apple to a different value does not solve the example. A separate feasibility probe should first seek faithful current-language alternatives before proposing any new admission. About 22 lines.
 
 ## Language surface recorded by this assessment
 
@@ -16,4 +16,6 @@ Integers, ranged subtypes, arrays, for loops, 'Image of scalars, string building
 
 - **console output** (allowed): Prints the element count of the array to standard output.
 
-Assessed on 2026-10-15 against page revision 412655 of the [task](https://rosettacode.org/wiki/Array_length) by claude-sonnet-5-5 at medium effort; confidence high. The inclusion policy is in `rosetta/coverage.json`.
+Initially assessed on 2026-10-15 against page revision 412655 of the [task](https://rosettacode.org/wiki/Array_length) by claude-sonnet-5-5 at medium effort; current confidence high. The inclusion policy is in `rosetta/coverage.json`.
+
+Revised on 2026-11-18 by Codex through targeted source review; see the [review record](../../../docs/bounded-string-building-samples.md).

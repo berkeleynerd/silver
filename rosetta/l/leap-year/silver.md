@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The inline Gregorian predicate covers ordinary leap/common years, common century years and century years divisible by 400. Only literal nonzero divisors are used; no function or computed String buffer is needed. The exact source passed admission, complete required application/library proof audit, build and manifest execution in integration run 20261107T164659-9f6192441d21; the linked assessment records the evidence scope. The linked delivery record carries the independent closing review status.
 
-Position 36 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 37 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

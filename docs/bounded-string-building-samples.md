@@ -2,30 +2,87 @@
 
 ## Status and scope
 
-**Proposed; not authorized.** Prepared 2026-11-18 for [#395](https://github.com/berkeleynerd/silver/issues/395).
+**Implementation authorized for [#400](https://github.com/berkeleynerd/silver/issues/400), 2026-11-18; final validation and closing review pending.** The owner requested development of this samples-only work package, including the multi-character append/prepend amendment below. The earlier planning evidence is retained as history. Broad [#395](https://github.com/berkeleynerd/silver/issues/395) remains open.
 
 Deliver four faithful Rosetta samples that append, prepend, repeat text and generate the complete 99-bottles lyrics using existing Silver. Document the bounded-buffer idiom, its full-buffer outcome and measured limits, and correct the affected assessments.
 
-Route: **samples-only**, one work package in the proposed milestone **Bounded text buffer samples**. This record is proposed for `docs/bounded-string-building-samples.md`. No compiler, runtime, admission rule or Oracle change is planned. Samples-only delivery is an existing option (`development.md:37–54`; `docs/planning.md:137–162`).
+Route: **samples-only**, one work package in **Bounded text buffer samples**. No compiler, runtime, admission rule or Oracle change is planned. Samples-only delivery is an existing option (`development.md:37–54`; `docs/planning.md:137–162`).
 
-Propose the precise Rosetta identifier **`bounded-string-building`** for the composition of a fully initialized fixed-bound String, a separately bounded logical length, checked Character stores, counted-loop copying or shifting, and filled-prefix output. It describes existing operations used together; it introduces no new source form or library API. Add it to `rosetta/coverage.json` only with the reviewed sample/assessment reconciliation. Register it in `rosetta/refresh.py`'s `ADMISSION` dictionary and `SURFACE_LABELS`, using the display wording “bounded String building with initialized buffers.” The renderer rejects unknown supported identifiers (`rosetta/refresh.py:338–350,741–747`); this metadata registration changes no Silver admission rule. The existing catalogue entries remain authoritative (`catalogue/silver.json:1339–1394`). Broad `string-building` stays unsupported; these samples do not cover arbitrary append sources, String parameters or resizable strings. Partial identifiers must retain their broader exclusions (`docs/planning.md:224–238`).
+The precise Rosetta identifier **`bounded-string-building`** records the composition of a fully initialized fixed-bound String, a separately bounded logical length, checked Character stores, counted-loop copying or shifting, and filled-prefix output. It describes existing operations used together; it introduces no new source form or library API. It is registered in `rosetta/refresh.py`'s `ADMISSION` dictionary and `SURFACE_LABELS` and in supported coverage, using the display wording “bounded String building with initialized buffers.” The renderer rejects unknown supported identifiers (`rosetta/refresh.py:338–350,741–747`); this metadata registration changes no Silver admission rule. The existing catalogue entries remain authoritative (`catalogue/silver.json:1339–1394`). Broad `string-building` stays unsupported; these samples do not cover arbitrary append sources, String parameters or resizable strings. Partial identifiers must retain their broader exclusions (`docs/planning.md:224–238`).
 
-Repository citations refer to published main `5af7edc5cd2501f8d1a21c778706dee135c057fa`. The supplied try compiler is `07422adb2d211304f3ebfeed92b0eaf798957d41`; the planning scope reports only documentation differences. No unmerged feature is credited. The historical PR-status paragraph in #395 is not the language baseline. Preserve the recorded #373 recovery work and PR #385 hold; this proposal does not select a new execution order (`roadmap.md:40–96`; `docs/session-memory.md:60–85`). Planning approval remains separate from implementation and merge authorization (`docs/planning.md:157–162`).
+The retained planning citations refer to published main `5af7edc5cd2501f8d1a21c778706dee135c057fa`. That planning pass used try compiler `07422adb2d211304f3ebfeed92b0eaf798957d41`, with only documentation differences reported. Implementation starts from `a03c7987bbba29569db2709820bd26ced20bed40`; the supplied delivery try compiler is `9b5b2d99aaf6f4bfca5226b36af744502b095990`, whose sources differ from that main only under documentation according to the workflow scope. No unmerged feature is credited. The historical PR-status paragraph in #395 is not the language baseline. Preserve the recorded #373 recovery work and PR #385 hold; this proposal does not select a new execution order (`roadmap.md:40–96`; `docs/session-memory.md:60–85`). Planning approval remains separate from implementation and merge authorization (`docs/planning.md:157–162`).
 
-The supplied evidence packet reports **1,588** likely/plausible candidates and **16** supported identifiers. Broad `string-building` occurs in **1,009**, would alone unlock **157**, of which **112** are likely; its pair with `while-loops` has **163**. The generated stage has **18** samples, **2** only plausible, with overflow flagged in **11**, index in **6**, length in **4** and range in **3**. These unchanged assessment counts are upper bounds, not this batch's promised gain. Count delivered programs, runtime cases and task mappings separately.
+The historical planning packet reports **1,588** likely/plausible candidates and **16** supported identifiers. Broad `string-building` occurs in **1,009**, would alone unlock **157**, of which **112** are likely; its pair with `while-loops` has **163**. The generated stage has **18** samples, **2** only plausible, with overflow flagged in **11**, index in **6**, length in **4** and range in **3**. These unchanged assessment counts are upper bounds, not this batch's promised gain. Count delivered programs, runtime cases and task mappings separately.
+
+## Implementation handoff — 2026-11-18
+
+The four sample sources, manifest entries, seven boundary/control test methods,
+twelve targeted assessment corrections and renderer registration are prepared.
+The [implementation packet](evidence/bounded-string-building-400-20261118/README.md)
+identifies exact inputs and retains all fifteen candidate sources, complete
+execution streams, application proof reports and fresh report-audit results.
+Ten candidates completed admission, proof/audit, build and execution with exact
+stdout, empty stderr and status 0; five negative controls rejected as expected.
+These focused results do not complete the shared validation checkpoint.
+
+The append sample saves its guarded original length in Start, declared
+`0 .. 5`, and updates Len before the counted copy loop. Loop entry widens mutable
+scalar facts, so the saved offset's declared bound is needed. The earlier
+documentation variant that indexed with Len directly inside the loop rejected;
+the complete example below now matches the admitted sample bytes. Several-character
+refusal fixtures inspect the whole buffer and Len with one free cell, detecting
+partial mutation. The repeated-prepend fixture makes shift order observable;
+the repeat fixture executes every count from 0 through 10. Historical B1/B2/B3
+sources and results remain below with their original attribution.
+
+The integrated `rosetta/refresh.py --render` passed with the precise identifier
+registered. Stage 1 gains exactly the four delivered tasks, **85 to 89**:
+append, prepend and bottles move **4 to 1**, repeat moves **10 to 1**. All
+**63 existing construct Stage values remain unchanged**, including broad
+`string-building` at **4**. The manifest grows **86 to 90 programs** and
+**149 to 153 execution cases**; no fifth sample is delivered. Of 472 changed
+generated task pages, twelve contain assessment changes and 460 change position
+only. Generated pages were produced by the renderer.
+
+The live try service identifies compiler checkout `07422adb2d`, rather than the
+scope's `9b5b2d99aa`. Both commits have identical compiler/runtime/proof/auditor,
+build, catalogue and Oracle inputs; all 1,187 governed tracked files also match
+byte for byte between the actual service checkout and this work tree. The
+packet records this discrepancy and the limits of that source comparison.
+The complete native/Lean evidence packets are omitted from this checkout;
+their applicability and required fresh audits remain for the workflow check
+step, together with the final manifest/boundary/Rosetta tests and complete final
+regression inventory. Independent closing review follows those results. No
+compiler, proof, source-certificate, report policy or capacity change was made.
+
+The focused pass had ten successful full-route attempts and five expected
+admission refusals, with no proof failure or interruption. Its candidate result
+window was 17:23:41–17:26:18 UTC; full delivery elapsed time and final checkpoint
+attempts remain to be recorded at closeout. The request host was Linux aarch64;
+native child stack, worker allocation and cache hits were not reported by the
+try results. The final checkpoint must record its actual settings.
+
+The operator leaves all GitHub issue and board edits for **after merge**.
+Keep #395 open for its remaining broad scope and reconcile every existing stage
+card against the final render, preserving status and authorization. Supported
+closed cards retain Stage 1 and Closed/Done; the render changes no existing
+construct's Stage. The live card inventory has not been inspected or edited in
+this pass. Issue #400 remains pending its complete validation and closing review.
+The remaining design and planning evidence below is retained as history and
+does not substitute for that checkpoint.
 
 ## Faithful drivers and alternatives
 
-The upstream planning probe ran all four drivers through admission, proof/report audit, native build and execution. Its output comparisons were separate from the try service: `stdout_match=None` did not perform an expected-output comparison. The following results are inherited probe evidence, not new runs by this drafter.
+The upstream planning probe ran all four drivers through admission, proof/report audit, native build and execution. Its output comparisons were separate from the try service: `stdout_match=None` did not perform an expected-output comparison. The original D1/D2 probes used single-character literals. The owner subsequently required several-character literals; the selected drivers below reflect that amendment. The original result identities remain below as historical evidence, not evidence for the amended source bytes.
 
 | Driver and primary requirement | Selected program and observed result |
 | --- | --- |
-| **String append**, `rosetta/s/string-append/task.wiki:11–15`: initialize text, append another literal and display the resulting variable. No callable interface is required. | D1 starts with logical `Hello` in six initialized cells, copies the one-character String literal `!`, then attempts again. Output is `Hello!\nfull\nHello!\n`. It mutates storage and demonstrates exact fit and unchanged refusal. |
-| **String prepend**, `rosetta/s/string-prepend/task.wiki:10–17`: prepend a literal and display the variable. | D2 starts with logical `orld!` in six initialized cells, shifts right in reverse order and copies the literal `W`. The second attempt refuses. Output is `World!\nfull\nWorld!\n`. |
+| **String append**, `rosetta/s/string-append/task.wiki:11–15`: initialize text, append another literal and display the resulting variable. No callable interface is required. | The amended D1 starts with logical `Hello` in 13 initialized cells and copies the eight-character literal `, world!` with a counted loop after one whole-literal fit check. A second attempt refuses. Expected output, fixed before execution, is `Hello, world!\nfull\nHello, world!\n`. |
+| **String prepend**, `rosetta/s/string-prepend/task.wiki:10–17`: prepend a literal and display the variable. | The amended D2 starts with logical `World!` in 12 initialized cells, shifts the existing text right by six in reverse order and copies the six-character literal `Hello `. A second attempt refuses. Expected output, fixed before execution, is `Hello World!\nfull\nHello World!\n`. |
 | **99 bottles of beer**, `rosetta/0-9/99-bottles-of-beer/task.wiki:4–24`: complete verses from 99 through the transition to zero; singular grammar is optional. | D3 computes counts in `for N in reverse 1 .. 99`, using `Integer'Image (N)` and `Integer'Image ((N - 1))` in output expressions. The probe compared the complete retained stdout: 495 lines, 11,357 bytes, ending with ` 0 bottles of beer on the wall` and the verse separator. Retain standard Image leading spaces (`language.md:1026–1031`). |
 | **Repeat a string**, `rosetta/r/repeat-a-string/task.wiki:3–7`: repeat a string a chosen number of times, including the `ha` five-times example. The repeat-character variant is optional. | D4 copies `ha` with nested loops into 20 initialized cells, with Count declared `0 .. 10`, then prints length `Count * 2`. Count 5 produced `hahahahaha\n`. New boundary probe B2 below additionally executes every Count from 0 through 10. No String-valued function is required by the task. |
 
-All four inherited executions returned status 0 with empty stderr. Preserve these original evidence identities:
+All four original planning executions returned status 0 with empty stderr. D1/D2 below are the superseded single-character drivers; their identities must not be used for the amended samples:
 
 ```text
 D1 sha=18c9c0ca9634
@@ -48,29 +105,33 @@ Alternatives:
 
 - A new buffer type or Append/Prepend library operation would be a convenience for these drivers. D1/D2 already perform the required mutations and refusal. Its new signatures, state contracts and correspondence work have no measured necessity here.
 - Direct output concatenation suffices for 99 bottles, as D3 shows. It would fail #395's additional requirement if substituted for the append/prepend buffer demonstrations.
-- A one-character String literal satisfies both literal tasks. Longer atomic append/prepend, arbitrary dynamic sources and optional repeat-character output are outside this sample commitment. Do not generalize a one-character success into those claims.
+- The owner amendment selects several-character literals and whole refusal for those fixed literals. Arbitrary dynamic sources and optional repeat-character output remain outside this sample commitment. There is no general buffer API or new admission rule.
 - Correct the stale “only missing piece” and missing computed-length/slice claims in the append/prepend assessments through their source records (`rosetta/s/string-append/silver.md:3–9`; `rosetta/s/string-prepend/silver.md:3–9`; `docs/planning.md:235–238`).
 
 ## Admitted forms and rules
 
-These are existing rules applied to the samples, not proposed additions. In the explanations, capacity C is the initialized buffer's fixed positive length; the concrete programs use 6 or 20. Logical length is an ordinary Integer object. It does not change the String's bounds or its Ada Length.
+These are existing rules applied to the samples, not proposed additions. In the explanations, capacity C is the initialized buffer's fixed positive length; the amended drivers use 13, 12 or 20; the retained boundary probes also use 2 or 6. Logical length is an ordinary Integer object. It does not change the String's bounds or its Ada Length.
 
-### Declaration, initialization and one-character append
+### Declaration, initialization and counted literal append
 
-D1's complete source is:
+The amended append driver uses this complete source:
 
 ```ada
 with Silver_IO;
 procedure Main is
    pragma SPARK_Mode (On);
-   Buffer : String := "Hello ";
-   Suffix : constant String := "!";
-   Len : Integer range 0 .. 6 := 5;
+   Buffer : String := "Hello        ";
+   Suffix : constant String := ", world!";
+   Len : Integer range 0 .. 13 := 5;
+   Start : Integer range 0 .. 5 := 0;
 begin
    for Attempt in 1 .. 2 loop
-      if Len < 6 then
-         Buffer ((Len + 1)) := Suffix (1);
-         Len := (Len + 1);
+      if Len <= 5 then
+         Start := Len;
+         Len := (Len + 8);
+         for J in 1 .. 8 loop
+            Buffer ((Start + J)) := Suffix (J);
+         end loop;
       else
          Silver_IO.Put_Line ("full");
       end if;
@@ -81,7 +142,7 @@ end Main;
 
 The declaration syntax is initialized `String`, not a new `String (1 .. C)` buffer declaration. Every cell, including spare capacity, is initialized by the literal. Bounds are fixed by initialization; Len's initializer must fit its static declared range (`language.md:234–280,299–324`). There is no partially initialized tail or new definite-assignment analysis.
 
-The bare-name guard `Len < 6` narrows Len's incoming `0 .. 6` interval to `0 .. 5`. Thus both additions lie in `1 .. 6`, the destination index fits Buffer and the assigned length fits Len's declared range. `Suffix (1)` has a valid fixed index and Character type. Each iteration repeats the guard after ordinary mutable-scalar widening; no loop-carried invariant is needed (`language.md:409–439,738–768,953–973,1194–1209`).
+The bare-name guard `Len <= 5` narrows Len's incoming `0 .. 13` interval to `0 .. 5`. The program saves that value in Start and updates Len before the copy loop. With J in `1 .. 8`, `Start + J` lies in `1 .. 13`, and the guarded `Len + 8` lies in `8 .. 13`. Both buffer indexing and length assignment fit their declared bounds. Loop-body analysis widens mutable scalar facts to their declared ranges; Start's declared `0 .. 5` range therefore preserves the required copy bound. Using Len directly inside that loop would lose the guard refinement. Each `Suffix (J)` has Character type. The one guard ensures the entire literal fits before any store; no loop-carried invariant is needed (`language.md:409–439,738–768,953–973,1194–1209`).
 
 At full capacity the source-written else branch performs no buffer or length assignment. It prints `full`, then the unchanged filled prefix. The sample treats refusal as an ordinary handled outcome: exit status remains 0 on healthy output. It does not truncate or silently drop part of an append.
 
@@ -90,23 +151,25 @@ At full capacity the source-written else branch performs no buffer or length ass
 D2 has the same outer structure and refusal/output placement as D1. Its declarations and successful arm are:
 
 ```ada
-Buffer : String := "orld! ";
-Prefix : constant String := "W";
-Len : Integer range 0 .. 6 := 5;
+Buffer : String := "World!      ";
+Prefix : constant String := "Hello ";
+Len : Integer range 0 .. 12 := 6;
 -- Inside the same two-attempt loop:
-if Len < 6 then
-   Len := (Len + 1);
-   for J in reverse 1 .. (Len - 1) loop
-      Buffer ((J + 1)) := Buffer (J);
+if Len <= 6 then
+   Len := (Len + 6);
+   for J in reverse 1 .. (Len - 6) loop
+      Buffer ((J + 6)) := Buffer (J);
    end loop;
-   Buffer (1) := Prefix (1);
+   for J in 1 .. 6 loop
+      Buffer (J) := Prefix (J);
+   end loop;
 else
    Silver_IO.Put_Line ("full");
 end if;
 Silver_IO.Put_Line (Buffer (1 .. Len));
 ```
 
-The increment fits `1 .. 6`. Loop bounds are captured before mutable variables widen. J's body interval is `1 .. 5`, so reads fit `1 .. 5` and writes fit `2 .. 6`. Reverse order prevents a write from destroying a character still to be read. String element assignment preserves every other cell and the fixed bounds; the full branch changes neither bytes nor length (`language.md:760–768,931–973`). This is one-character prepend, not a new bulk-shift primitive.
+The increment fits `6 .. 12`. Loop bounds are captured before mutable variables widen. The shift loop's J interval is `1 .. 6`, so reads fit `1 .. 6` and writes fit `7 .. 12`. Reverse order prevents a write from destroying a character still to be read. String element assignment preserves every other cell and the fixed bounds; the full branch changes neither bytes nor length (`language.md:760–768,931–973`). The following counted copy fills positions `1 .. 6` from the literal. The single guard precedes the length update, shift and copy, so refusal leaves all three untouched.
 
 For repeat, use `Source : constant String := "ha";`, a 20-space Buffer and `Len : Integer range 0 .. 20 := 0;`. The admitted copying body is:
 
@@ -126,7 +189,7 @@ With Count in `0 .. 10`, I's checked body interval is `1 .. 10`, J is `1 .. 2`, 
 
 | Requested form | Exact scope and checks |
 | --- | --- |
-| Literal | D1/D2 copy an indexed Character from a named one-character String literal. A direct printable Character literal can also be the element RHS under `language.md:719–749,760–768`. A one-byte String is not implicitly a Character. |
+| Literal | D1/D2 copy indexed Characters from named several-character String literals after checking that the whole literal fits. A direct printable Character literal can also be the element RHS under `language.md:719–749,760–768`. A one-byte String is not implicitly a Character. |
 | Character | `Buffer ((Len + 1)) := Item;` uses an initialized `Item : Character := 'x';` and the same guard/index/range checks. B1 below runs this form. Characters cannot be passed directly to String output or concatenated as String atoms (`language.md:731–736,1059–1061`). |
 | Integer Image | D3 uses Image in bounded output concatenation. No Image-to-buffer append API is added. Existing fixed-length Image initialization or assignment remains governed by exact inferred lengths, not merely a maximum that fits (`language.md:1026–1040,1095–1121`). Arbitrary Image append is not claimed by this identifier. |
 | Another buffer's prefix | Existing `Other (J)` may supply one Character when Other has known fixed bounds and J's entire inferred interval fits; the destination independently needs its own capacity guard (`language.md:738–767`). The batch delivers no generic whole-prefix append, aliasing contract or two-length relational rule. Such implementations must be assessed individually. |
@@ -141,7 +204,7 @@ Guard composition remains unchanged. A bare Len compared to a static threshold r
 
 The capacity-full outcome above is distinct from I/O failure. Put_Line detects write/flush failure, sets sticky status 1 and returns; later statements continue. Partial output and external blocking retain the existing boundary (`docs/trusted-boundary.md:791–821`). This batch adds no exception, status-reset rule or new environmental assumption.
 
-Excluded from this commitment: resizable/unbounded Strings; general indexing of input-dependent Strings; Unicode and new Character conversion syntax or attributes; String or array parameters/results; partial initialization; slice assignment; Character concatenation; general String libraries; bulk append atomicity; new source/report limits; and author-written contracts, invariants or variants (`language.md:719–768,1065–1121`; `docs/scalar-functions.md:62–66`; `docs/scalar-procedures.md:181–187`; `oracle.md:3–7`). Operations already admitted elsewhere keep their existing scope.
+Excluded from this commitment: resizable/unbounded Strings; general indexing of input-dependent Strings; Unicode and new Character conversion syntax or attributes; String or array parameters/results; partial initialization; slice assignment; Character concatenation; general String libraries or arbitrary-source bulk append; new source/report limits; and author-written contracts, invariants or variants (`language.md:719–768,1065–1121`; `docs/scalar-functions.md:62–66`; `docs/scalar-procedures.md:181–187`; `oracle.md:3–7`). Operations already admitted elsewhere keep their existing scope.
 
 ### Additional measured boundaries
 
@@ -268,7 +331,7 @@ Keep complete Bronze/Silver compiler/runtime assurance, every application obliga
 Capacity account:
 
 - **Source/expression:** retain 4,096 source bytes including comments/whitespace, 64 leaves per applicable expression and 63 shared arithmetic/concatenation operators. Indexed target and RHS budgets are independent; slice leaves include both endpoints. No limit is increased for a sample (`language.md:91–95,747–750,765–766,1053–1055,1108–1146`).
-- **Storage:** use literal-initialized 6-cell and 20-cell buffers. Physical storage never grows with Len; prepend shifts existing cells. The existing source-derived tables have 341 String-binding slots and 585 scalar slots (`language.md:268–280`). No new buffer pool or allocation is introduced. The 4,096-byte value bound is not a universal stack/heap or solver-time guarantee (`docs/trusted-boundary.md:832–846`).
+- **Storage:** use literal-initialized 13-cell, 12-cell and 20-cell sample buffers, plus the small boundary fixtures. Physical storage never grows with Len; prepend shifts existing cells. The existing source-derived tables have 341 String-binding slots and 585 scalar slots (`language.md:268–280`). No new buffer pool or allocation is introduced. The 4,096-byte value bound is not a universal stack/heap or solver-time guarantee (`docs/trusted-boundary.md:832–846`).
 - **Reports:** reuse index, range, length and overflow channels and existing exact advisories. The String/Character account charges slice/index sites and nested-loop initialization advisories to existing source budgets (`docs/bounded-string-characters-report-capacity.md:25–102`). Its historical 32 MiB allocation is not today's global allocation: the current combined envelope is **49,279,744 bytes** within **67,108,864 bytes**, with **17,829,120 bytes** headroom (`docs/scalar-procedures-report-capacity.md:239–249`). This samples-only subset adds no source form, record class or multiplicity, so no revised envelope is planned. Observed small reports are not a replacement for that account.
 
 If an admitted sample fails proof, auditing or build, preserve the failure as a defect. Diagnose it under the existing workflow; do not narrow the declared domain, change a diagnostic policy, suppress a check or silently turn this batch into a compiler repair (`oracle.md:13–14`; `development.md:162–179,331–337`).
@@ -277,7 +340,7 @@ If an admitted sample fails proof, auditing or build, preserve the failure as a 
 
 ### 1. Deliver the four samples and reconcile their assessments
 
-One proposed issue, `samples`, owns the whole batch and its shared final validation/review checkpoint. No separate final issue is needed for a single increment.
+[#400](https://github.com/berkeleynerd/silver/issues/400) owns the whole batch and its shared final validation/review checkpoint. No separate final issue is needed for a single increment.
 
 **Owned files:**
 
@@ -382,13 +445,13 @@ Independent closing review identifies the reviewed inputs, fresh versus retained
 
 ## Risks and open decisions
 
-- **Owner selection and naming:** recommend the single proposed milestone and the metadata-only bounded-string-building identifier above. Publication or acceptance of this plan does not authorize implementation or move #373. The owner chooses placement in the existing queue; preserve its recorded recovery/hold (`roadmap.md:40–96`).
-- **Breadth of the literal drivers:** recommend retaining the measured one-character String literals. They meet the primary tasks and #395's buffer/full requirement. Generic multi-character atomic append/prepend would enlarge this proposal without a measured blocker; its complete rules and evidence are **not found** here.
+- **Owner selection and naming:** the development request authorizes this single samples-only work package and the metadata-only bounded-string-building identifier. It chooses no successor queue order; preserve #373 recovery and the PR #385 hold.
+- **Breadth of the literal drivers:** the owner amendment supersedes the original single-character recommendation. Deliver the two fixed several-character literals with a whole-literal fit check, exact fit and unchanged refusal. Arbitrary-source buffer helpers remain outside this work package.
 - **Evidence availability:** the supplied planning checkout omits retained `docs/evidence/` packets. The cited delivery records identify past checks, but exact applicability to the future combined snapshot is **not found** in this planning pass. Retrieve and compare those inputs during delivery, or run the necessary checks. Do not present this plan or its planning challenge as an independent completed delivery review.
 - **Formatting and boundaries:** moving dynamic prefix output into a conditional changes admission; static narrowing can also make a loop body fail the existing nonempty-index rules. Preserve checked forms and verify boundary fixtures instead of assuming that all textually similar rewrites work (`language.md:738–745,953–978,1082–1090`).
-- **Coverage and rendering:** only four driver deliveries are promised. S3/S4/S6 lack execution results. S1 now has both a rejected attribute approach and an executed printable lookup alternative; S2/S5/S7 retain rejected approaches, not impossibility. Neither S1 nor S8 commits an extra sample. A successful integrated render, exact post-render gains and changed Stage numbers are **not found** in this planning pass: renderer and board operations were not performed. Registration followed by the integrated render is the first metadata check in the increment; use its actual results for coverage and all affected Stage fields. Correct overclaims without predicting which unrelated issue moves.
+- **Coverage and rendering:** only four driver deliveries are promised. S3/S4/S6 lack execution results. S1 now has both a rejected attribute approach and an executed printable lookup alternative; S2/S5/S7 retain rejected approaches, not impossibility. Neither S1 nor S8 commits an extra sample. Planning performed no render or board operation. The implementation handoff above now records the successful integrated render, exact gains and unchanged existing construct Stage values. Live issue/card reconciliation remains for after merge under the operator's instruction.
 - **Next planning target, recommendation only:** withdraw Character-code conversion as the recommended missing capability for S1. The measured lookup-table solution already meets the bounded task; direct Pos/Val would be a possible convenience requiring its own justification. Recommend a separate feasibility probe for S2 Array length, whose required `apple`/`orange` String-array example remains unmet by the measured candidates (`rosetta/a/array-length/task.wiki:5–8`; probe S2-b–f). First seek a faithful current-language alternative; only then settle whether String components or an array query need new admission. The owner chooses whether and when to investigate it. This recommendation creates no additional issue, sample, language change or authorization in this batch.
 - **Challenge disposition:** adopt C1 by owning the renderer registration and requiring an integrated render; adopt C2 by retaining both the attribute rejection and the executed lookup alternative, and revising the successor recommendation; adopt C3 by reconciling every affected existing stage issue. No required challenge change is rejected. The remaining uncertainties are delivery-evidence applicability and actual render/board results, addressed by the checks above.
 - **Oracle:** no amendment is needed for this samples-only route. Any defect or scope change must preserve the existing all-program, same-source and automatic-discharge guarantees (`oracle.md:1–19,24–29`).
 
-The finalizer read the scope, probe, draft, issues, challenge and cited source/policy, applied all three required changes, and independently reran the challenge's full-domain Character-code program with silver-try. B1/B2 are inherited drafter runs; B3 and the guard substitutions are inherited challenge runs. No compiler implementation, standalone prover/Lean/test/render run, board operation or repository publication was performed. These observations are planning evidence, not delivery assurance or implementation authorization. Live model/effort confirmation and total token/cost measurements are unavailable.
+The planning finalizer read the scope, probe, draft, issues, challenge and cited source/policy, applied all three required changes, and independently reran the challenge's full-domain Character-code program with silver-try. B1/B2 are inherited drafter runs; B3 and the guard substitutions are inherited challenge runs. That planning pass performed no compiler implementation, standalone prover/Lean/test/render run, board operation or repository publication. These observations are planning evidence, not delivery assurance or implementation authorization. Live model/effort confirmation and total token/cost measurements are unavailable.

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All arithmetic is bounded integer arithmetic with a single explicit zero-determinant guard before the only division, so every check follows from types and a guard; the Ada solution's Float and exception are replaced by exact integers and a visible message.
 
-Position 156 in the [progression](../../progression.md#stage-6), in stage 6.
+Position 157 in the [progression](../../progression.md#stage-6), in stage 6.
 
 ## Approach
 

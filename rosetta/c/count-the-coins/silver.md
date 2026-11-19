@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The 5 * 11 * 21 = 1155 triples include every affordable quarter/dime/nickel choice exactly once, so the counter guard cannot skip an iteration that should count. The independently derived required result is 242. The optional $1000 case with two additional denominations is excluded. The exact source passed admission, complete required application/library proof audit, build and manifest execution in integration run 20261107T164659-9f6192441d21; the linked assessment records the evidence scope. The linked delivery record carries the independent closing review status.
 
-Position 41 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 43 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

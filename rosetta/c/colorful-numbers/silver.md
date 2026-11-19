@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from bounded subtypes and for loops, but the loop-carried product and table index need guards placed just before use, so discharge depends on careful program shape without any annotation.
 
-Position 416 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 417 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

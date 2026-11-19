@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from for-loop index ranges and a small bounded counter with a guard, so no annotation is needed, but the loop-carried counters and nested loops require careful program shape.
 
-Position 180 in the [progression](../../progression.md#stage-6), in stage 6.
+Position 181 in the [progression](../../progression.md#stage-6), in stage 6.
 
 ## Approach
 

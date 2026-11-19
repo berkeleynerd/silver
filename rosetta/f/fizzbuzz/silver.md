@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The source computes the complete required sequence, including the multiples of both three and five. Static loop bounds and literal nonzero divisors use the existing narrow Integer-loop, division and Image rules. The exact source passed admission, complete required application/library proof audit, build and manifest execution in integration run 20261107T164659-9f6192441d21; the linked assessment records the evidence scope. The linked delivery record carries the independent closing review status.
 
-Position 30 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 31 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

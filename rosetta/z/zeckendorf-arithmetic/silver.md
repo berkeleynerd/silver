@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks are index and capacity bounds on loop-carried positions that can be guarded explicitly in procedures without invariants, but carry/borrow normalization and the multiplication and division tables need careful shaping, so discharge is plausible rather than routine.
 
-Position 474 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 475 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

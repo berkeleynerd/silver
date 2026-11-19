@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The primary task requires a real factorial function and permits iteration. The empty loop returns 0! = 1. Before step i <= 12 the exact accumulator is (i-1)! <= 39916800, so the static guard never skips a product; 12! = 479001600 fits Integer, while 13! does not. The sample covers the complete nonnegative argument domain whose factorial fits this Integer representation; optional negative-input handling is omitted. The [reconciliation](../../../rosetta/assessment-scalar-function-batch-20261108.md) preserves the original assessment attribution and links the separately reviewed Linux application evidence; final combined integration and independent delivery status remain in the batch delivery record.
 
-Position 45 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 47 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

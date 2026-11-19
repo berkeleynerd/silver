@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The first 10 Wagstaff primes need p up to 61 and m below 2^63, so plain bounded integers and for-loop trial division suffice with all checks following from subtype ranges and guards. No annotations are needed, though the trial division runs roughly a billion iterations worst case at runtime.
 
-Position 335 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 336 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

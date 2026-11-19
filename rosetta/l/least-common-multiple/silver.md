@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Two active Euclidean steps at least halve the nonnegative second operand; twenty suffice for magnitudes <= 1000. Thus the divisor is the exact GCD and is zero only for two zero inputs. The guarded quotient of the absolute product implements every sign and zero case without truncating a required computation. The required 12/18 example gives 36, with twelve demonstrated controls. No while loop, out parameter or additional procedure is used. The [reconciliation](../../../rosetta/assessment-scalar-function-batch-20261108.md) preserves the original assessment attribution and links the separately reviewed Linux application evidence; final combined integration and independent delivery status remain in the batch delivery record.
 
-Position 85 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 89 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

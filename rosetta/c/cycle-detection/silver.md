@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from the 0..254 value range and capped counters with guards, and the unbounded-looking while loops sit in a procedure so no termination annotation is needed; the plausible rating reflects the loop-carried counters needing careful cap guards and the new integer, array-free string-building and 'Image surface.
 
-Position 381 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 382 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

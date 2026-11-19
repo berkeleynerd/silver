@@ -13,6 +13,7 @@ output = shared.output
 
 class StringCharacterTests(unittest.TestCase):
     check = shared.SharedBindingsTests.check
+    check_full_route = shared.SharedBindingsTests.check_full_route
     compile = shared.SharedBindingsTests.compile
     run_program = shared.SharedBindingsTests.run_program
 
@@ -199,3 +200,88 @@ class StringCharacterTests(unittest.TestCase):
         self.run_program(executable, b'\n\n', (b'',))
         self.run_program(executable, b'abc\nabc\n', (b'abc',))
         self.run_program(executable, b'', (b'\xff',), 1)
+
+    def test_native_bounded_character_append_clear_and_reuse(self) -> None:
+        declarations = (b'Buffer:String:="  ";Item:Character:=\'x\';'
+                        b'Len:Integer range 0..2:=0;')
+        body = (output(b'Buffer(1..Len)')
+                + b'for Attempt in 1..3 loop if Len<2 then '
+                b'Buffer((Len + 1)):=Item;Len:=(Len + 1);else '
+                + output(b'"full"') + b'end if;'
+                + output(b'Buffer(1..Len)') + b'end loop;Len:=0;'
+                + output(b'Buffer(1..Len)') + b"Item:='Z';if Len<2 then "
+                b'Buffer((Len + 1)):=Item;Len:=(Len + 1);end if;'
+                + output(b'Buffer(1..Len)'))
+        self.check_full_route(program(declarations, body), kind='assigned',
+                              runs=(((), b'\nx\nxx\nfull\nxx\n\nZ\n', 0),))
+
+    def test_native_bounded_repeat_all_declared_counts(self) -> None:
+        declarations = (b'Source:constant String:="ha";'
+                        b'Buffer:String:="                    ";'
+                        b'Len:Integer range 0..20:=0;')
+        body = (b'for Count in 0..10 loop for I in 1..Count loop '
+                b'for J in 1..2 loop Buffer((((I - 1) * 2) + J)):=Source(J);'
+                b'end loop;end loop;Len:=(Count * 2);'
+                + output(b'Buffer(1..Len)') + b'end loop;')
+        expected = b''.join(b'ha' * count + b'\n' for count in range(11))
+        self.check_full_route(program(declarations, body), kind='assigned',
+                              runs=(((), expected, 0),))
+
+    def test_native_bounded_repeated_prepend_shift_order(self) -> None:
+        declarations = (b'Buffer:String:="      ";Prefix:String:="W";'
+                        b'Len:Integer range 0..6:=0;')
+        body = (b'for Attempt in 1..7 loop if Len<6 then Len:=(Len + 1);'
+                b'for J in reverse 1..(Len - 1) loop '
+                b'Buffer((J + 1)):=Buffer(J);end loop;'
+                b"Buffer(1):=Prefix(1);Prefix(1):='X';else "
+                + output(b'"full"') + b'end if;'
+                + output(b'Buffer(1..Len)') + b'end loop;')
+        expected = b'W\nXW\nXXW\nXXXW\nXXXXW\nXXXXXW\nfull\nXXXXXW\n'
+        self.check_full_route(program(declarations, body), kind='assigned',
+                              runs=(((), expected, 0),))
+
+    def test_native_bounded_literal_append_refuses_whole_with_one_free_cell(self) -> None:
+        declarations = (b'Buffer:String:="abcd    ";Suffix:constant String:="XYZ";'
+                        b'Len:Integer range 0..8:=4;Start:Integer range 0..5:=0;')
+        body = (b'for Attempt in 1..2 loop if Len<=5 then '
+                b'Start:=Len;Len:=(Len + 3);'
+                b'for J in 1..3 loop Buffer((Start + J)):=Suffix(J);end loop;'
+                b'else ' + output(b'"full"') + b'end if;'
+                + output(b'Buffer(1..Len)') + output(b'Buffer')
+                + output(b"Integer'Image(Len)") + b'end loop;')
+        # Inspect the spare cell and the logical length as well as the prefix.
+        expected = b'abcdXYZ\nabcdXYZ \n 7\nfull\nabcdXYZ\nabcdXYZ \n 7\n'
+        self.check_full_route(program(declarations, body), kind='assigned',
+                              runs=(((), expected, 0),))
+
+    def test_native_bounded_literal_prepend_refuses_whole_with_one_free_cell(self) -> None:
+        declarations = (b'Buffer:String:="abcd    ";Prefix:constant String:="XYZ";'
+                        b'Len:Integer range 0..8:=4;')
+        body = (b'for Attempt in 1..2 loop if Len<=5 then Len:=(Len + 3);'
+                b'for J in reverse 1..(Len - 3) loop '
+                b'Buffer((J + 3)):=Buffer(J);end loop;'
+                b'for J in 1..3 loop Buffer(J):=Prefix(J);end loop;'
+                b'else ' + output(b'"full"') + b'end if;'
+                + output(b'Buffer(1..Len)') + output(b'Buffer')
+                + output(b"Integer'Image(Len)") + b'end loop;')
+        expected = b'XYZabcd\nXYZabcd \n 7\nfull\nXYZabcd\nXYZabcd \n 7\n'
+        self.check_full_route(program(declarations, body), kind='assigned',
+                              runs=(((), expected, 0),))
+
+    def test_bounded_prefix_output_after_conditional_control(self) -> None:
+        declarations = b'Buffer:String:="  ";Len:Integer range 0..2:=0;'
+        mutation = b"Buffer((Len + 1)):='x';Len:=(Len + 1);"
+        prefix = output(b'Buffer(1..Len)')
+        self.check(program(declarations, b'if Len<2 then ' + mutation + prefix + b'end if;'), 2)
+        self.check_full_route(program(declarations, b'if Len<2 then ' + mutation + b'end if;' + prefix),
+                              kind='assigned', runs=(((), b'x\n', 0),))
+
+    def test_admission_bounded_append_requires_bare_name_refinement(self) -> None:
+        declarations = (b'Buffer:String:="Hello ";Suffix:constant String:="!";'
+                        b'Len:Integer range 0..6:=5;')
+        mutation = b'Buffer((Len + 1)):=Suffix(1);Len:=(Len + 1);'
+        for extra, guard in ((b'', b'True'), (b'', b'(Len + 1)<=6'),
+                             (b'Room:Boolean:=Len<6;', b'Room')):
+            with self.subTest(guard=guard):
+                self.check(program(declarations + extra, b'if ' + guard + b' then '
+                                   + mutation + b'end if;' + output(b'Buffer(1..Len)')), 2)

@@ -28,7 +28,8 @@
   "fixed-boolean-arrays",
   "scalar-functions",
   "scalar-procedures",
-  "named-scalar-arguments"
+  "named-scalar-arguments",
+  "bounded-string-building"
  ],
  "tasks": {
   "100 doors": {
@@ -797,20 +798,21 @@
     }
    ],
    "surface": [
-    "integers",
-    "ranged-subtypes",
-    "for-loops",
-    "scalar-image",
-    "string-building",
-    "procedures",
-    "put"
+    "integer-for-loops",
+    "immutable-integers",
+    "integer-image"
    ],
    "outlook": "likely",
    "risks": [],
-   "size": 22,
-   "approach": "A main procedure loops with a for loop in reverse over a ranged subtype 1 .. 99 and prints each verse with Put_Line, building each count line by concatenating the integer image with fixed text in a bounded string. The next count is computed as X - 1, which stays in 0 .. 98 because X is the loop index of a static range, and a blank line separates verses. The singular \"1 bottle\" is optional and is left out, or handled by a plain if on X = 1.",
-   "summary": "Every check comes from the loop index's static range 1 .. 99, so X - 1 and the bounded concatenation cannot overflow, and there are no loop-carried values, recursion or functions needing variants.",
-   "confidence": "high"
+   "size": 14,
+   "approach": "Main loops for N in reverse 1 .. 99 and prints five lines per verse: the wall line, the bottles line, Take one down, pass it around, the next wall line with (N - 1), and an empty separator. Count lines concatenate standard Integer Image with fixed text directly in Put_Line; no buffer building or user subprogram is required. Optional singular grammar is omitted.",
+   "summary": "The complete lyrics include every verse from 99 through the transition to zero, preserving the standard leading spaces from nonnegative Integer Image. The expected output is 495 lines and 11,357 bytes, compared in full rather than through a try-service preview. Existing counted-loop, immutable Integer arithmetic and Integer Image/output forms suffice; no string-building identifier is needed. The linked capability record distinguishes inherited D3 evidence from final-input validation.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-11-18",
+    "record": "../docs/bounded-string-building-samples.md",
+    "method": "Targeted task/source reconciliation for issue #400 against the existing language and retained 2026-11-18 planning evidence; original assessment attribution preserved. This metadata review is not an independent closing review or a completed final compiler/native/Lean/application checkpoint. The retained D3 planning run admitted, proved/audited, built and executed the complete driver; its independent stdout comparison covered 495 lines/11,357 bytes. Delivery validation is recorded separately."
+   }
   },
   "A* search algorithm": {
    "revision": 414922,
@@ -3295,9 +3297,14 @@
     }
    ],
    "size": 30,
-   "approach": "Declare a ranged integer subtype and a constrained array type of 10 elements, embed the sample data as an aggregate, and use a procedure Apply_Square that loops over the array's own range, squaring each element into a second array or printing it via a nested Display procedure called directly (no access-to-subprogram callback, a named procedure standing in for the callback). Each result is printed with Put_Line of a bounded concatenation of \"array(\" , the index image, \") = \" and the value image.",
-   "summary": "All checks follow from the declared element range and for-loop indexes over the array's own range, so the squares cannot overflow and no annotation is needed.",
-   "confidence": "high"
+   "approach": "The planning candidate defines an actual admitted Main-local scalar function and calls it for each element of a fixed initialized Integer array, using a whole scalar assignment for each call result before output. Element and function formal ranges bound the squaring. The task asks to apply a function to each element; an access-to-subprogram callback or array parameter is not required.",
+   "summary": "A candidate with an actual scalar-function call per array element admitted. This corrects the earlier procedure-standing-in-for-a-callback account; no first-class callback capability was needed for the measured approach. Execution and final application evidence remain unmeasured. The original surface mapping is retained for separate coverage reconciliation; these observations add no delivered sample or supported task mapping in this batch.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-11-18",
+    "record": "../docs/bounded-string-building-samples.md",
+    "method": "Targeted task/source reconciliation for issue #400 against the existing language and retained 2026-11-18 planning evidence; original assessment attribution preserved. This metadata review is not an independent closing review or a completed final compiler/native/Lean/application checkpoint. S4-a 20261118T020731-596550784-plan-try-0b2364 admitted with exit 0, sha 82ca18c3acaf; no execution was requested or measured. The primary task requires applying a function per element, not first-class callback parameters."
+   }
   },
   "Apply a digital filter (direct form II transposed)": {
    "revision": 413639,
@@ -4150,9 +4157,14 @@
    "outlook": "likely",
    "risks": [],
    "size": 22,
-   "approach": "Declare a constant one-dimensional array of two fixed-length Strings, which needs a common element length, so use a bounded record or two equal-padded strings, e.g. Fruit_Name subtype String (1 .. 6) with apple padded to 6 characters. Print the array's 'Length through Natural'Image concatenated onto a fixed label with Put_Line. All indices and lengths are static, so no loop or guard is needed.",
-   "summary": "The array length is a static attribute of a constant array of fixed-size strings, and printing it needs only a bounded image conversion, so every check follows from declarations.",
-   "confidence": "high"
+   "approach": "The primary example requires an array containing the exact text values apple and orange. Planning probes separately test String array components and the array Length attribute; both refuse. A counted Integer-array alternative admits but does not meet this String-array requirement. Padding apple to a different value does not solve the example. A separate feasibility probe should first seek faithful current-language alternatives before proposing any new admission.",
+   "summary": "String array components are outside the present fixed Integer/Boolean array fragments, and array Length separately refused. Integer-array counting admission does not establish the required String-array example or execution. No faithful current-language alternative was measured, and these refused approaches do not prove every possible algorithm impossible. The original surface mapping is retained for separate coverage reconciliation; these observations add no delivered sample or supported task mapping in this batch.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-11-18",
+    "record": "../docs/bounded-string-building-samples.md",
+    "method": "Targeted task/source reconciliation for issue #400 against the existing language and retained 2026-11-18 planning evidence; original assessment attribution preserved. This metadata review is not an independent closing review or a completed final compiler/native/Lean/application checkpoint. S2-b String-component declaration refused (20261118T020859-785431242-plan-try-8d45e2, exit 2); S2-c Integer-array control admitted (20261118T020900-894913243-plan-try-897c15, exit 0); S2-d array Length refused (20261118T020901-005884035-plan-try-1fea29, exit 2); S2-e Integer-array counting control admitted (20261118T020903-120904744-plan-try-3690ab, exit 0). These are admission results, not execution or a faithful String-array solution."
+   }
   },
   "Arrays": {
    "revision": 411498,
@@ -10263,9 +10275,14 @@
    "outlook": "likely",
    "risks": [],
    "size": 12,
-   "approach": "The program embeds the character 'a' and the code 97 as constants, computes Character'Pos of the character and Character'Val of the code, and prints both with Put_Line. Output lines are built by concatenating text, a Character and Integer'Image of the position. There are no loops or input, so no guards are needed because the constant 97 is statically within Character's range.",
-   "summary": "Every check is static: Character'Val of a constant in 0..255 cannot fail the range check, and the concatenated image length is bounded by Integer'Image's known maximum. No loops, recursion or input are involved, so no annotations are needed.",
-   "confidence": "high"
+   "approach": "Use an initialized String lookup table containing every printable ASCII Character in code order, 32 .. 126. For each Code, obtain Letter from Codes ((Code - 31)); search all 95 table positions with a typed Character comparison to compute Found := (I + 31). Separately index the table from Code and write that Character into a one-cell initialized String for output. Print Integer Image (Found), a colon and the one-cell String. This computes both directions over all 95 values without Character attributes or Character concatenation.",
+   "summary": "The isolated direct Character Pos approach rejected; Character Val was not separately isolated, and both attributes remain outside Silver. An executed lookup alternative covers character-to-code and code-to-character for all printable ASCII 32 .. 126: the independently rerun complete stdout matched 95 lines/597 bytes, with compiler, GNATprove and execution exit 0 and empty stderr. The overwritten Letter initializer produced an INEFFECTIVE advisory. Nonprintable codes and Unicode are unmeasured. Pos/Val are possible conveniences rather than a remaining blocker for this bounded task. The original surface mapping is retained for separate coverage reconciliation; these observations add no delivered sample or supported task mapping in this batch.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-11-18",
+    "record": "../docs/bounded-string-building-samples.md",
+    "method": "Targeted task/source reconciliation for issue #400 against the existing language and retained 2026-11-18 planning evidence; original assessment attribution preserved. This metadata review is not an independent closing review or a completed final compiler/native/Lean/application checkpoint. S1-b isolated Character Pos refusal (20261118T020846-027091486-plan-try-40a680, exit 2, sha 0a6b31a3a8b7); S1-c Integer-literal control admitted (20261118T020858-673882658-plan-try-0d6be0, exit 0). Character Val was not separately isolated. Challenge full-domain source sha e8b832b8cd56 admitted in 20261118T023316-324065854-plan-try-698e7d and ran in 20261118T023316-388064520-plan-try-bf8431. Finalizer rerun: 20261118T023905-488453062-plan-try-6e80ff admission exit 0; 20261118T023905-549479145-plan-try-e1d8b1 compiler/GNATprove/execution exit 0, empty stderr; independent complete stdout match, 95 lines/597 bytes. Overwritten Letter initializer produced an INEFFECTIVE advisory. The historical surface mapping remains unreconciled; neither execution is a fifth delivered sample."
+   }
   },
   "Chat server": {
    "revision": 414107,
@@ -16906,9 +16923,14 @@
     }
    ],
    "size": 110,
-   "approach": "Embed the 901-value sequence as a constant array of a ranged subtype (1..1000) indexed 0..900, scan it with one for loop that tracks the start of the current non-increasing run and, when a run ends, compares (first-last)*100 against 4, 8, 12, 16 and 25 times first using integers only (no floating point), incrementing one of six counters in a Count-typed array. Each increment is guarded by a check against the counter's upper bound with Reject as the visible outcome, and the six group counts are printed with Put_Line using 'Image text.",
-   "summary": "The task is plain integer array scanning with no recursion, floating point or heap, and the percentage tests are rewritten as bounded integer comparisons, so every check follows from types and short guards.",
-   "confidence": "high"
+   "approach": "The measured 3855-byte candidate embeds all 901 required values in a fixed initialized Integer array and scans maximal non-increasing subsequences with counted loops and bounded scalar state. Integer comparisons classify percentage decreases without floating point, guarded counters accumulate the six bins, and Integer Image output prints the counts. The complete candidate admitted and executed with observed bins 7, 6, 4, 2, 2, 0.",
+   "summary": "The full required 901-value candidate admitted and ran, producing bins 7, 6, 4, 2, 2, 0 from a 3855-byte source. Preserve this measured complete-sequence scope; it is inherited planning evidence and adds no promised sample or final delivery checkpoint result. The original surface mapping is retained for separate coverage reconciliation; these observations add no delivered sample or supported task mapping in this batch.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-11-18",
+    "record": "../docs/bounded-string-building-samples.md",
+    "method": "Targeted task/source reconciliation for issue #400 against the existing language and retained 2026-11-18 planning evidence; original assessment attribution preserved. This metadata review is not an independent closing review or a completed final compiler/native/Lean/application checkpoint. S8-a 20261118T020736-063709869-plan-try-96fa2c admitted with exit 0, sha 8e96a9cee0e6. The complete 901-value, 3855-byte candidate ran in 20261118T021000-631616188-plan-try-200bb9, observing bins 7, 6, 4, 2, 2, 0. This inherited planning run is not an additional delivered sample."
+   }
   },
   "Deepcopy": {
    "revision": 413169,
@@ -45980,9 +46002,14 @@
    "outlook": "likely",
    "risks": [],
    "size": 25,
-   "approach": "The program prints String-literal lines stating Ada's rule (underscore only, single, between digits) and declares Integer constants written with separators such as 1_000_000 and 16#FF_FF#. It compares each with its separator-free literal using if statements and prints the 'Image of each value and an equal or differs line. All values are static constants within Integer, so no loop or guard is needed.",
-   "summary": "Every value is a static literal constant and the output is fixed text plus 'Image of in-range constants, so no check depends on loop-carried values or annotations.",
-   "confidence": "high"
+   "approach": "The planning candidate prints the Ada underscore rules and demonstrates separated in-range Integer literals alongside separator-free values, using existing Integer comparisons and Integer Image in fixed-text output. It needs no computed-length output buffer. The measured result is admission only.",
+   "summary": "The numeric-separator candidate admitted on 2026-11-18 using current syntax and output forms. There is no measured missing string-building operation for this approach, and no proof/build/execution claim follows from its admission result. The original surface mapping is retained for separate coverage reconciliation; these observations add no delivered sample or supported task mapping in this batch.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-11-18",
+    "record": "../docs/bounded-string-building-samples.md",
+    "method": "Targeted task/source reconciliation for issue #400 against the existing language and retained 2026-11-18 planning evidence; original assessment attribution preserved. This metadata review is not an independent closing review or a completed final compiler/native/Lean/application checkpoint. S3-a 20261118T020730-483823033-plan-try-8ebb9f admitted with exit 0, sha c4d0fadbbccb. No execution was requested or measured; this is not delivered application evidence."
+   }
   },
   "Numerical and alphabetical suffixes": {
    "revision": 412945,
@@ -57510,29 +57537,31 @@
     }
    ],
    "surface": [
-    "integers",
-    "ranged-subtypes",
-    "string-indexing",
-    "string-building",
-    "for-loops",
-    "procedures",
-    "put"
+    "bounded-string-building",
+    "bounded-string-characters",
+    "bounded-mutable-integers",
+    "integer-for-loops"
    ],
    "outlook": "likely",
    "risks": [
     {
      "obligation": "index",
-     "explanation": "Each write position is Start + (I-1)*Len + J, which is bounded by declaring Count and Len with small ranged subtypes and a buffer sized for their product, so every index check follows from the types."
+     "explanation": "Over the full Count domain 0 .. 10, I lies in 1 .. 10 and J in 1 .. 2, so every copy destination lies in 1 .. 20."
     },
     {
      "obligation": "length",
-     "explanation": "The result length is Count*Len, which the buffer capacity covers by construction, and the slice printed is the buffer's own prefix of that length."
+     "explanation": "Count * 2 lies in 0 .. 20. Zero iterations give the empty prefix and Count 10 gives exact capacity; Count 5 is the delivered primary result."
     }
    ],
-   "size": 35,
-   "approach": "The program declares a ranged Count (0..10) and a constant source string, and fills a fixed-capacity String buffer using nested for loops (outer over repetitions, inner over the source's own range) with write positions computed from the loop indexes. A second loop fills a buffer with a single character for the repeat-char variant. It prints the prefix slice of the buffer with Put_Line for ha x5 and * x5.",
-   "summary": "The task is just bounded string building with nested for loops, and the type-bounded indexes (Count and Len ranged, buffer sized as their product) discharge every check without invariants or recursion.",
-   "confidence": "high"
+   "size": 19,
+   "approach": "Main declares Source as the literal ha, a fully initialized 20-cell String buffer, Count : Integer range 0 .. 10 := 5, and Len in 0 .. 20. Nested counted loops copy Source (J) to (((I - 1) * 2) + J), then Len := (Count * 2) and Put_Line prints Buffer (1 .. Len). The primary result is hahahahaha followed by LF; separate boundary coverage exercises zero and maximum counts. The optional repeat-character variant and String-valued functions are not required.",
+   "summary": "The repeat-five example builds hahahahaha in initialized storage and prints its used prefix. The declared count domain remains 0 .. 10; the planning boundary run executed all eleven counts, including empty and exact-capacity output. Existing String/Character stores, Integer bounds, counted loops and prefix output provide this bounded composition without a new language rule. Final-input application and boundary evidence is separate in the linked capability record.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-11-18",
+    "record": "../docs/bounded-string-building-samples.md",
+    "method": "Targeted task/source reconciliation for issue #400 against the existing language and retained 2026-11-18 planning evidence; original assessment attribution preserved. This metadata review is not an independent closing review or a completed final compiler/native/Lean/application checkpoint. Retained D4 and B2 planning evidence covers the repeat-five driver and all counts 0 through 10; no optional repeat-character delivery is claimed. Final-input sample and boundary results are recorded separately."
+   }
   },
   "Repunit primes": {
    "revision": 413881,
@@ -62239,17 +62268,18 @@
    "risks": [
     {
      "obligation": "overflow",
-     "explanation": "Each root is at most 111111113, so the square is at most about 1.3e16, which fits in a 64-bit range type and is checked from the declared subtype bounds."
-    },
-    {
-     "obligation": "length",
-     "explanation": "The line buffer is sized for two 'Image results plus separators, and each Image length is bounded by the subtype range so the concatenation fits."
+     "explanation": "Silver uses signed 32-bit Standard.Integer. The largest required root is 11111113 and its square is 123456832098769, beyond Integer; no admitted 64-bit type/range or measured alternative resolves this direct approach."
     }
    ],
    "size": 35,
-   "approach": "Hold the eight roots (3, 13, 113, ..., 11111113) as a constant array of a ranged 64-bit integer subtype indexed 0..7, then loop over the array's own range with a for loop, squaring each root and printing the root and its square through 'Image with Put_Line. There is no loop-carried state, so every check follows from the subtype bounds.",
-   "summary": "The task is eight fixed values with a single squaring, so overflow and index checks follow directly from the declared subtype ranges and the for loop over the array's own range. The only new needs are integer-to-text conversion and bounded string building.",
-   "confidence": "high"
+   "approach": "Preserve the required eight cases n = 0 .. 7: roots 3, 13, 113, 1113, 11113, 111113, 1111113 and 11111113. The direct wide-integer-type/range approach refuses, and a required larger square also refuses under Standard.Integer. Do not reduce n to fit. A fixed-capacity digit or multiword algorithm is a possible different approach, but was not explored or executed.",
+   "summary": "The measured obstacle is the direct wide-type/range and larger-square limitation, rather than missing Integer Image or bounded output building. Required n remains 0 .. 7. Rejected direct approaches do not establish impossibility of a digit or multiword solution; those alternatives are unassessed. The original surface mapping is retained for separate coverage reconciliation; these observations add no delivered sample or supported task mapping in this batch.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-11-18",
+    "record": "../docs/bounded-string-building-samples.md",
+    "method": "Targeted task/source reconciliation for issue #400 against the existing language and retained 2026-11-18 planning evidence; original assessment attribution preserved. This metadata review is not an independent closing review or a completed final compiler/native/Lean/application checkpoint. S5-b wide-type approach refused (20261118T020904-236718703-plan-try-7bac8f, exit 2); S5-c small Integer control admitted (20261118T020905-353150828-plan-try-9ad271, exit 0); S5-d larger required Integer square refused (20261118T020906-467163912-plan-try-366109, exit 2); S5-e literal control admitted (20261118T020907-582276788-plan-try-7b3e4f, exit 0). No digit-array or multiword alternative was explored."
+   }
   },
   "Show the epoch": {
    "revision": 413303,
@@ -66339,17 +66369,18 @@
    "risks": [
     {
      "obligation": "index",
-     "explanation": "Index into A(Min) and A(J) stays safe because Min is typed as the array's index subtype and J ranges over the array's own indices, with the outer loop bounded by a constant range."
-    },
-    {
-     "obligation": "overflow",
-     "explanation": "Integer image formatting is the only arithmetic, and element values are a bounded subtype so the 'Image buffer length is statically sufficient."
+     "explanation": "The mutable minimum index has the fixed array index range; counted scan indexes and scalar index bounds cover every read and swap destination."
     }
    ],
    "size": 45,
-   "approach": "Embed the ten example values in a constrained array of a declared bounded integer subtype indexed by 1..10, and sort it in a procedure with nested for loops over fixed constant ranges, tracking the minimum index in a variable of the index subtype and swapping through a temporary. Then print each element with a for loop, using 'Image output through Put_Line (or Put). No while loops, recursion, or contracts are needed because all loop bounds are static and every index comes from the array's own range.",
-   "summary": "Selection sort over a fixed-size array uses only for loops with static bounds and indices drawn from the array's own range, so index and range checks discharge from types without invariants; the output formatting is the only extra surface.",
-   "confidence": "high"
+   "approach": "The planning candidate performs selection sort in Main over a fixed initialized Integer array containing negative and duplicate values. Nested counted loops track the minimum with a bounded mutable scalar index and exchange through a scalar temporary; a final loop prints Integer Images. No array-valued parameter or separate sorting procedure is required. The measured result is admission only.",
+   "summary": "The selection-sort candidate admitted using existing fixed arrays, bounded scalar indexes, counted loops and Integer Image output, including negative and duplicate data. This is admission evidence only; sorted execution output and final application proof/build evidence were not measured. The original surface mapping is retained for separate coverage reconciliation; these observations add no delivered sample or supported task mapping in this batch.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-11-18",
+    "record": "../docs/bounded-string-building-samples.md",
+    "method": "Targeted task/source reconciliation for issue #400 against the existing language and retained 2026-11-18 planning evidence; original assessment attribution preserved. This metadata review is not an independent closing review or a completed final compiler/native/Lean/application checkpoint. S6-a 20261118T020733-827821826-plan-try-3e4f2f admitted with exit 0, sha b6c06e0c7ba7. The candidate includes negative and duplicate elements; no execution was requested or measured."
+   }
   },
   "Sorting algorithms/Shell sort": {
    "revision": 414506,
@@ -68434,15 +68465,32 @@
     }
    ],
    "surface": [
-    "string-building",
-    "procedures"
+    "bounded-string-building",
+    "bounded-string-characters",
+    "bounded-mutable-integers",
+    "scalar-guard-refinement",
+    "integer-for-loops"
    ],
    "outlook": "likely",
-   "risks": [],
-   "size": 12,
-   "approach": "Keep the text in a bounded buffer with a length counter: declare a Str buffer, a Len counter, and a literal to append. Guard on the length (Len plus the literal's length does not exceed the capacity), then copy the literal's characters into the buffer and print the first Len characters; if the guard fails, print a specified rejection message. Because the buffer's capacity is fixed and the guard precedes the copy, no index or length check can fail.",
-   "summary": "The task is one in-place append of a literal followed by one print, so every index and length check follows from a fixed buffer capacity and a guard just before the copy. Today's Silver only has fixed-length strings with bounded concatenation, so a bounded string buffer with an in-place append is the only missing piece.",
-   "confidence": "high"
+   "risks": [
+    {
+     "obligation": "index",
+     "explanation": "The bare Len guard reserves room for the entire literal before the counted Character stores."
+    },
+    {
+     "obligation": "length",
+     "explanation": "Len remains in 0 .. 13; exact fit reaches capacity, and the full-buffer branch changes neither Len nor buffer before the unchanged prefix is printed."
+    }
+   ],
+   "size": 23,
+   "approach": "Main initializes all 13 buffer cells with logical text Hello and spare spaces, a bounded Len counter, and the multi-character literal ', world!'. In each of two attempts, one bare-name capacity guard checks that the entire literal fits. The successful arm saves the guarded length in Start (declared 0 .. 5) and updates Len before entering the counted copy loop. Start keeps each destination bounded when loop-body analysis widens mutable facts; the loop copies every literal character after the original used prefix. Only the successful arm updates Len. The first attempt exactly fills the buffer; the second prints full without changing buffer or length. Filled-prefix output remains after end if; both attempts print the variable, with the refused attempt preserving the previous prefix.",
+   "summary": "The existing initialized-buffer composition performs a real multi-character append, with an exact fit followed by whole refusal. The expected stdout is Hello, world!\\nfull\\nHello, world!\\n. Character stores, a bounded length, counted loops and prefix output already exist; bounded-string-building is precise Rosetta metadata and introduces no language rule. The linked capability record separates final delivery evidence from inherited planning observations.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-11-18",
+    "record": "../docs/bounded-string-building-samples.md",
+    "method": "Targeted task/source reconciliation for issue #400 against the existing language and retained 2026-11-18 planning evidence; original assessment attribution preserved. This metadata review is not an independent closing review or a completed final compiler/native/Lean/application checkpoint. The owner amendment replaces the earlier one-character planning driver with a whole multi-character literal, exact fit and unchanged whole refusal; final-input application evidence remains in the linked capability record."
+   }
   },
   "String case": {
    "revision": 415378,
@@ -68670,20 +68718,32 @@
     }
    ],
    "surface": [
-    "string-building",
-    "put"
+    "bounded-string-building",
+    "bounded-string-characters",
+    "bounded-mutable-integers",
+    "scalar-guard-refinement",
+    "integer-for-loops"
    ],
    "outlook": "likely",
    "risks": [
     {
+     "obligation": "index",
+     "explanation": "The whole-literal guard bounds every counted copy destination; reverse shifting in prepend preserves unread source cells."
+    },
+    {
      "obligation": "length",
-     "explanation": "The result is built in a fixed-capacity buffer, so the program's literal sizes make the prepend fit statically and the length checks discharge from constants."
+     "explanation": "Len remains in 0 .. 12; exact fit reaches capacity, and the full-buffer branch changes neither Len nor buffer before the unchanged prefix is printed."
     }
    ],
-   "size": 12,
-   "approach": "Keep the variable as a fixed-capacity buffer (a String of capacity 32 plus a length in a declared range), initialized to \"World!\". Prepend \"Hello \" by guarding that the combined length fits the capacity, shifting the old contents right and copying the literal in front, then print the used slice with Put_Line. If the guard fails, print a visible rejection message instead.",
-   "summary": "The task is one prepend and one print on embedded literal data, so every length and index check follows from constants and a single guard before the copy. Silver already has bounded concatenation, so only a buffer with a computed length and slice printing are missing.",
-   "confidence": "high"
+   "size": 26,
+   "approach": "Main initializes all 12 buffer cells with logical text World! and spare spaces, a bounded Len counter, and the multi-character literal 'Hello '. In each of two attempts, one bare-name capacity guard checks that the entire literal fits. It shifts the existing characters right in reverse order by the literal length, then copies every literal character to the front with a counted loop. Only the successful arm updates Len. The first attempt exactly fills the buffer; the second prints full without changing buffer or length. Filled-prefix output remains after end if; both attempts print the variable, with the refused attempt preserving the previous prefix.",
+   "summary": "The existing initialized-buffer composition performs a real multi-character prepend, with an exact fit followed by whole refusal. The expected stdout is Hello World!\\nfull\\nHello World!\\n. Character stores, a bounded length, counted loops and prefix output already exist; bounded-string-building is precise Rosetta metadata and introduces no language rule. The linked capability record separates final delivery evidence from inherited planning observations.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-11-18",
+    "record": "../docs/bounded-string-building-samples.md",
+    "method": "Targeted task/source reconciliation for issue #400 against the existing language and retained 2026-11-18 planning evidence; original assessment attribution preserved. This metadata review is not an independent closing review or a completed final compiler/native/Lean/application checkpoint. The owner amendment replaces the earlier one-character planning driver with a whole multi-character literal, exact fit and unchanged whole refusal; final-input application evidence remains in the linked capability record."
+   }
   },
   "Strip a set of characters from a string": {
    "revision": 414522,
@@ -71308,21 +71368,22 @@
    "risks": [
     {
      "obligation": "index",
-     "explanation": "The sort swap and the adjacent-sum scan read element I+1, discharged by for-loop ranges stopping one short of the array's last index."
+     "explanation": "Any complete alternative must keep sort/scan indexes inside admitted array bounds; the proposed 2775-component arrays exceed the current source-derived 2048-component capacity."
     },
     {
      "obligation": "overflow",
-     "explanation": "Cubes and sums stay below 405224 because the operands are a subtype 1..74, so the nonlinear product is bounded by the type alone."
-    },
-    {
-     "obligation": "length",
-     "explanation": "Each output line is a bounded concatenation of 'Image strings whose maximum widths are static, so the result length fits the declared buffer or Put_Line argument."
+     "explanation": "For X and Y in 1 .. 74, each cube is at most 405224 and the sum is at most 810448. These arithmetic bounds do not validate the proposed 25th-number bound or complete output."
     }
    ],
    "size": 75,
-   "approach": "Enumerate all pairs 1 <= X <= Y <= 74 into fixed arrays of 2775 sums with their X and Y, since 74 cubed exceeds the 25th taxicab number 402597 and so the search is complete for it. Sort the entries by sum with a nested for-loop exchange sort in a procedure, then scan adjacent entries with for loops, and print each pair of equal sums as one text line using Integer'Image and concatenation, stopping after 25 matches. The extra-credit 2000th number is treated as optional and omitted.",
-   "summary": "All loops are for loops over array ranges and all values are bounded by subtypes, so every check follows from types and static bounds with no invariants. The only effort is writing the sort and scan with the I+1 index guarded by loop ranges.",
-   "confidence": "high"
+   "approach": "The earlier direct plan enumerates the 2775 pairs 1 <= X <= Y <= 74 into arrays of sums and constituents, sorts them and scans equal sums for output. Its first isolated refusal is others => 0. Explicit initialization does not repair this full shape: a 2775-component array exceeds the documented source-derived 2048-component capacity, and even one explicit zero-filled aggregate exceeds the 4096-byte source budget. Smaller explicit-aggregate controls are not the complete task. A different current-language algorithm remains unassessed.",
+   "summary": "The isolated others aggregate refuses; the direct full-array expansion also has source/component-capacity obstacles. Correct the possible sum bound to 810448 = 74 cubed + 74 cubed. The full numeric result, lowest-25 completeness and earlier claimed 25th-number search bound remain unmeasured; no full-output success is claimed, and a different algorithm is not ruled out. The original surface mapping is retained for separate coverage reconciliation; these observations add no delivered sample or supported task mapping in this batch.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-11-18",
+    "record": "../docs/bounded-string-building-samples.md",
+    "method": "Targeted task/source reconciliation for issue #400 against the existing language and retained 2026-11-18 planning evidence; original assessment attribution preserved. This metadata review is not an independent closing review or a completed final compiler/native/Lean/application checkpoint. S7-b isolated others aggregate refused (20261118T020908-695186622-plan-try-954aed, exit 2, sha 5b92dbcb2049); S7-c explicit small-aggregate control admitted (20261118T020910-805026414-plan-try-78e086, exit 0, sha 7d34c4b86a90). The full search/source expansion and output were not executed or validated."
+   }
   },
   "Teacup rim text": {
    "revision": 413941,

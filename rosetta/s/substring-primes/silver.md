@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the Small subtype range, nonzero loop divisors and for loops, so no loop-carried values or annotations are needed, and the functions terminate because only for loops are used. The task needs only integer arithmetic, bounded for loops and number printing.
 
-Position 316 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 317 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

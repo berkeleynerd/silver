@@ -1,0 +1,3 @@
+Command: python3 rosetta/refresh.py --render
+Exit: 0
+1782 tasks; solutions: {'Ada': 1094, 'FreeBASIC': 685, 'SPARK': 8, 'Phix': 3}

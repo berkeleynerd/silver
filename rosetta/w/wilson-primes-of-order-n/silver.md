@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Modular factorial arithmetic keeps every value inside bounded 64-bit ranged subtypes, so no big numbers or annotations are required and all loops terminate by construction. The outlook is plausible rather than likely because of the nonlinear bounded multiplications and the careful row-buffer construction.
 
-Position 408 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 409 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
