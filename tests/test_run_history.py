@@ -503,6 +503,382 @@ with history.ManagedRun(host, 'holder', ['test'], {}, [pathlib.Path(sys.argv[2])
         self.assertFalse((self.root / "scripts").exists())
         self.assertEqual(len(history.status(self.host)["notes"]), 1)
 
+    @staticmethod
+    def spark_body(*checks, file="unit.adb"):
+        """Shape failed checks as GNATprove does: leading-space entity keys, an entity per record."""
+        entities, numbers, proof = {}, {}, []
+        for helper, line, rule in checks:
+            record = {"file": file, "line": line, "col": 3, "rule": rule,
+                      "severity": "medium", "how_proved": "prover"}
+            if helper is not None:
+                number = numbers.setdefault(helper, len(numbers) + 1)
+                entities[f" {number}"] = {"name": helper, "sloc": [{"file": file, "line": 2, "column": 14}]}
+                record["entity"] = number
+            proof.append(record)
+        return {"entities": entities, "proof": proof}
+
+    def fail_helper(self, scope, *checks, task="issue39"):
+        """Record one failed tool-gnatprove attempt whose report is new to that run."""
+        reports = self.root / "reports"
+        with self.run_context(kind="tool-gnatprove", task=task, inputs={"scope": scope},
+                              failure_reports=[reports]) as run:
+            report = reports / run.run_id / "unit.spark"
+            report.parent.mkdir(parents=True)
+            report.write_text(json.dumps(self.spark_body(*checks)))
+            run.finish("failure", returncode=1)
+        return run.run_id
+
+    def test_helper_names_come_from_report_metadata_and_exact_keys_are_unchanged(self):
+        identity = "Unit.Helper:VC_RANGE_CHECK"
+
+        def located(*lines):
+            return [f"unit.adb:{line}:3:VC_RANGE_CHECK" for line in lines]
+
+        # Expected lists are in sorted string order; five keys under one identity
+        # make an unsorted set order fail on almost every hash seed.
+        keys = located(11, 13, 2, 4, 6, 9)
+        named = {identity: located(11, 13, 2, 4, 9)}
+        body = self.spark_body(*[("Unit.Helper", line, "VC_RANGE_CHECK") for line in (9, 4, 13, 2, 11)],
+                               (None, 6, "VC_RANGE_CHECK"), ("Unit.Helper", 7, "VC_RANGE_CHECK"))
+        body["proof"][-1]["severity"] = "info"
+
+        def result(rule, kind, line):
+            return {"ruleId": rule, "kind": kind, "locations": [{
+                "physicalLocation": {"artifactLocation": {"uri": "unit.adb"},
+                                     "region": {"startLine": line, "startColumn": 3}},
+                "logicalLocations": [{"name": "Unit.Helper"}, {"name": "Unit"}]}]}
+
+        sarif = {"runs": [{"results": [
+            result("VC_RANGE_CHECK", "open", 9), result("VC_RANGE_CHECK", "fail", 4),
+            result("VC_RANGE_CHECK", "pass", 7), result("VC_RANGE_CHECK", "informational", 8),
+            result("INITIALIZED", "open", 5)]}]}
+
+        def write(directory):
+            directory.mkdir(parents=True)
+            (directory / "unit.spark").write_text(json.dumps(body))
+            (directory / "gnatprove.sarif").write_text(json.dumps(sarif))
+
+        reports = self.root / "metadata"
+        write(reports)
+        self.assertEqual(history.failed_obligations([reports / "unit.spark"]), keys)
+        self.assertEqual(history.failed_identities([reports / "unit.spark"]), named)
+        self.assertEqual(history.failed_obligations([reports / "gnatprove.sarif"]), located(4, 9))
+        self.assertEqual(history.failed_identities([reports / "gnatprove.sarif"]), {identity: located(4, 9)})
+        self.assertEqual(history.failed_obligations([reports]), keys)
+        self.assertEqual(history.failed_identities([reports]), named)
+
+        with self.run_context(kind="tool-gnatprove", failure_reports=[self.root / "failed"]) as run:
+            write(self.root / "failed")
+            run.finish("failure", returncode=0)
+        with self.run_context(kind="tool-gnatprove", task="issue40", failure_reports=[self.root / "proved"]):
+            write(self.root / "proved")
+        self.fail_obligation(task="issue41")
+        with self.run_context(task="issue42", failure_keys=["unit.adb:2:2:VC_RANGE_CHECK"]) as run:
+            run.finish("failure", returncode=1)
+        failed, succeeded, explicit, constructed = (record["finish"] for record in self.records())
+        self.assertEqual((failed["failure_keys"], failed["failure_identities"]), (keys, named))
+        self.assertEqual((succeeded["failure_keys"], succeeded["failure_identities"]), ([], {}))
+        self.assertEqual((explicit["failure_keys"], explicit["failure_identities"]),
+                         (["unit.adb:1:1:VC_RANGE_CHECK"], {}))
+        self.assertEqual((constructed["failure_keys"], constructed["failure_identities"]),
+                         (["unit.adb:2:2:VC_RANGE_CHECK"], {}))
+
+    def test_missing_or_malformed_helper_metadata_yields_exact_keys_only(self):
+        named = self.spark_body(("Unit.Helper", 9, "VC_RANGE_CHECK"))
+        entity, record = named["entities"][" 1"], named["proof"][0]
+        spark = {
+            "no entities": {"proof": [record]},
+            "entities not a dict": {"entities": [entity], "proof": [record]},
+            "number absent": {"entities": {" 2": entity}, "proof": [record]},
+            "entity a string": dict(named, proof=[dict(record, entity="1")]),
+            # The table holds both spellings a bool could be read as, so only rejecting it gives no name.
+            "entity a bool": dict(named, entities={" 1": entity, " True": entity},
+                                  proof=[dict(record, entity=True)]),
+            "entry not a dict": dict(named, entities={" 1": "Unit.Helper"}),
+            "name empty": dict(named, entities={" 1": dict(entity, name="")}),
+            "name not a string": dict(named, entities={" 1": dict(entity, name=["Unit", "Helper"])}),
+        }
+        location = {"physicalLocation": {"artifactLocation": {"uri": "unit.adb"},
+                                         "region": {"startLine": 9, "startColumn": 3}}}
+        sarif = {
+            "no logicalLocations": location,
+            "logicalLocations empty": dict(location, logicalLocations=[]),
+            "logicalLocations not a list": dict(location, logicalLocations={"name": "Unit.Helper"}),
+            "entry not a dict": dict(location, logicalLocations=["Unit.Helper"]),
+            "entry unnamed": dict(location, logicalLocations=[{"kind": "function"}]),
+            "name empty": dict(location, logicalLocations=[{"name": ""}]),
+        }
+        reports = {name: (self.root / "unit.spark", body) for name, body in spark.items()}
+        reports.update({"sarif " + name: (self.root / "gnatprove.sarif", {"runs": [{"results": [
+            {"ruleId": "VC_RANGE_CHECK", "kind": "open", "locations": [variant]}]}]})
+            for name, variant in sarif.items()})
+        for name, (report, body) in reports.items():
+            with self.subTest(report=name):
+                report.write_text(json.dumps(body))
+                self.assertEqual(history.failed_obligations([report]), ["unit.adb:9:3:VC_RANGE_CHECK"])
+                self.assertEqual(history.failed_identities([report]), {})
+        unfiled = {key: value for key, value in record.items() if key != "file"}
+        (self.root / "unit.spark").write_text(json.dumps(dict(named, proof=[unfiled])))
+        (self.root / "gnatprove.sarif").write_text(json.dumps({"runs": [{"results": [
+            {"ruleId": "VC_RANGE_CHECK", "kind": "open", "locations": [{
+                "physicalLocation": {"artifactLocation": {}, "region": {"startLine": 9, "startColumn": 3}},
+                "logicalLocations": [{"name": "Unit.Helper"}]}]}]}]}))
+        for report in (self.root / "unit.spark", self.root / "gnatprove.sarif"):
+            with self.subTest(unfiled=report.name):
+                self.assertEqual(history.failed_obligations([report]), [])
+                self.assertEqual(history.failed_identities([report]), {})
+
+    def test_moved_line_is_one_helper_recurrence_and_reports_exact_locations(self):
+        identity = "Unit.Helper:VC_RANGE_CHECK"
+        scope = ["mode:all", "project:unit.gpr", "unit.adb"]
+        attempts = ([9], [10, 11], [12])
+        for index, lines in enumerate(attempts):
+            run_id = self.fail_helper(scope, *[("Unit.Helper", line, "VC_RANGE_CHECK") for line in lines])
+            required = history.status(self.host)["diagnostics_required"]
+            self.assertEqual(bool(required), index == 2)
+        keys = [[f"unit.adb:{line}:3:VC_RANGE_CHECK" for line in lines] for lines in attempts]
+        locations = sorted(key for run_keys in keys for key in run_keys)
+        self.assertEqual(required, [{"task": "issue39", "kind": "tool-gnatprove", "scope": scope,
+                                     "run_id": run_id, "failure_counts": {identity: 3},
+                                     "failure_locations": {identity: locations}}])
+        self.assertEqual([record["finish"]["failure_keys"] for record in self.records()], keys)
+        with self.assertRaisesRegex(history.RunHistoryError, "diagnostic") as refused:
+            with self.run_context(kind="tool-gnatprove", inputs={"scope": scope}):
+                self.fail("fourth attempt at a moved line")
+        for text in (identity, *locations):
+            self.assertIn(text, str(refused.exception))
+        self.assertEqual(len(self.records()), 3)
+
+    def test_selector_path_changes_are_one_helper_recurrence(self):
+        identity = "Unit.Helper:VC_RANGE_CHECK"
+        scopes = (["mode:all", "project:unit.gpr", "--limit-subp=unit.adb:3", "unit.adb"],
+                  ["mode:all", "--limit-subp=unit.adb:5", "project:unit.gpr", "unit.adb"],
+                  ["mode:all", "project:unit.gpr", "unit.adb", "--limit-name=Helper"])
+        for line, scope in zip((3, 5, 7), scopes):
+            run_id = self.fail_helper(scope, ("Unit.Helper", line, "VC_RANGE_CHECK"))
+        entry, = history.status(self.host)["diagnostics_required"]
+        self.assertEqual((entry["run_id"], entry["scope"], entry["failure_counts"]),
+                         (run_id, scopes[2], {identity: 3}))
+        for scope in (["mode:all", "project:unit.gpr", "--limit-line=unit.adb:14", "unit.adb"],
+                      ["mode:all", "project:unit.gpr", "unit.adb"]):
+            with self.subTest(scope=scope), self.assertRaisesRegex(history.RunHistoryError, "diagnostic"):
+                with self.run_context(kind="tool-gnatprove", inputs={"scope": scope}):
+                    self.fail("a pending helper's family started")
+        self.assertEqual(len(self.records()), 3)
+        with self.assertRaisesRegex(history.RunHistoryError, "diagnostic"):
+            with self.run_context(kind="tool-gnatprove", inputs={"scope": ["mode:all", "project:other.gpr"]}) as run:
+                run.prepare({"scope": ["mode:all", "project:unit.gpr", "--limit-subp=unit.adb:9", "unit.adb"]})
+                self.fail("a prepared scope bypassed the pending helper's family")
+        refused = self.records()[-1]
+        self.assertEqual(refused["state"], "failure")
+        self.assertEqual((refused["finish"]["failure_keys"], refused["finish"]["failure_identities"]), ([], {}))
+
+    def test_unrelated_helpers_and_targets_are_separate_recurrences(self):
+        scope = ["mode:all", "project:unit.gpr", "unit.adb"]
+        for line, helper, rule in ((1, "Unit.First", "VC_RANGE_CHECK"), (2, "Unit.Second", "VC_RANGE_CHECK"),
+                                   (3, "Unit.First", "VC_RANGE_CHECK"), (4, "Unit.First", "VC_OVERFLOW_CHECK")):
+            self.fail_helper(scope, (helper, line, rule))
+        self.assertEqual(history.status(self.host)["diagnostics_required"], [])
+        self.fail_helper(scope, ("Unit.First", 5, "VC_RANGE_CHECK"))
+        self.assertEqual([entry["failure_counts"] for entry in history.status(self.host)["diagnostics_required"]],
+                         [{"Unit.First:VC_RANGE_CHECK": 3}])
+        with self.assertRaisesRegex(history.RunHistoryError, "diagnostic") as refused:
+            with self.run_context(kind="tool-gnatprove", inputs={"scope": scope}):
+                self.fail("a pending helper started")
+        self.assertIn("Unit.First:VC_RANGE_CHECK", str(refused.exception))
+        self.assertNotIn("Unit.Second", str(refused.exception))
+        self.assertNotIn("VC_OVERFLOW_CHECK", str(refused.exception))
+        for options in ({"inputs": {"scope": ["mode:all", "project:other.gpr", "unit.adb"]}},
+                        {"inputs": {"scope": ["mode:flow", "project:unit.gpr", "unit.adb"]}},
+                        {"inputs": {"scope": ["mode:all", "project:unit.gpr", "other.adb"]}},
+                        {"inputs": {"scope": [*scope, 7]}},
+                        {"inputs": {"scope": scope}, "task": "issue40"},
+                        {"inputs": {"scope": scope}, "kind": "tool-gprbuild"}):
+            with self.subTest(options=options):
+                with self.run_context(**{"kind": "tool-gnatprove", **options}) as run:
+                    self.assertTrue(run.run_id)
+        for project in ("first.gpr", "second.gpr", "third.gpr"):
+            self.fail_helper(["mode:all", f"project:{project}"], ("Main", 4, "VC_RANGE_CHECK"), task="issue41")
+        self.assertEqual(history.status(self.host, "issue41")["diagnostics_required"], [])
+
+    def test_failures_without_helper_metadata_still_count_by_exact_key_only(self):
+        scope = ["mode:all", "project:unit.gpr", "unit.adb"]
+        for line in (1, 2, 3):
+            self.fail_helper(scope, (None, line, "VC_RANGE_CHECK"))
+        self.assertEqual(history.status(self.host)["diagnostics_required"], [])
+        with self.run_context(kind="tool-gnatprove", inputs={"scope": scope}) as run:
+            self.assertTrue(run.run_id)
+        for line in (1, 2, 3):
+            with self.run_context(kind="lean", task="issue40", inputs={"scope": "complete"}) as run:
+                run.finish("failure", returncode=1,
+                           failure_keys=[f"lean:build:Silver/Proof.lean:{line}:5:unsolved goals"])
+        self.assertEqual(history.status(self.host, "issue40")["diagnostics_required"], [])
+        with self.run_context(kind="lean", task="issue40", inputs={"scope": "complete"}) as run:
+            self.assertTrue(run.run_id)
+
+    def test_only_a_covering_success_resolves_a_helper_recurrence(self):
+        identity = "Unit.Helper:VC_RANGE_CHECK"
+        base = ["mode:all", "project:unit.gpr", "unit.adb"]
+        first, moved = [*base, "--limit-name=Helper"], [*base, "--limit-subp=unit.adb:7"]
+
+        def replay(task, *attempts):
+            """Fail at the given line, or succeed when the line is None, in each scope in turn."""
+            for scope, line in attempts:
+                if line is None:
+                    with self.run_context(kind="tool-gnatprove", task=task, inputs={"scope": scope}):
+                        pass
+                else:
+                    self.fail_helper(scope, ("Unit.Helper", line, "VC_RANGE_CHECK"), task=task)
+            return history.status(self.host, task)["diagnostics_required"]
+
+        other = [*base, "--limit-name=Other"]
+        pending = replay("a", (first, 1), (first, 2), (other, None), (moved, 3))
+        self.assertEqual([entry["failure_counts"] for entry in pending], [{identity: 3}])
+        self.assertEqual(replay("b", (first, 1), (first, 2), (first, None), (first, 3), (moved, 4)), [])
+        self.assertEqual(replay("c", (moved, 1), (first, 2), (base, None), (first, 3), (moved, 4)), [])
+        entry, = replay("d", (first, 1), (base, None), (moved, 2), (moved, 3), (first, None), (moved, 4))
+        self.assertEqual(entry["failure_counts"], {identity: 3})
+        self.assertEqual(entry["failure_locations"],
+                         {identity: [f"unit.adb:{line}:3:VC_RANGE_CHECK" for line in (2, 3, 4)]})
+        pending.append(entry)
+        # A success in an earlier failed scope covers the helper, not only one in the latest.
+        self.assertEqual(replay("e", (first, 1), (moved, 2), (first, None), (moved, 3), (moved, 4)), [])
+
+        # An interrupted run, even with no limit selector, neither records nor clears anything.
+        replay("f", (first, 1), (moved, 2))
+        reports = self.root / "reports"
+        with self.assertRaises(KeyboardInterrupt):
+            with self.run_context(kind="tool-gnatprove", task="f", inputs={"scope": base},
+                                  failure_reports=[reports]) as run:
+                report = reports / run.run_id / "unit.spark"
+                report.parent.mkdir(parents=True)
+                report.write_text(json.dumps(self.spark_body(("Unit.Helper", 5, "VC_RANGE_CHECK"))))
+                raise KeyboardInterrupt()
+        interrupted = history.status(self.host, "f")["runs"][-1]
+        self.assertEqual((interrupted["state"], interrupted["finish"]["failure_keys"],
+                          interrupted["finish"]["failure_identities"]), ("interrupted", [], {}))
+        entry, = replay("f", (first, 3))
+        self.assertEqual((entry["failure_counts"], entry["failure_locations"]),
+                         ({identity: 3}, {identity: [f"unit.adb:{line}:3:VC_RANGE_CHECK" for line in (1, 2, 3)]}))
+        pending.append(entry)
+
+        # Unfiltered, each task's pending family has its own entry, in the order the families first appear.
+        self.assertEqual(history.status(self.host)["diagnostics_required"], pending)
+
+    def test_diagnosis_resets_helper_recurrence_and_attempts_stay_unlimited(self):
+        identity = "Unit.Helper:VC_RANGE_CHECK"
+        scope = ["mode:all", "project:unit.gpr", "--limit-subp=unit.adb:3", "unit.adb"]
+        for line in (1, 2, 3):
+            self.fail_helper(scope, ("Unit.Helper", line, "VC_RANGE_CHECK"))
+        entry, = history.status(self.host)["diagnostics_required"]
+        for summary, next_step in ((" ", "inspect the generated VC"), ("bound is lost at the call", "")):
+            with self.subTest(summary=summary, next_step=next_step):
+                with self.assertRaisesRegex(history.RunHistoryError, "summary and next step"):
+                    history.diagnose(self.host, entry["run_id"], summary, next_step)
+        self.assertEqual(history.status(self.host)["diagnostics_required"], [entry])
+        history.diagnose(self.host, entry["run_id"], "bound is lost at the call", "state it in the precondition")
+        self.assertEqual(history.status(self.host)["diagnostics_required"], [])
+        for line in (4, 5, 6):
+            self.fail_helper(scope, ("Unit.Helper", line, "VC_RANGE_CHECK"))
+            required = history.status(self.host)["diagnostics_required"]
+            self.assertEqual(bool(required), line == 6)
+        self.assertEqual((required[0]["failure_counts"], required[0]["failure_locations"]),
+                         ({identity: 3}, {identity: [f"unit.adb:{line}:3:VC_RANGE_CHECK" for line in (4, 5, 6)]}))
+        self.assertEqual(len(self.records()), 6)
+
+    def test_records_without_helper_metadata_field_are_read_as_before(self):
+        scope = ["mode:all", "project:unit.gpr", "unit.adb"]
+        key = "unit.adb:9:3:VC_RANGE_CHECK"
+
+        def rewrite(run_id, change):
+            journal = history.registry(self.host) / "runs" / run_id / "events.jsonl"
+            events = [json.loads(line) for line in journal.read_text().splitlines()]
+            for event in events:
+                if event["event"] == "finished":
+                    change(event)
+            journal.write_text("".join(json.dumps(event) + "\n" for event in events))
+
+        def older(event):
+            event.pop("failure_identities", None)
+
+        def entry(task, run_id):
+            return {"task": task, "kind": "tool-gnatprove", "scope": scope, "run_id": run_id,
+                    "failure_counts": {key: 3}}
+
+        runs = [self.fail_helper(scope, ("Unit.Helper", 9, "VC_RANGE_CHECK")) for _ in range(3)]
+        for run_id in runs:
+            rewrite(run_id, older)
+        self.assertEqual(history.status(self.host)["diagnostics_required"], [entry("issue39", runs[-1])])
+        with self.assertRaisesRegex(history.RunHistoryError, "diagnostic"):
+            with self.run_context(kind="tool-gnatprove", inputs={"scope": scope}):
+                self.fail("older records hid an exact recurrence")
+        for _ in range(2):
+            rewrite(self.fail_helper(scope, ("Unit.Helper", 9, "VC_RANGE_CHECK"), task="issue40"), older)
+        latest = self.fail_helper(scope, ("Unit.Helper", 9, "VC_RANGE_CHECK"), task="issue40")
+        self.assertEqual(history.status(self.host, "issue40")["diagnostics_required"], [entry("issue40", latest)])
+        # Each shape fills three failed runs of its own task, so reading it as valid would reach the
+        # boundary. None keeps the run's own valid field: beside an accepted [3], sorting would raise.
+        identity = "Unit.Helper:VC_RANGE_CHECK"
+        malformed = {
+            "top-level list": [[identity]] * 3,
+            "string value": [{identity: f"unit.adb:{line}:3:VC_RANGE_CHECK"} for line in (1, 2, 3)],
+            "non-string in list": [{identity: [3]}] * 3,
+            "empty list": [{identity: []}] * 3,
+            "non-string beside a valid list": [{identity: [3]}, None, {identity: [3]}],
+        }
+        for task, shapes in malformed.items():
+            with self.subTest(malformed=task):
+                for line, shape in zip((1, 2, 3), shapes):
+                    run_id = self.fail_helper(scope, ("Unit.Helper", line, "VC_RANGE_CHECK"), task=task)
+                    if shape is not None:
+                        rewrite(run_id, lambda event, shape=shape: event.update(failure_identities=shape))
+                self.assertEqual(history.status(self.host, task)["diagnostics_required"], [])
+                with self.run_context(kind="tool-gnatprove", task=task, inputs={"scope": scope}) as run:
+                    self.assertTrue(run.run_id)
+
+    def test_exact_key_reports_are_unchanged_beside_helper_reports(self):
+        identity, key = "Unit.Helper:VC_RANGE_CHECK", "unit.adb:9:3:VC_RANGE_CHECK"
+        scope = ["mode:all", "project:unit.gpr", "--limit-subp=unit.adb:3", "unit.adb"]
+        for _ in range(3):
+            run_id = self.fail_helper(scope, ("Unit.Helper", 9, "VC_RANGE_CHECK"))
+        common = {"task": "issue39", "kind": "tool-gnatprove", "scope": scope, "run_id": run_id}
+        self.assertEqual(history.status(self.host)["diagnostics_required"], [
+            dict(common, failure_counts={key: 3}),
+            dict(common, failure_counts={identity: 3}, failure_locations={identity: [key]})])
+        with self.assertRaises(history.RunHistoryError) as refused:
+            with self.run_context(kind="tool-gnatprove", inputs={"scope": scope}):
+                self.fail("a pending recurrence started")
+        compact = dict(sort_keys=True, separators=(",", ":"))
+        self.assertEqual(str(refused.exception),
+                         "repeated unresolved obligations need a diagnostic note before another run: "
+                         + json.dumps({key: 3, identity: 3}, **compact)
+                         + "; exact locations: " + json.dumps({identity: [key]}, **compact))
+        history.diagnose(self.host, run_id, "bound is lost at the call", "state it in the precondition")
+        self.assertEqual(history.status(self.host)["diagnostics_required"], [])
+
+        task, base = "issue40", ["mode:all", "project:unit.gpr", "unit.adb"]
+        first, moved = [*base, "--limit-name=Helper"], [*base, "--limit-subp=unit.adb:7"]
+        for _ in range(2):
+            self.fail_helper(first, ("Unit.Helper", 9, "VC_RANGE_CHECK"), task=task)
+        with self.run_context(kind="tool-gnatprove", task=task, inputs={"scope": base}):
+            pass
+        exact_run = self.fail_helper(first, ("Unit.Helper", 9, "VC_RANGE_CHECK"), task=task)
+        for line in (11, 12):
+            helper_run = self.fail_helper(moved, ("Unit.Helper", line, "VC_RANGE_CHECK"), task=task)
+        exact_entry = {"task": task, "kind": "tool-gnatprove", "scope": first, "run_id": exact_run,
+                       "failure_counts": {key: 3}}
+        self.assertEqual(history.status(self.host, task)["diagnostics_required"], [exact_entry, {
+            "task": task, "kind": "tool-gnatprove", "scope": moved, "run_id": helper_run,
+            "failure_counts": {identity: 3},
+            "failure_locations": {identity: ["unit.adb:11:3:VC_RANGE_CHECK", "unit.adb:12:3:VC_RANGE_CHECK", key]}}])
+        history.diagnose(self.host, helper_run, "selector moved with the helper", "inspect the loop invariant")
+        self.assertEqual(history.status(self.host, task)["diagnostics_required"], [exact_entry])
+        with self.assertRaisesRegex(history.RunHistoryError, "diagnostic"):
+            with self.run_context(kind="tool-gnatprove", task=task, inputs={"scope": first}):
+                self.fail("a helper note lifted the exact-key block")
+        history.diagnose(self.host, exact_run, "guard is absent from the VC", "inspect the generated VC")
+        self.assertEqual(history.status(self.host, task)["diagnostics_required"], [])
+
 
 if __name__ == "__main__":
     unittest.main()

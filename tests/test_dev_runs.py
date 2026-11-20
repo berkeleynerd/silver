@@ -541,6 +541,80 @@ class DevRunTests(unittest.TestCase):
         self.assertNotEqual(dev.proof_scope(joined), dev.proof_scope([*joined[:-1], "--limit-line=main.adb:10"]))
         self.assertNotEqual(dev.proof_scope(joined), dev.proof_scope([*joined, "--mode=flow"]))
 
+    def test_moved_selector_paths_share_helper_recurrence_through_the_runner(self):
+        arguments = self.custom_arguments()
+        identity, keys = "Main.Helper:VC_RANGE_CHECK", []
+
+        def unproved_helper(*args, **kwargs):
+            line = 8 + len(keys)
+            report = self.workspace / f"obj/attempt-{len(keys)}/gnatprove/main.spark"
+            report.parent.mkdir(parents=True)
+            report.write_text(json.dumps({
+                "entities": {" 4": {"name": "Main.Helper", "sloc": [{"file": "main.adb", "line": 3, "column": 14}]}},
+                "proof": [{"file": "main.adb", "line": line, "col": 4, "rule": "VC_RANGE_CHECK",
+                           "severity": "medium", "how_proved": "prover", "entity": 4}]}))
+            keys.append(f"main.adb:{line}:4:VC_RANGE_CHECK")
+
+        with mock.patch.object(dev, "invoke", side_effect=unproved_helper) as invoke:
+            for selector in ("--limit-subp=main.adb:3", "--limit-subp=main.adb:5", "--limit-name=Helper"):
+                with self.assertRaisesRegex(RuntimeError, "unresolved proof obligations"):
+                    self.main([*arguments, selector])
+            with self.assertRaisesRegex(run_history.RunHistoryError, "diagnostic") as refused:
+                self.main([*arguments, "--limit-line=main.adb:14"])
+        self.assertEqual(invoke.call_count, 3)
+        for key in keys:
+            self.assertIn(key, str(refused.exception))
+        result = json.loads(self.main(["runs", "status", "--task", "#39"]))
+        entry, = result["diagnostics_required"]
+        self.assertEqual((entry["failure_counts"], entry["failure_locations"]), ({identity: 3}, {identity: sorted(keys)}))
+        self.assertEqual([run["failure_keys"] for run in result["runs"]], [[key] for key in keys])
+        second = self.root / "second.gpr"
+        second.write_text("second project\n")
+        other = [str(second) if argument == str(self.custom_project) else argument for argument in arguments]
+        with mock.patch.object(dev, "invoke") as invoke:
+            self.main([*other, "--limit-subp=main.adb:3"])
+        invoke.assert_called_once()
+        self.main(["runs", "diagnose", entry["run_id"], "--summary", "Helper loses the index bound",
+                   "--next-step", "State the bound in its precondition"])
+        with mock.patch.object(dev, "invoke") as invoke:
+            self.main([*arguments, "--limit-line=main.adb:14"])
+        invoke.assert_called_once()
+
+    def test_selector_and_unselected_compiler_scopes_share_helper_recurrence(self):
+        arguments = self.custom_arguments()
+        project = arguments.index("-P", arguments.index("--") + 1)
+        del arguments[project:project + 2]
+        keys = []
+        identity = "Main.Helper:VC_RANGE_CHECK"
+
+        def unproved_helper(*args, **kwargs):
+            line = len(keys) + 8
+            report = self.workspace / f"attempt-{line}/main.spark"
+            report.parent.mkdir(parents=True)
+            report.write_text(json.dumps({
+                "entities": {" 4": {"name": "Main.Helper"}},
+                "proof": [{"file": "main.adb", "line": line, "col": 4, "rule": "VC_RANGE_CHECK",
+                           "severity": "medium", "how_proved": "prover", "entity": 4}]}))
+            keys.append(f"main.adb:{line}:4:VC_RANGE_CHECK")
+
+        with mock.patch.object(dev, "invoke", side_effect=unproved_helper) as invoke:
+            for selector in (["--limit-name=Helper"], ["--limit-subp=main.adb:3"], []):
+                with self.assertRaisesRegex(RuntimeError, "unresolved proof obligations"):
+                    self.main([*arguments, *selector])
+            for selector in ([], ["--limit-name=Other"]):
+                with self.subTest(selector=selector), self.assertRaisesRegex(run_history.RunHistoryError, "diagnostic"):
+                    self.main([*arguments, *selector])
+        self.assertEqual(invoke.call_count, 3)
+        entry, = run_history.status(self.host, "#39")["diagnostics_required"]
+        self.assertEqual(entry["failure_counts"], {identity: 3})
+        self.assertEqual(entry["failure_locations"], {identity: sorted(keys)})
+        self.assertEqual(entry["scope"], ["mode:all", "compiler"])
+        run_history.diagnose(self.host, entry["run_id"], "Helper loses its bound", "Inspect its whole contract")
+        self.assertEqual(run_history.status(self.host, "#39")["diagnostics_required"], [])
+        with mock.patch.object(dev, "invoke") as invoke:
+            self.main([*arguments, "--limit-name=Other"])
+        invoke.assert_called_once()
+
     def test_status_and_checkpoint_preserve_task_scope_and_no_proof_launch(self):
         with self.simulated_proof():
             self.main(["prove", "--full", *TWO_WORKERS, "--task", "#39"])
