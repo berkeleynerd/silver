@@ -21,13 +21,13 @@ if __package__:
     from .check_evidence import PROOF_OPTIONS, audit_sources
     from .proof_provenance import (MANIFEST, begin_proof, complete_proof, invalidate_proof,
                                    selected_proof_cache, validate_project, preflight, input_hashes, digest, tool_identities, validate_tool_identities)
-    from .run_history import ManagedRun, status, diagnose, checkpoint
+    from .run_history import ManagedRun, allocation_report, status, diagnose, checkpoint
     from .platforms import HostLayout, alire_command, native_layout, require_native, tool_environment
 else:
     from check_evidence import PROOF_OPTIONS, audit_sources
     from proof_provenance import (MANIFEST, begin_proof, complete_proof, invalidate_proof,
                                   selected_proof_cache, validate_project, preflight, input_hashes, digest, tool_identities, validate_tool_identities)
-    from run_history import ManagedRun, status, diagnose, checkpoint
+    from run_history import ManagedRun, allocation_report, status, diagnose, checkpoint
     from platforms import HostLayout, alire_command, native_layout, require_native, tool_environment
 
 
@@ -338,7 +338,10 @@ def main(arguments: list[str] | None = None) -> None:
         child.add_argument("--task", default=os.environ.get("SILVER_TASK", ""))
         child.add_argument("--reason", default="")
         child.add_argument("--jobs", "-j", type=worker_count, default=0,
-                           help="reserved workers; 0 allocates available workers (default)")
+                           help="reserved workers; 0 allocates available workers (default); "
+                                "proof commands need --resource-reason for a count below the available allocation")
+        child.add_argument("--resource-reason", default="",
+                           help="why this run deliberately reserves fewer workers than are available")
         if action == "prove":
             child.add_argument("--full", "-f", action="store_true",
                                help="force all units and audit complete proof evidence")
@@ -404,6 +407,7 @@ def main(arguments: list[str] | None = None) -> None:
                     "error": finish.get("error"), "failure_keys": finish.get("failure_keys", []),
                     "evidence": [item["resolved"] for item in finish.get("evidence", run["evidence"])],
                     "retained_report_count": len(finish.get("retained_reports", [])),
+                    **{key: run.get(key) for key in ("allocation", "resource_reductions", "resource_reason")},
                 })
             result["runs"] = summaries
         elif args.operation == "diagnose":
@@ -465,10 +469,12 @@ def main(arguments: list[str] | None = None) -> None:
                "mode": "cold" if proof_run and proof_run.cold else "full" if proof_run and proof_run.full else args.action}
     with ManagedRun(host, kind, command, initial, resources,
                     workers=0 if query else jobs or None, task=args.task, reason=args.reason,
+                    resource_reason=args.resource_reason,
                     evidence=[reports] if reports and args.action != "build" else [],
                     failure_reports=[reports] if reports and args.action != "build" else
                     [Path(path).resolve() for path in args.workspace] if args.action == "tool" else []) as run:
         print(f"Managed run: {run.run_id} ({run.directory})", flush=True)
+        print(allocation_report(run.record), flush=True)
         if args.action != "test" and (not host.alr.is_file() or not (host.context / "alire.toml").is_file()):
             raise RuntimeError("native toolchain is not set up; run python3 scripts/bootstrap.py")
         log = run.directory / "native.log"

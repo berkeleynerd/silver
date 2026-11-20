@@ -18,6 +18,8 @@ from scripts.platforms import HostLayout, host_key
 
 
 ROOT = Path(__file__).resolve().parents[1]
+# Fixture hosts have four CPUs, so two workers is a deliberate reduction.
+TWO_WORKERS = ("--jobs", "2", "--resource-reason", "fixture leaves two workers for another check")
 
 
 class DevRunTests(unittest.TestCase):
@@ -89,10 +91,91 @@ class DevRunTests(unittest.TestCase):
 
     def test_build_uses_attached_native_worker_flag(self) -> None:
         with mock.patch.object(dev, "invoke") as invoke:
-            dev.main(["build", "--task", "#39", "--jobs", "2"])
+            dev.main(["build", "--task", "#39", *TWO_WORKERS])
         command = invoke.call_args.args[1]
         self.assertIn("-j2", command)
         self.assertNotIn("-j", command)
+
+    def test_deliberate_job_reduction_needs_a_retained_resource_reason(self):
+        reason = "GNATprove audit shares this host"
+        explore = ["gnatprove", "-P", "../../../silver.gpr", "--subdirs=explore/trial",
+                   f"-XSILVER_HOST={self.host.key}", "-j2"]
+        spellings = (["prove", "--jobs", "2"], ["prove", "--", "-j2"], ["prove", "-j", "2"],
+                     ["prove", "--full", "--", "--jobs=2"],
+                     ["tool", "--", *explore],
+                     ["prove", "--jobs", "2", "--reason", "Repeat an identical proof"],
+                     ["prove", "--jobs", "2", "--resource-reason", "  "])
+        with mock.patch.object(dev, "invoke") as invoke:
+            for arguments in spellings:
+                with self.subTest(arguments=arguments), self.assertRaisesRegex(
+                        run_history.RunHistoryError,
+                        r"deliberate reduction below the automatic allocation needs "
+                        r"--resource-reason: workers 2 < 4$"):
+                    self.main(arguments)
+            invoke.assert_not_called()
+            self.assertEqual(self.records(), [])
+            self.assertFalse(self.host.compiler.exists())
+            output = self.main(["prove", "--task", "#377", "--jobs", "2", "--resource-reason", reason])
+            self.assertEqual(invoke.call_args.args[1][invoke.call_args.args[1].index("-j") + 1], "2")
+            with self.assertRaisesRegex(run_history.RunHistoryError, "--resource-reason: workers 2 < 4$"):
+                self.main(["prove", "--task", "#377", "--jobs", "2"])
+            self.assertEqual(invoke.call_count, 1)
+        lines = output.splitlines()
+        self.assertTrue(lines[0].startswith("Managed run: "))
+        self.assertEqual(lines[1], "Resource allocation: workers requested=2 actual=2 automatic=4; "
+                                   f"deliberate reduction: workers; reason: {reason}")
+        record, = self.records()
+        self.assertEqual(record["state"], "success")
+        self.assertEqual(record["allocation"], {"workers": {"requested": 2, "automatic": 4, "actual": 2}})
+        self.assertEqual((record["resource_reductions"], record["resource_reason"], record["reason"]),
+                         (["workers"], reason, ""))
+
+    def test_automatic_and_fully_available_grants_need_no_resource_reason(self):
+        def prove(arguments, workers):
+            self.main(["prove", "--task", "#377", *arguments])
+            command = invoke.call_args.args[1]
+            self.assertEqual(command[command.index("-j") + 1], str(workers))
+
+        with mock.patch.object(dev, "invoke") as invoke:
+            for arguments in ([], ["--jobs", "0"], ["--", "-j0"], ["--jobs", "4"]):
+                with self.subTest(arguments=arguments):
+                    prove(arguments, 4)
+            with run_history.ManagedRun(self.host, "fixture", [sys.executable], {}, [], workers=1,
+                                        resource_reason="fixture holds one worker"):
+                for arguments in ([], ["--jobs", "3"]):
+                    with self.subTest(arguments=arguments, reserved=1):
+                        prove(arguments, 3)
+            with self.assertRaisesRegex(run_history.RunHistoryError, "--resource-reason: workers 3 < 4$"):
+                self.main(["prove", "--task", "#377", "--jobs", "3"])
+        records = self.records("#377")
+        self.assertEqual([record["allocation"]["workers"] for record in records],
+                         [{"requested": None, "automatic": 4, "actual": 4}] * 3
+                         + [{"requested": 4, "automatic": 4, "actual": 4},
+                            {"requested": None, "automatic": 3, "actual": 3},
+                            {"requested": 3, "automatic": 3, "actual": 3}])
+        self.assertEqual({(record["state"], tuple(record["resource_reductions"]), record["resource_reason"])
+                          for record in records}, {("success", (), "")})
+
+    def test_other_managed_commands_report_reductions_without_requiring_a_reason(self):
+        build = ["gprbuild", "-P", "../../../silver.gpr", f"-XSILVER_HOST={self.host.key}", "-j2"]
+        commands = (["build", "--jobs", "2"], ["build", "--", "-j2"],
+                    ["test", "--jobs", "2", "--", "-p", "test_rosetta.py"],
+                    ["tool", "--", *build],
+                    ["tool", "--jobs", "2", "--workspace", str(self.root / "custom-output"),
+                     "--input", str(self.root / "src/main.adb"), "--", sys.executable, "-c", "pass"])
+        with mock.patch.object(dev, "invoke") as invoke:
+            for arguments in commands:
+                with self.subTest(arguments=arguments):
+                    output = self.main(arguments)
+                    self.assertIn("workers requested=2 actual=2 automatic=4; deliberate reduction: workers", output)
+            self.assertEqual(invoke.call_count, len(commands))
+        records = self.records()
+        self.assertEqual([record["kind"] for record in records],
+                         ["build", "build", "test", "tool-gprbuild", "tool-" + Path(sys.executable).name])
+        for record in records:
+            self.assertEqual(record["state"], "success")
+            self.assertEqual(record["allocation"], {"workers": {"requested": 2, "automatic": 4, "actual": 2}})
+            self.assertEqual((record["resource_reductions"], record["resource_reason"]), (["workers"], ""))
 
     def rosetta_test_inputs(self):
         paths = [self.root / "rosetta" / name
@@ -106,7 +189,7 @@ class DevRunTests(unittest.TestCase):
         paths = self.rosetta_test_inputs()
         (self.root / "rosetta/unrelated-downloaded-page.html").write_text("not a test input\n")
         with mock.patch.object(dev, "invoke"):
-            self.main(["test", "--jobs", "2", "--", "-p", "test_rosetta.py"])
+            self.main(["test", *TWO_WORKERS, "--", "-p", "test_rosetta.py"])
         record, = self.records()
         self.assertEqual(record["state"], "success")
         captured = record["inputs"]["inputs_sha256"]
@@ -121,14 +204,14 @@ class DevRunTests(unittest.TestCase):
                 with mock.patch.object(dev, "invoke", side_effect=lambda *args, **kwargs:
                                        path.write_text("changed during execution\n")) as invoke:
                     with self.assertRaisesRegex(RuntimeError, "declared run inputs changed"):
-                        self.main(["test", "--jobs", "2", "--", "-p", "test_rosetta.py"])
+                        self.main(["test", *TWO_WORKERS, "--", "-p", "test_rosetta.py"])
                 self.assertEqual(invoke.call_count, 1)
                 record = self.records()[-1]
                 self.assertEqual(record["state"], "failure")
                 self.assertEqual(record["inputs"]["inputs_sha256"][str(path)], original)
 
     def test_full_success_requires_reason_before_replacing_evidence(self):
-        arguments = ["prove", "--full", "--jobs", "2", "--task", "#39"]
+        arguments = ["prove", "--full", *TWO_WORKERS, "--task", "#39"]
         with self.simulated_proof() as invoke:
             self.main(arguments)
             original = {path: path.read_bytes() for path in self.reports.iterdir()}
@@ -145,7 +228,7 @@ class DevRunTests(unittest.TestCase):
         self.assertEqual(records[0]["fingerprint"], records[-1]["fingerprint"])
 
     def test_cold_random_workspace_does_not_evade_success_guard(self):
-        arguments = ["prove", "--cold", "--jobs", "2", "--task", "#39"]
+        arguments = ["prove", "--cold", *TWO_WORKERS, "--task", "#39"]
         with self.simulated_proof() as invoke:
             self.main(arguments)
             first = next((self.host.compiler / "obj").glob("cold-*"))
@@ -168,7 +251,7 @@ class DevRunTests(unittest.TestCase):
         self.assertEqual((first / "gnatprove" / proof_provenance.MANIFEST).read_bytes(), original)
 
     def test_changed_source_permits_new_full_check_without_reason(self):
-        arguments = ["prove", "--full", "--jobs", "2", "--task", "#39"]
+        arguments = ["prove", "--full", *TWO_WORKERS, "--task", "#39"]
         with self.simulated_proof() as invoke:
             self.main(arguments)
             (self.root / "src/main.adb").write_text("changed source bytes\n")
@@ -178,9 +261,36 @@ class DevRunTests(unittest.TestCase):
         self.assertEqual([first["state"], second["state"]], ["success", "success"])
         self.assertNotEqual(first["fingerprint"], second["fingerprint"])
 
+    def test_resource_only_change_keeps_native_cache_and_success_guard(self):
+        arguments = ["prove", "--full", "--task", "#377"]
+        reduced = [*arguments, "--jobs", "2", "--resource-reason", "GNATprove audit shares this host"]
+        retry = [*arguments, "--jobs", "2", "--resource-reason", "another check shares this host"]
+        with self.simulated_proof() as invoke:
+            self.main(arguments)
+            self.main(reduced)
+            before = {path: path.read_bytes() for path in self.reports.iterdir()}
+            calls = invoke.call_count
+            with self.assertRaisesRegex(run_history.RunHistoryError, "identical expensive run already succeeded"):
+                self.main(retry)
+            self.assertEqual(invoke.call_count, calls)
+            self.assertEqual(before, {path: path.read_bytes() for path in self.reports.iterdir()})
+            self.main([*retry, "--reason", "Measure the proof at two workers"])
+        automatic, two_workers = [call.args[1] for call in invoke.call_args_list[:4]
+                                  if call.args[1][0] == "gnatprove"]
+        index = automatic.index("-j")
+        self.assertEqual((automatic[index + 1], two_workers[index + 1]), ("4", "2"))
+        self.assertEqual(automatic[:index + 1] + automatic[index + 2:],
+                         two_workers[:index + 1] + two_workers[index + 2:])
+        self.assertIn(f"--memcached-server=file:{proof_provenance.proof_cache(self.host)}", automatic)
+        records = self.records("#377")
+        self.assertEqual([record["state"] for record in records], ["success", "success", "failure", "success"])
+        self.assertEqual(records[0]["resources"], records[1]["resources"])
+        self.assertNotEqual(records[0]["fingerprint"], records[1]["fingerprint"])
+        self.assertEqual(len({record["fingerprint"] for record in records[1:]}), 1)
+
     def test_full_evidence_survives_a_later_incremental_report_replacement(self):
         with self.simulated_proof():
-            self.main(["prove", "--full", "--jobs", "2"])
+            self.main(["prove", "--full", *TWO_WORKERS])
         first, = self.records()
         retained = Path(first["directory"]) / "proof-evidence"
         previous = {path.name: path.read_bytes() for path in self.reports.iterdir()}
@@ -191,7 +301,7 @@ class DevRunTests(unittest.TestCase):
             (self.reports / "gnatprove.out").write_text("later incremental output\n")
 
         with mock.patch.object(dev, "invoke", side_effect=replace_reports):
-            self.main(["prove", "--jobs", "2"])
+            self.main(["prove", *TWO_WORKERS])
         second = self.records()[-1]
         copied = Path(second["directory"]) / "previous-reports"
         self.assertEqual(previous, {path.name: path.read_bytes() for path in copied.iterdir()})
@@ -201,7 +311,7 @@ class DevRunTests(unittest.TestCase):
 
     def test_invalid_preflight_launches_no_proof_and_preserves_prior_reports(self):
         with self.simulated_proof() as invoke:
-            self.main(["prove", "--full", "--jobs", "2"])
+            self.main(["prove", "--full", *TWO_WORKERS])
             before = {path: path.read_bytes() for path in self.reports.iterdir()}
             project = self.root / "silver.gpr"
             original = project.read_text()
@@ -214,7 +324,7 @@ class DevRunTests(unittest.TestCase):
                     else:
                         self.tools["gnatprove"]["path"] = str(outside)
                     with self.assertRaises(EvidenceError):
-                        self.main(["prove", "--full", "--jobs", "2", "--reason", "Check preflight rejection"])
+                        self.main(["prove", "--full", *TWO_WORKERS, "--reason", "Check preflight rejection"])
                     self.assertEqual(invoke.call_count, 2)
                     self.assertEqual(before, {path: path.read_bytes() for path in self.reports.iterdir()})
                     failed = self.records()[-1]
@@ -246,7 +356,7 @@ class DevRunTests(unittest.TestCase):
         self.custom_tool.chmod(0o755)
         self.workspace = self.root / "custom output"
         self.other_workspace = self.root / "custom cache"
-        return ["tool", "--task", "#39", "--jobs", "2",
+        return ["tool", "--task", "#39", *TWO_WORKERS,
                 "--workspace", str(self.workspace), "--workspace", str(self.other_workspace),
                 "--input", str(self.custom), "--input", str(self.custom_project), "--",
                 str(self.custom_tool), "-P", str(self.custom_project), "--subdirs=explore/trial"]
@@ -433,7 +543,7 @@ class DevRunTests(unittest.TestCase):
 
     def test_status_and_checkpoint_preserve_task_scope_and_no_proof_launch(self):
         with self.simulated_proof():
-            self.main(["prove", "--full", "--jobs", "2", "--task", "#39"])
+            self.main(["prove", "--full", *TWO_WORKERS, "--task", "#39"])
         with mock.patch.object(dev, "invoke") as invoke:
             note = json.loads(self.main(["runs", "checkpoint", "--task", "#39",
                 "--summary", "Focused runner checks passed", "--next-check", "Review final CLI documentation"]))
@@ -456,7 +566,8 @@ class DevRunTests(unittest.TestCase):
                                         [], workers=0, task="#39"):
                 pass
         with run_history.ManagedRun(self.host, "fixture", [sys.executable], {},
-                                    [], workers=1, task="#39") as active:
+                                    [], workers=1, task="#39",
+                                    resource_reason=TWO_WORKERS[-1]) as active:
             result = json.loads(self.main(["runs", "status", "--task", "#39", "--limit", "1"]))
             self.assertEqual(result["total_runs"], 4)
             self.assertEqual(result["omitted_completed_runs"], 2)
@@ -468,6 +579,39 @@ class DevRunTests(unittest.TestCase):
             self.assertEqual(len(all_runs["runs"]), 4)
             self.assertEqual(all_runs["omitted_completed_runs"], 0)
 
+    def test_status_summary_reports_requested_and_actual_settings(self):
+        with mock.patch.object(dev, "invoke"):
+            self.main(["build", "--task", "#377"])
+            self.main(["build", "--task", "#377", *TWO_WORKERS])
+        lean = {"threads": {"requested": 1, "automatic": 4, "actual": 1},
+                "memory_mb": {"requested": None, "automatic": None, "actual": None}}
+        with run_history.ManagedRun(self.host, "lean", [sys.executable], {}, [], task="#377",
+                                    allocation=lean, resource_reason="Lean audit shares this host"):
+            pass
+        with run_history.ManagedRun(self.host, "fixture", [sys.executable], {}, [], workers=0,
+                                    task="#377") as older:
+            pass
+        journal = older.directory / "events.jsonl"
+        start, *rest = journal.read_text().splitlines(keepends=True)
+        start = json.loads(start)
+        for key in ("allocation", "resource_reductions", "resource_reason"):
+            del start[key]
+        journal.write_text(json.dumps(start) + "\n" + "".join(rest))
+        with mock.patch.object(dev, "invoke") as invoke:
+            result = json.loads(self.main(["runs", "status", "--task", "#377"]))
+            invoke.assert_not_called()
+        self.assertEqual([{key: run[key] for key in ("kind", "workers", "allocation", "resource_reductions",
+                                                       "resource_reason")} for run in result["runs"]], [
+            {"kind": "build", "workers": 4, "allocation": {"workers": {"requested": None, "automatic": 4, "actual": 4}},
+             "resource_reductions": [], "resource_reason": ""},
+            {"kind": "build", "workers": 2, "allocation": {"workers": {"requested": 2, "automatic": 4, "actual": 2}},
+             "resource_reductions": ["workers"], "resource_reason": TWO_WORKERS[-1]},
+            {"kind": "lean", "workers": 4,
+             "allocation": dict(lean, workers={"requested": None, "automatic": 4, "actual": 4}),
+             "resource_reductions": ["threads"], "resource_reason": "Lean audit shares this host"},
+            {"kind": "fixture", "workers": 0, "allocation": None, "resource_reductions": None,
+             "resource_reason": None}])
+
     def test_invoke_retains_failure_stdout_stderr_and_passes_live_lease(self):
         log = self.root / "child.log"
         program = ("import os, sys; os.fstat(int(sys.argv[1])); "
@@ -475,7 +619,8 @@ class DevRunTests(unittest.TestCase):
                    "print('fixture stderr', file=sys.stderr, flush=True); sys.exit(7)")
         with self.assertRaises(subprocess.CalledProcessError) as failure:
             with run_history.ManagedRun(self.host, "fixture", [sys.executable], {},
-                                        [self.root / "objects"], workers=1, evidence=[log]) as run:
+                                        [self.root / "objects"], workers=1, evidence=[log],
+                                        resource_reason=TWO_WORKERS[-1]) as run:
                 with contextlib.redirect_stdout(io.StringIO()):
                     dev.invoke(self.host, [sys.executable, "-c", program, str(run.pass_fds[0])],
                                pass_fds=run.pass_fds, log=log)
@@ -491,7 +636,8 @@ class DevRunTests(unittest.TestCase):
         program = ("import os, pathlib, sys; os.fstat(int(sys.argv[1])); "
                    "pathlib.Path(sys.argv[2]).write_text('inherited')")
         with run_history.ManagedRun(self.host, "fixture", [sys.executable], {},
-                                    [self.root / "objects"], workers=1) as run:
+                                    [self.root / "objects"], workers=1,
+                                    resource_reason=TWO_WORKERS[-1]) as run:
             dev.invoke(self.host, [sys.executable, "-c", program, str(run.pass_fds[0]), str(marker)],
                        pass_fds=run.pass_fds)
         self.assertEqual(marker.read_text(), "inherited")

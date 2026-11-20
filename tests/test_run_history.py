@@ -1,6 +1,7 @@
 """Real process leases, durable outcomes, and bounded proof-loop policies."""
 from __future__ import annotations
 
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -28,7 +29,7 @@ class RunHistoryTests(unittest.TestCase):
         self.environment = dict(os.environ, PYTHONPATH=str(ROOT))
 
     def run_context(self, **options):
-        arguments = dict(host=self.host, kind="proof", command=["prove"], inputs={"source": "a"},
+        arguments = dict(host=self.host, kind="prove", command=["prove"], inputs={"source": "a"},
                          resources=self.resources, workers=0, task="issue39")
         arguments.update(options)
         return history.ManagedRun(**arguments)
@@ -44,7 +45,8 @@ from scripts import run_history as history
 from scripts.platforms import HostLayout
 history.available_cpus = lambda: 2
 host = HostLayout(pathlib.Path(sys.argv[1]), 'linux-aarch64')
-with history.ManagedRun(host, 'holder', ['test'], {}, [pathlib.Path(sys.argv[2])], workers=int(sys.argv[3])) as run:
+with history.ManagedRun(host, 'holder', ['test'], {}, [pathlib.Path(sys.argv[2])], workers=int(sys.argv[3]),
+                        resource_reason='fixture holder reserves part of the host') as run:
     child = None
     if sys.argv[4] == 'True':
         child = subprocess.Popen([sys.executable, '-c', 'import time; time.sleep(30)'], pass_fds=run.pass_fds)
@@ -196,6 +198,150 @@ with history.ManagedRun(host, 'holder', ['test'], {}, [pathlib.Path(sys.argv[2])
                     self.fail("oversubscribed")
         self.release(process)
 
+    def test_deliberate_worker_reduction_needs_a_retained_reason(self):
+        reason = "GNATprove audit shares this host"
+        with mock.patch.object(history, "available_cpus", return_value=4):
+            for blank in ("", " \t "):
+                with self.subTest(reason=blank), self.assertRaisesRegex(
+                        history.RunHistoryError,
+                        r"deliberate reduction below the automatic allocation needs "
+                        r"--resource-reason: workers 2 < 4$"):
+                    with self.run_context(workers=2, resource_reason=blank):
+                        self.fail("deliberate reduction lacked a reason")
+            self.assertEqual(self.records(), [])
+            self.assertFalse((history.registry(self.host) / "runs").exists())
+            with self.run_context(workers=2, resource_reason=reason) as run:
+                self.assertEqual(run.workers, 2)
+            with self.assertRaisesRegex(history.RunHistoryError, "--resource-reason: workers 2 < 4"):
+                with self.run_context(workers=2):
+                    self.fail("an earlier resource reason was inherited")
+        record, = self.records()
+        self.assertEqual(record["allocation"], {"workers": {"requested": 2, "automatic": 4, "actual": 2}})
+        self.assertEqual(record["resource_reductions"], ["workers"])
+        self.assertEqual(record["resource_reason"], reason)
+        self.assertEqual({key: record[key] for key in ("schema", "requested_workers", "workers",
+                                                      "available_cpus", "reason")},
+                         {"schema": 1, "requested_workers": 2, "workers": 2, "available_cpus": 4, "reason": ""})
+
+    def test_automatic_grant_reduced_by_reservations_needs_no_reason(self):
+        process, info = self.holder(workers=1)
+        with mock.patch.object(history, "available_cpus", return_value=2):
+            with self.run_context(resources=[], workers=None) as automatic:
+                self.assertEqual(automatic.workers, 1)
+            with self.run_context(resources=[], workers=1) as explicit:
+                self.assertEqual(explicit.workers, 1)
+            self.release(process)
+            with self.assertRaisesRegex(history.RunHistoryError, "--resource-reason: workers 1 < 2$"):
+                with self.run_context(resources=[], workers=1):
+                    self.fail("released reservation still excused a reduction")
+        records = {record["run_id"]: record for record in self.records()}
+        self.assertEqual(len(records), 3)
+        self.assertEqual(records[info["run_id"]]["resource_reductions"], ["workers"])
+        for run, requested in ((automatic, None), (explicit, 1)):
+            record = records[run.run_id]
+            self.assertEqual(record["allocation"],
+                             {"workers": {"requested": requested, "automatic": 1, "actual": 1}})
+            self.assertEqual((record["resource_reductions"], record["resource_reason"],
+                              record["available_cpus"]), ([], "", 2))
+
+    def test_full_requests_queries_and_oversubscription_keep_their_behaviour(self):
+        with mock.patch.object(history, "available_cpus", return_value=4):
+            for workers, actual in ((None, 4), (4, 4), (0, 0)):
+                with self.subTest(workers=workers), self.run_context(workers=workers) as run:
+                    self.assertEqual(run.workers, actual)
+            with self.assertRaisesRegex(history.RunHistoryError, "worker budget"):
+                with self.run_context(workers=5):
+                    self.fail("oversubscribed")
+            with self.run_context(workers=4, resource_reason="nothing is reduced"):
+                pass
+        records = self.records()
+        self.assertEqual([record["allocation"]["workers"] for record in records],
+                         [{"requested": None, "automatic": 4, "actual": 4},
+                          {"requested": 4, "automatic": 4, "actual": 4},
+                          {"requested": 0, "automatic": 4, "actual": 0},
+                          {"requested": 4, "automatic": 4, "actual": 4}])
+        self.assertEqual([record["resource_reductions"] for record in records], [[], [], [], []])
+        self.assertEqual([record["resource_reason"] for record in records], ["", "", "", "nothing is reduced"])
+
+    def test_caller_allocation_is_checked_and_recorded_with_workers(self):
+        self.assertEqual(history.deliberate_reductions({
+            "missing": {}, "automatic": {"requested": None, "automatic": 4},
+            "unbounded": {"requested": 2, "automatic": None}, "query": {"requested": 0, "automatic": 4},
+            "equal": {"requested": 4, "automatic": 4}, "above": {"requested": 5, "automatic": 4},
+            "z": {"requested": 1, "automatic": 2}, "a": {"requested": 3, "automatic": 4}}), ["a", "z"])
+        threads = {"requested": 2, "automatic": 4, "actual": 2}
+        memory = {"requested": 2048, "automatic": None, "actual": 2048}
+        with mock.patch.object(history, "available_cpus", return_value=4):
+            with self.assertRaisesRegex(history.RunHistoryError, r"--resource-reason: threads 2 < 4$"):
+                with self.run_context(workers=None, allocation={"threads": threads}):
+                    self.fail("thread reduction lacked a reason")
+            with self.assertRaisesRegex(history.RunHistoryError,
+                                        r"--resource-reason: threads 2 < 4, workers 3 < 4$"):
+                with self.run_context(workers=3, allocation={"threads": threads}):
+                    self.fail("two reductions lacked a reason")
+            caller = {"threads": dict(threads), "memory_mb": dict(memory)}
+            reduced = self.run_context(workers=3, allocation=caller, resource_reason="audit shares this host")
+            caller["threads"]["actual"] = 99
+            with reduced:
+                pass
+            for allocation in ({"threads": {"requested": None, "automatic": 4, "actual": 4}},
+                               {"threads": {"requested": 6, "automatic": 4, "actual": 6}},
+                               {"memory_mb": memory}):
+                with self.subTest(allocation=allocation), self.run_context(workers=None, allocation=allocation):
+                    pass
+        with self.assertRaisesRegex(history.RunHistoryError, "workers"):
+            self.run_context(allocation={"workers": {"requested": 1, "automatic": 4, "actual": 1}})
+        records = self.records()
+        self.assertEqual(records[0]["allocation"], {"threads": threads, "memory_mb": memory,
+                                                    "workers": {"requested": 3, "automatic": 4, "actual": 3}})
+        self.assertEqual(records[0]["resource_reductions"], ["threads", "workers"])
+        self.assertEqual(records[0]["resource_reason"], "audit shares this host")
+        self.assertEqual([record["resource_reductions"] for record in records[1:]], [[], [], []])
+        self.assertEqual(len(records), 4)
+
+    def test_resource_fields_stay_outside_run_identity_and_success_guard(self):
+        reduced = dict(workers=2, resource_reason="another resource reason")
+        with mock.patch.object(history, "available_cpus", return_value=4):
+            with self.run_context(expensive=True, workers=2, resource_reason="audit shares this host"):
+                pass
+            for options in ({}, {"allocation": {"threads": {"requested": None, "automatic": 4, "actual": 4}}}):
+                with self.subTest(options=options), self.assertRaisesRegex(
+                        history.RunHistoryError, "identical expensive run already succeeded"):
+                    with self.run_context(expensive=True, **reduced, **options):
+                        self.fail("a resource-only change waived the success guard")
+            with self.run_context(expensive=True, reason="measure at two workers", **reduced):
+                pass
+            with self.assertRaisesRegex(history.RunHistoryError, "identical expensive run already succeeded"):
+                with self.run_context(**reduced) as duplicate:
+                    duplicate.prepare({"source": "a"}, expensive=True)
+            with self.run_context(reason="measure at two workers", **reduced) as repeated:
+                repeated.prepare({"source": "a"}, expensive=True)
+        records = self.records()
+        self.assertEqual([record["state"] for record in records], ["success", "success", "failure", "success"])
+        identity = json.dumps(dict(kind="prove", inputs={"source": "a"}, workers=2),
+                              sort_keys=True, separators=(",", ":"))
+        self.assertEqual({record["fingerprint"] for record in records},
+                         {hashlib.sha256(identity.encode()).hexdigest()})
+
+    def test_allocation_report_names_requested_actual_and_reason(self):
+        unbounded = {"requested": None, "automatic": None, "actual": None}
+        expected = [
+            (dict(workers=None), "workers requested=automatic actual=4 automatic=4"),
+            (dict(workers=2, resource_reason="GNATprove audit shares this host",
+                  allocation={"threads": {"requested": 1, "automatic": 4, "actual": 1}, "memory_mb": unbounded}),
+             "threads requested=1 actual=1 automatic=4; workers requested=2 actual=2 automatic=4; "
+             "deliberate reduction: threads, workers; reason: GNATprove audit shares this host"),
+            (dict(workers=None, resource_reason="  ",
+                  allocation={"memory_mb": {"requested": 2048, "automatic": None, "actual": 2048}}),
+             "memory_mb requested=2048 actual=2048; workers requested=automatic actual=4 automatic=4"),
+            (dict(workers=0), "workers requested=0 actual=0 automatic=4"),
+        ]
+        with mock.patch.object(history, "available_cpus", return_value=4):
+            for options, line in expected:
+                with self.subTest(options=options), self.run_context(**options) as run:
+                    self.assertEqual(history.allocation_report(run.record), "Resource allocation: " + line)
+        self.assertEqual(history.allocation_report({}), "Resource allocation: not recorded")
+
     def test_worktrees_share_registry_and_resolved_resource_leases(self):
         subprocess.run(["git", "init", "-q", str(self.root)], check=True)
         subprocess.run(["git", "-C", str(self.root), "-c", "user.name=Test", "-c", "user.email=test@example.invalid",
@@ -299,7 +445,7 @@ with history.ManagedRun(host, 'holder', ['test'], {}, [pathlib.Path(sys.argv[2])
             run_id = self.fail_obligation(inputs={"source": str(value)})
             required = history.status(self.host)["diagnostics_required"]
             self.assertEqual(bool(required), value == 2)
-        self.assertEqual(required, [{"task": "issue39", "kind": "proof", "scope": "proof",
+        self.assertEqual(required, [{"task": "issue39", "kind": "prove", "scope": "prove",
                                     "run_id": run_id,
                                     "failure_counts": {"unit.adb:1:1:VC_RANGE_CHECK": 3}}])
         self.assertEqual(history.status(self.host, "another-task")["diagnostics_required"], [])

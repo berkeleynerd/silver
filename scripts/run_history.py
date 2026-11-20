@@ -236,12 +236,46 @@ def failed_obligations(paths) -> list[str]:
     return sorted(failures)
 
 
+def deliberate_reductions(allocation: dict[str, dict]) -> list[str]:
+    """Name the settings explicitly requested below their automatic value."""
+    return sorted(name for name, entry in allocation.items()
+                  if type(entry.get("requested")) is int and type(entry.get("automatic")) is int
+                  and 0 < entry["requested"] < entry["automatic"])
+
+
+def allocation_report(record: dict) -> str:
+    """Summarize a start record's requested and actual resource settings."""
+    allocation = record.get("allocation")
+    if not isinstance(allocation, dict):
+        return "Resource allocation: not recorded"
+    parts = []
+    for name, entry in sorted(allocation.items()):
+        if entry.get("actual") is None:
+            continue
+        requested = "automatic" if entry.get("requested") is None else entry["requested"]
+        automatic = "" if entry.get("automatic") is None else f" automatic={entry['automatic']}"
+        parts.append(f"{name} requested={requested} actual={entry['actual']}{automatic}")
+    if record.get("resource_reductions"):
+        parts.append("deliberate reduction: " + ", ".join(record["resource_reductions"]))
+    reason = record.get("resource_reason") or ""
+    if reason.strip():
+        parts.append("reason: " + reason)
+    return "Resource allocation: " + "; ".join(parts)
+
+
 class ManagedRun:
     def __init__(self, host: HostLayout, kind: str, command: list[str], inputs: dict,
                  resources, workers: int | None = None, task: str = "", reason: str = "",
-                 expensive: bool = False, evidence=(), failure_reports=(), failure_keys=()):
+                 expensive: bool = False, evidence=(), failure_reports=(), failure_keys=(),
+                 resource_reason: str = "", allocation: dict[str, dict] | None = None):
         if workers is not None and (type(workers) is not int or workers < 0):
             raise RunHistoryError("workers must be nonnegative or None for available CPUs")
+        # Callers report settings they resolved themselves; the worker grant is
+        # decided below, against the reservations seen when the run starts.
+        self._allocation = {name: dict(entry) for name, entry in (allocation or {}).items()}
+        if "workers" in self._allocation:
+            raise RunHistoryError("allocation must not name workers; the managed run records its grant")
+        self._resource_reason = resource_reason
         self.host, self.root = host, registry(host)
         self.run_id = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S") + "-" + uuid.uuid4().hex[:12]
         self.directory = self.root / "runs" / self.run_id
@@ -278,11 +312,25 @@ class ManagedRun:
                 raise RunHistoryError("resources are held by active run(s): " + ", ".join(conflicts))
             capacity = available_cpus()
             used = sum(run["workers"] for run in active)
-            self.workers = max(0, capacity - used) if self.requested_workers is None else self.requested_workers
+            available = max(0, capacity - used)
+            self.workers = available if self.requested_workers is None else self.requested_workers
             if ((self.requested_workers is None and not self.workers)
-                    or self.workers > max(0, capacity - used)):
+                    or self.workers > available):
                 raise RunHistoryError(f"worker budget unavailable ({used}/{capacity} reserved); active run(s): "
                                       + ", ".join(run["run_id"] for run in active))
+            # A grant reduced by other reservations is automatic. Only an explicit
+            # request below this run's automatic value is a deliberate reduction.
+            allocation = dict(self._allocation, workers={
+                "requested": self.requested_workers, "automatic": available, "actual": self.workers})
+            reductions = deliberate_reductions(allocation)
+            proof_command = self.record["kind"] in ("prove", "tool-gnatprove", "lean")
+            if proof_command and reductions and not self._resource_reason.strip():
+                raise RunHistoryError(
+                    "deliberate reduction below the automatic allocation needs --resource-reason: "
+                    + ", ".join(f"{name} {allocation[name]['requested']} < {allocation[name]['automatic']}"
+                                for name in reductions))
+            self.record.update(allocation=allocation, resource_reductions=reductions,
+                               resource_reason=self._resource_reason)
             self.record["fingerprint"] = hashlib.sha256(_json(dict(
                 kind=self.record["kind"], inputs=self.record["inputs"], workers=self.workers)).encode()).hexdigest()
             self._check_policy(runs)

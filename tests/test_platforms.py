@@ -298,6 +298,8 @@ def setup_worker(root: Path, key: str, concurrent: bool = False,
             lean_arguments = [] if lean_mode == "incremental" else ["--" + lean_mode]
             if lean_workers is not None:
                 lean_arguments.extend(["--workers", str(lean_workers)])
+                if lean_workers:
+                    lean_arguments.extend(["--resource-reason", "fixture setup keeps part of its CPUs free"])
             if lean_threads is not None:
                 lean_arguments.extend(["--threads", str(lean_threads)])
             check_lean.main(lean_arguments)
