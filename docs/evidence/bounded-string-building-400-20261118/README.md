@@ -1,6 +1,7 @@
 # Bounded String building implementation evidence — 2026-11-18
 
-Historical focused checkpoint. The [2026-11-20 delivery continuation](delivery-20261120/README.md)
+Historical focused checkpoint. The [final external suite and merge](external-20261120/README.md)
+record completed delivery. The [2026-11-20 delivery continuation](delivery-20261120/README.md)
 supersedes the pending-validation state below with recovered complete regression
 coverage and reviewed native/Lean applicability; closing and external review
 are recorded separately.

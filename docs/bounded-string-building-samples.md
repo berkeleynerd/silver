@@ -2,11 +2,11 @@
 
 ## Status and scope
 
-**Validation complete for [#400](https://github.com/berkeleynerd/silver/issues/400), 2026-11-20; independent closing review accepted, external review pending.** The owner authorized this samples-only work package on November 18, including the multi-character append/prepend amendment below. The delivery continuation records recovered assurance and complete regression coverage. Merge remains a separate owner decision. The earlier planning and implementation handoff are retained as history. Broad [#395](https://github.com/berkeleynerd/silver/issues/395) remains open.
+**Complete on Linux, merged in [PR #403](https://github.com/berkeleynerd/silver/pull/403) on 2026-11-20.** The owner directly authorized the merge after internal and external review. The final complete x86 suite passes all 724 tests; retained complete native/Lean assurance applies to unchanged governed inputs. The earlier planning, implementation handoff and recovery checkpoint are retained as history. Broad [#395](https://github.com/berkeleynerd/silver/issues/395) remains open; precise [stage #404](https://github.com/berkeleynerd/silver/issues/404) records the delivered bounded form.
 
 Deliver four faithful Rosetta samples that append, prepend, repeat text and generate the complete 99-bottles lyrics using existing Silver. Document the bounded-buffer idiom, its full-buffer outcome and measured limits, and correct the affected assessments.
 
-Route: **samples-only**, one work package in **Bounded text buffer samples**. No compiler, runtime, admission rule or Oracle change is planned. Samples-only delivery is an existing option (`development.md:37–54`; `docs/planning.md:137–162`).
+Route: **samples-only**, one work package in **Bounded text buffer samples**. No compiler, runtime, admission rule or Oracle change was made. Samples-only delivery is an existing option (`development.md:37–54`; `docs/planning.md:137–162`).
 
 The precise Rosetta identifier **`bounded-string-building`** records the composition of a fully initialized fixed-bound String, a separately bounded logical length, checked Character stores, counted-loop copying or shifting, and filled-prefix output. It describes existing operations used together; it introduces no new source form or library API. It is registered in `rosetta/refresh.py`'s `ADMISSION` dictionary and `SURFACE_LABELS` and in supported coverage, using the display wording “bounded String building with initialized buffers.” The renderer rejects unknown supported identifiers (`rosetta/refresh.py:338–350,741–747`); this metadata registration changes no Silver admission rule. The existing catalogue entries remain authoritative (`catalogue/silver.json:1339–1394`). Broad `string-building` stays unsupported; these samples do not cover arbitrary append sources, String parameters or resizable strings. Partial identifiers must retain their broader exclusions (`docs/planning.md:224–238`).
 
@@ -14,7 +14,40 @@ The retained planning citations refer to published main `5af7edc5cd2501f8d1a21c7
 
 The historical planning packet reports **1,588** likely/plausible candidates and **16** supported identifiers. Broad `string-building` occurs in **1,009**, would alone unlock **157**, of which **112** are likely; its pair with `while-loops` has **163**. The generated stage has **18** samples, **2** only plausible, with overflow flagged in **11**, index in **6**, length in **4** and range in **3**. These unchanged assessment counts are upper bounds, not this batch's promised gain. Count delivered programs, runtime cases and task mappings separately.
 
+## Merge and external review — 2026-11-20
+
+The owner instructed “Merge it” after the scoped external review. Reviewed head
+`9cf913a3a4a69cb40fe99ea39f21d0e237647fe1` merged at 14:46:28 UTC as
+`66659c70aaf35e23f08dd6531617ca39c6189a55`, with an identical tree. This was a
+direct owner instruction in the Codex conversation; no agent approved a Worca card.
+
+The [external report](reviews/review-9cf913a3a4.md) found no blocker or medium,
+one low historical ARM stack-record gap and six informational observations.
+The [response](reviews/review-9cf913a3a4-response.md) records every disposition;
+the low item is deferred in [#405](https://github.com/berkeleynerd/silver/issues/405).
+No repair or successor implementation is authorized by this closeout.
+
+The [fresh complete external regression checkpoint](evidence/bounded-string-building-400-20261118/external-20261120/README.md)
+passes **all 724 tests without skips** on exact reviewed inputs, Linux x86-64,
+with the invoking stack recorded and enforced at 16,384 KiB. Independent review
+checked all 1,348 captured inputs and the exact test inventory. This complete
+run now supplies final regression coverage; the earlier 722 ARM plus two x86
+composition below is historical supporting evidence. The old ARM stack setting
+remains unknown, without a waiver or another ARM run. Complete native/Lean
+assurance remains separately retained ARM evidence, not a fresh x86 proof.
+
+The four samples, 90-program / 153-case manifest and four additional Stage 1
+mappings (85→89) are delivered. All 63 existing construct Stage values remain
+unchanged; broad string-building stays unsupported. The final review took
+82 min 39.170 s wall; owner authorization to merge spans 45 h 31 min 35 s,
+including unmeasured waiting and host transfer. The evidence distinguishes
+these intervals from test duration and active work. Issue and Stage closeout
+follows the merge as instructed. #373 remains separate and PR #385 stays held.
+
 ## Delivery validation — 2026-11-20
+
+This recovery checkpoint precedes the final external suite and merge above.
+Its pending external-review status describes that earlier state.
 
 The [recovered delivery packet](evidence/bounded-string-building-400-20261118/delivery-20261120/README.md)
 closes the missing evidence applicability and regression accounting at PR #403

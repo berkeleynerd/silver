@@ -1,0 +1,19 @@
+{
+ "pr": 403,
+ "purpose": "review",
+ "host": "linux-x86_64",
+ "repo": "berkeleynerd/silver",
+ "head_sha": "9cf913a3a4a69cb40fe99ea39f21d0e237647fe1",
+ "base_sha": "a03c7987bbba29569db2709820bd26ced20bed40",
+ "branch": "develop/issues-400",
+ "main_checkout": "/home/canto/src/github.com/berkeleynerd/silver",
+ "toolchain_from": "/home/canto/src/github.com/berkeleynerd/silver",
+ "delivered_bin": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/compiler/bin/silver",
+ "delivered_head": "a03c7987bbba29569db2709820bd26ced20bed40",
+ "main_bin": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/compiler/bin/silver",
+ "lean_worktree": "",
+ "lean_head": "",
+ "lean_bin_sha256": "",
+ "route": "light",
+ "repair_of": null
+}

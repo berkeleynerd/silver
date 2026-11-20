@@ -39,7 +39,7 @@ affected Rosetta tests rerun after resolving the session-history conflict.
 
 ## Near-term feature queue
 
-**Samples-only work, authorized 2026-11-18.** The owner requested development
+**Samples-only delivery, complete on Linux, 2026-11-20 (PR #403).** The owner requested development
 of [#400](https://github.com/berkeleynerd/silver/issues/400),
 [Bounded text buffer samples](docs/bounded-string-building-samples.md), including
 several-character append and prepend with whole-literal refusal, complete
@@ -47,15 +47,19 @@ several-character append and prepend with whole-literal refusal, complete
 Character, loop and output rules. The precise Rosetta identifier
 `bounded-string-building` describes initialized buffers; broad `string-building`
 and [#395](https://github.com/berkeleynerd/silver/issues/395) retain their remaining
-scope. Combined validation and evidence applicability are complete as of
-2026-11-20; independent closing review passed and external review remains pending. GitHub
-issue and Stage-field updates are left for after merge by the workflow operator.
+scope. Complete applicable validation, independent closing review and the scoped
+external review are accepted. The owner authorized merge at reviewed head
+`9cf913a3a4`, merged as `66659c70aa`. Issue and Stage-field closeout follows
+the merge as instructed; [#404](https://github.com/berkeleynerd/silver/issues/404)
+records the precise delivered identifier.
 The [focused implementation packet](docs/evidence/bounded-string-building-400-20261118/README.md)
 records the four successful sample routes, boundary/control probes and render:
 Stage 1 grows from 85 to 89 task mappings, while existing construct Stage values
 stay unchanged. The [delivery continuation](docs/bounded-string-building-samples.md#delivery-validation--2026-11-20)
-records 724 covered regression IDs and reviewed complete native/Lean reuse;
-merge remains a separate owner decision.
+records reviewed complete native/Lean reuse. The
+[final complete x86 suite](docs/bounded-string-building-samples.md#merge-and-external-review--2026-11-20)
+passes all 724 tests with no skips; the external review found no blocker or medium.
+Its historical record gap is deferred under [#405](https://github.com/berkeleynerd/silver/issues/405).
 This work chooses no successor queue order and preserves #373 recovery and the
 PR #385 hold.
 

@@ -1,0 +1,38 @@
+{
+  "artifacts": "/home/agent/silver-review/runs/pr403-9cf913a3a4/artifacts/probes/jobs/20261120T130632-078198218-exec-07856a",
+  "command": [
+    "python3",
+    "scripts/dev.py",
+    "test"
+  ],
+  "command_result": {
+    "exit": 0,
+    "seconds": 2330.956,
+    "timeout": false,
+    "watchdog": false
+  },
+  "cwd": "/home/agent/silver-review/runs/pr403-9cf913a3a4/checkout",
+  "env": {
+    "disk_free_mb_start": 103168,
+    "load1_end": 4.46875,
+    "load1_start": 0.18359375,
+    "mem_available_mb_end": 61940,
+    "mem_available_mb_start": 61937
+  },
+  "expect": {},
+  "id": "20261120T130632-078198218-exec-07856a",
+  "kind": "heavy",
+  "lane": "exec",
+  "match": {},
+  "note": "complete suite",
+  "source_bytes": null,
+  "source_sha256": null,
+  "stack_kib": 16384,
+  "stage": "completed",
+  "stderr_tail": "",
+  "stdout_tail": "pshots_bounds_nulls_and_sliding) ... ok\ntest_native_dynamic_copies_with_noncanonical_null_bounds (test_string_characters.StringCharacterTests.test_native_dynamic_copies_with_noncanonical_null_bounds) ... ok\ntest_admission_guard_scanner_chains_tokens_and_resets (test_string_review_blockers.StringReviewBlockerTests.test_admission_guard_scanner_chains_tokens_and_resets) ... ok\ntest_admission_guarded_nonstatic_slice_endpoints (test_string_review_blockers.StringReviewBlockerTests.test_admission_guarded_nonstatic_slice_endpoints) ... ok\ntest_admission_inverted_span_is_bounded_before_any_consumer (test_string_review_blockers.StringReviewBlockerTests.test_admission_inverted_span_is_bounded_before_any_consumer) ... ok\ntest_native_boundary_nulls_copies_and_concatenation (test_string_review_blockers.StringReviewBlockerTests.test_native_boundary_nulls_copies_and_concatenation) ... ok\ntest_native_static_guarded_slices_and_dynamic_reset (test_string_review_blockers.StringReviewBlockerTests.test_native_static_guarded_slices_and_dynamic_reset) ... ok\ntest_native_static_slices_on_nonstatic_prefix_snapshots (test_string_review_blockers.StringReviewBlockerTests.test_native_static_slices_on_nonstatic_prefix_snapshots) ... ok\ntest_original_extreme_null_slice_failures_are_rejected (test_string_review_blockers.StringReviewBlockerTests.test_original_extreme_null_slice_failures_are_rejected) ... ok\n\n----------------------------------------------------------------------\nRan 724 tests in 2329.820s\n\nOK\n",
+  "strays_killed": [],
+  "submitted_utc": "2026-11-20T13:06:32Z",
+  "twin_of": null,
+  "utc": "2026-11-20T13:06:32Z"
+}

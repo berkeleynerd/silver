@@ -1,5 +1,33 @@
 # Session memory
 
+## 2026-11-20 — PR #403 merged by direct owner instruction
+
+After the external review completed, the owner instructed **“Merge it”** in the
+Codex conversation. PR [#403](https://github.com/berkeleynerd/silver/pull/403)
+merged at 14:46:28 UTC as `66659c70aaf35e23f08dd6531617ca39c6189a55`.
+Its head `9cf913a3a4a69cb40fe99ea39f21d0e237647fe1` is the exact externally
+reviewed commit; the merge tree is identical. This newer direct instruction
+supersedes the earlier merge hold for this PR. No agent approved a Worca card,
+and no Worca gate approval is claimed. The completed review workflow's obsolete
+posting hold was stopped with its results preserved.
+
+The [delivery account](bounded-string-building-samples.md#merge-and-external-review--2026-11-20)
+records four new bounded text samples and four Stage 1 mappings, with complete
+applicable assurance and regression validation. The [external report](reviews/review-9cf913a3a4.md)
+has no blocker or medium, one low historical ARM stack-record gap and six
+informational observations. The [response](reviews/review-9cf913a3a4-response.md)
+retains all dispositions and the historical limitation; [#405](https://github.com/berkeleynerd/silver/issues/405)
+is deferred, without repair authorization. Fresh complete x86 regression with
+recorded stack settings supplies current coverage; no ARM rerun or waiver is
+needed. Native/Lean assurance remains independently accepted retained ARM evidence.
+
+Issue #400 and milestone 26 close after this delivery record reaches main.
+Precise [stage #404](https://github.com/berkeleynerd/silver/issues/404) is delivered;
+broad #395 remains open. Existing Stage cards are reconciled after merge while
+preserving their authorization. This authorizes no new feature or #373 work;
+PR #385 remains held. Unrelated local host/restoration records were preserved
+outside this commit. CLI memory was not updated.
+
 ## 2026-11-18 — Work on #400 authorized at the Worca gate
 
 The owner approved **“Authorize this work”** on a Worca approval card on 2026-11-18 at 17:14 UTC (Worca run `c683b3ed`). Under the
