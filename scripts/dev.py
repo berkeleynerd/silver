@@ -21,12 +21,14 @@ if __package__:
     from .check_evidence import PROOF_OPTIONS, audit_sources
     from .proof_provenance import (MANIFEST, begin_proof, complete_proof, invalidate_proof,
                                    selected_proof_cache, validate_project, preflight, input_hashes, digest, tool_identities, validate_tool_identities)
+    from .focused_proof import FocusedProof, focused_workspace, prepare_focused_workspace
     from .run_history import ManagedRun, allocation_report, status, diagnose, checkpoint
     from .platforms import HostLayout, alire_command, native_layout, require_native, tool_environment
 else:
     from check_evidence import PROOF_OPTIONS, audit_sources
     from proof_provenance import (MANIFEST, begin_proof, complete_proof, invalidate_proof,
                                   selected_proof_cache, validate_project, preflight, input_hashes, digest, tool_identities, validate_tool_identities)
+    from focused_proof import FocusedProof, focused_workspace, prepare_focused_workspace
     from run_history import ManagedRun, allocation_report, status, diagnose, checkpoint
     from platforms import HostLayout, alire_command, native_layout, require_native, tool_environment
 
@@ -137,8 +139,8 @@ def proof_arguments(arguments: list[str], *, full: bool = False, cold: bool = Fa
             raise RuntimeError(f"proof configuration cannot be overridden: {argument}; use tool for exploratory runs")
         if argument == "--subdirs" or argument.startswith("--subdirs="):
             path = Path(value)
-            if path.parts and (path.parts[0] == "explore" or path.parts[0].startswith("cold-")):
-                raise RuntimeError("explore and cold-* subdirectories are reserved; use tool or prove --cold")
+            if path.parts and (path.parts[0] in ("explore", "focused") or path.parts[0].startswith("cold-")):
+                raise RuntimeError("explore, focused and cold-* subdirectories are reserved; use tool or prove --cold")
         index += 1
     if result.cold:
         if result.arguments:
@@ -176,14 +178,16 @@ def exploratory_tool(host: HostLayout, command: list[str]) -> None:
                 if cache.is_relative_to(objects):
                     parts = cache.relative_to(objects).parts
                     cold_cache = len(parts) >= 2 and parts[0].startswith("cold-") and parts[1] == "cache"
-                if cache.is_relative_to(managed) or cold_cache:
+                if cache.is_relative_to(managed) or cache.is_relative_to(objects / "focused") or cold_cache:
                     raise RuntimeError("exploratory GNATprove must use its own cache, outside audited proof caches")
     if len(subdirectories) != 1:
         raise RuntimeError("exploratory GNATprove requires --subdirs=explore or --subdirs=explore/<name>")
     path = Path(subdirectories[0])
     if path.is_absolute() or not path.parts or path.parts[0] != "explore" or ".." in path.parts:
         raise RuntimeError("exploratory GNATprove requires --subdirs=explore or --subdirs=explore/<name>")
-
+    objects = host.compiler / "obj"
+    if (objects / path).resolve().is_relative_to((objects / "focused").resolve()):
+        raise RuntimeError("exploratory GNATprove must not use focused proof sessions")
 
 
 def hash_paths(paths: list[Path]) -> dict[str, str]:
@@ -343,6 +347,10 @@ def main(arguments: list[str] | None = None) -> None:
         child.add_argument("--resource-reason", default="",
                            help="why this run deliberately reserves fewer workers than are available")
         if action == "prove":
+            focus = child.add_mutually_exclusive_group()
+            focus.add_argument("--unit", metavar="FILE", help="verify one whole compiler unit")
+            focus.add_argument("--subprogram", metavar="FILE:LINE",
+                               help="verify the whole subprogram at its declaration")
             child.add_argument("--full", "-f", action="store_true",
                                help="force all units and audit complete proof evidence")
             child.add_argument("--cold", action="store_true",
@@ -399,6 +407,10 @@ def main(arguments: list[str] | None = None) -> None:
                 summaries.append({
                     **{key: run[key] for key in ("run_id", "task", "kind", "scope", "state", "active",
                                                 "workers", "directory", "fingerprint", "command", "reason")},
+                    **({"focused_policy": ("final-policy" if run["inputs"]["focused_options"] == PROOF_OPTIONS
+                                            else "different-policy")} if "focused_options" in run["inputs"] else
+                       {"focused_policy": "experimental"} if run["inputs"].get("experimental_proof") else {}),
+                    **({"focused_report": finish["focused_report"]} if "focused_report" in finish else {}),
                     "worktree": run["worktree"]["resolved"],
                     "resources": [item["resolved"] for item in run["resources"]],
                     "started_at": run["utc"], "finished_at": finish.get("utc"),
@@ -418,6 +430,7 @@ def main(arguments: list[str] | None = None) -> None:
         return
     extra = args.arguments[1:] if args.arguments[:1] == ["--"] else args.arguments
     proof_run = None
+    focus = None
     reports = None
     cache = None
     standard = False
@@ -433,13 +446,19 @@ def main(arguments: list[str] | None = None) -> None:
         if args.action == "prove":
             proof_run = proof_arguments(extra, full=args.full, cold=args.cold, jobs=jobs)
             extra, jobs = proof_run.arguments, proof_run.jobs
+            focus = FocusedProof.select(args.unit, args.subprogram)
+            if focus:
+                if proof_run.full or extra:
+                    raise RuntimeError("focused proof selects its own scope and output; omit --full, --cold and --subdirs")
+                reports = focused_workspace(host.compiler / "obj") / "gnatprove"
+                scope = focus.scope()
             if proof_run.cold:
                 workspace = host.compiler / "obj" / ("cold-" + uuid.uuid4().hex[:16])
                 reports = workspace / "gnatprove"
                 # Do not create directories until the run owns its workspace.
             # Reserve the namespace before reading its lock-derived cache key.
             # Missing setup is then a recorded preflight failure under the lease.
-            cache = (reports.parent / "cache" if proof_run.cold
+            cache = (reports.parent / "cache" if proof_run.cold or focus
                      else host.artifacts / "proof-cache/gnatprove")
         else:
             extra, jobs = scheduled_arguments(extra, jobs)
@@ -467,6 +486,8 @@ def main(arguments: list[str] | None = None) -> None:
     query = args.action == "tool" and command[1:] in (["--help"], ["--version"], ["-h"])
     initial = {"scope": scope, "arguments": extra,
                "mode": "cold" if proof_run and proof_run.cold else "full" if proof_run and proof_run.full else args.action}
+    if kind == "tool-gnatprove" and not query:
+        initial["experimental_proof"] = True
     with ManagedRun(host, kind, command, initial, resources,
                     workers=0 if query else jobs or None, task=args.task, reason=args.reason,
                     resource_reason=args.resource_reason,
@@ -509,15 +530,31 @@ def main(arguments: list[str] | None = None) -> None:
             executable_selector = command[0]
             inputs["executable"] = custom_executable_identity(
                 host, executable_selector, pass_fds=run.pass_fds)
+        if focus:
+            source = host.root / "src" / focus.file
+            if not source.is_file():
+                source = host.generated / focus.file
+            if str(source.relative_to(host.root)) not in prepared["inputs_sha256"]:
+                raise RuntimeError(f"unknown compiler proof source: {focus.file}")
+            prepare_focused_workspace(reports.parent)
+            inputs["focused_options"] = PROOF_OPTIONS
+            print(f"Focused final-policy proof: {scope[-1]}", flush=True)
+        elif initial.get("experimental_proof"):
+            print("Experimental GNATprove run", flush=True)
         run.prepare(inputs, expensive=bool(proof_run and proof_run.full))
         run.event("phase-end", phase="preflight")
         snapshot = None
         if args.action in ("prove", "build"):
             if proof_run:
                 cache = selected_proof_cache(host, reports, cold=proof_run.cold)
+                policy = PROOF_OPTIONS
+                if focus:
+                    cache = reports.parent / "cache" / cache.name
+                    policy = focus.options(source)
+                    extra = [f"--subdirs={reports.parent.relative_to(host.compiler / 'obj')}"]
                 cache.mkdir(parents=True, exist_ok=True)
-                options = [*PROOF_OPTIONS, "-j", str(run.workers), f"--memcached-server=file:{cache}"]
-                if proof_run.full:
+                options = [*policy, "-j", str(run.workers), f"--memcached-server=file:{cache}"]
+                if proof_run.full or focus:
                     options.append("-f")
                 if proof_run.cold:
                     extra = [f"--subdirs={reports.parent.name}"]
@@ -547,14 +584,20 @@ def main(arguments: list[str] | None = None) -> None:
                 run.evidence.append(reports / MANIFEST)
             else:
                 invalidate_proof(reports)
+                if focus:
+                    # Preserve reusable solver sessions but require newly generated summaries.
+                    for summary in prior:
+                        summary.unlink(missing_ok=True)
         if kind == "tool-gnatprove":
             retain_exploration(run, "previous-reports")
         run.event("phase-start", phase="test" if args.action == "test" else "native-tool")
         invoke(host, actual, cwd=None if args.action == "test" else host.context, pass_fds=run.pass_fds, log=log)
         run.event("phase-end", phase="test" if args.action == "test" else "native-tool", returncode=0)
-        if kind == "tool-gnatprove" and run.unresolved_obligations():
+        if (focus or kind == "tool-gnatprove") and run.unresolved_obligations():
             run.finish("failure", returncode=0, error="GNATprove returned unresolved proof obligations")
             raise RuntimeError("GNATprove returned unresolved proof obligations; see retained run reports")
+        if focus:
+            focused_report = focus.check_report(reports, command)
         if proof_run and proof_run.full:
             run.event("phase-start", phase="audit")
             audit_sources(host.root / "src", reports, host.generated, effective_command=command)
@@ -580,6 +623,9 @@ def main(arguments: list[str] | None = None) -> None:
             raise RuntimeError("declared run inputs changed during execution")
         if kind == "tool-gnatprove":
             retain_exploration(run, "exploratory-evidence")
+        if focus:
+            retain_exploration(run, "focused-evidence")
+            run.finish("success", returncode=0, focused_report=focused_report)
         if executable_selector is not None and custom_executable_identity(
                 host, executable_selector, pass_fds=run.pass_fds) != inputs["executable"]:
             raise RuntimeError("custom tool executable changed during execution")
