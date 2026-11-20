@@ -111,6 +111,60 @@
     "sha256": "5950149cdbb45461fb589d23198efd00a6bbff118b0ff04f0525a6c612ae6f71",
     "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/373-validation-prep/native-launcher-time-unavailable.log"
   },
+  "native-preparation/events.jsonl.gz": {
+    "bytes": 126593,
+    "original_bytes": 445439,
+    "original_sha256": "52585ed49d133cbf534aedbf13fae3a9d7a6c3be348453531e92bdbacc237c13",
+    "sha256": "f0f29c0684759481839e3b709040de5cdb930712938c3ec1c6c968b5e25e78cc",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261120T151148-8deddffbf5cf/events.jsonl"
+  },
+  "native-preparation/native.log.gz": {
+    "bytes": 94549,
+    "original_bytes": 1515623,
+    "original_sha256": "daba47155cb55ab06c25468ce3eb3c6733838b270f0cf6f1c921e676dc482632",
+    "sha256": "0dea68e9f2ddb0034e5b2ef32614b83499b9921f30df18ed838c1638fd553f05",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261120T151148-8deddffbf5cf/native.log"
+  },
+  "native-preparation/prepared-inputs.json.gz": {
+    "bytes": 125405,
+    "original_bytes": 456429,
+    "original_sha256": "265aac7a3b3ee95cca0eabeef565c783d6c0ce0f8afd0ddc10d777319ef53171",
+    "sha256": "1d7786c6f43e8f37a4eb71fd19860d83790eb9ee44e2796acf56d826b084c1c1",
+    "source": "prepared event inputs from archived events.jsonl"
+  },
+  "native-preparation/previous-reports.tar.gz": {
+    "bytes": 615371,
+    "sha256": "39e538cfcd834b3a01482a928f45354520eb0f092da1fda1f5a70162d63b4352",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261120T151148-8deddffbf5cf/previous-reports",
+    "uncompressed_tar_sha256": "b27e26714aca7e857426273973318305b64b99f70f47e86d792563d72968116d"
+  },
+  "native-preparation/producer-reports.tar.gz": {
+    "bytes": 2338478,
+    "sha256": "c0ebd9ba5f03c6950414f08c90c35b3d6d3d771911d906d829153449d493617f",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/compiler/obj/gnatprove",
+    "uncompressed_tar_sha256": "1efe16ec1feb75020dc5276552805dddb40cb13ece673da8e195d5fb14052958"
+  },
+  "native-preparation/wrapper-timing.json": {
+    "bytes": 770,
+    "original_bytes": 770,
+    "original_sha256": "cac356e657956dbe28a92093ecd63cbc540299ffde86cf08b422a4b27b368869",
+    "sha256": "cac356e657956dbe28a92093ecd63cbc540299ffde86cf08b422a4b27b368869",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/373-validation-prep/native-preparation.timing.json"
+  },
+  "native-preparation/wrapper.exit": {
+    "bytes": 2,
+    "original_bytes": 2,
+    "original_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/373-validation-prep/native-preparation.exit"
+  },
+  "native-preparation/wrapper.log.gz": {
+    "bytes": 95022,
+    "original_bytes": 1516257,
+    "original_sha256": "0f32a3519c317971714c54e317cbeb10319ea7b92b84d626c8f13b9b6e7cc3f8",
+    "sha256": "d76077f4535935f7fcdb220b32349335026ada1c27df498a1bbc1657c72f7457",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/373-validation-prep/native-preparation.log"
+  },
   "original-run/events.jsonl.gz": {
     "bytes": 54276,
     "original_bytes": 133179,

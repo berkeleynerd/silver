@@ -98,6 +98,68 @@ measurement. The wrapper captured an invoking stack soft limit of 16,384 KiB
 and unlimited hard limit. No speedup is inferred by subtracting interrupted,
 parallel, donor or different-source timings.
 
+## Completed native incremental preparation
+
+Managed run `20261120T151148-8deddffbf5cf`, task
+`#373-native-cache-preparation`, completed successfully on the unchanged old
+root runner. Its command was ordinary `dev.py prove --jobs 12`, with canonical
+`--mode=all --prover=cvc5,z3,altergo --timeout=30` and normal root proof sessions
+and lock-keyed file cache. It was neither `--full` nor `--cold`, and did not pass
+GNATprove's force-all `-f` flag. The retained `--reason` explains the deliberate
+12-worker allocation alongside Lean preparation and serial runner tests; this
+old-runner record does not exercise the later proof-only `--resource-reason`
+gate. At launch, the host exposed 22 CPUs and granted all 12 requested workers.
+No actual cache-hit count or fresh-only solver-work claim is available.
+
+The [native wrapper](native-preparation/wrapper.log.gz),
+[managed log](native-preparation/native.log.gz),
+[events](native-preparation/events.jsonl.gz),
+[timing](native-preparation/wrapper-timing.json) and
+[exit record](native-preparation/wrapper.exit) retain success and settings.
+The native phase and wrapper exited zero. The managed finished event's normal
+null `returncode` is accompanied by an explicit zero native-phase result; it is
+not an unresolved process outcome.
+
+The wrapper started **15:11:47.811475 UTC**, finished **18:10:21.491782 UTC** and
+measured **10,713.478406580005 seconds**. Managed elapsed was
+**10,712.555089664 seconds**. Child usage was 39,107.697326 user seconds,
+529.42516 system seconds and 6,492,768 KiB maximum child RSS. The latter is not
+a simultaneous process-tree or host peak. The wrapper recorded a 16,384 KiB
+invoking stack soft limit and unlimited hard limit. These observations include
+concurrent Lean and other work and do not establish a speedup or a benchmark.
+
+The producer reported **all 19,726 checks proved**. The archived
+[producer reports](native-preparation/producer-reports.tar.gz) contain all **78
+expected unit `.spark` files**, plus `gnatprove.out`, SARIF and the inherited
+`proof-inputs.json` discussed below. Expected unit names were derived from current
+`src/` and generated Ada sources; none was missing or extra. All 78 reports
+record `PROGRESS_PROOF` / `STOP_REASON_NONE`; their **1,751 flow** and **17,975
+proof** records are successful, with no failed entries or skip/assume arrays.
+The raw coverage maps contain 1,172 `all` and 80 `spec` entries. These inventory
+statistics do not replace the complete auditor's semantic/source-bound coverage
+and allowed-origin checks. The one SARIF invocation records successful exit zero
+and matches the ledger's effective vendor command exactly.
+
+[Report inventory](native-preparation/report-inventory.json) retains every
+archived file's hash, per-unit counts and the separately archived
+[25 prior reports](native-preparation/previous-reports.tar.gz). The
+[prepared input record](native-preparation/prepared-inputs.json.gz) captures
+**2,584 input hashes and 12 selected tool identities**. Assembly rechecked all
+**153 non-tool input hashes**, all **12 selected tool binary hashes**, and the
+**147 captured tracked inputs against `a412827d6c` Git blobs**. The old runner
+and current proof/compiler source inputs therefore remain explicit; this is not
+retrospective changed-runner provenance.
+
+There is **no current `proof-provenance.json`** from this incremental run.
+Its `proof-inputs.json` is byte-identical to the prior-reports backup, labels
+itself `full`, and contains a different input inventory from this run's prepared
+ledger record. It is preserved as inherited metadata, **not a current audit
+manifest**. The successful raw report set is useful solver/cache preparation;
+the final changed-runner complete native proof/report/provenance audit remains
+required. The Lean cache donor's 16,661-file record above does not describe this
+native session/file-cache origin, and no large compiler objects or solver-cache
+contents are archived here.
+
 ## Launcher failures and active-run exclusions
 
 The first [Lean launcher](lean-launcher-time-unavailable.log) and
@@ -106,10 +168,11 @@ The first [Lean launcher](lean-launcher-time-unavailable.log) and
 were launcher failures before proof execution; they are not failed proof attempts.
 The subsequent Python wrapper above supplied timing without that executable.
 
-The replacement dense Lean preparation and native preparation were still active
-when this packet was assembled. Their outputs, events and running caches are
-intentionally absent here pending completion; no process was signaled, resumed
-or otherwise controlled by this evidence-collection step. The successful focused
+The replacement dense Lean preparation remained active when the native archival
+continuation was assembled. Its outputs, events and running cache remain absent
+here pending completion; the completed native preparation is now archived above.
+No process was signaled, resumed or otherwise controlled by this evidence-collection
+step. The successful focused
 preparation does not finish the replacement complete run, establish final
 changed-runner provenance, or complete deferred #381/#382 experiments. It uses
 existing focused targets/reservations, not new scheduler implementation.

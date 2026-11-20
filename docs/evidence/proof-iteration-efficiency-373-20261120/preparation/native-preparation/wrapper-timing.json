@@ -1,0 +1,21 @@
+{
+  "command": [
+    "python3",
+    "scripts/dev.py",
+    "prove",
+    "--task",
+    "#373-native-cache-preparation",
+    "--jobs",
+    "12",
+    "--reason",
+    "Restore current unchanged compiler solver work on returned x86 host while runner implementation proceeds in isolated worktrees; reserve headroom for one dense Lean module and serial runner tests. This incremental run is preparation, not final PR assurance."
+  ],
+  "started": "2026-11-20T15:11:47.811475+00:00",
+  "finished": "2026-11-20T18:10:21.491782+00:00",
+  "elapsed_seconds": 10713.478406580005,
+  "returncode": 0,
+  "child_user_seconds": 39107.697326,
+  "child_system_seconds": 529.42516,
+  "child_maxrss_kib": 6492768,
+  "note": "RUSAGE_CHILDREN max RSS is not a simultaneous process-tree peak."
+}

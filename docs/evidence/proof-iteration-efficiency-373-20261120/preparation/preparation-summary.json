@@ -12,7 +12,6 @@
   },
   "completed_focused_captured_source_hashes_rechecked": 1142,
   "excluded_active_outputs": [
-    "root native-preparation.log and native managed output",
     "root lean-dense-preparation.log and active replacement managed output"
   ],
   "focused": {
@@ -87,6 +86,99 @@
     "message": "/bin/sh: 2: /usr/bin/time: not found\n",
     "proof_execution_started": false
   },
+  "native": {
+    "available_cpus": 22,
+    "cache": "Normal existing root sessions and lock-keyed file cache; no cold workspace, force-all flag or observed cache-hit count. Existing prior reports retained separately. Lean donor provenance does not describe this native cache.",
+    "captured_input_hashes": 2584,
+    "captured_non_tool_hashes_rechecked": 153,
+    "captured_tracked_hashes_matching_a412": 147,
+    "claim": "Successful incremental old-runner native preparation with a complete raw unit/check report set. Not final changed-runner full compiler/provenance audit.",
+    "command": [
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alr/bin/alr",
+      "-s",
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/settings",
+      "-C",
+      "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/toolchain",
+      "-n",
+      "--no-tty",
+      "exec",
+      "--",
+      "gnatprove",
+      "-P",
+      "../../../silver.gpr",
+      "-U",
+      "--mode=all",
+      "--report=all",
+      "--warnings=error",
+      "--checks-as-errors=on",
+      "--level=2",
+      "--prover=cvc5,z3,altergo",
+      "--timeout=30",
+      "-j",
+      "12",
+      "--memcached-server=file:/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/proof-cache/gnatprove/ea6aba21eca447a9c8473fc1c3ea0300b03a95ce919d8a326f68a67989029329",
+      "-XSILVER_HOST=linux-x86_64"
+    ],
+    "coverage_entries": {
+      "all": 1172,
+      "spec": 80
+    },
+    "current_provenance_manifest_present": false,
+    "expected_units": 78,
+    "flow_checks": 1751,
+    "inherited_proof_inputs": {
+      "byte_identical_to_previous_reports": true,
+      "disposition": "Inherited metadata retained inside producer archive, not a current native assurance manifest.",
+      "inputs_match_current_prepared_record": false,
+      "mode": "full",
+      "sha256": "0472cad88b77b41e32817100e89db8e1aa14b6993bceaff68c6ff164e733ce58"
+    },
+    "managed_outcome": "success",
+    "managed_returncode": null,
+    "managed_seconds": 10712.555089664,
+    "mode": "prove",
+    "native_phase_returncode": 0,
+    "non_success_check_entries": 0,
+    "proof_checks": 17975,
+    "report_progress_all": "PROGRESS_PROOF",
+    "report_stop_reason_all": "STOP_REASON_NONE",
+    "report_units": 78,
+    "retained_reason": "Restore current unchanged compiler solver work on returned x86 host while runner implementation proceeds in isolated worktrees; reserve headroom for one dense Lean module and serial runner tests. This incremental run is preparation, not final PR assurance.",
+    "run_id": "20261120T151148-8deddffbf5cf",
+    "runner_revision": "a412827d6c54f925cf4e55cac128eb4ef48647ad",
+    "sarif_command_matches_ledger_vendor_command": true,
+    "sarif_successful_invocations": 1,
+    "scope": [
+      "compiler"
+    ],
+    "skip_or_assume_entries": 0,
+    "source_inventory_complete": true,
+    "task": "#373-native-cache-preparation",
+    "tool_binary_hashes_rechecked": 12,
+    "total_checks": 19726,
+    "workers": 12,
+    "wrapper": {
+      "child_maxrss_kib": 6492768,
+      "child_system_seconds": 529.42516,
+      "child_user_seconds": 39107.697326,
+      "command": [
+        "python3",
+        "scripts/dev.py",
+        "prove",
+        "--task",
+        "#373-native-cache-preparation",
+        "--jobs",
+        "12",
+        "--reason",
+        "Restore current unchanged compiler solver work on returned x86 host while runner implementation proceeds in isolated worktrees; reserve headroom for one dense Lean module and serial runner tests. This incremental run is preparation, not final PR assurance."
+      ],
+      "elapsed_seconds": 10713.478406580005,
+      "finished": "2026-11-20T18:10:21.491782+00:00",
+      "note": "RUSAGE_CHILDREN max RSS is not a simultaneous process-tree peak.",
+      "returncode": 0,
+      "started": "2026-11-20T15:11:47.811475+00:00"
+    }
+  },
   "native_launcher_failure": {
     "exit_code": 127,
     "message": "/bin/sh: 2: /usr/bin/time: not found\n",
@@ -113,7 +205,7 @@
     "scripts/bootstrap_lean.py": "ae72d6967ebf458c4ccfccfd53d6a59da08767901f29e1ba1917dc2ad5623dff",
     "scripts/check_lean.py": "f5a44f63da311b850478b89a808a28d41878bdc1b959142b8bafb531bab31f11"
   },
-  "scope": "Old-runner proof/cache preparation and partial focused audit; not final changed-runner complete assurance.",
+  "scope": "Old-runner native proof/cache preparation, interrupted Lean preparation and successful partial focused Lean audit; not final changed-runner complete assurance.",
   "tool_hash_checks": {
     ".tools/linux-x86_64/lean/bin/lake": {
       "integration_sha256": "6f53827dab18010d6c690d14c8401cacabc1db958edb3552a877ed4cf1dd995d",
