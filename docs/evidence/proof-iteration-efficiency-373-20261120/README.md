@@ -1,10 +1,11 @@
 # Reduced #373: regression checkpoint, 2026-11-20
 
 **Regression coverage is complete through 282 fresh and 475 reviewed retained
-passes, covering all 757 current unique unittest IDs.** This packet does not yet
-record final native compiler or complete Lean/source/module/axiom assurance, nor
-the fresh canonical focused compiler probe. Those remain separate outstanding
-checks. No cold rebuild or independent kernel replay is claimed.
+passes, covering all 757 current unique unittest IDs.** The subsequent
+[real focused compiler checks](focused-native/README.md) also passed for the
+whole `Decimal` subprogram and its containing unit. Final native compiler and
+complete Lean/source/module/axiom assurance remain outstanding. No cold rebuild
+or independent kernel replay is claimed.
 
 The reviewed implementation is `f0a773fbcb9eea9574b037812e888029b7f970cb`; its
 scripts/tests were frozen for the fresh run. Record head `cd17bc1fdf` adds review

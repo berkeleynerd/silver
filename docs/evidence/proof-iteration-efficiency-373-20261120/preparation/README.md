@@ -6,8 +6,10 @@ on Linux x86-64, with unchanged proof/language sources; integration code/tests
 remain at reviewed `f0a773fbcb9eea9574b037812e888029b7f970cb`. The
 [summary](preparation-summary.json) separates the interrupted initial run, completed
 focused continuation, source/cache origins and timing scopes. Complete final
-native and Lean/source/module/axiom audits and the actual focused CLI probe remain
-outstanding. No cold rebuild or independent kernel replay is claimed.
+native and Lean/source/module/axiom audits remain outstanding. The actual focused
+CLI probe was pending when these records were collected; the subsequent
+[subprogram and unit checks](../focused-native/README.md) passed. No cold rebuild
+or independent kernel replay is claimed.
 
 ## Seed and input provenance
 
