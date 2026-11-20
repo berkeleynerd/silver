@@ -62,18 +62,18 @@
     "sha256": "5f5e5e459ad972ce7d5f2db631f5140ae6820971ca8927bc07a306981a9570fd",
     "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/.silver/linux-x86_64/toolchain/alire.toml"
   },
-  "setup-inputs/.silver__linux-x86_64__toolchain__alire__alire.lock": {
-    "bytes": 5216,
+  "setup-inputs/.silver__linux-x86_64__toolchain__alire__alire.lock.gz": {
+    "bytes": 1590,
     "original_bytes": 5216,
     "original_sha256": "ea6aba21eca447a9c8473fc1c3ea0300b03a95ce919d8a326f68a67989029329",
-    "sha256": "ea6aba21eca447a9c8473fc1c3ea0300b03a95ce919d8a326f68a67989029329",
+    "sha256": "cc0f112ac3582331fd4bef81f4784ce8fa927fccbeaaba1444d2c0f72013c0b2",
     "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/.silver/linux-x86_64/toolchain/alire/alire.lock"
   },
-  "setup-inputs/.tools__linux-x86_64__alire__settings__settings.toml": {
-    "bytes": 307,
+  "setup-inputs/.tools__linux-x86_64__alire__settings__settings.toml.gz": {
+    "bytes": 180,
     "original_bytes": 307,
     "original_sha256": "df16f4070ee57a08d538be8bad619716a8fffbd872b12b07b0cf00132bd9a203",
-    "sha256": "df16f4070ee57a08d538be8bad619716a8fffbd872b12b07b0cf00132bd9a203",
+    "sha256": "9bdcd90e41a1916524a402ce6183e6d48b8aeb0d53b2671c3408d290669cc911",
     "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/.tools/linux-x86_64/alire/settings/settings.toml"
   },
   "setup-inputs/src__silver_numbers.adb": {
