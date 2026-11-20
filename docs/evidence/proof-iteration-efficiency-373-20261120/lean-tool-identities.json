@@ -1,0 +1,44 @@
+{
+  "bootstrap_script": {
+    "path": "scripts/bootstrap_lean.py",
+    "sha256": "ae72d6967ebf458c4ccfccfd53d6a59da08767901f29e1ba1917dc2ad5623dff"
+  },
+  "bootstrap_stdout": "bootstrap-lean.log",
+  "distribution_archive": {
+    "bytes": 904280152,
+    "local_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/.tools/linux-x86_64/lean-4.34.1-linux.zip",
+    "marker_sha256": "3013aba02bb8bf31b1cf8c9d956d60fb95bb1c10920dfe91abcaa59cb461ddac",
+    "sha256": "3013aba02bb8bf31b1cf8c9d956d60fb95bb1c10920dfe91abcaa59cb461ddac",
+    "transfer_origin": "Local archive authenticated by pinned bootstrap digest; the retained bootstrap stdout does not identify whether it was downloaded or copied beforehand.",
+    "upstream_release_url": "https://github.com/leanprover/lean4/releases/download/v4.34.1/lean-4.34.1-linux.zip"
+  },
+  "installed_files": {
+    ".tools/linux-x86_64/lean/bin/lake": {
+      "bytes": 13840,
+      "sha256": "6f53827dab18010d6c690d14c8401cacabc1db958edb3552a877ed4cf1dd995d"
+    },
+    ".tools/linux-x86_64/lean/bin/lean": {
+      "bytes": 9024,
+      "sha256": "e8baaa71855a616dc351028f3ad2200051b0671f423a1696a100e809302d5550"
+    },
+    ".tools/linux-x86_64/lean/bin/leanchecker": {
+      "bytes": 51080,
+      "sha256": "ccef1bfe9bfeecea65137d94a69033c1a89f360711f50fa3178e7ba3e696fcbe"
+    },
+    ".tools/linux-x86_64/lean/lib/lean/libLake_shared.so": {
+      "bytes": 12545496,
+      "sha256": "ef0eb8942cd68ffb61ae573850a7181f70860580959e296c6e1a0e31ec50a38a"
+    },
+    ".tools/linux-x86_64/lean/lib/lean/libleanshared.so": {
+      "bytes": 233708536,
+      "sha256": "6b30cc963d065fc9d2f87f7e9cbe0682b23000ae5425bccd769c5d477fa74f13"
+    }
+  },
+  "native_platform": "linux-x86_64",
+  "reported_version": "Lean (version 4.34.1, x86_64-unknown-linux-gnu, commit 5045d0056413266e57c625dcd7c365b10e377c52, Release)",
+  "toolchain_pin": {
+    "content": "leanprover/lean4:v4.34.1",
+    "path": "proof/lean-toolchain",
+    "sha256": "d5edba4e4b8faad9c1baeadb265716d20d03be4d1a2647dc5e35b0c0325bea7b"
+  }
+}

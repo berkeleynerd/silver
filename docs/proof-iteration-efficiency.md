@@ -23,8 +23,8 @@ ends the former workflow requirements without changing existing authorizations.
 | [#383](https://github.com/berkeleynerd/silver/issues/383) | Align `AGENTS.md`, `development.md` and iteration guidance with the delivered interfaces and limits in this same package. |
 | [#384](https://github.com/berkeleynerd/silver/issues/384) | Exercise the focused path, affected regressions and applicable complete native/Lean/source/module/axiom assurance on final inputs; retain evidence reuse, settings, measurement limits and independent disposition in one shared checkpoint. |
 
-Selected work is In progress. No implementation or final assurance completion is
-asserted by this scope update. Live status and worktree ownership belong on the
+Selected work is In review. Implementation review and affected regressions have
+passed; actual focused checks and final assurance remain pending. Live status and worktree ownership belong on the
 issues and [Silver board](https://github.com/users/berkeleynerd/projects/6); board
 read/write access was available during this update. The original increments and
 recovered branches remain preserved, with no issue closed by this planning step.
@@ -81,9 +81,9 @@ Remove these deferred increments from the blocking dependency path for #383/#384
 
 ## Shared completion checklist
 
-- [ ] Reconcile #377/#378, repair the selected gap and pass affected regressions.
+- [x] Reconcile #377/#378, repair the selected gap and pass affected regressions.
 - [ ] Implement and exercise #379/#380 on current delivered compiler inputs.
-- [ ] Align guidance in #383 with the tested command interfaces and limits.
+- [x] Align guidance in #383 with the tested command interfaces and limits.
 - [ ] Retain applicable complete final-input native and Lean/source/module/axiom
   assurance, regression coverage and independent review through #384.
 - [ ] Record actual settings, retained/fresh/cached evidence, failed attempts,
@@ -108,9 +108,10 @@ isolation, canonical focused checks with shared unit coverage auditing, and
 rejection of contextual inlining as whole-helper evidence. The
 [independent implementation review](reviews/review-proof-efficiency-373-20261120.md)
 accepts that code after three findings were repaired and rechecked. It also
-establishes the final 757-ID test inventory: 282 affected tests need fresh
-coverage, and 475 application-test passes remain applicable from the prior
-complete Linux suite. Final current-input validation and closing review remain
+establishes the final 757-ID test inventory. The [regression packet](evidence/proof-iteration-efficiency-373-20261120/README.md)
+records 282 fresh affected-test passes in run `20261120T152415-e5e1f5ee6934`
+and 475 reviewed retained passes from the prior complete Linux suite. Final
+native build and assurance, actual focused checks and closing review remain
 outstanding at this checkpoint. No speedup or runtime model confirmation is
 claimed. CLI memory was not updated.
 
@@ -129,6 +130,7 @@ time is not a substitute for those data.
 | Planning/guidance, #383 | GPT-6.1 Sol, High | Scope/roadmap/Worca guidance integrated as `b1f55e5126`; issue bodies, statuses and dependency edges updated and reread on the live board. Tested interface guidance aligned with `f0a773fbcb`; local links/whitespace checked. CLI memory not updated. |
 | Independent implementation review | GPT-6.2 Astra, Extra High | Accepted `f0a773fbcb`; three findings repaired and rechecked, real retained report comparisons and regression applicability reviewed. Observed interval 15:14:26–15:27:01 UTC (12 min 35 s); final assurance remains separate. |
 | Preparation monitoring | GPT-6.1 Sol, High | Observes native/Lean preparation and sampled resources; no authority to alter jobs, inputs or assurance outcomes. |
+| Regression evidence collection | GPT-6.1 Sol, High | Archived the successful 282-test affected run and reconciled all 757 current IDs with 475 reviewed retained passes; 33 additions, no uncovered test. No test rerun or proof execution. |
 | Lead integration and checkpoint, #384 | Model/effort unavailable from live runtime | Current-input validation and final delivery review remain pending; repository defaults are not reported as observed live settings. |
 
 ## Historical plan and handoff — superseded on 2026-11-20
