@@ -1,23 +1,26 @@
 # String prepend
 
-**Candidate: proofs likely to discharge automatically.** The task is one prepend and one print on embedded literal data, so every length and index check follows from constants and a single guard before the copy. Silver already has bounded concatenation, so only a buffer with a computed length and slice printing are missing.
+**Candidate: proofs likely to discharge automatically.** The existing initialized-buffer composition performs a real multi-character prepend, with an exact fit followed by whole refusal. The expected stdout is Hello World!\nfull\nHello World!\n. Character stores, a bounded length, counted loops and prefix output already exist; bounded-string-building is precise Rosetta metadata and introduces no language rule. The linked capability record separates final delivery evidence from inherited planning observations.
 
-Position 99 in the [progression](../../progression.md#stage-4), in stage 4.
+Position 62 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 
-Keep the variable as a fixed-capacity buffer (a String of capacity 32 plus a length in a declared range), initialized to "World!". Prepend "Hello " by guarding that the combined length fits the capacity, shifting the old contents right and copying the literal in front, then print the used slice with Put_Line. If the guard fails, print a visible rejection message instead. About 12 lines.
+Main initializes all 12 buffer cells with logical text World! and spare spaces, a bounded Len counter, and the multi-character literal 'Hello '. In each of two attempts, one bare-name capacity guard checks that the entire literal fits. It shifts the existing characters right in reverse order by the literal length, then copies every literal character to the front with a counted loop. Only the successful arm updates Len. The first attempt exactly fills the buffer; the second prints full without changing buffer or length. Filled-prefix output remains after end if; both attempts print the variable, with the refused attempt preserving the previous prefix. About 26 lines.
 
 ## Proof obligations to watch
 
-- **length**: The result is built in a fixed-capacity buffer, so the program's literal sizes make the prepend fit statically and the length checks discharge from constants.
+- **index**: The whole-literal guard bounds every counted copy destination; reverse shifting in prepend preserves unread source cells.
+- **length**: Len remains in 0 .. 12; exact fit reaches capacity, and the full-buffer branch changes neither Len nor buffer before the unchanged prefix is printed.
 
 ## Language surface recorded by this assessment
 
-String building and Put without a newline.
+Bounded String building with initialized buffers, bounded String indexing and Character operations, bounded mutable Integer objects, scalar guard refinement and Integer range for loops.
 
 ## External effects
 
 - **console output** (allowed): Prints the resulting string with Put_Line.
 
-Assessed on 2026-10-15 against page revision 413063 of the [task](https://rosettacode.org/wiki/String_prepend) by claude-sonnet-5-5 at medium effort; confidence high. The inclusion policy is in `rosetta/coverage.json`.
+Initially assessed on 2026-10-15 against page revision 413063 of the [task](https://rosettacode.org/wiki/String_prepend) by claude-sonnet-5-5 at medium effort; current confidence high. The inclusion policy is in `rosetta/coverage.json`.
+
+Revised on 2026-11-18 by Codex through targeted source review; see the [review record](../../../docs/bounded-string-building-samples.md).

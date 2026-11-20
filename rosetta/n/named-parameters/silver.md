@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The cached task requires a function whose arguments can visibly bind by formal name irrespective of order. The noncommutative Subtract driver meets that interface and distinguishes an incorrect permutation. Defaults and omission are optional. Focused run 20261117T030042-d612d38a0399 compiled the unchanged source, audited its complete five-unit report and checked all four predicted output lines. Complete native run 20261117T034048-8c22c1e6a33d and complete Lean/source/module/axiom run 20261117T064945-d458c99ae977 passed on matching implementation inputs; the precise construct is now included in the supported mapping. Final delivery evidence is tracked separately in docs/named-scalar-arguments.md.
 
-Position 66 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 70 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything uses bounded integer coordinates, fixed arrays and explicit guarded stacks inside procedures, so checks follow from types and guards, but the nonlinear cross products and loop-carried stack indexes require careful program shape.
 
-Position 426 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 427 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

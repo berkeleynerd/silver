@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loop variables are Floor-typed for-loop indexes, so differences and abs are bounded by types and every check discharges without invariants, and the loops need no termination variant.
 
-Position 155 in the [progression](../../progression.md#stage-6), in stage 6.
+Position 156 in the [progression](../../progression.md#stage-6), in stage 6.
 
 ## Approach
 

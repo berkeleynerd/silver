@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The required 10 primes need only Fibonacci values below 10^6 and plain 64-bit arithmetic, so every check follows from types and guards placed just before additions and multiplications. The loop-carried accumulators need explicit limit guards but no annotation, and the while loops sit in procedures, so the outlook is plausible.
 
-Position 238 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 239 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

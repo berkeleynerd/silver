@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from declared subtypes, for-loop ranges and a counter bounded by a visible guard, with no while loops or recursion, so proofs should discharge without annotations. The only extra surface is integer-to-text formatting for output.
 
-Position 337 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 338 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

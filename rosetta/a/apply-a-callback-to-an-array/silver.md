@@ -1,12 +1,12 @@
 # Apply a callback to an array
 
-**Candidate: proofs likely to discharge automatically.** All checks follow from the declared element range and for-loop indexes over the array's own range, so the squares cannot overflow and no annotation is needed.
+**Candidate: proofs likely to discharge automatically.** A candidate with an actual scalar-function call per array element admitted. This corrects the earlier procedure-standing-in-for-a-callback account; no first-class callback capability was needed for the measured approach. Execution and final application evidence remain unmeasured. The original surface mapping is retained for separate coverage reconciliation; these observations add no delivered sample or supported task mapping in this batch.
 
-Position 103 in the [progression](../../progression.md#stage-4), in stage 4.
+Position 104 in the [progression](../../progression.md#stage-4), in stage 4.
 
 ## Approach
 
-Declare a ranged integer subtype and a constrained array type of 10 elements, embed the sample data as an aggregate, and use a procedure Apply_Square that loops over the array's own range, squaring each element into a second array or printing it via a nested Display procedure called directly (no access-to-subprogram callback, a named procedure standing in for the callback). Each result is printed with Put_Line of a bounded concatenation of "array(" , the index image, ") = " and the value image. About 30 lines.
+The planning candidate defines an actual admitted Main-local scalar function and calls it for each element of a fixed initialized Integer array, using a whole scalar assignment for each call result before output. Element and function formal ranges bound the squaring. The task asks to apply a function to each element; an access-to-subprogram callback or array parameter is not required. About 30 lines.
 
 ## Proof obligations to watch
 
@@ -20,4 +20,6 @@ Integers, ranged subtypes, arrays, for loops, 'Image of scalars, Put without a n
 
 - **console output** (allowed): Prints each squared array element as text.
 
-Assessed on 2026-10-15 against page revision 411495 of the [task](https://rosettacode.org/wiki/Apply_a_callback_to_an_array) by claude-sonnet-5-5 at medium effort; confidence high. The inclusion policy is in `rosetta/coverage.json`.
+Initially assessed on 2026-10-15 against page revision 411495 of the [task](https://rosettacode.org/wiki/Apply_a_callback_to_an_array) by claude-sonnet-5-5 at medium effort; current confidence high. The inclusion policy is in `rosetta/coverage.json`.
+
+Revised on 2026-11-18 by Codex through targeted source review; see the [review record](../../../docs/bounded-string-building-samples.md).

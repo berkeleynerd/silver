@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Exhaustive search over three bounded for-loop indexes with exact scaled integer arithmetic gives every check a static bound, and nothing needs a loop invariant or variant. The only new surface is integer arithmetic, ranged subtypes, for loops and integer-to-text conversion for output.
 
-Position 107 in the [progression](../../../progression.md#stage-4), in stage 4.
+Position 108 in the [progression](../../../progression.md#stage-4), in stage 4.
 
 ## Approach
 

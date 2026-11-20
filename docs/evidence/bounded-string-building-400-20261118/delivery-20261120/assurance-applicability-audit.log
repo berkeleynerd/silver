@@ -1,0 +1,70 @@
+{
+  "checked_utc": "2026-11-20T12:07:54.362292+00:00",
+  "target": "001c50dce1bcf3ad2d174b4426f684fe78cb2e64",
+  "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/pr403-delivery",
+  "actual_host": "linux-x86_64",
+  "native_packet_files_rehashed": 19,
+  "lean_packet_files_rehashed": 54,
+  "repository_inputs_compared_with_worktree_and_git": 1145,
+  "native_repository_inputs": 147,
+  "lean_repository_inputs": 1142,
+  "native_report_archive_files": 80,
+  "native_report_archive_uncompressed_bytes": 54448685,
+  "native_report_and_source_policy_audit": {
+    "units": 78,
+    "entities": 1252,
+    "flow_checks": 1751,
+    "proof_checks": 17975,
+    "limitation_notes": 357,
+    "imported_entities": 18,
+    "trusted_math_notes": 6268,
+    "vendor_spec_entities": 62,
+    "array_initialization_advisories": 6,
+    "operator_reassociation_advisories": 27
+  },
+  "original_generated_ada_reconstructed_and_rehashed": {
+    "silver_build.ads": "9640b303c97446c97d3c16573db1c069f4b8284424798564207011fd677c4b59",
+    "silver_image_config.ads": "194b6012809af8024a4d852b817d0236d767b7c150ae2e9566f47b88cde18cb7",
+    "silver_library_sources.ads": "be5a0d9ee5d93e6fe08d4b5c653ae1a1a497fbb52191f7bb393c9d1b6bc182bf"
+  },
+  "current_root_x86_generated_ada_observation": {
+    "silver_image_config.ads": {
+      "sha256": "adb7b70f94cb5865b811aaaf387ab700e98c3b2f01567a74a0588b152e01eb7c",
+      "equals_original_arm_file": false
+    },
+    "silver_build.ads": {
+      "sha256": "91085a8b25858dbec189d618304bd74bf9f3b70a25f3885925494f67847b4afa",
+      "equals_original_arm_file": false
+    },
+    "silver_library_sources.ads": {
+      "sha256": "be5a0d9ee5d93e6fe08d4b5c653ae1a1a497fbb52191f7bb393c9d1b6bc182bf",
+      "equals_original_arm_file": true
+    }
+  },
+  "native_other_input_categories": {
+    "generated_ada": 3,
+    "alire_context": 3,
+    "alire_settings_and_index": 2469
+  },
+  "lean_workspace_inputs_rehashed": 1037,
+  "lean_actual_import_log_modules": 1035,
+  "lean_retained_audit_lines": [
+    "Silver axiom audit passed: 166332 declarations; foundations: [propext, Classical.choice, Quot.sound]",
+    "Silver axiom audit passed: 166332 declarations; foundations: [propext, Classical.choice, Quot.sound]"
+  ],
+  "lean_recorded_artifact_files": 6202,
+  "lean_recorded_tools": {
+    ".tools/linux-aarch64/lean/bin/lean": "79fb1d26fa5a39385d59fdc48a711a14b0710ca6480271acce99b4d177cea085",
+    ".tools/linux-aarch64/lean/bin/lake": "f80f50cbab5322e35bcb0bf88937e22e9d908b5e4e336e83ddfc30eb1506aacf"
+  },
+  "lean_repository_archive_bytes": 13656931,
+  "lean_workspace_archive_bytes": 41248100,
+  "limits": [
+    "Fresh Python report/source-policy audit of retained linux-aarch64 reports; not a new GNATprove run.",
+    "No native validate_provenance or validate_image_setup pass: original installation/tool bytes and overlay are unavailable.",
+    "Reconstructed generated files match old recorded hashes; this does not revalidate the vendor executable or claim current x86 generated inputs match.",
+    "Native audit_sources timestamp guard was not run on reconstructed copies; no timestamps were backdated.",
+    "Lean packet, source/candidate parity and retained module/axiom log were rechecked; no new Lean import/axiom audit or kernel replay occurred.",
+    "6202 compiled artifacts are hash-inventoried but absent from the committed packet; their contents were not rehashed."
+  ]
+}

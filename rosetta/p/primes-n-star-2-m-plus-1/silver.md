@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The core 45 results fit in 64-bit integers so every check follows from types and a bound guard, but loop-carried doubling and trial-division bounds need careful guards; the stretch tasks would need big numbers and are optional.
 
-Position 374 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 375 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Both subscript intervals stay inside 1..6, and each swap reads the RHS before the write. The temporary preserves the byte overwritten by the first write and the earlier String copy preserves the original. The exact program passed the complete Linux manifest-driven regression check; complete native and actual-source assurance is recorded in docs/bounded-string-characters.md.
 
-Position 25 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 26 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

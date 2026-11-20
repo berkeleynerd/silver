@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The two copy loops rotate the nine task values left by three positions: destination indices 1 through 6 read source indices 4 through 9, and destination indices 7 through 9 read source indices 1 through 3. Both index intervals stay within 1 through 9, all components are explicitly initialized, and writes preserve other cells. The exact source and manifest match this narrow approach; broader arrays remain unsupported. The assurance and validation status is recorded separately in docs/fixed-integer-arrays.md; this static assessment establishes no native or universal validation evidence.
 
-Position 42 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 44 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

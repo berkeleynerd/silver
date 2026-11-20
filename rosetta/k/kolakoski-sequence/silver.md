@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is a bounded array walk whose indexes can be guarded immediately before use, so no annotation is needed, but several loop-carried indexes (i, k, run count) need careful guard placement.
 
-Position 413 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 414 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

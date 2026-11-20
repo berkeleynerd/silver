@@ -1,12 +1,12 @@
 # Decreasing contiguous subsequences
 
-**Candidate: proofs likely to discharge automatically.** The task is plain integer array scanning with no recursion, floating point or heap, and the percentage tests are rewritten as bounded integer comparisons, so every check follows from types and short guards.
+**Candidate: proofs likely to discharge automatically.** The full required 901-value candidate admitted and ran, producing bins 7, 6, 4, 2, 2, 0 from a 3855-byte source. Preserve this measured complete-sequence scope; it is inherited planning evidence and adds no promised sample or final delivery checkpoint result. The original surface mapping is retained for separate coverage reconciliation; these observations add no delivered sample or supported task mapping in this batch.
 
-Position 113 in the [progression](../../progression.md#stage-4), in stage 4.
+Position 114 in the [progression](../../progression.md#stage-4), in stage 4.
 
 ## Approach
 
-Embed the 901-value sequence as a constant array of a ranged subtype (1..1000) indexed 0..900, scan it with one for loop that tracks the start of the current non-increasing run and, when a run ends, compares (first-last)*100 against 4, 8, 12, 16 and 25 times first using integers only (no floating point), incrementing one of six counters in a Count-typed array. Each increment is guarded by a check against the counter's upper bound with Reject as the visible outcome, and the six group counts are printed with Put_Line using 'Image text. About 110 lines.
+The measured 3855-byte candidate embeds all 901 required values in a fixed initialized Integer array and scans maximal non-increasing subsequences with counted loops and bounded scalar state. Integer comparisons classify percentage decreases without floating point, guarded counters accumulate the six bins, and Integer Image output prints the counts. The complete candidate admitted and executed with observed bins 7, 6, 4, 2, 2, 0. About 110 lines.
 
 ## Proof obligations to watch
 
@@ -21,4 +21,6 @@ Integers, ranged subtypes, arrays, for loops, 'Image of scalars, string building
 
 - **console output** (allowed): The six per-group subsequence counts are printed as text lines.
 
-Assessed on 2026-10-15 against page revision 405625 of the [task](https://rosettacode.org/wiki/Decreasing_contiguous_subsequences) by claude-sonnet-5-5 at medium effort; confidence high. The inclusion policy is in `rosetta/coverage.json`.
+Initially assessed on 2026-10-15 against page revision 405625 of the [task](https://rosettacode.org/wiki/Decreasing_contiguous_subsequences) by claude-sonnet-5-5 at medium effort; current confidence high. The inclusion policy is in `rosetta/coverage.json`.
+
+Revised on 2026-11-18 by Codex through targeted source review; see the [review record](../../../docs/bounded-string-building-samples.md).

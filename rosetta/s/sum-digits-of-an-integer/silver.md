@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Since N < 2^31 and Base >= 2, thirty-one divisions consume every digit throughout the declared formal-domain product. Extra leading zero digits contribute nothing. Before any addition at most thirty digits of value <=35 give Total <=1050, so the guard never discards a digit and the result fits 1085. The four primary examples give 1, 10, 29 and 29. The analytical argument covers all declared inputs; retained finite checks do not claim exhaustive enumeration of that domain. The [reconciliation](../../../rosetta/assessment-scalar-function-batch-20261108.md) preserves the original assessment attribution and links the separately reviewed Linux application evidence; final combined integration and independent delivery status remain in the batch delivery record.
 
-Position 76 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 80 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

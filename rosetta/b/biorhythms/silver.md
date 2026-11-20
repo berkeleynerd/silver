@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All arithmetic is integer over small declared ranges, mod results index tables of matching size, and there are no loops or recursion, so every check follows from types and one date-order guard. Floating point is avoided by tabulating the sine percentages, which keeps the output faithful to the task's example values.
 
-Position 366 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 367 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

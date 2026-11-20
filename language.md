@@ -767,6 +767,18 @@ and earlier snapshots. The indexed target and RHS each have an independent
 Both assignment forms preserve existing Integer and String/input flow facts.
 Slice assignment targets, Character concatenation and resizing are excluded.
 
+The [append](samples/rosetta_string_append.adb) and
+[prepend](samples/rosetta_string_prepend.adb) samples compose these existing rules
+with initialized fixed-size buffers, a logical length and counted Character
+stores. One capacity guard precedes the entire literal copy or reverse shift;
+refusal prints `full` and leaves the buffer and length unchanged. Prefix output
+follows `end if;`, so its nonstatic endpoint obeys the slice rules below.
+[Repeat a string](samples/rosetta_repeat_a_string.adb) copies `ha` five times in
+20 initialized cells, with count domain `0 .. 10`. These examples add no
+String parameter, resizing or Character conversion rule. The
+[capability record](docs/bounded-string-building-samples.md) distinguishes
+application evidence from the retained universal assurance.
+
 ### Fixed-size Integer arrays
 
 The ordered declaration region admits anonymous, one-dimensional arrays:
@@ -1637,6 +1649,10 @@ The [100 doors sample](samples/rosetta_100_doors.adb) uses a guarded visit
 counter and prints every door's final state; its expected bytes come from an
 independent pass-major toggle model. Its validation evidence is recorded in the
 [guard delivery record](docs/scalar-guard-refinement.md#delivery-assurance-and-validation).
+
+The [99 bottles sample](samples/rosetta_99_bottles_of_beer.adb) uses a reverse
+counted loop and standard Integer Image to print all 99 verses through zero,
+including Image's leading spaces. Its expected output covers every verse.
 
 The [Rosetta sample delivery](docs/rosetta-supported-samples.md) exercises existing
 output, names, copies, expressions and branches for the runnable tasks in #9.

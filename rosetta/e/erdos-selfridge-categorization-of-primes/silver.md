@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from subtype-bounded indices and guarded divisions in procedure loops with no recursion, but several loop-carried values need careful range typing and the large fixed tables raise a stack-size premise. No annotation is needed, so discharge is plausible rather than routine.
 
-Position 280 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 281 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Streaming mean, variance and histogram over a deterministic integer fixed-point generator needs only integers, arrays, loops and text building, with all checks following from ranged types and a few overflow guards on loop-carried accumulators. It is plausible rather than likely because the accumulators and the nonlinear LCG and variance arithmetic depend on careful range sizing.
 
-Position 414 in the [progression](../../../progression.md#stage-8), in stage 8.
+Position 415 in the [progression](../../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

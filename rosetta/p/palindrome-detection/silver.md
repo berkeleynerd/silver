@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every read stays within its fixed String bounds. The Boolean accumulator is a stored value, and the algorithm checks actual bytes rather than comparing the input with a precomputed answer. Both positive and negative examples execute. The exact program passed the complete Linux manifest-driven regression check; complete native and actual-source assurance is recorded in docs/bounded-string-characters.md.
 
-Position 62 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 66 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

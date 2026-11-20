@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task only asks to compute gamma, so a fixed-precision integer long division of a closed-form rational avoids floating point and loop-carried accumulators, and every check follows from subtype ranges and the for-loop index over the buffer's own range.
 
-Position 439 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 440 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

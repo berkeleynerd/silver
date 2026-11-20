@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is small fixed-bound for-loop arithmetic over constant-size arrays with values far below the integer range, so no loop invariant is needed; the only new surface is arrays, loops, integer images and procedures.
 
-Position 111 in the [progression](../../progression.md#stage-4), in stage 4.
+Position 112 in the [progression](../../progression.md#stage-4), in stage 4.
 
 ## Approach
 

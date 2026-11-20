@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task asks only for command-line help or a message on where to find more information, and today's Silver can already do that with string literals, argument comparison, if/elsif and Put_Line. Every check is a static string length or equality, so proof is routine.
 
-Position 52 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 55 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

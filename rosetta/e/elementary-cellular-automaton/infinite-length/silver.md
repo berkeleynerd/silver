@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything uses bounded arrays and constant-count for loops, so range and index checks follow from types and static bounds, but the loop-carried length counter and offset arithmetic require careful guards, hence plausible. The task's unlimited cell count is satisfied by a documented fixed capacity sized for the output.
 
-Position 461 in the [progression](../../../progression.md#stage-9), in stage 9.
+Position 462 in the [progression](../../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

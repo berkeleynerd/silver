@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The cached Ada solution uses a procedure with two out parameters, and the bounded driver preserves that multiple-result behavior. Independent arithmetic and Integer Image formatting match all six manifest lines. The unchanged sample passed admission, automatic obligation/report checks, compilation and execution in the retained 85-sample suite. The [delivery record](../../../docs/scalar-procedures.md#delivery-assurance-and-validation) separately records complete compiler assurance, actual-source correspondence and final regression coverage; the task review retains its own bounded scope.
 
-Position 59 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 63 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 
