@@ -105,10 +105,14 @@ The selected code is integrated at `f0a773fbcb` in the delivery worktree; draft
 [PR #406](https://github.com/berkeleynerd/silver/pull/406) is open. This includes
 proof-only resource reasons, native recurrence/fallback normalization and query
 isolation, canonical focused checks with shared unit coverage auditing, and
-rejection of contextual inlining as whole-helper evidence. Final current-input
-validation and closing review remain outstanding at this guidance checkpoint.
-This update records no new proof timings, speedup, or runtime model confirmation. Preserve useful caches and productive jobs; CLI memory was not
-updated by this documentation subthread.
+rejection of contextual inlining as whole-helper evidence. The
+[independent implementation review](reviews/review-proof-efficiency-373-20261120.md)
+accepts that code after three findings were repaired and rechecked. It also
+establishes the final 757-ID test inventory: 282 affected tests need fresh
+coverage, and 475 application-test passes remain applicable from the prior
+complete Linux suite. Final current-input validation and closing review remain
+outstanding at this checkpoint. No speedup or runtime model confirmation is
+claimed. CLI memory was not updated.
 
 The owner-authorization commit was recorded at **2026-11-20 15:06:13 UTC**
 (`a412827d6c` author/committer timestamps). The table records launch selections
@@ -123,7 +127,9 @@ time is not a substitute for those data.
 | Runner recovery, #377/#378 | GPT-6.1 Sol, Extra High | Recovered/reconciled changes integrated as `6a8ff7f41c` / `c6f3e997f1`; 124 recovery-commit fixture tests passed. Native Python execution on Linux x86-64 with mocked proof/tool/platform routes; no compiler/Lean assurance claimed. |
 | Focused policy/readiness, #379/#380 | GPT-6.2 Astra, Extra High | Entry point, classification and coverage repairs integrated through `f0a773fbcb`; 119 affected runner/auditor tests passed on the coverage-repair candidate. Retained producer-report checks are historical evidence; final integrated checkpoint remains separate. |
 | Planning/guidance, #383 | GPT-6.1 Sol, High | Scope/roadmap/Worca guidance integrated as `b1f55e5126`; issue bodies, statuses and dependency edges updated and reread on the live board. Tested interface guidance aligned with `f0a773fbcb`; local links/whitespace checked. CLI memory not updated. |
-| Lead integration and checkpoint, #384 | Model/effort unavailable from live runtime | Current-input validation and independent review remain pending; repository defaults are not reported as observed live settings. |
+| Independent implementation review | GPT-6.2 Astra, Extra High | Accepted `f0a773fbcb`; three findings repaired and rechecked, real retained report comparisons and regression applicability reviewed. Observed interval 15:14:26–15:27:01 UTC (12 min 35 s); final assurance remains separate. |
+| Preparation monitoring | GPT-6.1 Sol, High | Observes native/Lean preparation and sampled resources; no authority to alter jobs, inputs or assurance outcomes. |
+| Lead integration and checkpoint, #384 | Model/effort unavailable from live runtime | Current-input validation and final delivery review remain pending; repository defaults are not reported as observed live settings. |
 
 ## Historical plan and handoff — superseded on 2026-11-20
 
