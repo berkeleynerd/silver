@@ -1,5 +1,31 @@
 # Session memory
 
+## 2026-11-20 — Reduced proof iteration package approved for delivery
+
+After the reassessment of [#373](https://github.com/berkeleynerd/silver/issues/373),
+the owner instructed **“Approved. Proceed to completion and the accompanying PR.”**
+This selects the reduced package as the current work: canonical whole-helper
+compiler checks and minimal final-policy readiness reporting (#379–#380), the
+recovered native recurrence improvement with its selector-normalization repair
+(#378), and allocation reporting with mandatory reduction reasons restricted to
+proof commands (#377). Guidance and applicable complete validation (#383–#384)
+belong to the same delivery and shared final checkpoint.
+
+The standalone strategy comparison (#381) and additional chunk/aggregate
+scheduling work (#382) are deferred until a demonstrated unresolved proof or
+measured scheduling opportunity warrants them. Record already-delivered proof
+and scheduling improvements without claiming these deferred experiments were
+performed. This explicitly revises the original eight-increment completion
+scope; it does not weaken complete native or Lean/source assurance, change the
+compiler's canonical 30-second policy, or require a cold rebuild or kernel replay.
+
+Implement directly through Codex, preserving recovered branches and useful
+caches. The instruction authorizes implementation, validation, independent
+review and an accompanying PR; it does not authorize merging that PR, lift the
+hold on PR #385, reinstate Worca, or select another language feature.
+The [package record](proof-iteration-efficiency.md) and roadmap carry the updated
+scope and evidence. CLI memory was not updated.
+
 ## 2026-11-20 — Stop using Worca
 
 The owner instructed **“Stop using worca.”** Continue Silver work directly in
