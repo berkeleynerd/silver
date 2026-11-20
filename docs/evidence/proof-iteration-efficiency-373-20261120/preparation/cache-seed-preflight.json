@@ -1,0 +1,9 @@
+{
+  "donor": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-procedures-source-semantic-370/.silver/linux-x86_64/proof",
+  "destination": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/proof",
+  "native_builder_hashes": {
+    ".tools/linux-x86_64/lean/bin/lake": "6f53827dab18010d6c690d14c8401cacabc1db958edb3552a877ed4cf1dd995d",
+    ".tools/linux-x86_64/lean/bin/lean": "e8baaa71855a616dc351028f3ad2200051b0671f423a1696a100e809302d5550"
+  },
+  "note": "Donor is preserved x86 #370 partial/focused cache; normal Lake dependency checking and complete fresh audit will establish final applicability. ARM objects not imported."
+}

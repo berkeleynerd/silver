@@ -1,0 +1,131 @@
+{
+  "cache": {
+    "classification_rechecked_against_current_tracked_proof_sources": true,
+    "comparison_counts": {
+      "changed": 73,
+      "missing": 38,
+      "same": 925
+    },
+    "donor_full_artifact_rehash": "Not repeated during evidence assembly; original 16661-entry hash manifest retained. Running destination build artifacts were not read or archived.",
+    "origin": "preserved Linux x86-64 #370 partial/focused cache; no ARM proof objects imported",
+    "seed_manifest_entries": 16661
+  },
+  "completed_focused_captured_source_hashes_rechecked": 1142,
+  "excluded_active_outputs": [
+    "root native-preparation.log and native managed output",
+    "root lean-dense-preparation.log and active replacement managed output"
+  ],
+  "focused": {
+    "audit_declarations": 18218,
+    "evidence_elapsed_seconds": 1346.079,
+    "focused_modules": 12,
+    "lake_workers": 8,
+    "managed_outcome": "success",
+    "managed_seconds": 1344.968356359,
+    "memory_mb_per_process": null,
+    "phases": [
+      {
+        "elapsed_seconds": 1323.587,
+        "exit_code": 0,
+        "finished_at": "2026-11-20T16:04:03.235227+00:00",
+        "phase": "build",
+        "started_at": "2026-11-20T15:41:59.597562+00:00"
+      },
+      {
+        "elapsed_seconds": 3.975,
+        "exit_code": 0,
+        "finished_at": "2026-11-20T16:04:10.511578+00:00",
+        "phase": "audit",
+        "started_at": "2026-11-20T16:04:06.537119+00:00"
+      }
+    ],
+    "run_id": "20261120T154149-a6ad9b1bd8e1",
+    "target_chunk_build_seconds": {
+      "Silver.OutputBodyLines2": 1210,
+      "Silver.OutputBodyLines3": 1310,
+      "Silver.OutputBodyLines4": 1318,
+      "Silver.OutputBodyLines5": 1239,
+      "Silver.OutputBodyLines6": 1265,
+      "Silver.OutputBodyLines7": 1294
+    },
+    "threads_per_process": 22,
+    "wrapper": {
+      "child_maxrss_kib": 1737212,
+      "child_system_seconds": 366.056649,
+      "child_user_seconds": 7288.5715,
+      "command": [
+        "python3",
+        "scripts/check_lean.py",
+        "--provenance",
+        "--task",
+        "#373-lean-chunks",
+        "--reason",
+        "Preparation phase: Lines0 and Lines1 passed with sub-2GiB combined Lake/chunk sampled demand. Build six remaining independent SourceLexer-only chunks with available workers alongside native work, then budget dense consumers separately. Preserve completed objects; no source or policy change.",
+        "--target",
+        "Silver.OutputBodyLines2",
+        "--target",
+        "Silver.OutputBodyLines3",
+        "--target",
+        "Silver.OutputBodyLines4",
+        "--target",
+        "Silver.OutputBodyLines5",
+        "--target",
+        "Silver.OutputBodyLines6",
+        "--target",
+        "Silver.OutputBodyLines7"
+      ],
+      "elapsed_seconds": 1346.6617900690035,
+      "finished": "2026-11-20T16:04:15.435856+00:00",
+      "note": "RUSAGE_CHILDREN max RSS is not a simultaneous process-tree peak.",
+      "returncode": 0,
+      "started": "2026-11-20T15:41:48.723491+00:00"
+    }
+  },
+  "integration_code_revision": "f0a773fbcb9eea9574b037812e888029b7f970cb",
+  "launcher_failure": {
+    "exit_code": 127,
+    "message": "/bin/sh: 2: /usr/bin/time: not found\n",
+    "proof_execution_started": false
+  },
+  "native_launcher_failure": {
+    "exit_code": 127,
+    "message": "/bin/sh: 2: /usr/bin/time: not found\n",
+    "proof_execution_started": false
+  },
+  "original": {
+    "built_line_chunks": {
+      "Silver.OutputBodyLines0": 867,
+      "Silver.OutputBodyLines1": 862
+    },
+    "completed_artifact_hashes_recorded": 32,
+    "finished_event_present": false,
+    "interruption_recorded_at": "2026-11-20T15:41:11.491269+00:00",
+    "last_event": "phase_interrupted",
+    "reported_exec_exit": 130,
+    "reported_exec_exit_source": "lead handoff and boundary-checkpoint.json; no original wrapper exit file is retained",
+    "run_id": "20261120T151148-c537ca7f0c50",
+    "threads": 22,
+    "workers": 1,
+    "wrapper_completion_timing_present": false
+  },
+  "preparation_runner_revision": "a412827d6c54f925cf4e55cac128eb4ef48647ad",
+  "root_script_hashes": {
+    "scripts/bootstrap_lean.py": "ae72d6967ebf458c4ccfccfd53d6a59da08767901f29e1ba1917dc2ad5623dff",
+    "scripts/check_lean.py": "f5a44f63da311b850478b89a808a28d41878bdc1b959142b8bafb531bab31f11"
+  },
+  "scope": "Old-runner proof/cache preparation and partial focused audit; not final changed-runner complete assurance.",
+  "tool_hash_checks": {
+    ".tools/linux-x86_64/lean/bin/lake": {
+      "integration_sha256": "6f53827dab18010d6c690d14c8401cacabc1db958edb3552a877ed4cf1dd995d",
+      "match": true,
+      "recorded_seed_and_focused_sha256": "6f53827dab18010d6c690d14c8401cacabc1db958edb3552a877ed4cf1dd995d",
+      "root_sha256": "6f53827dab18010d6c690d14c8401cacabc1db958edb3552a877ed4cf1dd995d"
+    },
+    ".tools/linux-x86_64/lean/bin/lean": {
+      "integration_sha256": "e8baaa71855a616dc351028f3ad2200051b0671f423a1696a100e809302d5550",
+      "match": true,
+      "recorded_seed_and_focused_sha256": "e8baaa71855a616dc351028f3ad2200051b0671f423a1696a100e809302d5550",
+      "root_sha256": "e8baaa71855a616dc351028f3ad2200051b0671f423a1696a100e809302d5550"
+    }
+  }
+}

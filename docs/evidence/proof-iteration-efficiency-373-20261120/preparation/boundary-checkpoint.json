@@ -1,0 +1,7 @@
+{
+  "event": "checkpoint",
+  "task": "#373",
+  "summary": "Original Lean preparation deliberately interrupted at completed Lines1 boundary (exec12502 exit130, managed20261120T151148-c537ca7f0c50 interrupted/lease released). Lines0=867s and Lines1=862s passed, all32 artifact hashes preserved. No proof failure or complete audit claimed. Native preparation continues untouched. Reason: use existing focused targets to parallelize remaining six independent low-memory chunks.",
+  "next_check": "Collect focused Lines2..7 and native preparation outcomes; preserve source inputs until both finish, then integrate final reviewed runner code and complete actual focused CLI/full native/fresh complete Lean audits.",
+  "worktree": "/home/canto/src/github.com/berkeleynerd/silver"
+}

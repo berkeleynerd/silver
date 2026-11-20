@@ -1,0 +1,31 @@
+{"command": ["python3", "scripts/check_lean.py", "--provenance", "--task", "#373-lean-chunks", "--reason", "Preparation phase: Lines0 and Lines1 passed with sub-2GiB combined Lake/chunk sampled demand. Build six remaining independent SourceLexer-only chunks with available workers alongside native work, then budget dense consumers separately. Preserve completed objects; no source or policy change.", "--target", "Silver.OutputBodyLines2", "--target", "Silver.OutputBodyLines3", "--target", "Silver.OutputBodyLines4", "--target", "Silver.OutputBodyLines5", "--target", "Silver.OutputBodyLines6", "--target", "Silver.OutputBodyLines7"], "started": "2026-11-20T15:41:48.723491+00:00", "stack_limits": [16777216, -1]}
+Lean concurrency: 8 Lake workers, 22 threads per Lean process (22 available CPUs).
+Lean phase build started at 2026-11-20T15:41:59.597562+00:00
++ /home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/lean/bin/lake --rehash --reconfigure -K silverThreads=22 build +Silver.OutputBodyLines2 +Silver.OutputBodyLines3 +Silver.OutputBodyLines4 +Silver.OutputBodyLines5 +Silver.OutputBodyLines6 +Silver.OutputBodyLines7 +Silver.AxiomAudit
+✔ [8/13] Built Silver.OutputBodyLines2 (1210s)
+✔ [9/13] Built Silver.OutputBodyLines5 (1239s)
+✔ [10/13] Built Silver.OutputBodyLines6 (1265s)
+✔ [11/13] Built Silver.OutputBodyLines7 (1294s)
+✔ [12/13] Built Silver.OutputBodyLines3 (1310s)
+✔ [13/13] Built Silver.OutputBodyLines4 (1318s)
+Build completed successfully (13 jobs).
+
+Lean phase build finished at 2026-11-20T16:04:03.235227+00:00; elapsed 1323.587s; exit 0
+Lean phase audit started at 2026-11-20T16:04:06.537119+00:00
++ /home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/lean/bin/lake -K silverThreads=22 env /home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/lean/bin/lean -DwarningAsError=true -j22 .lake/silver-focused-audit.lean
+SILVER_MODULE Silver.Lexical
+SILVER_MODULE Silver.Admission
+SILVER_MODULE Silver.Cursor
+SILVER_MODULE Silver.SourceLexer
+SILVER_MODULE Silver.CertificateWitness
+SILVER_MODULE Silver.OutputBodyLines2
+SILVER_MODULE Silver.OutputBodyLines3
+SILVER_MODULE Silver.OutputBodyLines4
+SILVER_MODULE Silver.OutputBodyLines5
+SILVER_MODULE Silver.OutputBodyLines6
+SILVER_MODULE Silver.OutputBodyLines7
+SILVER_MODULE Silver.AxiomAudit
+Silver axiom audit passed: 18218 declarations; foundations: [propext, Classical.choice, Quot.sound]
+
+Lean phase audit finished at 2026-11-20T16:04:10.511578+00:00; elapsed 3.975s; exit 0
+Lean focused check (partial validation) and fresh axiom audit passed for linux-x86_64: /home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/lean-focused.log

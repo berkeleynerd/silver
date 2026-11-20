@@ -1,0 +1,31 @@
+{
+  "command": [
+    "python3",
+    "scripts/check_lean.py",
+    "--provenance",
+    "--task",
+    "#373-lean-chunks",
+    "--reason",
+    "Preparation phase: Lines0 and Lines1 passed with sub-2GiB combined Lake/chunk sampled demand. Build six remaining independent SourceLexer-only chunks with available workers alongside native work, then budget dense consumers separately. Preserve completed objects; no source or policy change.",
+    "--target",
+    "Silver.OutputBodyLines2",
+    "--target",
+    "Silver.OutputBodyLines3",
+    "--target",
+    "Silver.OutputBodyLines4",
+    "--target",
+    "Silver.OutputBodyLines5",
+    "--target",
+    "Silver.OutputBodyLines6",
+    "--target",
+    "Silver.OutputBodyLines7"
+  ],
+  "started": "2026-11-20T15:41:48.723491+00:00",
+  "finished": "2026-11-20T16:04:15.435856+00:00",
+  "elapsed_seconds": 1346.6617900690035,
+  "returncode": 0,
+  "child_user_seconds": 7288.5715,
+  "child_system_seconds": 366.056649,
+  "child_maxrss_kib": 1737212,
+  "note": "RUSAGE_CHILDREN max RSS is not a simultaneous process-tree peak."
+}
