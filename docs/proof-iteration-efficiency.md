@@ -101,10 +101,29 @@ new optimization's value.
 
 ## Delivery evidence and rounds
 
-Implementation, validation and review results will be linked here after they
-exist. The planning update records no new proof timings, speedup, or runtime model
-confirmation. Preserve useful caches and productive jobs; CLI memory was not
+The selected code is integrated at `f0a773fbcb` in the delivery worktree; draft
+[PR #406](https://github.com/berkeleynerd/silver/pull/406) is open. This includes
+proof-only resource reasons, native recurrence/fallback normalization and query
+isolation, canonical focused checks with shared unit coverage auditing, and
+rejection of contextual inlining as whole-helper evidence. Final current-input
+validation and closing review remain outstanding at this guidance checkpoint.
+This update records no new proof timings, speedup, or runtime model confirmation. Preserve useful caches and productive jobs; CLI memory was not
 updated by this documentation subthread.
+
+The owner-authorization commit was recorded at **2026-11-20 15:06:13 UTC**
+(`a412827d6c` author/committer timestamps). The table records launch selections
+reported by the lead, not independently verified runtime model/effort settings.
+Token usage, billed cost and whole-team model cost are unavailable; elapsed tool
+time is not a substitute for those data.
+
+| Round/work | Selected model and effort | Outcome/evidence boundary |
+| --- | --- | --- |
+| Recovered-patch cost assessment | GPT-6.1 Sol, Extra High | Recommended preserving compact reporting/recurrence changes, repairing the family gap and reducing routine reason gates; read-only assessment, no proof or benchmark. |
+| Proof-payoff reassessment | GPT-6 Astra, Max (version not independently confirmed) | Recommended canonical focused checks/minimal readiness and deferring standalone strategy/scheduling experiments; existing delivery evidence only. |
+| Runner recovery, #377/#378 | GPT-6.1 Sol, Extra High | Recovered/reconciled changes integrated as `6a8ff7f41c` / `c6f3e997f1`; 124 recovery-commit fixture tests passed. Native Python execution on Linux x86-64 with mocked proof/tool/platform routes; no compiler/Lean assurance claimed. |
+| Focused policy/readiness, #379/#380 | GPT-6.2 Astra, Extra High | Entry point, classification and coverage repairs integrated through `f0a773fbcb`; 119 affected runner/auditor tests passed on the coverage-repair candidate. Retained producer-report checks are historical evidence; final integrated checkpoint remains separate. |
+| Planning/guidance, #383 | GPT-6.1 Sol, High | Scope/roadmap/Worca guidance integrated as `b1f55e5126`; issue bodies, statuses and dependency edges updated and reread on the live board. Tested interface guidance aligned with `f0a773fbcb`; local links/whitespace checked. CLI memory not updated. |
+| Lead integration and checkpoint, #384 | Model/effort unavailable from live runtime | Current-input validation and independent review remain pending; repository defaults are not reported as observed live settings. |
 
 ## Historical plan and handoff — superseded on 2026-11-20
 

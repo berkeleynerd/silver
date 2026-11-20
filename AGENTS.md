@@ -64,8 +64,12 @@ Agent concurrency is separate from native worker and memory allocation. Respect
 actual session slots, workspace leases and host headroom. Use managed runners
 and their worker reservations. Start Lean runs with all available CPUs: omit
 `--workers` and `--threads` unless a current resource constraint calls for fewer.
-Scale down as needed and record the reason with that run; do not carry a previous
-run's one-worker or one-thread restriction forward by habit. Serialize dense runs
+Scale down as needed and retain `--resource-reason` for deliberate proof-command
+reductions below the automatic worker/thread allocation; automatic reductions
+from managed reservations need no reason. Build, test and arbitrary-tool commands
+still report allocation without that reason gate. `--reason` separately explains
+an identical-success expensive rerun. Do not carry a previous run's one-worker or
+one-thread restriction forward by habit. Serialize dense runs
 when their combined requirements exceed available resources. A read-only role
 instruction is not a separate sandbox. Apply the
 [configuration and reporting guidance](docs/agent-workflow.md)
@@ -122,8 +126,11 @@ model or effort changed.
 - Read the managed run summary before starting or resuming expensive validation.
   Before an expensive integrated native or Lean checkpoint, establish focused
   success for each new helper's complete contract and each changed helper contract,
-  including affected callees and callers. Use whole-subprogram native checks and
-  the relevant Lean targets over the full declared domains; batch targets and
+  including affected callees and callers. Use `dev.py prove --unit FILE` or
+  `--subprogram FILE:LINE` for canonical focused native checks; inspect policy
+  classification and complete-helper coverage before integration. Direct
+  `tool -- gnatprove` trials remain experimental. Use the relevant Lean targets
+  over the full declared domains; batch targets and
   reuse matching successes as [development.md](development.md#proof-loop-and-validation)
   describes. Focused checks do not replace complete assurance.
   Coordinate actual workspaces and worker allocations across subthreads; retain

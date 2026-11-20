@@ -91,8 +91,8 @@ PR #385 hold.
 
 **Delivered selection, 2026-11-17.** The owner selected **named scalar
 arguments** for existing functions and procedures, with reordered named calls
-and positional-prefix/named-suffix calls, after confirming that Worca's #377/#378
-work is unavailable pending recovery. [#392](https://github.com/berkeleynerd/silver/issues/392),
+and positional-prefix/named-suffix calls, after confirming then that Worca's #377/#378
+work was unavailable pending recovery. [#392](https://github.com/berkeleynerd/silver/issues/392),
 in [milestone 25](https://github.com/berkeleynerd/silver/milestone/25), owns the
 bounded [capability plan](docs/named-scalar-arguments.md), with precise Rosetta
 [stage #393](https://github.com/berkeleynerd/silver/issues/393). Named parameters is the

@@ -162,12 +162,27 @@ python3 scripts/check_lean.py --target Silver.PredicateChecks
 Before an expensive integrated native or Lean checkpoint, each new helper and
 each helper with a changed contract must have successful focused verification
 of its complete contract over the full declared input domain. For native code,
-select the entire subprogram (or its containing unit), including all runtime,
+use `python3 scripts/dev.py prove --unit FILE` or `--subprogram FILE:LINE`
+to select the entire subprogram (or its containing unit), including all runtime,
 flow, precondition, postcondition and loop/termination obligations; selecting only
 a previously failing line or check is insufficient. Check strengthened callees
 and affected callers that rely on their exported facts. Include failure/empty
 states permitted by the precondition, even when current successful callers avoid
 them. Do not narrow a domain, weaken a contract or suppress an obligation to pass.
+
+The focused native entry point shares the complete audit's canonical solver and
+budget options, including the unchanged 30-second timeout, and separates its
+proof sessions/cache from exploratory runs. The managed policy classification
+helps review compatibility; it does not infer helper/callee/caller coverage or
+replace report/provenance audits. Direct `dev.py tool -- gnatprove` trials remain
+experimental even when displayed solver settings look canonical. Cached attempts
+from another policy cannot be promoted by changing command text. Select one
+focused form without `--full`, `--cold` or forwarded subdirectory/solver overrides.
+An always-inlined helper whose selector expands into a calling context is
+rejected as whole-helper evidence; proving the containing unit or a call site
+does not by itself establish a standalone full-domain helper contract. The
+[managed interface](docs/proof-iteration.md#managed-interface) describes selected
+coverage, policy fields, fresh summaries and reusable policy-isolated sessions.
 
 Check the corresponding Lean helper/model argument with the smallest applicable
 target modules. Batch focused targets and reuse successful evidence whose relevant
@@ -246,8 +261,14 @@ modules; its default `0` reserves the available managed worker budget.
 selects the CPUs available through process affinity and Python's CPU count.
 Start future Lean runs with these automatic defaults, allowing all available
 CPUs. Use explicit lower counts when CPU quotas, competing workloads or observed
-memory pressure require them, and record the reason in the run's `--reason` or
-task record. Reassess that reduction for the next run instead of inheriting a
+memory pressure require them, and retain `--resource-reason TEXT` for each
+deliberate reduction below the current automatic worker/thread allocation.
+Automatic reductions from existing managed reservations need no reason. Native
+`prove`, direct `tool gnatprove` and Lean proof commands enforce this distinction;
+build, test and arbitrary tools retain requested/automatic/actual allocation and
+reduction reporting without the reason gate. `--reason` is a separate rationale
+for repeating an unchanged expensive success and does not satisfy the resource
+reason. Reassess that reduction for the next run instead of inheriting a
 one-worker or one-thread setting. Worker pools can multiply across modules;
 these settings are not strict OS-thread caps or a promise that every proof uses
 every core. The
