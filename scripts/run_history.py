@@ -138,12 +138,19 @@ def _same_scope(left: dict, right: dict) -> bool:
     return all(left.get(key) == right.get(key) for key in ("task", "kind", "scope"))
 
 
+def _gnatprove_query(run: dict) -> bool:
+    # Older queries recorded the same scope as an unselected compiler proof.
+    arguments = run.get("inputs", {}).get("arguments", [])
+    return (run.get("kind") == "tool-gnatprove" and run.get("workers") == 0
+            and arguments[1:] in (["--help"], ["--version"], ["-h"]))
+
+
 def _pending_failures(runs: list[dict], notes: list[dict], current: dict) -> dict[str, int]:
     counts: dict[str, int] = {}
     diagnosed = max((note["utc"] for note in notes if note.get("event") == "diagnostic"
                      and _same_scope(note, current)), default="")
     for run in sorted(runs, key=lambda item: item["utc"]):
-        if not _same_scope(run, current) or run["utc"] <= diagnosed:
+        if not _same_scope(run, current) or run["utc"] <= diagnosed or _gnatprove_query(run):
             continue
         if run["state"] == "success":
             counts.clear()
@@ -194,7 +201,7 @@ def _pending_helpers(runs: list[dict], notes: list[dict], current: dict) -> dict
                      and _same_family(note, current)), default="")
     counted: dict[str, dict] = {}
     for run in sorted(runs, key=lambda item: item["utc"]):
-        if not _same_family(run, current) or run["utc"] <= diagnosed:
+        if not _same_family(run, current) or run["utc"] <= diagnosed or _gnatprove_query(run):
             continue
         if run["state"] == "success":
             scope = run.get("scope")

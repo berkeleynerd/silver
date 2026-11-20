@@ -313,6 +313,8 @@ def retain_exploration(run: ManagedRun, destination: str) -> None:
 
 
 def proof_scope(command: list[str]) -> list[str]:
+    if command[1:] in (["--help"], ["--version"], ["-h"]):
+        return ["query", command[1]]
     targets = []
     mode = "all"
     for index, argument in enumerate(command[1:], 1):

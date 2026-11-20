@@ -720,6 +720,40 @@ class DevRunTests(unittest.TestCase):
             self.main([*arguments, "--limit-name=Other"])
         invoke.assert_called_once()
 
+    def test_gnatprove_queries_neither_clear_nor_require_an_obligation_diagnosis(self):
+        arguments = self.custom_arguments()
+        project = arguments.index("-P", arguments.index("--") + 1)
+        del arguments[project:project + 2]
+        query = ["tool", "--task", "#39", "--", str(self.custom_tool)]
+        report = self.workspace / "main.spark"
+
+        def unproved(*args, **kwargs):
+            report.parent.mkdir(exist_ok=True)
+            report.write_text(json.dumps({
+                "entities": {" 1": {"name": "Main.Helper"}},
+                "proof": [{"file": "main.adb", "line": 8, "col": 4, "rule": "VC_ASSERT",
+                           "severity": "medium", "how_proved": "prover", "entity": 1}]}))
+
+        for attempt in range(3):
+            with mock.patch.object(dev, "invoke", side_effect=unproved):
+                with self.assertRaisesRegex(RuntimeError, "unresolved proof obligations"):
+                    self.main(arguments)
+            if attempt == 1:
+                # Reproduce the pre-fix durable record in its original scope.
+                with mock.patch.object(dev, "invoke"), mock.patch.object(
+                        dev, "proof_scope", return_value=["mode:all", "compiler"]):
+                    self.main([*query, "--version"])
+        with mock.patch.object(dev, "invoke") as invoke:
+            for option in ("--help", "--version", "-h"):
+                self.main([*query, option])
+                self.assertEqual(self.records("#39")[-1]["scope"], ["query", option])
+            with self.assertRaisesRegex(run_history.RunHistoryError, "diagnostic"):
+                self.main(arguments)
+            self.assertEqual(invoke.call_count, 3)
+        diagnostics = run_history.status(self.host, "#39")["diagnostics_required"]
+        self.assertEqual([entry["failure_counts"] for entry in diagnostics], [
+            {"main.adb:8:4:VC_ASSERT": 3}, {"Main.Helper:VC_ASSERT": 3}])
+
     def test_status_and_checkpoint_preserve_task_scope_and_no_proof_launch(self):
         with self.simulated_proof():
             self.main(["prove", "--full", *TWO_WORKERS, "--task", "#39"])
