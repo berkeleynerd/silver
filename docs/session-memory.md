@@ -1,5 +1,19 @@
 # Session memory
 
+## 2026-11-20 — Stop using Worca
+
+The owner instructed **“Stop using worca.”** Continue Silver work directly in
+Codex under the owner's requests and existing repository validation rules.
+Do not start or resume Worca workflows or require its approval cards unless
+the owner later explicitly reinstates them. This supersedes the earlier choice
+to use the Worca workflow chain; existing task authorizations and merge holds
+otherwise retain their scope.
+
+The Worca UI/launcher and both idle review runners were stopped. Review
+artifacts, configuration and history remain preserved. PR #403 was already
+merged and its delivery bookkeeping completed. No successor work was started.
+CLI memory was not updated.
+
 ## 2026-11-20 — PR #403 merged by direct owner instruction
 
 After the external review completed, the owner instructed **“Merge it”** in the
