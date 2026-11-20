@@ -14,7 +14,7 @@ merging the new PR is not. PR #385 remains held. Work proceeds directly through
 Codex: the owner's [stop-Worca instruction](session-memory.md#2026-11-20--stop-using-worca)
 ends the former workflow requirements without changing existing authorizations.
 
-| Issue | Selected scope and remaining work |
+| Issue | Selected scope |
 | --- | --- |
 | [#377](https://github.com/berkeleynerd/silver/issues/377) | Reconcile recovered allocation reporting; require `--resource-reason` for deliberate reductions on native `prove`, direct `tool gnatprove` and Lean proof commands. Preserve requested/automatic/actual reporting for build, test and arbitrary tools without a reason gate. |
 | [#378](https://github.com/berkeleynerd/silver/issues/378) | Reconcile recovered native helper/check-kind recurrence, retain exact locations and repair the compiler fallback selector/no-selector family mismatch. Document metadata, reset and conservative family-hold limits. |
@@ -25,7 +25,8 @@ ends the former workflow requirements without changing existing authorizations.
 
 Selected work is In review. Implementation review, affected regressions, real
 focused compiler checks and complete final native/Lean assurance have passed.
-The independent closing evidence review is in progress. Live status and worktree ownership belong on the
+The independent closing evidence review accepted the delivery in
+[PR #406](https://github.com/berkeleynerd/silver/pull/406); merge remains an owner decision. Live status and worktree ownership belong on the
 issues and [Silver board](https://github.com/users/berkeleynerd/projects/6); board
 read/write access was available during this update. The original increments and
 recovered branches remain preserved, with no issue closed by this planning step.
@@ -35,10 +36,10 @@ recovered branches remain preserved, with no issue closed by this planning step.
 The previously unavailable commits are now recovered:
 `5e91e71be572bbd1d8c9e793ab5c580c59e11568` (#377) and
 `f4b7a9e75c3d278a926111e7e92c6da92e2bdc2f` (#378). Their changes overlap in
-`run_history.py` and runner tests, so reconcile them serially. Historical focused
+`run_history.py` and runner tests, and were reconciled serially. Historical focused
 successes and reviews are useful evidence to inspect, not final current-input
-validation. The recovered #378 implementation has a confirmed compiler fallback
-family gap when selectors disappear; this package includes its narrow repair.
+validation. The recovered #378 implementation had a confirmed compiler fallback
+family gap when selectors disappeared; this package includes its narrow repair.
 
 The reassessment used the existing delivery packets rather than new benchmarks.
 The [#370 native repair](evidence/scalar-procedures-20261115/native-recovery/README.md)
@@ -78,16 +79,16 @@ settings do not support a controlled speedup comparison.
 These are explicit owner-approved deferrals, not completed implementations.
 Reactivation needs the owner's selection of the concrete demonstrated work under
 [normal planning rules](planning.md); no new approval procedure is introduced.
-Remove these deferred increments from the blocking dependency path for #383/#384.
+These deferred increments are outside the blocking dependency path for #383/#384.
 
 ## Shared completion checklist
 
 - [x] Reconcile #377/#378, repair the selected gap and pass affected regressions.
 - [x] Implement and exercise #379/#380 on current delivered compiler inputs.
 - [x] Align guidance in #383 with the tested command interfaces and limits.
-- [ ] Retain applicable complete final-input native and Lean/source/module/axiom
+- [x] Retain applicable complete final-input native and Lean/source/module/axiom
   assurance, regression coverage and independent review through #384.
-- [ ] Record actual settings, retained/fresh/cached evidence, failed attempts,
+- [x] Record actual settings, retained/fresh/cached evidence, failed attempts,
   measurement limits and final review disposition before closing selected issues.
 
 The [Oracle](../oracle.md), admitted language, full declared domains, native
@@ -103,7 +104,7 @@ new optimization's value.
 ## Delivery evidence and rounds
 
 The selected code is integrated at `f0a773fbcb`; subsequent commits change only
-guidance and evidence. Draft
+guidance and evidence.
 [PR #406](https://github.com/berkeleynerd/silver/pull/406) is open. This includes
 proof-only resource reasons, native recurrence/fallback normalization and query
 isolation, canonical focused checks with shared unit coverage auditing, and
@@ -120,7 +121,11 @@ and Lean freshly audited all 1,035 modules and 166,332 declarations with only
 the three permitted foundations. All three final commands used automatic
 22-worker grants and a recorded 16 MiB invoking stack. The native full run
 reused solver sessions/cache; Lean reused its prepared objects without independent
-kernel replay. Closing evidence review remains pending.
+kernel replay. The
+[independent delivery review](reviews/review-proof-efficiency-373-delivery-20261120.md)
+accepted evidence candidate `4fafe1592b` with its historical wording correction
+at `2b554549a0`; all findings are resolved. Selected issues remain open/In review
+until merge. #381/#382 remain open/Backlog and PR #385 remains held.
 
 Host cache restoration dominated this delivery: native preparation took
 10,713.478 seconds and the dense Lean continuation took 9,516.298 seconds,
@@ -150,7 +155,8 @@ time is not a substitute for those data.
 | Regression evidence collection | GPT-6.1 Sol, High | Archived the successful 282-test affected run and reconciled all 757 current IDs with 475 reviewed retained passes; 33 additions, no uncovered test. No test rerun or proof execution. |
 | Real focused compiler checks | GPT-6.1 Sol, High | Run `20261120T161257-f32638bcdacc` proved all eight checks for `Decimal`; `20261120T161351-6de9c718e3ad` covered all three unit entities and 18 checks. Both exercised the canonical focused commands on Linux x86-64, with three requested/granted workers and the recorded resource reason. |
 | Assurance evidence collection | GPT-6.1 Sol, High | Preserved the completed old-runner preparations and final current-runner build/native/Lean records, source/tool identities and cache origins. No rerun or performance inference by collection. |
-| Lead integration and checkpoint, #384 | Model/effort unavailable from live runtime | Final build check passed in 3.196 s, full native audit in 48.245 s and complete cached Lean/fresh audit in 26.960 s. Final evidence review remains pending; repository defaults are not reported as observed live settings. |
+| Lead integration and checkpoint, #384 | Model/effort unavailable from live runtime | Final build check passed in 3.196 s, full native audit in 48.245 s and complete cached Lean/fresh audit in 26.960 s. Independent delivery review accepted the complete evidence; repository defaults are not reported as observed live settings. |
+| Independent evidence and delivery review | GPT-6 Astra, Extra High | Accepted `2b554549a0`; the initial evidence pass took 3 min 10 s and the final pass 5 min 24 s (18:47:33–18:52:57 UTC). Verified final report/source/tool/artifact identities and retained-test applicability; the stale preparation opener was corrected. No open material finding or new proof/test execution. |
 
 ## Historical plan and handoff — superseded on 2026-11-20
 

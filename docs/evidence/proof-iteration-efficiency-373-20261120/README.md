@@ -3,7 +3,8 @@
 **Complete native and Lean assurance passed, with all 757 current unittest IDs
 covered by 282 fresh and 475 independently reviewed retained passes.** Both
 [real focused compiler commands](focused-native/README.md) also passed.
-The independent closing evidence review remains pending.
+The [independent closing evidence review](../../reviews/review-proof-efficiency-373-delivery-20261120.md)
+accepted the final records and retained-test applicability; all findings are resolved.
 
 The [final checkpoint](final/README.md) records these successful Linux x86-64
 commands on reviewed implementation `f0a773fbcb`:
@@ -26,7 +27,7 @@ scripts/tests were frozen for the fresh run. Record head `cd17bc1fdf` adds revie
 and applicability documentation. The [independent review](../../reviews/review-proof-efficiency-373-20261120.md)
 accepted the repaired implementation and the 475 retained passes' applicability.
 The separately required fresh native build check and complete assurance commands
-now passed as recorded above; closing review will reconcile their applicability.
+now passed as recorded above; closing review confirmed their applicability.
 No compiler, library, Lean source, catalogue, sample or language change is supplied
 by this tooling package.
 

@@ -39,7 +39,7 @@ affected Rosetta tests rerun after resolving the session-history conflict.
 
 ## Near-term feature queue
 
-**Current work, reduced package approved 2026-11-20.** The owner instructed
+**Reduced package complete for review, 2026-11-20 (PR #406).** The owner instructed
 **“Approved. Proceed to completion and the accompanying PR”** for
 [proof iteration efficiency #373](https://github.com/berkeleynerd/silver/issues/373),
 [milestone 24](https://github.com/berkeleynerd/silver/milestone/24). The
@@ -52,7 +52,8 @@ Guidance #383 and validation/review #384 remain in this delivery with one shared
 final checkpoint. The recovered patches and focused-policy/readiness changes
 are integrated in [PR #406](https://github.com/berkeleynerd/silver/pull/406).
 Complete Linux native and Lean/source/module/axiom validation and reviewed
-regression coverage passed on 2026-11-20; closing evidence review is in progress.
+regression coverage passed on 2026-11-20. The independent closing evidence
+review accepted the delivery; the PR awaits the owner's merge decision.
 The [delivery record](docs/proof-iteration-efficiency.md#delivery-evidence-and-rounds)
 distinguishes host cache restoration from the final cached audits.
 

@@ -1,5 +1,23 @@
 # Session memory
 
+## 2026-11-20 — Reduced proof iteration package delivered for review
+
+The owner-authorized reduced [#373](https://github.com/berkeleynerd/silver/issues/373)
+package is implemented, validated and independently reviewed in
+[PR #406](https://github.com/berkeleynerd/silver/pull/406). The
+[delivery record](proof-iteration-efficiency.md#delivery-evidence-and-rounds)
+links exact inputs, complete native and Lean/source assurance, reviewed regression
+reuse, real focused compiler checks and resolved review findings. Host cache
+restoration and final cached audits are recorded separately; no controlled
+performance gain or independent kernel replay is claimed.
+
+The selected #377–#380, #383 and #384 issues remain In review until merge.
+#381/#382 remain deferred/open in Backlog; PR #385 stays held. This delivery
+starts no new language work and does not authorize merging PR #406.
+Work proceeded directly through Codex without Worca. Unrelated host records,
+local session-memory additions, worktrees and caches were preserved.
+CLI memory was not updated.
+
 ## 2026-11-20 — Reduced proof iteration package approved for delivery
 
 After the reassessment of [#373](https://github.com/berkeleynerd/silver/issues/373),
