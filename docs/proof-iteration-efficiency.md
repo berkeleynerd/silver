@@ -1,6 +1,119 @@
 # Proof iteration efficiency
 
-## Authorization and order
+## Current selected package — 2026-11-20
+
+The owner approved the reduced [#373](https://github.com/berkeleynerd/silver/issues/373)
+package: **“Approved. Proceed to completion and the accompanying PR.”**
+The [dated authorization](session-memory.md#2026-11-20--reduced-proof-iteration-package-approved-for-delivery)
+is on main at `a412827d6c`. It replaces the original requirement to complete all
+eight increments before delivery. One delivery retains guidance in #383 and one
+shared final validation and review checkpoint in #384, in
+[milestone 24](https://github.com/berkeleynerd/silver/milestone/24).
+Implementation, applicable validation, independent review and a PR are authorized;
+merging the new PR is not. PR #385 remains held. Work proceeds directly through
+Codex: the owner's [stop-Worca instruction](session-memory.md#2026-11-20--stop-using-worca)
+ends the former workflow requirements without changing existing authorizations.
+
+| Issue | Selected scope and remaining work |
+| --- | --- |
+| [#377](https://github.com/berkeleynerd/silver/issues/377) | Reconcile recovered allocation reporting; require `--resource-reason` for deliberate reductions on native `prove`, direct `tool gnatprove` and Lean proof commands. Preserve requested/automatic/actual reporting for build, test and arbitrary tools without a reason gate. |
+| [#378](https://github.com/berkeleynerd/silver/issues/378) | Reconcile recovered native helper/check-kind recurrence, retain exact locations and repair the compiler fallback selector/no-selector family mismatch. Document metadata, reset and conservative family-hold limits. |
+| [#379](https://github.com/berkeleynerd/silver/issues/379) | Add canonical whole-helper focused compiler checks using the complete audit's existing solver/budget definition; keep the 30-second policy and separate exploration state. |
+| [#380](https://github.com/berkeleynerd/silver/issues/380) | Report minimal final-policy compatibility in existing managed summaries/preflight for the human complete-helper coverage review. Classify experiments honestly; no automatic proof dependency or success-coverage graph. |
+| [#383](https://github.com/berkeleynerd/silver/issues/383) | Align `AGENTS.md`, `development.md` and iteration guidance with the delivered interfaces and limits in this same package. |
+| [#384](https://github.com/berkeleynerd/silver/issues/384) | Exercise the focused path, affected regressions and applicable complete native/Lean/source/module/axiom assurance on final inputs; retain evidence reuse, settings, measurement limits and independent disposition in one shared checkpoint. |
+
+Selected work is In progress. No implementation or final assurance completion is
+asserted by this scope update. Live status and worktree ownership belong on the
+issues and [Silver board](https://github.com/users/berkeleynerd/projects/6); board
+read/write access was available during this update. The original increments and
+recovered branches remain preserved, with no issue closed by this planning step.
+
+## Recovery and evidence basis
+
+The previously unavailable commits are now recovered:
+`5e91e71be572bbd1d8c9e793ab5c580c59e11568` (#377) and
+`f4b7a9e75c3d278a926111e7e92c6da92e2bdc2f` (#378). Their changes overlap in
+`run_history.py` and runner tests, so reconcile them serially. Historical focused
+successes and reviews are useful evidence to inspect, not final current-input
+validation. The recovered #378 implementation has a confirmed compiler fallback
+family gap when selectors disappear; this package includes its narrow repair.
+
+The reassessment used the existing delivery packets rather than new benchmarks.
+The [#370 native repair](evidence/scalar-procedures-20261115/native-recovery/README.md)
+established a whole-helper success and complete delivery at the unchanged
+30-second policy after proof-context repair. Earlier apparent success had reused
+an experimental solver result; command settings alone did not establish cache
+origin. The [#392 native checkpoint](evidence/named-scalar-arguments-392-20261117/complete-native/README.md)
+also passed at 30 seconds. These support clear focused/final classification,
+not a global solver-budget increase.
+
+The [#370 delivery](scalar-procedures.md#delivery-assurance-and-validation)
+already includes source representation/context improvements; the
+[#392 Lean record](evidence/named-scalar-arguments-392-20261117/complete-lean/README.md)
+retains a measured memory-driven process-thread reduction and successful cached
+continuation. Lake already schedules independent dirty modules, the runner already
+coordinates reservations, and [existing concurrency measurements](lean-concurrency.md)
+show that process threads do not promise proportional aggregate throughput.
+Preserve these delivered improvements without claiming the deferred experiments
+below were performed. Different source, host, cache and concurrent-workload
+settings do not support a controlled speedup comparison.
+
+## Deferred increments and concrete triggers
+
+- [#381](https://github.com/berkeleynerd/silver/issues/381) remains open in
+  Backlog. Reconsider a bounded `per_check`/progressive/path comparison when a
+  current unresolved whole-helper proof or measured representative hotspot
+  survives the existing focused/context-repair approach. Preserve the residual,
+  settings and reports before proposing that work. No standalone strategy
+  experiment is required for this delivery.
+- [#382](https://github.com/berkeleynerd/silver/issues/382) remains open in
+  Backlog. Reconsider additional chunk/aggregate scheduling only when a necessary
+  proof run demonstrates a material underutilized interval with independent
+  ready work and sufficient memory headroom. Preserve matched timing, workload
+  and reservation evidence before proposing automation. Existing Lake scheduling
+  and managed resource controls remain available.
+
+These are explicit owner-approved deferrals, not completed implementations.
+Reactivation needs the owner's selection of the concrete demonstrated work under
+[normal planning rules](planning.md); no new approval procedure is introduced.
+Remove these deferred increments from the blocking dependency path for #383/#384.
+
+## Shared completion checklist
+
+- [ ] Reconcile #377/#378, repair the selected gap and pass affected regressions.
+- [ ] Implement and exercise #379/#380 on current delivered compiler inputs.
+- [ ] Align guidance in #383 with the tested command interfaces and limits.
+- [ ] Retain applicable complete final-input native and Lean/source/module/axiom
+  assurance, regression coverage and independent review through #384.
+- [ ] Record actual settings, retained/fresh/cached evidence, failed attempts,
+  measurement limits and final review disposition before closing selected issues.
+
+The [Oracle](../oracle.md), admitted language, full declared domains, native
+obligations, actual-source correspondence, provenance scope and fresh required
+Lean audits remain unchanged. Resource-only changes preserve applicable caches;
+runner edits refresh affected evidence according to the existing
+[invalidation matrix](proof-iteration.md#input-changes-and-evidence-refresh).
+Focused success does not replace complete assurance. No cold rebuild, mandatory
+kernel replay, application-budget change, generic scheduler or telemetry service
+is added. Neither elapsed compiler time nor historical sunk cost establishes a
+new optimization's value.
+
+## Delivery evidence and rounds
+
+Implementation, validation and review results will be linked here after they
+exist. The planning update records no new proof timings, speedup, or runtime model
+confirmation. Preserve useful caches and productive jobs; CLI memory was not
+updated by this documentation subthread.
+
+## Historical plan and handoff — superseded on 2026-11-20
+
+The text below preserves the original 2026-11-10 selection and 2026-11-17 recovery
+handoff as history. Its all-eight completion requirement, unavailable-artifact
+status and Worca workflow descriptions no longer govern current work. The reduced
+selection and recovered status above take precedence.
+
+### Authorization and order
 
 On 2026-11-10, after discussing #370's proof cost and concrete enforcement,
 the owner instructed: **“Add this as our next unit of work. All of these
@@ -25,7 +138,7 @@ not reopened work. Build on the existing [iteration controls](proof-iteration.md
 `dev.py` / `check_lean.py` runners. Use their task records, caches and reservations;
 no generic scheduler, telemetry service or proof-identity framework is selected.
 
-## Current handoff — 2026-11-17
+### Current handoff — 2026-11-17
 
 The owner subsequently confirmed the Worca artifacts unavailable and selected
 [named scalar arguments #392](named-scalar-arguments.md) as the immediate language
@@ -55,7 +168,7 @@ the Worca streams or lifting the explicit hold on draft
 changed in this closeout. All milestone-24 issues remain open. Board access lacks
 `read:project`; issue-recorded status is not independently verified board status.
 
-## Problem and decisions to settle
+### Problem and decisions to settle
 
 #373 records the concrete #370 observations: the complete compiler configuration
 used a 30-second timeout while focused trials used 100,000 steps, no timeout and
@@ -71,7 +184,7 @@ promise equal aggregate speedup. Earlier aggregate timings with different source
 or machine inputs are not controlled comparisons. Select context decomposition,
 splitting strategy and aggregate reservations from bounded current evidence.
 
-## Required implementation and completion checklist
+### Required implementation and completion checklist
 
 All items belong to #373; a partial optimization does not finish the package.
 Keep reviewable commits while sharing final validation. If a real scope split
@@ -128,7 +241,7 @@ becomes necessary, record the increments and their issues together under
   selected item is implemented and validated, or an explicit owner scope decision
   changes the remaining work; planning publication does not close it.
 
-## Assurance and evidence boundaries
+### Assurance and evidence boundaries
 
 The [Oracle](../oracle.md), admitted language, full input domains, required native
 obligations, actual-source correspondence and provenance scope remain intact.
