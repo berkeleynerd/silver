@@ -98,6 +98,8 @@ class DevRunTests(unittest.TestCase):
         report = {"entities": {" 1": {"name": "Main.Helper", "sloc": [{"file": unit, "line": declaration}]}},
                   "spark": {" 1": "all"}, "progress": "PROGRESS_PROOF", "stop_reason": "STOP_REASON_NONE",
                   "skip_flow_proof": [], "skip_proof": [], "pragma_assume": [], "flow": [], "proof": [check]}
+        (reports / "gnatprove.out").write_text(
+            f"in unit {Path(unit).stem}, 1 subprograms and packages out of 1 analyzed\n")
         (reports / (Path(unit).stem + ".spark")).write_text(json.dumps(report))
         (reports / "gnatprove.sarif").write_text(json.dumps({"runs": [{"invocations": [
             {"commandLine": " ".join(command), "executionSuccessful": True, "exitCode": 0}]}]}))
@@ -138,6 +140,33 @@ class DevRunTests(unittest.TestCase):
         with mock.patch.object(dev, "PROOF_OPTIONS", [*dev.PROOF_OPTIONS, "--timeout=999"]):
             older = json.loads(self.main(["runs", "status"]))["runs"]
         self.assertTrue(all(run["focused_policy"] == "different-policy" for run in older))
+
+    def test_whole_unit_rejects_partial_coverage_even_with_a_proved_entity(self):
+        def partial(host, command, **options):
+            self.focused_output(host, command)
+            output = dev.focused_workspace(host.compiler / "obj") / "gnatprove/main.spark"
+            report = json.loads(output.read_text())
+            report["entities"][" 2"] = {"name": "Main.Other", "sloc": [{"file": "main.ads", "line": 2}]}
+            output.write_text(json.dumps(report))
+
+        with mock.patch.object(dev, "invoke", side_effect=partial):
+            with self.assertRaisesRegex(EvidenceError, "missing owned entity coverage"):
+                self.main(["prove", "--unit", "main.adb"])
+        self.assertNotIn("focused_report", self.records()[-1]["finish"])
+
+    def test_subprogram_coverage_rejects_expansion_to_enclosing_context(self):
+        def inlined(host, command, **options):
+            self.focused_output(host, command)
+            output = dev.focused_workspace(host.compiler / "obj") / "gnatprove/main.spark"
+            report = json.loads(output.read_text())
+            report["entities"][" 2"] = {"name": "Main", "sloc": [{"file": "main.adb", "line": 1}]}
+            report["spark"][" 2"] = "all"
+            report["proof"][0]["entity"] = 2
+            output.write_text(json.dumps(report))
+
+        with mock.patch.object(dev, "invoke", side_effect=inlined):
+            with self.assertRaisesRegex(EvidenceError, "expanded the subprogram selection"):
+                self.main(["prove", "--subprogram", "main.adb:3"])
 
     def test_focus_rejects_missing_selection_stale_summaries_and_foreign_state(self):
         focused = dev.focused_workspace(self.host.compiler / "obj")

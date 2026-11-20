@@ -307,6 +307,41 @@ def audit_signed_conversion_instance(source: Path) -> tuple[int, int, int]:
             match.start(1) - start + 1, match.start(2) - start + 1)
 
 
+def coverage_summaries(summary: str) -> dict[str, tuple[int, int]]:
+    rows = re.findall(r"in unit ([^,\s]+), (\d+) subprograms and packages out of (\d+) analyzed", summary)
+    return {name: (int(analyzed), int(total)) for name, analyzed, total in rows}
+
+
+def audit_unit_coverage(unit: str, entities: dict, coverage: dict, summary: tuple[int, int],
+                        import_names: set[str], vendor_specs: set[tuple]) -> tuple[set[str], int, int]:
+    """Check every owned entity, including approved source-bound spec-only declarations."""
+    require(coverage.keys() <= entities.keys(), f"{unit}: coverage names an unknown entity")
+    imports = vendor = 0
+    for key, value in coverage.items():
+        entity = entities[key]
+        trusted_import = value == "spec" and entity.get("name") in import_names
+        trusted_vendor = value == "spec" and (entity.get("name"), entity_origin(entity)) in vendor_specs
+        require(value == "all" or trusted_import or trusted_vendor,
+                f"{unit}: entity outside full SPARK: {entity.get('name')} at {entity_origin(entity)}")
+        imports += int(trusted_import)
+        vendor += int(trusted_vendor)
+    # Entities may also name callees in trusted runtime units. Coverage is
+    # required for the entities declared by this unit, not those imports.
+    owned = {key for key, entity in entities.items()
+             if any(Path(loc["file"]).stem == unit for loc in entity.get("sloc", []))}
+    require(bool(owned), f"{unit}: no owned entities in report")
+    require(owned <= coverage.keys(), f"{unit}: missing owned entity coverage")
+    require(summary == (sum(coverage[key] == "all" for key in owned), len(owned)),
+            f"{unit}: summary/entity coverage mismatch")
+    if vendor_specs:
+        require(vendor_specs <= {(entities[key].get("name"), entity_origin(entities[key])) for key in owned},
+                f"{unit}: missing reviewed vendor declaration coverage")
+    if import_names:
+        require(import_names <= {entities[key]["name"] for key in owned},
+                f"{unit}: missing approved import declaration coverage")
+    return owned, imports, vendor
+
+
 def audit_reports(report_dir: Path, expected_units: set[str],
                   trusted_import_units: set[str] | None = None, *,
                   effective_command: list[str] | None = None,
@@ -420,8 +455,7 @@ def audit_reports(report_dir: Path, expected_units: set[str],
     array_initialization_diagnostics: Counter = Counter()
     operator_reassociation_diagnostics: Counter = Counter()
     summary = (report_dir / "gnatprove.out").read_text()
-    summaries_by_report = {name: (int(analyzed), int(total)) for name, analyzed, total in
-                          re.findall(r"in unit ([^,\s]+), (\d+) subprograms and packages out of (\d+) analyzed", summary)}
+    summaries_by_report = coverage_summaries(summary)
     summary_units = {Path(name).stem: unit for unit, name in report_names.items()}
     require(summaries_by_report.keys() == summary_units.keys(),
             "coverage summary has missing or unexpected units")
@@ -493,38 +527,12 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                         "application: unexpected entity declaration")
             require(isinstance(report.get("flow"), list),
                     "application: missing flow diagnostics")
-        require(coverage.keys() <= entities.keys(), f"{unit}: coverage names an unknown entity")
-        for key, value in coverage.items():
-            trusted_import = (unit in trusted_import_units and value == "spec"
-                              and entities.get(key, {}).get("name") in TRUSTED_IMPORT_ENTITIES.get(unit, set()))
-            trusted_vendor = (value == "spec"
-                              and (entities[key].get("name"), entity_origin(entities[key]))
-                                  in vendor_entities.get(unit, set()))
-            require(value == "all" or trusted_import or trusted_vendor,
-                    f"{unit}: entity outside full SPARK: {entities[key].get('name')} "
-                    f"at {entity_origin(entities[key])}")
-            if trusted_import:
-                stats["imported_entities"] += 1
-            if trusted_vendor:
-                stats["vendor_spec_entities"] += 1
-        # entities may also name callees in trusted runtime units. Coverage is
-        # required for the entities declared by this unit, not those imports.
-        own_entities = {
-            key for key, value in entities.items()
-            if any(Path(location["file"]).stem == unit for location in value.get("sloc", []))
-        }
-        require(bool(own_entities), f"{unit}: no owned entities in report")
-        require(own_entities <= coverage.keys(), f"{unit}: missing owned entity coverage")
-        require(summaries[unit] == (sum(coverage[key] == "all" for key in own_entities), len(own_entities)),
-                f"{unit}: summary/entity coverage mismatch")
-        if unit in vendor_entities:
-            require(vendor_entities[unit] <= {(entities[key].get("name"), entity_origin(entities[key]))
-                                        for key in own_entities},
-                    f"{unit}: missing reviewed vendor declaration coverage")
-        if unit in trusted_import_units:
-            import_names = {entities[key]["name"] for key in own_entities}
-            require(TRUSTED_IMPORT_ENTITIES[unit] <= import_names,
-                    f"{unit}: missing approved import declaration coverage")
+        own_entities, imports, vendor = audit_unit_coverage(
+            unit, entities, coverage, summaries[unit],
+            TRUSTED_IMPORT_ENTITIES[unit] if unit in trusted_import_units else set(),
+            vendor_entities.get(unit, set()))
+        stats["imported_entities"] += imports
+        stats["vendor_spec_entities"] += vendor
         for key in ("skip_flow_proof", "skip_proof", "pragma_assume"):
             require(report.get(key) == [], f"{unit}: missing or nonempty {key}")
         assumptions = report.get("assumptions")

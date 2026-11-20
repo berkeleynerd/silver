@@ -9,8 +9,10 @@ from pathlib import Path
 import re
 
 if __package__:
+    from . import check_evidence
     from .check_evidence import PROOF_OPTIONS, read_json, require
 else:
+    import check_evidence
     from check_evidence import PROOF_OPTIONS, read_json, require
 
 
@@ -43,20 +45,41 @@ class FocusedProof:
         return [*(arg for arg in PROOF_OPTIONS if arg != "-U"), "-u",
                 body.name if body.is_file() else self.file]
 
-    def check_report(self, reports: Path, command: list[str]) -> dict:
+    def check_report(self, source: Path, reports: Path, command: list[str]) -> dict:
         """Check that this invocation actually analyzed the requested selection."""
         report = read_json(reports / (Path(self.file).stem + ".spark"))
         require(report.get("progress") == "PROGRESS_PROOF" and report.get("stop_reason") == "STOP_REASON_NONE",
                 "focused proof did not finish analysis")
         require(all(report.get(key) == [] for key in ("skip_flow_proof", "skip_proof", "pragma_assume")),
                 "focused proof has skipped checks or assumptions")
-        coverage = report.get("spark", {})
-        selected = [entity["name"] for key, entity in report.get("entities", {}).items()
-                    if coverage.get(key) == "all" and any(
-                        (Path(loc["file"]).stem == Path(self.file).stem if self.line is None
-                         else (loc["file"], loc["line"]) == (self.file, self.line))
-                        for loc in entity.get("sloc", []))]
-        require(selected, "no fully analyzed entity at the requested focused selection")
+        coverage, entities = report.get("spark"), report.get("entities")
+        require(isinstance(coverage, dict) and isinstance(entities, dict), "missing focused entity coverage")
+        if self.line is None:
+            unit = source.stem
+            spec = source.with_suffix(".ads")
+            imports, vendor_specs = set(), set()
+            if spec.name in check_evidence.TRUSTED_IMPORT_SPECS:
+                check_evidence.audit_import_spec(spec)
+                imports = check_evidence.TRUSTED_IMPORT_ENTITIES[unit]
+            if unit in check_evidence.SEQUENCE_INSTANCES:
+                instance = check_evidence.audit_sequence_instance(spec)
+                vendor_specs = check_evidence.sequence_entities(instance, unit=unit)
+            if unit == check_evidence.SIGNED_CONVERSION_UNIT:
+                conversion = check_evidence.audit_signed_conversion_instance(spec)
+                vendor_specs.update(check_evidence.signed_conversion_entities(conversion))
+            summaries = check_evidence.coverage_summaries((reports / "gnatprove.out").read_text())
+            require(unit in summaries, f"missing focused coverage summary for {unit}")
+            owned, _, _ = check_evidence.audit_unit_coverage(
+                unit, entities, coverage, summaries[unit], imports, vendor_specs)
+            selected = [entities[key]["name"] for key in owned]
+        else:
+            selected = [entity["name"] for key, entity in entities.items()
+                        if coverage.get(key) == "all" and any(
+                            (loc["file"], loc["line"]) == (self.file, self.line) for loc in entity.get("sloc", []))]
+            require(selected, "no fully analyzed entity at the requested focused selection")
+            # GNATprove can replace a local always-inlined selector with its calling context.
+            require(len(selected) == len(coverage),
+                    "GNATprove expanded the subprogram selection to other entities; inspect its calling context")
         for category in ("flow", "proof"):
             checks = report.get(category)
             require(isinstance(checks, list) and all(

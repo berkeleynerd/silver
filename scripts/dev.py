@@ -538,10 +538,10 @@ def main(arguments: list[str] | None = None) -> None:
             inputs["executable"] = custom_executable_identity(
                 host, executable_selector, pass_fds=run.pass_fds)
         if focus:
-            source = host.root / "src" / focus.file
-            if not source.is_file():
-                source = host.generated / focus.file
-            if str(source.relative_to(host.root)) not in prepared["inputs_sha256"]:
+            focused_source = host.root / "src" / focus.file
+            if not focused_source.is_file():
+                focused_source = host.generated / focus.file
+            if str(focused_source.relative_to(host.root)) not in prepared["inputs_sha256"]:
                 raise RuntimeError(f"unknown compiler proof source: {focus.file}")
             prepare_focused_workspace(reports.parent)
             inputs["focused_options"] = PROOF_OPTIONS
@@ -557,7 +557,7 @@ def main(arguments: list[str] | None = None) -> None:
                 policy = PROOF_OPTIONS
                 if focus:
                     cache = reports.parent / "cache" / cache.name
-                    policy = focus.options(source)
+                    policy = focus.options(focused_source)
                     extra = [f"--subdirs={reports.parent.relative_to(host.compiler / 'obj')}"]
                 cache.mkdir(parents=True, exist_ok=True)
                 options = [*policy, "-j", str(run.workers), f"--memcached-server=file:{cache}"]
@@ -604,7 +604,7 @@ def main(arguments: list[str] | None = None) -> None:
             run.finish("failure", returncode=0, error="GNATprove returned unresolved proof obligations")
             raise RuntimeError("GNATprove returned unresolved proof obligations; see retained run reports")
         if focus:
-            focused_report = focus.check_report(reports, command)
+            focused_report = focus.check_report(focused_source, reports, command)
         if proof_run and proof_run.full:
             run.event("phase-start", phase="audit")
             audit_sources(host.root / "src", reports, host.generated, effective_command=command)
