@@ -1,0 +1,210 @@
+{
+  "bootstrap.exit": {
+    "bytes": 2,
+    "original_bytes": 2,
+    "original_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/tmp/focused-native-smoke/bootstrap.exit"
+  },
+  "bootstrap.log": {
+    "bytes": 11270,
+    "original_bytes": 11270,
+    "original_sha256": "7aa9a61609a6a2b762a9cda4c9b0f8e55a18ea35c0abe40e71db319a499ac0f6",
+    "sha256": "7aa9a61609a6a2b762a9cda4c9b0f8e55a18ea35c0abe40e71db319a499ac0f6",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/tmp/focused-native-smoke/bootstrap.log"
+  },
+  "bootstrap.timing.json": {
+    "bytes": 400,
+    "original_bytes": 400,
+    "original_sha256": "c6fd65c76b14f52e6386bac5e10bb21606536e58ce698d4140c07f960cdfd416",
+    "sha256": "c6fd65c76b14f52e6386bac5e10bb21606536e58ce698d4140c07f960cdfd416",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/tmp/focused-native-smoke/bootstrap.timing.json"
+  },
+  "proof-options.json": {
+    "bytes": 139,
+    "original_bytes": 139,
+    "original_sha256": "ef987fca801de952d74396d5c25a03acfe5c26d7ab8bad369c522e1c73b083fb",
+    "sha256": "ef987fca801de952d74396d5c25a03acfe5c26d7ab8bad369c522e1c73b083fb",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/.silver/linux-x86_64/compiler/obj/focused/4a9057104dad17e3/proof-options.json"
+  },
+  "setup-copy.json": {
+    "bytes": 602,
+    "original_bytes": 602,
+    "original_sha256": "d8a0895682b1e8853541296111329cdbf6c7dc9ce558f0c6de3529704886576b",
+    "sha256": "d8a0895682b1e8853541296111329cdbf6c7dc9ce558f0c6de3529704886576b",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/tmp/focused-native-smoke/setup-copy.json"
+  },
+  "setup-inputs/.silver__linux-x86_64__generated__silver_build.ads": {
+    "bytes": 1328,
+    "original_bytes": 1328,
+    "original_sha256": "609b5381801f77eba127c462307af8dd26d859e9b3d7618a76bf482149f5d833",
+    "sha256": "609b5381801f77eba127c462307af8dd26d859e9b3d7618a76bf482149f5d833",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/.silver/linux-x86_64/generated/silver_build.ads"
+  },
+  "setup-inputs/.silver__linux-x86_64__generated__silver_image_config.ads": {
+    "bytes": 479,
+    "original_bytes": 479,
+    "original_sha256": "2ac70120768d3d5ea771c821be3d92a46cf28f1094a1c5ae83b64e211dd014bf",
+    "sha256": "2ac70120768d3d5ea771c821be3d92a46cf28f1094a1c5ae83b64e211dd014bf",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/.silver/linux-x86_64/generated/silver_image_config.ads"
+  },
+  "setup-inputs/.silver__linux-x86_64__generated__silver_library_sources.ads": {
+    "bytes": 18873,
+    "original_bytes": 18873,
+    "original_sha256": "be5a0d9ee5d93e6fe08d4b5c653ae1a1a497fbb52191f7bb393c9d1b6bc182bf",
+    "sha256": "be5a0d9ee5d93e6fe08d4b5c653ae1a1a497fbb52191f7bb393c9d1b6bc182bf",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/.silver/linux-x86_64/generated/silver_library_sources.ads"
+  },
+  "setup-inputs/.silver__linux-x86_64__toolchain__alire.toml": {
+    "bytes": 367,
+    "original_bytes": 367,
+    "original_sha256": "5f5e5e459ad972ce7d5f2db631f5140ae6820971ca8927bc07a306981a9570fd",
+    "sha256": "5f5e5e459ad972ce7d5f2db631f5140ae6820971ca8927bc07a306981a9570fd",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/.silver/linux-x86_64/toolchain/alire.toml"
+  },
+  "setup-inputs/.silver__linux-x86_64__toolchain__alire__alire.lock": {
+    "bytes": 5216,
+    "original_bytes": 5216,
+    "original_sha256": "ea6aba21eca447a9c8473fc1c3ea0300b03a95ce919d8a326f68a67989029329",
+    "sha256": "ea6aba21eca447a9c8473fc1c3ea0300b03a95ce919d8a326f68a67989029329",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/.silver/linux-x86_64/toolchain/alire/alire.lock"
+  },
+  "setup-inputs/.tools__linux-x86_64__alire__settings__settings.toml": {
+    "bytes": 307,
+    "original_bytes": 307,
+    "original_sha256": "df16f4070ee57a08d538be8bad619716a8fffbd872b12b07b0cf00132bd9a203",
+    "sha256": "df16f4070ee57a08d538be8bad619716a8fffbd872b12b07b0cf00132bd9a203",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/.tools/linux-x86_64/alire/settings/settings.toml"
+  },
+  "setup-inputs/src__silver_numbers.adb": {
+    "bytes": 1016,
+    "original_bytes": 1016,
+    "original_sha256": "075ba837a82f81465e833977fb95c9f9ee0bd98673e41c35d017e667f5099abf",
+    "sha256": "075ba837a82f81465e833977fb95c9f9ee0bd98673e41c35d017e667f5099abf",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/src/silver_numbers.adb"
+  },
+  "setup-inputs/src__silver_numbers.ads": {
+    "bytes": 903,
+    "original_bytes": 903,
+    "original_sha256": "60233bcb3010ff39b7d0b2c4765d66f1fc6196585ba8ca51bf5e6bf3aab946aa",
+    "sha256": "60233bcb3010ff39b7d0b2c4765d66f1fc6196585ba8ca51bf5e6bf3aab946aa",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/src/silver_numbers.ads"
+  },
+  "source-tool-identities.json.gz": {
+    "bytes": 127873,
+    "original_bytes": 465650,
+    "original_sha256": "8b5d2d68de4bdd6610c61958d7d98b37e9560aaeb981bc0e4f1ee56a01d16047",
+    "sha256": "9117da59ed897809c703784cca78ab9b343333b64c1e73b20ce2cceca4502284",
+    "source": "shared prepared inputs of the two archived managed runs"
+  },
+  "status-after-subprogram.json": {
+    "bytes": 4154,
+    "original_bytes": 4154,
+    "original_sha256": "57a6d3990211d96f8d89c41f65de98e5520e5109260e9411fe19d9dced46f48f",
+    "sha256": "57a6d3990211d96f8d89c41f65de98e5520e5109260e9411fe19d9dced46f48f",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/tmp/focused-native-smoke/status-after-subprogram.json"
+  },
+  "status-before.json": {
+    "bytes": 322,
+    "original_bytes": 322,
+    "original_sha256": "51bffbac6522de3cb72a7dff4b33e1ccb7182c8323d2c1f8ae16d0c3a125459c",
+    "sha256": "51bffbac6522de3cb72a7dff4b33e1ccb7182c8323d2c1f8ae16d0c3a125459c",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/tmp/focused-native-smoke/status-before.json"
+  },
+  "status-final.json": {
+    "bytes": 8038,
+    "original_bytes": 8038,
+    "original_sha256": "118349091c8ee7abd843a3e4972ec4be2631e9740f24f7ee69fc2c635177b469",
+    "sha256": "118349091c8ee7abd843a3e4972ec4be2631e9740f24f7ee69fc2c635177b469",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/tmp/focused-native-smoke/status-final.json"
+  },
+  "subprogram/events.jsonl.gz": {
+    "bytes": 129176,
+    "original_bytes": 455552,
+    "original_sha256": "01013dd90945d3ee2b7008bd046e31c05c11e3e8196b4e341d64e9db38f114dc",
+    "sha256": "65a8b11e045dd7270db923f39abdd8cad057ea401d56b8a1e3bbb507c5eb5624",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261120T161257-f32638bcdacc/events.jsonl"
+  },
+  "subprogram/native.log.gz": {
+    "bytes": 892,
+    "original_bytes": 5546,
+    "original_sha256": "5ce9d82522e95c12b182e2579e18c1198ccb36fe824a09e14fdc088e682653ec",
+    "sha256": "6a8879529fc8c5a64cd7e994fa35ef169b85c585f6593b308710035e203f8b56",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261120T161257-f32638bcdacc/native.log"
+  },
+  "subprogram/producer-reports.tar.gz": {
+    "bytes": 27207,
+    "sha256": "b92eedeffba0f6b7b6bbe74f5a82f3e6ebea19b384862ff087787a94a0ab2e00",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261120T161257-f32638bcdacc/focused-evidence",
+    "uncompressed_tar_sha256": "531c5a8eaa2ce618c421513996504e8aa1fbb14eca5c1c682ab789df0dea3203"
+  },
+  "subprogram/wrapper.exit": {
+    "bytes": 2,
+    "original_bytes": 2,
+    "original_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/tmp/focused-native-smoke/subprogram.exit"
+  },
+  "subprogram/wrapper.log": {
+    "bytes": 6410,
+    "original_bytes": 6410,
+    "original_sha256": "8106fe1e19a0fe144e2dc57a565c5898004c17666cccf81979ac32fa486c7e3b",
+    "sha256": "8106fe1e19a0fe144e2dc57a565c5898004c17666cccf81979ac32fa486c7e3b",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/tmp/focused-native-smoke/subprogram.log"
+  },
+  "subprogram/wrapper.timing.json": {
+    "bytes": 697,
+    "original_bytes": 697,
+    "original_sha256": "8354b9aa7050991362d536cf88716b0458101769f4f7c82704702d51596a7b32",
+    "sha256": "8354b9aa7050991362d536cf88716b0458101769f4f7c82704702d51596a7b32",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/tmp/focused-native-smoke/subprogram.timing.json"
+  },
+  "timed.py": {
+    "bytes": 1077,
+    "original_bytes": 1077,
+    "original_sha256": "c14912fcc084216bfea8b86f802fab0282378601797031b6196afdab4e9d6718",
+    "sha256": "c14912fcc084216bfea8b86f802fab0282378601797031b6196afdab4e9d6718",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/tmp/focused-native-smoke/timed.py"
+  },
+  "unit/events.jsonl.gz": {
+    "bytes": 129143,
+    "original_bytes": 455750,
+    "original_sha256": "afa649a0c0f910826588b2db32e104a3b1f553ea48fb7d1cf7fb2f785a0e2890",
+    "sha256": "ccf377296a1c24a1c5c505bd9e991a674957f266e656c6e439794c9607978aa4",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261120T161351-6de9c718e3ad/events.jsonl"
+  },
+  "unit/native.log.gz": {
+    "bytes": 534,
+    "original_bytes": 1626,
+    "original_sha256": "0d3ccf647535bbcaac9cd85e8bd787bbc50938905e634b890643454845b2ddd5",
+    "sha256": "4c46153ce8d2c52cbbc40b6bb69b0e1e2121b0c4987f764eb84f16568b0d7868",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261120T161351-6de9c718e3ad/native.log"
+  },
+  "unit/producer-reports.tar.gz": {
+    "bytes": 12688,
+    "sha256": "7cf5dc09a2e4d7d38cbb3092c8c843b58fbd71431a8ae72058d5f87d8f39c083",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261120T161351-6de9c718e3ad/focused-evidence",
+    "uncompressed_tar_sha256": "1c4f61bcb38fd71c3be9cd4da3c30c197966842382e5af0607ae56edb03bf5c2"
+  },
+  "unit/wrapper.exit": {
+    "bytes": 2,
+    "original_bytes": 2,
+    "original_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/tmp/focused-native-smoke/unit.exit"
+  },
+  "unit/wrapper.log": {
+    "bytes": 2465,
+    "original_bytes": 2465,
+    "original_sha256": "52bc43dfc670a52d50a1943716d9ed106c9d29b32f1c1ea46c4c6c05aa0e3900",
+    "sha256": "52bc43dfc670a52d50a1943716d9ed106c9d29b32f1c1ea46c4c6c05aa0e3900",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/tmp/focused-native-smoke/unit.log"
+  },
+  "unit/wrapper.timing.json": {
+    "bytes": 685,
+    "original_bytes": 685,
+    "original_sha256": "a91cc20b2e99222ccfb02a9ba357d4fdb7a276076c0bf0328806308ad227fc6d",
+    "sha256": "a91cc20b2e99222ccfb02a9ba357d4fdb7a276076c0bf0328806308ad227fc6d",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/tmp/focused-native-smoke/unit.timing.json"
+  }
+}

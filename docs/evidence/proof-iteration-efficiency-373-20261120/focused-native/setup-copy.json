@@ -1,0 +1,9 @@
+{
+  "copy_source": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire",
+  "copy_destination": "/home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/.tools/linux-x86_64/alire",
+  "method": "cp -a --reflink=auto; ordinary separate copies, no source/destination hardlinks",
+  "regular_files_checked_no_shared_inode": 14676,
+  "symlinks_checked_contained_in_copy": 80,
+  "pre_bootstrap_settings_relocation": "Only copied settings.toml cache/toolchain absolute paths rewritten to integration before first Alire launch",
+  "compiler_or_proof_caches_copied": false
+}

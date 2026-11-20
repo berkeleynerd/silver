@@ -1,0 +1,12 @@
+{
+  "registry": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb",
+  "host": "linux-x86_64",
+  "machine": "silver",
+  "runs": [],
+  "notes": [],
+  "available_cpus": 22,
+  "reserved_workers": 14,
+  "diagnostics_required": [],
+  "total_runs": 0,
+  "omitted_completed_runs": 0
+}

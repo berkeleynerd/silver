@@ -1,0 +1,1 @@
+["-U", "--mode=all", "--report=all", "--warnings=error", "--checks-as-errors=on", "--level=2", "--prover=cvc5,z3,altergo", "--timeout=30"]

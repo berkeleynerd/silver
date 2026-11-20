@@ -1,0 +1,65 @@
+{"command": ["python3", "scripts/dev.py", "prove", "--unit", "silver_numbers.ads", "--jobs", "3", "--resource-reason", "Reserve CPU and memory alongside the root native proof and dense Lean rebuild; this small selected unit needs only a small worker allocation.", "--task", "#379-focused-smoke"], "started": "2026-11-20T16:13:50.830175+00:00", "stack_limits": [16777216, -1]}
+Managed run: 20261120T161351-6de9c718e3ad (/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261120T161351-6de9c718e3ad)
+Resource allocation: workers requested=3 actual=3 automatic=8; deliberate reduction: workers; reason: Reserve CPU and memory alongside the root native proof and dense Lean rebuild; this small selected unit needs only a small worker allocation.
+Focused final-policy proof: silver_numbers.ads
+Phase 1 of 3: generation of data representation information ...
+Phase 2 of 3: generation of Global contracts ...
+Phase 3 of 3: flow analysis and proof ...
+ info: index check proved
+--> silver_numbers.adb:4:22
+
+ info: index check proved
+--> silver_numbers.adb:5:43
+
+ info: division check proved
+--> silver_numbers.adb:6:19
+
+ info: precondition proved
+--> silver_numbers.adb:7:18
+
+ info: subprogram variant proved
+--> silver_numbers.adb:7:18
+
+ info: range check proved
+--> silver_numbers.adb:7:30
+
+ info: overflow check proved
+--> silver_numbers.adb:7:60
+
+ info: division check proved
+--> silver_numbers.adb:7:72
+
+ info: unrolling loop [info-unrolling-inlining]
+--> silver_numbers.adb:15:41
+
+ info: division check proved
+--> silver_numbers.adb:16:71
+
+ info: division check proved
+--> silver_numbers.adb:17:23
+
+ info: range check proved
+--> silver_numbers.adb:19:20
+
+ info: implicit aspect Always_Terminates on "Represents" has been proved, subprogram will terminate
+--> silver_numbers.ads:5:13
+
+ info: data dependencies proved
+--> silver_numbers.ads:7:11
+
+ info: implicit aspect Always_Terminates on "Decimal" has been proved, subprogram will terminate
+--> silver_numbers.ads:11:13
+
+ info: data dependencies proved
+--> silver_numbers.ads:12:11
+
+ info: postcondition proved
+--> silver_numbers.ads:13:19
+
+ info: precondition proved
+--> silver_numbers.ads:15:22
+
+ info: index check proved
+--> silver_numbers.ads:17:53
+Success: all checks proved (18 checks).
+Summary logged in /home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/.silver/linux-x86_64/compiler/obj/focused/4a9057104dad17e3/gnatprove/gnatprove.out

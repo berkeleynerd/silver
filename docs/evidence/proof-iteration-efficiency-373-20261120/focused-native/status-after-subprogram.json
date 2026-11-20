@@ -1,0 +1,97 @@
+{
+  "registry": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb",
+  "host": "linux-x86_64",
+  "machine": "silver",
+  "runs": [
+    {
+      "run_id": "20261120T161257-f32638bcdacc",
+      "task": "#379-focused-smoke",
+      "kind": "prove",
+      "scope": [
+        "compiler",
+        "--limit-subp=silver_numbers.ads:11"
+      ],
+      "state": "success",
+      "active": false,
+      "workers": 3,
+      "directory": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261120T161257-f32638bcdacc",
+      "fingerprint": "c520b40858465b91d591174354cb177d10d3ceb7e4ede551d43c5904596c8008",
+      "command": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/.tools/linux-x86_64/alr/bin/alr",
+        "-s",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/.tools/linux-x86_64/alire/settings",
+        "-C",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/.silver/linux-x86_64/toolchain",
+        "-n",
+        "--no-tty",
+        "exec",
+        "--",
+        "gnatprove",
+        "-P",
+        "../../../silver.gpr",
+        "-U",
+        "--mode=all",
+        "--report=all",
+        "--warnings=error",
+        "--checks-as-errors=on",
+        "--level=2",
+        "--prover=cvc5,z3,altergo",
+        "--timeout=30",
+        "--limit-subp=silver_numbers.ads:11",
+        "-j",
+        "3",
+        "--memcached-server=file:/home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/.silver/linux-x86_64/compiler/obj/focused/4a9057104dad17e3/cache/ea6aba21eca447a9c8473fc1c3ea0300b03a95ce919d8a326f68a67989029329",
+        "-f",
+        "--subdirs=focused/4a9057104dad17e3",
+        "-XSILVER_HOST=linux-x86_64"
+      ],
+      "reason": "",
+      "focused_policy": "final-policy",
+      "focused_report": {
+        "entity_count": 1,
+        "flow_checks": 2,
+        "proof_checks": 6,
+        "subprograms": [
+          "Silver_Numbers.Decimal"
+        ]
+      },
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373",
+      "resources": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/.silver/linux-x86_64/toolchain",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/.silver/linux-x86_64/compiler/obj/focused/4a9057104dad17e3",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/.silver/linux-x86_64/compiler/bin/focused/4a9057104dad17e3",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/.silver/linux-x86_64/proof-containers/obj/focused/4a9057104dad17e3",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/.silver/linux-x86_64/compiler/obj/focused/4a9057104dad17e3/cache"
+      ],
+      "started_at": "2026-11-20T16:12:57.904237+00:00",
+      "finished_at": "2026-11-20T16:13:21.995772+00:00",
+      "duration_seconds": 24.091366006,
+      "returncode": 0,
+      "error": null,
+      "failure_keys": [],
+      "evidence": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/.silver/linux-x86_64/compiler/obj/focused/4a9057104dad17e3/gnatprove",
+        "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261120T161257-f32638bcdacc/native.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261120T161257-f32638bcdacc/focused-evidence"
+      ],
+      "retained_report_count": 0,
+      "allocation": {
+        "workers": {
+          "actual": 3,
+          "automatic": 8,
+          "requested": 3
+        }
+      },
+      "resource_reductions": [
+        "workers"
+      ],
+      "resource_reason": "Reserve CPU and memory alongside the root native proof and dense Lean rebuild; this small selected unit needs only a small worker allocation."
+    }
+  ],
+  "notes": [],
+  "available_cpus": 22,
+  "reserved_workers": 14,
+  "diagnostics_required": [],
+  "total_runs": 1,
+  "omitted_completed_runs": 0
+}

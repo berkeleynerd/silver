@@ -1,0 +1,8 @@
+[cache]
+dir = "/home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/.tools/linux-x86_64/alire/cache"
+[index]
+auto_update_asked = true
+last_update = 297015161
+[toolchain]
+dir = "/home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/.tools/linux-x86_64/alire/toolchains"
+

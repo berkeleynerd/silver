@@ -1,0 +1,13 @@
+name = "silver"
+description = "Silver: a subtractive profile of SPARK"
+version = "0.1.0-dev"
+
+# Tilde requirements permit patch updates while keeping major/minor identical
+# on every supported platform. Alire verifies binary origins against the index.
+[[depends-on]]
+gnat_native = "~16.1.0"
+gnatprove = "~16.1.0"
+gprbuild = "~26.0.1"
+
+[configuration]
+disabled = true
