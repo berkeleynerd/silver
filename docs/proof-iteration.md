@@ -167,6 +167,14 @@ Reservations are scheduling declarations, not an operating-system thread or memo
 Lean's per-process threads and prover subprocesses can multiply actual work, and
 unmanaged commands are not included. Keep the existing memory/headroom guidance.
 
+When a complete Lean build needs fewer workers for large modules, first consider
+focused targets for dirty, independent source chunks whose observed footprint
+fits the available memory. Continue with the complete check at the allocation
+appropriate for the larger modules, retaining the completed objects. The
+[#373 preparation](evidence/proof-iteration-efficiency-373-20261120/preparation/README.md)
+records this use of the existing controls. Focused chunk success remains partial;
+the complete source/module/axiom audit is still required.
+
 Cheap preflight checks input/provenance and workspace assumptions before the
 expensive proof phase. A stale or incomplete record cannot establish current
 assurance; the existing native manifest audit and Lean input/artifact/axiom checks
