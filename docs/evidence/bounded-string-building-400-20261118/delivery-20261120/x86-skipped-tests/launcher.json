@@ -1,0 +1,24 @@
+{
+  "started_at": "2026-11-20T12:50:15.373764+00:00",
+  "cwd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/pr403-validation-runs/build-001c50dce1/checkout",
+  "stack_soft_bytes": 8388608,
+  "stack_hard_bytes": -1,
+  "architecture": "x86_64",
+  "reason": "Exercise the two tests intentionally skipped by the retained ARM suite on their supported x86 host; no full-suite repetition.",
+  "command": [
+    "python3",
+    "scripts/dev.py",
+    "test",
+    "--task",
+    "#400",
+    "--reason",
+    "Exercise the two tests intentionally skipped by the retained ARM suite on their supported x86 host; no full-suite repetition.",
+    "--",
+    "-k",
+    "test_maximal_nested_loops_keep_filter_scratch_out_of_frames",
+    "-k",
+    "test_large_argument_vector_with_eight_mib_stack"
+  ],
+  "returncode": 0,
+  "finished_at": "2026-11-20T12:50:20.352148+00:00"
+}

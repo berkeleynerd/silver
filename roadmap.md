@@ -47,12 +47,15 @@ several-character append and prepend with whole-literal refusal, complete
 Character, loop and output rules. The precise Rosetta identifier
 `bounded-string-building` describes initialized buffers; broad `string-building`
 and [#395](https://github.com/berkeleynerd/silver/issues/395) retain their remaining
-scope. Final combined validation and closing review remain required. GitHub
+scope. Combined validation and evidence applicability are complete as of
+2026-11-20; independent closing review passed and external review remains pending. GitHub
 issue and Stage-field updates are left for after merge by the workflow operator.
 The [focused implementation packet](docs/evidence/bounded-string-building-400-20261118/README.md)
 records the four successful sample routes, boundary/control probes and render:
 Stage 1 grows from 85 to 89 task mappings, while existing construct Stage values
-stay unchanged. Complete final validation and evidence applicability remain pending.
+stay unchanged. The [delivery continuation](docs/bounded-string-building-samples.md#delivery-validation--2026-11-20)
+records 724 covered regression IDs and reviewed complete native/Lean reuse;
+merge remains a separate owner decision.
 This work chooses no successor queue order and preserves #373 recovery and the
 PR #385 hold.
 

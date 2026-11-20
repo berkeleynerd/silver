@@ -1,0 +1,47 @@
+Native: all 2622 inputs locally rehashed; 12 tool observations consistent; original ARM Python locally rehashed.
+{
+  "checked_utc": "2026-11-20T12:52:34.220072+00:00",
+  "archive": {
+    "sha256": "591759f906e7648b52ffeb08e7922a7d7f79af237bab254254f575d41cf23ece",
+    "bytes": 645062353
+  },
+  "streamed_archive_members": 47648,
+  "regular_file_bytes_hashed": 3207289212,
+  "archive_member_kinds": {
+    "directory": 90,
+    "file": 29970,
+    "hardlink": 17587,
+    "symlink": 1
+  },
+  "merged_proof_files": 17587,
+  "merged_proof_logical_file_bytes": 1968072622,
+  "exact_workspace_inventory_and_bytes_match": 1037,
+  "exact_compiled_artifact_inventory_and_bytes_match": 6202,
+  "compiled_artifact_bytes": 1304912624,
+  "source_binding_symlink": {
+    "size": 0,
+    "mode": 448,
+    "mtime": 1795178077,
+    "kind": "symlink",
+    "target": "../../src"
+  },
+  "source_checkout_observation": "c7388ab5d038ccbce9635ffaeec7df9189369366",
+  "tool_marker": {
+    ".tools/linux-aarch64/lean/bin/lake": "f80f50cbab5322e35bcb0bf88937e22e9d908b5e4e336e83ddfc30eb1506aacf",
+    ".tools/linux-aarch64/lean/bin/lean": "79fb1d26fa5a39385d59fdc48a711a14b0710ca6480271acce99b4d177cea085"
+  },
+  "tool_marker_matches_original_tools": true,
+  "current_production_trace_policy_checked": 1035,
+  "original_lean_log_rehashed": "2675cbff93b446c073f00b8407851af6636869fa4363a46296adb9a7d7333013",
+  "collector_merged_comparison_matches_receiver_bytes": true,
+  "overlay_special_entry_count": 0,
+  "overlay_attribute_path_count": 4205,
+  "elapsed_seconds": 8.951,
+  "limits": [
+    "All compared object bytes are the original ARM result; no Lean object was loaded or replayed.",
+    "Source link spelling was preserved; original /Volumes target is absent locally, so no claim of a live resolved source mount is made.",
+    "Original Lean/lake executable hashes are bound by the unchanged recovered marker and historical successful provenance; executable bytes were not transferred or newly hashed here.",
+    "Trace/source/object hash checks do not establish independent kernel replay or a fresh actual-import/axiom invocation.",
+    "Archive was streamed without extracting any object into a live cache or preserving execution/ownership semantics for a new run."
+  ]
+}

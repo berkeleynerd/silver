@@ -2,7 +2,7 @@
 
 ## Status and scope
 
-**Implementation authorized for [#400](https://github.com/berkeleynerd/silver/issues/400), 2026-11-18; final validation and closing review pending.** The owner requested development of this samples-only work package, including the multi-character append/prepend amendment below. The earlier planning evidence is retained as history. Broad [#395](https://github.com/berkeleynerd/silver/issues/395) remains open.
+**Validation complete for [#400](https://github.com/berkeleynerd/silver/issues/400), 2026-11-20; independent closing review accepted, external review pending.** The owner authorized this samples-only work package on November 18, including the multi-character append/prepend amendment below. The delivery continuation records recovered assurance and complete regression coverage. Merge remains a separate owner decision. The earlier planning and implementation handoff are retained as history. Broad [#395](https://github.com/berkeleynerd/silver/issues/395) remains open.
 
 Deliver four faithful Rosetta samples that append, prepend, repeat text and generate the complete 99-bottles lyrics using existing Silver. Document the bounded-buffer idiom, its full-buffer outcome and measured limits, and correct the affected assessments.
 
@@ -14,7 +14,48 @@ The retained planning citations refer to published main `5af7edc5cd2501f8d1a21c7
 
 The historical planning packet reports **1,588** likely/plausible candidates and **16** supported identifiers. Broad `string-building` occurs in **1,009**, would alone unlock **157**, of which **112** are likely; its pair with `while-loops` has **163**. The generated stage has **18** samples, **2** only plausible, with overflow flagged in **11**, index in **6**, length in **4** and range in **3**. These unchanged assessment counts are upper bounds, not this batch's promised gain. Count delivered programs, runtime cases and task mappings separately.
 
+## Delivery validation — 2026-11-20
+
+The [recovered delivery packet](evidence/bounded-string-building-400-20261118/delivery-20261120/README.md)
+closes the missing evidence applicability and regression accounting at PR #403
+implementation `001c50dce1bcf3ad2d174b4426f684fe78cb2e64`. This continuation changes
+records only; compiler/runtime/proof/auditor/build/catalogue inputs are unchanged.
+Independent review accepts retained complete ARM native assurance (19,726 checks)
+and Lean/source/module/axiom assurance (1,035 modules / 166,332 declarations).
+The receiver rehashed recovered inputs and compiled artifacts, regenerated all
+40 source candidates, and freshly audited all 80 native reports. No new complete
+native or Lean run, import audit or kernel replay is claimed.
+
+The original raw suite records **724 tests, 722 passes and two ARM-specific
+skips**. Twelve passing multiline results explain the earlier 712/710 parser
+subtotal. The two skipped tests now pass on x86, covering **all 724 final IDs**
+through independently reviewed composition. Retained affected modules and the
+sample runner pass on exact final inputs: **90 programs / 153 execution cases**.
+The four faithful samples add **four Stage 1 mappings, 85 to 89**; all 63 existing
+construct Stage values remain unchanged. Broad string-building is not admitted.
+
+The packet retains original logs, exact input comparisons, attempts, model
+selections and wall intervals. The historical ARM invoking stack was not
+recorded; that limitation is explicit. Fresh x86 evidence records an 8 MiB
+invoking stack, 22 CPUs/workers and both tests' explicit 8 MiB child limits.
+Validation recovery was established by November 20 12:57 UTC, 43 h 42 min 7 s
+after authorization, including unmeasured waiting and transfer. The original
+four managed test runs occupied 23 min 6.311 s; the new two-test run took
+4.749 managed seconds. These are not active development-time estimates.
+
+The [independent closing review](reviews/review-bounded-string-building-closing-20261120.md)
+accepted this implementation and evidence continuation with no material findings
+at 13:03:58 UTC on November 20 (a 217-second closing inspection, following the
+separate detailed applicability reviews). C8/C9 validation and C11 available
+accounting are supported; the report supplies C10. The external Claude review
+remains pending. No merge, issue closure or board/Stage update is asserted.
+Those live operations remain post-merge; #395 stays open, #373 stays separate
+and PR #385 remains held.
+
 ## Implementation handoff — 2026-11-18
+
+This historical handoff predates the recovered validation above. Its pending
+checks describe the implementer's state at that time.
 
 The four sample sources, manifest entries, seven boundary/control test methods,
 twelve targeted assessment corrections and renderer registration are prepared.

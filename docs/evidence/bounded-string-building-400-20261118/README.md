@@ -1,5 +1,10 @@
 # Bounded String building implementation evidence — 2026-11-18
 
+Historical focused checkpoint. The [2026-11-20 delivery continuation](delivery-20261120/README.md)
+supersedes the pending-validation state below with recovered complete regression
+coverage and reviewed native/Lean applicability; closing and external review
+are recorded separately.
+
 Issue [#400](https://github.com/berkeleynerd/silver/issues/400), based on main `a03c7987bbba29569db2709820bd26ced20bed40`. **Focused implementation evidence; the shared complete validation checkpoint and independent closing review remain outstanding.** The workflow check step owns compiler-dependent regression runs. No issue or board edit, commit or publication was made.
 
 ## Inputs and scope
