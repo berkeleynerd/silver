@@ -89,6 +89,111 @@ class DevRunTests(unittest.TestCase):
                 mock.patch.object(dev, "audit_sources"):
             yield invoke
 
+    def focused_output(self, host, command, *, declaration=3, unproved=False, **options):
+        self.write_proof_reports(host, command)
+        reports = dev.project_reports(host, [arg for arg in command if arg.startswith("--subdirs=")])
+        unit = command[command.index("-u") + 1] if "-u" in command else "main.adb"
+        check = {"rule": "VC_ASSERT", "how_proved": "prover", "severity": "medium" if unproved else "info",
+                 "file": unit, "line": declaration + 1, "col": 7, "entity": 1}
+        report = {"entities": {" 1": {"name": "Main.Helper", "sloc": [{"file": unit, "line": declaration}]}},
+                  "spark": {" 1": "all"}, "progress": "PROGRESS_PROOF", "stop_reason": "STOP_REASON_NONE",
+                  "skip_flow_proof": [], "skip_proof": [], "pragma_assume": [], "flow": [], "proof": [check]}
+        (reports / (Path(unit).stem + ".spark")).write_text(json.dumps(report))
+        (reports / "gnatprove.sarif").write_text(json.dumps({"runs": [{"invocations": [
+            {"commandLine": " ".join(command), "executionSuccessful": True, "exitCode": 0}]}]}))
+
+    def test_whole_selections_share_final_settings_and_reuse_only_focused_state(self):
+        self.reports.mkdir(parents=True)
+        complete_manifest = self.reports / proof_provenance.MANIFEST
+        complete_manifest.write_text("previous complete evidence")
+        (self.root / "src/main.ads").write_text("fixture package specification")
+        with mock.patch.object(dev, "invoke", side_effect=self.focused_output) as invoke:
+            self.main(["prove", "--subprogram", "main.adb:3"])
+            helper = invoke.call_args.args[1]
+            focused = dev.focused_workspace(self.host.compiler / "obj")
+            session = focused / "gnatprove/helper/why3session.xml"
+            session.parent.mkdir()
+            session.write_text("retained focused solver session")
+            self.main(["prove", "--unit", "main.ads"])
+            unit = invoke.call_args.args[1]
+        logical_options = [option for option in dev.PROOF_OPTIONS if option != "-U"]
+        self.assertEqual(helper[3:3 + len(dev.PROOF_OPTIONS)], dev.PROOF_OPTIONS)
+        self.assertIn("--limit-subp=main.adb:3", helper)
+        self.assertEqual(unit[3:3 + len(logical_options)], logical_options)
+        self.assertNotIn("-U", unit)
+        self.assertEqual(unit[unit.index("-u") + 1], "main.adb")
+        cache = next(option for option in helper if option.startswith("--memcached-server="))
+        self.assertIn(cache, unit)
+        self.assertTrue(Path(cache.split("file:", 1)[1]).is_relative_to(focused))
+        self.assertEqual(session.read_text(), "retained focused solver session")
+        self.assertEqual(complete_manifest.read_text(), "previous complete evidence")
+        self.assertFalse((focused / "gnatprove" / proof_provenance.MANIFEST).exists())
+        summaries = json.loads(self.main(["runs", "status"]))["runs"]
+        self.assertEqual([r["focused_policy"] for r in summaries], ["final-policy"] * 2)
+        self.assertEqual(summaries[0]["focused_report"]["subprograms"], ["Main.Helper"])
+        self.assertEqual(summaries[1]["focused_report"]["proof_checks"], 1)
+        for run in summaries:
+            retained = Path(run["directory"]) / "focused-evidence/0/main.spark"
+            self.assertTrue(retained.is_file())
+        with mock.patch.object(dev, "PROOF_OPTIONS", [*dev.PROOF_OPTIONS, "--timeout=999"]):
+            older = json.loads(self.main(["runs", "status"]))["runs"]
+        self.assertTrue(all(run["focused_policy"] == "different-policy" for run in older))
+
+    def test_focus_rejects_missing_selection_stale_summaries_and_foreign_state(self):
+        focused = dev.focused_workspace(self.host.compiler / "obj")
+        focused.mkdir(parents=True)
+        with mock.patch.object(dev, "invoke") as invoke:
+            with self.assertRaisesRegex(EvidenceError, "unrecognized focused proof workspace"):
+                self.main(["prove", "--subprogram", "main.adb:3"])
+            invoke.assert_not_called()
+        focused.rmdir()
+        with mock.patch.object(dev, "invoke", side_effect=self.focused_output):
+            self.main(["prove", "--subprogram", "main.adb:3"])
+            with self.assertRaisesRegex(EvidenceError, "no fully analyzed entity"):
+                self.main(["prove", "--subprogram", "main.adb:4"])
+        with mock.patch.object(dev, "invoke"):
+            with self.assertRaisesRegex(EvidenceError, "missing report"):
+                self.main(["prove", "--subprogram", "main.adb:3"])
+        self.assertEqual([r["state"] for r in self.records()], ["failure", "success", "failure", "failure"])
+        self.assertTrue((Path(self.records()[-1]["directory"]) / "previous-reports/main.spark").is_file())
+
+    def test_focus_refuses_other_selectors_and_updates_experiment_classification(self):
+        with mock.patch.object(dev, "invoke") as invoke:
+            for args in (["--unit", "../main.adb"], ["--unit", "absent.adb"], ["--subprogram", "main.adb:0"],
+                         ["--subprogram", "main.adb:1:2"], ["--unit", "main.adb", "--cold"],
+                         ["--unit", "main.adb", "--", "--limit-line=main.adb:3"],
+                         ["--subprogram", "main.adb:3", "--", "--timeout=60"],
+                         ["--", "--subdirs=focused/custom"]):
+                with self.subTest(args=args), self.assertRaises((RuntimeError, EvidenceError)):
+                    self.main(["prove", *args])
+            invoke.assert_not_called()
+        focused = dev.focused_workspace(self.host.compiler / "obj")
+        trial = ["gnatprove", "-P", "../../../silver.gpr", "--subdirs=explore/trial",
+                 *dev.PROOF_OPTIONS, f"-XSILVER_HOST={self.host.key}"]
+        with mock.patch.object(dev, "invoke") as invoke:
+            with self.assertRaisesRegex(RuntimeError, "own cache"):
+                self.main(["tool", "--", *trial, f"--memcached-server=file:{focused}/cache"])
+            invoke.assert_not_called()
+            self.main(["tool", "--", *trial])
+        result = json.loads(self.main(["runs", "status"]))["runs"][-1]
+        self.assertEqual(result["focused_policy"], "experimental")
+        self.assertNotIn("focused_report", result)
+
+    def test_moved_focused_failures_survive_an_unrelated_whole_unit_success(self):
+        (self.root / "src/unrelated.adb").write_text("fixture")
+        for line in (3, 6, 9):
+            with mock.patch.object(dev, "invoke", side_effect=lambda host, cmd, **kwargs:
+                                   self.focused_output(host, cmd, declaration=line, unproved=True)):
+                with self.assertRaisesRegex(RuntimeError, "unresolved proof obligations"):
+                    self.main(["prove", "--subprogram", f"main.adb:{line}"])
+            if line == 6:
+                with mock.patch.object(dev, "invoke", side_effect=self.focused_output):
+                    self.main(["prove", "--unit", "unrelated.adb"])
+        with mock.patch.object(dev, "invoke") as invoke:
+            with self.assertRaisesRegex(run_history.RunHistoryError, "diagnostic"):
+                self.main(["prove", "--subprogram", "main.adb:12"])
+            invoke.assert_not_called()
+
     def test_build_uses_attached_native_worker_flag(self) -> None:
         with mock.patch.object(dev, "invoke") as invoke:
             dev.main(["build", "--task", "#39", *TWO_WORKERS])

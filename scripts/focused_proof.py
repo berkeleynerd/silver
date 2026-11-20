@@ -68,7 +68,11 @@ class FocusedProof:
         require(len(invocations) == 1 and invocations[0].get("executionSuccessful") is True
                 and invocations[0].get("exitCode") == 0 and invocations[0].get("commandLine") == " ".join(command),
                 "focused reports do not match the effective GNATprove invocation")
-        return {"selected_entities": selected, "flow_checks": len(report["flow"]), "proof_checks": len(report["proof"])}
+        summary = {"entity_count": len(selected), "flow_checks": len(report["flow"]),
+                   "proof_checks": len(report["proof"])}
+        if self.line is not None:
+            summary["subprograms"] = selected
+        return summary
 
 
 def focused_workspace(objects: Path) -> Path:

@@ -404,13 +404,18 @@ def main(arguments: list[str] | None = None) -> None:
             summaries = []
             for run in result["runs"]:
                 finish = run.get("finish") or {}
+                policy = {}
+                if "focused_options" in run["inputs"]:
+                    matches = run["inputs"]["focused_options"] == PROOF_OPTIONS
+                    policy["focused_policy"] = "final-policy" if matches else "different-policy"
+                elif run["inputs"].get("experimental_proof"):
+                    policy["focused_policy"] = "experimental"
+                if "focused_report" in finish:
+                    policy["focused_report"] = finish["focused_report"]
                 summaries.append({
                     **{key: run[key] for key in ("run_id", "task", "kind", "scope", "state", "active",
                                                 "workers", "directory", "fingerprint", "command", "reason")},
-                    **({"focused_policy": ("final-policy" if run["inputs"]["focused_options"] == PROOF_OPTIONS
-                                            else "different-policy")} if "focused_options" in run["inputs"] else
-                       {"focused_policy": "experimental"} if run["inputs"].get("experimental_proof") else {}),
-                    **({"focused_report": finish["focused_report"]} if "focused_report" in finish else {}),
+                    **policy,
                     "worktree": run["worktree"]["resolved"],
                     "resources": [item["resolved"] for item in run["resources"]],
                     "started_at": run["utc"], "finished_at": finish.get("utc"),
