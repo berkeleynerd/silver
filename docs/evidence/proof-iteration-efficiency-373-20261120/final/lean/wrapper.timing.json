@@ -1,0 +1,19 @@
+{
+  "command": [
+    "python3",
+    "scripts/check_lean.py",
+    "--provenance",
+    "--task",
+    "#384-final-lean",
+    "--reason",
+    "Final reviewed runner assurance after successful current-source cache preparation; refresh complete source/module/axiom audit and provenance with changed tooling, preserving accepted proof objects."
+  ],
+  "started": "2026-11-20T18:45:11.470847+00:00",
+  "finished": "2026-11-20T18:45:38.431134+00:00",
+  "elapsed_seconds": 26.960301038008765,
+  "returncode": 0,
+  "child_user_seconds": 19.610174,
+  "child_system_seconds": 13.024258,
+  "child_maxrss_kib": 2374408,
+  "note": "RUSAGE_CHILDREN max RSS is not a simultaneous process-tree peak."
+}

@@ -23,8 +23,9 @@ ends the former workflow requirements without changing existing authorizations.
 | [#383](https://github.com/berkeleynerd/silver/issues/383) | Align `AGENTS.md`, `development.md` and iteration guidance with the delivered interfaces and limits in this same package. |
 | [#384](https://github.com/berkeleynerd/silver/issues/384) | Exercise the focused path, affected regressions and applicable complete native/Lean/source/module/axiom assurance on final inputs; retain evidence reuse, settings, measurement limits and independent disposition in one shared checkpoint. |
 
-Selected work is In review. Implementation review, affected regressions and real
-focused compiler checks have passed; final assurance remains pending. Live status and worktree ownership belong on the
+Selected work is In review. Implementation review, affected regressions, real
+focused compiler checks and complete final native/Lean assurance have passed.
+The independent closing evidence review is in progress. Live status and worktree ownership belong on the
 issues and [Silver board](https://github.com/users/berkeleynerd/projects/6); board
 read/write access was available during this update. The original increments and
 recovered branches remain preserved, with no issue closed by this planning step.
@@ -101,7 +102,8 @@ new optimization's value.
 
 ## Delivery evidence and rounds
 
-The selected code is integrated at `f0a773fbcb` in the delivery worktree; draft
+The selected code is integrated at `f0a773fbcb`; subsequent commits change only
+guidance and evidence. Draft
 [PR #406](https://github.com/berkeleynerd/silver/pull/406) is open. This includes
 proof-only resource reasons, native recurrence/fallback normalization and query
 isolation, canonical focused checks with shared unit coverage auditing, and
@@ -110,10 +112,25 @@ rejection of contextual inlining as whole-helper evidence. The
 accepts that code after three findings were repaired and rechecked. It also
 establishes the final 757-ID test inventory. The [regression packet](evidence/proof-iteration-efficiency-373-20261120/README.md)
 records 282 fresh affected-test passes in run `20261120T152415-e5e1f5ee6934`
-and 475 reviewed retained passes from the prior complete Linux suite. Final
-native build and assurance and closing review remain
-outstanding at this checkpoint. No speedup or runtime model confirmation is
-claimed. CLI memory was not updated.
+and 475 reviewed retained passes from the prior complete Linux suite. The
+[final checkpoint](evidence/proof-iteration-efficiency-373-20261120/final/README.md)
+passed on Linux x86-64: the native build check accepted both up-to-date binaries;
+the complete native audit covered 78 units, 1,252 entities and 19,726 checks;
+and Lean freshly audited all 1,035 modules and 166,332 declarations with only
+the three permitted foundations. All three final commands used automatic
+22-worker grants and a recorded 16 MiB invoking stack. The native full run
+reused solver sessions/cache; Lean reused its prepared objects without independent
+kernel replay. Closing evidence review remains pending.
+
+Host cache restoration dominated this delivery: native preparation took
+10,713.478 seconds and the dense Lean continuation took 9,516.298 seconds,
+overlapping with other work. Its earlier interrupted attempt and successful
+parallel chunk continuation are retained in the
+[preparation record](evidence/proof-iteration-efficiency-373-20261120/preparation/README.md).
+On those prepared caches, final native validation took 48.245 seconds and final
+Lean validation 26.960 seconds. These different scopes do not establish an
+optimization speedup; no controlled benchmark was selected. No runtime model
+confirmation is claimed. CLI memory was not updated.
 
 The owner-authorization commit was recorded at **2026-11-20 15:06:13 UTC**
 (`a412827d6c` author/committer timestamps). The table records launch selections
@@ -129,10 +146,11 @@ time is not a substitute for those data.
 | Focused policy/readiness, #379/#380 | GPT-6.2 Astra, Extra High | Entry point, classification and coverage repairs integrated through `f0a773fbcb`; 119 affected runner/auditor tests passed on the coverage-repair candidate. Retained producer-report checks are historical evidence; final integrated checkpoint remains separate. |
 | Planning/guidance, #383 | GPT-6.1 Sol, High | Scope/roadmap/Worca guidance integrated as `b1f55e5126`; issue bodies, statuses and dependency edges updated and reread on the live board. Tested interface guidance aligned with `f0a773fbcb`; local links/whitespace checked. CLI memory not updated. |
 | Independent implementation review | GPT-6.2 Astra, Extra High | Accepted `f0a773fbcb`; three findings repaired and rechecked, real retained report comparisons and regression applicability reviewed. Observed interval 15:14:26–15:27:01 UTC (12 min 35 s); final assurance remains separate. |
-| Preparation monitoring | GPT-6.1 Sol, High | Observes native/Lean preparation and sampled resources; no authority to alter jobs, inputs or assurance outcomes. |
+| Preparation and final monitoring | GPT-6.1 Sol, High | Both preparation jobs passed; the final native run also passed. Retained samples distinguish observed resource use from bounds; the monitor had no job-control authority. |
 | Regression evidence collection | GPT-6.1 Sol, High | Archived the successful 282-test affected run and reconciled all 757 current IDs with 475 reviewed retained passes; 33 additions, no uncovered test. No test rerun or proof execution. |
 | Real focused compiler checks | GPT-6.1 Sol, High | Run `20261120T161257-f32638bcdacc` proved all eight checks for `Decimal`; `20261120T161351-6de9c718e3ad` covered all three unit entities and 18 checks. Both exercised the canonical focused commands on Linux x86-64, with three requested/granted workers and the recorded resource reason. |
-| Lead integration and checkpoint, #384 | Model/effort unavailable from live runtime | Current-input validation and final delivery review remain pending; repository defaults are not reported as observed live settings. |
+| Assurance evidence collection | GPT-6.1 Sol, High | Preserved the completed old-runner preparations and final current-runner build/native/Lean records, source/tool identities and cache origins. No rerun or performance inference by collection. |
+| Lead integration and checkpoint, #384 | Model/effort unavailable from live runtime | Final build check passed in 3.196 s, full native audit in 48.245 s and complete cached Lean/fresh audit in 26.960 s. Final evidence review remains pending; repository defaults are not reported as observed live settings. |
 
 ## Historical plan and handoff — superseded on 2026-11-20
 

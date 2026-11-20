@@ -1,4 +1,4 @@
-# Lean cache preparation and interruptions, 2026-11-20
+# Native and Lean cache preparation, 2026-11-20
 
 These are **old-runner preparation results**, not final assurance for the changed
 #373 runner. The preparation used root revision `a412827d6c54f925cf4e55cac128eb4ef48647ad`
@@ -155,10 +155,73 @@ Its `proof-inputs.json` is byte-identical to the prior-reports backup, labels
 itself `full`, and contains a different input inventory from this run's prepared
 ledger record. It is preserved as inherited metadata, **not a current audit
 manifest**. The successful raw report set is useful solver/cache preparation;
-the final changed-runner complete native proof/report/provenance audit remains
-required. The Lean cache donor's 16,661-file record above does not describe this
+the final changed-runner complete native proof/report/provenance audit was still
+required after this preparation. It subsequently passed and is recorded in the
+[final assurance packet](../final/README.md). The Lean cache donor's 16,661-file record above does not describe this
 native session/file-cache origin, and no large compiler objects or solver-cache
 contents are archived here.
+
+## Completed dense Lean continuation
+
+Managed run `20261120T160430-5f3e18a6d856`, task
+`#373-lean-dense-preparation`, completed with **1,035 unique modules** and a
+fresh complete axiom audit of **166,332 declarations**, using only `propext`,
+`Classical.choice` and `Quot.sound`. The module count was read from the retained
+evidence and matched exactly against the `SILVER_MODULE` lines in its log.
+This complete preparation succeeded on the old `a412827d6c` runner and existing
+current-language proof sources. It is distinct from the later changed-runner
+final audit, and does not retroactively make the interrupted first run complete.
+
+The invocation selected **two Lake workers**, automatic **22 threads per process**
+and a **20,480 MiB per-process memory threshold**, with `--provenance`. Its retained
+`--reason` reserves headroom for two dense modules alongside the 12-worker native
+preparation. The root had 22 available CPUs. These are actual settings for this
+run; its per-process threshold is not an OS-enforced or combined-workload cap.
+The mode was incremental with reused applicable seed/chunk artifacts,
+`clean_build: false` and `kernel_recheck: null`. No cold rebuild or optional
+independent kernel replay occurred.
+
+The [complete proof log](dense-lean-preparation/lean-proof.log.gz),
+[complete proof evidence](dense-lean-preparation/lean-evidence.json.gz),
+[managed events](dense-lean-preparation/events.jsonl.gz),
+[wrapper log](dense-lean-preparation/lean-dense-preparation.log.gz),
+[wrapper timing](dense-lean-preparation/lean-dense-preparation.timing.json.gz) and
+[zero exit](dense-lean-preparation/lean-dense-preparation.exit) retain the exact
+result and settings. The managed context manager's successful finished event has
+its normal null process return code; both build/audit phase results and the outer
+wrapper report zero.
+
+The build ran **16:04:38.800316–18:42:53.043725 UTC**, taking
+**9,494.091 seconds**. The fresh complete audit ran
+**18:42:56.120974–18:43:03.124174 UTC**, taking **7.003 seconds**. The outer
+wrapper ran **16:04:30.202271–18:43:06.652859 UTC**, taking
+**9,516.298315269 seconds**; the managed interval was **9,515.116105079 seconds**
+and the proof evidence's elapsed field **9,515.847 seconds**. Each timing has its
+own boundary. Child usage was 18,082.801165 user seconds and 2,039.415576 system
+seconds, with 8,774,944 KiB maximum child RSS. That RSS is not a simultaneous
+process-tree or host peak. The wrapper recorded an invoking stack soft limit of
+16,384 KiB and unlimited hard limit. Concurrent native work and cache lineage
+prevent treating these figures as a controlled speedup comparison.
+
+Before the root could fast-forward or run the changed runner, this archival
+continuation independently copied and hash-verified **all 1,142 source inputs**
+and **1,037 proof-workspace inputs** against the completed evidence. Their exact
+bytes are preserved in [source inputs](dense-lean-preparation/source-inputs.tar.gz)
+and [workspace inputs](dense-lean-preparation/workspace-inputs.tar.gz), with a
+[member inventory](dense-lean-preparation/source-snapshot-inventory.json).
+Root and managed copies of the final log/evidence matched byte-for-byte; tool
+hashes matched the final evidence. The
+[snapshot verification](dense-lean-preparation/snapshot-verification.json.gz)
+records these checks at root revision `a412827d6c`. Subsequent compression and
+analysis used only those independent copies.
+
+The completed `--provenance` evidence retains **6,202 output artifact hashes**,
+together with exact source/workspace/tool inventories, complete module scope and
+phase commands. Large compiled objects were not copied or rehashed again by this
+collector; their captured provenance checks belong to the successful managed
+run. The historical `previous-evidence/` backup under this dense-run subdirectory
+is preserved separately as prior state, not as the completed result. Earlier
+seed and interrupted/chunk-run records above remain the cache lineage.
 
 ## Launcher failures and active-run exclusions
 
@@ -168,14 +231,13 @@ The first [Lean launcher](lean-launcher-time-unavailable.log) and
 were launcher failures before proof execution; they are not failed proof attempts.
 The subsequent Python wrapper above supplied timing without that executable.
 
-The replacement dense Lean preparation remained active when the native archival
-continuation was assembled. Its outputs, events and running cache remain absent
-here pending completion; the completed native preparation is now archived above.
-No process was signaled, resumed or otherwise controlled by this evidence-collection
-step. The successful focused
-preparation does not finish the replacement complete run, establish final
-changed-runner provenance, or complete deferred #381/#382 experiments. It uses
-existing focused targets/reservations, not new scheduler implementation.
+At the earlier native archival checkpoint, dense Lean preparation was still
+active and its outputs were excluded. Both preparation jobs are now complete
+and archived above; later changed-runner validation outputs remain outside this
+packet. No process was signaled, resumed or otherwise controlled by these
+archival steps. Neither completed preparation establishes the later final
+changed-runner provenance or completes deferred #381/#382 experiments. The work
+uses existing focused targets/reservations, not new scheduler implementation.
 
 [Archive manifest](archive-manifest.json) retains source paths, byte counts and
 SHA-256 hashes for every copied original; gzip records use deterministic mtime

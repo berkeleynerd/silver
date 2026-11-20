@@ -1,17 +1,32 @@
-# Reduced #373: regression checkpoint, 2026-11-20
+# Reduced #373: final validation, 2026-11-20
 
-**Regression coverage is complete through 282 fresh and 475 reviewed retained
-passes, covering all 757 current unique unittest IDs.** The subsequent
-[real focused compiler checks](focused-native/README.md) also passed for the
-whole `Decimal` subprogram and its containing unit. Final native compiler and
-complete Lean/source/module/axiom assurance remain outstanding. No cold rebuild
-or independent kernel replay is claimed.
+**Complete native and Lean assurance passed, with all 757 current unittest IDs
+covered by 282 fresh and 475 independently reviewed retained passes.** Both
+[real focused compiler commands](focused-native/README.md) also passed.
+The independent closing evidence review remains pending.
+
+The [final checkpoint](final/README.md) records these successful Linux x86-64
+commands on reviewed implementation `f0a773fbcb`:
+
+| Command | Result | Wrapper seconds |
+| --- | --- | ---: |
+| `dev.py build` | Both native binaries up to date; fresh managed build check | 3.196 |
+| `check_lean.py --provenance` | Complete 1,035-module / 166,332-declaration audit; cached build, fresh module/axiom audit | 26.960 |
+| `dev.py prove --full` | Complete 78-unit / 1,252-entity audit; 1,751 flow + 17,975 proof checks | 48.245 |
+
+All three final commands received 22 automatic workers and recorded a 16 MiB
+invoking stack. Lean used 22 threads per process. The native audit forced unit
+analysis and regenerated reports with retained sessions/solver cache; the Lean
+check reused the objects established by the [preparation](preparation/README.md).
+No cold build, fresh-only solver measurement, independent kernel replay, macOS
+validation or CI result is claimed.
 
 The reviewed implementation is `f0a773fbcb9eea9574b037812e888029b7f970cb`; its
 scripts/tests were frozen for the fresh run. Record head `cd17bc1fdf` adds review
 and applicability documentation. The [independent review](../../reviews/review-proof-efficiency-373-20261120.md)
 accepted the repaired implementation and the 475 retained passes' applicability.
-The review requires a fresh native build and final assurance evidence separately.
+The separately required fresh native build check and complete assurance commands
+now passed as recorded above; closing review will reconcile their applicability.
 No compiler, library, Lean source, catalogue, sample or language change is supplied
 by this tooling package.
 
@@ -101,10 +116,10 @@ marker. The log does not independently identify whether that archive was
 downloaded or copied into the host tool directory beforehand. Installed paths
 are the integration worktree's native `.tools/linux-x86_64/` paths.
 
-[Archive manifest](archive-manifest.json) records compressed and original hashes
-and byte counts for each retained raw record. Compression uses deterministic
-mtime zero. This packet is evidence collection only: it neither replaces native
-or Lean assurance nor changes the approved deferrals of #381/#382. No Worca run,
-GitHub write, test rerun, commit or CLI memory update was performed in assembling
-it. Selected evidence collector: GPT-6.1 Sol / High; independent runtime model,
+[Regression archive manifest](archive-manifest.json) records compressed and original
+hashes and byte counts for the initial regression records. Preparation, focused
+and final packets carry their own manifests. Compression uses deterministic
+mtime zero. Collection of the initial regression packet did not execute proofs or tests,
+write to GitHub, commit, invoke Worca or update CLI memory. The later complete
+assurance is recorded separately above; #381/#382 remain deferred. Selected evidence collector: GPT-6.1 Sol / High; independent runtime model,
 effort, token and cost confirmation unavailable.

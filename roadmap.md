@@ -49,8 +49,12 @@ proof commands (#377), native helper/check-kind recurrence with the selector
 fallback repair (#378), canonical whole-helper focused checks at the unchanged
 30-second policy (#379), and minimal final-policy readiness reporting (#380).
 Guidance #383 and validation/review #384 remain in this delivery with one shared
-final checkpoint. The recovered overlapping patches are reconciled serially,
-then the focused-policy/readiness changes are integrated before that checkpoint.
+final checkpoint. The recovered patches and focused-policy/readiness changes
+are integrated in [PR #406](https://github.com/berkeleynerd/silver/pull/406).
+Complete Linux native and Lean/source/module/axiom validation and reviewed
+regression coverage passed on 2026-11-20; closing evidence review is in progress.
+The [delivery record](docs/proof-iteration-efficiency.md#delivery-evidence-and-rounds)
+distinguishes host cache restoration from the final cached audits.
 
 Standalone strategy comparison #381 is deferred until an unresolved current proof
 or demonstrated hotspot warrants it; additional scheduling #382 is deferred

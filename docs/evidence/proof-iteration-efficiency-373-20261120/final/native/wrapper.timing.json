@@ -1,0 +1,20 @@
+{
+  "command": [
+    "python3",
+    "scripts/dev.py",
+    "prove",
+    "--full",
+    "--task",
+    "#384-final-native",
+    "--reason",
+    "Final complete current-runner compiler report and provenance audit after successful original-path cache preparation; preserve solver sessions/cache and canonical 30-second policy."
+  ],
+  "started": "2026-11-20T18:45:57.169428+00:00",
+  "finished": "2026-11-20T18:46:45.414860+00:00",
+  "elapsed_seconds": 48.245459934012615,
+  "returncode": 0,
+  "child_user_seconds": 79.132029,
+  "child_system_seconds": 85.930924,
+  "child_maxrss_kib": 665908,
+  "note": "RUSAGE_CHILDREN max RSS is not a simultaneous process-tree peak."
+}

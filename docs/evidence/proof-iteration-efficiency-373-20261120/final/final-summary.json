@@ -1,0 +1,355 @@
+{
+  "all_final_inputs_copied_or_bound_by_archived_hashes": true,
+  "machine": "silver",
+  "native_platform": "linux-x86_64",
+  "optional_cold_rebuild_or_kernel_replay": false,
+  "reviewed_code_revision": "f0a773fbcb9eea9574b037812e888029b7f970cb",
+  "runs": {
+    "build": {
+      "actual_invocation_fresh": true,
+      "allocation": {
+        "workers": {
+          "actual": 22,
+          "automatic": 22,
+          "requested": null
+        }
+      },
+      "available_cpus": 22,
+      "captured_inputs_match_native": true,
+      "compiled_binary_identities": {
+        "silver": {
+          "bytes": 2957352,
+          "mtime_ns": 1795142660780174076,
+          "path": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/compiler/bin/silver",
+          "sha256": "b27ae765f286949d3814810d25d9fe6a2dcbbdd058830ea628064207df67ffe7"
+        },
+        "silver_image_adapter": {
+          "bytes": 2014816,
+          "mtime_ns": 1795142660762047878,
+          "path": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/compiler/bin/silver_image_adapter",
+          "sha256": "4076e918b5e9cd2c1da29e5dd562ef6163aab6a62aabcce72381f4d05f80b2f3"
+        }
+      },
+      "compiler_recompiled": false,
+      "invoking_stack_bytes": [
+        16777216,
+        -1
+      ],
+      "managed_finished_returncode": null,
+      "managed_outcome": "success",
+      "managed_seconds": 2.436460362,
+      "native_phase_returncode": 0,
+      "phase_events": [
+        {
+          "event": "phase-start",
+          "monotonic_ns": 83199157687539,
+          "phase": "preflight",
+          "run_id": "20261120T184456-c31fb2e1ef2e",
+          "utc": "2026-11-20T18:44:56.774514+00:00"
+        },
+        {
+          "event": "phase-end",
+          "monotonic_ns": 83200808954113,
+          "phase": "preflight",
+          "run_id": "20261120T184456-c31fb2e1ef2e",
+          "utc": "2026-11-20T18:44:58.425779+00:00"
+        },
+        {
+          "event": "phase-start",
+          "monotonic_ns": 83200817748470,
+          "phase": "native-tool",
+          "run_id": "20261120T184456-c31fb2e1ef2e",
+          "utc": "2026-11-20T18:44:58.434582+00:00"
+        },
+        {
+          "event": "phase-end",
+          "monotonic_ns": 83201292450438,
+          "phase": "native-tool",
+          "returncode": 0,
+          "run_id": "20261120T184456-c31fb2e1ef2e",
+          "utc": "2026-11-20T18:44:58.909268+00:00"
+        }
+      ],
+      "producer_result": "Both existing compiler binaries reported up to date by gprbuild.",
+      "requested_workers": null,
+      "retained_reason": "Final reviewed runner checkpoint after host cache restoration; unchanged compiler sources, fresh native build for regression applicability.",
+      "run_id": "20261120T184456-c31fb2e1ef2e",
+      "task": "#384-final-build",
+      "workers": 22,
+      "wrapper": {
+        "child_maxrss_kib": 254912,
+        "child_system_seconds": 1.155611,
+        "child_user_seconds": 1.735128,
+        "command": [
+          "python3",
+          "scripts/dev.py",
+          "build",
+          "--task",
+          "#384-final-build",
+          "--reason",
+          "Final reviewed runner checkpoint after host cache restoration; unchanged compiler sources, fresh native build for regression applicability."
+        ],
+        "elapsed_seconds": 3.1956054430047516,
+        "finished": "2026-11-20T18:44:59.192816+00:00",
+        "note": "RUSAGE_CHILDREN max RSS is not a simultaneous process-tree peak.",
+        "returncode": 0,
+        "started": "2026-11-20T18:44:55.997218+00:00"
+      }
+    },
+    "lean": {
+      "allocation": {
+        "memory_mb": {
+          "actual": null,
+          "automatic": null,
+          "requested": null
+        },
+        "threads": {
+          "actual": 22,
+          "automatic": 22,
+          "requested": null
+        },
+        "workers": {
+          "actual": 22,
+          "automatic": 22,
+          "requested": null
+        }
+      },
+      "audited_declarations": 166332,
+      "available_cpus": 22,
+      "axiom_audit": "passed",
+      "clean_build": false,
+      "compiled_artifacts_rehashed_by_archival": false,
+      "complete_modules": 1035,
+      "elapsed_seconds": 26.592,
+      "inputs_digest_sha256": "0e99fc14b59f8566bdb2d35dfdb686ae8d161d786110a0b051911c941278436e",
+      "invoking_stack_bytes": [
+        16777216,
+        -1
+      ],
+      "kernel_recheck": null,
+      "lake_workers": 22,
+      "managed_finished_returncode": null,
+      "managed_outcome": "success",
+      "managed_seconds": 26.068828777,
+      "memory_mb_per_process": null,
+      "mode": "incremental",
+      "phase_events": [
+        {
+          "command": [
+            "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/lean/bin/lake",
+            "--rehash",
+            "--reconfigure",
+            "-K",
+            "silverThreads=22",
+            "build",
+            "Silver.Audit"
+          ],
+          "event": "phase_started",
+          "monotonic_ns": 83223369289125,
+          "phase": "build",
+          "run_id": "20261120T184511-73f46c783731",
+          "started_at": "2026-11-20T18:45:20.985980+00:00",
+          "utc": "2026-11-20T18:45:20.986125+00:00"
+        },
+        {
+          "elapsed_seconds": 4.84,
+          "event": "phase_finished",
+          "exit_code": 0,
+          "finished_at": "2026-11-20T18:45:25.825766+00:00",
+          "monotonic_ns": 83228209415492,
+          "phase": "build",
+          "run_id": "20261120T184511-73f46c783731",
+          "started_at": "2026-11-20T18:45:20.985980+00:00",
+          "utc": "2026-11-20T18:45:25.826249+00:00"
+        },
+        {
+          "command": [
+            "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/lean/bin/lake",
+            "-K",
+            "silverThreads=22",
+            "env",
+            "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/lean/bin/lean",
+            "-DwarningAsError=true",
+            "-j22",
+            "Silver/Audit.lean"
+          ],
+          "event": "phase_started",
+          "monotonic_ns": 83230056909684,
+          "phase": "audit",
+          "run_id": "20261120T184511-73f46c783731",
+          "started_at": "2026-11-20T18:45:27.672803+00:00",
+          "utc": "2026-11-20T18:45:27.673740+00:00"
+        },
+        {
+          "elapsed_seconds": 7.126,
+          "event": "phase_finished",
+          "exit_code": 0,
+          "finished_at": "2026-11-20T18:45:34.798795+00:00",
+          "monotonic_ns": 83237182468258,
+          "phase": "audit",
+          "run_id": "20261120T184511-73f46c783731",
+          "started_at": "2026-11-20T18:45:27.672803+00:00",
+          "utc": "2026-11-20T18:45:34.799301+00:00"
+        }
+      ],
+      "phases": [
+        {
+          "elapsed_seconds": 4.84,
+          "exit_code": 0,
+          "finished_at": "2026-11-20T18:45:25.825766+00:00",
+          "phase": "build",
+          "started_at": "2026-11-20T18:45:20.985980+00:00"
+        },
+        {
+          "elapsed_seconds": 7.126,
+          "exit_code": 0,
+          "finished_at": "2026-11-20T18:45:34.798795+00:00",
+          "phase": "audit",
+          "started_at": "2026-11-20T18:45:27.672803+00:00"
+        }
+      ],
+      "recorded_artifact_hash_count": 6202,
+      "requested_workers": null,
+      "retained_reason": "Final reviewed runner assurance after successful current-source cache preparation; refresh complete source/module/axiom audit and provenance with changed tooling, preserving accepted proof objects.",
+      "run_id": "20261120T184511-73f46c783731",
+      "scope": "complete",
+      "source_input_hash_count": 1143,
+      "task": "#384-final-lean",
+      "threads_per_process": 22,
+      "workers": 22,
+      "workspace_input_hash_count": 1037,
+      "wrapper": {
+        "child_maxrss_kib": 2374408,
+        "child_system_seconds": 13.024258,
+        "child_user_seconds": 19.610174,
+        "command": [
+          "python3",
+          "scripts/check_lean.py",
+          "--provenance",
+          "--task",
+          "#384-final-lean",
+          "--reason",
+          "Final reviewed runner assurance after successful current-source cache preparation; refresh complete source/module/axiom audit and provenance with changed tooling, preserving accepted proof objects."
+        ],
+        "elapsed_seconds": 26.960301038008765,
+        "finished": "2026-11-20T18:45:38.431134+00:00",
+        "note": "RUSAGE_CHILDREN max RSS is not a simultaneous process-tree peak.",
+        "returncode": 0,
+        "started": "2026-11-20T18:45:11.470847+00:00"
+      }
+    },
+    "native": {
+      "all_source_and_setup_hashes_rechecked": 2585,
+      "allocation": {
+        "workers": {
+          "actual": 22,
+          "automatic": 22,
+          "requested": null
+        }
+      },
+      "available_cpus": 22,
+      "cold": false,
+      "complete_provenance": true,
+      "coverage_entries": {
+        "all": 1172,
+        "spec": 80
+      },
+      "entities": 1252,
+      "flow_checks": 1751,
+      "force_all": true,
+      "initial_state": {
+        "cache_entries_present": true,
+        "sessions_present": true
+      },
+      "invoking_stack_bytes": [
+        16777216,
+        -1
+      ],
+      "managed_finished_returncode": null,
+      "managed_outcome": "success",
+      "managed_seconds": 47.259882843,
+      "mode": "full",
+      "native_phase_returncode": 0,
+      "phase_events": [
+        {
+          "event": "phase-start",
+          "monotonic_ns": 83260665259533,
+          "phase": "preflight",
+          "run_id": "20261120T184557-91d29a88ed8f",
+          "utc": "2026-11-20T18:45:58.282077+00:00"
+        },
+        {
+          "event": "phase-end",
+          "monotonic_ns": 83261988620097,
+          "phase": "preflight",
+          "run_id": "20261120T184557-91d29a88ed8f",
+          "utc": "2026-11-20T18:45:59.605446+00:00"
+        },
+        {
+          "event": "phase-start",
+          "monotonic_ns": 83262807584435,
+          "phase": "native-tool",
+          "run_id": "20261120T184557-91d29a88ed8f",
+          "utc": "2026-11-20T18:46:00.424408+00:00"
+        },
+        {
+          "event": "phase-end",
+          "monotonic_ns": 83300617412616,
+          "phase": "native-tool",
+          "returncode": 0,
+          "run_id": "20261120T184557-91d29a88ed8f",
+          "utc": "2026-11-20T18:46:38.234234+00:00"
+        },
+        {
+          "event": "phase-start",
+          "monotonic_ns": 83300623707325,
+          "phase": "audit",
+          "run_id": "20261120T184557-91d29a88ed8f",
+          "utc": "2026-11-20T18:46:38.240540+00:00"
+        },
+        {
+          "event": "phase-end",
+          "monotonic_ns": 83307756738620,
+          "phase": "audit",
+          "run_id": "20261120T184557-91d29a88ed8f",
+          "utc": "2026-11-20T18:46:45.373555+00:00"
+        }
+      ],
+      "proof_checks": 17975,
+      "report_hashes_rechecked": 80,
+      "requested_workers": null,
+      "retained_reason": "Final complete current-runner compiler report and provenance audit after successful original-path cache preparation; preserve solver sessions/cache and canonical 30-second policy.",
+      "run_id": "20261120T184557-91d29a88ed8f",
+      "sarif_command_matches_provenance": true,
+      "selected_tool_binary_hashes_rechecked": 12,
+      "source_units": 78,
+      "task": "#384-final-native",
+      "total_checks": 19726,
+      "workers": 22,
+      "wrapper": {
+        "child_maxrss_kib": 665908,
+        "child_system_seconds": 85.930924,
+        "child_user_seconds": 79.132029,
+        "command": [
+          "python3",
+          "scripts/dev.py",
+          "prove",
+          "--full",
+          "--task",
+          "#384-final-native",
+          "--reason",
+          "Final complete current-runner compiler report and provenance audit after successful original-path cache preparation; preserve solver sessions/cache and canonical 30-second policy."
+        ],
+        "elapsed_seconds": 48.245459934012615,
+        "finished": "2026-11-20T18:46:45.414860+00:00",
+        "note": "RUSAGE_CHILDREN max RSS is not a simultaneous process-tree peak.",
+        "returncode": 0,
+        "started": "2026-11-20T18:45:57.169428+00:00"
+      }
+    }
+  },
+  "source_tracked_matches_f0a": 1146,
+  "source_union_count": 1152,
+  "validation_root_revision": "8836c38bac64de991acc56c8f683ea65ae5912e5",
+  "workspace_inputs_copied_and_verified": 1037
+}
