@@ -105,7 +105,7 @@ theorem prefix_initializer_checked {source form checks}
     (trace : Sequence.InitializerTokensAt source form.helper form.prefix initialState checks
       (prefixScan source form).state) : Integer.discharged checks = true :=
   Sequence.initializer_tokens_discharge domain trace Compose.initial_valid
-    (Sequence.initial_subtypes_valid source)
+    (Sequence.initial_subtypes_valid source) (Sequence.initial_array_types_valid source)
 
 theorem prefix_array_ready {source form events}
     (parsed : Sequence.TokensAt source form.helper form.prefix initialState events (prefixScan source form).state) :

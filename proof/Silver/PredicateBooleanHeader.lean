@@ -145,7 +145,7 @@ theorem prefix_boolean_valid {source form events declarations checks}
   have empty := tokens_boolean_preserved (by cases form <;> simp [booleanHeaderLead, Form.hasArguments, ShellToken.word, ShellToken.symbol]) leadingRead
   have valid := (Sequence.tokens_valid tv.2 leadingRead Compose.initial_valid).1
   have ready := tokens_header_ready tv leadingRead (OuterReadiness.initial_valid source)
-  have checked := boolean_declarations_valid tv reading valid.1 ready.1 ready.2 valid.2.2.2
+  have checked := boolean_declarations_valid tv reading valid.1 ready.1 ready.2 valid.2.2.2.1 valid.2.2.2.2
   obtain ⟨strings, declarations⟩ := boolean_declarations_reading reading
   have dynamic := (declarations_fields declarations).2.2.1
   have arguments := prefix_arguments parsed

@@ -28,14 +28,8 @@ def FormMember (source : Source) (form : Form) : Prop :=
 
 def Member (source : Source) : Prop := ∃ form, FormMember source form
 
-private theorem initial_ranges (source : Source) : Compose.Expressions.ValidState source initialState := by
-  simp [Compose.Expressions.ValidState, Compose.Expressions.ValidCursor, Compose.Expressions.ValidNames,
-    Named.NameState.Valid, initialState, maxSourceLength, maxBindings,
-    ScalarExpression.ValidEnvironment, ScalarExpression.maxBindings, ArrayBindings.ValidEnvironment,
-    ArrayBindings.ValidMetadata, ArrayBindings.ValidInitials, ArrayBindings.maxBindings, ArrayBindings.maxElements,
-    IntegerSubtypes.ValidEnvironment, BooleanBindings.ValidEnvironment, BooleanBindings.maxBindings,
-    FunctionBindings.ValidMetadata, FunctionBindings.maxFormals, FunctionBindings.maxFunctions,
-    ProcedureBindings.ValidMetadata, ProcedureBindings.maxFormals, ProcedureBindings.maxProcedures]
+private theorem initial_ranges (source : Source) : Compose.Expressions.ValidState source initialState :=
+  (OuterReadiness.initial_valid source).base
 
 private theorem initialFacts_bounded (arguments : Bool) : (initialFacts arguments).Bounded := by
   cases arguments
@@ -103,7 +97,7 @@ theorem form_reading_valid {source : Source} {form : Form} {events : List Event}
   obtain ⟨booleans, booleanChecks, booleanTrace⟩ := prefix_boolean_trace ⟨domain.1, domain.2.1⟩ parsed.header
   obtain ⟨functions, procedures, callableTrace⟩ := Sequence.tokens_mixed_trace
     ⟨domain.1, domain.2.1⟩ (initial_ranges source) parsed.header
-  have callableValid := callableTrace.checked ⟨domain.1, domain.2.1⟩ (initial_ranges source)
+  have callableValid := callableTrace.checked ⟨domain.1, domain.2.1⟩ (initial_ranges source) initial_callable_types_known
   simp only [initialState, catalogSignatures, ProcedureBindings.catalogSignatures,
     List.map_nil, List.nil_append] at callableValid
   have functionsValid := And.intro callableValid.1 callableValid.2.2.1
@@ -227,7 +221,7 @@ theorem meaning_scalar_source_bounds {source : Source} {program : Program}
     (meaning : SourceMeaning source program) :
     ∀ declaration ∈ program.integerDeclarations, Compose.ScalarDeclarationSourceBounds source declaration := by
   obtain ⟨_, _, _, scalars, _, _, _, _, _, _, scalarTrace, _, _, functions, procedures, _, decoded⟩ := meaning
-  have bounds := Sequence.scalar_tokens_source_bounds scalarTrace ScalarExpression.static_empty
+  have bounds := Sequence.scalar_tokens_source_bounds scalarTrace ScalarExpression.static_empty (by simp [initialState])
   have same : program.integerDeclarations = scalars := by
     unfold decodePrefix at decoded
     split at decoded <;> cases decoded <;> rfl
