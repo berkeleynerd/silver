@@ -11,13 +11,13 @@ namespace Silver.Compose.Expressions
 set_option maxRecDepth 10000
 set_option maxHeartbeats 300000
 set_option backward.dsimp.instances true
-attribute [local irreducible] ScalarExpression.read
+attribute [local irreducible] ScalarExpression.ArrayGrammar.read
 
 theorem arrayAdd_denotation (calls : Calls) (text : Source) (state : ParserState)
     (first after : Nat) (bounds : Integer.Interval) (offset length : Nat)
-    (mutable : Bool) (following : Nat) (componentBounds : Integer.Interval) (isBoolean : Bool) :
-    arrayAddBody.eval calls (arrayAddLocals text state first after bounds offset length mutable following componentBounds isBoolean) =
-      addArrayBinding state first after bounds offset length mutable following componentBounds isBoolean := by rfl
+    (mutable : Bool) (following : Nat) (componentBounds : Integer.Interval) (isBoolean : Bool) (typeId : Nat) :
+    arrayAddBody.eval calls (arrayAddLocals text state first after bounds offset length mutable following componentBounds isBoolean typeId) =
+      addArrayBinding state first after bounds offset length mutable following componentBounds isBoolean typeId := by rfl
 
 theorem arrayPut_denotation (calls : Calls) (state : ParserState) (value : Int) :
     arrayPutBody.eval calls (arrayPutLocals state value) = putArrayValue state value := by
@@ -29,7 +29,7 @@ def arrayValuesEquation (calls : Calls) (text : Source) (source result : ParserS
   else if decide (parsed = length) then {result with position}
   else
     let value := calls.function .scalarRead text position source.scalarNames
-      source.arrayNames.names source.arrayNames.values true
+      source.arrayNames.table source.arrayNames.values true
     if decide (value.after = 0) || calls.function .scalarEmpty value.bounds ||
         decide (value.bounds.lower ≠ value.bounds.upper) ||
         decide (value.bounds.lower < componentBounds.lower) ||
@@ -103,21 +103,30 @@ theorem model_booleanArrayValues_equation (text : Source) (source result : Parse
 def arrayPartsEquation (calls : Calls) (text : Source) (state : ParserState) : ArrayDeclarationParts :=
   let take := calls.function .takeToken text
   let read := fun position => calls.function .scalarRead text position state.scalarNames
-    state.arrayNames.names state.arrayNames.values true
+    state.arrayNames.table state.arrayNames.values true
   let first := calls.function .skip text state.position
   let after := calls.function .nameAfter text first
   let colon := take after (.symbol ":")
   let constant := take colon (.word "constant")
-  let arrayAfter := take (if decide (constant ≠ 0) then constant else colon) (.word "array")
-  let low := read (take arrayAfter (.symbol "("))
-  let high := read (take low.after (.symbol ".."))
-  let typeFirst := calls.function .skip text (take (take high.after (.symbol ")")) (.word "of"))
-  let integerType := calls.function .scalarType text state typeFirst
+  let start := if decide (constant ≠ 0) then constant else colon
+  let namedFirst := calls.function .skip text start
+  let namedAfter := calls.function .nameAfter text namedFirst
+  let typeId := calls.function .arrayTypeAt text state namedFirst
+  let entry := ArrayBindings.arrayType state.arrayNames.types typeId
+  let arrayAfter := take start (.word "array")
+  let low : ScalarExpression.Result := if decide (typeId ≠ 0) then
+      ⟨namedAfter, .singleton entry.bounds.lower, 1, true⟩ else read (take arrayAfter (.symbol "("))
+  let high : ScalarExpression.Result := if decide (typeId ≠ 0) then
+      ⟨namedAfter, .singleton entry.bounds.upper, 1, true⟩ else read (take low.after (.symbol ".."))
+  let typeFirst := if decide (typeId ≠ 0) then namedFirst else
+    calls.function .skip text (take (take high.after (.symbol ")")) (.word "of"))
+  let integerType : ScalarConstraintResult := if decide (typeId ≠ 0) then
+      ⟨namedAfter, entry.componentBounds⟩ else calls.function .scalarType text state typeFirst
   let isBoolean := decide (integerType.after = 0) && decide (take typeFirst (.word "boolean") ≠ 0)
   let typeMark := if isBoolean then ScalarConstraintResult.mk (take typeFirst (.word "boolean")) .full else integerType
   let typeAfter := typeMark.after
   let position := take (take typeAfter (.symbol ":=")) (.symbol "(")
-  ⟨first, after, constant, arrayAfter, low, high, typeFirst, typeAfter, typeMark.bounds, position, isBoolean⟩
+  ⟨first, after, constant, arrayAfter, low, high, typeFirst, typeAfter, typeMark.bounds, position, isBoolean, typeId⟩
 
 def arrayDeclarationEquation (calls : Calls) (executable : Bool)
     (text : Source) (state : ParserState) (arguments : Bool) : ParserState :=
@@ -133,12 +142,14 @@ def arrayDeclarationEquation (calls : Calls) (executable : Bool)
   let position := parts.position
   let take := calls.function .takeToken text
   let read := fun position => calls.function .scalarRead text position state.scalarNames
-    state.arrayNames.names state.arrayNames.values true
+    state.arrayNames.table state.arrayNames.values true
   if !calls.function .newName text state first after arguments ||
       (if parts.isBoolean then calls.function .nameIs text first after "boolean"
        else calls.function .nameIs text first after "integer") ||
-      decide (arrayAfter = 0) || decide (position = 0) ||
+      (decide (arrayAfter = 0) && decide (parts.typeId = 0)) || decide (position = 0) ||
       decide (state.arrayNames.names.length = ArrayBindings.maxBindings) ||
+      (decide (state.arrayNames.names.length > 0) &&
+        decide ((ArrayBindings.binding state.arrayNames.names state.arrayNames.names.length).viewSlot ≠ 0)) ||
       decide (low.after = 0) || decide (high.after = 0) || !low.isStatic || !high.isStatic ||
       calls.function .scalarEmpty low.bounds || calls.function .scalarEmpty high.bounds ||
       decide (low.bounds.lower ≠ low.bounds.upper) || decide (high.bounds.lower ≠ high.bounds.upper) ||
@@ -146,7 +157,9 @@ def arrayDeclarationEquation (calls : Calls) (executable : Bool)
       decide (high.bounds.lower - low.bounds.lower ≥ (ArrayBindings.maxElements - state.arrayNames.used : Nat)) ||
       decide (calls.function .lookupName text state.names typeFirst typeAfter ≠ 0) ||
       decide (calls.function .scalarLookup text state.scalarNames typeFirst typeAfter ≠ 0) ||
-      decide (calls.function .arrayLookup text state.arrayNames.names typeFirst typeAfter ≠ 0) ||
+      decide (calls.function .arrayLookup text state.arrayNames.table typeFirst typeAfter ≠ 0) ||
+      (decide (parts.typeId = 0) &&
+        decide (calls.function .arrayTypeLookup text state.arrayNames.types typeFirst typeAfter ≠ 0)) ||
       decide (calls.function .booleanLookup text state.booleanNames typeFirst typeAfter ≠ 0) ||
       decide (calls.function .functionLookup text state.functions typeFirst typeAfter ≠ 0) ||
       decide (calls.function .procedureLookup text state.procedures typeFirst typeAfter ≠ 0) ||
@@ -171,7 +184,7 @@ def arrayDeclarationEquation (calls : Calls) (executable : Bool)
       let following := take (take values.position (.symbol ")")) (.symbol ";")
       if decide (values.position = 0) || decide (following ≤ state.position) then invalidState else
         calls.function .arrayAdd text values first after ⟨low.bounds.lower, high.bounds.lower⟩
-          state.arrayNames.used length (decide (constant = 0)) following parts.componentBounds parts.isBoolean
+          state.arrayNames.used length (decide (constant = 0)) following parts.componentBounds parts.isBoolean parts.typeId
 
 private theorem arrayDeclaration_false_denotation : ∀ (calls : Calls)
     (text : Source) (state : ParserState) (arguments : Bool),
@@ -197,9 +210,9 @@ theorem arrayDeclaration_denotation (calls : Calls) (executable : Bool)
 
 theorem arrayAdd_eval_lexical (calls : Calls) (text : Source) (state : ParserState)
     (first after : Nat) (bounds : Integer.Interval) (offset length : Nat)
-    (mutable : Bool) (following : Nat) (componentBounds : Integer.Interval) (isBoolean : Bool) :
-    arrayAddBody.eval (lexical calls) (arrayAddLocals text state first after bounds offset length mutable following componentBounds isBoolean) =
-      arrayAddBody.eval calls (arrayAddLocals text state first after bounds offset length mutable following componentBounds isBoolean) := by rfl
+    (mutable : Bool) (following : Nat) (componentBounds : Integer.Interval) (isBoolean : Bool) (typeId : Nat) :
+    arrayAddBody.eval (lexical calls) (arrayAddLocals text state first after bounds offset length mutable following componentBounds isBoolean typeId) =
+      arrayAddBody.eval calls (arrayAddLocals text state first after bounds offset length mutable following componentBounds isBoolean typeId) := by rfl
 
 theorem arrayPut_eval_lexical (calls : Calls) (state : ParserState) (value : Int) :
     arrayPutBody.eval (lexical calls) (arrayPutLocals state value) =
