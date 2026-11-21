@@ -1,5 +1,13 @@
 # Silver language specification
 
+The named constrained Integer-array additions for
+[#410](https://github.com/berkeleynerd/silver/issues/410) are work in progress.
+Their rules below specify the selected implementation target; support remains
+pending the shared native, Lean/actual-source, regression and independent review
+checkpoint in the [capability plan](docs/named-array-parameters.md). Earlier
+delivery statements below retain their historical scope and do not validate
+these additions.
+
 The named-scalar-arguments extension below has passed complete Linux native
 and Lean/actual-source checkpoints under
 [#392](https://github.com/berkeleynerd/silver/issues/392). Its
@@ -221,7 +229,8 @@ trailing underscore. The 74 Ada 2022 reserved words, `String` and `Silver_IO` ar
 excluded ignoring ASCII case. In an argument-bearing shell, `Silver_Arguments` is
 also excluded for **every** declaration. Names in the ordered declaration region must
 be distinct ignoring ASCII case across String, Character, Integer and Boolean objects, named
-Integer subtypes and Integer/Boolean-array declarations. Loop indexes and elements
+Integer subtypes, named Integer-array types, Integer/Boolean-array objects and
+Main-local functions/procedures. Loop indexes and elements
 have the scoped hiding rules below. `Main` is legal; `Silver_Arguments` remains legal
 in the static shell. Every reference matches the entire declared identifier ignoring
 ASCII case. There is no additional identifier-length limit beyond the complete source
@@ -240,6 +249,7 @@ declaration ::= name ":" [ "constant" ] "String" ":=" expression ";"
                 ":=" scalar_expression ";"
               | "subtype" name "is" "Integer" "range"
                 static_scalar_expression ".." static_scalar_expression ";"
+              | integer_array_type | named_integer_array_declaration
               | integer_array_declaration | boolean_array_declaration
               | scalar_function | scalar_procedure
 integer_subtype_mark ::= "Integer" | earlier_named_integer_subtype
@@ -302,8 +312,9 @@ subtype. An optional object-local `range L .. U` further constrains either kind
 of object; without it, the declared range is the range of its subtype mark.
 Both endpoints must fit that range and satisfy `L <= U`. Subtype and object
 range endpoints use the scalar
-expression grammar below, restricted to literals and earlier Ada-static Integer
-constants. Every bound-expression intermediate must fit Integer. Dynamic range
+expression grammar below, restricted to literals, earlier Ada-static Integer
+constants and visible static Integer-array bounds queries. Every bound-expression
+intermediate must fit Integer. Dynamic range
 constraints remain excluded.
 Requiring static endpoints is a current Silver scope restriction, not an Ada
 requirement: Ada permits dynamic object constraints. Admitting those would need
@@ -332,7 +343,7 @@ spelling in the loop body. These rules do not create subtype conversions.
 ```text
 scalar_expression ::= scalar_unsigned | sign scalar_integer_literal
 scalar_unsigned   ::= scalar_integer_literal | scalar_name | scalar_group
-                    | indexed_integer_component
+                    | indexed_integer_component | integer_array_bound_query
 scalar_group      ::= "(" scalar_unsigned ")"
                     | "(" sign scalar_unsigned ")"
                     | "(" scalar_unsigned scalar_operator scalar_unsigned ")"
@@ -343,7 +354,9 @@ sign              ::= "+" | "-"
 Here `scalar_name` denotes a visible initialized Integer object, loop index or loop element.
 Indexed Integer components follow the array rules below. Each scalar expression
 has one through sixty-four operands: literal/name leaves and, for each indexed
-read, one array-name operand plus every operand of its subscript. Binary operations
+read, one array-name operand plus every operand of its subscript. Each Integer-array
+bounds query is one operand and consumes no operator; its synthetic bound arithmetic
+does not consume the user operator budget. Binary operations
 are fully parenthesized; `1 + 2` is excluded and `(1 + 2)` is admitted. A sign
 outside a group can prefix only a numeral: `-1` is admitted, while negating a
 name requires `(-N)`. Signed operands of binary operations need their own
@@ -440,7 +453,8 @@ between different objects.
 
 The type mark used in a declaration must be visible; `Integer` must be visible
 in Integer Image expressions and as the parent of a subtype declaration.
-An Integer object, Integer-array object or subtype cannot itself be named `Integer`. A String object named
+An Integer object, Integer-array object, named Integer-array type or Integer subtype
+cannot itself be named `Integer`. A String object named
 `Integer` remains legal, but hides the type in its own initializer and later
 source. An earlier named subtype remains usable for scalar objects and array
 components when a String object later hides the predefined Integer mark.
@@ -494,7 +508,8 @@ scalar_function ::= "function" name "(" formal { ";" formal } ")"
                     "return" function_type "is" { function_local }
                     "begin" { function_statement }
                     "return" function_result ";" "end" name ";"
-formal          ::= name ":" "in" function_type
+formal          ::= name ":" "in" input_type
+input_type      ::= function_type | earlier_named_integer_array_type
 function_type   ::= integer_subtype_mark | "Boolean"
 function_call   ::= visible_earlier_function "(" scalar_association
                     { "," scalar_association } ")"
@@ -506,6 +521,8 @@ call_assignment ::= mutable_integer_name ":=" function_call ";"
 Each formal has exactly one name, explicit `in` and no default. There is at
 least one formal. Integer marks resolve to visible predefined Integer or an
 earlier named Integer subtype; Boolean resolves to the visible predefined type.
+Array input marks resolve to earlier visible named constrained Integer-array types;
+results remain scalar `function_type`. Mixed scalar/array formal lists are admitted.
 Inline range constraints, zero-formal functions, overloads,
 forward declarations and nested functions are excluded. These are Silver scope
 restrictions. Explicit `in` and single-name formals also preserve the existing
@@ -516,7 +533,9 @@ semicolon. Local objects, formals and loop binders consume disjoint source.
 A function has initialized local Integer/Boolean objects using the existing
 scalar declaration forms; `function_local` admits only those forms. Earlier
 local initializers supply exact values under the ordinary staticness rules.
-Initializers cannot read formals, outer objects or calls. Local range constraints
+Initializers cannot read formals, outer objects or calls. Earlier visible named
+Integer-array type bounds queries remain available; queries on array formals
+become available only at body entry. Local range constraints
 use literals and earlier Ada-static local constants, or earlier named subtype
 marks. Local subtype declarations, Strings, Characters and arrays are excluded.
 The closed local frame keeps this first function increment independent of outer
@@ -525,7 +544,8 @@ elaboration and aggregate state; these exclusions are not Ada requirements.
 `function_statement` admits null, local scalar assignment, call assignment,
 conditionals and counted `for ... in` loops, recursively under the same
 restriction. Conditions use Boolean literals/names, Integer comparisons and
-Boolean logic; String/Character/length/validity predicates are excluded.
+Boolean logic; String/Character/String-length/validity predicates are excluded.
+Integer-array bounds queries remain scalar atoms in Integer comparisons.
 There is exactly one return at the end of the outer function statement list,
 with no early or nested return. Zero preceding statements are allowed.
 `function_result` is an ordinary scalar expression for an Integer result or
@@ -535,12 +555,14 @@ without a separate early-return flow analysis.
 
 A body can read its formals and locals and call already completed functions;
 it cannot read or write outer objects, perform output, acquire/query input or
-Reject. Earlier subtype metadata remains visible. Ordinary case-insensitive name
+Reject. Earlier Integer-subtype and named Integer-array type metadata remains
+visible. Ordinary case-insensitive name
 rules and predefined-name hiding still apply even when an outer object is not
 readable. Main declaration names are distinct across functions and other
 objects/subtypes. Formal and local names are distinct within the function and
-cannot collide with earlier subtype names; this last restriction reuses the
-current subtype environment rather than adding subtype shadowing. Local values
+cannot collide with earlier Integer-subtype or named Integer-array type names.
+This restriction reuses the ordered type environment rather than adding type
+shadowing. Local values
 and loop binders may hide earlier function names, preventing calls through those
 spellings. Each closing function name must match its opening name.
 
@@ -548,7 +570,10 @@ Every body is checked over the full product of its declared formal domains,
 including an unused function. Integer formals enter with their full subtype
 intervals; they are immutable and nonstatic, support bare-name guard refinement,
 and retain entry facts across mutable widening in loops. Boolean formals retain
-no predicate relation. Returned Integer intervals must be nonempty and contained
+no predicate relation. Array formals are read-only and every component read
+contributes the full declared component interval, independent of caller aggregates.
+Their fixed bounds queries are static. Returned Integer intervals must be
+nonempty and contained
 in the declared result subtype, even in unreachable code. Each function becomes
 callable only after its complete body and matching closing name pass admission.
 Earlier-only calls exclude both direct and indirect recursion; finite counted
@@ -559,7 +584,12 @@ scalar Integer/Boolean object of the result kind. It cannot appear in an
 initializer, arithmetic, guard, output/Image, subscript, loop bound, return,
 array-cell assignment or another actual. This restriction keeps calls outside
 the current expression grammar. Integer actuals use existing scalar expressions;
-Boolean actuals use existing conditions in the caller's permitted scope.
+Boolean actuals use existing conditions in the caller's permitted scope. Array
+actuals are bare visible initialized named-array objects or enclosing array `in`
+formals with exactly the same positive declaration identity as the formal type.
+Equal bounds and components do not make distinct declarations interchangeable;
+anonymous arrays cannot be actuals. Read-only repetition and forwarding to an
+earlier function are permitted.
 Actuals use the [scalar association rules](#named-scalar-argument-associations)
 and match every formal exactly once. All are checked
 against the same incoming state, before assignment: Boolean outcomes do not
@@ -592,6 +622,7 @@ scalar_procedure ::= "procedure" name "(" procedure_formal
                      "begin" output_initialization_prefix
                      { procedure_statement } "end" name ";"
 procedure_formal ::= name ":" parameter_mode function_type
+                   | name ":" "in" earlier_named_integer_array_type
 parameter_mode   ::= "in" | "out" | "in" "out"
 procedure_call   ::= visible_earlier_procedure "(" procedure_association
                      { "," procedure_association } ")" ";"
@@ -602,8 +633,10 @@ Each formal has one name, an explicit mode and no default. There is at least one
 formal and at least one `out` or `in out` formal. `function_type` and
 `function_local` reuse the Integer/Boolean and initialized-local rules above.
 There are no inline formal range constraints, overloads, forward declarations,
-nested subprograms, default formals, String/Character/array signatures
-or local subtype declarations. These first-fragment scope restrictions keep the
+nested subprograms, default formals, String/Character signatures, array results
+or writable array formals, or local subtype/array declarations. Array `in`
+formals may mix with scalar formals under the same read-only rules as functions.
+These scope restrictions keep the
 signature, frame and source-capacity rules bounded; they are not Ada rules.
 
 `output_initialization_prefix` consists of exactly one ordinary assignment for
@@ -612,7 +645,8 @@ It is empty when there are no `out` formals; in that case at least one ordinary
 body statement is required, because Ada statement lists are nonempty. No null statement, call, condition,
 loop or assignment to another target may intervene. Each RHS uses the existing
 Integer expression or pure Boolean condition grammar. It can read initialized
-locals and `in`/`in out` formals, but no `out` formal, including one initialized
+locals and `in`/`in out` formals, including checked components and static bounds
+queries of array `in` formals, but no `out` formal, including one initialized
 earlier in this prefix. Function calls are excluded from prefix RHSs. All prefix
 expressions are checked in the same pre-output frame; each Integer result must
 have a nonempty interval contained in its output formal's declared range.
@@ -638,7 +672,8 @@ increment. Earlier-only calls and finite loops establish termination.
 
 Case-insensitive name hiding and distinct-declaration rules apply across
 procedures, functions and other Main declarations. Formal/local names are
-distinct within a procedure and cannot collide with earlier subtype names.
+distinct within a procedure and cannot collide with earlier Integer-subtype or
+named Integer-array type names.
 Unavailable output formals still hide identically named outer objects and
 operations while prefix RHSs are checked. Locals and loop binders can hide
 earlier callable names. Each closing procedure name matches its opening name.
@@ -648,8 +683,12 @@ the declared `in` and `in out` domains; calls cannot narrow that obligation.
 Calls are standalone statements in Main and admitted procedure bodies, including
 branches and finite loops. The [scalar association rules](#named-scalar-argument-associations)
 match every formal exactly once.
-An `in` actual is an ordinary Integer expression or Boolean condition in the
-caller scope. An `out` or `in out` actual is an existing mutable bare scalar name
+A scalar `in` actual is an ordinary Integer expression or Boolean condition in the
+caller scope. An array `in` actual follows the exact positive named-type identity
+and bare object/formal rules above; repetition and forwarding to an earlier
+procedure are permitted. Every array component is checked over its full declared
+domain, including unused procedures. An `out` or `in out` actual is an existing
+mutable bare scalar name
 of the same kind; constants, immutable formals, loop indexes/elements, parenthesized
 names and array components cannot be writable actuals. No call can occur inside
 another actual. These restrictions make the initial copy-back and alias rule
@@ -680,8 +719,9 @@ initialization/copy-back obligations are recorded with the capability evidence.
 
 ### Named scalar argument associations
 
-Calls of the admitted scalar functions and procedures accept fully positional
-actuals, fully named actuals in any order, and a positional prefix followed by
+Calls of the admitted functions and procedures, including mixed scalar/array
+signatures, accept fully positional actuals, fully named actuals in any order,
+and a positional prefix followed by
 a named suffix. A positional actual binds the next formal in declaration order.
 Once a named association appears, every remaining actual must be named. Each
 formal is supplied exactly once; unknown, duplicate or missing selectors are
@@ -781,9 +821,16 @@ application evidence from the retained universal assurance.
 
 ### Fixed-size Integer arrays
 
-The ordered declaration region admits anonymous, one-dimensional arrays:
+The ordered Main declaration region admits named constrained types and initialized
+named or anonymous one-dimensional Integer-array objects:
 
 ```text
+integer_array_type        ::= "type" name "is" "array" "("
+                              static_scalar_expression ".." static_scalar_expression
+                              ")" "of" integer_subtype_mark ";"
+named_integer_array_declaration ::= name ":" [ "constant" ]
+                              earlier_named_integer_array_type
+                              ":=" integer_array_aggregate ";"
 integer_array_declaration ::= name ":" [ "constant" ] "array" "("
                               static_scalar_expression ".." static_scalar_expression
                               ")" "of" integer_subtype_mark ":=" integer_array_aggregate ";"
@@ -799,9 +846,24 @@ productions, omitting the `indexed_integer_component` alternative from
 `scalar_unsigned`.
 
 Both index bounds must be Ada-static, fit Integer and form a nonempty range.
-Each declaration creates its own anonymous Ada array type. Components use the
+Each anonymous object declaration creates its own Ada array type. Components use the
 full predefined Integer range or the range of an earlier visible named Integer
-subtype, according to the component mark. Named array types, inline component constraints,
+subtype, according to the component mark. A named type has its own declaration
+identity; two declarations remain distinct even with identical bounds and
+component marks. A named object uses that type's bounds and component range.
+Unknown, later and wrong-kind type names are rejected. Types may be unused and
+need no object. They share Main's case-insensitive declaration namespace; formals
+and locals cannot collide with an earlier named type, while loop binders may hide
+its spelling. Ordered type metadata remains visible in closed callable bodies
+without exposing Main objects.
+
+Every named type's cardinality is computed in wide arithmetic and must satisfy
+`1 <= H - L + 1 <= 2048`, even for an unused type. Both endpoints retain the full
+signed Integer domain, including negative and non-1 lower bounds. This is an
+explicit per-type Silver scope limit: its ceiling matches the existing maximum
+stored-cell pool and ensures materializable, Integer-valued length. It does not
+charge formal lengths against that pool or impose a collective formal-cell limit.
+Named types of Boolean or Character components, inline component constraints,
 multiple dimensions, null arrays and dynamic index bounds are outside this
 fragment. These are Silver scope restrictions, not Ada requirements.
 
@@ -827,13 +889,17 @@ each uses an expression byte and a distinct comma or closing delimiter, so all
 arrays' components together fit within `floor(source_bytes / 2)`, at most 2048.
 The implementation compares the wide-arithmetic index cardinality with the
 explicit component count before using an element-table offset. This storage
-capacity is derived from source syntax, not an additional array-length policy.
+capacity is derived from source syntax. Named types additionally have the explicit
+per-type cardinality limit above; only initialized objects consume stored cells,
+while read-only formal metadata does not duplicate their components.
 
 A visible array component is an Integer atom wherever ordinary scalar
 expressions occur: later initializers, arithmetic, comparisons, Image, assignment
 values and, for mutable arrays only, counted-loop bounds. A subscript uses the existing scalar grammar with
 array reads excluded; therefore `A((I + 1))` is permitted when its interval is
-safe, but `A(B(I))` is outside this first fragment. Every inferred subscript
+safe, but `A(B(I))` is outside this fragment. Static bounds queries are scalar index atoms,
+so `A(A'First)` is permitted and is not a nested component read. Every inferred
+subscript
 interval must be nonempty and lie inside the declared index range, including
 in unreachable arms and empty loops. This also preserves frontend acceptance:
 the pinned GNAT frontend rejects some out-of-range subscripts even in dead
@@ -857,8 +923,10 @@ Scalar guards can establish a safe index interval, but a comparison of an array
 element does not narrow a later read of that element.
 
 An indexed assignment has the form
-`A(scalar_index_expression) := scalar_expression;`. Only visible mutable arrays can
-be targets. The index passes the same check as a read, and the RHS must have a
+`A(scalar_index_expression) := scalar_expression;`. Only visible mutable Main
+array objects, named or anonymous, can be targets. Array formals and their
+components are immutable. The index passes the same check as a read, and the RHS
+must have a
 nonempty inferred interval contained in the declared component range, with every
 intermediate fitting Integer. Both use
 the incoming state; the assignment replaces precisely the selected component.
@@ -869,9 +937,41 @@ not alter that iteration sequence. Empty loops preserve the entire store.
 
 Array names share declaration uniqueness and operation/type hiding with String
 and Integer names. A scoped loop index or element may hide an array. The new
-binder's name is unavailable in its own bounds or iterable specification. Whole-array values, assignment, copying,
-comparison, slices, concatenation and attributes are not admitted; copying
-components explicitly through checked reads and writes is permitted.
+binder's name is unavailable in its own bounds or iterable specification. Array
+names are not general expressions: whole-array assignment, copying, comparison,
+slices and concatenation are excluded. Whole-array names occur
+only as the selected read-only actual or existing constant-object iterable forms;
+copying components explicitly through checked reads and writes is permitted.
+Subprogram-local array objects, array results and array `out`/`in out` formals
+remain excluded.
+
+### Static Integer-array bounds queries
+
+```text
+integer_array_bound_query ::= integer_array_query_prefix "'" ( "First" | "Last" | "Length" )
+integer_array_range       ::= integer_array_query_prefix "'" "Range"
+```
+
+A prefix is a simple visible named constrained Integer-array type, its initialized
+constant or mutable object, an array `in` formal, or an existing anonymous
+Integer-array object. Ordinary ordered visibility, closed callable frames and
+name hiding apply. Boolean arrays, wrong-kind names, component prefixes, explicit
+dimensions such as `A'First(1)` and other attributes are excluded.
+
+For fixed bounds `L .. H`, `'First` returns `L`, `'Last` returns `H`, and `'Length`
+returns `H - L + 1` computed in wide arithmetic. These scalar queries are Ada-static
+on types, objects and formals, independent of mutability and component values
+(Ada RM 4.9 paragraphs 8 and 32). Each is one operand and zero operators. They
+are scalar atoms in every existing scalar/static expression context, including
+bounds, subscript expressions, singleton aggregate choices, predicates and scalar
+actuals, subject to that context's ordinary checks and visibility.
+
+`'Range` denotes `L .. H` only as a counted-loop range; it is not an Integer
+expression or component read. `for I in [reverse] A'Range` and the type/formal
+variants retain the existing captured bounds, finite iteration, range-mask and
+hiding rules. A binder cannot resolve to its own spelling in its specification.
+Local initializers precede incoming formals: visible type queries may occur there,
+whereas formal queries become available at body entry.
 
 ### Fixed-size Boolean arrays
 
@@ -929,12 +1029,13 @@ array iteration and counted loops can contain Boolean component reads/writes.
 
 ```text
 for_loop ::= "for" index_name "in" [ "reverse" ]
-             scalar_expression ".." scalar_expression "loop"
+             ( scalar_expression ".." scalar_expression | integer_array_range ) "loop"
              statements "end" "loop" ";"
 ```
 
-A counted-loop bound cannot directly read a constant-array component, including
-within a larger arithmetic expression. Mutable-array components, scalar
+A counted-loop bound cannot directly read a constant-array or read-only array
+formal component, including within a larger arithmetic expression. Static
+Integer-array bounds queries remain admitted. Mutable-array components, scalar
 snapshots taken in earlier declarations, and constant-array `for ... of` iteration
 remain admitted under their ordinary rules. This conservative Silver scope
 restriction avoids pinned-frontend and proof-translation failures when constant
@@ -952,7 +1053,8 @@ nested loops, choices, String and Integer assignments, output and argument-shell
 The index is immutable and disappears on loop exit. Declarations stay before the executable body of Main or its function; `exit`, `while`, unconstrained loops and
 explicit iteration steps are excluded.
 
-Indexes may hide a String, an Integer or Boolean object, an Integer or Boolean array, an enclosing index, an enclosing
+Indexes may hide a String, an Integer or Boolean object, an Integer or Boolean array,
+a named type or formal, an enclosing index, an enclosing
 element or a use-visible operation. The index's own name is hidden in both bounds: an inner
 `for I in 1 .. I` cannot use the outer `I`. Differently named enclosing indexes and elements
 remain available, as in `for J in 1 .. I`. Sequential loops may reuse names.
@@ -998,8 +1100,8 @@ array_iteration ::= "for" element_name "of" [ "reverse" ]
                     statements "end" "loop" ";"
 ```
 
-The iterable is one visible, existing constant Integer-array object from the
-declaration region. The loop visits every component once, in increasing index
+The iterable is one visible, existing named or anonymous constant Integer-array
+object from the Main declaration region. The loop visits every component once, in increasing index
 order, or decreasing index order with `reverse`. Its identity and bounds are
 selected once on entry. The element denotes the actual component under Ada's
 iterator semantics; the array is constant and no admitted operation can change
@@ -1461,11 +1563,12 @@ The catalogue uses these construct identifiers:
 | `string_indexing`, `string_element_assignment`, `string_slice` | Fixed-bound String reads, element writes and bounded slices, with nonempty inferred index/endpoint intervals, actual lower bounds and explicit null-slice rules. |
 | `scalar_integer_literal`, `named_integer_constant`, `named_integer_variable`, `integer_range_constraint`, `integer_expression`, `integer_assignment` | Scalar numerals, initialized Integer objects, optional static object constraints, checked interval arithmetic and range-preserving assignments. |
 | `named_integer_subtype` | Direct Integer subtype declarations with nonempty static ranges, scalar object subtype marks and bounded fixed-array component marks. |
-| `integer_array_object`, `integer_array_read`, `integer_array_assignment` | Explicitly initialized anonymous fixed-size Integer arrays, nonempty interval-checked subscripts and component-preserving indexed assignment. |
+| `named_integer_array_type`, `integer_array_object`, `integer_array_read`, `integer_array_assignment` | Named constrained Integer-array types, explicitly initialized named/anonymous fixed-size objects, read-only formal component reads, checked subscripts and mutable Main component assignment. |
+| `integer_array_bound_query`, `integer_array_range` | Static First/Last/Length on visible fixed Integer-array types, objects and formals, and Range counted loops; Boolean arrays and explicit dimensions excluded. |
 | `boolean_array_object`, `boolean_array_read`, `boolean_array_assignment` | Explicitly initialized fixed-size Boolean arrays, typed indexed reads and mutable cell writes; stored flags retain no scalar or String/input facts. |
 | `integer_array_iteration` | Forward/reverse iteration over constant Integer arrays, with immutable nonstatic elements, declared component entry bounds and existing guard/statement compositions. |
-| `scalar_function`, `scalar_function_call` | Closed Integer/Boolean functions with explicit-in formals, terminal return, earlier-only calls and whole scalar assignment RHS calls. |
-| `scalar_procedure`, `scalar_procedure_call` | Closed Integer/Boolean procedures with explicit modes, leading output initialization, earlier-only calls, positional/named nonaliasing scalar actuals and range-checked copy-back. |
+| `scalar_function`, `scalar_function_call` | Closed scalar-result functions with Integer/Boolean and read-only named Integer-array inputs, terminal return, earlier-only calls and whole scalar assignment RHS calls. |
+| `scalar_procedure`, `scalar_procedure_call` | Closed procedures with scalar modes and read-only named Integer-array inputs, leading scalar output initialization, earlier-only positional/named/mixed calls, nonaliasing writable scalar actuals and range-checked copy-back. |
 | `named_boolean_constant`, `named_boolean_variable`, `boolean_assignment`, `boolean_expression`, `boolean_comparison` | Initialized scalar Boolean objects, snapshot copies, assignment, logical expressions and Boolean equality/inequality under the visibility, evaluation and xor restrictions above; stored flags retain no scalar or String/input facts. |
 | `integer_comparison`, `scalar_guard_refinement`, `integer_image`, `for_loop` | Bare mutable/formal/index/element names against static thresholds, current read intervals with assignment replacement and branch hulls, standard decimal Image and scoped finite loops with captured bounds and mutable widening. |
 | `expression_output`, `literal_output`, `named_output`, `concatenated_output` | Returning output calls with qualified or visible unqualified names and positional or `Item =>` actuals. |
