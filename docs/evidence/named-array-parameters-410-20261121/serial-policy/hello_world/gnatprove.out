@@ -1,0 +1,56 @@
+=========================
+Summary of SPARK analysis
+=========================
+
+---------------------------------------------------------------------------------------------------
+SPARK Analysis results        Total        Flow                      Provers   Justified   Unproved
+---------------------------------------------------------------------------------------------------
+Data Dependencies                 5           5                            .           .          .
+Flow Dependencies                 .           .                            .           .          .
+Initialization                   10          10                            .           .          .
+Non-Aliasing                      .           .                            .           .          .
+Run-time Checks                  34           .                    34 (CVC5)           .          .
+Assertions                        8           .                     8 (CVC5)           .          .
+Functional Contracts              5           .    5 (CVC5 90%, Trivial 10%)           .          .
+LSP Verification                  .           .                            .           .          .
+Termination                       4           4                            .           .          .
+Concurrency                       .           .                            .           .          .
+---------------------------------------------------------------------------------------------------
+Total                            66    19 (29%)                     47 (71%)           .          .
+
+
+max steps used for successful proof: 297
+
+============================
+Most difficult proved checks
+============================
+
+No check found with max time greater than 1 second
+
+========================
+Detailed analysis report
+========================
+
+Analyzed 5 units
+in unit main~1, 1 subprograms and packages out of 1 analyzed
+  Main at main.adb:2 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (0 checks)
+in unit silver_arguments, 5 subprograms and packages out of 5 analyzed
+  Silver_Arguments at silver_arguments.ads:4 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (0 checks)
+  Silver_Arguments.First_Or_Default at silver_arguments.ads:13 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (9 checks)
+  Silver_Arguments.Input_Is_Valid at silver_arguments.ads:9 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (1 checks)
+  Silver_Arguments.Is_Message at silver_arguments.adb:5 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (1 checks)
+  Silver_Arguments.Reject at silver_arguments.ads:21 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (0 checks)
+in unit silver_io, 3 subprograms and packages out of 3 analyzed
+  Silver_IO at silver_io.ads:2 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (0 checks)
+  Silver_IO.Put at silver_io.ads:29 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (16 checks)
+  Silver_IO.Put_Line at silver_io.ads:18 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (20 checks)
+in unit silver_output_libc, 1 subprograms and packages out of 4 analyzed
+  Silver_Output_Libc at silver_output_libc.ads:4 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (0 checks)
+  Silver_Output_Libc.Flush at silver_output_libc.ads:15 skipped; body is SPARK_Mode => Off
+  Silver_Output_Libc.Put_Byte at silver_output_libc.ads:10 skipped; body is SPARK_Mode => Off
+  Silver_Output_Libc.Set_Exit_Status at silver_output_libc.ads:22 skipped; body is SPARK_Mode => Off
+in unit silver_runtime, 1 subprograms and packages out of 4 analyzed
+  Silver_Runtime at silver_runtime.ads:3 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (0 checks)
+  Silver_Runtime.Argument at silver_runtime.ads:15 skipped; body is SPARK_Mode => Off
+  Silver_Runtime.Argument_Count at silver_runtime.ads:10 skipped; body is SPARK_Mode => Off
+  Silver_Runtime.Set_Exit_Status at silver_runtime.ads:21 skipped; body is SPARK_Mode => Off

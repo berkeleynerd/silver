@@ -76,8 +76,8 @@ review remain required. No completed support is claimed here. The prepared preci
 unconstrained arrays and writable array parameters unsupported. Its supported
 promotion, final render and stage bookkeeping wait for that shared checkpoint;
 no issue is closed by this preparation.
-The pending render places this precise construct and its two drivers in generated
-Stage 38, while milestone 27 remains the owner-selected coherent batch. These
+[Stage issue #415](https://github.com/berkeleynerd/silver/issues/415) tracks
+this precise construct and its two drivers in generated Stage 38, while milestone 27 remains the owner-selected coherent batch. These
 stage numbers are generated positions, not authorization or delivery units.
 No provisional successor is selected. Deferred #381/#382 and #398 remain outside
 this queue; PR #385 stays held and Worca remains stopped.

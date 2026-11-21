@@ -1,0 +1,19 @@
+# Serial application proof review
+
+The review covers the Linux x86_64 application proof started at 19:16:55.58 UTC on 2026-11-21 in `program-7GdkTj`. The source has SHA256 `3dfeee525b935212f90c161d4eadc87ac1707aa1f33f347bcc008b2ef75ffbae`. The 1,800-second regression had already failed when this investigation began. The compiler parent had exited, and the managed observation retained the original proof processes.
+
+## Pinned scheduler
+
+GNATprove passes the requested positive worker count to both its Why3 server and gnatwhy3. Its explicit timeout, normalized step allowance and configured portfolio flow through separately. [GNATprove configuration](https://github.com/AdaCore/spark2014/blob/42554fc241fcd1fdf08d3a2feccb3f86912acbc0/src/gnatprove/configuration.adb#L2058) · [gnatwhy3 arguments](https://github.com/AdaCore/spark2014/blob/42554fc241fcd1fdf08d3a2feccb3f86912acbc0/src/gnatprove/configuration.adb#L3177) · [Why3 server worker count](https://github.com/AdaCore/spark2014/blob/42554fc241fcd1fdf08d3a2feccb3f86912acbc0/src/gnatprove/gnatprove.adb#L950)
+
+The Why3 driver takes one initial goal per registered check. With more than one worker it schedules all three configured solvers on an ordinary goal and interrupts the remaining attempts on a valid result. With one worker and a fresh session it chooses the first untried solver, in configured order. An unsuccessful attempt requeues the goal for another solver. A check can also have another outstanding goal. The main Why3 session is normally serialized at the end. [Initial goals](https://github.com/AdaCore/why3/blob/9390baf120ef260547dfa14f08e11c890b203d9c/src/gnat/gnat_main.ml#L311) · [Single goal per check](https://github.com/AdaCore/why3/blob/9390baf120ef260547dfa14f08e11c890b203d9c/src/gnat/gnat_checks.ml#L272) · [Serial and parallel routes](https://github.com/AdaCore/why3/blob/9390baf120ef260547dfa14f08e11c890b203d9c/src/gnat/gnat_checks.ml#L1049) · [Serial selection](https://github.com/AdaCore/why3/blob/9390baf120ef260547dfa14f08e11c890b203d9c/src/gnat/gnat_checks.ml#L714) · [Result handling](https://github.com/AdaCore/why3/blob/9390baf120ef260547dfa14f08e11c890b203d9c/src/gnat/gnat_checks.ml#L598) · [Session write](https://github.com/AdaCore/why3/blob/9390baf120ef260547dfa14f08e11c890b203d9c/src/gnat/gnat_main.ml#L270)
+
+At 20:05:58 UTC the Why3 server on CPUs 0–1 had one CVC5 child. That child had consumed 138.35 CPU seconds on one goal. Of 63 matching Main task files, 13 CVC5 files remained from the first batch created at 19:17:05–06, 12 further CVC5 files had appeared, and 38 files identified the Z3 input driver. Direct process observations had already shown different active CVC5 PIDs and input files. File counts describe prepared tasks at the sampling time. An intermediate queue count does not give a completion deadline. [Time-stamped observations](serial-task-observations.jsonl)
+
+## Sample regression review
+
+Commit `4582003a5f` retains the exact ordered three-prover command and every effective declaration and per-attempt step, time and memory check. All selected-unit, source identity, binary and output checks still follow the sample policy check. The earlier parallel all-three observation is now appropriately dated. The original four failing samples supplied confirmed complete five-unit report audits and 116 valid CVC5 attempts apiece. [Retained samples](manifest-snapshot.json)
+
+A Why3 proof node may contain `<undone/>` when it has no result. Counting every external `<proof>` entry can therefore accept zero completed external attempts. Count a nontrivial entry with a `<result>` toward the nonempty requirement while still checking every entry's limits. The lead received this finding. [Pinned serializer](https://github.com/AdaCore/why3/blob/9390baf120ef260547dfa14f08e11c890b203d9c/src/session/session_itp.ml#L2075)
+
+Astra Max was selected for this review. Runtime model and effort were unavailable for independent verification.

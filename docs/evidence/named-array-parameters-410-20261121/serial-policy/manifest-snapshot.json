@@ -1,0 +1,215 @@
+{
+  "observed_utc": "2026-11-21T19:56:28.621055+00:00",
+  "task": "410",
+  "run": "20261121T195239-ff7d003f92b0",
+  "sources": {
+    "tests/test_samples.py": "6f5472bcd863419ce7c017299732b502444f8d5089370f6ebf2789ffac6ccb98",
+    "src/silver.adb": "6c41092ca036458f65f7752284fb8c58f74afb475bad8991a5de4f9d6da1c167",
+    "scripts/check_evidence.py": "686cdf2c9aa3cce6d843db86e8c4d814ec1da381ae7a2530ff26e8734e396fb7",
+    ".silver/linux-x86_64/compiler/bin/silver": "b431035c17eb7092eff04de3dcbbbceec1354be394a41a8125008ef2977217ee"
+  },
+  "manifests": [
+    {
+      "sample": "null.adb",
+      "workspace": "program-JqR2BT",
+      "source_sha256": "7b448e583d98d9f037b90d1379fe6afa1a16a93be16a7270c85aed30161a5021",
+      "byte_identical_source": true,
+      "binary_published": true,
+      "sarif_sha256": "4c1928f7e17398e51efe50c77cf83a61da37620de25f04cb60d81b0239c9df51",
+      "command": "gnatprove -P /home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-native-410/.silver/linux-x86_64/program-JqR2BT/program.gpr -U --mode=all --report=all --warnings=error --checks-as-errors=on --level=2 --prover=cvc5,z3,altergo --steps=100000 --timeout=0 --memlimit=1000 -j1 --no-loop-unrolling",
+      "exit_code": 0,
+      "execution_successful": true,
+      "sessions": 0,
+      "declared_limits_time_steps_memory": {},
+      "proof_attempts": {},
+      "audited_existing_reports": {
+        "units": 1,
+        "entities": 1,
+        "flow_checks": 0,
+        "proof_checks": 0,
+        "limitation_notes": 0,
+        "imported_entities": 0,
+        "trusted_math_notes": 0,
+        "vendor_spec_entities": 0,
+        "array_initialization_advisories": 0,
+        "operator_reassociation_advisories": 0
+      }
+    },
+    {
+      "sample": "hello_world.adb",
+      "workspace": "program-sQkuyv",
+      "source_sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7",
+      "byte_identical_source": true,
+      "binary_published": true,
+      "sarif_sha256": "f5354c2f1f952c4c53da62d4a7696a1eef7c1f4189234f92100bbd053f0b20c3",
+      "command": "gnatprove -P /home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-native-410/.silver/linux-x86_64/program-sQkuyv/program.gpr -U --mode=all --report=all --warnings=continue --checks-as-errors=on --level=2 --prover=cvc5,z3,altergo --steps=100000 --timeout=0 --memlimit=1000 -j1 --no-loop-unrolling",
+      "exit_code": 0,
+      "execution_successful": true,
+      "sessions": 5,
+      "declared_limits_time_steps_memory": {
+        "CVC5": [
+          "0",
+          "3515000",
+          "1000"
+        ],
+        "Trivial": [
+          "1",
+          "1",
+          "1000"
+        ]
+      },
+      "proof_attempts": {
+        "CVC5_valid": 116,
+        "Trivial_valid": 40
+      },
+      "audited_existing_reports": {
+        "units": 5,
+        "entities": 17,
+        "flow_checks": 19,
+        "proof_checks": 47,
+        "limitation_notes": 0,
+        "imported_entities": 6,
+        "trusted_math_notes": 0,
+        "vendor_spec_entities": 0,
+        "array_initialization_advisories": 0,
+        "operator_reassociation_advisories": 0,
+        "assignment_advisories": 0,
+        "image_advisories": 0,
+        "termination_checks": 0,
+        "initialization_checks": 0
+      }
+    },
+    {
+      "sample": "string_constant.adb",
+      "workspace": "program-bqRu0n",
+      "source_sha256": "3267618ba45aa0bb434491114d576fc9afa617f2fa04512aabafa617bb30fb27",
+      "byte_identical_source": true,
+      "binary_published": true,
+      "sarif_sha256": "10cf916bd1c48923faf974f6aeb4141b7dc7a658eabcbd872ba9f12c55a260ec",
+      "command": "gnatprove -P /home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-native-410/.silver/linux-x86_64/program-bqRu0n/program.gpr -U --mode=all --report=all --warnings=continue --checks-as-errors=on --level=2 --prover=cvc5,z3,altergo --steps=100000 --timeout=0 --memlimit=1000 -j1 --no-loop-unrolling",
+      "exit_code": 0,
+      "execution_successful": true,
+      "sessions": 5,
+      "declared_limits_time_steps_memory": {
+        "CVC5": [
+          "0",
+          "3515000",
+          "1000"
+        ],
+        "Trivial": [
+          "1",
+          "1",
+          "1000"
+        ]
+      },
+      "proof_attempts": {
+        "CVC5_valid": 116,
+        "Trivial_valid": 40
+      },
+      "audited_existing_reports": {
+        "units": 5,
+        "entities": 17,
+        "flow_checks": 19,
+        "proof_checks": 47,
+        "limitation_notes": 0,
+        "imported_entities": 6,
+        "trusted_math_notes": 0,
+        "vendor_spec_entities": 0,
+        "array_initialization_advisories": 0,
+        "operator_reassociation_advisories": 0,
+        "assignment_advisories": 0,
+        "image_advisories": 0,
+        "termination_checks": 0,
+        "initialization_checks": 0
+      }
+    },
+    {
+      "sample": "command_line.adb",
+      "workspace": "program-2EaWuN",
+      "source_sha256": "aa229af532709f3bc43706c6fae87b4f89a7bb6ccb072fcc8a64d68a7e568a37",
+      "byte_identical_source": true,
+      "binary_published": true,
+      "sarif_sha256": "cfbca615441309dfab2820d41b55195a5265d1004daab32dbe9a58d9a967288e",
+      "command": "gnatprove -P /home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-native-410/.silver/linux-x86_64/program-2EaWuN/program.gpr -U --mode=all --report=all --warnings=continue --checks-as-errors=on --level=2 --prover=cvc5,z3,altergo --steps=100000 --timeout=0 --memlimit=1000 -j1 --no-loop-unrolling",
+      "exit_code": 0,
+      "execution_successful": true,
+      "sessions": 5,
+      "declared_limits_time_steps_memory": {
+        "CVC5": [
+          "0",
+          "3515000",
+          "1000"
+        ],
+        "Trivial": [
+          "1",
+          "1",
+          "1000"
+        ]
+      },
+      "proof_attempts": {
+        "CVC5_valid": 116,
+        "Trivial_valid": 40
+      },
+      "audited_existing_reports": {
+        "units": 5,
+        "entities": 17,
+        "flow_checks": 19,
+        "proof_checks": 47,
+        "limitation_notes": 0,
+        "imported_entities": 6,
+        "trusted_math_notes": 0,
+        "vendor_spec_entities": 0,
+        "array_initialization_advisories": 0,
+        "operator_reassociation_advisories": 0,
+        "assignment_advisories": 0,
+        "image_advisories": 0,
+        "termination_checks": 0,
+        "initialization_checks": 0
+      }
+    },
+    {
+      "sample": "greeting.adb",
+      "workspace": "program-QftvsZ",
+      "source_sha256": "d3fb022832ddb728003e0bb7977f8e65be24f6169413b96b1d0743471b04dd83",
+      "byte_identical_source": true,
+      "binary_published": true,
+      "sarif_sha256": "2776d5b05ff8aa1afaadaec93739538846bc42605d3438d16bc7574ff763da62",
+      "command": "gnatprove -P /home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-native-410/.silver/linux-x86_64/program-QftvsZ/program.gpr -U --mode=all --report=all --warnings=continue --checks-as-errors=on --level=2 --prover=cvc5,z3,altergo --steps=100000 --timeout=0 --memlimit=1000 -j1 --no-loop-unrolling",
+      "exit_code": 0,
+      "execution_successful": true,
+      "sessions": 5,
+      "declared_limits_time_steps_memory": {
+        "CVC5": [
+          "0",
+          "3515000",
+          "1000"
+        ],
+        "Trivial": [
+          "1",
+          "1",
+          "1000"
+        ]
+      },
+      "proof_attempts": {
+        "CVC5_valid": 116,
+        "Trivial_valid": 40
+      },
+      "audited_existing_reports": {
+        "units": 5,
+        "entities": 17,
+        "flow_checks": 19,
+        "proof_checks": 47,
+        "limitation_notes": 0,
+        "imported_entities": 6,
+        "trusted_math_notes": 0,
+        "vendor_spec_entities": 0,
+        "array_initialization_advisories": 0,
+        "operator_reassociation_advisories": 0,
+        "assignment_advisories": 0,
+        "image_advisories": 0,
+        "termination_checks": 0,
+        "initialization_checks": 0
+      }
+    }
+  ]
+}

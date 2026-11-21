@@ -476,3 +476,28 @@ failed. The single test's harness deadline was increased to 1,800 seconds to all
 serial solver attempts; production solver steps, timeout and proof requirements
 are unchanged. The discriminating rerun and final regression accounting remain
 pending. Successful partial batches do not establish complete feature assurance.
+
+## Source review and serial regression continuation — 2026-11-21 20:27 UTC
+
+The first delivery source review found [#414](https://github.com/berkeleynerd/silver/issues/414):
+new Compose array imports and the two Boolean wrapper predicate records must
+consume source-derived helper meanings, including their nested callable paths.
+The array-import module passed a focused 25,031-declaration audit in
+`20261121T201800-abfe1344ac75`; Boolean wrapper/callable integration and the
+complete checkpoint remain pending. This is required source correspondence,
+not deferred hardening. No native source changed after the successful complete
+19,994-check audit.
+
+The [serial policy evidence](evidence/named-array-parameters-410-20261121/serial-policy/README.md)
+records the manifest assertion correction, its positive/negative controls,
+the passing 92-sample run and the separate unresolved maximal-expression
+regression. The independent applicability review requires a fresh final full
+suite; the current inventory has 784 unittest identities. No complete Lean or
+final regression success is claimed.
+
+[Stage issue #415](https://github.com/berkeleynerd/silver/issues/415) tracks only
+`named-integer-array-parameters` and its two faithful drivers. It is In progress
+at unpromoted Stage 38; broad arrays #12 stays open. Supported promotion waits
+for the shared assurance/regression/review checkpoint. Board #414 is In progress;
+#413 is In review with its measured stack evidence retained. PR #412 remains
+draft and has no merge authorization.
