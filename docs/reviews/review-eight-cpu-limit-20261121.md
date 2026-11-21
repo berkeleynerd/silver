@@ -37,3 +37,9 @@ pause, rebuild the driver, rerun affected application regressions including the
 final inputs. Normal cache reuse remains available. The current long runs cover
 their original frozen inputs, with the live resource adjustment recorded separately.
 The post-reboot eight-CPU detection check remains pending.
+
+Follow-up after restart, 2026-11-21: the linked host evidence now records eight
+detected CPUs and affinity/effective cpuset 0–7. The rebuilt driver and corrected
+complete native audit passed; the serial maximal-expression regression and
+complete Lean/source checkpoint remain pending. This follow-up records subsequent
+validation and does not extend the original review's scope.

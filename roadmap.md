@@ -66,10 +66,12 @@ and [two-task fidelity assessment](rosetta/assessment-named-array-parameters-202
 The native review resolves the measured 16 MiB invoking-shell stack prerequisite;
 27 audited focused gates and the sample/source-limit routes are scoped evidence.
 The seventeen supplemental direct-caller gates also passed; their current-input
-comparison is retained in the capability record. The first complete native run proved 19,994 checks but failed its final audit
-on an operator-reassociation warning. The grouped Length calculation has since
-passed its focused native audit; a complete corrected audit, Lean/source integration,
-final regression coverage and independent delivery review remain required. No completed support is claimed here. The prepared precise Rosetta construct
+comparison is retained in the capability record. The first complete native run
+proved 19,994 checks but failed its final audit on an operator-reassociation
+warning. The grouped Length calculation passed its focused check and the
+[corrected complete native audit](docs/evidence/named-array-parameters-410-20261121/final-native/README.md).
+Lean/source integration, final regression coverage and independent delivery
+review remain required. No completed support is claimed here. The prepared precise Rosetta construct
 `named-integer-array-parameters` groups both drivers while leaving broad arrays,
 unconstrained arrays and writable array parameters unsupported. Its supported
 promotion, final render and stage bookkeeping wait for that shared checkpoint;
