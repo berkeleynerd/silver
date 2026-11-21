@@ -74,6 +74,27 @@ class ArrayParameterTests(unittest.TestCase):
                 self.check(program(declaration, b'null;'), 2)
         self.check(program(VECTOR + b'A:constant Vector:=(0,0,0);', b'A(0):=1;'), 2)
 
+    def test_bounds_queries_compose_with_boolean_and_string_initializers(self) -> None:
+        declarations = (
+            b'type T is array(1..2)of Integer;'
+            b'function Size(Data:in T)return Integer is '
+            b"Good:Boolean:=Data'Length=2;R:Integer:=0;"
+            b"begin if Good then R:=Data'Length;end if;return R;end Size;"
+            b'procedure Copy_Size(Data:in T;Result:out Integer)is '
+            b"Good:Boolean:=Data'Length=2;"
+            b"begin Result:=0;if Good then Result:=Data'Length;end if;end Copy_Size;"
+            b'A:T:=(3,4);'
+            b"Good:Boolean:=T'Length=2;"
+            b"Flags:array(1..1)of Boolean:=(1=>T'Length=2);"
+            b"S:String:=Integer'Image(A(A'First));C:Character:=S(2);"
+            b'R:Integer:=0;')
+        body = (b"if Good and then Flags(1) and then C='3' then "
+                + output(b'S') + b'R:=Size(A);' + output(b"Integer'Image(R)")
+                + b'Copy_Size(A,R);' + output(b"Integer'Image(R)") + b'end if;')
+        self.check_full_route(program(declarations, body), kind='assigned',
+                              functions=('Size',), procedures={'Copy_Size': ('Result',)},
+                              runs=(((), b' 3\n 2\n 2\n', 0),))
+
     def test_function_named_mixed_repeated_and_forwarded_array_actuals(self) -> None:
         declarations = (
             VECTOR
