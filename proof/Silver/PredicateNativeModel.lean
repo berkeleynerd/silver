@@ -47,9 +47,11 @@ def modelCalls : Calls where
   callAfter := fun text names position operation scalarNames arrays hidden booleans => Compose.callAfter text names position operation scalarNames arrays hidden booleans
   equalName := Named.equalName
   nameIs := fun text first after word => Named.nameIs text first after (word.toList.map Char.toNat)
-  arrayLookup := ArrayBindings.lookup
+  arrayLookup := fun text names => ArrayBindings.lookup text names.items
+  arrayTypeLookup := ArrayBindings.lookupType
   arrayContains := ArrayBindings.contains
-  scalarIndex := fun text position names first after => ScalarExpression.read text position names first after
+  scalarIndex := fun text position names first after arrays mode =>
+    ScalarExpression.ArrayGrammar.read text position names arrays first after (arrayReads := mode)
   booleanArray := fun text context position facts => booleanArrayAfter text context.model position facts
   booleanLookup := BooleanBindings.lookup
   booleanAtom := fun text context position => booleanAtomAfter text context.model position
@@ -60,7 +62,7 @@ def modelCalls : Calls where
   nameAfter := Compose.nameAfter
   lookup := lookupName
   scalarLookup := ScalarExpression.lookup
-  scalarRead := fun text position names => ScalarExpression.read text position names
+  scalarRead := fun text position names => ScalarExpression.ArrayGrammar.read text position names {}
   scalarInFlow := fun text context position facts initials => readScalarInFlow text context.model position facts (initials := initials)
   stringInFlow := fun text context position facts initials => readStringInFlow text context.model position facts initials
   scalarCondition := fun text context position rightPosition facts left right operator =>
@@ -158,7 +160,7 @@ theorem model_primary_equation (text : Source) (context : Context) (position : N
         (model_fixed_advances text position "(" false bounded (by decide) found)
       simp [found, advanced]
     · simp only [found, ↓reduceIte]
-      simp [Context.model, ParseContext.validityHidden]
+      simp [Context.model, ParseContext.validityHidden, ParseContext.arrayTable, Context.arrayTable]
 
 theorem model_booleanFactor_equation (text : Source) (context : Context) (position : Nat)
     (facts : ActiveFlow) (initials : ArrayBindings.Initials) (bounded : position ≤ text.length + 1) :

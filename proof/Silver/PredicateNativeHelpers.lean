@@ -2,7 +2,7 @@ module
 
 public import Silver.PredicateNativeModelSizing
 public import Silver.PredicateNativeWorkers
-public import Silver.ScalarExpressionNativeTypes
+public import Silver.ScalarExpressionNativeTableRecursion
 
 @[expose] public section
 namespace Silver.Predicate.Native
@@ -21,7 +21,7 @@ structure HelperMeaning (calls : Calls) : Prop where
     calls.readingNames context facts = context.model.readingNames facts
   characterAt : ∀ text, ValidText text → ∀ position names scalarNames arrays initials elaborating,
     position ≤ text.length + 1 → NativeNames text names →
-    ScalarExpression.ValidEnvironment text scalarNames → ArrayBindings.ValidMetadata text arrays →
+    ScalarExpression.ValidEnvironment text scalarNames → ArrayBindings.ValidTable text arrays →
     ArrayBindings.ValidInitials initials →
     calls.characterAt text position names scalarNames arrays initials elaborating =
       Compose.characterAt text position names scalarNames arrays initials elaborating
@@ -35,21 +35,24 @@ structure HelperMeaning (calls : Calls) : Prop where
     Compose.Expressions.ValidName text first after → 0 < word.toList.length → word.toList.length ≤ 16 →
     calls.nameIs text first after word = Named.nameIs text first after (word.toList.map Char.toNat)
   arrayLookup : ∀ text, ValidText text → ∀ names first after,
-    ArrayBindings.ValidMetadata text names → first ≤ text.length + 1 → after ≤ text.length + 1 →
-    calls.arrayLookup text names first after = ArrayBindings.lookup text names first after
+    ArrayBindings.ValidTable text names → first ≤ text.length + 1 → after ≤ text.length + 1 →
+    calls.arrayLookup text names first after = ArrayBindings.lookup text names.items first after
+  arrayTypeLookup : ∀ text, ValidText text → ∀ types first after,
+    ArrayBindings.ValidTypes text types → first ≤ text.length + 1 → after ≤ text.length + 1 →
+    calls.arrayTypeLookup text types first after = ArrayBindings.lookupType text types first after
   arrayContains : ∀ item indices, ArrayBindings.Native.BindingType item → indices.Bounded →
     calls.arrayContains item indices = ArrayBindings.contains item indices
-  scalarIndex : ∀ text, ValidText text → ∀ position names maskFirst maskAfter,
+  scalarIndex : ∀ text, ValidText text → ∀ position names maskFirst maskAfter arrays mode,
     position ≤ text.length + 1 → ScalarExpression.ValidEnvironment text names →
-    ScalarExpression.ValidMask text maskFirst maskAfter →
-    calls.scalarIndex text position names maskFirst maskAfter =
-      ScalarExpression.read text position names maskFirst maskAfter
+    ScalarExpression.ValidMask text maskFirst maskAfter → ArrayBindings.ValidTable text arrays →
+    calls.scalarIndex text position names maskFirst maskAfter arrays mode =
+      ScalarExpression.ArrayGrammar.read text position names arrays maskFirst maskAfter (arrayReads := mode)
   booleanLookup : ∀ text, ValidText text → ∀ names first after,
     BooleanBindings.ValidEnvironment text names → first ≤ text.length + 1 → after ≤ text.length + 1 →
     calls.booleanLookup text names first after = BooleanBindings.lookup text names first after
   callAfter : ∀ text, ValidText text → ∀ names position operation scalarNames arrays hidden booleans,
     NativeNames text names → ScalarExpression.ValidEnvironment text scalarNames →
-    ArrayBindings.ValidMetadata text arrays → BooleanBindings.ValidEnvironment text booleans → position ≤ text.length + 1 →
+    ArrayBindings.ValidTable text arrays → BooleanBindings.ValidEnvironment text booleans → position ≤ text.length + 1 →
     calls.callAfter text names position operation scalarNames arrays hidden booleans = Compose.callAfter text names position operation scalarNames arrays hidden booleans
   take : ∀ text, ValidText text → ∀ position token, position ≤ text.length + 1 →
     calls.take text position token = takeModel text position token
@@ -65,7 +68,7 @@ structure HelperMeaning (calls : Calls) : Prop where
     calls.scalarLookup text names first after = ScalarExpression.lookup text names first after
   scalarRead : ∀ text, ValidText text → ∀ position names, position ≤ text.length + 1 →
     ScalarExpression.ValidEnvironment text names →
-    calls.scalarRead text position names = ScalarExpression.read text position names
+    calls.scalarRead text position names = ScalarExpression.ArrayGrammar.read text position names {}
   scalarInFlow : ∀ text, ValidText text → ∀ context, ValidContext text context →
     ∀ position facts, position ≤ text.length + 1 → ValidFlow context facts →
     ∀ initials, ArrayBindings.ValidInitials initials →
@@ -201,18 +204,18 @@ theorem character_meaning (text : Source) (tv : ValidText text)
   rw [helpers.readingNames text tv context cv facts fv]
   have overlayValid : ScalarExpression.ValidEnvironment text (context.model.readingNames facts) :=
     ScalarMetadata.readingNames_valid cv.2.2.1 fv.2.compatible.count fv.2.bounded
-  rw [helpers.characterAt text tv position context.names _ context.arrayNames initials context.elaborating
+  rw [helpers.characterAt text tv position context.names _ context.arrayTable initials context.elaborating
     bounded cv.nativeNames overlayValid cv.arrays iv]
   have leftBound : (Compose.characterAt text position context.names (context.model.readingNames facts)
-      context.arrayNames initials context.elaborating).after ≤ text.length + 1 := by
+      context.arrayTable initials context.elaborating).after ≤ text.length + 1 := by
     by_cases zero : (Compose.characterAt text position context.names (context.model.readingNames facts)
-        context.arrayNames initials context.elaborating).after = 0
+        context.arrayTable initials context.elaborating).after = 0
     · simp only [zero]; omega
     · obtain ⟨expression, parsed⟩ := Compose.character_sound position zero
       exact Compose.character_after_bounded parsed
   rw [comparison_meaning helpers defs text tv _ leftBound]
   have operatorBound := Predicate.comparison_bound text _ leftBound
-  rw [helpers.characterAt text tv _ context.names _ context.arrayNames initials context.elaborating
+  rw [helpers.characterAt text tv _ context.names _ context.arrayTable initials context.elaborating
     operatorBound cv.nativeNames overlayValid cv.arrays iv]
   rfl
 
@@ -263,7 +266,7 @@ theorem booleanArray_meaning (text : Source) (tv : ValidText text)
   have firstBound := model_skip_valid text position bounded
   rw [helpers.name text tv _ firstBound]
   have afterBound := model_name_valid text (skipAt text position)
-  rw [helpers.arrayLookup text tv context.arrayNames _ _ cv.arrays firstBound afterBound,
+  rw [helpers.arrayLookup text tv context.arrayTable _ _ cv.arrays firstBound afterBound,
     helpers.take text tv _ .leftParenthesis afterBound,
     helpers.readingNames text tv context cv facts fv]
   rw [show takeModel text (nameAfter text (skipAt text position)) .leftParenthesis =
@@ -271,34 +274,31 @@ theorem booleanArray_meaning (text : Source) (tv : ValidText text)
   have indexStart := model_fixed_valid text _ "(" false afterBound
   have overlayValid : ScalarExpression.ValidEnvironment text (context.model.readingNames facts) :=
     ScalarMetadata.readingNames_valid cv.2.2.1 fv.2.compatible.count fv.2.bounded
-  rw [helpers.scalarIndex text tv _ _ context.maskFirst context.maskAfter indexStart overlayValid cv.mask]
-  have indexType := ScalarExpression.Native.read_type tv (names := context.model.readingNames facts)
-    (maskFirst := context.maskFirst) (maskAfter := context.maskAfter)
-    (allowSign := true) (arrays := []) (initials := []) (elaborating := false) indexStart
-  have indexBound : (ScalarExpression.read text (fixedAfter text (nameAfter text (skipAt text position)) "(" false)
-      (context.model.readingNames facts) context.maskFirst context.maskAfter).after ≤ text.length + 1 := by
-    by_cases zero : (ScalarExpression.read text (fixedAfter text (nameAfter text (skipAt text position)) "(" false)
-      (context.model.readingNames facts) context.maskFirst context.maskAfter).after = 0
+  rw [helpers.scalarIndex text tv _ _ context.maskFirst context.maskAfter context.arrayTable .noElements
+    indexStart overlayValid cv.mask cv.arrays]
+  let indexValue := ScalarExpression.ArrayGrammar.read text
+    (fixedAfter text (nameAfter text (skipAt text position)) "(" false)
+    (context.model.readingNames facts) context.arrayTable context.maskFirst context.maskAfter (arrayReads := .noElements)
+  have indexBound : indexValue.after ≤ text.length + 1 := by
+    by_cases zero : indexValue.after = 0
     · simp [zero]
-    · exact (ScalarExpression.read_bounds indexStart zero).2.1
+    · exact (ScalarExpression.Native.table_read_bounds indexStart zero).2.1
+  have indexBounds : indexValue.bounds.Bounded :=
+    (ScalarExpression.Native.table_read_type tv indexStart).2.1
   rw [helpers.take text tv _ .rightParenthesis indexBound]
-  dsimp only [Context.model, ParseContext.readingNames]
-  dsimp only [Context.model, ParseContext.readingNames] at indexType
+  rw [show context.arrayTable.items = context.arrayNames from rfl]
+  dsimp only [indexValue, Context.model, ParseContext.readingNames, ParseContext.arrayTable,
+    Context.arrayTable] at indexBounds ⊢
   by_cases targetZero : ArrayBindings.lookup text context.arrayNames (skipAt text position)
       (nameAfter text (skipAt text position)) = 0
   · simp [targetZero]
   · have targetPositive : 0 < ArrayBindings.lookup text context.arrayNames (skipAt text position)
         (nameAfter text (skipAt text position)) := by omega
-    have member := ArrayBindings.Native.binding_mem targetPositive
-      (ArrayBindings.Native.lookup_bound text context.arrayNames _ _)
-    have itemValid := (cv.arrays.2.1 _ member).2.2.2
-    have itemType : ArrayBindings.Native.BindingType
-        (ArrayBindings.binding context.arrayNames
-          (ArrayBindings.lookup text context.arrayNames (skipAt text position) (nameAfter text (skipAt text position)))) :=
-      ⟨itemValid.1, by have cap := itemValid.2.2.2.1; omega,
-        by have cap := itemValid.2.2.2.1; omega, itemValid.2.2.2.2.2.1⟩
+    have member := ArrayBindings.binding_mem targetPositive
+      (ArrayBindings.lookup_bound text context.arrayNames _ _)
+    have itemType := ArrayBindings.validNativeBinding_type (cv.arrays.member_valid member).2.1
     rw [helpers.scalarLookup text tv context.scalarNames _ _ cv.2.2.1 firstBound afterBound,
-      helpers.arrayContains _ _ itemType indexType.2.1]
+      helpers.arrayContains _ _ itemType indexBounds]
     have nameValid : Compose.Expressions.ValidName text (skipAt text position) (nameAfter text (skipAt text position)) := by
       have notBad : ¬(skipAt text position = 0 ∨ nameAfter text (skipAt text position) ≤ skipAt text position) := by
         intro bad
@@ -337,12 +337,13 @@ theorem booleanAtom_meaning (text : Source) (tv : ValidText text)
         ⟨by omega, by omega, afterBound⟩
       rw [helpers.lookup text tv context.names _ _ cv.nativeNames firstBound afterBound,
         helpers.scalarLookup text tv context.scalarNames _ _ cv.2.2.1 firstBound afterBound,
-        helpers.arrayLookup text tv context.arrayNames _ _ cv.arrays firstBound afterBound,
+        helpers.arrayLookup text tv context.arrayTable _ _ cv.arrays firstBound afterBound,
+        helpers.arrayTypeLookup text tv context.arrayTypes _ _ cv.arrays.1 firstBound afterBound,
         helpers.booleanLookup text tv context.booleanNames _ _ cv.booleans firstBound afterBound,
         helpers.nameIs text tv _ _ "true" nameValid (by decide) (by decide),
         helpers.nameIs text tv _ _ "false" nameValid (by decide) (by decide)]
       by_cases maskZero : context.maskFirst = 0
-      · simp [Context.model, maskZero]
+      · simp [Context.model, Context.arrayTable, maskZero]
       · have maskValid : Compose.Expressions.ValidName text context.maskFirst context.maskAfter := by
           rcases cv.mask with absent | present
           · exact False.elim (maskZero absent.1)
@@ -372,7 +373,7 @@ theorem primary_normalized (contracts : Contracts calls) (text : Source) (tv : V
         · exact False.elim (zero absent.1)
         · exact present
       rw [helpers.nameIs text tv _ _ _ valid (by decide) (by decide)]
-  rw [masked, helpers.callAfter text tv context.names position .validity context.scalarNames context.arrayNames _ context.booleanNames cv.nativeNames cv.2.2.1 cv.arrays cv.booleans bounded,
+  rw [masked, helpers.callAfter text tv context.names position .validity context.scalarNames context.arrayTable _ context.booleanNames cv.nativeNames cv.2.2.1 cv.arrays cv.booleans bounded,
     helpers.assumeValid, helpers.assumeInvalid]
   simp only [helpers.invalidCondition facts (fv.count_le cv)]
   rfl
@@ -417,7 +418,7 @@ theorem relation_normalized (text : Source) (tv : ValidText text)
   have scalarBound : (readScalarInFlow text context.model position facts (initials := initials)).after ≤ text.length + 1 := by
     by_cases zero : (readScalarInFlow text context.model position facts (initials := initials)).after = 0
     · simp [zero]
-    · exact (ScalarExpression.read_arrays_bounds bounded zero).2.1
+    · exact (ScalarExpression.Native.table_read_bounds bounded zero).2.1
   rw [comparison_meaning helpers defs text tv _ scalarBound]
   have scalarComparisonBound := Predicate.comparison_bound text _ scalarBound
   rw [helpers.scalarInFlow text tv context cv _ facts scalarComparisonBound fv initials iv]
@@ -428,14 +429,14 @@ theorem relation_normalized (text : Source) (tv : ValidText text)
         (comparisonAt text (readScalarInFlow text context.model position facts (initials := initials)).after).after
         facts (initials := initials)).after = 0
     · simp [zero]
-    · exact (ScalarExpression.read_arrays_bounds scalarComparisonBound zero).2.1
+    · exact (ScalarExpression.Native.table_read_bounds scalarComparisonBound zero).2.1
   rw [helpers.scalarCondition text tv context cv position _ bounded scalarComparisonBound facts fv _ _ scalarBound rightScalarBound _
-    (ScalarExpression.Native.read_type tv bounded).2.1
-    (ScalarExpression.Native.read_type tv scalarComparisonBound).2.1]
+    (ScalarExpression.Native.table_read_type tv bounded).2.1
+    (ScalarExpression.Native.table_read_type tv scalarComparisonBound).2.1]
   rw [helpers.stringInFlow text tv context cv position facts bounded fv initials iv]
   have expressionBound : (readStringInFlow text context.model position facts initials).after ≤ text.length + 1 :=
     (model_expression_valid (scalarNames := context.model.readingNames facts)
-    (integerHidden := context.model.integerHidden text) (arrays := context.arrayNames) (initials := initials) (elaborating := context.elaborating)
+    (integerHidden := context.model.integerHidden text) (arrays := context.arrayTable) (initials := initials) (elaborating := context.elaborating)
     text tv position context.names bounded cv.1).1
   rw [comparison_meaning helpers defs text tv _ expressionBound]
   have comparisonBound := Predicate.comparison_bound text _ expressionBound
@@ -518,6 +519,7 @@ theorem model_helper_meaning : HelperMeaning modelCalls where
   equalName := by intros; rfl
   nameIs := by intros; rfl
   arrayLookup := by intros; rfl
+  arrayTypeLookup := by intros; rfl
   arrayContains := by intros; rfl
   scalarIndex := by intros; rfl
   booleanLookup := by intros; rfl

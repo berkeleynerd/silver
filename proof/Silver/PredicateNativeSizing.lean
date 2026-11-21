@@ -12,7 +12,7 @@ active vectors before projecting a native condition record. A constrained
 local also checks the complete result of its initializing call. This is an
 additional interpretation obligation, separate from precedence and scope. -/
 def Expr.Sized (calls : Calls) (locals : Locals) : Expr ty → Prop
-  | .operation _ | .number _ | .maxScalarOperands | .truth _ | .word _ | .emptyPath | .validityCallWord | .token _ | .chain _ | .comparison _ | .variable _ | .function _ => True
+  | .operation _ | .number _ | .noElements | .maxScalarOperands | .truth _ | .word _ | .emptyPath | .validityCallWord | .token _ | .chain _ | .comparison _ | .variable _ | .function _ => True
   | .app fn arg | .appNamed fn _ arg => fn.Sized calls locals ∧ arg.Sized calls locals
   | .field _ value | .notEquality value | .notChain value | .not value | .group value | .old value | .locals value =>
       value.Sized calls locals
