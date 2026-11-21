@@ -14,7 +14,7 @@ open Compose
 set_option backward.dsimp.instances true
 
 inductive Ty
-  | number | truth | source | token | kind | mode | interval | context | flow | scan | metadata | formal | signature | actual | functionFormal | names | scalars | booleans | arrays
+  | number | truth | source | token | kind | mode | interval | context | flow | scan | metadata | formal | signature | actual | functionFormal | names | scalars | booleans | arrays | arrayTypes
   | association | formalSet
   | arrow (domain codomain : Ty)
   deriving DecidableEq, Repr
@@ -39,6 +39,7 @@ inductive Ty
   | .scalars => ScalarExpression.Environment
   | .booleans => BooleanBindings.Environment
   | .arrays => ArrayBindings.Table
+  | .arrayTypes => ArrayBindings.TypeEnvironment
   | .association => ActualAssociation
   | .formalSet => FormalSet
   | .arrow a b => a.meaning → b.meaning
@@ -63,6 +64,7 @@ def Ty.default : (ty : Ty) → ty.meaning
   | .scalars => []
   | .booleans => []
   | .arrays => {}
+  | .arrayTypes => []
   | .association => invalidAssociation
   | .formalSet => noFormals
   | .arrow _ b => fun _ => b.default
@@ -87,6 +89,7 @@ def Ty.name : Ty → List String
   | .scalars => ["scalar_expressions", ".", "environment"]
   | .booleans => ["boolean_environment"]
   | .arrays => ["array_bindings", ".", "metadata"]
+  | .arrayTypes => ["array_bindings", ".", "type_environment"]
   | .association => ["actual_association"]
   | .formalSet => ["formal_set"]
   | .arrow _ _ => []
@@ -94,7 +97,7 @@ def Ty.name : Ty → List String
 def arrows (args : List Ty) (result : Ty) : Ty := args.foldr Ty.arrow result
 
 inductive Function
-  | skip | nameAfter | namesLookup | scalarLookup | booleanLookup | arrayLookup | procedureLookup | token | isEmpty | included | scalarTarget | booleanTarget | functionActual | nameFree | invalid | invalidModel | bodyToken | target | actual | actualsModel | actuals | update | updatesModel | updates | callee | call
+  | skip | nameAfter | namesLookup | scalarLookup | booleanLookup | arrayLookup | arrayTypeLookup | procedureLookup | token | isEmpty | included | scalarTarget | booleanTarget | functionActual | nameFree | invalid | invalidModel | bodyToken | target | actual | actualsModel | actuals | update | updatesModel | updates | callee | call
   | association | actualsTail | payloadsFreeModel | payloadsFree | updatesTail | markFormal | nameFreeModel
   deriving DecidableEq, Repr
 
@@ -106,6 +109,7 @@ def Function.type : Function → Ty
   | .scalarLookup => arrows [.source, .scalars, .number, .number] .number
   | .booleanLookup => arrows [.source, .booleans, .number, .number] .number
   | .arrayLookup => arrows [.source, .arrays, .number, .number] .number
+  | .arrayTypeLookup => arrows [.source, .arrayTypes, .number, .number] .number
   | .procedureLookup => arrows [.source, .metadata, .number, .number] .number
   | .token => arrows [.source, .number, .token] .number
   | .isEmpty => arrows [.interval] .truth
@@ -140,6 +144,7 @@ def Function.name : Function → List String
   | .scalarLookup => ["scalar_expressions", ".", "lookup"]
   | .booleanLookup => ["lookup_boolean"]
   | .arrayLookup => ["array_bindings", ".", "lookup"]
+  | .arrayTypeLookup => ["array_bindings", ".", "lookup_type"]
   | .procedureLookup => ["procedures", ".", "lookup"]
   | .token => ["take_token"]
   | .isEmpty => ["scalars", ".", "is_empty"]
@@ -174,6 +179,7 @@ inductive Field : Ty → Ty → Type
   | contextScalars : Field .context .scalars
   | contextBooleans : Field .context .booleans
   | contextArrays : Field .context .arrays
+  | arrayTypes : Field .arrays .arrayTypes
   | scanPosition : Field .scan .number
   | scanFacts : Field .scan .flow
   | formalFirst : Field .formal .number
@@ -197,6 +203,7 @@ def Field.name : Field a b → List String
   | .contextScalars => ["scalar_names"]
   | .contextBooleans => ["boolean_names"]
   | .contextArrays => ["array_names"]
+  | .arrayTypes => ["types"]
   | .scanPosition => ["position"]
   | .scanFacts => ["facts"]
   | .formalFirst => ["first"]
@@ -220,6 +227,7 @@ def Field.get : Field a b → a.meaning → b.meaning
   | .contextScalars, value => value.scalarNames
   | .contextBooleans, value => value.booleanNames
   | .contextArrays, value => value.arrayTable
+  | .arrayTypes, value => value.types
   | .scanPosition, value => value.position
   | .scanFacts, value => value.facts
   | .formalFirst, value => value.first

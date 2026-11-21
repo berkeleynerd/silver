@@ -208,12 +208,13 @@ def calleeBody : Expr .number :=
   .declare <| .letValue "first" (apply2 (.function .skip) text position) <|
     .letValue "after" (apply2 (.function .nameAfter) text first) <|
     .beginValue <| .group <| .ite
-      (.orElse (.orElse (.orElse (.orElse (.orElse
+      (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse
         (.eq first (.number 0)) (.le after first))
         (.ne (apply4 (.function .namesLookup) text (.field .contextNames context) first after) (.number 0)))
         (.ne (apply4 (.function .scalarLookup) text (.field .contextScalars context) first after) (.number 0)))
         (.ne (apply4 (.function .booleanLookup) text (.field .contextBooleans context) first after) (.number 0)))
         (.ne (apply4 (.function .arrayLookup) text (.field .contextArrays context) first after) (.number 0)))
+        (.ne (apply4 (.function .arrayTypeLookup) text (.field .arrayTypes (.field .contextArrays context)) first after) (.number 0)))
       (.number 0) (apply4 (.function .procedureLookup) text catalog first after)
 
 def callBody : Command .scan :=
@@ -249,6 +250,7 @@ def modelCalls : Calls
   | .scalarLookup => ScalarExpression.lookup
   | .booleanLookup => BooleanBindings.lookup
   | .arrayLookup => fun text names => ArrayBindings.lookup text names.items
+  | .arrayTypeLookup => ArrayBindings.lookupType
   | .procedureLookup => ProcedureBindings.lookup
   | .token => tokenAfter
   | .isEmpty => Integer.Interval.isEmpty

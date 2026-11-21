@@ -19,6 +19,7 @@ open Compose FunctionBindings
   scalarLookup : Source → ScalarExpression.Environment → Nat → Nat → Nat
   booleanLookup : Source → BooleanBindings.Environment → Nat → Nat → Nat
   arrayLookup : Source → ArrayBindings.Table → Nat → Nat → Nat
+  arrayTypeLookup : Source → ArrayBindings.TypeEnvironment → Nat → Nat → Nat
   functionLookup : Source → Metadata → Nat → Nat → Nat
   token : Source → Nat → ShellToken → Nat
   condition : Source → Native.Context → Nat → ActiveFlow → ConditionResult
@@ -134,6 +135,7 @@ inductive Expr : Type → Type 1
   | scalarLookup : Expr Nat → Expr Nat → Expr Nat
   | booleanLookup : Expr Nat → Expr Nat → Expr Nat
   | arrayLookup : Expr Nat → Expr Nat → Expr Nat
+  | arrayTypeLookup : Expr Nat → Expr Nat → Expr Nat
   | functionLookup : Expr Nat → Expr Nat → Expr Nat
   | token : Expr Nat → ShellToken → Expr Nat
   | readScalar : Expr Nat → Expr ScalarExpression.Result
@@ -226,6 +228,7 @@ def Expr.eval (imports : Imports) (calls : Calls) (frame : Frame) : Expr α → 
   | .scalarLookup startExpr endExpr => imports.scalarLookup frame.text frame.context.scalarNames (startExpr.eval imports calls frame) (endExpr.eval imports calls frame)
   | .booleanLookup startExpr endExpr => imports.booleanLookup frame.text frame.context.booleanNames (startExpr.eval imports calls frame) (endExpr.eval imports calls frame)
   | .arrayLookup startExpr endExpr => imports.arrayLookup frame.text frame.context.arrayTable (startExpr.eval imports calls frame) (endExpr.eval imports calls frame)
+  | .arrayTypeLookup startExpr endExpr => imports.arrayTypeLookup frame.text frame.context.arrayTypes (startExpr.eval imports calls frame) (endExpr.eval imports calls frame)
   | .functionLookup startExpr endExpr => imports.functionLookup frame.text frame.catalog (startExpr.eval imports calls frame) (endExpr.eval imports calls frame)
   | .token cursor tokenValue => imports.token frame.text (cursor.eval imports calls frame) tokenValue
   | .readScalar cursor => imports.scalar frame.text frame.context (cursor.eval imports calls frame) frame.facts
@@ -331,6 +334,7 @@ def Expr.render : Expr α → List String
   | .scalarLookup startExpr endExpr => call ["scalar_expressions", ".", "lookup"] [["text"], ["context", ".", "scalar_names"], startExpr.render, endExpr.render]
   | .booleanLookup startExpr endExpr => call ["lookup_boolean"] [["text"], ["context", ".", "boolean_names"], startExpr.render, endExpr.render]
   | .arrayLookup startExpr endExpr => call ["array_bindings", ".", "lookup"] [["text"], ["context", ".", "array_names"], startExpr.render, endExpr.render]
+  | .arrayTypeLookup startExpr endExpr => call ["array_bindings", ".", "lookup_type"] [["text"], ["context", ".", "array_names", ".", "types"], startExpr.render, endExpr.render]
   | .functionLookup startExpr endExpr => call ["functions", ".", "lookup"] [["text"], ["catalog"], startExpr.render, endExpr.render]
   | .token cursor tokenValue => call ["take_token"] [["text"], cursor.render, [Compose.Expressions.tokenName tokenValue]]
   | .readScalar cursor => call ["read_scalar_in_flow"] [["text"], ["context"], cursor.render, ["facts"]]
@@ -396,7 +400,7 @@ def Expr.prefix : Expr α → Bool
   | .valueAfter _ | .valueBounds _ | .callAfter _ | .callKind _ | .callBounds _
   | .parameterAt _ | .signatureAt _ | .scalarMutable _ | .booleanMutable _ | .declaredBounds _
   | .skip _ | .nameAfter _ | .namesLookup _ _ | .scalarLookup _ _ | .booleanLookup _ _
-  | .arrayLookup _ _ | .functionLookup _ _ | .token _ _ | .readScalar _ | .readConditionAfter _
+  | .arrayLookup _ _ | .arrayTypeLookup _ _ | .functionLookup _ _ | .token _ _ | .readScalar _ | .readConditionAfter _
   | .arrayActual _ _ | .arrayTarget _ | .actual _ _ | .actuals _ _ _ | .calleeAt _ | .callModel _ | .readCall _ | .scalarTarget _
   | .booleanTarget _ | .assignmentResult _ _ _ | .empty _ | .included _ _ | .invalidCall | .invalidBody => true
   | .number _ | .geInt _ _ | .leInt _ _ | .add _ _ | .sub _ _ | .eq _ _ | .ne _ _ | .le _ _
@@ -418,7 +422,7 @@ def Expr.primary : Expr α → Bool
   | .valueAfter _ | .valueBounds _ | .callAfter _ | .callKind _ | .callBounds _
   | .parameterAt _ | .signatureAt _ | .scalarMutable _ | .booleanMutable _ | .declaredBounds _
   | .skip _ | .nameAfter _ | .namesLookup _ _ | .scalarLookup _ _ | .booleanLookup _ _
-  | .arrayLookup _ _ | .functionLookup _ _ | .token _ _ | .readScalar _ | .readConditionAfter _
+  | .arrayLookup _ _ | .arrayTypeLookup _ _ | .functionLookup _ _ | .token _ _ | .readScalar _ | .readConditionAfter _
   | .arrayActual _ _ | .arrayTarget _ | .actual _ _ | .actuals _ _ _ | .calleeAt _ | .callModel _ | .readCall _ | .scalarTarget _
   | .booleanTarget _ | .assignmentResult _ _ _ | .empty _ | .included _ _
   | .invalidCall | .makeCall _ _ _ | .invalidBody | .assignedInteger | .assignedBoolean | .group _ => true
@@ -463,7 +467,7 @@ def Expr.wellFormed : Expr α → Bool
   | .token node _ => node.simple && node.wellFormed
   | .geInt left right | .leInt left right
   | .namesLookup left right | .scalarLookup left right | .booleanLookup left right
-  | .arrayActual left right | .arrayLookup left right | .functionLookup left right | .included left right | .actual left right
+  | .arrayActual left right | .arrayLookup left right | .arrayTypeLookup left right | .functionLookup left right | .included left right | .actual left right
   | .eq left right | .ne left right | .le left right | .kindEq left right | .kindNe left right =>
       left.simple && right.simple && left.wellFormed && right.wellFormed
   | .actuals startExpr second third | .assignmentResult startExpr second third | .makeCall startExpr second third =>
@@ -511,7 +515,7 @@ def Expr.scoped (scope : Scope) : Expr α → Bool
   | .parameterAt node | .signatureAt node => decide (("catalog", 8) ∈ scope) && node.scoped scope
   | .arrayTypeId node | .scalarMutable node | .booleanMutable node | .declaredBounds node => decide (("context", 6) ∈ scope) && node.scoped scope
   | .skip node | .nameAfter node | .token node _ => decide (("text", 5) ∈ scope) && node.scoped scope
-  | .namesLookup startExpr endExpr | .scalarLookup startExpr endExpr | .booleanLookup startExpr endExpr | .arrayLookup startExpr endExpr =>
+  | .namesLookup startExpr endExpr | .scalarLookup startExpr endExpr | .booleanLookup startExpr endExpr | .arrayLookup startExpr endExpr | .arrayTypeLookup startExpr endExpr =>
       decide (("text", 5) ∈ scope ∧ ("context", 6) ∈ scope) && startExpr.scoped scope && endExpr.scoped scope
   | .functionLookup startExpr endExpr => decide (("text", 5) ∈ scope ∧ ("catalog", 8) ∈ scope) && startExpr.scoped scope && endExpr.scoped scope
   | .readScalar node | .readConditionAfter node => decide (("text", 5) ∈ scope ∧ ("context", 6) ∈ scope ∧ ("facts", 7) ∈ scope) && node.scoped scope
@@ -619,9 +623,10 @@ def actualsBody : Expr Nat :=
 
 def calleeBody : Expr Nat :=
   .locals <| .letFirst (.skip .position) <| .letAfter (.nameAfter .first) <|
-    .group <| .ite (.orElse (.orElse (.orElse (.orElse (.orElse (.eq .first (.number 0)) (.le .after .first))
+    .group <| .ite (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.eq .first (.number 0)) (.le .after .first))
       (.ne (.namesLookup .first .after) (.number 0))) (.ne (.scalarLookup .first .after) (.number 0)))
       (.ne (.booleanLookup .first .after) (.number 0))) (.ne (.arrayLookup .first .after) (.number 0)))
+      (.ne (.arrayTypeLookup .first .after) (.number 0)))
       (.number 0) (.functionLookup .first .after)
 
 def callBody : Expr CallResult :=
@@ -656,6 +661,7 @@ def modelImports : Imports where
   scalarLookup := ScalarExpression.lookup
   booleanLookup := BooleanBindings.lookup
   arrayLookup := fun text names => ArrayBindings.lookup text names.items
+  arrayTypeLookup := ArrayBindings.lookupType
   functionLookup := FunctionBindings.lookup
   token := tokenAfter
   condition := fun text context position facts => readCondition text context.model position facts

@@ -42,6 +42,10 @@ def ArrayLookupDomain (text : Source) (names : ArrayBindings.Table) (first after
   Expressions.ValidText text ∧ ArrayBindings.ValidTable text names ∧
     Expressions.ValidCursor text first ∧ Expressions.ValidCursor text after
 
+def ArrayTypeLookupDomain (text : Source) (names : ArrayBindings.TypeEnvironment) (first after : Nat) : Prop :=
+  Expressions.ValidText text ∧ ArrayBindings.ValidTypes text names ∧
+    Expressions.ValidCursor text first ∧ Expressions.ValidCursor text after
+
 def FunctionLookupDomain (text : Source) (catalog : Metadata) (first after : Nat) : Prop :=
   Expressions.ValidText text ∧ ValidMetadata text catalog ∧
     Expressions.ValidCursor text first ∧ Expressions.ValidCursor text after
@@ -70,6 +74,8 @@ structure ImportsMeaning (imports : Imports) : Prop where
     imports.booleanLookup text names first after = modelImports.booleanLookup text names first after
   arrayLookup : ∀ text names first after, ArrayLookupDomain text names first after →
     imports.arrayLookup text names first after = modelImports.arrayLookup text names first after
+  arrayTypeLookup : ∀ text names first after, ArrayTypeLookupDomain text names first after →
+    imports.arrayTypeLookup text names first after = modelImports.arrayTypeLookup text names first after
   functionLookup : ∀ text catalog first after, FunctionLookupDomain text catalog first after →
     imports.functionLookup text catalog first after = modelImports.functionLookup text catalog first after
   token : ∀ text position token, TokenDomain text position token →
@@ -102,6 +108,7 @@ noncomputable def totalizeImports (imports : Imports) : Imports := by
     scalarLookup := fun text names first after => if ScalarLookupDomain text names first after then imports.scalarLookup text names first after else modelImports.scalarLookup text names first after
     booleanLookup := fun text names first after => if BooleanLookupDomain text names first after then imports.booleanLookup text names first after else modelImports.booleanLookup text names first after
     arrayLookup := fun text names first after => if ArrayLookupDomain text names first after then imports.arrayLookup text names first after else modelImports.arrayLookup text names first after
+    arrayTypeLookup := fun text names first after => if ArrayTypeLookupDomain text names first after then imports.arrayTypeLookup text names first after else modelImports.arrayTypeLookup text names first after
     functionLookup := fun text catalog first after => if FunctionLookupDomain text catalog first after then imports.functionLookup text catalog first after else modelImports.functionLookup text catalog first after
     token := fun text position token => if TokenDomain text position token then imports.token text position token else modelImports.token text position token
     condition := fun text context position facts => if ReadDomain text context position facts then imports.condition text context position facts else modelImports.condition text context position facts
@@ -152,6 +159,11 @@ theorem totalizeImports_eq_model {imports : Imports} (meaning : ImportsMeaning i
     simp only [totalizeImports]
     split
     · exact meaning.arrayLookup text names first after ‹_›
+    · rfl
+  · funext text names first after
+    simp only [totalizeImports]
+    split
+    · exact meaning.arrayTypeLookup text names first after ‹_›
     · rfl
   · funext text catalog first after
     simp only [totalizeImports]

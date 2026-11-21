@@ -80,7 +80,8 @@ def booleanArrayBody : Expr .number :=
       (.callArrayLookup text (.field .contextArrays context) first after) <|
     .local "subscript" ["scalar_expressions", ".", "expression_result"]
       (.callScalarIndex text (.callTake text after (.token .leftParenthesis))
-        (.callReadingNames context facts) (.field .contextMaskFirst context) (.field .contextMaskAfter context)) <|
+        (.callReadingNames context facts) (.field .contextMaskFirst context) (.field .contextMaskAfter context)
+        (.field .contextArrays context)) <|
     .local "close" ["literal_position"]
       (.callTake text (.field .scalarAfter subscript) (.token .rightParenthesis)) <|
     .group <| .ite
@@ -101,12 +102,13 @@ def booleanAtomBody : Expr .number :=
   .locals <| .local "first" ["literal_position"] (.callSkip text (.variable "position")) <|
     .local "after" ["literal_position"] (.callNameAfter text first) <|
     .group <| .ite
-      (.orElse (.orElse (.orElse (.orElse (.orElse (.eq first (.number 0)) (.le after first))
+      (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.eq first (.number 0)) (.le after first))
         (.group (.andThen (.ne (.field .contextMaskFirst context) (.number 0))
           (.callEqualName text (.field .contextMaskFirst context) (.field .contextMaskAfter context) first after))))
         (.ne (.callScalarLookup text (.field .contextScalarNames context) first after) (.number 0)))
         (.ne (.callLookup text (.field .contextNames context) first after) (.number 0)))
         (.ne (.callArrayLookup text (.field .contextArrays context) first after) (.number 0)))
+        (.ne (.callArrayTypeLookup text (.field .arrayTypes (.field .contextArrays context)) first after) (.number 0)))
       (.number 0)
       (.elsif (.ne (.callBooleanLookup text (.field .contextBooleans context) first after) (.number 0)) after
         (.elsif
