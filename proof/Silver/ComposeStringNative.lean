@@ -399,6 +399,7 @@ def characterDeclarationBody : Body .state :=
       lookup (.app (.app (.function .lookupName) text) (.field .stateNames state)),
       lookup (.app (.app (.function .scalarLookup) text) (.field .stateScalarNames state)),
       lookup (.app (.app (.function .arrayLookup) text) (.field .arrayNames (.field .stateArrayNames state))),
+      .ne (lookupArrayType text (.field .arrayNames (.field .stateArrayNames state)) typeFirst typeAfter) (.number 0),
       lookup (.app (.app (.function .subtypeLookup) text) (.field .stateSubtypeNames state)),
       lookup (.app (.app (.function .booleanLookup) text) (.field .stateBooleanNames state))])
       text state typeFirst typeAfter) .invalid,
