@@ -10,7 +10,7 @@ public import Silver.IntegerArraySnapshots
 namespace Silver.Compose
 open Expressions
 
-attribute [local irreducible] ScalarExpression.read
+attribute [local irreducible] ScalarExpression.ArrayGrammar.read
 
 def ScalarDeclarationReady (text : Source) (state : ParserState) (arguments : Bool)
     (parts : ScalarDeclarationParts) : Prop :=
@@ -23,7 +23,8 @@ def ScalarDeclarationReady (text : Source) (state : ParserState) (arguments : Bo
     fixedAfter text parts.first "integer" true ≠ parts.after ∧
     lookupName text state.names parts.typeFirst parts.typeAfter = 0 ∧
     ScalarExpression.lookup text state.scalarNames parts.typeFirst parts.typeAfter = 0 ∧
-    ArrayBindings.lookup text state.arrayNames.names parts.typeFirst parts.typeAfter = 0
+    ArrayBindings.lookup text state.arrayNames.names parts.typeFirst parts.typeAfter = 0 ∧
+    ArrayBindings.lookupType text state.arrayNames.types parts.typeFirst parts.typeAfter = 0
 
 theorem scalarDeclarationTypeAfter_valid (text : Source) (state : ParserState) :
     scalarDeclarationTypeAfter text state ≤ text.length + 1 := by
@@ -33,13 +34,14 @@ theorem scalarDeclarationValuePosition_valid (text : Source) (state : ParserStat
     scalarDeclarationValuePosition text state ≤ text.length + 1 := by
   have constraint := scalarConstraintAt_position_valid text _ state.scalarNames
     (baseBounds := (scalarTypeAt text state (scalarDeclarationTypeFirst text state)).bounds)
+    (arrays := state.arrayNames.table)
     (scalarDeclarationTypeAfter_valid text state)
   exact model_fixed_valid text _ ":=" false constraint
 
 theorem scalarDeclarationParts_value (text : Source) (state : ParserState) :
     (scalarDeclarationParts text state).value =
-      ScalarExpression.read text (scalarDeclarationValuePosition text state) state.scalarNames
-        (arrays := state.arrayNames.names) (initials := state.arrayNames.values) (elaborating := true) := rfl
+      ScalarExpression.ArrayGrammar.read text (scalarDeclarationValuePosition text state) state.scalarNames
+        (arrays := state.arrayNames.table) (initials := state.arrayNames.values) (elaborating := true) := rfl
 
 theorem scalarDeclarationParts_following (text : Source) (state : ParserState) :
     (scalarDeclarationParts text state).following =
@@ -50,8 +52,8 @@ inductive ScalarDeclarationAt (text : Source) (arguments : Bool) :
   | declaration {state : ParserState} {parts : ScalarDeclarationParts} {value : Integer.Expr} :
       scalarDeclarationParts text state = parts → ScalarDeclarationReady text state arguments parts →
       ScalarObjectConstraintAt text state (scalarDeclarationTypeFirst text state) parts.constraint →
-      ScalarExpression.At text state.scalarNames (scalarDeclarationValuePosition text state) value parts.value
-        (arrays := state.arrayNames.names) (initials := state.arrayNames.values) (elaborating := true) →
+      ScalarExpression.ArrayGrammar.At text state.scalarNames (scalarDeclarationValuePosition text state) value parts.value
+        (arrays := state.arrayNames.table) (initials := state.arrayNames.values) (elaborating := true) →
       ScalarDeclarationAt text arguments state
         ⟨value.freezeArrays (frozenIntegers state.scalarNames state.arrayNames.names state.arrayNames.values),
           parts.constraint.bounds, decide (parts.constantAfter = 0)⟩ (addScalarBinding state parts)
@@ -61,10 +63,10 @@ theorem scalar_declaration_complete {text : Source} {arguments : Bool} {state ne
     scalarDeclarationAt text state arguments = next := by
   cases parsed with
   | @declaration partsObj _ parts ready _ _ =>
-      rcases ready with ⟨allowed, after, constraint, following, count, nonempty, singleton, lower, upper, own, strings, scalars, arrays⟩
+      rcases ready with ⟨allowed, after, constraint, following, count, nonempty, singleton, lower, upper, own, strings, scalars, arrays, arrayTypes⟩
       have lower' : ¬ partsObj.value.bounds.upper < partsObj.constraint.bounds.lower := by omega
       simp [scalarDeclarationAt, parts, allowed, after, constraint, show ¬ _ ≤ _ from Nat.not_le.mpr following,
-        count, nonempty, singleton, lower', show ¬ _ < _ from Int.not_lt.mpr upper, own, strings, scalars, arrays]
+        count, nonempty, singleton, lower', show ¬ _ < _ from Int.not_lt.mpr upper, own, strings, scalars, arrays, arrayTypes]
 
 theorem scalar_declaration_positive {text : Source} {arguments : Bool} {state next : ParserState}
     {declaration : Integer.Declaration} (parsed : ScalarDeclarationAt text arguments state declaration next) :
@@ -91,7 +93,8 @@ theorem scalar_declaration_sound (text : Source) (state : ParserState) (argument
         decide (fixedAfter text parts.first "integer" true = parts.after) ||
         decide (lookupName text state.names parts.typeFirst parts.typeAfter ≠ 0 ∨
           ScalarExpression.lookup text state.scalarNames parts.typeFirst parts.typeAfter ≠ 0 ∨
-          ArrayBindings.lookup text state.arrayNames.names parts.typeFirst parts.typeAfter ≠ 0)
+          ArrayBindings.lookup text state.arrayNames.names parts.typeFirst parts.typeAfter ≠ 0 ∨
+          ArrayBindings.lookupType text state.arrayNames.types parts.typeFirst parts.typeAfter ≠ 0)
       then invalidState else addScalarBinding state parts := by
     simp only [scalarDeclarationAt, partsEq]
   rw [observed] at accepted ⊢
@@ -108,16 +111,16 @@ theorem scalar_declaration_sound (text : Source) (state : ParserState) (argument
       have after := ready.2.2.2.1
       simp [followingEq, zero, fixedAfter] at after
     have bound := scalarDeclarationValuePosition_valid text state
-    obtain ⟨value, reading⟩ := ScalarExpression.read_sound bound (valueEq ▸ positive)
+    obtain ⟨value, reading⟩ := ScalarExpression.ArrayGrammar.read_sound bound (valueEq ▸ positive)
     refine ⟨⟨value.freezeArrays (frozenIntegers state.scalarNames state.arrayNames.names state.arrayNames.values),
           parts.constraint.bounds, decide (parts.constantAfter = 0)⟩, ?_⟩
     simp only [good, Bool.false_eq_true, ↓reduceIte]
     have constraintEq : parts.constraint =
         scalarConstraintAt text (scalarDeclarationTypeAfter text state) state.scalarNames
-          (scalarTypeAt text state (scalarDeclarationTypeFirst text state)).bounds := by
+          (scalarTypeAt text state (scalarDeclarationTypeFirst text state)).bounds state.arrayNames.table := by
       rw [← partsEq]
       rfl
-    have constraint := scalarConstraintAt_sound text _ state.scalarNames
+    have constraint := scalarConstraintAt_sound text _ state.scalarNames (arrays := state.arrayNames.table)
       (scalarDeclarationTypeAfter_valid text state) (constraintEq ▸ ready.2.2.1)
     have typePositive : (scalarTypeAt text state (scalarDeclarationTypeFirst text state)).after ≠ 0 := by
       have positive := ready.2.1
@@ -132,12 +135,13 @@ def ScalarDeclarationSourceBounds (text : Source) (declaration : Integer.Declara
   ∃ (state : ParserState) (position after : Nat),
     ScalarExpression.ElaboratedEnvironment state.scalarNames ∧
     ScalarTypeAt text state position (scalarTypeAt text state position) ∧
-    ScalarConstraintMeaning text state.scalarNames (scalarTypeAt text state position).after
+    ScalarConstraintMeaning (arrays := state.arrayNames.table) text state.scalarNames (scalarTypeAt text state position).after
       (scalarTypeAt text state position).bounds ⟨after, declaration.bounds⟩
       (Integer.Constants.store (ScalarExpression.constants state.scalarNames))
 
 theorem scalar_declaration_source_bounds {text : Source} {arguments : Bool} {state next : ParserState}
     {declaration : Integer.Declaration} (elaborated : ScalarExpression.ElaboratedEnvironment state.scalarNames)
+    (count : state.scalarNames.length ≤ ArrayBindings.scalarLimit)
     (parsed : ScalarDeclarationAt text arguments state declaration next) :
     ScalarDeclarationSourceBounds text declaration := by
   cases parsed with
@@ -148,7 +152,7 @@ theorem scalar_declaration_source_bounds {text : Source} {arguments : Bool} {sta
           (Integer.Constants.store (ScalarExpression.constants state.scalarNames)) := by
         rw [ScalarExpression.static_ranges elaborated]
         exact Integer.Constants.fits _
-      exact constraint.constraint.evaluated fits
+      exact constraint.constraint.evaluated count fits
 
 theorem scalar_declaration_static {text : Source} {arguments : Bool} {state next : ParserState}
     {declaration : Integer.Declaration} (static : ScalarExpression.StaticEnvironment state.scalarNames)
@@ -174,8 +178,9 @@ theorem scalar_initializer_frozen_inferred {text : Source} {state : ParserState}
     (static : ScalarExpression.StaticEnvironment state.scalarNames)
     (bounded : state.scalarNames.length ≤ ArrayBindings.scalarLimit)
     (singleton : parts.value.bounds.lower = parts.value.bounds.upper)
-    (reading : ScalarExpression.At text state.scalarNames (scalarDeclarationValuePosition text state)
-      value parts.value (arrays := state.arrayNames.names) (initials := state.arrayNames.values)
+    (stored : ∀ item ∈ state.arrayNames.names, item.viewSlot = 0)
+    (reading : ScalarExpression.ArrayGrammar.At text state.scalarNames (scalarDeclarationValuePosition text state)
+      value parts.value (arrays := state.arrayNames.table) (initials := state.arrayNames.values)
       (elaborating := true)) :
     (value.freezeArrays (frozenIntegers state.scalarNames state.arrayNames.names state.arrayNames.values)).infer
       (ScalarExpression.ranges state.scalarNames) = some parts.value.bounds := by
@@ -188,29 +193,30 @@ theorem scalar_initializer_frozen_inferred {text : Source} {state : ParserState}
         rfl
   have inferred := reading.inferred
   rw [exactBounds] at inferred ⊢
-  apply Integer.Expr.freezeArrays_infer inferred (frozenIntegers_fits static)
+  apply Integer.Expr.freezeArrays_infer inferred (frozenIntegers_view_fits static stored)
   intro noArray
   apply Integer.Expr.infer_readsOnly (reading.noArray_readsOnly noArray)
   intro index inside
-  exact (ArrayBindings.ranges_scalar _ _ _ _ (Nat.le_trans inside.2 bounded)).symm
+  exact (ArrayBindings.viewRanges_scalar _ _ _ _ (Nat.le_trans inside.2 bounded)).symm
 
 theorem scalar_declaration_checked {text : Source} {arguments : Bool} {state next : ParserState}
     {declaration : Integer.Declaration} (static : ScalarExpression.StaticEnvironment state.scalarNames)
     (boundedNames : state.scalarNames.length ≤ ArrayBindings.scalarLimit)
     (subtypes : IntegerSubtypes.ValidEnvironment text state.subtypeNames)
+    (stored : ∀ item ∈ state.arrayNames.names, item.viewSlot = 0)
     (parsed : ScalarDeclarationAt text arguments state declaration next) :
     declaration.check (ScalarExpression.constants state.scalarNames) =
       some (ScalarExpression.constants next.scalarNames) := by
   cases parsed with
   | @declaration parts value partsEq ready constraint reading =>
       have singleton := ready.2.2.2.2.2.2.1
-      have inferred := scalar_initializer_frozen_inferred static boundedNames singleton reading
+      have inferred := scalar_initializer_frozen_inferred static boundedNames singleton stored reading
       rw [ScalarExpression.static_ranges static] at inferred
       have fits : Integer.Fits (ScalarExpression.ranges state.scalarNames)
           (Integer.Constants.store (ScalarExpression.constants state.scalarNames)) := by
         rw [ScalarExpression.static_ranges static]
         exact Integer.Constants.fits _
-      have sourceMeaning := constraint.constraint.evaluated fits
+      have sourceMeaning := constraint.constraint.evaluated boundedNames fits
       have bounded := sourceMeaning.bounded (scalarTypeAt_bounded text state _ subtypes)
       have contains : parts.constraint.bounds.Contains parts.value.bounds.lower := by
         rcases ready with ⟨_, _, _, _, _, _, equal, lower, upper, _⟩
@@ -223,6 +229,7 @@ theorem scalar_declaration_checked {text : Source} {arguments : Bool} {state nex
 theorem scalar_declaration_objects {text : Source} {arguments : Bool} {state next : ParserState}
     {declaration : Integer.Declaration} (exact : ScalarExpression.ElaboratedEnvironment state.scalarNames)
     (boundedNames : state.scalarNames.length ≤ ArrayBindings.scalarLimit)
+    (stored : ∀ item ∈ state.arrayNames.names, item.viewSlot = 0)
     (parsed : ScalarDeclarationAt text arguments state declaration next) :
     ScalarExpression.objectBindings next.scalarNames =
       ScalarExpression.objectBindings state.scalarNames ++
@@ -230,7 +237,7 @@ theorem scalar_declaration_objects {text : Source} {arguments : Bool} {state nex
   cases parsed with
   | @declaration parts value _ ready _ reading =>
       have singleton := ready.2.2.2.2.2.2.1
-      have inferred := scalar_initializer_frozen_inferred exact boundedNames singleton reading
+      have inferred := scalar_initializer_frozen_inferred exact boundedNames singleton stored reading
       rw [ScalarExpression.static_ranges exact] at inferred
       have within := (Integer.Expr.infer_sound inferred (Integer.Constants.fits _)).1
       have evaluated : (value.freezeArrays (frozenIntegers state.scalarNames state.arrayNames.names state.arrayNames.values)).evaluate
@@ -280,7 +287,7 @@ theorem scalar_declaration_unique {text : Source} {arguments : Bool} {state left
       | declaration otherParts _ _ other =>
           have same := parts.symm.trans otherParts
           cases same
-          obtain ⟨rfl, _⟩ := ScalarExpression.at_unique value other
+          obtain ⟨rfl, _⟩ := ScalarExpression.ArrayGrammar.at_unique value other
           rfl
 
 end Silver.Compose
