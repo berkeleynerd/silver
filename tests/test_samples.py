@@ -28,7 +28,7 @@ class SupportedSampleTests(unittest.TestCase):
             self.assertEqual([arg for arg in command if arg.startswith(f"--{name}=")],
                              [f"--{name}={value}"])
         self.assertIn("-U", command)
-        self.assertIn("-j0", command)
+        self.assertEqual([arg for arg in command if arg.startswith("-j")], ["-j1"])
         self.assertIn("--no-loop-unrolling", command)
         self.assertEqual("--no-inlining" in command, functions)
 

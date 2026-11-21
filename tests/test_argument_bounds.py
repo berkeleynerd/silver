@@ -57,7 +57,7 @@ end Argument_Bounds;
 ''')
             built = subprocess.run(
                 alire_command(host, "exec", "--", "gprbuild", "-P",
-                              directory / "probe.gpr", "-p", "-j2"),
+                              directory / "probe.gpr", "-p", "-j1"),
                 cwd=host.context, env=tool_environment(host),
                 capture_output=True, text=True, timeout=120)
             self.assertEqual(built.returncode, 0, built.stdout + built.stderr)

@@ -282,7 +282,7 @@ project Probe is
 end Probe;
 ''')
         result = subprocess.run(alire_command(host, "exec", "--", "gprbuild", "-P",
-                                             cls.directory / "probe.gpr", "-j2", "-p",
+                                             cls.directory / "probe.gpr", "-j1", "-p",
                                              "-XSILVER_HOST=" + host.key),
                                 cwd=host.context, env=tool_environment(host),
                                 capture_output=True, text=True, timeout=120)

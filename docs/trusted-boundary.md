@@ -1319,7 +1319,7 @@ retains the earlier String/path evidence; the
 schemas, implementation and source-correspondence validation.
 
 Application proof uses `-U --mode=all --report=all --checks-as-errors=on --level=2
---prover=cvc5,z3,altergo --steps=100000 --timeout=0 --memlimit=1000 -j0
+--prover=cvc5,z3,altergo --steps=100000 --timeout=0 --memlimit=1000 -j1
 --no-loop-unrolling`. All output
 routes use `--warnings=continue` to classify their exact permitted advisories
 from complete reports; null retains `--warnings=error`. Unexpected audited

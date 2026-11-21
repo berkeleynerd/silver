@@ -21,6 +21,9 @@ pause once existing validation jobs finish; no new feature or proof work starts.
 After the VM reboot, confirm eight-CPU detection and cpuset consistency before
 resuming and record the result. That reboot verification remains pending.
 
+The [resource review](reviews/review-eight-cpu-limit-20261121.md) links the
+observed enforcement, flag exceptions, focused tests and remaining validation.
+
 This work is tracked with [#410](https://github.com/berkeleynerd/silver/issues/410).
 It does not authorize Worca, an Oracle amendment or a PR merge. Unrelated root
 session-memory edits and feature worktrees remain preserved. CLI memory was not

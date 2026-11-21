@@ -1494,9 +1494,10 @@ stable file contents still requires the documented external semantics and absenc
 of concurrent replacement. Comprehensive per-program attestations remain deferred.
 
 Application proof uses `-U --mode=all --report=all --checks-as-errors=on --level=2
---prover=cvc5,z3,altergo --steps=100000 --timeout=0 --memlimit=1000 -j0
+--prover=cvc5,z3,altergo --steps=100000 --timeout=0 --memlimit=1000 -j1
 --no-loop-unrolling`. Loop expansion is not an admission or automatic-discharge
-argument.
+argument. Each application proof and build uses one worker to fit even a
+one-CPU managed share; the OS CPU limit also applies to its descendants.
 Null uses `--warnings=error`; all output routes use `--warnings=continue` so
 their precisely permitted advisories can be classified from the complete report. Every selected library report remains strict. Successful process exit
 and accepted report content are separate requirements. `warn_error` is not a

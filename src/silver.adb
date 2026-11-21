@@ -124,12 +124,14 @@ procedure Silver with SPARK_Mode => On is
            "      for Default_Switches (""Ada"") use (""-gnat2022"", ""-gnata"", ""-gnato"");" & LF &
            "   end Compiler;" & LF &
            "end Program;" & LF;
+         --  One worker fits even a one-CPU managed test share. The native
+         --  tools' automatic job count can exceed inherited CPU affinity.
          Proof_Command : constant String :=
            Silver_Build.Alire_Exec & Silver_Build.Image_Gnatprove & " -P " & Shell_Directory & "/program.gpr" &
            " -U --mode=all --report=all" &
            (if Output_Mode then " --warnings=continue" else " --warnings=error") &
            " --checks-as-errors=on" &
-           " --level=2 --prover=cvc5,z3,altergo --steps=100000 --timeout=0 --memlimit=1000 -j0" &
+           " --level=2 --prover=cvc5,z3,altergo --steps=100000 --timeout=0 --memlimit=1000 -j1" &
            " --no-loop-unrolling" &
            (if Functions.Count > 0 or else Procedures.Count > 0 then " --no-inlining" else "");
          --  The pinned native frontend must not replace a variable by an
@@ -137,7 +139,7 @@ procedure Silver with SPARK_Mode => On is
          --  -gnatdM disables that optimization; runtime checks stay enabled.
          --  Apply it only to native compilation, not GNATprove's frontend.
          Build_Command : constant String :=
-           Silver_Build.Alire_Exec & "gprbuild -P " & Shell_Directory & "/program.gpr -p -cargs:Ada -gnatdM";
+           Silver_Build.Alire_Exec & "gprbuild -P " & Shell_Directory & "/program.gpr -p -j1 -cargs:Ada -gnatdM";
          Observed : String (1 .. Silver_Profile.Max_Source_Length) :=
            (others => Character'Val (0));
          Observed_Last : Natural := 0;
