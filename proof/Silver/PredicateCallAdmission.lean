@@ -1,6 +1,7 @@
 module
 
 public import Silver.PredicateConditionAdmission
+public import Silver.PredicateFunctionCallArrayActual
 public import Silver.FunctionBindings
 public import Silver.PredicateAssociationAdmission
 
@@ -21,7 +22,8 @@ def invalidCall : CallResult := {}
 
 def actualAfter (text : Source) (context : ParseContext) (position : Nat)
     (facts : ActiveFlow) (parameter : FunctionBindings.Formal) : Nat :=
-  if parameter.kind = .boolean then (readCondition text context position facts).after
+  if parameter.typeId ≠ 0 then arrayActualAfter text context position parameter.typeId
+  else if parameter.kind = .boolean then (readCondition text context position facts).after
   else
     let value := readScalarInFlow text context position facts
     if value.after = 0 ∨ value.bounds.isEmpty ∨ !value.bounds.included parameter.bounds
@@ -32,6 +34,8 @@ theorem actualAfter_zero (text : Source) (context : ParseContext)
     (facts : ActiveFlow) (parameter : FunctionBindings.Formal) :
     actualAfter text context 0 facts parameter = 0 := by
   unfold actualAfter
+  split
+  · exact arrayActualAfter_zero ..
   split
   · rw [readCondition, readRelation]
     rfl

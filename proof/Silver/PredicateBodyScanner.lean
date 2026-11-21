@@ -17,12 +17,6 @@ path-fact implementation. Frames share immutable declaration names. -/
 namespace Silver.Predicate
 open Compose Bindings PathFacts
 
-def arrayTarget (text : Source) (context : ParseContext) (position : Nat) : Nat :=
-  let first := skipAt text position
-  let after := nameAfter text first
-  if ScalarExpression.lookup text context.scalarNames first after ≠ 0 then 0
-  else ArrayBindings.lookup text context.arrayNames first after
-
 def arrayIndexStart (text : Source) (scan : BodyScan) : Nat :=
   fixedAfter text (nameAfter text (skipAt text scan.position)) "(" false
 
