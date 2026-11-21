@@ -1,0 +1,8 @@
+Managed run: 20261121T203944-26f0b795d617 (/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261121T203944-26f0b795d617)
+Resource allocation: workers requested=2 actual=2 automatic=2
+test_bounds_queries_compose_with_boolean_and_string_initializers (test_array_parameters.ArrayParameterTests.test_bounds_queries_compose_with_boolean_and_string_initializers) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 7.850s
+
+OK

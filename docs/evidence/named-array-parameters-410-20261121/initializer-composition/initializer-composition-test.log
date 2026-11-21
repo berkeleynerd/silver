@@ -1,0 +1,29 @@
+Managed run: 20261121T203811-a85790c2b7b5 (/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261121T203811-a85790c2b7b5)
+Resource allocation: workers requested=2 actual=2 automatic=2
+test_bounds_queries_compose_with_boolean_and_string_initializers (test_array_parameters.ArrayParameterTests.test_bounds_queries_compose_with_boolean_and_string_initializers) ... FAIL
+
+======================================================================
+FAIL: test_bounds_queries_compose_with_boolean_and_string_initializers (test_array_parameters.ArrayParameterTests.test_bounds_queries_compose_with_boolean_and_string_initializers)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-native-410/tests/test_array_parameters.py", line 94, in test_bounds_queries_compose_with_boolean_and_string_initializers
+    self.check_full_route(program(declarations, body), kind='assigned',
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                          functions=('Size',), procedures={'Copy_Size': ('Result',)},
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                          runs=(((), b' 3\n 2\n 2\n', 0),))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-native-410/tests/test_shared_bindings.py", line 54, in check_full_route
+    self.check(source, expected)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-native-410/tests/test_shared_bindings.py", line 46, in check
+    self.assertEqual(result.returncode, expected, result.stdout)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 2 != 0 : Rejected: source is outside the Silver catalogue.
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.055s
+
+FAILED (failures=1)
+development command: Command '['/usr/bin/python3', '-m', 'unittest', 'discover', '-s', 'tests', '-v', '-p', 'test_array_parameters.py', '-k', 'test_bounds_queries_compose_with_boolean_and_string_initializers']' returned non-zero exit status 1.

@@ -501,3 +501,12 @@ at unpromoted Stage 38; broad arrays #12 stays open. Supported promotion waits
 for the shared assurance/regression/review checkpoint. Board #414 is In progress;
 #413 is In review with its measured stack evidence retained. PR #412 remains
 draft and has no merge authorization.
+
+At 20:40 UTC, the source-repair regression in
+[the initializer composition packet](evidence/named-array-parameters-410-20261121/initializer-composition/README.md)
+passed compilation, proof, audit and execution (`20261121T203944-26f0b795d617`).
+It covers bounds-query initialization in Main, Boolean aggregates, both callable
+local forms, and String/Character snapshots from a named array. The first test
+fixture was corrected to use visible type queries before formal installation;
+its rejected result is retained. The final suite now contains 785 identities,
+subject to its final census, and remains pending.
