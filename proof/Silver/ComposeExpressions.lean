@@ -689,6 +689,10 @@ inductive Expr : Ty → Type
   | subtypeAppend : Expr .subtypeNames → Expr .number → Expr .number → Expr .interval → Expr .truth → Expr .truth → Expr .callHiding → Expr .subtypeNames
   | stateSubtype : Expr .state → Expr .number → Expr .subtypeNames → Expr .state
   | maxSubtypeBindings : Expr .number
+  | arrayTypeCount : Expr .arrayTypes → Expr .number
+  | maxArrayTypes : Expr .number
+  | stateArrayType : Expr .state → Expr .number → Expr .number → Expr .interval →
+      Expr .interval → Expr .number → Expr .truth → Expr .truth → Expr .callHiding → Expr .state
   | scalarReadTable : Expr .source → Expr .number → Expr .scalarNames → Expr .arrayMetadata → Expr .scalarResult
   | scalarReadArrays : Expr .source → Expr .number → Expr .scalarNames →
       Expr .arrayMetadata → Expr .arrayInitials → Expr .truth → Expr .scalarResult
@@ -921,6 +925,21 @@ def Expr.render : Expr ty → List String
         ("true_hidden", trueHidden.render), ("false_hidden", falseHidden.render), ("hidden_calls", flags.render)]
   | .stateSubtype state position names => updated state.render [("position",position.render),("subtype_names",names.render)]
   | .maxSubtypeBindings => ["max_subtype_bindings"]
+  | .arrayTypeCount types => types.render ++ [".", "count"]
+  | .maxArrayTypes => ["array_bindings", ".", "max_types"]
+  | .stateArrayType state first after bounds components following trueHidden falseHidden flags =>
+      let env := state.render ++ [".", "array_names"]
+      let names := env ++ [".", "names"]
+      let types := names ++ [".", "types"]
+      let count := types ++ [".", "count", "+", "1"]
+      let entry := ["("] ++ first.render ++ [","] ++ after.render ++ [","] ++ bounds.render ++
+        [","] ++ components.render ++ [")"]
+      let table := aggregate [("count", count), ("items", ["("] ++ types ++
+        [".", "items", "with", "delta"] ++ count ++ ["=>"] ++ entry ++ [")"])]
+      updated state.render [("position", following.render),
+        ("array_names", updated env [("names", updated names [("types", table)])]),
+        ("subtype_names", updated (state.render ++ [".", "subtype_names"])
+          [("true_hidden", trueHidden.render), ("false_hidden", falseHidden.render), ("hidden_calls", flags.render)])]
   | .scalarReadTable t p n a => ["scalar_expressions", "."] ++ call "read_expression"
       [t.render, p.render, n.render, ["arrays", "=>"] ++ a.render]
   | .scalarReadArrays t p n a i e => ["scalar_expressions", "."] ++ call "read_expression"
@@ -1113,6 +1132,18 @@ def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
         falseHidden := falseHidden.eval calls locals }
   | .stateSubtype state position names => {state.eval calls locals with position := position.eval calls locals, subtypeNames := names.eval calls locals}
   | .maxSubtypeBindings => IntegerSubtypes.maxBindings
+  | .arrayTypeCount types => (types.eval calls locals).length
+  | .maxArrayTypes => ArrayBindings.maxTypes
+  | .stateArrayType state first after bounds components following trueHidden falseHidden flags =>
+      let before := state.eval calls locals
+      { before with
+        position := following.eval calls locals
+        arrayNames := { before.arrayNames with types := before.arrayNames.types ++
+          [⟨first.eval calls locals, after.eval calls locals, bounds.eval calls locals, components.eval calls locals⟩] }
+        subtypeNames := { before.subtypeNames with
+          trueHidden := trueHidden.eval calls locals
+          falseHidden := falseHidden.eval calls locals
+          hiddenCalls := flags.eval calls locals } }
   | .scalarReadTable t p n a => calls.function .scalarRead
       (t.eval calls locals) (p.eval calls locals) (n.eval calls locals) (a.eval calls locals) [] false
   | .scalarReadArrays t p n a i e => calls.function .scalarRead
@@ -1879,7 +1910,7 @@ def Expr.prefix : Expr ty → Bool
     .lexForbidden _ _ _ | .lexForbiddenArgument _ _ _ | .lexEqual _ _ _ _ _ |
     .lexDecimal _ _ | .lexTokenAt _ _ _ _ | .lexNormalize _ | .lexAllowed _ |
     .operation _ | .variable _ | .function _ | .app _ _ | .defaultFalse _ | .defaultFull _ _ |
-    .subtypeCount _ | .subtypeItem _ _ | .hiddenFlag _ _ | .maxSubtypeBindings |
+    .subtypeCount _ | .subtypeItem _ _ | .hiddenFlag _ _ | .maxSubtypeBindings | .arrayTypeCount _ | .maxArrayTypes |
     .scalarReadTable _ _ _ _ | .scalarReadArrays _ _ _ _ _ _ | .expressionArrays _ _ _ _ _ _ _ |
     .field _ _ | .count _ | .scalarCount _ | .integerTypeWord | .booleanTypeWord | .characterTypeWord |
     .arrayCount _ | .arrayItem _ _ | .arrayTypeItem _ _ | .maxArrayBindings | .maxArrayElements | .invalidScalar |
@@ -1919,6 +1950,7 @@ def Expr.primary : Expr ty → Bool
   | .statePositionArray _ _ _ | .staticScalar _ _ | .arrayAppend _ _ _ _ _ _ _ _ _ _ | .maxScalarBindings
   | .defaultFull _ _ | .subtypeCount _ | .subtypeItem _ _ | .hiddenFlag _ _ | .operationName _
   | .forOperations _ _ | .subtypeAppend _ _ _ _ _ _ _ | .stateSubtype _ _ _ | .maxSubtypeBindings
+  | .arrayTypeCount _ | .maxArrayTypes | .stateArrayType _ _ _ _ _ _ _ _ _
   | .fullInterval | .emptyInterval | .interval _ _ | .constraint _ _
   | .scalarBinding _ _ _ _ _ _ | .stateScalar _ _ _ | .item _ _ | .group _
   | .byteAt _ _ | .sourceLast _ | .sourceLength _ | .characterVal _
@@ -2040,6 +2072,14 @@ def Expr.wellFormed : Expr ty → Bool
       falseHidden.wellFormed && falseHidden.expression && flags.wellFormed && flags.expression
   | .stateSubtype state position names => state.wellFormed && state.primary && position.wellFormed && position.expression && names.wellFormed && names.expression
   | .maxSubtypeBindings => true
+  | .arrayTypeCount types => types.wellFormed && types.prefix
+  | .maxArrayTypes => true
+  | .stateArrayType state first after bounds components following trueHidden falseHidden flags =>
+      state.wellFormed && state.prefix && first.wellFormed && first.expression &&
+      after.wellFormed && after.expression && bounds.wellFormed && bounds.expression &&
+      components.wellFormed && components.expression && following.wellFormed && following.expression &&
+      trueHidden.wellFormed && trueHidden.expression && falseHidden.wellFormed && falseHidden.expression &&
+      flags.wellFormed && flags.expression
   | .scalarReadTable t p n a => t.wellFormed && p.wellFormed && n.wellFormed && a.wellFormed &&
       t.expression && p.expression && n.expression && a.expression
   | .scalarReadArrays t p n a i e => t.wellFormed && p.wellFormed && n.wellFormed &&
@@ -2322,6 +2362,12 @@ def Expr.scoped (scope : Scope) : Expr ty → Bool
   | .operationName op => op.scoped scope
   | .forOperations name body => body.scoped ((name, .operation) :: scope)
   | .subtypeAppend names first after bounds trueHidden falseHidden flags => names.scoped scope && first.scoped scope && after.scoped scope && bounds.scoped scope && trueHidden.scoped scope && falseHidden.scoped scope && flags.scoped scope
+  | .arrayTypeCount types => types.scoped scope
+  | .maxArrayTypes => true
+  | .stateArrayType state first after bounds components following trueHidden falseHidden flags =>
+      state.scoped scope && first.scoped scope && after.scoped scope && bounds.scoped scope &&
+      components.scoped scope && following.scoped scope && trueHidden.scoped scope &&
+      falseHidden.scoped scope && flags.scoped scope
   | .stateSubtype state position names => state.scoped scope && position.scoped scope && names.scoped scope
   | .maxSubtypeBindings => true
   | .scalarReadTable t p n a => t.scoped scope && p.scoped scope && n.scoped scope && a.scoped scope

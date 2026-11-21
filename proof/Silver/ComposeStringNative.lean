@@ -86,6 +86,7 @@ def Declaration.validType : Ty → List String → Bool
   | .integer, name => name == ["scalars", ".", "wide"]
   | .interval, name => name == ["scalars", ".", "interval"]
   | .scalarResult, name => name == ["scalar_expressions", ".", "expression_result"]
+  | .scalarConstraint, name => name == ["scalar_constraint_result"]
   | .value, name => name == ["value_result"]
   | .truth, name => name == ["boolean"]
   | _, _ => false

@@ -3,6 +3,7 @@ module
 public import Silver.ComposeExpressions
 public import Silver.ComposeStringNative
 public import Silver.ComposeArrayExpressions
+public import Silver.ComposeArrayTypeNative
 public import Silver.ComposeBounds
 public import Silver.ArrayBindingsEnvironment
 
@@ -503,6 +504,13 @@ structure RawHelperEquations (calls : Calls) (evaluator : Calls := lexical calls
     NativeState domain text state → ValidCursor text position →
     calls.function .scalarType text state position =
       scalarTypeBody.eval evaluator (Context.locals {text,state,position})
+  arrayTypeAt : ∀ text, ValidText text → ∀ state position,
+    NativeState domain text state → ValidCursor text position →
+    calls.function .arrayTypeAt text state position =
+      arrayTypeAtBody.eval evaluator (Context.locals {text,state,position})
+  arrayTypeDeclaration : ∀ text, ValidText text → ∀ state arguments,
+    NativeState domain text state → calls.function .arrayTypeDeclaration text state arguments =
+      arrayTypeDeclarationBody.eval evaluator (Context.locals {text,state,arguments})
   subtypeDeclaration : ∀ text, ValidText text → ∀ state arguments,
     NativeState domain text state → calls.function .subtypeDeclaration text state arguments =
       subtypeDeclarationBody.eval evaluator (Context.locals {text,state,arguments})
