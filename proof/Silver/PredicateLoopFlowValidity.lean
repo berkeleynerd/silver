@@ -123,7 +123,7 @@ theorem nativeLoopInner_baseReady {context : ParseContext}
   base.append_immutable _ rfl space
 
 theorem loopHeader_flowReady {text : Source} {context : ParseContext} {scan : BodyScan}
-    (arrays : ArrayBindings.ValidMetadata text context.arrayNames)
+    (arrays : ArrayBindings.ValidTable text context.arrayTable)
     (base : ScalarMetadata.ContextReady context.scalarNames context.declarationCount context.elaborating)
     (ready : ScalarMetadata.FlowReady context.scalarNames context.declarationCount scan.facts)
     (environment : ScalarExpression.ValidEnvironment text context.scalarNames)
