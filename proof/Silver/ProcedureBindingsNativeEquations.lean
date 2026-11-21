@@ -13,7 +13,7 @@ def ValidText (text : Source) : Prop := 0 < text.length ∧ text.length ≤ 4096
 /-- Native scalar subtypes on the active prefixes. Unused array cells are not
 read by these operations; arbitrary values of their native types are permitted. -/
 def FormalType (item : Formal) : Prop :=
-  item.first ≤ 4097 ∧ item.after ≤ 4097 ∧ item.bounds.Bounded
+  item.first ≤ 4097 ∧ item.after ≤ 4097 ∧ item.bounds.Bounded ∧ item.typeId ≤ ArrayBindings.maxTypes
 
 def SignatureType (item : Signature) : Prop :=
   item.first ≤ 4097 ∧ item.after ≤ 4097 ∧ item.formalFirst ≤ maxFormals ∧
@@ -125,18 +125,25 @@ theorem indexed_all_iff {α : Type} (items : List α) (fallback : α) (test : α
 theorem formal_test (calls : Calls) (primitives : Primitives calls)
     (text : Source) (valid : ValidText text) (item : Formal) (typed : FormalType item) :
     (decide (item.first > 0) && calls.validNameState text item.first item.after &&
-      !calls.isEmpty item.bounds) = true ↔ ValidFormal text item := by
+      !calls.isEmpty item.bounds &&
+      (!decide (item.typeId ≠ 0) || (decide (item.mode = .input) && decide (item.kind = .integer)))) = true ↔ ValidFormal text item := by
   rw [primitives.validNameState text valid _ _ typed.1 typed.2.1,
-    primitives.isEmpty _ typed.2.2]
-  unfold validNameState
-  simp only [Bool.and_eq_true, Bool.not_eq_true', decide_eq_true_eq,
-    Integer.Interval.isEmpty, decide_eq_false_iff_not, ValidFormal]
+    primitives.isEmpty _ typed.2.2.1]
+  simp only [Bool.and_eq_true, Bool.or_eq_true, Bool.not_eq_true', decide_eq_true_eq,
+    decide_eq_false_iff_not, validNameState, Integer.Interval.isEmpty, ValidFormal]
   constructor
-  · rintro ⟨⟨positive, zero | span⟩, nonempty⟩
+  · rintro ⟨⟨⟨positive, zero | span⟩, nonempty⟩, nominal⟩
     · omega
-    · exact ⟨span, typed.2.2, by omega⟩
-  · rintro ⟨span, _, nonempty⟩
-    exact ⟨⟨span.1, .inr span⟩, by omega⟩
+    · exact ⟨span, typed.2.2.1, by omega, by
+      intro active
+      rcases nominal with absent | canonical
+      · exact False.elim (absent active)
+      · exact canonical⟩
+  · rintro ⟨span, _, nonempty, nominal⟩
+    exact ⟨⟨⟨span.1, .inr span⟩, by omega⟩, by
+      by_cases active : item.typeId ≠ 0
+      · exact Or.inr (nominal active)
+      · exact Or.inl active⟩
 
 theorem signature_test (calls : Calls) (primitives : Primitives calls)
     (text : Source) (valid : ValidText text) (procedures : Metadata) (item : Signature)

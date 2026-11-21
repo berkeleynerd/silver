@@ -9,16 +9,18 @@ remain arbitrary until their exact-domain equations are supplied. Explicit
 precedence classes reject ambiguous ungrouped renderings. -/
 namespace Silver.ProcedureBindings.Native
 
-inductive Ty | number | truth | source | interval | formal | signature | metadata
+inductive Ty | kind | number | truth | mode | source | interval | formal | signature | metadata
   | arrow (domain codomain : Ty)
   deriving DecidableEq
 @[reducible] def Ty.meaning : Ty → Type
-  | .number => Nat | .truth => Bool | .source => Source | .interval => Integer.Interval
+  | .kind => ScalarKind
+  | .number => Nat | .truth => Bool | .mode => Mode | .source => Source | .interval => Integer.Interval
   | .formal => Formal | .signature => Signature | .metadata => Metadata
   | .arrow a b => a.meaning → b.meaning
 
 def Ty.default : (ty : Ty) → ty.meaning
-  | .number => 0 | .truth => false | .source => [] | .interval => .empty
+  | .kind => .integer
+  | .number => 0 | .truth => false | .mode => .input | .source => [] | .interval => .empty
   | .formal => emptyFormal | .signature => emptySignature | .metadata => {}
   | .arrow _ b => fun _ => b.default
 
@@ -52,21 +54,30 @@ inductive Field : Ty → Ty → Type
   | first : Field .signature .number | after : Field .signature .number
   | formalFirst : Field .signature .number | formalCount : Field .signature .number
   | parameterFirst : Field .formal .number | parameterAfter : Field .formal .number
+  | parameterKind : Field .formal .kind
   | parameterBounds : Field .formal .interval
+  | parameterTypeId : Field .formal .number | parameterMode : Field .formal .mode
   | count : Field .metadata .number | parameterCount : Field .metadata .number
 
 def Field.name : Field a b → String
+  | .parameterKind => "kind"
   | .first | .parameterFirst => "first" | .after | .parameterAfter => "after"
   | .formalFirst => "formal_first" | .formalCount | .count => "count"
+  | .parameterTypeId => "type_id" | .parameterMode => "mode"
   | .parameterBounds => "bounds" | .parameterCount => "parameter_count"
 def Field.get : Field a b → a.meaning → b.meaning
+  | .parameterKind, value => value.kind
   | .first, value => value.first | .after, value => value.after
   | .formalFirst, value => value.formalFirst | .formalCount, value => value.count
   | .parameterFirst, value => value.first | .parameterAfter, value => value.after
   | .parameterBounds, value => value.bounds
+  | .parameterTypeId, value => value.typeId | .parameterMode, value => value.mode
   | .count, value => value.items.length | .parameterCount, value => value.parameters.length
 
 inductive Expr : Ty → Type
+  | integerKind : Expr .kind
+  | kindEq : Expr .kind → Expr .kind → Expr .truth
+  | input : Expr .mode
   | number (value : Nat) : Expr .number
   | variable (name : String) : Expr ty
   | function (fn : Function) : Expr fn.type
@@ -77,6 +88,9 @@ inductive Expr : Ty → Type
   | natSub : Expr .number → Expr .number → Expr .number
   | natAdd : Expr .number → Expr .number → Expr .number
   | eq : Expr .number → Expr .number → Expr .truth
+  | ne : Expr .number → Expr .number → Expr .truth
+  | modeEq : Expr .mode → Expr .mode → Expr .truth
+  | guarded : Expr .truth → Expr .truth → Expr .truth
   | le : Expr .number → Expr .number → Expr .truth
   | gt : Expr .number → Expr .number → Expr .truth
   | andThen : Expr .truth → Expr .truth → Expr .truth
@@ -97,6 +111,9 @@ def Locals.withIndex (locals : Locals) (name : String) (index : Nat) : Locals
   | ty, other => locals ty other
 
 def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
+  | .integerKind => .integer
+  | .kindEq a b => decide (a.eval calls locals = b.eval calls locals)
+  | .input => .input
   | .number value => value | .variable name => locals _ name | .function fn => calls.get fn
   | .app fn arg => fn.eval calls locals (arg.eval calls locals)
   | .field projection value => projection.get (value.eval calls locals)
@@ -105,6 +122,9 @@ def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
   | .natSub a b => a.eval calls locals - b.eval calls locals
   | .natAdd a b => a.eval calls locals + b.eval calls locals
   | .eq a b => decide (a.eval calls locals = b.eval calls locals)
+  | .ne a b => decide (a.eval calls locals ≠ b.eval calls locals)
+  | .modeEq a b => decide (a.eval calls locals = b.eval calls locals)
+  | .guarded c a => !c.eval calls locals || a.eval calls locals
   | .le a b => decide (a.eval calls locals ≤ b.eval calls locals)
   | .gt a b => decide (a.eval calls locals > b.eval calls locals)
   | .andThen a b => a.eval calls locals && b.eval calls locals
@@ -121,6 +141,9 @@ def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
   | .extendSignature procedures item => ProcedureBindings.append (procedures.eval calls locals) (item.eval calls locals)
 
 def Expr.render : Expr ty → List String
+  | .integerKind => ["silver_function_bindings", ".", "integer_kind"]
+  | .kindEq a b => a.render ++ ["="] ++ b.render
+  | .input => ["input"]
   | .number value => [toString value] | .variable name => [name] | .function fn => fn.name
   | .app fn arg => match fn with
     | .app _ _ => fn.render.dropLast ++ [","] ++ arg.render ++ [")"]
@@ -129,7 +152,9 @@ def Expr.render : Expr ty → List String
   | .signature procedures index => procedures.render ++ [".", "items", "("] ++ index.render ++ [")"]
   | .parameter procedures index => procedures.render ++ [".", "parameters", "("] ++ index.render ++ [")"]
   | .natSub a b => a.render ++ ["-"] ++ b.render | .natAdd a b => a.render ++ ["+"] ++ b.render
-  | .eq a b => a.render ++ ["="] ++ b.render | .le a b => a.render ++ ["<="] ++ b.render
+  | .ne a b => a.render ++ ["/="] ++ b.render
+  | .guarded c a => ["if"] ++ c.render ++ ["then"] ++ a.render
+  | .eq a b | .modeEq a b => a.render ++ ["="] ++ b.render | .le a b => a.render ++ ["<="] ++ b.render
   | .gt a b => a.render ++ [">"] ++ b.render
   | .andThen a b => a.render ++ ["and", "then"] ++ b.render
   | .orElse a b => a.render ++ ["or", "else"] ++ b.render
@@ -175,9 +200,12 @@ def validMetadataBody : Expr .truth :=
   let parameter := Expr.parameter procedures index
   let item := Expr.signature procedures index
   .andThen (.group <| .forAllParameters "i" procedures <|
-    .andThen (.andThen (.gt (.field .parameterFirst parameter) (.number 0))
+    .andThen (.andThen (.andThen (.gt (.field .parameterFirst parameter) (.number 0))
       (apply3 (.function .validNameState) text (.field .parameterFirst parameter) (.field .parameterAfter parameter)))
       (.not (.app (.function .isEmpty) (.field .parameterBounds parameter))))
+      (.group <| .guarded (.ne (.field .parameterTypeId parameter) (.number 0))
+        (.andThen (.modeEq (.field .parameterMode parameter) .input)
+          (.kindEq (.field .parameterKind parameter) .integerKind))))
     (.group <| .forAllSignatures "i" procedures <|
       .andThen (.andThen (.andThen (.andThen (.andThen
         (.gt (.field .first item) (.number 0))
@@ -209,11 +237,11 @@ def Context.locals (context : Context) : Locals
 
 def Expr.scoped (locals : List (String × Ty)) : Expr ty → Bool
   | .variable name => locals.lookup name == some ty
-  | .number _ | .function _ => true
+  | .integerKind | .input | .number _ | .function _ => true
   | .app fn arg => fn.scoped locals && arg.scoped locals
   | .field _ value | .not value | .group value => value.scoped locals
   | .signature a b | .parameter a b | .natSub a b | .natAdd a b
-  | .eq a b | .le a b | .gt a b | .andThen a b | .orElse a b
+  | .kindEq a b | .ne a b | .modeEq a b | .guarded a b | .eq a b | .le a b | .gt a b | .andThen a b | .orElse a b
   | .extendFormal a b | .extendSignature a b => a.scoped locals && b.scoped locals
   | .ite c a b | .elsif c a b => c.scoped locals && a.scoped locals && b.scoped locals
   | .forAllSignatures name procedures body | .forAllParameters name procedures body =>
@@ -223,12 +251,12 @@ def Expr.scoped (locals : List (String × Ty)) : Expr ty → Bool
 turn it into a name. The aggregate constructors also select their base fields. -/
 def Expr.prefix : Expr ty → Bool
   | .variable _ | .function _ | .app _ _ | .field _ _ | .signature _ _ | .parameter _ _ => true
-  | .number _ | .natSub _ _ | .natAdd _ _ | .eq _ _ | .le _ _ | .gt _ _ |
+  | .integerKind | .kindEq _ _ | .input | .guarded _ _ | .ne _ _ | .modeEq _ _ | .number _ | .natSub _ _ | .natAdd _ _ | .eq _ _ | .le _ _ | .gt _ _ |
     .andThen _ _ | .orElse _ _ | .not _ | .group _ | .ite _ _ _ | .elsif _ _ _ |
     .forAllSignatures _ _ _ | .forAllParameters _ _ _ | .extendFormal _ _ | .extendSignature _ _ => false
 
 def Expr.primary : Expr ty → Bool
-  | .number _ | .variable _ | .function _ | .app _ _ | .field _ _
+  | .integerKind | .input | .number _ | .variable _ | .function _ | .app _ _ | .field _ _
   | .signature _ _ | .parameter _ _ | .group _ => true
   | _ => false
 
@@ -237,7 +265,7 @@ def Expr.simple : Expr ty → Bool
   | value => value.primary
 
 def Expr.relation : Expr ty → Bool
-  | .eq _ _ | .le _ _ | .gt _ _ => true
+  | .kindEq _ _ | .ne _ _ | .modeEq _ _ | .eq _ _ | .le _ _ | .gt _ _ => true
   | value => value.simple
 
 def Expr.expression : Expr ty → Bool
@@ -250,7 +278,7 @@ def Expr.andLeft : Expr .truth → Bool
 def Expr.orLeft : Expr .truth → Bool
   | .orElse _ _ => true | value => value.relation
 
-def Expr.isConditional : Expr ty → Bool | .ite _ _ _ => true | _ => false
+def Expr.isConditional : Expr ty → Bool | .ite _ _ _ | .guarded _ _ => true | _ => false
 
 def Expr.isQuantified : Expr ty → Bool
   | .forAllSignatures _ _ _ | .forAllParameters _ _ _ => true | _ => false
@@ -264,17 +292,18 @@ def Expr.functionSpine : Expr ty → Bool
   | .function _ => true | .app fn _ => fn.functionSpine | _ => false
 
 def Expr.wellFormed : Expr ty → Bool
-  | .number _ | .variable _ | .function _ => true
+  | .integerKind | .input | .number _ | .variable _ | .function _ => true
   | .app fn arg => fn.functionSpine && fn.wellFormed && arg.expression && arg.wellFormed
   | .field _ value => value.prefix && value.wellFormed
   | .signature procedures index | .parameter procedures index =>
       procedures.prefix && procedures.wellFormed && index.expression && index.wellFormed
   | .natSub a b | .natAdd a b => a.simple && b.primary && a.wellFormed && b.wellFormed
-  | .eq a b | .le a b | .gt a b => a.simple && b.simple && a.wellFormed && b.wellFormed
+  | .kindEq a b | .ne a b | .modeEq a b | .eq a b | .le a b | .gt a b => a.simple && b.simple && a.wellFormed && b.wellFormed
   | .not value => value.primary && value.wellFormed
   | .andThen a b => a.andLeft && b.relation && a.wellFormed && b.wellFormed
   | .orElse a b => a.orLeft && b.relation && a.wellFormed && b.wellFormed
   | .group value => (value.expression || value.isConditional || value.isQuantified || value.isAggregate) && value.wellFormed
+  | .guarded c a => c.expression && c.wellFormed && a.expression && a.wellFormed
   | .ite c a b | .elsif c a b => c.expression && a.expression && (b.expression || b.isElsif) &&
       c.wellFormed && a.wellFormed && b.wellFormed
   | .forAllSignatures _ procedures body | .forAllParameters _ procedures body =>
