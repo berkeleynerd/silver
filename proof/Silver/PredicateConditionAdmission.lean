@@ -131,7 +131,7 @@ def ParseContext.validityHidden (context : ParseContext) (text : Source) : Bool 
 def readStringInFlow (text : Source) (context : ParseContext) (position : Nat) (facts : ActiveFlow)
     (initials : ArrayBindings.Initials := []) : ExpressionResult :=
   expressionAt text position context.names (context.readingNames facts)
-    (context.integerHidden text) context.arrayNames initials context.elaborating
+    (context.integerHidden text) context.arrayTable initials context.elaborating
 
 def Comparison.toInteger : Comparison → Integer.Comparison
   | .eq => .eq | .ne => .ne | .lt => .lt | .le => .le | .gt => .gt | .ge => .ge
@@ -179,9 +179,9 @@ def invalidCondition (facts : ActiveFlow) : ConditionResult := ⟨0, facts.inval
 def characterCondition (text : Source) (context : ParseContext) (position : Nat)
     (facts : ActiveFlow) (initials : ArrayBindings.Initials := []) : ConditionResult :=
   let overlay := context.readingNames facts
-  let left := characterAt text position context.names overlay context.arrayNames initials context.elaborating
+  let left := characterAt text position context.names overlay context.arrayTable initials context.elaborating
   let operator := comparisonAt text left.after
-  let right := characterAt text operator.after context.names overlay context.arrayNames initials context.elaborating
+  let right := characterAt text operator.after context.names overlay context.arrayTable initials context.elaborating
   if left.after = 0 ∨ operator.after = 0 ∨ right.after ≤ position ∨
       !(left.nonliteralSeen || right.nonliteralSeen) then invalidCondition facts
   else ⟨right.after, facts, facts⟩
@@ -296,7 +296,7 @@ mutual
       ⟨booleanAtomAfter text context position, facts, facts⟩
     else if !context.hasArguments then invalidCondition facts
     else
-      let afterCall := callAfter text context.names position .validity context.scalarNames context.arrayNames
+      let afterCall := callAfter text context.names position .validity context.scalarNames context.arrayTable
         (context.validityHidden text) context.booleanNames
       if afterCall = 0 then invalidCondition facts else
         ⟨afterCall, {facts with path := facts.path.assumeValid}, {facts with path := facts.path.assumeInvalid}⟩
