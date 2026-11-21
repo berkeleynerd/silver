@@ -155,9 +155,11 @@ class SupportedSampleTests(unittest.TestCase):
             admission = invoke("check", source)
             self.assertEqual(admission.returncode, 0, admission.stdout)
             # Test-runner deadline only; production proof has no wall-clock limit.
+            # The one-worker application prover serializes solver attempts for
+            # this maximal expression; its former five-minute deadline is too short.
             compilation = subprocess.run([str(SILVER), "compile", str(source)], cwd=ROOT,
                                          text=True, stdout=subprocess.PIPE,
-                                         stderr=subprocess.STDOUT, timeout=300)
+                                         stderr=subprocess.STDOUT, timeout=1800)
             self.assertEqual(compilation.returncode, 0, compilation.stdout)
             match = re.search(r"^Executable: (.+)$", compilation.stdout, re.MULTILINE)
             self.assertIsNotNone(match, compilation.stdout)
