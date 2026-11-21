@@ -27,7 +27,7 @@ def functionSourceFinal (text : Source) (frame : ParserState) (arguments : Bool)
   bodyTail text (functionSourceContext text frame arguments) (functionSourceScan text frame arguments)
     .returnOnly frame.functions
 
-/-- Exact source-order locals, installed formal suffix, scalar body and typed
+/-- Exact source-order locals, installed formal suffix, closed body and typed
 terminal return retained from one function's source frame. -/
 inductive FunctionBodySource (text : Source) (frame : ParserState) (first after : Nat)
     (resultType : FunctionTypeResult) (arguments : Bool) : Definition → Prop
@@ -42,16 +42,16 @@ inductive FunctionBodySource (text : Source) (frame : ParserState) (first after 
         (functionSourceScan text frame arguments) items (functionSourceFinal text frame arguments) →
       ActualAt text (functionSourceContext text frame arguments)
         (fixedAfter text (functionSourceFinal text frame arguments).position "return" true)
-        (functionSourceFinal text frame arguments).facts ⟨0, 0, resultType.kind, resultType.bounds⟩
+        (functionSourceFinal text frame arguments).facts ⟨0, 0, resultType.kind, resultType.bounds, 0⟩
         returned (functionReturnAfter text (functionSourceContext text frame arguments)
           (functionSourceFinal text frame arguments) resultType) →
       FunctionBodySource text frame first after resultType arguments
-        (sourceFunctionDefinition (signatureModel frame.functions (functionSourceEntry frame first after resultType))
+        (sourceFunctionDefinition (signatureModel frame.functions (functionSourceEntry frame first after resultType) frame.arrayNames.types)
           integers booleans checks booleanChecks items returned)
 
 theorem FunctionBodySource.signature {text frame first after resultType arguments definition}
     (source : FunctionBodySource text frame first after resultType arguments definition) :
-    definition.signature = signatureModel frame.functions (functionSourceEntry frame first after resultType) := by
+    definition.signature = signatureModel frame.functions (functionSourceEntry frame first after resultType) frame.arrayNames.types := by
   cases source
   rfl
 
@@ -61,7 +61,7 @@ theorem FunctionBodySource.checked {text frame first after resultType arguments 
     (emptyIntegers : frame.scalarNames = []) (emptyBooleans : frame.booleanNames = [])
     (positive : 0 < frame.firstParameter)
     (signatureValid : FunctionBindings.ValidSignature text frame.functions (functionSourceEntry frame first after resultType)) :
-    definition.Checked (catalogSignatures frame.functions) := by
+    definition.Checked (catalogSignatures frame.functions frame.arrayNames.types) := by
   cases source with
   | @parsed integers booleans checks booleanChecks items returned locals accepted parameters body result =>
     let localFrame := functionLocals text frame arguments
@@ -75,13 +75,16 @@ theorem FunctionBodySource.checked {text frame first after resultType arguments 
     have firstPositive : 0 < localFrame.firstParameter := by rw [locals.preserves.firstParameter]; exact positive
     have boundValid : ValidState text bound := parameterFrameModel_valid localFrame.firstParameter localValid firstPositive
     have boundFields : ParameterFrameFieldsPreserved localFrame bound := parameters.fields
-    have boundClosed : ClosedFunctionState bound := by
+    have boundPure : bound.pure = true := by rw [boundFields]; exact localClosed.pure
+    have boundNoArguments : bound.dynamicFirst = 0 := by rw [boundFields]; exact localClosed.noArguments
+    have boundNoNames : bound.names = [] := by rw [boundFields]; exact localClosed.noNames
+    have localTypes : localFrame.arrayNames.types = frame.arrayNames.types := by
+      rw [locals.preserves.arrayNames]
+    have contextTypes : context.arrayTypes = frame.arrayNames.types := by
+      change bound.arrayNames.types = _
       rw [boundFields]
-      exact ⟨localClosed.pure, localClosed.noArguments, localClosed.noNames, localClosed.noArrays⟩
-    have contextClosed : ClosedFunctionContext context := by
-      refine ⟨boundClosed.pure, ?_, boundClosed.noNames, boundClosed.noArrays⟩
-      change decide (bound.dynamicFirst ≠ 0) = false
-      simp only [boundClosed.noArguments, ne_eq, not_true_eq_false, decide_false]
+      exact localTypes
+    have arraysReady : context.ArraysReady text := boundValid.arrays.1
     have contextReady : ScalarMetadata.ContextReady context.scalarNames context.declarationCount context.elaborating :=
       parameterFrame_contextReady localValid localReady firstPositive accepted
     have flowReady : scan.FlowReady context :=
@@ -91,7 +94,7 @@ theorem FunctionBodySource.checked {text frame first after resultType arguments 
     have count : context.booleanNames.length ≤ BooleanBindings.maxBindings := boundValid.booleans.1
     have path : scan.facts.path = entryContext := by
       change initialFacts (decide (bound.dynamicFirst ≠ 0)) = entryContext
-      simp only [boundClosed.noArguments, ne_eq, not_true_eq_false, decide_false, initialFacts, Bool.false_eq_true, ↓reduceIte]
+      simp only [boundNoArguments, ne_eq, not_true_eq_false, decide_false, initialFacts, Bool.false_eq_true, ↓reduceIte]
       rfl
     have bounded : scan.facts.path.Bounded := by
       rw [path]
@@ -100,36 +103,81 @@ theorem FunctionBodySource.checked {text frame first after resultType arguments 
       simpa only [emptyIntegers, List.length_nil, Nat.zero_add] using locals.scalar_length
     have booleanCount : localFrame.booleanNames.length = booleans.length := by
       simpa only [emptyBooleans, List.length_nil, Nat.zero_add] using locals.boolean_length
-    have analyses := parameters.analyses localFrame.scalarNames.length (Nat.le_refl _)
     have formalCount : localFrame.functions.parameters.length + 1 - localFrame.firstParameter =
         frame.functions.parameters.length - frame.firstParameter + 1 := by
       rw [locals.preserves.functions, locals.preserves.firstParameter]
       have firstBound : frame.firstParameter ≤ frame.functions.parameters.length := signatureValid.2.2.2.1
       omega
+    have descriptors := parameters.arrayDescriptors
     rw [formalCount, locals.preserves.functions, locals.preserves.firstParameter,
-      locals.local_analysis valid emptyIntegers (by simp [ParserState.StoredArrays, closed.noArrays]), locals.local_boolean_analysis valid emptyBooleans closed.noArrays,
+      localTypes, localClosed.noArrays] at descriptors
+    simp only [List.map_nil, List.nil_append, List.length_nil, Nat.zero_add] at descriptors
+    have kinds := parameters.arrayViewKinds (by
+      change ∀ item ∈ localFrame.arrayNames.names, item.isBoolean = false ∧ item.viewSlot ≠ 0
+      rw [localClosed.noArrays]
+      simp)
+    have contextClosed : ClosedFunctionContext context
+        (formalArrays 1 (signatureModel frame.functions (functionSourceEntry frame first after resultType)
+          frame.arrayNames.types).formals) := by
+      refine ⟨boundPure, ?_, boundNoNames, ?_⟩
+      · change decide (bound.dynamicFirst ≠ 0) = false
+        simp only [boundNoArguments, ne_eq, not_true_eq_false, decide_false]
+      · intro item member
+        have kind := kinds item member
+        refine ⟨kind.1, kind.2, ?_⟩
+        have pair : (item.typeId, item.viewDescriptor) ∈
+            bound.arrayNames.names.map (fun entry => (entry.typeId, entry.viewDescriptor)) :=
+          List.mem_map.mpr ⟨item, member, rfl⟩
+        rw [descriptors] at pair
+        exact pair
+    have analyses := parameters.analyses localFrame.scalarNames.length (Nat.le_refl _)
+    rw [formalCount, locals.preserves.functions, locals.preserves.firstParameter,
+      localTypes, locals.local_analysis valid emptyIntegers closed.stored,
+      locals.local_boolean_analysis valid emptyBooleans closed.noArrays,
       scalarCount, booleanCount] at analyses
+    have hybrid := parameters.arrayAnalysis localValid firstPositive localFrame.scalarNames.length (Nat.le_refl _)
+    rw [formalCount, locals.preserves.functions, locals.preserves.firstParameter,
+      localTypes, localClosed.noArrays] at hybrid
+    simp only [List.length_nil, Nat.zero_add, ArrayViews.analysis_nil] at hybrid
+    rw [locals.local_analysis valid emptyIntegers closed.stored, scalarCount] at hybrid
     have analysis : context.analysis = parameterAnalysis integers.length
-        (signatureModel frame.functions (functionSourceEntry frame first after resultType)).formals
-        (Integer.Analysis.ofDeclarations integers) := by
-      change ArrayFlow.analysis bound.arrayNames.names (functionScalarAnalysis bound localFrame.scalarNames.length) = _
-      rw [boundClosed.noArrays, scalarCount]
-      exact analyses.1
+        (signatureModel frame.functions (functionSourceEntry frame first after resultType) frame.arrayNames.types).formals
+        (arrayAnalysis 1
+          (signatureModel frame.functions (functionSourceEntry frame first after resultType) frame.arrayNames.types).formals
+          (Integer.Analysis.ofDeclarations integers)) := by
+      change ArrayViews.analysis bound.arrayNames.names (functionScalarAnalysis bound localFrame.scalarNames.length) = _
+      rw [scalarCount]
+      exact hybrid
     have booleanAnalysis : BooleanBindings.analysis context.booleanNames = parameterBooleans booleans.length
-        (signatureModel frame.functions (functionSourceEntry frame first after resultType)).formals
+        (signatureModel frame.functions (functionSourceEntry frame first after resultType) frame.arrayNames.types).formals
         (booleanBodyAnalysis booleans) := analyses.2
     have entry : context.flow scan.facts = ⟨entryContext, context.analysis.declared⟩ := by
-      have emptyArrays : context.arrayNames = [] := contextClosed.noArrays
-      simp only [ParseContext.flow, ParseContext.analysis, emptyArrays, ArrayBindings.integerRanges,
-        ArrayBindings.integerNames, List.filter_nil, ArrayBindings.ranges_nil, ArrayFlow.analysis,
-        ArrayFlow.ranges, ScalarMetadata.analysis]
-      change (⟨scan.facts.path, scan.facts.model.scalars⟩ : Flow) = _
+      simp only [ParseContext.flow, ParseContext.analysis, ArrayViews.analysis,
+        ArrayFlow.analysis, ArrayFlow.ranges, ArrayBindings.viewRanges, ArrayBindings.viewElaborating,
+        ScalarMetadata.analysis]
       rw [path]
-      change (⟨entryContext, (ActiveFlow.initial context.scalarNames _).model.scalars⟩ : Flow) = _
+      change (⟨entryContext, ArrayBindings.integerRanges _ [] false
+        (ActiveFlow.initial context.scalarNames _).model.scalars⟩ : Flow) = _
       rw [ActiveFlow.initial_model]
-    exact sourceFunctionDefinition_checked (locals.initializers_checked valid closed emptyIntegers emptyBooleans)
-      (signatureModel_valid valid.functions signatureValid) contextClosed valid.functions rfl contextReady flowReady environment count bounded analysis
+    have known : ∀ selected, frame.firstParameter ≤ selected →
+        selected < frame.firstParameter + (frame.functions.parameters.length - frame.firstParameter + 1) →
+        (FunctionBindings.parameter frame.functions selected).typeId ≤ frame.arrayNames.types.length := by
+      intro selected lower upper
+      have checked := parameters.typeIds_known selected
+        (by rw [locals.preserves.firstParameter]; exact lower)
+        (by
+          rw [locals.preserves.functions]
+          have firstBound := signatureValid.2.2.2.1
+          change frame.firstParameter ≤ frame.functions.parameters.length at firstBound
+          omega)
+      simpa only [locals.preserves.functions, locals.preserves.arrayNames] using checked
+    have checked := sourceFunctionDefinition_checked
+      (locals.initializers_checked valid closed emptyIntegers emptyBooleans)
+      (signatureModel_valid valid.functions signatureValid valid.arrayTypes known)
+      contextClosed valid.functions rfl arraysReady contextReady flowReady environment count bounded analysis
       booleanAnalysis entry rfl body result
+    simpa only [contextTypes] using checked
+
 
 
 theorem functionBodyAt_stages {text outer frame first after resultType arguments}
