@@ -394,3 +394,47 @@ this round; this is a point observation, not a peak measurement. No new token or
 cost data is available. No CLI memory update or harness goal change was made.
 Complete native and Lean/source assurance, final regression coverage, Rosetta
 support promotion and independent delivery review remain outstanding.
+
+
+### Restart and final-audit repair — 2026-11-21
+
+The owner resumed after the microVM restart. Linux now reports eight CPUs, with
+process affinity and the effective cpuset both guest 0–7; the managed budget
+agrees. The resource evidence records the verification. The three continuing
+source proof streams are selected GPT-6 Astra / Max, each with two managed
+workers and two threads per Lean process while sharing the eight-CPU allocation.
+The lead's runtime model/effort is not independently exposed. No new token/cost
+measurements are available; the ordinary run records retain elapsed times.
+
+The first complete native run `20261121T135513-089c46fa489d` finished after
+16,179.599 seconds. GNATprove exited 0 with all 19,994 checks proved, but the
+strict audit rejected an operator-reassociation warning at
+`silver_scalar_expressions.adb:127:41`. The overall run remains failed. The
+repair explicitly groups the wide subtraction in the Length calculation and
+adds the same grouping to its typed Lean tree and reviewed source literal;
+mathematical evaluation and admitted domains are unchanged. No warning-policy
+expansion or suppression was introduced.
+
+Focused run `20261121T185720-c8b8943aaecb` passed the complete native
+`Read_Array_Attribute` contract with 38 checks, at its declaration selector
+`silver_scalar_expressions.ads:83`. The preceding body-line selection
+`20261121T185537-7700045ce968` proved the same checks but remains failed because
+the runner could not match that selector to the analyzed declaration. This was
+a selector correction, not a contract or policy relaxation. Lean source checking
+of the grouping repair is in progress.
+
+The full regression `20261121T151924-a0eaed03062c` remains failed: 776 test
+identities in 8,049.133 seconds, with 11 failure entries. These are the obsolete
+8 MiB explicit stack test, eight certificate-parity subcases and their parent
+failure, and output-body reconstruction. The stack test now uses the documented
+16 MiB setting, and the checked-in certificates have been regenerated. Their
+repair reruns and the rebuilt one-worker application driver remain required.
+The restart checkpoint preserves the complete logs and failure census; no final
+regression coverage is claimed from these edits alone.
+
+Previously audited helper and callable trace commits have been integrated:
+`db71f53160`, `095a59cb6d` and `520316b4c3` (their focused records above remain
+the evidence). Function/procedure typed-source correspondence and the combined
+root bridges remain unfinished. Complete native and Lean/source assurance,
+reviewed regression coverage, Rosetta support promotion and independent review
+still precede delivery. PR #412 remains draft; no merge is authorized.

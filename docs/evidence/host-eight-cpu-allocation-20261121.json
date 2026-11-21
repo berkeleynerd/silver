@@ -27,7 +27,7 @@
     "Existing frozen regression binary still passes-j0; vendor children choose22; effective affinity/reservation1"
   ],
   "interrupted_jobs": [],
-  "post_reboot_cpu_detection": "pending",
+  "post_reboot_cpu_detection": "verified: eight CPUs, affinity and effective cpuset 0-7; see post_reboot_verification",
   "managed_budget": 8,
   "active_allocations": [
     {
