@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** A distinct integer type with bounded objects and an explanation of compiler checks directly matches the captured Ada answer and task wording. Conversions, arithmetic, loop subtype marks, type Image and bounds attributes are unnecessary for this minimal driver; a named Integer subtype is a different, narrower feature.
 
-Position 1571 in the [progression](../../progression.md#stage-39), in stage 39, which adds static integer types.
+Position 1571 in the [progression](../../progression.md#stage-40), in stage 40, which adds static integer types.
 
 ## Approach
 

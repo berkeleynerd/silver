@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is bounded arrays, ranged coordinates and for loops with guards before each index, and the only while loop sits in a procedure, so no annotation is needed; the main care is guarding loop-carried length and head coordinates, and the interactive stdin plus random food are met by line input and a deterministic generator.
 
-Position 1287 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1285 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Failure paths to test
 

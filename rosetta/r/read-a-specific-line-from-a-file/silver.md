@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from a small counter, a bounded buffer and guards before each store, but the task needs an admitted library file-reading operation that reports failure and over-long lines as specified outcomes, and Silver has none yet. Nothing needs an annotation, and the original Ada exception handlers are replaced by explicit status results.
 
-Position 1454 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1452 in the [progression](../../progression.md#stage-26), in stage 26.
 
 ## Failure paths to test
 

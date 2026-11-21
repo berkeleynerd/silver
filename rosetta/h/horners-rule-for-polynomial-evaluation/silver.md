@@ -1,24 +1,26 @@
 # Horner's rule for polynomial evaluation
 
-**Candidate: proofs plausibly discharge automatically.** Index checks discharge from the reverse for loop over Coeffs'Range. The only non-routine checks are overflow and range checks on the loop-carried accumulator's nonlinear multiply-add, and a guard on the accumulator placed just before each step makes them provable without an invariant.
+**Candidate: proofs likely to discharge automatically.** The constrained routine accepts coefficients in increasing-power order and x as the task requires. Full-domain bounds justify every performed multiply-add; reverse Range iteration justifies every index. Independent sequences are 0,6,14,49,128 at x=3 and 0,6,56,567 then refusal at x=10. Expected lines are At 3: 128 and At 10: capacity exceeded. The feature routes passed in managed run 20261121T125607-826b7d51ebf2; complete #410 assurance, final regressions and independent delivery review remain pending, so the new construct remains unsupported.
 
-Position 991 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 1569 in the [progression](../../progression.md#stage-38), in stage 38.
 
 ## Approach
 
-Coefficients are an unconstrained array of a bounded coefficient subtype (for example -1000 .. 1000), and the example data (-19, 7, -4, 6) with x = 3 is embedded. A Horner procedure walks the array's own range in reverse with a for loop and returns the value and an Ok flag through out parameters; before each multiply-add it checks that the accumulator is within a documented bound, and otherwise it sets Ok to False and leaves the accumulator unchanged. Main prints the value with 'Image, or prints a visible "result exceeds limit" message when Ok is False. About 40 lines.
+The prepared samples/rosetta_horner_polynomial.adb declares a named Polynomial (0 .. 3) of Coefficient (-20 .. 20). Procedure Horner takes that read-only array with scalar X (-10 .. 10), a scalar result (-1000 .. 1000) and a Boolean success output. It traverses the coefficient Range in reverse, implementing Horner's recurrence only after a fresh -98 .. 98 accumulator guard. Refusal persists and returns zero with Succeeded=False; Main suppresses the numeric result and prints capacity exceeded. The embedded coefficients [-19, 7, -4, 6] give 128 at x=3; x=10 visibly exercises refusal. Both mixed and positional calls use existing scalar output/copy-back rules. About 55 lines.
 
 ## Proof obligations to watch
 
-- **overflow**: The loop-carried accumulator product Res * X is nonlinear, so it discharges only because a guard checks that Res is within a documented bound just before each step and declared ranges bound X and every coefficient; if the guard fails, the routine sets Ok to False instead of computing.
-- **range**: Assigning Res * X + Coeffs (I) back to the bounded accumulator subtype needs the guarded bound on Res combined with the coefficient and X ranges, so the bound constants must be chosen so the worst-case result fits the accumulator subtype.
+- **overflow**: Before every performed step the executable accumulator guard gives -98 .. 98, the full argument domain is -10 .. 10 and every coefficient is -20 .. 20. The product is therefore -980 .. 980 and the multiply-add fits -1000 .. 1000.
+- **index**: The reverse counted loop uses Coefficients'Range (0 .. 3), so every component read is in bounds for every formal value. No predicate relation is retained in the Boolean success flag.
 
 ## Language surface recorded by this assessment
 
-Integers, ranged subtypes, Boolean objects, arrays, unconstrained arrays, for loops, procedures and 'Image of scalars.
+Named constrained Integer-array inputs and static bounds queries, named Integer subtypes, bounded components and scalar signatures, bounded mutable Integer objects, Integer image, small nonrecursive scalar procedures, scalar Boolean objects and expressions, scalar guard refinement, Integer range for loops and named scalar arguments.
 
 ## External effects
 
 - **console output** (allowed): The program prints the evaluated polynomial value (128) with Silver_IO.Put_Line.
 
-Assessed on 2026-10-15 against page revision 411617 of the [task](https://rosettacode.org/wiki/Horner's_rule_for_polynomial_evaluation) by claude-opus-5-5 at high effort; confidence high. The inclusion policy is in `rosetta/coverage.json`.
+Initially assessed on 2026-10-15 against page revision 411617 of the [task](https://rosettacode.org/wiki/Horner's_rule_for_polynomial_evaluation) by claude-opus-5-5 at high effort; current confidence high. The inclusion policy is in `rosetta/coverage.json`.
+
+Revised on 2026-11-21 by Codex through targeted source review; see the [review record](../../assessment-named-array-parameters-20261121.md).

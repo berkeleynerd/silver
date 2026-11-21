@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is plain linear algebra on small fixed arrays with for loops, but float arithmetic carried through elimination loops needs careful range guards and a nonzero-pivot test, so discharge depends on program shape without any annotation. Output needs float-to-text formatting, which Silver lacks today.
 
-Position 1097 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 1018 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is bounded by a ranged subtype so overflow checks follow from types, and all unbounded loops sit in procedures, but the loop-carried x, y and mulmod values need careful range shaping to avoid annotations. The 70-bit example is optional and omitted since it needs big numbers.
 
-Position 1509 in the [progression](../../progression.md#stage-29), in stage 29.
+Position 1507 in the [progression](../../progression.md#stage-29), in stage 29.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The multiline header lives entirely in Ada comments, so the Silver source stays ordinary SPARK. The only executable logic is a for loop over the argument count with indexing that the loop range guards, which discharges routinely once the argument library exposes the command name and the argument count.
 
-Position 1433 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1431 in the [progression](../../progression.md#stage-26), in stage 26.
 
 ## Failure paths to test
 

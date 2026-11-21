@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The program is a single exponentiation of small constant-valued integers with one image conversion, so every check follows from declared types and the values 0 and 1 cannot overflow. Silver only lacks integer ** and 'Image output formatting today.
 
-Position 1494 in the [progression](../../progression.md#stage-29), in stage 29, which adds exponentiation.
+Position 1492 in the [progression](../../progression.md#stage-29), in stage 29, which adds exponentiation.
 
 ## Approach
 

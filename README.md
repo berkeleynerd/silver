@@ -240,6 +240,18 @@ Lean/actual-source checkpoints and the complete regression suite passed, with
 independent review recorded in the capability account. This evidence is separate
 from the original deliveries.
 
+The selected [named Integer-array parameter capability #410](docs/named-array-parameters.md)
+is in development in [draft PR #412](https://github.com/berkeleynerd/silver/pull/412).
+It prepares constrained named Integer arrays, read-only inputs to existing
+functions and procedures, and static bounds queries, with
+[Dot product](samples/rosetta_dot_product.adb) and
+[Horner polynomial evaluation](samples/rosetta_horner_polynomial.adb) as drivers.
+The [native review](docs/reviews/review-named-array-native-20261121.md) resolves
+the measured stack finding and records the accepted supplemental caller checks.
+The [producer account](docs/named-array-parameters-report-capacity.md) connects
+these forms to the existing report envelope. Complete native/Lean/source assurance,
+final regressions and delivery review remain pending; this is not a support claim.
+
 The [Find square difference sample](samples/find_square_difference.adb) stores
 the first matching index and prints ` 501` followed by a newline.
 

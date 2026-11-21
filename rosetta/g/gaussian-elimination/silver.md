@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All indexing, loops and termination are routine, but floating-point loop-carried values need explicit magnitude and pivot guards with visible rejection outcomes, so discharge depends on careful program shape without needing annotations. Singular or overly large systems get a defined rejection rather than altered results.
 
-Position 1082 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 1003 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

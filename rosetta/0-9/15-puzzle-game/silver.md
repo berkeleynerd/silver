@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every array index and arithmetic result follows from subtypes 1..4 and 0..15 and a guard just before each move, and nothing needs a variant because the unbounded loop sits in a procedure; the main care is bounded LCG arithmetic and the move counter.
 
-Position 1233 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1231 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Failure paths to test
 

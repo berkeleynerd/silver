@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from a bounded value subtype and cursor guards placed just before each String access, but the loop-carried cursor and accumulator need careful guard placement, hence plausible rather than likely.
 
-Position 1127 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 1125 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 

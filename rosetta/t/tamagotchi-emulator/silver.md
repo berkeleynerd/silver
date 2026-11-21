@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All state lives in small ranged counters that are guarded before each update and the input is a fixed embedded command script, so every check follows from types and guards with no recursion, while loops or annotations needed.
 
-Position 1172 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1170 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Approach
 

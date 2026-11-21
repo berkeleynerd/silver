@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks follow from the 1..10 subtype, bounded line buffer and validated parsing, and the while loop is in a procedure so no variant is needed. The only new work is admitted stdin line reading and text-to-integer parsing with specified failure outcomes.
 
-Position 1337 in the [progression](../../progression.md#stage-23), in stage 23.
+Position 1335 in the [progression](../../progression.md#stage-23), in stage 23.
 
 ## Failure paths to test
 

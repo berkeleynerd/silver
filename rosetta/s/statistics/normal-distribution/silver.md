@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded and loops are for loops in procedures, so index and termination checks are routine, but floating-point log, sqrt and cos with accumulated sums need careful range guards for the provers to discharge the float overflow and domain checks. Outlook is plausible rather than likely because of the float-heavy arithmetic and float-to-index conversion.
 
-Position 1298 in the [progression](../../../progression.md#stage-21), in stage 21.
+Position 1296 in the [progression](../../../progression.md#stage-21), in stage 21.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The iterative worklist fill needs only range-typed coordinates, boundary guards before each neighbour access and a stack sized to the cell count, so every check follows from types and guards and the while loop sits in a procedure. Discharge depends on careful program shape (a guarded stack top and loop-carried coordinates), but nothing needs an annotation.
 
-Position 1175 in the [progression](../../../progression.md#stage-19), in stage 19.
+Position 1173 in the [progression](../../../progression.md#stage-19), in stage 19.
 
 ## Approach
 

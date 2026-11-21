@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded buffers, guarded indexes and procedure-only loops, so no annotation should be needed, but loop-carried cursors and lengths each need a guard placed just before use, which makes discharge depend on careful program shape.
 
-Position 1330 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1328 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Failure paths to test
 

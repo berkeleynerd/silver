@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task asks only for a demonstration of Ada's visibility mechanisms (package visible and private parts, bodies, nested declarations), and these are pure declarations with constant-valued straight-line code, so every check discharges from static values.
 
-Position 1459 in the [progression](../../progression.md#stage-27), in stage 27.
+Position 1457 in the [progression](../../progression.md#stage-27), in stage 27.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from character comparisons and a ranged depth counter guarded before each recursive call, but the task's no-collection rule forces recursion, which is acceptable only with an explicit depth limit and rejection of longer words. This makes the outlook plausible rather than likely, since stack use rests on that documented limit.
 
-Position 1557 in the [progression](../../progression.md#stage-34), in stage 34.
+Position 1555 in the [progression](../../progression.md#stage-34), in stage 34.
 
 ## Failure paths to test
 

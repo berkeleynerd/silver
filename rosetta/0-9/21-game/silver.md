@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from a 0..21 subtype, a 1..3 amount validated from input, and a guard placed just before the addition, and the only loop is a while loop in a procedure. The task's random option is optional, so a deterministic computer strategy and a user-chosen first player satisfy it with no annotations needed.
 
-Position 1216 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1214 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Failure paths to test
 

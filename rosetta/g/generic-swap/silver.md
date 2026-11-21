@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The only checks are initialization and data flow on the in out parameters and a temporary of the same definite type, plus integer 'Image output, so every instance proves routinely with no loops, arithmetic or guards.
 
-Position 1516 in the [progression](../../progression.md#stage-30), in stage 30.
+Position 1514 in the [progression](../../progression.md#stage-30), in stage 30.
 
 ## Approach
 

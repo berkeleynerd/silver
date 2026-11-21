@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The bare-name/static-threshold increment fits the delivered scalar-guard-refinement fragment. Unicode identifiers are permitted by inherited Ada/SPARK but remain excluded by Silver ASCII source rules, so this task still requires explicit Unicode identifier support. No Unicode admission or task delivery is claimed.
 
-Position 1574 in the [progression](../../progression.md#stage-42), in stage 42, which adds unicode identifiers.
+Position 1574 in the [progression](../../progression.md#stage-43), in stage 43, which adds unicode identifiers.
 
 ## Approach
 

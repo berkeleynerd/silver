@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Higher-order function parameters are not available in SPARK, so reduce is expressed with an operation enumeration, and all indexes come from the array's own range while the only loop-carried arithmetic is bounded by subtype limits and explicit guards. Discharge depends on careful guard placement for the accumulator but needs no annotation.
 
-Position 1174 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1172 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Approach
 

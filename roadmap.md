@@ -59,6 +59,22 @@ Writable, returned and unconstrained arrays and a separate expansion of array
 locals remain outside this batch. The capability plan records nominal identity,
 visibility, static-query and declared-domain rules; establish metadata/capacity
 and source-proof composition before admission.
+[Draft PR #412](https://github.com/berkeleynerd/silver/pull/412) retains the
+[bounded native review](docs/reviews/review-named-array-native-20261121.md),
+[feature-local producer account](docs/named-array-parameters-report-capacity.md)
+and [two-task fidelity assessment](rosetta/assessment-named-array-parameters-20261121.md).
+The native review resolves the measured 16 MiB invoking-shell stack prerequisite;
+27 audited focused gates and the sample/source-limit routes are scoped evidence.
+Seventeen supplemental direct-caller gates and the complete native/Lean/source,
+regression and independent delivery checkpoint remain required. No completed
+readiness or support is claimed here. The prepared precise Rosetta construct
+`named-integer-array-parameters` groups both drivers while leaving broad arrays,
+unconstrained arrays and writable array parameters unsupported. Its supported
+promotion, final render and stage bookkeeping wait for that shared checkpoint;
+no issue is closed by this preparation.
+The pending render places this precise construct and its two drivers in generated
+Stage 38, while milestone 27 remains the owner-selected coherent batch. These
+stage numbers are generated positions, not authorization or delivery units.
 No provisional successor is selected. Deferred #381/#382 and #398 remain outside
 this queue; PR #385 stays held and Worca remains stopped.
 

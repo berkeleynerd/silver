@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded loops over constrained arrays in procedures with no recursion, but floating-point elimination with loop-carried matrix values needs per-assignment range guards and pivot guards, so discharge depends on careful program shape rather than being routine.
 
-Position 1142 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 1140 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 

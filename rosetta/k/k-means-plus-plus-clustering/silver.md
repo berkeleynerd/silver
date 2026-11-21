@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything can be bounded integer arithmetic over fixed arrays with for loops and guards, so no annotation is needed, but 64-bit sums, loop-carried indexes and the LCG need careful typing; floating point is avoided by using integer coordinates.
 
-Position 1430 in the [progression](../../progression.md#stage-25), in stage 25.
+Position 1428 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Failure paths to test
 

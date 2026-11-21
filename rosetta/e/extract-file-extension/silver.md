@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the for-loop index over the parameter's own range, so slicing and indexing discharge without invariants, and for loops need no variant in a function. The only novelty for Silver is unconstrained String parameters, returns and slices, plus Character comparisons.
 
-Position 1538 in the [progression](../../progression.md#stage-32), in stage 32.
+Position 1536 in the [progression](../../progression.md#stage-32), in stage 32.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Ada already separates a reusable library package from the main subprogram chosen at bind time, so the modulino idea needs no introspection of the script name; the program has only a constant-returning function and one image conversion, so every check is trivial.
 
-Position 1456 in the [progression](../../progression.md#stage-27), in stage 27.
+Position 1454 in the [progression](../../progression.md#stage-27), in stage 27.
 
 ## Approach
 

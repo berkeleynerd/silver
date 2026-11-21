@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops over constrained array ranges and the only loop-carried value is a ranged generator seed, so every index and overflow check follows from types and loop bounds without invariants.
 
-Position 1165 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1163 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Approach
 

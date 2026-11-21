@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task has only the one-line requirement to show a rotating Rubik's cube, so text-art frames computed with bounded integer trigonometry fit Silver and every check follows from declared ranges and guards before grid writes. The work is mostly new surface (arrays, records, loops, procedures) rather than hard proof.
 
-Position 1465 in the [progression](../../progression.md#stage-27), in stage 27.
+Position 1463 in the [progression](../../progression.md#stage-27), in stage 27.
 
 ## Approach
 

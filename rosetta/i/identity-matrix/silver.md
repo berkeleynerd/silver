@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check is an index or range check on for-loop variables bounded by a guarded N, with no loop-carried values or recursion, so proofs should discharge automatically. The only new library need is validated integer parsing of the argument, which the Oracle's admitted operations must supply.
 
-Position 1114 in the [progression](../../progression.md#stage-18), in stage 18, which adds text parsing.
+Position 1112 in the [progression](../../progression.md#stage-18), in stage 18, which adds text parsing.
 
 ## Failure paths to test
 

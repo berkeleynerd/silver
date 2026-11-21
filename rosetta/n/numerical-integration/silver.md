@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is plain numerical code with no Oracle conflict and loops that are for loops, but proofs for float accumulators over millions of iterations only discharge if each step carries an explicit range guard, which makes it plausible rather than likely. Float formatting and the 1/x domain guard add further care but need no annotations.
 
-Position 1190 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1188 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Approach
 

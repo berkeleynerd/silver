@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is fixed-size arrays and for loops, so indexing, initialization and termination are routine, but Float overflow checks on loop-carried filter state need bounding guards and floating-point provers, so discharge depends on careful program shape.
 
-Position 1050 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 971 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

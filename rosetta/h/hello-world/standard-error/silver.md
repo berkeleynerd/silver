@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The program is a single call with a String literal, so every check is trivial once Silver admits a standard-error output operation.
 
-Position 1559 in the [progression](../../../progression.md#stage-35), in stage 35, which adds standard error.
+Position 1557 in the [progression](../../../progression.md#stage-35), in stage 35, which adds standard error.
 
 ## Approach
 

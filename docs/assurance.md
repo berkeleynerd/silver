@@ -159,6 +159,34 @@ declaration and body semantics. The
 unchanged 64 MiB allocation. Focused tests
 exercise these rules; they do not replace complete compiler or source proofs.
 
+## Named constrained Integer-array inputs — development
+
+The selected [#410 capability](named-array-parameters.md) extends the existing
+callable model with read-only named Integer-array inputs and static bounds
+queries. Complete feature assurance remains pending. A named declaration supplies
+nominal identity; equal bounds or an anonymous object do not establish that
+identity. Input views retain fixed bounds and the complete declared component
+interval without charging symbolic formal components to stored object cells.
+Every callable body, including an unused one, must be checked over all declared
+input combinations. Main's example aggregates supply no narrower proof domain.
+Scalar-only writable actuals keep the existing same-incoming-state, alias and
+copy-back rules. Bounds metadata must preserve Ada staticness, ordered visibility
+and scoped hiding through declarations, expressions, calls and loops.
+
+The final assurance chain must connect those rules to the actual native source,
+independent source grammar, declaration/body semantics and every required native
+and application obligation. The [bounded native review](reviews/review-named-array-native-20261121.md)
+audits 27 focused gates (1,093 checks), resolves its stack finding and records
+17 additional direct-caller gates. These results do not establish complete
+readiness or the final native/Lean/source checkpoint. The feature-local
+[producer account](named-array-parameters-report-capacity.md) retains the existing
+49,279,744-byte report envelope in 64 MiB under the pinned producer premises;
+it is a storage argument, separate from automatic discharge. The two
+[Rosetta driver assessments](../rosetta/assessment-named-array-parameters-20261121.md)
+derive expected results and full-domain arithmetic bounds; sample success does
+not replace universal assurance. Boolean named arrays and queries, writable or
+unconstrained array parameters and array results remain outside this selection.
+
 ## Named scalar argument associations
 
 The [named scalar increment](named-scalar-arguments.md) retains the existing

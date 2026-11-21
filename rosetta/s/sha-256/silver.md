@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from fixed array ranges, for-loop indexes and modular 32-bit arithmetic, so no loop-carried value needs an invariant, and the algorithm uses no recursion, allocation or while loops.
 
-Position 1284 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1282 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Approach
 

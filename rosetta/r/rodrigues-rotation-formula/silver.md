@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The program is a short straight-line floating-point computation with no loops or recursion, so termination is trivial, but overflow, division, sqrt and arccos domain checks each need explicit guards and bounded component subtypes, plus an admitted elementary-functions library with verified contracts.
 
-Position 1065 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 986 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

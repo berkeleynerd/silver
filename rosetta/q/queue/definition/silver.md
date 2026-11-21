@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** A bounded circular-buffer FIFO needs only ranged indexes, an array, a record and guarded procedures, so every check follows from types and guards placed just before use; the empty-pop error is handled by a returned flag rather than an exception, and the pointer, generic and tasking variants in the existing solution are avoided.
 
-Position 1460 in the [progression](../../../progression.md#stage-27), in stage 27.
+Position 1458 in the [progression](../../../progression.md#stage-27), in stage 27.
 
 ## Approach
 

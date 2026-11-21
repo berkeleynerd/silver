@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every array index, character conversion and subtraction is protected by a guard just before use with a defined halt outcome, and the loop lives in a procedure so no variant is needed, so the proofs should discharge without annotations.
 
-Position 1219 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1217 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Failure paths to test
 

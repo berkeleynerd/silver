@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the 0..19 subtype, the loop over the buffer's own range and the bounded multiply-add, with no loop-carried value needing an invariant; the only new work is stdin line reading and a case statement over 20 literals.
 
-Position 1214 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1212 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Failure paths to test
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The program only needs a with clause on a user package in another file and one call to a procedure that prints a literal, so every check is trivial. Silver needs user packages and procedures plus multi-file support, and nothing in the Oracle conflicts with this.
 
-Position 1455 in the [progression](../../progression.md#stage-27), in stage 27, which adds packages.
+Position 1453 in the [progression](../../progression.md#stage-27), in stage 27, which adds packages.
 
 ## Approach
 

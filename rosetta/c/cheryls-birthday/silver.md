@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is a fixed ten-element array scanned by for loops over its own index range, so index and range checks follow from types; only counters need a Boolean flag or a guard to avoid overflow, so no annotation is required.
 
-Position 1158 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1156 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Approach
 

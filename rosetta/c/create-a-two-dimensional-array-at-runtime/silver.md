@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check comes from the Dimension subtype, the array's own bounds, a static digit test, or an overflow guard placed just before the accumulator update, so no annotation is needed. The runtime-sized stack array stays within a fixed, documented size limit.
 
-Position 1527 in the [progression](../../progression.md#stage-31), in stage 31.
+Position 1525 in the [progression](../../progression.md#stage-31), in stage 31.
 
 ## Failure paths to test
 

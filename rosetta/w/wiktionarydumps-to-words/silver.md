@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The line scanning and bounded string extraction are plain guarded index logic in a loop inside a procedure and would likely prove, but the bz2 input and file library operations are not yet available and bounded buffers need careful guards.
 
-Position 1442 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1440 in the [progression](../../progression.md#stage-26), in stage 26.
 
 ## Failure paths to test
 

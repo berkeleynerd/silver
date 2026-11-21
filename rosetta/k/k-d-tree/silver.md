@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Nothing needs an annotation because recursion and pointers are replaced by index arrays and explicit stacks inside procedures, but the many loop-carried indices and stack pointers each need careful guards, so discharge depends on program shape.
 
-Position 1109 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 1030 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

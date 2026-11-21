@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task only needs a deterministic pseudo-random index into a fixed array, and the index is bounded by mod on a modular type, so every check follows from types and static bounds with no loop-carried facts.
 
-Position 1264 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1262 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is a single bounded for loop over an array with a subtype-bounded counter and one capacity guard, so all checks follow from types and a guard just before the operation; the only added surface is ordinary strings, characters and procedures with no recursion, while loops or annotations.
 
-Position 960 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 1046 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

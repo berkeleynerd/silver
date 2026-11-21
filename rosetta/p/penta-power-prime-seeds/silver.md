@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from types and bounded for loops, but the 25-digit primality test needs fixed-capacity big-number arithmetic carried through nested loops, so discharge depends on careful program shape and the solver handling limb arithmetic, with no annotation required.
 
-Position 1398 in the [progression](../../progression.md#stage-24), in stage 24.
+Position 1396 in the [progression](../../progression.md#stage-24), in stage 24.
 
 ## Approach
 

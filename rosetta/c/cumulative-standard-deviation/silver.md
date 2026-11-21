@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything follows from bounded integer element types, a for loop over a constant array and a guard before Sqrt, with no recursion or while loops. The only non-routine parts are the Float arithmetic bounds and a Float-to-text formatting operation that Silver does not yet offer.
 
-Position 1046 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 967 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

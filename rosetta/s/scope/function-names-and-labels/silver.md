@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check in the program follows from string literals, static for-loop ranges and calls without arithmetic on loop-carried values, so the proofs should discharge without annotations, and the task allows explaining goto labels instead of using them.
 
-Position 1461 in the [progression](../../../progression.md#stage-27), in stage 27.
+Position 1459 in the [progression](../../../progression.md#stage-27), in stage 27.
 
 ## Approach
 

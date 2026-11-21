@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** No Oracle rule forbids the program, but it is a fairly large one. Its many loop-carried cursors, tree indices and counters each need a guard just before use, since no invariant can be written. That makes discharge depend on careful program shape, though no annotation is needed.
 
-Position 1203 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1201 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Approach
 

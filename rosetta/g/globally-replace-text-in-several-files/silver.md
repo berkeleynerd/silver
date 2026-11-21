@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks are bounded-buffer index and capacity guards in procedure loops, so no annotations are needed, but the nested scan with a loop-carried position and growing output needs careful guard placement, hence plausible. File reading and writing, multiple arguments and byte-level Character buffers are all new surface rather than Oracle conflicts.
 
-Position 1443 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1441 in the [progression](../../progression.md#stage-26), in stage 26.
 
 ## Failure paths to test
 

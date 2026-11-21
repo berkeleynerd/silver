@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The program needs only bounded floating-point arithmetic inside a for loop with a guarded nonzero divisor, so no annotation is required, but float reasoning and the Float image formatting make discharge depend on careful range bounds.
 
-Position 1033 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 954 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The program has only straight-line calls of procedures that print constant strings, so there are no run-time checks beyond initialization and flow, which discharge trivially. The only growth needed is Silver support for packages, tagged types and user procedures, and the task does not require dispatching or overriding.
 
-Position 1549 in the [progression](../../progression.md#stage-33), in stage 33.
+Position 1547 in the [progression](../../progression.md#stage-33), in stage 33.
 
 ## Approach
 

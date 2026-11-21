@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every operation is on a modular type whose arithmetic wraps by definition, so no run-time check can fail and there are no loops or recursion to need annotations; the only wrinkle is bounded text building for the output line.
 
-Position 1256 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1254 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Approach
 

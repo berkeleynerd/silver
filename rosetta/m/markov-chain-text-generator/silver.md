@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every array index and counter can be kept safe with declared ranges, for-loop bounds, and capacity or non-zero guards placed just before the operation, and no while loop or recursion appears inside a function. Several loop-carried counters each need careful guarding, though, so discharge depends on the program's shape.
 
-Position 1447 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1445 in the [progression](../../progression.md#stage-26), in stage 26.
 
 ## Failure paths to test
 

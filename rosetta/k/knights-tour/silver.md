@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from ranged subtypes, fixed array bounds and guards placed just before indexing, and recursion is replaced by an explicit-stack while loop in a procedure, so no annotation is needed; the nested loop-carried search state keeps it at plausible rather than likely.
 
-Position 1121 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 1119 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Failure paths to test
 

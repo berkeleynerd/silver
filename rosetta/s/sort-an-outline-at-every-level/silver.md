@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every array index and buffer length is bounded by fixed capacities with explicit guards that report an invalid outline, and all loops live in procedures, so nothing needs an annotation, though many loop-carried offsets need careful guarding.
 
-Position 1492 in the [progression](../../progression.md#stage-28), in stage 28.
+Position 1490 in the [progression](../../progression.md#stage-28), in stage 28.
 
 ## Approach
 

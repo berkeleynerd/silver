@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is a short closed-form float computation with explicit guards for every special case, so the checks follow from bounded float subtypes and guards, but float overflow proofs through the division and sqrt need careful range shaping, hence plausible.
 
-Position 1079 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 1000 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

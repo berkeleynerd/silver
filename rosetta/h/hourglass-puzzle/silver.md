@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All state is small bounded integers updated by guarded transitions inside a procedure-based while loop with a fixed move cap, so every check follows from types and guards without invariants.
 
-Position 1212 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1210 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Failure paths to test
 

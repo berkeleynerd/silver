@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is bounded integer arithmetic with static ranges and for loops over fixed buffers, so all checks follow from types and local guards and no annotation is needed. The only extra work is Silver gaining integer division, character and digit-string construction, and parsing.
 
-Position 1123 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 1121 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 

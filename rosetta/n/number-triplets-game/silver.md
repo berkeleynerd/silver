@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is a vague interactive tile-sliding puzzle whose mouse and window parts can be replaced by text commands on stdin and a text board, and all checks follow from bounded array subtypes and guards on validated input. It is plausible rather than likely because of the moderate amount of loop-carried state, text parsing, and move-rule logic that needs careful guards.
 
-Position 1237 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1235 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Failure paths to test
 

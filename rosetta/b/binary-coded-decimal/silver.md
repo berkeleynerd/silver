@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every operation is bounded digit arithmetic in for loops over fixed arrays whose carry, borrow and digits are limited by subtypes or an immediate guard, so no annotation is needed. The only care is subtraction digit range and string-buffer indexing, both handled by guards just before use.
 
-Position 1282 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1280 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Approach
 

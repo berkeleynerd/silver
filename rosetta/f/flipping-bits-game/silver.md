@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every array index and arithmetic result follows from declared ranges, for-loop index ranges or a validation guard placed just before use, and the game and retry loops live in procedures so no variant is needed. The outlook is plausible rather than likely because of the LCG multiplication and the guarded loop-carried move counter and input handling.
 
-Position 1234 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1232 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Failure paths to test
 

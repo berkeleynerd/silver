@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from array ranges and bounded remainder arithmetic, but 20-digit values exceed 64 bits so the work rides on digit-array or big-number handling in loops, which makes it plausible rather than likely.
 
-Position 1363 in the [progression](../../progression.md#stage-24), in stage 24, which adds big numbers.
+Position 1361 in the [progression](../../progression.md#stage-24), in stage 24, which adds big numbers.
 
 ## Approach
 

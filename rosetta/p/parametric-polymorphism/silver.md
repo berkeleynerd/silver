@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The parametric type and its map need only a generic package, a fixed-size array and a for loop, with no pointers or recursion. Every index comes from the array's own range and the mapped function's result is bounded by a symmetric declared range, so all checks are routine.
 
-Position 1518 in the [progression](../../progression.md#stage-30), in stage 30.
+Position 1516 in the [progression](../../progression.md#stage-30), in stage 30.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The algorithm only needs bounded integer counters, character comparisons and a while loop inside a procedure, so no termination proof is needed. Several loop-carried relations (I < U, U+Vmax <= N+1) would normally need an invariant, so each must be replaced by an explicit guard just before its use. That makes discharge depend on careful program shape rather than being routine.
 
-Position 998 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 1083 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

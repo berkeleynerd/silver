@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every index and counter is bounded by the 64-character buffer or by the capped counter type, and the only loop-carried facts are a capped count and a Boolean flag whose safety follows from their types. Nothing needs an annotation, and the file-read failure and over-long-line cases have explicit rejection outcomes.
 
-Position 1312 in the [progression](../../progression.md#stage-22), in stage 22, which adds file input.
+Position 1310 in the [progression](../../progression.md#stage-22), in stage 22, which adds file input.
 
 ## Failure paths to test
 

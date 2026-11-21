@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check is an array index inside a for loop over the array's own range, guarded by an explicit emptiness test, and the running maximum is always an element of integer type, so no overflow arises and no invariant is needed. The empty-list case has a specified visible outcome rather than an exception.
 
-Position 952 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 1039 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

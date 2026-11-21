@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The recursive-descent grammar can be recast as an iterative bounded-stack automaton, so every check follows from array bounds and guards just before indexing, with no annotation needed. The outlook is plausible rather than likely because of the tokenizer's loop-carried position, the bounded-depth stack, and the needed file-reading library.
 
-Position 1329 in the [progression](../../../progression.md#stage-22), in stage 22.
+Position 1327 in the [progression](../../../progression.md#stage-22), in stage 22.
 
 ## Failure paths to test
 

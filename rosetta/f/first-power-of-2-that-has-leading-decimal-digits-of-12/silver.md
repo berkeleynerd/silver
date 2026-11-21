@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from the bounded mantissa subtype and the guards on the doubling and the counter, so no annotation is needed; the outlook is only plausible because correctness over about 1.9e8 truncating iterations depends on a documented precision limit.
 
-Position 1506 in the [progression](../../progression.md#stage-29), in stage 29.
+Position 1504 in the [progression](../../progression.md#stage-29), in stage 29.
 
 ## Approach
 

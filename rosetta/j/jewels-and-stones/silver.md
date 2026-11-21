@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks come from for-loop ranges over the strings' own indexes plus a bounded counter, so no annotation is needed, but the loop-carried counter requires a careful type and guard choice.
 
-Position 990 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 1076 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
