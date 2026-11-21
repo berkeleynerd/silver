@@ -4,14 +4,46 @@ public import Silver.ScalarFunctionTypes
 
 @[expose] public section
 
-/-! A function starts from its own initialized locals, then receives scalar
-arguments in fresh suffix identities. Integer and Boolean identities belong to
-separate stores; mixed formal order is retained by the paired recursion. -/
+/-! The two passes bind scalar formals at fresh suffix identities and array
+formals at separate high addresses. Both traverse the same formal-order tuple. -/
 namespace Silver.ScalarFunctions
 
 structure Frame where
   integers : Integer.Store
   booleans : Boolean.Store
+
+def arrayAnalysis : Nat → List ScalarType → Integer.Analysis → Integer.Analysis
+  | _, [], analysis => analysis
+  | slot, .array domain :: rest, analysis =>
+      let view := domain.formal slot
+      let outside (property : Nat → Bool) := fun cell => !decide (view.ContainsCell cell) && property cell
+      arrayAnalysis (slot + 1) rest
+        ⟨view.bodyRanges analysis.declared, outside analysis.mutable,
+          outside analysis.static, outside analysis.refinable⟩
+  | slot, _ :: rest, analysis => arrayAnalysis slot rest analysis
+
+def bindArrayArguments : Nat → List ScalarType → List Value → Integer.Store → Integer.Store
+  | slot, .array domain :: formals, .array argument :: values, locals =>
+      bindArrayArguments (slot + 1) formals values (NamedArrayParameters.bind domain slot argument locals)
+  | slot, _ :: formals, _ :: values, locals => bindArrayArguments slot formals values locals
+  | _, _, _, locals => locals
+
+theorem bindArrayArguments_fits {formals : List ScalarType} {values : List Value}
+    (arguments : ArgumentsFit formals values) (slot : Nat)
+    (analysis : Integer.Analysis) (locals : Integer.Store) (fits : Integer.Fits analysis.declared locals) :
+    Integer.Fits (arrayAnalysis slot formals analysis).declared (bindArrayArguments slot formals values locals) := by
+  induction formals generalizing values slot analysis locals with
+  | nil => cases values <;> simp_all [ArgumentsFit, arrayAnalysis, bindArrayArguments]
+  | cons formal formals ih =>
+    cases values with
+    | nil => contradiction
+    | cons value values =>
+      cases formal <;> cases value
+      all_goals try exact False.elim arguments.1
+      · exact ih arguments.2 _ _ _ fits
+      · exact ih arguments.2 _ _ _ fits
+      · apply ih arguments.2
+        exact NamedArrayParameters.bind_declared_fits arguments.1 _ fits
 
 def bindArguments : Nat → Nat → List ScalarType → List Value → Frame → Frame
   | integerCount, booleanCount, .integer _ :: formals, .integer value :: values, frame =>
@@ -20,12 +52,15 @@ def bindArguments : Nat → Nat → List ScalarType → List Value → Frame →
   | integerCount, booleanCount, .boolean :: formals, .boolean value :: values, frame =>
       bindArguments integerCount (booleanCount + 1) formals values
         {frame with booleans := Boolean.put frame.booleans (booleanCount + 1) value}
+  | integerCount, booleanCount, .array _ :: formals, .array _ :: values, frame =>
+      bindArguments integerCount booleanCount formals values frame
   | _, _, _, _, frame => frame
 
 def parameterRanges : Nat → List ScalarType → Integer.Ranges → Integer.Ranges
   | count, .integer bounds :: formals, ranges =>
       parameterRanges (count + 1) formals (Integer.put ranges (count + 1) (some bounds))
-  | count, .boolean :: formals, ranges => parameterRanges count formals ranges
+  | count, .boolean :: formals, ranges
+  | count, .array _ :: formals, ranges => parameterRanges count formals ranges
   | _, [], ranges => ranges
 
 theorem bindArguments_fits {formals : List ScalarType} {values : List Value}
@@ -40,9 +75,9 @@ theorem bindArguments_fits {formals : List ScalarType} {values : List Value}
       | nil => contradiction
       | cons value values =>
           cases formal <;> cases value
+          all_goals try exact False.elim arguments.1
           · exact ih arguments.2 _ _ _ _ (Integer.put_fits fits arguments.1)
-          · simp [ArgumentsFit, ScalarType.Contains] at arguments
-          · simp [ArgumentsFit, ScalarType.Contains] at arguments
+          · exact ih arguments.2 _ _ _ _ fits
           · exact ih arguments.2 _ _ _ _ fits
 
 theorem bindArguments_preserves_locals {formals : List ScalarType} {values : List Value}
@@ -61,6 +96,7 @@ theorem bindArguments_preserves_locals {formals : List ScalarType} {values : Lis
       | nil => contradiction
       | cons value values =>
           cases formal <;> cases value
+          all_goals try exact False.elim arguments.1
           · rename_i bounds value
             have rest := ih arguments.2 (integerCount + 1) booleanCount
               {frame with integers := Integer.put frame.integers (integerCount + 1) value}
@@ -70,8 +106,6 @@ theorem bindArguments_preserves_locals {formals : List ScalarType} {values : Lis
               simpa only [bindArguments, Integer.put, show identity ≠ integerCount + 1 by omega,
                 ↓reduceIte] using same
             · exact rest.2
-          · simp [ArgumentsFit, ScalarType.Contains] at arguments
-          · simp [ArgumentsFit, ScalarType.Contains] at arguments
           · rename_i value
             have rest := ih arguments.2 integerCount (booleanCount + 1)
               {frame with booleans := Boolean.put frame.booleans (booleanCount + 1) value}
@@ -81,6 +115,7 @@ theorem bindArguments_preserves_locals {formals : List ScalarType} {values : Lis
               have same := rest.2 (by omega)
               simpa only [bindArguments, Boolean.put, show identity ≠ booleanCount + 1 by omega,
                 ↓reduceIte] using same
+          · exact ih arguments.2 _ _ _
 
 theorem bindArguments_first_integer {formals : List ScalarType} {values : List Value}
     (arguments : ArgumentsFit formals values) (integerCount booleanCount : Nat)

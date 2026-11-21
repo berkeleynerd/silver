@@ -139,6 +139,31 @@ theorem bind_preserves_scalar (domain : Domain) (slot : Nat) (argument : Argumen
     bind domain slot argument locals identity = locals identity :=
   ArrayDescriptor.initialize_preserves_scalar (formal_above_scalars domain slot) low
 
+theorem bind_preserves_outside {domain : Domain} {argument : Argument}
+    (contained : domain.Contains argument) (slot : Nat) (locals : Store) {cell : Nat}
+    (outside : ¬ (domain.formal slot).ContainsCell cell) :
+    bind domain slot argument locals cell = locals cell := by
+  have count : argument.cells.length = (domain.formal slot).length := contained.2.1
+  simp only [ArrayDescriptor.ContainsCell] at outside
+  have omitted : ¬ ((domain.formal slot).base ≤ cell ∧
+      cell - (domain.formal slot).base < argument.cells.length) := by omega
+  simp only [bind, ArrayDescriptor.initializeValues, omitted, ↓reduceIte]
+
+theorem bind_declared_fits {domain : Domain} {argument : Argument} {ranges : Ranges}
+    {locals : Store} (contained : domain.Contains argument) (slot : Nat)
+    (localFits : Integer.Fits ranges locals) :
+    Integer.Fits ((domain.formal slot).bodyRanges ranges) (bind domain slot argument locals) := by
+  have emptyFits : Integer.Fits (fun _ => none) (bind domain slot argument locals) := by
+    intro cell bounds found
+    contradiction
+  have arrayFits := ArrayDescriptor.bodyRanges_fits emptyFits (bind_fits contained slot locals)
+  intro cell bounds found
+  by_cases inside : (domain.formal slot).ContainsCell cell
+  · apply arrayFits cell bounds
+    simpa only [ArrayDescriptor.bodyRanges, inside, ↓reduceIte] using found
+  · rw [bind_preserves_outside contained slot locals inside]
+    exact localFits cell bounds (by simpa only [ArrayDescriptor.bodyRanges, inside, ↓reduceIte] using found)
+
 /-- Copy-in maps each original index to its value at call entry. Negative
 and non-one lower bounds use exactly the same address calculation. -/
 theorem bind_read {domain : Domain} {argument : Argument} (contained : domain.Contains argument)
