@@ -438,3 +438,41 @@ the evidence). Function/procedure typed-source correspondence and the combined
 root bridges remain unfinished. Complete native and Lean/source assurance,
 reviewed regression coverage, Rosetta support promotion and independent review
 still precede delivery. PR #412 remains draft; no merge is authorized.
+
+
+### Corrected native assurance and source integration — 2026-11-21 19:19 UTC
+
+The [corrected complete native audit](evidence/named-array-parameters-410-20261121/final-native/README.md)
+passed: run `20261121T191055-5cced625eb47`, 78 units, 1,265 entities and 19,994
+checks (1,775 flow and 18,219 proof). It forced complete analysis while reusing
+native sessions/cache, at two workers and 16 MiB invoking-shell stack; managed
+duration was 492.560 seconds. The retained packet preserves the original failed
+complete run, focused selector failure/repair and successful complete reports.
+Exact comparison covers all 135 Ada sources and ten Python scripts with the
+integration tree; installation-specific generated paths retain their native
+worktree identity. No cold-runtime claim is made.
+
+The grouped Length helper's complete Lean source bridge passed fresh audit
+`20261121T185802-2485bf0d1681` (16,247 declarations). Shared Compose source
+candidates passed `20261121T185321-405f9610c412` (121 modules, 15,891 declarations),
+on their captured inputs before that scalar grouping edit. Their unchanged
+output-profile correspondence is retained; final combined applicability remains
+part of the complete Lean checkpoint.
+
+The formal-metadata model now carries the finite Type_Count range already
+imposed by each native Formal.Type_Id field. Both admitted constructors derive
+that bound, and native predicate equivalence retains invalid, zero and capacity
+cases. No declaration-history or current-table-count premise was added.
+Focused run `20261121T191841-33ce803f0c2d` passed 22,242 declarations; the
+[independent bounded review](reviews/review-array-formal-type-count-2372feb90f-20261121.md)
+found no material issue. This is a necessary native-domain correspondence repair;
+remaining consumers and endpoint integration still require validation.
+
+The rebuilt driver uses one worker per application proof/build. Repair batch
+`20261121T190708-ab70670dd3e5` ran 23 tests: 22 passed, covering all earlier
+stack/certificate failures and the named-array feature routes. Its maximal
+64-operand test reached the old 300-second harness deadline, so the batch remains
+failed. The single test's harness deadline was increased to 1,800 seconds to allow
+serial solver attempts; production solver steps, timeout and proof requirements
+are unchanged. The discriminating rerun and final regression accounting remain
+pending. Successful partial batches do not establish complete feature assurance.
