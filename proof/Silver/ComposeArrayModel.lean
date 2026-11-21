@@ -9,7 +9,7 @@ namespace Silver.Compose.Expressions
 
 set_option maxRecDepth 10000
 set_option maxHeartbeats 2000000
-attribute [local irreducible] ScalarExpression.read
+attribute [local irreducible] ScalarExpression.ArrayGrammar.read arrayTypeAt scalarTypeAt
 
 theorem model_arrayParts_equation (text : Source) (state : ParserState) :
     arrayPartsEquation modelCalls text state = arrayDeclarationParts text state := by
@@ -37,12 +37,13 @@ theorem model_arrayDeclaration_equation (text : Source) (state : ParserState)
   cases executable <;>
     simp only [arrayDeclarationEquation, model_arrayParts_equation] <;>
     dsimp +instances only [modelCalls, spelling, isWord, ShellToken.word, ShellToken.symbol] <;>
-    simp only [arrayDeclarationAt, arrayDeclarationValues, Bool.decide_or, Bool.decide_coe, Bool.or_assoc, ite_self]
+    simp only [arrayDeclarationAt, arrayDeclarationValues, Bool.decide_or, Bool.decide_and, Bool.decide_coe, Bool.or_assoc, ite_self]
   all_goals
+    simp only [show state.arrayNames.table.items = state.arrayNames.names from rfl]
     generalize arrayDeclarationParts text state = parts
     rcases Bool.eq_false_or_eq_true parts.isBoolean with kind | kind <;>
       simp only [ArrayDeclarationParts.typeWord, kind, Bool.false_eq_true,
-        Bool.false_and, Bool.true_and, decide_false, false_and, true_and,
+        Bool.false_and, Bool.true_and,
         Bool.or_false, ↓reduceIte]
   all_goals
     split
