@@ -403,7 +403,7 @@ def arrayDeclarationAt (text : Source) (state : ParserState) (arguments : Bool) 
             names := result.arrayNames.names ++ [⟨parts.first, parts.after,
               ⟨parts.lower.bounds.lower, parts.upper.bounds.lower⟩,
               state.arrayNames.used, length, decide (parts.constantAfter = 0), parts.componentBounds,
-              parts.isBoolean⟩]}}
+              parts.isBoolean, 0, 0⟩]}}
 
 structure BooleanDeclarationParts where
   first : Nat
