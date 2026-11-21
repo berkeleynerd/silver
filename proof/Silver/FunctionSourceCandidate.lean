@@ -92,6 +92,16 @@ public import Silver.FunctionSourceParts.CallsCallAssignmentResultBody
 public import Silver.FunctionSourceParts.CallsCallAssignmentModelBody
 public import Silver.FunctionSourceParts.CallsCallAssignmentBodyBody
 
+public import Silver.FunctionSourceParts.DeclarationExpressionAppendArrayParameterModel
+public import Silver.FunctionSourceParts.DeclarationExpressionFormalTypeAt
+public import Silver.FunctionSourceParts.DeclarationHeaderAppendArrayParameterImpl
+public import Silver.FunctionSourceParts.DeclarationHeaderAppendArrayParameterModelImpl
+public import Silver.FunctionSourceParts.DeclarationHeaderAppendArrayParameterModelSpec
+public import Silver.FunctionSourceParts.DeclarationHeaderAppendArrayParameterSpec
+public import Silver.FunctionSourceParts.DeclarationHeaderFormalTypeAtImpl
+public import Silver.FunctionSourceParts.DeclarationHeaderFormalTypeAtSpec
+public import Silver.FunctionSourceParts.DeclarationOrdinaryAppendArrayParameter
+
 @[expose] public section
 
 /-! Function declarations, name visibility and calls are checked against the
@@ -111,7 +121,7 @@ theorem declarations :
   headers := by
     intro item present
     simp only [Silver.Compose.FunctionDeclarationNative.SourceChecks.headers, List.mem_cons, List.mem_nil_iff, or_false] at present
-    rcases present with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl
+    rcases present with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl
     · exact Parts.declaration_header_function_type_at_spec
     · exact Parts.declaration_header_function_type_at_impl
     · exact Parts.declaration_header_parameter_step_spec
@@ -137,10 +147,16 @@ theorem declarations :
     · exact Parts.declaration_header_function_body_at_impl
     · exact Parts.declaration_header_function_declaration_at_spec
     · exact Parts.declaration_header_function_declaration_at_impl
+    · exact Parts.declaration_header_formal_type_at_spec
+    · exact Parts.declaration_header_formal_type_at_impl
+    · exact Parts.declaration_header_append_array_parameter_model_spec
+    · exact Parts.declaration_header_append_array_parameter_model_impl
+    · exact Parts.declaration_header_append_array_parameter_spec
+    · exact Parts.declaration_header_append_array_parameter_impl
   expressions := by
     intro item present
     simp only [Silver.Compose.FunctionDeclarationNative.SourceChecks.expressions, List.mem_cons, List.mem_nil_iff, or_false] at present
-    rcases present with rfl | rfl | rfl | rfl | rfl | rfl | rfl
+    rcases present with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl
     · exact Parts.declaration_expression_function_type_at
     · exact Parts.declaration_expression_parameter_step
     · exact Parts.declaration_expression_parameters_model
@@ -148,13 +164,16 @@ theorem declarations :
     · exact Parts.declaration_expression_function_locals_model
     · exact Parts.declaration_expression_append_parameter
     · exact Parts.declaration_expression_parameter_frame_model
+    · exact Parts.declaration_expression_formal_type_at
+    · exact Parts.declaration_expression_append_array_parameter_model
   ordinary := by
     intro item present
     simp only [Silver.Compose.FunctionDeclarationNative.SourceChecks.ordinary, List.mem_cons, List.mem_nil_iff, or_false] at present
-    rcases present with rfl | rfl | rfl
+    rcases present with rfl | rfl | rfl | rfl
     · exact Parts.declaration_ordinary_function_return_after
     · exact Parts.declaration_ordinary_function_body_at
     · exact Parts.declaration_ordinary_function_declaration_at
+    · exact Parts.declaration_ordinary_append_array_parameter
   loops := by
     intro item present
     simp only [Silver.Compose.FunctionDeclarationNative.SourceChecks.loops, List.mem_cons, List.mem_nil_iff, or_false] at present
