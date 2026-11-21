@@ -24,6 +24,33 @@ class ArrayParameterTests(unittest.TestCase):
         self.addCleanup(temporary.cleanup)
         self.source = Path(temporary.name).resolve() / 'array_parameters.adb'
 
+    def test_source_limit_loop_shapes_complete_the_native_route(self) -> None:
+        # Named metadata grows every recursive loop frame. Keep the old counted
+        # and foreach shapes alongside the new Range header at the source limit.
+        cases = (
+            (b'A:array(1..2)of Integer:=(0,0);', b'for I in 1..1 loop ',
+             b'A(1):=I;', 'assigned'),
+            (b'A:constant array(1..1)of Integer:=(1=>0);', b'for I of A loop ',
+             b'null;', 'static'),
+            (b'type T is array(1..1)of Integer;A:T:=(1=>0);',
+             b"for I in A'Range loop ", b'null;', 'static'),
+        )
+        for declaration, header, body, kind in cases:
+            with self.subTest(header=header):
+                depth = 0
+                source = program(declaration, body)
+                while True:
+                    candidate = program(declaration, header * (depth + 1)
+                                        + body + b'end loop;' * (depth + 1))
+                    if len(candidate) > 4096:
+                        break
+                    source = candidate
+                    depth += 1
+                self.assertGreater(depth, 120)
+                source += b' ' * (4096 - len(source))
+                self.check_full_route(source, kind=kind)
+                self.check(source + b' ', 2)
+
     def test_named_objects_keep_bounds_initialization_and_mutability(self) -> None:
         declarations = (VECTOR + b'A:Vector:=(-3,4,5);'
                         b'B:constant Vector:=(6,-7,8);'

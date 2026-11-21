@@ -1,0 +1,53 @@
+{
+  "binary_sha256": "2aa21a64455795ca6b5ced2cfc86954d74fa38cafdb7541c4f5c61348447c1f4",
+  "cases": [
+    {
+      "name": "old_counted",
+      "depth": 142,
+      "bytes": 4096,
+      "stack_mib": 8,
+      "code": 1,
+      "output": "\nraised STORAGE_ERROR : stack overflow or erroneous memory access\n"
+    },
+    {
+      "name": "old_counted",
+      "depth": 142,
+      "bytes": 4096,
+      "stack_mib": 16,
+      "code": 0,
+      "output": "Accepted: silver.\n"
+    },
+    {
+      "name": "old_foreach",
+      "depth": 159,
+      "bytes": 4096,
+      "stack_mib": 8,
+      "code": 1,
+      "output": "\nraised STORAGE_ERROR : stack overflow or erroneous memory access\n"
+    },
+    {
+      "name": "old_foreach",
+      "depth": 159,
+      "bytes": 4096,
+      "stack_mib": 16,
+      "code": 0,
+      "output": "Accepted: silver.\n"
+    },
+    {
+      "name": "named_range",
+      "depth": 128,
+      "bytes": 4096,
+      "stack_mib": 8,
+      "code": 1,
+      "output": "\nraised STORAGE_ERROR : stack overflow or erroneous memory access\n"
+    },
+    {
+      "name": "named_range",
+      "depth": 128,
+      "bytes": 4096,
+      "stack_mib": 16,
+      "code": 0,
+      "output": "Accepted: silver.\n"
+    }
+  ]
+}

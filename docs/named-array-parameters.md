@@ -227,6 +227,36 @@ yet been started for the feature.
 | Full-table actual-source reader endpoint | Source-correspondence worker selected Astra Max | Arbitrary interpreted source calls agree with the independent grammar for complete tables, all three read modes and scalar/Range attributes. The checked source and array helper bridges are included. This closes the scalar reader component; composition source correspondence remains pending. | `20261121T123207-a02cfae7281b`: fresh 16,216-declaration audit, build 15.162 s and audit 3.167 s, two workers/22 threads; implementation `529564cb4d`, integrated as `638f614ac7`. |
 | Physical declaration helper repair | Native worker; full-domain diagnosis retained in the managed ledger | The earlier executable-reader check exposed physical append in a generic symbolic-view frame. Matching model/runtime guards reject that internal case while preserving the complete original contracts. Both repaired contracts pass; the remaining loop and outer subprogram caller gates are pending. | Failed reader `20261121T115327-cd1e93904f89` retained as failed. Model `20261121T121211-472d67105ce2` passes all 62 model checks and reader `20261121T122534-e4a9782a41fd` passes all 66 reader checks on native `f57750fd90`, integrated as `4e44cc816d`; 16 workers reserved six for concurrent Lean work. |
 
+The final native direct-caller gates also passed on the same source: `Loop_Body`
+(`20261121T123923-1aacb72aa836`, 96 checks), function declaration
+(`20261121T124523-203873ac4b3e`, 18) and procedure declaration
+(`20261121T124733-b214ad9e49e2`, 17). Together with the earlier gates, all 27
+selected full-helper/caller checks passed. This is focused coverage; the complete
+compiler audit remains pending. The source-identical managed build
+`20261121T125341-99e4ce810915` and feature regression
+`20261121T125607-826b7d51ebf2` passed (15 tests, including five compile/prove/run
+routes), using an explicit 16 MiB stack and 16 native workers.
+
+Subsequent independent native review is selected at GPT-6 Astra Max. Its
+[stack observations](evidence/named-array-parameters-410-20261121/stack/README.md)
+require updating the x86_64 setup environment to 16 MiB and retaining three
+source-limit full-route checks. This is part of #410 delivery, not a deferred
+finding or a source-language restriction. The native review found no additional semantic defect. Managed rerun
+`20261121T130801-77ed9650af68` passed all three routes and over-limit controls;
+the earlier harness-policy failure remains retained as failed in the linked
+record. Independent confirmation of this repair and final source/proof review
+remain pending.
+
+Focused Lean results now include the exact type-and-callable hiding inventory
+(`20261121T124937-eaec773a13b7`, 15,436 declarations), subtype endpoint obligation
+readings (`20261121T125316-bec1a0a83f4b`, 11,079), shared typed call/predicate
+equations (`20261121T125422-3d0964f25d9e`, 22,604), and the nominal object source
+trees (`20261121T125753-1e14687b406a`, 15,331). Earlier failures remain failed,
+including `20261121T124825-e5d04924d67b`, whose successful build/audit was
+invalidated by an input edit during verification. The stable repeat above is
+the accepted hiding-inventory evidence. Complete semantic/source integration
+and the complete feature checkpoint remain pending.
+
 The draft delivery is [PR #412](https://github.com/berkeleynerd/silver/pull/412).
 These later focused results still do not establish completed support. Remaining
 work includes declaration-chain and

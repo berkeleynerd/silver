@@ -150,6 +150,15 @@ not an all-route or cross-platform stack bound. The setup instructions now use
 16 MiB for the current Linux ARM64 compiler; the existing sufficient-stack
 premise and unchanged source membership remain in force.
 
+The [2026-11-21 named-array observations](evidence/named-array-parameters-410-20261121/stack/README.md)
+measure the new Linux x86_64 metadata layout: `Body_Context` grows from 38,900
+to 64,264 bytes, and each nested loop copies that context. Three 4,096-byte
+counted/foreach/Range inputs fail admission with `Storage_Error` at 8 MiB and
+pass at 16 MiB. These reviewer observations are admission-only; the linked
+record tracks the separate managed full-route follow-up. Setup guidance uses
+16 MiB for both current Linux architectures. Record sizes and passing inputs
+do not establish a universal stack bound; source membership is unchanged.
+
 Per-level environment-copy redesign remains deferred with #119.
 The external
 [sequencing review](reviews/review-9b99d52.md) observed `Storage_Error` and exit

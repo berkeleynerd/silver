@@ -320,12 +320,15 @@ requires Python 3.11+ and native development libraries: libc development files
 on Linux, or Xcode Command Line Tools on macOS. On Debian/Ubuntu, the required
 native package is `libc6-dev`.
 
-For the current Linux ARM64 compiler, use a **16 MiB process stack** for
+For the current Linux compiler (x86_64 and ARM64), use a **16 MiB process stack** for
 validation and compiler invocations (`ulimit -S -s 16384` in the invoking shell,
 where its hard limit permits this). The [ARM64 boundary measurements](docs/evidence/scalar-procedures-20261115/regression-recovery/arm64-stack/README.md)
 show all three deeply parenthesized 4,096-byte regression inputs passing at that
-setting and failing at 8 MiB; two also fail at 12 MiB. This is a measured
-configuration for these inputs and this build, not a universal stack bound.
+setting and failing at 8 MiB; two also fail at 12 MiB. The
+[named-array x86_64 observations](docs/evidence/named-array-parameters-410-20261121/stack/README.md)
+likewise find that source-limit counted, foreach and Range loops need the higher
+setting after metadata growth. These are measured configurations for specific
+inputs and builds; they do not establish a universal stack bound.
 The compiler does not raise the process limit automatically. Earlier Linux
 8 MiB observations below retain their exact build/platform scope.
 
