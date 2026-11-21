@@ -1,39 +1,43 @@
 module
 
 public import Silver.ScalarArrayGrammarRecognition
-public import Silver.ScalarExpressionGrammar
+public import Silver.ScalarArrayExpressionRecognition
 public import Silver.ScalarFunctionArrayShape
 
 @[expose] public section
 
 namespace Silver.ScalarExpression.ArrayGrammar
 
-private def FrameShape (frame : List (Nat × Integer.ArrayDescriptor)) (mode : ArrayReadMode)
+private theorem noArray_of_readsOnly {allowed : Nat → Prop} {expression : Integer.Expr}
+    (reads : expression.ReadsOnly allowed) : expression.hasArray = false := by
+  induction expression <;> simp_all [Integer.Expr.ReadsOnly, Integer.Expr.hasArray]
+
+private def FrameShape (names : Environment) (frame : List (Nat × Integer.ArrayDescriptor)) (mode : ArrayReadMode)
     (expression : Integer.Expr) : Prop :=
   ScalarFunctions.frameExpression frame expression = true ∧
-    (mode = .noElements → expression.hasArray = false)
+    (mode = .noElements → expression.ReadsOnly (fun index => 0 < index ∧ index ≤ names.length))
 
-private theorem literal_shape (frame : List (Nat × Integer.ArrayDescriptor))
-    (mode : ArrayReadMode) (value : Int) : FrameShape frame mode (.literal value) :=
-  ⟨rfl, fun _ => rfl⟩
+private theorem literal_shape (names : Environment) (frame : List (Nat × Integer.ArrayDescriptor))
+    (mode : ArrayReadMode) (value : Int) : FrameShape names frame mode (.literal value) :=
+  ⟨rfl, fun _ => trivial⟩
 
-private theorem unary_shape {frame mode value} (good : FrameShape frame mode value.expression)
-    (negative : Bool) : FrameShape frame mode (unary value negative).expression := by
+private theorem unary_shape {names frame mode value} (good : FrameShape names frame mode value.expression)
+    (negative : Bool) : FrameShape names frame mode (unary value negative).expression := by
   cases negative <;> simpa only [unary, Bool.false_eq_true, ↓reduceIte,
-    FrameShape, ScalarFunctions.frameExpression, Integer.Expr.hasArray] using good
+    FrameShape, ScalarFunctions.frameExpression, Integer.Expr.ReadsOnly] using good
 
-private theorem binary_shape {frame mode left right value operator}
-    (a : FrameShape frame mode left.expression) (b : FrameShape frame mode right.expression)
-    (found : binary left right operator = some value) : FrameShape frame mode value.expression := by
+private theorem binary_shape {names frame mode left right value operator}
+    (a : FrameShape names frame mode left.expression) (b : FrameShape names frame mode right.expression)
+    (found : binary left right operator = some value) : FrameShape names frame mode value.expression := by
   unfold binary at found
   repeat' first | split at found | cases found
   all_goals
     constructor
     · simp only [ScalarFunctions.frameExpression, a.1, b.1, Bool.and_self]
     · intro disabled
-      simp only [Integer.Expr.hasArray, a.2 disabled, b.2 disabled, Bool.or_self]
+      exact ⟨a.2 disabled, b.2 disabled⟩
 
-theorem parseFuel_frameShape {fuel : Nat} {text : Source} {position maskFirst maskAfter : Nat}
+private theorem parseFuel_frameShapeWithReads {fuel : Nat} {text : Source} {position maskFirst maskAfter : Nat}
     {names : Environment} {arrays : ArrayBindings.Table} {allowSign : Bool}
     {arrayReads : ArrayReadMode} {value : Parsed}
     {frame : List (Nat × Integer.ArrayDescriptor)}
@@ -41,8 +45,8 @@ theorem parseFuel_frameShape {fuel : Nat} {text : Source} {position maskFirst ma
     (bound : position ≤ text.length + 1)
     (found : parseFuel fuel text position names arrays maskFirst maskAfter allowSign arrayReads = some value) :
     ScalarFunctions.frameExpression frame value.expression = true ∧
-      (arrayReads = .noElements → value.expression.hasArray = false) := by
-  change FrameShape frame arrayReads value.expression
+      (arrayReads = .noElements → value.expression.ReadsOnly (fun index => 0 < index ∧ index ≤ names.length)) := by
+  change FrameShape names frame arrayReads value.expression
   induction fuel generalizing position allowSign arrayReads value with
   | zero => cases found
   | succ fuel ih =>
@@ -55,7 +59,7 @@ theorem parseFuel_frameShape {fuel : Nat} {text : Source} {position maskFirst ma
         split at found
         · split at found
           · have parsed := ScalarExpression.atom_sound first.2 found
-            cases parsed <;> exact ⟨rfl, fun _ => rfl⟩
+            exact ⟨by cases parsed <;> rfl, fun _ => atom_readsOnly parsed⟩
           · split at found
             · unfold attributeAtom at found
               obtain ⟨query, parsed, same⟩ := Option.bind_eq_some_iff.mp found
@@ -92,7 +96,7 @@ theorem parseFuel_frameShape {fuel : Nat} {text : Source} {position maskFirst ma
                       List.any_eq_true.mpr ⟨(item.typeId, item.viewDescriptor), member, by simp⟩
                     constructor
                     · change (_ && _ && _) = true
-                      rw [presentFrame, indexShape.2 rfl, indexShape.1]
+                      rw [presentFrame, noArray_of_readsOnly (indexShape.2 rfl), indexShape.1]
                       rfl
                     · intro disabled
                       exact False.elim (allowed (Or.inl disabled))
@@ -103,7 +107,7 @@ theorem parseFuel_frameShape {fuel : Nat} {text : Source} {position maskFirst ma
             split at found
             · have next := skip_bounds text (skip text (skip text position + 1) + 1) (by omega)
               obtain ⟨original, originalFound, _, rfl⟩ := close_result found
-              change FrameShape frame arrayReads original.expression
+              change FrameShape names frame arrayReads original.expression
               split at originalFound
               · obtain ⟨_, rfl⟩ := literal_result originalFound
                 exact literal_shape ..
@@ -126,8 +130,20 @@ theorem parseFuel_frameShape {fuel : Nat} {text : Source} {position maskFirst ma
                     obtain ⟨right, rightFound, found⟩ := Option.bind_eq_some_iff.mp found
                     have rightShape := ih operatorBounds.2 rightFound
                     obtain ⟨original, originalFound, _, rfl⟩ := close_result found
-                    change FrameShape frame arrayReads original.expression
+                    change FrameShape names frame arrayReads original.expression
                     exact binary_shape leftShape rightShape originalFound
+
+theorem parseFuel_frameShape {fuel : Nat} {text : Source} {position maskFirst maskAfter : Nat}
+    {names : Environment} {arrays : ArrayBindings.Table} {allowSign : Bool}
+    {arrayReads : ArrayReadMode} {value : Parsed}
+    {frame : List (Nat × Integer.ArrayDescriptor)}
+    (members : ∀ item ∈ arrays.items, item.isBoolean = false → (item.typeId, item.viewDescriptor) ∈ frame)
+    (bound : position ≤ text.length + 1)
+    (found : parseFuel fuel text position names arrays maskFirst maskAfter allowSign arrayReads = some value) :
+    ScalarFunctions.frameExpression frame value.expression = true ∧
+      (arrayReads = .noElements → value.expression.hasArray = false) := by
+  have shape := parseFuel_frameShapeWithReads members bound found
+  exact ⟨shape.1, fun disabled => noArray_of_readsOnly (shape.2 disabled)⟩
 
 theorem At.frameExpression {text names position expression result maskFirst maskAfter allowSign arrays initials elaborating arrayReads}
     (parsed : At text names position expression result maskFirst maskAfter allowSign arrays initials elaborating arrayReads)
@@ -136,13 +152,25 @@ theorem At.frameExpression {text names position expression result maskFirst mask
     ScalarFunctions.frameExpression frame expression = true :=
   (parseFuel_frameShape members parsed.positionBound parsed.grammar).1
 
-theorem At.noElements {text names position expression result maskFirst maskAfter allowSign arrays initials elaborating}
-    (parsed : At text names position expression result maskFirst maskAfter allowSign arrays initials elaborating .noElements) :
-    expression.hasArray = false := by
+theorem parseFuel_noElements_readsOnly {fuel : Nat} {text : Source} {position maskFirst maskAfter : Nat}
+    {names : Environment} {arrays : ArrayBindings.Table} {allowSign : Bool} {value : Parsed}
+    (bound : position ≤ text.length + 1)
+    (found : parseFuel fuel text position names arrays maskFirst maskAfter allowSign .noElements = some value) :
+    value.expression.ReadsOnly (fun index => 0 < index ∧ index ≤ names.length) := by
   let frame := arrays.items.map (fun item => (item.typeId, item.viewDescriptor))
   have members : ∀ item ∈ arrays.items, item.isBoolean = false → (item.typeId, item.viewDescriptor) ∈ frame := by
     intro item member _
     exact List.mem_map.mpr ⟨item, member, rfl⟩
-  exact (parseFuel_frameShape members parsed.positionBound parsed.grammar).2 rfl
+  exact (parseFuel_frameShapeWithReads members bound found).2 rfl
+
+theorem At.noElements_readsOnly {text names position expression result maskFirst maskAfter allowSign arrays initials elaborating}
+    (parsed : At text names position expression result maskFirst maskAfter allowSign arrays initials elaborating .noElements) :
+    expression.ReadsOnly (fun index => 0 < index ∧ index ≤ names.length) :=
+  parseFuel_noElements_readsOnly parsed.positionBound parsed.grammar
+
+theorem At.noElements {text names position expression result maskFirst maskAfter allowSign arrays initials elaborating}
+    (parsed : At text names position expression result maskFirst maskAfter allowSign arrays initials elaborating .noElements) :
+    expression.hasArray = false :=
+  noArray_of_readsOnly parsed.noElements_readsOnly
 
 end Silver.ScalarExpression.ArrayGrammar
