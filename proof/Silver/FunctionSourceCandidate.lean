@@ -66,6 +66,7 @@ public import Silver.FunctionSourceParts.CallsIncludedBody
 public import Silver.FunctionSourceParts.CallsActualModelSpec
 public import Silver.FunctionSourceParts.CallsActualModelImpl
 public import Silver.FunctionSourceParts.CallsActualAfterSpec
+public import Silver.FunctionSourceParts.CallsArrayActual
 public import Silver.FunctionSourceParts.CallsActualAfterImpl
 public import Silver.FunctionSourceParts.CallsActualsModelSpec
 public import Silver.FunctionSourceParts.CallsActualsModelImpl
@@ -191,6 +192,10 @@ theorem calls :
   actuals_tail_model_body := Parts.calls_actuals_tail_model_body
   included_impl := Parts.calls_included_impl
   included_body := Parts.calls_included_body
+  arrayActual_spec := Parts.calls_arrayActual_spec
+  arrayActual_impl := Parts.calls_arrayActual_impl
+  arrayActual_body := Parts.calls_arrayActual_body
+  actualAfter_body := Parts.calls_actualAfter_body
   actualModel_spec := Parts.calls_actualModel_spec
   actualModel_impl := Parts.calls_actualModel_impl
   actualAfter_spec := Parts.calls_actualAfter_spec
