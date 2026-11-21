@@ -1018,6 +1018,7 @@ def Expr.render : Expr ty → List String
   | .elsif c a b => ["elsif"] ++ c.render ++ ["then"] ++ a.render ++
       (match b with | .elsif _ _ _ => b.render | _ => ["else"] ++ b.render)
   | .local name typeName localValue rest => [name, ":", "constant"] ++ (if typeName == "array_bindings.element_count" then ["array_bindings", ".", "element_count"]
+      else if typeName == "array_bindings.type_count" then ["array_bindings", ".", "type_count"]
       else if typeName == "scalar_expressions.expression_result" then ["scalar_expressions", ".", "expression_result"]
         else if typeName == "silver_scalar_literals.literal_result" then ["silver_scalar_literals", ".", "literal_result"]
         else [typeName]) ++ [":="] ++ localValue.render ++ [";"] ++
