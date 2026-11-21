@@ -79,6 +79,10 @@ instance (text : Source) (names : Table) : Decidable (ValidTable text names) :=
     TypeCoherent names.types (binding names.items (index + 1)) ∧
     (_ → _) ∧ (_ → _)))
 
+instance (text : Source) (environment : Env) : Decidable (ValidNativeEnvironment text environment) :=
+  inferInstanceAs (Decidable (_ ∧ _ ∧ (_ ∧ ∀ value ∈ environment.values, _) ∧
+    ∀ item ∈ environment.names, _ → _))
+
 def lookupTypeFrom (text : Source) (types : TypeEnvironment) (first after : Nat) : Nat → Nat
   | 0 => 0
   | index + 1 =>
@@ -104,6 +108,16 @@ theorem arrayType_mem {types : TypeEnvironment} {index : Nat}
   have within : index - 1 < types.length := by omega
   simp only [arrayType, List.getD_eq_getElem?_getD, List.getElem?_eq_getElem within, Option.getD_some]
   exact List.getElem_mem within
+
+theorem arrayType_prefix (types more : TypeEnvironment) (index : Nat)
+    (positive : 0 < index) (bound : index ≤ types.length) :
+    arrayType (types ++ more) index = arrayType types index := by
+  have within : index - 1 < types.length := by omega
+  simp only [arrayType, List.getD_eq_getElem?_getD, List.getElem?_append_left within]
+
+@[simp] theorem arrayType_append_old (types : TypeEnvironment) (item : ArrayType) (index : Nat)
+    (positive : 0 < index) (bound : index ≤ types.length) :
+    arrayType (types ++ [item]) index = arrayType types index := arrayType_prefix types [item] index positive bound
 
 theorem ValidTable.binding_valid {text : Source} {names : Table} (valid : ValidTable text names)
     {index : Nat} (positive : 0 < index) (bound : index ≤ names.items.length) :
