@@ -293,7 +293,7 @@ The draft delivery is [PR #412](https://github.com/berkeleynerd/silver/pull/412)
 These later focused results still do not establish completed support. Remaining
 work includes declaration-chain and
 mixed callable/header/frame and loop integration, complete source correspondence,
-the remaining native caller contracts, the stable complete native/Lean and
+the stable complete native/Lean and
 regression checkpoint, Rosetta delivery and independent review. No complete
 feature validation run has been represented as passed, and merging #412 has
 not been authorized.
@@ -313,3 +313,53 @@ worker for native array/signature metadata and its checked source equations.
 The lead owns scalar-expression/attribute integration. Runtime settings are
 not independently exposed by these records. Foundational model successes do
 not stand in for native correspondence, final discharge or independent review.
+
+### Source and callable integration continuation — 2026-11-21
+
+Focused callable initialization and frame validity passed in
+`20261121T142322-58073c6d7e7e` (22,802 audited declarations), followed by the
+installed-array descriptor and mixed-frame analysis bridge in
+`20261121T142702-f98a1e7babb5` (21,145). Procedure frame validity and preservation
+of array inputs through scalar-output initialization passed in
+`20261121T142914-8768b4b274bb` (21,461). The three updated procedure actual/callee
+source checks passed in `20261121T143052-f20a55b4b5da` (17,538). These retain the
+complete native helper domains; read-only array descriptors and their declared
+component ranges are not specialized to sample values.
+
+Primitive statement meaning, array-aware flow preservation and String assignment
+passed in `20261121T143424-243b2cee0701` (27,869 declarations). Body semantics,
+source reading uniqueness, binder separation and procedure frame shape passed
+in `20261121T143716-7a42fd7c8b1d` (24,739; 24.131 s managed duration). Integration
+commits `76c44c1632` and `8aadedd8ac` carry those two checked slices. These are
+focused successes, not the complete endpoint checkpoint.
+
+The three continuing proof/source subthreads were selected at GPT-6 Astra Max;
+runtime settings are not independently exposed. The function stream used three
+workers and the procedure stream one while the statement and root streams each
+reserved four, alongside the complete native run's ten. Lean process threading
+remained automatic at 22; deliberate worker reductions and their reasons are
+retained per run. The resumed lead's runtime model/effort was not independently
+exposed. No new cost or token measurements are available.
+
+The root preserved the successful 715-second `ReviewedOutputShape` build from
+failed run `20261121T141959-a78ee1a5c1f6`, corrected a record-update syntax error,
+and continued focused shared-helper integration. Subsequent failed runs remain
+failed, including `20261121T143717-e66ffcac4617`: their corrections address
+changed constructor arguments, equivalent Boolean guard normalization and
+visibility of the standard decimal-rendering definition in source checks.
+Array-type denotations pass; the full shared helper/source interface is still
+being checked. The complete native audit remains in progress. Final Lean/source
+assurance, complete regression coverage, Rosetta support promotion and independent
+delivery review are still required; PR #412 remains draft without merge authority.
+
+The subsequent primitive native-equation/statement-flag focus
+`20261121T144012-a8a69d5f53bd` passed with a fresh 27,491-declaration audit.
+Normalizing the full-table projections before branch simplification closed the
+previous expensive reduction; `PredicateBasicEquations` built in 43 s. This
+particular run automatically reserved the twelve CPUs then available; the next
+concurrent source run returned to four workers with the sharing reason recorded.
+The root's run `20261121T144143-f287ea3b22d2` built the shared evaluation transport
+and exact named-array-type source candidate (137 s for the latter), while failing
+on three unused simplifier arguments in the array model. Its overall outcome
+remains failed; those compiled modules are retained for the repaired focused
+model/equation check, not represented as a successful complete audit.
