@@ -20,7 +20,7 @@ def contextOf (scan : ScanResult) : Native.Context :=
     ScalarExpression.bodyEnvironment scan.state.scalarNames, scan.state.scalarNames.length, scan.state.arrayNames.names, scan.state.subtypeNames.hiddenCalls,
     scan.state.booleanNames, scan.state.subtypeNames.trueHidden || scan.state.hiding.trueHidden,
     scan.state.subtypeNames.falseHidden || scan.state.hiding.falseHidden, false, 0, 0,
-    scan.state.pure, scan.state.hiding.integerHidden⟩
+    scan.state.pure, scan.state.hiding.integerHidden, scan.state.arrayNames.types⟩
 
 def expand (context : Native.Context) (scan : BodyScan) (original : ParserState) : ScanResult :=
   ⟨{original with
@@ -145,7 +145,7 @@ inductive Field : Type → Type → Type
   | subtypeTrueHidden : Field IntegerSubtypes.Environment Bool
   | subtypeFalseHidden : Field IntegerSubtypes.Environment Bool
   | subtypeHiding : Field IntegerSubtypes.Environment IntegerSubtypes.CallHiding
-  | arrayMetadata : Field ArrayBindings.Env ArrayBindings.Metadata
+  | arrayMetadata : Field ArrayBindings.Env ArrayBindings.Table
   | stateFirst : Field ParserState Nat
   | stateAfter : Field ParserState Nat
   | stateTarget : Field ParserState Nat
@@ -173,7 +173,7 @@ def Field.eval : Field α β → α → β
   | .hiddenFalse => HiddenMarks.falseHidden
   | .hiddenInteger => HiddenMarks.integerHidden
   | .stateScalarNames => ParserState.scalarNames
-  | .stateArrays => ParserState.arrayNames | .arrayMetadata => ArrayBindings.Env.names
+  | .stateArrays => ParserState.arrayNames | .arrayMetadata => ArrayBindings.Env.table
   | .stateBooleans => ParserState.booleanNames | .contextBooleans => Native.Context.booleanNames
   | .subtypeTrueHidden => IntegerSubtypes.Environment.trueHidden
   | .subtypeFalseHidden => IntegerSubtypes.Environment.falseHidden
@@ -238,7 +238,7 @@ inductive Expr : Type → Type 1
   | completed (facts : Expr PathFacts.Context) : Expr Bool
   | bodyEnvironment (names : Expr ScalarExpression.Environment) : Expr ScalarExpression.Environment
   | contextValue (names : Expr BindingEnvironment) (scalarNames : Expr ScalarExpression.Environment)
-      (arrays : Expr ArrayBindings.Metadata) (hiddenCalls : Expr IntegerSubtypes.CallHiding)
+      (arrays : Expr ArrayBindings.Table) (hiddenCalls : Expr IntegerSubtypes.CallHiding)
       (booleans : Expr BooleanBindings.Environment) (trueHidden falseHidden pure integerHidden elaborating : Expr Bool)
       (maskFirst maskAfter declarations first after : Expr Nat) : Expr Native.Context
   | bodyValue (count : Expr Nat) (facts : Expr ActiveFlow) (position target capacity : Expr Nat)
@@ -297,7 +297,7 @@ def Expr.eval (calls : BodyNative.Calls) (frame : Frame)
   | .bodyEnvironment names => ScalarExpression.bodyEnvironment (names.eval calls frame bodyOfCall initialFlowCall takeTokenCall)
   | .contextValue names scalarNames arrayNames hiddenCalls booleans trueHidden falseHidden pure integerHidden elaborating maskFirst maskAfter declarations first after =>
       ⟨names.eval calls frame bodyOfCall initialFlowCall takeTokenCall, first.eval calls frame bodyOfCall initialFlowCall takeTokenCall, after.eval calls frame bodyOfCall initialFlowCall takeTokenCall,
-        scalarNames.eval calls frame bodyOfCall initialFlowCall takeTokenCall, declarations.eval calls frame bodyOfCall initialFlowCall takeTokenCall, arrayNames.eval calls frame bodyOfCall initialFlowCall takeTokenCall, hiddenCalls.eval calls frame bodyOfCall initialFlowCall takeTokenCall,
+        scalarNames.eval calls frame bodyOfCall initialFlowCall takeTokenCall, declarations.eval calls frame bodyOfCall initialFlowCall takeTokenCall, (arrayNames.eval calls frame bodyOfCall initialFlowCall takeTokenCall).items, hiddenCalls.eval calls frame bodyOfCall initialFlowCall takeTokenCall,
         booleans.eval calls frame bodyOfCall initialFlowCall takeTokenCall,
         trueHidden.eval calls frame bodyOfCall initialFlowCall takeTokenCall,
         falseHidden.eval calls frame bodyOfCall initialFlowCall takeTokenCall,
@@ -305,7 +305,8 @@ def Expr.eval (calls : BodyNative.Calls) (frame : Frame)
         maskFirst.eval calls frame bodyOfCall initialFlowCall takeTokenCall,
         maskAfter.eval calls frame bodyOfCall initialFlowCall takeTokenCall,
         pure.eval calls frame bodyOfCall initialFlowCall takeTokenCall,
-        integerHidden.eval calls frame bodyOfCall initialFlowCall takeTokenCall⟩
+        integerHidden.eval calls frame bodyOfCall initialFlowCall takeTokenCall,
+        (arrayNames.eval calls frame bodyOfCall initialFlowCall takeTokenCall).types⟩
   | .bodyValue _ facts pos target capacity assigned output =>
       ⟨pos.eval calls frame bodyOfCall initialFlowCall takeTokenCall, target.eval calls frame bodyOfCall initialFlowCall takeTokenCall, capacity.eval calls frame bodyOfCall initialFlowCall takeTokenCall,
         facts.eval calls frame bodyOfCall initialFlowCall takeTokenCall, assigned.eval calls frame bodyOfCall initialFlowCall takeTokenCall, output.eval calls frame bodyOfCall initialFlowCall takeTokenCall⟩
