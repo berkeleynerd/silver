@@ -36,7 +36,7 @@ mutual
         ArrayLoopAt (catalog := catalog) (procedures := procedures) text context scan body result → statementBody (catalog := catalog) (procedures := procedures) text context scan = result →
         StatementAt (catalog := catalog) (procedures := procedures) text context scan
           (.arrayLoop (context.scalarNames.length + 1) (loopHeader text context scan).reverse
-            (ArrayBindings.binding context.arrayNames (loopArrayTarget text context scan)).descriptor body) result
+            (ArrayBindings.binding context.arrayNames (loopArrayTarget text context scan)).viewDescriptor body) result
 
   inductive LoopAt (text : Source) (catalog : FunctionBindings.Metadata := {})
       (procedures : ProcedureBindings.Metadata := {}) :
@@ -44,11 +44,7 @@ mutual
     | loop {context scan lower upper body bodyResult result} :
         loopIsArray text scan = false →
         loopNameAllowed text context (loopHeader text context scan) = true →
-        ScalarExpression.At (elaborating := context.elaborating) (arrays := context.arrayNames) text (context.readingNames scan.facts) (loopLowerPosition text scan)
-          lower (loopHeader text context scan).lower (loopFirst text scan) (loopNameAfter text scan) →
-        ScalarExpression.At (elaborating := context.elaborating) (arrays := context.arrayNames) text (context.readingNames scan.facts)
-          (fixedAfter text (loopHeader text context scan).lower.after ".." false)
-          upper (loopHeader text context scan).upper (loopFirst text scan) (loopNameAfter text scan) →
+        LoopBoundsAt text context scan lower upper →
         bodyRemaining text (loopHeader text context scan).entry < bodyRemaining text scan →
         BodyAt (catalog := catalog) (procedures := procedures) text (loopInner context (loopHeader text context scan)) (loopHeader text context scan).entry
           .endOnly body bodyResult →

@@ -87,11 +87,11 @@ mutual
       (accepted : (loopBody (catalog := catalog) (procedures := procedures) text context scan).position ≠ 0) :
       ∃ lower upper body, LoopAt (catalog := catalog) (procedures := procedures) text context scan lower upper body (loopBody (catalog := catalog) (procedures := procedures) text context scan) := by
     obtain ⟨allowed, entryForward, advanced, bodyForward, equation, _⟩ := loopBody_shape (catalog := catalog) (procedures := procedures) accepted
-    obtain ⟨lower, upper, lowerRead, upperRead⟩ := loopHeader_readings counted (by omega :
+    obtain ⟨lower, upper, boundsRead⟩ := loopHeader_readings counted (by omega :
       (loopHeader text context scan).entry.position ≠ 0)
     obtain ⟨body, bodyRead⟩ := body_sound text (loopInner context (loopHeader text context scan))
       (loopHeader text context scan).entry .endOnly tv nv (loopHeader_bound text context scan) (by omega)
-    exact ⟨lower, upper, body, .loop counted allowed lowerRead upperRead advanced bodyRead equation accepted rfl⟩
+    exact ⟨lower, upper, body, .loop counted allowed boundsRead advanced bodyRead equation accepted rfl⟩
   termination_by (bodyRemaining text scan, 1)
 
   theorem arrayLoop_sound (text : Source) (context : ParseContext) (scan : BodyScan)

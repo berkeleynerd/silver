@@ -38,7 +38,7 @@ mutual
       (SourceStatement.forLoop (context.scalarNames.length + 1) (loopHeader text context scan).reverse
         lower upper body).lower.bindersApart array = true := by
     cases parsed with
-    | loop _ allowed _ _ _ bodyRead _ _ _ =>
+    | loop _ allowed _ _ bodyRead _ _ _ =>
         have space := loopNameAllowed_space low allowed
         have innerLow : (loopInner context (loopHeader text context scan)).scalarNames.length ≤ ArrayBindings.scalarLimit := by
           simpa only [loopInner, List.length_append, List.length_singleton] using space
@@ -53,7 +53,7 @@ mutual
       (apart : ∀ index, index ≤ ArrayBindings.scalarLimit → ¬array.ContainsCell index)
       (parsed : ArrayLoopAt (catalog := catalog) (procedures := procedures) text context scan body result) :
       (SourceStatement.arrayLoop (context.scalarNames.length + 1) (loopHeader text context scan).reverse
-        (ArrayBindings.binding context.arrayNames (loopArrayTarget text context scan)).descriptor body).lower.bindersApart array = true := by
+        (ArrayBindings.binding context.arrayNames (loopArrayTarget text context scan)).viewDescriptor body).lower.bindersApart array = true := by
     cases parsed with
     | loop _ allowed _ _ bodyRead _ _ _ =>
         have space := loopNameAllowed_space low allowed
