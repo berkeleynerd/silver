@@ -51,8 +51,16 @@ literal command; they must not be read as measurements of unlimited memory.
 [The sample tests](../tests/test_samples.py) now check the recorded application
 options, including step/time/memory allowances, and inspect effective Why3
 defaults and per-attempt overrides for each selected external solver. Output
-compilations must retain sessions and all three prover declarations. Null still
-uses its distinct warnings policy and may have no external solver session.
+compilations in the original parallel checkpoint retained sessions and all three
+prover declarations. Null uses its distinct warnings policy and may have no
+external solver session.
+
+The 2026-11-21 one-worker application configuration can discharge every goal with
+the first configured solver. The sample regression therefore requires an actual
+external proof attempt for output, while checking the exact three-solver command
+and the effective defaults and overrides for every observed solver. It does not
+require redundant attempts after discharge. Complete obligation auditing remains
+unchanged; the earlier three-solver observation describes the parallel checkpoint.
 
 `test_maximum_dynamic_expression` admits, proves, builds and executes the
 retained meaningful 64-leaf source: an immutable input `D`, an executable
