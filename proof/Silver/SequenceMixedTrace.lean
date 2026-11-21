@@ -30,6 +30,7 @@ inductive MixedStepAt (text : Source) (form : Compose.Form) :
       MixedStepAt text form .declarations state functions procedures next
   | other {token state next} : token ≠ ShellToken.declarations →
       next.functions = state.functions → next.procedures = state.procedures →
+      next.arrayNames.types = state.arrayNames.types →
       MixedStepAt text form token state [] [] next
 
 theorem step_mixed_trace {text form token state next event}
@@ -45,27 +46,47 @@ theorem step_mixed_trace {text form token state next event}
     rw [equation] at source
     exact ⟨functions, procedures, .declarations source⟩
   · exact ⟨[], [], .other declaration (step_functions_preserved declaration parsed)
-      (step_procedures_preserved declaration parsed)⟩
+      (step_procedures_preserved declaration parsed)
+      (by rw [step_arrayNames_preserved declaration parsed])⟩
+
+theorem MixedStepAt.callableTypesKnown {text form token state functions procedures next}
+    (source : MixedStepAt text form token state functions procedures next)
+    (textValid : ValidText text) (valid : ValidState text state) (known : CallableTypesKnown state) :
+    CallableTypesKnown next := by
+  cases source with
+  | declarations source => exact source.callableTypesKnown textValid valid known
+  | other _ functions procedures types =>
+      constructor
+      · simpa only [functions, types] using known.functions
+      · simpa only [procedures, types] using known.procedures
+
+/-- Callable type identity is a consequence of the actual accepted shell step. -/
+theorem step_callable_types_known {text form token state next event}
+    (textValid : ValidText text) (valid : ValidState text state)
+    (known : CallableTypesKnown state) (parsed : StepAt text form token state next event) :
+    CallableTypesKnown next := by
+  obtain ⟨functions, procedures, source⟩ := step_mixed_trace textValid valid parsed
+  exact source.callableTypesKnown textValid valid known
 
 theorem MixedStepAt.functions_checked {text form token state functions procedures next}
     (source : MixedStepAt text form token state functions procedures next)
-    (textValid : ValidText text) (valid : ValidState text state) :
-    ScalarFunctions.DefinitionsChecked (catalogSignatures state.functions) functions ∧
-      catalogSignatures next.functions =
-        catalogSignatures state.functions ++ functions.map ScalarFunctions.Definition.signature := by
+    (textValid : ValidText text) (valid : ValidState text state) (known : CallableTypesKnown state) :
+    ScalarFunctions.DefinitionsChecked (catalogSignatures state.functions state.arrayNames.types) functions ∧
+      catalogSignatures next.functions next.arrayNames.types =
+        catalogSignatures state.functions state.arrayNames.types ++ functions.map ScalarFunctions.Definition.signature := by
   cases source with
-  | declarations source => exact source.functions_checked textValid valid
-  | other _ same _ => exact ⟨trivial, by simp only [same, List.map_nil, List.append_nil]⟩
+  | declarations source => exact source.functions_checked textValid valid known
+  | other _ same _ types => exact ⟨trivial, by simp only [same, types, List.map_nil, List.append_nil]⟩
 
 theorem MixedStepAt.procedure_catalog {text form token state functions procedures next}
     (source : MixedStepAt text form token state functions procedures next)
-    (textValid : ValidText text) (valid : ValidState text state) :
-    ProcedureBindings.catalogSignatures next.procedures =
-      ProcedureBindings.catalogSignatures state.procedures ++
+    (textValid : ValidText text) (valid : ValidState text state) (known : CallableTypesKnown state) :
+    ProcedureBindings.catalogSignatures next.procedures next.arrayNames.types =
+      ProcedureBindings.catalogSignatures state.procedures state.arrayNames.types ++
         procedures.map ScalarProcedures.Definition.signature := by
   cases source with
-  | declarations source => exact source.procedure_catalog textValid valid
-  | other _ _ same => simp only [same, List.map_nil, List.append_nil]
+  | declarations source => exact source.procedure_catalog textValid valid known
+  | other _ _ same types => simp only [same, types, List.map_nil, List.append_nil]
 
 theorem MixedStepAt.unique {text form token state leftFunctions leftProcedures rightFunctions rightProcedures next}
     (a : MixedStepAt text form token state leftFunctions leftProcedures next)
@@ -86,7 +107,7 @@ theorem MixedStepAt.functionProjection {text form token state functions procedur
     FunctionStepAt text form token state functions next := by
   cases source with
   | declarations source => exact .declarations ⟨_, source⟩
-  | other ordinary sameFunctions _ => exact .other ordinary sameFunctions
+  | other ordinary sameFunctions sameProcedures types => exact .other ordinary sameFunctions sameProcedures types
 
 inductive MixedTokensAt (text : Source) (form : Compose.Form) :
     List ShellToken → ParserState → List ScalarFunctions.Definition →
@@ -112,36 +133,55 @@ theorem tokens_mixed_trace {text form tokens state events final}
     obtain ⟨restFunctions, restProcedures, following⟩ := ih nextValid
     exact ⟨firstFunctions ++ restFunctions, firstProcedures ++ restProcedures, .next head source following⟩
 
+theorem MixedTokensAt.callableTypesKnown {text form tokens state functions procedures final}
+    (source : MixedTokensAt text form tokens state functions procedures final)
+    (textValid : ValidText text) (valid : ValidState text state) (known : CallableTypesKnown state) :
+    CallableTypesKnown final := by
+  induction source with
+  | done => exact known
+  | @next token tokens state middle final event firstFunctions firstProcedures restFunctions restProcedures head first _ ih =>
+    have nextValid := model_step_valid text textValid form token state valid
+    rw [head.scanned] at nextValid
+    exact ih nextValid (first.callableTypesKnown textValid valid known)
+
+/-- The history fact is threaded through source tokens from its derived initial fact. -/
+theorem tokens_callable_types_known {text form tokens state events final}
+    (textValid : ValidText text) (valid : ValidState text state)
+    (known : CallableTypesKnown state) (parsed : TokensAt text form tokens state events final) :
+    CallableTypesKnown final := by
+  obtain ⟨functions, procedures, source⟩ := tokens_mixed_trace textValid valid parsed
+  exact source.callableTypesKnown textValid valid known
+
 theorem MixedTokensAt.functions_checked {text form tokens state functions procedures final}
     (source : MixedTokensAt text form tokens state functions procedures final)
-    (textValid : ValidText text) (valid : ValidState text state) :
-    ScalarFunctions.DefinitionsChecked (catalogSignatures state.functions) functions ∧
-      catalogSignatures final.functions =
-        catalogSignatures state.functions ++ functions.map ScalarFunctions.Definition.signature := by
+    (textValid : ValidText text) (valid : ValidState text state) (known : CallableTypesKnown state) :
+    ScalarFunctions.DefinitionsChecked (catalogSignatures state.functions state.arrayNames.types) functions ∧
+      catalogSignatures final.functions final.arrayNames.types =
+        catalogSignatures state.functions state.arrayNames.types ++ functions.map ScalarFunctions.Definition.signature := by
   induction source with
   | done => exact ⟨trivial, (List.append_nil _).symm⟩
   | @next token tokens state middle final event firstFunctions firstProcedures restFunctions restProcedures head first _ ih =>
-    have checked := first.functions_checked textValid valid
+    have checked := first.functions_checked textValid valid known
     have nextValid := model_step_valid text textValid form token state valid
     rw [head.scanned] at nextValid
-    have following := ih nextValid
+    have following := ih nextValid (first.callableTypesKnown textValid valid known)
     rw [checked.2] at following
     exact ⟨checked.1.append following.1,
       by simpa only [List.map_append, List.append_assoc] using following.2⟩
 
 theorem MixedTokensAt.procedure_catalog {text form tokens state functions procedures final}
     (source : MixedTokensAt text form tokens state functions procedures final)
-    (textValid : ValidText text) (valid : ValidState text state) :
-    ProcedureBindings.catalogSignatures final.procedures =
-      ProcedureBindings.catalogSignatures state.procedures ++
+    (textValid : ValidText text) (valid : ValidState text state) (known : CallableTypesKnown state) :
+    ProcedureBindings.catalogSignatures final.procedures final.arrayNames.types =
+      ProcedureBindings.catalogSignatures state.procedures state.arrayNames.types ++
         procedures.map ScalarProcedures.Definition.signature := by
   induction source with
   | done => exact (List.append_nil _).symm
   | @next token tokens state middle final event firstFunctions firstProcedures restFunctions restProcedures head first _ ih =>
-    have checked := first.procedure_catalog textValid valid
+    have checked := first.procedure_catalog textValid valid known
     have nextValid := model_step_valid text textValid form token state valid
     rw [head.scanned] at nextValid
-    have following := ih nextValid
+    have following := ih nextValid (first.callableTypesKnown textValid valid known)
     rw [checked] at following
     simpa only [List.map_append, List.append_assoc] using following
 
@@ -171,38 +211,38 @@ theorem MixedTokensAt.functionProjection {text form tokens state functions proce
 /-- Mixed declaration steps retain both checked callable catalogues. -/
 theorem MixedStepAt.checked {text form token state functions procedures next}
     (source : MixedStepAt text form token state functions procedures next)
-    (textValid : ValidText text) (valid : ValidState text state) :
-    ScalarFunctions.DefinitionsChecked (catalogSignatures state.functions) functions ∧
-      ScalarProcedures.DefinitionsChecked (catalogSignatures next.functions)
-        (ProcedureBindings.catalogSignatures state.procedures) procedures ∧
-      catalogSignatures next.functions =
-        catalogSignatures state.functions ++ functions.map ScalarFunctions.Definition.signature ∧
-      ProcedureBindings.catalogSignatures next.procedures =
-        ProcedureBindings.catalogSignatures state.procedures ++ procedures.map ScalarProcedures.Definition.signature := by
+    (textValid : ValidText text) (valid : ValidState text state) (known : CallableTypesKnown state) :
+    ScalarFunctions.DefinitionsChecked (catalogSignatures state.functions state.arrayNames.types) functions ∧
+      ScalarProcedures.DefinitionsChecked (catalogSignatures next.functions next.arrayNames.types)
+        (ProcedureBindings.catalogSignatures state.procedures state.arrayNames.types) procedures ∧
+      catalogSignatures next.functions next.arrayNames.types =
+        catalogSignatures state.functions state.arrayNames.types ++ functions.map ScalarFunctions.Definition.signature ∧
+      ProcedureBindings.catalogSignatures next.procedures next.arrayNames.types =
+        ProcedureBindings.catalogSignatures state.procedures state.arrayNames.types ++ procedures.map ScalarProcedures.Definition.signature := by
   cases source with
-  | declarations source => exact source.checked textValid valid
-  | other _ sameFunctions sameProcedures =>
+  | declarations source => exact source.checked textValid valid known
+  | other _ sameFunctions sameProcedures types =>
       exact ⟨trivial, trivial,
-        by simp only [sameFunctions, List.map_nil, List.append_nil],
-        by simp only [sameProcedures, List.map_nil, List.append_nil]⟩
+        by simp only [sameFunctions, types, List.map_nil, List.append_nil],
+        by simp only [sameProcedures, types, List.map_nil, List.append_nil]⟩
 
 theorem MixedTokensAt.checked {text form tokens state functions procedures final}
     (source : MixedTokensAt text form tokens state functions procedures final)
-    (textValid : ValidText text) (valid : ValidState text state) :
-    ScalarFunctions.DefinitionsChecked (catalogSignatures state.functions) functions ∧
-      ScalarProcedures.DefinitionsChecked (catalogSignatures final.functions)
-        (ProcedureBindings.catalogSignatures state.procedures) procedures ∧
-      catalogSignatures final.functions =
-        catalogSignatures state.functions ++ functions.map ScalarFunctions.Definition.signature ∧
-      ProcedureBindings.catalogSignatures final.procedures =
-        ProcedureBindings.catalogSignatures state.procedures ++ procedures.map ScalarProcedures.Definition.signature := by
+    (textValid : ValidText text) (valid : ValidState text state) (known : CallableTypesKnown state) :
+    ScalarFunctions.DefinitionsChecked (catalogSignatures state.functions state.arrayNames.types) functions ∧
+      ScalarProcedures.DefinitionsChecked (catalogSignatures final.functions final.arrayNames.types)
+        (ProcedureBindings.catalogSignatures state.procedures state.arrayNames.types) procedures ∧
+      catalogSignatures final.functions final.arrayNames.types =
+        catalogSignatures state.functions state.arrayNames.types ++ functions.map ScalarFunctions.Definition.signature ∧
+      ProcedureBindings.catalogSignatures final.procedures final.arrayNames.types =
+        ProcedureBindings.catalogSignatures state.procedures state.arrayNames.types ++ procedures.map ScalarProcedures.Definition.signature := by
   induction source with
   | done => exact ⟨trivial, trivial, (List.append_nil _).symm, (List.append_nil _).symm⟩
   | @next token tokens state middle final event firstFunctions firstProcedures restFunctions restProcedures head first _ ih =>
-    have checked := first.checked textValid valid
+    have checked := first.checked textValid valid known
     have nextValid := model_step_valid text textValid form token state valid
     rw [head.scanned] at nextValid
-    have following := ih nextValid
+    have following := ih nextValid (first.callableTypesKnown textValid valid known)
     have firstProceduresChecked := ScalarProcedures.definitionsChecked_functions_append
       checked.2.1 (restFunctions.map ScalarFunctions.Definition.signature)
     rw [← following.2.2.1] at firstProceduresChecked
