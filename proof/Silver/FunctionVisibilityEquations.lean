@@ -118,7 +118,11 @@ private theorem table_spans (text : Source) (state : ParserState) (valid : Valid
   | arrays =>
       dsimp only [Table.spans] at member
       obtain ⟨item, itemMember, rfl⟩ := List.mem_map.mp member
-      exact ⟨(arrays.1.2.1 item itemMember).1, (arrays.1.2.1 item itemMember).2.1, (arrays.1.2.1 item itemMember).2.2.1⟩
+      exact (arrays.1.member_valid itemMember).1
+  | arrayTypes =>
+      dsimp only [Table.spans] at member
+      obtain ⟨item, itemMember, rfl⟩ := List.mem_map.mp member
+      exact (arrays.1.1.2 item itemMember).1
   | subtypes =>
       dsimp only [Table.spans] at member
       obtain ⟨item, itemMember, rfl⟩ := List.mem_map.mp member
@@ -144,7 +148,7 @@ theorem hiddenWord_meaning (implementation : Implementation) (primitives : Primi
   rw [functionHides_meaning implementation primitives equations text textValid state.functions
     valid.base.functions word wordValid]
   dsimp only [Expr.eval] at tableMeaning procedureMeaning
-  rw [procedureMeaning, tableMeaning, tableMeaning, tableMeaning, tableMeaning, tableMeaning]
+  rw [procedureMeaning, tableMeaning, tableMeaning, tableMeaning, tableMeaning, tableMeaning, tableMeaning]
   rfl
 
 private theorem mark_word_valid (mark : Mark) : ValidWord mark.word := by unfold ValidWord; cases mark <;> decide

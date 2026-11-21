@@ -72,6 +72,7 @@ theorem declaration_initial_input (text : Source) (tv : FunctionBindings.Native.
     · exact Nat.le_refl _
     · exact valid.1.procedures
     · exact Nat.zero_le _
+    · exact valid.1.arrayTypes
   · constructor
     · refine ⟨cursor, ?_, ?_, ?_, ?_, ?_, ?_, subtypes, ?_, metadata, ?_, ?_,
         valid.2.base.procedures, Nat.zero_le _, Nat.zero_le _⟩
@@ -80,8 +81,8 @@ theorem declaration_initial_input (text : Source) (tv : FunctionBindings.Native.
       · exact Nat.zero_le _
       · exact Nat.le_refl _
       · simp [declarationInitial, initialState, ScalarExpression.ValidEnvironment]
-      · simp [declarationInitial, initialState, ArrayBindings.ValidEnvironment, ArrayBindings.ValidMetadata,
-          ArrayBindings.ValidInitials]
+      · simp [declarationInitial, initialState, ArrayBindings.ValidNativeEnvironment, ArrayBindings.ValidTable, ArrayBindings.Env.table,
+          ArrayBindings.ValidInitials, valid.2.base.arrayTypes]
       · simp [declarationInitial, initialState, BooleanBindings.ValidEnvironment]
       · exact Nat.le_refl _
       · change state.functions.parameters.length + 1 ≤ FunctionBindings.maxFormals

@@ -32,6 +32,7 @@ def declarationRejected (calls : Calls) (text : Source) (state : ParserState) (a
 def declarationInitial (calls : Calls) (text : Source) (state : ParserState) (parts : DeclarationParts) : ParserState :=
   {initialState with
     position := parts.opening, pure := true,
+    arrayNames := {types := state.arrayNames.types},
     subtypeNames := state.subtypeNames, functions := state.functions, procedures := state.procedures,
     «hiding» := calls .hideName text (calls .hiddenOuter text state) parts.first parts.after,
     firstParameter := state.functions.parameters.length + 1}
@@ -68,7 +69,7 @@ theorem declaration_denotation (calls : Calls) (text : Source) (state : ParserSt
     ↓Command.eval, ↓Expr.eval, apply2, apply3, apply4, apply5,
     ↓local_set_here, ↓local_set_name, Frame.locals,
     Field.get, StateField.set, Token.shell, ShellToken.word, ShellToken.symbol, Capacity.value,
-    String.reduceEq, ne_eq, not_false_eq_true, ↓reduceIte]
+    ArrayBindings.Env.table, String.reduceEq, ne_eq, not_false_eq_true, ↓reduceIte]
   rfl
 
 theorem declaration_model_equation (text : Source) (state : ParserState) (arguments : Bool) :

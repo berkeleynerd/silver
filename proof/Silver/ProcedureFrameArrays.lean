@@ -86,7 +86,7 @@ theorem ProcedureInputFramesAt.arrayAnalysis {text frame index final}
       · have mode := appendProcedureParameter_named_input named accepted
         have same := appendProcedureParameter_named named accepted
         have typedInput : FunctionBindings.ValidFormal text (procedureInputFormal (ProcedureBindings.parameter before.procedures index)) :=
-          ⟨typed.1, typed.2.1, typed.2.2.1, fun id => (typed.2.2.2 id).2⟩
+          ⟨typed.1, typed.2.1, typed.2.2.1, fun id => (typed.2.2.2.1 id).2, typed.2.2.2.2⟩
         have installed : ArrayViews.analysis (appendProcedureParameter before (ProcedureBindings.parameter before.procedures index)).arrayNames.names
             (functionScalarAnalysis (appendProcedureParameter before (ProcedureBindings.parameter before.procedures index)) declarations) =
               parameterArrayAnalysis
