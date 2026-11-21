@@ -12,7 +12,8 @@ open Silver.Compose.Expressions Named
 private theorem procedure_invalid_valid (text : Source) : ValidState text invalidState := by
   simp [ValidState, ValidCursor, ValidNames, NameState.Valid, invalidState,
     ScalarExpression.ValidEnvironment, ScalarExpression.maxBindings,
-    ArrayBindings.ValidEnvironment, ArrayBindings.ValidMetadata, ArrayBindings.ValidInitials,
+    ArrayBindings.ValidNativeEnvironment, ArrayBindings.ValidTable, ArrayBindings.ValidTypes,
+    ArrayBindings.Env.table, ArrayBindings.ValidInitials, ArrayBindings.maxTypes, ArrayBindings.maxBindings,
     IntegerSubtypes.ValidEnvironment, IntegerSubtypes.maxBindings,
     BooleanBindings.ValidEnvironment, BooleanBindings.maxBindings,
     FunctionBindings.ValidMetadata, FunctionBindings.maxFunctions, FunctionBindings.maxFormals,
@@ -77,6 +78,7 @@ theorem procedureDeclarationAt_valid (text : Source) (state : ParserState) (argu
     generalize initialEq : ({initialState with
       position := opening, pure := true, subtypeNames := state.subtypeNames, functions := state.functions,
       procedures := state.procedures,
+      arrayNames := {types := state.arrayNames.types},
       «hiding» := hideName text (hiddenOuter text state) first after,
       firstProcedureParameter := state.procedures.parameters.length + 1} : ParserState) = initial
     generalize headerEq : procedureParametersAt text initial arguments = header
@@ -89,7 +91,10 @@ theorem procedureDeclarationAt_valid (text : Source) (state : ParserState) (argu
       have initialSubtypes : IntegerSubtypes.ValidEnvironment text initial.subtypeNames := by
         rw [← initialEq]
         exact subtypes
-      have headerInfo := procedureParametersAt_valid text initial arguments initialMetadata initialSubtypes
+      have initialArrays : ArrayBindings.ValidTypes text initial.arrayNames.types := by
+        rw [← initialEq]
+        exact stateValid.arrayTypes
+      have headerInfo := procedureParametersAt_valid text initial arguments initialMetadata initialSubtypes initialArrays
       rw [headerEq] at headerInfo
       have headerValid := headerInfo.resolve_left headerGood
       have initialCount : initial.procedures.parameters.length = state.procedures.parameters.length := by

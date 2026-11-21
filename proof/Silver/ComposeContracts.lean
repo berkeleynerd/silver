@@ -4,6 +4,7 @@ public import Silver.ComposeExpressions
 public import Silver.ComposeStringNative
 public import Silver.ComposeArrayExpressions
 public import Silver.ComposeBounds
+public import Silver.ArrayBindingsEnvironment
 
 @[expose] public section
 
@@ -19,7 +20,7 @@ def ValidState (text : Source) (state : ParserState) : Prop :=
     (⟨state.dynamicFirst,state.dynamicAfter⟩ : NameState).Valid text ∧
     state.target ≤ state.names.length ∧ state.capacity ≤ maxSourceLength ∧
     ScalarExpression.ValidEnvironment text state.scalarNames ∧
-    ArrayBindings.ValidEnvironment text state.arrayNames ∧
+    ArrayBindings.ValidNativeEnvironment text state.arrayNames ∧
     IntegerSubtypes.ValidEnvironment text state.subtypeNames ∧
     BooleanBindings.ValidEnvironment text state.booleanNames ∧
     FunctionBindings.ValidMetadata text state.functions ∧
@@ -28,6 +29,14 @@ def ValidState (text : Source) (state : ParserState) : Prop :=
     ProcedureBindings.ValidMetadata text state.procedures ∧
     state.firstProcedureParameter ≤ state.procedures.parameters.length + 1 ∧
     state.firstProcedureParameter ≤ ProcedureBindings.maxFormals
+
+theorem ValidState.arrays {text : Source} {state : ParserState}
+    (valid : ValidState text state) : ArrayBindings.ValidNativeEnvironment text state.arrayNames :=
+  valid.2.2.2.2.2.2.1
+
+theorem ValidState.arrayTypes {text : Source} {state : ParserState}
+    (valid : ValidState text state) : ArrayBindings.ValidTypes text state.arrayNames.types :=
+  valid.arrays.1.1
 
 theorem ValidState.booleans {text : Source} {state : ParserState}
     (valid : ValidState text state) : BooleanBindings.ValidEnvironment text state.booleanNames :=
