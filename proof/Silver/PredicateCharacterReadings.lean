@@ -14,9 +14,9 @@ one typed name or indexed String resolves Ada's predefined Character type. -/
 inductive CharacterRelationAt (text : Source) (context : ParseContext) (position : Nat)
     (facts : ActiveFlow) (initials : ArrayBindings.Initials) : Condition → ConditionResult → Prop
   | comparison {left right : Character.Expr} {leftResult rightResult : ValueResult} :
-      CharacterAt text context.names (context.readingNames facts) context.arrayNames initials context.elaborating
+      CharacterAt text context.names (context.readingNames facts) context.arrayTable initials context.elaborating
         position left leftResult →
-      CharacterAt text context.names (context.readingNames facts) context.arrayNames initials context.elaborating
+      CharacterAt text context.names (context.readingNames facts) context.arrayTable initials context.elaborating
         (comparisonAt text leftResult.after).after right rightResult →
       leftResult.after ≠ 0 → (comparisonAt text leftResult.after).after ≠ 0 →
       position < rightResult.after → (leftResult.nonliteralSeen || rightResult.nonliteralSeen) = true →
@@ -43,32 +43,32 @@ theorem characterRelation_sound {text context position facts initials}
   · rename_i good
     rw [ite_eq_right good]
     have leftPositive : (characterAt text position context.names (context.readingNames facts)
-        context.arrayNames initials context.elaborating).after ≠ 0 := fun zero => good (Or.inl zero)
+        context.arrayTable initials context.elaborating).after ≠ 0 := fun zero => good (Or.inl zero)
     have operatorPositive : (comparisonAt text (characterAt text position context.names (context.readingNames facts)
-        context.arrayNames initials context.elaborating).after).after ≠ 0 := fun zero => good (Or.inr (Or.inl zero))
+        context.arrayTable initials context.elaborating).after).after ≠ 0 := fun zero => good (Or.inr (Or.inl zero))
     have progress : position < (characterAt text
         (comparisonAt text (characterAt text position context.names (context.readingNames facts)
-          context.arrayNames initials context.elaborating).after).after context.names
-        (context.readingNames facts) context.arrayNames initials context.elaborating).after := by
+          context.arrayTable initials context.elaborating).after).after context.names
+        (context.readingNames facts) context.arrayTable initials context.elaborating).after := by
       have h := fun bad => good (Or.inr (Or.inr (Or.inl bad)))
       omega
     have typed : ((characterAt text position context.names (context.readingNames facts)
-        context.arrayNames initials context.elaborating).nonliteralSeen ||
+        context.arrayTable initials context.elaborating).nonliteralSeen ||
         (characterAt text (comparisonAt text (characterAt text position context.names (context.readingNames facts)
-          context.arrayNames initials context.elaborating).after).after context.names
-        (context.readingNames facts) context.arrayNames initials context.elaborating).nonliteralSeen) = true := by
+          context.arrayTable initials context.elaborating).after).after context.names
+        (context.readingNames facts) context.arrayTable initials context.elaborating).nonliteralSeen) = true := by
       have h := fun bad => good (Or.inr (Or.inr (Or.inr bad)))
       cases seen : ((characterAt text position context.names (context.readingNames facts)
-          context.arrayNames initials context.elaborating).nonliteralSeen ||
+          context.arrayTable initials context.elaborating).nonliteralSeen ||
           (characterAt text (comparisonAt text (characterAt text position context.names (context.readingNames facts)
-            context.arrayNames initials context.elaborating).after).after context.names
-          (context.readingNames facts) context.arrayNames initials context.elaborating).nonliteralSeen) with
+            context.arrayTable initials context.elaborating).after).after context.names
+          (context.readingNames facts) context.arrayTable initials context.elaborating).nonliteralSeen) with
       | false => exact False.elim (h (by simp only [seen, Bool.not_false]))
       | true => rfl
     obtain ⟨left, leftReading⟩ := character_sound position leftPositive
     obtain ⟨right, rightReading⟩ := character_sound
       (comparisonAt text (characterAt text position context.names (context.readingNames facts)
-        context.arrayNames initials context.elaborating).after).after (by omega)
+        context.arrayTable initials context.elaborating).after).after (by omega)
     exact ⟨_, .comparison leftReading rightReading leftPositive operatorPositive progress typed⟩
 
 theorem characterRelation_meaning {text context position facts initials condition result}
@@ -87,7 +87,8 @@ theorem characterRelation_meaning {text context position facts initials conditio
         character_literals left, character_literals right⟩, ?_, rfl, rfl⟩
       have leftChecked := character_check normal left
       have rightChecked := character_check normal right
-      rw [context.reading_ranges compatible initials] at leftChecked rightChecked
+      change _ = true at leftChecked rightChecked
+      rw [show context.arrayTable.items = context.arrayNames from rfl, context.reading_ranges compatible initials] at leftChecked rightChecked
       simp only [Condition.checkBounds, leftChecked, rightChecked, Bool.and_self]
 
 theorem characterRelation_positive {text context position facts initials condition result}

@@ -83,7 +83,8 @@ def calleeAt (text : Source) (context : ParseContext) (position : Nat)
   if first = 0 ∨ after ≤ first ∨ lookupName text context.names first after ≠ 0 ∨
       ScalarExpression.lookup text context.scalarNames first after ≠ 0 ∨
       BooleanBindings.lookup text context.booleanNames first after ≠ 0 ∨
-      ArrayBindings.lookup text context.arrayNames first after ≠ 0
+      ArrayBindings.lookup text context.arrayNames first after ≠ 0 ∨
+      ArrayBindings.lookupType text context.arrayTypes first after ≠ 0
   then 0 else FunctionBindings.lookup text catalog first after
 
 def readCall (text : Source) (context : ParseContext) (position : Nat)

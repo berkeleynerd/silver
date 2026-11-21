@@ -94,13 +94,15 @@ theorem ArrayActualAt.cursorBounds {text context position typeId item after}
   have advances := skipAt_advances text position bounded first
   exact ⟨Nat.lt_of_le_of_lt advances bounds.2.2.1, bounds.2.2.2⟩
 
+theorem ArrayActualAt.member {text context position typeId item after}
+    (reading : ArrayActualAt text context position typeId item after) : item ∈ context.arrayNames :=
+  reading.resolved ▸ ArrayBindings.binding_mem reading.present (arrayTarget_bound ..)
+
 theorem ArrayActualAt.matches {text context position typeId item after} {types : ArrayBindings.TypeEnvironment}
     (reading : ArrayActualAt text context position typeId item after)
     (valid : ArrayBindings.ValidTable text ⟨context.arrayNames, types⟩) :
     ((ArrayBindings.arrayType types typeId).domain typeId).Matches typeId item.viewDescriptor := by
-  have member : item ∈ context.arrayNames := reading.resolved ▸
-    ArrayBindings.binding_mem reading.present (arrayTarget_bound ..)
-  have coherent := (valid.member_valid member).2.2
+  have coherent := (valid.member_valid reading.member).2.2
   have named : item.typeId ≠ 0 := by rw [reading.sameType]; exact Nat.ne_of_gt reading.nominal
   obtain ⟨bounds, components⟩ := coherent.2 named
   rw [reading.sameType] at bounds components

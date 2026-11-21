@@ -273,7 +273,8 @@ def booleanAtomAfter (text : Source) (context : ParseContext) (position : Nat) :
       (context.maskFirst ≠ 0 ∧ Named.equalName text context.maskFirst context.maskAfter first after) ∨
       ScalarExpression.lookup text context.scalarNames first after ≠ 0 ∨
       lookupName text context.names first after ≠ 0 ∨
-      ArrayBindings.lookup text context.arrayNames first after ≠ 0 then 0
+      ArrayBindings.lookup text context.arrayNames first after ≠ 0 ∨
+      ArrayBindings.lookupType text context.arrayTypes first after ≠ 0 then 0
   else if BooleanBindings.lookup text context.booleanNames first after ≠ 0 then after
   else if (Named.nameIs text first after ("true".toList.map Char.toNat) && !context.trueHidden) ||
       (Named.nameIs text first after ("false".toList.map Char.toNat) && !context.falseHidden)
