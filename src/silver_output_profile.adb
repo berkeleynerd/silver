@@ -2173,6 +2173,8 @@ is
                     else Name_Is (Text, First, After, Integer_Type_Word))
            or else (Array_After = 0 and then Named_Id = 0) or else Position = 0
            or else State.Array_Names.Names.Count = Array_Bindings.Max_Bindings
+           or else (State.Array_Names.Names.Count > 0 and then
+             State.Array_Names.Names.Items (State.Array_Names.Names.Count).View_Slot /= 0)
            or else Low.After = 0 or else High.After = 0 or else not Low.Static or else not High.Static
            or else Scalars.Is_Empty (Low.Bounds) or else Scalars.Is_Empty (High.Bounds)
            or else Low.Bounds.Lower /= Low.Bounds.Upper or else High.Bounds.Lower /= High.Bounds.Upper
@@ -2515,6 +2517,8 @@ is
                     else Name_Is (Text, First, After, Integer_Type_Word))
            or else (Array_After = 0 and then Named_Id = 0) or else Position = 0
            or else State.Array_Names.Names.Count = Array_Bindings.Max_Bindings
+           or else (State.Array_Names.Names.Count > 0 and then
+             State.Array_Names.Names.Items (State.Array_Names.Names.Count).View_Slot /= 0)
            or else Low.After = 0 or else High.After = 0 or else not Low.Static or else not High.Static
            or else Scalars.Is_Empty (Low.Bounds) or else Scalars.Is_Empty (High.Bounds)
            or else Low.Bounds.Lower /= Low.Bounds.Upper or else High.Bounds.Lower /= High.Bounds.Upper
