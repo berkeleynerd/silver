@@ -4,6 +4,7 @@ public import Silver.ComposeSubtypeDeclarations
 public import Silver.ScalarExpressionConstants
 public import Silver.ComposeFrozenSemantics
 public import Silver.IntegerArraySnapshots
+public import Silver.ComposeStoredArrays
 
 @[expose] public section
 
@@ -270,6 +271,12 @@ theorem scalar_declaration_declared_bounds {text : Source} {arguments : Bool} {s
   | @declaration parts value partsEq ready constraint _ =>
       apply ScalarExpression.declaredBoundsValid_append valid
       exact constraint.bounded subtypes
+
+theorem scalar_declaration_stored {text arguments state next declaration}
+    (stored : state.StoredArrays) (reading : ScalarDeclarationAt text arguments state declaration next) :
+    next.StoredArrays := by
+  rw [← scalar_declaration_complete reading]
+  exact scalarDeclarationAt_stored text state arguments stored
 
 theorem scalar_declaration_subtypes {text arguments state next declaration}
     (reading : ScalarDeclarationAt text arguments state declaration next) :
