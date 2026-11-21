@@ -40,6 +40,14 @@ is
    use type Scalar_Expressions.Binding;
    use type Array_Bindings.Binding;
    use type Array_Bindings.Array_Type;
+   use type Functions.Signature_Array;
+   use type Functions.Formal_Array;
+   use type Procedures.Signature_Array;
+   use type Procedures.Formal_Array;
+   use type Scalar_Expressions.Binding_Array;
+   use type Array_Bindings.Type_Array;
+   use type Array_Bindings.Binding_Array;
+   use type Array_Bindings.Element_Array;
    package Image_Lengths renames Silver_Integer_Image;
    package Length_Intervals renames Silver_Length_Intervals;
 
@@ -1905,6 +1913,88 @@ is
       --  The checked Logical_Equal premise supplies logical state identity.
       null;
    end Lemma_Parser_State_Equality;
+
+   procedure Lemma_Parser_State_Same (Left, Right : Parser_State)
+     with Ghost => Static, Global => null,
+       Pre => Left = Right,
+       Post => Same_Parser_State (Left, Right)
+   is
+   begin
+      --  All component arrays have fixed bounds. Equal records therefore
+      --  have equal same-index cells, including inactive storage and types.
+      pragma Assert (Static => Left.Functions.Items = Right.Functions.Items);
+      pragma Assert (Static =>
+        (for all Index in Functions.Function_Index =>
+          Left.Functions.Items (Index) = Right.Functions.Items (Index)));
+      pragma Assert (Static => Same_Parser_Function_Items
+        (Left.Functions.Items, Right.Functions.Items));
+      pragma Assert (Static => Left.Functions.Parameters = Right.Functions.Parameters);
+      pragma Assert (Static =>
+        (for all Index in Functions.Formal_Index =>
+          Left.Functions.Parameters (Index) = Right.Functions.Parameters (Index)));
+      pragma Assert (Static => Same_Parser_Formal_Items
+        (Left.Functions.Parameters, Right.Functions.Parameters));
+      pragma Assert (Static => Left.Procedures.Items = Right.Procedures.Items);
+      pragma Assert (Static =>
+        (for all Index in Procedures.Procedure_Index =>
+          Left.Procedures.Items (Index) = Right.Procedures.Items (Index)));
+      pragma Assert (Static => Same_Parser_Procedure_Items
+        (Left.Procedures.Items, Right.Procedures.Items));
+      pragma Assert (Static => Left.Procedures.Parameters = Right.Procedures.Parameters);
+      pragma Assert (Static =>
+        (for all Index in Procedures.Formal_Index =>
+          Left.Procedures.Parameters (Index) = Right.Procedures.Parameters (Index)));
+      pragma Assert (Static => Same_Parser_Procedure_Formals
+        (Left.Procedures.Parameters, Right.Procedures.Parameters));
+      pragma Assert (Static => Left.Names.Items = Right.Names.Items);
+      pragma Assert (Static =>
+        (for all Index in Binding_Index =>
+          Left.Names.Items (Index) = Right.Names.Items (Index)));
+      pragma Assert (Static => Same_Parser_String_Items
+        (Left.Names.Items, Right.Names.Items));
+      pragma Assert (Static => Left.Scalar_Names.Items = Right.Scalar_Names.Items);
+      pragma Assert (Static =>
+        (for all Index in Scalar_Expressions.Binding_Index =>
+          Left.Scalar_Names.Items (Index) = Right.Scalar_Names.Items (Index)));
+      pragma Assert (Static => Same_Parser_Scalar_Items
+        (Left.Scalar_Names.Items, Right.Scalar_Names.Items));
+      pragma Assert (Static => Left.Array_Names.Names.Types.Items = Right.Array_Names.Names.Types.Items);
+      pragma Assert (Static =>
+        (for all Index in Array_Bindings.Type_Index =>
+          Left.Array_Names.Names.Types.Items (Index) = Right.Array_Names.Names.Types.Items (Index)));
+      pragma Assert (Static => Same_Parser_Array_Types
+        (Left.Array_Names.Names.Types.Items, Right.Array_Names.Names.Types.Items));
+      pragma Assert (Static => Left.Array_Names.Names.Items = Right.Array_Names.Names.Items);
+      pragma Assert (Static =>
+        (for all Index in Array_Bindings.Binding_Index =>
+          Left.Array_Names.Names.Items (Index) = Right.Array_Names.Names.Items (Index)));
+      pragma Assert (Static => Same_Parser_Array_Items
+        (Left.Array_Names.Names.Items, Right.Array_Names.Names.Items));
+      pragma Assert (Static => Left.Array_Names.Values = Right.Array_Names.Values);
+      pragma Assert (Static =>
+        (for all Index in Array_Bindings.Element_Index =>
+          Left.Array_Names.Values (Index) = Right.Array_Names.Values (Index)));
+      pragma Assert (Static => Same_Parser_Elements
+        (Left.Array_Names.Values, Right.Array_Names.Values));
+      pragma Assert (Static => Left.Subtype_Names.Items = Right.Subtype_Names.Items);
+      pragma Assert (Static =>
+        (for all Index in Subtype_Index =>
+          Left.Subtype_Names.Items (Index) = Right.Subtype_Names.Items (Index)));
+      pragma Assert (Static => Same_Parser_Subtype_Items
+        (Left.Subtype_Names.Items, Right.Subtype_Names.Items));
+      pragma Assert (Static => Left.Subtype_Names.Hidden_Calls = Right.Subtype_Names.Hidden_Calls);
+      pragma Assert (Static =>
+        (for all Index in Names.Operation_Kind =>
+          Left.Subtype_Names.Hidden_Calls (Index) = Right.Subtype_Names.Hidden_Calls (Index)));
+      pragma Assert (Static => Same_Parser_Subtype_Visibility
+        (Left.Subtype_Names.Hidden_Calls, Right.Subtype_Names.Hidden_Calls));
+      pragma Assert (Static => Left.Boolean_Names.Items = Right.Boolean_Names.Items);
+      pragma Assert (Static =>
+        (for all Index in Boolean_Index =>
+          Left.Boolean_Names.Items (Index) = Right.Boolean_Names.Items (Index)));
+      pragma Assert (Static => Same_Parser_Boolean_Items
+        (Left.Boolean_Names.Items, Right.Boolean_Names.Items));
+   end Lemma_Parser_State_Same;
 
    --  A Boolean initializer is checked in the declaration's incoming state.
    --  This cursor-only interface deliberately stores neither truth nor facts.
