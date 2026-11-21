@@ -23,12 +23,12 @@ theorem native_state_record (text : Source) (tv : FunctionBindings.Native.ValidT
     (state : ParserState) (valid : NativeValidState text state) : StateRecord state := by
   rcases valid.base with ⟨position, names, dynamic, target, capacity, scalars, arrays,
     subtypes, booleans, metadata, firstParameter, parameterCapacity, procedureMetadata, procedureFirst, procedureCapacity⟩
-  refine ⟨cursor_type text tv _ position, ?_, parameterCapacity, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, capacity, ?_, procedureCapacity⟩
+  refine ⟨cursor_type text tv _ position, ?_, parameterCapacity, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, capacity, ?_, procedureCapacity, ?_⟩
   · refine ⟨metadata.1, metadata.2.1, ?_, ?_⟩
     · intro item member
       have itemValid := metadata.2.2.1 item member
       have name := span_types text tv item.first item.after itemValid.1
-      exact ⟨name.1, name.2, itemValid.2.1⟩
+      exact ⟨name.1, name.2, itemValid.2.1, itemValid.2.2.2.2⟩
     · intro item member
       rcases metadata.2.2.2 item member with ⟨span, countPositive, firstPositive, firstBound, countBound, resultBounds, _⟩
       have name := span_types text tv item.first item.after span
@@ -49,12 +49,14 @@ theorem native_state_record (text : Source) (tv : FunctionBindings.Native.ValidT
     rcases scalars.2 item member with ⟨positive, ordered, bound, valueBounds, declaredBounds⟩
     have name := span_types text tv item.first item.after ⟨positive, ordered, bound⟩
     exact ⟨name.1, name.2, valueBounds, declaredBounds⟩
-  · refine ⟨arrays.1.1, ?_, arrays.2.1, arrays.2.2.1.1, arrays.2.2.1.2⟩
+  · refine ⟨arrays.1.2.1, ?_, arrays.2.1, arrays.2.2.1.1, arrays.2.2.1.2⟩
     intro item member
-    rcases arrays.1.2.1 item member with ⟨positive, ordered, bound, data⟩
-    rcases data with ⟨bounds, _, _, extent, _, component, _⟩
-    have name := span_types text tv item.first item.after ⟨positive, ordered, bound⟩
-    exact ⟨name.1, name.2, bounds, by omega, by omega, component⟩
+    have data := arrays.1.member_valid member
+    have name := span_types text tv item.first item.after data.1
+    have bounds := data.2.1.1.1
+    have extent := data.2.1.1.2.2.2.1
+    exact ⟨name.1, name.2, bounds, by omega, by omega, data.2.1.1.2.2.2.2.2.1,
+      data.2.1.2.1, data.2.1.2.2.1⟩
   · refine ⟨subtypes.1, ?_⟩
     intro item member
     rcases subtypes.2 item member with ⟨positive, ordered, bound, bounds, _⟩
@@ -78,12 +80,17 @@ theorem native_state_record (text : Source) (tv : FunctionBindings.Native.ValidT
     · intro item member
       have itemValid := procedureMetadata.2.2.1 item member
       have name := span_types text tv item.first item.after itemValid.1
-      exact ⟨name.1, name.2, itemValid.2.1⟩
+      exact ⟨name.1, name.2, itemValid.2.1, itemValid.2.2.2.2⟩
     · intro item member
       rcases procedureMetadata.2.2.2 item member with ⟨span, countPositive, firstPositive, firstBound, countBound⟩
       have name := span_types text tv item.first item.after span
       have count := procedureMetadata.2.1
       exact ⟨name.1, name.2, by omega, by omega⟩
+  · refine ⟨arrays.1.1.1, ?_⟩
+    intro item member
+    have data := arrays.1.1.2 item member
+    have name := span_types text tv item.first item.after data.1
+    exact ⟨name.1, name.2, data.2.1, data.2.2.2.1⟩
 
 theorem StateInput.ofNative {text state} (tv : FunctionBindings.Native.ValidText text)
     (valid : NativeValidState text state) : StateInput text state :=

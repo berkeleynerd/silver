@@ -15,7 +15,20 @@ theorem functionType_model (text : Source) (state : ParserState) (position : Nat
       functionTypeAt text state position := by
   simp [functionTypeBody, Expr.eval, apply2, apply3, apply4, Frame.locals, Locals.set,
     modelCalls, Field.get, Token.shell, tokenAfter, ShellToken.word, functionTypeAt,
-    Bool.or_eq_true, or_assoc]
+    Bool.or_eq_true, or_assoc, ArrayBindings.Env.table]
+
+theorem formalType_model (text : Source) (state : ParserState) (position : Nat) :
+    formalTypeBody.eval modelCalls ({text, state, position} : Frame).locals =
+      formalTypeAt text state position := by
+  simp [formalTypeBody, Expr.eval, apply2, apply3, Frame.locals, Locals.set,
+    modelCalls, Field.get, formalTypeAt, ArrayBindings.Env.table]
+
+theorem appendArrayParameter_model (frame : ParserState) (first after typeId : Nat) :
+    appendArrayParameterModelBody.eval modelCalls ({frame, first, after, typeId} : Frame).locals =
+      appendArrayParameter frame first after typeId := by
+  simp [appendArrayParameterModelBody, Expr.eval, Frame.locals, Locals.set,
+    modelCalls, Field.get, Capacity.value, appendArrayParameter,
+    Bool.or_eq_true, Bool.and_eq_true, or_assoc, ArrayBindings.Env.table]
 
 theorem parameterStep_model (text : Source) (state : ParserState) (arguments : Bool) :
     parameterStepBody.eval modelCalls ({text, state, arguments} : Frame).locals =
@@ -33,9 +46,9 @@ theorem functionLocal_model (text : Source) (state : ParserState) (arguments : B
 theorem appendParameter_model (frame : ParserState) (parameter : FunctionBindings.Formal) :
     appendParameterBody.eval modelCalls ({frame, parameter} : Frame).locals =
       appendParameter frame parameter := by
-  cases kindEq : parameter.kind <;>
-    simp [appendParameterBody, Expr.eval, apply2, Frame.locals,
-      modelCalls, Field.get, StateField.set, appendParameter, Capacity.value, kindEq]
+  by_cases nominal : parameter.typeId = 0 <;> cases kindEq : parameter.kind <;>
+    simp [appendParameterBody, Expr.eval, apply2, apply3, apply4, Frame.locals,
+      modelCalls, Field.get, StateField.set, appendParameter, Capacity.value, kindEq, nominal]
 
 theorem returnAfter_model (text : Source) (context : Predicate.Native.Context) (scan : Predicate.BodyScan)
     (resultType : FunctionTypeResult) :
@@ -68,6 +81,6 @@ theorem functionDeclaration_model (text : Source) (state : ParserState) (argumen
       functionDeclarationAt text state arguments := by
   simp [functionDeclarationBody, Command.eval, Expr.eval, apply2, apply3, apply4, apply5,
     Frame.locals, Locals.set, modelCalls, Field.get, StateField.set, Token.shell,
-    tokenAfter, ShellToken.word, ShellToken.symbol, functionDeclarationAt, Bool.or_eq_true, or_assoc, Capacity.value]
+    tokenAfter, ShellToken.word, ShellToken.symbol, functionDeclarationAt, Bool.or_eq_true, or_assoc, Capacity.value, ArrayBindings.Env.table]
 
 end Silver.Compose.FunctionDeclarationNative

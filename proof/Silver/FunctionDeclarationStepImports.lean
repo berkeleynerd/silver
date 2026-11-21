@@ -20,7 +20,7 @@ def stepParts (calls : Calls) (text : Source) (state : ParserState) : StepParts 
   let first := calls .skip text state.position
   let after := calls .nameAfter text first
   let start := calls .take text (calls .take text after (.fixed ":" false)) (.fixed "in" true)
-  ⟨first, after, start, calls .functionType text state start⟩
+  ⟨first, after, start, calls .formalType text state start⟩
 
 def stepPrefix (calls : Calls) (text : Source) (state : ParserState) (arguments : Bool) (parts : StepParts) : Bool :=
   !calls .newName text state parts.first parts.after arguments || decide (parts.start = 0) ||
@@ -33,7 +33,7 @@ def stepEquation (calls : Calls) (text : Source) (state : ParserState) (argument
   else
     let next := {state with
       position := parts.value.after,
-      functions := calls .appendFormal state.functions ⟨parts.first, parts.after, parts.value.kind, parts.value.bounds⟩,
+      functions := calls .appendFormal state.functions ⟨parts.first, parts.after, parts.value.kind, parts.value.bounds, parts.value.typeId⟩,
       «hiding» := calls .hideName text state.hiding parts.first parts.after}
     let separator := calls .take text parts.value.after (.fixed ";" false)
     let close := calls .take text parts.value.after (.fixed ")" false)
@@ -60,12 +60,12 @@ structure StepLexical (calls : Calls) (text : Source) (state : ParserState) : Pr
     fixedAfter text (Compose.nameAfter text (skipAt text state.position)) ":" false
   inKeyword : calls .take text (fixedAfter text (Compose.nameAfter text (skipAt text state.position)) ":" false) (.fixed "in" true) =
     fixedAfter text (fixedAfter text (Compose.nameAfter text (skipAt text state.position)) ":" false) "in" true
-  functionType : let start := fixedAfter text (fixedAfter text (Compose.nameAfter text (skipAt text state.position)) ":" false) "in" true
-    calls .functionType text state start = functionTypeAt text state start
+  formalType : let start := fixedAfter text (fixedAfter text (Compose.nameAfter text (skipAt text state.position)) ":" false) "in" true
+    calls .formalType text state start = formalTypeAt text state start
 
 theorem step_parts_meaning (calls : Calls) (text : Source) (state : ParserState)
     (imports : StepLexical calls text state) : stepParts calls text state = stepParts modelCalls text state := by
-  simp only [stepParts, imports.skip, imports.nameAfter, imports.colon, imports.inKeyword, imports.functionType]
+  simp only [stepParts, imports.skip, imports.nameAfter, imports.colon, imports.inKeyword, imports.formalType]
   rfl
 
 /-- Later imports are required only after the exact source prefix and name
@@ -83,8 +83,8 @@ structure StepImports (calls : Calls) (text : Source) (state : ParserState) (arg
   append : let p := stepParts modelCalls text state
     stepPrefix modelCalls text state arguments p = false →
     Named.equalName text p.first p.after (skipAt text p.start) p.value.after = false →
-    calls .appendFormal state.functions ⟨p.first, p.after, p.value.kind, p.value.bounds⟩ =
-      FunctionBindings.appendFormal state.functions ⟨p.first, p.after, p.value.kind, p.value.bounds⟩
+    calls .appendFormal state.functions ⟨p.first, p.after, p.value.kind, p.value.bounds, p.value.typeId⟩ =
+      FunctionBindings.appendFormal state.functions ⟨p.first, p.after, p.value.kind, p.value.bounds, p.value.typeId⟩
   hide : let p := stepParts modelCalls text state
     stepPrefix modelCalls text state arguments p = false →
     Named.equalName text p.first p.after (skipAt text p.start) p.value.after = false →
