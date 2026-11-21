@@ -69,10 +69,10 @@ decreasing_by omega
 theorem boolean_array_declaration_binding_valid {text arguments state parts lower upper}
     (partsEq : arrayDeclarationParts text state = parts)
     (ready : BooleanArrayDeclarationReady text state arguments parts)
-    (low : ScalarExpression.At text state.scalarNames (fixedAfter text parts.arrayAfter "(" false) lower parts.lower
-      (arrays := state.arrayNames.names) (initials := state.arrayNames.values) (elaborating := true))
-    (high : ScalarExpression.At text state.scalarNames (fixedAfter text parts.lower.after ".." false) upper parts.upper
-      (arrays := state.arrayNames.names) (initials := state.arrayNames.values) (elaborating := true)) :
+    (low : ScalarExpression.ArrayGrammar.At text state.scalarNames (fixedAfter text parts.arrayAfter "(" false) lower parts.lower
+      (arrays := state.arrayNames.table) (initials := state.arrayNames.values) (elaborating := true))
+    (high : ScalarExpression.ArrayGrammar.At text state.scalarNames (fixedAfter text parts.lower.after ".." false) upper parts.upper
+      (arrays := state.arrayNames.table) (initials := state.arrayNames.values) (elaborating := true)) :
     ArrayBindings.ValidBinding (parts.binding state) := by
   have component : parts.componentBounds = Integer.Interval.full := by
     rw [← partsEq]
@@ -193,7 +193,7 @@ theorem array_declaration_kinds_disjoint {text arguments state declaration first
     (boolean : BooleanArrayDeclarationAt text arguments state second) : False := by
   have kind := boolean_array_declaration_kind boolean
   cases integer with
-  | declaration parts ready _ _ _ _ _ _ _ =>
+  | declaration parts ready _ _ _ _ _ =>
       rw [parts, ready.integer] at kind
       contradiction
 
@@ -202,7 +202,7 @@ theorem array_declaration_boolean_analysis {text arguments state declaration fin
     ArrayBindings.booleanAnalysis final.arrayNames.names (BooleanBindings.analysis final.booleanNames) =
       ArrayBindings.booleanAnalysis state.arrayNames.names (BooleanBindings.analysis state.booleanNames) := by
   cases reading with
-  | @declaration values parts lower upper position following expressions _ ready _ _ _ _ valuesRead _ _ =>
+  | @declaration values parts position following expressions _ ready _ _ valuesRead _ _ =>
       have fields := arrayValues_fields valuesRead
       have names : values.arrayNames.names = state.arrayNames.names := congrArg (fun s => s.arrayNames.names) fields
       have booleans : values.booleanNames = state.booleanNames := congrArg (fun s => s.booleanNames) fields

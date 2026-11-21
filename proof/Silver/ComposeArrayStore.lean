@@ -3,6 +3,7 @@ module
 public import Silver.ComposeArrayElaboration
 public import Silver.ComposeBooleanArrayElaboration
 public import Silver.ComposeFrozenSemantics
+public import Silver.ComposeStoredArrays
 
 @[expose] public section
 
@@ -93,14 +94,18 @@ private theorem array_store_append {text : Source} {environment : ArrayBindings.
 theorem array_declaration_execute {text arguments state declaration final}
     (reading : ArrayDeclarationAt text arguments state declaration final)
     (static : ScalarExpression.StaticEnvironment state.scalarNames)
+    (stored : state.StoredArrays)
     (ready : ArrayBindings.SourceReady text state.arrayNames)
+    (types : ArrayBindings.ValidTypes text state.arrayNames.types)
     (subtypes : IntegerSubtypes.ValidEnvironment text state.subtypeNames) :
     declaration.execute (frozenIntegers state.scalarNames state.arrayNames.names state.arrayNames.values) =
       frozenIntegers final.scalarNames final.arrayNames.names final.arrayNames.values := by
   cases reading with
-  | @declaration values parts lower upper position following expressions _ allowed typeMark low high _ valuesRead _ _ =>
+  | @declaration values parts position following expressions _ allowed header _ valuesRead _ _ =>
       obtain ⟨items, checked, table, _⟩ := arrayValues_canonical valuesRead ready.2.1
-      have evaluated := (Integer.arrayInitialValues_sound checked (frozenIntegers_fits static)).1
+      have evaluated := (Integer.arrayInitialValues_sound checked (frozenIntegers_view_fits (arrays := state.arrayNames.table) static stored)).1
+      change items = expressions.map (Integer.Expr.evaluate
+        (frozenIntegers state.scalarNames state.arrayNames.names state.arrayNames.values)) at evaluated
       have count : items.length = parts.length := by
         rw [evaluated, List.length_map]
         simpa only [Nat.sub_zero] using arrayValues_length valuesRead
@@ -116,7 +121,7 @@ theorem array_declaration_execute {text arguments state declaration final}
       unfold ArrayBindings.integerStore
       rw [ArrayBindings.integerNames_append_integer _ (show (parts.binding state).isBoolean = false from allowed.integer)]
       exact (array_store_append items _ (integer_source_ready ready)
-        (array_declaration_binding_valid allowed typeMark low high subtypes) rfl count).symm
+        (array_declaration_binding_valid allowed header types subtypes) rfl count).symm
 
 theorem boolean_array_declaration_integer_store {text arguments state final}
     (reading : BooleanArrayDeclarationAt text arguments state final)
