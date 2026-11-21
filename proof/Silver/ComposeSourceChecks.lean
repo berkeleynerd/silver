@@ -1,6 +1,7 @@
 module
 
 public import Silver.ComposeSourceCandidate
+public import Silver.ComposeArrayTypeSourceCandidate
 public import Silver.OutputSourceBridge
 
 @[expose] public section
@@ -32,6 +33,14 @@ abbrev StringHelperTranslation : Prop :=
 
 abbrev ArrayHelperTranslation : Prop :=
   ArrayHelperTranslationFor Source.outputBodyTokens
+
+abbrev ArrayTypeHelperTranslation : Prop :=
+  ArrayTypeHelperTranslationFor Source.outputBodyTokens
+
+theorem actual_array_type_helpers : ArrayTypeHelperTranslation := by
+  change ArrayTypeHelperTranslationFor Source.outputBodyTokens
+  rw [Output.SourceBridge.actual_complete_shape.2.1]
+  exact candidate_array_type_helpers
 
 private theorem actual_checked :
     ExpressionTranslation ∧ HelperCatalogueTranslation ∧ Declarations ∧ Refinement ∧
