@@ -72,5 +72,23 @@
       ]
     }
   ],
-  "source_change_validation": "Driver and five native GPR fixtures changed in isolated worktree; rebuild, affected native regressions, complete final native/Lean checkpoints pending after pause. Active validation inputs unchanged."
+  "source_change_validation": "Driver and five native GPR fixtures changed in isolated worktree; rebuild, affected native regressions, complete final native/Lean checkpoints pending after pause. Active validation inputs unchanged.",
+  "post_reboot_verification": {
+    "utc": "2026-11-21T18:54:07.390981+00:00",
+    "raw_cpu_count": 8,
+    "affinity": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "cpuset_effective": "0-7",
+    "managed_cpu_budget": 8,
+    "reserved_workers_before_resumption": 0,
+    "resource_reason": "host's eight-CPU allocation"
+  }
 }
