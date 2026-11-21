@@ -78,10 +78,10 @@ class ArrayParameterTests(unittest.TestCase):
         declarations = (
             b'type T is array(1..2)of Integer;'
             b'function Size(Data:in T)return Integer is '
-            b"Good:Boolean:=Data'Length=2;R:Integer:=0;"
+            b"Good:Boolean:=T'Length=2;R:Integer:=0;"
             b"begin if Good then R:=Data'Length;end if;return R;end Size;"
             b'procedure Copy_Size(Data:in T;Result:out Integer)is '
-            b"Good:Boolean:=Data'Length=2;"
+            b"Good:Boolean:=T'Length=2;"
             b"begin Result:=0;if Good then Result:=Data'Length;end if;end Copy_Size;"
             b'A:T:=(3,4);'
             b"Good:Boolean:=T'Length=2;"
