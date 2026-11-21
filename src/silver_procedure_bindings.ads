@@ -53,7 +53,8 @@ package Silver_Procedure_Bindings with SPARK_Mode => On is
            (Text, Procedures.Parameters (I).First, Procedures.Parameters (I).After)
          and then not Silver_Scalars.Is_Empty (Procedures.Parameters (I).Bounds)
          and then (if Procedures.Parameters (I).Type_Id /= 0 then
-           Procedures.Parameters (I).Mode = Input))
+           Procedures.Parameters (I).Mode = Input
+           and then Procedures.Parameters (I).Kind = Silver_Function_Bindings.Integer_Kind))
       and then (for all I in 1 .. Procedures.Count =>
          Procedures.Items (I).First > 0
          and then Valid_Name_State

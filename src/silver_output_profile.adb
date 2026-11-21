@@ -6839,10 +6839,36 @@ is
       end loop;
       return Invalid_State;
    end Function_Locals;
+   function Append_Array_Parameter_Model
+     (Frame : Parser_State; First, After : Literal_Position;
+      Type_Id : Array_Bindings.Type_Count) return Parser_State
+     with Ghost => Static, Global => null;
+   function Append_Array_Parameter_Model
+     (Frame : Parser_State; First, After : Literal_Position;
+      Type_Id : Array_Bindings.Type_Count) return Parser_State is
+     (if Type_Id = 0 or else Type_Id > Frame.Array_Names.Names.Types.Count
+        or else Frame.Array_Names.Names.Count = Array_Bindings.Max_Bindings
+        or else not Array_Bindings.Valid_Type (Frame.Array_Names.Names.Types.Items (Type_Id))
+        or else (Frame.Array_Names.Names.Count > 0 and then
+          Frame.Array_Names.Names.Items (Frame.Array_Names.Names.Count).View_Slot = 0)
+      then Invalid_State
+      else (declare Item : constant Array_Bindings.Array_Type := Frame.Array_Names.Names.Types.Items (Type_Id);
+        Slot : constant Array_Bindings.Binding_Index := Frame.Array_Names.Names.Count + 1;
+        Length : constant Array_Bindings.Element_Count := Array_Bindings.Element_Count
+          (Scalars.Wide (Item.Bounds.Upper) - Scalars.Wide (Item.Bounds.Lower) + 1);
+       begin (Frame with delta Array_Names => (Frame.Array_Names with delta Names =>
+         (Frame.Array_Names.Names with delta Count => Slot,
+          Items => (Frame.Array_Names.Names.Items with delta Slot =>
+            (First, After, Item.Bounds, 0, Length, False, Item.Component_Bounds, False, Type_Id, Slot)))))));
+
    function Append_Array_Parameter
      (Frame : Parser_State; First, After : Literal_Position;
       Type_Id : Array_Bindings.Type_Count) return Parser_State
-     with Global => null;
+     with Global => null,
+       Post => (Static => Append_Array_Parameter'Result =
+         Append_Array_Parameter_Model (Frame, First, After, Type_Id)
+         and then Same_Parser_State (Append_Array_Parameter'Result,
+           Append_Array_Parameter_Model (Frame, First, After, Type_Id)));
    function Append_Array_Parameter
      (Frame : Parser_State; First, After : Literal_Position;
       Type_Id : Array_Bindings.Type_Count) return Parser_State is

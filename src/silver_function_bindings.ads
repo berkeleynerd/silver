@@ -51,7 +51,9 @@ package Silver_Function_Bindings with SPARK_Mode => On is
          Functions.Parameters (I).First > 0
          and then Valid_Name_State
            (Text, Functions.Parameters (I).First, Functions.Parameters (I).After)
-         and then not Silver_Scalars.Is_Empty (Functions.Parameters (I).Bounds))
+         and then not Silver_Scalars.Is_Empty (Functions.Parameters (I).Bounds)
+         and then (if Functions.Parameters (I).Type_Id /= 0 then
+           Functions.Parameters (I).Kind = Integer_Kind))
       and then (for all I in 1 .. Functions.Count =>
          Functions.Items (I).First > 0
          and then Valid_Name_State
