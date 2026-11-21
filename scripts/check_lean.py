@@ -26,11 +26,11 @@ from typing import TextIO
 if __package__:
     from .bootstrap_lean import lean_environment
     from .platforms import ROOT, HostLayout, native_layout
-    from .run_history import ManagedRun
+    from .run_history import ManagedRun, allocation_report
 else:
     from bootstrap_lean import lean_environment
     from platforms import ROOT, HostLayout, native_layout
-    from run_history import ManagedRun
+    from run_history import ManagedRun, allocation_report
 
 PROOF = ROOT / "proof"
 CERTIFICATE_ROOTS = {
@@ -423,15 +423,18 @@ def main(arguments: list[str] | None = None) -> None:
                         help="discard this host's proof workspace before building (does not imply replay)")
     parser.add_argument("--workers", type=nonnegative_integer, default=0,
                         help="Lake workers for independent modules (default 0: coordinated available workers; "
-                             "separate Lean process threads are not an OS thread cap)")
+                             "separate Lean process threads are not an OS thread cap; "
+                             "a count below the available workers needs --resource-reason)")
     parser.add_argument("--threads", type=nonnegative_integer, default=0,
                         help="threads per Lean build/audit process (default 0: available CPUs; "
-                             "separate from Lake workers)")
+                             "separate from Lake workers; a count below the available CPUs needs --resource-reason)")
     parser.add_argument("--memory-mb", type=positive_integer,
                         help="optional resident-memory threshold per Lean process, in MiB")
     parser.add_argument("--task", default=os.environ.get("SILVER_TASK", ""), help="issue or task reference for durable run history")
     parser.add_argument("--reason", default="",
                         help="rationale for repeating a successful clean/replay check unchanged")
+    parser.add_argument("--resource-reason", default="",
+                        help="why this check deliberately uses fewer workers or threads than are available")
     args = parser.parse_args(arguments)
     sources, inputs = capture_shared_inputs()
     targets = list(dict.fromkeys(args.target))
@@ -441,6 +444,7 @@ def main(arguments: list[str] | None = None) -> None:
     if targets and args.replay:
         parser.error("--replay/--full checks the complete project; omit --target")
     cpus = available_cpus()
+    requested_threads = args.threads or None
     args.threads = args.threads or cpus
     detailed_integrity = args.provenance or args.replay
     started = time.monotonic()
@@ -472,7 +476,11 @@ def main(arguments: list[str] | None = None) -> None:
     with ManagedRun(host=host, kind="lean", command=command, inputs=run_inputs,
                     resources=[host.proof, log, evidence], workers=args.workers or None,
                     task=args.task, reason=args.reason, expensive=args.clean or args.replay,
-                    evidence=[log, evidence], failure_reports=[log]) as run:
+                    evidence=[log, evidence], failure_reports=[log], resource_reason=args.resource_reason,
+                    allocation={"threads": {"requested": requested_threads, "automatic": cpus,
+                                            "actual": args.threads},
+                                "memory_mb": {"requested": args.memory_mb, "automatic": None,
+                                              "actual": args.memory_mb}}) as run:
         args.workers = run.workers
         if host.artifacts.is_symlink():
             raise RuntimeError("host artifact directory must not be a symbolic link")
@@ -511,6 +519,7 @@ def main(arguments: list[str] | None = None) -> None:
         environment["LEAN_NUM_THREADS"] = str(args.workers)
         print(f"Lean concurrency: {args.workers} Lake workers, "
               f"{args.threads} threads per Lean process ({cpus} available CPUs).", flush=True)
+        print(allocation_report(run.record), flush=True)
 
         prepare_workspace(host, inputs, clean=args.clean)
         prepare_tool_cache(host, tool_hashes)

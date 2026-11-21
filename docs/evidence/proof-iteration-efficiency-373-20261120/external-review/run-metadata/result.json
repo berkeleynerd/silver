@@ -1,0 +1,120 @@
+{
+  "duration_api_ms": 1966885,
+  "stop_reason": "end_turn",
+  "session_id": "5cdefb18-8c5b-4aec-9925-2f80e4a4767e",
+  "total_cost_usd": 21.6415692,
+  "usage": {
+    "input_tokens": 180,
+    "cache_creation_input_tokens": 510370,
+    "cache_read_input_tokens": 28080246,
+    "output_tokens": 196454,
+    "output_tokens_details": {
+      "thinking_tokens": 132750
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 510370,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "global",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1090,
+        "cache_read_input_tokens": 512472,
+        "cache_creation_input_tokens": 2756,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2756
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-fable-5-2": {
+      "inputTokens": 180,
+      "outputTokens": 196454,
+      "cacheReadInputTokens": 28080246,
+      "cacheCreationInputTokens": 510370,
+      "webSearchRequests": 0,
+      "costUSD": 21.6415692,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 132750,
+      "cacheCreationEphemeral5mInputTokens": 0,
+      "cacheCreationEphemeral1hInputTokens": 510370,
+      "canonicalModel": "claude-fable-5-2",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 110,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "The review is complete: no blocker, 1 medium, 2 low, 6 info, and PR #406 is ready for the owner's merge decision.\n\n**Report:** `/home/canto/src/github.com/berkeleynerd/silver/tmp/external-review-pr406-8dc409b303/report.md` (status in `status.md` beside it; no owner question arose).\n\n## Findings\n\n- **C406-M1 (medium, new):** `--unit X.ads` and `--unit X.adb` run the same GNATprove command but record different recurrence scopes. Alternating spellings allowed five failed attempts on one helper before any hold, and a success under one spelling does not reset the other. This affects a workflow prompt only, not any proof result; a follow-up issue is enough, since a script edit would change hashed proof inputs and force re-validation.\n- **C406-L1 (low, record):** 16 retained test modules (111 IDs) call the refactored auditor and were not rerun. I compared the base and target auditors on the retained final reports and six real application report sets: 247 of 248 outcomes were identical, and the one difference is unreachable from production callers and retained tests. The packet should name these modules and the equivalence basis.\n- **C406-L2 (low, record):** `roadmap.md:222-223` still says the implementations are \"awaiting reconciliation and final validation\".\n- **Info (6):** These cover untested rejection branches in the focused checker, body-line and nested-helper selection semantics, confirmed conservative holds, and the records this review added.\n\n## What I confirmed\n\n- **Focused checks:** I found no ordinary way for an incomplete or incompatible result to be reported ready. Every acceptance condition failed closed under mutation, and the unit-mode checker accepted all 78 real unit reports with totals equal to the complete audit.\n- **Complete audit:** Re-auditing the retained final native reports with the target code reproduces 78 units, 1,252 entities and 19,726 checks.\n- **Input equality:** All 148 tracked native input hashes and 1,143 Lean input hashes match the target tree.\n- **Regression census:** 757 IDs = 282 fresh + 475 retained, with 33 added, reproduced from the raw logs and discovery.\n- **Evidence distinctions:** The records separate old-runner preparation from the final runs, a warm forced audit from cold work, a cached Lean build plus fresh audit from kernel replay, and an up-to-date build from recompilation.\n- **Tests at the target:** 195 pure-Python tests passed in a focused managed run.\n\n## Limits\n\nI ran no GNATprove, Lean, gprbuild or bootstrap command. Statements about GNATprove selector behaviour rest on the upstream source, matching symbols in the installed 16.1.0 binary, and the retained reports. The 97 retained auditor-dependent test IDs that need the native toolchain were not run.\n\nThis review added two managed `test` records to the shared ledger under task `#406-external-claude-review`. The first failed because two toolchain-dependent test classes cannot set up in the unbootstrapped review worktree; the second excluded them and passed.\n\nObserved model was `claude-fable-5-2` throughout, with effort set by the `--effort max` flag; no server-side effort field or reliable token total was visible to me.",
+  "ttft_ms": 2015,
+  "type": "result",
+  "duration_ms": 2103235,
+  "uuid": "a306a118-c97f-4b6f-a0f7-f0f74f42a769",
+  "ttft_stream_ms": 1299,
+  "time_to_request_ms": 624,
+  "first_content_frame_ms": 1299,
+  "queued_turn_count": 0,
+  "result_index": 0,
+  "model_usage_since_last_result": {
+    "claude-fable-5-2": {
+      "inputTokens": 180,
+      "outputTokens": 196454,
+      "cacheReadInputTokens": 28080246,
+      "cacheCreationInputTokens": 510370,
+      "webSearchRequests": 0,
+      "costUSD": 21.6415692,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 132750,
+      "cacheCreationEphemeral5mInputTokens": 0,
+      "cacheCreationEphemeral1hInputTokens": 510370,
+      "canonicalModel": "claude-fable-5-2",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "credential_expires_at": "2026-12-09T03:05:29.641Z"
+}

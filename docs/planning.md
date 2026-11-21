@@ -53,33 +53,20 @@ current owner request also authorizes work; record it on `main` the same way
 before claiming the work, without waiting for a separate Ready transition or
 approval.
 
-**Worca experiment, from 2026-11-12.** While the owner's worca experiment runs,
-the rule in the paragraph above is suspended for the items worca works through
-from the board, the issues of
-[milestone 24](https://github.com/berkeleynerd/silver/milestone/24). For those
-items the owner moving a card to Ready is itself the authorization, without a
-prior session-memory entry on `main`: worca starts a run for the top unblocked
-Ready card, moves it to In progress and then to In review, and comments on the
-issue at each step. Agents still do not move an item to Ready themselves; they
-act as the owner's GitHub user, so the board cannot tell their move from the
-owner's. Nothing else in this document changes. If the experiment is adopted,
-this section will be changed so that the owner moving an item to Ready on the
-board is the recorded authorization; if it is dropped, this note is removed.
-The [session memory](session-memory.md) entry of 2026-11-12 records the
-decision.
+**Ended Worca experiment and workflow chain.** The owner instructed
+**“Stop using worca”** on 2026-11-20, recorded on main at `2eb85620d5` and in the
+[session memory](session-memory.md#2026-11-20--stop-using-worca). Work now proceeds
+directly in Codex under the authorization rule above. Do not start or resume
+Worca workflows or require its approval cards unless the owner explicitly
+reinstates them. Existing authorizations and merge holds retain their scope;
+`a412827d6c` records the later reduced #373 delivery authorization.
 
-**Worca workflow chain, from 2026-11-17.** For work that travels the Silver workflow
-chain on Worca ([#396](https://github.com/berkeleynerd/silver/issues/396)), the
-owner's approval at a Worca approval gate is the authorization. The gate shows
-the issues' scope and completion criteria and the exact entry to be recorded;
-on approval the workflow's recording step commits that dated entry to the
-[session memory](session-memory.md) on `main` and comments on each issue with the
-commit. The entry is the record of an authorization already given at the gate,
-so the work may be claimed once it is on `main`, without a separate pull request
-or approval. Such an authorization covers the named issues as they read at
-approval and nothing else; it never amends a guarantee, and merge remains a
-separate decision. Agents do not approve a gate. The session memory entry of
-2026-11-17 records the decision.
+Historically, the 2026-11-12 experiment treated an owner's Ready move for
+milestone 24 as authorization. The 2026-11-17 workflow chain treated an owner's
+Worca gate approval as authorization, followed by a dated recording commit on
+main and issue comments. Those historical decisions and their scope remain in
+[session memory](session-memory.md); their recorded authorizations remain valid.
+Neither former mechanism is an active workflow requirement.
 
 **Labels** carry the kind of item, so agents can filter with `gh issue list`.
 They replace GitHub's default labels.

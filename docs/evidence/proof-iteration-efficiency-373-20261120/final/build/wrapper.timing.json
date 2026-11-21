@@ -1,0 +1,19 @@
+{
+  "command": [
+    "python3",
+    "scripts/dev.py",
+    "build",
+    "--task",
+    "#384-final-build",
+    "--reason",
+    "Final reviewed runner checkpoint after host cache restoration; unchanged compiler sources, fresh native build for regression applicability."
+  ],
+  "started": "2026-11-20T18:44:55.997218+00:00",
+  "finished": "2026-11-20T18:44:59.192816+00:00",
+  "elapsed_seconds": 3.1956054430047516,
+  "returncode": 0,
+  "child_user_seconds": 1.735128,
+  "child_system_seconds": 1.155611,
+  "child_maxrss_kib": 254912,
+  "note": "RUSAGE_CHILDREN max RSS is not a simultaneous process-tree peak."
+}

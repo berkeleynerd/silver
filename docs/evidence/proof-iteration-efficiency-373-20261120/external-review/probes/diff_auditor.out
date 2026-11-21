@@ -1,0 +1,70 @@
+== complete compiler audit on retained final native reports ==
+  [SAME] audit_sources (complete, unmodified): new=ok {'units': 78, 'entities': 1252, 'flow_checks': 1751, 'proof_checks': 17975, 'limitation_notes': 357, 'imported_entities': 18, 'trusted_math_notes': 6268, 'vendor_spec_ent
+     stats: {"units": 78, "entities": 1252, "flow_checks": 1751, "proof_checks": 17975, "limitation_notes": 357, "imported_entities": 18, "trusted_math_notes": 6268, "vendor_spec_entities": 62, "array_initialization_advisories": 6, "operator_reassociation_advisories": 27}
+     units=78 trusted import units=['silver_image_libc', 'silver_image_runtime', 'silver_libc', 'silver_output_libc', 'silver_process_runtime', 'silver_runtime']
+  [SAME] audit_reports (complete, direct): new=ok {'units': 78, 'entities': 1252, 'flow_checks': 1751, 'proof_checks': 17975, 'limitation_notes': 357, 'imported_entities': 18, 'trusted_math_notes': 6268, 'vendor_spec_ent
+== coverage-region mutations (complete audit) ==
+  [SAME] silver_numbers: owned all -> spec: new=EvidenceError silver_numbers: entity outside full SPARK: Silver_Numbers.Decimal at (('silver_numbers.ads', 11, 13),)
+  [SAME] silver_numbers: owned all -> no: new=EvidenceError silver_numbers: entity outside full SPARK: Silver_Numbers.Decimal at (('silver_numbers.ads', 11, 13),)
+  [SAME] silver_numbers: owned coverage entry removed: new=EvidenceError silver_numbers: missing owned entity coverage
+  [SAME] silver_numbers: coverage names unknown entity: new=EvidenceError silver_numbers: coverage names an unknown entity
+  [SAME] silver_numbers: all owned entities relocated: new=EvidenceError silver: unapproved external assumption dependency Silver_Numbers.Decimal
+  [SAME] silver_numbers: summary analyzed count changed: new=EvidenceError silver_numbers: summary/entity coverage mismatch
+  [SAME] silver_numbers: coverage map emptied: new=EvidenceError silver_numbers: no SPARK coverage
+  [SAME] silver_numbers: extra owned entity without coverage: new=EvidenceError silver_numbers: missing owned entity coverage
+  [SAME] silver_libc: owned all -> spec: new=EvidenceError silver_libc: entity outside full SPARK: Silver_Libc at (('silver_libc.ads', 5, 9),)
+  [SAME] silver_libc: owned all -> no: new=EvidenceError silver_libc: entity outside full SPARK: Silver_Libc at (('silver_libc.ads', 5, 9),)
+  [SAME] silver_libc: owned coverage entry removed: new=EvidenceError silver_libc: missing owned entity coverage
+  [SAME] silver_libc: coverage names unknown entity: new=EvidenceError silver_libc: coverage names an unknown entity
+  [SAME] silver_libc: all owned entities relocated: new=EvidenceError silver_image_files: unapproved external assumption dependency Silver_Libc.C_Close
+  [SAME] silver_libc: summary analyzed count changed: new=EvidenceError silver_libc: summary/entity coverage mismatch
+  [SAME] silver_libc: coverage map emptied: new=EvidenceError silver_libc: no SPARK coverage
+  [SAME] silver_libc: extra owned entity without coverage: new=EvidenceError silver_libc: missing owned entity coverage
+  [SAME] silver_report_projection_model: owned all -> spec: new=EvidenceError silver_report_projection_model: entity outside full SPARK: Silver_Report_Projection_Model.Keeping at (('silver_report_projection_model.ads', 25, 13),)
+  [SAME] silver_report_projection_model: owned all -> no: new=EvidenceError silver_report_projection_model: entity outside full SPARK: Silver_Report_Projection_Model.Keeping at (('silver_report_projection_model.ads', 25, 13),)
+  [SAME] silver_report_projection_model: owned coverage entry removed: new=EvidenceError silver_report_projection_model: missing owned entity coverage
+  [SAME] silver_report_projection_model: coverage names unknown entity: new=EvidenceError silver_report_projection_model: coverage names an unknown entity
+  [SAME] silver_report_projection_model: all owned entities relocated: new=EvidenceError silver: unapproved external assumption dependency Silver_Report_Projection_Model.Byte_Sequences.Empty_Sequence
+  [SAME] silver_report_projection_model: summary analyzed count changed: new=EvidenceError silver_report_projection_model: summary/entity coverage mismatch
+  [SAME] silver_report_projection_model: coverage map emptied: new=EvidenceError silver_report_projection_model: no SPARK coverage
+  [SAME] silver_report_projection_model: extra owned entity without coverage: new=EvidenceError silver_report_projection_model: missing owned entity coverage
+  [SAME] silver_image_files: owned all -> spec: new=EvidenceError silver_image_files: entity outside full SPARK: Silver_Image_Files.Bytes.Eq_Elements_Checks.Eq_Symmetric at (('spark-containers-parameter_checks.ads', 107, 17), ('spark-co
+  [SAME] silver_image_files: owned all -> no: new=EvidenceError silver_image_files: entity outside full SPARK: Silver_Image_Files.Bytes.Eq_Elements_Checks.Eq_Symmetric at (('spark-containers-parameter_checks.ads', 107, 17), ('spark-co
+  [SAME] silver_image_files: owned coverage entry removed: new=EvidenceError silver_image_files: missing owned entity coverage
+  [SAME] silver_image_files: coverage names unknown entity: new=EvidenceError silver_image_files: coverage names an unknown entity
+  [SAME] silver_image_files: all owned entities relocated: new=EvidenceError silver_image_adapter: unapproved external assumption dependency Silver_Image_Files.Refine
+  [SAME] silver_image_files: summary analyzed count changed: new=EvidenceError silver_image_files: summary/entity coverage mismatch
+  [SAME] silver_image_files: coverage map emptied: new=EvidenceError silver_image_files: no SPARK coverage
+  [SAME] silver_image_files: extra owned entity without coverage: new=EvidenceError silver_image_files: missing owned entity coverage
+  [SAME] silver_libc: trusted import spec -> all: new=EvidenceError silver_libc: summary/entity coverage mismatch
+  [SAME] silver_libc: trusted import renamed: new=EvidenceError silver_image_files: unapproved external assumption dependency Silver_Libc.C_Open
+  [SAME] silver_libc: trusted import unit not declared trusted: new=EvidenceError silver_libc: entity outside full SPARK: Silver_Libc.C_Open at (('silver_libc.ads', 10, 13),)
+  [SAME] silver_runtime: trusted import spec -> all: new=EvidenceError silver_runtime: summary/entity coverage mismatch
+  [SAME] silver_runtime: trusted import renamed: new=EvidenceError silver: unapproved external assumption dependency Silver_Runtime.Argument_Count
+  [SAME] silver_runtime: trusted import unit not declared trusted: new=EvidenceError silver_runtime: entity outside full SPARK: Silver_Runtime.Argument_Count at (('silver_runtime.ads', 10, 13),)
+  [SAME] silver_output_libc: trusted import spec -> all: new=EvidenceError silver_output_libc: summary/entity coverage mismatch
+  [SAME] silver_output_libc: trusted import renamed: new=EvidenceError silver_io: unapproved external assumption dependency Silver_Output_Libc.Put_Byte
+  [SAME] silver_output_libc: trusted import unit not declared trusted: new=EvidenceError silver_output_libc: entity outside full SPARK: Silver_Output_Libc.Put_Byte at (('silver_output_libc.ads', 10, 13),)
+  [SAME] silver_report_projection_model: vendor spec origin moved: new=EvidenceError silver_report_projection_model: entity outside full SPARK: Silver_Report_Projection_Model.Byte_Sequences.Sequence at (('spark-containers-functional-infinite_sequences.ads
+  [SAME] silver_report_projection_model: vendor instance not supplied: new=EvidenceError silver_report_projection_model: entity outside full SPARK: Silver_Report_Projection_Model.Byte_Sequences.Sequence at (('spark-containers-functional-infinite_sequences.ads
+  [SAME] silver_image_files: vendor spec origin moved: new=EvidenceError silver_image_files: entity outside full SPARK: Silver_Image_Files.Bytes.Sequence at (('spark-containers-functional-infinite_sequences.ads', 1, 9), ('silver_image_files.ad
+  [SAME] silver_image_files: vendor instance not supplied: new=EvidenceError silver_image_files: entity outside full SPARK: Silver_Image_Files.Bytes.Sequence at (('spark-containers-functional-infinite_sequences.ads', 74, 9), ('silver_image_files.a
+  [SAME] silver_numbers: unknown unit declared trusted (expected KeyError both): new=KeyError 'silver_numbers'
+  [DIFFERENT] silver_numbers: unknown trusted unit plus non-SPARK owned entity: new=KeyError 'silver_numbers'
+      old=EvidenceError silver_numbers: entity outside full SPARK: Silver_Numbers.Decimal at (('silver_numbers.ads', 11, 13),)
+  [SAME] silver_numbers: skip_proof nonempty (outside refactor; control): new=EvidenceError silver_numbers: missing or nonempty skip_proof
+== application audits on six retained real report sets ==
+  [SAME] hello (static): new=ok {'units': 5, 'entities': 17, 'flow_checks': 19, 'proof_checks': 47, 'imported_entities': 6}
+      matches the stats recorded in accepted-python-results.json
+  [SAME] copy (assigned): new=ok {'units': 5, 'entities': 18, 'flow_checks': 20, 'proof_checks': 47, 'imported_entities': 6, 'assignment_advisories': 5, 'image_advisories': 2, 'initialization_checks': 1}
+      matches the stats recorded in accepted-python-results.json
+  [SAME] clear (assigned): new=ok {'units': 5, 'entities': 18, 'flow_checks': 20, 'proof_checks': 47, 'imported_entities': 6, 'assignment_advisories': 1, 'image_advisories': 1, 'initialization_checks': 1}
+      matches the stats recorded in accepted-python-results.json
+  [SAME] function (assigned): new=ok {'units': 5, 'entities': 18, 'flow_checks': 20, 'proof_checks': 47, 'imported_entities': 6, 'assignment_advisories': 1, 'image_advisories': 1, 'termination_checks': 1}
+      matches the stats recorded in accepted-python-results.json
+  [SAME] main_advisories (selected): new=ok {'units': 5, 'entities': 17, 'flow_checks': 19, 'proof_checks': 49, 'imported_entities': 6, 'array_initialization_advisories': 1, 'assignment_advisories': 25}
+      matches the stats recorded in accepted-python-results.json
+  [SAME] argument_procedure (argument): new=ok {'units': 5, 'entities': 18, 'flow_checks': 20, 'proof_checks': 47, 'imported_entities': 6, 'initialization_checks': 1}
+      matches the stats recorded in accepted-python-results.json
+
+TOTAL comparisons: same=247 different=1

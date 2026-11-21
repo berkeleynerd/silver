@@ -1,0 +1,159 @@
+{
+  "registry": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb",
+  "host": "linux-x86_64",
+  "machine": "silver",
+  "runs": [
+    {
+      "run_id": "20261120T192655-0a719b502bc8",
+      "task": "#406-external-claude-review",
+      "kind": "test",
+      "scope": [
+        "-k",
+        "test_dev_runs.",
+        "-k",
+        "test_run_history.",
+        "-k",
+        "test_proof_provenance.",
+        "-k",
+        "test_evidence.",
+        "-k",
+        "test_image_reports.",
+        "-k",
+        "test_image_setup."
+      ],
+      "state": "failure",
+      "active": false,
+      "workers": 1,
+      "directory": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261120T192655-0a719b502bc8",
+      "fingerprint": "50d23dea3dc7eda1688eb98ec0ea17771e0cb27459d98873e9c44cbf76c44a09",
+      "command": [
+        "/usr/bin/python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v",
+        "-k",
+        "test_dev_runs.",
+        "-k",
+        "test_run_history.",
+        "-k",
+        "test_proof_provenance.",
+        "-k",
+        "test_evidence.",
+        "-k",
+        "test_image_reports.",
+        "-k",
+        "test_image_setup."
+      ],
+      "reason": "",
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/external-review-pr406-8dc409b303/worktree",
+      "resources": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/external-review-pr406-8dc409b303/worktree/.silver/linux-x86_64"
+      ],
+      "started_at": "2026-11-20T19:26:55.956383+00:00",
+      "finished_at": "2026-11-20T19:27:03.232744+00:00",
+      "duration_seconds": 7.276090007,
+      "returncode": 1,
+      "error": "CalledProcessError: Command '['/usr/bin/python3', '-m', 'unittest', 'discover', '-s', 'tests', '-v', '-k', 'test_dev_runs.', '-k', 'test_run_history.', '-k', 'test_proof_provenance.', '-k', 'test_evidence.', '-k', 'test_image_reports.', '-k', 'test_image_setup.']' returned non-zero exit status 1.",
+      "failure_keys": [],
+      "evidence": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261120T192655-0a719b502bc8/native.log"
+      ],
+      "retained_report_count": 0,
+      "allocation": {
+        "workers": {
+          "actual": 1,
+          "automatic": 22,
+          "requested": 1
+        }
+      },
+      "resource_reductions": [
+        "workers"
+      ],
+      "resource_reason": ""
+    },
+    {
+      "run_id": "20261120T192916-8dbc8ff09f96",
+      "task": "#406-external-claude-review",
+      "kind": "test",
+      "scope": [
+        "-k",
+        "test_dev_runs.",
+        "-k",
+        "test_run_history.",
+        "-k",
+        "test_proof_provenance.",
+        "-k",
+        "test_evidence.",
+        "-k",
+        "test_image_setup.",
+        "-k",
+        "test_image_reports.ImageEvidenceTests",
+        "-k",
+        "test_image_reports.ArrayEvidenceTests"
+      ],
+      "state": "success",
+      "active": false,
+      "workers": 1,
+      "directory": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261120T192916-8dbc8ff09f96",
+      "fingerprint": "49870b7bdd41f2daa31629bd1996d807e8727357eeb292c28937e31a810f78bb",
+      "command": [
+        "/usr/bin/python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v",
+        "-k",
+        "test_dev_runs.",
+        "-k",
+        "test_run_history.",
+        "-k",
+        "test_proof_provenance.",
+        "-k",
+        "test_evidence.",
+        "-k",
+        "test_image_setup.",
+        "-k",
+        "test_image_reports.ImageEvidenceTests",
+        "-k",
+        "test_image_reports.ArrayEvidenceTests"
+      ],
+      "reason": "",
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/external-review-pr406-8dc409b303/worktree",
+      "resources": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/external-review-pr406-8dc409b303/worktree/.silver/linux-x86_64"
+      ],
+      "started_at": "2026-11-20T19:29:16.549809+00:00",
+      "finished_at": "2026-11-20T19:29:23.976188+00:00",
+      "duration_seconds": 7.42630277,
+      "returncode": null,
+      "error": null,
+      "failure_keys": [],
+      "evidence": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261120T192916-8dbc8ff09f96/native.log"
+      ],
+      "retained_report_count": 0,
+      "allocation": {
+        "workers": {
+          "actual": 1,
+          "automatic": 22,
+          "requested": 1
+        }
+      },
+      "resource_reductions": [
+        "workers"
+      ],
+      "resource_reason": ""
+    }
+  ],
+  "notes": [],
+  "available_cpus": 22,
+  "reserved_workers": 0,
+  "diagnostics_required": [],
+  "total_runs": 2,
+  "omitted_completed_runs": 0
+}

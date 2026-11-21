@@ -1,0 +1,141 @@
+{"command": ["python3", "scripts/bootstrap.py"], "started": "2026-11-20T16:12:38.339460+00:00", "stack_limits": [16777216, -1]}
++ /home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/.tools/linux-x86_64/alr/bin/alr --version
+alr 2.1.1
++ /home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/.tools/linux-x86_64/alr/bin/alr -s /home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/.tools/linux-x86_64/alire/settings -C /home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/.silver/linux-x86_64/toolchain -n --no-tty settings --global --set cache.dir /home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/.tools/linux-x86_64/alire/cache
++ /home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/.tools/linux-x86_64/alr/bin/alr -s /home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/.tools/linux-x86_64/alire/settings -C /home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/.silver/linux-x86_64/toolchain -n --no-tty settings --global --set toolchain.dir /home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/.tools/linux-x86_64/alire/toolchains
++ /home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/.tools/linux-x86_64/alr/bin/alr -s /home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/.tools/linux-x86_64/alire/settings -C /home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/.silver/linux-x86_64/toolchain -n --no-tty toolchain --select --local gnat_native~16.1.0 gprbuild~26.0.1
+From https://github.com/alire-project/alire-index
+   b3f80d0a..49b12542  stable-1.4.0 -> origin/stable-1.4.0
+Updating b3f80d0a..49b12542
+Fast-forward
+ .github/WORKFLOWS.md                               |  42 +++++---
+ .github/workflows/auto-merge.yml                   |  42 ++++----
+ .github/workflows/check-website.yml                |  19 ++++
+ .github/workflows/diff-release.yml                 |  24 ++++-
+ AUTO-MERGE.md                                      |  67 ++++++++++++
+ index/a0/a0b_time/a0b_time-0.3.0.toml              |  28 +++++
+ index/ad/adacl/adacl-8.2.0.toml                    |  82 ++++++++++++++
+ index/ad/adacl/adacl-8.2.1.toml                    |  82 ++++++++++++++
+ index/ad/adacl_aunit/adacl_aunit-8.2.0.toml        | 119 +++++++++++++++++++++
+ index/ad/adacl_aunit/adacl_aunit-8.2.1.toml        | 119 +++++++++++++++++++++
+ index/ad/adacl_desktop/adacl_desktop-8.2.0.toml    |  87 +++++++++++++++
+ index/ad/adacl_desktop/adacl_desktop-8.2.1.toml    |  87 +++++++++++++++
+ .../ad/adacl_eastrings/adacl_eastrings-8.2.0.toml  |  80 ++++++++++++++
+ .../ad/adacl_eastrings/adacl_eastrings-8.2.1.toml  |  80 ++++++++++++++
+ index/ad/adacl_embedded/adacl_embedded-8.2.0.toml  | 101 +++++++++++++++++
+ index/ad/adacl_embedded/adacl_embedded-8.2.1.toml  | 101 +++++++++++++++++
+ index/ad/adacl_regexp/adacl_regexp-8.2.0.toml      |  72 +++++++++++++
+ index/ad/adacl_regexp/adacl_regexp-8.2.1.toml      |  72 +++++++++++++
+ index/ad/adacl_sar/adacl_sar-8.2.0.toml            |  71 ++++++++++++
+ index/ad/adacl_sar/adacl_sar-8.2.1.toml            |  71 ++++++++++++
+ index/ad/adacl_serial/adacl_serial-8.2.1.toml      | 109 +++++++++++++++++++
+ .../adalang_analyzer/adalang_analyzer-1.11.2.toml  |  70 ++++++++++++
+ .../adalang_analyzer/adalang_analyzer-1.12.3.toml  |  70 ++++++++++++
+ .../adalang_analyzer/adalang_analyzer-1.13.3.toml  |  70 ++++++++++++
+ .../adalang_analyzer/adalang_analyzer-1.15.2.toml  |  70 ++++++++++++
+ .../adalang_analyzer/adalang_analyzer-1.16.0.toml  |  77 +++++++++++++
+ .../adalang_analyzer/adalang_analyzer-1.16.1.toml  |  77 +++++++++++++
+ index/ad/adayaml/adayaml-0.3.0.toml                |   3 +
+ index/al/alr2appimage/alr2appimage-1.1.0.toml      |  56 ++++++++++
+ index/as/ashell/ashell-2.0.1.toml                  |  29 +++++
+ index/as/ashell/ashell-3.0.0.toml                  |  28 +++++
+ .../at/atari_atr_tools/atari_atr_tools-1.5.4.toml  |  85 +++++++++++++++
+ .../at/atari_exe_tools/atari_exe_tools-1.5.4.toml  |  87 +++++++++++++++
+ index/bb/bbt/bbt-0.6.1.toml                        |  70 ++++++++++++
+ index/co/covex/covex-1.69.0.toml                   |  62 +++++++++++
+ index/cp/cpuload/cpuload-0.1.0.toml                |  37 +++++++
+ index/gl/glyph/glyph-1.2.0.toml                    |  19 ++++
+ index/jo/joularcore/joularcore-0.1.0.toml          |  40 +++++++
+ index/li/libatspi/libatspi-external.toml           |  15 +++
+ index/li/libhello/libhello-1.0.1.toml              |   2 +-
+ .../mos6502_create_led-1.5.4.toml                  |  61 +++++++++++
+ .../mos6502_create_nop-1.5.4.toml                  |  61 +++++++++++
+ .../mos6502_create_reset-1.5.4.toml                |  61 +++++++++++
+ index/mu/mutant/mutant-0.1.0.toml                  |  51 +++++++++
+ index/ne/neural_kit/neural_kit-0.2.0.toml          |  23 ++++
+ index/np/npy_arrays/npy_arrays-0.1.0.toml          |  21 ++++
+ index/pa/parse_args/parse_args-0.9.1.toml          |  18 ++++
+ index/pi/pico_xbsp/pico_xbsp-1.9.1.toml            |  88 +++++++++++++++
+ index/pl/pla_util/pla_util-3.0.0.toml              |  48 +++++++++
+ index/sm/smb/smb-0.1.0.toml                        |  48 +++++++++
+ index/sm/smb/smb-0.2.0.toml                        |  56 ++++++++++
+ index/sm/smb/smb-0.3.0.toml                        |  56 ++++++++++
+ index/sm/smb/smb-0.4.0.toml                        |  61 +++++++++++
+ index/sp/sparforte/sparforte-3.0.1.toml            |  32 ++++++
+ index/wr/wren/wren-0.1.0.toml                      |  18 ++++
+ index/ya/yamlscript/yamlscript-0.3.7.toml          |  18 ++++
+ shippable.yml                                      |  33 ------
+ 57 files changed, 3206 insertions(+), 70 deletions(-)
+ create mode 100644 .github/workflows/check-website.yml
+ create mode 100644 AUTO-MERGE.md
+ create mode 100644 index/a0/a0b_time/a0b_time-0.3.0.toml
+ create mode 100644 index/ad/adacl/adacl-8.2.0.toml
+ create mode 100644 index/ad/adacl/adacl-8.2.1.toml
+ create mode 100644 index/ad/adacl_aunit/adacl_aunit-8.2.0.toml
+ create mode 100644 index/ad/adacl_aunit/adacl_aunit-8.2.1.toml
+ create mode 100644 index/ad/adacl_desktop/adacl_desktop-8.2.0.toml
+ create mode 100644 index/ad/adacl_desktop/adacl_desktop-8.2.1.toml
+ create mode 100644 index/ad/adacl_eastrings/adacl_eastrings-8.2.0.toml
+ create mode 100644 index/ad/adacl_eastrings/adacl_eastrings-8.2.1.toml
+ create mode 100644 index/ad/adacl_embedded/adacl_embedded-8.2.0.toml
+ create mode 100644 index/ad/adacl_embedded/adacl_embedded-8.2.1.toml
+ create mode 100644 index/ad/adacl_regexp/adacl_regexp-8.2.0.toml
+ create mode 100644 index/ad/adacl_regexp/adacl_regexp-8.2.1.toml
+ create mode 100644 index/ad/adacl_sar/adacl_sar-8.2.0.toml
+ create mode 100644 index/ad/adacl_sar/adacl_sar-8.2.1.toml
+ create mode 100644 index/ad/adacl_serial/adacl_serial-8.2.1.toml
+ create mode 100644 index/ad/adalang_analyzer/adalang_analyzer-1.11.2.toml
+ create mode 100644 index/ad/adalang_analyzer/adalang_analyzer-1.12.3.toml
+ create mode 100644 index/ad/adalang_analyzer/adalang_analyzer-1.13.3.toml
+ create mode 100644 index/ad/adalang_analyzer/adalang_analyzer-1.15.2.toml
+ create mode 100644 index/ad/adalang_analyzer/adalang_analyzer-1.16.0.toml
+ create mode 100644 index/ad/adalang_analyzer/adalang_analyzer-1.16.1.toml
+ create mode 100644 index/al/alr2appimage/alr2appimage-1.1.0.toml
+ create mode 100644 index/as/ashell/ashell-2.0.1.toml
+ create mode 100644 index/as/ashell/ashell-3.0.0.toml
+ create mode 100644 index/at/atari_atr_tools/atari_atr_tools-1.5.4.toml
+ create mode 100644 index/at/atari_exe_tools/atari_exe_tools-1.5.4.toml
+ create mode 100644 index/bb/bbt/bbt-0.6.1.toml
+ create mode 100644 index/co/covex/covex-1.69.0.toml
+ create mode 100644 index/cp/cpuload/cpuload-0.1.0.toml
+ create mode 100644 index/gl/glyph/glyph-1.2.0.toml
+ create mode 100644 index/jo/joularcore/joularcore-0.1.0.toml
+ create mode 100644 index/li/libatspi/libatspi-external.toml
+ create mode 100644 index/mo/mos6502_create_led/mos6502_create_led-1.5.4.toml
+ create mode 100644 index/mo/mos6502_create_nop/mos6502_create_nop-1.5.4.toml
+ create mode 100644 index/mo/mos6502_create_reset/mos6502_create_reset-1.5.4.toml
+ create mode 100644 index/mu/mutant/mutant-0.1.0.toml
+ create mode 100644 index/ne/neural_kit/neural_kit-0.2.0.toml
+ create mode 100644 index/np/npy_arrays/npy_arrays-0.1.0.toml
+ create mode 100644 index/pa/parse_args/parse_args-0.9.1.toml
+ create mode 100644 index/pi/pico_xbsp/pico_xbsp-1.9.1.toml
+ create mode 100644 index/pl/pla_util/pla_util-3.0.0.toml
+ create mode 100644 index/sm/smb/smb-0.1.0.toml
+ create mode 100644 index/sm/smb/smb-0.2.0.toml
+ create mode 100644 index/sm/smb/smb-0.3.0.toml
+ create mode 100644 index/sm/smb/smb-0.4.0.toml
+ create mode 100644 index/sp/sparforte/sparforte-3.0.1.toml
+ create mode 100644 index/wr/wren/wren-0.1.0.toml
+ create mode 100644 index/ya/yamlscript/yamlscript-0.3.7.toml
+ delete mode 100644 shippable.yml
+Note: Synchronizing workspace...
+Dependencies automatically updated as follows:
+
+   +b gnat_native 16.1.0 (new,binary)
+   +b gnatprove   16.1.0 (new,binary)
+   +b gprbuild    26.0.1 (new,binary)
+
+Note: Requested crate resolved as gnat_native=16.1.0
+Note: gnat_native=16.1.0 set as default in local configuration.
+Note: Requested crate resolved as gprbuild=26.0.1
+Note: gprbuild=26.0.1 set as default in local configuration.
++ /home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/.tools/linux-x86_64/alr/bin/alr -s /home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/.tools/linux-x86_64/alire/settings -C /home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/.silver/linux-x86_64/toolchain -n --no-tty exec -- gnatls --version
+GNATLS 16.1.0
++ /home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/.tools/linux-x86_64/alr/bin/alr -s /home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/.tools/linux-x86_64/alire/settings -C /home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/.silver/linux-x86_64/toolchain -n --no-tty exec -- gnatprove --version
+FSF 16.1.0
++ /home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/.tools/linux-x86_64/alr/bin/alr -s /home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/.tools/linux-x86_64/alire/settings -C /home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/.silver/linux-x86_64/toolchain -n --no-tty exec -- gprbuild --version
+GPRBUILD 26.0.0 (2026-04-15) (x86_64-pc-linux-gnu)
++ /home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/.tools/linux-x86_64/alr/bin/alr -s /home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/.tools/linux-x86_64/alire/settings -C /home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/.silver/linux-x86_64/toolchain -n --no-tty exec -- /usr/bin/python3 -c import json,pathlib,shutil; p=shutil.which('gnatprove'); print('SILVER_GNATPROVE=' + json.dumps(str(pathlib.Path(p).resolve()) if p else None))
+Alire packages: gnat_native 16.1.0, gnatprove 16.1.0, gprbuild 26.0.1
+Native host: linux-x86_64
+Toolchain ready: /home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/.tools/linux-x86_64/alr/bin/alr

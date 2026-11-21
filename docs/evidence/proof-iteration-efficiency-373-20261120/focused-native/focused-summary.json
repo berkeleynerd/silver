@@ -1,0 +1,190 @@
+{
+  "alire_archive_sha256": "09c66bcd8c35dd4b97b72c3d9b76e44caa6964a2db35aba069f396f00f1f64c7",
+  "bootstrap_returncode": 0,
+  "captured_input_hash_count": 2634,
+  "captured_tracked_inputs_matching_reviewed_f0a": 148,
+  "compiler_build_executed": false,
+  "compiler_or_proof_caches_imported": false,
+  "focused_workspace": "compiler/obj/focused/4a9057104dad17e3/",
+  "machine": "silver",
+  "native_platform": "linux-x86_64",
+  "non_tool_input_hashes_rechecked": 154,
+  "recording_revision": "5a7dfe7d939e0460bcb60dc19ff0a9b59abf00f0",
+  "reviewed_code_revision": "f0a773fbcb9eea9574b037812e888029b7f970cb",
+  "runs": [
+    {
+      "allocation": {
+        "workers": {
+          "actual": 3,
+          "automatic": 8,
+          "requested": 3
+        }
+      },
+      "command": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/.tools/linux-x86_64/alr/bin/alr",
+        "-s",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/.tools/linux-x86_64/alire/settings",
+        "-C",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/.silver/linux-x86_64/toolchain",
+        "-n",
+        "--no-tty",
+        "exec",
+        "--",
+        "gnatprove",
+        "-P",
+        "../../../silver.gpr",
+        "-U",
+        "--mode=all",
+        "--report=all",
+        "--warnings=error",
+        "--checks-as-errors=on",
+        "--level=2",
+        "--prover=cvc5,z3,altergo",
+        "--timeout=30",
+        "--limit-subp=silver_numbers.ads:11",
+        "-j",
+        "3",
+        "--memcached-server=file:/home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/.silver/linux-x86_64/compiler/obj/focused/4a9057104dad17e3/cache/ea6aba21eca447a9c8473fc1c3ea0300b03a95ce919d8a326f68a67989029329",
+        "-f",
+        "--subdirs=focused/4a9057104dad17e3",
+        "-XSILVER_HOST=linux-x86_64"
+      ],
+      "focused_policy": "final-policy",
+      "focused_report": {
+        "entity_count": 1,
+        "flow_checks": 2,
+        "proof_checks": 6,
+        "subprograms": [
+          "Silver_Numbers.Decimal"
+        ]
+      },
+      "fresh_report_archive_files": 80,
+      "label": "subprogram",
+      "managed_seconds": 24.091366006,
+      "outcome": "success",
+      "resource_reason": "Reserve CPU and memory alongside the root native proof and dense Lean rebuild; this small selected unit needs only a small worker allocation.",
+      "returncode": 0,
+      "run_id": "20261120T161257-f32638bcdacc",
+      "scope": [
+        "compiler",
+        "--limit-subp=silver_numbers.ads:11"
+      ],
+      "wrapper": {
+        "child_maxrss_kib": 338760,
+        "child_system_seconds": 16.393029,
+        "child_user_seconds": 34.486417,
+        "command": [
+          "python3",
+          "scripts/dev.py",
+          "prove",
+          "--subprogram",
+          "silver_numbers.ads:11",
+          "--jobs",
+          "3",
+          "--resource-reason",
+          "Reserve CPU and memory alongside the root native proof and dense Lean rebuild; this small selected unit needs only a small worker allocation.",
+          "--task",
+          "#379-focused-smoke"
+        ],
+        "elapsed_seconds": 25.083964111996465,
+        "finished": "2026-11-20T16:13:22.044450+00:00",
+        "note": "RUSAGE_CHILDREN max RSS is not a simultaneous process-tree peak.",
+        "returncode": 0,
+        "started": "2026-11-20T16:12:56.960544+00:00"
+      }
+    },
+    {
+      "allocation": {
+        "workers": {
+          "actual": 3,
+          "automatic": 8,
+          "requested": 3
+        }
+      },
+      "command": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/.tools/linux-x86_64/alr/bin/alr",
+        "-s",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/.tools/linux-x86_64/alire/settings",
+        "-C",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/.silver/linux-x86_64/toolchain",
+        "-n",
+        "--no-tty",
+        "exec",
+        "--",
+        "gnatprove",
+        "-P",
+        "../../../silver.gpr",
+        "--mode=all",
+        "--report=all",
+        "--warnings=error",
+        "--checks-as-errors=on",
+        "--level=2",
+        "--prover=cvc5,z3,altergo",
+        "--timeout=30",
+        "-u",
+        "silver_numbers.adb",
+        "-j",
+        "3",
+        "--memcached-server=file:/home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/.silver/linux-x86_64/compiler/obj/focused/4a9057104dad17e3/cache/ea6aba21eca447a9c8473fc1c3ea0300b03a95ce919d8a326f68a67989029329",
+        "-f",
+        "--subdirs=focused/4a9057104dad17e3",
+        "-XSILVER_HOST=linux-x86_64"
+      ],
+      "focused_policy": "final-policy",
+      "focused_report": {
+        "entity_count": 3,
+        "flow_checks": 4,
+        "proof_checks": 14
+      },
+      "fresh_report_archive_files": 3,
+      "label": "unit",
+      "managed_seconds": 12.091264975,
+      "outcome": "success",
+      "resource_reason": "Reserve CPU and memory alongside the root native proof and dense Lean rebuild; this small selected unit needs only a small worker allocation.",
+      "returncode": 0,
+      "run_id": "20261120T161351-6de9c718e3ad",
+      "scope": [
+        "compiler",
+        "silver_numbers.ads"
+      ],
+      "wrapper": {
+        "child_maxrss_kib": 253652,
+        "child_system_seconds": 3.129843,
+        "child_user_seconds": 8.835717,
+        "command": [
+          "python3",
+          "scripts/dev.py",
+          "prove",
+          "--unit",
+          "silver_numbers.ads",
+          "--jobs",
+          "3",
+          "--resource-reason",
+          "Reserve CPU and memory alongside the root native proof and dense Lean rebuild; this small selected unit needs only a small worker allocation.",
+          "--task",
+          "#379-focused-smoke"
+        ],
+        "elapsed_seconds": 13.43822609000199,
+        "finished": "2026-11-20T16:14:04.268350+00:00",
+        "note": "RUSAGE_CHILDREN max RSS is not a simultaneous process-tree peak.",
+        "returncode": 0,
+        "started": "2026-11-20T16:13:50.830175+00:00"
+      }
+    }
+  ],
+  "selected_tool_binary_hashes_rechecked": 12,
+  "tool_versions": {
+    "alr": "alr 2.1.1",
+    "alt-ergo": "Alt-Ergo version 2.6.1",
+    "cvc5": "This is cvc5 version 1.3.2 [git 86cecd8 on branch HEAD]",
+    "gcc": "gcc (GNAT-FSF-builds) 16.1.0",
+    "gnat2why": "version string unavailable; binary identity retained",
+    "gnatls": "GNATLS 16.1.0",
+    "gnatprove": "FSF 16.1.0",
+    "gnatwhy3": "version string unavailable; binary identity retained",
+    "gprbuild": "GPRBUILD 26.0.0 (2026-04-15) (x86_64-pc-linux-gnu)",
+    "python": "3.14.8 (main, Oct  2 2026, 02:30:18) [GCC 14.2.0]",
+    "why3server": "version string unavailable; binary identity retained",
+    "z3": "Z3 version 4.15.4 - 64 bit"
+  }
+}

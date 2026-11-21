@@ -1,0 +1,9 @@
+{"command": ["python3", "scripts/check_lean.py", "--workers", "1", "--provenance", "--task", "#373-lean-cache-preparation", "--reason", "Restore current unchanged language proofs from matching x86 #370 seed while runner edits remain isolated. One Lake worker follows retained 15-20 GiB dense-module peaks with simultaneous native demand; per-process threads remain automatic. Refresh final audits after runner integration."], "started": "2026-11-20T15:11:47.855462+00:00", "stack_limits": [16777216, -1]}
+Lean concurrency: 1 Lake workers, 22 threads per Lean process (22 available CPUs).
+Lean phase build started at 2026-11-20T15:11:54.626410+00:00
++ /home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/lean/bin/lake --rehash --reconfigure -K silverThreads=22 build Silver.Audit
+✔ [92/107] Built Silver.OutputProfileBodySource (554ms)
+✔ [105/108] Built Silver.AuthoritativeSource (505ms)
+✔ [108/111] Built Silver.CertificateJoinWitness (1.3s)
+✔ [109/112] Built Silver.OutputBodyLines0 (867s)
+✔ [110/113] Built Silver.OutputBodyLines1 (862s)

@@ -292,7 +292,8 @@ class ProvenanceTests(unittest.TestCase):
                 mock.patch.object(dev, "invoke", side_effect=invoke), \
                 mock.patch.object(dev, "audit_sources"), \
                 mock.patch.object(proof_provenance, "tool_identities", return_value=self.manifest["tools"]):
-            dev.main(["prove", "--cold", "--jobs", "2"])
+            dev.main(["prove", "--cold", "--jobs", "2",
+                      "--resource-reason", "Keep six of eight fixture workers free"])
             dev.main(["prove", "--", "--cold"])
         self.assertEqual(len(commands), 2)
         workspaces = list((self.host.compiler / "obj").glob("cold-*"))
@@ -405,7 +406,8 @@ class ProvenanceTests(unittest.TestCase):
                     mock.patch.object(dev, "begin_proof") as begin, \
                     mock.patch.object(dev, "audit_sources") as audit, \
                     mock.patch.object(dev, "complete_proof") as complete:
-                dev.main([arguments[0], "--reason", "Check equivalent CLI spellings", *arguments[1:]])
+                dev.main([arguments[0], "--reason", "Check equivalent CLI spellings",
+                          "--resource-reason", "Keep five of eight fixture workers free", *arguments[1:]])
                 command = run.call_args_list[0].args[1]
                 self.assertIn("-f", command)
                 self.assertEqual(command[command.index("-j") + 1], "3")

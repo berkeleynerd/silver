@@ -1,0 +1,14 @@
+{
+  "same_effective_proof_options": true,
+  "spec_scope": [
+    "compiler",
+    "silver_numbers.ads"
+  ],
+  "body_scope": [
+    "compiler",
+    "silver_numbers.adb"
+  ],
+  "same_recurrence_family": false,
+  "pending_before_fifth_attempt": {},
+  "note": "Pure-function confirmation of C406-M1; no proof execution, runner ledger write or source change."
+}

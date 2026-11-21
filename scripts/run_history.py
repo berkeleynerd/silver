@@ -23,6 +23,10 @@ if __package__:
 else:
     from platforms import HostLayout
 
+# Failed runs of one obligation, or of one helper and check kind, before the
+# next run needs a diagnostic note. Both recurrence rules compare against it.
+_RECURRENCE_BOUNDARY = 3
+
 
 class RunHistoryError(RuntimeError):
     """A managed operation could not safely start, or its history is unreadable."""
@@ -134,12 +138,19 @@ def _same_scope(left: dict, right: dict) -> bool:
     return all(left.get(key) == right.get(key) for key in ("task", "kind", "scope"))
 
 
+def _gnatprove_query(run: dict) -> bool:
+    # Older queries recorded the same scope as an unselected compiler proof.
+    arguments = run.get("inputs", {}).get("arguments", [])
+    return (run.get("kind") == "tool-gnatprove" and run.get("workers") == 0
+            and arguments[1:] in (["--help"], ["--version"], ["-h"]))
+
+
 def _pending_failures(runs: list[dict], notes: list[dict], current: dict) -> dict[str, int]:
     counts: dict[str, int] = {}
     diagnosed = max((note["utc"] for note in notes if note.get("event") == "diagnostic"
                      and _same_scope(note, current)), default="")
     for run in sorted(runs, key=lambda item: item["utc"]):
-        if not _same_scope(run, current) or run["utc"] <= diagnosed:
+        if not _same_scope(run, current) or run["utc"] <= diagnosed or _gnatprove_query(run):
             continue
         if run["state"] == "success":
             counts.clear()
@@ -147,6 +158,66 @@ def _pending_failures(runs: list[dict], notes: list[dict], current: dict) -> dic
             for key in run["finish"].get("failure_keys", []):
                 counts[key] = counts.get(key, 0) + 1
     return counts
+
+
+def _limit_selector(entry) -> bool:
+    return isinstance(entry, str) and entry.startswith("--limit-")
+
+
+def _family_scope(scope):
+    """Drop the limit selectors that move with edits and refocusing; keep mode, project and units."""
+    if not isinstance(scope, list):
+        return scope
+    family = [entry for entry in scope if not _limit_selector(entry)]
+    # proof_scope adds "compiler" only when no project, unit or selector was
+    # supplied. Removing the last selector must restore that same fallback.
+    if len(family) == 1 and isinstance(family[0], str) and family[0].startswith("mode:"):
+        family.append("compiler")
+    return family
+
+
+def _same_family(left: dict, right: dict) -> bool:
+    return (all(left.get(key) == right.get(key) for key in ("task", "kind"))
+            and _family_scope(left.get("scope")) == _family_scope(right.get("scope")))
+
+
+def _failure_identities(run: dict) -> dict[str, list[str]]:
+    """Read a failed run's helper identities; older or malformed records have none."""
+    recorded = (run.get("finish") or {}).get("failure_identities")
+    if not isinstance(recorded, dict):
+        return {}
+    return {identity: keys for identity, keys in recorded.items()
+            if isinstance(identity, str) and isinstance(keys, list) and keys
+            and all(isinstance(key, str) for key in keys)}
+
+
+def _pending_helpers(runs: list[dict], notes: list[dict], current: dict) -> dict[str, dict]:
+    """Count failed runs per helper identity across the reference record's family.
+
+    A success clears only what the ledger shows it covered: every identity when
+    it ran with no limit selector, otherwise those that failed in its exact scope.
+    """
+    diagnosed = max((note["utc"] for note in notes if note.get("event") == "diagnostic"
+                     and _same_family(note, current)), default="")
+    counted: dict[str, dict] = {}
+    for run in sorted(runs, key=lambda item: item["utc"]):
+        if not _same_family(run, current) or run["utc"] <= diagnosed or _gnatprove_query(run):
+            continue
+        if run["state"] == "success":
+            scope = run.get("scope")
+            selected = isinstance(scope, list) and any(_limit_selector(entry) for entry in scope)
+            for identity in [identity for identity, entry in counted.items()
+                             if not selected or scope in entry["scopes"]]:
+                del counted[identity]
+        elif run["state"] == "failure":
+            for identity, keys in _failure_identities(run).items():
+                entry = counted.setdefault(identity, dict(count=0, keys=set(), scopes=[]))
+                entry["count"] += 1
+                entry["keys"].update(keys)
+                entry["scopes"].append(run.get("scope"))
+                entry["run"] = run
+    return {identity: dict(count=entry["count"], keys=sorted(entry["keys"]), run=entry["run"])
+            for identity, entry in counted.items() if entry["count"] >= _RECURRENCE_BOUNDARY}
 
 
 def _paths(paths) -> list[dict[str, str]]:
@@ -189,9 +260,22 @@ def _report_identity(path: Path) -> tuple | None:
         return None
 
 
-def failed_obligations(paths) -> list[str]:
-    """Read final check results, deliberately ignoring individual solver attempts."""
+def _helper_name(value) -> str | None:
+    name = value.get("name") if isinstance(value, dict) else None
+    return name if isinstance(name, str) and name else None
+
+
+def _report_failures(paths) -> tuple[set[str], dict[str, set[str]]]:
+    """Read final failures once, with the helper each producer names for them."""
     failures = set()
+    identities: dict[str, set[str]] = {}
+
+    def failed(key: str | None, helper: str | None, rule: str) -> None:
+        if key:
+            failures.add(key)
+            if helper:
+                identities.setdefault(f"{helper}:{rule}", set()).add(key)
+
     for path in _report_files(paths):
         try:
             report = json.loads(path.read_text())
@@ -200,14 +284,18 @@ def failed_obligations(paths) -> list[str]:
         if not isinstance(report, dict):
             continue
         if path.suffix == ".spark":
+            entities = report.get("entities")
+            # GNATprove keys this table by the entity number with a leading space.
+            helpers = ({str(number).strip(): _helper_name(entity) for number, entity in entities.items()}
+                       if isinstance(entities, dict) else {})
             for record in _rows(report.get("proof")):
                 if not isinstance(record, dict):
                     continue
                 if (record.get("severity") != "info"
                         or record.get("how_proved") not in ("flow", "prover", "trivial")):
-                    key = _obligation_key(record)
-                    if key:
-                        failures.add(key)
+                    entity = record.get("entity")
+                    failed(_obligation_key(record),
+                           helpers.get(str(entity)) if type(entity) is int else None, record.get("rule"))
         elif path.suffix == ".sarif":
             for run in _rows(report.get("runs")):
                 if not isinstance(run, dict):
@@ -231,17 +319,62 @@ def failed_obligations(paths) -> list[str]:
                         key = _obligation_key(dict(rule=rule,
                             file=artifact.get("uri"),
                             line=region.get("startLine", 0), col=region.get("startColumn", 0)))
-                        if key:
-                            failures.add(key)
+                        logical = _rows(location.get("logicalLocations"))
+                        failed(key, _helper_name(logical[0]) if logical else None, rule)
+    return failures, identities
+
+
+def failed_identities(paths) -> dict[str, list[str]]:
+    """Map each producer-named helper and check kind to the exact keys of its final failures."""
+    return {identity: sorted(keys) for identity, keys in sorted(_report_failures(paths)[1].items())}
+
+
+def failed_obligations(paths) -> list[str]:
+    """Read final check results, deliberately ignoring individual solver attempts."""
+    failures, _ = _report_failures(paths)
     return sorted(failures)
+
+
+def deliberate_reductions(allocation: dict[str, dict]) -> list[str]:
+    """Name the settings explicitly requested below their automatic value."""
+    return sorted(name for name, entry in allocation.items()
+                  if type(entry.get("requested")) is int and type(entry.get("automatic")) is int
+                  and 0 < entry["requested"] < entry["automatic"])
+
+
+def allocation_report(record: dict) -> str:
+    """Summarize a start record's requested and actual resource settings."""
+    allocation = record.get("allocation")
+    if not isinstance(allocation, dict):
+        return "Resource allocation: not recorded"
+    parts = []
+    for name, entry in sorted(allocation.items()):
+        if entry.get("actual") is None:
+            continue
+        requested = "automatic" if entry.get("requested") is None else entry["requested"]
+        automatic = "" if entry.get("automatic") is None else f" automatic={entry['automatic']}"
+        parts.append(f"{name} requested={requested} actual={entry['actual']}{automatic}")
+    if record.get("resource_reductions"):
+        parts.append("deliberate reduction: " + ", ".join(record["resource_reductions"]))
+    reason = record.get("resource_reason") or ""
+    if reason.strip():
+        parts.append("reason: " + reason)
+    return "Resource allocation: " + "; ".join(parts)
 
 
 class ManagedRun:
     def __init__(self, host: HostLayout, kind: str, command: list[str], inputs: dict,
                  resources, workers: int | None = None, task: str = "", reason: str = "",
-                 expensive: bool = False, evidence=(), failure_reports=(), failure_keys=()):
+                 expensive: bool = False, evidence=(), failure_reports=(), failure_keys=(),
+                 resource_reason: str = "", allocation: dict[str, dict] | None = None):
         if workers is not None and (type(workers) is not int or workers < 0):
             raise RunHistoryError("workers must be nonnegative or None for available CPUs")
+        # Callers report settings they resolved themselves; the worker grant is
+        # decided below, against the reservations seen when the run starts.
+        self._allocation = {name: dict(entry) for name, entry in (allocation or {}).items()}
+        if "workers" in self._allocation:
+            raise RunHistoryError("allocation must not name workers; the managed run records its grant")
+        self._resource_reason = resource_reason
         self.host, self.root = host, registry(host)
         self.run_id = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S") + "-" + uuid.uuid4().hex[:12]
         self.directory = self.root / "runs" / self.run_id
@@ -278,11 +411,25 @@ class ManagedRun:
                 raise RunHistoryError("resources are held by active run(s): " + ", ".join(conflicts))
             capacity = available_cpus()
             used = sum(run["workers"] for run in active)
-            self.workers = max(0, capacity - used) if self.requested_workers is None else self.requested_workers
+            available = max(0, capacity - used)
+            self.workers = available if self.requested_workers is None else self.requested_workers
             if ((self.requested_workers is None and not self.workers)
-                    or self.workers > max(0, capacity - used)):
+                    or self.workers > available):
                 raise RunHistoryError(f"worker budget unavailable ({used}/{capacity} reserved); active run(s): "
                                       + ", ".join(run["run_id"] for run in active))
+            # A grant reduced by other reservations is automatic. Only an explicit
+            # request below this run's automatic value is a deliberate reduction.
+            allocation = dict(self._allocation, workers={
+                "requested": self.requested_workers, "automatic": available, "actual": self.workers})
+            reductions = deliberate_reductions(allocation)
+            proof_command = self.record["kind"] in ("prove", "tool-gnatprove", "lean")
+            if proof_command and reductions and not self._resource_reason.strip():
+                raise RunHistoryError(
+                    "deliberate reduction below the automatic allocation needs --resource-reason: "
+                    + ", ".join(f"{name} {allocation[name]['requested']} < {allocation[name]['automatic']}"
+                                for name in reductions))
+            self.record.update(allocation=allocation, resource_reductions=reductions,
+                               resource_reason=self._resource_reason)
             self.record["fingerprint"] = hashlib.sha256(_json(dict(
                 kind=self.record["kind"], inputs=self.record["inputs"], workers=self.workers)).encode()).hexdigest()
             self._check_policy(runs)
@@ -309,11 +456,17 @@ class ManagedRun:
             if previous:
                 raise RunHistoryError("identical expensive run already succeeded: " + previous["run_id"]
                                       + "; supply --reason to repeat it")
-        failures = _pending_failures(runs, _read(self.root / "notes.jsonl"), self.record)
-        repeated = {key: count for key, count in failures.items() if count >= 3}
-        if repeated:
-            raise RunHistoryError("repeated unresolved obligations need a diagnostic note before another run: "
-                                  + _json(repeated))
+        notes = _read(self.root / "notes.jsonl")
+        failures = _pending_failures(runs, notes, self.record)
+        repeated = {key: count for key, count in failures.items() if count >= _RECURRENCE_BOUNDARY}
+        helpers = _pending_helpers(runs, notes, self.record)
+        if repeated or helpers:
+            message = ("repeated unresolved obligations need a diagnostic note before another run: "
+                       + _json({**repeated, **{identity: entry["count"] for identity, entry in helpers.items()}}))
+            if helpers:
+                message += "; exact locations: " + _json({identity: entry["keys"]
+                                                          for identity, entry in helpers.items()})
+            raise RunHistoryError(message)
 
     def prepare(self, inputs: dict, expensive: bool = False) -> None:
         """Bind preflight identities while holding the lease, before any proof."""
@@ -334,11 +487,14 @@ class ManagedRun:
         with _metadata(self.root):
             _append(self.directory / "events.jsonl", dict(details, event=event_name, run_id=self.run_id))
 
-    def unresolved_obligations(self) -> list[str]:
-        """Return final failures in this run's changed/new owned reports."""
+    def _changed_failures(self) -> tuple[set[str], dict[str, set[str]]]:
         changed_reports = [path for path in _report_files(self.failure_reports)
                            if _report_identity(path) != self._report_baseline.get(str(path))]
-        return sorted(set([*self.failure_keys, *failed_obligations(changed_reports)]))
+        return _report_failures(changed_reports)
+
+    def unresolved_obligations(self) -> list[str]:
+        """Return final failures in this run's changed/new owned reports."""
+        return sorted(set([*self.failure_keys, *self._changed_failures()[0]]))
 
     def finish(self, outcome: str = "success", returncode: int | None = None, failure_keys=(), **details) -> None:
         if self._finished:
@@ -347,7 +503,12 @@ class ManagedRun:
             raise RunHistoryError(f"invalid run outcome: {outcome}")
         if outcome == "success" and returncode not in (0, None):
             raise RunHistoryError("a nonzero child status cannot finish successfully")
-        keys = sorted(set([*self.unresolved_obligations(), *failure_keys])) if outcome == "failure" else []
+        keys, identities = [], {}
+        if outcome == "failure":
+            # Keys and helper identities come from one read; caller keys name no helper.
+            found, named = self._changed_failures()
+            keys = sorted(set([*self.failure_keys, *found, *failure_keys]))
+            identities = {identity: sorted(locations) for identity, locations in named.items()}
         # Preserve reports before a later managed command replaces its output.
         copies = []
         for index, source in enumerate(self.failure_reports if outcome != "success" else ()):
@@ -361,7 +522,8 @@ class ManagedRun:
         with _metadata(self.root):
             _append(self.directory / "events.jsonl", dict(details, event="finished", run_id=self.run_id,
                 outcome=outcome, returncode=returncode, duration_seconds=(time.monotonic_ns() - self._start_ns) / 1e9,
-                failure_keys=keys, evidence=_paths(self.evidence), retained_reports=copies))
+                failure_keys=keys, failure_identities=identities, evidence=_paths(self.evidence),
+                retained_reports=copies))
         self._finished = True
 
     def __exit__(self, exception_type, exception, traceback):
@@ -396,13 +558,29 @@ def status(host: HostLayout, task: str = "") -> dict:
         diagnostics_required = []
         for scope in scopes.values():
             repeated = {key: count for key, count in _pending_failures(runs, notes, scope).items()
-                        if count >= 3}
+                        if count >= _RECURRENCE_BOUNDARY}
             if repeated:
                 latest = next(run for run in reversed(runs) if _same_scope(run, scope)
                               and run["state"] == "failure"
                               and repeated.keys() & set(run["finish"].get("failure_keys", [])))
                 diagnostics_required.append(dict(task=scope["task"], kind=scope["kind"],
                     scope=scope["scope"], run_id=latest["run_id"], failure_counts=repeated))
+        # Helper recurrences follow, in the order their families first appear;
+        # only families with a failed run naming a helper are evaluated.
+        families, named = {}, set()
+        for run in runs:
+            family = _json([run["task"], run["kind"], _family_scope(run["scope"])])
+            families.setdefault(family, run)
+            if run["state"] == "failure" and _failure_identities(run):
+                named.add(family)
+        for family, reference in families.items():
+            pending = _pending_helpers(runs, notes, reference) if family in named else {}
+            if pending:
+                latest = max((entry["run"] for entry in pending.values()), key=lambda run: run["utc"])
+                diagnostics_required.append(dict(task=reference["task"], kind=reference["kind"],
+                    scope=latest["scope"], run_id=latest["run_id"],
+                    failure_counts={identity: entry["count"] for identity, entry in pending.items()},
+                    failure_locations={identity: entry["keys"] for identity, entry in pending.items()}))
         return dict(registry=str(root), host=host.key, machine=socket.gethostname(),
                     runs=runs, notes=notes, available_cpus=available_cpus(),
                     reserved_workers=reserved_workers, diagnostics_required=diagnostics_required)

@@ -39,6 +39,41 @@ affected Rosetta tests rerun after resolving the session-history conflict.
 
 ## Near-term feature queue
 
+**Reduced package complete on Linux, 2026-11-21 (PR #406).** The owner instructed
+**“Approved. Proceed to completion and the accompanying PR”** for
+[proof iteration efficiency #373](https://github.com/berkeleynerd/silver/issues/373),
+[milestone 24](https://github.com/berkeleynerd/silver/milestone/24). The
+[current package](docs/proof-iteration-efficiency.md#current-selected-package--2026-11-20)
+selects recovered allocation reporting with mandatory reduction reasons only for
+proof commands (#377), native helper/check-kind recurrence with the selector
+fallback repair (#378), canonical whole-helper focused checks at the unchanged
+30-second policy (#379), and minimal final-policy readiness reporting (#380).
+Guidance #383 and validation/review #384 remain in this delivery with one shared
+final checkpoint. The recovered patches and focused-policy/readiness changes
+are integrated in [PR #406](https://github.com/berkeleynerd/silver/pull/406).
+Complete Linux native and Lean/source/module/axiom validation and reviewed
+regression coverage passed on 2026-11-20. The independent closing evidence
+review accepted that checkpoint. On 2026-11-21 the owner authorized repairing
+Claude's three material findings and then merging; the
+[response](docs/reviews/review-8dc409b303-response.md) records their disposition
+and refreshed final validation. Independent repair review accepted the final
+candidate; merge is authorized.
+The [delivery record](docs/proof-iteration-efficiency.md#delivery-evidence-and-rounds)
+distinguishes host cache restoration from the final cached audits.
+
+Standalone strategy comparison #381 is deferred until an unresolved current proof
+or demonstrated hotspot warrants it; additional scheduling #382 is deferred
+until a necessary run measures useful concurrent work and memory headroom during
+a material underutilized interval. Both stay open in Backlog and do not block
+this reduced delivery. Already-delivered context/representation and scheduling
+improvements are retained, without claiming these experiments were performed.
+The [dated authorization](docs/session-memory.md#2026-11-20--reduced-proof-iteration-package-approved-for-delivery)
+revises the original all-eight completion scope. Full assurance and applicable
+fresh audits remain required; cache reuse remains available, with no mandatory
+cold rebuild or kernel replay. Codex handles the work directly after the owner's
+stop-Worca instruction. The new PR is authorized; its merge is not. PR #385 stays
+held, and no next language feature is selected.
+
 **Samples-only delivery, complete on Linux, 2026-11-20 (PR #403).** The owner requested development
 of [#400](https://github.com/berkeleynerd/silver/issues/400),
 [Bounded text buffer samples](docs/bounded-string-building-samples.md), including
@@ -63,10 +98,10 @@ Its historical record gap is deferred under [#405](https://github.com/berkeleyne
 This work chooses no successor queue order and preserves #373 recovery and the
 PR #385 hold.
 
-**Current work, selected 2026-11-17.** The owner selected **named scalar
+**Delivered selection, 2026-11-17.** The owner selected **named scalar
 arguments** for existing functions and procedures, with reordered named calls
-and positional-prefix/named-suffix calls, after confirming that Worca's #377/#378
-work is unavailable pending recovery. [#392](https://github.com/berkeleynerd/silver/issues/392),
+and positional-prefix/named-suffix calls, after confirming then that Worca's #377/#378
+work was unavailable pending recovery. [#392](https://github.com/berkeleynerd/silver/issues/392),
 in [milestone 25](https://github.com/berkeleynerd/silver/milestone/25), owns the
 bounded [capability plan](docs/named-scalar-arguments.md), with precise Rosetta
 [stage #393](https://github.com/berkeleynerd/silver/issues/393). Named parameters is the
@@ -78,8 +113,8 @@ passed the complete Linux native and Lean/actual-source checkpoints; the
 records the passed complete suite and independent closing review. Named scalar
 arguments are supported; the precise mapping adds one Rosetta task (84 to 85). The
 [dated selection](docs/session-memory.md#2026-11-17--named-scalar-arguments-selected-while-worca-recovery-awaits)
-changes the immediate order below; #373 remains unfinished pending recovery,
-and draft PR #385 stays held.
+changed the immediate order then. The reduced #373 package above is now selected;
+draft PR #385 stays held.
 
 **Current delivery, merged 2026-11-17.** The owner authorized the bounded external-review
 repair [#391](https://github.com/berkeleynerd/silver/issues/391) on PR #371:
@@ -99,25 +134,13 @@ closed. No new external-review result is claimed.
 Linux ARM64 validation in [PR #371](https://github.com/berkeleynerd/silver/pull/371),
 milestone 23. The [delivery account](docs/scalar-procedures.md#delivery-assurance-and-validation)
 records accepted proof, regression and final delivery evidence.
-The owner previously selected **proof iteration efficiency** as the next unit:
-[#373](https://github.com/berkeleynerd/silver/issues/373), in
-[milestone 24](https://github.com/berkeleynerd/silver/milestone/24).
-The [bounded plan](docs/proof-iteration-efficiency.md) records one coherent
-implementation package covering consistent focused/final compiler policy,
-resource exceptions, recurring-failure identity, short feedback, proof strategy
-and scheduling, tests and complete applicable validation. All selected items
-must be implemented and validated before closeout; planning is not completion.
-The existing eight increments #377–#384 retain one shared final checkpoint.
-The immediate next step is handoff, review and integration of Worca's existing
-#377 implementation, then reconciliation of its overlapping #378 implementation.
-Those local-only branches are not present in this checkout; preserve their
-ownership and obtain their evidence before review. #379 is the first unstarted
-coding increment. The [handoff record](docs/proof-iteration-efficiency.md#current-handoff--2026-11-17)
-links the recorded status; draft PR #385 remains held. This assessment starts no
-successor implementation at that assessment. The later named-argument selection
-above now takes precedence while recovery awaits. Completed predecessor
-issues #8, #246 and #39 remain closed. The canonical compiler policy and useful
-proof strategy are to be settled from focused evidence within #373.
+The owner selected proof iteration efficiency as the next unit on 2026-11-10.
+Its 2026-11-17 handoff then recorded unavailable local Worca branches and the
+named-argument detour. Both implementations are now recovered; the current reduced
+selection above supersedes that recovery wait and the original all-eight
+completion requirement. [Historical handoff](docs/proof-iteration-efficiency.md#historical-plan-and-handoff--superseded-on-2026-11-20)
+retains the original account. Completed predecessor issues #8, #246 and #39 stay
+closed; PR #385 remains held.
 
 **Historical selection, 2026-11-09.** The owner
 [authorized](docs/session-memory.md#2026-11-09--rosetta-refresh-repair-and-next-language-increment-authorized)
@@ -200,8 +223,8 @@ The precise `scalar-procedures` fragment adds one faithful Rosetta mapping,
 [#11](https://github.com/berkeleynerd/silver/issues/11) stays open at Stage 2
 for its remaining procedure/ranged-subtype/Image forms. No successor language
 feature was selected at that merge checkpoint. Named scalar arguments #392 is
-now selected above while the existing milestone-24 Worca implementations await
-recovery, handoff and integration.
+delivered; the reduced milestone-24 package is complete on Linux in
+[PR #406](https://github.com/berkeleynerd/silver/pull/406).
 
 ### Small nonrecursive scalar functions
 

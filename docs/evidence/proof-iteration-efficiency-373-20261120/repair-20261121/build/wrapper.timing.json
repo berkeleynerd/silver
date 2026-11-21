@@ -1,0 +1,17 @@
+{
+  "command": [
+    "python3",
+    "scripts/dev.py",
+    "build",
+    "--task",
+    "#407-final-repair"
+  ],
+  "started": "2026-11-21T02:44:05.059049+00:00",
+  "finished": "2026-11-21T02:44:07.954611+00:00",
+  "elapsed_seconds": 2.8955985130014597,
+  "returncode": 0,
+  "child_user_seconds": 1.629975,
+  "child_system_seconds": 1.146307,
+  "child_maxrss_kib": 258632,
+  "note": "RUSAGE_CHILDREN max RSS is not a simultaneous process-tree peak."
+}

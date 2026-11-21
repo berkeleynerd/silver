@@ -1,0 +1,321 @@
+{
+  "basis": "Original retained IDs from regression-accounting.json, importing-module list from original Claude C406-L1, external fresh IDs from successful raw managed output. No discovery, test or probe was rerun.",
+  "counts_are_separate_from_original_delivery": true,
+  "external_fresh_within_those_ids": [
+    "test_image_reports.ArrayEvidenceTests.test_advisory_is_not_counted_as_a_discharged_check",
+    "test_image_reports.ArrayEvidenceTests.test_mutated_advisory_fields_are_rejected",
+    "test_image_reports.ArrayEvidenceTests.test_sarif_must_retain_the_exact_producer_classification",
+    "test_image_reports.ImageEvidenceTests.test_advisory_is_not_counted_as_a_discharged_check",
+    "test_image_reports.ImageEvidenceTests.test_mutated_advisory_fields_are_rejected",
+    "test_image_reports.ImageEvidenceTests.test_sarif_must_retain_the_exact_producer_classification",
+    "test_image_setup.ImageSetupTests.test_config_and_driver_routing_must_match_original_tool_binding",
+    "test_image_setup.ImageSetupTests.test_foreign_host_setup_cannot_write_anything",
+    "test_image_setup.ImageSetupTests.test_full_evidence_requires_adapter_configuration_and_all_units",
+    "test_image_setup.ImageSetupTests.test_original_support_tool_may_link_inside_native_tools",
+    "test_image_setup.ImageSetupTests.test_original_support_tool_must_resolve_inside_native_tools",
+    "test_image_setup.ImageSetupTests.test_overlay_cannot_delegate_to_itself_or_hide_replacement_tools",
+    "test_image_setup.ImageSetupTests.test_overlay_preserves_vendor_and_selects_compiled_adapter",
+    "test_image_setup.ImageSetupTests.test_vendor_change_requires_regenerating_exact_configuration"
+  ],
+  "external_run_total": 195,
+  "external_successful_test_run": "20261120T192916-8dbc8ff09f96",
+  "modules": {
+    "test_arguments": {
+      "ids": [
+        "test_arguments.ArgumentTests.test_argument_shell_admission",
+        "test_arguments.ArgumentTests.test_boundary_defaults_and_names",
+        "test_arguments.ArgumentTests.test_every_argument_outcome"
+      ],
+      "retained_count": 3
+    },
+    "test_branching": {
+      "ids": [
+        "test_branching.BranchingTests.test_admitted_literals_binding_and_layout",
+        "test_branching.BranchingTests.test_excluded_declaration_names",
+        "test_branching.BranchingTests.test_inner_and_reject_arm_sequences_have_rejected_neighbours",
+        "test_branching.BranchingTests.test_native_choice_argument_domain_and_output_failure",
+        "test_branching.BranchingTests.test_native_empty_escaped_and_maximum_literals",
+        "test_branching.BranchingTests.test_native_maximum_binding",
+        "test_branching.BranchingTests.test_rejected_guard_equality_and_branch_neighbours"
+      ],
+      "retained_count": 7
+    },
+    "test_command_line_greeting": {
+      "ids": [
+        "test_command_line_greeting.CommandLineGreetingTests.test_admitted_capacity_binding_and_layout",
+        "test_command_line_greeting.CommandLineGreetingTests.test_native_obligations_output_bounds_and_failures",
+        "test_command_line_greeting.CommandLineGreetingTests.test_rejected_guard_and_expression_neighbours"
+      ],
+      "retained_count": 3
+    },
+    "test_common_expressions": {
+      "ids": [
+        "test_common_expressions.CommonExpressionsTests.test_assignment_expression_preserves_exact_bounds",
+        "test_common_expressions.CommonExpressionsTests.test_common_expression_positions_and_grouping",
+        "test_common_expressions.CommonExpressionsTests.test_comparison_expressions_need_string_type_anchor",
+        "test_common_expressions.CommonExpressionsTests.test_comparison_operands_have_independent_capacity_checks",
+        "test_common_expressions.CommonExpressionsTests.test_concatenation_budget_is_shared_by_every_expression_position",
+        "test_common_expressions.CommonExpressionsTests.test_deep_parentheses_and_complete_source_bound",
+        "test_common_expressions.CommonExpressionsTests.test_grouping_does_not_reset_operand_work_limit",
+        "test_common_expressions.CommonExpressionsTests.test_initializer_bounds_precede_body_guards",
+        "test_common_expressions.CommonExpressionsTests.test_native_common_comparison_and_selected_assignment",
+        "test_common_expressions.CommonExpressionsTests.test_native_constant_comparisons_preserve_precise_advisories",
+        "test_common_expressions.CommonExpressionsTests.test_native_expression_initializers_preserve_snapshots",
+        "test_common_expressions.CommonExpressionsTests.test_native_repeated_aliases_and_empty_grouping",
+        "test_common_expressions.CommonExpressionsTests.test_repeated_dynamic_values_use_weighted_capacity",
+        "test_common_expressions.CommonExpressionsTests.test_sixty_four_dynamic_leaves_retain_byte_capacity",
+        "test_common_expressions.CommonExpressionsTests.test_whole_program_concatenation_work_budget"
+      ],
+      "retained_count": 15
+    },
+    "test_composed_results": {
+      "ids": [
+        "test_composed_results.ComposedResultsTests.test_flat_expressions_in_every_output_position",
+        "test_composed_results.ComposedResultsTests.test_generalized_capacity_literals_keep_the_bound",
+        "test_composed_results.ComposedResultsTests.test_native_branch_result_rejoins_with_maximal_expression",
+        "test_composed_results.ComposedResultsTests.test_native_guarded_expressions_and_branch_outputs",
+        "test_composed_results.ComposedResultsTests.test_native_static_shells_and_full_expanded_output",
+        "test_composed_results.ComposedResultsTests.test_native_tight_capacity_applies_to_default_and_empty_input",
+        "test_composed_results.ComposedResultsTests.test_operand_and_expanded_output_boundaries",
+        "test_composed_results.ComposedResultsTests.test_rejected_operand_guard_and_binding_neighbours"
+      ],
+      "retained_count": 8
+    },
+    "test_copy_values": {
+      "ids": [
+        "test_copy_values.CopyValuesTests.test_distinct_names_decoded_values_and_layout",
+        "test_copy_values.CopyValuesTests.test_literals_and_each_constant_at_every_copy_position",
+        "test_copy_values.CopyValuesTests.test_native_copies_advisories_quotes_and_full_output",
+        "test_copy_values.CopyValuesTests.test_native_selected_copies_both_branches_dynamic_input_and_empty_values",
+        "test_copy_values.CopyValuesTests.test_operand_output_capacity_and_complete_source_bounds",
+        "test_copy_values.CopyValuesTests.test_rejected_case_insensitive_collisions_and_excluded_names",
+        "test_copy_values.CopyValuesTests.test_rejected_copy_sources_lengths_order_and_extra_statements",
+        "test_copy_values.CopyValuesTests.test_shared_binding_lists_and_mutable_copy_sources"
+      ],
+      "retained_count": 8
+    },
+    "test_greeting": {
+      "ids": [
+        "test_greeting.GreetingTests.test_closed_form_admission",
+        "test_greeting.GreetingTests.test_excluded_neighbour_expressions",
+        "test_greeting.GreetingTests.test_native_decoded_output_boundaries_names_and_failure",
+        "test_greeting.GreetingTests.test_shared_binding_lists_and_mutable_greeting_operand"
+      ],
+      "retained_count": 4
+    },
+    "test_image_reports": {
+      "ids": [
+        "test_image_reports.ArrayEvidenceTests.test_advisory_is_not_counted_as_a_discharged_check",
+        "test_image_reports.ArrayEvidenceTests.test_mutated_advisory_fields_are_rejected",
+        "test_image_reports.ArrayEvidenceTests.test_sarif_must_retain_the_exact_producer_classification",
+        "test_image_reports.ImageEvidenceTests.test_advisory_is_not_counted_as_a_discharged_check",
+        "test_image_reports.ImageEvidenceTests.test_mutated_advisory_fields_are_rejected",
+        "test_image_reports.ImageEvidenceTests.test_sarif_must_retain_the_exact_producer_classification",
+        "test_image_reports.NativeArrayReportTests.test_exact_advisory_preserves_required_checks_in_all_application_policies",
+        "test_image_reports.NativeArrayReportTests.test_mutated_missing_duplicate_and_misplaced_advisories_are_rejected",
+        "test_image_reports.NativeArrayReportTests.test_rule_and_message_must_be_the_same_advisory",
+        "test_image_reports.NativeImageReportTests.test_exact_advisory_preserves_required_checks_in_all_application_policies",
+        "test_image_reports.NativeImageReportTests.test_mutated_missing_duplicate_and_misplaced_advisories_are_rejected"
+      ],
+      "retained_count": 11
+    },
+    "test_image_setup": {
+      "ids": [
+        "test_image_setup.ImageSetupTests.test_config_and_driver_routing_must_match_original_tool_binding",
+        "test_image_setup.ImageSetupTests.test_foreign_host_setup_cannot_write_anything",
+        "test_image_setup.ImageSetupTests.test_full_evidence_requires_adapter_configuration_and_all_units",
+        "test_image_setup.ImageSetupTests.test_original_support_tool_may_link_inside_native_tools",
+        "test_image_setup.ImageSetupTests.test_original_support_tool_must_resolve_inside_native_tools",
+        "test_image_setup.ImageSetupTests.test_overlay_cannot_delegate_to_itself_or_hide_replacement_tools",
+        "test_image_setup.ImageSetupTests.test_overlay_preserves_vendor_and_selects_compiled_adapter",
+        "test_image_setup.ImageSetupTests.test_vendor_change_requires_regenerating_exact_configuration"
+      ],
+      "retained_count": 8
+    },
+    "test_main_discovery": {
+      "ids": [
+        "test_main_discovery.MainDiscoveryTests.test_image_advisory_follows_main_unit_casing",
+        "test_main_discovery.MainDiscoveryTests.test_indexed_main_preserves_cr_source_in_all_shells"
+      ],
+      "retained_count": 2
+    },
+    "test_named_output": {
+      "ids": [
+        "test_named_output.NamedOutputTests.test_excluded_names_and_nearby_forms",
+        "test_named_output.NamedOutputTests.test_names_and_declaration_trivia",
+        "test_named_output.NamedOutputTests.test_native_empty_escaped_and_boundary_constants",
+        "test_named_output.NamedOutputTests.test_shared_binding_lists_and_mutable_named_output"
+      ],
+      "retained_count": 4
+    },
+    "test_output": {
+      "ids": [
+        "test_output.LiteralOutputTests.test_empty_escaped_and_maximum_literals_execute",
+        "test_output.LiteralOutputTests.test_literal_lexing_and_token_boundaries",
+        "test_output.LiteralOutputTests.test_nearby_forms_are_excluded",
+        "test_output.LiteralOutputTests.test_output_failure_cannot_report_success"
+      ],
+      "retained_count": 4
+    },
+    "test_samples": {
+      "ids": [
+        "test_samples.SupportedSampleTests.test_manifest_samples",
+        "test_samples.SupportedSampleTests.test_maximum_dynamic_expression"
+      ],
+      "retained_count": 2
+    },
+    "test_shared_bindings": {
+      "ids": [
+        "test_shared_bindings.SharedBindingsTests.test_alias_occurrences_keep_expression_capacity_limits",
+        "test_shared_bindings.SharedBindingsTests.test_arbitrary_ordered_constant_and_mutable_bindings",
+        "test_shared_bindings.SharedBindingsTests.test_assignment_respects_mutability_and_fixed_length",
+        "test_shared_bindings.SharedBindingsTests.test_bindings_do_not_bypass_name_or_initialization_rules",
+        "test_shared_bindings.SharedBindingsTests.test_dense_copy_chain_and_exact_source_bound",
+        "test_shared_bindings.SharedBindingsTests.test_native_copy_snapshots_and_unused_assignment",
+        "test_shared_bindings.SharedBindingsTests.test_native_dynamic_copies_preserve_argument_domain",
+        "test_shared_bindings.SharedBindingsTests.test_native_unused_initializers_without_assignment",
+        "test_shared_bindings.SharedBindingsTests.test_static_and_dynamic_snapshots_in_guarded_bodies",
+        "tests.test_shared_bindings.SharedBindingsTests.test_alias_occurrences_keep_expression_capacity_limits",
+        "tests.test_shared_bindings.SharedBindingsTests.test_arbitrary_ordered_constant_and_mutable_bindings",
+        "tests.test_shared_bindings.SharedBindingsTests.test_assignment_respects_mutability_and_fixed_length",
+        "tests.test_shared_bindings.SharedBindingsTests.test_bindings_do_not_bypass_name_or_initialization_rules",
+        "tests.test_shared_bindings.SharedBindingsTests.test_dense_copy_chain_and_exact_source_bound",
+        "tests.test_shared_bindings.SharedBindingsTests.test_native_copy_snapshots_and_unused_assignment",
+        "tests.test_shared_bindings.SharedBindingsTests.test_native_dynamic_copies_preserve_argument_domain",
+        "tests.test_shared_bindings.SharedBindingsTests.test_native_unused_initializers_without_assignment",
+        "tests.test_shared_bindings.SharedBindingsTests.test_static_and_dynamic_snapshots_in_guarded_bodies"
+      ],
+      "retained_count": 18
+    },
+    "test_silver": {
+      "ids": [
+        "test_silver.SilverIntegrationTests.test_accepted_lexical_forms",
+        "test_silver.SilverIntegrationTests.test_catalogue_is_json",
+        "test_silver.SilverIntegrationTests.test_command_usage_errors",
+        "test_silver.SilverIntegrationTests.test_excluded_bytes_including_inside_comments",
+        "test_silver.SilverIntegrationTests.test_excluded_constructs_and_boundaries",
+        "test_silver.SilverIntegrationTests.test_excluded_source_never_proceeds_to_compilation",
+        "test_silver.SilverIntegrationTests.test_file_errors",
+        "test_silver.SilverIntegrationTests.test_run_preserves_the_admitted_source",
+        "test_silver.SilverIntegrationTests.test_tool_failures_and_source_changes_do_not_report_success"
+      ],
+      "retained_count": 9
+    },
+    "test_string_assignment": {
+      "ids": [
+        "test_string_assignment.StringAssignmentTests.test_admitted_decoded_lengths_names_and_layout",
+        "test_string_assignment.StringAssignmentTests.test_excluded_declaration_names",
+        "test_string_assignment.StringAssignmentTests.test_native_replacement_boundaries_and_output_failure",
+        "test_string_assignment.StringAssignmentTests.test_rejected_lengths_bindings_and_compositions",
+        "test_string_assignment.StringAssignmentTests.test_shared_binding_lists_self_copy_and_independent_output"
+      ],
+      "retained_count": 5
+    }
+  },
+  "not_rerun_in_external_review": [
+    "test_arguments.ArgumentTests.test_argument_shell_admission",
+    "test_arguments.ArgumentTests.test_boundary_defaults_and_names",
+    "test_arguments.ArgumentTests.test_every_argument_outcome",
+    "test_branching.BranchingTests.test_admitted_literals_binding_and_layout",
+    "test_branching.BranchingTests.test_excluded_declaration_names",
+    "test_branching.BranchingTests.test_inner_and_reject_arm_sequences_have_rejected_neighbours",
+    "test_branching.BranchingTests.test_native_choice_argument_domain_and_output_failure",
+    "test_branching.BranchingTests.test_native_empty_escaped_and_maximum_literals",
+    "test_branching.BranchingTests.test_native_maximum_binding",
+    "test_branching.BranchingTests.test_rejected_guard_equality_and_branch_neighbours",
+    "test_command_line_greeting.CommandLineGreetingTests.test_admitted_capacity_binding_and_layout",
+    "test_command_line_greeting.CommandLineGreetingTests.test_native_obligations_output_bounds_and_failures",
+    "test_command_line_greeting.CommandLineGreetingTests.test_rejected_guard_and_expression_neighbours",
+    "test_common_expressions.CommonExpressionsTests.test_assignment_expression_preserves_exact_bounds",
+    "test_common_expressions.CommonExpressionsTests.test_common_expression_positions_and_grouping",
+    "test_common_expressions.CommonExpressionsTests.test_comparison_expressions_need_string_type_anchor",
+    "test_common_expressions.CommonExpressionsTests.test_comparison_operands_have_independent_capacity_checks",
+    "test_common_expressions.CommonExpressionsTests.test_concatenation_budget_is_shared_by_every_expression_position",
+    "test_common_expressions.CommonExpressionsTests.test_deep_parentheses_and_complete_source_bound",
+    "test_common_expressions.CommonExpressionsTests.test_grouping_does_not_reset_operand_work_limit",
+    "test_common_expressions.CommonExpressionsTests.test_initializer_bounds_precede_body_guards",
+    "test_common_expressions.CommonExpressionsTests.test_native_common_comparison_and_selected_assignment",
+    "test_common_expressions.CommonExpressionsTests.test_native_constant_comparisons_preserve_precise_advisories",
+    "test_common_expressions.CommonExpressionsTests.test_native_expression_initializers_preserve_snapshots",
+    "test_common_expressions.CommonExpressionsTests.test_native_repeated_aliases_and_empty_grouping",
+    "test_common_expressions.CommonExpressionsTests.test_repeated_dynamic_values_use_weighted_capacity",
+    "test_common_expressions.CommonExpressionsTests.test_sixty_four_dynamic_leaves_retain_byte_capacity",
+    "test_common_expressions.CommonExpressionsTests.test_whole_program_concatenation_work_budget",
+    "test_composed_results.ComposedResultsTests.test_flat_expressions_in_every_output_position",
+    "test_composed_results.ComposedResultsTests.test_generalized_capacity_literals_keep_the_bound",
+    "test_composed_results.ComposedResultsTests.test_native_branch_result_rejoins_with_maximal_expression",
+    "test_composed_results.ComposedResultsTests.test_native_guarded_expressions_and_branch_outputs",
+    "test_composed_results.ComposedResultsTests.test_native_static_shells_and_full_expanded_output",
+    "test_composed_results.ComposedResultsTests.test_native_tight_capacity_applies_to_default_and_empty_input",
+    "test_composed_results.ComposedResultsTests.test_operand_and_expanded_output_boundaries",
+    "test_composed_results.ComposedResultsTests.test_rejected_operand_guard_and_binding_neighbours",
+    "test_copy_values.CopyValuesTests.test_distinct_names_decoded_values_and_layout",
+    "test_copy_values.CopyValuesTests.test_literals_and_each_constant_at_every_copy_position",
+    "test_copy_values.CopyValuesTests.test_native_copies_advisories_quotes_and_full_output",
+    "test_copy_values.CopyValuesTests.test_native_selected_copies_both_branches_dynamic_input_and_empty_values",
+    "test_copy_values.CopyValuesTests.test_operand_output_capacity_and_complete_source_bounds",
+    "test_copy_values.CopyValuesTests.test_rejected_case_insensitive_collisions_and_excluded_names",
+    "test_copy_values.CopyValuesTests.test_rejected_copy_sources_lengths_order_and_extra_statements",
+    "test_copy_values.CopyValuesTests.test_shared_binding_lists_and_mutable_copy_sources",
+    "test_greeting.GreetingTests.test_closed_form_admission",
+    "test_greeting.GreetingTests.test_excluded_neighbour_expressions",
+    "test_greeting.GreetingTests.test_native_decoded_output_boundaries_names_and_failure",
+    "test_greeting.GreetingTests.test_shared_binding_lists_and_mutable_greeting_operand",
+    "test_image_reports.NativeArrayReportTests.test_exact_advisory_preserves_required_checks_in_all_application_policies",
+    "test_image_reports.NativeArrayReportTests.test_mutated_missing_duplicate_and_misplaced_advisories_are_rejected",
+    "test_image_reports.NativeArrayReportTests.test_rule_and_message_must_be_the_same_advisory",
+    "test_image_reports.NativeImageReportTests.test_exact_advisory_preserves_required_checks_in_all_application_policies",
+    "test_image_reports.NativeImageReportTests.test_mutated_missing_duplicate_and_misplaced_advisories_are_rejected",
+    "test_main_discovery.MainDiscoveryTests.test_image_advisory_follows_main_unit_casing",
+    "test_main_discovery.MainDiscoveryTests.test_indexed_main_preserves_cr_source_in_all_shells",
+    "test_named_output.NamedOutputTests.test_excluded_names_and_nearby_forms",
+    "test_named_output.NamedOutputTests.test_names_and_declaration_trivia",
+    "test_named_output.NamedOutputTests.test_native_empty_escaped_and_boundary_constants",
+    "test_named_output.NamedOutputTests.test_shared_binding_lists_and_mutable_named_output",
+    "test_output.LiteralOutputTests.test_empty_escaped_and_maximum_literals_execute",
+    "test_output.LiteralOutputTests.test_literal_lexing_and_token_boundaries",
+    "test_output.LiteralOutputTests.test_nearby_forms_are_excluded",
+    "test_output.LiteralOutputTests.test_output_failure_cannot_report_success",
+    "test_samples.SupportedSampleTests.test_manifest_samples",
+    "test_samples.SupportedSampleTests.test_maximum_dynamic_expression",
+    "test_shared_bindings.SharedBindingsTests.test_alias_occurrences_keep_expression_capacity_limits",
+    "test_shared_bindings.SharedBindingsTests.test_arbitrary_ordered_constant_and_mutable_bindings",
+    "test_shared_bindings.SharedBindingsTests.test_assignment_respects_mutability_and_fixed_length",
+    "test_shared_bindings.SharedBindingsTests.test_bindings_do_not_bypass_name_or_initialization_rules",
+    "test_shared_bindings.SharedBindingsTests.test_dense_copy_chain_and_exact_source_bound",
+    "test_shared_bindings.SharedBindingsTests.test_native_copy_snapshots_and_unused_assignment",
+    "test_shared_bindings.SharedBindingsTests.test_native_dynamic_copies_preserve_argument_domain",
+    "test_shared_bindings.SharedBindingsTests.test_native_unused_initializers_without_assignment",
+    "test_shared_bindings.SharedBindingsTests.test_static_and_dynamic_snapshots_in_guarded_bodies",
+    "test_silver.SilverIntegrationTests.test_accepted_lexical_forms",
+    "test_silver.SilverIntegrationTests.test_catalogue_is_json",
+    "test_silver.SilverIntegrationTests.test_command_usage_errors",
+    "test_silver.SilverIntegrationTests.test_excluded_bytes_including_inside_comments",
+    "test_silver.SilverIntegrationTests.test_excluded_constructs_and_boundaries",
+    "test_silver.SilverIntegrationTests.test_excluded_source_never_proceeds_to_compilation",
+    "test_silver.SilverIntegrationTests.test_file_errors",
+    "test_silver.SilverIntegrationTests.test_run_preserves_the_admitted_source",
+    "test_silver.SilverIntegrationTests.test_tool_failures_and_source_changes_do_not_report_success",
+    "test_string_assignment.StringAssignmentTests.test_admitted_decoded_lengths_names_and_layout",
+    "test_string_assignment.StringAssignmentTests.test_excluded_declaration_names",
+    "test_string_assignment.StringAssignmentTests.test_native_replacement_boundaries_and_output_failure",
+    "test_string_assignment.StringAssignmentTests.test_rejected_lengths_bindings_and_compositions",
+    "test_string_assignment.StringAssignmentTests.test_shared_binding_lists_self_copy_and_independent_output",
+    "tests.test_shared_bindings.SharedBindingsTests.test_alias_occurrences_keep_expression_capacity_limits",
+    "tests.test_shared_bindings.SharedBindingsTests.test_arbitrary_ordered_constant_and_mutable_bindings",
+    "tests.test_shared_bindings.SharedBindingsTests.test_assignment_respects_mutability_and_fixed_length",
+    "tests.test_shared_bindings.SharedBindingsTests.test_bindings_do_not_bypass_name_or_initialization_rules",
+    "tests.test_shared_bindings.SharedBindingsTests.test_dense_copy_chain_and_exact_source_bound",
+    "tests.test_shared_bindings.SharedBindingsTests.test_native_copy_snapshots_and_unused_assignment",
+    "tests.test_shared_bindings.SharedBindingsTests.test_native_dynamic_copies_preserve_argument_domain",
+    "tests.test_shared_bindings.SharedBindingsTests.test_native_unused_initializers_without_assignment",
+    "tests.test_shared_bindings.SharedBindingsTests.test_static_and_dynamic_snapshots_in_guarded_bodies"
+  ],
+  "original_delivery_census": {
+    "fresh": 282,
+    "retained": 475,
+    "total": 757
+  },
+  "retained_shared_auditor_ids": 111,
+  "target": "8dc409b303ac8bd9a836ed169467064441a76d8d"
+}

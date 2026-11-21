@@ -1,0 +1,16 @@
+{
+  "requested_at": "2026-11-20T19:03:46.624301+00:00",
+  "authorization": "Please have claude provide a review of the salient aspects.",
+  "base": "a412827d6c54f925cf4e55cac128eb4ef48647ad",
+  "target": "8dc409b303ac8bd9a836ed169467064441a76d8d",
+  "pr": 406,
+  "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/external-review-pr406-8dc409b303/worktree",
+  "selected_model": "claude-fable-5-2",
+  "selected_effort": "max",
+  "scope": "focused external tooling and evidence review; no implementation or merge",
+  "worca": false,
+  "reported_model": "claude-fable-5-2",
+  "claude_cli_version": "2.1.329",
+  "session_id": "5cdefb18-8c5b-4aec-9925-2f80e4a4767e",
+  "effort_confirmation": "Explicit CLI --effort max; no independent server effort field observed"
+}

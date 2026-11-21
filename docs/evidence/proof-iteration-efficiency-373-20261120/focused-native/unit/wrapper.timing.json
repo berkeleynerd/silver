@@ -1,0 +1,23 @@
+{
+  "command": [
+    "python3",
+    "scripts/dev.py",
+    "prove",
+    "--unit",
+    "silver_numbers.ads",
+    "--jobs",
+    "3",
+    "--resource-reason",
+    "Reserve CPU and memory alongside the root native proof and dense Lean rebuild; this small selected unit needs only a small worker allocation.",
+    "--task",
+    "#379-focused-smoke"
+  ],
+  "started": "2026-11-20T16:13:50.830175+00:00",
+  "finished": "2026-11-20T16:14:04.268350+00:00",
+  "elapsed_seconds": 13.43822609000199,
+  "returncode": 0,
+  "child_user_seconds": 8.835717,
+  "child_system_seconds": 3.129843,
+  "child_maxrss_kib": 253652,
+  "note": "RUSAGE_CHILDREN max RSS is not a simultaneous process-tree peak."
+}

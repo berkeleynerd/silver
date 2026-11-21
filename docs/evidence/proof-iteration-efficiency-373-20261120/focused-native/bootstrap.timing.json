@@ -1,0 +1,14 @@
+{
+  "command": [
+    "python3",
+    "scripts/bootstrap.py"
+  ],
+  "started": "2026-11-20T16:12:38.339460+00:00",
+  "finished": "2026-11-20T16:12:46.922259+00:00",
+  "elapsed_seconds": 8.58283814000606,
+  "returncode": 0,
+  "child_user_seconds": 4.040768,
+  "child_system_seconds": 2.213502,
+  "child_maxrss_kib": 122260,
+  "note": "RUSAGE_CHILDREN max RSS is not a simultaneous process-tree peak."
+}

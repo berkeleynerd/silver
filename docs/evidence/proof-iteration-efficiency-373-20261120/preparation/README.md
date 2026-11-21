@@ -1,0 +1,249 @@
+# Native and Lean cache preparation, 2026-11-20
+
+These are **old-runner preparation results**, not final assurance for the changed
+#373 runner. The preparation used root revision `a412827d6c54f925cf4e55cac128eb4ef48647ad`
+on Linux x86-64, with unchanged proof/language sources; integration code/tests
+remain at reviewed `f0a773fbcb9eea9574b037812e888029b7f970cb`. The
+[summary](preparation-summary.json) separates the interrupted initial run, completed
+focused continuation, source/cache origins and timing scopes. Final changed-runner
+native and Lean/source/module/axiom audits passed and are recorded in the separate
+[final checkpoint](../final/README.md). The actual focused CLI probe was pending
+when the early preparation records were collected; the subsequent
+[subprogram and unit checks](../focused-native/README.md) passed. No cold rebuild
+or independent kernel replay is claimed.
+
+## Seed and input provenance
+
+[Cache preflight](cache-seed-preflight.json) identifies the preserved Linux
+x86-64 **#370 partial/focused cache** donor and root destination. No ARM proof
+objects were imported. The original [seed hash manifest](seed-file-hashes.json.gz)
+retains 16,661 file entries. Its recorded copy/hash verification was not repeated
+against the full donor or the now-active destination build during this archival
+step. A seed permits reuse subject to normal Lake dependency checks; it is not
+proof of final current-input assurance.
+
+[Source comparison](seed-source-comparison.json) records **925 same, 73 changed
+and 38 missing/new** proof-source files relative to that seed. This extraction
+rechecked all 1,036 classifications against the seed's source hashes and current
+tracked proof sources. It also rechecked all 1,142 source-input hashes captured
+by the completed focused run against the unchanged root inputs.
+
+The root and integration `lean` and `lake` binary hashes match both the recorded
+seed preflight and focused evidence. Exact values and current root runner-script
+hashes are in [the summary](preparation-summary.json). This verifies same-tool
+reuse across these two x86 workspaces; it does not import another architecture's
+proofs or infer applicability from a Git revision alone.
+
+## Interrupted initial preparation
+
+Managed run `20261120T151148-c537ca7f0c50` started at 15:11:49.169964 UTC,
+using **one Lake worker and 22 threads per process**. The worker reduction was
+recorded for previously observed dense-module memory demand alongside native
+work. The [original wrapper output](lean-preparation.log) records successful
+`Silver.OutputBodyLines0` and `Lines1` builds, with producer-reported durations
+of **867 seconds** and **862 seconds**. These coarse module durations are not
+precise wrapper timings or a controlled performance comparison.
+
+The lead deliberately interrupted its own Lean process group with SIGINT after
+the Lines1 completion boundary, retaining completed objects. The
+[interruption record](lean-boundary-interruption.json) timestamps that action at
+15:41:11.491269 UTC and records **32 completed artifact hashes**. The native group
+was left untouched. The [checkpoint](boundary-checkpoint.json) records the
+collected execution exit 130 and the reason: use existing focused targets to
+parallelize the six remaining independent low-memory chunks while budgeting
+dense consumers separately.
+
+[Original managed events](original-run/events.jsonl.gz) end with
+`phase_interrupted` and contain **no `finished` event**. The killed outer timing
+wrapper produced no completion timing or exit file. No total wall, CPU or peak
+RSS is invented for that interrupted attempt. The artifact hashes are the lead's
+boundary snapshot; active destination build artifacts were not reread during
+archival. Historical `original-run/previous-evidence/` files are preserved as the
+run's prior-evidence backup, not as its successful result.
+
+## Completed focused continuation
+
+Managed run `20261120T154149-a6ad9b1bd8e1`, task `#373-lean-chunks`, completed
+successfully with **eight actual Lake workers**, 22 threads per process and no
+explicit per-process memory threshold. The request used automatic workers; the
+actual grant reflected concurrent managed reservations. It selected only
+`Silver.OutputBodyLines2` through `Lines7` and their focused import closure.
+
+| Completed chunk | Producer-reported build seconds |
+| --- | ---: |
+| `Silver.OutputBodyLines2` | 1,210 |
+| `Silver.OutputBodyLines3` | 1,310 |
+| `Silver.OutputBodyLines4` | 1,318 |
+| `Silver.OutputBodyLines5` | 1,239 |
+| `Silver.OutputBodyLines6` | 1,265 |
+| `Silver.OutputBodyLines7` | 1,294 |
+
+The [wrapper output](lean-chunks.log) reports a successful **13-job focused
+build**, **1,323.587 seconds** of build phase and **3.975 seconds** of fresh
+focused audit. The audit covered **12 modules / 18,218 declarations**, with only
+`propext`, `Classical.choice` and `Quot.sound` foundations. This is explicitly
+partial validation. [Managed events](focused-run/events.jsonl.gz), the retained
+[focused log](focused-run/lean-focused.log.gz) and
+[focused evidence](focused-run/lean-focused-evidence.json.gz) retain exact selected
+inputs, output hashes, tools, command settings and successful audits. The archived
+focused-log hash matches that evidence's recorded `log_sha256`.
+
+The outer [timing wrapper](timed_run.py) measured **1,346.6617900690035 seconds**,
+with exit zero retained in [its timing](lean-chunks.timing.json) and
+[exit record](lean-chunks.exit). The managed interval was **1,344.968356359 seconds**;
+the proof evidence's elapsed field was **1,346.079 seconds**. These are distinct
+measurement boundaries. The outer wrapper observed 7,288.5715 child user seconds,
+366.056649 child system seconds and 1,737,212 KiB maximum child RSS. The latter
+is not a simultaneous process-tree peak, host peak or full concurrent-workload
+measurement. The wrapper captured an invoking stack soft limit of 16,384 KiB
+and unlimited hard limit. No speedup is inferred by subtracting interrupted,
+parallel, donor or different-source timings.
+
+## Completed native incremental preparation
+
+Managed run `20261120T151148-8deddffbf5cf`, task
+`#373-native-cache-preparation`, completed successfully on the unchanged old
+root runner. Its command was ordinary `dev.py prove --jobs 12`, with canonical
+`--mode=all --prover=cvc5,z3,altergo --timeout=30` and normal root proof sessions
+and lock-keyed file cache. It was neither `--full` nor `--cold`, and did not pass
+GNATprove's force-all `-f` flag. The retained `--reason` explains the deliberate
+12-worker allocation alongside Lean preparation and serial runner tests; this
+old-runner record does not exercise the later proof-only `--resource-reason`
+gate. At launch, the host exposed 22 CPUs and granted all 12 requested workers.
+No actual cache-hit count or fresh-only solver-work claim is available.
+
+The [native wrapper](native-preparation/wrapper.log.gz),
+[managed log](native-preparation/native.log.gz),
+[events](native-preparation/events.jsonl.gz),
+[timing](native-preparation/wrapper-timing.json) and
+[exit record](native-preparation/wrapper.exit) retain success and settings.
+The native phase and wrapper exited zero. The managed finished event's normal
+null `returncode` is accompanied by an explicit zero native-phase result; it is
+not an unresolved process outcome.
+
+The wrapper started **15:11:47.811475 UTC**, finished **18:10:21.491782 UTC** and
+measured **10,713.478406580005 seconds**. Managed elapsed was
+**10,712.555089664 seconds**. Child usage was 39,107.697326 user seconds,
+529.42516 system seconds and 6,492,768 KiB maximum child RSS. The latter is not
+a simultaneous process-tree or host peak. The wrapper recorded a 16,384 KiB
+invoking stack soft limit and unlimited hard limit. These observations include
+concurrent Lean and other work and do not establish a speedup or a benchmark.
+
+The producer reported **all 19,726 checks proved**. The archived
+[producer reports](native-preparation/producer-reports.tar.gz) contain all **78
+expected unit `.spark` files**, plus `gnatprove.out`, SARIF and the inherited
+`proof-inputs.json` discussed below. Expected unit names were derived from current
+`src/` and generated Ada sources; none was missing or extra. All 78 reports
+record `PROGRESS_PROOF` / `STOP_REASON_NONE`; their **1,751 flow** and **17,975
+proof** records are successful, with no failed entries or skip/assume arrays.
+The raw coverage maps contain 1,172 `all` and 80 `spec` entries. These inventory
+statistics do not replace the complete auditor's semantic/source-bound coverage
+and allowed-origin checks. The one SARIF invocation records successful exit zero
+and matches the ledger's effective vendor command exactly.
+
+[Report inventory](native-preparation/report-inventory.json) retains every
+archived file's hash, per-unit counts and the separately archived
+[25 prior reports](native-preparation/previous-reports.tar.gz). The
+[prepared input record](native-preparation/prepared-inputs.json.gz) captures
+**2,584 input hashes and 12 selected tool identities**. Assembly rechecked all
+**153 non-tool input hashes**, all **12 selected tool binary hashes**, and the
+**147 captured tracked inputs against `a412827d6c` Git blobs**. The old runner
+and current proof/compiler source inputs therefore remain explicit; this is not
+retrospective changed-runner provenance.
+
+There is **no current `proof-provenance.json`** from this incremental run.
+Its `proof-inputs.json` is byte-identical to the prior-reports backup, labels
+itself `full`, and contains a different input inventory from this run's prepared
+ledger record. It is preserved as inherited metadata, **not a current audit
+manifest**. The successful raw report set is useful solver/cache preparation;
+the final changed-runner complete native proof/report/provenance audit was still
+required after this preparation. It subsequently passed and is recorded in the
+[final assurance packet](../final/README.md). The Lean cache donor's 16,661-file record above does not describe this
+native session/file-cache origin, and no large compiler objects or solver-cache
+contents are archived here.
+
+## Completed dense Lean continuation
+
+Managed run `20261120T160430-5f3e18a6d856`, task
+`#373-lean-dense-preparation`, completed with **1,035 unique modules** and a
+fresh complete axiom audit of **166,332 declarations**, using only `propext`,
+`Classical.choice` and `Quot.sound`. The module count was read from the retained
+evidence and matched exactly against the `SILVER_MODULE` lines in its log.
+This complete preparation succeeded on the old `a412827d6c` runner and existing
+current-language proof sources. It is distinct from the later changed-runner
+final audit, and does not retroactively make the interrupted first run complete.
+
+The invocation selected **two Lake workers**, automatic **22 threads per process**
+and a **20,480 MiB per-process memory threshold**, with `--provenance`. Its retained
+`--reason` reserves headroom for two dense modules alongside the 12-worker native
+preparation. The root had 22 available CPUs. These are actual settings for this
+run; its per-process threshold is not an OS-enforced or combined-workload cap.
+The mode was incremental with reused applicable seed/chunk artifacts,
+`clean_build: false` and `kernel_recheck: null`. No cold rebuild or optional
+independent kernel replay occurred.
+
+The [complete proof log](dense-lean-preparation/lean-proof.log.gz),
+[complete proof evidence](dense-lean-preparation/lean-evidence.json.gz),
+[managed events](dense-lean-preparation/events.jsonl.gz),
+[wrapper log](dense-lean-preparation/lean-dense-preparation.log.gz),
+[wrapper timing](dense-lean-preparation/lean-dense-preparation.timing.json.gz) and
+[zero exit](dense-lean-preparation/lean-dense-preparation.exit) retain the exact
+result and settings. The managed context manager's successful finished event has
+its normal null process return code; both build/audit phase results and the outer
+wrapper report zero.
+
+The build ran **16:04:38.800316–18:42:53.043725 UTC**, taking
+**9,494.091 seconds**. The fresh complete audit ran
+**18:42:56.120974–18:43:03.124174 UTC**, taking **7.003 seconds**. The outer
+wrapper ran **16:04:30.202271–18:43:06.652859 UTC**, taking
+**9,516.298315269 seconds**; the managed interval was **9,515.116105079 seconds**
+and the proof evidence's elapsed field **9,515.847 seconds**. Each timing has its
+own boundary. Child usage was 18,082.801165 user seconds and 2,039.415576 system
+seconds, with 8,774,944 KiB maximum child RSS. That RSS is not a simultaneous
+process-tree or host peak. The wrapper recorded an invoking stack soft limit of
+16,384 KiB and unlimited hard limit. Concurrent native work and cache lineage
+prevent treating these figures as a controlled speedup comparison.
+
+Before the root could fast-forward or run the changed runner, this archival
+continuation independently copied and hash-verified **all 1,142 source inputs**
+and **1,037 proof-workspace inputs** against the completed evidence. Their exact
+bytes are preserved in [source inputs](dense-lean-preparation/source-inputs.tar.gz)
+and [workspace inputs](dense-lean-preparation/workspace-inputs.tar.gz), with a
+[member inventory](dense-lean-preparation/source-snapshot-inventory.json).
+Root and managed copies of the final log/evidence matched byte-for-byte; tool
+hashes matched the final evidence. The
+[snapshot verification](dense-lean-preparation/snapshot-verification.json.gz)
+records these checks at root revision `a412827d6c`. Subsequent compression and
+analysis used only those independent copies.
+
+The completed `--provenance` evidence retains **6,202 output artifact hashes**,
+together with exact source/workspace/tool inventories, complete module scope and
+phase commands. Large compiled objects were not copied or rehashed again by this
+collector; their captured provenance checks belong to the successful managed
+run. The historical `previous-evidence/` backup under this dense-run subdirectory
+is preserved separately as prior state, not as the completed result. Earlier
+seed and interrupted/chunk-run records above remain the cache lineage.
+
+## Launcher failures and active-run exclusions
+
+The first [Lean launcher](lean-launcher-time-unavailable.log) and
+[native launcher](native-launcher-time-unavailable.log) both exited **127** because
+`/usr/bin/time` was unavailable. Their separate exit files are retained. These
+were launcher failures before proof execution; they are not failed proof attempts.
+The subsequent Python wrapper above supplied timing without that executable.
+
+At the earlier native archival checkpoint, dense Lean preparation was still
+active and its outputs were excluded. Both preparation jobs are now complete
+and archived above; later changed-runner validation outputs remain outside this
+packet. No process was signaled, resumed or otherwise controlled by these
+archival steps. Neither completed preparation establishes the later final
+changed-runner provenance or completes deferred #381/#382 experiments. The work
+uses existing focused targets/reservations, not new scheduler implementation.
+
+[Archive manifest](archive-manifest.json) retains source paths, byte counts and
+SHA-256 hashes for every copied original; gzip records use deterministic mtime
+zero. Previous-evidence backups remain explicitly historical. Assembly changed
+only this preparation packet and integration scratch. No test/proof execution,
+GitHub update, commit, Worca action or CLI memory update was performed. Selected
+collector: GPT-6.1 Sol / High; independent runtime, token and cost telemetry were
+unavailable.

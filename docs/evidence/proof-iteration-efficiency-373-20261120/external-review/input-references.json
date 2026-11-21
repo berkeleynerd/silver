@@ -1,0 +1,65 @@
+{
+  "application_cases": {
+    "path": "docs/evidence/advisory-policy-391-20261116/auditors/accepted-reports.json",
+    "sha256": "2c4c399c00f92b236f31f574a50bad61df7836915c86a23184bdde4c3a6eb0c8"
+  },
+  "application_recorded_results": {
+    "path": "docs/evidence/advisory-policy-391-20261116/auditors/accepted-python-results.json",
+    "sha256": "dc28412081d494cbe1ecbb22508580a0005939aa4a0557201383b5d4a57872f2"
+  },
+  "application_reports": {
+    "extract_to": "scratch/accepted",
+    "original_scratch_members_matched_existing_archive": 48,
+    "path": "docs/evidence/advisory-policy-391-20261116/auditors/accepted-reports.tar.gz",
+    "sha256": "9a21f19af07b84c3bc828a7fbd785e64f2f54dc625c28ae09845b00a7a8cf7b6"
+  },
+  "base_auditor": {
+    "sha256": "905742ba77e86fcf5b2e60c8e820ac00545e3e59283d5f25a4dac10242bb26f3",
+    "source": "git:a412827d6c54f925cf4e55cac128eb4ef48647ad:scripts/check_evidence.py"
+  },
+  "compiler_reports": {
+    "extract_to": "scratch/final-native/reports",
+    "original_scratch_members_matched_existing_archive": 82,
+    "path": "docs/evidence/proof-iteration-efficiency-373-20261120/final/native/producer-reports.tar.gz",
+    "sha256": "4bb1ff67ac8a6c2eedcd5881d38092ef9d6c779f1a66783337c9424812ee59ce"
+  },
+  "focused_subprogram": {
+    "extract_to": "scratch/focused-sub",
+    "original_scratch_members_matched_existing_archive": 80,
+    "path": "docs/evidence/proof-iteration-efficiency-373-20261120/focused-native/subprogram/producer-reports.tar.gz",
+    "sha256": "b92eedeffba0f6b7b6bbe74f5a82f3e6ebea19b384862ff087787a94a0ab2e00"
+  },
+  "focused_unit": {
+    "extract_to": "scratch/focused-unit",
+    "original_scratch_members_matched_existing_archive": 3,
+    "path": "docs/evidence/proof-iteration-efficiency-373-20261120/focused-native/unit/producer-reports.tar.gz",
+    "sha256": "7cf5dc09a2e4d7d38cbb3092c8c843b58fbd71431a8ae72058d5f87d8f39c083"
+  },
+  "original_regression_accounting": {
+    "path": "docs/evidence/proof-iteration-efficiency-373-20261120/regression-accounting.json",
+    "sha256": "86dc6fade93104cb08cb60b0570fd104f13e90c3f7a2defc748eca9839914177"
+  },
+  "original_regression_log": {
+    "path": "docs/evidence/proof-iteration-efficiency-373-20261120/native.log.gz",
+    "sha256": "14082b062725d9172a1c1b2b4214dd87c909eb52a9e3cc89cc76e47f0743415d"
+  },
+  "public_gnatprove_sources": {
+    "archive_policy": "Not duplicated; reviewer source-derived limits remain in the exact report. These vendor files are not inputs to the M1 fixture or L1 auditor comparison.",
+    "base_commit": "42554fc241fcd1fdf08d3a2feccb3f86912acbc0",
+    "local_source_hashes": {
+      "src_spark_spark_definition.adb": "d8d9203d847f4673be7be8bef8f006d90e5d0da9365e30e2eed311540bda934e",
+      "src_spark_spark_util-subprograms.adb": "71997913be88d419f583db2c8b51fdc8f38b0285f9c9234cade9033296ac17d6",
+      "src_why_gnat2why-driver.adb": "b3a37440a935dd9e4c8840c41807b0894a4ad710c63ceb9d344a3db804ebe304"
+    }
+  },
+  "retained_regression_log": {
+    "path": "docs/evidence/bounded-string-building-400-20261118/external-20261120/native.log.gz",
+    "sha256": "1121a99e29a73277420c5bb2463d80fafb588031b4ef26b41be8cf88ab338bc9"
+  },
+  "source_inputs": {
+    "extract_to": "scratch/final-src",
+    "original_scratch_members_matched_existing_archive": 1152,
+    "path": "docs/evidence/proof-iteration-efficiency-373-20261120/final/source-inputs.tar.gz",
+    "sha256": "ffe8aa565a467953d49fd75b4837e74b1bc1e151b71d6f46a29e36d349a0b619"
+  }
+}

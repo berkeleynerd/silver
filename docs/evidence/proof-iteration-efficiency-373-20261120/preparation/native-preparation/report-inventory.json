@@ -1,0 +1,986 @@
+{
+  "current_reports": {
+    "gnatprove.out": {
+      "bytes": 234111,
+      "sha256": "28668c7ec2b1cf403dc13ae48b40e9744c546e7c5c98ccc118fff00c345369b3"
+    },
+    "gnatprove.sarif": {
+      "bytes": 8037652,
+      "sha256": "a57d2d0970bc1bff18d61bf90288027ad5f4d2ff5a2607b63be530210a9ed1b4"
+    },
+    "proof-inputs.json": {
+      "bytes": 434172,
+      "sha256": "0472cad88b77b41e32817100e89db8e1aa14b6993bceaff68c6ff164e733ce58"
+    },
+    "silver.spark": {
+      "bytes": 321444,
+      "sha256": "ebad69ddda87e53169700e70dc10c5b75e9b0f3866ef36f4c7f9de18f71e4668"
+    },
+    "silver_arguments.spark": {
+      "bytes": 33806,
+      "sha256": "800fc738b6b083d941b26eebbe5485efde1d7ec80d63ac21f71598627c5fd8f4"
+    },
+    "silver_array_bindings.spark": {
+      "bytes": 191206,
+      "sha256": "b7b2959e105e8f605ba6c7f71885da7098cfeb1c342020c147f698d49d3264ab"
+    },
+    "silver_build.spark": {
+      "bytes": 838,
+      "sha256": "952693763c242f49551ae28a83ede8a08ac2421790e49afdda94e0c25f3febdd"
+    },
+    "silver_catalogue.spark": {
+      "bytes": 90335,
+      "sha256": "18cce6e87fcf922c56a4ddf5598c9da5d37f992a811191a56f868682534e715e"
+    },
+    "silver_function_bindings.spark": {
+      "bytes": 166052,
+      "sha256": "6732a20df446f0309dd49f3067804252a33f7772d22cabcf0eeb9648b384e4ae"
+    },
+    "silver_image_adapter.spark": {
+      "bytes": 220315,
+      "sha256": "908f6afc20bf68d2ade798d2c4647b0414b748738a528589440f200599f613a0"
+    },
+    "silver_image_config.spark": {
+      "bytes": 852,
+      "sha256": "e4f830873086bff437e021436c81de7e8b29cd636b676c5cdf0732e492497bd4"
+    },
+    "silver_image_files.spark": {
+      "bytes": 304939,
+      "sha256": "36cc3cb434f80ea3efca779f93443eca9736b082c19da7ae9c5c88ba6f43c494"
+    },
+    "silver_image_install.spark": {
+      "bytes": 81215,
+      "sha256": "b724677af989ed343ed1f636f0978ab96f93c78e5aac1d95c64425e6d45c1fc4"
+    },
+    "silver_image_libc.spark": {
+      "bytes": 1130,
+      "sha256": "5505fd79017cecb088f2fc2dde8f3d8f0a7b38eeb25fc23b46f2bc59fb7da385"
+    },
+    "silver_image_model.spark": {
+      "bytes": 555728,
+      "sha256": "cdb96ae6b4241ba2225bdbb4e1ee5b1f42d669377d9b9786e104d03ab4f58318"
+    },
+    "silver_image_model_templates.spark": {
+      "bytes": 25900,
+      "sha256": "bb34c54d6044d8e6560e1178f43113de4938e655bf3d3ca2ab2f3858f2ee7eb5"
+    },
+    "silver_image_runtime.spark": {
+      "bytes": 1153,
+      "sha256": "24e786020e6418c2bb65aee45cbc76eb48d6452d5d8f1995cb90bde801dbfe19"
+    },
+    "silver_image_theory.spark": {
+      "bytes": 852,
+      "sha256": "9000c8a52a8b9247bbed6d721fed264df2e260f3d8b2f4933b34b5dce90ccca4"
+    },
+    "silver_integer_image.spark": {
+      "bytes": 3112,
+      "sha256": "0454b85f8e7a4b20cead4b7da82119515f94ed5d655f1f5ef0db6b59e7fac7ca"
+    },
+    "silver_integer_literals.spark": {
+      "bytes": 274673,
+      "sha256": "776a4b24d219b00e1bfc9bb2afb78179d48ce07bf93e8fd406b1cea09e1b5846"
+    },
+    "silver_io.spark": {
+      "bytes": 82886,
+      "sha256": "75cb6ea47c9086f6e0078a6ff284147031be66dd7c42e3ff756cd0040a9413a0"
+    },
+    "silver_length_intervals.spark": {
+      "bytes": 28537,
+      "sha256": "b89c1dd9b2d67b8ce603b3e32bd2da0b38c9a74532138cd6eec7f0c66205d44d"
+    },
+    "silver_libc.spark": {
+      "bytes": 3010,
+      "sha256": "3210798ffa0212924d852aeb5a3b96491aed43e8d34fca5b5fb970c895ec5df3"
+    },
+    "silver_libraries.spark": {
+      "bytes": 157779,
+      "sha256": "dc077a23658670c91cc4e9df99a49a9819964e8a242fdfa3602d5da6e3aefdd0"
+    },
+    "silver_library_reports.spark": {
+      "bytes": 8621489,
+      "sha256": "1c6050130e7fa6a31a24c98ce806957c637a74ea287646ce12578ac272653cd8"
+    },
+    "silver_library_sources.spark": {
+      "bytes": 858,
+      "sha256": "11a384becf52e7a1146edc84ac33dd7998a4fe8bc2df2acd7d5c9acb06db3e95"
+    },
+    "silver_names.spark": {
+      "bytes": 243451,
+      "sha256": "dd864865347a6330ffe34031f8f556a75f6eb72ff26814e1be09ace9a1d823d8"
+    },
+    "silver_numbers.spark": {
+      "bytes": 65843,
+      "sha256": "34f1a9ec09075fc52b817128019e9e4080436e44604a20d8e68e25ed15e56e1f"
+    },
+    "silver_output_lexical.spark": {
+      "bytes": 644723,
+      "sha256": "cdb35233d4ddc7a7f0408bd40e57aeea06d1a18ef1fdb0812f8654a3049a3a6e"
+    },
+    "silver_output_libc.spark": {
+      "bytes": 1715,
+      "sha256": "34a002c8641bd8ce5919b8225be821462593c16caafadcb9c618644d8326d3ea"
+    },
+    "silver_output_profile.spark": {
+      "bytes": 15252510,
+      "sha256": "456d76efa0300963d11a9c194f2b1e9a69eb6343ab228a99c95af8f1dd2c7e61"
+    },
+    "silver_path_facts.spark": {
+      "bytes": 46744,
+      "sha256": "00680ead66ee1eef38d357a98f0d8279348ae4b101ae05dc46c04ed9072db76e"
+    },
+    "silver_platform.spark": {
+      "bytes": 271980,
+      "sha256": "19af5732695b3defd80bedea2df2728ce21311147aa46f25c128f168248e20bc"
+    },
+    "silver_procedure_bindings.spark": {
+      "bytes": 165837,
+      "sha256": "ee680801d9b7d3dd7356f73d1f0f28dbb37fe8baadff085ec11bea6a3e39ded6"
+    },
+    "silver_process_runtime.spark": {
+      "bytes": 4531,
+      "sha256": "2b30d571d8de491f8af9c8be97daed794bd533b88e2204346ce37160c8c06799"
+    },
+    "silver_profile.spark": {
+      "bytes": 373519,
+      "sha256": "35b116597f9e62401c2712721c5bedf0205f972d84db78f745f89fa1c0f90efb"
+    },
+    "silver_report_observation_assembly.spark": {
+      "bytes": 471951,
+      "sha256": "18860dcc9729a46474317f67aad0a2c04edf222751f1041c4cf6a1e2233aaaf4"
+    },
+    "silver_report_observation_composition.spark": {
+      "bytes": 537754,
+      "sha256": "af7f96c6abf3aee710488e1e4d0de2c8180efcefe959f9041ee2835e76fb0830"
+    },
+    "silver_report_observation_items.spark": {
+      "bytes": 428860,
+      "sha256": "4b43273858f52c6c88dee6e119baa20411e825e725ae01bbe9f58e4b6f32aab2"
+    },
+    "silver_report_observation_traversal.spark": {
+      "bytes": 260788,
+      "sha256": "91997401670170e008e27ecf2b115e3fca13023b5667fec28ffcb04d4e253a26"
+    },
+    "silver_report_observation_windows.spark": {
+      "bytes": 1437648,
+      "sha256": "7845e772a1ccd1c8174a085448d6559b6f57e3c0ea246785a46f1311fb35454a"
+    },
+    "silver_report_observations.spark": {
+      "bytes": 497563,
+      "sha256": "ef0d7adf2fc1e618855917b84cd3b922e4f7f29be08666ea909259c0433b9759"
+    },
+    "silver_report_projection.spark": {
+      "bytes": 150991,
+      "sha256": "2b967ff1d8802e25d300535f746ec02b3151b10e93d151f41ecd6aa260254a7b"
+    },
+    "silver_report_projection_audit.spark": {
+      "bytes": 58570,
+      "sha256": "734abb02e7ba63d309644ac18ef98135ef23fc2d861627a22e141048db3335dc"
+    },
+    "silver_report_projection_bridge.spark": {
+      "bytes": 479369,
+      "sha256": "df053c85a374eda8d3858fbbf5af87388f6a1b30f4ff72e1136161e2cac629cb"
+    },
+    "silver_report_projection_composition.spark": {
+      "bytes": 718591,
+      "sha256": "b74eb50238e35c2c289759c85e1907b9df48f4fc9c458fda8db426ab1451a8bf"
+    },
+    "silver_report_projection_container_mapping.spark": {
+      "bytes": 260905,
+      "sha256": "2ad158fbb0984fd8c220fceade0617e461833d602cd7e7c6ad7def43fea61101"
+    },
+    "silver_report_projection_continuations.spark": {
+      "bytes": 648842,
+      "sha256": "f370963f0dd740dd054bbf56977629ad82b80c98680d57d0b9726a2cfb9e2dac"
+    },
+    "silver_report_projection_emissions.spark": {
+      "bytes": 99802,
+      "sha256": "b535168064fee7cb7c0682848b83777bab33d0df707a71ceb24fc93316dacc9c"
+    },
+    "silver_report_projection_entry.spark": {
+      "bytes": 63775,
+      "sha256": "2276ef5f373884bc2b7bdf3b8973cf4715669915d60053f3e73f5243fc30c1b1"
+    },
+    "silver_report_projection_item_mapping.spark": {
+      "bytes": 763853,
+      "sha256": "adcbed9fd7604d6973eff813f2674850c58c1ee6e2436eb67dcfedb04662be2f"
+    },
+    "silver_report_projection_keys.spark": {
+      "bytes": 829729,
+      "sha256": "ec163e14850019c9f5f34f04106f4f7a5b30eed27a29d0e01e699f2d61f88101"
+    },
+    "silver_report_projection_lists.spark": {
+      "bytes": 487418,
+      "sha256": "701698a10300b790bd26ebc075a5beef3bf22af73a7eed55cb478541f0246c3b"
+    },
+    "silver_report_projection_mapping.spark": {
+      "bytes": 371361,
+      "sha256": "4075f86dd8adfa5c90cd7f590e5bc221b6b84ab435fc45bba4931eb47a3f5ee5"
+    },
+    "silver_report_projection_member_bounds.spark": {
+      "bytes": 387855,
+      "sha256": "5940598ad85acae2b23214f7dec9c85a8aa8cefd3b4732227e339e571a6491fc"
+    },
+    "silver_report_projection_member_mapping.spark": {
+      "bytes": 503116,
+      "sha256": "1b76473ad605b650de43a1181547cb328204a53a807ae45b81302667825c7277"
+    },
+    "silver_report_projection_member_steps.spark": {
+      "bytes": 159419,
+      "sha256": "6dddda219c63cda7dd7ed95a2191d63939473e9ece05c8b323aca6c19385a857"
+    },
+    "silver_report_projection_members.spark": {
+      "bytes": 1873380,
+      "sha256": "b03a7637b4c0ba3054a780f7fc78205187ed486d80319c94931ab9d69b52171f"
+    },
+    "silver_report_projection_model.spark": {
+      "bytes": 519397,
+      "sha256": "82374eac1d14919263d399064968e761d16f890bb3dea6536e7ba5f05202b1ab"
+    },
+    "silver_report_projection_nonobjects.spark": {
+      "bytes": 131531,
+      "sha256": "d91539ee322e009386dec045c428e3fb5c2e3db7b135a6387fdc31327931d4f4"
+    },
+    "silver_report_projection_observations.spark": {
+      "bytes": 291800,
+      "sha256": "2c2461da2867041535b2929d96a81cf0259a88bd7df73a3ed1e82311755d8e7d"
+    },
+    "silver_report_projection_parents.spark": {
+      "bytes": 178339,
+      "sha256": "16898f7280871f1b199b5a0fd76e3f17910129f24357738955f0be1a47185a4f"
+    },
+    "silver_report_projection_records.spark": {
+      "bytes": 736574,
+      "sha256": "a617a4f0e7f58db334d8033232d24ce3e7930513e09be991ff89cfbe1d47b932"
+    },
+    "silver_report_projection_representation.spark": {
+      "bytes": 29954,
+      "sha256": "72f59dacc3dfbf3d1fe2bdc42b73dfbcf6eb09c6178c44f922970e0a3f2bff16"
+    },
+    "silver_report_projection_roots.spark": {
+      "bytes": 184466,
+      "sha256": "995e80bba1e1a860c5a48f46c7cc775da00200c4b056d002bb9cb82fc8781f40"
+    },
+    "silver_report_projection_separators.spark": {
+      "bytes": 281528,
+      "sha256": "9bb429bdf19a5c87a0e344c1b2f09d7f2b8d23f9a7ca1fb9130bb6a6ee4ea31d"
+    },
+    "silver_report_projection_spans.spark": {
+      "bytes": 253779,
+      "sha256": "7db94dabb63d42ffafe2549da79062c19263415b6f091cc679d3dea052ddab0f"
+    },
+    "silver_report_projection_structure.spark": {
+      "bytes": 136205,
+      "sha256": "c6afd7864cec90e6722997e787ac70143990b70f7b096d41ec7d91f69bc5584d"
+    },
+    "silver_report_projection_syntax.spark": {
+      "bytes": 259758,
+      "sha256": "2b9b8f88c4b575ec5af0c7d67b41fd2b3b774837dc2ffa57aa430ba54e1da509"
+    },
+    "silver_report_projection_tokens.spark": {
+      "bytes": 716550,
+      "sha256": "0ef3665f0b858212b70f23cc542f933c1469566b93d6e6b036ba03d2dfeddc72"
+    },
+    "silver_report_projection_types.spark": {
+      "bytes": 874,
+      "sha256": "179db9161e5d0e09d1165c38ee9f2740c393f324bed1adbfa8316f1ae8c03080"
+    },
+    "silver_report_projection_value_mapping.spark": {
+      "bytes": 284856,
+      "sha256": "6883f8e780e0edd5542051211e63ecdca9a28cce84c32d4ac7f746154df542d3"
+    },
+    "silver_report_projection_values.spark": {
+      "bytes": 821693,
+      "sha256": "98d670ee9f306dd0d136517b4570eefc8a55276553f4b3bfbc25c20160b7a7ca"
+    },
+    "silver_report_projection_windows.spark": {
+      "bytes": 112804,
+      "sha256": "5dc2612d77ccaaac4da32e736668ee923b323367a252cbb2b84c15d07643e206"
+    },
+    "silver_report_reader.spark": {
+      "bytes": 126063,
+      "sha256": "5aee0585a8f2ebe577e3bc6b107b7bd188b8f6c7310981e623c87822777214cf"
+    },
+    "silver_report_storage.spark": {
+      "bytes": 856,
+      "sha256": "75e84faf84d587bb947fcc833171cd3a991a3f6350835716948f7aa936bcf965"
+    },
+    "silver_reports.spark": {
+      "bytes": 571456,
+      "sha256": "4df2244b65e654df20b87e39976ad67a863ef6ae469d1f98886582cf42fbad31"
+    },
+    "silver_runtime.spark": {
+      "bytes": 1692,
+      "sha256": "fa367b57a92513f816b46e4a2bec6b1059613c2245f98bef4c0a54f7a2598da5"
+    },
+    "silver_scalar_expressions.spark": {
+      "bytes": 556739,
+      "sha256": "699fff884890556ec7067159e48c133b39bc43efa84f4c430d927180fbed5c5e"
+    },
+    "silver_scalar_literals.spark": {
+      "bytes": 289359,
+      "sha256": "ed7b468acb74d83f8a89e11ce87cb28a07d98a31949549e02e1266d688f87641"
+    },
+    "silver_scalars.spark": {
+      "bytes": 66040,
+      "sha256": "fe4f1dffe4b34f5dc1179842ed2c5170b6d27e287c6d46e9498aa5df1ae59c39"
+    }
+  },
+  "per_unit_statistics": {
+    "silver": {
+      "coverage": {
+        "all": 10
+      },
+      "flow": 29,
+      "proof": 105
+    },
+    "silver_arguments": {
+      "coverage": {
+        "all": 5
+      },
+      "flow": 7,
+      "proof": 11
+    },
+    "silver_array_bindings": {
+      "coverage": {
+        "all": 10
+      },
+      "flow": 16,
+      "proof": 63
+    },
+    "silver_build": {
+      "coverage": {
+        "all": 1
+      },
+      "flow": 0,
+      "proof": 0
+    },
+    "silver_catalogue": {
+      "coverage": {
+        "all": 8
+      },
+      "flow": 6,
+      "proof": 27
+    },
+    "silver_function_bindings": {
+      "coverage": {
+        "all": 6
+      },
+      "flow": 8,
+      "proof": 55
+    },
+    "silver_image_adapter": {
+      "coverage": {
+        "all": 7
+      },
+      "flow": 10,
+      "proof": 102
+    },
+    "silver_image_config": {
+      "coverage": {
+        "all": 1
+      },
+      "flow": 0,
+      "proof": 0
+    },
+    "silver_image_files": {
+      "coverage": {
+        "all": 27,
+        "spec": 32
+      },
+      "flow": 65,
+      "proof": 129
+    },
+    "silver_image_install": {
+      "coverage": {
+        "all": 2
+      },
+      "flow": 16,
+      "proof": 36
+    },
+    "silver_image_libc": {
+      "coverage": {
+        "all": 1,
+        "spec": 1
+      },
+      "flow": 0,
+      "proof": 0
+    },
+    "silver_image_model": {
+      "coverage": {
+        "all": 15
+      },
+      "flow": 12,
+      "proof": 180
+    },
+    "silver_image_model_templates": {
+      "coverage": {
+        "all": 3
+      },
+      "flow": 4,
+      "proof": 15
+    },
+    "silver_image_runtime": {
+      "coverage": {
+        "all": 1,
+        "spec": 1
+      },
+      "flow": 0,
+      "proof": 0
+    },
+    "silver_image_theory": {
+      "coverage": {
+        "all": 1
+      },
+      "flow": 0,
+      "proof": 0
+    },
+    "silver_integer_image": {
+      "coverage": {
+        "all": 4
+      },
+      "flow": 3,
+      "proof": 0
+    },
+    "silver_integer_literals": {
+      "coverage": {
+        "all": 14
+      },
+      "flow": 25,
+      "proof": 115
+    },
+    "silver_io": {
+      "coverage": {
+        "all": 3
+      },
+      "flow": 12,
+      "proof": 36
+    },
+    "silver_length_intervals": {
+      "coverage": {
+        "all": 8
+      },
+      "flow": 11,
+      "proof": 9
+    },
+    "silver_libc": {
+      "coverage": {
+        "all": 1,
+        "spec": 8
+      },
+      "flow": 0,
+      "proof": 0
+    },
+    "silver_libraries": {
+      "coverage": {
+        "all": 11
+      },
+      "flow": 44,
+      "proof": 45
+    },
+    "silver_library_reports": {
+      "coverage": {
+        "all": 252
+      },
+      "flow": 353,
+      "proof": 3482
+    },
+    "silver_library_sources": {
+      "coverage": {
+        "all": 1
+      },
+      "flow": 0,
+      "proof": 0
+    },
+    "silver_names": {
+      "coverage": {
+        "all": 11
+      },
+      "flow": 21,
+      "proof": 87
+    },
+    "silver_numbers": {
+      "coverage": {
+        "all": 3
+      },
+      "flow": 4,
+      "proof": 14
+    },
+    "silver_output_lexical": {
+      "coverage": {
+        "all": 23
+      },
+      "flow": 43,
+      "proof": 279
+    },
+    "silver_output_libc": {
+      "coverage": {
+        "all": 1,
+        "spec": 3
+      },
+      "flow": 0,
+      "proof": 0
+    },
+    "silver_output_profile": {
+      "coverage": {
+        "all": 252
+      },
+      "flow": 521,
+      "proof": 4038
+    },
+    "silver_path_facts": {
+      "coverage": {
+        "all": 23
+      },
+      "flow": 22,
+      "proof": 10
+    },
+    "silver_platform": {
+      "coverage": {
+        "all": 9
+      },
+      "flow": 36,
+      "proof": 132
+    },
+    "silver_procedure_bindings": {
+      "coverage": {
+        "all": 6
+      },
+      "flow": 8,
+      "proof": 54
+    },
+    "silver_process_runtime": {
+      "coverage": {
+        "all": 1,
+        "spec": 2
+      },
+      "flow": 0,
+      "proof": 1
+    },
+    "silver_profile": {
+      "coverage": {
+        "all": 19
+      },
+      "flow": 34,
+      "proof": 151
+    },
+    "silver_report_observation_assembly": {
+      "coverage": {
+        "all": 4
+      },
+      "flow": 3,
+      "proof": 263
+    },
+    "silver_report_observation_composition": {
+      "coverage": {
+        "all": 8
+      },
+      "flow": 7,
+      "proof": 302
+    },
+    "silver_report_observation_items": {
+      "coverage": {
+        "all": 5
+      },
+      "flow": 4,
+      "proof": 231
+    },
+    "silver_report_observation_traversal": {
+      "coverage": {
+        "all": 4
+      },
+      "flow": 3,
+      "proof": 126
+    },
+    "silver_report_observation_windows": {
+      "coverage": {
+        "all": 15
+      },
+      "flow": 14,
+      "proof": 792
+    },
+    "silver_report_observations": {
+      "coverage": {
+        "all": 13
+      },
+      "flow": 19,
+      "proof": 292
+    },
+    "silver_report_projection": {
+      "coverage": {
+        "all": 13
+      },
+      "flow": 7,
+      "proof": 66
+    },
+    "silver_report_projection_audit": {
+      "coverage": {
+        "all": 3
+      },
+      "flow": 2,
+      "proof": 16
+    },
+    "silver_report_projection_bridge": {
+      "coverage": {
+        "all": 12
+      },
+      "flow": 7,
+      "proof": 228
+    },
+    "silver_report_projection_composition": {
+      "coverage": {
+        "all": 7
+      },
+      "flow": 6,
+      "proof": 297
+    },
+    "silver_report_projection_container_mapping": {
+      "coverage": {
+        "all": 3
+      },
+      "flow": 2,
+      "proof": 130
+    },
+    "silver_report_projection_continuations": {
+      "coverage": {
+        "all": 6
+      },
+      "flow": 3,
+      "proof": 307
+    },
+    "silver_report_projection_emissions": {
+      "coverage": {
+        "all": 6
+      },
+      "flow": 5,
+      "proof": 21
+    },
+    "silver_report_projection_entry": {
+      "coverage": {
+        "all": 3
+      },
+      "flow": 2,
+      "proof": 30
+    },
+    "silver_report_projection_item_mapping": {
+      "coverage": {
+        "all": 6
+      },
+      "flow": 5,
+      "proof": 382
+    },
+    "silver_report_projection_keys": {
+      "coverage": {
+        "all": 12
+      },
+      "flow": 11,
+      "proof": 428
+    },
+    "silver_report_projection_lists": {
+      "coverage": {
+        "all": 5
+      },
+      "flow": 4,
+      "proof": 197
+    },
+    "silver_report_projection_mapping": {
+      "coverage": {
+        "all": 12
+      },
+      "flow": 11,
+      "proof": 207
+    },
+    "silver_report_projection_member_bounds": {
+      "coverage": {
+        "all": 7
+      },
+      "flow": 6,
+      "proof": 209
+    },
+    "silver_report_projection_member_mapping": {
+      "coverage": {
+        "all": 5
+      },
+      "flow": 4,
+      "proof": 226
+    },
+    "silver_report_projection_member_steps": {
+      "coverage": {
+        "all": 12
+      },
+      "flow": 11,
+      "proof": 60
+    },
+    "silver_report_projection_members": {
+      "coverage": {
+        "all": 16
+      },
+      "flow": 19,
+      "proof": 995
+    },
+    "silver_report_projection_model": {
+      "coverage": {
+        "all": 62,
+        "spec": 30
+      },
+      "flow": 68,
+      "proof": 240
+    },
+    "silver_report_projection_nonobjects": {
+      "coverage": {
+        "all": 5
+      },
+      "flow": 4,
+      "proof": 55
+    },
+    "silver_report_projection_observations": {
+      "coverage": {
+        "all": 11
+      },
+      "flow": 13,
+      "proof": 148
+    },
+    "silver_report_projection_parents": {
+      "coverage": {
+        "all": 12
+      },
+      "flow": 11,
+      "proof": 86
+    },
+    "silver_report_projection_records": {
+      "coverage": {
+        "all": 8
+      },
+      "flow": 7,
+      "proof": 306
+    },
+    "silver_report_projection_representation": {
+      "coverage": {
+        "all": 2
+      },
+      "flow": 1,
+      "proof": 11
+    },
+    "silver_report_projection_roots": {
+      "coverage": {
+        "all": 6
+      },
+      "flow": 5,
+      "proof": 85
+    },
+    "silver_report_projection_separators": {
+      "coverage": {
+        "all": 6
+      },
+      "flow": 5,
+      "proof": 154
+    },
+    "silver_report_projection_spans": {
+      "coverage": {
+        "all": 7
+      },
+      "flow": 6,
+      "proof": 158
+    },
+    "silver_report_projection_structure": {
+      "coverage": {
+        "all": 12
+      },
+      "flow": 10,
+      "proof": 42
+    },
+    "silver_report_projection_syntax": {
+      "coverage": {
+        "all": 3
+      },
+      "flow": 2,
+      "proof": 152
+    },
+    "silver_report_projection_tokens": {
+      "coverage": {
+        "all": 12
+      },
+      "flow": 7,
+      "proof": 361
+    },
+    "silver_report_projection_types": {
+      "coverage": {
+        "all": 1
+      },
+      "flow": 0,
+      "proof": 0
+    },
+    "silver_report_projection_value_mapping": {
+      "coverage": {
+        "all": 4
+      },
+      "flow": 3,
+      "proof": 120
+    },
+    "silver_report_projection_values": {
+      "coverage": {
+        "all": 15
+      },
+      "flow": 9,
+      "proof": 415
+    },
+    "silver_report_projection_windows": {
+      "coverage": {
+        "all": 4
+      },
+      "flow": 3,
+      "proof": 56
+    },
+    "silver_report_reader": {
+      "coverage": {
+        "all": 2
+      },
+      "flow": 15,
+      "proof": 51
+    },
+    "silver_report_storage": {
+      "coverage": {
+        "all": 1
+      },
+      "flow": 0,
+      "proof": 0
+    },
+    "silver_reports": {
+      "coverage": {
+        "all": 18
+      },
+      "flow": 27,
+      "proof": 229
+    },
+    "silver_runtime": {
+      "coverage": {
+        "all": 1,
+        "spec": 3
+      },
+      "flow": 0,
+      "proof": 0
+    },
+    "silver_scalar_expressions": {
+      "coverage": {
+        "all": 21
+      },
+      "flow": 38,
+      "proof": 190
+    },
+    "silver_scalar_literals": {
+      "coverage": {
+        "all": 14
+      },
+      "flow": 25,
+      "proof": 118
+    },
+    "silver_scalars": {
+      "coverage": {
+        "all": 28
+      },
+      "flow": 27,
+      "proof": 17
+    }
+  },
+  "previous_reports": {
+    "gnatprove.out": {
+      "bytes": 55265,
+      "sha256": "ee79881796a0b6197013c92d7a0726c43b7f382e56f9922dacc6577c1e868ded"
+    },
+    "gnatprove.sarif": {
+      "bytes": 1063346,
+      "sha256": "3983f0be82b82b502db2e850588cb3b4529461978d089d4fa63e6670ff894f39"
+    },
+    "proof-inputs.json": {
+      "bytes": 434172,
+      "sha256": "0472cad88b77b41e32817100e89db8e1aa14b6993bceaff68c6ff164e733ce58"
+    },
+    "proof-provenance.json": {
+      "bytes": 436455,
+      "sha256": "92e7d6208d755f9fdb892aeb0ce15dda2dfe4af929d0e305b3169696f079abae"
+    },
+    "silver.spark": {
+      "bytes": 271667,
+      "sha256": "6feb327fe5b7b3dbb045884d0fdd376cdd2544fb80955932e384a85bf145dfd9"
+    },
+    "silver_arguments.spark": {
+      "bytes": 33806,
+      "sha256": "5c9ddc9ef368652e7b9c2606d175ad595c1adde230b02821f581596c403e0834"
+    },
+    "silver_build.spark": {
+      "bytes": 838,
+      "sha256": "5dfb1232bfc7983875fb85abba910e50fb29df2bf2d19cdfb89e1541ae8f0c02"
+    },
+    "silver_catalogue.spark": {
+      "bytes": 92626,
+      "sha256": "c45a2dfb9e88b52585beb97a9135e258bf61d06a6baf163507470d5533ae40d8"
+    },
+    "silver_integer_literals.spark": {
+      "bytes": 274673,
+      "sha256": "d61ac067dfb49d275cc0cff141b9ecd3321cce992397f775714ac24e0557e821"
+    },
+    "silver_io.spark": {
+      "bytes": 82886,
+      "sha256": "49d80b7452ee6fa244aa160573bde85a89e7b850ae75cf66176549394397f557"
+    },
+    "silver_libc.spark": {
+      "bytes": 3010,
+      "sha256": "322767172fde8416139f0fa608066959b89f6c97cf41c43d66cc419b8d97d4eb"
+    },
+    "silver_libraries.spark": {
+      "bytes": 155564,
+      "sha256": "136ccbdc0e2d54ef80d651de67ecc0e03ea05899180120762704e4afa5267803"
+    },
+    "silver_library_reports.spark": {
+      "bytes": 1910611,
+      "sha256": "13a5592e11f2e9c7a8173ee21bedb945c7625a7a10f1de25e32600f299ddf37d"
+    },
+    "silver_library_sources.spark": {
+      "bytes": 858,
+      "sha256": "8d0eba6a82a74ab3dd2ea46d66d7996fa6d0d90dd05af01346bc008eafcf404a"
+    },
+    "silver_names.spark": {
+      "bytes": 243451,
+      "sha256": "45aa10b964c3f2a20d721df22788fcfcd63fed883337fe842f350e613475ea5e"
+    },
+    "silver_numbers.spark": {
+      "bytes": 65843,
+      "sha256": "4a594ab3ee784510f922f5fdbaf7111b118cccec86fbb03045ba6911c2e341ff"
+    },
+    "silver_output_lexical.spark": {
+      "bytes": 644723,
+      "sha256": "0151c2d034937b811356c59fcfa1c2c31d030e7b07f4f804ae5e458dbc252003"
+    },
+    "silver_output_libc.spark": {
+      "bytes": 1715,
+      "sha256": "185b83cff443a29e286c4cf42f068e44b4076fb437beaea6df91f1aa9b584cfa"
+    },
+    "silver_output_profile.spark": {
+      "bytes": 1907806,
+      "sha256": "24ba47293b03b02c6a407b2d0a9d78b40093f8558c64706385fa1297f06811ec"
+    },
+    "silver_path_facts.spark": {
+      "bytes": 46744,
+      "sha256": "fad283b4ecfb28ff60f1da730d0340505ad5bb91da625c164dd8e705918ac714"
+    },
+    "silver_platform.spark": {
+      "bytes": 289641,
+      "sha256": "1b69ba054219a57dc12ef103e678770ca6b1b36bc75eff85bf1298042b9bce7a"
+    },
+    "silver_process_runtime.spark": {
+      "bytes": 4531,
+      "sha256": "0d0d02a8047c5a37eebb893fb5f1b01e85ab45803c4d7c68ae48f387aa35ce82"
+    },
+    "silver_profile.spark": {
+      "bytes": 373519,
+      "sha256": "0fe6369a982c1018e5eab5a448a299746c791eb12ddd6efb472b2b5c54c0289c"
+    },
+    "silver_reports.spark": {
+      "bytes": 571456,
+      "sha256": "4df7914566bdbc105cb14768856d6fd3cd95cf782bd9cf3466e468104e4199bc"
+    },
+    "silver_runtime.spark": {
+      "bytes": 1692,
+      "sha256": "752b5ebb1aa23818464508fe43189bc4be087b067c78d114c661d9e811d95a4b"
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "bootstrap-lean.log": {
+    "bytes": 247,
+    "sha256": "2641b218d3a419397b86fdfadf033260476d9ce3663d62add68f05e53acfafbf",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/tmp/bootstrap-lean-373.log",
+    "uncompressed_bytes": 247,
+    "uncompressed_sha256": "2641b218d3a419397b86fdfadf033260476d9ce3663d62add68f05e53acfafbf"
+  },
+  "events.jsonl.gz": {
+    "bytes": 65004,
+    "sha256": "90e3a81a0512bc8d7ca836bb7b22cee8ed60bfc74d8e80d1f8b3e05dcf1bd489",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261120T152415-e5e1f5ee6934/events.jsonl",
+    "uncompressed_bytes": 251382,
+    "uncompressed_sha256": "3ca5f6967c053b430c6923d6f931d15ce42cb931a29ecc2b6c99740e6080730e"
+  },
+  "managed-status.json": {
+    "bytes": 2626,
+    "sha256": "143e04c885c9cc9d26205e825a7dfc2d7531deefb562c71df404046911dba1ed",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/tmp/tooling-regression-status.json",
+    "uncompressed_bytes": 2626,
+    "uncompressed_sha256": "143e04c885c9cc9d26205e825a7dfc2d7531deefb562c71df404046911dba1ed"
+  },
+  "native.log.gz": {
+    "bytes": 12789,
+    "sha256": "14082b062725d9172a1c1b2b4214dd87c909eb52a9e3cc89cc76e47f0743415d",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261120T152415-e5e1f5ee6934/native.log",
+    "uncompressed_bytes": 78945,
+    "uncompressed_sha256": "147bf086961c5f28b1528a66f04f9275d2a0b29af05f4f62e9ea521b230914f4"
+  },
+  "wrapper-timing.json": {
+    "bytes": 812,
+    "sha256": "07d2f1c3d725406a59c88e0859f945354df44cab3d82749c3154a3def352b25d",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/tmp/tooling-regressions.timing.json",
+    "uncompressed_bytes": 812,
+    "uncompressed_sha256": "07d2f1c3d725406a59c88e0859f945354df44cab3d82749c3154a3def352b25d"
+  },
+  "wrapper.log.gz": {
+    "bytes": 13042,
+    "sha256": "e8183372e48e0ec0042eca6f02ada2241d6dd72c9d4879518a983c7fd9fba4bc",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/proof-efficiency-373/tmp/tooling-regressions.log",
+    "uncompressed_bytes": 79647,
+    "uncompressed_sha256": "496cefd84db5ca58e713152699d9f1fb8600da39ed2ea34828f8b5a3f6bbc076"
+  }
+}

@@ -64,16 +64,109 @@ class LeanRunHistoryTests(unittest.TestCase):
         state = self.fixture()
         state.expected_workers = 1
         with run_history.ManagedRun(state.host, "fixture", [], {},
-                                    [state.host.artifacts / "independent"], workers=1):
+                                    [state.host.artifacts / "independent"], workers=1,
+                                    resource_reason="fixture reserves one of two workers"):
             self.invoke()
         evidence = json.loads((state.host.artifacts / "lean-evidence.json").read_text())
         self.assertEqual(evidence["lake_workers"], 1)
         self.assertEqual(evidence["threads_per_process"], 2)
         first = next(run for run in self.runs(state) if run["kind"] == "lean")
+        self.assertEqual(first["allocation"]["workers"], {"requested": None, "automatic": 1, "actual": 1})
+        self.assertEqual(first["allocation"]["threads"], {"requested": None, "automatic": 2, "actual": 2})
+        self.assertEqual((first["resource_reductions"], first["resource_reason"]), ([], ""))
         state.expected_workers = 2
         self.invoke()
         lean_runs = [run for run in self.runs(state) if run["kind"] == "lean"]
         self.assertNotEqual(first["fingerprint"], lean_runs[-1]["fingerprint"])
+
+    def test_deliberate_lean_reduction_needs_a_retained_resource_reason(self):
+        state = self.fixture()
+        reason = "GNATprove audit shares this host"
+        for arguments, refused in ((["--workers", "1"], "workers 1 < 2"),
+                                   (["--workers", "1", "--reason", "Repeat a successful clean check"], "workers 1 < 2"),
+                                   (["--threads", "1"], "threads 1 < 2"),
+                                   (["--workers", "1", "--threads", "1"], "threads 1 < 2, workers 1 < 2")):
+            with self.subTest(arguments=arguments), self.assertRaisesRegex(
+                    run_history.RunHistoryError,
+                    "deliberate reduction below the automatic allocation needs --resource-reason: "
+                    + refused + "$"):
+                self.invoke(arguments)
+        self.assertEqual(self.runs(state), [])
+        self.assertFalse(state.host.proof.exists())
+        self.assertEqual((state.generated, state.phases), (0, []))
+        state.expected_workers = 1
+        output = io.StringIO()
+        with redirect_stdout(output):
+            check_lean.main(["--workers", "1", "--threads", "1", "--resource-reason", reason])
+        with self.assertRaisesRegex(run_history.RunHistoryError, "--resource-reason: threads 1 < 2, workers 1 < 2$"):
+            self.invoke(["--workers", "1", "--threads", "1"])
+        run, = self.runs(state)
+        self.assertEqual(run["state"], "success")
+        self.assertEqual(run["allocation"], {"workers": {"requested": 1, "automatic": 2, "actual": 1},
+                                             "threads": {"requested": 1, "automatic": 2, "actual": 1},
+                                             "memory_mb": {"requested": None, "automatic": None, "actual": None}})
+        self.assertEqual((run["resource_reductions"], run["resource_reason"]), (["threads", "workers"], reason))
+        evidence = json.loads((state.host.artifacts / "lean-evidence.json").read_text())
+        self.assertEqual((evidence["lake_workers"], evidence["threads_per_process"]), (1, 1))
+        self.assertIn("silverThreads=1", state.commands[0])
+        lines = output.getvalue().splitlines()
+        concurrency = next(index for index, line in enumerate(lines) if line.startswith("Lean concurrency:"))
+        self.assertEqual(lines[concurrency + 1],
+                         "Resource allocation: threads requested=1 actual=1 automatic=2; "
+                         "workers requested=1 actual=1 automatic=2; "
+                         f"deliberate reduction: threads, workers; reason: {reason}")
+
+    def test_default_and_full_requests_need_no_resource_reason(self):
+        state = self.fixture()
+        for arguments, workers, threads in (([], None, None), (["--workers", "0", "--threads", "0"], None, None),
+                                            (["--workers", "2", "--threads", "2"], 2, 2),
+                                            (["--threads", "3"], None, 3)):
+            with self.subTest(arguments=arguments):
+                self.invoke(arguments)
+                run = self.runs(state)[-1]
+                self.assertEqual(run["allocation"]["workers"], {"requested": workers, "automatic": 2, "actual": 2})
+                self.assertEqual(run["allocation"]["threads"],
+                                 {"requested": threads, "automatic": 2, "actual": threads or 2})
+                self.assertEqual((run["state"], run["resource_reductions"], run["resource_reason"]),
+                                 ("success", [], ""))
+                self.assertIn(f"silverThreads={threads or 2}", state.commands[-2])
+
+    def test_resource_only_change_preserves_lake_cache_and_clean_guard(self):
+        state = self.fixture()
+        reduced = ["--workers", "1", "--threads", "1", "--memory-mb", "2048"]
+        marker = state.host.proof / ".lake/retained-cache-marker"
+        tools = state.host.proof / ".silver-cache-tools.json"
+        self.invoke()
+        marker.write_text("accepted objects\n")
+        accepted_tools = tools.read_bytes()
+        state.expected_workers = 1
+        self.invoke([*reduced, "--resource-reason", "GNATprove audit shares this host"])
+        self.assertTrue(marker.is_file())
+        self.assertEqual(tools.read_bytes(), accepted_tools)
+
+        def without_resource_flags(command):
+            kept = [argument for argument in command if not argument.startswith(("-j", "-M"))]
+            settings = {index for index, argument in enumerate(kept) if argument == "-K"}
+            return [argument for index, argument in enumerate(kept)
+                    if index not in settings and index - 1 not in settings]
+
+        automatic, two_workers = state.commands[:2], state.commands[2:]
+        self.assertEqual([without_resource_flags(command) for command in automatic],
+                         [without_resource_flags(command) for command in two_workers])
+        self.assertTrue({"silverThreads=1", "silverMemoryMb=2048"} <= set(two_workers[0]))
+        self.assertTrue({"-j1", "-M2048"} <= set(two_workers[1]))
+        for build, audit in (automatic, two_workers):
+            self.assertEqual(build[1:3], ["--rehash", "--reconfigure"])
+            self.assertIn("-DwarningAsError=true", audit)
+        self.assertEqual([sorted(run["inputs"]["configuration"]) for run in self.runs(state)],
+                         [["clean", "memory_mb", "provenance", "replay", "threads", "workers"]] * 2)
+        self.invoke(["--clean", *reduced, "--resource-reason", "GNATprove audit shares this host"])
+        marker.write_text("accepted objects after the clean check\n")
+        with self.assertRaisesRegex(run_history.RunHistoryError, "supply --reason"):
+            self.invoke(["--clean", *reduced, "--resource-reason", "another check shares this host"])
+        self.assertEqual(marker.read_text(), "accepted objects after the clean check\n")
+        self.assertEqual(state.phases, ["build", "audit"] * 3)
+        self.assertEqual([run["state"] for run in self.runs(state)], ["success"] * 3)
 
     def test_conflicting_lease_preserves_workspace_and_prior_evidence(self):
         state = self.fixture()

@@ -84,6 +84,39 @@ explicit measurement or concrete unresolved concern; it is an engineering note,
 not an owner permission request. The runner always executes an accepted command.
 It never silently skips a required check or treats the ledger as its proof.
 
+Canonical focused native checks use `python3 scripts/dev.py prove --unit FILE`
+or `--subprogram FILE:LINE`, where FILE is a compiler source filename and LINE
+is the subprogram declaration line. Select one form; omit `--full`, `--cold` and
+forwarded subdirectory or solver overrides. `--unit` includes the body when a
+specification is selected, checking owned-entity coverage through the existing
+native auditor, including its pinned import/vendor-spec exceptions. Both forms
+use the complete compiler policy's solver/budget options, including 30 seconds.
+
+GNATprove may expand an always-inlined local subprogram selector into its calling
+context. The focused runner rejects that expansion as whole-helper evidence;
+`--unit` can inspect the containing context, but a call-site proof does not
+establish a standalone helper contract over its full declared domain. Choose
+applicable whole-helper evidence and review affected callees/callers explicitly.
+
+Focused proof uses the reserved `compiler/obj/focused/<policy-digest>/` namespace
+under the native compiler workspace, with its own sessions and lock-keyed cache.
+The namespace is initialized empty for that policy; an existing unmarked or
+mismatched store is rejected. Subsequent matching-policy runs reuse sessions/cache
+while requiring fresh selected summaries. Exploration cannot write this state.
+
+Preflight prints focused final-policy or experimental classification.
+`runs status` exposes `focused_policy` as `final-policy` when recorded focused
+options match today's policy, `different-policy` when they differ, or
+`experimental` for direct GNATprove proof trials on the new runner. Historical
+records without origin metadata receive no retrospective classification. A
+focused success includes `focused_report` entity/flow/proof counts, plus selected
+subprogram names for `--subprogram`; inspect retained `focused-evidence` too.
+State, current inputs, cache origin, full helper coverage and affected
+callees/callers still need review before an expensive checkpoint. Direct
+`tool -- gnatprove` proof trials remain experimental even with apparently
+canonical options. These fields support the existing human readiness review;
+they neither infer a proof dependency graph nor replace complete assurance.
+
 Exploratory GNATprove continues through `dev.py tool`. The reserved `explore`
 output and separate-cache rules in [development](../development.md) still apply.
 For a custom tool or project whose inputs and writable paths cannot be derived
@@ -121,10 +154,26 @@ for the active run; do not remove its lock or restart it to obtain the cache.
 The native worker pool is shared by managed runs on this repository and machine.
 Default GNATprove `--jobs 0` and Lean `--workers 0` allocate available workers;
 explicit positive counts reserve that many and must fit the remaining budget.
-Coordinate allocations when launching independent proof streams. Reservations
-are scheduling declarations, not an operating-system thread or memory limit:
+Coordinate allocations when launching independent proof streams. The managed
+record/summary retains requested, automatic and actual settings and the detected
+reductions. Deliberate reductions on native `prove`, direct `tool gnatprove` or
+Lean proof commands require `--resource-reason TEXT`; automatic grants reduced
+by existing reservations need no reason. Build, test and arbitrary tools report
+their allocation/reductions without that gate. Resource-only changes preserve
+applicable caches. `--reason` separately waives the unchanged-expensive-success
+rerun guard and never substitutes for `--resource-reason`.
+
+Reservations are scheduling declarations, not an operating-system thread or memory limit:
 Lean's per-process threads and prover subprocesses can multiply actual work, and
 unmanaged commands are not included. Keep the existing memory/headroom guidance.
+
+When a complete Lean build needs fewer workers for large modules, first consider
+focused targets for dirty, independent source chunks whose observed footprint
+fits the available memory. Continue with the complete check at the allocation
+appropriate for the larger modules, retaining the completed objects. The
+[#373 preparation](evidence/proof-iteration-efficiency-373-20261120/preparation/README.md)
+records this use of the existing controls. Focused chunk success remains partial;
+the complete source/module/axiom audit is still required.
 
 Cheap preflight checks input/provenance and workspace assumptions before the
 expensive proof phase. A stale or incomplete record cannot establish current
@@ -195,10 +244,25 @@ hypothesis or experiment. A failed solver attempt within an otherwise successful
 proof is not an unresolved obligation. The diagnosis is durable and appears in
 the resume readout. It adds no automatic retry, arbitrary timeout or final retry
 limit, and never reclassifies a failed proof as success. Automated obligation
-identity covers GNATprove report locations and recognized Lean source locations
-plus the first diagnostic line. Moving or rewording a Lean diagnostic may change
-its key; the agent must also
-notice recurring failures that the parser cannot identify.
+identity retains exact GNATprove locations and additionally groups native
+helper/check-kind failures where `.spark` entity or SARIF logical-location
+metadata names the helper. Matching is scoped by task, run kind and normalized
+project/mode/unit family, ignoring focused selectors and normalizing the local
+compiler fallback marker. Producer names are approximate: absent metadata still needs
+human judgment, and identical producer names can collide within a family.
+
+A pending native helper conservatively holds the whole matching family, even a
+new selector for another helper. A selected success clears a helper recurrence only if that exact selector
+scope previously failed that helper; it then clears the helper's accumulated
+family counts across selectors. Success at a newly moved selector is not
+automatic proof that it covered the old failure. An unselected family success
+or family diagnosis clears all helper counts.
+Exact-location recurrence remains separate. GNATprove `--help`, `--version` and
+`-h` queries have a separate scope and do not reset proof recurrence; historical
+zero-worker GNATprove query records are also ignored for recurrence. These
+controls do not add a general success-coverage framework. Lean retains recognized source locations plus the
+first diagnostic line; moving or rewording a diagnostic may change its key.
+The agent must notice recurring failures the parser cannot identify.
 
 At a meaningful checkpoint or interruption, save a concise pointer:
 

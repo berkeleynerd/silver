@@ -1,0 +1,20 @@
+{
+  "command": [
+    "python3",
+    "scripts/dev.py",
+    "prove",
+    "--full",
+    "--task",
+    "#407-final-repair",
+    "--reason",
+    "Refresh complete native audit and input provenance after focused unit-scope repair c2b60470ae; reuse unchanged source sessions and solver cache."
+  ],
+  "started": "2026-11-21T02:42:26.896595+00:00",
+  "finished": "2026-11-21T02:43:14.339021+00:00",
+  "elapsed_seconds": 47.442439756006934,
+  "returncode": 0,
+  "child_user_seconds": 78.364679,
+  "child_system_seconds": 81.465332,
+  "child_maxrss_kib": 665768,
+  "note": "RUSAGE_CHILDREN max RSS is not a simultaneous process-tree peak."
+}
