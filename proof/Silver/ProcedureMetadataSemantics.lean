@@ -47,9 +47,9 @@ theorem formalModel_valid {text : Source} {formal : Formal} {types : ArrayBindin
     (formalModel formal types).domain.Valid ∧
       ((formalModel formal types).mode = .input ∨ (formalModel formal types).domain.IsScalar) := by
   refine ⟨Predicate.formalType_domainValid ?_ typesValid known, ?_⟩
-  · exact ⟨valid.1, valid.2.1, valid.2.2.1, fun named => (valid.2.2.2 named).2⟩
+  · exact ⟨valid.1, valid.2.1, valid.2.2.1, fun named => (valid.2.2.2.1 named).2, valid.2.2.2.2⟩
   · by_cases named : formal.typeId ≠ 0
-    · exact Or.inl (congrArg modeModel (valid.2.2.2 named).1)
+    · exact Or.inl (congrArg modeModel (valid.2.2.2.1 named).1)
     · right
       cases kind : formal.kind <;>
         simp [formalModel, Predicate.formalType, Predicate.procedureInputFormal, named, kind,

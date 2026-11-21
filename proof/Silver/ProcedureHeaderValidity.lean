@@ -56,15 +56,15 @@ theorem procedureParameterStep_valid (text : Source) (state : ParserState) (argu
       omega
     have nominal := formalTypeAt_nominal text state start
     rw [valueEq] at nominal
+    have known := formalTypeAt_typeId_bound text state start
+    rw [valueEq] at known
     have itemValid : ProcedureBindings.ValidFormal text
         ⟨first, after, value.kind, value.bounds, mode, value.typeId⟩ :=
       ⟨⟨span.1, span.2, bound⟩, typeGood.1, typeGood.2,
         fun positive => ⟨by
           by_cases same : mode = .input
           · exact same
-          · exact False.elim (admitted.2.2.2.2.2 ⟨positive, same⟩), nominal positive⟩⟩
-    have known := formalTypeAt_typeId_bound text state start
-    rw [valueEq] at known
+          · exact False.elim (admitted.2.2.2.2.2 ⟨positive, same⟩), nominal positive⟩, Nat.le_trans known arrays.1⟩
     have extended := ProcedureBindings.appendFormal_valid metadata space itemValid
     split
     · right

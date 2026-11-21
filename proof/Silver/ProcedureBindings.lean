@@ -53,7 +53,7 @@ instance (text : Source) (first after : Nat) : Decidable (NameSpan text first af
 
 def ValidFormal (text : Source) (item : Formal) : Prop :=
   NameSpan text item.first item.after ∧ item.bounds.Bounded ∧ item.bounds.lower ≤ item.bounds.upper ∧
-    (item.typeId ≠ 0 → item.mode = .input ∧ item.kind = .integer)
+    (item.typeId ≠ 0 → item.mode = .input ∧ item.kind = .integer) ∧ item.typeId ≤ ArrayBindings.maxTypes
 
 def ValidSignature (text : Source) (procedures : Metadata) (item : Signature) : Prop :=
   NameSpan text item.first item.after ∧ 0 < item.count ∧ 0 < item.formalFirst ∧
@@ -66,7 +66,7 @@ def ValidMetadata (text : Source) (procedures : Metadata) : Prop :=
     (∀ item ∈ procedures.items, ValidSignature text procedures item)
 
 instance (text : Source) (item : Formal) : Decidable (ValidFormal text item) :=
-  inferInstanceAs (Decidable ((_ ∧ _ ∧ _) ∧ _ ∧ _ ∧ (_ → _ ∧ _)))
+  inferInstanceAs (Decidable ((_ ∧ _ ∧ _) ∧ _ ∧ _ ∧ (_ → _ ∧ _) ∧ _))
 instance (text : Source) (procedures : Metadata) (item : Signature) :
     Decidable (ValidSignature text procedures item) :=
   inferInstanceAs (Decidable ((_ ∧ _ ∧ _) ∧ _ ∧ _ ∧ _ ∧ _))

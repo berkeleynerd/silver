@@ -138,8 +138,8 @@ theorem formal_test (calls : Calls) (primitives : Primitives calls)
       intro active
       rcases nominal with absent | canonical
       · exact False.elim (absent active)
-      · exact canonical⟩
-  · rintro ⟨span, _, nonempty, nominal⟩
+      · exact canonical, typed.2.2.2⟩
+  · rintro ⟨span, _, nonempty, nominal, _⟩
     exact ⟨⟨⟨span.1, .inr span⟩, by omega⟩, by
       by_cases active : item.typeId ≠ 0
       · exact Or.inr (nominal active)

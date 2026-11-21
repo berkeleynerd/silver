@@ -145,8 +145,10 @@ theorem parameterStep_valid (text : Source) (state : ParserState) (arguments : B
       omega
     have nominal := formalTypeAt_nominal text state start
     rw [valueEq] at nominal
+    have known := formalTypeAt_typeId_bound text state start
+    rw [valueEq] at known
     have itemValid : FunctionBindings.ValidFormal text ⟨first, after, value.kind, value.bounds, value.typeId⟩ :=
-      ⟨⟨span.1, span.2, bound⟩, typeGood.1, typeGood.2, nominal⟩
+      ⟨⟨span.1, span.2, bound⟩, typeGood.1, typeGood.2, nominal, Nat.le_trans known arrays.1⟩
     have extended := FunctionBindings.appendFormal_valid metadata space itemValid
     split
     · right
