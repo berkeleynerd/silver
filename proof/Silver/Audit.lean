@@ -1,5 +1,6 @@
 import Silver
 import Silver.ComposeBooleanDeclarationCandidate
+import Silver.FunctionArrayFrameValidity
 import Silver.AxiomAudit
 
 -- Audit every declaration in the complete project, including private and
