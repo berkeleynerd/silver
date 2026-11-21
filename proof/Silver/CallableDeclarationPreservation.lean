@@ -25,6 +25,7 @@ theorem callableDeclarationAt_zero_iff (text : Source) (state : ParserState) (ar
 theorem declarationAt_callable_equation (text : Source) (state : ParserState) (arguments : Bool) :
     declarationAt text state arguments =
       if (callableDeclarationAt text state arguments).position ≠ 0 then callableDeclarationAt text state arguments
+      else if (arrayTypeDeclarationAt text state arguments).position ≠ 0 then arrayTypeDeclarationAt text state arguments
       else if (subtypeDeclarationAt text state arguments).position ≠ 0 then subtypeDeclarationAt text state arguments
       else if (scalarDeclarationAt text state arguments).position ≠ 0 then scalarDeclarationAt text state arguments
       else if (arrayDeclarationAt text state arguments).position ≠ 0 then arrayDeclarationAt text state arguments
@@ -81,10 +82,10 @@ theorem callableDeclarationAt_valid (text : Source) (state : ParserState) (argum
 
 theorem callableDeclarationAt_hiding {text : Source} {state : ParserState} {arguments : Bool}
     (correct : IntegerSubtypes.HidingCorrect text state.subtypeNames
-      (callableNames state))
+      (declarationHidingNames state))
     (accepted : (callableDeclarationAt text state arguments).position ≠ 0) :
     IntegerSubtypes.HidingCorrect text (callableDeclarationAt text state arguments).subtypeNames
-      (callableNames (callableDeclarationAt text state arguments)) := by
+      (declarationHidingNames (callableDeclarationAt text state arguments)) := by
   dsimp only [callableDeclarationAt] at accepted ⊢
   by_cases function : (functionDeclarationAt text state arguments).position ≠ 0
   · rw [ite_eq_left function]
