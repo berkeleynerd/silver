@@ -11,8 +11,11 @@ post-reboot check. The pause is lifted; the eight-CPU ceiling remains in force.
 
 The final pre-pause native run proved all obligations at the tool level but
 failed Silver's strict audit on a new operator-reassociation advisory. Its failed
-outcome remains preserved alongside the failed regression run. Complete native
-and Lean/source assurance and repaired final regression coverage remain required.
+outcome remains preserved alongside the failed regression run. The corrected
+native audit and complete Lean/source checkpoint now pass; the
+[capability record](named-array-parameters.md) retains their exact scopes,
+integration repairs and independent reviews. Final regression coverage and
+Rosetta delivery remain in progress.
 No PR merge, Worca, successor feature or Oracle amendment is authorized. Existing
 worktrees, caches and unrelated root records remain preserved. CLI memory was
 not updated.

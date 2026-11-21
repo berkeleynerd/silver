@@ -36,10 +36,17 @@ pause, rebuild the driver, rerun affected application regressions including the
 64-leaf proof-policy case, and finish #410's complete native and Lean audits on
 final inputs. Normal cache reuse remains available. The current long runs cover
 their original frozen inputs, with the live resource adjustment recorded separately.
-The post-reboot eight-CPU detection check remains pending.
+The post-reboot eight-CPU detection check was pending at this original review checkpoint.
 
 Follow-up after restart, 2026-11-21: the linked host evidence now records eight
 detected CPUs and affinity/effective cpuset 0–7. The rebuilt driver and corrected
 complete native audit passed; the serial maximal-expression regression and
 complete Lean/source checkpoint remain pending. This follow-up records subsequent
 validation and does not extend the original review's scope.
+
+Lead continuation at 21:55 UTC: the complete Lean/source checkpoint also
+passed on the final inputs. The host evidence now includes a scan of 140 live
+threads across the concurrent Lean and regression process trees: every thread
+stayed within its assigned guest CPU set, with no exception. The maximal-case
+regression remains active; its result is recorded separately in the capability
+packet. This is subsequent validation, not an expansion of the original review.

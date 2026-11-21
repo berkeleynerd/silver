@@ -90,5 +90,41 @@
     "managed_cpu_budget": 8,
     "reserved_workers_before_resumption": 0,
     "resource_reason": "host's eight-CPU allocation"
+  },
+  "resumed_validation_affinity_check": {
+    "utc": "2026-11-21T21:38:27.988758+00:00",
+    "reason": "host's eight-CPU allocation",
+    "detected_cpus": 8,
+    "effective_cpuset": "0-7",
+    "jobs": [
+      {
+        "runner_pid": 92231,
+        "assigned_cpus": [
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "processes_observed": 3,
+        "thread_affinities": {
+          "2,3,4,5,6,7": 130
+        },
+        "outside_allocation": []
+      },
+      {
+        "runner_pid": 77998,
+        "assigned_cpus": [
+          0,
+          1
+        ],
+        "processes_observed": 9,
+        "thread_affinities": {
+          "0,1": 10
+        },
+        "outside_allocation": []
+      }
+    ]
   }
 }

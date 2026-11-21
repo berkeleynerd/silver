@@ -1,0 +1,10 @@
+{
+  "runs/20261121T215753-de0dae34a5b9/native.log.gz": {
+    "source_sha256": "d4aa9194f7f6635f48db48843e1a4ed61963a0ad98e446247a19bc6b664ab3fa",
+    "stored_sha256": "ee18d2ed2c7ff3e6546c153c0a03207c590fbb2ab6b84feff2fc61739f260d2f"
+  },
+  "runs/20261121T215753-de0dae34a5b9/events.jsonl.gz": {
+    "source_sha256": "d832f710d2897fe7eaaa78045940d45a5fed71c3aadea42b4cd6587be5cf39a2",
+    "stored_sha256": "b8bee2a5a6a8e180ee91dc7a7f35066e110d6f07f74156b5250da0853b647bf6"
+  }
+}

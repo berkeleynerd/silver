@@ -249,8 +249,9 @@ functions and procedures, and static bounds queries, with
 The [native review](docs/reviews/review-named-array-native-20261121.md) resolves
 the measured stack finding and records the accepted supplemental caller checks.
 The [producer account](docs/named-array-parameters-report-capacity.md) connects
-these forms to the existing report envelope. Complete native/Lean/source assurance,
-final regressions and delivery review remain pending; this is not a support claim.
+these forms to the existing report envelope. Complete native and Lean/source
+audits have passed. Final regressions and delivery review remain pending;
+this is not yet a support claim.
 
 The [Find square difference sample](samples/find_square_difference.adb) stores
 the first matching index and prints ` 501` followed by a newline.

@@ -237,6 +237,11 @@ settings, which were not independently exposed; token/cost totals are unavailabl
 | Callable actual-source continuation, 19:00–19:50 | Function/procedure source workers selected Astra Max | Complete raw domains and typed source helper/caller proofs passed in focused scopes; the actual Output certificate closure and final global audit remained pending. | Procedure `20261121T194543-302f3f4f1b24`: 65,809 declarations; function source run `20261121T193933-afb215e6c72b` remains active. |
 | Independent import review and #414 repair, 20:00–20:34 | Independent critical reviewer and repair worker selected Astra Max | Review found independently assumed array imports and Boolean predicate meanings. Narrow source-derived import repairs and exact-domain transport passed; combined root bridge/model validation still pending. No native change. | Array focus `20261121T201800-abfe1344ac75`: 25,031 declarations; Boolean focus `20261121T203235-079f1f0196b2`: 46,520 declarations. |
 | Serial regression diagnosis and controls, 19:46–20:40 | Independent proof/runtime diagnosis selected Astra Max; lead test/evidence settings unavailable | One-worker Why3 scheduling invalidated the all-three-observed-solvers fixture assertion. Corrected policy controls and manifest passed on their recorded versions. The original maximal-expression proof continues after its failed test timeout; final full coverage remains required. | Manifest `20261121T195853-82a961e9e416`: 92 samples, 806.234 s; final policy controls `20261121T202537-af32fdd0a5e1`; initializer composition `20261121T203944-26f0b795d617`: 7.850 s. |
+| Final callable import and initializer source repair, 20:54–21:09 | Source implementation and independent review selected Astra Max | String/Character source consumers and both callable Boolean paths passed their focused audits; #414 repair independently accepted. Whole-project validation remained pending. | Runs `20261121T210103-c7ca3f0d2b24` and `20261121T210207-8de88d24fdb5`; [source review](reviews/review-named-array-source-20261121.md). |
+| Serial maximal-case measurement and fresh regression, 21:13–ongoing | Lead evidence collection; monitoring selected Sol High | Original timed-out test remains failed; completed reports passed 19 flow and 110 proof checks after 116.2 minutes. One test deadline raised to three hours; fresh 785-test suite started. | [Measurement](evidence/named-array-parameters-410-20261121/serial-policy/maximal-case/README.md); active suite `20261121T211830-07948902a0f6`. |
+| Retained source/flag consumer repair, 21:22–21:41 | Proof repair and independent review selected Astra Max | Three failed consumers repaired with unchanged native code and public theorem statements. Focused audit passed 111,610 declarations; the failed first draft is retained. | Complete failure `20261121T210604-4b2b25ed79cf`; focused success `20261121T214023-0f622151717c`; [review](reviews/review-named-array-final-consumers-20261121.md). |
+| Procedure metadata interpretation, 21:42–21:48 | Proof design and independent review selected Astra Max | Array formal signatures now use the type table from the same selected native scanner, retaining SourceMeaning alone and the native count equation. Focused source audit passed 148,749 declarations. | Complete failure `20261121T214156-37d0db242e83`; focused success `20261121T214735-7e1a499a3d93`; [metadata review](reviews/review-named-array-procedure-metadata-20261121.md). |
+| Complete audit inventory and final success, 21:48–21:55 | Independent critical reviewer selected Astra Max; lead integration settings unavailable | Removed an orphan duplicate of a fully audited, consumed theorem after exact-domain review. All 1,083 modules and 173,026 declarations passed complete audit; failed attempts retained. | Final `20261121T215449-12cec2fc5976`; [complete packet](evidence/named-array-parameters-410-20261121/final-lean/README.md) and [coverage review](reviews/review-named-array-audit-coverage-20261121.md). |
 | Downstream actual String/Character bounds integration, 20:30 onward | Implementer and independent reviewer selected Astra Max | Review found unbuilt consumers needing full tables, stored-array facts and the new type trace case. Four-file repair is prepared while the productive function source run finishes; no final theorem premise is weakened. | Focused validation pending the source-run lease boundary; this remains #410 integration work. |
 
 The subsequent integration round retains focused success for the native Range
@@ -540,3 +545,66 @@ integrated sources with automatic six-worker/six-thread allocation on CPUs 2–7
 while the retained serial application proof keeps the two-worker reservation on
 CPUs 0–1. Neither a complete Lean pass nor final full regression coverage is
 claimed yet; no merge is authorized.
+
+## Complete-checkpoint continuation — 2026-11-21 21:28 UTC
+
+The retained maximal-expression reports completed after 6,972.609 seconds and
+passed their independent audit: 19 flow and 110 proof checks, with no advisory
+or unproved record. The original test remains failed at its old 1,800-second
+deadline. The [measurement packet](evidence/named-array-parameters-410-20261121/serial-policy/maximal-case/README.md)
+supports the three-hour deadline introduced by `4373508bf6` for this one test.
+It does not claim a completed compile or executable test. Fresh full-suite run
+`20261121T211830-07948902a0f6` is active on that commit with 785 test identities,
+two managed workers, guest CPUs 0–1 and the documented 16 MiB invoking stack.
+
+Complete Lean run `20261121T210604-4b2b25ed79cf` remains failed after 954.892
+build seconds. Three stale consumers were reached: an auxiliary Boolean
+declaration literal omitted the already-modeled array-type lookup; two exact
+Predicate source requirements omitted the new `Type_Keyword`; and the retained
+function-assignment flag proof needed the new array-type declaration case and
+current array-declaration constructor arity. Repairs retain the actual native
+code, full domains and public theorem statements. The successful module objects
+are preserved for the focused repair batch and subsequent complete audit.
+
+The resumed repair and independent review subthreads remain selected Astra Max;
+routine monitoring is selected Sol High. Runtime settings are not independently
+exposed. The host reports eight CPUs and its effective cpuset is guest 0–7.
+The Lean repair batch automatically receives the remaining six workers/threads
+and CPUs 2–7 alongside the two-worker regression reservation. No new native run
+is needed for these proof-only repairs. Final Lean/source assurance, regression
+coverage, Rosetta promotion and delivery review remain pending.
+
+## Complete native and Lean assurance established — 2026-11-21 21:55 UTC
+
+The [complete Lean/source packet](evidence/named-array-parameters-410-20261121/final-lean/README.md)
+records successful run `20261121T215449-12cec2fc5976` on `7f449246ce`:
+1,083 modules, 173,026 declarations and exactly the three permitted foundations.
+This is a complete cached build with a fresh axiom/module audit, not a clean
+build or independent kernel replay. All previously failed complete and focused
+attempts retain their actual outcomes. The complete 19,994-check native audit
+remains applicable: these final changes affect only proofs and delivery records.
+
+The final integration additionally repairs the procedure metadata interpretation:
+nominal array formals now resolve through the type table from the same accepted
+native scan. `SourceMeaning` remains the only program hypothesis, and the native
+procedure-count/report equation is unchanged. The
+[independent metadata review](reviews/review-named-array-procedure-metadata-20261121.md)
+accepts its focused 148,749-declaration audit. The final inventory reconciliation
+removes an orphan duplicate of the already-used full-domain array-frame theorem;
+the [coverage review](reviews/review-named-array-audit-coverage-20261121.md)
+confirms the retained theorem, its three consumers and all final module hashes.
+
+The 785-test run remains active on its frozen `4373508bf6` inputs. Independent
+review identifies exactly 15 identities affected by the six final proof-file
+changes, including the orphan deletion. Their rerun uses the corrected proof
+tree in a separate worktree while preserving the full suite. Rosetta promotion,
+its affected tests and final delivery reconciliation remain pending. PR #412
+stays draft; no merge is authorized.
+
+The selected proof-reader rerun `20261121T215753-de0dae34a5b9` passed all 15
+identities on `7f449246ce` in 174.128 test seconds. It ran in the separate proof
+worktree with six automatically allocated workers while preserving the primary
+two-worker suite. The [regression packet](evidence/named-array-parameters-410-20261121/final-regression/README.md)
+retains its exact inputs and readers. The full run passed the sample manifest
+and began the maximal-expression compile at 22:00:13 UTC; its final result and
+the post-promotion Rosetta checks remain pending.

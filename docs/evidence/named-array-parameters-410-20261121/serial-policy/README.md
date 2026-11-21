@@ -34,3 +34,9 @@ parent exited. Observation-only managed run `20261121T194920-1da1c3dafb35`
 accounts for that computation, without claiming a successful test, final audit,
 build or executable result. At this checkpoint that original proof is still
 running; a measured runtime and fresh end-to-end regression remain pending.
+
+At 21:13 UTC the retained reports completed after 6,972.609 seconds. The
+[measured maximal-case record](maximal-case/README.md) retains their successful
+19-flow/110-proof audit and distinguishes it from the failed timed-out test.
+The measured duration justified a three-hour deadline for that single test;
+the fresh full regression suite is running with that allowance.
