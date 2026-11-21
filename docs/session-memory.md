@@ -1,5 +1,32 @@
 # Session memory
 
+## 2026-11-21 — Named constrained Integer-array parameters selected
+
+The owner instructed **“Proceed”** after the recommendation of one new language
+capability: named constrained fixed-size Integer-array types, read-only array
+`in` parameters in existing Main-local functions **and procedures** alongside
+scalar arguments, and static `'First`, `'Last`, `'Length` and `'Range` bounds
+queries. Bounds queries also cover existing anonymous Integer-array objects
+through the same fixed-bound metadata; array actual parameters still require the
+same positive named-type identity. Boolean-array types, parameters and queries
+remain unselected. Dot product and Horner polynomial evaluation are the faithful
+drivers. This selects [#410](https://github.com/berkeleynerd/silver/issues/410), in
+[milestone 27](https://github.com/berkeleynerd/silver/milestone/27), for one coherent
+batch and one shared final validation/review checkpoint. The
+[capability plan](named-array-parameters.md) records boundaries and assurance.
+
+The instruction authorizes implementation, applicable complete validation,
+independent review and the accompanying feature PR. It does not amend the Oracle
+or authorize another language capability. Writable, returned and unconstrained
+arrays and an independent expansion of subprogram-local array declarations are
+outside the selection; no samples-only substitute is selected. Full declared
+domains, complete native/Lean/source correspondence and existing evidence-reuse
+rules remain required; no mandatory cold rebuild or kernel replay is added.
+Record any later feature-PR merge instruction separately. PR #385 stays held,
+#381/#382 and #398 remain deferred, and work continues directly through Codex
+without Worca. Unrelated root session-memory additions, host evidence, worktrees
+and caches are preserved. CLI memory was not updated.
+
 ## 2026-11-21 — Repair Claude findings and merge PR #406
 
 After Claude's independent review of `8dc409b303`, the owner instructed
