@@ -7,6 +7,7 @@ public import Silver.PredicateConditionUnique
 public import Silver.PredicateConditionSound
 public import Silver.PredicateConditionValidity
 public import Silver.ArrayBindingsOrdered
+public import Silver.ScalarExpressionNativeTableLayout
 public import Silver.PredicateFlowInvariant
 public import Silver.PredicateStringAssignmentMeaning
 
@@ -29,11 +30,11 @@ set_option backward.dsimp.instances true
 abbrev outputStart (text : Source) (context : ParseContext) (scan : BodyScan) : BodyScan :=
   {scan with
     position := Names.associationAfter text
-      (fixedAfter text (callAfter (arrays := context.arrayNames) (subtypeHidden := context.subtypeHiding.get .output) (booleans := context.booleanNames) text context.names scan.position .output context.scalarNames) "(" false) false}
+      (fixedAfter text (callAfter (arrays := context.arrayTable) (subtypeHidden := context.subtypeHiding.get .output) (booleans := context.booleanNames) text context.names scan.position .output context.scalarNames) "(" false) false}
 abbrev putStart (text : Source) (context : ParseContext) (scan : BodyScan) : BodyScan :=
   {scan with
     position := Names.associationAfter text
-      (fixedAfter text (callAfter (arrays := context.arrayNames) (subtypeHidden := context.subtypeHiding.get .partialOutput) (booleans := context.booleanNames) text context.names scan.position .partialOutput context.scalarNames) "(" false) false}
+      (fixedAfter text (callAfter (arrays := context.arrayTable) (subtypeHidden := context.subtypeHiding.get .partialOutput) (booleans := context.booleanNames) text context.names scan.position .partialOutput context.scalarNames) "(" false) false}
 abbrev assignmentTarget (text : Source) (context : ParseContext) (scan : BodyScan) : ParserState :=
   targetAt text (parserState context scan) false
 abbrev assignmentStart (text : Source) (context : ParseContext) (scan : BodyScan) : BodyScan :=
@@ -44,12 +45,12 @@ cursor scanner. The successful trace supplies only concrete admission guards. -/
 inductive BasicPayload (text : Source) (context : ParseContext) (scan : BodyScan) (catalog : FunctionBindings.Metadata := {}) : SourceStatement → Prop
   | null : basicKind text context scan = .null → BasicPayload (catalog := catalog) text context scan (.simple .null)
   | output {expression} : basicKind text context scan = .output →
-      ExpressionAt (integerHidden := context.integerHidden text) (elaborating := context.elaborating) (arrays := context.arrayNames) (scalarNames := context.readingNames scan.facts) text context.names (outputStart text context scan).position expression
-        (expressionAt (integerHidden := context.integerHidden text) (elaborating := context.elaborating) (arrays := context.arrayNames) text (outputStart text context scan).position context.names (context.readingNames scan.facts)) →
+      ExpressionAt (integerHidden := context.integerHidden text) (elaborating := context.elaborating) (arrays := context.arrayTable) (scalarNames := context.readingNames scan.facts) text context.names (outputStart text context scan).position expression
+        (expressionAt (integerHidden := context.integerHidden text) (elaborating := context.elaborating) (arrays := context.arrayTable) text (outputStart text context scan).position context.names (context.readingNames scan.facts)) →
       BasicPayload (catalog := catalog) text context scan (.simple (.output expression))
   | put {expression} : basicKind text context scan = .put →
-      ExpressionAt (integerHidden := context.integerHidden text) (elaborating := context.elaborating) (arrays := context.arrayNames) (scalarNames := context.readingNames scan.facts) text context.names (putStart text context scan).position expression
-        (expressionAt (integerHidden := context.integerHidden text) (elaborating := context.elaborating) (arrays := context.arrayNames) text (putStart text context scan).position context.names (context.readingNames scan.facts)) →
+      ExpressionAt (integerHidden := context.integerHidden text) (elaborating := context.elaborating) (arrays := context.arrayTable) (scalarNames := context.readingNames scan.facts) text context.names (putStart text context scan).position expression
+        (expressionAt (integerHidden := context.integerHidden text) (elaborating := context.elaborating) (arrays := context.arrayTable) text (putStart text context scan).position context.names (context.readingNames scan.facts)) →
       BasicPayload (catalog := catalog) text context scan (.simple (.put expression))
   | reject : basicKind text context scan = .reject → BasicPayload (catalog := catalog) text context scan .reject
   | scalarCallAssignment {update} : basicKind text context scan = .scalarAssignment →
@@ -60,15 +61,16 @@ inductive BasicPayload (text : Source) (context : ParseContext) (scan : BodyScan
       BasicPayload (catalog := catalog) text context scan (.callAssign update)
   | scalarAssignment {expression} : basicKind text context scan = .scalarAssignment →
       (callAssignmentBody text context scan catalog).position = 0 →
-      ScalarExpression.At (elaborating := context.elaborating) (arrays := context.arrayNames) text (context.readingNames scan.facts) (scalarAssignmentStart text scan) expression
-        (ScalarExpression.read (elaborating := context.elaborating) (arrays := context.arrayNames) text (scalarAssignmentStart text scan) (context.readingNames scan.facts)) →
+      ScalarExpression.ArrayGrammar.At (elaborating := context.elaborating) (arrays := context.arrayTable) text (context.readingNames scan.facts) (scalarAssignmentStart text scan) expression
+        (ScalarExpression.ArrayGrammar.read (elaborating := context.elaborating) (arrays := context.arrayTable) text (scalarAssignmentStart text scan) (context.readingNames scan.facts)) →
       BasicPayload (catalog := catalog) text context scan (.scalarAssign
         ⟨scalarTarget text context scan.position, expression,
           (ScalarExpression.binding context.scalarNames (scalarTarget text context scan.position)).declaredBounds⟩)
   | arrayAssignment {index expression} : basicKind text context scan = .arrayAssignment →
-      ScalarExpression.At text (context.readingNames scan.facts) (arrayIndexStart text scan) index
+      ScalarExpression.ArrayGrammar.At (arrays := context.arrayTable) (arrayReads := .noElements)
+        text (context.readingNames scan.facts) (arrayIndexStart text scan) index
         (arrayIndex text context scan) →
-      ScalarExpression.At (elaborating := context.elaborating) (arrays := context.arrayNames) text (context.readingNames scan.facts)
+      ScalarExpression.ArrayGrammar.At (elaborating := context.elaborating) (arrays := context.arrayTable) text (context.readingNames scan.facts)
         (arrayValueStart text context scan) expression
         (readScalarInFlow text context (arrayValueStart text context scan) scan.facts) →
       BasicPayload (catalog := catalog) text context scan (.arrayAssign
@@ -145,18 +147,18 @@ theorem basic_sound {text context scan}
       split at raw
       · exact False.elim (raw rfl)
       · rename_i good
-        have positive : (expressionAt (integerHidden := context.integerHidden text) (elaborating := context.elaborating) (arrays := context.arrayNames) text (outputStart text context scan).position context.names (context.readingNames scan.facts)).after ≠ 0 :=
+        have positive : (expressionAt (integerHidden := context.integerHidden text) (elaborating := context.elaborating) (arrays := context.arrayTable) text (outputStart text context scan).position context.names (context.readingNames scan.facts)).after ≠ 0 :=
           fun zero => good (Or.inl zero)
-        obtain ⟨expression, parsed⟩ := expressionAt_sound (integerHidden := context.integerHidden text) (elaborating := context.elaborating) (arrays := context.arrayNames) (scalarNames := context.readingNames scan.facts) text context.names _ positive
+        obtain ⟨expression, parsed⟩ := expressionAt_sound (integerHidden := context.integerHidden text) (elaborating := context.elaborating) (arrays := context.arrayTable) (scalarNames := context.readingNames scan.facts) text context.names _ positive
         exact ⟨_, ⟨accepted, rfl, .output kind parsed⟩⟩
   | put =>
       simp only [basicRaw, kind] at raw
       split at raw
       · exact False.elim (raw rfl)
       · rename_i good
-        have positive : (expressionAt (integerHidden := context.integerHidden text) (elaborating := context.elaborating) (arrays := context.arrayNames) text (putStart text context scan).position context.names (context.readingNames scan.facts)).after ≠ 0 :=
+        have positive : (expressionAt (integerHidden := context.integerHidden text) (elaborating := context.elaborating) (arrays := context.arrayTable) text (putStart text context scan).position context.names (context.readingNames scan.facts)).after ≠ 0 :=
           fun zero => good (Or.inl zero)
-        obtain ⟨expression, parsed⟩ := expressionAt_sound (integerHidden := context.integerHidden text) (elaborating := context.elaborating) (arrays := context.arrayNames) (scalarNames := context.readingNames scan.facts) text context.names _ positive
+        obtain ⟨expression, parsed⟩ := expressionAt_sound (integerHidden := context.integerHidden text) (elaborating := context.elaborating) (arrays := context.arrayTable) (scalarNames := context.readingNames scan.facts) text context.names _ positive
         exact ⟨_, ⟨accepted, rfl, .put kind parsed⟩⟩
   | scalarAssignment =>
       by_cases called : (callAssignmentBody text context scan catalog).position ≠ 0
@@ -168,10 +170,10 @@ theorem basic_sound {text context scan}
         · exact False.elim (raw rfl)
         · rename_i good
           simp only [readScalarInFlow] at good raw
-          have positive : (ScalarExpression.read (elaborating := context.elaborating) (arrays := context.arrayNames) text (scalarAssignmentStart text scan) (context.readingNames scan.facts)).after ≠ 0 := by
+          have positive : (ScalarExpression.ArrayGrammar.read (elaborating := context.elaborating) (arrays := context.arrayTable) text (scalarAssignmentStart text scan) (context.readingNames scan.facts)).after ≠ 0 := by
             intro zero
             exact good (Or.inr (Or.inr (Or.inl (by omega))))
-          obtain ⟨expression, parsed⟩ := ScalarExpression.read_sound
+          obtain ⟨expression, parsed⟩ := ScalarExpression.ArrayGrammar.read_sound
             (Compose.Expressions.model_fixed_valid text _ ":=" false (Compose.Expressions.model_name_valid text _)) positive
           exact ⟨_, ⟨accepted, rfl, .scalarAssignment kind noCall parsed⟩⟩
   | arrayAssignment =>
@@ -182,11 +184,11 @@ theorem basic_sound {text context scan}
         have positive : (readScalarInFlow text context (arrayValueStart text context scan) scan.facts).after ≠ 0 := by
           intro zero
           exact good (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl (by omega)))))))
-        obtain ⟨expression, parsed⟩ := ScalarExpression.read_sound
+        obtain ⟨expression, parsed⟩ := ScalarExpression.ArrayGrammar.read_sound
           (arrayValueStart_bound text context scan) positive
         have indexPositive : (arrayIndex text context scan).after ≠ 0 :=
           fixedAfter_nonzero (fixedAfter_nonzero (Nat.ne_of_gt parsed.cursorBounds.1))
-        obtain ⟨index, indexed⟩ := ScalarExpression.read_sound
+        obtain ⟨index, indexed⟩ := ScalarExpression.ArrayGrammar.read_sound
           (Compose.Expressions.model_fixed_valid text _ "(" false (Compose.Expressions.model_name_valid text _)) indexPositive
         exact ⟨_, ⟨accepted, rfl, .arrayAssignment kind indexed parsed⟩⟩
   | booleanArrayAssignment =>
@@ -249,14 +251,14 @@ theorem functionAssignment_meaning {text context scan catalog update}
     update.target.identity ≠ 0 ∧
       update.call.Readable context.hasArguments context.names.shape
         (ArrayBindings.booleanAnalysis context.arrayNames (BooleanBindings.analysis context.booleanNames)) ∧
-      update.check (catalogSignatures catalog) context.names.shape context.analysis (context.flow scan.facts)
+      update.check (catalogSignatures catalog context.arrayTypes) context.names.shape context.analysis (context.flow scan.facts)
         (ArrayBindings.booleanAnalysis context.arrayNames (BooleanBindings.analysis context.booleanNames)) = true ∧
-      update.after (catalogSignatures catalog) (context.flow scan.facts) =
+      update.after (catalogSignatures catalog context.arrayTypes) (context.flow scan.facts) =
         context.flow (callAssignmentBody text context scan catalog).facts := by
   have contextReady : ScalarMetadata.ContextReady context.scalarNames context.declarationCount context.elaborating := by
     rw [bodyMode]
     exact base.toContextReady
-  have meaning := call_meaning normal nv contextReady arraysReady compatible bounded valid parsed.call
+  have meaning := call_meaning normal nv contextReady arraysReady compatible bounded valid parsed.call bodyMode
   have fields := call_result_fields parsed.call
   have accepted := parsed.positive
   unfold callAssignmentBody callAssignmentResult at accepted
@@ -299,13 +301,13 @@ theorem functionAssignment_meaning {text context scan catalog update}
           unfold functionAssignmentTarget
           exact ite_eq_left nonzero
         have mutableModel : context.analysis.mutable (scalarTarget text context scan.position) = true := by
-          simp only [ParseContext.analysis, ArrayFlow.analysis, ArrayBindings.integerMutability,
+          simp only [ParseContext.analysis, ArrayViews.analysis, ArrayFlow.analysis, ArrayBindings.integerMutability,
             ArrayBindings.mutability_scalar _ _ (Nat.le_trans targetBound base.size),
             ScalarMetadata.analysis, ScalarExpression.mutability,
             Nat.pos_of_ne_zero nonzero, targetBound, and_self, decide_true, Bool.true_and, mutable]
         have declaredModel : context.analysis.declared (scalarTarget text context scan.position) =
             some (ScalarExpression.binding context.scalarNames (scalarTarget text context scan.position)).declaredBounds := by
-          simp only [ParseContext.analysis, ArrayFlow.analysis, ArrayBindings.integerRanges,
+          simp only [ParseContext.analysis, ArrayViews.analysis, ArrayFlow.analysis, ArrayBindings.integerRanges,
             ArrayBindings.ranges_scalar _ _ _ _ (Nat.le_trans targetBound base.size),
             ScalarMetadata.analysis, ScalarExpression.ranges,
             Nat.pos_of_ne_zero nonzero, targetBound, and_self, ↓reduceIte, same]
@@ -319,12 +321,13 @@ theorem functionAssignment_meaning {text context scan catalog update}
             Bool.not_false, Bool.and_self]
         · rw [ScalarFunctions.Assignment.after_checked meaning.2, target, native]
           simp only [resultType, resultKind, ScalarFunctions.Target.after]
-          have flowAfter := ArrayFlow.flow_replace context.arrayNames scan.facts
+          have flowAfter := ArrayFlow.flow_replace (ArrayBindings.viewNames context.arrayNames) scan.facts
             (scalarTarget text context scan.position)
             (readCall text context (scalarAssignmentStart text scan) scan.facts catalog).bounds
             (Nat.pos_of_ne_zero nonzero) (by rw [compatible.count]; exact targetBound)
             (Nat.le_trans targetBound base.size)
-          simpa only [ArrayFlow.flow, ParseContext.flow, bodyMode, fields.2] using flowAfter.symm
+          simpa only [ArrayViews.flow, ArrayFlow.flow, ArrayFlow.ranges, ArrayBindings.viewRanges,
+            ArrayBindings.viewElaborating, Bool.false_and, ParseContext.flow, bodyMode, fields.2] using flowAfter.symm
     · rename_i noScalar
       split at accepted
       · rename_i good
@@ -371,7 +374,7 @@ theorem basic_meaning {text context scan item result}
     (valid : FunctionBindings.ValidMetadata text catalog)
     (parsed : BasicAt (catalog := catalog) text context scan item result) :
     item.WellFormed context.hasArguments context.names.shape (ArrayBindings.booleanAnalysis context.arrayNames (BooleanBindings.analysis context.booleanNames)) ∧
-      item.lower.check (signatures := catalogSignatures catalog) context.names.shape context.analysis (context.flow scan.facts)
+      item.lower.check (signatures := catalogSignatures catalog context.arrayTypes) context.names.shape context.analysis (context.flow scan.facts)
         (ArrayBindings.booleanAnalysis context.arrayNames (BooleanBindings.analysis context.booleanNames)) = some (context.flow result.facts) := by
   have rangesEq := context.reading_ranges compatible
   have success : (basicBody (catalog := catalog) text context scan).position ≠ 0 := parsed.equation ▸ parsed.positive
@@ -401,16 +404,16 @@ theorem basic_meaning {text context scan item result}
         congrArg (fun facts : ActiveFlow => some (context.flow facts)) factsEq
   | output kind expression =>
       have ready := expression_reading_ready normal expression
-      rw [rangesEq] at ready
+      rw [show context.arrayTable.items = context.arrayNames from rfl, rangesEq] at ready
       simp only [basicRaw, kind] at raw resultEq
       split at raw
       · exact False.elim (raw rfl)
       · rename_i good
         rw [ite_eq_right good] at resultEq
-        have fits : fitsLengthSummary scan.facts.path (summaryOf (expressionAt (integerHidden := context.integerHidden text) (elaborating := context.elaborating) (arrays := context.arrayNames) text (outputStart text context scan).position context.names (context.readingNames scan.facts))) = true := by
+        have fits : fitsLengthSummary scan.facts.path (summaryOf (expressionAt (integerHidden := context.integerHidden text) (elaborating := context.elaborating) (arrays := context.arrayTable) text (outputStart text context scan).position context.names (context.readingNames scan.facts))) = true := by
           apply true_of_not_neg
           simpa only [bodyTokens_facts] using (show ¬(!fitsLengthSummary (outputStart text context scan).facts.path
-              (summaryOf (expressionAt (integerHidden := context.integerHidden text) (elaborating := context.elaborating) (arrays := context.arrayNames) text (outputStart text context scan).position context.names (context.readingNames scan.facts)))) = true from
+              (summaryOf (expressionAt (integerHidden := context.integerHidden text) (elaborating := context.elaborating) (arrays := context.arrayTable) text (outputStart text context scan).position context.names (context.readingNames scan.facts)))) = true from
             fun bad => good (Or.inr (Or.inr bad)))
         simp only [summaryOf] at fits
         have valid : scan.facts.path.invalidReachable = false := by
@@ -426,16 +429,16 @@ theorem basic_meaning {text context scan item result}
           Bool.not_false, Bool.true_and, ↓reduceIte]
   | put kind expression =>
       have ready := expression_reading_ready normal expression
-      rw [rangesEq] at ready
+      rw [show context.arrayTable.items = context.arrayNames from rfl, rangesEq] at ready
       simp only [basicRaw, kind] at raw resultEq
       split at raw
       · exact False.elim (raw rfl)
       · rename_i good
         rw [ite_eq_right good] at resultEq
-        have fits : fitsLengthSummary scan.facts.path (summaryOf (expressionAt (integerHidden := context.integerHidden text) (elaborating := context.elaborating) (arrays := context.arrayNames) text (putStart text context scan).position context.names (context.readingNames scan.facts))) = true := by
+        have fits : fitsLengthSummary scan.facts.path (summaryOf (expressionAt (integerHidden := context.integerHidden text) (elaborating := context.elaborating) (arrays := context.arrayTable) text (putStart text context scan).position context.names (context.readingNames scan.facts))) = true := by
           apply true_of_not_neg
           simpa only [bodyTokens_facts] using (show ¬(!fitsLengthSummary (putStart text context scan).facts.path
-              (summaryOf (expressionAt (integerHidden := context.integerHidden text) (elaborating := context.elaborating) (arrays := context.arrayNames) text (putStart text context scan).position context.names (context.readingNames scan.facts)))) = true from
+              (summaryOf (expressionAt (integerHidden := context.integerHidden text) (elaborating := context.elaborating) (arrays := context.arrayTable) text (putStart text context scan).position context.names (context.readingNames scan.facts)))) = true from
             fun bad => good (Or.inr (Or.inr bad)))
         simp only [summaryOf] at fits
         have valid : scan.facts.path.invalidReachable = false := by
@@ -474,40 +477,41 @@ theorem basic_meaning {text context scan item result}
         have mutable : (ScalarExpression.binding context.scalarNames (scalarTarget text context scan.position)).mutable = true :=
           true_of_not_neg (fun bad => good (Or.inr (Or.inl bad)))
         have same := ScalarExpression.bodyReady_binding base.body (Nat.pos_of_ne_zero nonzero) targetBound mutable
-        have notEmpty : (ScalarExpression.read (elaborating := context.elaborating) (arrays := context.arrayNames) text (scalarAssignmentStart text scan) (context.readingNames scan.facts)).bounds.isEmpty = false :=
+        have notEmpty : (ScalarExpression.ArrayGrammar.read (elaborating := context.elaborating) (arrays := context.arrayTable) text (scalarAssignmentStart text scan) (context.readingNames scan.facts)).bounds.isEmpty = false :=
           Bool.eq_false_iff.mpr (fun bad => good (Or.inr (Or.inr (Or.inr (Or.inl bad)))))
-        have included : (ScalarExpression.read (elaborating := context.elaborating) (arrays := context.arrayNames) text (scalarAssignmentStart text scan) (context.readingNames scan.facts)).bounds.included
+        have included : (ScalarExpression.ArrayGrammar.read (elaborating := context.elaborating) (arrays := context.arrayTable) text (scalarAssignmentStart text scan) (context.readingNames scan.facts)).bounds.included
             (ScalarExpression.binding context.scalarNames (scalarTarget text context scan.position)).declaredBounds = true := by
-          have low : ¬ (ScalarExpression.read (elaborating := context.elaborating) (arrays := context.arrayNames) text (scalarAssignmentStart text scan) (context.readingNames scan.facts)).bounds.lower <
+          have low : ¬ (ScalarExpression.ArrayGrammar.read (elaborating := context.elaborating) (arrays := context.arrayTable) text (scalarAssignmentStart text scan) (context.readingNames scan.facts)).bounds.lower <
               (ScalarExpression.binding context.scalarNames (scalarTarget text context scan.position)).declaredBounds.lower :=
             fun bad => good (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl bad)))))
-          have high : ¬ (ScalarExpression.read (elaborating := context.elaborating) (arrays := context.arrayNames) text (scalarAssignmentStart text scan) (context.readingNames scan.facts)).bounds.upper >
+          have high : ¬ (ScalarExpression.ArrayGrammar.read (elaborating := context.elaborating) (arrays := context.arrayTable) text (scalarAssignmentStart text scan) (context.readingNames scan.facts)).bounds.upper >
               (ScalarExpression.binding context.scalarNames (scalarTarget text context scan.position)).declaredBounds.upper :=
             fun bad => good (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr bad)))))
           simp only [Integer.Interval.included, notEmpty, Bool.false_or, decide_eq_true_eq]
           constructor <;> omega
         have factsEq : scan.facts.replace (scalarTarget text context scan.position)
-            (ScalarExpression.read (elaborating := context.elaborating) (arrays := context.arrayNames) text (scalarAssignmentStart text scan) (context.readingNames scan.facts)).bounds = result.facts := by
+            (ScalarExpression.ArrayGrammar.read (elaborating := context.elaborating) (arrays := context.arrayTable) text (scalarAssignmentStart text scan) (context.readingNames scan.facts)).bounds = result.facts := by
           simpa only [bodyToken_facts] using congrArg BodyScan.facts resultEq
         have inferred := expression.inferred
-        rw [rangesEq] at inferred
+        rw [show context.arrayTable.items = context.arrayNames from rfl, rangesEq] at inferred
 
         refine ⟨by simpa only [SourceStatement.WellFormed] using nonzero, ?_⟩
         rw [← factsEq]
         simp only [ParseContext.flow, bodyMode] at *
-        change _ = some (ArrayFlow.flow context.arrayNames (scan.facts.replace _ _))
+        change _ = some (ArrayFlow.flow (ArrayBindings.viewNames context.arrayNames) (scan.facts.replace _ _))
         rw [ArrayFlow.flow_replace _ _ _ _ (Nat.pos_of_ne_zero nonzero)
           (by rw [compatible.count]; exact targetBound) (Nat.le_trans targetBound base.size)]
-        simp only [ArrayBindings.integerRanges] at inferred
+        simp only [ArrayBindings.viewRanges, ArrayBindings.viewElaborating, Bool.false_and, ArrayBindings.integerRanges] at inferred
         simp only [SourceStatement.lower, Statement.check, Integer.Assignment.check,
-          Integer.Assignment.after, ParseContext.analysis, ArrayFlow.analysis, ArrayBindings.integerMutability, ArrayBindings.integerRanges,
+          Integer.Assignment.after, ParseContext.analysis, ArrayViews.analysis, ArrayFlow.analysis,
+          ArrayFlow.flow, ArrayFlow.ranges, ArrayBindings.viewRanges, ArrayBindings.viewElaborating, Bool.false_and,
+          ArrayBindings.integerMutability, ArrayBindings.integerRanges,
           ArrayBindings.mutability_scalar _ _ (Nat.le_trans targetBound base.size),
           ArrayBindings.ranges_scalar _ _ _ _ (Nat.le_trans targetBound base.size), ScalarMetadata.analysis,
           ScalarExpression.mutability, ScalarExpression.ranges,
           Nat.pos_of_ne_zero nonzero, targetBound, and_self, decide_true,
           Bool.true_and, mutable, ↓reduceIte, inferred, same,
           included, notEmpty, Bool.not_false]
-        rfl
   | @arrayAssignment index value kind indexed expression =>
       simp only [basicRaw, kind, arrayAssignmentBody] at raw resultEq
       split at raw
@@ -520,9 +524,9 @@ theorem basic_meaning {text context scan item result}
           dsimp only
           split
           · exact Nat.zero_le _
-          · exact ArrayBindings.Native.lookup_bound ..
-        have member := ArrayBindings.Native.binding_mem (Nat.pos_of_ne_zero nonzero) targetBound
-        have valid := (arraysReady.1.2.1 _ member).2.2.2
+          · exact ArrayBindings.lookup_bound ..
+        have member := ArrayBindings.binding_mem (Nat.pos_of_ne_zero nonzero) targetBound
+        have valid := (arraysReady.member_valid member).2.1.1
         have mutable : (ArrayBindings.binding context.arrayNames (arrayTarget text context scan.position)).mutable = true :=
           true_of_not_neg (fun bad => good (Or.inr (Or.inl bad)))
         have contained : ArrayBindings.contains
@@ -531,9 +535,20 @@ theorem basic_meaning {text context scan item result}
           true_of_not_neg (fun bad => good (Or.inr (Or.inr (Or.inr (Or.inl bad)))))
         have integerKind : (ArrayBindings.binding context.arrayNames (arrayTarget text context scan.position)).isBoolean = false :=
           Bool.eq_false_iff.mpr (fun bad => good (Or.inr (Or.inr (Or.inl bad))))
+        have stored : (ArrayBindings.binding context.arrayNames (arrayTarget text context scan.position)).viewSlot = 0 := by
+          apply Classical.byContradiction
+          intro formal
+          have immutable := ((arraysReady.member_valid member).2.1.2.2.2.2 formal).2.2.1
+          simp [mutable] at immutable
+        have allStored := arraysReady.stored_of_member member stored
+        simp only [ParseContext.arrayTable] at allStored
+        have orderedAll := arraysReady.viewNames_ordered
+        simp only [ParseContext.arrayTable] at orderedAll
+        rw [ArrayBindings.viewNames_stored allStored] at orderedAll
         have selected := ArrayBindings.mem_integerNames.mpr ⟨member, integerKind⟩
-        have metadata := ArrayBindings.integerNames_validBindings (fun entry found => (arraysReady.1.2.1 entry found).2.2.2)
-        have ordered := ArrayBindings.integerNames_ordered arraysReady.2
+        have metadata := ArrayBindings.integerNames_validBindings (names := context.arrayNames)
+          (fun entry found => (arraysReady.member_valid found).2.1.1)
+        have ordered := ArrayBindings.integerNames_ordered orderedAll
         have notEmpty : (readScalarInFlow text context (arrayValueStart text context scan) scan.facts).bounds.isEmpty = false :=
           Bool.eq_false_iff.mpr (fun bad => good (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl bad))))))))
         have included : (readScalarInFlow text context (arrayValueStart text context scan) scan.facts).bounds.included
@@ -549,33 +564,27 @@ theorem basic_meaning {text context scan item result}
             (arrayIndex text context scan).bounds = true := by
           simp only [ArrayBindings.contains, decide_eq_true_eq] at contained
           exact decide_eq_true (And.intro (ArrayBindings.binding_descriptor_valid valid) contained)
-        have indexInference := indexed.inferred
-        change index.infer (ScalarExpression.ranges (context.readingNames scan.facts)) = _ at indexInference
-        have overlay : index.infer (ArrayBindings.integerRanges context.arrayNames [] context.elaborating
-            (ScalarExpression.ranges (context.readingNames scan.facts))) =
-            index.infer (ScalarExpression.ranges (context.readingNames scan.facts)) := by
-          apply Integer.Expr.infer_readsOnly (ScalarExpression.syntax_readsOnly indexed.grammar)
-          intro observed active
-          apply ArrayBindings.ranges_scalar
-          have low : observed ≤ context.scalarNames.length := by
-            simpa only [ParseContext.readingNames, ScalarMetadata.readingNames_length] using active.2
-          exact Nat.le_trans low base.size
-        rw [rangesEq] at overlay
-        have indexInferred := overlay.trans indexInference
+        have indexRanges := rangesEq
+        rw [bodyMode] at indexRanges
+        have indexInferred := indexed.inferred
+        rw [show context.arrayTable.items = context.arrayNames from rfl, indexRanges] at indexInferred
         have inferred := expression.inferred
-        rw [rangesEq] at inferred
+        rw [show context.arrayTable.items = context.arrayNames from rfl, rangesEq] at inferred
         have fullFlow : (ArrayBindings.binding context.arrayNames (arrayTarget text context scan.position)).descriptor.componentRanges
             (context.flow scan.facts).scalars = true :=
-          by simpa only [ParseContext.flow, bodyMode, ArrayBindings.integerRanges] using
+          by simpa only [ParseContext.flow, bodyMode, ArrayBindings.viewRanges_stored allStored, ArrayBindings.integerRanges] using
             (Integer.ArrayDescriptor.componentRanges_iff _ _).mpr (ArrayBindings.body_ranges_components
-            metadata ordered selected [] _)
+            metadata ordered selected [] scan.facts.model.scalars)
         have fullDeclared : (ArrayBindings.binding context.arrayNames (arrayTarget text context scan.position)).descriptor.componentRanges
             context.analysis.declared = true :=
-          (Integer.ArrayDescriptor.componentRanges_iff _ _).mpr (ArrayBindings.body_ranges_components
-            metadata ordered selected [] _)
+          by simpa only [ParseContext.analysis, ArrayViews.analysis_stored allStored, ArrayFlow.analysis, ArrayFlow.ranges, ArrayBindings.integerRanges] using
+            (Integer.ArrayDescriptor.componentRanges_iff _ _).mpr (ArrayBindings.body_ranges_components
+              metadata ordered selected [] (ScalarMetadata.analysis context.scalarNames context.declarationCount).declared)
         have writable : (ArrayBindings.binding context.arrayNames (arrayTarget text context scan.position)).descriptor.allCells
             context.analysis.mutable = true :=
-          ArrayBindings.ordered_allCells metadata ordered selected mutable _
+          by simpa only [ParseContext.analysis, ArrayViews.analysis_stored allStored, ArrayFlow.analysis, ArrayBindings.integerMutability] using
+            ArrayBindings.ordered_allCells metadata ordered selected mutable
+              (ScalarMetadata.analysis context.scalarNames context.declarationCount).mutable
         have factsEq : scan.facts = result.facts := by
           simpa only [bodyToken_facts] using congrArg BodyScan.facts resultEq
         refine ⟨by simp only [SourceStatement.WellFormed], ?_⟩
@@ -595,14 +604,24 @@ theorem basic_meaning {text context scan item result}
           dsimp only
           split
           · exact Nat.zero_le _
-          · exact ArrayBindings.Native.lookup_bound ..
-        have member := ArrayBindings.Native.binding_mem (Nat.pos_of_ne_zero nonzero) targetBound
+          · exact ArrayBindings.lookup_bound ..
+        have member := ArrayBindings.binding_mem (Nat.pos_of_ne_zero nonzero) targetBound
         have tag : (ArrayBindings.binding context.arrayNames (arrayTarget text context scan.position)).isBoolean = true :=
           true_of_not_neg (fun bad => good (Or.inr (Or.inl bad)))
         have mutable : (ArrayBindings.binding context.arrayNames (arrayTarget text context scan.position)).mutable = true :=
           true_of_not_neg (fun bad => good (Or.inr (Or.inr (Or.inl bad))))
-        have writable := ArrayBindings.booleanAnalysis_writable
-          (fun item found => (arraysReady.1.2.1 item found).2.2.2) arraysReady.2 member tag mutable
+        have stored : (ArrayBindings.binding context.arrayNames (arrayTarget text context scan.position)).viewSlot = 0 := by
+          apply Classical.byContradiction
+          intro formal
+          have immutable := ((arraysReady.member_valid member).2.1.2.2.2.2 formal).2.2.1
+          simp [mutable] at immutable
+        have allStored := arraysReady.stored_of_member member stored
+        simp only [ParseContext.arrayTable] at allStored
+        have orderedAll := arraysReady.viewNames_ordered
+        simp only [ParseContext.arrayTable] at orderedAll
+        rw [ArrayBindings.viewNames_stored allStored] at orderedAll
+        have writable := ArrayBindings.booleanAnalysis_writable (names := context.arrayNames)
+          (fun item found => (arraysReady.member_valid found).2.1.1) orderedAll member tag mutable
           (BooleanBindings.analysis context.booleanNames)
         have contextReady : ScalarMetadata.ContextReady context.scalarNames context.declarationCount context.elaborating := by
           rw [bodyMode]
@@ -707,14 +726,14 @@ theorem basic_unique {text context scan left right first second}
       | scalarCallAssignment _ other => exact False.elim (other.positive noCall)
       | null other | reject other | output other | put other | arrayAssignment other | booleanAssignment other | booleanArrayAssignment other | assignment other | booleanCallAssignment other => simp_all
       | scalarAssignment _ _ other =>
-          obtain ⟨rfl, _⟩ := ScalarExpression.at_unique reading other
+          obtain ⟨rfl, _⟩ := ScalarExpression.ArrayGrammar.at_unique reading other
           rfl
   | arrayAssignment kind indexed reading =>
       cases b.payload with
       | null other | reject other | output other | put other | scalarAssignment other | assignment other | booleanAssignment other | booleanArrayAssignment other | scalarCallAssignment other | booleanCallAssignment other => simp_all
       | arrayAssignment _ otherIndex other =>
-          obtain ⟨rfl, _⟩ := ScalarExpression.at_unique indexed otherIndex
-          obtain ⟨rfl, _⟩ := ScalarExpression.at_unique reading other
+          obtain ⟨rfl, _⟩ := ScalarExpression.ArrayGrammar.at_unique indexed otherIndex
+          obtain ⟨rfl, _⟩ := ScalarExpression.ArrayGrammar.at_unique reading other
           rfl
   | booleanArrayAssignment kind indexed reading =>
       cases b.payload with

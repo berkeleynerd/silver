@@ -103,7 +103,7 @@ theorem scalarAssignment_flowReady (text : Source) (context : ParseContext) (sca
     have positive : (readScalarInFlow text context (scalarAssignmentStart text scan) scan.facts).after ≠ 0 := by
       intro zero
       exact good (Or.inr (Or.inr (Or.inl (by omega))))
-    obtain ⟨expression, parsed⟩ := ScalarExpression.read_sound
+    obtain ⟨expression, parsed⟩ := ScalarExpression.ArrayGrammar.read_sound
       (Compose.Expressions.model_fixed_valid text _ ":=" false (Compose.Expressions.model_name_valid text _)) positive
     apply ScalarMetadata.FlowReady.replace ready _ _ (Nat.pos_of_ne_zero nonzero) targetBound mutable
       (Integer.Expr.infer_bounded parsed.inferred) nonempty
