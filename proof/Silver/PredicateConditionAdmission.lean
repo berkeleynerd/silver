@@ -5,6 +5,7 @@ public import Silver.PredicateChecking
 public import Silver.IntegerLiteral
 public import Silver.PredicateFlowOverlay
 public import Silver.PredicateArrayFlow
+public import Silver.ArrayBindingsMetadata
 public import Silver.IntegerSubtypeBindings
 public import Silver.PredicateXorAdmission
 
@@ -32,7 +33,11 @@ structure ParseContext where
   maskAfter : Nat := 0
   pure : Bool := false
   outerIntegerHidden : Bool := false
+  arrayTypes : ArrayBindings.TypeEnvironment := []
   deriving Repr
+
+def ParseContext.arrayTable (context : ParseContext) : ArrayBindings.Table :=
+  ⟨context.arrayNames, context.arrayTypes⟩
 
 def ParseContext.analysis (context : ParseContext) : Integer.Analysis :=
   ArrayFlow.analysis context.arrayNames (ScalarMetadata.analysis context.scalarNames context.declarationCount)

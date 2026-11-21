@@ -32,13 +32,17 @@ structure Context where
   maskAfter : Nat := 0
   pure : Bool := false
   integerHidden : Bool := false
+  arrayTypes : ArrayBindings.TypeEnvironment := []
   deriving DecidableEq, Repr
+
+def Context.arrayTable (context : Context) : ArrayBindings.Table :=
+  ⟨context.arrayNames, context.arrayTypes⟩
 
 def Context.model (context : Context) : ParseContext :=
   ⟨context.names, decide (context.dynamicFirst ≠ 0), context.scalarNames,
     context.declarationCount, context.arrayNames, context.subtypeHiding, context.booleanNames,
     context.trueHidden, context.falseHidden, context.elaborating, context.maskFirst, context.maskAfter,
-    context.pure, context.integerHidden⟩
+    context.pure, context.integerHidden, context.arrayTypes⟩
 
 def ValidContext (text : Source) (context : Context) : Prop :=
   Compose.Expressions.ValidNames text context.names ∧
