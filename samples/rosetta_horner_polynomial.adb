@@ -23,7 +23,7 @@ procedure Main is
             --  A conservative capacity guard covers every coefficient and X.
             --  Refusal is explicit; a partial accumulator is never a result.
             if Accumulator >= -98 and then Accumulator <= 98 then
-               Accumulator := (Accumulator * X + Coefficients (I));
+               Accumulator := ((Accumulator * X) + Coefficients (I));
             else
                Succeeded := False;
             end if;

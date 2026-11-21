@@ -211,13 +211,18 @@ class ArrayParameterTests(unittest.TestCase):
 
     def test_queries_share_expression_operand_budget(self) -> None:
         declaration = VECTOR + b'A:Vector:=(1,2,3);R:Integer:=0;'
-        self.check(program(declaration, b'R:=(' + b'+'.join([b"A'Length"] * 64) + b');'))
+        def addition(terms):
+            result = terms[0]
+            for term in terms[1:]:
+                result = b'(' + result + b'+' + term + b')'
+            return result
+        self.check(program(declaration, b'R:=' + addition([b"A'Length"] * 64) + b';'))
         # A component prefix is an extra leaf; the attribute itself is one
         # scalar leaf. The rejection below still uses only 63 operators.
         for count, status in ((62, 0), (63, 2)):
             with self.subTest(count=count):
                 terms = [b"A(A'First)"] + [b"Vector'Length"] * count
-                self.check(program(declaration, b'R:=(' + b'+'.join(terms) + b');'), status)
+                self.check(program(declaration, b'R:=' + addition(terms) + b';'), status)
 
     def test_array_inputs_do_not_relax_scalar_alias_or_incoming_state_rules(self) -> None:
         declaration = (

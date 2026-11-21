@@ -11,9 +11,9 @@ procedure Main is
    --  -100 .. 100, so both additions fit the result's declared range.
    function Dot (Left : in Vector; Right : in Vector) return Product is
    begin
-      return (Left (Left'First) * Right (Right'First)
-              + Left (Left'First + 1) * Right (Right'First + 1)
-              + Left (Left'Last) * Right (Right'Last));
+      return (((Left (Left'First) * Right (Right'First))
+               + (Left ((Left'First + 1)) * Right ((Right'First + 1))))
+              + (Left (Left'Last) * Right (Right'Last)));
    end Dot;
 
    A : constant Vector := (1, 3, -5);
