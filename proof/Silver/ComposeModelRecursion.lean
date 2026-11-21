@@ -78,11 +78,11 @@ theorem model_workTail_equation (text : Source) (_valid : ValidText text)
 
 theorem model_tail_equation (ranges : RangeContracts modelCalls)
     (text : Source) (valid : ValidText text) (names : BindingEnvironment)
-    (scan : ExpressionState) (scalarNames : ScalarExpression.Environment) (integerHidden : Bool) (arrays : ArrayBindings.Metadata)
+    (scan : ExpressionState) (scalarNames : ScalarExpression.Environment) (integerHidden : Bool) (arrays : ArrayBindings.Table)
     (initials : ArrayBindings.Initials) (elaborating : Bool)
     (namesValid : NativeNames text names)
     (scalarNamesValid : ScalarExpression.ValidEnvironment text scalarNames)
-    (arraysValid : ArrayBindings.ValidMetadata text arrays) (initialsValid : ArrayBindings.ValidInitials initials)
+    (arraysValid : ArrayBindings.ValidTable text arrays) (initialsValid : ArrayBindings.ValidInitials initials)
     (scanValid : NativeScan text scan) :
     modelCalls.function .tail text names scan scalarNames integerHidden arrays initials elaborating =
       tailBody.eval modelCalls (Context.locals {text,scalarNames,integerHidden,arrays,initials,elaborating,names,scan}) := by

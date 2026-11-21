@@ -10,7 +10,7 @@ open StringNative
 set_option maxRecDepth 10000
 set_option maxHeartbeats 2000000
 set_option backward.dsimp.instances true
-attribute [local irreducible] ScalarExpression.read
+attribute [local irreducible] ScalarExpression.ArrayGrammar.read
 
 theorem model_guarded_denotation (text : Source) (position limit depth : Nat) (chained ending : Bool)
     (positive : 0 < position) (bounded : position ≤ text.length + 1) (limitBound : limit ≤ text.length + 1) :
@@ -25,7 +25,7 @@ theorem model_guarded_denotation (text : Source) (position limit depth : Nat) (c
 
 /-- Interpret every assignment and early return in the complete native index reader. -/
 theorem model_indexed_denotation (text : Source) (position : Nat) (names : BindingEnvironment)
-    (scalarNames : ScalarExpression.Environment) (arrays : ArrayBindings.Metadata)
+    (scalarNames : ScalarExpression.Environment) (arrays : ArrayBindings.Table)
     (initials : ArrayBindings.Initials) (elaborating element : Bool) :
     indexedBody.eval modelCalls
       (Context.locals {text,position,names,scalarNames,arrays,initials,elaborating,characterElement := element}) =
@@ -41,7 +41,7 @@ theorem model_indexed_denotation (text : Source) (position : Nat) (names : Bindi
 
 /-- The recursive call retains the same source table and native fixed initial values. -/
 theorem model_character_denotation (text : Source) (position : Nat) (names : BindingEnvironment)
-    (scalarNames : ScalarExpression.Environment) (arrays : ArrayBindings.Metadata)
+    (scalarNames : ScalarExpression.Environment) (arrays : ArrayBindings.Table)
     (initials : ArrayBindings.Initials) (elaborating : Bool) (bound : ValidCursor text position) :
     characterBody.eval modelCalls
       (Context.locals {text,position,names,scalarNames,arrays,initials,elaborating}) =
@@ -81,6 +81,7 @@ theorem model_characterDeclaration_denotation (text : Source) (state : ParserSta
   have guard := characterDeclaration_progress_guard text state arguments stateValid
   dsimp only [characterDeclarationParts, declarationFirst, declarationAfter,
     declarationColonAfter, declarationConstantAfter] at guard
+  simp only [show state.arrayNames.table.items = state.arrayNames.names from rfl]
   rw [guard]
   rfl
 
