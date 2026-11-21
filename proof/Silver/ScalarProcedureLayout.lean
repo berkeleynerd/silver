@@ -13,6 +13,7 @@ def parameterTargets : Nat → Nat → List Formal → List Target
   | _, _, [] => []
   | i, b, ⟨_, .integer bounds⟩ :: rest =>
       .integer (i + 1) bounds :: parameterTargets (i + 1) b rest
+  | i, b, ⟨_, .array _⟩ :: rest => parameterTargets i b rest
   | i, b, ⟨_, .boolean⟩ :: rest => .boolean (b + 1) :: parameterTargets i (b + 1) rest
 
 theorem parameterAnalysis_preserves {identity count : Nat} (inside : identity ≤ count)
@@ -30,7 +31,7 @@ theorem parameterAnalysis_preserves {identity count : Nat} (inside : identity �
               Integer.put analysis.static (count + 1) false,
               Integer.put analysis.refinable (count + 1) true⟩
           simpa only [parameterAnalysis, Integer.put, show identity ≠ count + 1 by omega, ↓reduceIte] using kept
-      | boolean => exact ih inside analysis
+      | boolean | array _ => exact ih inside analysis
 
 theorem parameterBooleans_preserves {identity count : Nat} (inside : identity ≤ count)
     (formals : List Formal) (analysis : Boolean.Analysis) :
@@ -40,7 +41,7 @@ theorem parameterBooleans_preserves {identity count : Nat} (inside : identity �
   | cons formal rest ih =>
       rcases formal with ⟨mode, domain⟩
       cases domain with
-      | integer bounds => exact ih inside analysis
+      | integer _ | array _ => exact ih inside analysis
       | boolean =>
           have kept := ih (count := count + 1) (by omega) (analysis.initialize (count + 1) (mode != .input))
           simpa only [parameterBooleans, Boolean.Analysis.initialize,
@@ -85,6 +86,7 @@ theorem parameterTargets_known (i b : Nat) (formals : List Formal)
               parameterBooleans_preserves (Nat.le_refl (b + 1)) rest
                 (booleans.initialize (b + 1) (mode != .input))
           · exact ih i (b + 1) analysis _ remaining target present
+      | array _ => exact ih i b analysis booleans remaining
 
 theorem parameterTargets_within (i b : Nat) (formals : List Formal) :
     ∀ target ∈ parameterTargets i b formals,
@@ -109,6 +111,7 @@ theorem parameterTargets_within (i b : Nat) (formals : List Formal) :
             omega
           · have within := ih i (b + 1) target present
             cases target <;> simp_all [TargetWithin, integerCount, booleanCount, Nat.add_assoc, Nat.add_comm]
+      | array _ => exact ih i b
 
 theorem targetKnown_preserved {i b : Nat} {target : Target} (within : TargetWithin i b target)
     (formals : List Formal) {analysis : Integer.Analysis} {booleans : Boolean.Analysis}
@@ -151,6 +154,7 @@ theorem outputTargets_members (i b oi ob : Nat) (formals : List Formal) :
         simp only [outputTargets, inputFormals, outFormals, parameterTargets, List.mem_cons]
         intro target present
         first
+        | exact ih i b oi ob target present
         | rcases present with rfl | present
           · simp
           · first
@@ -203,11 +207,15 @@ theorem targetsRead_checked {analysis : Integer.Analysis} {booleans : Boolean.An
       simp only [List.map_cons, ScalarFunctions.checkActuals, first, rest, Bool.and_self]
 
 theorem Definition.outputCheck_of_layout (definition : Definition)
-    (valid : ∀ formal ∈ definition.signature.formals, formal.domain.Valid) :
+    (valid : ∀ formal ∈ definition.signature.formals, formal.domain.Valid ∧
+      (formal.mode = .input ∨ formal.domain.IsScalar)) :
     definition.outputCheck = true := by
-  have checked := targetsRead_checked (definition.outputTargets_known valid)
+  have checked := targetsRead_checked (definition.outputTargets_known (fun f h => (valid f h).1))
+  have domains := outputTargets_types definition.integers.length definition.booleans.length
+    definition.inputIntegerCount definition.inputBooleanCount definition.signature.formals
+    (fun f h => (valid f h).2)
   simpa only [Definition.outputCheck, Definition.outputReads, Definition.outputTargets,
-    outputTargets_types, Definition.initialFlow] using checked
+    domains, Definition.initialFlow] using checked
 
 theorem Definition.outputReads_readable (definition : Definition)
     (valid : ∀ formal ∈ definition.signature.formals, formal.domain.Valid) :

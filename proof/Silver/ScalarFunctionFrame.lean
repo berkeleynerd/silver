@@ -45,6 +45,42 @@ theorem bindArrayArguments_fits {formals : List ScalarType} {values : List Value
       · apply ih arguments.2
         exact NamedArrayParameters.bind_declared_fits arguments.1 _ fits
 
+/-- Later array formals retain every cell of previously bound inputs, including
+when several formal slots carry the same actual object. -/
+theorem bindArrayArguments_preserves_before {formals : List ScalarType} {values : List Value}
+    (arguments : ArgumentsFit formals values) (earlier : NamedArrayParameters.Domain)
+    (bounded : earlier.length ≤ NamedArrayParameters.maxLength) {previous slot cell : Nat}
+    (before : previous < slot) (inside : (earlier.formal previous).ContainsCell cell) (locals : Integer.Store) :
+    bindArrayArguments slot formals values locals cell = locals cell := by
+  induction formals generalizing values slot locals with
+  | nil => cases values <;> simp_all [ArgumentsFit, bindArrayArguments]
+  | cons formal formals ih =>
+    cases values with
+    | nil => contradiction
+    | cons value values =>
+      cases formal <;> cases value
+      all_goals try exact False.elim arguments.1
+      · exact ih arguments.2 before locals
+      · exact ih arguments.2 before locals
+      · rename_i domain argument
+        have apart := NamedArrayParameters.formal_disjoint (right := domain) before bounded
+        have outside : ¬ (domain.formal slot).ContainsCell cell := by
+          simp only [Integer.ArrayDescriptor.Disjoint, Integer.ArrayDescriptor.ContainsCell] at apart inside ⊢
+          omega
+        exact (ih arguments.2 (show previous < slot + 1 by omega) _).trans
+          (NamedArrayParameters.bind_preserves_outside arguments.1 slot locals outside)
+
+theorem capture_bound_parameter {formals : List ScalarType} {values : List Value}
+    {domain : NamedArrayParameters.Domain} {argument : NamedArrayParameters.Argument}
+    (bounded : domain.length ≤ NamedArrayParameters.maxLength) (fits : domain.Contains argument)
+    (remaining : ArgumentsFit formals values) (slot : Nat) (locals : Integer.Store) :
+    NamedArrayParameters.capture domain.identity (domain.formal slot)
+      (bindArrayArguments slot (.array domain :: formals) (.array argument :: values) locals) = argument := by
+  refine (NamedArrayParameters.capture_congr domain.identity (domain.formal slot) ?_).trans
+    (NamedArrayParameters.capture_bind fits slot locals)
+  intro cell inside
+  exact bindArrayArguments_preserves_before remaining domain bounded (Nat.lt_succ_self _) inside _
+
 def bindArguments : Nat → Nat → List ScalarType → List Value → Frame → Frame
   | integerCount, booleanCount, .integer _ :: formals, .integer value :: values, frame =>
       bindArguments (integerCount + 1) booleanCount formals values
@@ -62,6 +98,38 @@ def parameterRanges : Nat → List ScalarType → Integer.Ranges → Integer.Ran
   | count, .boolean :: formals, ranges
   | count, .array _ :: formals, ranges => parameterRanges count formals ranges
   | _, [], ranges => ranges
+
+theorem bindArguments_preserves_above {formals : List ScalarType} {values : List Value}
+    (arguments : ArgumentsFit formals values) (integerCount booleanCount : Nat)
+    (frame : Frame) {cell : Nat} (above : integerCount + formals.length < cell) :
+    (bindArguments integerCount booleanCount formals values frame).integers cell = frame.integers cell := by
+  induction formals generalizing values integerCount booleanCount frame with
+  | nil => cases values <;> simp_all [ArgumentsFit, bindArguments]
+  | cons formal formals ih =>
+    cases values with
+    | nil => contradiction
+    | cons value values =>
+      simp only [List.length_cons] at above
+      cases formal <;> cases value
+      all_goals try exact False.elim arguments.1
+      · rename_i bounds value
+        have kept := ih arguments.2 (integerCount + 1) booleanCount
+          {frame with integers := Integer.put frame.integers (integerCount + 1) value} (by omega)
+        simpa only [bindArguments, Integer.put, show cell ≠ integerCount + 1 by omega, ↓reduceIte] using kept
+      · exact ih arguments.2 integerCount (booleanCount + 1) _ (by omega)
+      · exact ih arguments.2 integerCount booleanCount frame (by omega)
+
+theorem capture_after_scalar_arguments {formals : List ScalarType} {values : List Value}
+    (arguments : ArgumentsFit formals values) (integerCount booleanCount : Nat)
+    (frame : Frame) (typeId : Nat) (source : Integer.ArrayDescriptor)
+    (separate : integerCount + formals.length < source.base) :
+    NamedArrayParameters.capture typeId source (bindArguments integerCount booleanCount formals values frame).integers =
+      NamedArrayParameters.capture typeId source frame.integers := by
+  apply NamedArrayParameters.capture_congr
+  intro cell inside
+  exact bindArguments_preserves_above arguments integerCount booleanCount frame (by
+    simp only [Integer.ArrayDescriptor.ContainsCell] at inside
+    omega)
 
 theorem bindArguments_fits {formals : List ScalarType} {values : List Value}
     (arguments : ArgumentsFit formals values) (integerCount booleanCount : Nat)

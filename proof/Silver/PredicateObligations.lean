@@ -195,6 +195,7 @@ def actualObligations (shape : Shape) (analysis : Integer.Analysis) (flow : Flow
         | some bounds => [.scalar (.within bounds target)]
         | none => [.impossible]
   | .boolean, .boolean condition => condition.obligations shape analysis flow booleans
+  | .array domain, .array _ source => [.scalar (.arrayLength source.length domain.length)]
   | _, _ => [.impossible]
 
 theorem actual_obligations_discharge {shape : Shape} {analysis : Integer.Analysis} {flow : Flow}
@@ -202,6 +203,7 @@ theorem actual_obligations_discharge {shape : Shape} {analysis : Integer.Analysi
     (checked : actual.check shape analysis flow booleans formal = true) :
     discharged (actualObligations shape analysis flow booleans formal actual) = true := by
   cases formal <;> cases actual
+  all_goals try contradiction
   · rename_i target expression
     cases known : expression.infer flow.scalars with
     | none => simp [ScalarFunctions.Actual.check, known] at checked
@@ -212,9 +214,12 @@ theorem actual_obligations_discharge {shape : Shape} {analysis : Integer.Analysi
         simp only [actualObligations, known, discharged_append, scalar_discharged,
           Integer.Expr.obligations_discharge known, Bool.true_and]
         simpa [discharged, Obligation.discharge, Integer.Obligation.discharge] using included
-  · contradiction
-  · contradiction
   · simpa only [actualObligations, Condition.obligations_exact, ScalarFunctions.Actual.check] using checked
+  · rename_i domain typeId source
+    have same : domain.Matches typeId source :=
+      of_decide_eq_true (Bool.and_eq_true_iff.mp checked).1
+    simp [actualObligations, discharged, Obligation.discharge, Integer.Obligation.discharge,
+      Integer.ArrayDescriptor.length, NamedArrayParameters.Domain.length, same.2.2.1]
 
 def actualsObligations (shape : Shape) (analysis : Integer.Analysis) (flow : Flow)
     (booleans : Boolean.Analysis) : List ScalarFunctions.ScalarType → List ScalarFunctions.Actual → List Obligation
@@ -258,11 +263,10 @@ theorem call_obligations_discharge {shape : Shape} {analysis : Integer.Analysis}
   rw [← resultEq] at targeted
   simp only [callObligations, found, discharged_append, actuals_obligations_discharge actuals, Bool.true_and]
   cases targetEq : assignment.target <;> cases resultEq : signature.result
+  all_goals try (simp [ScalarFunctions.Target.check, targetEq, resultEq] at targeted; done)
   · rw [targetEq, resultEq] at targeted
     have included := (ScalarFunctions.Target.integer_check targeted).2.2.2
     simpa [discharged, Obligation.discharge, Integer.Obligation.discharge] using included
-  · simp [ScalarFunctions.Target.check, targetEq, resultEq] at targeted
-  · simp [ScalarFunctions.Target.check, targetEq, resultEq] at targeted
   · rfl
 
 def targetObligations : ScalarFunctions.ScalarType → ScalarFunctions.Target → List Obligation
@@ -275,10 +279,9 @@ theorem target_obligations_discharge {analysis : Integer.Analysis} {booleans : B
     (checked : target.check analysis booleans domain = true) :
     discharged (targetObligations domain target) = true := by
   cases domain <;> cases target
+  all_goals try (simp [ScalarFunctions.Target.check] at checked; done)
   · have included := (ScalarFunctions.Target.integer_check checked).2.2.2
     simpa [targetObligations, discharged, Obligation.discharge, Integer.Obligation.discharge] using included
-  · simp [ScalarFunctions.Target.check] at checked
-  · simp [ScalarFunctions.Target.check] at checked
   · rfl
 
 def targetsObligations : List ScalarFunctions.ScalarType → List ScalarFunctions.Target → List Obligation

@@ -19,11 +19,11 @@ theorem frozenScalarCondition_checkBounds {condition : Condition}
       (condition.freezeIntegers snapshot).checkBounds rightShape rightAnalysis rightFlow booleans := by
   induction condition generalizing leftFlow rightFlow with
   | stringCompare | lengthCompare | characterCompare | inputValid | booleanArrayRead =>
-      simp only [scalarCondition, Bool.false_eq_true] at scalar
+      simp only [scalarCondition, frameCondition, Bool.false_eq_true] at scalar
   | scalarCompare | booleanLiteral | booleanName => rfl
   | parenthesized inner ih | negated inner ih => exact ih scalar leftFlow rightFlow
   | andThen left right ihl ihr | orElse left right ihl ihr | eager operator left right ihl ihr | booleanCompare operator left right ihl ihr =>
-      simp only [scalarCondition, Bool.and_eq_true] at scalar
+      simp only [scalarCondition, frameCondition, Bool.and_eq_true] at scalar
       simp only [Condition.freezeIntegers, Condition.checkBounds]
       rw [ihl scalar.1, ihr scalar.2]
 

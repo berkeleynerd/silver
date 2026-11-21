@@ -84,7 +84,7 @@ theorem target_integer_unchanged {target : Target} {domain : ScalarType} {value 
   | boolean index => cases value <;> rfl
   | integer index bounds =>
       cases domain with
-      | boolean => simp [Target.check] at checked
+      | boolean | array _ => simp [Target.check] at checked
       | integer result =>
           have writable := (Target.integer_check checked).1
           have other : identity ≠ index := by intro same; rw [← same, readonly] at writable; contradiction
@@ -99,7 +99,7 @@ theorem target_boolean_unchanged {target : Target} {domain : ScalarType} {value 
   | integer index bounds => cases value <;> rfl
   | boolean index =>
       cases domain with
-      | integer result => simp [Target.check] at checked
+      | integer _ | array _ => simp [Target.check] at checked
       | boolean =>
           have writable := Boolean.canWrite_mutable checked
           have other : identity ≠ index := by intro same; rw [← same, readonly] at writable; contradiction

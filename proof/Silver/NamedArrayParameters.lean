@@ -86,6 +86,26 @@ instance (domain : Domain) (identity : Nat) (source : ArrayDescriptor) :
 def capture (identity : Nat) (source : ArrayDescriptor) (store : Store) : Argument :=
   ⟨identity, (List.range source.length).map fun offset => store (source.base + offset)⟩
 
+theorem capture_congr (identity : Nat) (source : ArrayDescriptor) {first second : Store}
+    (same : ∀ cell, source.ContainsCell cell → first cell = second cell) :
+    capture identity source first = capture identity source second := by
+  unfold capture
+  congr 1
+  apply List.map_congr_left
+  intro offset member
+  apply same
+  have below := List.mem_range.mp member
+  simp only [ArrayDescriptor.ContainsCell]
+  omega
+
+theorem capture_put_outside (identity : Nat) (source : ArrayDescriptor) (store : Store)
+    (cell : Nat) (value : Int) (outside : ¬ source.ContainsCell cell) :
+    capture identity source (Integer.put store cell value) = capture identity source store := by
+  apply capture_congr
+  intro observed inside
+  have different : observed ≠ cell := fun equal => outside (equal ▸ inside)
+  simp only [Integer.put, different, ↓reduceIte]
+
 theorem capture_contains {domain : Domain} {identity : Nat} {source : ArrayDescriptor} {store : Store}
     (matched : domain.Matches identity source) (fits : source.Fits store) :
     domain.Contains (capture identity source store) := by
