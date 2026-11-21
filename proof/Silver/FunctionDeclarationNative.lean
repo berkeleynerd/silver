@@ -14,7 +14,7 @@ namespace Silver.Compose.FunctionDeclarationNative
 set_option backward.dsimp.instances true
 
 inductive Ty
-  | number | truth | source | word | token | kind | interval | state | metadata | procedures | formal | signature | hidden | typeResult | stepResult | constraint | names | scalars | scalarBinding | booleans | subtypes | arrays | context | scan | bodyScan | flow | stop
+  | number | truth | source | word | token | kind | interval | state | metadata | procedures | formal | signature | hidden | typeResult | stepResult | constraint | names | scalars | scalarBinding | booleans | subtypes | arrays | arrayTypes | arrayType | arrayEnv | context | scan | bodyScan | flow | stop
   | arrow (domain codomain : Ty)
   deriving DecidableEq, Repr
 
@@ -40,7 +40,10 @@ inductive Ty
   | .scalarBinding => ScalarExpression.Binding
   | .booleans => BooleanBindings.Environment
   | .subtypes => IntegerSubtypes.Environment
-  | .arrays => ArrayBindings.Metadata
+  | .arrays => ArrayBindings.Table
+  | .arrayTypes => ArrayBindings.TypeEnvironment
+  | .arrayType => ArrayBindings.ArrayType
+  | .arrayEnv => ArrayBindings.Env
   | .context => Predicate.Native.Context
   | .scan => Predicate.ScanResult
   | .bodyScan => Predicate.BodyScan
@@ -62,7 +65,7 @@ def Ty.default : (ty : Ty) → ty.meaning
   | .formal => FunctionBindings.emptyFormal
   | .signature => FunctionBindings.emptySignature
   | .hidden => {}
-  | .typeResult => ⟨0, .integer, .empty⟩
+  | .typeResult => ⟨0, .integer, .empty, 0⟩
   | .stepResult => ⟨invalidState, false⟩
   | .constraint => ⟨0, .empty⟩
   | .names => []
@@ -70,7 +73,10 @@ def Ty.default : (ty : Ty) → ty.meaning
   | .scalarBinding => ScalarExpression.emptyBinding
   | .booleans => []
   | .subtypes => {}
-  | .arrays => []
+  | .arrays => {}
+  | .arrayTypes => []
+  | .arrayType => ArrayBindings.emptyType
+  | .arrayEnv => {}
   | .context => {names := [], dynamicFirst := 0, dynamicAfter := 0}
   | .scan => ⟨invalidState, false, false⟩
   | .bodyScan => ⟨0,0,0,⟨PathFacts.Context.empty, []⟩,false,false⟩
@@ -101,6 +107,9 @@ def Ty.name : Ty → List String
   | .booleans => ["boolean_environment"]
   | .subtypes => ["subtype_environment"]
   | .arrays => ["array_bindings", ".", "metadata"]
+  | .arrayTypes => ["array_bindings", ".", "type_environment"]
+  | .arrayType => ["array_bindings", ".", "array_type"]
+  | .arrayEnv => ["array_bindings", ".", "environment"]
   | .context => ["body_context"]
   | .scan => ["scan_result"]
   | .bodyScan => ["body_scan"]
@@ -109,7 +118,7 @@ def Ty.name : Ty → List String
   | .arrow _ _ => []
 
 inductive Function
-  | skip | nameAfter | nameIs | take | newName | equal | scalarType | lookupString | lookupScalar | lookupBoolean | lookupSubtype | lookupArray | lookupFunction | lookupProcedure | formalHides | hideName | hiddenOuter | functionType | appendFormal | append | parameterStep | parametersModel | parameters | scalarDeclaration | booleanDeclaration | functionLocal | functionLocalsModel | functionLocals | scalarAppend | appendParameter | parameterFrameModel | parameterFrame | contextOf | bodyOf | bodyTail | actualAfter | returnAfter | functionBody | functionDeclaration
+  | skip | nameAfter | nameIs | take | newName | equal | scalarType | lookupString | lookupScalar | lookupBoolean | lookupSubtype | lookupArray | lookupArrayType | arrayTypeAt | validArrayType | lookupFunction | lookupProcedure | formalHides | hideName | hiddenOuter | functionType | formalType | appendFormal | append | parameterStep | parametersModel | parameters | scalarDeclaration | booleanDeclaration | functionLocal | functionLocalsModel | functionLocals | scalarAppend | appendArrayParameterModel | appendArrayParameter | appendParameter | parameterFrameModel | parameterFrame | contextOf | bodyOf | bodyTail | actualAfter | returnAfter | functionBody | functionDeclaration
   deriving DecidableEq, Repr
 
 def Function.type : Function → Ty
@@ -125,12 +134,15 @@ def Function.type : Function → Ty
   | .lookupBoolean => .arrow .source (.arrow .booleans (.arrow .number (.arrow .number (.number))))
   | .lookupSubtype => .arrow .source (.arrow .subtypes (.arrow .number (.arrow .number (.number))))
   | .lookupArray => .arrow .source (.arrow .arrays (.arrow .number (.arrow .number (.number))))
+  | .lookupArrayType => .arrow .source (.arrow .arrayTypes (.arrow .number (.arrow .number .number)))
+  | .arrayTypeAt => .arrow .source (.arrow .state (.arrow .number .number))
+  | .validArrayType => .arrow .arrayType .truth
   | .lookupFunction => .arrow .source (.arrow .metadata (.arrow .number (.arrow .number (.number))))
   | .lookupProcedure => .arrow .source (.arrow .procedures (.arrow .number (.arrow .number (.number))))
   | .formalHides => .arrow .source (.arrow .state (.arrow .number (.arrow .number (.truth))))
   | .hideName => .arrow .source (.arrow .hidden (.arrow .number (.arrow .number (.hidden))))
   | .hiddenOuter => .arrow .source (.arrow .state (.hidden))
-  | .functionType => .arrow .source (.arrow .state (.arrow .number (.typeResult)))
+  | .functionType | .formalType => .arrow .source (.arrow .state (.arrow .number (.typeResult)))
   | .appendFormal => .arrow .metadata (.arrow .formal (.metadata))
   | .append => .arrow .metadata (.arrow .signature (.metadata))
   | .parameterStep => .arrow .source (.arrow .state (.arrow .truth (.stepResult)))
@@ -142,6 +154,7 @@ def Function.type : Function → Ty
   | .functionLocalsModel => .arrow .source (.arrow .state (.arrow .truth (.state)))
   | .functionLocals => .arrow .source (.arrow .state (.arrow .truth (.state)))
   | .scalarAppend => .arrow .scalars (.arrow .scalarBinding (.scalars))
+  | .appendArrayParameterModel | .appendArrayParameter => .arrow .state (.arrow .number (.arrow .number (.arrow .number .state)))
   | .appendParameter => .arrow .state (.arrow .formal (.state))
   | .parameterFrameModel => .arrow .state (.arrow .number (.state))
   | .parameterFrame => .arrow .source (.arrow .state (.state))
@@ -166,12 +179,16 @@ def Function.name : Function → List String
   | .lookupBoolean => ["lookup_boolean"]
   | .lookupSubtype => ["lookup_subtype"]
   | .lookupArray => ["array_bindings", ".", "lookup"]
+  | .lookupArrayType => ["array_bindings", ".", "lookup_type"]
+  | .arrayTypeAt => ["array_type_at"]
+  | .validArrayType => ["array_bindings", ".", "valid_type"]
   | .lookupFunction => ["functions", ".", "lookup"]
   | .lookupProcedure => ["procedures", ".", "lookup"]
   | .formalHides => ["formal_hides"]
   | .hideName => ["hide_name"]
   | .hiddenOuter => ["hidden_outer"]
   | .functionType => ["function_type_at"]
+  | .formalType => ["formal_type_at"]
   | .appendFormal => ["functions", ".", "append_formal"]
   | .append => ["functions", ".", "append"]
   | .parameterStep => ["parameter_step"]
@@ -183,6 +200,8 @@ def Function.name : Function → List String
   | .functionLocalsModel => ["function_locals_model"]
   | .functionLocals => ["function_locals"]
   | .scalarAppend => ["scalar_expressions", ".", "append"]
+  | .appendArrayParameterModel => ["append_array_parameter_model"]
+  | .appendArrayParameter => ["append_array_parameter"]
   | .appendParameter => ["append_parameter"]
   | .parameterFrameModel => ["parameter_frame_model"]
   | .parameterFrame => ["parameter_frame"]
@@ -203,6 +222,7 @@ def nativeContextOf (scan : Predicate.ScanResult) : Predicate.Native.Context :=
     scalarNames := ScalarExpression.bodyEnvironment scan.state.scalarNames
     declarationCount := scan.state.scalarNames.length
     arrayNames := scan.state.arrayNames.names
+    arrayTypes := scan.state.arrayNames.types
     subtypeHiding := scan.state.subtypeNames.hiddenCalls
     booleanNames := scan.state.booleanNames
     trueHidden := scan.state.subtypeNames.trueHidden || scan.state.hiding.trueHidden
@@ -225,13 +245,17 @@ def modelCalls : Calls
   | .lookupScalar => ScalarExpression.lookup
   | .lookupBoolean => BooleanBindings.lookup
   | .lookupSubtype => IntegerSubtypes.lookup
-  | .lookupArray => ArrayBindings.lookup
+  | .lookupArray => fun text arrays => ArrayBindings.lookup text arrays.items
+  | .lookupArrayType => ArrayBindings.lookupType
+  | .arrayTypeAt => Compose.arrayTypeAt
+  | .validArrayType => fun item => decide (ArrayBindings.ValidType item)
   | .lookupFunction => FunctionBindings.lookup
   | .lookupProcedure => ProcedureBindings.lookup
   | .formalHides => formalHides
   | .hideName => hideName
   | .hiddenOuter => hiddenOuter
   | .functionType => functionTypeAt
+  | .formalType => formalTypeAt
   | .appendFormal => FunctionBindings.appendFormal
   | .append => FunctionBindings.append
   | .parameterStep => parameterStep
@@ -243,6 +267,7 @@ def modelCalls : Calls
   | .functionLocalsModel => functionLocalsModel
   | .functionLocals => functionLocals
   | .scalarAppend => fun names item => names ++ [item]
+  | .appendArrayParameterModel | .appendArrayParameter => appendArrayParameter
   | .appendParameter => appendParameter
   | .parameterFrameModel => parameterFrameModel
   | .parameterFrame => parameterFrame
@@ -267,6 +292,12 @@ inductive Field : Ty → Ty → Type
   | scalars : Field .state .scalars
   | booleans : Field .state .booleans
   | arrays : Field .state .arrays
+  | arrayTypes : Field .arrays .arrayTypes
+  | arrayCount : Field .arrays .number
+  | typeCount : Field .arrayTypes .number
+  | componentBounds : Field .arrayType .interval
+  | typeTypeId : Field .typeResult .number
+  | formalTypeId : Field .formal .number
   | assigned : Field .state .truth
   | integerHidden : Field .hidden .truth
   | booleanHidden : Field .hidden .truth
@@ -301,6 +332,10 @@ def Field.name : Field a b → List String
   | .scalars => ["scalar_names"]
   | .booleans => ["boolean_names"]
   | .arrays => ["array_names", ".", "names"]
+  | .arrayTypes => ["types"]
+  | .arrayCount | .typeCount => ["count"]
+  | .componentBounds => ["component_bounds"]
+  | .typeTypeId | .formalTypeId => ["type_id"]
   | .assigned => ["assigned_in_functions"]
   | .integerHidden => ["integer_hidden"]
   | .booleanHidden => ["boolean_hidden"]
@@ -334,7 +369,13 @@ def Field.get : Field a b → a.meaning → b.meaning
   | .names, value => value.names
   | .scalars, value => value.scalarNames
   | .booleans, value => value.booleanNames
-  | .arrays, value => value.arrayNames.names
+  | .arrays, value => value.arrayNames.table
+  | .arrayTypes, value => value.types
+  | .arrayCount, value => value.items.length
+  | .typeCount, value => value.length
+  | .componentBounds, value => value.componentBounds
+  | .typeTypeId, value => value.typeId
+  | .formalTypeId, value => value.typeId
   | .assigned, value => value.assignedInFunctions
   | .integerHidden, value => value.integerHidden
   | .booleanHidden, value => value.booleanHidden
@@ -367,6 +408,7 @@ inductive StateField : Ty → Type
   | subtypes : StateField .subtypes
   | scalars : StateField .scalars
   | booleans : StateField .booleans
+  | arrayEnv : StateField .arrayEnv
   | assigned : StateField .truth
 
 def StateField.name : StateField ty → String
@@ -379,6 +421,7 @@ def StateField.name : StateField ty → String
   | .subtypes => "subtype_names"
   | .scalars => "scalar_names"
   | .booleans => "boolean_names"
+  | .arrayEnv => "array_names"
   | .assigned => "assigned_in_functions"
 
 def StateField.set : StateField ty → ParserState → ty.meaning → ParserState
@@ -391,6 +434,7 @@ def StateField.set : StateField ty → ParserState → ty.meaning → ParserStat
   | .subtypes, state, value => {state with subtypeNames := value}
   | .scalars, state, value => {state with scalarNames := value}
   | .booleans, state, value => {state with booleanNames := value}
+  | .arrayEnv, state, value => {state with arrayNames := value}
   | .assigned, state, value => {state with assignedInFunctions := value}
 
 inductive Token | booleanName | colon | inKeyword | semicolon | rightParenthesis | beginKeyword
@@ -411,15 +455,27 @@ def Token.shell : Token → ShellToken
 theorem Token.name_eq_tokenName_shell : ∀ t : Token, t.name = Expressions.tokenName t.shell := by
   intro t; cases t <;> rfl
 
-inductive Capacity | functions | formals | scalars | booleans
+inductive Capacity | functions | formals | scalars | booleans | arrays
   deriving DecidableEq, Repr
 
 def Capacity.name : Capacity → List String
   | .functions => ["functions", ".", "max_functions"] | .formals => ["functions", ".", "max_formals"]
   | .scalars => ["scalar_expressions", ".", "max_bindings"] | .booleans => ["max_boolean_bindings"]
+  | .arrays => ["array_bindings", ".", "max_bindings"]
+
 def Capacity.value : Capacity → Nat
   | .functions => FunctionBindings.maxFunctions | .formals => FunctionBindings.maxFormals
   | .scalars => ScalarExpression.maxBindings | .booleans => BooleanBindings.maxBindings
+
+  | .arrays => ArrayBindings.maxBindings
+
+inductive ArrayNumber | typeCount | bindingIndex | elementCount
+  deriving DecidableEq, Repr
+
+def ArrayNumber.name : ArrayNumber → String
+  | .typeCount => "type_count"
+  | .bindingIndex => "binding_index"
+  | .elementCount => "element_count"
 
 inductive Expr : Ty → Type
   | number : Nat → Expr .number | truth : Bool → Expr .truth
@@ -432,13 +488,19 @@ inductive Expr : Ty → Type
   | app : Expr (.arrow a b) → Expr a → Expr b
   | field : Field a b → Expr a → Expr b
   | formalAt : Expr .metadata → Expr .number → Expr .formal
+  | arrayTypeItem : Expr .arrayTypes → Expr .number → Expr .arrayType
+  | arrayViewSlot : Expr .arrays → Expr .number → Expr .number
+  | arrayLength : Expr .arrayType → Expr .number
+  | emptyArrayFrame : Expr .arrayTypes → Expr .arrayEnv
+  | installArrayView : Expr .state → Expr .number → Expr .number → Expr .arrayType →
+      Expr .number → Expr .number → Expr .number → Expr .state
   | update : StateField ty → Expr .state → Expr ty → Expr .state
   | updateDeclarationCount : Expr .context → Expr .number → Expr .context
   | addHiddenCalls : Expr .subtypes → Expr .source → Expr .number → Expr .number → Expr .subtypes
   | appendBoolean : Expr .state → Expr .formal → Expr .state
-  | typeResult : Expr .number → Expr .kind → Expr .interval → Expr .typeResult
+  | typeResult : Expr .number → Expr .kind → Expr .interval → Expr .number → Expr .typeResult
   | stepResult : Expr .state → Expr .truth → Expr .stepResult
-  | formal : Expr .number → Expr .number → Expr .kind → Expr .interval → Expr .formal
+  | formal : Expr .number → Expr .number → Expr .kind → Expr .interval → Expr .number → Expr .formal
   | signature : Expr .number → Expr .number → Expr .number → Expr .number → Expr .kind → Expr .interval → Expr .signature
   | scalarBinding : Expr .number → Expr .number → Expr .interval → Expr .truth → Expr .interval → Expr .truth → Expr .scalarBinding
   | scan : Expr .state → Expr .truth → Expr .truth → Expr .scan
@@ -458,6 +520,7 @@ inductive Expr : Ty → Type
   | elsif : Expr .truth → Expr ty → Expr ty → Expr ty
   | declare : Expr ty → Expr ty
   | letValue (name : String) : Expr a → Expr b → Expr b
+  | letArrayNumber (kind : ArrayNumber) (name : String) : Expr .number → Expr b → Expr b
   | beginValue : Expr ty → Expr ty
 
 abbrev Locals := (ty : Ty) → String → ty.meaning
@@ -476,6 +539,19 @@ def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
   | .app fn value => fn.eval calls locals (value.eval calls locals)
   | .field projection value => projection.get (value.eval calls locals)
   | .formalAt functions index => FunctionBindings.parameter (functions.eval calls locals) (index.eval calls locals)
+  | .arrayTypeItem types index => ArrayBindings.arrayType (types.eval calls locals) (index.eval calls locals)
+  | .arrayViewSlot arrays index => (ArrayBindings.binding (arrays.eval calls locals).items (index.eval calls locals)).viewSlot
+  | .arrayLength item =>
+      let bounds := (item.eval calls locals).bounds
+      (bounds.upper - bounds.lower + 1).toNat
+  | .emptyArrayFrame types => {types := types.eval calls locals}
+  | .installArrayView frame first after item typeId slot length =>
+      let state := frame.eval calls locals
+      let entry := item.eval calls locals
+      let index := slot.eval calls locals
+      let binding : ArrayBindings.Binding := ⟨first.eval calls locals, after.eval calls locals, entry.bounds,
+        0, length.eval calls locals, false, entry.componentBounds, false, typeId.eval calls locals, index⟩
+      {state with arrayNames := {state.arrayNames with names := state.arrayNames.names.take (index - 1) ++ [binding]}}
   | .update projection state value => projection.set (state.eval calls locals) (value.eval calls locals)
   | .updateDeclarationCount context count => {context.eval calls locals with declarationCount := count.eval calls locals}
   | .addHiddenCalls subtypes text first after =>
@@ -492,9 +568,9 @@ def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
       let before := frame.eval calls locals
       let item := parameter.eval calls locals
       {before with booleanNames := before.booleanNames ++ [⟨item.first, item.after, false⟩]}
-  | .typeResult after scalarKind bounds => ⟨after.eval calls locals, scalarKind.eval calls locals, bounds.eval calls locals⟩
+  | .typeResult after scalarKind bounds typeId => ⟨after.eval calls locals, scalarKind.eval calls locals, bounds.eval calls locals, typeId.eval calls locals⟩
   | .stepResult state closed => ⟨state.eval calls locals, closed.eval calls locals⟩
-  | .formal first after scalarKind bounds => ⟨first.eval calls locals, after.eval calls locals, scalarKind.eval calls locals, bounds.eval calls locals⟩
+  | .formal first after scalarKind bounds typeId => ⟨first.eval calls locals, after.eval calls locals, scalarKind.eval calls locals, bounds.eval calls locals, typeId.eval calls locals⟩
   | .signature first after formalFirst count scalarKind bounds => ⟨first.eval calls locals, after.eval calls locals,
       formalFirst.eval calls locals, count.eval calls locals, scalarKind.eval calls locals, bounds.eval calls locals⟩
   | .scalarBinding first after bounds mutable declared static => ⟨first.eval calls locals, after.eval calls locals,
@@ -515,6 +591,8 @@ def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
       if condition.eval calls locals then yes.eval calls locals else no.eval calls locals
   | .letValue name value body => body.eval calls (locals.set _ name (value.eval calls locals))
 
+  | .letArrayNumber _ name value body => body.eval calls (locals.set .number name (value.eval calls locals))
+
 def separated (items : List (List String)) : List String := (items.intersperse [","]).flatten
 
 def Expr.render : Expr ty → List String
@@ -531,6 +609,23 @@ def Expr.render : Expr ty → List String
     | _ => fn.render ++ ["("] ++ value.render ++ [")"]
   | .field projection value => value.render ++ ["."] ++ projection.name
   | .formalAt functions index => functions.render ++ [".", "parameters", "("] ++ index.render ++ [")"]
+  | .arrayTypeItem types index => types.render ++ [".", "items", "("] ++ index.render ++ [")"]
+  | .arrayViewSlot arrays index => arrays.render ++ [".", "items", "("] ++ index.render ++ [")", ".", "view_slot"]
+  | .arrayLength item =>
+      ["array_bindings", ".", "element_count", "(", "scalars", ".", "wide", "("] ++ item.render ++
+        [".", "bounds", ".", "upper", ")", "-", "scalars", ".", "wide", "("] ++ item.render ++
+        [".", "bounds", ".", "lower", ")", "+", "1", ")"]
+  | .emptyArrayFrame types =>
+      ["(", "array_bindings", ".", "empty_environment", "with", "delta", "names", "=>",
+        "(", "array_bindings", ".", "empty_metadata", "with", "delta", "types", "=>"] ++ types.render ++ [")", ")"]
+  | .installArrayView frame first after item typeId slot length =>
+      let env := frame.render ++ [".", "array_names"]
+      let names := env ++ [".", "names"]
+      ["("] ++ frame.render ++ ["with", "delta", "array_names", "=>", "("] ++ env ++
+        ["with", "delta", "names", "=>", "("] ++ names ++ ["with", "delta", "count", "=>"] ++ slot.render ++
+        [",", "items", "=>", "("] ++ names ++ [".", "items", "with", "delta"] ++ slot.render ++ ["=>", "("] ++
+        separated [first.render, after.render, item.render ++ [".", "bounds"], ["0"], length.render, ["false"],
+          item.render ++ [".", "component_bounds"], ["false"], typeId.render, slot.render] ++ [")", ")", ")", ")", ")"]
   | .update projection state value =>
       match state with
       | .update _ _ _ => state.render.dropLast ++ [",", projection.name, "=>"] ++ value.render ++ [")"]
@@ -552,9 +647,9 @@ def Expr.render : Expr ty → List String
       frame.render ++ [".", "boolean_names", ".", "items", "with", "delta"] ++ frame.render ++
       [".", "boolean_names", ".", "count", "+", "1", "=>", "("] ++ parameter.render ++ [".", "first", ","] ++
       parameter.render ++ [".", "after", ",", "false", ")", ")", ")", ")"]
-  | .typeResult after scalarKind bounds => ["("] ++ separated [after.render, scalarKind.render, bounds.render] ++ [")"]
+  | .typeResult after scalarKind bounds typeId => ["("] ++ separated [after.render, scalarKind.render, bounds.render, typeId.render] ++ [")"]
   | .stepResult state closed => ["("] ++ separated [state.render, closed.render] ++ [")"]
-  | .formal first after scalarKind bounds => ["("] ++ separated [first.render, after.render, scalarKind.render, bounds.render] ++ [")"]
+  | .formal first after scalarKind bounds typeId => ["("] ++ separated [first.render, after.render, scalarKind.render, bounds.render, typeId.render] ++ [")"]
   | .signature first after formalFirst count scalarKind bounds => ["("] ++
       separated [first.render, after.render, formalFirst.render, count.render, scalarKind.render, bounds.render] ++ [")"]
   | .scalarBinding first after bounds mutable declared static => ["("] ++
@@ -577,6 +672,8 @@ def Expr.render : Expr ty → List String
       (match no with | .elsif _ _ _ => no.render | _ => ["else"] ++ no.render)
   | .declare value => ["declare"] ++ value.render
   | @Expr.letValue a _ name value body => [name, ":", "constant"] ++ a.name ++ [":="] ++ value.render ++ [";"] ++ body.render
+  | .letArrayNumber arrayKind name value body => [name, ":", "constant", "array_bindings", ".", arrayKind.name, ":="] ++
+      value.render ++ [";"] ++ body.render
   | .beginValue value => ["begin"] ++ value.render
 
 def apply2 (fn : Expr (.arrow a (.arrow b c))) (x : Expr a) (y : Expr b) : Expr c := .app (.app fn x) y
@@ -599,18 +696,29 @@ def functionTypeBody : Expr .typeResult :=
     .letValue "first" (apply2 (.function .skip) text (.variable "position")) <|
     .letValue "after" (apply3 (.function .take) text first (.token .booleanName)) <|
     .beginValue <| .group <| .ite (.ne (.field .constraintAfter integerType) (.number 0))
-      (.typeResult (.field .constraintAfter integerType) (.kind .integer) (.field .constraintBounds integerType))
-      (.elsif (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse
+      (.typeResult (.field .constraintAfter integerType) (.kind .integer) (.field .constraintBounds integerType) (.number 0))
+      (.elsif (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse
         (.eq after (.number 0)) (.field .booleanHidden (.field .hiding state)))
         (.ne (apply4 (.function .lookupString) text (.field .names state) first after) (.number 0)))
         (.ne (apply4 (.function .lookupScalar) text (.field .scalars state) first after) (.number 0)))
         (.ne (apply4 (.function .lookupBoolean) text (.field .booleans state) first after) (.number 0)))
         (.ne (apply4 (.function .lookupSubtype) text (.field .subtypes state) first after) (.number 0)))
         (.ne (apply4 (.function .lookupArray) text (.field .arrays state) first after) (.number 0)))
+        (.ne (apply4 (.function .lookupArrayType) text (.field .arrayTypes (.field .arrays state)) first after) (.number 0)))
         (.ne (apply4 (.function .lookupFunction) text (.field .functions state) first after) (.number 0)))
         (.ne (apply4 (.function .lookupProcedure) text (.field .procedures state) first after) (.number 0)))
         (apply4 (.function .formalHides) text state first after))
-        (.typeResult (.number 0) (.kind .integer) .empty) (.typeResult after (.kind .boolean) .full))
+        (.typeResult (.number 0) (.kind .integer) .empty (.number 0)) (.typeResult after (.kind .boolean) .full (.number 0)))
+
+def formalTypeBody : Expr .typeResult :=
+  let text : Expr .source := .variable "text"
+  let state : Expr .state := .variable "state"
+  let position : Expr .number := .variable "position"
+  let typeId : Expr .number := .variable "type_id"
+  .declare <| .letArrayNumber .typeCount "type_id" (apply3 (.function .arrayTypeAt) text state position) <|
+    .beginValue <| .group <| .ite (.eq typeId (.number 0)) (apply3 (.function .functionType) text state position)
+      (.typeResult (apply2 (.function .nameAfter) text (apply2 (.function .skip) text position)) (.kind .integer)
+        (.field .componentBounds (.arrayTypeItem (.field .arrayTypes (.field .arrays state)) typeId)) typeId)
 
 def parameterStepBody : Expr .stepResult :=
   let text : Expr .source := .variable "text"
@@ -627,7 +735,7 @@ def parameterStepBody : Expr .stepResult :=
     .letValue "after" (apply2 (.function .nameAfter) text first) <|
     .letValue "start" (apply3 (.function .take) text
       (apply3 (.function .take) text after (.token .colon)) (.token .inKeyword)) <|
-    .letValue "value" (apply3 (.function .functionType) text state start) <|
+    .letValue "value" (apply3 (.function .formalType) text state start) <|
     .beginValue <| .group <| .ite
       (.orElse (.orElse (.orElse (.orElse
         (.not (apply5 (.function .newName) text state first after arguments))
@@ -638,7 +746,7 @@ def parameterStepBody : Expr .stepResult :=
       (.group <| .declare <| .letValue "next"
         (.update .hiding (.update .functions (.update .position state (.field .typeAfter value))
           (apply2 (.function .appendFormal) (.field .functions state)
-            (.formal first after (.field .typeKind value) (.field .typeBounds value))))
+            (.formal first after (.field .typeKind value) (.field .typeBounds value) (.field .typeTypeId value))))
           (apply4 (.function .hideName) text (.field .hiding state) first after)) <|
         .letValue "separator" (apply3 (.function .take) text (.field .typeAfter value) (.token .semicolon)) <|
         .letValue "close" (apply3 (.function .take) text (.field .typeAfter value) (.token .rightParenthesis)) <|
@@ -676,16 +784,39 @@ def functionLocalsModelBody : Expr .state :=
         .beginValue <| .group <| .ite (.eq (.field .position next) (.number 0)) .invalid
           (apply3 (.function .functionLocalsModel) text next arguments)))
 
+def appendArrayParameterModelBody : Expr .state :=
+  let frame : Expr .state := .variable "frame"
+  let first : Expr .number := .variable "first"
+  let after : Expr .number := .variable "after"
+  let typeId : Expr .number := .variable "type_id"
+  let arrays := Expr.field .arrays frame
+  let types := Expr.field .arrayTypes arrays
+  let count := Expr.field .arrayCount arrays
+  let selected := Expr.arrayTypeItem types typeId
+  let item : Expr .arrayType := .variable "item"
+  let slot : Expr .number := .variable "slot"
+  let length : Expr .number := .variable "length"
+  .ite (.orElse (.orElse (.orElse (.orElse (.eq typeId (.number 0)) (.gt typeId (.field .typeCount types)))
+    (.eq count (.capacity .arrays))) (.not (.app (.function .validArrayType) selected)))
+    (.group (.andThen (.gt count (.number 0)) (.eq (.arrayViewSlot arrays count) (.number 0))))) .invalid
+    (.group <| .declare <| .letValue "item" selected <|
+      .letArrayNumber .bindingIndex "slot" (.add count (.number 1)) <|
+      .letArrayNumber .elementCount "length" (.arrayLength item) <|
+      .beginValue (.installArrayView frame first after item typeId slot length))
+
 def appendParameterBody : Expr .state :=
   let frame : Expr .state := .variable "frame"
   let parameter : Expr .formal := .variable "parameter"
-  .ite (.eqKind (.field .formalKind parameter) (.kind .integer))
+  .ite (.ne (.field .formalTypeId parameter) (.number 0))
+    (apply4 (.function .appendArrayParameter) frame (.field .formalFirst parameter)
+      (.field .formalAfter parameter) (.field .formalTypeId parameter))
+    (.elsif (.eqKind (.field .formalKind parameter) (.kind .integer))
     (.group <| .ite (.eq (.field .scalarCount (.field .scalars frame)) (.capacity .scalars)) .invalid
       (.update .scalars frame (apply2 (.function .scalarAppend) (.field .scalars frame)
         (.scalarBinding (.field .formalFirst parameter) (.field .formalAfter parameter) (.field .formalBounds parameter)
           (.truth false) (.field .formalBounds parameter) (.truth false)))))
     (.group <| .ite (.eq (.field .booleanCount (.field .booleans frame)) (.capacity .booleans)) .invalid
-      (.appendBoolean frame parameter))
+      (.appendBoolean frame parameter)))
 
 def parameterFrameModelBody : Expr .state :=
   let frame : Expr .state := .variable "frame"
@@ -737,7 +868,7 @@ def returnAfterBody : Command .number :=
   .letValue "start" (apply3 (.function .take) text (.field .bodyPosition scan) (.token .returnKeyword)) <|
     .beginBody <| .guard (.eq (.variable "start") (.number 0)) (.number 0) <|
     .returned <| apply5 (.function .actualAfter) text context (.variable "start") (.field .bodyFacts scan)
-      (.formal (.number 0) (.number 0) (.field .typeKind resultType) (.field .typeBounds resultType))
+      (.formal (.number 0) (.number 0) (.field .typeKind resultType) (.field .typeBounds resultType) (.number 0))
 
 def functionBodyBody : Command .state :=
   let text : Expr .source := .variable "text"
@@ -820,7 +951,9 @@ def functionDeclarationBody : Command .state :=
       (.update .firstParameter
         (.update .hiding
           (.update .procedures
-            (.update .functions (.update .subtypes (.update .pure (.update .position .initial opening) (.truth true)) (.field .subtypes state))
+            (.update .functions (.update .subtypes
+              (.update .arrayEnv (.update .pure (.update .position .initial opening) (.truth true))
+                (.emptyArrayFrame (.field .arrayTypes (.field .arrays state)))) (.field .subtypes state))
               (.field .functions state))
             (.field .procedures state))
           (apply4 (.function .hideName) text (apply2 (.function .hiddenOuter) text state) first after))
@@ -844,13 +977,20 @@ def Expr.scoped (scope : Scope) : Expr ty → Bool
   | .app fn value => fn.scoped scope && value.scoped scope
   | .field _ value => value.scoped scope
   | .formalAt functions index => functions.scoped scope && index.scoped scope
+  | .arrayTypeItem types index => types.scoped scope && index.scoped scope
+  | .arrayViewSlot arrays index => arrays.scoped scope && index.scoped scope
+  | .arrayLength item => item.scoped scope
+  | .emptyArrayFrame types => types.scoped scope
+  | .installArrayView frame first after item typeId slot length => frame.scoped scope && first.scoped scope &&
+      after.scoped scope && item.scoped scope && typeId.scoped scope && slot.scoped scope && length.scoped scope
+  | .letArrayNumber _ name value body => value.scoped scope && body.scoped ((.number, name) :: scope)
   | .update _ state value => state.scoped scope && value.scoped scope
   | .updateDeclarationCount context count => context.scoped scope && count.scoped scope
   | .addHiddenCalls subtypes text first after => subtypes.scoped scope && text.scoped scope && first.scoped scope && after.scoped scope
   | .appendBoolean frame parameter => frame.scoped scope && parameter.scoped scope
-  | .typeResult after scalarKind bounds => after.scoped scope && scalarKind.scoped scope && bounds.scoped scope
+  | .typeResult after scalarKind bounds typeId => after.scoped scope && scalarKind.scoped scope && bounds.scoped scope && typeId.scoped scope
   | .stepResult state closed => state.scoped scope && closed.scoped scope
-  | .formal first after scalarKind bounds => first.scoped scope && after.scoped scope && scalarKind.scoped scope && bounds.scoped scope
+  | .formal first after scalarKind bounds typeId => first.scoped scope && after.scoped scope && scalarKind.scoped scope && bounds.scoped scope && typeId.scoped scope
   | .signature first after formalFirst count scalarKind bounds => first.scoped scope && after.scoped scope &&
       formalFirst.scoped scope && count.scoped scope && scalarKind.scoped scope && bounds.scoped scope
   | .scalarBinding first after bounds mutable declared static => first.scoped scope && after.scoped scope &&
@@ -874,25 +1014,27 @@ def Command.scoped (scope : Scope) : Command ty → Bool
 expression or an aggregate. Delta-aggregate bases remain ordinary expressions. -/
 def Expr.prefix : Expr ty → Bool
   | .token _ | .kind _ | .empty | .full | .initial | .invalid | .emptyProcedures | .capacity _ |
-    .returnStop | .variable _ | .function _ | .app _ _ | .field _ _ | .formalAt _ _ => true
+    .returnStop | .variable _ | .function _ | .app _ _ | .field _ _ | .formalAt _ _ | .arrayTypeItem _ _ | .arrayViewSlot _ _ => true
+  | .arrayLength _ | .emptyArrayFrame _ | .installArrayView _ _ _ _ _ _ _
   | .number _ | .truth _ | .update _ _ _ | .updateDeclarationCount _ _ |
-    .addHiddenCalls _ _ _ _ | .appendBoolean _ _ | .typeResult _ _ _ | .stepResult _ _ |
-    .formal _ _ _ _ | .signature _ _ _ _ _ _ | .scalarBinding _ _ _ _ _ _ | .scan _ _ _ |
+    .addHiddenCalls _ _ _ _ | .appendBoolean _ _ | .typeResult _ _ _ _ | .stepResult _ _ |
+    .formal _ _ _ _ _ | .signature _ _ _ _ _ _ | .scalarBinding _ _ _ _ _ _ | .scan _ _ _ |
     .add _ _ | .sub _ _ | .eq _ _ | .ne _ _ | .le _ _ | .gt _ _ | .eqKind _ _ |
     .andThen _ _ | .orElse _ _ | .or _ _ | .not _ | .group _ | .ite _ _ _ | .elsif _ _ _ |
-    .declare _ | .letValue _ _ _ | .beginValue _ => false
+    .declare _ | .letValue _ _ _ | .letArrayNumber _ _ _ _ | .beginValue _ => false
 
 /-- The primary/operator categories reject implicit grouping. Parentheses and
 native declare expressions are retained explicitly in the syntax. -/
 def Expr.primary : Expr ty → Bool
   | .number _ | .truth _ | .token _ | .kind _ | .empty | .full | .initial | .invalid | .emptyProcedures |
     .capacity _ | .returnStop | .variable _ | .function _ | .app _ _ | .field _ _ |
+    .arrayTypeItem _ _ | .arrayViewSlot _ _ | .arrayLength _ | .emptyArrayFrame _ | .installArrayView _ _ _ _ _ _ _ |
     .formalAt _ _ | .update _ _ _ | .updateDeclarationCount _ _ | .addHiddenCalls _ _ _ _ |
-    .appendBoolean _ _ | .typeResult _ _ _ | .stepResult _ _ | .formal _ _ _ _ |
+    .appendBoolean _ _ | .typeResult _ _ _ _ | .stepResult _ _ | .formal _ _ _ _ _ |
     .signature _ _ _ _ _ _ | .scalarBinding _ _ _ _ _ _ | .scan _ _ _ | .group _ => true
   | .add _ _ | .sub _ _ | .eq _ _ | .ne _ _ | .le _ _ | .gt _ _ | .eqKind _ _ |
     .andThen _ _ | .orElse _ _ | .or _ _ | .not _ | .ite _ _ _ | .elsif _ _ _ |
-    .declare _ | .letValue _ _ _ | .beginValue _ => false
+    .declare _ | .letValue _ _ _ | .letArrayNumber _ _ _ _ | .beginValue _ => false
 
 def Expr.simple : Expr ty → Bool
   | .add _ _ | .sub _ _ => true
@@ -927,7 +1069,7 @@ def Expr.branch : Expr ty → Bool
   | value => value.value
 
 def Expr.declarations : Expr ty → Bool
-  | .letValue _ _ _ | .beginValue _ => true
+  | .letValue _ _ _ | .letArrayNumber _ _ _ _ | .beginValue _ => true
   | _ => false
 
 def Expr.wellFormed : Expr ty → Bool
@@ -935,16 +1077,25 @@ def Expr.wellFormed : Expr ty → Bool
     .capacity _ | .returnStop | .variable _ | .function _ => true
   | .app fn value => fn.callHead && value.value && fn.wellFormed && value.wellFormed
   | .field _ value => value.prefix && value.wellFormed
+  | .arrayTypeItem types index => types.prefix && index.value && types.wellFormed && index.wellFormed
+  | .arrayViewSlot arrays index => arrays.prefix && index.value && arrays.wellFormed && index.wellFormed
+  | .arrayLength item => item.prefix && item.wellFormed
+  | .emptyArrayFrame types => types.value && types.wellFormed
+  | .installArrayView frame first after item typeId slot length =>
+      frame.prefix && first.value && after.value && item.prefix && typeId.value && slot.value && length.value &&
+      frame.wellFormed && first.wellFormed && after.wellFormed && item.wellFormed && typeId.wellFormed &&
+      slot.wellFormed && length.wellFormed
+  | .letArrayNumber _ _ value body => value.value && body.declarations && value.wellFormed && body.wellFormed
   | .formalAt functions index => functions.prefix && index.value && functions.wellFormed && index.wellFormed
   | .update _ state value => state.primary && value.value && state.wellFormed && value.wellFormed
   | .updateDeclarationCount context count => context.primary && count.value && context.wellFormed && count.wellFormed
   | .addHiddenCalls subtypes text first after => subtypes.prefix && text.value && first.value && after.value &&
       subtypes.wellFormed && text.wellFormed && first.wellFormed && after.wellFormed
   | .appendBoolean frame parameter => frame.prefix && parameter.prefix && frame.wellFormed && parameter.wellFormed
-  | .typeResult after scalarKind bounds => after.value && scalarKind.value && bounds.value && after.wellFormed && scalarKind.wellFormed && bounds.wellFormed
+  | .typeResult after scalarKind bounds typeId => after.value && scalarKind.value && bounds.value && after.wellFormed && scalarKind.wellFormed && bounds.wellFormed && typeId.value && typeId.wellFormed
   | .stepResult state closed => state.value && closed.value && state.wellFormed && closed.wellFormed
-  | .formal first after scalarKind bounds => first.value && after.value && scalarKind.value && bounds.value &&
-      first.wellFormed && after.wellFormed && scalarKind.wellFormed && bounds.wellFormed
+  | .formal first after scalarKind bounds typeId => first.value && after.value && scalarKind.value && bounds.value &&
+      first.wellFormed && after.wellFormed && scalarKind.wellFormed && bounds.wellFormed && typeId.value && typeId.wellFormed
   | .signature first after formalFirst count scalarKind bounds => first.value && after.value && formalFirst.value &&
       count.value && scalarKind.value && bounds.value && first.wellFormed && after.wellFormed &&
       formalFirst.wellFormed && count.wellFormed && scalarKind.wellFormed && bounds.wellFormed
@@ -1027,8 +1178,9 @@ structure Frame where
   first : Nat := 0
   after : Nat := 0
   index : Nat := 0
+  typeId : Nat := 0
   parameter : FunctionBindings.Formal := FunctionBindings.emptyFormal
-  resultType : FunctionTypeResult := ⟨0, .integer, .empty⟩
+  resultType : FunctionTypeResult := ⟨0, .integer, .empty, 0⟩
   context : Predicate.Native.Context := {names := [], dynamicFirst := 0, dynamicAfter := 0}
   scan : Predicate.BodyScan := ⟨0,0,0,⟨PathFacts.Context.empty, []⟩,false,false⟩
 
@@ -1036,7 +1188,7 @@ def Frame.locals (frame : Frame) : Locals
   | .source, _ => frame.text
   | .state, name => if name = "state" then frame.state else if name = "outer" then frame.outer else frame.frame
   | .number, name => if name = "position" then frame.position else if name = "first" then frame.first else
-      if name = "after" then frame.after else frame.index
+      if name = "after" then frame.after else if name = "type_id" then frame.typeId else frame.index
   | .truth, _ => frame.arguments
   | .formal, _ => frame.parameter
   | .typeResult, _ => frame.resultType
@@ -1052,6 +1204,10 @@ def bodyScope : Scope := [(.source, "text"), (.state, "outer"), (.state, "frame"
 abbrev CheckedTrees : Prop :=
   functionTypeBody.wellFormed = true ∧
   functionTypeBody.scoped [(.source, "text"), (.state, "state"), (.number, "position")] = true ∧
+  formalTypeBody.wellFormed = true ∧
+  formalTypeBody.scoped [(.source, "text"), (.state, "state"), (.number, "position")] = true ∧
+  appendArrayParameterModelBody.wellFormed = true ∧
+  appendArrayParameterModelBody.scoped [(.state, "frame"), (.number, "first"), (.number, "after"), (.number, "type_id")] = true ∧
   parameterStepBody.wellFormed = true ∧ parameterStepBody.scoped stateScope = true ∧
   parametersModelBody.wellFormed = true ∧ parametersModelBody.scoped stateScope = true ∧
   functionLocalBody.wellFormed = true ∧ functionLocalBody.scoped stateScope = true ∧
@@ -1074,7 +1230,7 @@ private theorem selected_and_indexed_prefixes :
     (Expr.field .position (.group state)).wellFormed = false ∧
     (Expr.field .position (.group (.ite (.truth true) state state))).wellFormed = false ∧
     (Expr.field .position (.update .position state (.number 1))).wellFormed = false ∧
-    (Expr.field .typeAfter (.typeResult (.number 1) (.kind .integer) .empty)).wellFormed = false ∧
+    (Expr.field .typeAfter (.typeResult (.number 1) (.kind .integer) .empty (.number 0))).wellFormed = false ∧
     (Expr.formalAt (.group (.field .functions state)) (.number 1)).wellFormed = false ∧
     (Expr.field .position state).wellFormed = true ∧
     (Expr.field .formalFirst (.formalAt (.field .functions state) (.number 1))).wellFormed = true ∧
