@@ -6,6 +6,7 @@ with Silver_Function_Bindings;
 
 package Silver_Procedure_Bindings with SPARK_Mode => On is
    use Silver_Profile;
+   use type Silver_Function_Bindings.Scalar_Kind;
    use Silver_Output_Lexical;
 
    --  Every complete procedure consumes more than 32 source bytes. Each
