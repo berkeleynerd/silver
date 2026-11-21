@@ -86,6 +86,18 @@ theorem formalTypeAt_nominal (text : Source) (state : ParserState) (position : N
     · split <;> simp
   · intro _; rfl
 
+/-- Every nominal formal comes from an actual visible type lookup. The scalar
+fallback returns identity zero and therefore needs no catalogue assumption. -/
+theorem formalTypeAt_typeId_bound (text : Source) (state : ParserState) (position : Nat) :
+    (formalTypeAt text state position).typeId ≤ state.arrayNames.types.length := by
+  dsimp only [formalTypeAt]
+  split
+  · dsimp only [functionTypeAt]
+    split
+    · exact Nat.zero_le _
+    · split <;> exact Nat.zero_le _
+  · exact arrayTypeAt_bound text state position
+
 theorem newNameAllowed_span (text : Source) (state : ParserState) (first after : Nat) (arguments : Bool)
     (allowed : newNameAllowed text state first after arguments = true) : 0 < first ∧ first < after := by
   simp only [newNameAllowed, Bool.and_eq_true, decide_eq_true_eq] at allowed
