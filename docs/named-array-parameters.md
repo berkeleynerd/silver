@@ -363,3 +363,34 @@ and exact named-array-type source candidate (137 s for the latter), while failin
 on three unused simplifier arguments in the array model. Its overall outcome
 remains failed; those compiled modules are retained for the repaired focused
 model/equation check, not represented as a successful complete audit.
+
+
+### Shared equation and callable integration — 2026-11-21 14:58 UTC
+
+The callable type-history argument passed focused run
+`20261121T144718-120bda7bfd59` (10,510 audited declarations). It derives nominal
+IDs from accepted formal lookups over the parser's actual declaration suffix;
+it does not narrow the native helper domain. The procedure header, mixed input
+frame and scalar output-prefix argument passed
+`20261121T145443-8954ea711745` (23,603 audited declarations), integrated as
+`7704beb609`. Its prefix noninterference follows the writable scalar target
+bounds, while preserving array descriptors and the declared component intervals.
+
+Shared full-table helper equations compiled in
+`20261121T145102-a9d90d2ecfc3` and were committed as `0759963356` for the parallel
+statement and call adapters. That run remains failed: the new type-equation
+proof needed projection normalization and concrete operation-name rewriting,
+and the concrete String declaration equation needed Boolean guard normalization.
+The successful modules are reused through ordinary Lake checks; their compilation
+is not represented as a complete or freshly audited combined success. The next
+focused batch checks those repairs and the shared declaration/model consumers.
+
+The source/callable/procedure subthreads remain selected as GPT-6 Astra / Max;
+runtime model and effort are not independently exposed. The native audit keeps
+ten workers; the shared/source/function/procedure proof streams reserve
+four/four/three/one respectively, with automatic 22-thread Lean processes and
+sharing reasons in their run records. Available memory was about 54 GiB during
+this round; this is a point observation, not a peak measurement. No new token or
+cost data is available. No CLI memory update or harness goal change was made.
+Complete native and Lean/source assurance, final regression coverage, Rosetta
+support promotion and independent delivery review remain outstanding.
