@@ -14,10 +14,10 @@ def BooleanArrayHeaderChecksAt (text : Source) (state : ParserState)
     (checks : List Integer.Obligation) : Prop :=
   ∃ parts lower upper association,
     arrayDeclarationParts text state = parts ∧
-    ScalarExpression.At text state.scalarNames (fixedAfter text parts.arrayAfter "(" false) lower parts.lower
-      (arrays := state.arrayNames.names) (initials := state.arrayNames.values) (elaborating := true) ∧
-    ScalarExpression.At text state.scalarNames (fixedAfter text parts.lower.after ".." false) upper parts.upper
-      (arrays := state.arrayNames.names) (initials := state.arrayNames.values) (elaborating := true) ∧
+    ScalarExpression.ArrayGrammar.At text state.scalarNames (fixedAfter text parts.arrayAfter "(" false) lower parts.lower
+      (arrays := state.arrayNames.table) (initials := state.arrayNames.values) (elaborating := true) ∧
+    ScalarExpression.ArrayGrammar.At text state.scalarNames (fixedAfter text parts.lower.after ".." false) upper parts.upper
+      (arrays := state.arrayNames.table) (initials := state.arrayNames.values) (elaborating := true) ∧
     ArrayAggregateChecksAt text state parts association ∧
     checks = lower.obligations (declarationRanges state) ++ upper.obligations (declarationRanges state) ++
       association
@@ -47,7 +47,7 @@ theorem boolean_array_header_checks_unique {text state left right}
   obtain ⟨otherParts, otherLower, otherUpper, otherAssociation, otherPartsEq, otherLow, otherHigh, otherAggregate, rfl⟩ := second
   have sameParts := partsEq.symm.trans otherPartsEq
   cases sameParts
-  rw [(ScalarExpression.at_unique low otherLow).1, (ScalarExpression.at_unique high otherHigh).1,
+  rw [(ScalarExpression.ArrayGrammar.at_unique low otherLow).1, (ScalarExpression.ArrayGrammar.at_unique high otherHigh).1,
     arrayAggregate_checks_unique aggregate otherAggregate]
 
 end Silver.Compose
