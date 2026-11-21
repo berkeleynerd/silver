@@ -323,6 +323,9 @@ theorem boolean_declarations_valid {text arguments state final declarations chec
       simpa only [kept.dynamicFirst, kept.arrayNames, kept.booleanNames,
         booleanDeclarationFacts, ActiveFlow.initial] using following
 
+attribute [local irreducible] scalarDeclarationAt subtypeDeclarationAt arrayTypeDeclarationAt
+  arrayDeclarationAt booleanDeclarationAt callableDeclarationAt stringDeclarationAt characterDeclarationAt
+
 theorem boolean_declarations_unique {text arguments state leftState rightState left right leftChecks rightChecks}
     (first : BooleanDeclarationsAt text arguments state left leftChecks leftState)
     (second : BooleanDeclarationsAt text arguments state right rightChecks rightState) :

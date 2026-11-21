@@ -54,7 +54,7 @@ private theorem parameter_analysis_append_index (names : ScalarExpression.Enviro
 def integerFormalBinding (parameter : FunctionBindings.Formal) : ScalarExpression.Binding :=
   ⟨parameter.first, parameter.after, parameter.bounds, false, parameter.bounds, false⟩
 
-private theorem functionScalarAnalysis_integer (frame : ParserState)
+theorem functionScalarAnalysis_integer (frame : ParserState)
     (parameter : FunctionBindings.Formal) (declarations : Nat)
     (count : declarations ≤ frame.scalarNames.length) :
     functionScalarAnalysis {frame with scalarNames := frame.scalarNames ++ [integerFormalBinding parameter]} declarations =
@@ -76,11 +76,11 @@ theorem ParameterFramesAt.analyses {frame index final}
     (count : declarations ≤ frame.scalarNames.length) :
     functionScalarAnalysis final declarations =
       parameterAnalysis frame.scalarNames.length
-        (formalTypes frame.functions index (frame.functions.parameters.length + 1 - index))
+        (formalTypes frame.functions index (frame.functions.parameters.length + 1 - index) frame.arrayNames.types)
         (functionScalarAnalysis frame declarations) ∧
     BooleanBindings.analysis final.booleanNames =
       parameterBooleans frame.booleanNames.length
-        (formalTypes frame.functions index (frame.functions.parameters.length + 1 - index))
+        (formalTypes frame.functions index (frame.functions.parameters.length + 1 - index) frame.arrayNames.types)
         (BooleanBindings.analysis frame.booleanNames) := by
   induction source with
   | @done before index _ stopped =>
@@ -93,31 +93,37 @@ theorem ParameterFramesAt.analyses {frame index final}
       have remaining : before.functions.parameters.length + 1 - index =
           (before.functions.parameters.length + 1 - (index + 1)) + 1 := by omega
       rw [remaining, formalTypes]
-      cases kind : (FunctionBindings.parameter before.functions index).kind with
-      | integer =>
-          have space : before.scalarNames.length ≠ ScalarExpression.maxBindings := by
-            intro full
-            simp [appendParameter, kind, full, invalidState] at accepted
-          have step : appendParameter before (FunctionBindings.parameter before.functions index) =
-              {before with scalarNames := before.scalarNames ++
-                [integerFormalBinding (FunctionBindings.parameter before.functions index)]} := by
-            simp [appendParameter, kind, space, integerFormalBinding]
-          rw [step] at tail
-          rw [functionScalarAnalysis_integer before _ declarations count] at tail
-          simpa only [formalType, kind, parameterAnalysis, parameterBooleans,
-            List.length_append, List.length_singleton] using tail
-      | boolean =>
-          have space : before.booleanNames.length ≠ BooleanBindings.maxBindings := by
-            intro full
-            simp [appendParameter, kind, full, invalidState] at accepted
-          have step : appendParameter before (FunctionBindings.parameter before.functions index) =
-              {before with booleanNames := before.booleanNames ++
-                [⟨(FunctionBindings.parameter before.functions index).first,
-                  (FunctionBindings.parameter before.functions index).after, false⟩]} := by
-            simp [appendParameter, kind, space]
-          rw [step] at tail
-          simpa only [formalType, kind, parameterAnalysis, parameterBooleans,
-            functionScalarAnalysis, List.length_append, List.length_singleton,
-            BooleanBindings.analysis_append] using tail
+      by_cases named : (FunctionBindings.parameter before.functions index).typeId ≠ 0
+      · have step := appendParameter_array named accepted
+        rw [step] at tail
+        simpa only [formalType, ite_eq_left named, parameterAnalysis, parameterBooleans,
+          functionScalarAnalysis] using tail
+      ·
+        cases kind : (FunctionBindings.parameter before.functions index).kind with
+        | integer =>
+            have space : before.scalarNames.length ≠ ScalarExpression.maxBindings := by
+              intro full
+              simp [appendParameter, named, kind, full, invalidState] at accepted
+            have step : appendParameter before (FunctionBindings.parameter before.functions index) =
+                {before with scalarNames := before.scalarNames ++
+                  [integerFormalBinding (FunctionBindings.parameter before.functions index)]} := by
+              simp [appendParameter, named, kind, space, integerFormalBinding]
+            rw [step] at tail
+            rw [functionScalarAnalysis_integer before _ declarations count] at tail
+            simpa only [formalType, named, ↓reduceIte, kind, parameterAnalysis, parameterBooleans,
+              List.length_append, List.length_singleton] using tail
+        | boolean =>
+            have space : before.booleanNames.length ≠ BooleanBindings.maxBindings := by
+              intro full
+              simp [appendParameter, named, kind, full, invalidState] at accepted
+            have step : appendParameter before (FunctionBindings.parameter before.functions index) =
+                {before with booleanNames := before.booleanNames ++
+                  [⟨(FunctionBindings.parameter before.functions index).first,
+                    (FunctionBindings.parameter before.functions index).after, false⟩]} := by
+              simp [appendParameter, named, kind, space]
+            rw [step] at tail
+            simpa only [formalType, named, ↓reduceIte, kind, parameterAnalysis, parameterBooleans,
+              functionScalarAnalysis, List.length_append, List.length_singleton,
+              BooleanBindings.analysis_append] using tail
 
 end Silver.Compose

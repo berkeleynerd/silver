@@ -149,7 +149,8 @@ theorem FunctionLocalsAt.booleans_valid {text arguments state final integers boo
     (source : FunctionLocalsAt text arguments state integers booleans checks booleanChecks final)
     (normal : NamesNormal state.names) (valid : ValidState text state)
     (ready : ScalarMetadata.HeaderReady state.scalarNames)
-    (static : ScalarExpression.StaticEnvironment state.scalarNames) :
+    (static : ScalarExpression.StaticEnvironment state.scalarNames)
+    (stored : state.StoredArrays) :
     BooleanDeclarationsWellFormed (decide (state.dynamicFirst ≠ 0)) state.names.shape
       (ArrayBindings.booleanAnalysis state.arrayNames.names (BooleanBindings.analysis state.booleanNames)) booleans ∧
       checkBooleanDeclarations state.names.shape Integer.Analysis.empty
@@ -161,18 +162,20 @@ theorem FunctionLocalsAt.booleans_valid {text arguments state final integers boo
       have nextValid := model_scalar_reading_valid valid first
       have nextReady := scalar_declaration_header_ready ready first
       have nextStatic := scalar_declaration_static static first
+      have nextStored := scalar_declaration_stored stored first
       cases first
-      exact ih normal nextValid nextReady nextStatic
+      exact ih normal nextValid nextReady nextStatic nextStored
   | @boolean before middle final declaration integers booleans checks firstChecks booleanChecks _ _ _ first raw _ _ ih =>
       have preserves := boolean_declaration_preserves first
       have nextNormal := preserves.1.symm ▸ normal
       have nextReady := preserves.2.1.symm ▸ ready
       have nextStatic := preserves.2.1.symm ▸ static
       have nextValid := model_boolean_reading_valid valid first
-      have frozen := boolean_declaration_frozen_valid normal valid ready static
+      have nextStored : middle.StoredArrays := by cases first; exact stored
+      have frozen := boolean_declaration_frozen_valid normal valid ready static stored
         (fun _ _ present => present) raw
       have allocation := boolean_declaration_analysis valid first raw
-      have following := ih nextNormal nextValid nextReady nextStatic
+      have following := ih nextNormal nextValid nextReady nextStatic nextStored
       rw [allocation.2.2] at following
       simp only [preserves.1, preserves.2.2.2.2.2.2.1,
         booleanDeclarationFacts, ActiveFlow.initial] at following
@@ -206,45 +209,56 @@ end Silver.Compose
 
 namespace Silver.Predicate
 
-/-- Every selected formal domain is supplied by an actual valid pooled record. -/
+/-- Every selected formal domain resolves in the ordered type environment.
+Native metadata validity alone does not assert that a nominal identity exists. -/
 theorem formalType_valid {text : Source} {formal : FunctionBindings.Formal}
-    (typed : FunctionBindings.ValidFormal text formal) : (formalType formal).Valid := by
-  cases kind : formal.kind with
-  | integer => simpa only [formalType, kind, ScalarFunctions.ScalarType.Valid] using typed.2
-  | boolean => simp only [formalType, kind, ScalarFunctions.ScalarType.Valid]
+    {types : ArrayBindings.TypeEnvironment} (typed : FunctionBindings.ValidFormal text formal)
+    (typesValid : ArrayBindings.ValidTypes text types) (known : formal.typeId ≤ types.length) :
+    (formalType formal types).Valid :=
+  formalType_domainValid typed typesValid known
 
-theorem formalTypes_length (catalog : FunctionBindings.Metadata) (first count : Nat) :
-    (formalTypes catalog first count).length = count := by
+theorem formalTypes_length (catalog : FunctionBindings.Metadata) (first count : Nat)
+    (types : ArrayBindings.TypeEnvironment := []) :
+    (formalTypes catalog first count types).length = count := by
   induction count generalizing first with
   | zero => rfl
   | succ count ih => simp only [formalTypes, List.length_cons, ih]
 
 theorem formalTypes_valid {text : Source} (catalog : FunctionBindings.Metadata) (first count : Nat)
     (metadata : FunctionBindings.ValidMetadata text catalog)
-    (positive : 0 < first) (bounded : first + count - 1 ≤ catalog.parameters.length) :
-    ∀ domain ∈ formalTypes catalog first count, domain.Valid := by
+    (positive : 0 < first) (bounded : first + count - 1 ≤ catalog.parameters.length)
+    {types : ArrayBindings.TypeEnvironment} (typesValid : ArrayBindings.ValidTypes text types)
+    (known : ∀ index, first ≤ index → index < first + count →
+      (FunctionBindings.parameter catalog index).typeId ≤ types.length) :
+    ∀ domain ∈ formalTypes catalog first count types, domain.Valid := by
   induction count generalizing first with
   | zero => simp only [formalTypes, List.not_mem_nil, false_implies, implies_true]
   | succ count ih =>
       intro domain member
       simp only [formalTypes, List.mem_cons] at member
       rcases member with rfl | member
-      · exact formalType_valid
-          (metadata.2.2.1 _ (FunctionBindings.parameter_mem positive (by omega)))
-      · exact ih (first + 1) (by omega) (by omega) domain member
+      · have selected := FunctionBindings.parameter_mem (functions := catalog) positive (by omega)
+        exact formalType_valid (metadata.2.2.1 _ selected) typesValid
+          (known first (Nat.le_refl _) (by omega))
+      · exact ih (first + 1) (by omega) (by omega)
+          (fun index lower upper => known index (by omega) (by omega)) domain member
 
 theorem signatureModel_valid {text : Source} {catalog : FunctionBindings.Metadata}
     {entry : FunctionBindings.Signature} (metadata : FunctionBindings.ValidMetadata text catalog)
-    (typed : FunctionBindings.ValidSignature text catalog entry) : (signatureModel catalog entry).Valid := by
-  refine ⟨?_, ?_, ?_⟩
+    (typed : FunctionBindings.ValidSignature text catalog entry)
+    {types : ArrayBindings.TypeEnvironment} (typesValid : ArrayBindings.ValidTypes text types)
+    (known : ∀ index, entry.formalFirst ≤ index → index < entry.formalFirst + entry.count →
+      (FunctionBindings.parameter catalog index).typeId ≤ types.length) :
+    (signatureModel catalog entry types).Valid := by
+  refine ⟨?_, ?_, ?_, ?_⟩
   · intro empty
-    have length := formalTypes_length catalog entry.formalFirst entry.count
-    change formalTypes catalog entry.formalFirst entry.count = [] at empty
+    have length := formalTypes_length catalog entry.formalFirst entry.count types
+    change formalTypes catalog entry.formalFirst entry.count types = [] at empty
     rw [empty] at length
     have nonzero := typed.2.1
     simp only [List.length_nil] at length
     omega
-  · apply formalTypes_valid catalog entry.formalFirst entry.count metadata typed.2.2.1
+  · apply formalTypes_valid catalog entry.formalFirst entry.count metadata typed.2.2.1 _ typesValid known
     have first := typed.2.2.2.1
     have count := typed.2.2.2.2.1
     omega
@@ -253,5 +267,7 @@ theorem signatureModel_valid {text : Source} {catalog : FunctionBindings.Metadat
     | integer => simpa only [resultType, kind, ScalarFunctions.ScalarType.Valid]
         using typed.2.2.2.2.2
     | boolean => simp only [resultType, kind, ScalarFunctions.ScalarType.Valid]
+  · change (resultType entry).IsScalar
+    cases kind : entry.resultKind <;> simp [resultType, kind, ScalarFunctions.ScalarType.IsScalar]
 
 end Silver.Predicate

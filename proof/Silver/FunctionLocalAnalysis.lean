@@ -122,10 +122,10 @@ theorem FunctionLocalsAt.initializers_checked
   have ready : ScalarMetadata.HeaderReady state.scalarNames := by
     rw [emptyIntegers]
     exact ScalarMetadata.headerReady_empty
-  have stored : state.StoredArrays := by simp [ParserState.StoredArrays, closed.noArrays]
+  have stored : state.StoredArrays := closed.stored
   have integersChecked := source.scalars_checked static valid.2.2.2.2.2.1.1 valid.2.2.2.2.2.2.2.1 stored
   have rawChecked := source.initializer_checks normal valid ready
-  have booleansChecked := source.booleans_valid normal valid ready static
+  have booleansChecked := source.booleans_valid normal valid ready static stored
   have transported := (source.boolean_checks_independent closed state.names.shape emptyShape
     Integer.Analysis.empty (Integer.Analysis.ofDeclarations integers)
     ⟨(booleanDeclarationFacts state).path, Integer.emptyRanges⟩

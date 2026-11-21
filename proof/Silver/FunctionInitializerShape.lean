@@ -15,10 +15,16 @@ structure ClosedFunctionState (state : ParserState) : Prop where
   noNames : state.names = []
   noArrays : state.arrayNames.names = []
 
+/-- Local elaboration begins before formal views are installed. Named type
+metadata may remain present; the object list is empty. -/
+theorem ClosedFunctionState.stored {state : ParserState}
+    (closed : ClosedFunctionState state) : state.StoredArrays := by
+  simp [ParserState.StoredArrays, closed.noArrays]
+
 theorem ClosedFunctionState.booleanContext {state : ParserState}
     (closed : ClosedFunctionState state) (parts : BooleanDeclarationParts) :
     ClosedFunctionContext (booleanDeclarationContext state parts) := by
-  refine ⟨closed.pure, ?_, closed.noNames, closed.noArrays⟩
+  refine ClosedFunctionContext.ofEmpty closed.pure ?_ closed.noNames closed.noArrays
   simp only [booleanDeclarationContext, closed.noArguments, ne_eq, not_true_eq_false, decide_false]
 
 theorem FunctionLocalsAt.closed {text arguments state final integers booleans checks booleanChecks}
@@ -56,7 +62,8 @@ theorem FunctionLocalsAt.boolean_checks_independent
 
 private theorem scalarExpression_noArray {expression : Integer.Expr}
     (absent : expression.hasArray = false) : scalarExpression expression = true := by
-  induction expression <;> simp_all [Integer.Expr.hasArray, scalarExpression, Bool.or_eq_false_iff]
+  induction expression <;> simp_all [Integer.Expr.hasArray, scalarExpression, frameExpression,
+    Bool.or_eq_false_iff]
 
 private theorem scalarExpression_freezeArrays (expression : Integer.Expr) (snapshot : Integer.Store) :
     scalarExpression (expression.freezeArrays snapshot) = true := by
@@ -71,11 +78,11 @@ private theorem scalarCondition_freezeIntegers {condition : Condition}
     scalarCondition (condition.freezeIntegers snapshot) = true := by
   induction condition with
   | stringCompare | lengthCompare | characterCompare | inputValid | booleanArrayRead =>
-      simp only [ScalarFunctions.scalarCondition, Bool.false_eq_true] at scalar
+      simp only [ScalarFunctions.scalarCondition, frameCondition, Bool.false_eq_true] at scalar
   | scalarCompare | booleanLiteral | booleanName => rfl
   | parenthesized inner ih | negated inner ih => exact ih scalar
   | andThen left right ihl ihr | orElse left right ihl ihr | eager operator left right ihl ihr | booleanCompare operator left right ihl ihr =>
-      simp only [ScalarFunctions.scalarCondition, Bool.and_eq_true] at scalar
+      simp only [ScalarFunctions.scalarCondition, frameCondition, Bool.and_eq_true] at scalar
       exact Bool.and_eq_true_iff.mpr ⟨ihl scalar.1, ihr scalar.2⟩
 
 theorem FunctionLocalsAt.scalar_only {text arguments state final integers booleans checks booleanChecks}

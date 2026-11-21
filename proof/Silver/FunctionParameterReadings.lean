@@ -6,22 +6,29 @@ public import Silver.FunctionBodyFrameReadiness
 
 namespace Silver.Compose
 
-/-- Formal installation retains the exact pooled metadata and all nonlocal
-frame fields, changing only the Integer and Boolean binding stores. -/
+/-- Formal installation retains the exact pooled metadata, named types and all
+nonlocal fields, changing scalar bindings and read-only array view records. -/
 def ParameterFrameFieldsPreserved (before after : ParserState) : Prop :=
-  after = {before with scalarNames := after.scalarNames, booleanNames := after.booleanNames}
+  after = {before with
+    scalarNames := after.scalarNames, booleanNames := after.booleanNames,
+    arrayNames := {before.arrayNames with names := after.arrayNames.names}}
 
 theorem appendParameter_fields_or_rejected (frame : ParserState) (parameter : FunctionBindings.Formal) :
     (appendParameter frame parameter).position = 0 ∨
       ParameterFrameFieldsPreserved frame (appendParameter frame parameter) := by
   dsimp only [appendParameter]
   split
-  · split
+  · unfold appendArrayParameter
+    split
     · exact .inl rfl
     · exact .inr rfl
   · split
-    · exact .inl rfl
-    · exact .inr rfl
+    · split
+      · exact .inl rfl
+      · exact .inr rfl
+    · split
+      · exact .inl rfl
+      · exact .inr rfl
 
 inductive ParameterFramesAt : ParserState → Nat → ParserState → Prop
   | done {frame : ParserState} {index : Nat} : frame.position ≠ 0 →
@@ -75,7 +82,27 @@ theorem ParameterFramesAt.fields {frame index final}
       unfold ParameterFrameFieldsPreserved at first ih ⊢
       calc
         final = {appendParameter before (FunctionBindings.parameter before.functions index) with
-          scalarNames := final.scalarNames, booleanNames := final.booleanNames} := ih
+          scalarNames := final.scalarNames, booleanNames := final.booleanNames,
+          arrayNames := {(appendParameter before (FunctionBindings.parameter before.functions index)).arrayNames with
+            names := final.arrayNames.names}} := ih
         _ = _ := by rw [first]
+
+theorem ParameterFramesAt.typeIds_known {frame index final}
+    (source : ParameterFramesAt frame index final) :
+    ∀ selected, index ≤ selected → selected ≤ frame.functions.parameters.length →
+      (FunctionBindings.parameter frame.functions selected).typeId ≤ frame.arrayNames.types.length := by
+  induction source with
+  | done _ stopped => intro selected lower upper; omega
+  | @next before final index _ _ accepted _ _ ih =>
+      intro selected lower upper
+      by_cases same : selected = index
+      · subst selected
+        exact appendParameter_type_known accepted
+      · have kept := (appendParameter_fields_or_rejected before
+          (FunctionBindings.parameter before.functions index)).resolve_left accepted
+        unfold ParameterFrameFieldsPreserved at kept
+        have later := ih selected (by omega) (by rw [kept]; exact upper)
+        rw [kept] at later
+        exact later
 
 end Silver.Compose

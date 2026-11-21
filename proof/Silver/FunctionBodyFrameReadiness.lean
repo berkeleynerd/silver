@@ -14,12 +14,17 @@ theorem appendParameter_scalar_count_or_rejected (frame : ParserState) (paramete
       frame.scalarNames.length ≤ (appendParameter frame parameter).scalarNames.length := by
   dsimp only [appendParameter]
   split
-  · split
-    · exact .inl rfl
-    · exact .inr (by simp only [List.length_append, List.length_singleton]; omega)
-  · split
+  · unfold appendArrayParameter
+    split
     · exact .inl rfl
     · exact .inr (Nat.le_refl _)
+  · split
+    · split
+      · exact .inl rfl
+      · exact .inr (by simp only [List.length_append, List.length_singleton]; omega)
+    · split
+      · exact .inl rfl
+      · exact .inr (Nat.le_refl _)
 
 theorem parameterFrameModel_scalar_count_or_rejected (frame : ParserState) (index : Nat) :
     (parameterFrameModel frame index).position = 0 ∨
