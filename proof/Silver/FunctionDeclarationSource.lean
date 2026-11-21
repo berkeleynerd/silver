@@ -40,7 +40,13 @@ def headers : List (String × String × List String) := [
   ("function_body_at", ";", expectedTokens "(Text : String; Outer : Parser_State; Frame : Parser_State; First, After : Literal_Position; Result_Type : Function_Type_Result; Arguments : Boolean) return Parser_State with Global => null, Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length and then Valid_State (Text, Outer) and then Valid_State (Text, Frame) and then Outer.Functions.Parameter_Count <= Frame.Functions.Parameter_Count and then Frame.First_Parameter > 0 and then Frame.First_Parameter <= Frame.Functions.Parameter_Count and then Frame.Functions.Count < Functions.Max_Functions and then Valid_Name_State (Text, First, After) and then First > 0 and then not Scalars.Is_Empty (Result_Type.Bounds), Post => Valid_State (Text, Function_Body_At'Result) and then (Function_Body_At'Result.Position = 0 or else Function_Body_At'Result.Position > Outer.Position)"),
   ("function_body_at", "is", expectedTokens "(Text : String; Outer : Parser_State; Frame : Parser_State; First, After : Literal_Position; Result_Type : Function_Type_Result; Arguments : Boolean) return Parser_State"),
   ("function_declaration_at", ";", expectedTokens "(Text : String; State : Parser_State; Arguments : Boolean) return Parser_State with Global => null, Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length and then Valid_State (Text, State), Post => Valid_State (Text, Function_Declaration_At'Result) and then (Function_Declaration_At'Result.Position = 0 or else Function_Declaration_At'Result.Position > State.Position)"),
-  ("function_declaration_at", "is", expectedTokens "(Text : String; State : Parser_State; Arguments : Boolean) return Parser_State")]
+  ("function_declaration_at", "is", expectedTokens "(Text : String; State : Parser_State; Arguments : Boolean) return Parser_State"),
+  ("formal_type_at", ";", expectedTokens "(Text : String; State : Parser_State; Position : Literal_Position) return Function_Type_Result with Global => null, Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length and then Position <= Text'Last + 1 and then Valid_State (Text, State), Post => Formal_Type_At'Result.After = 0 or else (Formal_Type_At'Result.After in Position + 1 .. Text'Last + 1 and then not Scalars.Is_Empty (Formal_Type_At'Result.Bounds) and then Formal_Type_At'Result.Type_Id <= State.Array_Names.Names.Types.Count)"),
+  ("formal_type_at", "is", expectedTokens "(Text : String; State : Parser_State; Position : Literal_Position) return Function_Type_Result"),
+  ("append_array_parameter_model", ";", expectedTokens "(Frame : Parser_State; First, After : Literal_Position; Type_Id : Array_Bindings.Type_Count) return Parser_State with Ghost => Static, Global => null"),
+  ("append_array_parameter_model", "is", expectedTokens "(Frame : Parser_State; First, After : Literal_Position; Type_Id : Array_Bindings.Type_Count) return Parser_State"),
+  ("append_array_parameter", ";", expectedTokens "(Frame : Parser_State; First, After : Literal_Position; Type_Id : Array_Bindings.Type_Count) return Parser_State with Global => null, Post => (Static => Append_Array_Parameter'Result = Append_Array_Parameter_Model (Frame, First, After, Type_Id) and then Same_Parser_State (Append_Array_Parameter'Result, Append_Array_Parameter_Model (Frame, First, After, Type_Id)))"),
+  ("append_array_parameter", "is", expectedTokens "(Frame : Parser_State; First, After : Literal_Position; Type_Id : Array_Bindings.Type_Count) return Parser_State")]
 
 def expressions : List (String × List String × List String) := [
   ("function_type_at", functionTypeBody.render, []),
@@ -49,12 +55,21 @@ def expressions : List (String × List String × List String) := [
   ("function_local_at", functionLocalBody.render, []),
   ("function_locals_model", functionLocalsModelBody.render, []),
   ("append_parameter", appendParameterBody.render, expectedTokens "with Global => null"),
-  ("parameter_frame_model", parameterFrameModelBody.render, [])]
+  ("parameter_frame_model", parameterFrameModelBody.render, []),
+  ("formal_type_at", formalTypeBody.render, []),
+  ("append_array_parameter_model", appendArrayParameterModelBody.render, [])]
+
+/-- The runtime result expression is the same typed tree as its Static model.
+The source witness also retains the complete equality assertion and state lemma. -/
+def appendArrayParameterOrdinary : List String :=
+  expectedTokens "Result : constant Parser_State := (" ++ appendArrayParameterModelBody.render ++
+  expectedTokens "); Model_Result : constant Parser_State := Append_Array_Parameter_Model (Frame, First, After, Type_Id) with Ghost => Static; begin pragma Assert (Static => Result = Model_Result); Lemma_Parser_State_Same (Result, Model_Result); return Result; end Append_Array_Parameter;"
 
 def ordinary : List (String × List String) := [
   ("function_return_after", returnAfterBody.render ++ ["end", "function_return_after", ";"]),
   ("function_body_at", functionBodyBody.render ++ ["end", "function_body_at", ";"]),
-  ("function_declaration_at", functionDeclarationBody.render ++ ["end", "function_declaration_at", ";"])]
+  ("function_declaration_at", functionDeclarationBody.render ++ ["end", "function_declaration_at", ";"]),
+  ("append_array_parameter", appendArrayParameterOrdinary)]
 
 /-- These source checks retain the actual iterative executable readers. Their
 semantic equations use the source-checked static postconditions above. -/
@@ -71,7 +86,7 @@ structure Checked (tokens : List String) : Prop where
   ordinary : ∀ item ∈ ordinary, BooleanDeclarationNative.SourceChecks.ordinaryFunction item.1 tokens = some item.2
   loops : ∀ item ∈ loops, BooleanDeclarationNative.SourceChecks.ordinaryFunction item.1 tokens = some item.2
   typeResult : Silver.Lexical.SourceBridge.recordDeclaration "function_type_result" tokens =
-    some (expectedTokens "record After : Literal_Position; Kind : Functions.Scalar_Kind; Bounds : Scalars.Interval; end record")
+    some (expectedTokens "record After : Literal_Position; Kind : Functions.Scalar_Kind; Bounds : Scalars.Interval; Type_Id : Array_Bindings.Type_Count := 0; end record")
   stepResult : Silver.Lexical.SourceBridge.recordDeclaration "parameter_step_result" tokens =
     some (expectedTokens "record State : Parser_State; Closed : Boolean; end record")
   parameterCursor : Silver.Lexical.SourceBridge.subtypeDeclaration "parameter_cursor" tokens =

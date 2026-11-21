@@ -27,6 +27,9 @@ structure InterpretedSource (calls : Calls) where
   headers : HeaderEquations calls
   headerContracts : HeaderContracts calls
   frames : FrameEquations calls
+  arrayLibrary : ArrayBindings.Native.Calls
+  arrayLibrarySource : ArrayBindings.SourceBridge.InterpretedSource arrayLibrary
+  arrayValidType : calls .validArrayType = arrayLibrary.validType
   equations : OrdinaryEquations calls
   contracts : TraversalContracts calls
   lexical : ∃ (helpers : Guarded.Expressions.Calls)
@@ -42,6 +45,10 @@ structure InterpretedSource (calls : Calls) where
   actualLinks : Predicate.FunctionCallNative.ImportsLinks actualImports inherited bodyLibraries.predicate
   actualEquations : Predicate.FunctionCallNative.DefinitionEquations actualImports actualCalls assignment
   actualLink : calls .actualAfter = actualCalls.actual
+
+theorem source_array_parameter_imports {calls : Calls} (source : InterpretedSource calls) :
+    ArrayParameterImports calls :=
+  array_parameter_imports source.arrayLibrary source.arrayLibrarySource source.arrayValidType
 
 /-- All normalized reader meanings are conclusions from the raw source
 bodies, contracts, and the callees selected by this interpretation. -/
@@ -83,7 +90,7 @@ theorem source_body_imports {calls : Calls} (source : InterpretedSource calls)
   body_library_imports source.inheritedSource source.exactDomain
     (FunctionBindings.SourceBridge.interpreted_complete source.metadata source.metadataSource)
     source.visibilityPrimitives source.visibilityEquations source.links source.headers source.headerContracts
-    source.frames source.equations source.contracts source.bodyLibraries.body (source_reader_equations source)
+    source.frames (source_array_parameter_imports source) source.equations source.contracts source.bodyLibraries.body (source_reader_equations source)
     source.bodyLibraries.bodyWrapperModels source.bodyLibraries.bodyWrappers
     (source_wrapper_models source) source.bodyDefinitions.wrappers source.bodyLinks (source_return_imports source)
     text tv outer frame first after resultType arguments valid
