@@ -250,7 +250,7 @@ mutual
       flag.observe result = (flag.observe scan || flag.source
         (.forLoop (context.scalarNames.length + 1) (loopHeader text context scan).reverse lower upper body)) := by
     cases parsed with
-    | loop _ _ _ _ _ bodyRead resultEq _ _ =>
+    | loop _ _ _ _ bodyRead resultEq _ _ =>
         have observed := body_flags bodyRead flag
         rw [resultEq, bodyTokens_flags]
         cases flag <;> simpa only [Flag.observe, Flag.source, loopHeader] using observed
@@ -261,7 +261,7 @@ mutual
       (parsed : ArrayLoopAt (catalog := catalog) (procedures := procedures) text context scan body result) (flag : Flag) :
       flag.observe result = (flag.observe scan || flag.source
         (.arrayLoop (context.scalarNames.length + 1) (loopHeader text context scan).reverse
-          (ArrayBindings.binding context.arrayNames (loopArrayTarget text context scan)).descriptor body)) := by
+          (ArrayBindings.binding context.arrayNames (loopArrayTarget text context scan)).viewDescriptor body)) := by
     cases parsed with
     | loop _ _ _ _ bodyRead resultEq _ _ =>
         have observed := body_flags bodyRead flag

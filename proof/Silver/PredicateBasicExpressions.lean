@@ -14,15 +14,15 @@ namespace Silver.Predicate.BasicNative
 open Compose Bindings
 
 structure Primitives where
-  callAfter : Source → Compose.BindingEnvironment → Nat → Names.Operation → ScalarExpression.Environment → ArrayBindings.Metadata → Bool → BooleanBindings.Environment → Nat
+  callAfter : Source → Compose.BindingEnvironment → Nat → Names.Operation → ScalarExpression.Environment → ArrayBindings.Table → Bool → BooleanBindings.Environment → Nat
   associationAfter : Source → Nat → Bool → Nat
   token : Source → Nat → ShellToken → Nat
   expression : Source → Native.Context → Nat → ActiveFlow → ExpressionResult
   readingNames : Native.Context → ActiveFlow → ScalarExpression.Environment
   character : Source → Nat → Compose.BindingEnvironment → ScalarExpression.Environment →
-    ArrayBindings.Metadata → ValueResult
+    ArrayBindings.Table → ValueResult
   indexed : Source → Nat → Compose.BindingEnvironment → ScalarExpression.Environment →
-    ArrayBindings.Metadata → ArrayBindings.Initials → Bool → Bool → ValueResult
+    ArrayBindings.Table → ArrayBindings.Initials → Bool → Bool → ValueResult
   target : Source → Native.Context → Nat → ScalarBodyNative.StringTargetResult
   bodyToken : Source → Native.Context → BodyScan → ShellToken → BodyScan
   invalid : BodyScan → BodyScan
@@ -64,7 +64,7 @@ def Test.eval (primitive : Primitives) (frame : Frame) : Test → Bool
   | .procedureCallee => decide (primitive.procedureCallee frame.text frame.context frame.result.position frame.procedures ≠ 0)
   | .pure => frame.context.pure
   | .impure => !frame.context.pure
-  | .operation value => decide (primitive.callAfter frame.text frame.context.names frame.result.position value frame.context.scalarNames frame.context.arrayNames (frame.context.subtypeHiding.get value) frame.context.booleanNames ≠ 0)
+  | .operation value => decide (primitive.callAfter frame.text frame.context.names frame.result.position value frame.context.scalarNames frame.context.arrayTable (frame.context.subtypeHiding.get value) frame.context.booleanNames ≠ 0)
   | .zeroResult => decide (frame.result.position = 0)
   | .nonadvancing => decide (frame.result.position ≤ frame.scan.position)
   | .present token => decide (primitive.token frame.text frame.result.position token ≠ 0)
@@ -128,7 +128,7 @@ def Update.eval (primitive : Primitives) (frame : Frame) : Update → BodyScan
       else if boolean then primitive.booleanAssignment frame.text frame.context frame.result
       else primitive.scalarAssignment frame.text frame.context frame.result
   | .procedureCall => primitive.procedureCall frame.text frame.context frame.result frame.procedures
-  | .operation value => {frame.result with position := primitive.callAfter frame.text frame.context.names frame.result.position value frame.context.scalarNames frame.context.arrayNames (frame.context.subtypeHiding.get value) frame.context.booleanNames}
+  | .operation value => {frame.result with position := primitive.callAfter frame.text frame.context.names frame.result.position value frame.context.scalarNames frame.context.arrayTable (frame.context.subtypeHiding.get value) frame.context.booleanNames}
   | .association => {frame.result with position := primitive.associationAfter frame.text frame.result.position false}
   | .token tok => primitive.bodyToken frame.text frame.context frame.result tok
   | .scalarAssignment => primitive.scalarAssignment frame.text frame.context frame.result
@@ -178,11 +178,11 @@ def Command.eval (primitive : Primitives) (frame : Frame) (next : Frame → Body
   | .expression => next {frame with value := primitive.expression frame.text frame.context frame.result.position frame.result.facts}
   | .character => next {frame with
       characterValue := primitive.character frame.text frame.result.position
-        frame.context.names (primitive.readingNames frame.context frame.result.facts) frame.context.arrayNames}
+        frame.context.names (primitive.readingNames frame.context frame.result.facts) frame.context.arrayTable}
   | .indexed => next {frame with
       characterValue := primitive.indexed frame.text frame.scan.position
         frame.context.names (primitive.readingNames frame.context frame.result.facts)
-        frame.context.arrayNames [] false true}
+        frame.context.arrayTable [] false true}
   | .target => next {frame with target := primitive.target frame.text frame.context frame.result.position}
   | .returnInvalid => primitive.invalid frame.scan
   | .returnResult => frame.result
