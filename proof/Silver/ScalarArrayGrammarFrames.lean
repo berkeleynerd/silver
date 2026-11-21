@@ -1,6 +1,6 @@
 module
 
-public import Silver.ScalarArrayGrammarRecognition
+public import Silver.ScalarArrayGrammarSyntax
 public import Silver.ScalarArrayExpressionRecognition
 public import Silver.ScalarFunctionArrayShape
 
@@ -172,5 +172,37 @@ theorem At.noElements {text names position expression result maskFirst maskAfter
     (parsed : At text names position expression result maskFirst maskAfter allowSign arrays initials elaborating .noElements) :
     expression.hasArray = false :=
   noArray_of_readsOnly parsed.noElements_readsOnly
+
+theorem SourceAt.noArray_readsOnly {text names arrays maskFirst maskAfter mode allowSign position value}
+    (source : SourceAt text names arrays maskFirst maskAfter mode allowSign position value)
+    (absent : value.expression.hasArray = false) :
+    value.expression.ReadsOnly (fun index => 0 < index ∧ index ≤ names.length) := by
+  induction source with
+  | ordinary _ _ _ atom => exact atom_readsOnly atom
+  | shape | signed => trivial
+  | indexed => contradiction
+  | unary _ _ _ _ _ ih =>
+      simp only [ScalarExpression.unary] at absent ⊢
+      split at absent <;> rename_i negative <;>
+        simpa only [negative, Bool.false_eq_true, ↓reduceIte, Integer.Expr.ReadsOnly] using ih absent
+  | grouped _ _ _ _ ih => exact ih absent
+  | binary _ _ _ _ _ _ _ combined _ ihl ihr =>
+      rw [binary_hasArray combined] at absent
+      have parts := Bool.or_eq_false_iff.mp absent
+      have reads := binary_readsOnly (ihl parts.1) (ihr parts.2) combined
+      exact reads
+
+theorem At.noArray_readsOnly {text names position expression result maskFirst maskAfter allowSign arrays initials elaborating mode}
+    (parsed : At text names position expression result maskFirst maskAfter allowSign arrays initials elaborating mode)
+    (absent : expression.hasArray = false) :
+    expression.ReadsOnly (fun index => 0 < index ∧ index ≤ names.length) :=
+  parsed.source.noArray_readsOnly absent
+
+theorem At.static_noArray {text names position expression result maskFirst maskAfter allowSign arrays initials elaborating mode}
+    (parsed : At text names position expression result maskFirst maskAfter allowSign arrays initials elaborating mode)
+    (fixed : result.isStatic = true) : expression.hasArray = false := by
+  have staticExpr := parsed.staticValue.symm.trans fixed
+  clear parsed fixed
+  induction expression <;> simp_all [isStatic, Integer.Expr.hasArray]
 
 end Silver.ScalarExpression.ArrayGrammar
