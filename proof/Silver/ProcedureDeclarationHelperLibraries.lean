@@ -42,10 +42,16 @@ theorem source_scalar_append {calls : Calls} (source : InterpretedHelpers calls)
     ScalarAppendMeaning calls :=
   scalar_append_meaning source.ordinarySource.inheritedSource.toRawHelperEquations source.links
 
+theorem source_array_append {calls : Calls} (source : InterpretedHelpers calls) :
+    ArrayAppendMeaning calls :=
+  array_append_meaning source.ordinarySource.frames
+    (FunctionDeclarationNative.source_array_parameter_imports source.ordinarySource) source.links
+
 theorem source_prefix_imports {calls : Calls} (source : InterpretedHelpers calls) :
     PrefixMeaning calls :=
   prefix_imports source.ordinarySource.inheritedSource.toRawHelperEquations source.links
-    source.ordinarySource.visibilityPrimitives source.equations source.ordinarySource.bodyLibraries.body
+    source.ordinarySource.visibilityPrimitives source.equations (source_array_append source)
+    source.ordinarySource.bodyLibraries.body
     source.ordinarySource.bodyLibraries.flowLibraries source.ordinarySource.bodyDefinitions.flowLibraries
     source.ordinarySource.bodyLibraries.initial source.ordinarySource.bodyDefinitions.initial
     source.ordinarySource.actualImports source.ordinarySource.actualCalls source.ordinarySource.assignment
@@ -62,7 +68,8 @@ theorem source_parameters {calls : Calls} (source : InterpretedHelpers calls)
 theorem source_inputFrame {calls : Calls} (source : InterpretedHelpers calls)
     (text : Source) (frame : ParserState) (valid : InputFrameDomain text frame) :
     calls .procedureInputFrame text frame = procedureInputFrame text frame :=
-  interpreted_inputFrame calls source.equations.toFrameEquations (source_scalar_append source) text frame valid
+  interpreted_inputFrame calls source.equations.toFrameEquations (source_scalar_append source)
+    (source_array_append source) text frame valid
 
 theorem source_prefix {calls : Calls} (source : InterpretedHelpers calls)
     (text : Source) (frame : ParserState) (declarationCount : Nat)

@@ -14,7 +14,8 @@ theorem model_parameter_links : ParameterLinks modelCalls Expressions.modelCalls
   nameAfter := rfl
   take _ _ _ _ := rfl
   newName := rfl
-  functionType := rfl
+  formalType := rfl
+  appendArrayParameter := rfl
   appendFormal := rfl
   hideName := rfl
   equal := rfl
