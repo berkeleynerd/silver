@@ -19,7 +19,7 @@ inductive StringAssignmentReading (text : Source) (context : ParseContext) (scan
       TargetReading text (parserState context scan) (stringAssignmentTarget text context scan) false →
       stringAssignmentKind text context scan = .whole →
       ExpressionAt (integerHidden := context.integerHidden text) (elaborating := context.elaborating)
-        (arrays := context.arrayNames) (scalarNames := context.readingNames scan.facts) text context.names
+        (arrays := context.arrayTable) (scalarNames := context.readingNames scan.facts) text context.names
         (fixedAfter text (stringAssignmentStart text context scan).position ":=" false) value
         (readStringInFlow text context
           (fixedAfter text (stringAssignmentStart text context scan).position ":=" false) scan.facts) →
@@ -27,16 +27,16 @@ inductive StringAssignmentReading (text : Source) (context : ParseContext) (scan
   | character {value result} :
       TargetReading text (parserState context scan) (stringAssignmentTarget text context scan) false →
       stringAssignmentKind text context scan = .character →
-      CharacterAt text context.names (context.readingNames scan.facts) context.arrayNames [] false
+      CharacterAt text context.names (context.readingNames scan.facts) context.arrayTable [] false
         (characterAssignmentPosition text context scan) value result →
       StringAssignmentReading text context scan
         ⟨(stringAssignmentTarget text context scan).target, [.character value]⟩
   | element {info index upper value result} :
       TargetReading text (parserState context scan) (stringAssignmentTarget text context scan) false →
       stringAssignmentKind text context scan = .element →
-      IndexedReading text context.names (context.readingNames scan.facts) context.arrayNames [] false true
+      IndexedReading text context.names (context.readingNames scan.facts) context.arrayTable [] false true
         scan.position info index upper →
-      CharacterAt text context.names (context.readingNames scan.facts) context.arrayNames [] false
+      CharacterAt text context.names (context.readingNames scan.facts) context.arrayTable [] false
         (characterAssignmentPosition text context scan) value result →
       StringAssignmentReading text context scan
         ⟨(stringAssignmentTarget text context scan).target,

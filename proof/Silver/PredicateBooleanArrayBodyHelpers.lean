@@ -15,8 +15,8 @@ def ScalarLookupDomain (text : Source) (names : ScalarExpression.Environment) (f
   Expressions.ValidText text ∧ ScalarExpression.ValidEnvironment text names ∧
     Expressions.ValidCursor text first ∧ Expressions.ValidCursor text after
 
-def ArrayLookupDomain (text : Source) (names : ArrayBindings.Metadata) (first after : Nat) : Prop :=
-  Expressions.ValidText text ∧ ArrayBindings.ValidMetadata text names ∧
+def ArrayLookupDomain (text : Source) (names : ArrayBindings.Table) (first after : Nat) : Prop :=
+  Expressions.ValidText text ∧ ArrayBindings.ValidTable text names ∧
     Expressions.ValidCursor text first ∧ Expressions.ValidCursor text after
 
 def TargetDomain (text : Source) (context : Native.Context) (position : Nat) : Prop :=
@@ -34,7 +34,7 @@ structure ImportsMeaning (imports : Imports) : Prop where
   scalarLookup : ∀ text names first after, ScalarLookupDomain text names first after →
     imports.scalarLookup text names first after = ScalarExpression.lookup text names first after
   arrayLookup : ∀ text names first after, ArrayLookupDomain text names first after →
-    imports.arrayLookup text names first after = ArrayBindings.lookup text names first after
+    imports.arrayLookup text names first after = ArrayBindings.lookup text names.items first after
   targetAfter : ∀ text context position facts, ReadDomain text context position facts →
     imports.targetAfter text context position facts = booleanArrayAfter text context.model position facts
   assignment : ∀ text position, CursorDomain text position → imports.assignment text position = fixedAfter text position ":=" false
