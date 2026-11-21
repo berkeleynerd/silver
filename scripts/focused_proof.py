@@ -34,7 +34,8 @@ class FocusedProof:
         return cls(match[1], int(match[2]))
 
     def scope(self) -> list[str]:
-        selector = self.file if self.line is None else f"--limit-subp={self.file}:{self.line}"
+        # A specification and its body select the same whole compiler unit.
+        selector = Path(self.file).stem if self.line is None else f"--limit-subp={self.file}:{self.line}"
         return ["compiler", selector]
 
     def options(self, source: Path) -> list[str]:

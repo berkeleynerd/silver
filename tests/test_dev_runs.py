@@ -89,12 +89,14 @@ class DevRunTests(unittest.TestCase):
                 mock.patch.object(dev, "audit_sources"):
             yield invoke
 
-    def focused_output(self, host, command, *, declaration=3, unproved=False, **options):
+    def focused_output(self, host, command, *, declaration=3, unproved=False, helper_metadata=True, **options):
         self.write_proof_reports(host, command)
         reports = dev.project_reports(host, [arg for arg in command if arg.startswith("--subdirs=")])
         unit = command[command.index("-u") + 1] if "-u" in command else "main.adb"
         check = {"rule": "VC_ASSERT", "how_proved": "prover", "severity": "medium" if unproved else "info",
                  "file": unit, "line": declaration + 1, "col": 7, "entity": 1}
+        if not helper_metadata:
+            check.pop("entity")
         report = {"entities": {" 1": {"name": "Main.Helper", "sloc": [{"file": unit, "line": declaration}]}},
                   "spark": {" 1": "all"}, "progress": "PROGRESS_PROOF", "stop_reason": "STOP_REASON_NONE",
                   "skip_flow_proof": [], "skip_proof": [], "pragma_assume": [], "flow": [], "proof": [check]}
@@ -153,6 +155,60 @@ class DevRunTests(unittest.TestCase):
             with self.assertRaisesRegex(EvidenceError, "missing owned entity coverage"):
                 self.main(["prove", "--unit", "main.adb"])
         self.assertNotIn("focused_report", self.records()[-1]["finish"])
+
+    def test_unit_aliases_share_recurrence_and_keep_other_units_separate(self):
+        (self.root / "src/main.ads").write_text("fixture package specification")
+        (self.root / "src/other.adb").write_text("fixture other unit")
+        for helper in (False, True):
+            with self.subTest(helper_metadata=helper):
+                task = f"unit-alias-threshold-{helper}"
+                with mock.patch.object(dev, "invoke") as invoke:
+                    for index, unit in enumerate(("main.ads", "main.adb", "main.ads")):
+                        invoke.side_effect = lambda host, command, **options: self.focused_output(
+                            host, command, unproved=True, helper_metadata=helper,
+                            declaration=3 + index if helper else 3)
+                        with self.assertRaisesRegex(RuntimeError, "unresolved proof obligations"):
+                            self.main(["prove", "--unit", unit, "--task", task])
+                    self.assertEqual(invoke.call_count, 3)
+                    for call in invoke.call_args_list:
+                        command = call.args[1]
+                        self.assertEqual(command[command.index("-u") + 1], "main.adb")
+                    for unit in ("main.ads", "main.adb"):
+                        with self.assertRaisesRegex(run_history.RunHistoryError, "diagnostic"):
+                            self.main(["prove", "--unit", unit, "--task", task])
+                    self.assertEqual(invoke.call_count, 3)
+                    invoke.side_effect = self.focused_output
+                    self.main(["prove", "--unit", "other.adb", "--task", task])
+                    for unit in ("main.ads", "main.adb"):
+                        with self.assertRaisesRegex(run_history.RunHistoryError, "diagnostic"):
+                            self.main(["prove", "--unit", unit, "--task", task])
+                    self.assertEqual(invoke.call_count, 4)
+                failures = self.records(task)[:3]
+                self.assertEqual(len({key for run in failures for key in run["finish"]["failure_keys"]}),
+                                 3 if helper else 1)
+                self.assertTrue(all(bool(run["finish"]["failure_identities"]) == helper for run in failures))
+
+    def test_unit_alias_success_resets_recurrence_across_spellings(self):
+        (self.root / "src/main.ads").write_text("fixture package specification")
+        for helper in (False, True):
+            for failed, succeeded in (("main.ads", "main.adb"), ("main.adb", "main.ads")):
+                with self.subTest(helper_metadata=helper, failed=failed):
+                    task = f"unit-alias-reset-{helper}-{failed}"
+                    with mock.patch.object(dev, "invoke") as invoke:
+                        for count in (2, 3):
+                            for index in range(count):
+                                invoke.side_effect = lambda host, command, **options: self.focused_output(
+                                    host, command, unproved=True, helper_metadata=helper,
+                                    declaration=3 + index if helper else 3)
+                                with self.assertRaisesRegex(RuntimeError, "unresolved proof obligations"):
+                                    self.main(["prove", "--unit", failed, "--task", task])
+                            if count == 2:
+                                invoke.side_effect = self.focused_output
+                                self.main(["prove", "--unit", succeeded, "--task", task])
+                        for unit in (failed, succeeded):
+                            with self.assertRaisesRegex(run_history.RunHistoryError, "diagnostic"):
+                                self.main(["prove", "--unit", unit, "--task", task])
+                        self.assertEqual(invoke.call_count, 6)
 
     def test_subprogram_coverage_rejects_expansion_to_enclosing_context(self):
         def inlined(host, command, **options):
