@@ -46,7 +46,7 @@ def characterReference (text : Source) (position : Nat) (names : BindingEnvironm
   ScalarExpression.lookup text scalarNames (skipAt text position) (nameAfter text (skipAt text position)) = 0
 
 inductive CharacterAt (text : Source) (names : BindingEnvironment)
-    (scalarNames : ScalarExpression.Environment) (arrays : ArrayBindings.Metadata)
+    (scalarNames : ScalarExpression.Environment) (arrays : ArrayBindings.Table)
     (initials : ArrayBindings.Initials) (elaborating : Bool) :
     Nat → Character.Expr → ValueResult → Prop
   | literal {position byte after : Nat} :
@@ -80,7 +80,7 @@ inductive CharacterAt (text : Source) (names : BindingEnvironment)
         {result with after := fixedAfter text result.after ")" false}
 
 theorem character_complete {text : Source} {names : BindingEnvironment}
-    {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Metadata}
+    {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Table}
     {initials : ArrayBindings.Initials} {elaborating : Bool} {position : Nat}
     {expression : Character.Expr} {result : ValueResult}
     (parsed : CharacterAt text names scalarNames arrays initials elaborating position expression result) :
@@ -103,7 +103,7 @@ theorem character_complete {text : Source} {names : BindingEnvironment}
       simp [openPresent, advancing, ih]
 
 theorem character_sound {text : Source} {names : BindingEnvironment}
-    {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Metadata}
+    {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Table}
     {initials : ArrayBindings.Initials} {elaborating : Bool} (position : Nat)
     (accepted : (characterAt text position names scalarNames arrays initials elaborating).after ≠ 0) :
     ∃ expression, CharacterAt text names scalarNames arrays initials elaborating position expression
@@ -145,12 +145,12 @@ theorem character_sound {text : Source} {names : BindingEnvironment}
 termination_by text.length + 1 - position
 
 theorem character_check {text : Source} {names : BindingEnvironment}
-    {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Metadata}
+    {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Table}
     {initials : ArrayBindings.Initials} {elaborating : Bool} {position : Nat}
     {expression : Character.Expr} {result : ValueResult} (normal : NamesNormal names)
     (parsed : CharacterAt text names scalarNames arrays initials elaborating position expression result) :
     expression.check names.shape.fixedLengths
-      (ArrayBindings.integerRanges arrays initials elaborating (ScalarExpression.ranges scalarNames)) = true := by
+      (ArrayBindings.viewRanges arrays.items initials elaborating (ScalarExpression.ranges scalarNames)) = true := by
   induction parsed with
   | literal _ source => exact source.printable
   | reference noParen noLiteral selected nonzero present typed unmasked =>
@@ -160,14 +160,14 @@ theorem character_check {text : Source} {names : BindingEnvironment}
   | parenthesized _ _ _ _ ih => exact ih
 
 theorem character_readable {text : Source} {names : BindingEnvironment}
-    {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Metadata}
+    {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Table}
     {initials : ArrayBindings.Initials} {elaborating : Bool} {position : Nat}
     {expression : Character.Expr} {result : ValueResult} (normal : NamesNormal names)
     (parsed : CharacterAt text names scalarNames arrays initials elaborating position expression result) :
     expression.Readable names.shape.fixedLengths := Character.Expr.check_readable (character_check normal parsed)
 
 theorem character_literals {text : Source} {names : BindingEnvironment}
-    {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Metadata}
+    {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Table}
     {initials : ArrayBindings.Initials} {elaborating : Bool} {position : Nat}
     {expression : Character.Expr} {result : ValueResult}
     (parsed : CharacterAt text names scalarNames arrays initials elaborating position expression result) :
@@ -183,7 +183,7 @@ def _root_.Silver.Character.Expr.sourceOperands : Character.Expr → Nat
   | .parenthesized inner => inner.sourceOperands
 
 theorem character_operands {text : Source} {names : BindingEnvironment}
-    {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Metadata}
+    {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Table}
     {initials : ArrayBindings.Initials} {elaborating : Bool} {position : Nat}
     {expression : Character.Expr} {result : ValueResult}
     (parsed : CharacterAt text names scalarNames arrays initials elaborating position expression result) :
@@ -201,7 +201,7 @@ theorem character_operands {text : Source} {names : BindingEnvironment}
   | parenthesized _ _ _ _ ih => exact ih
 
 theorem character_lengthSummary {text : Source} {names : BindingEnvironment}
-    {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Metadata}
+    {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Table}
     {initials : ArrayBindings.Initials} {elaborating : Bool} {position : Nat}
     {expression : Character.Expr} {result : ValueResult}
     (parsed : CharacterAt text names scalarNames arrays initials elaborating position expression result) :
@@ -211,7 +211,7 @@ theorem character_lengthSummary {text : Source} {names : BindingEnvironment}
   | parenthesized _ _ _ _ ih => exact ih
 
 theorem character_metadata {text : Source} {names : BindingEnvironment}
-    {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Metadata}
+    {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Table}
     {initials : ArrayBindings.Initials} {elaborating : Bool} {position : Nat}
     {expression : Character.Expr} {result : ValueResult}
     (parsed : CharacterAt text names scalarNames arrays initials elaborating position expression result) :
@@ -222,7 +222,7 @@ theorem character_metadata {text : Source} {names : BindingEnvironment}
   | parenthesized _ _ _ _ ih => exact ih
 
 theorem character_unique {text : Source} {names : BindingEnvironment}
-    {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Metadata}
+    {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Table}
     {initials : ArrayBindings.Initials} {elaborating : Bool} {position : Nat}
     {left right : Character.Expr} {leftResult rightResult : ValueResult}
     (leftAt : CharacterAt text names scalarNames arrays initials elaborating position left leftResult)

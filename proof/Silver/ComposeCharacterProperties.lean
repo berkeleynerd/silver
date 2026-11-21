@@ -9,7 +9,7 @@ namespace Silver.Compose
 open Named Bindings
 
 theorem character_positive {text : Source} {names : BindingEnvironment}
-    {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Metadata}
+    {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Table}
     {initials : ArrayBindings.Initials} {elaborating : Bool} {position : Nat}
     {expression : Character.Expr} {result : ValueResult}
     (parsed : CharacterAt text names scalarNames arrays initials elaborating position expression result) :
@@ -26,7 +26,7 @@ theorem character_positive {text : Source} {names : BindingEnvironment}
   | parenthesized _ _ _ close => exact close
 
 theorem character_after_bounded {text : Source} {names : BindingEnvironment}
-    {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Metadata}
+    {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Table}
     {initials : ArrayBindings.Initials} {elaborating : Bool} {position : Nat}
     {expression : Character.Expr} {result : ValueResult}
     (parsed : CharacterAt text names scalarNames arrays initials elaborating position expression result) :
@@ -48,22 +48,22 @@ theorem character_after_bounded {text : Source} {names : BindingEnvironment}
       exact fixedAfter_result_bound text _ ")" false (by decide)
 
 theorem characterExpression_inferLength {text : Source} {names : BindingEnvironment}
-    {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Metadata}
+    {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Table}
     {initials : ArrayBindings.Initials} {elaborating : Bool} {position : Nat}
     {expression : Character.Expr} {result : ValueResult} (normal : NamesNormal names)
     (parsed : CharacterAt text names scalarNames arrays initials elaborating position expression result) :
     Expression.inferLength [Value.character expression] names.shape
-      (ArrayBindings.integerRanges arrays initials elaborating (ScalarExpression.ranges scalarNames)) = some ⟨1, 1, 0, false⟩ := by
+      (ArrayBindings.viewRanges arrays.items initials elaborating (ScalarExpression.ranges scalarNames)) = some ⟨1, 1, 0, false⟩ := by
   simp [Expression.inferLength, Operand.inferLength, Value.extraRange, character_check normal parsed,
     LengthSummary.add]
 
 theorem characterExpression_frozen_safe {text : Source} {names : BindingEnvironment}
-    {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Metadata}
+    {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Table}
     {initials : ArrayBindings.Initials} {elaborating : Bool} {position : Nat}
     {expression : Character.Expr} {result : ValueResult} {integers : Integer.Store}
     (normal : NamesNormal names)
     (parsed : CharacterAt text names scalarNames arrays initials elaborating position expression result)
-    (scalars : Integer.Fits (ArrayBindings.integerRanges arrays initials elaborating (ScalarExpression.ranges scalarNames)) integers) :
+    (scalars : Integer.Fits (ArrayBindings.viewRanges arrays.items initials elaborating (ScalarExpression.ranges scalarNames)) integers) :
     SafeExpression (Expression.freezeImages [Value.character expression] integers) names.shape maxSourceLength := by
   apply Expression.freezeImages_safe (characterExpression_inferLength normal parsed) scalars
   · simp only [Expression.LiteralsPrintable, List.mem_singleton]
