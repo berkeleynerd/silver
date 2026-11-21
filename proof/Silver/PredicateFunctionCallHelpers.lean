@@ -38,8 +38,8 @@ def BooleanLookupDomain (text : Source) (names : BooleanBindings.Environment) (f
   Expressions.ValidText text ∧ BooleanBindings.ValidEnvironment text names ∧
     Expressions.ValidCursor text first ∧ Expressions.ValidCursor text after
 
-def ArrayLookupDomain (text : Source) (names : ArrayBindings.Metadata) (first after : Nat) : Prop :=
-  Expressions.ValidText text ∧ ArrayBindings.ValidMetadata text names ∧
+def ArrayLookupDomain (text : Source) (names : ArrayBindings.Table) (first after : Nat) : Prop :=
+  Expressions.ValidText text ∧ ArrayBindings.ValidTable text names ∧
     Expressions.ValidCursor text first ∧ Expressions.ValidCursor text after
 
 def FunctionLookupDomain (text : Source) (catalog : Metadata) (first after : Nat) : Prop :=
@@ -88,6 +88,10 @@ structure ImportsMeaning (imports : Imports) : Prop where
     AssociationNative.FunctionAssociationDomain text position catalog first last ordinal →
     imports.association text position catalog first last ordinal named =
       modelImports.association text position catalog first last ordinal named
+  arrayTarget : ∀ text context position, TargetDomain text context position →
+    imports.arrayTarget text context position = modelImports.arrayTarget text context position
+  conditionInto : ∀ text context position facts, ReadDomain text context position facts →
+    imports.conditionInto text context position facts = modelImports.conditionInto text context position facts
 
 noncomputable def totalizeImports (imports : Imports) : Imports := by
   classical
@@ -110,7 +114,11 @@ noncomputable def totalizeImports (imports : Imports) : Imports := by
         imports.association text position catalog first last ordinal named
       else modelImports.association text position catalog first last ordinal named
     markFormal := fun seen formal => if AssociationNative.MarkDomain formal then
-      imports.markFormal seen formal else modelImports.markFormal seen formal }
+      imports.markFormal seen formal else modelImports.markFormal seen formal
+    arrayTarget := fun text context position => if TargetDomain text context position then
+      imports.arrayTarget text context position else modelImports.arrayTarget text context position
+    conditionInto := fun text context position facts => if ReadDomain text context position facts then
+      imports.conditionInto text context position facts else modelImports.conditionInto text context position facts }
 
 theorem totalizeImports_eq_model {imports : Imports} (meaning : ImportsMeaning imports) :
     totalizeImports imports = modelImports := by
@@ -191,11 +199,24 @@ theorem totalizeImports_eq_model {imports : Imports} (meaning : ImportsMeaning i
     split
     · exact meaning.markFormal seen formal ‹_›
     · rfl
+  · funext text context position
+    simp only [totalizeImports]
+    split
+    · exact meaning.arrayTarget text context position ‹_›
+    · rfl
+  · funext text context position facts
+    simp only [totalizeImports]
+    split
+    · exact meaning.conditionInto text context position facts ‹_›
+    · rfl
 
 theorem model_imports_meaning : ImportsMeaning modelImports := by
   constructor <;> intros <;> rfl
 
 /-- Exact source preconditions plus the native Formal component subtype. -/
+def ArrayActualDomain (text : Source) (context : Native.Context) (position typeId : Nat) : Prop :=
+  TargetDomain text context position ∧ typeId ≤ ArrayBindings.maxTypes
+
 def ActualDomain (text : Source) (context : Native.Context) (position : Nat)
     (facts : ActiveFlow) (parameter : Formal) : Prop :=
   ReadDomain text context position facts ∧ FunctionBindings.Native.FormalType parameter
@@ -252,13 +273,23 @@ noncomputable def totalizeCalls (calls : Calls) : Calls := by
     booleanTarget := fun text context position => if TargetDomain text context position then
       calls.booleanTarget text context position else modelCalls.booleanTarget text context position
     assignmentResult := fun context scan scalar flag value => if ResultDomain context scan scalar flag value then
-      calls.assignmentResult context scan scalar flag value else modelCalls.assignmentResult context scan scalar flag value }
+      calls.assignmentResult context scan scalar flag value else modelCalls.assignmentResult context scan scalar flag value
+    arrayActual := fun text context position typeId => if ArrayActualDomain text context position typeId then
+      calls.arrayActual text context position typeId else modelCalls.arrayActual text context position typeId
+    actualModel := fun text context position facts parameter => if ActualDomain text context position facts parameter then
+      calls.actualModel text context position facts parameter else modelCalls.actualModel text context position facts parameter }
 
 structure DefinitionEquations (imports : Imports) (calls : Calls)
     (assignment : Source → Native.Context → BodyScan → Metadata → BodyScan) : Prop where
+  arrayActual : ∀ text context position typeId, ArrayActualDomain text context position typeId →
+    calls.arrayActual text context position typeId =
+      arrayActualBody.eval (totalizeImports imports) (totalizeCalls calls) {text, context, position, typeId}
+  actualModel : ∀ text context position facts parameter, ActualDomain text context position facts parameter →
+    calls.actualModel text context position facts parameter =
+      actualBody.eval (totalizeImports imports) (totalizeCalls calls) {text, context, position, facts, parameter}
   actual : ∀ text context position facts parameter, ActualDomain text context position facts parameter →
     calls.actual text context position facts parameter =
-      actualBody.eval (totalizeImports imports) (totalizeCalls calls) {text, context, position, facts, parameter}
+      actualImplementation.eval (totalizeImports imports) (totalizeCalls calls) {text, context, position, facts, parameter}
   actuals : ∀ text context position facts catalog first last, ActualsDomain text context position facts catalog first last →
     calls.actuals text context position facts catalog first last =
       actualsBody.eval (totalizeImports imports) (totalizeCalls calls) {text, context, position, facts, catalog, first, last}
@@ -286,8 +317,14 @@ structure DefinitionEquations (imports : Imports) (calls : Calls)
 set_option maxRecDepth 4096
 set_option maxHeartbeats 1000000
 
-theorem actual_body_calls (imports : Imports) (left right : Calls) (frame : Frame) :
-    actualBody.eval imports left frame = actualBody.eval imports right frame := rfl
+theorem arrayActual_body_calls (imports : Imports) (left right : Calls) (frame : Frame) :
+    arrayActualBody.eval imports left frame = arrayActualBody.eval imports right frame := rfl
+
+theorem actual_body_calls (imports : Imports) (left right : Calls) (frame : Frame)
+    (shared : left.arrayActual = right.arrayActual) :
+    actualBody.eval imports left frame = actualBody.eval imports right frame := by
+  dsimp +instances only [actualBody, integerActualResult, Expr.eval]
+  rw [shared]
 
 theorem callee_body_calls (imports : Imports) (left right : Calls) (frame : Frame) :
     calleeBody.eval imports left frame = calleeBody.eval imports right frame := rfl
@@ -298,6 +335,32 @@ theorem result_body_calls (imports : Imports) (left right : Calls) (frame : Fram
 variable {imports : Imports} {calls : Calls}
   {assignment : Source → Native.Context → BodyScan → Metadata → BodyScan}
 
+theorem normalized_arrayActual (meaning : ImportsMeaning imports)
+    (defs : DefinitionEquations imports calls assignment) :
+    (totalizeCalls calls).arrayActual = modelCalls.arrayActual := by
+  classical
+  funext text context position typeId
+  change (if ArrayActualDomain text context position typeId then _ else _) = _
+  split
+  · rename_i valid
+    rw [defs.arrayActual text context position typeId valid, totalizeImports_eq_model meaning,
+      arrayActual_body_calls modelImports (totalizeCalls calls) modelCalls]
+    exact arrayActual_model ..
+  · rfl
+
+theorem normalized_actualModel (meaning : ImportsMeaning imports)
+    (defs : DefinitionEquations imports calls assignment) :
+    (totalizeCalls calls).actualModel = modelCalls.actualModel := by
+  classical
+  funext text context position facts parameter
+  change (if ActualDomain text context position facts parameter then _ else _) = _
+  split
+  · rename_i valid
+    rw [defs.actualModel text context position facts parameter valid, totalizeImports_eq_model meaning,
+      actual_body_calls modelImports (totalizeCalls calls) modelCalls _ (normalized_arrayActual meaning defs)]
+    exact actual_model ..
+  · rfl
+
 theorem normalized_actual (meaning : ImportsMeaning imports)
     (defs : DefinitionEquations imports calls assignment) :
     (totalizeCalls calls).actual = modelCalls.actual := by
@@ -306,8 +369,8 @@ theorem normalized_actual (meaning : ImportsMeaning imports)
   change (if ActualDomain text context position facts parameter then _ else _) = _
   split
   · rename_i valid
-    rw [defs.actual text context position facts parameter valid, totalizeImports_eq_model meaning,
-      actual_body_calls modelImports (totalizeCalls calls) modelCalls]
+    rw [defs.actual text context position facts parameter valid, totalizeImports_eq_model meaning, actualImplementation_model,
+      actual_body_calls modelImports (totalizeCalls calls) modelCalls _ (normalized_arrayActual meaning defs)]
     exact actual_model ..
   · rfl
 
@@ -352,7 +415,7 @@ theorem normalized_actualsTail_at (meaning : ImportsMeaning imports)
     rw [defs.actualsTail text context position facts catalog first last ordinal named seen valid,
       totalizeImports_eq_model meaning]
     dsimp +instances only [actualsTailBody, Expr.eval, modelImports]
-    simp only [normalized_actual meaning defs, modelCalls]
+    simp only [normalized_actualModel meaning defs, modelCalls]
     change (if decide ((functionAssociation text position catalog first last ordinal named).formal = 0) ||
       seen (functionAssociation text position catalog first last ordinal named).formal then _ else _) =
       functionActualsTailModel text context.model position facts catalog first last ordinal named seen
@@ -470,6 +533,8 @@ theorem totalizeCalls_eq_model (meaning : ImportsMeaning imports)
   · exact normalized_scalarTarget targets
   · exact normalized_booleanTarget targets
   · exact normalized_result meaning defs
+  · exact normalized_arrayActual meaning defs
+  · exact normalized_actualModel meaning defs
 
 theorem assignment_meaning (meaning : ImportsMeaning imports)
     (defs : DefinitionEquations imports calls assignment) (targets : TargetsMeaning calls)
@@ -489,8 +554,14 @@ theorem model_calls_totalize : totalizeCalls modelCalls = modelCalls := by
 theorem model_definitions_of_meaning (meaning : ImportsMeaning imports) :
     DefinitionEquations imports modelCalls
     (fun text context scan catalog => callAssignmentBody text context.model scan catalog) where
-  actual text context position facts parameter _ := by
+  arrayActual text context position typeId _ := by
     rw [totalizeImports_eq_model meaning, model_calls_totalize]
+    exact (arrayActual_model ..).symm
+  actualModel text context position facts parameter _ := by
+    rw [totalizeImports_eq_model meaning, model_calls_totalize]
+    exact (actual_model ..).symm
+  actual text context position facts parameter _ := by
+    rw [totalizeImports_eq_model meaning, actualImplementation_model, model_calls_totalize]
     exact (actual_model ..).symm
   actuals text context position facts catalog first last valid := by
     rw [totalizeImports_eq_model meaning, model_calls_totalize]
