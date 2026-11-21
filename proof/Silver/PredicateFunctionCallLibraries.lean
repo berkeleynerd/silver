@@ -7,6 +7,7 @@ public import Silver.FunctionBindingsSourceBridge
 public import Silver.PredicateNativeHelpers
 public import Silver.PredicateNativeLibraries
 public import Silver.PredicateBooleanBodyLibraries
+public import Silver.PredicateArrayBodySource
 
 @[expose] public section
 namespace Silver.Predicate.FunctionCallNative
@@ -26,15 +27,20 @@ structure ImportsLinks (imports : Imports) (composed : Compose.Expressions.Calls
   scalarLookup : imports.scalarLookup = predicate.scalarLookup
   booleanLookup : imports.booleanLookup = predicate.booleanLookup
   arrayLookup : imports.arrayLookup = predicate.arrayLookup
+  arrayTypeLookup : imports.arrayTypeLookup = predicate.arrayTypeLookup
   functions : ∃ calls, FunctionBindings.SourceBridge.InterpretedSource calls ∧
     imports.functionLookup = calls.lookup
   token : imports.token = composed.function .takeToken
-  condition : imports.condition = fun text context position facts => predicate.condition text context position facts []
+  condition : imports.condition = fun text context position facts => predicate.model text context position facts []
+  conditionInto : imports.conditionInto = fun text context position facts => predicate.condition text context position facts []
   scalar : imports.scalar = fun text context position facts => predicate.scalarInFlow text context position facts []
   isEmpty : imports.isEmpty = composed.function .scalarEmpty
   included : ∀ left right, left.Bounded → right.Bounded →
     imports.included left right = includedBody.eval imports modelCalls {intervalValue := left, intervalBounds := right}
   invalid : ∃ body, BodyWrappers.DefinitionEquations body ∧ imports.invalid = body.invalidModel
+  arrayTarget : ∃ scalar string targets,
+    FlowReaders.Links composed scalar string ∧ ArrayBodyNative.Links composed scalar targets ∧
+    imports.arrayTarget = targets.target
   association : ∃ associations, AssociationNative.ImportsLinks associations composed predicate ∧
     AssociationNative.DefinitionEquations associations ∧ imports.association = associations .functionAssociation
 
@@ -65,6 +71,9 @@ theorem imports_meaning {imports composed predicate}
   arrayLookup text names first after valid := by
     rw [links.arrayLookup]
     exact helpers.arrayLookup text valid.1 names first after valid.2.1 valid.2.2.1 valid.2.2.2
+  arrayTypeLookup text names first after valid := by
+    rw [links.arrayTypeLookup]
+    exact helpers.arrayTypeLookup text valid.1 names first after valid.2.1 valid.2.2.1 valid.2.2.2
   functionLookup text catalog first after valid := by
     obtain ⟨calls, interpreted, observed⟩ := links.functions
     rw [observed]
@@ -78,6 +87,10 @@ theorem imports_meaning {imports composed predicate}
         (by unfold Compose.Expressions.ValidToken; decide +kernel)] <;> rfl
   condition text context position facts valid := by
     rw [links.condition]
+    exact Native.model_unique predicate (Native.equations_of_definitions helpers defs contracts) text valid.1.1 context valid.1.2.1
+      position valid.1.2.2 facts valid.2 [] (by simp [ArrayBindings.ValidInitials])
+  conditionInto text context position facts valid := by
+    rw [links.conditionInto]
     exact Native.condition_of_source_equations helpers defs contracts text valid.1.1 context valid.1.2.1
       position valid.1.2.2 facts valid.2 [] (by simp [ArrayBindings.ValidInitials])
   scalar text context position facts valid := by
@@ -100,6 +113,10 @@ theorem imports_meaning {imports composed predicate}
     rw [observed]
     exact BodyWrappers.invalidModel_meaning definitions scan valid
 
+  arrayTarget text context position valid := by
+    obtain ⟨scalar, string, targets, readers, targetSource, observed⟩ := links.arrayTarget
+    rw [observed]
+    exact ArrayBodyNative.linked_target source readers targetSource text context position valid
   association text position catalog first last ordinal named valid := by
     obtain ⟨associations, imported, definitions, observed⟩ := links.association
     rw [observed]
@@ -152,7 +169,8 @@ theorem linked_assignment {assignment composed predicate}
     (targets_meaning source helpers defs contracts targets) text context scan catalog valid
 
 
-theorem model_imports_links :
+theorem model_imports_links
+    (source : Compose.Expressions.RawHelperEquations Compose.Expressions.modelCalls (domain := domain)) :
     ImportsLinks {modelImports with token := Compose.Expressions.modelCalls.function .takeToken}
       Compose.Expressions.modelCalls Native.modelCalls where
   markFormal := ⟨AssociationNative.modelCalls, AssociationNative.model_definitions, rfl⟩
@@ -162,13 +180,18 @@ theorem model_imports_links :
   scalarLookup := rfl
   booleanLookup := rfl
   arrayLookup := rfl
+  arrayTypeLookup := rfl
   functions := ⟨FunctionBindings.Native.modelCalls, FunctionBindings.SourceBridge.model_interpreted, rfl⟩
   token := rfl
   condition := rfl
+  conditionInto := rfl
   scalar := rfl
   isEmpty := rfl
   included left right _ _ := (included_model left right).symm
   invalid := ⟨BodyWrappers.modelCalls, BodyWrappers.model_definitions, rfl⟩
+  arrayTarget := by
+    have readers := Native.Libraries.model_links.readers.defaults
+    exact ⟨_, _, ArrayBodyNative.modelCalls, readers, ArrayBodyNative.model_links source readers, rfl⟩
   association := ⟨AssociationNative.modelCalls, AssociationNative.model_imports_links,
     AssociationNative.model_definitions, rfl⟩
 
@@ -203,8 +226,8 @@ theorem model_links
     (source : Compose.Expressions.RawHelperEquations Compose.Expressions.modelCalls (domain := domain)) :
     Links (fun text context scan catalog => callAssignmentBody text context.model scan catalog)
       Compose.Expressions.modelCalls Native.modelCalls := by
-  refine ⟨⟨_, modelCalls, model_imports_links, model_target_links source, ?_⟩⟩
+  refine ⟨⟨_, modelCalls, model_imports_links source, model_target_links source, ?_⟩⟩
   exact model_definitions_of_meaning (imports_meaning source Native.model_helper_meaning
-    Native.model_definition_equations Native.model_contracts model_imports_links)
+    Native.model_definition_equations Native.model_contracts (model_imports_links source))
 
 end Silver.Predicate.FunctionCallNative

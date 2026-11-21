@@ -261,7 +261,7 @@ theorem normalized_callee (meaning : ImportsMeaning calls) (defs : DefinitionEqu
       _ = calleeBody.eval modelCalls ({text,context,position,catalog} : Frame).locals := by
         dsimp +instances only [List.foldr, Token.shell, calleeBody, Expr.eval, apply2, apply4,
           Frame.locals, Locals.set, Field.get, ScanField.set]
-        simp only [meaning.skip, meaning.nameAfter, meaning.namesLookup, meaning.scalarLookup, meaning.booleanLookup, meaning.arrayLookup, meaning.procedureLookup]
+        simp only [meaning.skip, meaning.nameAfter, meaning.namesLookup, meaning.scalarLookup, meaning.booleanLookup, meaning.arrayLookup, meaning.arrayTypeLookup, meaning.procedureLookup]
       _ = _ := callee_model ..
   · rfl
 
