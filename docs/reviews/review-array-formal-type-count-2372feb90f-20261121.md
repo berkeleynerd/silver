@@ -83,3 +83,5 @@ PrefixStepDomain: its prepared raw append proof splits the actual type/mode
 checks and constructs ValidFormal only in the scalar-zero branch. That pending
 procedure proof is outside this review result and must be checked by its owner;
 no stronger PrefixStepDomain premise is justified by this repair.
+
+Elapsed review time and token/cost measurements were not captured.
