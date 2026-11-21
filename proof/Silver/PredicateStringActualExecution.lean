@@ -40,7 +40,7 @@ def CallActualBoundsSafe (bounds : BoundsStore) (names : Compose.BindingEnvironm
     (input : Source) (valid : Bool) (integers : Integer.Store) (booleans : Boolean.Store)
     (call : ScalarFunctions.Call) : Prop :=
   ∀ actual ∈ call.actuals, match actual with
-    | .integer _ => True
+    | .integer _ | .array _ _ => True
     | .boolean condition => condition.ActualBoundsSafe bounds names values input valid integers booleans
 
 theorem call_actualBoundsSafe {bounds : BoundsStore} {names : Compose.BindingEnvironment}
@@ -52,7 +52,7 @@ theorem call_actualBoundsSafe {bounds : BoundsStore} {names : Compose.BindingEnv
   have source := origin actual present
   have guarded := safe actual present
   cases actual with
-  | integer _ => trivial
+  | integer _ | array _ _ => trivial
   | boolean condition => exact condition.actualBoundsSafe compatible source guarded
 
 def ProcedureCallActualBoundsSafe (bounds : BoundsStore) (names : Compose.BindingEnvironment) (values : Values)
@@ -73,7 +73,7 @@ theorem procedureCall_actualBoundsSafe {bounds : BoundsStore} {names : Compose.B
   | target _ => trivial
   | value value =>
       cases value with
-      | integer _ => trivial
+      | integer _ | array _ _ => trivial
       | boolean condition => exact condition.actualBoundsSafe compatible (origin _ present) (safe _ present)
 
 def SimpleActualBoundsSafe (bounds : BoundsStore) (names : Compose.BindingEnvironment) (values : Values)
