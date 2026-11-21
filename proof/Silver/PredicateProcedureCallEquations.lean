@@ -91,7 +91,7 @@ theorem actual_model (text : Source) (context : Native.Context) (position : Nat)
     actualBody.eval modelCalls ({text,context,position,facts,parameter} : Frame).locals =
       procedureActualAfter text context.model position facts parameter := by
   dsimp +instances only [List.foldr, Token.shell, actualBody, Expr.eval, modelCalls, Frame.locals, Field.get, apply5,
-    procedureActualAfter]
+    procedureActualAfter, procedureInputFormal]
   simp only [String.reduceEq, ↓reduceIte, decide_eq_true_eq]
 
 theorem actualsTail_model (text : Source) (context : Native.Context) (position : Nat)
@@ -166,7 +166,7 @@ theorem callee_model (text : Source) (context : Native.Context) (position : Nat)
     calleeBody.eval modelCalls ({text,context,position,catalog} : Frame).locals =
       procedureCalleeAt text context.model position catalog := by
   dsimp +instances only [List.foldr, Token.shell, calleeBody, Expr.eval, modelCalls, Frame.locals, Locals.set, Field.get,
-    apply2, apply4, procedureCalleeAt, Native.Context.model]
+    apply2, apply4, procedureCalleeAt, Native.Context.model, Native.Context.arrayTable]
   simp only [reduceCtorEq, String.reduceEq, ↓reduceIte, ↓reduceDIte,
     decide_eq_true_eq, Bool.or_eq_true, or_assoc]
 

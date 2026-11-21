@@ -28,7 +28,8 @@ def targetBody : Command .actual :=
     (apply3 (.function .scalarTarget) text context position) <|
   .letValue "flag" ["boolean_count"] (apply3 (.function .booleanTarget) text context position) <|
   .beginBody <|
-  .guard (.orElse (.eq first (.number 0)) (.le after first)) .invalidActual <|
+  .guard (.orElse (.orElse (.eq first (.number 0)) (.le after first))
+    (.ne (.field .formalTypeId parameter) (.number 0))) .invalidActual <|
   .branch (.eqKind (.field .formalKind parameter) (.kind .integer))
     (.guard
       (.orElse (.orElse (.orElse (.orElse
@@ -52,7 +53,7 @@ def actualBody : Expr .number :=
   .ite (.eqMode (.field .formalMode parameter) (.mode .input))
     (apply5 (.function .functionActual) text context position facts
       (.functionFormal (.field .formalFirst parameter) (.field .formalAfter parameter)
-        (.field .formalKind parameter) (.field .formalBounds parameter)))
+        (.field .formalKind parameter) (.field .formalBounds parameter) (.field .formalTypeId parameter)))
     (.field .actualAfter (apply5 (.function .target) text context position facts parameter))
 
 def actualsTailBody : Expr .number :=
@@ -247,7 +248,7 @@ def modelCalls : Calls
   | .namesLookup => lookupName
   | .scalarLookup => ScalarExpression.lookup
   | .booleanLookup => BooleanBindings.lookup
-  | .arrayLookup => ArrayBindings.lookup
+  | .arrayLookup => fun text names => ArrayBindings.lookup text names.items
   | .procedureLookup => ProcedureBindings.lookup
   | .token => tokenAfter
   | .isEmpty => Integer.Interval.isEmpty
