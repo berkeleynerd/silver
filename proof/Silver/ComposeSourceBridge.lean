@@ -2,13 +2,13 @@ module
 
 public import Silver.ComposeSourceChecks
 public import Silver.ComposeEquations
+public import Silver.ComposeArrayImportMeaning
 public import Silver.LexicalSourceBridge
 public import Silver.NamesSourceBridge
 public import Silver.ScalarExpressionSourceBridge
 public import Silver.ComposeEvaluation
 public import Silver.IntegerImageNativeSource
-public import Silver.ComposeBooleanDeclarationLibraries
-public import Silver.ComposeBooleanInitializerLibraries
+public import Silver.ComposeBooleanImportMeaning
 public import Silver.FunctionDeclarationSourceBridge
 public import Silver.ProcedureLookupMeaning
 public import Silver.ProcedureDeclarationSourceBridge
@@ -29,6 +29,7 @@ open Silver.SourceBridge
 open Silver.Compose.Expressions
 
 structure CheckedSource : Prop where
+  arrayMetadata : ArrayBindings.SourceChecks.CheckedSource
   procedureMetadata : ProcedureBindings.SourceChecks.CheckedSource
   procedureDeclarations : ProcedureDeclarationNative.HighSourceChecks.Checked Source.outputBodyTokens
   procedureDeclarationHelpers : ProcedureDeclarationNative.HelperSourceChecks.Checked Source.outputBodyTokens
@@ -40,6 +41,7 @@ structure CheckedSource : Prop where
   expressions : ExpressionTranslation
   stringHelpers : StringHelperTranslation
   arrayHelpers : ArrayHelperTranslation
+  arrayTypeHelpers : ArrayTypeHelperTranslation
   booleanDeclaration : BooleanDeclarationNative.SourceChecks.Checked Source.outputBodyTokens
   booleanArrayHelpers : BooleanArraySource.Checked Source.outputBodyTokens
   catalogue : HelperCatalogueTranslation
@@ -54,6 +56,7 @@ structure CheckedSource : Prop where
     (names.extend info).active = names.active ++ [info]
 
 theorem checked_source : CheckedSource where
+  arrayMetadata := ArrayBindings.SourceChecks.checked_source
   procedureMetadata := ProcedureBindings.SourceChecks.checked_source
   procedureDeclarations := Silver.ProcedureDeclarationHighSourceChecks.checked_source
   procedureDeclarationHelpers := Silver.ProcedureDeclarationHelperSourceChecks.checked_source
@@ -65,6 +68,7 @@ theorem checked_source : CheckedSource where
   expressions := actual_expressions
   stringHelpers := actual_string_helpers
   arrayHelpers := actual_array_helpers
+  arrayTypeHelpers := actual_array_type_helpers
   booleanDeclaration := actual_boolean_declaration
   booleanArrayHelpers := actual_boolean_array_helpers
   catalogue := actual_catalogue
@@ -77,32 +81,6 @@ theorem checked_source : CheckedSource where
   arrayExtension := Expressions.ArrayNames.extend_active
 
 def NativeForm (form : Form) : Prop := form ∈ helperForms
-
-/-- Interpretation of the ordinary Boolean declaration function and its
-native callees. Predicate meaning is derived from typed equations and verified
-contracts; no field assumes either scanner's equivalence to admission. -/
-structure BooleanDeclarationInterpretation (calls : Expressions.Calls) : Prop where
-  source : ∃ (imports : BooleanDeclarationNative.Imports) (predicate : Predicate.Native.Calls),
-    Predicate.Native.HelperMeaning predicate ∧
-    Predicate.Native.DefinitionEquations predicate ∧ Predicate.Native.Contracts predicate ∧
-    BooleanDeclarationNative.Libraries.Links imports calls predicate ∧
-    ∀ text, Expressions.ValidText text → ∀ state arguments,
-      Predicate.OuterReadiness.ValidState text state →
-      calls.function .booleanDeclaration text state arguments =
-        BooleanDeclarationNative.body.eval imports {text, state, arguments}
-
-/-- The initializer wrapper is interpreted from its checked typed tree and
-native context/initial-flow/condition callees, without assuming parser equality. -/
-structure BooleanInitializerInterpretation (calls : Expressions.Calls) : Prop where
-  source : ∃ (imports : BooleanInitializerNative.Imports) (predicate : Predicate.Native.Calls),
-    Predicate.Native.HelperMeaning predicate ∧
-    Predicate.Native.DefinitionEquations predicate ∧ Predicate.Native.Contracts predicate ∧
-    BooleanInitializerNative.Libraries.Links imports predicate ∧
-    ∀ text, Expressions.ValidText text → ∀ state position first after,
-      Predicate.OuterReadiness.ValidState text state → Expressions.ValidCursor text position →
-      (⟨first, after⟩ : Named.NameState).Valid text →
-      calls.function .booleanInitializer text state position first after =
-        BooleanInitializerNative.body.eval imports ⟨text, state, position, first, after⟩
 
 /-- The ordinary function declaration reader is connected to its checked
 native equations and directly linked callees. Its full scanner meaning is a
@@ -153,12 +131,17 @@ structure InterpretedSource (calls : Expressions.Calls) : Prop where
       (token : Source → Nat → String → Bool → Bool),
     calls.primitive = Lexical.primitives helpers token ∧
       Lexical.InterpretedSource helpers token
-  definitions : FunctionImportMeaning calls →
+  arrayImports : ArrayImportSource calls
+  definitions : FunctionImportMeaning calls → ArrayImportMeaning calls →
     Expressions.RawHelperEquations calls calls Predicate.OuterReadiness.domain
   booleanDeclaration : BooleanDeclarationInterpretation calls
   booleanInitializer : BooleanInitializerInterpretation calls
-  functionDeclaration : FunctionDeclarationInterpretation calls
-  procedureDeclaration : ProcedureDeclarationInterpretation calls
+  functionDeclaration : ArrayImportMeaning calls →
+    (RawHelperEquations calls (domain := Predicate.OuterReadiness.domain) → BooleanDeclarationMeaning calls) →
+    FunctionDeclarationInterpretation calls
+  procedureDeclaration : ArrayImportMeaning calls →
+    (RawHelperEquations calls (domain := Predicate.OuterReadiness.domain) → BooleanDeclarationMeaning calls) →
+    ProcedureDeclarationInterpretation calls
   procedureMetadata : ∃ metadata : ProcedureBindings.Native.Calls,
     ProcedureBindings.SourceBridge.InterpretedSource metadata ∧
       calls.function .procedureLookup = metadata.lookup
@@ -177,6 +160,22 @@ theorem interpreted_primitives (calls : Expressions.Calls)
   rw [same]
   exact Lexical.interpreted_primitives helpers token interpreted
 
+/-- Nested callable readers consume the same derived imports as their outer
+Compose caller. Only proof fields change; native calls, direct identities and
+the exact inherited state domain are retained. -/
+private def inherited_import_source {native : FunctionDeclarationNative.Calls}
+    (source : FunctionDeclarationNative.InterpretedSource native)
+    (imports : ArrayImportMeaning source.inherited)
+    (booleans : BooleanDeclarationMeaning source.inherited) :
+    FunctionDeclarationNative.InterpretedSource native :=
+  {source with inheritedSource :=
+    {source.inheritedSource with
+      toRawHelperEquations := imports.raw source.inheritedSource.toRawHelperEquations
+      booleanDeclaration := by
+        intro text tv state arguments ready
+        let native := (source.exactDomain.state text state).mp ready.base
+        exact booleans text tv state arguments ⟨native.base, native.ready, native.bounds⟩}}
+
 theorem interpreted_equations (calls : Expressions.Calls)
     (source : InterpretedSource calls) : Expressions.HelperEquations calls (domain := Predicate.OuterReadiness.domain) := by
   obtain ⟨imageCalls, scalarCalls, imageSource, linked⟩ := source.imageLengths
@@ -194,8 +193,14 @@ theorem interpreted_equations (calls : Expressions.Calls)
       Integer.Image.NativeSource.maximumLength_eq imageCalls scalarCalls imageSource bounds bounded]
     unfold LengthSummary.ofImage
     split <;> rfl
-  obtain ⟨native, functionSource, _, declarationLink, lookupLink, hidesLink⟩ :=
-    source.functionDeclaration.source
+  have arrayImports := source.arrayImports.meaning
+  let booleanDeclaration : RawHelperEquations calls (domain := Predicate.OuterReadiness.domain) →
+      BooleanDeclarationMeaning calls := source.booleanDeclaration.meaning
+  obtain ⟨native, originalFunctionSource, inheritedLink, declarationLink, lookupLink, hidesLink⟩ :=
+    (source.functionDeclaration arrayImports booleanDeclaration).source
+  have inheritedImports : ArrayImportMeaning originalFunctionSource.inherited := by
+    rw [inheritedLink]
+    exact arrayImports
   have procedureLookup : ∀ text, Expressions.ValidText text → ∀ catalog first after,
       ProcedureBindings.ValidMetadata text catalog → Expressions.ValidCursor text first →
       Expressions.ValidCursor text after →
@@ -210,52 +215,59 @@ theorem interpreted_equations (calls : Expressions.Calls)
         FunctionBindings.lookup text catalog first after := by
     intro text valid catalog first after metadata firstBound afterBound
     rw [lookupLink]
-    exact (FunctionBindings.SourceBridge.interpreted_complete functionSource.metadata
-      functionSource.metadataSource).lookup text valid catalog metadata first after firstBound afterBound
+    exact (FunctionBindings.SourceBridge.interpreted_complete originalFunctionSource.metadata
+      originalFunctionSource.metadataSource).lookup text valid catalog metadata first after firstBound afterBound
   have hides : ∀ text, Expressions.ValidText text → ∀ state first after,
       Expressions.NativeState Predicate.OuterReadiness.domain text state →
       Expressions.ValidCursor text first → Expressions.ValidCursor text after →
       calls.function .formalHides text state first after = Compose.formalHides text state first after := by
     intro text valid state first after ready firstBound afterBound
     rw [hidesLink]
-    exact FunctionVisibilityNative.formalHides_meaning functionSource.visibility
-      functionSource.visibilityPrimitives functionSource.visibilityEquations text valid state
+    exact FunctionVisibilityNative.formalHides_meaning originalFunctionSource.visibility
+      originalFunctionSource.visibilityPrimitives originalFunctionSource.visibilityEquations text valid state
       ⟨ready.valid, ready.base.ready, ready.bounds⟩ first after firstBound afterBound
   let raw := Expressions.normalized_rawHelpers calls (interpreted_primitives calls source)
-    {source.definitions ⟨lookup, procedureLookup, hides⟩ with
+    {arrayImports.raw (source.definitions ⟨lookup, procedureLookup, hides⟩ arrayImports) with
       imageMinimum := minimum
       imageMaximum := maximum
       functionLookup := lookup
       procedureLookup := procedureLookup
       formalHides := hides} source.legal
+  have booleanMeaning := booleanDeclaration raw
+  have inheritedBooleans : BooleanDeclarationMeaning originalFunctionSource.inherited := by
+    rw [inheritedLink]
+    exact booleanMeaning
+  let functionSource := inherited_import_source originalFunctionSource inheritedImports inheritedBooleans
   exact {
     toRawHelperEquations := raw
-    booleanDeclaration := by
-      obtain ⟨imports, predicate, helpers, definitions, contracts, links, equation⟩ :=
-        source.booleanDeclaration.source
-      intro text valid state arguments ready
-      exact (equation text valid state arguments ready.base).trans
-        (BooleanDeclarationNative.imports_meaning imports text state arguments
-          (BooleanDeclarationNative.Libraries.imports_meaning raw helpers definitions contracts links
-            text valid state arguments ready.base))
+    booleanDeclaration text tv state arguments ready :=
+      booleanMeaning text tv state arguments ready.base
     functionDeclaration := by
       intro text valid state arguments ready
       rw [declarationLink]
       exact FunctionDeclarationNative.interpreted_native_declaration functionSource text valid
         state arguments ⟨ready.valid, ready.base.ready, ready.bounds⟩
     procedureDeclaration := by
-      obtain ⟨native, procedureSource, _, declarationLink⟩ := source.procedureDeclaration.source
+      obtain ⟨native, originalProcedureSource, inheritedLink, declarationLink⟩ :=
+        (source.procedureDeclaration arrayImports booleanDeclaration).source
+      have inheritedImports : ArrayImportMeaning originalProcedureSource.helpers.ordinarySource.inherited := by
+        rw [inheritedLink]
+        exact arrayImports
+      have inheritedBooleans : BooleanDeclarationMeaning originalProcedureSource.helpers.ordinarySource.inherited := by
+        rw [inheritedLink]
+        exact booleanMeaning
+      let procedureSource : ProcedureDeclarationNative.InterpretedSource native :=
+        {originalProcedureSource with
+          helpers :=
+            {originalProcedureSource.helpers with
+              ordinarySource := inherited_import_source originalProcedureSource.helpers.ordinarySource
+                inheritedImports inheritedBooleans}}
       intro text valid state arguments ready
       rw [declarationLink]
       exact ProcedureDeclarationNative.interpreted_native_declaration procedureSource text valid
         state arguments ⟨ready.valid, ready.base.ready, ready.bounds⟩
-    booleanInitializer := by
-      obtain ⟨imports, predicate, helpers, definitions, contracts, links, equation⟩ :=
-        source.booleanInitializer.source
-      intro text valid state position first after ready bounded mask
-      exact (equation text valid state position first after ready.base bounded mask).trans
-        (BooleanInitializerNative.Libraries.imports_meaning helpers definitions contracts links
-          text valid state position first after ready.base bounded mask) }
+    booleanInitializer text tv state position first after ready bounded mask :=
+      source.booleanInitializer.meaning raw text tv state position first after ready.base bounded mask }
 
 theorem interpreted_step (calls : Expressions.Calls) (source : InterpretedSource calls)
     (text : Source) (valid : Expressions.ValidText text) (form : Form) (token : ShellToken)

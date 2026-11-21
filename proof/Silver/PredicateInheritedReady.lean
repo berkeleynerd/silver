@@ -92,6 +92,11 @@ theorem model_definitions :
   scalarLookup := base_definitions.scalarLookup
   scalarRead := base_definitions.scalarRead
   arrayLookup := base_definitions.arrayLookup
+  arrayTypeLookup := base_definitions.arrayTypeLookup
+  arrayTypeAt text tv state position sv pv :=
+    base_definitions.arrayTypeAt text tv state position ⟨sv.valid, sv.bounds⟩ pv
+  arrayTypeDeclaration text tv state arguments sv :=
+    base_definitions.arrayTypeDeclaration text tv state arguments ⟨sv.valid, sv.bounds⟩
   booleanLookup := base_definitions.booleanLookup
   booleanHidesInteger := base_definitions.booleanHidesInteger
   booleanDeclaration text tv state arguments sv := base_definitions.booleanDeclaration text tv state arguments ⟨sv.valid, sv.bounds⟩
@@ -131,9 +136,9 @@ theorem model_definitions :
   scalarDeclaration text tv state arguments sv :=
     base_definitions.scalarDeclaration text tv state arguments ⟨sv.valid, sv.bounds⟩
   arrayPut := base_definitions.arrayPut
-  arrayAdd text tv state first after bounds offset length mutable following componentBounds isBoolean sv nv bv room extent ordered cursor :=
-    base_definitions.arrayAdd text tv state first after bounds offset length mutable following componentBounds isBoolean
-      ⟨sv.valid, sv.bounds⟩ nv bv room extent ordered cursor
+  arrayAdd text tv state first after bounds offset length mutable following componentBounds isBoolean typeId sv nv bv coherent room extent ordered cursor :=
+    base_definitions.arrayAdd text tv state first after bounds offset length mutable following componentBounds isBoolean typeId
+      ⟨sv.valid, sv.bounds⟩ nv bv coherent room extent ordered cursor
   arrayValuesModel text tv source result position length parsed componentBounds bounded valid :=
     base_definitions.arrayValuesModel text tv source result position length parsed componentBounds bounded (base_array_domain valid)
   arrayValues text tv source result position length parsed componentBounds bounded valid :=
@@ -236,28 +241,20 @@ theorem model_interpreted :
     unfold LengthSummary.ofImage
     split <;> exact ⟨rfl, rfl⟩
   lexical := ⟨Guarded.Expressions.modelCalls, fixedAt, rfl, Lexical.model_interpreted⟩
+  arrayImports := model_array_import_source
   procedureMetadata := ⟨ProcedureBindings.Native.modelCalls,
     ProcedureBindings.SourceBridge.model_interpreted, rfl⟩
-  definitions := fun _ => model_definitions.toRawHelperEquations
-  booleanDeclaration := by
-    refine { source := ?_ }
-    refine ⟨Compose.BooleanDeclarationNative.modelImports, Native.modelCalls,
-      Native.model_helper_meaning, Native.model_definition_equations, Native.model_contracts,
-      Compose.BooleanDeclarationNative.Libraries.model_links, ?_⟩
-    intro text valid state arguments ready
-    exact (Compose.BooleanDeclarationNative.model_meaning text state arguments).symm
-  booleanInitializer := by
-    refine { source := ?_ }
-    refine ⟨Compose.BooleanInitializerNative.modelImports, Native.modelCalls,
-      Native.model_helper_meaning, Native.model_definition_equations, Native.model_contracts,
-      Compose.BooleanInitializerNative.Libraries.model_links, ?_⟩
-    intro text valid state position first after ready bounded mask
-    exact (Compose.BooleanInitializerNative.model_meaning ⟨text, state, position, first, after⟩).symm
-  functionDeclaration := by
+  definitions := fun _ imports => imports.raw model_definitions.toRawHelperEquations
+  booleanDeclaration := Compose.SourceBridge.model_boolean_declaration_interpretation
+  booleanInitializer := Compose.SourceBridge.model_boolean_initializer_interpretation
+  functionDeclaration imports booleanDeclaration := by
+    let raw := imports.raw model_definitions.toRawHelperEquations
+    have booleanMeaning := booleanDeclaration raw
     let inherited : Compose.FunctionDeclarationNative.InheritedEquations
         Compose.Expressions.modelCalls OuterReadiness.domain :=
-      { toRawHelperEquations := model_definitions.toRawHelperEquations
-        booleanDeclaration := model_definitions.booleanDeclaration }
+      { toRawHelperEquations := raw
+        booleanDeclaration text tv state arguments ready :=
+          booleanMeaning text tv state arguments ready.base }
     let exactDomain : Compose.FunctionDeclarationNative.ExactDomain OuterReadiness.domain :=
       { state := fun _ _ =>
           ⟨fun valid => ⟨valid.base, valid.ready, valid.bounds⟩,
@@ -265,11 +262,14 @@ theorem model_interpreted :
     exact ⟨⟨Compose.FunctionDeclarationNative.modelCalls,
       Compose.FunctionDeclarationNative.model_interpreted OuterReadiness.domain inherited exactDomain,
       rfl, rfl, rfl, rfl⟩⟩
-  procedureDeclaration := by
+  procedureDeclaration imports booleanDeclaration := by
+    let raw := imports.raw model_definitions.toRawHelperEquations
+    have booleanMeaning := booleanDeclaration raw
     let inherited : Compose.FunctionDeclarationNative.InheritedEquations
         Compose.Expressions.modelCalls OuterReadiness.domain :=
-      { toRawHelperEquations := model_definitions.toRawHelperEquations
-        booleanDeclaration := model_definitions.booleanDeclaration }
+      { toRawHelperEquations := raw
+        booleanDeclaration text tv state arguments ready :=
+          booleanMeaning text tv state arguments ready.base }
     let exactDomain : Compose.FunctionDeclarationNative.ExactDomain OuterReadiness.domain :=
       { state := fun _ _ =>
           ⟨fun valid => ⟨valid.base, valid.ready, valid.bounds⟩,
