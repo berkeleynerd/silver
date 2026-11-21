@@ -27,7 +27,7 @@ def procedureTargetActual (text : Source) (context : ParseContext) (position : N
   let after := nameAfter text first
   let scalar := scalarTarget text context position
   let flag := booleanTarget text context position
-  if first = 0 ∨ after ≤ first then invalidProcedureActual
+  if first = 0 ∨ after ≤ first ∨ parameter.typeId ≠ 0 then invalidProcedureActual
   else if parameter.kind = .integer then
     let binding := ScalarExpression.binding context.scalarNames scalar
     let incoming := facts.values.getD (scalar - 1) Integer.Interval.empty

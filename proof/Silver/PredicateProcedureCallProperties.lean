@@ -34,6 +34,18 @@ theorem procedureTargetActual_zero (text : Source) (context : ParseContext)
     procedureTargetActual text context 0 facts parameter = invalidProcedureActual := by
   simp [procedureTargetActual, skipAt]
 
+theorem procedureActualAfter_arrayInput (text : Source) (context : ParseContext) (position : Nat)
+    (facts : ActiveFlow) {parameter : ProcedureBindings.Formal} (input : parameter.mode = .input)
+    (nominal : parameter.typeId ≠ 0) :
+    procedureActualAfter text context position facts parameter = arrayActualAfter text context position parameter.typeId := by
+  simp only [procedureActualAfter, input, actualAfter, procedureInputFormal, ↓reduceIte]
+  exact ite_eq_left nominal
+
+theorem procedureActualAfter_arrayWritable (text : Source) (context : ParseContext) (position : Nat)
+    (facts : ActiveFlow) {parameter : ProcedureBindings.Formal} (writable : parameter.mode ≠ .input)
+    (nominal : parameter.typeId ≠ 0) : procedureActualAfter text context position facts parameter = 0 := by
+  simp [procedureActualAfter, writable, procedureTargetActual, nominal, invalidProcedureActual]
+
 theorem procedureActualAfter_zero (text : Source) (context : ParseContext)
     (facts : ActiveFlow) (parameter : ProcedureBindings.Formal) :
     procedureActualAfter text context 0 facts parameter = 0 := by
