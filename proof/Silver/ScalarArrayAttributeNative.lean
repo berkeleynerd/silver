@@ -206,8 +206,8 @@ def arrayAttributeBody : Body .result :=
             (.assign "bounds" (.app (.function .scalarSingleton) (.field .upper bounds)))
             (.choose (named "length")
               (.assign "bounds" (.app (.function .scalarSingleton)
-                (.scalarValue (.intAdd (.intSub (.wide (.field .upper bounds))
-                  (.wide (.field .lower bounds))) .intOne))))
+                (.scalarValue (.intAdd (.group (.intSub (.wide (.field .upper bounds))
+                  (.wide (.field .lower bounds)))) .intOne))))
               (.returned .invalid)))),
       .returned (.result attributeAfter bounds (.number 1) (.truth true))]⟩
 

@@ -124,7 +124,7 @@ package body Silver_Scalar_Expressions with SPARK_Mode => On is
          Bounds := Scalars.Singleton (Bounds.Upper);
       elsif Name_Is (Text, Attribute_First, Attribute_After, "length") then
          Bounds := Scalars.Singleton (Scalars.Value
-           (Scalars.Wide (Bounds.Upper) - Scalars.Wide (Bounds.Lower) + 1));
+           ((Scalars.Wide (Bounds.Upper) - Scalars.Wide (Bounds.Lower)) + 1));
       else return Invalid;
       end if;
       return (Attribute_After, Bounds, 1, True);
