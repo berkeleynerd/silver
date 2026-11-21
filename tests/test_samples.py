@@ -52,7 +52,8 @@ class SupportedSampleTests(unittest.TestCase):
             for proof in session.iter("proof"):
                 prover = provers[proof.attrib["prover"]]
                 if prover["name"] != "Trivial":
-                    attempted.add(prover["name"])
+                    if proof.find("result") is not None:
+                        attempted.add(prover["name"])
                     expected = {"timelimit": "0", "steplimit": steps[prover["name"]],
                                 "memlimit": "1000"}
                     self.assertEqual({key: proof.get(key, prover.get(key)) for key in expected},
@@ -60,7 +61,7 @@ class SupportedSampleTests(unittest.TestCase):
         if output:
             # Serial proving can discharge every goal with the first configured
             # solver. Require observed effective limits, not redundant attempts.
-            self.assertTrue(attempted, "missing external application proof attempts")
+            self.assertTrue(attempted, "missing external application proof results")
 
     def test_manifest_samples(self) -> None:
         self.assertTrue(SILVER.is_file(), "build the actual SPARK compiler first")

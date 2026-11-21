@@ -55,9 +55,9 @@ compilations in the original parallel checkpoint retained sessions and all three
 prover declarations. Null uses its distinct warnings policy and may have no
 external solver session.
 
-The 2026-11-21 one-worker application configuration can discharge every goal with
-the first configured solver. The sample regression therefore requires an actual
-external proof attempt for output, while checking the exact three-solver command
+For some output samples, the first configured solver discharges every goal under
+the 2026-11-21 one-worker application configuration. The sample regression therefore
+requires an external attempt with a recorded result for output, while checking the exact three-solver command
 and the effective defaults and overrides for every observed solver. It does not
 require redundant attempts after discharge. Complete obligation auditing remains
 unchanged; the earlier three-solver observation describes the parallel checkpoint.
