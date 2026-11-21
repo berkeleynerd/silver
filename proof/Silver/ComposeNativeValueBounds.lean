@@ -27,17 +27,20 @@ private theorem invalid_result_index_bounds :
 
 /-- Inference checks its endpoints even on arbitrary scalar/array metadata. -/
 theorem model_scalar_index_bounds {text : Source} {position : Nat}
-    {names : ScalarExpression.Environment} {arrays : ArrayBindings.Metadata}
+    {names : ScalarExpression.Environment} {arrays : ArrayBindings.Table}
     {initials : ArrayBindings.Initials} {elaborating : Bool}
-    (bound : position ≤ text.length + 1) :
-    (ScalarExpression.read text position names (arrays := arrays) (initials := initials)
+    (_bound : position ≤ text.length + 1) :
+    (ScalarExpression.ArrayGrammar.read text position names arrays (initials := initials)
       (elaborating := elaborating)).bounds.Bounded := by
-  by_cases zero : (ScalarExpression.read text position names (arrays := arrays)
-      (initials := initials) (elaborating := elaborating)).after = 0
-  · rw [ScalarExpression.read_arrays_zero zero]
-    exact Integer.Interval.empty_bounded
-  · obtain ⟨expression, inferred, _, _⟩ := ScalarExpression.read_arrays_has_expression bound zero
-    exact Integer.Expr.infer_bounded inferred
+  unfold ScalarExpression.ArrayGrammar.read ScalarExpression.ArrayGrammar.summarize
+  split
+  · exact Integer.Interval.empty_bounded
+  · split
+    · exact Integer.Interval.empty_bounded
+    · split
+      · exact Integer.Interval.empty_bounded
+      · rename_i inferred
+        exact Integer.Expr.infer_bounded inferred
 
 theorem model_literal_index_bounds (text : Source) (valid : ValidText text) (position : Nat) :
     (literalAt text position).firstIndex.Bounded ∧ (literalAt text position).lastIndex.Bounded := by
@@ -50,7 +53,7 @@ theorem model_literal_index_bounds (text : Source) (valid : ValidText text) (pos
   · exact invalid_value_index_bounds
 
 theorem model_indexed_index_bounds (text : Source) (position : Nat) (names : BindingEnvironment)
-    {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Metadata}
+    {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Table}
     {initials : ArrayBindings.Initials} {elaborating element : Bool} :
     (indexedAt text position names scalarNames arrays initials elaborating element).firstIndex.Bounded ∧
       (indexedAt text position names scalarNames arrays initials elaborating element).lastIndex.Bounded := by
@@ -73,7 +76,7 @@ theorem model_indexed_index_bounds (text : Source) (position : Nat) (names : Bin
         · exact ⟨lower, upper⟩
 
 theorem model_character_index_bounds (text : Source) (position : Nat) (names : BindingEnvironment)
-    {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Metadata}
+    {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Table}
     {initials : ArrayBindings.Initials} {elaborating : Bool} :
     (characterAt text position names scalarNames arrays initials elaborating).firstIndex.Bounded ∧
       (characterAt text position names scalarNames arrays initials elaborating).lastIndex.Bounded := by
@@ -92,7 +95,7 @@ termination_by text.length + 1 - position
 
 theorem model_image_index_bounds (text : Source) (position : Nat) (names : BindingEnvironment)
     {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
-    {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating : Bool} :
+    {arrays : ArrayBindings.Table} {initials : ArrayBindings.Initials} {elaborating : Bool} :
     (imageAt text position names scalarNames integerHidden arrays initials elaborating).firstIndex.Bounded ∧
       (imageAt text position names scalarNames integerHidden arrays initials elaborating).lastIndex.Bounded := by
   have scalar : (imageParts text position scalarNames arrays initials elaborating).scalar.bounds.Bounded :=
@@ -112,7 +115,7 @@ theorem model_image_index_bounds (text : Source) (position : Nat) (names : Bindi
 
 theorem model_value_index_bounds (text : Source) (valid : ValidText text) (position : Nat)
     (names : BindingEnvironment) {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
-    {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating : Bool}
+    {arrays : ArrayBindings.Table} {initials : ArrayBindings.Initials} {elaborating : Bool}
     (namesBounded : NamesBoundsValid names) :
     (valueAt text position names scalarNames integerHidden arrays initials elaborating).firstIndex.Bounded ∧
       (valueAt text position names scalarNames integerHidden arrays initials elaborating).lastIndex.Bounded := by
@@ -176,7 +179,7 @@ theorem model_concatenated_last_bounded (left : ExpressionState) (right : ValueR
 
 theorem model_scan_index_bounds (text : Source) (valid : ValidText text) (names : BindingEnvironment)
     {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
-    {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating : Bool}
+    {arrays : ArrayBindings.Table} {initials : ArrayBindings.Initials} {elaborating : Bool}
     (scan : ExpressionState) (namesBounded : NamesBoundsValid names)
     (scanBounded : scan.firstIndex.Bounded ∧ scan.lastIndex.Bounded) :
     (expressionStep text names scan scalarNames integerHidden arrays initials elaborating).firstIndex.Bounded ∧
@@ -212,7 +215,7 @@ theorem model_scan_index_bounds (text : Source) (valid : ValidText text) (names 
 
 theorem model_tail_index_bounds (text : Source) (valid : ValidText text) (names : BindingEnvironment)
     {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
-    {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating : Bool}
+    {arrays : ArrayBindings.Table} {initials : ArrayBindings.Initials} {elaborating : Bool}
     (scan : ExpressionState) (namesBounded : NamesBoundsValid names)
     (scanBounded : scan.firstIndex.Bounded ∧ scan.lastIndex.Bounded) :
     (expressionTail text names scan scalarNames integerHidden arrays initials elaborating).firstIndex.Bounded ∧
@@ -237,7 +240,7 @@ termination_by text.length + 1 - scan.position
 
 theorem model_expression_index_bounds (text : Source) (valid : ValidText text) (position : Nat)
     (names : BindingEnvironment) {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
-    {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating : Bool}
+    {arrays : ArrayBindings.Table} {initials : ArrayBindings.Initials} {elaborating : Bool}
     (namesBounded : NamesBoundsValid names) :
     (expressionAt text position names scalarNames integerHidden arrays initials elaborating).firstIndex.Bounded ∧
       (expressionAt text position names scalarNames integerHidden arrays initials elaborating).lastIndex.Bounded :=
@@ -246,7 +249,7 @@ theorem model_expression_index_bounds (text : Source) (valid : ValidText text) (
 
 theorem model_expression_native (text : Source) (valid : ValidText text) (position : Nat)
     (names : BindingEnvironment) {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
-    {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating : Bool}
+    {arrays : ArrayBindings.Table} {initials : ArrayBindings.Initials} {elaborating : Bool}
     (bound : ValidCursor text position) (namesValid : NativeNames text names) :
     NativeResult text (expressionAt text position names scalarNames integerHidden arrays initials elaborating) := by
   have endpoints := model_expression_index_bounds text valid position names
