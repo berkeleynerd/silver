@@ -39,6 +39,7 @@ is
    use type Names.Operation_Kind;
    use type Scalar_Expressions.Binding;
    use type Array_Bindings.Binding;
+   use type Array_Bindings.Array_Type;
    package Image_Lengths renames Silver_Integer_Image;
    package Length_Intervals renames Silver_Length_Intervals;
 
@@ -48,7 +49,7 @@ is
         | Input_Is_Valid_Name | Then_Keyword | Else_Keyword | Elsif_Keyword | Reject_Name
         | And_Keyword | Length_Name | Or_Keyword | Not_Keyword | Null_Keyword
         | Integer_Name | For_Keyword | In_Keyword | Reverse_Keyword | Loop_Keyword | Range_Keyword
-        | Array_Keyword | Of_Keyword | Subtype_Keyword
+        | Array_Keyword | Of_Keyword | Subtype_Keyword | Type_Keyword
         | Boolean_Name | True_Name | False_Name | Xor_Keyword | Character_Name | Function_Keyword | Return_Keyword | Out_Keyword);
 
    function Spelling (Token : Token_Kind) return String is
@@ -103,6 +104,7 @@ is
          when Range_Delimiter => "..",
          when Range_Keyword => "range",
          when Array_Keyword => "array",
+         when Type_Keyword => "type",
          when Subtype_Keyword => "subtype",
          when Character_Name => "character",
          when Out_Keyword => "out",
@@ -624,6 +626,7 @@ is
         (Text, Position, Operation, Lookup_Name (Text, Environment, First, After) /= 0
           or else Scalar_Expressions.Lookup (Text, Scalar_Names, First, After) /= 0
           or else Array_Bindings.Lookup (Text, Arrays, First, After) /= 0
+           or else Array_Bindings.Lookup_Type (Text, Arrays.Types, First, After) /= 0
           or else Lookup_Boolean (Text, Booleans, First, After) /= 0
           or else Subtype_Hidden));
 
@@ -1043,6 +1046,7 @@ is
            or else Lookup_Name (Text, Names, First, Type_After) /= 0
            or else Scalar_Expressions.Lookup (Text, Scalar_Names, First, Type_After) /= 0
            or else Array_Bindings.Lookup (Text, Arrays, First, Type_After) /= 0
+           or else Array_Bindings.Lookup_Type (Text, Arrays.Types, First, Type_After) /= 0
            or else Attribute_First = 0 or else Attribute_After <= Attribute_First
            or else not Name_Is (Text, Attribute_First, Attribute_After, "image")
            or else Following <= Position
@@ -1362,6 +1366,7 @@ is
       and then Lookup_Name (Text, State.Names, First, After) = 0
       and then Scalar_Expressions.Lookup (Text, State.Scalar_Names, First, After) = 0
       and then Array_Bindings.Lookup (Text, State.Array_Names.Names, First, After) = 0
+      and then Array_Bindings.Lookup_Type (Text, State.Array_Names.Names.Types, First, After) = 0
       and then Lookup_Boolean (Text, State.Boolean_Names, First, After) = 0
       and then Lookup_Subtype (Text, State.Subtype_Names, First, After) = 0
       and then not Formal_Hides (Text, State, First, After)
@@ -1399,25 +1404,28 @@ is
    function Scalar_Constraint_At
      (Text : String; Position : Literal_Position;
       Scalar_Names : Scalar_Expressions.Environment;
-      Base_Bounds : Scalars.Interval := Scalars.Full) return Scalar_Constraint_Result
+      Base_Bounds : Scalars.Interval := Scalars.Full;
+      Arrays : Array_Bindings.Metadata := Array_Bindings.Empty_Metadata) return Scalar_Constraint_Result
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
          and then Position <= Text'Last + 1
-         and then Scalar_Expressions.Valid_Environment (Text, Scalar_Names),
+         and then Scalar_Expressions.Valid_Environment (Text, Scalar_Names)
+         and then Array_Bindings.Valid_Metadata (Text, Arrays),
        Post => Scalar_Constraint_At'Result.After = 0
          or else Scalar_Constraint_At'Result.After in Position .. Text'Last + 1;
    function Scalar_Constraint_At
      (Text : String; Position : Literal_Position;
       Scalar_Names : Scalar_Expressions.Environment;
-      Base_Bounds : Scalars.Interval := Scalars.Full) return Scalar_Constraint_Result is
+      Base_Bounds : Scalars.Interval := Scalars.Full;
+      Arrays : Array_Bindings.Metadata := Array_Bindings.Empty_Metadata) return Scalar_Constraint_Result is
      (declare Range_After : constant Literal_Position := Take_Token (Text, Position, Range_Keyword);
       Low : constant Scalar_Expressions.Expression_Result :=
-        Scalar_Expressions.Read_Expression (Text, Range_After, Scalar_Names);
+        Scalar_Expressions.Read_Expression (Text, Range_After, Scalar_Names, Arrays => Arrays);
       Delimiter_After : constant Literal_Position :=
         Take_Token (Text, Low.After, Range_Delimiter);
       High : constant Scalar_Expressions.Expression_Result :=
         Scalar_Expressions.Read_Expression
-          (Text, Delimiter_After, Scalar_Names);
+          (Text, Delimiter_After, Scalar_Names, Arrays => Arrays);
       begin
         (if Range_After = 0 then (Position, Base_Bounds)
          elsif Low.After = 0 or else Delimiter_After = 0 or else High.After = 0
@@ -1452,6 +1460,7 @@ is
            or else Lookup_Name (Text, State.Names, First, After) /= 0
            or else Scalar_Expressions.Lookup (Text, State.Scalar_Names, First, After) /= 0
            or else Array_Bindings.Lookup (Text, State.Array_Names.Names, First, After) /= 0
+           or else Array_Bindings.Lookup_Type (Text, State.Array_Names.Names.Types, First, After) /= 0
            or else Lookup_Boolean (Text, State.Boolean_Names, First, After) /= 0
            or else Functions.Lookup (Text, State.Functions, First, After) /= 0
            or else Procedures.Lookup (Text, State.Procedures, First, After) /= 0
@@ -1461,6 +1470,84 @@ is
          elsif Name_Is (Text, First, After, "integer") then (After, Scalars.Full)
          elsif Target /= 0 then (After, State.Subtype_Names.Items (Target).Bounds)
          else (0, Scalars.Empty)));
+
+   function Array_Type_At
+     (Text : String; State : Parser_State; Position : Literal_Position)
+      return Array_Bindings.Type_Count
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_State (Text, State) and then Position <= Text'Last + 1,
+       Post => Array_Type_At'Result <= State.Array_Names.Names.Types.Count;
+   function Array_Type_At
+     (Text : String; State : Parser_State; Position : Literal_Position)
+      return Array_Bindings.Type_Count is
+     (declare First : constant Literal_Position := Skip_At (Text, Position);
+       After : constant Literal_Position := Name_After (Text, First);
+      begin (if First = 0 or else After <= First
+        or else Lookup_Name (Text, State.Names, First, After) /= 0
+        or else Scalar_Expressions.Lookup (Text, State.Scalar_Names, First, After) /= 0
+        or else Array_Bindings.Lookup (Text, State.Array_Names.Names, First, After) /= 0
+        or else Lookup_Boolean (Text, State.Boolean_Names, First, After) /= 0
+        or else Functions.Lookup (Text, State.Functions, First, After) /= 0
+        or else Procedures.Lookup (Text, State.Procedures, First, After) /= 0
+        or else Formal_Hides (Text, State, First, After)
+       then 0 else Array_Bindings.Lookup_Type (Text, State.Array_Names.Names.Types, First, After)));
+
+   function Array_Type_Declaration_At
+     (Text : String; State : Parser_State; Arguments : Boolean) return Parser_State
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_State (Text, State),
+       Post => Valid_State (Text, Array_Type_Declaration_At'Result)
+         and then (Array_Type_Declaration_At'Result.Position = 0
+           or else Array_Type_Declaration_At'Result.Position > State.Position);
+   function Array_Type_Declaration_At
+     (Text : String; State : Parser_State; Arguments : Boolean) return Parser_State is
+      First : constant Literal_Position := Skip_At
+        (Text, Take_Token (Text, State.Position, Type_Keyword));
+      After : constant Literal_Position := Name_After (Text, First);
+      Start : constant Literal_Position := Take_Token (Text,
+        Take_Token (Text, Take_Token (Text, After, Is_Keyword), Array_Keyword), Left_Parenthesis);
+      Low : constant Scalar_Expressions.Expression_Result := Scalar_Expressions.Read_Expression
+        (Text, Start, State.Scalar_Names, Arrays => State.Array_Names.Names);
+      High : constant Scalar_Expressions.Expression_Result := Scalar_Expressions.Read_Expression
+        (Text, Take_Token (Text, Low.After, Range_Delimiter), State.Scalar_Names,
+         Arrays => State.Array_Names.Names);
+      Component : constant Scalar_Constraint_Result := Scalar_Type_At (Text, State,
+        Take_Token (Text, Take_Token (Text, High.After, Right_Parenthesis), Of_Keyword));
+      Following : constant Literal_Position := Take_Token (Text, Component.After, Semicolon);
+   begin
+      if Start = 0 or else Following <= State.Position or else State.Pure
+        or else not New_Name_Allowed (Text, State, First, After, Arguments)
+        or else Name_Is (Text, First, After, "integer")
+        or else State.Array_Names.Names.Types.Count = Array_Bindings.Max_Types
+        or else Low.After = 0 or else High.After = 0 or else Component.After = 0
+        or else not Low.Static or else not High.Static
+        or else Scalars.Is_Empty (Low.Bounds) or else Scalars.Is_Empty (High.Bounds)
+        or else Low.Bounds.Lower /= Low.Bounds.Upper or else High.Bounds.Lower /= High.Bounds.Upper
+        or else Low.Bounds.Lower > High.Bounds.Lower
+        or else Scalars.Wide (High.Bounds.Lower) - Scalars.Wide (Low.Bounds.Lower)
+          >= Scalars.Wide (Array_Bindings.Max_Elements)
+      then return Invalid_State; end if;
+      return (State with delta Position => Following,
+        Array_Names => (State.Array_Names with delta Names =>
+          (State.Array_Names.Names with delta Types =>
+            (Count => State.Array_Names.Names.Types.Count + 1,
+             Items => (State.Array_Names.Names.Types.Items with delta
+               State.Array_Names.Names.Types.Count + 1 =>
+                 (First, After, (Low.Bounds.Lower, High.Bounds.Lower), Component.Bounds))))),
+        Subtype_Names => (State.Subtype_Names with delta
+          True_Hidden => State.Subtype_Names.True_Hidden or else Name_Is (Text, First, After, "true"),
+          False_Hidden => State.Subtype_Names.False_Hidden or else Name_Is (Text, First, After, "false"),
+          Hidden_Calls => (for Operation in Names.Operation_Kind =>
+            State.Subtype_Names.Hidden_Calls (Operation) or else Name_Is (Text, First, After,
+              (case Operation is
+                when Names.Output_Call => "put_line",
+                when Names.Partial_Output_Call => "put",
+                when Names.Argument_Call => "first_or_default",
+                when Names.Validity_Call => "input_is_valid",
+                when Names.Reject_Call => "reject")))));
+   end Array_Type_Declaration_At;
 
    function Subtype_Declaration_At
      (Text : String; State : Parser_State; Arguments : Boolean) return Parser_State
@@ -1479,7 +1566,7 @@ is
                 Skip_At (Text, Take_Token (Text, After, Is_Keyword));
               Type_After : constant Literal_Position := Take_Token (Text, Type_First, Integer_Name);
               Constraint : constant Scalar_Constraint_Result :=
-                Scalar_Constraint_At (Text, Type_After, State.Scalar_Names);
+                Scalar_Constraint_At (Text, Type_After, State.Scalar_Names, Arrays => State.Array_Names.Names);
               Following : constant Literal_Position := Take_Token (Text, Constraint.After, Semicolon);
       begin
         (if not New_Name_Allowed (Text, State, First, After, Arguments)
@@ -1491,6 +1578,7 @@ is
            or else Lookup_Name (Text, State.Names, Type_First, Type_After) /= 0
            or else Scalar_Expressions.Lookup (Text, State.Scalar_Names, Type_First, Type_After) /= 0
            or else Array_Bindings.Lookup (Text, State.Array_Names.Names, Type_First, Type_After) /= 0
+           or else Array_Bindings.Lookup_Type (Text, State.Array_Names.Names.Types, Type_First, Type_After) /= 0
            or else Lookup_Boolean (Text, State.Boolean_Names, Type_First, Type_After) /= 0
            or else Functions.Lookup (Text, State.Functions, Type_First, Type_After) /= 0
            or else Procedures.Lookup (Text, State.Procedures, Type_First, Type_After) /= 0
@@ -1541,7 +1629,7 @@ is
       Type_Mark : constant Scalar_Constraint_Result := Scalar_Type_At (Text, State, Type_First);
       Type_After : constant Literal_Position := Type_Mark.After;
       Constraint : constant Scalar_Constraint_Result :=
-        Scalar_Constraint_At (Text, Type_After, State.Scalar_Names, Type_Mark.Bounds);
+        Scalar_Constraint_At (Text, Type_After, State.Scalar_Names, Type_Mark.Bounds, State.Array_Names.Names);
       Value : constant Scalar_Expressions.Expression_Result :=
         Scalar_Expressions.Read_Expression
           (Text, Take_Token (Text, Constraint.After, Assignment), State.Scalar_Names,
@@ -1559,6 +1647,7 @@ is
         or else Lookup_Name (Text, State.Names, Type_First, Type_After) /= 0
         or else Scalar_Expressions.Lookup (Text, State.Scalar_Names, Type_First, Type_After) /= 0
         or else Array_Bindings.Lookup (Text, State.Array_Names.Names, Type_First, Type_After) /= 0
+           or else Array_Bindings.Lookup_Type (Text, State.Array_Names.Names.Types, Type_First, Type_After) /= 0
          then Invalid_State
          else (State with delta Position => Following,
         Scalar_Names => Scalar_Expressions.Append
@@ -1595,6 +1684,7 @@ is
         or else Lookup_Name (Text, State.Names, Type_First, Type_After) /= 0
         or else Scalar_Expressions.Lookup (Text, State.Scalar_Names, Type_First, Type_After) /= 0
         or else Array_Bindings.Lookup (Text, State.Array_Names.Names, Type_First, Type_After) /= 0
+           or else Array_Bindings.Lookup_Type (Text, State.Array_Names.Names.Types, Type_First, Type_After) /= 0
         or else Lookup_Subtype (Text, State.Subtype_Names, Type_First, Type_After) /= 0
         or else Lookup_Boolean (Text, State.Boolean_Names, Type_First, Type_After) /= 0
            or else Functions.Lookup (Text, State.Functions, Type_First, Type_After) /= 0
@@ -1635,6 +1725,8 @@ is
       begin
         (if not New_Name_Allowed (Text, State, First, After, Arguments)
            or else Following = 0 or else State.Names.Count = Max_Bindings
+           or else Array_Bindings.Lookup_Type (Text, State.Array_Names.Names.Types,
+             Skip_At (Text, (if Constant_After /= 0 then Constant_After else Colon_After)), Type_After) /= 0
            or else not Fits (Value, Max_Source_Length)
            or else Value.Empty_Value or else Value.Minimum_Length /= Value.Static_Length
            or else (Value.Dynamic_Count = 0 and then
@@ -1664,20 +1756,26 @@ is
      (Text : String; State : Parser_State; First, After : Literal_Position;
       Bounds : Scalars.Interval; Offset, Length : Array_Bindings.Element_Count;
       Mutable : Boolean; Following : Literal_Position;
-      Component_Bounds : Scalars.Interval; Boolean_Elements : Boolean := False) return Parser_State is
+      Component_Bounds : Scalars.Interval; Boolean_Elements : Boolean := False;
+      Type_Id : Array_Bindings.Type_Count := 0) return Parser_State is
      (State with delta Position => Following,
        Array_Names => (State.Array_Names with delta Names =>
          (State.Array_Names.Names with delta Count => State.Array_Names.Names.Count + 1,
           Items => (State.Array_Names.Names.Items with delta State.Array_Names.Names.Count + 1 =>
-            (First, After, Bounds, Offset, Length, Mutable, Component_Bounds, Boolean_Elements, 0, 0)))))
+            (First, After, Bounds, Offset, Length, Mutable, Component_Bounds, Boolean_Elements, Type_Id, 0)))))
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
          and then Valid_State (Text, State)
          and then State.Array_Names.Names.Count < Array_Bindings.Max_Bindings
          and then First > 0 and then Valid_Name_State (Text, First, After)
-         and then Array_Bindings.Valid_Binding ((First, After, Bounds, Offset, Length, Mutable, Component_Bounds, Boolean_Elements, 0, 0))
+         and then Array_Bindings.Valid_Binding ((First, After, Bounds, Offset, Length, Mutable, Component_Bounds, Boolean_Elements, Type_Id, 0))
+         and then Type_Id <= State.Array_Names.Names.Types.Count
+         and then (if Type_Id /= 0 then
+           Bounds = State.Array_Names.Names.Types.Items (Type_Id).Bounds
+           and then Component_Bounds = State.Array_Names.Names.Types.Items (Type_Id).Component_Bounds)
          and then Offset + Length <= State.Array_Names.Used
-         and then (if State.Array_Names.Names.Count > 0 then Offset >=
+         and then (if State.Array_Names.Names.Count > 0 then
+           State.Array_Names.Names.Items (State.Array_Names.Names.Count).View_Slot = 0 and then Offset >=
            State.Array_Names.Names.Items (State.Array_Names.Names.Count).Offset
              + State.Array_Names.Names.Items (State.Array_Names.Names.Count).Length)
          and then Following <= Text'Last + 1,
@@ -1697,6 +1795,13 @@ is
       and then (for all Index in Scalar_Expressions.Binding_Index => Left (Index) = Right (Index)))
      with Ghost => Static, Global => null,
        Annotate => (GNATprove, Logical_Equal);
+   function Same_Parser_Array_Types
+     (Left, Right : Array_Bindings.Type_Array) return Boolean is
+     (Left'First = Right'First and then Left'Last = Right'Last
+      and then (for all Index in Array_Bindings.Type_Index => Left (Index) = Right (Index)))
+     with Ghost => Static, Global => null,
+       Annotate => (GNATprove, Logical_Equal);
+
    function Same_Parser_Array_Items
      (Left, Right : Array_Bindings.Binding_Array) return Boolean is
      (Left'First = Right'First and then Left'Last = Right'Last
@@ -1771,6 +1876,8 @@ is
       and then Same_Parser_String_Items (Left.Names.Items, Right.Names.Items)
       and then Left.Scalar_Names.Count = Right.Scalar_Names.Count
       and then Same_Parser_Scalar_Items (Left.Scalar_Names.Items, Right.Scalar_Names.Items)
+      and then Left.Array_Names.Names.Types.Count = Right.Array_Names.Names.Types.Count
+      and then Same_Parser_Array_Types (Left.Array_Names.Names.Types.Items, Right.Array_Names.Names.Types.Items)
       and then Left.Array_Names.Names.Count = Right.Array_Names.Names.Count
       and then Same_Parser_Array_Items (Left.Array_Names.Names.Items, Right.Array_Names.Names.Items)
       and then Left.Array_Names.Used = Right.Array_Names.Used
@@ -1937,17 +2044,31 @@ is
               After : constant Literal_Position := Name_After (Text, First);
               Colon_After : constant Literal_Position := Take_Token (Text, After, Colon);
               Constant_After : constant Literal_Position := Take_Token (Text, Colon_After, Constant_Keyword);
+              Named_First : constant Literal_Position := Skip_At
+                (Text, (if Constant_After /= 0 then Constant_After else Colon_After));
+              Named_After : constant Literal_Position := Name_After (Text, Named_First);
+              Named_Id : constant Array_Bindings.Type_Count := Array_Type_At (Text, State, Named_First);
               Array_After : constant Literal_Position := Take_Token
                 (Text, (if Constant_After /= 0 then Constant_After else Colon_After), Array_Keyword);
-              Low : constant Scalar_Expressions.Expression_Result := Scalar_Expressions.Read_Expression
+              Low : constant Scalar_Expressions.Expression_Result :=
+                (if Named_Id /= 0 then (Named_After, Scalars.Singleton
+                   (State.Array_Names.Names.Types.Items (Named_Id).Bounds.Lower), 1, True)
+                 else Scalar_Expressions.Read_Expression
                 (Text, Take_Token (Text, Array_After, Left_Parenthesis), State.Scalar_Names,
-                 Arrays => State.Array_Names.Names, Initials => State.Array_Names.Values, Elaborating => True);
-              High : constant Scalar_Expressions.Expression_Result := Scalar_Expressions.Read_Expression
+                 Arrays => State.Array_Names.Names, Initials => State.Array_Names.Values, Elaborating => True));
+              High : constant Scalar_Expressions.Expression_Result :=
+                (if Named_Id /= 0 then (Named_After, Scalars.Singleton
+                   (State.Array_Names.Names.Types.Items (Named_Id).Bounds.Upper), 1, True)
+                 else Scalar_Expressions.Read_Expression
                 (Text, Take_Token (Text, Low.After, Range_Delimiter), State.Scalar_Names,
-                 Arrays => State.Array_Names.Names, Initials => State.Array_Names.Values, Elaborating => True);
-              Type_First : constant Literal_Position := Skip_At (Text, Take_Token (Text,
-                Take_Token (Text, High.After, Right_Parenthesis), Of_Keyword));
-              Integer_Type : constant Scalar_Constraint_Result := Scalar_Type_At (Text, State, Type_First);
+                 Arrays => State.Array_Names.Names, Initials => State.Array_Names.Values, Elaborating => True));
+              Type_First : constant Literal_Position := (if Named_Id /= 0 then Named_First else
+                Skip_At (Text, Take_Token (Text,
+                Take_Token (Text, High.After, Right_Parenthesis), Of_Keyword)));
+              Integer_Type : constant Scalar_Constraint_Result :=
+                (if Named_Id /= 0 then
+                   (Named_After, State.Array_Names.Names.Types.Items (Named_Id).Component_Bounds)
+                 else Scalar_Type_At (Text, State, Type_First));
               Boolean_Elements : constant Boolean := Integer_Type.After = 0
                 and then Take_Token (Text, Type_First, Boolean_Name) /= 0;
               Type_Mark : constant Scalar_Constraint_Result :=
@@ -1960,7 +2081,7 @@ is
         (if not New_Name_Allowed (Text, State, First, After, Arguments)
            or else (if Boolean_Elements then Name_Is (Text, First, After, Boolean_Type_Word)
                     else Name_Is (Text, First, After, Integer_Type_Word))
-           or else Array_After = 0 or else Position = 0
+           or else (Array_After = 0 and then Named_Id = 0) or else Position = 0
            or else State.Array_Names.Names.Count = Array_Bindings.Max_Bindings
            or else Low.After = 0 or else High.After = 0 or else not Low.Static or else not High.Static
            or else Scalars.Is_Empty (Low.Bounds) or else Scalars.Is_Empty (High.Bounds)
@@ -1971,6 +2092,7 @@ is
            or else Lookup_Name (Text, State.Names, Type_First, Type_After) /= 0
            or else Scalar_Expressions.Lookup (Text, State.Scalar_Names, Type_First, Type_After) /= 0
            or else Array_Bindings.Lookup (Text, State.Array_Names.Names, Type_First, Type_After) /= 0
+           or else (Named_Id = 0 and then Array_Bindings.Lookup_Type (Text, State.Array_Names.Names.Types, Type_First, Type_After) /= 0)
            or else Lookup_Boolean (Text, State.Boolean_Names, Type_First, Type_After) /= 0
            or else Functions.Lookup (Text, State.Functions, Type_First, Type_After) /= 0
            or else Procedures.Lookup (Text, State.Procedures, Type_First, Type_After) /= 0
@@ -2008,7 +2130,7 @@ is
                     (if Values.Position = 0 or else Following <= State.Position then Invalid_State
                      else Add_Array_Binding
                        (Text, Values, First, After, (Low.Bounds.Lower, High.Bounds.Lower),
-                        State.Array_Names.Used, Length, Constant_After = 0, Following, Type_Mark.Bounds, Boolean_Elements)))))));
+                        State.Array_Names.Used, Length, Constant_After = 0, Following, Type_Mark.Bounds, Boolean_Elements, Named_Id)))))));
 
    function Array_Values_At
      (Text : String; Source_State, Result_State : Parser_State;
@@ -2264,17 +2386,31 @@ is
               After : constant Literal_Position := Name_After (Text, First);
               Colon_After : constant Literal_Position := Take_Token (Text, After, Colon);
               Constant_After : constant Literal_Position := Take_Token (Text, Colon_After, Constant_Keyword);
+              Named_First : constant Literal_Position := Skip_At
+                (Text, (if Constant_After /= 0 then Constant_After else Colon_After));
+              Named_After : constant Literal_Position := Name_After (Text, Named_First);
+              Named_Id : constant Array_Bindings.Type_Count := Array_Type_At (Text, State, Named_First);
               Array_After : constant Literal_Position := Take_Token
                 (Text, (if Constant_After /= 0 then Constant_After else Colon_After), Array_Keyword);
-              Low : constant Scalar_Expressions.Expression_Result := Scalar_Expressions.Read_Expression
+              Low : constant Scalar_Expressions.Expression_Result :=
+                (if Named_Id /= 0 then (Named_After, Scalars.Singleton
+                   (State.Array_Names.Names.Types.Items (Named_Id).Bounds.Lower), 1, True)
+                 else Scalar_Expressions.Read_Expression
                 (Text, Take_Token (Text, Array_After, Left_Parenthesis), State.Scalar_Names,
-                 Arrays => State.Array_Names.Names, Initials => State.Array_Names.Values, Elaborating => True);
-              High : constant Scalar_Expressions.Expression_Result := Scalar_Expressions.Read_Expression
+                 Arrays => State.Array_Names.Names, Initials => State.Array_Names.Values, Elaborating => True));
+              High : constant Scalar_Expressions.Expression_Result :=
+                (if Named_Id /= 0 then (Named_After, Scalars.Singleton
+                   (State.Array_Names.Names.Types.Items (Named_Id).Bounds.Upper), 1, True)
+                 else Scalar_Expressions.Read_Expression
                 (Text, Take_Token (Text, Low.After, Range_Delimiter), State.Scalar_Names,
-                 Arrays => State.Array_Names.Names, Initials => State.Array_Names.Values, Elaborating => True);
-              Type_First : constant Literal_Position := Skip_At (Text, Take_Token (Text,
-                Take_Token (Text, High.After, Right_Parenthesis), Of_Keyword));
-              Integer_Type : constant Scalar_Constraint_Result := Scalar_Type_At (Text, State, Type_First);
+                 Arrays => State.Array_Names.Names, Initials => State.Array_Names.Values, Elaborating => True));
+              Type_First : constant Literal_Position := (if Named_Id /= 0 then Named_First else
+                Skip_At (Text, Take_Token (Text,
+                Take_Token (Text, High.After, Right_Parenthesis), Of_Keyword)));
+              Integer_Type : constant Scalar_Constraint_Result :=
+                (if Named_Id /= 0 then
+                   (Named_After, State.Array_Names.Names.Types.Items (Named_Id).Component_Bounds)
+                 else Scalar_Type_At (Text, State, Type_First));
               Boolean_Elements : constant Boolean := Integer_Type.After = 0
                 and then Take_Token (Text, Type_First, Boolean_Name) /= 0;
               Type_Mark : constant Scalar_Constraint_Result :=
@@ -2287,7 +2423,7 @@ is
         (if not New_Name_Allowed (Text, State, First, After, Arguments)
            or else (if Boolean_Elements then Name_Is (Text, First, After, Boolean_Type_Word)
                     else Name_Is (Text, First, After, Integer_Type_Word))
-           or else Array_After = 0 or else Position = 0
+           or else (Array_After = 0 and then Named_Id = 0) or else Position = 0
            or else State.Array_Names.Names.Count = Array_Bindings.Max_Bindings
            or else Low.After = 0 or else High.After = 0 or else not Low.Static or else not High.Static
            or else Scalars.Is_Empty (Low.Bounds) or else Scalars.Is_Empty (High.Bounds)
@@ -2298,6 +2434,7 @@ is
            or else Lookup_Name (Text, State.Names, Type_First, Type_After) /= 0
            or else Scalar_Expressions.Lookup (Text, State.Scalar_Names, Type_First, Type_After) /= 0
            or else Array_Bindings.Lookup (Text, State.Array_Names.Names, Type_First, Type_After) /= 0
+           or else (Named_Id = 0 and then Array_Bindings.Lookup_Type (Text, State.Array_Names.Names.Types, Type_First, Type_After) /= 0)
            or else Lookup_Boolean (Text, State.Boolean_Names, Type_First, Type_After) /= 0
            or else Functions.Lookup (Text, State.Functions, Type_First, Type_After) /= 0
            or else Procedures.Lookup (Text, State.Procedures, Type_First, Type_After) /= 0
@@ -2335,7 +2472,7 @@ is
                     (if Values.Position = 0 or else Following <= State.Position then Invalid_State
                      else Add_Array_Binding
                        (Text, Values, First, After, (Low.Bounds.Lower, High.Bounds.Lower),
-                        State.Array_Names.Used, Length, Constant_After = 0, Following, Type_Mark.Bounds, Boolean_Elements)))))));
+                        State.Array_Names.Used, Length, Constant_After = 0, Following, Type_Mark.Bounds, Boolean_Elements, Named_Id)))))));
       Model_State : constant Parser_State :=
         Array_Declaration_Model (Text, State, Arguments) with Ghost => Static;
    begin
@@ -2388,6 +2525,7 @@ is
      (Text : String; State : Parser_State; Arguments : Boolean) return Parser_State is
      (declare Function_State : constant Parser_State := Function_Declaration_At (Text, State, Arguments);
               Procedure_State : constant Parser_State := Procedure_Declaration_At (Text, State, Arguments);
+              Array_Type_State : constant Parser_State := Array_Type_Declaration_At (Text, State, Arguments);
               Subtype_State : constant Parser_State := Subtype_Declaration_At (Text, State, Arguments);
               Scalar_State : constant Parser_State := Scalar_Declaration_At (Text, State, Arguments);
               Array_State : constant Parser_State := Array_Declaration_At (Text, State, Arguments);
@@ -2395,6 +2533,7 @@ is
               Character_State : constant Parser_State := Character_Declaration_At (Text, State, Arguments);
       begin (if Function_State.Position /= 0 then Function_State
              elsif Procedure_State.Position /= 0 then Procedure_State
+             elsif Array_Type_State.Position /= 0 then Array_Type_State
              elsif Subtype_State.Position /= 0 then Subtype_State
              elsif Scalar_State.Position /= 0 then Scalar_State
              elsif Array_State.Position /= 0 then Array_State
@@ -2958,23 +3097,10 @@ is
       Mask_First : Literal_Position; Mask_After : Literal_Position)
       return Scalar_Expressions.Expression_Result is
       Overlay : constant Scalar_Expressions.Environment := Reading_Names (Context, Facts);
-      Arrays : Array_Bindings.Metadata := Array_Bindings.Empty_Metadata;
-      Gate : Scalar_Expressions.Expression_Result;
+      Gate : constant Scalar_Expressions.Expression_Result := Scalar_Expressions.Read_Expression
+        (Text, Position, Overlay, Mask_First, Mask_After, Arrays => Context.Array_Names,
+         Elaborating => Context.Elaborating, Array_Reads => Scalar_Expressions.Mutable_Elements);
    begin
-      for Index in 1 .. Context.Array_Names.Count loop
-         pragma Loop_Invariant (Arrays.Count < Index);
-         pragma Loop_Invariant (Array_Bindings.Valid_Metadata (Text, Arrays));
-         pragma Loop_Invariant
-           (if Arrays.Count > 0 then Arrays.Items (Arrays.Count).Offset
-              + Arrays.Items (Arrays.Count).Length <= Context.Array_Names.Items (Index).Offset);
-         if Context.Array_Names.Items (Index).Mutable then
-            Arrays.Count := Arrays.Count + 1;
-            Arrays.Items (Arrays.Count) := Context.Array_Names.Items (Index);
-         end if;
-      end loop;
-      Gate := Scalar_Expressions.Read_Expression
-        (Text, Position, Overlay, Mask_First, Mask_After, Arrays => Arrays,
-         Elaborating => Context.Elaborating);
       if Gate.After = 0 then return Scalar_Expressions.Invalid; end if;
       return Read_Scalar_In_Flow (Text, Context, Position, Facts, Mask_First, Mask_After);
    end Read_Counted_Bound;
@@ -3381,7 +3507,8 @@ is
               Subscript : constant Scalar_Expressions.Expression_Result :=
                 Scalar_Expressions.Read_Expression
                   (Text, Take_Token (Text, After, Left_Parenthesis), Reading_Names (Context, Facts),
-                   Context.Mask_First, Context.Mask_After);
+                   Context.Mask_First, Context.Mask_After, Arrays => Context.Array_Names,
+                   Array_Reads => Scalar_Expressions.No_Elements);
               Close : constant Literal_Position := Take_Token (Text, Subscript.After, Right_Parenthesis);
       begin
         (if First = 0 or else After <= First
@@ -3414,6 +3541,7 @@ is
            or else Scalar_Expressions.Lookup (Text, Context.Scalar_Names, First, After) /= 0
            or else Lookup_Name (Text, Context.Names, First, After) /= 0
            or else Array_Bindings.Lookup (Text, Context.Array_Names, First, After) /= 0
+           or else Array_Bindings.Lookup_Type (Text, Context.Array_Names.Types, First, After) /= 0
          then 0
          elsif Lookup_Boolean (Text, Context.Boolean_Names, First, After) /= 0 then After
          elsif (Name_Is (Text, First, After, "true") and then not Context.True_Hidden)
@@ -4623,6 +4751,7 @@ is
         or else Lookup_Name (Text, State.Names, Type_First, Type_After) /= 0
         or else Scalar_Expressions.Lookup (Text, State.Scalar_Names, Type_First, Type_After) /= 0
         or else Array_Bindings.Lookup (Text, State.Array_Names.Names, Type_First, Type_After) /= 0
+           or else Array_Bindings.Lookup_Type (Text, State.Array_Names.Names.Types, Type_First, Type_After) /= 0
         or else Lookup_Subtype (Text, State.Subtype_Names, Type_First, Type_After) /= 0
         or else Lookup_Boolean (Text, State.Boolean_Names, Type_First, Type_After) /= 0
            or else Functions.Lookup (Text, State.Functions, Type_First, Type_After) /= 0
@@ -4828,7 +4957,8 @@ is
       After : constant Literal_Position := Name_After (Text, First);
       Target : constant Array_Bindings.Binding_Count := Array_Target (Text, Context, Scan.Position);
       Subscript : constant Scalar_Expressions.Expression_Result := Scalar_Expressions.Read_Expression
-        (Text, Take_Token (Text, After, Left_Parenthesis), Reading_Names (Context, Scan.Facts));
+        (Text, Take_Token (Text, After, Left_Parenthesis), Reading_Names (Context, Scan.Facts),
+         Arrays => Context.Array_Names, Array_Reads => Scalar_Expressions.No_Elements);
       Value : constant Scalar_Expressions.Expression_Result := Read_Scalar_In_Flow
         (Text, Context, Take_Token (Text, Take_Token (Text, Subscript.After, Right_Parenthesis), Assignment), Scan.Facts);
    begin
@@ -4888,6 +5018,24 @@ is
       return (Scan with delta Position => Value.After, Assigned => True);
    end Boolean_Array_Assignment_Body;
 
+   function Array_Actual_After
+     (Text : String; Context : Body_Context; Position : Literal_Position;
+      Type_Id : Array_Bindings.Type_Count) return Literal_Position
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Position <= Text'Last + 1 and then Valid_Context (Text, Context),
+       Post => Array_Actual_After'Result = 0
+         or else Array_Actual_After'Result in Position + 1 .. Text'Last + 1;
+   function Array_Actual_After
+     (Text : String; Context : Body_Context; Position : Literal_Position;
+      Type_Id : Array_Bindings.Type_Count) return Literal_Position is
+     (declare First : constant Literal_Position := Skip_At (Text, Position);
+       After : constant Literal_Position := Name_After (Text, First);
+       Target : constant Array_Bindings.Binding_Count := Array_Target (Text, Context, Position);
+      begin (if Type_Id = 0 or else Target = 0
+        or else Context.Array_Names.Items (Target).Type_Id /= Type_Id
+       then 0 else After));
+
    function Actual_Model
      (Text : String; Context : Body_Context; Position : Literal_Position;
       Facts : Scalar_Flow; Parameter : Functions.Formal) return Literal_Position
@@ -4900,7 +5048,8 @@ is
    function Actual_Model
      (Text : String; Context : Body_Context; Position : Literal_Position;
       Facts : Scalar_Flow; Parameter : Functions.Formal) return Literal_Position is
-     (if Parameter.Kind = Functions.Boolean_Kind then
+     (if Parameter.Type_Id /= 0 then Array_Actual_After (Text, Context, Position, Parameter.Type_Id)
+      elsif Parameter.Kind = Functions.Boolean_Kind then
         Condition_Model (Text, Context, Position, Facts).After
       else (declare Value : constant Scalar_Expressions.Expression_Result :=
         Read_Scalar_In_Flow (Text, Context, Position, Facts);
@@ -4921,7 +5070,9 @@ is
      (Text : String; Context : Body_Context; Position : Literal_Position;
       Facts : Scalar_Flow; Parameter : Functions.Formal) return Literal_Position is
    begin
-      if Parameter.Kind = Functions.Boolean_Kind then
+      if Parameter.Type_Id /= 0 then
+         return Array_Actual_After (Text, Context, Position, Parameter.Type_Id);
+      elsif Parameter.Kind = Functions.Boolean_Kind then
          declare Value : Condition_Result (Facts.Count);
          begin
             Read_Condition_Into (Text, Context, Position, Facts, Value);
@@ -5264,6 +5415,7 @@ is
         or else Scalar_Expressions.Lookup (Text, Context.Scalar_Names, First, After) /= 0
         or else Lookup_Boolean (Text, Context.Boolean_Names, First, After) /= 0
         or else Array_Bindings.Lookup (Text, Context.Array_Names, First, After) /= 0
+           or else Array_Bindings.Lookup_Type (Text, Context.Array_Names.Types, First, After) /= 0
        then 0 else Functions.Lookup (Text, Catalog, First, After)));
    function Call_Model
      (Text : String; Context : Body_Context; Position : Literal_Position;
@@ -5506,7 +5658,7 @@ is
       Scalar : constant Scalar_Expressions.Binding_Count := Scalar_Target (Text, Context, Position);
       Flag : constant Boolean_Count := Boolean_Target (Text, Context, Position);
    begin
-      if First = 0 or else After <= First then return Invalid_Procedure_Actual; end if;
+      if First = 0 or else After <= First or else Parameter.Type_Id /= 0 then return Invalid_Procedure_Actual; end if;
       if Parameter.Kind = Functions.Integer_Kind then
          if Scalar = 0 or else not Context.Scalar_Names.Items (Scalar).Mutable
            or else Scalars.Is_Empty (Parameter.Bounds)
@@ -5902,6 +6054,7 @@ is
         or else Scalar_Expressions.Lookup (Text, Context.Scalar_Names, First, After) /= 0
         or else Lookup_Boolean (Text, Context.Boolean_Names, First, After) /= 0
         or else Array_Bindings.Lookup (Text, Context.Array_Names, First, After) /= 0
+           or else Array_Bindings.Lookup_Type (Text, Context.Array_Names.Types, First, After) /= 0
        then 0 else Procedures.Lookup (Text, Catalog, First, After)));
    function Procedure_Call_Body
      (Text : String; Context : Body_Context; Scan : Body_Scan; Catalog : Procedures.Metadata) return Body_Scan
@@ -6253,6 +6406,7 @@ is
         or else Context.Scalar_Names.Count = Scalar_Expressions.Max_Bindings
       then return Invalid_Body (Scan); end if;
       if Take_Token (Text, After, Of_Keyword) /= 0 then
+         if Context.Pure then return Invalid_Body (Scan); end if;
          Result.Position := Take_Token (Text, After, Of_Keyword);
          if Take_Token (Text, Result.Position, Reverse_Keyword) /= 0 then
             Result.Position := Take_Token (Text, Result.Position, Reverse_Keyword);
@@ -6280,15 +6434,26 @@ is
             Result.Position := Take_Token (Text, Result.Position, Reverse_Keyword);
          end if;
          --  Ada captures bounds in entry flow before body reads are widened.
-         Low := Read_Counted_Bound (Text, Context, Result.Position, Scan.Facts, First, After);
-         Result.Position := Take_Token (Text, Low.After, Range_Delimiter);
-         High := Read_Counted_Bound (Text, Context, Result.Position, Scan.Facts, First, After);
-         Result.Position := Take_Token (Text, High.After, Loop_Keyword);
-         Index_Bounds :=
-           (if Scalars.Is_Empty (Low.Bounds) or else Scalars.Is_Empty (High.Bounds)
-            then Scalars.Empty else Scalars.Normalize ((Low.Bounds.Lower, High.Bounds.Upper)));
-         Definite := not Scalars.Is_Empty (Low.Bounds) and then not Scalars.Is_Empty (High.Bounds)
-           and then Low.Bounds.Upper <= High.Bounds.Lower;
+         declare Shape : constant Scalar_Expressions.Expression_Result :=
+           Scalar_Expressions.Read_Array_Attribute (Text, Result.Position, Context.Scalar_Names,
+             Context.Array_Names, First, After, Range_Query => True);
+         begin
+            if Shape.After /= 0 then
+               Result.Position := Take_Token (Text, Shape.After, Loop_Keyword);
+               Index_Bounds := Shape.Bounds;
+               Definite := True;
+            else
+               Low := Read_Counted_Bound (Text, Context, Result.Position, Scan.Facts, First, After);
+               Result.Position := Take_Token (Text, Low.After, Range_Delimiter);
+               High := Read_Counted_Bound (Text, Context, Result.Position, Scan.Facts, First, After);
+               Result.Position := Take_Token (Text, High.After, Loop_Keyword);
+               Index_Bounds :=
+                 (if Scalars.Is_Empty (Low.Bounds) or else Scalars.Is_Empty (High.Bounds)
+                  then Scalars.Empty else Scalars.Normalize ((Low.Bounds.Lower, High.Bounds.Upper)));
+               Definite := not Scalars.Is_Empty (Low.Bounds) and then not Scalars.Is_Empty (High.Bounds)
+                 and then Low.Bounds.Upper <= High.Bounds.Lower;
+            end if;
+         end;
       end if;
       if Result.Position <= Scan.Position then return Invalid_Body (Scan); end if;
       Widen_Into (Context, Result.Facts);
@@ -6434,6 +6599,9 @@ is
         Name_Is (Text, State.Boolean_Names.Items (I).First, State.Boolean_Names.Items (I).After, Word))
       or else (for some I in 1 .. State.Array_Names.Names.Count =>
         Name_Is (Text, State.Array_Names.Names.Items (I).First, State.Array_Names.Names.Items (I).After, Word))
+      or else (for some I in 1 .. State.Array_Names.Names.Types.Count =>
+        Name_Is (Text, State.Array_Names.Names.Types.Items (I).First,
+                 State.Array_Names.Names.Types.Items (I).After, Word))
       or else (for some I in 1 .. State.Subtype_Names.Count =>
         Name_Is (Text, State.Subtype_Names.Items (I).First, State.Subtype_Names.Items (I).After, Word)))
      with Global => null,
@@ -6464,6 +6632,7 @@ is
       After : Literal_Position;
       Kind : Functions.Scalar_Kind;
       Bounds : Scalars.Interval;
+      Type_Id : Array_Bindings.Type_Count := 0;
    end record;
    function Function_Type_At
      (Text : String; State : Parser_State; Position : Literal_Position) return Function_Type_Result
@@ -6479,18 +6648,34 @@ is
        First : constant Literal_Position := Skip_At (Text, Position);
        After : constant Literal_Position := Take_Token (Text, First, Boolean_Name);
       begin (if Integer_Type.After /= 0 then
-        (Integer_Type.After, Functions.Integer_Kind, Integer_Type.Bounds)
+        (Integer_Type.After, Functions.Integer_Kind, Integer_Type.Bounds, 0)
        elsif After = 0 or else State.Hiding.Boolean_Hidden
          or else Lookup_Name (Text, State.Names, First, After) /= 0
          or else Scalar_Expressions.Lookup (Text, State.Scalar_Names, First, After) /= 0
          or else Lookup_Boolean (Text, State.Boolean_Names, First, After) /= 0
          or else Lookup_Subtype (Text, State.Subtype_Names, First, After) /= 0
          or else Array_Bindings.Lookup (Text, State.Array_Names.Names, First, After) /= 0
+           or else Array_Bindings.Lookup_Type (Text, State.Array_Names.Names.Types, First, After) /= 0
          or else Functions.Lookup (Text, State.Functions, First, After) /= 0
            or else Procedures.Lookup (Text, State.Procedures, First, After) /= 0
          or else Formal_Hides (Text, State, First, After)
-       then (0, Functions.Integer_Kind, Scalars.Empty)
-       else (After, Functions.Boolean_Kind, Scalars.Full)));
+       then (0, Functions.Integer_Kind, Scalars.Empty, 0)
+       else (After, Functions.Boolean_Kind, Scalars.Full, 0)));
+   function Formal_Type_At
+     (Text : String; State : Parser_State; Position : Literal_Position) return Function_Type_Result
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Position <= Text'Last + 1 and then Valid_State (Text, State),
+       Post => Formal_Type_At'Result.After = 0
+         or else (Formal_Type_At'Result.After in Position + 1 .. Text'Last + 1
+           and then not Scalars.Is_Empty (Formal_Type_At'Result.Bounds)
+           and then Formal_Type_At'Result.Type_Id <= State.Array_Names.Names.Types.Count);
+   function Formal_Type_At
+     (Text : String; State : Parser_State; Position : Literal_Position) return Function_Type_Result is
+     (declare Type_Id : constant Array_Bindings.Type_Count := Array_Type_At (Text, State, Position);
+      begin (if Type_Id = 0 then Function_Type_At (Text, State, Position)
+       else (Name_After (Text, Skip_At (Text, Position)), Functions.Integer_Kind,
+             State.Array_Names.Names.Types.Items (Type_Id).Component_Bounds, Type_Id)));
    type Parameter_Step_Result is record
       State : Parser_State;
       Closed : Boolean;
@@ -6512,7 +6697,7 @@ is
      (declare First : constant Literal_Position := Skip_At (Text, State.Position);
        After : constant Literal_Position := Name_After (Text, First);
        Start : constant Literal_Position := Take_Token (Text, Take_Token (Text, After, Colon), In_Keyword);
-       Value : constant Function_Type_Result := Function_Type_At (Text, State, Start);
+       Value : constant Function_Type_Result := Formal_Type_At (Text, State, Start);
       begin (if not New_Name_Allowed (Text, State, First, After, Arguments)
         or else Start = 0 or else Value.After <= State.Position
         or else State.Functions.Parameter_Count = Functions.Max_Formals
@@ -6520,7 +6705,7 @@ is
        then (Invalid_State, False)
        else (declare Next : constant Parser_State :=
          (State with delta Position => Value.After,
-          Functions => Functions.Append_Formal (State.Functions, (First, After, Value.Kind, Value.Bounds, 0)),
+          Functions => Functions.Append_Formal (State.Functions, (First, After, Value.Kind, Value.Bounds, Value.Type_Id)),
           Hiding => Hide_Name (Text, State.Hiding, First, After));
         Separator : constant Literal_Position := Take_Token (Text, Value.After, Semicolon);
         Close : constant Literal_Position := Take_Token (Text, Value.After, Right_Parenthesis);
@@ -6654,8 +6839,37 @@ is
       end loop;
       return Invalid_State;
    end Function_Locals;
+   function Append_Array_Parameter
+     (Frame : Parser_State; First, After : Literal_Position;
+      Type_Id : Array_Bindings.Type_Count) return Parser_State
+     with Global => null;
+   function Append_Array_Parameter
+     (Frame : Parser_State; First, After : Literal_Position;
+      Type_Id : Array_Bindings.Type_Count) return Parser_State is
+   begin
+      if Type_Id = 0 or else Type_Id > Frame.Array_Names.Names.Types.Count
+        or else Frame.Array_Names.Names.Count = Array_Bindings.Max_Bindings
+        or else not Array_Bindings.Valid_Type (Frame.Array_Names.Names.Types.Items (Type_Id))
+        or else (Frame.Array_Names.Names.Count > 0 and then
+          Frame.Array_Names.Names.Items (Frame.Array_Names.Names.Count).View_Slot = 0)
+      then return Invalid_State; end if;
+      declare
+         Item : constant Array_Bindings.Array_Type := Frame.Array_Names.Names.Types.Items (Type_Id);
+         Slot : constant Array_Bindings.Binding_Index := Frame.Array_Names.Names.Count + 1;
+         Length : constant Array_Bindings.Element_Count := Array_Bindings.Element_Count
+           (Scalars.Wide (Item.Bounds.Upper) - Scalars.Wide (Item.Bounds.Lower) + 1);
+      begin
+         return (Frame with delta Array_Names => (Frame.Array_Names with delta Names =>
+           (Frame.Array_Names.Names with delta Count => Slot,
+            Items => (Frame.Array_Names.Names.Items with delta Slot =>
+              (First, After, Item.Bounds, 0, Length, False, Item.Component_Bounds, False, Type_Id, Slot)))));
+      end;
+   end Append_Array_Parameter;
+
    function Append_Parameter (Frame : Parser_State; Parameter : Functions.Formal) return Parser_State is
-     (if Parameter.Kind = Functions.Integer_Kind then
+     (if Parameter.Type_Id /= 0 then
+        Append_Array_Parameter (Frame, Parameter.First, Parameter.After, Parameter.Type_Id)
+      elsif Parameter.Kind = Functions.Integer_Kind then
         (if Frame.Scalar_Names.Count = Scalar_Expressions.Max_Bindings then Invalid_State
          else (Frame with delta Scalar_Names => Scalar_Expressions.Append
            (Frame.Scalar_Names, (Parameter.First, Parameter.After, Parameter.Bounds,
@@ -6740,15 +6954,16 @@ is
          (if In_End = 0 then Procedures.Output
           elsif Out_End = 0 then Procedures.Input else Procedures.Input_Output);
        Start : constant Literal_Position := (if Out_End /= 0 then Out_End else In_End);
-       Value : constant Function_Type_Result := Function_Type_At (Text, State, Start);
+       Value : constant Function_Type_Result := Formal_Type_At (Text, State, Start);
       begin (if not New_Name_Allowed (Text, State, First, After, Arguments)
         or else Start = 0 or else Value.After <= State.Position
+        or else (Value.Type_Id /= 0 and then Mode /= Procedures.Input)
         or else State.Procedures.Parameter_Count = Procedures.Max_Formals
         or else Equal_Name (Text, First, After, Skip_At (Text, Start), Value.After)
        then (Invalid_State, False)
        else (declare Next : constant Parser_State :=
          (State with delta Position => Value.After,
-          Procedures => Procedures.Append_Formal (State.Procedures, (First, After, Value.Kind, Value.Bounds, 0, Mode)),
+          Procedures => Procedures.Append_Formal (State.Procedures, (First, After, Value.Kind, Value.Bounds, Value.Type_Id, Mode)),
           Hiding => Hide_Name (Text, State.Hiding, First, After));
         Separator : constant Literal_Position := Take_Token (Text, Value.After, Semicolon);
         Close : constant Literal_Position := Take_Token (Text, Value.After, Right_Parenthesis);
@@ -6814,7 +7029,10 @@ is
    end Procedure_Parameters_At;
    function Append_Procedure_Parameter
      (Frame : Parser_State; Parameter : Procedures.Formal) return Parser_State is
-     (if Parameter.Kind = Functions.Integer_Kind then
+     (if Parameter.Type_Id /= 0 then
+        (if Parameter.Mode /= Procedures.Input then Invalid_State
+         else Append_Array_Parameter (Frame, Parameter.First, Parameter.After, Parameter.Type_Id))
+      elsif Parameter.Kind = Functions.Integer_Kind then
         (if Frame.Scalar_Names.Count = Scalar_Expressions.Max_Bindings then Invalid_State
          else (Frame with delta Scalar_Names => Scalar_Expressions.Append
            (Frame.Scalar_Names, (First => Parameter.First, After => Parameter.After,
@@ -7127,6 +7345,8 @@ is
       declare
          Initial : constant Parser_State :=
            (Initial_State with delta Position => Open, Pure => True,
+            Array_Names => (Array_Bindings.Empty_Environment with delta Names =>
+              (Array_Bindings.Empty_Metadata with delta Types => State.Array_Names.Names.Types)),
             Subtype_Names => State.Subtype_Names, Functions => State.Functions, Procedures => State.Procedures,
             Hiding => Hide_Name (Text, Hidden_Outer (Text, State), First, After),
             First_Parameter => State.Functions.Parameter_Count + 1);
@@ -7233,6 +7453,8 @@ is
       declare
          Initial : constant Parser_State :=
            (Initial_State with delta Position => Open, Pure => True,
+            Array_Names => (Array_Bindings.Empty_Environment with delta Names =>
+              (Array_Bindings.Empty_Metadata with delta Types => State.Array_Names.Names.Types)),
             Subtype_Names => State.Subtype_Names, Functions => State.Functions,
             Procedures => State.Procedures,
             Hiding => Hide_Name (Text, Hidden_Outer (Text, State), First, After),

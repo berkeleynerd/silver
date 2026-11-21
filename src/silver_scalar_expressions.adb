@@ -86,6 +86,50 @@ package body Silver_Scalar_Expressions with SPARK_Mode => On is
       return (if Matched then Next else 0);
    end Name_After;
 
+   function Read_Array_Attribute
+     (Text : String; Position : Literal_Position; Names : Environment;
+      Arrays : Silver_Array_Bindings.Metadata;
+      Mask_First : Literal_Position := 0; Mask_After : Literal_Position := 0;
+      Range_Query : Boolean := False) return Expression_Result is
+      First : constant Literal_Position := Skip (Text, Position);
+      After : constant Literal_Position := Name_After (Text, First);
+      Attribute_First : constant Literal_Position := Skip
+        (Text, Symbol (Text, After, Character'Val (39)));
+      Attribute_After : constant Literal_Position := Name_After (Text, Attribute_First);
+      Target : constant Array_Bindings.Binding_Count := Array_Bindings.Lookup
+        (Text, Arrays, First, After);
+      Type_Id : constant Array_Bindings.Type_Count := Array_Bindings.Lookup_Type
+        (Text, Arrays.Types, First, After);
+      Bounds : Scalars.Interval;
+   begin
+      if First = 0 or else After <= First or else Attribute_First = 0
+        or else Attribute_After <= Attribute_First
+        or else Lookup (Text, Names, First, After) /= 0
+        or else (Mask_First /= 0
+          and then Equal_Name (Text, Mask_First, Mask_After, First, After))
+      then return Invalid; end if;
+      if Target /= 0 then
+         if Arrays.Items (Target).Boolean_Elements then return Invalid; end if;
+         Bounds := Arrays.Items (Target).Bounds;
+      elsif Type_Id /= 0 then
+         Bounds := Arrays.Types.Items (Type_Id).Bounds;
+      else return Invalid;
+      end if;
+      if Range_Query then
+         if not Name_Is (Text, Attribute_First, Attribute_After, "range")
+         then return Invalid; end if;
+      elsif Name_Is (Text, Attribute_First, Attribute_After, "first") then
+         Bounds := Scalars.Singleton (Bounds.Lower);
+      elsif Name_Is (Text, Attribute_First, Attribute_After, "last") then
+         Bounds := Scalars.Singleton (Bounds.Upper);
+      elsif Name_Is (Text, Attribute_First, Attribute_After, "length") then
+         Bounds := Scalars.Singleton (Scalars.Value
+           (Scalars.Wide (Bounds.Upper) - Scalars.Wide (Bounds.Lower) + 1));
+      else return Invalid;
+      end if;
+      return (Attribute_After, Bounds, 1, True);
+   end Read_Array_Attribute;
+
    function Literal_Result
      (Number : Silver_Scalar_Literals.Literal_Result; Negative : Boolean)
       return Expression_Result
@@ -173,7 +217,8 @@ package body Silver_Scalar_Expressions with SPARK_Mode => On is
         (if Open_After = 0 or else Arrays.Items (Target).Boolean_Elements then Invalid
          else
            (declare Subscript : constant Expression_Result := Read_Expression
-              (Text, Open_After, Names, Mask_First, Mask_After);
+              (Text, Open_After, Names, Mask_First, Mask_After,
+               Arrays => Arrays, Array_Reads => No_Elements);
                     Close_After : constant Literal_Position := Symbol (Text, Subscript.After, ')');
             begin
               (if Close_After <= Position
@@ -188,7 +233,8 @@ package body Silver_Scalar_Expressions with SPARK_Mode => On is
      (Text : String; Position : Literal_Position; Names : Environment;
       Mask_First, Mask_After : Literal_Position; Allow_Sign : Boolean;
       Arrays : Array_Bindings.Metadata;
-      Initials : Array_Bindings.Element_Array; Elaborating : Boolean)
+      Initials : Array_Bindings.Element_Array; Elaborating : Boolean;
+      Array_Reads : Array_Read_Mode)
       return Expression_Result
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
@@ -203,7 +249,8 @@ package body Silver_Scalar_Expressions with SPARK_Mode => On is
      (Text : String; Position : Literal_Position; Names : Environment;
       Mask_First, Mask_After : Literal_Position; Allow_Sign : Boolean;
       Arrays : Array_Bindings.Metadata;
-      Initials : Array_Bindings.Element_Array; Elaborating : Boolean)
+      Initials : Array_Bindings.Element_Array; Elaborating : Boolean;
+      Array_Reads : Array_Read_Mode)
       return Expression_Result is
      (declare First : constant Literal_Position := Skip (Text, Position);
               After : constant Literal_Position := Name_After (Text, First);
@@ -227,14 +274,19 @@ package body Silver_Scalar_Expressions with SPARK_Mode => On is
                --  A scoped scalar index hides an outer array of the same spelling.
                elsif Index /= 0 then
                  (After, Scalars.Normalize (Names.Items (Index).Bounds), 1, Names.Items (Index).Static)
-               elsif Target = 0 then Invalid
+               elsif Symbol (Text, After, Character'Val (39)) /= 0 then
+                 Read_Array_Attribute (Text, Position, Names, Arrays, Mask_First, Mask_After)
+               elsif Target = 0 or else Array_Reads = No_Elements
+                 or else (Array_Reads = Mutable_Elements and then not Arrays.Items (Target).Mutable)
+               then Invalid
                else Read_Array_Atom
                  (Text, After, Names, Mask_First, Mask_After, Target, Arrays, Initials, Elaborating)))));
 
    function Read_Unary
      (Text : String; Position : Literal_Position; Names : Environment;
       Mask_First, Mask_After : Literal_Position; Arrays : Array_Bindings.Metadata;
-      Initials : Array_Bindings.Element_Array; Elaborating : Boolean) return Expression_Result
+      Initials : Array_Bindings.Element_Array; Elaborating : Boolean;
+      Array_Reads : Array_Read_Mode) return Expression_Result
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
          and then Position in 1 .. Text'Last and then Text (Position) in '+' | '-'
@@ -248,14 +300,15 @@ package body Silver_Scalar_Expressions with SPARK_Mode => On is
    function Read_Unary
      (Text : String; Position : Literal_Position; Names : Environment;
       Mask_First, Mask_After : Literal_Position; Arrays : Array_Bindings.Metadata;
-      Initials : Array_Bindings.Element_Array; Elaborating : Boolean) return Expression_Result is
+      Initials : Array_Bindings.Element_Array; Elaborating : Boolean;
+      Array_Reads : Array_Read_Mode) return Expression_Result is
      (declare Next : constant Literal_Position := Skip (Text, Position + 1);
               Number : constant Silver_Scalar_Literals.Literal_Result :=
                 Silver_Scalar_Literals.Read_Integer (Text, Next);
       begin Close_Result (Text,
         (if Number.After /= 0 then Literal_Result (Number, Text (Position) = '-')
          else Unary_Result
-           (Read_Expression (Text, Next, Names, Mask_First, Mask_After, False, Arrays, Initials, Elaborating), Text (Position) = '-'))));
+           (Read_Expression (Text, Next, Names, Mask_First, Mask_After, False, Arrays, Initials, Elaborating, Array_Reads), Text (Position) = '-'))));
 
    function Binary_After (Text : String; Position : Literal_Position) return Literal_Position
      with Global => null,
@@ -278,7 +331,8 @@ package body Silver_Scalar_Expressions with SPARK_Mode => On is
      (Text : String; Position : Literal_Position; Names : Environment;
       Left : Expression_Result; Mask_First, Mask_After : Literal_Position;
       Arrays : Array_Bindings.Metadata;
-      Initials : Array_Bindings.Element_Array; Elaborating : Boolean)
+      Initials : Array_Bindings.Element_Array; Elaborating : Boolean;
+      Array_Reads : Array_Read_Mode)
       return Expression_Result
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
@@ -295,7 +349,8 @@ package body Silver_Scalar_Expressions with SPARK_Mode => On is
      (Text : String; Position : Literal_Position; Names : Environment;
       Left : Expression_Result; Mask_First, Mask_After : Literal_Position;
       Arrays : Array_Bindings.Metadata;
-      Initials : Array_Bindings.Element_Array; Elaborating : Boolean)
+      Initials : Array_Bindings.Element_Array; Elaborating : Boolean;
+      Array_Reads : Array_Read_Mode)
       return Expression_Result is
      (declare Next : constant Literal_Position := Skip (Text, Left.After);
               After : constant Literal_Position := Binary_After (Text, Next);
@@ -304,12 +359,13 @@ package body Silver_Scalar_Expressions with SPARK_Mode => On is
          elsif Text (Next) = ')' then (Left with delta After => Next + 1)
          elsif After = 0 then Invalid
          else Close_Result (Text, Binary_Result
-           (Left, Read_Expression (Text, After, Names, Mask_First, Mask_After, False, Arrays, Initials, Elaborating), Lowercase (Text (Next))))));
+           (Left, Read_Expression (Text, After, Names, Mask_First, Mask_After, False, Arrays, Initials, Elaborating, Array_Reads), Lowercase (Text (Next))))));
 
    function Read_Group
      (Text : String; Position : Literal_Position; Names : Environment;
       Mask_First, Mask_After : Literal_Position; Arrays : Array_Bindings.Metadata;
-      Initials : Array_Bindings.Element_Array; Elaborating : Boolean) return Expression_Result
+      Initials : Array_Bindings.Element_Array; Elaborating : Boolean;
+      Array_Reads : Array_Read_Mode) return Expression_Result
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
          and then Position in 1 .. Text'Last and then Valid_Environment (Text, Names)
@@ -322,13 +378,14 @@ package body Silver_Scalar_Expressions with SPARK_Mode => On is
    function Read_Group
      (Text : String; Position : Literal_Position; Names : Environment;
       Mask_First, Mask_After : Literal_Position; Arrays : Array_Bindings.Metadata;
-      Initials : Array_Bindings.Element_Array; Elaborating : Boolean) return Expression_Result is
+      Initials : Array_Bindings.Element_Array; Elaborating : Boolean;
+      Array_Reads : Array_Read_Mode) return Expression_Result is
      (declare First : constant Literal_Position := Skip (Text, Position + 1);
       begin
         (if First > Text'Last then Invalid
-         elsif Text (First) in '+' | '-' then Read_Unary (Text, First, Names, Mask_First, Mask_After, Arrays => Arrays, Initials => Initials, Elaborating => Elaborating)
+         elsif Text (First) in '+' | '-' then Read_Unary (Text, First, Names, Mask_First, Mask_After, Arrays => Arrays, Initials => Initials, Elaborating => Elaborating, Array_Reads => Array_Reads)
          else Read_Compound (Text, Position, Names,
-           Read_Expression (Text, First, Names, Mask_First, Mask_After, Arrays => Arrays, Initials => Initials, Elaborating => Elaborating), Mask_First, Mask_After, Arrays => Arrays, Initials => Initials, Elaborating => Elaborating)));
+           Read_Expression (Text, First, Names, Mask_First, Mask_After, Arrays => Arrays, Initials => Initials, Elaborating => Elaborating, Array_Reads => Array_Reads), Mask_First, Mask_After, Arrays => Arrays, Initials => Initials, Elaborating => Elaborating, Array_Reads => Array_Reads)));
 
    function Read_Expression
      (Text : String; Position : Literal_Position; Names : Environment;
@@ -336,10 +393,11 @@ package body Silver_Scalar_Expressions with SPARK_Mode => On is
       Allow_Sign : Boolean := True;
       Arrays : Silver_Array_Bindings.Metadata := Silver_Array_Bindings.Empty_Metadata;
       Initials : Silver_Array_Bindings.Element_Array := Silver_Array_Bindings.Empty_Values;
-      Elaborating : Boolean := False) return Expression_Result is
+      Elaborating : Boolean := False;
+      Array_Reads : Array_Read_Mode := All_Elements) return Expression_Result is
      (declare First : constant Literal_Position := Skip (Text, Position);
       begin
         (if First = 0 or else First > Text'Last then Invalid
-         elsif Text (First) = Character'Val (40) then Read_Group (Text, First, Names, Mask_First, Mask_After, Arrays => Arrays, Initials => Initials, Elaborating => Elaborating)
-         else Read_Atom (Text, First, Names, Mask_First, Mask_After, Allow_Sign, Arrays, Initials, Elaborating)));
+         elsif Text (First) = Character'Val (40) then Read_Group (Text, First, Names, Mask_First, Mask_After, Arrays => Arrays, Initials => Initials, Elaborating => Elaborating, Array_Reads => Array_Reads)
+         else Read_Atom (Text, First, Names, Mask_First, Mask_After, Allow_Sign, Arrays, Initials, Elaborating, Array_Reads)));
 end Silver_Scalar_Expressions;
