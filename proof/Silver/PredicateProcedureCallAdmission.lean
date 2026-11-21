@@ -1,5 +1,6 @@
 module
 
+public import Silver.PredicateFunctionCallTypes
 public import Silver.PredicateBodyPrimitives
 public import Silver.ProcedureNameScanner
 
@@ -42,7 +43,7 @@ def procedureTargetActual (text : Source) (context : ParseContext) (position : N
 def procedureActualAfter (text : Source) (context : ParseContext) (position : Nat)
     (facts : ActiveFlow) (parameter : ProcedureBindings.Formal) : Nat :=
   if parameter.mode = .input then
-    actualAfter text context position facts ⟨parameter.first, parameter.after, parameter.kind, parameter.bounds⟩
+    actualAfter text context position facts (procedureInputFormal parameter)
   else (procedureTargetActual text context position facts parameter).after
 
 def procedureActualsTailModel (text : Source) (context : ParseContext) (position : Nat)

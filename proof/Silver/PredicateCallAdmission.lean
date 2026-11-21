@@ -39,11 +39,8 @@ theorem actualAfter_zero (text : Source) (context : ParseContext)
   split
   · rw [readCondition, readRelation]
     rfl
-  · have scalar : readScalarInFlow text context 0 facts = ScalarExpression.invalid := by
-      unfold readScalarInFlow ScalarExpression.read
-      split
-      · simp [ScalarExpression.parseFuel, ScalarExpression.skip, ScalarExpression.summarize]
-      · simp [ScalarExpression.parseArraysFuel, ScalarExpression.skip, ScalarExpression.summarizeArrays]
+  · have scalar : readScalarInFlow text context 0 facts = ScalarExpression.invalid :=
+      ScalarExpression.ArrayGrammar.read_zero ..
     simp [scalar, ScalarExpression.invalid]
 
 def functionActualsTailModel (text : Source) (context : ParseContext) (position : Nat)

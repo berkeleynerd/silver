@@ -1,6 +1,7 @@
 module
 
 public import Silver.PredicateCallAdmission
+public import Silver.PredicateFunctionCallTypes
 public import Silver.PredicateAssociationBounds
 public import Silver.PredicateBodyScanner
 public import Silver.PredicateConditionSound
@@ -11,90 +12,6 @@ public import Silver.ScalarCallChecking
 
 namespace Silver.Predicate
 open Compose
-
-def formalType (formal : FunctionBindings.Formal) : ScalarFunctions.ScalarType :=
-  match formal.kind with
-  | .integer => .integer formal.bounds
-  | .boolean => .boolean
-
-def resultType (entry : FunctionBindings.Signature) : ScalarFunctions.ScalarType :=
-  match entry.resultKind with
-  | .integer => .integer entry.resultBounds
-  | .boolean => .boolean
-
-def formalTypes (catalog : FunctionBindings.Metadata) (first : Nat) : Nat → List ScalarFunctions.ScalarType
-  | 0 => []
-  | count + 1 => formalType (FunctionBindings.parameter catalog first) :: formalTypes catalog (first + 1) count
-
-def signatureModel (catalog : FunctionBindings.Metadata) (entry : FunctionBindings.Signature) :
-    ScalarFunctions.Signature :=
-  ⟨formalTypes catalog entry.formalFirst entry.count, resultType entry⟩
-
-def catalogSignatures (catalog : FunctionBindings.Metadata) : ScalarFunctions.Signatures :=
-  catalog.items.map (signatureModel catalog)
-
-theorem catalogSignatures_lookup {catalog : FunctionBindings.Metadata} {index : Nat}
-    (positive : 0 < index) (bounded : index ≤ catalog.items.length) :
-    ScalarFunctions.lookup (catalogSignatures catalog) index =
-      some (signatureModel catalog (FunctionBindings.signature catalog index)) := by
-  have inside : index - 1 < catalog.items.length := by omega
-  simp [ScalarFunctions.lookup, catalogSignatures, FunctionBindings.signature,
-    Nat.ne_of_gt positive, List.getD_eq_getElem?_getD, List.getElem?_eq_getElem inside]
-
-theorem formalTypes_append_parameters (catalog : FunctionBindings.Metadata)
-    (more : List FunctionBindings.Formal) (first count : Nat)
-    (positive : 0 < first) (bounded : first + count - 1 ≤ catalog.parameters.length) :
-    formalTypes {catalog with parameters := catalog.parameters ++ more} first count =
-      formalTypes catalog first count := by
-  induction count generalizing first with
-  | zero => rfl
-  | succ count ih =>
-      simp only [formalTypes]
-      rw [FunctionBindings.parameter_prefix catalog more first positive (by omega),
-        ih (first + 1) (by omega) (by omega)]
-
-theorem signatureModel_append_parameters {text : Source} (catalog : FunctionBindings.Metadata)
-    (more : List FunctionBindings.Formal) (entry : FunctionBindings.Signature)
-    (valid : FunctionBindings.ValidSignature text catalog entry) :
-    signatureModel {catalog with parameters := catalog.parameters ++ more} entry =
-      signatureModel catalog entry := by
-  unfold signatureModel
-  rw [formalTypes_append_parameters catalog more entry.formalFirst entry.count valid.2.2.1 (by
-    have first := valid.2.2.1
-    have bounded := valid.2.2.2.1
-    have count := valid.2.2.2.2.1
-    omega)]
-
-theorem catalogSignatures_append_parameters {text : Source} (catalog : FunctionBindings.Metadata)
-    (more : List FunctionBindings.Formal) (valid : FunctionBindings.ValidMetadata text catalog) :
-    catalogSignatures {catalog with parameters := catalog.parameters ++ more} =
-      catalogSignatures catalog := by
-  apply List.map_congr_left
-  intro entry present
-  exact signatureModel_append_parameters catalog more entry (valid.2.2.2 entry present)
-
-theorem formalTypes_append (catalog : FunctionBindings.Metadata) (entry : FunctionBindings.Signature)
-    (first count : Nat) :
-    formalTypes (FunctionBindings.append catalog entry) first count = formalTypes catalog first count := by
-  induction count generalizing first with
-  | zero => rfl
-  | succ count ih =>
-      simp only [formalTypes]
-      exact congrArg (formalType (FunctionBindings.parameter catalog first) :: ·) (ih (first + 1))
-
-theorem signatureModel_append (catalog : FunctionBindings.Metadata) (entry value : FunctionBindings.Signature) :
-    signatureModel (FunctionBindings.append catalog entry) value = signatureModel catalog value := by
-  simp only [signatureModel, formalTypes_append]
-
-theorem catalogSignatures_append (catalog : FunctionBindings.Metadata) (entry : FunctionBindings.Signature) :
-    catalogSignatures (FunctionBindings.append catalog entry) =
-      catalogSignatures catalog ++ [signatureModel catalog entry] := by
-  simp only [catalogSignatures, FunctionBindings.append, List.map_append, List.map_cons, List.map_nil]
-  congr 1
-  · apply List.map_congr_left
-    intro value _
-    exact signatureModel_append catalog entry value
-  · exact congrArg (fun value => [value]) (signatureModel_append catalog entry entry)
 
 /-- The payload preserves the existing independent expression reading. The
 formal domain only checks containment after the expression has been read. -/

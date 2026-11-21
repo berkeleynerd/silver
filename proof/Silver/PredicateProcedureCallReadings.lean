@@ -13,9 +13,6 @@ actuals keep the exact bare-name lookup and the executable alias traversal. -/
 namespace Silver.Predicate
 open Compose
 
-def procedureInputFormal (parameter : ProcedureBindings.Formal) : FunctionBindings.Formal :=
-  ⟨parameter.first, parameter.after, parameter.kind, parameter.bounds⟩
-
 def procedureTargetIdentity (context : ParseContext) (target : ProcedureActualResult) :
     ScalarFunctions.Target :=
   if target.scalar = 0 then .boolean target.flag

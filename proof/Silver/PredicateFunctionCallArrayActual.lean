@@ -69,6 +69,19 @@ theorem ArrayActualAt.complete {text context position typeId item after}
   rw [reading.resolved] at found
   simp [arrayActualAfter, Nat.ne_of_gt reading.nominal, Nat.ne_of_gt reading.present, found, reading.afterName]
 
+theorem ArrayActualAt.inputBound {text context position typeId item after}
+    (reading : ArrayActualAt text context position typeId item after) : position ≤ text.length + 1 := by
+  by_cases bounded : position ≤ text.length + 1
+  · exact bounded
+  exfalso
+  have positive : position ≠ 0 := by omega
+  have exhausted : Cursor.remaining text position = [] := List.drop_eq_nil_of_le (by omega)
+  have final : skipAt text position = text.length + 1 := by
+    simp [skipAt, positive, Cursor.triviaPosition, exhausted, Cursor.endPosition, triviaEnd]
+  obtain ⟨_, source⟩ := reading.source
+  obtain ⟨_, _, advances, bounded⟩ := Named.identifier_bounds source
+  omega
+
 theorem ArrayActualAt.cursorBounds {text context position typeId item after}
     (reading : ArrayActualAt text context position typeId item after) (bounded : position ≤ text.length + 1) :
     position < after ∧ after ≤ text.length + 1 := by
