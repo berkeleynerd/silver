@@ -107,7 +107,7 @@ theorem FunctionBodySource.checked {text frame first after resultType arguments 
       have firstBound : frame.firstParameter ≤ frame.functions.parameters.length := signatureValid.2.2.2.1
       omega
     rw [formalCount, locals.preserves.functions, locals.preserves.firstParameter,
-      locals.local_analysis valid emptyIntegers, locals.local_boolean_analysis valid emptyBooleans closed.noArrays,
+      locals.local_analysis valid emptyIntegers (by simp [ParserState.StoredArrays, closed.noArrays]), locals.local_boolean_analysis valid emptyBooleans closed.noArrays,
       scalarCount, booleanCount] at analyses
     have analysis : context.analysis = parameterAnalysis integers.length
         (signatureModel frame.functions (functionSourceEntry frame first after resultType)).formals

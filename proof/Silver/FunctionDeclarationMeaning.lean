@@ -75,34 +75,36 @@ theorem FunctionLocalsAt.scalars_checked {text arguments state final integers bo
     (source : FunctionLocalsAt text arguments state integers booleans checks booleanChecks final)
     (static : ScalarExpression.StaticEnvironment state.scalarNames)
     (bounded : state.scalarNames.length ≤ ArrayBindings.scalarLimit)
-    (subtypes : IntegerSubtypes.ValidEnvironment text state.subtypeNames) :
+    (subtypes : IntegerSubtypes.ValidEnvironment text state.subtypeNames)
+    (stored : state.StoredArrays) :
     Integer.checkDeclarations (ScalarExpression.constants state.scalarNames) integers =
       some (ScalarExpression.constants final.scalarNames) := by
   induction source with
   | done => rfl
   | integer _ _ first _ _ _ ih =>
       rw [scalar_declaration_subtypes first] at ih
-      simp only [Integer.checkDeclarations, scalar_declaration_checked static bounded subtypes first, Option.bind_some]
-      exact ih (scalar_declaration_static static first) (scalar_declaration_count_bound bounded first) subtypes
-  | boolean _ _ _ first _ _ _ ih => cases first; exact ih static bounded subtypes
+      simp only [Integer.checkDeclarations, scalar_declaration_checked static bounded subtypes stored first, Option.bind_some]
+      exact ih (scalar_declaration_static static first) (scalar_declaration_count_bound bounded first) subtypes (scalar_declaration_stored stored first)
+  | boolean _ _ _ first _ _ _ ih => cases first; exact ih static bounded subtypes stored
 
 theorem FunctionLocalsAt.scalar_objects {text arguments state final integers booleans checks booleanChecks}
     (source : FunctionLocalsAt text arguments state integers booleans checks booleanChecks final)
     (elaborated : ScalarExpression.ElaboratedEnvironment state.scalarNames)
     (bounded : state.scalarNames.length ≤ ArrayBindings.scalarLimit)
-    (subtypes : IntegerSubtypes.ValidEnvironment text state.subtypeNames) :
+    (subtypes : IntegerSubtypes.ValidEnvironment text state.subtypeNames)
+    (stored : state.StoredArrays) :
     ScalarExpression.objectBindings final.scalarNames = ScalarExpression.objectBindings state.scalarNames ++
       Integer.elaborate (ScalarExpression.constants state.scalarNames) integers := by
   induction source with
   | done => simp [Integer.elaborate]
   | integer _ _ first _ _ _ ih =>
       rw [scalar_declaration_subtypes first] at ih
-      have objects := scalar_declaration_objects elaborated bounded first
-      have values := (Integer.Declaration.check_sound (scalar_declaration_checked elaborated bounded subtypes first)).1
-      rw [ih (scalar_declaration_static elaborated first) (scalar_declaration_count_bound bounded first) subtypes,
+      have objects := scalar_declaration_objects elaborated bounded stored first
+      have values := (Integer.Declaration.check_sound (scalar_declaration_checked elaborated bounded subtypes stored first)).1
+      rw [ih (scalar_declaration_static elaborated first) (scalar_declaration_count_bound bounded first) subtypes (scalar_declaration_stored stored first),
         objects, values]
       simp only [Integer.elaborate, List.append_assoc, List.singleton_append]
-  | boolean _ _ _ first _ _ _ ih => cases first; exact ih elaborated bounded subtypes
+  | boolean _ _ _ first _ _ _ ih => cases first; exact ih elaborated bounded subtypes stored
 
 theorem FunctionLocalsAt.initializer_checks {text arguments state final integers booleans checks booleanChecks}
     (source : FunctionLocalsAt text arguments state integers booleans checks booleanChecks final)

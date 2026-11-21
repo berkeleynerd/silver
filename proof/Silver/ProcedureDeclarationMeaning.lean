@@ -436,7 +436,7 @@ theorem ProcedureInitializationSource.input_analyses
     have firstBound : frame.firstProcedureParameter ≤ frame.procedures.parameters.length := signatureValid.2.2.2.1
     omega
   rw [formalCount, source.locals.preserves.procedures, source.locals.preserves.firstProcedureParameter,
-    source.locals.local_analysis valid emptyIntegers,
+    source.locals.local_analysis valid emptyIntegers (by simp [ParserState.StoredArrays, closed.noArrays]),
     source.locals.local_boolean_analysis valid emptyBooleans closed.noArrays,
     scalarCount, booleanCount] at analyses
   rw [formalCount, source.locals.preserves.procedures, source.locals.preserves.firstProcedureParameter,
