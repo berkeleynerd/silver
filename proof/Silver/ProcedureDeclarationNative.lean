@@ -32,18 +32,21 @@ def procedureParameterStepBody : Expr .procedureStep :=
     .letValue "mode" (.group (.ite (.eq inEnd (.number 0)) (.mode .output)
       (.elsif (.eq outEnd (.number 0)) (.mode .input) (.mode .inputOutput)))) <|
     .letValue "start" (.group (.ite (.ne outEnd (.number 0)) outEnd inEnd)) <|
-    .letValue "value" (apply3 (.function .functionType) text state start) <|
+    .letValue "value" (apply3 (.function .formalType) text state start) <|
     .beginValue <| .group <| .ite
-      (.orElse (.orElse (.orElse (.orElse
+      (.orElse (.orElse (.orElse (.orElse (.orElse
         (.not (apply5 (.function .newName) text state first after arguments))
         (.eq start (.number 0))) (.le valueAfter position))
+        (.group (.andThen (.ne (.field .typeTypeId value) (.number 0))
+          (.neMode parameterMode (.mode .input)))))
         (.eq (.field .procedureParameterCount (.field .procedures state)) (.capacity .procedureFormals)))
         (apply5 (.function .equal) text first after (apply2 (.function .skip) text start) valueAfter))
       rejectedResult <| .group <| .declare <| .letValue "next"
         (.update .hiding
           (.update .procedures (.update .position state valueAfter)
             (apply2 (.function .appendProcedureFormal) (.field .procedures state)
-              (.procedureFormal first after (.field .typeKind value) (.field .typeBounds value) parameterMode)))
+              (.procedureFormal first after (.field .typeKind value) (.field .typeBounds value)
+                (.field .typeTypeId value) parameterMode)))
           (apply4 (.function .hideName) text (.field .hiding state) first after)) <|
       .letValue "separator" (apply3 (.function .take) text valueAfter (.token .semicolon)) <|
       .letValue "close" (apply3 (.function .take) text valueAfter (.token .rightParenthesis)) <|
@@ -66,12 +69,16 @@ def procedureParametersModelBody : Expr .state :=
 def appendProcedureParameterBody : Expr .state :=
   let frame : Expr .state := .variable "frame"
   let parameter : Expr .procedureFormal := .variable "parameter"
-  .ite (.eqKind (.field .procedureFormalKind parameter) (.kind .integer))
+  .ite (.ne (.field .procedureFormalTypeId parameter) (.number 0))
+    (.group (.ite (.neMode (.field .procedureFormalMode parameter) (.mode .input)) .invalid
+      (apply4 (.function .appendArrayParameter) frame (.field .procedureFormalFirst parameter)
+        (.field .procedureFormalAfter parameter) (.field .procedureFormalTypeId parameter))))
+    (.elsif (.eqKind (.field .procedureFormalKind parameter) (.kind .integer))
     (.group (.ite (.eq (.field .scalarCount (.field .scalarNames frame)) (.capacity .scalars)) .invalid
       (.update .scalarNames frame (apply2 (.function .scalarAppend) (.field .scalarNames frame)
         (.procedureScalarBinding parameter)))))
     (.group (.ite (.eq (.field .booleanCount (.field .booleans frame)) (.capacity .booleans))
-      .invalid (.appendProcedureBoolean frame parameter)))
+      .invalid (.appendProcedureBoolean frame parameter))))
 
 def procedureInputFrameModelBody : Expr .state :=
   let frame : Expr .state := .variable "frame"
@@ -104,7 +111,8 @@ def procedurePrefixStepBody : Command .state :=
     .letValue "value_after" (apply5 (.function .actualAfter) text context
       (apply3 (.function .take) text after (.token .assignment)) (.app (.function .initialFlow) context)
       (.formal (.field .procedureFormalFirst parameter) (.field .procedureFormalAfter parameter)
-        (.field .procedureFormalKind parameter) (.field .procedureFormalBounds parameter))) <|
+        (.field .procedureFormalKind parameter) (.field .procedureFormalBounds parameter)
+        (.field .procedureFormalTypeId parameter))) <|
     .letValue "following" (apply3 (.function .take) text valueAfter (.token .semicolon)) <|
     .beginBody <| .guard
       (.orElse (.orElse (.orElse (.orElse (.eq first (.number 0)) (.le after first))

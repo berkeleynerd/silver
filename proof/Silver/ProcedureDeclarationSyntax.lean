@@ -14,7 +14,7 @@ namespace Silver.Compose.ProcedureDeclarationNative
 set_option backward.dsimp.instances true
 
 inductive Ty
-  | number | truth | source | word | token | kind | interval | state | metadata | procedures | formal | signature | hidden | typeResult | stepResult | constraint | names | scalars | scalarBinding | booleans | subtypes | arrays | context | scan | bodyScan | flow | stop
+  | number | truth | source | word | token | kind | interval | state | metadata | procedures | formal | signature | hidden | typeResult | stepResult | constraint | names | scalars | scalarBinding | booleans | subtypes | arrays | arrayEnvironment | context | scan | bodyScan | flow | stop
   | mode | procedureFormal | procedureSignature | procedureStep
   | arrow (domain codomain : Ty)
   deriving DecidableEq, Repr
@@ -45,7 +45,8 @@ inductive Ty
   | .scalarBinding => ScalarExpression.Binding
   | .booleans => BooleanBindings.Environment
   | .subtypes => IntegerSubtypes.Environment
-  | .arrays => ArrayBindings.Metadata
+  | .arrays => ArrayBindings.Table
+  | .arrayEnvironment => ArrayBindings.Env
   | .context => Predicate.Native.Context
   | .scan => Predicate.ScanResult
   | .bodyScan => Predicate.BodyScan
@@ -71,7 +72,7 @@ def Ty.default : (ty : Ty) → ty.meaning
   | .formal => FunctionBindings.emptyFormal
   | .signature => FunctionBindings.emptySignature
   | .hidden => {}
-  | .typeResult => ⟨0, .integer, .empty⟩
+  | .typeResult => ⟨0, .integer, .empty, 0⟩
   | .stepResult => ⟨invalidState, false⟩
   | .constraint => ⟨0, .empty⟩
   | .names => []
@@ -79,7 +80,8 @@ def Ty.default : (ty : Ty) → ty.meaning
   | .scalarBinding => ScalarExpression.emptyBinding
   | .booleans => []
   | .subtypes => {}
-  | .arrays => []
+  | .arrays => {}
+  | .arrayEnvironment => {}
   | .context => {names := [], dynamicFirst := 0, dynamicAfter := 0}
   | .scan => ⟨invalidState, false, false⟩
   | .bodyScan => ⟨0,0,0,⟨PathFacts.Context.empty, []⟩,false,false⟩
@@ -114,6 +116,7 @@ def Ty.name : Ty → List String
   | .booleans => ["boolean_environment"]
   | .subtypes => ["subtype_environment"]
   | .arrays => ["array_bindings", ".", "metadata"]
+  | .arrayEnvironment => ["array_bindings", ".", "environment"]
   | .context => ["body_context"]
   | .scan => ["scan_result"]
   | .bodyScan => ["body_scan"]
@@ -123,7 +126,7 @@ def Ty.name : Ty → List String
 
 inductive Function
   | appendProcedureFormal | appendProcedure | procedureParameterStep | procedureParametersModel | procedureParameters | appendProcedureParameter | procedureInputFrameModel | procedureInputFrame | procedurePrefixStep | procedurePrefixModel | procedurePrefix | procedureBody | procedureDeclaration | readBody | initialFlow
-  | skip | nameAfter | nameIs | take | newName | equal | scalarType | lookupString | lookupScalar | lookupBoolean | lookupSubtype | lookupArray | lookupFunction | lookupProcedure | formalHides | hideName | hiddenOuter | functionType | appendFormal | append | parameterStep | parametersModel | parameters | scalarDeclaration | booleanDeclaration | functionLocal | functionLocalsModel | functionLocals | scalarAppend | appendParameter | parameterFrameModel | parameterFrame | contextOf | bodyOf | bodyTail | actualAfter | returnAfter | functionBody | functionDeclaration
+  | skip | nameAfter | nameIs | take | newName | equal | scalarType | lookupString | lookupScalar | lookupBoolean | lookupSubtype | lookupArray | lookupFunction | lookupProcedure | formalHides | hideName | hiddenOuter | functionType | formalType | appendArrayParameter | appendFormal | append | parameterStep | parametersModel | parameters | scalarDeclaration | booleanDeclaration | functionLocal | functionLocalsModel | functionLocals | scalarAppend | appendParameter | parameterFrameModel | parameterFrame | contextOf | bodyOf | bodyTail | actualAfter | returnAfter | functionBody | functionDeclaration
   deriving DecidableEq, Repr
 
 def Function.type : Function → Ty
@@ -160,6 +163,8 @@ def Function.type : Function → Ty
   | .hideName => .arrow .source (.arrow .hidden (.arrow .number (.arrow .number (.hidden))))
   | .hiddenOuter => .arrow .source (.arrow .state (.hidden))
   | .functionType => .arrow .source (.arrow .state (.arrow .number (.typeResult)))
+  | .formalType => .arrow .source (.arrow .state (.arrow .number (.typeResult)))
+  | .appendArrayParameter => .arrow .state (.arrow .number (.arrow .number (.arrow .number .state)))
   | .appendFormal => .arrow .metadata (.arrow .formal (.metadata))
   | .append => .arrow .metadata (.arrow .signature (.metadata))
   | .parameterStep => .arrow .source (.arrow .state (.arrow .truth (.stepResult)))
@@ -216,6 +221,8 @@ def Function.name : Function → List String
   | .hideName => ["hide_name"]
   | .hiddenOuter => ["hidden_outer"]
   | .functionType => ["function_type_at"]
+  | .formalType => ["formal_type_at"]
+  | .appendArrayParameter => ["append_array_parameter"]
   | .appendFormal => ["functions", ".", "append_formal"]
   | .append => ["functions", ".", "append"]
   | .parameterStep => ["parameter_step"]
@@ -247,6 +254,7 @@ def nativeContextOf (scan : Predicate.ScanResult) : Predicate.Native.Context :=
     scalarNames := ScalarExpression.bodyEnvironment scan.state.scalarNames
     declarationCount := scan.state.scalarNames.length
     arrayNames := scan.state.arrayNames.names
+    arrayTypes := scan.state.arrayNames.types
     subtypeHiding := scan.state.subtypeNames.hiddenCalls
     booleanNames := scan.state.booleanNames
     trueHidden := scan.state.subtypeNames.trueHidden || scan.state.hiding.trueHidden
@@ -284,13 +292,15 @@ def modelCalls : Calls
   | .lookupScalar => ScalarExpression.lookup
   | .lookupBoolean => BooleanBindings.lookup
   | .lookupSubtype => IntegerSubtypes.lookup
-  | .lookupArray => ArrayBindings.lookup
+  | .lookupArray => fun text names first after => ArrayBindings.lookup text names.items first after
   | .lookupFunction => FunctionBindings.lookup
   | .lookupProcedure => ProcedureBindings.lookup
   | .formalHides => formalHides
   | .hideName => hideName
   | .hiddenOuter => hiddenOuter
   | .functionType => functionTypeAt
+  | .formalType => formalTypeAt
+  | .appendArrayParameter => appendArrayParameter
   | .appendFormal => FunctionBindings.appendFormal
   | .append => FunctionBindings.append
   | .parameterStep => parameterStep
@@ -322,6 +332,7 @@ inductive Field : Ty → Ty → Type
   | procedureFormalAfter : Field .procedureFormal .number
   | procedureFormalKind : Field .procedureFormal .kind
   | procedureFormalBounds : Field .procedureFormal .interval
+  | procedureFormalTypeId : Field .procedureFormal .number
   | procedureFormalMode : Field .procedureFormal .mode
   | procedureStepState : Field .procedureStep .state
   | procedureStepClosed : Field .procedureStep .truth
@@ -348,6 +359,7 @@ inductive Field : Ty → Ty → Type
   | typeAfter : Field .typeResult .number
   | typeKind : Field .typeResult .kind
   | typeBounds : Field .typeResult .interval
+  | typeTypeId : Field .typeResult .number
   | constraintAfter : Field .constraint .number
   | constraintBounds : Field .constraint .interval
   | stepState : Field .stepResult .state
@@ -356,6 +368,7 @@ inductive Field : Ty → Ty → Type
   | formalAfter : Field .formal .number
   | formalKind : Field .formal .kind
   | formalBounds : Field .formal .interval
+  | formalTypeId : Field .formal .number
   | bodyPosition : Field .bodyScan .number
   | bodyAssigned : Field .bodyScan .truth
   | bodyFacts : Field .bodyScan .flow
@@ -368,6 +381,7 @@ def Field.name : Field a b → List String
   | .procedureFormalAfter => ["after"]
   | .procedureFormalKind => ["kind"]
   | .procedureFormalBounds => ["bounds"]
+  | .procedureFormalTypeId => ["type_id"]
   | .procedureFormalMode => ["mode"]
   | .procedureStepState => ["state"]
   | .procedureStepClosed => ["closed"]
@@ -394,6 +408,7 @@ def Field.name : Field a b → List String
   | .typeAfter => ["after"]
   | .typeKind => ["kind"]
   | .typeBounds => ["bounds"]
+  | .typeTypeId => ["type_id"]
   | .constraintAfter => ["after"]
   | .constraintBounds => ["bounds"]
   | .stepState => ["state"]
@@ -402,6 +417,7 @@ def Field.name : Field a b → List String
   | .formalAfter => ["after"]
   | .formalKind => ["kind"]
   | .formalBounds => ["bounds"]
+  | .formalTypeId => ["type_id"]
   | .bodyPosition => ["position"]
   | .bodyAssigned => ["assigned"]
   | .bodyFacts => ["facts"]
@@ -414,6 +430,7 @@ def Field.get : Field a b → a.meaning → b.meaning
   | .procedureFormalAfter, value => value.after
   | .procedureFormalKind, value => value.kind
   | .procedureFormalBounds, value => value.bounds
+  | .procedureFormalTypeId, value => value.typeId
   | .procedureFormalMode, value => value.mode
   | .procedureStepState, value => value.state
   | .procedureStepClosed, value => value.closed
@@ -429,7 +446,7 @@ def Field.get : Field a b → a.meaning → b.meaning
   | .names, value => value.names
   | .scalars, value => value.scalarNames
   | .booleans, value => value.booleanNames
-  | .arrays, value => value.arrayNames.names
+  | .arrays, value => value.arrayNames.table
   | .assigned, value => value.assignedInFunctions
   | .integerHidden, value => value.integerHidden
   | .booleanHidden, value => value.booleanHidden
@@ -440,6 +457,7 @@ def Field.get : Field a b → a.meaning → b.meaning
   | .typeAfter, value => value.after
   | .typeKind, value => value.kind
   | .typeBounds, value => value.bounds
+  | .typeTypeId, value => value.typeId
   | .constraintAfter, value => value.after
   | .constraintBounds, value => value.bounds
   | .stepState, value => value.state
@@ -448,6 +466,7 @@ def Field.get : Field a b → a.meaning → b.meaning
   | .formalAfter, value => value.after
   | .formalKind, value => value.kind
   | .formalBounds, value => value.bounds
+  | .formalTypeId, value => value.typeId
   | .bodyPosition, value => value.position
   | .bodyAssigned, value => value.assigned
   | .bodyFacts, value => value.facts
@@ -463,6 +482,7 @@ inductive StateField : Ty → Type
   | «hiding» : StateField .hidden
   | firstParameter : StateField .number
   | subtypes : StateField .subtypes
+  | arrayEnvironment : StateField .arrayEnvironment
   | scalars : StateField .scalars
   | booleans : StateField .booleans
   | assigned : StateField .truth
@@ -478,6 +498,7 @@ def StateField.name : StateField ty → String
   | .hiding => "hiding"
   | .firstParameter => "first_parameter"
   | .subtypes => "subtype_names"
+  | .arrayEnvironment => "array_names"
   | .scalars => "scalar_names"
   | .booleans => "boolean_names"
   | .assigned => "assigned_in_functions"
@@ -493,6 +514,7 @@ def StateField.set : StateField ty → ParserState → ty.meaning → ParserStat
   | .hiding, state, value => {state with «hiding» := value}
   | .firstParameter, state, value => {state with firstParameter := value}
   | .subtypes, state, value => {state with subtypeNames := value}
+  | .arrayEnvironment, state, value => {state with arrayNames := value}
   | .scalars, state, value => {state with scalarNames := value}
   | .booleans, state, value => {state with booleanNames := value}
   | .assigned, state, value => {state with assignedInFunctions := value}
@@ -535,7 +557,7 @@ inductive Expr : Ty → Type
   | mode : ProcedureBindings.Mode → Expr .mode
   | endStop : Expr .stop
   | procedureFormalAt : Expr .procedures → Expr .number → Expr .procedureFormal
-  | procedureFormal : Expr .number → Expr .number → Expr .kind → Expr .interval → Expr .mode → Expr .procedureFormal
+  | procedureFormal : Expr .number → Expr .number → Expr .kind → Expr .interval → Expr .number → Expr .mode → Expr .procedureFormal
   | procedureSignature : Expr .number → Expr .number → Expr .number → Expr .number → Expr .procedureSignature
   | procedureStepResult : Expr .state → Expr .truth → Expr .procedureStep
   | appendProcedureBoolean : Expr .state → Expr .procedureFormal → Expr .state
@@ -545,6 +567,7 @@ inductive Expr : Ty → Type
   | token : Token → Expr .token | kind : FunctionBindings.ScalarKind → Expr .kind
   | empty : Expr .interval | full : Expr .interval | initial : Expr .state | invalid : Expr .state
   | emptyProcedures : Expr .procedures
+  | emptyArrayFrame : Expr .state → Expr .arrayEnvironment
   | capacity : Capacity → Expr .number | returnStop : Expr .stop
   | variable (name : String) : Expr ty
   | function (fn : Function) : Expr fn.type
@@ -555,9 +578,9 @@ inductive Expr : Ty → Type
   | updateDeclarationCount : Expr .context → Expr .number → Expr .context
   | addHiddenCalls : Expr .subtypes → Expr .source → Expr .number → Expr .number → Expr .subtypes
   | appendBoolean : Expr .state → Expr .formal → Expr .state
-  | typeResult : Expr .number → Expr .kind → Expr .interval → Expr .typeResult
+  | typeResult : Expr .number → Expr .kind → Expr .interval → Expr .number → Expr .typeResult
   | stepResult : Expr .state → Expr .truth → Expr .stepResult
-  | formal : Expr .number → Expr .number → Expr .kind → Expr .interval → Expr .formal
+  | formal : Expr .number → Expr .number → Expr .kind → Expr .interval → Expr .number → Expr .formal
   | signature : Expr .number → Expr .number → Expr .number → Expr .number → Expr .kind → Expr .interval → Expr .signature
   | scalarBinding : Expr .number → Expr .number → Expr .interval → Expr .truth → Expr .interval → Expr .truth → Expr .scalarBinding
   | scan : Expr .state → Expr .truth → Expr .truth → Expr .scan
@@ -593,8 +616,8 @@ def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
       ⟨item.first, item.after, item.bounds, false, item.bounds, decide (item.mode ≠ .input)⟩
   | .mode value => value | .endStop => .endOnly
   | .procedureFormalAt procedures index => ProcedureBindings.parameter (procedures.eval calls locals) (index.eval calls locals)
-  | .procedureFormal first after scalarKind bounds parameterMode =>
-      ⟨first.eval calls locals, after.eval calls locals, scalarKind.eval calls locals, bounds.eval calls locals, parameterMode.eval calls locals⟩
+  | .procedureFormal first after scalarKind bounds typeId parameterMode =>
+      ⟨first.eval calls locals, after.eval calls locals, scalarKind.eval calls locals, bounds.eval calls locals, parameterMode.eval calls locals, typeId.eval calls locals⟩
   | .procedureSignature first after formalFirst count =>
       ⟨first.eval calls locals, after.eval calls locals, formalFirst.eval calls locals, count.eval calls locals⟩
   | .procedureStepResult state closed => ⟨state.eval calls locals, closed.eval calls locals⟩
@@ -608,6 +631,7 @@ def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
   | .number value => value | .truth value => value | .token value => value.shell | .kind value => value
   | .empty => .empty | .full => .full | .initial => initialState | .invalid => invalidState
   | .emptyProcedures => {}
+  | .emptyArrayFrame state => {types := (state.eval calls locals).arrayNames.types}
   | .capacity bound => bound.value | .returnStop => .returnOnly
   | .variable name => locals _ name | .function fn => calls fn
   | .app fn value => fn.eval calls locals (value.eval calls locals)
@@ -629,9 +653,9 @@ def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
       let before := frame.eval calls locals
       let item := parameter.eval calls locals
       {before with booleanNames := before.booleanNames ++ [⟨item.first, item.after, false⟩]}
-  | .typeResult after scalarKind bounds => ⟨after.eval calls locals, scalarKind.eval calls locals, bounds.eval calls locals⟩
+  | .typeResult after scalarKind bounds typeId => ⟨after.eval calls locals, scalarKind.eval calls locals, bounds.eval calls locals, typeId.eval calls locals⟩
   | .stepResult state closed => ⟨state.eval calls locals, closed.eval calls locals⟩
-  | .formal first after scalarKind bounds => ⟨first.eval calls locals, after.eval calls locals, scalarKind.eval calls locals, bounds.eval calls locals⟩
+  | .formal first after scalarKind bounds typeId => ⟨first.eval calls locals, after.eval calls locals, scalarKind.eval calls locals, bounds.eval calls locals, typeId.eval calls locals⟩
   | .signature first after formalFirst count scalarKind bounds => ⟨first.eval calls locals, after.eval calls locals,
       formalFirst.eval calls locals, count.eval calls locals, scalarKind.eval calls locals, bounds.eval calls locals⟩
   | .scalarBinding first after bounds mutable declared static => ⟨first.eval calls locals, after.eval calls locals,
@@ -664,8 +688,8 @@ def Expr.render : Expr ty → List String
   | .mode .input => ["procedures", ".", "input"] | .mode .output => ["procedures", ".", "output"]
   | .mode .inputOutput => ["procedures", ".", "input_output"] | .endStop => ["end_only"]
   | .procedureFormalAt procedures index => procedures.render ++ [".", "parameters", "("] ++ index.render ++ [")"]
-  | .procedureFormal first after scalarKind bounds parameterMode =>
-      ["("] ++ separated [first.render, after.render, scalarKind.render, bounds.render, parameterMode.render] ++ [")"]
+  | .procedureFormal first after scalarKind bounds typeId parameterMode =>
+      ["("] ++ separated [first.render, after.render, scalarKind.render, bounds.render, typeId.render, parameterMode.render] ++ [")"]
   | .procedureSignature first after formalFirst count =>
       ["("] ++ separated [first.render, after.render, formalFirst.render, count.render] ++ [")"]
   | .procedureStepResult state closed => ["("] ++ separated [state.render, closed.render] ++ [")"]
@@ -686,6 +710,10 @@ def Expr.render : Expr ty → List String
   | .empty => ["scalars", ".", "empty"] | .full => ["scalars", ".", "full"]
   | .initial => ["initial_state"] | .invalid => ["invalid_state"]
   | .emptyProcedures => ["procedures", ".", "empty_metadata"]
+  | .emptyArrayFrame state =>
+      ["(", "array_bindings", ".", "empty_environment", "with", "delta", "names", "=>", "(",
+        "array_bindings", ".", "empty_metadata", "with", "delta", "types", "=>"] ++ state.render ++
+        [".", "array_names", ".", "names", ".", "types", ")", ")"]
   | .capacity bound => bound.name | .returnStop => ["return_only"]
   | .variable name => [name] | .function fn => fn.name
   | .app fn value => match fn with
@@ -714,9 +742,9 @@ def Expr.render : Expr ty → List String
       frame.render ++ [".", "boolean_names", ".", "items", "with", "delta"] ++ frame.render ++
       [".", "boolean_names", ".", "count", "+", "1", "=>", "("] ++ parameter.render ++ [".", "first", ","] ++
       parameter.render ++ [".", "after", ",", "false", ")", ")", ")", ")"]
-  | .typeResult after scalarKind bounds => ["("] ++ separated [after.render, scalarKind.render, bounds.render] ++ [")"]
+  | .typeResult after scalarKind bounds typeId => ["("] ++ separated [after.render, scalarKind.render, bounds.render, typeId.render] ++ [")"]
   | .stepResult state closed => ["("] ++ separated [state.render, closed.render] ++ [")"]
-  | .formal first after scalarKind bounds => ["("] ++ separated [first.render, after.render, scalarKind.render, bounds.render] ++ [")"]
+  | .formal first after scalarKind bounds typeId => ["("] ++ separated [first.render, after.render, scalarKind.render, bounds.render, typeId.render] ++ [")"]
   | .signature first after formalFirst count scalarKind bounds => ["("] ++
       separated [first.render, after.render, formalFirst.render, count.render, scalarKind.render, bounds.render] ++ [")"]
   | .scalarBinding first after bounds mutable declared static => ["("] ++
@@ -800,8 +828,8 @@ def Expr.scoped (scope : Scope) : Expr ty → Bool
   | .procedureScalarBinding parameter => parameter.scoped scope
   | .mode _ | .endStop => true
   | .procedureFormalAt procedures index => procedures.scoped scope && index.scoped scope
-  | .procedureFormal first after scalarKind bounds parameterMode => first.scoped scope && after.scoped scope &&
-      scalarKind.scoped scope && bounds.scoped scope && parameterMode.scoped scope
+  | .procedureFormal first after scalarKind bounds typeId parameterMode => first.scoped scope && after.scoped scope &&
+      scalarKind.scoped scope && bounds.scoped scope && typeId.scoped scope && parameterMode.scoped scope
   | .procedureSignature first after formalFirst count => first.scoped scope && after.scoped scope &&
       formalFirst.scoped scope && count.scoped scope
   | .procedureStepResult state closed => state.scoped scope && closed.scoped scope
@@ -813,14 +841,15 @@ def Expr.scoped (scope : Scope) : Expr ty → Bool
   | .variable name => scope.contains (ty, name)
   | .app fn value => fn.scoped scope && value.scoped scope
   | .field _ value => value.scoped scope
+  | .emptyArrayFrame state => state.scoped scope
   | .formalAt functions index => functions.scoped scope && index.scoped scope
   | .update _ state value => state.scoped scope && value.scoped scope
   | .updateDeclarationCount context count => context.scoped scope && count.scoped scope
   | .addHiddenCalls subtypes text first after => subtypes.scoped scope && text.scoped scope && first.scoped scope && after.scoped scope
   | .appendBoolean frame parameter => frame.scoped scope && parameter.scoped scope
-  | .typeResult after scalarKind bounds => after.scoped scope && scalarKind.scoped scope && bounds.scoped scope
+  | .typeResult after scalarKind bounds typeId => after.scoped scope && scalarKind.scoped scope && bounds.scoped scope && typeId.scoped scope
   | .stepResult state closed => state.scoped scope && closed.scoped scope
-  | .formal first after scalarKind bounds => first.scoped scope && after.scoped scope && scalarKind.scoped scope && bounds.scoped scope
+  | .formal first after scalarKind bounds typeId => first.scoped scope && after.scoped scope && scalarKind.scoped scope && bounds.scoped scope && typeId.scoped scope
   | .signature first after formalFirst count scalarKind bounds => first.scoped scope && after.scoped scope &&
       formalFirst.scoped scope && count.scoped scope && scalarKind.scoped scope && bounds.scoped scope
   | .scalarBinding first after bounds mutable declared static => first.scoped scope && after.scoped scope &&
@@ -845,15 +874,15 @@ def Command.scoped (scope : Scope) : Command ty → Bool
 /-- Selected and indexed components require a name, not a parenthesized
 expression or an aggregate. Delta-aggregate bases remain ordinary expressions. -/
 def Expr.prefix : Expr ty → Bool
-  | .neMode _ _ | .procedureScalarBinding _ => false
+  | .neMode _ _ | .procedureScalarBinding _ | .emptyArrayFrame _ => false
   | .mode _ | .endStop | .procedureFormalAt _ _ => true
-  | .procedureFormal _ _ _ _ _ | .procedureSignature _ _ _ _ | .procedureStepResult _ _ |
+  | .procedureFormal _ _ _ _ _ _ | .procedureSignature _ _ _ _ | .procedureStepResult _ _ |
     .appendProcedureBoolean _ _ | .anyWritable _ _ | .eqMode _ _ => false
   | .token _ | .kind _ | .empty | .full | .initial | .invalid | .emptyProcedures | .capacity _ |
     .returnStop | .variable _ | .function _ | .app _ _ | .field _ _ | .formalAt _ _ => true
   | .number _ | .truth _ | .update _ _ _ | .updateDeclarationCount _ _ |
-    .addHiddenCalls _ _ _ _ | .appendBoolean _ _ | .typeResult _ _ _ | .stepResult _ _ |
-    .formal _ _ _ _ | .signature _ _ _ _ _ _ | .scalarBinding _ _ _ _ _ _ | .scan _ _ _ |
+    .addHiddenCalls _ _ _ _ | .appendBoolean _ _ | .typeResult _ _ _ _ | .stepResult _ _ |
+    .formal _ _ _ _ _ | .signature _ _ _ _ _ _ | .scalarBinding _ _ _ _ _ _ | .scan _ _ _ |
     .add _ _ | .sub _ _ | .eq _ _ | .ne _ _ | .le _ _ | .gt _ _ | .eqKind _ _ |
     .andThen _ _ | .orElse _ _ | .or _ _ | .not _ | .group _ | .ite _ _ _ | .elsif _ _ _ |
     .declare _ | .letValue _ _ _ | .beginValue _ => false
@@ -862,14 +891,14 @@ def Expr.prefix : Expr ty → Bool
 native declare expressions are retained explicitly in the syntax. -/
 def Expr.primary : Expr ty → Bool
   | .neMode _ _ => false
-  | .procedureScalarBinding _ => true
-  | .mode _ | .endStop | .procedureFormalAt _ _ | .procedureFormal _ _ _ _ _ |
+  | .procedureScalarBinding _ | .emptyArrayFrame _ => true
+  | .mode _ | .endStop | .procedureFormalAt _ _ | .procedureFormal _ _ _ _ _ _ |
     .procedureSignature _ _ _ _ | .procedureStepResult _ _ | .appendProcedureBoolean _ _ | .anyWritable _ _ => true
   | .eqMode _ _ => false
   | .number _ | .truth _ | .token _ | .kind _ | .empty | .full | .initial | .invalid | .emptyProcedures |
     .capacity _ | .returnStop | .variable _ | .function _ | .app _ _ | .field _ _ |
     .formalAt _ _ | .update _ _ _ | .updateDeclarationCount _ _ | .addHiddenCalls _ _ _ _ |
-    .appendBoolean _ _ | .typeResult _ _ _ | .stepResult _ _ | .formal _ _ _ _ |
+    .appendBoolean _ _ | .typeResult _ _ _ _ | .stepResult _ _ | .formal _ _ _ _ _ |
     .signature _ _ _ _ _ _ | .scalarBinding _ _ _ _ _ _ | .scan _ _ _ | .group _ => true
   | .add _ _ | .sub _ _ | .eq _ _ | .ne _ _ | .le _ _ | .gt _ _ | .eqKind _ _ |
     .andThen _ _ | .orElse _ _ | .or _ _ | .not _ | .ite _ _ _ | .elsif _ _ _ |
@@ -917,9 +946,9 @@ def Expr.wellFormed : Expr ty → Bool
   | .procedureScalarBinding parameter => parameter.prefix && parameter.wellFormed
   | .mode _ | .endStop => true
   | .procedureFormalAt procedures index => procedures.prefix && index.value && procedures.wellFormed && index.wellFormed
-  | .procedureFormal first after scalarKind bounds parameterMode =>
-      first.value && after.value && scalarKind.value && bounds.value && parameterMode.value &&
-      first.wellFormed && after.wellFormed && scalarKind.wellFormed && bounds.wellFormed && parameterMode.wellFormed
+  | .procedureFormal first after scalarKind bounds typeId parameterMode =>
+      first.value && after.value && scalarKind.value && bounds.value && typeId.value && parameterMode.value &&
+      first.wellFormed && after.wellFormed && scalarKind.wellFormed && bounds.wellFormed && typeId.wellFormed && parameterMode.wellFormed
   | .procedureSignature first after formalFirst count => first.value && after.value && formalFirst.value && count.value &&
       first.wellFormed && after.wellFormed && formalFirst.wellFormed && count.wellFormed
   | .procedureStepResult state closed => state.value && closed.value && state.wellFormed && closed.wellFormed
@@ -930,16 +959,17 @@ def Expr.wellFormed : Expr ty → Bool
     .capacity _ | .returnStop | .variable _ | .function _ => true
   | .app fn value => fn.callHead && value.value && fn.wellFormed && value.wellFormed
   | .field _ value => value.prefix && value.wellFormed
+  | .emptyArrayFrame state => state.prefix && state.wellFormed
   | .formalAt functions index => functions.prefix && index.value && functions.wellFormed && index.wellFormed
   | .update _ state value => state.primary && value.value && state.wellFormed && value.wellFormed
   | .updateDeclarationCount context count => context.primary && count.value && context.wellFormed && count.wellFormed
   | .addHiddenCalls subtypes text first after => subtypes.prefix && text.value && first.value && after.value &&
       subtypes.wellFormed && text.wellFormed && first.wellFormed && after.wellFormed
   | .appendBoolean frame parameter => frame.prefix && parameter.prefix && frame.wellFormed && parameter.wellFormed
-  | .typeResult after scalarKind bounds => after.value && scalarKind.value && bounds.value && after.wellFormed && scalarKind.wellFormed && bounds.wellFormed
+  | .typeResult after scalarKind bounds typeId => after.value && scalarKind.value && bounds.value && typeId.value && after.wellFormed && scalarKind.wellFormed && bounds.wellFormed && typeId.wellFormed
   | .stepResult state closed => state.value && closed.value && state.wellFormed && closed.wellFormed
-  | .formal first after scalarKind bounds => first.value && after.value && scalarKind.value && bounds.value &&
-      first.wellFormed && after.wellFormed && scalarKind.wellFormed && bounds.wellFormed
+  | .formal first after scalarKind bounds typeId => first.value && after.value && scalarKind.value && bounds.value && typeId.value &&
+      first.wellFormed && after.wellFormed && scalarKind.wellFormed && bounds.wellFormed && typeId.wellFormed
   | .signature first after formalFirst count scalarKind bounds => first.value && after.value && formalFirst.value &&
       count.value && scalarKind.value && bounds.value && first.wellFormed && after.wellFormed &&
       formalFirst.wellFormed && count.wellFormed && scalarKind.wellFormed && bounds.wellFormed
@@ -1056,7 +1086,7 @@ structure Frame where
   after : Nat := 0
   index : Nat := 0
   parameter : FunctionBindings.Formal := FunctionBindings.emptyFormal
-  resultType : FunctionTypeResult := ⟨0, .integer, .empty⟩
+  resultType : FunctionTypeResult := ⟨0, .integer, .empty, 0⟩
   context : Predicate.Native.Context := {names := [], dynamicFirst := 0, dynamicAfter := 0}
   scan : Predicate.BodyScan := ⟨0,0,0,⟨PathFacts.Context.empty, []⟩,false,false⟩
 
