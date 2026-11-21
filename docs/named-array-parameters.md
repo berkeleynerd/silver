@@ -198,3 +198,39 @@ contracts, source correspondence and final evidence applicability. Resolve
 material findings before support/completion; prepare the feature PR within the
 owner's authorization. PR #385 remains held and Worca remains stopped. Record any
 later merge instruction separately rather than inferring it from feature approval.
+
+## Implementation checkpoints — 2026-11-21
+
+Authorization reached `main` through [PR #411](https://github.com/berkeleynerd/silver/pull/411),
+merge `5f97477d5b`, before the [#410 claim](https://github.com/berkeleynerd/silver/issues/410#issuecomment-7061476172).
+Integration uses `tmp/named-array-parameters-410`; separate native, mathematical
+proof and source-correspondence worktrees retain their own outputs and caches.
+These checkpoints are development evidence, not completed capability assurance.
+All runs below are Linux x86_64 on the primary host. Automatic worker/thread
+allocation was 22 where applicable; no complete native or Lean checkpoint has
+yet been started for the feature.
+
+| Round | Selected settings | Result and remaining work | Run/time evidence |
+| --- | --- | --- | --- |
+| Nominal input and bounds foundation | Proof role Astra Max in current continuation; original launch settings not retained here | Static query bounds, captured component domains, disjoint virtual formals and read-only forwarding proved. Earlier focused failures retained. | `20261121T105037-e0e709fe6caf`: 15 modules, 1,747 declarations, 15.3 s; failures `20261121T104900-79092227dc9a`, `20261121T105011-2ead4d67436d` |
+| Native metadata | Original worker model/effort selection not retained | Build and complete focused array-bindings unit passed; this commit alone admits no new source form. | Build `20261121T105134-ba712d6b0261`; canonical focused `20261121T105220-18556e6bb779`: all 140 checks, 12.0 s. Earlier build `20261121T105117-83ee7415b265` failed tool-directory validation before compilation. |
+| Call and frame semantics | Proof role Astra Max in current continuation | Nominal and component-domain input checks, incoming-state capture, scalar output restrictions and mixed frame construction proved in focused scopes. Body composition and actual-source binding remain pending. | `20261121T105314-2002184ad6d1`: 44 modules, 6,106 declarations, 26.3 s; `20261121T105612-51641edcbf7d`: 18 modules, 2,120 declarations, 15.6 s |
+| Specification/catalogue and examples | Specification worker GPT-6.1 Sol Extra High; lead runtime settings not independently exposed | Specification and emitter updated together. New regressions and callable Dot product/Horner samples committed; production catalogue regeneration and full-route tests pending. | Specification commit `3c26c874e0`; sample/test commits `2999a51fb6`, `e041e10f5d`; whitespace, syntax and emitter JSON inspected |
+| Native feature admission | Original worker selection not retained | Named declarations, input frames/calls and bounds queries build; eight-case admission smoke passes. Full helper contracts, broader regressions and source proofs remain pending. | Native commit `c140f4a406`; build `20261121T110038-179aa1d1d507`; smoke `20261121T110157-c2f06dabc56f` |
+| Horner producer discovery | Lead runtime settings not independently exposed | The initial ordinary-Ada sample proved 71 checks using the pinned producer and no inlining. The subsequent fully parenthesized Silver sample still needs its own final full route. No new diagnostic class was observed. | Experimental `20261121T110025-374f2b5d399f` passed. `20261121T105910-72724203cefe` remains failed: its input directory incorrectly included generated outputs, despite successful prover checks. |
+
+The function sample uses a fixed three-element vector and sums its three
+corresponding products; arbitrary length is optional in the task. Its declared
+component range gives each product `-100 .. 100` and the sum `-300 .. 300`.
+The procedure sample reads four coefficients in increasing-power order and walks
+their range in reverse. Its accumulator guard `-98 .. 98`, argument range
+`-10 .. 10` and coefficient range `-20 .. 20` bound each multiply-add by
+`-1000 .. 1000`. Failed capacity sets a separate Boolean result and suppresses
+numeric output. Independent direct arithmetic gives the required Dot product
+`3` and polynomial value `128`; execution must still confirm the exact bytes.
+
+Current source-correspondence work uses an explicitly selected GPT-6 Astra Max
+worker for native array/signature metadata and its checked source equations.
+The lead owns scalar-expression/attribute integration. Runtime settings are
+not independently exposed by these records. Foundational model successes do
+not stand in for native correspondence, final discharge or independent review.
