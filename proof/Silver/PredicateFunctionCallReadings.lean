@@ -1,5 +1,6 @@
 module
 
+public import Silver.ScalarArrayGrammarRecognition
 public import Silver.PredicateCallAdmission
 public import Silver.PredicateFunctionCallTypes
 public import Silver.PredicateAssociationBounds
@@ -17,15 +18,18 @@ open Compose
 formal domain only checks containment after the expression has been read. -/
 inductive ActualPayload (text : Source) (context : ParseContext) (position : Nat)
     (facts : ActiveFlow) (formal : FunctionBindings.Formal) : ScalarFunctions.Actual → Prop
-  | integer {expression} : formal.kind = .integer →
-      ScalarExpression.At (elaborating := context.elaborating) (arrays := context.arrayNames)
+  | integer {expression} : formal.typeId = 0 → formal.kind = .integer →
+      ScalarExpression.ArrayGrammar.At (elaborating := context.elaborating) (arrays := context.arrayTable)
         text (context.readingNames facts) position expression (readScalarInFlow text context position facts) →
       (readScalarInFlow text context position facts).bounds.isEmpty = false →
       (readScalarInFlow text context position facts).bounds.included formal.bounds = true →
       ActualPayload text context position facts formal (.integer expression)
-  | boolean {condition} : formal.kind = .boolean →
+  | boolean {condition} : formal.typeId = 0 → formal.kind = .boolean →
       ConditionAt text context position facts condition (readCondition text context position facts) →
       ActualPayload text context position facts formal (.boolean condition)
+  | array {item} : ArrayActualAt text context position formal.typeId item
+      (arrayActualAfter text context position formal.typeId) →
+      ActualPayload text context position facts formal (.array formal.typeId item.viewDescriptor)
 
 structure ActualAt (text : Source) (context : ParseContext) (position : Nat)
     (facts : ActiveFlow) (formal : FunctionBindings.Formal) (actual : ScalarFunctions.Actual)
@@ -41,30 +45,37 @@ theorem actual_sound {text context position facts formal}
     (accepted : actualAfter text context position facts formal ≠ 0) :
     ∃ actual, ActualAt text context position facts formal actual
       (actualAfter text context position facts formal) := by
-  by_cases boolean : formal.kind = .boolean
-  · have positive : (readCondition text context position facts).after ≠ 0 := by
-      simpa only [actualAfter, boolean, ↓reduceIte] using accepted
-    obtain ⟨⟨condition, parsed⟩, bound⟩ := condition_sound text context position facts tv nv bounded positive
-    exact ⟨.boolean condition, ⟨rfl, accepted,
-      by simpa only [actualAfter, boolean, ↓reduceIte] using bound, .boolean boolean parsed⟩⟩
-  · have integer : formal.kind = .integer := by cases kind : formal.kind <;> simp_all
-    simp only [actualAfter, boolean, ↓reduceIte] at accepted ⊢
-    split at accepted
-    · contradiction
-    · rename_i allowed
-      have good : (readScalarInFlow text context position facts).after ≠ 0 ∧
-          (readScalarInFlow text context position facts).bounds.isEmpty = false ∧
-          (readScalarInFlow text context position facts).bounds.included formal.bounds = true := by
-        refine ⟨fun failed => allowed (Or.inl failed),
-          Bool.of_not_eq_true (fun empty => allowed (Or.inr (Or.inl empty))), ?_⟩
-        apply Bool.of_not_eq_false
-        intro excluded
-        exact allowed (Or.inr (Or.inr (by simp only [excluded, Bool.not_false])))
-      obtain ⟨expression, parsed⟩ := ScalarExpression.read_sound bounded good.1
-      refine ⟨.integer expression, ?_⟩
-      simp only [allowed, ↓reduceIte]
-      exact ⟨by simp only [actualAfter, boolean, allowed, ↓reduceIte], good.1,
-        parsed.cursorBounds.2.2, .integer integer parsed good.2.1 good.2.2⟩
+  by_cases named : formal.typeId ≠ 0
+  · have dispatch : actualAfter text context position facts formal =
+        arrayActualAfter text context position formal.typeId := ite_eq_left named
+    have reading := arrayActual_sound (dispatch ▸ accepted)
+    exact ⟨_, ⟨rfl, accepted, dispatch.symm ▸ (reading.cursorBounds bounded).2, .array reading⟩⟩
+  · have scalar : formal.typeId = 0 := by omega
+    by_cases boolean : formal.kind = .boolean
+    · have dispatch : actualAfter text context position facts formal =
+          (readCondition text context position facts).after := by
+        rw [actualAfter, ite_eq_right named, ite_eq_left boolean]
+      obtain ⟨⟨condition, reading⟩, bound⟩ :=
+        condition_sound text context position facts tv nv bounded (dispatch ▸ accepted)
+      exact ⟨.boolean condition, ⟨rfl, accepted, dispatch.symm ▸ bound, .boolean scalar boolean reading⟩⟩
+    · have integer : formal.kind = .integer := by cases kind : formal.kind <;> simp_all
+      let value := readScalarInFlow text context position facts
+      have dispatch : actualAfter text context position facts formal =
+          if value.after = 0 ∨ value.bounds.isEmpty ∨ !value.bounds.included formal.bounds
+          then 0 else value.after := by
+        rw [actualAfter, ite_eq_right named, ite_eq_right boolean]
+      split at dispatch
+      · exact False.elim (accepted dispatch)
+      · rename_i allowed
+        have positive : value.after ≠ 0 := dispatch ▸ accepted
+        have nonempty := Bool.of_not_eq_true (fun empty => allowed (Or.inr (Or.inl empty)))
+        have included : value.bounds.included formal.bounds = true := by
+          apply Bool.of_not_eq_false
+          intro excluded
+          exact allowed (Or.inr (Or.inr (by simp only [excluded, Bool.not_false])))
+        obtain ⟨expression, reading⟩ := ScalarExpression.ArrayGrammar.read_sound bounded positive
+        exact ⟨.integer expression, ⟨rfl, accepted, dispatch.symm ▸ reading.cursorBounds.2.2,
+          .integer scalar integer reading nonempty included⟩⟩
 
 theorem actual_unique {text context position facts formal left right leftAfter rightAfter}
     (first : ActualAt text context position facts formal left leftAfter)
@@ -72,14 +83,20 @@ theorem actual_unique {text context position facts formal left right leftAfter r
     left = right ∧ leftAfter = rightAfter := by
   refine ⟨?_, first.equation.symm.trans second.equation⟩
   cases first.payload with
-  | integer kind parsed _ _ =>
+  | integer scalar kind parsed _ _ =>
       cases second.payload with
-      | integer _ other _ _ => exact congrArg ScalarFunctions.Actual.integer (ScalarExpression.at_unique parsed other).1
-      | boolean other _ => simp [kind] at other
-  | boolean kind parsed =>
+      | integer _ _ other _ _ => exact congrArg ScalarFunctions.Actual.integer (ScalarExpression.ArrayGrammar.at_unique parsed other).1
+      | boolean _ other _ => simp [kind] at other
+      | array other => exact False.elim ((Nat.ne_of_gt other.nominal) scalar)
+  | boolean scalar kind parsed =>
       cases second.payload with
-      | integer other _ _ _ => simp [kind] at other
-      | boolean _ other => exact congrArg ScalarFunctions.Actual.boolean (condition_unique parsed other)
+      | integer _ other _ _ _ => simp [kind] at other
+      | boolean _ _ other => exact congrArg ScalarFunctions.Actual.boolean (condition_unique parsed other)
+      | array other => exact False.elim ((Nat.ne_of_gt other.nominal) scalar)
+  | array read =>
+      cases second.payload with
+      | integer scalar _ _ _ _ | boolean scalar _ _ => exact False.elim ((Nat.ne_of_gt read.nominal) scalar)
+      | array other => rw [read.resolved, other.resolved]
 
 /-- The trace is in written order, while its keys retain the selected formal.
 Every payload is read under the same incoming flow. -/
