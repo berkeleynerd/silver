@@ -428,7 +428,7 @@ def main(arguments: list[str] | None = None) -> None:
                     "retained_report_count": len(finish.get("retained_reports", [])),
                     **{key: run.get(key) for key in ("allocation", "resource_reductions", "resource_reason",
                         "effective_reserved_workers", "cpu_affinity", "effective_cpu_affinity",
-                        "cpu_limit_reason", "resource_adjustment_reason")},
+                        "cpu_limit_reason", "effective_resource_reason")},
                 })
             result["runs"] = summaries
         elif args.operation == "diagnose":

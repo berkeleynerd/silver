@@ -987,7 +987,8 @@ class LeanNativeDependencyTests(unittest.TestCase):
             host.lean.symlink_to(native.lean, target_is_directory=True)
             (root / "src").mkdir()
             inputs = {root / "proof" / name: contents.encode() for name, contents in (
-                ("lakefile.lean", "import Lake\nopen Lake DSL\npackage probe\nlean_lib Silver\n"),
+                ("lakefile.lean", "import Lake\nopen Lake DSL\npackage probe where\n"
+                 "  weakLeanArgs := #[\"-j1\"]\nlean_lib Silver\n"),
                 ("lean-toolchain", (ROOT / "proof/lean-toolchain").read_text()),
                 ("Silver/Removed.lean", "def Silver.removed : Nat := 42\n"),
                 ("Silver/Importer.lean", "import Silver.Removed\n"
@@ -998,6 +999,7 @@ class LeanNativeDependencyTests(unittest.TestCase):
                 ("Silver.lean", "import Silver.Transitive\nimport Silver.Independent\n"))}
             prepare_workspace(host, inputs)
             environment = lean_environment(host)
+            environment["LEAN_NUM_THREADS"] = "1"
 
             def lake(*arguments: str) -> subprocess.CompletedProcess[str]:
                 return subprocess.run([str(host.lean / "bin/lake"), *arguments],
@@ -1021,7 +1023,7 @@ class LeanNativeDependencyTests(unittest.TestCase):
             self.assertIn("Silver.Removed", result.stdout + result.stderr)
             probe = host.proof / "Probe.lean"
             probe.write_text("import Silver.Transitive\n#check Silver.transitive\n")
-            result = lake("env", "lean", "Probe.lean")
+            result = lake("env", "lean", "-j1", "Probe.lean")
             self.assertNotEqual(result.returncode, 0, result.stdout + result.stderr)
             self.assertIn("Silver.Removed", result.stdout + result.stderr)
             result = lake("build", "+Silver.Independent")
@@ -1034,6 +1036,8 @@ class LeanNativeDependencyTests(unittest.TestCase):
         native = native_layout(ROOT)
         if not (native.lean / "bin/lake").is_file():
             self.skipTest("install the pinned native Lean tools to check Lake configuration")
+        available = check_lean.available_cpus()
+        changed_workers, changed_threads = min(3, available), min(2, available)
         with tempfile.TemporaryDirectory(prefix="silver lean config-") as temporary:
             root = Path(temporary).resolve()
             host = HostLayout(root, native.key)
@@ -1075,25 +1079,27 @@ class LeanNativeDependencyTests(unittest.TestCase):
             self.assertIn("lake workers=1", first.stdout + first.stderr)
             artifact = host.proof / ".lake/build/lib/lean/Silver/Audit.olean"
             before = (artifact.read_bytes(), artifact.stat().st_mtime_ns)
-            build(3, 2, 512)
+            build(changed_workers, changed_threads, 512)
             self.assertEqual((artifact.read_bytes(), artifact.stat().st_mtime_ns), before)
             # Force a new Lean process after changing only the cached Lake
             # configuration. Without --reconfigure it still receives -j1/-M256.
             (host.proof / "Silver/Audit.lean").write_bytes(
                 audit_source + b"example : 2 + 2 = 4 := rfl\n")
-            changed = build(3, 2, 512)
-            self.assertRegex(changed.stdout + changed.stderr, r"\s-j2\s-M512\b")
-            self.assertIn("lake workers=3", changed.stdout + changed.stderr)
-            # Returning to automatic settings preserves accepted objects and
-            # removes both overrides from the next actual compiler invocation.
+            changed = build(changed_workers, changed_threads, 512)
+            self.assertRegex(changed.stdout + changed.stderr, rf"\s-j{changed_threads}\s-M512\b")
+            self.assertIn(f"lake workers={changed_workers}", changed.stdout + changed.stderr)
+            # The runner resolves automatic threads to its grant explicitly.
+            # Returning to that allocation removes the memory override while
+            # preserving accepted objects, including on a one-CPU test grant.
             before = (artifact.read_bytes(), artifact.stat().st_mtime_ns)
-            build(3, None, None)
+            build(available, available, None)
             self.assertEqual((artifact.read_bytes(), artifact.stat().st_mtime_ns), before)
             (host.proof / "Silver/Audit.lean").write_bytes(
                 audit_source + b"example : 3 + 3 = 6 := rfl\n")
-            automatic = build(3, None, None)
-            self.assertNotRegex(automatic.stdout + automatic.stderr, r"\s-[jM]\d+\b")
-            self.assertIn("lake workers=3", automatic.stdout + automatic.stderr)
+            automatic = build(available, available, None)
+            self.assertRegex(automatic.stdout + automatic.stderr, rf"\s-j{available}\b")
+            self.assertNotRegex(automatic.stdout + automatic.stderr, r"\s-M\d+\b")
+            self.assertIn(f"lake workers={available}", automatic.stdout + automatic.stderr)
 
     def test_lake_tracks_embedded_ada_bytes_and_preserves_unchanged_objects(self) -> None:
         native = native_layout(ROOT)
@@ -1130,6 +1136,7 @@ class LeanNativeDependencyTests(unittest.TestCase):
             inputs[root / "proof/Silver.lean"] = ("\n".join(imports) + "\n").encode()
             prepare_workspace(host, inputs)
             environment = lean_environment(host)
+            environment["LEAN_NUM_THREADS"] = "1"
             command = [str(host.lean / "bin/lake"), "--rehash", "-K", "silverThreads=1",
                        "build", "Silver"]
 

@@ -258,6 +258,7 @@ with history.ManagedRun(host, 'holder', ['test'], {}, [pathlib.Path(sys.argv[2])
             self.assertEqual(record["events"][0], before["events"][0])
             self.assertEqual(record["effective_reserved_workers"], 1)
             self.assertEqual(record["effective_cpu_affinity"], [7])
+            self.assertEqual(record["effective_resource_reason"], platforms.CPU_LIMIT_REASON)
             with self.run_context(resources=[], workers=None) as run:
                 self.assertEqual(run.workers, 1)
                 self.assertEqual(history.status(self.host)["reserved_workers"], 2)
@@ -267,6 +268,23 @@ with history.ManagedRun(host, 'holder', ['test'], {}, [pathlib.Path(sys.argv[2])
         self.release(process)
         with self.assertRaisesRegex(history.RunHistoryError, "active run"):
             history.adjust_resources(self.host, info["run_id"], 1, platforms.CPU_LIMIT_REASON)
+
+    @unittest.skipUnless(hasattr(os, "sched_getaffinity"), "requires Linux affinity")
+    def test_active_worker_grants_prefer_disjoint_allowed_affinities(self):
+        # Simulate eight allowed CPUs without consuming other live runs' CPUs.
+        with mock.patch.object(history, "available_cpus", return_value=8), \
+                mock.patch.object(os, "sched_getaffinity", return_value=set(range(8))), \
+                mock.patch.object(os, "sched_setaffinity"):
+            with self.run_context(resources=[], workers=4,
+                                  resource_reason=platforms.CPU_LIMIT_REASON) as first:
+                with self.run_context(resources=[], workers=4) as second:
+                    self.assertEqual(first.record["cpu_affinity"], [0, 1, 2, 3])
+                    self.assertEqual(second.record["cpu_affinity"], [4, 5, 6, 7])
+                    self.assertEqual(history.status(self.host)["reserved_workers"], 8)
+                with mock.patch.object(os, "sched_getaffinity", return_value={0, 1}), \
+                        mock.patch.object(history, "process_cpus", return_value=2):
+                    with self.run_context(resources=[], workers=2) as forced:
+                        self.assertEqual(forced.record["cpu_affinity"], [0, 1])
 
     @unittest.skipUnless(hasattr(os, "sched_getaffinity"), "requires Linux affinity")
     def test_affinity_covers_existing_threads_and_inherited_children(self):

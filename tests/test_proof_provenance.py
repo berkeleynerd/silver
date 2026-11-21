@@ -64,6 +64,9 @@ class ProvenanceTests(unittest.TestCase):
         cpus = mock.patch("scripts.run_history.available_cpus", return_value=8)
         cpus.start()
         self.addCleanup(cpus.stop)
+        process_cpus = mock.patch("scripts.run_history.process_cpus", return_value=8)
+        process_cpus.start()
+        self.addCleanup(process_cpus.stop)
 
     def refresh_invocation(self) -> None:
         self.sarif["runs"][0]["invocations"][0]["commandLine"] = " ".join(self.command)

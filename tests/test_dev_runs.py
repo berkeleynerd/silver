@@ -49,6 +49,7 @@ class DevRunTests(unittest.TestCase):
         for patch in (mock.patch.object(dev, "native_layout", return_value=self.host),
                       mock.patch.object(dev, "alire_command", side_effect=self.fixture_alire),
                       mock.patch.object(run_history, "available_cpus", return_value=4),
+                      mock.patch.object(run_history, "process_cpus", return_value=4),
                       mock.patch.object(proof_provenance, "tool_identities", return_value=self.tools),
                       mock.patch.object(dev, "tool_identities", return_value=self.tools)):
             patch.start()
@@ -909,6 +910,20 @@ class DevRunTests(unittest.TestCase):
              "resource_reductions": ["threads"], "resource_reason": "Lean audit shares this host"},
             {"kind": "fixture", "workers": 0, "allocation": None, "resource_reductions": None,
              "resource_reason": None}])
+
+    def test_status_summary_distinguishes_adjusted_limits_from_launch_settings(self):
+        with run_history.ManagedRun(self.host, "fixture", [sys.executable], {}, [], workers=4,
+                                    resource_reason="launch allocation") as active:
+            launch_affinity = active.record["cpu_affinity"]
+            run_history.adjust_resources(self.host, active.run_id, 1,
+                                         "host's eight-CPU allocation", cpu_affinity=[3])
+            summary, = json.loads(self.main(["runs", "status"]))["runs"]
+            self.assertEqual(summary["workers"], 4)
+            self.assertEqual(summary["cpu_affinity"], launch_affinity)
+            self.assertEqual(summary["resource_reason"], "launch allocation")
+            self.assertEqual(summary["effective_reserved_workers"], 1)
+            self.assertEqual(summary["effective_cpu_affinity"], [3])
+            self.assertEqual(summary["effective_resource_reason"], "host's eight-CPU allocation")
 
     def test_invoke_retains_failure_stdout_stderr_and_passes_live_lease(self):
         log = self.root / "child.log"

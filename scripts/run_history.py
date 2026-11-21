@@ -55,11 +55,14 @@ def available_cpus() -> int:
     return cpu_budget()
 
 
-def _restrict_affinity(workers: int) -> tuple[dict[int, set[int]], list[int]]:
+def _restrict_affinity(workers: int, claimed=()) -> tuple[dict[int, set[int]], list[int]]:
     """Restrict existing launcher threads; future threads/children inherit it."""
     if not hasattr(os, "sched_getaffinity") or not hasattr(os, "sched_setaffinity"):
         return {}, []
-    selected = sorted(os.sched_getaffinity(0))[:max(1, workers)]
+    # Prefer unused CPUs without widening an explicitly inherited mask. Forced
+    # narrow masks and older runs with unknown masks can still overlap.
+    selected = sorted(sorted(os.sched_getaffinity(0),
+                             key=lambda cpu: (cpu in claimed, cpu))[:max(1, workers)])
     saved = {}
     try:
         # Linux affinity is per-thread. Rescan until every current parent has
@@ -153,6 +156,8 @@ def _runs(root: Path) -> list[dict]:
             continue
         start = dict(events[0])
         start["effective_reserved_workers"] = start["workers"]
+        start["effective_cpu_affinity"] = start.get("cpu_affinity")
+        start["effective_resource_reason"] = start.get("resource_reason")
         for event in events:
             if event.get("event") == "prepared":
                 start.update({key: event[key] for key in ("inputs", "fingerprint", "scope", "expensive")})
@@ -160,7 +165,7 @@ def _runs(root: Path) -> list[dict]:
                 start.update({key: event[key] for key in ("command", "cwd") if key in event})
             elif event.get("event") == "resource-adjusted":
                 start["effective_reserved_workers"] = event["effective_reserved_workers"]
-                start["resource_adjustment_reason"] = event["resource_reason"]
+                start["effective_resource_reason"] = event["resource_reason"]
                 if "cpu_affinity" in event:
                     start["effective_cpu_affinity"] = event["cpu_affinity"]
         terminal = next((event for event in reversed(events)
@@ -484,7 +489,8 @@ class ManagedRun:
                 self._start_ns = time.monotonic_ns()
                 self._report_baseline = {str(path): _report_identity(path)
                                          for path in _report_files(self.failure_reports)}
-                self._affinity, affinity = _restrict_affinity(self.workers)
+                claimed = {cpu for run in active for cpu in run.get("effective_cpu_affinity") or []}
+                self._affinity, affinity = _restrict_affinity(self.workers, claimed)
                 self.record.update(workers=self.workers, available_cpus=capacity,
                                    cpu_limit_reason=CPU_LIMIT_REASON, cpu_affinity=affinity)
                 _append(self.directory / "events.jsonl", self.record)
