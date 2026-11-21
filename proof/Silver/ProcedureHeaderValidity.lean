@@ -15,7 +15,8 @@ structure ProcedureParameterExtension (text : Source) (before after : ParserStat
   firstParameter : after.firstProcedureParameter = before.firstProcedureParameter
   items : after.procedures.items = before.procedures.items
   grows : before.procedures.parameters.length < after.procedures.parameters.length
-  parameterPrefix : ∃ more, after.procedures.parameters = before.procedures.parameters ++ more
+  parameterPrefix : ∃ more, after.procedures.parameters = before.procedures.parameters ++ more ∧
+    ∀ formal ∈ more, formal.typeId ≤ before.arrayNames.types.length
   arrayTypes : after.arrayNames.types = before.arrayNames.types
 
 def ProcedureParameterResultValid (text : Source) (before after : ParserState) : Prop :=
@@ -62,13 +63,15 @@ theorem procedureParameterStep_valid (text : Source) (state : ParserState) (argu
           by_cases same : mode = .input
           · exact same
           · exact False.elim (admitted.2.2.2.2.2 ⟨positive, same⟩), nominal positive⟩⟩
+    have known := formalTypeAt_typeId_bound text state start
+    rw [valueEq] at known
     have extended := ProcedureBindings.appendFormal_valid metadata space itemValid
     split
     · right
-      exact ⟨extended, rfl, rfl, rfl, rfl, by simp [ProcedureBindings.appendFormal], ⟨_, rfl⟩, rfl⟩
+      exact ⟨extended, rfl, rfl, rfl, rfl, by simp [ProcedureBindings.appendFormal], ⟨_, rfl, by simpa only [List.mem_singleton, forall_eq] using known⟩, rfl⟩
     · split
       · right
-        exact ⟨extended, rfl, rfl, rfl, rfl, by simp [ProcedureBindings.appendFormal], ⟨_, rfl⟩, rfl⟩
+        exact ⟨extended, rfl, rfl, rfl, rfl, by simp [ProcedureBindings.appendFormal], ⟨_, rfl, by simpa only [List.mem_singleton, forall_eq] using known⟩, rfl⟩
       · exact .inl rfl
 
 theorem procedureParametersModel_valid (text : Source) (state : ParserState) (arguments : Bool)
@@ -96,9 +99,13 @@ theorem procedureParametersModel_valid (text : Source) (state : ParserState) (ar
           refine ⟨rest.valid, rest.subtypes.trans stepValid.subtypes, rest.functions.trans stepValid.functions,
             rest.firstParameter.trans stepValid.firstParameter, rest.items.trans stepValid.items,
             Nat.lt_trans stepValid.grows rest.grows, ?_, rest.arrayTypes.trans stepValid.arrayTypes⟩
-          obtain ⟨first, firstEq⟩ := stepValid.parameterPrefix
-          obtain ⟨more, moreEq⟩ := rest.parameterPrefix
-          exact ⟨first ++ more, by rw [moreEq, firstEq, List.append_assoc]⟩
+          obtain ⟨first, firstEq, firstKnown⟩ := stepValid.parameterPrefix
+          obtain ⟨more, moreEq, moreKnown⟩ := rest.parameterPrefix
+          refine ⟨first ++ more, by rw [moreEq, firstEq, List.append_assoc], ?_⟩
+          intro formal member
+          rcases List.mem_append.mp member with early | later
+          · exact firstKnown _ early
+          · simpa only [stepValid.arrayTypes] using moreKnown _ later
       · exact .inl rfl
 termination_by Predicate.remainingAt text state.position
 decreasing_by assumption

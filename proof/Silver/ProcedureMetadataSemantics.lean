@@ -59,7 +59,7 @@ theorem formalModels_valid {text : Source} (catalog : Metadata) (first count : N
     (valid : ValidMetadata text catalog) (positive : 0 < first)
     (bounded : first + count - 1 ≤ catalog.parameters.length) {types : ArrayBindings.TypeEnvironment}
     (typesValid : ArrayBindings.ValidTypes text types)
-    (known : ∀ formal ∈ catalog.parameters, formal.typeId ≤ types.length) :
+    (known : ∀ i, first ≤ i → i < first + count → (parameter catalog i).typeId ≤ types.length) :
     ∀ formal ∈ formalModels catalog first count types,
       formal.domain.Valid ∧ (formal.mode = .input ∨ formal.domain.IsScalar) := by
   induction count generalizing first with
@@ -69,13 +69,14 @@ theorem formalModels_valid {text : Source} (catalog : Metadata) (first count : N
       simp only [formalModels, List.mem_cons] at member
       rcases member with rfl | later
       · have member := parameter_mem (procedures := catalog) positive (by omega)
-        exact formalModel_valid (valid.2.2.1 _ member) typesValid (known _ member)
-      · exact ih (first + 1) (by omega) (by omega) formal later
+        exact formalModel_valid (valid.2.2.1 _ member) typesValid (known first (by omega) (by omega))
+      · exact ih (first + 1) (by omega) (by omega) (fun i lower upper => known i (by omega) (by omega)) formal later
 
 theorem signatureModel_valid {text : Source} {catalog : Metadata} {entry : Signature}
     (valid : ValidMetadata text catalog) (entryValid : ValidSignature text catalog entry)
     {types : ArrayBindings.TypeEnvironment} (typesValid : ArrayBindings.ValidTypes text types)
-    (known : ∀ formal ∈ catalog.parameters, formal.typeId ≤ types.length)
+    (known : ∀ i, entry.formalFirst ≤ i → i < entry.formalFirst + entry.count →
+      (parameter catalog i).typeId ≤ types.length)
     (writable : ScalarProcedures.outputTypes (signatureModel catalog entry types).formals ≠ []) :
     (signatureModel catalog entry types).Valid := by
   refine ⟨?_, ?_, writable⟩
