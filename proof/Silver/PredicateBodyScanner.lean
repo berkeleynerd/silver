@@ -202,6 +202,17 @@ def loopLowerPosition (text : Source) (scan : BodyScan) : Nat :=
   if loopReverse text scan then fixedAfter text (loopInAfter text scan) "reverse" true
   else loopInAfter text scan
 
+/-- A Range prefix is resolved before introducing the binder, using the native
+context names rather than their flow overlay. The new binder is masked. -/
+def loopRange (text : Source) (context : ParseContext) (scan : BodyScan) : ScalarExpression.Result :=
+  ScalarExpression.ArrayAttributes.read text (loopLowerPosition text scan)
+    context.scalarNames context.arrayTable (loopFirst text scan) (loopNameAfter text scan) true
+
+/-- Semantic endpoint values captured by a Range query. These are not claimed
+to be scalar expressions written in the source. -/
+def loopEndpoint (after : Nat) (value : Int) : ScalarExpression.Result :=
+  ⟨after, .singleton value, 1, true⟩
+
 /-- Capture the iterable's binding identity before appending the element name.
 The scoped name is masked in its own iterator specification. -/
 def loopArrayTarget (text : Source) (context : ParseContext) (scan : BodyScan) : Nat :=
@@ -213,7 +224,7 @@ def loopArrayAllowed (text : Source) (context : ParseContext) (scan : BodyScan) 
   let after := nameAfter text first
   decide (first ≠ 0 ∧ first < after ∧ target ≠ 0) && !(ArrayBindings.binding context.arrayNames target).mutable &&
     !Named.equalName text (loopFirst text scan) (loopNameAfter text scan) first after &&
-    !(ArrayBindings.binding context.arrayNames target).isBoolean
+    !(ArrayBindings.binding context.arrayNames target).isBoolean && !context.pure
 
 def LoopHeader.bounds (header : LoopHeader) : Integer.Interval :=
   if header.isArray then header.componentBounds else Integer.loopBounds header.lower.bounds header.upper.bounds
@@ -222,10 +233,13 @@ def loopHeader (text : Source) (context : ParseContext) (scan : BodyScan) : Loop
   let first := loopFirst text scan
   let after := loopNameAfter text scan
   let isArray := loopIsArray text scan
+  let shape := loopRange text context scan
   let lower := if isArray then ScalarExpression.invalid else
-    readCountedBound text context (loopLowerPosition text scan) scan.facts first after
+    if shape.after ≠ 0 then loopEndpoint shape.after shape.bounds.lower else
+      readCountedBound text context (loopLowerPosition text scan) scan.facts first after
   let upper := if isArray then ScalarExpression.invalid else
-    readCountedBound text context (fixedAfter text lower.after ".." false) scan.facts first after
+    if shape.after ≠ 0 then loopEndpoint shape.after shape.bounds.upper else
+      readCountedBound text context (fixedAfter text lower.after ".." false) scan.facts first after
   let components := (ArrayBindings.binding context.arrayNames (loopArrayTarget text context scan)).componentBounds
   let bounds := if isArray then components else Integer.loopBounds lower.bounds upper.bounds
   let opening := if isArray then
