@@ -31,7 +31,8 @@ structure Links (imports : Imports) (composed : Compose.Expressions.Calls) (cond
   lookup : ∀ kind text state first after, imports.lookup kind text state first after = match kind with
     | .string => composed.function .lookupName text state.names first after
     | .scalar => composed.function .scalarLookup text state.scalarNames first after
-    | .array => composed.function .arrayLookup text state.arrayNames.names first after
+    | .array => composed.function .arrayLookup text state.arrayNames.table first after
+    | .arrayType => composed.function .arrayTypeLookup text state.arrayNames.types first after
     | .subtype => composed.function .subtypeLookup text state.subtypeNames first after
     | .boolean => composed.function .booleanLookup text state.booleanNames first after
     | .function => composed.function .functionLookup text state.functions first after
@@ -98,7 +99,8 @@ theorem imports_meaning {imports composed condition}
     cases kind with
     | string => exact interpreted_lookup composed equations text tv state.names _ _ valid.nativeState.nativeNames bounds.typeFirst bounds.typeAfter
     | scalar => exact equations.scalarLookup text tv state.scalarNames _ _ scalars bounds.typeFirst bounds.typeAfter
-    | array => exact equations.arrayLookup text tv state.arrayNames.names _ _ arrays.1 bounds.typeFirst bounds.typeAfter
+    | array => exact equations.arrayLookup text tv state.arrayNames.table _ _ arrays.1 bounds.typeFirst bounds.typeAfter
+    | arrayType => exact equations.arrayTypeLookup text tv state.arrayNames.types _ _ arrays.1.1 bounds.typeFirst bounds.typeAfter
     | subtype => exact interpreted_subtypeLookup composed equations text tv state.subtypeNames _ _ subtypes bounds.typeFirst bounds.typeAfter
     | boolean => exact equations.booleanLookup text tv state.booleanNames _ _ booleans bounds.typeFirst bounds.typeAfter
     | function => exact equations.functionLookup text tv state.functions _ _ functions bounds.typeFirst bounds.typeAfter
