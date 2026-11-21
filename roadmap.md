@@ -39,6 +39,29 @@ affected Rosetta tests rerun after resolving the session-history conflict.
 
 ## Near-term feature queue
 
+**Selected language capability, 2026-11-21.** The owner instructed **“Proceed”**
+with named constrained fixed-size Integer-array types, read-only array `in`
+parameters in existing Main-local functions **and procedures** alongside scalar
+arguments, and static `'First`, `'Last`, `'Length` and `'Range` bounds queries
+on named arrays and existing anonymous Integer-array objects. Anonymous arrays
+remain excluded as call actuals; Boolean-array types, parameters and queries are
+unselected.
+[#410](https://github.com/berkeleynerd/silver/issues/410), in
+[milestone 27](https://github.com/berkeleynerd/silver/milestone/27), owns the
+[capability plan](docs/named-array-parameters.md). Dot product and Horner polynomial
+evaluation are the drivers. This is one coherent language batch with one shared
+final checkpoint; no samples-only detour or separate agent-sized delivery is
+selected. Its implementation, validation, independent review and feature PR are
+authorized by the [dated instruction](docs/session-memory.md#2026-11-21--named-constrained-integer-array-parameters-selected).
+The capability is not yet supported. Preserve full declared-domain checking,
+complete native and Lean/actual-source assurance and precise Rosetta progression.
+Writable, returned and unconstrained arrays and a separate expansion of array
+locals remain outside this batch. The capability plan records nominal identity,
+visibility, static-query and declared-domain rules; establish metadata/capacity
+and source-proof composition before admission.
+No provisional successor is selected. Deferred #381/#382 and #398 remain outside
+this queue; PR #385 stays held and Worca remains stopped.
+
 **Reduced package complete on Linux, 2026-11-21 (PR #406).** The owner instructed
 **“Approved. Proceed to completion and the accompanying PR”** for
 [proof iteration efficiency #373](https://github.com/berkeleynerd/silver/issues/373),
@@ -72,7 +95,7 @@ revises the original all-eight completion scope. Full assurance and applicable
 fresh audits remain required; cache reuse remains available, with no mandatory
 cold rebuild or kernel replay. Codex handles the work directly after the owner's
 stop-Worca instruction. The new PR is authorized; its merge is not. PR #385 stays
-held, and no next language feature is selected.
+held. The later 2026-11-21 instruction above selects the next language feature.
 
 **Samples-only delivery, complete on Linux, 2026-11-20 (PR #403).** The owner requested development
 of [#400](https://github.com/berkeleynerd/silver/issues/400),
