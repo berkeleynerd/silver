@@ -9,7 +9,13 @@ public import Silver.PredicateArrayViews
 static literal values; component reads retain their source-selected descriptor.
 The recursive subscript reader disables component reads while preserving shape
 attributes, so `A (A'First)` does not admit nested indexed components. -/
-namespace Silver.ScalarExpression.ArrayGrammar
+namespace Silver.ScalarExpression
+
+inductive ArrayReadMode
+  | allElements | mutableElements | noElements
+  deriving DecidableEq, Repr
+
+namespace ArrayGrammar
 
 def attributeAtom (text : Source) (position : Nat) (names : Environment)
     (arrays : ArrayBindings.Table) (maskFirst maskAfter : Nat) : Option Parsed := do
@@ -17,7 +23,7 @@ def attributeAtom (text : Source) (position : Nat) (names : Environment)
   some ⟨query.after, .literal (query.query.bounds query.shape).lower⟩
 
 def parseFuel : Nat → Source → Nat → Environment → ArrayBindings.Table →
-    Nat → Nat → Bool → Bool → Option Parsed
+    Nat → Nat → Bool → ArrayReadMode → Option Parsed
   | 0, _, _, _, _, _, _, _, _ => none
   | fuel + 1, text, position, names, arrays, maskFirst, maskAfter, allowSign, arrayReads =>
       let first := skip text position
@@ -25,11 +31,14 @@ def parseFuel : Nat → Source → Nat → Environment → ArrayBindings.Table �
       else if Cursor.byteAt text first ≠ 40 then
         let ordinary := ScalarExpression.atom text first names maskFirst maskAfter allowSign
         if ordinary.isSome then ordinary else
-          let query := attributeAtom text first names arrays maskFirst maskAfter
-          if query.isSome then query else
-            let after := nameAfter text first
+          let after := nameAfter text first
+          if symbol text after 39 ≠ 0 then
+            attributeAtom text first names arrays maskFirst maskAfter
+          else
             let target := ArrayBindings.lookup text arrays.items first after
-            if !arrayReads ∨ after = 0 ∨ target = 0 ∨
+            if arrayReads = .noElements ∨
+                (arrayReads = .mutableElements ∧ (ArrayBindings.binding arrays.items target).mutable = false) ∨
+                after = 0 ∨ target = 0 ∨
                 (ArrayBindings.binding arrays.items target).isBoolean = true ∨
                 lookup text names first after ≠ 0 ∨
                 Cursor.byteAt text first = 43 ∨ Cursor.byteAt text first = 45 ∨
@@ -38,7 +47,7 @@ def parseFuel : Nat → Source → Nat → Environment → ArrayBindings.Table �
             else
               let opened := symbol text after 40
               if opened = 0 then none else do
-                let index ← parseFuel fuel text opened names arrays maskFirst maskAfter true false
+                let index ← parseFuel fuel text opened names arrays maskFirst maskAfter true .noElements
                 let closed := symbol text index.after 41
                 if closed ≤ first then none
                 else some ⟨closed, .indexed (ArrayBindings.binding arrays.items target).viewDescriptor index.expression⟩
@@ -75,7 +84,7 @@ def summarize (names : Environment) (arrays : ArrayBindings.Table)
 def read (text : Source) (position : Nat) (names : Environment)
     (arrays : ArrayBindings.Table) (maskFirst maskAfter : Nat := 0)
     (allowSign : Bool := true) (initials : ArrayBindings.Initials := [])
-    (elaborating : Bool := false) (arrayReads : Bool := true) : Result :=
+    (elaborating : Bool := false) (arrayReads : ArrayReadMode := .allElements) : Result :=
   summarize names arrays initials elaborating
     (parseFuel (text.length + 1) text position names arrays maskFirst maskAfter allowSign arrayReads)
 
@@ -105,7 +114,7 @@ theorem summarize_success {names : Environment} {arrays : ArrayBindings.Table}
 
 theorem read_has_expression {text : Source} {position : Nat} {names : Environment}
     {arrays : ArrayBindings.Table} {maskFirst maskAfter : Nat} {allowSign : Bool}
-    {initials : ArrayBindings.Initials} {elaborating arrayReads : Bool}
+    {initials : ArrayBindings.Initials} {elaborating : Bool} {arrayReads : ArrayReadMode}
     (success : (read text position names arrays maskFirst maskAfter allowSign initials elaborating arrayReads).after ≠ 0) :
     ∃ expression, expression.infer (ArrayBindings.viewRanges arrays.items initials elaborating (ranges names)) =
         some (read text position names arrays maskFirst maskAfter allowSign initials elaborating arrayReads).bounds ∧
@@ -117,7 +126,7 @@ theorem read_has_expression {text : Source} {position : Nat} {names : Environmen
 
 theorem read_safe {text : Source} {position : Nat} {names : Environment}
     {arrays : ArrayBindings.Table} {maskFirst maskAfter : Nat} {allowSign : Bool}
-    {initials : ArrayBindings.Initials} {elaborating arrayReads : Bool} {values : Integer.Store}
+    {initials : ArrayBindings.Initials} {elaborating : Bool} {arrayReads : ArrayReadMode} {values : Integer.Store}
     (success : (read text position names arrays maskFirst maskAfter allowSign initials elaborating arrayReads).after ≠ 0)
     (fits : Integer.Fits (ArrayBindings.viewRanges arrays.items initials elaborating (ranges names)) values) :
     ∃ expression : Integer.Expr, expression.Safe values ∧
@@ -130,8 +139,9 @@ theorem read_safe {text : Source} {position : Nat} {names : Environment}
 
 theorem read_zero (text : Source) (names : Environment) (arrays : ArrayBindings.Table)
     (maskFirst maskAfter : Nat) (allowSign : Bool) (initials : ArrayBindings.Initials)
-    (elaborating arrayReads : Bool) :
+    (elaborating : Bool) (arrayReads : ArrayReadMode) :
     read text 0 names arrays maskFirst maskAfter allowSign initials elaborating arrayReads = invalid := by
   simp [read, parseFuel, skip, summarize]
 
-end Silver.ScalarExpression.ArrayGrammar
+end ArrayGrammar
+end Silver.ScalarExpression

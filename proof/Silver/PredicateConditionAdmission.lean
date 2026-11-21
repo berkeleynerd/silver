@@ -255,7 +255,7 @@ def booleanArrayAfter (text : Source) (context : ParseContext) (position : Nat)
   let after := nameAfter text first
   let target := ArrayBindings.lookup text context.arrayNames first after
   let subscript := ScalarExpression.ArrayGrammar.read text (fixedAfter text after "(" false)
-    (context.readingNames facts) context.arrayTable context.maskFirst context.maskAfter (arrayReads := false)
+    (context.readingNames facts) context.arrayTable context.maskFirst context.maskAfter (arrayReads := .noElements)
   let close := fixedAfter text subscript.after ")" false
   if first = 0 ∨ after ≤ first ∨ target = 0 ∨
       (ArrayBindings.binding context.arrayNames target).isBoolean = false ∨
