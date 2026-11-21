@@ -366,6 +366,7 @@ def booleanInitializerContext (state : ParserState) (maskFirst maskAfter : Nat) 
     scalarNames := state.scalarNames
     declarationCount := state.scalarNames.length
     arrayNames := state.arrayNames.names
+    arrayTypes := state.arrayNames.types
     subtypeHiding := state.subtypeNames.hiddenCalls
     booleanNames := state.booleanNames
     trueHidden := state.subtypeNames.trueHidden || state.hiding.trueHidden
@@ -487,6 +488,7 @@ def booleanDeclarationContext (state : ParserState) (parts : BooleanDeclarationP
     scalarNames := state.scalarNames
     declarationCount := state.scalarNames.length
     arrayNames := state.arrayNames.names
+    arrayTypes := state.arrayNames.types
     subtypeHiding := state.subtypeNames.hiddenCalls
     booleanNames := state.booleanNames
     trueHidden := state.subtypeNames.trueHidden || state.hiding.trueHidden

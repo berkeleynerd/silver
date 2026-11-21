@@ -1120,7 +1120,7 @@ def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
   | .statePositionArray a b c => {a.eval calls locals with position := b.eval calls locals, arrayNames := c.eval calls locals}
   | .arrayAppend a b c d e f g h i => a.eval calls locals ++
       [⟨b.eval calls locals, c.eval calls locals, d.eval calls locals, e.eval calls locals,
-        f.eval calls locals, g.eval calls locals, h.eval calls locals, i.eval calls locals⟩]
+        f.eval calls locals, g.eval calls locals, h.eval calls locals, i.eval calls locals, 0, 0⟩]
   | .maxScalarBindings => ScalarExpression.maxBindings
   | .fullInterval => Integer.Interval.full
   | .emptyInterval => Integer.Interval.empty

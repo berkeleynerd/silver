@@ -34,7 +34,7 @@ def addArrayBinding (state : ParserState) (first after : Nat) (bounds : Integer.
     (offset length : Nat) (mutable : Bool) (following : Nat)
     (componentBounds : Integer.Interval) (isBoolean : Bool := false) : ParserState :=
   {state with position := following, arrayNames := {state.arrayNames with
-    names := state.arrayNames.names ++ [⟨first, after, bounds, offset, length, mutable, componentBounds, isBoolean⟩]}}
+    names := state.arrayNames.names ++ [⟨first, after, bounds, offset, length, mutable, componentBounds, isBoolean, 0, 0⟩]}}
 
 def arrayAddBody : Expr .state :=
   let state : Expr .state := .variable "state"

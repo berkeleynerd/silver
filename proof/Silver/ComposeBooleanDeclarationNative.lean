@@ -31,13 +31,14 @@ structure Context where
   maskAfter : Nat
   pure : Bool := false
   integerHidden : Bool := false
+  arrayTypes : ArrayBindings.TypeEnvironment := []
   deriving DecidableEq, Repr
 
 def Context.model (context : Context) : ParseContext :=
   ⟨context.names, decide (context.dynamicFirst ≠ 0), context.scalarNames,
     context.declarationCount, context.arrayNames, context.subtypeHiding, context.booleanNames,
     context.trueHidden, context.falseHidden, context.elaborating, context.maskFirst, context.maskAfter,
-    context.pure, context.integerHidden⟩
+    context.pure, context.integerHidden, context.arrayTypes⟩
 
 structure Scan where
   state : ParserState
@@ -51,7 +52,7 @@ def contextOf (scan : Scan) : Context :=
     scan.state.arrayNames.names, scan.state.subtypeNames.hiddenCalls, scan.state.booleanNames,
     scan.state.subtypeNames.trueHidden || scan.state.hiding.trueHidden,
     scan.state.subtypeNames.falseHidden || scan.state.hiding.falseHidden, false, 0, 0,
-    scan.state.pure, scan.state.hiding.integerHidden⟩
+    scan.state.pure, scan.state.hiding.integerHidden, scan.state.arrayNames.types⟩
 
 def initialFlow (context : Context) : ActiveFlow :=
   ActiveFlow.initial context.scalarNames

@@ -497,7 +497,7 @@ structure RawHelperEquations (calls : Calls) (evaluator : Calls := lexical calls
       scalarDeclarationBody.eval evaluator (Context.locals {text,state,arguments})
   arrayAdd : ∀ text, ValidText text → ∀ state first after bounds offset length mutable following componentBounds isBoolean,
     NativeState domain text state → ValidName text first after →
-    ArrayBindings.ValidBinding ⟨first, after, bounds, offset, length, mutable, componentBounds, isBoolean⟩ →
+    ArrayBindings.ValidBinding ⟨first, after, bounds, offset, length, mutable, componentBounds, isBoolean, 0, 0⟩ →
     state.arrayNames.names.length < ArrayBindings.maxBindings →
     offset + length ≤ state.arrayNames.used → ArrayAddDomain state.arrayNames.names offset →
     ValidCursor text following →
