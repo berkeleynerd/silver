@@ -93,6 +93,10 @@ def valueMentions (cell : Cell) : ScalarFunctions.Actual → Bool
       | .integer identity => integerMentions identity expression
       | .boolean _ => false
   | .boolean condition => conditionMentions cell condition
+  | .array _ source =>
+      match cell with
+      | .integer identity => decide (source.ContainsCell identity)
+      | .boolean _ => false
 
 def Actual.apart : Actual → Actual → Bool
   | .value _, .value _ => true
