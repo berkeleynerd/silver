@@ -521,3 +521,22 @@ local forms, and String/Character snapshots from a named array. The first test
 fixture was corrected to use visible type queries before formal installation;
 its rejected result is retained. The final suite now contains 785 identities,
 subject to its final census, and remains pending.
+
+## Checked source repair checkpoint — 2026-11-21 21:09 UTC
+
+The [independent source review](reviews/review-named-array-source-20261121.md)
+confirms that `ba0e9fee9a` resolves #414 across Main and both callable-local
+Boolean paths. It independently matched the exact focused Lean inputs and all
+135 Ada sources per reviewed run. The String/Character repair preserves both
+public source-assurance theorem statements. The [focused source packet](evidence/named-array-parameters-410-20261121/focused-source-continuation/README.md)
+retains the earlier actual-source and import checkpoints.
+
+The final two repair scopes passed separately: String actual bounds
+`20261121T210103-c7ca3f0d2b24` (28,231 declarations, 344 modules), and complete
+Compose bridge plus inherited readiness `20261121T210207-8de88d24fdb5`
+(138,806 declarations, 650 modules). The earlier local inference/layout failures
+remain failed. The whole-project Lean/source checkpoint is now running on the
+integrated sources with automatic six-worker/six-thread allocation on CPUs 2–7,
+while the retained serial application proof keeps the two-worker reservation on
+CPUs 0–1. Neither a complete Lean pass nor final full regression coverage is
+claimed yet; no merge is authorized.
