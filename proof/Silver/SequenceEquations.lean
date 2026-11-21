@@ -359,8 +359,8 @@ decreasing_by omega
 private theorem initial_valid (text : Source) : ValidScan text initialScan := by
   simp [ValidScan, Compose.Expressions.ValidState, Compose.Expressions.ValidCursor,
     Compose.Expressions.ValidNames, initialScan, initialState, Named.NameState.Valid, maxBindings, maxSourceLength,
-    ScalarExpression.validEnvironment_empty, ArrayBindings.ValidEnvironment,
-    ArrayBindings.ValidMetadata, ArrayBindings.ValidInitials, IntegerSubtypes.valid_empty, BooleanBindings.valid_empty,
+    ScalarExpression.validEnvironment_empty, ArrayBindings.ValidNativeEnvironment, ArrayBindings.ValidTable, ArrayBindings.Env.table,
+    ArrayBindings.ValidTypes, ArrayBindings.ValidInitials, IntegerSubtypes.valid_empty, BooleanBindings.valid_empty,
     FunctionBindings.ValidMetadata, ProcedureBindings.ValidMetadata]
 
 theorem interpreted_form (calls : Calls) (helpers : HelperMeaning calls)
