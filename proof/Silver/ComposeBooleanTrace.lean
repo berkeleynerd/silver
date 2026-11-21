@@ -94,7 +94,7 @@ theorem boolean_declaration_meaning {text state raw}
       (booleanDeclarationFacts state) raw (booleanDeclarationValue text state) state.arrayNames.values := by
   apply condition_valid normal valid.2.1 _ _ _ (boolean_declaration_facts_bounded state) parsed
   · exact ready.contextReady valid.2.2.2.2.2.1.1
-  · exact ⟨valid.2.2.2.2.2.2.1.1, valid.2.2.2.2.2.2.1.1.2.2⟩
+  · exact valid.arrays.1
   · exact ScalarMetadata.initial_compatible ..
 
 theorem boolean_declaration_checks_discharge {text state declaration checks}
@@ -107,13 +107,13 @@ theorem boolean_declaration_checks_discharge {text state declaration checks}
   exact (boolean_declaration_meaning normal valid ready parsed).checked
 
 theorem boolean_declaration_ranges_exact {state : ParserState} {parts : BooleanDeclarationParts}
-    (static : ScalarExpression.StaticEnvironment state.scalarNames) :
+    (static : ScalarExpression.StaticEnvironment state.scalarNames) (stored : state.StoredArrays) :
     ExactScalarRanges ((booleanDeclarationContext state parts).flow
       (booleanDeclarationFacts state) state.arrayNames.values).scalars := by
   intro index bounds found
-  change ArrayBindings.integerRanges state.arrayNames.names state.arrayNames.values true
+  change ArrayBindings.viewRanges state.arrayNames.names state.arrayNames.values true
     (ActiveFlow.initial state.scalarNames _).model.scalars index = some bounds at found
-  rw [ActiveFlow.initial_model] at found
+  rw [ActiveFlow.initial_model, ArrayBindings.viewRanges_stored stored] at found
   unfold ArrayBindings.integerRanges ArrayBindings.ranges at found
   split at found
   · cases found
@@ -124,19 +124,20 @@ theorem boolean_declaration_ranges_exact {state : ParserState} {parts : BooleanD
     rfl
 
 theorem boolean_declaration_ranges_fit {state : ParserState} {parts : BooleanDeclarationParts}
-    (static : ScalarExpression.StaticEnvironment state.scalarNames) :
+    (static : ScalarExpression.StaticEnvironment state.scalarNames) (stored : state.StoredArrays) :
     Integer.Fits ((booleanDeclarationContext state parts).flow
       (booleanDeclarationFacts state) state.arrayNames.values).scalars
       (frozenIntegers state.scalarNames state.arrayNames.names state.arrayNames.values) := by
-  change Integer.Fits (ArrayBindings.integerRanges state.arrayNames.names state.arrayNames.values true
+  change Integer.Fits (ArrayBindings.viewRanges state.arrayNames.names state.arrayNames.values true
     (ActiveFlow.initial state.scalarNames _).model.scalars) _
   rw [ActiveFlow.initial_model]
-  exact frozenIntegers_fits static
+  exact frozenIntegers_view_fits (arrays := state.arrayNames.table) static stored
 
 theorem boolean_declaration_frozen_valid {text state declaration checks finalShape}
     (normal : NamesNormal state.names) (valid : ValidState text state)
     (ready : ScalarMetadata.HeaderReady state.scalarNames)
     (static : ScalarExpression.StaticEnvironment state.scalarNames)
+    (stored : state.StoredArrays)
     (extension : ShapeExtends state.names.shape finalShape)
     (trace : BooleanDeclarationChecksAt text state declaration checks) :
     declaration.value.Grammatical ∧
@@ -148,8 +149,8 @@ theorem boolean_declaration_frozen_valid {text state declaration checks finalSha
   obtain ⟨raw, parsed, rfl, _⟩ := trace
   have meaning := boolean_declaration_meaning normal valid ready parsed
   have readable := raw.freezeIntegers_readable (frozenIntegers state.scalarNames state.arrayNames.names state.arrayNames.values) meaning.readable
-  have checked := (raw.freezeIntegers_checked (boolean_declaration_ranges_exact static)
-    (boolean_declaration_ranges_fit static) meaning.checked).1
+  have checked := (raw.freezeIntegers_checked (boolean_declaration_ranges_exact static stored)
+    (boolean_declaration_ranges_fit static stored) meaning.checked).1
   refine ⟨raw.freezeIntegers_grammatical _ meaning.grammatical, ?_, ?_⟩
   · exact Condition.readable_extends extension readable
   · exact (Condition.checkBounds_extends extension readable Integer.Analysis.empty _).trans checked
