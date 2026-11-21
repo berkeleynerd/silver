@@ -43,6 +43,26 @@ def Binding.effective (item : Binding) : Binding :=
   unfold Binding.effective
   split <;> rfl
 
+@[simp] theorem Binding.viewDescriptor_bounds (item : Binding) :
+    item.viewDescriptor.bounds = item.bounds := by
+  unfold Binding.viewDescriptor
+  split <;> rfl
+
+@[simp] theorem Binding.viewDescriptor_components (item : Binding) :
+    item.viewDescriptor.componentBounds = item.componentBounds := by
+  unfold Binding.viewDescriptor
+  split <;> rfl
+
+theorem Binding.viewDescriptor_valid {item : Binding} (valid : ValidBinding item) :
+    item.viewDescriptor.Valid := by
+  simpa only [Integer.ArrayDescriptor.Valid, Binding.viewDescriptor_bounds, Binding.descriptor] using
+    binding_descriptor_valid valid
+
+theorem Binding.viewDescriptor_componentValid {item : Binding} (valid : ValidBinding item) :
+    item.viewDescriptor.ComponentValid := by
+  simpa only [Integer.ArrayDescriptor.ComponentValid, Binding.viewDescriptor_components, Binding.descriptor] using
+    binding_component_valid valid
+
 def viewNames (names : Metadata) : Metadata := names.map Binding.effective
 
 def viewElaborating (names : Metadata) (elaborating : Bool) : Bool :=
@@ -192,6 +212,47 @@ theorem ordered_view_componentRange {names : Metadata} {item : Binding} {cell : 
         have rest := ih (fun entry found => layout entry (by simp [found])) order.2 member
         simpa only [componentRange, List.find?_cons, absent, decide_false, Bool.false_eq_true, ↓reduceIte] using rest
 
+theorem ordered_view_mutability {names : Metadata} {item : Binding} {cell : Nat}
+    (layout : ∀ entry ∈ names, entry.descriptor.length = entry.length)
+    (ordered : names.Pairwise (fun left right => left.offset + left.length ≤ right.offset))
+    (member : item ∈ names) (inside : item.descriptor.ContainsCell cell)
+    (scalars : Integer.Mutability) : mutability names scalars cell = item.mutable := by
+  induction names with
+  | nil => simp at member
+  | cons head tail ih =>
+      have order := List.pairwise_cons.mp ordered
+      rcases List.mem_cons.mp member with same | member
+      · subst item
+        simp only [mutability, List.find?_cons, inside, decide_true]
+      · have separate := order.1 item member
+        have headLength := layout head (by simp)
+        have absent : ¬head.descriptor.ContainsCell cell := by
+          intro contained
+          simp only [Integer.ArrayDescriptor.ContainsCell] at contained inside
+          rw [headLength] at contained
+          dsimp only [Binding.descriptor] at contained inside
+          omega
+        have rest := ih (fun entry found => layout entry (by simp [found])) order.2 member
+        simpa only [mutability, List.find?_cons, absent, decide_false, Bool.false_eq_true, ↓reduceIte] using rest
+
+theorem ValidTable.view_mutability {text : Source} {names : Table}
+    (valid : ValidTable text names) {item : Binding} (member : item ∈ names.items)
+    (kind : item.isBoolean = false) {cell : Nat} (inside : item.viewDescriptor.ContainsCell cell)
+    (scalars : Integer.Mutability) :
+    integerMutability (viewNames names.items) scalars cell = item.mutable := by
+  have selected : item.effective ∈ integerNames (viewNames names.items) :=
+    mem_integerNames.mpr ⟨List.mem_map.mpr ⟨item, member, rfl⟩, by simpa using kind⟩
+  have layout : ∀ entry ∈ integerNames (viewNames names.items), entry.descriptor.length = entry.length := by
+    intro entry found
+    obtain ⟨source, sourceMember, same⟩ := List.mem_map.mp (mem_integerNames.mp found).1
+    subst entry
+    have shape := (valid.member_valid sourceMember).2.1.1
+    simpa only [Binding.effective_bounds, Binding.effective_length,
+      Binding.descriptor, Integer.ArrayDescriptor.length] using binding_descriptor_length shape
+  simpa only [integerMutability, Binding.effective_mutable] using
+    ordered_view_mutability layout (integerNames_ordered valid.viewNames_ordered) selected
+      (show item.effective.descriptor.ContainsCell cell from by simpa using inside) scalars
+
 theorem ValidTable.view_componentRanges {text : Source} {names : Table}
     (valid : ValidTable text names) {item : Binding} (member : item ∈ names.items)
     (kind : item.isBoolean = false) (scalars : Integer.Ranges) :
@@ -229,6 +290,30 @@ namespace Silver.Predicate.ArrayViews
 
 def analysis (names : ArrayBindings.Metadata) (scalars : Integer.Analysis) : Integer.Analysis :=
   ArrayFlow.analysis (ArrayBindings.viewNames names) scalars
+
+def flow (names : ArrayBindings.Metadata) (facts : ActiveFlow) : Flow :=
+  ArrayFlow.flow (ArrayBindings.viewNames names) facts
+
+theorem flow_model (names : ArrayBindings.Metadata) (facts : ActiveFlow) :
+    flow names facts = ⟨facts.path, ArrayBindings.viewRanges names [] false facts.model.scalars⟩ := rfl
+
+theorem analysis_withIndex (names : ArrayBindings.Metadata) (base : Integer.Analysis)
+    (index : Nat) (bounds : Integer.Interval) (low : index ≤ ArrayBindings.scalarLimit) :
+    analysis names (base.withIndex index bounds) = (analysis names base).withIndex index bounds :=
+  ArrayFlow.analysis_withIndex (ArrayBindings.viewNames names) base index bounds low
+
+theorem flow_append (names : ArrayBindings.Metadata) (facts : ActiveFlow)
+    (bounds : Integer.Interval) (low : facts.count + 1 ≤ ArrayBindings.scalarLimit) :
+    flow names (facts.append bounds) =
+      ⟨facts.path, Integer.put (flow names facts).scalars (facts.count + 1) (some bounds)⟩ :=
+  ArrayFlow.flow_append (ArrayBindings.viewNames names) facts bounds low
+
+theorem flow_widen (arrays : ArrayBindings.Metadata) (names : ScalarExpression.Environment)
+    (declarations : Nat) (facts : ActiveFlow) (same : facts.count = names.length)
+    (ready : ScalarExpression.BodyReady names) :
+    flow arrays (facts.widen names) =
+      ⟨facts.path, (analysis arrays (ScalarMetadata.analysis names declarations)).widen (flow arrays facts).scalars⟩ :=
+  ArrayFlow.flow_widen (ArrayBindings.viewNames arrays) names declarations facts same ready
 
 theorem analysis_stored {names : ArrayBindings.Metadata}
     (stored : ∀ item ∈ names, item.viewSlot = 0) (scalars : Integer.Analysis) :
