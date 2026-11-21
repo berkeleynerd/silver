@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task only needs bounded integer geometry in loops over fixed ranges, so every check follows from declared coordinate ranges and for-loop bounds with no loop-carried value needing an invariant. Floating point is avoided by scaling the example coordinates to integers, so the proofs should discharge automatically.
 
-Position 891 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 893 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

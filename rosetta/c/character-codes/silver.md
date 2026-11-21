@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The isolated direct Character Pos approach rejected; Character Val was not separately isolated, and both attributes remain outside Silver. An executed lookup alternative covers character-to-code and code-to-character for all printable ASCII 32 .. 126: the independently rerun complete stdout matched 95 lines/597 bytes, with compiler, GNATprove and execution exit 0 and empty stderr. The overwritten Letter initializer produced an INEFFECTIVE advisory. Nonprintable codes and Unicode are unmeasured. Pos/Val are possible conveniences rather than a remaining blocker for this bounded task. The original surface mapping is retained for separate coverage reconciliation; these observations add no delivered sample or supported task mapping in this batch.
 
-Position 433 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 435 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

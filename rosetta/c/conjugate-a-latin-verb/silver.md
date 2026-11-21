@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All work is bounded string assembly over fixed-size buffers with for loops and constant ending tables, so every index and length check follows from static bounds and a single guard before the copy.
 
-Position 534 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 536 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

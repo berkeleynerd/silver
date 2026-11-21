@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks come from ranged subtypes and guards placed just before each index or conversion, and the loop is in a procedure so no variant is needed; the loop-carried indices need careful guarding, hence plausible rather than likely.
 
-Position 1096 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 1098 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

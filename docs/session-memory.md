@@ -1,5 +1,24 @@
 # Session memory
 
+## 2026-11-21 — Named constrained Integer-array capability delivered locally
+
+Authorized #410 implementation, complete Linux native/Lean/source assurance,
+final regression coverage and scoped independent reviews are complete at their
+recorded scopes. The [delivery record](named-array-parameters.md#delivery-assurance-and-validation)
+links the exact implementation endpoint, failed attempts/repairs, full 785-test
+suite, 15 proof-reader reruns, final deterministic render and 12 Rosetta checks.
+Named constrained Integer arrays, read-only nominal inputs in existing functions
+and procedures, and selected static bounds queries are supported; Dot product
+and Horner gain faithful callable mappings. Broad/writable/returned/
+unconstrained arrays and Boolean named arrays/queries remain excluded.
+
+The delivery patch is prepared locally for the lead's review and accompanying
+PR #412 preparation. This entry does not assert publication, PR readiness or
+merge. The lead owns issue/stage reconciliation for #410/#413/#414/#415. No merge,
+Worca, successor feature or Oracle amendment is authorized; PR #385 remains held.
+November 21 selection/review dates retain their history. CLI memory was not
+updated.
+
 ## 2026-11-21 — Resume after the eight-CPU microVM restart
 
 The owner instructed **“We are back. Please resume.”** Resume authorized #410

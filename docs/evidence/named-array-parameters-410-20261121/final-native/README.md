@@ -30,5 +30,9 @@ remains failed because the report identifies the helper at its spec declaration.
 
 The retained run directories contain compressed original runner events/logs;
 the two complete runs also retain their original reports. The summary is a
-lead-written index, not substituted runner output. Complete Lean/source assurance,
-final regression coverage and independent delivery review remain outstanding.
+lead-written index, not substituted runner output. At this native checkpoint,
+complete Lean/source assurance, final regression
+coverage and delivery review remained outstanding. The later
+[complete Lean/source packet](../final-lean/README.md) and
+[final delivery reconciliation](../../../named-array-parameters.md#delivery-assurance-and-validation)
+record their actual subsequent outcomes without changing this run’s scope.

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check is bounded by the 8-bit modular type and 0..31 index subtype, and the only loop is a while loop in a procedure with a step cap, so no annotations are needed.
 
-Position 1460 in the [progression](../../../progression.md#stage-27), in stage 27.
+Position 1462 in the [progression](../../../progression.md#stage-27), in stage 27.
 
 ## Approach
 

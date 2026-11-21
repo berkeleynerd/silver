@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All loops can be static-bound for loops over fixed-capacity arrays in procedures and the data is small and embedded, so no annotation is needed, but many guarded counters and nested loops make the proof shape delicate.
 
-Position 850 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 852 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

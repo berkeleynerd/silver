@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded loops over fixed-capacity arrays in procedures with explicit guards, so no annotations should be needed, but 128-bit arithmetic, text parsing and guarded loop-carried positions need careful shape and the required multithreading cannot be provided.
 
-Position 1449 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1451 in the [progression](../../progression.md#stage-26), in stage 26.
 
 ## Failure paths to test
 

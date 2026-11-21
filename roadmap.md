@@ -39,47 +39,35 @@ affected Rosetta tests rerun after resolving the session-history conflict.
 
 ## Near-term feature queue
 
-**Selected language capability, 2026-11-21.** The owner instructed **“Proceed”**
-with named constrained fixed-size Integer-array types, read-only array `in`
-parameters in existing Main-local functions **and procedures** alongside scalar
-arguments, and static `'First`, `'Last`, `'Length` and `'Range` bounds queries
-on named arrays and existing anonymous Integer-array objects. Anonymous arrays
-remain excluded as call actuals; Boolean-array types, parameters and queries are
-unselected.
-[#410](https://github.com/berkeleynerd/silver/issues/410), in
-[milestone 27](https://github.com/berkeleynerd/silver/milestone/27), owns the
-[capability plan](docs/named-array-parameters.md). Dot product and Horner polynomial
-evaluation are the drivers. This is one coherent language batch with one shared
-final checkpoint; no samples-only detour or separate agent-sized delivery is
-selected. Its implementation, validation, independent review and feature PR are
-authorized by the [dated instruction](docs/session-memory.md#2026-11-21--named-constrained-integer-array-parameters-selected).
-The capability is not yet supported. Preserve full declared-domain checking,
-complete native and Lean/actual-source assurance and precise Rosetta progression.
-Writable, returned and unconstrained arrays and a separate expansion of array
-locals remain outside this batch. The capability plan records nominal identity,
-visibility, static-query and declared-domain rules; establish metadata/capacity
-and source-proof composition before admission.
-[Draft PR #412](https://github.com/berkeleynerd/silver/pull/412) retains the
-[bounded native review](docs/reviews/review-named-array-native-20261121.md),
-[feature-local producer account](docs/named-array-parameters-report-capacity.md)
-and [two-task fidelity assessment](rosetta/assessment-named-array-parameters-20261121.md).
-The native review resolves the measured 16 MiB invoking-shell stack prerequisite;
-27 audited focused gates and the sample/source-limit routes are scoped evidence.
-The seventeen supplemental direct-caller gates also passed; their current-input
-comparison is retained in the capability record. The first complete native run
-proved 19,994 checks but failed its final audit on an operator-reassociation
-warning. The grouped Length calculation passed its focused check and the
-[corrected complete native audit](docs/evidence/named-array-parameters-410-20261121/final-native/README.md).
-The [complete Lean/source audit](docs/evidence/named-array-parameters-410-20261121/final-lean/README.md)
-also passed on `7f449246ce`; final regression coverage and independent delivery
-reconciliation remain pending. No completed support is claimed here. The prepared precise Rosetta construct
-`named-integer-array-parameters` groups both drivers while leaving broad arrays,
-unconstrained arrays and writable array parameters unsupported. Its supported
-promotion, final render and stage bookkeeping wait for that shared checkpoint;
-no issue is closed by this preparation.
+**Delivered language capability, 2026-11-21.** The owner selected
+[#410](https://github.com/berkeleynerd/silver/issues/410) on 2026-11-21, in
+[milestone 27](https://github.com/berkeleynerd/silver/milestone/27), as one coherent
+batch. It adds named constrained nonempty Integer-array types and initialized
+objects, read-only same-nominal-type inputs in existing Main-local functions and
+procedures, and static `'First`, `'Last`, `'Length` and `'Range` queries on named
+arrays and existing anonymous Integer-array objects. Anonymous arrays remain
+excluded as call actuals. Writable, returned, unconstrained and Boolean named
+arrays and a separate expansion of subprogram-local arrays remain outside scope.
+
+The capability is supported within those rules. The
+[complete native packet](docs/evidence/named-array-parameters-410-20261121/final-native/README.md)
+records 19,994 discharged checks, and the
+[complete Lean/source packet](docs/evidence/named-array-parameters-410-20261121/final-lean/README.md)
+records 1,083 project modules and 173,026 declarations. The
+[final regression packet](docs/evidence/named-array-parameters-410-20261121/final-regression/README.md)
+records the completed 785-test suite, the 15 proof-affected rechecks, final
+Rosetta checks and exact input applicability. The
+[capability record](docs/named-array-parameters.md#delivery-assurance-and-validation)
+retains the scoped independent reviews, failed attempts, repairs, resource
+settings, delivery time and feature-local producer account. Dot product and
+Horner evaluation gain two faithful callable mappings under
+`named-integer-array-parameters`; broad arrays #12 stays open.
 [Stage issue #415](https://github.com/berkeleynerd/silver/issues/415) tracks
-this precise construct and its two drivers in generated Stage 38, while milestone 27 remains the owner-selected coherent batch. These
-stage numbers are generated positions, not authorization or delivery units.
+this precise supported construct in generated Stage 1. The November 21
+assessment/review dates retain their separate attribution. The local delivery
+is prepared for PR #412; the lead retains final PR and stage bookkeeping. No merge is
+authorized by capability completion.
+
 No provisional successor is selected. Deferred #381/#382 and #398 remain outside
 this queue; PR #385 stays held and Worca remains stopped.
 
@@ -749,8 +737,10 @@ and operator budgets are unchanged.
 Rosetta support is limited to `fixed-integer-arrays` and the exact rotation
 approach. Broad `arrays` and
 [stage #12](https://github.com/berkeleynerd/silver/issues/12) remain open for
-named array types, dynamic or null arrays, array attributes, whole-array
-operations, mutable/general iteration and other unadmitted forms. Other #11 constructs,
+dynamic or null arrays, whole-array operations, mutable/general iteration and
+other unadmitted forms. Named constrained Integer-array types and the selected
+static bounds queries are delivered separately by [#410](docs/named-array-parameters.md).
+Other #11 constructs,
 capacity/assurance-mode work and further proof-performance packages remain
 outside this increment.
 
@@ -1371,6 +1361,7 @@ sequence.
 | Fixed-size Boolean arrays | Supported | Explicitly initialized anonymous one-dimensional predefined Boolean arrays, safe scalar-only indexes and mutable component writes; exact snapshots and typed stored flags without retained predicate facts. [Linux evidence and closing confirmation](docs/boolean-arrays.md#delivery-assurance-and-validation--2026-11-07). Broad arrays/booleans and Boolean iteration/`others` remain separate. | [Sieve through 100](samples/rosetta_sieve_of_eratosthenes.adb), [elementary cellular automata](samples/rosetta_elementary_cellular_automaton.adb) |
 | Small nonrecursive scalar procedures | Supported | Explicit scalar parameter modes, source-written output initialization, nonaliasing scalar calls and range-checked copy-back; [original delivery evidence](docs/scalar-procedures.md#delivery-assurance-and-validation). The named/mixed extension is recorded separately below. Broad procedures remain separate. | [Return multiple values](samples/rosetta_return_multiple_values.adb) |
 | Named scalar arguments | Supported | Fully positional, reordered fully named and positional-prefix/named-suffix calls of existing Integer/Boolean scalar functions and procedures; case-insensitive callee-formal selectors, every formal exactly once, unchanged full domains, incoming-state checks, aliases, copy-back, source and budgets. [Complete native/Lean/suite evidence and closing review](docs/named-scalar-arguments.md#delivery-assurance-and-validation); precise [stage #393](https://github.com/berkeleynerd/silver/issues/393). Defaults remain excluded; broad functions/procedures and arrays (#11/#12) remain separate. | [Named parameters](samples/rosetta_named_parameters.adb) |
+| Named constrained Integer-array parameters | Supported | Main-level named nonempty constrained Integer-array types and initialized objects; read-only same-nominal-type inputs in existing functions and procedures; static First/Last/Length/Range queries on named types, objects and formals and existing anonymous Integer-array objects. Full declared component domains and existing scalar outputs/copy-back apply. [Complete Linux assurance and delivery validation](docs/named-array-parameters.md#delivery-assurance-and-validation); precise [stage #415](https://github.com/berkeleynerd/silver/issues/415). Writable, returned, unconstrained and Boolean named arrays remain excluded; broad arrays #12 stays separate. | [Dot product](samples/rosetta_dot_product.adb), [Horner evaluation](samples/rosetta_horner_polynomial.adb) |
 
 The output target covers admitted literals and bounded command-line
 messages; the text `Hello, world!` receives no special treatment. String literals do not imply support for

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The only nontrivial check is floating-point overflow of A + B, which a simple operand-range guard with a visible invalid outcome discharges; the remaining uncertainty is GNATprove's support for the Float'Adjacent attribute, not any annotation need.
 
-Position 964 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 966 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

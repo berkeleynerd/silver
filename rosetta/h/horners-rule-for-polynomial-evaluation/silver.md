@@ -1,12 +1,12 @@
 # Horner's rule for polynomial evaluation
 
-**Candidate: proofs likely to discharge automatically.** The constrained routine accepts coefficients in increasing-power order and x as the task requires. Full-domain bounds justify every performed multiply-add; reverse Range iteration justifies every index. Independent sequences are 0,6,14,49,128 at x=3 and 0,6,56,567 then refusal at x=10. Expected lines are At 3: 128 and At 10: capacity exceeded. The feature routes passed in managed run 20261121T125607-826b7d51ebf2; complete #410 assurance, final regressions and independent delivery review remain pending, so the new construct remains unsupported.
+**Candidate: proofs likely to discharge automatically.** The constrained routine accepts coefficients in increasing-power order and x as the task requires. Full-domain bounds justify every performed multiply-add; reverse Range iteration justifies every index. Independent sequences are 0,6,14,49,128 at x=3 and 0,6,56,567 then refusal at x=10. Expected lines are At 3: 128 and At 10: capacity exceeded. Complete Linux native/Lean/actual-source assurance, final regression coverage and scoped independent reviews are recorded in the [delivery record](../../../rosetta/assessment-named-array-parameters-20261121.md#delivery) and its linked evidence. The precise named-integer-array-parameters construct is supported; broad arrays, writable arrays and unconstrained arrays remain unsupported.
 
-Position 1569 in the [progression](../../progression.md#stage-38), in stage 38.
+Position 88 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 
-The prepared samples/rosetta_horner_polynomial.adb declares a named Polynomial (0 .. 3) of Coefficient (-20 .. 20). Procedure Horner takes that read-only array with scalar X (-10 .. 10), a scalar result (-1000 .. 1000) and a Boolean success output. It traverses the coefficient Range in reverse, implementing Horner's recurrence only after a fresh -98 .. 98 accumulator guard. Refusal persists and returns zero with Succeeded=False; Main suppresses the numeric result and prints capacity exceeded. The embedded coefficients [-19, 7, -4, 6] give 128 at x=3; x=10 visibly exercises refusal. Both mixed and positional calls use existing scalar output/copy-back rules. About 55 lines.
+The delivered samples/rosetta_horner_polynomial.adb declares a named Polynomial (0 .. 3) of Coefficient (-20 .. 20). Procedure Horner takes that read-only array with scalar X (-10 .. 10), a scalar result (-1000 .. 1000) and a Boolean success output. It traverses the coefficient Range in reverse, implementing Horner's recurrence only after a fresh -98 .. 98 accumulator guard. Refusal persists and returns zero with Succeeded=False; Main suppresses the numeric result and prints capacity exceeded. The embedded coefficients [-19, 7, -4, 6] give 128 at x=3; x=10 visibly exercises refusal. Both mixed and positional calls use existing scalar output/copy-back rules. About 55 lines.
 
 ## Proof obligations to watch
 

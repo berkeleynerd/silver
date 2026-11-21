@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded by static for-loop ranges and a range-constrained float subtype, so no annotation is needed, but proving float updates stay in range and relying on an admitted exp and float formatting makes discharge depend on careful program shape.
 
-Position 975 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 977 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

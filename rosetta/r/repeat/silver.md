@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The for loop over a Natural range terminates and has no loop-carried arithmetic, and the only call is to a procedure, so no check needs an annotation. The remaining work is Silver admitting generics with formal procedure parameters.
 
-Position 1511 in the [progression](../../progression.md#stage-30), in stage 30, which adds generics.
+Position 1513 in the [progression](../../progression.md#stage-30), in stage 30, which adds generics.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The program is a fixed sequence of Put_Line calls on literals, which Silver already supports, so no run-time check can arise. The task needs no new language surface and has no Oracle conflict.
 
-Position 68 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 69 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is fixed-size integer array arithmetic in for loops with small-range coefficient types, so checks follow from bounds and guards, but chained-product coefficient growth and the xor index need careful range guards, hence plausible.
 
-Position 1305 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1307 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Approach
 

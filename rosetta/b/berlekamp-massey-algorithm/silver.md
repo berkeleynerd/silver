@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The algorithm is bounded nested for loops over fixed arrays with GF(2) arithmetic, so every check follows from types and index guards, though the loop-carried L and shift offsets need careful guards without invariants. The optional nth-term computation is omitted.
 
-Position 235 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 237 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Nothing needs an annotation, but the program depends on admitted floating-point elementary functions with verified contracts and on finite-range reasoning for accumulating floats through a loop, so discharge depends on careful program shape.
 
-Position 1565 in the [progression](../../progression.md#stage-37), in stage 37, which adds fixed point.
+Position 1567 in the [progression](../../progression.md#stage-37), in stage 37, which adds fixed point.
 
 ## Approach
 

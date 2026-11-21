@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded for loops over small fixed arrays with explicit guards before each String index, so no annotation is needed, but loop-carried start and stop positions require careful guarding, hence plausible rather than likely.
 
-Position 1090 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 1092 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

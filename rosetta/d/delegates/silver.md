@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The program has no arithmetic, indexing or loops, and each function returns a String literal chosen by an if statement on Boolean record components, so the only checks are initialization checks, which aggregates satisfy.
 
-Position 580 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 582 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is bounded for loops over declared ranges with embedded data, and the only subtle spot is keeping candidate indexes within the fixed value limit by an explicit guard with a visible failure outcome, so proofs should discharge without annotations.
 
-Position 899 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 901 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

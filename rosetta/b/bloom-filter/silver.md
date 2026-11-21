@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every operation is a bounded for loop over ranged integers with mod reduction, so all checks follow from types and static bounds with no unbounded loop-carried value, and no annotation is needed. The memory comparison is computed arithmetic on declared sizes, which avoids files, floats and system memory queries.
 
-Position 1069 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 1071 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

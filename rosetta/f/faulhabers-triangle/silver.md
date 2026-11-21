@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every value in the triangle fits in bounded integer subtypes and only the final 53-digit sum needs a fixed-capacity big number, so all checks follow from type ranges and explicit guards without annotations, though loop-carried rational and carry arithmetic needs careful shape.
 
-Position 1390 in the [progression](../../progression.md#stage-24), in stage 24.
+Position 1392 in the [progression](../../progression.md#stage-24), in stage 24.
 
 ## Approach
 

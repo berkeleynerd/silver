@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Nothing needs an annotation, but proof depends on floating-point Exp and Sqrt having bounded results and on guards that keep the iterates in a box, which makes discharge plausible rather than routine.
 
-Position 979 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 981 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

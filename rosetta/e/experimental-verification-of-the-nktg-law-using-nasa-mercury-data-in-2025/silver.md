@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All data are static and positive-ranged, so overflow and division checks follow from the subtypes and for-loop indexes over the array's own range, and nothing needs an annotation. The remaining uncertainty is the float provers on the product chain and the as-yet-absent float formatting library.
 
-Position 977 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 979 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

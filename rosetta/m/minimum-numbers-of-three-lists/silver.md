@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All indexes come from a for loop over the arrays' own range and the values are fixed Integer constants, so every check follows from types and static bounds with no loop-carried state.
 
-Position 874 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 876 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

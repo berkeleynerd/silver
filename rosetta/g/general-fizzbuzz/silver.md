@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded by validated ranges and fixed buffers, and the work is simple loops in procedures, but the text parsing of user input with loop-carried accumulators and buffer indexing requires careful guards, hence plausible rather than likely.
 
-Position 1229 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1231 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Failure paths to test
 

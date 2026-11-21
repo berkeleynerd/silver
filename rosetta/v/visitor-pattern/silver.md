@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is a constant-size loop over an array's own range with exhaustive case statements and Put_Line calls, so no check can fail and nothing needs an annotation. The object-oriented dispatch is replaced by case statements, which the task allows for languages without OO support.
 
-Position 1153 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1155 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Approach
 

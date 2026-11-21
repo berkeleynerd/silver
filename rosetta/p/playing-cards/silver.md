@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from bounded array index types, for-loop ranges and a range-typed LCG state, with only for loops and no recursion, so no annotation is needed; the empty-deck case is a guarded visible outcome rather than an exception.
 
-Position 1164 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1166 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Approach
 

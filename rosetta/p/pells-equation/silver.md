@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from bounded subtypes and explicit guards, but fixed-capacity big-number arithmetic carried through loops and the guards on loop-carried values make discharge depend on careful program shape rather than being routine.
 
-Position 1378 in the [progression](../../progression.md#stage-24), in stage 24.
+Position 1380 in the [progression](../../progression.md#stage-24), in stage 24.
 
 ## Approach
 

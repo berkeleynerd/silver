@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check can follow from ranged index subtypes plus capacity and digit-overflow guards placed just before each push, append or multiply. Nothing needs an annotation, but the many loop-carried counters and explicit stacks make discharge depend on careful program shape, so the outlook is plausible rather than likely.
 
-Position 1250 in the [progression](../../../progression.md#stage-20), in stage 20.
+Position 1252 in the [progression](../../../progression.md#stage-20), in stage 20.
 
 ## Failure paths to test
 

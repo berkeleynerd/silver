@@ -1,12 +1,13 @@
 # Silver language specification
 
 The named constrained Integer-array additions for
-[#410](https://github.com/berkeleynerd/silver/issues/410) are work in progress.
-Their rules below specify the selected implementation target; support remains
-pending the shared native, Lean/actual-source, regression and independent review
-checkpoint in the [capability plan](docs/named-array-parameters.md). Earlier
-delivery statements below retain their historical scope and do not validate
-these additions.
+[#410](https://github.com/berkeleynerd/silver/issues/410) are supported within the
+rules below. The [capability record](docs/named-array-parameters.md#delivery-assurance-and-validation)
+links the complete Linux native and Lean/actual-source checkpoints, final
+regression coverage, scoped independent reviews, failed attempts and repairs.
+Earlier delivery statements retain their historical scope; this later capability
+adds named constrained Integer-array types, read-only function/procedure inputs
+and static bounds queries without admitting broader array forms.
 
 The named-scalar-arguments extension below has passed complete Linux native
 and Lean/actual-source checkpoints under

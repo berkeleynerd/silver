@@ -1,0 +1,102 @@
+{
+  "run_id": "20261121T211830-07948902a0f6",
+  "frozen_commit": "4373508bf6a59eb6be2c16af6c079c79a8d3e272",
+  "final_implementation_commit": "7f449246ce24d3fa630345dbc75338ab8b179b1c",
+  "outcome": "success",
+  "test_returncode": 0,
+  "started_utc": "2026-11-21T21:18:31.434651+00:00",
+  "finished_utc": "2026-11-21T23:29:05.910685+00:00",
+  "managed_duration_seconds": 7834.323576607,
+  "unittest_duration_seconds": 7832.123,
+  "discovery_identities": 785,
+  "passing_identities": 785,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "census_sha256": "11777474d4a60c05987b2839070f4a4e5539cc84602ebffc5d6ab00c4b22e1ec",
+  "allocation": {
+    "workers": {
+      "actual": 2,
+      "automatic": 2,
+      "requested": 2
+    }
+  },
+  "cpu_affinity": [
+    0,
+    1
+  ],
+  "cpu_limit_reason": "host's eight-CPU allocation",
+  "invoking_stack_kib": 16384,
+  "full_suite_captured_inputs": 1401,
+  "unchanged_closeout_input_files_before_promotion": 1387,
+  "proof_differences_covered_by_reviewed_15_reruns": [
+    {
+      "path": "proof/Silver/ComposeBooleanDeclarationCandidate.lean",
+      "baseline_sha256": "34e1acf8483d2202ba02a200614286ab67804af384dddf5abb2b749b45247900",
+      "final_sha256": "a732e62cd234a0a6f213e05c64aca2f27af743ed9e0c957f0b9be94f617c5879"
+    },
+    {
+      "path": "proof/Silver/FunctionArrayFrameValidity.lean",
+      "baseline_sha256": "3f4c92d41fa09d063a938553f1ba8814c7fcd3e5397e63aa7c82353342d87a18",
+      "final_sha256": null
+    },
+    {
+      "path": "proof/Silver/PredicateFunctionFlags.lean",
+      "baseline_sha256": "f482358f8124a882a70394e23dee35540aa285d9c70ec2e041a6a7e5c62b11b5",
+      "final_sha256": "115779a24b47023b5d4193a8c1026389cace9d51f16ee987e7c43965c11d9dd0"
+    },
+    {
+      "path": "proof/Silver/PredicateSourceRequirements.lean",
+      "baseline_sha256": "6c00a05b24b3bb4df6380ca42ed9552b03b4491c773cde1b7cb5b9cc5bd9bd97",
+      "final_sha256": "87a993e42be9b8e9dacb79cdbf21d28945030cb4c62b853d5aca7f5f03c8c0d7"
+    },
+    {
+      "path": "proof/Silver/ProcedureMetadataMeaning.lean",
+      "baseline_sha256": "2a28e52222658d6278d819962c8fbea99b5adb3ccdebfa5469d7a9ecf061f6e2",
+      "final_sha256": "a6801e2b6b322d69af46542e41e7cf082d8e14f80b0b58649137d8490881eb2a"
+    },
+    {
+      "path": "proof/Silver/ProcedureMetadataSourceBridge.lean",
+      "baseline_sha256": "fa17465bfc28a2af9c45b4bff605923d9ea271190d1a64f0fd522d4c8c29f0e2",
+      "final_sha256": "3005496ea6e5c588fd7070919d80e4693e8da3e349ad37d3c2af7576fe8b7ba8"
+    }
+  ],
+  "retained_primary_installation_inputs": [
+    {
+      "path": ".silver/linux-x86_64/compiler/bin/silver",
+      "scope": "retained primary installation; no closeout installation identity claimed"
+    },
+    {
+      "path": ".silver/linux-x86_64/generated/silver_build.ads",
+      "scope": "retained primary installation; no closeout installation identity claimed"
+    },
+    {
+      "path": ".silver/linux-x86_64/generated/silver_image_config.ads",
+      "scope": "retained primary installation; no closeout installation identity claimed"
+    },
+    {
+      "path": ".silver/linux-x86_64/generated/silver_library_sources.ads",
+      "scope": "retained primary installation; no closeout installation identity claimed"
+    },
+    {
+      "path": ".silver/linux-x86_64/toolchain/alire.toml",
+      "scope": "retained primary installation; no closeout installation identity claimed"
+    },
+    {
+      "path": ".silver/linux-x86_64/toolchain/alire/alire.lock",
+      "scope": "retained primary installation; no closeout installation identity claimed"
+    },
+    {
+      "path": ".silver/linux-x86_64/toolchain/alire/settings.toml",
+      "scope": "retained primary installation; no closeout installation identity claimed"
+    }
+  ],
+  "external_inputs": [
+    {
+      "path": "/usr/bin/python3.14",
+      "unchanged": true
+    }
+  ],
+  "review": "docs/reviews/review-named-array-audit-coverage-20261121.md",
+  "scope_note": "Final Rosetta promotion inputs and affected checks will be recorded separately. No native installation is moved or rebuilt."
+}

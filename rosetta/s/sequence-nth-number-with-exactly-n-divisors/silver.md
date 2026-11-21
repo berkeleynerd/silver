@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The program needs no annotation because every loop is a bounded for loop and the arithmetic is bounded by declared subtypes. Discharge still depends on careful shape: guarded counter increments, a subtype-bounded carry, and a capacity guard on the big-number digit array, which together make the outlook plausible rather than likely.
 
-Position 1366 in the [progression](../../progression.md#stage-24), in stage 24.
+Position 1368 in the [progression](../../progression.md#stage-24), in stage 24.
 
 ## Approach
 

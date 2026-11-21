@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check is an index into a fixed constant text or small result table, guardable by explicit comparisons before each access, and the loops sit in procedures so no variants are needed; the nonroutine parts are only the loop-carried positions and the paren-balance counter, which need careful guarding but no annotation.
 
-Position 832 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 834 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

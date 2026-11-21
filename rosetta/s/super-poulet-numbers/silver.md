@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from declared subtype bounds and fixed-bound for loops, with no recursion, but the nonlinear modular multiplication relies on the provers using those subtype ranges to bound products.
 
-Position 914 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 916 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

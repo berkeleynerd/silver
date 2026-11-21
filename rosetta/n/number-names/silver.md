@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is div/mod by literals on declared subtypes and the buffer appends are guarded, so checks follow from types and guards with no recursion or annotations, though careful loop shape is needed for the buffer length.
 
-Position 1105 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 1107 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

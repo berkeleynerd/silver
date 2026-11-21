@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All values are bounded to 0..999 and every loop is a for loop over a static range, so overflow, range and division checks follow from types and no loop-carried value needs an invariant.
 
-Position 327 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 329 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

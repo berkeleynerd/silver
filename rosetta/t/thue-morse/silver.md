@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task only needs seven short rows built by iterative doubling in a fixed buffer, so every index and range check follows from subtypes and a guard placed just before use, with no recursion or while loops.
 
-Position 1042 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 1044 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

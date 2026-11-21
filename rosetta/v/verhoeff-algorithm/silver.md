@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks follow from the 0..9 subtype for the checksum, the string's own index range, a digit guard on each character, and a fixed maximum length, with no while loops, recursion or annotations needed.
 
-Position 1073 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 1075 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

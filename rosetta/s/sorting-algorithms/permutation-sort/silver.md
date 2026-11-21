@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All array accesses are bounded by index subtypes or guards and the loops live in procedures, so nothing requires an annotation, but the loop-carried Heap's counters need careful guard placement.
 
-Position 550 in the [progression](../../../progression.md#stage-10), in stage 10.
+Position 552 in the [progression](../../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

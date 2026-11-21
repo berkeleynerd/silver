@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded integer arithmetic with an explicit guard before each move, and the interactive while loop sits in a procedure, so no annotation is needed; the plausible rating reflects the modular hash, the grid-edge guards and the stdin line reading.
 
-Position 1293 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1295 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Failure paths to test
 

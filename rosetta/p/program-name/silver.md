@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The program is just one library call whose result goes straight to output, so it has no run-time checks beyond the admitted operations' own contracts. The only new thing Silver needs is a command-name operation in its arguments library.
 
-Position 1429 in the [progression](../../progression.md#stage-26), in stage 26, which adds further arguments.
+Position 1431 in the [progression](../../progression.md#stage-26), in stage 26, which adds further arguments.
 
 ## Failure paths to test
 

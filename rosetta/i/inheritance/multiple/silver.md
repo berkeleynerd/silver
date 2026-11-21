@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task is satisfied by type declarations alone (a tagged type, an interface and a type extension of both), and SPARK supports these. No run-time checks arise, so Bronze and Silver proof is trivial once Silver admits tagged and interface types.
 
-Position 1546 in the [progression](../../../progression.md#stage-33), in stage 33.
+Position 1548 in the [progression](../../../progression.md#stage-33), in stage 33.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** A candidate with an actual scalar-function call per array element admitted. This corrects the earlier procedure-standing-in-for-a-callback account; no first-class callback capability was needed for the measured approach. Execution and final application evidence remain unmeasured. The original surface mapping is retained for separate coverage reconciliation; these observations add no delivered sample or supported task mapping in this batch.
 
-Position 104 in the [progression](../../progression.md#stage-4), in stage 4.
+Position 106 in the [progression](../../progression.md#stage-4), in stage 4.
 
 ## Approach
 

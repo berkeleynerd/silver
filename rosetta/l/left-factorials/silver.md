@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded integer arithmetic over fixed-capacity limb arrays in procedures with for loops, so checks follow from subtype ranges and capacity guards, but the carry loops over roughly 9000 limbs and nonlinear limb products need careful typing to discharge without invariants.
 
-Position 1372 in the [progression](../../progression.md#stage-24), in stage 24.
+Position 1374 in the [progression](../../progression.md#stage-24), in stage 24.
 
 ## Approach
 

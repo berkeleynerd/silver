@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Decoding UTF-8 is bounded integer arithmetic on bytes in a fixed buffer with explicit guards and a procedure-based loop, so every check follows from types and local guards. The only novelty is an admitted file-read operation, and invalid UTF-8 gets a specified rejection outcome.
 
-Position 1323 in the [progression](../../../progression.md#stage-22), in stage 22.
+Position 1325 in the [progression](../../../progression.md#stage-22), in stage 22.
 
 ## Failure paths to test
 

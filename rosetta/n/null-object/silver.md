@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** In Ada, null exists only for access values, so the program needs an access type declaration, but with no allocation or dereference the only checks are initialization and the leak check on a known-null value, which discharge trivially.
 
-Position 1561 in the [progression](../../progression.md#stage-36), in stage 36, which adds access types.
+Position 1563 in the [progression](../../progression.md#stage-36), in stage 36, which adds access types.
 
 ## Approach
 

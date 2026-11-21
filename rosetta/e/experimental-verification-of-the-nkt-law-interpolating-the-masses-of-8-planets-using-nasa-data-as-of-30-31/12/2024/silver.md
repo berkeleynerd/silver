@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is a fixed 8-element for loop over embedded constants with only multiply, divide and subtract on bounded floats, so no annotations are needed, but the floating-point range and division-by-zero checks plus float-to-text output depend on careful bounded subtypes and guards.
 
-Position 976 in the [progression](../../../../progression.md#stage-16), in stage 16.
+Position 978 in the [progression](../../../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

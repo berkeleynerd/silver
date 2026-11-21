@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The program only needs Boolean declarations, if statements and string output, so every check is trivial and no loop or arithmetic is involved.
 
-Position 1142 in the [progression](../../progression.md#stage-19), in stage 19, which adds enumerations.
+Position 1144 in the [progression](../../progression.md#stage-19), in stage 19, which adds enumerations.
 
 ## Approach
 

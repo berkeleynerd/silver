@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All loops are for loops over fixed array ranges, so index and termination checks are routine, but float arithmetic with sqrt and divisions needs range-bounded Float subtypes, guards and an admitted sqrt, which makes discharge depend on careful program shape rather than on annotations.
 
-Position 1024 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 1026 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

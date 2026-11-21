@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is straight-line or a short for loop over a three-element array, so the checks follow from a bounded Float subtype and guards, with the main uncertainty being floating-point provers and a float-formatting library operation. No annotations are needed.
 
-Position 980 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 982 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

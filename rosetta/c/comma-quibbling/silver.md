@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is bounded iteration over fixed-capacity arrays and a bounded output buffer, so every index and length check follows from range types and one capacity guard before each append, with no recursion, while loops in functions, or annotations needed.
 
-Position 1058 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 1060 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

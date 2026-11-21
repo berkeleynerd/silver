@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The isolated others aggregate refuses; the direct full-array expansion also has source/component-capacity obstacles. Correct the possible sum bound to 810448 = 74 cubed + 74 cubed. The full numeric result, lowest-25 completeness and earlier claimed 25th-number search bound remain unmeasured; no full-output success is claimed, and a different algorithm is not ruled out. The original surface mapping is retained for separate coverage reconciliation; these observations add no delivered sample or supported task mapping in this batch.
 
-Position 113 in the [progression](../../progression.md#stage-4), in stage 4.
+Position 115 in the [progression](../../progression.md#stage-4), in stage 4.
 
 ## Approach
 

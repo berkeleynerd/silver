@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every numeric check follows from guards placed just before Arcsin, Arccos, \"**\" and the cube, and from the elementary-function postconditions. The outlook is plausible rather than likely because the program relies on SPARK's access-to-subprogram and generic-instantiation support, with float guards in every wrapper.
 
-Position 1564 in the [progression](../../progression.md#stage-36), in stage 36.
+Position 1566 in the [progression](../../progression.md#stage-36), in stage 36.
 
 ## Approach
 

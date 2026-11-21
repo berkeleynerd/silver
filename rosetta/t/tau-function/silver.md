@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Before candidate d there are at most d-1 <= 99 earlier contributions, so the increment guard is always true when needed. The resulting count includes both one and N and is exact for every required input, including primes and perfect squares. The task requires the first hundred results and no ten-column layout. The [reconciliation](../../../rosetta/assessment-scalar-function-batch-20261108.md) preserves the original assessment attribution and links the separately reviewed Linux application evidence; final combined integration and independent delivery status remain in the batch delivery record.
 
-Position 59 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 60 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

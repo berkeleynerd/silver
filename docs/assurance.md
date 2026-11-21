@@ -159,12 +159,14 @@ declaration and body semantics. The
 unchanged 64 MiB allocation. Focused tests
 exercise these rules; they do not replace complete compiler or source proofs.
 
-## Named constrained Integer-array inputs — development
+## Named constrained Integer-array inputs
 
-The selected [#410 capability](named-array-parameters.md) extends the existing
-callable model with read-only named Integer-array inputs and static bounds
-queries. Complete feature assurance remains pending. A named declaration supplies
-nominal identity; equal bounds or an anonymous object do not establish that
+The [#410 capability](named-array-parameters.md#delivery-assurance-and-validation)
+extends the existing callable model with read-only named Integer-array inputs
+and static bounds queries. Its 2026-11-21 delivery records complete Linux
+native and Lean/actual-source assurance, final regression coverage and scoped
+independent reviews. A named declaration supplies nominal identity; equal bounds
+or an anonymous object do not establish that
 identity. Input views retain fixed bounds and the complete declared component
 interval without charging symbolic formal components to stored object cells.
 Every callable body, including an unused one, must be checked over all declared
@@ -173,12 +175,21 @@ Scalar-only writable actuals keep the existing same-incoming-state, alias and
 copy-back rules. Bounds metadata must preserve Ada staticness, ordered visibility
 and scoped hiding through declarations, expressions, calls and loops.
 
-The final assurance chain must connect those rules to the actual native source,
+The final assurance chain connects those rules to the actual native source,
 independent source grammar, declaration/body semantics and every required native
-and application obligation. The [bounded native review](reviews/review-named-array-native-20261121.md)
+and application obligation. The [source review](reviews/review-named-array-source-20261121.md)
+and [final audit-coverage review](reviews/review-named-array-audit-coverage-20261121.md)
+record the checked correspondence and complete module inventory. The
+[bounded native review](reviews/review-named-array-native-20261121.md)
 audits 27 focused gates (1,093 checks), resolves its stack finding and records
-17 additional direct-caller gates. These results do not establish complete
-readiness or the final native/Lean/source checkpoint. The feature-local
+17 additional direct-caller gates. Those focused results alone do not establish
+the complete checkpoint. The
+[corrected complete native audit](evidence/named-array-parameters-410-20261121/final-native/README.md)
+passed all 19,994 checks; the [complete Lean/source audit](evidence/named-array-parameters-410-20261121/final-lean/README.md)
+checked 1,083 modules and 173,026 declarations, reusing successful compiled
+objects and freshly auditing module coverage and the permitted foundations.
+The [final regression record](evidence/named-array-parameters-410-20261121/final-regression/README.md)
+distinguishes the full suite, affected rechecks and final metadata checks. The feature-local
 [producer account](named-array-parameters-report-capacity.md) retains the existing
 49,279,744-byte report envelope in 64 MiB under the pinned producer premises;
 it is a storage argument, separate from automatic discharge. The two

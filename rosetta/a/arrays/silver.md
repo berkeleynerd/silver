@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every index is a constant in range or a for-loop index over the array's own range, and the push is guarded by an explicit capacity check with a visible outcome, so all checks follow from types and guards.
 
-Position 1148 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1150 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Approach
 

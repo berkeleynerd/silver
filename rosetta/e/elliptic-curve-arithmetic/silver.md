@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** No annotations are needed because all loops are fixed-count for loops and each float operation can be guarded by magnitude and epsilon checks, but the proof depends on careful per-operation range guards in floating-point code, and the integer-only route is unavailable because y^2 = x^3 + 7 has no nonzero rational torsion or integer points.
 
-Position 1017 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 1019 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

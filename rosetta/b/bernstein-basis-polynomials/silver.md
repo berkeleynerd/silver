@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All code is loop-free and recursion-free with literal data, so the only non-routine checks are floating-point overflow and range on a handful of products, which declared subtype bounds should let the provers discharge. The heavier part is the new surface (floating point, float formatting), so discharge depends on careful range choices rather than any annotation.
 
-Position 1015 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 1017 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

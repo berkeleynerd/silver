@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All values are bounded by declared subtypes, the accumulator is reduced each step so no loop invariant is needed, and loops are for loops over fixed ranges, so every check follows from types and simple guards.
 
-Position 350 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 352 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

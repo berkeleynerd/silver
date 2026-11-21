@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from array bounds, a bounded length subtype and a guard before each append, with no while loops or recursion, though the loop-carried output length needs careful guarding.
 
-Position 1086 in the [progression](../../../progression.md#stage-17), in stage 17.
+Position 1088 in the [progression](../../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

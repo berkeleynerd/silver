@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All data is fixed and small, so loop-carried values fit wide integer types by declaration and the root search is bounded by an explicit guard, avoiding the floating-point Sqrt precondition and any annotation. The only extra work is formatting the decimal output with bounded string building.
 
-Position 202 in the [progression](../../../progression.md#stage-7), in stage 7.
+Position 204 in the [progression](../../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

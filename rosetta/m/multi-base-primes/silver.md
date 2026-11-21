@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from constant bounds, 64-bit headroom and guards before use, and there are no while loops, recursion or annotations, but guarded Horner arithmetic and bounded output buffers inside nested loops need careful shape.
 
-Position 630 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 632 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

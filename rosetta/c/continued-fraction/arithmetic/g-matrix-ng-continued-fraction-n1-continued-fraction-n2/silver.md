@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The algorithm is iteration over a bounded state with explicit zero-denominator and magnitude guards, so no annotations are required, but the coefficient growth needs careful range guards or fixed-capacity big numbers, which makes discharge plausible rather than likely.
 
-Position 1374 in the [progression](../../../../progression.md#stage-24), in stage 24.
+Position 1376 in the [progression](../../../../progression.md#stage-24), in stage 24.
 
 ## Approach
 

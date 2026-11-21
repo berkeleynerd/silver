@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks are index and range checks on loop-carried positions that explicit capacity guards just before each access can discharge without invariants, and loops live in procedures so no variants are needed. The guards give a visible rejection outcome for overflow cases that the actual sequence never reaches within the chosen term count.
 
-Position 460 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 462 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

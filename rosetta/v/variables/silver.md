@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All values are literals or small sums of literals in straight-line code with no loops, so initialization, data flow and overflow checks discharge directly from constant propagation.
 
-Position 1524 in the [progression](../../progression.md#stage-31), in stage 31.
+Position 1526 in the [progression](../../progression.md#stage-31), in stage 31.
 
 ## Approach
 

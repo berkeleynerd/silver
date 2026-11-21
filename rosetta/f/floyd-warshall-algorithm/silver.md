@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is integer arithmetic over bounded ranges in fixed-size arrays with for loops, so overflow, range and index checks follow from types and sentinel guards placed just before each use, though the loop-carried distances need carefully shaped guards. Floating-point infinity from the existing solution is replaced by a finite integer sentinel, which keeps the task faithful because the example weights are integers.
 
-Position 714 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 716 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

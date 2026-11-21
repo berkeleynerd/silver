@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Evaluating iteratively with an explicit bounded stack inside a procedure avoids recursion and the termination check, and every loop-carried addition and stack index can be guarded just before use with a visible overflow or capacity outcome. Discharge depends on placing those guards carefully rather than on any annotation, so the outlook is plausible.
 
-Position 616 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 618 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

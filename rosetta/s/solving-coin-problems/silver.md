@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is a text-pattern parser plus a small linear solver that bounded enumeration can handle, so every check follows from fixed buffers, ranged subtypes and for loops; the many loop-carried token indices need careful guards, hence plausible rather than likely.
 
-Position 1200 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1202 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Approach
 

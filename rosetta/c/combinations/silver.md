@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check is an array index from a for-loop range or an increment of a small ranged value under a just-before guard, and the loop lives in a procedure so no variant is needed; the shape needs careful guards on loop-carried element values, so it is plausible rather than likely.
 
-Position 546 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 548 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

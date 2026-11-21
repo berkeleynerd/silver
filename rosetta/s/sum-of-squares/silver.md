@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Named component bounds make both indexed and foreach squares safe. A fixed-capacity vector with Count = 0 handles the required empty case, and executable guards establish accumulator containment. The driver uses only the narrow named Integer subtype and existing array/loop fragment.
 
-Position 67 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 68 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

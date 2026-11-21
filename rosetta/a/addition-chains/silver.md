@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is small bounded arrays and integers with typed ranges, and the loop-carried depth and counters can be bounded by types and guards before use, though the nested DFS shape needs care and no annotation should be required. The extra-credit targets are optional and omitted, so the search stays tiny.
 
-Position 1532 in the [progression](../../progression.md#stage-31), in stage 31.
+Position 1534 in the [progression](../../progression.md#stage-31), in stage 31.
 
 ## Approach
 

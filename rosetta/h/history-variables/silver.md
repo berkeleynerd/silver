@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check comes from declared index and count ranges, or from a capacity guard placed just before the increment, and the program has no while loops, recursion or nonlinear arithmetic, so the proofs should discharge without annotations.
 
-Position 588 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 590 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

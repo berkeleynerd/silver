@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The numeric-separator candidate admitted on 2026-11-18 using current syntax and output forms. There is no measured missing string-building operation for this approach, and no proof/build/execution claim follows from its admission result. The original surface mapping is retained for separate coverage reconciliation; these observations add no delivered sample or supported task mapping in this batch.
 
-Position 103 in the [progression](../../progression.md#stage-4), in stage 4.
+Position 105 in the [progression](../../progression.md#stage-4), in stage 4.
 
 ## Approach
 

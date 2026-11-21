@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from fixed 3-character strings, a ranged generator state and an explicit length and character guard on the input line, and the only unbounded loops are while loops inside procedures. It needs several new features (stdin lines, character indexing, procedures, while loops, Put) but no annotation or recursion.
 
-Position 1218 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1220 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Failure paths to test
 

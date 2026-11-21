@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything reduces to bounded integer arithmetic, a range-typed LCG, and a for-loop-indexed histogram, with only the counter increments and the LCG update needing careful typing or guards, and the rejection loop living in a procedure so no variant is needed.
 
-Position 391 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 393 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

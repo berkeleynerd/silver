@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The straight-line plan needs an Integer object Size-attribute read, integer division by a literal and Image output. Its attribute value, Integer range and target interpretation still need an admission rule; Size-clause support would not by itself admit this read.
 
-Position 1572 in the [progression](../../../progression.md#stage-41), in stage 41, which adds Integer object Size attribute reads.
+Position 1572 in the [progression](../../../progression.md#stage-40), in stage 40, which adds Integer object Size attribute reads.
 
 ## Approach
 

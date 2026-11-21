@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** A sliding-window scan with a last-seen table needs only a for loop and loop-carried values held in bounded subtypes, so every range and index check follows from types and an up-front length guard without any annotation. No recursion, while loops or function termination checks are involved.
 
-Position 1055 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 1057 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

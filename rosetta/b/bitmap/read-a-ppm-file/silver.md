@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from ranged subtypes, fixed maximum dimensions and guards in the header parser, with no annotation needed, but the loop-carried parse state and computed pixel indexes require careful program shape and an admitted binary file-read and file-write library.
 
-Position 1426 in the [progression](../../../progression.md#stage-25), in stage 25.
+Position 1428 in the [progression](../../../progression.md#stage-25), in stage 25.
 
 ## Failure paths to test
 

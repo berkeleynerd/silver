@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Reading a file into a bounded String buffer is just a library call with a status result plus guarded copying, so proofs follow from types and the library contract, but Silver needs a file-input library operation and a documented capacity limit that visibly rejects larger files. Memory-mapping, which needs address overlays, is an optional discussion item and is not required.
 
-Position 1461 in the [progression](../../progression.md#stage-27), in stage 27.
+Position 1463 in the [progression](../../progression.md#stage-27), in stage 27.
 
 ## Failure paths to test
 

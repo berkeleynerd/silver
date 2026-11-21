@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every loop is a bounded for loop over static ranges and pixel stores are guarded, so the main difficulty is floating-point range bounding for trig and power, which makes automatic discharge plausible but dependent on careful program shape.
 
-Position 1422 in the [progression](../../progression.md#stage-25), in stage 25.
+Position 1424 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Failure paths to test
 

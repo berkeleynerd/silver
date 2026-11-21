@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks reduce to index arithmetic bounded by for-loop ranges and explicit guards before the slice, with no need for invariants, so discharge is plausible but depends on careful loop-carried position handling. The task needs only strings, loops and console output, with no conflicts with the Oracle.
 
-Position 1089 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 1091 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

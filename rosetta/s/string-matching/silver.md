@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All indexing uses constant lengths and for-loop indexes over the string's own range with guards just before slices, and there is no loop-carried arithmetic, so the checks follow from declarations and guards.
 
-Position 1041 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 1043 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

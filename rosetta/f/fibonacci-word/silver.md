@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from array bounds and a few explicit overflow and positivity guards, but the carried sums and the floating-point entropy need careful guard placement, and the full 24-million-character words are not materialized.
 
-Position 992 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 994 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

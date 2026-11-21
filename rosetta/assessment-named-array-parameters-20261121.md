@@ -3,8 +3,9 @@
 This assessment covers **Dot product** (cached revision 413360) and **Horner's
 rule for polynomial evaluation** (411617), the two drivers for the owner-selected
 [named array parameter capability](../docs/named-array-parameters.md), #410.
-It records task fidelity and independently derived results; complete feature
-validation and the supported-mapping update remain pending in draft PR #412.
+It records task fidelity and independently derived results. The delivery section
+links complete feature evidence separately from the November 21 task/source
+review and its original provenance.
 
 The 2026-10-15 assessment of Dot product was selected as Claude Sonnet 5.5 at
 medium effort; Horner's rule was selected as Claude Opus 5.5 at high effort.
@@ -49,9 +50,12 @@ At 3: 128
 At 10: capacity exceeded
 ```
 
-## Delivery state
+## Delivery
 
-The prepared fragment uses the precise identifier
+Delivery date: **2026-11-21**. This date records delivery; the task/source
+review remains dated 2026-11-21.
+
+The delivered fragment uses the precise identifier
 `named-integer-array-parameters`, covering constrained named Integer-array types,
 read-only function/procedure array inputs and static bounds queries. Existing
 scalar functions/procedures, integer subtypes, mutable scalars, Boolean state,
@@ -63,31 +67,46 @@ Targeted delivery preparation reread each cached task and its Ada solution;
 Dot product's retained SPARK solution was also checked. The task text makes
 arbitrary vector length optional, and Horner's text requires a coefficient list
 in increasing-power order with a value of x. The fixed nominal types preserve
-these required callable interfaces. The draft coverage records preserve original
-assessment model/effort/date fields and give this current review separate
-metadata. No other corpus assessment is revised.
+these required callable interfaces. The coverage records preserve original assessment model/effort/date fields
+and give the November 21 review separate metadata. Delivery reconciliation
+updates current support and evidence wording without changing that review
+date or claiming a new task/source review. No other corpus assessment is revised.
 
-The precise identifier remains absent from `supported`. The current render
-therefore presents both tasks as candidates for a pending construct. Final
-promotion requires updating the current-language description and pending
-summary/review wording, adding that identifier, rerendering and reconciling the
-stage issue; the lead retains ownership of that final assurance checkpoint.
+The precise identifier is included in `supported`, with the current-language
+description and both task summaries updated to the delivered scope. These are
+two faithful callable mappings gained by the capability: Dot product through a
+function and Horner evaluation through a procedure. Broad `arrays` and
+`unconstrained-arrays` remain unsupported. Stage issue
+[#415](https://github.com/berkeleynerd/silver/issues/415) tracks this precise
+construct; its delivery and generated Stage field must agree with the final
+deterministic render.
 
 The feature regression's five compile/prove/run routes passed in managed run
 `20261121T125607-826b7d51ebf2`; the sample manifest also specifies the exact outputs
 above. This record does not infer whole-language assurance from those examples.
-Complete native/Lean/source verification, final regression coverage and independent
-delivery review remain required before promoting the supported mappings.
+The [corrected complete native packet](../docs/evidence/named-array-parameters-410-20261121/final-native/README.md)
+records 19,994 discharged checks. The [complete Lean/source packet](../docs/evidence/named-array-parameters-410-20261121/final-lean/README.md)
+records 1,083 project modules and 173,026 declarations, using only the three
+permitted foundations. It is an incremental build with a fresh module/axiom
+audit; no clean rebuild or independent kernel replay is claimed. The
+[final regression packet](../docs/evidence/named-array-parameters-410-20261121/final-regression/README.md)
+records the completed 785-test suite, the 15 proof-affected rechecks and their
+applicability to the final inputs. The [capability record](../docs/named-array-parameters.md)
+links scoped independent reviews, retained failed attempts and repairs, resource
+settings and delivery reconciliation. These records establish the assurance
+claim at their recorded scope; sample results remain illustrative.
 
-Documentation validation on native Linux x86_64: managed render
+Pre-delivery documentation validation on native Linux x86_64: managed render
 `20261121T132946-af74581a2ce2` completed using one worker (automatic availability
 12). A final direct deterministic render corrected the Horner source count to
 55 lines; Dot product has 25. Managed `test_rosetta.py` run
 `20261121T133012-5136c8f61666` passed all 12 refresh/render tests in 6.336 s,
 using one worker (automatic availability 18). That suite includes deterministic
-rendering across hash seeds. The pending output groups the two drivers in
-Stage 38, ranks 1568 and 1569. Regenerated positions in other pages do not revise
-their assessments. No native compiler/prover was rerun by this preparation.
+rendering across hash seeds. That pre-delivery output grouped the two drivers in Stage 38, ranks 1568 and
+1569; these are historical positions, not final delivery positions. Regenerated
+positions in other pages do not revise their assessments. The final deterministic
+render and Rosetta test evidence are retained with the final regression packet.
+No native compiler/prover was rerun by the November 21 documentation preparation.
 
 This task/source assessment and independent arithmetic were performed by the
 integration lead under the repository's Astra Extra High role selection. Live

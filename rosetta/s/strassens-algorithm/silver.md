@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Fixed-size integer matrices with unrolled two-level Strassen need only static bounds and a declared entry range for overflow, so all checks are routine for provers and no annotations are required. The main care points are the nonlinear products (bounded by the range subtype) and the task's recursion, which must be expressed as fixed-depth unrolling rather than a general recursive routine.
 
-Position 746 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 748 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

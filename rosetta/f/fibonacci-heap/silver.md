@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Index-based linked structures in a fixed pool keep every check within subtype ranges and null guards, and iterative cascading cut and consolidation avoid recursion, though rank and degree-table bounds need careful guards with a rejecting outcome and a fixed pool capacity.
 
-Position 643 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 645 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

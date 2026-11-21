@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Matching and substitution can be done with a bounded iterative NFA simulation in procedures with explicitly guarded indexes, so every check follows from subtypes and guards, but the loop-carried positions and the matcher's shape make discharge depend on careful structure.
 
-Position 1189 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1191 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Approach
 

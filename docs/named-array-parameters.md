@@ -8,7 +8,10 @@ selects [#410](https://github.com/berkeleynerd/silver/issues/410), in
 [milestone 27](https://github.com/berkeleynerd/silver/milestone/27), as one coherent
 capability with one shared final validation and review checkpoint. Implementation,
 validation, independent review and the accompanying feature PR are authorized.
-This plan describes selected development; it does not claim current support.
+The capability is supported within the rules below. The
+[delivery checkpoint](#delivery-assurance-and-validation) records the completed
+assurance and regression scope. The dated selection and development checkpoints
+are retained as history.
 
 The three included forms share one constrained array identity and bounds model:
 
@@ -608,3 +611,80 @@ two-worker suite. The [regression packet](evidence/named-array-parameters-410-20
 retains its exact inputs and readers. The full run passed the sample manifest
 and began the maximal-expression compile at 22:00:13 UTC; its final result and
 the post-promotion Rosetta checks remain pending.
+
+
+## Delivery assurance and validation
+
+Delivery date: **2026-11-21**, following the owner's November 21 selection.
+Implementation/proof endpoint: `7f449246ce`; retained evidence and review index:
+`562207798f`. The final delivery commit adds support metadata, documentation,
+generated Rosetta pages and evidence without changing native, proof, catalogue,
+sample or test inputs. The lead reviews the local delivery result before PR
+readiness and external bookkeeping; no merge is authorized.
+
+The precise `named-integer-array-parameters` fragment is supported under the
+rules in this record and `language.md`. It adds named constrained nonempty
+Integer-array types/objects, read-only nominal array inputs in both existing call
+kinds, and static bounds queries, including existing anonymous Integer objects.
+The two faithful Rosetta mappings gained are **Dot product** through a function
+and **Horner's rule** through a procedure. Broad arrays, writable/returned/
+unconstrained arrays and Boolean named arrays/queries remain excluded.
+
+| Final Linux evidence | Scope and outcome |
+| --- | --- |
+| [Corrected complete native audit](evidence/named-array-parameters-410-20261121/final-native/README.md), `20261121T191055-5cced625eb47` | 78 units, 1,265 entities, 19,994 discharged checks; full forced analysis with retained sessions/cache, two workers, CPUs 4–5 and 16 MiB invoking stack. |
+| [Complete Lean/source checkpoint](evidence/named-array-parameters-410-20261121/final-lean/README.md), `20261121T215449-12cec2fc5976` | 1,083 modules and 173,026 declarations, exactly the three permitted foundations; six workers/threads, CPUs 2–7, complete incremental build and fresh coverage/axiom audit. |
+| [Compiler build](evidence/named-array-parameters-410-20261121/final-regression/build-summary.json), `20261121T190603-f8f3c039687c` | Passed on the primary installation; all 147 captured production/config inputs match the delivery tree. The full suite captures that installed binary; no installation is moved or rebuilt. |
+| [Full regression and final applicability](evidence/named-array-parameters-410-20261121/final-regression/README.md), `20261121T211830-07948902a0f6` | All 785 identities passed in 7,832.123 test seconds on frozen `4373508bf6`; two workers, CPUs 0–1 and 16 MiB invoking stack. |
+| Proof-affected rerun `20261121T215753-de0dae34a5b9` | All 15 identified readers passed on `7f449246ce`, 174.128 test seconds, six automatically allocated workers in the separate proof worktree. |
+| Final deterministic Rosetta render `20261121T233151-52b966341665` and `test_rosetta.py` run `20261121T233202-07a8576e778c` | Render and all 12 tests passed; the latter took 4.424 test seconds on final promoted metadata; actual allocation and duration are retained in the regression packet. |
+
+The final applicability record accounts for all 785 discovery identities. The
+source/test/catalogue/sample bytes remain identical to the full-suite inputs;
+the six final proof-file changes, including duplicate-module deletion, are
+covered by the independent 15-reader analysis and passed rerun. The final
+metadata changes are covered by the deterministic render and 12 Rosetta tests.
+The full suite is successful; earlier failed or interrupted suites retain their
+failed/interrupted outcomes in the historical packets. Native and Lean
+assurance remain complete checkpoints, separately from the test composition.
+
+The [native review](reviews/review-named-array-native-20261121.md) resolves the
+measured stack finding #413 and accepts the feature-local report-capacity
+account. The [source review](reviews/review-named-array-source-20261121.md)
+accepts the #414 repair for actual imported helper meanings and their callable
+inheritance. The [final-consumer review](reviews/review-named-array-final-consumers-20261121.md),
+[procedure-metadata review](reviews/review-named-array-procedure-metadata-20261121.md)
+and [audit-coverage review](reviews/review-named-array-audit-coverage-20261121.md)
+accept the subsequent proof repairs and exact regression-reader union. Their
+November 21 review dates, selected settings and checkpoint qualifications are
+preserved; this delivery reconciliation does not claim a new semantic review.
+The earlier [regression-applicability review](evidence/named-array-parameters-410-20261121/regression-applicability/REVIEW.md)
+required the fresh full suite now recorded in the final packet.
+
+The dated checkpoints above and linked run packets retain failed attempts,
+interruptions, repairs and focused successes. The first complete native attempt
+remains failed despite tool-level discharge; the strict audit rejected its
+warning. Failed complete Lean attempts retain their outcomes. The initial
+final-render attempt also remains failed: its selected proof
+worktree had no native toolchain installation, so dev.py stopped before executing
+the render. The successful retry uses the existing primary tool installation
+with explicitly declared closeout inputs/outputs; no bootstrap was performed.
+No mandatory cold rebuild, independent kernel replay or macOS validation is
+claimed.
+
+Elapsed delivery time is 12 h 51 min 59.756 s, measured from the recorded #410 issue
+creation at 2026-11-21 10:40:10 UTC to 2026-11-21 23:32:09.755591 UTC (the final
+validation endpoint). This is a wall-clock
+interval including the owner-directed pause/restart and overlapping native,
+Lean and regression work; it is not summed processor time or total proof cost.
+Native/proof rows retain actual run durations and resource settings, including
+the earlier 22-CPU phase and later eight-CPU host ceiling. Routine final-record
+coordination selected GPT-6.1 Sol High; live runtime model/effort and token/cost
+measurements were not independently exposed. No CLI memory update is claimed.
+
+The final render places both drivers in supported Stage 1 (Dot product rank 53,
+Horner rank 88) and reduces the progression from 45 stages to 44. Stage issue
+#415 and other affected Stage fields require the lead's external reconciliation,
+with closed/Done state preserved. The accompanying delivery is prepared for PR #412;
+publication/readiness and merge remain distinct actions. Worca stays stopped,
+PR #385 held and no successor capability is selected.

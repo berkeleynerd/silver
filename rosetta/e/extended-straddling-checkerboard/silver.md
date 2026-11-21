@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Nothing needs an annotation because all work is in procedures over bounded buffers with explicit capacity and lookahead guards, but the loop-carried output and input cursors in the encoder and decoder require careful guard placement.
 
-Position 858 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 860 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

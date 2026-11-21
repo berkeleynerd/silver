@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded loops over a fixed array with no recursion or annotations needed, but the float accumulator and the Log call require careful range guards, so discharge is plausible rather than certain.
 
-Position 961 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 963 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

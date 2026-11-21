@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from loop ranges and declared Float subtypes, but it depends on a library whose Sin and Cos contracts bound the results and on careful float-to-text formatting.
 
-Position 970 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 972 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

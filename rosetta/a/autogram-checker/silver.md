@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is on small ranged counts and all indices are guardable in procedure while loops, so nothing needs an invariant or variant, but the large amount of hand-written parsing with loop-carried indices means success depends on careful guard placement.
 
-Position 1491 in the [progression](../../progression.md#stage-28), in stage 28.
+Position 1493 in the [progression](../../progression.md#stage-28), in stage 28.
 
 ## Approach
 

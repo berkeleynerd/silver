@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check is a loop-index or guard-based bound on a small fixed buffer and the while loop sits in a procedure, so no annotation is needed; the only new ingredients are bounded line reading from a file and character indexing.
 
-Position 1313 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1315 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Failure paths to test
 

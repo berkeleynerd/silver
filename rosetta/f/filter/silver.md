@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All indexes come from for-loop ranges over the array's own bounds and the only loop-carried value is a count whose increment is guarded by a capacity test, so no annotation is needed.
 
-Position 139 in the [progression](../../progression.md#stage-6), in stage 6.
+Position 141 in the [progression](../../progression.md#stage-6), in stage 6.
 
 ## Approach
 

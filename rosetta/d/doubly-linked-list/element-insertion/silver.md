@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task is plain pointer rewiring that maps onto array indices with a null sentinel, so every check follows from index subtypes and guards placed just before each use. Traversal uses a bounded for loop over the pool, so no termination or loop-carried-value obligations arise.
 
-Position 1157 in the [progression](../../../progression.md#stage-19), in stage 19.
+Position 1159 in the [progression](../../../progression.md#stage-19), in stage 19.
 
 ## Approach
 

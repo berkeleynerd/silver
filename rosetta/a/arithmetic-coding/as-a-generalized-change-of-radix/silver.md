@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from range-bounded digit arrays and for-loops, but the roughly 110-bit values force multi-step fixed-capacity big-number arithmetic carried through loops, so discharge depends on careful carry and capacity guards rather than being routine.
 
-Position 1394 in the [progression](../../../progression.md#stage-24), in stage 24.
+Position 1396 in the [progression](../../../progression.md#stage-24), in stage 24.
 
 ## Approach
 

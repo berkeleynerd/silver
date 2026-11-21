@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Denominators such as 1/1527612795642093418846225 and the 150-digit results exceed 64 bits, so the program needs fixed-capacity bignum arithmetic with long division and gcd; no annotation is strictly required if loops sit in procedures and each digit and index is guarded, but loop-carried bignum arithmetic makes discharge depend on careful program shape.
 
-Position 1404 in the [progression](../../progression.md#stage-24), in stage 24.
+Position 1406 in the [progression](../../progression.md#stage-24), in stage 24.
 
 ## Approach
 

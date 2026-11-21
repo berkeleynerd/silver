@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All array indexes are covered by a 0..7 cursor subtype and a nonzero guard before each access, and the loops are in a procedure with fixed data, so no annotation is needed.
 
-Position 441 in the [progression](../../../progression.md#stage-9), in stage 9.
+Position 443 in the [progression](../../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

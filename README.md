@@ -143,8 +143,10 @@ anonymous one-dimensional arrays with nonempty static bounds, explicit
 initialization and checked indexed reads and writes. Declaration snapshots stay
 exact; body reads use declared component intervals (full Integer for `of Integer`). The
 [rotation sample](samples/rosetta_shift_list_left_3.adb) moves the first three
-values to the end. Named array types, array attributes and whole-array
-operations remain outside this fragment. The
+values to the end. That increment did not include named array types, array
+attributes or whole-array operations. Named constrained Integer arrays and bounds queries are covered by
+the later [named-array capability](docs/named-array-parameters.md); whole-array
+operations remain unsupported. The
 [delivery evidence](docs/fixed-integer-arrays.md#delivery-assurance-and-validation)
 records its assurance and validation scope.
 
@@ -240,18 +242,21 @@ Lean/actual-source checkpoints and the complete regression suite passed, with
 independent review recorded in the capability account. This evidence is separate
 from the original deliveries.
 
-The selected [named Integer-array parameter capability #410](docs/named-array-parameters.md)
-is in development in [draft PR #412](https://github.com/berkeleynerd/silver/pull/412).
-It prepares constrained named Integer arrays, read-only inputs to existing
-functions and procedures, and static bounds queries, with
-[Dot product](samples/rosetta_dot_product.adb) and
-[Horner polynomial evaluation](samples/rosetta_horner_polynomial.adb) as drivers.
-The [native review](docs/reviews/review-named-array-native-20261121.md) resolves
-the measured stack finding and records the accepted supplemental caller checks.
-The [producer account](docs/named-array-parameters-report-capacity.md) connects
-these forms to the existing report envelope. Complete native and Lean/source
-audits have passed. Final regressions and delivery review remain pending;
-this is not yet a support claim.
+The [named Integer-array parameter capability #410](docs/named-array-parameters.md#delivery-assurance-and-validation)
+adds constrained named Integer arrays, read-only inputs to existing functions
+and procedures, and static `'First`, `'Last`, `'Length` and `'Range` queries,
+including queries on existing anonymous Integer-array objects. Nominal type
+identity controls array actuals; every callable body is checked over its full
+declared component domains. [Dot product](samples/rosetta_dot_product.adb) and
+[Horner polynomial evaluation](samples/rosetta_horner_polynomial.adb) are its two
+faithful drivers. Complete Linux native and Lean/actual-source audits, final
+regression coverage and scoped independent reviews are retained in the
+[capability record](docs/named-array-parameters.md#delivery-assurance-and-validation).
+The [producer account](docs/named-array-parameters-report-capacity.md) retains
+the existing report envelope. Writable, returned, unconstrained and Boolean
+named arrays remain unsupported. The accompanying delivery is prepared for
+[PR #412](https://github.com/berkeleynerd/silver/pull/412); merge requires a
+separate owner instruction.
 
 The [Find square difference sample](samples/find_square_difference.adb) stores
 the first matching index and prints ` 501` followed by a newline.

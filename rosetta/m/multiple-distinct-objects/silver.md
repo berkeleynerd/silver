@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from declared subtype ranges, for-loop indexes over the array's own range, and an up-front validation of n, so no loop invariant or other annotation is needed. The outlook is likely because the loops are plain for loops with bounded values and the only non-routine part, text parsing, is a validated library operation.
 
-Position 1113 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 1115 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Failure paths to test
 

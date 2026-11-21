@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All values are small and bounded by declared subtypes and for-loop ranges, so overflow, range and length checks follow from types and no loop invariant or recursion is needed. The only open question is the new surface (integer image, exponentiation, string building), not provability.
 
-Position 1496 in the [progression](../../progression.md#stage-29), in stage 29.
+Position 1498 in the [progression](../../progression.md#stage-29), in stage 29.
 
 ## Approach
 

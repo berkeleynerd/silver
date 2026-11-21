@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** For positive N each quotient counts multiples strictly below N. Each numerator d*q*(q+1) is even, so division by two is exact, and subtracting the multiples of 15 removes double counting. All intermediates fit Integer over 0..1000. Demonstrations cover zero, strict boundaries, the overlap at 15, 999 and 1000. The task marks efficient 10^20 inputs as extra credit; the delivered callable domain is explicit. The [reconciliation](../../../rosetta/assessment-scalar-function-batch-20261108.md) preserves the original assessment attribution and links the separately reviewed Linux application evidence; final combined integration and independent delivery status remain in the batch delivery record.
 
-Position 75 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 76 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

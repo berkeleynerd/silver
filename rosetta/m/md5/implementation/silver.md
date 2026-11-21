@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from modular wraparound, declared ranges and a length guard on a fixed buffer, with no loop-carried value needing an invariant, but the long unrolled-or-looped arithmetic with table indexing needs careful shape to discharge reliably.
 
-Position 1307 in the [progression](../../../progression.md#stage-21), in stage 21.
+Position 1309 in the [progression](../../../progression.md#stage-21), in stage 21.
 
 ## Approach
 

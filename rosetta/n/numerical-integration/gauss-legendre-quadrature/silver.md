@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is bounded, uses a fixed 5-point rule and float arithmetic over small ranges, so it needs no annotations, but proving no overflow or division-by-zero through loop-carried floats and Newton updates depends on careful subtype bounds and guards. Float formatting and an admitted elementary-function library (Exp, Cos) are new surface that makes it plausible rather than likely.
 
-Position 1006 in the [progression](../../../progression.md#stage-16), in stage 16.
+Position 1008 in the [progression](../../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

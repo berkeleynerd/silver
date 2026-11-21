@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All indexes and values come from small declared subtypes and for-loops over fixed bounds, so checks mostly follow from types, but the loop-carried parent links, counters and weight accumulator need careful subtype and guard shaping. No annotations are required once recursion and while loops are replaced by bounded for loops.
 
-Position 921 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 923 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task only needs text-art output of bounded integer arithmetic, with indices guarded and loops all for loops, so nothing requires an annotation, but the fixed-point bounds and the line-stepping coordinates need careful typing and guards.
 
-Position 818 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 820 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
