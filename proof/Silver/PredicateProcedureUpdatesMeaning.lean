@@ -97,10 +97,10 @@ theorem target_after_commute {left right : ScalarFunctions.Target}
       | boolean => cases leftDomain <;> cases rightDomain <;> rfl
       | integer right rightBounds =>
           cases leftDomain with
-          | boolean => rfl
+          | boolean | array => rfl
           | integer leftDomain =>
               cases rightDomain with
-              | boolean => rfl
+              | boolean | array => rfl
               | integer rightDomain =>
                   have distinct : left ≠ right := by
                     intro same
@@ -197,16 +197,14 @@ theorem ProcedureUpdateAt.extendMeaning
     (source : ProcedureUpdateAt text context incoming parameter catalog first last callFirst callAfter scan actual next)
     (rest : ProcedureActualsMeaning context (context.flow incoming) formals actuals (context.flow next.facts) after) :
     ProcedureActualsMeaning context (context.flow incoming)
-      (ProcedureBindings.formalModel parameter :: formals) (actual :: actuals) (context.flow scan.facts) after := by
+      (ProcedureBindings.formalModel parameter context.arrayTypes :: formals) (actual :: actuals) (context.flow scan.facts) after := by
   cases source with
   | input mode value _ =>
       have checked := actual_meaning normal nv (by rw [bodyMode]; exact base.toContextReady)
-        arraysReady compatible bounded value
-      have formal : ProcedureBindings.formalModel parameter =
-          ⟨.input, formalType (procedureInputFormal parameter)⟩ := by
-        cases kind : parameter.kind <;>
-          simp only [ProcedureBindings.formalModel, mode, ProcedureBindings.modeModel,
-            formalType, procedureInputFormal, kind]
+        arraysReady compatible bounded value (fun _ => bodyMode)
+      have formal : ProcedureBindings.formalModel parameter context.arrayTypes =
+          ⟨.input, formalType (procedureInputFormal parameter) context.arrayTypes⟩ := by
+        simp only [ProcedureBindings.formalModel, mode, ProcedureBindings.modeModel]
       rw [formal]
       exact ProcedureActualsMeaning.input checked.1 checked.2 rest
   | writable notInput accepted _ _ _ =>
@@ -245,7 +243,7 @@ theorem ProcedureUpdatesTailAt.meaning
     (valid : ProcedureBindings.ValidMetadata text catalog)
     (source : ProcedureUpdatesTailAt text context incoming catalog first last callFirst callAfter scan ordinal named seen entries result) :
     ProcedureActualsMeaning context (context.flow incoming)
-      (entries.map (fun entry => ProcedureBindings.formalModel (ProcedureBindings.parameter catalog entry.1)))
+      (entries.map (fun entry => ProcedureBindings.formalModel (ProcedureBindings.parameter catalog entry.1) context.arrayTypes))
       (entries.map (fun entry => entry.2.actual)) (context.flow scan.facts) (context.flow result.facts) := by
   induction source with
   | @last scan named seen actual next _ _ step _ =>
@@ -263,11 +261,11 @@ theorem ProcedureUpdatesTailAt.meaning
         (ProcedureBindings.parameter_bounds valid _) tail
       simpa only [List.map_cons, bodyToken] using meaning
 
-private theorem formalModels_of_keys {catalog : ProcedureBindings.Metadata}
+private theorem formalModels_of_keys {catalog : ProcedureBindings.Metadata} (types : ArrayBindings.TypeEnvironment)
     {entries : List (ScalarAssociations.Entry ProcedureActualSource)} {first count : Nat}
     (keys : entries.map Prod.fst = List.range' first count) :
-    entries.map (fun entry => ProcedureBindings.formalModel (ProcedureBindings.parameter catalog entry.1)) =
-      ProcedureBindings.formalModels catalog first count := by
+    entries.map (fun entry => ProcedureBindings.formalModel (ProcedureBindings.parameter catalog entry.1) types) =
+      ProcedureBindings.formalModels catalog first count types := by
   induction count generalizing entries first with
   | zero =>
       have empty : entries = [] := List.map_eq_nil_iff.mp keys
@@ -295,20 +293,20 @@ theorem ProcedureUpdatesAt.meaning
     (start : scan.position = callFirst) (positionBound : scan.position ≤ text.length + 1)
     (source : ProcedureUpdatesAt text context incoming catalog callFirst callAfter scan first last actuals result) :
     ProcedureActualsMeaning context (context.flow incoming)
-      (ProcedureBindings.formalModels catalog first (last - first + 1)) actuals
+      (ProcedureBindings.formalModels catalog first (last - first + 1) context.arrayTypes) actuals
       (context.flow scan.facts) (context.flow result.facts) := by
   cases source with
   | updates source =>
       have written := source.meaning normal nv base arraysReady booleansBound compatible bounded bodyMode count valid
       have apart := source.actualsApart start positionBound base.size booleansBound
       let pairing := fun entry : ScalarAssociations.Entry ProcedureActualSource =>
-        (ProcedureBindings.formalModel (ProcedureBindings.parameter catalog entry.1), entry.2.actual)
+        (ProcedureBindings.formalModel (ProcedureBindings.parameter catalog entry.1) context.arrayTypes, entry.2.actual)
       have permutation := (ScalarAssociations.arrange_permutation defaultProcedureActual
         source.actuals.fresh.nodup source.actuals.complete).map pairing
       have ordered := ProcedureActualsMeaning.permutation permutation
         (by simpa only [List.map_map, pairing, Function.comp_def] using apart)
         (by simpa only [List.map_map, pairing, Function.comp_def] using written)
-      simpa only [List.map_map, pairing, Function.comp_def, formalModels_of_keys (ScalarAssociations.arrange_keys ..),
+      simpa only [List.map_map, pairing, Function.comp_def, formalModels_of_keys context.arrayTypes (ScalarAssociations.arrange_keys ..),
         arrangeProcedureActuals] using ordered
 
 end Silver.Predicate

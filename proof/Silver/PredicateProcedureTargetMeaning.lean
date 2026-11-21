@@ -23,13 +23,13 @@ private theorem scalarTarget_checked {context : ParseContext} {index : Nat} {bou
       (.integer bounds) = true := by
   have same := ScalarExpression.bodyReady_binding base.body (Nat.pos_of_ne_zero positive) within mutable
   have mutableModel : context.analysis.mutable index = true := by
-    simp only [ParseContext.analysis, ArrayFlow.analysis, ArrayBindings.integerMutability,
+    simp only [ParseContext.analysis, ArrayViews.analysis, ArrayFlow.analysis, ArrayBindings.integerMutability,
       ArrayBindings.mutability_scalar _ _ (Nat.le_trans within base.size),
       ScalarMetadata.analysis, ScalarExpression.mutability,
       Nat.pos_of_ne_zero positive, within, and_self, decide_true, Bool.true_and, mutable]
   have declaredModel : context.analysis.declared index =
       some (ScalarExpression.binding context.scalarNames index).declaredBounds := by
-    simp only [ParseContext.analysis, ArrayFlow.analysis, ArrayBindings.integerRanges,
+    simp only [ParseContext.analysis, ArrayViews.analysis, ArrayFlow.analysis, ArrayBindings.integerRanges,
       ArrayBindings.ranges_scalar _ _ _ _ (Nat.le_trans within base.size),
       ScalarMetadata.analysis, ScalarExpression.ranges,
       Nat.pos_of_ne_zero positive, within, and_self, ↓reduceIte, same]
@@ -64,14 +64,14 @@ structure ProcedureTargetMeaning (context : ParseContext) (incoming : ActiveFlow
     (ArrayBindings.booleanAnalysis context.arrayNames (BooleanBindings.analysis context.booleanNames))
   checked : (procedureTargetIdentity context target).check context.analysis
     (ArrayBindings.booleanAnalysis context.arrayNames (BooleanBindings.analysis context.booleanNames))
-    (ProcedureBindings.formalModel parameter).domain = true
+    (ProcedureBindings.formalModel parameter context.arrayTypes).domain = true
   copyIn : parameter.mode = .inputOutput →
     (targetRead (procedureTargetIdentity context target)).check context.names.shape context.analysis (context.flow incoming)
       (ArrayBindings.booleanAnalysis context.arrayNames (BooleanBindings.analysis context.booleanNames))
-      (ProcedureBindings.formalModel parameter).domain = true
+      (ProcedureBindings.formalModel parameter context.arrayTypes).domain = true
   changed : ∀ current : BodyScan, current.count = context.scalarNames.length →
     context.flow (procedureWritableUpdate current parameter target).facts =
-      (procedureTargetIdentity context target).after (ProcedureBindings.formalModel parameter).domain (context.flow current.facts)
+      (procedureTargetIdentity context target).after (ProcedureBindings.formalModel parameter context.arrayTypes).domain (context.flow current.facts)
 
 theorem procedureTargetActual_meaning {text context position incoming parameter}
     (base : ScalarMetadata.BaseReady context.scalarNames context.declarationCount)
@@ -86,6 +86,8 @@ theorem procedureTargetActual_meaning {text context position incoming parameter}
   split at accepted
   · contradiction
   · rename_i named
+    have scalarFormal : parameter.typeId = 0 :=
+      Classical.not_not.mp (fun different => named (Or.inr (Or.inr different)))
     rw [ite_eq_right named]
     split at accepted
     · rename_i integerKind
@@ -106,7 +108,7 @@ theorem procedureTargetActual_meaning {text context position incoming parameter}
         · simp only [procedureTargetIdentity, positive, ↓reduceIte, Actual.Readable,
             ScalarFunctions.Target.identity, targetRead, ScalarFunctions.Actual.Readable, and_true]
           exact positive
-        · simpa only [procedureTargetIdentity, positive, ↓reduceIte, ProcedureBindings.formalModel, integerKind]
+        · simpa only [procedureTargetIdentity, positive, ↓reduceIte, ProcedureBindings.formalModel, formalType, procedureInputFormal, scalarFormal, ne_eq, not_true_eq_false, ↓reduceIte, integerKind]
             using scalarTarget_checked base positive within mutable nonempty included
         · intro inputOutput
           have copyChecked : ¬((incoming.values.getD (scalarTarget text context position - 1) Integer.Interval.empty).isEmpty = true ∨
@@ -127,16 +129,17 @@ theorem procedureTargetActual_meaning {text context position incoming parameter}
               Integer.Interval.bounded_contains formalBounds
                 (Integer.Interval.included_sound copyIncluded ⟨copyOrdered, Int.le_refl _⟩)⟩
           simp only [procedureTargetIdentity, positive, ↓reduceIte, targetRead, ScalarFunctions.Actual.check,
-            ProcedureBindings.formalModel, integerKind, Integer.Expr.infer, found, Option.bind_some,
+            ProcedureBindings.formalModel, formalType, procedureInputFormal, scalarFormal, ne_eq, not_true_eq_false, ↓reduceIte, integerKind, Integer.Expr.infer, found, Option.bind_some,
             Integer.checked, copyNonempty, Bool.false_eq_true, copyBounded, Integer.accepted,
             copyIncluded, Bool.not_false, Bool.and_self]
         · intro current count
           simp only [procedureWritableUpdate, procedureTargetIdentity, positive, ↓reduceIte,
-            ProcedureBindings.formalModel, integerKind, ScalarFunctions.Target.after]
-          have changed := ArrayFlow.flow_replace context.arrayNames current.facts
+            ProcedureBindings.formalModel, formalType, procedureInputFormal, scalarFormal, ne_eq, not_true_eq_false, ↓reduceIte, integerKind, ScalarFunctions.Target.after]
+          have changed := ArrayFlow.flow_replace (ArrayBindings.viewNames context.arrayNames) current.facts
             (scalarTarget text context position) parameter.bounds (Nat.pos_of_ne_zero positive)
             (by change scalarTarget text context position ≤ current.count; rw [count]; exact within) low
-          simpa only [ArrayFlow.flow, ParseContext.flow, bodyMode] using changed
+          simpa only [ArrayFlow.flow, ParseContext.flow, ArrayBindings.viewRanges,
+            ArrayBindings.viewElaborating, bodyMode, Bool.false_and] using changed
     · rename_i notInteger
       rw [ite_eq_right notInteger]
       split at accepted
@@ -155,10 +158,10 @@ theorem procedureTargetActual_meaning {text context position incoming parameter}
         have initialized := Boolean.canWrite_initialized writable
         refine ⟨?_, ?_, ?_, ?_⟩
         · exact ⟨positive, trivial, initialized⟩
-        · simpa only [procedureTargetIdentity, ↓reduceIte, ProcedureBindings.formalModel, booleanKind,
+        · simpa only [procedureTargetIdentity, ↓reduceIte, ProcedureBindings.formalModel, formalType, procedureInputFormal, scalarFormal, ne_eq, not_true_eq_false, ↓reduceIte, booleanKind,
             ScalarFunctions.Target.check] using writable
         · intro _
-          simpa only [procedureTargetIdentity, ↓reduceIte, ProcedureBindings.formalModel, booleanKind,
+          simpa only [procedureTargetIdentity, ↓reduceIte, ProcedureBindings.formalModel, formalType, procedureInputFormal, scalarFormal, ne_eq, not_true_eq_false, ↓reduceIte, booleanKind,
             targetRead, ScalarFunctions.Actual.check, Condition.checkBounds] using initialized
         · intro current _
           simp only [procedureWritableUpdate, procedureTargetIdentity, ↓reduceIte, ScalarFunctions.Target.after]
