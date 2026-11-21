@@ -119,9 +119,14 @@ class ArrayParameterTests(unittest.TestCase):
         # Two views have 4096 logical cells, although neither consumes the
         # 2048-cell physical pool. Their unused body is checked in full.
         declaration = (
-            b'type T is array(1..2048)of Integer;'
+            b'type T is array(-1024..1023)of Integer;'
             b'function Count(Left:in T;Right:in T)return Integer is '
             b"begin return (Left'Length+Right'Length);end Count;")
+        self.check(program(declaration, b'null;'))
+        declaration += (b'function Edge(Left:in T;Right:in T;Use_Left:in Boolean)'
+                        b'return Integer is R:Integer:=0;begin if Use_Left then '
+                        b"R:=Left(Left'First);else R:=Right(Right'Last);end if;"
+                        b'return R;end Edge;')
         self.check(program(declaration, b'null;'))
 
     def test_unused_functions_check_full_component_domain_and_index_range(self) -> None:
@@ -210,7 +215,11 @@ class ArrayParameterTests(unittest.TestCase):
         self.check(source)
 
     def test_queries_share_expression_operand_budget(self) -> None:
-        declaration = VECTOR + b'A:Vector:=(1,2,3);R:Integer:=0;'
+        # No unary signs in these declarations: the 63-operator budget is
+        # shared by declarations and the tested expression.
+        declaration = (b'subtype Small is Integer range 0..9;'
+                       b'type Vector is array(1..3)of Small;'
+                       b'A:Vector:=(1,2,3);R:Integer:=0;')
         def addition(terms):
             result = terms[0]
             for term in terms[1:]:
