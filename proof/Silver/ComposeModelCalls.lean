@@ -75,14 +75,16 @@ def modelCalls : Calls where
     | .booleanLookup => BooleanBindings.lookup
     | .arrayLookup => fun text table first after => ArrayBindings.lookup text table.items first after
     | .arrayTypeLookup => ArrayBindings.lookupType
+    | .arrayTypeAt => arrayTypeAt
+    | .arrayTypeDeclaration => arrayTypeDeclarationAt
     | .arrayDeclaration => arrayDeclarationAt
     | .arrayValuesModel | .arrayValues => fun text source result position length parsed bounds =>
         arrayValuesModel text source result position length parsed bounds
     | .booleanInitializer => booleanInitializerAfter
     | .booleanArrayValuesModel | .booleanArrayValues => booleanArrayValuesModel
     | .arrayPut => putArrayValue
-    | .arrayAdd => fun _text state first after bounds offset length mutable following components isBoolean =>
-        addArrayBinding state first after bounds offset length mutable following components isBoolean
+    | .arrayAdd => fun _text state first after bounds offset length mutable following components isBoolean typeId =>
+        addArrayBinding state first after bounds offset length mutable following components isBoolean typeId
     | .scalarAppend => fun names item => names ++ [item]
     | .scalarEmpty => Integer.Interval.isEmpty
     | .scalarLiteral => ScalarLiteral.read

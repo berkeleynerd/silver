@@ -232,18 +232,19 @@ theorem ArrayValuesDomain.resultValid {domain : StateDomain}
 /-- The native append precondition compares the new segment with the last
 allocated descriptor; valid metadata already orders all earlier segments. -/
 def ArrayAddDomain (names : ArrayBindings.Metadata) (offset : Nat) : Prop :=
-  ∀ last, names.getLast? = some last → last.offset + last.length ≤ offset
+  ∀ last, names.getLast? = some last → last.viewSlot = 0 ∧ last.offset + last.length ≤ offset
 
 def arrayPutLocals (state : ParserState) (value : Int) : Locals :=
   (Context.locals {state}).set .integer "value" value
 
 def arrayAddLocals (text : Source) (state : ParserState) (first after : Nat)
     (bounds : Integer.Interval) (offset length : Nat) (mutable : Bool) (following : Nat)
-    (componentBounds : Integer.Interval) (isBoolean : Bool := false) : Locals :=
+    (componentBounds : Integer.Interval) (isBoolean : Bool := false) (typeId : Nat := 0) : Locals :=
   ((Context.locals {text,state,first,after,length,mutable,following}).set .interval "bounds" bounds)
     |>.set .number "offset" offset
     |>.set .interval "component_bounds" componentBounds
     |>.set .truth "boolean_elements" isBoolean
+    |>.set .number "type_id" typeId
 
 /-- Source state and result accumulator are separate native arguments. -/
 def arrayValuesLocals (text : Source) (source result : ParserState)
@@ -508,14 +509,15 @@ structure RawHelperEquations (calls : Calls) (evaluator : Calls := lexical calls
   scalarDeclaration : ∀ text, ValidText text → ∀ state arguments,
     NativeState domain text state → calls.function .scalarDeclaration text state arguments =
       scalarDeclarationBody.eval evaluator (Context.locals {text,state,arguments})
-  arrayAdd : ∀ text, ValidText text → ∀ state first after bounds offset length mutable following componentBounds isBoolean,
+  arrayAdd : ∀ text, ValidText text → ∀ state first after bounds offset length mutable following componentBounds isBoolean typeId,
     NativeState domain text state → ValidName text first after →
-    ArrayBindings.ValidBinding ⟨first, after, bounds, offset, length, mutable, componentBounds, isBoolean, 0, 0⟩ →
+    ArrayBindings.ValidNativeBinding ⟨first, after, bounds, offset, length, mutable, componentBounds, isBoolean, typeId, 0⟩ →
+    ArrayBindings.TypeCoherent state.arrayNames.types ⟨first, after, bounds, offset, length, mutable, componentBounds, isBoolean, typeId, 0⟩ →
     state.arrayNames.names.length < ArrayBindings.maxBindings →
     offset + length ≤ state.arrayNames.used → ArrayAddDomain state.arrayNames.names offset →
     ValidCursor text following →
-    calls.function .arrayAdd text state first after bounds offset length mutable following componentBounds isBoolean =
-      arrayAddBody.eval evaluator (arrayAddLocals text state first after bounds offset length mutable following componentBounds isBoolean)
+    calls.function .arrayAdd text state first after bounds offset length mutable following componentBounds isBoolean typeId =
+      arrayAddBody.eval evaluator (arrayAddLocals text state first after bounds offset length mutable following componentBounds isBoolean typeId)
   arrayPut : ∀ state value, state.arrayNames.used < ArrayBindings.maxElements →
     Integer.InRange value →
     calls.function .arrayPut state value = arrayPutBody.eval evaluator (arrayPutLocals state value)
