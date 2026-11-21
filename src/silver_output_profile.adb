@@ -1667,15 +1667,15 @@ is
       Component_Bounds : Scalars.Interval; Boolean_Elements : Boolean := False) return Parser_State is
      (State with delta Position => Following,
        Array_Names => (State.Array_Names with delta Names =>
-         (Count => State.Array_Names.Names.Count + 1,
+         (State.Array_Names.Names with delta Count => State.Array_Names.Names.Count + 1,
           Items => (State.Array_Names.Names.Items with delta State.Array_Names.Names.Count + 1 =>
-            (First, After, Bounds, Offset, Length, Mutable, Component_Bounds, Boolean_Elements)))))
+            (First, After, Bounds, Offset, Length, Mutable, Component_Bounds, Boolean_Elements, 0, 0)))))
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
          and then Valid_State (Text, State)
          and then State.Array_Names.Names.Count < Array_Bindings.Max_Bindings
          and then First > 0 and then Valid_Name_State (Text, First, After)
-         and then Array_Bindings.Valid_Binding ((First, After, Bounds, Offset, Length, Mutable, Component_Bounds, Boolean_Elements))
+         and then Array_Bindings.Valid_Binding ((First, After, Bounds, Offset, Length, Mutable, Component_Bounds, Boolean_Elements, 0, 0))
          and then Offset + Length <= State.Array_Names.Used
          and then (if State.Array_Names.Names.Count > 0 then Offset >=
            State.Array_Names.Names.Items (State.Array_Names.Names.Count).Offset
@@ -5536,7 +5536,7 @@ is
       Facts : Scalar_Flow; Parameter : Procedures.Formal) return Literal_Position is
      (if Parameter.Mode = Procedures.Input then
         Actual_After (Text, Context, Position, Facts,
-          (Parameter.First, Parameter.After, Parameter.Kind, Parameter.Bounds))
+          (Parameter.First, Parameter.After, Parameter.Kind, Parameter.Bounds, Parameter.Type_Id))
       else Procedure_Target_Actual (Text, Context, Position, Facts, Parameter).After);
    function Procedure_Actuals_Tail_Model
      (Text : String; Context : Body_Context; Position : Literal_Position;
@@ -6520,7 +6520,7 @@ is
        then (Invalid_State, False)
        else (declare Next : constant Parser_State :=
          (State with delta Position => Value.After,
-          Functions => Functions.Append_Formal (State.Functions, (First, After, Value.Kind, Value.Bounds)),
+          Functions => Functions.Append_Formal (State.Functions, (First, After, Value.Kind, Value.Bounds, 0)),
           Hiding => Hide_Name (Text, State.Hiding, First, After));
         Separator : constant Literal_Position := Take_Token (Text, Value.After, Semicolon);
         Close : constant Literal_Position := Take_Token (Text, Value.After, Right_Parenthesis);
@@ -6748,7 +6748,7 @@ is
        then (Invalid_State, False)
        else (declare Next : constant Parser_State :=
          (State with delta Position => Value.After,
-          Procedures => Procedures.Append_Formal (State.Procedures, (First, After, Value.Kind, Value.Bounds, Mode)),
+          Procedures => Procedures.Append_Formal (State.Procedures, (First, After, Value.Kind, Value.Bounds, 0, Mode)),
           Hiding => Hide_Name (Text, State.Hiding, First, After));
         Separator : constant Literal_Position := Take_Token (Text, Value.After, Semicolon);
         Close : constant Literal_Position := Take_Token (Text, Value.After, Right_Parenthesis);
@@ -6913,7 +6913,7 @@ is
         (Context_Of ((Read_Frame, False, False)) with delta Declaration_Count => Declaration_Count);
       Value_After : constant Literal_Position := Actual_After
         (Text, Context, Take_Token (Text, After, Assignment), Initial_Flow (Context),
-         (Parameter.First, Parameter.After, Parameter.Kind, Parameter.Bounds));
+         (Parameter.First, Parameter.After, Parameter.Kind, Parameter.Bounds, Parameter.Type_Id));
       Following : constant Literal_Position := Take_Token (Text, Value_After, Semicolon);
    begin
       if First = 0 or else After <= First
@@ -7007,7 +7007,7 @@ is
    begin
       if Start = 0 then return 0; end if;
       return Actual_After (Text, Context, Start, Scan.Facts,
-                           (0, 0, Result_Type.Kind, Result_Type.Bounds));
+                           (0, 0, Result_Type.Kind, Result_Type.Bounds, 0));
    end Function_Return_After;
    procedure Lemma_Function_Metadata_Append
      (Text : String; Environment : Functions.Metadata; Item : Functions.Signature)

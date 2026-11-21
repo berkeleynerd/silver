@@ -33,13 +33,41 @@ package body Silver_Array_Bindings with SPARK_Mode => On is
       return 0;
    end Lookup;
 
+   function Lookup_Type_Model
+     (Text : String; Types : Type_Environment; First, After : Literal_Position;
+      Index : Type_Count) return Type_Count is
+     (if First = 0 or else After <= First or else Index = 0 then 0
+      elsif Equal_Name (Text, Types.Items (Index).First, Types.Items (Index).After,
+                        First, After)
+      then Index else Lookup_Type_Model (Text, Types, First, After, Index - 1));
+
+   function Lookup_Type
+     (Text : String; Types : Type_Environment; First, After : Literal_Position)
+      return Type_Count is
+      Index : Type_Count := Types.Count;
+   begin
+      if First = 0 or else After <= First then return 0; end if;
+      while Index > 0 loop
+         pragma Loop_Invariant (Index <= Types.Count);
+         pragma Loop_Invariant (Static =>
+           Lookup_Type_Model (Text, Types, First, After, Types.Count)
+             = Lookup_Type_Model (Text, Types, First, After, Index));
+         pragma Loop_Variant (Decreases => Index);
+         if Equal_Name (Text, Types.Items (Index).First, Types.Items (Index).After,
+                        First, After)
+         then return Index; end if;
+         Index := Index - 1;
+      end loop;
+      return 0;
+   end Lookup_Type;
+
    function Read_Bounds
      (Names : Metadata; Values : Element_Array; Elaborating : Boolean;
       Target : Binding_Index; Index : Scalars.Interval)
       return Scalars.Interval is
       Item : constant Binding := Names.Items (Target);
    begin
-      if Elaborating then
+      if Elaborating and then Item.View_Slot = 0 then
          declare
             First_Slot : constant Element_Index := Element_Slot (Item, Index.Lower);
             Last_Slot : constant Element_Index := Element_Slot (Item, Index.Upper);

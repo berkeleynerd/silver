@@ -1,6 +1,7 @@
 with Silver_Profile;
 with Silver_Output_Lexical;
 with Silver_Scalars;
+with Silver_Array_Bindings;
 
 package Silver_Function_Bindings with SPARK_Mode => On is
    use Silver_Profile;
@@ -19,8 +20,9 @@ package Silver_Function_Bindings with SPARK_Mode => On is
       First, After : Literal_Position;
       Kind : Scalar_Kind;
       Bounds : Silver_Scalars.Interval;
+      Type_Id : Silver_Array_Bindings.Type_Count := 0;
    end record;
-   Empty_Formal : constant Formal := (0, 0, Integer_Kind, Silver_Scalars.Empty);
+   Empty_Formal : constant Formal := (0, 0, Integer_Kind, Silver_Scalars.Empty, 0);
    type Formal_Array is array (Formal_Index) of Formal;
    type Signature is record
       First, After : Literal_Position;
