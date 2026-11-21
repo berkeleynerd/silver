@@ -60,7 +60,6 @@ class IntegerArrayTests(unittest.TestCase):
             b'A:array(1..2)of Integer range 0..9:=(1,2);',
             b'A:array(1..2)of String:=("a","b");',
             b'A:array(1..2,1..2)of Integer:=((1,2),(3,4));',
-            b'type T is array(1..2)of Integer;A:T:=(1,2);',
             b'N:Integer:=2;A:array(1..N)of Integer:=(1,2);',
             b'N:Integer:=2;K:constant Integer:=N;A:array(1..K)of Integer:=(1,2);',
             b'A:array(-2147483648..2147483647)of Integer:=(0,0);',
@@ -136,7 +135,7 @@ class IntegerArrayTests(unittest.TestCase):
         for body in (
             b'B(1):=0;', b'A:=B;', b'X:=A;', b'S:=A(1);', b'A(1):=S;',
             b'A(B(1)):=0;', b'A(A(1)):=0;', b'X:=A(B(1));',
-            b'X:=A(1,2);', b'X:=A(1..2);', b"X:=A'First;", b"X:=A'Length;",
+            b'X:=A(1,2);', b'X:=A(1..2);',
             b'X:=A();', b'A(1):=;', b'A(1):=2147483648;',
         ):
             with self.subTest(body=body):

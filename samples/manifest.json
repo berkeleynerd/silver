@@ -3012,6 +3012,81 @@
         "stderr": "",
         "exit_status": 0
       }
+    },
+    {
+      "source": "rosetta_dot_product.adb",
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "named_integer_subtype",
+        "named_integer_array_type",
+        "integer_array_object",
+        "integer_array_read",
+        "integer_array_bound_query",
+        "integer_expression",
+        "named_integer_variable",
+        "integer_assignment",
+        "integer_image",
+        "string_literal",
+        "string_concatenation",
+        "expression_output",
+        "statement_sequence",
+        "scalar_function",
+        "scalar_function_call"
+      ],
+      "application_functions": [
+        "Dot"
+      ],
+      "specification": "../language.md#fixed-size-integer-arrays",
+      "expected": {
+        "stdout": "Dot product: 3\n",
+        "stderr": "",
+        "exit_status": 0
+      }
+    },
+    {
+      "source": "rosetta_horner_polynomial.adb",
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "named_integer_subtype",
+        "named_integer_array_type",
+        "integer_array_object",
+        "integer_array_read",
+        "integer_array_bound_query",
+        "integer_expression",
+        "named_integer_variable",
+        "integer_assignment",
+        "integer_image",
+        "string_literal",
+        "string_concatenation",
+        "expression_output",
+        "statement_sequence",
+        "scalar_procedure",
+        "scalar_procedure_call",
+        "integer_array_range",
+        "for_loop",
+        "integer_comparison",
+        "scalar_guard_refinement",
+        "named_boolean_variable",
+        "boolean_assignment",
+        "boolean_expression",
+        "string_choice"
+      ],
+      "application_procedures": {
+        "Horner": [
+          "Value",
+          "Succeeded"
+        ]
+      },
+      "specification": "../language.md#fixed-size-integer-arrays",
+      "expected": {
+        "stdout": "At 3: 128\nAt 10: capacity exceeded\n",
+        "stderr": "",
+        "exit_status": 0
+      }
     }
   ]
 }
