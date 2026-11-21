@@ -68,17 +68,17 @@ theorem booleanArray_sound {text context position facts}
           (nameAfter text (skipAt text position)))).isBoolean <;> simp_all
     have indexStart := model_fixed_valid text (nameAfter text (skipAt text position)) "(" false
       (model_name_valid text (skipAt text position))
-    have indexPositive : (ScalarExpression.read text
+    have indexPositive : (ScalarExpression.ArrayGrammar.read text
         (fixedAfter text (nameAfter text (skipAt text position)) "(" false)
-        (context.readingNames facts) context.maskFirst context.maskAfter).after ≠ 0 :=
+        (context.readingNames facts) context.arrayTable context.maskFirst context.maskAfter (arrayReads := .noElements)).after ≠ 0 :=
       (model_fixed_input_nonzero _ _ _ _) (by omega)
-    obtain ⟨index, reading⟩ := ScalarExpression.read_sound indexStart indexPositive
+    obtain ⟨index, reading⟩ := ScalarExpression.ArrayGrammar.read_sound indexStart indexPositive
     have containsTrue : ArrayBindings.contains
         (ArrayBindings.binding context.arrayNames
           (ArrayBindings.lookup text context.arrayNames (skipAt text position)
             (nameAfter text (skipAt text position))))
-        (ScalarExpression.read text (fixedAfter text (nameAfter text (skipAt text position)) "(" false)
-          (context.readingNames facts) context.maskFirst context.maskAfter).bounds = true := by
+        (ScalarExpression.ArrayGrammar.read text (fixedAfter text (nameAfter text (skipAt text position)) "(" false)
+          (context.readingNames facts) context.arrayTable context.maskFirst context.maskAfter (arrayReads := .noElements)).bounds = true := by
       cases found : ArrayBindings.contains _ _ <;> simp_all
     exact ⟨⟨_, .read target kindTrue (Classical.not_not.mp scalar) mask reading operands containsTrue
       (by omega)⟩, model_fixed_valid text _ ")" false reading.cursorBounds.2.2⟩
@@ -153,7 +153,7 @@ mutual
               cases arguments : context.hasArguments with
               | false => simp [readPrimary, zero, noOpening, noArray, noAtom, arguments, invalidCondition] at accepted
               | true => rfl
-            have finalPositive : callAfter text context.names position .validity context.scalarNames context.arrayNames
+            have finalPositive : callAfter text context.names position .validity context.scalarNames context.arrayTable
                 (context.validityHidden text) context.booleanNames ≠ 0 := by
               intro failed
               simp [readPrimary, zero, noOpening, noArray, noAtom, arguments, failed, invalidCondition] at accepted
@@ -283,10 +283,10 @@ mutual
                 exact False.elim (accepted (congrArg ConditionResult.after resultEq))
               · omega
             have rightPositive : right.after ≠ 0 := by omega
-            obtain ⟨leftExpr, leftRead⟩ := ScalarExpression.read_sound bounded scalarPresent
+            obtain ⟨leftExpr, leftRead⟩ := ScalarExpression.ArrayGrammar.read_sound bounded scalarPresent
             have leftBound := leftRead.cursorBounds.2.2
             have operatorBound := comparison_bound text left.after leftBound
-            obtain ⟨rightExpr, rightRead⟩ := ScalarExpression.read_sound operatorBound rightPositive
+            obtain ⟨rightExpr, rightRead⟩ := ScalarExpression.ArrayGrammar.read_sound operatorBound rightPositive
             have resultEq : readRelation text context position facts initials = scalarCondition text context position operator.after facts left right operator.operator := by
               simp only [readRelation, zero, noNot, noLength, ne_eq, not_true_eq_false,
                 scalarPresent, not_false_eq_true, ↓reduceIte]
@@ -342,8 +342,8 @@ mutual
                   · exact true_of_not_neg (fun bad => boundedValues (Or.inr (Or.inl bad)))
                   · exact true_of_not_neg (fun bad => boundedValues (Or.inr (Or.inr (Or.inl bad))))
                   · exact true_of_not_neg (fun bad => boundedValues (Or.inr (Or.inr (Or.inr bad))))
-                obtain ⟨leftExpr, leftRead⟩ := expressionAt_sound (scalarNames := context.readingNames facts) (integerHidden := context.integerHidden text) (arrays := context.arrayNames) (initials := initials) (elaborating := context.elaborating) text context.names position ready.1
-                obtain ⟨rightExpr, rightRead⟩ := expressionAt_sound (scalarNames := context.readingNames facts) (integerHidden := context.integerHidden text) (arrays := context.arrayNames) (initials := initials) (elaborating := context.elaborating) text context.names operator.after ready.2.2.2.1
+                obtain ⟨leftExpr, leftRead⟩ := expressionAt_sound (scalarNames := context.readingNames facts) (integerHidden := context.integerHidden text) (arrays := context.arrayTable) (initials := initials) (elaborating := context.elaborating) text context.names position ready.1
+                obtain ⟨rightExpr, rightRead⟩ := expressionAt_sound (scalarNames := context.readingNames facts) (integerHidden := context.integerHidden text) (arrays := context.arrayTable) (initials := initials) (elaborating := context.elaborating) text context.names operator.after ready.2.2.2.1
                 have resultEq : readRelation text context position facts initials = stringResult facts left right operator := by
                   simp only [readRelation, zero, noNot, noLength, noScalar, impure, Bool.false_eq_true, ne_eq, not_true_eq_false,
                     expressionPresent, not_false_eq_true, ↓reduceIte]
@@ -352,8 +352,8 @@ mutual
                   rfl
                 rw [resultEq]
                 exact ⟨⟨_, .strings zero noNot noLength noScalar leftRead rightRead ready rightAdvanced impure⟩,
-                  (model_expression_valid (scalarNames := context.readingNames facts) (integerHidden := context.integerHidden text) (arrays := context.arrayNames) (initials := initials) (elaborating := context.elaborating) text textValid operator.after context.names
-                    (comparison_bound text left.after (model_expression_valid (scalarNames := context.readingNames facts) (integerHidden := context.integerHidden text) (arrays := context.arrayNames) (initials := initials) (elaborating := context.elaborating) text textValid position context.names bounded namesValid).1)
+                  (model_expression_valid (scalarNames := context.readingNames facts) (integerHidden := context.integerHidden text) (arrays := context.arrayTable) (initials := initials) (elaborating := context.elaborating) text textValid operator.after context.names
+                    (comparison_bound text left.after (model_expression_valid (scalarNames := context.readingNames facts) (integerHidden := context.integerHidden text) (arrays := context.arrayTable) (initials := initials) (elaborating := context.elaborating) text textValid position context.names bounded namesValid).1)
                     namesValid).1⟩
               · have noExpression : (readStringInFlow text context position facts initials).after = 0 := by omega
                 by_cases characterPositive : (characterCondition text context position facts initials).after ≠ 0

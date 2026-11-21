@@ -6,6 +6,7 @@ public import Silver.PathBounds
 public import Silver.PredicateFlowInvariant
 public import Silver.PredicateConditionFlow
 public import Silver.PredicateScalarGuardMeaning
+public import Silver.ScalarArrayGrammarFrames
 public import Silver.ArrayBindingsNativeEquations
 
 @[expose] public section
@@ -55,15 +56,15 @@ private theorem length_meaning {text context position facts left right leftResul
 private theorem string_meaning {text context position facts left right leftResult rightResult initials}
     (normal : NamesNormal context.names)
     (compatible : ScalarMetadata.OverlayCompatible context.scalarNames context.declarationCount facts)
-    (leftRead : ExpressionAt (scalarNames := context.readingNames facts) (arrays := context.arrayNames) (initials := initials) (elaborating := context.elaborating) (integerHidden := context.integerHidden text) text context.names position left leftResult)
-    (rightRead : ExpressionAt (scalarNames := context.readingNames facts) (arrays := context.arrayNames) (initials := initials) (elaborating := context.elaborating) (integerHidden := context.integerHidden text) text context.names (comparisonAt text leftResult.after).after right rightResult)
+    (leftRead : ExpressionAt (scalarNames := context.readingNames facts) (arrays := context.arrayTable) (initials := initials) (elaborating := context.elaborating) (integerHidden := context.integerHidden text) text context.names position left leftResult)
+    (rightRead : ExpressionAt (scalarNames := context.readingNames facts) (arrays := context.arrayTable) (initials := initials) (elaborating := context.elaborating) (integerHidden := context.integerHidden text) text context.names (comparisonAt text leftResult.after).after right rightResult)
     (ready : StringRelationReady facts leftResult rightResult (comparisonAt text leftResult.after)) :
     ConditionMeaning context facts (.stringCompare ((comparisonAt text leftResult.after).operator != .eq) left right)
       (stringResult facts leftResult rightResult (comparisonAt text leftResult.after)) initials := by
   have l := expression_reading_ready normal leftRead
   have r := expression_reading_ready normal rightRead
   have ranges := context.reading_ranges compatible initials
-  rw [ranges] at l r
+  rw [show context.arrayTable.items = context.arrayNames from rfl, ranges] at l r
   have leftInferred := l.2
   have rightInferred := r.2
 
@@ -92,7 +93,7 @@ theorem ConditionMeaning.compatible {context facts condition result initials}
         (context.flow facts initials).scalars index := by
     intro index positive bounded mutable declared truth
     have readonly : context.analysis.refinable index = false := by
-      simp only [ParseContext.analysis, ArrayFlow.analysis, ArrayBindings.integerRefinability,
+      simp only [ParseContext.analysis, ArrayViews.analysis, ArrayFlow.analysis, ArrayBindings.integerRefinability,
         ArrayBindings.refinability_scalar _ _ (Nat.le_trans bounded base.size),
         ScalarMetadata.analysis, ScalarMetadata.refinable,
         mutable, Bool.false_or, show ¬context.declarationCount < index by omega,
@@ -125,22 +126,17 @@ theorem booleanArray_reading_meaning {text context position facts condition afte
     have targetBound := ArrayBindings.Native.lookup_bound text context.arrayNames
       (skipAt text position) (nameAfter text (skipAt text position))
     have member := ArrayBindings.Native.binding_mem (Nat.pos_of_ne_zero target) targetBound
-    have valid := (arraysReady.1.2.1 _ member).2.2.2
+    have valid := (arraysReady.member_valid member).2.1.1
     have initialized := ArrayBindings.booleanAnalysis_initialized member kind
       (BooleanBindings.analysis context.booleanNames)
     have inferred : index.infer (context.flow facts initials).scalars = some subscript.bounds := by
-      rw [← context.reading_ranges compatible initials]
-      have same : index.infer (ArrayBindings.integerRanges context.arrayNames initials context.elaborating
-            (ScalarExpression.ranges (context.readingNames facts))) =
-          index.infer (ScalarExpression.ranges (context.readingNames facts)) := by
-        apply Integer.Expr.infer_readsOnly (ScalarExpression.syntax_readsOnly reading.grammar)
-        intro scalar allowed
-        exact ArrayBindings.ranges_scalar _ _ _ _ (by
-          have active : scalar ≤ context.scalarNames.length := by
-            simpa only [ParseContext.readingNames, ScalarMetadata.readingNames_length] using allowed.2
-          exact Nat.le_trans active base.size)
-      rw [same]
-      simpa only [ArrayBindings.integerRanges, ArrayBindings.integerNames, List.filter_nil, ArrayBindings.ranges_nil] using reading.inferred
+      rw [← context.reading_ranges compatible initials, ← reading.inferred]
+      apply Integer.Expr.infer_readsOnly reading.noElements_readsOnly
+      intro scalar allowed
+      have active : scalar ≤ context.scalarNames.length := by
+        simpa only [ParseContext.readingNames, ScalarMetadata.readingNames_length] using allowed.2
+      have low := Nat.le_trans active base.size
+      rw [ArrayBindings.viewRanges_scalar _ _ _ _ low, ArrayBindings.viewRanges_scalar _ _ _ _ low]
     refine ⟨trivial, initialized, ?_, rfl, rfl⟩
     simp only [Condition.checkBounds, initialized, Bool.true_and,
       Boolean.ArrayDescriptor.checkIndex, inferred]
@@ -237,6 +233,7 @@ mutual
         exact ⟨⟨trivial, trivial, by
           have l := left.inferred
           have r := right.inferred
+          rw [show context.arrayTable.items = context.arrayNames from rfl] at l r
           simp only [Condition.checkBounds, ← ranges, l, r, Option.isSome_some, Bool.and_self],
           scalarCondition_whenTrue_model base.size compatible left right,
           scalarCondition_whenFalse_model base.size compatible left right⟩, rfl⟩
