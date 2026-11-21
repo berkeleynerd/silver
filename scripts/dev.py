@@ -426,7 +426,9 @@ def main(arguments: list[str] | None = None) -> None:
                     "error": finish.get("error"), "failure_keys": finish.get("failure_keys", []),
                     "evidence": [item["resolved"] for item in finish.get("evidence", run["evidence"])],
                     "retained_report_count": len(finish.get("retained_reports", [])),
-                    **{key: run.get(key) for key in ("allocation", "resource_reductions", "resource_reason")},
+                    **{key: run.get(key) for key in ("allocation", "resource_reductions", "resource_reason",
+                        "effective_reserved_workers", "cpu_affinity", "effective_cpu_affinity",
+                        "cpu_limit_reason", "resource_adjustment_reason")},
                 })
             result["runs"] = summaries
         elif args.operation == "diagnose":

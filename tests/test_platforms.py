@@ -279,6 +279,7 @@ def setup_worker(root: Path, key: str, concurrent: bool = False,
         stack.enter_context(mock.patch.object(check_lean, "PROOF", root / "proof"))
         stack.enter_context(mock.patch.object(check_lean, "available_cpus", return_value=available_cpus))
         stack.enter_context(mock.patch.object(run_history, "available_cpus", return_value=available_cpus))
+        stack.enter_context(mock.patch.object(run_history, "process_cpus", return_value=available_cpus))
         stack.enter_context(mock.patch.object(run_history, "registry", return_value=host.artifacts / "run-history"))
         stack.enter_context(mock.patch.object(bootstrap.urllib.request, "urlopen", side_effect=download))
         stack.enter_context(mock.patch.object(subprocess, "run", side_effect=run))
@@ -512,7 +513,7 @@ class PlatformIsolationTests(unittest.TestCase):
 
     def test_lean_auto_and_explicit_resources_are_recorded_and_isolated(self) -> None:
         key = platforms.host_key()
-        for workers, threads in ((0, 0), (2, 4)):
+        for workers, threads in ((0, 0), (2, 2)):
             with self.subTest(workers=workers, threads=threads):
                 before = self.snapshot((key,))
                 self.run_worker(key, f"--lean-workers={workers}", f"--lean-threads={threads}")
@@ -562,6 +563,7 @@ class PlatformIsolationTests(unittest.TestCase):
         with mock.patch.object(dev, "native_layout", return_value=host), \
                 mock.patch.object(run_history, "registry", return_value=host.artifacts / "run-history"), \
                 mock.patch.object(run_history, "available_cpus", return_value=3), \
+                mock.patch.object(run_history, "process_cpus", return_value=3), \
                 mock.patch.object(dev, "preflight", return_value=prepared) as preflight, \
                 mock.patch.object(dev, "input_hashes", return_value=prepared["inputs_sha256"]), \
                 mock.patch.object(dev, "invoke", side_effect=invoke_fixture), \

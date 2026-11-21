@@ -9,11 +9,13 @@ import signal
 import subprocess
 import sys
 import tempfile
+import threading
 import time
 import unittest
 from unittest import mock
 
 from scripts import run_history as history
+from scripts import platforms
 from scripts.platforms import HostLayout
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -27,6 +29,11 @@ class RunHistoryTests(unittest.TestCase):
         self.host = HostLayout(self.root, "linux-aarch64")
         self.resources = [self.root / "objects"]
         self.environment = dict(os.environ, PYTHONPATH=str(ROOT))
+        # Allocation fixtures below model a host independently of the CPUs
+        # assigned to this test process. Real inheritance is checked separately.
+        patch = mock.patch.object(history, "process_cpus", return_value=8)
+        patch.start()
+        self.addCleanup(patch.stop)
 
     def run_context(self, **options):
         arguments = dict(host=self.host, kind="prove", command=["prove"], inputs={"source": "a"},
@@ -44,6 +51,7 @@ import json, pathlib, subprocess, sys, time
 from scripts import run_history as history
 from scripts.platforms import HostLayout
 history.available_cpus = lambda: 2
+history.process_cpus = lambda: 2
 host = HostLayout(pathlib.Path(sys.argv[1]), 'linux-aarch64')
 with history.ManagedRun(host, 'holder', ['test'], {}, [pathlib.Path(sys.argv[2])], workers=int(sys.argv[3]),
                         resource_reason='fixture holder reserves part of the host') as run:
@@ -222,6 +230,63 @@ with history.ManagedRun(host, 'holder', ['test'], {}, [pathlib.Path(sys.argv[2])
         self.assertEqual({key: record[key] for key in ("schema", "requested_workers", "workers",
                                                       "available_cpus", "reason")},
                          {"schema": 1, "requested_workers": 2, "workers": 2, "available_cpus": 4, "reason": ""})
+
+    def test_cpu_ceiling_and_narrow_affinity_have_distinct_budgets(self):
+        with mock.patch.object(platforms.os, "cpu_count", return_value=32), \
+                mock.patch.object(history, "process_cpus", return_value=1):
+            self.assertEqual(history.available_cpus(), 8)
+            with self.run_context(workers=None) as run:
+                self.assertEqual(run.workers, 1)
+                status = history.status(self.host)
+                self.assertEqual((status["available_cpus"], status["reserved_workers"]), (8, 1))
+            with self.assertRaisesRegex(history.RunHistoryError, "worker budget"):
+                with self.run_context(workers=2):
+                    self.fail("request exceeded the launch's visible CPUs")
+        with mock.patch.object(platforms.os, "cpu_count", return_value=2):
+            self.assertEqual(history.available_cpus(), 2)
+
+    def test_resource_adjustment_preserves_launch_and_changes_accounting(self):
+        process, info = self.holder(workers=2)
+        with mock.patch.object(history, "available_cpus", return_value=2):
+            before, = self.records()
+            event = history.adjust_resources(self.host, info["run_id"], 1,
+                                             platforms.CPU_LIMIT_REASON, cpu_affinity=[7])
+            self.assertEqual(event["previous_effective_reserved_workers"], 2)
+            record, = self.records()
+            self.assertEqual(record["workers"], 2)
+            self.assertEqual(record["command"], before["command"])
+            self.assertEqual(record["events"][0], before["events"][0])
+            self.assertEqual(record["effective_reserved_workers"], 1)
+            self.assertEqual(record["effective_cpu_affinity"], [7])
+            with self.run_context(resources=[], workers=None) as run:
+                self.assertEqual(run.workers, 1)
+                self.assertEqual(history.status(self.host)["reserved_workers"], 2)
+                with self.assertRaisesRegex(history.RunHistoryError, "worker budget"):
+                    history.adjust_resources(self.host, info["run_id"], 2,
+                                             platforms.CPU_LIMIT_REASON, cpu_affinity=[6, 7])
+        self.release(process)
+        with self.assertRaisesRegex(history.RunHistoryError, "active run"):
+            history.adjust_resources(self.host, info["run_id"], 1, platforms.CPU_LIMIT_REASON)
+
+    @unittest.skipUnless(hasattr(os, "sched_getaffinity"), "requires Linux affinity")
+    def test_affinity_covers_existing_threads_and_inherited_children(self):
+        original = os.sched_getaffinity(0)
+        ready, release = threading.Event(), threading.Event()
+        thread = threading.Thread(target=lambda: (ready.set(), release.wait(timeout=10)))
+        thread.start()
+        self.addCleanup(lambda: (release.set(), thread.join(timeout=10)))
+        self.assertTrue(ready.wait(timeout=5))
+        with self.run_context(workers=1, resource_reason=platforms.CPU_LIMIT_REASON) as run:
+            selected = set(run.record["cpu_affinity"])
+            self.assertEqual(len(selected), 1)
+            self.assertLessEqual(selected, original)
+            for task in Path("/proc/self/task").iterdir():
+                self.assertEqual(os.sched_getaffinity(int(task.name)), selected)
+            result = subprocess.run([sys.executable, "-c",
+                                     "import json,os; print(json.dumps(sorted(os.sched_getaffinity(0))))"],
+                                    check=True, text=True, capture_output=True)
+            self.assertEqual(set(json.loads(result.stdout)), selected)
+        self.assertEqual(os.sched_getaffinity(0), original)
 
     def test_automatic_grant_reduced_by_reservations_needs_no_reason(self):
         process, info = self.holder(workers=1)

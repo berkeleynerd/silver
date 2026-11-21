@@ -39,6 +39,12 @@ class LeanCPUSelectionTests(unittest.TestCase):
         with mock.patch.object(check_lean, "os", SimpleNamespace(cpu_count=lambda: 6)):
             self.assertEqual(check_lean.available_cpus(), 6)
 
+    def test_host_allocation_caps_visible_cpus(self) -> None:
+        operating_system = SimpleNamespace(sched_getaffinity=lambda _pid: set(range(32)),
+                                           process_cpu_count=lambda: 32, cpu_count=lambda: 32)
+        with mock.patch.object(check_lean, "os", operating_system):
+            self.assertEqual(check_lean.available_cpus(), 8)
+
     def test_unavailable_affinity_does_not_prevent_cpu_detection(self) -> None:
         operating_system = SimpleNamespace(
             sched_getaffinity=mock.Mock(side_effect=OSError("affinity unavailable")),
@@ -406,12 +412,37 @@ class LeanRunnerPhaseTests(unittest.TestCase):
         patches.enter_context(mock.patch.object(check_lean, "native_layout", return_value=host))
         patches.enter_context(mock.patch.object(check_lean, "available_cpus", return_value=2))
         patches.enter_context(mock.patch("scripts.run_history.available_cpus", return_value=2))
+        patches.enter_context(mock.patch("scripts.run_history.process_cpus", return_value=2))
         patches.enter_context(mock.patch("scripts.run_history.registry",
                                          return_value=host.artifacts / "run-history"))
         patches.enter_context(mock.patch.object(check_lean, "lean_environment", return_value=dict(os.environ)))
         patches.enter_context(mock.patch.object(check_lean.subprocess, "run", side_effect=run))
         patches.enter_context(mock.patch.object(check_lean, "run_logged", side_effect=run_logged))
         return state
+
+    def test_automatic_threads_follow_the_shared_worker_grant(self) -> None:
+        state = self.fixture()
+        state.expected_workers = 1
+        with mock.patch("scripts.run_history.available_cpus", return_value=1), redirect_stdout(io.StringIO()):
+            check_lean.main(["--target", "Silver.Model"])
+        evidence = json.loads((state.host.artifacts / "lean-focused-evidence.json").read_text())
+        self.assertEqual((evidence["lake_workers"], evidence["threads_per_process"]), (1, 1))
+        self.assertIn("silverThreads=1", state.commands[0])
+        self.assertIn("-j1", state.commands[1])
+        from scripts import run_history
+        record, = run_history.status(state.host)["runs"]
+        self.assertEqual(record["allocation"]["threads"],
+                         {"requested": None, "automatic": 1, "actual": 1})
+        self.assertEqual(record["inputs"]["configuration"]["threads"], 1)
+        self.assertEqual(record["resource_reductions"], [])
+
+    def test_threads_cannot_exceed_an_explicit_worker_grant(self) -> None:
+        state = self.fixture()
+        with redirect_stdout(io.StringIO()), self.assertRaisesRegex(RuntimeError, "threads exceed the worker grant"):
+            check_lean.main(["--workers", "1", "--threads", "2",
+                             "--resource-reason", "host's eight-CPU allocation"])
+        self.assertEqual(state.phases, [])
+        self.assertFalse(state.host.proof.exists())
 
     def check_fails(self, state: SimpleNamespace, expected: str,
                     arguments: list[str] | None = None) -> None:
