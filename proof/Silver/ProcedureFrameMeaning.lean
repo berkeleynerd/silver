@@ -26,27 +26,31 @@ theorem appendProcedureParameter_valid {text frame parameter}
   split
   · split
     · exact model_invalid_state_valid text
-    · rename_i room
-      have space : frame.scalarNames.length < ScalarExpression.maxBindings := by
-        have bounded := valid.2.2.2.2.2.1.1
-        omega
-      have scalars := ScalarExpression.validEnvironment_append valid.2.2.2.2.2.1 space
-        (item := ⟨parameter.first, parameter.after, parameter.bounds, false, parameter.bounds,
-          decide (parameter.mode ≠ .input)⟩)
-        ⟨typed.1.1, typed.1.2.1, typed.1.2.2, typed.2.1, typed.2.1⟩
-      exact ⟨valid.1, valid.2.1, valid.2.2.1, valid.2.2.2.1,
-        valid.2.2.2.2.1, scalars, valid.2.2.2.2.2.2⟩
+    · exact appendArrayParameter_valid valid typed.1
   · split
-    · exact model_invalid_state_valid text
-    · rename_i room
-      have space : frame.booleanNames.length < BooleanBindings.maxBindings := by
-        have bounded := valid.booleans.1
-        omega
-      have booleans := BooleanBindings.valid_append valid.booleans space
-        (item := ⟨parameter.first, parameter.after, decide (parameter.mode ≠ .input)⟩) typed.1
-      exact ⟨valid.1, valid.2.1, valid.2.2.1, valid.2.2.2.1,
-        valid.2.2.2.2.1, valid.2.2.2.2.2.1, valid.2.2.2.2.2.2.1,
-        valid.2.2.2.2.2.2.2.1, booleans, valid.2.2.2.2.2.2.2.2.2⟩
+    · split
+      · exact model_invalid_state_valid text
+      · rename_i room
+        have space : frame.scalarNames.length < ScalarExpression.maxBindings := by
+          have bounded := valid.2.2.2.2.2.1.1
+          omega
+        have scalars := ScalarExpression.validEnvironment_append valid.2.2.2.2.2.1 space
+          (item := ⟨parameter.first, parameter.after, parameter.bounds, false, parameter.bounds,
+            decide (parameter.mode ≠ .input)⟩)
+          ⟨typed.1.1, typed.1.2.1, typed.1.2.2, typed.2.1, typed.2.1⟩
+        exact ⟨valid.1, valid.2.1, valid.2.2.1, valid.2.2.2.1,
+          valid.2.2.2.2.1, scalars, valid.2.2.2.2.2.2⟩
+    · split
+      · exact model_invalid_state_valid text
+      · rename_i room
+        have space : frame.booleanNames.length < BooleanBindings.maxBindings := by
+          have bounded := valid.booleans.1
+          omega
+        have booleans := BooleanBindings.valid_append valid.booleans space
+          (item := ⟨parameter.first, parameter.after, decide (parameter.mode ≠ .input)⟩) typed.1
+        exact ⟨valid.1, valid.2.1, valid.2.2.1, valid.2.2.2.1,
+          valid.2.2.2.2.1, valid.2.2.2.2.2.1, valid.2.2.2.2.2.2.1,
+          valid.2.2.2.2.2.2.2.1, booleans, valid.2.2.2.2.2.2.2.2.2⟩
 
 theorem appendProcedureParameter_headerReady {frame parameter}
     (ready : ScalarMetadata.HeaderReady frame.scalarNames)
@@ -56,11 +60,18 @@ theorem appendProcedureParameter_headerReady {frame parameter}
   split
   · split
     · exact ScalarMetadata.headerReady_empty
-    · exact ready.append (by simp only [Integer.Interval.isEmpty, decide_eq_false_iff_not]; omega)
-        (by simp)
+    · unfold appendArrayParameter
+      split
+      · exact ScalarMetadata.headerReady_empty
+      · exact ready
   · split
-    · exact ScalarMetadata.headerReady_empty
-    · exact ready
+    · split
+      · exact ScalarMetadata.headerReady_empty
+      · exact ready.append (by simp only [Integer.Interval.isEmpty, decide_eq_false_iff_not]; omega)
+          (by simp)
+    · split
+      · exact ScalarMetadata.headerReady_empty
+      · exact ready
 
 theorem ProcedureInputFramesAt.valid {text frame index final}
     (source : ProcedureInputFramesAt frame index final) (valid : ValidState text frame)
@@ -82,7 +93,7 @@ theorem ProcedureInputFramesAt.headerReady {text frame index final}
   | @next before final index _ inside _ _ _ _ ih =>
       have typed := valid.procedures.2.2.1 _ (ProcedureBindings.parameter_mem positive inside)
       exact ih (appendProcedureParameter_valid valid typed) (by omega)
-        (appendProcedureParameter_headerReady ready typed.2.2)
+        (appendProcedureParameter_headerReady ready typed.2.2.1)
 
 theorem procedureInputFrameModel_valid {text frame} (index : Nat)
     (valid : ValidState text frame) (positive : 0 < index) :
@@ -168,40 +179,62 @@ theorem functionScalarAnalysis_procedureInteger (frame : ParserState)
     (by simpa only [ScalarExpression.bodyEnvironment_length] using count) rfl]
   simp only [ScalarExpression.bodyEnvironment_length, procedureIntegerBinding]
 
+theorem appendProcedureParameter_array {frame : ParserState} {parameter : ProcedureBindings.Formal}
+    (named : parameter.typeId ≠ 0) (accepted : (appendProcedureParameter frame parameter).position ≠ 0) :
+    appendProcedureParameter frame parameter = {frame with arrayNames := {frame.arrayNames with
+      names := frame.arrayNames.names ++ [arrayParameterBinding frame parameter.first parameter.after parameter.typeId]}} := by
+  have step := appendProcedureParameter_named named accepted
+  rw [step] at accepted ⊢
+  exact appendParameter_array named accepted
+
+theorem procedureFormalModel_named (types : ArrayBindings.TypeEnvironment) {parameter : ProcedureBindings.Formal}
+    (named : parameter.typeId ≠ 0) (input : parameter.mode = .input) :
+    ProcedureBindings.formalModel parameter types =
+      ⟨.input, .array ((ArrayBindings.arrayType types parameter.typeId).domain parameter.typeId)⟩ := by
+  unfold ProcedureBindings.formalModel formalType
+  change (⟨ProcedureBindings.modeModel parameter.mode, if parameter.typeId ≠ 0 then _ else _⟩ : ScalarProcedures.Formal) = _
+  rw [ite_eq_left named, input]
+  rfl
+
 theorem appendProcedureParameter_analyses (frame : ParserState) (parameter : ProcedureBindings.Formal)
     (declarations : Nat) (count : declarations ≤ frame.scalarNames.length)
     (accepted : (appendProcedureParameter frame parameter).position ≠ 0) :
     functionScalarAnalysis (appendProcedureParameter frame parameter) declarations =
-      ScalarProcedures.parameterAnalysis frame.scalarNames.length [ProcedureBindings.formalModel parameter]
+      ScalarProcedures.parameterAnalysis frame.scalarNames.length [ProcedureBindings.formalModel parameter frame.arrayNames.types]
         (functionScalarAnalysis frame declarations) ∧
     BooleanBindings.analysis (appendProcedureParameter frame parameter).booleanNames =
-      ScalarProcedures.parameterBooleans frame.booleanNames.length [ProcedureBindings.formalModel parameter]
+      ScalarProcedures.parameterBooleans frame.booleanNames.length [ProcedureBindings.formalModel parameter frame.arrayNames.types]
         (BooleanBindings.analysis frame.booleanNames) := by
-  cases kind : parameter.kind with
-  | integer =>
-      have space : frame.scalarNames.length ≠ ScalarExpression.maxBindings := by
-        intro full
-        simp [appendProcedureParameter, kind, full, invalidState] at accepted
-      have step : appendProcedureParameter frame parameter =
-          {frame with scalarNames := frame.scalarNames ++ [procedureIntegerBinding parameter]} := by
-        simp [appendProcedureParameter, kind, space, procedureIntegerBinding]
-      rw [step, functionScalarAnalysis_procedureInteger frame parameter declarations count]
-      cases mode : parameter.mode <;>
-        simp [ProcedureBindings.formalModel, ProcedureBindings.modeModel, kind, mode,
-          ScalarProcedures.parameterAnalysis, ScalarProcedures.parameterBooleans]
-  | boolean =>
-      have space : frame.booleanNames.length ≠ BooleanBindings.maxBindings := by
-        intro full
-        simp [appendProcedureParameter, kind, full, invalidState] at accepted
-      have step : appendProcedureParameter frame parameter =
-          {frame with booleanNames := frame.booleanNames ++
-            [⟨parameter.first, parameter.after, decide (parameter.mode ≠ .input)⟩]} := by
-        simp [appendProcedureParameter, kind, space]
-      rw [step]
-      cases mode : parameter.mode <;>
-        simp [ProcedureBindings.formalModel, ProcedureBindings.modeModel, kind, mode,
-          ScalarProcedures.parameterAnalysis, ScalarProcedures.parameterBooleans,
-          functionScalarAnalysis, BooleanBindings.analysis_append]
+  by_cases named : parameter.typeId ≠ 0
+  · rw [appendProcedureParameter_array named accepted]
+    have input := appendProcedureParameter_named_input named accepted
+    rw [procedureFormalModel_named _ named input]
+    exact ⟨rfl, rfl⟩
+  · cases kind : parameter.kind with
+    | integer =>
+        have space : frame.scalarNames.length ≠ ScalarExpression.maxBindings := by
+          intro full
+          simp [appendProcedureParameter, named, kind, full, invalidState] at accepted
+        have step : appendProcedureParameter frame parameter =
+            {frame with scalarNames := frame.scalarNames ++ [procedureIntegerBinding parameter]} := by
+          simp [appendProcedureParameter, named, kind, space, procedureIntegerBinding]
+        rw [step, functionScalarAnalysis_procedureInteger frame parameter declarations count]
+        cases mode : parameter.mode <;>
+          simp [ProcedureBindings.formalModel, formalType, procedureInputFormal, named, ProcedureBindings.modeModel, kind, mode,
+            ScalarProcedures.parameterAnalysis, ScalarProcedures.parameterBooleans]
+    | boolean =>
+        have space : frame.booleanNames.length ≠ BooleanBindings.maxBindings := by
+          intro full
+          simp [appendProcedureParameter, named, kind, full, invalidState] at accepted
+        have step : appendProcedureParameter frame parameter =
+            {frame with booleanNames := frame.booleanNames ++
+              [⟨parameter.first, parameter.after, decide (parameter.mode ≠ .input)⟩]} := by
+          simp [appendProcedureParameter, named, kind, space]
+        rw [step]
+        cases mode : parameter.mode <;>
+          simp [ProcedureBindings.formalModel, formalType, procedureInputFormal, named, ProcedureBindings.modeModel, kind, mode,
+            ScalarProcedures.parameterAnalysis, ScalarProcedures.parameterBooleans,
+            functionScalarAnalysis, BooleanBindings.analysis_append]
 
 theorem ProcedureInputFramesAt.analyses {frame index final}
     (source : ProcedureInputFramesAt frame index final) (declarations : Nat)
@@ -209,11 +242,11 @@ theorem ProcedureInputFramesAt.analyses {frame index final}
     functionScalarAnalysis final declarations =
       ScalarProcedures.parameterAnalysis frame.scalarNames.length
         (ScalarProcedures.inputFormals (ProcedureBindings.formalModels frame.procedures index
-          (frame.procedures.parameters.length + 1 - index))) (functionScalarAnalysis frame declarations) ∧
+          (frame.procedures.parameters.length + 1 - index) frame.arrayNames.types)) (functionScalarAnalysis frame declarations) ∧
     BooleanBindings.analysis final.booleanNames =
       ScalarProcedures.parameterBooleans frame.booleanNames.length
         (ScalarProcedures.inputFormals (ProcedureBindings.formalModels frame.procedures index
-          (frame.procedures.parameters.length + 1 - index))) (BooleanBindings.analysis frame.booleanNames) := by
+          (frame.procedures.parameters.length + 1 - index) frame.arrayNames.types)) (BooleanBindings.analysis frame.booleanNames) := by
   induction source with
   | @done before index _ stopped =>
       have empty : before.procedures.parameters.length + 1 - index = 0 := by omega
@@ -231,48 +264,53 @@ theorem ProcedureInputFramesAt.analyses {frame index final}
       have remaining : before.procedures.parameters.length + 1 - index =
           (before.procedures.parameters.length + 1 - (index + 1)) + 1 := by omega
       rw [remaining, ProcedureBindings.formalModels]
-      cases kind : (ProcedureBindings.parameter before.procedures index).kind with
-      | integer =>
-          have space : before.scalarNames.length ≠ ScalarExpression.maxBindings := by
-            intro full
-            simp [appendProcedureParameter, kind, full, invalidState] at accepted
-          have step : appendProcedureParameter before (ProcedureBindings.parameter before.procedures index) =
-              {before with scalarNames := before.scalarNames ++
-                [procedureIntegerBinding (ProcedureBindings.parameter before.procedures index)]} := by
-            simp [appendProcedureParameter, kind, space, procedureIntegerBinding]
-          rw [step] at tail
-          rw [functionScalarAnalysis_procedureInteger before _ declarations count] at tail
-          cases mode : (ProcedureBindings.parameter before.procedures index).mode <;>
-            try exact False.elim (input mode)
-          all_goals simpa [ProcedureBindings.formalModel, kind, mode, ProcedureBindings.modeModel,
-            ScalarProcedures.inputFormals, ScalarProcedures.parameterAnalysis, ScalarProcedures.parameterBooleans]
-            using tail
-      | boolean =>
-          have space : before.booleanNames.length ≠ BooleanBindings.maxBindings := by
-            intro full
-            simp [appendProcedureParameter, kind, full, invalidState] at accepted
-          have step : appendProcedureParameter before (ProcedureBindings.parameter before.procedures index) =
-              {before with booleanNames := before.booleanNames ++
-                [⟨(ProcedureBindings.parameter before.procedures index).first,
-                  (ProcedureBindings.parameter before.procedures index).after,
-                  decide ((ProcedureBindings.parameter before.procedures index).mode ≠ .input)⟩]} := by
-            simp [appendProcedureParameter, kind, space]
-          rw [step] at tail
-          cases mode : (ProcedureBindings.parameter before.procedures index).mode <;>
-            try exact False.elim (input mode)
-          all_goals simpa [ProcedureBindings.formalModel, kind, mode, ProcedureBindings.modeModel,
-            ScalarProcedures.inputFormals, ScalarProcedures.parameterAnalysis, ScalarProcedures.parameterBooleans,
-            functionScalarAnalysis, BooleanBindings.analysis_append] using tail
+      by_cases named : (ProcedureBindings.parameter before.procedures index).typeId ≠ 0
+      · have mode := appendProcedureParameter_named_input named accepted
+        rw [appendProcedureParameter_array named accepted] at tail
+        rw [procedureFormalModel_named _ named mode]
+        exact tail
+      · cases kind : (ProcedureBindings.parameter before.procedures index).kind with
+        | integer =>
+            have space : before.scalarNames.length ≠ ScalarExpression.maxBindings := by
+              intro full
+              simp [appendProcedureParameter, named, kind, full, invalidState] at accepted
+            have step : appendProcedureParameter before (ProcedureBindings.parameter before.procedures index) =
+                {before with scalarNames := before.scalarNames ++
+                  [procedureIntegerBinding (ProcedureBindings.parameter before.procedures index)]} := by
+              simp [appendProcedureParameter, named, kind, space, procedureIntegerBinding]
+            rw [step] at tail
+            rw [functionScalarAnalysis_procedureInteger before _ declarations count] at tail
+            cases mode : (ProcedureBindings.parameter before.procedures index).mode <;>
+              try exact False.elim (input mode)
+            all_goals simpa [ProcedureBindings.formalModel, formalType, procedureInputFormal, named, kind, mode, ProcedureBindings.modeModel,
+              ScalarProcedures.inputFormals, ScalarProcedures.parameterAnalysis, ScalarProcedures.parameterBooleans]
+              using tail
+        | boolean =>
+            have space : before.booleanNames.length ≠ BooleanBindings.maxBindings := by
+              intro full
+              simp [appendProcedureParameter, named, kind, full, invalidState] at accepted
+            have step : appendProcedureParameter before (ProcedureBindings.parameter before.procedures index) =
+                {before with booleanNames := before.booleanNames ++
+                  [⟨(ProcedureBindings.parameter before.procedures index).first,
+                    (ProcedureBindings.parameter before.procedures index).after,
+                    decide ((ProcedureBindings.parameter before.procedures index).mode ≠ .input)⟩]} := by
+              simp [appendProcedureParameter, named, kind, space]
+            rw [step] at tail
+            cases mode : (ProcedureBindings.parameter before.procedures index).mode <;>
+              try exact False.elim (input mode)
+            all_goals simpa [ProcedureBindings.formalModel, formalType, procedureInputFormal, named, kind, mode, ProcedureBindings.modeModel,
+              ScalarProcedures.inputFormals, ScalarProcedures.parameterAnalysis, ScalarProcedures.parameterBooleans,
+              functionScalarAnalysis, BooleanBindings.analysis_append] using tail
 
 
 theorem ProcedureInputFramesAt.lengths {frame index final}
     (source : ProcedureInputFramesAt frame index final) :
     final.scalarNames.length = frame.scalarNames.length +
       ScalarProcedures.integerCount (ScalarProcedures.inputTypes (ProcedureBindings.formalModels frame.procedures index
-        (frame.procedures.parameters.length + 1 - index))) ∧
+        (frame.procedures.parameters.length + 1 - index) frame.arrayNames.types)) ∧
     final.booleanNames.length = frame.booleanNames.length +
       ScalarProcedures.booleanCount (ScalarProcedures.inputTypes (ProcedureBindings.formalModels frame.procedures index
-        (frame.procedures.parameters.length + 1 - index))) := by
+        (frame.procedures.parameters.length + 1 - index) frame.arrayNames.types)) := by
   induction source with
   | @done before index _ stopped =>
       have empty : before.procedures.parameters.length + 1 - index = 0 := by omega
@@ -288,24 +326,29 @@ theorem ProcedureInputFramesAt.lengths {frame index final}
       have remaining : before.procedures.parameters.length + 1 - index =
           (before.procedures.parameters.length + 1 - (index + 1)) + 1 := by omega
       rw [remaining, ProcedureBindings.formalModels]
-      cases kind : (ProcedureBindings.parameter before.procedures index).kind with
-      | integer =>
-          have space : before.scalarNames.length ≠ ScalarExpression.maxBindings := by
-            intro full
-            simp [appendProcedureParameter, kind, full, invalidState] at accepted
-          simp only [appendProcedureParameter, kind, ↓reduceIte, space,
-            List.length_append, List.length_singleton] at ih
-          cases mode : (ProcedureBindings.parameter before.procedures index).mode <;>
-            simp_all [ProcedureBindings.formalModel, ProcedureBindings.modeModel,
-              ScalarProcedures.inputTypes, ScalarProcedures.integerCount, ScalarProcedures.booleanCount, Nat.add_assoc, Nat.add_comm]
-      | boolean =>
-          have space : before.booleanNames.length ≠ BooleanBindings.maxBindings := by
-            intro full
-            simp [appendProcedureParameter, kind, full, invalidState] at accepted
-          simp only [appendProcedureParameter, kind, reduceCtorEq, ↓reduceIte, space,
-            List.length_append, List.length_singleton] at ih
-          cases mode : (ProcedureBindings.parameter before.procedures index).mode <;>
-            simp_all [ProcedureBindings.formalModel, ProcedureBindings.modeModel,
-              ScalarProcedures.inputTypes, ScalarProcedures.integerCount, ScalarProcedures.booleanCount, Nat.add_assoc, Nat.add_comm]
+      by_cases named : (ProcedureBindings.parameter before.procedures index).typeId ≠ 0
+      · have mode := appendProcedureParameter_named_input named accepted
+        rw [appendProcedureParameter_array named accepted] at ih
+        rw [procedureFormalModel_named _ named mode]
+        exact ih
+      · cases kind : (ProcedureBindings.parameter before.procedures index).kind with
+        | integer =>
+            have space : before.scalarNames.length ≠ ScalarExpression.maxBindings := by
+              intro full
+              simp [appendProcedureParameter, named, kind, full, invalidState] at accepted
+            simp only [appendProcedureParameter, named, kind, ↓reduceIte, space,
+              List.length_append, List.length_singleton] at ih
+            cases mode : (ProcedureBindings.parameter before.procedures index).mode <;>
+              simp_all [ProcedureBindings.formalModel, formalType, procedureInputFormal, ProcedureBindings.modeModel,
+                ScalarProcedures.inputTypes, ScalarProcedures.integerCount, ScalarProcedures.booleanCount, Nat.add_assoc, Nat.add_comm]
+        | boolean =>
+            have space : before.booleanNames.length ≠ BooleanBindings.maxBindings := by
+              intro full
+              simp [appendProcedureParameter, named, kind, full, invalidState] at accepted
+            simp only [appendProcedureParameter, named, kind, reduceCtorEq, ↓reduceIte, space,
+              List.length_append, List.length_singleton] at ih
+            cases mode : (ProcedureBindings.parameter before.procedures index).mode <;>
+              simp_all [ProcedureBindings.formalModel, formalType, procedureInputFormal, ProcedureBindings.modeModel,
+                ScalarProcedures.inputTypes, ScalarProcedures.integerCount, ScalarProcedures.booleanCount, Nat.add_assoc, Nat.add_comm]
 
 end Silver.Compose
