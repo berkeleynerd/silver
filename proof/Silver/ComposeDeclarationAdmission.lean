@@ -60,9 +60,9 @@ def declarationIntegerHidden (text : Source) (state : ParserState) : Bool :=
 def declarationParts (text : Source) (state : ParserState) : DeclarationParts :=
   ⟨declarationFirst text state, declarationAfter text state, declarationConstantAfter text state,
     expressionAt text (declarationValuePosition text state) state.names state.scalarNames (declarationIntegerHidden text state)
-      state.arrayNames.names state.arrayNames.values true,
+      state.arrayNames.table state.arrayNames.values true,
     fixedAfter text (expressionAt text (declarationValuePosition text state) state.names state.scalarNames (declarationIntegerHidden text state)
-      state.arrayNames.names state.arrayNames.values true).after ";" false⟩
+      state.arrayNames.table state.arrayNames.values true).after ";" false⟩
 
 def fixedDeclarationBounds (value : ExpressionResult) (slot : Nat) : Bool :=
   !(decide (value.dynamicCount = 0) &&
@@ -72,10 +72,18 @@ def fixedDeclarationBounds (value : ExpressionResult) (slot : Nat) : Bool :=
   fixedBoundsValid value.staticLength (decide (value.dynamicCount = 1)) false
     value.firstIndex.lower value.lastIndex.lower slot
 
+def declarationStringTypeHidden (text : Source) (state : ParserState) : Bool :=
+  decide (ArrayBindings.lookupType text state.arrayNames.types
+        (skipAt text (if declarationConstantAfter text state ≠ 0 then declarationConstantAfter text state
+          else declarationColonAfter text state))
+        (fixedAfter text (if declarationConstantAfter text state ≠ 0 then declarationConstantAfter text state
+          else declarationColonAfter text state) "string" true) ≠ 0)
+
 def stringDeclarationAt (text : Source) (state : ParserState) (arguments : Bool) : ParserState :=
   let parts := declarationParts text state
   if !newNameAllowed text state parts.first parts.after arguments ||
       decide (parts.following = 0 ∨ state.names.length = maxBindings) ||
+      declarationStringTypeHidden text state ||
       !fits parts.value maxSourceLength || parts.value.emptyValue ||
       decide (parts.value.minimumLength ≠ parts.value.staticLength) ||
       !fixedDeclarationBounds parts.value (state.names.length + 1)
@@ -99,7 +107,7 @@ def characterDeclarationParts (text : Source) (state : ParserState) : CharacterD
   let typeFirst := skipAt text (if constantAfter ≠ 0 then constantAfter else declarationColonAfter text state)
   let typeAfter := fixedAfter text typeFirst "character" true
   let value := characterAt text (fixedAfter text typeAfter ":=" false) state.names state.scalarNames
-    state.arrayNames.names state.arrayNames.values true
+    state.arrayNames.table state.arrayNames.values true
   ⟨first, after, constantAfter, typeFirst, typeAfter, value, fixedAfter text value.after ";" false⟩
 
 def characterDeclarationRejected (text : Source) (state : ParserState) (arguments : Bool)
@@ -110,6 +118,7 @@ def characterDeclarationRejected (text : Source) (state : ParserState) (argument
     decide (lookupName text state.names parts.typeFirst parts.typeAfter ≠ 0 ∨
       ScalarExpression.lookup text state.scalarNames parts.typeFirst parts.typeAfter ≠ 0 ∨
       ArrayBindings.lookup text state.arrayNames.names parts.typeFirst parts.typeAfter ≠ 0 ∨
+        ArrayBindings.lookupType text state.arrayNames.types parts.typeFirst parts.typeAfter ≠ 0 ∨
       IntegerSubtypes.lookup text state.subtypeNames parts.typeFirst parts.typeAfter ≠ 0 ∨
       BooleanBindings.lookup text state.booleanNames parts.typeFirst parts.typeAfter ≠ 0 ∨
         FunctionBindings.lookup text state.functions parts.typeFirst parts.typeAfter ≠ 0 ∨
@@ -130,12 +139,13 @@ structure ScalarConstraintResult where
   deriving DecidableEq, Repr
 
 def scalarConstraintAt (text : Source) (position : Nat)
-    (names : ScalarExpression.Environment) (baseBounds : Integer.Interval := .full) : ScalarConstraintResult :=
+    (names : ScalarExpression.Environment) (baseBounds : Integer.Interval := .full)
+    (arrays : ArrayBindings.Table := {}) : ScalarConstraintResult :=
   let rangeAfter := fixedAfter text position "range" true
   if rangeAfter = 0 then ⟨position, baseBounds⟩ else
-    let lower := ScalarExpression.read text rangeAfter names
+    let lower := ScalarExpression.ArrayGrammar.read text rangeAfter names arrays
     let delimiter := fixedAfter text lower.after ".." false
-    let upper := ScalarExpression.read text delimiter names
+    let upper := ScalarExpression.ArrayGrammar.read text delimiter names arrays
     if lower.after = 0 ∨ delimiter = 0 ∨ upper.after = 0 ∨ lower.isStatic = false ∨ upper.isStatic = false ∨
         lower.bounds.isEmpty = true ∨ upper.bounds.isEmpty = true ∨
         lower.bounds.lower ≠ lower.bounds.upper ∨ upper.bounds.lower ≠ upper.bounds.upper ∨
@@ -150,6 +160,7 @@ def scalarTypeAt (text : Source) (state : ParserState) (position : Nat) : Scalar
   if first = 0 ∨ after ≤ first ∨ lookupName text state.names first after ≠ 0 ∨
       ScalarExpression.lookup text state.scalarNames first after ≠ 0 ∨
       ArrayBindings.lookup text state.arrayNames.names first after ≠ 0 ∨
+      ArrayBindings.lookupType text state.arrayNames.types first after ≠ 0 ∨
       BooleanBindings.lookup text state.booleanNames first after ≠ 0 ∨
       FunctionBindings.lookup text state.functions first after ≠ 0 ∨
       ProcedureBindings.lookup text state.procedures first after ≠ 0 ∨
@@ -174,7 +185,7 @@ def subtypeDeclarationParts (text : Source) (state : ParserState) : SubtypeDecla
   let after := nameAfter text first
   let typeFirst := skipAt text (fixedAfter text after "is" true)
   let typeAfter := fixedAfter text typeFirst "integer" true
-  let constraint := scalarConstraintAt text typeAfter state.scalarNames
+  let constraint := scalarConstraintAt text typeAfter state.scalarNames (arrays := state.arrayNames.table)
   ⟨first, after, typeFirst, typeAfter, constraint, fixedAfter text constraint.after ";" false⟩
 
 def addSubtypeBinding (text : Source) (state : ParserState) (parts : SubtypeDeclarationParts) : ParserState :=
@@ -231,6 +242,7 @@ def subtypeDeclarationAt (text : Source) (state : ParserState) (arguments : Bool
       decide (lookupName text state.names parts.typeFirst parts.typeAfter ≠ 0 ∨
         ScalarExpression.lookup text state.scalarNames parts.typeFirst parts.typeAfter ≠ 0 ∨
         ArrayBindings.lookup text state.arrayNames.names parts.typeFirst parts.typeAfter ≠ 0 ∨
+        ArrayBindings.lookupType text state.arrayNames.types parts.typeFirst parts.typeAfter ≠ 0 ∨
         BooleanBindings.lookup text state.booleanNames parts.typeFirst parts.typeAfter ≠ 0 ∨
         FunctionBindings.lookup text state.functions parts.typeFirst parts.typeAfter ≠ 0 ∨
         ProcedureBindings.lookup text state.procedures parts.typeFirst parts.typeAfter ≠ 0 ∨
@@ -260,15 +272,15 @@ def scalarDeclarationTypeAfter (text : Source) (state : ParserState) : Nat :=
 
 def scalarDeclarationValuePosition (text : Source) (state : ParserState) : Nat :=
   fixedAfter text (scalarConstraintAt text (scalarDeclarationTypeAfter text state) state.scalarNames
-    (scalarTypeAt text state (scalarDeclarationTypeFirst text state)).bounds).after ":=" false
+    (scalarTypeAt text state (scalarDeclarationTypeFirst text state)).bounds state.arrayNames.table).after ":=" false
 
 def scalarDeclarationParts (text : Source) (state : ParserState) : ScalarDeclarationParts :=
-  let value := ScalarExpression.read text (scalarDeclarationValuePosition text state) state.scalarNames
-    (arrays := state.arrayNames.names) (initials := state.arrayNames.values) (elaborating := true)
+  let value := ScalarExpression.ArrayGrammar.read text (scalarDeclarationValuePosition text state) state.scalarNames
+    state.arrayNames.table (initials := state.arrayNames.values) (elaborating := true)
   ⟨declarationFirst text state, declarationAfter text state, declarationConstantAfter text state,
     scalarDeclarationTypeFirst text state, scalarDeclarationTypeAfter text state,
     scalarConstraintAt text (scalarDeclarationTypeAfter text state) state.scalarNames
-    (scalarTypeAt text state (scalarDeclarationTypeFirst text state)).bounds, value,
+    (scalarTypeAt text state (scalarDeclarationTypeFirst text state)).bounds state.arrayNames.table, value,
     fixedAfter text value.after ";" false⟩
 
 def addScalarBinding (state : ParserState) (parts : ScalarDeclarationParts) : ParserState :=
@@ -289,7 +301,8 @@ def scalarDeclarationAt (text : Source) (state : ParserState) (arguments : Bool)
       decide (fixedAfter text parts.first "integer" true = parts.after) ||
       decide (lookupName text state.names parts.typeFirst parts.typeAfter ≠ 0 ∨
         ScalarExpression.lookup text state.scalarNames parts.typeFirst parts.typeAfter ≠ 0 ∨
-        ArrayBindings.lookup text state.arrayNames.names parts.typeFirst parts.typeAfter ≠ 0)
+        ArrayBindings.lookup text state.arrayNames.names parts.typeFirst parts.typeAfter ≠ 0 ∨
+        ArrayBindings.lookupType text state.arrayNames.types parts.typeFirst parts.typeAfter ≠ 0)
   then invalidState else addScalarBinding state parts
 
 structure ArrayDeclarationParts where
@@ -304,18 +317,29 @@ structure ArrayDeclarationParts where
   componentBounds : Integer.Interval
   position : Nat
   isBoolean : Bool := false
+  typeId : Nat := 0
   deriving DecidableEq, Repr
 
 def arrayDeclarationParts (text : Source) (state : ParserState) : ArrayDeclarationParts :=
-  let arrayAfter := fixedAfter text
-    (if declarationConstantAfter text state ≠ 0 then declarationConstantAfter text state
-      else declarationColonAfter text state) "array" true
-  let lower := ScalarExpression.read text (fixedAfter text arrayAfter "(" false) state.scalarNames
-    (arrays := state.arrayNames.names) (initials := state.arrayNames.values) (elaborating := true)
-  let upper := ScalarExpression.read text (fixedAfter text lower.after ".." false) state.scalarNames
-    (arrays := state.arrayNames.names) (initials := state.arrayNames.values) (elaborating := true)
-  let typeFirst := skipAt text (fixedAfter text (fixedAfter text upper.after ")" false) "of" true)
-  let integerType := scalarTypeAt text state typeFirst
+  let start := if declarationConstantAfter text state ≠ 0 then declarationConstantAfter text state
+    else declarationColonAfter text state
+  let namedFirst := skipAt text start
+  let namedAfter := nameAfter text namedFirst
+  let typeId := arrayTypeAt text state namedFirst
+  let arrayAfter := fixedAfter text start "array" true
+  let lower : ScalarExpression.Result := if typeId ≠ 0 then
+      ⟨namedAfter, .singleton (ArrayBindings.arrayType state.arrayNames.types typeId).bounds.lower, 1, true⟩
+    else ScalarExpression.ArrayGrammar.read text (fixedAfter text arrayAfter "(" false) state.scalarNames
+      state.arrayNames.table (initials := state.arrayNames.values) (elaborating := true)
+  let upper : ScalarExpression.Result := if typeId ≠ 0 then
+      ⟨namedAfter, .singleton (ArrayBindings.arrayType state.arrayNames.types typeId).bounds.upper, 1, true⟩
+    else ScalarExpression.ArrayGrammar.read text (fixedAfter text lower.after ".." false) state.scalarNames
+      state.arrayNames.table (initials := state.arrayNames.values) (elaborating := true)
+  let typeFirst := if typeId ≠ 0 then namedFirst else
+    skipAt text (fixedAfter text (fixedAfter text upper.after ")" false) "of" true)
+  let integerType : ScalarConstraintResult := if typeId ≠ 0 then
+      ⟨namedAfter, (ArrayBindings.arrayType state.arrayNames.types typeId).componentBounds⟩
+    else scalarTypeAt text state typeFirst
   let isBoolean := decide (integerType.after = 0) && decide (fixedAfter text typeFirst "boolean" true ≠ 0)
   let typeMark := if isBoolean then
       ScalarConstraintResult.mk (fixedAfter text typeFirst "boolean" true) .full
@@ -323,13 +347,13 @@ def arrayDeclarationParts (text : Source) (state : ParserState) : ArrayDeclarati
   let typeAfter := typeMark.after
   ⟨declarationFirst text state, declarationAfter text state, declarationConstantAfter text state,
     arrayAfter, lower, upper, typeFirst, typeAfter, typeMark.bounds,
-    fixedAfter text (fixedAfter text typeAfter ":=" false) "(" false, isBoolean⟩
+    fixedAfter text (fixedAfter text typeAfter ":=" false) "(" false, isBoolean, typeId⟩
 
 def arrayAggregatePosition (text : Source) (state : ParserState)
     (parts : ArrayDeclarationParts) (length : Nat) : Nat :=
   if length = 1 then
-    let index := ScalarExpression.read text parts.position state.scalarNames
-      (arrays := state.arrayNames.names) (initials := state.arrayNames.values) (elaborating := true)
+    let index := ScalarExpression.ArrayGrammar.read text parts.position state.scalarNames
+      state.arrayNames.table (initials := state.arrayNames.values) (elaborating := true)
     let following := fixedAfter text index.after "=>" false
     if following = 0 ∨ index.isStatic = false ∨ index.bounds.isEmpty = true ∨
         index.bounds.lower ≠ parts.lower.bounds.lower ∨ index.bounds.upper ≠ parts.lower.bounds.lower
@@ -343,8 +367,8 @@ def arrayValuesModel (text : Source) (source result : ParserState)
     (position length parsed : Nat) (componentBounds : Integer.Interval := .full) : ParserState :=
   if position = 0 then invalidState else
   if _remaining : parsed < length then
-    let value := ScalarExpression.read text position source.scalarNames
-      (arrays := source.arrayNames.names) (initials := source.arrayNames.values) (elaborating := true)
+    let value := ScalarExpression.ArrayGrammar.read text position source.scalarNames
+      source.arrayNames.table (initials := source.arrayNames.values) (elaborating := true)
     if value.after = 0 ∨ value.bounds.isEmpty = true ∨ value.bounds.lower ≠ value.bounds.upper ∨
         value.bounds.lower < componentBounds.lower ∨ componentBounds.upper < value.bounds.upper then invalidState
     else
@@ -415,8 +439,10 @@ def arrayDeclarationAt (text : Source) (state : ParserState) (arguments : Bool) 
   let parts := arrayDeclarationParts text state
   if !newNameAllowed text state parts.first parts.after arguments ||
       Named.nameIs text parts.first parts.after parts.typeWord ||
-      decide (parts.arrayAfter = 0 ∨ parts.position = 0 ∨
+      decide ((parts.arrayAfter = 0 ∧ parts.typeId = 0) ∨ parts.position = 0 ∨
         state.arrayNames.names.length = ArrayBindings.maxBindings ∨
+        (0 < state.arrayNames.names.length ∧
+          (ArrayBindings.binding state.arrayNames.names state.arrayNames.names.length).viewSlot ≠ 0) ∨
         parts.lower.after = 0 ∨ parts.upper.after = 0) ||
       !parts.lower.isStatic || !parts.upper.isStatic || parts.lower.bounds.isEmpty || parts.upper.bounds.isEmpty ||
       decide (parts.lower.bounds.lower ≠ parts.lower.bounds.upper ∨
@@ -425,6 +451,7 @@ def arrayDeclarationAt (text : Source) (state : ParserState) (arguments : Bool) 
       decide (lookupName text state.names parts.typeFirst parts.typeAfter ≠ 0 ∨
         ScalarExpression.lookup text state.scalarNames parts.typeFirst parts.typeAfter ≠ 0 ∨
         ArrayBindings.lookup text state.arrayNames.names parts.typeFirst parts.typeAfter ≠ 0 ∨
+        (parts.typeId = 0 ∧ ArrayBindings.lookupType text state.arrayNames.types parts.typeFirst parts.typeAfter ≠ 0) ∨
         BooleanBindings.lookup text state.booleanNames parts.typeFirst parts.typeAfter ≠ 0 ∨
         FunctionBindings.lookup text state.functions parts.typeFirst parts.typeAfter ≠ 0 ∨
         ProcedureBindings.lookup text state.procedures parts.typeFirst parts.typeAfter ≠ 0 ∨
@@ -445,7 +472,7 @@ def arrayDeclarationAt (text : Source) (state : ParserState) (arguments : Bool) 
             names := result.arrayNames.names ++ [⟨parts.first, parts.after,
               ⟨parts.lower.bounds.lower, parts.upper.bounds.lower⟩,
               state.arrayNames.used, length, decide (parts.constantAfter = 0), parts.componentBounds,
-              parts.isBoolean, 0, 0⟩]}}
+              parts.isBoolean, parts.typeId, 0⟩]}}
 
 structure BooleanDeclarationParts where
   first : Nat
@@ -473,6 +500,7 @@ def booleanDeclarationReady (text : Source) (state : ParserState) (arguments : B
     decide (lookupName text state.names parts.typeFirst parts.typeAfter = 0 ∧
       ScalarExpression.lookup text state.scalarNames parts.typeFirst parts.typeAfter = 0 ∧
       ArrayBindings.lookup text state.arrayNames.names parts.typeFirst parts.typeAfter = 0 ∧
+      ArrayBindings.lookupType text state.arrayNames.types parts.typeFirst parts.typeAfter = 0 ∧
       IntegerSubtypes.lookup text state.subtypeNames parts.typeFirst parts.typeAfter = 0 ∧
       BooleanBindings.lookup text state.booleanNames parts.typeFirst parts.typeAfter = 0 ∧
       FunctionBindings.lookup text state.functions parts.typeFirst parts.typeAfter = 0 ∧
