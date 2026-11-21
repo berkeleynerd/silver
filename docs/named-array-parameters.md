@@ -207,8 +207,9 @@ Integration uses `tmp/named-array-parameters-410`; separate native, mathematical
 proof and source-correspondence worktrees retain their own outputs and caches.
 These checkpoints are development evidence, not completed capability assurance.
 All runs below are Linux x86_64 on the primary host. Automatic worker/thread
-allocation was 22 where applicable; no complete native or Lean checkpoint has
-yet been started for the feature.
+allocation was 22 where applicable, with concurrent reservations as recorded.
+The complete native audit has now started after focused native readiness closed;
+the complete Lean checkpoint remains pending source/proof integration.
 
 | Round | Selected settings | Result and remaining work | Run/time evidence |
 | --- | --- | --- | --- |
@@ -226,6 +227,37 @@ yet been started for the feature.
 | Full-table grammar and expression integration | Proof workers selected Astra Max; lead runtime settings not independently exposed | Independent source grammar, String/Character/index/Image atom readings, whole String expression semantics, declaration dispatch and static subtype endpoints now use the complete table. Named types participate in the declaration termination measure. Snapshot proofs explicitly require stored cells; the declaration-chain derivation remains pending. | Grammar `20261121T121302-5b87a37e822e`; scanner `20261121T122350-3e3dbf84c2c1`: 10,313 declarations; scalar-only source facts `20261121T122558-d975c3d52762`: 6,660; expression/subtype integration `20261121T122902-af18e12cd08c`: 11,173. Each focus used two workers/22 threads to share six workers with the other Lean streams alongside the native run. |
 | Full-table actual-source reader endpoint | Source-correspondence worker selected Astra Max | Arbitrary interpreted source calls agree with the independent grammar for complete tables, all three read modes and scalar/Range attributes. The checked source and array helper bridges are included. This closes the scalar reader component; composition source correspondence remains pending. | `20261121T123207-a02cfae7281b`: fresh 16,216-declaration audit, build 15.162 s and audit 3.167 s, two workers/22 threads; implementation `529564cb4d`, integrated as `638f614ac7`. |
 | Physical declaration helper repair | Native worker; full-domain diagnosis retained in the managed ledger | The earlier executable-reader check exposed physical append in a generic symbolic-view frame. Matching model/runtime guards reject that internal case while preserving the complete original contracts. Both repaired contracts pass; the remaining loop and outer subprogram caller gates are pending. | Failed reader `20261121T115327-cd1e93904f89` retained as failed. Model `20261121T121211-472d67105ce2` passes all 62 model checks and reader `20261121T122534-e4a9782a41fd` passes all 66 reader checks on native `f57750fd90`, integrated as `4e44cc816d`; 16 workers reserved six for concurrent Lean work. |
+
+The subsequent integration round retains focused success for the native Range
+loop equation, the mutable-only counted-bound reader and their flow/sizing
+adapters (`20261121T134623-0e8435d0923e`, 20,100 declarations). The exact Loop_Body
+source candidate also passes its kernel-checked rendered-token comparison
+(`20261121T134718-422136f4d2fc`, 16,884 declarations). Function actual/call meaning,
+closed read-only array frames and native-helper interpretations pass their focused
+audit (`20261121T134818-d631a41f1b28`, 27,395 declarations). The generic array-view
+loop lemmas pass separately (`20261121T134942-021ed35c21b6`, 5,640 declarations).
+These source/proof subthreads were selected at GPT-6 Astra Max and used four
+managed workers with 22 threads per Lean process, sharing the 22 available CPUs
+with the native caller queue. Runtime model/effort is not independently exposed.
+
+The lead's shared declaration/equation integration remains in progress. Focused
+failures preserve obsolete metadata-interface errors and local reduction-cost
+failures; completed leaf objects remain reusable under ordinary Lake checks.
+In particular the Boolean aggregate trace compiles after keeping the scalar
+reader opaque locally, with its theorem and admission domains unchanged. No
+complete native or Lean capability audit is claimed by these partial checks.
+
+All 17 supplemental whole-subprogram caller gates requested by the independent
+native review subsequently passed the canonical final policy. The
+[readiness inventory](evidence/named-array-parameters-410-20261121/supplemental-native-readiness.json)
+names each run and check count. Before the complete native audit, all 2,635
+captured input paths were rehashed against the stable native workspace; every
+one matched, and its source/tooling trees match the integration workspace. The
+native workspace includes the copied final catalogue emitter as an uncommitted,
+verified exact-byte snapshot. Complete native run `20261121T135513-089c46fa489d`
+is running alongside Lean integration, with a 16 MiB invoking-shell stack and
+automatic allocation of the remaining ten managed CPUs. No complete-native
+success is claimed yet.
 
 The final native direct-caller gates also passed on the same source: `Loop_Body`
 (`20261121T123923-1aacb72aa836`, 96 checks), function declaration

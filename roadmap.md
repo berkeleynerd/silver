@@ -65,9 +65,10 @@ and source-proof composition before admission.
 and [two-task fidelity assessment](rosetta/assessment-named-array-parameters-20261121.md).
 The native review resolves the measured 16 MiB invoking-shell stack prerequisite;
 27 audited focused gates and the sample/source-limit routes are scoped evidence.
-Seventeen supplemental direct-caller gates and the complete native/Lean/source,
-regression and independent delivery checkpoint remain required. No completed
-readiness or support is claimed here. The prepared precise Rosetta construct
+The seventeen supplemental direct-caller gates also passed; their current-input
+comparison is retained in the capability record. The complete native audit is
+running, while Lean/source integration, final regression and independent delivery
+review remain required. No completed support is claimed here. The prepared precise Rosetta construct
 `named-integer-array-parameters` groups both drivers while leaving broad arrays,
 unconstrained arrays and writable array parameters unsupported. Its supported
 promotion, final render and stage bookkeeping wait for that shared checkpoint;
