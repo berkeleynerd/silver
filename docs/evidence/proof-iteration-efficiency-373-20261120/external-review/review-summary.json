@@ -1,0 +1,124 @@
+{
+  "base": "a412827d6c54f925cf4e55cac128eb4ef48647ad",
+  "cli_reported_api_duration_ms": 1966885,
+  "cli_reported_cost_usd": 21.6415692,
+  "cli_reported_duration_ms": 2103235,
+  "cli_reported_usage": {
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 510370,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "cache_creation_input_tokens": 510370,
+    "cache_read_input_tokens": 28080246,
+    "fallback_credit": null,
+    "inference_geo": "global",
+    "input_tokens": 180,
+    "iterations": [
+      {
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 2756,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "cache_creation_input_tokens": 2756,
+        "cache_read_input_tokens": 512472,
+        "input_tokens": 2,
+        "output_tokens": 1090,
+        "type": "message"
+      }
+    ],
+    "output_tokens": 196454,
+    "output_tokens_details": {
+      "thinking_tokens": 132750
+    },
+    "server_tool_use": {
+      "web_fetch_requests": 0,
+      "web_search_requests": 0
+    },
+    "service_tier": "standard",
+    "speed": "standard"
+  },
+  "cost_basis": "CLI modelUsage costBasis=list; not independently verified billing",
+  "external_l1_fresh_ids": 14,
+  "external_l1_ids_not_rerun": 97,
+  "external_successful_managed_tests": 195,
+  "external_test_runs": [
+    {
+      "command": [
+        "/usr/bin/python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v",
+        "-k",
+        "test_dev_runs.",
+        "-k",
+        "test_run_history.",
+        "-k",
+        "test_proof_provenance.",
+        "-k",
+        "test_evidence.",
+        "-k",
+        "test_image_reports.",
+        "-k",
+        "test_image_setup."
+      ],
+      "managed_seconds": 7.276090007,
+      "run_id": "20261120T192655-0a719b502bc8",
+      "state": "failure"
+    },
+    {
+      "command": [
+        "/usr/bin/python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v",
+        "-k",
+        "test_dev_runs.",
+        "-k",
+        "test_run_history.",
+        "-k",
+        "test_proof_provenance.",
+        "-k",
+        "test_evidence.",
+        "-k",
+        "test_image_setup.",
+        "-k",
+        "test_image_reports.ImageEvidenceTests",
+        "-k",
+        "test_image_reports.ArrayEvidenceTests"
+      ],
+      "managed_seconds": 7.42630277,
+      "run_id": "20261120T192916-8dbc8ff09f96",
+      "state": "success"
+    }
+  ],
+  "no_tests_or_probes_rerun_during_archival": true,
+  "observed_assistant_model_events": {
+    "claude-fable-5-2": 214
+  },
+  "original_census": {
+    "fresh": 282,
+    "retained": 475,
+    "total": 757
+  },
+  "probe_command_records_extracted": 8,
+  "report": {
+    "exact_copy_verified": true,
+    "path": "docs/reviews/review-pr406-claude-20261120.md",
+    "sha256": "2c3f52b2d6f1b634f14f47f832acf6f8170e446c782cd1659e839e27fa106912"
+  },
+  "review_target": "8dc409b303ac8bd9a836ed169467064441a76d8d",
+  "review_wrapper_returncode": 0,
+  "review_wrapper_seconds": 2104.443806377996,
+  "scope_limit": "Evidence capture of original review, independent of later owner-selected repairs and their validation.",
+  "selected_effort": "max",
+  "selected_model": "claude-fable-5-2",
+  "server_effort_confirmation": "Not exposed; explicit launch flag retained",
+  "shared_auditor_modules": 16,
+  "shared_auditor_retained_ids": 111
+}

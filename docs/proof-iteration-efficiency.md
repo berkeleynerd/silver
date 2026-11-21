@@ -9,8 +9,9 @@ is on main at `a412827d6c`. It replaces the original requirement to complete all
 eight increments before delivery. One delivery retains guidance in #383 and one
 shared final validation and review checkpoint in #384, in
 [milestone 24](https://github.com/berkeleynerd/silver/milestone/24).
-Implementation, applicable validation, independent review and a PR are authorized;
-merging the new PR is not. PR #385 remains held. Work proceeds directly through
+The owner subsequently authorized fixing Claude's findings and merging PR #406
+on 2026-11-21; see the [review response](reviews/review-8dc409b303-response.md).
+PR #385 remains held. Work proceeds directly through
 Codex: the owner's [stop-Worca instruction](session-memory.md#2026-11-20--stop-using-worca)
 ends the former workflow requirements without changing existing authorizations.
 
@@ -23,10 +24,13 @@ ends the former workflow requirements without changing existing authorizations.
 | [#383](https://github.com/berkeleynerd/silver/issues/383) | Align `AGENTS.md`, `development.md` and iteration guidance with the delivered interfaces and limits in this same package. |
 | [#384](https://github.com/berkeleynerd/silver/issues/384) | Exercise the focused path, affected regressions and applicable complete native/Lean/source/module/axiom assurance on final inputs; retain evidence reuse, settings, measurement limits and independent disposition in one shared checkpoint. |
 
-Selected work is In review. Implementation review, affected regressions, real
-focused compiler checks and complete final native/Lean assurance have passed.
-The independent closing evidence review accepted the delivery in
-[PR #406](https://github.com/berkeleynerd/silver/pull/406); merge remains an owner decision. Live status and worktree ownership belong on the
+Selected work is implemented and validated. Implementation review, selected
+regressions, real focused compiler checks and complete final native/Lean
+assurance have passed.
+The original closing review accepted the delivery in
+[PR #406](https://github.com/berkeleynerd/silver/pull/406). Claude subsequently
+reported three material findings; their authorized repairs and refreshed evidence
+are tracked in the [response](reviews/review-8dc409b303-response.md). Live status and worktree ownership belong on the
 issues and [Silver board](https://github.com/users/berkeleynerd/projects/6); board
 read/write access was available during this update. The original increments and
 recovered branches remain preserved, with no issue closed by this planning step.
@@ -103,8 +107,11 @@ new optimization's value.
 
 ## Delivery evidence and rounds
 
-The selected code is integrated at `f0a773fbcb`; subsequent commits change only
-guidance and evidence.
+The original selected code was integrated at `f0a773fbcb`; commits through
+`8dc409b303` changed only guidance and evidence. The subsequent external-review
+repair `c2b60470ae` normalizes whole-unit recurrence scopes and adds two tests.
+The [response](reviews/review-8dc409b303-response.md) records the refreshed
+validation and all external findings; the figures below describe the original checkpoint.
 [PR #406](https://github.com/berkeleynerd/silver/pull/406) is open. This includes
 proof-only resource reasons, native recurrence/fallback normalization and query
 isolation, canonical focused checks with shared unit coverage auditing, and
@@ -124,7 +131,7 @@ reused solver sessions/cache; Lean reused its prepared objects without independe
 kernel replay. The
 [independent delivery review](reviews/review-proof-efficiency-373-delivery-20261120.md)
 accepted evidence candidate `4fafe1592b` with its historical wording correction
-at `2b554549a0`; all findings are resolved. Selected issues remain open/In review
+at `2b554549a0`; its internal findings were resolved. Selected issues remain open/In review
 until merge. #381/#382 remain open/Backlog and PR #385 remains held.
 
 Host cache restoration dominated this delivery: native preparation took
@@ -157,6 +164,30 @@ time is not a substitute for those data.
 | Assurance evidence collection | GPT-6.1 Sol, High | Preserved the completed old-runner preparations and final current-runner build/native/Lean records, source/tool identities and cache origins. No rerun or performance inference by collection. |
 | Lead integration and checkpoint, #384 | Model/effort unavailable from live runtime | Final build check passed in 3.196 s, full native audit in 48.245 s and complete cached Lean/fresh audit in 26.960 s. Independent delivery review accepted the complete evidence; repository defaults are not reported as observed live settings. |
 | Independent evidence and delivery review | GPT-6 Astra, Extra High | Accepted `2b554549a0`; the initial evidence pass took 3 min 10 s and the final pass 5 min 24 s (18:47:33–18:52:57 UTC). Verified final report/source/tool/artifact identities and retained-test applicability; the stale preparation opener was corrected. No open material finding or new proof/test execution. |
+
+## External review and repair — 2026-11-21
+
+The [original Claude review](reviews/review-pr406-claude-20261120.md) reported
+one medium recurrence defect, two low record defects and six informational notes.
+The owner authorized fixing the material findings and then merging PR #406.
+The [response](reviews/review-8dc409b303-response.md) preserves all nine
+findings and dispositions; [repair evidence](evidence/proof-iteration-efficiency-373-20261120/repair-20261121/README.md)
+records current-input native and Lean audits, the build check and the
+759-ID test inventory. No extra language capability or deferred experiment was
+added to this repair.
+
+| Round/work | Selected model and effort | Outcome/evidence boundary |
+| --- | --- | --- |
+| External review | Claude Fable 5.2, Max | Direct CLI review of `8dc409b303`; one medium, two low and six info. Original report and actual usage/settings retained separately; no Worca. |
+| Unit-scope repair | GPT-6.1 Sol, Extra High | `c2b60470ae`; baseline reproduces the defect, repaired two-test check and all 42 runner tests pass. No native/Lean execution by this agent. |
+| Record corrections and external archive | GPT-6.1 Sol, High | Preserved the report exactly, corrected retained-auditor applicability and stale roadmap status; no re-execution or invented external evidence. |
+| Lead final checkpoint | Live model/effort not independently exposed | Complete cached native and Lean audits plus build passed on repaired inputs; automatic allocation and original caches retained. |
+| Repair evidence collection | GPT-6.1 Sol, High | Archived actual current-input outputs and reconciled 759 test IDs without rerunning proofs or tests. |
+| Independent repair review | GPT-6.2 Astra, Extra High | Inspected source, tests, current complete records and retained-regression applicability; exact final candidate and elapsed scope are retained in the review report. |
+
+Selected model/effort records are launch settings, not independent runtime
+confirmation. Repair-agent tokens and billed cost are unavailable. Historical
+external CLI counters retain their own scope in its archive.
 
 ## Historical plan and handoff — superseded on 2026-11-20
 

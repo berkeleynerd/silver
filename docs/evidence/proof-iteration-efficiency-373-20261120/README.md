@@ -1,10 +1,21 @@
 # Reduced #373: final validation, 2026-11-20
 
-**Complete native and Lean assurance passed, with all 757 current unittest IDs
-covered by 282 fresh and 475 independently reviewed retained passes.** Both
-[real focused compiler commands](focused-native/README.md) also passed.
-The [independent closing evidence review](../../reviews/review-proof-efficiency-373-delivery-20261120.md)
-accepted the final records and retained-test applicability; all findings are resolved.
+**Original checkpoint, 2026-11-20: complete native and Lean assurance passed,
+with all 757 unittest IDs at that target covered by 282 fresh and 475 independently
+reviewed retained passes.** Both [real focused compiler commands](focused-native/README.md)
+also passed. The [internal closing evidence review](../../reviews/review-proof-efficiency-373-delivery-20261120.md)
+accepted that checkpoint and retained-test applicability; its findings were resolved.
+
+This census and the archived runs below describe reviewed implementation
+`f0a773fbcb` and delivery target `8dc409b303`, before the later external-review
+repairs. The [original Claude report](../../reviews/review-pr406-claude-20261120.md)
+is preserved unchanged, with its [supporting probes and run records](external-review/README.md).
+The owner subsequently instructed **“I agee. Fix them, then merge.”**, selecting
+C406-M1 [#407](https://github.com/berkeleynerd/silver/issues/407), C406-L1
+[#408](https://github.com/berkeleynerd/silver/issues/408) and C406-L2
+[#409](https://github.com/berkeleynerd/silver/issues/409) for repair before merge.
+Later repair validation belongs to its own record; it does not change this
+historical 282 + 475 census or establish that PR #406 has merged.
 
 The [final checkpoint](final/README.md) records these successful Linux x86-64
 commands on reviewed implementation `f0a773fbcb`:
@@ -31,7 +42,7 @@ now passed as recorded above; closing review confirmed their applicability.
 No compiler, library, Lean source, catalogue, sample or language change is supplied
 by this tooling package.
 
-## Fresh affected regression run
+## Original selected regression run
 
 Managed run `20261120T152415-e5e1f5ee6934`, task `#384-tooling-regressions`,
 passed on native **Linux x86-64**, machine `silver`. The child was ordinary
@@ -80,7 +91,7 @@ native macOS validation.
 [Regression accounting](regression-accounting.json) records every current ID,
 its fresh or retained run, all 724 IDs observed in the retained raw log, the
 33 added IDs, per-module source hashes and 70 captured scripts/tests input hashes.
-All captured scripts/tests hashes still match the reviewed run's inputs. Discovery
+All captured scripts/tests hashes matched the original reviewed target's inputs. Discovery
 used `sys.path.insert(0, str(Path.cwd()))` before `unittest.discover('tests')`;
 this evidence extraction did not execute tests again.
 
@@ -93,6 +104,55 @@ reviewed retained coverage. The 33 new IDs also passed fresh: **282 + 475 = 757*
 with no missing, extra or duplicate exact ID. Every retained test module's source
 bytes match the prior reviewed revision; broader applicability is the independent
 review's explicit judgment, not a consequence of a test name or file hash alone.
+
+### Explicit retained applicability for shared-auditor users (C406-L1)
+
+The nine modules selected for the original fresh run are not the whole set of
+tests that import changed shared tooling. Within the 475 retained passes,
+**16 modules / 111 IDs** import `scripts.check_evidence` directly or through a
+shared importer. Their reuse rests on the implementation reviewer's equivalence
+judgment and the external comparison evidence, rather than a claim that they
+were unaffected or all freshly rerun:
+
+| Retained module | IDs |
+| --- | ---: |
+| `test_arguments` | 3 |
+| `test_branching` | 7 |
+| `test_command_line_greeting` | 3 |
+| `test_common_expressions` | 15 |
+| `test_composed_results` | 8 |
+| `test_copy_values` | 8 |
+| `test_greeting` | 4 |
+| `test_image_reports` | 11 |
+| `test_image_setup` | 8 |
+| `test_main_discovery` | 2 |
+| `test_named_output` | 4 |
+| `test_output` | 4 |
+| `test_samples` | 2 |
+| `test_shared_bindings` (both historical import spellings) | 18 |
+| `test_silver` | 9 |
+| `test_string_assignment` | 5 |
+| **Total** | **111** |
+
+Claude compared the base and target auditors on the complete retained compiler
+reports, **six real application report sets and 240 mutated variants**: **247 of
+248 outcomes matched**, and all six application results matched their recorded
+statistics. The one deliberately invalid caller-configuration case changed the
+exception type from `EvidenceError` to `KeyError`; the reviewer found no production
+caller or retained-test call site that could reach it. This is bounded supporting
+evidence for the equivalence judgment, not a new universal equivalence proof.
+The exact [comparison script](external-review/probes/diff_auditor.py),
+[output](external-review/probes/diff_auditor.out) and input archive references are
+retained with the external review.
+
+That review also freshly passed **14 of these 111 IDs** (`test_image_setup` and
+the two pure-Python classes of `test_image_reports`); **97 were not rerun** there
+because they need the native toolchain. Those 14 are part of the review's later
+**195-test** successful run, not additions to the original 282 fresh delivery IDs.
+The earlier external attempt ended with two toolchain-dependent class setup errors;
+both failed and successful review run records are retained. The original
+**282 fresh + 475 retained = 757** delivery inventory remains the dated checkpoint
+above; later external checks and owner-selected repair validation stay distinct.
 
 The corrected census matches unittest header IDs without requiring an ellipsis
 on that same line or a line-start anchor. Four historical tests have a

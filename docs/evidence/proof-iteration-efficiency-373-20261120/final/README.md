@@ -12,8 +12,11 @@ These are final changed-runner results, distinct from the
 [old-runner preparation](../preparation/README.md). The
 [actual canonical focused CLI checks](../focused-native/README.md) and
 [complete regression accounting](../README.md) supply their separate scopes:
-282 fresh affected tests plus 475 reviewed retained passes cover all 757 current
-IDs. Closing evidence applicability and review are recorded by the delivery lead;
+282 selected fresh tests plus 475 reviewed retained passes cover all 757 IDs
+at that original target. The [shared-auditor applicability account](../README.md#explicit-retained-applicability-for-shared-auditor-users-c406-l1)
+names the 16 retained modules whose shared tooling changed and the equivalence
+judgment supporting reuse. The [subsequent repair checkpoint](../repair-20261121/README.md)
+supersedes this packet for repaired runner inputs. Closing evidence applicability and review are recorded by the delivery lead;
 this packet supplies results without claiming a merge or a later review outcome.
 
 | Check | Managed run | Result | Managed seconds | Wrapper seconds |

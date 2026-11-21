@@ -1,0 +1,8 @@
+units: 78 | accepted: 78 | rejected: {}
+accepted kinds: {'trusted import': 6, 'vendor instance': 2, 'ordinary': 70}
+spec and body spellings disagree for: []
+sum over units: {'entity_count': 1252, 'flow_checks': 1751, 'proof_checks': 17975} (complete audit: 1252 entities, 1751 flow, 17975 proof)
+spec selections redirected to their body: 60 | e.g. {'silver_arguments.ads': 'silver_arguments.adb', 'silver_array_bindings.ads': 'silver_array_bindings.adb', 'silver_catalogue.ads': 'silver_catalogue.adb'}
+spec-only units analysed by spec: ['silver_build.ads', 'silver_image_config.ads', 'silver_image_libc.ads', 'silver_image_runtime.ads', 'silver_image_theory.ads', 'silver_integer_image.ads', 'silver_libc.ads', 'silver_library_sources.ads', 'silver_output_libc.ads', 'silver_path_facts.ads', 'silver_process_runtime.ads', 'silver_report_projection_observations.ads', 'silver_report_projection_types.ads', 'silver_report_storage.ads', 'silver_runtime.ads', 'silver_scalars.ads']
+scope for silver_numbers.ads -> ['compiler', 'silver_numbers.ads'] | effective -u silver_numbers.adb
+scope for silver_numbers.adb -> ['compiler', 'silver_numbers.adb'] | effective -u silver_numbers.adb

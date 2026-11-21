@@ -1,0 +1,72 @@
+== probe_body_line_selection_is_rejected ==
+   body-line selection of a spec-declared subprogram -> no fully analyzed entity at the requested focused selection
+   declaration-line selection -> success: {'entity_count': 1, 'flow_checks': 0, 'proof_checks': 1, 'subprograms': ['Main.Helper']}
+== probe_family_holds ==
+   after three --subprogram failures, plain prove      -> held: repeated unresolved obligations need a diagnostic note befor
+   after three --subprogram failures, prove --full     -> held: repeated unresolved obligations need a diagnostic note befor
+   after three --subprogram failures, --unit main.adb  -> started (fixture: EvidenceError)
+   after three --subprogram failures, build            -> started
+   after three --subprogram failures, other task       -> started
+== probe_report_conditions_fail_closed ==
+   --subprogram  flow analysis only                       -> EvidenceError: focused proof did not finish analysis
+   --subprogram  progress missing                         -> EvidenceError: focused proof did not finish analysis
+   --subprogram  stopped early                            -> EvidenceError: focused proof did not finish analysis
+   --subprogram  skip_proof nonempty                      -> EvidenceError: focused proof has skipped checks or assumptions
+   --subprogram  skip_flow_proof nonempty                 -> EvidenceError: focused proof has skipped checks or assumptions
+   --subprogram  pragma_assume nonempty                   -> EvidenceError: focused proof has skipped checks or assumptions
+   --subprogram  skip_proof missing                       -> EvidenceError: focused proof has skipped checks or assumptions
+   --subprogram  coverage missing                         -> EvidenceError: missing focused entity coverage
+   --subprogram  entities missing                         -> EvidenceError: missing focused entity coverage
+   --subprogram  flow list missing                        -> EvidenceError: missing or unresolved focused flow checks
+   --subprogram  flow record is a warning                 -> EvidenceError: missing or unresolved focused flow checks
+   --subprogram  proved check carries a justification     -> EvidenceError: missing or unresolved focused proof checks
+   --subprogram  proved check is suppressed               -> EvidenceError: missing or unresolved focused proof checks
+   --subprogram  check proved by review                   -> RuntimeError: GNATprove returned unresolved proof obligations; see retained run reports
+   --subprogram  selected entity only spec                -> EvidenceError: no fully analyzed entity at the requested focused selection
+   --subprogram  sarif exit code nonzero                  -> EvidenceError: focused reports do not match the effective GNATprove invocation
+   --subprogram  sarif execution unsuccessful             -> EvidenceError: focused reports do not match the effective GNATprove invocation
+   --subprogram  sarif other command line                 -> EvidenceError: focused reports do not match the effective GNATprove invocation
+   --subprogram  sarif two invocations                    -> EvidenceError: focused reports do not match the effective GNATprove invocation
+   --subprogram  sarif two runs                           -> EvidenceError: focused reports do not match the effective GNATprove invocation
+   --subprogram  sarif no invocation                      -> EvidenceError: focused reports do not match the effective GNATprove invocation
+   --unit        flow analysis only                       -> EvidenceError: focused proof did not finish analysis
+   --unit        progress missing                         -> EvidenceError: focused proof did not finish analysis
+   --unit        stopped early                            -> EvidenceError: focused proof did not finish analysis
+   --unit        skip_proof nonempty                      -> EvidenceError: focused proof has skipped checks or assumptions
+   --unit        skip_flow_proof nonempty                 -> EvidenceError: focused proof has skipped checks or assumptions
+   --unit        pragma_assume nonempty                   -> EvidenceError: focused proof has skipped checks or assumptions
+   --unit        skip_proof missing                       -> EvidenceError: focused proof has skipped checks or assumptions
+   --unit        coverage missing                         -> EvidenceError: missing focused entity coverage
+   --unit        entities missing                         -> EvidenceError: missing focused entity coverage
+   --unit        flow list missing                        -> EvidenceError: missing or unresolved focused flow checks
+   --unit        flow record is a warning                 -> EvidenceError: missing or unresolved focused flow checks
+   --unit        proved check carries a justification     -> EvidenceError: missing or unresolved focused proof checks
+   --unit        proved check is suppressed               -> EvidenceError: missing or unresolved focused proof checks
+   --unit        check proved by review                   -> RuntimeError: GNATprove returned unresolved proof obligations; see retained run reports
+   --unit        selected entity only spec                -> EvidenceError: main: entity outside full SPARK: Main.Helper at (('main.adb', 3, None),)
+   --unit        sarif exit code nonzero                  -> EvidenceError: focused reports do not match the effective GNATprove invocation
+   --unit        sarif execution unsuccessful             -> EvidenceError: focused reports do not match the effective GNATprove invocation
+   --unit        sarif other command line                 -> EvidenceError: focused reports do not match the effective GNATprove invocation
+   --unit        sarif two invocations                    -> EvidenceError: focused reports do not match the effective GNATprove invocation
+   --unit        sarif two runs                           -> EvidenceError: focused reports do not match the effective GNATprove invocation
+   --unit        sarif no invocation                      -> EvidenceError: focused reports do not match the effective GNATprove invocation
+== probe_selector_spellings ==
+   prove --unit src/main.adb              -> EvidenceError: --unit requires a compiler source filename
+   prove --unit Main.adb                  -> RuntimeError: unknown compiler proof source: Main.adb
+   prove --unit main                      -> EvidenceError: --unit requires a compiler source filename
+   prove --subprogram main.adb            -> EvidenceError: --subprogram requires a compiler declaration FILE:LINE
+   prove --subprogram src/main.adb:3      -> EvidenceError: --subprogram requires a compiler declaration FILE:LINE
+   prove --unit main.adb --jobs 4         -> ran
+   prove --unit main.adb -- -j4           -> ran
+   records created by refused spellings: 1
+== probe_source_edit_during_focused_run_is_rejected ==
+   state: failure | focused_report recorded: False
+== probe_unit_spellings_split_recurrence ==
+   effective selectors: {('-u', 'main.adb')}
+   recorded scopes: ['["compiler", "main.adb"]', '["compiler", "main.ads"]']
+   failed attempts on the same helper before any hold: 5 | identities: {'Main.Helper:VC_ASSERT': ['main.adb:4:7:VC_ASSERT']}
+== probe_unit_success_does_not_clear_subprogram_failures ==
+   two failures, containing-unit success, moved-line success, one later failure -> held: repeated unresolved obligations need a diagnostic note before another run: {"Main.Helper:VC_ASSERT":3}; exact 
+== probe_zero_check_selection_is_a_success ==
+   focused_report: {'entity_count': 1, 'flow_checks': 0, 'proof_checks': 0, 'subprograms': ['Main.Helper']}
+probe methods: 8 | not as recorded: 0

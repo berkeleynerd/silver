@@ -1,5 +1,20 @@
 # Session memory
 
+## 2026-11-21 — Repair Claude findings and merge PR #406
+
+After Claude's independent review of `8dc409b303`, the owner instructed
+**“I agee. Fix them, then merge.”** This authorizes the three material repairs
+[#407](https://github.com/berkeleynerd/silver/issues/407),
+[#408](https://github.com/berkeleynerd/silver/issues/408) and
+[#409](https://github.com/berkeleynerd/silver/issues/409), final applicable
+validation and independent review, then merging
+[PR #406](https://github.com/berkeleynerd/silver/pull/406).
+It supersedes the earlier merge hold for #406 only. The
+[review response](reviews/review-8dc409b303-response.md) preserves every finding
+and informational disposition. #381/#382 remain deferred; PR #385 stays held.
+Work continues directly through Codex without Worca. No successor language
+feature is authorized by this instruction. CLI memory was not updated.
+
 ## 2026-11-20 — Reduced proof iteration package delivered for review
 
 The owner-authorized reduced [#373](https://github.com/berkeleynerd/silver/issues/373)

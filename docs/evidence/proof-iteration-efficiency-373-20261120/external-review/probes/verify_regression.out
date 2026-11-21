@@ -1,0 +1,36 @@
+fresh log   : 282 ids; {'ok': 282} | Ran 282 tests in 1193.641s |  | OK
+retained log: 724 ids; {'ok': 724} | Ran 724 tests in 2329.820s |  | OK
+retained uncompressed sha256 matches record: True
+retained compressed sha256 matches record  : True
+discovered at target: 757 entries, 757 unique; load errors: []
+recorded all_ids == discovery          : True 757
+recorded fresh ids == fresh log ok ids  : True 282
+recorded retained ids ⊆ retained log ok : True 475
+fresh ∪ retained-recorded == discovery  : True
+fresh ∩ retained-recorded               : 0
+new ids (current − retained log)        : 33 recorded new: 33 equal: True
+new ids all fresh ok                    : True
+retained-log ids no longer discovered   : []
+retained log non-ok                     : {}
+fresh log non-ok                        : {}
+fresh modules: ['test_dev_runs', 'test_evidence', 'test_lean_evidence', 'test_lean_modules', 'test_lean_run_history', 'test_lean_source', 'test_platforms', 'test_proof_provenance', 'test_run_history']
+inputs changed since retained commit 9cf913a3a4: ['scripts/check_evidence.py', 'scripts/check_lean.py', 'scripts/dev.py', 'scripts/focused_proof.py', 'scripts/run_history.py', 'tests/test_dev_runs.py', 'tests/test_lean_run_history.py', 'tests/test_platforms.py', 'tests/test_proof_provenance.py', 'tests/test_run_history.py']
+retained modules: 48; importing changed tooling (or its importer): 16
+   test_arguments: ['check_evidence'] retained ids=3
+   test_branching: ['check_evidence'] retained ids=7
+   test_command_line_greeting: ['check_evidence'] retained ids=3
+   test_common_expressions: ['check_evidence'] retained ids=15
+   test_composed_results: ['check_evidence'] retained ids=8
+   test_copy_values: ['check_evidence'] retained ids=8
+   test_greeting: ['check_evidence'] retained ids=4
+   test_image_reports: ['check_evidence'] retained ids=11
+   test_image_setup: ['check_evidence', 'proof_provenance'] retained ids=8
+   test_main_discovery: ['check_evidence'] retained ids=2
+   test_named_output: ['check_evidence'] retained ids=4
+   test_output: ['check_evidence'] retained ids=4
+   test_samples: ['check_evidence'] retained ids=2
+   test_shared_bindings: ['check_evidence'] retained ids=18
+   test_silver: ['check_evidence'] retained ids=9
+   test_string_assignment: ['check_evidence'] retained ids=5
+retained ids in those modules: 111
+captured scripts/tests hashes differing from target tree: []

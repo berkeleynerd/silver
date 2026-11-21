@@ -53,7 +53,10 @@ final checkpoint. The recovered patches and focused-policy/readiness changes
 are integrated in [PR #406](https://github.com/berkeleynerd/silver/pull/406).
 Complete Linux native and Lean/source/module/axiom validation and reviewed
 regression coverage passed on 2026-11-20. The independent closing evidence
-review accepted the delivery; the PR awaits the owner's merge decision.
+review accepted that checkpoint. On 2026-11-21 the owner authorized repairing
+Claude's three material findings and then merging; the
+[response](docs/reviews/review-8dc409b303-response.md) records their disposition
+and refreshed final validation.
 The [delivery record](docs/proof-iteration-efficiency.md#delivery-evidence-and-rounds)
 distinguishes host cache restoration from the final cached audits.
 
@@ -219,8 +222,8 @@ The precise `scalar-procedures` fragment adds one faithful Rosetta mapping,
 [#11](https://github.com/berkeleynerd/silver/issues/11) stays open at Stage 2
 for its remaining procedure/ranged-subtype/Image forms. No successor language
 feature was selected at that merge checkpoint. Named scalar arguments #392 is
-delivered; the reduced milestone-24 package is now selected above, with the
-recovered implementations awaiting reconciliation and final validation.
+delivered; the reduced milestone-24 package is delivered for review in
+[PR #406](https://github.com/berkeleynerd/silver/pull/406), with merge pending.
 
 ### Small nonrecursive scalar functions
 

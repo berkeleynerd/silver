@@ -1,0 +1,19 @@
+{
+  "command": [
+    "python3",
+    "scripts/check_lean.py",
+    "--provenance",
+    "--task",
+    "#407-final-repair",
+    "--reason",
+    "Refresh complete Lean module/axiom/source audit and provenance after focused unit-scope repair c2b60470ae; reuse unchanged proof objects."
+  ],
+  "started": "2026-11-21T02:43:23.960672+00:00",
+  "finished": "2026-11-21T02:43:50.156337+00:00",
+  "elapsed_seconds": 26.195677059004083,
+  "returncode": 0,
+  "child_user_seconds": 19.212963,
+  "child_system_seconds": 13.292959,
+  "child_maxrss_kib": 2371424,
+  "note": "RUSAGE_CHILDREN max RSS is not a simultaneous process-tree peak."
+}
