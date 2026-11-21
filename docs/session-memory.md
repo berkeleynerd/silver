@@ -1,5 +1,31 @@
 # Session memory
 
+## 2026-11-21 — Eight-CPU host allocation and pause after current jobs
+
+The owner directed use of this host's eight-CPU allocation, superseding the
+2026-11-05 unrestricted-core instruction for this host. The current pre-reboot
+Linux sandbox reports 22 CPUs; that raw count is not the allocation. All
+GNATprove/build/Lean workers and Lean process threads must fit the smaller
+effective allocation and shared managed reservations. An OS cpuset or affinity
+must cover every existing thread and all descendants; select guest CPU IDs from
+the allowed guest mask rather than physical host numbers. Where explicit counts
+reduce a proof command's automatic allocation, retain the exact reason
+`host's eight-CPU allocation`.
+
+The owner authorized the smallest runner/guidance correction while existing
+validation jobs finish; it may accompany any PR. Preserve productive jobs. The
+already-launched native `-j10` flag cannot be changed in place without
+interruption: report that exception and its separately verified CPU confinement
+honestly, rather than claiming a runtime flag change. The owner still wants a
+pause once existing validation jobs finish; no new feature or proof work starts.
+After the VM reboot, confirm eight-CPU detection and cpuset consistency before
+resuming and record the result. That reboot verification remains pending.
+
+This work is tracked with [#410](https://github.com/berkeleynerd/silver/issues/410).
+It does not authorize Worca, an Oracle amendment or a PR merge. Unrelated root
+session-memory edits and feature worktrees remain preserved. CLI memory was not
+updated.
+
 ## 2026-11-21 — Named constrained Integer-array parameters selected
 
 The owner instructed **“Proceed”** after the recommendation of one new language
