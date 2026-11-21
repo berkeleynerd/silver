@@ -13,7 +13,10 @@ It supersedes the earlier merge hold for #406 only. The
 [review response](reviews/review-8dc409b303-response.md) preserves every finding
 and informational disposition. #381/#382 remain deferred; PR #385 stays held.
 Work continues directly through Codex without Worca. No successor language
-feature is authorized by this instruction. CLI memory was not updated.
+feature is authorized by this instruction. The three repairs, complete applicable
+validation and independent repair review are complete; their records accompany
+PR #406. Unrelated local records and caches remain preserved. CLI memory was
+not updated.
 
 ## 2026-11-20 — Reduced proof iteration package delivered for review
 

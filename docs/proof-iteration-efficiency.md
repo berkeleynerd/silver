@@ -171,7 +171,8 @@ The [original Claude review](reviews/review-pr406-claude-20261120.md) reported
 one medium recurrence defect, two low record defects and six informational notes.
 The owner authorized fixing the material findings and then merging PR #406.
 The [response](reviews/review-8dc409b303-response.md) preserves all nine
-findings and dispositions; [repair evidence](evidence/proof-iteration-efficiency-373-20261120/repair-20261121/README.md)
+findings and dispositions. The [independent repair review](reviews/review-pr406-repairs-20261121.md)
+accepted candidate `5dc7d8efd0`; [repair evidence](evidence/proof-iteration-efficiency-373-20261120/repair-20261121/README.md)
 records current-input native and Lean audits, the build check and the
 759-ID test inventory. No extra language capability or deferred experiment was
 added to this repair.
@@ -183,7 +184,7 @@ added to this repair.
 | Record corrections and external archive | GPT-6.1 Sol, High | Preserved the report exactly, corrected retained-auditor applicability and stale roadmap status; no re-execution or invented external evidence. |
 | Lead final checkpoint | Live model/effort not independently exposed | Complete cached native and Lean audits plus build passed on repaired inputs; automatic allocation and original caches retained. |
 | Repair evidence collection | GPT-6.1 Sol, High | Archived actual current-input outputs and reconciled 759 test IDs without rerunning proofs or tests. |
-| Independent repair review | GPT-6.2 Astra, Extra High | Inspected source, tests, current complete records and retained-regression applicability; exact final candidate and elapsed scope are retained in the review report. |
+| Independent repair review | GPT-6.2 Astra, Extra High | Accepted `5dc7d8efd0`; verified repair source, current complete records and all 759 test IDs. Observed interval 02:40:48–02:50:22 UTC (9 min 34 s), including validation/archive waits; no repair or validation outstanding. |
 
 Selected model/effort records are launch settings, not independent runtime
 confirmation. Repair-agent tokens and billed cost are unavailable. Historical

@@ -58,5 +58,10 @@ the change affects their ledger label, not selected proof commands or coverage.
 Older ledger records remain unmodified; the only earlier unit-scope run on this
 host was successful, with no failing unit history needing migration.
 
-Independent final repair review is pending the assembled evidence candidate.
-Merge follows that acceptance under the owner's instruction.
+[Independent repair review](review-pr406-repairs-20261121.md) accepted evidence
+and documentation candidate `5dc7d8efd0`, with implementation `c2b60470ae`.
+It found no remaining material repair or validation requirement. The closing
+commit adds that report and this acceptance record only; proof inputs remain
+unchanged. PR #406 can merge under the owner's instruction, closing the three
+findings and the selected reduced package. #381/#382 remain deferred/open,
+and PR #385 remains held.
