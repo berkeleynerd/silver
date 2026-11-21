@@ -11,6 +11,9 @@ relation and the complete namespace, before inheriting the stored shape. -/
 namespace Silver.Compose
 open Expressions
 
+set_option maxHeartbeats 4000000
+set_option maxRecDepth 10000
+
 attribute [local irreducible] ScalarExpression.ArrayGrammar.read
 
 def ArrayTypeNameVisible (text : Source) (state : ParserState) (first after : Nat) : Prop :=
@@ -273,5 +276,163 @@ theorem array_type_declaration_unique {text arguments state first second}
     (left : ArrayTypeDeclarationAt text arguments state first)
     (right : ArrayTypeDeclarationAt text arguments state second) : first = second :=
   (array_type_declaration_complete left).symm.trans (array_type_declaration_complete right)
+
+attribute [local irreducible] arrayDeclarationParts
+
+/-- Anonymous objects retain their written bounds and component type. Named
+objects retain source type-name resolution and inherit the declared shape. -/
+inductive IntegerArrayHeaderAt (text : Source) (state : ParserState) (parts : ArrayDeclarationParts) : Prop
+  | anonymous {lower upper : Integer.Expr} :
+      parts.typeId = 0 →
+      ScalarTypeAt text state parts.typeFirst ⟨parts.typeAfter, parts.componentBounds⟩ →
+      ScalarExpression.ArrayGrammar.At text state.scalarNames (fixedAfter text parts.arrayAfter "(" false) lower parts.lower
+        (arrays := state.arrayNames.table) (initials := state.arrayNames.values) (elaborating := true) →
+      ScalarExpression.ArrayGrammar.At text state.scalarNames (fixedAfter text parts.lower.after ".." false) upper parts.upper
+        (arrays := state.arrayNames.table) (initials := state.arrayNames.values) (elaborating := true) →
+      IntegerArrayHeaderAt text state parts
+  | named : parts.typeId ≠ 0 →
+      ArrayTypeNameAt text state parts.typeFirst parts.typeId parts.typeAfter →
+      parts.lower = ⟨parts.typeAfter, .singleton (ArrayBindings.arrayType state.arrayNames.types parts.typeId).bounds.lower, 1, true⟩ →
+      parts.upper = ⟨parts.typeAfter, .singleton (ArrayBindings.arrayType state.arrayNames.types parts.typeId).bounds.upper, 1, true⟩ →
+      parts.componentBounds = (ArrayBindings.arrayType state.arrayNames.types parts.typeId).componentBounds →
+      IntegerArrayHeaderAt text state parts
+
+theorem arrayParts_anonymous {text state}
+    (anonymous : (arrayDeclarationParts text state).typeId = 0)
+    (integer : (arrayDeclarationParts text state).isBoolean = false) :
+    scalarTypeAt text state (arrayDeclarationParts text state).typeFirst =
+        ⟨(arrayDeclarationParts text state).typeAfter, (arrayDeclarationParts text state).componentBounds⟩ ∧
+      (arrayDeclarationParts text state).lower = ScalarExpression.ArrayGrammar.read text
+        (fixedAfter text (arrayDeclarationParts text state).arrayAfter "(" false) state.scalarNames state.arrayNames.table
+        (initials := state.arrayNames.values) (elaborating := true) ∧
+      (arrayDeclarationParts text state).upper = ScalarExpression.ArrayGrammar.read text
+        (fixedAfter text (arrayDeclarationParts text state).lower.after ".." false) state.scalarNames state.arrayNames.table
+        (initials := state.arrayNames.values) (elaborating := true) := by
+  unfold arrayDeclarationParts at anonymous integer ⊢
+  dsimp only at anonymous integer ⊢
+  simp only [anonymous, ne_eq, not_true_eq_false, ↓reduceIte] at integer ⊢
+  simp only [integer, Bool.false_eq_true, ↓reduceIte]
+  exact ⟨trivial, trivial, trivial⟩
+
+theorem arrayParts_named {text state}
+    (nominal : (arrayDeclarationParts text state).typeId ≠ 0) :
+    IntegerArrayHeaderAt text state (arrayDeclarationParts text state) ∧
+      (arrayDeclarationParts text state).isBoolean = false := by
+  unfold arrayDeclarationParts at nominal ⊢
+  dsimp only at nominal ⊢
+  generalize firstEq : skipAt text (if declarationConstantAfter text state ≠ 0 then declarationConstantAfter text state
+    else declarationColonAfter text state) = first at nominal ⊢
+  have repeated : skipAt text first = first := by
+    rw [← firstEq]
+    exact ScalarExpression.skip_skipped text _
+  have source := arrayTypeAt_sound nominal
+  rw [repeated] at source
+  have namedPositive : nameAfter text first ≠ 0 := by have bounds := source.bounds; omega
+  simp only [nominal, ne_eq, not_false_eq_true, ↓reduceIte, namedPositive, decide_false,
+    Bool.false_and, Bool.false_eq_true]
+  exact ⟨.named nominal source rfl rfl rfl, trivial⟩
+
+theorem arrayParts_boolean_anonymous {text state}
+    (boolean : (arrayDeclarationParts text state).isBoolean = true) :
+    (arrayDeclarationParts text state).typeId = 0 := by
+  by_cases anonymous : (arrayDeclarationParts text state).typeId = 0
+  · exact anonymous
+  · have integer := (arrayParts_named anonymous).2
+    rw [integer] at boolean
+    contradiction
+
+theorem arrayParts_integer_header {text state parts}
+    (partsEq : arrayDeclarationParts text state = parts)
+    (integer : parts.isBoolean = false) (lowerPositive : parts.lower.after ≠ 0)
+    (upperPositive : parts.upper.after ≠ 0) (positionPositive : parts.position ≠ 0) :
+    IntegerArrayHeaderAt text state parts := by
+  by_cases anonymous : parts.typeId = 0
+  · have equations := arrayParts_anonymous (partsEq.symm ▸ anonymous) (partsEq.symm ▸ integer)
+    rw [partsEq] at equations
+    obtain ⟨typeEq, lowerEq, upperEq⟩ := equations
+    obtain ⟨lower, lowerRead⟩ := ScalarExpression.ArrayGrammar.read_sound
+      (fixedAfter_result_bound text _ "(" false (by decide)) (lowerEq ▸ lowerPositive)
+    obtain ⟨upper, upperRead⟩ := ScalarExpression.ArrayGrammar.read_sound
+      (fixedAfter_result_bound text _ ".." false (by decide)) (upperEq ▸ upperPositive)
+    have positionEq : parts.position = fixedAfter text (fixedAfter text parts.typeAfter ":=" false) "(" false := by
+      rw [← partsEq]
+      unfold arrayDeclarationParts
+      rfl
+    have typePositive : (scalarTypeAt text state parts.typeFirst).after ≠ 0 := by
+      rw [typeEq]
+      rw [positionEq] at positionPositive
+      exact model_fixed_input_nonzero text _ ":=" false
+        (model_fixed_input_nonzero text _ "(" false positionPositive)
+    exact .anonymous anonymous (typeEq ▸ scalarTypeAt_sound text state _ typePositive)
+      (lowerEq.symm ▸ lowerRead) (upperEq.symm ▸ upperRead)
+  · exact partsEq ▸ (arrayParts_named (partsEq.symm ▸ anonymous)).1
+
+theorem IntegerArrayHeaderAt.bounded {text state parts}
+    (header : IntegerArrayHeaderAt text state parts)
+    (types : ArrayBindings.ValidTypes text state.arrayNames.types)
+    (subtypes : IntegerSubtypes.ValidEnvironment text state.subtypeNames) :
+    parts.lower.bounds.Bounded ∧ parts.upper.bounds.Bounded ∧
+      parts.componentBounds.Bounded ∧ parts.componentBounds.lower ≤ parts.componentBounds.upper := by
+  cases header with
+  | anonymous _ component low high =>
+      exact ⟨Integer.Expr.infer_bounded low.inferred, Integer.Expr.infer_bounded high.inferred,
+        component.bounded subtypes, component.nonempty subtypes⟩
+  | named _ name lower upper component =>
+      have valid := name.valid types
+      rw [lower, upper, component]
+      exact ⟨⟨valid.1.1, valid.1.1⟩, ⟨valid.1.2, valid.1.2⟩, valid.2.2.1, valid.2.2.2.1⟩
+
+theorem IntegerArrayHeaderAt.coherent {text state parts}
+    (header : IntegerArrayHeaderAt text state parts) :
+    parts.typeId ≤ state.arrayNames.types.length ∧
+      (parts.typeId ≠ 0 →
+        (⟨parts.lower.bounds.lower, parts.upper.bounds.lower⟩ : Integer.Interval) =
+            (ArrayBindings.arrayType state.arrayNames.types parts.typeId).bounds ∧
+          parts.componentBounds = (ArrayBindings.arrayType state.arrayNames.types parts.typeId).componentBounds) := by
+  cases header with
+  | anonymous absent _ _ _ => simp [absent]
+  | named present name lower upper component =>
+      refine ⟨name.bounds.2.1, fun _ => ?_⟩
+      rw [lower, upper, component]
+      exact ⟨rfl, rfl⟩
+
+theorem array_type_declaration_subtypes_valid {text arguments state final}
+    (reading : ArrayTypeDeclarationAt text arguments state final)
+    (valid : IntegerSubtypes.ValidEnvironment text state.subtypeNames) :
+    IntegerSubtypes.ValidEnvironment text final.subtypeNames := by
+  cases reading with
+  | declaration => exact valid
+
+theorem array_type_declaration_hiding {text arguments state final otherNames}
+    (reading : ArrayTypeDeclarationAt text arguments state final)
+    (correct : IntegerSubtypes.HidingCorrect text state.subtypeNames otherNames) :
+    IntegerSubtypes.HidingCorrect text final.subtypeNames
+      (otherNames ++ [((arrayTypeDeclarationParts text state).first, (arrayTypeDeclarationParts text state).after)]) := by
+  cases reading with
+  | declaration partsEq _ _ _ _ =>
+      rw [partsEq]
+      exact IntegerSubtypes.hiding_add_other correct _ _
+
+theorem array_type_declaration_types {text arguments state final}
+    (reading : ArrayTypeDeclarationAt text arguments state final) :
+    final.arrayNames.types = state.arrayNames.types ++ [(arrayTypeDeclarationParts text state).item] := by
+  cases reading with
+  | declaration partsEq _ _ _ _ => rw [partsEq]; rfl
+
+theorem array_type_declaration_native_valid {text arguments state final}
+    (reading : ArrayTypeDeclarationAt text arguments state final)
+    (valid : ArrayBindings.ValidNativeEnvironment text state.arrayNames)
+    (subtypes : IntegerSubtypes.ValidEnvironment text state.subtypeNames) :
+    ArrayBindings.ValidNativeEnvironment text final.arrayNames := by
+  have finalTypes := array_type_declaration_types_valid reading valid.1.1 subtypes
+  cases reading with
+  | @declaration parts lower upper partsEq ready low high component =>
+      have added := finalTypes.2 parts.item (by simp [ArrayTypeDeclarationParts.next])
+      have room : state.arrayNames.types.length < ArrayBindings.maxTypes := by
+        have capacity := finalTypes.1
+        simp only [ArrayTypeDeclarationParts.next, List.length_append, List.length_singleton] at capacity
+        omega
+      refine ⟨?_, valid.2.1, valid.2.2.1, valid.2.2.2⟩
+      exact valid.1.appendType room added.1 added.2
 
 end Silver.Compose
