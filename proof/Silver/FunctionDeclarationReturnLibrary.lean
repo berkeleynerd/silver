@@ -28,14 +28,14 @@ theorem return_library_imports {domain calls inherited metadata visibility}
   refine ⟨(header_lexical source links).take text tv _ _ _ valid.scan.1 (native_token_valid .returnKeyword), ?_⟩
   rw [actualLink]
   have domainValid : Predicate.FunctionCallNative.ActualDomain text context
-      (fixedAfter text scan.position "return" true) scan.facts ⟨0, 0, resultType.kind, resultType.bounds⟩ :=
+      (fixedAfter text scan.position "return" true) scan.facts ⟨0, 0, resultType.kind, resultType.bounds, 0⟩ :=
     ⟨⟨⟨tv, valid.context, fixedAfter_result_bound text _ "return" true (by decide)⟩, valid.scan.2.2⟩,
-      ⟨Nat.zero_le _, Nat.zero_le _, valid.resultType.bounds⟩⟩
+      ⟨Nat.zero_le _, Nat.zero_le _, valid.resultType.bounds, Nat.zero_le _⟩⟩
   have interpreted := congrArg (fun fn => fn text context (fixedAfter text scan.position "return" true)
-      scan.facts ⟨0, 0, resultType.kind, resultType.bounds⟩)
+      scan.facts ⟨0, 0, resultType.kind, resultType.bounds, 0⟩)
     (Predicate.FunctionCallNative.normalized_actual actualMeaning actualEquations)
   change (if Predicate.FunctionCallNative.ActualDomain text context
-      (fixedAfter text scan.position "return" true) scan.facts ⟨0, 0, resultType.kind, resultType.bounds⟩
+      (fixedAfter text scan.position "return" true) scan.facts ⟨0, 0, resultType.kind, resultType.bounds, 0⟩
       then _ else _) = _ at interpreted
   simpa only [domainValid, ↓reduceIte, Predicate.FunctionCallNative.modelCalls] using interpreted
 

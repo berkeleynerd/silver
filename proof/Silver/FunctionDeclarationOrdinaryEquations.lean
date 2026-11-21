@@ -6,11 +6,12 @@ public import Silver.FunctionDeclarationComposition
 
 namespace Silver.Compose.FunctionDeclarationNative
 
-/-- Literal_Position and Scalars.Interval component subtypes of the result
+/-- Literal_Position, Scalars.Interval and Type_Count component subtypes of the result
 record, including typed values whose cursor is zero or whose interval is empty. -/
 structure TypeResultRecord (value : FunctionTypeResult) : Prop where
   after : CursorType value.after
   bounds : value.bounds.Bounded
+  typeId : value.typeId ≤ ArrayBindings.maxTypes
 
 /-- The complete written Function_Body_At precondition and native record types.
 No declaration-history or fresh-frame condition is added. -/

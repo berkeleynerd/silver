@@ -94,6 +94,7 @@ theorem body_library_imports {domain calls inherited metadata visibility}
     (visibilityEquations : FunctionVisibilityNative.Equations visibility)
     (links : OrdinaryLinks calls inherited metadata visibility)
     (headers : HeaderEquations calls) (headerContracts : HeaderContracts calls) (frames : FrameEquations calls)
+    (arrayImports : ArrayParameterImports calls)
     (equations : OrdinaryEquations calls) (contracts : TraversalContracts calls)
     (reader : Predicate.BodyNative.Calls) (readerSource : Predicate.BodyNative.Equations reader)
     (models wrappers : Predicate.Adapter.Wrappers.Calls)
@@ -117,7 +118,7 @@ theorem body_library_imports {domain calls inherited metadata visibility}
     exact valid.firstParameter
   have frameMeaning (accepted : locals.position ≠ 0) :
       calls .parameterFrame text locals = parameterFrame text locals :=
-    interpreted_parameterFrame calls frames scalar text tv locals localsValid.1 localsValid.2 (positive accepted)
+    interpreted_parameterFrame calls frames scalar arrayImports text tv locals localsValid.1 localsValid.2 (positive accepted)
   have frameInfo (accepted : locals.position ≠ 0) := contracts.parameterFrame text tv locals localsValid (positive accepted)
   refine ⟨localsMeaning, frameMeaning, ?_, ?_⟩
   all_goals dsimp only
