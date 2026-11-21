@@ -14,7 +14,7 @@ open Compose ScalarProcedures
 The alias trace traverses both, including the two-byte range delimiter. -/
 theorem ActualNameFreeTrace.indexedSlice {text : Source}
     {names : BindingEnvironment} {scalarNames : ScalarExpression.Environment}
-    {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating : Bool}
+    {arrays : ArrayBindings.Table} {initials : ArrayBindings.Initials} {elaborating : Bool}
     {position target limit targetFirst targetAfter : Nat} {info : BindingInfo}
     {lower upper : Integer.Expr}
     (trace : ActualNameFreeTrace text limit targetFirst targetAfter position)

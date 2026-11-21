@@ -68,10 +68,10 @@ theorem ActualNameFreeTrace.scalarPair {text : Source} {context : ParseContext} 
     {initials : ArrayBindings.Initials} {position limit targetFirst targetAfter : Nat}
     {target : Cell} {left right : Integer.Expr} {leftResult rightResult : ScalarExpression.Result}
     (trace : ActualNameFreeTrace text limit targetFirst targetAfter position)
-    (leftSource : ScalarExpression.At text (context.readingNames facts) position left leftResult
-      (arrays := context.arrayNames) (initials := initials) (elaborating := context.elaborating))
-    (rightSource : ScalarExpression.At text (context.readingNames facts) (comparisonAt text leftResult.after).after right rightResult
-      (arrays := context.arrayNames) (initials := initials) (elaborating := context.elaborating))
+    (leftSource : ScalarExpression.ArrayGrammar.At text (context.readingNames facts) position left leftResult
+      (arrays := context.arrayTable) (initials := initials) (elaborating := context.elaborating))
+    (rightSource : ScalarExpression.ArrayGrammar.At text (context.readingNames facts) (comparisonAt text leftResult.after).after right rightResult
+      (arrays := context.arrayTable) (initials := initials) (elaborating := context.elaborating))
     (finishBound : rightResult.after ≤ limit)
     (spelling : CellSpelling text context targetFirst targetAfter target) (targetBound : target.InScalarNamespace) :
     integerMentions target.scalarIndex left = false ∧ integerMentions target.scalarIndex right = false ∧
@@ -108,10 +108,10 @@ theorem ActualNameFreeTrace.stringPair {text : Source} {context : ParseContext} 
     {target : Cell} {left right : Expression} {leftResult rightResult : ExpressionResult}
     (trace : ActualNameFreeTrace text limit targetFirst targetAfter position)
     (leftSource : ExpressionAt text context.names position left leftResult (scalarNames := context.readingNames facts)
-      (integerHidden := context.integerHidden text) (arrays := context.arrayNames) (initials := initials) (elaborating := context.elaborating))
+      (integerHidden := context.integerHidden text) (arrays := context.arrayTable) (initials := initials) (elaborating := context.elaborating))
     (rightSource : ExpressionAt text context.names (comparisonAt text leftResult.after).after right rightResult
       (scalarNames := context.readingNames facts) (integerHidden := context.integerHidden text)
-      (arrays := context.arrayNames) (initials := initials) (elaborating := context.elaborating))
+      (arrays := context.arrayTable) (initials := initials) (elaborating := context.elaborating))
     (positionBound : position ≤ text.length + 1) (finishBound : rightResult.after ≤ limit)
     (spelling : CellSpelling text context targetFirst targetAfter target) (targetBound : target.InScalarNamespace) :
     left.any (stringMentions target.scalarIndex) = false ∧ right.any (stringMentions target.scalarIndex) = false ∧

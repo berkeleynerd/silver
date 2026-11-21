@@ -39,7 +39,7 @@ theorem ActualNameFreeTrace.nameEnd {text : Source}
 exactly the scalar expression retained by the source reading. -/
 theorem ActualNameFreeTrace.indexedElement {text : Source}
     {names : BindingEnvironment} {scalarNames : ScalarExpression.Environment}
-    {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating : Bool}
+    {arrays : ArrayBindings.Table} {initials : ArrayBindings.Initials} {elaborating : Bool}
     {position target limit targetFirst targetAfter : Nat} {info : BindingInfo}
     {lower upper : Integer.Expr}
     (trace : ActualNameFreeTrace text limit targetFirst targetAfter position)
@@ -85,7 +85,7 @@ theorem ActualNameFreeTrace.indexedElement {text : Source}
 alias scanner, including scalar indexes inside parenthesized String indexing. -/
 theorem ActualNameFreeTrace.characterSyntax {text : Source}
     {names : BindingEnvironment} {scalarNames : ScalarExpression.Environment}
-    {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating : Bool}
+    {arrays : ArrayBindings.Table} {initials : ArrayBindings.Initials} {elaborating : Bool}
     {position target limit targetFirst targetAfter : Nat} {expression : Character.Expr} {result : ValueResult}
     (trace : ActualNameFreeTrace text limit targetFirst targetAfter position)
     (source : CharacterAt text names scalarNames arrays initials elaborating position expression result)

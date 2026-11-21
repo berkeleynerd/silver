@@ -14,7 +14,7 @@ open Compose ScalarProcedures
 separate source spans, so the lexical check covers every scalar argument read. -/
 theorem ActualNameFreeTrace.imageSyntax {text : Source}
     {names : BindingEnvironment} {scalarNames : ScalarExpression.Environment}
-    {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials}
+    {arrays : ArrayBindings.Table} {initials : ArrayBindings.Initials}
     {elaborating integerHidden : Bool}
     {position target limit targetFirst targetAfter : Nat} {expression : Integer.Expr}
     (trace : ActualNameFreeTrace text limit targetFirst targetAfter position)
