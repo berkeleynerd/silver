@@ -49,6 +49,7 @@ def procedureDeclarationAt (text : Source) (state : ParserState) (arguments : Bo
   let initial := {initialState with
     position := opening
     pure := true
+    arrayNames := {types := state.arrayNames.types}
     subtypeNames := state.subtypeNames
     functions := state.functions
     procedures := state.procedures

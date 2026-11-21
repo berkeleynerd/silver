@@ -15,6 +15,7 @@ def newNameAllowed (text : Source) (state : ParserState) (first after : Nat) (ar
     decide (lookupName text state.names first after = 0 ∧
       ScalarExpression.lookup text state.scalarNames first after = 0 ∧
       ArrayBindings.lookup text state.arrayNames.names first after = 0 ∧
+      ArrayBindings.lookupType text state.arrayNames.types first after = 0 ∧
       BooleanBindings.lookup text state.booleanNames first after = 0 ∧
       IntegerSubtypes.lookup text state.subtypeNames first after = 0) &&
     !formalHides text state first after &&
@@ -178,6 +179,46 @@ def subtypeDeclarationParts (text : Source) (state : ParserState) : SubtypeDecla
 
 def addSubtypeBinding (text : Source) (state : ParserState) (parts : SubtypeDeclarationParts) : ParserState :=
   {state with position := parts.following, subtypeNames := IntegerSubtypes.append text state.subtypeNames ⟨parts.first, parts.after, parts.constraint.bounds⟩}
+
+def arrayTypeAt (text : Source) (state : ParserState) (position : Nat) : Nat :=
+  let first := skipAt text position
+  let after := nameAfter text first
+  if first = 0 ∨ after ≤ first ∨ lookupName text state.names first after ≠ 0 ∨
+      ScalarExpression.lookup text state.scalarNames first after ≠ 0 ∨
+      ArrayBindings.lookup text state.arrayNames.names first after ≠ 0 ∨
+      BooleanBindings.lookup text state.booleanNames first after ≠ 0 ∨
+      FunctionBindings.lookup text state.functions first after ≠ 0 ∨
+      ProcedureBindings.lookup text state.procedures first after ≠ 0 ∨ formalHides text state first after
+  then 0 else ArrayBindings.lookupType text state.arrayNames.types first after
+
+def arrayTypeDeclarationAt (text : Source) (state : ParserState) (arguments : Bool) : ParserState :=
+  let first := skipAt text (fixedAfter text state.position "type" true)
+  let after := nameAfter text first
+  let start := fixedAfter text (fixedAfter text (fixedAfter text after "is" true) "array" true) "(" false
+  let low := ScalarExpression.ArrayGrammar.read text start state.scalarNames state.arrayNames.table
+  let high := ScalarExpression.ArrayGrammar.read text (fixedAfter text low.after ".." false)
+    state.scalarNames state.arrayNames.table
+  let component := scalarTypeAt text state
+    (fixedAfter text (fixedAfter text high.after ")" false) "of" true)
+  let following := fixedAfter text component.after ";" false
+  if start = 0 ∨ following ≤ state.position ∨ state.pure ∨
+      !newNameAllowed text state first after arguments ∨
+      Named.nameIs text first after ("integer".toList.map Char.toNat) ∨
+      state.arrayNames.types.length = ArrayBindings.maxTypes ∨
+      low.after = 0 ∨ high.after = 0 ∨ component.after = 0 ∨ !low.isStatic ∨ !high.isStatic ∨
+      low.bounds.isEmpty ∨ high.bounds.isEmpty ∨
+      low.bounds.lower ≠ low.bounds.upper ∨ high.bounds.lower ≠ high.bounds.upper ∨
+      low.bounds.lower > high.bounds.lower ∨
+      high.bounds.lower - low.bounds.lower ≥ (ArrayBindings.maxElements : Int)
+  then invalidState
+  else {state with
+    position := following,
+    arrayNames := {state.arrayNames with types := state.arrayNames.types ++
+      [⟨first, after, ⟨low.bounds.lower, high.bounds.lower⟩, component.bounds⟩]},
+    subtypeNames := {state.subtypeNames with
+      trueHidden := state.subtypeNames.trueHidden || Named.nameIs text first after ("true".toList.map Char.toNat),
+      falseHidden := state.subtypeNames.falseHidden || Named.nameIs text first after ("false".toList.map Char.toNat),
+      hiddenCalls := state.subtypeNames.hiddenCalls.add text first after}}
 
 def subtypeDeclarationAt (text : Source) (state : ParserState) (arguments : Bool) : ParserState :=
   let parts := subtypeDeclarationParts text state

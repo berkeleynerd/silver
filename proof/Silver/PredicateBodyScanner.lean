@@ -393,7 +393,7 @@ def contextOf (scan : ScanResult) : ParseContext :=
     ScalarExpression.bodyEnvironment scan.state.scalarNames, scan.state.scalarNames.length, scan.state.arrayNames.names, scan.state.subtypeNames.hiddenCalls,
     scan.state.booleanNames, scan.state.subtypeNames.trueHidden || scan.state.hiding.trueHidden,
     scan.state.subtypeNames.falseHidden || scan.state.hiding.falseHidden,
-    false, 0, 0, scan.state.pure, scan.state.hiding.integerHidden⟩
+    false, 0, 0, scan.state.pure, scan.state.hiding.integerHidden, scan.state.arrayNames.types⟩
 
 def bodyOf (scan : ScanResult) : BodyScan :=
   ⟨scan.state.position, scan.state.target, scan.state.capacity,

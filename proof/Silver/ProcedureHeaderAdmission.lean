@@ -25,14 +25,15 @@ def procedureParameterStep (text : Source) (state : ParserState)
   let mode : ProcedureBindings.Mode :=
     if inEnd = 0 then .output else if outEnd = 0 then .input else .inputOutput
   let start := if outEnd ≠ 0 then outEnd else inEnd
-  let value := functionTypeAt text state start
+  let value := formalTypeAt text state start
   if !newNameAllowed text state first after arguments ∨ start = 0 ∨ value.after ≤ state.position ∨
       state.procedures.parameters.length = ProcedureBindings.maxFormals ∨
-      equalName text first after (skipAt text start) value.after
+      equalName text first after (skipAt text start) value.after ∨
+      (value.typeId ≠ 0 ∧ mode ≠ .input)
     then ⟨invalidState, false⟩ else
   let next := {state with
     position := value.after,
-    procedures := ProcedureBindings.appendFormal state.procedures ⟨first, after, value.kind, value.bounds, mode⟩,
+    procedures := ProcedureBindings.appendFormal state.procedures ⟨first, after, value.kind, value.bounds, mode, value.typeId⟩,
     «hiding» := hideName text state.hiding first after}
   let separator := fixedAfter text value.after ";" false
   let close := fixedAfter text value.after ")" false
@@ -53,7 +54,10 @@ decreasing_by exact _advanced
 def procedureParametersAt := procedureParametersModel
 
 def appendProcedureParameter (frame : ParserState) (parameter : ProcedureBindings.Formal) : ParserState :=
-  if parameter.kind = .integer then
+  if parameter.typeId ≠ 0 then
+    if parameter.mode ≠ .input then invalidState
+    else appendArrayParameter frame parameter.first parameter.after parameter.typeId
+  else if parameter.kind = .integer then
     if frame.scalarNames.length = ScalarExpression.maxBindings then invalidState
     else {frame with scalarNames := frame.scalarNames ++
       [⟨parameter.first, parameter.after, parameter.bounds, false, parameter.bounds,
@@ -86,7 +90,7 @@ def procedurePrefixStep (text : Source) (readFrame frame : ParserState)
   let context := {Predicate.contextOf ⟨readFrame, false, false⟩ with declarationCount}
   let valueAfter := Predicate.actualAfter text context (fixedAfter text after ":=" false)
     (Predicate.ActiveFlow.initial context.scalarNames (Predicate.initialFacts context.hasArguments))
-    ⟨parameter.first, parameter.after, parameter.kind, parameter.bounds⟩
+    ⟨parameter.first, parameter.after, parameter.kind, parameter.bounds, parameter.typeId⟩
   let following := fixedAfter text valueAfter ";" false
   if first = 0 ∨ after ≤ first ∨ !equalName text first after parameter.first parameter.after ∨
       valueAfter = 0 ∨ following ≤ frame.position then invalidState

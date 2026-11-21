@@ -20,6 +20,7 @@ def hiddenWord (text : Source) (state : ParserState) (word : String) : Bool :=
     state.scalarNames.any (fun item => nameIs text item.first item.after bytes) ||
     state.booleanNames.any (fun item => nameIs text item.first item.after bytes) ||
     state.arrayNames.names.any (fun item => nameIs text item.first item.after bytes) ||
+    state.arrayNames.types.any (fun item => nameIs text item.first item.after bytes) ||
     state.subtypeNames.items.any (fun item => nameIs text item.first item.after bytes)
 
 def hiddenOuter (text : Source) (state : ParserState) : HiddenMarks :=
@@ -40,22 +41,30 @@ structure FunctionTypeResult where
   after : Nat
   kind : FunctionBindings.ScalarKind
   bounds : Integer.Interval
+  typeId : Nat := 0
   deriving DecidableEq, Repr
 
 def functionTypeAt (text : Source) (state : ParserState) (position : Nat) : FunctionTypeResult :=
   let integerType := scalarTypeAt text state position
   let first := skipAt text position
   let after := fixedAfter text first "boolean" true
-  if integerType.after ≠ 0 then ⟨integerType.after, .integer, integerType.bounds⟩
+  if integerType.after ≠ 0 then ⟨integerType.after, .integer, integerType.bounds, 0⟩
   else if after = 0 ∨ state.hiding.booleanHidden ∨
       lookupName text state.names first after ≠ 0 ∨
       ScalarExpression.lookup text state.scalarNames first after ≠ 0 ∨
       BooleanBindings.lookup text state.booleanNames first after ≠ 0 ∨
       IntegerSubtypes.lookup text state.subtypeNames first after ≠ 0 ∨
       ArrayBindings.lookup text state.arrayNames.names first after ≠ 0 ∨
+      ArrayBindings.lookupType text state.arrayNames.types first after ≠ 0 ∨
       FunctionBindings.lookup text state.functions first after ≠ 0 ∨
       ProcedureBindings.lookup text state.procedures first after ≠ 0 ∨ formalHides text state first after
-    then ⟨0, .integer, .empty⟩ else ⟨after, .boolean, .full⟩
+    then ⟨0, .integer, .empty, 0⟩ else ⟨after, .boolean, .full, 0⟩
+
+def formalTypeAt (text : Source) (state : ParserState) (position : Nat) : FunctionTypeResult :=
+  let typeId := arrayTypeAt text state position
+  if typeId = 0 then functionTypeAt text state position
+  else ⟨nameAfter text (skipAt text position), .integer,
+    (ArrayBindings.arrayType state.arrayNames.types typeId).componentBounds, typeId⟩
 
 structure ParameterStepResult where
   state : ParserState
@@ -66,14 +75,14 @@ def parameterStep (text : Source) (state : ParserState) (arguments : Bool) : Par
   let first := skipAt text state.position
   let after := nameAfter text first
   let start := fixedAfter text (fixedAfter text after ":" false) "in" true
-  let value := functionTypeAt text state start
+  let value := formalTypeAt text state start
   if !newNameAllowed text state first after arguments ∨ start = 0 ∨ value.after ≤ state.position ∨
       state.functions.parameters.length = FunctionBindings.maxFormals ∨
       equalName text first after (skipAt text start) value.after
     then ⟨invalidState, false⟩ else
   let next := {state with
     position := value.after,
-    functions := FunctionBindings.appendFormal state.functions ⟨first, after, value.kind, value.bounds⟩,
+    functions := FunctionBindings.appendFormal state.functions ⟨first, after, value.kind, value.bounds, value.typeId⟩,
     «hiding» := hideName text state.hiding first after}
   let separator := fixedAfter text value.after ";" false
   let close := fixedAfter text value.after ")" false
@@ -111,8 +120,23 @@ decreasing_by exact _advanced
 
 def functionLocals := functionLocalsModel
 
+def appendArrayParameter (frame : ParserState) (first after typeId : Nat) : ParserState :=
+  if typeId = 0 ∨ typeId > frame.arrayNames.types.length ∨
+      frame.arrayNames.names.length = ArrayBindings.maxBindings ∨
+      ¬ArrayBindings.ValidType (ArrayBindings.arrayType frame.arrayNames.types typeId) ∨
+      (frame.arrayNames.names.length > 0 ∧
+        (ArrayBindings.binding frame.arrayNames.names frame.arrayNames.names.length).viewSlot = 0)
+  then invalidState
+  else
+    let item := ArrayBindings.arrayType frame.arrayNames.types typeId
+    let slot := frame.arrayNames.names.length + 1
+    let length := (item.bounds.upper - item.bounds.lower + 1).toNat
+    {frame with arrayNames := {frame.arrayNames with names := frame.arrayNames.names ++
+      [⟨first, after, item.bounds, 0, length, false, item.componentBounds, false, typeId, slot⟩]}}
+
 def appendParameter (frame : ParserState) (parameter : FunctionBindings.Formal) : ParserState :=
-  if parameter.kind = .integer then
+  if parameter.typeId ≠ 0 then appendArrayParameter frame parameter.first parameter.after parameter.typeId
+  else if parameter.kind = .integer then
     if frame.scalarNames.length = ScalarExpression.maxBindings then invalidState
     else {frame with scalarNames := frame.scalarNames ++
       [⟨parameter.first, parameter.after, parameter.bounds, false, parameter.bounds, false⟩]}
@@ -136,7 +160,7 @@ def parameterFrame (_text : Source) (frame : ParserState) : ParserState :=
 def functionReturnAfter (text : Source) (context : Predicate.ParseContext) (scan : Predicate.BodyScan)
     (resultType : FunctionTypeResult) : Nat :=
   Predicate.actualAfter text context (fixedAfter text scan.position "return" true) scan.facts
-    ⟨0, 0, resultType.kind, resultType.bounds⟩
+    ⟨0, 0, resultType.kind, resultType.bounds, 0⟩
 
 def functionBodyAt (text : Source) (outer frame : ParserState) (first after : Nat)
     (resultType : FunctionTypeResult) (arguments : Bool) : ParserState :=
@@ -172,6 +196,7 @@ def functionDeclarationAt (text : Source) (state : ParserState) (arguments : Boo
   let initial := {initialState with
     position := opening, pure := true,
     subtypeNames := state.subtypeNames, functions := state.functions, procedures := state.procedures,
+    arrayNames := {types := state.arrayNames.types},
     «hiding» := hideName text (hiddenOuter text state) first after,
     firstParameter := state.functions.parameters.length + 1}
   let header := parametersAt text initial arguments
