@@ -15,7 +15,7 @@ set_option maxRecDepth 10000
 set_option maxHeartbeats 2000000
 set_option backward.dsimp.instances true
 set_option linter.unusedSimpArgs false
-attribute [local irreducible] ScalarExpression.read
+attribute [local irreducible] ScalarExpression.ArrayGrammar.read
 
 private theorem toNat_max_zero (value : Int) : (max 0 value).toNat = value.toNat := by omega
 
@@ -30,19 +30,19 @@ private theorem max_capacity (value : Int) : (max 0 value > (maxSourceLength : I
 
 @[simp] theorem interpreted_indexed (calls : Calls) (equations : RawHelperEquations calls (domain := domain))
     (text : Source) (valid : ValidText text) (position : Nat) (names : BindingEnvironment)
-    (scalarNames : ScalarExpression.Environment) (arrays : ArrayBindings.Metadata)
+    (scalarNames : ScalarExpression.Environment) (arrays : ArrayBindings.Table)
     (initials : ArrayBindings.Initials) (elaborating element : Bool)
     (bound : ValidCursor text position) (namesValid : NativeNames text names)
     (scalarValid : ScalarExpression.ValidEnvironment text scalarNames)
-    (arraysValid : ArrayBindings.ValidMetadata text arrays) (initialsValid : ArrayBindings.ValidInitials initials) :
+    (arraysValid : ArrayBindings.ValidTable text arrays) (initialsValid : ArrayBindings.ValidInitials initials) :
     calls.function .indexed text position names scalarNames arrays initials elaborating element =
       indexedAt text position names scalarNames arrays initials elaborating element := by
   let first := skipAt text position
   let after := nameAfter text first
   let start := fixedAfter text after "(" false
-  let low := ScalarExpression.read text start scalarNames 0 0 true arrays initials elaborating
+  let low := ScalarExpression.ArrayGrammar.read text start scalarNames arrays 0 0 true initials elaborating
   let highStart := fixedAfter text low.after ".." false
-  let high := ScalarExpression.read text highStart scalarNames 0 0 true arrays initials elaborating
+  let high := ScalarExpression.ArrayGrammar.read text highStart scalarNames arrays 0 0 true initials elaborating
   have bf : ValidCursor text first := model_skip_valid text position bound
   have ba : ValidCursor text after := model_name_valid text first
   have bs : ValidCursor text start := model_fixed_valid text after "(" false ba
@@ -92,7 +92,7 @@ private theorem max_capacity (value : Int) : (max 0 value > (maxSourceLength : I
   simp only [concatenatedLast, Bool.or_eq_true, Bool.and_eq_true, decide_eq_true_eq, or_assoc]
 
 theorem model_character_after_valid (text : Source) (position : Nat) (names : BindingEnvironment)
-    (scalarNames : ScalarExpression.Environment) (arrays : ArrayBindings.Metadata)
+    (scalarNames : ScalarExpression.Environment) (arrays : ArrayBindings.Table)
     (initials : ArrayBindings.Initials) (elaborating : Bool) :
     ValidCursor text (characterAt text position names scalarNames arrays initials elaborating).after := by
   by_cases zero : (characterAt text position names scalarNames arrays initials elaborating).after = 0
@@ -102,11 +102,11 @@ theorem model_character_after_valid (text : Source) (position : Nat) (names : Bi
 
 @[simp] theorem interpreted_characterValue (calls : Calls) (equations : RawHelperEquations calls (domain := domain))
     (text : Source) (valid : ValidText text) (position : Nat) (names : BindingEnvironment)
-    (scalarNames : ScalarExpression.Environment) (arrays : ArrayBindings.Metadata)
+    (scalarNames : ScalarExpression.Environment) (arrays : ArrayBindings.Table)
     (initials : ArrayBindings.Initials) (elaborating : Bool)
     (bound : ValidCursor text position) (namesValid : NativeNames text names)
     (scalarValid : ScalarExpression.ValidEnvironment text scalarNames)
-    (arraysValid : ArrayBindings.ValidMetadata text arrays) (initialsValid : ArrayBindings.ValidInitials initials) :
+    (arraysValid : ArrayBindings.ValidTable text arrays) (initialsValid : ArrayBindings.ValidInitials initials) :
     calls.function .characterValue text position names scalarNames arrays initials elaborating =
       characterAt text position names scalarNames arrays initials elaborating := by
   let first := skipAt text position
