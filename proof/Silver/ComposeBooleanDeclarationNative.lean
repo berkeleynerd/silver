@@ -82,7 +82,7 @@ def Mark.hidden (mark : Mark) (state : ParserState) : Bool :=
   | .boolean => state.hiding.booleanHidden
   | .character => state.hiding.characterHidden
 
-inductive Lookup | string | scalar | array | subtype | boolean | function | procedure
+inductive Lookup | string | scalar | array | arrayType | subtype | boolean | function | procedure
   deriving DecidableEq, Repr
 
 def lookup (kind : Lookup) (text : Source) (state : ParserState) (first after : Nat) : Nat :=
@@ -90,6 +90,7 @@ def lookup (kind : Lookup) (text : Source) (state : ParserState) (first after : 
   | .string => lookupName text state.names first after
   | .scalar => ScalarExpression.lookup text state.scalarNames first after
   | .array => ArrayBindings.lookup text state.arrayNames.names first after
+  | .arrayType => ArrayBindings.lookupType text state.arrayNames.types first after
   | .subtype => IntegerSubtypes.lookup text state.subtypeNames first after
   | .boolean => BooleanBindings.lookup text state.booleanNames first after
   | .function => FunctionBindings.lookup text state.functions first after
@@ -239,6 +240,7 @@ def Expr.render : Expr α → List String
         | .string => (["lookup_name"], ["names"])
         | .scalar => (["scalar_expressions", ".", "lookup"], ["scalar_names"])
         | .array => (["array_bindings", ".", "lookup"], ["array_names", ".", "names"])
+        | .arrayType => (["array_bindings", ".", "lookup_type"], ["array_names", ".", "names", ".", "types"])
         | .subtype => (["lookup_subtype"], ["subtype_names"])
         | .boolean => (["lookup_boolean"], ["boolean_names"])
         | .function => (["functions", ".", "lookup"], ["functions"])
@@ -406,7 +408,7 @@ def Command.scoped (scope : Scope) : Command → Bool
   | .returned value => value.scoped scope
 
 def rejected : Expr Bool :=
-  let base := Expr.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse
+  let base := Expr.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse
     (.not (.newName (.local .first) (.local .after) .arguments))
     (.eq (.local .typeAfter) (.number 0)))
     (.eq (.local .valueFirst) (.number 0)))
@@ -415,6 +417,7 @@ def rejected : Expr Bool :=
     (.ne (.lookup .string (.local .typeFirst) (.local .typeAfter)) (.number 0)))
     (.ne (.lookup .scalar (.local .typeFirst) (.local .typeAfter)) (.number 0)))
     (.ne (.lookup .array (.local .typeFirst) (.local .typeAfter)) (.number 0)))
+    (.ne (.lookup .arrayType (.local .typeFirst) (.local .typeAfter)) (.number 0)))
     (.ne (.lookup .subtype (.local .typeFirst) (.local .typeAfter)) (.number 0)))
     (.ne (.lookup .boolean (.local .typeFirst) (.local .typeAfter)) (.number 0))
   let hidden (mark : Mark) := Expr.group (.andThen (.hiddenMark mark)
@@ -469,6 +472,7 @@ def reject (imports : Imports) (text : Source) (state : ParserState) (arguments 
     decide (imports.lookup .string text state p.typeFirst p.typeAfter ≠ 0) ||
     decide (imports.lookup .scalar text state p.typeFirst p.typeAfter ≠ 0) ||
     decide (imports.lookup .array text state p.typeFirst p.typeAfter ≠ 0) ||
+    decide (imports.lookup .arrayType text state p.typeFirst p.typeAfter ≠ 0) ||
     decide (imports.lookup .subtype text state p.typeFirst p.typeAfter ≠ 0) ||
     decide (imports.lookup .boolean text state p.typeFirst p.typeAfter ≠ 0) ||
     decide (imports.lookup .function text state p.typeFirst p.typeAfter ≠ 0) ||
