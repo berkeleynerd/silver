@@ -18,9 +18,9 @@ def basicTokens : List ShellToken :=
 def TokenDomain (text : Source) (position : Nat) (token : ShellToken) : Prop :=
   Expressions.ValidText text ∧ Expressions.ValidCursor text position ∧ token ∈ basicTokens
 
-def ExpressionDomain (text : Source) (position : Nat) (names : Compose.BindingEnvironment) (scalarNames : ScalarExpression.Environment) (arrays : ArrayBindings.Metadata) (booleans : BooleanBindings.Environment) : Prop :=
+def ExpressionDomain (text : Source) (position : Nat) (names : Compose.BindingEnvironment) (scalarNames : ScalarExpression.Environment) (arrays : ArrayBindings.Table) (booleans : BooleanBindings.Environment) : Prop :=
   Expressions.ValidText text ∧ Expressions.ValidCursor text position ∧ Expressions.NativeNames text names ∧
-    ScalarExpression.ValidEnvironment text scalarNames ∧ ArrayBindings.ValidMetadata text arrays ∧
+    ScalarExpression.ValidEnvironment text scalarNames ∧ ArrayBindings.ValidTable text arrays ∧
     BooleanBindings.ValidEnvironment text booleans
 
 abbrev TargetDomain := ScalarBodyNative.TargetDomain
@@ -34,10 +34,10 @@ def FlowDomain (text : Source) (context : Native.Context) (position : Nat) (fact
   FlowReaders.Legal {text,context,position,facts}
 
 def ValueDomain (text : Source) (position : Nat) (names : Compose.BindingEnvironment)
-    (scalarNames : ScalarExpression.Environment) (arrays : ArrayBindings.Metadata) : Prop :=
+    (scalarNames : ScalarExpression.Environment) (arrays : ArrayBindings.Table) : Prop :=
   Expressions.ValidText text ∧ Expressions.ValidCursor text position ∧
     Expressions.ValidNames text names ∧ NamesBoundsValid names ∧
-    ScalarExpression.ValidEnvironment text scalarNames ∧ ArrayBindings.ValidMetadata text arrays
+    ScalarExpression.ValidEnvironment text scalarNames ∧ ArrayBindings.ValidTable text arrays
 
 structure HelperMeaning (primitive : Primitives) : Prop where
   callAfter : ∀ text names position operation scalarNames arrays hidden booleans, ExpressionDomain text position names scalarNames arrays booleans →

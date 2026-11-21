@@ -114,12 +114,15 @@ structure Links (calls : Native.Calls) (composed : Compose.Expressions.Calls)
   equalName : ∃ lexical token, Compose.Lexical.InterpretedSource lexical token ∧
     calls.equalName = (Compose.Lexical.primitives lexical token).equal
   nameIs : calls.nameIs = composed.function .nameIs
-  arrayLookup : calls.arrayLookup = composed.function .arrayLookup
+  arrayLookup : ∃ arrays, ArrayBindings.SourceBridge.InterpretedSource arrays ∧
+    calls.arrayLookup = arrays.lookup
+  arrayTypeLookup : ∃ arrays, ArrayBindings.SourceBridge.InterpretedSource arrays ∧
+    calls.arrayTypeLookup = arrays.lookupType
   arrayContains : ∃ arrays, ArrayBindings.SourceBridge.InterpretedSource arrays ∧
     calls.arrayContains = arrays.contains
   scalarIndex : ∃ scalars, ScalarExpression.Native.Primitives scalars ∧ ScalarExpression.Native.Equations scalars ∧
-    calls.scalarIndex = fun text position names first after =>
-      scalars.readExpression text position names first after true
+    calls.scalarIndex = fun text position names first after arrays mode =>
+      scalars.readExpression text position names first after true arrays [] false mode
   booleanLookup : ∃ source : BooleanBindings.SourceBridge.InterpretedSource,
     calls.booleanLookup = source.lookup
   callAfter : calls.callAfter = composed.function .callAfter
@@ -133,14 +136,14 @@ structure Links (calls : Native.Calls) (composed : Compose.Expressions.Calls)
     NativeNames text names → first ≤ text.length + 1 → after ≤ text.length + 1 →
     calls.lookup text names first after = composed.function .lookupName text names first after
   scalarLookup : calls.scalarLookup = composed.function .scalarLookup
-  scalarRead : calls.scalarRead = fun text position names => composed.function .scalarRead text position names [] [] false
+  scalarRead : calls.scalarRead = fun text position names => composed.function .scalarRead text position names {} [] false
   readers : FlowReaders.FullLinks composed calls.scalarInFlow calls.stringInFlow
   scalarHelpers : ScalarLinks calls composed
   integer : ∀ text, ValidText text → ∀ position, position ≤ text.length + 1 →
     calls.integer text position = integer text position
   expression : ∀ text, ValidText text → ∀ position names scalarNames, position ≤ text.length + 1 → NativeNames text names →
     ScalarExpression.ValidEnvironment text scalarNames →
-    calls.expression text position names scalarNames = composed.function .expression text position names scalarNames false [] [] false
+    calls.expression text position names scalarNames = composed.function .expression text position names scalarNames false {} [] false
   assumeValid : ∀ facts : Paths,
     calls.assumeValid facts.model =
       (PathFacts.Native.assumeValidBody.eval ({facts} : PathInputs).locals).model
@@ -193,18 +196,22 @@ theorem helper_meaning (calls : Native.Calls) (composed : Compose.Expressions.Ca
     rw [links.nameIs]
     exact composedEquations.nameIs text tv first after word valid nonempty bounded
   arrayLookup text tv names first after nv fb ab := by
-    rw [links.arrayLookup]
-    exact composedEquations.arrayLookup text tv names first after nv fb ab
+    obtain ⟨arrays, source, observed⟩ := links.arrayLookup
+    rw [observed]
+    exact ArrayBindings.SourceBridge.interpreted_lookup arrays source text tv names nv first after fb ab
+  arrayTypeLookup text tv types first after valid fb ab := by
+    obtain ⟨arrays, source, observed⟩ := links.arrayTypeLookup
+    rw [observed]
+    exact ArrayBindings.SourceBridge.interpreted_lookupType arrays source text tv types valid first after fb ab
   arrayContains item indices itemType indexType := by
     obtain ⟨arrays, source, observed⟩ := links.arrayContains
     rw [observed]
     exact ArrayBindings.SourceBridge.interpreted_contains arrays source item indices itemType indexType
-  scalarIndex text tv position names first after pv nv mask := by
+  scalarIndex text tv position names first after arrays mode pv nv mask av := by
     obtain ⟨scalars, primitives, definitions, observed⟩ := links.scalarIndex
     rw [observed]
-    exact ScalarExpression.Native.interpreted_readExpression_arrays scalars primitives definitions
-      text tv position names first after true [] [] false pv nv mask
-      (by simp [ArrayBindings.ValidMetadata, ArrayBindings.maxBindings])
+    exact ScalarExpression.Native.interpreted_readExpression_table scalars primitives definitions
+      text tv position names first after true arrays [] false mode pv nv mask av
       (by simp [ArrayBindings.ValidInitials, ArrayBindings.maxElements])
   booleanLookup text tv names first after nv fb ab := by
     obtain ⟨source, observed⟩ := links.booleanLookup
@@ -229,8 +236,8 @@ theorem helper_meaning (calls : Native.Calls) (composed : Compose.Expressions.Ca
     exact composedEquations.scalarLookup text tv names first after nv fv av
   scalarRead text tv position names pv nv := by
     rw [links.scalarRead]
-    exact composedEquations.scalarRead text tv position names [] [] false pv nv
-      (by simp [ArrayBindings.ValidMetadata, ArrayBindings.maxBindings])
+    exact composedEquations.scalarRead text tv position names {} [] false pv nv
+      (ArrayBindings.ValidTable.emptyItems (ArrayBindings.valid_empty_types text))
       (by simp [ArrayBindings.ValidInitials, ArrayBindings.maxElements])
   scalarInFlow text tv context cv position facts pv fv initials iv :=
     FlowReaders.linked_scalar_full composedEquations links.readers {text, context, position, facts, initials}
@@ -254,7 +261,7 @@ theorem helper_meaning (calls : Native.Calls) (composed : Compose.Expressions.Ca
   expression text tv position names scalarNames bounded nv sv := by
     rw [links.expression text tv position names scalarNames bounded nv sv,
       Compose.Expressions.interpreted_expression composed composedEquations text tv position names bounded nv sv
-        (by simp [ArrayBindings.ValidMetadata, ArrayBindings.maxBindings])
+        (ArrayBindings.ValidTable.emptyItems (ArrayBindings.valid_empty_types text))
         (by simp [ArrayBindings.ValidInitials, ArrayBindings.maxElements])]
   assumeValid facts := by
     have equation := links.assumeValid (reify facts)
@@ -288,7 +295,8 @@ theorem model_links : Links Native.modelCalls Compose.Expressions.modelCalls Int
   xorFree := ⟨XorSourceBridge.modelSource, rfl⟩
   equalName := ⟨Guarded.Expressions.modelCalls, fixedAt, Compose.Lexical.model_interpreted, rfl⟩
   nameIs := rfl
-  arrayLookup := rfl
+  arrayLookup := ⟨ArrayBindings.Native.modelCalls, ArrayBindings.SourceBridge.model_interpreted, rfl⟩
+  arrayTypeLookup := ⟨ArrayBindings.Native.modelCalls, ArrayBindings.SourceBridge.model_interpreted, rfl⟩
   arrayContains := ⟨ArrayBindings.Native.modelCalls, ArrayBindings.SourceBridge.model_interpreted, rfl⟩
   scalarIndex := ⟨ScalarExpression.Native.modelCalls, ScalarExpression.Native.model_primitives,
     ScalarExpression.Native.model_equations, rfl⟩

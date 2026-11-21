@@ -18,8 +18,8 @@ abbrev TargetDomain := ScalarBodyNative.TargetDomain
 abbrev AssignmentDomain := ScalarBodyNative.AssignmentDomain
 abbrev ReadDomain := ScalarBodyNative.ReadDomain
 
-def ArrayLookupDomain (text : Source) (arrays : ArrayBindings.Metadata) (first after : Nat) : Prop :=
-  Expressions.ValidText text ∧ ArrayBindings.ValidMetadata text arrays ∧
+def ArrayLookupDomain (text : Source) (arrays : ArrayBindings.Table) (first after : Nat) : Prop :=
+  Expressions.ValidText text ∧ ArrayBindings.ValidTable text arrays ∧
     Expressions.ValidCursor text first ∧ Expressions.ValidCursor text after
 
 def tokens : List ShellToken := [.symbol "(", .symbol ")", .symbol ":="]
@@ -33,11 +33,12 @@ structure ImportsMeaning (imports : Imports) : Prop where
   scalarLookup : ∀ text names first after, ScalarLookupDomain text names first after →
     imports.scalarLookup text names first after = ScalarExpression.lookup text names first after
   arrayLookup : ∀ text arrays first after, ArrayLookupDomain text arrays first after →
-    imports.arrayLookup text arrays first after = ArrayBindings.lookup text arrays first after
+    imports.arrayLookup text arrays first after = ArrayBindings.lookup text arrays.items first after
   token : ∀ text position token, TokenDomain text position token →
     imports.token text position token = tokenAfter text position token
   readIndex : ∀ text context position facts, ReadDomain text context position facts →
-    imports.readIndex text context position facts = ScalarExpression.read text position (context.model.readingNames facts)
+    imports.readIndex text context position facts =
+      ScalarExpression.ArrayGrammar.read text position (context.model.readingNames facts) context.arrayTable (arrayReads := .noElements)
   readValue : ∀ text context position facts, ReadDomain text context position facts →
     imports.readValue text context position facts =
       readScalarInFlow text context.model position facts
@@ -155,33 +156,37 @@ theorem assignment_meaning {imports calls} (meaning : ImportsMeaning imports)
 
 def inheritedImports (calls : Expressions.Calls) (scalar : FlowReaders.DefaultScalarWrapper)
     (reading : FlowSourceBridge.Context → ActiveFlow.Storage → FlowSourceBridge.NameStorage)
-    (arrays : ArrayBindings.Native.Calls) (body : BodyWrappers.Calls) : Imports where
+    (scalars : ScalarExpression.Native.Calls) (arrays : ArrayBindings.Native.Calls)
+    (body : BodyWrappers.Calls) : Imports where
   skip := calls.function .skip
   nameAfter := calls.function .nameAfter
   scalarLookup := calls.function .scalarLookup
-  arrayLookup := calls.function .arrayLookup
+  arrayLookup := arrays.lookup
   token := calls.function .takeToken
-  readIndex := fun text context position facts => calls.function .scalarRead text position
-    (FlowReaders.overlay reading context facts) [] [] false
+  readIndex := fun text context position facts => scalars.readExpression text position
+    (FlowReaders.overlay reading context facts) 0 0 true context.arrayTable [] false .noElements
   readValue := scalar
   contains := arrays.contains
   isEmpty := calls.function .scalarEmpty
   invalid := body.invalid
 
-theorem inherited_meaning {calls scalar string reading arrays body}
+theorem inherited_meaning {calls scalar string reading scalars arrays body}
     (source : Expressions.RawHelperEquations calls (domain := domain))
     (flow : FlowReaders.Links calls scalar string)
     (readingSource : FlowSourceBridge.InterpretedReadingNames reading)
+    (scalarPrimitives : ScalarExpression.Native.Primitives scalars)
+    (scalarEquations : ScalarExpression.Native.Equations scalars)
     (arrayPrimitives : ArrayBindings.Native.Primitives arrays)
     (arrayEquations : ArrayBindings.Native.Equations arrays)
     (bodyEquations : BodyWrappers.DefinitionEquations body) :
-    ImportsMeaning (inheritedImports calls scalar reading arrays body) where
+    ImportsMeaning (inheritedImports calls scalar reading scalars arrays body) where
   skip text position valid := Expressions.interpreted_skip calls source text valid.1 position valid.2
   nameAfter text position valid := Expressions.interpreted_name calls source text valid.1 position valid.2
   scalarLookup text names first after valid := source.scalarLookup text valid.1 names first after
     valid.2.1 valid.2.2.1 valid.2.2.2
-  arrayLookup text arrays first after valid := source.arrayLookup text valid.1 arrays first after
-    valid.2.1 valid.2.2.1 valid.2.2.2
+  arrayLookup text table first after valid :=
+    ArrayBindings.Native.interpreted_lookup arrays arrayPrimitives arrayEquations text valid.1 table valid.2.1
+      first after valid.2.2.1 valid.2.2.2
   token text position token valid := by
     have selected := valid.2
     simp only [tokens, List.mem_cons, List.mem_nil_iff, or_false] at selected
@@ -189,11 +194,13 @@ theorem inherited_meaning {calls scalar string reading arrays body}
       exact Expressions.interpreted_take calls source text valid.1.1 position _ valid.1.2
         (by unfold Expressions.ValidToken; decide)
   readIndex text context position facts valid := by
-    change calls.function .scalarRead text position (FlowReaders.overlay reading context facts) [] [] false = _
+    change scalars.readExpression text position (FlowReaders.overlay reading context facts)
+      0 0 true context.arrayTable [] false .noElements = _
     rw [FlowReaders.overlay_meaning readingSource valid.context valid.flow]
-    exact source.scalarRead text valid.text position _ [] [] false valid.position
+    exact ScalarExpression.Native.interpreted_readExpression_table scalars scalarPrimitives scalarEquations
+      text valid.text position _ 0 0 true context.arrayTable [] false .noElements valid.position
       (ScalarMetadata.readingNames_valid valid.context.2.2.1 valid.flow.2.compatible.count valid.flow.2.bounded)
-      (by simp [ArrayBindings.ValidMetadata, ArrayBindings.maxBindings])
+      (Or.inl ⟨rfl, rfl⟩) valid.context.arrays
       (by simp [ArrayBindings.ValidInitials, ArrayBindings.maxElements])
   readValue text context position facts valid := FlowReaders.linked_scalar source flow {text,context,position,facts} valid
   contains item indices itemType indexType :=
@@ -232,11 +239,12 @@ theorem model_definitions : DefinitionEquations modelImports modelCalls where
 array library and invalid-body wrapper that occur in its native source. -/
 structure Links (composed : Expressions.Calls) (scalar : FlowReaders.DefaultScalarWrapper)
     (calls : Calls) : Prop where
-  source : ∃ reading arrays body,
+  source : ∃ reading scalars arrays body,
     FlowSourceBridge.InterpretedReadingNames reading ∧
+    ScalarExpression.Native.Primitives scalars ∧ ScalarExpression.Native.Equations scalars ∧
     ArrayBindings.Native.Primitives arrays ∧ ArrayBindings.Native.Equations arrays ∧
     BodyWrappers.DefinitionEquations body ∧
-    DefinitionEquations (inheritedImports composed scalar reading arrays body) calls
+    DefinitionEquations (inheritedImports composed scalar reading scalars arrays body) calls
 
 theorem linked_target {composed scalar string calls}
     (source : Expressions.RawHelperEquations composed (domain := domain))
@@ -244,8 +252,10 @@ theorem linked_target {composed scalar string calls}
     (text : Source) (context : Native.Context) (position : Nat)
     (valid : TargetDomain text context position) :
     calls.target text context position = arrayTarget text context.model position := by
-  obtain ⟨reading, arrays, body, readingSource, primitives, equations, bodyEquations, definitions⟩ := links.source
-  exact target_meaning (inherited_meaning source flow readingSource primitives equations bodyEquations)
+  obtain ⟨reading, scalars, arrays, body, readingSource, scalarPrimitives, scalarEquations,
+    primitives, equations, bodyEquations, definitions⟩ := links.source
+  exact target_meaning (inherited_meaning source flow readingSource scalarPrimitives scalarEquations
+    primitives equations bodyEquations)
     definitions text context position valid
 
 theorem linked_assignment {composed scalar string calls}
@@ -254,8 +264,10 @@ theorem linked_assignment {composed scalar string calls}
     (text : Source) (context : Native.Context) (scan : BodyScan)
     (valid : AssignmentDomain text context scan) :
     calls.assignment text context scan = arrayAssignmentBody text context.model scan := by
-  obtain ⟨reading, arrays, body, readingSource, primitives, equations, bodyEquations, definitions⟩ := links.source
-  exact assignment_meaning (inherited_meaning source flow readingSource primitives equations bodyEquations)
+  obtain ⟨reading, scalars, arrays, body, readingSource, scalarPrimitives, scalarEquations,
+    primitives, equations, bodyEquations, definitions⟩ := links.source
+  exact assignment_meaning (inherited_meaning source flow readingSource scalarPrimitives scalarEquations
+    primitives equations bodyEquations)
     definitions text context scan valid
 
 theorem model_links {scalar string}
@@ -263,9 +275,12 @@ theorem model_links {scalar string}
     (flow : FlowReaders.Links Expressions.modelCalls scalar string) :
     Links Expressions.modelCalls scalar modelCalls := by
   have meaning := inherited_meaning source flow FlowSourceBridge.model_reading_interpreted
+    ScalarExpression.Native.model_primitives ScalarExpression.Native.model_equations
     ArrayBindings.Native.model_primitives ArrayBindings.Native.model_equations BodyWrappers.model_definitions
-  refine ⟨FlowSourceBridge.readingStorage, ArrayBindings.Native.modelCalls, BodyWrappers.modelCalls,
-    FlowSourceBridge.model_reading_interpreted, ArrayBindings.Native.model_primitives,
+  refine ⟨FlowSourceBridge.readingStorage, ScalarExpression.Native.modelCalls,
+    ArrayBindings.Native.modelCalls, BodyWrappers.modelCalls,
+    FlowSourceBridge.model_reading_interpreted, ScalarExpression.Native.model_primitives,
+    ScalarExpression.Native.model_equations, ArrayBindings.Native.model_primitives,
     ArrayBindings.Native.model_equations, BodyWrappers.model_definitions, ?_⟩
   exact {
     target := fun text context position _ => by
