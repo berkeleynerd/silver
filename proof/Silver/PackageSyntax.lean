@@ -169,6 +169,8 @@ structure LocalInitializer where
   domain : ScalarType
   value : Actual
   layout : FrameLayout
+  analysis : Integer.Analysis := .empty
+  booleans : Boolean.Analysis := {}
 
 def LocalInitializer.Valid (item : LocalInitializer) : Prop :=
   CellDomain item.target item.domain ∧ item.domain.Valid ∧
