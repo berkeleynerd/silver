@@ -1,0 +1,14 @@
+{
+  "run_id": "20261122T185505-05421127a053",
+  "host": "linux-x86_64",
+  "targets": [
+    "Silver.ApplicationPackageCompletionEquations"
+  ],
+  "declarations": 20695,
+  "implementation_commit": "743a80edbad8dd443652d94466395c52c0c3a8ad",
+  "artifacts_sha256": {
+    "events.jsonl.gz": "4cb24fc0e75739c2a6237fbb98a252c45f3f8a6c3505fb2b2b3c3ea8a8078879",
+    "evidence.json": "a3de57d7e8eeff282b8593ad13b9d76d146e41ff7b3d0c5d6bdefd89fa4958af",
+    "lean-focused.log.gz": "3560a42b0680019367538b8a90b056ba79606af6ee8b200e01af9ed41c736160"
+  }
+}
