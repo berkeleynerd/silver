@@ -213,13 +213,15 @@ def bodyDeclarations : List (Declaration Fn) := [
     constraint := some (.property .appScanCount input)
     initial := none}]
 
-def bodyCommands : ApplicationPackageProcedure.Command Fn := .list [
+def dispatchCommands : ApplicationPackageProcedure.Command Fn := .list [
   .assign (.field .applicationAllowProcedureCalls (.variable "input")) procedureRoutine,
   .assign (.field .applicationReads (.variable "input")) (.variable "reads"),
   .assign (.variable "result") (.app (.app (.app (.app (.app (.app (.app (.app (.function .applicationTail)
     text) context) input) info) (.group (.ite functionRoutine (.bodyStop .returnOnly) (.bodyStop .endOnly))))
     (.andThen procedureRoutine (.not (.variable "initialized")))) (.function .emptyFunctions)) (.function .emptyProcedures)),
-  .choose (.eq (.field .scanPosition (.field .applicationScan result)) (.number 0)) fail .nothing,
+  .choose (.eq (.field .scanPosition (.field .applicationScan result)) (.number 0)) fail .nothing]
+
+def returnCommands : ApplicationPackageProcedure.Command Fn :=
   .choose functionRoutine (.list [
     .assign (.variable "value_first") (token (.field .scanPosition (.field .applicationScan result)) (.word "return")),
     .assign (.variable "value_after") (.app (.app (.app (.app (.function .functionReturnAfter) text) context)
@@ -228,7 +230,9 @@ def bodyCommands : ApplicationPackageProcedure.Command Fn := .list [
       (reads context (.variable "value_first") (.variable "value_after"))),
     .assign (.field .scanPosition (.field .applicationScan (.variable "result"))) (token (.variable "value_after") (.symbol ";")),
     .choose (.orElse (.eq (.field .scanPosition (.field .applicationScan result)) (.number 0))
-      (.stateSetNe (.field .applicationWrites result) .emptyStateSet)) fail .nothing]) .nothing,
+      (.stateSetNe (.field .applicationWrites result) .emptyStateSet)) fail .nothing]) .nothing
+
+def footerCommands : ApplicationPackageProcedure.Command Fn := .list [
   .assign (.variable "first") (skip (token (.field .scanPosition (.field .applicationScan result)) (.word "end"))),
   .assign (.variable "last") (after (.variable "first")),
   .assign (.variable "following") (token (.variable "last") (.symbol ";")),
@@ -243,7 +247,10 @@ def bodyCommands : ApplicationPackageProcedure.Command Fn := .list [
   .assign (.field .infoAssigned (.variable "info")) (.eagerOr (.field .infoAssigned info) (.field .routineAssigned item)),
   .assign (.field .statePosition (.variable "globals")) (.variable "following")]
 
-def commands : ApplicationPackageProcedure.Command Fn := .list [
+def bodyCommands : ApplicationPackageProcedure.Command Fn :=
+  .sequence dispatchCommands (.sequence returnCommands footerCommands)
+
+def prefixCommands : ApplicationPackageProcedure.Command Fn := .list [
   .choose (.ge (.field .infoCompleted info) (.field .routineCount info)) fail .nothing,
   .assign (.variable "index") (.add (.field .infoCompleted info) (.number 1)),
   .primitive (.signature text globals (.variable "info") (.truth true) (.variable "header")),
@@ -254,13 +261,18 @@ def commands : ApplicationPackageProcedure.Command Fn := .list [
     (.gt formalCount (.add (.sub (.field .parameterCount info) formalFirst) (.number 1)))))) fail .nothing,
   .assign (.variable "frame") (.app (.app (.app (.app (.app (.function .routineFrame) text) globals) info)
     (.variable "index")) (.field .statePosition (.variable "header"))),
-  .choose (.eq position (.number 0)) fail .nothing,
-  .whileLoop (.eq (token position (.word "begin")) (.number 0)) localLoop,
+  .choose (.eq position (.number 0)) fail .nothing]
+
+def outputsCommands : ApplicationPackageProcedure.Command Fn := .list [
   .assign (.field .statePosition (.variable "frame")) (token position (.word "begin")),
   .choose (.gt formalCount (.number 0)) (.list [
     .forRange "i" formalFirst formalLast outputRead,
-    .forRange "i" formalFirst formalLast outputAppend]) .nothing,
-  .block bodyDeclarations bodyCommands]
+    .forRange "i" formalFirst formalLast outputAppend]) .nothing]
+
+def commands : ApplicationPackageProcedure.Command Fn :=
+  .sequence prefixCommands (.sequence
+    (.whileLoop (.eq (token position (.word "begin")) (.number 0)) localLoop)
+    (.sequence outputsCommands (.block bodyDeclarations bodyCommands)))
 
 def body : ApplicationPackageProcedure.Body Fn :=
   {name := "package_completion_at", declarations, commands}

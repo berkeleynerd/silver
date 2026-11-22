@@ -36,6 +36,11 @@ theorem eval_returned {Fn : Ty → Type} (functions : Calls Fn) (procedures : Pr
     (fuel : Nat) :
     Command.eval functions procedures fuel .returned = fun locals => some ⟨locals, true⟩ := rfl
 
+@[simp] theorem Outcome.bind_done (result : Outcome) :
+    result.bind (fun locals => some ⟨locals, false⟩) = some result := by
+  cases result with
+  | mk locals returned => cases returned <;> rfl
+
 inductive WhileExecution (test : Locals → Bool) (body : Locals → Option Outcome) :
     Locals → Outcome → Prop
   | stopped {locals} : test locals = false → WhileExecution test body locals ⟨locals, false⟩
