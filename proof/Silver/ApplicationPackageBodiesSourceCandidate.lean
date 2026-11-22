@@ -258,6 +258,8 @@ theorem candidate_checked : Checked candidateTokens where
     simp only [ApplicationPackageUnit.Native.body,
       ApplicationPackageProcedure.Body.render,
       ApplicationPackageUnit.Native.commands,
+      ApplicationPackageUnit.Native.prefixCommands,
+      ApplicationPackageUnit.Native.footerCommands,
       ApplicationPackageUnit.Native.objectLoopBody,
       ApplicationPackageUnit.Native.routineLoopBody,
       ApplicationPackageProcedure.Command.list, List.foldr,

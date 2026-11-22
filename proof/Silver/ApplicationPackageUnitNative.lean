@@ -110,22 +110,28 @@ def routineLoopBody : ApplicationPackageProcedure.Command Fn := .list [
   .primitive (.completion text (.variable "globals") (.variable "info")),
   .choose (.le position (.variable "before")) .returned .nothing]
 
-def commands : ApplicationPackageProcedure.Command Fn := .list [
+def prefixCommands : ApplicationPackageProcedure.Command Fn := .list [
   .assign (.variable "accepted") (.truth false),
   .choose (.not (same (.variable "first") (.variable "last"))) .returned .nothing,
   .assign (.field .infoBodyNameFirst (.variable "info")) (.variable "first"),
   .assign (.field .infoBodyNameAfter (.variable "info")) (.variable "last"),
   .assign (.field .statePosition (.variable "globals"))
     (.app (.app (.function .sparkPragmaAfter) text) (token (.variable "last") (.word "is"))),
-  .choose (.eq position (.number 0)) .returned .nothing,
-  .whileLoop objectLoopTest objectLoopBody,
-  .whileLoop (.lt (.field .infoCompleted info) (.field .routineCount info)) routineLoopBody,
+  .choose (.eq position (.number 0)) .returned .nothing]
+
+def footerCommands : ApplicationPackageProcedure.Command Fn := .list [
   .assign (.variable "end_first") (skip (token position (.word "end"))),
   .assign (.variable "end_last") (after (.variable "end_first")),
   .assign (.variable "following") (token (.variable "end_last") (.symbol ";")),
   .assign (.variable "accepted") (.andThen
     (.andThen (same (.variable "end_first") (.variable "end_last")) (.ne (.variable "following") (.number 0)))
     (.eq (skip (.variable "following")) (.add (.sourceLast text) (.number 1))))]
+
+def commands : ApplicationPackageProcedure.Command Fn :=
+  .sequence prefixCommands (.sequence
+    (.whileLoop objectLoopTest objectLoopBody) (.sequence
+      (.whileLoop (.lt (.field .infoCompleted info) (.field .routineCount info)) routineLoopBody)
+      footerCommands))
 
 def body : ApplicationPackageProcedure.Body Fn :=
   {name := "package_body_at", declarations, commands}
