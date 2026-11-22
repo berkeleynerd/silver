@@ -26,7 +26,16 @@ Both membership checks accepted on the pre-exclusion parser.
   success is claimed. Commit `e2e787a067` excludes this demonstrated identity
   collision; the earlier no-op frontend-only observation remains historical.
 
-The control run used two managed workers. `special-name-results.json` retains
+The control run used two managed workers. Its custom workspace reservation
+named `.silver/linux-x86_64/artifacts`, while the driver actually wrote the
+retained sibling `program-*` directories under `.silver/linux-x86_64`.
+No other primary native job was active during this control (the scalar proof
+had ended), and the actual output paths are retained. This reservation mismatch
+is a runner coordination defect in this invocation; later custom driver runs
+must reserve the actual host artifact root. It does not change the observed
+source, producer report, audit or execution results.
+
+`special-name-results.json` retains
 exact commands, diagnostics, input hashes, the successful report totals and
 execution observation. `special-names/` retains original units and selected
 producer reports for both outcomes. All evidence predates the GNAT exclusion;
