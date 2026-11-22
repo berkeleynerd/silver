@@ -11,18 +11,23 @@ theorem booleanAtom_unique {text context position left right leftAfter rightAfte
     (first : BooleanAtomAt text context position left leftAfter)
     (second : BooleanAtomAt text context position right rightAfter) : left = right := by
   cases first with
-  | name _ found =>
+  | name reference found =>
       cases second with
-      | name => rfl
-      | literal _ absent _ => exact False.elim (found absent)
-  | @literal value spelling _ absent literal =>
+      | name other _ => cases QualifiedNames.at_unique reference other; rfl
+      | literal other _ absent _ =>
+          cases QualifiedNames.at_unique reference other
+          exact False.elim (found absent)
+  | @literal value reference parsed _ absent literal =>
       cases second with
-      | name _ found => exact False.elim (found absent)
-      | @literal other otherSpelling _ _ otherLiteral =>
+      | name other found =>
+          cases QualifiedNames.at_unique parsed other
+          exact False.elim (found absent)
+      | @literal other otherReference otherParsed _ _ otherLiteral =>
+          cases QualifiedNames.at_unique parsed otherParsed
           have length : ∀ value : Bool,
-              Named.nameIs text (skipAt text position) (nameAfter text (skipAt text position))
+              Named.nameIs text reference.first reference.after
                 ((if value then "true" else "false").toList.map Char.toNat) = true →
-              nameAfter text (skipAt text position) - skipAt text position = (if value then 4 else 5) := by
+              reference.after - reference.first = (if value then 4 else 5) := by
             intro value spelling
             cases value <;> simp only [Named.nameIs, Bool.and_eq_true, decide_eq_true_eq] at spelling
             all_goals exact spelling.1

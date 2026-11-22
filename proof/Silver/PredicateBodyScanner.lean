@@ -50,9 +50,9 @@ inductive BasicKind | null | output | put | reject | scalarAssignment | arrayAss
 
 def basicKind (text : Source) (context : ParseContext) (scan : BodyScan) : BasicKind :=
   if fixedAfter text scan.position "null" true ≠ 0 then .null
-  else if !context.pure && decide (callAfter text context.names scan.position .output context.scalarNames context.arrayTable (context.subtypeHiding.get .output) context.booleanNames ≠ 0) then .output
-  else if !context.pure && decide (callAfter text context.names scan.position .partialOutput context.scalarNames context.arrayTable (context.subtypeHiding.get .partialOutput) context.booleanNames ≠ 0) then .put
-  else if context.hasArguments && decide (callAfter text context.names scan.position .reject context.scalarNames context.arrayTable (context.subtypeHiding.get .reject) context.booleanNames ≠ 0)
+  else if !context.pure && decide (callAfter text context.names scan.position .output context.scalarNames context.arrayTable (context.subtypeHiding.get .output) context.booleanNames context.contextFirst context.packageFirst context.packageAfter ≠ 0) then .output
+  else if !context.pure && decide (callAfter text context.names scan.position .partialOutput context.scalarNames context.arrayTable (context.subtypeHiding.get .partialOutput) context.booleanNames context.contextFirst context.packageFirst context.packageAfter ≠ 0) then .put
+  else if context.hasArguments && decide (callAfter text context.names scan.position .reject context.scalarNames context.arrayTable (context.subtypeHiding.get .reject) context.booleanNames context.contextFirst context.packageFirst context.packageAfter ≠ 0)
     then .reject
   else if scalarTarget text context scan.position ≠ 0 then .scalarAssignment
   else if !context.pure && decide (arrayTarget text context scan.position ≠ 0) then
@@ -112,21 +112,21 @@ def basicRaw (text : Source) (context : ParseContext) (scan : BodyScan)
   match basicKind text context scan with
   | .null => bodyToken text scan (.word "null")
   | .output =>
-      let call := {scan with position := Names.associationAfter text (fixedAfter text (callAfter text context.names scan.position .output context.scalarNames context.arrayTable (context.subtypeHiding.get .output) context.booleanNames) "(" false) false}
+      let call := {scan with position := Names.associationAfter text (fixedAfter text (callAfter text context.names scan.position .output context.scalarNames context.arrayTable (context.subtypeHiding.get .output) context.booleanNames context.contextFirst context.packageFirst context.packageAfter) "(" false) false}
       let value := readStringInFlow text context call.position call.facts
       if value.after = 0 ∨ call.facts.path.invalidReachable ∨ !fitsLengthSummary call.facts.path (summaryOf value)
       then invalidBody scan else
       let result := bodyToken text {call with position := value.after} (.symbol ")")
       {result with output := true}
   | .put =>
-      let call := {scan with position := Names.associationAfter text (fixedAfter text (callAfter text context.names scan.position .partialOutput context.scalarNames context.arrayTable (context.subtypeHiding.get .partialOutput) context.booleanNames) "(" false) false}
+      let call := {scan with position := Names.associationAfter text (fixedAfter text (callAfter text context.names scan.position .partialOutput context.scalarNames context.arrayTable (context.subtypeHiding.get .partialOutput) context.booleanNames context.contextFirst context.packageFirst context.packageAfter) "(" false) false}
       let value := readStringInFlow text context call.position call.facts
       if value.after = 0 ∨ call.facts.path.invalidReachable ∨ !fitsLengthSummary call.facts.path (summaryOf value)
       then invalidBody scan else
       let result := bodyToken text {call with position := value.after} (.symbol ")")
       {result with output := true}
   | .reject =>
-      let call := {scan with position := callAfter text context.names scan.position .reject context.scalarNames context.arrayTable (context.subtypeHiding.get .reject) context.booleanNames}
+      let call := {scan with position := callAfter text context.names scan.position .reject context.scalarNames context.arrayTable (context.subtypeHiding.get .reject) context.booleanNames context.contextFirst context.packageFirst context.packageAfter}
       {call with facts := {call.facts with path := call.facts.path.reject}}
   | .scalarAssignment =>
       let called := callAssignmentBody text context scan catalog

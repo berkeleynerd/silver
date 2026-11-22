@@ -29,22 +29,39 @@ def chainCondition (left right : Condition) : ChainKind → Condition
   | .eagerOr => .eager .or left right
   | .eagerXor => .eager .xor left right
 
-/-- The atomic meaning is a source identifier lookup or a predefined literal.
+/-- The reference grammar derives either one identifier or a selected package
+member. Qualification is part of name identity; literals remain unqualified.
 The enclosing admission clause separately checks lexical hiding and masks. -/
 inductive BooleanAtomAt (text : Source) (context : ParseContext) (position : Nat) :
     Condition → Nat → Prop
-  | name {spelling} :
-      Named.IdentifierAt text (skipAt text position) spelling (nameAfter text (skipAt text position)) →
-      BooleanBindings.lookup text context.booleanNames (skipAt text position) (nameAfter text (skipAt text position)) ≠ 0 →
+  | name {reference : QualifiedNames.Reference} :
+      QualifiedNames.At text position reference →
+      BooleanBindings.lookup text context.booleanNames reference.first reference.after
+        reference.qualifierFirst reference.qualifierAfter ≠ 0 →
       BooleanAtomAt text context position
-        (.booleanName (BooleanBindings.lookup text context.booleanNames (skipAt text position) (nameAfter text (skipAt text position))))
-        (nameAfter text (skipAt text position))
-  | literal {value spelling} :
-      Named.IdentifierAt text (skipAt text position) spelling (nameAfter text (skipAt text position)) →
-      BooleanBindings.lookup text context.booleanNames (skipAt text position) (nameAfter text (skipAt text position)) = 0 →
-      Named.nameIs text (skipAt text position) (nameAfter text (skipAt text position))
+        (.booleanName (BooleanBindings.lookup text context.booleanNames reference.first reference.after
+          reference.qualifierFirst reference.qualifierAfter)) reference.after
+  | literal {value : Bool} {reference : QualifiedNames.Reference} :
+      QualifiedNames.At text position reference →
+      reference.qualifierFirst = 0 ∧ reference.qualifierAfter = 0 →
+      BooleanBindings.lookup text context.booleanNames reference.first reference.after
+        reference.qualifierFirst reference.qualifierAfter = 0 →
+      Named.nameIs text reference.first reference.after
         ((if value then "true" else "false").toList.map Char.toNat) = true →
-      BooleanAtomAt text context position (.booleanLiteral value) (nameAfter text (skipAt text position))
+      BooleanAtomAt text context position (.booleanLiteral value) reference.after
+
+theorem reference_after_bounded {text position reference}
+    (parsed : QualifiedNames.At text position reference) : reference.after ≤ text.length + 1 := by
+  cases parsed with
+  | bare _ identifier _ => exact (Named.identifier_bounds identifier).2.2.2
+  | qualified _ _ _ _ identifier => exact (Named.identifier_bounds identifier).2.2.2
+
+theorem reference_unqualified {text position reference}
+    (parsed : QualifiedNames.At text position reference) (bare : reference.qualifierFirst = 0) :
+    reference.qualifierFirst = 0 ∧ reference.qualifierAfter = 0 := by
+  cases parsed with
+  | bare => exact ⟨rfl, rfl⟩
+  | qualified positive => exact False.elim (Nat.ne_of_gt positive bare)
 
 /-- A stored Boolean component retains the raw scalar-only index and its
 complete incoming-flow checks. Every target remains the raw metadata index. -/
@@ -98,10 +115,10 @@ mutual
         booleanArrayAfter text context position facts = 0 →
         booleanAtomAfter text context position = 0 → context.hasArguments = true →
         callAfter text context.names position .validity context.scalarNames context.arrayTable
-          (context.validityHidden text) context.booleanNames ≠ 0 →
+          (context.validityHidden text) context.booleanNames context.contextFirst context.packageFirst context.packageAfter ≠ 0 →
         PrimaryAtCore text context initials position facts .inputValid
           ⟨callAfter text context.names position .validity context.scalarNames context.arrayTable
-            (context.validityHidden text) context.booleanNames,
+            (context.validityHidden text) context.booleanNames context.contextFirst context.packageFirst context.packageAfter,
             {facts with path := facts.path.assumeValid}, {facts with path := facts.path.assumeInvalid}⟩
 
   inductive BooleanFactorAtCore (text : Source) (context : ParseContext) (initials : ArrayBindings.Initials) :
