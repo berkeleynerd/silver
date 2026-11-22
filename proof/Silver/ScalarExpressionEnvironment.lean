@@ -13,7 +13,9 @@ when an interval is empty. Source Valid_Environment additionally checks each
 live name span; it does not assert that the span spells an identifier. -/
 def ValidEnvironment (text : Source) (names : Environment) : Prop :=
   names.length ≤ maxBindings ∧ ∀ item ∈ names,
-    0 < item.first ∧ item.first < item.after ∧ item.after ≤ text.length + 1 ∧ item.bounds.Bounded ∧ item.declaredBounds.Bounded
+    0 < item.first ∧ item.first < item.after ∧ item.after ≤ text.length + 1 ∧
+      item.bounds.Bounded ∧ item.declaredBounds.Bounded ∧
+      QualifiedNames.ValidSpan text item.qualifierFirst item.qualifierAfter
 
 def ValidMask (text : Source) (first after : Nat) : Prop :=
   (first = 0 ∧ after = 0) ∨ (0 < first ∧ first < after ∧ after ≤ text.length + 1)
@@ -23,7 +25,9 @@ theorem validEnvironment_empty (text : Source) : ValidEnvironment text [] := by
 
 theorem validEnvironment_append {text : Source} {names : Environment} {item : Binding}
     (valid : ValidEnvironment text names) (space : names.length < maxBindings)
-    (itemValid : 0 < item.first ∧ item.first < item.after ∧ item.after ≤ text.length + 1 ∧ item.bounds.Bounded ∧ item.declaredBounds.Bounded) :
+    (itemValid : 0 < item.first ∧ item.first < item.after ∧ item.after ≤ text.length + 1 ∧
+      item.bounds.Bounded ∧ item.declaredBounds.Bounded ∧
+      QualifiedNames.ValidSpan text item.qualifierFirst item.qualifierAfter) :
     ValidEnvironment text (names ++ [item]) := by
   refine ⟨by simp only [List.length_append, List.length_singleton]; omega, ?_⟩
   intro other present
@@ -65,7 +69,7 @@ def DeclaredBoundsValid (names : Environment) : Prop :=
 
 theorem validEnvironment_declaredBoundsValid {text : Source} {names : Environment}
     (valid : ValidEnvironment text names) : DeclaredBoundsValid names :=
-  fun item present => (valid.2 item present).2.2.2.2
+  fun item present => (valid.2 item present).2.2.2.2.1
 
 /-- Body admission uses the complete declared subtype for each mutable name.
 Immutable snapshots and loop indexes retain their own exact/iteration bounds. -/
@@ -90,6 +94,10 @@ theorem bodyReady_binding {names : Environment} {index : Nat}
 @[simp] theorem bodyBinding_first (item : Binding) : (bodyBinding item).first = item.first := rfl
 @[simp] theorem bodyBinding_after (item : Binding) : (bodyBinding item).after = item.after := rfl
 @[simp] theorem bodyBinding_static (item : Binding) : (bodyBinding item).isStatic = item.isStatic := rfl
+@[simp] theorem bodyBinding_qualifierFirst (item : Binding) :
+    (bodyBinding item).qualifierFirst = item.qualifierFirst := rfl
+@[simp] theorem bodyBinding_qualifierAfter (item : Binding) :
+    (bodyBinding item).qualifierAfter = item.qualifierAfter := rfl
 
 @[simp] theorem bodyEnvironment_binding (names : Environment) (index : Nat) :
     binding (bodyEnvironment names) index = bodyBinding (binding names index) := by
@@ -138,10 +146,11 @@ theorem bodyEnvironment_valid {text : Source} {names : Environment}
   intro item present
   obtain ⟨original, old, rfl⟩ := List.mem_map.mp present
   have oldValid := valid.2 original old
-  refine ⟨oldValid.1, oldValid.2.1, oldValid.2.2.1, ?_, oldValid.2.2.2.2⟩
+  refine ⟨oldValid.1, oldValid.2.1, oldValid.2.2.1, ?_,
+    oldValid.2.2.2.2.1, oldValid.2.2.2.2.2⟩
   change (if original.mutable then original.declaredBounds else original.bounds).Bounded
   split
-  · exact oldValid.2.2.2.2
+  · exact oldValid.2.2.2.2.1
   · exact oldValid.2.2.2.1
 
 theorem bodyEnvironment_mutability (names : Environment) :

@@ -1,0 +1,56 @@
+Lean phase build started at 2026-11-22T14:46:23.489825+00:00
++ /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-native/.tools/linux-x86_64/lean/bin/lake --rehash --reconfigure -K silverThreads=2 build +Silver.QualifiedNames +Silver.BooleanBindings +Silver.BooleanElaboration +Silver.ScalarExpressionEnvironment +Silver.ScalarExpressionGrammar +Silver.IntegerSubtypeBindings +Silver.AxiomAudit
+✔ [44/45] Built Silver.ScalarExpressionBounds (1.9s)
+✔ [45/45] Built Silver.ScalarExpressionGrammar (1.3s)
+Build completed successfully (45 jobs).
+
+Lean phase build finished at 2026-11-22T14:46:29.865854+00:00; elapsed 6.376s; exit 0
+Lean phase audit started at 2026-11-22T14:46:30.671750+00:00
++ /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-native/.tools/linux-x86_64/lean/bin/lake -K silverThreads=2 env /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-native/.tools/linux-x86_64/lean/bin/lean -DwarningAsError=true -j2 .lake/silver-focused-audit.lean
+SILVER_MODULE Silver.Lexical
+SILVER_MODULE Silver.Admission
+SILVER_MODULE Silver.OutputLiteral
+SILVER_MODULE Silver.Cursor
+SILVER_MODULE Silver.OutputAdmission
+SILVER_MODULE Silver.NamedIdentifier
+SILVER_MODULE Silver.QualifiedNames
+SILVER_MODULE Silver.IntegerIntervals
+SILVER_MODULE Silver.BooleanModel
+SILVER_MODULE Silver.BooleanBindings
+SILVER_MODULE Silver.NamedAdmission
+SILVER_MODULE Silver.ArgumentsAdmission
+SILVER_MODULE Silver.GuardedDecimal
+SILVER_MODULE Silver.ScalarLiteral
+SILVER_MODULE Silver.IntegerDivision
+SILVER_MODULE Silver.ArrayLayout
+SILVER_MODULE Silver.IntegerExpressions
+SILVER_MODULE Silver.IntegerDeclarations
+SILVER_MODULE Silver.IntegerMutable
+SILVER_MODULE Silver.StringIndexing
+SILVER_MODULE Silver.IntegerChecks
+SILVER_MODULE Silver.IntegerArraySnapshots
+SILVER_MODULE Silver.IntegerArrays
+SILVER_MODULE Silver.BooleanArrays
+SILVER_MODULE Silver.ArrayBindings
+SILVER_MODULE Silver.ScalarExpression
+SILVER_MODULE Silver.OutputRuntime
+SILVER_MODULE Silver.ArgumentsRuntime
+SILVER_MODULE Silver.IntegerImage
+SILVER_MODULE Silver.CharacterExpressions
+SILVER_MODULE Silver.Bindings
+SILVER_MODULE Silver.ComposeExpression
+SILVER_MODULE Silver.IntegerComparisons
+SILVER_MODULE Silver.StringLengths
+SILVER_MODULE Silver.StringExecution
+SILVER_MODULE Silver.PredicateSyntax
+SILVER_MODULE Silver.PredicateSemantics
+SILVER_MODULE Silver.BooleanElaboration
+SILVER_MODULE Silver.ScalarExpressionEnvironment
+SILVER_MODULE Silver.ScalarExpressionBounds
+SILVER_MODULE Silver.ScalarExpressionGrammar
+SILVER_MODULE Silver.Names
+SILVER_MODULE Silver.IntegerSubtypeBindings
+SILVER_MODULE Silver.AxiomAudit
+Silver axiom audit passed: 6128 declarations; foundations: [propext, Classical.choice, Quot.sound]
+
+Lean phase audit finished at 2026-11-22T14:46:34.359425+00:00; elapsed 3.688s; exit 0

@@ -3,6 +3,7 @@ module
 public import Silver.NamedIdentifier
 public import Silver.Names
 public import Silver.IntegerIntervals
+public import Silver.QualifiedNames
 
 @[expose] public section
 
@@ -16,6 +17,8 @@ structure Binding where
   first : Nat := 0
   after : Nat := 0
   bounds : Integer.Interval := .empty
+  qualifierFirst : Nat := 0
+  qualifierAfter : Nat := 0
   deriving DecidableEq, Repr
 
 structure CallHiding where
@@ -49,16 +52,21 @@ structure Environment where
 def binding (environment : Environment) (index : Nat) : Binding :=
   environment.items.getD (index - 1) {}
 
-def lookupFrom (text : Source) (environment : Environment) (first after : Nat) : Nat → Nat
+def lookupFrom (text : Source) (environment : Environment) (first after index : Nat)
+    (qualifierFirst qualifierAfter : Nat := 0) : Nat :=
+  match index with
   | 0 => 0
   | index + 1 =>
       if first = 0 ∨ after ≤ first then 0
       else if Named.equalName text (binding environment (index + 1)).first
-          (binding environment (index + 1)).after first after
-      then index + 1 else lookupFrom text environment first after index
+          (binding environment (index + 1)).after first after &&
+          QualifiedNames.qualifierMatches text (binding environment (index + 1)).qualifierFirst
+            (binding environment (index + 1)).qualifierAfter qualifierFirst qualifierAfter
+      then index + 1 else lookupFrom text environment first after index qualifierFirst qualifierAfter
 
-def lookup (text : Source) (environment : Environment) (first after : Nat) : Nat :=
-  lookupFrom text environment first after environment.items.length
+def lookup (text : Source) (environment : Environment) (first after : Nat)
+    (qualifierFirst qualifierAfter : Nat := 0) : Nat :=
+  lookupFrom text environment first after environment.items.length qualifierFirst qualifierAfter
 
 def append (text : Source) (environment : Environment) (item : Binding) : Environment :=
   { items := environment.items ++ [item]
@@ -69,7 +77,8 @@ def append (text : Source) (environment : Environment) (item : Binding) : Enviro
 def ValidEnvironment (text : Source) (environment : Environment) : Prop :=
   environment.items.length ≤ maxBindings ∧ ∀ item ∈ environment.items,
     0 < item.first ∧ item.first < item.after ∧ item.after ≤ text.length + 1 ∧
-    item.bounds.Bounded ∧ item.bounds.lower ≤ item.bounds.upper
+    item.bounds.Bounded ∧ item.bounds.lower ≤ item.bounds.upper ∧
+      QualifiedNames.ValidSpan text item.qualifierFirst item.qualifierAfter
 
 /-- The same native call-hiding table contains subtype names and completed
 function names. Extra spans are supplied by the declaration proof; the default
@@ -83,7 +92,8 @@ def HidingCorrect (text : Source) (environment : Environment)
       (operation.name.toList.map Char.toNat)))
 
 theorem lookupFrom_bound (text : Source) (environment : Environment)
-    (first after index : Nat) : lookupFrom text environment first after index ≤ index := by
+    (first after index : Nat) (qualifierFirst qualifierAfter : Nat := 0) :
+    lookupFrom text environment first after index qualifierFirst qualifierAfter ≤ index := by
   induction index with
   | zero => exact Nat.le_refl _
   | succ index ih =>
@@ -92,9 +102,10 @@ theorem lookupFrom_bound (text : Source) (environment : Environment)
       · omega
       · split <;> omega
 
-theorem lookup_bound (text : Source) (environment : Environment) (first after : Nat) :
-    lookup text environment first after ≤ environment.items.length :=
-  lookupFrom_bound text environment first after environment.items.length
+theorem lookup_bound (text : Source) (environment : Environment) (first after : Nat)
+    (qualifierFirst qualifierAfter : Nat := 0) :
+    lookup text environment first after qualifierFirst qualifierAfter ≤ environment.items.length :=
+  lookupFrom_bound text environment first after environment.items.length qualifierFirst qualifierAfter
 
 theorem valid_empty (text : Source) : ValidEnvironment text {} := by
   simp [ValidEnvironment, maxBindings]
@@ -103,7 +114,8 @@ theorem valid_append {text : Source} {environment : Environment} {item : Binding
     (valid : ValidEnvironment text environment)
     (space : environment.items.length < maxBindings)
     (itemValid : 0 < item.first ∧ item.first < item.after ∧ item.after ≤ text.length + 1 ∧
-      item.bounds.Bounded ∧ item.bounds.lower ≤ item.bounds.upper) :
+      item.bounds.Bounded ∧ item.bounds.lower ≤ item.bounds.upper ∧
+        QualifiedNames.ValidSpan text item.qualifierFirst item.qualifierAfter) :
     ValidEnvironment text (append text environment item) := by
   refine ⟨by dsimp only [append]; simp only [List.length_append, List.length_singleton]; omega, ?_⟩
   intro other present

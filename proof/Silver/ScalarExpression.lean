@@ -4,6 +4,7 @@ public import Silver.ScalarLiteral
 public import Silver.IntegerExpressions
 public import Silver.ArrayBindings
 public import Silver.NamedIdentifier
+public import Silver.QualifiedNames
 
 @[expose] public section
 
@@ -19,11 +20,13 @@ structure Binding where
   isStatic : Bool
   declaredBounds : Integer.Interval := .full
   mutable : Bool := false
+  qualifierFirst : Nat := 0
+  qualifierAfter : Nat := 0
   deriving DecidableEq, Repr
 
 abbrev Environment := List Binding
 
-def emptyBinding : Binding := ⟨0, 0, Integer.Interval.empty, false, Integer.Interval.empty, false⟩
+def emptyBinding : Binding := ⟨0, 0, Integer.Interval.empty, false, Integer.Interval.empty, false, 0, 0⟩
 def binding (names : Environment) (index : Nat) : Binding := names.getD (index - 1) emptyBinding
 
 def ranges (names : Environment) : Integer.Ranges := fun index =>
@@ -42,19 +45,26 @@ def bodyEnvironment (names : Environment) : Environment := names.map bodyBinding
 def mutability (names : Environment) : Nat → Bool := fun index =>
   decide (0 < index ∧ index ≤ names.length) && (binding names index).mutable
 
-def lookupFrom (text : Source) (names : Environment) (first after : Nat) : Nat → Nat
+def lookupFrom (text : Source) (names : Environment) (first after index : Nat)
+    (qualifierFirst qualifierAfter : Nat := 0) : Nat :=
+  match index with
   | 0 => 0
   | index + 1 =>
       if first = 0 ∨ after ≤ first then 0
       else if Named.equalName text (binding names (index + 1)).first
-          (binding names (index + 1)).after first after then index + 1
-      else lookupFrom text names first after index
+          (binding names (index + 1)).after first after &&
+          QualifiedNames.qualifierMatches text (binding names (index + 1)).qualifierFirst
+            (binding names (index + 1)).qualifierAfter qualifierFirst qualifierAfter
+      then index + 1
+      else lookupFrom text names first after index qualifierFirst qualifierAfter
 
-def lookup (text : Source) (names : Environment) (first after : Nat) : Nat :=
-  lookupFrom text names first after names.length
+def lookup (text : Source) (names : Environment) (first after : Nat)
+    (qualifierFirst qualifierAfter : Nat := 0) : Nat :=
+  lookupFrom text names first after names.length qualifierFirst qualifierAfter
 
-theorem lookupFrom_bound (text : Source) (names : Environment) (first after index : Nat) :
-    lookupFrom text names first after index ≤ index := by
+theorem lookupFrom_bound (text : Source) (names : Environment) (first after index : Nat)
+    (qualifierFirst qualifierAfter : Nat := 0) :
+    lookupFrom text names first after index qualifierFirst qualifierAfter ≤ index := by
   induction index with
   | zero => simp [lookupFrom]
   | succ index ih =>
@@ -62,8 +72,16 @@ theorem lookupFrom_bound (text : Source) (names : Environment) (first after inde
       split <;> (try omega)
       split <;> omega
 
-theorem lookup_bound (text : Source) (names : Environment) (first after : Nat) :
-    lookup text names first after ≤ names.length := lookupFrom_bound ..
+theorem lookup_bound (text : Source) (names : Environment) (first after : Nat)
+    (qualifierFirst qualifierAfter : Nat := 0) :
+    lookup text names first after qualifierFirst qualifierAfter ≤ names.length :=
+  lookupFrom_bound text names first after names.length qualifierFirst qualifierAfter
+
+theorem lookup_invalid (text : Source) (names : Environment) (first after : Nat)
+    (qualifierFirst qualifierAfter : Nat) (invalid : first = 0 ∨ after ≤ first) :
+    lookup text names first after qualifierFirst qualifierAfter = 0 := by
+  unfold lookup
+  cases names.length <;> simp [lookupFrom, invalid]
 
 def leaves : Integer.Expr → Nat
   | .literal _ | .snapshot _ | .name _ => 1
@@ -119,6 +137,9 @@ def symbol (text : Source) (position byte : Nat) : Nat :=
 def nameAfter (text : Source) (position : Nat) : Nat :=
   if position = 0 then 0 else Named.identifierEnd text position
 
+abbrev NameReference := QualifiedNames.Reference
+def readReference := QualifiedNames.read
+
 /-- End of one complete scalar operator token; `/=` remains a comparison. -/
 def binaryAfter (text : Source) (position : Nat) : Nat :=
   let after := nameAfter text position
@@ -156,8 +177,8 @@ def close (text : Source) (parsed : Option Parsed) : Option Parsed := do
 def atom (text : Source) (position : Nat) (names : Environment)
     (maskFirst maskAfter : Nat) (allowSign : Bool) : Option Parsed :=
   let first := skip text position
-  let after := nameAfter text first
-  let index := lookup text names first after
+  let reference := readReference text first
+  let index := lookup text names reference.first reference.after reference.qualifierFirst reference.qualifierAfter
   if first = 0 ∨ first > text.length then none
   else if Cursor.byteAt text first = 43 ∨ Cursor.byteAt text first = 45 then
     if !allowSign then none else
@@ -165,9 +186,9 @@ def atom (text : Source) (position : Nat) (names : Environment)
   else
     let number := ScalarLiteral.read text first
     if number.after ≠ 0 then literal number false
-    else if index = 0 ∨ (maskFirst ≠ 0 ∧ Named.equalName text maskFirst maskAfter first after = true)
+    else if index = 0 ∨ QualifiedNames.masked text reference maskFirst maskAfter = true
     then none
-    else some ⟨after, .name index⟩
+    else some ⟨reference.after, .name index⟩
 
 /-- Fuel counts recursive expression reads, not tokens. Every recursive call
 starts strictly after its caller; the public reader supplies a source-length

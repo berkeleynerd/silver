@@ -126,18 +126,17 @@ theorem atom_bounds {text : Source} {position maskFirst maskAfter : Nat} {names 
       · split at found
         · cases found
         · cases found
-          have nonzero : nameAfter text (skip text position) ≠ 0 := by
+          have nonzero : (readReference text (skip text position)).after ≠ 0 := by
             intro zero
             rename_i lookupGood
-            have zeroLookup : lookup text names (skip text position) 0 = 0 := by
-              unfold lookup
-              cases names.length <;> simp [lookupFrom]
-            simp only [zero, zeroLookup, true_or, not_true_eq_false] at lookupGood
-          have identifier : Named.identifierEnd text (skip text position) ≠ 0 := by
-            simpa only [nameAfter, show skip text position ≠ 0 by omega, ↓reduceIte] using nonzero
-          have after := Named.identifierEnd_bounds text (skip text position) identifier
-          simp only [nameAfter, show skip text position ≠ 0 by omega, ↓reduceIte]
-          exact ⟨by omega, after.2⟩
+            have invalid := lookup_invalid text names
+              (readReference text (skip text position)).first
+              (readReference text (skip text position)).after
+              (readReference text (skip text position)).qualifierFirst
+              (readReference text (skip text position)).qualifierAfter (by omega)
+            exact lookupGood (Or.inl invalid)
+          have after := QualifiedNames.read_success text (skip text position) first.2 nonzero
+          exact ⟨Nat.lt_of_le_of_lt first.1 after.2.2.1, after.2.2.2⟩
 
 theorem parseFuel_bounds {fuel : Nat} {text : Source} {position maskFirst maskAfter : Nat}
     {names : Environment} {allowSign : Bool} {value : Parsed}

@@ -59,14 +59,14 @@ inductive AtomAt (text : Source) (names : Environment) (maskFirst maskAfter : Na
       ScalarLiteral.IntegerAt text (skip text (skip text position + 1)) value finish →
       AtomAt text names maskFirst maskAfter allowSign position
         ⟨finish, .literal (signedValue value (Cursor.byteAt text (skip text position) == 45))⟩
-  | name {bytes : Source} {finish index : Nat} :
+  | name {reference : NameReference} {index : Nat} :
       skip text position ≠ 0 → skip text position ≤ text.length →
       ¬ Sign (Cursor.byteAt text (skip text position)) →
       NoIntegerAt text (skip text position) →
-      Named.IdentifierAt text (skip text position) bytes finish →
-      lookup text names (skip text position) finish = index → index ≠ 0 →
-      ¬ (maskFirst ≠ 0 ∧ Named.equalName text maskFirst maskAfter (skip text position) finish = true) →
-      AtomAt text names maskFirst maskAfter allowSign position ⟨finish, .name index⟩
+      QualifiedNames.At text (skip text position) reference →
+      lookup text names reference.first reference.after reference.qualifierFirst reference.qualifierAfter = index → index ≠ 0 →
+      ¬ QualifiedNames.masked text reference maskFirst maskAfter = true →
+      AtomAt text names maskFirst maskAfter allowSign position ⟨reference.after, .name index⟩
 
 theorem atom_sound {text : Source} {names : Environment} {position maskFirst maskAfter : Nat}
     {allowSign : Bool} {value : Parsed} (bound : position ≤ text.length + 1)
@@ -96,19 +96,17 @@ theorem atom_sound {text : Source} {names : Environment} {position maskFirst mas
         · cases found
         · rename_i nameGood
           cases found
-          have nonzero : nameAfter text (skip text position) ≠ 0 := by
+          have nonzero : (readReference text (skip text position)).after ≠ 0 := by
             intro zero
-            have zeroLookup : lookup text names (skip text position) 0 = 0 := by
-              unfold lookup
-              cases names.length <;> simp [lookupFrom]
-            simp only [zero, zeroLookup, true_or, not_true_eq_false] at nameGood
-          have afterEquation : nameAfter text (skip text position) = Named.identifierEnd text (skip text position) := by
-            simp only [nameAfter, show skip text position ≠ 0 by omega, ↓reduceIte]
-          obtain ⟨bytes, identifier⟩ := Named.identifierEnd_sound text (skip text position)
-            (by simpa only [afterEquation] using nonzero)
-          apply AtomAt.name (bytes := bytes) (by omega) (by omega) notSign
+            have invalid := lookup_invalid text names
+              (readReference text (skip text position)).first
+              (readReference text (skip text position)).after
+              (readReference text (skip text position)).qualifierFirst
+              (readReference text (skip text position)).qualifierAfter (by omega)
+            exact nameGood (Or.inl invalid)
+          apply AtomAt.name (by omega) (by omega) notSign
             ((noInteger_iff text _ first.2).mpr (by simpa using notNumber))
-          · simpa only [afterEquation] using identifier
+          · exact QualifiedNames.read_sound text (skip text position) nonzero
           · rfl
           · exact fun failed => nameGood (Or.inl failed)
           · exact fun masked => nameGood (Or.inr masked)
@@ -134,9 +132,9 @@ theorem atom_complete {text : Source} {names : Environment} {position maskFirst 
   | name nonzero within notSign noNumber identifier found nonzeroIndex unmasked =>
       unfold Sign at notSign
       have numberEquation := (noInteger_iff text _ first.2).mp noNumber
-      have nameEquation := Named.identifierEnd_complete identifier
+      have nameEquation := QualifiedNames.read_complete identifier
       simp [atom, nonzero, Nat.not_lt.mpr within, notSign, numberEquation,
-        nameAfter, nameEquation, found, nonzeroIndex, unmasked]
+        readReference, nameEquation, found, nonzeroIndex, unmasked]
 
 /-- Operator terminals are described independently of the operator reader. -/
 inductive BinaryTokenAt (text : Source) (position : Nat) : Nat → Prop
