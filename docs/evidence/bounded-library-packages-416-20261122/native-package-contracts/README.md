@@ -92,3 +92,23 @@ The assertions are retained as verified cut points; no identical-success rerun
 is needed to remove them. Append and Signature now have complete focused success.
 Spec and the other pending helpers/callers still require complete coverage,
 and full native/source assurance remains outstanding.
+
+## Independent name and type helper coverage
+
+Six further canonical complete-helper checks passed on that unchanged source,
+with two managed workers each and the same solver policy and timeout:
+
+| Helper | Managed run | Checks (flow + proof) | Seconds |
+| --- | --- | --- | --- |
+| Package_Word | `20261122T174316-72d68ed05168` | 10 (2 + 8) | 31.701 |
+| Spark_Pragma_After | `20261122T174440-cefef5afe8c6` | 11 (2 + 9) | 30.286 |
+| Package_Name_Allowed | `20261122T174625-977fe4992c25` | 38 (2 + 36) | 34.815 |
+| Package_Name_Fresh | `20261122T174750-0f1c9c8ac0bd` | 6 (2 + 4) | 28.293 |
+| Package_Type_At | `20261122T174921-80fa287eba55` | 13 (2 + 11) | 53.353 |
+| Outer_Declaration | `20261122T175048-543c2ea12434` | 4 (2 + 2) | 27.977 |
+
+Each selected report identifies its one whole helper, with no selected skipped
+flow/proof checks or unresolved obligations. All 82 checks passed. This supplies
+the independent name/type prerequisites for the remaining declaration helpers;
+Hide_Outer, Static Boolean readers, Object, Spec and affected callers remain
+pending. `coverage.json` now uses the current source line positions throughout.
