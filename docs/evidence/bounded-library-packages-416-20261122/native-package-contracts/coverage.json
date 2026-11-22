@@ -86,28 +86,48 @@
         7997,
         8109
       ],
-      "coverage": "pending"
+      "coverage": "complete-helper-failed-stable-loop-warning",
+      "run": "20261122T180017-09a08f285cf5",
+      "unproved": 0,
+      "flow_warning": 1,
+      "flow": 5,
+      "proof": 17
     },
     {
       "name": "Static_Boolean_Primary",
       "current_lines": [
         8007
       ],
-      "coverage": "pending"
+      "coverage": "complete-helper-success",
+      "run": "20261122T175440-e22bd3c6f341",
+      "checks": 24,
+      "unproved": 0,
+      "flow": 3,
+      "proof": 21
     },
     {
       "name": "Static_Boolean_Factor",
       "current_lines": [
         8045
       ],
-      "coverage": "pending"
+      "coverage": "complete-helper-success",
+      "run": "20261122T175649-1db5b6f73ba7",
+      "checks": 11,
+      "unproved": 0,
+      "flow": 2,
+      "proof": 9
     },
     {
       "name": "Static_Boolean_Relation",
       "current_lines": [
         8063
       ],
-      "coverage": "pending"
+      "coverage": "complete-helper-success",
+      "run": "20261122T175841-8a64b605158d",
+      "checks": 20,
+      "unproved": 0,
+      "flow": 6,
+      "proof": 14
     },
     {
       "name": "Outer_Declaration",

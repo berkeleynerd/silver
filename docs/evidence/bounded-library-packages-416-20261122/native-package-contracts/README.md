@@ -118,3 +118,29 @@ canonical run `20261122T175214-5b46f509c5da`, 83.290 seconds, on unchanged input
 Its three full-array filtering loops, all index/call obligations and complete
 Valid_State postcondition passed. Static Boolean and later declaration/caller
 coverage remains pending.
+
+## Static Boolean native checks and loop diagnostic
+
+Three complete recursive-helper checks passed on the same source:
+
+| Helper | Managed run | Checks (flow + proof) | Seconds |
+| --- | --- | --- | --- |
+| Static_Boolean_Primary | `20261122T175440-e22bd3c6f341` | 24 (3 + 21) | 76.008 |
+| Static_Boolean_Factor | `20261122T175649-1db5b6f73ba7` | 11 (2 + 9) | 39.777 |
+| Static_Boolean_Relation | `20261122T175841-8a64b605158d` | 20 (6 + 14) | 69.233 |
+
+The complete condition helper run `20261122T180017-09a08f285cf5` **failed** after
+55.038 seconds. Its report has 5 successful flow checks and 17 successful proof
+checks, plus one flow warning: `STABLE`, "loop condition is stable", at line
+8119. The canonical `--warnings=error` policy rejects that warning. There are
+no skipped proof/flow entries or unresolved proof checks, but this is not a
+successful whole-helper gate.
+
+The proposed source repair removes the constant while condition and trailing
+return, retaining an unconditional loop with its existing current-operator
+No_Chain return and unchanged selected-operator/progress checks. If the initial
+Selected is No_Chain, the same pure Chain_Token call returns the initial result
+on the first iteration. Otherwise Selected remains nonempty and the old and new
+iteration decisions coincide. The model, typed tree and candidate must change
+with this source, then the complete native helper must pass again. No warning
+or obligation is suppressed.
