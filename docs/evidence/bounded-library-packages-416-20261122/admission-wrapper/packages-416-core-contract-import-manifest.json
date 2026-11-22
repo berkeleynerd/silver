@@ -1,0 +1,60 @@
+{
+  "source_commit": "cce6f3a61f",
+  "import_roots": [
+    "Silver.ApplicationNativeCore",
+    "Silver.ApplicationNativeGuards"
+  ],
+  "closure_count": 112,
+  "changed": [
+    {
+      "path": "proof/Silver/ComposeContracts.lean",
+      "sha256": "ded7f7c2cd5e1f1a21542b9745f6a319fe2e2a2f4238f2972f360c6bc791b487",
+      "old_sha256": "e8bd4726c16c19eec236a72c2fbb87f1771f941bb2672f9a8d5f57644be3e977"
+    },
+    {
+      "path": "proof/Silver/ComposeBounds.lean",
+      "sha256": "179144ba574add0396c6b410cd8aa79fe1a675558edaaa7a917a1ea7f1a00843",
+      "old_sha256": "089334c5d373e7f0ab830ff86446c5999032b20c5ae8493a9e8f5cbc65573889"
+    },
+    {
+      "path": "proof/Silver/ComposeAdmission.lean",
+      "sha256": "37af3dc708f63ceec9018c2270b2c7e9f555499f72dc6fde454decc64cc6978d",
+      "old_sha256": "3eabc140e41d5bb28b95613de93a1366ddc2010979b08230528ab2595a6d1693"
+    },
+    {
+      "path": "proof/Silver/ProcedureHeaderAdmission.lean",
+      "sha256": "8f8a9a036aba7bc93d33d2b7a7d665c49f3a5349772aba6f7aefdead4a4c7a6f",
+      "old_sha256": "47ae58745cef231ff31eee93f7e7c495ce1a789b4baad78e3f016447ab2e15c9"
+    },
+    {
+      "path": "proof/Silver/ComposeStringNative.lean",
+      "sha256": "432eebad51a35f574058de1f99899b79c8db52278de42b05c0876fc917bae4b2",
+      "old_sha256": "4851495ef69be33ef54d6602db500d0074d2ce8bfa326487398c26b699e38982"
+    },
+    {
+      "path": "proof/Silver/ComposeBooleanDeclarationNative.lean",
+      "sha256": "eea8d31873a0c1125c3ebd5f53d57df482754256f34d8f466fb83fa7848ac759",
+      "old_sha256": "b90137453c7cf7e98d4266ea19ef7940593acfcea3f2354cc61fdf7c023c86c9"
+    },
+    {
+      "path": "proof/Silver/ComposeExpressions.lean",
+      "sha256": "cc5f3f1b4f1670cb1d2be02cb84b83799d02569ffc5e28305c2b73826f0f6566",
+      "old_sha256": "09b5a54334525c67cac5f9429447ab69c7d8966ae687d36b13295fae36cc1551"
+    },
+    {
+      "path": "proof/Silver/NamesEquations.lean",
+      "sha256": "400b3f8a315a71bf3b7324dfac27ac95dd633dfb6036b81a3a80c5b7c90c0dc2",
+      "old_sha256": "8a4c0cd2e7285b9f859914d91bfba3f3af156596ded481677eb3e3ccad0d1e43"
+    },
+    {
+      "path": "proof/Silver/NamesExpressions.lean",
+      "sha256": "8bf7cd782b3d44027f6ddf27176325074d943fb5be149e82ba9ef6b2bf54d56d",
+      "old_sha256": "49aec27e308e9b40a82d5ec43c76b609073711ec4814602ecbc94e14277150a9"
+    },
+    {
+      "path": "proof/Silver/ComposeArrayExpressions.lean",
+      "sha256": "0d11e06ac778304bcfdd23a3ecfa6f13b349f28178af2dc9471587ae01f8a3ce",
+      "old_sha256": "dc51278baf48603e93ad0c09e81b6fb32865637464045cb1dfa6ed9996f0028d"
+    }
+  ]
+}
