@@ -148,7 +148,7 @@ def characterDeclarationEquation (calls : Calls) (text : Source) (state : Parser
       decide (calls.function .scalarLookup text state.scalarNames typeFirst typeAfter ≠ 0) ||
       decide (calls.function .arrayLookup text state.arrayNames.table typeFirst typeAfter ≠ 0) ||
       decide (calls.function .arrayTypeLookup text state.arrayNames.types typeFirst typeAfter ≠ 0) ||
-      decide (calls.function .subtypeLookup text state.subtypeNames typeFirst typeAfter ≠ 0) ||
+      decide (calls.function .subtypeLookup text state.subtypeNames typeFirst typeAfter 0 0 ≠ 0) ||
       decide (calls.function .booleanLookup text state.booleanNames typeFirst typeAfter ≠ 0) ||
       decide (calls.function .functionLookup text state.functions typeFirst typeAfter ≠ 0) ||
       decide (calls.function .procedureLookup text state.procedures typeFirst typeAfter ≠ 0) ||

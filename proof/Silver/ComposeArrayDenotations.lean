@@ -167,7 +167,7 @@ def arrayDeclarationEquation (calls : Calls) (executable : Bool)
       (state.hiding.integerHidden && calls.function .nameIs text typeFirst typeAfter "integer") ||
       (state.hiding.booleanHidden && calls.function .nameIs text typeFirst typeAfter "boolean") ||
       (state.hiding.characterHidden && calls.function .nameIs text typeFirst typeAfter "character") ||
-      (parts.isBoolean && decide (calls.function .subtypeLookup text state.subtypeNames typeFirst typeAfter ≠ 0))
+      (parts.isBoolean && decide (calls.function .subtypeLookup text state.subtypeNames typeFirst typeAfter 0 0 ≠ 0))
   then invalidState else
     let length := (high.bounds.lower - low.bounds.lower + 1).toNat
     let choice := if decide (length = 1) then read position else ScalarExpression.invalid

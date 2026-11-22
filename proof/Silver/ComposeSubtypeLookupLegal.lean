@@ -10,11 +10,11 @@ namespace Silver.Compose.Expressions
 
 /-- The backward subtype lookup calls lexical equality only for names within
 its source, including the selected binding's declaration span. -/
-theorem model_legal_subtypeLookupModel : ∀ text, ValidText text → ∀ subtypeNames first after index,
+theorem model_legal_subtypeLookupModel : ∀ text, ValidText text → ∀ subtypeNames first after index qualifierFirst qualifierAfter,
     IntegerSubtypes.ValidEnvironment text subtypeNames → ValidCursor text first → ValidCursor text after →
-    index ≤ subtypeNames.items.length →
-    subtypeLookupModelBody.Legal modelCalls (Context.locals {text,subtypeNames,first,after,index}) := by
-  intro text valid subtypeNames first after index namesValid firstBound afterBound indexBound
+    index ≤ subtypeNames.items.length → QualifiedNames.ValidSpan text qualifierFirst qualifierAfter →
+    subtypeLookupModelBody.Legal modelCalls (Context.locals {text,subtypeNames,first,after,index,qualifierFirst,qualifierAfter}) := by
+  intro text valid subtypeNames first after index qualifierFirst qualifierAfter namesValid firstBound afterBound indexBound qualifierValid
   dsimp +instances only [subtypeLookupModelBody, Expr.Legal, Expr.eval, Context.locals, Field.get,
     Function.isLexical, modelCalls, Calls.get]
   simp +instances
@@ -23,7 +23,8 @@ theorem model_legal_subtypeLookupModel : ∀ text, ValidText text → ∀ subtyp
     subtypeBinding_mem (environment := subtypeNames) (index := index)
       (Nat.pos_of_ne_zero indexNonzero) indexBound
   have item := namesValid.2 _ member
-  exact ⟨⟨valid.1, valid.2, item.1, item.2.1, item.2.2.1⟩,
-    ⟨valid.1, valid.2, Nat.pos_of_ne_zero firstNonzero, afterIncreasing, afterBound⟩⟩
+  have itemQualifier := item.2.2.2.2.2
+  simp_all only [LexicalName, QualifiedNames.ValidSpan, ValidText, ValidCursor]
+  omega
 
 end Silver.Compose.Expressions

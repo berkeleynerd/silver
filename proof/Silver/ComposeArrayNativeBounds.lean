@@ -80,16 +80,14 @@ structure ArrayPartsBounds (text : Source) (parts : ArrayDeclarationParts) : Pro
 private theorem scalarType_nameSpan (text : Source) (state : ParserState) (position : Nat)
     (bound : ValidCursor text position) (nonzero : (scalarTypeAt text state position).after ≠ 0) :
     ValidName text position (scalarTypeAt text state position).after := by
-  have parsed := scalarTypeAt_sound text state position nonzero
-  have span : 0 < skipAt text position ∧
-      skipAt text position < (scalarTypeAt text state position).after := by
-    generalize resultEq : scalarTypeAt text state position = result at parsed ⊢
-    cases parsed <;> dsimp only <;> constructor <;> omega
-  have skipped := skipAt_advances text position bound (by omega)
+  have after := (scalarTypeAt_after text state position).resolve_left nonzero
+  have referencePositive : (QualifiedNames.read text position).after ≠ 0 := by omega
+  have progress := QualifiedNames.read_success text position bound referencePositive
   have positive : position ≠ 0 := by
     intro zero
-    simp [zero, skipAt] at span
+    simp [QualifiedNames.read, QualifiedNames.skip, QualifiedNames.nameAfter, zero] at referencePositive
   exact ⟨by omega, by omega, scalarTypeAt_position_valid text state position⟩
+
 
 
 theorem model_arrayParts_valid (text : Source) (state : ParserState)

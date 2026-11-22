@@ -2,18 +2,11 @@ module
 
 public import Silver.FunctionDeclarationPreservation
 public import Silver.FunctionMetadataValidity
+public import Silver.ComposeSubtypeDeclarations
 
 @[expose] public section
 
 namespace Silver.Compose
-
-private theorem subtype_mem {environment : IntegerSubtypes.Environment} {index : Nat}
-    (positive : 0 < index) (bound : index ≤ environment.items.length) :
-    IntegerSubtypes.binding environment index ∈ environment.items := by
-  have within : index - 1 < environment.items.length := by omega
-  simp only [IntegerSubtypes.binding, List.getD_eq_getElem?_getD, List.getElem?_eq_getElem within,
-    Option.getD_some]
-  exact List.getElem_mem within
 
 def ScalarTypeGood (value : ScalarConstraintResult) : Prop :=
   value.after = 0 ∨ value.bounds.Bounded ∧ value.bounds.lower ≤ value.bounds.upper
@@ -21,17 +14,10 @@ def ScalarTypeGood (value : ScalarConstraintResult) : Prop :=
 private theorem scalar_type_good (text : Source) (state : ParserState) (position : Nat)
     (valid : IntegerSubtypes.ValidEnvironment text state.subtypeNames) :
     ScalarTypeGood (scalarTypeAt text state position) := by
-  have bound := IntegerSubtypes.lookup_bound text state.subtypeNames (skipAt text position)
-    (nameAfter text (skipAt text position))
-  dsimp only [scalarTypeAt]
-  split
-  · exact .inl rfl
-  · split
-    · exact .inr ⟨Integer.Interval.full_bounded, (show Integer.Interval.full.lower ≤ Integer.Interval.full.upper by decide)⟩
-    · split
-      · rename_i present
-        exact .inr (valid.2 _ (subtype_mem (by omega) bound)).2.2.2
-      · exact .inl rfl
+  by_cases absent : (scalarTypeAt text state position).after = 0
+  · exact .inl absent
+  · exact .inr ⟨scalarTypeAt_bounded text state position valid,
+      (scalarTypeAt_sound text state position absent).nonempty valid⟩
 
 def FunctionTypeGood (value : FunctionTypeResult) : Prop :=
   value.after = 0 ∨ value.bounds.Bounded ∧ value.bounds.lower ≤ value.bounds.upper
@@ -97,12 +83,6 @@ theorem formalTypeAt_typeId_bound (text : Source) (state : ParserState) (positio
     · exact Nat.zero_le _
     · split <;> exact Nat.zero_le _
   · exact arrayTypeAt_bound text state position
-
-theorem newNameAllowed_span (text : Source) (state : ParserState) (first after : Nat) (arguments : Bool)
-    (allowed : newNameAllowed text state first after arguments = true) : 0 < first ∧ first < after := by
-  simp only [newNameAllowed, Bool.and_eq_true, decide_eq_true_eq] at allowed
-  omega
-
 
 structure ParameterExtension (text : Source) (before after : ParserState) : Prop where
   valid : FunctionBindings.ValidMetadata text after.functions

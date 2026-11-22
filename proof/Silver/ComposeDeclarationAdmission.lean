@@ -23,6 +23,13 @@ def newNameAllowed (text : Source) (state : ParserState) (first after : Nat) (ar
     (state.pure || decide (FunctionBindings.lookup text state.functions first after = 0 ∧
       ProcedureBindings.lookup text state.procedures first after = 0))
 
+theorem newNameAllowed_span (text : Source) (state : ParserState)
+    (first after : Nat) (arguments : Bool)
+    (allowed : newNameAllowed text state first after arguments = true) :
+    0 < first ∧ first < after := by
+  simp only [newNameAllowed, Bool.and_eq_true, decide_eq_true_eq] at allowed
+  omega
+
 def addBinding (state : ParserState) (first after : Nat) (value : ValueResult)
     (mutable : Bool) (following : Nat) (characterObject : Bool := false) : ParserState :=
   {state with position := following, names := state.names ++
@@ -155,10 +162,14 @@ def scalarConstraintAt (text : Source) (position : Nat)
     then ⟨0, .empty⟩ else ⟨upper.after, ⟨lower.bounds.lower, upper.bounds.lower⟩⟩
 
 def scalarTypeAt (text : Source) (state : ParserState) (position : Nat) : ScalarConstraintResult :=
-  let first := skipAt text position
-  let after := nameAfter text first
-  let target := IntegerSubtypes.lookup text state.subtypeNames first after
-  if first = 0 ∨ after ≤ first ∨ lookupName text state.names first after ≠ 0 ∨
+  let reference := QualifiedNames.read text position
+  let first := reference.first
+  let after := reference.after
+  let target := IntegerSubtypes.lookup text state.subtypeNames first after reference.qualifierFirst reference.qualifierAfter
+  if first = 0 ∨ after ≤ first then ⟨0, .empty⟩
+  else if reference.qualifierFirst ≠ 0 then
+    if target ≠ 0 then ⟨after, (IntegerSubtypes.binding state.subtypeNames target).bounds⟩ else ⟨0, .empty⟩
+  else if lookupName text state.names first after ≠ 0 ∨
       ScalarExpression.lookup text state.scalarNames first after ≠ 0 ∨
       ArrayBindings.lookup text state.arrayNames.names first after ≠ 0 ∨
       ArrayBindings.lookupType text state.arrayNames.types first after ≠ 0 ∨
@@ -526,7 +537,10 @@ def booleanDeclarationContext (state : ParserState) (parts : BooleanDeclarationP
     outerIntegerHidden := state.hiding.integerHidden
     elaborating := true
     maskFirst := parts.first
-    maskAfter := parts.after }
+    maskAfter := parts.after
+    contextFirst := state.contextFirst
+    packageFirst := state.packageFirst
+    packageAfter := state.packageAfter }
 
 def booleanDeclarationFacts (state : ParserState) : Predicate.ActiveFlow :=
   Predicate.ActiveFlow.initial state.scalarNames

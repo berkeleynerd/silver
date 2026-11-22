@@ -74,8 +74,8 @@ theorem declaration_nameIs_integer (text : Source) (state : ParserState)
     Named.nameIs text first after ("integer".toList.map Char.toNat) =
       decide (fixedAfter text first "integer" true = after) := by
   have domain : first ≠ 0 ∧ after > first := by
-    simp only [newNameAllowed, Bool.and_eq_true, decide_eq_true_eq] at allowed
-    exact allowed.1.1.1.1.1
+    have span := newNameAllowed_span text state first after arguments allowed
+    exact ⟨Nat.ne_of_gt span.1, span.2⟩
   have identifier : identifierEnd text first = after := by
     simpa only [nameAfter, domain.1, ↓reduceIte] using afterEq.symm
   obtain ⟨bytes, parsed⟩ := identifierEnd_sound text first (by rw [identifier]; omega)

@@ -183,7 +183,7 @@ theorem model_scalar_reading_valid {text : Source} {state next : ParserState} {a
       have scalars := ScalarExpression.validEnvironment_append stateValid.2.2.2.2.2.1 room
         (item := {first := parts.first, after := parts.after, bounds := parts.value.bounds, isStatic := decide (parts.constantAfter ≠ 0) && parts.value.isStatic, declaredBounds := parts.constraint.bounds, mutable := decide (parts.constantAfter = 0)})
         ⟨nameValid.1, nameValid.2.1, nameValid.2.2, Integer.Expr.infer_bounded reading.inferred,
-          constraint.bounded stateValid.2.2.2.2.2.2.2.1⟩
+          constraint.bounded stateValid.2.2.2.2.2.2.2.1, Or.inl ⟨rfl, rfl⟩⟩
       exact ⟨following, stateValid.2.1, stateValid.2.2.1,
         stateValid.2.2.2.1, stateValid.2.2.2.2.1, scalars, stateValid.2.2.2.2.2.2⟩
 
@@ -247,7 +247,10 @@ theorem model_array_reading_valid {text : Source} {state next : ParserState} {ar
           show _ = state.functions from congrArg (fun s => s.functions) fields,
           show _ = state.firstParameter from congrArg (fun s => s.firstParameter) fields,
           show _ = state.procedures from congrArg (fun s => s.procedures) fields,
-          show _ = state.firstProcedureParameter from congrArg (fun s => s.firstProcedureParameter) fields]
+          show _ = state.firstProcedureParameter from congrArg (fun s => s.firstProcedureParameter) fields,
+          show _ = state.contextFirst from congrArg (fun s => s.contextFirst) fields,
+          show _ = state.packageFirst from congrArg (fun s => s.packageFirst) fields,
+          show _ = state.packageAfter from congrArg (fun s => s.packageAfter) fields]
         exact stateValid.2.2.2.2.2.2.2.2
 
 theorem model_boolean_array_reading_valid {text arguments state next}
@@ -391,7 +394,8 @@ theorem model_boolean_reading_valid {text arguments state next}
           exact ready.1.1.1.1.1.1.2.2.2
         omega
       have booleans := BooleanBindings.valid_append stateValid.booleans room
-        (item := {first := (booleanDeclarationParts text state).first, after := (booleanDeclarationParts text state).after, mutable := decide ((booleanDeclarationParts text state).constantAfter = 0)}) nameValid
+        (item := {first := (booleanDeclarationParts text state).first, after := (booleanDeclarationParts text state).after, mutable := decide ((booleanDeclarationParts text state).constantAfter = 0)})
+        ⟨nameValid.1, nameValid.2.1, nameValid.2.2, Or.inl ⟨rfl, rfl⟩⟩
       exact ⟨fixedAfter_result_bound text _ ";" false (by decide), stateValid.2.1,
         stateValid.2.2.1, stateValid.2.2.2.1, stateValid.2.2.2.2.1,
         stateValid.2.2.2.2.2.1, stateValid.2.2.2.2.2.2.1, stateValid.2.2.2.2.2.2.2.1, booleans,
@@ -735,9 +739,9 @@ theorem model_output_valid (text : Source) (valid : ValidText text) (state : Par
 
 theorem model_comparison_valid (text : Source) (valid : ValidText text) (state : ParserState)
     (stateValid : ValidState text state) : ValidState text (comparisonAt text state) := by
-  have left := model_expression_valid (scalarNames := state.scalarNames) (arrays := state.arrayNames.table) (initials := state.arrayNames.values) (elaborating := true) (integerHidden := false) text valid _ _ stateValid.1 stateValid.2.1
-  have equalPosition := model_fixed_valid text (expressionAt text state.position state.names state.scalarNames false state.arrayNames.table state.arrayNames.values true).after "=" false left.1
-  have right := model_expression_valid (scalarNames := state.scalarNames) (arrays := state.arrayNames.table) (initials := state.arrayNames.values) (elaborating := true) (integerHidden := false) text valid _ _ equalPosition stateValid.2.1
+  have left := model_expression_valid (contextFirst := state.contextFirst) (scalarNames := state.scalarNames) (arrays := state.arrayNames.table) (initials := state.arrayNames.values) (elaborating := true) (integerHidden := false) text valid _ _ stateValid.1 stateValid.2.1
+  have equalPosition := model_fixed_valid text (expressionAt text state.position state.names state.scalarNames false state.arrayNames.table state.arrayNames.values true state.contextFirst).after "=" false left.1
+  have right := model_expression_valid (contextFirst := state.contextFirst) (scalarNames := state.scalarNames) (arrays := state.arrayNames.table) (initials := state.arrayNames.values) (elaborating := true) (integerHidden := false) text valid _ _ equalPosition stateValid.2.1
   unfold comparisonAt
   dsimp only
   split

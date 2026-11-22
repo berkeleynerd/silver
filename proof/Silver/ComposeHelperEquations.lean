@@ -39,13 +39,15 @@ private theorem state_array_initials {text : Source} {state : ParserState}
 
 @[simp] theorem interpreted_subtypeLookupModel (calls : Calls)
     (equations : RawHelperEquations calls (domain := domain)) (text : Source) (valid : ValidText text)
-    (subtypeNames : IntegerSubtypes.Environment) (first after index : Nat)
+    (subtypeNames : IntegerSubtypes.Environment) (first after index qualifierFirst qualifierAfter : Nat)
     (namesValid : IntegerSubtypes.ValidEnvironment text subtypeNames)
     (firstValid : ValidCursor text first) (afterValid : ValidCursor text after)
-    (indexBound : index ≤ subtypeNames.items.length) :
-    calls.function .subtypeLookupModel text subtypeNames first after index =
-      IntegerSubtypes.lookupFrom text subtypeNames first after index := by
-  rw [equations.subtypeLookupModel text valid subtypeNames first after index namesValid firstValid afterValid indexBound]
+    (indexBound : index ≤ subtypeNames.items.length)
+    (qualifierValid : QualifiedNames.ValidSpan text qualifierFirst qualifierAfter) :
+    calls.function .subtypeLookupModel text subtypeNames first after index qualifierFirst qualifierAfter =
+      IntegerSubtypes.lookupFrom text subtypeNames first after index qualifierFirst qualifierAfter := by
+  rw [equations.subtypeLookupModel text valid subtypeNames first after index qualifierFirst qualifierAfter
+    namesValid firstValid afterValid indexBound qualifierValid]
   dsimp +instances only [subtypeLookupModelBody, lookupArrayType, Expr.eval, Context.locals, Calls.get, Field.get,
     lexical, modelPrimitives]
   cases index with
@@ -55,24 +57,35 @@ private theorem state_array_initials {text : Source} {state : ParserState}
     by_cases absent : first = 0 ∨ after ≤ first
     · simp only [Bool.or_eq_true, decide_eq_true_eq, absent, true_or, ↓reduceIte]
     · simp only [Bool.or_eq_true, decide_eq_true_eq, absent, false_or,
-        show index + 1 ≠ 0 by omega, ↓reduceIte]
+        show index + 1 ≠ 0 by omega, ↓reduceIte, QualifiedNames.qualifierMatches]
       split
       · rfl
       · simpa only [Nat.add_sub_cancel] using
           interpreted_subtypeLookupModel calls equations text valid subtypeNames first after index
-            namesValid firstValid afterValid (by omega)
+            qualifierFirst qualifierAfter namesValid firstValid afterValid (by omega) qualifierValid
 termination_by index
+
+@[simp] theorem interpreted_subtypeLookupQualified (calls : Calls)
+    (equations : RawHelperEquations calls (domain := domain)) (text : Source) (valid : ValidText text)
+    (subtypeNames : IntegerSubtypes.Environment) (first after qualifierFirst qualifierAfter : Nat)
+    (namesValid : IntegerSubtypes.ValidEnvironment text subtypeNames)
+    (firstValid : ValidCursor text first) (afterValid : ValidCursor text after)
+    (qualifierValid : QualifiedNames.ValidSpan text qualifierFirst qualifierAfter) :
+    calls.function .subtypeLookup text subtypeNames first after qualifierFirst qualifierAfter =
+      IntegerSubtypes.lookup text subtypeNames first after qualifierFirst qualifierAfter := by
+  rw [equations.subtypeLookup text valid subtypeNames first after qualifierFirst qualifierAfter namesValid firstValid afterValid qualifierValid]
+  exact interpreted_subtypeLookupModel calls equations text valid subtypeNames first after
+    subtypeNames.items.length qualifierFirst qualifierAfter namesValid firstValid afterValid (Nat.le_refl _) qualifierValid
 
 @[simp] theorem interpreted_subtypeLookup (calls : Calls)
     (equations : RawHelperEquations calls (domain := domain)) (text : Source) (valid : ValidText text)
     (subtypeNames : IntegerSubtypes.Environment) (first after : Nat)
     (namesValid : IntegerSubtypes.ValidEnvironment text subtypeNames)
     (firstValid : ValidCursor text first) (afterValid : ValidCursor text after) :
-    calls.function .subtypeLookup text subtypeNames first after =
-      IntegerSubtypes.lookup text subtypeNames first after := by
-  rw [equations.subtypeLookup text valid subtypeNames first after namesValid firstValid afterValid]
-  exact interpreted_subtypeLookupModel calls equations text valid subtypeNames first after
-    subtypeNames.items.length namesValid firstValid afterValid (Nat.le_refl _)
+    calls.function .subtypeLookup text subtypeNames first after 0 0 =
+      IntegerSubtypes.lookup text subtypeNames first after :=
+  interpreted_subtypeLookupQualified calls equations text valid subtypeNames first after 0 0
+    namesValid firstValid afterValid (Or.inl ⟨rfl, rfl⟩)
 
 @[simp] theorem interpreted_callAfter (calls : Calls) (equations : RawHelperEquations calls (domain := domain))
     (text : Source) (valid : ValidText text) (names : BindingEnvironment) (position : Nat)
@@ -268,22 +281,23 @@ termination_by text.length + 1 - position
 @[simp] theorem interpreted_value (calls : Calls) (equations : RawHelperEquations calls (domain := domain))
     (text : Source) (valid : ValidText text) (position : Nat) (names : BindingEnvironment) {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
     {arrays : ArrayBindings.Table} {initials : ArrayBindings.Initials} {elaborating : Bool}
+    {contextFirst : Nat} (contextPositive : 1 ≤ contextFirst) (contextBound : ValidCursor text contextFirst)
     (bound : ValidCursor text position) (namesValid : NativeNames text names) (scalarValid : ScalarExpression.ValidEnvironment text scalarNames)
     (arraysValid : ArrayBindings.ValidTable text arrays) (initialsValid : ArrayBindings.ValidInitials initials) :
-    calls.function .value text position names scalarNames integerHidden arrays initials elaborating = valueAt text position names scalarNames integerHidden arrays initials elaborating := by
+    calls.function .value text position names scalarNames integerHidden arrays initials elaborating contextFirst = valueAt text position names scalarNames integerHidden arrays initials elaborating contextFirst := by
   have skipBound := equations.ranges.skip text valid position bound
   have nameBound := equations.ranges.name text valid _ skipBound
   have skipEq := interpreted_skip calls equations text valid position bound
   have nameEq := interpreted_name calls equations text valid _ skipBound
   have literalEq := interpreted_literal calls equations text valid _ skipBound
   have lookupEq := interpreted_lookup calls equations text valid names _ _ namesValid skipBound nameBound
-  rw [equations.value text valid position names scalarNames integerHidden arrays initials elaborating bound namesValid scalarValid arraysValid initialsValid]
+  rw [equations.value text valid position names scalarNames integerHidden arrays initials elaborating contextFirst contextPositive contextBound bound namesValid scalarValid arraysValid initialsValid]
   dsimp +instances only [valueBody, lookupArrayType, Expr.eval, Context.locals, Locals.set, lexical, Calls.get, Field.get]
   simp only [reduceCtorEq, String.reduceEq, ↓reduceIte, ↓reduceDIte]
   rw [literalEq, lookupEq, equations.scalarLookup text valid scalarNames _ _ scalarValid skipBound nameBound, nameEq, skipEq]
   rw [interpreted_take calls equations text valid (nameAfter text (skipAt text position)) (.symbol "(")
     (model_name_valid text _) (by unfold ValidToken; decide),
-    interpreted_indexed calls equations text valid position names scalarNames arrays initials elaborating false
+    interpreted_indexed calls equations text valid position names scalarNames arrays initials elaborating false contextFirst contextPositive contextBound
       bound namesValid scalarValid arraysValid initialsValid]
   rw [interpreted_image calls equations text valid position names integerHidden
     (arrays := arrays) (initials := initials) (elaborating := elaborating)
@@ -447,23 +461,24 @@ attribute [local irreducible] valueAt
 @[simp] theorem interpreted_expressionStep (calls : Calls) (equations : RawHelperEquations calls (domain := domain))
     (text : Source) (valid : ValidText text) (names : BindingEnvironment) (scan : ExpressionState) {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
     {arrays : ArrayBindings.Table} {initials : ArrayBindings.Initials} {elaborating : Bool}
+    {contextFirst : Nat} (contextPositive : 1 ≤ contextFirst) (contextBound : ValidCursor text contextFirst)
     (namesValid : NativeNames text names) (scalarValid : ScalarExpression.ValidEnvironment text scalarNames)
     (arraysValid : ArrayBindings.ValidTable text arrays) (initialsValid : ArrayBindings.ValidInitials initials) (scanValid : NativeScan text scan) :
-    calls.function .expressionStep text names scan scalarNames integerHidden arrays initials elaborating = expressionStep text names scan scalarNames integerHidden arrays initials elaborating := by
+    calls.function .expressionStep text names scan scalarNames integerHidden arrays initials elaborating contextFirst = expressionStep text names scan scalarNames integerHidden arrays initials elaborating contextFirst := by
   have eopen := interpreted_take calls equations text valid scan.position (.symbol "(") scanValid.base.1
     (by unfold ValidToken; decide)
   have ejoin := interpreted_take calls equations text valid scan.position (.symbol "&") scanValid.base.1
     (by unfold ValidToken; decide)
   have eclose := interpreted_take calls equations text valid scan.position (.symbol ")") scanValid.base.1
     (by unfold ValidToken; decide)
-  have atom := interpreted_value (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) calls equations text valid scan.position names scanValid.base.1 namesValid scalarValid arraysValid initialsValid
-  rw [equations.expressionStep text valid names scan scalarNames integerHidden arrays initials elaborating namesValid scalarValid arraysValid initialsValid scanValid]
+  have atom := interpreted_value (contextFirst := contextFirst) (contextPositive := contextPositive) (contextBound := contextBound) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) calls equations text valid scan.position names scanValid.base.1 namesValid scalarValid arraysValid initialsValid
+  rw [equations.expressionStep text valid names scan scalarNames integerHidden arrays initials elaborating contextFirst contextPositive contextBound namesValid scalarValid arraysValid initialsValid scanValid]
   dsimp +instances only [expressionStepBody, lookupArrayType, Expr.eval, Context.locals, Locals.set, lexical, Calls.get, Field.get]
   simp only [reduceCtorEq, String.reduceEq, ↓reduceIte, ↓reduceDIte]
   simp only [ShellToken.symbol, spelling, isWord] at eopen ejoin eclose
   simp only [ShellToken.symbol]
   simp only [eopen, ejoin, eclose, atom]
-  have atomValid := model_value_native text valid scan.position names
+  have atomValid := model_value_native (contextFirst := contextFirst) text valid scan.position names
     (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays)
     (initials := initials) (elaborating := elaborating) namesValid
   rw [interpreted_concatenatedFirst calls equations text scan _ scanValid atomValid,
@@ -475,13 +490,14 @@ attribute [local irreducible] valueAt
 @[simp] theorem interpreted_tail (calls : Calls) (equations : RawHelperEquations calls (domain := domain))
     (text : Source) (valid : ValidText text) (names : BindingEnvironment) (scan : ExpressionState) {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
     {arrays : ArrayBindings.Table} {initials : ArrayBindings.Initials} {elaborating : Bool}
+    {contextFirst : Nat} (contextPositive : 1 ≤ contextFirst) (contextBound : ValidCursor text contextFirst)
     (namesValid : NativeNames text names) (scalarValid : ScalarExpression.ValidEnvironment text scalarNames)
     (arraysValid : ArrayBindings.ValidTable text arrays) (initialsValid : ArrayBindings.ValidInitials initials) (scanValid : NativeScan text scan) :
-    calls.function .tail text names scan scalarNames integerHidden arrays initials elaborating = expressionTail text names scan scalarNames integerHidden arrays initials elaborating := by
-  have stepEq := interpreted_expressionStep (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) calls equations text valid names scan namesValid scalarValid arraysValid initialsValid scanValid
-  have nextRange := equations.ranges.expressionStep text valid names scan scalarNames integerHidden arrays initials elaborating namesValid scalarValid arraysValid initialsValid scanValid
+    calls.function .tail text names scan scalarNames integerHidden arrays initials elaborating contextFirst = expressionTail text names scan scalarNames integerHidden arrays initials elaborating contextFirst := by
+  have stepEq := interpreted_expressionStep (contextFirst := contextFirst) (contextPositive := contextPositive) (contextBound := contextBound) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) calls equations text valid names scan namesValid scalarValid arraysValid initialsValid scanValid
+  have nextRange := equations.ranges.expressionStep text valid names scan scalarNames integerHidden arrays initials elaborating contextFirst contextPositive contextBound namesValid scalarValid arraysValid initialsValid scanValid
   rw [stepEq] at nextRange
-  rw [equations.tail text valid names scan scalarNames integerHidden arrays initials elaborating namesValid scalarValid arraysValid initialsValid scanValid]
+  rw [equations.tail text valid names scan scalarNames integerHidden arrays initials elaborating contextFirst contextPositive contextBound namesValid scalarValid arraysValid initialsValid scanValid]
   dsimp +instances only [tailBody, lookupArrayType, Expr.eval, Context.locals, Locals.set, lexical, Calls.get, Field.get]
   simp only [reduceCtorEq, ↓reduceIte, ↓reduceDIte, stepEq, decide_eq_true_eq]
   rw [expressionTail]
@@ -489,22 +505,22 @@ attribute [local irreducible] valueAt
   · simp [zero]
   · by_cases complete : scan.complete = true
     · simp [zero, complete, ExpressionState.result]
-    · by_cases nextZero : (expressionStep text names scan scalarNames integerHidden arrays initials elaborating).position = 0
+    · by_cases nextZero : (expressionStep text names scan scalarNames integerHidden arrays initials elaborating contextFirst).position = 0
       · simp [zero, complete, nextZero]
-      · by_cases nextComplete : (expressionStep text names scan scalarNames integerHidden arrays initials elaborating).complete = true
+      · by_cases nextComplete : (expressionStep text names scan scalarNames integerHidden arrays initials elaborating contextFirst).complete = true
         · simp [zero, complete, nextZero, nextComplete, ExpressionState.result]
-        · have advances : scan.position < (expressionStep text names scan scalarNames integerHidden arrays initials elaborating).position := by
+        · have advances : scan.position < (expressionStep text names scan scalarNames integerHidden arrays initials elaborating contextFirst).position := by
             rcases nextRange.2 with bad | done | progress
             · exact False.elim (nextZero bad)
             · exact False.elim (nextComplete done)
             · exact progress
           have bounded := nextRange.1.base.1
-          have smaller : text.length + 1 - (expressionStep text names scan scalarNames integerHidden arrays initials elaborating).position <
+          have smaller : text.length + 1 - (expressionStep text names scan scalarNames integerHidden arrays initials elaborating contextFirst).position <
               text.length + 1 - scan.position := by
             unfold ValidCursor at bounded
             omega
           simp only [zero, complete, nextZero, nextComplete, smaller, ↓reduceIte, ↓reduceDIte]
-          exact interpreted_tail (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) calls equations text valid names (expressionStep text names scan scalarNames integerHidden arrays initials elaborating)
+          exact interpreted_tail (contextFirst := contextFirst) (contextPositive := contextPositive) (contextBound := contextBound) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) calls equations text valid names (expressionStep text names scan scalarNames integerHidden arrays initials elaborating contextFirst)
             namesValid scalarValid arraysValid initialsValid nextRange.1
 termination_by text.length + 1 - scan.position
  decreasing_by
@@ -515,12 +531,13 @@ termination_by text.length + 1 - scan.position
 @[simp] theorem interpreted_expression (calls : Calls) (equations : RawHelperEquations calls (domain := domain))
     (text : Source) (valid : ValidText text) (position : Nat) (names : BindingEnvironment) {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
     {arrays : ArrayBindings.Table} {initials : ArrayBindings.Initials} {elaborating : Bool}
+    {contextFirst : Nat} (contextPositive : 1 ≤ contextFirst) (contextBound : ValidCursor text contextFirst)
     (bound : ValidCursor text position) (namesValid : NativeNames text names) (scalarValid : ScalarExpression.ValidEnvironment text scalarNames)
     (arraysValid : ArrayBindings.ValidTable text arrays) (initialsValid : ArrayBindings.ValidInitials initials) :
-    calls.function .expression text position names scalarNames integerHidden arrays initials elaborating = expressionAt text position names scalarNames integerHidden arrays initials elaborating := by
-  rw [equations.expression text valid position names scalarNames integerHidden arrays initials elaborating bound namesValid scalarValid arraysValid initialsValid]
-  change calls.function .tail text names {position := position} scalarNames integerHidden arrays initials elaborating = expressionAt text position names scalarNames integerHidden arrays initials elaborating
-  apply interpreted_tail calls equations text valid names _ namesValid scalarValid arraysValid initialsValid
+    calls.function .expression text position names scalarNames integerHidden arrays initials elaborating contextFirst = expressionAt text position names scalarNames integerHidden arrays initials elaborating contextFirst := by
+  rw [equations.expression text valid position names scalarNames integerHidden arrays initials elaborating contextFirst contextPositive contextBound bound namesValid scalarValid arraysValid initialsValid]
+  change calls.function .tail text names {position := position} scalarNames integerHidden arrays initials elaborating contextFirst = expressionAt text position names scalarNames integerHidden arrays initials elaborating contextFirst
+  apply interpreted_tail (contextFirst := contextFirst) (contextPositive := contextPositive) (contextBound := contextBound) calls equations text valid names _ namesValid scalarValid arraysValid initialsValid
   refine ⟨⟨bound, Nat.zero_le _, Nat.le_refl _, Nat.zero_le _, Nat.zero_le _, ?_, Nat.zero_le _⟩,
     by change (Integer.Interval.singleton 1).Bounded; decide,
     by change (Integer.Interval.singleton 0).Bounded; decide⟩
@@ -558,7 +575,7 @@ attribute [local irreducible] expressionAt
   let valuePosition := declarationValuePosition text state
   let integerHidden := declarationIntegerHidden text state
   let value := expressionAt text valuePosition state.names state.scalarNames integerHidden
-    state.arrayNames.table state.arrayNames.values true
+    state.arrayNames.table state.arrayNames.values true state.contextFirst
   let following := fixedAfter text value.after ";" false
   have bfirst : ValidCursor text first := model_skip_valid text state.position stateValid.valid.1
   have bafter : ValidCursor text after := model_name_valid text first
@@ -585,15 +602,15 @@ attribute [local irreducible] expressionAt
   have eposition : calls.function .takeToken text typeAfter (.symbol ":=") = valuePosition :=
     interpreted_take calls equations text valid _ _ btype (by unfold ValidToken; decide)
   have evalue : calls.function .expression text valuePosition state.names state.scalarNames integerHidden
-      state.arrayNames.table state.arrayNames.values true = value :=
-    interpreted_expression (integerHidden := integerHidden) (arrays := state.arrayNames.table)
+      state.arrayNames.table state.arrayNames.values true state.contextFirst = value :=
+    interpreted_expression (contextFirst := state.contextFirst) (contextPositive := stateValid.valid.unit.1) (contextBound := stateValid.valid.unit.2.1) (integerHidden := integerHidden) (arrays := state.arrayNames.table)
       (initials := state.arrayNames.values) (elaborating := true) calls equations text valid _ _ bposition
       stateValid.nativeNames stateValid.valid.2.2.2.2.2.1
       (state_array_metadata stateValid.valid) (state_array_initials stateValid.valid)
   have bvalue : NativeResult text value := by
     rw [← evalue]
     exact equations.ranges.expression text valid _ _ state.scalarNames integerHidden
-      state.arrayNames.table state.arrayNames.values true bposition stateValid.nativeNames
+      state.arrayNames.table state.arrayNames.values true state.contextFirst stateValid.valid.unit.1 stateValid.valid.unit.2.1 bposition stateValid.nativeNames
       stateValid.valid.2.2.2.2.2.1 (state_array_metadata stateValid.valid) (state_array_initials stateValid.valid)
   have bfollowing : ValidCursor text following := model_fixed_valid text value.after ";" false bvalue.base.1
   have efollowing : calls.function .takeToken text value.after (.symbol ";") = following :=
@@ -695,14 +712,21 @@ attribute [local irreducible] expressionAt
     (text : Source) (valid : ValidText text) (state : ParserState) (position : Nat)
     (stateValid : NativeState domain text state) (bound : ValidCursor text position) :
     calls.function .scalarType text state position = scalarTypeAt text state position := by
-  let first := skipAt text position
-  let after := nameAfter text first
-  have firstBound : ValidCursor text first := model_skip_valid text position bound
-  have afterBound : ValidCursor text after := model_name_valid text first
-  have es : calls.function .skip text position = first :=
-    interpreted_skip calls equations text valid position bound
-  have en : calls.function .nameAfter text first = after :=
-    interpreted_name calls equations text valid first firstBound
+  let reference := QualifiedNames.read text position
+  let first := reference.first
+  let after := reference.after
+  have referenceBounds := QualifiedNames.read_bounds text position bound
+  have firstBound : ValidCursor text first := by
+    rcases referenceBounds.1 with absent | present
+    · change reference.first = 0 ∧ reference.after = 0 at absent
+      change reference.first ≤ text.length + 1
+      omega
+    · change 0 < reference.first ∧ reference.first < reference.after ∧ reference.after ≤ text.length + 1 at present
+      change reference.first ≤ text.length + 1
+      omega
+  have afterBound : ValidCursor text after := QualifiedNames.read_after_bound text position bound
+  have er : calls.function .readReference text position = reference :=
+    equations.readReference text valid position bound
   have el := interpreted_lookup calls equations text valid state.names first after
     stateValid.nativeNames firstBound afterBound
   have ec := equations.scalarLookup text valid state.scalarNames first after
@@ -711,8 +735,9 @@ attribute [local irreducible] expressionAt
     (state_array_metadata stateValid.valid) firstBound afterBound
   have eat := equations.arrayTypeLookup text valid state.arrayNames.types first after
     stateValid.valid.arrayTypes firstBound afterBound
-  have et := interpreted_subtypeLookup calls equations text valid state.subtypeNames first after
-    stateValid.valid.2.2.2.2.2.2.2.1 firstBound afterBound
+  have et := interpreted_subtypeLookupQualified calls equations text valid state.subtypeNames first after
+    reference.qualifierFirst reference.qualifierAfter
+    stateValid.valid.2.2.2.2.2.2.2.1 firstBound afterBound referenceBounds.2.1
   have eb := equations.booleanLookup text valid state.booleanNames first after
     stateValid.valid.booleans firstBound afterBound
   have ef := equations.functionLookup text valid state.functions first after
@@ -721,19 +746,13 @@ attribute [local irreducible] expressionAt
     stateValid.valid.procedures firstBound afterBound
   have eh := equations.formalHides text valid state first after stateValid firstBound afterBound
   rw [equations.scalarType text valid state position stateValid bound, scalarType_denotation]
-  dsimp +instances only [scalarTypeEquation, lexical]
-  rw [es, en, el, ec, ea, eat, et, eb, ef, ep, eh]
+  dsimp +instances only [scalarTypeEquation, scalarTypeAt, lexical]
+  rw [er, el, ec, ea, eat, et, eb, ef, ep, eh]
   by_cases invalid : first = 0 ∨ after ≤ first
-  · rcases invalid with zero | backwards
-    · have actualZero : skipAt text position = 0 := zero
-      simp [scalarTypeAt, first, after, actualZero]
-    · have actualBackwards : nameAfter text (skipAt text position) ≤ skipAt text position := backwards
-      simp [scalarTypeAt, first, after, actualBackwards]
+  · simp only [Bool.or_eq_true, decide_eq_true_eq, invalid, ↓reduceIte]
   · have nameValid : ValidName text first after := ⟨by omega, by omega, afterBound⟩
     rw [equations.nameIs text valid first after "integer" nameValid (by decide) (by decide)]
-    dsimp +instances only [scalarTypeAt, after, first]
     simp only [Bool.or_eq_true, decide_eq_true_eq, or_assoc]
-    all_goals rfl
 
 @[simp] theorem interpreted_subtypeDeclaration (calls : Calls) (equations : RawHelperEquations calls (domain := domain))
     (text : Source) (valid : ValidText text) (state : ParserState) (arguments : Bool)

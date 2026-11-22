@@ -17,7 +17,8 @@ def modelCalls : Calls where
     | .fixedBoundsValid => fixedBoundsValid
     | .characterLiteral => characterLiteralAfter
     | .guardedAt => guardedAt
-    | .indexed => indexedAt
+    | .indexed => fun text position names scalarNames arrays initials elaborating element contextFirst =>
+        indexedAt text position names scalarNames arrays initials elaborating element contextFirst
     | .characterValue => fun text position names scalarNames arrays initials elaborating =>
         characterAt text position names scalarNames arrays initials elaborating
     | .concatenatedFirst => concatenatedFirst
@@ -37,7 +38,8 @@ def modelCalls : Calls where
     | .normalize => id
     | .allowed => fun text => text.all allowedCharacter
     | .contextAfter => Names.contextAfter
-    | .operationAfter => Names.operationAfter
+    | .operationAfter => fun text position operation hidden contextFirst packageFirst packageAfter =>
+        Names.operationAfter text position operation hidden contextFirst packageFirst packageAfter
     | .associationAfter => Names.associationAfter
     | .callAfter => fun text names position operation scalarNames arrays subtypeHidden booleans contextFirst packageFirst packageAfter =>
       callAfter text names position operation scalarNames arrays subtypeHidden booleans contextFirst packageFirst packageAfter
@@ -64,7 +66,11 @@ def modelCalls : Calls where
     | .addBinding => addBinding
     | .stringDeclaration => stringDeclarationAt
     | .scalarConstraint => fun text position names bounds arrays => scalarConstraintAt text position names bounds arrays
-    | .subtypeLookup => IntegerSubtypes.lookup | .subtypeLookupModel => IntegerSubtypes.lookupFrom
+    | .readReference => QualifiedNames.read
+    | .subtypeLookup => fun text names first after qualifierFirst qualifierAfter =>
+        IntegerSubtypes.lookup text names first after qualifierFirst qualifierAfter
+    | .subtypeLookupModel => fun text names first after index qualifierFirst qualifierAfter =>
+        IntegerSubtypes.lookupFrom text names first after index qualifierFirst qualifierAfter
     | .scalarType => scalarTypeAt | .subtypeDeclaration => subtypeDeclarationAt
     | .scalarDeclaration => scalarDeclarationAt
     | .scalarLookup => ScalarExpression.lookup
