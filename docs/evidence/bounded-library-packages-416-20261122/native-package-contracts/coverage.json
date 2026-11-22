@@ -126,7 +126,12 @@
       "current_lines": [
         8146
       ],
-      "coverage": "pending"
+      "coverage": "complete-helper-success",
+      "run": "20261122T175214-5b46f509c5da",
+      "checks": 37,
+      "unproved": 0,
+      "flow": 2,
+      "proof": 35
     },
     {
       "name": "Package_Object_At",

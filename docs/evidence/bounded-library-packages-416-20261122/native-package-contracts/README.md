@@ -112,3 +112,9 @@ flow/proof checks or unresolved obligations. All 82 checks passed. This supplies
 the independent name/type prerequisites for the remaining declaration helpers;
 Hide_Outer, Static Boolean readers, Object, Spec and affected callers remain
 pending. `coverage.json` now uses the current source line positions throughout.
+
+`Hide_Outer` subsequently passed all 37 checks (2 flow, 35 proof) in complete
+canonical run `20261122T175214-5b46f509c5da`, 83.290 seconds, on unchanged input.
+Its three full-array filtering loops, all index/call obligations and complete
+Valid_State postcondition passed. Static Boolean and later declaration/caller
+coverage remains pending.

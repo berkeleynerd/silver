@@ -199,4 +199,62 @@ theorem accepted_stages {calls text context input info position kind}
       rcases stages with ⟨callee, item, frame, result⟩
       exact ⟨callee, item, frame, result, rfl, by simp only [packageCallAt, found]⟩
 
+/-- Every successful stage uses the same metadata supplied at this source
+position. The witnesses expose parsing and alias validation separately, before
+the final effect union and visible-global reset. -/
+theorem callStages_success {calls text context input info position kind callee item frame result}
+    (accepted : callStages calls text context input info position kind =
+      some (callee, item, frame, result)) :
+    callee = packageCallee calls text context info position kind ∧ callee ≠ 0 ∧
+    item = info.routineAt callee ∧
+    ¬(item.count > 0 ∧ (item.formalFirst = 0 ∨ item.formalFirst > info.parameters.length ∨
+      item.count > info.parameters.length - item.formalFirst + 1)) ∧
+    ∃ checked,
+      readActuals calls text context input info item (calls.reference text position).after = some frame ∧
+      checkAliases calls text info item frame = some checked ∧
+      result = finishCall calls text context info kind item frame checked ∧
+      position < frame.cursor ∧ calls.validBody text context result.result.scan = true := by
+  unfold callStages at accepted
+  dsimp only at accepted
+  split at accepted
+  · cases accepted
+  · rename_i calleePresent
+    split at accepted
+    · cases accepted
+    · rename_i validWindow
+      simp only [Option.bind_eq_bind, Option.bind_eq_some_iff] at accepted
+      obtain ⟨parsed, read, aliased⟩ := accepted
+      obtain ⟨checked, aliases, finished⟩ := aliased
+      split at finished
+      · cases finished
+      · rename_i ready
+        cases finished
+        exact ⟨rfl, calleePresent, rfl, validWindow, checked, read, aliases, rfl,
+          Nat.lt_of_not_ge (fun h => ready (Or.inl h)),
+          by
+            cases value : calls.validBody text context
+                (finishCall calls text context info kind
+                  (info.routineAt (packageCallee calls text context info position kind)) frame checked).result.scan with
+            | false => exact False.elim (ready (Or.inr value))
+            | true => rfl⟩
+
+theorem accepted_call {calls text context input info position kind}
+    (accepted : (packageCallAt calls text context input info position kind).value.after ≠ 0) :
+    ∃ callee item frame checked,
+      callee = packageCallee calls text context info position kind ∧ callee ≠ 0 ∧
+      item = info.routineAt callee ∧
+      ¬(item.count > 0 ∧ (item.formalFirst = 0 ∨ item.formalFirst > info.parameters.length ∨
+        item.count > info.parameters.length - item.formalFirst + 1)) ∧
+      readActuals calls text context input info item (calls.reference text position).after = some frame ∧
+      checkAliases calls text info item frame = some checked ∧
+      packageCallAt calls text context input info position kind =
+        finishCall calls text context info kind item frame checked ∧
+      position < frame.cursor ∧
+      calls.validBody text context (packageCallAt calls text context input info position kind).result.scan = true := by
+  obtain ⟨callee, item, frame, result, stages, returned⟩ := accepted_stages accepted
+  obtain ⟨calleeEq, present, itemEq, window, checked, read, aliases, resultEq, progress, valid⟩ :=
+    callStages_success stages
+  exact ⟨callee, item, frame, checked, calleeEq, present, itemEq, window,
+    read, aliases, returned.trans resultEq, progress, by simpa only [returned] using valid⟩
+
 end Silver.ApplicationPackageCalls
