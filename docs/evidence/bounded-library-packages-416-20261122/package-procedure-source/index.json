@@ -1,0 +1,18 @@
+{
+  "run_id": "20261122T182009-7f654cdb7f88",
+  "host": "linux-x86_64",
+  "targets": [
+    "Silver.ApplicationPackageBodiesSourceCandidate"
+  ],
+  "declarations": 20878,
+  "implementation_commit": "fa9aaf813818cfa77d12b4bfe3e553b282a13a09",
+  "inputs_digest_sha256": "0ce451744f623849a36ff255453ede51e2eac89a58ef34a1a6cd28f3545c5140",
+  "elapsed_seconds": 83.128,
+  "artifacts_sha256": {
+    "evidence.json": "e50de687b9844f5c474ad1e54d1241e891c00782f4a8edf073f098c7096a457a",
+    "lean-focused.log.gz": "f8b4dd0f52dd0301f54a6d5abd6369d37fb372d64c66b796bf88c1c948be74d6",
+    "events.jsonl.gz": "15ea003cc80ab5672086c94f70cc48c38e6251b38dee2d0e1be9f70e3347c979",
+    "native-source-candidate.json.gz": "90299f647831aeafa8db5c4abf458f58535598c2c8ead8330b5b043bdf42c7ad"
+  },
+  "scope": "Complete typed package Completion/Unit source trees, structural/scope/named checks and exact full native header/body candidate; execution/callee interpretation and actual reconstruction binding remain open."
+}
