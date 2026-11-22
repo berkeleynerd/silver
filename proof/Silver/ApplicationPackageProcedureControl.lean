@@ -209,6 +209,18 @@ def Command.scoped (scope : Scope) (writable : List String) : Command Fn → Boo
   | .invariant test => test.scoped scope
   | .increases value => value.scoped scope
 
+def Command.namedCorrect (parameters : FunctionParameters Fn) : Command Fn → Bool
+  | .nothing | .returned => true
+  | .assign target value => target.expression.namedCorrect parameters && value.namedCorrect parameters
+  | .primitive call => call.allExpressions (fun value => value.namedCorrect parameters)
+  | .sequence first rest => first.namedCorrect parameters && rest.namedCorrect parameters
+  | .choose test yes no => test.namedCorrect parameters && yes.namedCorrect parameters && no.namedCorrect parameters
+  | .block declarations body => declarations.all (Declaration.namedCorrect parameters) && body.namedCorrect parameters
+  | .whileLoop test body => test.namedCorrect parameters && body.namedCorrect parameters
+  | .forRange _ first last body => first.namedCorrect parameters && last.namedCorrect parameters && body.namedCorrect parameters
+  | .invariant test => test.namedCorrect parameters
+  | .increases value => value.namedCorrect parameters
+
 structure Body (Fn : Ty → Type) where
   name : String
   declarations : List (Declaration Fn)
@@ -229,5 +241,8 @@ def Body.wellFormed (names : FunctionNames Fn) (body : Body Fn) : Bool :=
 def Body.scoped (scope : Scope) (writable : List String) (body : Body Fn) : Bool :=
   let inside := Declarations.scan scope writable body.declarations
   inside.1 && body.commands.scoped inside.2.1 inside.2.2
+
+def Body.namedCorrect (parameters : FunctionParameters Fn) (body : Body Fn) : Bool :=
+  body.declarations.all (Declaration.namedCorrect parameters) && body.commands.namedCorrect parameters
 
 end Silver.ApplicationPackageProcedure
