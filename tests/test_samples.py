@@ -211,8 +211,15 @@ class SupportedSampleTests(unittest.TestCase):
         self.assertTrue(manifest["samples"])
         sources = [sample["source"] for sample in manifest["samples"]]
         self.assertEqual(len(sources), len(set(sources)))
-        self.assertEqual(set(sources), {str(path.relative_to(directory))
-                                        for path in directory.rglob("*.adb")})
+        packages = [sample["application_package"] for sample in manifest["samples"]
+                    if "application_package" in sample]
+        package_bodies = {package["body"] for package in packages}
+        package_specs = {package["specification"] for package in packages}
+        self.assertFalse(set(sources) & package_bodies, "package body listed as standalone Main")
+        self.assertEqual(set(sources) | package_bodies,
+                         {str(path.relative_to(directory)) for path in directory.rglob("*.adb")})
+        self.assertEqual(package_specs,
+                         {str(path.relative_to(directory)) for path in directory.rglob("*.ads")})
         catalogue = json.loads((ROOT / "catalogue/silver.json").read_text())
         capabilities = {item["id"] for item in catalogue["constructs"]}
         for sample in manifest["samples"]:
@@ -225,6 +232,21 @@ class SupportedSampleTests(unittest.TestCase):
                 self.assertTrue((directory / reference).is_file())
                 self.assertTrue(fragment)
                 data = source.read_bytes()
+                package = sample.get("application_package")
+                originals = {"main.adb": (source, data)}
+                if package is not None:
+                    package = {**package,
+                               "functions": tuple(package["functions"]),
+                               "procedures": {name: tuple(formals) for name, formals in package["procedures"].items()},
+                               "formals": {name: tuple(tuple(formal) for formal in formals)
+                                           for name, formals in package["formals"].items()},
+                               "states": tuple(package["states"]),
+                               "writes": {name: tuple(states) for name, states in package["writes"].items()}}
+                    for key, extension in (("specification", ".ads"), ("body", ".adb")):
+                        original = directory / package[key]
+                        self.assertEqual(original.parent, source.parent)
+                        self.assertEqual(original.name, package["name"].lower() + extension)
+                        originals[original.name] = (original, original.read_bytes())
                 admission = invoke("check", source)
                 self.assertEqual(admission.returncode, 0, admission.stdout)
                 compilation = invoke("compile", source)
@@ -240,6 +262,9 @@ class SupportedSampleTests(unittest.TestCase):
                 snapshots = [path for path in workspace.rglob("*.adb")
                              if path.read_bytes() == data]
                 self.assertEqual(len(snapshots), 1, "missing byte-identical proof/build source")
+                for name, (_, original_data) in originals.items():
+                    self.assertEqual((workspace / name).read_bytes(), original_data,
+                                     f"missing byte-identical original unit: {name}")
                 reports = list(workspace.rglob("gnatprove.sarif"))
                 self.assertEqual(len(reports), 1)
                 # Every admitted write selects the existing assignment policy
@@ -253,8 +278,10 @@ class SupportedSampleTests(unittest.TestCase):
                 procedures = {name: tuple(outputs) for name, outputs in
                               sample.get("application_procedures", {}).items()}
                 self.assert_application_proof_policy(reports[0], output=output,
-                                                     functions=bool(functions or procedures))
+                                                     functions=bool(functions or procedures or package))
                 units = {snapshots[0].stem}
+                if package is not None:
+                    units.add(package["name"].lower())
                 if output:
                     units |= {"silver_io", "silver_output_libc", "silver_arguments", "silver_runtime"}
                 statistics = audit_reports(reports[0].parent, units,
@@ -263,7 +290,9 @@ class SupportedSampleTests(unittest.TestCase):
                                            if "argument_context" in sample["capabilities"]
                                            else ("assigned" if assignment else "static") if output else None,
                                            indexed_main=True, application_functions=functions,
-                                           **({'application_procedures': procedures} if procedures else {}))
+                                           **({'application_procedures': procedures} if procedures else {}),
+                                           **({'application_package': package, 'indexed_packages': True}
+                                              if package is not None else {}))
                 self.assertEqual(statistics["units"], len(units))
                 if output:
                     self.assertGreater(statistics["proof_checks"], 0)
@@ -282,7 +311,9 @@ class SupportedSampleTests(unittest.TestCase):
                         self.assertEqual(execution.returncode, expected["exit_status"], execution.stderr)
                         self.assertEqual(execution.stdout, expected["stdout"].encode("utf-8"))
                         self.assertEqual(execution.stderr, expected["stderr"].encode("utf-8"))
-                self.assertEqual(source.read_bytes(), data, "compilation modified sample source")
+                for original, original_data in originals.values():
+                    self.assertEqual(original.read_bytes(), original_data,
+                                     "compilation modified an original application unit")
 
     def test_maximum_dynamic_expression(self) -> None:
         # This admitted 64-leaf source previously needed more than the old

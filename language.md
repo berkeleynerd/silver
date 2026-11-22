@@ -1,5 +1,10 @@
 # Silver language specification
 
+The bounded-library-package section for [#416](https://github.com/berkeleynerd/silver/issues/416)
+is being implemented on this branch. Its [capability record](docs/bounded-library-packages.md)
+tracks the outstanding assurance and delivery checks; package support is not yet
+claimed complete.
+
 The named constrained Integer-array additions for
 [#410](https://github.com/berkeleynerd/silver/issues/410) are supported within the
 rules below. The [capability record](docs/named-array-parameters.md#delivery-assurance-and-validation)
@@ -97,8 +102,10 @@ The [roadmap](roadmap.md) describes proposals; it does not admit them.
 A source belongs to the current language exactly when it satisfies all the
 following rules and the complete grammar below:
 
-- Its length is between 1 and 4096 bytes inclusive. Comments and whitespace
-  count toward this limit.
+- The complete application contains between 1 and 4096 source bytes inclusive.
+  A single-unit program uses that allowance for Main; a bounded-package
+  application shares it across its specification, body and Main. Comments and
+  whitespace count toward this limit.
 - Every byte is printable ASCII (32 through 126), horizontal tab (9), line feed
   (10), or carriage return (13). All other bytes, including vertical tab, form
   feed, NUL, non-ASCII bytes, and a byte-order mark, are excluded everywhere.
@@ -128,7 +135,7 @@ An output-capable shell need not actually call output. Earlier output, assignmen
 and branch-selected samples are instances of these shared rules.
 
 All programs contain exactly one library-level `procedure Main`, without
-parameters or exception handlers, and exactly one `pragma SPARK_Mode (On);` at
+parameters or exception handlers, and exactly one `pragma SPARK_Mode (On);` in Main, at
 the beginning of its declarative part. The closing name is `Main`, ignoring
 ASCII case. Null has no context clause and no declaration after the pragma:
 
@@ -140,11 +147,12 @@ begin
 end Main;
 ```
 
-Every output-capable shell has a `with` clause naming `Silver_IO`. The
+Every single-unit output-capable shell has a `with` clause naming `Silver_IO`. The
 argument-input shell also names `Silver_Arguments`; the static shell cannot
 name that package in its context. These exact package sets remain part of shell
-membership, regardless of which body operations are used. There are no additional
-application units. These package sets select the current shell, runtime dependencies
+membership, regardless of which body operations are used. The bounded-package
+form below additionally admits one application specification/body and permits
+a package-only Main without I/O. These package sets select the current shell, runtime dependencies
 and corresponding proof-report policy; they are Silver's current scope, not an
 Ada requirement that every imported operation be used.
 The grammar below uses `L` for a literal, `S` for an assignment's
@@ -155,8 +163,8 @@ These are grammar metavariables; authors write ordinary Ada source.
 
 ### Context clauses and call names
 
-Before `procedure Main`, output-capable programs may arrange the two approved
-packages in grouped or separate clauses:
+Before `procedure Main`, single-unit output-capable programs may arrange the two
+approved runtime packages in grouped or separate clauses:
 
 ```text
 context_clause ::= "with" package_name { "," package_name } ";"
@@ -170,7 +178,9 @@ Subject to those rules, clauses and names may be reordered or repeated without
 an independent count limit; all bytes count toward the complete-source bound.
 Context clauses cannot occur inside Main. Local `use` declarations, which Ada
 permits, are also excluded: this fragment derives package use visibility from
-context clauses and does not track changes to it inside Main. Other packages, `use type`, renamings,
+context clauses and does not track changes to it inside Main. The bounded-package
+form adds only its selected application package to `with`; it does not allow
+`use` of that package. Other packages, `use type`, renamings,
 and limited/private `with` clauses remain outside this fragment: the current
 name rules cover only the existing library operations and a single declaration
 region, not general Ada visibility.
@@ -717,6 +727,127 @@ All Main, function and procedure declarations and bodies share the existing
 no budget resets at a procedure boundary. Signature/formal storage is pooled and
 derived from the admitted source spellings. Report capacity and exact native
 initialization/copy-back obligations are recorded with the capability evidence.
+
+### Bounded library packages
+
+An application may consist of exactly one library package specification, its
+matching body, and Main. The three original files share the 4,096-byte source
+limit and 63 arithmetic/concatenation-operator limit. Comments end at each file's
+own end; source bytes are never joined into an Ada compilation unit. These
+bounds retain the current proof-cost and storage limits rather than granting a
+new allowance for each file.
+
+Invoke `silver check`, `compile` or `run` on the Main source. Its context selects
+one simple application package name, ignoring ASCII case. That name excludes
+`Main`, the selected runtime unit names, and `Integer`, `Boolean`, `String` and
+`Character`, preventing unit-file collisions and predefined-type hiding in this
+initial fragment. The driver reads
+`name.ads` and `name.adb`, with the package name in lowercase, from the Main
+source's directory. Each file contains exactly its selected compilation unit.
+Missing or unreadable selected files are input errors; unrelated neighboring
+files are not selected. Proof and native compilation use byte-identical
+snapshots of all three original units.
+
+```text
+package_specification ::= "package" name "is" spark_pragma
+                          package_export* "end" same_name ";"
+package_export ::= package_integer_subtype | package_constant | package_signature
+package_integer_subtype ::= "subtype" name "is" "Integer" "range"
+                            static_scalar_expression ".." static_scalar_expression ";"
+package_constant ::= name ":" "constant" package_scalar_mark [ package_integer_constraint ]
+                     ":=" package_initializer ";"
+package_signature ::= "function" name [ "(" package_formals ")" ]
+                      "return" package_scalar_mark ";"
+                    | "procedure" name [ "(" package_formals ")" ] ";"
+package_body ::= "package" "body" same_name "is" spark_pragma
+                 package_state* package_completion* "end" same_name ";"
+package_state ::= name ":" package_scalar_mark [ package_integer_constraint ]
+                  ":=" package_initializer ";"
+package_integer_constraint ::= "range" static_scalar_expression ".." static_scalar_expression
+package_scalar_mark ::= "Integer" | "Boolean" | earlier_exported_integer_subtype
+```
+
+`package_initializer` is a scalar Integer expression or Boolean condition,
+according to its mark, using only earlier visible package declarations and the
+existing static arithmetic and range rules. Every private state declaration
+requires an exact initial value within its declared domain. Elaboration follows
+source order: specification constants and subtypes, then private body state.
+An optional object-local range applies only to Integer state/constants and must
+be a static nonempty subset of the selected subtype. There is no executable
+package-body elaboration statement sequence or callable initializer in this fragment.
+
+A specification exports initialized Integer/Boolean constants, nonempty named
+Integer subtypes, and scalar routine signatures. At least one routine signature is required: in this fragment it supplies
+Ada's requirement for a package body; the alternative `Elaborate_Body` pragma is
+not admitted. Each signature introduces one unique nonoverloaded name. Package
+functions have read-only scalar parameters
+and scalar results; procedures have scalar `in`, `out` and `in out` parameters.
+`package_formals` is a nonempty semicolon-separated list of
+`name : mode package_scalar_mark`, with one name, an explicit `in`, `out` or
+`in out` mode, and no default per formal; function formals use only `in`.
+Zero-formal routines omit the entire parenthesized parameter list. Their calls
+use `P.Read` and `P.Reset;`, never `P.Read()` or `P.Reset()`.
+
+Every signature has exactly one body completion, in the same order as the
+signatures. Name, routine kind, formal names, modes, subtype identities and result
+subtype must match, ignoring ASCII case where Ada does. Equal bounds do not
+permit substituting a different subtype name in a completion. Extra private
+helper routines, forward calls and recursion are excluded. An internal call uses an unqualified name and can
+name only an earlier completed routine, including in unreachable statements and
+empty loops. This source order gives a finite call chain without requiring a
+separate recursive-call proof.
+
+Routine bodies use scalar local declarations, assignments, conditions, finite
+counted loops and the existing scalar return rules. They may refer to visible
+package constants, subtypes and private state. Capture and formal values are
+bound before local initialization. Each body is checked for every value in its
+state and formal declarations' complete domains, including bodies Main never
+calls. Initial state values or preceding calls do not narrow those body domains.
+Function calls occur only as a complete scalar assignment RHS, including calls
+to zero-formal package functions. Calls are excluded from return expressions,
+initializers, guards, arithmetic, output, loop bounds and other actuals.
+Functions may read private state, may not write it, and cannot call procedures,
+including stateless procedures. Procedures may write
+private state and writable formals under the same complete initialization and
+range rules as scalar procedures. Each `out` formal has one leading assignment
+in declaration order. Every prefix RHS is checked in the same pre-output frame
+and cannot read any `out` formal, including one initialized earlier in the prefix.
+Ordinary body analysis then starts writable formals at their full declared ranges.
+
+The checker derives each routine's possible state reads and writes, including
+transitive earlier calls and syntactically present dead arms and empty loops.
+Explicit actuals and implicit state accesses must satisfy the writable-alias
+rules: a writable location cannot alias another input or output involved in the
+same call. After a call, possibly written locations regain their full declared
+ranges; a prior guard cannot justify an operation on state the callee may have
+changed. Read-only state retains applicable facts. Hidden state remains private
+to the package; Main cannot name it directly.
+
+Main may import the application package in grouped or separate `with` clauses,
+with repeated references to the same package allowed. It can additionally use
+the existing runtime contexts and argument shell. `Silver_IO` is needed when an
+I/O operation is used, not merely to call a package. Exported constants, subtype
+marks and calls use qualified names `P.Name`; `use P` is excluded. The package
+identifier cannot be hidden by a Main declaration or loop binder in this initial
+fragment. Existing closed Main-local callables may use qualified exported subtype marks,
+but cannot read package constant values, call package routines or capture state.
+Their closed initializer model remains unchanged; extending it to package values
+would need a separate constant-freezing and slot-mapping proof. Main itself and
+package routines may use those constants. Other existing Main constructs retain
+their rules.
+
+Package arrays, Character/String package interfaces or state, private parts and
+types, nested/child/generic/renamed packages, additional application dependencies,
+package I/O, author contracts and other pragmas are excluded. These are the
+current scalar-package scope limits, not restrictions inherited from Ada/SPARK.
+The purpose is to establish exact multiunit identity, ordered elaboration and
+shared scalar-state composition before adding larger library and tasking forms.
+
+All selected package and Main entities, including unused routine bodies, are
+proved and audited. A successful Main-only report is insufficient. The compiler
+uses its existing modular procedure/function policy with inlining disabled for
+package applications, and compiles the original unit sources without flattening
+or adding author annotations.
 
 ### Named scalar argument associations
 
@@ -1569,6 +1700,7 @@ The catalogue uses these construct identifiers:
 | `boolean_array_object`, `boolean_array_read`, `boolean_array_assignment` | Explicitly initialized fixed-size Boolean arrays, typed indexed reads and mutable cell writes; stored flags retain no scalar or String/input facts. |
 | `integer_array_iteration` | Forward/reverse iteration over constant Integer arrays, with immutable nonstatic elements, declared component entry bounds and existing guard/statement compositions. |
 | `scalar_function`, `scalar_function_call` | Closed scalar-result functions with Integer/Boolean and read-only named Integer-array inputs, terminal return, earlier-only calls and whole scalar assignment RHS calls. |
+| `bounded_library_packages` | One original package specification/body plus Main, initialized private scalar state, ordered scalar routines, qualified exports and complete unit/entity assurance. |
 | `scalar_procedure`, `scalar_procedure_call` | Closed procedures with scalar modes and read-only named Integer-array inputs, leading scalar output initialization, earlier-only positional/named/mixed calls, nonaliasing writable scalar actuals and range-checked copy-back. |
 | `named_boolean_constant`, `named_boolean_variable`, `boolean_assignment`, `boolean_expression`, `boolean_comparison` | Initialized scalar Boolean objects, snapshot copies, assignment, logical expressions and Boolean equality/inequality under the visibility, evaluation and xor restrictions above; stored flags retain no scalar or String/input facts. |
 | `integer_comparison`, `scalar_guard_refinement`, `integer_image`, `for_loop` | Bare mutable/formal/index/element names against static thresholds, current read intervals with assignment replacement and branch hulls, standard decimal Image and scoped finite loops with captured bounds and mutable widening. |
@@ -1582,7 +1714,7 @@ The catalogue uses these construct identifiers:
 Everything else is excluded, including derived scalar types, subtype alias chains, conversions,
 other loop forms,
 Boolean operations outside the specified fragment,
-declaration regions beyond the scalar subprograms above, resizable strings, other array
+declaration regions beyond the scalar subprograms and bounded package units above, resizable strings, other array
 operations, access types and file handles.
 The catalogue's token arrays are informative skeletons, including qualified,
 positional call examples; their construct conditions specify the context,
@@ -1666,8 +1798,10 @@ static elimination is no longer a prerequisite for supporting copies.
 
 Subprogram-bearing programs use GNATprove's `--no-inlining` analysis on the same
 author source. Each declared subprogram, including an unused one, is checked
-over its complete formal domain. The application report must cover Main and
-every source-declared local function and procedure exactly; the same safety classes and
+over its complete formal domain. Each application report must cover its source-declared entities exactly: Main and
+its local functions/procedures, and, in a package application, the selected package
+and all its declared routines. The original package specification and body are
+audited as well as Main; the same safety classes and
 discharge requirements apply to their records. Successful
 `SUBPROGRAM_TERMINATION` flow records establish the reported termination checks.
 Local dependencies may name only the identified subprograms' effect and
@@ -1682,7 +1816,9 @@ the four exact `INEFFECTIVE` messages naming the overwritten ghost outputs
 `Written_Count`, `Flushed`, `Succeeded` and `Written_Bytes` of either `Put` or
 `Put_Line` (eight exact messages). These flow advisories retain a location in
 `main.adb`, the exact Main or declared local-subprogram entity, flow
-provenance and no suppression. Initializers still establish object bounds even when
+provenance and no suppression. Package reports use the corresponding original
+package file and source-owned package/routine identities; they cannot borrow Main
+locations or entities. Initializers still establish object bounds even when
 their bytes are unused. The warning list additionally permits the exact producer
 `imprecise-image` advisory, including its full message with exactly the producer's
 `Image`, `image` or `IMAGE` spelling and its producer state; it never
@@ -1730,7 +1866,10 @@ See [assurance.md](docs/assurance.md) and the
 validation scope and subsequent review repairs.
 
 Authors supply neither contracts nor proof annotations. Admission, proof and
-compilation use the same source bytes, snapshotted as `main.adb`. Every output
+compilation use the same source bytes. Main is snapshotted as `main.adb`; package
+applications additionally snapshot their original specification and body under
+the selected lowercase package filenames. All three snapshots are rechecked
+after proof and build. Every output
 shell selects the same six library files: the `Silver_IO` spec/body,
 `Silver_Output_Libc` spec, `Silver_Arguments` spec/body and `Silver_Runtime` spec.
 The compiler copies them unchanged, checks their identity after proof and build,
@@ -1739,6 +1878,12 @@ build failure for admitted source is an implementation/toolchain defect; a
 specified environmental execution failure is an outcome, not source rejection.
 
 ## Examples and growth
+
+The [Include a file](samples/rosetta_include_a_file/main.adb) application
+exercises a separate package specification/body and a scalar calculation; the
+[counter](samples/package_counter/main.adb) exercises private scalar state and
+zero-formal operations. Their delivery checks are tracked in the
+[package capability record](docs/bounded-library-packages.md).
 
 The [sample manifest](samples/manifest.json) records each supported sample's
 capabilities and expected output/status. Existing null, literal, named, command-line,

@@ -24,7 +24,8 @@ limits remain unchanged. These bounds retain the existing bounded proof-cost and
 storage foundation; multiple files do not multiply that allowance.
 
 The intended package exports scalar subtype/constant declarations and scalar
-function/procedure signatures. Its body contains explicitly initialized private
+function/procedure signatures. At least one routine signature requires its body
+under Ada's rules; the author pragma `Elaborate_Body` is not admitted. Its body contains explicitly initialized private
 Integer/Boolean state and matching routine completions in declaration order.
 Bodies use the established scalar statement, guard and finite-loop forms, with
 calls only to already completed routines. Zero-formal package operations support
@@ -83,6 +84,10 @@ scalar calculation, then call it and print the result from Main. Retain and chec
 all three source files, the complete report set, and expected output.
 A separate small counter exercises hidden state, reset/getter operations and
 repeated calls with different state values.
+
+[Stage issue #425](https://github.com/berkeleynerd/silver/issues/425) tracks the
+precise Rosetta fragment and delivery bookkeeping. It remains In progress, with
+the generated Stage pending the first render of this identifier.
 
 Use the precise candidate identifier `bounded-library-packages`. The broad
 `packages` identifier also covers private types and remains unsupported.

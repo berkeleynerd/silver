@@ -3086,6 +3086,94 @@
         "stderr": "",
         "exit_status": 0
       }
+    },
+    {
+      "source": "rosetta_include_a_file/main.adb",
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "bounded_library_packages",
+        "named_integer_variable",
+        "integer_assignment",
+        "integer_image",
+        "expression_output"
+      ],
+      "specification": "../language.md#bounded-library-packages",
+      "application_package": {
+        "name": "Included",
+        "specification": "rosetta_include_a_file/included.ads",
+        "body": "rosetta_include_a_file/included.adb",
+        "functions": [
+          "Twice"
+        ],
+        "procedures": {},
+        "formals": {
+          "Twice": [
+            [
+              "Value",
+              "in"
+            ]
+          ]
+        },
+        "states": [],
+        "writes": {},
+        "assigned": false
+      },
+      "expected": {
+        "stdout": " 8\n",
+        "stderr": "",
+        "exit_status": 0
+      }
+    },
+    {
+      "source": "package_counter/main.adb",
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "bounded_library_packages",
+        "named_integer_variable",
+        "integer_assignment",
+        "integer_image",
+        "expression_output",
+        "for_loop"
+      ],
+      "specification": "../language.md#bounded-library-packages",
+      "application_package": {
+        "name": "Counter",
+        "specification": "package_counter/counter.ads",
+        "body": "package_counter/counter.adb",
+        "functions": [
+          "Read"
+        ],
+        "procedures": {
+          "Reset": [],
+          "Increment": []
+        },
+        "formals": {
+          "Reset": [],
+          "Increment": [],
+          "Read": []
+        },
+        "states": [
+          "Value"
+        ],
+        "writes": {
+          "Reset": [
+            "Value"
+          ],
+          "Increment": [
+            "Value"
+          ]
+        },
+        "assigned": true
+      },
+      "expected": {
+        "stdout": " 9\n",
+        "stderr": "",
+        "exit_status": 0
+      }
     }
   ]
 }
