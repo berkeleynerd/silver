@@ -10,11 +10,11 @@ supersedes the earlier planning-only status for this first increment. The other
 implementation issues retain their planned order and Backlog status. The runtime
 check does not complete #421's later integrated-assurance scope.
 
-The earlier planning selection established the near-term roadmap order: the five language foundations
-below and Ravenscar profile support, followed immediately by a reassessment of
-Jorvik. This replaces waiting for the entire natural language surface or generic
-Rosetta progression before considering concurrency. It authorizes planning and
-priority, not feature implementation, PR #412's merge or an Oracle amendment.
+The earlier planning selection established the five language foundations below
+and Ravenscar profile support, followed immediately by a reassessment of Jorvik.
+This replaces waiting for the entire natural language surface or generic Rosetta
+progression before considering concurrency. That planning selection alone did
+not authorize implementation or an Oracle amendment.
 
 The named-array review response and validation are complete in merged PR #412.
 [Milestone 28](https://github.com/berkeleynerd/silver/milestone/28) is now the active
