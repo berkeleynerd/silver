@@ -243,28 +243,52 @@
       "current_lines": [
         8646
       ],
-      "coverage": "pending"
+      "coverage": "complete-helper-success",
+      "run": "20261122T182543-3f813ace70a3",
+      "checks": 12,
+      "flow": 4,
+      "proof": 8,
+      "unproved": 0,
+      "run_source_sha256": "e181c06fc2ac104092b9166eb276338feeca254ad21446fdfc3903cd81a7dc02"
     },
     {
       "name": "State_Target",
       "current_lines": [
         8671
       ],
-      "coverage": "pending"
+      "coverage": "complete-helper-success",
+      "run": "20261122T182648-adfcc33cbbd5",
+      "checks": 10,
+      "flow": 2,
+      "proof": 8,
+      "unproved": 0,
+      "run_source_sha256": "e181c06fc2ac104092b9166eb276338feeca254ad21446fdfc3903cd81a7dc02"
     },
     {
       "name": "State_Reads",
       "current_lines": [
         8686
       ],
-      "coverage": "pending"
+      "coverage": "complete-helper-success",
+      "run": "20261122T182838-66d41187d493",
+      "checks": 10,
+      "flow": 2,
+      "proof": 8,
+      "unproved": 0,
+      "run_source_sha256": "e181c06fc2ac104092b9166eb276338feeca254ad21446fdfc3903cd81a7dc02"
     },
     {
       "name": "Package_Callee",
       "current_lines": [
         8710
       ],
-      "coverage": "pending"
+      "coverage": "complete-helper-success",
+      "run": "20261122T183016-b28ca489391a",
+      "checks": 11,
+      "flow": 3,
+      "proof": 8,
+      "unproved": 0,
+      "run_source_sha256": "e181c06fc2ac104092b9166eb276338feeca254ad21446fdfc3903cd81a7dc02"
     },
     {
       "name": "Package_Call_At",

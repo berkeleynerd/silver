@@ -188,3 +188,17 @@ obligation. Two managed workers were used.
 | --- | --- | --- | --- |
 | Application_Of | `20261122T182141-e8a459c49fff` | 2 (1 + 1) | 27.406 |
 | Invalid_Application | `20261122T182245-200596709485` | 2 (1 + 1) | 27.952 |
+
+## State effects and callee complete checks
+
+Four further complete canonical helpers passed on unchanged `e181c06fc2ac`
+source, with two managed workers each. Each report selects its complete helper
+with no skipped or unresolved flow/proof obligation. No source or contract
+changed during this group. The main Package_Call_At check follows.
+
+| Helper | Run | Checks (flow + proof) | Seconds |
+| --- | --- | --- | --- |
+| Visible_State | `20261122T182543-3f813ace70a3` | 12 (4 + 8) | 36.649 |
+| State_Target | `20261122T182648-adfcc33cbbd5` | 10 (2 + 8) | 36.213 |
+| State_Reads | `20261122T182838-66d41187d493` | 10 (2 + 8) | 35.634 |
+| Package_Callee | `20261122T183016-b28ca489391a` | 11 (3 + 8) | 36.085 |
