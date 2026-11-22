@@ -707,7 +707,7 @@ retains all dispositions, proof-review limits and independent input applicabilit
 | Round | Selected settings | Result and remaining work |
 | --- | --- | --- |
 | First external pass, 01:09–01:59 UTC | Claude Fable 5.2 / Max; runtime model observed, server effort unexposed | 200 admission probes and evidence reconciliation; sampled proof review. The preserved report's approximate end time is qualified by launch/exit metadata. |
-| Stack and timeout response, November 22 | Implementation GPT-6.1 Sol Extra High; independent repair review GPT-6 Astra Extra High; lead runtime settings not exposed | Six source-limit full routes passed in 41.652 s. Independent review caught Why3's separate solver groups; revised session cleanup passed both synthetic controls before the expensive maximal-expression rerun, now running. |
+| Stack and timeout response, November 22 | Implementation GPT-6.1 Sol Extra High; independent repair review GPT-6 Astra Extra High; lead runtime settings not exposed | Six source-limit full routes passed in 41.652 s. Independent review caught Why3's separate solver groups; revised session cleanup passed both synthetic controls before the maximal-expression rerun, which subsequently passed in 73m42s. |
 | Focused proof pass, 10:46–11:48 UTC | Claude Fable 5.2 / Max; runtime model observed, server effort unexposed; monitor GPT-6.1 Sol High | Completed in 61m25.9s on `5a4b0ad8ac`, CPUs 0–1. No blocker/medium/low; five info items. Substantive argument review with explicit coverage limits, including 175 changed files read only at definition-header level. Reviewer exited 0; managed wrapper failed because monitoring added runtime fields to a declared metadata input. Original input reconstruction and unchanged source/prompt/launcher are retained. |
 | Capacity caveat follow-up, November 22 | GPT-6 Astra Max | Pinned anti-aliasing and type-predicate sources establish zero extra retained records for the two routes unavailable to Claude. Existing envelope/headroom unchanged; source/hash evidence retained. No proof or test rerun. |
 
@@ -717,9 +717,13 @@ record the completed assessment. Array value-transport and slot-disjointness
 theorems are model-consistency lemmas outside the endpoint chain; the safety
 endpoint uses the full-domain range-fit lemmas. The trusted boundary now names
 the unchanged `Valid_Name_State` interpretation law. No material proof repair
-was found. The maximal-expression regression remains the sole outstanding test
-identity; its result is required before closing this response.
+was found. The [final maximal-expression regression](evidence/named-array-parameters-410-20261121/review-response/maximal/README.md)
+passed at 12:09:08 UTC in 4,420.116 test seconds. The final reviewed regression
+composition is 783 retained passes plus four fresh passes, covering all 787
+identities. Required review-response repairs and validation are complete;
+PR #412 is technically ready for merge.
 
 No production or proof bytes change in these test/manifest/record repairs. The
-complete native/Lean checkpoints remain subject to exact input comparison, and
-affected tests require fresh passes. No merge or successor feature is authorized.
+complete native/Lean checkpoints remain applicable on their checked identical
+inputs; all affected tests have fresh passes. No merge or successor feature
+implementation is authorized by this closeout.

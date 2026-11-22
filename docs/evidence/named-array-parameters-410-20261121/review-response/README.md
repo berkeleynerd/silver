@@ -19,8 +19,8 @@ on `fix/review-timeout-repair-412`, subsequently committed as `7dd8c1bfb2` and
 integrated as `39c6ff1baf`. Two test identities cover success/failure output and
 return codes, actual child termination, compiler reaping and preservation of a
 partial UTF-8 timeout diagnostic. Test time was 1.027 s; managed duration 2.855 s,
-one worker on guest CPU 2 under the host's eight-CPU allocation. The affected
-full maximal-expression route remains pending. Independent repair review then
+one worker on guest CPU 2 under the host's eight-CPU allocation. At that stage the affected
+full maximal-expression route remained pending. Independent repair review then
 identified that Why3's solvers use separate process groups within the same
 session. This first successful control covered only the inherited group and is
 not validation of the final required cleanup. Its result remains preserved;
@@ -35,9 +35,12 @@ host POSIX process inspection.
 The fresh maximal-expression route `20261122T105525-650db3ffe211` started from
 its launcher at 10:55:24 UTC with six workers,
 16 MiB invoking stack and the same reviewed test bytes; [launch metadata](maximal-launch.json)
-records its exact command. It is still running. Previous 72–116 minute durations
-are estimates for this run, not a measured result. The three-hour test deadline
-and production solver limits remain unchanged.
+records its exact command. It passed at 12:09:08 UTC: one test in 4,420.116 s,
+4,421.904 managed seconds (73m42s). The [final packet](maximal/README.md) retains
+the successful events/log and 146 resource observations without affinity or
+input-hash exceptions. Final inspection found no surviving observed processes,
+sessions or groups. The three-hour test deadline and production solver limits
+remained unchanged.
 
 The expanded callable stack regression passed in managed run
 `20261122T104947-be031f0bee17`, 41.652 test seconds on the installed primary
@@ -46,9 +49,10 @@ callables, while executing the empty Main body. Reviewer admission-only minima
 and exact inputs stay in the [stack packet](../stack/README.md).
 
 The [independent applicability review](../../../reviews/review-pr412-repair-applicability-20261122.md)
-establishes 783 applicable retained passes plus three fresh passes out of the
-787 final identities. Only the maximal-expression result remains outstanding
-for regression coverage. The manifest tag deletion changes no executable test
+establishes 783 applicable retained passes; with the final maximal-expression
+success, all four fresh identities have now passed. This covers all 787 final
+identities. The original applicability report retains its then-pending status;
+the final packet supplies the subsequent result. The manifest tag deletion changes no executable test
 selection, expected output or audit policy; it needs no unrelated aggregate rerun.
 
 The [focused Claude proof report](../../../reviews/review-pr412-claude-proof-20261122.md)

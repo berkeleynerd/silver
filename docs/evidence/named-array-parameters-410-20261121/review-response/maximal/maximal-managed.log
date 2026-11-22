@@ -1,0 +1,9 @@
+Invoking stack bytes: 16777216
+Managed run: 20261122T105525-650db3ffe211 (/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T105525-650db3ffe211)
+Resource allocation: workers requested=6 actual=6 automatic=6; reason: host's eight-CPU allocation
+test_maximum_dynamic_expression (test_samples.SupportedSampleTests.test_maximum_dynamic_expression) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 4420.116s
+
+OK

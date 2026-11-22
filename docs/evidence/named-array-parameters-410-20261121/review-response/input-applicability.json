@@ -44,5 +44,19 @@
     "pending_identity": "test_samples.SupportedSampleTests.test_maximum_dynamic_expression",
     "pending_run": "20261122T105525-650db3ffe211",
     "sorted_inventory_sha256": "ecd2f159f8ad4708b4248883464b38d071203bf7954ec8f8d38119c04c49ad65"
+  },
+  "final_regression_closeout": {
+    "finished_at": "2026-11-22T12:09:08.210708+00:00",
+    "run_id": "20261122T105525-650db3ffe211",
+    "outcome": "success",
+    "discovered_identities": 787,
+    "retained_applicable": 783,
+    "fresh_passed": 4,
+    "remaining_identities": [],
+    "test_samples_sha256": "df8939c8470e50730597866e9c0d2364a37e644495a3f5e09531a3c60f6d7e56",
+    "evidence": "maximal/README.md",
+    "scope": "Completes the previously pending identity on the frozen reviewed inputs. Earlier comparison and pending-state fields above retain their timestamped historical scope.",
+    "independent_check": "maximal/closeout-check.md",
+    "matched_prepared_run_inputs": 1400
   }
 }

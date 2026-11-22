@@ -22,7 +22,7 @@ retains that metadata and the repair evidence.
 | C412-I3 | Resolve the stack-test part through M1's explicit limit and restoration. Keep actual setting evidence with that test; no general runner schema is added. |
 | C412-I4 | Optional additional full-route forms remain test improvements, not demonstrated semantic failures. The new formal-array Range fixture adds one relevant composition; the other listed forms remain optional. |
 | C412-I5 | Defer affinity restoration for threads born during a run until a long-lived multiple-run launcher needs it. Current launchers exit after one run. |
-| C412-I6 | Repaired the maximal-expression test's timeout path: use an isolated session, terminate its compiler and solver groups, and reap the compiler before re-raising `TimeoutExpired`. Independent repair review caught that Why3 gives solvers separate process groups; the first group-only repair did not cover them. Revised controls passed in `20261122T105339-12d0cd057611`; the independently reviewed repair is integrated as `3258c573a7`. The affected maximal-expression full route is running before closure. |
+| C412-I6 | Repaired the maximal-expression test's timeout path: use an isolated session, terminate its compiler and solver groups, and reap the compiler before re-raising `TimeoutExpired`. Independent repair review caught that Why3 gives solvers separate process groups; the first group-only repair did not cover them. Revised controls passed in `20261122T105339-12d0cd057611`; the independently reviewed repair is integrated as `3258c573a7`. The affected maximal-expression full route passed in `20261122T105525-650db3ffe211` (73m42s). |
 
 ## Proof-review scope
 
@@ -104,5 +104,10 @@ existing identities and two new controls. Horner's single tag deletion changes
 none of the manifest test's source, expected-output or audit-policy decisions;
 the other direct manifest reader uses three unrelated sample outputs.
 The two corrected timeout controls and expanded stack regression passed. The
-focused Claude verdict is assessed above; the maximal-route pass remains the
-only outstanding regression result.
+focused Claude verdict is assessed above. The final maximal route passed at
+12:09:08 UTC in `20261122T105525-650db3ffe211`, completing **783 retained + four
+fresh = 787** covered identities. The
+[final packet](../evidence/named-array-parameters-410-20261121/review-response/maximal/README.md)
+retains the actual success and resource/cleanup observations. No required repair
+or validation remains outstanding; PR #412 is technically ready for merge.
+Merge itself still requires the owner's instruction.

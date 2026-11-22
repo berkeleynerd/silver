@@ -73,8 +73,9 @@ capability completion.
 
 The owner selected the five foundations below and Ravenscar profile support as
 near-term planning priorities, followed immediately by a Jorvik reassessment.
-Finish the active PR #412 review response, focused proof review and applicable
-validation closeout first, preserving its final implementation and proof inputs.
+PR #412's review response, focused proof review and applicable validation
+completed on November 22, with its final implementation and proof inputs
+preserved. It is ready for an owner-authorized merge before successor work.
 The proposed successor is
 [milestone 28, Ravenscar foundations](https://github.com/berkeleynerd/silver/milestone/28);
 its [bounded plan](docs/ravenscar-tasking-plan.md) records scope, dependencies,

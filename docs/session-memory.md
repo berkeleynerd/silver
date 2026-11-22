@@ -43,7 +43,11 @@ and Lean evidence when its actual inputs remain unchanged. No merge, successor
 feature, Worca action or production worker-policy redesign is authorized. The
 conservative all-host CPU ceiling and serial application execution remain for
 this response; allocation-aware application workers remain a separate follow-up.
-Unrelated root edits and caches are preserved. CLI memory was not updated.
+The [completed response](reviews/review-pr412-claude-response-20261122.md) records
+the focused review assessment and final successful regression on November 22.
+PR #412 is technically ready; this status does not authorize merge or successor
+implementation. Unrelated root edits and caches are preserved. CLI memory was
+not updated.
 
 ## 2026-11-22 — Named constrained Integer-array PR ready for owner review
 
