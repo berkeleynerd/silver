@@ -85,7 +85,7 @@ package body Silver_Package_Bindings with SPARK_Mode => On is
                  Info.Routines (I).Formal_First + Info.Routines (I).Count - 1 =>
               In_Unit (Info.Parameters (J).Body_Name, Info.Units (Units.Package_Body))
               and then Same_Name (Text, Info.Parameters (J).Spec_Name,
-                                       Info.Parameters (J).Body_Name)))));
+                                       Info.Parameters (J).Body_Name))))));
 
    function Export_Lookup_Model
      (Text : String; Info : Metadata; Name : Name_Span;
