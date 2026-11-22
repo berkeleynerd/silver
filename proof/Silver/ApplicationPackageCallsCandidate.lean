@@ -145,7 +145,7 @@ theorem candidate_checked : Checked candidateTokens where
   completeHeader := by decide +kernel
   completeBody := by
     simp only [callBody, Body.render, callCommands, actualCommands, aliasCommands,
-      resetCommands, namedScan, returnFailure, Command.list, List.foldr,
+      resetCommands, namedScan, stateAliasScan, payloadAliasScan, returnFailure, Command.list, List.foldr,
       Command.render, Command.renderElse]
     decide +kernel
 

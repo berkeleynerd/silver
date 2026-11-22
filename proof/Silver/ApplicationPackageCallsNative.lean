@@ -168,10 +168,20 @@ def actualCommands : C := .list [
     (.group (.ite (.eq ordinal count) (.token (.symbol ")")) (.token (.symbol ","))))),
   .choose (.eq cursor (.number 0)) returnFailure .nothing]
 
-def aliasCommands : C := .list [
+def stateAliasScan : C :=
   .forRange "s" (.number 1) (.field .stateCount info)
     (.choose (.andThen (.index .stateBit (.field .routineMayWrite item) s)
-      (.index .stateBit (.field .actualReads (actual i).expression) s)) returnFailure .nothing),
+      (.index .stateBit (.field .actualReads (actual i).expression) s)) returnFailure .nothing)
+
+def payloadAliasScan : C :=
+  .forRange "j" formalFirst formalLast
+        (.choose (.andThen (.ne i j) (.not (call5 .actualNameFree text
+          (.field .actualFirst (actual j).expression) (.field .actualAfter (actual j).expression)
+          (.field .targetFirst (.field .actualTarget (actual i).expression))
+          (.field .targetAfter (.field .actualTarget (actual i).expression))))) returnFailure .nothing)
+
+def aliasCommands : C := .list [
+  stateAliasScan,
   .choose (.modeNe (.field .formalMode (.index .formal info i)) (.mode .input))
     (.list [
       .choose (.andThen (.ne (.field .actualWrittenState (actual i).expression) (.number 0))
@@ -179,11 +189,7 @@ def aliasCommands : C := .list [
           (.index .stateBit (.field .routineMayRead item) (.field .actualWrittenState (actual i).expression))
           (.index .stateBit (.field .routineMayWrite item) (.field .actualWrittenState (actual i).expression)))))
         returnFailure .nothing,
-      .forRange "j" formalFirst formalLast
-        (.choose (.andThen (.ne i j) (.not (call5 .actualNameFree text
-          (.field .actualFirst (actual j).expression) (.field .actualAfter (actual j).expression)
-          (.field .targetFirst (.field .actualTarget (actual i).expression))
-          (.field .targetAfter (.field .actualTarget (actual i).expression))))) returnFailure .nothing),
+      payloadAliasScan,
       .assign (.variable "scalar") (.field .targetScalar (.field .actualTarget (actual i).expression)),
       .choose (.ne scalar (.number 0))
         (.assign (.index .flowValue facts scalar) (.field .formalBounds (.index .formal info i))) .nothing,
