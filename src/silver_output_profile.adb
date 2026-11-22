@@ -7924,6 +7924,7 @@ is
       and then not Name_Is (Text, Name.First, Name.After, "ada")
       and then not Name_Is (Text, Name.First, Name.After, "interfaces")
       and then not Name_Is (Text, Name.First, Name.After, "system")
+      and then not Name_Is (Text, Name.First, Name.After, "gnat")
       and then not Name_Is (Text, Name.First, Name.After, "silver_arguments")
       and then not Name_Is (Text, Name.First, Name.After, "silver_output_libc")
       and then not Name_Is (Text, Name.First, Name.After, "silver_runtime")
