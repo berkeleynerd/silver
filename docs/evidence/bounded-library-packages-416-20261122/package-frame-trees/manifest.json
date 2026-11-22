@@ -1,0 +1,20 @@
+{
+  "run_id": "20261122T165935-ab890ff00d70",
+  "files": [
+    {
+      "file": "lean-focused-evidence.json.gz",
+      "uncompressed_sha256": "8eae81da26d343a7a0521daf56088ab26d8d801617e9e9d284f155612f2d59b5",
+      "uncompressed_bytes": 7741
+    },
+    {
+      "file": "lean-focused.log.gz",
+      "uncompressed_sha256": "abde9197e914d6eb4e20a777c7ea2074ca97c868479fdc2b2f73f0ed1193eae3",
+      "uncompressed_bytes": 8697
+    },
+    {
+      "file": "events.jsonl.gz",
+      "uncompressed_sha256": "3bd583cdbfc5056020420b45255d99a0bbe6cbbbf778fefeeb14db3c091896c7",
+      "uncompressed_bytes": 149618
+    }
+  ]
+}
