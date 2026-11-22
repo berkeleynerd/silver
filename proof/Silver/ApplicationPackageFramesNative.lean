@@ -82,7 +82,7 @@ def importedFrameBody : Body Function .state :=
       .assign (.field .subtypesFalseHidden (.field .stateSubtypeNames result)) (.truth false),
       finalState] }
 
-def filterLoop (table : Field .state tableTy) (count : Field tableTy .number)
+def filterBody (table : Field .state tableTy)
     (item : Index tableTy .number itemTy)
     (first after qualifier : Field itemTy .number) (kept : String) : C :=
   let selected : E itemTy := .index item (.field table frame) (.variable "i")
@@ -90,13 +90,18 @@ def filterLoop (table : Field .state tableTy) (count : Field tableTy .number)
   let matched : E .truth := .andThen (.eq (.field qualifier selected) (.number 0))
     (.app (.app (.app (.app (.app (.function .equalName) text)
       (.field .nameFirst name)) (.field .nameAfter name)) (.field first selected)) (.field after selected))
-  .forRange "i" (.number 1) (.field count (.field table frame)) <|
-    .sequence (.invariant (.lt (.variable kept) (.variable "i"))) <|
+  .sequence (.invariant (.lt (.variable kept) (.variable "i"))) <|
       .choose matched
         (.choose (.not (.app (.app (.function .outerDeclaration) info) selectedName))
           (.returned .invalidState) .nothing)
         (.sequence (.assign (.variable kept) (.add (.variable kept) (.number 1)))
           (.assign (.index item (.field table result) (.variable kept)) selected))
+
+def filterLoop (table : Field .state tableTy) (count : Field tableTy .number)
+    (item : Index tableTy .number itemTy)
+    (first after qualifier : Field itemTy .number) (kept : String) : C :=
+  .forRange "i" (.number 1) (.field count (.field table frame))
+    (filterBody table item first after qualifier kept)
 
 def hideOuterBody : Body Function .state :=
   { name := "hide_outer"

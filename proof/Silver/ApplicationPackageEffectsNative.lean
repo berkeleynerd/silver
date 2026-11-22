@@ -103,9 +103,9 @@ def targetBody : Body Function .number where
 
 def readsLoopBody : Command Function .stateSet :=
   .sequence
-    (.invariant (.group (.forAllStates "s" (.group (.conditionalTrue
+    (.invariant (.forAllStates "s" (.group (.conditionalTrue
       (.gt (.variable "s") (.field .stateCount info))
-      (.not (.index .stateBit result.expression (.variable "s"))))))))
+      (.not (.index .stateBit result.expression (.variable "s")))))))
     (.choose (app4 .visibleState text context info (.variable "i"))
       (.assign (.index .stateBit result (.variable "i"))
         (.not (app5 .actualNameFree text first after
