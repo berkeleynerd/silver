@@ -15,9 +15,9 @@ package Silver_Library_Reports with SPARK_Mode => On is
    subtype Procedure_Metadata is Procedure_Bindings.Metadata;
    Empty_Procedures : constant Procedure_Metadata := Procedure_Bindings.Empty_Metadata;
    --  Source-bounded application sequences can produce many proved checks and
-   --  exact ghost-output and repeated array-loop advisories. This capacity uses
+   --  exact implicit-state-output and repeated array-loop advisories. This capacity uses
    --  the documented pinned producer envelope; it is not an additional statement-count restriction.
-   Max_Report_Length : constant Positive := 67_108_864;
+   Max_Report_Length : constant Positive := 268_435_456;
    Max_Runtime_Report_Length : constant Positive := 262_144;
    type Report_Kind is
      (Library_Body, Imported_Interface, Arguments_Body, Runtime_Interface);
