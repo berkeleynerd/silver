@@ -37,7 +37,13 @@ The first fragment excludes private types/parts, package arrays, extra private
 helper routines, executable package-body elaboration statements and package I/O.
 These are bounded implementation choices, not Ada restrictions. Main retains the
 existing I/O and argument facilities. Package calls from existing closed Main-local
-callables are not part of the selected first fragment. Exact spelling, visibility,
+callables are not part of the selected first fragment. Those closed routines may
+use qualified exported subtype marks but cannot read package constant values.
+Their existing initializer proof starts from empty value tables; admitting those
+reads would need a separate source-bound constant-freezing and slot-mapping
+argument. Main itself and package routines may use public constants. This keeps
+the package state/call integration within the selected capability rather than
+expanding the old closed-initializer mechanism. Exact spelling, visibility,
 elaboration, call aliasing and effect rules must be reflected together in the
 language, catalogue, native recognizer and source-bound proofs before support is
 claimed.
@@ -69,7 +75,8 @@ unit/entity report. A Main-only audit cannot establish package assurance.
 
 ## Drivers and Rosetta delivery
 
-The confirmed newly enabled task is **Include a file**. Its original requirement
+The [task/source assessment](../rosetta/assessment-bounded-packages-20261122.md)
+confirms the newly enabled task **Include a file**. Its original requirement
 is to demonstrate inclusion of source from another file; it does not require
 package I/O or a zero-argument interface. Use a package exporting a bounded
 scalar calculation, then call it and print the result from Main. Retain and check
@@ -117,6 +124,8 @@ all worker counts and thread/child affinity must respect that allocation.
 | Pinned runtime and state feasibility | GPT-6 Astra Max | Exploratory hidden/visible package state, including zero-formal operations and a no-inlining composition control, prove without author contracts. A minimal protected/task program proves/builds/runs under profile configuration. The unprivileged host's observed scheduler is not real-time FIFO; retain the separate runtime qualification for later #421 delivery. Exact producer evidence and limitations are retained in the [feasibility packet](evidence/ravenscar-feasibility-421-20261122/README.md). |
 | Exact source-bundle helper | Contract design GPT-6 Astra Max; implementation GPT-6.1 Sol Extra High | `c84b73b6ba`; canonical focused run `20261122T125009-00cc034988d0` passed all 81 checks (12 flow, 69 proof), eight workers, 10.422 s. [Packet](evidence/bounded-library-packages-416-20261122/source-bundle/README.md). New parser/driver callers and complete assurance remain outstanding. |
 | Initial package semantics and zero-formal integration | GPT-6 Astra Max | Four new foundation modules passed run `20261122T130212-b9742bea2354` (5,927 declarations); zero-formal semantic generalization and six affected consumers passed `20261122T131112-bc4a3d4bb2bc` (26,028 declarations), automatic eight workers/threads. [Packet](evidence/bounded-library-packages-416-20261122/semantic-foundations/README.md). Native-reader/source/whole-bundle integration remains outstanding. |
+| Package shared-state and capture equivalence | GPT-6 Astra Max | Four further focused checks establish slot reindexing, whole-body locality, constructed earlier-callee locality, and exact capture/shared-state output equality. Final focused run `20261122T134832-ecd089d7673d` audited 21,867 declarations in 15.717 s with cached dependencies. The [same packet](evidence/bounded-library-packages-416-20261122/semantic-foundations/README.md) retains all four results. Native effects/maps, automatic-discharge and source endpoint integration remain outstanding. |
+| Rosetta task/source reconciliation | Lead role: GPT-6 Astra Extra High | Reread Include a file, Modulinos, Executable library and Singleton requirements. Prepared one new mapping and a separate stateful driver; no broader task-support claim. Sample execution and feature delivery checks remain pending. |
 
 Runtime-confirmed agent settings and whole-team token/cost measurements are not
 independently exposed. These exploratory results are not final compiler assurance.
