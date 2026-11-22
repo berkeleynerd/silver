@@ -744,6 +744,7 @@ inductive Expr (Fn : Ty → Type) : Ty → Type
   | gt : Expr Fn .number → Expr Fn .number → Expr Fn .truth
   | ge : Expr Fn .number → Expr Fn .number → Expr Fn .truth
   | intLe : Expr Fn .integer → Expr Fn .integer → Expr Fn .truth
+  | intGe : Expr Fn .integer → Expr Fn .integer → Expr Fn .truth
   | unitMapEq : Expr Fn .unitMap → Expr Fn .unitMap → Expr Fn .truth
   | unitMapNe : Expr Fn .unitMap → Expr Fn .unitMap → Expr Fn .truth
   | nameEq : Expr Fn .nameSpan → Expr Fn .nameSpan → Expr Fn .truth
@@ -755,6 +756,7 @@ inductive Expr (Fn : Ty → Type) : Ty → Type
   | orElse : Expr Fn .truth → Expr Fn .truth → Expr Fn .truth
   | group : Expr Fn ty → Expr Fn ty
   | ite : Expr Fn .truth → Expr Fn ty → Expr Fn ty → Expr Fn ty
+  | conditionalTrue : Expr Fn .truth → Expr Fn .truth → Expr Fn .truth
   | elsif : Expr Fn .truth → Expr Fn ty → Expr Fn ty → Expr Fn ty
   | sourceLast : Expr Fn .source → Expr Fn .number
   | sourceLength : Expr Fn .source → Expr Fn .number
@@ -818,13 +820,14 @@ def Expr.render (names : FunctionNames Fn) : Expr Fn ty → List String
   | .lt left right => left.render names ++ ["<"] ++ right.render names
   | .le left right | .intLe left right => left.render names ++ ["<="] ++ right.render names
   | .gt left right => left.render names ++ [">"] ++ right.render names
-  | .ge left right => left.render names ++ [">="] ++ right.render names
+  | .ge left right | .intGe left right => left.render names ++ [">="] ++ right.render names
   | .not value => ["not"] ++ value.render names
   | .andThen left right => left.render names ++ ["and", "then"] ++ right.render names
   | .orElse left right => left.render names ++ ["or", "else"] ++ right.render names
   | .group value => ["("] ++ value.render names ++ [")"]
   | .ite condition yes no => ["if"] ++ condition.render names ++ ["then"] ++ yes.render names ++
       (match no with | .elsif _ _ _ => no.render names | _ => ["else"] ++ no.render names)
+  | .conditionalTrue condition yes => ["if"] ++ condition.render names ++ ["then"] ++ yes.render names
   | .elsif condition yes no => ["elsif"] ++ condition.render names ++ ["then"] ++ yes.render names ++
       (match no with | .elsif _ _ _ => no.render names | _ => ["else"] ++ no.render names)
   | .sourceLast text => text.render names ++ ["'", "last"]
@@ -871,6 +874,7 @@ def Expr.eval (calls : Calls Fn) (locals : Locals) : Expr Fn ty → ty.meaning
   | .gt left right => decide (left.eval calls locals > right.eval calls locals)
   | .ge left right => decide (left.eval calls locals ≥ right.eval calls locals)
   | .intLe left right => decide (left.eval calls locals ≤ right.eval calls locals)
+  | .intGe left right => decide (left.eval calls locals ≥ right.eval calls locals)
   | .unitMapEq left right => ApplicationAdmission.unitsEqual (left.eval calls locals) (right.eval calls locals)
   | .unitMapNe left right => !(ApplicationAdmission.unitsEqual (left.eval calls locals) (right.eval calls locals))
   | .nameEq left right => decide (left.eval calls locals = right.eval calls locals)
@@ -882,6 +886,7 @@ def Expr.eval (calls : Calls Fn) (locals : Locals) : Expr Fn ty → ty.meaning
   | .orElse left right => left.eval calls locals || right.eval calls locals
   | .group value => value.eval calls locals
   | .ite condition yes no | .elsif condition yes no => if condition.eval calls locals then yes.eval calls locals else no.eval calls locals
+  | .conditionalTrue condition yes => if condition.eval calls locals then yes.eval calls locals else true
   | .sourceLast text | .sourceLength text => (text.eval calls locals).length
   | .sourcePrefix text last => (text.eval calls locals).take (last.eval calls locals)
   | .maxConcatenations => Compose.maxConcatenations

@@ -39,9 +39,9 @@ def Expr.prefix : Expr Fn ty → Bool
   | .full | .empty | .invalidType | .invalidState | .noHidden | .booleanType | .integerType
   | .scalarKind _ | .exportKind _ | .mode _ | .unitKind _ | .token _ | .maxConcatenations | .emptyMetadata | .invalidAnalysis | .sourcePrefix _ _ => true
   | .number _ | .integer _ | .truth _ | .word _ | .add _ _ | .sub _ _ | .eq _ _ | .ne _ _
-  | .lt _ _ | .le _ _ | .gt _ _ | .ge _ _ | .intLe _ _ | .nameEq _ _ | .kindEq _ _
+  | .lt _ _ | .le _ _ | .gt _ _ | .ge _ _ | .intLe _ _ | .intGe _ _ | .nameEq _ _ | .kindEq _ _
   | .exportEq _ _ | .modeNe _ _ | .unitMapEq _ _ | .unitMapNe _ _ | .not _ | .andThen _ _ | .orElse _ _ | .group _
-  | .ite _ _ _ | .elsif _ _ _ | .sourceLast _ | .sourceLength _ | .nameSpan _ _
+  | .ite _ _ _ | .conditionalTrue _ _ | .elsif _ _ _ | .sourceLast _ | .sourceLength _ | .nameSpan _ _
   | .packageType _ _ _ _ _ | .forAll _ _ _ _ | .forSome _ _ _ _ | .update _ _ | .noCalls => false
 
 def Expr.primary : Expr Fn ty → Bool
@@ -51,15 +51,15 @@ def Expr.primary : Expr Fn ty → Bool
   | .invalidType | .invalidState | .noHidden | .noCalls | .booleanType | .integerType | .update _ _
   | .token _ | .maxConcatenations | .emptyMetadata | .invalidAnalysis | .sourcePrefix _ _ => true
   | .add _ _ | .sub _ _ | .eq _ _ | .ne _ _ | .lt _ _ | .le _ _ | .gt _ _ | .ge _ _
-  | .intLe _ _ | .nameEq _ _ | .kindEq _ _ | .exportEq _ _ | .modeNe _ _ | .unitMapEq _ _ | .unitMapNe _ _ | .not _
-  | .andThen _ _ | .orElse _ _ | .ite _ _ _ | .elsif _ _ _ | .forAll _ _ _ _ | .forSome _ _ _ _ => false
+  | .intLe _ _ | .intGe _ _ | .nameEq _ _ | .kindEq _ _ | .exportEq _ _ | .modeNe _ _ | .unitMapEq _ _ | .unitMapNe _ _ | .not _
+  | .andThen _ _ | .orElse _ _ | .ite _ _ _ | .conditionalTrue _ _ | .elsif _ _ _ | .forAll _ _ _ _ | .forSome _ _ _ _ => false
 
 def Expr.simple (value : Expr Fn ty) : Bool := value.primary || match value with
   | .add _ _ | .sub _ _ => true
   | _ => false
 
 def Expr.relation (value : Expr Fn ty) : Bool := value.simple || match value with
-  | .eq _ _ | .ne _ _ | .lt _ _ | .le _ _ | .gt _ _ | .ge _ _ | .intLe _ _
+  | .eq _ _ | .ne _ _ | .lt _ _ | .le _ _ | .gt _ _ | .ge _ _ | .intLe _ _ | .intGe _ _
   | .nameEq _ _ | .kindEq _ _ | .exportEq _ _ | .modeNe _ _ | .unitMapEq _ _ | .unitMapNe _ _ | .not _ => true
   | _ => false
 
@@ -73,7 +73,7 @@ def Expr.expression (value : Expr Fn ty) : Bool := value.andHead || value.orHead
 
 def Expr.logical (value : Expr Fn .truth) : Bool := value.expression
 
-def Expr.conditional : Expr Fn ty → Bool | .ite _ _ _ => true | _ => false
+def Expr.conditional : Expr Fn ty → Bool | .ite _ _ _ | .conditionalTrue _ _ => true | _ => false
 
 def Expr.quantified : Expr Fn ty → Bool | .forAll _ _ _ _ | .forSome _ _ _ _ => true | _ => false
 
@@ -104,7 +104,7 @@ def Expr.wellFormed (names : FunctionNames Fn) : Expr Fn ty → Bool
   | .add left right | .sub left right => left.simple && right.primary &&
       left.wellFormed names && right.wellFormed names
   | .eq left right | .ne left right | .lt left right | .le left right | .gt left right | .ge left right
-  | .intLe left right | .nameEq left right | .kindEq left right | .exportEq left right | .modeNe left right
+  | .intLe left right | .intGe left right | .nameEq left right | .kindEq left right | .exportEq left right | .modeNe left right
   | .unitMapEq left right | .unitMapNe left right =>
       left.simple && right.simple && left.wellFormed names && right.wellFormed names
   | .not value => value.primary && value.wellFormed names
@@ -113,6 +113,8 @@ def Expr.wellFormed (names : FunctionNames Fn) : Expr Fn ty → Bool
   | .group value => (value.expression || value.conditional || value.quantified) && value.wellFormed names
   | .ite test yes no | .elsif test yes no => test.expression && yes.expression &&
       (no.expression || no.isElsif) && test.wellFormed names && yes.wellFormed names && no.wellFormed names
+  | .conditionalTrue test yes => test.expression && yes.expression &&
+      test.wellFormed names && yes.wellFormed names
   | .sourceLast value | .sourceLength value => value.prefix && value.wellFormed names
   | .sourcePrefix text last => text.prefix && text.wellFormed names && last.simple && last.wellFormed names
   | .nameSpan first after => first.expression && after.expression && first.wellFormed names && after.wellFormed names
@@ -148,9 +150,9 @@ def Expr.scoped (scope : Scope) : Expr Fn ty → Bool
   | .field _ value | .property _ value | .not value | .group value | .sourceLast value | .sourceLength value => value.scoped scope
   | .index _ value index => value.scoped scope && index.scoped scope
   | .add left right | .sub left right | .eq left right | .ne left right | .lt left right
-  | .le left right | .gt left right | .ge left right | .intLe left right | .nameEq left right
+  | .le left right | .gt left right | .ge left right | .intLe left right | .intGe left right | .nameEq left right
   | .kindEq left right | .exportEq left right | .modeNe left right | .andThen left right
-  | .orElse left right | .nameSpan left right | .sourcePrefix left right
+  | .orElse left right | .nameSpan left right | .sourcePrefix left right | .conditionalTrue left right
   | .unitMapEq left right | .unitMapNe left right => left.scoped scope && right.scoped scope
   | .ite test yes no | .elsif test yes no => test.scoped scope && yes.scoped scope && no.scoped scope
   | .packageType name after kind bounds identity => name.scoped scope && after.scoped scope &&
@@ -208,6 +210,31 @@ theorem unit_map_equality (calls : Calls Fn) (locals : Locals)
     (Expr.unitMapEq left right).eval calls locals = true ↔
       left.eval calls locals = right.eval calls locals :=
   ApplicationAdmission.unitsEqual_iff _ _
+
+theorem integer_comparison_children :
+    (Expr.intGe (.variable "lower") (.integer 0) : Expr NoFunctions .truth).wellFormedRoot noNames = true ∧
+    (Expr.intGe (.variable "lower") (.integer (-1)) : Expr NoFunctions .truth).wellFormedRoot noNames = false ∧
+    (Expr.intGe (.variable "lower") (.variable "upper") : Expr NoFunctions .truth).scoped [(.integer,"lower")] = false ∧
+    (Expr.intGe (.variable "lower") (.variable "upper") : Expr NoFunctions .truth).scoped [(.integer,"lower"),(.integer,"upper")] = true := by decide +kernel
+
+theorem conditional_true_children :
+    (Expr.group (.conditionalTrue atom atom)).wellFormedRoot noNames = true ∧
+    (Expr.andThen atom (.conditionalTrue atom atom)).wellFormedRoot noNames = false ∧
+    (Expr.group (.conditionalTrue (.not (.orElse atom atom)) atom)).wellFormedRoot noNames = false ∧
+    (Expr.group (.conditionalTrue atom (.not (.orElse atom atom)))).wellFormedRoot noNames = false ∧
+    (Expr.conditionalTrue atom (.variable "other")).scoped [(.truth,"flag")] = false ∧
+    (Expr.conditionalTrue (.variable "other") atom).scoped [(.truth,"flag")] = false ∧
+    (Expr.conditionalTrue atom atom).scoped [(.truth,"flag")] = true := by decide +kernel
+
+theorem conditional_true_meaning (calls : Calls Fn) (locals : Locals)
+    (test yes : Expr Fn .truth) :
+    (Expr.conditionalTrue test yes).eval calls locals =
+      (if test.eval calls locals then yes.eval calls locals else true) := rfl
+
+theorem integer_ge_meaning (calls : Calls Fn) (locals : Locals)
+    (left right : Expr Fn .integer) :
+    (Expr.intGe left right).eval calls locals =
+      decide (left.eval calls locals ≥ right.eval calls locals) := rfl
 
 end StructuralControls
 end Silver.ApplicationNative
