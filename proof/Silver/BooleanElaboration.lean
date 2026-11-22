@@ -58,6 +58,35 @@ theorem singleton_infer_value {ranges : Integer.Ranges} {values : Integer.Store}
   change bounds.lower ≤ expression.evaluate values ∧ expression.evaluate values ≤ bounds.upper at contained
   omega
 
+/-- Exact evaluation never reads an uninitialized Boolean. This fact is
+independent of the string shape and the availability of application arguments. -/
+theorem evaluate_readable {scalars : ScalarExpression.Environment}
+    {booleans : BooleanBindings.Environment} (hasArguments : Bool) (shape : Bindings.Shape)
+    (condition : Predicate.Condition) (value : Bool)
+    (accepted : evaluate scalars booleans condition = some value) :
+    condition.Readable hasArguments shape (BooleanBindings.analysis booleans) := by
+  induction condition generalizing value with
+  | booleanLiteral | scalarCompare => trivial
+  | booleanName index =>
+      simp only [evaluate] at accepted
+      split at accepted
+      · rename_i known
+        change decide (0 < index ∧ index ≤ booleans.length) = true
+        simp only [known.1, known.2.1, and_self, decide_true]
+      · cases accepted
+  | parenthesized inner ih => exact ih value accepted
+  | negated inner ih =>
+      simp only [evaluate, Option.map_eq_some_iff] at accepted
+      obtain ⟨old, found, _⟩ := accepted
+      exact ih old found
+  | andThen left right leftIH rightIH
+  | orElse left right leftIH rightIH
+  | eager operation left right leftIH rightIH
+  | booleanCompare unequal left right leftIH rightIH =>
+      obtain ⟨a, b, leftFound, rightFound, _⟩ := binary_success accepted
+      exact ⟨leftIH a leftFound, rightIH b rightFound⟩
+  | stringCompare | lengthCompare | characterCompare | inputValid | booleanArrayRead => cases accepted
+
 /-- This conclusion quantifies over every fitting store. No sample or chosen
 initial store is substituted for the declared Integer/Boolean domains. -/
 theorem evaluate_sound {scalars : ScalarExpression.Environment} {booleans : BooleanBindings.Environment}
