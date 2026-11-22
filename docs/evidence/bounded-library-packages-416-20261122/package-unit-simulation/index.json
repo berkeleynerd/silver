@@ -1,0 +1,15 @@
+{
+  "run_id": "20261122T185030-9c541d946b76",
+  "host": "linux-x86_64",
+  "targets": [
+    "Silver.ApplicationPackageUnitSimulation"
+  ],
+  "declarations": 20877,
+  "implementation_commit": "e149736ec032e76d462533ed84de3e45b4499c2a",
+  "artifacts_sha256": {
+    "events.jsonl.gz": "10a817d25c6de71f1aede1a9aec1af5c5c9c8f1f0d7459325a971b5b9bb7001e",
+    "evidence.json": "aceae0307a810b5d8d66bd73df96be86c34e9f7a8d6b73430a77c8ba39f683d8",
+    "lean-focused.log.gz": "a6acf7ec52019887134875cf47beb72448fa09fcb6557bf5177fcacb2c577fc2"
+  },
+  "scope": "Every evaluated complete Unit procedure result refines to the independent phased Unit state machine, over arbitrary typed locals and callees. Completion, concrete callee bounds/source binding, semantic decoding and original-Bundle assurance remain open."
+}
