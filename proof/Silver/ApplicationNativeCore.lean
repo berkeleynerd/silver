@@ -915,6 +915,7 @@ def Locals.set (locals : Locals) (ty : Ty) (name : String) (value : ty.meaning) 
 
 abbrev Calls (Fn : Ty → Type) := (ty : Ty) → Fn ty → ty.meaning
 abbrev FunctionNames (Fn : Ty → Type) := {ty : Ty} → Fn ty → List String
+abbrev FunctionParameters (Fn : Ty → Type) := {ty : Ty} → Fn ty → List String
 
 mutual
 inductive Expr (Fn : Ty → Type) : Ty → Type
@@ -936,12 +937,16 @@ inductive Expr (Fn : Ty → Type) : Ty → Type
   | invalidCall : Expr Fn .callResult
   | callValueAggregate : Expr Fn .number → Expr Fn .scalarKind → Expr Fn .interval → Expr Fn .callResult
   | applicationCall : Expr Fn .number → Expr Fn .callResult → Expr Fn .appScan → Expr Fn .appCall
+  | stateDeclarationValue : Expr Fn .nameSpan → Expr Fn .scalarKind → Expr Fn .nameSpan →
+      Expr Fn .number → Expr Fn .interval → Expr Fn .interval → Expr Fn .number →
+      Expr Fn .number → Expr Fn .truth → Expr Fn .stateDeclaration
   | functionType : Expr Fn .number → Expr Fn .scalarKind → Expr Fn .interval → Expr Fn .number → Expr Fn .functionType
   | functionFormal : Expr Fn .number → Expr Fn .number → Expr Fn .scalarKind → Expr Fn .interval → Expr Fn .number → Expr Fn .functionFormal
   | procedureFormal : Expr Fn .number → Expr Fn .number → Expr Fn .scalarKind → Expr Fn .interval → Expr Fn .number → Expr Fn .mode → Expr Fn .procedureFormal
   | variable (name : String) : Expr Fn ty
   | function (symbol : Fn ty) : Expr Fn ty
   | app : Expr Fn (.arrow a b) → Expr Fn a → Expr Fn b
+  | namedApp (formal : String) : Expr Fn (.arrow a b) → Expr Fn a → Expr Fn b
   | field : Field a b → Expr Fn a → Expr Fn b
   | property : Property a b → Expr Fn a → Expr Fn b
   | index : Index a i b → Expr Fn a → Expr Fn i → Expr Fn b
@@ -962,9 +967,12 @@ inductive Expr (Fn : Ty → Type) : Ty → Type
   | routineEq : Expr Fn .routineKind → Expr Fn .routineKind → Expr Fn .truth
   | exportEq : Expr Fn .exportKind → Expr Fn .exportKind → Expr Fn .truth
   | modeNe : Expr Fn .mode → Expr Fn .mode → Expr Fn .truth
+  | modeEq : Expr Fn .mode → Expr Fn .mode → Expr Fn .truth
+  | stateSetNe : Expr Fn .stateSet → Expr Fn .stateSet → Expr Fn .truth
   | not : Expr Fn .truth → Expr Fn .truth
   | andThen : Expr Fn .truth → Expr Fn .truth → Expr Fn .truth
   | orElse : Expr Fn .truth → Expr Fn .truth → Expr Fn .truth
+  | eagerOr : Expr Fn .truth → Expr Fn .truth → Expr Fn .truth
   | group : Expr Fn ty → Expr Fn ty
   | ite : Expr Fn .truth → Expr Fn ty → Expr Fn ty → Expr Fn ty
   | conditionalTrue : Expr Fn .truth → Expr Fn .truth → Expr Fn .truth
@@ -1039,6 +1047,12 @@ def Expr.render (names : FunctionNames Fn) : Expr Fn ty → List String
       kind.render names ++ [","] ++ bounds.render names ++ [")"]
   | .applicationCall count value scan => ["("] ++ count.render names ++ [","] ++
       value.render names ++ [","] ++ scan.render names ++ [")"]
+  | .stateDeclarationValue name kind typeName identity declaredBounds initialBounds first after value =>
+      ["(", "name", "=>"] ++ name.render names ++ [",", "kind", "=>"] ++ kind.render names ++
+      [",", "type_name", "=>"] ++ typeName.render names ++ [",", "type_identity", "=>"] ++ identity.render names ++
+      [",", "declared_bounds", "=>"] ++ declaredBounds.render names ++ [",", "initial_bounds", "=>"] ++ initialBounds.render names ++
+      [",", "initializer_first", "=>"] ++ first.render names ++ [",", "initializer_after", "=>"] ++ after.render names ++
+      [",", "boolean_initial", "=>"] ++ value.render names ++ [")"]
   | .functionType after kind bounds typeId => ["("] ++ after.render names ++ [","] ++
       kind.render names ++ [","] ++ bounds.render names ++ [","] ++ typeId.render names ++ [")"]
   | .functionFormal first after kind bounds typeId => ["("] ++ first.render names ++ [","] ++
@@ -1047,16 +1061,20 @@ def Expr.render (names : FunctionNames Fn) : Expr Fn ty → List String
       after.render names ++ [","] ++ kind.render names ++ [","] ++ bounds.render names ++ [","] ++ typeId.render names ++ [","] ++ mode.render names ++ [")"]
   | .variable name => [name] | .function symbol => names symbol
   | .app fn argument => match fn with
-    | .app _ _ => (fn.render names).dropLast ++ [","] ++ argument.render names ++ [")"]
+    | .app _ _ | .namedApp _ _ _ => (fn.render names).dropLast ++ [","] ++ argument.render names ++ [")"]
     | _ => fn.render names ++ ["("] ++ argument.render names ++ [")"]
+  | .namedApp formal fn argument => match fn with
+    | .app _ _ | .namedApp _ _ _ =>
+        (fn.render names).dropLast ++ [",", formal, "=>"] ++ argument.render names ++ [")"]
+    | _ => fn.render names ++ ["(", formal, "=>"] ++ argument.render names ++ [")"]
   | .field projection value => value.render names ++ [".", projection.name]
   | .property projection value => value.render names ++ [".", projection.name]
   | .index selection value index => value.render names ++ selection.path ++ ["("] ++ index.render names ++ [")"]
   | .add left right => left.render names ++ ["+"] ++ right.render names
   | .sub left right => left.render names ++ ["-"] ++ right.render names
-  | .eq left right | .nameEq left right | .kindEq left right | .routineEq left right | .exportEq left right | .unitMapEq left right =>
+  | .eq left right | .nameEq left right | .kindEq left right | .routineEq left right | .exportEq left right | .unitMapEq left right | .modeEq left right =>
       left.render names ++ ["="] ++ right.render names
-  | .ne left right | .modeNe left right | .unitMapNe left right => left.render names ++ ["/="] ++ right.render names
+  | .ne left right | .modeNe left right | .unitMapNe left right | .stateSetNe left right => left.render names ++ ["/="] ++ right.render names
   | .lt left right => left.render names ++ ["<"] ++ right.render names
   | .le left right | .intLe left right => left.render names ++ ["<="] ++ right.render names
   | .gt left right => left.render names ++ [">"] ++ right.render names
@@ -1064,6 +1082,7 @@ def Expr.render (names : FunctionNames Fn) : Expr Fn ty → List String
   | .not value => ["not"] ++ value.render names
   | .andThen left right => left.render names ++ ["and", "then"] ++ right.render names
   | .orElse left right => left.render names ++ ["or", "else"] ++ right.render names
+  | .eagerOr left right => left.render names ++ ["or"] ++ right.render names
   | .group value => ["("] ++ value.render names ++ [")"]
   | .ite condition yes no => ["if"] ++ condition.render names ++ ["then"] ++ yes.render names ++
       (match no with | .elsif _ _ _ => no.render names | _ => ["else"] ++ no.render names)
@@ -1119,6 +1138,10 @@ def Expr.eval (calls : Calls Fn) (locals : Locals) : Expr Fn ty → ty.meaning
   | .callValueAggregate after kind bounds =>
       ⟨after.eval calls locals, kind.eval calls locals, bounds.eval calls locals⟩
   | .applicationCall _ value scan => ⟨value.eval calls locals, scan.eval calls locals⟩
+  | .stateDeclarationValue name kind typeName identity declaredBounds initialBounds first after value =>
+      ⟨name.eval calls locals, kind.eval calls locals, typeName.eval calls locals, identity.eval calls locals,
+        declaredBounds.eval calls locals, initialBounds.eval calls locals, first.eval calls locals,
+        after.eval calls locals, value.eval calls locals⟩
   | .functionType after kind bounds typeId =>
       ⟨after.eval calls locals, kind.eval calls locals, bounds.eval calls locals, typeId.eval calls locals⟩
   | .functionFormal first after kind bounds typeId =>
@@ -1127,6 +1150,7 @@ def Expr.eval (calls : Calls Fn) (locals : Locals) : Expr Fn ty → ty.meaning
       ⟨first.eval calls locals, after.eval calls locals, kind.eval calls locals, bounds.eval calls locals, mode.eval calls locals, typeId.eval calls locals⟩
   | .variable name => locals _ name | .function symbol => calls _ symbol
   | .app fn argument => fn.eval calls locals (argument.eval calls locals)
+  | .namedApp _ fn argument => fn.eval calls locals (argument.eval calls locals)
   | .field projection value => projection.get (value.eval calls locals)
   | .property projection value => projection.get (value.eval calls locals)
   | .index selection value index => selection.get (value.eval calls locals) (index.eval calls locals)
@@ -1147,9 +1171,12 @@ def Expr.eval (calls : Calls Fn) (locals : Locals) : Expr Fn ty → ty.meaning
   | .routineEq left right => decide (left.eval calls locals = right.eval calls locals)
   | .exportEq left right => decide (left.eval calls locals = right.eval calls locals)
   | .modeNe left right => decide (left.eval calls locals ≠ right.eval calls locals)
+  | .modeEq left right => decide (left.eval calls locals = right.eval calls locals)
+  | .stateSetNe left right => decide (left.eval calls locals ≠ right.eval calls locals)
   | .not value => !(value.eval calls locals)
   | .andThen left right => left.eval calls locals && right.eval calls locals
   | .orElse left right => left.eval calls locals || right.eval calls locals
+  | .eagerOr left right => left.eval calls locals || right.eval calls locals
   | .group value => value.eval calls locals
   | .ite condition yes no | .elsif condition yes no => if condition.eval calls locals then yes.eval calls locals else no.eval calls locals
   | .conditionalTrue condition yes => if condition.eval calls locals then yes.eval calls locals else true

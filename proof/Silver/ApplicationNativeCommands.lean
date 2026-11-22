@@ -251,4 +251,20 @@ def Body.scoped (scope : Scope) (body : Body Fn resultType) : Bool :=
   let scanned := Declarations.scan scope [] body.declarations
   scanned.1 && body.commands.scoped scanned.2.1 scanned.2.2
 
+def Declaration.namedCorrect (parameters : FunctionParameters Fn) (declaration : Declaration Fn) : Bool :=
+  declaration.initial.all (fun initial => initial.namedCorrect parameters) &&
+    declaration.constraint.all (fun count => count.namedCorrect parameters)
+
+def Command.namedCorrect (parameters : FunctionParameters Fn) : Command Fn resultType → Bool
+  | .nothing => true
+  | .assign place value => place.expression.namedCorrect parameters && value.namedCorrect parameters
+  | .sequence first rest => first.namedCorrect parameters && rest.namedCorrect parameters
+  | .choose test yes no => test.namedCorrect parameters && yes.namedCorrect parameters && no.namedCorrect parameters
+  | .invariant test => test.namedCorrect parameters
+  | .forRange _ first last body => first.namedCorrect parameters && last.namedCorrect parameters && body.namedCorrect parameters
+  | .returned value => value.namedCorrect parameters
+
+def Body.namedCorrect (parameters : FunctionParameters Fn) (body : Body Fn resultType) : Bool :=
+  body.declarations.all (Declaration.namedCorrect parameters) && body.commands.namedCorrect parameters
+
 end Silver.ApplicationNative

@@ -36,25 +36,25 @@ def literalWord (word : String) : Bool :=
   word.toList.all fun c => decide (32 ≤ c.toNat ∧ c.toNat ≤ 126) && c != '"'
 
 def Expr.prefix : Expr Fn ty → Bool
-  | .variable _ | .function _ | .app _ _ | .field _ _ | .property _ _ | .index _ _ _
+  | .variable _ | .function _ | .app _ _ | .namedApp _ _ _ | .field _ _ | .property _ _ | .index _ _ _
   | .full | .empty | .invalidCall | .invalidObject | .emptyStateSet | .invalidType | .invalidState | .noHidden | .booleanType | .integerType
   | .scalarKind _ | .exportKind _ | .mode _ | .unitKind _ | .bodyStop _ | .routineKind _ | .token _ | .maxConcatenations | .emptyMetadata | .invalidAnalysis | .sourcePrefix _ _ => true
   | .number _ | .integer _ | .truth _ | .word _ | .add _ _ | .sub _ _ | .eq _ _ | .ne _ _
   | .lt _ _ | .le _ _ | .gt _ _ | .ge _ _ | .intLe _ _ | .intGe _ _ | .nameEq _ _ | .kindEq _ _ | .routineEq _ _
-  | .exportEq _ _ | .modeNe _ _ | .unitMapEq _ _ | .unitMapNe _ _ | .not _ | .andThen _ _ | .orElse _ _ | .group _
+  | .exportEq _ _ | .modeNe _ _ | .modeEq _ _ | .stateSetNe _ _ | .unitMapEq _ _ | .unitMapNe _ _ | .not _ | .andThen _ _ | .orElse _ _ | .eagerOr _ _ | .group _
   | .ite _ _ _ | .conditionalTrue _ _ | .elsif _ _ _ | .sourceLast _ | .sourceLength _ | .nameSpan _ _
-  | .callValueAggregate _ _ _ | .applicationCall _ _ _ | .packageType _ _ _ _ _ | .scanResult _ _ _ | .analysisValue _ _ _ _ _ _ _ | .forAll _ _ _ _ | .forSome _ _ _ _ | .forAllStates _ _ | .update _ _ | .noCalls | .emptyActuals | .emptySeen | .functionType _ _ _ _ | .functionFormal _ _ _ _ _ | .procedureFormal _ _ _ _ _ _ => false
+  | .stateDeclarationValue _ _ _ _ _ _ _ _ _ | .callValueAggregate _ _ _ | .applicationCall _ _ _ | .packageType _ _ _ _ _ | .scanResult _ _ _ | .analysisValue _ _ _ _ _ _ _ | .forAll _ _ _ _ | .forSome _ _ _ _ | .forAllStates _ _ | .update _ _ | .noCalls | .emptyActuals | .emptySeen | .functionType _ _ _ _ | .functionFormal _ _ _ _ _ | .procedureFormal _ _ _ _ _ _ => false
 
 def Expr.primary : Expr Fn ty → Bool
-  | .variable _ | .function _ | .app _ _ | .field _ _ | .property _ _ | .index _ _ _ | .number _ | .integer _
+  | .variable _ | .function _ | .app _ _ | .namedApp _ _ _ | .field _ _ | .property _ _ | .index _ _ _ | .number _ | .integer _
   | .truth _ | .word _ | .scalarKind _ | .exportKind _ | .mode _ | .unitKind _ | .bodyStop _ | .routineKind _ | .group _
-  | .sourceLast _ | .sourceLength _ | .nameSpan _ _ | .callValueAggregate _ _ _ | .applicationCall _ _ _ | .packageType _ _ _ _ _ | .scanResult _ _ _ | .analysisValue _ _ _ _ _ _ _ | .full | .empty
+  | .sourceLast _ | .sourceLength _ | .nameSpan _ _ | .stateDeclarationValue _ _ _ _ _ _ _ _ _ | .callValueAggregate _ _ _ | .applicationCall _ _ _ | .packageType _ _ _ _ _ | .scanResult _ _ _ | .analysisValue _ _ _ _ _ _ _ | .full | .empty
   | .invalidCall | .invalidObject | .emptyStateSet | .invalidType | .invalidState | .noHidden | .noCalls | .booleanType | .integerType | .update _ _
   | .emptyActuals | .emptySeen | .functionType _ _ _ _ | .functionFormal _ _ _ _ _ | .procedureFormal _ _ _ _ _ _
   | .token _ | .maxConcatenations | .emptyMetadata | .invalidAnalysis | .sourcePrefix _ _ => true
   | .add _ _ | .sub _ _ | .eq _ _ | .ne _ _ | .lt _ _ | .le _ _ | .gt _ _ | .ge _ _
-  | .intLe _ _ | .intGe _ _ | .nameEq _ _ | .kindEq _ _ | .routineEq _ _ | .exportEq _ _ | .modeNe _ _ | .unitMapEq _ _ | .unitMapNe _ _ | .not _
-  | .andThen _ _ | .orElse _ _ | .ite _ _ _ | .conditionalTrue _ _ | .elsif _ _ _ | .forAll _ _ _ _ | .forSome _ _ _ _ | .forAllStates _ _ => false
+  | .intLe _ _ | .intGe _ _ | .nameEq _ _ | .kindEq _ _ | .routineEq _ _ | .exportEq _ _ | .modeNe _ _ | .modeEq _ _ | .stateSetNe _ _ | .unitMapEq _ _ | .unitMapNe _ _ | .not _
+  | .andThen _ _ | .orElse _ _ | .eagerOr _ _ | .ite _ _ _ | .conditionalTrue _ _ | .elsif _ _ _ | .forAll _ _ _ _ | .forSome _ _ _ _ | .forAllStates _ _ => false
 
 def Expr.simple (value : Expr Fn ty) : Bool := value.primary || match value with
   | .add _ _ | .sub _ _ => true
@@ -62,7 +62,7 @@ def Expr.simple (value : Expr Fn ty) : Bool := value.primary || match value with
 
 def Expr.relation (value : Expr Fn ty) : Bool := value.simple || match value with
   | .eq _ _ | .ne _ _ | .lt _ _ | .le _ _ | .gt _ _ | .ge _ _ | .intLe _ _ | .intGe _ _
-  | .nameEq _ _ | .kindEq _ _ | .routineEq _ _ | .exportEq _ _ | .modeNe _ _ | .unitMapEq _ _ | .unitMapNe _ _ | .not _ => true
+  | .nameEq _ _ | .kindEq _ _ | .routineEq _ _ | .exportEq _ _ | .modeNe _ _ | .modeEq _ _ | .stateSetNe _ _ | .unitMapEq _ _ | .unitMapNe _ _ | .not _ => true
   | _ => false
 
 def Expr.andHead (value : Expr Fn ty) : Bool := value.relation || match value with
@@ -71,7 +71,10 @@ def Expr.andHead (value : Expr Fn ty) : Bool := value.relation || match value wi
 def Expr.orHead (value : Expr Fn ty) : Bool := value.relation || match value with
   | .orElse _ _ => true | _ => false
 
-def Expr.expression (value : Expr Fn ty) : Bool := value.andHead || value.orHead
+def Expr.eagerOrHead (value : Expr Fn ty) : Bool := value.relation || match value with
+  | .eagerOr _ _ => true | _ => false
+
+def Expr.expression (value : Expr Fn ty) : Bool := value.andHead || value.orHead || value.eagerOrHead
 
 def Expr.logical (value : Expr Fn .truth) : Bool := value.expression
 
@@ -82,7 +85,21 @@ def Expr.quantified : Expr Fn ty → Bool | .forAll _ _ _ _ | .forSome _ _ _ _ |
 def Expr.isElsif : Expr Fn ty → Bool | .elsif _ _ _ => true | _ => false
 
 def Expr.callSpine : Expr Fn ty → Bool
-  | .function _ => true | .app fn _ => fn.callSpine | _ => false
+  | .function _ => true | .app fn _ | .namedApp _ fn _ => fn.callSpine | _ => false
+
+def Expr.positionalSpine : Expr Fn ty → Bool
+  | .function _ => true | .app fn _ => fn.positionalSpine | _ => false
+
+def Expr.namedArguments : Expr Fn ty → List String
+  | .app fn _ => fn.namedArguments
+  | .namedApp name fn _ => name :: fn.namedArguments
+  | _ => []
+
+/-- Position of the next application in the native formal declaration order. -/
+def Expr.formalAt (parameters : FunctionParameters Fn) (offset : Nat) : Expr Fn ty → Option String
+  | .function symbol => (parameters symbol)[offset]?
+  | .app fn _ | .namedApp _ fn _ => fn.formalAt parameters (offset + 1)
+  | _ => none
 
 def Updates.fields : Updates Fn owner → List String
   | .one field _ => [field.name]
@@ -98,7 +115,10 @@ def Expr.wellFormed (names : FunctionNames Fn) : Expr Fn ty → Bool
   | .word value => literalWord value
   | .variable name => identifier name
   | .function symbol => qualifiedName (names symbol)
-  | .app fn argument => fn.callSpine && fn.wellFormed names &&
+  | .app fn argument => fn.positionalSpine && fn.wellFormed names &&
+      argument.expression && argument.wellFormed names
+  | .namedApp name fn argument => identifier name && fn.callSpine &&
+      decide (name ∉ fn.namedArguments) && fn.wellFormed names &&
       argument.expression && argument.wellFormed names
   | .field _ value | .property _ value => value.prefix && value.wellFormed names
   | .index _ value index => value.prefix && value.wellFormed names &&
@@ -106,12 +126,13 @@ def Expr.wellFormed (names : FunctionNames Fn) : Expr Fn ty → Bool
   | .add left right | .sub left right => left.simple && right.primary &&
       left.wellFormed names && right.wellFormed names
   | .eq left right | .ne left right | .lt left right | .le left right | .gt left right | .ge left right
-  | .intLe left right | .intGe left right | .nameEq left right | .kindEq left right | .routineEq left right | .exportEq left right | .modeNe left right
+  | .intLe left right | .intGe left right | .nameEq left right | .kindEq left right | .routineEq left right | .exportEq left right | .modeNe left right | .modeEq left right | .stateSetNe left right
   | .unitMapEq left right | .unitMapNe left right =>
       left.simple && right.simple && left.wellFormed names && right.wellFormed names
   | .not value => value.primary && value.wellFormed names
   | .andThen left right => left.andHead && right.relation && left.wellFormed names && right.wellFormed names
   | .orElse left right => left.orHead && right.relation && left.wellFormed names && right.wellFormed names
+  | .eagerOr left right => left.eagerOrHead && right.relation && left.wellFormed names && right.wellFormed names
   | .group value => (value.expression || value.conditional || value.quantified) && value.wellFormed names
   | .ite test yes no | .elsif test yes no => test.expression && yes.expression &&
       (no.expression || no.isElsif) && test.wellFormed names && yes.wellFormed names && no.wellFormed names
@@ -124,6 +145,12 @@ def Expr.wellFormed (names : FunctionNames Fn) : Expr Fn ty → Bool
       after.wellFormed names && kind.wellFormed names && bounds.wellFormed names
   | .applicationCall count value scan => count.expression && value.expression && scan.expression &&
       count.wellFormed names && value.wellFormed names && scan.wellFormed names
+  | .stateDeclarationValue name kind typeName identity declaredBounds initialBounds first after value =>
+      name.expression && kind.expression && typeName.expression && identity.expression &&
+      declaredBounds.expression && initialBounds.expression && first.expression && after.expression && value.expression &&
+      name.wellFormed names && kind.wellFormed names && typeName.wellFormed names && identity.wellFormed names &&
+      declaredBounds.wellFormed names && initialBounds.wellFormed names && first.wellFormed names &&
+      after.wellFormed names && value.wellFormed names
   | .functionType after kind bounds typeId => after.expression && kind.expression && bounds.expression &&
       typeId.expression && after.wellFormed names && kind.wellFormed names && bounds.wellFormed names && typeId.wellFormed names
   | .functionFormal first after kind bounds typeId => first.expression && after.expression &&
@@ -168,17 +195,20 @@ def Expr.scoped (scope : Scope) : Expr Fn ty → Bool
   | .number _ | .integer _ | .truth _ | .word _ | .scalarKind _ | .exportKind _ | .mode _
   | .unitKind _ | .bodyStop _ | .routineKind _ | .emptyActuals | .emptySeen | .function _ | .full | .empty | .invalidCall | .invalidObject | .emptyStateSet | .invalidType | .invalidState | .noHidden
   | .noCalls | .booleanType | .integerType | .token _ | .maxConcatenations | .emptyMetadata | .invalidAnalysis => true
-  | .app fn argument => fn.scoped scope && argument.scoped scope
+  | .app fn argument | .namedApp _ fn argument => fn.scoped scope && argument.scoped scope
   | .field _ value | .property _ value | .not value | .group value | .sourceLast value | .sourceLength value => value.scoped scope
   | .index _ value index => value.scoped scope && index.scoped scope
   | .add left right | .sub left right | .eq left right | .ne left right | .lt left right
   | .le left right | .gt left right | .ge left right | .intLe left right | .intGe left right | .nameEq left right
-  | .kindEq left right | .routineEq left right | .exportEq left right | .modeNe left right | .andThen left right
-  | .orElse left right | .nameSpan left right | .sourcePrefix left right | .conditionalTrue left right
+  | .kindEq left right | .routineEq left right | .exportEq left right | .modeNe left right | .modeEq left right | .stateSetNe left right | .andThen left right
+  | .orElse left right | .eagerOr left right | .nameSpan left right | .sourcePrefix left right | .conditionalTrue left right
   | .unitMapEq left right | .unitMapNe left right => left.scoped scope && right.scoped scope
   | .ite test yes no | .elsif test yes no => test.scoped scope && yes.scoped scope && no.scoped scope
   | .callValueAggregate after kind bounds => after.scoped scope && kind.scoped scope && bounds.scoped scope
   | .applicationCall count value scan => count.scoped scope && value.scoped scope && scan.scoped scope
+  | .stateDeclarationValue name kind typeName identity declaredBounds initialBounds first after value =>
+      name.scoped scope && kind.scoped scope && typeName.scoped scope && identity.scoped scope &&
+      declaredBounds.scoped scope && initialBounds.scoped scope && first.scoped scope && after.scoped scope && value.scoped scope
   | .functionType after kind bounds typeId => after.scoped scope && kind.scoped scope && bounds.scoped scope && typeId.scoped scope
   | .functionFormal first after kind bounds typeId => first.scoped scope && after.scoped scope &&
       kind.scoped scope && bounds.scoped scope && typeId.scoped scope
@@ -199,7 +229,81 @@ def Updates.scoped (scope : Scope) : Updates Fn owner → Bool
   | .more _ value rest => value.scoped scope && rest.scoped scope
 end
 
+/- Named associations use the same curried evaluator only after this check
+matches each label to its native formal at the current application depth. The
+source boundary must bind `parameters` to the actual callee headers. -/
+mutual
+def Expr.namedCorrect (parameters : FunctionParameters Fn) : Expr Fn ty → Bool
+  | .variable _ => true
+  | .number _ | .integer _ | .truth _ | .word _ | .scalarKind _ | .exportKind _ | .mode _
+  | .unitKind _ | .bodyStop _ | .routineKind _ | .emptyActuals | .emptySeen | .function _ | .full | .empty | .invalidCall | .invalidObject | .emptyStateSet | .invalidType | .invalidState | .noHidden
+  | .noCalls | .booleanType | .integerType | .token _ | .maxConcatenations | .emptyMetadata | .invalidAnalysis => true
+  | .app fn argument => fn.namedCorrect parameters && argument.namedCorrect parameters
+  | .namedApp name fn argument => (fn.formalAt parameters 0 == some name) &&
+      fn.namedCorrect parameters && argument.namedCorrect parameters
+  | .field _ value | .property _ value | .not value | .group value | .sourceLast value | .sourceLength value => value.namedCorrect parameters
+  | .index _ value index => value.namedCorrect parameters && index.namedCorrect parameters
+  | .add left right | .sub left right | .eq left right | .ne left right | .lt left right
+  | .le left right | .gt left right | .ge left right | .intLe left right | .intGe left right | .nameEq left right
+  | .kindEq left right | .routineEq left right | .exportEq left right | .modeNe left right | .modeEq left right | .stateSetNe left right | .andThen left right
+  | .orElse left right | .eagerOr left right | .nameSpan left right | .sourcePrefix left right | .conditionalTrue left right
+  | .unitMapEq left right | .unitMapNe left right => left.namedCorrect parameters && right.namedCorrect parameters
+  | .ite test yes no | .elsif test yes no => test.namedCorrect parameters && yes.namedCorrect parameters && no.namedCorrect parameters
+  | .callValueAggregate after kind bounds => after.namedCorrect parameters && kind.namedCorrect parameters && bounds.namedCorrect parameters
+  | .applicationCall count value scan => count.namedCorrect parameters && value.namedCorrect parameters && scan.namedCorrect parameters
+  | .stateDeclarationValue name kind typeName identity declaredBounds initialBounds first after value =>
+      name.namedCorrect parameters && kind.namedCorrect parameters && typeName.namedCorrect parameters && identity.namedCorrect parameters &&
+      declaredBounds.namedCorrect parameters && initialBounds.namedCorrect parameters && first.namedCorrect parameters && after.namedCorrect parameters && value.namedCorrect parameters
+  | .functionType after kind bounds typeId => after.namedCorrect parameters && kind.namedCorrect parameters && bounds.namedCorrect parameters && typeId.namedCorrect parameters
+  | .functionFormal first after kind bounds typeId => first.namedCorrect parameters && after.namedCorrect parameters &&
+      kind.namedCorrect parameters && bounds.namedCorrect parameters && typeId.namedCorrect parameters
+  | .procedureFormal first after kind bounds typeId mode => first.namedCorrect parameters && after.namedCorrect parameters &&
+      kind.namedCorrect parameters && bounds.namedCorrect parameters && typeId.namedCorrect parameters && mode.namedCorrect parameters
+  | .scanResult state assigned output => state.namedCorrect parameters && assigned.namedCorrect parameters && output.namedCorrect parameters
+  | .analysisValue accepted info functions procedures arguments assigned output =>
+      accepted.namedCorrect parameters && info.namedCorrect parameters && functions.namedCorrect parameters && procedures.namedCorrect parameters &&
+      arguments.namedCorrect parameters && assigned.namedCorrect parameters && output.namedCorrect parameters
+  | .packageType name after kind bounds identity => name.namedCorrect parameters && after.namedCorrect parameters &&
+      kind.namedCorrect parameters && bounds.namedCorrect parameters && identity.namedCorrect parameters
+  | .forAll _ first last body | .forSome _ first last body =>
+      first.namedCorrect parameters && last.namedCorrect parameters && body.namedCorrect parameters
+  | .forAllStates _ body => body.namedCorrect parameters
+  | .update base changes => base.namedCorrect parameters && changes.namedCorrect parameters
+def Updates.namedCorrect (parameters : FunctionParameters Fn) : Updates Fn owner → Bool
+  | .one _ value => value.namedCorrect parameters
+  | .more _ value rest => value.namedCorrect parameters && rest.namedCorrect parameters
+end
+
 namespace StructuralControls
+
+inductive NamedFunction : Ty → Type
+  | sample : NamedFunction (.arrow .number (.arrow .truth .number))
+
+def namedFunctionNames : FunctionNames NamedFunction
+  | _, .sample => ["sample"]
+
+def namedFunctionParameters : FunctionParameters NamedFunction
+  | _, .sample => ["position", "local"]
+
+def namedTail (label : String) : Expr NamedFunction .number :=
+  .namedApp label (.app (.function .sample) (.number 1)) (.truth true)
+
+theorem named_call_order_and_labels :
+    (namedTail "local").wellFormedRoot namedFunctionNames = true ∧
+    (namedTail "local").namedCorrect namedFunctionParameters = true ∧
+    (namedTail "range_query").namedCorrect namedFunctionParameters = false ∧
+    (namedTail "local)").wellFormedRoot namedFunctionNames = false ∧
+    (Expr.app (.namedApp "position" (.function .sample) (.number 1)) (.truth true) : Expr NamedFunction .number).wellFormedRoot namedFunctionNames = false ∧
+    (Expr.namedApp "position" (.namedApp "position" (.function .sample) (.number 1)) (.truth true) : Expr NamedFunction .number).wellFormedRoot namedFunctionNames = false := by decide +kernel
+
+theorem named_call_exact_render :
+    (namedTail "local").render namedFunctionNames =
+      ["sample", "(", "1", ",", "local", "=>", "true", ")"] := by decide +kernel
+
+theorem named_call_meaning (calls : Calls Fn) (locals : Locals)
+    (name : String) (fn : Expr Fn (.arrow a b)) (argument : Expr Fn a) :
+    (Expr.namedApp name fn argument).eval calls locals =
+      fn.eval calls locals (argument.eval calls locals) := rfl
 
 abbrev NoFunctions := fun (_ : Ty) => Empty
 
