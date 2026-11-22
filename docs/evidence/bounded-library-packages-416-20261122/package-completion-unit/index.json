@@ -1,0 +1,20 @@
+{
+  "host": "linux-x86_64",
+  "run_id": "20261122T180531-b69231da0fc6",
+  "implementation_commit": "81af4b54770b233d85a0d5139d429f6ff426e466",
+  "targets": [
+    "Silver.ApplicationPackageMainSourceCandidate",
+    "Silver.ApplicationPackageBodiesExecution"
+  ],
+  "declarations": 21032,
+  "inputs_digest_sha256": "5eb103a54856f4c434d51d2ff062ce2c6632210108b7784ffc8049c04e61c4bc",
+  "elapsed_seconds": 16.917,
+  "scope": "Focused exact Main header/body candidate, raw package completion/unit control and finite-execution lemmas; complete source/callee interpretation remains open.",
+  "selected_agent_settings": "Astra Max per briefing; live model and effort telemetry unavailable",
+  "artifacts_sha256": {
+    "evidence.json": "bc681155b74947965b118f37583f7ebdd53dde9f757c4c3323ab3b5c045aa04e",
+    "lean-focused.log.gz": "ee94f800ea1933f3055619e06cfe0228882742c9fd88314d16837908777bce62",
+    "events.jsonl.gz": "8687602a28c94848f9dbaf333263de135fa471409e161a05aa6ad31fc23b7027",
+    "main-source-candidate.json.gz": "4c0381e4eb7cb9e0f4b0c7cd550b4295d958775fd6e7ec2067e51cad655b9b58"
+  }
+}
