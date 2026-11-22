@@ -1,5 +1,5 @@
 {
-  "source_sha256": "c1a59b4b655fec3a25f6d27eaa56b3a20572441d41fa6532e054a7cfd81efec5",
+  "source_sha256": "9450a06ef818cb329cfe09d3ab22caf4362e0ece6f684a5dc7e79a87ec334b4a",
   "scope": "Conservative helper inventory; successful prior whole-unit checks are retained evidence and still require final provenance matching. No complete Output_Profile or compiler assurance is claimed.",
   "completed_canonical_units": {
     "silver_package_bindings.adb": {
@@ -119,10 +119,12 @@
       "current_lines": [
         8366
       ],
-      "coverage": "complete-helper-failed",
-      "run": "20261122T165753-f61735da6ae4",
-      "checks": 66,
-      "unproved": 2
+      "coverage": "complete-helper-success",
+      "run": "20261122T172039-c364b0adf1b1",
+      "checks": 77,
+      "unproved": 0,
+      "flow": 14,
+      "proof": 63
     },
     {
       "name": "Package_Spec_At",

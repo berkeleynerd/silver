@@ -71,3 +71,24 @@ success so far. Signature and Spec remain unresolved, all other new package
 helpers and affected callers need complete coverage, and the later integrated
 native/source checkpoint remains required. The existing runner takes one unit
 or one subprogram selector; no multi-subprogram batching is claimed.
+
+## Signature complete success after checked validity assertions
+
+Canonical whole-helper run `20261122T172039-c364b0adf1b1` passed **77 checks**
+(14 flow and 63 proof) in 1107.200 seconds, with two managed
+workers. The source hash is
+`9450a06ef818cb329cfe09d3ab22caf4362e0ece6f684a5dc7e79a87ec334b4a`, retained
+in `signature-cut-points-input.adb.gz`. All assertions, preconditions, loop
+initialization/preservation, variant, output initialization and full postcondition
+passed; no selected proof/flow obligation or entity was skipped.
+
+The six checked assertions expose Array_Names/Functions validity after Hide_Outer
+and after Append, then positive cursor and the complete Valid_State before the
+successful loop exit. The original full Valid_State loop invariant, all input
+domains, native branches, solver policy and timeout remain. The successful
+complete check supports the earlier diagnosis of solver visibility/quantified
+VC difficulty, rather than establishing a counterexample to preserved validity.
+The assertions are retained as verified cut points; no identical-success rerun
+is needed to remove them. Append and Signature now have complete focused success.
+Spec and the other pending helpers/callers still require complete coverage,
+and full native/source assurance remains outstanding.
