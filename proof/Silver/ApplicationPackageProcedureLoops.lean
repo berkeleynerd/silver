@@ -41,6 +41,16 @@ theorem whileLocals_sound {test : Locals → Bool} {body : Locals → Option Out
         cases found
         exact .stopped (Bool.eq_false_iff.mpr tested)
 
+theorem WhileExecution.preserves {test : Locals → Bool} {body : Locals → Option Outcome}
+    {locals : Locals} {result : Outcome} (execution : WhileExecution test body locals result)
+    (property : Locals → Prop)
+    (preserved : ∀ current outcome, property current → body current = some outcome → property outcome.locals)
+    (initial : property locals) : property result.locals := by
+  induction execution with
+  | stopped => exact initial
+  | returned _ selected _ => exact preserved _ _ initial selected
+  | continued _ selected _ _ induction => exact induction (preserved _ _ initial selected)
+
 theorem whileLocals_total {test : Locals → Bool} {body : Locals → Option Outcome}
     (valid : Locals → Prop) (measure : Locals → Nat)
     (stepTotal : ∀ locals, valid locals → test locals = true →
