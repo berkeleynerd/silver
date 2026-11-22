@@ -231,4 +231,168 @@ theorem buildLibrary_localOn {definitions : List RoutineDefinition} {library : R
     (built : buildLibrary definitions = some library) : library.environment.LocalOn library.effects :=
   buildLibraryFrom_localOn SharedEnvironment.empty_localOn built
 
+def schemaBindings (schema : StateSchema) : List InputBinding :=
+  schema.map fun declaration => ⟨declaration.cell, declaration.domain⟩
+
+def schemaValues (schema : StateSchema) (frame : Frame) : List Value :=
+  schema.map fun declaration => readCell frame declaration.cell
+
+def loadSchema (base : Frame) (schema : StateSchema) (values : List Value) : Frame :=
+  bindInputs base (schemaBindings schema) values
+
+def schemaPlan (schema : StateSchema) : List Transfer :=
+  schema.map fun declaration => ⟨declaration.cell, declaration.cell⟩
+
+theorem schemaPlan_valid {schema : StateSchema} (valid : schema.Valid) : TransferPlanValid (schemaPlan schema) := by
+  refine ⟨?_, ?_⟩
+  · simpa [schemaPlan, List.map_map, Function.comp_def] using valid.1
+  · intro transfer member
+    obtain ⟨declaration, _, rfl⟩ := List.mem_map.mp member
+    change SameKind declaration.cell declaration.cell
+    cases declaration.cell <;> trivial
+
+theorem loadSchema_values (base original : Frame) (schema : StateSchema) :
+    loadSchema base schema (schemaValues schema original) = copyCells original base (schemaPlan schema) := by
+  induction schema generalizing base with
+  | nil => rfl
+  | cons declaration rest ih =>
+      simp only [loadSchema, schemaBindings, schemaValues, schemaPlan, List.map_cons, bindInputs, copyCells]
+      exact ih _
+
+theorem loadSchema_equal {schema : StateSchema} (valid : schema.Valid) (base original : Frame) :
+    EqualOn (schema.map StateDeclaration.cell) original (loadSchema base schema (schemaValues schema original)) := by
+  intro cell member
+  obtain ⟨declaration, declMem, rfl⟩ := List.mem_map.mp member
+  rw [loadSchema_values]
+  exact copyCells_value original base (schemaPlan_valid valid) (List.mem_map.mpr ⟨declaration, declMem, rfl⟩)
+
+theorem bindInputs_changes (bindings : List InputBinding) (values : List Value) (base : Frame) :
+    ChangesOnly (bindings.map InputBinding.target) base (bindInputs base bindings values) := by
+  induction bindings generalizing values base with
+  | nil => exact changesOnly_refl _ _
+  | cons binding rest ih =>
+      cases values with
+      | nil => exact changesOnly_refl _ _
+      | cons value values => exact changesOnly_sequence (changesOnly_write base binding.target value) (ih values _)
+
+theorem loadSchema_changes (base : Frame) (schema : StateSchema) (values : List Value) :
+    ChangesOnly (schema.map StateDeclaration.cell) base (loadSchema base schema values) := by
+  simpa [loadSchema, schemaBindings, List.map_map, Function.comp_def] using
+    bindInputs_changes (schemaBindings schema) values base
+
+theorem schemaValues_fit {schema : StateSchema} {frame : Frame} (fits : schema.Fits frame) :
+    ScalarFunctions.ArgumentsFit (schema.map StateDeclaration.domain) (schemaValues schema frame) := by
+  induction schema with
+  | nil => trivial
+  | cons declaration rest ih =>
+      exact ⟨fits declaration (by simp), ih (fun other member => fits other (by simp [member]))⟩
+
+theorem loadSchema_preservesFits {schema captured : StateSchema} {base original : Frame}
+    (valid : captured.Valid) (baseFits : schema.Fits base) (originalFits : schema.Fits original) :
+    schema.Fits (loadSchema base captured (schemaValues captured original)) := by
+  intro declaration member
+  by_cases selected : declaration.cell ∈ captured.map StateDeclaration.cell
+  · rw [loadSchema_equal valid base original declaration.cell selected]
+    exact originalFits declaration member
+  · rw [loadSchema_changes base captured (schemaValues captured original) declaration.cell selected]
+    exact baseFits declaration member
+
+theorem StateSchema.filter_valid {schema : StateSchema} (valid : schema.Valid)
+    (selected : StateDeclaration → Bool) : StateSchema.Valid (schema.filter selected) := by
+  refine ⟨?_, ?_⟩
+  · exact List.pairwise_map.mpr (List.Pairwise.filter selected (List.pairwise_map.mp valid.1))
+  · intro declaration member
+    exact valid.2 declaration (List.mem_filter.mp member).1
+
+def Effects.writeSchema (effects : Effects) (schema : StateSchema) : StateSchema :=
+  schema.filter fun declaration => effects.writes.contains declaration.cell
+
+def Effects.CoveredBy (effects : Effects) (schema : StateSchema) : Prop :=
+  ∀ cell, effects.Captures cell → cell ∈ schema.map StateDeclaration.cell
+
+theorem Effects.captureSchema_cells {effects : Effects} {schema : StateSchema}
+    (covered : effects.CoveredBy schema) (cell : Cell) :
+    cell ∈ (effects.captureSchema schema).map StateDeclaration.cell ↔ effects.Captures cell := by
+  constructor
+  · intro member
+    obtain ⟨declaration, declMem, rfl⟩ := List.mem_map.mp member
+    exact ((effects.mem_captureSchema schema declaration).mp declMem).2
+  · intro member
+    obtain ⟨declaration, inside, same⟩ := List.mem_map.mp (covered cell member)
+    apply List.mem_map.mpr
+    refine ⟨declaration, ?_, same⟩
+    exact (effects.mem_captureSchema schema declaration).mpr ⟨inside, same.symm ▸ member⟩
+
+theorem Effects.writeSchema_cells {effects : Effects} {schema : StateSchema}
+    (covered : effects.CoveredBy schema) (cell : Cell) :
+    cell ∈ (effects.writeSchema schema).map StateDeclaration.cell ↔ cell ∈ effects.writes := by
+  constructor
+  · intro member
+    obtain ⟨declaration, declMem, rfl⟩ := List.mem_map.mp member
+    exact List.contains_iff_mem.mp (List.mem_filter.mp declMem).2
+  · intro member
+    obtain ⟨declaration, inside, same⟩ := List.mem_map.mp (covered cell (Or.inr member))
+    apply List.mem_map.mpr
+    refine ⟨declaration, List.mem_filter.mpr ⟨inside, ?_⟩, same⟩
+    exact List.contains_iff_mem.mpr (same.symm ▸ member)
+
+structure CapturedResult where
+  writes : List Value
+  outputs : List Value
+
+/-- The closed evaluator receives only the explicit input tuple and the
+declaration-order R∪W tuple. Its other globals come from canonical elaboration;
+read locality proves those unobserved choices irrelevant. No author source is
+rewritten or compiled from this semantic representation. -/
+def RoutineDefinition.executeClosed (earlier : SharedEnvironment) (definition : RoutineDefinition)
+    (schema : StateSchema) (effects : Effects) (inputs captures : List Value) : CapturedResult :=
+  let globals := loadSchema (initialState schema) (effects.captureSchema schema) captures
+  let result := definition.execute earlier globals inputs
+  ⟨schemaValues (effects.writeSchema schema) result.1, result.2⟩
+
+def RoutineDefinition.invokeClosed (earlier : SharedEnvironment) (definition : RoutineDefinition)
+    (schema : StateSchema) (effects : Effects) (globals : Frame) (inputs : List Value) : Frame × List Value :=
+  let result := definition.executeClosed earlier schema effects inputs
+    (schemaValues (effects.captureSchema schema) globals)
+  (loadSchema globals (effects.writeSchema schema) result.writes, result.outputs)
+
+theorem capturedEntry_fits {schema : StateSchema} (valid : schema.Valid) (effects : Effects)
+    {globals : Frame} (fitting : schema.Fits globals) :
+    schema.Fits (loadSchema (initialState schema) (effects.captureSchema schema)
+      (schemaValues (effects.captureSchema schema) globals)) :=
+  loadSchema_preservesFits (StateSchema.filter_valid valid _) (initialState_fits valid) fitting
+
+theorem RoutineDefinition.invokeClosed_correct {definitions : List RoutineDefinition} {library : RoutineLibrary}
+    (built : buildLibrary definitions = some library) {definition : RoutineDefinition} {effects : Effects}
+    (inferred : definition.inferEffects library.effects = some effects) {schema : StateSchema}
+    (valid : schema.Valid) (covered : effects.CoveredBy schema) (globals : Frame) (inputs : List Value) :
+    definition.invokeClosed library.environment schema effects globals inputs =
+      definition.execute library.environment globals inputs := by
+  have previous := buildLibrary_localOn built
+  let captures := effects.captureSchema schema
+  let writes := effects.writeSchema schema
+  let restored := loadSchema (initialState schema) captures (schemaValues captures globals)
+  let closed := definition.execute library.environment restored inputs
+  let original := definition.execute library.environment globals inputs
+  have captureValid : captures.Valid := StateSchema.filter_valid valid _
+  have writeValid : writes.Valid := StateSchema.filter_valid valid _
+  have restoredEqual : EqualOn effects.cells globals restored := by
+    apply (loadSchema_equal captureValid (initialState schema) globals).mono
+    intro cell member
+    exact (effects.captureSchema_cells covered cell).mpr ((Effects.mem_cells _ _).mp member)
+  have locality := definition.execute_local previous inferred restoredEqual inputs
+  have changed := definition.execute_changes previous.footprints inferred globals inputs
+  have returned := loadSchema_equal writeValid globals closed.1
+  have copyChanged := loadSchema_changes globals writes (schemaValues writes closed.1)
+  have state : loadSchema globals writes (schemaValues writes closed.1) = original.1 := by
+    apply frame_ext
+    intro cell
+    by_cases written : cell ∈ effects.writes
+    · exact (returned cell ((effects.writeSchema_cells covered cell).mpr written)).trans
+        (locality.2 cell ((Effects.mem_cells _ _).mpr (Or.inr written)))
+    · have absent : cell ∉ writes.map StateDeclaration.cell :=
+        fun member => written ((effects.writeSchema_cells covered cell).mp member)
+      exact (copyChanged cell absent).trans (changed cell written).symm
+  exact Prod.ext state locality.1
+
 end Silver.Packages
