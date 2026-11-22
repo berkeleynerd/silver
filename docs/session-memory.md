@@ -1,5 +1,17 @@
 # Session memory
 
+## 2026-11-22 — PR #412 merge authorized
+
+After the final readiness assessment, the owner instructed **“Please merge.”**
+This authorizes merging [PR #412](https://github.com/berkeleynerd/silver/pull/412),
+whose [completed review response](reviews/review-pr412-claude-response-20261122.md)
+and final validation are recorded at `f71304cef2`. This authorization entry
+changes no validated production, proof or test inputs. Complete the linked
+issue, milestone and board bookkeeping with the merge. The earlier merge holds
+for this PR are superseded; other holds remain unchanged. Ravenscar foundations
+remain the planned successor, with implementation requiring its own instruction.
+CLI memory was not updated.
+
 ## 2026-11-22 — Ravenscar foundations prioritized; Jorvik reassessment next
 
 The owner instructed **“Let's update the near-term roadmap to prioritize these
