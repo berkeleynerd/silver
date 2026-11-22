@@ -3611,10 +3611,12 @@ is
    function Bare_Target
      (Text : String; Context : Body_Context; Position, After : Literal_Position)
       return Scalar_Expressions.Binding_Count is
-     (declare First : constant Literal_Position := Skip_At (Text, Position);
-      Last : constant Literal_Position := Name_After (Text, First);
+     (declare Reference : constant Scalar_Expressions.Name_Reference :=
+        Scalar_Expressions.Read_Reference (Text, Position);
+      Last : constant Literal_Position := Reference.After;
       Index : constant Scalar_Expressions.Binding_Count :=
-        Scalar_Expressions.Lookup (Text, Context.Scalar_Names, First, Last);
+        Scalar_Expressions.Lookup (Text, Context.Scalar_Names, Reference.First, Last,
+          Reference.Qualifier_First, Reference.Qualifier_After);
       begin
         (if Index /= 0 and then Last = After
           and then (Context.Scalar_Names.Items (Index).Mutable or else Index > Context.Declaration_Count)
