@@ -202,3 +202,29 @@ changed during this group. The main Package_Call_At check follows.
 | State_Target | `20261122T182648-adfcc33cbbd5` | 10 (2 + 8) | 36.213 |
 | State_Reads | `20261122T182838-66d41187d493` | 10 (2 + 8) | 35.634 |
 | Package_Callee | `20261122T183016-b28ca489391a` | 11 (3 + 8) | 36.085 |
+
+## Complete Call failure and first repair
+
+Canonical run `20261122T183136-3e6f28606690` failed after 1,980.083 seconds
+on `e181c06fc2ac104092b9166eb276338feeca254ad21446fdfc3903cd81a7dc02`,
+with six unresolved obligations: cursor bounds at Skip_At, Actual_After,
+Procedure_Target_Actual and State_Target; stored actual span bounds at
+Actual_Name_Free; and the stored scalar index into flow values. The overwritten
+Call_Writes initializer was also rejected by the warnings-as-errors policy.
+The complete failure packet and exact source are retained here.
+
+The repair carries the positive bounded cursor, every stored actual span,
+conditional successful target validity and every target scalar bound across
+the filling loop. It removes the overwritten initializer and explicitly rejects
+a zero writable-target endpoint before the alias calls, preserving all native
+entry domains and required obligations. Successful explicit writable actuals
+already pass a strict positive-progress guard; this local rejection makes their
+use safe without assuming formal-slot permutation coverage. Matching raw and
+typed alias-model updates and the canonical whole-helper recheck are pending
+at this source-only checkpoint. No complete-helper success is claimed.
+
+The same source includes the approved Routine_Frame guard rejecting
+Routine > Info.Routine_Count before its body observes the Item. Its original
+precondition/declarations remain; inactive storage is unobserved on early return.
+Architecture owns the matching full-domain frame interpretation. Routine_Frame
+and its caller contracts still need canonical complete-helper checks.

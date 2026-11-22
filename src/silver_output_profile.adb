@@ -8768,7 +8768,7 @@ is
         Scalar_Expressions.Read_Reference (Text, Position);
       Result : Application_Call (Input.Count) := (Input.Count, Invalid_Call, Input);
       Actuals : Package_Actual_Array := (others => (others => <>));
-      Call_Writes : Packages.State_Set := Packages.Empty_State_Set;
+      Call_Writes : Packages.State_Set;
       Seen : Package_Seen_Array := (others => False);
       Item : Packages.Routine;
       Cursor_At, First, Last, Arrow_End, Following : Literal_Position;
@@ -8790,6 +8790,16 @@ is
          Cursor_At := Take_Token (Text, Cursor_At, Left_Parenthesis);
          if Cursor_At = 0 then return Failure; end if;
          for Ordinal in 1 .. Item.Count loop
+            pragma Loop_Invariant (Cursor_At in 1 .. Text'Last + 1);
+            pragma Loop_Invariant
+              (for all A in Actuals'Range =>
+                 Actuals (A).First <= Text'Last + 1
+                 and then Actuals (A).After <= Text'Last + 1
+                 and then Actuals (A).Target.Scalar <= Context.Scalar_Names.Count
+                 and then (Actuals (A).Target.After = 0
+                   or else (Actuals (A).Target.First > 0
+                     and then Valid_Name_State
+                       (Text, Actuals (A).Target.First, Actuals (A).Target.After))));
             First := Skip_At (Text, Cursor_At);
             Last := Name_After (Text, First);
             Arrow_End := Take_Token (Text, Last, Arrow);
@@ -8842,6 +8852,7 @@ is
                if Item.May_Write (S) and then Actuals (I).Reads (S) then return Failure; end if;
             end loop;
             if Info.Parameters (I).Mode /= Procedures.Input then
+               if Actuals (I).Target.After = 0 then return Failure; end if;
                if Actuals (I).Written_State /= 0 and then
                  (Item.May_Read (Actuals (I).Written_State)
                   or else Item.May_Write (Actuals (I).Written_State))
@@ -9162,6 +9173,7 @@ is
       Parameter : Packages.Formal;
       Mark : Package_Type_Result;
    begin
+      if Routine > Info.Routine_Count then return Invalid_State; end if;
       for I in 1 .. Result.Boolean_Names.Count loop
          if Result.Boolean_Names.Items (I).Mutable then Result.Boolean_Names.Items (I).Known := False; end if;
       end loop;
