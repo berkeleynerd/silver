@@ -248,6 +248,8 @@ theorem candidate_checked : Checked candidateTokens where
       ApplicationPackageCompletion.Native.commands,
       ApplicationPackageCompletion.Native.localLoop,
       ApplicationPackageCompletion.Native.outputRead,
+      ApplicationPackageCompletion.Native.outputReadBlock,
+      ApplicationPackageCompletion.Native.outputReadBody,
       ApplicationPackageCompletion.Native.outputAppend,
       ApplicationPackageCompletion.Native.bodyCommands,
       ApplicationPackageCompletion.Native.fail,

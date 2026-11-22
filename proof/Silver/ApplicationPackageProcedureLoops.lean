@@ -11,6 +11,31 @@ callee-contract domain, rather than imposed as a source-membership condition. -/
 namespace Silver.ApplicationPackageProcedure
 open ApplicationNative
 
+theorem eval_nothing {Fn : Ty → Type} (functions : Calls Fn) (procedures : ProcedureCalls)
+    (fuel : Nat) :
+    Command.eval functions procedures fuel .nothing = fun locals => some ⟨locals, false⟩ := rfl
+
+theorem eval_assign {Fn : Ty → Type} {ty : Ty} (functions : Calls Fn) (procedures : ProcedureCalls)
+    (fuel : Nat) (place : Place Fn ty) (value : Expr Fn ty) :
+    Command.eval functions procedures fuel (.assign place value) = fun locals =>
+      some ⟨place.set functions locals (value.eval functions locals), false⟩ := rfl
+
+theorem eval_sequence {Fn : Ty → Type} (functions : Calls Fn) (procedures : ProcedureCalls)
+    (fuel : Nat) (first rest : Command Fn) :
+    Command.eval functions procedures fuel (.sequence first rest) = fun locals =>
+      (first.eval functions procedures fuel locals).bind (fun result =>
+        result.bind (rest.eval functions procedures fuel)) := rfl
+
+theorem eval_choose {Fn : Ty → Type} (functions : Calls Fn) (procedures : ProcedureCalls)
+    (fuel : Nat) (test : Expr Fn .truth) (yes no : Command Fn) :
+    Command.eval functions procedures fuel (.choose test yes no) = fun locals =>
+      if test.eval functions locals then yes.eval functions procedures fuel locals
+      else no.eval functions procedures fuel locals := rfl
+
+theorem eval_returned {Fn : Ty → Type} (functions : Calls Fn) (procedures : ProcedureCalls)
+    (fuel : Nat) :
+    Command.eval functions procedures fuel .returned = fun locals => some ⟨locals, true⟩ := rfl
+
 inductive WhileExecution (test : Locals → Bool) (body : Locals → Option Outcome) :
     Locals → Outcome → Prop
   | stopped {locals} : test locals = false → WhileExecution test body locals ⟨locals, false⟩

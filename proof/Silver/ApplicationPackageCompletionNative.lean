@@ -160,6 +160,15 @@ def outputReadContext : Declaration Fn := {
   constant := true
   initial := some (.update (contextOf frame (.truth false)) (.one .contextDeclarationCount (.number 0)))}
 
+def outputReadBody : ApplicationPackageProcedure.Command Fn := .list [
+  .assign (.variable "value_after") (.app (.app (.app (.app (.app (.function .actualAfter) text) context)
+    (.variable "value_first")) (.app (.function .initialFlow) context))
+    (.functionFormal (.field .nameFirst (.field .formalBodyName formal)) (.field .nameAfter (.field .formalBodyName formal))
+      (.field .formalKind formal) (.field .formalBounds formal) (.number 0))),
+  .assign (.variable "reads") (union (.variable "reads") (reads context (.variable "value_first") (.variable "value_after")))]
+
+def outputReadBlock : ApplicationPackageProcedure.Command Fn := .block [outputReadContext] outputReadBody
+
 def outputRead : ApplicationPackageProcedure.Command Fn := .list [
   .assign (.variable "formal") (.index .formal info (.variable "i")),
   .choose output (.list [
@@ -168,12 +177,7 @@ def outputRead : ApplicationPackageProcedure.Command Fn := .list [
     .assign (.variable "last") (after (.variable "first")),
     .choose (.not (same (.variable "first") (.variable "last") (.field .formalBodyName formal))) fail .nothing,
     .assign (.variable "value_first") (token (.variable "last") (.symbol ":=")),
-    .block [outputReadContext] (.list [
-      .assign (.variable "value_after") (.app (.app (.app (.app (.app (.function .actualAfter) text) context)
-        (.variable "value_first")) (.app (.function .initialFlow) context))
-        (.functionFormal (.field .nameFirst (.field .formalBodyName formal)) (.field .nameAfter (.field .formalBodyName formal))
-          (.field .formalKind formal) (.field .formalBounds formal) (.number 0))),
-      .assign (.variable "reads") (union (.variable "reads") (reads context (.variable "value_first") (.variable "value_after")))]),
+    outputReadBlock,
     .assign (.variable "following") (token (.variable "value_after") (.symbol ";")),
     .choose (.le (.variable "following") position) fail .nothing,
     .assign (.field .statePosition (.variable "frame")) (.variable "following"),
