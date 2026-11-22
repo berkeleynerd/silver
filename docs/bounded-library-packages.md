@@ -145,3 +145,26 @@ all worker counts and thread/child affinity must respect that allocation.
 
 Runtime-confirmed agent settings and whole-team token/cost measurements are not
 independently exposed. These exploratory results are not final compiler assurance.
+
+## Continuing source integration — 2026-11-22
+
+The complete Signature helper now passes all 77 checks in
+`20261122T172039-c364b0adf1b1`. Six proved intermediate validity assertions retain
+the facts that the solvers previously lost; entry domains and the full invariant
+are unchanged. Further focused checks cover the name/type helpers, Hide_Outer,
+and all four static Boolean readers. The last Boolean reader needed a two-line
+control repair: its invariant `while` condition became an unconditional loop,
+using the existing internal return when no operator remains. Its complete
+22-check native validation and matching model/source-tree check are retained in
+the [native packet](evidence/bounded-library-packages-416-20261122/native-package-contracts/README.md)
+and [Boolean loop packet](evidence/bounded-library-packages-416-20261122/static-unconditional-loop/README.md).
+
+| Round | Selected settings | Outcome and next check |
+| --- | --- | --- |
+| Main source interpretation and package control | Architecture subthread: GPT-6 Astra Max | The exact typed Main reader, its proposed source-token match, and raw completion/unit control passed [focused checks](evidence/bounded-library-packages-416-20261122/package-completion-unit/README.md). Typed procedure control also passed its [own check](evidence/bounded-library-packages-416-20261122/package-procedure-control/README.md). Complete package-body decoding and original-source integration remain pending. |
+| Native declaration representation | Source subthread: GPT-6 Astra Max | The [shared declaration API](evidence/bounded-library-packages-416-20261122/package-source-core/declaration-api/README.md) preserves arbitrary uninitialized scalar values and the actual partial defaults of native records. The count-growth projection is proved against arbitrary full storage. These foundations still need their source-bound declaration/body uses. |
+| State effects and frame qualification | Continuing lead proof work; runtime settings not independently exposed | The [state-effect equations](evidence/bounded-library-packages-416-20261122/state-effects-model/README.md), all three [frame qualification loops and effect trees](evidence/bounded-library-packages-416-20261122/frame-loops-effect-trees/README.md) passed focused checks. A whole-frame normalization attempt grew to approximately 24 GiB observed RSS and was interrupted; its next proof composes intermediate-state equalities. The successful smaller results are retained. |
+
+All of these are development checkpoints. The remaining native helper/caller
+contracts, whole-reader source correspondence, complete validation, final Rosetta
+promotion and independent delivery review still block a support/completion claim.
