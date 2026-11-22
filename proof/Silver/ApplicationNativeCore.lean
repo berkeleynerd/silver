@@ -1,6 +1,9 @@
 module
 
 public import Silver.ApplicationPackageNames
+public import Silver.ApplicationAdmissionModel
+public import Silver.ApplicationPackageTypes
+public import Silver.ComposeContracts
 
 @[expose] public section
 
@@ -14,12 +17,16 @@ namespace Silver.ApplicationNative
 
 open Compose
 
+deriving instance DecidableEq for Compose.ShellToken
+
 inductive Ty
   | number | integer | truth | source | spelling | state | metadata | nameSpan
   | packageType | functionType | scalarKind | exportKind | interval
   | scalars | booleans | subtypes | names | scalarBinding | booleanBinding
   | subtypeBinding | nameBinding | hiding | callHiding | functions | procedures | arrays
   | unitKind | unitSpan | routine | exportItem | stateDeclaration | formal | mode
+  | token | bundle | unitMap | analysis | charge | specification | bodyResult
+  | bodyScan | appScan | appCall | callResult | packageActual | procedureActual | stateSet | activeFlow | parseContext
   | arrow (domain codomain : Ty)
   deriving DecidableEq, Repr
 
@@ -38,6 +45,14 @@ inductive Ty
   | .unitSpan => ApplicationUnits.Span | .routine => PackageBindings.Routine
   | .exportItem => PackageBindings.ExportDeclaration | .stateDeclaration => PackageBindings.StateDeclaration
   | .formal => PackageBindings.Formal | .mode => ProcedureBindings.Mode
+  | .token => ShellToken | .bundle => ApplicationUnits.Bundle
+  | .unitMap => ApplicationUnits.UnitKind → ApplicationUnits.Span
+  | .analysis => ApplicationAdmission.AnalysisResult | .charge => ApplicationAdmission.ChargeResult
+  | .specification => ApplicationAdmission.SpecificationResult | .bodyResult => ApplicationAdmission.BodyResult
+  | .bodyScan => Predicate.BodyScan | .appScan => ApplicationPackages.ApplicationScan
+  | .appCall => ApplicationPackages.ApplicationCall | .callResult => Predicate.CallResult
+  | .packageActual => ApplicationPackages.PackageActual | .procedureActual => Predicate.ProcedureActualResult
+  | .stateSet => PackageBindings.StateSet | .activeFlow => Predicate.ActiveFlow | .parseContext => Predicate.ParseContext
   | .arrow a b => a.meaning → b.meaning
 
 def Ty.default : (ty : Ty) → ty.meaning
@@ -49,9 +64,54 @@ def Ty.default : (ty : Ty) → ty.meaning
   | .subtypeBinding => {} | .nameBinding => {} | .hiding => {} | .callHiding => {}
   | .functions => {} | .procedures => {} | .arrays => {} | .unitKind => .packageSpecification
   | .unitSpan => ⟨1,1⟩ | .routine => {} | .exportItem => {} | .stateDeclaration => {} | .formal => {}
-  | .mode => .input | .arrow _ b => fun _ => b.default
+  | .mode => .input | .token => .symbol ";"
+  | .bundle => ⟨[], 0, fun _ => ⟨1,1⟩⟩ | .unitMap => fun _ => ⟨1,1⟩
+  | .analysis => ApplicationAdmission.invalidAnalysis | .charge => ⟨0,false⟩
+  | .specification => ⟨{}, invalidState⟩ | .bodyResult => ⟨{},false⟩
+  | .bodyScan => ⟨0,0,0,⟨PathFacts.Context.empty,[]⟩,false,false⟩
+  | .appScan => {scan := ⟨0,0,0,⟨PathFacts.Context.empty,[]⟩,false,false⟩}
+  | .appCall => {result := {scan := ⟨0,0,0,⟨PathFacts.Context.empty,[]⟩,false,false⟩}}
+  | .callResult => Predicate.invalidCall | .packageActual => {} | .procedureActual => Predicate.invalidProcedureActual
+  | .stateSet => PackageBindings.emptyStateSet | .activeFlow => ⟨PathFacts.Context.empty,[]⟩
+  | .parseContext => {names := [], hasArguments := false}
+  | .arrow _ b => fun _ => b.default
 
 inductive Field : Ty → Ty → Type
+  | bundlePool : Field .bundle .source
+  | bundleUsed : Field .bundle .number
+  | bundleUnits : Field .bundle .unitMap
+  | infoUnits : Field .metadata .unitMap
+  | analysisAccepted : Field .analysis .truth
+  | analysisPackageInfo : Field .analysis .metadata
+  | analysisMainFunctions : Field .analysis .functions
+  | analysisMainProcedures : Field .analysis .procedures
+  | analysisUsesArguments : Field .analysis .truth
+  | analysisUsesAssignment : Field .analysis .truth
+  | analysisUsesOutput : Field .analysis .truth
+  | scanPosition : Field .bodyScan .number
+  | scanTarget : Field .bodyScan .number
+  | scanCapacity : Field .bodyScan .number
+  | scanFacts : Field .bodyScan .activeFlow
+  | scanAssigned : Field .bodyScan .truth
+  | scanOutput : Field .bodyScan .truth
+  | applicationScan : Field .appScan .bodyScan
+  | applicationAllowProcedureCalls : Field .appScan .truth
+  | applicationReads : Field .appScan .stateSet
+  | applicationWrites : Field .appScan .stateSet
+  | callValue : Field .appCall .callResult
+  | callResult : Field .appCall .appScan
+  | valueAfter : Field .callResult .number
+  | valueKind : Field .callResult .scalarKind
+  | valueBounds : Field .callResult .interval
+  | actualFirst : Field .packageActual .number
+  | actualAfter : Field .packageActual .number
+  | actualTarget : Field .packageActual .procedureActual
+  | actualReads : Field .packageActual .stateSet
+  | actualWrittenState : Field .packageActual .number
+  | targetFirst : Field .procedureActual .number
+  | targetAfter : Field .procedureActual .number
+  | targetScalar : Field .procedureActual .number
+  | targetFlag : Field .procedureActual .number
   | subtypesHiddenCalls : Field .subtypes .callHiding
   | statePosition : Field .state .number
   | stateContextFirst : Field .state .number
@@ -161,6 +221,41 @@ inductive Field : Ty → Ty → Type
   | procedureParameterCount : Field .procedures .number
 
 def Field.name : Field a b → String
+  | .bundlePool => "pool"
+  | .bundleUsed => "used"
+  | .bundleUnits => "units"
+  | .infoUnits => "units"
+  | .analysisAccepted => "accepted"
+  | .analysisPackageInfo => "package_info"
+  | .analysisMainFunctions => "main_functions"
+  | .analysisMainProcedures => "main_procedures"
+  | .analysisUsesArguments => "uses_arguments"
+  | .analysisUsesAssignment => "uses_assignment"
+  | .analysisUsesOutput => "uses_output"
+  | .scanPosition => "position"
+  | .scanTarget => "target"
+  | .scanCapacity => "capacity"
+  | .scanFacts => "facts"
+  | .scanAssigned => "assigned"
+  | .scanOutput => "output"
+  | .applicationScan => "scan"
+  | .applicationAllowProcedureCalls => "allow_procedure_calls"
+  | .applicationReads => "reads"
+  | .applicationWrites => "writes"
+  | .callValue => "value"
+  | .callResult => "result"
+  | .valueAfter => "after"
+  | .valueKind => "kind"
+  | .valueBounds => "bounds"
+  | .actualFirst => "first"
+  | .actualAfter => "after"
+  | .actualTarget => "target"
+  | .actualReads => "reads"
+  | .actualWrittenState => "written_state"
+  | .targetFirst => "first"
+  | .targetAfter => "after"
+  | .targetScalar => "scalar"
+  | .targetFlag => "flag"
   | .subtypesHiddenCalls => "hidden_calls"
   | .statePosition => "position"
   | .stateContextFirst => "context_first"
@@ -270,6 +365,41 @@ def Field.name : Field a b → String
   | .procedureParameterCount => "parameter_count"
 
 def Field.get : Field a b → a.meaning → b.meaning
+  | .bundlePool, value => value.pool
+  | .bundleUsed, value => value.used
+  | .bundleUnits, value => value.units
+  | .infoUnits, value => value.units
+  | .analysisAccepted, value => value.accepted
+  | .analysisPackageInfo, value => value.packageInfo
+  | .analysisMainFunctions, value => value.mainFunctions
+  | .analysisMainProcedures, value => value.mainProcedures
+  | .analysisUsesArguments, value => value.usesArguments
+  | .analysisUsesAssignment, value => value.usesAssignment
+  | .analysisUsesOutput, value => value.usesOutput
+  | .scanPosition, value => value.position
+  | .scanTarget, value => value.target
+  | .scanCapacity, value => value.capacity
+  | .scanFacts, value => value.facts
+  | .scanAssigned, value => value.assigned
+  | .scanOutput, value => value.output
+  | .applicationScan, value => value.scan
+  | .applicationAllowProcedureCalls, value => value.allowProcedureCalls
+  | .applicationReads, value => value.reads
+  | .applicationWrites, value => value.writes
+  | .callValue, value => value.value
+  | .callResult, value => value.result
+  | .valueAfter, value => value.after
+  | .valueKind, value => value.kind
+  | .valueBounds, value => value.bounds
+  | .actualFirst, value => value.first
+  | .actualAfter, value => value.after
+  | .actualTarget, value => value.target
+  | .actualReads, value => value.reads
+  | .actualWrittenState, value => value.writtenState
+  | .targetFirst, value => value.first
+  | .targetAfter, value => value.after
+  | .targetScalar, value => value.scalar
+  | .targetFlag, value => value.flag
   | .subtypesHiddenCalls, value => value.hiddenCalls
   | .statePosition, value => value.position
   | .stateContextFirst, value => value.contextFirst
@@ -382,6 +512,41 @@ def Field.get : Field a b → a.meaning → b.meaning
 not exceed the current active count; increasing native storage needs a richer
 representation and is deliberately not justified by this projection. -/
 def Field.set : Field a b → a.meaning → b.meaning → a.meaning
+  | .bundlePool, value, item => {value with pool := item}
+  | .bundleUsed, value, item => {value with used := item}
+  | .bundleUnits, value, item => {value with units := item}
+  | .infoUnits, value, item => {value with units := item}
+  | .analysisAccepted, value, item => {value with accepted := item}
+  | .analysisPackageInfo, value, item => {value with packageInfo := item}
+  | .analysisMainFunctions, value, item => {value with mainFunctions := item}
+  | .analysisMainProcedures, value, item => {value with mainProcedures := item}
+  | .analysisUsesArguments, value, item => {value with usesArguments := item}
+  | .analysisUsesAssignment, value, item => {value with usesAssignment := item}
+  | .analysisUsesOutput, value, item => {value with usesOutput := item}
+  | .scanPosition, value, item => {value with position := item}
+  | .scanTarget, value, item => {value with target := item}
+  | .scanCapacity, value, item => {value with capacity := item}
+  | .scanFacts, value, item => {value with facts := item}
+  | .scanAssigned, value, item => {value with assigned := item}
+  | .scanOutput, value, item => {value with output := item}
+  | .applicationScan, value, item => {value with scan := item}
+  | .applicationAllowProcedureCalls, value, item => {value with allowProcedureCalls := item}
+  | .applicationReads, value, item => {value with reads := item}
+  | .applicationWrites, value, item => {value with writes := item}
+  | .callValue, value, item => {value with value := item}
+  | .callResult, value, item => {value with result := item}
+  | .valueAfter, value, item => {value with after := item}
+  | .valueKind, value, item => {value with kind := item}
+  | .valueBounds, value, item => {value with bounds := item}
+  | .actualFirst, value, item => {value with first := item}
+  | .actualAfter, value, item => {value with after := item}
+  | .actualTarget, value, item => {value with target := item}
+  | .actualReads, value, item => {value with reads := item}
+  | .actualWrittenState, value, item => {value with writtenState := item}
+  | .targetFirst, value, item => {value with first := item}
+  | .targetAfter, value, item => {value with after := item}
+  | .targetScalar, value, item => {value with scalar := item}
+  | .targetFlag, value, item => {value with flag := item}
   | .subtypesHiddenCalls, value, item => {value with hiddenCalls := item}
   | .statePosition, value, item => {value with position := item}
   | .stateContextFirst, value, item => {value with contextFirst := item}
@@ -490,6 +655,20 @@ def Field.set : Field a b → a.meaning → b.meaning → a.meaning
   | .functionParameterCount, value, count => {value with parameters := value.parameters.take count}
   | .procedureParameterCount, value, count => {value with parameters := value.parameters.take count}
 
+/-- Native discriminants are readable properties, never writable record fields. -/
+inductive Property : Ty → Ty → Type
+  | scanCount : Property .bodyScan .number
+  | appScanCount : Property .appScan .number
+  | appCallCount : Property .appCall .number
+
+def Property.name : Property a b → String
+  | .scanCount | .appScanCount | .appCallCount => "count"
+
+def Property.get : Property a b → a.meaning → b.meaning
+  | .scanCount, value => value.count
+  | .appScanCount, value => value.count
+  | .appCallCount, value => value.count
+
 /-- Every indexed selection has a fixed source selector and fixed meaning. -/
 inductive Index : Ty → Ty → Ty → Type
   | scalar : Index .scalars .number .scalarBinding
@@ -541,6 +720,7 @@ abbrev FunctionNames (Fn : Ty → Type) := {ty : Ty} → Fn ty → List String
 
 mutual
 inductive Expr (Fn : Ty → Type) : Ty → Type
+  | token (value : ShellToken) : Expr Fn .token
   | number (value : Nat) : Expr Fn .number
   | integer (value : Int) : Expr Fn .integer
   | truth (value : Bool) : Expr Fn .truth
@@ -553,6 +733,7 @@ inductive Expr (Fn : Ty → Type) : Ty → Type
   | function (symbol : Fn ty) : Expr Fn ty
   | app : Expr Fn (.arrow a b) → Expr Fn a → Expr Fn b
   | field : Field a b → Expr Fn a → Expr Fn b
+  | property : Property a b → Expr Fn a → Expr Fn b
   | index : Index a i b → Expr Fn a → Expr Fn i → Expr Fn b
   | add : Expr Fn .number → Expr Fn .number → Expr Fn .number
   | sub : Expr Fn .number → Expr Fn .number → Expr Fn .number
@@ -563,6 +744,8 @@ inductive Expr (Fn : Ty → Type) : Ty → Type
   | gt : Expr Fn .number → Expr Fn .number → Expr Fn .truth
   | ge : Expr Fn .number → Expr Fn .number → Expr Fn .truth
   | intLe : Expr Fn .integer → Expr Fn .integer → Expr Fn .truth
+  | unitMapEq : Expr Fn .unitMap → Expr Fn .unitMap → Expr Fn .truth
+  | unitMapNe : Expr Fn .unitMap → Expr Fn .unitMap → Expr Fn .truth
   | nameEq : Expr Fn .nameSpan → Expr Fn .nameSpan → Expr Fn .truth
   | kindEq : Expr Fn .scalarKind → Expr Fn .scalarKind → Expr Fn .truth
   | exportEq : Expr Fn .exportKind → Expr Fn .exportKind → Expr Fn .truth
@@ -575,6 +758,10 @@ inductive Expr (Fn : Ty → Type) : Ty → Type
   | elsif : Expr Fn .truth → Expr Fn ty → Expr Fn ty → Expr Fn ty
   | sourceLast : Expr Fn .source → Expr Fn .number
   | sourceLength : Expr Fn .source → Expr Fn .number
+  | sourcePrefix : Expr Fn .source → Expr Fn .number → Expr Fn .source
+  | maxConcatenations : Expr Fn .number
+  | emptyMetadata : Expr Fn .metadata
+  | invalidAnalysis : Expr Fn .analysis
   | nameSpan : Expr Fn .number → Expr Fn .number → Expr Fn .nameSpan
   | packageType : Expr Fn .nameSpan → Expr Fn .number → Expr Fn .scalarKind →
       Expr Fn .interval → Expr Fn .number → Expr Fn .packageType
@@ -611,6 +798,7 @@ def unitKindName : ApplicationUnits.UnitKind → List String
 
 mutual
 def Expr.render (names : FunctionNames Fn) : Expr Fn ty → List String
+  | .token value => [Compose.Expressions.tokenName value]
   | .number value => [toString value] | .integer value => [toString value]
   | .truth value => [if value then "true" else "false"] | .word value => ["\"" ++ value ++ "\""]
   | .scalarKind value => scalarKindName value | .exportKind value => exportKindName value
@@ -620,12 +808,13 @@ def Expr.render (names : FunctionNames Fn) : Expr Fn ty → List String
     | .app _ _ => (fn.render names).dropLast ++ [","] ++ argument.render names ++ [")"]
     | _ => fn.render names ++ ["("] ++ argument.render names ++ [")"]
   | .field projection value => value.render names ++ [".", projection.name]
+  | .property projection value => value.render names ++ [".", projection.name]
   | .index selection value index => value.render names ++ [".", selection.name, "("] ++ index.render names ++ [")"]
   | .add left right => left.render names ++ ["+"] ++ right.render names
   | .sub left right => left.render names ++ ["-"] ++ right.render names
-  | .eq left right | .nameEq left right | .kindEq left right | .exportEq left right =>
+  | .eq left right | .nameEq left right | .kindEq left right | .exportEq left right | .unitMapEq left right =>
       left.render names ++ ["="] ++ right.render names
-  | .ne left right | .modeNe left right => left.render names ++ ["/="] ++ right.render names
+  | .ne left right | .modeNe left right | .unitMapNe left right => left.render names ++ ["/="] ++ right.render names
   | .lt left right => left.render names ++ ["<"] ++ right.render names
   | .le left right | .intLe left right => left.render names ++ ["<="] ++ right.render names
   | .gt left right => left.render names ++ [">"] ++ right.render names
@@ -640,6 +829,10 @@ def Expr.render (names : FunctionNames Fn) : Expr Fn ty → List String
       (match no with | .elsif _ _ _ => no.render names | _ => ["else"] ++ no.render names)
   | .sourceLast text => text.render names ++ ["'", "last"]
   | .sourceLength text => text.render names ++ ["'", "length"]
+  | .sourcePrefix text last => text.render names ++ ["(", "1", ".."] ++ last.render names ++ [")"]
+  | .maxConcatenations => ["max_concatenations"]
+  | .emptyMetadata => ["packages", ".", "empty_metadata"]
+  | .invalidAnalysis => ["invalid_analysis"]
   | .nameSpan first after => ["("] ++ first.render names ++ [","] ++ after.render names ++ [")"]
   | .packageType name after kind bounds identity => ["("] ++ name.render names ++ [","] ++
       after.render names ++ [","] ++ kind.render names ++ [","] ++ bounds.render names ++ [","] ++
@@ -661,11 +854,13 @@ end
 
 mutual
 def Expr.eval (calls : Calls Fn) (locals : Locals) : Expr Fn ty → ty.meaning
+  | .token value => value
   | .number value => value | .integer value => value | .truth value => value | .word value => value
   | .scalarKind value => value | .exportKind value => value | .mode value => value | .unitKind value => value
   | .variable name => locals _ name | .function symbol => calls _ symbol
   | .app fn argument => fn.eval calls locals (argument.eval calls locals)
   | .field projection value => projection.get (value.eval calls locals)
+  | .property projection value => projection.get (value.eval calls locals)
   | .index selection value index => selection.get (value.eval calls locals) (index.eval calls locals)
   | .add left right => left.eval calls locals + right.eval calls locals
   | .sub left right => left.eval calls locals - right.eval calls locals
@@ -676,6 +871,8 @@ def Expr.eval (calls : Calls Fn) (locals : Locals) : Expr Fn ty → ty.meaning
   | .gt left right => decide (left.eval calls locals > right.eval calls locals)
   | .ge left right => decide (left.eval calls locals ≥ right.eval calls locals)
   | .intLe left right => decide (left.eval calls locals ≤ right.eval calls locals)
+  | .unitMapEq left right => ApplicationAdmission.unitsEqual (left.eval calls locals) (right.eval calls locals)
+  | .unitMapNe left right => !(ApplicationAdmission.unitsEqual (left.eval calls locals) (right.eval calls locals))
   | .nameEq left right => decide (left.eval calls locals = right.eval calls locals)
   | .kindEq left right => decide (left.eval calls locals = right.eval calls locals)
   | .exportEq left right => decide (left.eval calls locals = right.eval calls locals)
@@ -686,6 +883,9 @@ def Expr.eval (calls : Calls Fn) (locals : Locals) : Expr Fn ty → ty.meaning
   | .group value => value.eval calls locals
   | .ite condition yes no | .elsif condition yes no => if condition.eval calls locals then yes.eval calls locals else no.eval calls locals
   | .sourceLast text | .sourceLength text => (text.eval calls locals).length
+  | .sourcePrefix text last => (text.eval calls locals).take (last.eval calls locals)
+  | .maxConcatenations => Compose.maxConcatenations
+  | .emptyMetadata => {} | .invalidAnalysis => ApplicationAdmission.invalidAnalysis
   | .nameSpan first after => ⟨first.eval calls locals, after.eval calls locals⟩
   | .packageType name after kind bounds identity => ⟨name.eval calls locals, after.eval calls locals,
       kind.eval calls locals, bounds.eval calls locals, identity.eval calls locals⟩

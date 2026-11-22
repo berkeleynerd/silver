@@ -1,0 +1,21 @@
+{
+  "run_id": "20261122T165538-2defc40faf97",
+  "scope": "Focused typed application values, token guards and read-only scanner count properties; no complete feature/source endpoint claim.",
+  "files": [
+    {
+      "path": "lean-focused-evidence.json.gz",
+      "sha256": "2f5d9f12ce0a30a5fd51fd2dac070757d1010b5fd31d3b0fb4ddf49b1d621c6b",
+      "uncompressed_sha256": "dd6c1d4b14d8271be68124f17faee8bd87bb2dad9777e26c46750675c3972330"
+    },
+    {
+      "path": "lean-focused.log.gz",
+      "sha256": "003adf080a727f4b84556b34dc73bb87ec9bf6ba43717fb86b31042b5e7947a9",
+      "uncompressed_sha256": "850dd927f5cce0efc0245555f1c55411e5f8349f79787640de96d8656d4422b5"
+    },
+    {
+      "path": "events.jsonl.gz",
+      "sha256": "9ff10a6ea8e6077e79ea9f70d437b060378e8fd7d357d0a5da621bbdb615ebfc",
+      "uncompressed_sha256": "51e931feed800293b5b8d82c6e4d83bd1090dbc0343d1c6223ba24d76828b5c6"
+    }
+  ]
+}
