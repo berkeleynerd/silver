@@ -112,6 +112,7 @@ inductive Field : Ty → Ty → Type
   | routineMayRead : Field .routine .stateSet
   | routineMayWrite : Field .routine .stateSet
   | routineAssigned : Field .routine .truth
+  | contextNames : Field .parseContext .names
   | contextDeclarationCount : Field .parseContext .number
   | contextMaskFirst : Field .parseContext .number
   | contextMaskAfter : Field .parseContext .number
@@ -303,6 +304,7 @@ def Field.name : Field a b → String
   | .routineMayRead => "may_read"
   | .routineMayWrite => "may_write"
   | .routineAssigned => "assigned"
+  | .contextNames => "names"
   | .contextDeclarationCount => "declaration_count"
   | .contextMaskFirst => "mask_first"
   | .contextMaskAfter => "mask_after"
@@ -494,6 +496,7 @@ def Field.get : Field a b → a.meaning → b.meaning
   | .routineMayRead, value => value.mayRead
   | .routineMayWrite, value => value.mayWrite
   | .routineAssigned, value => value.assigned
+  | .contextNames, value => value.names
   | .contextDeclarationCount, value => value.declarationCount
   | .contextMaskFirst, value => value.maskFirst
   | .contextMaskAfter, value => value.maskAfter
@@ -688,6 +691,7 @@ def Field.set : Field a b → a.meaning → b.meaning → a.meaning
   | .routineMayRead, value, item => {value with mayRead := item}
   | .routineMayWrite, value, item => {value with mayWrite := item}
   | .routineAssigned, value, item => {value with assigned := item}
+  | .contextNames, value, item => {value with names := item}
   | .contextDeclarationCount, value, item => {value with declarationCount := item}
   | .contextMaskFirst, value, item => {value with maskFirst := item}
   | .contextMaskAfter, value, item => {value with maskAfter := item}
@@ -869,14 +873,16 @@ def Field.set : Field a b → a.meaning → b.meaning → a.meaning
 
 /-- Native discriminants are readable properties, never writable record fields. -/
 inductive Property : Ty → Ty → Type
+  | flowCount : Property .activeFlow .number
   | scanCount : Property .bodyScan .number
   | appScanCount : Property .appScan .number
   | appCallCount : Property .appCall .number
 
 def Property.name : Property a b → String
-  | .scanCount | .appScanCount | .appCallCount => "count"
+  | .flowCount | .scanCount | .appScanCount | .appCallCount => "count"
 
 def Property.get : Property a b → a.meaning → b.meaning
+  | .flowCount, value => value.count
   | .scanCount, value => value.count
   | .appScanCount, value => value.count
   | .appCallCount, value => value.count
@@ -996,6 +1002,8 @@ inductive Expr (Fn : Ty → Type) : Ty → Type
   | index : Index a i b → Expr Fn a → Expr Fn i → Expr Fn b
   | add : Expr Fn .number → Expr Fn .number → Expr Fn .number
   | sub : Expr Fn .number → Expr Fn .number → Expr Fn .number
+  | inRange : Expr Fn .number → Expr Fn .number → Expr Fn .number → Expr Fn .truth
+  | intervalEq : Expr Fn .interval → Expr Fn .interval → Expr Fn .truth
   | eq : Expr Fn .number → Expr Fn .number → Expr Fn .truth
   | ne : Expr Fn .number → Expr Fn .number → Expr Fn .truth
   | lt : Expr Fn .number → Expr Fn .number → Expr Fn .truth
@@ -1045,6 +1053,9 @@ inductive Expr (Fn : Ty → Type) : Ty → Type
   | forAll (name : String) : Expr Fn .number → Expr Fn .number → Expr Fn .truth → Expr Fn .truth
   | forSome (name : String) : Expr Fn .number → Expr Fn .number → Expr Fn .truth → Expr Fn .truth
   | forAllStates (name : String) : Expr Fn .truth → Expr Fn .truth
+  | forAllFlowValues (name : String) : Expr Fn .activeFlow → Expr Fn .truth → Expr Fn .truth
+  /-- Package_Actual_Array uses its declared fixed range, never an active prefix. -/
+  | forAllActuals (name : String) : Expr Fn .packageActuals → Expr Fn .truth → Expr Fn .truth
   | update : Expr Fn ty → Updates Fn ty → Expr Fn ty
 inductive Updates (Fn : Ty → Type) : Ty → Type
   | one : Field owner ty → Expr Fn ty → Updates Fn owner
@@ -1127,9 +1138,10 @@ def Expr.render (names : FunctionNames Fn) : Expr Fn ty → List String
   | .index selection value index => value.render names ++ selection.path ++ ["("] ++ index.render names ++ [")"]
   | .add left right => left.render names ++ ["+"] ++ right.render names
   | .sub left right => left.render names ++ ["-"] ++ right.render names
-  | .eq left right | .nameEq left right | .kindEq left right | .routineEq left right | .exportEq left right | .unitMapEq left right | .modeEq left right =>
+  | .intervalEq left right | .eq left right | .nameEq left right | .kindEq left right | .routineEq left right | .exportEq left right | .unitMapEq left right | .modeEq left right =>
       left.render names ++ ["="] ++ right.render names
   | .ne left right | .modeNe left right | .unitMapNe left right | .stateSetNe left right | .intNe left right => left.render names ++ ["/="] ++ right.render names
+  | .inRange value first last => value.render names ++ ["in"] ++ first.render names ++ [".."] ++ last.render names
   | .lt left right => left.render names ++ ["<"] ++ right.render names
   | .le left right | .intLe left right => left.render names ++ ["<="] ++ right.render names
   | .gt left right => left.render names ++ [">"] ++ right.render names
@@ -1172,6 +1184,10 @@ def Expr.render (names : FunctionNames Fn) : Expr Fn ty → List String
   | .forSome name first last body => ["for", "some", name, "in"] ++ first.render names ++ [".."] ++
       last.render names ++ ["=>"] ++ body.render names
   | .forAllStates name body => ["for", "all", name, "in", "packages", ".", "state_index", "=>"] ++ body.render names
+  | .forAllFlowValues name facts body => ["for", "all", name, "in"] ++ facts.render names ++
+      [".", "values", "'", "range", "=>"] ++ body.render names
+  | .forAllActuals name actuals body => ["for", "all", name, "in"] ++ actuals.render names ++
+      ["'", "range", "=>"] ++ body.render names
   | .update value changes => ["("] ++ value.render names ++ ["with", "delta"] ++ changes.render names ++ [")"]
 def Updates.render (names : FunctionNames Fn) : Updates Fn owner → List String
   | .one field value => [field.name, "=>"] ++ value.render names
@@ -1219,6 +1235,9 @@ def Expr.eval (calls : Calls Fn) (locals : Locals) : Expr Fn ty → ty.meaning
   | .index selection value index => selection.get (value.eval calls locals) (index.eval calls locals)
   | .add left right => left.eval calls locals + right.eval calls locals
   | .sub left right => left.eval calls locals - right.eval calls locals
+  | .inRange value first last => decide (first.eval calls locals ≤ value.eval calls locals ∧
+      value.eval calls locals ≤ last.eval calls locals)
+  | .intervalEq left right => decide (left.eval calls locals = right.eval calls locals)
   | .eq left right => decide (left.eval calls locals = right.eval calls locals)
   | .ne left right => decide (left.eval calls locals ≠ right.eval calls locals)
   | .lt left right => decide (left.eval calls locals < right.eval calls locals)
@@ -1265,6 +1284,10 @@ def Expr.eval (calls : Calls Fn) (locals : Locals) : Expr Fn ty → ty.meaning
       (List.range (last.eval calls locals + 1 - first.eval calls locals)).any fun offset =>
         body.eval calls (locals.set .number name (first.eval calls locals + offset))
   | .forAllStates name body => (List.range PackageBindings.maxStates).all fun offset =>
+      body.eval calls (locals.set .number name (offset + 1))
+  | .forAllFlowValues name facts body => (List.range (facts.eval calls locals).count).all fun offset =>
+      body.eval calls (locals.set .number name (offset + 1))
+  | .forAllActuals name _ body => (List.range PackageBindings.maxFormals).all fun offset =>
       body.eval calls (locals.set .number name (offset + 1))
   | .update value changes => changes.eval calls locals (value.eval calls locals)
 def Updates.eval (calls : Calls Fn) (locals : Locals) : Updates Fn owner → owner.meaning → owner.meaning

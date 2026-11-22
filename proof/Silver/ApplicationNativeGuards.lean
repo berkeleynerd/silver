@@ -40,10 +40,10 @@ def Expr.prefix : Expr Fn ty → Bool
   | .full | .empty | .invalidCall | .invalidObject | .emptyStateSet | .invalidType | .invalidState | .noHidden | .booleanType | .integerType
   | .scalarKind _ | .exportKind _ | .mode _ | .unitKind _ | .bodyStop _ | .routineKind _ | .token _ | .maxConcatenations | .emptyMetadata | .invalidAnalysis | .sourcePrefix _ _ => true
   | .number _ | .integer _ | .truth _ | .word _ | .add _ _ | .sub _ _ | .eq _ _ | .ne _ _
-  | .lt _ _ | .le _ _ | .gt _ _ | .ge _ _ | .intLe _ _ | .intGe _ _ | .intNe _ _ | .nameEq _ _ | .kindEq _ _ | .routineEq _ _
+  | .inRange _ _ _ | .lt _ _ | .le _ _ | .gt _ _ | .ge _ _ | .intLe _ _ | .intGe _ _ | .intNe _ _ | .intervalEq _ _ | .nameEq _ _ | .kindEq _ _ | .routineEq _ _
   | .exportEq _ _ | .modeNe _ _ | .modeEq _ _ | .stateSetNe _ _ | .unitMapEq _ _ | .unitMapNe _ _ | .not _ | .andThen _ _ | .orElse _ _ | .eagerOr _ _ | .group _
   | .ite _ _ _ | .conditionalTrue _ _ | .elsif _ _ _ | .sourceLast _ | .sourceLength _ | .nameSpan _ _
-  | .scalarConstraintValue _ _ | .scalarBindingValue _ _ _ _ _ _ _ _ | .booleanBindingValue _ _ _ _ _ _ _ | .stateDeclarationValue _ _ _ _ _ _ _ _ _ | .callValueAggregate _ _ _ | .applicationCall _ _ _ | .packageType _ _ _ _ _ | .scanResult _ _ _ | .analysisValue _ _ _ _ _ _ _ | .forAll _ _ _ _ | .forSome _ _ _ _ | .forAllStates _ _ | .update _ _ | .noCalls | .emptyActuals | .emptySeen | .functionType _ _ _ _ | .functionFormal _ _ _ _ _ | .procedureFormal _ _ _ _ _ _ => false
+  | .scalarConstraintValue _ _ | .scalarBindingValue _ _ _ _ _ _ _ _ | .booleanBindingValue _ _ _ _ _ _ _ | .stateDeclarationValue _ _ _ _ _ _ _ _ _ | .callValueAggregate _ _ _ | .applicationCall _ _ _ | .packageType _ _ _ _ _ | .scanResult _ _ _ | .analysisValue _ _ _ _ _ _ _ | .forAll _ _ _ _ | .forSome _ _ _ _ | .forAllFlowValues _ _ _ | .forAllActuals _ _ _ | .forAllStates _ _ | .update _ _ | .noCalls | .emptyActuals | .emptySeen | .functionType _ _ _ _ | .functionFormal _ _ _ _ _ | .procedureFormal _ _ _ _ _ _ => false
 
 def Expr.primary : Expr Fn ty → Bool
   | .variable _ | .function _ | .app _ _ | .namedApp _ _ _ | .soleApp _ _ | .field _ _ | .property _ _ | .index _ _ _ | .number _ | .integer _
@@ -52,17 +52,17 @@ def Expr.primary : Expr Fn ty → Bool
   | .invalidCall | .invalidObject | .emptyStateSet | .invalidType | .invalidState | .noHidden | .noCalls | .booleanType | .integerType | .update _ _
   | .emptyActuals | .emptySeen | .functionType _ _ _ _ | .functionFormal _ _ _ _ _ | .procedureFormal _ _ _ _ _ _
   | .token _ | .maxConcatenations | .emptyMetadata | .invalidAnalysis | .sourcePrefix _ _ => true
-  | .add _ _ | .sub _ _ | .eq _ _ | .ne _ _ | .lt _ _ | .le _ _ | .gt _ _ | .ge _ _
-  | .intLe _ _ | .intGe _ _ | .intNe _ _ | .nameEq _ _ | .kindEq _ _ | .routineEq _ _ | .exportEq _ _ | .modeNe _ _ | .modeEq _ _ | .stateSetNe _ _ | .unitMapEq _ _ | .unitMapNe _ _ | .not _
-  | .andThen _ _ | .orElse _ _ | .eagerOr _ _ | .ite _ _ _ | .conditionalTrue _ _ | .elsif _ _ _ | .forAll _ _ _ _ | .forSome _ _ _ _ | .forAllStates _ _ => false
+  | .add _ _ | .sub _ _ | .eq _ _ | .ne _ _ | .inRange _ _ _ | .lt _ _ | .le _ _ | .gt _ _ | .ge _ _
+  | .intLe _ _ | .intGe _ _ | .intNe _ _ | .intervalEq _ _ | .nameEq _ _ | .kindEq _ _ | .routineEq _ _ | .exportEq _ _ | .modeNe _ _ | .modeEq _ _ | .stateSetNe _ _ | .unitMapEq _ _ | .unitMapNe _ _ | .not _
+  | .andThen _ _ | .orElse _ _ | .eagerOr _ _ | .ite _ _ _ | .conditionalTrue _ _ | .elsif _ _ _ | .forAll _ _ _ _ | .forSome _ _ _ _ | .forAllFlowValues _ _ _ | .forAllActuals _ _ _ | .forAllStates _ _ => false
 
 def Expr.simple (value : Expr Fn ty) : Bool := value.primary || match value with
   | .add _ _ | .sub _ _ => true
   | _ => false
 
 def Expr.relation (value : Expr Fn ty) : Bool := value.simple || match value with
-  | .eq _ _ | .ne _ _ | .lt _ _ | .le _ _ | .gt _ _ | .ge _ _ | .intLe _ _ | .intGe _ _ | .intNe _ _
-  | .nameEq _ _ | .kindEq _ _ | .routineEq _ _ | .exportEq _ _ | .modeNe _ _ | .modeEq _ _ | .stateSetNe _ _ | .unitMapEq _ _ | .unitMapNe _ _ | .not _ => true
+  | .eq _ _ | .ne _ _ | .inRange _ _ _ | .lt _ _ | .le _ _ | .gt _ _ | .ge _ _ | .intLe _ _ | .intGe _ _ | .intNe _ _
+  | .intervalEq _ _ | .nameEq _ _ | .kindEq _ _ | .routineEq _ _ | .exportEq _ _ | .modeNe _ _ | .modeEq _ _ | .stateSetNe _ _ | .unitMapEq _ _ | .unitMapNe _ _ | .not _ => true
   | _ => false
 
 def Expr.andHead (value : Expr Fn ty) : Bool := value.relation || match value with
@@ -80,7 +80,7 @@ def Expr.logical (value : Expr Fn .truth) : Bool := value.expression
 
 def Expr.conditional : Expr Fn ty → Bool | .ite _ _ _ | .conditionalTrue _ _ => true | _ => false
 
-def Expr.quantified : Expr Fn ty → Bool | .forAll _ _ _ _ | .forSome _ _ _ _ | .forAllStates _ _ => true | _ => false
+def Expr.quantified : Expr Fn ty → Bool | .forAll _ _ _ _ | .forSome _ _ _ _ | .forAllFlowValues _ _ _ | .forAllActuals _ _ _ | .forAllStates _ _ => true | _ => false
 
 def Expr.isElsif : Expr Fn ty → Bool | .elsif _ _ _ => true | _ => false
 
@@ -128,9 +128,11 @@ def Expr.wellFormed (names : FunctionNames Fn) : Expr Fn ty → Bool
   | .add left right | .sub left right => left.simple && right.primary &&
       left.wellFormed names && right.wellFormed names
   | .eq left right | .ne left right | .lt left right | .le left right | .gt left right | .ge left right
-  | .intLe left right | .intGe left right | .intNe left right | .nameEq left right | .kindEq left right | .routineEq left right | .exportEq left right | .modeNe left right | .modeEq left right | .stateSetNe left right
+  | .intLe left right | .intGe left right | .intNe left right | .intervalEq left right | .nameEq left right | .kindEq left right | .routineEq left right | .exportEq left right | .modeNe left right | .modeEq left right | .stateSetNe left right
   | .unitMapEq left right | .unitMapNe left right =>
       left.simple && right.simple && left.wellFormed names && right.wellFormed names
+  | .inRange value first last => value.simple && first.simple && last.simple &&
+      value.wellFormed names && first.wellFormed names && last.wellFormed names
   | .not value => value.primary && value.wellFormed names
   | .andThen left right => left.andHead && right.relation && left.wellFormed names && right.wellFormed names
   | .orElse left right => left.orHead && right.relation && left.wellFormed names && right.wellFormed names
@@ -184,6 +186,8 @@ def Expr.wellFormed (names : FunctionNames Fn) : Expr Fn ty → Bool
   | .forAll name first last body | .forSome name first last body => identifier name &&
       first.simple && last.simple && body.expression && first.wellFormed names && last.wellFormed names && body.wellFormed names
   | .forAllStates name body => identifier name && body.expression && body.wellFormed names
+  | .forAllFlowValues name values body | .forAllActuals name values body =>
+      identifier name && values.prefix && body.expression && values.wellFormed names && body.wellFormed names
   | .update base changes => base.expression && base.wellFormed names &&
       decide changes.fields.Nodup && changes.wellFormed names
 def Updates.wellFormed (names : FunctionNames Fn) : Updates Fn owner → Bool
@@ -212,10 +216,11 @@ def Expr.scoped (scope : Scope) : Expr Fn ty → Bool
   | .field _ value | .property _ value | .not value | .group value | .sourceLast value | .sourceLength value => value.scoped scope
   | .index _ value index => value.scoped scope && index.scoped scope
   | .add left right | .sub left right | .eq left right | .ne left right | .lt left right
-  | .le left right | .gt left right | .ge left right | .intLe left right | .intGe left right | .intNe left right | .nameEq left right
+  | .le left right | .gt left right | .ge left right | .intLe left right | .intGe left right | .intNe left right | .intervalEq left right | .nameEq left right
   | .kindEq left right | .routineEq left right | .exportEq left right | .modeNe left right | .modeEq left right | .stateSetNe left right | .andThen left right
   | .orElse left right | .eagerOr left right | .nameSpan left right | .sourcePrefix left right | .conditionalTrue left right
   | .unitMapEq left right | .unitMapNe left right => left.scoped scope && right.scoped scope
+  | .inRange value first last => value.scoped scope && first.scoped scope && last.scoped scope
   | .ite test yes no | .elsif test yes no => test.scoped scope && yes.scoped scope && no.scoped scope
   | .callValueAggregate after kind bounds => after.scoped scope && kind.scoped scope && bounds.scoped scope
   | .applicationCall count value scan => count.scoped scope && value.scoped scope && scan.scoped scope
@@ -243,6 +248,8 @@ def Expr.scoped (scope : Scope) : Expr Fn ty → Bool
   | .forAll name first last body | .forSome name first last body =>
       first.scoped scope && last.scoped scope && body.scoped (scope.bind .number name)
   | .forAllStates name body => body.scoped (scope.bind .number name)
+  | .forAllFlowValues name values body | .forAllActuals name values body =>
+      values.scoped scope && body.scoped (scope.bind .number name)
   | .update base changes => base.scoped scope && changes.scoped scope
 def Updates.scoped (scope : Scope) : Updates Fn owner → Bool
   | .one _ value => value.scoped scope
@@ -265,10 +272,11 @@ def Expr.namedCorrect (parameters : FunctionParameters Fn) : Expr Fn ty → Bool
   | .field _ value | .property _ value | .not value | .group value | .sourceLast value | .sourceLength value => value.namedCorrect parameters
   | .index _ value index => value.namedCorrect parameters && index.namedCorrect parameters
   | .add left right | .sub left right | .eq left right | .ne left right | .lt left right
-  | .le left right | .gt left right | .ge left right | .intLe left right | .intGe left right | .intNe left right | .nameEq left right
+  | .le left right | .gt left right | .ge left right | .intLe left right | .intGe left right | .intNe left right | .intervalEq left right | .nameEq left right
   | .kindEq left right | .routineEq left right | .exportEq left right | .modeNe left right | .modeEq left right | .stateSetNe left right | .andThen left right
   | .orElse left right | .eagerOr left right | .nameSpan left right | .sourcePrefix left right | .conditionalTrue left right
   | .unitMapEq left right | .unitMapNe left right => left.namedCorrect parameters && right.namedCorrect parameters
+  | .inRange value first last => value.namedCorrect parameters && first.namedCorrect parameters && last.namedCorrect parameters
   | .ite test yes no | .elsif test yes no => test.namedCorrect parameters && yes.namedCorrect parameters && no.namedCorrect parameters
   | .callValueAggregate after kind bounds => after.namedCorrect parameters && kind.namedCorrect parameters && bounds.namedCorrect parameters
   | .applicationCall count value scan => count.namedCorrect parameters && value.namedCorrect parameters && scan.namedCorrect parameters
@@ -296,6 +304,8 @@ def Expr.namedCorrect (parameters : FunctionParameters Fn) : Expr Fn ty → Bool
   | .forAll _ first last body | .forSome _ first last body =>
       first.namedCorrect parameters && last.namedCorrect parameters && body.namedCorrect parameters
   | .forAllStates _ body => body.namedCorrect parameters
+  | .forAllFlowValues _ values body | .forAllActuals _ values body =>
+      values.namedCorrect parameters && body.namedCorrect parameters
   | .update base changes => base.namedCorrect parameters && changes.namedCorrect parameters
 def Updates.namedCorrect (parameters : FunctionParameters Fn) : Updates Fn owner → Bool
   | .one _ value => value.namedCorrect parameters
@@ -445,6 +455,68 @@ theorem fixed_array_writes_keep_capacity
     (Index.actual.set actuals index item).length = actuals.length ∧
     (Index.seen.set seen index flag).length = seen.length := by
   simp [Index.set]
+
+
+theorem membership_and_interval_equality_children :
+    (Expr.inRange (.variable "cursor") (.number 1) (.add (.sourceLast (.variable "text")) (.number 1)) : Expr NoFunctions .truth).wellFormedRoot noNames = true ∧
+    (Expr.not (.inRange (.variable "cursor") (.number 1) (.number 2)) : Expr NoFunctions .truth).wellFormedRoot noNames = false ∧
+    (Expr.inRange (.variable "cursor") (.number 1) (.variable "last") : Expr NoFunctions .truth).scoped [(.number, "cursor")] = false ∧
+    (Expr.intervalEq .empty .full : Expr NoFunctions .truth).wellFormedRoot noNames = true ∧
+    (Expr.intervalEq (.ite (.truth true) .empty .full) .full : Expr NoFunctions .truth).wellFormedRoot noNames = false := by decide +kernel
+
+theorem storage_range_scope_and_children :
+    (Expr.forAllFlowValues "i" (.variable "facts") (.le (.variable "i") (.property .flowCount (.variable "facts"))) : Expr NoFunctions .truth).scoped [(.activeFlow, "facts")] = true ∧
+    (Expr.forAllFlowValues "i" (.variable "facts") (.variable "i") : Expr NoFunctions .truth).scoped [(.activeFlow, "facts"), (.truth, "i")] = false ∧
+    (Expr.forAllActuals "i" (.variable "actuals") (.truth true) : Expr NoFunctions .truth).scoped [] = false ∧
+    (Expr.forAllActuals "i" (.group (.variable "actuals")) (.truth true) : Expr NoFunctions .truth).wellFormedRoot noNames = false ∧
+    (Expr.forAllActuals "i" (.variable "actuals") (.not (.orElse atom atom)) : Expr NoFunctions .truth).wellFormedRoot noNames = false ∧
+    (Expr.forAllActuals "i" (.variable "actuals") (.truth true) : Expr NoFunctions .truth).wellFormedRoot noNames = true := by decide +kernel
+
+theorem storage_range_rendering :
+    (Expr.forAllFlowValues "i" (.variable "facts") (.truth true) : Expr NoFunctions .truth).render noNames =
+      ["for", "all", "i", "in", "facts", ".", "values", "'", "range", "=>", "true"] ∧
+    (Expr.forAllActuals "a" (.variable "actuals") (.truth true) : Expr NoFunctions .truth).render noNames =
+      ["for", "all", "a", "in", "actuals", "'", "range", "=>", "true"] := by decide +kernel
+
+theorem flow_values_quantifier (calls : Calls Fn) (locals : Locals) (name : String)
+    (facts : Expr Fn .activeFlow) (body : Expr Fn .truth) :
+    (Expr.forAllFlowValues name facts body).eval calls locals = true ↔
+      ∀ index, 0 < index → index ≤ (facts.eval calls locals).count →
+        body.eval calls (locals.set .number name index) = true := by
+  change (List.range (facts.eval calls locals).count).all
+    (fun offset => body.eval calls (locals.set .number name (offset + 1))) = true ↔ _
+  simp only [List.all_eq_true, List.mem_range]
+  constructor
+  · intro checked index positive bounded
+    simpa only [Nat.sub_add_cancel positive] using checked (index - 1) (by omega)
+  · intro checked index bounded
+    exact checked (index + 1) (by omega) (by omega)
+
+/-- Package_Actual_Array has the full static Formal_Index domain. A shorter
+mathematical list does not shorten the source quantifier. Native representation
+separately requires its storage length to equal maxFormals. -/
+theorem actuals_quantifier (calls : Calls Fn) (locals : Locals) (name : String)
+    (actuals : Expr Fn .packageActuals) (body : Expr Fn .truth) :
+    (Expr.forAllActuals name actuals body).eval calls locals = true ↔
+      ∀ index, 0 < index → index ≤ PackageBindings.maxFormals →
+        body.eval calls (locals.set .number name index) = true := by
+  change (List.range PackageBindings.maxFormals).all
+    (fun offset => body.eval calls (locals.set .number name (offset + 1))) = true ↔ _
+  simp only [List.all_eq_true, List.mem_range]
+  constructor
+  · intro checked index positive bounded
+    simpa only [Nat.sub_add_cancel positive] using checked (index - 1) (by omega)
+  · intro checked index bounded
+    exact checked (index + 1) (by omega) (by omega)
+
+theorem actuals_native_storage (calls : Calls Fn) (locals : Locals) (name : String)
+    (actuals : Expr Fn .packageActuals) (body : Expr Fn .truth)
+    (allocated : (actuals.eval calls locals).length = PackageBindings.maxFormals) :
+    (Expr.forAllActuals name actuals body).eval calls locals =
+      (List.range (actuals.eval calls locals).length).all
+        (fun offset => body.eval calls (locals.set .number name (offset + 1))) := by
+  rw [allocated]
+  rfl
 
 end StructuralControls
 end Silver.ApplicationNative
