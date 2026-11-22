@@ -2,6 +2,7 @@ module
 
 public import Silver.Names
 public import Silver.Expressions
+public import Silver.NamedEquations
 
 @[expose] public section
 
@@ -27,6 +28,7 @@ def Ty.default : (ty : Ty) → ty.meaning
 inductive Function
   | fixedAfter | take | token | trivia | contextStep | contextTail | contextModel
   | readContext | contextAfter | operationName | operationAfter | associationAfter
+  | packageNameAfter | equalName
   deriving DecidableEq, Repr
 
 def Function.name : Function → String
@@ -34,31 +36,39 @@ def Function.name : Function → String
   | .contextStep => "context_step" | .contextTail => "context_tail" | .contextModel => "context_model"
   | .readContext => "read_context" | .contextAfter => "context_after" | .operationName => "operation_name"
   | .operationAfter => "operation_after" | .associationAfter => "association_after"
+  | .packageNameAfter => "package_name_after" | .equalName => "equal_name"
 
 def Function.type : Function → Ty
   | .fixedAfter | .take => .arrow .source (.arrow .number (.arrow .spelling (.arrow .truth .number)))
   | .token => .arrow .source (.arrow .number (.arrow .spelling (.arrow .truth .truth)))
   | .trivia => .arrow .source (.arrow .number .number)
-  | .contextStep => .arrow .source (.arrow .state .state)
-  | .contextTail => .arrow .source (.arrow .state .context)
-  | .contextModel | .readContext => .arrow .source .context
+  | .contextStep => .arrow .source (.arrow .state (.arrow .number (.arrow .number .state)))
+  | .contextTail => .arrow .source (.arrow .state (.arrow .number (.arrow .number .context)))
+  | .contextModel | .readContext => .arrow .source (.arrow .number (.arrow .number (.arrow .number .context)))
   | .contextAfter => .arrow .source (.arrow .truth .number)
   | .operationName => .arrow .operation .spelling
-  | .operationAfter => .arrow .source (.arrow .number (.arrow .operation (.arrow .truth .number)))
+  | .operationAfter => .arrow .source (.arrow .number (.arrow .operation (.arrow .truth
+      (.arrow .number (.arrow .number (.arrow .number .number))))))
   | .associationAfter => .arrow .source (.arrow .number (.arrow .truth .number))
+  | .packageNameAfter => .arrow .source (.arrow .number (.arrow .number (.arrow .number .number)))
+  | .equalName => .arrow .source (.arrow .number (.arrow .number (.arrow .number (.arrow .number .truth))))
 
 structure Calls where
   fixedAfter : Source → Nat → String → Bool → Nat
   take : Source → Nat → String → Bool → Nat
   token : Source → Nat → String → Bool → Bool
   trivia : Source → Nat → Nat
-  contextStep : Source → State → State
-  contextTail : Source → State → Names.Context
-  contextModel : Source → Names.Context
-  readContext : Source → Names.Context
+  identifier : Named.IdentifierCalls
+  skipTrivia : Source → Nat → Nat
+  matchIdentifier : Source → Nat → Nat × Bool
+  packageNameAfter : Source → Nat → Nat → Nat → Nat
+  contextStep : Source → State → Nat → Nat → State
+  contextTail : Source → State → Nat → Nat → Names.Context
+  contextModel : Source → Nat → Nat → Nat → Names.Context
+  readContext : Source → Nat → Nat → Nat → Names.Context
   contextAfter : Source → Bool → Nat
   operationName : Operation → String
-  operationAfter : Source → Nat → Operation → Bool → Nat
+  operationAfter : Source → Nat → Operation → Bool → Nat → Nat → Nat → Nat
   associationAfter : Source → Nat → Bool → Nat
 
 def Calls.get (calls : Calls) : (f : Function) → f.type.meaning
@@ -66,6 +76,7 @@ def Calls.get (calls : Calls) : (f : Function) → f.type.meaning
   | .contextStep => calls.contextStep | .contextTail => calls.contextTail | .contextModel => calls.contextModel
   | .readContext => calls.readContext | .contextAfter => calls.contextAfter | .operationName => calls.operationName
   | .operationAfter => calls.operationAfter | .associationAfter => calls.associationAfter
+  | .packageNameAfter => calls.packageNameAfter | .equalName => calls.identifier.equal
 
 inductive Field : Ty → Ty → Type
   | contextAfter : Field .context .number
@@ -123,6 +134,9 @@ inductive Expr : Ty → Type
   | updateAfter : Expr .context → Expr .number → Expr .context
   | updateState : Expr .state → Expr .context → Expr .mode → Expr .state
   | updateComplete : Expr .state → Expr .truth → Expr .state
+  | updateContext : Expr .state → Expr .context → Expr .state
+  | contextAt : Expr .number → Expr .context
+  | readContextDefault : Expr .source → Expr .context
   | nameCase : Expr .operation → Expr .spelling → Expr .spelling → Expr .spelling → Expr .spelling → Expr .spelling → Expr .spelling
   | invalidContext : Expr .context
   | initialState : Expr .state
@@ -174,6 +188,9 @@ def Expr.render : Expr ty → List String
   | .updateState stateExpr ctxExpr modeExpr => ["("] ++ stateExpr.render ++ ["with", "delta", "context", "=>"] ++
       ctxExpr.render ++ [",", "mode", "=>"] ++ modeExpr.render ++ [")"]
   | .updateComplete stateExpr complete => ["("] ++ stateExpr.render ++ ["with", "delta", "complete", "=>"] ++ complete.render ++ [")"]
+  | .updateContext stateExpr ctxExpr => ["("] ++ stateExpr.render ++ ["with", "delta", "context", "=>"] ++ ctxExpr.render ++ [")"]
+  | .contextAt after => aggregate [("after", after.render), ("others", ["false"])]
+  | .readContextDefault text => ["read_context", "("] ++ text.render ++ [")"]
   | .nameCase opExpr output partialOutput argument validity reject => ["case"] ++ opExpr.render ++ ["is", "when", "output_call", "=>"] ++
       output.render ++ [",", "when", "partial_output_call", "=>"] ++ partialOutput.render ++ [",", "when", "argument_call", "=>"] ++ argument.render ++ [",", "when", "validity_call", "=>"] ++
       validity.render ++ [",", "when", "reject_call", "=>"] ++ reject.render
@@ -205,6 +222,9 @@ def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
   | .updateAfter ctxExpr after => {ctxExpr.eval calls locals with after := after.eval calls locals}
   | .updateState stateExpr ctxExpr modeExpr => {stateExpr.eval calls locals with context := ctxExpr.eval calls locals, mode := modeExpr.eval calls locals}
   | .updateComplete stateExpr complete => {stateExpr.eval calls locals with complete := complete.eval calls locals}
+  | .updateContext stateExpr ctxExpr => {stateExpr.eval calls locals with context := ctxExpr.eval calls locals}
+  | .contextAt after => {after := after.eval calls locals}
+  | .readContextDefault text => calls.readContext (text.eval calls locals) 1 0 0
   | .nameCase opExpr output partialOutput argument validity reject => match opExpr.eval calls locals with
     | .output => output.eval calls locals | .partialOutput => partialOutput.eval calls locals | .argument => argument.eval calls locals
     | .validity => validity.eval calls locals | .reject => reject.eval calls locals
@@ -220,13 +240,20 @@ structure Context where
   operation : Operation := .output
   hidden : Bool := false
   default : Bool := false
+  contextFirst : Nat := 1
+  packageFirst : Nat := 0
+  packageAfter : Nat := 0
 
 def Context.locals (ctx : Context) : Locals
   | .source, "text" => ctx.text | .number, "position" => ctx.position
   | .spelling, "word" => ctx.word | .truth, "is_word" => ctx.isWord
   | .state, "state" => ctx.state | .truth, "arguments" => ctx.arguments
   | .operation, "operation" => ctx.operation | .truth, "hidden" => ctx.hidden
-  | .truth, "default" => ctx.default | ty, _ => ty.default
+  | .truth, "default" => ctx.default
+  | .number, "context_first" => ctx.contextFirst
+  | .number, "package_first" => ctx.packageFirst
+  | .number, "package_after" => ctx.packageAfter
+  | ty, _ => ty.default
 
 def fixedBody : Expr .number :=
   let text : Expr .source := .variable "text"
@@ -248,6 +275,7 @@ def stepBody : Expr .state :=
   let u : Expr .number := .variable "u"
   let i : Expr .number := .variable "i"
   let a : Expr .number := .variable "a"
+  let p : Expr .number := .variable "p"
   let s : Expr .number := .variable "s"
   let c : Expr .number := .variable "c"
   let take (word : String) (isWord : Bool) := Expr.app (.app (.app (.app (.function .take) text) after) (.spelling word)) (.truth isWord)
@@ -266,12 +294,15 @@ def stepBody : Expr .state :=
         (.elsif (.modeChoices mode (.mode .withName) (.mode .useName))
           (.group <| .locals <| .local "i" "literal_position" (take "silver_io" true) <|
             .local "a" "literal_position" (take "silver_arguments" true) <|
-            .group <| .ite (.andThen (.eq i (.number 0)) (.eq a (.number 0))) .invalidState
+            .local "p" "literal_position" (.group (.ite (inMode .withName)
+              (.app (.app (.app (.app (.function .packageNameAfter) text) after)
+                (.variable "package_first")) (.variable "package_after")) (.number 0))) <|
+            .group <| .ite (.andThen (.andThen (.eq i (.number 0)) (.eq a (.number 0))) (.eq p (.number 0))) .invalidState
               (.elsif (.andThen (inMode .useName)
                 (.group (.orElse
                   (.group (.andThen (present i) (.not (.field .ioWith context))))
                   (.group (.andThen (present a) (.not (.field .argumentsWith context))))))) .invalidState
-                (.state (.context (.group (.ite (present i) i a))
+                (.state (.context (.group (.ite (present i) i (.elsif (present a) a p)))
                   (flag .ioWith i .withName) (flag .argumentsWith a .withName)
                   (flag .ioUse i .useName) (flag .argumentsUse a .useName))
                   (.group (.ite (inMode .withName) (.mode .withSeparator) (.mode .useSeparator))) (.truth false))))
@@ -287,17 +318,25 @@ def tailBody : Expr .context :=
   let state : Expr .state := .variable "state"
   let context := Expr.field .stateContext state
   let next : Expr .state := .variable "next"
+  let tail (value : Expr .state) : Expr .context :=
+    .app (.app (.app (.app (.function .contextTail) text) value)
+      (.variable "package_first")) (.variable "package_after")
+  let step := Expr.app (.app (.app (.app (.function .contextStep) text) state)
+    (.variable "package_first")) (.variable "package_after")
   .ite (.eq (.field .contextAfter context) (.number 0)) .invalidContext
     (.elsif (.field .complete state) context
-      (.group <| .locals <| .local "next" "context_state" (.app (.app (.function .contextStep) text) state) <|
+      (.group <| .locals <| .local "next" "context_state" step <|
         .group <| .ite (.eq (.field .contextAfter (.field .stateContext next)) (.number 0)) .invalidContext
-          (.app (.app (.function .contextTail) text) next)))
+          (tail next)))
 
-def modelBody : Expr .context := .app (.app (.function .contextTail) (.variable "text")) .initialState
+def modelBody : Expr .context :=
+  .app (.app (.app (.app (.function .contextTail) (.variable "text"))
+    (.updateContext .initialState (.contextAt (.variable "context_first"))))
+      (.variable "package_first")) (.variable "package_after")
 
 def contextBody : Expr .number :=
   let context : Expr .context := .variable "context"
-  .locals <| .local "context" "context_result" (.app (.function .readContext) (.variable "text")) <|
+  .locals <| .local "context" "context_result" (.readContextDefault (.variable "text")) <|
     .group <| .ite (.andThen (.field .ioWith context) (.truthEq (.field .argumentsWith context) (.variable "arguments")))
       (.field .contextAfter context) (.number 0)
 
@@ -314,7 +353,9 @@ def operationBody : Expr .number :=
     (.operationEq operation (.operation .partialOutput))
   let take (position : Expr .number) (word : Expr .spelling) (isWord : Bool) :=
     Expr.app (.app (.app (.app (.function .take) text) position) word) (.truth isWord)
-  .locals <| .local "context" "context_result" (.app (.function .readContext) text) <|
+  .locals <| .local "context" "context_result"
+    (.app (.app (.app (.app (.function .readContext) text) (.variable "context_first"))
+      (.variable "package_first")) (.variable "package_after")) <|
     .local "visible" "boolean" (.group (.ite output (.field .ioWith context) (.field .argumentsWith context))) <|
     .local "used" "boolean" (.group (.ite output (.field .ioUse context) (.field .argumentsUse context))) <|
     .local "qualified" "literal_position"
@@ -338,7 +379,8 @@ def associationBody : Expr .number :=
 def Expr.primary : Expr ty → Bool
   | .number _ | .truth _ | .spelling _ | .mode _ | .operation _ | .variable _ | .function _
   | .app _ _ | .field _ _ | .length _ | .group _ | .context _ _ _ _ _ | .state _ _ _
-  | .updateAfter _ _ | .updateState _ _ _ | .updateComplete _ _
+  | .updateAfter _ _ | .updateState _ _ _ | .updateComplete _ _ | .updateContext _ _
+  | .contextAt _ | .readContextDefault _
   | .invalidContext | .initialState | .invalidState => true
   | _ => false
 
@@ -393,6 +435,9 @@ def Expr.wellFormed : Expr ty → Bool
   | .updateAfter ctxExpr after => ctxExpr.wellFormed && ctxExpr.primary && after.wellFormed && after.simple
   | .updateState stateExpr ctxExpr modeExpr => stateExpr.wellFormed && stateExpr.primary && ctxExpr.wellFormed && ctxExpr.simple && modeExpr.wellFormed && modeExpr.simple
   | .updateComplete stateExpr complete => stateExpr.wellFormed && stateExpr.primary && complete.wellFormed && complete.condition
+  | .updateContext stateExpr ctxExpr => stateExpr.wellFormed && stateExpr.primary && ctxExpr.wellFormed && ctxExpr.simple
+  | .contextAt after => after.wellFormed && after.simple
+  | .readContextDefault text => text.wellFormed && text.simple
   | .nameCase opExpr output partialOutput argument validity reject => opExpr.wellFormed && opExpr.simple &&
       output.wellFormed && output.simple && partialOutput.wellFormed && partialOutput.simple && argument.wellFormed && argument.simple &&
       validity.wellFormed && validity.simple && reject.wellFormed && reject.simple
@@ -412,10 +457,11 @@ def Scope.contains (scope : Scope) (name : String) (ty : Ty) : Bool :=
 def Expr.scoped (scope : Scope) : Expr ty → Bool
   | .variable name => scope.contains name ty
   | .app fn argument => fn.scoped scope && argument.scoped scope
-  | .field _ value | .length value | .not value | .group value | .locals value => value.scoped scope
+  | .field _ value | .length value | .not value | .group value | .locals value
+  | .contextAt value | .readContextDefault value => value.scoped scope
   | .add left right | .eq left right | .ne left right | .truthEq left right | .modeEq left right
   | .operationEq left right | .andThen left right | .orElse left right | .updateAfter left right
-  | .updateComplete left right => left.scoped scope && right.scoped scope
+  | .updateComplete left right | .updateContext left right => left.scoped scope && right.scoped scope
   | .modeChoices value first second | .ite value first second | .elsif value first second
   | .state value first second | .updateState value first second =>
       value.scoped scope && first.scoped scope && second.scoped scope
@@ -426,15 +472,125 @@ def Expr.scoped (scope : Scope) : Expr ty → Bool
 
 abbrev WellScopedTrees : Prop :=
   fixedBody.scoped [("text", .source), ("position", .number), ("word", .spelling), ("is_word", .truth)] = true ∧
-  stepBody.scoped [("text", .source), ("state", .state)] = true ∧
-  tailBody.scoped [("text", .source), ("state", .state)] = true ∧
-  modelBody.scoped [("text", .source)] = true ∧
+  stepBody.scoped [("text", .source), ("state", .state), ("package_first", .number), ("package_after", .number)] = true ∧
+  tailBody.scoped [("text", .source), ("state", .state), ("package_first", .number), ("package_after", .number)] = true ∧
+  modelBody.scoped [("text", .source), ("context_first", .number), ("package_first", .number), ("package_after", .number)] = true ∧
   contextBody.scoped [("text", .source), ("arguments", .truth)] = true ∧
   nameBody.scoped [("operation", .operation)] = true ∧
-  operationBody.scoped [("text", .source), ("position", .number), ("operation", .operation), ("hidden", .truth)] = true ∧
+  operationBody.scoped [("text", .source), ("position", .number), ("operation", .operation), ("hidden", .truth),
+    ("context_first", .number), ("package_first", .number), ("package_after", .number)] = true ∧
   associationBody.scoped [("text", .source), ("position", .number), ("default", .truth)] = true
 
 theorem checked_scopes : WellScopedTrees := by decide +kernel
+
+/-- The imperative matcher has only assignments, two lexical procedure calls,
+and early returns. Its statement semantics does not assume a matcher equation. -/
+inductive Statement where
+  | returnValue : Expr .number → Statement
+  | returnIf : Expr .truth → Expr .number → Statement → Statement
+  | setNumber : String → Expr .number → Statement → Statement
+  | skipTrivia : Expr .source → String → Statement → Statement
+  | matchIdentifier : Expr .source → String → String → Statement → Statement
+
+def Statement.render : Statement → List String
+  | .returnValue value => ["return"] ++ value.render ++ [";"]
+  | .returnIf condition value rest => ["if"] ++ condition.render ++ ["then", "return"] ++
+      value.render ++ [";", "end", "if", ";"] ++ rest.render
+  | .setNumber name value rest => [name, ":="] ++ value.render ++ [";"] ++ rest.render
+  | .skipTrivia text position rest => ["skip_trivia", "("] ++ text.render ++
+      [",", position, ")", ";"] ++ rest.render
+  | .matchIdentifier text position matched rest => ["match_identifier", "("] ++
+      text.render ++ [",", position, ",", matched, ")", ";"] ++ rest.render
+
+def Statement.eval (calls : Calls) (locals : Locals) : Statement → Nat
+  | .returnValue value => value.eval calls locals
+  | .returnIf condition value rest =>
+      if condition.eval calls locals then value.eval calls locals else rest.eval calls locals
+  | .setNumber name value rest =>
+      rest.eval calls (locals.set .number name (value.eval calls locals))
+  | .skipTrivia text position rest =>
+      rest.eval calls (locals.set .number position
+        (calls.skipTrivia (text.eval calls locals) (locals .number position)))
+  | .matchIdentifier text position matched rest =>
+      let result := calls.matchIdentifier (text.eval calls locals) (locals .number position)
+      rest.eval calls ((locals.set .number position result.1).set .truth matched result.2)
+
+def Statement.wellFormed : Statement → Bool
+  | .returnValue value => value.wellFormed && value.simple
+  | .returnIf condition value rest => condition.wellFormed && condition.condition &&
+      value.wellFormed && value.simple && rest.wellFormed
+  | .setNumber _ value rest => value.wellFormed && value.simple && rest.wellFormed
+  | .skipTrivia text _ rest | .matchIdentifier text _ _ rest =>
+      text.wellFormed && text.simple && rest.wellFormed
+
+/-- Reads require initialization. Procedure out-parameters become initialized
+only after their call; the failed match cursor is not strengthened here. -/
+def Statement.scoped (declared initialized : Scope) : Statement → Bool
+  | .returnValue value => value.scoped initialized
+  | .returnIf condition value rest => condition.scoped initialized &&
+      value.scoped initialized && rest.scoped declared initialized
+  | .setNumber name value rest => declared.contains name .number && value.scoped initialized &&
+      rest.scoped declared ((name, .number) :: initialized)
+  | .skipTrivia text position rest => text.scoped initialized &&
+      declared.contains position .number && initialized.contains position .number &&
+      rest.scoped declared initialized
+  | .matchIdentifier text position matched rest => text.scoped initialized &&
+      declared.contains position .number && initialized.contains position .number &&
+      declared.contains matched .truth &&
+      rest.scoped declared ((matched, .truth) :: initialized)
+
+structure LocalDeclaration where
+  names : List String
+  nativeType : String
+  ty : Ty
+
+def LocalDeclaration.render (decl : LocalDeclaration) : List String :=
+  List.intersperse "," decl.names ++ [":", decl.nativeType, ";"]
+
+def LocalDeclaration.scope (decl : LocalDeclaration) : Scope := decl.names.map (·, decl.ty)
+
+def LocalDeclaration.wellFormed (decl : LocalDeclaration) : Bool :=
+  !decl.names.isEmpty && (localType decl.ty decl.nativeType ||
+    (decl.ty == .number && decl.nativeType == "cursor"))
+
+def packageDeclarations : List LocalDeclaration :=
+  [⟨["first", "after"], "literal_position", .number⟩,
+   ⟨["next"], "cursor", .number⟩, ⟨["matched"], "boolean", .truth⟩]
+
+def packageParameters : Scope :=
+  [("text", .source), ("position", .number), ("package_first", .number), ("package_after", .number)]
+
+def packageBody : Statement :=
+  let text : Expr .source := .variable "text"
+  let position : Expr .number := .variable "position"
+  let first : Expr .number := .variable "first"
+  let after : Expr .number := .variable "after"
+  let next : Expr .number := .variable "next"
+  let packageFirst : Expr .number := .variable "package_first"
+  let packageAfter : Expr .number := .variable "package_after"
+  .returnIf (.orElse (.eq position (.number 0)) (.eq packageFirst (.number 0))) (.number 0) <|
+    .setNumber "next" position <|
+    .skipTrivia text "next" <|
+    .setNumber "first" next <|
+    .matchIdentifier text "next" "matched" <|
+    .returnIf (.not (.variable "matched")) (.number 0) <|
+    .setNumber "after" next <|
+    .returnIf (.app (.app (.app (.app (.app (.function .equalName) text) first) after)
+      packageFirst) packageAfter) after <|
+    .returnValue (.number 0)
+
+def packageImplementation : List String :=
+  packageDeclarations.flatMap LocalDeclaration.render ++ ["begin"] ++ packageBody.render ++
+    ["end", "package_name_after", ";"]
+
+abbrev PackageTranslation : Prop :=
+  packageDeclarations.all LocalDeclaration.wellFormed = true ∧
+  ((packageDeclarations.flatMap LocalDeclaration.scope ++ packageParameters).map Prod.fst).Nodup ∧
+  packageBody.wellFormed = true ∧
+  packageBody.scoped (packageDeclarations.flatMap LocalDeclaration.scope ++ packageParameters)
+    packageParameters = true
+
+theorem checked_package_translation : PackageTranslation := by decide +kernel
 
 end Silver.Names.Native
 
