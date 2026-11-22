@@ -8116,7 +8116,7 @@ is
    begin
       if Result.After = 0 then return Invalid_Static_Boolean; end if;
       Selected := Chain_Token (Text, Result.After);
-      while Selected /= No_Chain loop
+      loop
          pragma Loop_Invariant (Result.After in Position + 1 .. Text'Last + 1);
          pragma Loop_Variant (Increases => Result.After);
          Operator := Chain_Token (Text, Result.After);
@@ -8132,7 +8132,6 @@ is
            when No_Chain => Result.Value);
          Result.After := Right.After;
       end loop;
-      return Result;
    end Static_Boolean_At;
 
    function Outer_Declaration
