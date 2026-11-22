@@ -20,6 +20,7 @@ def AliasSafe (calls : Calls) (text : Source) (info : PackageBindings.Metadata)
       PackageBindings.StateSet.get item.mayWrite (state + 1) &&
       PackageBindings.StateSet.get actual.reads (state + 1)) ≠ true ∧
   ((info.parameterAt index).mode ≠ .input →
+    actual.target.after ≠ 0 ∧
     ¬(actual.writtenState ≠ 0 ∧
       (PackageBindings.StateSet.get item.mayRead actual.writtenState = true ∨
        PackageBindings.StateSet.get item.mayWrite actual.writtenState = true)) ∧
@@ -40,11 +41,14 @@ theorem aliasStep_safe {calls text info item actuals before index after}
       exact ⟨noImplicit, fun writable => False.elim (writable inputMode)⟩
     · split at accepted
       · cases accepted
-      · rename_i noCapture
+      · rename_i targetPresent
         split at accepted
         · cases accepted
-        · rename_i noExplicit
-          exact ⟨noImplicit, fun _ => ⟨noCapture, noExplicit⟩⟩
+        · rename_i noCapture
+          split at accepted
+          · cases accepted
+          · rename_i noExplicit
+            exact ⟨noImplicit, fun _ => ⟨targetPresent, noCapture, noExplicit⟩⟩
 
 private theorem aliasFold_safe {calls text info item actuals} (slots : List Nat)
     {before after : ApplicationCall}
@@ -84,8 +88,10 @@ theorem aliasStep_footprint {calls text info item actuals before index after}
       · cases accepted
       · split at accepted
         · cases accepted
-        · cases Option.some.inj accepted
-          rfl
+        · split at accepted
+          · cases accepted
+          · cases Option.some.inj accepted
+            rfl
 
 private theorem aliasFold_footprint {calls text info item actuals} (slots : List Nat)
     {before after : ApplicationCall}

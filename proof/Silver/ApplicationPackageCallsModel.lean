@@ -77,6 +77,25 @@ def outputFormal (parameter : PackageBindings.Formal) : ProcedureBindings.Formal
 def markState (set : PackageBindings.StateSet) (identity : Nat) : PackageBindings.StateSet :=
   if identity = 0 then set else set.set (identity - 1) true
 
+/-- The payload branch is shared by the executable actual step and its
+successful-target argument; no metadata validity is assumed. -/
+def actualPayload (calls : Calls) (text : Source) (context : ParseContext)
+    (input : ApplicationScan) (parameter : PackageBindings.Formal)
+    (info : PackageBindings.Metadata) (cursor : Nat) (original : PackageActual) :
+    Nat × PackageActual :=
+  if parameter.mode = .input then
+    (calls.actualAfter text context cursor input.scan.facts (inputFormal parameter), original)
+  else
+    let target := calls.targetActual text context cursor input.scan.facts (outputFormal parameter)
+    (target.after, {original with target := target, writtenState := calls.stateTarget text context info cursor})
+
+theorem actualPayload_writable_progress {calls text context input parameter info cursor original}
+    (writable : parameter.mode ≠ .input)
+    (progress : cursor < (actualPayload calls text context input parameter info cursor original).1) :
+    0 < (actualPayload calls text context input parameter info cursor original).2.target.after := by
+  simp only [actualPayload, writable, ↓reduceIte] at progress ⊢
+  omega
+
 def actualStep (calls : Calls) (text : Source) (context : ParseContext)
     (input : ApplicationScan) (info : PackageBindings.Metadata) (item : PackageBindings.Routine)
     (ordinal : Nat) (frame : ActualFrame) : Option ActualFrame := do
@@ -90,12 +109,7 @@ def actualStep (calls : Calls) (text : Source) (context : ParseContext)
   if slot = 0 ∨ frame.seen.getD (slot - 1) false = true then none else do
     let parameter := info.parameterAt slot
     let original := {frame.actual slot with first := cursor}
-    let (following, actual) :=
-      if parameter.mode = .input then
-        (calls.actualAfter text context cursor input.scan.facts (inputFormal parameter), original)
-      else
-        let target := calls.targetActual text context cursor input.scan.facts (outputFormal parameter)
-        (target.after, {original with target := target, writtenState := calls.stateTarget text context info cursor})
+    let (following, actual) := actualPayload calls text context input parameter info cursor original
     if following ≤ cursor then none else do
       let actual := {actual with after := following}
       let actual := if parameter.mode ≠ .output then
@@ -129,6 +143,7 @@ def aliasStep (calls : Calls) (text : Source) (info : PackageBindings.Metadata)
       PackageBindings.StateSet.get item.mayWrite (state + 1) &&
         PackageBindings.StateSet.get actual.reads (state + 1)) then none
   else if (info.parameterAt index).mode = .input then some result
+  else if actual.target.after = 0 then none
   else if actual.writtenState ≠ 0 ∧
       (PackageBindings.StateSet.get item.mayRead actual.writtenState = true ∨
        PackageBindings.StateSet.get item.mayWrite actual.writtenState = true) then none
@@ -138,6 +153,37 @@ def aliasStep (calls : Calls) (text : Source) (info : PackageBindings.Metadata)
   else
     let result := replaceScalar result actual.target.scalar (info.parameterAt index).bounds
     some {result with result := {result.result with scan := {result.result.scan with assigned := true}}}
+
+/-- The new local safety guard leaves every filled writable payload unchanged.
+Its positive endpoint is supplied by `actualPayload_writable_progress`, not
+assumed for empty/default storage or for arbitrary imported readers. -/
+theorem aliasStep_filled (calls : Calls) (text : Source) (info : PackageBindings.Metadata)
+    (item : PackageBindings.Routine) (actuals : List PackageActual)
+    (result : ApplicationCall) (index : Nat)
+    (filled : (info.parameterAt index).mode ≠ .input →
+      0 < (actuals.getD (index - 1) {}).target.after) :
+    aliasStep calls text info item actuals result index =
+      (let actual := actuals.getD (index - 1) {}
+       if (List.range info.states.length).any (fun state =>
+           PackageBindings.StateSet.get item.mayWrite (state + 1) &&
+             PackageBindings.StateSet.get actual.reads (state + 1)) then none
+       else if (info.parameterAt index).mode = .input then some result
+       else if actual.writtenState ≠ 0 ∧
+           (PackageBindings.StateSet.get item.mayRead actual.writtenState = true ∨
+            PackageBindings.StateSet.get item.mayWrite actual.writtenState = true) then none
+       else if (formalSlots item).any (fun other => decide (index ≠ other) &&
+           !calls.actualNameFree text (actuals.getD (other - 1) {}).first
+             (actuals.getD (other - 1) {}).after actual.target.first actual.target.after) then none
+       else
+         let updated := replaceScalar result actual.target.scalar (info.parameterAt index).bounds
+         some {updated with result := {updated.result with scan :=
+           {updated.result.scan with assigned := true}}}) := by
+  dsimp only [aliasStep]
+  split
+  · rfl
+  · by_cases inputMode : (info.parameterAt index).mode = .input
+    · simp only [inputMode, ↓reduceIte]
+    · simp only [inputMode, ↓reduceIte, Nat.ne_of_gt (filled inputMode)]
 
 def checkAliases (calls : Calls) (text : Source) (info : PackageBindings.Metadata)
     (item : PackageBindings.Routine) (frame : ActualFrame) : Option ApplicationCall :=
