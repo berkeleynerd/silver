@@ -1,5 +1,5 @@
 {
-  "source_sha256": "9450a06ef818cb329cfe09d3ab22caf4362e0ece6f684a5dc7e79a87ec334b4a",
+  "source_sha256": "e181c06fc2ac104092b9166eb276338feeca254ad21446fdfc3903cd81a7dc02",
   "scope": "Conservative helper inventory; successful prior whole-unit checks are retained evidence and still require final provenance matching. No complete Output_Profile or compiler assurance is claimed.",
   "completed_canonical_units": {
     "silver_package_bindings.adb": {
@@ -30,7 +30,8 @@
       "checks": 10,
       "unproved": 0,
       "flow": 2,
-      "proof": 8
+      "proof": 8,
+      "run_source_sha256": "9450a06ef818cb329cfe09d3ab22caf4362e0ece6f684a5dc7e79a87ec334b4a"
     },
     {
       "name": "Spark_Pragma_After",
@@ -42,7 +43,8 @@
       "checks": 11,
       "unproved": 0,
       "flow": 2,
-      "proof": 9
+      "proof": 9,
+      "run_source_sha256": "9450a06ef818cb329cfe09d3ab22caf4362e0ece6f684a5dc7e79a87ec334b4a"
     },
     {
       "name": "Package_Name_Allowed",
@@ -54,7 +56,8 @@
       "checks": 38,
       "unproved": 0,
       "flow": 2,
-      "proof": 36
+      "proof": 36,
+      "run_source_sha256": "9450a06ef818cb329cfe09d3ab22caf4362e0ece6f684a5dc7e79a87ec334b4a"
     },
     {
       "name": "Package_Name_Fresh",
@@ -66,7 +69,8 @@
       "checks": 6,
       "unproved": 0,
       "flow": 2,
-      "proof": 4
+      "proof": 4,
+      "run_source_sha256": "9450a06ef818cb329cfe09d3ab22caf4362e0ece6f684a5dc7e79a87ec334b4a"
     },
     {
       "name": "Package_Type_At",
@@ -78,7 +82,8 @@
       "checks": 13,
       "unproved": 0,
       "flow": 2,
-      "proof": 11
+      "proof": 11,
+      "run_source_sha256": "9450a06ef818cb329cfe09d3ab22caf4362e0ece6f684a5dc7e79a87ec334b4a"
     },
     {
       "name": "Static_Boolean_At",
@@ -86,12 +91,13 @@
         7997,
         8109
       ],
-      "coverage": "complete-helper-failed-stable-loop-warning",
-      "run": "20261122T180017-09a08f285cf5",
+      "coverage": "complete-helper-success",
+      "run": "20261122T180644-1f5eefc02619",
       "unproved": 0,
-      "flow_warning": 1,
       "flow": 5,
-      "proof": 17
+      "proof": 17,
+      "run_source_sha256": "e181c06fc2ac104092b9166eb276338feeca254ad21446fdfc3903cd81a7dc02",
+      "checks": 22
     },
     {
       "name": "Static_Boolean_Primary",
@@ -103,7 +109,8 @@
       "checks": 24,
       "unproved": 0,
       "flow": 3,
-      "proof": 21
+      "proof": 21,
+      "run_source_sha256": "9450a06ef818cb329cfe09d3ab22caf4362e0ece6f684a5dc7e79a87ec334b4a"
     },
     {
       "name": "Static_Boolean_Factor",
@@ -115,7 +122,8 @@
       "checks": 11,
       "unproved": 0,
       "flow": 2,
-      "proof": 9
+      "proof": 9,
+      "run_source_sha256": "9450a06ef818cb329cfe09d3ab22caf4362e0ece6f684a5dc7e79a87ec334b4a"
     },
     {
       "name": "Static_Boolean_Relation",
@@ -127,43 +135,46 @@
       "checks": 20,
       "unproved": 0,
       "flow": 6,
-      "proof": 14
+      "proof": 14,
+      "run_source_sha256": "9450a06ef818cb329cfe09d3ab22caf4362e0ece6f684a5dc7e79a87ec334b4a"
     },
     {
       "name": "Outer_Declaration",
       "current_lines": [
-        8138
+        8137
       ],
       "coverage": "complete-helper-success",
       "run": "20261122T175048-543c2ea12434",
       "checks": 4,
       "unproved": 0,
       "flow": 2,
-      "proof": 2
+      "proof": 2,
+      "run_source_sha256": "9450a06ef818cb329cfe09d3ab22caf4362e0ece6f684a5dc7e79a87ec334b4a"
     },
     {
       "name": "Hide_Outer",
       "current_lines": [
-        8146
+        8145
       ],
       "coverage": "complete-helper-success",
       "run": "20261122T175214-5b46f509c5da",
       "checks": 37,
       "unproved": 0,
       "flow": 2,
-      "proof": 35
+      "proof": 35,
+      "run_source_sha256": "9450a06ef818cb329cfe09d3ab22caf4362e0ece6f684a5dc7e79a87ec334b4a"
     },
     {
       "name": "Package_Object_At",
       "current_lines": [
-        8222
+        8221
       ],
       "coverage": "pending"
     },
     {
       "name": "Append_Package_Formal",
       "current_lines": [
-        8303
+        8302
       ],
       "coverage": "complete-helper-success",
       "run": "20261122T165616-d68c94f0ca7f",
@@ -172,19 +183,20 @@
     {
       "name": "Package_Signature_At",
       "current_lines": [
-        8366
+        8365
       ],
       "coverage": "complete-helper-success",
       "run": "20261122T172039-c364b0adf1b1",
       "checks": 77,
       "unproved": 0,
       "flow": 14,
-      "proof": 63
+      "proof": 63,
+      "run_source_sha256": "9450a06ef818cb329cfe09d3ab22caf4362e0ece6f684a5dc7e79a87ec334b4a"
     },
     {
       "name": "Package_Spec_At",
       "current_lines": [
-        8550
+        8549
       ],
       "coverage": "prior-complete-helper-failed-repair-pending",
       "run": "20261122T154517-101a5dc5fa74",
@@ -193,162 +205,162 @@
     {
       "name": "Application_Of",
       "current_lines": [
-        8642
+        8641
       ],
       "coverage": "pending"
     },
     {
       "name": "Invalid_Application",
       "current_lines": [
-        8644
+        8643
       ],
       "coverage": "pending"
     },
     {
       "name": "Visible_State",
       "current_lines": [
-        8647
+        8646
       ],
       "coverage": "pending"
     },
     {
       "name": "State_Target",
       "current_lines": [
-        8672
+        8671
       ],
       "coverage": "pending"
     },
     {
       "name": "State_Reads",
       "current_lines": [
-        8687
+        8686
       ],
       "coverage": "pending"
     },
     {
       "name": "Package_Callee",
       "current_lines": [
-        8711
+        8710
       ],
       "coverage": "pending"
     },
     {
       "name": "Package_Call_At",
       "current_lines": [
-        8751
+        8750
       ],
       "coverage": "pending"
     },
     {
       "name": "Application_Basic",
       "current_lines": [
-        8881
+        8880
       ],
       "coverage": "pending"
     },
     {
       "name": "Application_Statement",
       "current_lines": [
-        8932,
-        8985
+        8931,
+        8984
       ],
       "coverage": "pending"
     },
     {
       "name": "Application_Tail",
       "current_lines": [
-        8948
+        8947
       ],
       "coverage": "pending"
     },
     {
       "name": "Routine_Frame",
       "current_lines": [
-        9151
+        9150
       ],
       "coverage": "pending"
     },
     {
       "name": "Package_Completion_At",
       "current_lines": [
-        9194
+        9193
       ],
       "coverage": "pending"
     },
     {
       "name": "Package_Body_At",
       "current_lines": [
-        9317
+        9316
       ],
       "coverage": "pending"
     },
     {
       "name": "Imported_Frame",
       "current_lines": [
-        9369
+        9368
       ],
       "coverage": "pending"
     },
     {
       "name": "Same_Package_Spelling",
       "current_lines": [
-        9403
+        9402
       ],
       "coverage": "pending"
     },
     {
       "name": "Package_Main_At",
       "current_lines": [
-        9417
+        9416
       ],
       "coverage": "pending"
     },
     {
       "name": "Charge_Unit",
       "current_lines": [
-        9460
+        9459
       ],
       "coverage": "pending"
     },
     {
       "name": "Analyze_Application",
       "current_lines": [
-        9503
+        9502
       ],
       "coverage": "pending"
     },
     {
       "name": "Analyze_Model",
       "current_lines": [
-        9542
+        9541
       ],
       "coverage": "pending"
     },
     {
       "name": "Analyze",
       "current_lines": [
-        9544
+        9543
       ],
       "coverage": "pending"
     },
     {
       "name": "Is_Application_Member",
       "current_lines": [
-        9546
+        9545
       ],
       "coverage": "pending"
     },
     {
       "name": "Accepts_Application",
       "current_lines": [
-        9548
+        9547
       ],
       "coverage": "pending"
     },
     {
       "name": "Imported_Package",
       "current_lines": [
-        9551
+        9550
       ],
       "coverage": "pending"
     }

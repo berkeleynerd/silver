@@ -144,3 +144,12 @@ on the first iteration. Otherwise Selected remains nonempty and the old and new
 iteration decisions coincide. The model, typed tree and candidate must change
 with this source, then the complete native helper must pass again. No warning
 or obligation is suppressed.
+
+That repair passed complete canonical run `20261122T180644-1f5eefc02619`:
+22 checks (5 flow, 17 proof), 54.366 seconds, no warnings. Source SHA256 is now
+`e181c06fc2ac104092b9166eb276338feeca254ad21446fdfc3903cd81a7dc02`, retained
+in `unconditional-boolean-loop-input.adb.gz`. The corresponding typed-loop and
+candidate audit is recorded in `../static-unconditional-loop`. The other three
+Boolean helper bodies/contracts are unchanged and their successful evidence is
+retained with its original inputs. Complete Object/Spec/caller coverage and
+integrated source/native assurance remain outstanding.

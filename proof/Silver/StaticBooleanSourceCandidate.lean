@@ -13,7 +13,7 @@ namespace Silver.BooleanElaboration.Native.SourceChecks
 set_option maxRecDepth 100000
 set_option maxHeartbeats 10000000
 
-/- Fragment SHA256: da126193c948d31ae7b99e56bd30f6ee4553390b24adc1189711495c7de58302 -/
+/- Fragment SHA256: ed6cc0a794d74067bf694c2f9338d765d3124867897f2a18fd012d8922e799a3 -/
 def candidateTokens : List String := [
   "type", "static_boolean_result", "is", "record", "after", ":", "literal_position", ":=", "0", ";", "value", ":",
   "boolean", ":=", "false", ";", "end", "record", ";", "invalid_static_boolean", ":", "constant", "static_boolean_result", ":=",
@@ -116,21 +116,21 @@ def candidateTokens : List String := [
   ",", "frame", ",", "position", ")", ";", "operator", ",", "selected", ":", "chain_kind", ";",
   "right", ":", "static_boolean_result", ";", "begin", "if", "result", ".", "after", "=", "0", "then",
   "return", "invalid_static_boolean", ";", "end", "if", ";", "selected", ":=", "chain_token", "(", "text", ",",
-  "result", ".", "after", ")", ";", "while", "selected", "/=", "no_chain", "loop", "pragma", "loop_invariant",
-  "(", "result", ".", "after", "in", "position", "+", "1", "..", "text", "'", "last",
-  "+", "1", ")", ";", "pragma", "loop_variant", "(", "increases", "=>", "result", ".", "after",
-  ")", ";", "operator", ":=", "chain_token", "(", "text", ",", "result", ".", "after", ")",
-  ";", "if", "operator", "=", "no_chain", "then", "return", "result", ";", "end", "if", ";",
-  "if", "operator", "/=", "selected", "then", "return", "invalid_static_boolean", ";", "end", "if", ";", "right",
-  ":=", "static_boolean_relation", "(", "text", ",", "frame", ",", "chain_after", "(", "text", ",", "result",
-  ".", "after", ",", "operator", ")", ")", ";", "if", "right", ".", "after", "<=",
-  "result", ".", "after", "then", "return", "invalid_static_boolean", ";", "end", "if", ";", "result", ".",
-  "value", ":=", "(", "case", "operator", "is", "when", "eager_and", "|", "short_and", "=>", "result",
-  ".", "value", "and", "right", ".", "value", ",", "when", "eager_or", "|", "short_or", "=>",
-  "result", ".", "value", "or", "right", ".", "value", ",", "when", "eager_xor", "=>", "result",
-  ".", "value", "xor", "right", ".", "value", ",", "when", "no_chain", "=>", "result", ".",
-  "value", ")", ";", "result", ".", "after", ":=", "right", ".", "after", ";", "end",
-  "loop", ";", "return", "result", ";", "end", "static_boolean_at", ";"
+  "result", ".", "after", ")", ";", "loop", "pragma", "loop_invariant", "(", "result", ".", "after",
+  "in", "position", "+", "1", "..", "text", "'", "last", "+", "1", ")", ";",
+  "pragma", "loop_variant", "(", "increases", "=>", "result", ".", "after", ")", ";", "operator", ":=",
+  "chain_token", "(", "text", ",", "result", ".", "after", ")", ";", "if", "operator", "=",
+  "no_chain", "then", "return", "result", ";", "end", "if", ";", "if", "operator", "/=", "selected",
+  "then", "return", "invalid_static_boolean", ";", "end", "if", ";", "right", ":=", "static_boolean_relation", "(", "text",
+  ",", "frame", ",", "chain_after", "(", "text", ",", "result", ".", "after", ",", "operator",
+  ")", ")", ";", "if", "right", ".", "after", "<=", "result", ".", "after", "then",
+  "return", "invalid_static_boolean", ";", "end", "if", ";", "result", ".", "value", ":=", "(", "case",
+  "operator", "is", "when", "eager_and", "|", "short_and", "=>", "result", ".", "value", "and", "right",
+  ".", "value", ",", "when", "eager_or", "|", "short_or", "=>", "result", ".", "value", "or",
+  "right", ".", "value", ",", "when", "eager_xor", "=>", "result", ".", "value", "xor", "right",
+  ".", "value", ",", "when", "no_chain", "=>", "result", ".", "value", ")", ";", "result",
+  ".", "after", ":=", "right", ".", "after", ";", "end", "loop", ";", "end", "static_boolean_at",
+  ";"
 ]
 
 theorem candidate_checked : Checked candidateTokens where
@@ -154,7 +154,7 @@ theorem candidate_checked : Checked candidateTokens where
       List.foldr, Relation.Command.render, Relation.Command.renderElse]
     decide +kernel
   conditionBody := by
-    simp only [Condition.render, Condition.prelude, Condition.commands, Condition.finish,
+    simp only [Condition.render, Condition.prelude, Condition.commands,
       Condition.Command.list, List.foldr, Condition.Command.render, Condition.Command.renderElse]
     decide +kernel
 

@@ -139,7 +139,6 @@ inductive LoopStep
 
 def tailStep (imports : Imports) (relation : Reader) (text : Source)
     (frame : Compose.ParserState) (selected : Chain) (result : Result) : LoopStep :=
-  if selected = none then .finished result else
   let operator := imports.chain text result.after
   if operator = none then .finished result
   else if operator ≠ selected then .finished invalid
@@ -178,18 +177,16 @@ theorem tailStep_next_progress {imports relation text frame selected input next}
     (step : tailStep imports relation text frame selected input = .next next) :
     input.after < next.after := by
   unfold tailStep at step
+  dsimp only at step
   split at step
   · cases step
-  · dsimp only at step
-    split at step
+  · split at step
     · cases step
     · split at step
       · cases step
-      · split at step
-        · cases step
-        · rename_i progress
-          cases step
-          exact Nat.lt_of_not_ge progress
+      · rename_i progress
+        cases step
+        exact Nat.lt_of_not_ge progress
 
 /-- Bounded progressing executions terminate. The bound is precisely the
 recursive reader's native postcondition, not an artificial fuel cutoff. -/
@@ -219,6 +216,33 @@ def ConditionExec (imports : Imports) (relation : Reader) (text : Source)
   let result := relation text frame position
   if result.after = 0 then output = invalid else
     TailExec imports relation text frame (imports.chain text result.after) result output
+
+/-- An initially absent chain has the ordinary zero-iteration result. The
+unconditional native loop obtains it through its first current-operator return;
+the pure token read is the same one that initialized Selected. -/
+theorem ConditionExec.initial_split (imports : Imports) (relation : Reader) (text : Source)
+    (frame : Compose.ParserState) (position : Nat) (output : Result) :
+    ConditionExec imports relation text frame position output ↔
+      let result := relation text frame position
+      if result.after = 0 then output = invalid
+      else if imports.chain text result.after = none then output = result
+      else TailExec imports relation text frame (imports.chain text result.after) result output := by
+  unfold ConditionExec
+  dsimp only
+  by_cases failed : (relation text frame position).after = 0
+  · simp only [failed, ↓reduceIte]
+  · simp only [failed, ↓reduceIte]
+    by_cases absent : imports.chain text (relation text frame position).after = none
+    · simp only [absent, ↓reduceIte]
+      have stopped : TailExec imports relation text frame none
+          (relation text frame position) (relation text frame position) :=
+        .finished (by simp only [tailStep, absent, ↓reduceIte])
+      constructor
+      · intro run
+        exact run.unique stopped
+      · intro same
+        exact same ▸ stopped
+    · simp only [absent, ↓reduceIte]
 
 theorem ConditionExec.unique {imports relation text frame position left right}
     (a : ConditionExec imports relation text frame position left)

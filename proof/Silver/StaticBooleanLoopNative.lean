@@ -190,7 +190,6 @@ def combinedValue : Expr Bool := .group (.chainCase .chainOperator
 def prelude : Command := .list [
   .choose (.equal (.after .result) (.number 0)) (.returned .invalid) .nothing,
   .setSelected (.chain (.after .result))]
-def test : Expr Bool := .unequalChain .selected .noChain
 def commands : Command := .list [
   .annotation .resultRange, .annotation .increasingAfter,
   .setOperator (.chain (.after .result)),
@@ -199,14 +198,12 @@ def commands : Command := .list [
   .setRight (.relation (.chainAfter (.after .result) .chainOperator)),
   .choose (.lessEqual (.after .rightResult) (.after .result)) (.returned .invalid) .nothing,
   .setValue combinedValue, .setAfter (.after .rightResult)]
-def finish : Command := .returned .result
-
-/-- The false while-test reaches the trailing native return. -/
+/-- The native loop returns only through its current-operator or rejection
+branches. An initially absent operator returns the unchanged result immediately. -/
 def step (imports : Imports) (relation : Reader) (frame : Frame) : Outcome :=
-  if test.eval imports relation frame then commands.eval imports relation frame else finish.eval imports relation frame
+  commands.eval imports relation frame
 
 def expectedStep (imports : Imports) (relation : Reader) (frame : Frame) : Outcome :=
-  if frame.selected = none then .returned frame.result else
   let operator := imports.chain frame.text frame.result.after
   if operator = none then .returned frame.result
   else if operator ≠ frame.selected then .returned invalid
@@ -223,34 +220,30 @@ theorem combinedValue_eval (imports : Imports) (relation : Reader) (frame : Fram
 
 theorem step_equation (imports : Imports) (relation : Reader) (frame : Frame) :
     step imports relation frame = expectedStep imports relation frame := by
-  dsimp +instances only [step, test, commands, Command.list, List.foldr, Command.eval, finish, Expr.eval]
+  dsimp +instances only [step, commands, Command.list, List.foldr, Command.eval, Expr.eval]
   simp only [combinedValue_eval, decide_eq_true_eq, expectedStep]
-  by_cases stopped : frame.selected = none
-  · simp [stopped]
-  · by_cases absent : imports.chain frame.text frame.result.after = none
-    · simp [stopped, absent]
-    · by_cases mixed : imports.chain frame.text frame.result.after ≠ frame.selected
-      · simp [stopped, absent, mixed]
-      · by_cases rejected : (relation frame.text frame.state
-          (imports.chainAfter frame.text frame.result.after (imports.chain frame.text frame.result.after))).after ≤ frame.result.after
-        · simp [stopped, absent, mixed, rejected]
-        · simp [stopped, absent, mixed, rejected]
+  by_cases absent : imports.chain frame.text frame.result.after = none
+  · simp [absent]
+  · by_cases mixed : imports.chain frame.text frame.result.after ≠ frame.selected
+    · simp [absent, mixed]
+    · by_cases rejected : (relation frame.text frame.state
+        (imports.chainAfter frame.text frame.result.after (imports.chain frame.text frame.result.after))).after ≤ frame.result.after
+      · simp [absent, mixed, rejected]
+      · simp [absent, mixed, rejected]
 
 theorem step_projection (imports : Imports) (relation : Reader) (frame : Frame) :
     (step imports relation frame).project =
       tailStep imports relation frame.text frame.state frame.selected frame.result := by
   rw [step_equation]
   unfold expectedStep tailStep
-  by_cases stopped : frame.selected = none
-  · simp [stopped, Outcome.project]
-  · by_cases absent : imports.chain frame.text frame.result.after = none
-    · simp [stopped, absent, Outcome.project]
-    · by_cases mixed : imports.chain frame.text frame.result.after ≠ frame.selected
-      · simp [stopped, absent, mixed, Outcome.project]
-      · by_cases rejected : (relation frame.text frame.state
-          (imports.chainAfter frame.text frame.result.after (imports.chain frame.text frame.result.after))).after ≤ frame.result.after
-        · simp [stopped, absent, mixed, rejected, Outcome.project]
-        · simp [stopped, absent, mixed, rejected, Outcome.project]
+  by_cases absent : imports.chain frame.text frame.result.after = none
+  · simp [absent, Outcome.project]
+  · by_cases mixed : imports.chain frame.text frame.result.after ≠ frame.selected
+    · simp [absent, mixed, Outcome.project]
+    · by_cases rejected : (relation frame.text frame.state
+        (imports.chainAfter frame.text frame.result.after (imports.chain frame.text frame.result.after))).after ≤ frame.result.after
+      · simp [absent, mixed, rejected, Outcome.project]
+      · simp [absent, mixed, rejected, Outcome.project]
 
 theorem step_preserves {imports relation frame next}
     (progress : step imports relation frame = .continued next) :
@@ -258,17 +251,15 @@ theorem step_preserves {imports relation frame next}
       next.selected = frame.selected := by
   rw [step_equation] at progress
   unfold expectedStep at progress
+  dsimp only at progress
   split at progress
   · cases progress
-  · dsimp only at progress
-    split at progress
+  · split at progress
     · cases progress
     · split at progress
       · cases progress
-      · split at progress
-        · cases progress
-        · cases progress
-          exact ⟨rfl, rfl, rfl, rfl⟩
+      · cases progress
+        exact ⟨rfl, rfl, rfl, rfl⟩
 
 inductive Execution (imports : Imports) (relation : Reader) : Frame → Result → Prop
   | returned {frame output} : step imports relation frame = .returned output → Execution imports relation frame output
@@ -339,10 +330,9 @@ def BodyExec (imports : Imports) (relation : Reader) (initial : Frame) (output :
   | .continued frame => Execution imports relation frame output
 
 def render : List String := declarations.flatMap Declaration.render ++ ["begin"] ++ prelude.render ++
-  ["while"] ++ test.render ++ ["loop"] ++ commands.render ++ ["end", "loop", ";"] ++
-  finish.render ++ ["end", "static_boolean_at", ";"]
+  ["loop"] ++ commands.render ++ ["end", "loop", ";", "end", "static_boolean_at", ";"]
 
-theorem wellFormed : prelude.wellFormed && test.wellFormed && commands.wellFormed && finish.wellFormed = true := rfl
+theorem wellFormed : prelude.wellFormed && commands.wellFormed = true := rfl
 
 theorem body_denotation (imports : Imports) (relation : Reader) (initial : Frame) (output : Result) :
     BodyExec imports relation initial output ↔
