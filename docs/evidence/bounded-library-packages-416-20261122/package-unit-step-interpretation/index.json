@@ -1,0 +1,17 @@
+{
+  "run_id": "20261122T183420-18830319acb1",
+  "host": "linux-x86_64",
+  "targets": [
+    "Silver.ApplicationPackageUnitEquations"
+  ],
+  "declarations": 20762,
+  "implementation_commit": "ce27a69432e41a91f05570d467acc135b9b650ab",
+  "inputs_digest_sha256": "fede0b46cd6ab16e60f607120d31f04320f751a6221260a89112fdbec8111890",
+  "elapsed_seconds": 19.736,
+  "artifacts_sha256": {
+    "evidence.json": "5b6042465b334b42281056ad9f0c78fa6f3bfcc1ca162ee53d12a7904cd47044",
+    "lean-focused.log.gz": "59e67304af114323f0e1d502b77bd6d63aca97696f26d1a69ebd6c0a2cb7ffa3",
+    "events.jsonl.gz": "0613bc33f8b1c9237cef4e0c0b933acc822983432d3559c33d92a637621a22d9"
+  },
+  "scope": "Full-domain Unit object/completion loop-body equations and generic procedure loop soundness/totality; whole-procedure and source/callee bridge remain open."
+}
