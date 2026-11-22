@@ -21,3 +21,9 @@ The integrated binary's `catalogue` output was also compared byte for byte with
 Remaining work includes full-domain native helper checks, the package semantic
 and source-correspondence chains, the original-bundle endpoint, sample execution,
 complete assurance, applicable regression coverage and independent review.
+
+The next focused check built `Silver.ComposeNativeRecordBounds` and freshly
+audited 15,431 declarations (27.434 s build; 2.922 s audit). It generalizes
+index, value and concatenation bounds to an arbitrary unit-context start, with
+unchanged value domains. The two-worker/two-thread input map and log are the
+`native-value-context-*` files. Remaining caller/source equations are pending.

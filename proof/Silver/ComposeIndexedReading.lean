@@ -12,7 +12,7 @@ the actual selected String metadata and the shared operand count. -/
 structure IndexedReading (text : Source) (names : BindingEnvironment)
     (scalarNames : ScalarExpression.Environment) (arrays : ArrayBindings.Table)
     (initials : ArrayBindings.Initials) (elaborating element : Bool) (position : Nat)
-    (info : BindingInfo) (lower upper : Integer.Expr) : Prop where
+    (info : BindingInfo) (lower upper : Integer.Expr) (contextFirst : Nat := 1) : Prop where
   targetPositive : (indexedParts text position names scalarNames arrays initials elaborating element).target ≠ 0
   selected : names.get (indexedParts text position names scalarNames arrays initials elaborating element).target = some info
   stringTyped : info.isCharacter = false
@@ -51,7 +51,9 @@ structure IndexedReading (text : Source) (names : BindingEnvironment)
   guardedStatic : element = false →
     ((!((indexedParts text position names scalarNames arrays initials elaborating element).lower.isStatic) ||
       !((indexedParts text position names scalarNames arrays initials elaborating element).upper.isStatic)) &&
-      guardedAt text 1 position 0 false false) = false
+      guardedAt text contextFirst position 0 false false) = false
+
+variable {contextFirst : Nat}
 
 def indexedValue (parts : IndexedParts) (element : Bool) : ValueResult :=
   if element then
@@ -66,8 +68,8 @@ theorem indexed_complete {text : Source} {names : BindingEnvironment}
     {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Table}
     {initials : ArrayBindings.Initials} {elaborating element : Bool} {position : Nat}
     {info : BindingInfo} {lower upper : Integer.Expr}
-    (parsed : IndexedReading text names scalarNames arrays initials elaborating element position info lower upper) :
-    indexedAt text position names scalarNames arrays initials elaborating element =
+    (parsed : IndexedReading (contextFirst := contextFirst) text names scalarNames arrays initials elaborating element position info lower upper) :
+    indexedAt (contextFirst := contextFirst) text position names scalarNames arrays initials elaborating element =
       indexedValue (indexedParts text position names scalarNames arrays initials elaborating element) element := by
   have lowerPositive : (indexedParts text position names scalarNames arrays initials elaborating element).lower.after ≠ 0 :=
     by have := parsed.lowerSource.cursorBounds; omega
@@ -94,8 +96,8 @@ theorem indexed_complete {text : Source} {names : BindingEnvironment}
 theorem indexed_sound {text : Source} {names : BindingEnvironment}
     {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Table}
     {initials : ArrayBindings.Initials} {elaborating element : Bool} {position : Nat}
-    (accepted : (indexedAt text position names scalarNames arrays initials elaborating element).after ≠ 0) :
-    ∃ info lower upper, IndexedReading text names scalarNames arrays initials elaborating element position info lower upper := by
+    (accepted : (indexedAt (contextFirst := contextFirst) text position names scalarNames arrays initials elaborating element).after ≠ 0) :
+    ∃ info lower upper, IndexedReading (contextFirst := contextFirst) text names scalarNames arrays initials elaborating element position info lower upper := by
   unfold indexedAt at accepted
   dsimp only at accepted
   split at accepted
@@ -153,7 +155,7 @@ theorem indexed_check {text : Source} {names : BindingEnvironment}
     {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Table}
     {initials : ArrayBindings.Initials} {elaborating : Bool} {position : Nat}
     {info : BindingInfo} {lower upper : Integer.Expr} (normal : NamesNormal names)
-    (parsed : IndexedReading text names scalarNames arrays initials elaborating true position info lower upper) :
+    (parsed : IndexedReading (contextFirst := contextFirst) text names scalarNames arrays initials elaborating true position info lower upper) :
     (Character.Expr.indexed
       (indexedParts text position names scalarNames arrays initials elaborating true).target info.firstIndex lower).check
       names.shape.fixedLengths (ArrayBindings.viewRanges arrays.items initials elaborating (ScalarExpression.ranges scalarNames)) = true := by
@@ -169,7 +171,7 @@ theorem slice_check {text : Source} {names : BindingEnvironment}
     {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Table}
     {initials : ArrayBindings.Initials} {elaborating : Bool} {position : Nat}
     {info : BindingInfo} {lower upper : Integer.Expr} (normal : NamesNormal names)
-    (parsed : IndexedReading text names scalarNames arrays initials elaborating false position info lower upper) :
+    (parsed : IndexedReading (contextFirst := contextFirst) text names scalarNames arrays initials elaborating false position info lower upper) :
     StringIndexing.sliceCheck info.firstIndex info.staticLength
       (indexedParts text position names scalarNames arrays initials elaborating false).lower.bounds
       (indexedParts text position names scalarNames arrays initials elaborating false).upper.bounds = true := by
@@ -186,8 +188,8 @@ theorem indexed_unique {text : Source} {names : BindingEnvironment}
     {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Table}
     {initials : ArrayBindings.Initials} {elaborating element : Bool} {position : Nat}
     {leftInfo rightInfo : BindingInfo} {leftLower leftUpper rightLower rightUpper : Integer.Expr}
-    (left : IndexedReading text names scalarNames arrays initials elaborating element position leftInfo leftLower leftUpper)
-    (right : IndexedReading text names scalarNames arrays initials elaborating element position rightInfo rightLower rightUpper) :
+    (left : IndexedReading (contextFirst := contextFirst) text names scalarNames arrays initials elaborating element position leftInfo leftLower leftUpper)
+    (right : IndexedReading (contextFirst := contextFirst) text names scalarNames arrays initials elaborating element position rightInfo rightLower rightUpper) :
     leftInfo = rightInfo ∧ leftLower = rightLower ∧ (element = false → leftUpper = rightUpper) := by
   exact ⟨Option.some.inj (left.selected.symm.trans right.selected),
     (ScalarExpression.ArrayGrammar.at_unique left.lowerSource right.lowerSource).1,

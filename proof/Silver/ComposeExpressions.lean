@@ -232,7 +232,7 @@ def Function.name : Function → String
   | .fixedBoundsValid => .arrow .number (.arrow .truth (.arrow .truth (.arrow .integer (.arrow .integer (.arrow .number .truth)))))
   | .characterLiteral => .arrow .source (.arrow .number .number)
   | .guardedAt => .arrow .source (.arrow .number (.arrow .number (.arrow .number (.arrow .truth (.arrow .truth .truth)))))
-  | .indexed => .arrow .source (.arrow .number (.arrow .names (.arrow .scalarNames (.arrow .arrayMetadata (.arrow .arrayInitials (.arrow .truth (.arrow .truth .value)))))))
+  | .indexed => .arrow .source (.arrow .number (.arrow .names (.arrow .scalarNames (.arrow .arrayMetadata (.arrow .arrayInitials (.arrow .truth (.arrow .truth (.arrow .number .value))))))))
   | .characterValue => .arrow .source (.arrow .number (.arrow .names (.arrow .scalarNames (.arrow .arrayMetadata (.arrow .arrayInitials (.arrow .truth .value))))))
   | .concatenatedFirst => .arrow .scan (.arrow .value .interval)
   | .concatenatedLast => .arrow .scan (.arrow .value .interval)
@@ -264,7 +264,7 @@ def Function.name : Function → String
   | .workBudget => .arrow .source .truth
   | .image => .arrow .source (.arrow .number (.arrow .names (.arrow .scalarNames (.arrow .truth (.arrow .arrayMetadata (.arrow .arrayInitials (.arrow .truth .value)))))))
   | .imageMinimum | .imageMaximum => .arrow .interval .number
-  | .value => .arrow .source (.arrow .number (.arrow .names (.arrow .scalarNames (.arrow .truth (.arrow .arrayMetadata (.arrow .arrayInitials (.arrow .truth .value)))))))
+  | .value => .arrow .source (.arrow .number (.arrow .names (.arrow .scalarNames (.arrow .truth (.arrow .arrayMetadata (.arrow .arrayInitials (.arrow .truth (.arrow .number .value))))))))
   | .newName => .arrow .source (.arrow .state (.arrow .number (.arrow .number (.arrow .truth (.truth)))))
   | .addBinding => .arrow .state (.arrow .number (.arrow .number (.arrow .value (.arrow .truth (.arrow .number (.state))))))
   | .declaration => .arrow .source (.arrow .state (.arrow .truth (.state)))
@@ -298,11 +298,11 @@ def Function.name : Function → String
   | .argument => .arrow .source (.arrow .state (.state))
   | .declarations => .arrow .source (.arrow .state (.arrow .truth (.state)))
   | .readDeclarations => .arrow .source (.arrow .state (.arrow .truth (.state)))
-  | .expressionStep => .arrow .source (.arrow .names (.arrow .scan (.arrow .scalarNames (.arrow .truth (.arrow .arrayMetadata (.arrow .arrayInitials (.arrow .truth .scan)))))))
+  | .expressionStep => .arrow .source (.arrow .names (.arrow .scan (.arrow .scalarNames (.arrow .truth (.arrow .arrayMetadata (.arrow .arrayInitials (.arrow .truth (.arrow .number .scan))))))))
   | .fits => .arrow .result (.arrow .number .truth)
   | .comparison => .arrow .source (.arrow .state .state)
-  | .tail => .arrow .source (.arrow .names (.arrow .scan (.arrow .scalarNames (.arrow .truth (.arrow .arrayMetadata (.arrow .arrayInitials (.arrow .truth .result)))))))
-  | .expression => .arrow .source (.arrow .number (.arrow .names (.arrow .scalarNames (.arrow .truth (.arrow .arrayMetadata (.arrow .arrayInitials (.arrow .truth .result)))))))
+  | .tail => .arrow .source (.arrow .names (.arrow .scan (.arrow .scalarNames (.arrow .truth (.arrow .arrayMetadata (.arrow .arrayInitials (.arrow .truth (.arrow .number .result))))))))
+  | .expression => .arrow .source (.arrow .number (.arrow .names (.arrow .scalarNames (.arrow .truth (.arrow .arrayMetadata (.arrow .arrayInitials (.arrow .truth (.arrow .number .result))))))))
   | .target => .arrow .source (.arrow .state (.arrow .truth (.state)))
   | .dynamic => .arrow .source (.arrow .state (.state))
   | .assignmentValue => .arrow .source (.arrow .state (.state))
@@ -451,6 +451,9 @@ inductive Field : Ty → Ty → Type
   | bindingLength : Field .binding .number
   | bindingDynamic : Field .binding .truth
   | bindingMutable : Field .binding .truth
+  | stateContextFirst : Field .state .number
+  | statePackageFirst : Field .state .number
+  | statePackageAfter : Field .state .number
   | statePosition : Field .state .number
   | stateNames : Field .state .names
   | stateScalarNames : Field .state .scalarNames
@@ -530,6 +533,9 @@ def Field.name : Field a b → String
   | .bindingLength => "static_length"
   | .bindingDynamic => "dynamic"
   | .bindingMutable => "mutable"
+  | .stateContextFirst => "context_first"
+  | .statePackageFirst => "package_first"
+  | .statePackageAfter => "package_after"
   | .statePosition => "position"
   | .stateNames => "names"
   | .stateScalarNames => "scalar_names"
@@ -601,6 +607,9 @@ def Field.get : Field a b → a.meaning → b.meaning
   | .bindingLength, value => value.staticLength
   | .bindingDynamic, value => value.dynamic
   | .bindingMutable, value => value.mutable
+  | .stateContextFirst, value => value.contextFirst
+  | .statePackageFirst, value => value.packageFirst
+  | .statePackageAfter, value => value.packageAfter
   | .statePosition, value => value.position
   | .stateNames, value => value.names
   | .stateScalarNames, value => value.scalarNames
@@ -697,7 +706,7 @@ inductive Expr : Ty → Type
   | scalarReadArrays : Expr .source → Expr .number → Expr .scalarNames →
       Expr .arrayMetadata → Expr .arrayInitials → Expr .truth → Expr .scalarResult
   | expressionArrays : Expr .source → Expr .number → Expr .names → Expr .scalarNames →
-      Expr .arrayMetadata → Expr .arrayInitials → Expr .truth → Expr .result
+      Expr .arrayMetadata → Expr .arrayInitials → Expr .truth → Expr .number → Expr .result
   | field : Field a b → Expr a → Expr b
   | count : Expr .names → Expr .number
   | scalarCount : Expr .scalarNames → Expr .number
@@ -945,9 +954,9 @@ def Expr.render : Expr ty → List String
   | .scalarReadArrays t p n a i e => ["scalar_expressions", "."] ++ call "read_expression"
       [t.render, p.render, n.render, ["arrays", "=>"] ++ a.render,
         ["initials", "=>"] ++ i.render, ["elaborating", "=>"] ++ e.render]
-  | .expressionArrays t p n sn a i e => call "expression_at"
+  | .expressionArrays t p n sn a i e c => call "expression_at"
       [t.render, p.render, n.render, sn.render, ["arrays", "=>"] ++ a.render,
-        ["initials", "=>"] ++ i.render, ["elaborating", "=>"] ++ e.render]
+        ["initials", "=>"] ++ i.render, ["elaborating", "=>"] ++ e.render, ["context_first", "=>"] ++ c.render]
   | .app f x =>
       match f with
       | .app _ _ => f.render.dropLast ++ [","] ++ x.render ++ [")"]
@@ -1150,9 +1159,9 @@ def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
   | .scalarReadArrays t p n a i e => calls.function .scalarRead
       (t.eval calls locals) (p.eval calls locals) (n.eval calls locals)
       (a.eval calls locals) (i.eval calls locals) (e.eval calls locals)
-  | .expressionArrays t p n sn a i e => calls.function .expression
+  | .expressionArrays t p n sn a i e c => calls.function .expression
       (t.eval calls locals) (p.eval calls locals) (n.eval calls locals) (sn.eval calls locals) false
-      (a.eval calls locals) (i.eval calls locals) (e.eval calls locals)
+      (a.eval calls locals) (i.eval calls locals) (e.eval calls locals) (c.eval calls locals)
   | .field projection x => projection.get (x.eval calls locals)
   | .scalarCount x => (x.eval calls locals).length
   | .word spellingValue => spellingValue
@@ -1395,8 +1404,8 @@ def valueBody : Expr .value :=
     .group <| .ite (.ne (.field .valueAfter quoted) (.number 0)) quoted <|
     .elsif (.andThen (.andThen (.ne index (.number 0)) (.not (.field .bindingCharacter info)))
       (.ne (.app (.app (.app (.function .takeToken) text) after) (.token (.symbol "("))) (.number 0)))
-      (.app (.app (.app (.app (.app (.app (.app (.app (.function .indexed) text) position) names)
-        (.variable "scalar_names")) (.variable "arrays")) (.variable "initials")) (.variable "elaborating")) (.truth false)) <|
+      (.app (.app (.app (.app (.app (.app (.app (.app (.app (.function .indexed) text) position) names)
+        (.variable "scalar_names")) (.variable "arrays")) (.variable "initials")) (.variable "elaborating")) (.truth false)) (.variable "context_first")) <|
     .elsif (.andThen (.andThen (.ne index (.number 0)) (.not (.field .bindingCharacter info)))
       (.eq (.app (.app (.app (.app (.function .scalarLookup) text) (.variable "scalar_names")) first) after) (.number 0)))
       (.nativeValue after (.field .bindingValueFirst info) (.field .bindingLength info) (.field .bindingLength info)
@@ -1452,10 +1461,10 @@ def stringDeclarationBody : Expr .state :=
     .local "constant_after" "literal_position" (take (.variable "colon_after") (.word "constant")) <|
     .local "type_after" "literal_position" (take (.group <| .ite (.ne (.variable "constant_after") (.number 0))
       (.variable "constant_after") (.variable "colon_after")) (.word "string")) <|
-    .local "value" "expression_result" (.app (.app (.app (.app (.app (.app (.app (.app (.function .expression) text)
+    .local "value" "expression_result" (.app (.app (.app (.app (.app (.app (.app (.app (.app (.function .expression) text)
       (take (.variable "type_after") (.symbol ":="))) (.field .stateNames state)) (.field .stateScalarNames state))
       (.orElse (.orElse (.group (.andThen (.andThen (.ne first (.number 0)) (.gt after first)) (.eq (take first (.word "integer")) after)))
-        (.app (.app (.function .booleanHidesInteger) text) (.field .stateBooleanNames state))) (.field .hiddenInteger (.field .stateHiding state)))) (.field .arrayNames (.field .stateArrayNames state))) (.field .arrayValues (.field .stateArrayNames state))) (.truth true)) <|
+        (.app (.app (.function .booleanHidesInteger) text) (.field .stateBooleanNames state))) (.field .hiddenInteger (.field .stateHiding state)))) (.field .arrayNames (.field .stateArrayNames state))) (.field .arrayValues (.field .stateArrayNames state))) (.truth true)) (.field .stateContextFirst state)) <|
     .local "following" "literal_position" (take (.field .resultAfter value) (.symbol ";")) <|
     .group <| .ite (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse
       (.not <| .app (.app (.app (.app (.app (.function .newName) text) state) first) after) (.variable "arguments"))
@@ -1735,8 +1744,8 @@ def expressionStepBody : Expr .scan :=
       (.gt (.field .valueLength atom) (.sub .maxLength (.field .scanLength state))))
     (.gt (.field .valueMinimum atom) (.sub .maxLength (.field .scanMinimum state)))
   .locals <| .local "open_after" "literal_position" (take (.symbol "(")) <|
-    .local "atom" "value_result" (.app (.app (.app (.app (.app (.app (.app (.app (.function .value) text)
-      (.field .scanPosition state)) (.variable "names")) (.variable "scalar_names")) (.variable "integer_hidden")) (.variable "arrays")) (.variable "initials")) (.variable "elaborating")) <|
+    .local "atom" "value_result" (.app (.app (.app (.app (.app (.app (.app (.app (.app (.function .value) text)
+      (.field .scanPosition state)) (.variable "names")) (.variable "scalar_names")) (.variable "integer_hidden")) (.variable "arrays")) (.variable "initials")) (.variable "elaborating")) (.variable "context_first")) <|
     .local "join_after" "literal_position" (take (.symbol "&")) <|
     .local "close_after" "literal_position" (take (.symbol ")")) <|
     .group <| .ite (.eq (.field .scanPosition state) (.number 0)) .invalidScan <|
@@ -1767,18 +1776,18 @@ def tailBody : Expr .result :=
   .ite (.eq (.field .scanPosition state) (.number 0)) .invalidResult <|
     .elsif (.field .scanComplete state) (result state) <|
     .group <| .locals <| .local "next" "expression_state"
-      (.app (.app (.app (.app (.app (.app (.app (.app (.function .expressionStep) (.variable "text")) (.variable "names")) state)
-        (.variable "scalar_names")) (.variable "integer_hidden")) (.variable "arrays")) (.variable "initials")) (.variable "elaborating")) <|
+      (.app (.app (.app (.app (.app (.app (.app (.app (.app (.function .expressionStep) (.variable "text")) (.variable "names")) state)
+        (.variable "scalar_names")) (.variable "integer_hidden")) (.variable "arrays")) (.variable "initials")) (.variable "elaborating")) (.variable "context_first")) <|
     .group <| .ite (.eq (.field .scanPosition next) (.number 0)) .invalidResult <|
     .elsif (.field .scanComplete next) (result next)
-      (.app (.app (.app (.app (.app (.app (.app (.app (.function .tail) (.variable "text")) (.variable "names")) next)
-        (.variable "scalar_names")) (.variable "integer_hidden")) (.variable "arrays")) (.variable "initials")) (.variable "elaborating"))
+      (.app (.app (.app (.app (.app (.app (.app (.app (.app (.function .tail) (.variable "text")) (.variable "names")) next)
+        (.variable "scalar_names")) (.variable "integer_hidden")) (.variable "arrays")) (.variable "initials")) (.variable "elaborating")) (.variable "context_first"))
 
 def expressionBody : Expr .result :=
-  (.app (.app (.app (.app (.app (.app (.app (.app (.function .tail) (.variable "text")) (.variable "names"))
+  (.app (.app (.app (.app (.app (.app (.app (.app (.app (.function .tail) (.variable "text")) (.variable "names"))
     (.nativeScan (.variable "position") (.number 0) (.number 0) (.number 0) (.number 0) (.number 0)
       (.truth false) (.truth true) (.truth false) (.truth false)
-      (.singleton (.integerNumber 1)) (.singleton (.integerNumber 0)))) (.variable "scalar_names")) (.variable "integer_hidden")) (.variable "arrays")) (.variable "initials")) (.variable "elaborating"))
+      (.singleton (.integerNumber 1)) (.singleton (.integerNumber 0)))) (.variable "scalar_names")) (.variable "integer_hidden")) (.variable "arrays")) (.variable "initials")) (.variable "elaborating")) (.variable "context_first"))
 
 def fitsBody : Expr .truth :=
   let value : Expr .result := .variable "value"
@@ -1798,7 +1807,7 @@ def assignmentBody : Expr .state :=
   let value : Expr .result := .variable "value"
   let target := Expr.item (.field .stateNames state) (.field .stateTarget state)
   .locals <| .local "value" "expression_result"
-    (.expressionArrays text (.field .statePosition state) (.field .stateNames state) (.field .stateScalarNames state) (.field .arrayNames (.field .stateArrayNames state)) (.field .arrayValues (.field .stateArrayNames state)) (.truth true)) <|
+    (.expressionArrays text (.field .statePosition state) (.field .stateNames state) (.field .stateScalarNames state) (.field .arrayNames (.field .stateArrayNames state)) (.field .arrayValues (.field .stateArrayNames state)) (.truth true) (.field .stateContextFirst state)) <|
     .group <| .ite (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse
       (.not <| .app (.app (.function .fits) value) (.field .stateCapacity state))
       (.eq (.field .stateTarget state) (.number 0)))
@@ -1813,7 +1822,7 @@ def outputBody : Expr .state :=
   let state : Expr .state := .variable "state"
   let value : Expr .result := .variable "value"
   .locals <| .local "value" "expression_result"
-    (.expressionArrays (.variable "text") (.field .statePosition state) (.field .stateNames state) (.field .stateScalarNames state) (.field .arrayNames (.field .stateArrayNames state)) (.field .arrayValues (.field .stateArrayNames state)) (.truth true)) <|
+    (.expressionArrays (.variable "text") (.field .statePosition state) (.field .stateNames state) (.field .stateScalarNames state) (.field .arrayNames (.field .stateArrayNames state)) (.field .arrayValues (.field .stateArrayNames state)) (.truth true) (.field .stateContextFirst state)) <|
     .group <| .ite (.not <| .app (.app (.function .fits) value) (.field .stateCapacity state))
       .invalid (.statePosition state (.field .resultAfter value))
 
@@ -1823,8 +1832,8 @@ def comparisonBody : Expr .state :=
   let lhs : Expr .result := .variable "left"
   let rhs : Expr .result := .variable "right"
   .locals <| .local "left" "expression_result"
-    (.expressionArrays text (.field .statePosition state) (.field .stateNames state) (.field .stateScalarNames state) (.field .arrayNames (.field .stateArrayNames state)) (.field .arrayValues (.field .stateArrayNames state)) (.truth true)) <|
-    .local "right" "expression_result" (.expressionArrays text (.app (.app (.app (.function .takeToken) text) (.field .resultAfter lhs)) (.token (.symbol "="))) (.field .stateNames state) (.field .stateScalarNames state) (.field .arrayNames (.field .stateArrayNames state)) (.field .arrayValues (.field .stateArrayNames state)) (.truth true)) <|
+    (.expressionArrays text (.field .statePosition state) (.field .stateNames state) (.field .stateScalarNames state) (.field .arrayNames (.field .stateArrayNames state)) (.field .arrayValues (.field .stateArrayNames state)) (.truth true) (.field .stateContextFirst state)) <|
+    .local "right" "expression_result" (.expressionArrays text (.app (.app (.app (.function .takeToken) text) (.field .resultAfter lhs)) (.token (.symbol "="))) (.field .stateNames state) (.field .stateScalarNames state) (.field .arrayNames (.field .stateArrayNames state)) (.field .arrayValues (.field .stateArrayNames state)) (.truth true) (.field .stateContextFirst state)) <|
     .group <| .ite (.orElse (.orElse
       (.not <| .app (.app (.function .fits) lhs) (.field .stateCapacity state))
       (.not <| .app (.app (.function .fits) rhs) (.field .stateCapacity state)))
@@ -1912,7 +1921,7 @@ def Expr.prefix : Expr ty → Bool
     .lexDecimal _ _ | .lexTokenAt _ _ _ _ | .lexNormalize _ | .lexAllowed _ |
     .operation _ | .variable _ | .function _ | .app _ _ | .defaultFalse _ | .defaultFull _ _ |
     .subtypeCount _ | .subtypeItem _ _ | .hiddenFlag _ _ | .maxSubtypeBindings | .arrayTypeCount _ | .maxArrayTypes |
-    .scalarReadTable _ _ _ _ | .scalarReadArrays _ _ _ _ _ _ | .expressionArrays _ _ _ _ _ _ _ |
+    .scalarReadTable _ _ _ _ | .scalarReadArrays _ _ _ _ _ _ | .expressionArrays _ _ _ _ _ _ _ _ |
     .field _ _ | .count _ | .scalarCount _ | .integerTypeWord | .booleanTypeWord | .characterTypeWord |
     .arrayCount _ | .arrayItem _ _ | .arrayTypeItem _ _ | .maxArrayBindings | .maxArrayElements | .invalidScalar |
     .wideInteger _ | .wideNumber _ | .elementCount _ | .maxScalarBindings |
@@ -1944,7 +1953,7 @@ def Expr.primary : Expr ty → Bool
   | .lexDecimal _ _ | .lexTokenAt _ _ _ _ | .lexNormalize _ | .lexAllowed _
   | .operation _ | .number _ | .character _ | .truth _ | .variable _ | .function _
   | .app _ _ | .defaultFalse _ | .scalarReadTable _ _ _ _ | .scalarReadArrays _ _ _ _ _ _
-  | .expressionArrays _ _ _ _ _ _ _ | .field _ _ | .count _ | .scalarCount _
+  | .expressionArrays _ _ _ _ _ _ _ _ | .field _ _ | .count _ | .scalarCount _
   | .word _ | .integerTypeWord | .booleanTypeWord | .characterTypeWord | .arrayCount _ | .arrayItem _ _ | .arrayTypeItem _ _ | .maxArrayBindings | .maxArrayElements
   | .invalidScalar | .integerNumber _ | .wideInteger _ | .wideNumber _ | .elementCount _
   | .arrayPut _ _ _ | .arrayUsedValues _ _ _ | .arrayNamesOnly _ _ | .stateArray _ _
@@ -2085,8 +2094,8 @@ def Expr.wellFormed : Expr ty → Bool
       t.expression && p.expression && n.expression && a.expression
   | .scalarReadArrays t p n a i e => t.wellFormed && p.wellFormed && n.wellFormed &&
       a.wellFormed && i.wellFormed && e.wellFormed && t.expression && p.expression && n.expression && a.expression && i.expression && e.expression
-  | .expressionArrays t p n sn a i e => t.wellFormed && p.wellFormed && n.wellFormed && sn.wellFormed &&
-      a.wellFormed && i.wellFormed && e.wellFormed && t.expression && p.expression && n.expression && sn.expression && a.expression && i.expression && e.expression
+  | .expressionArrays t p n sn a i e c => t.wellFormed && p.wellFormed && n.wellFormed && sn.wellFormed &&
+      a.wellFormed && i.wellFormed && e.wellFormed && t.expression && p.expression && n.expression && sn.expression && a.expression && i.expression && e.expression && c.wellFormed && c.expression
   | .field _ x => x.wellFormed && x.prefix
   | .scalarCount x => x.wellFormed && x.prefix
   | .arrayCount a => a.wellFormed && a.prefix
@@ -2373,7 +2382,7 @@ def Expr.scoped (scope : Scope) : Expr ty → Bool
   | .maxSubtypeBindings => true
   | .scalarReadTable t p n a => t.scoped scope && p.scoped scope && n.scoped scope && a.scoped scope
   | .scalarReadArrays t p n a i e => t.scoped scope && p.scoped scope && n.scoped scope && a.scoped scope && i.scoped scope && e.scoped scope
-  | .expressionArrays t p n sn a i e => t.scoped scope && p.scoped scope && n.scoped scope && sn.scoped scope && a.scoped scope && i.scoped scope && e.scoped scope
+  | .expressionArrays t p n sn a i e c => t.scoped scope && p.scoped scope && n.scoped scope && sn.scoped scope && a.scoped scope && i.scoped scope && e.scoped scope && c.scoped scope
   | .field _ x => x.scoped scope
   | .scalarCount x => x.scoped scope
   | .arrayCount a => a.scoped scope
@@ -2476,7 +2485,7 @@ abbrev WellScopedTrees : Prop :=
   workTailBody.scoped [("text", .source), ("position", .number), ("remaining", .number)] = true ∧
   workBudgetBody.scoped [("text", .source)] = true ∧
   imageBody.scoped [("arrays", .arrayMetadata), ("initials", .arrayInitials), ("elaborating", .truth), ("integer_hidden", .truth), ("scalar_names", .scalarNames), ("text", .source), ("position", .number), ("names", .names)] = true ∧
-  valueBody.scoped [("arrays", .arrayMetadata), ("initials", .arrayInitials), ("elaborating", .truth), ("integer_hidden", .truth), ("scalar_names", .scalarNames), ("text", .source), ("position", .number), ("names", .names)] = true ∧
+  valueBody.scoped [("context_first", .number), ("arrays", .arrayMetadata), ("initials", .arrayInitials), ("elaborating", .truth), ("integer_hidden", .truth), ("scalar_names", .scalarNames), ("text", .source), ("position", .number), ("names", .names)] = true ∧
   newNameBody.scoped [("text", .source), ("state", .state), ("first", .number), ("after", .number), ("arguments", .truth)] = true ∧
   addBindingBody.scoped [("character_object", .truth), ("state", .state), ("first", .number), ("after", .number), ("value", .value), ("mutable", .truth), ("following", .number)] = true ∧
   stringDeclarationBody.scoped [("text", .source), ("state", .state), ("arguments", .truth)] = true ∧
@@ -2485,11 +2494,11 @@ abbrev WellScopedTrees : Prop :=
   declarationBody.scoped [("text", .source), ("state", .state), ("arguments", .truth)] = true ∧
   argumentBody.scoped [("text", .source), ("state", .state)] = true ∧
   declarationsBody.scoped [("text", .source), ("state", .state), ("arguments", .truth)] = true ∧
-  expressionStepBody.scoped [("arrays", .arrayMetadata), ("initials", .arrayInitials), ("elaborating", .truth), ("integer_hidden", .truth), ("scalar_names", .scalarNames), ("text", .source), ("names", .names), ("state", .scan)] = true ∧
-  tailBody.scoped [("arrays", .arrayMetadata), ("initials", .arrayInitials), ("elaborating", .truth), ("integer_hidden", .truth), ("scalar_names", .scalarNames), ("text", .source), ("names", .names), ("state", .scan)] = true ∧
+  expressionStepBody.scoped [("context_first", .number), ("arrays", .arrayMetadata), ("initials", .arrayInitials), ("elaborating", .truth), ("integer_hidden", .truth), ("scalar_names", .scalarNames), ("text", .source), ("names", .names), ("state", .scan)] = true ∧
+  tailBody.scoped [("context_first", .number), ("arrays", .arrayMetadata), ("initials", .arrayInitials), ("elaborating", .truth), ("integer_hidden", .truth), ("scalar_names", .scalarNames), ("text", .source), ("names", .names), ("state", .scan)] = true ∧
   fitsBody.scoped [("value", .result), ("capacity", .number)] = true ∧
   comparisonBody.scoped [("text", .source), ("state", .state)] = true ∧
-  expressionBody.scoped [("arrays", .arrayMetadata), ("initials", .arrayInitials), ("elaborating", .truth), ("integer_hidden", .truth), ("scalar_names", .scalarNames), ("text", .source), ("position", .number), ("names", .names)] = true ∧
+  expressionBody.scoped [("context_first", .number), ("arrays", .arrayMetadata), ("initials", .arrayInitials), ("elaborating", .truth), ("integer_hidden", .truth), ("scalar_names", .scalarNames), ("text", .source), ("position", .number), ("names", .names)] = true ∧
   targetBody.scoped [("text", .source), ("state", .state), ("same_target", .truth)] = true ∧
   dynamicBody.scoped [("text", .source), ("state", .state)] = true ∧
   assignmentBody.scoped [("text", .source), ("state", .state)] = true ∧
