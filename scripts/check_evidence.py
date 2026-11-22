@@ -342,6 +342,59 @@ def audit_unit_coverage(unit: str, entities: dict, coverage: dict, summary: tupl
     return owned, imports, vendor
 
 
+def application_inventory(prefix: str, functions: tuple[str, ...],
+                          procedures: Mapping[str, tuple[str, ...]] | None,
+                          formals: Mapping[str, tuple[tuple[str, str], ...]] | None,
+                          *, complete_formals: bool = False) -> dict:
+    """Validate caller-supplied source declarations, independently of reports."""
+    identifier = r"[A-Za-z]([A-Za-z0-9]|_[A-Za-z0-9])*"
+    require(isinstance(functions, tuple) and len(functions) <= 4096 // 32
+            and all(isinstance(name, str) and len(name) <= 4096
+                    and re.fullmatch(identifier, name) is not None for name in functions),
+            "application: invalid source function inventory")
+    function_names = {prefix + "." + name.lower() for name in functions}
+    require(len(function_names) == len(functions), "application: duplicate source function name")
+    procedures = {} if procedures is None else procedures
+    require(isinstance(procedures, Mapping) and len(procedures) <= 4096 // 32
+            and all(isinstance(name, str) and len(name) <= 4096
+                    and re.fullmatch(identifier, name) is not None
+                    and isinstance(outputs, tuple)
+                    and all(isinstance(output, str) and len(output) <= 4096
+                            and re.fullmatch(identifier, output) is not None for output in outputs)
+                    and len({output.lower() for output in outputs}) == len(outputs)
+                    for name, outputs in procedures.items())
+            and sum(len(outputs) for outputs in procedures.values()) <= 4096 // 7,
+            "application: invalid source procedure inventory")
+    procedure_outputs = {prefix + "." + name.lower(): outputs for name, outputs in procedures.items()}
+    procedure_names = set(procedure_outputs)
+    require(len(procedure_names) == len(procedures) and not (function_names & procedure_names),
+            "application: duplicate source subprogram name")
+    callable_names = function_names | procedure_names
+    formals = {} if formals is None else formals
+    require(isinstance(formals, Mapping)
+            and all(isinstance(owner, str) and prefix + "." + owner.lower() in callable_names
+                    and isinstance(items, tuple)
+                    and all(isinstance(item, tuple) and len(item) == 2
+                            and isinstance(item[0], str) and len(item[0]) <= 4096
+                            and re.fullmatch(identifier, item[0]) is not None
+                            and item[1] in ("in", "out", "in out") for item in items)
+                    and len({item[0].lower() for item in items}) == len(items)
+                    for owner, items in formals.items())
+            and sum(len(items) for items in formals.values()) <= 4096 // 7,
+            "application: invalid source formal inventory")
+    source_formals = {prefix + "." + owner.lower(): items for owner, items in formals.items()}
+    require(len(source_formals) == len(formals)
+            and (not complete_formals or source_formals.keys() == callable_names)
+            and all(all(mode == "in" for _, mode in items) if owner in function_names
+                    else {name for name, mode in items if mode == "out"} == set(procedure_outputs[owner])
+                    for owner, items in source_formals.items()),
+            "application: inconsistent source formal inventory")
+    spelling = {prefix + "." + name.lower(): name for name in (*functions, *procedures)}
+    return dict(function_names=function_names, procedures=procedures,
+                procedure_outputs=procedure_outputs, procedure_names=procedure_names,
+                callable_names=callable_names, source_formals=source_formals, spelling=spelling)
+
+
 def audit_reports(report_dir: Path, expected_units: set[str],
                   trusted_import_units: set[str] | None = None, *,
                   effective_command: list[str] | None = None,
@@ -349,7 +402,9 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                   application_functions: tuple[str, ...] = (),
                   application_procedures: Mapping[str, tuple[str, ...]] | None = None,
                   application_formals: Mapping[str, tuple[tuple[str, str], ...]] | None = None,
+                  application_package: Mapping | None = None,
                   indexed_main: bool = False,
+                  indexed_packages: bool = False,
                   proof_instance: tuple[int, int, int] | None = None,
                   proof_instances: dict[str, tuple[int, int, int]] | None = None,
                   signed_conversion_instance: tuple[int, int, int] | None = None) -> dict[str, int]:
@@ -358,14 +413,58 @@ def audit_reports(report_dir: Path, expected_units: set[str],
     ``application_formals`` supplies exact declared names and modes independently
     of reports. It is needed only for the two formal flow-advisory rules; omitting
     it preserves the pre-existing acceptance policy.
+
+    ``application_package`` supplies one original package's name, assigned flag,
+    function/procedure/formal inventories, private state names and per-procedure
+    transitive writes. All names retain their declaration spelling. This source
+    inventory is never reconstructed from report entities or diagnostics.
     """
     require(bool(expected_units), "no implementation units selected for auditing")
     require(not indexed_main or "main" in expected_units,
             "indexed Main audit requires Main")
-    # Indexed project naming changes Main's artifact and coverage-summary name,
-    # not the entity identity used in diagnostics, dependencies or source locations.
-    report_names = {unit: ("main~1.spark" if indexed_main and unit == "main"
-                           else f"{unit}.spark") for unit in expected_units}
+    package_unit = None
+    package_inventory = None
+    package_states: tuple[str, ...] = ()
+    package_writes: Mapping[str, tuple[str, ...]] = {}
+    package_assigned = False
+    if application_package is not None:
+        require(application_kind is not None and isinstance(application_package, Mapping),
+                "application package inventory requires an application policy")
+        package_name = application_package.get("name")
+        identifier = r"[A-Za-z]([A-Za-z0-9]|_[A-Za-z0-9])*"
+        require(isinstance(package_name, str) and len(package_name) <= 4096
+                and re.fullmatch(identifier, package_name) is not None,
+                "application: invalid package name")
+        package_unit = package_name.lower()
+        require(package_unit not in {"main", "silver_io", "silver_arguments", "silver_runtime", "silver_output_libc"}
+                and {"main", package_unit} <= expected_units,
+                "application: missing or conflicting selected package unit")
+        package_inventory = application_inventory(
+            package_unit, application_package.get("functions"),
+            application_package.get("procedures"), application_package.get("formals"),
+            complete_formals=True)
+        require(len(package_inventory["callable_names"]) <= 4096 // 32,
+                "application: package routine inventory exceeds shared source bound")
+        package_states = application_package.get("states")
+        package_writes = application_package.get("writes")
+        package_assigned = application_package.get("assigned")
+        require(type(package_assigned) is bool and isinstance(package_states, tuple)
+                and len(package_states) <= 4096 // 7
+                and all(isinstance(name, str) and len(name) <= 4096
+                        and re.fullmatch(identifier, name) is not None for name in package_states)
+                and len({name.lower() for name in package_states}) == len(package_states),
+                "application: invalid private state inventory")
+        require(isinstance(package_writes, Mapping)
+                and package_writes.keys() == package_inventory["procedures"].keys()
+                and all(isinstance(written, tuple) and set(written) <= set(package_states)
+                        and len(set(written)) == len(written) for written in package_writes.values()),
+                "application: invalid package write effects")
+    require(not indexed_packages or application_package is not None,
+            "indexed package reports require a source package inventory")
+    # Indexed naming changes artifacts and summary names, never original origins.
+    report_names = {unit: (f"{unit}~1.spark" if (indexed_main and unit == "main")
+                           or (indexed_packages and unit == package_unit) else f"{unit}.spark")
+                    for unit in expected_units}
     require({path.name for path in report_dir.glob("*.spark")} == set(report_names.values()),
             "missing report or unexpected compilation-unit report")
     trusted_import_units = trusted_import_units or set()
@@ -389,56 +488,16 @@ def audit_reports(report_dir: Path, expected_units: set[str],
             signed_conversion_entities(signed_conversion_instance))
     require(application_kind in (None, "static", "argument", "assigned", "selected"),
             "unknown application report policy")
-    require(not application_functions or application_kind is not None,
-            "application function inventory requires an application policy")
-    require(len(application_functions) <= 4096 // 32
-            and all(isinstance(name, str) and re.fullmatch(
-                r"[A-Za-z]([A-Za-z0-9]|_[A-Za-z0-9])*", name) is not None
-                    for name in application_functions),
-            "application: invalid source function inventory")
-    function_names = {"main." + name.lower() for name in application_functions}
-    require(len(function_names) == len(application_functions),
-            "application: duplicate source function name")
-    procedures = {} if application_procedures is None else application_procedures
-    require(isinstance(procedures, Mapping)
-            and (not procedures or application_kind is not None),
-            "application procedure inventory requires an application policy")
-    identifier = r"[A-Za-z]([A-Za-z0-9]|_[A-Za-z0-9])*"
-    require(len(procedures) <= 4096 // 32
-            and all(isinstance(name, str) and re.fullmatch(identifier, name) is not None
-                    and isinstance(outputs, tuple)
-                    and all(isinstance(output, str) and re.fullmatch(identifier, output) is not None
-                            for output in outputs)
-                    and len({output.lower() for output in outputs}) == len(outputs)
-                    for name, outputs in procedures.items())
-            and sum(len(outputs) for outputs in procedures.values()) <= 4096 // 7,
-            "application: invalid source procedure inventory")
-    procedure_outputs = {"main." + name.lower(): outputs for name, outputs in procedures.items()}
-    procedure_names = set(procedure_outputs)
-    require(len(procedure_names) == len(procedures) and not (function_names & procedure_names),
-            "application: duplicate source subprogram name")
-    callable_names = function_names | procedure_names
-    # The older inventories identify function names and procedure outputs only.
-    # Formal advisories need an independent source inventory with exact spelling
-    # and mode; never infer it from the report's message or entity declarations.
-    formals = {} if application_formals is None else application_formals
-    require(isinstance(formals, Mapping)
-            and all(isinstance(owner, str) and "main." + owner.lower() in callable_names
-                    and isinstance(items, tuple)
-                    and all(isinstance(item, tuple) and len(item) == 2
-                            and isinstance(item[0], str) and len(item[0]) <= 4096
-                            and re.fullmatch(identifier, item[0]) is not None
-                            and item[1] in ("in", "out", "in out") for item in items)
-                    and len({item[0].lower() for item in items}) == len(items)
-                    for owner, items in formals.items())
-            and sum(len(items) for items in formals.values()) <= 4096 // 7,
-            "application: invalid source formal inventory")
-    source_formals = {"main." + owner.lower(): items for owner, items in formals.items()}
-    require(len(source_formals) == len(formals)
-            and all(all(mode == "in" for _, mode in items) if owner in function_names
-                    else {name for name, mode in items if mode == "out"} == set(procedure_outputs[owner])
-                    for owner, items in source_formals.items()),
-            "application: inconsistent source formal inventory")
+    require((not application_functions and not application_procedures and not application_formals)
+            or application_kind is not None,
+            "application subprogram inventory requires an application policy")
+    main_inventory = application_inventory("main", application_functions,
+                                           application_procedures, application_formals)
+    all_callable_names = main_inventory["callable_names"] | (
+        package_inventory["callable_names"] if package_inventory is not None else set())
+    has_callables = bool(all_callable_names) or application_package is not None
+    application_files = {"main.adb"} | ({package_unit + ".ads", package_unit + ".adb"}
+                                      if package_unit is not None else set())
     if application_kind is not None:
         require("main" in expected_units, "application audit requires Main")
         stats["assignment_advisories"] = 0
@@ -474,14 +533,25 @@ def audit_reports(report_dir: Path, expected_units: set[str],
         coverage = report.get("spark")
         require(isinstance(entities, dict) and bool(entities), f"{unit}: no analyzed entities")
         require(isinstance(coverage, dict) and bool(coverage), f"{unit}: no SPARK coverage")
-        application = application_kind is not None and unit == "main"
-        assignment = application and application_kind in ("assigned", "selected")
+        package_report = package_inventory is not None and unit == package_unit
+        application = application_kind is not None and (unit == "main" or package_report)
+        unit_kind = ("assigned" if package_assigned else "static") if package_report else application_kind
+        assignment = application and unit_kind in ("assigned", "selected")
         comparison = application
         if application:
-            # Source membership selects a policy; this helper checks the emitted
-            # producer shape without inferring source membership from a report.
+            inventory = package_inventory if package_report else main_inventory
+            function_names = inventory["function_names"]
+            procedures = inventory["procedures"]
+            procedure_outputs = inventory["procedure_outputs"]
+            procedure_names = inventory["procedure_names"]
+            callable_names = inventory["callable_names"]
+            source_formals = inventory["source_formals"]
+            callable_spelling = inventory["spelling"]
+            declaration_file = unit + (".ads" if package_report else ".adb")
+            implementation_file = unit + ".adb"
+            root_name = package_unit if package_report else "main"
             main_entities = {key: value for key, value in entities.items()
-                             if value.get("name", "").lower() == "main"}
+                             if value.get("name", "").lower() == root_name}
             local_entities = {key: value for key, value in entities.items()
                               if value.get("name", "").lower() in function_names}
             procedure_entities = {key: value for key, value in entities.items()
@@ -493,23 +563,29 @@ def audit_reports(report_dir: Path, expected_units: set[str],
             require(len(local_entities) == len(function_names)
                     and {item.get("name", "").lower() for item in local_entities.values()} == function_names,
                     "application: missing or duplicate source function entity")
+            imported_package_entities = ({key: value for key, value in entities.items()
+                if value.get("name", "").lower() in package_inventory["callable_names"]}
+                if package_inventory is not None and not package_report else {})
+            require(len(imported_package_entities) == len({item.get("name", "").lower()
+                    for item in imported_package_entities.values()}),
+                    "application: duplicate package dependency")
             termination_entities: set[str] = set()
             initialization_entities: set[tuple[str, str]] = set()
             expected_initializations = {(key, output) for key, value in procedure_entities.items()
                                         for output in procedure_outputs[value["name"].lower()]}
             output_callees = {"Silver_IO.Put_Line", "Silver_IO.Put"}
-            callees = {name: "silver_io.ads" for name in output_callees}
-            if application_kind in ("argument", "selected"):
+            callees = {} if package_report else {name: "silver_io.ads" for name in output_callees}
+            if unit_kind in ("argument", "selected"):
                 callees.update({name: "silver_arguments.ads" for name in
                                 ("Silver_Arguments.First_Or_Default",
                                  "Silver_Arguments.Input_Is_Valid", "Silver_Arguments.Reject")})
-            bare = len(entities) == len(application_entities)
-            expected_names = set() if bare else set(callees)
             actual_names = [value.get("name") for key, value in entities.items()
-                            if key not in application_entities]
+                            if key not in application_entities and key not in imported_package_entities]
+            bare = not actual_names
+            expected_names = set() if bare else set(callees)
             if not bare:
                 expected_names.difference_update(output_callees - set(actual_names))
-            if application_kind in ("argument", "selected") and not bare and "Silver_Arguments.Input_Is_Valid" not in actual_names:
+            if unit_kind in ("argument", "selected") and not bare and "Silver_Arguments.Input_Is_Valid" not in actual_names:
                 expected_names.remove("Silver_Arguments.Input_Is_Valid")
             require(len(main_entities) == 1 and set(actual_names) == expected_names
                     and len(actual_names) == len(expected_names)
@@ -518,15 +594,28 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                     "application: unexpected entities or application coverage")
             main_key, main = next(iter(main_entities.items()))
             for key, item in entities.items():
-                filename = "main.adb" if key in application_entities else callees[item["name"]]
-                require(bool(item.get("sloc"))
+                filename = (declaration_file if key in application_entities
+                            else package_unit + ".ads" if key in imported_package_entities
+                            else callees[item["name"]])
+                require(isinstance(item.get("sloc"), list) and len(item["sloc"]) == 1
                         and all(location.get("file") == filename
                                 and type(location.get("line")) is int and location["line"] > 0
                                 and type(location.get("column")) is int and location["column"] > 0
                                 for location in item["sloc"]),
                         "application: unexpected entity declaration")
-            require(isinstance(report.get("flow"), list),
-                    "application: missing flow diagnostics")
+            require(isinstance(report.get("flow"), list), "application: missing flow diagnostics")
+            if package_report:
+                require(report.get("warn_error") == [], "application: unexpected package warning")
+            bare_callees = set(procedures) if not package_report else set()
+            global_output_messages = set()
+            if package_inventory is not None:
+                bare_callees.update(name for name in package_inventory["procedures"]
+                    if any(mode in ("out", "in out") for _, mode in
+                           package_inventory["source_formals"][package_unit + "." + name.lower()]))
+                global_output_messages = {
+                    f'"{state if package_report else package_unit + "." + state.lower()}" '
+                    f'is set by "{callee}" but not used after the call'
+                    for callee, states in package_writes.items() for state in states}
         own_entities, imports, vendor = audit_unit_coverage(
             unit, entities, coverage, summaries[unit],
             TRUSTED_IMPORT_ENTITIES[unit] if unit in trusted_import_units else set(),
@@ -548,7 +637,8 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                 entity = entities.get(f" {reference.get('arg')}", entities.get(str(reference.get("arg"))))
                 require(isinstance(entity, dict), f"{unit}: assumption references unknown entity")
                 name = entity.get("name")
-                if application and name.lower() in callable_names:
+                if application and (name.lower() in all_callable_names
+                                    or (package_report and name.lower() == package_unit)):
                     require(reference["predicate"] in {"CLAIM_AORTE", "CLAIM_EFFECTS"},
                             "application: local subprogram has an unapproved claim")
                 locations = entity.get("sloc", [])
@@ -605,12 +695,12 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                             and record.get("suppressed") == "",
                             f"{unit}: unexpected array-initialization advisory")
                     stats["array_initialization_advisories"] += 1
-                image_note = application and key == "warn_error" and not array_note
+                image_note = application and not package_report and key == "warn_error" and not array_note
                 if image_note:
                     require(record.get("severity") == "warning"
                             and record.get("how_proved") == "trivial"
                             and record.get("rule") == "imprecise-image"
-                            and record.get("file") == "main.adb"
+                            and record.get("file") == declaration_file
                             and type(record.get("line")) is int and record["line"] > 0
                             and type(record.get("col")) is int and record["col"] > 0
                             and isinstance(record.get("message"), dict)
@@ -633,12 +723,12 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                     require(local is not None and entity_key not in termination_entities
                             and record.get("severity") == "info"
                             and record.get("how_proved") == "flow"
-                            and record.get("file") == "main.adb"
+                            and record.get("file") == declaration_file
                             and type(record.get("line")) is int and record["line"] > 0
                             and type(record.get("col")) is int and record["col"] > 0
                             and type(record.get("entity")) is int and record["entity"] > 0
                             and record.get("message") == {"text":
-                                f'implicit aspect Always_Terminates on "{local["name"].split(".")[1]}" '
+                                f'implicit aspect Always_Terminates on "{callable_spelling[local["name"].lower()]}" '
                                 "has been proved, subprogram will terminate"}
                             and not any(field in record for field in
                                         ("justification", "justified", "suppressed", "annot_kind", "justif_msg")),
@@ -659,7 +749,7 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                             and (entity_key, matching[0]) not in initialization_entities
                             and record.get("severity") == "info"
                             and record.get("how_proved") == "flow"
-                            and record.get("file") == "main.adb"
+                            and record.get("file") == declaration_file
                             and type(record.get("line")) is int and record["line"] > 0
                             and type(record.get("col")) is int and record["col"] > 0
                             and type(record.get("entity")) is int and record["entity"] > 0
@@ -674,7 +764,8 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                         r'"([A-Za-z](?:[A-Za-z0-9]|_[A-Za-z0-9])*)" is set by "([^\"]+)"'
                         r' but not used after the call', record.get("message", {}).get("text", ""))
                     unused_call = (unused_match is not None and len(unused_match[1]) <= 4096
-                                   and len(unused_match[2]) <= 4096 and unused_match[2] in procedures)
+                                   and len(unused_match[2]) <= 4096 and unused_match[2] in bare_callees)
+                    unused_call = unused_call or record.get("message", {}).get("text") in global_output_messages
                     owner = entities.get(f" {record.get('entity')}", entities.get(str(record.get("entity")), {}))
                     owner_name = owner.get("name", "").lower()
                     inout_only_read = (record.get("rule") == "INOUT_ONLY_READ"
@@ -688,7 +779,9 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                             for name, mode in source_formals.get(owner_name, ())))
                     require(record.get("severity") == "warning"
                             and record.get("how_proved") == "flow"
-                            and record.get("file") == "main.adb"
+                            and record.get("file") == (declaration_file if record.get("rule") in
+                                {"UNUSED_VARIABLE", "INOUT_ONLY_READ", "UNUSED_INITIAL_VALUE"}
+                                else implementation_file)
                             and type(record.get("line")) is int and record["line"] > 0
                             and type(record.get("col")) is int and record["col"] > 0
                             and type(record.get("entity")) is int and record["entity"] > 0
@@ -701,17 +794,17 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                                  or (record.get("rule") == "INEFFECTIVE"
                                   and (re.fullmatch(r'initialization of "[A-Za-z]([A-Za-z0-9]|_[A-Za-z0-9])*" has no effect',
                                                     record.get("message", {}).get("text", "")) is not None
-                                       or record.get("message", {}).get("text") in {
+                                       or (not package_report and record.get("message", {}).get("text") in {
                                            f'"{name}" is set by "{operation}" but not used after the call'
                                            for name in ("Written_Count", "Flushed", "Succeeded", "Written_Bytes")
-                                           for operation in ("Put_Line", "Put")}
+                                           for operation in ("Put_Line", "Put")})
                                        or unused_call
                                        or (assignment and record.get("message", {}).get("text") == "unused assignment")
                                        or (comparison and record.get("message", {}).get("text") == "statement has no effect")))
                                  or (comparison and record.get("rule") == "DEAD_CODE"
                                      and record.get("message", {}).get("text") == "this statement is never reached")),
                             "assignment: unexpected flow diagnostic")
-                    limit = (len('"" is set by "" but not used after the call') + 2 * 4096 if unused_call
+                    limit = (len('"" is set by "" but not used after the call') + 2 * 4096 + 1 if unused_call
                              else len('initialization of "" has no effect') + 4096)
                     require(len(record["message"]["text"]) <= limit,
                             "assignment: advisory names exceed source bound")
@@ -722,7 +815,8 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                 if application and key == "proof":
                     require(record.get("severity") == "info" and record.get("how_proved") == "prover"
                             and record.get("rule") in {"VC_RANGE_CHECK", "VC_LENGTH_CHECK", "VC_OVERFLOW_CHECK", "VC_DIVISION_CHECK", "VC_INDEX_CHECK"}
-                            and record.get("file") == "main.adb"
+                            and record.get("file") in ({implementation_file, declaration_file}
+                                                       if package_report else {implementation_file})
                             and type(record.get("line")) is int and record["line"] > 0
                             and type(record.get("col")) is int and record["col"] > 0
                             and type(record.get("entity")) is int and record["entity"] > 0
@@ -816,7 +910,7 @@ def audit_reports(report_dir: Path, expected_units: set[str],
     for option, expected in (("--mode", "all"), ("--report", "all")):
         values = [argument.split("=", 1)[1] for argument in arguments if argument.startswith(option + "=")]
         require(values == [expected], f"conflicting/repeated {option} configuration")
-    require(not callable_names or "--no-inlining" in arguments,
+    require(not has_callables or "--no-inlining" in arguments,
             "application: subprogram proofs require modular no-inlining analysis")
     results = run.get("results")
     require(isinstance(results, list), "missing SARIF results")
@@ -849,7 +943,8 @@ def audit_reports(report_dir: Path, expected_units: set[str],
             require(type(region["startLine"]) is int and type(region["startColumn"]) is int,
                     "SARIF operator-reassociation locations must be integers")
         advisory = (diagnostic in assignment_diagnostics
-                    and location["artifactLocation"]["uri"] == "main.adb"
+                    and location["artifactLocation"]["uri"] == diagnostic[1]
+                    and diagnostic[1] in application_files
                     and result.get("kind") == "open" and result.get("level") == "warning")
         require(diagnostic not in assignment_diagnostics or advisory,
                 "assignment: SARIF must preserve unused-value advisory classification")
