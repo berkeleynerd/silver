@@ -37,17 +37,17 @@ def literalWord (word : String) : Bool :=
 def Expr.prefix : Expr Fn ty → Bool
   | .variable _ | .function _ | .app _ _ | .field _ _ | .property _ _ | .index _ _ _
   | .full | .empty | .invalidType | .invalidState | .noHidden | .booleanType | .integerType
-  | .scalarKind _ | .exportKind _ | .mode _ | .unitKind _ | .token _ | .maxConcatenations | .emptyMetadata | .invalidAnalysis | .sourcePrefix _ _ => true
+  | .scalarKind _ | .exportKind _ | .mode _ | .unitKind _ | .bodyStop _ | .token _ | .maxConcatenations | .emptyMetadata | .invalidAnalysis | .sourcePrefix _ _ => true
   | .number _ | .integer _ | .truth _ | .word _ | .add _ _ | .sub _ _ | .eq _ _ | .ne _ _
   | .lt _ _ | .le _ _ | .gt _ _ | .ge _ _ | .intLe _ _ | .intGe _ _ | .nameEq _ _ | .kindEq _ _
   | .exportEq _ _ | .modeNe _ _ | .unitMapEq _ _ | .unitMapNe _ _ | .not _ | .andThen _ _ | .orElse _ _ | .group _
   | .ite _ _ _ | .conditionalTrue _ _ | .elsif _ _ _ | .sourceLast _ | .sourceLength _ | .nameSpan _ _
-  | .packageType _ _ _ _ _ | .forAll _ _ _ _ | .forSome _ _ _ _ | .update _ _ | .noCalls => false
+  | .packageType _ _ _ _ _ | .scanResult _ _ _ | .analysisValue _ _ _ _ _ _ _ | .forAll _ _ _ _ | .forSome _ _ _ _ | .update _ _ | .noCalls => false
 
 def Expr.primary : Expr Fn ty → Bool
   | .variable _ | .function _ | .app _ _ | .field _ _ | .property _ _ | .index _ _ _ | .number _ | .integer _
-  | .truth _ | .word _ | .scalarKind _ | .exportKind _ | .mode _ | .unitKind _ | .group _
-  | .sourceLast _ | .sourceLength _ | .nameSpan _ _ | .packageType _ _ _ _ _ | .full | .empty
+  | .truth _ | .word _ | .scalarKind _ | .exportKind _ | .mode _ | .unitKind _ | .bodyStop _ | .group _
+  | .sourceLast _ | .sourceLength _ | .nameSpan _ _ | .packageType _ _ _ _ _ | .scanResult _ _ _ | .analysisValue _ _ _ _ _ _ _ | .full | .empty
   | .invalidType | .invalidState | .noHidden | .noCalls | .booleanType | .integerType | .update _ _
   | .token _ | .maxConcatenations | .emptyMetadata | .invalidAnalysis | .sourcePrefix _ _ => true
   | .add _ _ | .sub _ _ | .eq _ _ | .ne _ _ | .lt _ _ | .le _ _ | .gt _ _ | .ge _ _
@@ -88,7 +88,7 @@ def Updates.fields : Updates Fn owner → List String
 
 mutual
 def Expr.wellFormed (names : FunctionNames Fn) : Expr Fn ty → Bool
-  | .number _ | .truth _ | .scalarKind _ | .exportKind _ | .mode _ | .unitKind _ | .full | .empty
+  | .number _ | .truth _ | .scalarKind _ | .exportKind _ | .mode _ | .unitKind _ | .bodyStop _ | .full | .empty
   | .invalidType | .invalidState | .noHidden | .noCalls | .booleanType | .integerType
   | .maxConcatenations | .emptyMetadata | .invalidAnalysis => true
   | .token value => decide (value ∈ Compose.Expressions.allTokens)
@@ -118,6 +118,13 @@ def Expr.wellFormed (names : FunctionNames Fn) : Expr Fn ty → Bool
   | .sourceLast value | .sourceLength value => value.prefix && value.wellFormed names
   | .sourcePrefix text last => text.prefix && text.wellFormed names && last.simple && last.wellFormed names
   | .nameSpan first after => first.expression && after.expression && first.wellFormed names && after.wellFormed names
+  | .scanResult state assigned output => state.expression && assigned.expression && output.expression &&
+      state.wellFormed names && assigned.wellFormed names && output.wellFormed names
+  | .analysisValue accepted info functions procedures arguments assigned output =>
+      accepted.expression && info.expression && functions.expression && procedures.expression &&
+      arguments.expression && assigned.expression && output.expression &&
+      accepted.wellFormed names && info.wellFormed names && functions.wellFormed names &&
+      procedures.wellFormed names && arguments.wellFormed names && assigned.wellFormed names && output.wellFormed names
   | .packageType name after kind bounds identity => name.expression && after.expression && kind.expression &&
       bounds.expression && identity.expression && name.wellFormed names && after.wellFormed names &&
       kind.wellFormed names && bounds.wellFormed names && identity.wellFormed names
@@ -144,7 +151,7 @@ mutual
 def Expr.scoped (scope : Scope) : Expr Fn ty → Bool
   | .variable (ty := ty) name => (ty, name) ∈ scope
   | .number _ | .integer _ | .truth _ | .word _ | .scalarKind _ | .exportKind _ | .mode _
-  | .unitKind _ | .function _ | .full | .empty | .invalidType | .invalidState | .noHidden
+  | .unitKind _ | .bodyStop _ | .function _ | .full | .empty | .invalidType | .invalidState | .noHidden
   | .noCalls | .booleanType | .integerType | .token _ | .maxConcatenations | .emptyMetadata | .invalidAnalysis => true
   | .app fn argument => fn.scoped scope && argument.scoped scope
   | .field _ value | .property _ value | .not value | .group value | .sourceLast value | .sourceLength value => value.scoped scope
@@ -155,6 +162,10 @@ def Expr.scoped (scope : Scope) : Expr Fn ty → Bool
   | .orElse left right | .nameSpan left right | .sourcePrefix left right | .conditionalTrue left right
   | .unitMapEq left right | .unitMapNe left right => left.scoped scope && right.scoped scope
   | .ite test yes no | .elsif test yes no => test.scoped scope && yes.scoped scope && no.scoped scope
+  | .scanResult state assigned output => state.scoped scope && assigned.scoped scope && output.scoped scope
+  | .analysisValue accepted info functions procedures arguments assigned output =>
+      accepted.scoped scope && info.scoped scope && functions.scoped scope && procedures.scoped scope &&
+      arguments.scoped scope && assigned.scoped scope && output.scoped scope
   | .packageType name after kind bounds identity => name.scoped scope && after.scoped scope &&
       kind.scoped scope && bounds.scoped scope && identity.scoped scope
   | .forAll name first last body | .forSome name first last body =>

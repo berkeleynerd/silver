@@ -27,6 +27,7 @@ inductive Ty
   | unitKind | unitSpan | routine | exportItem | stateDeclaration | formal | mode
   | token | bundle | unitMap | analysis | charge | specification | bodyResult
   | bodyScan | appScan | appCall | callResult | packageActual | procedureActual | stateSet | activeFlow | parseContext
+  | contextClauses | scanResult | bodyStop | path
   | arrow (domain codomain : Ty)
   deriving DecidableEq, Repr
 
@@ -53,6 +54,8 @@ inductive Ty
   | .appCall => ApplicationPackages.ApplicationCall | .callResult => Predicate.CallResult
   | .packageActual => ApplicationPackages.PackageActual | .procedureActual => Predicate.ProcedureActualResult
   | .stateSet => PackageBindings.StateSet | .activeFlow => Predicate.ActiveFlow | .parseContext => Predicate.ParseContext
+  | .contextClauses => Names.Context | .scanResult => Predicate.ScanResult
+  | .bodyStop => Predicate.BodyStop | .path => PathFacts.Context
   | .arrow a b => a.meaning → b.meaning
 
 def Ty.default : (ty : Ty) → ty.meaning
@@ -74,9 +77,17 @@ def Ty.default : (ty : Ty) → ty.meaning
   | .callResult => Predicate.invalidCall | .packageActual => {} | .procedureActual => Predicate.invalidProcedureActual
   | .stateSet => PackageBindings.emptyStateSet | .activeFlow => ⟨PathFacts.Context.empty,[]⟩
   | .parseContext => {names := [], hasArguments := false}
+  | .contextClauses => {} | .scanResult => Predicate.invalidScan
+  | .bodyStop => .endOnly | .path => PathFacts.Context.empty
   | .arrow _ b => fun _ => b.default
 
 inductive Field : Ty → Ty → Type
+  | contextAfter : Field .contextClauses .number
+  | contextArgumentsWith : Field .contextClauses .truth
+  | scanResultState : Field .scanResult .state
+  | scanResultAssigned : Field .scanResult .truth
+  | scanResultOutput : Field .scanResult .truth
+  | activeFlowPath : Field .activeFlow .path
   | bundlePool : Field .bundle .source
   | bundleUsed : Field .bundle .number
   | bundleUnits : Field .bundle .unitMap
@@ -221,6 +232,12 @@ inductive Field : Ty → Ty → Type
   | procedureParameterCount : Field .procedures .number
 
 def Field.name : Field a b → String
+  | .contextAfter => "after"
+  | .contextArgumentsWith => "arguments_with"
+  | .scanResultState => "state"
+  | .scanResultAssigned => "assigned"
+  | .scanResultOutput => "output"
+  | .activeFlowPath => "path"
   | .bundlePool => "pool"
   | .bundleUsed => "used"
   | .bundleUnits => "units"
@@ -365,6 +382,12 @@ def Field.name : Field a b → String
   | .procedureParameterCount => "parameter_count"
 
 def Field.get : Field a b → a.meaning → b.meaning
+  | .contextAfter, value => value.after
+  | .contextArgumentsWith, value => value.argumentsWith
+  | .scanResultState, value => value.state
+  | .scanResultAssigned, value => value.assigned
+  | .scanResultOutput, value => value.output
+  | .activeFlowPath, value => value.path
   | .bundlePool, value => value.pool
   | .bundleUsed, value => value.used
   | .bundleUnits, value => value.units
@@ -512,6 +535,12 @@ def Field.get : Field a b → a.meaning → b.meaning
 not exceed the current active count; increasing native storage needs a richer
 representation and is deliberately not justified by this projection. -/
 def Field.set : Field a b → a.meaning → b.meaning → a.meaning
+  | .contextAfter, value, item => {value with after := item}
+  | .contextArgumentsWith, value, item => {value with argumentsWith := item}
+  | .scanResultState, value, item => {value with state := item}
+  | .scanResultAssigned, value, item => {value with assigned := item}
+  | .scanResultOutput, value, item => {value with output := item}
+  | .activeFlowPath, value, item => {value with path := item}
   | .bundlePool, value, item => {value with pool := item}
   | .bundleUsed, value, item => {value with used := item}
   | .bundleUnits, value, item => {value with units := item}
@@ -680,11 +709,12 @@ inductive Index : Ty → Ty → Ty → Type
   | routine : Index .metadata .number .routine
   | formal : Index .metadata .number .formal
   | unit : Index .metadata .unitKind .unitSpan
+  | bundleUnit : Index .bundle .unitKind .unitSpan
 
 def Index.name : Index a i b → String
   | .scalar | .boolean | .subtype | .binding => "items"
   | .export => "exports" | .state => "states" | .routine => "routines"
-  | .formal => "parameters" | .unit => "units"
+  | .formal => "parameters" | .unit | .bundleUnit => "units"
 
 def Index.get : Index a i b → a.meaning → i.meaning → b.meaning
   | .scalar, value, index => ScalarExpression.binding value index
@@ -696,6 +726,7 @@ def Index.get : Index a i b → a.meaning → i.meaning → b.meaning
   | .routine, value, index => value.routineAt index
   | .formal, value, index => value.parameterAt index
   | .unit, value, kind => value.units kind
+  | .bundleUnit, value, kind => value.units kind
 
 def Index.set : Index a i b → a.meaning → i.meaning → b.meaning → a.meaning
   | .scalar, value, index, item => value.set (index - 1) item
@@ -707,6 +738,7 @@ def Index.set : Index a i b → a.meaning → i.meaning → b.meaning → a.mean
   | .routine, value, index, item => {value with routines := value.routines.set (index - 1) item}
   | .formal, value, index, item => {value with parameters := value.parameters.set (index - 1) item}
   | .unit, value, kind, item => {value with units := fun other => if other = kind then item else value.units other}
+  | .bundleUnit, value, kind, item => {value with units := fun other => if other = kind then item else value.units other}
 
 abbrev Locals := (ty : Ty) → String → ty.meaning
 
@@ -729,6 +761,7 @@ inductive Expr (Fn : Ty → Type) : Ty → Type
   | exportKind (value : PackageBindings.ExportKind) : Expr Fn .exportKind
   | mode (value : ProcedureBindings.Mode) : Expr Fn .mode
   | unitKind (value : ApplicationUnits.UnitKind) : Expr Fn .unitKind
+  | bodyStop (value : Predicate.BodyStop) : Expr Fn .bodyStop
   | variable (name : String) : Expr Fn ty
   | function (symbol : Fn ty) : Expr Fn ty
   | app : Expr Fn (.arrow a b) → Expr Fn a → Expr Fn b
@@ -757,6 +790,9 @@ inductive Expr (Fn : Ty → Type) : Ty → Type
   | group : Expr Fn ty → Expr Fn ty
   | ite : Expr Fn .truth → Expr Fn ty → Expr Fn ty → Expr Fn ty
   | conditionalTrue : Expr Fn .truth → Expr Fn .truth → Expr Fn .truth
+  | scanResult : Expr Fn .state → Expr Fn .truth → Expr Fn .truth → Expr Fn .scanResult
+  | analysisValue : Expr Fn .truth → Expr Fn .metadata → Expr Fn .functions → Expr Fn .procedures →
+      Expr Fn .truth → Expr Fn .truth → Expr Fn .truth → Expr Fn .analysis
   | elsif : Expr Fn .truth → Expr Fn ty → Expr Fn ty → Expr Fn ty
   | sourceLast : Expr Fn .source → Expr Fn .number
   | sourceLength : Expr Fn .source → Expr Fn .number
@@ -798,6 +834,10 @@ def unitKindName : ApplicationUnits.UnitKind → List String
   | .packageSpecification => ["units", ".", "package_specification"]
   | .packageBody => ["units", ".", "package_body"] | .mainBody => ["units", ".", "main_body"]
 
+def bodyStopName : Predicate.BodyStop → String
+  | .endOnly => "end_only" | .returnOnly => "return_only"
+  | .arm => "arm_boundary" | .elseOnly => "else_only"
+
 mutual
 def Expr.render (names : FunctionNames Fn) : Expr Fn ty → List String
   | .token value => [Compose.Expressions.tokenName value]
@@ -805,6 +845,7 @@ def Expr.render (names : FunctionNames Fn) : Expr Fn ty → List String
   | .truth value => [if value then "true" else "false"] | .word value => ["\"" ++ value ++ "\""]
   | .scalarKind value => scalarKindName value | .exportKind value => exportKindName value
   | .mode value => modeName value | .unitKind value => unitKindName value
+  | .bodyStop value => [bodyStopName value]
   | .variable name => [name] | .function symbol => names symbol
   | .app fn argument => match fn with
     | .app _ _ => (fn.render names).dropLast ++ [","] ++ argument.render names ++ [")"]
@@ -828,6 +869,14 @@ def Expr.render (names : FunctionNames Fn) : Expr Fn ty → List String
   | .ite condition yes no => ["if"] ++ condition.render names ++ ["then"] ++ yes.render names ++
       (match no with | .elsif _ _ _ => no.render names | _ => ["else"] ++ no.render names)
   | .conditionalTrue condition yes => ["if"] ++ condition.render names ++ ["then"] ++ yes.render names
+  | .scanResult state assigned output => ["("] ++ state.render names ++ [","] ++
+      assigned.render names ++ [","] ++ output.render names ++ [")"]
+  | .analysisValue accepted info functions procedures arguments assigned output =>
+      ["(", "accepted", "=>"] ++ accepted.render names ++ [",", "package_info", "=>"] ++
+      info.render names ++ [",", "main_functions", "=>"] ++ functions.render names ++
+      [",", "main_procedures", "=>"] ++ procedures.render names ++ [",", "uses_arguments", "=>"] ++
+      arguments.render names ++ [",", "uses_assignment", "=>"] ++ assigned.render names ++
+      [",", "uses_output", "=>"] ++ output.render names ++ [")"]
   | .elsif condition yes no => ["elsif"] ++ condition.render names ++ ["then"] ++ yes.render names ++
       (match no with | .elsif _ _ _ => no.render names | _ => ["else"] ++ no.render names)
   | .sourceLast text => text.render names ++ ["'", "last"]
@@ -860,6 +909,7 @@ def Expr.eval (calls : Calls Fn) (locals : Locals) : Expr Fn ty → ty.meaning
   | .token value => value
   | .number value => value | .integer value => value | .truth value => value | .word value => value
   | .scalarKind value => value | .exportKind value => value | .mode value => value | .unitKind value => value
+  | .bodyStop value => value
   | .variable name => locals _ name | .function symbol => calls _ symbol
   | .app fn argument => fn.eval calls locals (argument.eval calls locals)
   | .field projection value => projection.get (value.eval calls locals)
@@ -887,6 +937,11 @@ def Expr.eval (calls : Calls Fn) (locals : Locals) : Expr Fn ty → ty.meaning
   | .group value => value.eval calls locals
   | .ite condition yes no | .elsif condition yes no => if condition.eval calls locals then yes.eval calls locals else no.eval calls locals
   | .conditionalTrue condition yes => if condition.eval calls locals then yes.eval calls locals else true
+  | .scanResult state assigned output => ⟨state.eval calls locals, assigned.eval calls locals, output.eval calls locals⟩
+  | .analysisValue accepted info functions procedures arguments assigned output =>
+      ⟨accepted.eval calls locals, info.eval calls locals, functions.eval calls locals,
+        procedures.eval calls locals, arguments.eval calls locals, assigned.eval calls locals,
+        output.eval calls locals⟩
   | .sourceLast text | .sourceLength text => (text.eval calls locals).length
   | .sourcePrefix text last => (text.eval calls locals).take (last.eval calls locals)
   | .maxConcatenations => Compose.maxConcatenations
