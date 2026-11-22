@@ -78,8 +78,9 @@ termination_by index
     (text : Source) (valid : ValidText text) (names : BindingEnvironment) (position : Nat)
     (operation : Names.Operation) {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Table} (namesValid : NativeNames text names) (bound : ValidCursor text position) (scalarValid : ScalarExpression.ValidEnvironment text scalarNames)
     (arraysValid : ArrayBindings.ValidTable text arrays) (subtypeHidden : Bool)
-    (booleans : BooleanBindings.Environment) (booleansValid : BooleanBindings.ValidEnvironment text booleans) :
-    calls.function .callAfter text names position operation scalarNames arrays subtypeHidden booleans = callAfter text names position operation scalarNames arrays subtypeHidden booleans := by
+    (booleans : BooleanBindings.Environment) (booleansValid : BooleanBindings.ValidEnvironment text booleans)
+    (contextFirst packageFirst packageAfter : Nat) (contextValid : Names.ValidContext text contextFirst packageFirst packageAfter) :
+    calls.function .callAfter text names position operation scalarNames arrays subtypeHidden booleans contextFirst packageFirst packageAfter = callAfter text names position operation scalarNames arrays subtypeHidden booleans contextFirst packageFirst packageAfter := by
   let first := calls.function .skip text position
   let after := calls.function .nameAfter text first
   have firstBound := equations.ranges.skip text valid position bound
@@ -87,16 +88,16 @@ termination_by index
   have firstEq : first = skipAt text position := interpreted_skip calls equations text valid position bound
   have afterEq : after = nameAfter text first := interpreted_name calls equations text valid first firstBound
   have lookupEq := interpreted_lookup calls equations text valid names first after namesValid firstBound afterBound
-  rw [equations.callAfter text valid names position operation scalarNames arrays subtypeHidden booleans namesValid scalarValid arraysValid booleansValid bound]
+  rw [equations.callAfter text valid names position operation scalarNames arrays subtypeHidden booleans contextFirst packageFirst packageAfter namesValid scalarValid arraysValid booleansValid bound contextValid]
   dsimp +instances only [callAfterBody, lookupArrayType, Field.get, Expr.eval, Context.locals, Locals.set, lexical, Calls.get]
   simp only [reduceCtorEq, String.reduceEq, ↓reduceIte, ↓reduceDIte]
-  rw [Names.interpreted_operation calls.names equations.names text valid position operation _ bound]
+  rw [Names.interpreted_operation calls.names equations.names text valid position operation _ contextFirst packageFirst packageAfter bound contextValid]
   change Names.operationAfter text position operation
     (decide (calls.function .lookupName text names first after ≠ 0) ||
       decide (calls.function .scalarLookup text scalarNames first after ≠ 0) ||
       decide (calls.function .arrayLookup text arrays first after ≠ 0) ||
       decide (calls.function .arrayTypeLookup text arrays.types first after ≠ 0) ||
-      decide (calls.function .booleanLookup text booleans first after ≠ 0) || subtypeHidden) = _
+      decide (calls.function .booleanLookup text booleans first after ≠ 0) || subtypeHidden) contextFirst packageFirst packageAfter = _
   rw [lookupEq, equations.scalarLookup text valid scalarNames first after scalarValid firstBound afterBound,
     equations.arrayLookup text valid arrays first after arraysValid firstBound afterBound,
     equations.arrayTypeLookup text valid arrays.types first after arraysValid.1 firstBound afterBound,

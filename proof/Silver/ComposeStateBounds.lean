@@ -26,7 +26,7 @@ set_option maxHeartbeats 2000000
 attribute [local irreducible] ScalarExpression.read ScalarExpression.ArrayGrammar.read
 
 theorem model_invalid_state_valid (text : Source) : ValidState text invalidState := by
-  simp [ValidState, ValidCursor, ValidNames, NameState.Valid, invalidState, ScalarExpression.ValidEnvironment, ScalarExpression.maxBindings, ArrayBindings.ValidNativeEnvironment, ArrayBindings.ValidTable, ArrayBindings.Env.table,
+  simp [ValidState, Names.ValidContext, Names.ValidNameState, ValidCursor, ValidNames, NameState.Valid, invalidState, ScalarExpression.ValidEnvironment, ScalarExpression.maxBindings, ArrayBindings.ValidNativeEnvironment, ArrayBindings.ValidTable, ArrayBindings.Env.table,
     ArrayBindings.ValidTypes, ArrayBindings.maxTypes, ArrayBindings.maxBindings, ArrayBindings.maxElements,
     ArrayBindings.ValidInitials,
     IntegerSubtypes.ValidEnvironment, IntegerSubtypes.maxBindings,
@@ -181,7 +181,7 @@ theorem model_scalar_reading_valid {text : Source} {state next : ParserState} {a
         change state.scalarNames.length ≠ ScalarExpression.maxBindings at available
         omega
       have scalars := ScalarExpression.validEnvironment_append stateValid.2.2.2.2.2.1 room
-        (item := ⟨parts.first, parts.after, parts.value.bounds, decide (parts.constantAfter ≠ 0) && parts.value.isStatic, parts.constraint.bounds, decide (parts.constantAfter = 0)⟩)
+        (item := {first := parts.first, after := parts.after, bounds := parts.value.bounds, isStatic := decide (parts.constantAfter ≠ 0) && parts.value.isStatic, declaredBounds := parts.constraint.bounds, mutable := decide (parts.constantAfter = 0)})
         ⟨nameValid.1, nameValid.2.1, nameValid.2.2, Integer.Expr.infer_bounded reading.inferred,
           constraint.bounded stateValid.2.2.2.2.2.2.2.1⟩
       exact ⟨following, stateValid.2.1, stateValid.2.2.1,
@@ -391,8 +391,7 @@ theorem model_boolean_reading_valid {text arguments state next}
           exact ready.1.1.1.1.1.1.2.2.2
         omega
       have booleans := BooleanBindings.valid_append stateValid.booleans room
-        (item := ⟨(booleanDeclarationParts text state).first, (booleanDeclarationParts text state).after,
-          decide ((booleanDeclarationParts text state).constantAfter = 0)⟩) nameValid
+        (item := {first := (booleanDeclarationParts text state).first, after := (booleanDeclarationParts text state).after, mutable := decide ((booleanDeclarationParts text state).constantAfter = 0)}) nameValid
       exact ⟨fixedAfter_result_bound text _ ";" false (by decide), stateValid.2.1,
         stateValid.2.2.1, stateValid.2.2.2.1, stateValid.2.2.2.2.1,
         stateValid.2.2.2.2.2.1, stateValid.2.2.2.2.2.2.1, stateValid.2.2.2.2.2.2.2.1, booleans,

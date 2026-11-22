@@ -433,9 +433,9 @@ theorem model_helpers (ranges : RangeContracts modelCalls) :
   image := model_definition_image
   nameIs := model_definition_nameIs
   callAfter := by
-    intro text valid names position operation scalarNames arrays subtypeHidden booleans namesValid scalarValid arraysValid booleansValid positionValid
-    exact model_definition_callAfter text valid names position operation scalarNames arrays subtypeHidden booleans
-      namesValid.base scalarValid arraysValid booleansValid positionValid
+    intro text valid names position operation scalarNames arrays subtypeHidden booleans contextFirst packageFirst packageAfter namesValid scalarValid arraysValid booleansValid positionValid contextValid
+    exact model_definition_callAfter text valid names position operation scalarNames arrays subtypeHidden booleans contextFirst packageFirst packageAfter
+      namesValid.base scalarValid arraysValid booleansValid positionValid contextValid
   skip := model_definition_skip
   name := model_definition_name
   fixed := model_definition_fixed

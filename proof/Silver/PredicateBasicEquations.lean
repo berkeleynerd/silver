@@ -84,7 +84,8 @@ structure PrimitiveEquations (primitive : Primitives) : Prop where
   expression : primitive.expression = (fun text context position facts => readStringInFlow text context.model position facts)
   readingNames : primitive.readingNames = (fun context facts => context.model.readingNames facts)
   character : primitive.character = (fun text position names scalarNames arrays => characterAt text position names scalarNames arrays)
-  indexed : primitive.indexed = indexedAt
+  indexed : primitive.indexed = fun text position names scalarNames arrays initials elaborating element =>
+    indexedAt text position names scalarNames arrays initials elaborating element 1
   target : primitive.target = ScalarBodyNative.stringTargetEval ScalarBodyNative.modelImports
   bodyToken : primitive.bodyToken = fun text _ scan token => Predicate.bodyToken text scan token
   invalid : primitive.invalid = invalidBody

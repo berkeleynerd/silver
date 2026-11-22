@@ -56,8 +56,8 @@ private theorem length_meaning {text context position facts left right leftResul
 private theorem string_meaning {text context position facts left right leftResult rightResult initials}
     (normal : NamesNormal context.names)
     (compatible : ScalarMetadata.OverlayCompatible context.scalarNames context.declarationCount facts)
-    (leftRead : ExpressionAt (scalarNames := context.readingNames facts) (arrays := context.arrayTable) (initials := initials) (elaborating := context.elaborating) (integerHidden := context.integerHidden text) text context.names position left leftResult)
-    (rightRead : ExpressionAt (scalarNames := context.readingNames facts) (arrays := context.arrayTable) (initials := initials) (elaborating := context.elaborating) (integerHidden := context.integerHidden text) text context.names (comparisonAt text leftResult.after).after right rightResult)
+    (leftRead : ExpressionAt (scalarNames := context.readingNames facts) (arrays := context.arrayTable) (initials := initials) (elaborating := context.elaborating) (contextFirst := context.contextFirst) (integerHidden := context.integerHidden text) text context.names position left leftResult)
+    (rightRead : ExpressionAt (scalarNames := context.readingNames facts) (arrays := context.arrayTable) (initials := initials) (elaborating := context.elaborating) (contextFirst := context.contextFirst) (integerHidden := context.integerHidden text) text context.names (comparisonAt text leftResult.after).after right rightResult)
     (ready : StringRelationReady facts leftResult rightResult (comparisonAt text leftResult.after)) :
     ConditionMeaning context facts (.stringCompare ((comparisonAt text leftResult.after).operator != .eq) left right)
       (stringResult facts leftResult rightResult (comparisonAt text leftResult.after)) initials := by

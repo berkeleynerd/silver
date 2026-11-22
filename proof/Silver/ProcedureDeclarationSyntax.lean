@@ -249,6 +249,9 @@ abbrev Calls := (fn : Function) → fn.type.meaning
 
 def nativeContextOf (scan : Predicate.ScanResult) : Predicate.Native.Context :=
   { names := scan.state.names
+    contextFirst := scan.state.contextFirst
+    packageFirst := scan.state.packageFirst
+    packageAfter := scan.state.packageAfter
     dynamicFirst := scan.state.dynamicFirst
     dynamicAfter := scan.state.dynamicAfter
     scalarNames := ScalarExpression.bodyEnvironment scan.state.scalarNames
@@ -613,7 +616,7 @@ def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
   | .neMode left right => decide (left.eval calls locals ≠ right.eval calls locals)
   | .procedureScalarBinding parameter =>
       let item := parameter.eval calls locals
-      ⟨item.first, item.after, item.bounds, false, item.bounds, decide (item.mode ≠ .input)⟩
+      {first := item.first, after := item.after, bounds := item.bounds, isStatic := false, declaredBounds := item.bounds, mutable := decide (item.mode ≠ .input)}
   | .mode value => value | .endStop => .endOnly
   | .procedureFormalAt procedures index => ProcedureBindings.parameter (procedures.eval calls locals) (index.eval calls locals)
   | .procedureFormal first after scalarKind bounds typeId parameterMode =>
@@ -624,7 +627,7 @@ def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
   | .appendProcedureBoolean frame parameter =>
       let before := frame.eval calls locals
       let item := parameter.eval calls locals
-      {before with booleanNames := before.booleanNames ++ [⟨item.first, item.after, decide (item.mode ≠ .input)⟩]}
+      {before with booleanNames := before.booleanNames ++ [{first := item.first, after := item.after, mutable := decide (item.mode ≠ .input)}]}
   | .anyWritable procedures first =>
       ((procedures.eval calls locals).parameters.drop (first.eval calls locals - 1)).any (fun parameter => parameter.mode != .input)
   | .eqMode left right => decide (left.eval calls locals = right.eval calls locals)
@@ -652,7 +655,7 @@ def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
   | .appendBoolean frame parameter =>
       let before := frame.eval calls locals
       let item := parameter.eval calls locals
-      {before with booleanNames := before.booleanNames ++ [⟨item.first, item.after, false⟩]}
+      {before with booleanNames := before.booleanNames ++ [{first := item.first, after := item.after, mutable := false}]}
   | .typeResult after scalarKind bounds typeId => ⟨after.eval calls locals, scalarKind.eval calls locals, bounds.eval calls locals, typeId.eval calls locals⟩
   | .stepResult state closed => ⟨state.eval calls locals, closed.eval calls locals⟩
   | .formal first after scalarKind bounds typeId => ⟨first.eval calls locals, after.eval calls locals, scalarKind.eval calls locals, bounds.eval calls locals, typeId.eval calls locals⟩

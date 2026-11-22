@@ -50,10 +50,11 @@ structure HelperMeaning (calls : Calls) : Prop where
   booleanLookup : ∀ text, ValidText text → ∀ names first after,
     BooleanBindings.ValidEnvironment text names → first ≤ text.length + 1 → after ≤ text.length + 1 →
     calls.booleanLookup text names first after = BooleanBindings.lookup text names first after
-  callAfter : ∀ text, ValidText text → ∀ names position operation scalarNames arrays hidden booleans,
+  callAfter : ∀ text, ValidText text → ∀ names position operation scalarNames arrays hidden booleans contextFirst packageFirst packageAfter,
     NativeNames text names → ScalarExpression.ValidEnvironment text scalarNames →
     ArrayBindings.ValidTable text arrays → BooleanBindings.ValidEnvironment text booleans → position ≤ text.length + 1 →
-    calls.callAfter text names position operation scalarNames arrays hidden booleans = Compose.callAfter text names position operation scalarNames arrays hidden booleans
+    Names.ValidContext text contextFirst packageFirst packageAfter →
+    calls.callAfter text names position operation scalarNames arrays hidden booleans contextFirst packageFirst packageAfter = Compose.callAfter text names position operation scalarNames arrays hidden booleans contextFirst packageFirst packageAfter
   take : ∀ text, ValidText text → ∀ position token, position ≤ text.length + 1 →
     calls.take text position token = takeModel text position token
   skip : ∀ text, ValidText text → ∀ position, position ≤ text.length + 1 →
@@ -373,7 +374,7 @@ theorem primary_normalized (contracts : Contracts calls) (text : Source) (tv : V
         · exact False.elim (zero absent.1)
         · exact present
       rw [helpers.nameIs text tv _ _ _ valid (by decide) (by decide)]
-  rw [masked, helpers.callAfter text tv context.names position .validity context.scalarNames context.arrayTable _ context.booleanNames cv.nativeNames cv.2.2.1 cv.arrays cv.booleans bounded,
+  rw [masked, helpers.callAfter text tv context.names position .validity context.scalarNames context.arrayTable _ context.booleanNames context.contextFirst context.packageFirst context.packageAfter cv.nativeNames cv.2.2.1 cv.arrays cv.booleans bounded cv.unit,
     helpers.assumeValid, helpers.assumeInvalid]
   simp only [helpers.invalidCondition facts (fv.count_le cv)]
   rfl

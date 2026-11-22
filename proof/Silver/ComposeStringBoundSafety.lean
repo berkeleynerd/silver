@@ -5,13 +5,15 @@ public import Silver.ComposeStringBounds
 @[expose] public section
 
 namespace Silver.Compose
+
+variable {contextFirst : Nat}
 open Bindings StringObjectBounds
 
 def SourceAtoms (text : Source) (names : BindingEnvironment)
     (scalarNames : ScalarExpression.Environment) (integerHidden : Bool)
     (arrays : ArrayBindings.Table) (initials : ArrayBindings.Initials) (elaborating : Bool)
-    (expression : Expression) : Prop :=
-  ∀ atom ∈ expression, ∃ position result, ValueAt (scalarNames := scalarNames)
+    (expression : Expression) (contextFirst : Nat := 1) : Prop :=
+  ∀ atom ∈ expression, ∃ position result, ValueAt (contextFirst := contextFirst) (scalarNames := scalarNames)
     (integerHidden := integerHidden) (arrays := arrays) (initials := initials)
     (elaborating := elaborating) text names position atom result
 
@@ -19,9 +21,9 @@ theorem emission_sourceAtoms {text : Source} {names : BindingEnvironment}
     {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
     {arrays : ArrayBindings.Table} {initials : ArrayBindings.Initials} {elaborating : Bool}
     {state : ExpressionState} {expression : Expression}
-    (parsed : EmissionAt (scalarNames := scalarNames) (integerHidden := integerHidden)
+    (parsed : EmissionAt (contextFirst := contextFirst) (scalarNames := scalarNames) (integerHidden := integerHidden)
       (arrays := arrays) (initials := initials) (elaborating := elaborating) text names state expression) :
-    SourceAtoms text names scalarNames integerHidden arrays initials elaborating expression := by
+    SourceAtoms (contextFirst := contextFirst) text names scalarNames integerHidden arrays initials elaborating expression := by
   unfold EmissionAt at parsed
   split at parsed
   · obtain ⟨atom, source, rfl⟩ := parsed
@@ -37,9 +39,9 @@ theorem expressionTail_sourceAtoms {text : Source} {names : BindingEnvironment}
     {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
     {arrays : ArrayBindings.Table} {initials : ArrayBindings.Initials} {elaborating : Bool}
     {state : ExpressionState} {expression : Expression} {result : ExpressionResult}
-    (parsed : ExpressionTailAt (scalarNames := scalarNames) (integerHidden := integerHidden)
+    (parsed : ExpressionTailAt (contextFirst := contextFirst) (scalarNames := scalarNames) (integerHidden := integerHidden)
       (arrays := arrays) (initials := initials) (elaborating := elaborating) text names state expression result) :
-    SourceAtoms text names scalarNames integerHidden arrays initials elaborating expression := by
+    SourceAtoms (contextFirst := contextFirst) text names scalarNames integerHidden arrays initials elaborating expression := by
   induction parsed with
   | done => intro atom member; cases member
   | last _ _ _ _ emitted => exact emission_sourceAtoms emitted
@@ -99,7 +101,7 @@ theorem grouped_source_bounds {text : Source} {names : BindingEnvironment}
     (namesBound : names.length ≤ maxBindings) (metadata : NamesBoundsValid names)
     (strings : Fits names.shape input values)
     (scalars : Integer.Fits (ArrayBindings.viewRanges arrays.items initials elaborating (ScalarExpression.ranges scalarNames)) integers)
-    (sources : SourceAtoms text names scalarNames integerHidden arrays initials elaborating grouped.flatten)
+    (sources : SourceAtoms (contextFirst := contextFirst) text names scalarNames integerHidden arrays initials elaborating grouped.flatten)
     (bounded : (grouped.evaluate values input integers).length ≤ maxSourceLength) :
     (grouped.objectBounds names input integers).Valid ∧
       (grouped.objectBounds names input integers).FirstBound (namesBoundCeiling names) ∧
@@ -142,7 +144,7 @@ theorem expressionAt_grouped_objectBounds {text : Source} {names : BindingEnviro
     {grouped : GroupedExpression} {input : Source} {values : Values} {integers : Integer.Store}
     (textBound : text.length ≤ maxSourceLength) (inputMax : input.length ≤ maxSourceLength)
     (namesBound : names.length ≤ maxBindings) (metadata : NamesBoundsValid names)
-    (parsed : ExpressionAt (scalarNames := scalarNames) (integerHidden := integerHidden)
+    (parsed : ExpressionAt (contextFirst := contextFirst) (scalarNames := scalarNames) (integerHidden := integerHidden)
       (arrays := arrays) (initials := initials) (elaborating := elaborating) text names position expression result)
     (fitsResult : fits result capacity = true) (strings : Fits names.shape input values)
     (scalars : Integer.Fits (ArrayBindings.viewRanges arrays.items initials elaborating (ScalarExpression.ranges scalarNames)) integers)

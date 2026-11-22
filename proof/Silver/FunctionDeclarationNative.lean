@@ -217,6 +217,9 @@ abbrev Calls := (fn : Function) → fn.type.meaning
 
 def nativeContextOf (scan : Predicate.ScanResult) : Predicate.Native.Context :=
   { names := scan.state.names
+    contextFirst := scan.state.contextFirst
+    packageFirst := scan.state.packageFirst
+    packageAfter := scan.state.packageAfter
     dynamicFirst := scan.state.dynamicFirst
     dynamicAfter := scan.state.dynamicAfter
     scalarNames := ScalarExpression.bodyEnvironment scan.state.scalarNames
@@ -567,7 +570,7 @@ def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
   | .appendBoolean frame parameter =>
       let before := frame.eval calls locals
       let item := parameter.eval calls locals
-      {before with booleanNames := before.booleanNames ++ [⟨item.first, item.after, false⟩]}
+      {before with booleanNames := before.booleanNames ++ [{first := item.first, after := item.after, mutable := false}]}
   | .typeResult after scalarKind bounds typeId => ⟨after.eval calls locals, scalarKind.eval calls locals, bounds.eval calls locals, typeId.eval calls locals⟩
   | .stepResult state closed => ⟨state.eval calls locals, closed.eval calls locals⟩
   | .formal first after scalarKind bounds typeId => ⟨first.eval calls locals, after.eval calls locals, scalarKind.eval calls locals, bounds.eval calls locals, typeId.eval calls locals⟩

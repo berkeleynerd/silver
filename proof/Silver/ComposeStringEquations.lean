@@ -42,7 +42,7 @@ theorem guarded_denotation (calls : Calls) (text : Source) (position limit depth
 /-- Staged interpretation of the declarations and returns of the native index reader. -/
 def indexedEquation (calls : Calls) (text : Source) (position : Nat) (names : BindingEnvironment)
     (scalarNames : ScalarExpression.Environment) (arrays : ArrayBindings.Table)
-    (initials : ArrayBindings.Initials) (elaborating element : Bool) : ValueResult :=
+    (initials : ArrayBindings.Initials) (elaborating element : Bool) (contextFirst : Nat) : ValueResult :=
   let take := calls.function .takeToken text
   let first := calls.function .skip text position
   let after := calls.function .nameAfter text first
@@ -65,7 +65,7 @@ def indexedEquation (calls : Calls) (text : Source) (position : Nat) (names : Bi
     if decide (following ≤ position) || calls.function .scalarEmpty high.bounds ||
         decide (operands ≥ maxExpressionOperands) ||
         decide (low.bounds.upper - high.bounds.lower > Integer.maxValue) ||
-        ((!low.isStatic || !high.isStatic) && calls.function .guardedAt text 1 position 0 false false) ||
+        ((!low.isStatic || !high.isStatic) && calls.function .guardedAt text contextFirst position 0 false false) ||
         (decide (low.bounds.lower ≤ high.bounds.upper) &&
           (decide (low.bounds.lower < info.firstIndex) || decide (high.bounds.upper > info.lastIndex)))
     then invalidValue
@@ -78,10 +78,10 @@ def indexedEquation (calls : Calls) (text : Source) (position : Nat) (names : Bi
 
 theorem indexed_denotation (calls : Calls) (text : Source) (position : Nat) (names : BindingEnvironment)
     (scalarNames : ScalarExpression.Environment) (arrays : ArrayBindings.Table)
-    (initials : ArrayBindings.Initials) (elaborating element : Bool) :
+    (initials : ArrayBindings.Initials) (elaborating element : Bool) (contextFirst : Nat) :
     indexedBody.eval calls
-      (Context.locals {text,position,names,scalarNames,arrays,initials,elaborating,characterElement := element}) =
-      indexedEquation calls text position names scalarNames arrays initials elaborating element := by
+      (Context.locals {text,contextFirst,position,names,scalarNames,arrays,initials,elaborating,characterElement := element}) =
+      indexedEquation calls text position names scalarNames arrays initials elaborating element contextFirst := by
   rfl
 
 /-- The recursive call is an explicit callee, with its returned cursor updated in place. -/
@@ -101,7 +101,7 @@ def characterEquation (calls : Calls) (text : Source) (position : Nat) (names : 
   else if decide (target ≠ 0) && ((names.get target).getD {}).isCharacter &&
       decide (calls.function .scalarLookup text scalarNames first after = 0) then
     ⟨after, 0, 1, 1, false, true, false, target, 1, .singleton 1, .singleton 1⟩
-  else calls.function .indexed text position names scalarNames arrays initials elaborating true
+  else calls.function .indexed text position names scalarNames arrays initials elaborating true 1
 
 theorem character_denotation (calls : Calls) (text : Source) (position : Nat) (names : BindingEnvironment)
     (scalarNames : ScalarExpression.Environment) (arrays : ArrayBindings.Table)

@@ -138,7 +138,7 @@ def Function.name : Function → List String
   | .characterAt => .arrow .source (.arrow .number (.arrow .names (.arrow .scalarNames (.arrow .arrays (.arrow .initials (.arrow .truth .value))))))
   | .characterCondition => .arrow .source (.arrow .context (.arrow .number (.arrow .facts (.arrow .initials .condition))))
   | .xorFree => .arrow .source (.arrow .number (.arrow .number .truth))
-  | .callAfter => .arrow .source (.arrow .names (.arrow .number (.arrow .operation (.arrow .scalarNames (.arrow .arrays (.arrow .truth (.arrow .booleanNames .number)))))))
+  | .callAfter => .arrow .source (.arrow .names (.arrow .number (.arrow .operation (.arrow .scalarNames (.arrow .arrays (.arrow .truth (.arrow .booleanNames (.arrow .number (.arrow .number (.arrow .number .number))))))))))
   | .equalName => .arrow .source (.arrow .number (.arrow .number (.arrow .number (.arrow .number .truth))))
   | .nameIs => .arrow .source (.arrow .number (.arrow .number (.arrow .word .truth)))
   | .arrayLookup => .arrow .source (.arrow .arrays (.arrow .number (.arrow .number .number)))
@@ -185,7 +185,7 @@ structure Calls where
   characterAt : Source → Nat → Compose.BindingEnvironment → ScalarExpression.Environment → ArrayBindings.Table → ArrayBindings.Initials → Bool → Compose.ValueResult
   characterCondition : Source → Context → Nat → ActiveFlow → ArrayBindings.Initials → ConditionResult
   xorFree : Source → Nat → Nat → Bool
-  callAfter : Source → Compose.BindingEnvironment → Nat → Names.Operation → ScalarExpression.Environment → ArrayBindings.Table → Bool → BooleanBindings.Environment → Nat
+  callAfter : Source → Compose.BindingEnvironment → Nat → Names.Operation → ScalarExpression.Environment → ArrayBindings.Table → Bool → BooleanBindings.Environment → Nat → Nat → Nat → Nat
   equalName : Source → Nat → Nat → Nat → Nat → Bool
   nameIs : Source → Nat → Nat → String → Bool
   arrayLookup : Source → ArrayBindings.Table → Nat → Nat → Nat
@@ -283,6 +283,7 @@ inductive Field : Ty → Ty → Type
   | contextBooleans : Field .context .booleanNames
   | contextTrueHidden : Field .context .truth
   | contextFalseHidden : Field .context .truth
+  | contextFirst | contextPackageFirst | contextPackageAfter : Field .context .number
   | contextPure : Field .context .truth
   | contextElaborating : Field .context .truth
   | contextMaskFirst : Field .context .number
@@ -325,6 +326,9 @@ def Field.name : Field a b → String
   | .contextBooleans => "boolean_names"
   | .contextTrueHidden => "true_hidden"
   | .contextFalseHidden => "false_hidden"
+  | .contextFirst => "context_first"
+  | .contextPackageFirst => "package_first"
+  | .contextPackageAfter => "package_after"
   | .contextPure => "pure"
   | .contextElaborating => "elaborating"
   | .contextMaskFirst => "mask_first"
@@ -366,6 +370,9 @@ def Field.get : Field a b → a.meaning → b.meaning
   | .contextBooleans, value => value.booleanNames
   | .contextTrueHidden, value => value.trueHidden
   | .contextFalseHidden, value => value.falseHidden
+  | .contextFirst, value => value.contextFirst
+  | .contextPackageFirst, value => value.packageFirst
+  | .contextPackageAfter, value => value.packageAfter
   | .contextPure, value => value.pure
   | .contextElaborating, value => value.elaborating
   | .contextMaskFirst, value => value.maskFirst
@@ -585,9 +592,9 @@ namespace Expr
 
 def callOperation (text : Expr .source) (names : Expr .names) (position : Expr .number)
     (operation : Expr .operation) (scalarNames : Expr .scalarNames) (arrays : Expr .arrays)
-    (hidden : Expr .truth) (booleans : Expr .booleanNames) : Expr .number :=
-  .app (.app (.app (.app (.app (.app (.app (.app (.function .callAfter) text) names)
-    position) operation) scalarNames) arrays) hidden) booleans
+    (hidden : Expr .truth) (booleans : Expr .booleanNames) (contextFirst packageFirst packageAfter : Expr .number) : Expr .number :=
+  .app (.app (.app (.app (.app (.app (.app (.app (.app (.app (.app (.function .callAfter) text) names)
+    position) operation) scalarNames) arrays) hidden) booleans) contextFirst) packageFirst) packageAfter
 
 def callEqualName (text : Expr .source) (first after otherFirst otherAfter : Expr .number) : Expr .truth :=
   .app (.app (.app (.app (.app (.function .equalName) text) first) after) otherFirst) otherAfter

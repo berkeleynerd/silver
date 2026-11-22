@@ -46,7 +46,7 @@ def argumentDefaultPosition (text : Source) (state : ParserState) : Nat :=
   let after := argumentAfter text state
   let hidden := (decide (first ≠ 0) && decide (after > first)) &&
     decide (fixedAfter text first "first_or_default" true = after)
-  let operation := Names.operationAfter text start .argument hidden
+  let operation := Names.operationAfter text start .argument hidden state.contextFirst state.packageFirst state.packageAfter
   let opening := fixedAfter text operation "(" false
   skipAt text (Names.associationAfter text opening true)
 
@@ -129,7 +129,7 @@ def dynamicAt (text : Source) (state : ParserState) : ParserState :=
 
 def assignmentAt (text : Source) (state : ParserState) : ParserState :=
   let value := expressionAt text state.position state.names state.scalarNames false
-    state.arrayNames.table state.arrayNames.values true
+    state.arrayNames.table state.arrayNames.values true state.contextFirst
   let target := (state.names.get state.target).getD {}
   if !fits value state.capacity || value.emptyValue || decide (value.minimumLength ≠ value.staticLength ∨ state.target = 0 ∨ value.staticLength ≠ target.staticLength ∨
       value.dynamicCount ≠ (if target.dynamic then 1 else 0) ∨ target.isCharacter = true) then invalidState
@@ -137,14 +137,14 @@ def assignmentAt (text : Source) (state : ParserState) : ParserState :=
 
 def outputAt (text : Source) (state : ParserState) : ParserState :=
   let value := expressionAt text state.position state.names state.scalarNames false
-    state.arrayNames.table state.arrayNames.values true
+    state.arrayNames.table state.arrayNames.values true state.contextFirst
   if fits value state.capacity then {state with position := value.after} else invalidState
 
 def comparisonAt (text : Source) (state : ParserState) : ParserState :=
   let left := expressionAt text state.position state.names state.scalarNames false
-    state.arrayNames.table state.arrayNames.values true
+    state.arrayNames.table state.arrayNames.values true state.contextFirst
   let right := expressionAt text (fixedAfter text left.after "=" false) state.names state.scalarNames false
-    state.arrayNames.table state.arrayNames.values true
+    state.arrayNames.table state.arrayNames.values true state.contextFirst
   if fits left state.capacity && fits right state.capacity && (left.namedSeen || right.namedSeen)
   then {state with position := right.after} else invalidState
 

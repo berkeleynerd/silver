@@ -7,6 +7,8 @@ public import Silver.StringFreezing
 @[expose] public section
 
 namespace Silver.Compose
+
+variable {contextFirst : Nat}
 open Bindings StringObjectBounds
 
 /-- Lookup facts discarded by Shape: encoded slice/index bases belong to the
@@ -90,7 +92,7 @@ theorem Expression.boundsOrigin_freeze {names : BindingEnvironment} {expression 
   exact Operand.boundsOrigin_freeze snapshot (origin _ present)
 
 theorem value_boundsOrigin {text names position value result scalarNames integerHidden arrays initials elaborating}
-    (parsed : ValueAt text names position value result scalarNames integerHidden arrays initials elaborating) :
+    (parsed : ValueAt (contextFirst := contextFirst) text names position value result scalarNames integerHidden arrays initials elaborating) :
     value.BoundsOrigin names := by
   cases parsed with
   | literal | image => trivial
@@ -107,7 +109,7 @@ theorem character_boundsOrigin {text names scalarNames arrays initials elaborati
   | parenthesized _ _ _ _ ih => exact ih
 
 theorem expression_boundsOrigin {text names position expression result scalarNames integerHidden arrays initials elaborating}
-    (parsed : ExpressionAt text names position expression result scalarNames integerHidden arrays initials elaborating) :
+    (parsed : ExpressionAt (contextFirst := contextFirst) text names position expression result scalarNames integerHidden arrays initials elaborating) :
     expression.BoundsOrigin names := by
   intro atom member
   obtain ⟨position, result, source⟩ := expressionTail_sourceAtoms parsed atom member

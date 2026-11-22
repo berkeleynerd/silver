@@ -342,8 +342,8 @@ mutual
                   · exact true_of_not_neg (fun bad => boundedValues (Or.inr (Or.inl bad)))
                   · exact true_of_not_neg (fun bad => boundedValues (Or.inr (Or.inr (Or.inl bad))))
                   · exact true_of_not_neg (fun bad => boundedValues (Or.inr (Or.inr (Or.inr bad))))
-                obtain ⟨leftExpr, leftRead⟩ := expressionAt_sound (scalarNames := context.readingNames facts) (integerHidden := context.integerHidden text) (arrays := context.arrayTable) (initials := initials) (elaborating := context.elaborating) text context.names position ready.1
-                obtain ⟨rightExpr, rightRead⟩ := expressionAt_sound (scalarNames := context.readingNames facts) (integerHidden := context.integerHidden text) (arrays := context.arrayTable) (initials := initials) (elaborating := context.elaborating) text context.names operator.after ready.2.2.2.1
+                obtain ⟨leftExpr, leftRead⟩ := expressionAt_sound (scalarNames := context.readingNames facts) (integerHidden := context.integerHidden text) (arrays := context.arrayTable) (initials := initials) (elaborating := context.elaborating) (contextFirst := context.contextFirst) text context.names position ready.1
+                obtain ⟨rightExpr, rightRead⟩ := expressionAt_sound (scalarNames := context.readingNames facts) (integerHidden := context.integerHidden text) (arrays := context.arrayTable) (initials := initials) (elaborating := context.elaborating) (contextFirst := context.contextFirst) text context.names operator.after ready.2.2.2.1
                 have resultEq : readRelation text context position facts initials = stringResult facts left right operator := by
                   simp only [readRelation, zero, noNot, noLength, noScalar, impure, Bool.false_eq_true, ne_eq, not_true_eq_false,
                     expressionPresent, not_false_eq_true, ↓reduceIte]
@@ -352,8 +352,8 @@ mutual
                   rfl
                 rw [resultEq]
                 exact ⟨⟨_, .strings zero noNot noLength noScalar leftRead rightRead ready rightAdvanced impure⟩,
-                  (model_expression_valid (scalarNames := context.readingNames facts) (integerHidden := context.integerHidden text) (arrays := context.arrayTable) (initials := initials) (elaborating := context.elaborating) text textValid operator.after context.names
-                    (comparison_bound text left.after (model_expression_valid (scalarNames := context.readingNames facts) (integerHidden := context.integerHidden text) (arrays := context.arrayTable) (initials := initials) (elaborating := context.elaborating) text textValid position context.names bounded namesValid).1)
+                  (model_expression_valid (scalarNames := context.readingNames facts) (integerHidden := context.integerHidden text) (arrays := context.arrayTable) (initials := initials) (elaborating := context.elaborating) (contextFirst := context.contextFirst) text textValid operator.after context.names
+                    (comparison_bound text left.after (model_expression_valid (scalarNames := context.readingNames facts) (integerHidden := context.integerHidden text) (arrays := context.arrayTable) (initials := initials) (elaborating := context.elaborating) (contextFirst := context.contextFirst) text textValid position context.names bounded namesValid).1)
                     namesValid).1⟩
               · have noExpression : (readStringInFlow text context position facts initials).after = 0 := by omega
                 by_cases characterPositive : (characterCondition text context position facts initials).after ≠ 0

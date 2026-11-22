@@ -199,7 +199,7 @@ mutual
     | .indexed => ["character_value", ":="] ++ call "indexed_at"
         [["text"], ["scan", ".", "position"], ["context", ".", "names"],
           call "reading_names" [["context"], ["result", ".", "facts"]], ["context", ".", "array_names"],
-          ["array_bindings", ".", "empty_values"], ["false"], ["true"]] ++ [";"]
+          ["array_bindings", ".", "empty_values"], ["false"], ["true"], ["1"]] ++ [";"]
     | .target => ["target", ":="] ++ call "body_string_target"
         [["text"], ["context"], ["result", ".", "position"]] ++ [";"]
     | .returnInvalid => ["return", "invalid_body", "(", "scan", ")", ";"] | .returnResult => ["return", "result", ";"]
@@ -267,7 +267,8 @@ def modelPrimitives : Primitives where
   expression := fun text context position facts => readStringInFlow text context.model position facts
   readingNames := fun context facts => context.model.readingNames facts
   character := fun text position names scalarNames arrays => characterAt text position names scalarNames arrays
-  indexed := indexedAt
+  indexed := fun text position names scalarNames arrays initials elaborating element =>
+    indexedAt text position names scalarNames arrays initials elaborating element 1
   target := ScalarBodyNative.stringTargetEval ScalarBodyNative.modelImports
   bodyToken := fun text _ scan token => Predicate.bodyToken text scan token
   invalid := invalidBody

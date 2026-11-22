@@ -169,10 +169,10 @@ mutual
         fixedAfter text position "not" true = 0 → (lengthAt text context position false).after = 0 →
         (readScalarInFlow text context position facts (initials := initials)).after = 0 →
         ExpressionAt text context.names position left leftResult (scalarNames := context.readingNames facts)
-          (integerHidden := context.integerHidden text) (arrays := context.arrayTable) (initials := initials) (elaborating := context.elaborating) →
+          (integerHidden := context.integerHidden text) (arrays := context.arrayTable) (initials := initials) (elaborating := context.elaborating) (contextFirst := context.contextFirst) →
         ExpressionAt text context.names (comparisonAt text leftResult.after).after right rightResult
           (scalarNames := context.readingNames facts) (integerHidden := context.integerHidden text)
-          (arrays := context.arrayTable) (initials := initials) (elaborating := context.elaborating) →
+          (arrays := context.arrayTable) (initials := initials) (elaborating := context.elaborating) (contextFirst := context.contextFirst) →
         StringRelationReady facts leftResult rightResult (comparisonAt text leftResult.after) →
         position < rightResult.after →
         context.pure = false →

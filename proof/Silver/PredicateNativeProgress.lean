@@ -71,7 +71,7 @@ theorem primary_progress (text : Source) (context : ParseContext) (position : Na
             | false => simp [readPrimary, zero, noOpening, noArray, noAtom, arguments, invalidCondition] at accepted
             | true => rfl
           have finalPositive : callAfter text context.names position .validity context.scalarNames context.arrayTable
-              (context.validityHidden text) context.booleanNames ≠ 0 := by
+              (context.validityHidden text) context.booleanNames context.contextFirst context.packageFirst context.packageAfter ≠ 0 := by
             intro absent
             simp [readPrimary, zero, noOpening, noArray, noAtom, arguments, absent, invalidCondition] at accepted
           have progress := model_callAfter_advances text context.names position .validity bounded finalPositive

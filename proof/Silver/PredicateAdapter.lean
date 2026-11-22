@@ -20,7 +20,8 @@ def contextOf (scan : ScanResult) : Native.Context :=
     ScalarExpression.bodyEnvironment scan.state.scalarNames, scan.state.scalarNames.length, scan.state.arrayNames.names, scan.state.subtypeNames.hiddenCalls,
     scan.state.booleanNames, scan.state.subtypeNames.trueHidden || scan.state.hiding.trueHidden,
     scan.state.subtypeNames.falseHidden || scan.state.hiding.falseHidden, false, 0, 0,
-    scan.state.pure, scan.state.hiding.integerHidden, scan.state.arrayNames.types⟩
+    scan.state.pure, scan.state.hiding.integerHidden, scan.state.arrayNames.types,
+    scan.state.contextFirst, scan.state.packageFirst, scan.state.packageAfter⟩
 
 def expand (context : Native.Context) (scan : BodyScan) (original : ParserState) : ScanResult :=
   ⟨{original with
@@ -63,7 +64,7 @@ theorem context_valid (text : Source) (scan : ScanResult)
     (valid : OuterReadiness.ValidState text scan.state) : Native.ValidContext text (contextOf scan) :=
   ⟨valid.1.2.1, valid.1.2.2.1, ScalarExpression.bodyEnvironment_valid valid.1.2.2.2.2.2.1,
     (valid.2.baseReady valid.1.2.2.2.2.2.1.1).toContextReady,
-    valid.1.2.2.2.2.2.2.1.1, valid.base.booleans, Or.inl ⟨rfl, rfl⟩, valid.bounds⟩
+    valid.1.2.2.2.2.2.2.1.1, valid.base.booleans, Or.inl ⟨rfl, rfl⟩, valid.bounds, valid.base.unit⟩
 
 theorem initial_flow_valid (text : Source) (scan : ScanResult)
     (valid : OuterReadiness.ValidState text scan.state) :
@@ -128,6 +129,9 @@ inductive Field : Type → Type → Type
   | scanState : Field ScanResult ParserState
   | scanAssigned : Field ScanResult Bool
   | scanOutput : Field ScanResult Bool
+  | stateContextFirst : Field ParserState Nat
+  | statePackageFirst : Field ParserState Nat
+  | statePackageAfter : Field ParserState Nat
   | statePosition : Field ParserState Nat
   | stateNames : Field ParserState BindingEnvironment
   | stateScalarNames : Field ParserState ScalarExpression.Environment
@@ -180,6 +184,9 @@ def Field.eval : Field α β → α → β
   | .stateSubtypes => ParserState.subtypeNames | .subtypeHiding => IntegerSubtypes.Environment.hiddenCalls
   | .contextScalarNames => Native.Context.scalarNames
   | .contextDeclarationCount => Native.Context.declarationCount
+  | .stateContextFirst => ParserState.contextFirst
+  | .statePackageFirst => ParserState.packageFirst
+  | .statePackageAfter => ParserState.packageAfter
   | .statePosition => ParserState.position | .stateNames => ParserState.names
   | .stateFirst => ParserState.dynamicFirst | .stateAfter => ParserState.dynamicAfter
   | .stateTarget => ParserState.target | .stateCapacity => ParserState.capacity
@@ -200,6 +207,9 @@ def Field.name : Field α β → String
   | .subtypeTrueHidden => "true_hidden" | .subtypeFalseHidden => "false_hidden"
   | .stateSubtypes => "subtype_names" | .subtypeHiding => "hidden_calls"
   | .contextDeclarationCount => "declaration_count"
+  | .stateContextFirst => "context_first"
+  | .statePackageFirst => "package_first"
+  | .statePackageAfter => "package_after"
   | .statePosition => "position" | .stateNames => "names" | .stateFirst => "dynamic_first"
   | .stateAfter => "dynamic_after" | .stateTarget => "target" | .stateCapacity => "capacity"
   | .contextNames => "names" | .contextFirst => "dynamic_first" | .contextAfter => "dynamic_after"
@@ -240,7 +250,7 @@ inductive Expr : Type → Type 1
   | contextValue (names : Expr BindingEnvironment) (scalarNames : Expr ScalarExpression.Environment)
       (arrays : Expr ArrayBindings.Table) (hiddenCalls : Expr IntegerSubtypes.CallHiding)
       (booleans : Expr BooleanBindings.Environment) (trueHidden falseHidden pure integerHidden elaborating : Expr Bool)
-      (maskFirst maskAfter declarations first after : Expr Nat) : Expr Native.Context
+      (maskFirst maskAfter declarations first after unitFirst packageFirst packageAfter : Expr Nat) : Expr Native.Context
   | bodyValue (count : Expr Nat) (facts : Expr ActiveFlow) (position target capacity : Expr Nat)
       (assigned output : Expr Bool) : Expr BodyScan
   | stateValue (original : Expr ParserState) (position : Expr Nat) (names : Expr BindingEnvironment) (scalarNames : Expr ScalarExpression.Environment)
@@ -295,7 +305,7 @@ def Expr.eval (calls : BodyNative.Calls) (frame : Frame)
   | .nameCount names => (names.eval calls frame bodyOfCall initialFlowCall takeTokenCall).length
   | .completed facts => Predicate.completed (facts.eval calls frame bodyOfCall initialFlowCall takeTokenCall)
   | .bodyEnvironment names => ScalarExpression.bodyEnvironment (names.eval calls frame bodyOfCall initialFlowCall takeTokenCall)
-  | .contextValue names scalarNames arrayNames hiddenCalls booleans trueHidden falseHidden pure integerHidden elaborating maskFirst maskAfter declarations first after =>
+  | .contextValue names scalarNames arrayNames hiddenCalls booleans trueHidden falseHidden pure integerHidden elaborating maskFirst maskAfter declarations first after unitFirst packageFirst packageAfter =>
       ⟨names.eval calls frame bodyOfCall initialFlowCall takeTokenCall, first.eval calls frame bodyOfCall initialFlowCall takeTokenCall, after.eval calls frame bodyOfCall initialFlowCall takeTokenCall,
         scalarNames.eval calls frame bodyOfCall initialFlowCall takeTokenCall, declarations.eval calls frame bodyOfCall initialFlowCall takeTokenCall, (arrayNames.eval calls frame bodyOfCall initialFlowCall takeTokenCall).items, hiddenCalls.eval calls frame bodyOfCall initialFlowCall takeTokenCall,
         booleans.eval calls frame bodyOfCall initialFlowCall takeTokenCall,
@@ -306,7 +316,10 @@ def Expr.eval (calls : BodyNative.Calls) (frame : Frame)
         maskAfter.eval calls frame bodyOfCall initialFlowCall takeTokenCall,
         pure.eval calls frame bodyOfCall initialFlowCall takeTokenCall,
         integerHidden.eval calls frame bodyOfCall initialFlowCall takeTokenCall,
-        (arrayNames.eval calls frame bodyOfCall initialFlowCall takeTokenCall).types⟩
+        (arrayNames.eval calls frame bodyOfCall initialFlowCall takeTokenCall).types,
+        unitFirst.eval calls frame bodyOfCall initialFlowCall takeTokenCall,
+        packageFirst.eval calls frame bodyOfCall initialFlowCall takeTokenCall,
+        packageAfter.eval calls frame bodyOfCall initialFlowCall takeTokenCall⟩
   | .bodyValue _ facts pos target capacity assigned output =>
       ⟨pos.eval calls frame bodyOfCall initialFlowCall takeTokenCall, target.eval calls frame bodyOfCall initialFlowCall takeTokenCall, capacity.eval calls frame bodyOfCall initialFlowCall takeTokenCall,
         facts.eval calls frame bodyOfCall initialFlowCall takeTokenCall, assigned.eval calls frame bodyOfCall initialFlowCall takeTokenCall, output.eval calls frame bodyOfCall initialFlowCall takeTokenCall⟩
@@ -356,7 +369,8 @@ def Expr.render : Expr α → List String
   | .nameCount names => names.render ++ [".", "count"]
   | .completed facts => ["paths", "."] ++ Expressions.call "completed" [facts.render]
   | .bodyEnvironment names => ["scalar_expressions", "."] ++ Expressions.call "body_environment" [names.render]
-  | .contextValue names scalarNames arrayNames hiddenCalls booleans trueHidden falseHidden pure integerHidden elaborating maskFirst maskAfter declarations first after => record [("names", names.render),
+  | .contextValue names scalarNames arrayNames hiddenCalls booleans trueHidden falseHidden pure integerHidden elaborating maskFirst maskAfter declarations first after unitFirst packageFirst packageAfter => record [("context_first", unitFirst.render), ("package_first", packageFirst.render),
+      ("package_after", packageAfter.render), ("names", names.render),
       ("scalar_names", scalarNames.render), ("array_names", arrayNames.render), ("subtype_hiding", hiddenCalls.render), ("boolean_names", booleans.render),
       ("true_hidden", trueHidden.render), ("false_hidden", falseHidden.render), ("pure", pure.render), ("integer_hidden", integerHidden.render), ("elaborating", elaborating.render),
       ("mask_first", maskFirst.render), ("mask_after", maskAfter.render), ("declaration_count", declarations.render),
@@ -398,6 +412,9 @@ def contextExpr : Expr Native.Context :=
     (.truth false) (.number 0) (.number 0)
     (.nameCount (.field .stateScalarNames (.field .scanState .scan)))
     (.field .stateFirst (.field .scanState .scan)) (.field .stateAfter (.field .scanState .scan))
+    (.field .stateContextFirst (.field .scanState .scan))
+    (.field .statePackageFirst (.field .scanState .scan))
+    (.field .statePackageAfter (.field .scanState .scan))
 
 def bodyExpr : Expr BodyScan :=
   .bodyValue (.nameCount (.field .stateScalarNames (.field .scanState .scan))) (.initialFlow (.contextOf .scan))

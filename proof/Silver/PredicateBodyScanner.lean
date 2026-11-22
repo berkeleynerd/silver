@@ -263,7 +263,7 @@ def loopNameAllowed (text : Source) (context : ParseContext) (header : LoopHeade
 
 def loopInner (context : ParseContext) (header : LoopHeader) : ParseContext :=
   {context with scalarNames := context.scalarNames ++
-    [⟨header.first, header.after, header.bounds, false, header.bounds, false⟩]}
+    [{first := header.first, after := header.after, bounds := header.bounds, isStatic := false, declaredBounds := header.bounds, mutable := false}]}
 
 def loopAfterFlow (context : ParseContext) (before after : ActiveFlow)
     (lower upper : Integer.Interval) : ActiveFlow :=
@@ -408,7 +408,8 @@ def contextOf (scan : ScanResult) : ParseContext :=
     ScalarExpression.bodyEnvironment scan.state.scalarNames, scan.state.scalarNames.length, scan.state.arrayNames.names, scan.state.subtypeNames.hiddenCalls,
     scan.state.booleanNames, scan.state.subtypeNames.trueHidden || scan.state.hiding.trueHidden,
     scan.state.subtypeNames.falseHidden || scan.state.hiding.falseHidden,
-    false, 0, 0, scan.state.pure, scan.state.hiding.integerHidden, scan.state.arrayNames.types⟩
+    false, 0, 0, scan.state.pure, scan.state.hiding.integerHidden, scan.state.arrayNames.types,
+    scan.state.contextFirst, scan.state.packageFirst, scan.state.packageAfter⟩
 
 def bodyOf (scan : ScanResult) : BodyScan :=
   ⟨scan.state.position, scan.state.target, scan.state.capacity,

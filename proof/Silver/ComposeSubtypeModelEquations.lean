@@ -65,10 +65,10 @@ theorem model_definition_subtypeDeclaration : ∀ text, ValidText text → ∀ s
   simp only [Bool.decide_coe, Bool.decide_or, Bool.or_assoc]
   all_goals rfl
 
-theorem model_definition_callAfter : ∀ text, ValidText text → ∀ names position operation scalarNames arrays subtypeHidden booleans,
-    ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames → ArrayBindings.ValidTable text arrays → BooleanBindings.ValidEnvironment text booleans → ValidCursor text position →
-    modelCalls.function .callAfter text names position operation scalarNames arrays subtypeHidden booleans =
-      callAfterBody.eval modelCalls (Context.locals {text,scalarNames,arrays,names,position,operation,subtypeHidden,booleans}) := by
+theorem model_definition_callAfter : ∀ text, ValidText text → ∀ names position operation scalarNames arrays subtypeHidden booleans contextFirst packageFirst packageAfter,
+    ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames → ArrayBindings.ValidTable text arrays → BooleanBindings.ValidEnvironment text booleans → ValidCursor text position → Names.ValidContext text contextFirst packageFirst packageAfter →
+    modelCalls.function .callAfter text names position operation scalarNames arrays subtypeHidden booleans contextFirst packageFirst packageAfter =
+      callAfterBody.eval modelCalls (Context.locals {text,contextFirst,packageFirst,packageAfter,scalarNames,arrays,names,position,operation,subtypeHidden,booleans}) := by
   intros
   dsimp +instances only [modelCalls, Names.modelCalls, Context.locals, lookupArrayType, Expr.eval, Calls.get, Locals.set, callAfterBody, Field.get, callAfter] <;> simp +instances [Bool.or_assoc]
 

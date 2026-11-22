@@ -33,6 +33,9 @@ structure Context where
   pure : Bool := false
   integerHidden : Bool := false
   arrayTypes : ArrayBindings.TypeEnvironment := []
+  contextFirst : Nat := 1
+  packageFirst : Nat := 0
+  packageAfter : Nat := 0
   deriving DecidableEq, Repr
 
 def Context.arrayTable (context : Context) : ArrayBindings.Table :=
@@ -42,7 +45,8 @@ def Context.model (context : Context) : ParseContext :=
   ⟨context.names, decide (context.dynamicFirst ≠ 0), context.scalarNames,
     context.declarationCount, context.arrayNames, context.subtypeHiding, context.booleanNames,
     context.trueHidden, context.falseHidden, context.elaborating, context.maskFirst, context.maskAfter,
-    context.pure, context.integerHidden, context.arrayTypes⟩
+    context.pure, context.integerHidden, context.arrayTypes,
+    context.contextFirst, context.packageFirst, context.packageAfter⟩
 
 def ValidContext (text : Source) (context : Context) : Prop :=
   Compose.Expressions.ValidNames text context.names ∧
@@ -52,7 +56,8 @@ def ValidContext (text : Source) (context : Context) : Prop :=
     ArrayBindings.ValidTable text context.arrayTable ∧
     BooleanBindings.ValidEnvironment text context.booleanNames ∧
     (⟨context.maskFirst, context.maskAfter⟩ : Named.NameState).Valid text ∧
-    Compose.NamesBoundsValid context.names
+    Compose.NamesBoundsValid context.names ∧
+    Names.ValidContext text context.contextFirst context.packageFirst context.packageAfter
 
 theorem ValidContext.base {text : Source} {context : Context}
     (valid : ValidContext text context) :
@@ -72,7 +77,12 @@ theorem ValidContext.mask {text : Source} {context : Context}
 
 theorem ValidContext.bounds {text : Source} {context : Context}
     (valid : ValidContext text context) : Compose.NamesBoundsValid context.names :=
-  valid.2.2.2.2.2.2.2
+  valid.2.2.2.2.2.2.2.1
+
+theorem ValidContext.unit {text : Source} {context : Context}
+    (valid : ValidContext text context) :
+    Names.ValidContext text context.contextFirst context.packageFirst context.packageAfter :=
+  valid.2.2.2.2.2.2.2.2
 
 theorem ValidContext.nativeNames {text : Source} {context : Context}
     (valid : ValidContext text context) : Compose.Expressions.NativeNames text context.names :=

@@ -132,7 +132,7 @@ theorem ProcedureInputFramesAt.arrayAnalysis {text frame index final}
               simp [appendProcedureParameter, named, kind, full, invalidState] at accepted
             have step : appendProcedureParameter before (ProcedureBindings.parameter before.procedures index) =
                 {before with booleanNames := before.booleanNames ++
-                  [⟨(ProcedureBindings.parameter before.procedures index).first, (ProcedureBindings.parameter before.procedures index).after, decide ((ProcedureBindings.parameter before.procedures index).mode ≠ .input)⟩]} := by
+                  [{first := (ProcedureBindings.parameter before.procedures index).first, after := (ProcedureBindings.parameter before.procedures index).after, mutable := decide ((ProcedureBindings.parameter before.procedures index).mode ≠ .input)}]} := by
               simp [appendProcedureParameter, named, kind, space]
             rw [step] at tail
             cases mode : (ProcedureBindings.parameter before.procedures index).mode <;> try exact False.elim (input mode)

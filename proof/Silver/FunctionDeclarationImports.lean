@@ -93,8 +93,8 @@ structure AppendParameterImports (calls : Calls) (frame : ParserState) (paramete
     appendArrayParameter frame parameter.first parameter.after parameter.typeId
   scalarAppend : parameter.kind = .integer → frame.scalarNames.length ≠ ScalarExpression.maxBindings →
     calls .scalarAppend frame.scalarNames
-      ⟨parameter.first, parameter.after, parameter.bounds, false, parameter.bounds, false⟩ =
-    frame.scalarNames ++ [⟨parameter.first, parameter.after, parameter.bounds, false, parameter.bounds, false⟩]
+      {first := parameter.first, after := parameter.after, bounds := parameter.bounds, isStatic := false, declaredBounds := parameter.bounds, mutable := false} =
+    frame.scalarNames ++ [{first := parameter.first, after := parameter.after, bounds := parameter.bounds, isStatic := false, declaredBounds := parameter.bounds, mutable := false}]
 
 theorem appendParameter_imports (calls : Calls) (frame : ParserState) (parameter : FunctionBindings.Formal)
     (imports : AppendParameterImports calls frame parameter) :

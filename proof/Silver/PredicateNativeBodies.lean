@@ -145,7 +145,8 @@ def primaryBody : Expr .condition :=
             (.group (.orElse (.subtypeHidden context (.operation .validity))
               (.group (.andThen (.ne (.field .contextMaskFirst context) (.number 0))
                 (.callNameIs text (.field .contextMaskFirst context) (.field .contextMaskAfter context) .validityCallWord)))))
-            (.field .contextBooleans context)) <|
+            (.field .contextBooleans context) (.field .contextFirst context)
+            (.field .contextPackageFirst context) (.field .contextPackageAfter context)) <|
           .group <| .ite (.eq afterCall (.number 0)) (.invalid facts)
             (.condition true (.field .flowCount facts) afterCall
               (.updatePath facts (.callAssumeValid path)) (.updatePath facts (.callAssumeInvalid path)))))))

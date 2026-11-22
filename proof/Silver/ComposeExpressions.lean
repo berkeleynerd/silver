@@ -250,9 +250,9 @@ def Function.name : Function → String
   | .normalize => .arrow .source (.source)
   | .allowed => .arrow .source (.truth)
   | .contextAfter => .arrow .source (.arrow .truth .number)
-  | .operationAfter => .arrow .source (.arrow .number (.arrow .operation (.arrow .truth .number)))
+  | .operationAfter => .arrow .source (.arrow .number (.arrow .operation (.arrow .truth (.arrow .number (.arrow .number (.arrow .number .number))))))
   | .associationAfter => .arrow .source (.arrow .number (.arrow .truth .number))
-  | .callAfter => .arrow .source (.arrow .names (.arrow .number (.arrow .operation (.arrow .scalarNames (.arrow .arrayMetadata (.arrow .truth (.arrow .booleanNames .number)))))))
+  | .callAfter => .arrow .source (.arrow .names (.arrow .number (.arrow .operation (.arrow .scalarNames (.arrow .arrayMetadata (.arrow .truth (.arrow .booleanNames (.arrow .number (.arrow .number (.arrow .number .number))))))))))
   | .skip => .arrow .source (.arrow .number (.number))
   | .nameAfter => .arrow .source (.arrow .number (.number))
   | .fixedAfter => .arrow .source (.arrow .number (.arrow .token (.number)))
@@ -1421,9 +1421,11 @@ def newNameBody : Expr .truth :=
   let state : Expr .state := .variable "state"
   let first : Expr .number := .variable "first"
   let after : Expr .number := .variable "after"
-  let existing := Expr.andThen (.andThen (.andThen (.andThen (.andThen (.andThen (.andThen (.andThen (.andThen
+  let existing := Expr.andThen (.andThen (.andThen (.andThen (.andThen (.andThen (.andThen (.andThen (.andThen (.andThen
     (.ne first (.number 0)) (.gt after first))
     (.not (.lexForbidden text first after)))
+    (.group (.orElse (.eq (.field .statePackageFirst state) (.number 0))
+      (.not (.lexEqual text (.field .statePackageFirst state) (.field .statePackageAfter state) first after)))))
     (.group (.orElse (.not (.variable "arguments")) (.not (.lexForbiddenArgument text first after)))))
     (.eq (.app (.app (.app (.app (.function .lookupName) text) (.field .stateNames state)) first) after) (.number 0)))
     (.eq (.app (.app (.app (.app (.function .scalarLookup) text) (.field .stateScalarNames state)) first) after) (.number 0)))
@@ -1691,11 +1693,11 @@ def callAfterBody : Expr .number :=
   let after : Expr .number := .variable "after"
   .locals <| .local "first" "literal_position" (.app (.app (.function .skip) text) (.variable "position")) <|
     .local "after" "literal_position" (.app (.app (.function .nameAfter) text) first) <|
-    .app (.app (.app (.app (.function .operationAfter) text) (.variable "position")) (.variable "operation"))
+    .app (.app (.app (.app (.app (.app (.app (.function .operationAfter) text) (.variable "position")) (.variable "operation"))
       (.orElse (.orElse (.orElse (.orElse (.orElse (.ne (.app (.app (.app (.app (.function .lookupName) text) (.variable "environment")) first) after) (.number 0)) (.ne (.app (.app (.app (.app (.function .scalarLookup) text) (.variable "scalar_names")) first) after) (.number 0)))
         (.ne (.app (.app (.app (.app (.function .arrayLookup) text) (.variable "arrays")) first) after) (.number 0)))
         (.ne (lookupArrayType text (.variable "arrays") first after) (.number 0)))
-        (.ne (.app (.app (.app (.app (.function .booleanLookup) text) (.variable "booleans")) first) after) (.number 0))) (.variable "subtype_hidden"))
+        (.ne (.app (.app (.app (.app (.function .booleanLookup) text) (.variable "booleans")) first) after) (.number 0))) (.variable "subtype_hidden"))) (.variable "context_first")) (.variable "package_first")) (.variable "package_after")
 
 def argumentBody : Expr .state :=
   let text : Expr .source := .variable "text"
@@ -1711,7 +1713,7 @@ def argumentBody : Expr .state :=
     .local "hidden" "boolean" (.andThen (.andThen (.ne first (.number 0)) (.gt after first))
       (.eq (take first (.word "first_or_default")) after)) <|
     .local "prefix" "literal_position" (.app (.app (.app (.function .associationAfter) text)
-      (take (.app (.app (.app (.app (.function .operationAfter) text) (.variable "start")) (.operation .argument)) (.variable "hidden")) (.symbol "("))) (.truth true)) <|
+      (take (.app (.app (.app (.app (.app (.app (.app (.function .operationAfter) text) (.variable "start")) (.operation .argument)) (.variable "hidden")) (.field .stateContextFirst state)) (.field .statePackageFirst state)) (.field .statePackageAfter state)) (.symbol "("))) (.truth true)) <|
     .local "default_value" "value_result" (.app (.app (.function .literal) text)
       (.app (.app (.function .skip) text) (.variable "prefix"))) <|
     .local "following" "literal_position" (take (take (.field .valueAfter fallback) (.symbol ")")) (.symbol ";")) <|
@@ -2475,7 +2477,7 @@ abbrev WellScopedTrees : Prop :=
   subtypeLookupModelBody.scoped [("text", .source), ("subtypes", .subtypeNames), ("first", .number), ("after", .number), ("index", .number)] = true ∧
   scalarTypeBody.scoped [("text", .source), ("state", .state), ("position", .number)] = true ∧
   subtypeDeclarationBody.scoped [("text", .source), ("state", .state), ("arguments", .truth)] = true ∧
-  callAfterBody.scoped [("booleans", .booleanNames), ("subtype_hidden", .truth), ("arrays", .arrayMetadata), ("scalar_names", .scalarNames), ("text", .source), ("environment", .names), ("position", .number), ("operation", .operation)] = true ∧
+  callAfterBody.scoped [("context_first", .number), ("package_first", .number), ("package_after", .number), ("booleans", .booleanNames), ("subtype_hidden", .truth), ("arrays", .arrayMetadata), ("scalar_names", .scalarNames), ("text", .source), ("environment", .names), ("position", .number), ("operation", .operation)] = true ∧
   skipBody.scoped [("text", .source), ("position", .number)] = true ∧
   nameBody.scoped [("text", .source), ("position", .number)] = true ∧
   fixedBody.scoped [("text", .source), ("position", .number), ("token", .token)] = true ∧

@@ -217,9 +217,9 @@ theorem helper_meaning (calls : Native.Calls) (composed : Compose.Expressions.Ca
     obtain ⟨source, observed⟩ := links.booleanLookup
     rw [observed]
     exact source.lookup_meaning text tv names nv first after fb ab
-  callAfter text tv names position operation scalarNames arrays hidden booleans nv sv av bv pv := by
+  callAfter text tv names position operation scalarNames arrays hidden booleans contextFirst packageFirst packageAfter nv sv av bv pv contextValid := by
     rw [links.callAfter]
-    exact Compose.Expressions.interpreted_callAfter composed composedEquations text tv names position operation nv pv sv av hidden booleans bv
+    exact Compose.Expressions.interpreted_callAfter composed composedEquations text tv names position operation nv pv sv av hidden booleans bv contextFirst packageFirst packageAfter contextValid
   take text tv position token bounded := by
     rw [links.take text tv position token bounded,
       Compose.Expressions.interpreted_take composed composedEquations text tv position token.shell bounded (token_valid token)]

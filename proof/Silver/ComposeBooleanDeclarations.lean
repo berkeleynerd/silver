@@ -68,8 +68,7 @@ theorem boolean_declaration_preserves {text : Source} {arguments : Bool} {state 
 theorem boolean_declaration_bindings {text : Source} {arguments : Bool} {state next : ParserState}
     (parsed : BooleanDeclarationAt text arguments state next) :
     next.booleanNames = state.booleanNames ++
-      [⟨(booleanDeclarationParts text state).first, (booleanDeclarationParts text state).after,
-        decide ((booleanDeclarationParts text state).constantAfter = 0)⟩] := by
+      [{first := (booleanDeclarationParts text state).first, after := (booleanDeclarationParts text state).after, mutable := decide ((booleanDeclarationParts text state).constantAfter = 0)}] := by
   cases parsed
   rfl
 

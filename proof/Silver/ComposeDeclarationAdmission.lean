@@ -11,6 +11,7 @@ open Named Bindings
 
 def newNameAllowed (text : Source) (state : ParserState) (first after : Nat) (arguments : Bool) : Bool :=
   decide (first ≠ 0 ∧ after > first) && !forbiddenName text first after &&
+    (decide (state.packageFirst = 0) || !equalName text state.packageFirst state.packageAfter first after) &&
     (!arguments || !Arguments.forbiddenName text first after) &&
     decide (lookupName text state.names first after = 0 ∧
       ScalarExpression.lookup text state.scalarNames first after = 0 ∧
@@ -60,9 +61,9 @@ def declarationIntegerHidden (text : Source) (state : ParserState) : Bool :=
 def declarationParts (text : Source) (state : ParserState) : DeclarationParts :=
   ⟨declarationFirst text state, declarationAfter text state, declarationConstantAfter text state,
     expressionAt text (declarationValuePosition text state) state.names state.scalarNames (declarationIntegerHidden text state)
-      state.arrayNames.table state.arrayNames.values true,
+      state.arrayNames.table state.arrayNames.values true state.contextFirst,
     fixedAfter text (expressionAt text (declarationValuePosition text state) state.names state.scalarNames (declarationIntegerHidden text state)
-      state.arrayNames.table state.arrayNames.values true).after ";" false⟩
+      state.arrayNames.table state.arrayNames.values true state.contextFirst).after ";" false⟩
 
 def fixedDeclarationBounds (value : ExpressionResult) (slot : Nat) : Bool :=
   !(decide (value.dynamicCount = 0) &&
@@ -189,7 +190,7 @@ def subtypeDeclarationParts (text : Source) (state : ParserState) : SubtypeDecla
   ⟨first, after, typeFirst, typeAfter, constraint, fixedAfter text constraint.after ";" false⟩
 
 def addSubtypeBinding (text : Source) (state : ParserState) (parts : SubtypeDeclarationParts) : ParserState :=
-  {state with position := parts.following, subtypeNames := IntegerSubtypes.append text state.subtypeNames ⟨parts.first, parts.after, parts.constraint.bounds⟩}
+  {state with position := parts.following, subtypeNames := IntegerSubtypes.append text state.subtypeNames {first := parts.first, after := parts.after, bounds := parts.constraint.bounds}}
 
 def arrayTypeAt (text : Source) (state : ParserState) (position : Nat) : Nat :=
   let first := skipAt text position
@@ -285,9 +286,9 @@ def scalarDeclarationParts (text : Source) (state : ParserState) : ScalarDeclara
 
 def addScalarBinding (state : ParserState) (parts : ScalarDeclarationParts) : ParserState :=
   {state with position := parts.following, scalarNames := state.scalarNames ++
-    [⟨parts.first, parts.after, parts.value.bounds,
-      decide (parts.constantAfter ≠ 0) && parts.value.isStatic,
-      parts.constraint.bounds, decide (parts.constantAfter = 0)⟩]}
+    [{first := parts.first, after := parts.after, bounds := parts.value.bounds,
+      isStatic := decide (parts.constantAfter ≠ 0) && parts.value.isStatic,
+      declaredBounds := parts.constraint.bounds, mutable := decide (parts.constantAfter = 0)}]}
 
 def scalarDeclarationAt (text : Source) (state : ParserState) (arguments : Bool) : ParserState :=
   let parts := scalarDeclarationParts text state
@@ -542,7 +543,7 @@ def booleanDeclarationFollowing (text : Source) (state : ParserState) : Nat :=
 
 def addBooleanBinding (state : ParserState) (parts : BooleanDeclarationParts) (following : Nat) : ParserState :=
   {state with position := following, booleanNames := state.booleanNames ++
-    [⟨parts.first, parts.after, decide (parts.constantAfter = 0)⟩]}
+    [{first := parts.first, after := parts.after, mutable := decide (parts.constantAfter = 0)}]}
 
 def booleanDeclarationAt (text : Source) (state : ParserState) (arguments : Bool) : ParserState :=
   let parts := booleanDeclarationParts text state

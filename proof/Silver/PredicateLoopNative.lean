@@ -251,7 +251,7 @@ def Update.eval (read : Reader) (frame : Frame) : Update → Frame
   | .arrayDefinite => {frame with definite := true}
   | .widen => {frame with result := {frame.result with facts := ActiveFlow.widen frame.context.scalarNames frame.result.facts}}
   | .inner => {frame with inner := {frame.inner with scalarNames := frame.inner.scalarNames.take frame.context.scalarNames.length ++
-      [⟨frame.first, frame.after, frame.bounds, false, frame.bounds, false⟩]}}
+      [{first := frame.first, after := frame.after, bounds := frame.bounds, isStatic := false, declaredBounds := frame.bounds, mutable := false}]}}
   | .copyToInner field => {frame with innerScan := field.copy frame.result frame.innerScan}
   | .copyFromInner field => {frame with result := field.copy frame.innerScan frame.result}
   | .innerPath => {frame with innerScan := {frame.innerScan with facts := {frame.innerScan.facts with
@@ -288,7 +288,7 @@ def Update.evalWith (imports : Imports) (read : Reader) (frame : Frame) : Update
   | .arrayDefinite => {frame with definite := true}
   | .widen => {frame with result := {frame.result with facts := imports.widen frame.context frame.result.facts}}
   | .inner => {frame with inner := {frame.inner with scalarNames := frame.inner.scalarNames.take frame.context.scalarNames.length ++
-      [⟨frame.first, frame.after, frame.bounds, false, frame.bounds, false⟩]}}
+      [{first := frame.first, after := frame.after, bounds := frame.bounds, isStatic := false, declaredBounds := frame.bounds, mutable := false}]}}
   | .copyToInner field => {frame with innerScan := field.copy frame.result frame.innerScan}
   | .copyFromInner field => {frame with result := field.copy frame.innerScan frame.result}
   | .innerPath => {frame with innerScan := {frame.innerScan with facts := {frame.innerScan.facts with
@@ -549,7 +549,7 @@ private def tailCommands : Command := .list [
 private def tailEquation (read : Reader) (frame : Frame) : BodyScan :=
   if frame.result.position ≤ frame.scan.position then invalidBody frame.scan else
   let inner := {frame.context with scalarNames := frame.context.scalarNames ++
-    [⟨frame.first, frame.after, frame.bounds, false, frame.bounds, false⟩]}
+    [{first := frame.first, after := frame.after, bounds := frame.bounds, isStatic := false, declaredBounds := frame.bounds, mutable := false}]}
   let widened := ActiveFlow.widen frame.context.scalarNames frame.scan.facts
   let entry := {frame.result with facts := {widened.append frame.bounds with
     path := loopContext frame.scan.facts.path frame.bounds}}

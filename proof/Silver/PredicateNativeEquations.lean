@@ -107,7 +107,7 @@ def primaryEquation (calls : Calls) (text : Source) (context : Context) (positio
     let afterCall := calls.callAfter text context.names position .validity context.scalarNames context.arrayTable
       (context.subtypeHiding.get .validity ||
         (decide (context.maskFirst ≠ 0) && calls.nameIs text context.maskFirst context.maskAfter "input_is_valid"))
-      context.booleanNames
+      context.booleanNames context.contextFirst context.packageFirst context.packageAfter
     if afterCall = 0 then calls.invalidCondition facts else
       ⟨afterCall, {facts with path := calls.assumeValid facts.path},
         {facts with path := calls.assumeInvalid facts.path}⟩

@@ -29,7 +29,8 @@ def ValidState (text : Source) (state : ParserState) : Prop :=
     state.firstParameter ≤ FunctionBindings.maxFormals ∧
     ProcedureBindings.ValidMetadata text state.procedures ∧
     state.firstProcedureParameter ≤ state.procedures.parameters.length + 1 ∧
-    state.firstProcedureParameter ≤ ProcedureBindings.maxFormals
+    state.firstProcedureParameter ≤ ProcedureBindings.maxFormals ∧
+    Names.ValidContext text state.contextFirst state.packageFirst state.packageAfter
 
 theorem ValidState.arrays {text : Source} {state : ParserState}
     (valid : ValidState text state) : ArrayBindings.ValidNativeEnvironment text state.arrayNames :=
@@ -50,6 +51,11 @@ theorem ValidState.functions {text : Source} {state : ParserState}
 theorem ValidState.procedures {text : Source} {state : ParserState}
     (valid : ValidState text state) : ProcedureBindings.ValidMetadata text state.procedures :=
   valid.2.2.2.2.2.2.2.2.2.2.2.2.1
+
+theorem ValidState.unit {text : Source} {state : ParserState}
+    (valid : ValidState text state) :
+    Names.ValidContext text state.contextFirst state.packageFirst state.packageAfter :=
+  valid.2.2.2.2.2.2.2.2.2.2.2.2.2.2.2
 
 /-- The state precondition actually provided by an interpreted native caller.
 The base domain remains available for the independent mathematical model. -/
@@ -432,11 +438,12 @@ structure RawHelperEquations (calls : Calls) (evaluator : Calls := lexical calls
   nameIs : ∀ text, ValidText text → ∀ first after word,
     ValidName text first after → 0 < word.toList.length → word.toList.length ≤ 16 →
     calls.function .nameIs text first after word = Named.nameIs text first after (word.toList.map Char.toNat)
-  callAfter : ∀ text, ValidText text → ∀ names position operation scalarNames arrays subtypeHidden booleans,
+  callAfter : ∀ text, ValidText text → ∀ names position operation scalarNames arrays subtypeHidden booleans contextFirst packageFirst packageAfter,
     NativeNames text names → ScalarExpression.ValidEnvironment text scalarNames →
     ArrayBindings.ValidTable text arrays → BooleanBindings.ValidEnvironment text booleans → ValidCursor text position →
-    calls.function .callAfter text names position operation scalarNames arrays subtypeHidden booleans =
-      callAfterBody.eval evaluator (Context.locals {text,scalarNames,arrays,names,position,operation,subtypeHidden,booleans})
+    Names.ValidContext text contextFirst packageFirst packageAfter →
+    calls.function .callAfter text names position operation scalarNames arrays subtypeHidden booleans contextFirst packageFirst packageAfter =
+      callAfterBody.eval evaluator (Context.locals {text,contextFirst,packageFirst,packageAfter,scalarNames,arrays,names,position,operation,subtypeHidden,booleans})
   skip : ∀ text, ValidText text → ∀ position,
     ValidCursor text position →
     calls.function .skip text position =

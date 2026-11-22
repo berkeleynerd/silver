@@ -215,8 +215,7 @@ theorem ParameterFramesAt.arrayAnalysis {text frame index final}
               simp [appendParameter, named, kind, full, invalidState] at accepted
             have step : appendParameter before (FunctionBindings.parameter before.functions index) =
                 {before with booleanNames := before.booleanNames ++
-                  [⟨(FunctionBindings.parameter before.functions index).first,
-                    (FunctionBindings.parameter before.functions index).after, false⟩]} := by
+                  [{first := (FunctionBindings.parameter before.functions index).first, after := (FunctionBindings.parameter before.functions index).after, mutable := false}]} := by
               simp [appendParameter, named, kind, space]
             rw [step] at tail
             simpa only [formalType, named, ↓reduceIte, kind, parameterAnalysis, ScalarFunctions.arrayAnalysis,

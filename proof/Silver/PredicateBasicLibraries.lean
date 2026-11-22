@@ -39,7 +39,8 @@ structure Links (primitive : Primitives) (inherited : Compose.Expressions.Calls)
       primitive.readingNames context facts = FlowReaders.overlay reading context facts
   character : primitive.character = fun text position names scalarNames arrays =>
     inherited.function .characterValue text position names scalarNames arrays [] false
-  indexed : primitive.indexed = inherited.function .indexed
+  indexed : primitive.indexed = fun text position names scalarNames arrays initials elaborating element =>
+    inherited.function .indexed text position names scalarNames arrays initials elaborating element 1
   scalarBodies : ∃ scalar body calls,
     FlowReaders.Links inherited scalar primitive.expression ∧
     BodyWrappers.DefinitionEquations body ∧
@@ -106,7 +107,7 @@ theorem HelperMeaning.of_inherited {primitive : Primitives} {inherited : Compose
   indexed text position names scalarNames arrays initials elaborating element valid initialsValid := by
     rw [links.indexed]
     exact Compose.Expressions.interpreted_indexed inherited source text valid.1 position names
-      scalarNames arrays initials elaborating element valid.2.1 ⟨valid.2.2.1, valid.2.2.2.1⟩
+      scalarNames arrays initials elaborating element 1 (by omega) (by unfold Compose.Expressions.ValidCursor; omega) valid.2.1 ⟨valid.2.2.1, valid.2.2.2.1⟩
       valid.2.2.2.2.1 valid.2.2.2.2.2 initialsValid
   target text context position valid := by
     obtain ⟨scalar, body, calls, flow, invalid, definitions, target, _⟩ := links.scalarBodies

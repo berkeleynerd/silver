@@ -139,9 +139,9 @@ def appendParameter (frame : ParserState) (parameter : FunctionBindings.Formal) 
   else if parameter.kind = .integer then
     if frame.scalarNames.length = ScalarExpression.maxBindings then invalidState
     else {frame with scalarNames := frame.scalarNames ++
-      [⟨parameter.first, parameter.after, parameter.bounds, false, parameter.bounds, false⟩]}
+      [{first := parameter.first, after := parameter.after, bounds := parameter.bounds, isStatic := false, declaredBounds := parameter.bounds, mutable := false}]}
   else if frame.booleanNames.length = BooleanBindings.maxBindings then invalidState
-  else {frame with booleanNames := frame.booleanNames ++ [⟨parameter.first, parameter.after, false⟩]}
+  else {frame with booleanNames := frame.booleanNames ++ [{first := parameter.first, after := parameter.after, mutable := false}]}
 
 def parameterFrameModel (frame : ParserState) (index : Nat) : ParserState :=
   if frame.position = 0 then invalidState

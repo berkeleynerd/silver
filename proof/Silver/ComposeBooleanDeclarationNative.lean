@@ -497,7 +497,7 @@ def equation (imports : Imports) (text : Source) (state : ParserState) (argument
       state.scalarNames.length state.arrayNames.values
     let following := imports.take text value.after .semicolon
     if following ≤ state.position then imports.invalid else
-      {state with position := following, booleanNames := state.booleanNames ++ [⟨p.first, p.after, decide (p.constantAfter = 0)⟩]}
+      {state with position := following, booleanNames := state.booleanNames ++ [{first := p.first, after := p.after, mutable := decide (p.constantAfter = 0)}]}
 
 theorem denotation (imports : Imports) (text : Source) (state : ParserState) (arguments : Bool) :
     body.eval imports {text, state, arguments} = equation imports text state arguments := by

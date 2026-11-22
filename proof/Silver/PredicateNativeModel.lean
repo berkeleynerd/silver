@@ -44,7 +44,7 @@ def modelCalls : Calls where
     Compose.characterAt text position names scalarNames arrays initials elaborating
   characterCondition := fun text context position facts initials => Predicate.characterCondition text context.model position facts initials
   xorFree := Predicate.xorFree
-  callAfter := fun text names position operation scalarNames arrays hidden booleans => Compose.callAfter text names position operation scalarNames arrays hidden booleans
+  callAfter := fun text names position operation scalarNames arrays hidden booleans contextFirst packageFirst packageAfter => Compose.callAfter text names position operation scalarNames arrays hidden booleans contextFirst packageFirst packageAfter
   equalName := Named.equalName
   nameIs := fun text first after word => Named.nameIs text first after (word.toList.map Char.toNat)
   arrayLookup := fun text names => ArrayBindings.lookup text names.items

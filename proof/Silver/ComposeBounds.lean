@@ -102,15 +102,15 @@ theorem model_fixed_advances (text : Source) (position : Nat) (spelling : String
     · contradiction
 
 theorem model_callAfter_valid (text : Source) (names : BindingEnvironment) {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Table} (position : Nat)
-    (operation : Names.Operation) (bound : ValidCursor text position) (subtypeHidden : Bool := false) (booleans : BooleanBindings.Environment := []) :
-    ValidCursor text (callAfter (scalarNames := scalarNames) (arrays := arrays) (subtypeHidden := subtypeHidden) (booleans := booleans) text names position operation) :=
-  Names.operationAfter_bound text position operation _ bound
+    (operation : Names.Operation) (bound : ValidCursor text position) (subtypeHidden : Bool := false) (booleans : BooleanBindings.Environment := []) (contextFirst : Nat := 1) (packageFirst packageAfter : Nat := 0) :
+    ValidCursor text (callAfter (scalarNames := scalarNames) (arrays := arrays) (subtypeHidden := subtypeHidden) (booleans := booleans) (contextFirst := contextFirst) (packageFirst := packageFirst) (packageAfter := packageAfter) text names position operation) :=
+  Names.operationAfter_bound text position operation _ contextFirst packageFirst packageAfter bound
 
 theorem model_callAfter_advances (text : Source) (names : BindingEnvironment) {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Table} (position : Nat)
-    (operation : Names.Operation) {subtypeHidden : Bool} {booleans : BooleanBindings.Environment} (bound : ValidCursor text position)
-    (nonzero : callAfter (scalarNames := scalarNames) (arrays := arrays) (subtypeHidden := subtypeHidden) (booleans := booleans) text names position operation ≠ 0) :
-    position < callAfter (scalarNames := scalarNames) (arrays := arrays) (subtypeHidden := subtypeHidden) (booleans := booleans) text names position operation :=
-  Names.operationAfter_progress text position operation _ bound nonzero
+    (operation : Names.Operation) {subtypeHidden : Bool} {booleans : BooleanBindings.Environment} {contextFirst : Nat} {packageFirst packageAfter : Nat} (bound : ValidCursor text position)
+    (nonzero : callAfter (scalarNames := scalarNames) (arrays := arrays) (subtypeHidden := subtypeHidden) (booleans := booleans) (contextFirst := contextFirst) (packageFirst := packageFirst) (packageAfter := packageAfter) text names position operation ≠ 0) :
+    position < callAfter (scalarNames := scalarNames) (arrays := arrays) (subtypeHidden := subtypeHidden) (booleans := booleans) (contextFirst := contextFirst) (packageFirst := packageFirst) (packageAfter := packageAfter) text names position operation :=
+  Names.operationAfter_progress text position operation _ contextFirst packageFirst packageAfter bound nonzero
 
 theorem model_lookup_valid (text : Source) (names : BindingEnvironment) (first after : Nat) :
     lookupName text names first after ≤ names.length := by

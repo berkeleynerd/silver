@@ -70,7 +70,7 @@ def Expr.Legal (calls : Calls) (locals : Locals) : Expr ty → Prop
   | .scalarBinding a b c d e f => a.Legal calls locals ∧ b.Legal calls locals ∧ c.Legal calls locals ∧ d.Legal calls locals ∧ e.Legal calls locals ∧ f.Legal calls locals
   | .scalarReadTable a b c d => a.Legal calls locals ∧ b.Legal calls locals ∧ c.Legal calls locals ∧ d.Legal calls locals
   | .scalarReadArrays a b c d e f => a.Legal calls locals ∧ b.Legal calls locals ∧ c.Legal calls locals ∧ d.Legal calls locals ∧ e.Legal calls locals ∧ f.Legal calls locals
-  | .expressionArrays a b c d e f g => a.Legal calls locals ∧ b.Legal calls locals ∧ c.Legal calls locals ∧ d.Legal calls locals ∧ e.Legal calls locals ∧ f.Legal calls locals ∧ g.Legal calls locals
+  | .expressionArrays a b c d e f g h => a.Legal calls locals ∧ b.Legal calls locals ∧ c.Legal calls locals ∧ d.Legal calls locals ∧ e.Legal calls locals ∧ f.Legal calls locals ∧ g.Legal calls locals ∧ h.Legal calls locals
   | .stateScalar s p names => s.Legal calls locals ∧ p.Legal calls locals ∧ names.Legal calls locals
   | .item x i => x.Legal calls locals ∧ i.Legal calls locals
   | .add x y => x.Legal calls locals ∧ y.Legal calls locals
@@ -519,7 +519,7 @@ theorem Expr.eval_lexical (calls : Calls) (meaning : Compose.Lexical.Meaning cal
     rw [h0, h1, h2, h3, h4, h5]
     rfl
 
-  | .expressionArrays a b c d e f g, legal => by
+  | .expressionArrays a b c d e f g h, legal => by
     dsimp only [Expr.Legal] at legal
     have h0 := Expr.eval_lexical calls meaning locals a legal.1
     have h1 := Expr.eval_lexical calls meaning locals b legal.2.1
@@ -527,9 +527,10 @@ theorem Expr.eval_lexical (calls : Calls) (meaning : Compose.Lexical.Meaning cal
     have h3 := Expr.eval_lexical calls meaning locals d legal.2.2.2.1
     have h4 := Expr.eval_lexical calls meaning locals e legal.2.2.2.2.1
     have h5 := Expr.eval_lexical calls meaning locals f legal.2.2.2.2.2.1
-    have h6 := Expr.eval_lexical calls meaning locals g legal.2.2.2.2.2.2
+    have h6 := Expr.eval_lexical calls meaning locals g legal.2.2.2.2.2.2.1
+    have h7 := Expr.eval_lexical calls meaning locals h legal.2.2.2.2.2.2.2
     dsimp only [Expr.eval, lexical, Function.isLexical]
-    rw [h0, h1, h2, h3, h4, h5, h6]
+    rw [h0, h1, h2, h3, h4, h5, h6, h7]
     rfl
 
   | .stateScalar s p names, legal => by

@@ -177,13 +177,14 @@ def lookupName (text : Source) (names : BindingEnvironment) (first after : Nat) 
 def callAfter (text : Source) (names : BindingEnvironment) (position : Nat)
     (operation : Names.Operation) (scalarNames : ScalarExpression.Environment := [])
     (arrays : ArrayBindings.Table := {}) (subtypeHidden : Bool := false)
-    (booleans : BooleanBindings.Environment := []) : Nat :=
+    (booleans : BooleanBindings.Environment := [])
+    (contextFirst : Nat := 1) (packageFirst packageAfter : Nat := 0) : Nat :=
   let first := skipAt text position
   let after := nameAfter text first
   Names.operationAfter text position operation (decide (lookupName text names first after ≠ 0 ∨ ScalarExpression.lookup text scalarNames first after ≠ 0 ∨
     ArrayBindings.lookup text arrays.items first after ≠ 0 ∨
     ArrayBindings.lookupType text arrays.types first after ≠ 0 ∨
-    BooleanBindings.lookup text booleans first after ≠ 0) || subtypeHidden)
+    BooleanBindings.lookup text booleans first after ≠ 0) || subtypeHidden) contextFirst packageFirst packageAfter
 
 
 def literalAt (text : Source) (position : Nat) : ValueResult :=
