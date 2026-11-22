@@ -169,7 +169,13 @@
       "current_lines": [
         8221
       ],
-      "coverage": "pending"
+      "coverage": "complete-helper-success",
+      "run": "20261122T180815-378d8355adc0",
+      "checks": 28,
+      "flow": 7,
+      "proof": 21,
+      "unproved": 0,
+      "run_source_sha256": "e181c06fc2ac104092b9166eb276338feeca254ad21446fdfc3903cd81a7dc02"
     },
     {
       "name": "Append_Package_Formal",

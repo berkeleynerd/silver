@@ -153,3 +153,16 @@ candidate audit is recorded in `../static-unconditional-loop`. The other three
 Boolean helper bodies/contracts are unchanged and their successful evidence is
 retained with its original inputs. Complete Object/Spec/caller coverage and
 integrated source/native assurance remain outstanding.
+
+## Package object complete success
+
+`Package_Object_At` passed canonical complete-helper run
+`20261122T180815-378d8355adc0`: 28 checks (7 flow, 21 proof),
+452.468 seconds, two managed workers. The selected report contains the one
+whole helper and no skipped flow/proof checks or unresolved obligations. Source
+SHA256 remains `e181c06fc2ac104092b9166eb276338feeca254ad21446fdfc3903cd81a7dc02`,
+retained in `unconditional-boolean-loop-input.adb.gz`. Full-domain initializer,
+state-extension, metadata-update and postcondition obligations passed.
+
+The dependent Spec check is next, followed by the remaining helpers/callers.
+Complete native and authoritative-source assurance remain outstanding.
