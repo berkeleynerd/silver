@@ -42,7 +42,8 @@ theorem initial_valid (text : Source) : ValidState text initialState := by
     ArrayBindings.ValidInitials,
     IntegerSubtypes.ValidEnvironment, BooleanBindings.ValidEnvironment, BooleanBindings.maxBindings,
     FunctionBindings.ValidMetadata, FunctionBindings.maxFormals, FunctionBindings.maxFunctions,
-    ProcedureBindings.ValidMetadata, ProcedureBindings.maxFormals, ProcedureBindings.maxProcedures]
+    ProcedureBindings.ValidMetadata, ProcedureBindings.maxFormals, ProcedureBindings.maxProcedures,
+    Names.validContext_default]
 
 theorem invalid_valid (text : Source) : ValidState text invalidState :=
   ⟨Compose.Expressions.model_invalid_state_valid text, ScalarMetadata.headerReady_empty, namesBoundsValid_empty⟩
