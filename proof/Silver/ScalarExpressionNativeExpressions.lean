@@ -11,7 +11,7 @@ namespace Silver.ScalarExpression.Native
 
 inductive Ty
   | number | integer | truth | source | environment | binding | interval | check | literal | result
-  | arrays | arrayBinding | initials | arrayTypes | arrayType | arrayReadMode
+  | arrays | arrayBinding | initials | arrayTypes | arrayType | arrayReadMode | reference
   | arrow (domain codomain : Ty)
   deriving DecidableEq
 
@@ -21,6 +21,7 @@ inductive Ty
   | .check => Integer.CheckResult | .literal => ScalarLiteral.Result | .result => Result
   | .arrayTypes => ArrayBindings.TypeEnvironment | .arrayType => ArrayBindings.ArrayType | .arrayReadMode => ArrayReadMode
   | .arrays => ArrayBindings.Table | .arrayBinding => ArrayBindings.Binding | .initials => ArrayBindings.Initials
+  | .reference => NameReference
   | .arrow a b => a.meaning → b.meaning
 
 def Ty.default : (ty : Ty) → ty.meaning
@@ -29,10 +30,11 @@ def Ty.default : (ty : Ty) → ty.meaning
   | .check => ⟨false, Integer.Interval.empty⟩ | .literal => ScalarLiteral.invalid | .result => invalid
   | .arrays => {} | .initials | .arrayTypes => [] | .arrayBinding => ArrayBindings.emptyBinding
   | .arrayType => ArrayBindings.emptyType | .arrayReadMode => .allElements
+  | .reference => {}
   | .arrow _ b => fun _ => b.default
 
 inductive Function
-  | lookupModel | lookup | skip | symbol | nameAfter | binaryAfter | nameIs | lowercase
+  | lookupModel | lookup | lookupDefault | readReference | skip | symbol | nameAfter | binaryAfter | nameIs | lowercase
   | literalResult | unaryResult | binaryResult | closeResult
   | readArrayAtom | readAtom | readUnary | readCompound | readGroup | readExpression | readExpressionDefault | readExpressionIndex
   | arrayLookup | arrayTypeLookup | arrayContains | arrayReadBounds | readArrayAttribute | scalarSingleton
@@ -40,7 +42,8 @@ inductive Function
   deriving DecidableEq
 
 def Function.name : Function → List String
-  | .lookupModel => ["lookup_model"] | .lookup => ["lookup"] | .skip => ["skip"]
+  | .lookupModel => ["lookup_model"] | .lookup | .lookupDefault => ["lookup"] | .skip => ["skip"]
+  | .readReference => ["read_reference"]
   | .symbol => ["symbol"] | .nameAfter => ["name_after"]
   | .binaryAfter => ["binary_after"] | .nameIs => ["name_is"] | .lowercase => ["lowercase"]
   | .literalResult => ["literal_result"] | .unaryResult => ["unary_result"]
@@ -64,8 +67,10 @@ def Function.name : Function → List String
   | .scalarNormalize => ["scalars", ".", "normalize"]
 
 def Function.type : Function → Ty
-  | .lookupModel => .arrow .source (.arrow .environment (.arrow .number (.arrow .number (.arrow .number .number))))
-  | .lookup => .arrow .source (.arrow .environment (.arrow .number (.arrow .number .number)))
+  | .lookupModel => .arrow .source (.arrow .environment (.arrow .number (.arrow .number (.arrow .number (.arrow .number (.arrow .number .number))))))
+  | .lookup => .arrow .source (.arrow .environment (.arrow .number (.arrow .number (.arrow .number (.arrow .number .number)))))
+  | .lookupDefault => .arrow .source (.arrow .environment (.arrow .number (.arrow .number .number)))
+  | .readReference => .arrow .source (.arrow .number .reference)
   | .skip | .nameAfter | .binaryAfter => .arrow .source (.arrow .number .number)
   | .nameIs => .arrow .source (.arrow .number (.arrow .number (.arrow .source .truth)))
   | .lowercase => .arrow .number .number
@@ -93,7 +98,9 @@ def Function.type : Function → Ty
   | .scalarNormalize => .arrow .interval .interval
 
 def Calls.get (calls : Calls) : (fn : Function) → fn.type.meaning
-  | .lookupModel => calls.lookupModel | .lookup => calls.lookup | .skip => calls.skip
+  | .lookupModel => @calls.lookupModel | .lookup => @calls.lookup | .skip => calls.skip
+  | .lookupDefault => fun text names first after => calls.lookup text names first after
+  | .readReference => calls.readReference
   | .symbol => calls.symbol | .nameAfter => calls.nameAfter
   | .binaryAfter => calls.binaryAfter | .nameIs => calls.nameIs | .lowercase => calls.lowercase
   | .literalResult => calls.literalResult | .unaryResult => calls.unaryResult
@@ -120,6 +127,9 @@ def Calls.get (calls : Calls) : (fn : Function) → fn.type.meaning
 inductive Field : Ty → Ty → Type
   | resultAfter : Field .result .number | literalAfter : Field .literal .number
   | bindingFirst : Field .binding .number | bindingAfter : Field .binding .number
+  | bindingQualifierFirst : Field .binding .number | bindingQualifierAfter : Field .binding .number
+  | referenceFirst : Field .reference .number | referenceAfter : Field .reference .number
+  | referenceQualifierFirst : Field .reference .number | referenceQualifierAfter : Field .reference .number
   | bindingBounds : Field .binding .interval | resultBounds : Field .result .interval
   | checkBounds : Field .check .interval | checkSafe : Field .check .truth
   | bindingStatic : Field .binding .truth | resultStatic : Field .result .truth
@@ -131,7 +141,10 @@ inductive Field : Ty → Ty → Type
   | lower : Field .interval .integer | upper : Field .interval .integer
 
 def Field.name : Field a b → String
-  | .resultAfter | .literalAfter | .bindingAfter => "after" | .bindingFirst => "first"
+  | .resultAfter | .literalAfter | .bindingAfter | .referenceAfter => "after"
+  | .bindingFirst | .referenceFirst => "first"
+  | .bindingQualifierFirst | .referenceQualifierFirst => "qualifier_first"
+  | .bindingQualifierAfter | .referenceQualifierAfter => "qualifier_after"
   | .bindingBounds | .resultBounds | .checkBounds => "bounds" | .checkSafe => "safe"
   | .bindingStatic | .resultStatic => "static" | .resultOperands => "operands"
   | .literalValue => "value" | .count => "count"
@@ -142,6 +155,9 @@ def Field.name : Field a b → String
 def Field.get : Field a b → a.meaning → b.meaning
   | .resultAfter, value => value.after | .literalAfter, value => value.after
   | .bindingFirst, value => value.first | .bindingAfter, value => value.after
+  | .bindingQualifierFirst, value => value.qualifierFirst | .bindingQualifierAfter, value => value.qualifierAfter
+  | .referenceFirst, value => value.first | .referenceAfter, value => value.after
+  | .referenceQualifierFirst, value => value.qualifierFirst | .referenceQualifierAfter, value => value.qualifierAfter
   | .bindingBounds, value => value.bounds | .resultBounds, value => value.bounds
   | .checkBounds, value => value.bounds | .checkSafe, value => value.safe
   | .bindingStatic, value => value.isStatic | .resultStatic, value => value.isStatic
@@ -203,6 +219,8 @@ inductive Expr : Ty → Type
   | operatorCase : Expr .number → Expr .check → Expr .check → Expr .check → Expr .check → Expr .check → Expr .check → Expr .check → Expr .check
   | invalid : Expr .result
   | invalidCheck : Expr .check
+  | reference : Expr .number → Expr .number → Expr .number → Expr .number → Expr .reference
+  | invalidReference : Expr .reference
 
 abbrev Locals := (ty : Ty) → String → ty.meaning
 
@@ -276,6 +294,9 @@ def Expr.render : Expr ty → List String
       [",", "when", "'m'", "=>"] ++ modulo.render ++
       [",", "when", "'r'", "=>"] ++ remainder.render ++
       [",", "when", "others", "=>"] ++ otherwise.render
+  | .reference first after qualifierFirst qualifierAfter =>
+      positional [first.render, after.render, qualifierFirst.render, qualifierAfter.render]
+  | .invalidReference => ["invalid_reference"]
   | .invalid => ["invalid"] | .invalidCheck => ["scalars", ".", "invalid"]
 
 def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
@@ -327,6 +348,9 @@ def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
       else if operator.eval calls locals = 47 then dividing.eval calls locals
       else if operator.eval calls locals = 109 then modulo.eval calls locals
       else if operator.eval calls locals = 114 then remainder.eval calls locals else otherwise.eval calls locals
+  | .reference first after qualifierFirst qualifierAfter =>
+      ⟨first.eval calls locals, after.eval calls locals, qualifierFirst.eval calls locals, qualifierAfter.eval calls locals⟩
+  | .invalidReference => {}
   | .invalid => ScalarExpression.invalid | .invalidCheck => ⟨false, Integer.Interval.empty⟩
 
 structure Context where
@@ -342,6 +366,8 @@ structure Context where
   first : Nat := 0
   after : Nat := 0
   index : Nat := 0
+  qualifierFirst : Nat := 0
+  qualifierAfter : Nat := 0
   maskFirst : Nat := 0
   maskAfter : Nat := 0
   allowSign : Bool := true
@@ -361,6 +387,7 @@ def Context.locals (context : Context) : Locals
   | .source, "text" => context.text | .environment, "names" => context.names
   | .number, "position" => context.position | .number, "first" => context.first
   | .number, "after" => context.after | .number, "index" => context.index
+  | .number, "qualifier_first" => context.qualifierFirst | .number, "qualifier_after" => context.qualifierAfter
   | .number, "mask_first" => context.maskFirst | .number, "mask_after" => context.maskAfter
   | .number, "operator" => context.operator | .number, "item" => context.item
   | .truth, "allow_sign" => context.allowSign | .truth, "negative" => context.negative
@@ -395,10 +422,39 @@ def lookupBody : Expr .number :=
   let first : Expr .number := .variable "first"
   let after : Expr .number := .variable "after"
   let index : Expr .number := .variable "index"
+  let qualifierFirst : Expr .number := .variable "qualifier_first"
+  let qualifierAfter : Expr .number := .variable "qualifier_after"
   let item := Expr.binding names index
   .ite (.orElse (.orElse (.eq first (.number 0)) (.le after first)) (.eq index (.number 0))) (.number 0)
-    (.elsif (apply5 (.function .equalName) text (.field .bindingFirst item) (.field .bindingAfter item) first after)
-      index (apply5 (.function .lookupModel) text names first after (.sub index (.number 1))))
+    (.elsif (.andThen
+      (apply5 (.function .equalName) text (.field .bindingFirst item) (.field .bindingAfter item) first after)
+      (.group <| .ite (.eq qualifierFirst (.number 0)) (.eq (.field .bindingQualifierFirst item) (.number 0))
+        (.andThen (.gt (.field .bindingQualifierFirst item) (.number 0))
+          (apply5 (.function .equalName) text (.field .bindingQualifierFirst item)
+            (.field .bindingQualifierAfter item) qualifierFirst qualifierAfter))))
+      index (.app (apply6 (.function .lookupModel) text names first after
+        (.sub index (.number 1)) qualifierFirst) qualifierAfter))
+
+def referenceBody : Expr .reference :=
+  let text : Expr .source := .variable "text"
+  let first : Expr .number := .variable "first"
+  let after : Expr .number := .variable "after"
+  let dot : Expr .number := .variable "dot_first"
+  let memberFirst : Expr .number := .variable "member_first"
+  let memberAfter : Expr .number := .variable "member_after"
+  .locals <| .local "first" ["literal_position"] (apply2 (.function .skip) text (.variable "position")) <|
+    .local "after" ["literal_position"] (apply2 (.function .nameAfter) text first) <|
+    .local "dot_first" ["literal_position"] (apply2 (.function .skip) text after) <|
+    .group <| .ite (.orElse (.eq first (.number 0)) (.le after first)) .invalidReference <|
+    .elsif (.andThen (.andThen (.andThen (.gt dot (.number 0)) (.le dot (.last text)))
+      (.eq (.byteAt text dot) (.character 46)))
+      (.group <| .orElse (.eq dot (.last text)) (.ne (.byteAt text (.add dot (.number 1))) (.character 46))))
+      (.group <| .locals <| .local "member_first" ["literal_position"]
+        (apply2 (.function .skip) text (.add dot (.number 1))) <|
+        .local "member_after" ["literal_position"] (apply2 (.function .nameAfter) text memberFirst) <|
+        .group <| .ite (.orElse (.eq memberFirst (.number 0)) (.le memberAfter memberFirst))
+          .invalidReference (.reference memberFirst memberAfter first after))
+      (.reference first after (.number 0) (.number 0))
 
 def symbolBody : Expr .number :=
   let text : Expr .source := .variable "text"
@@ -491,12 +547,18 @@ def atomBody : Expr .result :=
   let first : Expr .number := .variable "first"
   let after : Expr .number := .variable "after"
   let index : Expr .number := .variable "index"
+  let reference : Expr .reference := .variable "reference"
+  let memberFirst : Expr .number := .field .referenceFirst reference
+  let qualifierFirst : Expr .number := .field .referenceQualifierFirst reference
+  let qualifierAfter : Expr .number := .field .referenceQualifierAfter reference
   let number : Expr .literal := .variable "number"
   .locals <| .local "first" ["literal_position"] (apply2 (.function .skip) text (.variable "position")) <|
-    .local "after" ["literal_position"] (apply2 (.function .nameAfter) text first) <|
-    .local "index" ["binding_count"] (apply4 (.function .lookup) text names first after) <|
+    .local "reference" ["name_reference"] (apply2 (.function .readReference) text first) <|
+    .local "after" ["literal_position"] (.field .referenceAfter reference) <|
+    .local "index" ["binding_count"] (apply6 (.function .lookup) text names memberFirst after qualifierFirst qualifierAfter) <|
     .local "target" ["array_bindings", ".", "binding_count"]
-      (apply4 (.function .arrayLookup) text (.variable "arrays") first after) <|
+      (.group <| .ite (.eq qualifierFirst (.number 0))
+        (apply4 (.function .arrayLookup) text (.variable "arrays") memberFirst after) (.number 0)) <|
     .group <| .ite (.orElse (.eq first (.number 0)) (.gt first (.last text))) .invalid <|
     .elsif (.choices (.byteAt text first) (.character 43) (.character 45))
       (.group <| .ite (.not (.variable "allow_sign")) .invalid
@@ -509,10 +571,13 @@ def atomBody : Expr .result :=
         (apply2 (.function .literalResult) number (.truth false)) <|
       .elsif (.eq after (.number 0)) .invalid <|
       .elsif (.andThen (.ne (.variable "mask_first") (.number 0))
-        (apply5 (.function .equalName) text (.variable "mask_first") (.variable "mask_after") first after)) .invalid <|
+        (.group <| .ite (.eq qualifierFirst (.number 0))
+          (apply5 (.function .equalName) text (.variable "mask_first") (.variable "mask_after") memberFirst after)
+          (apply5 (.function .equalName) text (.variable "mask_first") (.variable "mask_after") qualifierFirst qualifierAfter))) .invalid <|
       .elsif (.ne index (.number 0))
         (.result after (.app (.function .scalarNormalize) (.field .bindingBounds (.binding names index)))
           (.number 1) (.field .bindingStatic (.binding names index))) <|
+      .elsif (.ne qualifierFirst (.number 0)) .invalid <|
       .elsif (.ne (apply3 (.function .symbol) text after (.characterVal 39)) (.number 0))
       (apply6 (.function .readArrayAttribute) text (.variable "position") names (.variable "arrays")
         (.variable "mask_first") (.variable "mask_after")) <|
@@ -588,7 +653,7 @@ parentheses. This is checked independently for every body translated below. -/
 def Expr.primary : Expr ty → Bool
   | .readMode _ | .wide _ | .scalarValue _ | .intOne | .number _ | .word _ | .character _ | .characterVal _ | .truth _ | .variable _ | .function _ | .app _ _
   | .arrayArguments _ _ _ _ _ | .indexArguments _ _ _ | .field _ _ | .binding _ _ | .arrayBinding _ _ | .arrayType _ _ | .byteAt _ _ | .last _ | .maxOperands | .group _
-  | .result _ _ _ _ | .check _ _ | .deltaAfter _ _ | .deltaBounds _ _ | .invalid | .invalidCheck => true
+  | .reference _ _ _ _ | .invalidReference | .result _ _ _ _ | .check _ _ | .deltaAfter _ _ | .deltaBounds _ _ | .invalid | .invalidCheck => true
   | _ => false
 
 def Expr.simple : Expr ty → Bool
@@ -615,7 +680,7 @@ def Expr.functionSpine : Expr ty → Bool
 def Expr.prefix : Expr ty → Bool
   | .variable _ | .function _ | .app _ _ | .field _ _ | .binding _ _ | .arrayBinding _ _
   | .arrayType _ _ | .byteAt _ _ | .arrayArguments _ _ _ _ _ | .indexArguments _ _ _
-  | .invalid | .invalidCheck => true
+  | .invalid | .invalidCheck | .invalidReference => true
   | _ => false
 
 def Expr.wellFormed : Expr ty → Bool
@@ -642,12 +707,15 @@ def Expr.wellFormed : Expr ty → Bool
   | .not value => value.wellFormed && value.primary
   | .group value => value.wellFormed && !value.isElsif
   | .ite condition yes no | .elsif condition yes no =>
-      condition.wellFormed && condition.condition && yes.wellFormed && yes.simple && no.wellFormed && (no.simple || no.isElsif)
+      condition.wellFormed && condition.condition && yes.wellFormed && yes.condition && no.wellFormed && (no.condition || no.isElsif)
   | .local _ _ value rest => value.wellFormed && value.simple && rest.wellFormed && (rest.isLocal || rest.primary)
   | .locals body => body.wellFormed && body.isLocal
   | .byteAt text position => text.wellFormed && text.prefix && position.wellFormed && position.simple
   | .result after bounds operands static => after.wellFormed && after.simple && bounds.wellFormed && bounds.simple &&
       operands.wellFormed && operands.simple && static.wellFormed && static.condition
+  | .reference first after qualifierFirst qualifierAfter =>
+      first.wellFormed && first.simple && after.wellFormed && after.simple &&
+      qualifierFirst.wellFormed && qualifierFirst.simple && qualifierAfter.wellFormed && qualifierAfter.simple
   | .check safe bounds => safe.wellFormed && safe.condition && bounds.wellFormed && bounds.simple
   | .deltaAfter value after => value.wellFormed && value.primary && after.wellFormed && after.simple
   | .deltaBounds value bounds => value.wellFormed && value.primary && bounds.wellFormed && bounds.simple
@@ -656,9 +724,9 @@ def Expr.wellFormed : Expr ty → Bool
       multiplying.wellFormed && multiplying.simple && dividing.wellFormed && dividing.simple &&
       modulo.wellFormed && modulo.simple && remainder.wellFormed && remainder.simple && otherwise.wellFormed && otherwise.simple
   | .readMode _ | .intOne | .number _ | .word _ | .truth _ | .variable _ | .function _
-  | .maxOperands | .invalid | .invalidCheck => true
+  | .maxOperands | .invalid | .invalidCheck | .invalidReference => true
 
-abbrev WellFormedTrees : Prop := lookupBody.wellFormed = true ∧ symbolBody.wellFormed = true ∧
+abbrev WellFormedTrees : Prop := lookupBody.wellFormed = true ∧ referenceBody.wellFormed = true ∧ symbolBody.wellFormed = true ∧
   literalBody.wellFormed = true ∧ unaryBody.wellFormed = true ∧ binaryBody.wellFormed = true ∧
   closeBody.wellFormed = true ∧ arrayAtomBody.wellFormed = true ∧ atomBody.wellFormed = true ∧ readUnaryBody.wellFormed = true ∧
   binaryAfterBody.wellFormed = true ∧ compoundBody.wellFormed = true ∧ groupBody.wellFormed = true ∧ expressionBody.wellFormed = true

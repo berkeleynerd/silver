@@ -28,6 +28,7 @@ def validTypeName : Ty → List String → Bool
   | .check, name => name == ["scalars", ".", "check_result"]
   | .literal, name => name == ["silver_scalar_literals", ".", "literal_result"]
   | .result, name => name == ["expression_result"]
+  | .reference, name => name == ["name_reference"]
   | _, _ => false
 
 end Imperative
@@ -49,6 +50,8 @@ def Expr.scoped (scope : Imperative.Scope) : Expr ty → Bool
       value.scoped scope && rest.scoped ((name, ty) :: scope)
   | .result after bounds operands static =>
       after.scoped scope && bounds.scoped scope && operands.scoped scope && static.scoped scope
+  | .reference first after qualifierFirst qualifierAfter =>
+      first.scoped scope && after.scoped scope && qualifierFirst.scoped scope && qualifierAfter.scoped scope
   | .check safe bounds => safe.scoped scope && bounds.scoped scope
   | .deltaAfter value after => value.scoped scope && after.scoped scope
   | .deltaBounds value bounds => value.scoped scope && bounds.scoped scope
@@ -57,7 +60,7 @@ def Expr.scoped (scope : Imperative.Scope) : Expr ty → Bool
       multiplying.scoped scope && dividing.scoped scope && modulo.scoped scope &&
       remainder.scoped scope && otherwise.scoped scope
   | .readMode _ | .intOne | .number _ | .word _ | .character _ | .characterVal _ | .truth _
-  | .function _ | .maxOperands | .invalid | .invalidCheck => true
+  | .function _ | .maxOperands | .invalid | .invalidCheck | .invalidReference => true
 
 namespace Imperative
 
@@ -190,7 +193,7 @@ def arrayAttributeBody : Body .result :=
       guard (.orElse (.orElse (.orElse (.orElse (.orElse
         (.eq first (.number 0)) (.le after first)) (.eq attributeFirst (.number 0)))
         (.le attributeAfter attributeFirst))
-        (.ne (apply4 (.function .lookup) text (.variable "names") first after) (.number 0)))
+        (.ne (apply4 (.function .lookupDefault) text (.variable "names") first after) (.number 0)))
         (.group <| .andThen (.ne (.variable "mask_first") (.number 0))
           (apply5 (.function .equalName) text (.variable "mask_first") (.variable "mask_after") first after))),
       .choose (.ne target (.number 0))

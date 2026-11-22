@@ -45,6 +45,11 @@ theorem symbolAt_iff {text : Source} {position byte finish : Nat} :
     · rename_i valid
       exact ⟨by omega, by omega, by omega, found.1.symm⟩
 
+theorem symbol_after_dot {text : Source} {position byte : Nat}
+    (dotted : QualifiedNames.singleDot text (skip text position)) (different : byte ≠ 46) :
+    symbol text position byte = 0 := by
+  simp [symbol, dotted.2.2.1, Ne.symm different]
+
 /-- A delimiter other than dot fixes a preceding identifier as a bare scalar
 reference, including array names followed by an opening parenthesis. -/
 theorem reference_before_symbol {text : Source} {position after byte finish : Nat} {bytes : Source}

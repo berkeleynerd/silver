@@ -1,0 +1,48 @@
+{
+  "status": "partial-compilation-without-completed-audit",
+  "semantic_run": "20261122T153143-329df2e65bd8",
+  "certificate_run": "20261122T151052-8ba9fe2e1980",
+  "host": "linux-x86_64",
+  "modules": [
+    {
+      "module": "Silver.ScalarArrayAttributeNative",
+      "source_sha256": "c77e9622d25a25cd97c29ca37838011813d53dec501b2a94818dbfb2edb28eec",
+      "olean_sha256": "858288f1ac2d46124d3a389a9eba4a912ba38ebbe4f236880b8fe46952635019"
+    },
+    {
+      "module": "Silver.ScalarExpressionGrammar",
+      "source_sha256": "a76317e9d58345075250c49fcc11750ba7db092f33f1a1af5701dba1d5da1681",
+      "olean_sha256": "b371a88c6baa00ecb04a6e6fa31c8974d39d1a34f67c1758622ba91c33108046"
+    },
+    {
+      "module": "Silver.ScalarExpressionNativeAlgebra",
+      "source_sha256": "632fe0d9fc9eb74060d0efb53dbd87eb181ac38e65f5cc147409dfb8d3b57a1e",
+      "olean_sha256": "46da8992936048fc3b16fcc7bb12cd2eef693cac079c35f892886d24dd53804f"
+    },
+    {
+      "module": "Silver.ScalarExpressionNativeDenotations",
+      "source_sha256": "b9bb115524eb54dbdd8a14816cc8980156f18fe696447ea67ca167f1f5828650",
+      "olean_sha256": "f806c283f31521cd56ed402a935fb5ca0b43951b3003c676ea6eb647bc763719"
+    },
+    {
+      "module": "Silver.ScalarExpressionNativeExpressions",
+      "source_sha256": "2e8957bc8ae8eafda8a929f043bcfebb132041bf9c322f90bdadc06db7c38253",
+      "olean_sha256": "ddda33811016df74a0b6fa31743485cd29909a2ab7cde76e1a3d7917350bf122"
+    },
+    {
+      "module": "Silver.ScalarExpressionNativeModel",
+      "source_sha256": "f2e62f4cf32cad2b1222ca824bda902d88690b8823b5501366cad706befec34f",
+      "olean_sha256": "ab1d2865151ef371f7f0988cca6be7f5e20a06c6e07f98ffad30f1791a225f03"
+    },
+    {
+      "module": "Silver.ScalarExpressionSpecCertificate",
+      "source_sha256": "47a848b7e48df2d3ef8fa79b77c4d466ab8d219c0dfc2f3bd18d4077bc0bd3dc",
+      "olean_sha256": "afc181c9808c59dce639bc94c0718e4acd7add89e83900de15af8ba8a5b0c108"
+    },
+    {
+      "module": "Silver.ScalarExpressionBodyCertificate",
+      "source_sha256": "1165717fd786ed0d0ba01ad28d33efe8480aff215decf408ca2540950be0dbb0",
+      "olean_sha256": "a63fc77bf7c5f35d28786701f01dbe8a1626b641be0ed2bf321418da0b7c4c00"
+    }
+  ]
+}
