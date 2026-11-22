@@ -1,5 +1,6 @@
 """Nominal Integer arrays, static shape queries and read-only call frames."""
 from pathlib import Path
+import sys
 import tempfile
 import unittest
 
@@ -25,30 +26,54 @@ class ArrayParameterTests(unittest.TestCase):
         self.source = Path(temporary.name).resolve() / 'array_parameters.adb'
 
     def test_source_limit_loop_shapes_complete_the_native_route(self) -> None:
+        if sys.platform.startswith('linux'):
+            import resource
+
+            original_limits = resource.getrlimit(resource.RLIMIT_STACK)
+            stack_bytes = 16 * 1024 * 1024
+            self.assertTrue(original_limits[1] == resource.RLIM_INFINITY
+                            or original_limits[1] >= stack_bytes,
+                            'native stack regressions require a 16 MiB stack limit')
+            resource.setrlimit(resource.RLIMIT_STACK, (stack_bytes, original_limits[1]))
+            self.addCleanup(resource.setrlimit, resource.RLIMIT_STACK, original_limits)
+
         # Named metadata grows every recursive loop frame. Keep the old counted
         # and foreach shapes alongside the new Range header at the source limit.
+        # Unused callable bodies still exercise parsing and are audited in full;
+        # their native executables run only the empty Main body.
         cases = (
-            (b'A:array(1..2)of Integer:=(0,0);', b'for I in 1..1 loop ',
-             b'A(1):=I;', 'assigned'),
-            (b'A:constant array(1..1)of Integer:=(1=>0);', b'for I of A loop ',
-             b'null;', 'static'),
-            (b'type T is array(1..1)of Integer;A:T:=(1=>0);',
-             b"for I in A'Range loop ", b'null;', 'static'),
+            ('Main counted', program(b'A:array(1..2)of Integer:=(0,0);', b'%s'),
+             b'for I in 1..1 loop ', b'A(1):=I;', 'assigned', (), None),
+            ('Main foreach', program(b'A:constant array(1..1)of Integer:=(1=>0);', b'%s'),
+             b'for I of A loop ', b'null;', 'static', (), None),
+            ('Main Range', program(b'type T is array(1..1)of Integer;A:T:=(1=>0);', b'%s'),
+             b"for I in A'Range loop ", b'null;', 'static', (), None),
+            ('function counted', program(b'function F(X:in Integer)return Integer is '
+                                         b'begin %sreturn 0;end F;', b'null;'),
+             b'for I in 1..1 loop ', b'null;', 'static', ('F',), None),
+            ('procedure counted', program(b'procedure P(X:out Integer)is '
+                                          b'begin X:=0;%send P;', b'null;'),
+             b'for I in 1..1 loop ', b'null;', 'assigned', (), {'P': ('X',)}),
+            ('array formal Range', program(b'type T is array(1..1)of Integer;'
+                                           b'function F(X:in T)return Integer is '
+                                           b'begin %sreturn 0;end F;', b'null;'),
+             b"for I in X'Range loop ", b'null;', 'static', ('F',), None),
         )
-        for declaration, header, body, kind in cases:
-            with self.subTest(header=header):
+        for name, template, header, body, kind, functions, procedures in cases:
+            with self.subTest(shape=name):
                 depth = 0
-                source = program(declaration, body)
+                source = template % body
                 while True:
-                    candidate = program(declaration, header * (depth + 1)
-                                        + body + b'end loop;' * (depth + 1))
+                    candidate = template % (header * (depth + 1)
+                                            + body + b'end loop;' * (depth + 1))
                     if len(candidate) > 4096:
                         break
                     source = candidate
                     depth += 1
                 self.assertGreater(depth, 120)
                 source += b' ' * (4096 - len(source))
-                self.check_full_route(source, kind=kind)
+                self.check_full_route(source, kind=kind, functions=functions,
+                                      procedures=procedures)
                 self.check(source + b' ', 2)
 
     def test_named_objects_keep_bounds_initialization_and_mutability(self) -> None:
