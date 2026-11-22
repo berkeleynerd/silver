@@ -20,6 +20,10 @@ _RFL_TOKEN_LIMIT = 32_768
 OUTPUT_BODY_LINE_MODULES = tuple(f"OutputBodyLines{index}" for index in range(8))
 
 SOURCE_BINDINGS = (
+    ("silver_application_units.ads", "applicationUnitsSpec", "applicationUnitsSpecTokens"),
+    ("silver_application_units.adb", "applicationUnitsBody", "applicationUnitsBodyTokens"),
+    ("silver_package_bindings.ads", "packageBindingsSpec", "packageBindingsSpecTokens"),
+    ("silver_package_bindings.adb", "packageBindingsBody", "packageBindingsBodyTokens"),
     ("silver_procedure_bindings.ads", "procedureBindingsSpec", "procedureBindingsSpecTokens"),
     ("silver_procedure_bindings.adb", "procedureBindingsBody", "procedureBindingsBodyTokens"),
     ("silver_function_bindings.ads", "functionBindingsSpec", "functionBindingsSpecTokens"),

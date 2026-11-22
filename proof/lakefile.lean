@@ -57,6 +57,42 @@ input_file runtimeSpecSource where
 @[default_target]
 lean_lib Silver
 
+input_file applicationUnitsSpecSource where
+  path := "../src/silver_application_units.ads"
+  text := false
+
+lean_lib ApplicationUnitsSpecSource where
+  roots := #[]
+  globs := #[.one `Silver.ApplicationUnitsSpecSource]
+  needs := #[applicationUnitsSpecSource]
+
+input_file applicationUnitsBodySource where
+  path := "../src/silver_application_units.adb"
+  text := false
+
+lean_lib ApplicationUnitsBodySource where
+  roots := #[]
+  globs := #[.one `Silver.ApplicationUnitsBodySource]
+  needs := #[applicationUnitsBodySource]
+
+input_file packageBindingsSpecSource where
+  path := "../src/silver_package_bindings.ads"
+  text := false
+
+lean_lib PackageBindingsSpecSource where
+  roots := #[]
+  globs := #[.one `Silver.PackageBindingsSpecSource]
+  needs := #[packageBindingsSpecSource]
+
+input_file packageBindingsBodySource where
+  path := "../src/silver_package_bindings.adb"
+  text := false
+
+lean_lib PackageBindingsBodySource where
+  roots := #[]
+  globs := #[.one `Silver.PackageBindingsBodySource]
+  needs := #[packageBindingsBodySource]
+
 lean_lib ProfileSpecSource where
   roots := #[]
   globs := #[.one `Silver.ProfileSpecSource]
