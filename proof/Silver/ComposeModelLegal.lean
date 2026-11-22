@@ -127,9 +127,18 @@ private theorem model_legal_newName : ∀ text, ValidText text → ∀ state fir
     newNameBody.Legal modelCalls (Context.locals {text,state,first,after,arguments}) := by
   intro text valid state first after arguments stateValid _ afterBound
   have package := stateValid.valid.unit.2.2
-  dsimp +instances only [newNameBody, lookupArrayType, Expr.Legal, lookupArrayType, Expr.eval, Function.isLexical, Context.locals] <;> simp +instances
-  simp_all only [LexicalName, Names.ValidNameState]
-  omega
+  dsimp +instances only [newNameBody, lookupArrayType, Expr.Legal, Expr.eval, Function.isLexical, Context.locals, Field.get] <;> simp +instances
+  simp_all only [LexicalName, Names.ValidNameState, ValidText, ValidCursor]
+  simp only [true_and, and_true]
+  refine ⟨⟨?_, ?_⟩, ?_⟩
+  · intro nonzero _
+    exact Nat.succ_le_of_lt (Nat.pos_of_ne_zero nonzero)
+  · intro nonzero _ _ packageNonzero
+    have present := package.resolve_left (fun absent => packageNonzero absent.1)
+    exact ⟨⟨Nat.succ_le_of_lt present.1, present.2⟩,
+      Nat.succ_le_of_lt (Nat.pos_of_ne_zero nonzero)⟩
+  · intro nonzero _ _ _ _
+    exact Nat.succ_le_of_lt (Nat.pos_of_ne_zero nonzero)
 
 private theorem model_legal_addBinding : ∀ text, ValidText text → ∀ state first after value mutable following,
     NativeState .basic text state → ValidCursor text first → ValidCursor text after → NativeValue text value → ValidCursor text following → state.names.length < maxBindings →
@@ -195,7 +204,10 @@ private theorem model_legal_argument : ∀ text, ValidText text → ∀ state,
     NativeState .basic text state →
     argumentBody.Legal modelCalls (Context.locals {text,state}) := by
   intros
-  dsimp +instances only [argumentBody, lookupArrayType, Expr.Legal, lookupArrayType, Expr.eval, Function.isLexical, Context.locals, Locals.set, Field.get] <;> simp +instances
+  generalize modelCalls = calls
+  generalize Context.locals _ = locals
+  dsimp +instances only [argumentBody, lookupArrayType, Expr.Legal, Function.isLexical]
+  simp only [and_self, implies_true, ite_self]
 
 private theorem model_legal_declarations : ∀ text, ValidText text → ∀ state arguments,
     NativeState .basic text state →

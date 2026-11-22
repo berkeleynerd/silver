@@ -62,4 +62,40 @@ theorem compactRows_full {α : Type} (selected outer : α → Bool) (items : Lis
   simpa only [List.take_zero, List.nil_append, Option.map_id'] using
     compactRows_meaning selected outer items items 0 (by omega)
 
+/-- The suffix has not yet been visited by the ascending native loop. -/
+def mappedPrefix {α : Type} (transform : α → α) (count : Nat) (items : List α) : List α :=
+  (items.take count).map transform ++ items.drop count
+
+def updateRow {α : Type} (transform : α → α) (fallback : α) (items : List α) (index : Nat) : List α :=
+  items.set index (transform (items.getD index fallback))
+
+theorem updateRow_mappedPrefix {α : Type} (transform : α → α) (fallback : α)
+    (items : List α) (index : Nat) (inside : index < items.length) :
+    updateRow transform fallback (mappedPrefix transform index items) index =
+      mappedPrefix transform (index + 1) items := by
+  induction index generalizing items with
+  | zero => cases items <;> simp_all [updateRow, mappedPrefix]
+  | succ index ih =>
+      cases items with
+      | nil => simp at inside
+      | cons head tail =>
+          simp only [List.length_cons, Nat.succ_lt_succ_iff] at inside
+          simpa only [updateRow, mappedPrefix, List.take_succ_cons, List.drop_succ_cons,
+            List.map_cons, List.cons_append, List.set, List.getD, List.getElem?_cons_succ] using
+            congrArg (transform head :: ·) (ih tail inside)
+
+theorem updateRows_prefix {α : Type} (transform : α → α) (fallback : α)
+    (items : List α) (count : Nat) (bounded : count ≤ items.length) :
+    (List.range count).foldl (updateRow transform fallback) items = mappedPrefix transform count items := by
+  induction count with
+  | zero => simp [mappedPrefix]
+  | succ count ih =>
+      rw [List.range_succ, List.foldl_append, List.foldl_cons, List.foldl_nil,
+        ih (by omega), updateRow_mappedPrefix transform fallback items count (by omega)]
+
+theorem updateRows_full {α : Type} (transform : α → α) (fallback : α) (items : List α) :
+    (List.range items.length).foldl (updateRow transform fallback) items = items.map transform := by
+  simpa only [mappedPrefix, List.take_length, List.drop_length, List.append_nil] using
+    updateRows_prefix transform fallback items items.length (Nat.le_refl _)
+
 end Silver.ApplicationPackageFrames

@@ -29,6 +29,9 @@ structure Context where
   firstParameter : Nat
   procedures : ProcedureBindings.Metadata
   firstProcedureParameter : Nat
+  contextFirst : Nat
+  packageFirst : Nat
+  packageAfter : Nat
   deriving DecidableEq, Repr
 
 structure Scan where
@@ -45,7 +48,8 @@ def contextOf (scan : ScanResult) : Context :=
   ⟨scan.state.names, scan.state.dynamicFirst, scan.state.dynamicAfter,
     scan.state.scalarNames, scan.state.arrayNames, scan.state.subtypeNames, scan.state.booleanNames,
     scan.state.functions, scan.state.pure, scan.state.assignedInFunctions, scan.state.hiding,
-    scan.state.firstParameter, scan.state.procedures, scan.state.firstProcedureParameter⟩
+    scan.state.firstParameter, scan.state.procedures, scan.state.firstProcedureParameter,
+    scan.state.contextFirst, scan.state.packageFirst, scan.state.packageAfter⟩
 
 def bodyOf (scan : ScanResult) : Scan :=
   ⟨scan.state.position, scan.state.target, scan.state.capacity, scan.assigned, scan.output⟩
@@ -54,7 +58,7 @@ def expand (context : Context) (scan : Scan) : ScanResult :=
   ⟨⟨scan.position, context.names, context.dynamicFirst, context.dynamicAfter,
       scan.target, scan.capacity, context.scalarNames, context.arrayNames, context.subtypeNames, context.booleanNames,
       context.functions, context.pure, context.assignedInFunctions, context.hiding, context.firstParameter, context.procedures,
-      context.firstProcedureParameter⟩, scan.assigned, scan.output⟩
+      context.firstProcedureParameter, context.contextFirst, context.packageFirst, context.packageAfter⟩, scan.assigned, scan.output⟩
 
 def compact (context : Context) (scan : ScanResult) : Scan :=
   if scan.state.position = 0 ∨ context.names.length < scan.state.target then invalid
@@ -75,7 +79,8 @@ def ValidContext (text : Source) (context : Context) : Prop :=
     context.firstParameter ≤ FunctionBindings.maxFormals ∧
     ProcedureBindings.ValidMetadata text context.procedures ∧
     context.firstProcedureParameter ≤ context.procedures.parameters.length + 1 ∧
-    context.firstProcedureParameter ≤ ProcedureBindings.maxFormals
+    context.firstProcedureParameter ≤ ProcedureBindings.maxFormals ∧
+    Names.ValidContext text context.contextFirst context.packageFirst context.packageAfter
 
 def ValidScan (text : Source) (context : Context) (scan : Scan) : Prop :=
   scan.position ≤ text.length + 1 ∧ scan.target ≤ context.names.length ∧

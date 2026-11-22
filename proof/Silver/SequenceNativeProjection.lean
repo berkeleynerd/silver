@@ -35,12 +35,12 @@ def BodyToken : ShellToken → Prop
 
 theorem full_expression_nondecreasing (text : Source) (position : Nat) (names : BindingEnvironment)
     {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
-    {arrays : ArrayBindings.Table} {initials : ArrayBindings.Initials} {elaborating : Bool}
-    (accepted : (expressionAt text position names scalarNames integerHidden arrays initials elaborating).after ≠ 0) :
-    position ≤ (expressionAt text position names scalarNames integerHidden arrays initials elaborating).after := by
+    {arrays : ArrayBindings.Table} {initials : ArrayBindings.Initials} {elaborating : Bool} {contextFirst : Nat}
+    (accepted : (expressionAt text position names scalarNames integerHidden arrays initials elaborating contextFirst).after ≠ 0) :
+    position ≤ (expressionAt text position names scalarNames integerHidden arrays initials elaborating contextFirst).after := by
   have progress := Compose.Expressions.model_tail_nondecreasing
     (scalarNames := scalarNames) (integerHidden := integerHidden)
-    (arrays := arrays) (initials := initials) (elaborating := elaborating) text names
+    (arrays := arrays) (initials := initials) (elaborating := elaborating) (contextFirst := contextFirst) text names
     { position := position }
   exact progress.resolve_left accepted
 
@@ -53,21 +53,21 @@ theorem full_comparison_progress {text : Source} {state : ParserState}
   split <;> rename_i fitsBoth
   · simp only [Bool.and_eq_true] at fitsBoth
     have leftPositive : (expressionAt text state.position state.names state.scalarNames
-        false state.arrayNames.table state.arrayNames.values true).after ≠ 0 := by
+        false state.arrayNames.table state.arrayNames.values true state.contextFirst).after ≠ 0 := by
       have fitting := fitsBoth.1.1
       simp only [fits, decide_eq_true_eq] at fitting
       exact fitting.1
     have rightPositive : (expressionAt text
         (fixedAfter text (expressionAt text state.position state.names state.scalarNames
-          false state.arrayNames.table state.arrayNames.values true).after "=" false)
-        state.names state.scalarNames false state.arrayNames.table state.arrayNames.values true).after ≠ 0 := by
+          false state.arrayNames.table state.arrayNames.values true state.contextFirst).after "=" false)
+        state.names state.scalarNames false state.arrayNames.table state.arrayNames.values true state.contextFirst).after ≠ 0 := by
       have fitting := fitsBoth.1.2
       simp only [fits, decide_eq_true_eq] at fitting
       exact fitting.1
     have first := full_expression_nondecreasing text state.position state.names leftPositive
     have leftValid := Compose.Expressions.model_expression_valid
       (scalarNames := state.scalarNames) (integerHidden := false)
-      (arrays := state.arrayNames.table) (initials := state.arrayNames.values) (elaborating := true)
+      (arrays := state.arrayNames.table) (initials := state.arrayNames.values) (elaborating := true) (contextFirst := state.contextFirst)
       text valid state.position state.names
       stateValid.1 stateValid.2.1
     have middlePositive := Compose.Expressions.model_expression_input_nonzero text _ state.names rightPositive
@@ -101,9 +101,9 @@ theorem context_same {context : Context} {scan : Scan} {result : ScanResult}
   simp only [SameContext, expand] at same
   simp only [contextOf]
   rcases same with ⟨names, dynamicFirst, dynamicAfter, _, scalars, arrays, subtypes,
-    booleans, functions, pure, assigned, hidden, firstParameter, procedures, procedureFirst⟩
+    booleans, functions, pure, assigned, hidden, firstParameter, procedures, procedureFirst, contextFirst, packageFirst, packageAfter⟩
   simp only [names, dynamicFirst, dynamicAfter, scalars, arrays, subtypes,
-    booleans, functions, pure, assigned, hidden, firstParameter, procedures, procedureFirst]
+    booleans, functions, pure, assigned, hidden, firstParameter, procedures, procedureFirst, contextFirst, packageFirst, packageAfter]
 
 theorem compact_position {context : Context} {result : ScanResult}
     (target : result.state.target ≤ context.names.length) :

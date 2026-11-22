@@ -58,11 +58,11 @@ private theorem state_array_initials {text : Source} {state : ParserState}
     · simp only [Bool.or_eq_true, decide_eq_true_eq, absent, true_or, ↓reduceIte]
     · simp only [Bool.or_eq_true, decide_eq_true_eq, absent, false_or,
         show index + 1 ≠ 0 by omega, ↓reduceIte, QualifiedNames.qualifierMatches]
-      split
-      · rfl
-      · simpa only [Nat.add_sub_cancel] using
-          interpreted_subtypeLookupModel calls equations text valid subtypeNames first after index
-            qualifierFirst qualifierAfter namesValid firstValid afterValid (by omega) qualifierValid
+      have earlier := interpreted_subtypeLookupModel calls equations text valid subtypeNames first after index
+        qualifierFirst qualifierAfter namesValid firstValid afterValid (by omega) qualifierValid
+      simp only [Nat.add_sub_cancel, earlier]
+      by_cases bare : qualifierFirst = 0 <;>
+        simp only [bare, ↓reduceIte, Bool.and_eq_true, decide_eq_true_eq, beq_iff_eq]
 termination_by index
 
 @[simp] theorem interpreted_subtypeLookupQualified (calls : Calls)
@@ -748,11 +748,14 @@ attribute [local irreducible] expressionAt
   rw [equations.scalarType text valid state position stateValid bound, scalarType_denotation]
   dsimp +instances only [scalarTypeEquation, scalarTypeAt, lexical]
   rw [er, el, ec, ea, eat, et, eb, ef, ep, eh]
+  change _ = scalarTypeAt text state position
   by_cases invalid : first = 0 ∨ after ≤ first
-  · simp only [Bool.or_eq_true, decide_eq_true_eq, invalid, ↓reduceIte]
+  · simp only [scalarTypeAt, reference, first, after] at invalid ⊢
+    simp only [Bool.or_eq_true, decide_eq_true_eq, invalid, ↓reduceIte]
   · have nameValid : ValidName text first after := ⟨by omega, by omega, afterBound⟩
     rw [equations.nameIs text valid first after "integer" nameValid (by decide) (by decide)]
-    simp only [Bool.or_eq_true, decide_eq_true_eq, or_assoc]
+    simp only [first, after, reference] at invalid
+    simp only [scalarTypeAt, first, after, reference, Bool.or_eq_true, decide_eq_true_eq, or_assoc, invalid, ↓reduceIte] <;> rfl
 
 @[simp] theorem interpreted_subtypeDeclaration (calls : Calls) (equations : RawHelperEquations calls (domain := domain))
     (text : Source) (valid : ValidText text) (state : ParserState) (arguments : Bool)

@@ -64,12 +64,14 @@ set_option backward.dsimp.instances true in
   have echeck : nameCheck = fixedAfter text first "first_or_default" true :=
     interpreted_take calls equations.toRawHelperEquations text valid _ _ bfirst (by unfold ValidToken; decide)
   let hidden := (decide (first ≠ 0) && decide (after > first)) && decide (nameCheck = after)
-  let p4 := calls.names.operationAfter text p3 .argument hidden
-  have ep4 : p4 = Names.operationAfter text p3 .argument hidden :=
-    Names.interpreted_operation calls.names equations.names text valid p3 .argument hidden bp3
+  let p4 := calls.names.operationAfter text p3 .argument hidden state.contextFirst state.packageFirst state.packageAfter
+  have ep4 : p4 = Names.operationAfter text p3 .argument hidden state.contextFirst state.packageFirst state.packageAfter :=
+    Names.interpreted_operation calls.names equations.names text valid p3 .argument hidden
+      state.contextFirst state.packageFirst state.packageAfter bp3 stateValid.valid.unit
   have bp4 : ValidCursor text p4 := by
     rw [ep4]
-    exact Names.operationAfter_bound text p3 .argument hidden bp3
+    exact Names.operationAfter_bound text p3 .argument hidden
+      state.contextFirst state.packageFirst state.packageAfter bp3
   let p5 := calls.function .takeToken text p4 (.symbol "(")
   have bp5 : ValidCursor text p5 := equations.ranges.token text valid _ _ bp4 (by unfold ValidToken; decide)
   have ep5 : p5 = fixedAfter text p4 "(" false :=
@@ -94,8 +96,6 @@ set_option backward.dsimp.instances true in
   have efollowing : following = fixedAfter text close ";" false := interpreted_take calls equations.toRawHelperEquations text valid _ _ bclose (by unfold ValidToken; decide)
   have ename := interpreted_newName calls equations.toRawHelperEquations text valid state first after true stateValid bfirst bafter
   rw [equations.argument text valid state stateValid]
-  dsimp +instances only [argumentBody, Expr.eval, Context.locals, Locals.set, lexical, Calls.get, Field.get]
-  simp only [reduceCtorEq, String.reduceEq, ↓reduceIte, ↓reduceDIte]
   change (if !calls.function .newName text state first after true || decide (following = 0) ||
     decide (state.names.length ≠ 0) then invalidState
     else {calls.function .addBinding state first after ⟨following, 0, 0, 0, true, true, false, 0, 1, .singleton 1, ⟨0, maxSourceLength⟩⟩ false following with
