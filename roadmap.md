@@ -69,8 +69,63 @@ closing confirmation accepted the delivery, PR #412 is ready for owner review,
 and the issue/stage bookkeeping is reconciled. No merge is authorized by
 capability completion.
 
-No provisional successor is selected. Deferred #381/#382 and #398 remain outside
-this queue; PR #385 stays held and Worca remains stopped.
+### Ravenscar priority — 2026-11-22
+
+The owner selected the five foundations below and Ravenscar profile support as
+near-term planning priorities, followed immediately by a Jorvik reassessment.
+Finish the active PR #412 review response, focused proof review and applicable
+validation closeout first, preserving its final implementation and proof inputs.
+The proposed successor is
+[milestone 28, Ravenscar foundations](https://github.com/berkeleynerd/silver/milestone/28);
+its [bounded plan](docs/ravenscar-tasking-plan.md) records scope, dependencies,
+assurance questions and completion criteria. This instruction authorizes planning
+and priority, not feature implementation or merge. All six implementation issues
+remain Backlog; packages are the first implementation increment once authorized.
+
+| Order | Planned increment | Issue |
+| --- | --- | --- |
+| 1 | Bounded library packages, initialized library-level state and multiple application units | [#416](https://github.com/berkeleynerd/silver/issues/416) |
+| 2 | Library-level protected objects with initialized scalar state and nonblocking protected procedures/functions | [#417](https://github.com/berkeleynerd/silver/issues/417) |
+| 3 | A static set of library-level tasks with restricted persistent outer loops | [#418](https://github.com/berkeleynerd/silver/issues/418) |
+| 4 | Protected entries with simple Boolean barriers and statically bounded callers/queues | [#419](https://github.com/berkeleynerd/silver/issues/419) |
+| 5 | Selected real-time clock operations, safe `Time`/`Time_Span` arithmetic and `delay until` | [#420](https://github.com/berkeleynerd/silver/issues/420) |
+| Cross-cutting; final delivery | Compiler-owned profile configuration, runtime feasibility and integrated tasking assurance | [#421](https://github.com/berkeleynerd/silver/issues/421) |
+
+The #421 configuration/runtime feasibility check begins upfront, before protected
+object proof work; it is not deferred until the final integration. The pinned
+[SPARK concurrency guide](references/spark/16.1/docs/ug/en/source/concurrency.rst)
+permits `pragma Profile (Ravenscar)` and
+`pragma Partition_Elaboration_Policy (Sequential)` in a configuration file.
+Use compiler-owned configuration consistently for proof, build and binding,
+while retaining the Oracle's sole permitted pragma in application source.
+Confirm the pinned toolchain/runtime recipe and its documented assumptions;
+this plan requires no Oracle amendment or hidden replacement of author source.
+Remaining design decisions include whole-program unit/resource bounds, static
+priority/ceiling choices, the exact shared-state and caller rules, clock-domain
+exhaustion behavior and the runtime's external assumptions. Resolve these in the
+bounded plan before implementing the affected forms; records, task arrays and a
+general-purpose library system are not implicit additions to the scope.
+
+Each increment must establish decidable admission, full-domain safety, complete
+automatic obligation discharge and correspondence to every actual author unit
+and selected library body. Persistent tasks require safety over reachable steps
+and finite execution prefixes while proof checking itself terminates; existing
+finite-program guarantees remain intact. No scheduler fairness, eventual barrier
+opening or hard-deadline guarantee follows merely from Bronze/Silver discharge.
+A bounded event/mailbox worker and a periodic-release variant motivate the
+compositions. General records, enumerations, generics, heap allocation and
+general `while` loops are not prerequisites. Complete applicable assurance and
+independent review remain necessary before any new fragment is supported.
+
+Immediately after Ravenscar delivery, the next planning item is
+[Jorvik reassessment #422](https://github.com/berkeleynerd/silver/issues/422),
+using delivered evidence and cost to assess multiple protected entries, additional
+queued callers, richer barriers and relative delays. It remains Backlog, with no
+separate provisional implementation milestone or automatic Jorvik admission.
+Existing Rosetta candidates remain inputs to later choices; this dated owner
+priority supersedes waiting for the whole natural surface before tasking.
+Deferred #381/#382 and #398 remain outside this queue; PR #385 stays held and
+Worca remains stopped. No other feature proposal is removed by this priority.
 
 **Reduced package complete on Linux, 2026-11-21 (PR #406).** The owner instructed
 **“Approved. Proceed to completion and the accompanying PR”** for
@@ -1241,24 +1296,32 @@ dispositions, not unfinished milestones.
 
 ## Language surface direction
 
-Decided on 2026-10-15. The [Rosetta progression](rosetta/progression.md) is the
-short-term plan for filling out Silver's natural surface under the Oracle. It
-orders the Rosetta Code candidates whose proofs are likely or plausible to
-discharge automatically into stages, each adding the constructs its samples
-need, the most widely needed first. Each stage states the admission question for
-every construct it adds; a stage that adds an input construct is driven by a
-sample that uses that input and names the failure paths to test. A stage is a
-candidate for a milestone, not an authorization: each still needs its own scope,
-the owner's authorization and the complete assurance in
-[development.md](development.md).
+The 2026-10-15 [Rosetta progression](rosetta/progression.md) remains an input
+for filling out Silver's natural surface under the Oracle. It orders the Rosetta
+Code candidates whose proofs are likely or plausible to discharge automatically
+into stages, each adding the constructs its samples need, the most widely needed
+first. Each stage states the admission question for every construct it adds; a
+stage that adds an input construct is driven by a sample that uses that input and
+names the failure paths to test. A stage is a candidate for a milestone, not an
+authorization: each still needs its own scope, the owner's authorization and the
+complete assurance in [development.md](development.md).
 
 The assessments are model judgments, not proofs, and the corpus underrepresents
-input handling, failure outcomes, modularity and library design. Once the natural
-surface is filled out, reassess networking, parallelism (whose required profile
-pragma the Oracle does not permit in program source) and other demanding samples,
-and add real-world target programs where Rosetta is thin. The
+input handling, failure outcomes, modularity and library design. The owner's
+[Ravenscar priority of 2026-11-22](#ravenscar-priority--2026-11-22) supersedes the
+former plan to wait until the natural surface was filled out before reassessing
+parallelism. Bounded packages, protected state, static tasks, entries and absolute
+delay are now the proposed successor, with Jorvik reassessment immediately after
+that delivery. General records, enumerations, generics, heap allocation and
+general `while` loops are not prerequisites for this fragment. The pinned SPARK
+guide permits Ravenscar and sequential-elaboration pragmas in compiler-owned
+configuration, so the Oracle's restriction on application-source pragmas is not
+a blanket ban on tasking. The same configuration and author units must be used
+for proof and build. Networking and other demanding programs remain candidate
+work; add real-world targets where Rosetta is thin. The
 [Rosetta README](rosetta/README.md) describes the assessments, the inclusion
-policy and the supported-construct list.
+policy and the supported-construct list. No support or Rosetta stage changes are
+claimed by this planning update.
 
 ## Planning and tracking
 

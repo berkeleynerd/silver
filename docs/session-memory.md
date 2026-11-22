@@ -1,5 +1,54 @@
 # Session memory
 
+## 2026-11-22 — Ravenscar foundations prioritized; Jorvik reassessment next
+
+The owner instructed **“Let's update near-term roadmap to prioritize these 5
+items and ravenscar profile support. The next item should then be re-asses jorvik
+as next item. Is this sensible given oracle/goals?”** This authorizes the planning
+update and priority order: bounded packages/library-level state and multiple
+units, protected scalar state/nonblocking operations, static tasks/restricted
+persistent loops, protected entries/simple Boolean barriers, then real-time clock
+and safe absolute delay. Compiler-owned Ravenscar configuration, runtime
+feasibility and integrated assurance span those increments, beginning with an
+upfront feasibility check before protected-object proof work.
+
+The [near-term roadmap](../roadmap.md#ravenscar-priority--2026-11-22) and
+[bounded capability plan](ravenscar-tasking-plan.md) record
+[proposed milestone 28](https://github.com/berkeleynerd/silver/milestone/28) and
+its increments [#416](https://github.com/berkeleynerd/silver/issues/416),
+[#417](https://github.com/berkeleynerd/silver/issues/417),
+[#418](https://github.com/berkeleynerd/silver/issues/418),
+[#419](https://github.com/berkeleynerd/silver/issues/419),
+[#420](https://github.com/berkeleynerd/silver/issues/420) and
+[#421](https://github.com/berkeleynerd/silver/issues/421).
+All remain Backlog; this instruction does not authorize feature implementation
+or merge. Finish the active PR #412 review/validation closeout first, preserving
+its implementation/proof inputs. Packages are the first implementation increment
+once authorized. The immediate next planning item after Ravenscar delivery is
+[Jorvik reassessment #422](https://github.com/berkeleynerd/silver/issues/422),
+using actual delivered evidence and cost; it is not another provisional
+implementation milestone or authorization to admit Jorvik features.
+
+This direction fits the unchanged Oracle only with decidable membership,
+full-domain safety, complete automatic discharge, unchanged author source and
+actual-source/library correspondence for every admitted composition. The pinned
+[SPARK concurrency guide](../references/spark/16.1/docs/ug/en/source/concurrency.rst)
+allows `Profile (Ravenscar)` and
+`Partition_Elaboration_Policy (Sequential)` in compiler-owned configuration,
+used consistently for proof/build/binding; user source retains only its permitted
+`SPARK_Mode` pragma and supplies no contracts or proof annotations. Persistent
+tasks need reachable-step/finite-prefix safety with terminating proof checking;
+Bronze/Silver discharge alone does not establish fairness, eventual unblocking or
+hard deadlines. No Oracle amendment or new runtime implementation is authorized.
+
+The new priority supersedes waiting for the whole Rosetta natural surface before
+tasking. Existing candidate features remain available; general records,
+enumerations, generics, heap allocation and general `while` loops are not
+prerequisites. PR #385 remains held, #381/#382 and #398 remain deferred, and Worca
+remains stopped. No language, catalogue or supported-construct admission changes
+are made by this planning update. Earlier dated authorization records retain
+their historical scope. CLI memory was not updated.
+
 ## 2026-11-22 — External PR #412 review response and focused proof follow-up
 
 The owner agreed to the proposed response to the first Claude review and
