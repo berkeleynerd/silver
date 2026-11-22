@@ -201,4 +201,137 @@ theorem SharedState.procedureCall_agreement {environment : SharedEnvironment} {e
   simp only [SharedState.procedureCall, previous.footprints.1, resolvedFound, inputs, calls.1]
   exact copySharedOutputs_agreement after layout _ _
 
+@[simp] theorem globalCells_append (layout : FrameLayout) (left right : List Cell) :
+    globalCells layout (left ++ right) = globalCells layout left ++ globalCells layout right :=
+  List.filterMap_append
+
+theorem SharedAgreement.read_native {cells : List Cell} {first second : SharedState}
+    (same : SharedAgreement cells first second) (layout : FrameLayout) (cell : Cell)
+    (covered : ∀ global ∈ globalCells layout [cell], global ∈ cells) :
+    second.read (layout.place cell) = first.read (layout.place cell) := by
+  have value := same.view layout [cell] covered cell (by simp)
+  simpa only [Renaming.identity_cell, SharedState.view_read] using value
+
+theorem foldl_sharedAgreement (cells : List Cell) (step : SharedState → Int → SharedState)
+    (preserved : ∀ first second, SharedAgreement cells first second →
+      ∀ value, SharedAgreement cells (step first value) (step second value))
+    (values : List Int) {first second : SharedState} (same : SharedAgreement cells first second) :
+    SharedAgreement cells (values.foldl step first) (values.foldl step second) := by
+  induction values generalizing first second with
+  | nil => exact same
+  | cons value values ih => exact ih (preserved first second same value)
+
+mutual
+  theorem executeSharedStatement_agreement {environment : SharedEnvironment} {earlier : EffectEnvironment}
+      (previous : environment.LocalOn earlier) (layout : FrameLayout) {cells : List Cell}
+      {first second : SharedState} (same : SharedAgreement cells first second)
+      (statement : Predicate.Statement) {effects : Effects}
+      (scalar : ScalarProcedures.scalarStatement statement = true)
+      (inferred : inferStatementEffects earlier layout statement = some effects)
+      (included : effects.CapturedIn cells) :
+      SharedAgreement cells (executeSharedStatement environment layout first statement)
+        (executeSharedStatement environment layout second statement) := by
+    cases statement with
+    | simple item =>
+        cases item <;> simp only [inferStatementEffects] at inferred
+        all_goals try contradiction
+        simpa only [executeSharedStatement] using same
+    | scalarAssign update =>
+        simp only [ScalarProcedures.scalarStatement, ScalarProcedures.frameStatement] at scalar
+        simp only [inferStatementEffects] at inferred
+        cases Option.some.inj inferred
+        have value := same.integer_evaluate layout update.value scalar
+          (fun cell member => included cell (Or.inl member))
+        simp only [executeSharedStatement, value]
+        exact same.write _ _
+    | booleanAssign update =>
+        simp only [ScalarProcedures.scalarStatement, ScalarProcedures.frameStatement] at scalar
+        simp only [inferStatementEffects] at inferred
+        cases Option.some.inj inferred
+        have value := same.condition_evaluate layout update.value scalar
+          (fun cell member => included cell (Or.inl member))
+        simp only [executeSharedStatement, value]
+        exact same.write _ _
+    | callAssign update =>
+        simp only [ScalarProcedures.scalarStatement, ScalarProcedures.frameStatement] at scalar
+        simp only [inferStatementEffects, Option.bind_eq_some_iff] at inferred
+        obtain ⟨routine, known, returned⟩ := inferred
+        cases kind : routine.signature with
+        | procedure => simp [kind] at returned
+        | function signature =>
+            simp only [kind] at returned
+            cases Option.some.inj returned
+            have args : ∀ actual ∈ update.call.actuals, ScalarFunctions.scalarActual actual = true :=
+              List.all_eq_true.mp scalar
+            have inputs := same.actuals_evaluate layout update.call.actuals args
+              (fun cell member => included.left cell (Or.inl member))
+            have value := previous.functions update.call.callee routine known first.globals second.globals
+              (first.actuals layout update.call.actuals) (same.captures included.right)
+            simp only [executeSharedStatement, SharedState.functionAssignment, inputs, value]
+            exact same.write _ _
+    | procedureCall call =>
+        simp only [ScalarProcedures.scalarStatement, ScalarProcedures.frameStatement] at scalar
+        simp only [executeSharedStatement]
+        exact SharedState.procedureCall_agreement previous same layout call inferred included (List.all_eq_true.mp scalar)
+    | arrayAssign | booleanArrayAssign | reject | arrayLoop => simp [inferStatementEffects] at inferred
+    | choice condition yes no =>
+        simp only [ScalarProcedures.scalarStatement, ScalarProcedures.frameStatement] at scalar
+        change (ScalarFunctions.scalarCondition condition && ScalarProcedures.scalarStatements yes &&
+          ScalarProcedures.scalarStatements no) = true at scalar
+        have checks := Bool.and_eq_true_iff.mp scalar
+        have firstChecks := Bool.and_eq_true_iff.mp checks.1
+        simp only [inferStatementEffects, Option.bind_eq_some_iff, Option.map_eq_some_iff] at inferred
+        obtain ⟨left, leftFound, right, rightFound, rfl⟩ := inferred
+        have guard := same.condition_evaluate layout condition firstChecks.1
+          (fun cell member => included.left cell (Or.inl member))
+        simp only [executeSharedStatement, guard]
+        split
+        · exact executeSharedStatements_agreement previous layout same yes firstChecks.2 leftFound included.right.left
+        · exact executeSharedStatements_agreement previous layout same no checks.2 rightFound included.right.right
+    | forLoop index reverse lower upper body =>
+        simp only [ScalarProcedures.scalarStatement, ScalarProcedures.frameStatement] at scalar
+        change (ScalarFunctions.scalarExpression lower && ScalarFunctions.scalarExpression upper &&
+          ScalarProcedures.scalarStatements body) = true at scalar
+        have checks := Bool.and_eq_true_iff.mp scalar
+        have bounds := Bool.and_eq_true_iff.mp checks.1
+        simp only [inferStatementEffects] at inferred
+        obtain ⟨inner, bodyFound, rfl⟩ := Option.map_eq_some_iff.mp inferred
+        have lowerSame := same.integer_evaluate layout lower bounds.1 (fun cell member =>
+          included.left cell (Or.inl (by simp [directEffects, member])))
+        have upperSame := same.integer_evaluate layout upper bounds.2 (fun cell member =>
+          included.left cell (Or.inl (by simp [directEffects, member])))
+        simp only [executeSharedStatement, lowerSame, upperSame]
+        apply foldl_sharedAgreement cells _ _ _ same
+        intro left right current value
+        have before := current.read_native layout (.integer index)
+          (fun cell member => included.left cell (Or.inr member))
+        have bodySame := executeSharedStatements_agreement previous layout
+          (current.write (layout.place (.integer index)) (.integer value)) body checks.2 bodyFound included.right
+        simpa only [before] using bodySame.write (layout.place (.integer index))
+          (left.read (layout.place (.integer index)))
+  termination_by sizeOf statement
+  theorem executeSharedStatements_agreement {environment : SharedEnvironment} {earlier : EffectEnvironment}
+      (previous : environment.LocalOn earlier) (layout : FrameLayout) {cells : List Cell}
+      {first second : SharedState} (same : SharedAgreement cells first second)
+      (statements : List Predicate.Statement) {effects : Effects}
+      (scalar : ScalarProcedures.scalarStatements statements = true)
+      (inferred : inferStatementsEffects earlier layout statements = some effects)
+      (included : effects.CapturedIn cells) :
+      SharedAgreement cells (executeSharedStatements environment layout first statements)
+        (executeSharedStatements environment layout second statements) := by
+    cases statements with
+    | nil => simpa only [executeSharedStatements] using same
+    | cons statement rest =>
+        simp only [ScalarProcedures.scalarStatements, ScalarProcedures.frameStatements] at scalar
+        change (ScalarProcedures.scalarStatement statement && ScalarProcedures.scalarStatements rest) = true at scalar
+        have checks := Bool.and_eq_true_iff.mp scalar
+        simp only [inferStatementsEffects, Option.bind_eq_some_iff, Option.map_eq_some_iff] at inferred
+        obtain ⟨head, headFound, following, followingFound, rfl⟩ := inferred
+        simp only [executeSharedStatements]
+        exact executeSharedStatements_agreement previous layout
+          (executeSharedStatement_agreement previous layout same statement checks.1 headFound included.left)
+          rest checks.2 followingFound included.right
+  termination_by sizeOf statements
+end
+
 end Silver.Packages
