@@ -176,3 +176,15 @@ helper passed. Source remains the retained `e181c06fc2ac` input. The earlier
 nine-obligation failure remains recorded; the repaired state/cursor invariants
 and Signature success contract now close the dependent Spec obligations.
 Remaining application helpers/callers and final native/source assurance are pending.
+
+## Application wrapper complete checks
+
+Both expression helpers passed complete canonical selectors on the unchanged
+`e181c06fc2ac` source. Each selected report has exactly its whole helper,
+termination and discriminant obligations, with no expanded caller or skipped
+obligation. Two managed workers were used.
+
+| Helper | Run | Checks (flow + proof) | Seconds |
+| --- | --- | --- | --- |
+| Application_Of | `20261122T182141-e8a459c49fff` | 2 (1 + 1) | 27.406 |
+| Invalid_Application | `20261122T182245-200596709485` | 2 (1 + 1) | 27.952 |

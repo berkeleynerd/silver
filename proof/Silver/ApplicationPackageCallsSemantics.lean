@@ -2,6 +2,7 @@ module
 
 public import Silver.ApplicationPackageCallsModel
 public import Silver.PackageChecking
+public import Silver.PackageBindingsEquations
 
 @[expose] public section
 
@@ -90,5 +91,34 @@ theorem accepted_signature {calls text context input info position kind}
   subst item
   exact ⟨callee, info.routineAt callee, frame, checked, positive, prefixBound, rfl, kindEq,
     resolved, signature, read, aliases, result⟩
+
+/-- The actual native metadata helper is linked by representation, and its
+meaning is derived from its complete typed definition equations. The guard
+needed by Lookup_Routine comes from this accepted call's completion prefix;
+neither a final environment nor a new entry precondition is substituted. -/
+theorem accepted_signature_native_metadata {calls text context input info position kind}
+    (metadata : PackageBindings.Native.Calls)
+    (primitives : PackageBindings.Native.Primitives metadata)
+    (equations : PackageBindings.Native.Equations metadata)
+    (linked : ∀ name completedOnly,
+      calls.lookupRoutine text info name completedOnly =
+        metadata.lookupRoutine ⟨1, text⟩ info name completedOnly)
+    (typed : info.Typed) (valid : PackageBindings.validMetadata ⟨1, text⟩ info = true)
+    (accepted : (packageCallAt calls text context input info position kind).value.after ≠ 0) :
+    ∃ callee item frame checked,
+      0 < callee ∧ callee ≤ info.completed ∧ item = info.routineAt callee ∧ item.kind = kind ∧
+      Packages.lookupRoutine (completedEnvironment info) callee =
+        some ⟨item.signature info, item.effects info⟩ ∧ (item.signature info).Valid ∧
+      readActuals calls text context input info item (calls.reference text position).after = some frame ∧
+      checkAliases calls text info item frame = some checked ∧
+      packageCallAt calls text context input info position kind =
+        finishCall calls text context info kind item frame checked := by
+  obtain ⟨callee, _, _, _, found, present, _⟩ := accepted_call accepted
+  have bound := (callee_trace found.symm present).1
+  apply accepted_signature typed valid accepted
+  rw [linked, equations.lookupRoutine _ _ _ _ bound,
+    PackageBindings.Native.interpreted_routineLookup metadata primitives equations
+      ⟨1, text⟩ info _ _ (by simpa using bound)]
+  rfl
 
 end Silver.ApplicationPackageCalls

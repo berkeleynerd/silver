@@ -217,14 +217,26 @@
       "current_lines": [
         8641
       ],
-      "coverage": "pending"
+      "coverage": "complete-helper-success",
+      "run": "20261122T182141-e8a459c49fff",
+      "checks": 2,
+      "flow": 1,
+      "proof": 1,
+      "unproved": 0,
+      "run_source_sha256": "e181c06fc2ac104092b9166eb276338feeca254ad21446fdfc3903cd81a7dc02"
     },
     {
       "name": "Invalid_Application",
       "current_lines": [
         8643
       ],
-      "coverage": "pending"
+      "coverage": "complete-helper-success",
+      "run": "20261122T182245-200596709485",
+      "checks": 2,
+      "flow": 1,
+      "proof": 1,
+      "unproved": 0,
+      "run_source_sha256": "e181c06fc2ac104092b9166eb276338feeca254ad21446fdfc3903cd81a7dc02"
     },
     {
       "name": "Visible_State",
