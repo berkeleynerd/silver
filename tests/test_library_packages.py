@@ -134,7 +134,7 @@ class LibraryPackageTests(unittest.TestCase):
     def test_public_constants_and_subtypes_are_qualified_in_main(self) -> None:
         specification = SPEC.replace(b'procedure Reset;',
                                      b'N:constant Integer:=3;Good:constant Boolean:=True;procedure Reset;')
-        self.check(main(b'N:Integer:=2;X:P.Small:=P.N;Good:Boolean:=P.Good;',
+        self.check(main(b'N:Integer range 0..9:=2;X:P.Small:=P.N;Good:Boolean:=P.Good;',
                         b'if Good then X:=N;end if;'), specification=specification)
         self.check(main(b'X:Small:=0;'), 2)
         self.check(main(b'X:Integer:=P.Stored;'), 2)
