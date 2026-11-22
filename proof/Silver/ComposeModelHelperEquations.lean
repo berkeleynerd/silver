@@ -318,11 +318,12 @@ private theorem model_definition_tail (ranges : RangeContracts modelCalls) : ∀
     modelCalls.function .tail text names scan scalarNames integerHidden arrays initials elaborating contextFirst =
       tailBody.eval modelCalls (Context.locals {text,contextFirst,scalarNames,integerHidden,arrays,initials,elaborating,names,scan}) := model_tail_equation ranges
 
-private theorem model_definition_expression : ∀ text, ValidText text → ∀ position names scalarNames integerHidden arrays initials elaborating,
+private theorem model_definition_expression : ∀ text, ValidText text → ∀ position names scalarNames integerHidden arrays initials elaborating contextFirst,
+    1 ≤ contextFirst → ValidCursor text contextFirst →
     ValidCursor text position → NativeNames text names → ScalarExpression.ValidEnvironment text scalarNames →
     ArrayBindings.ValidTable text arrays → ArrayBindings.ValidInitials initials →
-    modelCalls.function .expression text position names scalarNames integerHidden arrays initials elaborating =
-      expressionBody.eval modelCalls (Context.locals {text,scalarNames,integerHidden,arrays,initials,elaborating,position,names}) := by
+    modelCalls.function .expression text position names scalarNames integerHidden arrays initials elaborating contextFirst =
+      expressionBody.eval modelCalls (Context.locals {text,contextFirst,scalarNames,integerHidden,arrays,initials,elaborating,position,names}) := by
   intros
   dsimp +instances only [modelCalls, modelPrimitives, Context.locals, lookupArrayType, Expr.eval, Calls.get, expressionBody, spelling, isWord, expressionAt] <;> simp +instances
 
@@ -388,8 +389,8 @@ theorem model_helpers (ranges : RangeContracts modelCalls) :
     intro text _ position limit depth chained ending positive bounded limitBound _
     exact (model_guarded_denotation text position limit depth chained ending positive bounded limitBound).symm
   indexed := by
-    intro text _ position names scalarNames arrays initials elaborating element _ _ _ _ _
-    exact (model_indexed_denotation text position names scalarNames arrays initials elaborating element).symm
+    intro text _ position names scalarNames arrays initials elaborating element contextFirst _ _ _ _ _ _ _
+    exact (model_indexed_denotation text position names scalarNames arrays initials elaborating element contextFirst).symm
   characterValue := by
     intro text _ position names scalarNames arrays initials elaborating bound _ _ _ _
     exact (model_character_denotation text position names scalarNames arrays initials elaborating bound).symm
