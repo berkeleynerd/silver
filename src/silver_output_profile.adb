@@ -9176,6 +9176,7 @@ is
       if Routine > Info.Routine_Count then return Invalid_State; end if;
       for I in 1 .. Result.Boolean_Names.Count loop
          if Result.Boolean_Names.Items (I).Mutable then Result.Boolean_Names.Items (I).Known := False; end if;
+         pragma Loop_Invariant (Valid_State (Text, Result));
       end loop;
       if Item.Count > 0 then
          if Item.Formal_First = 0 or else Item.Formal_First > Info.Parameter_Count
@@ -9187,6 +9188,10 @@ is
             if not Packages.Valid_Name (Text, Parameter.Body_Name) then return Invalid_State; end if;
             Result := Hide_Outer (Text, Result, Info, Parameter.Body_Name);
             if Result.Position = 0 then return Invalid_State; end if;
+            pragma Loop_Invariant (Valid_State (Text, Result));
+            pragma Loop_Invariant
+              (for all Done in Item.Formal_First .. I =>
+                 Packages.Valid_Name (Text, Info.Parameters (Done).Body_Name));
          end loop;
          for I in Item.Formal_First .. Item.Formal_First + Item.Count - 1 loop
             Parameter := Info.Parameters (I);
