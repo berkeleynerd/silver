@@ -27,14 +27,32 @@ def _compile_maximum_dynamic_expression(
         try:
             stdout, stderr = process.communicate(timeout=timeout)
         except subprocess.TimeoutExpired:
-            # Provers inherit this isolated process group. Kill them and reap
-            # the compiler, preserving subprocess.run's POSIX timeout behavior:
-            # the original exception retains its raw partial-output snapshot.
+            # Stop Why3's launch group first: it puts solvers in separate
+            # process groups within this isolated session. Keep the compiler
+            # unreaped until the remaining session groups have been killed.
             try:
                 os.killpg(process.pid, signal.SIGKILL)
             except ProcessLookupError:
                 pass
-            process.wait()
+            try:
+                pids = subprocess.run(["ps", "-e", "-o", "pid="], text=True,
+                                      capture_output=True, check=True, timeout=5).stdout
+                groups = set()
+                for pid in map(int, pids.split()):
+                    try:
+                        if os.getsid(pid) == process.pid:
+                            groups.add(os.getpgid(pid))
+                    except (ProcessLookupError, PermissionError):
+                        continue
+                for group in groups - {process.pid}:
+                    try:
+                        os.killpg(group, signal.SIGKILL)
+                    except ProcessLookupError:
+                        pass
+            finally:
+                process.wait()
+            # Preserve subprocess.run's POSIX timeout exception, including its
+            # raw partial-output snapshot, rather than decoding output again.
             raise
     return subprocess.CompletedProcess(command, process.returncode, stdout, stderr)
 
@@ -64,29 +82,32 @@ class MaximumExpressionProcessTests(unittest.TestCase):
                 self.assertEqual(result.stdout, "compiler ✓\nproof diagnostics\n")
                 self.assertIsNone(result.stderr)
 
-    def test_timeout_kills_descendant_and_reaps_compiler(self) -> None:
+    def test_timeout_kills_session_groups_and_reaps_compiler(self) -> None:
         compiler, source = self.compiler_fixture("")
         group_file = compiler.parent / "group"
 
         def cleanup_group() -> None:
             if group_file.exists():
-                try:
-                    os.killpg(int(group_file.read_text()), signal.SIGKILL)
-                except ProcessLookupError:
-                    pass
+                for group in map(int, group_file.read_text().split()):
+                    try:
+                        os.killpg(group, signal.SIGKILL)
+                    except ProcessLookupError:
+                        pass
 
         self.addCleanup(cleanup_group)
-        descendant = ("import os,time\n"
-                      "print(f'prover:{os.getpid()}:{os.getpgrp()}', flush=True)\n"
-                      "os.write(1, b'\\xe2')\n"
+        descendant = ("import os,sys,time\n"
+                      "print(f'{sys.argv[1]}:{os.getpid()}:{os.getpgrp()}:{os.getsid(0)}', flush=True)\n"
+                      "if sys.argv[1] == 'separate': os.write(1, b'\\xe2')\n"
                       "time.sleep(10)\n")
         compiler.write_text(
             f"#!{sys.executable}\n"
             "import os,subprocess,sys,time\n"
             "from pathlib import Path\n"
             f"Path({str(group_file)!r}).write_text(str(os.getpid()))\n"
-            "print(f'compiler:{os.getpid()}:{os.getpgrp()}', flush=True)\n"
-            f"subprocess.Popen([sys.executable, '-c', {descendant!r}])\n"
+            "print(f'compiler:{os.getpid()}:{os.getpgrp()}:{os.getsid(0)}', flush=True)\n"
+            f"subprocess.Popen([sys.executable, '-c', {descendant!r}, 'inherited'])\n"
+            f"separate = subprocess.Popen([sys.executable, '-c', {descendant!r}, 'separate'], process_group=0)\n"
+            f"Path({str(group_file)!r}).write_text(f'{{os.getpid()}} {{separate.pid}}')\n"
             "time.sleep(10)\n")
         started = time.monotonic()
         with mock.patch(__name__ + ".SILVER", compiler), \
@@ -100,25 +121,37 @@ class MaximumExpressionProcessTests(unittest.TestCase):
         self.assertIsInstance(error.output, bytes)
         # A timeout can interrupt a UTF-8 diagnostic. Cleanup must not decode
         # that partial byte sequence and replace TimeoutExpired with an error.
-        self.assertTrue(error.output.endswith(b"\xe2"), error.output)
-        processes = {name: (int(pid), int(group))
-                     for name, pid, group in (line.split(":")
-                                              for line in error.output[:-1].decode().splitlines())}
-        self.assertEqual(set(processes), {"compiler", "prover"})
-        pid, group = processes["compiler"]
+        self.assertIn(b"\xe2", error.output)
+        processes = {name: (int(pid), int(group), int(session))
+                     for name, pid, group, session in (
+                         line.split(":")
+                         for line in error.output.replace(b"\xe2", b"").decode().splitlines())}
+        self.assertEqual(set(processes), {"compiler", "inherited", "separate"})
+        pid, group, session = processes["compiler"]
         self.assertEqual(group, pid)
+        self.assertEqual(session, pid)
         self.assertNotEqual(group, os.getpgrp())
-        self.assertEqual(processes["prover"][1], group)
+        self.assertEqual(processes["inherited"][1:], (group, session))
+        separate_pid, separate_group, separate_session = processes["separate"]
+        self.assertEqual(separate_group, separate_pid)
+        self.assertNotEqual(separate_group, group)
+        self.assertEqual(separate_session, session)
         with self.assertRaises(ChildProcessError):
             os.waitpid(pid, os.WNOHANG)
-        # The killed descendant belongs to its new parent, which reaps it.
-        # A zombie is already terminated even if that parent has not run yet.
-        status = subprocess.run(["ps", "-o", "stat=", "-p", str(processes["prover"][0])],
-                                text=True, capture_output=True, timeout=5)
-        self.assertIn(status.returncode, (0, 1), status.stderr)
-        self.assertEqual(status.stderr, "")
-        state = status.stdout.strip()
-        self.assertTrue(not state or state.startswith("Z"), state)
+        # Descendants belong to their new parent, which reaps them. A zombie
+        # is already terminated even if that parent has not run yet.
+        descendants = ",".join(str(processes[name][0]) for name in ("inherited", "separate"))
+        deadline = time.monotonic() + 3
+        while True:
+            status = subprocess.run(["ps", "-o", "pid=,stat=", "-p", descendants],
+                                    text=True, capture_output=True, timeout=5)
+            self.assertIn(status.returncode, (0, 1), status.stderr)
+            self.assertEqual(status.stderr, "")
+            states = [line.split()[1] for line in status.stdout.splitlines()]
+            if all(state.startswith("Z") for state in states):
+                break
+            self.assertLess(time.monotonic(), deadline, status.stdout)
+            time.sleep(.01)
 
 
 class SupportedSampleTests(unittest.TestCase):
