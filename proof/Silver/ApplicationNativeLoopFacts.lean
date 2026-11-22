@@ -65,4 +65,29 @@ theorem forValues_fold {resultType : Ty}
       rw [forValues, equation, ih]
       rfl
 
+/-- A loop updating one parser frame preserves its metadata and any unrelated
+local values. An index-insensitive continuation observes exactly the frame fold;
+the native range-loop exit supplies such a continuation by restoring the index. -/
+theorem forValues_state_fold {resultType : Ty}
+    (body : Locals → (Locals → resultType.meaning) → resultType.meaning)
+    (step : PackageBindings.Metadata → Nat → Compose.ParserState → Compose.ParserState)
+    (name key infoName : String)
+    (equation : ∀ locals next, body locals next = next
+      (locals.set .state key (step (locals .metadata infoName) (locals .number name) (locals .state key))))
+    (values : List Nat) (locals : Locals) (next : Locals → resultType.meaning)
+    (stable : ∀ current index, next (current.set .number name index) = next current) :
+    forValues body name values locals next =
+      next (locals.set .state key (values.foldl
+        (fun frame index => step (locals .metadata infoName) index frame) (locals .state key))) := by
+  induction values generalizing locals with
+  | nil => simp only [forValues, List.foldl_nil, Locals.set_unchanged]
+  | cons value rest ih =>
+      rw [forValues, equation, ih]
+      simp only [Locals.set_get_same,
+        Locals.set_get_other_type _ _ _ _ _ _ (by decide : Ty.number ≠ Ty.state),
+        Locals.set_get_other_type _ _ _ _ _ _ (by decide : Ty.state ≠ Ty.metadata),
+        Locals.set_get_other_type _ _ _ _ _ _ (by decide : Ty.number ≠ Ty.metadata),
+        Locals.set_shadow, List.foldl_cons]
+      rw [Locals.set_commute_types _ .number .state name key value _ (by decide), stable]
+
 end Silver.ApplicationNative
