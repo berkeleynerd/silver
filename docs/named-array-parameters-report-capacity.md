@@ -3,10 +3,12 @@
 Feature-local account for [#410](https://github.com/berkeleynerd/silver/issues/410),
 prepared 2026-11-21 from the retained
 [independent native review](reviews/review-named-array-native-20261121.md#producer-and-retained-report-capacity).
-The selected capability remains in development in
-[draft PR #412](https://github.com/berkeleynerd/silver/pull/412). This account
-connects its syntax to the existing producer argument; complete native/Lean/source
-assurance, final regression coverage and independent delivery review remain pending.
+The capability's complete Linux native/Lean/source assurance, final regression
+coverage and internal delivery confirmation are recorded in the
+[delivery account](named-array-parameters.md#delivery-assurance-and-validation).
+[PR #412](https://github.com/berkeleynerd/silver/pull/412) is open for owner review.
+This account connects its syntax to the existing producer argument; the separate
+November 22 external proof follow-up is re-examining that argument.
 
 The [scalar-procedure account](scalar-procedures-report-capacity.md#conservative-retained-storage),
 including formal-dependence advisories and the later named scalar associations,

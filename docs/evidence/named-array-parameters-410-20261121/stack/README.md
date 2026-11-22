@@ -42,3 +42,37 @@ no compiler or proof rule changed. Both runs are retained here.
 Selected reviewer: GPT-6 Astra, Max. Runtime settings were not independently
 exposed. The lead retained the reviewer-authored scratch records without
 reclassifying them as runner output. Complete feature assurance remains pending.
+
+## External review and callable coverage — 2026-11-22
+
+The preceding November 21 observations are historical; complete feature assurance
+subsequently passed as recorded in the [delivery account](../../../named-array-parameters.md#delivery-assurance-and-validation).
+The [external Claude review](../../../reviews/review-pr412-claude-20261122.md)
+found that the Main-only controls missed deeper callable entry frames (C412-M1).
+Its admission-only measurements used the delivered x86_64 binary, with stack
+bisection at 64 KiB resolution:
+
+| Callable shape | Levels | Measured source bytes | Minimum accepted stack |
+| --- | ---: | ---: | ---: |
+| Function counted nest | 141 | 4,096 | 13,436 KiB |
+| Procedure counted nest | 141 | 4,096 | 13,564 KiB |
+| Function formal-array `X'Range` nest | 126 | 4,075 | 12,349 KiB |
+
+[Original reviewer observations](external-review-20261122/results-stack.txt),
+fixtures and [their identities](external-review-20261122/inputs.json) are retained
+without reclassifying them as managed-run output. The function/procedure fixtures
+also pass at 16 MiB and reject their 4,097-byte siblings normally. The baseline
+comparison in the original observations is indicative only: its build provenance
+was not established. These current measurements are x86_64 only; the earlier
+ARM64 evidence describes the November 15 source, before named-array metadata.
+
+The regression now covers all six families. Each uses a source padded to exactly
+4,096 bytes and a 4,097-byte rejection sibling. On Linux it explicitly sets the
+soft stack limit to 16 MiB, checks that the hard limit permits it, and restores
+the original setting afterward. The callable fixtures intentionally leave their
+declarations unused: the recognizer parses their bodies and the full native route
+audits their declared reports, while execution runs only the empty Main body.
+Managed run `20261122T104947-be031f0bee17` passed all six full routes and rejection
+siblings in 41.652 test seconds, with six workers on CPUs 2–7 while the external
+review reserved CPUs 0–1. The [review-response packet](../review-response/README.md)
+retains the fresh result separately from the original three-family run.

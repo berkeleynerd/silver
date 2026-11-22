@@ -1,0 +1,24 @@
+{
+  "started_at": "2026-11-22T10:55:24.915006+00:00",
+  "pid": 215432,
+  "command": [
+    "python3",
+    "scripts/dev.py",
+    "test",
+    "--task",
+    "pr412-timeout-repair-maximal-route",
+    "--jobs",
+    "6",
+    "--resource-reason",
+    "host's eight-CPU allocation",
+    "--",
+    "-p",
+    "test_samples.py",
+    "-k",
+    "test_maximum_dynamic_expression"
+  ],
+  "cwd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-parameters-410",
+  "stack_bytes": 16777216,
+  "test_samples_sha256": "df8939c8470e50730597866e9c0d2364a37e644495a3f5e09531a3c60f6d7e56",
+  "reason": "C412-I6 changed the maximal-expression launcher; fresh affected full route after reviewed timeout cleanup."
+}

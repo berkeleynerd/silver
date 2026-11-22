@@ -1,0 +1,33 @@
+{
+  "review_target": "5a4b0ad8ac05ed431d2f0c8baee2c2cc75686267",
+  "producer": "Original Claude Fable5.2/max reviewer; copied without re-execution",
+  "binary_sha256": "7493908501d3a51169be75791589476eeb54473edd61a9696420d9edc842bf9b",
+  "files": {
+    "results-stack.txt": {
+      "sha256": "fbc30b7bffd9fa0db762dd79ab4c8b062464910b0f54d4f6a1fa92d8a537b6a3",
+      "bytes": 1833,
+      "reviewer_source": "scratch/probe/results-stack.txt"
+    },
+    "st_fn_counted_max_4096.adb": {
+      "sha256": "a92ba2700e5db57fa6d89de30d9d943d61cec77c540cd400fb42c0a1e252e5fb",
+      "bytes": 4096,
+      "reviewer_source": "scratch/probe/src/st_fn_counted_max_4096.adb",
+      "retained_file": "st_fn_counted_max_4096.adb.gz",
+      "retained_sha256": "7c409462e02aff6ea5374378e94349df0774e05ced19b5f791325ff670fac836"
+    },
+    "st_proc_counted_max_4096.adb": {
+      "sha256": "14a442c60bc5f463dc054c6426ac1b2b00a31ac21b078547d94a4ae4687b284b",
+      "bytes": 4096,
+      "reviewer_source": "scratch/probe/src/st_proc_counted_max_4096.adb",
+      "retained_file": "st_proc_counted_max_4096.adb.gz",
+      "retained_sha256": "dd411db0993062343a881648532cfa84381360d689588ffcaf7379878c1bb617"
+    },
+    "st_fn_range_max.adb": {
+      "sha256": "50575ac988b7c04ac19ec6781396b7c8a0100f51e5ab965160a3fae051b8628f",
+      "bytes": 4075,
+      "reviewer_source": "scratch/probe/src/st_fn_range_max.adb",
+      "retained_file": "st_fn_range_max.adb.gz",
+      "retained_sha256": "98d99708df94b7f0d28c2914bb4478f13c23f34371c4f8fc73283b04eafebd10"
+    }
+  }
+}

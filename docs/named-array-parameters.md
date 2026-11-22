@@ -695,3 +695,21 @@ fields retained their values and statuses. Issues #410/#413/#414/#415 remain
 open/In review for the eventual authorized merge. The reviewed delivery and
 confirmation are published in ready PR #412. Worca stays stopped,
 PR #385 held and no successor capability is selected.
+
+## External review response — 2026-11-22
+
+The [original Claude review](reviews/review-pr412-claude-20261122.md) found no
+blocker, one medium stack-coverage gap, three record findings and six info items.
+The owner authorized the [response](reviews/review-pr412-claude-response-20261122.md)
+and a focused proof follow-up on the same production/proof source. The response
+retains all dispositions, proof-review limits and independent input applicability.
+
+| Round | Selected settings | Result and remaining work |
+| --- | --- | --- |
+| First external pass, 01:09–01:59 UTC | Claude Fable 5.2 / Max; runtime model observed, server effort unexposed | 200 admission probes and evidence reconciliation; sampled proof review. The preserved report's approximate end time is qualified by launch/exit metadata. |
+| Stack and timeout response, November 22 | Implementation GPT-6.1 Sol Extra High; independent repair review GPT-6 Astra Extra High; lead runtime settings not exposed | Six source-limit full routes passed in 41.652 s. Independent review caught Why3's separate solver groups; revised session cleanup passed both synthetic controls before the expensive maximal-expression rerun, now running. |
+| Focused proof pass, 10:46 UTC onward | Claude Fable 5.2 / Max; monitor GPT-6.1 Sol High | Full-domain frames/calls, native preconditions and imports, safety/discharge chain and report capacity. Running read-only on `5a4b0ad8ac`, two CPUs, with explicit coverage reporting required. |
+
+No production or proof bytes change in these test/manifest/record repairs. The
+complete native/Lean checkpoints remain subject to exact input comparison, and
+affected tests require fresh passes. No merge or successor feature is authorized.

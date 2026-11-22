@@ -1,5 +1,24 @@
 # Session memory
 
+## 2026-11-22 — External PR #412 review response and focused proof follow-up
+
+The owner agreed to the proposed response to the first Claude review and
+instructed **“Agree. Please kick that off in the background while we address the
+current issues.”** This authorizes the focused Claude Fable 5.2 / Max proof pass
+and the existing PR's callable stack-test, timeout-cleanup, manifest and record
+repairs. The [response record](reviews/review-pr412-claude-response-20261122.md)
+tracks every finding, validation and the separate proof-review coverage.
+
+The follow-up reviews fixed source `5a4b0ad8ac` through full-domain array/frame/call
+arguments, native preconditions and imported meanings, the safety and automatic
+discharge chain, and feature-local report capacity. Test/record repairs proceed
+alongside it under the host's shared eight-CPU ceiling. Preserve completed native
+and Lean evidence when its actual inputs remain unchanged. No merge, successor
+feature, Worca action or production worker-policy redesign is authorized. The
+conservative all-host CPU ceiling and serial application execution remain for
+this response; allocation-aware application workers remain a separate follow-up.
+Unrelated root edits and caches are preserved. CLI memory was not updated.
+
 ## 2026-11-22 — Named constrained Integer-array PR ready for owner review
 
 The lead accepted and published the local closeout `959fe0742a` and

@@ -328,11 +328,14 @@ python3 scripts/dev.py test
 python3 scripts/check_lean.py
 ```
 
-For the current Linux compiler (x86_64 and ARM64), set the invoking shell's stack to
+For Linux validation (x86_64 and ARM64), set the invoking shell's stack to
 16 MiB (`ulimit -S -s 16384`, where permitted) before native regression/compiler
 checks. The [setup guidance](README.md#set-up-verify-and-build) links the exact
-boundary measurements; this environment setting is not a universal stack bound
-or a change to source membership. Capture the actual limit with run evidence.
+boundary measurements. ARM64 evidence is from the November 15 build; named-array
+metadata and callable-body observations are x86_64 only. This environment setting
+is not a universal stack bound or a change to source membership. Capture the
+actual limit with run evidence; the named-array source-limit test sets and restores
+the Linux limit itself.
 
 The regression and sample-test requirement may be satisfied by a completed
 full-suite run plus successful repair reruns when a recorded independent review

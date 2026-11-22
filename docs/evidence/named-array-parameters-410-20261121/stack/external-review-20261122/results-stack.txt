@@ -1,0 +1,20 @@
+Admission-only stack measurements (silver check; RLIMIT_STACK bisection, 64 KiB resolution)
+Binary under review: tmp/named-array-parameters-410/.silver/linux-x86_64/compiler/bin/silver  sha256 7493908501d3a51169be75791589476eeb54473edd61a9696420d9edc842bf9b
+Baseline (indicative, provenance not established): .silver/linux-x86_64/compiler/bin/silver  sha256 b27ae765f286949d3814810d25d9fe6a2dcbbdd058830ea628064207df67ffe7
+
+shape (4,096-byte or maximal source)                     levels  target min KiB   baseline min KiB
+retained stack/old_counted.adb (Main counted + write)       142      10,237            -
+retained stack/old_foreach.adb (Main for-of)                159      11,261            -
+retained stack/named_range.adb (Main A'Range)               128       9,213            -
+reviewer Main counted nest                                  143      10,301          6,526
+reviewer Main for-of nest                                   159      11,261          7,102
+reviewer function-body counted nest (st_fn_counted_max)     141      13,436          8,701
+reviewer procedure-body counted nest (st_proc_counted_max)  141      13,564          8,765
+reviewer function-body X'Range nest (st_fn_range_max)       126      12,349            -
+padded 4,096-byte callable fixtures: STORAGE_ERROR (exit 1) at 8 MiB and 12 MiB; accepted at 14 MiB and 16 MiB; 4,097-byte siblings rejected (exit 2).
+
+per-level increments: loop nest ~65.6 KiB/level (target), ~40 KiB/level (baseline, from 60- vs 141-level function nests);
+parenthesised condition ~2.08 KiB/level independent of scalar count; parenthesised expression ~1 KiB/level;
+depth-1 baselines: Main 1,343 KiB; scalar declarations 3,519 KiB; array declaration 4,286 KiB; function 4,734 KiB; procedure 5,310 KiB.
+
+capacity-endpoint sources (b7_*): see stack9.py output in report notes

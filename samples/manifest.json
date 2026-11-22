@@ -3055,7 +3055,6 @@
         "named_integer_array_type",
         "integer_array_object",
         "integer_array_read",
-        "integer_array_bound_query",
         "integer_expression",
         "named_integer_variable",
         "integer_assignment",
