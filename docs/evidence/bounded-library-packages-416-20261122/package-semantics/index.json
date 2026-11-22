@@ -1,7 +1,7 @@
 {
   "host": "linux-x86_64",
   "date": "2026-11-22",
-  "scope": "focused package semantic safety; not complete native, source correspondence or capability assurance",
+  "scope": "focused package and complete Main semantic safety; not complete native, source correspondence or capability assurance",
   "selected_agent_settings": "Astra Max per task briefing; live model and effort telemetry unavailable",
   "runs": [
     {
@@ -73,6 +73,48 @@
       "events_sha256": "2b26f70cc2b33f279831542f678ac117a432b9c219cef656ae61a01549bf1125",
       "inputs_digest_sha256": "ac0ed41b4bc534ad31e2330c177a19fef235f9df082e213670c2b42d47bf80fd",
       "elapsed_seconds": 17.537
+    },
+    {
+      "phase": "main-interfaces",
+      "implementation_commit": "1b43c58ddc",
+      "run_id": "20261122T162703-290ff4a396d1",
+      "targets": [
+        "Silver.ApplicationInterfaces"
+      ],
+      "declarations": 23634,
+      "evidence_sha256": "fe5fdb4ad42c07dee4aec19f92628e275fd9eb2918312663a58d1857fda99329",
+      "log_sha256": "6ae0a282dd9c5254126b40e736811b89e23279552448205413d92d886604d133",
+      "events_sha256": "94453c3e713b0aef44c5451f24d63813602406bdfb148fef43aa744d4dadd3ee",
+      "inputs_digest_sha256": "1e4de264244b8639b0ee2977d9063ce1f61901ff0c45bcd543788722d24f7467",
+      "elapsed_seconds": 17.85
+    },
+    {
+      "phase": "main-iteration",
+      "implementation_commit": "c70aa9ac34",
+      "run_id": "20261122T163251-ce4daca903ba",
+      "targets": [
+        "Silver.ApplicationIterationSafety"
+      ],
+      "declarations": 23796,
+      "evidence_sha256": "9bb4a784196208c0df4d64bca4b03fc405faac9b3e0c29097ad69e3ecf283362",
+      "log_sha256": "39950e1376e5678815c192ad0231ddc4f2aef1ff6cf12454e3de99cd982e573f",
+      "events_sha256": "bb7853b53ca2dbb29013a937fe05a7a1221b09815dbb8b617e23aba9315f0fd0",
+      "inputs_digest_sha256": "fcd5294113d2ed928215914c17892e2cb882f65dfd8ca30382392b1505286594",
+      "elapsed_seconds": 20.561
+    },
+    {
+      "phase": "main-assurance",
+      "implementation_commit": "b7a8dc66c8",
+      "run_id": "20261122T163552-8721ebca3536",
+      "targets": [
+        "Silver.ApplicationAssurance"
+      ],
+      "declarations": 23824,
+      "evidence_sha256": "f34692c8129dc10461d95fa6c92aeffc5f630bc8b9ff8aaeca9c9a442cefcd55",
+      "log_sha256": "4df8b97a4afa039b9699ba62f99375e47124490721c3e8cd2fec8dcf78329c29",
+      "events_sha256": "90d93ac8c8ba01bf0530f5353fb25e5a9f83b90a7c9858109cdf3e91ae647db3",
+      "inputs_digest_sha256": "c5ed61160cd61b601b581d968e30cca4f4aeb4f6d7fba521a244598246ae9dd8",
+      "elapsed_seconds": 21.728
     }
   ]
 }
