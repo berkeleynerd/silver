@@ -1,0 +1,43 @@
+=========================
+Summary of SPARK analysis
+=========================
+
+---------------------------------------------------------------------------------------------
+SPARK Analysis results        Total       Flow                 Provers   Justified   Unproved
+---------------------------------------------------------------------------------------------
+Data Dependencies                 .          .                       .           .          .
+Flow Dependencies                 .          .                       .           .          .
+Initialization                    .          .                       .           .          .
+Non-Aliasing                      .          .                       .           .          .
+Run-time Checks                   4          .    4 (CVC5 20%, Z3 80%)           .          .
+Assertions                        .          .                       .           .          .
+Functional Contracts              .          .                       .           .          .
+LSP Verification                  .          .                       .           .          .
+Termination                       1          1                       .           .          .
+Concurrency                       1          .                       .           .          1
+---------------------------------------------------------------------------------------------
+Total                             6    1 (17%)                 4 (67%)           .    1 (17%)
+
+
+max steps used for successful proof: 1
+
+============================
+Most difficult proved checks
+============================
+
+No check found with max time greater than 1 second
+
+========================
+Detailed analysis report
+========================
+
+Analyzed 2 units
+in unit bounded_probe, 6 subprograms and packages out of 6 analyzed
+  Bounded_Probe at bounded_probe.ads:2 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (0 checks)
+  Bounded_Probe.Counter at bounded_probe.ads:3 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (0 checks)
+  Bounded_Probe.Counter.Await_Release at bounded_probe.ads:5 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (1 checks)
+  Bounded_Probe.Counter.Read at bounded_probe.ads:6 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (0 checks)
+  Bounded_Probe.Counter.Release at bounded_probe.ads:4 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (0 checks)
+  Bounded_Probe.Worker at bounded_probe.ads:12 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (2 checks)
+in unit main, 1 subprograms and packages out of 1 analyzed
+  Main at main.adb:3 flow analyzed (0 errors, 1 checks, 0 warnings and 0 pragma Assume statements) and proved (1 checks)

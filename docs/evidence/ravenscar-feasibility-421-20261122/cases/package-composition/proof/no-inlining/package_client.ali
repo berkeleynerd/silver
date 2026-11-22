@@ -1,0 +1,81 @@
+V "GNAT Lib v16"
+A -x
+A ada
+A -gnatA
+A -gnat2022
+A -gnata
+A -gnato
+A -g
+A -g
+A -gnatc
+A -gnatis
+P DB LC TF GP ES
+
+RN
+RR SIMPLE_BARRIERS
+RR NO_ABORT_STATEMENTS
+RR NO_ASYNCHRONOUS_CONTROL
+RR NO_CALENDAR
+RR NO_DYNAMIC_ATTACHMENT
+RR NO_DYNAMIC_CPU_ASSIGNMENT
+RR NO_DYNAMIC_PRIORITIES
+RR NO_ENTRY_QUEUE
+RR NO_IMPLICIT_HEAP_ALLOCATIONS
+RR NO_LOCAL_TIMING_EVENTS
+RR NO_LOCAL_PROTECTED_OBJECTS
+RR NO_PROTECTED_TYPE_ALLOCATORS
+RR NO_RELATIVE_DELAY
+RR NO_REQUEUE_STATEMENTS
+RR NO_SELECT_STATEMENTS
+RR NO_SPECIFIC_TERMINATION_HANDLERS
+RR NO_TASK_ALLOCATORS
+RR NO_TASK_ATTRIBUTES_PACKAGE
+RR NO_TASK_HIERARCHY
+RR NO_TASK_TERMINATION
+RR NO_TERMINATE_ALTERNATIVES
+RV NO_IMPLEMENTATION_PRAGMAS
+RV NO_ELABORATION_CODE
+RR MAX_PROTECTED_ENTRIES=1
+RR MAX_SELECT_ALTERNATIVES=0
+RR MAX_TASK_ENTRIES=0
+RR MAX_ASYNCHRONOUS_SELECT_NESTING=0
+
+U package_client%b	package_client.adb	2775599a OO PK
+W hidden_state%s	hidden_state.adb	hidden_state.ali
+
+U package_client%s	package_client.ads	0247ad7d OO PK
+
+D hidden_state.ads	20261122124200 eaa0b059 hidden_state%s
+D package_client.ads	20261122124200 0247ad7d package_client%s
+D package_client.adb	20261122124200 cf9244be package_client%b
+D system.ads		20260430083320 e2b7c99d system%s
+D /home/canto/src/github.com/berkeleynerd/silver/tmp/ravenscar-feasibility-421/package-composition/ravenscar.adc  20261122124200 00000000
+G a Z
+X 1 hidden_state.ads
+2K9*Hidden_State 6e17 3|2w6 6r10 7r10 9r10 15r14
+3U14*Reset 3|9s23
+4U14*Increment 3|7s23
+5V13*Read{integer} 3|6s23 15s27
+X 2 package_client.ads
+2K9*Package_Client 5l5 5e19 3|3b14 17l5 17t19
+3U14*Step 3|4b14 11l8 11t12
+4V13*Read{integer} 3|13b13 16l8 16t12
+
+QQ SPARKVERSION FSF 16.1.0
+GG EK_DIRECT_CALLS package_client__step 3 hidden_state__reset hidden_state__increment hidden_state__read
+GG EK_PROOF_DEPENDENCIES package_client__step 0
+GG EK_GLOBALS package_client__step local FALSE E_PROCEDURE FALSE ORIGIN_FLOW 1 package_client proper_proof_in 0 proper_input 0 proper_output 0 refined_proof_in 0 refined_input 0 refined_output 0 calls_proof 0 calls 0 calls_conditional 3 hidden_state__reset hidden_state__increment hidden_state__read FALSE FALSE FALSE FALSE TRUE FALSE ENTRY_CALLS 0 SUSPENDS_ON 0 UNSYNCH_ACCESSES 0
+GG EK_DIRECT_CALLS package_client__read 1 hidden_state__read
+GG EK_PROOF_DEPENDENCIES package_client__read 0
+GG EK_GLOBALS package_client__read local FALSE E_FUNCTION FALSE ORIGIN_FLOW 1 package_client proper_proof_in 0 proper_input 0 proper_output 0 refined_proof_in 0 refined_input 0 refined_output 0 calls_proof 0 calls 0 calls_conditional 1 hidden_state__read TRUE FALSE FALSE FALSE TRUE FALSE ENTRY_CALLS 0 SUSPENDS_ON 0 UNSYNCH_ACCESSES 0
+GG EK_DIRECT_CALLS package_client 0
+GG EK_PROOF_DEPENDENCIES package_client 0
+GG EK_GLOBALS package_client local FALSE E_PACKAGE TRUE ORIGIN_FLOW 0 proper_proof_in 0 proper_input 0 proper_output 0 refined_proof_in 0 refined_input 0 refined_output 0 initializes 0 refined_initializes 0 calls_proof 0 calls 0 calls_conditional 0 local_packages 0 local_var 0 TRUE FALSE FALSE FALSE FALSE FALSE ENTRY_CALLS 0 SUSPENDS_ON 0 UNSYNCH_ACCESSES 0
+GG EK_FLOW_SCOPE package_client TRUE FALSE FALSE FALSE FALSE __standard
+GG EK_FLOW_SCOPE package_client__step FALSE FALSE FALSE FALSE TRUE package_client VISIBLE_PART
+GG EK_FLOW_SCOPE package_client__read FALSE FALSE FALSE FALSE TRUE package_client VISIBLE_PART
+GG EK_FLOW_SCOPE hidden_state TRUE FALSE FALSE FALSE FALSE __standard
+GG EK_FLOW_SCOPE hidden_state__reset FALSE FALSE FALSE FALSE TRUE hidden_state VISIBLE_PART
+GG EK_FLOW_SCOPE hidden_state__increment FALSE FALSE FALSE FALSE TRUE hidden_state VISIBLE_PART
+GG EK_FLOW_SCOPE hidden_state__read FALSE FALSE FALSE FALSE TRUE hidden_state VISIBLE_PART
+GG EK_END_MARKER

@@ -1,0 +1,85 @@
+V "GNAT Lib v16"
+M P W=b
+A -x
+A ada
+A -gnatA
+A -gnat2022
+A -gnata
+A -gnato
+A -g
+A -g
+A -gnatc
+A -gnatis
+P DB LC TF GP ES
+
+RN
+RR SIMPLE_BARRIERS
+RR NO_ABORT_STATEMENTS
+RR NO_ASYNCHRONOUS_CONTROL
+RR NO_CALENDAR
+RR NO_DYNAMIC_ATTACHMENT
+RR NO_DYNAMIC_CPU_ASSIGNMENT
+RR NO_DYNAMIC_PRIORITIES
+RR NO_ENTRY_QUEUE
+RR NO_IMPLICIT_HEAP_ALLOCATIONS
+RR NO_LOCAL_TIMING_EVENTS
+RR NO_LOCAL_PROTECTED_OBJECTS
+RR NO_PROTECTED_TYPE_ALLOCATORS
+RR NO_RELATIVE_DELAY
+RR NO_REQUEUE_STATEMENTS
+RR NO_SELECT_STATEMENTS
+RR NO_SPECIFIC_TERMINATION_HANDLERS
+RR NO_TASK_ALLOCATORS
+RR NO_TASK_ATTRIBUTES_PACKAGE
+RR NO_TASK_HIERARCHY
+RR NO_TASK_TERMINATION
+RR NO_TERMINATE_ALTERNATIVES
+RV NO_IMPLEMENTATION_PRAGMAS
+RV NO_ELABORATION_CODE
+RR MAX_PROTECTED_ENTRIES=1
+RR MAX_SELECT_ALTERNATIVES=0
+RR MAX_TASK_ENTRIES=0
+RR MAX_ASYNCHRONOUS_SELECT_NESTING=0
+R ada.execution_time.group_budgets
+R ada.execution_time.timers
+R system.multiprocessors.dispatching_domains
+R ada.synchronous_barriers
+
+U main%b		main.adb		9b9db10b OO SU
+W hidden_state%s	hidden_state.adb	hidden_state.ali
+Z system%s		system.ads		system.ali
+W visible_state%s	visible_state.adb	visible_state.ali
+
+D hidden_state.ads	20261122123740 f9f76b1d hidden_state%s
+D main.adb		20261122123740 9ae5c99d main%b
+D system.ads		20260430083320 e2b7c99d system%s
+D visible_state.ads	20261122123740 f88f138b visible_state%s
+D /home/canto/src/github.com/berkeleynerd/silver/tmp/ravenscar-feasibility-421/package-state/ravenscar.adc  20261122123740 00000000
+G a Z
+X 1 hidden_state.ads
+2K9*Hidden_State 5e17 2|2w6 6r4
+3U14*Increment 2|6s17
+X 2 main.adb
+4U11*Main 4b11 8l5 8t9
+X 4 visible_state.ads
+2K9*Visible_State 2|3w6 7r4 4|6e18
+4U14*Increment 2|7s18
+
+QQ SPARKVERSION FSF 16.1.0
+GG EK_DIRECT_CALLS main 2 hidden_state__increment visible_state__increment
+GG EK_PROOF_DEPENDENCIES main 0
+GG EK_GLOBALS main local FALSE E_PROCEDURE FALSE ORIGIN_FLOW 0 proper_proof_in 0 proper_input 0 proper_output 0 refined_proof_in 0 refined_input 0 refined_output 0 calls_proof 0 calls 2 hidden_state__increment visible_state__increment calls_conditional 0 FALSE FALSE FALSE FALSE TRUE FALSE ENTRY_CALLS 0 SUSPENDS_ON 0 UNSYNCH_ACCESSES 0
+GG EK_FLOW_SCOPE system__Ogt FALSE FALSE FALSE FALSE TRUE system VISIBLE_PART
+GG EK_FLOW_SCOPE system__Oge FALSE FALSE FALSE FALSE TRUE system VISIBLE_PART
+GG EK_FLOW_SCOPE visible_state TRUE FALSE FALSE FALSE FALSE __standard
+GG EK_FLOW_SCOPE main FALSE FALSE FALSE FALSE FALSE __standard
+GG EK_FLOW_SCOPE system__Oeq FALSE FALSE FALSE FALSE TRUE system VISIBLE_PART
+GG EK_FLOW_SCOPE visible_state__increment FALSE FALSE FALSE FALSE TRUE visible_state VISIBLE_PART
+GG EK_FLOW_SCOPE visible_state__read FALSE FALSE FALSE FALSE TRUE visible_state VISIBLE_PART
+GG EK_FLOW_SCOPE system__Olt FALSE FALSE FALSE FALSE TRUE system VISIBLE_PART
+GG EK_FLOW_SCOPE hidden_state TRUE FALSE FALSE FALSE FALSE __standard
+GG EK_FLOW_SCOPE system TRUE FALSE FALSE FALSE FALSE __standard
+GG EK_FLOW_SCOPE hidden_state__increment FALSE FALSE FALSE FALSE TRUE hidden_state VISIBLE_PART
+GG EK_FLOW_SCOPE system__Ole FALSE FALSE FALSE FALSE TRUE system VISIBLE_PART
+GG EK_FLOW_SCOPE hidden_state__read FALSE FALSE FALSE FALSE TRUE hidden_state VISIBLE_PART
+GG EK_END_MARKER

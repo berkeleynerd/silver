@@ -1,0 +1,491 @@
+{
+  "executable": "/home/canto/src/github.com/berkeleynerd/silver/tmp/ravenscar-feasibility-421/entry/out/bin/native/main",
+  "seconds_requested": 1.0,
+  "observer_affinity": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "application_affinity_requested": [
+    0
+  ],
+  "stack_limit_bytes": [
+    16777216,
+    -1
+  ],
+  "observation_kind": "finite external observation of persistent task; never normal completion",
+  "samples": [
+    {
+      "elapsed_seconds": 0.05159945099876495,
+      "threads": [
+        {
+          "tid": 227783,
+          "stat": "227783 (main) S 227781 227783 227783 0 -1 4194304 213 0 0 0 0 0 0 0 20 0 2 0 6470774 5091328 468 18446744073709551615 94610574794752 94610575062400 140725406053632 0 0 0 0 0 1256 1 0 0 17 0 0 0 0 0 0 94610575068312 94610575081612 94610575147008 140725406057937 140725406058040 140725406058040 140725406064529 0\n",
+          "wchan": "__futex_wait",
+          "affinity": [
+            0
+          ],
+          "status": "Name:\tmain\nUmask:\t0022\nState:\tS (sleeping)\nTgid:\t227783\nNgid:\t0\nPid:\t227783\nPPid:\t227781\nTracerPid:\t0\nUid:\t1000\t1000\t1000\t1000\nGid:\t1000\t1000\t1000\t1000\nFDSize:\t64\nGroups:\t27 999 1000 \nNStgid:\t227783\nNSpid:\t227783\nNSpgid:\t227783\nNSsid:\t227783\nKthread:\t0\nVmPeak:\t    4972 kB\nVmSize:\t    4972 kB\nVmLck:\t       0 kB\nVmPin:\t       0 kB\nVmHWM:\t    1892 kB\nVmRSS:\t    1892 kB\nRssAnon:\t     148 kB\nRssFile:\t    1744 kB\nRssShmem:\t       0 kB\nVmData:\t    2376 kB\nVmStk:\t     136 kB\nVmExe:\t     264 kB\nVmLib:\t    1588 kB\nVmPTE:\t      40 kB\nVmSwap:\t       0 kB\nHugetlbPages:\t       0 kB\nCoreDumping:\t0\nTHP_enabled:\t0\nuntag_mask:\t0xffffffffffffffff\nThreads:\t2\nSigQ:\t0/257534\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000000\nSigBlk:\t0000000000000000\nSigIgn:\t0000000000000000\nSigCgt:\t00000001000004e8\nCapInh:\t0000000000000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t000001ffffffffff\nCapAmb:\t0000000000000000\nNoNewPrivs:\t0\nSeccomp:\t0\nSeccomp_filters:\t0\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\t01\nCpus_allowed_list:\t0\nMems_allowed:\t00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t2\nnonvoluntary_ctxt_switches:\t4\n"
+        },
+        {
+          "tid": 227784,
+          "stat": "227784 (main) S 227781 227783 227783 0 -1 4194368 3 0 0 0 0 0 0 0 20 0 2 0 6470774 5091328 468 18446744073709551615 94610574794752 94610575062400 140725406053632 0 0 0 0 0 1256 1 0 0 -1 0 0 0 0 0 0 94610575068312 94610575081612 94610575147008 140725406057937 140725406058040 140725406058040 140725406064529 0\n",
+          "wchan": "__futex_wait",
+          "affinity": [
+            0
+          ],
+          "status": "Name:\tmain\nUmask:\t0022\nState:\tS (sleeping)\nTgid:\t227783\nNgid:\t0\nPid:\t227784\nPPid:\t227781\nTracerPid:\t0\nUid:\t1000\t1000\t1000\t1000\nGid:\t1000\t1000\t1000\t1000\nFDSize:\t64\nGroups:\t27 999 1000 \nNStgid:\t227783\nNSpid:\t227784\nNSpgid:\t227783\nNSsid:\t227783\nKthread:\t0\nVmPeak:\t    4972 kB\nVmSize:\t    4972 kB\nVmLck:\t       0 kB\nVmPin:\t       0 kB\nVmHWM:\t    1892 kB\nVmRSS:\t    1892 kB\nRssAnon:\t     148 kB\nRssFile:\t    1744 kB\nRssShmem:\t       0 kB\nVmData:\t    2376 kB\nVmStk:\t     136 kB\nVmExe:\t     264 kB\nVmLib:\t    1588 kB\nVmPTE:\t      40 kB\nVmSwap:\t       0 kB\nHugetlbPages:\t       0 kB\nCoreDumping:\t0\nTHP_enabled:\t0\nuntag_mask:\t0xffffffffffffffff\nThreads:\t2\nSigQ:\t0/257534\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000000\nSigBlk:\t0000000000000000\nSigIgn:\t0000000000000000\nSigCgt:\t00000001000004e8\nCapInh:\t0000000000000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t000001ffffffffff\nCapAmb:\t0000000000000000\nNoNewPrivs:\t0\nSeccomp:\t0\nSeccomp_filters:\t0\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\t01\nCpus_allowed_list:\t0\nMems_allowed:\t00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t3\nnonvoluntary_ctxt_switches:\t0\n"
+        }
+      ]
+    },
+    {
+      "elapsed_seconds": 0.10224228400329594,
+      "threads": [
+        {
+          "tid": 227783,
+          "stat": "227783 (main) S 227781 227783 227783 0 -1 4194304 213 0 0 0 0 0 0 0 20 0 2 0 6470774 5091328 468 18446744073709551615 94610574794752 94610575062400 140725406053632 0 0 0 0 0 1256 1 0 0 17 0 0 0 0 0 0 94610575068312 94610575081612 94610575147008 140725406057937 140725406058040 140725406058040 140725406064529 0\n",
+          "wchan": "__futex_wait",
+          "affinity": [
+            0
+          ],
+          "status": "Name:\tmain\nUmask:\t0022\nState:\tS (sleeping)\nTgid:\t227783\nNgid:\t0\nPid:\t227783\nPPid:\t227781\nTracerPid:\t0\nUid:\t1000\t1000\t1000\t1000\nGid:\t1000\t1000\t1000\t1000\nFDSize:\t64\nGroups:\t27 999 1000 \nNStgid:\t227783\nNSpid:\t227783\nNSpgid:\t227783\nNSsid:\t227783\nKthread:\t0\nVmPeak:\t    4972 kB\nVmSize:\t    4972 kB\nVmLck:\t       0 kB\nVmPin:\t       0 kB\nVmHWM:\t    1892 kB\nVmRSS:\t    1892 kB\nRssAnon:\t     148 kB\nRssFile:\t    1744 kB\nRssShmem:\t       0 kB\nVmData:\t    2376 kB\nVmStk:\t     136 kB\nVmExe:\t     264 kB\nVmLib:\t    1588 kB\nVmPTE:\t      40 kB\nVmSwap:\t       0 kB\nHugetlbPages:\t       0 kB\nCoreDumping:\t0\nTHP_enabled:\t0\nuntag_mask:\t0xffffffffffffffff\nThreads:\t2\nSigQ:\t0/257534\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000000\nSigBlk:\t0000000000000000\nSigIgn:\t0000000000000000\nSigCgt:\t00000001000004e8\nCapInh:\t0000000000000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t000001ffffffffff\nCapAmb:\t0000000000000000\nNoNewPrivs:\t0\nSeccomp:\t0\nSeccomp_filters:\t0\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\t01\nCpus_allowed_list:\t0\nMems_allowed:\t00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t2\nnonvoluntary_ctxt_switches:\t4\n"
+        },
+        {
+          "tid": 227784,
+          "stat": "227784 (main) S 227781 227783 227783 0 -1 4194368 3 0 0 0 0 0 0 0 20 0 2 0 6470774 5091328 468 18446744073709551615 94610574794752 94610575062400 140725406053632 0 0 0 0 0 1256 1 0 0 -1 0 0 0 0 0 0 94610575068312 94610575081612 94610575147008 140725406057937 140725406058040 140725406058040 140725406064529 0\n",
+          "wchan": "__futex_wait",
+          "affinity": [
+            0
+          ],
+          "status": "Name:\tmain\nUmask:\t0022\nState:\tS (sleeping)\nTgid:\t227783\nNgid:\t0\nPid:\t227784\nPPid:\t227781\nTracerPid:\t0\nUid:\t1000\t1000\t1000\t1000\nGid:\t1000\t1000\t1000\t1000\nFDSize:\t64\nGroups:\t27 999 1000 \nNStgid:\t227783\nNSpid:\t227784\nNSpgid:\t227783\nNSsid:\t227783\nKthread:\t0\nVmPeak:\t    4972 kB\nVmSize:\t    4972 kB\nVmLck:\t       0 kB\nVmPin:\t       0 kB\nVmHWM:\t    1892 kB\nVmRSS:\t    1892 kB\nRssAnon:\t     148 kB\nRssFile:\t    1744 kB\nRssShmem:\t       0 kB\nVmData:\t    2376 kB\nVmStk:\t     136 kB\nVmExe:\t     264 kB\nVmLib:\t    1588 kB\nVmPTE:\t      40 kB\nVmSwap:\t       0 kB\nHugetlbPages:\t       0 kB\nCoreDumping:\t0\nTHP_enabled:\t0\nuntag_mask:\t0xffffffffffffffff\nThreads:\t2\nSigQ:\t0/257534\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000000\nSigBlk:\t0000000000000000\nSigIgn:\t0000000000000000\nSigCgt:\t00000001000004e8\nCapInh:\t0000000000000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t000001ffffffffff\nCapAmb:\t0000000000000000\nNoNewPrivs:\t0\nSeccomp:\t0\nSeccomp_filters:\t0\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\t01\nCpus_allowed_list:\t0\nMems_allowed:\t00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t3\nnonvoluntary_ctxt_switches:\t0\n"
+        }
+      ]
+    },
+    {
+      "elapsed_seconds": 0.15268051299790386,
+      "threads": [
+        {
+          "tid": 227783,
+          "stat": "227783 (main) S 227781 227783 227783 0 -1 4194304 213 0 0 0 0 0 0 0 20 0 2 0 6470774 5091328 468 18446744073709551615 94610574794752 94610575062400 140725406053632 0 0 0 0 0 1256 1 0 0 17 0 0 0 0 0 0 94610575068312 94610575081612 94610575147008 140725406057937 140725406058040 140725406058040 140725406064529 0\n",
+          "wchan": "__futex_wait",
+          "affinity": [
+            0
+          ],
+          "status": "Name:\tmain\nUmask:\t0022\nState:\tS (sleeping)\nTgid:\t227783\nNgid:\t0\nPid:\t227783\nPPid:\t227781\nTracerPid:\t0\nUid:\t1000\t1000\t1000\t1000\nGid:\t1000\t1000\t1000\t1000\nFDSize:\t64\nGroups:\t27 999 1000 \nNStgid:\t227783\nNSpid:\t227783\nNSpgid:\t227783\nNSsid:\t227783\nKthread:\t0\nVmPeak:\t    4972 kB\nVmSize:\t    4972 kB\nVmLck:\t       0 kB\nVmPin:\t       0 kB\nVmHWM:\t    1892 kB\nVmRSS:\t    1892 kB\nRssAnon:\t     148 kB\nRssFile:\t    1744 kB\nRssShmem:\t       0 kB\nVmData:\t    2376 kB\nVmStk:\t     136 kB\nVmExe:\t     264 kB\nVmLib:\t    1588 kB\nVmPTE:\t      40 kB\nVmSwap:\t       0 kB\nHugetlbPages:\t       0 kB\nCoreDumping:\t0\nTHP_enabled:\t0\nuntag_mask:\t0xffffffffffffffff\nThreads:\t2\nSigQ:\t0/257534\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000000\nSigBlk:\t0000000000000000\nSigIgn:\t0000000000000000\nSigCgt:\t00000001000004e8\nCapInh:\t0000000000000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t000001ffffffffff\nCapAmb:\t0000000000000000\nNoNewPrivs:\t0\nSeccomp:\t0\nSeccomp_filters:\t0\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\t01\nCpus_allowed_list:\t0\nMems_allowed:\t00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t2\nnonvoluntary_ctxt_switches:\t4\n"
+        },
+        {
+          "tid": 227784,
+          "stat": "227784 (main) S 227781 227783 227783 0 -1 4194368 3 0 0 0 0 0 0 0 20 0 2 0 6470774 5091328 468 18446744073709551615 94610574794752 94610575062400 140725406053632 0 0 0 0 0 1256 1 0 0 -1 0 0 0 0 0 0 94610575068312 94610575081612 94610575147008 140725406057937 140725406058040 140725406058040 140725406064529 0\n",
+          "wchan": "__futex_wait",
+          "affinity": [
+            0
+          ],
+          "status": "Name:\tmain\nUmask:\t0022\nState:\tS (sleeping)\nTgid:\t227783\nNgid:\t0\nPid:\t227784\nPPid:\t227781\nTracerPid:\t0\nUid:\t1000\t1000\t1000\t1000\nGid:\t1000\t1000\t1000\t1000\nFDSize:\t64\nGroups:\t27 999 1000 \nNStgid:\t227783\nNSpid:\t227784\nNSpgid:\t227783\nNSsid:\t227783\nKthread:\t0\nVmPeak:\t    4972 kB\nVmSize:\t    4972 kB\nVmLck:\t       0 kB\nVmPin:\t       0 kB\nVmHWM:\t    1892 kB\nVmRSS:\t    1892 kB\nRssAnon:\t     148 kB\nRssFile:\t    1744 kB\nRssShmem:\t       0 kB\nVmData:\t    2376 kB\nVmStk:\t     136 kB\nVmExe:\t     264 kB\nVmLib:\t    1588 kB\nVmPTE:\t      40 kB\nVmSwap:\t       0 kB\nHugetlbPages:\t       0 kB\nCoreDumping:\t0\nTHP_enabled:\t0\nuntag_mask:\t0xffffffffffffffff\nThreads:\t2\nSigQ:\t0/257534\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000000\nSigBlk:\t0000000000000000\nSigIgn:\t0000000000000000\nSigCgt:\t00000001000004e8\nCapInh:\t0000000000000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t000001ffffffffff\nCapAmb:\t0000000000000000\nNoNewPrivs:\t0\nSeccomp:\t0\nSeccomp_filters:\t0\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\t01\nCpus_allowed_list:\t0\nMems_allowed:\t00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t3\nnonvoluntary_ctxt_switches:\t0\n"
+        }
+      ]
+    },
+    {
+      "elapsed_seconds": 0.20315374399797292,
+      "threads": [
+        {
+          "tid": 227783,
+          "stat": "227783 (main) S 227781 227783 227783 0 -1 4194304 213 0 0 0 0 0 0 0 20 0 2 0 6470774 5091328 468 18446744073709551615 94610574794752 94610575062400 140725406053632 0 0 0 0 0 1256 1 0 0 17 0 0 0 0 0 0 94610575068312 94610575081612 94610575147008 140725406057937 140725406058040 140725406058040 140725406064529 0\n",
+          "wchan": "__futex_wait",
+          "affinity": [
+            0
+          ],
+          "status": "Name:\tmain\nUmask:\t0022\nState:\tS (sleeping)\nTgid:\t227783\nNgid:\t0\nPid:\t227783\nPPid:\t227781\nTracerPid:\t0\nUid:\t1000\t1000\t1000\t1000\nGid:\t1000\t1000\t1000\t1000\nFDSize:\t64\nGroups:\t27 999 1000 \nNStgid:\t227783\nNSpid:\t227783\nNSpgid:\t227783\nNSsid:\t227783\nKthread:\t0\nVmPeak:\t    4972 kB\nVmSize:\t    4972 kB\nVmLck:\t       0 kB\nVmPin:\t       0 kB\nVmHWM:\t    1892 kB\nVmRSS:\t    1892 kB\nRssAnon:\t     148 kB\nRssFile:\t    1744 kB\nRssShmem:\t       0 kB\nVmData:\t    2376 kB\nVmStk:\t     136 kB\nVmExe:\t     264 kB\nVmLib:\t    1588 kB\nVmPTE:\t      40 kB\nVmSwap:\t       0 kB\nHugetlbPages:\t       0 kB\nCoreDumping:\t0\nTHP_enabled:\t0\nuntag_mask:\t0xffffffffffffffff\nThreads:\t2\nSigQ:\t0/257534\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000000\nSigBlk:\t0000000000000000\nSigIgn:\t0000000000000000\nSigCgt:\t00000001000004e8\nCapInh:\t0000000000000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t000001ffffffffff\nCapAmb:\t0000000000000000\nNoNewPrivs:\t0\nSeccomp:\t0\nSeccomp_filters:\t0\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\t01\nCpus_allowed_list:\t0\nMems_allowed:\t00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t2\nnonvoluntary_ctxt_switches:\t4\n"
+        },
+        {
+          "tid": 227784,
+          "stat": "227784 (main) S 227781 227783 227783 0 -1 4194368 3 0 0 0 0 0 0 0 20 0 2 0 6470774 5091328 468 18446744073709551615 94610574794752 94610575062400 140725406053632 0 0 0 0 0 1256 1 0 0 -1 0 0 0 0 0 0 94610575068312 94610575081612 94610575147008 140725406057937 140725406058040 140725406058040 140725406064529 0\n",
+          "wchan": "__futex_wait",
+          "affinity": [
+            0
+          ],
+          "status": "Name:\tmain\nUmask:\t0022\nState:\tS (sleeping)\nTgid:\t227783\nNgid:\t0\nPid:\t227784\nPPid:\t227781\nTracerPid:\t0\nUid:\t1000\t1000\t1000\t1000\nGid:\t1000\t1000\t1000\t1000\nFDSize:\t64\nGroups:\t27 999 1000 \nNStgid:\t227783\nNSpid:\t227784\nNSpgid:\t227783\nNSsid:\t227783\nKthread:\t0\nVmPeak:\t    4972 kB\nVmSize:\t    4972 kB\nVmLck:\t       0 kB\nVmPin:\t       0 kB\nVmHWM:\t    1892 kB\nVmRSS:\t    1892 kB\nRssAnon:\t     148 kB\nRssFile:\t    1744 kB\nRssShmem:\t       0 kB\nVmData:\t    2376 kB\nVmStk:\t     136 kB\nVmExe:\t     264 kB\nVmLib:\t    1588 kB\nVmPTE:\t      40 kB\nVmSwap:\t       0 kB\nHugetlbPages:\t       0 kB\nCoreDumping:\t0\nTHP_enabled:\t0\nuntag_mask:\t0xffffffffffffffff\nThreads:\t2\nSigQ:\t0/257534\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000000\nSigBlk:\t0000000000000000\nSigIgn:\t0000000000000000\nSigCgt:\t00000001000004e8\nCapInh:\t0000000000000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t000001ffffffffff\nCapAmb:\t0000000000000000\nNoNewPrivs:\t0\nSeccomp:\t0\nSeccomp_filters:\t0\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\t01\nCpus_allowed_list:\t0\nMems_allowed:\t00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t3\nnonvoluntary_ctxt_switches:\t0\n"
+        }
+      ]
+    },
+    {
+      "elapsed_seconds": 0.25375117899966426,
+      "threads": [
+        {
+          "tid": 227783,
+          "stat": "227783 (main) S 227781 227783 227783 0 -1 4194304 213 0 0 0 0 0 0 0 20 0 2 0 6470774 5091328 468 18446744073709551615 94610574794752 94610575062400 140725406053632 0 0 0 0 0 1256 1 0 0 17 0 0 0 0 0 0 94610575068312 94610575081612 94610575147008 140725406057937 140725406058040 140725406058040 140725406064529 0\n",
+          "wchan": "__futex_wait",
+          "affinity": [
+            0
+          ],
+          "status": "Name:\tmain\nUmask:\t0022\nState:\tS (sleeping)\nTgid:\t227783\nNgid:\t0\nPid:\t227783\nPPid:\t227781\nTracerPid:\t0\nUid:\t1000\t1000\t1000\t1000\nGid:\t1000\t1000\t1000\t1000\nFDSize:\t64\nGroups:\t27 999 1000 \nNStgid:\t227783\nNSpid:\t227783\nNSpgid:\t227783\nNSsid:\t227783\nKthread:\t0\nVmPeak:\t    4972 kB\nVmSize:\t    4972 kB\nVmLck:\t       0 kB\nVmPin:\t       0 kB\nVmHWM:\t    1892 kB\nVmRSS:\t    1892 kB\nRssAnon:\t     148 kB\nRssFile:\t    1744 kB\nRssShmem:\t       0 kB\nVmData:\t    2376 kB\nVmStk:\t     136 kB\nVmExe:\t     264 kB\nVmLib:\t    1588 kB\nVmPTE:\t      40 kB\nVmSwap:\t       0 kB\nHugetlbPages:\t       0 kB\nCoreDumping:\t0\nTHP_enabled:\t0\nuntag_mask:\t0xffffffffffffffff\nThreads:\t2\nSigQ:\t0/257534\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000000\nSigBlk:\t0000000000000000\nSigIgn:\t0000000000000000\nSigCgt:\t00000001000004e8\nCapInh:\t0000000000000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t000001ffffffffff\nCapAmb:\t0000000000000000\nNoNewPrivs:\t0\nSeccomp:\t0\nSeccomp_filters:\t0\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\t01\nCpus_allowed_list:\t0\nMems_allowed:\t00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t2\nnonvoluntary_ctxt_switches:\t4\n"
+        },
+        {
+          "tid": 227784,
+          "stat": "227784 (main) S 227781 227783 227783 0 -1 4194368 3 0 0 0 0 0 0 0 20 0 2 0 6470774 5091328 468 18446744073709551615 94610574794752 94610575062400 140725406053632 0 0 0 0 0 1256 1 0 0 -1 0 0 0 0 0 0 94610575068312 94610575081612 94610575147008 140725406057937 140725406058040 140725406058040 140725406064529 0\n",
+          "wchan": "__futex_wait",
+          "affinity": [
+            0
+          ],
+          "status": "Name:\tmain\nUmask:\t0022\nState:\tS (sleeping)\nTgid:\t227783\nNgid:\t0\nPid:\t227784\nPPid:\t227781\nTracerPid:\t0\nUid:\t1000\t1000\t1000\t1000\nGid:\t1000\t1000\t1000\t1000\nFDSize:\t64\nGroups:\t27 999 1000 \nNStgid:\t227783\nNSpid:\t227784\nNSpgid:\t227783\nNSsid:\t227783\nKthread:\t0\nVmPeak:\t    4972 kB\nVmSize:\t    4972 kB\nVmLck:\t       0 kB\nVmPin:\t       0 kB\nVmHWM:\t    1892 kB\nVmRSS:\t    1892 kB\nRssAnon:\t     148 kB\nRssFile:\t    1744 kB\nRssShmem:\t       0 kB\nVmData:\t    2376 kB\nVmStk:\t     136 kB\nVmExe:\t     264 kB\nVmLib:\t    1588 kB\nVmPTE:\t      40 kB\nVmSwap:\t       0 kB\nHugetlbPages:\t       0 kB\nCoreDumping:\t0\nTHP_enabled:\t0\nuntag_mask:\t0xffffffffffffffff\nThreads:\t2\nSigQ:\t0/257534\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000000\nSigBlk:\t0000000000000000\nSigIgn:\t0000000000000000\nSigCgt:\t00000001000004e8\nCapInh:\t0000000000000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t000001ffffffffff\nCapAmb:\t0000000000000000\nNoNewPrivs:\t0\nSeccomp:\t0\nSeccomp_filters:\t0\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\t01\nCpus_allowed_list:\t0\nMems_allowed:\t00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t3\nnonvoluntary_ctxt_switches:\t0\n"
+        }
+      ]
+    },
+    {
+      "elapsed_seconds": 0.3044395440010703,
+      "threads": [
+        {
+          "tid": 227783,
+          "stat": "227783 (main) S 227781 227783 227783 0 -1 4194304 213 0 0 0 0 0 0 0 20 0 2 0 6470774 5091328 468 18446744073709551615 94610574794752 94610575062400 140725406053632 0 0 0 0 0 1256 1 0 0 17 0 0 0 0 0 0 94610575068312 94610575081612 94610575147008 140725406057937 140725406058040 140725406058040 140725406064529 0\n",
+          "wchan": "__futex_wait",
+          "affinity": [
+            0
+          ],
+          "status": "Name:\tmain\nUmask:\t0022\nState:\tS (sleeping)\nTgid:\t227783\nNgid:\t0\nPid:\t227783\nPPid:\t227781\nTracerPid:\t0\nUid:\t1000\t1000\t1000\t1000\nGid:\t1000\t1000\t1000\t1000\nFDSize:\t64\nGroups:\t27 999 1000 \nNStgid:\t227783\nNSpid:\t227783\nNSpgid:\t227783\nNSsid:\t227783\nKthread:\t0\nVmPeak:\t    4972 kB\nVmSize:\t    4972 kB\nVmLck:\t       0 kB\nVmPin:\t       0 kB\nVmHWM:\t    1892 kB\nVmRSS:\t    1892 kB\nRssAnon:\t     148 kB\nRssFile:\t    1744 kB\nRssShmem:\t       0 kB\nVmData:\t    2376 kB\nVmStk:\t     136 kB\nVmExe:\t     264 kB\nVmLib:\t    1588 kB\nVmPTE:\t      40 kB\nVmSwap:\t       0 kB\nHugetlbPages:\t       0 kB\nCoreDumping:\t0\nTHP_enabled:\t0\nuntag_mask:\t0xffffffffffffffff\nThreads:\t2\nSigQ:\t0/257534\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000000\nSigBlk:\t0000000000000000\nSigIgn:\t0000000000000000\nSigCgt:\t00000001000004e8\nCapInh:\t0000000000000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t000001ffffffffff\nCapAmb:\t0000000000000000\nNoNewPrivs:\t0\nSeccomp:\t0\nSeccomp_filters:\t0\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\t01\nCpus_allowed_list:\t0\nMems_allowed:\t00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t2\nnonvoluntary_ctxt_switches:\t4\n"
+        },
+        {
+          "tid": 227784,
+          "stat": "227784 (main) S 227781 227783 227783 0 -1 4194368 3 0 0 0 0 0 0 0 20 0 2 0 6470774 5091328 468 18446744073709551615 94610574794752 94610575062400 140725406053632 0 0 0 0 0 1256 1 0 0 -1 0 0 0 0 0 0 94610575068312 94610575081612 94610575147008 140725406057937 140725406058040 140725406058040 140725406064529 0\n",
+          "wchan": "__futex_wait",
+          "affinity": [
+            0
+          ],
+          "status": "Name:\tmain\nUmask:\t0022\nState:\tS (sleeping)\nTgid:\t227783\nNgid:\t0\nPid:\t227784\nPPid:\t227781\nTracerPid:\t0\nUid:\t1000\t1000\t1000\t1000\nGid:\t1000\t1000\t1000\t1000\nFDSize:\t64\nGroups:\t27 999 1000 \nNStgid:\t227783\nNSpid:\t227784\nNSpgid:\t227783\nNSsid:\t227783\nKthread:\t0\nVmPeak:\t    4972 kB\nVmSize:\t    4972 kB\nVmLck:\t       0 kB\nVmPin:\t       0 kB\nVmHWM:\t    1892 kB\nVmRSS:\t    1892 kB\nRssAnon:\t     148 kB\nRssFile:\t    1744 kB\nRssShmem:\t       0 kB\nVmData:\t    2376 kB\nVmStk:\t     136 kB\nVmExe:\t     264 kB\nVmLib:\t    1588 kB\nVmPTE:\t      40 kB\nVmSwap:\t       0 kB\nHugetlbPages:\t       0 kB\nCoreDumping:\t0\nTHP_enabled:\t0\nuntag_mask:\t0xffffffffffffffff\nThreads:\t2\nSigQ:\t0/257534\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000000\nSigBlk:\t0000000000000000\nSigIgn:\t0000000000000000\nSigCgt:\t00000001000004e8\nCapInh:\t0000000000000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t000001ffffffffff\nCapAmb:\t0000000000000000\nNoNewPrivs:\t0\nSeccomp:\t0\nSeccomp_filters:\t0\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\t01\nCpus_allowed_list:\t0\nMems_allowed:\t00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t3\nnonvoluntary_ctxt_switches:\t0\n"
+        }
+      ]
+    },
+    {
+      "elapsed_seconds": 0.3548891399987042,
+      "threads": [
+        {
+          "tid": 227783,
+          "stat": "227783 (main) S 227781 227783 227783 0 -1 4194304 213 0 0 0 0 0 0 0 20 0 2 0 6470774 5091328 468 18446744073709551615 94610574794752 94610575062400 140725406053632 0 0 0 0 0 1256 1 0 0 17 0 0 0 0 0 0 94610575068312 94610575081612 94610575147008 140725406057937 140725406058040 140725406058040 140725406064529 0\n",
+          "wchan": "__futex_wait",
+          "affinity": [
+            0
+          ],
+          "status": "Name:\tmain\nUmask:\t0022\nState:\tS (sleeping)\nTgid:\t227783\nNgid:\t0\nPid:\t227783\nPPid:\t227781\nTracerPid:\t0\nUid:\t1000\t1000\t1000\t1000\nGid:\t1000\t1000\t1000\t1000\nFDSize:\t64\nGroups:\t27 999 1000 \nNStgid:\t227783\nNSpid:\t227783\nNSpgid:\t227783\nNSsid:\t227783\nKthread:\t0\nVmPeak:\t    4972 kB\nVmSize:\t    4972 kB\nVmLck:\t       0 kB\nVmPin:\t       0 kB\nVmHWM:\t    1892 kB\nVmRSS:\t    1892 kB\nRssAnon:\t     148 kB\nRssFile:\t    1744 kB\nRssShmem:\t       0 kB\nVmData:\t    2376 kB\nVmStk:\t     136 kB\nVmExe:\t     264 kB\nVmLib:\t    1588 kB\nVmPTE:\t      40 kB\nVmSwap:\t       0 kB\nHugetlbPages:\t       0 kB\nCoreDumping:\t0\nTHP_enabled:\t0\nuntag_mask:\t0xffffffffffffffff\nThreads:\t2\nSigQ:\t0/257534\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000000\nSigBlk:\t0000000000000000\nSigIgn:\t0000000000000000\nSigCgt:\t00000001000004e8\nCapInh:\t0000000000000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t000001ffffffffff\nCapAmb:\t0000000000000000\nNoNewPrivs:\t0\nSeccomp:\t0\nSeccomp_filters:\t0\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\t01\nCpus_allowed_list:\t0\nMems_allowed:\t00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t2\nnonvoluntary_ctxt_switches:\t4\n"
+        },
+        {
+          "tid": 227784,
+          "stat": "227784 (main) S 227781 227783 227783 0 -1 4194368 3 0 0 0 0 0 0 0 20 0 2 0 6470774 5091328 468 18446744073709551615 94610574794752 94610575062400 140725406053632 0 0 0 0 0 1256 1 0 0 -1 0 0 0 0 0 0 94610575068312 94610575081612 94610575147008 140725406057937 140725406058040 140725406058040 140725406064529 0\n",
+          "wchan": "__futex_wait",
+          "affinity": [
+            0
+          ],
+          "status": "Name:\tmain\nUmask:\t0022\nState:\tS (sleeping)\nTgid:\t227783\nNgid:\t0\nPid:\t227784\nPPid:\t227781\nTracerPid:\t0\nUid:\t1000\t1000\t1000\t1000\nGid:\t1000\t1000\t1000\t1000\nFDSize:\t64\nGroups:\t27 999 1000 \nNStgid:\t227783\nNSpid:\t227784\nNSpgid:\t227783\nNSsid:\t227783\nKthread:\t0\nVmPeak:\t    4972 kB\nVmSize:\t    4972 kB\nVmLck:\t       0 kB\nVmPin:\t       0 kB\nVmHWM:\t    1892 kB\nVmRSS:\t    1892 kB\nRssAnon:\t     148 kB\nRssFile:\t    1744 kB\nRssShmem:\t       0 kB\nVmData:\t    2376 kB\nVmStk:\t     136 kB\nVmExe:\t     264 kB\nVmLib:\t    1588 kB\nVmPTE:\t      40 kB\nVmSwap:\t       0 kB\nHugetlbPages:\t       0 kB\nCoreDumping:\t0\nTHP_enabled:\t0\nuntag_mask:\t0xffffffffffffffff\nThreads:\t2\nSigQ:\t0/257534\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000000\nSigBlk:\t0000000000000000\nSigIgn:\t0000000000000000\nSigCgt:\t00000001000004e8\nCapInh:\t0000000000000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t000001ffffffffff\nCapAmb:\t0000000000000000\nNoNewPrivs:\t0\nSeccomp:\t0\nSeccomp_filters:\t0\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\t01\nCpus_allowed_list:\t0\nMems_allowed:\t00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t3\nnonvoluntary_ctxt_switches:\t0\n"
+        }
+      ]
+    },
+    {
+      "elapsed_seconds": 0.405246239999542,
+      "threads": [
+        {
+          "tid": 227783,
+          "stat": "227783 (main) S 227781 227783 227783 0 -1 4194304 213 0 0 0 0 0 0 0 20 0 2 0 6470774 5091328 468 18446744073709551615 94610574794752 94610575062400 140725406053632 0 0 0 0 0 1256 1 0 0 17 0 0 0 0 0 0 94610575068312 94610575081612 94610575147008 140725406057937 140725406058040 140725406058040 140725406064529 0\n",
+          "wchan": "__futex_wait",
+          "affinity": [
+            0
+          ],
+          "status": "Name:\tmain\nUmask:\t0022\nState:\tS (sleeping)\nTgid:\t227783\nNgid:\t0\nPid:\t227783\nPPid:\t227781\nTracerPid:\t0\nUid:\t1000\t1000\t1000\t1000\nGid:\t1000\t1000\t1000\t1000\nFDSize:\t64\nGroups:\t27 999 1000 \nNStgid:\t227783\nNSpid:\t227783\nNSpgid:\t227783\nNSsid:\t227783\nKthread:\t0\nVmPeak:\t    4972 kB\nVmSize:\t    4972 kB\nVmLck:\t       0 kB\nVmPin:\t       0 kB\nVmHWM:\t    1892 kB\nVmRSS:\t    1892 kB\nRssAnon:\t     148 kB\nRssFile:\t    1744 kB\nRssShmem:\t       0 kB\nVmData:\t    2376 kB\nVmStk:\t     136 kB\nVmExe:\t     264 kB\nVmLib:\t    1588 kB\nVmPTE:\t      40 kB\nVmSwap:\t       0 kB\nHugetlbPages:\t       0 kB\nCoreDumping:\t0\nTHP_enabled:\t0\nuntag_mask:\t0xffffffffffffffff\nThreads:\t2\nSigQ:\t0/257534\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000000\nSigBlk:\t0000000000000000\nSigIgn:\t0000000000000000\nSigCgt:\t00000001000004e8\nCapInh:\t0000000000000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t000001ffffffffff\nCapAmb:\t0000000000000000\nNoNewPrivs:\t0\nSeccomp:\t0\nSeccomp_filters:\t0\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\t01\nCpus_allowed_list:\t0\nMems_allowed:\t00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t2\nnonvoluntary_ctxt_switches:\t4\n"
+        },
+        {
+          "tid": 227784,
+          "stat": "227784 (main) S 227781 227783 227783 0 -1 4194368 3 0 0 0 0 0 0 0 20 0 2 0 6470774 5091328 468 18446744073709551615 94610574794752 94610575062400 140725406053632 0 0 0 0 0 1256 1 0 0 -1 0 0 0 0 0 0 94610575068312 94610575081612 94610575147008 140725406057937 140725406058040 140725406058040 140725406064529 0\n",
+          "wchan": "__futex_wait",
+          "affinity": [
+            0
+          ],
+          "status": "Name:\tmain\nUmask:\t0022\nState:\tS (sleeping)\nTgid:\t227783\nNgid:\t0\nPid:\t227784\nPPid:\t227781\nTracerPid:\t0\nUid:\t1000\t1000\t1000\t1000\nGid:\t1000\t1000\t1000\t1000\nFDSize:\t64\nGroups:\t27 999 1000 \nNStgid:\t227783\nNSpid:\t227784\nNSpgid:\t227783\nNSsid:\t227783\nKthread:\t0\nVmPeak:\t    4972 kB\nVmSize:\t    4972 kB\nVmLck:\t       0 kB\nVmPin:\t       0 kB\nVmHWM:\t    1892 kB\nVmRSS:\t    1892 kB\nRssAnon:\t     148 kB\nRssFile:\t    1744 kB\nRssShmem:\t       0 kB\nVmData:\t    2376 kB\nVmStk:\t     136 kB\nVmExe:\t     264 kB\nVmLib:\t    1588 kB\nVmPTE:\t      40 kB\nVmSwap:\t       0 kB\nHugetlbPages:\t       0 kB\nCoreDumping:\t0\nTHP_enabled:\t0\nuntag_mask:\t0xffffffffffffffff\nThreads:\t2\nSigQ:\t0/257534\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000000\nSigBlk:\t0000000000000000\nSigIgn:\t0000000000000000\nSigCgt:\t00000001000004e8\nCapInh:\t0000000000000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t000001ffffffffff\nCapAmb:\t0000000000000000\nNoNewPrivs:\t0\nSeccomp:\t0\nSeccomp_filters:\t0\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\t01\nCpus_allowed_list:\t0\nMems_allowed:\t00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t3\nnonvoluntary_ctxt_switches:\t0\n"
+        }
+      ]
+    },
+    {
+      "elapsed_seconds": 0.45549477400345495,
+      "threads": [
+        {
+          "tid": 227783,
+          "stat": "227783 (main) S 227781 227783 227783 0 -1 4194304 213 0 0 0 0 0 0 0 20 0 2 0 6470774 5091328 468 18446744073709551615 94610574794752 94610575062400 140725406053632 0 0 0 0 0 1256 1 0 0 17 0 0 0 0 0 0 94610575068312 94610575081612 94610575147008 140725406057937 140725406058040 140725406058040 140725406064529 0\n",
+          "wchan": "__futex_wait",
+          "affinity": [
+            0
+          ],
+          "status": "Name:\tmain\nUmask:\t0022\nState:\tS (sleeping)\nTgid:\t227783\nNgid:\t0\nPid:\t227783\nPPid:\t227781\nTracerPid:\t0\nUid:\t1000\t1000\t1000\t1000\nGid:\t1000\t1000\t1000\t1000\nFDSize:\t64\nGroups:\t27 999 1000 \nNStgid:\t227783\nNSpid:\t227783\nNSpgid:\t227783\nNSsid:\t227783\nKthread:\t0\nVmPeak:\t    4972 kB\nVmSize:\t    4972 kB\nVmLck:\t       0 kB\nVmPin:\t       0 kB\nVmHWM:\t    1892 kB\nVmRSS:\t    1892 kB\nRssAnon:\t     148 kB\nRssFile:\t    1744 kB\nRssShmem:\t       0 kB\nVmData:\t    2376 kB\nVmStk:\t     136 kB\nVmExe:\t     264 kB\nVmLib:\t    1588 kB\nVmPTE:\t      40 kB\nVmSwap:\t       0 kB\nHugetlbPages:\t       0 kB\nCoreDumping:\t0\nTHP_enabled:\t0\nuntag_mask:\t0xffffffffffffffff\nThreads:\t2\nSigQ:\t0/257534\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000000\nSigBlk:\t0000000000000000\nSigIgn:\t0000000000000000\nSigCgt:\t00000001000004e8\nCapInh:\t0000000000000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t000001ffffffffff\nCapAmb:\t0000000000000000\nNoNewPrivs:\t0\nSeccomp:\t0\nSeccomp_filters:\t0\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\t01\nCpus_allowed_list:\t0\nMems_allowed:\t00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t2\nnonvoluntary_ctxt_switches:\t4\n"
+        },
+        {
+          "tid": 227784,
+          "stat": "227784 (main) S 227781 227783 227783 0 -1 4194368 3 0 0 0 0 0 0 0 20 0 2 0 6470774 5091328 468 18446744073709551615 94610574794752 94610575062400 140725406053632 0 0 0 0 0 1256 1 0 0 -1 0 0 0 0 0 0 94610575068312 94610575081612 94610575147008 140725406057937 140725406058040 140725406058040 140725406064529 0\n",
+          "wchan": "__futex_wait",
+          "affinity": [
+            0
+          ],
+          "status": "Name:\tmain\nUmask:\t0022\nState:\tS (sleeping)\nTgid:\t227783\nNgid:\t0\nPid:\t227784\nPPid:\t227781\nTracerPid:\t0\nUid:\t1000\t1000\t1000\t1000\nGid:\t1000\t1000\t1000\t1000\nFDSize:\t64\nGroups:\t27 999 1000 \nNStgid:\t227783\nNSpid:\t227784\nNSpgid:\t227783\nNSsid:\t227783\nKthread:\t0\nVmPeak:\t    4972 kB\nVmSize:\t    4972 kB\nVmLck:\t       0 kB\nVmPin:\t       0 kB\nVmHWM:\t    1892 kB\nVmRSS:\t    1892 kB\nRssAnon:\t     148 kB\nRssFile:\t    1744 kB\nRssShmem:\t       0 kB\nVmData:\t    2376 kB\nVmStk:\t     136 kB\nVmExe:\t     264 kB\nVmLib:\t    1588 kB\nVmPTE:\t      40 kB\nVmSwap:\t       0 kB\nHugetlbPages:\t       0 kB\nCoreDumping:\t0\nTHP_enabled:\t0\nuntag_mask:\t0xffffffffffffffff\nThreads:\t2\nSigQ:\t0/257534\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000000\nSigBlk:\t0000000000000000\nSigIgn:\t0000000000000000\nSigCgt:\t00000001000004e8\nCapInh:\t0000000000000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t000001ffffffffff\nCapAmb:\t0000000000000000\nNoNewPrivs:\t0\nSeccomp:\t0\nSeccomp_filters:\t0\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\t01\nCpus_allowed_list:\t0\nMems_allowed:\t00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t3\nnonvoluntary_ctxt_switches:\t0\n"
+        }
+      ]
+    },
+    {
+      "elapsed_seconds": 0.5058431529978407,
+      "threads": [
+        {
+          "tid": 227783,
+          "stat": "227783 (main) S 227781 227783 227783 0 -1 4194304 213 0 0 0 0 0 0 0 20 0 2 0 6470774 5091328 468 18446744073709551615 94610574794752 94610575062400 140725406053632 0 0 0 0 0 1256 1 0 0 17 0 0 0 0 0 0 94610575068312 94610575081612 94610575147008 140725406057937 140725406058040 140725406058040 140725406064529 0\n",
+          "wchan": "__futex_wait",
+          "affinity": [
+            0
+          ],
+          "status": "Name:\tmain\nUmask:\t0022\nState:\tS (sleeping)\nTgid:\t227783\nNgid:\t0\nPid:\t227783\nPPid:\t227781\nTracerPid:\t0\nUid:\t1000\t1000\t1000\t1000\nGid:\t1000\t1000\t1000\t1000\nFDSize:\t64\nGroups:\t27 999 1000 \nNStgid:\t227783\nNSpid:\t227783\nNSpgid:\t227783\nNSsid:\t227783\nKthread:\t0\nVmPeak:\t    4972 kB\nVmSize:\t    4972 kB\nVmLck:\t       0 kB\nVmPin:\t       0 kB\nVmHWM:\t    1892 kB\nVmRSS:\t    1892 kB\nRssAnon:\t     148 kB\nRssFile:\t    1744 kB\nRssShmem:\t       0 kB\nVmData:\t    2376 kB\nVmStk:\t     136 kB\nVmExe:\t     264 kB\nVmLib:\t    1588 kB\nVmPTE:\t      40 kB\nVmSwap:\t       0 kB\nHugetlbPages:\t       0 kB\nCoreDumping:\t0\nTHP_enabled:\t0\nuntag_mask:\t0xffffffffffffffff\nThreads:\t2\nSigQ:\t0/257534\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000000\nSigBlk:\t0000000000000000\nSigIgn:\t0000000000000000\nSigCgt:\t00000001000004e8\nCapInh:\t0000000000000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t000001ffffffffff\nCapAmb:\t0000000000000000\nNoNewPrivs:\t0\nSeccomp:\t0\nSeccomp_filters:\t0\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\t01\nCpus_allowed_list:\t0\nMems_allowed:\t00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t2\nnonvoluntary_ctxt_switches:\t4\n"
+        },
+        {
+          "tid": 227784,
+          "stat": "227784 (main) S 227781 227783 227783 0 -1 4194368 3 0 0 0 0 0 0 0 20 0 2 0 6470774 5091328 468 18446744073709551615 94610574794752 94610575062400 140725406053632 0 0 0 0 0 1256 1 0 0 -1 0 0 0 0 0 0 94610575068312 94610575081612 94610575147008 140725406057937 140725406058040 140725406058040 140725406064529 0\n",
+          "wchan": "__futex_wait",
+          "affinity": [
+            0
+          ],
+          "status": "Name:\tmain\nUmask:\t0022\nState:\tS (sleeping)\nTgid:\t227783\nNgid:\t0\nPid:\t227784\nPPid:\t227781\nTracerPid:\t0\nUid:\t1000\t1000\t1000\t1000\nGid:\t1000\t1000\t1000\t1000\nFDSize:\t64\nGroups:\t27 999 1000 \nNStgid:\t227783\nNSpid:\t227784\nNSpgid:\t227783\nNSsid:\t227783\nKthread:\t0\nVmPeak:\t    4972 kB\nVmSize:\t    4972 kB\nVmLck:\t       0 kB\nVmPin:\t       0 kB\nVmHWM:\t    1892 kB\nVmRSS:\t    1892 kB\nRssAnon:\t     148 kB\nRssFile:\t    1744 kB\nRssShmem:\t       0 kB\nVmData:\t    2376 kB\nVmStk:\t     136 kB\nVmExe:\t     264 kB\nVmLib:\t    1588 kB\nVmPTE:\t      40 kB\nVmSwap:\t       0 kB\nHugetlbPages:\t       0 kB\nCoreDumping:\t0\nTHP_enabled:\t0\nuntag_mask:\t0xffffffffffffffff\nThreads:\t2\nSigQ:\t0/257534\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000000\nSigBlk:\t0000000000000000\nSigIgn:\t0000000000000000\nSigCgt:\t00000001000004e8\nCapInh:\t0000000000000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t000001ffffffffff\nCapAmb:\t0000000000000000\nNoNewPrivs:\t0\nSeccomp:\t0\nSeccomp_filters:\t0\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\t01\nCpus_allowed_list:\t0\nMems_allowed:\t00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t3\nnonvoluntary_ctxt_switches:\t0\n"
+        }
+      ]
+    },
+    {
+      "elapsed_seconds": 0.5562244510001619,
+      "threads": [
+        {
+          "tid": 227783,
+          "stat": "227783 (main) S 227781 227783 227783 0 -1 4194304 213 0 0 0 0 0 0 0 20 0 2 0 6470774 5091328 468 18446744073709551615 94610574794752 94610575062400 140725406053632 0 0 0 0 0 1256 1 0 0 17 0 0 0 0 0 0 94610575068312 94610575081612 94610575147008 140725406057937 140725406058040 140725406058040 140725406064529 0\n",
+          "wchan": "__futex_wait",
+          "affinity": [
+            0
+          ],
+          "status": "Name:\tmain\nUmask:\t0022\nState:\tS (sleeping)\nTgid:\t227783\nNgid:\t0\nPid:\t227783\nPPid:\t227781\nTracerPid:\t0\nUid:\t1000\t1000\t1000\t1000\nGid:\t1000\t1000\t1000\t1000\nFDSize:\t64\nGroups:\t27 999 1000 \nNStgid:\t227783\nNSpid:\t227783\nNSpgid:\t227783\nNSsid:\t227783\nKthread:\t0\nVmPeak:\t    4972 kB\nVmSize:\t    4972 kB\nVmLck:\t       0 kB\nVmPin:\t       0 kB\nVmHWM:\t    1892 kB\nVmRSS:\t    1892 kB\nRssAnon:\t     148 kB\nRssFile:\t    1744 kB\nRssShmem:\t       0 kB\nVmData:\t    2376 kB\nVmStk:\t     136 kB\nVmExe:\t     264 kB\nVmLib:\t    1588 kB\nVmPTE:\t      40 kB\nVmSwap:\t       0 kB\nHugetlbPages:\t       0 kB\nCoreDumping:\t0\nTHP_enabled:\t0\nuntag_mask:\t0xffffffffffffffff\nThreads:\t2\nSigQ:\t0/257534\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000000\nSigBlk:\t0000000000000000\nSigIgn:\t0000000000000000\nSigCgt:\t00000001000004e8\nCapInh:\t0000000000000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t000001ffffffffff\nCapAmb:\t0000000000000000\nNoNewPrivs:\t0\nSeccomp:\t0\nSeccomp_filters:\t0\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\t01\nCpus_allowed_list:\t0\nMems_allowed:\t00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t2\nnonvoluntary_ctxt_switches:\t4\n"
+        },
+        {
+          "tid": 227784,
+          "stat": "227784 (main) S 227781 227783 227783 0 -1 4194368 3 0 0 0 0 0 0 0 20 0 2 0 6470774 5091328 468 18446744073709551615 94610574794752 94610575062400 140725406053632 0 0 0 0 0 1256 1 0 0 -1 0 0 0 0 0 0 94610575068312 94610575081612 94610575147008 140725406057937 140725406058040 140725406058040 140725406064529 0\n",
+          "wchan": "__futex_wait",
+          "affinity": [
+            0
+          ],
+          "status": "Name:\tmain\nUmask:\t0022\nState:\tS (sleeping)\nTgid:\t227783\nNgid:\t0\nPid:\t227784\nPPid:\t227781\nTracerPid:\t0\nUid:\t1000\t1000\t1000\t1000\nGid:\t1000\t1000\t1000\t1000\nFDSize:\t64\nGroups:\t27 999 1000 \nNStgid:\t227783\nNSpid:\t227784\nNSpgid:\t227783\nNSsid:\t227783\nKthread:\t0\nVmPeak:\t    4972 kB\nVmSize:\t    4972 kB\nVmLck:\t       0 kB\nVmPin:\t       0 kB\nVmHWM:\t    1892 kB\nVmRSS:\t    1892 kB\nRssAnon:\t     148 kB\nRssFile:\t    1744 kB\nRssShmem:\t       0 kB\nVmData:\t    2376 kB\nVmStk:\t     136 kB\nVmExe:\t     264 kB\nVmLib:\t    1588 kB\nVmPTE:\t      40 kB\nVmSwap:\t       0 kB\nHugetlbPages:\t       0 kB\nCoreDumping:\t0\nTHP_enabled:\t0\nuntag_mask:\t0xffffffffffffffff\nThreads:\t2\nSigQ:\t0/257534\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000000\nSigBlk:\t0000000000000000\nSigIgn:\t0000000000000000\nSigCgt:\t00000001000004e8\nCapInh:\t0000000000000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t000001ffffffffff\nCapAmb:\t0000000000000000\nNoNewPrivs:\t0\nSeccomp:\t0\nSeccomp_filters:\t0\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\t01\nCpus_allowed_list:\t0\nMems_allowed:\t00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t3\nnonvoluntary_ctxt_switches:\t0\n"
+        }
+      ]
+    },
+    {
+      "elapsed_seconds": 0.6065704749998986,
+      "threads": [
+        {
+          "tid": 227783,
+          "stat": "227783 (main) S 227781 227783 227783 0 -1 4194304 213 0 0 0 0 0 0 0 20 0 2 0 6470774 5091328 468 18446744073709551615 94610574794752 94610575062400 140725406053632 0 0 0 0 0 1256 1 0 0 17 0 0 0 0 0 0 94610575068312 94610575081612 94610575147008 140725406057937 140725406058040 140725406058040 140725406064529 0\n",
+          "wchan": "__futex_wait",
+          "affinity": [
+            0
+          ],
+          "status": "Name:\tmain\nUmask:\t0022\nState:\tS (sleeping)\nTgid:\t227783\nNgid:\t0\nPid:\t227783\nPPid:\t227781\nTracerPid:\t0\nUid:\t1000\t1000\t1000\t1000\nGid:\t1000\t1000\t1000\t1000\nFDSize:\t64\nGroups:\t27 999 1000 \nNStgid:\t227783\nNSpid:\t227783\nNSpgid:\t227783\nNSsid:\t227783\nKthread:\t0\nVmPeak:\t    4972 kB\nVmSize:\t    4972 kB\nVmLck:\t       0 kB\nVmPin:\t       0 kB\nVmHWM:\t    1892 kB\nVmRSS:\t    1892 kB\nRssAnon:\t     148 kB\nRssFile:\t    1744 kB\nRssShmem:\t       0 kB\nVmData:\t    2376 kB\nVmStk:\t     136 kB\nVmExe:\t     264 kB\nVmLib:\t    1588 kB\nVmPTE:\t      40 kB\nVmSwap:\t       0 kB\nHugetlbPages:\t       0 kB\nCoreDumping:\t0\nTHP_enabled:\t0\nuntag_mask:\t0xffffffffffffffff\nThreads:\t2\nSigQ:\t0/257534\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000000\nSigBlk:\t0000000000000000\nSigIgn:\t0000000000000000\nSigCgt:\t00000001000004e8\nCapInh:\t0000000000000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t000001ffffffffff\nCapAmb:\t0000000000000000\nNoNewPrivs:\t0\nSeccomp:\t0\nSeccomp_filters:\t0\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\t01\nCpus_allowed_list:\t0\nMems_allowed:\t00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t2\nnonvoluntary_ctxt_switches:\t4\n"
+        },
+        {
+          "tid": 227784,
+          "stat": "227784 (main) S 227781 227783 227783 0 -1 4194368 3 0 0 0 0 0 0 0 20 0 2 0 6470774 5091328 468 18446744073709551615 94610574794752 94610575062400 140725406053632 0 0 0 0 0 1256 1 0 0 -1 0 0 0 0 0 0 94610575068312 94610575081612 94610575147008 140725406057937 140725406058040 140725406058040 140725406064529 0\n",
+          "wchan": "__futex_wait",
+          "affinity": [
+            0
+          ],
+          "status": "Name:\tmain\nUmask:\t0022\nState:\tS (sleeping)\nTgid:\t227783\nNgid:\t0\nPid:\t227784\nPPid:\t227781\nTracerPid:\t0\nUid:\t1000\t1000\t1000\t1000\nGid:\t1000\t1000\t1000\t1000\nFDSize:\t64\nGroups:\t27 999 1000 \nNStgid:\t227783\nNSpid:\t227784\nNSpgid:\t227783\nNSsid:\t227783\nKthread:\t0\nVmPeak:\t    4972 kB\nVmSize:\t    4972 kB\nVmLck:\t       0 kB\nVmPin:\t       0 kB\nVmHWM:\t    1892 kB\nVmRSS:\t    1892 kB\nRssAnon:\t     148 kB\nRssFile:\t    1744 kB\nRssShmem:\t       0 kB\nVmData:\t    2376 kB\nVmStk:\t     136 kB\nVmExe:\t     264 kB\nVmLib:\t    1588 kB\nVmPTE:\t      40 kB\nVmSwap:\t       0 kB\nHugetlbPages:\t       0 kB\nCoreDumping:\t0\nTHP_enabled:\t0\nuntag_mask:\t0xffffffffffffffff\nThreads:\t2\nSigQ:\t0/257534\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000000\nSigBlk:\t0000000000000000\nSigIgn:\t0000000000000000\nSigCgt:\t00000001000004e8\nCapInh:\t0000000000000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t000001ffffffffff\nCapAmb:\t0000000000000000\nNoNewPrivs:\t0\nSeccomp:\t0\nSeccomp_filters:\t0\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\t01\nCpus_allowed_list:\t0\nMems_allowed:\t00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t3\nnonvoluntary_ctxt_switches:\t0\n"
+        }
+      ]
+    },
+    {
+      "elapsed_seconds": 0.6569748280016938,
+      "threads": [
+        {
+          "tid": 227783,
+          "stat": "227783 (main) S 227781 227783 227783 0 -1 4194304 213 0 0 0 0 0 0 0 20 0 2 0 6470774 5091328 468 18446744073709551615 94610574794752 94610575062400 140725406053632 0 0 0 0 0 1256 1 0 0 17 0 0 0 0 0 0 94610575068312 94610575081612 94610575147008 140725406057937 140725406058040 140725406058040 140725406064529 0\n",
+          "wchan": "__futex_wait",
+          "affinity": [
+            0
+          ],
+          "status": "Name:\tmain\nUmask:\t0022\nState:\tS (sleeping)\nTgid:\t227783\nNgid:\t0\nPid:\t227783\nPPid:\t227781\nTracerPid:\t0\nUid:\t1000\t1000\t1000\t1000\nGid:\t1000\t1000\t1000\t1000\nFDSize:\t64\nGroups:\t27 999 1000 \nNStgid:\t227783\nNSpid:\t227783\nNSpgid:\t227783\nNSsid:\t227783\nKthread:\t0\nVmPeak:\t    4972 kB\nVmSize:\t    4972 kB\nVmLck:\t       0 kB\nVmPin:\t       0 kB\nVmHWM:\t    1892 kB\nVmRSS:\t    1892 kB\nRssAnon:\t     148 kB\nRssFile:\t    1744 kB\nRssShmem:\t       0 kB\nVmData:\t    2376 kB\nVmStk:\t     136 kB\nVmExe:\t     264 kB\nVmLib:\t    1588 kB\nVmPTE:\t      40 kB\nVmSwap:\t       0 kB\nHugetlbPages:\t       0 kB\nCoreDumping:\t0\nTHP_enabled:\t0\nuntag_mask:\t0xffffffffffffffff\nThreads:\t2\nSigQ:\t0/257534\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000000\nSigBlk:\t0000000000000000\nSigIgn:\t0000000000000000\nSigCgt:\t00000001000004e8\nCapInh:\t0000000000000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t000001ffffffffff\nCapAmb:\t0000000000000000\nNoNewPrivs:\t0\nSeccomp:\t0\nSeccomp_filters:\t0\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\t01\nCpus_allowed_list:\t0\nMems_allowed:\t00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t2\nnonvoluntary_ctxt_switches:\t4\n"
+        },
+        {
+          "tid": 227784,
+          "stat": "227784 (main) S 227781 227783 227783 0 -1 4194368 3 0 0 0 0 0 0 0 20 0 2 0 6470774 5091328 468 18446744073709551615 94610574794752 94610575062400 140725406053632 0 0 0 0 0 1256 1 0 0 -1 0 0 0 0 0 0 94610575068312 94610575081612 94610575147008 140725406057937 140725406058040 140725406058040 140725406064529 0\n",
+          "wchan": "__futex_wait",
+          "affinity": [
+            0
+          ],
+          "status": "Name:\tmain\nUmask:\t0022\nState:\tS (sleeping)\nTgid:\t227783\nNgid:\t0\nPid:\t227784\nPPid:\t227781\nTracerPid:\t0\nUid:\t1000\t1000\t1000\t1000\nGid:\t1000\t1000\t1000\t1000\nFDSize:\t64\nGroups:\t27 999 1000 \nNStgid:\t227783\nNSpid:\t227784\nNSpgid:\t227783\nNSsid:\t227783\nKthread:\t0\nVmPeak:\t    4972 kB\nVmSize:\t    4972 kB\nVmLck:\t       0 kB\nVmPin:\t       0 kB\nVmHWM:\t    1892 kB\nVmRSS:\t    1892 kB\nRssAnon:\t     148 kB\nRssFile:\t    1744 kB\nRssShmem:\t       0 kB\nVmData:\t    2376 kB\nVmStk:\t     136 kB\nVmExe:\t     264 kB\nVmLib:\t    1588 kB\nVmPTE:\t      40 kB\nVmSwap:\t       0 kB\nHugetlbPages:\t       0 kB\nCoreDumping:\t0\nTHP_enabled:\t0\nuntag_mask:\t0xffffffffffffffff\nThreads:\t2\nSigQ:\t0/257534\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000000\nSigBlk:\t0000000000000000\nSigIgn:\t0000000000000000\nSigCgt:\t00000001000004e8\nCapInh:\t0000000000000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t000001ffffffffff\nCapAmb:\t0000000000000000\nNoNewPrivs:\t0\nSeccomp:\t0\nSeccomp_filters:\t0\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\t01\nCpus_allowed_list:\t0\nMems_allowed:\t00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t3\nnonvoluntary_ctxt_switches:\t0\n"
+        }
+      ]
+    },
+    {
+      "elapsed_seconds": 0.7073566890030634,
+      "threads": [
+        {
+          "tid": 227783,
+          "stat": "227783 (main) S 227781 227783 227783 0 -1 4194304 213 0 0 0 0 0 0 0 20 0 2 0 6470774 5091328 468 18446744073709551615 94610574794752 94610575062400 140725406053632 0 0 0 0 0 1256 1 0 0 17 0 0 0 0 0 0 94610575068312 94610575081612 94610575147008 140725406057937 140725406058040 140725406058040 140725406064529 0\n",
+          "wchan": "__futex_wait",
+          "affinity": [
+            0
+          ],
+          "status": "Name:\tmain\nUmask:\t0022\nState:\tS (sleeping)\nTgid:\t227783\nNgid:\t0\nPid:\t227783\nPPid:\t227781\nTracerPid:\t0\nUid:\t1000\t1000\t1000\t1000\nGid:\t1000\t1000\t1000\t1000\nFDSize:\t64\nGroups:\t27 999 1000 \nNStgid:\t227783\nNSpid:\t227783\nNSpgid:\t227783\nNSsid:\t227783\nKthread:\t0\nVmPeak:\t    4972 kB\nVmSize:\t    4972 kB\nVmLck:\t       0 kB\nVmPin:\t       0 kB\nVmHWM:\t    1892 kB\nVmRSS:\t    1892 kB\nRssAnon:\t     148 kB\nRssFile:\t    1744 kB\nRssShmem:\t       0 kB\nVmData:\t    2376 kB\nVmStk:\t     136 kB\nVmExe:\t     264 kB\nVmLib:\t    1588 kB\nVmPTE:\t      40 kB\nVmSwap:\t       0 kB\nHugetlbPages:\t       0 kB\nCoreDumping:\t0\nTHP_enabled:\t0\nuntag_mask:\t0xffffffffffffffff\nThreads:\t2\nSigQ:\t0/257534\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000000\nSigBlk:\t0000000000000000\nSigIgn:\t0000000000000000\nSigCgt:\t00000001000004e8\nCapInh:\t0000000000000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t000001ffffffffff\nCapAmb:\t0000000000000000\nNoNewPrivs:\t0\nSeccomp:\t0\nSeccomp_filters:\t0\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\t01\nCpus_allowed_list:\t0\nMems_allowed:\t00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t2\nnonvoluntary_ctxt_switches:\t4\n"
+        },
+        {
+          "tid": 227784,
+          "stat": "227784 (main) S 227781 227783 227783 0 -1 4194368 3 0 0 0 0 0 0 0 20 0 2 0 6470774 5091328 468 18446744073709551615 94610574794752 94610575062400 140725406053632 0 0 0 0 0 1256 1 0 0 -1 0 0 0 0 0 0 94610575068312 94610575081612 94610575147008 140725406057937 140725406058040 140725406058040 140725406064529 0\n",
+          "wchan": "__futex_wait",
+          "affinity": [
+            0
+          ],
+          "status": "Name:\tmain\nUmask:\t0022\nState:\tS (sleeping)\nTgid:\t227783\nNgid:\t0\nPid:\t227784\nPPid:\t227781\nTracerPid:\t0\nUid:\t1000\t1000\t1000\t1000\nGid:\t1000\t1000\t1000\t1000\nFDSize:\t64\nGroups:\t27 999 1000 \nNStgid:\t227783\nNSpid:\t227784\nNSpgid:\t227783\nNSsid:\t227783\nKthread:\t0\nVmPeak:\t    4972 kB\nVmSize:\t    4972 kB\nVmLck:\t       0 kB\nVmPin:\t       0 kB\nVmHWM:\t    1892 kB\nVmRSS:\t    1892 kB\nRssAnon:\t     148 kB\nRssFile:\t    1744 kB\nRssShmem:\t       0 kB\nVmData:\t    2376 kB\nVmStk:\t     136 kB\nVmExe:\t     264 kB\nVmLib:\t    1588 kB\nVmPTE:\t      40 kB\nVmSwap:\t       0 kB\nHugetlbPages:\t       0 kB\nCoreDumping:\t0\nTHP_enabled:\t0\nuntag_mask:\t0xffffffffffffffff\nThreads:\t2\nSigQ:\t0/257534\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000000\nSigBlk:\t0000000000000000\nSigIgn:\t0000000000000000\nSigCgt:\t00000001000004e8\nCapInh:\t0000000000000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t000001ffffffffff\nCapAmb:\t0000000000000000\nNoNewPrivs:\t0\nSeccomp:\t0\nSeccomp_filters:\t0\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\t01\nCpus_allowed_list:\t0\nMems_allowed:\t00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t3\nnonvoluntary_ctxt_switches:\t0\n"
+        }
+      ]
+    },
+    {
+      "elapsed_seconds": 0.7577472470002249,
+      "threads": [
+        {
+          "tid": 227783,
+          "stat": "227783 (main) S 227781 227783 227783 0 -1 4194304 213 0 0 0 0 0 0 0 20 0 2 0 6470774 5091328 468 18446744073709551615 94610574794752 94610575062400 140725406053632 0 0 0 0 0 1256 1 0 0 17 0 0 0 0 0 0 94610575068312 94610575081612 94610575147008 140725406057937 140725406058040 140725406058040 140725406064529 0\n",
+          "wchan": "__futex_wait",
+          "affinity": [
+            0
+          ],
+          "status": "Name:\tmain\nUmask:\t0022\nState:\tS (sleeping)\nTgid:\t227783\nNgid:\t0\nPid:\t227783\nPPid:\t227781\nTracerPid:\t0\nUid:\t1000\t1000\t1000\t1000\nGid:\t1000\t1000\t1000\t1000\nFDSize:\t64\nGroups:\t27 999 1000 \nNStgid:\t227783\nNSpid:\t227783\nNSpgid:\t227783\nNSsid:\t227783\nKthread:\t0\nVmPeak:\t    4972 kB\nVmSize:\t    4972 kB\nVmLck:\t       0 kB\nVmPin:\t       0 kB\nVmHWM:\t    1892 kB\nVmRSS:\t    1892 kB\nRssAnon:\t     148 kB\nRssFile:\t    1744 kB\nRssShmem:\t       0 kB\nVmData:\t    2376 kB\nVmStk:\t     136 kB\nVmExe:\t     264 kB\nVmLib:\t    1588 kB\nVmPTE:\t      40 kB\nVmSwap:\t       0 kB\nHugetlbPages:\t       0 kB\nCoreDumping:\t0\nTHP_enabled:\t0\nuntag_mask:\t0xffffffffffffffff\nThreads:\t2\nSigQ:\t0/257534\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000000\nSigBlk:\t0000000000000000\nSigIgn:\t0000000000000000\nSigCgt:\t00000001000004e8\nCapInh:\t0000000000000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t000001ffffffffff\nCapAmb:\t0000000000000000\nNoNewPrivs:\t0\nSeccomp:\t0\nSeccomp_filters:\t0\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\t01\nCpus_allowed_list:\t0\nMems_allowed:\t00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t2\nnonvoluntary_ctxt_switches:\t4\n"
+        },
+        {
+          "tid": 227784,
+          "stat": "227784 (main) S 227781 227783 227783 0 -1 4194368 3 0 0 0 0 0 0 0 20 0 2 0 6470774 5091328 468 18446744073709551615 94610574794752 94610575062400 140725406053632 0 0 0 0 0 1256 1 0 0 -1 0 0 0 0 0 0 94610575068312 94610575081612 94610575147008 140725406057937 140725406058040 140725406058040 140725406064529 0\n",
+          "wchan": "__futex_wait",
+          "affinity": [
+            0
+          ],
+          "status": "Name:\tmain\nUmask:\t0022\nState:\tS (sleeping)\nTgid:\t227783\nNgid:\t0\nPid:\t227784\nPPid:\t227781\nTracerPid:\t0\nUid:\t1000\t1000\t1000\t1000\nGid:\t1000\t1000\t1000\t1000\nFDSize:\t64\nGroups:\t27 999 1000 \nNStgid:\t227783\nNSpid:\t227784\nNSpgid:\t227783\nNSsid:\t227783\nKthread:\t0\nVmPeak:\t    4972 kB\nVmSize:\t    4972 kB\nVmLck:\t       0 kB\nVmPin:\t       0 kB\nVmHWM:\t    1892 kB\nVmRSS:\t    1892 kB\nRssAnon:\t     148 kB\nRssFile:\t    1744 kB\nRssShmem:\t       0 kB\nVmData:\t    2376 kB\nVmStk:\t     136 kB\nVmExe:\t     264 kB\nVmLib:\t    1588 kB\nVmPTE:\t      40 kB\nVmSwap:\t       0 kB\nHugetlbPages:\t       0 kB\nCoreDumping:\t0\nTHP_enabled:\t0\nuntag_mask:\t0xffffffffffffffff\nThreads:\t2\nSigQ:\t0/257534\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000000\nSigBlk:\t0000000000000000\nSigIgn:\t0000000000000000\nSigCgt:\t00000001000004e8\nCapInh:\t0000000000000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t000001ffffffffff\nCapAmb:\t0000000000000000\nNoNewPrivs:\t0\nSeccomp:\t0\nSeccomp_filters:\t0\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\t01\nCpus_allowed_list:\t0\nMems_allowed:\t00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t3\nnonvoluntary_ctxt_switches:\t0\n"
+        }
+      ]
+    },
+    {
+      "elapsed_seconds": 0.8082018470013281,
+      "threads": [
+        {
+          "tid": 227783,
+          "stat": "227783 (main) S 227781 227783 227783 0 -1 4194304 213 0 0 0 0 0 0 0 20 0 2 0 6470774 5091328 468 18446744073709551615 94610574794752 94610575062400 140725406053632 0 0 0 0 0 1256 1 0 0 17 0 0 0 0 0 0 94610575068312 94610575081612 94610575147008 140725406057937 140725406058040 140725406058040 140725406064529 0\n",
+          "wchan": "__futex_wait",
+          "affinity": [
+            0
+          ],
+          "status": "Name:\tmain\nUmask:\t0022\nState:\tS (sleeping)\nTgid:\t227783\nNgid:\t0\nPid:\t227783\nPPid:\t227781\nTracerPid:\t0\nUid:\t1000\t1000\t1000\t1000\nGid:\t1000\t1000\t1000\t1000\nFDSize:\t64\nGroups:\t27 999 1000 \nNStgid:\t227783\nNSpid:\t227783\nNSpgid:\t227783\nNSsid:\t227783\nKthread:\t0\nVmPeak:\t    4972 kB\nVmSize:\t    4972 kB\nVmLck:\t       0 kB\nVmPin:\t       0 kB\nVmHWM:\t    1892 kB\nVmRSS:\t    1892 kB\nRssAnon:\t     148 kB\nRssFile:\t    1744 kB\nRssShmem:\t       0 kB\nVmData:\t    2376 kB\nVmStk:\t     136 kB\nVmExe:\t     264 kB\nVmLib:\t    1588 kB\nVmPTE:\t      40 kB\nVmSwap:\t       0 kB\nHugetlbPages:\t       0 kB\nCoreDumping:\t0\nTHP_enabled:\t0\nuntag_mask:\t0xffffffffffffffff\nThreads:\t2\nSigQ:\t0/257534\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000000\nSigBlk:\t0000000000000000\nSigIgn:\t0000000000000000\nSigCgt:\t00000001000004e8\nCapInh:\t0000000000000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t000001ffffffffff\nCapAmb:\t0000000000000000\nNoNewPrivs:\t0\nSeccomp:\t0\nSeccomp_filters:\t0\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\t01\nCpus_allowed_list:\t0\nMems_allowed:\t00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t2\nnonvoluntary_ctxt_switches:\t4\n"
+        },
+        {
+          "tid": 227784,
+          "stat": "227784 (main) S 227781 227783 227783 0 -1 4194368 3 0 0 0 0 0 0 0 20 0 2 0 6470774 5091328 468 18446744073709551615 94610574794752 94610575062400 140725406053632 0 0 0 0 0 1256 1 0 0 -1 0 0 0 0 0 0 94610575068312 94610575081612 94610575147008 140725406057937 140725406058040 140725406058040 140725406064529 0\n",
+          "wchan": "__futex_wait",
+          "affinity": [
+            0
+          ],
+          "status": "Name:\tmain\nUmask:\t0022\nState:\tS (sleeping)\nTgid:\t227783\nNgid:\t0\nPid:\t227784\nPPid:\t227781\nTracerPid:\t0\nUid:\t1000\t1000\t1000\t1000\nGid:\t1000\t1000\t1000\t1000\nFDSize:\t64\nGroups:\t27 999 1000 \nNStgid:\t227783\nNSpid:\t227784\nNSpgid:\t227783\nNSsid:\t227783\nKthread:\t0\nVmPeak:\t    4972 kB\nVmSize:\t    4972 kB\nVmLck:\t       0 kB\nVmPin:\t       0 kB\nVmHWM:\t    1892 kB\nVmRSS:\t    1892 kB\nRssAnon:\t     148 kB\nRssFile:\t    1744 kB\nRssShmem:\t       0 kB\nVmData:\t    2376 kB\nVmStk:\t     136 kB\nVmExe:\t     264 kB\nVmLib:\t    1588 kB\nVmPTE:\t      40 kB\nVmSwap:\t       0 kB\nHugetlbPages:\t       0 kB\nCoreDumping:\t0\nTHP_enabled:\t0\nuntag_mask:\t0xffffffffffffffff\nThreads:\t2\nSigQ:\t0/257534\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000000\nSigBlk:\t0000000000000000\nSigIgn:\t0000000000000000\nSigCgt:\t00000001000004e8\nCapInh:\t0000000000000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t000001ffffffffff\nCapAmb:\t0000000000000000\nNoNewPrivs:\t0\nSeccomp:\t0\nSeccomp_filters:\t0\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\t01\nCpus_allowed_list:\t0\nMems_allowed:\t00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t3\nnonvoluntary_ctxt_switches:\t0\n"
+        }
+      ]
+    },
+    {
+      "elapsed_seconds": 0.8586252039967803,
+      "threads": [
+        {
+          "tid": 227783,
+          "stat": "227783 (main) S 227781 227783 227783 0 -1 4194304 213 0 0 0 0 0 0 0 20 0 2 0 6470774 5091328 468 18446744073709551615 94610574794752 94610575062400 140725406053632 0 0 0 0 0 1256 1 0 0 17 0 0 0 0 0 0 94610575068312 94610575081612 94610575147008 140725406057937 140725406058040 140725406058040 140725406064529 0\n",
+          "wchan": "__futex_wait",
+          "affinity": [
+            0
+          ],
+          "status": "Name:\tmain\nUmask:\t0022\nState:\tS (sleeping)\nTgid:\t227783\nNgid:\t0\nPid:\t227783\nPPid:\t227781\nTracerPid:\t0\nUid:\t1000\t1000\t1000\t1000\nGid:\t1000\t1000\t1000\t1000\nFDSize:\t64\nGroups:\t27 999 1000 \nNStgid:\t227783\nNSpid:\t227783\nNSpgid:\t227783\nNSsid:\t227783\nKthread:\t0\nVmPeak:\t    4972 kB\nVmSize:\t    4972 kB\nVmLck:\t       0 kB\nVmPin:\t       0 kB\nVmHWM:\t    1892 kB\nVmRSS:\t    1892 kB\nRssAnon:\t     148 kB\nRssFile:\t    1744 kB\nRssShmem:\t       0 kB\nVmData:\t    2376 kB\nVmStk:\t     136 kB\nVmExe:\t     264 kB\nVmLib:\t    1588 kB\nVmPTE:\t      40 kB\nVmSwap:\t       0 kB\nHugetlbPages:\t       0 kB\nCoreDumping:\t0\nTHP_enabled:\t0\nuntag_mask:\t0xffffffffffffffff\nThreads:\t2\nSigQ:\t0/257534\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000000\nSigBlk:\t0000000000000000\nSigIgn:\t0000000000000000\nSigCgt:\t00000001000004e8\nCapInh:\t0000000000000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t000001ffffffffff\nCapAmb:\t0000000000000000\nNoNewPrivs:\t0\nSeccomp:\t0\nSeccomp_filters:\t0\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\t01\nCpus_allowed_list:\t0\nMems_allowed:\t00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t2\nnonvoluntary_ctxt_switches:\t4\n"
+        },
+        {
+          "tid": 227784,
+          "stat": "227784 (main) S 227781 227783 227783 0 -1 4194368 3 0 0 0 0 0 0 0 20 0 2 0 6470774 5091328 468 18446744073709551615 94610574794752 94610575062400 140725406053632 0 0 0 0 0 1256 1 0 0 -1 0 0 0 0 0 0 94610575068312 94610575081612 94610575147008 140725406057937 140725406058040 140725406058040 140725406064529 0\n",
+          "wchan": "__futex_wait",
+          "affinity": [
+            0
+          ],
+          "status": "Name:\tmain\nUmask:\t0022\nState:\tS (sleeping)\nTgid:\t227783\nNgid:\t0\nPid:\t227784\nPPid:\t227781\nTracerPid:\t0\nUid:\t1000\t1000\t1000\t1000\nGid:\t1000\t1000\t1000\t1000\nFDSize:\t64\nGroups:\t27 999 1000 \nNStgid:\t227783\nNSpid:\t227784\nNSpgid:\t227783\nNSsid:\t227783\nKthread:\t0\nVmPeak:\t    4972 kB\nVmSize:\t    4972 kB\nVmLck:\t       0 kB\nVmPin:\t       0 kB\nVmHWM:\t    1892 kB\nVmRSS:\t    1892 kB\nRssAnon:\t     148 kB\nRssFile:\t    1744 kB\nRssShmem:\t       0 kB\nVmData:\t    2376 kB\nVmStk:\t     136 kB\nVmExe:\t     264 kB\nVmLib:\t    1588 kB\nVmPTE:\t      40 kB\nVmSwap:\t       0 kB\nHugetlbPages:\t       0 kB\nCoreDumping:\t0\nTHP_enabled:\t0\nuntag_mask:\t0xffffffffffffffff\nThreads:\t2\nSigQ:\t0/257534\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000000\nSigBlk:\t0000000000000000\nSigIgn:\t0000000000000000\nSigCgt:\t00000001000004e8\nCapInh:\t0000000000000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t000001ffffffffff\nCapAmb:\t0000000000000000\nNoNewPrivs:\t0\nSeccomp:\t0\nSeccomp_filters:\t0\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\t01\nCpus_allowed_list:\t0\nMems_allowed:\t00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t3\nnonvoluntary_ctxt_switches:\t0\n"
+        }
+      ]
+    },
+    {
+      "elapsed_seconds": 0.9091463930017198,
+      "threads": [
+        {
+          "tid": 227783,
+          "stat": "227783 (main) S 227781 227783 227783 0 -1 4194304 213 0 0 0 0 0 0 0 20 0 2 0 6470774 5091328 468 18446744073709551615 94610574794752 94610575062400 140725406053632 0 0 0 0 0 1256 1 0 0 17 0 0 0 0 0 0 94610575068312 94610575081612 94610575147008 140725406057937 140725406058040 140725406058040 140725406064529 0\n",
+          "wchan": "__futex_wait",
+          "affinity": [
+            0
+          ],
+          "status": "Name:\tmain\nUmask:\t0022\nState:\tS (sleeping)\nTgid:\t227783\nNgid:\t0\nPid:\t227783\nPPid:\t227781\nTracerPid:\t0\nUid:\t1000\t1000\t1000\t1000\nGid:\t1000\t1000\t1000\t1000\nFDSize:\t64\nGroups:\t27 999 1000 \nNStgid:\t227783\nNSpid:\t227783\nNSpgid:\t227783\nNSsid:\t227783\nKthread:\t0\nVmPeak:\t    4972 kB\nVmSize:\t    4972 kB\nVmLck:\t       0 kB\nVmPin:\t       0 kB\nVmHWM:\t    1892 kB\nVmRSS:\t    1892 kB\nRssAnon:\t     148 kB\nRssFile:\t    1744 kB\nRssShmem:\t       0 kB\nVmData:\t    2376 kB\nVmStk:\t     136 kB\nVmExe:\t     264 kB\nVmLib:\t    1588 kB\nVmPTE:\t      40 kB\nVmSwap:\t       0 kB\nHugetlbPages:\t       0 kB\nCoreDumping:\t0\nTHP_enabled:\t0\nuntag_mask:\t0xffffffffffffffff\nThreads:\t2\nSigQ:\t0/257534\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000000\nSigBlk:\t0000000000000000\nSigIgn:\t0000000000000000\nSigCgt:\t00000001000004e8\nCapInh:\t0000000000000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t000001ffffffffff\nCapAmb:\t0000000000000000\nNoNewPrivs:\t0\nSeccomp:\t0\nSeccomp_filters:\t0\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\t01\nCpus_allowed_list:\t0\nMems_allowed:\t00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t2\nnonvoluntary_ctxt_switches:\t4\n"
+        },
+        {
+          "tid": 227784,
+          "stat": "227784 (main) S 227781 227783 227783 0 -1 4194368 3 0 0 0 0 0 0 0 20 0 2 0 6470774 5091328 468 18446744073709551615 94610574794752 94610575062400 140725406053632 0 0 0 0 0 1256 1 0 0 -1 0 0 0 0 0 0 94610575068312 94610575081612 94610575147008 140725406057937 140725406058040 140725406058040 140725406064529 0\n",
+          "wchan": "__futex_wait",
+          "affinity": [
+            0
+          ],
+          "status": "Name:\tmain\nUmask:\t0022\nState:\tS (sleeping)\nTgid:\t227783\nNgid:\t0\nPid:\t227784\nPPid:\t227781\nTracerPid:\t0\nUid:\t1000\t1000\t1000\t1000\nGid:\t1000\t1000\t1000\t1000\nFDSize:\t64\nGroups:\t27 999 1000 \nNStgid:\t227783\nNSpid:\t227784\nNSpgid:\t227783\nNSsid:\t227783\nKthread:\t0\nVmPeak:\t    4972 kB\nVmSize:\t    4972 kB\nVmLck:\t       0 kB\nVmPin:\t       0 kB\nVmHWM:\t    1892 kB\nVmRSS:\t    1892 kB\nRssAnon:\t     148 kB\nRssFile:\t    1744 kB\nRssShmem:\t       0 kB\nVmData:\t    2376 kB\nVmStk:\t     136 kB\nVmExe:\t     264 kB\nVmLib:\t    1588 kB\nVmPTE:\t      40 kB\nVmSwap:\t       0 kB\nHugetlbPages:\t       0 kB\nCoreDumping:\t0\nTHP_enabled:\t0\nuntag_mask:\t0xffffffffffffffff\nThreads:\t2\nSigQ:\t0/257534\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000000\nSigBlk:\t0000000000000000\nSigIgn:\t0000000000000000\nSigCgt:\t00000001000004e8\nCapInh:\t0000000000000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t000001ffffffffff\nCapAmb:\t0000000000000000\nNoNewPrivs:\t0\nSeccomp:\t0\nSeccomp_filters:\t0\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\t01\nCpus_allowed_list:\t0\nMems_allowed:\t00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t3\nnonvoluntary_ctxt_switches:\t0\n"
+        }
+      ]
+    },
+    {
+      "elapsed_seconds": 0.9595527409983333,
+      "threads": [
+        {
+          "tid": 227783,
+          "stat": "227783 (main) S 227781 227783 227783 0 -1 4194304 213 0 0 0 0 0 0 0 20 0 2 0 6470774 5091328 468 18446744073709551615 94610574794752 94610575062400 140725406053632 0 0 0 0 0 1256 1 0 0 17 0 0 0 0 0 0 94610575068312 94610575081612 94610575147008 140725406057937 140725406058040 140725406058040 140725406064529 0\n",
+          "wchan": "__futex_wait",
+          "affinity": [
+            0
+          ],
+          "status": "Name:\tmain\nUmask:\t0022\nState:\tS (sleeping)\nTgid:\t227783\nNgid:\t0\nPid:\t227783\nPPid:\t227781\nTracerPid:\t0\nUid:\t1000\t1000\t1000\t1000\nGid:\t1000\t1000\t1000\t1000\nFDSize:\t64\nGroups:\t27 999 1000 \nNStgid:\t227783\nNSpid:\t227783\nNSpgid:\t227783\nNSsid:\t227783\nKthread:\t0\nVmPeak:\t    4972 kB\nVmSize:\t    4972 kB\nVmLck:\t       0 kB\nVmPin:\t       0 kB\nVmHWM:\t    1892 kB\nVmRSS:\t    1892 kB\nRssAnon:\t     148 kB\nRssFile:\t    1744 kB\nRssShmem:\t       0 kB\nVmData:\t    2376 kB\nVmStk:\t     136 kB\nVmExe:\t     264 kB\nVmLib:\t    1588 kB\nVmPTE:\t      40 kB\nVmSwap:\t       0 kB\nHugetlbPages:\t       0 kB\nCoreDumping:\t0\nTHP_enabled:\t0\nuntag_mask:\t0xffffffffffffffff\nThreads:\t2\nSigQ:\t0/257534\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000000\nSigBlk:\t0000000000000000\nSigIgn:\t0000000000000000\nSigCgt:\t00000001000004e8\nCapInh:\t0000000000000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t000001ffffffffff\nCapAmb:\t0000000000000000\nNoNewPrivs:\t0\nSeccomp:\t0\nSeccomp_filters:\t0\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\t01\nCpus_allowed_list:\t0\nMems_allowed:\t00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t2\nnonvoluntary_ctxt_switches:\t4\n"
+        },
+        {
+          "tid": 227784,
+          "stat": "227784 (main) S 227781 227783 227783 0 -1 4194368 3 0 0 0 0 0 0 0 20 0 2 0 6470774 5091328 468 18446744073709551615 94610574794752 94610575062400 140725406053632 0 0 0 0 0 1256 1 0 0 -1 0 0 0 0 0 0 94610575068312 94610575081612 94610575147008 140725406057937 140725406058040 140725406058040 140725406064529 0\n",
+          "wchan": "__futex_wait",
+          "affinity": [
+            0
+          ],
+          "status": "Name:\tmain\nUmask:\t0022\nState:\tS (sleeping)\nTgid:\t227783\nNgid:\t0\nPid:\t227784\nPPid:\t227781\nTracerPid:\t0\nUid:\t1000\t1000\t1000\t1000\nGid:\t1000\t1000\t1000\t1000\nFDSize:\t64\nGroups:\t27 999 1000 \nNStgid:\t227783\nNSpid:\t227784\nNSpgid:\t227783\nNSsid:\t227783\nKthread:\t0\nVmPeak:\t    4972 kB\nVmSize:\t    4972 kB\nVmLck:\t       0 kB\nVmPin:\t       0 kB\nVmHWM:\t    1892 kB\nVmRSS:\t    1892 kB\nRssAnon:\t     148 kB\nRssFile:\t    1744 kB\nRssShmem:\t       0 kB\nVmData:\t    2376 kB\nVmStk:\t     136 kB\nVmExe:\t     264 kB\nVmLib:\t    1588 kB\nVmPTE:\t      40 kB\nVmSwap:\t       0 kB\nHugetlbPages:\t       0 kB\nCoreDumping:\t0\nTHP_enabled:\t0\nuntag_mask:\t0xffffffffffffffff\nThreads:\t2\nSigQ:\t0/257534\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000000\nSigBlk:\t0000000000000000\nSigIgn:\t0000000000000000\nSigCgt:\t00000001000004e8\nCapInh:\t0000000000000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t000001ffffffffff\nCapAmb:\t0000000000000000\nNoNewPrivs:\t0\nSeccomp:\t0\nSeccomp_filters:\t0\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\t01\nCpus_allowed_list:\t0\nMems_allowed:\t00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t3\nnonvoluntary_ctxt_switches:\t0\n"
+        }
+      ]
+    },
+    {
+      "elapsed_seconds": 1.0100081810014672,
+      "threads": [
+        {
+          "tid": 227783,
+          "stat": "227783 (main) S 227781 227783 227783 0 -1 4194304 213 0 0 0 0 0 0 0 20 0 2 0 6470774 5091328 468 18446744073709551615 94610574794752 94610575062400 140725406053632 0 0 0 0 0 1256 1 0 0 17 0 0 0 0 0 0 94610575068312 94610575081612 94610575147008 140725406057937 140725406058040 140725406058040 140725406064529 0\n",
+          "wchan": "__futex_wait",
+          "affinity": [
+            0
+          ],
+          "status": "Name:\tmain\nUmask:\t0022\nState:\tS (sleeping)\nTgid:\t227783\nNgid:\t0\nPid:\t227783\nPPid:\t227781\nTracerPid:\t0\nUid:\t1000\t1000\t1000\t1000\nGid:\t1000\t1000\t1000\t1000\nFDSize:\t64\nGroups:\t27 999 1000 \nNStgid:\t227783\nNSpid:\t227783\nNSpgid:\t227783\nNSsid:\t227783\nKthread:\t0\nVmPeak:\t    4972 kB\nVmSize:\t    4972 kB\nVmLck:\t       0 kB\nVmPin:\t       0 kB\nVmHWM:\t    1892 kB\nVmRSS:\t    1892 kB\nRssAnon:\t     148 kB\nRssFile:\t    1744 kB\nRssShmem:\t       0 kB\nVmData:\t    2376 kB\nVmStk:\t     136 kB\nVmExe:\t     264 kB\nVmLib:\t    1588 kB\nVmPTE:\t      40 kB\nVmSwap:\t       0 kB\nHugetlbPages:\t       0 kB\nCoreDumping:\t0\nTHP_enabled:\t0\nuntag_mask:\t0xffffffffffffffff\nThreads:\t2\nSigQ:\t0/257534\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000000\nSigBlk:\t0000000000000000\nSigIgn:\t0000000000000000\nSigCgt:\t00000001000004e8\nCapInh:\t0000000000000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t000001ffffffffff\nCapAmb:\t0000000000000000\nNoNewPrivs:\t0\nSeccomp:\t0\nSeccomp_filters:\t0\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\t01\nCpus_allowed_list:\t0\nMems_allowed:\t00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t2\nnonvoluntary_ctxt_switches:\t4\n"
+        },
+        {
+          "tid": 227784,
+          "stat": "227784 (main) S 227781 227783 227783 0 -1 4194368 3 0 0 0 0 0 0 0 20 0 2 0 6470774 5091328 468 18446744073709551615 94610574794752 94610575062400 140725406053632 0 0 0 0 0 1256 1 0 0 -1 0 0 0 0 0 0 94610575068312 94610575081612 94610575147008 140725406057937 140725406058040 140725406058040 140725406064529 0\n",
+          "wchan": "__futex_wait",
+          "affinity": [
+            0
+          ],
+          "status": "Name:\tmain\nUmask:\t0022\nState:\tS (sleeping)\nTgid:\t227783\nNgid:\t0\nPid:\t227784\nPPid:\t227781\nTracerPid:\t0\nUid:\t1000\t1000\t1000\t1000\nGid:\t1000\t1000\t1000\t1000\nFDSize:\t64\nGroups:\t27 999 1000 \nNStgid:\t227783\nNSpid:\t227784\nNSpgid:\t227783\nNSsid:\t227783\nKthread:\t0\nVmPeak:\t    4972 kB\nVmSize:\t    4972 kB\nVmLck:\t       0 kB\nVmPin:\t       0 kB\nVmHWM:\t    1892 kB\nVmRSS:\t    1892 kB\nRssAnon:\t     148 kB\nRssFile:\t    1744 kB\nRssShmem:\t       0 kB\nVmData:\t    2376 kB\nVmStk:\t     136 kB\nVmExe:\t     264 kB\nVmLib:\t    1588 kB\nVmPTE:\t      40 kB\nVmSwap:\t       0 kB\nHugetlbPages:\t       0 kB\nCoreDumping:\t0\nTHP_enabled:\t0\nuntag_mask:\t0xffffffffffffffff\nThreads:\t2\nSigQ:\t0/257534\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000000\nSigBlk:\t0000000000000000\nSigIgn:\t0000000000000000\nSigCgt:\t00000001000004e8\nCapInh:\t0000000000000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t000001ffffffffff\nCapAmb:\t0000000000000000\nNoNewPrivs:\t0\nSeccomp:\t0\nSeccomp_filters:\t0\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\t01\nCpus_allowed_list:\t0\nMems_allowed:\t00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t3\nnonvoluntary_ctxt_switches:\t0\n"
+        }
+      ]
+    }
+  ],
+  "pid": 227783,
+  "alive_at_deadline": true,
+  "harness_signal": "SIGTERM",
+  "returncode": -15,
+  "elapsed_seconds": 1.0107090649980819,
+  "stdout": "",
+  "stderr": ""
+}

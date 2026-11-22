@@ -1,0 +1,125 @@
+V "GNAT Lib v16"
+A -gnatA
+A -gnat2022
+A -gnata
+A -gnato
+A -g
+A -mtune=generic
+A -march=x86-64
+P DB LC TF ES ZX
+
+RN
+RR SIMPLE_BARRIERS
+RR NO_ABORT_STATEMENTS
+RR NO_ASYNCHRONOUS_CONTROL
+RR NO_CALENDAR
+RR NO_DYNAMIC_ATTACHMENT
+RR NO_DYNAMIC_CPU_ASSIGNMENT
+RR NO_DYNAMIC_PRIORITIES
+RR NO_ENTRY_QUEUE
+RV NO_EXCEPTION_HANDLERS
+RV NO_EXCEPTIONS
+RV NO_IMPLICIT_CONDITIONALS
+RR NO_IMPLICIT_HEAP_ALLOCATIONS
+RR NO_LOCAL_TIMING_EVENTS
+RR NO_LOCAL_PROTECTED_OBJECTS
+RR NO_PROTECTED_TYPE_ALLOCATORS
+RV NO_PROTECTED_TYPES
+RR NO_RELATIVE_DELAY
+RR NO_REQUEUE_STATEMENTS
+RR NO_SELECT_STATEMENTS
+RR NO_SPECIFIC_TERMINATION_HANDLERS
+RV NO_STANDARD_STORAGE_POOLS
+RR NO_TASK_ALLOCATORS
+RR NO_TASK_ATTRIBUTES_PACKAGE
+RR NO_TASK_HIERARCHY
+RR NO_TASK_TERMINATION
+RV NO_TASKING
+RR NO_TERMINATE_ALTERNATIVES
+RV NO_DEFAULT_INITIALIZATION
+RV NO_IMPLEMENTATION_PRAGMAS
+RV NO_ELABORATION_CODE
+RR MAX_PROTECTED_ENTRIES=1
+RV MAX_PROTECTED_ENTRIES=1
+RR MAX_SELECT_ALTERNATIVES=0
+RR MAX_TASK_ENTRIES=0
+RV MAX_TASKS=1
+RR MAX_ASYNCHRONOUS_SELECT_NESTING=0
+RV MAX_ENTRY_QUEUE_LENGTH=1+
+
+U bounded_probe%b	bounded_probe.adb	06df2629 OO PK
+Z system%s		system.ads		system.ali
+Z system.soft_links%s	s-soflin.adb		s-soflin.ali
+Z system.tasking.protected_objects%s  s-taprob.adb  s-taprob.ali
+Z system.tasking.protected_objects.single_entry%s  s-tposen.adb  s-tposen.ali
+Z system.tasking.restricted.stages%s  s-tarest.adb  s-tarest.ali
+
+U bounded_probe%s	bounded_probe.ads	f3239580 EE OO PK
+Z system%s		system.ads		system.ali
+Z system.parameters%s	s-parame.adb		s-parame.ali
+Z system.task_info%s	s-tasinf.adb		s-tasinf.ali
+Z system.tasking%s	s-taskin.adb		s-taskin.ali
+Z system.tasking.protected_objects%s  s-taprob.adb  s-taprob.ali
+Z system.tasking.protected_objects.single_entry%s  s-tposen.adb  s-tposen.ali
+Z system.tasking.restricted.stages%s  s-tarest.adb  s-tarest.ali
+T 1 1
+
+D ada.ads		20260430083320 76789da1 ada%s
+D a-except.ads		20260430083320 8699d7ff ada.exceptions%s
+D a-unccon.ads		20260430083320 0e9b276f ada.unchecked_conversion%s
+D bounded_probe.ads	20261122124200 f3239580 bounded_probe%s
+D bounded_probe.adb	20261122124200 f5fcb3a9 bounded_probe%b
+D interfac.ads		20260430083320 9111f9c1 interfaces%s
+D i-c.ads		20260430083320 dbdd3be7 interfaces.c%s
+D system.ads		20260430083320 e2b7c99d system%s
+D s-atacco.ads		20260430083320 5868e3ba system.address_to_access_conversions%s
+D s-c_time.ads		20260430083320 e502d0c0 system.c_time%s
+D s-exctab.ads		20260430083320 91bef6ef system.exception_table%s
+D s-linux.ads		20260430083320 96312dab system.linux%s
+D s-multip.ads		20260430083320 38ac9f73 system.multiprocessors%s
+D s-oscons.ads		20260626180101 d0718993 system.os_constants%s
+D s-osinte.ads		20260430083320 bfc41750 system.os_interface%s
+D s-oslock.ads		20260430083320 13fa6b78 system.os_locks%s
+D s-parame.ads		20260430083320 a1aeab5c system.parameters%s
+D s-secsta.ads		20260430083320 578279f5 system.secondary_stack%s
+D s-soflin.ads		20260430083320 5d88fdea system.soft_links%s
+D s-stache.ads		20260430083320 0b81c1fe system.stack_checking%s
+D s-stausa.ads		20260430083320 f470ae2d system.stack_usage%s
+D s-stalib.ads		20260430083320 1c9580f6 system.standard_library%s
+D s-stoele.ads		20260430083320 ccded4e8 system.storage_elements%s
+D s-tasinf.ads		20260430083320 528dde74 system.task_info%s
+D s-taspri.ads		20260430083320 4fd5ef41 system.task_primitives%s
+D s-taskin.ads		20260430083320 e3b5765b system.tasking%s
+D s-taprob.ads		20260430083320 acd6094d system.tasking.protected_objects%s
+D s-tposen.ads		20260430083320 3312b225 system.tasking.protected_objects.single_entry%s
+D s-tasres.ads		20260430083320 0c8ef6fb system.tasking.restricted%s
+D s-tarest.ads		20260430083320 c88b6d9a system.tasking.restricted.stages%s
+D s-traent.ads		20260430083320 c81cbf8c system.traceback_entries%s
+D s-unstyp.ads		20260430083320 fa2a7f59 system.unsigned_types%s
+D /home/canto/src/github.com/berkeleynerd/silver/tmp/ravenscar-feasibility-421/entry/ravenscar.adc  20261122124200 00000000
+G a e
+G c Z s b [release bounded_probe__counter 4 17 none]
+G c Z s b [await_release bounded_probe__counter 5 13 none]
+G c Z s b [read bounded_probe__counter 6 16 none]
+G c Z s b [counter__releaseN bounded_probe 4 7 none]
+G c Z s b [counter__releaseP bounded_probe 4 7 none]
+G c Z s b [counter__readN bounded_probe 6 7 none]
+G c Z s b [counter__readP bounded_probe 6 7 none]
+G c Z s s [counterTVIP bounded_probe 3 4 none]
+G c Z s b [workerTK bounded_probe 12 9 none]
+G c Z s s [workerTKVIP bounded_probe 12 4 none]
+X 4 bounded_probe.ads
+2K9*Bounded_Probe 13l5 13e18 5|2b14 29l5 29t18
+3w14*Counter 5|3b19 21l8 21t15 26r10
+4U17 Release 5|4b17 7l11 7t18
+5Y13 Await_Release 5|9b13 15l11 15t24 26s18
+6V16 Read{integer} 5|17b16 20l11 20t15
+8i7 Value{integer} 5|12r13 13r13 13r22 19r17
+9b7 Ready{boolean} 5|6r10 9r32 11r10
+12t9*Worker 5|23b14 28l8 28t14
+X 21 s-stausa.ads
+206U14*Initialize 207i<c,__gnat_stack_usage_initialize>22
+265U14*Output_Results 269i<c,__gnat_stack_usage_output_results>22
+X 30 s-tarest.ads
+231U14*Activate_All_Tasks_Sequential 232i<c,__gnat_activate_all_tasks>22
+

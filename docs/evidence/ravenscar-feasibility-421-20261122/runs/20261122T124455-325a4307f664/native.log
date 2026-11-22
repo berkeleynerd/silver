@@ -1,0 +1,30 @@
+Phase 1 of 3: generation of data representation information ...
+Phase 2 of 3: generation of Global contracts ...
+Phase 3 of 3: flow analysis and proof ...
+ info: ceiling priority protocol is respected for "Bounded_Probe.Counter"
+--> main.adb:3:11
+ info: range check proved
+--> bounded_probe.adb:9:28
+
+ info: range check proved
+--> bounded_probe.adb:21:65
+
+ medium: range check might fail
+--> bounded_probe.adb:25:23
+   25 |             Next := Next + Period;
+      |                     ~~~~~^~~~~~~~
+      + reason for check: value must fit in the target type of the assignment
+      + possible fix: loop at line 23 should mention Next in a loop invariant
+   23 |          loop
+      |          ^
+      + provers reached time limit before completing the proof
+
+ info: implicit aspect Always_Terminates on "Read" has been proved, subprogram will terminate
+--> bounded_probe.ads:5:16
+
+ info: ceiling priority protocol is respected for "Bounded_Probe.Counter"
+--> bounded_probe.ads:10:09
+
+ info: nontermination of task proved
+--> bounded_probe.ads:10:09
+Summary logged in /home/canto/src/github.com/berkeleynerd/silver/tmp/ravenscar-feasibility-421/clock-naive/out/obj/explore/initial/gnatprove/gnatprove.out

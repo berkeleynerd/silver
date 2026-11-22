@@ -1,0 +1,12 @@
+project Packing_Check is
+   for Source_Dirs use ("../../src", ".");
+   for Source_Files use
+     ("silver_application_units.ads", "silver_application_units.adb",
+      "silver_profile.ads", "silver_profile.adb", "packing_check.adb");
+   for Main use ("packing_check.adb");
+   for Object_Dir use "obj";
+   for Exec_Dir use "bin";
+   package Compiler is
+      for Default_Switches ("Ada") use ("-gnat2022", "-gnata", "-gnatwe");
+   end Compiler;
+end Packing_Check;

@@ -1,0 +1,125 @@
+{
+  "assumptions": [
+    {
+      "assumptions": [
+        {
+          "arg": 2,
+          "predicate": "CLAIM_EFFECTS"
+        },
+        {
+          "arg": 3,
+          "predicate": "CLAIM_EFFECTS"
+        },
+        {
+          "arg": 4,
+          "predicate": "CLAIM_EFFECTS"
+        },
+        {
+          "arg": 5,
+          "predicate": "CLAIM_EFFECTS"
+        },
+        {
+          "arg": 6,
+          "predicate": "CLAIM_EFFECTS"
+        }
+      ],
+      "claim": {
+        "arg": 1,
+        "predicate": "CLAIM_EFFECTS"
+      }
+    }
+  ],
+  "entities": {
+    " 1": {
+      "name": "Main",
+      "sloc": [
+        {
+          "column": 11,
+          "file": "main.adb",
+          "line": 5
+        }
+      ]
+    },
+    " 2": {
+      "name": "Hidden_State.Reset",
+      "sloc": [
+        {
+          "column": 14,
+          "file": "hidden_state.ads",
+          "line": 3
+        }
+      ]
+    },
+    " 3": {
+      "name": "Package_Client.Read",
+      "sloc": [
+        {
+          "column": 13,
+          "file": "package_client.ads",
+          "line": 4
+        }
+      ]
+    },
+    " 4": {
+      "name": "Package_Client.Step",
+      "sloc": [
+        {
+          "column": 14,
+          "file": "package_client.ads",
+          "line": 3
+        }
+      ]
+    },
+    " 5": {
+      "name": "Visible_State.Increment",
+      "sloc": [
+        {
+          "column": 14,
+          "file": "visible_state.ads",
+          "line": 5
+        }
+      ]
+    },
+    " 6": {
+      "name": "Visible_State.Reset",
+      "sloc": [
+        {
+          "column": 14,
+          "file": "visible_state.ads",
+          "line": 4
+        }
+      ]
+    }
+  },
+  "flow": [
+  ],
+  "pragma_assume": [
+  ],
+  "progress": "PROGRESS_PROOF",
+  "proof": [
+  ],
+  "skip_flow_proof": [
+  ],
+  "skip_proof": [
+  ],
+  "spark": {
+    " 1": "all"
+  },
+  "stop_reason": "STOP_REASON_NONE",
+  "timings": {
+    " 1": {
+      "gnat2why.vc_generation": 6.30999973509461E-04
+    },
+    "global": {
+      "flow analysis": 5.00000023748726E-04,
+      "globals (advanced)": 6.04000000748783E-04,
+      "globals (basic)": 5.20000001415610E-04,
+      "init_why_sections": 5.40999986696988E-04,
+      "marking": 3.19999991916120E-04,
+      "properties (advanced)": 8.19999986561015E-05,
+      "translation of standard": 1.51800003368407E-03
+    }
+  },
+  "warn_error": [
+  ]
+}

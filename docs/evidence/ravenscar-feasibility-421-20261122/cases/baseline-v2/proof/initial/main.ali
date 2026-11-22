@@ -1,0 +1,85 @@
+V "GNAT Lib v16"
+M P W=b
+A -x
+A ada
+A -gnatA
+A -gnat2022
+A -gnata
+A -gnato
+A -g
+A -g
+A -gnatc
+A -gnatis
+P DB LC TF GP ES
+
+RN
+RR SIMPLE_BARRIERS
+RR NO_ABORT_STATEMENTS
+RR NO_ASYNCHRONOUS_CONTROL
+RR NO_CALENDAR
+RR NO_DYNAMIC_ATTACHMENT
+RR NO_DYNAMIC_CPU_ASSIGNMENT
+RR NO_DYNAMIC_PRIORITIES
+RR NO_ENTRY_QUEUE
+RR NO_IMPLICIT_HEAP_ALLOCATIONS
+RR NO_LOCAL_TIMING_EVENTS
+RR NO_LOCAL_PROTECTED_OBJECTS
+RR NO_PROTECTED_TYPE_ALLOCATORS
+RR NO_RELATIVE_DELAY
+RR NO_REQUEUE_STATEMENTS
+RR NO_SELECT_STATEMENTS
+RR NO_SPECIFIC_TERMINATION_HANDLERS
+RR NO_TASK_ALLOCATORS
+RR NO_TASK_ATTRIBUTES_PACKAGE
+RR NO_TASK_HIERARCHY
+RR NO_TASK_TERMINATION
+RR NO_TERMINATE_ALTERNATIVES
+RV NO_IMPLEMENTATION_PRAGMAS
+RV NO_ELABORATION_CODE
+RR MAX_PROTECTED_ENTRIES=1
+RR MAX_SELECT_ALTERNATIVES=0
+RR MAX_TASK_ENTRIES=0
+RR MAX_ASYNCHRONOUS_SELECT_NESTING=0
+RV MAX_ENTRY_QUEUE_LENGTH=1+
+R ada.execution_time.group_budgets
+R ada.execution_time.timers
+R system.multiprocessors.dispatching_domains
+R ada.synchronous_barriers
+
+U main%b		main.adb		10da58ce OO SU
+W bounded_probe%s	bounded_probe.adb	bounded_probe.ali
+Z system%s		system.ads		system.ali
+
+D bounded_probe.ads	20261122123740 12ea3a01 bounded_probe%s
+D main.adb		20261122123740 023062cf main%b
+D system.ads		20260430083320 e2b7c99d system%s
+D /home/canto/src/github.com/berkeleynerd/silver/tmp/ravenscar-feasibility-421/baseline-v2/ravenscar.adc  20261122123740 00000000
+G a Z
+X 1 bounded_probe.ads
+2K9*Bounded_Probe 11e18 2|2w6 5r4
+3w14*Counter 2|5r18
+4U17 Increment 2|5s26
+X 2 main.adb
+3U11*Main 3b11 6l5 6t9
+
+QQ SPARKVERSION FSF 16.1.0
+GG EK_DIRECT_CALLS main 1 bounded_probe__counterT__increment
+GG EK_PROOF_DEPENDENCIES main 0
+GG EK_LOCKING_CALL main bounded_probe__counter bounded_probe__counterT__increment
+GG EK_GLOBALS main local FALSE E_PROCEDURE FALSE ORIGIN_FLOW 0 proper_proof_in 0 proper_input 1 bounded_probe__counter proper_output 1 bounded_probe__counter refined_proof_in 0 refined_input 1 bounded_probe__counter refined_output 1 bounded_probe__counter calls_proof 0 calls 1 bounded_probe__counterT__increment calls_conditional 0 FALSE FALSE FALSE FALSE TRUE FALSE ENTRY_CALLS 0 SUSPENDS_ON 0 UNSYNCH_ACCESSES 0
+GG EK_FLOW_SCOPE system__Oeq FALSE FALSE FALSE FALSE TRUE system VISIBLE_PART
+GG EK_FLOW_SCOPE main FALSE FALSE FALSE FALSE FALSE __standard
+GG EK_FLOW_SCOPE bounded_probe__counterT FALSE FALSE FALSE FALSE TRUE bounded_probe VISIBLE_PART
+GG EK_FLOW_SCOPE system__Olt FALSE FALSE FALSE FALSE TRUE system VISIBLE_PART
+GG EK_FLOW_SCOPE bounded_probe__workerTK FALSE FALSE FALSE FALSE TRUE bounded_probe VISIBLE_PART
+GG EK_FLOW_SCOPE system TRUE FALSE FALSE FALSE FALSE __standard
+GG EK_FLOW_SCOPE system__Ole FALSE FALSE FALSE FALSE TRUE system VISIBLE_PART
+GG EK_FLOW_SCOPE system__Ogt FALSE FALSE FALSE FALSE TRUE system VISIBLE_PART
+GG EK_FLOW_SCOPE bounded_probe TRUE FALSE FALSE FALSE FALSE __standard
+GG EK_FLOW_SCOPE bounded_probe__counterT__increment FALSE FALSE FALSE FALSE TRUE bounded_probe__counterT VISIBLE_PART
+GG EK_FLOW_SCOPE system__Oge FALSE FALSE FALSE FALSE TRUE system VISIBLE_PART
+GG EK_FLOW_SCOPE bounded_probe__counterT__read FALSE FALSE FALSE FALSE TRUE bounded_probe__counterT VISIBLE_PART
+GG EK_VOLATILES AR 1 bounded_probe__counter AW 1 bounded_probe__counter ER 0 EW 0
+GG EK_SYNCHRONIZED 1 bounded_probe__counter
+GG EK_PROTECTED_INSTANCE bounded_probe__counter DEFAULT_PRIO
+GG EK_END_MARKER
