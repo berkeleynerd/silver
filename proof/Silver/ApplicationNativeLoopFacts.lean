@@ -48,6 +48,32 @@ theorem Locals.set_commute_types (locals : Locals) (a b : Ty) (first second : St
       simp [Locals.set, different]
     · simp [Locals.set, left, right]
 
+theorem Locals.set_commute_names (locals : Locals) (a b : Ty) (first second : String)
+    (x : a.meaning) (y : b.meaning) (different : first ≠ second) :
+    (locals.set a first x).set b second y = (locals.set b second y).set a first x := by
+  funext other key
+  by_cases left : key = first
+  · subst key
+    simp [Locals.set, different]
+  · by_cases right : key = second
+    · subst key
+      simp [Locals.set, Ne.symm different]
+    · simp [Locals.set, left, right]
+
+theorem Locals.set_commute (locals : Locals) (a b : Ty) (first second : String)
+    (x : a.meaning) (y : b.meaning) (different : a ≠ b ∨ first ≠ second) :
+    (locals.set a first x).set b second y = (locals.set b second y).set a first x := by
+  rcases different with types | names
+  · exact Locals.set_commute_types locals a b first second x y types
+  · exact Locals.set_commute_names locals a b first second x y names
+
+theorem Locals.set_get_other (locals : Locals) (a b : Ty) (first second : String)
+    (x : a.meaning) (different : a ≠ b ∨ first ≠ second) :
+    (locals.set a first x) b second = locals b second := by
+  rcases different with types | names
+  · exact Locals.set_get_other_type locals a b first second x types
+  · exact Locals.set_get_other_name locals a b first second x (Ne.symm names)
+
 /-- Ordinary loop bodies with no return compose as a left fold. This lemma
 does not postulate a body interpretation: every caller supplies its checked
 body equation for every local environment and continuation. -/
@@ -89,5 +115,33 @@ theorem forValues_state_fold {resultType : Ty}
         Locals.set_get_other_type _ _ _ _ _ _ (by decide : Ty.number ≠ Ty.metadata),
         Locals.set_shadow, List.foldl_cons]
       rw [Locals.set_commute_types _ .number .state name key value _ (by decide), stable]
+
+/-- A range loop that changes one accumulator can capture arbitrary read-only
+parameters. Both preservation obligations are checked by each concrete reader. -/
+theorem forValues_accumulator {resultType accumulatorType : Ty} {Parameters : Type}
+    (body : Locals → (Locals → resultType.meaning) → resultType.meaning)
+    (parameters : Locals → Parameters)
+    (step : Parameters → Nat → accumulatorType.meaning → accumulatorType.meaning)
+    (name key : String)
+    (different : accumulatorType ≠ .number ∨ key ≠ name)
+    (indexPreserved : ∀ locals index, parameters (locals.set .number name index) = parameters locals)
+    (valuePreserved : ∀ locals value, parameters (locals.set accumulatorType key value) = parameters locals)
+    (equation : ∀ locals next, body locals next = next
+      (locals.set accumulatorType key (step (parameters locals) (locals .number name)
+        (locals accumulatorType key))))
+    (values : List Nat) (locals : Locals) (next : Locals → resultType.meaning)
+    (stable : ∀ current index, next (current.set .number name index) = next current) :
+    forValues body name values locals next =
+      next (locals.set accumulatorType key (values.foldl
+        (fun value index => step (parameters locals) index value) (locals accumulatorType key))) := by
+  induction values generalizing locals with
+  | nil => simp only [forValues, List.foldl_nil, Locals.set_unchanged]
+  | cons value rest ih =>
+      rw [forValues, equation, ih]
+      simp only [Locals.set_get_same,
+        Locals.set_get_other _ _ _ _ _ _ (different.imp Ne.symm Ne.symm),
+        indexPreserved, valuePreserved, Locals.set_shadow, List.foldl_cons]
+      rw [Locals.set_commute _ .number accumulatorType name key value _
+        (different.imp Ne.symm Ne.symm), stable]
 
 end Silver.ApplicationNative

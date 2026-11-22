@@ -227,7 +227,7 @@ def Command.wellFormed (names : FunctionNames Fn) : Command Fn resultType → Bo
   | .assign place value => place.expression.wellFormed names && value.expression && value.wellFormed names
   | .sequence first rest => first.wellFormed names && rest.wellFormed names
   | .choose test yes no => test.logical && test.wellFormed names && yes.wellFormed names && no.wellFormed names
-  | .invariant test => test.logical && test.wellFormed names
+  | .invariant test => (test.logical || test.conditional || test.quantified) && test.wellFormed names
   | .forRange name first last body => identifier name && first.simple && last.simple &&
       first.wellFormed names && last.wellFormed names && body.wellFormed names
   | .returned value => value.expression && value.wellFormed names
